@@ -162,6 +162,8 @@ interface MastodonApi {
         @Query("limit") limit: Int? = null,
         /** Types to excludes from the results */
         @Query("exclude_types[]") excludes: Set<Notification.Type>? = null,
+        /** Include notifications filtered by the user's notifications filter policy. */
+        @Query("include_filtered") includeFiltered: Boolean = true,
     ): Response<List<Notification>>
 
     /** Fetch a single notification */
@@ -416,7 +418,8 @@ interface MastodonApi {
     @GET("api/v1/accounts/{id}/following")
     suspend fun accountFollowing(
         @Path("id") accountId: String,
-        @Query("max_id") maxId: String?,
+        @Query("max_id") maxId: String? = null,
+        @Query("limit") limit: Int = 80,
     ): ApiResult<List<TimelineAccount>>
 
     @FormUrlEncoded

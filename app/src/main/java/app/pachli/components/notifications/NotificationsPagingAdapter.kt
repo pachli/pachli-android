@@ -31,6 +31,7 @@ import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.Status
 import app.pachli.databinding.ItemFollowBinding
 import app.pachli.databinding.ItemFollowRequestBinding
+import app.pachli.databinding.ItemNotificationFilteredBinding
 import app.pachli.databinding.ItemReportNotificationBinding
 import app.pachli.databinding.ItemSeveredRelationshipsBinding
 import app.pachli.databinding.ItemStatusBinding
@@ -45,7 +46,18 @@ import app.pachli.viewdata.NotificationViewData
 enum class NotificationViewKind {
     /** View as the original status */
     STATUS,
+
+    /**
+     * Hide the status behind a warning message because the content
+     * matched a content filter.
+     */
     STATUS_FILTERED,
+
+    /**
+     * Hide the notification behind a warning message because the
+     * account matched an account filter.
+     */
+    ACCOUNT_FILTERED,
 
     /** View as the original status, with the interaction type above */
     NOTIFICATION,
@@ -107,11 +119,35 @@ interface NotificationActionListener {
         isCollapsed: Boolean,
         viewData: NotificationViewData,
     )
+
+    /**
+     * Called when the user clicks "Show anyway" to see a notification
+     * filtered by the account.
+     */
+    fun clearAccountFilter(viewData: NotificationViewData)
+
+    /**
+     * Called when the user clicks "Edit filter" from a notification
+     * filtered by the account.
+     */
+    fun editAccountNotificationFilter()
 }
 
+/**
+ * @param diffCallback
+ * @param pachliAccountId
+ * @param localDomain The domain associated with [pachliAccountId]. Used when
+ * notifications have a missing domain (because they're from the same domain as
+ * the user's account).
+ * @param statusActionListener
+ * @param notificationActionListener
+ * @param accountActionListener
+ * @param statusDisplayOptions
+ */
 class NotificationsPagingAdapter(
     diffCallback: DiffUtil.ItemCallback<NotificationViewData>,
     private val pachliAccountId: Long,
+    private val localDomain: String,
     private val statusActionListener: StatusActionListener<NotificationViewData>,
     private val notificationActionListener: NotificationActionListener,
     private val accountActionListener: AccountActionListener,
@@ -137,6 +173,10 @@ class NotificationsPagingAdapter(
             return NotificationViewKind.STATUS_FILTERED.ordinal
         }
 
+        if (item?.accountFilterDecision?.action == FilterAction.WARN) {
+            return NotificationViewKind.ACCOUNT_FILTERED.ordinal
+        }
+
         return NotificationViewKind.from(getItem(position)?.type).ordinal
     }
 
@@ -156,6 +196,14 @@ class NotificationsPagingAdapter(
                     statusActionListener,
                 )
             }
+            NotificationViewKind.ACCOUNT_FILTERED -> {
+                FilterableNotificationViewHolder(
+                    ItemNotificationFilteredBinding.inflate(inflater, parent, false),
+                    localDomain,
+                    notificationActionListener,
+                )
+            }
+
             NotificationViewKind.NOTIFICATION -> {
                 StatusNotificationViewHolder(
                     ItemStatusNotificationBinding.inflate(inflater, parent, false),

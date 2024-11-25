@@ -122,6 +122,7 @@ class ViewThreadViewModelTest {
             onBlocking { listAnnouncements(any()) } doReturn success(emptyList())
             onBlocking { getLists() } doReturn success(emptyList())
             onBlocking { getContentFilters() } doReturn success(emptyList())
+            onBlocking { accountFollowing(any(), anyOrNull(), any()) } doReturn success(emptyList())
         }
 
         reset(nodeInfoApi)

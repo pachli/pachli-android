@@ -334,6 +334,7 @@ class TimelineDaoTest {
             avatar = "avatar",
             emojis = "[\"pachli\": \"http://pachli.cool/emoji.jpg\"]",
             bot = false,
+            createdAt = null,
         )
 
         val reblogAuthor = if (reblog) {
@@ -347,6 +348,7 @@ class TimelineDaoTest {
                 avatar = "Ravatar",
                 emojis = "[]",
                 bot = false,
+                createdAt = null,
             )
         } else {
             null

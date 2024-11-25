@@ -5,11 +5,13 @@ import app.pachli.core.database.model.TranslationState
 import app.pachli.core.network.json.BooleanIfNull
 import app.pachli.core.network.json.DefaultIfNull
 import app.pachli.core.network.json.Guarded
+import app.pachli.core.network.json.InstantJsonAdapter
 import app.pachli.core.network.json.LenientRfc3339DateJsonAdapter
 import app.pachli.core.network.model.Status
 import app.pachli.viewdata.StatusViewData
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapter
+import java.time.Instant
 import java.util.Date
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
@@ -20,6 +22,7 @@ import org.junit.runner.RunWith
 class StatusComparisonTest {
     private val moshi = Moshi.Builder()
         .add(Date::class.java, LenientRfc3339DateJsonAdapter())
+        .add(Instant::class.java, InstantJsonAdapter())
         .add(Guarded.Factory())
         .add(DefaultIfNull.Factory())
         .add(BooleanIfNull.Factory())

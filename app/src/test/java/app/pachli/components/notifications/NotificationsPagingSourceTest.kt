@@ -41,7 +41,7 @@ class NotificationsPagingSourceTest {
         // Given
         val jsonError = """{"error": "This is an error"}""".toResponseBody()
         val mockApi: MastodonApi = mock {
-            onBlocking { notifications(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull()) } doReturn Response.error(429, jsonError)
+            onBlocking { notifications(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), any()) } doReturn Response.error(429, jsonError)
             onBlocking { notification(any()) } doReturn Response.error(429, jsonError)
         }
 
@@ -67,7 +67,7 @@ class NotificationsPagingSourceTest {
         // Given
         val jsonError = """{"error": "This is an error", "error_description": "Description of the error"}""".toResponseBody()
         val mockApi: MastodonApi = mock {
-            onBlocking { notifications(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull()) } doReturn Response.error(429, jsonError)
+            onBlocking { notifications(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), any()) } doReturn Response.error(429, jsonError)
             onBlocking { notification(any()) } doReturn Response.error(429, jsonError)
         }
 
@@ -93,7 +93,7 @@ class NotificationsPagingSourceTest {
         // Given
         val jsonError = "".toResponseBody()
         val mockApi: MastodonApi = mock {
-            onBlocking { notifications(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull()) } doReturn Response.error(429, jsonError)
+            onBlocking { notifications(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), any()) } doReturn Response.error(429, jsonError)
             onBlocking { notification(any()) } doReturn Response.error(429, jsonError)
         }
 
@@ -119,7 +119,7 @@ class NotificationsPagingSourceTest {
         // Given
         val jsonError = "{'malformedjson}".toResponseBody()
         val mockApi: MastodonApi = mock {
-            onBlocking { notifications(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull()) } doReturn Response.error(429, jsonError)
+            onBlocking { notifications(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), any()) } doReturn Response.error(429, jsonError)
             onBlocking { notification(any()) } doReturn Response.error(429, jsonError)
         }
 

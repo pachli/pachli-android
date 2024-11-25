@@ -18,6 +18,7 @@
 package app.pachli.viewdata
 
 import android.text.Spanned
+import app.pachli.components.notifications.AccountFilterDecision
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.model.FilterAction
@@ -44,6 +45,8 @@ import app.pachli.core.network.model.TimelineAccount
  * @param isAboutSelf True if this notification relates to something the user
  * posted (e.g., it's a boost, favourite, or poll ending), false otherwise
  * (e.g., it's a mention).
+ * @param accountFilterDecision Whether this notification should be filtered
+ * because of the account that sent it, and why.
  */
 data class NotificationViewData(
     val type: Notification.Type,
@@ -53,6 +56,7 @@ data class NotificationViewData(
     val report: Report?,
     val relationshipSeveranceEvent: RelationshipSeveranceEvent?,
     val isAboutSelf: Boolean,
+    var accountFilterDecision: AccountFilterDecision?,
 ) : IStatusViewData {
     companion object {
         fun from(
@@ -61,6 +65,7 @@ data class NotificationViewData(
             isExpanded: Boolean,
             isCollapsed: Boolean,
             contentFilterAction: FilterAction,
+            accountFilterDecision: AccountFilterDecision?,
             isAboutSelf: Boolean,
         ) = NotificationViewData(
             notification.type,
@@ -78,6 +83,7 @@ data class NotificationViewData(
             notification.report,
             notification.relationshipSeveranceEvent,
             isAboutSelf,
+            accountFilterDecision = accountFilterDecision,
         )
     }
 

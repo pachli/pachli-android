@@ -27,6 +27,7 @@ import androidx.room.Upsert
 import app.pachli.core.database.Converters
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.PachliAccount
+import app.pachli.core.model.FilterAction
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Status
 import kotlinx.coroutines.flow.Flow
@@ -63,6 +64,15 @@ interface AccountDao {
         """,
     )
     fun getActivePachliAccountFlow(): Flow<PachliAccount?>
+
+    @Transaction
+    @Query(
+        """
+        SELECT *
+          FROM AccountEntity
+        """,
+    )
+    fun loadAllPachliAccountFlow(): Flow<List<PachliAccount>>
 
     @Update
     suspend fun update(account: AccountEntity)
@@ -406,4 +416,31 @@ interface AccountDao {
         """,
     )
     suspend fun setLastVisibleHomeTimelineStatusId(accountId: Long, value: String?)
+
+    @Query(
+        """
+        UPDATE AccountEntity
+           SET notificationAccountFilterNotFollowed = :value
+         WHERE id = :accountId
+        """,
+    )
+    suspend fun setNotificationAccountFilterNotFollowed(accountId: Long, value: FilterAction)
+
+    @Query(
+        """
+        UPDATE AccountEntity
+           SET notificationAccountFilterYounger30d = :value
+         WHERE id = :accountId
+        """,
+    )
+    suspend fun setNotificationAccountFilterYounger30d(accountId: Long, value: FilterAction)
+
+    @Query(
+        """
+        UPDATE AccountEntity
+           SET notificationAccountFilterLimitedByServer = :value
+         WHERE id = :accountId
+        """,
+    )
+    suspend fun setNotificationAccountFilterLimitedByServer(accountId: Long, value: FilterAction)
 }

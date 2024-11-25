@@ -17,10 +17,7 @@
 
 package app.pachli.components.notifications
 
-import android.content.Context
-import android.graphics.PorterDuff
 import android.graphics.Typeface
-import android.graphics.drawable.Drawable
 import android.text.InputFilter
 import android.text.SpannableStringBuilder
 import android.text.Spanned
@@ -28,9 +25,6 @@ import android.text.TextUtils
 import android.text.format.DateUtils
 import android.text.style.StyleSpan
 import android.view.View
-import androidx.annotation.ColorRes
-import androidx.annotation.DrawableRes
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.adapter.StatusBaseViewHolder
@@ -190,16 +184,6 @@ internal class StatusNotificationViewHolder(
             binding.statusMetaInfo.text = readout
             binding.statusMetaInfo.contentDescription = readoutAloud
         }
-    }
-
-    private fun getIconWithColor(
-        context: Context,
-        @DrawableRes drawable: Int,
-        @ColorRes color: Int,
-    ): Drawable? {
-        val icon = AppCompatResources.getDrawable(context, drawable)
-        icon?.setColorFilter(context.getColor(color), PorterDuff.Mode.SRC_ATOP)
-        return icon
     }
 
     private fun setAvatar(statusAvatarUrl: String?, isBot: Boolean, animateAvatars: Boolean, showBotOverlay: Boolean) {

@@ -35,6 +35,7 @@ import app.pachli.core.database.dao.AnnouncementsDao
 import app.pachli.core.database.dao.ContentFiltersDao
 import app.pachli.core.database.dao.ConversationsDao
 import app.pachli.core.database.dao.DraftDao
+import app.pachli.core.database.dao.FollowingAccountDao
 import app.pachli.core.database.dao.InstanceDao
 import app.pachli.core.database.dao.ListsDao
 import app.pachli.core.database.dao.LogEntryDao
@@ -47,6 +48,7 @@ import app.pachli.core.database.model.ContentFiltersEntity
 import app.pachli.core.database.model.ConversationEntity
 import app.pachli.core.database.model.DraftEntity
 import app.pachli.core.database.model.EmojisEntity
+import app.pachli.core.database.model.FollowingAccountEntity
 import app.pachli.core.database.model.InstanceInfoEntity
 import app.pachli.core.database.model.LogEntryEntity
 import app.pachli.core.database.model.MastodonListEntity
@@ -79,8 +81,9 @@ import java.util.TimeZone
         ServerEntity::class,
         ContentFiltersEntity::class,
         AnnouncementEntity::class,
+        FollowingAccountEntity::class,
     ],
-    version = 9,
+    version = 10,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
@@ -89,6 +92,7 @@ import java.util.TimeZone
         AutoMigration(from = 5, to = 6),
         AutoMigration(from = 6, to = 7, spec = AppDatabase.MIGRATE_6_7::class),
         AutoMigration(from = 7, to = 8, spec = AppDatabase.MIGRATE_7_8::class),
+        AutoMigration(from = 9, to = 10),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -103,6 +107,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun contentFiltersDao(): ContentFiltersDao
     abstract fun listsDao(): ListsDao
     abstract fun announcementsDao(): AnnouncementsDao
+    abstract fun followingAccountDao(): FollowingAccountDao
 
     @DeleteColumn("TimelineStatusEntity", "expanded")
     @DeleteColumn("TimelineStatusEntity", "contentCollapsed")

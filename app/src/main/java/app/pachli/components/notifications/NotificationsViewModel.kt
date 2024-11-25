@@ -31,6 +31,7 @@ import app.pachli.appstore.MuteConversationEvent
 import app.pachli.appstore.MuteEvent
 import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.model.ContentFilterVersion
@@ -480,7 +481,7 @@ class NotificationsViewModel @AssistedInject constructor(
 
         // Fetch the status filters
         viewModelScope.launch {
-            accountManager.activePachliAccountFlow
+            accountFlow
                 .distinctUntilChangedBy { it.contentFilters }
                 .collect { account ->
                     contentFilterModel = when (account.contentFilters.version) {
@@ -503,9 +504,17 @@ class NotificationsViewModel @AssistedInject constructor(
 
         // Re-fetch notifications if either of `notificationsFilter` or `reload` flows have
         // new items.
-        pagingData = combine(accountFlow.distinctUntilChangedBy { it.entity.notificationsFilter }, reload) { account, _ -> account }
+        pagingData = combine(
+            accountFlow.distinctUntilChanged { old, new ->
+                (old.entity.notificationsFilter == new.entity.notificationsFilter) &&
+                    (old.entity.notificationAccountFilterNotFollowed == new.entity.notificationAccountFilterNotFollowed) &&
+                    (old.entity.notificationAccountFilterYounger30d == new.entity.notificationAccountFilterYounger30d) &&
+                    (old.entity.notificationAccountFilterLimitedByServer == new.entity.notificationAccountFilterLimitedByServer)
+            },
+            reload,
+        ) { account, _ -> account }
             .flatMapLatest { account ->
-                getNotifications(account.entity.accountId, filters = deserialize(account.entity.notificationsFilter), initialKey = getInitialKey())
+                getNotifications(account, filters = deserialize(account.entity.notificationsFilter), initialKey = getInitialKey())
             }.cachedIn(viewModelScope)
 
         uiState = combine(accountFlow.distinctUntilChangedBy { it.entity.notificationsFilter }, getUiPrefs()) { account, _ ->
@@ -522,7 +531,7 @@ class NotificationsViewModel @AssistedInject constructor(
     }
 
     private fun getNotifications(
-        accountId: String,
+        account: PachliAccount,
         filters: Set<Notification.Type>,
         initialKey: String? = null,
     ): Flow<PagingData<NotificationViewData>> {
@@ -530,15 +539,19 @@ class NotificationsViewModel @AssistedInject constructor(
         return repository.getNotificationsStream(filter = filters, initialKey = initialKey)
             .map { pagingData ->
                 pagingData.map { notification ->
-                    val filterAction = notification.status?.actionableStatus?.let { contentFilterModel?.filterActionFor(it) } ?: FilterAction.NONE
+                    val contentFilterAction = notification.status?.actionableStatus?.let { contentFilterModel?.filterActionFor(it) } ?: FilterAction.NONE
+                    val isAboutSelf = notification.account.id == account.entity.accountId
+                    val accountFilterDecision = filterNotificationByAccount(account, notification)
+
                     NotificationViewData.from(
                         notification,
                         isShowingContent = statusDisplayOptions.value.showSensitiveMedia ||
                             !(notification.status?.actionableStatus?.sensitive ?: false),
                         isExpanded = statusDisplayOptions.value.openSpoiler,
                         isCollapsed = true,
-                        contentFilterAction = filterAction,
-                        isAboutSelf = notification.account.id == accountId,
+                        contentFilterAction = contentFilterAction,
+                        accountFilterDecision = accountFilterDecision,
+                        isAboutSelf = isAboutSelf,
                     )
                 }.filter {
                     it.statusViewData?.contentFilterAction != FilterAction.HIDE

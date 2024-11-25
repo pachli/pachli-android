@@ -119,6 +119,7 @@ class StatusDisplayOptionsRepositoryTest {
             onBlocking { getCustomEmojis() } doReturn failure()
             onBlocking { getContentFilters() } doReturn success(emptyList())
             onBlocking { listAnnouncements(anyOrNull()) } doReturn success(emptyList())
+            onBlocking { accountFollowing(any(), anyOrNull(), any()) } doReturn success(emptyList())
         }
 
         reset(nodeInfoApi)

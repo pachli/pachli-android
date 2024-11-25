@@ -29,16 +29,20 @@ import app.pachli.core.data.repository.ServerRepository.Error.UnsupportedSchema
 import app.pachli.core.data.repository.ServerRepository.Error.ValidateNodeInfo
 import app.pachli.core.database.dao.AccountDao
 import app.pachli.core.database.dao.AnnouncementsDao
+import app.pachli.core.database.dao.FollowingAccountDao
 import app.pachli.core.database.dao.InstanceDao
 import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.AnnouncementEntity
 import app.pachli.core.database.model.EmojisEntity
+import app.pachli.core.database.model.FollowingAccountEntity
 import app.pachli.core.database.model.InstanceInfoEntity
 import app.pachli.core.database.model.ServerEntity
+import app.pachli.core.model.FilterAction
 import app.pachli.core.model.NodeInfo
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Account
+import app.pachli.core.network.model.HttpHeaderLink
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.InstanceSwitchAuthInterceptor
 import app.pachli.core.network.retrofit.MastodonApi
@@ -165,6 +169,7 @@ class AccountManager @Inject constructor(
     private val contentFiltersRepository: ContentFiltersRepository,
     private val listsRepository: ListsRepository,
     private val announcementsDao: AnnouncementsDao,
+    private val followingAccountDao: FollowingAccountDao,
     private val instanceSwitchAuthInterceptor: InstanceSwitchAuthInterceptor,
     @ApplicationScope private val externalScope: CoroutineScope,
 ) {
@@ -187,6 +192,11 @@ class AccountManager @Inject constructor(
 
     /** All logged in accounts. */
     val accountsFlow = accountDao.loadAllFlow().stateIn(externalScope, SharingStarted.Eagerly, emptyList())
+
+    /** All logged in PachliAccounts. */
+    val pachliAccountsFlow = accountDao.loadAllPachliAccountFlow()
+        .map { it.map { PachliAccount.make(it) } }
+        .shareIn(externalScope, SharingStarted.Eagerly, replay = 1)
 
     val accounts: List<AccountEntity>
         get() = accountsFlow.value
@@ -479,6 +489,28 @@ class AccountManager @Inject constructor(
                 }
         }
 
+        val deferFollowing = externalScope.async {
+            var maxId: String? = null
+            val following = buildList {
+                do {
+                    val response = mastodonApi.accountFollowing(account.accountId, maxId)
+                        .getOrElse { return@async Err(it) }
+
+                    addAll(response.body.map { FollowingAccountEntity.from(account.id, it) })
+                    val links = HttpHeaderLink.parse(response.headers["Link"])
+                    val next = HttpHeaderLink.findByRelationType(links, "next")
+                    maxId = next?.uri?.getQueryParameter("max_id")
+                } while (maxId != null)
+            }
+
+            transactionProvider {
+                followingAccountDao.deleteAllForAccount(account.id)
+                followingAccountDao.insert(following)
+            }
+
+            return@async Ok(following)
+        }
+
         val nodeInfo = deferNodeInfo.await().bind()
         val instanceInfo = deferInstanceInfo.await().bind()
 
@@ -516,6 +548,8 @@ class AccountManager @Inject constructor(
         // Ignore errors when fetching announcements, they're non-fatal.
         // TODO: Add a capability for announcements.
         deferAnnouncements.await().orElse { Ok(emptyList()) }.bind()
+
+        deferFollowing.await()
     }
 
     /**
@@ -747,6 +781,18 @@ class AccountManager @Inject constructor(
         accountDao.setNotificationLight(accountId, value)
     }
 
+    suspend fun setNotificationAccountFilterNotFollowed(accountId: Long, action: FilterAction) {
+        accountDao.setNotificationAccountFilterNotFollowed(accountId, action)
+    }
+
+    suspend fun setNotificationAccountFilterYounger30d(accountId: Long, action: FilterAction) {
+        accountDao.setNotificationAccountFilterYounger30d(accountId, action)
+    }
+
+    suspend fun setNotificationAccountFilterLimitedByServer(accountId: Long, action: FilterAction) {
+        accountDao.setNotificationAccountFilterLimitedByServer(accountId, action)
+    }
+
     suspend fun setLastVisibleHomeTimelineStatusId(accountId: Long, value: String?) {
         Timber.d("setLastVisibleHomeTimelineStatusId: %d, %s", accountId, value)
         accountDao.setLastVisibleHomeTimelineStatusId(accountId, value)
@@ -755,5 +801,14 @@ class AccountManager @Inject constructor(
     // -- Announcements
     suspend fun deleteAnnouncement(accountId: Long, announcementId: String) {
         announcementsDao.deleteForAccount(accountId, announcementId)
+    }
+
+    // -- Following
+    suspend fun followAccount(pachliAccountId: Long, serverId: String) {
+        followingAccountDao.insert(FollowingAccountEntity(pachliAccountId, serverId))
+    }
+
+    suspend fun unfollowAccount(pachliAccountId: Long, serverId: String) {
+        followingAccountDao.delete(FollowingAccountEntity(pachliAccountId, serverId))
     }
 }

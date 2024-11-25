@@ -21,6 +21,7 @@ import app.pachli.core.network.json.Default
 import app.pachli.core.network.json.HasDefault
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import java.util.Date
 
 // TODO: These should be different subclasses per type, so that each subclass can
 // carry the non-null data that it needs.
@@ -28,6 +29,7 @@ import com.squareup.moshi.JsonClass
 data class Notification(
     val type: Type,
     val id: String,
+    @Json(name = "created_at") val createdAt: Date,
     val account: TimelineAccount,
     val status: Status?,
     val report: Report?,
@@ -75,7 +77,7 @@ data class Notification(
         @Json(name = "admin.sign_up")
         SIGN_UP("admin.sign_up"),
 
-        /** A status you interacted with has been updated */
+        /** A status you reblogged has been updated */
         @Json(name = "update")
         UPDATE("update"),
 

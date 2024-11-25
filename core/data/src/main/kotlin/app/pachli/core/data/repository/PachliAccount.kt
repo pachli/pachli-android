@@ -21,6 +21,7 @@ import app.pachli.core.data.model.InstanceInfo
 import app.pachli.core.data.model.MastodonList
 import app.pachli.core.data.model.Server
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.FollowingAccountEntity
 import app.pachli.core.model.ServerKind
 import app.pachli.core.network.model.Announcement
 import app.pachli.core.network.model.Emoji
@@ -37,6 +38,7 @@ import io.github.z4kn4fein.semver.Version
  * @param server Details about the account's server.
  * @param contentFilters Account's content filters.
  * @param announcements Announcements from the account's server.
+ * @param following Accounts this account is following
  */
 // TODO: Still not sure if it's better to have one class that contains everything,
 // or provide dedicated functions that return specific flows for the different
@@ -51,6 +53,7 @@ data class PachliAccount(
     val server: Server,
     val contentFilters: ContentFilters,
     val announcements: List<Announcement>,
+    val following: List<FollowingAccountEntity>,
 ) {
     companion object {
         fun make(
@@ -65,6 +68,7 @@ data class PachliAccount(
                 server = account.server?.let { Server.from(it) } ?: Server(ServerKind.MASTODON, Version(4, 0, 0)),
                 contentFilters = account.contentFilters?.let { ContentFilters.from(it) } ?: ContentFilters.EMPTY,
                 announcements = account.announcements.orEmpty().map { it.announcement },
+                following = account.following,
             )
         }
     }

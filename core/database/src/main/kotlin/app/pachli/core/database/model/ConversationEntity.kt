@@ -29,6 +29,7 @@ import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.TimelineAccount
 import com.squareup.moshi.JsonClass
+import java.time.Instant
 import java.util.Date
 
 @Entity(primaryKeys = ["id", "accountId"])
@@ -74,6 +75,7 @@ data class ConversationAccountEntity(
     val displayName: String,
     val avatar: String,
     val emojis: List<Emoji>,
+    val createdAt: Instant?,
 ) {
     fun toAccount(): TimelineAccount {
         return TimelineAccount(
@@ -85,6 +87,7 @@ data class ConversationAccountEntity(
             url = "",
             avatar = avatar,
             emojis = emojis,
+            createdAt = createdAt,
         )
     }
 
@@ -96,6 +99,7 @@ data class ConversationAccountEntity(
             displayName = timelineAccount.name,
             avatar = timelineAccount.avatar,
             emojis = timelineAccount.emojis.orEmpty(),
+            createdAt = timelineAccount.createdAt,
         )
     }
 }
