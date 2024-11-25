@@ -45,8 +45,6 @@ class NotificationsViewModelTestUiState : NotificationsViewModelTestBase() {
     @Test
     fun `should load initial filter from active account`() = runTest {
         viewModel.uiState.test {
-            // skip initial empty UiState
-            awaitItem()
             assertThat(awaitItem()).isEqualTo(initialUiState)
         }
     }
