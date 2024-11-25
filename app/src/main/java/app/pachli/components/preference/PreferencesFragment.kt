@@ -55,6 +55,8 @@ import app.pachli.core.preferences.MainNavigationPosition
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.preferences.ShowSelfUsername
+import app.pachli.core.preferences.TabAlignment
+import app.pachli.core.preferences.TabContents
 import app.pachli.core.ui.extensions.await
 import app.pachli.core.ui.makeIcon
 import app.pachli.databinding.AccountNotificationDetailsListItemBinding
@@ -292,6 +294,18 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                     setDefaultValue(MainNavigationPosition.TOP)
                     setTitle(R.string.pref_main_nav_position)
                     key = PrefKeys.MAIN_NAV_POSITION
+                }
+
+                enumListPreference<TabAlignment> {
+                    setDefaultValue(TabAlignment.START)
+                    setTitle(app.pachli.core.preferences.R.string.pref_title_tab_alignment)
+                    key = PrefKeys.TAB_ALIGNMENT
+                }
+
+                enumListPreference<TabContents> {
+                    setDefaultValue(TabContents.ICON_ONLY)
+                    setTitle(app.pachli.core.preferences.R.string.pref_title_tab_contents)
+                    key = PrefKeys.TAB_CONTENTS
                 }
 
                 switchPreference {
