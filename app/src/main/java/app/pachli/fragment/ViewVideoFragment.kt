@@ -239,7 +239,7 @@ class ViewVideoFragment : ViewMediaFragment() {
             override fun onPlayerError(error: PlaybackException) {
                 val message = getString(
                     R.string.error_media_playback,
-                    error.cause?.message ?: error.message,
+                    error.message ?: error.cause?.message,
                 )
                 Snackbar.make(binding.root, message, Snackbar.LENGTH_INDEFINITE)
                     .setAction(app.pachli.core.ui.R.string.action_retry) { player?.prepare() }
