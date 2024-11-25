@@ -115,12 +115,10 @@ fun mockStatusEntityWithAccount(
         status = TimelineStatusEntity.from(
             mockedStatus,
             timelineUserId = userId,
-            moshi = moshi,
         ),
         account = TimelineAccountEntity.from(
             mockedStatus.account,
             accountId = userId,
-            moshi = moshi,
         ),
         viewData = StatusViewDataEntity(
             serverId = id,

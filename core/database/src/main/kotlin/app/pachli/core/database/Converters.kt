@@ -25,6 +25,7 @@ import app.pachli.core.model.ServerOperation
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Announcement
 import app.pachli.core.network.model.Attachment
+import app.pachli.core.network.model.Card
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.FilterResult
 import app.pachli.core.network.model.HashTag
@@ -284,4 +285,16 @@ class Converters @Inject constructor(
 
     @TypeConverter
     fun jsonToAnnouncement(s: String?) = s?.let { moshi.adapter<Announcement>().fromJson(it) }
+
+    @TypeConverter
+    fun applicationToJson(application: Status.Application): String = moshi.adapter<Status.Application>().toJson(application)
+
+    @TypeConverter
+    fun jsonToApplication(s: String?) = s?.let { moshi.adapter<Status.Application>().fromJson(it) }
+
+    @TypeConverter
+    fun cardToJson(card: Card): String = moshi.adapter<Card>().toJson(card)
+
+    @TypeConverter
+    fun jsonToCard(s: String?) = s?.let { moshi.adapter<Card>().fromJson(it) }
 }

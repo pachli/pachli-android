@@ -48,7 +48,6 @@ import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.fold
 import at.connyduck.calladapter.networkresult.getOrElse
 import at.connyduck.calladapter.networkresult.getOrThrow
-import com.squareup.moshi.Moshi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.Job
@@ -73,7 +72,6 @@ class ViewThreadViewModel @Inject constructor(
     eventHub: EventHub,
     private val accountManager: AccountManager,
     private val timelineDao: TimelineDao,
-    private val moshi: Moshi,
     private val repository: CachedTimelineRepository,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
 ) : ViewModel() {
@@ -141,7 +139,7 @@ class ViewThreadViewModel @Inject constructor(
 
             var detailedStatus = if (timelineStatusWithAccount != null) {
                 Timber.d("Loaded status from local timeline")
-                val status = timelineStatusWithAccount.toStatus(moshi)
+                val status = timelineStatusWithAccount.toStatus()
 
                 // Return the correct status, depending on which one matched. If you do not do
                 // this the status IDs will be different between the status that's displayed with
@@ -160,7 +158,6 @@ class ViewThreadViewModel @Inject constructor(
                 } else {
                     StatusViewData.from(
                         timelineStatusWithAccount,
-                        moshi,
                         isExpanded = account.alwaysOpenSpoiler,
                         isShowingContent = (account.alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
                         isDetailed = true,
