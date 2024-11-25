@@ -132,7 +132,7 @@ import kotlin.math.max
 import kotlin.math.min
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -276,7 +276,7 @@ class ComposeActivity :
         )
 
         lifecycleScope.launch {
-            viewModel.accountFlow.distinctUntilChanged().collect { account ->
+            viewModel.accountFlow.take(1).collect { account ->
                 setupAvatar(account.entity)
 
                 if (viewModel.displaySelfUsername) {
