@@ -247,7 +247,7 @@ class NotificationsFragment :
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
                     viewModel.pagingData.collectLatest { pagingData ->
-                        Timber.d("Submitting data to adapter")
+                        Timber.d("Submitting data to adapter: $pagingData")
                         adapter.submitData(pagingData)
                     }
                 }

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 11,
-    "identityHash": "c102dd7ebe56a03b84037f957a275496",
+    "identityHash": "c182f01b359d760b876dc0d66d27c76b",
     "entities": [
       {
         "tableName": "DraftEntity",
@@ -1491,7 +1491,7 @@
       },
       {
         "tableName": "NotificationEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `type` TEXT NOT NULL, `createdAt` INTEGER NOT NULL, `accountServerId` TEXT NOT NULL, `statusServerId` TEXT, PRIMARY KEY(`pachliAccountId`, `serverId`), FOREIGN KEY(`pachliAccountId`, `accountServerId`) REFERENCES `TimelineAccountEntity`(`timelineUserId`, `serverId`) ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE INITIALLY DEFERRED)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `type` TEXT NOT NULL, `createdAt` INTEGER NOT NULL, `accountServerId` TEXT NOT NULL, `statusServerId` TEXT, PRIMARY KEY(`pachliAccountId`, `serverId`))",
         "fields": [
           {
             "fieldPath": "pachliAccountId",
@@ -1538,21 +1538,7 @@
           ]
         },
         "indices": [],
-        "foreignKeys": [
-          {
-            "table": "TimelineAccountEntity",
-            "onDelete": "NO ACTION",
-            "onUpdate": "NO ACTION",
-            "columns": [
-              "pachliAccountId",
-              "accountServerId"
-            ],
-            "referencedColumns": [
-              "timelineUserId",
-              "serverId"
-            ]
-          }
-        ]
+        "foreignKeys": []
       },
       {
         "tableName": "NotificationReportEntity",
@@ -1700,7 +1686,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c102dd7ebe56a03b84037f957a275496')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c182f01b359d760b876dc0d66d27c76b')"
     ]
   }
 }

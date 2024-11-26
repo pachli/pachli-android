@@ -543,16 +543,16 @@ class NotificationsViewModel @AssistedInject constructor(
         return repository.notifications(pachliAccountId) // filter = filters, initialKey = initialKey)
             .map { pagingData ->
                 pagingData
-                    .filter { activeFilters.contains(it.type) }
+                    .filter { !activeFilters.contains(it.notification.type) }
                     .map { notification ->
-                        val contentFilterAction = notification.status?.let { contentFilterModel?.filterActionFor(it) } ?: FilterAction.NONE
+                        val contentFilterAction = notification.status?.status?.let { contentFilterModel?.filterActionFor(it) } ?: FilterAction.NONE
                         val isAboutSelf = notification.account.serverId == account.entity.accountId
                         val accountFilterDecision = filterNotificationByAccount(account, notification)
 
                         NotificationViewData.from(
                             notification,
                             isShowingContent = statusDisplayOptions.value.showSensitiveMedia ||
-                                !(notification.status?.sensitive ?: false),
+                                !(notification.status?.status?.sensitive ?: false),
                             isExpanded = statusDisplayOptions.value.openSpoiler,
                             isCollapsed = true,
                             contentFilterAction = contentFilterAction,

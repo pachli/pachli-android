@@ -19,7 +19,6 @@ package app.pachli.core.database.model
 
 import androidx.room.Embedded
 import androidx.room.Entity
-import androidx.room.ForeignKey
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
 import java.time.Instant
@@ -50,29 +49,29 @@ enum class NotificationType {
 data class NotificationData(
     @Embedded val notification: NotificationEntity,
     @Embedded(prefix = "a_") val account: TimelineAccountEntity,
-//    @Embedded val status: TimelineStatusWithAccount?,
+    @Embedded(prefix = "s_") val status: TimelineStatusWithAccount?,
 ) {
     companion object
 }
 
 @Entity(
     primaryKeys = ["pachliAccountId", "serverId"],
-    foreignKeys = (
-        [
-            ForeignKey(
-                entity = TimelineAccountEntity::class,
-                parentColumns = ["timelineUserId", "serverId"],
-                childColumns = ["pachliAccountId", "accountServerId"],
-                deferred = true,
-            ),
+//    foreignKeys = (
+//        [
 //            ForeignKey(
-//                entity = TimelineStatusWithAccount::class,
-//                parentColumns = ["pachliAccountId", "statusServerId"],
-//                childColumns = ["timelineUserId", "serverId"],
+//                entity = TimelineAccountEntity::class,
+//                parentColumns = ["timelineUserId", "serverId"],
+//                childColumns = ["pachliAccountId", "accountServerId"],
 //                deferred = true,
 //            ),
-        ]
-        ),
+//            ForeignKey(
+//                entity = TimelineStatusEntity::class,
+//                parentColumns = ["timelineUserId", "serverId"],
+//                childColumns = ["pachliAccountId", "statusServerId"],
+//                deferred = true,
+//            ),
+//        ]
+//        ),
 )
 @TypeConverters(Converters::class)
 class NotificationEntity(

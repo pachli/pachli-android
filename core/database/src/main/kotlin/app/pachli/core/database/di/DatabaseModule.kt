@@ -85,6 +85,9 @@ object DatabaseModule {
 
     @Provides
     fun providesFollowingAccountDao(appDatabase: AppDatabase) = appDatabase.followingAccountDao()
+
+    @Provides
+    fun providesNotificationDao(appDatabase: AppDatabase) = appDatabase.notificationDao()
 }
 
 /**
@@ -108,6 +111,6 @@ object DatabaseModule {
 class TransactionProvider(private val appDatabase: AppDatabase) {
     /** Runs the given block in a database transaction */
     suspend operator fun <R> invoke(block: suspend () -> R): R {
-        return appDatabase.withTransaction(block)
+        return if (appDatabase.inTransaction()) block() else appDatabase.withTransaction(block)
     }
 }

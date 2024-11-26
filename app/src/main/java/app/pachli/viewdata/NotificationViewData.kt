@@ -19,7 +19,7 @@ package app.pachli.viewdata
 
 import android.text.Spanned
 import app.pachli.components.notifications.AccountFilterDecision
-import app.pachli.core.database.model.NotificationEntity
+import app.pachli.core.database.model.NotificationData
 import app.pachli.core.database.model.NotificationType
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.database.model.TranslationState
@@ -88,7 +88,7 @@ data class NotificationViewData(
 //        )
 
         fun from(
-            entity: NotificationEntity,
+            data: NotificationData,
             isShowingContent: Boolean,
             isExpanded: Boolean,
             isCollapsed: Boolean,
@@ -96,10 +96,10 @@ data class NotificationViewData(
             accountFilterDecision: AccountFilterDecision?,
             isAboutSelf: Boolean,
         ) = NotificationViewData(
-            type = entity.type,
-            id = entity.serverId,
-            account = entity.account.toTimelineAccount(),
-            statusViewData = entity.status?.let {
+            type = data.notification.type,
+            id = data.notification.serverId,
+            account = data.account.toTimelineAccount(),
+            statusViewData = data.status?.let {
                 StatusViewData.from(
                     it,
                     isExpanded = isExpanded,

@@ -250,4 +250,5 @@ fun NotificationEntity.Companion.from(pachliAccountId: Long, notification: Notif
 fun NotificationData.Companion.from(pachliAccountId: Long, notification: Notification) = NotificationData(
     notification = NotificationEntity.from(pachliAccountId, notification),
     account = TimelineAccountEntity.from(notification.account, pachliAccountId),
+    status = null, // notification.status?.let { TimelineStatusEntity.from(it, pachliAccountId) },
 )
