@@ -538,7 +538,7 @@ class NotificationsViewModel @AssistedInject constructor(
         filters: Set<Notification.Type>,
         initialKey: String? = null,
     ): Flow<PagingData<NotificationViewData>> {
-//        Timber.d("getNotifications: %s", initialKey)
+        Timber.d("getNotifications: %s", initialKey)
         val activeFilters = filters.map { NotificationType.from(it) }
         return repository.notifications(pachliAccountId) // filter = filters, initialKey = initialKey)
             .map { pagingData ->
@@ -559,9 +559,8 @@ class NotificationsViewModel @AssistedInject constructor(
                             accountFilterDecision = accountFilterDecision,
                             isAboutSelf = isAboutSelf,
                         )
-                    }.filter {
-                        it.statusViewData?.contentFilterAction != FilterAction.HIDE
                     }
+                    .filter { it.statusViewData?.contentFilterAction != FilterAction.HIDE }
             }
     }
 

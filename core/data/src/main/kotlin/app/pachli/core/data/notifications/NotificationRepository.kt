@@ -37,6 +37,7 @@ import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyKind
 import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TimelineStatusEntity
+import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.retrofit.MastodonApi
@@ -48,9 +49,6 @@ import okhttp3.ResponseBody
 import retrofit2.HttpException
 import retrofit2.Response
 import timber.log.Timber
-
-// TODO:
-// - Filter preferences will need to be applied in the ViewModel
 
 class NotificationRepository @Inject constructor(
     @ApplicationScope private val externalScope: CoroutineScope,
@@ -102,9 +100,12 @@ class NotificationRemoteMediator(
     override suspend fun initialize() = InitializeAction.SKIP_INITIAL_REFRESH
 
     override suspend fun load(loadType: LoadType, state: PagingState<Int, NotificationData>): MediatorResult {
+        Timber.d("load:")
+        Timber.d("  loadType: $loadType")
+        Timber.d("     state: $state")
         return try {
             val response = when (loadType) {
-                LoadType.REFRESH -> mastodonApi.notifications()
+                LoadType.REFRESH -> mastodonApi.notifications(limit = state.config.pageSize * 3)
 
                 LoadType.PREPEND -> {
                     val rke = remoteKeyDao.remoteKeyForKind(
@@ -112,7 +113,7 @@ class NotificationRemoteMediator(
                         RKE_TIMELINE_ID,
                         RemoteKeyKind.PREV,
                     ) ?: return MediatorResult.Success(endOfPaginationReached = true)
-                    mastodonApi.notifications(minId = rke.key)
+                    mastodonApi.notifications(minId = rke.key, limit = state.config.pageSize)
                 }
 
                 LoadType.APPEND -> {
@@ -121,7 +122,7 @@ class NotificationRemoteMediator(
                         RKE_TIMELINE_ID,
                         RemoteKeyKind.NEXT,
                     ) ?: return MediatorResult.Success(endOfPaginationReached = true)
-                    mastodonApi.notifications(maxId = rke.key)
+                    mastodonApi.notifications(maxId = rke.key, limit = state.config.pageSize)
                 }
             }
 
@@ -183,14 +184,14 @@ class NotificationRemoteMediator(
                         )
                     }
                 }
-            }
 
 //            notificationDao.insertAll(
 //                notifications.map {
 //                    NotificationEntity.from(pachliAccountId, it)
 //                },
 //            )
-            insertNotifications(pachliAccountId, notifications)
+                insertNotifications(pachliAccountId, notifications)
+            }
 
             MediatorResult.Success(endOfPaginationReached = false)
         } catch (e: Exception) {
@@ -250,5 +251,10 @@ fun NotificationEntity.Companion.from(pachliAccountId: Long, notification: Notif
 fun NotificationData.Companion.from(pachliAccountId: Long, notification: Notification) = NotificationData(
     notification = NotificationEntity.from(pachliAccountId, notification),
     account = TimelineAccountEntity.from(notification.account, pachliAccountId),
-    status = null, // notification.status?.let { TimelineStatusEntity.from(it, pachliAccountId) },
+    status = notification.status?.let { status ->
+        TimelineStatusWithAccount(
+            status = TimelineStatusEntity.from(status, pachliAccountId),
+            account = TimelineAccountEntity.from(status.account, pachliAccountId),
+        )
+    },
 )

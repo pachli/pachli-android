@@ -31,7 +31,6 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
-import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -73,10 +72,8 @@ import app.pachli.interfaces.AccountActionListener
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.ListStatusAccessibilityDelegate
-import app.pachli.util.UserRefreshState
 import app.pachli.util.asRefreshState
 import app.pachli.viewdata.NotificationViewData
-import at.connyduck.sparkbutton.helpers.Utils
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
@@ -400,97 +397,125 @@ class NotificationsFragment :
                 // Scroll the list down (peek) if a refresh has completely finished. A refresh is
                 // finished when both the initial refresh is complete and any prepends have
                 // finished (so that DiffUtil has had a chance to process the data).
-                launch {
-                    /** True if the previous prepend resulted in a peek, false otherwise */
-                    var peeked = false
-
-                    /** ID of the item that was first in the adapter before the refresh */
-                    var previousFirstId: String? = null
-
-                    refreshState.collect {
-                        when (it) {
-                            // Refresh has started, reset peeked, and save the ID of the first item
-                            // in the adapter
-                            UserRefreshState.ACTIVE -> {
-                                peeked = false
-                                if (adapter.itemCount != 0) previousFirstId = adapter.peek(0)?.id
-                            }
-
-                            // Refresh has finished, pages are being prepended.
-                            UserRefreshState.COMPLETE -> {
-                                // There might be multiple prepends after a refresh, only continue
-                                // if one them has not already caused a peek.
-                                if (peeked) return@collect
-
-                                // Compare the ID of the current first item with the previous first
-                                // item. If they're the same then this prepend did not add any new
-                                // items, and can be ignored.
-                                val firstId = if (adapter.itemCount != 0) adapter.peek(0)?.id else null
-                                if (previousFirstId == firstId) return@collect
-
-                                // New items were added and haven't peeked for this refresh. Schedule
-                                // a scroll to disclose that new items are available.
-                                binding.recyclerView.post {
-                                    getView() ?: return@post
-                                    binding.recyclerView.smoothScrollBy(
-                                        0,
-                                        Utils.dpToPx(requireContext(), -30),
-                                    )
-                                }
-                                peeked = true
-                            }
-
-                            else -> {
-                                /* nothing to do */
-                            }
-                        }
-                    }
-                }
+//                launch {
+//                    /** True if the previous prepend resulted in a peek, false otherwise */
+//                    var peeked = false
+//
+//                    /** ID of the item that was first in the adapter before the refresh */
+//                    var previousFirstId: String? = null
+//
+//                    refreshState.collect {
+//                        when (it) {
+//                            // Refresh has started, reset peeked, and save the ID of the first item
+//                            // in the adapter
+//                            UserRefreshState.ACTIVE -> {
+//                                peeked = false
+//                                if (adapter.itemCount != 0) previousFirstId = adapter.peek(0)?.id
+//                            }
+//
+//                            // Refresh has finished, pages are being prepended.
+//                            UserRefreshState.COMPLETE -> {
+//                                // There might be multiple prepends after a refresh, only continue
+//                                // if one them has not already caused a peek.
+//                                if (peeked) return@collect
+//
+//                                // Compare the ID of the current first item with the previous first
+//                                // item. If they're the same then this prepend did not add any new
+//                                // items, and can be ignored.
+//                                val firstId = if (adapter.itemCount != 0) adapter.peek(0)?.id else null
+//                                if (previousFirstId == firstId) return@collect
+//
+//                                // New items were added and haven't peeked for this refresh. Schedule
+//                                // a scroll to disclose that new items are available.
+//                                binding.recyclerView.post {
+//                                    getView() ?: return@post
+//                                    binding.recyclerView.smoothScrollBy(
+//                                        0,
+//                                        Utils.dpToPx(requireContext(), -30),
+//                                    )
+//                                }
+//                                peeked = true
+//                            }
+//
+//                            else -> {
+//                                /* nothing to do */
+//                            }
+//                        }
+//                    }
+//                }
 
                 // Manage the display of progress bars. Rather than hide them as soon as the
                 // Refresh portion completes, hide them when then first Prepend completes. This
                 // is a better signal to the user that it is now possible to scroll up and see
                 // new content.
                 launch {
-                    refreshState.collect {
-                        when (it) {
-                            UserRefreshState.ACTIVE -> {
-                                if (adapter.itemCount == 0 && !binding.swipeRefreshLayout.isRefreshing) {
-                                    binding.progressBar.show()
-                                }
-                            }
-
-                            UserRefreshState.COMPLETE, UserRefreshState.ERROR -> {
-                                binding.progressBar.hide()
-                                binding.swipeRefreshLayout.isRefreshing = false
-                            }
-
-                            else -> {
-                                /* nothing to do */
-                            }
-                        }
-                    }
+//                    refreshState.collect {
+//                        when (it) {
+//                            UserRefreshState.ACTIVE -> {
+//                                if (adapter.itemCount == 0 && !binding.swipeRefreshLayout.isRefreshing) {
+//                                    binding.progressBar.show()
+//                                }
+//                            }
+//
+//                            UserRefreshState.COMPLETE, UserRefreshState.ERROR -> {
+//                                binding.progressBar.hide()
+//                                binding.swipeRefreshLayout.isRefreshing = false
+//                            }
+//
+//                            else -> {
+//                                /* nothing to do */
+//                            }
+//                        }
+//                    }
                 }
 
                 // Update the UI from the loadState
                 adapter.loadStateFlow
+                    .distinctUntilChangedBy { it.refresh }
                     .collect { loadState ->
-                        binding.statusView.hide()
-                        if (loadState.refresh is LoadState.NotLoading) {
-                            if (adapter.itemCount == 0) {
-                                binding.statusView.setup(BackgroundMessage.Empty())
+                        Timber.d("loadState: $loadState")
+                        when (loadState.refresh) {
+                            is LoadState.Error -> {
+                                binding.progressBar.hide()
+                                binding.statusView.setup((loadState.refresh as LoadState.Error).error) { adapter.retry() }
                                 binding.recyclerView.hide()
                                 binding.statusView.show()
-                            } else {
-                                binding.statusView.hide()
+                                binding.swipeRefreshLayout.isRefreshing = false
+                            }
+
+                            LoadState.Loading -> {
+                                /* nothing */
+                                binding.progressBar.show()
+                            }
+
+                            is LoadState.NotLoading -> {
+                                binding.progressBar.hide()
+                                binding.swipeRefreshLayout.isRefreshing = false
+                                if (adapter.itemCount == 0) {
+                                    binding.statusView.setup(BackgroundMessage.Empty())
+                                    binding.recyclerView.hide()
+                                    binding.statusView.show()
+                                } else {
+                                    binding.statusView.hide()
+                                }
                             }
                         }
 
-                        if (loadState.refresh is LoadState.Error) {
-                            binding.statusView.setup((loadState.refresh as LoadState.Error).error) { adapter.retry() }
-                            binding.recyclerView.hide()
-                            binding.statusView.show()
-                        }
+//                        if (loadState.refresh is LoadState.NotLoading) {
+//                            if (adapter.itemCount == 0) {
+//                                binding.statusView.setup(BackgroundMessage.Empty())
+//                                binding.recyclerView.hide()
+//                                binding.statusView.show()
+//                            } else {
+//                                binding.statusView.hide()
+//                            }
+//                        }
+//
+//                        if (loadState.refresh is LoadState.Error) {
+//                            binding.statusView.setup((loadState.refresh as LoadState.Error).error) { adapter.retry() }
+//                            binding.recyclerView.hide()
+//                            binding.statusView.show()
+//                        }
                     }
             }
         }
@@ -530,7 +555,7 @@ class NotificationsFragment :
     }
 
     override fun onRefresh() {
-        binding.progressBar.isVisible = false
+//        binding.progressBar.isVisible = false
         adapter.refresh()
         clearNotificationsForAccount(requireContext(), pachliAccountId)
     }
@@ -675,7 +700,7 @@ class NotificationsFragment :
 
     private fun clearNotifications() {
         binding.swipeRefreshLayout.isRefreshing = false
-        binding.progressBar.isVisible = false
+//        binding.progressBar.isVisible = false
         viewModel.accept(FallibleUiAction.ClearNotifications)
     }
 
