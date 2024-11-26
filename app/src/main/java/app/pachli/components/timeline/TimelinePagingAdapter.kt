@@ -67,7 +67,11 @@ class TimelinePagingAdapter(
         position: Int,
         payloads: List<*>?,
     ) {
-        getItem(position)?.let {
+        try {
+            getItem(position)
+        } catch (e: IndexOutOfBoundsException) {
+            null
+        }?.let {
             (viewHolder as StatusViewHolder<StatusViewData>).setupWithStatus(
                 pachliAccountId,
                 it,
