@@ -37,6 +37,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.LoadState
+import androidx.paging.map
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -245,6 +246,9 @@ class NotificationsFragment :
                 launch {
                     viewModel.pagingData.collectLatest { pagingData ->
                         Timber.d("Submitting data to adapter: $pagingData")
+                        pagingData.map {
+                            Timber.d("item: $it")
+                        }
                         adapter.submitData(pagingData)
                     }
                 }

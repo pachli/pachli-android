@@ -185,11 +185,6 @@ class NotificationRemoteMediator(
                     }
                 }
 
-//            notificationDao.insertAll(
-//                notifications.map {
-//                    NotificationEntity.from(pachliAccountId, it)
-//                },
-//            )
                 insertNotifications(pachliAccountId, notifications)
             }
 
