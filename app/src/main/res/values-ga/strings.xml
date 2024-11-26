@@ -808,4 +808,20 @@
     <string name="main_viewmodel_error_set_active_account">Theip ar an iarracht logáil isteach leis an earráid seo a leanas:\n\n%1$s</string>
     <string name="action_relogin">Ath-logáil isteach</string>
     <string name="main_viewmodel_error_refresh_account">Theip ar athnuachan an chuntais leis an earráid seo a leanas:\n\n%1$s\n\nIs féidir leat leanúint ar aghaidh, ach seans go mbeidh do liostaí agus do scagairí neamhiomlán.</string>
+    <string name="filter_description_none">Taispeáin mar is gnách</string>
+    <string name="pref_title_account_notification_filters">Scagairí fógra</string>
+    <string name="pref_account_notification_filters_subtitle">Cad ba cheart a tharlú d\'fhógraí ó chuntais…</string>
+    <string name="pref_account_notification_filters_label_younger_30d">… a cruthaíodh le 30 lá anuas</string>
+    <string name="account_filter_placeholder_type_favourite_fmt">B\'fhearr le húsáideoir @<b>%1s</b> do phostáil</string>
+    <string name="account_filter_placeholder_type_follow_request_fmt">Lean iarratas ó úsáideoir @<b>%1s</b></string>
+    <string name="account_filter_placeholder_label_younger_30d">Scagtha toisc: <b>cruthaithe le 30 lá anuas</b></string>
+    <string name="account_filter_placeholder_type_reblog_fmt">Chuir úsáideoir @<b>%1s</b> do phostáil chun cinn</string>
+    <string name="account_filter_placeholder_label_domain">Ó úsáideoir @<b>%1s</b></string>
+    <string name="account_filter_placeholder_label_not_following">Scagtha toisc: <b>ní leanann tú iad</b></string>
+    <string name="account_filter_placeholder_label_limited_by_server">Scagtha toisc: <b>teoranta ag do mhodhnóirí</b></string>
+    <string name="account_filter_placeholder_type_mention_fmt">Luaigh úsáideoir @ <b>%1s</b> tú</string>
+    <string name="pref_account_notification_filters_label_limited_by_server">… teoranta ag do mhodhnóirí</string>
+    <string name="filter_action_none">Taispeáin</string>
+    <string name="pref_account_notification_filters_label_not_followed">… ní leanann tú</string>
+    <string name="account_filter_placeholder_type_follow_fmt">Lean úsáideoir @<b>%1s</b> tú</string>
 </resources>
