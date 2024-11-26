@@ -287,15 +287,7 @@ abstract class BaseActivity : AppCompatActivity(), MenuProvider {
             val accounts = accountManager.accountsOrderedByActive
             return when (accounts.size) {
                 0, 1 -> null
-                2 -> {
-                    for (account in accounts) {
-                        if (account !== accountManager.activeAccount) {
-                            return getString(R.string.action_open_as, account.fullName)
-                        }
-                    }
-                    null
-                }
-
+                2 -> getString(R.string.action_open_as, accounts.last().fullName)
                 else -> getString(R.string.action_open_as, "…")
             }
         }
