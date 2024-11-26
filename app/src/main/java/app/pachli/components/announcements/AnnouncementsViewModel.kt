@@ -84,7 +84,7 @@ class AnnouncementsViewModel @Inject constructor(
                     {
                         announcementsMutable.postValue(
                             Success(
-                                announcements.value!!.data!!.map { announcement ->
+                                announcements.value?.data?.map { announcement ->
                                     if (announcement.id == announcementId) {
                                         announcement.copy(
                                             reactions = if (announcement.reactions.find { reaction -> reaction.name == name } != null) {
