@@ -65,6 +65,9 @@ jobs:
 
   # Android lint is per-variant
   lint:
+    permissions:
+      # Required to upload SARIF files
+      security-events: write
     strategy:
       matrix:
         color: ["orange"]
