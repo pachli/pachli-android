@@ -196,6 +196,21 @@ class NotificationRemoteMediator(
     }
 
     private suspend fun insertNotifications(pachliAccountId: Long, notifications: List<Notification>) {
+        // TODO: This could (maybe) be better about minimising database updates.
+        // In the same batch of notifications:
+        // - The same account might boost/favourite the same status (two notifiations)
+        // - The same status might be affected repeatedly
+        // - The same account might make multiple mentions
+        //
+        // This suggests iterating over the notifications once to collect data about
+        // all the accounts and statuses mentioned (collapsing duplicates), and then
+        // batch-inserting the accounts, statuses, and notifications.
+        //
+        // The status in a notification is always the most recent version of the
+        // status known (not the status as it was the time the notification was
+        // generated), so this doesn't risk overwriting a status with obsolete
+        // information.
+
         notifications.forEach { notification ->
             timelineDao.insertAccount(TimelineAccountEntity.from(notification.account, pachliAccountId))
             notification.status?.let { status ->

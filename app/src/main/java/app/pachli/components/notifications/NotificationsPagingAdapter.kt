@@ -75,8 +75,8 @@ enum class NotificationViewKind {
     companion object {
         fun from(kind: NotificationType?): NotificationViewKind {
             return when (kind) {
-                Notification.Type.MENTION,
-                Notification.Type.POLL,
+                NotificationType.MENTION,
+                NotificationType.POLL,
                 -> STATUS
 
                 NotificationType.FAVOURITE,
@@ -88,10 +88,10 @@ enum class NotificationViewKind {
                 NotificationType.FOLLOW,
                 NotificationType.SIGN_UP,
                 -> FOLLOW
-                Notification.Type.FOLLOW_REQUEST -> FOLLOW_REQUEST
-                Notification.Type.REPORT -> REPORT
-                Notification.Type.SEVERED_RELATIONSHIPS -> SEVERED_RELATIONSHIPS
-                Notification.Type.UNKNOWN -> UNKNOWN
+                NotificationType.FOLLOW_REQUEST -> FOLLOW_REQUEST
+                NotificationType.REPORT -> REPORT
+                NotificationType.SEVERED_RELATIONSHIPS -> SEVERED_RELATIONSHIPS
+                NotificationType.UNKNOWN -> UNKNOWN
                 null -> UNKNOWN
             }
         }

@@ -211,6 +211,8 @@ class NotificationsFragment :
                     statusDisplayOptions = viewModel.statusDisplayOptions.value,
                 )
 
+                adapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+
                 binding.recyclerView.setAccessibilityDelegateCompat(
                     ListStatusAccessibilityDelegate(pachliAccountId, binding.recyclerView, this@NotificationsFragment) { pos: Int ->
                         if (pos in 0 until adapter.itemCount) {
@@ -475,9 +477,9 @@ class NotificationsFragment :
 
                 // Update the UI from the loadState
                 adapter.loadStateFlow
-                    .distinctUntilChangedBy { it.refresh }
+//                    .distinctUntilChangedBy { it.refresh }
                     .collect { loadState ->
-                        Timber.d("loadState: $loadState")
+                        Timber.d("new loadState: $loadState")
                         when (loadState.refresh) {
                             is LoadState.Error -> {
                                 binding.progressBar.hide()
@@ -495,12 +497,14 @@ class NotificationsFragment :
                             is LoadState.NotLoading -> {
                                 binding.progressBar.hide()
                                 binding.swipeRefreshLayout.isRefreshing = false
+                                Timber.d("NotLoading, items: ${adapter.itemCount}")
                                 if (adapter.itemCount == 0) {
                                     binding.statusView.setup(BackgroundMessage.Empty())
                                     binding.recyclerView.hide()
                                     binding.statusView.show()
                                 } else {
                                     binding.statusView.hide()
+                                    binding.recyclerView.show()
                                 }
                             }
                         }

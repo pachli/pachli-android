@@ -42,7 +42,6 @@ import at.connyduck.calladapter.networkresult.fold
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -67,7 +66,7 @@ class CachedTimelineRepository @Inject constructor(
     private var factory: InvalidatingPagingSourceFactory<Int, TimelineStatusWithAccount>? = null
 
     /** @return flow of Mastodon [TimelineStatusWithAccount], loaded in [pageSize] increments */
-    @OptIn(ExperimentalPagingApi::class, ExperimentalCoroutinesApi::class)
+    @OptIn(ExperimentalPagingApi::class)
     fun getStatusStream(
         account: AccountEntity,
         kind: Timeline,
