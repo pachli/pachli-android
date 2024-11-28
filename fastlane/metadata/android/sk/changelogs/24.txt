@@ -1,0 +1,15 @@
+Rezorty 2.9.0
+
+Nové funkcie:
+
+- Presunutie karty a obsah predfs z labs
+- Počiatočná podpora pre filtrovanie notifikácie odoslaním účtu
+- Podpora Pleroma vracia dátumy bez časového pásma
+- Zobraziť ďalšie a11y akcie pre trendy odkazy a navrhol účty
+
+Opravy:
+
+- Uistite sa, že položky v a11y dialógy sú klikovateľné
+- Nestrácajte obrázky / titulky po neúspešných nahrávok
+- Fix skrutkované pády
+- Aktualizovať fínske, írske, nórsky (Bokmål, Nynorsk), a španielske preklady
