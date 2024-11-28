@@ -193,7 +193,7 @@
     <string name="footer_empty">Täällä ei ole mitään. Vedä alas päivittääksesi!</string>
     <string name="action_open_media_n">Avaa media No. %d</string>
     <string name="error_sender_account_gone">Julkaisun lähettäminen epäonnistui.</string>
-    <string name="error_empty">Tätä kenttää ei voi jättää tyhjäksi.</string>
+    <string name="error_empty">Tätä ei voi jättää tyhjäksi.</string>
     <string name="title_announcements">Tiedotukset</string>
     <string name="notification_subscription_description">Ilmoitukset seuraamiesi uusista julkaisuista</string>
     <string name="action_favourite">Lisää suosikiksi</string>
@@ -772,7 +772,7 @@
     <string name="pref_title_account_notification_filters">Ilmoitusten suodattimet</string>
     <string name="pref_account_notification_filters_subtitle">Mitä tulisi tapahtua ilmoituksille tileiltä…</string>
     <string name="pref_account_notification_filters_label_not_followed">… joita et seuraa</string>
-    <string name="pref_account_notification_filters_label_younger_30d">… on luotu viimeisten 30 päivän aikana</string>
+    <string name="pref_account_notification_filters_label_younger_30d">… jotka on luotu viimeisten 30 päivän aikana</string>
     <string name="pref_account_notification_filters_label_limited_by_server">… jotka moderaattorisi on rajoittanut</string>
     <string name="account_filter_placeholder_type_follow_fmt">Käyttäjä @<b>%1s</b> seurasi sinua</string>
     <string name="account_filter_placeholder_type_reblog_fmt">Käyttäjä @<b>%1s</b> tehosti julkaisuasi</string>
