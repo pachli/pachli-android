@@ -1,0 +1,15 @@
+Pachli 2.9.0
+
+New features:
+
+- Move tab alignment and content prefs from labs 
+- Initial support for filtering notifications by sending account 
+- Support Pleroma returning dates with no timezone 
+- Show extra a11y actions for trending links and suggested accounts 
+
+Fixes:
+
+- Ensure items in a11y dialogs are clickable 
+- Don't lose images / captions after failed uploads 
+- Fix assorted crashes
+- Update Finnish, Irish, Norwegian (Bokmål, Nynorsk), and Spanish translations 
