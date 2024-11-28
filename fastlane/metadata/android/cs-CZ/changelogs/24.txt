@@ -1,0 +1,15 @@
+Revo Uninstaller Pro 2.0.5
+
+Nové funkce:
+
+- Přesunout zarovnání a obsah prefs z laboratoří
+- Počáteční podpora pro filtrování oznámení odesláním účtu
+- Podpora Pleroma vracející data bez časového období
+- Zobrazit další a11y akce pro trendové odkazy a navrhované účty
+
+Opravy:
+
+- Zajistěte položky v a11y dialogy jsou kliknuty
+- Nehrajte obrázky / titulky po neúspěšné nahrávání
+- Fix assorted pády
+- Aktualizace finské, irské, norské (Bokmål, Nynorsk), a španělské překlady
