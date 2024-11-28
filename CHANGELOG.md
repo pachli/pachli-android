@@ -1,5 +1,30 @@
 # Pachli changelog
 
+## v2.9.0
+
+### New features and other improvements
+
+- Graduate tab alignment and content prefs from labs (#[1131](https://github.com/pachli/pachli-android/pull/1131), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Initial support for filtering notifications by sending account (#[1127](https://github.com/pachli/pachli-android/pull/1127), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Support Pleroma returning dates with no timezone (#[1120](https://github.com/pachli/pachli-android/pull/1120), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show extra a11y actions for trending links and suggested accounts (#[1114](https://github.com/pachli/pachli-android/pull/1114), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Significant bug fixes
+
+- Don't crash if getItem throws IndexOutOfBoundsException (#[1138](https://github.com/pachli/pachli-android/pull/1138), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Don't crash when adding reaction to announcement (#[1137](https://github.com/pachli/pachli-android/pull/1137), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Ensure items in a11y dialogs are clickable (#[1112](https://github.com/pachli/pachli-android/pull/1112), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Don't crash on relationship severance events (#[1092](https://github.com/pachli/pachli-android/pull/1092), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Don't lose images / captions when editing with failed uploads (#[1054](https://github.com/pachli/pachli-android/pull/1054), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Translations
+
+- Update Finnish translations ([Kalle Kniivilä](https://github.com/pachli/pachli-android/commits?author=kalle.kniivila@gmail.com))
+- Update Irish translations ([Aindriú Mac Giolla Eoin](https://github.com/pachli/pachli-android/commits?author=aindriu80@gmail.com))
+- Update Norwegian Bokmål translations ([sunniva](https://github.com/pachli/pachli-android/commits?author=sunniva@users.noreply.hosted.weblate.org))
+- Update Norwegian Nynorsk translations ([sunniva](https://github.com/pachli/pachli-android/commits?author=sunniva@users.noreply.hosted.weblate.org))
+- Update Spanish translations ([Juan M Sevilla](https://github.com/pachli/pachli-android/commits?author=jumase@disroot.org))
+
 ## v2.8.3
 
 ### New features and other improvements
