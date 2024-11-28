@@ -1,0 +1,15 @@
+2.9.0
+
+Novaj ecoj:
+
+Movu klamparaleligon kaj enhavprefojn de laboratorioj
+Komenca subteno por filtrado de sciigoj sendante raporton
+Subtenanta Pleroma resendas datojn kun neniu horzono
+Montri ekstrajn 11y agojn por inklinado de ligiloj kaj proponitaj raportoj
+
+Fiksoj:
+
+Certigu erojn en 11y dialogoj estas klakeblaj
+- Ne perdi bildojn / bildotekstojn post malsukcesaj alŝutoj
+Fix selektitaj kraŝoj
+Finna, irlanda, norvega (Bokmål, Nynorsk), kaj hispanaj tradukoj
