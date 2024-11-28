@@ -1,0 +1,14 @@
+Pachli 2,8,2
+
+Nieuwe kenmerken:
+
+Laat de gebruiker kiezen voor gedrag als ze een rekening opneemt.
+- Een optie om de media te downloaden.
+- Een optie om hechtingen te besparen aan per-account folders
+
+Vertaling:
+
+- Laat me de fouten zien in plaats van JSON
+Bewaar de leespositie als geen post zichtbaar is
+- Vertaling:
+Vertaling:
