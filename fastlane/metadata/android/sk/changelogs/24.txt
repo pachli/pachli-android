@@ -1,4 +1,4 @@
-Rezorty 2.9.0
+Pachli 2.9.0
 
 Nové funkcie:
 
