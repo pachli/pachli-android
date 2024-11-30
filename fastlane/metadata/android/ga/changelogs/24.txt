@@ -1,0 +1,15 @@
+Pacli 2.9.0
+
+Gnéithe nua:
+
+- Bog ailíniú na gcluaisíní agus na réamhshocruithe inneachair ó na saotharlanna
+- Tacaíocht tosaigh chun fógraí a scagadh trí chuntas a sheoladh
+- Tacaigh le dátaí fillte Pleroma gan aon chrios ama
+- Taispeáin gníomhartha breise a11y le haghaidh naisc threochta agus cuntais mholta
+
+Ceartúcháin:
+
+- Cinntigh go bhfuil míreanna i ndialóga a11y inchliceáilte
+- Ná caill íomhánna / fotheidil tar éis uaslódála teipthe
+- Deisigh tuairteanna éagsúla
+- Aistriúcháin Fhionlainnis, Ghaeilge, Ioruais (Bokmål, Ioruais Nynorsk) agus Spáinnise a nuashonrú
