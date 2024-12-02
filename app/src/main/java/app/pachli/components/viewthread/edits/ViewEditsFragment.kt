@@ -138,6 +138,7 @@ class ViewEditsFragment :
                         binding.initialProgressBar.hide()
 
                         binding.recyclerView.adapter = ViewEditsAdapter(
+                            context = requireContext(),
                             edits = uiState.edits,
                             animateEmojis = animateEmojis,
                             useBlurhash = useBlurhash,

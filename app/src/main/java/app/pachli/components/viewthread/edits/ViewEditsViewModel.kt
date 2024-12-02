@@ -105,9 +105,13 @@ class ViewEditsViewModel @Inject constructor(private val api: MastodonApi) : Vie
                 )
                 val processor = OptimisticXMLProcessor()
                 processor.setCoalesce(true)
-                val output = HtmlDiffOutput()
+                val spoilerDiff = HtmlDiffOutput()
+                val contentDiff = HtmlDiffOutput()
 
                 try {
+                    var currentSpoilerText = loader.load("<div>${sortedEdits[0].spoilerText}</div>")
+                    var previousSpoilerText = loader.load("<div>${sortedEdits[1].spoilerText}</div>")
+
                     // The XML processor expects `br` to be closed
                     var currentContent =
                         loader.load(sortedEdits[0].content.replace("<br>", "<br/>"))
@@ -115,12 +119,16 @@ class ViewEditsViewModel @Inject constructor(private val api: MastodonApi) : Vie
                         loader.load(sortedEdits[1].content.replace("<br>", "<br/>"))
 
                     for (i in 1 until sortedEdits.size) {
-                        processor.diff(previousContent, currentContent, output)
+                        processor.diff(previousSpoilerText, currentSpoilerText, spoilerDiff)
+                        processor.diff(previousContent, currentContent, contentDiff)
                         sortedEdits[i - 1] = sortedEdits[i - 1].copy(
-                            content = output.xml.toString(),
+                            spoilerText = spoilerDiff.xml.toString().removePrefix("<div/>"),
+                            content = contentDiff.xml.toString(),
                         )
 
                         if (i < sortedEdits.size - 1) {
+                            currentSpoilerText = previousSpoilerText
+                            previousSpoilerText = loader.load(sortedEdits[i + 1].spoilerText)
                             currentContent = previousContent
                             previousContent = loader.load(
                                 sortedEdits[i + 1].content.replace("<br>", "<br/>"),
