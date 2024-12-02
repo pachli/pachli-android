@@ -37,6 +37,8 @@ import app.pachli.util.setAppNightMode
 import app.pachli.worker.PruneCacheWorker
 import app.pachli.worker.PruneCachedMediaWorker
 import app.pachli.worker.PruneLogEntryEntityWorker
+import com.mikepenz.iconics.Iconics
+import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import dagger.hilt.android.HiltAndroidApp
 import de.c1710.filemojicompat_defaults.DefaultEmojiPackList
 import de.c1710.filemojicompat_ui.helpers.EmojiPackHelper
@@ -101,6 +103,8 @@ class PachliApplication : Application() {
 
         // init night mode
         setAppNightMode(sharedPreferencesRepository.appTheme)
+
+        Iconics.registerFont(GoogleMaterial)
 
         localeManager.setLocale()
 
