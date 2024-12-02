@@ -182,9 +182,9 @@ class AccountViewModel @AssistedInject constructor(
 
     fun changeShowReblogsState() {
         if (relationshipData.value?.data?.showingReblogs == true) {
-            changeRelationship(RelationShipAction.FOLLOW, false)
+            changeRelationship(RelationShipAction.HIDE_REBLOGS)
         } else {
-            changeRelationship(RelationShipAction.FOLLOW, true)
+            changeRelationship(RelationShipAction.SHOW_REBLOGS)
         }
     }
 
@@ -230,6 +230,9 @@ class AccountViewModel @AssistedInject constructor(
                         relation.copy(subscribing = false)
                     }
                 }
+
+                RelationShipAction.SHOW_REBLOGS -> relation.copy(showingReblogs = true)
+                RelationShipAction.HIDE_REBLOGS -> relation.copy(showingReblogs = false)
             }
             relationshipData.postValue(Loading(newRelation))
         }
@@ -237,7 +240,7 @@ class AccountViewModel @AssistedInject constructor(
         val relationshipCall = when (relationshipAction) {
             RelationShipAction.FOLLOW -> mastodonApi.followAccount(
                 accountId,
-                showReblogs = parameter ?: true,
+                showReblogs = true,
             )
             RelationShipAction.UNFOLLOW -> mastodonApi.unfollowAccount(accountId)
             RelationShipAction.BLOCK -> mastodonApi.blockAccount(accountId)
@@ -262,6 +265,8 @@ class AccountViewModel @AssistedInject constructor(
                     mastodonApi.unsubscribeAccount(accountId)
                 }
             }
+            RelationShipAction.SHOW_REBLOGS -> mastodonApi.followAccount(accountId, showReblogs = true)
+            RelationShipAction.HIDE_REBLOGS -> mastodonApi.followAccount(accountId, showReblogs = false)
         }
 
         relationshipCall
@@ -333,6 +338,8 @@ class AccountViewModel @AssistedInject constructor(
         UNMUTE,
         SUBSCRIBE,
         UNSUBSCRIBE,
+        SHOW_REBLOGS,
+        HIDE_REBLOGS,
     }
 
     @AssistedFactory
