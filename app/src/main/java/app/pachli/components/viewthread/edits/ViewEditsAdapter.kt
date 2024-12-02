@@ -41,6 +41,7 @@ import com.google.android.material.color.MaterialColors
 import org.xml.sax.XMLReader
 
 class ViewEditsAdapter(
+    context: Context,
     private val edits: List<StatusEdit>,
     private val animateEmojis: Boolean,
     private val useBlurhash: Boolean,
@@ -54,6 +55,8 @@ class ViewEditsAdapter(
 
     /** Size of medium text in this theme, in px */
     private var mediumTextSizePx: Float = 0f
+
+    private val pachliTagHandler = PachliTagHandler(context)
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -108,16 +111,18 @@ class ViewEditsAdapter(
         } else {
             binding.statusEditContentWarningDescription.show()
             binding.statusEditContentWarningSeparator.show()
-            binding.statusEditContentWarningDescription.text = edit.spoilerText.emojify(
-                edit.emojis,
-                binding.statusEditContentWarningDescription,
-                animateEmojis,
-            )
+            binding.statusEditContentWarningDescription.text = edit.spoilerText
+                .parseAsMastodonHtml(pachliTagHandler)
+                .emojify(
+                    edit.emojis,
+                    binding.statusEditContentWarningDescription,
+                    animateEmojis,
+                )
         }
 
         val emojifiedText = edit
             .content
-            .parseAsMastodonHtml(PachliTagHandler(context))
+            .parseAsMastodonHtml(pachliTagHandler)
             .emojify(edit.emojis, binding.statusEditContent, animateEmojis)
 
         setClickableText(binding.statusEditContent, emojifiedText, emptyList(), emptyList(), listener)
