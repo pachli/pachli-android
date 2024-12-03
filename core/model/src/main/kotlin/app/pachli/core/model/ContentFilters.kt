@@ -137,6 +137,7 @@ enum class FilterContext {
             Timeline.TrendingStatuses,
             Timeline.TrendingHashtags,
             Timeline.TrendingLinks,
+            is Timeline.Link,
             -> PUBLIC
             Timeline.Conversations -> null
         }

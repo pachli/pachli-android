@@ -772,6 +772,7 @@ class TimelineFragment :
             Timeline.Notifications,
             Timeline.TrendingHashtags,
             Timeline.TrendingLinks,
+            is Timeline.Link,
             -> return
         }
     }

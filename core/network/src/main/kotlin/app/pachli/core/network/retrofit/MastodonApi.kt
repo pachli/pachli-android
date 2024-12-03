@@ -152,6 +152,14 @@ interface MastodonApi {
         @Query("limit") limit: Int? = null,
     ): Response<List<Status>>
 
+    @GET("api/v1/timelines/link")
+    suspend fun linkTimeline(
+        @Query("url") url: String,
+        @Query("max_id") maxId: String? = null,
+        @Query("min_id") minId: String? = null,
+        @Query("limit") limit: Int? = null,
+    ): Response<List<Status>>
+
     @GET("api/v1/notifications")
     suspend fun notifications(
         /** Return results older than this ID */

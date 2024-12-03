@@ -27,14 +27,29 @@ import app.pachli.core.network.model.TrendsLink
 import app.pachli.databinding.ItemTrendingLinkBinding
 import app.pachli.view.PreviewCardView
 
+/**
+ * @param statusDisplayOptions
+ * @oaram withLinkTimeline If true, show a link to a timeline with statuses that
+ * mention this link.
+ * @param onViewLink
+ */
 class TrendingLinksAdapter(
     statusDisplayOptions: StatusDisplayOptions,
+    withLinkTimeline: Boolean,
     private val onViewLink: PreviewCardView.OnClickListener,
 ) : ListAdapter<TrendsLink, TrendingLinkViewHolder>(diffCallback) {
     var statusDisplayOptions = statusDisplayOptions
         set(value) {
             field = value
             notifyItemRangeChanged(0, itemCount)
+        }
+
+    var withLinkTimeline = withLinkTimeline
+        set(value) {
+            if (field != value) {
+                field = value
+                notifyItemRangeChanged(0, itemCount)
+            }
         }
 
     init {
@@ -49,7 +64,7 @@ class TrendingLinksAdapter(
     }
 
     override fun onBindViewHolder(holder: TrendingLinkViewHolder, position: Int) {
-        holder.bind(getItem(position), statusDisplayOptions)
+        holder.bind(getItem(position), statusDisplayOptions, withLinkTimeline)
     }
 
     override fun getItemViewType(position: Int): Int {

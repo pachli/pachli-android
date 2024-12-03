@@ -58,6 +58,7 @@ import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IS_SE
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_LANGUAGE
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_STATUSES_SCHEDULED
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE
+import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_TIMELINES_LINK
 import app.pachli.core.network.R
 import app.pachli.core.network.model.InstanceV1
 import app.pachli.core.network.model.InstanceV2
@@ -332,6 +333,11 @@ data class Server(
                         v >= "3.5.0".toVersion() -> {
                             c[ORG_JOINMASTODON_SEARCH_QUERY_FROM] = "1.0.0".toVersion()
                         }
+                    }
+
+                    // Link timelines
+                    when {
+                        v >= "4.3.0".toVersion() -> c[ORG_JOINMASTODON_TIMELINES_LINK] = "1.0.0".toVersion()
                     }
                 }
 

@@ -114,6 +114,12 @@ data class TabViewData(
                 icon = R.drawable.ic_newspaper_24,
                 fragment = { TrendingLinksFragment.newInstance(pachliAccountId) },
             )
+            is Timeline.Link -> TabViewData(
+                timeline = timeline,
+                text = R.string.title_public_trending_links,
+                icon = R.drawable.ic_newspaper_24,
+                fragment = { TimelineFragment.newInstance(pachliAccountId, timeline) },
+            )
             Timeline.TrendingStatuses -> TabViewData(
                 timeline = timeline,
                 text = R.string.title_public_trending_statuses,

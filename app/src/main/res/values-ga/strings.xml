@@ -692,7 +692,7 @@
     <string name="pref_title_notification_method">Modh fógartha</string>
     <string name="pref_notification_method_all_pull">Fetched thart ar uair amháin gach 15 nóiméad. Tapáil le haghaidh sonraí.</string>
     <string name="pref_title_notification_battery_optimisation">Leas iomlán a bhaint ceallraí</string>
-    <string name="preview_card_byline_fmt">Féach níos mó ó %1$s</string>
+    <string name="preview_card_byline_fediverse_account_fmt">Féach níos mó ó %1$s</string>
     <string name="action_open_byline_account">Taispeáin próifíl údar an ailt</string>
     <string name="action_open_link">Oscail nasc</string>
     <string name="search_operator_attachment_dialog_title">Teorainn le poist leis na meáin?</string>
