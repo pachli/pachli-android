@@ -70,7 +70,7 @@ class PreviewCardView @JvmOverloads constructor(
         BYLINE,
 
         /** The link timeline */
-        LINK_TIMELINE,
+        TIMELINE_LINK,
     }
 
     fun interface OnClickListener {
@@ -144,7 +144,7 @@ class PreviewCardView @JvmOverloads constructor(
         previewCardWrapper.setOnClickListener { listener.onClick(card, Target.CARD) }
         cardImage.setOnClickListener { listener.onClick(card, Target.IMAGE) }
         authorInfo.setOnClickListener { listener.onClick(card, Target.BYLINE) }
-        linkTimeline.setOnClickListener { listener.onClick(card, Target.LINK_TIMELINE) }
+        timelineLink.setOnClickListener { listener.onClick(card, Target.TIMELINE_LINK) }
 
         cardLink.text = card.url
 
@@ -224,17 +224,17 @@ class PreviewCardView @JvmOverloads constructor(
         // can generate the timeline.
         if (card is TrendsLink && showTimelineLink) {
             val count = card.history.sumOf { it.uses }
-            linkTimeline.text = HtmlCompat.fromHtml(
+            timelineLink.text = HtmlCompat.fromHtml(
                 context.getString(
-                    R.string.preview_card_link_timeline_fmt,
+                    R.string.preview_card_timeline_link_fmt,
                     formatNumber(count.toLong()),
                 ),
                 HtmlCompat.FROM_HTML_MODE_LEGACY,
             )
-            linkTimeline.show()
+            timelineLink.show()
             showBylineDivider = true
         } else {
-            linkTimeline.hide()
+            timelineLink.hide()
         }
 
         if (showBylineDivider) bylineDivider.show()

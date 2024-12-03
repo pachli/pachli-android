@@ -274,7 +274,7 @@ class TrendingLinksFragment :
                 startActivity(AccountActivityIntent(requireContext(), pachliAccountId, it))
             }
 
-            Target.LINK_TIMELINE -> {
+            Target.TIMELINE_LINK -> {
                 val intent = TimelineActivityIntent.link(
                     requireContext(),
                     pachliAccountId,

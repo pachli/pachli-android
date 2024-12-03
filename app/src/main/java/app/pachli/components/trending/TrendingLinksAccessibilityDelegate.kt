@@ -107,7 +107,7 @@ internal class TrendingLinksAccessibilityDelegate(
                 }
                 app.pachli.core.ui.R.id.action_timeline_link -> {
                     interrupt()
-                    listener.onClick(viewHolder.link, Target.LINK_TIMELINE)
+                    listener.onClick(viewHolder.link, Target.TIMELINE_LINK)
                     true
                 }
                 else -> super.performAccessibilityAction(host, action, args)

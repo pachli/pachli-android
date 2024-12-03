@@ -127,7 +127,7 @@
                 tools:text="@tools:sample/lorem" />
 
             <TextView
-                android:id="@+id/link_timeline"
+                android:id="@+id/timeline_link"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="?selectableItemBackground"
