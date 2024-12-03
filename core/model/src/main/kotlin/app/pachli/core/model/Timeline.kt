@@ -112,6 +112,12 @@ sealed interface Timeline : Parcelable {
     @TypeLabel("trending_statuses")
     data object TrendingStatuses : Timeline
 
+    /** Timeline of statuses that mention [url]. */
+    @Parcelize
+    @TypeLabel("link")
+    @JsonClass(generateAdapter = true)
+    data class Link(val url: String) : Timeline
+
     // TODO: DRAFTS
 
     // TODO: SCHEDULED

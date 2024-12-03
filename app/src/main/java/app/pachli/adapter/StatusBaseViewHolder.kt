@@ -895,7 +895,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
             (!viewData.isCollapsible || !viewData.isCollapsed)
         ) {
             cardView.visibility = View.VISIBLE
-            cardView.bind(card, viewData.actionable.sensitive, statusDisplayOptions) { card, target ->
+            cardView.bind(card, viewData.actionable.sensitive, statusDisplayOptions, false) { card, target ->
                 if (target == PreviewCardView.Target.BYLINE) {
                     card.authors?.firstOrNull()?.account?.id?.let {
                         context.startActivity(AccountActivityIntent(context, pachliAccountId, it))

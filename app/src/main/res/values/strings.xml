@@ -733,9 +733,13 @@
     <string name="error_prepare_media_unknown_mime_type">file\'s type is not known</string>
 
     <string name="error_pick_media_fmt">Could not attach file to post: %1$s</string>
-    <string name="preview_card_byline_fmt">See more from %1$s</string>
+    <string name="preview_card_byline_fediverse_account_fmt">By &lt;b>%1$s&lt;/b>. See more posts</string>
+    <string name="preview_card_byline_name_only_fmt">By &lt;b>%1$s&lt;/b></string>
     <string name="action_open_byline_account">Show article author\'s profile</string>
     <string name="action_open_link">Open link</string>
+
+    <string name="preview_card_timeline_link_fmt">See &lt;b>%1$s&lt;/b> posts about this link</string>
+    <string name="action_timeline_link">Posts about this link</string>
 
     <string name="error_load_filter_failed_fmt">Loading filter failed: %1$s</string>
     <string name="error_save_filter_failed_fmt">Saving filter failed: %1$s</string>

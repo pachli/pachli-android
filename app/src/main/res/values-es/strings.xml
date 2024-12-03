@@ -638,7 +638,7 @@
     <string name="error_media_uploader_upload_not_found_fmt">no se encontró la subida de medios con ID de %1$s</string>
     <string name="error_prepare_media_unknown_file_size">no se pudo determinar el tamaño del archivo</string>
     <string name="error_prepare_media_unknown_mime_type">se desconoce el tipo de archivo</string>
-    <string name="preview_card_byline_fmt">Ver más de %1$s</string>
+    <string name="preview_card_byline_fediverse_account_fmt">Ver más de %1$s</string>
     <string name="action_open_byline_account">Mostrar el perfil del autor del artículo</string>
     <string name="action_open_link">Abrir enlace</string>
     <string name="compose_warn_language_dialog_title">Comprueba el idioma de la publicación</string>

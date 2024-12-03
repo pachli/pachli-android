@@ -36,6 +36,9 @@ import dagger.hilt.android.EntryPointAccessors
  * Each item shows an action to open the link.
  *
  * If present, an item to show the author's account is also included.
+ *
+ * If supported, an item to show a timeline of statuses that mention this link
+ * is included.
  */
 internal class TrendingLinksAccessibilityDelegate(
     private val recyclerView: RecyclerView,
@@ -59,6 +62,11 @@ internal class TrendingLinksAccessibilityDelegate(
         context.getString(R.string.action_open_byline_account),
     )
 
+    private val openTimelineLinkAction = AccessibilityActionCompat(
+        app.pachli.core.ui.R.id.action_timeline_link,
+        context.getString(R.string.action_timeline_link),
+    )
+
     private val delegate = object : ItemDelegate(this) {
         override fun onInitializeAccessibilityNodeInfo(host: View, info: AccessibilityNodeInfoCompat) {
             super.onInitializeAccessibilityNodeInfo(host, info)
@@ -71,6 +79,10 @@ internal class TrendingLinksAccessibilityDelegate(
 
             viewHolder.link.authors?.firstOrNull()?.account?.let {
                 info.addAction(openBylineAccountAction)
+            }
+
+            if ((recyclerView.adapter as? TrendingLinksAdapter)?.showTimelineLink == true) {
+                info.addAction(openTimelineLinkAction)
             }
         }
 
@@ -91,6 +103,11 @@ internal class TrendingLinksAccessibilityDelegate(
                 app.pachli.core.ui.R.id.action_open_byline_account -> {
                     interrupt()
                     listener.onClick(viewHolder.link, Target.BYLINE)
+                    true
+                }
+                app.pachli.core.ui.R.id.action_timeline_link -> {
+                    interrupt()
+                    listener.onClick(viewHolder.link, Target.TIMELINE_LINK)
                     true
                 }
                 else -> super.performAccessibilityAction(host, action, args)

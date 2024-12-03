@@ -19,7 +19,9 @@ package app.pachli.components.trending.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import app.pachli.components.account.AccountViewModel
 import app.pachli.components.trending.TrendingLinksRepository
+import app.pachli.core.common.extensions.stateFlow
 import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
@@ -27,20 +29,22 @@ import app.pachli.core.network.model.TrendsLink
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import at.connyduck.calladapter.networkresult.fold
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.shareIn
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 sealed interface UiAction
@@ -50,23 +54,38 @@ sealed interface InfallibleUiAction : UiAction {
 }
 
 sealed interface LoadState {
-    data object Initial : LoadState
     data object Loading : LoadState
     data class Success(val data: List<TrendsLink>) : LoadState
     data class Error(val throwable: Throwable) : LoadState
 }
 
-@HiltViewModel
-class TrendingLinksViewModel @Inject constructor(
+@HiltViewModel(assistedFactory = TrendingLinksViewModel.Factory::class)
+class TrendingLinksViewModel @AssistedInject constructor(
+    @Assisted private val pachliAccountId: Long,
     private val repository: TrendingLinksRepository,
     sharedPreferencesRepository: SharedPreferencesRepository,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     accountManager: AccountManager,
 ) : ViewModel() {
-    val activeAccount = accountManager.activeAccount!!
+    val pachliAccountFlow = accountManager.getPachliAccountFlow(pachliAccountId)
+        .filterNotNull()
+        .shareIn(viewModelScope, SharingStarted.WhileSubscribed(5000), replay = 1)
 
-    private val _loadState = MutableStateFlow<LoadState>(LoadState.Initial)
-    val loadState = _loadState.asStateFlow()
+    private val reload = MutableSharedFlow<Unit>(replay = 1)
+
+    val loadState = stateFlow(viewModelScope, LoadState.Loading) {
+        reload.flatMapLatest {
+            flow {
+                emit(LoadState.Loading)
+                emit(
+                    repository.getTrendingLinks().fold(
+                        { list -> LoadState.Success(list) },
+                        { throwable -> LoadState.Error(throwable) },
+                    ),
+                )
+            }
+        }.flowWhileShared(SharingStarted.WhileSubscribed(5000))
+    }
 
     val showFabWhileScrolling = sharedPreferencesRepository.changes
         .filter { it == null || it == PrefKeys.FAB_HIDE }
@@ -85,17 +104,14 @@ class TrendingLinksViewModel @Inject constructor(
             uiAction
                 .throttleFirst()
                 .filterIsInstance<InfallibleUiAction.Reload>()
-                .onEach { invalidate() }
+                .onEach { reload.emit(Unit) }
                 .collect()
         }
     }
 
-    private fun invalidate() = viewModelScope.launch {
-        _loadState.update { LoadState.Loading }
-        val response = repository.getTrendingLinks()
-        response.fold(
-            { list -> _loadState.update { LoadState.Success(list) } },
-            { throwable -> _loadState.update { LoadState.Error(throwable) } },
-        )
+    @AssistedFactory
+    interface Factory {
+        /** Creates [AccountViewModel] with [pachliAccountId] as the active account. */
+        fun create(pachliAccountId: Long): TrendingLinksViewModel
     }
 }

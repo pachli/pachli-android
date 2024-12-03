@@ -586,6 +586,16 @@ class TimelineActivityIntent private constructor(context: Context, pachliAccount
         }
 
         /**
+         * Show statuses that reference a trending link.
+         *
+         * @param context
+         *
+         */
+        fun link(context: Context, pachliAccountId: Long, url: String) = TimelineActivityIntent(context, pachliAccountId).apply {
+            putExtra(EXTRA_TIMELINE, Timeline.Link(url))
+        }
+
+        /**
          * Show statuses from a list.
          *
          * @param context

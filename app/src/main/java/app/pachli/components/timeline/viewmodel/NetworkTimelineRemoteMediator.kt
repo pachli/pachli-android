@@ -121,6 +121,7 @@ class NetworkTimelineRemoteMediator(
             Timeline.PublicFederated -> api.publicTimeline(local = false, maxId = maxId, minId = minId, limit = loadSize)
             Timeline.PublicLocal -> api.publicTimeline(local = true, maxId = maxId, minId = minId, limit = loadSize)
             Timeline.TrendingStatuses -> api.trendingStatuses(limit = LIMIT_TRENDING_STATUSES)
+            is Timeline.Link -> api.linkTimeline(url = timeline.url, maxId = maxId, minId = minId, limit = loadSize)
             is Timeline.Hashtags -> {
                 val firstHashtag = timeline.tags.first()
                 val additionalHashtags = timeline.tags.subList(1, timeline.tags.size)

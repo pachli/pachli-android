@@ -626,7 +626,7 @@
     <string name="error_prepare_media_unknown_mime_type">tipo de ficheiro descoñecido</string>
     <string name="error_prepare_media_unsupported_mime_type_fmt">o servidor non é compatible co tipo de ficheiro: %1$s</string>
     <string name="error_pick_media_fmt">Non se anexou o ficheiro á publicación: %1$s</string>
-    <string name="preview_card_byline_fmt">Le máis de %1$s</string>
+    <string name="preview_card_byline_fediverse_account_fmt">Le máis de %1$s</string>
     <string name="error_load_filter_failed_fmt">Fallou a carga do filtro: %1$s</string>
     <string name="error_save_filter_failed_fmt">Non se gardou o filtro: %1$s</string>
     <string name="search_operator_attachment_dialog_image_label">Imaxes</string>

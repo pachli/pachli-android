@@ -21,19 +21,21 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.text.HtmlCompat
 import app.pachli.R
 import app.pachli.core.activity.decodeBlurHash
 import app.pachli.core.activity.emojify
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.string.unicodeWrap
+import app.pachli.core.common.util.formatNumber
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.PreviewCard
+import app.pachli.core.network.model.TrendsLink
 import app.pachli.databinding.PreviewCardBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.MultiTransformation
@@ -66,6 +68,9 @@ class PreviewCardView @JvmOverloads constructor(
 
         /** The author byline */
         BYLINE,
+
+        /** The link timeline */
+        TIMELINE_LINK,
     }
 
     fun interface OnClickListener {
@@ -114,12 +119,15 @@ class PreviewCardView @JvmOverloads constructor(
      * @param card The card to bind
      * @param sensitive True if the status that contained this card was marked sensitive
      * @param statusDisplayOptions
+     * @param showTimelineLink True if the UI to view a timeline of statuses about this link
+     * should be shown.
      * @param listener
      */
     fun bind(
         card: PreviewCard,
         sensitive: Boolean,
         statusDisplayOptions: StatusDisplayOptions,
+        showTimelineLink: Boolean,
         listener: OnClickListener,
     ): Unit = with(binding) {
         cardTitle.text = card.title
@@ -135,9 +143,8 @@ class PreviewCardView @JvmOverloads constructor(
 
         previewCardWrapper.setOnClickListener { listener.onClick(card, Target.CARD) }
         cardImage.setOnClickListener { listener.onClick(card, Target.IMAGE) }
-        byline.referencedIds.forEach { id ->
-            root.findViewById<View>(id).setOnClickListener { listener.onClick(card, Target.BYLINE) }
-        }
+        authorInfo.setOnClickListener { listener.onClick(card, Target.BYLINE) }
+        timelineLink.setOnClickListener { listener.onClick(card, Target.TIMELINE_LINK) }
 
         cardLink.text = card.url
 
@@ -177,14 +184,60 @@ class PreviewCardView @JvmOverloads constructor(
             cardImage.hide()
         }
 
-        card.authors?.firstOrNull()?.account?.let { account ->
-            val name = account.name.unicodeWrap().emojify(account.emojis, authorInfo, false)
-            authorInfo.text = authorInfo.context.getString(R.string.preview_card_byline_fmt, name)
+        var showBylineDivider = false
+        bylineDivider.hide()
 
-            Glide.with(authorInfo.context).load(account.avatar).transform(bylineAvatarTransformation)
-                .placeholder(DR.drawable.avatar_default).into(bylineAvatarTarget)
-            byline.show()
-        } ?: byline.hide()
+        // Determine how to show the author info (if present)
+        val author = card.authors?.firstOrNull()
+        when {
+            // Author has an account, link to that, with their avatar.
+            author?.account != null -> {
+                val name = author.account?.name.unicodeWrap().emojify(author.account?.emojis, authorInfo, false)
+                authorInfo.text = HtmlCompat.fromHtml(
+                    authorInfo.context.getString(R.string.preview_card_byline_fediverse_account_fmt, name),
+                    HtmlCompat.FROM_HTML_MODE_LEGACY,
+                )
+
+                Glide.with(authorInfo.context).load(author.account?.avatar).transform(bylineAvatarTransformation)
+                    .placeholder(DR.drawable.avatar_default).into(bylineAvatarTarget)
+                authorInfo.show()
+                showBylineDivider = true
+            }
+
+            // Author has a name but no account. Show the name, clear the avatar.
+            // It's not enough that the name is present, it can't be empty, because of
+            // https://github.com/mastodon/mastodon/issues/33139).
+            !author?.name.isNullOrBlank() -> {
+                authorInfo.text = HtmlCompat.fromHtml(
+                    authorInfo.context.getString(R.string.preview_card_byline_name_only_fmt, author?.name),
+                    HtmlCompat.FROM_HTML_MODE_LEGACY,
+                )
+                authorInfo.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)
+                authorInfo.show()
+                showBylineDivider = true
+            }
+
+            else -> authorInfo.hide()
+        }
+
+        // TrendsLink cards have data about the usage. Show this if the server
+        // can generate the timeline.
+        if (card is TrendsLink && showTimelineLink) {
+            val count = card.history.sumOf { it.uses }
+            timelineLink.text = HtmlCompat.fromHtml(
+                context.getString(
+                    R.string.preview_card_timeline_link_fmt,
+                    formatNumber(count.toLong()),
+                ),
+                HtmlCompat.FROM_HTML_MODE_LEGACY,
+            )
+            timelineLink.show()
+            showBylineDivider = true
+        } else {
+            timelineLink.hide()
+        }
+
+        if (showBylineDivider) bylineDivider.show()
     }
 
     /** Adjusts the layout parameters to place the image above the information views */

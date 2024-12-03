@@ -111,4 +111,13 @@ enum class ServerOperation(id: String, versions: List<Version>) {
             Version(major = 1),
         ),
     ),
+
+    /** Fetch statuses that mention a specific URL. */
+    ORG_JOINMASTODON_TIMELINES_LINK(
+        "org.joinmastodon.timelines.link",
+        listOf(
+            // Initial introduction in Mastodon 4.3.0
+            Version(major = 1),
+        ),
+    ),
 }

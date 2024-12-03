@@ -735,7 +735,7 @@
     <string name="search_operator_attachment_no_media_label">Ingen media</string>
     <string name="error_prepare_media_unknown_mime_type">filtypen er ukjent</string>
     <string name="error_pick_media_fmt">Kunne ikke legge filen ved innlegget: %1$s</string>
-    <string name="preview_card_byline_fmt">Se mer fra %1$s</string>
+    <string name="preview_card_byline_fediverse_account_fmt">Se mer fra %1$s</string>
     <string name="action_open_byline_account">Vis artikkelforfatterens profil</string>
     <string name="action_open_link">Åpne lenk</string>
     <string name="error_load_filter_failed_fmt">Innlasting av filter mislyktes: %1$s</string>
