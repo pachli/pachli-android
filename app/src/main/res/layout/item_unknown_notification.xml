@@ -19,6 +19,7 @@
 
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@android:id/text1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -31,4 +32,5 @@
     android:gravity="center_vertical"
     app:drawableStartCompat="@drawable/ic_indeterminate_question_box_24"
     android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
-    android:minHeight="?android:attr/listPreferredItemHeightSmall" />
+    android:minHeight="?android:attr/listPreferredItemHeightSmall"
+    tools:ignore="SelectableText" />
