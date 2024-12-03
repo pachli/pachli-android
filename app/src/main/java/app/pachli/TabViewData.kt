@@ -114,12 +114,6 @@ data class TabViewData(
                 icon = R.drawable.ic_newspaper_24,
                 fragment = { TrendingLinksFragment.newInstance(pachliAccountId) },
             )
-            is Timeline.Link -> TabViewData(
-                timeline = timeline,
-                text = R.string.title_public_trending_links,
-                icon = R.drawable.ic_newspaper_24,
-                fragment = { TimelineFragment.newInstance(pachliAccountId, timeline) },
-            )
             Timeline.TrendingStatuses -> TabViewData(
                 timeline = timeline,
                 text = R.string.title_public_trending_statuses,
@@ -167,6 +161,7 @@ data class TabViewData(
                 icon = R.drawable.ic_favourite_filled_24dp,
                 fragment = { TimelineFragment.newInstance(pachliAccountId, timeline) },
             )
+            is Timeline.Link -> throw IllegalArgumentException("can't add to tab: $timeline")
             is Timeline.User.Pinned -> throw IllegalArgumentException("can't add to tab: $timeline")
             is Timeline.User.Posts -> throw IllegalArgumentException("can't add to tab: $timeline")
             is Timeline.User.Replies -> throw IllegalArgumentException("can't add to tab: $timeline")

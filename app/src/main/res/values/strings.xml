@@ -739,7 +739,7 @@
     <string name="action_open_link">Open link</string>
 
     <string name="preview_card_link_timeline_fmt">See &lt;b>%1$s&lt;/b> posts about this link</string>
-    <string name="action_link_timeline">Posts about this link</string>
+    <string name="action_timeline_link">Posts about this link</string>
 
     <string name="error_load_filter_failed_fmt">Loading filter failed: %1$s</string>
     <string name="error_save_filter_failed_fmt">Saving filter failed: %1$s</string>

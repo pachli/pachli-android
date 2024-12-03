@@ -119,7 +119,7 @@ class PreviewCardView @JvmOverloads constructor(
      * @param card The card to bind
      * @param sensitive True if the status that contained this card was marked sensitive
      * @param statusDisplayOptions
-     * @param withLinkTimeline True if the UI to view a timeline of statuses about this link
+     * @param showTimelineLink True if the UI to view a timeline of statuses about this link
      * should be shown.
      * @param listener
      */
@@ -127,7 +127,7 @@ class PreviewCardView @JvmOverloads constructor(
         card: PreviewCard,
         sensitive: Boolean,
         statusDisplayOptions: StatusDisplayOptions,
-        withLinkTimeline: Boolean,
+        showTimelineLink: Boolean,
         listener: OnClickListener,
     ): Unit = with(binding) {
         cardTitle.text = card.title
@@ -222,7 +222,7 @@ class PreviewCardView @JvmOverloads constructor(
 
         // TrendsLink cards have data about the usage. Show this if the server
         // can generate the timeline.
-        if (card is TrendsLink && withLinkTimeline) {
+        if (card is TrendsLink && showTimelineLink) {
             val count = card.history.sumOf { it.uses }
             linkTimeline.text = HtmlCompat.fromHtml(
                 context.getString(

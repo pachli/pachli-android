@@ -62,9 +62,9 @@ internal class TrendingLinksAccessibilityDelegate(
         context.getString(R.string.action_open_byline_account),
     )
 
-    private val openRelatedDiscussionsAction = AccessibilityActionCompat(
-        app.pachli.core.ui.R.id.action_link_timeline,
-        context.getString(R.string.action_link_timeline),
+    private val openTimelineLinkAction = AccessibilityActionCompat(
+        app.pachli.core.ui.R.id.action_timeline_link,
+        context.getString(R.string.action_timeline_link),
     )
 
     private val delegate = object : ItemDelegate(this) {
@@ -81,8 +81,8 @@ internal class TrendingLinksAccessibilityDelegate(
                 info.addAction(openBylineAccountAction)
             }
 
-            if ((recyclerView.adapter as? TrendingLinksAdapter)?.withLinkTimeline == true) {
-                info.addAction(openRelatedDiscussionsAction)
+            if ((recyclerView.adapter as? TrendingLinksAdapter)?.showTimelineLink == true) {
+                info.addAction(openTimelineLinkAction)
             }
         }
 
@@ -105,7 +105,7 @@ internal class TrendingLinksAccessibilityDelegate(
                     listener.onClick(viewHolder.link, Target.BYLINE)
                     true
                 }
-                app.pachli.core.ui.R.id.action_link_timeline -> {
+                app.pachli.core.ui.R.id.action_timeline_link -> {
                     interrupt()
                     listener.onClick(viewHolder.link, Target.LINK_TIMELINE)
                     true

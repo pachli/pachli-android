@@ -138,7 +138,7 @@ class TrendingLinksFragment :
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
                     viewModel.pachliAccountFlow.distinctUntilChangedBy { it.server }.collect { account ->
-                        trendingLinksAdapter.withLinkTimeline = account.server.can(
+                        trendingLinksAdapter.showTimelineLink = account.server.can(
                             ServerOperation.ORG_JOINMASTODON_TIMELINES_LINK,
                             ">=1.0.0".toConstraint(),
                         )

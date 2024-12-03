@@ -32,12 +32,12 @@ class TrendingLinkViewHolder(
     /**
      * @param link
      * @param statusDisplayOptions
-     * @param withLinkTimeline True if the UI to view a timeline of statuses about this link
+     * @param showTimelineLink True if the UI to view a timeline of statuses about this link
      * should be shown.
      */
-    fun bind(link: TrendsLink, statusDisplayOptions: StatusDisplayOptions, withLinkTimeline: Boolean) {
+    fun bind(link: TrendsLink, statusDisplayOptions: StatusDisplayOptions, showTimelineLink: Boolean) {
         this.link = link
 
-        binding.statusCardView.bind(link, sensitive = false, statusDisplayOptions, withLinkTimeline, onClick)
+        binding.statusCardView.bind(link, sensitive = false, statusDisplayOptions, showTimelineLink, onClick)
     }
 }

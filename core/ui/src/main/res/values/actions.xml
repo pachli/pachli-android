@@ -47,7 +47,7 @@
     <item name="action_open_link" type="id" />
 
     <!-- Open the timeline of statuses that mention a link. -->
-    <item name="action_link_timeline" type="id" />
+    <item name="action_timeline_link" type="id" />
 
     <!-- Copy the item -->
     <item name="action_copy_item" type="id" />
