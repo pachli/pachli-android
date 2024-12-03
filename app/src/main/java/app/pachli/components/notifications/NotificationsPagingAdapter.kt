@@ -22,6 +22,7 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import app.pachli.R
 import app.pachli.adapter.FollowRequestViewHolder
 import app.pachli.adapter.ReportNotificationViewHolder
 import app.pachli.core.common.util.AbsoluteTimeFormatter
@@ -37,7 +38,7 @@ import app.pachli.databinding.ItemSeveredRelationshipsBinding
 import app.pachli.databinding.ItemStatusBinding
 import app.pachli.databinding.ItemStatusNotificationBinding
 import app.pachli.databinding.ItemStatusWrapperBinding
-import app.pachli.databinding.SimpleListItem1Binding
+import app.pachli.databinding.ItemUnknownNotificationBinding
 import app.pachli.interfaces.AccountActionListener
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.viewdata.NotificationViewData
@@ -75,7 +76,6 @@ enum class NotificationViewKind {
             return when (kind) {
                 Notification.Type.MENTION,
                 Notification.Type.POLL,
-                Notification.Type.UNKNOWN,
                 -> STATUS
                 Notification.Type.FAVOURITE,
                 Notification.Type.REBLOG,
@@ -88,6 +88,7 @@ enum class NotificationViewKind {
                 Notification.Type.FOLLOW_REQUEST -> FOLLOW_REQUEST
                 Notification.Type.REPORT -> REPORT
                 Notification.Type.SEVERED_RELATIONSHIPS -> SEVERED_RELATIONSHIPS
+                Notification.Type.UNKNOWN -> UNKNOWN
                 null -> UNKNOWN
             }
         }
@@ -177,7 +178,7 @@ class NotificationsPagingAdapter(
             return NotificationViewKind.ACCOUNT_FILTERED.ordinal
         }
 
-        return NotificationViewKind.from(getItem(position)?.type).ordinal
+        return NotificationViewKind.from(item?.type).ordinal
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -240,7 +241,7 @@ class NotificationsPagingAdapter(
             }
             else -> {
                 FallbackNotificationViewHolder(
-                    SimpleListItem1Binding.inflate(inflater, parent, false),
+                    ItemUnknownNotificationBinding.inflate(inflater, parent, false),
                 )
             }
         }
@@ -272,7 +273,7 @@ class NotificationsPagingAdapter(
      * be used, but is useful when migrating code.
      */
     private class FallbackNotificationViewHolder(
-        val binding: SimpleListItem1Binding,
+        val binding: ItemUnknownNotificationBinding,
     ) : ViewHolder, RecyclerView.ViewHolder(binding.root) {
         override fun bind(
             pachliAccountId: Long,
@@ -280,7 +281,7 @@ class NotificationsPagingAdapter(
             payloads: List<*>?,
             statusDisplayOptions: StatusDisplayOptions,
         ) {
-            binding.text1.text = viewData.statusViewData?.content
+            binding.text1.text = binding.root.context.getString(R.string.notification_unknown)
         }
     }
 }

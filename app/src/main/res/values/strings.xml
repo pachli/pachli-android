@@ -100,6 +100,7 @@
         <item quantity="one">%1$s account you follow removed</item>
         <item quantity="other">%1$s accounts you follow removed</item>
     </plurals>
+    <string name="notification_unknown">Unknown notification type</string>
     <string name="notification_header_report_format">%s reported %s</string>
     <string name="notification_summary_report_format">%s · %d posts attached</string>
     <string name="report_username_format">Report @%s</string>
