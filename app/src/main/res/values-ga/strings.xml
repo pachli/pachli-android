@@ -824,4 +824,5 @@
     <string name="filter_action_none">Taispeáin</string>
     <string name="pref_account_notification_filters_label_not_followed">… ní leanann tú</string>
     <string name="account_filter_placeholder_type_follow_fmt">Lean úsáideoir @<b>%1s</b> tú</string>
+    <string name="notification_unknown">Cineál fógra anaithnid</string>
 </resources>
