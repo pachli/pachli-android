@@ -42,7 +42,6 @@ import app.pachli.databinding.ItemUnknownNotificationBinding
 import app.pachli.interfaces.AccountActionListener
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.viewdata.NotificationViewData
-import timber.log.Timber
 
 /** How to present the notification in the UI */
 enum class NotificationViewKind {
@@ -269,7 +268,7 @@ class NotificationsPagingAdapter(
         payloads: List<*>?,
     ) {
         getItem(position)?.let {
-            Timber.d("binding: $it")
+//            Timber.d("binding: $it")
             (holder as ViewHolder).bind(pachliAccountId, it, payloads, statusDisplayOptions)
         }
     }

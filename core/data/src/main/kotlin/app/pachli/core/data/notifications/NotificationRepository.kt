@@ -61,11 +61,21 @@ class NotificationRepository @Inject constructor(
     private var factory: InvalidatingPagingSourceFactory<Int, NotificationData>? = null
 
     @OptIn(ExperimentalPagingApi::class)
-    fun notifications(pachliAccountId: Long): Flow<PagingData<NotificationData>> {
+    suspend fun notifications(pachliAccountId: Long, initialKey: String? = null): Flow<PagingData<NotificationData>> {
         factory = InvalidatingPagingSourceFactory { notificationDao.pagingSource(pachliAccountId) }
 
+        val row = initialKey?.let { notificationDao.getNotificationRowNumber(pachliAccountId, it) }
+
         return Pager(
-            config = PagingConfig(pageSize = 20),
+            initialKey = row,
+            config = PagingConfig(
+                pageSize = PAGE_SIZE,
+//                initialLoadSize = PAGE_SIZE * 3,
+                // If enablePlaceholders is true the recyclerView won't restore the
+                // position.
+                enablePlaceholders = false,
+//                jumpThreshold = PAGE_SIZE * 3,
+            ),
             remoteMediator = NotificationRemoteMediator(
                 pachliAccountId,
                 mastodonApi,
@@ -83,6 +93,10 @@ class NotificationRepository @Inject constructor(
     suspend fun clearNotifications(): Response<ResponseBody> = externalScope.async {
         return@async mastodonApi.clearNotifications()
     }.await()
+
+    companion object {
+        private const val PAGE_SIZE = 30
+    }
 }
 
 // TODO: Assisted inject?

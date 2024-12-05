@@ -48,7 +48,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.R
 import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.components.preference.AccountNotificationFiltersPreferencesDialogFragment
-import app.pachli.components.timeline.TimelineLoadStateAdapter
 import app.pachli.core.activity.ReselectableFragment
 import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithTransition
@@ -91,7 +90,6 @@ import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -189,61 +187,65 @@ class NotificationsFragment :
         (binding.recyclerView.itemAnimator as SimpleItemAnimator?)!!.supportsChangeAnimations =
             false
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            // The adapter needs to know the domain of the logged in account,
-            // the rest of the setup happens after this is known.
-            //
-            // TODO: This isn't great, as it opens up the potential for crashes
-            // if other code tries to access `adapter` before it's assigned here.
-            // This is because NotificationViewData embeds a TimelineAccount, which
-            // is the network representation. It would be better NotificationViewData
-            // used a core.model class that represented an account, and when that
-            // core.model class is created the domain is explicitly set. Then the
-            // domain (account.entity.domain) wouldn't need to be passed here.
-            viewModel.accountFlow.take(1).collect { account ->
-                adapter = NotificationsPagingAdapter(
-                    notificationDiffCallback,
-                    pachliAccountId,
-                    account.entity.domain,
-                    statusActionListener = this@NotificationsFragment,
-                    notificationActionListener = this@NotificationsFragment,
-                    accountActionListener = this@NotificationsFragment,
-                    statusDisplayOptions = viewModel.statusDisplayOptions.value,
-                )
+//        viewLifecycleOwner.lifecycleScope.launch {
+        // The adapter needs to know the domain of the logged in account,
+        // the rest of the setup happens after this is known.
+        //
+        // TODO: This isn't great, as it opens up the potential for crashes
+        // if other code tries to access `adapter` before it's assigned here.
+        // This is because NotificationViewData embeds a TimelineAccount, which
+        // is the network representation. It would be better NotificationViewData
+        // used a core.model class that represented an account, and when that
+        // core.model class is created the domain is explicitly set. Then the
+        // domain (account.entity.domain) wouldn't need to be passed here.
+//        viewModel.accountFlow.take(1).collect { account ->
+        adapter = NotificationsPagingAdapter(
+            notificationDiffCallback,
+//                    pachliAccountId,
+//                    account.entity.domain,
+            1,
+            "mastodon.social",
+            statusActionListener = this@NotificationsFragment,
+            notificationActionListener = this@NotificationsFragment,
+            accountActionListener = this@NotificationsFragment,
+            statusDisplayOptions = viewModel.statusDisplayOptions.value,
+        )
 
-                adapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+//        adapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
 
-                binding.recyclerView.setAccessibilityDelegateCompat(
-                    ListStatusAccessibilityDelegate(pachliAccountId, binding.recyclerView, this@NotificationsFragment) { pos: Int ->
-                        if (pos in 0 until adapter.itemCount) {
-                            adapter.peek(pos)
-                        } else {
-                            null
-                        }
-                    },
-                )
+        binding.recyclerView.setAccessibilityDelegateCompat(
+            ListStatusAccessibilityDelegate(pachliAccountId, binding.recyclerView, this@NotificationsFragment) { pos: Int ->
+                if (pos in 0 until adapter.itemCount) {
+                    adapter.peek(pos)
+                } else {
+                    null
+                }
+            },
+        )
 
-                val saveIdListener = object : RecyclerView.OnScrollListener() {
-                    override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                        if (newState != SCROLL_STATE_IDLE) return
+        val saveIdListener = object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                if (newState != SCROLL_STATE_IDLE) return
 
-                        // Save the ID of the first notification visible in the list, so the user's
-                        // reading position is always restorable.
-                        layoutManager.findFirstVisibleItemPosition().takeIf { it != NO_POSITION }?.let { position ->
-                            adapter.snapshot().getOrNull(position)?.id?.let { id ->
-                                viewModel.accept(InfallibleUiAction.SaveVisibleId(pachliAccountId, visibleId = id))
-                            }
-                        }
+                // Save the ID of the first notification visible in the list, so the user's
+                // reading position is always restorable.
+                layoutManager.findFirstVisibleItemPosition().takeIf { it != NO_POSITION }?.let { position ->
+                    adapter.snapshot().getOrNull(position)?.id?.let { id ->
+                        viewModel.accept(InfallibleUiAction.SaveVisibleId(pachliAccountId, visibleId = id))
                     }
                 }
-                binding.recyclerView.addOnScrollListener(saveIdListener)
-
-                binding.recyclerView.adapter = adapter.withLoadStateHeaderAndFooter(
-                    header = TimelineLoadStateAdapter { adapter.retry() },
-                    footer = TimelineLoadStateAdapter { adapter.retry() },
-                )
             }
+        }
+        binding.recyclerView.addOnScrollListener(saveIdListener)
 
+        binding.recyclerView.adapter = adapter
+//        binding.recyclerView.adapter = adapter.withLoadStateHeaderAndFooter(
+//            header = TimelineLoadStateAdapter { adapter.retry() },
+//            footer = TimelineLoadStateAdapter { adapter.retry() },
+//        )
+//            }
+
+        viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
                     viewModel.pagingData.collectLatest { pagingData ->

@@ -109,6 +109,24 @@ LEFT JOIN TranslatedStatusEntity t ON (n.pachliAccountId = t.timelineUserId AND 
     )
     fun pagingSource(pachliAccountId: Long): PagingSource<Int, NotificationData>
 
+    /**
+     * Returns the database row number of the row for [notificationId]
+     */
+    @Query(
+        """
+SELECT RowNum
+FROM
+  (SELECT pachliAccountId, serverId,
+     (SELECT count(*) + 1
+      FROM notificationentity
+      WHERE rowid < t.rowid
+      ORDER BY length(serverId) DESC, serverId DESC) AS RowNum
+   FROM notificationentity t)
+WHERE pachliAccountId = :pachliAccountId AND serverId = :notificationId;
+        """,
+    )
+    suspend fun getNotificationRowNumber(pachliAccountId: Long, notificationId: String): Int
+
     @Query("DELETE FROM NotificationEntity WHERE pachliAccountId = :pachliAccountId")
     fun clearAll(pachliAccountId: Long)
 }

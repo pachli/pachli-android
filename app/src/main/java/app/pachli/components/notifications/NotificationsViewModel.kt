@@ -533,14 +533,14 @@ class NotificationsViewModel @AssistedInject constructor(
         )
     }
 
-    private fun getNotifications(
+    private suspend fun getNotifications(
         account: PachliAccount,
         filters: Set<Notification.Type>,
         initialKey: String? = null,
     ): Flow<PagingData<NotificationViewData>> {
         Timber.d("getNotifications: %s", initialKey)
         val activeFilters = filters.map { NotificationType.from(it) }
-        return repository.notifications(pachliAccountId) // filter = filters, initialKey = initialKey)
+        return repository.notifications(pachliAccountId, initialKey) // filter = filters, initialKey = initialKey)
             .map { pagingData ->
                 pagingData
                     .filter { !activeFilters.contains(it.notification.type) }
