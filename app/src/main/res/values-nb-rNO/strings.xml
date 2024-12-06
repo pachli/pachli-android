@@ -724,9 +724,9 @@
     <string name="search_operator_link_dialog_all">Med eller uten lenker</string>
     <string name="search_operator_link_dialog_only">Bare innlegg med lenker</string>
     <string name="search_operator_date_dialog_today">I dag</string>
-    <string name="search_operator_date_dialog_last_7_days">I de siste 7 dagene</string>
-    <string name="search_operator_date_dialog_last_30_days">I de siste 30 dagene</string>
-    <string name="search_operator_date_dialog_last_6_months">I de siste 6 månedene</string>
+    <string name="search_operator_date_dialog_last_7_days">På de siste 7 dagene</string>
+    <string name="search_operator_date_dialog_last_30_days">På de siste 30 dagene</string>
+    <string name="search_operator_date_dialog_last_6_months">På de siste 6 månedene</string>
     <string name="search_operator_date_dialog_custom_range">Tilpasset utvalg</string>
     <string name="search_operator_language_dialog_title">Begrens til innlegg skrevne på…</string>
     <string name="error_save_filter_failed_fmt">Lagring av filter mislyktes: %1$s</string>
@@ -782,7 +782,7 @@
     <string name="pref_title_account_notification_filters">Varselfiltre</string>
     <string name="pref_account_notification_filters_subtitle">Hva burde skje til varsler fra kontoer som…</string>
     <string name="pref_account_notification_filters_label_not_followed">…du ikke følger</string>
-    <string name="pref_account_notification_filters_label_younger_30d">…ble opprettet på de siste 3 dagene</string>
+    <string name="pref_account_notification_filters_label_younger_30d">…ble opprettet på de siste 30 dagene</string>
     <string name="pref_account_notification_filters_label_limited_by_server">…er begrenset av moderatorene dine</string>
     <string name="account_filter_placeholder_type_favourite_fmt">En bruker (@<b>%1s</b>) favoriserte innlegget ditt</string>
     <string name="account_filter_placeholder_label_younger_30d">Filtrert fordi: <b>kontoen ble opprettet på de siste 30 dagene</b></string>
