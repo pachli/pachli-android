@@ -455,7 +455,7 @@
     <string name="action_set_focus">Sett fokuspunkt</string>
     <string name="set_focus_description">Trykk eller dra sirkelen for å velge fokuspunktet som alltid skal være synlig i miniatyrbilder.</string>
     <string name="pref_title_show_self_username">Vis brukernavn på verktøylinjer</string>
-    <string name="delete_scheduled_post_warning">Slette dette planlagte innlegget\?</string>
+    <string name="delete_scheduled_post_warning">Slett dette planlagte innlegget?</string>
     <string name="compose_save_draft_loses_media">Lagre utkast? (Vedlegg vil bli lastet opp igjen når du fortsetter å jobbe på utkastet.)</string>
     <string name="failed_to_pin">Klarte ikke å feste</string>
     <string name="failed_to_unpin">Klarte ikke å løsne</string>
@@ -476,7 +476,7 @@
     <string name="report_category_violation">Regelbrudd</string>
     <string name="report_category_spam">Spam</string>
     <string name="report_category_other">Annet</string>
-    <string name="action_unfollow_hashtag_format">Slutte å følge #%s\?</string>
+    <string name="action_unfollow_hashtag_format">Slutt å følge #%s?</string>
     <string name="confirmation_hashtag_unfollowed">Sluttet å følge #%s</string>
     <string name="a11y_label_loading_thread">Laster tråd</string>
     <string name="help_empty_home">Dette er <b>Hjemmetidslinjen</b>din. Den viser de nyeste innleggene av kontoer du følger. \n \nFor å utforske kontoer kan du enten oppdage dem i en av tidslinjene dine, for eksempel den lokale tidslinjen for instansen din [iconics gmd_group], eller du kan søke etter navnet deres [iconics gmd_search]; søk for eksempel etter Pachli før å finne Mastodonkonten vår.</string>
@@ -558,7 +558,7 @@
     <string name="pref_title_show_stat_inline">Vis poststatistikk i tidslinjen</string>
     <string name="load_newest_notifications">Last de nyeste varslene</string>
     <string name="compose_delete_draft">Del utkast\?</string>
-    <string name="error_missing_edits">Serveren din vet at denne posten ble redigert, men har ingen kopi av entringene så de kann ikke vises. \n \nDette er <a href="https://github.com/mastodon/mastodon/issues/25398">Mastodon issue #25398</a>.</string>
+    <string name="error_missing_edits">Serveren din vet at denne posten ble redigert, men har ingen kopi av endringene, så kan de ikke vises. \n \nDette er <a href="https://github.com/mastodon/mastodon/issues/25398">Mastodon-problem #25398</a>.</string>
     <string name="pref_title_show_self_boosts">Vis egne delinger</string>
     <string name="pref_title_show_self_boosts_description">Noen som deler sitt eget innlegg</string>
     <string name="translation_provider_fmt">%1$s</string>
@@ -777,4 +777,24 @@
     </plurals>
     <string name="main_viewmodel_error_refresh_account">Å gjenoppfriske kontoen mislyktes med den følgende feilen:\n\n%1$s\n\nDu kan fortsette, men det kan hende at dine lister og filtere kan være ufullstendige.</string>
     <string name="action_relogin">Logg inn på nytt</string>
+    <string name="filter_action_none">Vis</string>
+    <string name="filter_description_none">Vis som vanlig</string>
+    <string name="pref_title_account_notification_filters">Varselfiltre</string>
+    <string name="pref_account_notification_filters_subtitle">Hva burde skje til varsler fra kontoer som…</string>
+    <string name="pref_account_notification_filters_label_not_followed">…du ikke følger</string>
+    <string name="pref_account_notification_filters_label_younger_30d">…ble opprettet på de siste 3 dagene</string>
+    <string name="pref_account_notification_filters_label_limited_by_server">…er begrenset av moderatorene dine</string>
+    <string name="account_filter_placeholder_type_favourite_fmt">En bruker (@<b>%1s</b>) favoriserte innlegget ditt</string>
+    <string name="account_filter_placeholder_label_younger_30d">Filtrert fordi: <b>kontoen ble opprettet på de siste 30 dagene</b></string>
+    <string name="account_filter_placeholder_label_limited_by_server">Filtrert fordi: <b>kontoen er begrenset av moderatorene dine</b></string>
+    <string name="notification_unknown">Ukjent varseltype</string>
+    <string name="account_filter_placeholder_label_not_following">Filtrert fordi: <b>du følger hen ikke</b></string>
+    <string name="account_filter_placeholder_type_mention_fmt">En bruker (@<b>%1s</b>) nevnte deg</string>
+    <string name="account_filter_placeholder_type_reblog_fmt">En bruker (@<b>%1s</b>) delte innlegget ditt</string>
+    <string name="account_filter_placeholder_label_domain">Fra en bruker (@<b>%1s</b>)</string>
+    <string name="preview_card_timeline_link_fmt">Vis <b>%1$s</b> innlegg om denne lenken</string>
+    <string name="account_filter_placeholder_type_follow_fmt">En bruker (@<b>%1s</b>) fulgte deg</string>
+    <string name="account_filter_placeholder_type_follow_request_fmt">Følgeforespørsel fra en bruker (@<b>%1s</b>)</string>
+    <string name="preview_card_byline_name_only_fmt">Av <b>%1$s</b></string>
+    <string name="action_timeline_link">Innlegg om denne lenken</string>
 </resources>
