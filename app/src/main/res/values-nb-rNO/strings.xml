@@ -763,7 +763,7 @@
     <string name="upload_failed_msg_fmt">Pachli skal prøve å laste opp vedlegg når du sender innlegget. Dersom det mislykkes igjen, skal innlegget lagres i utkastene dine.\n\nFeilen var: %1$s</string>
     <string name="upload_failed_modify_attachment">Vedlegg ble modifisert</string>
     <string name="pref_title_confirm_status_language">Sjekk innleggets språkinnstilling før innlegget publiseres</string>
-    <string name="compose_warn_language_dialog_accept_and_dont_ask_fmt">Tut slik som det er (på %1$s) og ikke spør igjen</string>
+    <string name="compose_warn_language_dialog_accept_and_dont_ask_fmt">Tut på %1$s og ikke spør igjen</string>
     <string name="main_viewmodel_error_set_active_account">Å prøve å logge inn mislyktes med den følgende feilen:\n\n%1$s</string>
     <plurals name="notification_severed_relationships_summary_followers_fmt">
         <item quantity="one">%1$s følger ble fjernet</item>
