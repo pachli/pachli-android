@@ -673,8 +673,8 @@ class TimelineFragment :
         viewModel.changeExpanded(pachliAccountId, expanded, viewData)
     }
 
-    override fun onContentHiddenChange(pachliAccountId: Long, viewData: StatusViewData, isShowing: Boolean) {
-        viewModel.changeContentShowing(pachliAccountId, isShowing, viewData)
+    override fun onContentHiddenChange(pachliAccountId: Long, viewData: StatusViewData, isShowingContent: Boolean) {
+        viewModel.changeContentShowing(pachliAccountId, isShowingContent, viewData)
     }
 
     override fun onShowReblogs(statusId: String) {

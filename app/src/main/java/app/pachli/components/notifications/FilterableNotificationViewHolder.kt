@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.database.model.NotificationType
+import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.AccountFilterReason
 import app.pachli.databinding.ItemNotificationFilteredBinding
 import app.pachli.viewdata.NotificationViewData
@@ -97,12 +98,23 @@ class FilterableNotificationViewHolder(
             HtmlCompat.FROM_HTML_MODE_LEGACY,
         )
 
-        val reason = when (viewData.accountFilterDecision?.reason) {
-            AccountFilterReason.NOT_FOLLOWING -> notFollowing
-            AccountFilterReason.YOUNGER_30D -> younger30d
-            AccountFilterReason.LIMITED_BY_SERVER -> limitedByServer
-            null -> ""
+        val reason = when (viewData.accountFilterDecision) {
+            is AccountFilterDecision.Hide -> TODO()
+            AccountFilterDecision.None -> TODO()
+            is AccountFilterDecision.Override -> TODO()
+            is AccountFilterDecision.Warn -> when (viewData.accountFilterDecision.reason) {
+                AccountFilterReason.NOT_FOLLOWING -> notFollowing
+                AccountFilterReason.YOUNGER_30D -> younger30d
+                AccountFilterReason.LIMITED_BY_SERVER -> limitedByServer
+            }
         }
+
+//        val reason = when (viewData.accountFilterDecision?.reason) {
+//            AccountFilterReason.NOT_FOLLOWING -> notFollowing
+//            AccountFilterReason.YOUNGER_30D -> younger30d
+//            AccountFilterReason.LIMITED_BY_SERVER -> limitedByServer
+//            null -> ""
+//        }
         binding.accountFilterReason.text = reason
     }
 }

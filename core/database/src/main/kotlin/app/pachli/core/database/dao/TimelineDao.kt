@@ -290,14 +290,34 @@ WHERE timelineUserId = :accountId AND (serverId = :statusId OR reblogServerId = 
     )
     abstract suspend fun setPinned(accountId: Long, statusId: String, pinned: Boolean)
 
+    // TODO: StatusViewDataEntity needs a pachliAccountId
     @Query(
         """
             UPDATE StatusViewDataEntity
-            SET expanded = :expanded
+               SET contentCollapsed = :isCollapsed
+             WHERE serverId = :serverId
+        """,
+    )
+    abstract suspend fun setContentCollapsed(serverId: String, isCollapsed: Boolean)
+
+    // TODO: StatusViewDataEntity needs a pachliAccountId
+    @Query(
+        """
+            UPDATE StatusViewDataEntity
+               SET contentShowing = :isContentShowing
+             WHERE serverId = :serverId
+        """,
+    )
+    abstract suspend fun setContentShowing(serverId: String, isContentShowing: Boolean)
+
+    @Query(
+        """
+            UPDATE StatusViewDataEntity
+            SET expanded = :isExpanded
             WHERE serverId = :serverId
         """,
     )
-    abstract suspend fun setExpanded(serverId: String, expanded: Boolean)
+    abstract suspend fun setExpanded(serverId: String, isExpanded: Boolean)
 
     @Query(
         """DELETE FROM TimelineStatusEntity

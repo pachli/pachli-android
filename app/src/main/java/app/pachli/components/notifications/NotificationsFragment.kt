@@ -629,25 +629,12 @@ class NotificationsFragment :
         onExpandedChange(viewData, expanded)
     }
 
-    override fun onContentHiddenChange(pachliAccountId: Long, viewData: NotificationViewData, isShowing: Boolean) {
-        adapter.snapshot().withIndex()
-            .filter {
-                it.value?.statusViewData?.actionableId == viewData.statusViewData!!.actionableId
-            }
-            .map {
-                it.value?.statusViewData = it.value?.statusViewData?.copy(isShowingContent = isShowing)
-                adapter.notifyItemChanged(it.index)
-            }
+    override fun onContentHiddenChange(pachliAccountId: Long, viewData: NotificationViewData, isShowingContent: Boolean) {
+        viewModel.setShowingContent(viewData, isShowingContent)
     }
 
     override fun onContentCollapsedChange(pachliAccountId: Long, viewData: NotificationViewData, isCollapsed: Boolean) {
-        adapter.snapshot().withIndex().filter {
-            it.value?.statusViewData?.actionableId == viewData.statusViewData!!.actionableId
-        }
-            .map {
-                it.value?.statusViewData = it.value?.statusViewData?.copy(isCollapsed = isCollapsed)
-                adapter.notifyItemChanged(it.index)
-            }
+        viewModel.setContentCollapsed(viewData, isCollapsed)
     }
 
     override fun onEditFilterById(pachliAccountId: Long, filterId: String) {
@@ -670,11 +657,6 @@ class NotificationsFragment :
 
     override fun clearAccountFilter(viewData: NotificationViewData) {
         viewModel.clearAccountFilter(viewData)
-//        adapter.snapshot().withIndex().filter { it.value?.id == viewData.id }
-//            .map {
-//                it.value?.accountFilterDecision = null
-//                adapter.notifyItemChanged(it.index)
-//            }
     }
 
     override fun editAccountNotificationFilter() {

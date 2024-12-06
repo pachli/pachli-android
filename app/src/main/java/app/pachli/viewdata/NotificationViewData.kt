@@ -62,7 +62,7 @@ data class NotificationViewData(
     val report: Report?,
     val relationshipSeveranceEvent: RelationshipSeveranceEvent?,
     val isAboutSelf: Boolean,
-    var accountFilterDecision: AccountFilterDecision?,
+    val accountFilterDecision: AccountFilterDecision,
 ) : IStatusViewData {
     companion object {
 //        fun from(
@@ -118,7 +118,7 @@ data class NotificationViewData(
             report = null,
             relationshipSeveranceEvent = null,
             isAboutSelf = isAboutSelf,
-            accountFilterDecision = accountFilterDecision,
+            accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
         )
     }
 

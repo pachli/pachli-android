@@ -37,6 +37,7 @@ import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.NotificationType
+import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.ContentFilterVersion
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.FilterContext
@@ -562,6 +563,7 @@ class NotificationsViewModel @AssistedInject constructor(
                         )
                     }
                     .filter { it.statusViewData?.contentFilterAction != FilterAction.HIDE }
+                    .filter { it.accountFilterDecision !is AccountFilterDecision.Hide }
             }
     }
 
@@ -582,13 +584,35 @@ class NotificationsViewModel @AssistedInject constructor(
         .onStart { emit(null) }
 
     // TODO: Should be an infallible action
+    fun setContentCollapsed(viewData: NotificationViewData, isCollapsed: Boolean) = viewModelScope.launch {
+        repository.setContentCollapsed(
+            viewData.pachliAccountId,
+            viewData.actionableId,
+            isCollapsed,
+        )
+    }
+
+    // TODO: Should be an infallible action
+    fun setShowingContent(viewData: NotificationViewData, isShowingContent: Boolean) = viewModelScope.launch {
+        repository.setShowingContent(
+            viewData.pachliAccountId,
+            viewData.actionableId,
+            isShowingContent,
+        )
+    }
+
+    // TODO: Should be an infallible action
     fun clearContentFilter(viewData: NotificationViewData) = viewModelScope.launch {
         repository.clearContentFilter(viewData.pachliAccountId, viewData.id)
     }
 
     // TODO: Should be an infallible action
     fun clearAccountFilter(viewData: NotificationViewData) = viewModelScope.launch {
-        repository.clearAccountFilter(viewData.pachliAccountId, viewData.id)
+        repository.setAccountFilterDecision(
+            viewData.pachliAccountId,
+            viewData.id,
+            AccountFilterDecision.Override(viewData.accountFilterDecision),
+        )
     }
 
     // TODO: Should be an infallible action

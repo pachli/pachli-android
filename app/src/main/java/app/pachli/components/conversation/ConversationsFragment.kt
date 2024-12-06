@@ -326,8 +326,8 @@ class ConversationsFragment :
         viewModel.expandHiddenStatus(pachliAccountId, expanded, viewData.lastStatus.id)
     }
 
-    override fun onContentHiddenChange(pachliAccountId: Long, viewData: ConversationViewData, isShowing: Boolean) {
-        viewModel.showContent(pachliAccountId, isShowing, viewData.lastStatus.id)
+    override fun onContentHiddenChange(pachliAccountId: Long, viewData: ConversationViewData, isShowingContent: Boolean) {
+        viewModel.showContent(pachliAccountId, isShowingContent, viewData.lastStatus.id)
     }
 
     override fun onContentCollapsedChange(pachliAccountId: Long, viewData: ConversationViewData, isCollapsed: Boolean) {

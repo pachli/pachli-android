@@ -41,7 +41,6 @@ import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TimelineStatusEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.model.AccountFilterDecision
-import app.pachli.core.model.AccountFilterReason
 import app.pachli.core.model.FilterAction
 import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Notification
@@ -104,21 +103,25 @@ class NotificationRepository @Inject constructor(
         notificationDao.upsert(FilterActionUpdate(pachliAccountId, notificationId, FilterAction.NONE))
     }
 
-    suspend fun clearAccountFilter(pachliAccountId: Long, notificationId: String) = externalScope.launch {
+    suspend fun setAccountFilterDecision(pachliAccountId: Long, notificationId: String, accountFilterDecision: AccountFilterDecision) = externalScope.launch {
         notificationDao.upsert(
             AccountFilterDecisionUpdate(
                 pachliAccountId,
                 notificationId,
-                AccountFilterDecision(
-                    action = FilterAction.NONE,
-                    // TODO: This should retain the existing reason
-                    reason = AccountFilterReason.YOUNGER_30D,
-                ),
+                accountFilterDecision,
             ),
         )
     }
 
-    suspend fun setExpanded(pachliAccountId: Long, statusId: String, expanded: Boolean) = externalScope.async {
+    suspend fun setContentCollapsed(pachliAccountId: Long, statusId: String, isCollapsed: Boolean) = externalScope.launch {
+        timelineDao.setContentCollapsed(statusId, isCollapsed)
+    }
+
+    suspend fun setShowingContent(pachliAccountId: Long, statusId: String, isShowingContent: Boolean) = externalScope.launch {
+        timelineDao.setContentShowing(statusId, isShowingContent)
+    }
+
+    suspend fun setExpanded(pachliAccountId: Long, statusId: String, expanded: Boolean) = externalScope.launch {
         timelineDao.setExpanded(statusId, expanded)
     }
 

@@ -18,6 +18,8 @@
 package app.pachli.core.model
 
 import com.squareup.moshi.JsonClass
+import dev.zacsweers.moshix.sealed.annotations.DefaultObject
+import dev.zacsweers.moshix.sealed.annotations.TypeLabel
 
 /** Reasons an account may be filtered. */
 enum class AccountFilterReason {
@@ -31,14 +33,55 @@ enum class AccountFilterReason {
     LIMITED_BY_SERVER,
 }
 
+// The user's filter choice (enum):
+// - none, warn, hide
+
+// The active filter decision, per notification (sealed class)
+// - none, warn+reason, hide+reason, override+original
+//
+// Why? So you can't have "none" with a reason, or "warn" without a reason
+
 /**
  * Records an account filtering decision.
  *
  * @param action The [FilterAction] to perform.
  * @param reason The [AccountFilterReason] for the decision.
  */
-@JsonClass(generateAdapter = true)
-data class AccountFilterDecision(
-    val action: FilterAction,
-    val reason: AccountFilterReason,
-)
+// @JsonClass(generateAdapter = true)
+// data class AccountFilterDecision_org(
+//    val action: FilterAction,
+//    val reason: AccountFilterReason,
+// )
+
+@JsonClass(generateAdapter = true, generator = "sealed:type")
+sealed interface AccountFilterDecision {
+    /** The item did not match any filters, and should be shown. */
+    @DefaultObject
+    data object None : AccountFilterDecision
+
+    /** The item matched a [reason] set to "warn". */
+    @TypeLabel("warn")
+    @JsonClass(generateAdapter = true)
+    data class Warn(val reason: AccountFilterReason) : AccountFilterDecision
+
+    /** The item matched a [reason] set to "hide". */
+    @TypeLabel("hide")
+    @JsonClass(generateAdapter = true)
+    data class Hide(val reason: AccountFilterReason) : AccountFilterDecision
+
+    /**
+     * The item was originally filtered because of [original], the user has overriden
+     * that to view the item anyway.
+     */
+    @TypeLabel("override")
+    @JsonClass(generateAdapter = true)
+    data class Override(val original: AccountFilterDecision) : AccountFilterDecision
+
+    companion object {
+        fun make(action: FilterAction, reason: AccountFilterReason) = when (action) {
+            FilterAction.NONE -> None
+            FilterAction.WARN -> Warn(reason)
+            FilterAction.HIDE -> Hide(reason)
+        }
+    }
+}

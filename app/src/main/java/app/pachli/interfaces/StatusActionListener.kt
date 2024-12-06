@@ -37,7 +37,7 @@ interface StatusActionListener<T : IStatusViewData> : LinkListener {
      */
     fun onOpenReblog(status: Status)
     fun onExpandedChange(pachliAccountId: Long, viewData: T, expanded: Boolean)
-    fun onContentHiddenChange(pachliAccountId: Long, viewData: T, isShowing: Boolean)
+    fun onContentHiddenChange(pachliAccountId: Long, viewData: T, isShowingContent: Boolean)
 
     /**
      * Called when the status [android.widget.ToggleButton] responsible for collapsing long

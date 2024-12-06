@@ -26,7 +26,7 @@ import app.pachli.core.data.notifications.from
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.NotificationData
-import app.pachli.core.model.FilterAction
+import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Marker
 import app.pachli.core.network.model.Notification
@@ -88,7 +88,7 @@ class NotificationFetcher @Inject constructor(
                         .filter { filterNotification(notificationManager, entity, it.type) }
                         .filter {
                             val decision = filterNotificationByAccount(pachliAccount, NotificationData.from(pachliAccountId, it))
-                            decision == null || decision.action == FilterAction.NONE
+                            decision is AccountFilterDecision.None
                         }
                         .sortedWith(compareBy({ it.id.length }, { it.id })) // oldest notifications first
                         .toMutableList()

@@ -88,8 +88,8 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
         return SearchStatusesAdapter(viewModel.activeAccount!!.id, statusDisplayOptions, this)
     }
 
-    override fun onContentHiddenChange(pachliAccountId: Long, viewData: StatusViewData, isShowing: Boolean) {
-        viewModel.contentHiddenChange(viewData, isShowing)
+    override fun onContentHiddenChange(pachliAccountId: Long, viewData: StatusViewData, isShowingContent: Boolean) {
+        viewModel.contentHiddenChange(viewData, isShowingContent)
     }
 
     override fun onReply(pachliAccountId: Long, viewData: StatusViewData) {

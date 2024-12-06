@@ -28,6 +28,7 @@ import app.pachli.adapter.ReportNotificationViewHolder
 import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.database.model.NotificationType
+import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
 import app.pachli.core.network.model.Status
 import app.pachli.databinding.ItemFollowBinding
@@ -168,7 +169,7 @@ class NotificationsPagingAdapter(
             return NotificationViewKind.STATUS_FILTERED.ordinal
         }
 
-        if (item?.accountFilterDecision?.action == FilterAction.WARN) {
+        if (item?.accountFilterDecision is AccountFilterDecision.Warn) {
             return NotificationViewKind.ACCOUNT_FILTERED.ordinal
         }
 
