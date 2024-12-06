@@ -30,6 +30,8 @@ import app.pachli.core.database.dao.NotificationDao
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.di.TransactionProvider
+import app.pachli.core.database.model.AccountFilterDecisionUpdate
+import app.pachli.core.database.model.FilterActionUpdate
 import app.pachli.core.database.model.NotificationData
 import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.database.model.NotificationType
@@ -38,6 +40,9 @@ import app.pachli.core.database.model.RemoteKeyKind
 import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TimelineStatusEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
+import app.pachli.core.model.AccountFilterDecision
+import app.pachli.core.model.AccountFilterReason
+import app.pachli.core.model.FilterAction
 import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.retrofit.MastodonApi
@@ -45,6 +50,7 @@ import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 import okhttp3.ResponseBody
 import retrofit2.HttpException
 import retrofit2.Response
@@ -94,6 +100,28 @@ class NotificationRepository @Inject constructor(
         return@async mastodonApi.clearNotifications()
     }.await()
 
+    suspend fun clearContentFilter(pachliAccountId: Long, notificationId: String) = externalScope.launch {
+        notificationDao.upsert(FilterActionUpdate(pachliAccountId, notificationId, FilterAction.NONE))
+    }
+
+    suspend fun clearAccountFilter(pachliAccountId: Long, notificationId: String) = externalScope.launch {
+        notificationDao.upsert(
+            AccountFilterDecisionUpdate(
+                pachliAccountId,
+                notificationId,
+                AccountFilterDecision(
+                    action = FilterAction.NONE,
+                    // TODO: This should retain the existing reason
+                    reason = AccountFilterReason.YOUNGER_30D,
+                ),
+            ),
+        )
+    }
+
+    suspend fun setExpanded(pachliAccountId: Long, statusId: String, expanded: Boolean) = externalScope.async {
+        timelineDao.setExpanded(statusId, expanded)
+    }
+
     companion object {
         private const val PAGE_SIZE = 30
     }
@@ -119,7 +147,7 @@ class NotificationRemoteMediator(
         Timber.d("     state: $state")
         return try {
             val response = when (loadType) {
-                LoadType.REFRESH -> mastodonApi.notifications(limit = state.config.pageSize * 3)
+                LoadType.REFRESH -> mastodonApi.notifications(limit = state.config.initialLoadSize)
 
                 LoadType.PREPEND -> {
                     val rke = remoteKeyDao.remoteKeyForKind(
@@ -281,4 +309,5 @@ fun NotificationData.Companion.from(pachliAccountId: Long, notification: Notific
             account = TimelineAccountEntity.from(status.account, pachliAccountId),
         )
     },
+    viewData = null,
 )

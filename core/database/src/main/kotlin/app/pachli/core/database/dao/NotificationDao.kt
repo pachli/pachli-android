@@ -23,8 +23,11 @@ import androidx.room.Query
 import androidx.room.TypeConverters
 import androidx.room.Upsert
 import app.pachli.core.database.Converters
+import app.pachli.core.database.model.AccountFilterDecisionUpdate
+import app.pachli.core.database.model.FilterActionUpdate
 import app.pachli.core.database.model.NotificationData
 import app.pachli.core.database.model.NotificationEntity
+import app.pachli.core.database.model.NotificationViewDataEntity
 
 @Dao
 @TypeConverters(Converters::class)
@@ -94,7 +97,13 @@ svd.contentCollapsed as 's_svd_contentCollapsed', svd.translationState as 's_svd
 -- Translation
 t.serverId as 's_t_serverId', t.timelineUserId as 's_t_timelineUserId', t.content as 's_t_content',
 t.spoilerText as 's_t_spoilerText', t.poll as 's_t_poll', t.attachments as 's_t_attachments',
-t.provider as 's_t_provider'
+t.provider as 's_t_provider',
+
+-- NotificationViewData
+nvd.pachliAccountId as 'nvd_pachliAccountId',
+nvd.serverId as 'nvd_serverId',
+nvd.contentFilterAction as 'nvd_contentFilterAction',
+nvd.accountFilterDecision as 'nvd_accountFilterDecision'
 
 FROM NotificationEntity n
 LEFT JOIN TimelineAccountEntity a ON (n.pachliAccountId = a.timelineUserId AND n.accountServerId = a.serverId)
@@ -103,6 +112,7 @@ LEFT JOIN TimelineAccountEntity sa ON (n.pachliAccountId = sa.timelineUserId AND
 LEFT JOIN TimelineAccountEntity rb ON (n.pachliAccountId = rb.timelineUserId AND s.reblogAccountId = rb.serverId)
 LEFT JOIN StatusViewDataEntity svd ON (n.pachliAccountId = svd.timelineUserId AND (s.serverId = svd.serverId OR s.reblogServerId = svd.serverId))
 LEFT JOIN TranslatedStatusEntity t ON (n.pachliAccountId = t.timelineUserId AND (s.serverId = t.serverId OR s.reblogServerId = t.serverId))
+LEFT JOIN NotificationViewDataEntity nvd on (n.pachliAccountId = nvd.pachliAccountId AND n.serverId = nvd.serverId)
  WHERE n.pachliAccountId = :pachliAccountId
  ORDER BY LENGTH(n.serverId) DESC, n.serverId DESC
         """,
@@ -127,6 +137,13 @@ WHERE pachliAccountId = :pachliAccountId AND serverId = :notificationId;
     )
     suspend fun getNotificationRowNumber(pachliAccountId: Long, notificationId: String): Int
 
+    /** Remove all cached notifications for [pachliAccountId]. */
     @Query("DELETE FROM NotificationEntity WHERE pachliAccountId = :pachliAccountId")
     fun clearAll(pachliAccountId: Long)
+
+    @Upsert(entity = NotificationViewDataEntity::class)
+    suspend fun upsert(filterActionUpdate: FilterActionUpdate)
+
+    @Upsert(entity = NotificationViewDataEntity::class)
+    suspend fun upsert(accountFilterDecisionUpdate: AccountFilterDecisionUpdate)
 }

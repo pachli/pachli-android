@@ -534,22 +534,23 @@ class NotificationsViewModel @AssistedInject constructor(
     }
 
     private suspend fun getNotifications(
-        account: PachliAccount,
+        pachliAccount: PachliAccount,
         filters: Set<Notification.Type>,
         initialKey: String? = null,
     ): Flow<PagingData<NotificationViewData>> {
         Timber.d("getNotifications: %s", initialKey)
         val activeFilters = filters.map { NotificationType.from(it) }
-        return repository.notifications(pachliAccountId, initialKey) // filter = filters, initialKey = initialKey)
+        return repository.notifications(pachliAccountId, initialKey)
             .map { pagingData ->
                 pagingData
                     .filter { !activeFilters.contains(it.notification.type) }
                     .map { notification ->
-                        val contentFilterAction = notification.status?.status?.let { contentFilterModel?.filterActionFor(it) } ?: FilterAction.NONE
-                        val isAboutSelf = notification.account.serverId == account.entity.accountId
-                        val accountFilterDecision = filterNotificationByAccount(account, notification)
+                        val contentFilterAction = notification.viewData?.contentFilterAction ?: notification.status?.status?.let { contentFilterModel?.filterActionFor(it) } ?: FilterAction.NONE
+                        val isAboutSelf = notification.account.serverId == pachliAccount.entity.accountId
+                        val accountFilterDecision = notification.viewData?.accountFilterDecision ?: filterNotificationByAccount(pachliAccount, notification)
 
-                        NotificationViewData.from(
+                        NotificationViewData.make(
+                            pachliAccount.entity,
                             notification,
                             isShowingContent = statusDisplayOptions.value.showSensitiveMedia ||
                                 !(notification.status?.status?.sensitive ?: false),
@@ -575,12 +576,27 @@ class NotificationsViewModel @AssistedInject constructor(
         return initialKey
     }
 
-    /**
-     * @return Flow of relevant preferences that change the UI
-     */
+    /** @return Flow of relevant preferences that change the UI. */
     private fun getUiPrefs() = sharedPreferencesRepository.changes
         .filter { UiPrefs.prefKeys.contains(it) }
         .onStart { emit(null) }
+
+    // TODO: Should be an infallible action
+    fun clearContentFilter(viewData: NotificationViewData) = viewModelScope.launch {
+        repository.clearContentFilter(viewData.pachliAccountId, viewData.id)
+    }
+
+    // TODO: Should be an infallible action
+    fun clearAccountFilter(viewData: NotificationViewData) = viewModelScope.launch {
+        repository.clearAccountFilter(viewData.pachliAccountId, viewData.id)
+    }
+
+    // TODO: Should be an infallible action
+    fun setExpanded(viewData: NotificationViewData, expanded: Boolean) = viewModelScope.launch {
+        viewData.statusViewData?.actionableId?.let { statusId ->
+            repository.setExpanded(viewData.pachliAccountId, statusId, expanded)
+        }
+    }
 
     @AssistedFactory
     interface Factory {

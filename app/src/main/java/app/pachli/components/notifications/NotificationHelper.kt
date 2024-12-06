@@ -50,6 +50,8 @@ import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.NotificationData
 import app.pachli.core.database.model.NotificationType
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.model.AccountFilterDecision
+import app.pachli.core.model.AccountFilterReason
 import app.pachli.core.model.FilterAction
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.MainActivityIntent
@@ -652,29 +654,6 @@ fun filterNotification(
         Notification.Type.UNKNOWN -> false
     }
 }
-
-/** Reasons an account may be filtered. */
-enum class AccountFilterReason {
-    /** Not following this account. */
-    NOT_FOLLOWING,
-
-    /** Account is younger than 30d. */
-    YOUNGER_30D,
-
-    /** Account is limited by the server. */
-    LIMITED_BY_SERVER,
-}
-
-/**
- * Records an account filtering decision.
- *
- * @param action The [FilterAction] to perform.
- * @param reason The [AccountFilterReason] for the decision.
- */
-data class AccountFilterDecision(
-    val action: FilterAction,
-    val reason: AccountFilterReason,
-)
 
 /**
  * Returns the [AccountFilterDecision] for [notificationData] based on the notification

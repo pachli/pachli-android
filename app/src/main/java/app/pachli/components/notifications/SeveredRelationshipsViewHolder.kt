@@ -31,7 +31,6 @@ class SeveredRelationshipsViewHolder(
     private val binding: ItemSeveredRelationshipsBinding,
 ) : NotificationsPagingAdapter.ViewHolder, RecyclerView.ViewHolder(binding.root) {
     override fun bind(
-        pachliAccountId: Long,
         viewData: NotificationViewData,
         payloads: List<*>?,
         statusDisplayOptions: StatusDisplayOptions,

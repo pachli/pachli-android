@@ -20,6 +20,7 @@ import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
 import app.pachli.core.database.model.ConversationAccountEntity
 import app.pachli.core.database.model.DraftAttachment
+import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.ContentFilter
 import app.pachli.core.model.ServerOperation
 import app.pachli.core.model.Timeline
@@ -297,10 +298,16 @@ class Converters @Inject constructor(
 
     @TypeConverter
     fun jsonToCard(s: String?) = s?.let { moshi.adapter<Card>().fromJson(it) }
-    
+
     @TypeConverter
     fun listStringToJson(l: List<String>): String = moshi.adapter<List<String>>().toJson(l)
 
     @TypeConverter
     fun stringToListString(s: String?) = s?.let { moshi.adapter<List<String>>().fromJson(it) }
+
+    @TypeConverter
+    fun accountFilterDecisionToJson(accountFilterDecision: AccountFilterDecision): String = moshi.adapter<AccountFilterDecision>().toJson(accountFilterDecision)
+
+    @TypeConverter
+    fun jsonToAccountFilterDecision(s: String?) = s?.let { moshi.adapter<AccountFilterDecision>().fromJson(it) }
 }

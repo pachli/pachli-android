@@ -42,7 +42,6 @@ class FollowViewHolder(
     )
 
     override fun bind(
-        pachliAccountId: Long,
         viewData: NotificationViewData,
         payloads: List<*>?,
         statusDisplayOptions: StatusDisplayOptions,

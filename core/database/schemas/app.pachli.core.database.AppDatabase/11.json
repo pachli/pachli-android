@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 11,
-    "identityHash": "c182f01b359d760b876dc0d66d27c76b",
+    "identityHash": "2f00c22e8f279e3061bfd6fc6d37c044",
     "entities": [
       {
         "tableName": "DraftEntity",
@@ -1681,12 +1681,51 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "NotificationViewDataEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `contentFilterAction` TEXT, `accountFilterDecision` TEXT, PRIMARY KEY(`pachliAccountId`, `serverId`))",
+        "fields": [
+          {
+            "fieldPath": "pachliAccountId",
+            "columnName": "pachliAccountId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "serverId",
+            "columnName": "serverId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "contentFilterAction",
+            "columnName": "contentFilterAction",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "accountFilterDecision",
+            "columnName": "accountFilterDecision",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "pachliAccountId",
+            "serverId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c182f01b359d760b876dc0d66d27c76b')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2f00c22e8f279e3061bfd6fc6d37c044')"
     ]
   }
 }

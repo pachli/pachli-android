@@ -55,7 +55,6 @@ import app.pachli.core.activity.openLink
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
-import app.pachli.core.model.FilterAction
 import app.pachli.core.navigation.AttachmentViewData.Companion.list
 import app.pachli.core.navigation.EditContentFilterActivityIntent
 import app.pachli.core.network.model.Notification
@@ -187,31 +186,13 @@ class NotificationsFragment :
         (binding.recyclerView.itemAnimator as SimpleItemAnimator?)!!.supportsChangeAnimations =
             false
 
-//        viewLifecycleOwner.lifecycleScope.launch {
-        // The adapter needs to know the domain of the logged in account,
-        // the rest of the setup happens after this is known.
-        //
-        // TODO: This isn't great, as it opens up the potential for crashes
-        // if other code tries to access `adapter` before it's assigned here.
-        // This is because NotificationViewData embeds a TimelineAccount, which
-        // is the network representation. It would be better NotificationViewData
-        // used a core.model class that represented an account, and when that
-        // core.model class is created the domain is explicitly set. Then the
-        // domain (account.entity.domain) wouldn't need to be passed here.
-//        viewModel.accountFlow.take(1).collect { account ->
         adapter = NotificationsPagingAdapter(
             notificationDiffCallback,
-//                    pachliAccountId,
-//                    account.entity.domain,
-            1,
-            "mastodon.social",
             statusActionListener = this@NotificationsFragment,
             notificationActionListener = this@NotificationsFragment,
             accountActionListener = this@NotificationsFragment,
             statusDisplayOptions = viewModel.statusDisplayOptions.value,
         )
-
-//        adapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
 
         binding.recyclerView.setAccessibilityDelegateCompat(
             ListStatusAccessibilityDelegate(pachliAccountId, binding.recyclerView, this@NotificationsFragment) { pos: Int ->
@@ -638,15 +619,14 @@ class NotificationsFragment :
         onViewAccount(status.account.id)
     }
 
+    override fun onExpandedChange(viewData: NotificationViewData, expanded: Boolean) {
+        viewModel.setExpanded(viewData, expanded)
+    }
+
+    // This is required by the interface; the interface's ViewData T doesn't include
+    // pachliAccountId as a property.
     override fun onExpandedChange(pachliAccountId: Long, viewData: NotificationViewData, expanded: Boolean) {
-        adapter.snapshot().withIndex()
-            .filter {
-                it.value?.statusViewData?.actionableId == viewData.statusViewData!!.actionableId
-            }
-            .map {
-                it.value?.statusViewData = it.value?.statusViewData?.copy(isExpanded = expanded)
-                adapter.notifyItemChanged(it.index)
-            }
+        onExpandedChange(viewData, expanded)
     }
 
     override fun onContentHiddenChange(pachliAccountId: Long, viewData: NotificationViewData, isShowing: Boolean) {
@@ -678,29 +658,23 @@ class NotificationsFragment :
     }
 
     override fun onNotificationContentCollapsedChange(
-        pachliAccountId: Long,
         isCollapsed: Boolean,
         viewData: NotificationViewData,
     ) {
-        onContentCollapsedChange(pachliAccountId, viewData, isCollapsed)
+        onContentCollapsedChange(viewData.pachliAccountId, viewData, isCollapsed)
     }
 
     override fun clearContentFilter(pachliAccountId: Long, viewData: NotificationViewData) {
-        adapter.snapshot().withIndex().filter { it.value?.statusViewData?.actionableId == viewData.statusViewData!!.actionableId }
-            .map {
-                it.value?.statusViewData = it.value?.statusViewData?.copy(
-                    contentFilterAction = FilterAction.NONE,
-                )
-                adapter.notifyItemChanged(it.index)
-            }
+        viewModel.clearContentFilter(viewData)
     }
 
     override fun clearAccountFilter(viewData: NotificationViewData) {
-        adapter.snapshot().withIndex().filter { it.value?.id == viewData.id }
-            .map {
-                it.value?.accountFilterDecision = null
-                adapter.notifyItemChanged(it.index)
-            }
+        viewModel.clearAccountFilter(viewData)
+//        adapter.snapshot().withIndex().filter { it.value?.id == viewData.id }
+//            .map {
+//                it.value?.accountFilterDecision = null
+//                adapter.notifyItemChanged(it.index)
+//            }
     }
 
     override fun editAccountNotificationFilter() {

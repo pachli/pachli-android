@@ -109,7 +109,7 @@ interface NotificationActionListener {
      * @param expanded the desired state of the content behind the content warning
      *
      */
-    fun onExpandedChange(pachliAccountId: Long, viewData: NotificationViewData, expanded: Boolean)
+    fun onExpandedChange(viewData: NotificationViewData, expanded: Boolean)
 
     /**
      * Called when the status [android.widget.ToggleButton] responsible for collapsing long
@@ -118,7 +118,6 @@ interface NotificationActionListener {
      * @param isCollapsed Whether the status content is shown in a collapsed state or fully.
      */
     fun onNotificationContentCollapsedChange(
-        pachliAccountId: Long,
         isCollapsed: Boolean,
         viewData: NotificationViewData,
     )
@@ -138,10 +137,6 @@ interface NotificationActionListener {
 
 /**
  * @param diffCallback
- * @param pachliAccountId
- * @param localDomain The domain associated with [pachliAccountId]. Used when
- * notifications have a missing domain (because they're from the same domain as
- * the user's account).
  * @param statusActionListener
  * @param notificationActionListener
  * @param accountActionListener
@@ -149,8 +144,6 @@ interface NotificationActionListener {
  */
 class NotificationsPagingAdapter(
     diffCallback: DiffUtil.ItemCallback<NotificationViewData>,
-    private val pachliAccountId: Long,
-    private val localDomain: String,
     private val statusActionListener: StatusActionListener<NotificationViewData>,
     private val notificationActionListener: NotificationActionListener,
     private val accountActionListener: AccountActionListener,
@@ -163,7 +156,6 @@ class NotificationsPagingAdapter(
     interface ViewHolder {
         /** Bind the data from the notification and payloads to the view */
         fun bind(
-            pachliAccountId: Long,
             viewData: NotificationViewData,
             payloads: List<*>?,
             statusDisplayOptions: StatusDisplayOptions,
@@ -202,7 +194,6 @@ class NotificationsPagingAdapter(
             NotificationViewKind.ACCOUNT_FILTERED -> {
                 FilterableNotificationViewHolder(
                     ItemNotificationFilteredBinding.inflate(inflater, parent, false),
-                    localDomain,
                     notificationActionListener,
                 )
             }
@@ -250,26 +241,16 @@ class NotificationsPagingAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        bindViewHolder(pachliAccountId, holder, position, null)
+        bindViewHolder(holder, position, null)
     }
 
-    override fun onBindViewHolder(
-        holder: RecyclerView.ViewHolder,
-        position: Int,
-        payloads: MutableList<Any>,
-    ) {
-        bindViewHolder(pachliAccountId, holder, position, payloads)
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int, payloads: MutableList<Any>) {
+        bindViewHolder(holder, position, payloads)
     }
 
-    private fun bindViewHolder(
-        pachliAccountId: Long,
-        holder: RecyclerView.ViewHolder,
-        position: Int,
-        payloads: List<*>?,
-    ) {
+    private fun bindViewHolder(holder: RecyclerView.ViewHolder, position: Int, payloads: List<*>?) {
         getItem(position)?.let {
-//            Timber.d("binding: $it")
-            (holder as ViewHolder).bind(pachliAccountId, it, payloads, statusDisplayOptions)
+            (holder as ViewHolder).bind(it, payloads, statusDisplayOptions)
         }
     }
 
@@ -281,7 +262,6 @@ class NotificationsPagingAdapter(
         val binding: ItemUnknownNotificationBinding,
     ) : ViewHolder, RecyclerView.ViewHolder(binding.root) {
         override fun bind(
-            pachliAccountId: Long,
             viewData: NotificationViewData,
             payloads: List<*>?,
             statusDisplayOptions: StatusDisplayOptions,

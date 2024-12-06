@@ -18,11 +18,12 @@
 package app.pachli.viewdata
 
 import android.text.Spanned
-import app.pachli.components.notifications.AccountFilterDecision
+import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.NotificationData
 import app.pachli.core.database.model.NotificationType
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.database.model.TranslationState
+import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
 import app.pachli.core.network.model.RelationshipSeveranceEvent
 import app.pachli.core.network.model.Report
@@ -37,10 +38,12 @@ import app.pachli.core.network.model.TimelineAccount
  * notifications are related to statuses (e.g., a "Someone has followed you"
  * notification) so `statusViewData` is nullable.
  *
+ * @param pachliAccountId
+ * @param localDomain Local domain of the logged in user's account (e.g., "mastodon.social")
  * @param type
- * @param id
- * @param account
- * @param statusViewData
+ * @param id Notification's server ID
+ * @param account Account that triggered the notification
+ * @param statusViewData (optional) Viewdata for the status referenced by the notification
  * @param report
  * @param relationshipSeveranceEvent
  * @param isAboutSelf True if this notification relates to something the user
@@ -50,6 +53,8 @@ import app.pachli.core.network.model.TimelineAccount
  * because of the account that sent it, and why.
  */
 data class NotificationViewData(
+    val pachliAccountId: Long,
+    val localDomain: String,
     val type: NotificationType,
     val id: String,
     val account: TimelineAccount,
@@ -87,7 +92,8 @@ data class NotificationViewData(
 //            accountFilterDecision = accountFilterDecision,
 //        )
 
-        fun from(
+        fun make(
+            pachliAccountEntity: AccountEntity,
             data: NotificationData,
             isShowingContent: Boolean,
             isExpanded: Boolean,
@@ -96,6 +102,8 @@ data class NotificationViewData(
             accountFilterDecision: AccountFilterDecision?,
             isAboutSelf: Boolean,
         ) = NotificationViewData(
+            pachliAccountId = pachliAccountEntity.id,
+            localDomain = pachliAccountEntity.domain,
             type = data.notification.type,
             id = data.notification.serverId,
             account = data.account.toTimelineAccount(),

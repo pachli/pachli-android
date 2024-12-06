@@ -21,6 +21,8 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
+import app.pachli.core.model.AccountFilterDecision
+import app.pachli.core.model.FilterAction
 import java.time.Instant
 
 enum class NotificationType {
@@ -42,17 +44,62 @@ enum class NotificationType {
     companion object
 }
 
-//
-// 1:1 TimelineAccountEntity -> NotificationEntity
-// 1:1
-
+// TOOD: Move to core.data? No, it's returned by dao method pagingSource()
+/**
+ * @param notification
+ * @param account Account that sent the notification.
+ * @param status (optional) Status associated with the notification.
+ * @param viewData (optional) Local view data for the notification.
+ */
 data class NotificationData(
     @Embedded val notification: NotificationEntity,
     @Embedded(prefix = "a_") val account: TimelineAccountEntity,
     @Embedded(prefix = "s_") val status: TimelineStatusWithAccount?,
+    @Embedded(prefix = "nvd_") val viewData: NotificationViewDataEntity?,
 ) {
     companion object
 }
+
+/**
+ * @param pachliAccountId
+ * @param serverId
+ * @param contentFilterAction The user's choice of [FilterAction] for
+ * this notification (which may not match the inherent action if they have
+ * chosen to show the notification).
+ * @param accountFilterDecision The user's [AccountFilterDecision] for
+ * this notification (which may not match the inherent decision if they
+ * have chosen to show the notification).
+ */
+@Entity(
+    primaryKeys = ["pachliAccountId", "serverId"],
+)
+@TypeConverters(Converters::class)
+data class NotificationViewDataEntity(
+    val pachliAccountId: Long,
+    val serverId: String,
+    val contentFilterAction: FilterAction? = null,
+    val accountFilterDecision: AccountFilterDecision? = null,
+)
+
+/**
+ * Partial entity to update [NotificationViewDataEntity.contentFilterAction].
+ */
+@Entity
+data class FilterActionUpdate(
+    val pachliAccountId: Long,
+    val serverId: String,
+    val contentFilterAction: FilterAction?,
+)
+
+/**
+ * Partial entity to update [NotificationViewDataEntity.accountFilterDecision].
+ */
+@Entity
+data class AccountFilterDecisionUpdate(
+    val pachliAccountId: Long,
+    val serverId: String,
+    val accountFilterDecision: AccountFilterDecision?,
+)
 
 @Entity(
     primaryKeys = ["pachliAccountId", "serverId"],
@@ -74,7 +121,7 @@ data class NotificationData(
 //        ),
 )
 @TypeConverters(Converters::class)
-class NotificationEntity(
+data class NotificationEntity(
     val pachliAccountId: Long,
     val serverId: String,
     val type: NotificationType,
@@ -102,7 +149,7 @@ enum class NotificationReportCategory {
     primaryKeys = ["pachliAccountId", "serverId"],
 )
 @TypeConverters(Converters::class)
-class NotificationReportEntity(
+data class NotificationReportEntity(
     val pachliAccountId: Long,
     val serverId: String,
     val actionTaken: Boolean,

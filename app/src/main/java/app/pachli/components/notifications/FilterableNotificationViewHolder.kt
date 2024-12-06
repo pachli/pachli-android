@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.database.model.NotificationType
+import app.pachli.core.model.AccountFilterReason
 import app.pachli.databinding.ItemNotificationFilteredBinding
 import app.pachli.viewdata.NotificationViewData
 
@@ -37,7 +38,6 @@ import app.pachli.viewdata.NotificationViewData
  */
 class FilterableNotificationViewHolder(
     private val binding: ItemNotificationFilteredBinding,
-    private val localDomain: String,
     private val notificationActionListener: NotificationActionListener,
 ) : NotificationsPagingAdapter.ViewHolder, RecyclerView.ViewHolder(binding.root) {
     private val context = binding.root.context
@@ -69,7 +69,11 @@ class FilterableNotificationViewHolder(
         }
     }
 
-    override fun bind(pachliAccountId: Long, viewData: NotificationViewData, payloads: List<*>?, statusDisplayOptions: StatusDisplayOptions) {
+    override fun bind(
+        viewData: NotificationViewData,
+        payloads: List<*>?,
+        statusDisplayOptions: StatusDisplayOptions,
+    ) {
         this.viewData = viewData
 
         val icon = viewData.type.icon(context)
@@ -88,7 +92,7 @@ class FilterableNotificationViewHolder(
         binding.accountFilterDomain.text = HtmlCompat.fromHtml(
             context.getString(
                 label,
-                viewData.account.domain.ifEmpty { localDomain },
+                viewData.account.domain.ifEmpty { viewData.localDomain },
             ),
             HtmlCompat.FROM_HTML_MODE_LEGACY,
         )

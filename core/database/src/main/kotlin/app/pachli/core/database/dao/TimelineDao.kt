@@ -291,6 +291,15 @@ WHERE timelineUserId = :accountId AND (serverId = :statusId OR reblogServerId = 
     abstract suspend fun setPinned(accountId: Long, statusId: String, pinned: Boolean)
 
     @Query(
+        """
+            UPDATE StatusViewDataEntity
+            SET expanded = :expanded
+            WHERE serverId = :serverId
+        """,
+    )
+    abstract suspend fun setExpanded(serverId: String, expanded: Boolean)
+
+    @Query(
         """DELETE FROM TimelineStatusEntity
 WHERE timelineUserId = :accountId AND authorServerId IN (
 SELECT serverId FROM TimelineAccountEntity WHERE username LIKE '%@' || :instanceDomain
