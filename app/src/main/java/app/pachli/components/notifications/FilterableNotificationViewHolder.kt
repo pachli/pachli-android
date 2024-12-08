@@ -98,6 +98,7 @@ class FilterableNotificationViewHolder(
             HtmlCompat.FROM_HTML_MODE_LEGACY,
         )
 
+        // TODO: Simplify this
         val reason = when (viewData.accountFilterDecision) {
             is AccountFilterDecision.Hide -> TODO()
             AccountFilterDecision.None -> TODO()
@@ -109,12 +110,6 @@ class FilterableNotificationViewHolder(
             }
         }
 
-//        val reason = when (viewData.accountFilterDecision?.reason) {
-//            AccountFilterReason.NOT_FOLLOWING -> notFollowing
-//            AccountFilterReason.YOUNGER_30D -> younger30d
-//            AccountFilterReason.LIMITED_BY_SERVER -> limitedByServer
-//            null -> ""
-//        }
         binding.accountFilterReason.text = reason
     }
 }
