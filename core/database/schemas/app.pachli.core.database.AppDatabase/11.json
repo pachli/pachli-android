@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 11,
-    "identityHash": "2f00c22e8f279e3061bfd6fc6d37c044",
+    "identityHash": "cce302b3c5f36aa9b65bd9367211d633",
     "entities": [
       {
         "tableName": "DraftEntity",
@@ -799,7 +799,7 @@
       },
       {
         "tableName": "TimelineAccountEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`serverId` TEXT NOT NULL, `timelineUserId` INTEGER NOT NULL, `localUsername` TEXT NOT NULL, `username` TEXT NOT NULL, `displayName` TEXT NOT NULL, `url` TEXT NOT NULL, `avatar` TEXT NOT NULL, `emojis` TEXT NOT NULL, `bot` INTEGER NOT NULL, `createdAt` INTEGER, `limited` INTEGER NOT NULL DEFAULT false, PRIMARY KEY(`serverId`, `timelineUserId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`serverId` TEXT NOT NULL, `timelineUserId` INTEGER NOT NULL, `localUsername` TEXT NOT NULL, `username` TEXT NOT NULL, `displayName` TEXT NOT NULL, `url` TEXT NOT NULL, `avatar` TEXT NOT NULL, `emojis` TEXT NOT NULL, `bot` INTEGER NOT NULL, `createdAt` INTEGER, `limited` INTEGER NOT NULL DEFAULT false, `note` TEXT NOT NULL DEFAULT '', PRIMARY KEY(`serverId`, `timelineUserId`))",
         "fields": [
           {
             "fieldPath": "serverId",
@@ -867,6 +867,13 @@
             "affinity": "INTEGER",
             "notNull": true,
             "defaultValue": "false"
+          },
+          {
+            "fieldPath": "note",
+            "columnName": "note",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
           }
         ],
         "primaryKey": {
@@ -1542,7 +1549,7 @@
       },
       {
         "tableName": "NotificationReportEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `actionTaken` INTEGER NOT NULL, `actionTakenAt` INTEGER, `category` TEXT NOT NULL, `comment` TEXT NOT NULL, `forwarded` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, `statusIds` TEXT, `ruleIds` TEXT, `target_serverId` TEXT NOT NULL, `target_timelineUserId` INTEGER NOT NULL, `target_localUsername` TEXT NOT NULL, `target_username` TEXT NOT NULL, `target_displayName` TEXT NOT NULL, `target_url` TEXT NOT NULL, `target_avatar` TEXT NOT NULL, `target_emojis` TEXT NOT NULL, `target_bot` INTEGER NOT NULL, `target_createdAt` INTEGER, `target_limited` INTEGER NOT NULL DEFAULT false, PRIMARY KEY(`pachliAccountId`, `serverId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `actionTaken` INTEGER NOT NULL, `actionTakenAt` INTEGER, `category` TEXT NOT NULL, `comment` TEXT NOT NULL, `forwarded` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, `statusIds` TEXT, `ruleIds` TEXT, `target_serverId` TEXT NOT NULL, `target_timelineUserId` INTEGER NOT NULL, `target_localUsername` TEXT NOT NULL, `target_username` TEXT NOT NULL, `target_displayName` TEXT NOT NULL, `target_url` TEXT NOT NULL, `target_avatar` TEXT NOT NULL, `target_emojis` TEXT NOT NULL, `target_bot` INTEGER NOT NULL, `target_createdAt` INTEGER, `target_limited` INTEGER NOT NULL DEFAULT false, `target_note` TEXT NOT NULL DEFAULT '', PRIMARY KEY(`pachliAccountId`, `serverId`))",
         "fields": [
           {
             "fieldPath": "pachliAccountId",
@@ -1670,6 +1677,13 @@
             "affinity": "INTEGER",
             "notNull": true,
             "defaultValue": "false"
+          },
+          {
+            "fieldPath": "targetAccount.note",
+            "columnName": "target_note",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "''"
           }
         ],
         "primaryKey": {
@@ -1725,7 +1739,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2f00c22e8f279e3061bfd6fc6d37c044')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'cce302b3c5f36aa9b65bd9367211d633')"
     ]
   }
 }

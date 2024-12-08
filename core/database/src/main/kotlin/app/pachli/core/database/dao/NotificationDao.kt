@@ -60,6 +60,7 @@ a.serverId as 'a_serverId', a.timelineUserId as 'a_timelineUserId',
 a.localUsername as 'a_localUsername', a.username as 'a_username',
 a.displayName as 'a_displayName', a.url as 'a_url', a.avatar as 'a_avatar',
 a.emojis as 'a_emojis', a.bot as 'a_bot', a.createdAt as 'a_createdAt', a.limited as 'a_limited',
+a.note as 'a_note',
 
 -- The status in the notification (if any)
 s.serverId as 's_serverId', s.url as 's_url', s.timelineUserId as 's_timelineUserId',
@@ -82,12 +83,14 @@ sa.serverId as 's_a_serverId', sa.timelineUserId as 's_a_timelineUserId',
 sa.localUsername as 's_a_localUsername', sa.username as 's_a_username',
 sa.displayName as 's_a_displayName', sa.url as 's_a_url', sa.avatar as 's_a_avatar',
 sa.emojis as 's_a_emojis', sa.bot as 's_a_bot', sa.createdAt as 's_a_createdAt', sa.limited as 's_a_limited',
+sa.note as 's_a_note',
 
 -- The status's reblog account
 rb.serverId as 's_rb_serverId', rb.timelineUserId 's_rb_timelineUserId',
 rb.localUsername as 's_rb_localUsername', rb.username as 's_rb_username',
 rb.displayName as 's_rb_displayName', rb.url as 's_rb_url', rb.avatar as 's_rb_avatar',
 rb.emojis as 's_rb_emojis', rb.bot as 's_rb_bot', rb.createdAt as 's_rb_createdAt', rb.limited as 's_rb_limited',
+rb.note as 's_rb_note',
 
 -- Status view data
 svd.serverId as 's_svd_serverId', svd.timelineUserId as 's_svd_timelineUserId',

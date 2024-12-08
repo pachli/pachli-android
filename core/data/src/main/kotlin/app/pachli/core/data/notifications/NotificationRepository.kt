@@ -142,7 +142,7 @@ class NotificationRemoteMediator(
 ) : RemoteMediator<Int, NotificationData>() {
     private val RKE_TIMELINE_ID = "NOTIFICATIONS"
 
-    override suspend fun initialize() = InitializeAction.SKIP_INITIAL_REFRESH
+//    override suspend fun initialize() = InitializeAction.SKIP_INITIAL_REFRESH
 
     override suspend fun load(loadType: LoadType, state: PagingState<Int, NotificationData>): MediatorResult {
         Timber.d("load:")

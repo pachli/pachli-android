@@ -101,6 +101,14 @@ data class AccountFilterDecisionUpdate(
     val accountFilterDecision: AccountFilterDecision?,
 )
 
+/**
+ * @param pachliAccountId
+ * @param serverId
+ * @param type
+ * @param createdAt
+ * @param accountServerId ID of the account that generated this notification.
+ * @param statusServerId (optional) ID of the status this notification is about.
+ */
 @Entity(
     primaryKeys = ["pachliAccountId", "serverId"],
 //    foreignKeys = (
