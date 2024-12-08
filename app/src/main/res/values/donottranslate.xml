@@ -77,6 +77,7 @@
         <item>Magyar</item> <!-- hu: Hungarian -->
         <item>Nederlands</item> <!-- nl: Dutch -->
         <item>Norsk Bokmål (Norge)</item> <!-- nb-NO: Norwegian Bokmål (Norway) -->
+        <item>Norsk Nynorsk</item> <!-- nn: Norwegian Nynorsk -->
         <item>Occitan</item> <!-- oc: Occitan -->
         <item>Polski</item> <!-- pl: Polish -->
         <item>Português (Brasil)</item> <!-- pt-BR: Portuguese (Brazil) -->
@@ -141,6 +142,7 @@
         <item>hu</item>
         <item>nl</item>
         <item>nb-NO</item>
+        <item>nn</item>
         <item>oc</item>
         <item>pl</item>
         <item>pt-BR</item>
