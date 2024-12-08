@@ -136,6 +136,7 @@ class ServerRepository @Inject constructor(
 
         data class GetNodeInfo(val url: String, override val cause: PachliError) : Error(
             R.string.server_repository_error_get_node_info,
+            arrayOf(url),
         )
 
         data class ValidateNodeInfo(val url: String, val error: UnvalidatedNodeInfo.Error) : Error(
