@@ -814,4 +814,5 @@
     <string name="action_timeline_link">Publicaciones acerca de este enlace</string>
     <string name="account_filter_placeholder_label_younger_30d">Filtrado porque: <b>creada en los últimos 30 días</b></string>
     <string name="account_filter_placeholder_label_limited_by_server">Filtrado porque: <b>limitada por tus moderadores</b></string>
+    <string name="preview_card_timeline_link_fmt">Ver <b>%1$s</b> publicaciones sobre este enlace</string>
 </resources>
