@@ -1,0 +1,15 @@
+Pachli 2.9.0
+
+Nuevo:
+
+- Mover ajustes de pestañas desde laboratorio
+- Filtrado de notificaciones por cuenta de envío
+- Compatibilidad con Pleroma: fechas sin huso horario
+- a11y: mostrar más acciones para enlaces en tendencia y cuentas sugeridas
+
+Arreglos:
+
+- Asegurar que los elementos en diálogos a11y sean clicables
+- No perder imágenes / subtítulos luego de un fallo al subirlas
+- Fallos varios
+- Actualizar traducciones al español, finés, irlandés y noruego (Bokmål, Nynorsk)
