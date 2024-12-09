@@ -1,17 +1,17 @@
 Pachli 2.8.3
 
-Nuevas características:
+Nuevo:
 
-- Mostrar ficha compartida en enlaces de clics largos etc
-- Mostrar botón "copiar" para enlaces, etc. en diálogos de accesibilidad
-- Añadir opciones de accesibilidad para pestañas
-- Muéstrale el horario de un puesto programado
-- Añadir "No preguntes otra vez" al confirmar el idioma del post
+- Menú compartir en presión larga sobre enlaces, etc
+- Botón "copiar" para enlaces, etc. en diálogos de accesibilidad
+- Opciones de accesibilidad para pestañas
+- Horario de publicación programada
+- "No preguntar otra vez" al confirmar idioma de publ.
 
-Arreglos:
+Correcciones:
 
-- Desactivar el soporte de "posto programado" en GoToSocial
-- Mostrar encuestas si edita publicaciones programadas
-- No se estrelle si una conversación no tiene participantes
+- Desactivar "publ. programada" para GoToSocial
+- Mostrar encuestas si edita publ. programadas
+- No fallar en conversación sin participantes
 
-- Actualización birmano, finlandés, lituano, español, traducción ucraniana
+- Traducciones al birmano, español, finés, lituano y ucraniano
