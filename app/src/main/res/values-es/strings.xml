@@ -638,7 +638,7 @@
     <string name="error_media_uploader_upload_not_found_fmt">no se encontró la subida de medios con ID de %1$s</string>
     <string name="error_prepare_media_unknown_file_size">no se pudo determinar el tamaño del archivo</string>
     <string name="error_prepare_media_unknown_mime_type">se desconoce el tipo de archivo</string>
-    <string name="preview_card_byline_fediverse_account_fmt">Ver más de %1$s</string>
+    <string name="preview_card_byline_fediverse_account_fmt">Por <b>%1$s</b>. Ver más publicaciones</string>
     <string name="action_open_byline_account">Mostrar el perfil del autor del artículo</string>
     <string name="action_open_link">Abrir enlace</string>
     <string name="compose_warn_language_dialog_title">Comprueba el idioma de la publicación</string>
@@ -795,4 +795,24 @@
     <string name="main_viewmodel_error_set_active_account">El inicio de sesión falló con el siguiente error:\n\n%1$s</string>
     <string name="main_viewmodel_error_refresh_account">La actualización de la cuenta falló con el siguiente error:\n\n%1$s\n\nPuedes continuar, pero tus listas y filtros pueden estar incompletos.</string>
     <string name="action_relogin">Volver a iniciar sesión</string>
+    <string name="filter_action_none">Mostrar</string>
+    <string name="filter_description_none">Mostrar normalmente</string>
+    <string name="pref_account_notification_filters_label_not_followed">… que no sigues</string>
+    <string name="pref_account_notification_filters_label_younger_30d">… creadas en los últimos 30 días</string>
+    <string name="pref_account_notification_filters_label_limited_by_server">… limitadas por tus moderadores</string>
+    <string name="account_filter_placeholder_type_favourite_fmt">Un usuario de <b>%1s</b> marcó como favorita tu publicación</string>
+    <string name="account_filter_placeholder_type_follow_request_fmt">Solicitud de seguimiento de un usuario de <b>%1s</b></string>
+    <string name="account_filter_placeholder_type_mention_fmt">Un usuario de <b>%1s</b> te mencionó</string>
+    <string name="account_filter_placeholder_type_reblog_fmt">Un usuario de <b>%1s</b> impulsó tu publicación</string>
+    <string name="account_filter_placeholder_label_domain">De un usuario de <b>%1s</b></string>
+    <string name="account_filter_placeholder_type_follow_fmt">Un usuario de <b>%1s</b> te siguió</string>
+    <string name="account_filter_placeholder_label_not_following">Filtrado porque: <b>no le sigues</b></string>
+    <string name="notification_unknown">Tipo de notificación desconocido</string>
+    <string name="pref_account_notification_filters_subtitle">Qué debería ocurrir con las notificaciones de cuentas…</string>
+    <string name="pref_title_account_notification_filters">Filtros de notificaciones</string>
+    <string name="preview_card_byline_name_only_fmt">Por <b>%1$s</b></string>
+    <string name="action_timeline_link">Publicaciones acerca de este enlace</string>
+    <string name="account_filter_placeholder_label_younger_30d">Filtrado porque: <b>creada en los últimos 30 días</b></string>
+    <string name="account_filter_placeholder_label_limited_by_server">Filtrado porque: <b>limitada por tus moderadores</b></string>
+    <string name="preview_card_timeline_link_fmt">Ver <b>%1$s</b> publicaciones sobre este enlace</string>
 </resources>
