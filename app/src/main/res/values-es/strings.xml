@@ -797,9 +797,9 @@
     <string name="action_relogin">Volver a iniciar sesión</string>
     <string name="filter_action_none">Mostrar</string>
     <string name="filter_description_none">Mostrar normalmente</string>
-    <string name="pref_account_notification_filters_label_not_followed">... que no sigues</string>
-    <string name="pref_account_notification_filters_label_younger_30d">... creadas en los últimos 30 días</string>
-    <string name="pref_account_notification_filters_label_limited_by_server">... limitadas por tus moderadores</string>
+    <string name="pref_account_notification_filters_label_not_followed">… que no sigues</string>
+    <string name="pref_account_notification_filters_label_younger_30d">… creadas en los últimos 30 días</string>
+    <string name="pref_account_notification_filters_label_limited_by_server">… limitadas por tus moderadores</string>
     <string name="account_filter_placeholder_type_favourite_fmt">Un usuario de <b>%1s</b> marcó como favorita tu publicación</string>
     <string name="account_filter_placeholder_type_follow_request_fmt">Solicitud de seguimiento de un usuario de <b>%1s</b></string>
     <string name="account_filter_placeholder_type_mention_fmt">Un usuario de <b>%1s</b> te mencionó</string>
