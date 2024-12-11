@@ -47,6 +47,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.R
 import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.components.preference.AccountNotificationFiltersPreferencesDialogFragment
+import app.pachli.components.timeline.TimelineLoadStateAdapter
 import app.pachli.core.activity.ReselectableFragment
 import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithTransition
@@ -218,12 +219,11 @@ class NotificationsFragment :
         }
         binding.recyclerView.addOnScrollListener(saveIdListener)
 
-        binding.recyclerView.adapter = adapter
-//        binding.recyclerView.adapter = adapter.withLoadStateHeaderAndFooter(
-//            header = TimelineLoadStateAdapter { adapter.retry() },
-//            footer = TimelineLoadStateAdapter { adapter.retry() },
-//        )
-//            }
+//        binding.recyclerView.adapter = adapter
+        binding.recyclerView.adapter = adapter.withLoadStateHeaderAndFooter(
+            header = TimelineLoadStateAdapter { adapter.retry() },
+            footer = TimelineLoadStateAdapter { adapter.retry() },
+        )
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -470,7 +470,7 @@ class NotificationsFragment :
 
                             LoadState.Loading -> {
                                 /* nothing */
-                                binding.progressBar.show()
+//                                binding.progressBar.show()
                             }
 
                             is LoadState.NotLoading -> {
@@ -487,22 +487,6 @@ class NotificationsFragment :
                                 }
                             }
                         }
-
-//                        if (loadState.refresh is LoadState.NotLoading) {
-//                            if (adapter.itemCount == 0) {
-//                                binding.statusView.setup(BackgroundMessage.Empty())
-//                                binding.recyclerView.hide()
-//                                binding.statusView.show()
-//                            } else {
-//                                binding.statusView.hide()
-//                            }
-//                        }
-//
-//                        if (loadState.refresh is LoadState.Error) {
-//                            binding.statusView.setup((loadState.refresh as LoadState.Error).error) { adapter.retry() }
-//                            binding.recyclerView.hide()
-//                            binding.statusView.show()
-//                        }
                     }
             }
         }
@@ -619,8 +603,9 @@ class NotificationsFragment :
         viewModel.setExpanded(viewData, expanded)
     }
 
-    // This is required by the interface; the interface's ViewData T doesn't include
-    // pachliAccountId as a property.
+    // This is required by the interface StatusActionListener; the interface's ViewData T
+    // doesn't include pachliAccountId as a property.
+    // TODO: Update StatusActionListener.onExpandedChange to include the account ID.
     override fun onExpandedChange(pachliAccountId: Long, viewData: NotificationViewData, expanded: Boolean) {
         onExpandedChange(viewData, expanded)
     }

@@ -52,7 +52,8 @@ import app.pachli.util.deserialize
 import app.pachli.util.serialize
 import app.pachli.viewdata.NotificationViewData
 import app.pachli.viewdata.StatusViewData
-import at.connyduck.calladapter.networkresult.getOrThrow
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -452,34 +453,37 @@ class NotificationsViewModel @AssistedInject constructor(
             uiAction.filterIsInstance<StatusAction>()
                 .throttleFirst() // avoid double-taps
                 .collect { action ->
-                    try {
-                        when (action) {
-                            is StatusAction.Bookmark ->
-                                timelineCases.bookmark(
-                                    action.statusViewData.actionableId,
-                                    action.state,
-                                )
-                            is StatusAction.Favourite ->
-                                timelineCases.favourite(
-                                    action.statusViewData.actionableId,
-                                    action.state,
-                                )
-                            is StatusAction.Reblog ->
-                                timelineCases.reblog(
-                                    action.statusViewData.actionableId,
-                                    action.state,
-                                )
-                            is StatusAction.VoteInPoll ->
-                                timelineCases.voteInPoll(
-                                    action.statusViewData.actionableId,
-                                    action.poll.id,
-                                    action.choices,
-                                )
-                        }.getOrThrow()
-                        uiSuccess.emit(StatusActionSuccess.from(action))
-                    } catch (t: Throwable) {
-                        _uiErrorChannel.send(UiError.make(t, action))
+                    when (action) {
+                        is StatusAction.Bookmark -> repository.bookmark(
+                            pachliAccountId,
+                            action.statusViewData.actionableId,
+                            action.state,
+                        )
+
+                        is StatusAction.Favourite ->
+                            repository.favourite(
+                                pachliAccountId,
+                                action.statusViewData.actionableId,
+                                action.state,
+                            )
+
+                        is StatusAction.Reblog ->
+                            repository.reblog(
+                                pachliAccountId,
+                                action.statusViewData.actionableId,
+                                action.state,
+                            )
+
+                        is StatusAction.VoteInPoll ->
+                            repository.voteInPoll(
+                                pachliAccountId,
+                                action.statusViewData.actionableId,
+                                action.poll.id,
+                                action.choices,
+                            )
                     }
+                        .onSuccess { uiSuccess.emit(StatusActionSuccess.from(action)) }
+                        .onFailure { _uiErrorChannel.send(UiError.make(it.throwable, action)) }
                 }
         }
 

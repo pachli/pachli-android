@@ -17,6 +17,7 @@
 
 package app.pachli.core.data.notifications
 
+import androidx.annotation.StringRes
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.InvalidatingPagingSourceFactory
 import androidx.paging.LoadType
@@ -25,6 +26,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
+import app.pachli.core.common.PachliError
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.database.dao.NotificationDao
 import app.pachli.core.database.dao.RemoteKeyDao
@@ -45,6 +47,10 @@ import app.pachli.core.model.FilterAction
 import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.retrofit.MastodonApi
+import at.connyduck.calladapter.networkresult.onFailure
+import com.github.michaelbull.result.Err
+import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.Result
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
@@ -54,6 +60,35 @@ import okhttp3.ResponseBody
 import retrofit2.HttpException
 import retrofit2.Response
 import timber.log.Timber
+
+/**
+ * Errors that can occur acting on a status.
+ *
+ * Converts the [throwable] from a
+ * [NetworkResult][at.connyduck.calladapter.networkresult.NetworkResult] to
+ * a [PachliError].
+ *
+ * @param throwable The wrapped throwable.
+ */
+// TODO: The API calls should return an ApiResult, then this can wrap those.
+sealed class StatusActionError(open val throwable: Throwable) : PachliError {
+    @get:StringRes
+    override val resourceId = app.pachli.core.network.R.string.error_generic_fmt
+    override val formatArgs: Array<out Any>? = arrayOf(throwable)
+    override val cause: PachliError? = null
+
+    /** Bookmarking a status failed. */
+    data class Bookmark(override val throwable: Throwable) : StatusActionError(throwable)
+
+    /** Favouriting a status failed. */
+    data class Favourite(override val throwable: Throwable) : StatusActionError(throwable)
+
+    /** Reblogging a status failed. */
+    data class Reblog(override val throwable: Throwable) : StatusActionError(throwable)
+
+    /** Voting in a poll failed. */
+    data class VoteInPoll(override val throwable: Throwable) : StatusActionError(throwable)
+}
 
 class NotificationRepository @Inject constructor(
     @ApplicationScope private val externalScope: CoroutineScope,
@@ -125,6 +160,85 @@ class NotificationRepository @Inject constructor(
         timelineDao.setExpanded(statusId, expanded)
     }
 
+    suspend fun bookmark(pachliAccountId: Long, statusId: String, bookmarked: Boolean): Result<Unit, StatusActionError.Bookmark> = externalScope.async {
+        val deferred = async {
+            if (bookmarked) {
+                mastodonApi.bookmarkStatus(statusId)
+            } else {
+                mastodonApi.unbookmarkStatus(statusId)
+            }
+        }
+
+        timelineDao.setBookmarked(pachliAccountId, statusId, bookmarked)
+
+        val result = deferred.await()
+
+        result.onFailure { throwable ->
+            timelineDao.setBookmarked(pachliAccountId, statusId, !bookmarked)
+            return@async Err(StatusActionError.Bookmark(throwable))
+        }
+
+        return@async Ok(Unit)
+    }.await()
+
+    suspend fun favourite(pachliAccountId: Long, statusId: String, favourited: Boolean): Result<Unit, StatusActionError.Favourite> = externalScope.async {
+        val deferred = async {
+            if (favourited) {
+                mastodonApi.favouriteStatus(statusId)
+            } else {
+                mastodonApi.unfavouriteStatus(statusId)
+            }
+        }
+
+        timelineDao.setFavourited(pachliAccountId, statusId, favourited)
+
+        val result = deferred.await()
+
+        result.onFailure { throwable ->
+            timelineDao.setFavourited(pachliAccountId, statusId, !favourited)
+            return@async Err(StatusActionError.Favourite(throwable))
+        }
+
+        return@async Ok(Unit)
+    }.await()
+
+    suspend fun reblog(pachliAccountId: Long, statusId: String, reblogged: Boolean): Result<Unit, StatusActionError.Reblog> = externalScope.async {
+        val deferred = async {
+            if (reblogged) {
+                mastodonApi.reblogStatus(statusId)
+            } else {
+                mastodonApi.unreblogStatus(statusId)
+            }
+        }
+
+        timelineDao.setReblogged(pachliAccountId, statusId, reblogged)
+
+        val result = deferred.await()
+
+        result.onFailure { throwable ->
+            timelineDao.setReblogged(pachliAccountId, statusId, !reblogged)
+            return@async Err(StatusActionError.Reblog(throwable))
+        }
+
+        return@async Ok(Unit)
+    }.await()
+
+    suspend fun voteInPoll(pachliAccountId: Long, statusId: String, pollId: String, choices: List<Int>): Result<Unit, StatusActionError.VoteInPoll> = externalScope.async {
+        if (choices.isEmpty()) {
+            return@async Err(StatusActionError.VoteInPoll(IllegalStateException()))
+        }
+
+        // TODO: Update the DB
+
+        val result = mastodonApi.voteInPoll(pollId, choices)
+
+        result.onFailure { throwable ->
+            return@async Err(StatusActionError.VoteInPoll(throwable))
+        }
+
+        return@async Ok(Unit)
+    }.await()
+
     companion object {
         private const val PAGE_SIZE = 30
     }
@@ -145,9 +259,6 @@ class NotificationRemoteMediator(
 //    override suspend fun initialize() = InitializeAction.SKIP_INITIAL_REFRESH
 
     override suspend fun load(loadType: LoadType, state: PagingState<Int, NotificationData>): MediatorResult {
-        Timber.d("load:")
-        Timber.d("  loadType: $loadType")
-        Timber.d("     state: $state")
         return try {
             val response = when (loadType) {
                 LoadType.REFRESH -> mastodonApi.notifications(limit = state.config.initialLoadSize)
