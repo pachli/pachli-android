@@ -482,7 +482,9 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     override fun onPrepareMenu(menu: Menu) {
         super<BottomSheetActivity>.onPrepareMenu(menu)
 
-        menu.findItem(R.id.action_remove_tab).isVisible = tabAdapter.tabs.getOrNull(binding.viewPager.currentItem)?.timeline != Timeline.Home
+        menu.findItem(R.id.action_remove_tab).isVisible = tabAdapter.tabs.getOrNull(binding.viewPager.currentItem)?.let {
+            it.timeline != Timeline.Home
+        } ?: false
 
         // If the main toolbar is hidden then there's no space in the top/bottomNav to show
         // the menu items as icons, so forceably disable them
