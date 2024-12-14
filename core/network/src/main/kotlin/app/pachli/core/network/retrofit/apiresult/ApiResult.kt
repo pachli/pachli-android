@@ -28,6 +28,7 @@ import com.squareup.moshi.JsonDataException
 import java.io.IOException
 import java.lang.reflect.Type
 import okhttp3.Headers
+import okhttp3.Request
 import retrofit2.HttpException
 import retrofit2.Response
 
@@ -53,125 +54,134 @@ data class ApiResponse<out T>(
  * A failed response from an API call.
  *
  * @param resourceId String resource ID of the error message.
+ * @param request The request that failed
  * @param throwable The [Throwable] that caused this error. The server
  * message (if it exists), or [Throwable.getLocalizedMessage] will be
- * interpolated in to this string at `%1$s`.
+ * interpolated in to this string at `%1$s`. The request's method and
+ * URL is appended to make error reports more useful.
  */
 sealed class ApiError(
     @StringRes override val resourceId: Int,
-    val throwable: Throwable,
+    open val request: Request,
+    open val throwable: Throwable,
 ) : PachliError {
-    override val formatArgs: Array<out Any>? = (
-        throwable.getServerErrorMessage() ?: throwable.localizedMessage?.trim()
-        )?.let { arrayOf(it) }
+    override val formatArgs: Array<out Any>? by lazy {
+        (
+            throwable.getServerErrorMessage() ?: throwable.localizedMessage?.trim()
+            )?.let { arrayOf("$it: ${request.method} ${request.url}") } ?: arrayOf("${request.method} ${request.url}")
+    }
     override val cause: PachliError? = null
 
     companion object {
-        fun from(throwable: Throwable): ApiError {
+        fun from(request: Request, throwable: Throwable): ApiError {
             return when (throwable) {
                 is HttpException -> when (throwable.code()) {
-                    in 400..499 -> ClientError.from(throwable)
-                    in 500..599 -> ServerError.from(throwable)
-                    else -> Unknown(throwable)
+                    in 400..499 -> ClientError.from(request, throwable)
+                    in 500..599 -> ServerError.from(request, throwable)
+                    else -> Unknown(request, throwable)
                 }
 
-                is JsonDataException -> JsonParseError(throwable)
-                is IOException -> IoError(throwable)
-                else -> Unknown(throwable)
+                is JsonDataException -> JsonParseError(request, throwable)
+                is IOException -> IoError(request, throwable)
+                else -> Unknown(request, throwable)
             }
         }
     }
 
-    data class Unknown(val exception: Throwable) : ApiError(
+    data class Unknown(override val request: Request, override val throwable: Throwable) : ApiError(
         R.string.error_generic_fmt,
-        exception,
+        request,
+        throwable,
     )
 }
 
 sealed class HttpError(
     @StringRes override val resourceId: Int,
+    override val request: Request,
     open val exception: HttpException,
-) : ApiError(resourceId, exception)
+) : ApiError(resourceId, request, exception)
 
 /** 4xx errors */
 sealed class ClientError(
     @StringRes override val resourceId: Int,
+    request: Request,
     exception: HttpException,
-) : HttpError(resourceId, exception) {
+) : HttpError(resourceId, request, exception) {
     companion object {
-        fun from(exception: HttpException): ClientError {
+        fun from(request: Request, exception: HttpException): ClientError {
             return when (exception.code()) {
-                400 -> BadRequest(exception)
-                401 -> Unauthorized(exception)
-                404 -> NotFound(exception)
-                410 -> Gone(exception)
-                429 -> RateLimit(exception)
-                else -> UnknownClientError(exception)
+                400 -> BadRequest(request, exception)
+                401 -> Unauthorized(request, exception)
+                404 -> NotFound(request, exception)
+                410 -> Gone(request, exception)
+                429 -> RateLimit(request, exception)
+                else -> UnknownClientError(request, exception)
             }
         }
     }
 
     /** 400 Bad request */
-    data class BadRequest(override val exception: HttpException) :
-        ClientError(R.string.error_generic_fmt, exception)
+    data class BadRequest(override val request: Request, override val exception: HttpException) :
+        ClientError(R.string.error_generic_fmt, request, exception)
 
     /** 401 Unauthorized */
-    data class Unauthorized(override val exception: HttpException) :
-        ClientError(R.string.error_generic_fmt, exception)
+    data class Unauthorized(override val request: Request, override val exception: HttpException) :
+        ClientError(R.string.error_generic_fmt, request, exception)
 
     /** 404 Not found */
-    data class NotFound(override val exception: HttpException) :
-        ClientError(R.string.error_404_not_found_fmt, exception)
+    data class NotFound(override val request: Request, override val exception: HttpException) :
+        ClientError(R.string.error_404_not_found_fmt, request, exception)
 
     /** 410 Gone */
-    data class Gone(override val exception: HttpException) :
-        ClientError(R.string.error_generic_fmt, exception)
+    data class Gone(override val request: Request, override val exception: HttpException) :
+        ClientError(R.string.error_generic_fmt, request, exception)
 
     /** 429 Rate limit */
-    data class RateLimit(override val exception: HttpException) :
-        ClientError(R.string.error_429_rate_limit_fmt, exception)
+    data class RateLimit(override val request: Request, override val exception: HttpException) :
+        ClientError(R.string.error_429_rate_limit_fmt, request, exception)
 
     /** All other 4xx client errors */
-    data class UnknownClientError(override val exception: HttpException) :
-        ClientError(R.string.error_generic_fmt, exception)
+    data class UnknownClientError(override val request: Request, override val exception: HttpException) :
+        ClientError(R.string.error_generic_fmt, request, exception)
 }
 
 /** 5xx errors */
 sealed class ServerError(
     @StringRes override val resourceId: Int,
+    request: Request,
     exception: HttpException,
-) : HttpError(resourceId, exception) {
+) : HttpError(resourceId, request, exception) {
     companion object {
-        fun from(exception: HttpException): ServerError {
+        fun from(request: Request, exception: HttpException): ServerError {
             return when (exception.code()) {
-                500 -> Internal(exception)
-                501 -> NotImplemented(exception)
-                502 -> BadGateway(exception)
-                503 -> ServiceUnavailable(exception)
-                else -> UnknownServerError(exception)
+                500 -> Internal(request, exception)
+                501 -> NotImplemented(request, exception)
+                502 -> BadGateway(request, exception)
+                503 -> ServiceUnavailable(request, exception)
+                else -> UnknownServerError(request, exception)
             }
         }
     }
 
     /** 500 Internal error */
-    data class Internal(override val exception: HttpException) :
-        ServerError(R.string.error_generic_fmt, exception)
+    data class Internal(override val request: Request, override val exception: HttpException) :
+        ServerError(R.string.error_generic_fmt, request, exception)
 
     /** 501 Not implemented */
-    data class NotImplemented(override val exception: HttpException) :
-        ServerError(R.string.error_404_not_found_fmt, exception)
+    data class NotImplemented(override val request: Request, override val exception: HttpException) :
+        ServerError(R.string.error_404_not_found_fmt, request, exception)
 
     /** 502 Bad gateway */
-    data class BadGateway(override val exception: HttpException) :
-        ServerError(R.string.error_generic_fmt, exception)
+    data class BadGateway(override val request: Request, override val exception: HttpException) :
+        ServerError(R.string.error_generic_fmt, request, exception)
 
     /** 503 Service unavailable */
-    data class ServiceUnavailable(override val exception: HttpException) :
-        ServerError(R.string.error_generic_fmt, exception)
+    data class ServiceUnavailable(override val request: Request, override val exception: HttpException) :
+        ServerError(R.string.error_generic_fmt, request, exception)
 
     /** All other 5xx server errors */
-    data class UnknownServerError(override val exception: HttpException) :
-        ServerError(R.string.error_generic_fmt, exception)
+    data class UnknownServerError(override val request: Request, override val exception: HttpException) :
+        ServerError(R.string.error_generic_fmt, request, exception)
 }
 
 /**
@@ -179,41 +189,40 @@ sealed class ServerError(
  * response in [exception] may be a success, as the server may have sent a 2xx
  * without a content-type.
  */
-data class MissingContentType(val exception: HttpException) :
-    ApiError(R.string.error_missing_content_type_fmt, exception)
+data class MissingContentType(override val request: Request, val exception: HttpException) :
+    ApiError(R.string.error_missing_content_type_fmt, request, exception)
 
 /**
  * The server sent a response with the wrong content type (not "application/json")
  * Note that the underlying response in [exception] may be a success, as the server
  * may have sent a 2xx with the wrong content-type.
  */
-data class WrongContentType(val contentType: String, val exception: HttpException) :
-    ApiError(R.string.error_wrong_content_type_fmt, exception) {
+data class WrongContentType(override val request: Request, val contentType: String, val exception: HttpException) :
+    ApiError(R.string.error_wrong_content_type_fmt, request, exception) {
     override val formatArgs: Array<out Any>
         get() = super.formatArgs?.let {
             arrayOf(contentType, *it)
         } ?: arrayOf(contentType)
 }
 
-data class JsonParseError(val exception: JsonDataException) :
-    ApiError(R.string.error_json_data_fmt, exception)
+data class JsonParseError(override val request: Request, val exception: JsonDataException) :
+    ApiError(R.string.error_json_data_fmt, request, exception)
 
-data class IoError(val exception: IOException) :
-    ApiError(R.string.error_network_fmt, exception)
+data class IoError(override val request: Request, val exception: IOException) :
+    ApiError(R.string.error_network_fmt, request, exception)
 
 /**
  * Creates an [ApiResult] from a [Response].
  */
-fun <T> Result.Companion.from(response: Response<T>, successType: Type): ApiResult<T> {
+fun <T> Result.Companion.from(request: Request, response: Response<T>, successType: Type): ApiResult<T> {
     response.headers()["content-type"]?.let { contentType ->
         if (!contentType.startsWith("application/json")) {
-            return Err(WrongContentType(contentType, HttpException(response)))
+            return Err(WrongContentType(request, contentType, HttpException(response)))
         }
-    } ?: return Err(MissingContentType(HttpException(response)))
+    } ?: return Err(MissingContentType(request, HttpException(response)))
 
     if (!response.isSuccessful) {
-        val err = ApiError.from(HttpException(response))
-        return Err(err)
+        return Err(ApiError.from(request, HttpException(response)))
     }
 
     // Skip body processing for successful responses expecting Unit
@@ -226,5 +235,5 @@ fun <T> Result.Companion.from(response: Response<T>, successType: Type): ApiResu
         return Ok(ApiResponse(response.headers(), body, response.code()))
     }
 
-    return Err(ApiError.from(HttpException(response)))
+    return Err(ApiError.from(request, HttpException(response)))
 }

@@ -23,6 +23,7 @@ import com.github.michaelbull.result.unwrapError
 import com.google.common.truth.Truth.assertThat
 import java.io.IOException
 import okhttp3.Headers
+import okhttp3.Request
 import org.junit.Assert.assertThrows
 import org.junit.Test
 import retrofit2.Call
@@ -73,7 +74,15 @@ class ApiResultCallTest {
             object : Callback<ApiResult<String>> {
                 override fun onResponse(call: Call<ApiResult<String>>, response: Response<ApiResult<String>>) {
                     assertThat(response.isSuccessful).isTrue()
-                    assertThat(response.body()).isEqualTo(ApiResult.from(okResponse, String::class.java))
+                    assertThat(response.body()).isEqualTo(
+                        ApiResult.from(
+                            Request.Builder()
+                                .url("https://example.com/")
+                                .build(),
+                            okResponse,
+                            String::class.java,
+                        ),
+                    )
                 }
 
                 override fun onFailure(call: Call<ApiResult<String>>, t: Throwable) {
@@ -152,7 +161,7 @@ class ApiResultCallTest {
                     val exception = (error as ClientError.NotFound).exception
                     assertThat(exception).isInstanceOf(HttpException::class.java)
                     assertThat(exception.code()).isEqualTo(404)
-                    assertThat(error.formatArgs).isEqualTo(arrayOf("HTTP 404 Not Found"))
+                    assertThat(error.formatArgs).isEqualTo(arrayOf("HTTP 404 Not Found: GET https://example.com/"))
                 }
 
                 override fun onFailure(call: Call<ApiResult<String>>, t: Throwable) {
@@ -180,7 +189,7 @@ class ApiResultCallTest {
                     val exception = (error as ClientError.NotFound).exception
                     assertThat(exception).isInstanceOf(HttpException::class.java)
                     assertThat(exception.code()).isEqualTo(404)
-                    assertThat(error.formatArgs).isEqualTo(arrayOf(errorMsg))
+                    assertThat(error.formatArgs).isEqualTo(arrayOf("$errorMsg: GET https://example.com/"))
                 }
 
                 override fun onFailure(call: Call<ApiResult<String>>, t: Throwable) {
@@ -209,7 +218,7 @@ class ApiResultCallTest {
                     val exception = (error as ClientError.NotFound).exception
                     assertThat(exception).isInstanceOf(HttpException::class.java)
                     assertThat(exception.code()).isEqualTo(404)
-                    assertThat(error.formatArgs).isEqualTo(arrayOf("$errorMsg: $descriptionMsg"))
+                    assertThat(error.formatArgs).isEqualTo(arrayOf("$errorMsg: $descriptionMsg: GET https://example.com/"))
                 }
 
                 override fun onFailure(call: Call<ApiResult<String>>, t: Throwable) {
@@ -223,12 +232,16 @@ class ApiResultCallTest {
 
     @Test
     fun `should parse call with IOException as ApiResult-failure`() {
-        val error = Err(IoError(IOException()))
+        val exception = IOException()
 
         networkApiResultCall.enqueue(
             object : Callback<ApiResult<String>> {
                 override fun onResponse(call: Call<ApiResult<String>>, response: Response<ApiResult<String>>) {
-                    assertThat(response.body()).isEqualTo(error)
+                    val err = response.body() as? Err<ApiError>
+                    assertThat(err).isInstanceOf(Err::class.java)
+                    assertThat(err?.error?.request).isEqualTo(call.request())
+                    assertThat(err?.error?.throwable).isEqualTo(exception)
+                    assertThat(err?.error?.formatArgs).isEqualTo(arrayOf("GET https://example.com/"))
                 }
 
                 override fun onFailure(call: Call<ApiResult<String>>, t: Throwable) {
@@ -237,6 +250,6 @@ class ApiResultCallTest {
             },
         )
 
-        backingCall.completeWithException(error.error.throwable)
+        backingCall.completeWithException(exception)
     }
 }

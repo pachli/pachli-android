@@ -28,7 +28,7 @@ class TestCall<T> : Call<T> {
     private var executed = false
     private var canceled = false
     private var callback: Callback<T>? = null
-    private var request = Request.Builder().url("http://example.com").build()
+    private var request = Request.Builder().url("https://example.com").build()
 
     fun completeWithException(t: Throwable) {
         synchronized(this) {
