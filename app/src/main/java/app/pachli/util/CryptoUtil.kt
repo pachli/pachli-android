@@ -19,21 +19,13 @@ package app.pachli.util
 import android.util.Base64
 import java.security.KeyPairGenerator
 import java.security.SecureRandom
-import java.security.Security
-import org.bouncycastle.jce.ECNamedCurveTable
-import org.bouncycastle.jce.interfaces.ECPrivateKey
-import org.bouncycastle.jce.interfaces.ECPublicKey
-import org.bouncycastle.jce.provider.BouncyCastleProvider
+import java.security.interfaces.ECPublicKey
+import java.security.spec.ECGenParameterSpec
 
 object CryptoUtil {
     const val CURVE_PRIME256_V1 = "prime256v1"
 
     private const val BASE64_FLAGS = Base64.URL_SAFE or Base64.NO_PADDING or Base64.NO_WRAP
-
-    init {
-        Security.removeProvider(BouncyCastleProvider.PROVIDER_NAME)
-        Security.addProvider(BouncyCastleProvider())
-    }
 
     private fun secureRandomBytes(len: Int): ByteArray {
         val ret = ByteArray(len)
@@ -48,14 +40,54 @@ object CryptoUtil {
     data class EncodedKeyPair(val pubkey: String, val privKey: String)
 
     fun generateECKeyPair(curve: String): EncodedKeyPair {
-        val spec = ECNamedCurveTable.getParameterSpec(curve)
-        val gen = KeyPairGenerator.getInstance("EC", BouncyCastleProvider.PROVIDER_NAME)
+        val spec = ECGenParameterSpec(curve)
+        val gen = KeyPairGenerator.getInstance("EC")
         gen.initialize(spec)
         val keyPair = gen.genKeyPair()
         val pubKey = keyPair.public as ECPublicKey
-        val privKey = keyPair.private as ECPrivateKey
-        val encodedPubKey = Base64.encodeToString(pubKey.q.getEncoded(false), BASE64_FLAGS)
-        val encodedPrivKey = Base64.encodeToString(privKey.d.toByteArray(), BASE64_FLAGS)
+        val privKey = keyPair.private
+        val encodedPubKey = Base64.encodeToString(encodeP256Dh(pubKey), BASE64_FLAGS)
+        val encodedPrivKey = Base64.encodeToString(privKey.encoded, BASE64_FLAGS)
         return EncodedKeyPair(encodedPubKey, encodedPrivKey)
+    }
+
+    /**
+     * Encodes the public key point P in X9.62 uncompressed format.
+     *
+     * This is section "2.3.3 Elliptic-Curve-Point-to-Octet-String Conversion" from
+     * https://www.secg.org/sec1-v2.pdf
+     */
+    // Code originally from https://github.com/tateisu/SubwayTooter/blob/main/base/src/main/java/jp/juggler/crypt/CryptUtils.kt
+    // under the Apache 2.0 license
+    private fun encodeP256Dh(key: ECPublicKey): ByteArray = key.run {
+        val bitsInByte = 8
+        val fieldSizeBytes = (params.order.bitLength() + bitsInByte - 1) / bitsInByte
+        return ByteArray(1 + 2 * fieldSizeBytes).also { dst ->
+            var offset = 0
+            dst[offset++] = 0x04 // 0x04 designates uncompressed format
+            w.affineX.toByteArray().let { x ->
+                when {
+                    x.size <= fieldSizeBytes ->
+                        System.arraycopy(x, 0, dst, offset + fieldSizeBytes - x.size, x.size)
+
+                    x.size == fieldSizeBytes + 1 && x[0].toInt() == 0 ->
+                        System.arraycopy(x, 1, dst, offset, fieldSizeBytes)
+
+                    else -> error("x value is too large")
+                }
+            }
+            offset += fieldSizeBytes
+            w.affineY.toByteArray().let { y ->
+                when {
+                    y.size <= fieldSizeBytes ->
+                        System.arraycopy(y, 0, dst, offset + fieldSizeBytes - y.size, y.size)
+
+                    y.size == fieldSizeBytes + 1 && y[0].toInt() == 0 ->
+                        System.arraycopy(y, 1, dst, offset, fieldSizeBytes)
+
+                    else -> error("y value is too large")
+                }
+            }
+        }
     }
 }

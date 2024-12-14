@@ -1,0 +1,16 @@
+{
+    "uniqueId": "com.github.tateisu/SubwayTooter",
+    "developers": [
+        {
+            "name": "tateisu@mastodon.juggler.jp",
+            "organisationUrl": "https://github.com/tateisu/SubwayTooter"
+        }
+    ],
+    "artifactVersion": "f20f9fee8e",
+    "description": "X9.62 point encoding",
+    "name": "SubwayTooter code",
+    "licenses": [
+        "Apache_2_0"
+    ],
+    "website": "https://subwaytooter.hatenadiary.jp/"
+}
