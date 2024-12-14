@@ -10,7 +10,7 @@ import retrofit2.Call
 import retrofit2.Retrofit
 
 class ApiResultCallAdapterFactoryTest {
-    private val retrofit = Retrofit.Builder().baseUrl("http://example.com").build()
+    private val retrofit = Retrofit.Builder().baseUrl("https://example.com").build()
 
     @OptIn(ExperimentalStdlibApi::class)
     @Test

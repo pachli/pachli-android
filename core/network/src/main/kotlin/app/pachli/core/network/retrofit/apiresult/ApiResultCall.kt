@@ -34,12 +34,12 @@ internal class ApiResultCall<T : Any>(
             override fun onResponse(call: Call<T>, response: Response<T>) {
                 callback.onResponse(
                     this@ApiResultCall,
-                    Response.success(ApiResult.from(response, successType)),
+                    Response.success(ApiResult.from(call.request(), response, successType)),
                 )
             }
 
             override fun onFailure(call: Call<T>, throwable: Throwable) {
-                val err: ApiResult<T> = Err(ApiError.from(throwable))
+                val err: ApiResult<T> = Err(ApiError.from(call.request(), throwable))
 
                 callback.onResponse(this@ApiResultCall, Response.success(err))
             }

@@ -36,9 +36,9 @@ internal class SyncApiResultCallAdapter<T : Any>(
 
     override fun adapt(call: Call<T>): ApiResult<T> {
         return try {
-            ApiResult.from(call.execute(), successType)
+            ApiResult.from(call.request(), call.execute(), successType)
         } catch (e: Exception) {
-            Err(ApiError.from(e))
+            Err(ApiError.from(call.request(), e))
         }
     }
 }
