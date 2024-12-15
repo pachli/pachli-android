@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="dialog_whats_an_instance">Šeit var ievadīt jebkuras instances adresi vai domēnu, piemēram, mastodon.social, icosahedron.website, social.tchncs.de un <a href="https://instances.social">citus!</a> 
-\n 
-\nJa tev vēl nav konta, vari ievadīt tās instances nosaukumu, kurai vēlies pievienoties un izveidot kontu. 
-\n 
-\nInstance ir vieta, kur tiek mitināts tavs konts, taču tu vari viegli sazināties ar cilvēkiem citās instancēs un sekot tiem, it kā atrastos tajā pašā vietnē. 
-\n 
+    <string name="dialog_whats_an_instance">Šeit var ievadīt jebkuras instances adresi vai domēnu, piemēram, mastodon.social, icosahedron.website, social.tchncs.de un <a href="https://instances.social">citus!</a>
+\n
+\nJa tev vēl nav konta, vari ievadīt tās instances nosaukumu, kurai vēlies pievienoties un izveidot kontu.
+\n
+\nInstance ir vieta, kur tiek mitināts tavs konts, taču tu vari viegli sazināties ar cilvēkiem citās instancēs un sekot tiem, it kā atrastos tajā pašā vietnē.
+\n
 \nVairāk informācijas var atrast <a href="https://joinmastodon.org">joinmastodon.org</a>. </string>
     <string name="action_close">Aizvērt</string>
     <string name="action_browser_login">Pieslēgties ar pārlūku</string>
@@ -14,7 +14,7 @@
     <string name="error_authorization_unknown">Radās neidentificēta autorizācijas kļūda. Ja tas atkārtojas, izmantojot izvēlni, mēģiniet pieslēgties pārlūkā.</string>
     <string name="error_authorization_denied">Autorizācija tika liegta. Ja ir pārliecība, ka ievadīti pareizi pieslēgšanās dati, izmantojot izvēlni, mēģiniet pieslēgties pārlūkā.</string>
     <string name="error_retrieving_oauth_token">Neizdevās iegūt pieteikšanās pilnvaru. Ja tas atkārtojas, izmantojot izvēlni, mēģiniet pieslēgties pārlūkā.</string>
-    <string name="error_loading_account_details">Neizdevās ielādēt konta datus</string>
+    <string name="error_loading_account_details_fmt">Neizdevās ielādēt konta datus: %1$s</string>
     <string name="hint_domain">Kura instance\?</string>
     <string name="action_login">Pieslēgties ar Pachli</string>
     <string name="link_whats_an_instance">Kas ir instance\?</string>

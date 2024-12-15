@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="dialog_whats_an_instance">L\'indirizzo o il dominio di qualsiasi istanza può essere inserito qui, come mastodon.social, icosahedron.website, social.tchncs.de, e <a href="https://instances.social">altri!</a> 
-\n 
-\nSe non hai ancora un account, puoi inserire il nome di un\'istanza alla quale vuoi iscriverti e creare un account. 
-\n 
-\nUn\'istanza è il luogo dove l\'account è custodito, ma puoi facilmente comunicare e seguire persone su altre istanze come se fossero sullo stesso sito. 
-\n 
+    <string name="dialog_whats_an_instance">L\'indirizzo o il dominio di qualsiasi istanza può essere inserito qui, come mastodon.social, icosahedron.website, social.tchncs.de, e <a href="https://instances.social">altri!</a>
+\n
+\nSe non hai ancora un account, puoi inserire il nome di un\'istanza alla quale vuoi iscriverti e creare un account.
+\n
+\nUn\'istanza è il luogo dove l\'account è custodito, ma puoi facilmente comunicare e seguire persone su altre istanze come se fossero sullo stesso sito.
+\n
 \nPiù informazioni possono essere trovate a questo indirizzo <a href="https://joinmastodon.org">joinmastodon.org</a>.</string>
     <string name="action_close">Chiudi</string>
     <string name="action_browser_login">Accedi dal browser</string>
@@ -14,7 +14,7 @@
     <string name="error_authorization_unknown">Si è verificato un errore di autenticazione non identificato. Se il problema persiste, prova a collegarti dal browser nel menu.</string>
     <string name="error_authorization_denied">Autorizzazione negata. Se sei sicuro di aver usato le credenziali corrette, prova a collegarti con il browser nel menu.</string>
     <string name="error_retrieving_oauth_token">Acquisizione token di accesso fallita. Se il problema persiste, prova a collegarti dal browser nel menu.</string>
-    <string name="error_loading_account_details">Caricamento dettagli utente fallito</string>
+    <string name="error_loading_account_details_fmt">Caricamento dettagli utente fallito: %1$s</string>
     <string name="hint_domain">Quale istanza?</string>
     <string name="action_login">Accedi con Pachli</string>
     <string name="link_whats_an_instance">Che cos\'è un\'istanza?</string>

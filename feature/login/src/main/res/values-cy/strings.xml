@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="dialog_whats_an_instance">Gallwch roi cyfeiriad neu barth unrhyw enghraifft yma, fel mastodon.social, twt.cymru, social.tchncs.de, a <a href="https://instances.social">mwy!</a> 
-\n 
-\nOs nad oes gennych gyfrif, gallwch roi enw\'r enghraifft yr hoffech ymuno ag ef a chreu cyfrif yno. 
-\n 
-\nEnghraifft yw\'r man y mae\'ch cyfrif wedi ei gynnal, ond gallwch yn hawdd gyfathrebu â phobl a\'u dilyn ar enghreifftiau eraill fel petai chi yn yr unfan. 
-\n 
+    <string name="dialog_whats_an_instance">Gallwch roi cyfeiriad neu barth unrhyw enghraifft yma, fel mastodon.social, twt.cymru, social.tchncs.de, a <a href="https://instances.social">mwy!</a>
+\n
+\nOs nad oes gennych gyfrif, gallwch roi enw\'r enghraifft yr hoffech ymuno ag ef a chreu cyfrif yno.
+\n
+\nEnghraifft yw\'r man y mae\'ch cyfrif wedi ei gynnal, ond gallwch yn hawdd gyfathrebu â phobl a\'u dilyn ar enghreifftiau eraill fel petai chi yn yr unfan.
+\n
 \nRhagor o wybodaeth yn <a href="https://joinmastodon.org">joinmastodon.org</a>. </string>
     <string name="action_close">Cau</string>
     <string name="action_browser_login">Mewngofnodi â phorwr</string>
@@ -14,7 +14,7 @@
     <string name="error_authorization_unknown">Bu gwall awdurdodi anhysbys. Os bydd hyn yn parhau, ceisiwch Mewngofnodi yn Porwr o\'r ddewislen.</string>
     <string name="error_authorization_denied">Gwrthodwyd awdurdodi. Os ydych chi\'n siŵr dy fod di wedi gyflenwi\'r manylion cywir, ceisiwch Mewngofnodi yn Porwr o\'r ddewislen.</string>
     <string name="error_retrieving_oauth_token">Methu cael tocyn mewngofnodi. Os bydd hyn yn parhau, ceisiwch Mewngofnodi yn Porwr o\'r ddewislen.</string>
-    <string name="error_loading_account_details">Wedi methu llwytho manylion cyfrif</string>
+    <string name="error_loading_account_details_fmt">Wedi methu llwytho manylion cyfrif: %1$s</string>
     <string name="hint_domain">Pa weinydd\?</string>
     <string name="action_login">Mewngofnodi â Pachli</string>
     <string name="link_whats_an_instance">Beth yw gweinydd\?</string>

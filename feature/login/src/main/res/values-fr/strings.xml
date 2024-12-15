@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="dialog_whats_an_instance">Indiquer ici l’adresse ou le domaine d’une instance, \u0020comme mastodon.social, icosahedron.website, social.tchncs.de, \u0020<a href="https://instances.social">et bien d’autres encore</a> (en anglais) ! 
+    <string name="dialog_whats_an_instance">Indiquer ici l’adresse ou le domaine d’une instance, \u0020comme mastodon.social, icosahedron.website, social.tchncs.de, \u0020<a href="https://instances.social">et bien d’autres encore</a> (en anglais) !
 \n
 \nSi vous ne disposez d’aucun compte, vous pouvez renseigner le nom de l’instance que vous souhaitez rejoindre \u0020et y créer un compte.
 \n
-\nUne instance est l’endroit où votre compte est \u0020hébergé, mais vous pouvez facilement suivre des personnes d’autres instances et communiquer avec elles \u0020comme si vous étiez sur le même site. 
+\nUne instance est l’endroit où votre compte est \u0020hébergé, mais vous pouvez facilement suivre des personnes d’autres instances et communiquer avec elles \u0020comme si vous étiez sur le même site.
 \n
 \nPour plus d’informations, consultez <a href="https://joinmastodon.org">joinmastodon.org</a>. \u0020</string>
     <string name="action_close">Fermer</string>
@@ -14,7 +14,7 @@
     <string name="error_authorization_unknown">Une erreur d’autorisation inconnue s’est produite. Si cela continue à se produire, essayez Se connecter avec le navigateur depuis le menu.</string>
     <string name="error_authorization_denied">Authentification refusée. Si vous êtes sur·e d\'avoir entré les bons identifiants, essayez Se connecter avec le navigateur depuis le menu.</string>
     <string name="error_retrieving_oauth_token">Impossible de récupérer le jeton d’authentification. Si cela continue à se produire, essayez Se connecter avec le navigateur depuis le menu.</string>
-    <string name="error_loading_account_details">Les détails du compte n\'ont pas pu être chargés</string>
+    <string name="error_loading_account_details_fmt">Les détails du compte n\'ont pas pu être chargés: %1$s</string>
     <string name="hint_domain">Quelle instance ?</string>
     <string name="action_login">Se connecter avec Pachli</string>
     <string name="link_whats_an_instance">Qu’est-ce qu’une instance ?</string>

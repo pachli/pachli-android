@@ -6,7 +6,7 @@
     <string name="error_authorization_unknown">एक अज्ञात प्राधिकरण त्रुटि हुई।</string>
     <string name="error_authorization_denied">प्राधिकरण करने के से इनकार कर दिया।</string>
     <string name="error_retrieving_oauth_token">लॉगिन टोकन प्राप्त करने में विफल।</string>
-    <string name="error_loading_account_details">खाता विवरण लोड करने में विफल रहा</string>
+    <string name="error_loading_account_details_fmt">खाता विवरण लोड करने में विफल रहा: %1$s</string>
     <string name="action_login">हिंदी</string>
     <string name="login_connection">कनेक्ट कर रहे…</string>
     <string name="error_could_not_load_login_page">लॉगिन पेज लोड नहीं किया जा सका।</string>

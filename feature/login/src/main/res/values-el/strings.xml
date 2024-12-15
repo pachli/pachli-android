@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
     <string name="action_close">Κλείσιμο</string>
-    <string name="error_loading_account_details">Η φόρτωση λεπτομερειών λογαριασμού απέτυχε</string>
+    <string name="error_loading_account_details_fmt">Η φόρτωση λεπτομερειών λογαριασμού απέτυχε: %1$s</string>
     <string name="action_login">Σύνδεση με Mastodon</string>
     <string name="login_connection">Σύνδεση…</string>
     <string name="title_login">Σύνδεση</string>

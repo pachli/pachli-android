@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="dialog_whats_an_instance">Tutaj można wprowadzić domenę lub adres instancji, np. mastodon.social, icosahedron.website, social.tchncs.de, i <a href="https://instances.social">wiele więcej!</a> 
-\n 
-\nJeżeli nie posiadasz jeszcze konta, wprowadź tu nazwę instancji, na której chcesz się zarejestrować. 
-\n 
-\nInstancja jest miejscem, na którym znajduje się twoje konto, lecz możesz prosto komunikować się z ludźmi na innych instancjach i obserwować ich, tak jakbyście byli na jednej stronie. 
-\n 
+    <string name="dialog_whats_an_instance">Tutaj można wprowadzić domenę lub adres instancji, np. mastodon.social, icosahedron.website, social.tchncs.de, i <a href="https://instances.social">wiele więcej!</a>
+\n
+\nJeżeli nie posiadasz jeszcze konta, wprowadź tu nazwę instancji, na której chcesz się zarejestrować.
+\n
+\nInstancja jest miejscem, na którym znajduje się twoje konto, lecz możesz prosto komunikować się z ludźmi na innych instancjach i obserwować ich, tak jakbyście byli na jednej stronie.
+\n
 \nWięcej informacji można znaleźć na <a href="https://joinmastodon.org">joinmastodon.org</a>. </string>
     <string name="action_close">Zamknij</string>
     <string name="action_browser_login">Zaloguj się przez przeglądarkę</string>
@@ -14,7 +14,7 @@
     <string name="error_authorization_unknown">Wystąpił nieokreślony błąd podczas próby autoryzacji. Jeśli problem będzie się powtarzał, spróbuj zalogować się za pomocą przeglądarki z menu aplikacji.</string>
     <string name="error_authorization_denied">Odmówiono autoryzacji. Jeśli jesteś pewien poprawności wprowadzonych danych, spróbuj zalogowania się za pomocą przeglądarki dostępnej w menu.</string>
     <string name="error_retrieving_oauth_token">Nie udało się uzyskać tokenu logowania. Jeśli problem będzie się powtarzał, spróbuj zalogować się za pomocą przeglądarki z menu aplikacji.</string>
-    <string name="error_loading_account_details">Ładowanie informacji o koncie nie powiodło się</string>
+    <string name="error_loading_account_details_fmt">Ładowanie informacji o koncie nie powiodło się: %1$s</string>
     <string name="hint_domain">Jaka instancja?</string>
     <string name="action_login">Zaloguj się z Pachli</string>
     <string name="link_whats_an_instance">Czym jest instancja?</string>
