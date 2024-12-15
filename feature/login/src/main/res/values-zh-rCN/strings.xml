@@ -8,7 +8,7 @@
     <string name="error_authorization_unknown">发生不明授权错误。如果这个问题持续，请从菜单处尝试 “在浏览器中登录”。</string>
     <string name="error_authorization_denied">授权被拒绝。如果你确定提供了正确的凭据，请从菜单处尝试“在浏览器中登录”。</string>
     <string name="error_retrieving_oauth_token">未能获取登录令牌。如果这个问题持续，请从菜单处尝试 “在浏览器中登录”。</string>
-    <string name="error_loading_account_details">加载账户详情失败</string>
+    <string name="error_loading_account_details_fmt">加载账户详情失败: %1$s</string>
     <string name="hint_domain">哪个实例？</string>
     <string name="action_login">用 Pachli 登录</string>
     <string name="link_whats_an_instance">什么是实例？</string>

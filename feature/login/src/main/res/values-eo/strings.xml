@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="dialog_whats_an_instance">La adreso aŭ domajno de iu ajn nodo povas esti enmetita ĉi tie, kiel mastodon.social, icosahedron.website, social.tchncs.de, kaj <a href="https://instances.social">pli!</a> 
-\n 
-\nSe vi ankoraŭ ne havas konton, vi povas enmeti la nomon de la nodo, al kiu vi volas aliĝi, kaj krei konton tie. 
-\n 
-\nNodo estas unika loko tie, kie via konto estas gastigita, sed vi povas facile komuniki kun homoj, kaj sekvi ilin ĉe aliaj nodoj, kvazaŭ vi estus samreteje. 
-\n 
+    <string name="dialog_whats_an_instance">La adreso aŭ domajno de iu ajn nodo povas esti enmetita ĉi tie, kiel mastodon.social, icosahedron.website, social.tchncs.de, kaj <a href="https://instances.social">pli!</a>
+\n
+\nSe vi ankoraŭ ne havas konton, vi povas enmeti la nomon de la nodo, al kiu vi volas aliĝi, kaj krei konton tie.
+\n
+\nNodo estas unika loko tie, kie via konto estas gastigita, sed vi povas facile komuniki kun homoj, kaj sekvi ilin ĉe aliaj nodoj, kvazaŭ vi estus samreteje.
+\n
 \nPliaj informoj troviĝas ĉe <a href="https://joinmastodon.org">joinmastodon.org</a>. </string>
     <string name="action_close">Fermi</string>
     <string name="error_invalid_domain">Enmetita domajno estas nevalida</string>
@@ -13,7 +13,7 @@
     <string name="error_authorization_unknown">Nekonata eraro de aŭtentigo okazis.</string>
     <string name="error_authorization_denied">Rajtigo rifuzita.</string>
     <string name="error_retrieving_oauth_token">Akiro de atingoĵetono malsukcesis.</string>
-    <string name="error_loading_account_details">Ŝargo de detaloj pri la konto malsukcesis</string>
+    <string name="error_loading_account_details_fmt">Ŝargo de detaloj pri la konto malsukcesis: %1$s</string>
     <string name="hint_domain">Kiu nodo?</string>
     <string name="action_login">Ensaluti al Mastodon</string>
     <string name="link_whats_an_instance">Kio estas nodo?</string>

@@ -8,7 +8,7 @@
     <string name="error_authorization_unknown">En ukjent autoriseringsfeil oppsto. Hvis dette fortsetter, prøv å logge inn i nettleseren fra menyen.</string>
     <string name="error_authorization_denied">Autorisasjon ble nektet. Hvis du er sikker på at du ga riktige data, prøv å logge inn i nettleseren fra menyen.</string>
     <string name="error_retrieving_oauth_token">Henting av logintoken mislyktes. Hvis dette fortsetter prøv å logge in med nettleseren fra menyen.</string>
-    <string name="error_loading_account_details">Lasting av kontodetaljer mislyktes</string>
+    <string name="error_loading_account_details_fmt">Lasting av kontodetaljer mislyktes: %1$s</string>
     <string name="hint_domain">Hvilken instanse\?</string>
     <string name="action_login">Logg inn med Pachli</string>
     <string name="link_whats_an_instance">Hva er en instans\?</string>

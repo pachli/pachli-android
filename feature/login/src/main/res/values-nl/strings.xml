@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="dialog_whats_an_instance">Het adres of domein van elke Mastodonserver kan hier worden ingevoerd, zoals mastodon.social, mastodon.nl, octodon.social en <a href="https://instances.social">nog veel meer!</a> 
-\n 
-\nWanneer je nog geen account hebt, kun je de naam van de Mastodonserver waar jij je graag wil registeren invoeren, waarna je daar een account kunt aanmaken. 
-\n 
-\nEen Mastodonserver (Engels: instance) is een computerserver waar jouw account zich bevindt (vergelijk het met een e-mailserver). Je kan eenvoudig mensen van andere servers volgen en met ze communiceren, alsof jullie met elkaar op dezelfde website zitten. 
-\n 
+    <string name="dialog_whats_an_instance">Het adres of domein van elke Mastodonserver kan hier worden ingevoerd, zoals mastodon.social, mastodon.nl, octodon.social en <a href="https://instances.social">nog veel meer!</a>
+\n
+\nWanneer je nog geen account hebt, kun je de naam van de Mastodonserver waar jij je graag wil registeren invoeren, waarna je daar een account kunt aanmaken.
+\n
+\nEen Mastodonserver (Engels: instance) is een computerserver waar jouw account zich bevindt (vergelijk het met een e-mailserver). Je kan eenvoudig mensen van andere servers volgen en met ze communiceren, alsof jullie met elkaar op dezelfde website zitten.
+\n
 \n Meer informatie kun je vinden op <a href="https://joinmastodon.org">joinmastodon.org</a>. </string>
     <string name="action_close">Sluiten</string>
     <string name="action_browser_login">Inloggen met een browser</string>
@@ -14,7 +14,7 @@
     <string name="error_authorization_unknown">Er deed zich een onbekende autorisatiefout voor. Als dit blijft, probeer dan “ Via de browser inloggen” in het menu.</string>
     <string name="error_authorization_denied">Autorisatie werd geweigerd. Als u zeker weet dat u de correcte gegevens heeft ingevoerd, probeer dan in te loggen in de browser via het menu.</string>
     <string name="error_retrieving_oauth_token">Kon geen inlogsleutel verkrijgen. Als het probleem zich blijft herhalen; probeer dan de browser login via menu.</string>
-    <string name="error_loading_account_details">Laden van accountdetails mislukt</string>
+    <string name="error_loading_account_details_fmt">Laden van accountdetails mislukt: %1$s</string>
     <string name="hint_domain">Welke Mastodonserver?</string>
     <string name="action_login">Aanmelden met Pachli</string>
     <string name="link_whats_an_instance">Wat is een Mastodonserver?</string>

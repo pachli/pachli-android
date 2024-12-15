@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="dialog_whats_an_instance">Sem může být zadána adresa či doména jakéhokoliv \u0020serveru, například mastodon.social, icosahedron.website, social.tchncs.de \u0020a <a href="https://instances.social">další!</a> 
+    <string name="dialog_whats_an_instance">Sem může být zadána adresa či doména jakéhokoliv \u0020serveru, například mastodon.social, icosahedron.website, social.tchncs.de \u0020a <a href="https://instances.social">další!</a>
 \n
 \nPokud ještě nemáte účet, můžete zadat název instance, ke které se chcete \u0020připojit, a vytvořit si tam účet.
 \n
-\nServer je jedno místo, kde je hostován váš \u0020účet, můžete však jednoduše komunikovat a sledovat lidi na jiných serverech, jako by \u0020byli na stejné stránce. 
+\nServer je jedno místo, kde je hostován váš \u0020účet, můžete však jednoduše komunikovat a sledovat lidi na jiných serverech, jako by \u0020byli na stejné stránce.
 \n
 \nDalší informace mohou být nalezeny na stránce <a href="https://joinmastodon.org">joinmastodon.org</a>. \u0020</string>
     <string name="action_close">Zavřít</string>
@@ -13,7 +13,7 @@
     <string name="error_authorization_unknown">Vyskytla se neidentifikovaná chyba autorizace.</string>
     <string name="error_authorization_denied">Autorizace byla zamítnuta.</string>
     <string name="error_retrieving_oauth_token">Nepodařilo se získat přihlašovací token.</string>
-    <string name="error_loading_account_details">Nepodařilo se načíst detaily účtu</string>
+    <string name="error_loading_account_details_fmt">Nepodařilo se načíst detaily účtu: %1$s</string>
     <string name="hint_domain">Který server?</string>
     <string name="action_login">Přihlásit se účtem Mastodon</string>
     <string name="link_whats_an_instance">Co je to server\?</string>
