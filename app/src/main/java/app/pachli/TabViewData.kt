@@ -165,8 +165,8 @@ data class TabViewData(
                 timeline = timeline,
                 text = -1,
                 icon = R.drawable.ic_newspaper_24,
-                fragment = {TimelineFragment.newInstance(pachliAccountId, timeline) },
-                title = { timeline.title }
+                fragment = { TimelineFragment.newInstance(pachliAccountId, timeline) },
+                title = { timeline.title },
             )
             is Timeline.User.Pinned -> throw IllegalArgumentException("can't add to tab: $timeline")
             is Timeline.User.Posts -> throw IllegalArgumentException("can't add to tab: $timeline")
