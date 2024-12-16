@@ -101,23 +101,23 @@ class TimelineActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonAc
         timeline = TimelineActivityIntent.getTimeline(intent)
         hashtag = (timeline as? Timeline.Hashtags)?.tags?.firstOrNull()
 
-        val viewData = TabViewData.from(intent.pachliAccountId, timeline)
+        val tabViewData = TabViewData.from(intent.pachliAccountId, timeline)
 
         supportActionBar?.run {
-            title = viewData.title(this@TimelineActivity)
+            title = tabViewData.title(this@TimelineActivity)
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowHomeEnabled(true)
         }
 
         if (supportFragmentManager.findFragmentById(R.id.fragmentContainer) == null) {
             supportFragmentManager.commit {
-                val fragment = viewData.fragment()
+                val fragment = tabViewData.fragment()
                 replace(R.id.fragmentContainer, fragment)
                 binding.composeButton.show()
             }
         }
 
-        viewData.composeIntent?.let { intent ->
+        tabViewData.composeIntent?.let { intent ->
             binding.composeButton.setOnClickListener {
                 startActivity(
                     intent(
@@ -158,8 +158,10 @@ class TimelineActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonAc
 
     override fun onPrepareMenu(menu: Menu) {
         // Check if this timeline is in a tab; if not, enable the add_to_tab menu item
+        // Timeline.Link (all posts about a specific link) is special-cased to not be
+        // addable to a tab)
         val currentTabs = accountManager.activeAccount?.tabPreferences.orEmpty()
-        val hideMenu = currentTabs.contains(timeline)
+        val hideMenu = timeline is Timeline.Link || currentTabs.contains(timeline)
         menu.findItem(R.id.action_add_to_tab)?.setVisible(!hideMenu)
     }
 
