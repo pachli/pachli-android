@@ -279,6 +279,7 @@ class TrendingLinksFragment :
                     requireContext(),
                     pachliAccountId,
                     card.url,
+                    card.title
                 )
                 startActivity(intent)
             }
