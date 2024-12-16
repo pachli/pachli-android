@@ -31,7 +31,6 @@ app-update = "2.1.0"
 apollographql = "3.8.5"
 auto-service = "1.1.1"
 auto-service-ksp = "1.2.0"
-bouncycastle = "1.70"
 conscrypt = "2.5.3"
 coroutines = "1.9.0"
 coroutines-play-services = "1.9.0"
@@ -162,7 +161,6 @@ app-update-ktx = { module = "com.google.android.play:app-update-ktx", version.re
 apollo-runtime = { module = "com.apollographql.apollo3:apollo-runtime", version.ref = "apollographql" }
 auto-service-annotations = { module = "com.google.auto.service:auto-service-annotations", version.ref = "auto-service"}
 auto-service-ksp = { module = "dev.zacsweers.autoservice:auto-service-ksp", version.ref = "auto-service-ksp"}
-bouncycastle = { module = "org.bouncycastle:bcprov-jdk15on", version.ref = "bouncycastle" }
 conscrypt-android = { module = "org.conscrypt:conscrypt-android", version.ref = "conscrypt" }
 desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
 diffx = { module = "org.pageseeder.diffx:pso-diffx", version.ref = "diffx" }
