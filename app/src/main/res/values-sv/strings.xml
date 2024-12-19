@@ -7,7 +7,7 @@
     <string name="error_media_upload_opening">Den filen kunde inte öppnas.</string>
     <string name="error_media_upload_permission">Behörighet att läsa media krävs.</string>
     <string name="error_media_download_permission">Behörighet att spara media krävs.</string>
-    <string name="error_media_upload_image_or_video">Bilder och videoklipp kan inte båda bifogas i samma inlägg.</string>
+    <string name="error_media_upload_image_or_video">bilder och videoklipp kan inte båda bifogas i samma inlägg.</string>
     <string name="error_media_upload_sending">Uppladdningen misslyckades.</string>
     <string name="error_sender_account_gone">Kunde inte posta inlägg.</string>
     <string name="title_home">Hem</string>
@@ -50,7 +50,7 @@
     <string name="action_unfavourite">Ta bort favorit</string>
     <string name="action_compose">Skriv</string>
     <string name="action_logout">Logga ut</string>
-    <string name="action_logout_confirm">Är du säker på att du vill logga ut från kontot %1$s?</string>
+    <string name="action_logout_confirm">Är du säker på att du vill logga ut från kontot %1$s? All lokal information kommer att raderas, inklusive utkast och inställningar.</string>
     <string name="action_follow">Följ</string>
     <string name="action_unfollow">Avfölj</string>
     <string name="action_block">Blockera</string>
@@ -467,7 +467,7 @@
     <string name="post_media_attachments">Bilagor</string>
     <string name="status_count_one_plus">1+</string>
     <string name="title_migration_relogin">Logga in igen för pushnotiser</string>
-    <string name="compose_save_draft_loses_media">Spara utkast? (Bilagor kommer att laddas upp igen när du återställer utkastet.)</string>
+    <string name="compose_save_draft_loses_media">Bilagor kommer att laddas upp igen när du återställer utkastet.</string>
     <string name="failed_to_pin">Kunde inte fästa</string>
     <string name="failed_to_unpin">Kunde inte lossa</string>
     <string name="action_add_reaction">lägg till reaktion</string>
@@ -552,7 +552,7 @@
     <string name="filter_description_hide">Dölj helt</string>
     <string name="action_add">Lägg till</string>
     <string name="filter_keyword_display_format">%s (helt ord)</string>
-    <string name="help_empty_home">Detta är din <b>hemtidslinje</b>. Den visar de senaste inläggen för konton du följer. \n \nFör att utforska konton kan du antingen upptäcka dem i någon av de andra tidslinjerna. Till exempel den lokala tidslinjen för din instans [iconics gmd_group]. Eller så kan du söka efter dem efter namn [ikonics gmd_search]; sök till exempel efter Pachli för att hitta vårt Mastodon-konto.</string>
+    <string name="help_empty_home">Detta är din <b>hemtidslinje</b>. Den visar de senaste inläggen för konton du följer.\n\nFör att utforska konton kan du antingen upptäcka dem i någon av de andra tidslinjerna. Till exempel den lokala tidslinjen för din instans [iconics gmd_group]. Eller så kan du söka efter deras namn [ikonics gmd_search]; sök till exempel efter Pachli för att hitta vårt Mastodon-konto.</string>
     <string name="pref_ui_text_size">UI textstorlek</string>
     <string name="notification_listenable_worker_name">Bakgrundsaktivitet</string>
     <string name="notification_listenable_worker_description">Aviseringar när Pachli arbetar i bakgrunden</string>
@@ -608,4 +608,32 @@
     <string name="action_translate_undo">Ångra översättning</string>
     <string name="server_repository_error">Kunde inte hämta serverinformation för %1$s: %2$s</string>
     <string name="pref_summary_content_filters">Din server stöder inte filter</string>
+    <string name="action_filter_search">Filtrera sökningen</string>
+    <string name="search_operator_attachment_dialog_audio_label">Ljud</string>
+    <string name="action_suggestions">Föreslagna konton</string>
+    <string name="notification_severed_relationships_domain_block_body">En moderator blockerade instansen</string>
+    <string name="notification_severed_relationships_user_domain_block_body">Du blockerade instansen</string>
+    <string name="search_operator_attachment_dialog_image_label">Bilder</string>
+    <string name="pref_notification_up_distributor_none">Ingen</string>
+    <string name="search_operator_attachment_none">Inget</string>
+    <string name="search_operator_from_dialog_account_hint">\@konto</string>
+    <string name="notification_unknown">Okänd varningstyp</string>
+    <string name="search_operator_attachment_dialog_video_label">Video</string>
+    <string name="pref_title_content_filters">Innehållsfilter</string>
+    <plurals name="notification_severed_relationships_summary_followers_fmt">
+        <item quantity="one">%1$s följare borttagen</item>
+        <item quantity="other">%1$s följare borttagna</item>
+    </plurals>
+    <plurals name="notification_severed_relationships_summary_following_fmt">
+        <item quantity="one">%1$s konto som du följer borttaget</item>
+        <item quantity="other">%1$s konton som du följer borttagna</item>
+    </plurals>
+    <string name="search_operator_attachment_kind_image_label">bilder</string>
+    <string name="search_operator_date_dialog_today">I dag</string>
+    <string name="search_operator_attachment_kind_video_label">video</string>
+    <string name="notification_severed_relationships_account_suspension_body">En moderator blockerade kontot</string>
+    <string name="notification_severed_relationships_unknown_body">Okänd anledning</string>
+    <string name="error_prepare_media_io_fmt">%1$s</string>
+    <string name="search_operator_attachment_kind_audio_label">ljud</string>
+    <string name="search_operator_language_checked_fmt">%1$s</string>
 </resources>

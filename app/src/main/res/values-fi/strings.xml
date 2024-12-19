@@ -628,7 +628,7 @@
     <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">sisältöselvittäjä-URI:n kaavaa ei tueta: %1$s</string>
     <string name="error_prepare_media_unknown_mime_type">tuntematon tiedostotyyppi</string>
     <string name="error_pick_media_fmt">Julkaisuun ei voitu liittää tiedostoa: %1$s</string>
-    <string name="preview_card_byline_fediverse_account_fmt">Katso lisää täältä: %1$s</string>
+    <string name="preview_card_byline_fediverse_account_fmt">Teki <b>%1$s</b>. Katso lisää julkaisuja</string>
     <string name="action_open_byline_account">Näytä julkaisun tekijän profiili</string>
     <string name="action_open_link">Avaa linkki</string>
     <string name="error_prepare_media_unknown_file_size">tiedoston kokoa ei voitu määrittää</string>
@@ -793,4 +793,8 @@
     <string name="main_viewmodel_error_refresh_account">Tilin päivittäminen epäonnistui, virhe oli:\n\n%1$s\n\nVoit jatkaa, mutta listasi ja suodattimesi saattavat olla eivät ehkä ole ajan tasalla.</string>
     <string name="action_relogin">Kirjaudu uudestaan</string>
     <string name="upload_failed_modify_attachment">Muokkaa liitettä</string>
+    <string name="notification_unknown">Tuntematon ilmoitustyyppi</string>
+    <string name="preview_card_timeline_link_fmt">Katso <b>%1$s</b> julkaisua tästä linkistä</string>
+    <string name="action_timeline_link">Julkaisuja tästä linkistä</string>
+    <string name="preview_card_byline_name_only_fmt">Tehnyt <b>%1$s</b></string>
 </resources>
