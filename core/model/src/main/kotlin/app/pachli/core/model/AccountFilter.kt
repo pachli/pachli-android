@@ -33,26 +33,10 @@ enum class AccountFilterReason {
     LIMITED_BY_SERVER,
 }
 
-// The user's filter choice (enum):
-// - none, warn, hide
-
-// The active filter decision, per notification (sealed class)
-// - none, warn+reason, hide+reason, override+original
-//
-// Why? So you can't have "none" with a reason, or "warn" without a reason
-
 /**
- * Records an account filtering decision.
- *
- * @param action The [FilterAction] to perform.
- * @param reason The [AccountFilterReason] for the decision.
+ * The account filter decision, with the reason for the decision if
+ * applicable.
  */
-// @JsonClass(generateAdapter = true)
-// data class AccountFilterDecision_org(
-//    val action: FilterAction,
-//    val reason: AccountFilterReason,
-// )
-
 @JsonClass(generateAdapter = true, generator = "sealed:type")
 sealed interface AccountFilterDecision {
     /** The item did not match any filters, and should be shown. */
@@ -78,6 +62,9 @@ sealed interface AccountFilterDecision {
     data class Override(val original: AccountFilterDecision) : AccountFilterDecision
 
     companion object {
+        /**
+         * Creates an [AccountFilterDecision] from [action] and [reason].
+         */
         fun make(action: FilterAction, reason: AccountFilterReason) = when (action) {
             FilterAction.NONE -> None
             FilterAction.WARN -> Warn(reason)
