@@ -3,7 +3,7 @@
     <string name="action_close">Sulje</string>
     <string name="error_invalid_domain">Syöttämäsi verkkonimi on virheellinen</string>
     <string name="error_failed_app_registration_fmt">Tunnistautuminen valitsemasi instanssin kanssa epäonnistui: %1$s</string>
-    <string name="error_loading_account_details">Tilitietojen lataaminen epäonnistui</string>
+    <string name="error_loading_account_details_fmt">Tilitietojen lataaminen epäonnistui: %1$s</string>
     <string name="hint_domain">Mikä instanssi\?</string>
     <string name="action_login">Kirjaudu Mastodonilla</string>
     <string name="link_whats_an_instance">Mikä on instanssi\?</string>
@@ -13,12 +13,12 @@
     <string name="action_browser_login">Kirjaudu selaimella</string>
     <string name="error_authorization_denied">Kirjautumista ei hyväksytty. Jos olet varma, että annoit oikeat tiedot, valitse valikosta Kirjaudu selaimella.</string>
     <string name="error_authorization_unknown">Tapahtui tuntematon kirjautumisvirhe. Jos tämä jatkuu, valitse valikosta Kirjaudu selaimella.</string>
-    <string name="dialog_whats_an_instance">Tähän voi kirjoittaa minkä tahansa instanssin osoitteen, esimerkiksi mastodon.social, icosahedron.website, social.tchncs.de, ja <a href="https://instances.social">enemmän!</a> 
-\n 
-\nEllei sinulla vielä ole tiliä, voit kirjoittaa haluamasi instanssin nimen ja luoda tilin sinne. 
-\n 
-\nInstanssi on paikka, jossa tilisi sijaitsee, mutta voit helposti olla yhteydessä ja seurata ihmisiä toisilla instansseilla, aivan kuin olisitte samalla sivustolla. 
-\n 
+    <string name="dialog_whats_an_instance">Tähän voi kirjoittaa minkä tahansa instanssin osoitteen, esimerkiksi mastodon.social, icosahedron.website, social.tchncs.de, ja <a href="https://instances.social">enemmän!</a>
+\n
+\nEllei sinulla vielä ole tiliä, voit kirjoittaa haluamasi instanssin nimen ja luoda tilin sinne.
+\n
+\nInstanssi on paikka, jossa tilisi sijaitsee, mutta voit helposti olla yhteydessä ja seurata ihmisiä toisilla instansseilla, aivan kuin olisitte samalla sivustolla.
+\n
 \nLisää tietoa täällä: <a href="https://joinmastodon.org">joinmastodon.org</a> \u0020</string>
     <string name="error_retrieving_oauth_token">Kirjautumispolettia ei saatu. Jos tämä jatkuu, valitse valikosta Kirjaudu selaimella.</string>
     <string name="instance_rule_title">Palvelimen %s säännöt</string>

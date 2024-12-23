@@ -14,7 +14,7 @@ androidx-hilt = "1.2.0"
 androidx-junit = "1.2.1"
 androidx-lifecycle = "2.8.7"
 androidx-media3 = "1.5.0"
-androidx-paging = "3.3.4"
+androidx-paging = "3.3.5"
 androidx-preference = "1.2.1"
 androidx-recyclerview = "1.3.2"
 androidx-sharetarget = "1.2.0"
@@ -31,7 +31,6 @@ app-update = "2.1.0"
 apollographql = "3.8.5"
 auto-service = "1.1.1"
 auto-service-ksp = "1.2.0"
-bouncycastle = "1.70"
 conscrypt = "2.5.3"
 coroutines = "1.9.0"
 coroutines-play-services = "1.9.0"
@@ -79,10 +78,10 @@ xmlwriter = "1.0.4"
 
 # Tool dependencies
 betterparse = "0.4.4"
-clikt = "5.0.1"
+clikt = "5.0.2"
 icu4j = "76.1"
 junit-jupiter = "5.11.3"
-kotlin-logging-jvm = "7.0.0"
+kotlin-logging-jvm = "7.0.3"
 logback = "1.5.12"
 
 [plugins]
@@ -162,7 +161,6 @@ app-update-ktx = { module = "com.google.android.play:app-update-ktx", version.re
 apollo-runtime = { module = "com.apollographql.apollo3:apollo-runtime", version.ref = "apollographql" }
 auto-service-annotations = { module = "com.google.auto.service:auto-service-annotations", version.ref = "auto-service"}
 auto-service-ksp = { module = "dev.zacsweers.autoservice:auto-service-ksp", version.ref = "auto-service-ksp"}
-bouncycastle = { module = "org.bouncycastle:bcprov-jdk15on", version.ref = "bouncycastle" }
 conscrypt-android = { module = "org.conscrypt:conscrypt-android", version.ref = "conscrypt" }
 desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
 diffx = { module = "org.pageseeder.diffx:pso-diffx", version.ref = "diffx" }

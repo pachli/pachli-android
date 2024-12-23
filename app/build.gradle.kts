@@ -169,7 +169,6 @@ dependencies {
 
     implementation(libs.bundles.filemojicompat)
 
-    implementation(libs.bouncycastle)
     implementation(libs.unified.push)
 
     implementation(libs.bundles.xmldiff)

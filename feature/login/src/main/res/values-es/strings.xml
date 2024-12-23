@@ -8,7 +8,7 @@
     <string name="error_authorization_unknown">Ocurrió un error de autorización no identificado. Si esto persiste, prueba en el menú Iniciar sesión con el navegador.</string>
     <string name="error_authorization_denied">La autorización falló. Si estás seguro de que has suministrado las credenciales correctas, prueba en el menú Iniciar sesión con el navegador.</string>
     <string name="error_retrieving_oauth_token">Fallo al obtener identificador de login. Si esto persiste, prueba en el menú Iniciar sesión con el navegador.</string>
-    <string name="error_loading_account_details">Falló cargar los detalles de la cuenta</string>
+    <string name="error_loading_account_details_fmt">Falló cargar los detalles de la cuenta: %1$s</string>
     <string name="hint_domain">¿Qué instancia\?</string>
     <string name="action_login">Iniciar sesión con Pachli</string>
     <string name="link_whats_an_instance">¿Qué es una instancia?</string>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="dialog_whats_an_instance">Die Adresse oder Domain einer Instanz kann hier eingegeben werden, wie z. B. mastodon.social, icosahedron.website, social.tchncs.de, and <a href="https://instances.social">more!</a> 
-\n 
-\nWenn du bis jetzt kein Konto hast, kannst du hier den Namen einer Instanz eingeben und dort ein Konto einrichten. 
-\n 
-\nEine Instanz ist ein einzelner Ort, an dem dein Konto gehostet ist, aber du kannst dennoch mit anderen Leuten interagieren, als wärt ihr alle auf derselben Website. 
-\n 
+    <string name="dialog_whats_an_instance">Die Adresse oder Domain einer Instanz kann hier eingegeben werden, wie z. B. mastodon.social, icosahedron.website, social.tchncs.de, and <a href="https://instances.social">more!</a>
+\n
+\nWenn du bis jetzt kein Konto hast, kannst du hier den Namen einer Instanz eingeben und dort ein Konto einrichten.
+\n
+\nEine Instanz ist ein einzelner Ort, an dem dein Konto gehostet ist, aber du kannst dennoch mit anderen Leuten interagieren, als wärt ihr alle auf derselben Website.
+\n
 \nWeitere Informationen gibt es auf <a href="https://joinmastodon.org">joinmastodon.org</a>. </string>
     <string name="action_close">Schließen</string>
     <string name="action_browser_login">Mit Browser anmelden</string>
@@ -14,7 +14,7 @@
     <string name="error_authorization_unknown">Ein unbekannter Fehler ist bei der Autorisierung aufgetreten. Falls das Problem weiter besteht, versuche dich über den Browser anzumelden.</string>
     <string name="error_authorization_denied">Autorisierung wurde abgelehnt. Wenn du dir sicher bist, dass du die korrekten Anmeldedaten eingegeben hast, versuche dich über den Browser anzumelden.</string>
     <string name="error_retrieving_oauth_token">Es konnte kein Anmelde-Token abgerufen werden. Falls das Problem weiter besteht, versuche dich über den Browser anzumelden.</string>
-    <string name="error_loading_account_details">Fehler beim Laden der Kontodetails</string>
+    <string name="error_loading_account_details_fmt">Fehler beim Laden der Kontodetails: %1$s</string>
     <string name="hint_domain">Welche Instanz?</string>
     <string name="action_login">Mit Pachli anmelden</string>
     <string name="link_whats_an_instance">Was ist eine Instanz\?</string>

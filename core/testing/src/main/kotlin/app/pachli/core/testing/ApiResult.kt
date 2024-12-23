@@ -25,6 +25,7 @@ import com.github.michaelbull.result.Ok
 import okhttp3.Headers
 import okhttp3.Protocol
 import okhttp3.Request
+import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.ResponseBody.Companion.toResponseBody
 import retrofit2.HttpException
 import retrofit2.Response
@@ -45,11 +46,30 @@ fun <T> success(data: T, code: Int = 200, vararg headers: String): ApiResult<T> 
  * failure.
  *
  * @param code HTTP failure code.
- * @param body Data to use as the HTTP response body.
+ * @param responseBody Data to use as the HTTP response body.
  * @param message (optional) String to use as the HTTP status message.
+ * @param method (optional) String to use as the request method
+ * @param url (optional) String to use as the request URL
+ * @param requestBody (optional) String to use as the request body
  */
-fun <T> failure(code: Int = 404, body: String = "", message: String = code.httpStatusMessage()): ApiResult<T> =
-    Err(ApiError.from(HttpException(jsonError(code, body, message))))
+fun <T> failure(
+    code: Int = 404,
+    responseBody: String = "",
+    message: String = code.httpStatusMessage(),
+    method: String = "GET",
+    url: String = "https://example.com",
+    requestBody: String? = null,
+): ApiResult<T> {
+    return Err(
+        ApiError.from(
+            Request.Builder()
+                .method(method, requestBody?.toRequestBody())
+                .url(url)
+                .build(),
+            HttpException(jsonError(code, responseBody, message)),
+        ),
+    )
+}
 
 /**
  * Equivalent to [Response.error] with the content-type set to `application/json`.

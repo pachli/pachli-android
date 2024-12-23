@@ -58,5 +58,5 @@ internal sealed class UiError(
     data class VerifyAndAddAccount(
         override val action: FallibleUiAction.VerifyAndAddAccount,
         override val cause: ApiError,
-    ) : UiError(R.string.error_loading_account_details, action, cause)
+    ) : UiError(R.string.error_loading_account_details_fmt, action, cause)
 }

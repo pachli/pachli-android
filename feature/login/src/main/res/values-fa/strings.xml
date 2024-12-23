@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="dialog_whats_an_instance">نشانی یا دامنهٔ هر نمونه‌ای می‌تواند وارد شود، مثل mastodon.social, icosahedron.website, social.tchncs.de, و <a href="https://instances.social">بیش‌تر!</a>. 
-\n 
-\n اگر هنوز حسابی ندارید، می‌توانید نام نمونه مورد نظر را وارد کرده و در آن حسابی بسازید. 
-\n 
-\n نمونه، جاییست که حسابتان رویش میزبانی می‌شود، ولی به راحتی می‌توانید با دیگر افراد روی نمونه‌های دیگر ارتباط داشته و دنبالشان کنید؛ انگار که روی یک پایگاه باشید. 
-\n 
+    <string name="dialog_whats_an_instance">نشانی یا دامنهٔ هر نمونه‌ای می‌تواند وارد شود، مثل mastodon.social, icosahedron.website, social.tchncs.de, و <a href="https://instances.social">بیش‌تر!</a>.
+\n
+\n اگر هنوز حسابی ندارید، می‌توانید نام نمونه مورد نظر را وارد کرده و در آن حسابی بسازید.
+\n
+\n نمونه، جاییست که حسابتان رویش میزبانی می‌شود، ولی به راحتی می‌توانید با دیگر افراد روی نمونه‌های دیگر ارتباط داشته و دنبالشان کنید؛ انگار که روی یک پایگاه باشید.
+\n
 \nاطّلاعات بیش‌تر می‌تواند در <a href="https://joinmastodon.org">joinmastodon.org</a> پیدا شود. </string>
     <string name="action_close">بستن</string>
     <string name="action_browser_login">ورود با مرورگر</string>
@@ -14,7 +14,7 @@
     <string name="error_authorization_unknown">خطای احراز هویت ناشناخته‌ای رخ داد. اگر مشکل ادامه داشت، ورود در مرورگر را از فهرست بیازمایید.</string>
     <string name="error_authorization_denied">احراز هویت رد شد. اگر مطمئنید که اطّلاعات را درست وارد کرده‌اید، ورود در مرورگر را از فهرست بیازمایید.</string>
     <string name="error_retrieving_oauth_token">دریافت ژتون ورود شکست خورد. اگر مشکل ادامه داشت، ورود در مرورگر را از فهرست بیازمایید.</string>
-    <string name="error_loading_account_details">شکست در بار کردن جزییات حساب</string>
+    <string name="error_loading_account_details_fmt">%1$s: شکست در بار کردن جزییات حساب</string>
     <string name="hint_domain">کدام نمونه؟</string>
     <string name="action_login">ورود با تاسکی</string>
     <string name="link_whats_an_instance">نمونه چیست؟</string>

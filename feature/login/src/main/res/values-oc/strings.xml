@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="dialog_whats_an_instance">Aquí podètz picar l\'adreça o domini de quina que siá instància, \u0020coma mastodont.cat, mastodon.social, icosahedron.website o \u0020<a href="https://instances.social">fòrca mai !</a> 
+    <string name="dialog_whats_an_instance">Aquí podètz picar l\'adreça o domini de quina que siá instància, \u0020coma mastodont.cat, mastodon.social, icosahedron.website o \u0020<a href="https://instances.social">fòrca mai !</a>
 \n
 \nSi encara non avètz cap de compte, podètz picar lo nom de l’instància ont vos agradariá \u0020anar e crear un compte enlà.
 \n
-\n 
+\n
 \n
 \nAvètz mas d’informacins a <a href="https://joinmastodon.org">joinmastodon.org</a>. \u0020</string>
     <string name="action_close">Tampar</string>
@@ -14,7 +14,7 @@
     <string name="error_authorization_unknown">S\'es produch una error d\'autorizacion pas identificada. Se ten de se produire, ensajatz la connexion via Navigador via lo menú.</string>
     <string name="error_authorization_denied">L\'autorizacion es estada regetada.</string>
     <string name="error_retrieving_oauth_token">Fracàs de l’obtencion del geton d\'iniciacion de session.</string>
-    <string name="error_loading_account_details">Fracàs del cargament dels detalhs del compte</string>
+    <string name="error_loading_account_details_fmt">Fracàs del cargament dels detalhs del compte: %1$s</string>
     <string name="hint_domain">Quina instància ?</string>
     <string name="action_login">Començar la session amb Pachli</string>
     <string name="link_whats_an_instance">Que es una instància ?</string>
