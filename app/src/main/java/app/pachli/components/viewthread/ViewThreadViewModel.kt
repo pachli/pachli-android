@@ -162,6 +162,7 @@ class ViewThreadViewModel @Inject constructor(
                         isShowingContent = (account.alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
                         isDetailed = true,
                         translationState = TranslationState.SHOW_ORIGINAL,
+                        contentFilterAction = FilterAction.NONE
                     )
                 }
             } else {

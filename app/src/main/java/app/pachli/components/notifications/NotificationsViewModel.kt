@@ -560,7 +560,6 @@ class NotificationsViewModel @AssistedInject constructor(
                             isShowingContent = statusDisplayOptions.value.showSensitiveMedia ||
                                 !(notification.status?.status?.sensitive ?: false),
                             isExpanded = statusDisplayOptions.value.openSpoiler,
-                            isCollapsed = true,
                             contentFilterAction = contentFilterAction,
                             accountFilterDecision = accountFilterDecision,
                             isAboutSelf = isAboutSelf,

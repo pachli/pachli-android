@@ -267,11 +267,25 @@ data class StatusViewData(
             translationState = TranslationState.SHOW_ORIGINAL,
         )
 
+        /**
+         *
+         * @param timelineStatusWithAccount
+         * @param isExpanded Default expansion behaviour for a status with a content
+         * warning. Used if the status viewdata is null
+         * @param isShowingContent Default behaviour for a status with attached media.
+         * Used if the status viewdata is null.
+         * @param isDetailed True if the status should be shown with the detailed
+         * layout, false otherwise.
+         * @param contentFilterAction
+         * @param translationState Default translation state for this status. Used if
+         * the status viewdata is null.
+         */
         fun from(
             timelineStatusWithAccount: TimelineStatusWithAccount,
             isExpanded: Boolean,
             isShowingContent: Boolean,
             isDetailed: Boolean = false,
+            contentFilterAction: FilterAction,
             translationState: TranslationState = TranslationState.SHOW_ORIGINAL,
         ): StatusViewData {
             val status = timelineStatusWithAccount.toStatus()
@@ -282,6 +296,7 @@ data class StatusViewData(
                 isShowingContent = timelineStatusWithAccount.viewData?.contentShowing ?: (isShowingContent || !status.actionableStatus.sensitive),
                 isCollapsed = timelineStatusWithAccount.viewData?.contentCollapsed ?: true,
                 isDetailed = isDetailed,
+                contentFilterAction = contentFilterAction,
                 translationState = timelineStatusWithAccount.viewData?.translationState ?: translationState,
             )
         }

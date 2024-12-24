@@ -92,10 +92,9 @@ class NetworkTimelineViewModel @Inject constructor(
                         isShowingContent = statusDisplayOptions.value.showSensitiveMedia || !it.actionableStatus.sensitive,
                         isExpanded = statusDisplayOptions.value.openSpoiler,
                         isCollapsed = true,
+                        contentFilterAction = shouldFilterStatus(it)
                     )
-                }.filter {
-                    shouldFilterStatus(it) != FilterAction.HIDE
-                }
+                }.filter { it.contentFilterAction != FilterAction.HIDE }
             }
     }
 

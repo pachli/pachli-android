@@ -92,12 +92,22 @@ data class NotificationViewData(
 //            accountFilterDecision = accountFilterDecision,
 //        )
 
+        /**
+         *
+         * @param pachliAccountEntity
+         * @param data
+         * @param isShowingContent
+         * @param isExpanded
+         * @param isCollapsed
+         * @param contentFilterAction
+         * @param accountFilterDecision
+         * @param isAboutSelf
+         */
         fun make(
             pachliAccountEntity: AccountEntity,
             data: NotificationData,
             isShowingContent: Boolean,
             isExpanded: Boolean,
-            isCollapsed: Boolean,
             contentFilterAction: FilterAction,
             accountFilterDecision: AccountFilterDecision?,
             isAboutSelf: Boolean,
@@ -111,8 +121,9 @@ data class NotificationViewData(
                 StatusViewData.from(
                     it,
                     isExpanded = isExpanded,
-                    isShowingContent = isCollapsed,
+                    isShowingContent = isShowingContent,
                     isDetailed = false,
+                    contentFilterAction = contentFilterAction,
                 )
             },
             report = null,
