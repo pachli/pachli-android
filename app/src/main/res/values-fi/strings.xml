@@ -336,7 +336,7 @@
     <string name="title_tab_public_trending_hashtags">Aihetunnisteet</string>
     <string name="error_muting_hashtag_format">Virhe mykistettäessä tiliä #%s</string>
     <string name="label_image">Kuva</string>
-    <string name="set_focus_description">Napauta tai vedä ympyrää valitaksesi keskipisteen, joka näkyy aina pikkukuvissa.</string>
+    <string name="set_focus_description">Napauta tai vedä ympyrää valitaksesi keskipiste, joka näkyy aina pikkukuvissa.</string>
     <string name="account_username_copied">Käyttäjätunnus kopioitu</string>
     <string name="action_translate_undo">Peru käännös</string>
     <string name="action_discard">Hylkää muutokset</string>
@@ -531,7 +531,7 @@
     </plurals>
     <string name="failed_report">Raportointi epäonnistui</string>
     <string name="description_login">Toimii yleensä. Dataa ei vuoda muihin sovelluksiin.</string>
-    <string name="label_remote_account">Alla olevat tiedot eivät välttämättä näytä kaikkea käyttäjän profiilista. Paina avataksesi täydellisen profiilin selaimessa.</string>
+    <string name="label_remote_account">Alla olevat tiedot eivät välttämättä näytä kaikkea käyttäjän profiilista. Paina avataksesi täydellinen profiili selaimessa.</string>
     <string name="report_description_remote_instance">Tili on toisella palvelimella. Lähetetäänkö sinnekin nimetön kopio raportista?</string>
     <string name="conversation_2_recipients">%1$s ja %2$s</string>
     <plurals name="poll_info_votes">
