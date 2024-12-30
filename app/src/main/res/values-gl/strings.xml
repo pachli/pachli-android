@@ -182,12 +182,12 @@
     <string name="title_favourited_by">Favorecido por</string>
     <string name="title_reblogged_by">Promovido por</string>
     <plurals name="reblogs">
-        <item quantity="one">&lt;b>%s&lt;/b> Promoción</item>
-        <item quantity="other">&lt;b>%s&lt;/b> Promocións</item>
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Promoción</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; Promocións</item>
     </plurals>
     <plurals name="favs">
-        <item quantity="one">&lt;b>%1$s&lt;/b> Favorito</item>
-        <item quantity="other">&lt;b>%1$s&lt;/b> Favoritos</item>
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Favorito</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Favoritos</item>
     </plurals>
     <string name="pin_action">Fixar</string>
     <string name="unpin_action">Desafixar</string>
@@ -560,7 +560,7 @@
     <string name="notification_notification_worker">Obtendo as notificacións…</string>
     <string name="notification_prune_cache">Mantemento da caché…</string>
     <string name="dialog_delete_filter_positive_action">Eliminar</string>
-    <string name="dialog_delete_filter_text">Eliminar o filtro \'%1$s\'\?</string>
+    <string name="dialog_delete_filter_text">Eliminar o filtro \'%1$s\'?</string>
     <string name="pref_title_show_self_boosts">Mostrar autopromocións</string>
     <string name="pref_title_show_self_boosts_description">Alguén que promove as súas publicacións</string>
     <string name="confirmation_hashtag_muted">#%s agochado</string>
@@ -570,7 +570,7 @@
     <string name="action_suggestions">Contas suxeridas</string>
     <string name="title_public_trending">En voga</string>
     <string name="title_public_trending_links">Ligazóns populares</string>
-    <string name="notification_severed_relationships_format">Cortouse a relación con &lt;b>%1$s&lt;/b></string>
+    <string name="notification_severed_relationships_format">Cortouse a relación con &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="notification_severed_relationships_domain_block_body">A moderación suspendeu o dominio</string>
     <string name="notification_severed_relationships_unknown_body">Razón descoñecida</string>
     <string name="action_translate">Traducir</string>
