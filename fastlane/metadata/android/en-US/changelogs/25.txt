@@ -1,0 +1,16 @@
+Pachli 2.9.1
+
+New features:
+
+- Show posts that mention a trending link
+- Show request method and URL in ApiResult errors
+- Add Norsk Nynorsk as a selectable language
+
+Fixes:
+
+- "KeyStoreException: BKS not found" error during login
+- Show unknown notification types correctly
+- Don't crash when updating main drawer items
+- Don't crash when toggling the "Show boosts" option
+- Show content warning edits
+- Update Finnish, Irish, Norwegian Nynorsk, Spanish, and Swedish translations
