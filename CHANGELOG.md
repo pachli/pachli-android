@@ -1,5 +1,33 @@
 # Pachli changelog
 
+## v2.9.1
+
+### New features and other improvements
+
+- Show posts that mention a trending link (#[1153](https://github.com/pachli/pachli-android/pull/1153), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show request method and URL in ApiResult errors (#[1181](https://github.com/pachli/pachli-android/pull/1181), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Add Norsk Nynorsk as a selectable language (#[1162](https://github.com/pachli/pachli-android/pull/1162), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Significant bug fixes
+
+- Show bold text correctly in many locales (#[1189](https://github.com/pachli/pachli-android/pull/1189), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- "KeyStoreException: BKS not found" error during login (#[1182](https://github.com/pachli/pachli-android/pull/1182), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show the underlying error message for a login error (#[1183](https://github.com/pachli/pachli-android/pull/1183), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Don't show "Remove tab" menu if there are no tabs (#[1179](https://github.com/pachli/pachli-android/pull/1179), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Include URL when constructing nodeinfo error string (#[1160](https://github.com/pachli/pachli-android/pull/1160), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show unknown notification types correctly (#[1154](https://github.com/pachli/pachli-android/pull/1154), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Prevent race / crash when updating main drawer items (#[1150](https://github.com/pachli/pachli-android/pull/1150), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Don't crash when toggling an account's "Show boosts" option (#[1149](https://github.com/pachli/pachli-android/pull/1149), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show content warning changes when viewing status edits (#[1148](https://github.com/pachli/pachli-android/pull/1148), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Translations
+
+- Update Finnish translations ([Kalle Kniivilä](https://github.com/pachli/pachli-android/commits?author=kalle.kniivila@gmail.com))
+- Update Irish translations ([Aindriú Mac Giolla Eoin](https://github.com/pachli/pachli-android/commits?author=aindriu80@gmail.com))
+- Update Norwegian Nynorsk translations ([Sunniva Løvstad](https://github.com/pachli/pachli-android/commits?author=weblate@turtle.garden))
+- Update Spanish translations ([Juan M Sevilla](https://github.com/pachli/pachli-android/commits?author=jumase@disroot.org))
+- Update Swedish translations ([jens persson](https://github.com/pachli/pachli-android/commits?author=jens@persson.cx))
+
 ## v2.9.0
 
 ### New features and other improvements
