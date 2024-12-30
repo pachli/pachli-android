@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="sources_most_followed">Vienas iš labiausiai sekamų jūsų serveryje</string>
-    <string name="follower_count_fmt"><b>%1$s</b> sekėjai</string>
+    <string name="follower_count_fmt">&lt;b>%1$s&lt;/b> sekėjai</string>
     <string name="action_follow_account">Sekti</string>
     <string name="action_dismiss_follow_suggestion">Atmesti</string>
     <string name="sources_friends_of_friends">Populiarus tarp žmonių, kuriuos sekate</string>
@@ -13,8 +13,8 @@
     <string name="sources_unknown">(serveris grąžino neatpažintus šaltinius)</string>
     <string name="ui_error_delete_suggestion_fmt">Nepavyko atmesti pasiūlymo dėl %1$s: %2$s.</string>
     <string name="ui_error_follow_account_fmt">Nepavyko sekti %1$s: %2$s.</string>
-    <string name="follows_count_fmt"><b>%1$s</b> sekimai</string>
-    <string name="statuses_count_fmt"><b>%1$s</b> įrašai</string>
-    <string name="statuses_count_per_week_fmt"><b>%1$s</b> įrašai (<b>%2$d</b> per savaitę)</string>
-    <string name="statuses_count_per_week_last_fmt"><b>%1$s</b> įrašai (<b>%2$d</b> per savaitę, paskutinis <b>%3$s</b>)</string>
+    <string name="follows_count_fmt">&lt;b>%1$s&lt;/b> sekimai</string>
+    <string name="statuses_count_fmt">&lt;b>%1$s&lt;/b> įrašai</string>
+    <string name="statuses_count_per_week_fmt">&lt;b>%1$s&lt;/b> įrašai (&lt;b>%2$d&lt;/b> per savaitę)</string>
+    <string name="statuses_count_per_week_last_fmt">&lt;b>%1$s&lt;/b> įrašai (&lt;b>%2$d&lt;/b> per savaitę, paskutinis &lt;b>%3$s&lt;/b>)</string>
 </resources>

@@ -262,7 +262,7 @@
     <string name="unpin_action">取消置頂</string>
     <string name="pin_action">置頂</string>
     <plurals name="favs">
-        <item quantity="other"><b>%1$s</b> 次最愛</item>
+        <item quantity="other">&lt;b>%1$s&lt;/b> 次最愛</item>
     </plurals>
     <plurals name="reblogs">
         <item quantity="other">&lt;b&gt;%s&lt;/b&gt; 次轉嘟</item>

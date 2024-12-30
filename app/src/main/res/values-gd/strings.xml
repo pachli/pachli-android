@@ -174,16 +174,16 @@
     <string name="title_favourited_by">’Na annsachd aig</string>
     <string name="title_reblogged_by">’Ga brosnachadh le</string>
     <plurals name="reblogs">
-        <item quantity="one"><b>%s</b> bhrosnachadh</item>
-        <item quantity="two"><b>%s</b> bhrosnachadh</item>
-        <item quantity="few"><b>%s</b> brosnachaidhean</item>
-        <item quantity="other"><b>%s</b> brosnachadh</item>
+        <item quantity="one">&lt;b>%s&lt;/b> bhrosnachadh</item>
+        <item quantity="two">&lt;b>%s&lt;/b> bhrosnachadh</item>
+        <item quantity="few">&lt;b>%s&lt;/b> brosnachaidhean</item>
+        <item quantity="other">&lt;b>%s&lt;/b> brosnachadh</item>
     </plurals>
     <plurals name="favs">
-        <item quantity="one"><b>%1$s</b> annsachd</item>
-        <item quantity="two"><b>%1$s</b> annsachd</item>
-        <item quantity="few"><b>%1$s</b> annsachdan</item>
-        <item quantity="other"><b>%1$s</b> annsachd</item>
+        <item quantity="one">&lt;b>%1$s&lt;/b> annsachd</item>
+        <item quantity="two">&lt;b>%1$s&lt;/b> annsachd</item>
+        <item quantity="few">&lt;b>%1$s&lt;/b> annsachdan</item>
+        <item quantity="other">&lt;b>%1$s&lt;/b> annsachd</item>
     </plurals>
     <string name="pin_action">Prìnich</string>
     <string name="unpin_action">Dì-phrìnich</string>

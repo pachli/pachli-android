@@ -261,14 +261,14 @@
     <string name="unpin_action">Détacher</string>
     <string name="pin_action">Épingler</string>
     <plurals name="favs">
-        <item quantity="one"><b>%1$s</b> Favori</item>
-        <item quantity="many"><b>%1$s</b> de favoris</item>
-        <item quantity="other"><b>%1$s</b> Favoris</item>
+        <item quantity="one">&lt;b>%1$s&lt;/b> Favori</item>
+        <item quantity="many">&lt;b>%1$s&lt;/b> de favoris</item>
+        <item quantity="other">&lt;b>%1$s&lt;/b> Favoris</item>
     </plurals>
     <plurals name="reblogs">
-        <item quantity="one"><b>%s</b> Partage</item>
-        <item quantity="many"><b>%s</b> de partages</item>
-        <item quantity="other"><b>%s</b> Partages</item>
+        <item quantity="one">&lt;b>%s&lt;/b> Partage</item>
+        <item quantity="many">&lt;b>%s&lt;/b> de partages</item>
+        <item quantity="other">&lt;b>%s&lt;/b> Partages</item>
     </plurals>
     <string name="title_reblogged_by">Partagé par</string>
     <string name="title_favourited_by">Mis en favoris par</string>

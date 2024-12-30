@@ -363,9 +363,9 @@
     <string name="hashtags">Ključniki</string>
     <string name="notification_follow_request_name">Zahteve za Sledenje</string>
     <plurals name="favs">
-        <item quantity="one"><b>%1$s</b> Priljubljena</item>
-        <item quantity="two"><b>%1$s</b> Priljubljeni</item>
-        <item quantity="few"><b>%1$s</b> Priljubljene</item>
-        <item quantity="other"><b>%1$s</b> Priljubljenih</item>
+        <item quantity="one">&lt;b>%1$s&lt;/b> Priljubljena</item>
+        <item quantity="two">&lt;b>%1$s&lt;/b> Priljubljeni</item>
+        <item quantity="few">&lt;b>%1$s&lt;/b> Priljubljene</item>
+        <item quantity="other">&lt;b>%1$s&lt;/b> Priljubljenih</item>
     </plurals>
 </resources>

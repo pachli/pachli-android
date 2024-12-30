@@ -12,9 +12,9 @@
     <string name="action_dismiss_follow_suggestion">Desbotar</string>
     <string name="ui_error_delete_suggestion_fmt">Fallou o rexeitamento da suxestión %1$s: %2$s</string>
     <string name="ui_error_follow_account_fmt">Fallou o seguimento de %1$s: %2$s</string>
-    <string name="follower_count_fmt"><b>%1$s</b> seguidoras</string>
-    <string name="follows_count_fmt"><b>%1$s</b> seguimentos</string>
-    <string name="statuses_count_fmt"><b>%1$s</b> publicacións</string>
-    <string name="statuses_count_per_week_last_fmt"><b>%1$s</b> publicacións (<b>%2$d</b> por semana, última o <b>%3$s</b>)</string>
-    <string name="statuses_count_per_week_fmt"><b>%1$s</b> publicacións (<b>%2$d</b> por semana)</string>
+    <string name="follower_count_fmt">&lt;b>%1$s&lt;/b> seguidoras</string>
+    <string name="follows_count_fmt">&lt;b>%1$s&lt;/b> seguimentos</string>
+    <string name="statuses_count_fmt">&lt;b>%1$s&lt;/b> publicacións</string>
+    <string name="statuses_count_per_week_last_fmt">&lt;b>%1$s&lt;/b> publicacións (&lt;b>%2$d&lt;/b> por semana, última o &lt;b>%3$s&lt;/b>)</string>
+    <string name="statuses_count_per_week_fmt">&lt;b>%1$s&lt;/b> publicacións (&lt;b>%2$d&lt;/b> por semana)</string>
 </resources>

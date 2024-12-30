@@ -337,8 +337,8 @@
     <string name="error_no_web_browser_found">ব্যবহার করার জন্য একটি ওয়েব ব্রাউজার খুঁজে পাওয়া যায়নি।</string>
     <string name="error_empty">এই জায়গা খালি হতে পারে না।</string>
     <plurals name="favs">
-        <item quantity="one"><b>%1$s</b>টি পছন্দ</item>
-        <item quantity="other"><b>%1$s</b>টি পছন্দ</item>
+        <item quantity="one">&lt;b>%1$s&lt;/b>টি পছন্দ</item>
+        <item quantity="other">&lt;b>%1$s&lt;/b>টি পছন্দ</item>
     </plurals>
     <string name="confirmation_domain_unmuted">%s দৃশ্যমান</string>
     <string name="notification_subscription_format">%s পোস্ট করেছে</string>
@@ -407,8 +407,8 @@
     <string name="action_subscribe_account">সদস্যতা</string>
     <string name="action_unsubscribe_account">সদস্যতা বাতিল</string>
     <plurals name="reblogs">
-        <item quantity="one"><b>%s</b> বুস্ট</item>
-        <item quantity="other"><b>%s</b> বুস্ট</item>
+        <item quantity="one">&lt;b>%s&lt;/b> বুস্ট</item>
+        <item quantity="other">&lt;b>%s&lt;/b> বুস্ট</item>
     </plurals>
     <string name="account_moved_description">%1$s স্থানান্তরিত হয়েছে এখানে:</string>
     <string name="post_media_attachments">সংযুক্তি</string>

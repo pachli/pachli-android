@@ -277,14 +277,14 @@
     <string name="unpin_action">Non fissare in cima</string>
     <string name="pin_action">Fissa</string>
     <plurals name="favs">
-        <item quantity="one"><b>%1$s</b> Preferito</item>
-        <item quantity="many"><b>%1$s</b> Preferiti</item>
-        <item quantity="other"><b>%1$s</b> Preferiti</item>
+        <item quantity="one">&lt;b>%1$s&lt;/b> Preferito</item>
+        <item quantity="many">&lt;b>%1$s&lt;/b> Preferiti</item>
+        <item quantity="other">&lt;b>%1$s&lt;/b> Preferiti</item>
     </plurals>
     <plurals name="reblogs">
-        <item quantity="one"><b>%s</b> ricondivisione</item>
-        <item quantity="many"><b>%s</b> ricondivisioni</item>
-        <item quantity="other"><b>%s</b> ricondivisioni</item>
+        <item quantity="one">&lt;b>%s&lt;/b> ricondivisione</item>
+        <item quantity="many">&lt;b>%s&lt;/b> ricondivisioni</item>
+        <item quantity="other">&lt;b>%s&lt;/b> ricondivisioni</item>
     </plurals>
     <string name="title_reblogged_by">Condiviso da</string>
     <string name="title_favourited_by">Aggiunto ai post apprezzati da</string>

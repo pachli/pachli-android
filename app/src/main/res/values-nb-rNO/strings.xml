@@ -250,8 +250,8 @@
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Favoritter</item>
     </plurals>
     <plurals name="reblogs">
-        <item quantity="one">Delt <b>%s</b> gang</item>
-        <item quantity="other">Delt <b>%s</b> ganger</item>
+        <item quantity="one">Delt &lt;b>%s&lt;/b> gang</item>
+        <item quantity="other">Delt &lt;b>%s&lt;/b> ganger</item>
     </plurals>
     <string name="title_reblogged_by">Delt av</string>
     <string name="title_favourited_by">Favorisert av</string>
@@ -602,7 +602,7 @@
     <string name="title_public_trending">Trendende</string>
     <string name="title_public_trending_statuses">Trendende innlegg</string>
     <string name="title_tab_public_trending_statuses">Innlegg</string>
-    <string name="notification_severed_relationships_format">Brøt forholdet med <b>%1$s</b></string>
+    <string name="notification_severed_relationships_format">Brøt forholdet med &lt;b>%1$s&lt;/b></string>
     <string name="notification_severed_relationships_unknown_body">Ukjent årsak</string>
     <string name="label_image">Bild</string>
     <string name="pref_title_font_family">Skriftfamilie</string>
@@ -784,17 +784,17 @@
     <string name="pref_account_notification_filters_label_not_followed">…du ikke følger</string>
     <string name="pref_account_notification_filters_label_younger_30d">…ble opprettet på de siste 30 dagene</string>
     <string name="pref_account_notification_filters_label_limited_by_server">…er begrenset av moderatorene dine</string>
-    <string name="account_filter_placeholder_type_favourite_fmt">En bruker (@<b>%1s</b>) favoriserte innlegget ditt</string>
+    <string name="account_filter_placeholder_type_favourite_fmt">En bruker (@&lt;b>%1s&lt;/b>) favoriserte innlegget ditt</string>
     <string name="account_filter_placeholder_label_younger_30d">Filtrert fordi: <b>kontoen ble opprettet på de siste 30 dagene</b></string>
     <string name="account_filter_placeholder_label_limited_by_server">Filtrert fordi: <b>kontoen er begrenset av moderatorene dine</b></string>
     <string name="notification_unknown">Ukjent varseltype</string>
     <string name="account_filter_placeholder_label_not_following">Filtrert fordi: <b>du følger hen ikke</b></string>
-    <string name="account_filter_placeholder_type_mention_fmt">En bruker (@<b>%1s</b>) nevnte deg</string>
-    <string name="account_filter_placeholder_type_reblog_fmt">En bruker (@<b>%1s</b>) delte innlegget ditt</string>
-    <string name="account_filter_placeholder_label_domain">Fra en bruker (@<b>%1s</b>)</string>
-    <string name="preview_card_timeline_link_fmt">Vis <b>%1$s</b> innlegg om denne lenken</string>
-    <string name="account_filter_placeholder_type_follow_fmt">En bruker (@<b>%1s</b>) fulgte deg</string>
-    <string name="account_filter_placeholder_type_follow_request_fmt">Følgeforespørsel fra en bruker (@<b>%1s</b>)</string>
-    <string name="preview_card_byline_name_only_fmt">Av <b>%1$s</b></string>
+    <string name="account_filter_placeholder_type_mention_fmt">En bruker (@&lt;b>%1s&lt;/b>) nevnte deg</string>
+    <string name="account_filter_placeholder_type_reblog_fmt">En bruker (@&lt;b>%1s&lt;/b>) delte innlegget ditt</string>
+    <string name="account_filter_placeholder_label_domain">Fra en bruker (@&lt;b>%1s&lt;/b>)</string>
+    <string name="preview_card_timeline_link_fmt">Vis &lt;b>%1$s&lt;/b> innlegg om denne lenken</string>
+    <string name="account_filter_placeholder_type_follow_fmt">En bruker (@&lt;b>%1s&lt;/b>) fulgte deg</string>
+    <string name="account_filter_placeholder_type_follow_request_fmt">Følgeforespørsel fra en bruker (@&lt;b>%1s&lt;/b>)</string>
+    <string name="preview_card_byline_name_only_fmt">Av &lt;b>%1$s&lt;/b></string>
     <string name="action_timeline_link">Innlegg om denne lenken</string>
 </resources>
