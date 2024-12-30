@@ -270,14 +270,14 @@
     <string name="unpin_action">Desafixar</string>
     <string name="pin_action">Fixar</string>
     <plurals name="favs">
-        <item quantity="one">&lt;b>%1$s&lt;/b> Favorito</item>
-        <item quantity="many">&lt;b>%1$s&lt;/b> Favoritos</item>
-        <item quantity="other">&lt;b>%1$s&lt;/b> Favoritos</item>
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Favorito</item>
+        <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; Favoritos</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Favoritos</item>
     </plurals>
     <plurals name="reblogs">
-        <item quantity="one">&lt;b>%s&lt;/b> Boost</item>
-        <item quantity="many">&lt;b>%s&lt;/b> Boosts</item>
-        <item quantity="other">&lt;b>%s&lt;/b> Boosts</item>
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Boost</item>
+        <item quantity="many">&lt;b&gt;%s&lt;/b&gt; Boosts</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; Boosts</item>
     </plurals>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s e %2$s</string>
