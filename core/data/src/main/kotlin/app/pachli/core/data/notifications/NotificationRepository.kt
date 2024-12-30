@@ -36,6 +36,8 @@ import app.pachli.core.database.model.AccountFilterDecisionUpdate
 import app.pachli.core.database.model.FilterActionUpdate
 import app.pachli.core.database.model.NotificationData
 import app.pachli.core.database.model.NotificationEntity
+import app.pachli.core.database.model.NotificationRelationshipSeveranceEventEntity
+import app.pachli.core.database.model.NotificationReportEntity
 import app.pachli.core.database.model.NotificationType
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyKind
@@ -44,8 +46,11 @@ import app.pachli.core.database.model.TimelineStatusEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
+import app.pachli.core.network.R
 import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Notification
+import app.pachli.core.network.model.RelationshipSeveranceEvent
+import app.pachli.core.network.model.Report
 import app.pachli.core.network.retrofit.MastodonApi
 import at.connyduck.calladapter.networkresult.onFailure
 import com.github.michaelbull.result.Err
@@ -73,7 +78,7 @@ import timber.log.Timber
 // TODO: The API calls should return an ApiResult, then this can wrap those.
 sealed class StatusActionError(open val throwable: Throwable) : PachliError {
     @get:StringRes
-    override val resourceId = app.pachli.core.network.R.string.error_generic_fmt
+    override val resourceId = R.string.error_generic_fmt
     override val formatArgs: Array<out Any>? = arrayOf(throwable)
     override val cause: PachliError? = null
 
@@ -110,11 +115,9 @@ class NotificationRepository @Inject constructor(
             initialKey = row,
             config = PagingConfig(
                 pageSize = PAGE_SIZE,
-//                initialLoadSize = PAGE_SIZE * 3,
                 // If enablePlaceholders is true the recyclerView won't restore the
                 // position.
                 enablePlaceholders = false,
-//                jumpThreshold = PAGE_SIZE * 3,
             ),
             remoteMediator = NotificationRemoteMediator(
                 pachliAccountId,
@@ -134,11 +137,11 @@ class NotificationRepository @Inject constructor(
         return@async mastodonApi.clearNotifications()
     }.await()
 
-    suspend fun clearContentFilter(pachliAccountId: Long, notificationId: String) = externalScope.launch {
+    fun clearContentFilter(pachliAccountId: Long, notificationId: String) = externalScope.launch {
         notificationDao.upsert(FilterActionUpdate(pachliAccountId, notificationId, FilterAction.NONE))
     }
 
-    suspend fun setAccountFilterDecision(pachliAccountId: Long, notificationId: String, accountFilterDecision: AccountFilterDecision) = externalScope.launch {
+    fun setAccountFilterDecision(pachliAccountId: Long, notificationId: String, accountFilterDecision: AccountFilterDecision) = externalScope.launch {
         notificationDao.upsert(
             AccountFilterDecisionUpdate(
                 pachliAccountId,
@@ -148,15 +151,15 @@ class NotificationRepository @Inject constructor(
         )
     }
 
-    suspend fun setContentCollapsed(pachliAccountId: Long, statusId: String, isCollapsed: Boolean) = externalScope.launch {
+    fun setContentCollapsed(pachliAccountId: Long, statusId: String, isCollapsed: Boolean) = externalScope.launch {
         timelineDao.setContentCollapsed(statusId, isCollapsed)
     }
 
-    suspend fun setShowingContent(pachliAccountId: Long, statusId: String, isShowingContent: Boolean) = externalScope.launch {
+    fun setShowingContent(pachliAccountId: Long, statusId: String, isShowingContent: Boolean) = externalScope.launch {
         timelineDao.setContentShowing(statusId, isShowingContent)
     }
 
-    suspend fun setExpanded(pachliAccountId: Long, statusId: String, expanded: Boolean) = externalScope.launch {
+    fun setExpanded(pachliAccountId: Long, statusId: String, expanded: Boolean) = externalScope.launch {
         timelineDao.setExpanded(statusId, expanded)
     }
 
@@ -255,8 +258,6 @@ class NotificationRemoteMediator(
     private val notificationDao: NotificationDao,
 ) : RemoteMediator<Int, NotificationData>() {
     private val RKE_TIMELINE_ID = "NOTIFICATIONS"
-
-//    override suspend fun initialize() = InitializeAction.SKIP_INITIAL_REFRESH
 
     override suspend fun load(loadType: LoadType, state: PagingState<Int, NotificationData>): MediatorResult {
         return try {
@@ -408,11 +409,55 @@ fun NotificationEntity.Companion.from(pachliAccountId: Long, notification: Notif
     createdAt = notification.createdAt.toInstant(),
     accountServerId = notification.account.id,
     statusServerId = notification.status?.id,
+    report = NotificationReportEntity.from(pachliAccountId,notification),
+    relationshipSeveranceEvent = NotificationRelationshipSeveranceEventEntity.from(pachliAccountId, notification)
 //    account = TimelineAccountEntity.from(notification.account, pachliAccountId),
 //    status = notification.status?.let { TimelineStatusEntity.from(it, pachliAccountId) },
 //    // TODO: Handle report
 //    report = null,
 )
+
+fun NotificationReportEntity.Companion.from(pachliAccountId: Long, notification: Notification): NotificationReportEntity? {
+    val report = notification.report ?: return null
+
+    return NotificationReportEntity(
+        pachliAccountId = pachliAccountId,
+        serverId = serverId,
+        actionTaken = report.actionTaken,
+        actionTakenAt = report.actionTakenAt,
+        category = when (report.category) {
+            Report.Category.SPAM -> NotificationReportEntity.Category.SPAM
+            Report.Category.VIOLATION -> NotificationReportEntity.Category.VIOLATION
+            Report.Category.OTHER -> NotificationReportEntity.Category.OTHER
+        },
+        comment = report.comment,
+        forwarded = report.forwarded,
+        createdAt = report.createdAt,
+        statusIds = report.statusIds,
+        ruleIds = report.ruleIds,
+        targetAccount = TimelineAccountEntity.from(report.targetAccount, pachliAccountId)
+    )
+}
+
+fun NotificationRelationshipSeveranceEventEntity.Companion.from(pachliAccountId: Long, notification: Notification): NotificationRelationshipSeveranceEventEntity? {
+    val rse = notification.relationshipSeveranceEvent ?: return null
+
+    return NotificationRelationshipSeveranceEventEntity(
+        pachliAccountId = pachliAccountId,
+        serverId = notification.id,
+        eventId = rse.id,
+        type = when (rse.type) {
+            RelationshipSeveranceEvent.Type.DOMAIN_BLOCK -> NotificationRelationshipSeveranceEventEntity.Type.DOMAIN_BLOCK
+            RelationshipSeveranceEvent.Type.USER_DOMAIN_BLOCK -> NotificationRelationshipSeveranceEventEntity.Type.USER_DOMAIN_BLOCK
+            RelationshipSeveranceEvent.Type.ACCOUNT_SUSPENSION -> NotificationRelationshipSeveranceEventEntity.Type.ACCOUNT_SUSPENSION
+            RelationshipSeveranceEvent.Type.UNKNOWN -> NotificationRelationshipSeveranceEventEntity.Type.UNKNOWN
+        },
+        purged = rse.purged,
+        followersCount = rse.followersCount,
+        followingCount = rse.followingCount,
+        createdAt = rse.createdAt,
+    )
+}
 
 fun NotificationData.Companion.from(pachliAccountId: Long, notification: Notification) = NotificationData(
     notification = NotificationEntity.from(pachliAccountId, notification),
@@ -424,4 +469,5 @@ fun NotificationData.Companion.from(pachliAccountId: Long, notification: Notific
         )
     },
     viewData = null,
+    relationshipSeveranceEvent = notification.relationshipSeveranceEvent
 )

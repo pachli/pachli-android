@@ -54,6 +54,7 @@ import app.pachli.core.database.model.InstanceInfoEntity
 import app.pachli.core.database.model.LogEntryEntity
 import app.pachli.core.database.model.MastodonListEntity
 import app.pachli.core.database.model.NotificationEntity
+import app.pachli.core.database.model.NotificationRelationshipSeveranceEventEntity
 import app.pachli.core.database.model.NotificationReportEntity
 import app.pachli.core.database.model.NotificationViewDataEntity
 import app.pachli.core.database.model.RemoteKeyEntity
@@ -88,6 +89,7 @@ import java.util.TimeZone
         FollowingAccountEntity::class,
         NotificationEntity::class,
         NotificationReportEntity::class,
+        NotificationRelationshipSeveranceEventEntity::class,
         NotificationViewDataEntity::class,
     ],
     version = 11,

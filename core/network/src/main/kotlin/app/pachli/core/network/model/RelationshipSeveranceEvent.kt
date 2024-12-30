@@ -19,6 +19,7 @@ package app.pachli.core.network.model
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import java.time.Instant
 import java.util.Date
 
 /**
@@ -45,16 +46,16 @@ data class RelationshipSeveranceEvent(
     // Documentation is wrong: https://github.com/mastodon/documentation/issues/1556
     /** Number of follower accounts removed. */
     @Json(name = "followers_count")
-    val followersCount: Int = 0,
+    val followersCount: UInt = 0u,
 
     // Documentation is wrong: https://github.com/mastodon/documentation/issues/1556
     /** Number of followed accounts removed. */
     @Json(name = "following_count")
-    val followingCount: Int = 0,
+    val followingCount: UInt = 0u,
 
     /** When the event took place. */
     @Json(name = "created_at")
-    val createdAt: Date,
+    val createdAt: Instant,
 ) {
     enum class Type {
         /** A moderator suspended a whole domain */
