@@ -182,12 +182,12 @@
     <string name="title_favourited_by">Favorecido por</string>
     <string name="title_reblogged_by">Promovido por</string>
     <plurals name="reblogs">
-        <item quantity="one"><b>%s</b> Promoción</item>
-        <item quantity="other"><b>%s</b> Promocións</item>
+        <item quantity="one">&lt;b>%s&lt;/b> Promoción</item>
+        <item quantity="other">&lt;b>%s&lt;/b> Promocións</item>
     </plurals>
     <plurals name="favs">
-        <item quantity="one"><b>%1$s</b> Favorito</item>
-        <item quantity="other"><b>%1$s</b> Favoritos</item>
+        <item quantity="one">&lt;b>%1$s&lt;/b> Favorito</item>
+        <item quantity="other">&lt;b>%1$s&lt;/b> Favoritos</item>
     </plurals>
     <string name="pin_action">Fixar</string>
     <string name="unpin_action">Desafixar</string>
@@ -570,7 +570,7 @@
     <string name="action_suggestions">Contas suxeridas</string>
     <string name="title_public_trending">En voga</string>
     <string name="title_public_trending_links">Ligazóns populares</string>
-    <string name="notification_severed_relationships_format">Cortouse a relación con <b>%1$s</b></string>
+    <string name="notification_severed_relationships_format">Cortouse a relación con &lt;b>%1$s&lt;/b></string>
     <string name="notification_severed_relationships_domain_block_body">A moderación suspendeu o dominio</string>
     <string name="notification_severed_relationships_unknown_body">Razón descoñecida</string>
     <string name="action_translate">Traducir</string>

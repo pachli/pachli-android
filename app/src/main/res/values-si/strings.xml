@@ -207,8 +207,8 @@
     <string name="poll_ended_created">ඔබ සෑදූ මත විමසුම නිම වී ඇත</string>
     <string name="pref_title_bot_overlay">ස්වයංක්‍රමලේඛ සඳහා දර්ශකය පෙන්වන්න</string>
     <plurals name="favs">
-        <item quantity="one">ප්‍රියතමයන් <b>%1$s</b></item>
-        <item quantity="other">ප්‍රියතමයන් <b>%1$s</b></item>
+        <item quantity="one">ප්‍රියතමයන් &lt;b>%1$s&lt;/b></item>
+        <item quantity="other">ප්‍රියතමයන් &lt;b>%1$s&lt;/b></item>
     </plurals>
     <string name="action_favourite">ප්‍රියතම</string>
     <string name="filter_dialog_update_button">යාවත්කාල</string>

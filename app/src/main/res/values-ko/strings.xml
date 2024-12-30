@@ -273,7 +273,7 @@
     <string name="unpin_action">고정 해제</string>
     <string name="pin_action">고정</string>
     <plurals name="favs">
-        <item quantity="other"><b>%1$s</b> 좋아요</item>
+        <item quantity="other">&lt;b>%1$s&lt;/b> 좋아요</item>
     </plurals>
     <plurals name="reblogs">
         <item quantity="other">&lt;b&gt;%s&lt;/b&gt; 부스트</item>

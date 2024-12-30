@@ -259,12 +259,12 @@
         <item quantity="other">Descriure los contenguts pels mal vesents (%d caractèrs maximum)</item>
     </plurals>
     <plurals name="favs">
-        <item quantity="one"><b>%1$s</b> Favorit</item>
-        <item quantity="other"><b>%1$s</b> Favorits</item>
+        <item quantity="one">&lt;b>%1$s&lt;/b> Favorit</item>
+        <item quantity="other">&lt;b>%1$s&lt;/b> Favorits</item>
     </plurals>
     <plurals name="reblogs">
-        <item quantity="one"><b>%s</b> Partatge</item>
-        <item quantity="other"><b>%s</b> Partatges</item>
+        <item quantity="one">&lt;b>%s&lt;/b> Partatge</item>
+        <item quantity="other">&lt;b>%s&lt;/b> Partatges</item>
     </plurals>
     <string name="title_reblogged_by">Partejat per</string>
     <string name="title_favourited_by">Aimat per</string>

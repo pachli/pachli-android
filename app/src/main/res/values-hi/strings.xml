@@ -236,8 +236,8 @@
     <string name="conversation_2_recipients">%1$s तथा %2$s</string>
     <string name="conversation_1_recipients">%1$s</string>
     <plurals name="reblogs">
-        <item quantity="one"><b>%s</b> ने बढ़ावा दिया</item>
-        <item quantity="other"><b>%s</b> ने बढ़ावा दिया</item>
+        <item quantity="one">&lt;b>%s&lt;/b> ने बढ़ावा दिया</item>
+        <item quantity="other">&lt;b>%s&lt;/b> ने बढ़ावा दिया</item>
     </plurals>
     <string name="pin_action">पिन</string>
     <string name="unpin_action">अनपिन</string>
@@ -327,8 +327,8 @@
     <string name="pref_title_show_boosts">बूस्ट दिखाएं</string>
     <string name="action_open_reblogged_by">बूस्ट दिखाएं</string>
     <plurals name="favs">
-        <item quantity="one"><b>%1$s</b> ने पसंद किया</item>
-        <item quantity="other"><b>%1$s</b> ने पसंद किया</item>
+        <item quantity="one">&lt;b>%1$s&lt;/b> ने पसंद किया</item>
+        <item quantity="other">&lt;b>%1$s&lt;/b> ने पसंद किया</item>
     </plurals>
     <plurals name="poll_timespan_seconds">
         <item quantity="one">%d सेकेंड शेष</item>

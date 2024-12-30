@@ -402,9 +402,9 @@
     <string name="lock_account_label_description">Prasa manuāli apstiprināt sekotājus</string>
     <string name="title_reblogged_by">Pastiprināja</string>
     <plurals name="reblogs">
-        <item quantity="zero"><b>%s</b> pastiprinājumi</item>
-        <item quantity="one"><b>%s</b> pastiprinājums</item>
-        <item quantity="other"><b>%s</b> pastiprinājumi</item>
+        <item quantity="zero">&lt;b>%s&lt;/b> pastiprinājumi</item>
+        <item quantity="one">&lt;b>%s&lt;/b> pastiprinājums</item>
+        <item quantity="other">&lt;b>%s&lt;/b> pastiprinājumi</item>
     </plurals>
     <string name="title_favourites">Izlases</string>
     <string name="notification_favourite_format">%s pievienoja tavu ierakstu izlasei</string>

@@ -34,8 +34,8 @@
     <string name="action_open_faved_by">Sken-d ismenyifen</string>
     <string name="notification_favourite_name">Ismenyifen</string>
     <plurals name="favs">
-        <item quantity="one"><b>%1$s</b> n usmenyaf</item>
-        <item quantity="other"><b>%1$s</b> n ismenyifen</item>
+        <item quantity="one">&lt;b>%1$s&lt;/b> n usmenyaf</item>
+        <item quantity="other">&lt;b>%1$s&lt;/b> n ismenyifen</item>
     </plurals>
     <string name="no_drafts">Ur tesɛiḍ ara irewwayen.</string>
     <string name="title_notifications">Tilɣa</string>

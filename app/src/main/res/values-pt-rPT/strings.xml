@@ -312,14 +312,14 @@
     <string name="label_remote_account">As informações abaixo podem refletir, de forma incompleta, o perfil do utilizador. Toque aqui para abrir o perfil completo no navegador.</string>
     <string name="pin_action">Fixar</string>
     <plurals name="favs">
-        <item quantity="one"><b>%1$s</b> Favorito</item>
-        <item quantity="many"><b>%1$s</b> Favoritos</item>
-        <item quantity="other"><b>%1$s</b> Favoritos</item>
+        <item quantity="one">&lt;b>%1$s&lt;/b> Favorito</item>
+        <item quantity="many">&lt;b>%1$s&lt;/b> Favoritos</item>
+        <item quantity="other">&lt;b>%1$s&lt;/b> Favoritos</item>
     </plurals>
     <plurals name="reblogs">
-        <item quantity="one"><b>%s</b> Boost</item>
-        <item quantity="many"><b>%s</b> Boosts</item>
-        <item quantity="other"><b>%s</b> Boosts</item>
+        <item quantity="one">&lt;b>%s&lt;/b> Boost</item>
+        <item quantity="many">&lt;b>%s&lt;/b> Boosts</item>
+        <item quantity="other">&lt;b>%s&lt;/b> Boosts</item>
     </plurals>
     <string name="title_reblogged_by">Boost dado por</string>
     <string name="title_favourited_by">Adicionado aos favoritos por</string>

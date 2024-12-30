@@ -12,9 +12,9 @@
     <string name="sources_friends_of_friends">Populær blant de du følger</string>
     <string name="sources_unknown">(Serveren ga ukjente kilder)</string>
     <string name="action_dismiss_follow_suggestion">Avvis</string>
-    <string name="follower_count_fmt"><b>%1$s</b> følgere</string>
-    <string name="follows_count_fmt">Følger <b>%1$s</b></string>
-    <string name="statuses_count_fmt"><b>%1$s</b> innlegg</string>
-    <string name="statuses_count_per_week_fmt"><b>%1$s</b> innlegg (<b>%2$d</b> om uken)</string>
-    <string name="statuses_count_per_week_last_fmt"><b>%1$s</b> innlegg (<b>%2$d</b> om uken, siste uke <b>%3$s</b>)</string>
+    <string name="follower_count_fmt">&lt;b>%1$s&lt;/b> følgere</string>
+    <string name="follows_count_fmt">Følger &lt;b>%1$s&lt;/b></string>
+    <string name="statuses_count_fmt">&lt;b>%1$s&lt;/b> innlegg</string>
+    <string name="statuses_count_per_week_fmt">&lt;b>%1$s&lt;/b> innlegg (&lt;b>%2$d&lt;/b> om uken)</string>
+    <string name="statuses_count_per_week_last_fmt">&lt;b>%1$s&lt;/b> innlegg (&lt;b>%2$d&lt;/b> om uken, siste uke &lt;b>%3$s&lt;/b>)</string>
 </resources>

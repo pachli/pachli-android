@@ -284,10 +284,10 @@
     <string name="unpin_action">Odepnij z profilu</string>
     <string name="pin_action">Przypnij do profilu</string>
     <plurals name="favs">
-        <item quantity="one"><b>%1$s</b> polubienie</item>
-        <item quantity="few"><b>%1$s</b> polubienia</item>
-        <item quantity="many"><b>%1$s</b> polubień</item>
-        <item quantity="other"><b>%1$s</b> polubień</item>
+        <item quantity="one">&lt;b>%1$s&lt;/b> polubienie</item>
+        <item quantity="few">&lt;b>%1$s&lt;/b> polubienia</item>
+        <item quantity="many">&lt;b>%1$s&lt;/b> polubień</item>
+        <item quantity="other">&lt;b>%1$s&lt;/b> polubień</item>
     </plurals>
     <plurals name="reblogs">
         <item quantity="one">&lt;b&gt;%s&lt;/b&gt; podbicie</item>

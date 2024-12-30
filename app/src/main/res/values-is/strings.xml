@@ -341,12 +341,12 @@
     <string name="notification_follow_request_name">Fylgjendabeiðnir</string>
     <string name="hashtags">Myllumerki</string>
     <plurals name="favs">
-        <item quantity="one"><b>%1$s</b> eftirlæti</item>
-        <item quantity="other"><b>%1$s</b> eftirlæti</item>
+        <item quantity="one">&lt;b>%1$s&lt;/b> eftirlæti</item>
+        <item quantity="other">&lt;b>%1$s&lt;/b> eftirlæti</item>
     </plurals>
     <plurals name="reblogs">
-        <item quantity="one"><b>%s</b> Endurbirting</item>
-        <item quantity="other"><b>%s</b> Endurbirtingar</item>
+        <item quantity="one">&lt;b>%s&lt;/b> Endurbirting</item>
+        <item quantity="other">&lt;b>%s&lt;/b> Endurbirtingar</item>
     </plurals>
     <plurals name="poll_timespan_seconds">
         <item quantity="one">%d sekúnda eftir</item>
