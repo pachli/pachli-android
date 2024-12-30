@@ -244,14 +244,14 @@
     <string name="unpin_action">No fijar</string>
     <string name="pin_action">Fijar</string>
     <plurals name="favs">
-        <item quantity="one">&lt;b>%1$s&lt;/b> Favorito</item>
-        <item quantity="many">&lt;b>%1$s&lt;/b> Favoritos</item>
-        <item quantity="other">&lt;b>%1$s&lt;/b> Favoritos</item>
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Favorito</item>
+        <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; Favoritos</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Favoritos</item>
     </plurals>
     <plurals name="reblogs">
-        <item quantity="one">&lt;b>%s&lt;/b> Impulso</item>
-        <item quantity="many">&lt;b>%s&lt;/b> Impulsos</item>
-        <item quantity="other">&lt;b>%s&lt;/b> Impulsos</item>
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Impulso</item>
+        <item quantity="many">&lt;b&gt;%s&lt;/b&gt; Impulsos</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; Impulsos</item>
     </plurals>
     <string name="title_reblogged_by">Impulsado por</string>
     <string name="title_favourited_by">Marcado como favorito por</string>
@@ -623,7 +623,7 @@
     <string name="notification_severed_relationships_user_domain_block_body">Bloqueaste el dominio</string>
     <string name="notification_severed_relationships_account_suspension_body">Un moderador suspendió la cuenta</string>
     <string name="notification_severed_relationships_unknown_body">Motivo desconocido</string>
-    <string name="notification_severed_relationships_format">Se rompió la relación con &lt;b>%1$s&lt;/b></string>
+    <string name="notification_severed_relationships_format">Se rompió la relación con &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="notification_severed_relationships_name">Relaciones rotas</string>
     <string name="notification_severed_relationships_description">Notificaciones de relaciones rotas</string>
     <string name="poll_show_votes">Mostrar votos</string>
@@ -638,7 +638,7 @@
     <string name="error_media_uploader_upload_not_found_fmt">no se encontró la subida de medios con ID de %1$s</string>
     <string name="error_prepare_media_unknown_file_size">no se pudo determinar el tamaño del archivo</string>
     <string name="error_prepare_media_unknown_mime_type">se desconoce el tipo de archivo</string>
-    <string name="preview_card_byline_fediverse_account_fmt">Por &lt;b>%1$s&lt;/b>. Ver más publicaciones</string>
+    <string name="preview_card_byline_fediverse_account_fmt">Por &lt;b&gt;%1$s&lt;/b&gt;. Ver más publicaciones</string>
     <string name="action_open_byline_account">Mostrar el perfil del autor del artículo</string>
     <string name="action_open_link">Abrir enlace</string>
     <string name="compose_warn_language_dialog_title">Comprueba el idioma de la publicación</string>
@@ -800,19 +800,19 @@
     <string name="pref_account_notification_filters_label_not_followed">… que no sigues</string>
     <string name="pref_account_notification_filters_label_younger_30d">… creadas en los últimos 30 días</string>
     <string name="pref_account_notification_filters_label_limited_by_server">… limitadas por tus moderadores</string>
-    <string name="account_filter_placeholder_type_favourite_fmt">Un usuario de &lt;b>%1s&lt;/b> marcó como favorita tu publicación</string>
-    <string name="account_filter_placeholder_type_follow_request_fmt">Solicitud de seguimiento de un usuario de &lt;b>%1s&lt;/b></string>
-    <string name="account_filter_placeholder_type_mention_fmt">Un usuario de &lt;b>%1s&lt;/b> te mencionó</string>
-    <string name="account_filter_placeholder_type_reblog_fmt">Un usuario de &lt;b>%1s&lt;/b> impulsó tu publicación</string>
-    <string name="account_filter_placeholder_label_domain">De un usuario de &lt;b>%1s&lt;/b></string>
-    <string name="account_filter_placeholder_type_follow_fmt">Un usuario de &lt;b>%1s&lt;/b> te siguió</string>
-    <string name="account_filter_placeholder_label_not_following">Filtrado porque: &lt;b>no le sigues&lt;/b></string>
+    <string name="account_filter_placeholder_type_favourite_fmt">Un usuario de &lt;b&gt;%1s&lt;/b&gt; marcó como favorita tu publicación</string>
+    <string name="account_filter_placeholder_type_follow_request_fmt">Solicitud de seguimiento de un usuario de &lt;b&gt;%1s&lt;/b&gt;</string>
+    <string name="account_filter_placeholder_type_mention_fmt">Un usuario de &lt;b&gt;%1s&lt;/b&gt; te mencionó</string>
+    <string name="account_filter_placeholder_type_reblog_fmt">Un usuario de &lt;b&gt;%1s&lt;/b&gt; impulsó tu publicación</string>
+    <string name="account_filter_placeholder_label_domain">De un usuario de &lt;b&gt;%1s&lt;/b&gt;</string>
+    <string name="account_filter_placeholder_type_follow_fmt">Un usuario de &lt;b&gt;%1s&lt;/b&gt; te siguió</string>
+    <string name="account_filter_placeholder_label_not_following">Filtrado porque: &lt;b&gt;no le sigues&lt;/b&gt;</string>
     <string name="notification_unknown">Tipo de notificación desconocido</string>
     <string name="pref_account_notification_filters_subtitle">Qué debería ocurrir con las notificaciones de cuentas…</string>
     <string name="pref_title_account_notification_filters">Filtros de notificaciones</string>
-    <string name="preview_card_byline_name_only_fmt">Por &lt;b>%1$s&lt;/b></string>
+    <string name="preview_card_byline_name_only_fmt">Por &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="action_timeline_link">Publicaciones acerca de este enlace</string>
-    <string name="account_filter_placeholder_label_younger_30d">Filtrado porque: &lt;b>creada en los últimos 30 días&lt;/b></string>
-    <string name="account_filter_placeholder_label_limited_by_server">Filtrado porque: &lt;b>limitada por tus moderadores&lt;/b></string>
-    <string name="preview_card_timeline_link_fmt">Ver &lt;b>%1$s&lt;/b> publicaciones sobre este enlace</string>
+    <string name="account_filter_placeholder_label_younger_30d">Filtrado porque: &lt;b&gt;creada en los últimos 30 días&lt;/b&gt;</string>
+    <string name="account_filter_placeholder_label_limited_by_server">Filtrado porque: &lt;b&gt;limitada por tus moderadores&lt;/b&gt;</string>
+    <string name="preview_card_timeline_link_fmt">Ver &lt;b&gt;%1$s&lt;/b&gt; publicaciones sobre este enlace</string>
 </resources>
