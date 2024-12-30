@@ -261,8 +261,8 @@
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Favoriter</item>
     </plurals>
     <plurals name="reblogs">
-        <item quantity="one">&lt;b>%s&lt;/b> Knuff</item>
-        <item quantity="other">&lt;b>%s&lt;/b> Knuffar</item>
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Knuff</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; Knuffar</item>
     </plurals>
     <string name="title_reblogged_by">Knuffad av</string>
     <string name="title_favourited_by">Favoritmarkerad av</string>
