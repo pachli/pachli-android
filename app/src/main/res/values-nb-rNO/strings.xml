@@ -785,10 +785,10 @@
     <string name="pref_account_notification_filters_label_younger_30d">…ble opprettet på de siste 30 dagene</string>
     <string name="pref_account_notification_filters_label_limited_by_server">…er begrenset av moderatorene dine</string>
     <string name="account_filter_placeholder_type_favourite_fmt">En bruker (@&lt;b>%1s&lt;/b>) favoriserte innlegget ditt</string>
-    <string name="account_filter_placeholder_label_younger_30d">Filtrert fordi: <b>kontoen ble opprettet på de siste 30 dagene</b></string>
-    <string name="account_filter_placeholder_label_limited_by_server">Filtrert fordi: <b>kontoen er begrenset av moderatorene dine</b></string>
+    <string name="account_filter_placeholder_label_younger_30d">Filtrert fordi: &lt;b>kontoen ble opprettet på de siste 30 dagene&lt;/b></string>
+    <string name="account_filter_placeholder_label_limited_by_server">Filtrert fordi: &lt;b>kontoen er begrenset av moderatorene dine&lt;/b></string>
     <string name="notification_unknown">Ukjent varseltype</string>
-    <string name="account_filter_placeholder_label_not_following">Filtrert fordi: <b>du følger hen ikke</b></string>
+    <string name="account_filter_placeholder_label_not_following">Filtrert fordi: &lt;b>du følger hen ikke&lt;/b></string>
     <string name="account_filter_placeholder_type_mention_fmt">En bruker (@&lt;b>%1s&lt;/b>) nevnte deg</string>
     <string name="account_filter_placeholder_type_reblog_fmt">En bruker (@&lt;b>%1s&lt;/b>) delte innlegget ditt</string>
     <string name="account_filter_placeholder_label_domain">Fra en bruker (@&lt;b>%1s&lt;/b>)</string>

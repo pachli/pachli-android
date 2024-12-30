@@ -353,7 +353,7 @@
     <string name="send_post_notification_error_title">Julkaisun lähettäminen epäonnistui</string>
     <string name="pref_title_notification_filter_follow_requests">seuraamista pyydetty</string>
     <string name="pref_title_notification_filters">Ilmoita kun</string>
-    <string name="status_filter_placeholder_label_format">Suodatettu: &lt;b&gt;%1$s&lt;/b&gt;</string>
+    <string name="status_filter_placeholder_label_format">Suodatettu: &lt;b>%1$s&lt;/b></string>
     <string name="pref_title_notification_filter_poll">päättyneet äänestykset</string>
     <string name="abbreviated_in_seconds">%ds</string>
     <string name="failed_to_unpin">Irrottaminen epäonnistui</string>
@@ -777,9 +777,9 @@
     <string name="account_filter_placeholder_type_follow_fmt">Käyttäjä @&lt;b>%1s&lt;/b> seurasi sinua</string>
     <string name="account_filter_placeholder_type_reblog_fmt">Käyttäjä @&lt;b>%1s&lt;/b> tehosti julkaisuasi</string>
     <string name="account_filter_placeholder_label_domain">Käyttäjältä @&lt;b>%1s&lt;/b></string>
-    <string name="account_filter_placeholder_label_not_following">Suodatettu koska: <b>et seuraa käyttäjää</b></string>
-    <string name="account_filter_placeholder_label_younger_30d">Suodatettu koska: <b>luotu viimeisten 30 päivän aikana</b></string>
-    <string name="account_filter_placeholder_label_limited_by_server">Suodatettu koska: <b>moderaattorisi rajoittama</b></string>
+    <string name="account_filter_placeholder_label_not_following">Suodatettu koska: &lt;b>et seuraa käyttäjää&lt;/b></string>
+    <string name="account_filter_placeholder_label_younger_30d">Suodatettu koska: &lt;b>luotu viimeisten 30 päivän aikana&lt;/b></string>
+    <string name="account_filter_placeholder_label_limited_by_server">Suodatettu koska: &lt;b>moderaattorisi rajoittama&lt;/b></string>
     <plurals name="notification_severed_relationships_summary_followers_fmt">
         <item quantity="one">%1$s seuraaja poistettu</item>
         <item quantity="other">%1$s seuraajaa poistettu</item>

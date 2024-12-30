@@ -763,9 +763,9 @@
     <string name="account_filter_placeholder_type_follow_request_fmt">Fylgjeførespurnad frå ein brukar (@&lt;b>%1s&lt;/b>)</string>
     <string name="account_filter_placeholder_type_mention_fmt">Ein brukar (@&lt;b>%1s&lt;/b>) nemnde deg</string>
     <string name="account_filter_placeholder_label_domain">Frå ein brukar (@&lt;b>%1s&lt;/b>)</string>
-    <string name="account_filter_placeholder_label_not_following">Filtrert fordi: <b>du fylgjer hen ikkje</b></string>
-    <string name="account_filter_placeholder_label_younger_30d">Filtrert fordi: <b>kontoen vart oppretta på dei siste 30 dagane</b></string>
-    <string name="account_filter_placeholder_label_limited_by_server">Filtrert fordi: <b>kontoen er avgrensa av moderatorane dine</b></string>
+    <string name="account_filter_placeholder_label_not_following">Filtrert fordi: &lt;b>du fylgjer hen ikkje&lt;/b></string>
+    <string name="account_filter_placeholder_label_younger_30d">Filtrert fordi: &lt;b>kontoen vart oppretta på dei siste 30 dagane&lt;/b></string>
+    <string name="account_filter_placeholder_label_limited_by_server">Filtrert fordi: &lt;b>kontoen er avgrensa av moderatorane dine&lt;/b></string>
     <string name="search_operator_from_dialog_other_account">Kun innlegg frå denne kontoen</string>
     <string name="account_filter_placeholder_type_favourite_fmt">Ein brukar (@&lt;b>%1s&lt;/b>) favorittmerka innlegget ditt</string>
     <string name="account_filter_placeholder_type_reblog_fmt">Ein brukar (@&lt;b>%1s&lt;/b>) delte innlegget ditt</string>
