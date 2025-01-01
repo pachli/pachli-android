@@ -686,7 +686,7 @@
     <string name="socket_timeout_exception">Thóg sé rófhada teagmháil a dhéanamh le do fhreastalaí</string>
     <string name="ui_error_bookmark_fmt">Theip ar phost leabharmharcála: %1$s</string>
     <string name="ui_error_favourite_fmt">Theip ar fhabhar an phoist: %1$s</string>
-    <string name="dialog_delete_filter_text">Scrios scagaire \'%1$s\'?</string>
+    <string name="dialog_delete_filter_text">Scrios an scagaire \'%1$s\'?\"</string>
     <string name="pref_notification_up_distributor_name_fmt">%1$s. Tapáil le hoscailt</string>
     <string name="pref_notification_up_distributor_none">Ceann ar bith</string>
     <string name="pref_title_notification_method">Modh fógartha</string>
@@ -825,4 +825,7 @@
     <string name="pref_account_notification_filters_label_not_followed">… ní leanann tú</string>
     <string name="account_filter_placeholder_type_follow_fmt">Lean úsáideoir @&lt;b&gt;%1s&lt;/b&gt; tú</string>
     <string name="notification_unknown">Cineál fógra anaithnid</string>
+    <string name="preview_card_byline_name_only_fmt">Le <b>%1$s</b></string>
+    <string name="action_timeline_link">Postálacha faoin nasc seo</string>
+    <string name="preview_card_timeline_link_fmt">Féach ar <b>%1$s</b> postálacha faoin nasc seo</string>
 </resources>
