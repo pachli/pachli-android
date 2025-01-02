@@ -272,12 +272,12 @@
     <string name="filter_dialog_update_button">به‌روز رسانی</string>
     <string name="filter_dialog_whole_word">تمام واژه</string>
     <plurals name="favs">
-        <item quantity="one">&lt;b>%1$s&lt;/b> برگزیدن</item>
-        <item quantity="other">&lt;b>%1$s&lt;/b> برگزیدن</item>
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; برگزیدن</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; برگزیدن</item>
     </plurals>
     <plurals name="reblogs">
-        <item quantity="one">&lt;b>%s&lt;/b> تقویت</item>
-        <item quantity="other">&lt;b>%s&lt;/b> تقویت</item>
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; تقویت</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; تقویت</item>
     </plurals>
     <string name="title_reblogged_by">تقویت‌شده به دست</string>
     <string name="title_favourited_by">برگزیده به دست</string>
