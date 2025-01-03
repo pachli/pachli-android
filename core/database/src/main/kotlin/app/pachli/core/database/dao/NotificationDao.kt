@@ -65,17 +65,17 @@ a.note as 'a_note',
 -- The status in the notification (if any)
 s.serverId as 's_serverId', s.url as 's_url', s.timelineUserId as 's_timelineUserId',
 s.authorServerId as 's_authorServerId', s.inReplyToId as 's_inReplyToId',
-s.inReplyToAccountId as 's_inReplyToAccountId', s.createdAt as 's_createdAt',
+ s.inReplyToAccountId as 's_inReplyToAccountId', s.createdAt as 's_createdAt',
 s.editedAt as 's_editedAt',
 s.emojis as 's_emojis', s.reblogsCount as 's_reblogsCount',
 s.favouritesCount as 's_favouritesCount', s.repliesCount as 's_repliesCount',
-s.reblogged as 's_reblogged', s.favourited as 's_favourited',
+ s.reblogged as 's_reblogged', s.favourited as 's_favourited',
 s.bookmarked as 's_bookmarked', s.sensitive as 's_sensitive',
 s.spoilerText as 's_spoilerText', s.visibility as 's_visibility',
-s.mentions as 's_mentions', s.tags as 's_tags', s.application as 's_application',
+ s.mentions as 's_mentions', s.tags as 's_tags', s.application as 's_application',
 s.reblogServerId as 's_reblogServerId',s.reblogAccountId as 's_reblogAccountId',
 s.content as 's_content', s.attachments as 's_attachments', s.poll as 's_poll',
-s.card as 's_card', s.muted as 's_muted', s.pinned as 's_pinned', s.language as 's_language',
+ s.card as 's_card', s.muted as 's_muted', s.pinned as 's_pinned', s.language as 's_language',
 s.filtered as 's_filtered',
 
 -- The status' account
@@ -106,30 +106,7 @@ t.provider as 's_t_provider',
 nvd.pachliAccountId as 'nvd_pachliAccountId',
 nvd.serverId as 'nvd_serverId',
 nvd.contentFilterAction as 'nvd_contentFilterAction',
-nvd.accountFilterDecision as 'nvd_accountFilterDecision',
-
--- NotificationReportEntity
-report.pachliAccountId as 'report_pachliAccountId',
-report.serverId as 'report_serverId',
-report.actionTaken as 'report_actionTaken',
-report.actionTakenAt as 'report_actionTakenAt',
-report.category as 'report_category',
-report.comment as 'report_comment',
-report.forwarded as 'report_forwarded',
-report.createdAt as 'report_createdAt',
-report.statusIds as 'report_statusIds',
-report.ruleIds as 'report_rulesIds',
--- TODO: targetAccount
-
--- NotificationRelationshipSeveranceEvent
-rse.pachliAccountId as 'rse_pachliAccountId',
-rse.serverId as 'rse_serverId',
-rse.eventId as 'rse_eventId',
-rse.type as 'rse_type',
-rse.purged as 'rse_purged',
-rse.followersCount as 'rse_followersCount',
-rse.followingCount as 'rse_folllowingCount',
-rse.createdAt as 'rse_createdAt'
+nvd.accountFilterDecision as 'nvd_accountFilterDecision'
 
 FROM NotificationEntity n
 LEFT JOIN TimelineAccountEntity a ON (n.pachliAccountId = a.timelineUserId AND n.accountServerId = a.serverId)
@@ -139,10 +116,8 @@ LEFT JOIN TimelineAccountEntity rb ON (n.pachliAccountId = rb.timelineUserId AND
 LEFT JOIN StatusViewDataEntity svd ON (n.pachliAccountId = svd.timelineUserId AND (s.serverId = svd.serverId OR s.reblogServerId = svd.serverId))
 LEFT JOIN TranslatedStatusEntity t ON (n.pachliAccountId = t.timelineUserId AND (s.serverId = t.serverId OR s.reblogServerId = t.serverId))
 LEFT JOIN NotificationViewDataEntity nvd on (n.pachliAccountId = nvd.pachliAccountId AND n.serverId = nvd.serverId)
-LEFT JOIN NotificationReportEntity report on (n.pachliAccountId = report.pachliAccountId AND n.serverId = report.serverId)
-LEFT JOIN NotificationRelationshipSeveranceEventEntity rse on (n.pachliAccountId = rse.pachliAccountId AND n.serverId = rse.serverId)
-WHERE n.pachliAccountId = :pachliAccountId
-ORDER BY LENGTH(n.serverId) DESC, n.serverId DESC
+ WHERE n.pachliAccountId = :pachliAccountId
+ ORDER BY LENGTH(n.serverId) DESC, n.serverId DESC
         """,
     )
     fun pagingSource(pachliAccountId: Long): PagingSource<Int, NotificationData>
