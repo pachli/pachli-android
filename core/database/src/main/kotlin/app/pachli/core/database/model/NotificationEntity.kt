@@ -79,6 +79,7 @@ data class NotificationData(
     @Embedded(prefix = "a_") val account: TimelineAccountEntity,
     @Embedded(prefix = "s_") val status: TimelineStatusWithAccount?,
     @Embedded(prefix = "nvd_") val viewData: NotificationViewDataEntity?,
+    @Embedded(prefix = "report_") val report: NotificationReportEntity?,
 ) {
     companion object
 }
@@ -196,4 +197,6 @@ data class NotificationReportEntity(
         VIOLATION,
         OTHER,
     }
+
+    companion object
 }

@@ -36,6 +36,7 @@ import app.pachli.core.database.model.AccountFilterDecisionUpdate
 import app.pachli.core.database.model.FilterActionUpdate
 import app.pachli.core.database.model.NotificationData
 import app.pachli.core.database.model.NotificationEntity
+import app.pachli.core.database.model.NotificationReportEntity
 import app.pachli.core.database.model.NotificationType
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyKind
@@ -46,6 +47,7 @@ import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
 import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Notification
+import app.pachli.core.network.model.Report
 import app.pachli.core.network.retrofit.MastodonApi
 import at.connyduck.calladapter.networkresult.onFailure
 import com.github.michaelbull.result.Err
@@ -424,4 +426,27 @@ fun NotificationData.Companion.from(pachliAccountId: Long, notification: Notific
         )
     },
     viewData = null,
+    report = NotificationReportEntity.from(pachliAccountId,notification),
 )
+
+fun NotificationReportEntity.Companion.from(pachliAccountId: Long, notification: Notification): NotificationReportEntity? {
+    val report = notification.report ?: return null
+
+    return NotificationReportEntity(
+        pachliAccountId = pachliAccountId,
+        serverId = notification.id,
+        actionTaken = report.actionTaken,
+        actionTakenAt = report.actionTakenAt,
+        category = when (report.category) {
+            Report.Category.SPAM -> NotificationReportEntity.Category.SPAM
+            Report.Category.VIOLATION -> NotificationReportEntity.Category.VIOLATION
+            Report.Category.OTHER -> NotificationReportEntity.Category.OTHER
+        },
+        comment = report.comment,
+        forwarded = report.forwarded,
+        createdAt = report.createdAt,
+        statusIds = report.statusIds,
+        ruleIds = report.ruleIds,
+        targetAccount = TimelineAccountEntity.from(report.targetAccount, pachliAccountId)
+    )
+}
