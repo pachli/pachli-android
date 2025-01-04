@@ -79,7 +79,8 @@ class FilterableNotificationViewHolder(
 
         val icon = viewData.type.icon(context)
 
-        // Labels for different notification types filtered by account.
+        // Labels for different notification types filtered by account. The account's
+        // domain is interpolated in to the string.
         val label = when (viewData.type) {
             NotificationType.MENTION -> R.string.account_filter_placeholder_type_mention_fmt
             NotificationType.REBLOG -> R.string.account_filter_placeholder_type_reblog_fmt
@@ -98,18 +99,12 @@ class FilterableNotificationViewHolder(
             HtmlCompat.FROM_HTML_MODE_LEGACY,
         )
 
-        // TODO: Simplify this
-        val reason = when (viewData.accountFilterDecision) {
-            is AccountFilterDecision.Hide -> TODO()
-            AccountFilterDecision.None -> TODO()
-            is AccountFilterDecision.Override -> TODO()
-            is AccountFilterDecision.Warn -> when (viewData.accountFilterDecision.reason) {
+        if (viewData.accountFilterDecision is AccountFilterDecision.Warn) {
+            binding.accountFilterReason.text = when (viewData.accountFilterDecision.reason) {
                 AccountFilterReason.NOT_FOLLOWING -> notFollowing
                 AccountFilterReason.YOUNGER_30D -> younger30d
                 AccountFilterReason.LIMITED_BY_SERVER -> limitedByServer
             }
         }
-
-        binding.accountFilterReason.text = reason
     }
 }
