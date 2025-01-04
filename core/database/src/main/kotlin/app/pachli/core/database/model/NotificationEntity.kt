@@ -69,8 +69,11 @@ enum class NotificationType {
 
 // TOOD: Move to core.data? No, it's returned by dao method pagingSource()
 /**
- * @param notification
- * @param account Account that sent the notification.
+ * Data about a notification.
+ *
+ * Collates data from the different notification tables into a single type.
+ *
+ * @param notification The notification. * @param account Account that sent the notification.
  * @param status (optional) Status associated with the notification.
  * @param viewData (optional) Local view data for the notification.
  */
@@ -85,8 +88,10 @@ data class NotificationData(
 }
 
 /**
+ * Pachli-specific viewdata for the notification.
+ *
  * @param pachliAccountId
- * @param serverId
+ * @param serverId Notification's remote server ID.
  * @param contentFilterAction The user's choice of [FilterAction] for
  * this notification (which may not match the inherent action if they have
  * chosen to show the notification).
@@ -126,6 +131,8 @@ data class AccountFilterDecisionUpdate(
 )
 
 /**
+ * Cached copy of a notification.
+ * 
  * @param pachliAccountId
  * @param serverId
  * @param type
