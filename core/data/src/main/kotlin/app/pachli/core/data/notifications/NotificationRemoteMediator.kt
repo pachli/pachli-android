@@ -77,7 +77,7 @@ class NotificationRemoteMediator(
                 when (loadType) {
                     LoadType.REFRESH -> {
                         remoteKeyDao.delete(pachliAccountId, RKE_TIMELINE_ID)
-                        notificationDao.clearAll(pachliAccountId)
+                        notificationDao.deleteAllNotificationsForAccount(pachliAccountId)
 
                         remoteKeyDao.upsert(
                             RemoteKeyEntity(
@@ -178,23 +178,11 @@ class NotificationRemoteMediator(
             }
         }
 
-        notificationDao.insertAll(
+        notificationDao.upsert(
             notifications.map { NotificationEntity.from(pachliAccountId, it) },
         )
     }
 }
-
-/**
- * @return A [NotificationEntity] from a network [Notification] for [pachliAccountId].
- */
-fun NotificationEntity.Companion.from(pachliAccountId: Long, notification: Notification) = NotificationEntity(
-    pachliAccountId = pachliAccountId,
-    serverId = notification.id,
-    type = NotificationType.from(notification.type),
-    createdAt = notification.createdAt.toInstant(),
-    accountServerId = notification.account.id,
-    statusServerId = notification.status?.id,
-)
 
 /**
  * @return A [NotificationData] from a network [Notification] for [pachliAccountId].
@@ -211,6 +199,18 @@ fun NotificationData.Companion.from(pachliAccountId: Long, notification: Notific
     viewData = null,
     report = NotificationReportEntity.from(pachliAccountId, notification),
     relationshipSeveranceEvent = NotificationRelationshipSeveranceEventEntity.from(pachliAccountId, notification),
+)
+
+/**
+ * @return A [NotificationEntity] from a network [Notification] for [pachliAccountId].
+ */
+fun NotificationEntity.Companion.from(pachliAccountId: Long, notification: Notification) = NotificationEntity(
+    pachliAccountId = pachliAccountId,
+    serverId = notification.id,
+    type = NotificationType.from(notification.type),
+    createdAt = notification.createdAt.toInstant(),
+    accountServerId = notification.account.id,
+    statusServerId = notification.status?.id,
 )
 
 /**

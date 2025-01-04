@@ -34,18 +34,6 @@ import app.pachli.core.database.model.NotificationViewDataEntity
 @Dao
 @TypeConverters(Converters::class)
 interface NotificationDao {
-    @Upsert
-    suspend fun insertAll(notifications: List<NotificationEntity>)
-
-    //    @Transaction
-//    @Query(
-//        """
-//        SELECT *
-//          FROM NotificationEntity
-//         WHERE pachliAccountId = :pachliAccountId
-//    """,
-//    )
-//    fun pagingSource(pachliAccountId: Long): PagingSource<Int, NotificationData>
     @Query(
         """
             SELECT
@@ -149,9 +137,7 @@ ORDER BY LENGTH(n.serverId) DESC, n.serverId DESC
     )
     fun pagingSource(pachliAccountId: Long): PagingSource<Int, NotificationData>
 
-    /**
-     * Returns the database row number of the row for [notificationId]
-     */
+    /** @return The database row number of the row for [notificationId]. */
     @Query(
         """
 SELECT RowNum
@@ -169,17 +155,20 @@ WHERE pachliAccountId = :pachliAccountId AND serverId = :notificationId;
 
     /** Remove all cached notifications for [pachliAccountId]. */
     @Query("DELETE FROM NotificationEntity WHERE pachliAccountId = :pachliAccountId")
-    fun clearAll(pachliAccountId: Long)
+    suspend fun deleteAllNotificationsForAccount(pachliAccountId: Long)
 
-    @Upsert(entity = NotificationViewDataEntity::class)
-    suspend fun upsert(filterActionUpdate: FilterActionUpdate)
-
-    @Upsert(entity = NotificationViewDataEntity::class)
-    suspend fun upsert(accountFilterDecisionUpdate: AccountFilterDecisionUpdate)
+    @Upsert
+    suspend fun upsert(notifications: List<NotificationEntity>)
 
     @Upsert
     suspend fun upsert(notificationReportEntity: NotificationReportEntity)
 
     @Upsert
     suspend fun upsert(notificationRelationshipSeveranceEventEntity: NotificationRelationshipSeveranceEventEntity)
+
+    @Upsert(entity = NotificationViewDataEntity::class)
+    suspend fun upsert(filterActionUpdate: FilterActionUpdate)
+
+    @Upsert(entity = NotificationViewDataEntity::class)
+    suspend fun upsert(accountFilterDecisionUpdate: AccountFilterDecisionUpdate)
 }

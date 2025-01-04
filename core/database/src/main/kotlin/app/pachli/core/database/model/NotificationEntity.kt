@@ -138,7 +138,7 @@ data class AccountFilterDecisionUpdate(
  * Cached copy of a notification.
  *
  * @param pachliAccountId
- * @param serverId
+ * @param serverId Server's ID for this notification
  * @param type
  * @param createdAt
  * @param accountServerId ID of the account that generated this notification.
