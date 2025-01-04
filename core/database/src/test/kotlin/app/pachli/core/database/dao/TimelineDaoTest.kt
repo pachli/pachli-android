@@ -338,6 +338,7 @@ class TimelineDaoTest {
             emojis = listOf(Emoji("pachli", "http://pachli.cool/emoji.jpg", "", null)),
             bot = false,
             createdAt = null,
+            note = "",
         )
 
         val reblogAuthor = if (reblog) {
@@ -352,6 +353,7 @@ class TimelineDaoTest {
                 emojis = emptyList(),
                 bot = false,
                 createdAt = null,
+                note = "",
             )
         } else {
             null

@@ -20,6 +20,7 @@ package app.pachli.components.notifications
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.PachliApplication
 import app.pachli.appstore.EventHub
+import app.pachli.core.data.notifications.NotificationRepository
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.AccountPreferenceDataStore
 import app.pachli.core.data.repository.ContentFiltersRepository
@@ -100,7 +101,7 @@ abstract class NotificationsViewModelTestBase {
     @Inject
     lateinit var accountDao: AccountDao
 
-    protected val notificationsRepository: NotificationsRepository = mock()
+    protected val notificationsRepository: NotificationRepository = mock()
     protected lateinit var timelineCases: TimelineCases
     protected lateinit var viewModel: NotificationsViewModel
 
