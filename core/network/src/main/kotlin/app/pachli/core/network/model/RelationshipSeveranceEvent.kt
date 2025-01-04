@@ -19,7 +19,7 @@ package app.pachli.core.network.model
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import java.util.Date
+import java.time.Instant
 
 /**
  * Summary of a moderation or block event that caused follow relationships to be severed.
@@ -54,7 +54,7 @@ data class RelationshipSeveranceEvent(
 
     /** When the event took place. */
     @Json(name = "created_at")
-    val createdAt: Date,
+    val createdAt: Instant,
 ) {
     enum class Type {
         /** A moderator suspended a whole domain */

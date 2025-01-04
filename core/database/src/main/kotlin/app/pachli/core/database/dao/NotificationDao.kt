@@ -118,8 +118,18 @@ report.comment as 'report_comment',
 report.forwarded as 'report_forwarded',
 report.createdAt as 'report_createdAt',
 report.statusIds as 'report_statusIds',
-report.ruleIds as 'report_rulesIds'
+report.ruleIds as 'report_rulesIds',
 -- TODO: targetAccount
+
+-- NotificationRelationshipSeveranceEvent
+rse.pachliAccountId as 'rse_pachliAccountId',
+rse.serverId as 'rse_serverId',
+rse.eventId as 'rse_eventId',
+rse.type as 'rse_type',
+rse.purged as 'rse_purged',
+rse.followersCount as 'rse_followersCount',
+rse.followingCount as 'rse_followingCount',
+rse.createdAt as 'rse_createdAt'
 
 FROM NotificationEntity n
 LEFT JOIN TimelineAccountEntity a ON (n.pachliAccountId = a.timelineUserId AND n.accountServerId = a.serverId)
@@ -130,6 +140,7 @@ LEFT JOIN StatusViewDataEntity svd ON (n.pachliAccountId = svd.timelineUserId AN
 LEFT JOIN TranslatedStatusEntity t ON (n.pachliAccountId = t.timelineUserId AND (s.serverId = t.serverId OR s.reblogServerId = t.serverId))
 LEFT JOIN NotificationViewDataEntity nvd on (n.pachliAccountId = nvd.pachliAccountId AND n.serverId = nvd.serverId)
 LEFT JOIN NotificationReportEntity report on (n.pachliAccountId = report.pachliAccountId AND n.serverId = report.serverId)
+LEFT JOIN NotificationRelationshipSeveranceEventEntity rse on (n.pachliAccountId = rse.pachliAccountId AND n.serverId = rse.serverId)
 WHERE n.pachliAccountId = :pachliAccountId
 ORDER BY LENGTH(n.serverId) DESC, n.serverId DESC
         """,

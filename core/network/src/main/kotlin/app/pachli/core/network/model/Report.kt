@@ -22,7 +22,6 @@ import app.pachli.core.network.json.HasDefault
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import java.time.Instant
-import java.util.Date
 
 @JsonClass(generateAdapter = true)
 data class Report(
@@ -50,6 +49,6 @@ data class Report(
         /** Some other reason. */
         @Json(name = "other")
         @Default
-        OTHER
+        OTHER,
     }
 }

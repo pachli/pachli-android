@@ -68,6 +68,8 @@ enum class NotificationType {
 }
 
 // TOOD: Move to core.data? No, it's returned by dao method pagingSource()
+// TOOD: Sealed class, by type? Get rid of the NotificationType enum, and the
+// nullable properties which are non-null depending on the type.
 /**
  * Data about a notification.
  *
@@ -83,6 +85,7 @@ data class NotificationData(
     @Embedded(prefix = "s_") val status: TimelineStatusWithAccount?,
     @Embedded(prefix = "nvd_") val viewData: NotificationViewDataEntity?,
     @Embedded(prefix = "report_") val report: NotificationReportEntity?,
+    @Embedded(prefix = "rse_") val relationshipSeveranceEvent: NotificationRelationshipSeveranceEventEntity?,
 ) {
     companion object
 }
@@ -132,7 +135,7 @@ data class AccountFilterDecisionUpdate(
 
 /**
  * Cached copy of a notification.
- * 
+ *
  * @param pachliAccountId
  * @param serverId
  * @param type
@@ -178,7 +181,6 @@ data class NotificationEntity(
     companion object
 }
 
-
 /**
  * Data about a report associated with a notification.
  */
@@ -203,6 +205,30 @@ data class NotificationReportEntity(
         SPAM,
         VIOLATION,
         OTHER,
+    }
+
+    companion object
+}
+
+@Entity(
+    primaryKeys = ["pachliAccountId", "serverId", "eventId"],
+)
+@TypeConverters(Converters::class)
+data class NotificationRelationshipSeveranceEventEntity(
+    val pachliAccountId: Long,
+    val serverId: String,
+    val eventId: String,
+    val type: Type,
+    val purged: Boolean,
+    val followersCount: Int,
+    val followingCount: Int,
+    val createdAt: Instant,
+) {
+    enum class Type {
+        DOMAIN_BLOCK,
+        USER_DOMAIN_BLOCK,
+        ACCOUNT_SUSPENSION,
+        UNKNOWN,
     }
 
     companion object

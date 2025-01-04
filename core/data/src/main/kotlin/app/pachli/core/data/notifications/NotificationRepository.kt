@@ -36,6 +36,7 @@ import app.pachli.core.database.model.AccountFilterDecisionUpdate
 import app.pachli.core.database.model.FilterActionUpdate
 import app.pachli.core.database.model.NotificationData
 import app.pachli.core.database.model.NotificationEntity
+import app.pachli.core.database.model.NotificationRelationshipSeveranceEventEntity
 import app.pachli.core.database.model.NotificationReportEntity
 import app.pachli.core.database.model.NotificationType
 import app.pachli.core.database.model.RemoteKeyEntity
@@ -47,6 +48,7 @@ import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
 import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Notification
+import app.pachli.core.network.model.RelationshipSeveranceEvent
 import app.pachli.core.network.model.Report
 import app.pachli.core.network.retrofit.MastodonApi
 import at.connyduck.calladapter.networkresult.onFailure
@@ -426,7 +428,8 @@ fun NotificationData.Companion.from(pachliAccountId: Long, notification: Notific
         )
     },
     viewData = null,
-    report = NotificationReportEntity.from(pachliAccountId,notification),
+    report = NotificationReportEntity.from(pachliAccountId, notification),
+    relationshipSeveranceEvent = NotificationRelationshipSeveranceEventEntity.from(pachliAccountId, notification),
 )
 
 fun NotificationReportEntity.Companion.from(pachliAccountId: Long, notification: Notification): NotificationReportEntity? {
@@ -447,6 +450,26 @@ fun NotificationReportEntity.Companion.from(pachliAccountId: Long, notification:
         createdAt = report.createdAt,
         statusIds = report.statusIds,
         ruleIds = report.ruleIds,
-        targetAccount = TimelineAccountEntity.from(report.targetAccount, pachliAccountId)
+        targetAccount = TimelineAccountEntity.from(report.targetAccount, pachliAccountId),
+    )
+}
+
+fun NotificationRelationshipSeveranceEventEntity.Companion.from(pachliAccountId: Long, notification: Notification): NotificationRelationshipSeveranceEventEntity? {
+    val rse = notification.relationshipSeveranceEvent ?: return null
+
+    return NotificationRelationshipSeveranceEventEntity(
+        pachliAccountId = pachliAccountId,
+        serverId = notification.id,
+        eventId = rse.id,
+        type = when (rse.type) {
+            RelationshipSeveranceEvent.Type.DOMAIN_BLOCK -> NotificationRelationshipSeveranceEventEntity.Type.DOMAIN_BLOCK
+            RelationshipSeveranceEvent.Type.USER_DOMAIN_BLOCK -> NotificationRelationshipSeveranceEventEntity.Type.USER_DOMAIN_BLOCK
+            RelationshipSeveranceEvent.Type.ACCOUNT_SUSPENSION -> NotificationRelationshipSeveranceEventEntity.Type.ACCOUNT_SUSPENSION
+            RelationshipSeveranceEvent.Type.UNKNOWN -> NotificationRelationshipSeveranceEventEntity.Type.UNKNOWN
+        },
+        purged = rse.purged,
+        followersCount = rse.followersCount,
+        followingCount = rse.followingCount,
+        createdAt = rse.createdAt,
     )
 }
