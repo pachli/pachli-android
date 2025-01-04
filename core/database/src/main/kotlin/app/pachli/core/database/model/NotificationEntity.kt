@@ -147,12 +147,10 @@ data class NotificationEntity(
     companion object
 }
 
-enum class NotificationReportCategory {
-    SPAM,
-    VIOLATION,
-    OTHER,
-}
 
+/**
+ * Data about a report associated with a notification.
+ */
 @Entity(
     primaryKeys = ["pachliAccountId", "serverId"],
 )
@@ -162,11 +160,17 @@ data class NotificationReportEntity(
     val serverId: String,
     val actionTaken: Boolean,
     val actionTakenAt: Instant?,
-    val category: NotificationReportCategory,
+    val category: Category,
     val comment: String,
     val forwarded: Boolean,
     val createdAt: Instant,
     val statusIds: List<String>?,
     val ruleIds: List<String>?,
     @Embedded(prefix = "target_") val targetAccount: TimelineAccountEntity,
-)
+) {
+    enum class Category {
+        SPAM,
+        VIOLATION,
+        OTHER,
+    }
+}
