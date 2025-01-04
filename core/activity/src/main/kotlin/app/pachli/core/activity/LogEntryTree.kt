@@ -20,6 +20,8 @@ package app.pachli.core.activity
 import android.util.Log
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.database.dao.LogEntryDao
+import app.pachli.core.database.model.LogEntryEntity
+import java.time.Instant
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
@@ -56,15 +58,15 @@ class LogEntryTree @Inject constructor(
 
     override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
         externalScope.launch {
-//            logEntryDao.upsert(
-//                LogEntryEntity(
-//                    instant = Instant.now(),
-//                    priority = priority,
-//                    tag = tag,
-//                    message = message,
-//                    t = t,
-//                ),
-//            )
+            logEntryDao.upsert(
+                LogEntryEntity(
+                    instant = Instant.now(),
+                    priority = priority,
+                    tag = tag,
+                    message = message,
+                    t = t,
+                ),
+            )
         }
     }
 }
