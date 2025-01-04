@@ -17,6 +17,8 @@
 
 package app.pachli.core.network.model
 
+import app.pachli.core.network.json.Default
+import app.pachli.core.network.json.HasDefault
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import java.time.Instant
@@ -35,6 +37,7 @@ data class RelationshipSeveranceEvent(
      * issue has been purged.
      */
     val purged: Boolean,
+
     /**
      * Name of the target of the moderation/block event. This is either a domain name or
      * a user handle, depending on the event type.
@@ -42,12 +45,10 @@ data class RelationshipSeveranceEvent(
     @Json(name = "target_name")
     val targetName: String,
 
-    // Documentation is wrong: https://github.com/mastodon/documentation/issues/1556
     /** Number of follower accounts removed. */
     @Json(name = "followers_count")
     val followersCount: Int = 0,
 
-    // Documentation is wrong: https://github.com/mastodon/documentation/issues/1556
     /** Number of followed accounts removed. */
     @Json(name = "following_count")
     val followingCount: Int = 0,
@@ -56,6 +57,7 @@ data class RelationshipSeveranceEvent(
     @Json(name = "created_at")
     val createdAt: Instant,
 ) {
+    @HasDefault
     enum class Type {
         /** A moderator suspended a whole domain */
         @Json(name = "domain_block")
@@ -68,6 +70,8 @@ data class RelationshipSeveranceEvent(
         /** A moderator suspended a specific account */
         @Json(name = "account_suspension")
         ACCOUNT_SUSPENSION,
+
+        @Default
         UNKNOWN,
     }
 }
