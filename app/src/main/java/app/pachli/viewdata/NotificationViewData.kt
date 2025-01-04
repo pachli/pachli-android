@@ -65,33 +65,6 @@ data class NotificationViewData(
     val accountFilterDecision: AccountFilterDecision,
 ) : IStatusViewData {
     companion object {
-//        fun from(
-//            notification: Notification,
-//            isShowingContent: Boolean,
-//            isExpanded: Boolean,
-//            isCollapsed: Boolean,
-//            contentFilterAction: FilterAction,
-//            accountFilterDecision: AccountFilterDecision?,
-//            isAboutSelf: Boolean,
-//        ) = NotificationViewData(
-//            NotificationType.from(notification.type),
-//            notification.id,
-//            notification.account,
-//            notification.status?.let { status ->
-//                StatusViewData.from(
-//                    status,
-//                    isShowingContent,
-//                    isExpanded,
-//                    isCollapsed,
-//                    contentFilterAction = contentFilterAction,
-//                )
-//            },
-//            notification.report,
-//            notification.relationshipSeveranceEvent,
-//            isAboutSelf,
-//            accountFilterDecision = accountFilterDecision,
-//        )
-
         /**
          *
          * @param pachliAccountEntity
