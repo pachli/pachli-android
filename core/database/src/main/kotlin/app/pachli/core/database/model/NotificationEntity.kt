@@ -19,6 +19,7 @@ package app.pachli.core.database.model
 
 import androidx.room.Embedded
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
 import app.pachli.core.model.AccountFilterDecision
@@ -145,22 +146,17 @@ data class AccountFilterDecisionUpdate(
  */
 @Entity(
     primaryKeys = ["pachliAccountId", "serverId"],
-//    foreignKeys = (
-//        [
-//            ForeignKey(
-//                entity = TimelineAccountEntity::class,
-//                parentColumns = ["timelineUserId", "serverId"],
-//                childColumns = ["pachliAccountId", "accountServerId"],
-//                deferred = true,
-//            ),
-//            ForeignKey(
-//                entity = TimelineStatusEntity::class,
-//                parentColumns = ["timelineUserId", "serverId"],
-//                childColumns = ["pachliAccountId", "statusServerId"],
-//                deferred = true,
-//            ),
-//        ]
-//        ),
+    foreignKeys = (
+        [
+            ForeignKey(
+                entity = AccountEntity::class,
+                parentColumns = ["id"],
+                childColumns = ["pachliAccountId"],
+                onDelete = ForeignKey.CASCADE,
+                deferred = true,
+            ),
+        ]
+        ),
 )
 @TypeConverters(Converters::class)
 data class NotificationEntity(
@@ -170,13 +166,6 @@ data class NotificationEntity(
     val createdAt: Instant,
     val accountServerId: String,
     val statusServerId: String?,
-
-//    @Embedded(prefix = "source_") val account: TimelineAccountEntity,
-//    @Embedded(prefix = "status_") val status: TimelineStatusWithAccount?,
-//    @Embedded(prefix = "report_") val report: NotificationReportEntity?,
-    // TODO:
-    // RelationshipSeveranceEvent
-    // AccountWarning
 ) {
     companion object
 }
@@ -186,6 +175,17 @@ data class NotificationEntity(
  */
 @Entity(
     primaryKeys = ["pachliAccountId", "serverId"],
+    foreignKeys = (
+        [
+            ForeignKey(
+                entity = NotificationEntity::class,
+                parentColumns = ["pachliAccountId", "serverId"],
+                childColumns = ["pachliAccountId", "serverId"],
+                onDelete = ForeignKey.CASCADE,
+                deferred = true,
+            ),
+        ]
+        ),
 )
 @TypeConverters(Converters::class)
 data class NotificationReportEntity(
@@ -212,6 +212,17 @@ data class NotificationReportEntity(
 
 @Entity(
     primaryKeys = ["pachliAccountId", "serverId", "eventId"],
+    foreignKeys = (
+        [
+            ForeignKey(
+                entity = NotificationEntity::class,
+                parentColumns = ["pachliAccountId", "serverId"],
+                childColumns = ["pachliAccountId", "serverId"],
+                onDelete = ForeignKey.CASCADE,
+                deferred = true,
+            ),
+        ]
+        ),
 )
 @TypeConverters(Converters::class)
 data class NotificationRelationshipSeveranceEventEntity(

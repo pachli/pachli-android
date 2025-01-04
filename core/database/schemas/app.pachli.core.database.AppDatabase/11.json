@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 11,
-    "identityHash": "09c3876b81046a093f72193285d57c18",
+    "identityHash": "54a5dff920caae87861a4192ccf1c0d7",
     "entities": [
       {
         "tableName": "DraftEntity",
@@ -1498,7 +1498,7 @@
       },
       {
         "tableName": "NotificationEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `type` TEXT NOT NULL, `createdAt` INTEGER NOT NULL, `accountServerId` TEXT NOT NULL, `statusServerId` TEXT, PRIMARY KEY(`pachliAccountId`, `serverId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `type` TEXT NOT NULL, `createdAt` INTEGER NOT NULL, `accountServerId` TEXT NOT NULL, `statusServerId` TEXT, PRIMARY KEY(`pachliAccountId`, `serverId`), FOREIGN KEY(`pachliAccountId`) REFERENCES `AccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
         "fields": [
           {
             "fieldPath": "pachliAccountId",
@@ -1545,11 +1545,23 @@
           ]
         },
         "indices": [],
-        "foreignKeys": []
+        "foreignKeys": [
+          {
+            "table": "AccountEntity",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "pachliAccountId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
       },
       {
         "tableName": "NotificationReportEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `actionTaken` INTEGER NOT NULL, `actionTakenAt` INTEGER, `category` TEXT NOT NULL, `comment` TEXT NOT NULL, `forwarded` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, `statusIds` TEXT, `ruleIds` TEXT, `target_serverId` TEXT NOT NULL, `target_timelineUserId` INTEGER NOT NULL, `target_localUsername` TEXT NOT NULL, `target_username` TEXT NOT NULL, `target_displayName` TEXT NOT NULL, `target_url` TEXT NOT NULL, `target_avatar` TEXT NOT NULL, `target_emojis` TEXT NOT NULL, `target_bot` INTEGER NOT NULL, `target_createdAt` INTEGER, `target_limited` INTEGER NOT NULL DEFAULT false, `target_note` TEXT NOT NULL DEFAULT '', PRIMARY KEY(`pachliAccountId`, `serverId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `actionTaken` INTEGER NOT NULL, `actionTakenAt` INTEGER, `category` TEXT NOT NULL, `comment` TEXT NOT NULL, `forwarded` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, `statusIds` TEXT, `ruleIds` TEXT, `target_serverId` TEXT NOT NULL, `target_timelineUserId` INTEGER NOT NULL, `target_localUsername` TEXT NOT NULL, `target_username` TEXT NOT NULL, `target_displayName` TEXT NOT NULL, `target_url` TEXT NOT NULL, `target_avatar` TEXT NOT NULL, `target_emojis` TEXT NOT NULL, `target_bot` INTEGER NOT NULL, `target_createdAt` INTEGER, `target_limited` INTEGER NOT NULL DEFAULT false, `target_note` TEXT NOT NULL DEFAULT '', PRIMARY KEY(`pachliAccountId`, `serverId`), FOREIGN KEY(`pachliAccountId`, `serverId`) REFERENCES `NotificationEntity`(`pachliAccountId`, `serverId`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
         "fields": [
           {
             "fieldPath": "pachliAccountId",
@@ -1694,7 +1706,21 @@
           ]
         },
         "indices": [],
-        "foreignKeys": []
+        "foreignKeys": [
+          {
+            "table": "NotificationEntity",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "pachliAccountId",
+              "serverId"
+            ],
+            "referencedColumns": [
+              "pachliAccountId",
+              "serverId"
+            ]
+          }
+        ]
       },
       {
         "tableName": "NotificationViewDataEntity",
@@ -1737,7 +1763,7 @@
       },
       {
         "tableName": "NotificationRelationshipSeveranceEventEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `eventId` TEXT NOT NULL, `type` TEXT NOT NULL, `purged` INTEGER NOT NULL, `followersCount` INTEGER NOT NULL, `followingCount` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, PRIMARY KEY(`pachliAccountId`, `serverId`, `eventId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `eventId` TEXT NOT NULL, `type` TEXT NOT NULL, `purged` INTEGER NOT NULL, `followersCount` INTEGER NOT NULL, `followingCount` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, PRIMARY KEY(`pachliAccountId`, `serverId`, `eventId`), FOREIGN KEY(`pachliAccountId`, `serverId`) REFERENCES `NotificationEntity`(`pachliAccountId`, `serverId`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
         "fields": [
           {
             "fieldPath": "pachliAccountId",
@@ -1797,13 +1823,27 @@
           ]
         },
         "indices": [],
-        "foreignKeys": []
+        "foreignKeys": [
+          {
+            "table": "NotificationEntity",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "pachliAccountId",
+              "serverId"
+            ],
+            "referencedColumns": [
+              "pachliAccountId",
+              "serverId"
+            ]
+          }
+        ]
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '09c3876b81046a093f72193285d57c18')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '54a5dff920caae87861a4192ccf1c0d7')"
     ]
   }
 }
