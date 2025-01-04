@@ -27,6 +27,8 @@ import app.pachli.core.database.model.AccountFilterDecisionUpdate
 import app.pachli.core.database.model.FilterActionUpdate
 import app.pachli.core.database.model.NotificationData
 import app.pachli.core.database.model.NotificationEntity
+import app.pachli.core.database.model.NotificationRelationshipSeveranceEventEntity
+import app.pachli.core.database.model.NotificationReportEntity
 import app.pachli.core.database.model.NotificationViewDataEntity
 
 @Dao
@@ -174,4 +176,10 @@ WHERE pachliAccountId = :pachliAccountId AND serverId = :notificationId;
 
     @Upsert(entity = NotificationViewDataEntity::class)
     suspend fun upsert(accountFilterDecisionUpdate: AccountFilterDecisionUpdate)
+
+    @Upsert
+    suspend fun upsert(notificationReportEntity: NotificationReportEntity)
+
+    @Upsert
+    suspend fun upsert(notificationRelationshipSeveranceEventEntity: NotificationRelationshipSeveranceEventEntity)
 }

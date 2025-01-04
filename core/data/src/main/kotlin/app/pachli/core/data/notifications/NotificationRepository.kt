@@ -382,6 +382,14 @@ class NotificationRemoteMediator(
                     TimelineStatusEntity.from(status, pachliAccountId),
                 )
             }
+
+            NotificationReportEntity.from(pachliAccountId, notification)?.let { notificationReportEntity ->
+                notificationDao.upsert(notificationReportEntity)
+            }
+
+            NotificationRelationshipSeveranceEventEntity.from(pachliAccountId, notification)?.let { notificationRelationshipSeveranceEventEntity ->
+                notificationDao.upsert(notificationRelationshipSeveranceEventEntity)
+            }
         }
 
         notificationDao.insertAll(
