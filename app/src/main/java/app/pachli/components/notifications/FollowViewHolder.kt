@@ -23,7 +23,7 @@ import app.pachli.core.activity.emojify
 import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.data.model.StatusDisplayOptions
-import app.pachli.core.database.model.NotificationType
+import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.parseAsMastodonHtml
@@ -52,7 +52,7 @@ class FollowViewHolder(
 
         setMessage(
             viewData.account,
-            viewData.type === NotificationType.SIGN_UP,
+            viewData.type === NotificationEntity.Type.SIGN_UP,
             statusDisplayOptions.animateAvatars,
             statusDisplayOptions.animateEmojis,
         )

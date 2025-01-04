@@ -36,7 +36,7 @@ import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.model.AccountEntity
-import app.pachli.core.database.model.NotificationType
+import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.ContentFilterVersion
 import app.pachli.core.model.FilterAction
@@ -544,7 +544,7 @@ class NotificationsViewModel @AssistedInject constructor(
         initialKey: String? = null,
     ): Flow<PagingData<NotificationViewData>> {
         Timber.d("getNotifications: %s", initialKey)
-        val activeFilters = filters.map { NotificationType.from(it) }
+        val activeFilters = filters.map { NotificationEntity.Type.from(it) }
         return repository.notifications(pachliAccountId, initialKey)
             .map { pagingData ->
                 pagingData

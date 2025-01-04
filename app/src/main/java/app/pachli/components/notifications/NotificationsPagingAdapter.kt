@@ -27,7 +27,7 @@ import app.pachli.adapter.FollowRequestViewHolder
 import app.pachli.adapter.ReportNotificationViewHolder
 import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.data.model.StatusDisplayOptions
-import app.pachli.core.database.model.NotificationType
+import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
 import app.pachli.core.network.model.Status
@@ -73,25 +73,25 @@ enum class NotificationViewKind {
     ;
 
     companion object {
-        fun from(kind: NotificationType?): NotificationViewKind {
+        fun from(kind: NotificationEntity.Type?): NotificationViewKind {
             return when (kind) {
-                NotificationType.MENTION,
-                NotificationType.POLL,
+                NotificationEntity.Type.MENTION,
+                NotificationEntity.Type.POLL,
                 -> STATUS
 
-                NotificationType.FAVOURITE,
-                NotificationType.REBLOG,
-                NotificationType.STATUS,
-                NotificationType.UPDATE,
+                NotificationEntity.Type.FAVOURITE,
+                NotificationEntity.Type.REBLOG,
+                NotificationEntity.Type.STATUS,
+                NotificationEntity.Type.UPDATE,
                 -> NOTIFICATION
 
-                NotificationType.FOLLOW,
-                NotificationType.SIGN_UP,
+                NotificationEntity.Type.FOLLOW,
+                NotificationEntity.Type.SIGN_UP,
                 -> FOLLOW
-                NotificationType.FOLLOW_REQUEST -> FOLLOW_REQUEST
-                NotificationType.REPORT -> REPORT
-                NotificationType.SEVERED_RELATIONSHIPS -> SEVERED_RELATIONSHIPS
-                NotificationType.UNKNOWN -> UNKNOWN
+                NotificationEntity.Type.FOLLOW_REQUEST -> FOLLOW_REQUEST
+                NotificationEntity.Type.REPORT -> REPORT
+                NotificationEntity.Type.SEVERED_RELATIONSHIPS -> SEVERED_RELATIONSHIPS
+                NotificationEntity.Type.UNKNOWN -> UNKNOWN
                 null -> UNKNOWN
             }
         }

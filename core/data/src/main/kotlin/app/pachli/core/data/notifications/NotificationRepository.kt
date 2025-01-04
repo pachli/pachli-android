@@ -32,7 +32,7 @@ import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.AccountFilterDecisionUpdate
 import app.pachli.core.database.model.FilterActionUpdate
 import app.pachli.core.database.model.NotificationData
-import app.pachli.core.database.model.NotificationType
+import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
 import app.pachli.core.network.model.Notification
@@ -228,17 +228,17 @@ class NotificationRepository @Inject constructor(
     }
 }
 
-fun NotificationType.Companion.from(notificationType: Notification.Type) = when (notificationType) {
-    Notification.Type.UNKNOWN -> NotificationType.UNKNOWN
-    Notification.Type.MENTION -> NotificationType.MENTION
-    Notification.Type.REBLOG -> NotificationType.REBLOG
-    Notification.Type.FAVOURITE -> NotificationType.FAVOURITE
-    Notification.Type.FOLLOW -> NotificationType.FOLLOW
-    Notification.Type.FOLLOW_REQUEST -> NotificationType.FOLLOW_REQUEST
-    Notification.Type.POLL -> NotificationType.POLL
-    Notification.Type.STATUS -> NotificationType.STATUS
-    Notification.Type.SIGN_UP -> NotificationType.SIGN_UP
-    Notification.Type.UPDATE -> NotificationType.UPDATE
-    Notification.Type.REPORT -> NotificationType.REPORT
-    Notification.Type.SEVERED_RELATIONSHIPS -> NotificationType.SEVERED_RELATIONSHIPS
+fun NotificationEntity.Type.Companion.from(notificationType: Notification.Type) = when (notificationType) {
+    Notification.Type.UNKNOWN -> NotificationEntity.Type.UNKNOWN
+    Notification.Type.MENTION -> NotificationEntity.Type.MENTION
+    Notification.Type.REBLOG -> NotificationEntity.Type.REBLOG
+    Notification.Type.FAVOURITE -> NotificationEntity.Type.FAVOURITE
+    Notification.Type.FOLLOW -> NotificationEntity.Type.FOLLOW
+    Notification.Type.FOLLOW_REQUEST -> NotificationEntity.Type.FOLLOW_REQUEST
+    Notification.Type.POLL -> NotificationEntity.Type.POLL
+    Notification.Type.STATUS -> NotificationEntity.Type.STATUS
+    Notification.Type.SIGN_UP -> NotificationEntity.Type.SIGN_UP
+    Notification.Type.UPDATE -> NotificationEntity.Type.UPDATE
+    Notification.Type.REPORT -> NotificationEntity.Type.REPORT
+    Notification.Type.SEVERED_RELATIONSHIPS -> NotificationEntity.Type.SEVERED_RELATIONSHIPS
 }

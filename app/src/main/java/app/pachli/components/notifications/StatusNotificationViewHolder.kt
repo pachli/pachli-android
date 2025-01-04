@@ -33,7 +33,7 @@ import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.data.model.StatusDisplayOptions
-import app.pachli.core.database.model.NotificationType
+import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.ui.LinkListener
@@ -91,8 +91,8 @@ internal class StatusNotificationViewHolder(
                 setDisplayName(account.name, account.emojis, statusDisplayOptions.animateEmojis)
                 setUsername(account.username)
                 setCreatedAt(createdAt, statusDisplayOptions.useAbsoluteTime)
-                if (viewData.type == NotificationType.STATUS ||
-                    viewData.type == NotificationType.UPDATE
+                if (viewData.type == NotificationEntity.Type.STATUS ||
+                    viewData.type == NotificationEntity.Type.UPDATE
                 ) {
                     setAvatar(
                         account.avatar,
@@ -233,19 +233,19 @@ internal class StatusNotificationViewHolder(
         val format: String
         val icon = type.icon(context)
         when (type) {
-            NotificationType.FAVOURITE -> {
+            NotificationEntity.Type.FAVOURITE -> {
                 format = context.getString(R.string.notification_favourite_format)
             }
 
-            NotificationType.REBLOG -> {
+            NotificationEntity.Type.REBLOG -> {
                 format = context.getString(R.string.notification_reblog_format)
             }
 
-            NotificationType.STATUS -> {
+            NotificationEntity.Type.STATUS -> {
                 format = context.getString(R.string.notification_subscription_format)
             }
 
-            NotificationType.UPDATE -> {
+            NotificationEntity.Type.UPDATE -> {
                 format = context.getString(R.string.notification_update_format)
             }
             else -> {

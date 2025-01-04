@@ -12,7 +12,6 @@ import app.pachli.core.database.model.NotificationData
 import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.database.model.NotificationRelationshipSeveranceEventEntity
 import app.pachli.core.database.model.NotificationReportEntity
-import app.pachli.core.database.model.NotificationType
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyKind
 import app.pachli.core.database.model.TimelineAccountEntity
@@ -207,7 +206,7 @@ fun NotificationData.Companion.from(pachliAccountId: Long, notification: Notific
 fun NotificationEntity.Companion.from(pachliAccountId: Long, notification: Notification) = NotificationEntity(
     pachliAccountId = pachliAccountId,
     serverId = notification.id,
-    type = NotificationType.from(notification.type),
+    type = NotificationEntity.Type.from(notification.type),
     createdAt = notification.createdAt.toInstant(),
     accountServerId = notification.account.id,
     statusServerId = notification.status?.id,

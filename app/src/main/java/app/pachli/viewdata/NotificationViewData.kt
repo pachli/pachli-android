@@ -20,7 +20,7 @@ package app.pachli.viewdata
 import android.text.Spanned
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.NotificationData
-import app.pachli.core.database.model.NotificationType
+import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.model.AccountFilterDecision
@@ -55,7 +55,7 @@ import app.pachli.core.network.model.TimelineAccount
 data class NotificationViewData(
     val pachliAccountId: Long,
     val localDomain: String,
-    val type: NotificationType,
+    val type: NotificationEntity.Type,
     val id: String,
     val account: TimelineAccount,
     var statusViewData: StatusViewData?,

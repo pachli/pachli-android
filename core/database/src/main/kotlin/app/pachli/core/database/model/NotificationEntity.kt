@@ -26,48 +26,6 @@ import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
 import java.time.Instant
 
-enum class NotificationType {
-    /** Unknown notification. */
-    UNKNOWN,
-
-    /** Someone mentioned you */
-    MENTION,
-
-    /** Someone boosted one of your statuses */
-    REBLOG,
-
-    /** Someone favourited one of your statuses */
-    FAVOURITE,
-
-    /** Someone followed you */
-    FOLLOW,
-
-    /** Someone requested to follow you */
-    FOLLOW_REQUEST,
-
-    /** A poll you have voted in or created has ended */
-    POLL,
-
-    /** Someone you enabled notifications for has posted a status */
-    STATUS,
-
-    /** Someone signed up (optionally sent to admins) */
-    SIGN_UP,
-
-    /** A status you reblogged has been updated */
-    UPDATE,
-
-    /** A new report has been filed */
-    REPORT,
-
-    /** Some of your follow relationships have been severed as a result of a moderation or block event */
-    SEVERED_RELATIONSHIPS,
-
-    ;
-
-    companion object
-}
-
 // TOOD: Move to core.data? No, it's returned by dao method pagingSource()
 // TOOD: Sealed class, by type? Get rid of the NotificationType enum, and the
 // nullable properties which are non-null depending on the type.
@@ -162,11 +120,53 @@ data class AccountFilterDecisionUpdate(
 data class NotificationEntity(
     val pachliAccountId: Long,
     val serverId: String,
-    val type: NotificationType,
+    val type: Type,
     val createdAt: Instant,
     val accountServerId: String,
     val statusServerId: String?,
 ) {
+    enum class Type {
+        /** Unknown notification. */
+        UNKNOWN,
+
+        /** Someone mentioned you */
+        MENTION,
+
+        /** Someone boosted one of your statuses */
+        REBLOG,
+
+        /** Someone favourited one of your statuses */
+        FAVOURITE,
+
+        /** Someone followed you */
+        FOLLOW,
+
+        /** Someone requested to follow you */
+        FOLLOW_REQUEST,
+
+        /** A poll you have voted in or created has ended */
+        POLL,
+
+        /** Someone you enabled notifications for has posted a status */
+        STATUS,
+
+        /** Someone signed up (optionally sent to admins) */
+        SIGN_UP,
+
+        /** A status you reblogged has been updated */
+        UPDATE,
+
+        /** A new report has been filed */
+        REPORT,
+
+        /** Some of your follow relationships have been severed as a result of a moderation or block event */
+        SEVERED_RELATIONSHIPS,
+
+        ;
+
+        companion object
+    }
+
     companion object
 }
 
