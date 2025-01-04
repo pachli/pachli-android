@@ -71,7 +71,6 @@ data class NotificationViewData(
          * @param data
          * @param isShowingContent
          * @param isExpanded
-         * @param isCollapsed
          * @param contentFilterAction
          * @param accountFilterDecision
          * @param isAboutSelf
