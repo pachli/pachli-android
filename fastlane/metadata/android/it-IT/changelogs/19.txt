@@ -1,0 +1,5 @@
+Pachli 2.7.1
+
+Fissi:
+
+- Posizione corretta anteprima delle immagini della carta, descrizione della scheda mostra
