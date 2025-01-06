@@ -27,6 +27,7 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.common.util.formatNumber
+import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.designsystem.R as DR
@@ -52,7 +53,6 @@ import app.pachli.view.MediaPreviewImageView
 import app.pachli.view.MediaPreviewLayout
 import app.pachli.view.PollView
 import app.pachli.view.PreviewCardView
-import app.pachli.viewdata.IStatusViewData
 import app.pachli.viewdata.PollViewData.Companion.from
 import at.connyduck.sparkbutton.SparkButton
 import at.connyduck.sparkbutton.helpers.Utils

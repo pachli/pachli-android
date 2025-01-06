@@ -41,6 +41,7 @@ import app.pachli.appstore.StatusDeletedEvent
 import app.pachli.appstore.StatusEditedEvent
 import app.pachli.appstore.UnfollowEvent
 import app.pachli.core.common.extensions.throttleFirst
+import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
@@ -56,7 +57,6 @@ import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.preferences.TabTapBehaviour
 import app.pachli.network.ContentFilterModel
 import app.pachli.usecase.TimelineCases
-import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.getOrThrow
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow

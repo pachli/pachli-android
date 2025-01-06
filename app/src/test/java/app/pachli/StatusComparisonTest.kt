@@ -1,6 +1,7 @@
 package app.pachli
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.network.json.BooleanIfNull
 import app.pachli.core.network.json.DefaultIfNull
@@ -8,7 +9,6 @@ import app.pachli.core.network.json.Guarded
 import app.pachli.core.network.json.InstantJsonAdapter
 import app.pachli.core.network.json.LenientRfc3339DateJsonAdapter
 import app.pachli.core.network.model.Status
-import app.pachli.viewdata.StatusViewData
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapter
 import java.time.Instant

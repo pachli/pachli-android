@@ -1,5 +1,6 @@
 package app.pachli.components.timeline
 
+import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TimelineStatusEntity
@@ -12,7 +13,6 @@ import app.pachli.core.network.json.InstantJsonAdapter
 import app.pachli.core.network.json.LenientRfc3339DateJsonAdapter
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.TimelineAccount
-import app.pachli.viewdata.StatusViewData
 import com.squareup.moshi.Moshi
 import java.time.Instant
 import java.util.Date
