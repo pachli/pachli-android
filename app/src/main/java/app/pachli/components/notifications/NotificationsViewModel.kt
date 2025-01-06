@@ -147,36 +147,39 @@ sealed interface InfallibleUiAction : UiAction {
     // adapter refresh logic.
     data object LoadNewest : InfallibleUiAction
 
-    // Status > 500 chars, content is "collapsed"
+    /** Set the "collapsed" state (if the status content > 500 chars) */
     data class SetContentCollapsed(
         val pachliAccountId: Long,
         val statusViewData: StatusViewData,
         val isCollapsed: Boolean,
     ) : InfallibleUiAction
 
-    // Showing attached media
+    /** Set whether to show attached media. */
     data class SetShowingContent(
         val pachliAccountId: Long,
         val statusViewData: StatusViewData,
         val isShowingContent: Boolean,
     ) : InfallibleUiAction
 
-    // Showing content warning only, or full status?
+    /** Set whether to show just the content warning, or the full content. */
     data class SetExpanded(
         val pachliAccountId: Long,
         val statusViewData: StatusViewData,
         val isExpanded: Boolean,
     ) : InfallibleUiAction
 
+    /** Clear the content filter. */
     data class ClearContentFilter(
         val pachliAccountId: Long,
         val notificationId: String,
     ) : InfallibleUiAction
 
+    /** Override the account filter and show the content. */
     data class OverrideAccountFilter(
         val pachliAccountId: Long,
         val notificationId: String,
-    )
+        val accountFilterDecision: AccountFilterDecision,
+    ) : InfallibleUiAction
 }
 
 /** Actions the user can trigger on an individual notification. These may fail. */
@@ -434,6 +437,16 @@ class NotificationsViewModel @AssistedInject constructor(
                 .collectLatest(::onExpanded)
         }
 
+        viewModelScope.launch {
+            uiAction.filterIsInstance<InfallibleUiAction.ClearContentFilter>()
+                .collectLatest(::onClearContentFilter)
+        }
+
+        viewModelScope.launch {
+            uiAction.filterIsInstance<InfallibleUiAction.OverrideAccountFilter>()
+                .collectLatest(::onOverrideAccountFilter)
+        }
+
         // Save the visible notification ID
         viewModelScope.launch {
             uiAction
@@ -513,7 +526,10 @@ class NotificationsViewModel @AssistedInject constructor(
                 .collect { account ->
                     contentFilterModel = when (account.contentFilters.version) {
                         ContentFilterVersion.V2 -> ContentFilterModel(FilterContext.NOTIFICATIONS)
-                        ContentFilterVersion.V1 -> ContentFilterModel(FilterContext.NOTIFICATIONS, account.contentFilters.contentFilters)
+                        ContentFilterVersion.V1 -> ContentFilterModel(
+                            FilterContext.NOTIFICATIONS,
+                            account.contentFilters.contentFilters,
+                        )
                     }
                 }
         }
@@ -597,9 +613,14 @@ class NotificationsViewModel @AssistedInject constructor(
                 pagingData
                     .filter { !activeFilters.contains(it.notification.type) }
                     .map { notification ->
-                        val contentFilterAction = notification.viewData?.contentFilterAction ?: notification.status?.status?.let { contentFilterModel?.filterActionFor(it) } ?: FilterAction.NONE
+                        val contentFilterAction =
+                            notification.viewData?.contentFilterAction
+                                ?: notification.status?.status?.let { contentFilterModel?.filterActionFor(it) }
+                                ?: FilterAction.NONE
                         val isAboutSelf = notification.account.serverId == pachliAccount.entity.accountId
-                        val accountFilterDecision = notification.viewData?.accountFilterDecision ?: filterNotificationByAccount(pachliAccount, notification)
+                        val accountFilterDecision =
+                            notification.viewData?.accountFilterDecision
+                                ?: filterNotificationByAccount(pachliAccount, notification)
 
                         NotificationViewData.make(
                             pachliAccount.entity,
@@ -633,25 +654,24 @@ class NotificationsViewModel @AssistedInject constructor(
         .filter { UiPrefs.prefKeys.contains(it) }
         .onStart { emit(null) }
 
-    private fun onContentCollapsed(action: InfallibleUiAction.SetContentCollapsed) = repository.setContentCollapsed(action.pachliAccountId, action.statusViewData, action.isCollapsed)
+    private fun onContentCollapsed(action: InfallibleUiAction.SetContentCollapsed) =
+        repository.setContentCollapsed(action.pachliAccountId, action.statusViewData, action.isCollapsed)
 
-    private fun onShowingContent(action: InfallibleUiAction.SetShowingContent) = repository.setShowingContent(action.pachliAccountId, action.statusViewData, action.isShowingContent)
+    private fun onShowingContent(action: InfallibleUiAction.SetShowingContent) =
+        repository.setShowingContent(action.pachliAccountId, action.statusViewData, action.isShowingContent)
 
-    private fun onExpanded(action: InfallibleUiAction.SetExpanded) = repository.setExpanded(action.pachliAccountId, action.statusViewData, action.isExpanded)
+    private fun onExpanded(action: InfallibleUiAction.SetExpanded) =
+        repository.setExpanded(action.pachliAccountId, action.statusViewData, action.isExpanded)
 
-    // TODO: Should be an infallible action
-    fun clearContentFilter(viewData: NotificationViewData) = viewModelScope.launch {
-        repository.clearContentFilter(viewData.pachliAccountId, viewData.id)
+    private fun onClearContentFilter(action: InfallibleUiAction.ClearContentFilter) {
+        repository.clearContentFilter(action.pachliAccountId, action.notificationId)
     }
 
-    // TODO: Should be an infallible action
-    // TODO: Repository should maybe have an overrideAccountFilterDecision instead of this
-    // needing to know what the current decision is.
-    fun clearAccountFilter(viewData: NotificationViewData) = viewModelScope.launch {
+    private fun onOverrideAccountFilter(action: InfallibleUiAction.OverrideAccountFilter) {
         repository.setAccountFilterDecision(
-            viewData.pachliAccountId,
-            viewData.id,
-            AccountFilterDecision.Override(viewData.accountFilterDecision),
+            action.pachliAccountId,
+            action.notificationId,
+            AccountFilterDecision.Override(action.accountFilterDecision),
         )
     }
 

@@ -651,11 +651,17 @@ class NotificationsFragment :
     }
 
     override fun clearContentFilter(pachliAccountId: Long, viewData: NotificationViewData) {
-        viewModel.clearContentFilter(viewData)
+        viewModel.accept(InfallibleUiAction.ClearContentFilter(pachliAccountId, viewData.id))
     }
 
     override fun clearAccountFilter(viewData: NotificationViewData) {
-        viewModel.clearAccountFilter(viewData)
+        viewModel.accept(
+            InfallibleUiAction.OverrideAccountFilter(
+                pachliAccountId,
+                viewData.id,
+                viewData.accountFilterDecision,
+            ),
+        )
     }
 
     override fun editAccountNotificationFilter() {

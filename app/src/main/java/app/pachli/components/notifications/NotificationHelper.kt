@@ -693,7 +693,12 @@ fun filterNotificationByAccount(accountWithFilters: PachliAccount, notificationD
         // Check the following relationship.
         if (accountWithFilters.entity.notificationAccountFilterNotFollowed != FilterAction.NONE) {
             if (accountWithFilters.following.none { it.serverId == accountToTest.serverId }) {
-                add(AccountFilterDecision.make(accountWithFilters.entity.notificationAccountFilterNotFollowed, AccountFilterReason.NOT_FOLLOWING))
+                add(
+                    AccountFilterDecision.make(
+                        accountWithFilters.entity.notificationAccountFilterNotFollowed,
+                        AccountFilterReason.NOT_FOLLOWING,
+                    ),
+                )
             }
         }
 
@@ -939,7 +944,13 @@ fun pendingIntentFlags(mutable: Boolean): Int {
  *
  * @throws IllegalStateException if the value at [key] is not valid for the enum [T].
  */
-inline fun <reified T : Enum<T>> Bundle.getEnum(key: String) = getInt(key, -1).let { if (it >= 0) enumValues<T>()[it] else throw IllegalStateException("unrecognised enum ordinal: $it") }
+inline fun <reified T : Enum<T>> Bundle.getEnum(key: String) = getInt(key, -1).let {
+    if (it >= 0) {
+        enumValues<T>()[it]
+    } else {
+        throw IllegalStateException("unrecognised enum ordinal: $it")
+    }
+}
 
 /**
  * Inserts an enum [value] into the mapping of this [Bundle], replacing any

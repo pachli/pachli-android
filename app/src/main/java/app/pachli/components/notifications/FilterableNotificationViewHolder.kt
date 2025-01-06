@@ -70,11 +70,7 @@ class FilterableNotificationViewHolder(
         }
     }
 
-    override fun bind(
-        viewData: NotificationViewData,
-        payloads: List<*>?,
-        statusDisplayOptions: StatusDisplayOptions,
-    ) {
+    override fun bind(viewData: NotificationViewData, payloads: List<*>?, statusDisplayOptions: StatusDisplayOptions) {
         this.viewData = viewData
 
         val icon = viewData.type.icon(context)
