@@ -330,10 +330,10 @@
     <string name="title_favourited_by">Lượt thích tút này</string>
     <string name="title_reblogged_by">Lượt đăng lại tút này</string>
     <plurals name="reblogs">
-        <item quantity="other"><b>%s</b> Đăng lại</item>
+        <item quantity="other">&lt;b>%s&lt;/b> Đăng lại</item>
     </plurals>
     <plurals name="favs">
-        <item quantity="other"><b>%1$s</b> Thích</item>
+        <item quantity="other">&lt;b>%1$s&lt;/b> Thích</item>
     </plurals>
     <string name="pin_action">Ghim</string>
     <string name="unpin_action">Gỡ ghim</string>

@@ -320,10 +320,10 @@
     <string name="send_post_notification_channel_name">Дасыланне допісаў</string>
     <string name="later">Пазней</string>
     <plurals name="favs">
-        <item quantity="one"><b>%1$s</b> абраны</item>
-        <item quantity="few"><b>%1$s</b> абраныя</item>
-        <item quantity="many"><b>%1$s</b> абраных</item>
-        <item quantity="other"><b>%1$s</b> абраных</item>
+        <item quantity="one">&lt;b>%1$s&lt;/b> абраны</item>
+        <item quantity="few">&lt;b>%1$s&lt;/b> абраныя</item>
+        <item quantity="many">&lt;b>%1$s&lt;/b> абраных</item>
+        <item quantity="other">&lt;b>%1$s&lt;/b> абраных</item>
     </plurals>
     <string name="title_reblogged_by">Пашырылі</string>
     <string name="profile_metadata_label">Метазвесткі профілю</string>
@@ -349,10 +349,10 @@
     <string name="pref_title_absolute_time">Паказваць абсалютны час</string>
     <string name="label_remote_account">Інфармацыя ніжэй можа не паказваць поўны профіль карыстальніка. Націсніце, каб адкрыць поўны профіль у браўзеры.</string>
     <plurals name="reblogs">
-        <item quantity="one"><b>%s</b> пашыраны</item>
-        <item quantity="few"><b>%s</b> пашырана</item>
-        <item quantity="many"><b>%s</b> пашыраных</item>
-        <item quantity="other"><b>%s</b> пашыраных</item>
+        <item quantity="one">&lt;b>%s&lt;/b> пашыраны</item>
+        <item quantity="few">&lt;b>%s&lt;/b> пашырана</item>
+        <item quantity="many">&lt;b>%s&lt;/b> пашыраных</item>
+        <item quantity="other">&lt;b>%s&lt;/b> пашыраных</item>
     </plurals>
     <string name="unsaved_changes">У Вас засталіся незахаваныя змены.</string>
     <string name="expand_collapse_all_posts">Разгарнуць/згарнуць допісы</string>

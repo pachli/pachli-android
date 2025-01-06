@@ -12,9 +12,9 @@
     <string name="action_dismiss_follow_suggestion">Descartar</string>
     <string name="ui_error_delete_suggestion_fmt">Fallo al descartar la sugerencia para %1$s: %2$s</string>
     <string name="ui_error_follow_account_fmt">Fallo al seguir a %1$s: %2$s</string>
-    <string name="follower_count_fmt"><b>%1$s</b> seguidores</string>
-    <string name="follows_count_fmt"><b>%1$s</b> siguiendo</string>
-    <string name="statuses_count_fmt"><b>%1$s</b> publicaciones</string>
-    <string name="statuses_count_per_week_fmt"><b>%1$s</b> publicaciones (<b>%2$d</b> por semana)</string>
-    <string name="statuses_count_per_week_last_fmt"><b>%1$s</b> publicaciones (<b>%2$d</b> por semana; última: <b>%3$s</b>)</string>
+    <string name="follower_count_fmt">&lt;b>%1$s&lt;/b> seguidores</string>
+    <string name="follows_count_fmt">&lt;b>%1$s&lt;/b> siguiendo</string>
+    <string name="statuses_count_fmt">&lt;b>%1$s&lt;/b> publicaciones</string>
+    <string name="statuses_count_per_week_fmt">&lt;b>%1$s&lt;/b> publicaciones (&lt;b>%2$d&lt;/b> por semana)</string>
+    <string name="statuses_count_per_week_last_fmt">&lt;b>%1$s&lt;/b> publicaciones (&lt;b>%2$d&lt;/b> por semana; última: &lt;b>%3$s&lt;/b>)</string>
 </resources>

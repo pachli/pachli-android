@@ -336,7 +336,7 @@
     <string name="title_tab_public_trending_hashtags">Aihetunnisteet</string>
     <string name="error_muting_hashtag_format">Virhe mykistettäessä tiliä #%s</string>
     <string name="label_image">Kuva</string>
-    <string name="set_focus_description">Napauta tai vedä ympyrää valitaksesi keskipisteen, joka näkyy aina pikkukuvissa.</string>
+    <string name="set_focus_description">Napauta tai vedä ympyrää valitaksesi keskipiste, joka näkyy aina pikkukuvissa.</string>
     <string name="account_username_copied">Käyttäjätunnus kopioitu</string>
     <string name="action_translate_undo">Peru käännös</string>
     <string name="action_discard">Hylkää muutokset</string>
@@ -353,7 +353,7 @@
     <string name="send_post_notification_error_title">Julkaisun lähettäminen epäonnistui</string>
     <string name="pref_title_notification_filter_follow_requests">seuraamista pyydetty</string>
     <string name="pref_title_notification_filters">Ilmoita kun</string>
-    <string name="status_filter_placeholder_label_format">Suodatettu: &lt;b&gt;%1$s&lt;/b&gt;</string>
+    <string name="status_filter_placeholder_label_format">Suodatettu: &lt;b>%1$s&lt;/b></string>
     <string name="pref_title_notification_filter_poll">päättyneet äänestykset</string>
     <string name="abbreviated_in_seconds">%ds</string>
     <string name="failed_to_unpin">Irrottaminen epäonnistui</string>
@@ -526,12 +526,12 @@
     <string name="description_browser_login">Saattaa tukea muita tunnistautumistapoja, mutta vaatii tuetun verkkoselaimen.</string>
     <string name="report_description_1">Raportti lähetetään palvelimesi moderaattorille. Alla voit selittää miksi raportoit tämän tilin:</string>
     <plurals name="reblogs">
-        <item quantity="one"><b>%s</b> Tehostus</item>
-        <item quantity="other"><b>%s</b> Tehostusta</item>
+        <item quantity="one">&lt;b>%s&lt;/b> Tehostus</item>
+        <item quantity="other">&lt;b>%s&lt;/b> Tehostusta</item>
     </plurals>
     <string name="failed_report">Raportointi epäonnistui</string>
     <string name="description_login">Toimii yleensä. Dataa ei vuoda muihin sovelluksiin.</string>
-    <string name="label_remote_account">Alla olevat tiedot eivät välttämättä näytä kaikkea käyttäjän profiilista. Paina avataksesi täydellisen profiilin selaimessa.</string>
+    <string name="label_remote_account">Alla olevat tiedot eivät välttämättä näytä kaikkea käyttäjän profiilista. Paina avataksesi täydellinen profiili selaimessa.</string>
     <string name="report_description_remote_instance">Tili on toisella palvelimella. Lähetetäänkö sinnekin nimetön kopio raportista?</string>
     <string name="conversation_2_recipients">%1$s ja %2$s</string>
     <plurals name="poll_info_votes">
@@ -587,8 +587,8 @@
     <string name="poll_ended_created">Kysely jonka olet luonut on päättynyt</string>
     <string name="description_post_bookmarked">Kirjanmerkki lisätty</string>
     <plurals name="favs">
-        <item quantity="one"><b>%1$s</b> Tykkäys</item>
-        <item quantity="other"><b>%1$s</b> Tykkäystä</item>
+        <item quantity="one">&lt;b>%1$s&lt;/b> Tykkäys</item>
+        <item quantity="other">&lt;b>%1$s&lt;/b> Tykkäystä</item>
     </plurals>
     <string name="description_poll">Kysely jossa vaihtoehdot: %1$s, %2$s, %3$s, %4$s, %5$s</string>
     <string name="duration_no_change">(Ei muutosta)</string>
@@ -608,7 +608,7 @@
     <string name="action_manage_tabs">Hallinnoi välilehtiä</string>
     <string name="action_remove_tab">Poista välilehti</string>
     <string name="notification_severed_relationships_domain_block_body">Moderaattori esti verkkotunnuksen</string>
-    <string name="notification_severed_relationships_format">Yhteys katkaistu: <b>%1$s </b></string>
+    <string name="notification_severed_relationships_format">Yhteys katkaistu: &lt;b>%1$s&lt;/b></string>
     <string name="notification_severed_relationships_user_domain_block_body">Estit verkkotunnuksen</string>
     <string name="notification_severed_relationships_account_suspension_body">Moderaattori esti tilin</string>
     <string name="notification_severed_relationships_unknown_body">Tuntematon syy</string>
@@ -628,7 +628,7 @@
     <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">sisältöselvittäjä-URI:n kaavaa ei tueta: %1$s</string>
     <string name="error_prepare_media_unknown_mime_type">tuntematon tiedostotyyppi</string>
     <string name="error_pick_media_fmt">Julkaisuun ei voitu liittää tiedostoa: %1$s</string>
-    <string name="preview_card_byline_fediverse_account_fmt">Katso lisää täältä: %1$s</string>
+    <string name="preview_card_byline_fediverse_account_fmt">Teki &lt;b>%1$s&lt;/b>. Katso lisää julkaisuja</string>
     <string name="action_open_byline_account">Näytä julkaisun tekijän profiili</string>
     <string name="action_open_link">Avaa linkki</string>
     <string name="error_prepare_media_unknown_file_size">tiedoston kokoa ei voitu määrittää</string>
@@ -764,9 +764,9 @@
     <string name="conversation_0_recipients">Ei muita osanottajia</string>
     <string name="compose_warn_language_dialog_accept_and_dont_ask_fmt">Julkaise muutoksetta (%1$s) äläkä kysy uudelleen</string>
     <string name="pref_title_confirm_status_language">Tarkasta julkaisun kieli ennen julkaisemista</string>
-    <string name="account_filter_placeholder_type_favourite_fmt">Käyttäjä @<b>%1s</b> merkitsi julkaisusi suosikiksi</string>
-    <string name="account_filter_placeholder_type_mention_fmt">Käyttäjä @<b>%1s</b> mainitsi sinut</string>
-    <string name="account_filter_placeholder_type_follow_request_fmt">Käyttäjä @<b>%1s</b> pyytää seuraamista</string>
+    <string name="account_filter_placeholder_type_favourite_fmt">Käyttäjä @&lt;b>%1s&lt;/b> merkitsi julkaisusi suosikiksi</string>
+    <string name="account_filter_placeholder_type_mention_fmt">Käyttäjä @&lt;b>%1s&lt;/b> mainitsi sinut</string>
+    <string name="account_filter_placeholder_type_follow_request_fmt">Käyttäjä @&lt;b>%1s&lt;/b> pyytää seuraamista</string>
     <string name="filter_action_none">Näytä</string>
     <string name="filter_description_none">Näytä kuten tavallisesti</string>
     <string name="pref_title_account_notification_filters">Ilmoitusten suodattimet</string>
@@ -774,12 +774,12 @@
     <string name="pref_account_notification_filters_label_not_followed">… joita et seuraa</string>
     <string name="pref_account_notification_filters_label_younger_30d">… jotka on luotu viimeisten 30 päivän aikana</string>
     <string name="pref_account_notification_filters_label_limited_by_server">… jotka moderaattorisi on rajoittanut</string>
-    <string name="account_filter_placeholder_type_follow_fmt">Käyttäjä @<b>%1s</b> seurasi sinua</string>
-    <string name="account_filter_placeholder_type_reblog_fmt">Käyttäjä @<b>%1s</b> tehosti julkaisuasi</string>
-    <string name="account_filter_placeholder_label_domain">Käyttäjältä @<b>%1s</b></string>
-    <string name="account_filter_placeholder_label_not_following">Suodatettu koska: <b>et seuraa käyttäjää</b></string>
-    <string name="account_filter_placeholder_label_younger_30d">Suodatettu koska: <b>luotu viimeisten 30 päivän aikana</b></string>
-    <string name="account_filter_placeholder_label_limited_by_server">Suodatettu koska: <b>moderaattorisi rajoittama</b></string>
+    <string name="account_filter_placeholder_type_follow_fmt">Käyttäjä @&lt;b>%1s&lt;/b> seurasi sinua</string>
+    <string name="account_filter_placeholder_type_reblog_fmt">Käyttäjä @&lt;b>%1s&lt;/b> tehosti julkaisuasi</string>
+    <string name="account_filter_placeholder_label_domain">Käyttäjältä @&lt;b>%1s&lt;/b></string>
+    <string name="account_filter_placeholder_label_not_following">Suodatettu koska: &lt;b>et seuraa käyttäjää&lt;/b></string>
+    <string name="account_filter_placeholder_label_younger_30d">Suodatettu koska: &lt;b>luotu viimeisten 30 päivän aikana&lt;/b></string>
+    <string name="account_filter_placeholder_label_limited_by_server">Suodatettu koska: &lt;b>moderaattorisi rajoittama&lt;/b></string>
     <plurals name="notification_severed_relationships_summary_followers_fmt">
         <item quantity="one">%1$s seuraaja poistettu</item>
         <item quantity="other">%1$s seuraajaa poistettu</item>
@@ -793,4 +793,8 @@
     <string name="main_viewmodel_error_refresh_account">Tilin päivittäminen epäonnistui, virhe oli:\n\n%1$s\n\nVoit jatkaa, mutta listasi ja suodattimesi saattavat olla eivät ehkä ole ajan tasalla.</string>
     <string name="action_relogin">Kirjaudu uudestaan</string>
     <string name="upload_failed_modify_attachment">Muokkaa liitettä</string>
+    <string name="notification_unknown">Tuntematon ilmoitustyyppi</string>
+    <string name="preview_card_timeline_link_fmt">Katso &lt;b>%1$s&lt;/b> julkaisua tästä linkistä</string>
+    <string name="action_timeline_link">Julkaisuja tästä linkistä</string>
+    <string name="preview_card_byline_name_only_fmt">Tehnyt &lt;b>%1$s&lt;/b></string>
 </resources>

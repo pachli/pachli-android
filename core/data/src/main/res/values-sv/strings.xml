@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="server_repository_error_get_well_known_node_info">misslyckades med att hämta /.well-known/nodeinfo: %1$s</string>
     <string name="server_repository_error_unsupported_schema">/.well-known/nodeinfo innehöll inte begripliga scheman</string>
@@ -6,4 +6,8 @@
     <string name="server_repository_error_validate_node_info">validering av nodeinfo %1$s misslyckades: %2$s</string>
     <string name="server_repository_error_get_instance_info">hämtning av /api/v1/instance misslyckades: %1$s</string>
     <string name="server_repository_error_capabilities">tolkning av serverfunktioner misslyckades: %1$s</string>
+    <string name="error_filter_server_does_not_filter">Servern stödjer inte filter</string>
+    <string name="account_manager_error_account_does_not_exist">Kontot finns inte i den lokala databasen. Det borde aldrig hända. Om du ser detta så lämna en felrapport.</string>
+    <string name="account_manager_error_no_active_account">inget konto är aktivt</string>
+    <string name="account_manager_error_unexpected">oväntat fel: %1$s</string>
 </resources>

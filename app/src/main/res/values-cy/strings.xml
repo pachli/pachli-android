@@ -384,12 +384,12 @@
     <string name="mute_domain_warning">Ydych chi\'n siŵr yr hoffech chi flocio %s gyfan\? Fyddwch chi ddim yn gweld dim cynnwys o\'r parth hwnnw mewn unrhyw ffrwd gyhoeddus na chwaith yn eich hysbysiadau. Bydd eich dilynwyr o\'r parth hwnnw yn cael eu dileu.</string>
     <string name="duration_indefinite">Dim diwedd</string>
     <plurals name="favs">
-        <item quantity="zero"><b>%1$s</b> Ffefryn</item>
-        <item quantity="one"><b>%1$s</b> Ffefryn</item>
-        <item quantity="two"><b>%1$s</b> Ffefryn</item>
-        <item quantity="few"><b>%1$s</b> Ffefryn</item>
-        <item quantity="many"><b>%1$s</b> Ffefryn</item>
-        <item quantity="other"><b>%1$s</b> Ffefryn</item>
+        <item quantity="zero">&lt;b>%1$s&lt;/b> Ffefryn</item>
+        <item quantity="one">&lt;b>%1$s&lt;/b> Ffefryn</item>
+        <item quantity="two">&lt;b>%1$s&lt;/b> Ffefryn</item>
+        <item quantity="few">&lt;b>%1$s&lt;/b> Ffefryn</item>
+        <item quantity="many">&lt;b>%1$s&lt;/b> Ffefryn</item>
+        <item quantity="other">&lt;b>%1$s&lt;/b> Ffefryn</item>
     </plurals>
     <string name="description_visibility_direct">Uniongyrchol</string>
     <string name="compose_save_draft_loses_media">Cadw drafft? (Bydd atodiadau\'n cael eu lanlwytho eto pan fyddwch chi\'n adfer y drafft.)</string>
@@ -425,12 +425,12 @@
     <string name="notification_report_name">Adroddiadau</string>
     <string name="label_remote_account">Gall y wybodaeth isod adlewyrchu proffil y defnyddiwr yn anghyflawn. Pwyswch i agor proffil llawn yn y porwr.</string>
     <plurals name="reblogs">
-        <item quantity="zero"><b>%s</b> Hybiau</item>
-        <item quantity="one"><b>%s</b> Hwb</item>
-        <item quantity="two"><b>%s</b> Hwb</item>
-        <item quantity="few"><b>%s</b> Hwb</item>
-        <item quantity="many"><b>%s</b> Hwb</item>
-        <item quantity="other"><b>%s</b> Hwb</item>
+        <item quantity="zero">&lt;b>%s&lt;/b> Hybiau</item>
+        <item quantity="one">&lt;b>%s&lt;/b> Hwb</item>
+        <item quantity="two">&lt;b>%s&lt;/b> Hwb</item>
+        <item quantity="few">&lt;b>%s&lt;/b> Hwb</item>
+        <item quantity="many">&lt;b>%s&lt;/b> Hwb</item>
+        <item quantity="other">&lt;b>%s&lt;/b> Hwb</item>
     </plurals>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="description_post_edited">Golygwyd</string>

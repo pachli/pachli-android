@@ -38,7 +38,7 @@ You do not have to restrict yourself to just working on one of those issues, but
 
 The [discussions](https://github.com/pachli/pachli-android/discussions) may have suggested ideas too.
 
-And of course, you may have encoutered a bug in your personal use of the app, or would find a feature to be useful.
+And of course, you may have encountered a bug in your personal use of the app, or would find a feature to be useful.
 
 ## Use your judgement when following these guidelines
 

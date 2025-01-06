@@ -292,18 +292,18 @@
     <string name="pref_title_absolute_time">Úsáid am iomlán</string>
     <string name="pin_action">Bioráin</string>
     <plurals name="favs">
-        <item quantity="one"><b>%1$s </b> Togha</item>
-        <item quantity="two"><b>%1$s</b> Toghanna</item>
-        <item quantity="few"><b>%1$s</b> Toghanna</item>
-        <item quantity="many"><b>%1$s</b> Toghanna</item>
-        <item quantity="other"><b>%1$s</b> Toghanna</item>
+        <item quantity="one">&lt;b>%1$s&lt;/b> Togha</item>
+        <item quantity="two">&lt;b>%1$s&lt;/b> Toghanna</item>
+        <item quantity="few">&lt;b>%1$s&lt;/b> Toghanna</item>
+        <item quantity="many">&lt;b>%1$s&lt;/b> Toghanna</item>
+        <item quantity="other">&lt;b>%1$s&lt;/b> Toghanna</item>
     </plurals>
     <plurals name="reblogs">
-        <item quantity="one"><b>%s</b> athchraoladh</item>
-        <item quantity="two"><b>%s</b> athchraolta</item>
-        <item quantity="few"><b>%s</b> athchraolta</item>
-        <item quantity="many"><b>%s</b> athchraolta</item>
-        <item quantity="other"><b>%s</b> athchraolta</item>
+        <item quantity="one">&lt;b>%s&lt;/b> athchraoladh</item>
+        <item quantity="two">&lt;b>%s&lt;/b> athchraolta</item>
+        <item quantity="few">&lt;b>%s&lt;/b> athchraolta</item>
+        <item quantity="many">&lt;b>%s&lt;/b> athchraolta</item>
+        <item quantity="other">&lt;b>%s&lt;/b> athchraolta</item>
     </plurals>
     <string name="title_reblogged_by">Athchraolta ag</string>
     <string name="title_favourited_by">Tofa ag</string>
@@ -642,7 +642,7 @@
     <string name="notification_listenable_worker_description">Fógraí nuair atá Pachli ag obair sa chúlra</string>
     <string name="post_media_audio">Fuaim</string>
     <string name="post_media_attachments">Ceangaltáin</string>
-    <string name="status_filter_placeholder_label_format">Scagtha: <b>%1$s</b></string>
+    <string name="status_filter_placeholder_label_format">Scagtha: &lt;b>%1$s&lt;/b></string>
     <string name="compose_save_draft_loses_media">Uaslódálfar ceangaltáin arís nuair a chuirfidh tú an dréacht ar ais.</string>
     <string name="update_dialog_title">Tá nuashonrú ar fáil</string>
     <string name="update_dialog_neutral">Ná cuir an leagan seo i gcuimhne dom</string>
@@ -665,7 +665,7 @@
     <string name="search_operator_where_dialog_public_hint">Poist phoiblí, inchuardaithe ar a dtugtar an freastalaí</string>
     <string name="pref_update_notification_frequency_once_per_version">Uair amháin in aghaidh an leagain</string>
     <string name="pref_update_notification_frequency_always">I gcónaí</string>
-    <string name="notification_severed_relationships_format">Scaradh an gaol le <b>%1$s</b></string>
+    <string name="notification_severed_relationships_format">Scaradh an gaol le &lt;b>%1$s&lt;/b></string>
     <string name="action_share_account_link">Comhroinn nasc chuig an gcuntas</string>
     <string name="pref_title_show_self_boosts_description">Duine éigin ag cur lena bpost féin</string>
     <string name="notification_prune_cache">Cothabháil taisce…</string>
@@ -812,17 +812,17 @@
     <string name="pref_title_account_notification_filters">Scagairí fógra</string>
     <string name="pref_account_notification_filters_subtitle">Cad ba cheart a tharlú d\'fhógraí ó chuntais…</string>
     <string name="pref_account_notification_filters_label_younger_30d">… a cruthaíodh le 30 lá anuas</string>
-    <string name="account_filter_placeholder_type_favourite_fmt">B\'fhearr le húsáideoir @<b>%1s</b> do phostáil</string>
-    <string name="account_filter_placeholder_type_follow_request_fmt">Lean iarratas ó úsáideoir @<b>%1s</b></string>
-    <string name="account_filter_placeholder_label_younger_30d">Scagtha toisc: <b>cruthaithe le 30 lá anuas</b></string>
-    <string name="account_filter_placeholder_type_reblog_fmt">Chuir úsáideoir @<b>%1s</b> do phostáil chun cinn</string>
-    <string name="account_filter_placeholder_label_domain">Ó úsáideoir @<b>%1s</b></string>
-    <string name="account_filter_placeholder_label_not_following">Scagtha toisc: <b>ní leanann tú iad</b></string>
-    <string name="account_filter_placeholder_label_limited_by_server">Scagtha toisc: <b>teoranta ag do mhodhnóirí</b></string>
-    <string name="account_filter_placeholder_type_mention_fmt">Luaigh úsáideoir @ <b>%1s</b> tú</string>
+    <string name="account_filter_placeholder_type_favourite_fmt">B\'fhearr le húsáideoir @&lt;b>%1s&lt;/b> do phostáil</string>
+    <string name="account_filter_placeholder_type_follow_request_fmt">Lean iarratas ó úsáideoir @&lt;b>%1s&lt;/b></string>
+    <string name="account_filter_placeholder_label_younger_30d">Scagtha toisc: &lt;b>cruthaithe le 30 lá anuas&lt;/b></string>
+    <string name="account_filter_placeholder_type_reblog_fmt">Chuir úsáideoir @&lt;b>%1s&lt;/b> do phostáil chun cinn</string>
+    <string name="account_filter_placeholder_label_domain">Ó úsáideoir @&lt;b>%1s&lt;/b></string>
+    <string name="account_filter_placeholder_label_not_following">Scagtha toisc: &lt;b>ní leanann tú iad&lt;/b></string>
+    <string name="account_filter_placeholder_label_limited_by_server">Scagtha toisc: &lt;b>teoranta ag do mhodhnóirí&lt;/b></string>
+    <string name="account_filter_placeholder_type_mention_fmt">Luaigh úsáideoir @ &lt;b>%1s&lt;/b> tú</string>
     <string name="pref_account_notification_filters_label_limited_by_server">… teoranta ag do mhodhnóirí</string>
     <string name="filter_action_none">Taispeáin</string>
     <string name="pref_account_notification_filters_label_not_followed">… ní leanann tú</string>
-    <string name="account_filter_placeholder_type_follow_fmt">Lean úsáideoir @<b>%1s</b> tú</string>
+    <string name="account_filter_placeholder_type_follow_fmt">Lean úsáideoir @&lt;b>%1s&lt;/b> tú</string>
     <string name="notification_unknown">Cineál fógra anaithnid</string>
 </resources>

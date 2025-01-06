@@ -135,10 +135,10 @@
     <string name="description_post_favourited">Уподобано</string>
     <string name="title_favourited_by">Вподобали</string>
     <plurals name="favs">
-        <item quantity="one"><b>%1$s</b> вподобання</item>
-        <item quantity="few"><b>%1$s</b> вподобання</item>
-        <item quantity="many"><b>%1$s</b> вподобань</item>
-        <item quantity="other"><b>%1$s</b> вподобань</item>
+        <item quantity="one">&lt;b>%1$s&lt;/b> вподобання</item>
+        <item quantity="few">&lt;b>%1$s&lt;/b> вподобання</item>
+        <item quantity="many">&lt;b>%1$s&lt;/b> вподобань</item>
+        <item quantity="other">&lt;b>%1$s&lt;/b> вподобань</item>
     </plurals>
     <string name="notification_favourite_description">Сповіщати про вподобання кимось дописів</string>
     <string name="pref_title_notification_filter_favourites">мої дописи вподобано</string>
@@ -425,10 +425,10 @@
     <string name="description_post_bookmarked">Додано до закладок</string>
     <string name="description_post_reblogged">Поширено</string>
     <plurals name="reblogs">
-        <item quantity="one"><b>%s</b> поширення</item>
-        <item quantity="few"><b>%s</b> поширення</item>
-        <item quantity="many"><b>%s</b> поширень</item>
-        <item quantity="other"><b>%s</b> поширень</item>
+        <item quantity="one">&lt;b>%s&lt;/b> поширення</item>
+        <item quantity="few">&lt;b>%s&lt;/b> поширення</item>
+        <item quantity="many">&lt;b>%s&lt;/b> поширень</item>
+        <item quantity="other">&lt;b>%s&lt;/b> поширень</item>
     </plurals>
     <string name="pin_action">Прикріпити</string>
     <string name="unpin_action">Відкріпити</string>

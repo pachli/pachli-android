@@ -7,14 +7,14 @@
     <string name="sources_most_followed">Palvelimesi eniten seurattuja</string>
     <string name="sources_featured">Palvelimesi ylläpitäjien ehdotuksia</string>
     <string name="sources_similar_to_recently_followed">Muistuttaa äskettäin seuraamiasi tilejä</string>
-    <string name="follower_count_fmt"><b>%1$s</b> seuraajaa</string>
-    <string name="follows_count_fmt"><b>%1$s</b> seuraa</string>
-    <string name="statuses_count_per_week_last_fmt"><b>%1$s</b> julkaisua <b>%2$d</b> viikossa, uusin <b>%3$s</b>)</string>
+    <string name="follower_count_fmt">&lt;b>%1$s&lt;/b> seuraajaa</string>
+    <string name="follows_count_fmt">&lt;b>%1$s&lt;/b> seuraa</string>
+    <string name="statuses_count_per_week_last_fmt">&lt;b>%1$s&lt;/b> julkaisua &lt;b>%2$d&lt;/b> viikossa, uusin &lt;b>%3$s&lt;/b>)</string>
     <string name="source_unknown">(palvelimen vastauksessa tunnistamaton lähde)</string>
     <string name="action_follow_account">Seuraa</string>
     <string name="action_dismiss_follow_suggestion">Hylkää</string>
     <string name="ui_error_delete_suggestion_fmt">Ehdotuksen %1$s hylkääminen epäonnistui: %2$s</string>
     <string name="ui_error_follow_account_fmt">Tilin %1$s seuraaminen epäonnistui: %2$s</string>
-    <string name="statuses_count_fmt"><b>%1$s</b> julkaisua</string>
-    <string name="statuses_count_per_week_fmt"><b>%1$s</b> julkaisua (<b>%2$d</b> viikossa)</string>
+    <string name="statuses_count_fmt">&lt;b>%1$s&lt;/b> julkaisua</string>
+    <string name="statuses_count_per_week_fmt">&lt;b>%1$s&lt;/b> julkaisua (&lt;b>%2$d&lt;/b> viikossa)</string>
 </resources>

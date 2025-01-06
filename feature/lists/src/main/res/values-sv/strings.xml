@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hint_list_name">Listnamn</string>
     <string name="list_exclusive_label">Dölj från hemtidlinjen</string>
@@ -8,7 +8,7 @@
     <string name="error_rename_list_fmt">Kunde inte byta namn på lista \"%1$s\": %2$s</string>
     <string name="action_rename_list">Byt namn på listan</string>
     <string name="action_create_list">Skapa en lista</string>
-    <string name="dialog_delete_list_warning">Vill du verkligen radera listan %s\?</string>
+    <string name="dialog_delete_list_warning">Radera listan %s?</string>
     <string name="action_remove_from_list">Ta bort kontot från listan</string>
     <string name="action_add_to_list">Lägg till konto i listan</string>
     <string name="action_delete_list">Ta bort listan</string>
@@ -17,4 +17,8 @@
     <string name="no_lists">Du har inga listor.</string>
     <string name="hint_search_people_list">Sök efter personer du följer</string>
     <string name="action_add_or_remove_from_list">Lägg till eller ta bort från lista</string>
+    <string name="replies_policy_title">Visa svar för:</string>
+    <string name="replies_policy_name_followed">Alla du följer</string>
+    <string name="replies_policy_name_list">Listmedlemmar</string>
+    <string name="replies_policy_name_none">Ingen</string>
 </resources>

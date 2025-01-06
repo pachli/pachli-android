@@ -68,7 +68,7 @@
     </plurals>
     <string name="notification_update_format">%s redigerte innlegget sitt</string>
     <string name="notification_report_format">Ny rapport på %s</string>
-    <string name="notification_severed_relationships_format">Braut forholdet med <b>%1$s</b></string>
+    <string name="notification_severed_relationships_format">Braut forholdet med &lt;b>%1$s&lt;/b></string>
     <string name="notification_severed_relationships_domain_block_body">Ein moderator suspenderte instansen</string>
     <string name="notification_severed_relationships_account_suspension_body">Ein moderator suspenderte kontoen</string>
     <string name="notification_severed_relationships_unknown_body">Ukjend årsak</string>
@@ -241,7 +241,7 @@
     <string name="status_count_one_plus">1+</string>
     <string name="status_created_at_now">no</string>
     <string name="status_filtered_show_anyway">Syn likevel</string>
-    <string name="status_filter_placeholder_label_format">Filtrert: <b>%1$s</b></string>
+    <string name="status_filter_placeholder_label_format">Filtrert: &lt;b>%1$s&lt;/b></string>
     <string name="state_follow_requested">Fylgjeførespurnad sende</string>
     <string name="abbreviated_in_years">om %då</string>
     <string name="abbreviated_in_days">om %dd</string>
@@ -406,12 +406,12 @@
     <string name="failed_to_pin">Festing mislykkast</string>
     <string name="failed_to_unpin">Lausning mislykkast</string>
     <plurals name="favs">
-        <item quantity="one"><b>%1$s</b> favorittmerking</item>
-        <item quantity="other"><b>%1$s</b> favorittmerkingar</item>
+        <item quantity="one">&lt;b>%1$s&lt;/b> favorittmerking</item>
+        <item quantity="other">&lt;b>%1$s&lt;/b> favorittmerkingar</item>
     </plurals>
     <plurals name="reblogs">
-        <item quantity="one"><b>%s</b> deling</item>
-        <item quantity="other"><b>%s</b> delingar</item>
+        <item quantity="one">&lt;b>%s&lt;/b> deling</item>
+        <item quantity="other">&lt;b>%s&lt;/b> delingar</item>
     </plurals>
     <string name="title_reblogged_by">Delt av</string>
     <string name="title_favourited_by">Favorittmerka av</string>
@@ -650,9 +650,9 @@
     <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">Innhaldsoppløser-URI har ustøtta skjema: %1$s</string>
     <string name="search_operator_attachment_none">Ingen</string>
     <string name="report_category_violation">Regelbrot</string>
-    <string name="preview_card_byline_fediverse_account_fmt">Av <b>%1$s</b>. Sjå fleire innlegg</string>
-    <string name="preview_card_byline_name_only_fmt">Av <b>%1$s</b></string>
-    <string name="preview_card_timeline_link_fmt">Syn <b>%1$s</b> innlegg om denne lenkja</string>
+    <string name="preview_card_byline_fediverse_account_fmt">Av &lt;b>%1$s&lt;/b>. Sjå fleire innlegg</string>
+    <string name="preview_card_byline_name_only_fmt">Av &lt;b>%1$s&lt;/b></string>
+    <string name="preview_card_timeline_link_fmt">Syn &lt;b>%1$s&lt;/b> innlegg om denne lenkja</string>
     <string name="action_timeline_link">Innlegg om denne lenkja</string>
     <string name="search_operator_from_me">Kun mine innlegg</string>
     <string name="search_operator_from_dialog_all">Alle kontoar</string>
@@ -759,16 +759,16 @@
     <string name="pref_account_notification_filters_label_not_followed">…du ikkje fylgjer</string>
     <string name="pref_account_notification_filters_label_younger_30d">…vart oppretta på dei siste 30 dagane</string>
     <string name="pref_account_notification_filters_label_limited_by_server">…er avgrensa av moderatorane dine</string>
-    <string name="account_filter_placeholder_type_follow_fmt">Ein brukar (@<b>%1s</b>) fylgde deg</string>
-    <string name="account_filter_placeholder_type_follow_request_fmt">Fylgjeførespurnad frå ein brukar (@<b>%1s</b>)</string>
-    <string name="account_filter_placeholder_type_mention_fmt">Ein brukar (@<b>%1s</b>) nemnde deg</string>
-    <string name="account_filter_placeholder_label_domain">Frå ein brukar (@<b>%1s</b>)</string>
-    <string name="account_filter_placeholder_label_not_following">Filtrert fordi: <b>du fylgjer hen ikkje</b></string>
-    <string name="account_filter_placeholder_label_younger_30d">Filtrert fordi: <b>kontoen vart oppretta på dei siste 30 dagane</b></string>
-    <string name="account_filter_placeholder_label_limited_by_server">Filtrert fordi: <b>kontoen er avgrensa av moderatorane dine</b></string>
+    <string name="account_filter_placeholder_type_follow_fmt">Ein brukar (@&lt;b>%1s&lt;/b>) fylgde deg</string>
+    <string name="account_filter_placeholder_type_follow_request_fmt">Fylgjeførespurnad frå ein brukar (@&lt;b>%1s&lt;/b>)</string>
+    <string name="account_filter_placeholder_type_mention_fmt">Ein brukar (@&lt;b>%1s&lt;/b>) nemnde deg</string>
+    <string name="account_filter_placeholder_label_domain">Frå ein brukar (@&lt;b>%1s&lt;/b>)</string>
+    <string name="account_filter_placeholder_label_not_following">Filtrert fordi: &lt;b>du fylgjer hen ikkje&lt;/b></string>
+    <string name="account_filter_placeholder_label_younger_30d">Filtrert fordi: &lt;b>kontoen vart oppretta på dei siste 30 dagane&lt;/b></string>
+    <string name="account_filter_placeholder_label_limited_by_server">Filtrert fordi: &lt;b>kontoen er avgrensa av moderatorane dine&lt;/b></string>
     <string name="search_operator_from_dialog_other_account">Kun innlegg frå denne kontoen</string>
-    <string name="account_filter_placeholder_type_favourite_fmt">Ein brukar (@<b>%1s</b>) favorittmerka innlegget ditt</string>
-    <string name="account_filter_placeholder_type_reblog_fmt">Ein brukar (@<b>%1s</b>) delte innlegget ditt</string>
+    <string name="account_filter_placeholder_type_favourite_fmt">Ein brukar (@&lt;b>%1s&lt;/b>) favorittmerka innlegget ditt</string>
+    <string name="account_filter_placeholder_type_reblog_fmt">Ein brukar (@&lt;b>%1s&lt;/b>) delte innlegget ditt</string>
     <string name="pref_account_notification_filters_subtitle">Kva burde skje til varsel frå kontoar som…</string>
     <string name="search_operator_where_dialog_title">Avgrens til…</string>
     <string name="search_operator_where_dialog_all">Alle innlegg</string>

@@ -240,12 +240,12 @@
     <string name="unpin_action">Sabitlemeyi kaldır</string>
     <string name="pin_action">Sabitle</string>
     <plurals name="favs">
-        <item quantity="one"><b>%1$s</b> Gözde</item>
-        <item quantity="other"><b>%1$s</b> Gözdeler</item>
+        <item quantity="one">&lt;b>%1$s&lt;/b> Gözde</item>
+        <item quantity="other">&lt;b>%1$s&lt;/b> Gözdeler</item>
     </plurals>
     <plurals name="reblogs">
-        <item quantity="one"><b>%s</b> Yeniden Paylaşan</item>
-        <item quantity="other"><b>%s</b> Yeniden Paylaşanlar</item>
+        <item quantity="one">&lt;b>%s&lt;/b> Yeniden Paylaşan</item>
+        <item quantity="other">&lt;b>%s&lt;/b> Yeniden Paylaşanlar</item>
     </plurals>
     <string name="title_reblogged_by">tarafından paylaşıldı</string>
     <string name="title_favourited_by">Tarafından gözdelendi</string>
