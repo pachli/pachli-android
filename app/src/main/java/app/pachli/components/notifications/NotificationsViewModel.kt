@@ -30,6 +30,7 @@ import app.pachli.appstore.EventHub
 import app.pachli.appstore.MuteConversationEvent
 import app.pachli.appstore.MuteEvent
 import app.pachli.core.common.extensions.throttleFirst
+import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.notifications.NotificationRepository
 import app.pachli.core.data.notifications.from
 import app.pachli.core.data.repository.AccountManager
@@ -51,7 +52,6 @@ import app.pachli.usecase.TimelineCases
 import app.pachli.util.deserialize
 import app.pachli.util.serialize
 import app.pachli.viewdata.NotificationViewData
-import app.pachli.viewdata.StatusViewData
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import dagger.assisted.Assisted
@@ -146,6 +146,37 @@ sealed interface InfallibleUiAction : UiAction {
     // infallible. Reloading the data may fail, but that's handled by the paging system /
     // adapter refresh logic.
     data object LoadNewest : InfallibleUiAction
+
+    // Status > 500 chars, content is "collapsed"
+    data class SetContentCollapsed(
+        val pachliAccountId: Long,
+        val statusViewData: StatusViewData,
+        val isCollapsed: Boolean,
+    ) : InfallibleUiAction
+
+    // Showing attached media
+    data class SetShowingContent(
+        val pachliAccountId: Long,
+        val statusViewData: StatusViewData,
+        val isShowingContent: Boolean,
+    ) : InfallibleUiAction
+
+    // Showing content warning only, or full status?
+    data class SetExpanded(
+        val pachliAccountId: Long,
+        val statusViewData: StatusViewData,
+        val isExpanded: Boolean,
+    ) : InfallibleUiAction
+
+    data class ClearContentFilter(
+        val pachliAccountId: Long,
+        val notificationId: String,
+    ) : InfallibleUiAction
+
+    data class OverrideAccountFilter(
+        val pachliAccountId: Long,
+        val notificationId: String,
+    )
 }
 
 /** Actions the user can trigger on an individual notification. These may fail. */
@@ -380,24 +411,27 @@ class NotificationsViewModel @AssistedInject constructor(
             uiAction
                 .filterIsInstance<InfallibleUiAction.ApplyFilter>()
                 .distinctUntilChanged()
-                .collectLatest { action ->
-                    accountManager.setNotificationsFilter(
-                        action.pachliAccountId,
-                        serialize(action.filter),
-                    )
-                }
+                .collectLatest(::onApplyFilter)
         }
 
-        // Reset the last notification ID to "0" to fetch the newest notifications, and
-        // increment `reload` to trigger creation of a new PagingSource.
         viewModelScope.launch {
-            uiAction
-                .filterIsInstance<InfallibleUiAction.LoadNewest>()
-                .collectLatest {
-                    accountManager.setLastNotificationId(account.id, "0")
-                    reload.getAndUpdate { it + 1 }
-                    repository.invalidate()
-                }
+            uiAction.filterIsInstance<InfallibleUiAction.LoadNewest>()
+                .collectLatest { onLoadNewest() }
+        }
+
+        viewModelScope.launch {
+            uiAction.filterIsInstance<InfallibleUiAction.SetContentCollapsed>()
+                .collectLatest(::onContentCollapsed)
+        }
+
+        viewModelScope.launch {
+            uiAction.filterIsInstance<InfallibleUiAction.SetShowingContent>()
+                .collectLatest(::onShowingContent)
+        }
+
+        viewModelScope.launch {
+            uiAction.filterIsInstance<InfallibleUiAction.SetExpanded>()
+                .collectLatest(::onExpanded)
         }
 
         // Save the visible notification ID
@@ -414,19 +448,7 @@ class NotificationsViewModel @AssistedInject constructor(
         // Handle UiAction.ClearNotifications
         viewModelScope.launch {
             uiAction.filterIsInstance<FallibleUiAction.ClearNotifications>()
-                .collectLatest {
-                    try {
-                        repository.clearNotifications().apply {
-                            if (this.isSuccessful) {
-                                repository.invalidate()
-                            } else {
-                                _uiErrorChannel.send(UiError.make(HttpException(this), it))
-                            }
-                        }
-                    } catch (e: Exception) {
-                        _uiErrorChannel.send(UiError.make(e, it))
-                    }
-                }
+                .collectLatest(::onClearNotifications)
         }
 
         // Handle NotificationAction.*
@@ -460,27 +482,24 @@ class NotificationsViewModel @AssistedInject constructor(
                             action.state,
                         )
 
-                        is StatusAction.Favourite ->
-                            repository.favourite(
-                                pachliAccountId,
-                                action.statusViewData.actionableId,
-                                action.state,
-                            )
+                        is StatusAction.Favourite -> repository.favourite(
+                            pachliAccountId,
+                            action.statusViewData.actionableId,
+                            action.state,
+                        )
 
-                        is StatusAction.Reblog ->
-                            repository.reblog(
-                                pachliAccountId,
-                                action.statusViewData.actionableId,
-                                action.state,
-                            )
+                        is StatusAction.Reblog -> repository.reblog(
+                            pachliAccountId,
+                            action.statusViewData.actionableId,
+                            action.state,
+                        )
 
-                        is StatusAction.VoteInPoll ->
-                            repository.voteInPoll(
-                                pachliAccountId,
-                                action.statusViewData.actionableId,
-                                action.poll.id,
-                                action.choices,
-                            )
+                        is StatusAction.VoteInPoll -> repository.voteInPoll(
+                            pachliAccountId,
+                            action.statusViewData.actionableId,
+                            action.poll.id,
+                            action.choices,
+                        )
                     }
                         .onSuccess { uiSuccess.emit(StatusActionSuccess.from(action)) }
                         .onFailure { _uiErrorChannel.send(UiError.make(it.throwable, action)) }
@@ -538,6 +557,34 @@ class NotificationsViewModel @AssistedInject constructor(
         )
     }
 
+    private suspend fun onApplyFilter(action: InfallibleUiAction.ApplyFilter) {
+        accountManager.setNotificationsFilter(action.pachliAccountId, serialize(action.filter))
+    }
+
+    /**
+     * Resets the last notification ID to "0" to fetch the newest notifications,
+     * and increments [reload] to trigger creation of a new PagingSource.
+     */
+    private suspend fun onLoadNewest() {
+        accountManager.setLastNotificationId(account.id, "0")
+        reload.getAndUpdate { it + 1 }
+        repository.invalidate()
+    }
+
+    private suspend fun onClearNotifications(action: FallibleUiAction.ClearNotifications) {
+        try {
+            repository.clearNotifications().apply {
+                if (this.isSuccessful) {
+                    repository.invalidate()
+                } else {
+                    _uiErrorChannel.send(UiError.make(HttpException(this), action))
+                }
+            }
+        } catch (e: Exception) {
+            _uiErrorChannel.send(UiError.make(e, action))
+        }
+    }
+
     private suspend fun getNotifications(
         pachliAccount: PachliAccount,
         filters: Set<Notification.Type>,
@@ -586,23 +633,11 @@ class NotificationsViewModel @AssistedInject constructor(
         .filter { UiPrefs.prefKeys.contains(it) }
         .onStart { emit(null) }
 
-    // TODO: Should be an infallible action
-    fun setContentCollapsed(viewData: NotificationViewData, isCollapsed: Boolean) = viewModelScope.launch {
-        repository.setContentCollapsed(
-            viewData.pachliAccountId,
-            viewData.actionableId,
-            isCollapsed,
-        )
-    }
+    private fun onContentCollapsed(action: InfallibleUiAction.SetContentCollapsed) = repository.setContentCollapsed(action.pachliAccountId, action.statusViewData, action.isCollapsed)
 
-    // TODO: Should be an infallible action
-    fun setShowingContent(viewData: NotificationViewData, isShowingContent: Boolean) = viewModelScope.launch {
-        repository.setShowingContent(
-            viewData.pachliAccountId,
-            viewData.actionableId,
-            isShowingContent,
-        )
-    }
+    private fun onShowingContent(action: InfallibleUiAction.SetShowingContent) = repository.setShowingContent(action.pachliAccountId, action.statusViewData, action.isShowingContent)
+
+    private fun onExpanded(action: InfallibleUiAction.SetExpanded) = repository.setExpanded(action.pachliAccountId, action.statusViewData, action.isExpanded)
 
     // TODO: Should be an infallible action
     fun clearContentFilter(viewData: NotificationViewData) = viewModelScope.launch {
@@ -610,19 +645,14 @@ class NotificationsViewModel @AssistedInject constructor(
     }
 
     // TODO: Should be an infallible action
+    // TODO: Repository should maybe have an overrideAccountFilterDecision instead of this
+    // needing to know what the current decision is.
     fun clearAccountFilter(viewData: NotificationViewData) = viewModelScope.launch {
         repository.setAccountFilterDecision(
             viewData.pachliAccountId,
             viewData.id,
             AccountFilterDecision.Override(viewData.accountFilterDecision),
         )
-    }
-
-    // TODO: Should be an infallible action
-    fun setExpanded(viewData: NotificationViewData, expanded: Boolean) = viewModelScope.launch {
-        viewData.statusViewData?.actionableId?.let { statusId ->
-            repository.setExpanded(viewData.pachliAccountId, statusId, expanded)
-        }
     }
 
     @AssistedFactory

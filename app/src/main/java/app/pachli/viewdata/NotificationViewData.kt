@@ -18,6 +18,8 @@
 package app.pachli.viewdata
 
 import android.text.Spanned
+import app.pachli.core.data.model.IStatusViewData
+import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.NotificationData
 import app.pachli.core.database.model.NotificationEntity

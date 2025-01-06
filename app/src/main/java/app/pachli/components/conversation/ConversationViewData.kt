@@ -16,10 +16,10 @@
 
 package app.pachli.components.conversation
 
+import app.pachli.core.data.model.IStatusViewData
+import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.model.ConversationAccountEntity
 import app.pachli.core.database.model.ConversationEntity
-import app.pachli.viewdata.IStatusViewData
-import app.pachli.viewdata.StatusViewData
 
 /**
  * Data necessary to show a conversation.

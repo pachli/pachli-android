@@ -27,13 +27,13 @@ import app.pachli.appstore.PollVoteEvent
 import app.pachli.appstore.ReblogEvent
 import app.pachli.appstore.StatusDeletedEvent
 import app.pachli.components.timeline.CachedTimelineRepository
+import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.network.model.DeletedStatus
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Relationship
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.Translation
 import app.pachli.core.network.retrofit.MastodonApi
-import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.NetworkResult
 import at.connyduck.calladapter.networkresult.fold
 import at.connyduck.calladapter.networkresult.onFailure

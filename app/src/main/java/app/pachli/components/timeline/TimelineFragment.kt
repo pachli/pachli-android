@@ -60,6 +60,7 @@ import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.AccountListActivityIntent
@@ -81,7 +82,6 @@ import app.pachli.util.PresentationState
 import app.pachli.util.UserRefreshState
 import app.pachli.util.asRefreshState
 import app.pachli.util.withPresentationState
-import app.pachli.viewdata.StatusViewData
 import at.connyduck.sparkbutton.helpers.Utils
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration

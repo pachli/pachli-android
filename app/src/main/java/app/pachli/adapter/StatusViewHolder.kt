@@ -25,14 +25,14 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.string.unicodeWrap
+import app.pachli.core.common.util.SmartLengthInputFilter
 import app.pachli.core.common.util.formatNumber
+import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.model.FilterAction
 import app.pachli.core.network.model.Emoji
 import app.pachli.databinding.ItemStatusBinding
 import app.pachli.interfaces.StatusActionListener
-import app.pachli.util.SmartLengthInputFilter
-import app.pachli.viewdata.IStatusViewData
 import at.connyduck.sparkbutton.helpers.Utils
 
 open class StatusViewHolder<T : IStatusViewData>(

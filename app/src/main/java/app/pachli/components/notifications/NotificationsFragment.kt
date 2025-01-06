@@ -600,7 +600,13 @@ class NotificationsFragment :
     }
 
     override fun onExpandedChange(viewData: NotificationViewData, expanded: Boolean) {
-        viewModel.setExpanded(viewData, expanded)
+        viewModel.accept(
+            InfallibleUiAction.SetExpanded(
+                viewData.pachliAccountId,
+                viewData.statusViewData!!,
+                expanded,
+            ),
+        )
     }
 
     // This is required by the interface StatusActionListener; the interface's ViewData T
@@ -611,11 +617,23 @@ class NotificationsFragment :
     }
 
     override fun onContentHiddenChange(pachliAccountId: Long, viewData: NotificationViewData, isShowingContent: Boolean) {
-        viewModel.setShowingContent(viewData, isShowingContent)
+        viewModel.accept(
+            InfallibleUiAction.SetShowingContent(
+                pachliAccountId,
+                viewData.statusViewData!!,
+                isShowingContent,
+            ),
+        )
     }
 
     override fun onContentCollapsedChange(pachliAccountId: Long, viewData: NotificationViewData, isCollapsed: Boolean) {
-        viewModel.setContentCollapsed(viewData, isCollapsed)
+        viewModel.accept(
+            InfallibleUiAction.SetContentCollapsed(
+                pachliAccountId,
+                viewData.statusViewData!!,
+                isCollapsed,
+            ),
+        )
     }
 
     override fun onEditFilterById(pachliAccountId: Long, filterId: String) {

@@ -13,12 +13,13 @@
  * You should have received a copy of the GNU General Public License along with Pachli; if not,
  * see <http://www.gnu.org/licenses>.
  */
-package app.pachli.viewdata
+package app.pachli.core.data.model
 
 import android.os.Build
 import android.text.Spanned
 import android.text.SpannedString
-import app.pachli.BuildConfig
+import app.pachli.core.common.util.shouldTrimStatus
+import app.pachli.core.data.BuildConfig
 import app.pachli.core.database.model.ConversationStatusEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.database.model.TranslatedStatusEntity
@@ -27,7 +28,6 @@ import app.pachli.core.model.FilterAction
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.network.replaceCrashingCharacters
-import app.pachli.util.shouldTrimStatus
 
 /**
  * Interface for the data shown when viewing a status, or something that wraps

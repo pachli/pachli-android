@@ -217,7 +217,6 @@ enum class TranslationState {
     SHOW_TRANSLATION,
 }
 
-// TODO: This needs to store pachliAccountId too.
 /**
  * The local view data for a status.
  *

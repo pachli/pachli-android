@@ -24,6 +24,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import app.pachli.components.timeline.viewmodel.CachedTimelineRemoteMediator
 import app.pachli.core.common.di.ApplicationScope
+import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.dao.TranslatedStatusDao
@@ -36,7 +37,6 @@ import app.pachli.core.database.model.TranslationState
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Translation
 import app.pachli.core.network.retrofit.MastodonApi
-import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.NetworkResult
 import at.connyduck.calladapter.networkresult.fold
 import javax.inject.Inject

@@ -29,6 +29,7 @@ import app.pachli.appstore.FavoriteEvent
 import app.pachli.appstore.PinEvent
 import app.pachli.appstore.ReblogEvent
 import app.pachli.components.timeline.CachedTimelineRepository
+import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.model.AccountEntity
@@ -36,7 +37,6 @@ import app.pachli.core.model.FilterAction
 import app.pachli.core.network.model.Poll
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.usecase.TimelineCases
-import app.pachli.viewdata.StatusViewData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -91,7 +91,7 @@ class CachedTimelineViewModel @Inject constructor(
                             it,
                             isExpanded = activeAccount.alwaysOpenSpoiler,
                             isShowingContent = activeAccount.alwaysShowSensitiveMedia,
-                            contentFilterAction = shouldFilterStatus(it.toStatus())
+                            contentFilterAction = shouldFilterStatus(it.toStatus()),
                         )
                     }
                     .filter { it.contentFilterAction != FilterAction.HIDE }

@@ -25,6 +25,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import app.pachli.core.common.PachliError
 import app.pachli.core.common.di.ApplicationScope
+import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.dao.NotificationDao
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.TimelineDao
@@ -33,6 +34,7 @@ import app.pachli.core.database.model.AccountFilterDecisionUpdate
 import app.pachli.core.database.model.FilterActionUpdate
 import app.pachli.core.database.model.NotificationData
 import app.pachli.core.database.model.NotificationEntity
+import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
 import app.pachli.core.network.model.Notification
@@ -132,16 +134,43 @@ class NotificationRepository @Inject constructor(
         )
     }
 
-    fun setContentCollapsed(pachliAccountId: Long, statusId: String, isCollapsed: Boolean) = externalScope.launch {
-        timelineDao.setContentCollapsed(statusId, isCollapsed)
+    // Copied from CachedTimelineRepository
+    // Status management probably belongs in a StatusRepository to hold these
+    // functions, with separate repositories for timelines and notifications.
+    private suspend fun saveStatusViewData(pachliAccountId: Long, statusViewData: StatusViewData) = externalScope.launch {
+        timelineDao.upsertStatusViewData(
+            StatusViewDataEntity(
+                serverId = statusViewData.actionableId,
+                timelineUserId = pachliAccountId,
+                expanded = statusViewData.isExpanded,
+                contentShowing = statusViewData.isShowingContent,
+                contentCollapsed = statusViewData.isCollapsed,
+                translationState = statusViewData.translationState,
+            ),
+        )
+    }.join()
+
+    fun setContentCollapsed(pachliAccountId: Long, statusViewData: StatusViewData, isCollapsed: Boolean) = externalScope.launch {
+        saveStatusViewData(
+            pachliAccountId,
+            statusViewData.copy(
+                isCollapsed = isCollapsed,
+            ),
+        )
     }
 
-    fun setShowingContent(pachliAccountId: Long, statusId: String, isShowingContent: Boolean) = externalScope.launch {
-        timelineDao.setContentShowing(statusId, isShowingContent)
+    fun setShowingContent(pachliAccountId: Long, statusViewData: StatusViewData, isShowingContent: Boolean) = externalScope.launch {
+        saveStatusViewData(
+            pachliAccountId,
+            statusViewData.copy(isShowingContent = isShowingContent),
+        )
     }
 
-    fun setExpanded(pachliAccountId: Long, statusId: String, expanded: Boolean) = externalScope.launch {
-        timelineDao.setExpanded(statusId, expanded)
+    fun setExpanded(pachliAccountId: Long, statusViewData: StatusViewData, isExpanded: Boolean) = externalScope.launch {
+        saveStatusViewData(
+            pachliAccountId,
+            statusViewData.copy(isExpanded = isExpanded),
+        )
     }
 
     suspend fun bookmark(pachliAccountId: Long, statusId: String, bookmarked: Boolean): Result<Unit, StatusActionError.Bookmark> = externalScope.async {
