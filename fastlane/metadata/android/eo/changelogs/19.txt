@@ -1,0 +1,5 @@
+2.1
+
+Fiksoj:
+
+Correctly pozicio antaŭprezentaj kartobildoj, spektaklokartpriskribo
