@@ -1,0 +1,5 @@
+Pachli 2.7.1
+
+Fixacions:
+
+- Imatges de la targeta de vista prèvia de posició correcta, descripció de la targeta de mostra
