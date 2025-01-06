@@ -1,0 +1,5 @@
+Pachli 2.7.1
+
+Fixes:
+
+- Doğru pozisyon önizleme kartı görüntüleri, show kart açıklaması
