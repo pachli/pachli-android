@@ -172,7 +172,10 @@ class NotificationRemoteMediator(
                 notificationDao.upsert(notificationReportEntity)
             }
 
-            NotificationRelationshipSeveranceEventEntity.from(pachliAccountId, notification)?.let { notificationRelationshipSeveranceEventEntity ->
+            NotificationRelationshipSeveranceEventEntity.from(
+                pachliAccountId,
+                notification,
+            )?.let { notificationRelationshipSeveranceEventEntity ->
                 notificationDao.upsert(notificationRelationshipSeveranceEventEntity)
             }
         }
@@ -215,12 +218,16 @@ fun NotificationEntity.Companion.from(pachliAccountId: Long, notification: Notif
 /**
  * @return A [NotificationReportEntity] from a network [Notification] for [pachliAccountId].
  */
-fun NotificationReportEntity.Companion.from(pachliAccountId: Long, notification: Notification): NotificationReportEntity? {
+fun NotificationReportEntity.Companion.from(
+    pachliAccountId: Long,
+    notification: Notification,
+): NotificationReportEntity? {
     val report = notification.report ?: return null
 
     return NotificationReportEntity(
         pachliAccountId = pachliAccountId,
         serverId = notification.id,
+        reportId = report.id,
         actionTaken = report.actionTaken,
         actionTakenAt = report.actionTakenAt,
         category = when (report.category) {
@@ -241,7 +248,10 @@ fun NotificationReportEntity.Companion.from(pachliAccountId: Long, notification:
  * @return A [NotificationRelationshipSeveranceEventEntity] from a network [Notification]
  * for [pachliAccountId].
  */
-fun NotificationRelationshipSeveranceEventEntity.Companion.from(pachliAccountId: Long, notification: Notification): NotificationRelationshipSeveranceEventEntity? {
+fun NotificationRelationshipSeveranceEventEntity.Companion.from(
+    pachliAccountId: Long,
+    notification: Notification,
+): NotificationRelationshipSeveranceEventEntity? {
     val rse = notification.relationshipSeveranceEvent ?: return null
 
     return NotificationRelationshipSeveranceEventEntity(

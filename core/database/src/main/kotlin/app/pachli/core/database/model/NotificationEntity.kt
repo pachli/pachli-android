@@ -26,9 +26,6 @@ import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
 import java.time.Instant
 
-// TOOD: Move to core.data? No, it's returned by dao method pagingSource()
-// TOOD: Sealed class, by type? Get rid of the NotificationType enum, and the
-// nullable properties which are non-null depending on the type.
 /**
  * Data about a notification.
  *
@@ -96,11 +93,12 @@ data class AccountFilterDecisionUpdate(
  * Cached copy of a notification.
  *
  * @param pachliAccountId
- * @param serverId Server's ID for this notification
- * @param type
- * @param createdAt
+ * @param serverId Server's ID for this notification.
+ * @param type Notifications [NotificationEntity.Type].
+ * @param createdAt When the notification was created.
  * @param accountServerId ID of the account that generated this notification.
  * @param statusServerId (optional) ID of the status this notification is about.
+ * Null if the notification is not about a particular status.
  */
 @Entity(
     primaryKeys = ["pachliAccountId", "serverId"],
@@ -172,6 +170,20 @@ data class NotificationEntity(
 
 /**
  * Data about a report associated with a notification.
+ *
+ * @param pachliAccountId
+ * @param serverId Server ID for the notification this relates to.
+ * @param reportId Server ID for the report
+ * @param actionTaken True if action has been taken about this report.
+ * @param actionTakenAt When action was taken. Null if no action has been taken.
+ * @param category The [Category][NotificationReportEntity.Category] for the report.
+ * @param comment The reason for the report.
+ * @param forwarded True if the report was forwarded to the remote domain.
+ * @param createdAt When the report was created.
+ * @param statusIds Optional list of status IDs referenced in the report. Null if no
+ * statuses were listed.
+ * @param ruleIds Optional list of server rule IDs referenced in the report. Null if
+ * no rules were listed.
  */
 @Entity(
     primaryKeys = ["pachliAccountId", "serverId"],
@@ -191,6 +203,7 @@ data class NotificationEntity(
 data class NotificationReportEntity(
     val pachliAccountId: Long,
     val serverId: String,
+    val reportId: String,
     val actionTaken: Boolean,
     val actionTakenAt: Instant?,
     val category: Category,
@@ -202,14 +215,31 @@ data class NotificationReportEntity(
     @Embedded(prefix = "target_") val targetAccount: TimelineAccountEntity,
 ) {
     enum class Category {
+        /** Unwanted or repetitive content. */
         SPAM,
+
+        /** A specific rule was violated. */
         VIOLATION,
+
+        /** Some other reason. */
         OTHER,
     }
 
     companion object
 }
 
+/**
+ * Data about a relationship severance event.
+ *
+ * @param pachliAccountId
+ * @param serverId Server ID for the notification this relates to.
+ * @param eventId Server's ID for this severance event.
+ * @param type The event's [Type][NotificationRelationshipSeveranceEventEntity.Type].
+ * @param purged True if the list of severed relationships is unavailable.
+ * @param followersCount How many follower relationships are broken due to this event.
+ * @param followingCount How many following relationships are broken due to this event.
+ * @param createdAt When the relationships were severed.
+ */
 @Entity(
     primaryKeys = ["pachliAccountId", "serverId", "eventId"],
     foreignKeys = (

@@ -40,12 +40,13 @@ interface NotificationDao {
 
 -- Basic notification info
 n.pachliAccountId,
-                   n.serverId,
-                   n.type,
-                   n.createdAt,
-                   n.accountServerId,
-                   n.statusServerId,
--- The notification's account
+n.serverId,
+n.type,
+n.createdAt,
+n.accountServerId,
+n.statusServerId,
+
+-- The account that triggered the notification
 a.serverId as 'a_serverId', a.timelineUserId as 'a_timelineUserId',
 a.localUsername as 'a_localUsername', a.username as 'a_username',
 a.displayName as 'a_displayName', a.url as 'a_url', a.avatar as 'a_avatar',
@@ -68,14 +69,14 @@ s.content as 's_content', s.attachments as 's_attachments', s.poll as 's_poll',
 s.card as 's_card', s.muted as 's_muted', s.pinned as 's_pinned', s.language as 's_language',
 s.filtered as 's_filtered',
 
--- The status' account
+-- The status' account (if any)
 sa.serverId as 's_a_serverId', sa.timelineUserId as 's_a_timelineUserId',
 sa.localUsername as 's_a_localUsername', sa.username as 's_a_username',
 sa.displayName as 's_a_displayName', sa.url as 's_a_url', sa.avatar as 's_a_avatar',
 sa.emojis as 's_a_emojis', sa.bot as 's_a_bot', sa.createdAt as 's_a_createdAt', sa.limited as 's_a_limited',
 sa.note as 's_a_note',
 
--- The status's reblog account
+-- The status's reblog account (if any)
 rb.serverId as 's_rb_serverId', rb.timelineUserId 's_rb_timelineUserId',
 rb.localUsername as 's_rb_localUsername', rb.username as 's_rb_username',
 rb.displayName as 's_rb_displayName', rb.url as 's_rb_url', rb.avatar as 's_rb_avatar',
@@ -109,7 +110,18 @@ report.forwarded as 'report_forwarded',
 report.createdAt as 'report_createdAt',
 report.statusIds as 'report_statusIds',
 report.ruleIds as 'report_rulesIds',
--- TODO: targetAccount
+report.target_serverId as 'report_target_serverId',
+report.target_timelineUserId as 'report_target_timelineUserId',
+report.target_localUsername as 'report_target_localUsername',
+report.target_username as 'report_target_username',
+report.target_displayName as 'report_target_displayName',
+report.target_url as 'report_target_url',
+report.target_avatar as 'report_target_avatar',
+report.target_emojis as 'report_target_emojis',
+report.target_bot as 'report_target_bot',
+report.target_createdAt as 'report_target_createdAt',
+report.target_limited as 'report_target_limited',
+report.target_note as 'report_target_note',
 
 -- NotificationRelationshipSeveranceEvent
 rse.pachliAccountId as 'rse_pachliAccountId',
