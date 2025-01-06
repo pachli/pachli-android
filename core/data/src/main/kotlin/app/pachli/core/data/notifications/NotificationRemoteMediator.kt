@@ -21,6 +21,8 @@ import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.RelationshipSeveranceEvent
 import app.pachli.core.network.model.Report
+import app.pachli.core.network.model.Status
+import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.retrofit.MastodonApi
 import retrofit2.HttpException
 import timber.log.Timber
@@ -120,7 +122,7 @@ class NotificationRemoteMediator(
                     }
                 }
 
-                insertNotifications(pachliAccountId, notifications)
+                upsertNotifications(pachliAccountId, notifications)
             }
 
             MediatorResult.Success(endOfPaginationReached = false)
@@ -130,57 +132,53 @@ class NotificationRemoteMediator(
         }
     }
 
-    private suspend fun insertNotifications(pachliAccountId: Long, notifications: List<Notification>) {
-        // TODO: This could (maybe) be better about minimising database updates.
-        // In the same batch of notifications:
-        // - The same account might boost/favourite the same status (two notifiations)
-        // - The same status might be affected repeatedly
-        // - The same account might make multiple mentions
-        //
-        // This suggests iterating over the notifications once to collect data about
-        // all the accounts and statuses mentioned (collapsing duplicates), and then
-        // batch-inserting the accounts, statuses, and notifications.
-        //
-        // The status in a notification is always the most recent version of the
-        // status known (not the status as it was the time the notification was
-        // generated), so this doesn't risk overwriting a status with obsolete
-        // information.
+    /**
+     * Upserts [notifications] and related data in to the local database.
+     *
+     * Must be called inside an existing database transaction.
+     *
+     * @param pachliAccountId
+     * @param notifications Notifications to upsert.
+     */
+    private suspend fun upsertNotifications(pachliAccountId: Long, notifications: List<Notification>) {
+        check(transactionProvider.inTransaction())
 
+        /** Unique accounts referenced in this batch of notifications. */
+        val accounts = mutableSetOf<TimelineAccount>()
+
+        /** Unique statuses referenced in this batch of notifications. */
+        val statuses = mutableSetOf<Status>()
+
+        /** Unique reports referenced in this batch of notifications. */
+        val reports = mutableSetOf<Notification>()
+
+        /** Unique relationship severance events referenced in this batch of notifications. */
+        val severanceEvents = mutableSetOf<Notification>()
+
+        // Collect the different items from this batch of notifications.
         notifications.forEach { notification ->
-            timelineDao.insertAccount(
-                TimelineAccountEntity.from(
-                    notification.account,
-                    pachliAccountId,
-                ),
-            )
+            accounts.add(notification.account)
+
             notification.status?.let { status ->
-                timelineDao.insertAccount(
-                    TimelineAccountEntity.from(
-                        status.account,
-                        pachliAccountId,
-                    ),
-                )
-                status.reblog?.account?.let {
-                    timelineDao.insertAccount(TimelineAccountEntity.from(it, pachliAccountId))
-                }
-                timelineDao.insertStatus(
-                    TimelineStatusEntity.from(status, pachliAccountId),
-                )
+                accounts.add(status.account)
+                status.reblog?.account?.let { accounts.add(it) }
+                statuses.add(status)
             }
 
-            NotificationReportEntity.from(pachliAccountId, notification)?.let { notificationReportEntity ->
-                notificationDao.upsert(notificationReportEntity)
-            }
-
-            NotificationRelationshipSeveranceEventEntity.from(
-                pachliAccountId,
-                notification,
-            )?.let { notificationRelationshipSeveranceEventEntity ->
-                notificationDao.upsert(notificationRelationshipSeveranceEventEntity)
-            }
+            notification.report?.let { reports.add(notification) }
+            notification.relationshipSeveranceEvent?.let { severanceEvents.add(notification) }
         }
 
-        notificationDao.upsert(
+        // Bulk upsert the discovered items.
+        timelineDao.upsertAccounts(accounts.map { TimelineAccountEntity.from(it, pachliAccountId) })
+        timelineDao.upsertStatuses(statuses.map { TimelineStatusEntity.from(it, pachliAccountId) })
+        notificationDao.upsertReports(reports.mapNotNull { NotificationReportEntity.from(pachliAccountId, it) })
+        notificationDao.upsertEvents(
+            severanceEvents.mapNotNull {
+                NotificationRelationshipSeveranceEventEntity.from(pachliAccountId, it)
+            },
+        )
+        notificationDao.upsertNotifications(
             notifications.map { NotificationEntity.from(pachliAccountId, it) },
         )
     }

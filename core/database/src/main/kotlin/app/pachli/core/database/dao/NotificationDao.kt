@@ -20,6 +20,7 @@ package app.pachli.core.database.dao
 import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Query
+import androidx.room.Transaction
 import androidx.room.TypeConverters
 import androidx.room.Upsert
 import app.pachli.core.database.Converters
@@ -34,6 +35,7 @@ import app.pachli.core.database.model.NotificationViewDataEntity
 @Dao
 @TypeConverters(Converters::class)
 interface NotificationDao {
+    @Transaction
     @Query(
         """
             SELECT
@@ -170,13 +172,13 @@ WHERE pachliAccountId = :pachliAccountId AND serverId = :notificationId;
     suspend fun deleteAllNotificationsForAccount(pachliAccountId: Long)
 
     @Upsert
-    suspend fun upsert(notifications: List<NotificationEntity>)
+    suspend fun upsertNotifications(notifications: Collection<NotificationEntity>)
 
     @Upsert
-    suspend fun upsert(notificationReportEntity: NotificationReportEntity)
+    fun upsertReports(reports: Collection<NotificationReportEntity>)
 
     @Upsert
-    suspend fun upsert(notificationRelationshipSeveranceEventEntity: NotificationRelationshipSeveranceEventEntity)
+    fun upsertEvents(events: Collection<NotificationRelationshipSeveranceEventEntity>)
 
     @Upsert(entity = NotificationViewDataEntity::class)
     suspend fun upsert(filterActionUpdate: FilterActionUpdate)

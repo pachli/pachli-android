@@ -113,4 +113,7 @@ class TransactionProvider(private val appDatabase: AppDatabase) {
     suspend operator fun <R> invoke(block: suspend () -> R): R {
         return if (appDatabase.inTransaction()) block() else appDatabase.withTransaction(block)
     }
+
+    /** @return True if the current thread is in a transaction. */
+    fun inTransaction() = appDatabase.inTransaction()
 }

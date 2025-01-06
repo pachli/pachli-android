@@ -40,6 +40,12 @@ abstract class TimelineDao {
     @Insert(onConflict = REPLACE)
     abstract suspend fun insertAccount(timelineAccountEntity: TimelineAccountEntity): Long
 
+    @Upsert
+    abstract suspend fun upsertAccounts(accounts: Collection<TimelineAccountEntity>)
+
+    @Upsert
+    abstract suspend fun upsertStatuses(statuses: Collection<TimelineStatusEntity>)
+
     @Insert(onConflict = REPLACE)
     abstract suspend fun insertStatus(timelineStatusEntity: TimelineStatusEntity): Long
 
