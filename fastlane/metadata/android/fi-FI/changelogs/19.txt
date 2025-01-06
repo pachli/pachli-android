@@ -1,0 +1,5 @@
+Pachli 2.7.1
+
+Korjaukset:
+
+- Oikein asennoitua esikatselukorttikuvia, näytön korttikuvaus
