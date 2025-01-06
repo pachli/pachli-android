@@ -38,6 +38,7 @@ import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.activity.openLink
+import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.domain.DownloadUrlUseCase
@@ -54,7 +55,6 @@ import app.pachli.core.network.model.Status.Mention
 import app.pachli.core.ui.ClipboardUseCase
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.view.showMuteAccountDialog
-import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.fold
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar

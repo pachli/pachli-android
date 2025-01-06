@@ -30,6 +30,7 @@ import app.pachli.appstore.EventHub
 import app.pachli.appstore.MuteConversationEvent
 import app.pachli.appstore.MuteEvent
 import app.pachli.core.common.extensions.throttleFirst
+import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
@@ -47,7 +48,6 @@ import app.pachli.usecase.TimelineCases
 import app.pachli.util.deserialize
 import app.pachli.util.serialize
 import app.pachli.viewdata.NotificationViewData
-import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.getOrThrow
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory

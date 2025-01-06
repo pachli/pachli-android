@@ -19,6 +19,8 @@ package app.pachli.viewdata
 
 import android.text.Spanned
 import app.pachli.components.notifications.AccountFilterDecision
+import app.pachli.core.data.model.IStatusViewData
+import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.model.FilterAction

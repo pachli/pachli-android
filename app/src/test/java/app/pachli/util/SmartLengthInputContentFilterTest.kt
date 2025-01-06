@@ -2,6 +2,7 @@ package app.pachli.util
 
 import android.text.SpannableStringBuilder
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import app.pachli.core.common.util.shouldTrimStatus
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
