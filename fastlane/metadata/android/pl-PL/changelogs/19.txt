@@ -1,0 +1,5 @@
+Pachli 2.7.1
+
+Fiksy
+
+Correctly position Preview card images, show Opis karty karty
