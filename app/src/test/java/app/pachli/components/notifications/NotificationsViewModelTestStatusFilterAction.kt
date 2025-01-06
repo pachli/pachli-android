@@ -19,8 +19,8 @@ package app.pachli.components.notifications
 
 import app.cash.turbine.test
 import app.pachli.ContentFilterV1Test.Companion.mockStatus
+import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.model.TranslationState
-import app.pachli.viewdata.StatusViewData
 import at.connyduck.calladapter.networkresult.NetworkResult
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidTest

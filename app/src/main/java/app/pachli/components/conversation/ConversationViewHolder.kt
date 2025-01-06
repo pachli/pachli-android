@@ -27,10 +27,10 @@ import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
+import app.pachli.core.common.util.SmartLengthInputFilter
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.database.model.ConversationAccountEntity
 import app.pachli.interfaces.StatusActionListener
-import app.pachli.util.SmartLengthInputFilter
 
 class ConversationViewHolder internal constructor(
     itemView: View,

@@ -26,11 +26,11 @@ import app.pachli.adapter.FilterableStatusViewHolder
 import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.adapter.StatusViewHolder
 import app.pachli.core.data.model.StatusDisplayOptions
+import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.model.FilterAction
 import app.pachli.databinding.ItemStatusBinding
 import app.pachli.databinding.ItemStatusWrapperBinding
 import app.pachli.interfaces.StatusActionListener
-import app.pachli.viewdata.StatusViewData
 
 class TimelinePagingAdapter(
     private val pachliAccountId: Long,
