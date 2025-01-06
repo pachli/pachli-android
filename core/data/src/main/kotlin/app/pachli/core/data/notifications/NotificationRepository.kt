@@ -40,6 +40,7 @@ import app.pachli.core.model.FilterAction
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.retrofit.MastodonApi
 import at.connyduck.calladapter.networkresult.onFailure
+import at.connyduck.calladapter.networkresult.onSuccess
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
@@ -124,7 +125,11 @@ class NotificationRepository @Inject constructor(
         notificationDao.upsert(FilterActionUpdate(pachliAccountId, notificationId, FilterAction.NONE))
     }
 
-    fun setAccountFilterDecision(pachliAccountId: Long, notificationId: String, accountFilterDecision: AccountFilterDecision) = externalScope.launch {
+    fun setAccountFilterDecision(
+        pachliAccountId: Long,
+        notificationId: String,
+        accountFilterDecision: AccountFilterDecision,
+    ) = externalScope.launch {
         notificationDao.upsert(
             AccountFilterDecisionUpdate(
                 pachliAccountId,
@@ -137,43 +142,39 @@ class NotificationRepository @Inject constructor(
     // Copied from CachedTimelineRepository
     // Status management probably belongs in a StatusRepository to hold these
     // functions, with separate repositories for timelines and notifications.
-    private suspend fun saveStatusViewData(pachliAccountId: Long, statusViewData: StatusViewData) = externalScope.launch {
-        timelineDao.upsertStatusViewData(
-            StatusViewDataEntity(
-                serverId = statusViewData.actionableId,
-                timelineUserId = pachliAccountId,
-                expanded = statusViewData.isExpanded,
-                contentShowing = statusViewData.isShowingContent,
-                contentCollapsed = statusViewData.isCollapsed,
-                translationState = statusViewData.translationState,
-            ),
-        )
-    }.join()
+    private suspend fun saveStatusViewData(pachliAccountId: Long, statusViewData: StatusViewData) =
+        externalScope.launch {
+            timelineDao.upsertStatusViewData(
+                StatusViewDataEntity(
+                    serverId = statusViewData.actionableId,
+                    timelineUserId = pachliAccountId,
+                    expanded = statusViewData.isExpanded,
+                    contentShowing = statusViewData.isShowingContent,
+                    contentCollapsed = statusViewData.isCollapsed,
+                    translationState = statusViewData.translationState,
+                ),
+            )
+        }.join()
 
-    fun setContentCollapsed(pachliAccountId: Long, statusViewData: StatusViewData, isCollapsed: Boolean) = externalScope.launch {
-        saveStatusViewData(
-            pachliAccountId,
-            statusViewData.copy(
-                isCollapsed = isCollapsed,
-            ),
-        )
-    }
+    fun setContentCollapsed(pachliAccountId: Long, statusViewData: StatusViewData, isCollapsed: Boolean) =
+        externalScope.launch {
+            saveStatusViewData(pachliAccountId, statusViewData.copy(isCollapsed = isCollapsed))
+        }
 
-    fun setShowingContent(pachliAccountId: Long, statusViewData: StatusViewData, isShowingContent: Boolean) = externalScope.launch {
-        saveStatusViewData(
-            pachliAccountId,
-            statusViewData.copy(isShowingContent = isShowingContent),
-        )
-    }
+    fun setShowingContent(pachliAccountId: Long, statusViewData: StatusViewData, isShowingContent: Boolean) =
+        externalScope.launch {
+            saveStatusViewData(pachliAccountId, statusViewData.copy(isShowingContent = isShowingContent))
+        }
 
     fun setExpanded(pachliAccountId: Long, statusViewData: StatusViewData, isExpanded: Boolean) = externalScope.launch {
-        saveStatusViewData(
-            pachliAccountId,
-            statusViewData.copy(isExpanded = isExpanded),
-        )
+        saveStatusViewData(pachliAccountId, statusViewData.copy(isExpanded = isExpanded))
     }
 
-    suspend fun bookmark(pachliAccountId: Long, statusId: String, bookmarked: Boolean): Result<Unit, StatusActionError.Bookmark> = externalScope.async {
+    suspend fun bookmark(
+        pachliAccountId: Long,
+        statusId: String,
+        bookmarked: Boolean,
+    ): Result<Unit, StatusActionError.Bookmark> = externalScope.async {
         val deferred = async {
             if (bookmarked) {
                 mastodonApi.bookmarkStatus(statusId)
@@ -194,7 +195,11 @@ class NotificationRepository @Inject constructor(
         return@async Ok(Unit)
     }.await()
 
-    suspend fun favourite(pachliAccountId: Long, statusId: String, favourited: Boolean): Result<Unit, StatusActionError.Favourite> = externalScope.async {
+    suspend fun favourite(
+        pachliAccountId: Long,
+        statusId: String,
+        favourited: Boolean,
+    ): Result<Unit, StatusActionError.Favourite> = externalScope.async {
         val deferred = async {
             if (favourited) {
                 mastodonApi.favouriteStatus(statusId)
@@ -215,7 +220,11 @@ class NotificationRepository @Inject constructor(
         return@async Ok(Unit)
     }.await()
 
-    suspend fun reblog(pachliAccountId: Long, statusId: String, reblogged: Boolean): Result<Unit, StatusActionError.Reblog> = externalScope.async {
+    suspend fun reblog(
+        pachliAccountId: Long,
+        statusId: String,
+        reblogged: Boolean,
+    ): Result<Unit, StatusActionError.Reblog> = externalScope.async {
         val deferred = async {
             if (reblogged) {
                 mastodonApi.reblogStatus(statusId)
@@ -236,18 +245,19 @@ class NotificationRepository @Inject constructor(
         return@async Ok(Unit)
     }.await()
 
-    suspend fun voteInPoll(pachliAccountId: Long, statusId: String, pollId: String, choices: List<Int>): Result<Unit, StatusActionError.VoteInPoll> = externalScope.async {
+    suspend fun voteInPoll(
+        pachliAccountId: Long,
+        statusId: String,
+        pollId: String,
+        choices: List<Int>,
+    ): Result<Unit, StatusActionError.VoteInPoll> = externalScope.async {
         if (choices.isEmpty()) {
             return@async Err(StatusActionError.VoteInPoll(IllegalStateException()))
         }
 
-        // TODO: Update the DB
-
-        val result = mastodonApi.voteInPoll(pollId, choices)
-
-        result.onFailure { throwable ->
-            return@async Err(StatusActionError.VoteInPoll(throwable))
-        }
+        mastodonApi.voteInPoll(pollId, choices)
+            .onSuccess { poll -> timelineDao.setVoted(pachliAccountId, statusId, poll) }
+            .onFailure { throwable -> return@async Err(StatusActionError.VoteInPoll(throwable)) }
 
         return@async Ok(Unit)
     }.await()
