@@ -219,7 +219,6 @@ class NotificationsFragment :
         }
         binding.recyclerView.addOnScrollListener(saveIdListener)
 
-//        binding.recyclerView.adapter = adapter
         binding.recyclerView.adapter = adapter.withLoadStateHeaderAndFooter(
             header = TimelineLoadStateAdapter { adapter.retry() },
             footer = TimelineLoadStateAdapter { adapter.retry() },
@@ -263,20 +262,6 @@ class NotificationsFragment :
                             }
                         }
                         snackbar.show()
-
-                        // The status view has pre-emptively updated its state to show
-                        // that the action succeeded. Since it hasn't, re-bind the view
-                        // to show the correct data.
-                        error.action?.let { action ->
-                            if (action !is StatusAction) return@let
-
-                            val position = adapter.snapshot().indexOfFirst {
-                                it?.statusViewData?.status?.id == action.statusViewData.id
-                            }
-                            if (position != NO_POSITION) {
-                                adapter.notifyItemChanged(position)
-                            }
-                        }
                     }
                 }
 
@@ -299,45 +284,6 @@ class NotificationsFragment :
                                 is NotificationActionSuccess.RejectFollowRequest,
                                 -> adapter.refresh()
                             }
-                        }
-                }
-
-                // Update adapter data when status actions are successful, and re-bind to update
-                // the UI.
-                launch {
-                    viewModel.uiSuccess
-                        .filterIsInstance<StatusActionSuccess>()
-                        .collect {
-                            val indexedViewData = adapter.snapshot()
-                                .withIndex()
-                                .firstOrNull { notificationViewData ->
-                                    notificationViewData.value?.statusViewData?.status?.id ==
-                                        it.action.statusViewData.id
-                                } ?: return@collect
-
-                            val statusViewData =
-                                indexedViewData.value?.statusViewData ?: return@collect
-
-                            val status = when (it) {
-                                is StatusActionSuccess.Bookmark ->
-                                    statusViewData.status.copy(bookmarked = it.action.state)
-
-                                is StatusActionSuccess.Favourite ->
-                                    statusViewData.status.copy(favourited = it.action.state)
-
-                                is StatusActionSuccess.Reblog ->
-                                    statusViewData.status.copy(reblogged = it.action.state)
-
-                                is StatusActionSuccess.VoteInPoll ->
-                                    statusViewData.status.copy(
-                                        poll = it.action.poll.votedCopy(it.action.choices),
-                                    )
-                            }
-                            indexedViewData.value?.statusViewData = statusViewData.copy(
-                                status = status,
-                            )
-
-                            adapter.notifyItemChanged(indexedViewData.index)
                         }
                 }
 
