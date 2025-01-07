@@ -73,6 +73,9 @@ import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.ListStatusAccessibilityDelegate
 import app.pachli.util.asRefreshState
 import app.pachli.viewdata.NotificationViewData
+import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
@@ -85,7 +88,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
-import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
@@ -233,72 +235,8 @@ class NotificationsFragment :
                     }
                 }
 
-                // Show errors from the view model as snack bars.
-                //
-                // Errors are shown:
-                // - Indefinitely, so the user has a chance to read and understand
-                //   the message
-                // - With a max of 5 text lines, to allow space for longer errors.
-                //   E.g., on a typical device, an error message like "Bookmarking
-                //   post failed: Unable to resolve host 'mastodon.social': No
-                //   address associated with hostname" is 3 lines.
-                // - With a "Retry" option if the error included a UiAction to retry.
                 launch {
-                    viewModel.uiError.collect { error ->
-                        val message = getString(
-                            error.message,
-                            error.throwable.getErrorString(requireContext()),
-                        )
-                        Timber.d(error.throwable, message)
-                        val snackbar = Snackbar.make(
-                            // Without this the FAB will not move out of the way
-                            (activity as ActionButtonActivity).actionButton ?: binding.root,
-                            message,
-                            Snackbar.LENGTH_INDEFINITE,
-                        )
-                        error.action?.let { action ->
-                            snackbar.setAction(app.pachli.core.ui.R.string.action_retry) {
-                                viewModel.accept(action)
-                            }
-                        }
-                        snackbar.show()
-                    }
-                }
-
-                // Show successful notification action as brief snackbars, so the
-                // user is clear the action has happened.
-                launch {
-                    viewModel.uiSuccess
-                        .filterIsInstance<NotificationActionSuccess>()
-                        .collect {
-                            Snackbar.make(
-                                (activity as ActionButtonActivity).actionButton ?: binding.root,
-                                getString(it.msg),
-                                Snackbar.LENGTH_SHORT,
-                            ).show()
-
-                            when (it) {
-                                // The follow request is no longer valid, refresh the adapter to
-                                // remove it.
-                                is NotificationActionSuccess.AcceptFollowRequest,
-                                is NotificationActionSuccess.RejectFollowRequest,
-                                -> adapter.refresh()
-                            }
-                        }
-                }
-
-                // Refresh adapter on mutes and blocks
-                launch {
-                    viewModel.uiSuccess.collectLatest {
-                        when (it) {
-                            is UiSuccess.Block, is UiSuccess.Mute, is UiSuccess.MuteConversation ->
-                                adapter.refresh()
-
-                            else -> {
-                                /* nothing to do */
-                            }
-                        }
-                    }
+                    viewModel.uiResult.collect(::bindUiResult)
                 }
 
                 // Collect the uiState. Nothing is done with it, but if you don't collect it then
@@ -434,6 +372,63 @@ class NotificationsFragment :
                             }
                         }
                     }
+            }
+        }
+    }
+
+    private fun bindUiResult(uiResult: Result<UiSuccess, UiError>) {
+        // Show errors from the view model as snack bars.
+        //
+        // Errors are shown:
+        // - Indefinitely, so the user has a chance to read and understand
+        //   the message
+        // - With a max of 5 text lines, to allow space for longer errors.
+        //   E.g., on a typical device, an error message like "Bookmarking
+        //   post failed: Unable to resolve host 'mastodon.social': No
+        //   address associated with hostname" is 3 lines.
+        // - With a "Retry" option if the error included a UiAction to retry.
+        uiResult.onFailure { uiError ->
+            val message = getString(
+                uiError.message,
+                uiError.throwable.getErrorString(requireContext()),
+            )
+            Timber.d(uiError.throwable, message)
+            val snackbar = Snackbar.make(
+                // Without this the FAB will not move out of the way
+                (activity as ActionButtonActivity).actionButton ?: binding.root,
+                message,
+                Snackbar.LENGTH_INDEFINITE,
+            )
+            uiError.action?.let { action ->
+                snackbar.setAction(app.pachli.core.ui.R.string.action_retry) {
+                    viewModel.accept(action)
+                }
+            }
+            snackbar.show()
+        }
+
+        uiResult.onSuccess { uiSuccess ->
+            // Show successful notification action as brief snackbars, so the
+            // user is clear the action has happened.
+            if (uiSuccess is NotificationActionSuccess) {
+                Snackbar.make(
+                    (activity as ActionButtonActivity).actionButton ?: binding.root,
+                    getString(uiSuccess.msg),
+                    Snackbar.LENGTH_SHORT,
+                ).show()
+
+                when (uiSuccess) {
+                    // The follow request is no longer valid, refresh the adapter to
+                    // remove it.
+                    is NotificationActionSuccess.AcceptFollowRequest,
+                    is NotificationActionSuccess.RejectFollowRequest,
+                    -> adapter.refresh()
+                }
+            }
+
+            when (uiSuccess) {
+                is UiSuccess.Block, is UiSuccess.Mute, is UiSuccess.MuteConversation -> adapter.refresh()
+                else -> { /* nothing to do */ }
             }
         }
     }

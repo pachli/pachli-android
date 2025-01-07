@@ -52,8 +52,11 @@ import app.pachli.usecase.TimelineCases
 import app.pachli.util.deserialize
 import app.pachli.util.serialize
 import app.pachli.viewdata.NotificationViewData
-import com.github.michaelbull.result.onFailure
-import com.github.michaelbull.result.onSuccess
+import com.github.michaelbull.result.Err
+import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.map
+import com.github.michaelbull.result.mapEither
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -383,23 +386,8 @@ class NotificationsViewModel @AssistedInject constructor(
     /** Flow that can be used to trigger a full reload */
     private val reload = MutableStateFlow(0)
 
-    /** Flow of successful action results */
-    // Note: This is a SharedFlow instead of a StateFlow because success state does not need to be
-    // retained. A message is shown once to a user and then dismissed. Re-collecting the flow
-    // (e.g., after a device orientation change) should not re-show the most recent success
-    // message, as it will be confusing to the user.
-    val uiSuccess = MutableSharedFlow<UiSuccess>()
-
-    @Suppress("ktlint:standard:property-naming")
-    /** Channel for error results */
-    // Errors are sent to a channel to ensure that any errors that occur *before* there are any
-    // subscribers are retained. If this was a SharedFlow any errors would be dropped, and if it
-    // was a StateFlow any errors would be retained, and there would need to be an explicit
-    // mechanism to dismiss them.
-    private val _uiErrorChannel = Channel<UiError>()
-
-    /** Expose UI errors as a flow */
-    val uiError = _uiErrorChannel.receiveAsFlow()
+    private val _uiResult = Channel<Result<UiSuccess, UiError>>()
+    val uiResult = _uiResult.receiveAsFlow()
 
     /** Accept UI actions in to actionStateFlow */
     val accept: (UiAction) -> Unit = { action ->
@@ -469,17 +457,18 @@ class NotificationsViewModel @AssistedInject constructor(
             uiAction.filterIsInstance<NotificationAction>()
                 .throttleFirst()
                 .collect { action ->
-                    try {
+                    val result = try {
                         when (action) {
                             is NotificationAction.AcceptFollowRequest ->
                                 timelineCases.acceptFollowRequest(action.accountId)
                             is NotificationAction.RejectFollowRequest ->
                                 timelineCases.rejectFollowRequest(action.accountId)
                         }
-                        uiSuccess.emit(NotificationActionSuccess.from(action))
+                        Ok(NotificationActionSuccess.from(action))
                     } catch (e: Exception) {
-                        _uiErrorChannel.send(UiError.make(e, action))
+                        Err(UiError.make(e, action))
                     }
+                    _uiResult.send(result)
                 }
         }
 
@@ -488,7 +477,7 @@ class NotificationsViewModel @AssistedInject constructor(
             uiAction.filterIsInstance<StatusAction>()
                 .throttleFirst() // avoid double-taps
                 .collect { action ->
-                    when (action) {
+                    val result = when (action) {
                         is StatusAction.Bookmark -> repository.bookmark(
                             pachliAccountId,
                             action.statusViewData.actionableId,
@@ -513,9 +502,11 @@ class NotificationsViewModel @AssistedInject constructor(
                             action.poll.id,
                             action.choices,
                         )
-                    }
-                        .onSuccess { uiSuccess.emit(StatusActionSuccess.from(action)) }
-                        .onFailure { _uiErrorChannel.send(UiError.make(it.throwable, action)) }
+                    }.mapEither(
+                        { StatusActionSuccess.from(action) },
+                        { UiError.make(it.throwable, action) },
+                    )
+                    _uiResult.send(result)
                 }
         }
 
@@ -538,9 +529,9 @@ class NotificationsViewModel @AssistedInject constructor(
         viewModelScope.launch {
             eventHub.events.collectLatest {
                 when (it) {
-                    is BlockEvent -> uiSuccess.emit(UiSuccess.Block)
-                    is MuteEvent -> uiSuccess.emit(UiSuccess.Mute)
-                    is MuteConversationEvent -> uiSuccess.emit(UiSuccess.MuteConversation)
+                    is BlockEvent -> _uiResult.send(Ok(UiSuccess.Block))
+                    is MuteEvent -> _uiResult.send(Ok(UiSuccess.Mute))
+                    is MuteConversationEvent -> _uiResult.send(Ok(UiSuccess.MuteConversation))
                 }
             }
         }
@@ -593,11 +584,11 @@ class NotificationsViewModel @AssistedInject constructor(
                 if (this.isSuccessful) {
                     repository.invalidate()
                 } else {
-                    _uiErrorChannel.send(UiError.make(HttpException(this), action))
+                    _uiResult.send(Err(UiError.make(HttpException(this), action)))
                 }
             }
         } catch (e: Exception) {
-            _uiErrorChannel.send(UiError.make(e, action))
+            _uiResult.send(Err(UiError.make(e, action)))
         }
     }
 
