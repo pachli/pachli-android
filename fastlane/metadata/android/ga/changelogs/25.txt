@@ -1,0 +1,16 @@
+Pacli 2.9.1
+
+Gnéithe nua:
+
+- Taispeáin postálacha a luann nasc treochta
+- Taispeáin modh iarratais agus URL in earráidí ApiResult
+- Cuir NorskIoruais Nynorsk leis mar theanga in-roghnaithe
+
+Ceartúcháin:
+
+- Earráid "KeyStoreException: BKS not found" le linn logáil isteach
+- Taispeáin cineálacha fógraí anaithnid i gceart
+- Ná tuairteála agus na príomh-mhíreanna tarraiceán á nuashonrú
+- Ná tuairteála nuair a scoránaigh an rogha "Taispeáin boosts".
+- Taispeáin athruithe rabhaidh inneachair
+- Aistriúcháin Fhionlainnis, Ghaeilge, Ioruais Nynorsk, Spáinnise agus Sualainnis a nuashonrú
