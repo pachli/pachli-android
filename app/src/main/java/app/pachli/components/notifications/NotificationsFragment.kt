@@ -235,9 +235,7 @@ class NotificationsFragment :
                     }
                 }
 
-                launch {
-                    viewModel.uiResult.collect(::bindUiResult)
-                }
+                launch { viewModel.uiResult.collect(::bindUiResult) }
 
                 // Collect the uiState. Nothing is done with it, but if you don't collect it then
                 // accessing viewModel.uiState.value (e.g., when the filter dialog is created)

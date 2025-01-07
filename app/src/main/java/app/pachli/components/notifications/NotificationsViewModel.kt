@@ -65,7 +65,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -76,7 +75,6 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -384,7 +382,7 @@ class NotificationsViewModel @AssistedInject constructor(
     private val uiAction = MutableSharedFlow<UiAction>()
 
     /** Flow that can be used to trigger a full reload */
-    private val reload = MutableStateFlow(0)
+    private val reload = MutableSharedFlow<Unit>(replay = 1).apply { tryEmit(Unit) }
 
     private val _uiResult = Channel<Result<UiSuccess, UiError>>()
     val uiResult = _uiResult.receiveAsFlow()
@@ -570,11 +568,11 @@ class NotificationsViewModel @AssistedInject constructor(
 
     /**
      * Resets the last notification ID to "0" to fetch the newest notifications,
-     * and increments [reload] to trigger creation of a new PagingSource.
+     * and updates [reload] to trigger creation of a new PagingSource.
      */
     private suspend fun onLoadNewest() {
         accountManager.setLastNotificationId(account.id, "0")
-        reload.getAndUpdate { it + 1 }
+        reload.emit(Unit)
         repository.invalidate()
     }
 
