@@ -37,6 +37,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.LoadState
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -71,8 +72,8 @@ import app.pachli.interfaces.AccountActionListener
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.ListStatusAccessibilityDelegate
-import app.pachli.util.asRefreshState
 import app.pachli.viewdata.NotificationViewData
+import at.connyduck.sparkbutton.helpers.Utils
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
@@ -93,7 +94,6 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.runningFold
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -262,59 +262,6 @@ class NotificationsFragment :
                         }
                 }
 
-                /** StateFlow (to allow multiple consumers) of UserRefreshState */
-                val refreshState = adapter.loadStateFlow.asRefreshState().stateIn(lifecycleScope)
-
-                // Scroll the list down (peek) if a refresh has completely finished. A refresh is
-                // finished when both the initial refresh is complete and any prepends have
-                // finished (so that DiffUtil has had a chance to process the data).
-//                launch {
-//                    /** True if the previous prepend resulted in a peek, false otherwise */
-//                    var peeked = false
-//
-//                    /** ID of the item that was first in the adapter before the refresh */
-//                    var previousFirstId: String? = null
-//
-//                    refreshState.collect {
-//                        when (it) {
-//                            // Refresh has started, reset peeked, and save the ID of the first item
-//                            // in the adapter
-//                            UserRefreshState.ACTIVE -> {
-//                                peeked = false
-//                                if (adapter.itemCount != 0) previousFirstId = adapter.peek(0)?.id
-//                            }
-//
-//                            // Refresh has finished, pages are being prepended.
-//                            UserRefreshState.COMPLETE -> {
-//                                // There might be multiple prepends after a refresh, only continue
-//                                // if one them has not already caused a peek.
-//                                if (peeked) return@collect
-//
-//                                // Compare the ID of the current first item with the previous first
-//                                // item. If they're the same then this prepend did not add any new
-//                                // items, and can be ignored.
-//                                val firstId = if (adapter.itemCount != 0) adapter.peek(0)?.id else null
-//                                if (previousFirstId == firstId) return@collect
-//
-//                                // New items were added and haven't peeked for this refresh. Schedule
-//                                // a scroll to disclose that new items are available.
-//                                binding.recyclerView.post {
-//                                    getView() ?: return@post
-//                                    binding.recyclerView.smoothScrollBy(
-//                                        0,
-//                                        Utils.dpToPx(requireContext(), -30),
-//                                    )
-//                                }
-//                                peeked = true
-//                            }
-//
-//                            else -> {
-//                                /* nothing to do */
-//                            }
-//                        }
-//                    }
-//                }
-
                 // Manage the display of progress bars. Rather than hide them as soon as the
                 // Refresh portion completes, hide them when then first Prepend completes. This
                 // is a better signal to the user that it is now possible to scroll up and see
@@ -431,22 +378,37 @@ class NotificationsFragment :
             when (uiSuccess) {
                 is UiSuccess.Block, is UiSuccess.Mute, is UiSuccess.MuteConversation -> adapter.refresh()
                 is UiSuccess.LoadNewest -> {
-                    // Scroll to the top when loading completes. Loading is complete when
-                    // loadState.prepend transitions from Loading to NotLoading for the first
-                    // time.
+                    // Scroll to the top when prepending completes.
                     viewLifecycleOwner.lifecycleScope.launch {
-                        val initial: Pair<LoadState?, LoadState?> = Pair(null, null)
-                        adapter.loadStateFlow
-                            .runningFold(initial) { prev, next -> prev.second to next.prepend }
-                            .filter { it.first is LoadState.Loading && it.second is LoadState.NotLoading }
-                            .take(1)
-                            .collect { binding.recyclerView.scrollToPosition(0) }
+                        adapter.postPrepend {
+                            binding.recyclerView.post {
+                                view ?: return@post
+                                binding.recyclerView.scrollToPosition(0)
+                            }
+                        }
                     }
                     adapter.refresh()
                 }
                 else -> { /* nothing to do */ }
             }
         }
+    }
+
+    /**
+     * Performs [action] after the next prepend operation completes on the adapter.
+     *
+     * A prepend operation is complete when the adapter's prepend [LoadState] transitions
+     * from [LoadState.Loading] to [LoadState.NotLoading].
+     */
+    private suspend fun <T : Any, VH : RecyclerView.ViewHolder> PagingDataAdapter<T, VH>.postPrepend(
+        action: () -> Unit,
+    ) {
+        val initial: Pair<LoadState?, LoadState?> = Pair(null, null)
+        loadStateFlow
+            .runningFold(initial) { prev, next -> prev.second to next.prepend }
+            .filter { it.first is LoadState.Loading && it.second is LoadState.NotLoading }
+            .take(1)
+            .collect { action() }
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -484,6 +446,18 @@ class NotificationsFragment :
 
     override fun onRefresh() {
 //        binding.progressBar.isVisible = false
+        // Peek the list when refreshing completes.
+        viewLifecycleOwner.lifecycleScope.launch {
+            adapter.postPrepend {
+                binding.recyclerView.post {
+                    view ?: return@post
+                    binding.recyclerView.smoothScrollBy(
+                        0,
+                        Utils.dpToPx(requireContext(), -30),
+                    )
+                }
+            }
+        }
         adapter.refresh()
         clearNotificationsForAccount(requireContext(), pachliAccountId)
     }
