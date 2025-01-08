@@ -84,13 +84,17 @@ import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.withCreationCallback
 import kotlin.properties.Delegates
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.runningFold
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -426,6 +430,20 @@ class NotificationsFragment :
 
             when (uiSuccess) {
                 is UiSuccess.Block, is UiSuccess.Mute, is UiSuccess.MuteConversation -> adapter.refresh()
+                is UiSuccess.LoadNewest -> {
+                    // Scroll to the top when loading completes. Loading is complete when
+                    // loadState.prepend transitions from Loading to NotLoading for the first
+                    // time.
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        val initial: Pair<LoadState?, LoadState?> = Pair(null, null)
+                        adapter.loadStateFlow
+                            .runningFold(initial) { prev, next -> prev.second to next.prepend }
+                            .filter { it.first is LoadState.Loading && it.second is LoadState.NotLoading }
+                            .take(1)
+                            .collect { binding.recyclerView.scrollToPosition(0) }
+                    }
+                    adapter.refresh()
+                }
                 else -> { /* nothing to do */ }
             }
         }

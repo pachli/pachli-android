@@ -204,6 +204,12 @@ sealed interface UiSuccess {
 
     /** A conversation was muted */
     data object MuteConversation : UiSuccess
+
+    /**
+     * Resetting the reading position completed, the UI should refresh the adapter
+     * to load content at the new position.
+     */
+    data object LoadNewest : UiSuccess
 }
 
 /** The result of a successful action on a notification */
@@ -381,9 +387,6 @@ class NotificationsViewModel @AssistedInject constructor(
     /** Flow of user actions received from the UI */
     private val uiAction = MutableSharedFlow<UiAction>()
 
-    /** Flow that can be used to trigger a full reload */
-    private val reload = MutableSharedFlow<Unit>(replay = 1).apply { tryEmit(Unit) }
-
     private val _uiResult = Channel<Result<UiSuccess, UiError>>()
     val uiResult = _uiResult.receiveAsFlow()
 
@@ -534,32 +537,37 @@ class NotificationsViewModel @AssistedInject constructor(
             }
         }
 
-        // Re-fetch notifications if either of `notificationsFilter` or `reload` flows have
-        // new items.
-        pagingData = combine(
-            accountFlow.distinctUntilChanged { old, new ->
+        // Re-fetch notifications `notificationsFilter` changes
+        pagingData = accountFlow
+            .distinctUntilChanged { old, new ->
                 (old.entity.notificationsFilter == new.entity.notificationsFilter) &&
                     (old.entity.notificationAccountFilterNotFollowed == new.entity.notificationAccountFilterNotFollowed) &&
                     (old.entity.notificationAccountFilterYounger30d == new.entity.notificationAccountFilterYounger30d) &&
-                    (old.entity.notificationAccountFilterLimitedByServer == new.entity.notificationAccountFilterLimitedByServer)
-            },
-            reload,
-        ) { account, _ -> account }
+                    (
+                        old.entity.notificationAccountFilterLimitedByServer ==
+                            new.entity.notificationAccountFilterLimitedByServer
+                        )
+            }
             .flatMapLatest { account ->
-                getNotifications(account, filters = deserialize(account.entity.notificationsFilter), initialKey = getInitialKey())
+                getNotifications(
+                    account,
+                    filters = deserialize(account.entity.notificationsFilter),
+                    initialKey = getInitialKey(),
+                )
             }.cachedIn(viewModelScope)
 
-        uiState = combine(accountFlow.distinctUntilChangedBy { it.entity.notificationsFilter }, getUiPrefs()) { account, _ ->
-            UiState(
-                activeFilter = deserialize(account.entity.notificationsFilter),
-                showFabWhileScrolling = !sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false),
-                tabTapBehaviour = sharedPreferencesRepository.tabTapBehaviour,
+        uiState =
+            combine(accountFlow.distinctUntilChangedBy { it.entity.notificationsFilter }, getUiPrefs()) { account, _ ->
+                UiState(
+                    activeFilter = deserialize(account.entity.notificationsFilter),
+                    showFabWhileScrolling = !sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false),
+                    tabTapBehaviour = sharedPreferencesRepository.tabTapBehaviour,
+                )
+            }.stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
+                initialValue = UiState(),
             )
-        }.stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
-            initialValue = UiState(),
-        )
     }
 
     private suspend fun onApplyFilter(action: InfallibleUiAction.ApplyFilter) {
@@ -567,13 +575,13 @@ class NotificationsViewModel @AssistedInject constructor(
     }
 
     /**
-     * Resets the last notification ID to "0" to fetch the newest notifications,
-     * and updates [reload] to trigger creation of a new PagingSource.
+     * Resets the last notification ID to "0" so the next refresh will fetch the
+     * newest notifications. The UI must still request the refresh, send
+     * [UiSuccess.LoadNewest] so it knows to do that.
      */
     private suspend fun onLoadNewest() {
         accountManager.setLastNotificationId(account.id, "0")
-        reload.emit(Unit)
-        repository.invalidate()
+        _uiResult.send(Ok(UiSuccess.LoadNewest))
     }
 
     private suspend fun onClearNotifications(action: FallibleUiAction.ClearNotifications) {
