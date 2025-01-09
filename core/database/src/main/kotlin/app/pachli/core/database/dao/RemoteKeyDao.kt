@@ -18,20 +18,21 @@
 package app.pachli.core.database.dao
 
 import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Upsert
 import app.pachli.core.database.model.RemoteKeyEntity
-import app.pachli.core.database.model.RemoteKeyKind
 
 @Dao
 interface RemoteKeyDao {
-    // TODO(https://issuetracker.google.com/issues/243039555), switch to @Upsert
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Upsert
     suspend fun upsert(remoteKey: RemoteKeyEntity)
 
     @Query("SELECT * FROM RemoteKeyEntity WHERE accountId = :accountId AND timelineId = :timelineId AND kind = :kind")
-    suspend fun remoteKeyForKind(accountId: Long, timelineId: String, kind: RemoteKeyKind): RemoteKeyEntity?
+    suspend fun remoteKeyForKind(
+        accountId: Long,
+        timelineId: String,
+        kind: RemoteKeyEntity.RemoteKeyKind,
+    ): RemoteKeyEntity?
 
     @Query("DELETE FROM RemoteKeyEntity WHERE accountId = :accountId AND timelineId = :timelineId")
     suspend fun delete(accountId: Long, timelineId: String)
@@ -46,4 +47,15 @@ interface RemoteKeyDao {
         """,
     )
     suspend fun deletePrevNext(accountId: Long, timelineId: String)
+
+    /** @return The notification ID to use when refreshing. */
+    @Query(
+        """
+        SELECT `key`
+          FROM RemoteKeyEntity
+         WHERE accountId = :pachliAccountId
+          AND kind = "REFRESH"
+        """,
+    )
+    suspend fun getRefreshKey(pachliAccountId: Long): String?
 }

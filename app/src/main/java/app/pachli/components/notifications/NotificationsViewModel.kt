@@ -81,7 +81,6 @@ import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
-import timber.log.Timber
 
 data class UiState(
     /** Filtered notification types */
@@ -142,7 +141,7 @@ sealed interface InfallibleUiAction : UiAction {
     ) : InfallibleUiAction
 
     /** Ignore the saved reading position, load the page with the newest items */
-    // Resets the account's `lastNotificationId`, which can't fail, which is why this is
+    // Resets the account's refresh key, which can't fail, which is why this is
     // infallible. Reloading the data may fail, but that's handled by the paging system /
     // adapter refresh logic.
     data object LoadNewest : InfallibleUiAction
@@ -625,17 +624,6 @@ class NotificationsViewModel @AssistedInject constructor(
                     .filter { it.statusViewData?.contentFilterAction != FilterAction.HIDE }
                     .filter { it.accountFilterDecision !is AccountFilterDecision.Hide }
             }
-    }
-
-    // The database stores "0" as the last notification ID if notifications have not been
-    // fetched. Convert to null to ensure a full fetch in this case
-    private fun getInitialKey(): String? {
-        val initialKey = when (val id = account.lastNotificationId) {
-            "0" -> null
-            else -> id
-        }
-        Timber.d("Restoring at %s", initialKey)
-        return initialKey
     }
 
     /** @return Flow of relevant preferences that change the UI. */

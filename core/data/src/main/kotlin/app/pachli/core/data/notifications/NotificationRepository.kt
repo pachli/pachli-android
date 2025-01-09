@@ -35,7 +35,7 @@ import app.pachli.core.database.model.FilterActionUpdate
 import app.pachli.core.database.model.NotificationData
 import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.database.model.RemoteKeyEntity
-import app.pachli.core.database.model.RemoteKeyKind
+import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
 import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
@@ -53,7 +53,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import okhttp3.ResponseBody
 import retrofit2.Response
-import timber.log.Timber
 
 /**
  * Errors that can occur acting on a status.
@@ -133,7 +132,6 @@ class NotificationRepository @Inject constructor(
      * refresh the newest notifications.
      */
     fun saveRefreshKey(pachliAccountId: Long, key: String?) = externalScope.async {
-        Timber.i("saveRefreshKey: $key")
         remoteKeyDao.upsert(
             RemoteKeyEntity(
                 pachliAccountId,
@@ -143,6 +141,9 @@ class NotificationRepository @Inject constructor(
             ),
         )
     }
+
+    /** @return The notification ID to use when refreshing. */
+    suspend fun getRefreshKey(pachliAccountId: Long) = remoteKeyDao.getRefreshKey(pachliAccountId)
 
     suspend fun clearNotifications(): Response<ResponseBody> = externalScope.async {
         return@async mastodonApi.clearNotifications()

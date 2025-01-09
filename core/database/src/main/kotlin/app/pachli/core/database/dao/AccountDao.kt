@@ -239,15 +239,6 @@ interface AccountDao {
     )
     suspend fun setNotificationsFilter(accountId: Long, value: String)
 
-    @Query(
-        """
-        UPDATE AccountEntity
-           SET lastNotificationId = :value
-         WHERE id = :accountId
-        """,
-    )
-    suspend fun setLastNotificationId(accountId: Long, value: String)
-
     // TODO: Should be suspend
     @Query(
         """

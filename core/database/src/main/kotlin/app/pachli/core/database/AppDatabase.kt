@@ -102,7 +102,7 @@ import java.util.TimeZone
         AutoMigration(from = 6, to = 7, spec = AppDatabase.MIGRATE_6_7::class),
         AutoMigration(from = 7, to = 8, spec = AppDatabase.MIGRATE_7_8::class),
         AutoMigration(from = 9, to = 10),
-        AutoMigration(from = 10, to = 11),
+        AutoMigration(from = 10, to = 11, spec = AppDatabase.MIGRATE_10_11::class),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -174,6 +174,10 @@ abstract class AppDatabase : RoomDatabase() {
     @DeleteColumn("DraftEntity", "scheduledAt")
     @RenameColumn("DraftEntity", "scheduledAtLong", "scheduledAt")
     class MIGRATE_7_8 : AutoMigrationSpec
+
+    // lastNotificationId removed in favour of the REFRESH key in RemoteKeyEntity.
+    @DeleteColumn("AccountEntity", "lastNotificationId")
+    class MIGRATE_10_11 : AutoMigrationSpec
 }
 
 val MIGRATE_8_9 = object : Migration(8, 9) {

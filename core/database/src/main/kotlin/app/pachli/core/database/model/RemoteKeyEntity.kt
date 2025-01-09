@@ -19,19 +19,8 @@ package app.pachli.core.database.model
 
 import androidx.room.Entity
 
-enum class RemoteKeyKind {
-    /** Key to load the next (chronologically oldest) page of data for this timeline */
-    NEXT,
-
-    /** Key to load the previous (chronologically newer) page of data for this timeline */
-    PREV,
-
-    /** Key to refresh TODO */
-    REFRESH,
-}
-
 /**
- * The next and previous keys for the given timeline.
+ * The remote keys for the given timeline, see [RemoteKeyKind].
  */
 @Entity(
     primaryKeys = ["accountId", "timelineId", "kind"],
@@ -54,4 +43,22 @@ data class RemoteKeyEntity(
     val timelineId: String,
     val kind: RemoteKeyKind,
     val key: String? = null,
-)
+) {
+    /** Kinds of remote keys that can be stored for a timeline. */
+    enum class RemoteKeyKind {
+        /** Key to load the next (chronologically oldest) page of data for this timeline */
+        NEXT,
+
+        /** Key to load the previous (chronologically newer) page of data for this timeline */
+        PREV,
+
+        /**
+         * ID of the last notification the user read on the Notification list, and should
+         * be restored to view when the user returns to the list.
+         *
+         * May not be the ID of the most recent notification if the user has scrolled down
+         * the list.
+         */
+        REFRESH,
+    }
+}

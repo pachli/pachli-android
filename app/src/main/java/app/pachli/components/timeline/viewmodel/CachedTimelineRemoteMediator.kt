@@ -26,7 +26,7 @@ import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.RemoteKeyEntity
-import app.pachli.core.database.model.RemoteKeyKind
+import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
 import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TimelineStatusEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
