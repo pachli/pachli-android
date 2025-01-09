@@ -34,6 +34,8 @@ import app.pachli.core.database.model.AccountFilterDecisionUpdate
 import app.pachli.core.database.model.FilterActionUpdate
 import app.pachli.core.database.model.NotificationData
 import app.pachli.core.database.model.NotificationEntity
+import app.pachli.core.database.model.RemoteKeyEntity
+import app.pachli.core.database.model.RemoteKeyKind
 import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
@@ -51,6 +53,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import okhttp3.ResponseBody
 import retrofit2.Response
+import timber.log.Timber
 
 /**
  * Errors that can occur acting on a status.
@@ -89,13 +92,17 @@ class NotificationRepository @Inject constructor(
     private val notificationDao: NotificationDao,
     private val remoteKeyDao: RemoteKeyDao,
 ) {
+
     private var factory: InvalidatingPagingSourceFactory<Int, NotificationData>? = null
 
     @OptIn(ExperimentalPagingApi::class)
-    suspend fun notifications(pachliAccountId: Long, initialKey: String? = null): Flow<PagingData<NotificationData>> {
+    suspend fun notifications(pachliAccountId: Long): Flow<PagingData<NotificationData>> {
         factory = InvalidatingPagingSourceFactory { notificationDao.pagingSource(pachliAccountId) }
 
-        val row = initialKey?.let { notificationDao.getNotificationRowNumber(pachliAccountId, it) }
+        // Room is row-keyed, not item-keyed. Find the user's REFRESH key, then find the
+        // row of the notification with that ID, and use that as the Pager's initialKey.
+        val initialKey = remoteKeyDao.remoteKeyForKind(pachliAccountId, RKE_TIMELINE_ID, RemoteKeyKind.REFRESH)
+        val row = initialKey?.key?.let { notificationDao.getNotificationRowNumber(pachliAccountId, it) }
 
         return Pager(
             initialKey = row,
@@ -116,6 +123,26 @@ class NotificationRepository @Inject constructor(
     }
 
     fun invalidate() = factory?.invalidate()
+
+    /**
+     * Saves the ID of the notification that future refreshes will try and restore
+     * from.
+     *
+     * @param pachliAccountId
+     * @param key Notification ID to restore from. Null indicates the refresh should
+     * refresh the newest notifications.
+     */
+    fun saveRefreshKey(pachliAccountId: Long, key: String?) = externalScope.async {
+        Timber.i("saveRefreshKey: $key")
+        remoteKeyDao.upsert(
+            RemoteKeyEntity(
+                pachliAccountId,
+                RKE_TIMELINE_ID,
+                RemoteKeyKind.REFRESH,
+                key,
+            ),
+        )
+    }
 
     suspend fun clearNotifications(): Response<ResponseBody> = externalScope.async {
         return@async mastodonApi.clearNotifications()
@@ -264,6 +291,8 @@ class NotificationRepository @Inject constructor(
 
     companion object {
         private const val PAGE_SIZE = 30
+
+        internal const val RKE_TIMELINE_ID = "NOTIFICATIONS"
     }
 }
 

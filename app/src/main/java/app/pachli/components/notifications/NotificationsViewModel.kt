@@ -55,7 +55,6 @@ import app.pachli.viewdata.NotificationViewData
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
-import com.github.michaelbull.result.map
 import com.github.michaelbull.result.mapEither
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
@@ -441,10 +440,7 @@ class NotificationsViewModel @AssistedInject constructor(
             uiAction
                 .filterIsInstance<InfallibleUiAction.SaveVisibleId>()
                 .distinctUntilChanged()
-                .collectLatest { action ->
-                    Timber.d("Saving visible ID: %s, active account = %d", action.visibleId, account.id)
-                    accountManager.setLastNotificationId(account.id, action.visibleId)
-                }
+                .collectLatest { repository.saveRefreshKey(it.pachliAccountId, it.visibleId) }
         }
 
         // Handle UiAction.ClearNotifications
@@ -537,7 +533,6 @@ class NotificationsViewModel @AssistedInject constructor(
             }
         }
 
-        // Re-fetch notifications `notificationsFilter` changes
         pagingData = accountFlow
             .distinctUntilChanged { old, new ->
                 (old.entity.notificationsFilter == new.entity.notificationsFilter) &&
@@ -552,7 +547,6 @@ class NotificationsViewModel @AssistedInject constructor(
                 getNotifications(
                     account,
                     filters = deserialize(account.entity.notificationsFilter),
-                    initialKey = getInitialKey(),
                 )
             }.cachedIn(viewModelScope)
 
@@ -580,7 +574,7 @@ class NotificationsViewModel @AssistedInject constructor(
      * [UiSuccess.LoadNewest] so it knows to do that.
      */
     private suspend fun onLoadNewest() {
-        accountManager.setLastNotificationId(account.id, "0")
+        repository.saveRefreshKey(account.id, null)
         _uiResult.send(Ok(UiSuccess.LoadNewest))
     }
 
@@ -601,11 +595,9 @@ class NotificationsViewModel @AssistedInject constructor(
     private suspend fun getNotifications(
         pachliAccount: PachliAccount,
         filters: Set<Notification.Type>,
-        initialKey: String? = null,
     ): Flow<PagingData<NotificationViewData>> {
-        Timber.d("getNotifications: %s", initialKey)
         val activeFilters = filters.map { NotificationEntity.Type.from(it) }
-        return repository.notifications(pachliAccountId, initialKey)
+        return repository.notifications(pachliAccountId)
             .map { pagingData ->
                 pagingData
                     .filter { !activeFilters.contains(it.notification.type) }

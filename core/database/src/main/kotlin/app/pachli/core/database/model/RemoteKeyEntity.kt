@@ -25,6 +25,9 @@ enum class RemoteKeyKind {
 
     /** Key to load the previous (chronologically newer) page of data for this timeline */
     PREV,
+
+    /** Key to refresh TODO */
+    REFRESH,
 }
 
 /**

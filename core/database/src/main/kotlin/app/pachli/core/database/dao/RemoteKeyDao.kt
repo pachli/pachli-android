@@ -35,4 +35,15 @@ interface RemoteKeyDao {
 
     @Query("DELETE FROM RemoteKeyEntity WHERE accountId = :accountId AND timelineId = :timelineId")
     suspend fun delete(accountId: Long, timelineId: String)
+
+    @Query(
+        """
+        DELETE
+          FROM RemoteKeyEntity
+         WHERE accountId = :accountId
+           AND timelineId = :timelineId
+           AND (kind = "PREV" OR kind = "NEXT")
+        """,
+    )
+    suspend fun deletePrevNext(accountId: Long, timelineId: String)
 }

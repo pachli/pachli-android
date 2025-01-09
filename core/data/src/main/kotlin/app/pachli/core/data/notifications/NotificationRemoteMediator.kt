@@ -4,6 +4,7 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
+import app.pachli.core.data.notifications.NotificationRepository.Companion.RKE_TIMELINE_ID
 import app.pachli.core.database.dao.NotificationDao
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.TimelineDao
@@ -24,7 +25,11 @@ import app.pachli.core.network.model.Report
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.retrofit.MastodonApi
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
+import okhttp3.Headers
 import retrofit2.HttpException
+import retrofit2.Response
 import timber.log.Timber
 
 // TODO: Assisted inject?
@@ -37,12 +42,20 @@ class NotificationRemoteMediator(
     private val remoteKeyDao: RemoteKeyDao,
     private val notificationDao: NotificationDao,
 ) : RemoteMediator<Int, NotificationData>() {
-    private val RKE_TIMELINE_ID = "NOTIFICATIONS"
 
     override suspend fun load(loadType: LoadType, state: PagingState<Int, NotificationData>): MediatorResult {
         return try {
             val response = when (loadType) {
-                LoadType.REFRESH -> mastodonApi.notifications(limit = state.config.initialLoadSize)
+                LoadType.REFRESH -> {
+                    // Ignore the provided state, always try and fetch from the remote
+                    // REFRESH key.
+                    val notificationId = remoteKeyDao.remoteKeyForKind(
+                        pachliAccountId,
+                        RKE_TIMELINE_ID,
+                        RemoteKeyKind.REFRESH,
+                    )?.key
+                    getInitialPage(notificationId, state.config.pageSize)
+                }
 
                 LoadType.PREPEND -> {
                     val rke = remoteKeyDao.remoteKeyForKind(
@@ -77,7 +90,7 @@ class NotificationRemoteMediator(
             transactionProvider {
                 when (loadType) {
                     LoadType.REFRESH -> {
-                        remoteKeyDao.delete(pachliAccountId, RKE_TIMELINE_ID)
+                        remoteKeyDao.deletePrevNext(pachliAccountId, RKE_TIMELINE_ID)
                         notificationDao.deleteAllNotificationsForAccount(pachliAccountId)
 
                         remoteKeyDao.upsert(
@@ -131,6 +144,85 @@ class NotificationRemoteMediator(
             MediatorResult.Error(e)
         }
     }
+
+    /**
+     * Fetch the initial page of notifications, using [notificationId] as the ID of the initial
+     * notification to fetch.
+     *
+     * - If there is no key, a page of the most recent notifications is returned.
+     * - If the notifications exists a page that contains the notification, and the notifications
+     * immediately before and after it are returned. This provides enough content that the list
+     * adapter can restore the user's reading position.
+     * - If the notification does not exist the page of notifications immediately before is returned (if
+     *   non-empty).
+     * - If there is no page of notifications immediately before then the page immediately after is
+     *   returned (if non-empty).
+     * - Finally, fall back to the most recent notifications.
+     */
+    private suspend fun getInitialPage(notificationId: String?, pageSize: Int): Response<List<Notification>> =
+        coroutineScope {
+            // If the key is null this is straightforward, just return the most recent statuses.
+            notificationId ?: return@coroutineScope mastodonApi.notifications(limit = pageSize)
+
+            // It's important to return *something* from this state. If an empty page is returned
+            // (even with next/prev links) Pager3 assumes there is no more data to load and stops.
+            //
+            // In addition, the Mastodon API does not let you fetch a page that contains a given key.
+            // You can fetch the page immediately before the key, or the page immediately after, but
+            // you can not fetch the page itself.
+
+            // Fetch the requested notification, and the page immediately before (prev) and after (next)
+            val deferredNotification = async { mastodonApi.notification(id = notificationId) }
+            val deferredPrevPage = async {
+                mastodonApi.notifications(minId = notificationId, limit = pageSize * 3)
+            }
+            val deferredNextPage = async {
+                mastodonApi.notifications(maxId = notificationId, limit = pageSize * 3)
+            }
+
+            deferredNotification.await().getOrNull()?.let { notification ->
+                val notifications = buildList {
+                    deferredPrevPage.await().body()?.let { this.addAll(it) }
+                    this.add(notification)
+                    deferredNextPage.await().body()?.let { this.addAll(it) }
+                }
+
+                // "notifications" now contains at least one notification we can return, and
+                // hopefully a full page.
+
+                // Build correct max_id and min_id links for the response. The "min_id" to use
+                // when fetching the next page is the same as "key". The "max_id" is the ID of
+                // the oldest notification in the list.
+                val minId = notifications.first().id
+                val maxId = notifications.last().id
+                val headers = Headers.Builder()
+                    .add("link: </?max_id=$maxId>; rel=\"next\", </?min_id=$minId>; rel=\"prev\"")
+                    .build()
+
+                return@coroutineScope Response.success(notifications, headers)
+            }
+
+            // The user's last read notification was missing. Use the page of notifications
+            // chronologically older than their desired notification. This page must *not* be
+            // empty (as noted earlier, if it is, paging stops).
+            deferredNextPage.await().let { response ->
+                if (response.isSuccessful) {
+                    if (!response.body().isNullOrEmpty()) return@coroutineScope response
+                }
+            }
+
+            // There were no notifications older than the user's desired notification. Return the page
+            // of notifications immediately newer than their desired notification. This page must
+            // *not* be empty (as noted earlier, if it is, paging stops).
+            mastodonApi.notifications(minId = notificationId, limit = pageSize).let { response ->
+                if (response.isSuccessful) {
+                    if (!response.body().isNullOrEmpty()) return@coroutineScope response
+                }
+            }
+
+            // Everything failed -- fallback to fetching the most recent notifications
+            return@coroutineScope mastodonApi.notifications(limit = pageSize)
+        }
 
     /**
      * Upserts [notifications] and related data in to the local database.

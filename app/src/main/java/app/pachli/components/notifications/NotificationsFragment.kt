@@ -41,7 +41,6 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.NO_POSITION
 import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
 import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
@@ -85,10 +84,10 @@ import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.withCreationCallback
 import kotlin.properties.Delegates
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flow
@@ -142,11 +141,7 @@ class NotificationsFragment :
         pachliAccountId = requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.fragment_timeline_notifications, container, false)
     }
 
@@ -164,7 +159,9 @@ class NotificationsFragment :
 
         // Setup the SwipeRefreshLayout.
         binding.swipeRefreshLayout.setOnRefreshListener(this)
-        binding.swipeRefreshLayout.setColorSchemeColors(MaterialColors.getColor(binding.root, androidx.appcompat.R.attr.colorPrimary))
+        binding.swipeRefreshLayout.setColorSchemeColors(
+            MaterialColors.getColor(binding.root, androidx.appcompat.R.attr.colorPrimary),
+        )
 
         // Setup the RecyclerView.
         binding.recyclerView.setHasFixedSize(true)
@@ -216,11 +213,7 @@ class NotificationsFragment :
 
                 // Save the ID of the first notification visible in the list, so the user's
                 // reading position is always restorable.
-                layoutManager.findFirstVisibleItemPosition().takeIf { it != NO_POSITION }?.let { position ->
-                    adapter.snapshot().getOrNull(position)?.id?.let { id ->
-                        viewModel.accept(InfallibleUiAction.SaveVisibleId(pachliAccountId, visibleId = id))
-                    }
-                }
+                saveVisibleId()
             }
         }
         binding.recyclerView.addOnScrollListener(saveIdListener)
@@ -232,12 +225,7 @@ class NotificationsFragment :
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                launch {
-                    viewModel.pagingData.collectLatest { pagingData ->
-                        Timber.d("Submitting data to adapter")
-                        adapter.submitData(pagingData)
-                    }
-                }
+                launch { viewModel.pagingData.collectLatest { adapter.submitData(it) } }
 
                 launch { viewModel.uiResult.collect(::bindUiResult) }
 
@@ -262,40 +250,15 @@ class NotificationsFragment :
                         }
                 }
 
-                // Manage the display of progress bars. Rather than hide them as soon as the
-                // Refresh portion completes, hide them when then first Prepend completes. This
-                // is a better signal to the user that it is now possible to scroll up and see
-                // new content.
-                launch {
-//                    refreshState.collect {
-//                        when (it) {
-//                            UserRefreshState.ACTIVE -> {
-//                                if (adapter.itemCount == 0 && !binding.swipeRefreshLayout.isRefreshing) {
-//                                    binding.progressBar.show()
-//                                }
-//                            }
-//
-//                            UserRefreshState.COMPLETE, UserRefreshState.ERROR -> {
-//                                binding.progressBar.hide()
-//                                binding.swipeRefreshLayout.isRefreshing = false
-//                            }
-//
-//                            else -> {
-//                                /* nothing to do */
-//                            }
-//                        }
-//                    }
-                }
-
                 // Update the UI from the loadState
                 adapter.loadStateFlow
-//                    .distinctUntilChangedBy { it.refresh }
                     .collect { loadState ->
-                        Timber.d("new loadState: $loadState")
                         when (loadState.refresh) {
                             is LoadState.Error -> {
-                                binding.progressBar.hide()
-                                binding.statusView.setup((loadState.refresh as LoadState.Error).error) { adapter.retry() }
+                                binding.progressIndicator.hide()
+                                binding.statusView.setup((loadState.refresh as LoadState.Error).error) {
+                                    adapter.retry()
+                                }
                                 binding.recyclerView.hide()
                                 binding.statusView.show()
                                 binding.swipeRefreshLayout.isRefreshing = false
@@ -303,20 +266,24 @@ class NotificationsFragment :
 
                             LoadState.Loading -> {
                                 /* nothing */
-//                                binding.progressBar.show()
+                                binding.statusView.hide()
+                                binding.progressIndicator.show()
                             }
 
                             is LoadState.NotLoading -> {
-                                binding.progressBar.hide()
-                                binding.swipeRefreshLayout.isRefreshing = false
-                                Timber.d("NotLoading, items: ${adapter.itemCount}")
-                                if (adapter.itemCount == 0) {
-                                    binding.statusView.setup(BackgroundMessage.Empty())
-                                    binding.recyclerView.hide()
-                                    binding.statusView.show()
-                                } else {
-                                    binding.statusView.hide()
-                                    binding.recyclerView.show()
+                                // Might still be loading if source.refresh is Loading, so only update
+                                // the UI when loading is completely quiet.
+                                if (loadState.source.refresh !is LoadState.Loading) {
+                                    binding.progressIndicator.hide()
+                                    binding.swipeRefreshLayout.isRefreshing = false
+                                    if (adapter.itemCount == 0) {
+                                        binding.statusView.setup(BackgroundMessage.Empty())
+                                        binding.recyclerView.hide()
+                                        binding.statusView.show()
+                                    } else {
+                                        binding.statusView.hide()
+                                        binding.recyclerView.show()
+                                    }
                                 }
                             }
                         }
@@ -325,7 +292,7 @@ class NotificationsFragment :
         }
     }
 
-    private fun bindUiResult(uiResult: Result<UiSuccess, UiError>) {
+    private suspend fun bindUiResult(uiResult: Result<UiSuccess, UiError>) {
         // Show errors from the view model as snack bars.
         //
         // Errors are shown:
@@ -371,12 +338,15 @@ class NotificationsFragment :
                     // remove it.
                     is NotificationActionSuccess.AcceptFollowRequest,
                     is NotificationActionSuccess.RejectFollowRequest,
-                    -> adapter.refresh()
+                    -> refreshAdapterAndScrollToVisibleId()
                 }
             }
 
             when (uiSuccess) {
-                is UiSuccess.Block, is UiSuccess.Mute, is UiSuccess.MuteConversation -> adapter.refresh()
+                is UiSuccess.Block, is UiSuccess.Mute, is UiSuccess.MuteConversation -> viewLifecycleOwner.lifecycleScope.launch {
+                    refreshAdapterAndScrollToVisibleId()
+                }
+
                 is UiSuccess.LoadNewest -> {
                     // Scroll to the top when prepending completes.
                     viewLifecycleOwner.lifecycleScope.launch {
@@ -392,6 +362,25 @@ class NotificationsFragment :
                 else -> { /* nothing to do */ }
             }
         }
+    }
+
+    /**
+     * Refreshes the adapter, waits for the first page to be updated, and scrolls the
+     * the recyclerview to the first notification that was visible before the refresh.
+     *
+     * This ensures the user's position is not lost during adapter refreshes.
+     */
+    private fun refreshAdapterAndScrollToVisibleId() {
+        getFirstVisibleNotification()?.id?.let { id ->
+            viewLifecycleOwner.lifecycleScope.launch {
+                adapter.onPagesUpdatedFlow.conflate().take(1).collect {
+                    binding.recyclerView.scrollToPosition(
+                        adapter.snapshot().items.indexOfFirst { it.id == id },
+                    )
+                }
+            }
+        }
+        adapter.refresh()
     }
 
     /**
@@ -445,7 +434,6 @@ class NotificationsFragment :
     }
 
     override fun onRefresh() {
-//        binding.progressBar.isVisible = false
         // Peek the list when refreshing completes.
         viewLifecycleOwner.lifecycleScope.launch {
             adapter.postPrepend {
@@ -458,20 +446,36 @@ class NotificationsFragment :
                 }
             }
         }
-        adapter.refresh()
+
+        binding.swipeRefreshLayout.isRefreshing = false
+        viewLifecycleOwner.lifecycleScope.launch {
+            refreshAdapterAndScrollToVisibleId()
+        }
         clearNotificationsForAccount(requireContext(), pachliAccountId)
     }
 
     override fun onPause() {
         super.onPause()
+        saveVisibleId()
+    }
 
-        // Save the ID of the first notification visible in the list
-        val position = layoutManager.findFirstVisibleItemPosition()
-        if (position >= 0) {
-            adapter.snapshot().getOrNull(position)?.id?.let { id ->
-                viewModel.accept(InfallibleUiAction.SaveVisibleId(pachliAccountId, visibleId = id))
-            }
-        }
+    /**
+     * @returns The first visible notification. This is either the first fully visible
+     * notification, or the last visible notification if no notification is fully visible.
+     * May be null if there are no visible notifications.
+     */
+    private fun getFirstVisibleNotification() = (
+        layoutManager.findFirstCompletelyVisibleItemPosition()
+            .takeIf { it != RecyclerView.NO_POSITION }
+            ?: layoutManager.findLastVisibleItemPosition()
+                .takeIf { it != RecyclerView.NO_POSITION }
+        )?.let { adapter.snapshot().getOrNull(it) }
+
+    /**
+     * Saves the ID of the notification returned by [getFirstVisibleNotification].
+     */
+    private fun saveVisibleId() = getFirstVisibleNotification()?.let {
+        viewModel.accept(InfallibleUiAction.SaveVisibleId(pachliAccountId, it.id))
     }
 
     override fun onResume() {
@@ -547,7 +551,11 @@ class NotificationsFragment :
         onExpandedChange(viewData, expanded)
     }
 
-    override fun onContentHiddenChange(pachliAccountId: Long, viewData: NotificationViewData, isShowingContent: Boolean) {
+    override fun onContentHiddenChange(
+        pachliAccountId: Long,
+        viewData: NotificationViewData,
+        isShowingContent: Boolean,
+    ) {
         viewModel.accept(
             InfallibleUiAction.SetShowingContent(
                 pachliAccountId,
@@ -574,10 +582,7 @@ class NotificationsFragment :
         )
     }
 
-    override fun onNotificationContentCollapsedChange(
-        isCollapsed: Boolean,
-        viewData: NotificationViewData,
-    ) {
+    override fun onNotificationContentCollapsedChange(isCollapsed: Boolean, viewData: NotificationViewData) {
         onContentCollapsedChange(viewData.pachliAccountId, viewData, isCollapsed)
     }
 
@@ -602,7 +607,6 @@ class NotificationsFragment :
 
     private fun clearNotifications() {
         binding.swipeRefreshLayout.isRefreshing = false
-//        binding.progressBar.isVisible = false
         viewModel.accept(FallibleUiAction.ClearNotifications)
     }
 
@@ -623,11 +627,15 @@ class NotificationsFragment :
     }
 
     override fun onMute(mute: Boolean, id: String, position: Int, notifications: Boolean) {
-        adapter.refresh()
+        viewLifecycleOwner.lifecycleScope.launch {
+            refreshAdapterAndScrollToVisibleId()
+        }
     }
 
     override fun onBlock(block: Boolean, id: String, position: Int) {
-        adapter.refresh()
+        viewLifecycleOwner.lifecycleScope.launch {
+            refreshAdapterAndScrollToVisibleId()
+        }
     }
 
     override fun onRespondToFollowRequest(accept: Boolean, accountId: String, position: Int) {
