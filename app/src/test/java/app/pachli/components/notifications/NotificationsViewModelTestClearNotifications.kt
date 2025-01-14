@@ -18,6 +18,7 @@
 package app.pachli.components.notifications
 
 import app.cash.turbine.test
+import com.github.michaelbull.result.getError
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.test.runTest
@@ -54,12 +55,14 @@ class NotificationsViewModelTestClearNotifications : NotificationsViewModelTestB
         // Given
         notificationsRepository.stub { onBlocking { clearNotifications() } doReturn emptyError }
 
-        viewModel.uiError.test {
+        viewModel.uiResult.test {
             // When
             viewModel.accept(FallibleUiAction.ClearNotifications)
 
             // Then
-            assertThat(awaitItem()).isInstanceOf(UiError::class.java)
+            val item = awaitItem().getError() as? UiError.ClearNotifications
+            assertThat(item?.action).isEqualTo(FallibleUiAction.ClearNotifications)
+
         }
     }
 }

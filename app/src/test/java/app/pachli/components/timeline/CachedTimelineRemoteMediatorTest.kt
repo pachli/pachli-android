@@ -17,7 +17,7 @@ import app.pachli.core.database.Converters
 import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.RemoteKeyEntity
-import app.pachli.core.database.model.RemoteKeyKind
+import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
 import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.network.json.BooleanIfNull
 import app.pachli.core.network.json.DefaultIfNull
