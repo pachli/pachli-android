@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Pachli Association
+ * Copyright 2024 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -16,27 +16,19 @@
  */
 
 plugins {
-    id("java-library")
-    alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.android.lint)
+    alias(libs.plugins.pachli.android.library)
+    alias(libs.plugins.pachli.android.hilt)
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
-}
+android {
+    namespace = "app.pachli.core.eventhub"
 
-kotlin {
-    jvmToolchain(17)
-}
-
-tasks.jar {
-    manifest {
-        attributes["Lint-Registry-v2"] = "app.pachli.lint.checks.LintRegistry"
+    defaultConfig {
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 }
 
 dependencies {
-    compileOnly(libs.bundles.lint.api)
-    testImplementation(libs.bundles.lint.tests)
+    api(projects.core.network)
+        ?.because("Exposes network types in events")
 }

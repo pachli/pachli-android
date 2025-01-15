@@ -62,7 +62,6 @@ class NotificationsViewModelTestClearNotifications : NotificationsViewModelTestB
             // Then
             val item = awaitItem().getError() as? UiError.ClearNotifications
             assertThat(item?.action).isEqualTo(FallibleUiAction.ClearNotifications)
-
         }
     }
 }

@@ -22,8 +22,6 @@ import app.pachli.ContentFilterV1Test.Companion.mockStatus
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.notifications.StatusActionError
 import app.pachli.core.database.model.TranslationState
-import app.pachli.core.testing.success
-import at.connyduck.calladapter.networkresult.NetworkResult
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.get
@@ -35,9 +33,7 @@ import org.junit.Test
 import org.mockito.kotlin.any
 import org.mockito.kotlin.argumentCaptor
 import org.mockito.kotlin.doReturn
-import org.mockito.kotlin.doThrow
 import org.mockito.kotlin.stub
-import org.mockito.kotlin.verify
 
 /**
  * Verify that [StatusAction] are handled correctly on receipt:
