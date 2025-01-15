@@ -26,6 +26,10 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
+kotlin {
+    jvmToolchain(17)
+}
+
 tasks.jar {
     manifest {
         attributes["Lint-Registry-v2"] = "app.pachli.lint.checks.LintRegistry"
