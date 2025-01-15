@@ -36,7 +36,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionManager
 import app.pachli.adapter.ItemInteractionListener
 import app.pachli.adapter.TabAdapter
-import app.pachli.appstore.EventHub
+import app.pachli.core.eventhub.EventHub
 import app.pachli.core.activity.BaseActivity
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding

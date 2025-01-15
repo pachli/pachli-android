@@ -19,7 +19,7 @@ package app.pachli.components.notifications
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.PachliApplication
-import app.pachli.appstore.EventHub
+import app.pachli.core.eventhub.EventHub
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.AccountPreferenceDataStore
 import app.pachli.core.data.repository.ContentFiltersRepository

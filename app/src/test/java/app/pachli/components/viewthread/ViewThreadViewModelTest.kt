@@ -3,10 +3,10 @@ package app.pachli.components.viewthread
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.cash.turbine.test
 import app.pachli.PachliApplication
-import app.pachli.appstore.BookmarkEvent
-import app.pachli.appstore.EventHub
-import app.pachli.appstore.FavoriteEvent
-import app.pachli.appstore.ReblogEvent
+import app.pachli.core.eventhub.BookmarkEvent
+import app.pachli.core.eventhub.EventHub
+import app.pachli.core.eventhub.FavoriteEvent
+import app.pachli.core.eventhub.ReblogEvent
 import app.pachli.components.compose.HiltTestApplication_Application
 import app.pachli.components.timeline.CachedTimelineRepository
 import app.pachli.components.timeline.mockStatus

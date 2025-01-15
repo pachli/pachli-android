@@ -19,10 +19,10 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.ServiceCompat
 import androidx.core.content.IntentCompat
 import app.pachli.R
-import app.pachli.appstore.EventHub
-import app.pachli.appstore.StatusComposedEvent
-import app.pachli.appstore.StatusEditedEvent
-import app.pachli.appstore.StatusScheduledEvent
+import app.pachli.core.eventhub.EventHub
+import app.pachli.core.eventhub.StatusComposedEvent
+import app.pachli.core.eventhub.StatusEditedEvent
+import app.pachli.core.eventhub.StatusScheduledEvent
 import app.pachli.components.compose.MediaUploader
 import app.pachli.components.drafts.DraftHelper
 import app.pachli.components.notifications.pendingIntentFlags

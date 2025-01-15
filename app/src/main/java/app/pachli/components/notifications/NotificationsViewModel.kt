@@ -25,10 +25,10 @@ import androidx.paging.cachedIn
 import androidx.paging.filter
 import androidx.paging.map
 import app.pachli.R
-import app.pachli.appstore.BlockEvent
-import app.pachli.appstore.EventHub
-import app.pachli.appstore.MuteConversationEvent
-import app.pachli.appstore.MuteEvent
+import app.pachli.core.eventhub.BlockEvent
+import app.pachli.core.eventhub.EventHub
+import app.pachli.core.eventhub.MuteConversationEvent
+import app.pachli.core.eventhub.MuteEvent
 import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager

@@ -28,7 +28,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import app.pachli.BuildConfig
 import app.pachli.R
-import app.pachli.appstore.EventHub
+import app.pachli.core.eventhub.EventHub
 import app.pachli.components.notifications.activeAccountNeedsPushScope
 import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithTransition

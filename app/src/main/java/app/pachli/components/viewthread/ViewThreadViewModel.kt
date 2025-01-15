@@ -18,15 +18,15 @@ package app.pachli.components.viewthread
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.pachli.appstore.BlockEvent
-import app.pachli.appstore.BookmarkEvent
-import app.pachli.appstore.EventHub
-import app.pachli.appstore.FavoriteEvent
-import app.pachli.appstore.PinEvent
-import app.pachli.appstore.ReblogEvent
-import app.pachli.appstore.StatusComposedEvent
-import app.pachli.appstore.StatusDeletedEvent
-import app.pachli.appstore.StatusEditedEvent
+import app.pachli.core.eventhub.BlockEvent
+import app.pachli.core.eventhub.BookmarkEvent
+import app.pachli.core.eventhub.EventHub
+import app.pachli.core.eventhub.FavoriteEvent
+import app.pachli.core.eventhub.PinEvent
+import app.pachli.core.eventhub.ReblogEvent
+import app.pachli.core.eventhub.StatusComposedEvent
+import app.pachli.core.eventhub.StatusDeletedEvent
+import app.pachli.core.eventhub.StatusEditedEvent
 import app.pachli.components.timeline.CachedTimelineRepository
 import app.pachli.components.timeline.util.ifExpected
 import app.pachli.core.data.model.StatusViewData

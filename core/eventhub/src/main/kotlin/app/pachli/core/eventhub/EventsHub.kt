@@ -1,4 +1,4 @@
-package app.pachli.appstore
+package app.pachli.core.eventhub
 
 import javax.inject.Inject
 import javax.inject.Singleton

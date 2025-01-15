@@ -27,7 +27,7 @@ import androidx.core.view.MenuProvider
 import androidx.lifecycle.lifecycleScope
 import app.pachli.R
 import app.pachli.TabViewData
-import app.pachli.appstore.EventHub
+import app.pachli.core.eventhub.EventHub
 import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.activity.ReselectableFragment
 import app.pachli.core.common.extensions.viewBinding

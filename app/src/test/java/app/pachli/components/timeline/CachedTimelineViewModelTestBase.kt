@@ -20,7 +20,7 @@ package app.pachli.components.timeline
 import androidx.lifecycle.SavedStateHandle
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.PachliApplication
-import app.pachli.appstore.EventHub
+import app.pachli.core.eventhub.EventHub
 import app.pachli.components.timeline.viewmodel.CachedTimelineViewModel
 import app.pachli.components.timeline.viewmodel.TimelineViewModel
 import app.pachli.core.data.repository.AccountManager

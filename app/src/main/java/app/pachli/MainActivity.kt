@@ -58,7 +58,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewpager2.widget.MarginPageTransformer
 import app.pachli.appstore.CacheUpdater
-import app.pachli.appstore.EventHub
+import app.pachli.core.eventhub.EventHub
 import app.pachli.components.compose.ComposeActivity.Companion.canHandleMimeType
 import app.pachli.components.notifications.createNotificationChannelsForAccount
 import app.pachli.components.notifications.domain.AndroidNotificationsAreEnabledUseCase

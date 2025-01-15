@@ -23,11 +23,11 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.filter
 import androidx.paging.map
-import app.pachli.appstore.BookmarkEvent
-import app.pachli.appstore.EventHub
-import app.pachli.appstore.FavoriteEvent
-import app.pachli.appstore.PinEvent
-import app.pachli.appstore.ReblogEvent
+import app.pachli.core.eventhub.BookmarkEvent
+import app.pachli.core.eventhub.EventHub
+import app.pachli.core.eventhub.FavoriteEvent
+import app.pachli.core.eventhub.PinEvent
+import app.pachli.core.eventhub.ReblogEvent
 import app.pachli.components.timeline.CachedTimelineRepository
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager

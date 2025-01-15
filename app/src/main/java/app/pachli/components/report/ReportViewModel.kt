@@ -24,9 +24,9 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import androidx.paging.map
-import app.pachli.appstore.BlockEvent
-import app.pachli.appstore.EventHub
-import app.pachli.appstore.MuteEvent
+import app.pachli.core.eventhub.BlockEvent
+import app.pachli.core.eventhub.EventHub
+import app.pachli.core.eventhub.MuteEvent
 import app.pachli.components.report.adapter.StatusesPagingSource
 import app.pachli.components.report.model.StatusViewState
 import app.pachli.core.data.model.StatusViewData
