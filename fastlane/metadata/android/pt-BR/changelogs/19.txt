@@ -1,0 +1,5 @@
+Pachli 2.7.1
+
+Correções:
+
+- posicionar corretamente imagens do cartão de visualização, mostrar a descrição do cartão
