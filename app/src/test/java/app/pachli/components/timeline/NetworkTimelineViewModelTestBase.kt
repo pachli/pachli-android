@@ -19,12 +19,12 @@ package app.pachli.components.timeline
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import app.pachli.appstore.EventHub
 import app.pachli.components.timeline.viewmodel.NetworkTimelineViewModel
 import app.pachli.components.timeline.viewmodel.TimelineViewModel
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
+import app.pachli.core.eventhub.EventHub
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.di.test.DEFAULT_INSTANCE_V2
 import app.pachli.core.network.model.Account

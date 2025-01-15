@@ -1,4 +1,4 @@
-package app.pachli.appstore
+package app.pachli.core.eventhub
 
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.Poll

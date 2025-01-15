@@ -25,7 +25,6 @@ import android.widget.Toast
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
-import app.pachli.appstore.EventHub
 import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
@@ -33,6 +32,7 @@ import app.pachli.core.data.repository.ContentFilterEdit
 import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.canFilterV1
 import app.pachli.core.data.repository.canFilterV2
+import app.pachli.core.eventhub.EventHub
 import app.pachli.core.model.ContentFilter
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.FilterContext
