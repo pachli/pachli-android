@@ -50,4 +50,13 @@ interface AnnouncementsDao {
     """,
     )
     suspend fun deleteForAccount(pachliAccountId: Long, announcementId: String)
+
+    @Query(
+        """
+        SELECT *
+          FROM AnnouncementEntity
+         WHERE accountId = :pachliAccountId
+        """,
+    )
+    suspend fun loadAllForAccount(pachliAccountId: Long): List<AnnouncementEntity>
 }

@@ -21,6 +21,8 @@ import android.net.Uri
 import android.os.Parcelable
 import androidx.core.net.toUri
 import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
@@ -32,7 +34,18 @@ import com.squareup.moshi.JsonClass
 import java.util.Date
 import kotlinx.parcelize.Parcelize
 
-@Entity
+@Entity(
+    foreignKeys = [
+        ForeignKey(
+            entity = AccountEntity::class,
+            parentColumns = arrayOf("id"),
+            childColumns = arrayOf("accountId"),
+            onDelete = ForeignKey.CASCADE,
+            deferred = true,
+        ),
+    ],
+    indices = [Index(value = ["accountId"])],
+)
 @TypeConverters(Converters::class)
 data class DraftEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,

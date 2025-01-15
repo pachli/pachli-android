@@ -154,6 +154,16 @@ data class TimelineStatusEntity(
  */
 @Entity(
     primaryKeys = ["serverId", "timelineUserId"],
+    foreignKeys = [
+        ForeignKey(
+            entity = AccountEntity::class,
+            parentColumns = arrayOf("id"),
+            childColumns = arrayOf("timelineUserId"),
+            onDelete = ForeignKey.CASCADE,
+            deferred = true,
+        ),
+    ],
+    indices = [Index(value = ["timelineUserId"])],
 )
 @TypeConverters(Converters::class)
 data class TimelineAccountEntity(
@@ -226,6 +236,16 @@ enum class TranslationState {
  */
 @Entity(
     primaryKeys = ["serverId", "timelineUserId"],
+    foreignKeys = [
+        ForeignKey(
+            entity = AccountEntity::class,
+            parentColumns = arrayOf("id"),
+            childColumns = arrayOf("timelineUserId"),
+            onDelete = ForeignKey.CASCADE,
+            deferred = true,
+        ),
+    ],
+    indices = [Index(value = ["timelineUserId"])],
 )
 data class StatusViewDataEntity(
     val serverId: String,

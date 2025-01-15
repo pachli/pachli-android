@@ -48,14 +48,25 @@ interface RemoteKeyDao {
     )
     suspend fun deletePrevNext(accountId: Long, timelineId: String)
 
-    /** @return The notification ID to use when refreshing. */
+    /** @return The remote key ID to use when refreshing. */
     @Query(
         """
         SELECT `key`
           FROM RemoteKeyEntity
          WHERE accountId = :pachliAccountId
-          AND kind = "REFRESH"
+           AND timelineId = :timelineId
+           AND kind = "REFRESH"
         """,
     )
-    suspend fun getRefreshKey(pachliAccountId: Long): String?
+    suspend fun getRefreshKey(pachliAccountId: Long, timelineId: String): String?
+
+    /** @return All remote keys for [pachliAccountId]. */
+    @Query(
+        """
+        SELECT *
+          FROM RemoteKeyEntity
+         WHERE accountId = :pachliAccountId
+        """,
+    )
+    suspend fun loadAllForAccount(pachliAccountId: Long): List<RemoteKeyEntity>
 }

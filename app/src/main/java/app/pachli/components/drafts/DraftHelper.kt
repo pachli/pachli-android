@@ -144,12 +144,6 @@ class DraftHelper @Inject constructor(
         draftDao.delete(draft.id)
     }
 
-    suspend fun deleteAllDraftsAndAttachmentsForAccount(pachliAccountId: Long) {
-        draftDao.loadDrafts(pachliAccountId).forEach { draft ->
-            deleteDraftAndAttachments(draft)
-        }
-    }
-
     suspend fun deleteAttachments(draft: DraftEntity) = withContext(Dispatchers.IO) {
         draft.attachments.forEach { attachment ->
             if (context.contentResolver.delete(attachment.uri, null, null) == 0) {

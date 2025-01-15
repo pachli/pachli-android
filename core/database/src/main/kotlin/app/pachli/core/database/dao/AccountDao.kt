@@ -80,6 +80,12 @@ interface AccountDao {
     @Upsert
     suspend fun upsert(account: AccountEntity): Long
 
+    /**
+     * Deletes [account].
+     *
+     * Through foreign key relationships all data in related tables for this account
+     * is also deleted.
+     */
     @Delete
     suspend fun delete(account: AccountEntity)
 
@@ -173,17 +179,6 @@ interface AccountDao {
         pushPrivKey: String,
         pushPubKey: String,
     )
-
-    @Query(
-        """
-            UPDATE AccountEntity
-               SET accessToken = "",
-                   clientId = "",
-                   clientSecret = ""
-             WHERE id = :accountId
-        """,
-    )
-    suspend fun clearLoginCredentials(accountId: Long)
 
     @Query(
         """

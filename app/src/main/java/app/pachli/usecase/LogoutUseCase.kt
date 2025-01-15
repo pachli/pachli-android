@@ -5,9 +5,9 @@ import androidx.core.content.pm.ShortcutManagerCompat
 import app.pachli.components.drafts.DraftHelper
 import app.pachli.components.notifications.deleteNotificationChannelsForAccount
 import app.pachli.components.notifications.disablePushNotificationsForAccount
-import app.pachli.components.timeline.viewmodel.CachedTimelineRemoteMediator
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.LogoutError
+import app.pachli.core.database.dao.AccountDao
 import app.pachli.core.database.dao.ConversationsDao
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.TimelineDao
@@ -22,6 +22,7 @@ import javax.inject.Inject
 class LogoutUseCase @Inject constructor(
     @ApplicationContext private val context: Context,
     private val api: MastodonApi,
+    private val accountDao: AccountDao,
     private val timelineDao: TimelineDao,
     private val remoteKeyDao: RemoteKeyDao,
     private val conversationsDao: ConversationsDao,
@@ -50,14 +51,6 @@ class LogoutUseCase @Inject constructor(
 
         val nextAccount = accountManager.logActiveAccountOut()
             .onFailure { return Err(it) }
-
-        // Clear the database.
-        // TODO: This should be handled with foreign key constraints.
-        timelineDao.removeAll(account.id)
-        timelineDao.removeAllStatusViewData(account.id)
-        remoteKeyDao.delete(account.id, CachedTimelineRemoteMediator.TIMELINE_ID)
-        conversationsDao.deleteForAccount(account.id)
-        draftHelper.deleteAllDraftsAndAttachmentsForAccount(account.id)
 
         // remove shortcut associated with the account
         ShortcutManagerCompat.removeDynamicShortcuts(context, listOf(account.id.toString()))

@@ -19,6 +19,7 @@ package app.pachli.core.database.dao
 
 import androidx.paging.PagingSource
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.TypeConverters
@@ -185,4 +186,50 @@ WHERE pachliAccountId = :pachliAccountId AND serverId = :notificationId;
 
     @Upsert(entity = NotificationViewDataEntity::class)
     suspend fun upsert(accountFilterDecisionUpdate: AccountFilterDecisionUpdate)
+
+    @Deprecated("Only present for use in tests")
+    @Query(
+        """
+        SELECT *
+          FROM NotificationEntity
+         WHERE pachliAccountId = :pachliAccountId
+         """,
+    )
+    suspend fun loadAllForAccount(pachliAccountId: Long): List<NotificationEntity>
+
+    @Deprecated("Only present for use in tests")
+    @Query(
+        """
+        SELECT *
+          FROM NotificationViewDataEntity
+         WHERE pachliAccountId = :pachliAccountId
+           AND serverId = :serverId
+         """,
+    )
+    suspend fun loadViewData(pachliAccountId: Long, serverId: String): NotificationViewDataEntity?
+
+    @Delete
+    suspend fun deleteNotification(notification: NotificationEntity)
+
+    @Deprecated("Only present for use in tests")
+    @Query(
+        """
+        SELECT *
+          FROM NotificationReportEntity
+         WHERE pachliAccountId = :pachliAccountId
+           AND reportId = :reportId
+        """,
+    )
+    suspend fun loadReportById(pachliAccountId: Long, reportId: String): NotificationReportEntity?
+
+    @Deprecated("Only present for use in tests")
+    @Query(
+        """
+        SELECT *
+          FROM NotificationRelationshipSeveranceEventEntity
+         WHERE pachliAccountId = :pachliAccountId
+           AND eventId = :eventId
+        """,
+    )
+    suspend fun loadRelationshipSeveranceeventById(pachliAccountId: Long, eventId: String): NotificationRelationshipSeveranceEventEntity?
 }

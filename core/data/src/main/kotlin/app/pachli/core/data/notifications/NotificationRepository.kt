@@ -149,7 +149,7 @@ class NotificationRepository @Inject constructor(
     }
 
     /** @return The notification ID to use when refreshing. */
-    suspend fun getRefreshKey(pachliAccountId: Long) = remoteKeyDao.getRefreshKey(pachliAccountId)
+    suspend fun getRefreshKey(pachliAccountId: Long) = remoteKeyDao.getRefreshKey(pachliAccountId, RKE_TIMELINE_ID)
 
     suspend fun clearNotifications(): Response<ResponseBody> = externalScope.async {
         return@async mastodonApi.clearNotifications()

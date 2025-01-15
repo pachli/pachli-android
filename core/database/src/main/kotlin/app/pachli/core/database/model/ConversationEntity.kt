@@ -19,6 +19,8 @@ package app.pachli.core.database.model
 
 import androidx.room.Embedded
 import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
 import app.pachli.core.network.model.Attachment
@@ -32,7 +34,19 @@ import com.squareup.moshi.JsonClass
 import java.time.Instant
 import java.util.Date
 
-@Entity(primaryKeys = ["id", "accountId"])
+@Entity(
+    primaryKeys = ["id", "accountId"],
+    foreignKeys = [
+        ForeignKey(
+            entity = AccountEntity::class,
+            parentColumns = arrayOf("id"),
+            childColumns = arrayOf("accountId"),
+            onDelete = ForeignKey.CASCADE,
+            deferred = true,
+        ),
+    ],
+    indices = [Index(value = ["accountId"])],
+)
 @TypeConverters(Converters::class)
 data class ConversationEntity(
     val accountId: Long,
@@ -67,6 +81,7 @@ data class ConversationEntity(
     }
 }
 
+// TODO: Not an entity, should remove the suffix.
 @JsonClass(generateAdapter = true)
 data class ConversationAccountEntity(
     val id: String,
@@ -104,6 +119,7 @@ data class ConversationAccountEntity(
     }
 }
 
+// TODO: Not an entity, should remove the "Entity" suffix.
 @TypeConverters(Converters::class)
 data class ConversationStatusEntity(
     val id: String,

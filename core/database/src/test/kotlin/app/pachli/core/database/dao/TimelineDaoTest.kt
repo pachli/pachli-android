@@ -20,6 +20,7 @@ package app.pachli.core.database.dao
 import androidx.paging.PagingSource
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.core.database.AppDatabase
+import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TimelineStatusEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
@@ -30,7 +31,6 @@ import app.pachli.core.network.model.Status
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import javax.inject.Inject
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -49,11 +49,39 @@ class TimelineDaoTest {
     lateinit var db: AppDatabase
 
     @Inject
+    lateinit var accountDao: AccountDao
+
+    @Inject
     lateinit var timelineDao: TimelineDao
 
     @Before
     fun setup() {
         hilt.inject()
+
+        runTest {
+            // Insert two accounts with IDs 1 and 2, which are assumed to exist
+            // by the tests.
+            val activeAccount = AccountEntity(
+                id = 1L,
+                domain = "mastodon.example",
+                accessToken = "token",
+                clientId = "id",
+                clientSecret = "secret",
+                isActive = true,
+            )
+
+            accountDao.upsert(activeAccount)
+
+            // Like activeAccount, but inactive, and the {id, domain} pair have to
+            // be unique to match the database constraints.
+            val inactiveAccount = activeAccount.copy(
+                isActive = false,
+                id = 2L,
+                domain = "example.com",
+            )
+
+            accountDao.upsert(inactiveAccount)
+        }
     }
 
     @After
@@ -62,7 +90,7 @@ class TimelineDaoTest {
     }
 
     @Test
-    fun insertGetStatus() = runBlocking {
+    fun insertGetStatus() = runTest {
         val setOne = makeStatus(statusId = 3)
         val setTwo = makeStatus(statusId = 20, reblog = true)
         val ignoredOne = makeStatus(statusId = 1)
@@ -144,7 +172,7 @@ class TimelineDaoTest {
     }
 
     @Test
-    fun overwriteDeletedStatus() = runBlocking {
+    fun overwriteDeletedStatus() = runTest {
         val oldStatuses = listOf(
             makeStatus(statusId = 3),
             makeStatus(statusId = 2),
@@ -188,7 +216,7 @@ class TimelineDaoTest {
     }
 
     @Test
-    fun deleteRange() = runBlocking {
+    fun deleteRange() = runTest {
         val statuses = listOf(
             makeStatus(statusId = 100),
             makeStatus(statusId = 50),
@@ -237,7 +265,7 @@ class TimelineDaoTest {
     }
 
     @Test
-    fun deleteAllForInstance() = runBlocking {
+    fun deleteAllForInstance() = runTest {
         val statusWithRedDomain1 = makeStatus(
             statusId = 15,
             accountId = 1,
@@ -297,7 +325,7 @@ class TimelineDaoTest {
     }
 
     @Test
-    fun `preview card survives roundtrip`() = runBlocking {
+    fun `preview card survives roundtrip`() = runTest {
         val setOne = makeStatus(statusId = 3, cardUrl = "https://foo.bar")
 
         for ((status, author, reblogger) in listOf(setOne)) {
