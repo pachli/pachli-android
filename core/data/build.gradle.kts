@@ -34,6 +34,8 @@ dependencies {
     api(projects.core.database)
 
     implementation(projects.core.common)
+    implementation(projects.core.eventhub)
+        ?.because("NotificationRepository sends events")
     implementation(projects.core.model)
     implementation(projects.core.network)
     implementation(projects.core.preferences)

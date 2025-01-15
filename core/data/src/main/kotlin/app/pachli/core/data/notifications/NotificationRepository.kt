@@ -37,6 +37,11 @@ import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
 import app.pachli.core.database.model.StatusViewDataEntity
+import app.pachli.core.eventhub.BookmarkEvent
+import app.pachli.core.eventhub.EventHub
+import app.pachli.core.eventhub.FavoriteEvent
+import app.pachli.core.eventhub.PollVoteEvent
+import app.pachli.core.eventhub.ReblogEvent
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
 import app.pachli.core.network.model.Notification
@@ -90,6 +95,7 @@ class NotificationRepository @Inject constructor(
     private val timelineDao: TimelineDao,
     private val notificationDao: NotificationDao,
     private val remoteKeyDao: RemoteKeyDao,
+    private val eventHub: EventHub,
 ) {
 
     private var factory: InvalidatingPagingSourceFactory<Int, NotificationData>? = null
@@ -220,6 +226,8 @@ class NotificationRepository @Inject constructor(
             return@async Err(StatusActionError.Bookmark(throwable))
         }
 
+        result.onSuccess { eventHub.dispatch(BookmarkEvent(statusId, bookmarked)) }
+
         return@async Ok(Unit)
     }.await()
 
@@ -244,6 +252,8 @@ class NotificationRepository @Inject constructor(
             timelineDao.setFavourited(pachliAccountId, statusId, !favourited)
             return@async Err(StatusActionError.Favourite(throwable))
         }
+
+        result.onSuccess { eventHub.dispatch(FavoriteEvent(statusId, favourited)) }
 
         return@async Ok(Unit)
     }.await()
@@ -270,6 +280,8 @@ class NotificationRepository @Inject constructor(
             return@async Err(StatusActionError.Reblog(throwable))
         }
 
+        result.onSuccess { eventHub.dispatch(ReblogEvent(statusId, reblogged)) }
+
         return@async Ok(Unit)
     }.await()
 
@@ -284,7 +296,10 @@ class NotificationRepository @Inject constructor(
         }
 
         mastodonApi.voteInPoll(pollId, choices)
-            .onSuccess { poll -> timelineDao.setVoted(pachliAccountId, statusId, poll) }
+            .onSuccess { poll ->
+                timelineDao.setVoted(pachliAccountId, statusId, poll)
+                eventHub.dispatch(PollVoteEvent(statusId, poll))
+            }
             .onFailure { throwable -> return@async Err(StatusActionError.VoteInPoll(throwable)) }
 
         return@async Ok(Unit)
