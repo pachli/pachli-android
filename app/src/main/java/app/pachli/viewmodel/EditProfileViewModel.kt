@@ -22,11 +22,11 @@ import androidx.core.net.toUri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.pachli.appstore.EventHub
-import app.pachli.appstore.ProfileEditedEvent
 import app.pachli.core.common.string.randomAlphanumericString
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.InstanceInfoRepository
+import app.pachli.core.eventhub.EventHub
+import app.pachli.core.eventhub.ProfileEditedEvent
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.StringField
 import app.pachli.core.network.retrofit.MastodonApi

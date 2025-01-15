@@ -16,18 +16,18 @@
 
 package app.pachli.usecase
 
-import app.pachli.appstore.BlockEvent
-import app.pachli.appstore.BookmarkEvent
-import app.pachli.appstore.EventHub
-import app.pachli.appstore.FavoriteEvent
-import app.pachli.appstore.MuteConversationEvent
-import app.pachli.appstore.MuteEvent
-import app.pachli.appstore.PinEvent
-import app.pachli.appstore.PollVoteEvent
-import app.pachli.appstore.ReblogEvent
-import app.pachli.appstore.StatusDeletedEvent
 import app.pachli.components.timeline.CachedTimelineRepository
 import app.pachli.core.data.model.StatusViewData
+import app.pachli.core.eventhub.BlockEvent
+import app.pachli.core.eventhub.BookmarkEvent
+import app.pachli.core.eventhub.EventHub
+import app.pachli.core.eventhub.FavoriteEvent
+import app.pachli.core.eventhub.MuteConversationEvent
+import app.pachli.core.eventhub.MuteEvent
+import app.pachli.core.eventhub.PinEvent
+import app.pachli.core.eventhub.PollVoteEvent
+import app.pachli.core.eventhub.ReblogEvent
+import app.pachli.core.eventhub.StatusDeletedEvent
 import app.pachli.core.network.model.DeletedStatus
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Relationship
