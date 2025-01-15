@@ -37,12 +37,12 @@ import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.R
 import app.pachli.adapter.StatusBaseViewHolder
-import app.pachli.core.eventhub.EventHub
 import app.pachli.core.activity.ReselectableFragment
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
+import app.pachli.core.eventhub.EventHub
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.TimelineActivityIntent

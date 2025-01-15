@@ -26,10 +26,10 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import app.pachli.BuildConfig
 import app.pachli.R
-import app.pachli.core.eventhub.EventHub
 import app.pachli.core.activity.BaseActivity
 import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
+import app.pachli.core.eventhub.EventHub
 import app.pachli.core.navigation.MainActivityIntent
 import app.pachli.core.navigation.PreferencesActivityIntent
 import app.pachli.core.navigation.PreferencesActivityIntent.PreferenceScreen

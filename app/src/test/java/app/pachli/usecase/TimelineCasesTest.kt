@@ -2,9 +2,9 @@ package app.pachli.usecase
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.cash.turbine.test
+import app.pachli.components.timeline.CachedTimelineRepository
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.PinEvent
-import app.pachli.components.timeline.CachedTimelineRepository
 import app.pachli.core.network.extensions.getServerErrorMessage
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi

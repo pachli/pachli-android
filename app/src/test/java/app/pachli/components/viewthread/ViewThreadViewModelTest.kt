@@ -3,10 +3,6 @@ package app.pachli.components.viewthread
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.cash.turbine.test
 import app.pachli.PachliApplication
-import app.pachli.core.eventhub.BookmarkEvent
-import app.pachli.core.eventhub.EventHub
-import app.pachli.core.eventhub.FavoriteEvent
-import app.pachli.core.eventhub.ReblogEvent
 import app.pachli.components.compose.HiltTestApplication_Application
 import app.pachli.components.timeline.CachedTimelineRepository
 import app.pachli.components.timeline.mockStatus
@@ -14,6 +10,10 @@ import app.pachli.components.timeline.mockStatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.dao.TimelineDao
+import app.pachli.core.eventhub.BookmarkEvent
+import app.pachli.core.eventhub.EventHub
+import app.pachli.core.eventhub.FavoriteEvent
+import app.pachli.core.eventhub.ReblogEvent
 import app.pachli.core.network.di.test.DEFAULT_INSTANCE_V2
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.StatusContext
