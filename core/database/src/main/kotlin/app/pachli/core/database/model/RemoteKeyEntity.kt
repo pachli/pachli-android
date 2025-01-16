@@ -18,6 +18,7 @@
 package app.pachli.core.database.model
 
 import androidx.room.Entity
+import androidx.room.ForeignKey
 
 enum class RemoteKeyKind {
     /** Key to load the next (chronologically oldest) page of data for this timeline */
@@ -32,6 +33,15 @@ enum class RemoteKeyKind {
  */
 @Entity(
     primaryKeys = ["accountId", "timelineId", "kind"],
+    foreignKeys = [
+        ForeignKey(
+            entity = AccountEntity::class,
+            parentColumns = arrayOf("id"),
+            childColumns = arrayOf("accountId"),
+            onDelete = ForeignKey.CASCADE,
+            deferred = true,
+        ),
+    ],
 )
 data class RemoteKeyEntity(
     /** User account these keys relate to. */

@@ -18,6 +18,7 @@
 package app.pachli.core.database.model
 
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import app.pachli.core.network.model.TimelineAccount
 
 /**
@@ -27,7 +28,18 @@ import app.pachli.core.network.model.TimelineAccount
  * @param serverId Server's identifier for the account. Unique within a single server,
  * but not unique across the federated network.
  */
-@Entity(primaryKeys = ["pachliAccountId", "serverId"])
+@Entity(
+    primaryKeys = ["pachliAccountId", "serverId"],
+    foreignKeys = [
+        ForeignKey(
+            entity = AccountEntity::class,
+            parentColumns = arrayOf("id"),
+            childColumns = arrayOf("pachliAccountId"),
+            onDelete = ForeignKey.CASCADE,
+            deferred = true,
+        ),
+    ],
+)
 data class FollowingAccountEntity(
     val pachliAccountId: Long,
     val serverId: String,

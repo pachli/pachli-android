@@ -308,4 +308,15 @@ AND timelineUserId = :accountId
     /** Developer tools: Find N most recent status IDs */
     @Query("SELECT serverId FROM TimelineStatusEntity WHERE timelineUserId = :accountId ORDER BY LENGTH(serverId) DESC, serverId DESC LIMIT :count")
     abstract suspend fun getMostRecentNStatusIds(accountId: Long, count: Int): List<String>
+
+    /** @returns The [timeline accounts][TimelineAccountEntity] known by [pachliAccountId]. */
+    @Deprecated("Do not use, only present for tests")
+    @Query(
+        """
+        SELECT *
+          FROM TimelineAccountEntity
+         WHERE timelineUserId = :pachliAccountId
+        """,
+    )
+    abstract suspend fun loadTimelineAccountsForAccount(pachliAccountId: Long): List<TimelineAccountEntity>
 }
