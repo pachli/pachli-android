@@ -1,4 +1,4 @@
-Bradavičkehliadky 2.7.1
+Pachli 2.7.1
 
 Opravy:
 
