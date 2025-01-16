@@ -254,16 +254,16 @@ data class NotificationReportEntity(
 @Entity(
     primaryKeys = ["pachliAccountId", "serverId", "eventId"],
     foreignKeys = (
-            [
-                ForeignKey(
-                    entity = NotificationEntity::class,
-                    parentColumns = ["pachliAccountId", "serverId"],
-                    childColumns = ["pachliAccountId", "serverId"],
-                    onDelete = ForeignKey.CASCADE,
-                    deferred = true,
-                ),
-            ]
+        [
+            ForeignKey(
+                entity = NotificationEntity::class,
+                parentColumns = ["pachliAccountId", "serverId"],
+                childColumns = ["pachliAccountId", "serverId"],
+                onDelete = ForeignKey.CASCADE,
+                deferred = true,
             ),
+        ]
+        ),
 )
 @TypeConverters(Converters::class)
 data class NotificationRelationshipSeveranceEventEntity(

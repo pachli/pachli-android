@@ -20,38 +20,18 @@ package app.pachli.core.database.dao
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.core.database.AppDatabase
 import app.pachli.core.database.model.AccountEntity
-import app.pachli.core.database.model.AnnouncementEntity
-import app.pachli.core.database.model.ContentFiltersEntity
-import app.pachli.core.database.model.ConversationAccountEntity
-import app.pachli.core.database.model.ConversationEntity
-import app.pachli.core.database.model.ConversationStatusEntity
-import app.pachli.core.database.model.DraftEntity
-import app.pachli.core.database.model.EmojisEntity
 import app.pachli.core.database.model.FilterActionUpdate
-import app.pachli.core.database.model.FollowingAccountEntity
-import app.pachli.core.database.model.MastodonListEntity
 import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.database.model.NotificationRelationshipSeveranceEventEntity
 import app.pachli.core.database.model.NotificationReportEntity
 import app.pachli.core.database.model.NotificationViewDataEntity
-import app.pachli.core.database.model.RemoteKeyEntity
-import app.pachli.core.database.model.ServerEntity
-import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineAccountEntity
-import app.pachli.core.database.model.TranslatedStatusEntity
-import app.pachli.core.database.model.TranslationState
-import app.pachli.core.model.ContentFilterVersion
 import app.pachli.core.model.FilterAction
-import app.pachli.core.model.ServerKind
-import app.pachli.core.network.model.Announcement
-import app.pachli.core.network.model.Status
-import app.pachli.core.network.model.UserListRepliesPolicy
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
-import io.github.z4kn4fein.semver.Version
 import java.time.Instant
-import java.util.Date
+import java.time.temporal.ChronoUnit
 import javax.inject.Inject
 import kotlinx.coroutines.test.runTest
 import org.junit.After
@@ -59,7 +39,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.time.temporal.ChronoUnit
 
 /**
  * Ensures foreign key relationships are created in entities that reference
@@ -119,7 +98,7 @@ class NotificationEntityForeignKeyTest {
             type = NotificationEntity.Type.REPORT,
             createdAt = Instant.now().truncatedTo(ChronoUnit.MILLIS),
             accountServerId = "1",
-            statusServerId = null
+            statusServerId = null,
         )
         notificationDao.upsertNotifications(listOf(notification))
         val notificationReport = NotificationReportEntity(
@@ -147,7 +126,7 @@ class NotificationEntityForeignKeyTest {
                 createdAt = Instant.now().truncatedTo(ChronoUnit.MILLIS),
                 limited = false,
                 note = "",
-            )
+            ),
         )
         notificationDao.upsertReports(listOf(notificationReport))
 
@@ -160,7 +139,7 @@ class NotificationEntityForeignKeyTest {
 
         // Then
         assertThat(notificationDao.loadAllForAccount(pachliAccountId)).isEmpty()
-      assertThat(notificationDao.loadReportById(pachliAccountId, "1")).isNull()
+        assertThat(notificationDao.loadReportById(pachliAccountId, "1")).isNull()
     }
 
     // TODO: Deleting Notification with NotifcationRelationshipSeveranceEntity
@@ -173,7 +152,7 @@ class NotificationEntityForeignKeyTest {
             type = NotificationEntity.Type.REPORT,
             createdAt = Instant.now().truncatedTo(ChronoUnit.MILLIS),
             accountServerId = "1",
-            statusServerId = null
+            statusServerId = null,
         )
         notificationDao.upsertNotifications(listOf(notification))
 
@@ -214,7 +193,7 @@ class NotificationEntityForeignKeyTest {
      */
     @Suppress("DEPRECATION")
     @Test
-    fun `deleting notification does not delete notification view data`() = runTest{
+    fun `deleting notification does not delete notification view data`() = runTest {
         val notification = NotificationEntity(
             pachliAccountId = pachliAccountId,
             serverId = "1",
@@ -227,7 +206,7 @@ class NotificationEntityForeignKeyTest {
         val filterAction = FilterActionUpdate(
             pachliAccountId = pachliAccountId,
             serverId = "1",
-            contentFilterAction = FilterAction.NONE
+            contentFilterAction = FilterAction.NONE,
         )
         notificationDao.upsert(filterAction)
 

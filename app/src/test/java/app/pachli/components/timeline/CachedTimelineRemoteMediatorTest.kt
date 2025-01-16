@@ -81,6 +81,8 @@ class CachedTimelineRemoteMediatorTest {
             .build()
         transactionProvider = TransactionProvider(db)
 
+        runTest { db.accountDao().upsert(activeAccount) }
+
         pagingSourceFactory = mock()
     }
 

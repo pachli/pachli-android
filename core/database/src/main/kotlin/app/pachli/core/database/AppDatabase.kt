@@ -92,7 +92,7 @@ import java.util.TimeZone
         NotificationViewDataEntity::class,
         NotificationRelationshipSeveranceEventEntity::class,
     ],
-    version = 11,
+    version = 12,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
@@ -102,7 +102,8 @@ import java.util.TimeZone
         AutoMigration(from = 6, to = 7, spec = AppDatabase.MIGRATE_6_7::class),
         AutoMigration(from = 7, to = 8, spec = AppDatabase.MIGRATE_7_8::class),
         AutoMigration(from = 9, to = 10),
-        AutoMigration(from = 10, to = 11, spec = AppDatabase.MIGRATE_10_11::class),
+        AutoMigration(from = 10, to = 11),
+        AutoMigration(from = 11, to = 12, spec = AppDatabase.MIGRATE_11_12::class),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -177,7 +178,7 @@ abstract class AppDatabase : RoomDatabase() {
 
     // lastNotificationId removed in favour of the REFRESH key in RemoteKeyEntity.
     @DeleteColumn("AccountEntity", "lastNotificationId")
-    class MIGRATE_10_11 : AutoMigrationSpec
+    class MIGRATE_11_12 : AutoMigrationSpec
 }
 
 val MIGRATE_8_9 = object : Migration(8, 9) {

@@ -31,8 +31,6 @@ import app.pachli.core.database.model.FilterActionUpdate
 import app.pachli.core.database.model.FollowingAccountEntity
 import app.pachli.core.database.model.MastodonListEntity
 import app.pachli.core.database.model.NotificationEntity
-import app.pachli.core.database.model.NotificationRelationshipSeveranceEventEntity
-import app.pachli.core.database.model.NotificationReportEntity
 import app.pachli.core.database.model.NotificationViewDataEntity
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.ServerEntity
@@ -51,6 +49,7 @@ import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import io.github.z4kn4fein.semver.Version
 import java.time.Instant
+import java.time.temporal.ChronoUnit
 import java.util.Date
 import javax.inject.Inject
 import kotlinx.coroutines.test.runTest
@@ -59,7 +58,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.time.temporal.ChronoUnit
 
 /**
  * Ensures foreign key relationships are created in entities that reference
@@ -361,7 +359,7 @@ class AccountEntityForeignKeyTest {
         val filterAction = FilterActionUpdate(
             pachliAccountId = pachliAccountId,
             serverId = "1",
-            contentFilterAction = FilterAction.NONE
+            contentFilterAction = FilterAction.NONE,
         )
         notificationDao.upsert(filterAction)
 
@@ -382,7 +380,6 @@ class AccountEntityForeignKeyTest {
         assertThat(notificationDao.loadAllForAccount(pachliAccountId)).isEmpty()
         assertThat(notificationDao.loadViewData(pachliAccountId, "1")).isNull()
     }
-
 
     @Test
     fun `deleting account deletes RemoteKeyEntity`() = runTest {
