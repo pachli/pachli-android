@@ -23,6 +23,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import app.pachli.components.timeline.viewmodel.CachedTimelineRemoteMediator
+import app.pachli.components.timeline.viewmodel.CachedTimelineRemoteMediator.Companion.TIMELINE_ID
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.dao.RemoteKeyDao
@@ -174,7 +175,7 @@ class CachedTimelineRepository @Inject constructor(
 
     suspend fun clearAndReloadFromNewest(pachliAccountId: Long) = externalScope.launch {
         timelineDao.removeAll(pachliAccountId)
-        remoteKeyDao.delete(pachliAccountId)
+        remoteKeyDao.delete(pachliAccountId, TIMELINE_ID)
         invalidate(pachliAccountId)
     }
 

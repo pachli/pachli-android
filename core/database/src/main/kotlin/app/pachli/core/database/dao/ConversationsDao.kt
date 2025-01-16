@@ -38,6 +38,16 @@ interface ConversationsDao {
     @Query("SELECT * FROM ConversationEntity WHERE accountId = :accountId ORDER BY `order` ASC")
     fun conversationsForAccount(accountId: Long): PagingSource<Int, ConversationEntity>
 
+    @Deprecated("Use conversationsForAccount, this is only for use in tests")
+    @Query(
+        """
+        SELECT *
+          FROM ConversationEntity
+         WHERE accountId = :pachliAccountId
+        """,
+    )
+    suspend fun loadAllForAccount(pachliAccountId: Long): List<ConversationEntity>
+
     @Query("DELETE FROM ConversationEntity WHERE accountId = :accountId")
     suspend fun deleteForAccount(accountId: Long)
 

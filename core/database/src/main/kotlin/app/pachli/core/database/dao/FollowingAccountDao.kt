@@ -45,4 +45,13 @@ interface FollowingAccountDao {
 
     @Delete
     suspend fun delete(account: FollowingAccountEntity)
+
+    @Query(
+        """
+        SELECT *
+          FROM FollowingAccountEntity
+         WHERE pachliAccountId = :pachliAccountId
+        """,
+    )
+    suspend fun loadAllForAccount(pachliAccountId: Long): List<FollowingAccountEntity>
 }

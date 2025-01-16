@@ -111,7 +111,7 @@ class CachedTimelineRemoteMediator(
             transactionProvider {
                 when (loadType) {
                     LoadType.REFRESH -> {
-                        remoteKeyDao.delete(pachliAccountId)
+                        remoteKeyDao.delete(pachliAccountId, TIMELINE_ID)
                         timelineDao.removeAllStatuses(pachliAccountId)
 
                         remoteKeyDao.upsert(
@@ -261,7 +261,6 @@ class CachedTimelineRemoteMediator(
     }
 
     companion object {
-        @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
         const val TIMELINE_ID = "HOME"
     }
 }

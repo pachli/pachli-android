@@ -320,8 +320,8 @@ class AccountManager @Inject constructor(
     }
 
     /**
-     * Logs out the active account by deleting all data of the account, sets the
-     * next active account, and returns the active account.
+     * Deletes all data for the active account, sets the next active account, and
+     * returns the active account.
      *
      * @return The new active account, or null if there are no more accounts (the
      * user logged out of the last account).
@@ -330,9 +330,6 @@ class AccountManager @Inject constructor(
         return transactionProvider {
             val activeAccount = accountDao.getActiveAccount() ?: return@transactionProvider Err(NoActiveAccount)
             Timber.d("logout: Logging out %d", activeAccount.id)
-
-            // Deleting credentials so they cannot be used again
-            accountDao.clearLoginCredentials(activeAccount.id)
 
             accountDao.delete(activeAccount)
 

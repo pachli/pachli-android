@@ -33,6 +33,16 @@ interface RemoteKeyDao {
     @Query("SELECT * FROM RemoteKeyEntity WHERE accountId = :accountId AND timelineId = :timelineId AND kind = :kind")
     suspend fun remoteKeyForKind(accountId: Long, timelineId: String, kind: RemoteKeyKind): RemoteKeyEntity?
 
-    @Query("DELETE FROM RemoteKeyEntity WHERE accountId = :accountId")
-    suspend fun delete(accountId: Long)
+    @Query("DELETE FROM RemoteKeyEntity WHERE accountId = :accountId AND timelineId = :timelineId")
+    suspend fun delete(accountId: Long, timelineId: String)
+
+    /** @return All remote keys for [pachliAccountId]. */
+    @Query(
+        """
+        SELECT *
+          FROM RemoteKeyEntity
+         WHERE accountId = :pachliAccountId
+        """,
+    )
+    suspend fun loadAllForAccount(pachliAccountId: Long): List<RemoteKeyEntity>
 }
