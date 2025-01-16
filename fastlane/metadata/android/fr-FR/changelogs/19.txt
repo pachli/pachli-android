@@ -1,0 +1,5 @@
+Pachli 2.7.1
+
+Fixes:
+
+- Position correcte des images de la carte de prévisualisation, description de la carte

@@ -1,0 +1,5 @@
+Pachli 2.7.1
+
+Behebungen:
+
+- korrekte Position Vorschaukartenbilder, Kartenbeschreibung anzeigen

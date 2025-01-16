@@ -1,0 +1,15 @@
+Pachli 2.9.0
+
+Nieuwe kenmerken:
+
+Verplaats de rekening en de inhoudsvoorwaarden van laboratoria
+- Initiële steun voor filtering berichten door rekening te sturen
+Vertaling:
+- Toon extra a11y acties voor trending links en voorgestelde rekeningen
+
+Vertaling:
+
+- Zorg dat dingen in een 11e dialoog klikken
+- Ja. Verlies geen foto's / captions na mislukte uploads
+- Verslagen
+- Update Finnish, Iers, Noorse (Bokmål, Nynorsk) en Spaanse vertaling:

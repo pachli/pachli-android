@@ -1,0 +1,5 @@
+Pachli 2.8.3
+
+Opravy:
+
+- Správne umiestnenie náhľad obrázkov karty, popis karty
