@@ -17,7 +17,6 @@
 
 package app.pachli.components.timeline.viewmodel
 
-import androidx.annotation.VisibleForTesting
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.InvalidatingPagingSourceFactory
 import androidx.paging.LoadType

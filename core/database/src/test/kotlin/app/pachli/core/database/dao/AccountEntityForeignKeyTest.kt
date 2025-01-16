@@ -46,6 +46,7 @@ import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import io.github.z4kn4fein.semver.Version
 import java.time.Instant
+import java.time.temporal.ChronoUnit
 import java.util.Date
 import javax.inject.Inject
 import kotlinx.coroutines.test.runTest
@@ -54,7 +55,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.time.temporal.ChronoUnit
 
 /**
  * Ensures foreign key relationships are created in entities that reference
