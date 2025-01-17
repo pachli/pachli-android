@@ -141,7 +141,11 @@ class NotificationsFragment :
         pachliAccountId = requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         return inflater.inflate(R.layout.fragment_timeline_notifications, container, false)
     }
 
@@ -159,9 +163,7 @@ class NotificationsFragment :
 
         // Setup the SwipeRefreshLayout.
         binding.swipeRefreshLayout.setOnRefreshListener(this)
-        binding.swipeRefreshLayout.setColorSchemeColors(
-            MaterialColors.getColor(binding.root, androidx.appcompat.R.attr.colorPrimary),
-        )
+        binding.swipeRefreshLayout.setColorSchemeColors(MaterialColors.getColor(binding.root, androidx.appcompat.R.attr.colorPrimary),)
 
         // Setup the RecyclerView.
         binding.recyclerView.setHasFixedSize(true)

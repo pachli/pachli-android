@@ -245,7 +245,11 @@ class NotificationsPagingAdapter(
         bindViewHolder(holder, position, null)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int, payloads: MutableList<Any>) {
+    override fun onBindViewHolder(
+        holder: RecyclerView.ViewHolder,
+        position: Int,
+        payloads: MutableList<Any>
+    ) {
         bindViewHolder(holder, position, payloads)
     }
 

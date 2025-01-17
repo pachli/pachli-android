@@ -944,16 +944,12 @@ fun pendingIntentFlags(mutable: Boolean): Int {
  *
  * @throws IllegalStateException if the value at [key] is not valid for the enum [T].
  */
-inline fun <reified T : Enum<T>> Bundle.getEnum(key: String) = getInt(key, -1).let {
-    if (it >= 0) {
-        enumValues<T>()[it]
-    } else {
-        throw IllegalStateException("unrecognised enum ordinal: $it")
-    }
-}
+inline fun <reified T : Enum<T>> Bundle.getEnum(key: String) =
+    getInt(key, -1).let { if (it >= 0) enumValues<T>()[it] else throw IllegalStateException("unrecognised enum ordinal: $it") }
 
 /**
  * Inserts an enum [value] into the mapping of this [Bundle], replacing any
  * existing value for the given [key].
  */
-fun <T : Enum<T>> Bundle.putEnum(key: String, value: T?) = putInt(key, value?.ordinal ?: -1)
+fun <T : Enum<T>> Bundle.putEnum(key: String, value: T?) =
+    putInt(key, value?.ordinal ?: -1)

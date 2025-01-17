@@ -28,11 +28,7 @@ interface RemoteKeyDao {
     suspend fun upsert(remoteKey: RemoteKeyEntity)
 
     @Query("SELECT * FROM RemoteKeyEntity WHERE accountId = :accountId AND timelineId = :timelineId AND kind = :kind")
-    suspend fun remoteKeyForKind(
-        accountId: Long,
-        timelineId: String,
-        kind: RemoteKeyEntity.RemoteKeyKind,
-    ): RemoteKeyEntity?
+    suspend fun remoteKeyForKind(accountId: Long, timelineId: String, kind: RemoteKeyEntity.RemoteKeyKind, ): RemoteKeyEntity?
 
     @Query("DELETE FROM RemoteKeyEntity WHERE accountId = :accountId AND timelineId = :timelineId")
     suspend fun delete(accountId: Long, timelineId: String)
