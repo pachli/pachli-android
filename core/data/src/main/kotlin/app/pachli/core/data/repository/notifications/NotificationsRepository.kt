@@ -151,8 +151,14 @@ class NotificationsRepository @Inject constructor(
     /** @return The notification ID to use when refreshing. */
     suspend fun getRefreshKey(pachliAccountId: Long) = remoteKeyDao.getRefreshKey(pachliAccountId, RKE_TIMELINE_ID)
 
-    suspend fun clearNotifications(): Response<ResponseBody> = externalScope.async {
-        return@async mastodonApi.clearNotifications()
+    /**
+     * Clears (deletes) all notifications from the server. Invalidates the repository
+     * if successful.
+     */
+    suspend fun clearNotifications() = externalScope.async {
+        val result = mastodonApi.clearNotifications()
+        if (result.isSuccessful) invalidate()
+        return@async result
     }.await()
 
     fun clearContentFilter(pachliAccountId: Long, notificationId: String) = externalScope.launch {

@@ -580,11 +580,7 @@ class NotificationsViewModel @AssistedInject constructor(
     private suspend fun onClearNotifications(action: FallibleUiAction.ClearNotifications) {
         try {
             repository.clearNotifications().apply {
-                if (this.isSuccessful) {
-                    repository.invalidate()
-                } else {
-                    _uiResult.send(Err(UiError.make(HttpException(this), action)))
-                }
+                if (!isSuccessful) _uiResult.send(Err(UiError.make(HttpException(this), action)))
             }
         } catch (e: Exception) {
             _uiResult.send(Err(UiError.make(e, action)))
