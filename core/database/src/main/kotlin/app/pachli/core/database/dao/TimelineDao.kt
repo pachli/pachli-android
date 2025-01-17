@@ -46,7 +46,7 @@ abstract class TimelineDao {
     @Upsert
     abstract suspend fun upsertStatuses(statuses: Collection<TimelineStatusEntity>)
 
-    @Insert(onConflict = REPLACE)
+    @Upsert
     abstract suspend fun insertStatus(timelineStatusEntity: TimelineStatusEntity): Long
 
     @Query(
@@ -180,7 +180,23 @@ WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServe
         removeAllTranslatedStatus(accountId)
     }
 
-    @Query("DELETE FROM TimelineStatusEntity WHERE timelineUserId = :accountId")
+    /**
+     * Removes all statuses from the cached **home** timeline.
+     *
+     * Statuses that are referenced by notifications are retained, to ensure
+     * they show up in the Notifications list.
+     */
+    @Query(
+        """
+        DELETE FROM TimelineStatusEntity
+         WHERE timelineUserId = :accountId
+           AND serverId NOT IN (
+             SELECT statusServerId
+               FROM NotificationEntity
+              WHERE statusServerId IS NOT NULL
+           )
+        """,
+    )
     abstract suspend fun removeAllStatuses(accountId: Long)
 
     @Query("DELETE FROM TimelineAccountEntity WHERE timelineUserId = :accountId")

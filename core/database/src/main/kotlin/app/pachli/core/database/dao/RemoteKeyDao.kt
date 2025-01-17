@@ -39,7 +39,7 @@ interface RemoteKeyDao {
           FROM RemoteKeyEntity
          WHERE accountId = :accountId
            AND timelineId = :timelineId
-           AND (kind = "PREV" OR kind = "NEXT")
+           AND (kind = 'PREV' OR kind = 'NEXT')
         """,
     )
     suspend fun deletePrevNext(accountId: Long, timelineId: String)
