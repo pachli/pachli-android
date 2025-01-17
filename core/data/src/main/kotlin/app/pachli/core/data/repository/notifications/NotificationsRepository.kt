@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Pachli Association
+ * Copyright (c) 2025 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -15,7 +15,7 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.core.data.notifications
+package app.pachli.core.data.repository.notifications
 
 import androidx.annotation.StringRes
 import androidx.paging.ExperimentalPagingApi
@@ -88,7 +88,7 @@ sealed class StatusActionError(open val throwable: Throwable) : PachliError {
     data class VoteInPoll(override val throwable: Throwable) : StatusActionError(throwable)
 }
 
-class NotificationRepository @Inject constructor(
+class NotificationsRepository @Inject constructor(
     @ApplicationScope private val externalScope: CoroutineScope,
     private val mastodonApi: MastodonApi,
     private val transactionProvider: TransactionProvider,
@@ -115,7 +115,7 @@ class NotificationRepository @Inject constructor(
                 pageSize = PAGE_SIZE,
                 enablePlaceholders = false,
             ),
-            remoteMediator = NotificationRemoteMediator(
+            remoteMediator = NotificationsRemoteMediator(
                 pachliAccountId,
                 mastodonApi,
                 transactionProvider,

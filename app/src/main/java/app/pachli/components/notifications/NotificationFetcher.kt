@@ -22,9 +22,9 @@ import android.content.Context
 import androidx.annotation.WorkerThread
 import app.pachli.core.activity.NotificationConfig
 import app.pachli.core.common.string.isLessThan
-import app.pachli.core.data.notifications.NotificationRepository
-import app.pachli.core.data.notifications.from
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.notifications.NotificationsRepository
+import app.pachli.core.data.repository.notifications.from
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.NotificationData
 import app.pachli.core.model.AccountFilterDecision
@@ -60,7 +60,7 @@ import timber.log.Timber
 class NotificationFetcher @Inject constructor(
     private val mastodonApi: MastodonApi,
     private val accountManager: AccountManager,
-    private val notificationRepository: NotificationRepository,
+    private val notificationsRepository: NotificationsRepository,
     @ApplicationContext private val context: Context,
 ) {
     suspend fun fetchAndShow(pachliAccountId: Long) {
@@ -176,7 +176,7 @@ class NotificationFetcher @Inject constructor(
         val remoteMarkerId = fetchMarker(account)?.lastReadId ?: "0"
         val localMarkerId = account.notificationMarkerId
         val markerId = if (remoteMarkerId.isLessThan(localMarkerId)) localMarkerId else remoteMarkerId
-        val readingPosition = notificationRepository.getRefreshKey(account.id) ?: "0"
+        val readingPosition = notificationsRepository.getRefreshKey(account.id) ?: "0"
 
         var minId: String? = if (readingPosition.isLessThan(markerId)) markerId else readingPosition
         Timber.d("  remoteMarkerId: %s", remoteMarkerId)

@@ -27,11 +27,11 @@ import androidx.paging.map
 import app.pachli.R
 import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.data.model.StatusViewData
-import app.pachli.core.data.notifications.NotificationRepository
-import app.pachli.core.data.notifications.from
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
+import app.pachli.core.data.repository.notifications.NotificationsRepository
+import app.pachli.core.data.repository.notifications.from
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.eventhub.BlockEvent
@@ -359,7 +359,7 @@ sealed interface UiError {
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel(assistedFactory = NotificationsViewModel.Factory::class)
 class NotificationsViewModel @AssistedInject constructor(
-    private val repository: NotificationRepository,
+    private val repository: NotificationsRepository,
     private val accountManager: AccountManager,
     private val timelineCases: TimelineCases,
     private val eventHub: EventHub,

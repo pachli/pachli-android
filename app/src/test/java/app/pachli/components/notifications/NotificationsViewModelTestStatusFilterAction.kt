@@ -20,7 +20,7 @@ package app.pachli.components.notifications
 import app.cash.turbine.test
 import app.pachli.ContentFilterV1Test.Companion.mockStatus
 import app.pachli.core.data.model.StatusViewData
-import app.pachli.core.data.notifications.StatusActionError
+import app.pachli.core.data.repository.notifications.StatusActionError
 import app.pachli.core.database.model.TranslationState
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
@@ -91,7 +91,11 @@ class NotificationsViewModelTestStatusFilterAction : NotificationsViewModelTestB
     @Test
     fun `bookmark fails && emits UiError`() = runTest {
         // Given
-        notificationsRepository.stub { onBlocking { bookmark(any(), any(), any()) } doReturn Err(StatusActionError.Bookmark(httpException)) }
+        notificationsRepository.stub {
+            onBlocking { bookmark(any(), any(), any()) } doReturn Err(
+                StatusActionError.Bookmark(httpException),
+            )
+        }
 
         viewModel.uiResult.test {
             // When
@@ -121,7 +125,11 @@ class NotificationsViewModelTestStatusFilterAction : NotificationsViewModelTestB
     @Test
     fun `favourite fails && emits UiError`() = runTest {
         // Given
-        notificationsRepository.stub { onBlocking { favourite(any(), any(), any()) } doReturn Err(StatusActionError.Favourite(httpException)) }
+        notificationsRepository.stub {
+            onBlocking { favourite(any(), any(), any()) } doReturn Err(
+                StatusActionError.Favourite(httpException),
+            )
+        }
 
         viewModel.uiResult.test {
             // When
@@ -151,7 +159,11 @@ class NotificationsViewModelTestStatusFilterAction : NotificationsViewModelTestB
     @Test
     fun `reblog fails && emits UiError`() = runTest {
         // Given
-        notificationsRepository.stub { onBlocking { reblog(any(), any(), any()) } doReturn Err(StatusActionError.Reblog(httpException)) }
+        notificationsRepository.stub {
+            onBlocking { reblog(any(), any(), any()) } doReturn Err(
+                StatusActionError.Reblog(httpException),
+            )
+        }
 
         viewModel.uiResult.test {
             // When
@@ -181,7 +193,11 @@ class NotificationsViewModelTestStatusFilterAction : NotificationsViewModelTestB
     @Test
     fun `voteinpoll fails && emits UiError`() = runTest {
         // Given
-        notificationsRepository.stub { onBlocking { voteInPoll(any(), any(), any(), any()) } doReturn Err(StatusActionError.VoteInPoll(httpException)) }
+        notificationsRepository.stub {
+            onBlocking { voteInPoll(any(), any(), any(), any()) } doReturn Err(
+                StatusActionError.VoteInPoll(httpException),
+            )
+        }
 
         viewModel.uiResult.test {
             // When
