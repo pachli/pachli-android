@@ -38,16 +38,15 @@ import org.mockito.kotlin.verify
 @HiltAndroidTest
 class NotificationsViewModelTestClearNotifications : NotificationsViewModelTestBase() {
     @Test
-    fun `clearing notifications succeeds && invalidate the repository`() = runTest {
+    fun `clearing notifications succeeds`() = runTest {
         // Given
-        notificationsRepository.stub { onBlocking { clearNotifications() } doReturn emptySuccess }
+        mastodonApi.stub { onBlocking { clearNotifications() } doReturn emptySuccess }
 
         // When
         viewModel.accept(FallibleUiAction.ClearNotifications)
 
         // Then
         verify(notificationsRepository).clearNotifications()
-        verify(notificationsRepository).invalidate()
     }
 
     @Test

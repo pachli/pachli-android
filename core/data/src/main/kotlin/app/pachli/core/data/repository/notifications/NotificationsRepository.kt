@@ -161,9 +161,9 @@ class NotificationsRepository @Inject constructor(
      * if successful.
      */
     suspend fun clearNotifications() = externalScope.async {
-        val result = mastodonApi.clearNotifications()
-        if (result.isSuccessful) invalidate()
-        return@async result
+        return@async mastodonApi.clearNotifications().apply {
+            if (isSuccessful) this@NotificationsRepository.invalidate()
+        }
     }.await()
 
     /**
