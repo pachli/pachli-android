@@ -88,6 +88,10 @@ sealed class StatusActionError(open val throwable: Throwable) : PachliError {
     data class VoteInPoll(override val throwable: Throwable) : StatusActionError(throwable)
 }
 
+/**
+ * Repository for [NotificationData] interacting with the remote [MastodonApi]
+ * using the local database as a cache.
+ */
 class NotificationsRepository @Inject constructor(
     @ApplicationScope private val externalScope: CoroutineScope,
     private val mastodonApi: MastodonApi,
@@ -100,6 +104,9 @@ class NotificationsRepository @Inject constructor(
 
     private var factory: InvalidatingPagingSourceFactory<Int, NotificationData>? = null
 
+    /**
+     * @return Notifications for [pachliAccountId].
+     */
     @OptIn(ExperimentalPagingApi::class)
     suspend fun notifications(pachliAccountId: Long): Flow<PagingData<NotificationData>> {
         factory = InvalidatingPagingSourceFactory { notificationDao.pagingSource(pachliAccountId) }
@@ -161,10 +168,23 @@ class NotificationsRepository @Inject constructor(
         return@async result
     }.await()
 
+    /**
+     * Sets the [FilterAction] for [notificationId] to [FilterAction.NONE]
+     *
+     * @param pachliAccountId
+     * @param notificationId Notification's server ID.
+     */
     fun clearContentFilter(pachliAccountId: Long, notificationId: String) = externalScope.launch {
         notificationDao.upsert(FilterActionUpdate(pachliAccountId, notificationId, FilterAction.NONE))
     }
 
+    /**
+     * Sets the [AccountFilterDecision] for [notificationId] to [accountFilterDecision].
+     *
+     * @param pachliAccountId
+     * @param notificationId Notification's server ID.
+     * @param accountFilterDecision New [AccountFilterDecision].
+     */
     fun setAccountFilterDecision(
         pachliAccountId: Long,
         notificationId: String,
@@ -196,20 +216,41 @@ class NotificationsRepository @Inject constructor(
             )
         }.join()
 
+    /**
+     * Saves a copy of [statusViewData] with [StatusViewData.isCollapsed] set to
+     * [isCollapsed].
+     */
     fun setContentCollapsed(pachliAccountId: Long, statusViewData: StatusViewData, isCollapsed: Boolean) =
         externalScope.launch {
             saveStatusViewData(pachliAccountId, statusViewData.copy(isCollapsed = isCollapsed))
         }
 
+    /**
+     * Saves a copy of [statusViewData] with [StatusViewData.isShowingContent] set to
+     * [isShowingContent].
+     */
     fun setShowingContent(pachliAccountId: Long, statusViewData: StatusViewData, isShowingContent: Boolean) =
         externalScope.launch {
             saveStatusViewData(pachliAccountId, statusViewData.copy(isShowingContent = isShowingContent))
         }
 
+    /**
+     * Saves a copy of [statusViewData] with [StatusViewData.isExpanded] set to
+     * [isExpanded].
+     */
     fun setExpanded(pachliAccountId: Long, statusViewData: StatusViewData, isExpanded: Boolean) = externalScope.launch {
         saveStatusViewData(pachliAccountId, statusViewData.copy(isExpanded = isExpanded))
     }
 
+    /**
+     * Sets the bookmark state of [statusId] to [bookmarked].
+     *
+     * Sends [BookmarkEvent] if successful.
+     *
+     * @param pachliAccountId
+     * @param statusId ID of the status to affect.
+     * @param bookmarked New bookmark state.
+     */
     suspend fun bookmark(
         pachliAccountId: Long,
         statusId: String,
@@ -237,6 +278,15 @@ class NotificationsRepository @Inject constructor(
         return@async Ok(Unit)
     }.await()
 
+    /**
+     * Sets the favourite state of [statusId] to [favourited].
+     *
+     * Sends [FavoriteEvent] if successful.
+     *
+     * @param pachliAccountId
+     * @param statusId ID of the status to affect.
+     * @param favourited New favourite state.
+     */
     suspend fun favourite(
         pachliAccountId: Long,
         statusId: String,
@@ -264,6 +314,15 @@ class NotificationsRepository @Inject constructor(
         return@async Ok(Unit)
     }.await()
 
+    /**
+     * Sets the reblog state of [statusId] to [reblogged].
+     *
+     * Sends [ReblogEvent] if successful.
+     *
+     * @param pachliAccountId
+     * @param statusId ID of the status to affect.
+     * @param reblogged New bookmark state.
+     */
     suspend fun reblog(
         pachliAccountId: Long,
         statusId: String,
@@ -291,6 +350,16 @@ class NotificationsRepository @Inject constructor(
         return@async Ok(Unit)
     }.await()
 
+    /**
+     * Votes [choices] in [pollId] in [statusId],
+     *
+     * Sends [PollVoteEvent] if successful.
+     *
+     * @param pachliAccountId
+     * @param statusId ID of the status to affect.
+     * @param pollId ID of the poll to vote in.
+     * @param choices Array of indices of the poll options being voted for.
+     */
     suspend fun voteInPoll(
         pachliAccountId: Long,
         statusId: String,
