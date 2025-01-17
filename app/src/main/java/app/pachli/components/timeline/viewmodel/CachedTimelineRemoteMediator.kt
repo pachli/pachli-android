@@ -70,7 +70,7 @@ class CachedTimelineRemoteMediator(
                 LoadType.APPEND -> {
                     val rke = remoteKeyDao.remoteKeyForKind(
                         pachliAccountId,
-                        TIMELINE_ID,
+                        RKE_TIMELINE_ID,
                         RemoteKeyKind.NEXT,
                     ) ?: return MediatorResult.Success(endOfPaginationReached = true)
                     Timber.d("Loading from remoteKey: %s", rke)
@@ -80,7 +80,7 @@ class CachedTimelineRemoteMediator(
                 LoadType.PREPEND -> {
                     val rke = remoteKeyDao.remoteKeyForKind(
                         pachliAccountId,
-                        TIMELINE_ID,
+                        RKE_TIMELINE_ID,
                         RemoteKeyKind.PREV,
                     ) ?: return MediatorResult.Success(endOfPaginationReached = true)
                     Timber.d("Loading from remoteKey: %s", rke)
@@ -109,13 +109,13 @@ class CachedTimelineRemoteMediator(
             transactionProvider {
                 when (loadType) {
                     LoadType.REFRESH -> {
-                        remoteKeyDao.delete(pachliAccountId, TIMELINE_ID)
+                        remoteKeyDao.delete(pachliAccountId, RKE_TIMELINE_ID)
                         timelineDao.removeAllStatuses(pachliAccountId)
 
                         remoteKeyDao.upsert(
                             RemoteKeyEntity(
                                 pachliAccountId,
-                                TIMELINE_ID,
+                                RKE_TIMELINE_ID,
                                 RemoteKeyKind.NEXT,
                                 links.next,
                             ),
@@ -123,7 +123,7 @@ class CachedTimelineRemoteMediator(
                         remoteKeyDao.upsert(
                             RemoteKeyEntity(
                                 pachliAccountId,
-                                TIMELINE_ID,
+                                RKE_TIMELINE_ID,
                                 RemoteKeyKind.PREV,
                                 links.prev,
                             ),
@@ -135,7 +135,7 @@ class CachedTimelineRemoteMediator(
                         remoteKeyDao.upsert(
                             RemoteKeyEntity(
                                 pachliAccountId,
-                                TIMELINE_ID,
+                                RKE_TIMELINE_ID,
                                 RemoteKeyKind.PREV,
                                 prev,
                             ),
@@ -147,7 +147,7 @@ class CachedTimelineRemoteMediator(
                         remoteKeyDao.upsert(
                             RemoteKeyEntity(
                                 pachliAccountId,
-                                TIMELINE_ID,
+                                RKE_TIMELINE_ID,
                                 RemoteKeyKind.NEXT,
                                 next,
                             ),
@@ -258,6 +258,6 @@ class CachedTimelineRemoteMediator(
     }
 
     companion object {
-        const val TIMELINE_ID = "HOME"
+        const val RKE_TIMELINE_ID = "HOME"
     }
 }
