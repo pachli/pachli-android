@@ -32,7 +32,6 @@ import retrofit2.HttpException
 import retrofit2.Response
 import timber.log.Timber
 
-// TODO: Assisted inject?
 @OptIn(ExperimentalPagingApi::class)
 class NotificationRemoteMediator(
     private val pachliAccountId: Long,
