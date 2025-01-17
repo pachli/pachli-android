@@ -144,7 +144,7 @@ class NotificationsRepository @Inject constructor(
      * @param key Notification ID to restore from. Null indicates the refresh should
      * refresh the newest notifications.
      */
-    fun saveRefreshKey(pachliAccountId: Long, key: String?) = externalScope.async {
+    suspend fun saveRefreshKey(pachliAccountId: Long, key: String?) = externalScope.async {
         remoteKeyDao.upsert(
             RemoteKeyEntity(
                 pachliAccountId,
@@ -153,7 +153,7 @@ class NotificationsRepository @Inject constructor(
                 key,
             ),
         )
-    }
+    }.await()
 
     /** @return The notification ID to use when refreshing. */
     suspend fun getRefreshKey(pachliAccountId: Long) = remoteKeyDao.getRefreshKey(pachliAccountId, RKE_TIMELINE_ID)
