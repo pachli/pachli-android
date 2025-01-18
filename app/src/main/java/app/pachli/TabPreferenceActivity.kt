@@ -62,6 +62,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+/**
+ * Displays the user's list of tabs, and allows them:
+ *
+ * - Drag/drop tabs to re-order.
+ * - Add new tabs.
+ * - Remove existing tabs.
+ */
 @AndroidEntryPoint
 class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
     @Inject

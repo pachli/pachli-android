@@ -31,6 +31,7 @@ import androidx.recyclerview.widget.ListAdapter
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.data.repository.ListsRepository.Companion.listTitleCollator
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.core.ui.BindingHolder
@@ -146,7 +147,7 @@ class ListsForAccountFragment : DialogFragment() {
                         binding.messageView.setup(BackgroundMessage.Empty(R.string.no_lists)) { load() }
                     } else {
                         binding.listsView.show()
-                        adapter.submitList(it.listsWithMembership.values.toList())
+                        adapter.submitList(it.listsWithMembership.values.sortedWith(compareByListWithMembershipTitle))
                     }
                 }
             }
@@ -230,5 +231,13 @@ class ListsForAccountFragment : DialogFragment() {
             }
             return ListsForAccountFragment().apply { arguments = args }
         }
+
+        /**
+         * Locale aware comparator for [ListsWithMembership]. Case-insensitive comparison
+         * by the list's title.
+         */
+        val compareByListWithMembershipTitle: Comparator<ListWithMembership> = compareBy(
+            listTitleCollator,
+        ) { it.list.title }
     }
 }
