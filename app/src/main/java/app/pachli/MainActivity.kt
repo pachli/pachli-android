@@ -75,6 +75,7 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.model.MastodonList
+import app.pachli.core.data.repository.ListsRepository.Companion.compareByListTitle
 import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.SetActiveAccountError
 import app.pachli.core.database.model.AccountEntity
@@ -845,7 +846,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         binding.mainDrawer.removeItems(*listDrawerItems.toTypedArray())
 
         listDrawerItems.clear()
-        lists.forEach { list ->
+        lists.sortedWith(compareByListTitle).forEach { list ->
             listDrawerItems.add(
                 primaryDrawerItem {
                     nameText = list.title
