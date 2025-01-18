@@ -2,6 +2,6 @@ Pachli 2.8.1
 
 Arreglos:
 
-- Evitar la caída al enviar un correo mientras los medios están subiendo
-- Restaurar transiciones de vídeo en androidx. media3 1.4.0 y 1.4.1
-- Parar el texto de la tarjeta de vista previa superando imágenes
+- Evitar fallo al enviar una publicación mientras los medios se están subiendo
+- Restaurar transiciones de video en androidx.media3 1.4.0 y 1.4.1
+- El texto de la tarjeta de previsualización ya no se superpone con las imágenes
