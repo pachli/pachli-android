@@ -656,7 +656,7 @@
     <string name="action_timeline_link">Innlegg om denne lenkja</string>
     <string name="search_operator_from_me">Kun mine innlegg</string>
     <string name="search_operator_from_dialog_all">Alle kontoar</string>
-    <string name="help_empty_home">Dette er <b>heimtidslinja</b> di. Ho syner dei nyaste innlegga frå kontoane du fylgjer.\n\nFor å utforske kontoar, kan du anten oppdage dei i ei av dei andre tidslinjene (t.d. den lokale tidslinja av serveren din [iconics gmd_group]) eller søkje etter namnet deira [iconics gmd_search] (t.d. søk etter Pachli for å finna vår konto).</string>
+    <string name="help_empty_home">Dette er <b>heimtidslinja</b> di. Ho syner dei nyaste innlegga frå kontoane du fylgjer.\n\nFor å utforske kontoar, kan du anten oppdage dei i ei av dei andre tidslinjene (t.d. den lokale tidslinja av serveren din [iconics gmd_group]) eller søkje etter namnet deira [iconics gmd_search] (t.d. søk etter Pachli for å finne vår konto).</string>
     <string name="report_category_other">Annat</string>
     <string name="pref_update_notification_frequency_always">Alltid</string>
     <string name="pref_notification_fetch_method_title">Varselmetode</string>
