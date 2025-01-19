@@ -1,0 +1,18 @@
+Pachli 2.9.1
+
+Nuevo:
+
+- Se muestran:
+publicaciones con enlace en tendencia
+método de solicitud y URL de errores de ApiResult
+- Idioma noruego nynorsk
+
+Arreglos:
+
+- Error al iniciar sesión "KeyStoreException: BKS not found"
+- Mostrar correctamente los tipos desconocidos de notificación
+- Ver ediciones de aviso de contenido
+- No fallar
+al actualizar elementos del panel principal
+al activar la opción "Mostrar impulsos"
+- Actualizar traducciones al español, finés, irlandés, noruego nynorsk y sueco

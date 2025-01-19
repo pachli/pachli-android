@@ -37,6 +37,8 @@ aboutLibraries {
     includePlatform = false
     duplicationMode = com.mikepenz.aboutlibraries.plugin.DuplicateMode.MERGE
     prettyPrint = true
+    // The "generated" field contains a timestamp, which breaks reproducible builds.
+    excludeFields = arrayOf("generated")
 }
 
 markdown2resource {
