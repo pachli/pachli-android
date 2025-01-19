@@ -99,7 +99,6 @@ class NotificationsRepository @Inject constructor(
     private val remoteKeyDao: RemoteKeyDao,
     private val eventHub: EventHub,
 ) {
-
     private var factory: InvalidatingPagingSourceFactory<Int, NotificationData>? = null
 
     /**

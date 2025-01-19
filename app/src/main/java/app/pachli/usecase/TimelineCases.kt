@@ -150,4 +150,8 @@ class TimelineCases @Inject constructor(
     suspend fun translateUndo(pachliAccountId: Long, statusViewData: StatusViewData) {
         cachedTimelineRepository.translateUndo(pachliAccountId, statusViewData)
     }
+
+    suspend fun saveRefreshKey(pachliAccountId: Long, statusId: String?) {
+        cachedTimelineRepository.saveRefreshKey(pachliAccountId, statusId)
+    }
 }

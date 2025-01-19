@@ -61,18 +61,15 @@ import at.connyduck.calladapter.networkresult.getOrThrow
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.fold
-import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
@@ -287,7 +284,7 @@ abstract class TimelineViewModel(
     private val uiAction = MutableSharedFlow<UiAction>()
 
     /** Flow that can be used to trigger a full reload */
-    protected val reload = MutableStateFlow(0)
+//    protected val reload = MutableStateFlow(0)
 
     /** Flow of successful action results */
     // Note: This is a SharedFlow instead of a StateFlow because success state does not need to be
@@ -323,18 +320,10 @@ abstract class TimelineViewModel(
             return accountManager.activeAccount!!
         }
 
-    protected val refreshFlow = reload.combine(
-        accountManager.activeAccountFlow
-            .filterIsInstance<Loadable.Loaded<AccountEntity?>>()
-            .filter { it.data != null }
-            .distinctUntilChangedBy { it.data?.id!! },
-    ) { refresh, account -> Pair(refresh, account.data!!) }
-
-    /** The ID of the status to which the user's reading position should be restored */
-    // Not part of the UiState as it's only used once in the lifespan of the fragment.
-    // Subclasses should set this if they support restoring the reading position.
-    open var readingPositionId: String? = null
-        protected set
+    protected val refreshFlow = accountManager.activeAccountFlow
+        .filterIsInstance<Loadable.Loaded<AccountEntity?>>()
+        .filter { it.data != null }
+        .distinctUntilChangedBy { it.data?.id!! }
 
     private var contentFilterModel: ContentFilterModel? = null
 
@@ -455,8 +444,8 @@ abstract class TimelineViewModel(
                     .distinctUntilChanged()
                     .collectLatest { action ->
                         Timber.d("setLastVisibleHomeTimelineStatusId: %d, %s", activeAccount.id, action.visibleId)
-                        accountManager.setLastVisibleHomeTimelineStatusId(activeAccount.id, action.visibleId)
-                        readingPositionId = action.visibleId
+                        timelineCases.saveRefreshKey(activeAccount.id, action.visibleId)
+//                        readingPositionId = action.visibleId
                     }
             }
         }
@@ -467,7 +456,7 @@ abstract class TimelineViewModel(
                 .filterIsInstance<InfallibleUiAction.LoadNewest>()
                 .collectLatest {
                     if (timeline == Timeline.Home) {
-                        accountManager.setLastVisibleHomeTimelineStatusId(activeAccount.id, null)
+                        timelineCases.saveRefreshKey(activeAccount.id, null)
                     }
                     Timber.d("Reload because InfallibleUiAction.LoadNewest")
                     reloadFromNewest(activeAccount.id)
@@ -485,14 +474,6 @@ abstract class TimelineViewModel(
             eventHub.events
                 .collect { event -> handleEvent(event) }
         }
-    }
-
-    fun getInitialKey(): String? {
-        if (timeline != Timeline.Home) {
-            return null
-        }
-
-        return activeAccount.lastVisibleHomeTimelineStatusId
     }
 
     abstract fun updatePoll(newPoll: Poll, status: StatusViewData)
@@ -524,7 +505,7 @@ abstract class TimelineViewModel(
      */
     @CallSuper
     open fun reloadKeepingReadingPosition(pachliAccountId: Long) {
-        reload.getAndUpdate { it + 1 }
+//        reload.getAndUpdate { it + 1 }
     }
 
     /**
@@ -534,7 +515,7 @@ abstract class TimelineViewModel(
      */
     @CallSuper
     open fun reloadFromNewest(pachliAccountId: Long) {
-        reload.getAndUpdate { it + 1 }
+//        reload.getAndUpdate { it + 1 }
     }
 
     abstract fun clearWarning(pachliAccountId: Long, statusViewData: StatusViewData)

@@ -88,14 +88,28 @@ ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC""",
      *
      * @see [app.pachli.components.timeline.viewmodel.CachedTimelineViewModel.statuses]
      */
+//    @Query(
+//        """
+// SELECT serverId
+//  FROM TimelineStatusEntity
+// WHERE timelineUserId = :account
+// ORDER BY LENGTH(serverId) DESC, serverId DESC""",
+//    )
+//    abstract fun getStatusRowNumber(account: Long): List<String>
     @Query(
         """
-SELECT serverId
-  FROM TimelineStatusEntity
- WHERE timelineUserId = :account
- ORDER BY LENGTH(serverId) DESC, serverId DESC""",
+SELECT RowNum
+FROM
+  (SELECT timelineUserId, serverId,
+     (SELECT count(*) + 1
+      FROM TimelineStatusEntity
+      WHERE rowid < t.rowid
+      ORDER BY length(serverId) DESC, serverId DESC) AS RowNum
+   FROM TimelineStatusEntity t)
+WHERE timelineUserId = :pachliAccountId AND serverId = :statusId;
+        """,
     )
-    abstract fun getStatusRowNumber(account: Long): List<String>
+    abstract suspend fun getStatusRowNumber(pachliAccountId: Long, statusId: String): Int
 
     @Query(
         """
@@ -174,7 +188,7 @@ WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServe
      * @param accountId id of the account for which to clean tables
      */
     suspend fun removeAll(accountId: Long) {
-        removeAllStatuses(accountId)
+        deleteAlLStatusesForAccount(accountId)
         removeAllAccounts(accountId)
         removeAllStatusViewData(accountId)
         removeAllTranslatedStatus(accountId)
@@ -197,7 +211,7 @@ WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServe
            )
         """,
     )
-    abstract suspend fun removeAllStatuses(accountId: Long)
+    abstract suspend fun deleteAlLStatusesForAccount(accountId: Long)
 
     @Query("DELETE FROM TimelineAccountEntity WHERE timelineUserId = :accountId")
     abstract suspend fun removeAllAccounts(accountId: Long)

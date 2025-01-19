@@ -67,23 +67,20 @@ class CachedTimelineViewModel @Inject constructor(
     statusDisplayOptionsRepository,
     sharedPreferencesRepository,
 ) {
-    override var statuses: Flow<PagingData<StatusViewData>>
+//    override var statuses: Flow<PagingData<StatusViewData>>
 
-    init {
-        readingPositionId = activeAccount.lastVisibleHomeTimelineStatusId
-
-        statuses = refreshFlow.flatMapLatest {
-            getStatuses(it.second, initialKey = getInitialKey())
-        }.cachedIn(viewModelScope)
-    }
+//    init {
+    override var statuses = refreshFlow.flatMapLatest {
+        getStatuses(it.data!!)
+    }.cachedIn(viewModelScope)
+//    }
 
     /** @return Flow of statuses that make up the timeline of [timeline] for [account]. */
-    private fun getStatuses(
+    private suspend fun getStatuses(
         account: AccountEntity,
-        initialKey: String? = null,
     ): Flow<PagingData<StatusViewData>> {
-        Timber.d("getStatuses: kind: %s, initialKey: %s", timeline, initialKey)
-        return repository.getStatusStream(account, kind = timeline, initialKey = initialKey)
+        Timber.d("getStatuses: kind: %s", timeline)
+        return repository.getStatusStream(account)
             .map { pagingData ->
                 pagingData
                     .map {

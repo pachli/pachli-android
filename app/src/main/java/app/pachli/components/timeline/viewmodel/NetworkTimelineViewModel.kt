@@ -73,18 +73,15 @@ class NetworkTimelineViewModel @Inject constructor(
 
     init {
         statuses = refreshFlow
-            .flatMapLatest {
-                getStatuses(it.second, initialKey = getInitialKey())
-            }.cachedIn(viewModelScope)
+            .flatMapLatest { getStatuses(it.data!!) }.cachedIn(viewModelScope)
     }
 
     /** @return Flow of statuses that make up the timeline of [timeline] for [account]. */
     private fun getStatuses(
         account: AccountEntity,
-        initialKey: String? = null,
     ): Flow<PagingData<StatusViewData>> {
-        Timber.d("getStatuses: kind: %s, initialKey: %s", timeline, initialKey)
-        return repository.getStatusStream(account, kind = timeline, initialKey = initialKey)
+        Timber.d("getStatuses: kind: %s", timeline)
+        return repository.getStatusStream(account, kind = timeline)
             .map { pagingData ->
                 pagingData.map {
                     modifiedViewData[it.id] ?: StatusViewData.from(

@@ -786,11 +786,6 @@ class AccountManager @Inject constructor(
         accountDao.setNotificationAccountFilterLimitedByServer(accountId, action)
     }
 
-    suspend fun setLastVisibleHomeTimelineStatusId(accountId: Long, value: String?) {
-        Timber.d("setLastVisibleHomeTimelineStatusId: %d, %s", accountId, value)
-        accountDao.setLastVisibleHomeTimelineStatusId(accountId, value)
-    }
-
     // -- Announcements
     suspend fun deleteAnnouncement(accountId: Long, announcementId: String) {
         announcementsDao.deleteForAccount(accountId, announcementId)

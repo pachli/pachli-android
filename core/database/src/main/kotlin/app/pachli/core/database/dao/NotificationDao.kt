@@ -159,10 +159,10 @@ SELECT RowNum
 FROM
   (SELECT pachliAccountId, serverId,
      (SELECT count(*) + 1
-      FROM notificationentity
+      FROM NotificationEntity
       WHERE rowid < t.rowid
       ORDER BY length(serverId) DESC, serverId DESC) AS RowNum
-   FROM notificationentity t)
+   FROM NotificationEntity t)
 WHERE pachliAccountId = :pachliAccountId AND serverId = :notificationId;
         """,
     )
