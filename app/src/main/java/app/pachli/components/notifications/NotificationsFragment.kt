@@ -31,17 +31,16 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
-import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.LoadState
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.NO_POSITION
 import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
 import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
@@ -56,7 +55,6 @@ import app.pachli.core.activity.openLink
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
-import app.pachli.core.model.FilterAction
 import app.pachli.core.navigation.AttachmentViewData.Companion.list
 import app.pachli.core.navigation.EditContentFilterActivityIntent
 import app.pachli.core.network.model.Notification
@@ -73,10 +71,11 @@ import app.pachli.interfaces.AccountActionListener
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.ListStatusAccessibilityDelegate
-import app.pachli.util.UserRefreshState
-import app.pachli.util.asRefreshState
 import app.pachli.viewdata.NotificationViewData
 import at.connyduck.sparkbutton.helpers.Utils
+import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
@@ -88,11 +87,12 @@ import kotlin.properties.Delegates
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.distinctUntilChangedBy
-import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.runningFold
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -191,187 +191,45 @@ class NotificationsFragment :
         (binding.recyclerView.itemAnimator as SimpleItemAnimator?)!!.supportsChangeAnimations =
             false
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            // The adapter needs to know the domain of the logged in account,
-            // the rest of the setup happens after this is known.
-            //
-            // TODO: This isn't great, as it opens up the potential for crashes
-            // if other code tries to access `adapter` before it's assigned here.
-            // This is because NotificationViewData embeds a TimelineAccount, which
-            // is the network representation. It would be better NotificationViewData
-            // used a core.model class that represented an account, and when that
-            // core.model class is created the domain is explicitly set. Then the
-            // domain (account.entity.domain) wouldn't need to be passed here.
-            viewModel.accountFlow.take(1).collect { account ->
-                adapter = NotificationsPagingAdapter(
-                    notificationDiffCallback,
-                    pachliAccountId,
-                    account.entity.domain,
-                    statusActionListener = this@NotificationsFragment,
-                    notificationActionListener = this@NotificationsFragment,
-                    accountActionListener = this@NotificationsFragment,
-                    statusDisplayOptions = viewModel.statusDisplayOptions.value,
-                )
+        adapter = NotificationsPagingAdapter(
+            notificationDiffCallback,
+            statusActionListener = this@NotificationsFragment,
+            notificationActionListener = this@NotificationsFragment,
+            accountActionListener = this@NotificationsFragment,
+            statusDisplayOptions = viewModel.statusDisplayOptions.value,
+        )
 
-                binding.recyclerView.setAccessibilityDelegateCompat(
-                    ListStatusAccessibilityDelegate(pachliAccountId, binding.recyclerView, this@NotificationsFragment) { pos: Int ->
-                        if (pos in 0 until adapter.itemCount) {
-                            adapter.peek(pos)
-                        } else {
-                            null
-                        }
-                    },
-                )
-
-                val saveIdListener = object : RecyclerView.OnScrollListener() {
-                    override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                        if (newState != SCROLL_STATE_IDLE) return
-
-                        // Save the ID of the first notification visible in the list, so the user's
-                        // reading position is always restorable.
-                        layoutManager.findFirstVisibleItemPosition().takeIf { it != NO_POSITION }?.let { position ->
-                            adapter.snapshot().getOrNull(position)?.id?.let { id ->
-                                viewModel.accept(InfallibleUiAction.SaveVisibleId(pachliAccountId, visibleId = id))
-                            }
-                        }
-                    }
+        binding.recyclerView.setAccessibilityDelegateCompat(
+            ListStatusAccessibilityDelegate(pachliAccountId, binding.recyclerView, this@NotificationsFragment) { pos: Int ->
+                if (pos in 0 until adapter.itemCount) {
+                    adapter.peek(pos)
+                } else {
+                    null
                 }
-                binding.recyclerView.addOnScrollListener(saveIdListener)
+            },
+        )
 
-                binding.recyclerView.adapter = adapter.withLoadStateHeaderAndFooter(
-                    header = TimelineLoadStateAdapter { adapter.retry() },
-                    footer = TimelineLoadStateAdapter { adapter.retry() },
-                )
+        val saveIdListener = object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                if (newState != SCROLL_STATE_IDLE) return
+
+                // Save the ID of the first notification visible in the list, so the user's
+                // reading position is always restorable.
+                saveVisibleId()
             }
+        }
+        binding.recyclerView.addOnScrollListener(saveIdListener)
 
+        binding.recyclerView.adapter = adapter.withLoadStateHeaderAndFooter(
+            header = TimelineLoadStateAdapter { adapter.retry() },
+            footer = TimelineLoadStateAdapter { adapter.retry() },
+        )
+
+        viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                launch {
-                    viewModel.pagingData.collectLatest { pagingData ->
-                        Timber.d("Submitting data to adapter")
-                        adapter.submitData(pagingData)
-                    }
-                }
+                launch { viewModel.pagingData.collectLatest { adapter.submitData(it) } }
 
-                // Show errors from the view model as snack bars.
-                //
-                // Errors are shown:
-                // - Indefinitely, so the user has a chance to read and understand
-                //   the message
-                // - With a max of 5 text lines, to allow space for longer errors.
-                //   E.g., on a typical device, an error message like "Bookmarking
-                //   post failed: Unable to resolve host 'mastodon.social': No
-                //   address associated with hostname" is 3 lines.
-                // - With a "Retry" option if the error included a UiAction to retry.
-                launch {
-                    viewModel.uiError.collect { error ->
-                        val message = getString(
-                            error.message,
-                            error.throwable.getErrorString(requireContext()),
-                        )
-                        Timber.d(error.throwable, message)
-                        val snackbar = Snackbar.make(
-                            // Without this the FAB will not move out of the way
-                            (activity as ActionButtonActivity).actionButton ?: binding.root,
-                            message,
-                            Snackbar.LENGTH_INDEFINITE,
-                        )
-                        error.action?.let { action ->
-                            snackbar.setAction(app.pachli.core.ui.R.string.action_retry) {
-                                viewModel.accept(action)
-                            }
-                        }
-                        snackbar.show()
-
-                        // The status view has pre-emptively updated its state to show
-                        // that the action succeeded. Since it hasn't, re-bind the view
-                        // to show the correct data.
-                        error.action?.let { action ->
-                            if (action !is StatusAction) return@let
-
-                            val position = adapter.snapshot().indexOfFirst {
-                                it?.statusViewData?.status?.id == action.statusViewData.id
-                            }
-                            if (position != NO_POSITION) {
-                                adapter.notifyItemChanged(position)
-                            }
-                        }
-                    }
-                }
-
-                // Show successful notification action as brief snackbars, so the
-                // user is clear the action has happened.
-                launch {
-                    viewModel.uiSuccess
-                        .filterIsInstance<NotificationActionSuccess>()
-                        .collect {
-                            Snackbar.make(
-                                (activity as ActionButtonActivity).actionButton ?: binding.root,
-                                getString(it.msg),
-                                Snackbar.LENGTH_SHORT,
-                            ).show()
-
-                            when (it) {
-                                // The follow request is no longer valid, refresh the adapter to
-                                // remove it.
-                                is NotificationActionSuccess.AcceptFollowRequest,
-                                is NotificationActionSuccess.RejectFollowRequest,
-                                -> adapter.refresh()
-                            }
-                        }
-                }
-
-                // Update adapter data when status actions are successful, and re-bind to update
-                // the UI.
-                launch {
-                    viewModel.uiSuccess
-                        .filterIsInstance<StatusActionSuccess>()
-                        .collect {
-                            val indexedViewData = adapter.snapshot()
-                                .withIndex()
-                                .firstOrNull { notificationViewData ->
-                                    notificationViewData.value?.statusViewData?.status?.id ==
-                                        it.action.statusViewData.id
-                                } ?: return@collect
-
-                            val statusViewData =
-                                indexedViewData.value?.statusViewData ?: return@collect
-
-                            val status = when (it) {
-                                is StatusActionSuccess.Bookmark ->
-                                    statusViewData.status.copy(bookmarked = it.action.state)
-
-                                is StatusActionSuccess.Favourite ->
-                                    statusViewData.status.copy(favourited = it.action.state)
-
-                                is StatusActionSuccess.Reblog ->
-                                    statusViewData.status.copy(reblogged = it.action.state)
-
-                                is StatusActionSuccess.VoteInPoll ->
-                                    statusViewData.status.copy(
-                                        poll = it.action.poll.votedCopy(it.action.choices),
-                                    )
-                            }
-                            indexedViewData.value?.statusViewData = statusViewData.copy(
-                                status = status,
-                            )
-
-                            adapter.notifyItemChanged(indexedViewData.index)
-                        }
-                }
-
-                // Refresh adapter on mutes and blocks
-                launch {
-                    viewModel.uiSuccess.collectLatest {
-                        when (it) {
-                            is UiSuccess.Block, is UiSuccess.Mute, is UiSuccess.MuteConversation ->
-                                adapter.refresh()
-
-                            else -> {
-                                /* nothing to do */
-                            }
-                        }
-                    }
-                }
+                launch { viewModel.uiResult.collect(::bindUiResult) }
 
                 // Collect the uiState. Nothing is done with it, but if you don't collect it then
                 // accessing viewModel.uiState.value (e.g., when the filter dialog is created)
@@ -394,106 +252,154 @@ class NotificationsFragment :
                         }
                 }
 
-                /** StateFlow (to allow multiple consumers) of UserRefreshState */
-                val refreshState = adapter.loadStateFlow.asRefreshState().stateIn(lifecycleScope)
-
-                // Scroll the list down (peek) if a refresh has completely finished. A refresh is
-                // finished when both the initial refresh is complete and any prepends have
-                // finished (so that DiffUtil has had a chance to process the data).
-                launch {
-                    /** True if the previous prepend resulted in a peek, false otherwise */
-                    var peeked = false
-
-                    /** ID of the item that was first in the adapter before the refresh */
-                    var previousFirstId: String? = null
-
-                    refreshState.collect {
-                        when (it) {
-                            // Refresh has started, reset peeked, and save the ID of the first item
-                            // in the adapter
-                            UserRefreshState.ACTIVE -> {
-                                peeked = false
-                                if (adapter.itemCount != 0) previousFirstId = adapter.peek(0)?.id
-                            }
-
-                            // Refresh has finished, pages are being prepended.
-                            UserRefreshState.COMPLETE -> {
-                                // There might be multiple prepends after a refresh, only continue
-                                // if one them has not already caused a peek.
-                                if (peeked) return@collect
-
-                                // Compare the ID of the current first item with the previous first
-                                // item. If they're the same then this prepend did not add any new
-                                // items, and can be ignored.
-                                val firstId = if (adapter.itemCount != 0) adapter.peek(0)?.id else null
-                                if (previousFirstId == firstId) return@collect
-
-                                // New items were added and haven't peeked for this refresh. Schedule
-                                // a scroll to disclose that new items are available.
-                                binding.recyclerView.post {
-                                    getView() ?: return@post
-                                    binding.recyclerView.smoothScrollBy(
-                                        0,
-                                        Utils.dpToPx(requireContext(), -30),
-                                    )
-                                }
-                                peeked = true
-                            }
-
-                            else -> {
-                                /* nothing to do */
-                            }
-                        }
-                    }
-                }
-
-                // Manage the display of progress bars. Rather than hide them as soon as the
-                // Refresh portion completes, hide them when then first Prepend completes. This
-                // is a better signal to the user that it is now possible to scroll up and see
-                // new content.
-                launch {
-                    refreshState.collect {
-                        when (it) {
-                            UserRefreshState.ACTIVE -> {
-                                if (adapter.itemCount == 0 && !binding.swipeRefreshLayout.isRefreshing) {
-                                    binding.progressBar.show()
-                                }
-                            }
-
-                            UserRefreshState.COMPLETE, UserRefreshState.ERROR -> {
-                                binding.progressBar.hide()
-                                binding.swipeRefreshLayout.isRefreshing = false
-                            }
-
-                            else -> {
-                                /* nothing to do */
-                            }
-                        }
-                    }
-                }
-
                 // Update the UI from the loadState
                 adapter.loadStateFlow
                     .collect { loadState ->
-                        binding.statusView.hide()
-                        if (loadState.refresh is LoadState.NotLoading) {
-                            if (adapter.itemCount == 0) {
-                                binding.statusView.setup(BackgroundMessage.Empty())
+                        when (loadState.refresh) {
+                            is LoadState.Error -> {
+                                binding.progressIndicator.hide()
+                                binding.statusView.setup((loadState.refresh as LoadState.Error).error) {
+                                    adapter.retry()
+                                }
                                 binding.recyclerView.hide()
                                 binding.statusView.show()
-                            } else {
-                                binding.statusView.hide()
+                                binding.swipeRefreshLayout.isRefreshing = false
                             }
-                        }
 
-                        if (loadState.refresh is LoadState.Error) {
-                            binding.statusView.setup((loadState.refresh as LoadState.Error).error) { adapter.retry() }
-                            binding.recyclerView.hide()
-                            binding.statusView.show()
+                            LoadState.Loading -> {
+                                /* nothing */
+                                binding.statusView.hide()
+                                binding.progressIndicator.show()
+                            }
+
+                            is LoadState.NotLoading -> {
+                                // Might still be loading if source.refresh is Loading, so only update
+                                // the UI when loading is completely quiet.
+                                if (loadState.source.refresh !is LoadState.Loading) {
+                                    binding.progressIndicator.hide()
+                                    binding.swipeRefreshLayout.isRefreshing = false
+                                    if (adapter.itemCount == 0) {
+                                        binding.statusView.setup(BackgroundMessage.Empty())
+                                        binding.recyclerView.hide()
+                                        binding.statusView.show()
+                                    } else {
+                                        binding.statusView.hide()
+                                        binding.recyclerView.show()
+                                    }
+                                }
+                            }
                         }
                     }
             }
         }
+    }
+
+    private suspend fun bindUiResult(uiResult: Result<UiSuccess, UiError>) {
+        // Show errors from the view model as snack bars.
+        //
+        // Errors are shown:
+        // - Indefinitely, so the user has a chance to read and understand
+        //   the message
+        // - With a max of 5 text lines, to allow space for longer errors.
+        //   E.g., on a typical device, an error message like "Bookmarking
+        //   post failed: Unable to resolve host 'mastodon.social': No
+        //   address associated with hostname" is 3 lines.
+        // - With a "Retry" option if the error included a UiAction to retry.
+        uiResult.onFailure { uiError ->
+            val message = getString(
+                uiError.message,
+                uiError.throwable.getErrorString(requireContext()),
+            )
+            Timber.d(uiError.throwable, message)
+            val snackbar = Snackbar.make(
+                // Without this the FAB will not move out of the way
+                (activity as ActionButtonActivity).actionButton ?: binding.root,
+                message,
+                Snackbar.LENGTH_INDEFINITE,
+            )
+            uiError.action?.let { action ->
+                snackbar.setAction(app.pachli.core.ui.R.string.action_retry) {
+                    viewModel.accept(action)
+                }
+            }
+            snackbar.show()
+        }
+
+        uiResult.onSuccess { uiSuccess ->
+            // Show successful notification action as brief snackbars, so the
+            // user is clear the action has happened.
+            if (uiSuccess is NotificationActionSuccess) {
+                Snackbar.make(
+                    (activity as ActionButtonActivity).actionButton ?: binding.root,
+                    getString(uiSuccess.msg),
+                    Snackbar.LENGTH_SHORT,
+                ).show()
+
+                when (uiSuccess) {
+                    // The follow request is no longer valid, refresh the adapter to
+                    // remove it.
+                    is NotificationActionSuccess.AcceptFollowRequest,
+                    is NotificationActionSuccess.RejectFollowRequest,
+                    -> refreshAdapterAndScrollToVisibleId()
+                }
+            }
+
+            when (uiSuccess) {
+                is UiSuccess.Block, is UiSuccess.Mute, is UiSuccess.MuteConversation -> viewLifecycleOwner.lifecycleScope.launch {
+                    refreshAdapterAndScrollToVisibleId()
+                }
+
+                is UiSuccess.LoadNewest -> {
+                    // Scroll to the top when prepending completes.
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        adapter.postPrepend {
+                            binding.recyclerView.post {
+                                view ?: return@post
+                                binding.recyclerView.scrollToPosition(0)
+                            }
+                        }
+                    }
+                    adapter.refresh()
+                }
+                else -> { /* nothing to do */ }
+            }
+        }
+    }
+
+    /**
+     * Refreshes the adapter, waits for the first page to be updated, and scrolls the
+     * the recyclerview to the first notification that was visible before the refresh.
+     *
+     * This ensures the user's position is not lost during adapter refreshes.
+     */
+    private fun refreshAdapterAndScrollToVisibleId() {
+        getFirstVisibleNotification()?.id?.let { id ->
+            viewLifecycleOwner.lifecycleScope.launch {
+                adapter.onPagesUpdatedFlow.conflate().take(1).collect {
+                    binding.recyclerView.scrollToPosition(
+                        adapter.snapshot().items.indexOfFirst { it.id == id },
+                    )
+                }
+            }
+        }
+        adapter.refresh()
+    }
+
+    /**
+     * Performs [action] after the next prepend operation completes on the adapter.
+     *
+     * A prepend operation is complete when the adapter's prepend [LoadState] transitions
+     * from [LoadState.Loading] to [LoadState.NotLoading].
+     */
+    private suspend fun <T : Any, VH : RecyclerView.ViewHolder> PagingDataAdapter<T, VH>.postPrepend(
+        action: () -> Unit,
+    ) {
+        val initial: Pair<LoadState?, LoadState?> = Pair(null, null)
+        loadStateFlow
+            .runningFold(initial) { prev, next -> prev.second to next.prepend }
+            .filter { it.first is LoadState.Loading && it.second is LoadState.NotLoading }
+            .take(1)
+            .collect { action() }
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -530,21 +436,48 @@ class NotificationsFragment :
     }
 
     override fun onRefresh() {
-        binding.progressBar.isVisible = false
-        adapter.refresh()
+        // Peek the list when refreshing completes.
+        viewLifecycleOwner.lifecycleScope.launch {
+            adapter.postPrepend {
+                binding.recyclerView.post {
+                    view ?: return@post
+                    binding.recyclerView.smoothScrollBy(
+                        0,
+                        Utils.dpToPx(requireContext(), -30),
+                    )
+                }
+            }
+        }
+
+        binding.swipeRefreshLayout.isRefreshing = false
+        viewLifecycleOwner.lifecycleScope.launch {
+            refreshAdapterAndScrollToVisibleId()
+        }
         clearNotificationsForAccount(requireContext(), pachliAccountId)
     }
 
     override fun onPause() {
         super.onPause()
+        saveVisibleId()
+    }
 
-        // Save the ID of the first notification visible in the list
-        val position = layoutManager.findFirstVisibleItemPosition()
-        if (position >= 0) {
-            adapter.snapshot().getOrNull(position)?.id?.let { id ->
-                viewModel.accept(InfallibleUiAction.SaveVisibleId(pachliAccountId, visibleId = id))
-            }
-        }
+    /**
+     * @returns The first visible notification. This is either the first fully visible
+     * notification, or the last visible notification if no notification is fully visible.
+     * May be null if there are no visible notifications.
+     */
+    private fun getFirstVisibleNotification() = (
+        layoutManager.findFirstCompletelyVisibleItemPosition()
+            .takeIf { it != RecyclerView.NO_POSITION }
+            ?: layoutManager.findLastVisibleItemPosition()
+                .takeIf { it != RecyclerView.NO_POSITION }
+        )?.let { adapter.snapshot().getOrNull(it) }
+
+    /**
+     * Saves the ID of the notification returned by [getFirstVisibleNotification].
+     */
+    private fun saveVisibleId() = getFirstVisibleNotification()?.let {
+        viewModel.accept(InfallibleUiAction.SaveVisibleId(pachliAccountId, it.id))
     }
 
     override fun onResume() {
@@ -603,36 +536,45 @@ class NotificationsFragment :
         onViewAccount(status.account.id)
     }
 
-    override fun onExpandedChange(pachliAccountId: Long, viewData: NotificationViewData, expanded: Boolean) {
-        adapter.snapshot().withIndex()
-            .filter {
-                it.value?.statusViewData?.actionableId == viewData.statusViewData!!.actionableId
-            }
-            .map {
-                it.value?.statusViewData = it.value?.statusViewData?.copy(isExpanded = expanded)
-                adapter.notifyItemChanged(it.index)
-            }
+    override fun onExpandedChange(viewData: NotificationViewData, expanded: Boolean) {
+        viewModel.accept(
+            InfallibleUiAction.SetExpanded(
+                viewData.pachliAccountId,
+                viewData.statusViewData!!,
+                expanded,
+            ),
+        )
     }
 
-    override fun onContentHiddenChange(pachliAccountId: Long, viewData: NotificationViewData, isShowing: Boolean) {
-        adapter.snapshot().withIndex()
-            .filter {
-                it.value?.statusViewData?.actionableId == viewData.statusViewData!!.actionableId
-            }
-            .map {
-                it.value?.statusViewData = it.value?.statusViewData?.copy(isShowingContent = isShowing)
-                adapter.notifyItemChanged(it.index)
-            }
+    // This is required by the interface StatusActionListener; the interface's ViewData T
+    // doesn't include pachliAccountId as a property.
+    // TODO: Update StatusActionListener.onExpandedChange to include the account ID.
+    override fun onExpandedChange(pachliAccountId: Long, viewData: NotificationViewData, expanded: Boolean) {
+        onExpandedChange(viewData, expanded)
+    }
+
+    override fun onContentHiddenChange(
+        pachliAccountId: Long,
+        viewData: NotificationViewData,
+        isShowingContent: Boolean,
+    ) {
+        viewModel.accept(
+            InfallibleUiAction.SetShowingContent(
+                pachliAccountId,
+                viewData.statusViewData!!,
+                isShowingContent,
+            ),
+        )
     }
 
     override fun onContentCollapsedChange(pachliAccountId: Long, viewData: NotificationViewData, isCollapsed: Boolean) {
-        adapter.snapshot().withIndex().filter {
-            it.value?.statusViewData?.actionableId == viewData.statusViewData!!.actionableId
-        }
-            .map {
-                it.value?.statusViewData = it.value?.statusViewData?.copy(isCollapsed = isCollapsed)
-                adapter.notifyItemChanged(it.index)
-            }
+        viewModel.accept(
+            InfallibleUiAction.SetContentCollapsed(
+                pachliAccountId,
+                viewData.statusViewData!!,
+                isCollapsed,
+            ),
+        )
     }
 
     override fun onEditFilterById(pachliAccountId: Long, filterId: String) {
@@ -642,30 +584,22 @@ class NotificationsFragment :
         )
     }
 
-    override fun onNotificationContentCollapsedChange(
-        pachliAccountId: Long,
-        isCollapsed: Boolean,
-        viewData: NotificationViewData,
-    ) {
-        onContentCollapsedChange(pachliAccountId, viewData, isCollapsed)
+    override fun onNotificationContentCollapsedChange(isCollapsed: Boolean, viewData: NotificationViewData) {
+        onContentCollapsedChange(viewData.pachliAccountId, viewData, isCollapsed)
     }
 
     override fun clearContentFilter(pachliAccountId: Long, viewData: NotificationViewData) {
-        adapter.snapshot().withIndex().filter { it.value?.statusViewData?.actionableId == viewData.statusViewData!!.actionableId }
-            .map {
-                it.value?.statusViewData = it.value?.statusViewData?.copy(
-                    contentFilterAction = FilterAction.NONE,
-                )
-                adapter.notifyItemChanged(it.index)
-            }
+        viewModel.accept(InfallibleUiAction.ClearContentFilter(pachliAccountId, viewData.id))
     }
 
     override fun clearAccountFilter(viewData: NotificationViewData) {
-        adapter.snapshot().withIndex().filter { it.value?.id == viewData.id }
-            .map {
-                it.value?.accountFilterDecision = null
-                adapter.notifyItemChanged(it.index)
-            }
+        viewModel.accept(
+            InfallibleUiAction.OverrideAccountFilter(
+                pachliAccountId,
+                viewData.id,
+                viewData.accountFilterDecision,
+            ),
+        )
     }
 
     override fun editAccountNotificationFilter() {
@@ -675,7 +609,6 @@ class NotificationsFragment :
 
     private fun clearNotifications() {
         binding.swipeRefreshLayout.isRefreshing = false
-        binding.progressBar.isVisible = false
         viewModel.accept(FallibleUiAction.ClearNotifications)
     }
 
@@ -696,11 +629,15 @@ class NotificationsFragment :
     }
 
     override fun onMute(mute: Boolean, id: String, position: Int, notifications: Boolean) {
-        adapter.refresh()
+        viewLifecycleOwner.lifecycleScope.launch {
+            refreshAdapterAndScrollToVisibleId()
+        }
     }
 
     override fun onBlock(block: Boolean, id: String, position: Int) {
-        adapter.refresh()
+        viewLifecycleOwner.lifecycleScope.launch {
+            refreshAdapterAndScrollToVisibleId()
+        }
     }
 
     override fun onRespondToFollowRequest(accept: Boolean, accountId: String, position: Int) {

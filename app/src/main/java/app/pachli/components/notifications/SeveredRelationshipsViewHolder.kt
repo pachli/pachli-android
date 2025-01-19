@@ -31,7 +31,6 @@ class SeveredRelationshipsViewHolder(
     private val binding: ItemSeveredRelationshipsBinding,
 ) : NotificationsPagingAdapter.ViewHolder, RecyclerView.ViewHolder(binding.root) {
     override fun bind(
-        pachliAccountId: Long,
         viewData: NotificationViewData,
         payloads: List<*>?,
         statusDisplayOptions: StatusDisplayOptions,
@@ -46,7 +45,7 @@ class SeveredRelationshipsViewHolder(
                 HtmlCompat.FROM_HTML_MODE_LEGACY,
             )
 
-            binding.datetime.text = getRelativeTimeSpanString(itemView.context, event.createdAt.time, System.currentTimeMillis())
+            binding.datetime.text = getRelativeTimeSpanString(itemView.context, event.createdAt.toEpochMilli(), System.currentTimeMillis())
 
             binding.notificationFollowersCount.text = itemView.context.resources.getQuantityString(
                 R.plurals.notification_severed_relationships_summary_followers_fmt,
@@ -69,7 +68,7 @@ class SeveredRelationshipsViewHolder(
             binding.notificationCategory.text = itemView.context.getString(resourceId)
         } else {
             if (payloads.any { it == StatusBaseViewHolder.Key.KEY_CREATED }) {
-                binding.datetime.text = getRelativeTimeSpanString(itemView.context, event.createdAt.time, System.currentTimeMillis())
+                binding.datetime.text = getRelativeTimeSpanString(itemView.context, event.createdAt.toEpochMilli(), System.currentTimeMillis())
             }
         }
     }

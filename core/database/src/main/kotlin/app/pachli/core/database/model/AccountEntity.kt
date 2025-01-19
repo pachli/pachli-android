@@ -82,13 +82,6 @@ data class AccountEntity(
      */
     val mediaPreviewEnabled: Boolean = true,
     /**
-     * ID of the last notification the user read on the Notification list, and should be restored
-     * to view when the user returns to the list.
-     *
-     * May not be the ID of the most recent notification if the user has scrolled down the list.
-     */
-    val lastNotificationId: String = "0",
-    /**
      *  ID of the most recent Mastodon notification that Pachli has fetched to show as an
      *  Android notification.
      */

@@ -23,8 +23,11 @@ import androidx.annotation.WorkerThread
 import app.pachli.core.activity.NotificationConfig
 import app.pachli.core.common.string.isLessThan
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.notifications.NotificationsRepository
+import app.pachli.core.data.repository.notifications.from
 import app.pachli.core.database.model.AccountEntity
-import app.pachli.core.model.FilterAction
+import app.pachli.core.database.model.NotificationData
+import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Marker
 import app.pachli.core.network.model.Notification
@@ -57,6 +60,7 @@ import timber.log.Timber
 class NotificationFetcher @Inject constructor(
     private val mastodonApi: MastodonApi,
     private val accountManager: AccountManager,
+    private val notificationsRepository: NotificationsRepository,
     @ApplicationContext private val context: Context,
 ) {
     suspend fun fetchAndShow(pachliAccountId: Long) {
@@ -85,8 +89,8 @@ class NotificationFetcher @Inject constructor(
                     val notifications = fetchNewNotifications(entity)
                         .filter { filterNotification(notificationManager, entity, it.type) }
                         .filter {
-                            val decision = filterNotificationByAccount(pachliAccount, it)
-                            decision == null || decision.action == FilterAction.NONE
+                            val decision = filterNotificationByAccount(pachliAccount, NotificationData.from(pachliAccountId, it))
+                            decision is AccountFilterDecision.None
                         }
                         .sortedWith(compareBy({ it.id.length }, { it.id })) // oldest notifications first
                         .toMutableList()
@@ -154,29 +158,25 @@ class NotificationFetcher @Inject constructor(
      *
      * The "water mark" for Mastodon Notification IDs are stored in three places.
      *
-     * - acccount.lastNotificationId -- the ID of the top-most notification when the user last
+     * - Notification refresh key -- the ID of the top-most notification when the user last
      *   left the Notifications tab.
      * - The Mastodon "marker" API -- the ID of the most recent notification fetched here.
      * - account.notificationMarkerId -- local version of the value from the Mastodon marker
      *   API, in case the Mastodon server does not implement that API.
      *
      * The user may have refreshed the "Notifications" tab and seen notifications newer than the
-     * ones that were last fetched here. So `lastNotificationId` takes precedence if it is greater
+     * ones that were last fetched here. So the refresh key takes precedence if it is greater
      * than the marker.
      */
     private suspend fun fetchNewNotifications(account: AccountEntity): List<Notification> {
         Timber.d("fetchNewNotifications(%s)", account.fullName)
 
-        // Figure out where to read from. Choose the most recent notification ID from:
-        //
-        // - The Mastodon marker API (if the server supports it)
-        // - account.notificationMarkerId
-        // - account.lastNotificationId
+        // Figure out which water mark to use.
         Timber.d("getting notification marker for %s", account.fullName)
         val remoteMarkerId = fetchMarker(account)?.lastReadId ?: "0"
         val localMarkerId = account.notificationMarkerId
         val markerId = if (remoteMarkerId.isLessThan(localMarkerId)) localMarkerId else remoteMarkerId
-        val readingPosition = account.lastNotificationId
+        val readingPosition = notificationsRepository.getRefreshKey(account.id) ?: "0"
 
         var minId: String? = if (readingPosition.isLessThan(markerId)) markerId else readingPosition
         Timber.d("  remoteMarkerId: %s", remoteMarkerId)

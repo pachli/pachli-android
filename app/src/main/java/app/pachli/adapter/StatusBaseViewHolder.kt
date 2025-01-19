@@ -916,23 +916,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
     }
 
     open fun showStatusContent(show: Boolean) {
-        val visibility = if (show) View.VISIBLE else View.GONE
-        avatar.visibility = visibility
-        avatarInset.visibility = visibility
-        displayName.visibility = visibility
-        username.visibility = visibility
-        metaInfo.visibility = visibility
-        contentWarningDescription.visibility = visibility
-        contentWarningButton.visibility = visibility
-        content.visibility = visibility
-        cardView!!.visibility = visibility
-        mediaContainer.visibility = visibility
-        pollView.visibility = visibility
-        replyButton.visibility = visibility
-        reblogButton!!.visibility = visibility
-        favouriteButton.visibility = visibility
-        bookmarkButton.visibility = visibility
-        moreButton.visibility = visibility
+        itemView.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     companion object {

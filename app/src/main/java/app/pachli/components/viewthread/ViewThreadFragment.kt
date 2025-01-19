@@ -343,8 +343,8 @@ class ViewThreadFragment :
         viewModel.changeExpanded(expanded, viewData)
     }
 
-    override fun onContentHiddenChange(pachliAccountId: Long, viewData: StatusViewData, isShowing: Boolean) {
-        viewModel.changeContentShowing(isShowing, viewData)
+    override fun onContentHiddenChange(pachliAccountId: Long, viewData: StatusViewData, isShowingContent: Boolean) {
+        viewModel.changeContentShowing(isShowingContent, viewData)
     }
 
     override fun onShowReblogs(statusId: String) {

@@ -24,6 +24,7 @@ import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.TabTapBehaviour
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidTest
+import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
@@ -45,7 +46,8 @@ class NotificationsViewModelTestUiState : NotificationsViewModelTestBase() {
     @Test
     fun `should load initial filter from active account`() = runTest {
         viewModel.uiState.test {
-            assertThat(awaitItem()).isEqualTo(initialUiState)
+            advanceUntilIdle()
+            assertThat(expectMostRecentItem()).isEqualTo(initialUiState)
         }
     }
 

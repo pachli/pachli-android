@@ -27,8 +27,9 @@ import app.pachli.adapter.FollowRequestViewHolder
 import app.pachli.adapter.ReportNotificationViewHolder
 import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.data.model.StatusDisplayOptions
+import app.pachli.core.database.model.NotificationEntity
+import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
-import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.Status
 import app.pachli.databinding.ItemFollowBinding
 import app.pachli.databinding.ItemFollowRequestBinding
@@ -72,23 +73,25 @@ enum class NotificationViewKind {
     ;
 
     companion object {
-        fun from(kind: Notification.Type?): NotificationViewKind {
+        fun from(kind: NotificationEntity.Type?): NotificationViewKind {
             return when (kind) {
-                Notification.Type.MENTION,
-                Notification.Type.POLL,
+                NotificationEntity.Type.MENTION,
+                NotificationEntity.Type.POLL,
                 -> STATUS
-                Notification.Type.FAVOURITE,
-                Notification.Type.REBLOG,
-                Notification.Type.STATUS,
-                Notification.Type.UPDATE,
+
+                NotificationEntity.Type.FAVOURITE,
+                NotificationEntity.Type.REBLOG,
+                NotificationEntity.Type.STATUS,
+                NotificationEntity.Type.UPDATE,
                 -> NOTIFICATION
-                Notification.Type.FOLLOW,
-                Notification.Type.SIGN_UP,
+
+                NotificationEntity.Type.FOLLOW,
+                NotificationEntity.Type.SIGN_UP,
                 -> FOLLOW
-                Notification.Type.FOLLOW_REQUEST -> FOLLOW_REQUEST
-                Notification.Type.REPORT -> REPORT
-                Notification.Type.SEVERED_RELATIONSHIPS -> SEVERED_RELATIONSHIPS
-                Notification.Type.UNKNOWN -> UNKNOWN
+                NotificationEntity.Type.FOLLOW_REQUEST -> FOLLOW_REQUEST
+                NotificationEntity.Type.REPORT -> REPORT
+                NotificationEntity.Type.SEVERED_RELATIONSHIPS -> SEVERED_RELATIONSHIPS
+                NotificationEntity.Type.UNKNOWN -> UNKNOWN
                 null -> UNKNOWN
             }
         }
@@ -107,7 +110,7 @@ interface NotificationActionListener {
      * @param expanded the desired state of the content behind the content warning
      *
      */
-    fun onExpandedChange(pachliAccountId: Long, viewData: NotificationViewData, expanded: Boolean)
+    fun onExpandedChange(viewData: NotificationViewData, expanded: Boolean)
 
     /**
      * Called when the status [android.widget.ToggleButton] responsible for collapsing long
@@ -116,7 +119,6 @@ interface NotificationActionListener {
      * @param isCollapsed Whether the status content is shown in a collapsed state or fully.
      */
     fun onNotificationContentCollapsedChange(
-        pachliAccountId: Long,
         isCollapsed: Boolean,
         viewData: NotificationViewData,
     )
@@ -136,10 +138,6 @@ interface NotificationActionListener {
 
 /**
  * @param diffCallback
- * @param pachliAccountId
- * @param localDomain The domain associated with [pachliAccountId]. Used when
- * notifications have a missing domain (because they're from the same domain as
- * the user's account).
  * @param statusActionListener
  * @param notificationActionListener
  * @param accountActionListener
@@ -147,8 +145,6 @@ interface NotificationActionListener {
  */
 class NotificationsPagingAdapter(
     diffCallback: DiffUtil.ItemCallback<NotificationViewData>,
-    private val pachliAccountId: Long,
-    private val localDomain: String,
     private val statusActionListener: StatusActionListener<NotificationViewData>,
     private val notificationActionListener: NotificationActionListener,
     private val accountActionListener: AccountActionListener,
@@ -161,7 +157,6 @@ class NotificationsPagingAdapter(
     interface ViewHolder {
         /** Bind the data from the notification and payloads to the view */
         fun bind(
-            pachliAccountId: Long,
             viewData: NotificationViewData,
             payloads: List<*>?,
             statusDisplayOptions: StatusDisplayOptions,
@@ -174,7 +169,7 @@ class NotificationsPagingAdapter(
             return NotificationViewKind.STATUS_FILTERED.ordinal
         }
 
-        if (item?.accountFilterDecision?.action == FilterAction.WARN) {
+        if (item?.accountFilterDecision is AccountFilterDecision.Warn) {
             return NotificationViewKind.ACCOUNT_FILTERED.ordinal
         }
 
@@ -200,7 +195,6 @@ class NotificationsPagingAdapter(
             NotificationViewKind.ACCOUNT_FILTERED -> {
                 FilterableNotificationViewHolder(
                     ItemNotificationFilteredBinding.inflate(inflater, parent, false),
-                    localDomain,
                     notificationActionListener,
                 )
             }
@@ -248,7 +242,7 @@ class NotificationsPagingAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        bindViewHolder(pachliAccountId, holder, position, null)
+        bindViewHolder(holder, position, null)
     }
 
     override fun onBindViewHolder(
@@ -256,16 +250,13 @@ class NotificationsPagingAdapter(
         position: Int,
         payloads: MutableList<Any>,
     ) {
-        bindViewHolder(pachliAccountId, holder, position, payloads)
+        bindViewHolder(holder, position, payloads)
     }
 
-    private fun bindViewHolder(
-        pachliAccountId: Long,
-        holder: RecyclerView.ViewHolder,
-        position: Int,
-        payloads: List<*>?,
-    ) {
-        getItem(position)?.let { (holder as ViewHolder).bind(pachliAccountId, it, payloads, statusDisplayOptions) }
+    private fun bindViewHolder(holder: RecyclerView.ViewHolder, position: Int, payloads: List<*>?) {
+        getItem(position)?.let {
+            (holder as ViewHolder).bind(it, payloads, statusDisplayOptions)
+        }
     }
 
     /**
@@ -276,7 +267,6 @@ class NotificationsPagingAdapter(
         val binding: ItemUnknownNotificationBinding,
     ) : ViewHolder, RecyclerView.ViewHolder(binding.root) {
         override fun bind(
-            pachliAccountId: Long,
             viewData: NotificationViewData,
             payloads: List<*>?,
             statusDisplayOptions: StatusDisplayOptions,

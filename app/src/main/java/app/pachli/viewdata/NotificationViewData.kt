@@ -18,13 +18,15 @@
 package app.pachli.viewdata
 
 import android.text.Spanned
-import app.pachli.components.notifications.AccountFilterDecision
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusViewData
+import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.NotificationData
+import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.database.model.TranslationState
+import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
-import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.RelationshipSeveranceEvent
 import app.pachli.core.network.model.Report
 import app.pachli.core.network.model.Status
@@ -38,10 +40,12 @@ import app.pachli.core.network.model.TimelineAccount
  * notifications are related to statuses (e.g., a "Someone has followed you"
  * notification) so `statusViewData` is nullable.
  *
+ * @param pachliAccountId
+ * @param localDomain Local domain of the logged in user's account (e.g., "mastodon.social")
  * @param type
- * @param id
- * @param account
- * @param statusViewData
+ * @param id Notification's server ID
+ * @param account Account that triggered the notification
+ * @param statusViewData (optional) Viewdata for the status referenced by the notification
  * @param report
  * @param relationshipSeveranceEvent
  * @param isAboutSelf True if this notification relates to something the user
@@ -51,41 +55,55 @@ import app.pachli.core.network.model.TimelineAccount
  * because of the account that sent it, and why.
  */
 data class NotificationViewData(
-    val type: Notification.Type,
+    val pachliAccountId: Long,
+    val localDomain: String,
+    val type: NotificationEntity.Type,
     val id: String,
     val account: TimelineAccount,
     var statusViewData: StatusViewData?,
     val report: Report?,
     val relationshipSeveranceEvent: RelationshipSeveranceEvent?,
     val isAboutSelf: Boolean,
-    var accountFilterDecision: AccountFilterDecision?,
+    val accountFilterDecision: AccountFilterDecision,
 ) : IStatusViewData {
     companion object {
-        fun from(
-            notification: Notification,
+        /**
+         *
+         * @param pachliAccountEntity
+         * @param data
+         * @param isShowingContent
+         * @param isExpanded
+         * @param contentFilterAction
+         * @param accountFilterDecision
+         * @param isAboutSelf
+         */
+        fun make(
+            pachliAccountEntity: AccountEntity,
+            data: NotificationData,
             isShowingContent: Boolean,
             isExpanded: Boolean,
-            isCollapsed: Boolean,
             contentFilterAction: FilterAction,
             accountFilterDecision: AccountFilterDecision?,
             isAboutSelf: Boolean,
         ) = NotificationViewData(
-            notification.type,
-            notification.id,
-            notification.account,
-            notification.status?.let { status ->
+            pachliAccountId = pachliAccountEntity.id,
+            localDomain = pachliAccountEntity.domain,
+            type = data.notification.type,
+            id = data.notification.serverId,
+            account = data.account.toTimelineAccount(),
+            statusViewData = data.status?.let {
                 StatusViewData.from(
-                    status,
-                    isShowingContent,
-                    isExpanded,
-                    isCollapsed,
+                    it,
+                    isExpanded = isExpanded,
+                    isShowingContent = isShowingContent,
+                    isDetailed = false,
                     contentFilterAction = contentFilterAction,
                 )
             },
-            notification.report,
-            notification.relationshipSeveranceEvent,
-            isAboutSelf,
-            accountFilterDecision = accountFilterDecision,
+            report = null,
+            relationshipSeveranceEvent = null,
+            isAboutSelf = isAboutSelf,
+            accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
         )
     }
 

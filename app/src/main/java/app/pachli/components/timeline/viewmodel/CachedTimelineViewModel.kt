@@ -91,9 +91,10 @@ class CachedTimelineViewModel @Inject constructor(
                             it,
                             isExpanded = activeAccount.alwaysOpenSpoiler,
                             isShowingContent = activeAccount.alwaysShowSensitiveMedia,
+                            contentFilterAction = shouldFilterStatus(it.toStatus()),
                         )
                     }
-                    .filter { shouldFilterStatus(it) != FilterAction.HIDE }
+                    .filter { it.contentFilterAction != FilterAction.HIDE }
             }
     }
 

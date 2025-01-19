@@ -178,7 +178,7 @@ interface MastodonApi {
     @GET("api/v1/notifications/{id}")
     suspend fun notification(
         @Path("id") id: String,
-    ): Response<Notification>
+    ): NetworkResult<Notification>
 
     @GET("api/v1/markers")
     suspend fun markersWithAuth(

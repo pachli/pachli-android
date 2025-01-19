@@ -22,12 +22,11 @@ import androidx.paging.InvalidatingPagingSourceFactory
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
-import androidx.room.Transaction
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.RemoteKeyEntity
-import app.pachli.core.database.model.RemoteKeyKind
+import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
 import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TimelineStatusEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
@@ -71,7 +70,7 @@ class CachedTimelineRemoteMediator(
                 LoadType.APPEND -> {
                     val rke = remoteKeyDao.remoteKeyForKind(
                         pachliAccountId,
-                        TIMELINE_ID,
+                        RKE_TIMELINE_ID,
                         RemoteKeyKind.NEXT,
                     ) ?: return MediatorResult.Success(endOfPaginationReached = true)
                     Timber.d("Loading from remoteKey: %s", rke)
@@ -81,7 +80,7 @@ class CachedTimelineRemoteMediator(
                 LoadType.PREPEND -> {
                     val rke = remoteKeyDao.remoteKeyForKind(
                         pachliAccountId,
-                        TIMELINE_ID,
+                        RKE_TIMELINE_ID,
                         RemoteKeyKind.PREV,
                     ) ?: return MediatorResult.Success(endOfPaginationReached = true)
                     Timber.d("Loading from remoteKey: %s", rke)
@@ -110,13 +109,13 @@ class CachedTimelineRemoteMediator(
             transactionProvider {
                 when (loadType) {
                     LoadType.REFRESH -> {
-                        remoteKeyDao.delete(pachliAccountId, TIMELINE_ID)
+                        remoteKeyDao.delete(pachliAccountId, RKE_TIMELINE_ID)
                         timelineDao.removeAllStatuses(pachliAccountId)
 
                         remoteKeyDao.upsert(
                             RemoteKeyEntity(
                                 pachliAccountId,
-                                TIMELINE_ID,
+                                RKE_TIMELINE_ID,
                                 RemoteKeyKind.NEXT,
                                 links.next,
                             ),
@@ -124,7 +123,7 @@ class CachedTimelineRemoteMediator(
                         remoteKeyDao.upsert(
                             RemoteKeyEntity(
                                 pachliAccountId,
-                                TIMELINE_ID,
+                                RKE_TIMELINE_ID,
                                 RemoteKeyKind.PREV,
                                 links.prev,
                             ),
@@ -136,7 +135,7 @@ class CachedTimelineRemoteMediator(
                         remoteKeyDao.upsert(
                             RemoteKeyEntity(
                                 pachliAccountId,
-                                TIMELINE_ID,
+                                RKE_TIMELINE_ID,
                                 RemoteKeyKind.PREV,
                                 prev,
                             ),
@@ -148,7 +147,7 @@ class CachedTimelineRemoteMediator(
                         remoteKeyDao.upsert(
                             RemoteKeyEntity(
                                 pachliAccountId,
-                                TIMELINE_ID,
+                                RKE_TIMELINE_ID,
                                 RemoteKeyKind.NEXT,
                                 next,
                             ),
@@ -241,7 +240,6 @@ class CachedTimelineRemoteMediator(
     /**
      * Inserts `statuses` and the accounts referenced by those statuses in to the cache.
      */
-    @Transaction
     private suspend fun insertStatuses(pachliAccountId: Long, statuses: List<Status>) {
         for (status in statuses) {
             timelineDao.insertAccount(TimelineAccountEntity.from(status.account, pachliAccountId))
@@ -260,6 +258,6 @@ class CachedTimelineRemoteMediator(
     }
 
     companion object {
-        const val TIMELINE_ID = "HOME"
+        const val RKE_TIMELINE_ID = "HOME"
     }
 }

@@ -20,7 +20,7 @@ package app.pachli.components.notifications
 import app.pachli.adapter.FilterableStatusViewHolder
 import app.pachli.adapter.StatusViewHolder
 import app.pachli.core.data.model.StatusDisplayOptions
-import app.pachli.core.network.model.Notification
+import app.pachli.core.database.model.NotificationEntity
 import app.pachli.databinding.ItemStatusBinding
 import app.pachli.databinding.ItemStatusWrapperBinding
 import app.pachli.interfaces.StatusActionListener
@@ -32,7 +32,6 @@ internal class StatusViewHolder(
 ) : NotificationsPagingAdapter.ViewHolder, StatusViewHolder<NotificationViewData>(binding) {
 
     override fun bind(
-        pachliAccountId: Long,
         viewData: NotificationViewData,
         payloads: List<*>?,
         statusDisplayOptions: StatusDisplayOptions,
@@ -47,14 +46,14 @@ internal class StatusViewHolder(
                 showStatusContent(true)
             }
             setupWithStatus(
-                pachliAccountId,
+                viewData.pachliAccountId,
                 viewData,
                 statusActionListener,
                 statusDisplayOptions,
                 payloads?.firstOrNull(),
             )
         }
-        if (viewData.type == Notification.Type.POLL) {
+        if (viewData.type == NotificationEntity.Type.POLL) {
             setPollInfo(viewData.isAboutSelf)
         } else {
             hideStatusInfo()
@@ -68,7 +67,6 @@ class FilterableStatusViewHolder(
 ) : NotificationsPagingAdapter.ViewHolder, FilterableStatusViewHolder<NotificationViewData>(binding) {
     // Note: Identical to bind() in StatusViewHolder above
     override fun bind(
-        pachliAccountId: Long,
         viewData: NotificationViewData,
         payloads: List<*>?,
         statusDisplayOptions: StatusDisplayOptions,
@@ -83,14 +81,14 @@ class FilterableStatusViewHolder(
                 showStatusContent(true)
             }
             setupWithStatus(
-                pachliAccountId,
+                viewData.pachliAccountId,
                 viewData,
                 statusActionListener,
                 statusDisplayOptions,
                 payloads?.firstOrNull(),
             )
         }
-        if (viewData.type == Notification.Type.POLL) {
+        if (viewData.type == NotificationEntity.Type.POLL) {
             setPollInfo(viewData.isAboutSelf)
         } else {
             hideStatusInfo()

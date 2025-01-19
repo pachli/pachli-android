@@ -21,7 +21,9 @@ import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.core.data.model.StatusDisplayOptions
-import app.pachli.core.network.model.Notification
+import app.pachli.core.database.model.NotificationEntity
+import app.pachli.core.model.AccountFilterDecision
+import app.pachli.core.model.AccountFilterReason
 import app.pachli.databinding.ItemNotificationFilteredBinding
 import app.pachli.viewdata.NotificationViewData
 
@@ -37,7 +39,6 @@ import app.pachli.viewdata.NotificationViewData
  */
 class FilterableNotificationViewHolder(
     private val binding: ItemNotificationFilteredBinding,
-    private val localDomain: String,
     private val notificationActionListener: NotificationActionListener,
 ) : NotificationsPagingAdapter.ViewHolder, RecyclerView.ViewHolder(binding.root) {
     private val context = binding.root.context
@@ -69,18 +70,19 @@ class FilterableNotificationViewHolder(
         }
     }
 
-    override fun bind(pachliAccountId: Long, viewData: NotificationViewData, payloads: List<*>?, statusDisplayOptions: StatusDisplayOptions) {
+    override fun bind(viewData: NotificationViewData, payloads: List<*>?, statusDisplayOptions: StatusDisplayOptions) {
         this.viewData = viewData
 
         val icon = viewData.type.icon(context)
 
-        // Labels for different notification types filtered by account.
+        // Labels for different notification types filtered by account. The account's
+        // domain is interpolated in to the string.
         val label = when (viewData.type) {
-            Notification.Type.MENTION -> R.string.account_filter_placeholder_type_mention_fmt
-            Notification.Type.REBLOG -> R.string.account_filter_placeholder_type_reblog_fmt
-            Notification.Type.FAVOURITE -> R.string.account_filter_placeholder_type_favourite_fmt
-            Notification.Type.FOLLOW -> R.string.account_filter_placeholder_type_follow_fmt
-            Notification.Type.FOLLOW_REQUEST -> R.string.account_filter_placeholder_type_follow_request_fmt
+            NotificationEntity.Type.MENTION -> R.string.account_filter_placeholder_type_mention_fmt
+            NotificationEntity.Type.REBLOG -> R.string.account_filter_placeholder_type_reblog_fmt
+            NotificationEntity.Type.FAVOURITE -> R.string.account_filter_placeholder_type_favourite_fmt
+            NotificationEntity.Type.FOLLOW -> R.string.account_filter_placeholder_type_follow_fmt
+            NotificationEntity.Type.FOLLOW_REQUEST -> R.string.account_filter_placeholder_type_follow_request_fmt
             else -> R.string.account_filter_placeholder_label_domain
         }
 
@@ -88,17 +90,17 @@ class FilterableNotificationViewHolder(
         binding.accountFilterDomain.text = HtmlCompat.fromHtml(
             context.getString(
                 label,
-                viewData.account.domain.ifEmpty { localDomain },
+                viewData.account.domain.ifEmpty { viewData.localDomain },
             ),
             HtmlCompat.FROM_HTML_MODE_LEGACY,
         )
 
-        val reason = when (viewData.accountFilterDecision?.reason) {
-            AccountFilterReason.NOT_FOLLOWING -> notFollowing
-            AccountFilterReason.YOUNGER_30D -> younger30d
-            AccountFilterReason.LIMITED_BY_SERVER -> limitedByServer
-            null -> ""
+        if (viewData.accountFilterDecision is AccountFilterDecision.Warn) {
+            binding.accountFilterReason.text = when (viewData.accountFilterDecision.reason) {
+                AccountFilterReason.NOT_FOLLOWING -> notFollowing
+                AccountFilterReason.YOUNGER_30D -> younger30d
+                AccountFilterReason.LIMITED_BY_SERVER -> limitedByServer
+            }
         }
-        binding.accountFilterReason.text = reason
     }
 }

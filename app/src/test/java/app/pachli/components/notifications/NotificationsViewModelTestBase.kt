@@ -23,6 +23,7 @@ import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.AccountPreferenceDataStore
 import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
+import app.pachli.core.data.repository.notifications.NotificationsRepository
 import app.pachli.core.database.dao.AccountDao
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.network.di.test.DEFAULT_INSTANCE_V2

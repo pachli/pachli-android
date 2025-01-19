@@ -692,10 +692,6 @@ class AccountManager @Inject constructor(
         accountDao.setNotificationsFilter(accountId, value)
     }
 
-    suspend fun setLastNotificationId(accountId: Long, value: String) {
-        accountDao.setLastNotificationId(accountId, value)
-    }
-
     suspend fun setPushNotificationData(
         accountId: Long,
         unifiedPushUrl: String,

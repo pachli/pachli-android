@@ -41,7 +41,6 @@ class ReportNotificationViewHolder(
 ) : NotificationsPagingAdapter.ViewHolder, RecyclerView.ViewHolder(binding.root) {
 
     override fun bind(
-        pachliAccountId: Long,
         viewData: NotificationViewData,
         payloads: List<*>?,
         statusDisplayOptions: StatusDisplayOptions,
@@ -90,7 +89,7 @@ class ReportNotificationViewHolder(
         )
         binding.notificationSummary.text = itemView.context.getString(
             R.string.notification_summary_report_format,
-            getRelativeTimeSpanString(itemView.context, report.createdAt.time, System.currentTimeMillis()),
+            getRelativeTimeSpanString(itemView.context, report.createdAt.toEpochMilli(), System.currentTimeMillis()),
             report.statusIds?.size ?: 0,
         )
         binding.notificationCategory.text = getTranslatedCategory(itemView.context, report.category)
@@ -135,12 +134,9 @@ class ReportNotificationViewHolder(
         itemView.setOnClickListener { listener.onViewReport(reportId) }
     }
 
-    private fun getTranslatedCategory(context: Context, rawCategory: String): String {
-        return when (rawCategory) {
-            "violation" -> context.getString(R.string.report_category_violation)
-            "spam" -> context.getString(R.string.report_category_spam)
-            "other" -> context.getString(R.string.report_category_other)
-            else -> rawCategory
-        }
+    private fun getTranslatedCategory(context: Context, category: Report.Category) = when (category) {
+        Report.Category.SPAM -> context.getString(R.string.report_category_spam)
+        Report.Category.VIOLATION -> context.getString(R.string.report_category_violation)
+        Report.Category.OTHER -> context.getString(R.string.report_category_other)
     }
 }

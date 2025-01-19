@@ -11,13 +11,13 @@ import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import app.pachli.components.timeline.viewmodel.CachedTimelineRemoteMediator
-import app.pachli.components.timeline.viewmodel.CachedTimelineRemoteMediator.Companion.TIMELINE_ID
+import app.pachli.components.timeline.viewmodel.CachedTimelineRemoteMediator.Companion.RKE_TIMELINE_ID
 import app.pachli.core.database.AppDatabase
 import app.pachli.core.database.Converters
 import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.RemoteKeyEntity
-import app.pachli.core.database.model.RemoteKeyKind
+import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
 import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.network.json.BooleanIfNull
 import app.pachli.core.network.json.DefaultIfNull
@@ -276,8 +276,8 @@ class CachedTimelineRemoteMediatorTest {
         )
 
         db.insert(statusesAlreadyInDb)
-        db.remoteKeyDao().upsert(RemoteKeyEntity(1, TIMELINE_ID, RemoteKeyKind.PREV, "8"))
-        db.remoteKeyDao().upsert(RemoteKeyEntity(1, TIMELINE_ID, RemoteKeyKind.NEXT, "5"))
+        db.remoteKeyDao().upsert(RemoteKeyEntity(1, RKE_TIMELINE_ID, RemoteKeyKind.PREV, "8"))
+        db.remoteKeyDao().upsert(RemoteKeyEntity(1, RKE_TIMELINE_ID, RemoteKeyKind.NEXT, "5"))
 
         val remoteMediator = CachedTimelineRemoteMediator(
             initialKey = null,

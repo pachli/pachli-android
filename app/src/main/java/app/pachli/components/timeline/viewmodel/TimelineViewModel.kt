@@ -542,18 +542,16 @@ abstract class TimelineViewModel(
     /** Triggered when currently displayed data must be reloaded. */
     protected abstract suspend fun invalidate(pachliAccountId: Long)
 
-    protected fun shouldFilterStatus(statusViewData: StatusViewData): FilterAction {
-        val status = statusViewData.status
+    protected fun shouldFilterStatus(status: Status): FilterAction {
         return if (
             (status.inReplyToId != null && filterRemoveReplies) ||
             (status.reblog != null && filterRemoveReblogs) ||
             // To determine if the boost is boosting your own toot
             ((status.account.id == status.reblog?.account?.id) && filterRemoveSelfReblogs)
         ) {
-            return FilterAction.HIDE
+            FilterAction.HIDE
         } else {
-            statusViewData.contentFilterAction = contentFilterModel?.filterActionFor(status.actionableStatus) ?: FilterAction.NONE
-            statusViewData.contentFilterAction
+            contentFilterModel?.filterActionFor(status) ?: FilterAction.NONE
         }
     }
 

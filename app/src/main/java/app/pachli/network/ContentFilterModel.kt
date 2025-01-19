@@ -1,6 +1,7 @@
 package app.pachli.network
 
 import app.pachli.core.data.model.from
+import app.pachli.core.database.model.TimelineStatusEntity
 import app.pachli.core.model.ContentFilter
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.FilterContext
@@ -41,6 +42,41 @@ class ContentFilterModel(private val filterContext: FilterContext, v1ContentFilt
 
             return if (
                 matcher.reset(status.actionableStatus.content.parseAsMastodonHtml().toString()).find() ||
+                (spoilerText.isNotEmpty() && matcher.reset(spoilerText).find()) ||
+                (attachmentsDescriptions.isNotEmpty() && matcher.reset(attachmentsDescriptions.joinToString("\n")).find())
+            ) {
+                FilterAction.HIDE
+            } else {
+                FilterAction.NONE
+            }
+        }
+
+        val matchingKind = status.filtered?.filter { result ->
+            result.filter.contexts.contains(NetworkFilterContext.from(filterContext))
+        }
+
+        return if (matchingKind.isNullOrEmpty()) {
+            FilterAction.NONE
+        } else {
+            matchingKind.maxOf { FilterAction.from(it.filter.filterAction) }
+        }
+    }
+
+    /** @return the [FilterAction] that should be applied to this status */
+    fun filterActionFor(status: TimelineStatusEntity): FilterAction {
+        pattern?.let { pat ->
+            // Patterns are expensive and thread-safe, matchers are neither.
+            val matcher = pat.matcher("") ?: return FilterAction.NONE
+
+            if (status.poll?.options?.any { matcher.reset(it.title).find() } == true) {
+                return FilterAction.HIDE
+            }
+
+            val spoilerText = status.spoilerText
+            val attachmentsDescriptions = status.attachments?.mapNotNull { it.description }.orEmpty()
+
+            return if (
+                matcher.reset(status.content?.parseAsMastodonHtml().toString()).find() ||
                 (spoilerText.isNotEmpty() && matcher.reset(spoilerText).find()) ||
                 (attachmentsDescriptions.isNotEmpty() && matcher.reset(attachmentsDescriptions.joinToString("\n")).find())
             ) {

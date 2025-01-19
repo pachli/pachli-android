@@ -40,7 +40,13 @@ abstract class TimelineDao {
     @Insert(onConflict = REPLACE)
     abstract suspend fun insertAccount(timelineAccountEntity: TimelineAccountEntity): Long
 
-    @Insert(onConflict = REPLACE)
+    @Upsert
+    abstract suspend fun upsertAccounts(accounts: Collection<TimelineAccountEntity>)
+
+    @Upsert
+    abstract suspend fun upsertStatuses(statuses: Collection<TimelineStatusEntity>)
+
+    @Upsert
     abstract suspend fun insertStatus(timelineStatusEntity: TimelineStatusEntity): Long
 
     @Query(
@@ -53,11 +59,13 @@ s.content, s.attachments, s.poll, s.card, s.muted, s.pinned, s.language, s.filte
 a.serverId as 'a_serverId', a.timelineUserId as 'a_timelineUserId',
 a.localUsername as 'a_localUsername', a.username as 'a_username',
 a.displayName as 'a_displayName', a.url as 'a_url', a.avatar as 'a_avatar',
-a.emojis as 'a_emojis', a.bot as 'a_bot', a.createdAt as 'a_createdAt',
+a.emojis as 'a_emojis', a.bot as 'a_bot', a.createdAt as 'a_createdAt', a.limited as 'a_limited',
+a.note as 'a_note',
 rb.serverId as 'rb_serverId', rb.timelineUserId 'rb_timelineUserId',
 rb.localUsername as 'rb_localUsername', rb.username as 'rb_username',
 rb.displayName as 'rb_displayName', rb.url as 'rb_url', rb.avatar as 'rb_avatar',
-rb.emojis as 'rb_emojis', rb.bot as 'rb_bot', rb.createdAt as 'rb_createdAt',
+rb.emojis as 'rb_emojis', rb.bot as 'rb_bot', rb.createdAt as 'rb_createdAt', rb.limited as 'rb_limited',
+rb.note as 'rb_note',
 svd.serverId as 'svd_serverId', svd.timelineUserId as 'svd_timelineUserId',
 svd.expanded as 'svd_expanded', svd.contentShowing as 'svd_contentShowing',
 svd.contentCollapsed as 'svd_contentCollapsed', svd.translationState as 'svd_translationState',
@@ -99,11 +107,13 @@ s.content, s.attachments, s.poll, s.card, s.muted, s.pinned, s.language, s.filte
 a.serverId as 'a_serverId', a.timelineUserId as 'a_timelineUserId',
 a.localUsername as 'a_localUsername', a.username as 'a_username',
 a.displayName as 'a_displayName', a.url as 'a_url', a.avatar as 'a_avatar',
-a.emojis as 'a_emojis', a.bot as 'a_bot', a.createdAt as 'a_createdAt',
+a.emojis as 'a_emojis', a.bot as 'a_bot', a.createdAt as 'a_createdAt', a.limited as 'a_limited',
+a.note as 'a_note',
 rb.serverId as 'rb_serverId', rb.timelineUserId 'rb_timelineUserId',
 rb.localUsername as 'rb_localUsername', rb.username as 'rb_username',
 rb.displayName as 'rb_displayName', rb.url as 'rb_url', rb.avatar as 'rb_avatar',
-rb.emojis as 'rb_emojis', rb.bot as 'rb_bot', rb.createdAt as 'rb_createdAt',
+rb.emojis as 'rb_emojis', rb.bot as 'rb_bot', rb.createdAt as 'rb_createdAt', rb.limited as 'rb_limited',
+rb.note as 'rb_note',
 svd.serverId as 'svd_serverId', svd.timelineUserId as 'svd_timelineUserId',
 svd.expanded as 'svd_expanded', svd.contentShowing as 'svd_contentShowing',
 svd.contentCollapsed as 'svd_contentCollapsed', svd.translationState as 'svd_translationState',
@@ -131,27 +141,27 @@ AND
 
     @Query(
         """UPDATE TimelineStatusEntity SET favourited = :favourited
-WHERE timelineUserId = :accountId AND (serverId = :statusId OR reblogServerId = :statusId)""",
+WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServerId = :statusId)""",
     )
-    abstract suspend fun setFavourited(accountId: Long, statusId: String, favourited: Boolean)
+    abstract suspend fun setFavourited(pachliAccountId: Long, statusId: String, favourited: Boolean)
 
     @Query(
         """UPDATE TimelineStatusEntity SET bookmarked = :bookmarked
-WHERE timelineUserId = :accountId AND (serverId = :statusId OR reblogServerId = :statusId)""",
+WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServerId = :statusId)""",
     )
-    abstract suspend fun setBookmarked(accountId: Long, statusId: String, bookmarked: Boolean)
+    abstract suspend fun setBookmarked(pachliAccountId: Long, statusId: String, bookmarked: Boolean)
 
     @Query(
         """UPDATE TimelineStatusEntity SET reblogged = :reblogged
-WHERE timelineUserId = :accountId AND (serverId = :statusId OR reblogServerId = :statusId)""",
+WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServerId = :statusId)""",
     )
-    abstract suspend fun setReblogged(accountId: Long, statusId: String, reblogged: Boolean)
+    abstract suspend fun setReblogged(pachliAccountId: Long, statusId: String, reblogged: Boolean)
 
     @Query(
-        """DELETE FROM TimelineStatusEntity WHERE timelineUserId = :accountId AND
+        """DELETE FROM TimelineStatusEntity WHERE timelineUserId = :pachliAccountId AND
 (authorServerId = :userId OR reblogAccountId = :userId)""",
     )
-    abstract suspend fun removeAllByUser(accountId: Long, userId: String)
+    abstract suspend fun removeAllByUser(pachliAccountId: Long, userId: String)
 
     /**
      * Removes everything for one account in the following tables:
@@ -170,7 +180,23 @@ WHERE timelineUserId = :accountId AND (serverId = :statusId OR reblogServerId = 
         removeAllTranslatedStatus(accountId)
     }
 
-    @Query("DELETE FROM TimelineStatusEntity WHERE timelineUserId = :accountId")
+    /**
+     * Removes all statuses from the cached **home** timeline.
+     *
+     * Statuses that are referenced by notifications are retained, to ensure
+     * they show up in the Notifications list.
+     */
+    @Query(
+        """
+        DELETE FROM TimelineStatusEntity
+         WHERE timelineUserId = :accountId
+           AND serverId NOT IN (
+             SELECT statusServerId
+               FROM NotificationEntity
+              WHERE statusServerId IS NOT NULL
+           )
+        """,
+    )
     abstract suspend fun removeAllStatuses(accountId: Long)
 
     @Query("DELETE FROM TimelineAccountEntity WHERE timelineUserId = :accountId")

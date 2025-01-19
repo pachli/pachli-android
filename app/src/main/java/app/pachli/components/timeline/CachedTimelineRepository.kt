@@ -23,7 +23,6 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import app.pachli.components.timeline.viewmodel.CachedTimelineRemoteMediator
-import app.pachli.components.timeline.viewmodel.CachedTimelineRemoteMediator.Companion.TIMELINE_ID
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.dao.RemoteKeyDao
@@ -43,7 +42,6 @@ import at.connyduck.calladapter.networkresult.fold
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -68,7 +66,7 @@ class CachedTimelineRepository @Inject constructor(
     private var factory: InvalidatingPagingSourceFactory<Int, TimelineStatusWithAccount>? = null
 
     /** @return flow of Mastodon [TimelineStatusWithAccount], loaded in [pageSize] increments */
-    @OptIn(ExperimentalPagingApi::class, ExperimentalCoroutinesApi::class)
+    @OptIn(ExperimentalPagingApi::class)
     fun getStatusStream(
         account: AccountEntity,
         kind: Timeline,
@@ -175,7 +173,7 @@ class CachedTimelineRepository @Inject constructor(
 
     suspend fun clearAndReloadFromNewest(pachliAccountId: Long) = externalScope.launch {
         timelineDao.removeAll(pachliAccountId)
-        remoteKeyDao.delete(pachliAccountId, TIMELINE_ID)
+        remoteKeyDao.delete(pachliAccountId, CachedTimelineRemoteMediator.RKE_TIMELINE_ID)
         invalidate(pachliAccountId)
     }
 

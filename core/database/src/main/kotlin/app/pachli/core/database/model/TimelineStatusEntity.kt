@@ -150,6 +150,7 @@ data class TimelineStatusEntity(
  * @param emojis
  * @param bot
  * @param createdAt
+ * @param note
  */
 @Entity(
     primaryKeys = ["serverId", "timelineUserId"],
@@ -176,6 +177,10 @@ data class TimelineAccountEntity(
     val emojis: List<Emoji>,
     val bot: Boolean,
     val createdAt: Instant?,
+    @ColumnInfo(defaultValue = "false")
+    val limited: Boolean = false,
+    @ColumnInfo(defaultValue = "")
+    val note: String,
 ) {
     fun toTimelineAccount(): TimelineAccount {
         return TimelineAccount(
@@ -183,12 +188,13 @@ data class TimelineAccountEntity(
             localUsername = localUsername,
             username = username,
             displayName = displayName,
-            note = "",
+            note = note,
             url = url,
             avatar = avatar,
             bot = bot,
             emojis = emojis,
             createdAt = createdAt,
+            limited = limited,
         )
     }
 
@@ -199,11 +205,13 @@ data class TimelineAccountEntity(
             localUsername = timelineAccount.localUsername,
             username = timelineAccount.username,
             displayName = timelineAccount.name,
+            note = timelineAccount.note,
             url = timelineAccount.url,
             avatar = timelineAccount.avatar,
             emojis = timelineAccount.emojis.orEmpty(),
             bot = timelineAccount.bot,
             createdAt = timelineAccount.createdAt,
+            limited = timelineAccount.limited,
         )
     }
 }

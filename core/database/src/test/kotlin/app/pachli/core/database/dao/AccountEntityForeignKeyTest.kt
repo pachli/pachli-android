@@ -27,16 +27,19 @@ import app.pachli.core.database.model.ConversationEntity
 import app.pachli.core.database.model.ConversationStatusEntity
 import app.pachli.core.database.model.DraftEntity
 import app.pachli.core.database.model.EmojisEntity
+import app.pachli.core.database.model.FilterActionUpdate
 import app.pachli.core.database.model.FollowingAccountEntity
 import app.pachli.core.database.model.MastodonListEntity
+import app.pachli.core.database.model.NotificationEntity
+import app.pachli.core.database.model.NotificationViewDataEntity
 import app.pachli.core.database.model.RemoteKeyEntity
-import app.pachli.core.database.model.RemoteKeyKind
 import app.pachli.core.database.model.ServerEntity
 import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.model.ContentFilterVersion
+import app.pachli.core.model.FilterAction
 import app.pachli.core.model.ServerKind
 import app.pachli.core.network.model.Announcement
 import app.pachli.core.network.model.Status
@@ -84,6 +87,8 @@ class AccountEntityForeignKeyTest {
     @Inject lateinit var instanceInfoDao: InstanceDao
 
     @Inject lateinit var mastodonListDao: ListsDao
+
+    @Inject lateinit var notificationDao: NotificationDao
 
     @Inject lateinit var remoteKeyDao: RemoteKeyDao
 
@@ -337,13 +342,50 @@ class AccountEntityForeignKeyTest {
         assertThat(mastodonListDao.get(pachliAccountId)).isEmpty()
     }
 
+    @Suppress("DEPRECATION")
+    @Test
+    fun `deleting account deletes notification and viewdata`() = runTest {
+        val notification = NotificationEntity(
+            pachliAccountId = pachliAccountId,
+            serverId = "1",
+            type = NotificationEntity.Type.FAVOURITE,
+            createdAt = Instant.now().truncatedTo(ChronoUnit.MILLIS),
+            accountServerId = "1",
+            statusServerId = "1",
+        )
+        notificationDao.upsertNotifications(listOf(notification))
+        val filterAction = FilterActionUpdate(
+            pachliAccountId = pachliAccountId,
+            serverId = "1",
+            contentFilterAction = FilterAction.NONE,
+        )
+        notificationDao.upsert(filterAction)
+
+        // Check everything is as expected.
+        val notificationViewData = NotificationViewDataEntity(
+            pachliAccountId = pachliAccountId,
+            serverId = "1",
+            contentFilterAction = FilterAction.NONE,
+            accountFilterDecision = null,
+        )
+        assertThat(notificationDao.loadAllForAccount(pachliAccountId)).containsExactly(notification)
+        assertThat(notificationDao.loadViewData(pachliAccountId, "1")).isEqualTo(notificationViewData)
+
+        // When -- delete the account.
+        accountDao.delete(activeAccount)
+
+        // Then
+        assertThat(notificationDao.loadAllForAccount(pachliAccountId)).isEmpty()
+        assertThat(notificationDao.loadViewData(pachliAccountId, "1")).isNull()
+    }
+
     @Test
     fun `deleting account deletes RemoteKeyEntity`() = runTest {
         // RemoteKeyEntity
         val remoteKey = RemoteKeyEntity(
             accountId = pachliAccountId,
             timelineId = "test",
-            kind = RemoteKeyKind.NEXT,
+            kind = RemoteKeyEntity.RemoteKeyKind.NEXT,
             key = "1",
         )
         remoteKeyDao.upsert(remoteKey)
@@ -413,6 +455,8 @@ class AccountEntityForeignKeyTest {
             emojis = emptyList(),
             bot = false,
             createdAt = Instant.now().truncatedTo(ChronoUnit.MILLIS),
+            limited = false,
+            note = "",
         )
         timelineDao.insertAccount(timelineAccount)
 

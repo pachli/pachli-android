@@ -35,9 +35,9 @@ import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.common.util.SmartLengthInputFilter
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusViewData
+import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.Emoji
-import app.pachli.core.network.model.Notification
 import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.setClickableText
 import app.pachli.databinding.ItemStatusNotificationBinding
@@ -75,7 +75,6 @@ internal class StatusNotificationViewHolder(
     )
 
     override fun bind(
-        pachliAccountId: Long,
         viewData: NotificationViewData,
         payloads: List<*>?,
         statusDisplayOptions: StatusDisplayOptions,
@@ -92,8 +91,8 @@ internal class StatusNotificationViewHolder(
                 setDisplayName(account.name, account.emojis, statusDisplayOptions.animateEmojis)
                 setUsername(account.username)
                 setCreatedAt(createdAt, statusDisplayOptions.useAbsoluteTime)
-                if (viewData.type == Notification.Type.STATUS ||
-                    viewData.type == Notification.Type.UPDATE
+                if (viewData.type == NotificationEntity.Type.STATUS ||
+                    viewData.type == NotificationEntity.Type.UPDATE
                 ) {
                     setAvatar(
                         account.avatar,
@@ -119,7 +118,7 @@ internal class StatusNotificationViewHolder(
                     notificationActionListener.onViewAccount(viewData.account.id)
                 }
             }
-            setMessage(pachliAccountId, viewData, statusActionListener, statusDisplayOptions.animateEmojis)
+            setMessage(viewData, statusActionListener, statusDisplayOptions.animateEmojis)
         } else {
             for (item in payloads) {
                 if (StatusBaseViewHolder.Key.KEY_CREATED == item && statusViewData != null) {
@@ -223,7 +222,6 @@ internal class StatusNotificationViewHolder(
     }
 
     fun setMessage(
-        pachliAccountId: Long,
         viewData: NotificationViewData,
         listener: LinkListener,
         animateEmojis: Boolean,
@@ -235,16 +233,19 @@ internal class StatusNotificationViewHolder(
         val format: String
         val icon = type.icon(context)
         when (type) {
-            Notification.Type.FAVOURITE -> {
+            NotificationEntity.Type.FAVOURITE -> {
                 format = context.getString(R.string.notification_favourite_format)
             }
-            Notification.Type.REBLOG -> {
+
+            NotificationEntity.Type.REBLOG -> {
                 format = context.getString(R.string.notification_reblog_format)
             }
-            Notification.Type.STATUS -> {
+
+            NotificationEntity.Type.STATUS -> {
                 format = context.getString(R.string.notification_subscription_format)
             }
-            Notification.Type.UPDATE -> {
+
+            NotificationEntity.Type.UPDATE -> {
                 format = context.getString(R.string.notification_update_format)
             }
             else -> {
@@ -292,7 +293,6 @@ internal class StatusNotificationViewHolder(
         binding.notificationContentWarningButton.setOnClickListener {
             if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                 notificationActionListener.onExpandedChange(
-                    pachliAccountId,
                     viewData,
                     !statusViewData.isExpanded,
                 )
@@ -300,11 +300,10 @@ internal class StatusNotificationViewHolder(
             binding.notificationContent.visibility =
                 if (statusViewData.isExpanded) View.GONE else View.VISIBLE
         }
-        setupContentAndSpoiler(pachliAccountId, listener, viewData, statusViewData, animateEmojis)
+        setupContentAndSpoiler(listener, viewData, statusViewData, animateEmojis)
     }
 
     private fun setupContentAndSpoiler(
-        pachliAccountId: Long,
         listener: LinkListener,
         viewData: NotificationViewData,
         statusViewData: StatusViewData,
@@ -324,7 +323,6 @@ internal class StatusNotificationViewHolder(
                 val position = bindingAdapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     notificationActionListener.onNotificationContentCollapsedChange(
-                        pachliAccountId,
                         !statusViewData.isCollapsed,
                         viewData,
                     )
