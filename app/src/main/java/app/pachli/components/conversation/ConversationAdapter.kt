@@ -26,7 +26,6 @@ import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.interfaces.StatusActionListener
 
 class ConversationAdapter(
-    private val pachliAccountId: Long,
     private var statusDisplayOptions: StatusDisplayOptions,
     private val listener: StatusActionListener<ConversationViewData>,
 ) : PagingDataAdapter<ConversationViewData, ConversationViewHolder>(CONVERSATION_COMPARATOR) {
@@ -54,7 +53,7 @@ class ConversationAdapter(
         payloads: List<Any>,
     ) {
         getItem(position)?.let { conversationViewData ->
-            holder.setupWithConversation(pachliAccountId, conversationViewData, payloads.firstOrNull())
+            holder.setupWithConversation(conversationViewData, payloads.firstOrNull())
         }
     }
 

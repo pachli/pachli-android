@@ -46,7 +46,6 @@ internal class StatusViewHolder(
                 showStatusContent(true)
             }
             setupWithStatus(
-                viewData.pachliAccountId,
                 viewData,
                 statusActionListener,
                 statusDisplayOptions,
@@ -81,7 +80,6 @@ class FilterableStatusViewHolder(
                 showStatusContent(true)
             }
             setupWithStatus(
-                viewData.pachliAccountId,
                 viewData,
                 statusActionListener,
                 statusDisplayOptions,

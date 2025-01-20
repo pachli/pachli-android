@@ -114,7 +114,7 @@ class ConversationsFragment :
         viewLifecycleOwner.lifecycleScope.launch {
             val statusDisplayOptions = statusDisplayOptionsRepository.flow.value
 
-            adapter = ConversationAdapter(pachliAccountId, statusDisplayOptions, this@ConversationsFragment)
+            adapter = ConversationAdapter(statusDisplayOptions, this@ConversationsFragment)
 
             setupRecyclerView()
 
@@ -322,16 +322,16 @@ class ConversationsFragment :
         // there are no reblogs in conversations
     }
 
-    override fun onExpandedChange(pachliAccountId: Long, viewData: ConversationViewData, expanded: Boolean) {
-        viewModel.expandHiddenStatus(pachliAccountId, expanded, viewData.lastStatus.id)
+    override fun onExpandedChange(viewData: ConversationViewData, expanded: Boolean) {
+        viewModel.expandHiddenStatus(viewData.pachliAccountId, expanded, viewData.lastStatus.id)
     }
 
-    override fun onContentHiddenChange(pachliAccountId: Long, viewData: ConversationViewData, isShowingContent: Boolean) {
-        viewModel.showContent(pachliAccountId, isShowingContent, viewData.lastStatus.id)
+    override fun onContentHiddenChange(viewData: ConversationViewData, isShowingContent: Boolean) {
+        viewModel.showContent(viewData.pachliAccountId, isShowingContent, viewData.lastStatus.id)
     }
 
-    override fun onContentCollapsedChange(pachliAccountId: Long, viewData: ConversationViewData, isCollapsed: Boolean) {
-        viewModel.collapseLongStatus(pachliAccountId, isCollapsed, viewData.lastStatus.id)
+    override fun onContentCollapsedChange(viewData: ConversationViewData, isCollapsed: Boolean) {
+        viewModel.collapseLongStatus(viewData.pachliAccountId, isCollapsed, viewData.lastStatus.id)
     }
 
     override fun onViewAccount(id: String) {
@@ -348,15 +348,15 @@ class ConversationsFragment :
         // not needed
     }
 
-    override fun onReply(pachliAccountId: Long, viewData: ConversationViewData) {
-        reply(pachliAccountId, viewData.lastStatus.actionable)
+    override fun onReply(viewData: ConversationViewData) {
+        reply(viewData.pachliAccountId, viewData.lastStatus.actionable)
     }
 
     override fun onVoteInPoll(viewData: ConversationViewData, poll: Poll, choices: List<Int>) {
         viewModel.voteInPoll(choices, viewData.lastStatus.actionableId, poll.id)
     }
 
-    override fun clearContentFilter(pachliAccountId: Long, viewData: ConversationViewData) {
+    override fun clearContentFilter(viewData: ConversationViewData) {
     }
 
     // Filters don't apply in conversations

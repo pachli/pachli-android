@@ -113,7 +113,7 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
             when (action) {
                 app.pachli.core.ui.R.id.action_reply -> {
                     interrupt()
-                    statusActionListener.onReply(pachliAccountId, status)
+                    statusActionListener.onReply(status)
                 }
                 app.pachli.core.ui.R.id.action_favourite -> statusActionListener.onFavourite(status, true)
                 app.pachli.core.ui.R.id.action_unfavourite -> statusActionListener.onFavourite(status, false)
@@ -152,7 +152,7 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
                     forceFocus(host)
                 }
                 app.pachli.core.ui.R.id.action_collapse_cw -> {
-                    statusActionListener.onExpandedChange(pachliAccountId, status, false)
+                    statusActionListener.onExpandedChange(status, false)
                     interrupt()
                 }
 
@@ -201,7 +201,7 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
                 app.pachli.core.ui.R.id.action_more -> {
                     statusActionListener.onMore(host, status)
                 }
-                app.pachli.core.ui.R.id.action_show_anyway -> statusActionListener.clearContentFilter(pachliAccountId, status)
+                app.pachli.core.ui.R.id.action_show_anyway -> statusActionListener.clearContentFilter(status)
                 app.pachli.core.ui.R.id.action_edit_filter -> {
                     (recyclerView.findContainingViewHolder(host) as? FilterableStatusViewHolder<*>)?.matchedFilter?.let {
                         statusActionListener.onEditFilterById(pachliAccountId, it.id)

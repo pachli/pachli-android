@@ -81,6 +81,7 @@ fun mockStatusViewData(
     favourited: Boolean = true,
     bookmarked: Boolean = true,
 ) = StatusViewData(
+    pachliAccountId = 1L,
     status = mockStatus(
         id = id,
         inReplyToId = inReplyToId,
@@ -103,13 +104,6 @@ fun mockStatusEntityWithAccount(
     expanded: Boolean = false,
 ): TimelineStatusWithAccount {
     val mockedStatus = mockStatus(id)
-    val moshi = Moshi.Builder()
-        .add(Date::class.java, LenientRfc3339DateJsonAdapter())
-        .add(Instant::class.java, InstantJsonAdapter())
-        .add(Guarded.Factory())
-        .add(DefaultIfNull.Factory())
-        .add(BooleanIfNull.Factory())
-        .build()
 
     return TimelineStatusWithAccount(
         status = TimelineStatusEntity.from(

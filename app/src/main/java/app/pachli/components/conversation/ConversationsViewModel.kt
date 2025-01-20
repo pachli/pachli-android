@@ -24,20 +24,24 @@ import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import androidx.paging.map
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.Loadable
 import app.pachli.core.database.Converters
 import app.pachli.core.database.dao.ConversationsDao
 import app.pachli.core.database.di.TransactionProvider
+import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.usecase.TimelineCases
-import app.pachli.util.EmptyPagingSource
 import at.connyduck.calladapter.networkresult.fold
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
@@ -55,26 +59,27 @@ class ConversationsViewModel @Inject constructor(
 ) : ViewModel() {
 
     @OptIn(ExperimentalPagingApi::class)
-    val conversationFlow = Pager(
-        config = PagingConfig(pageSize = 30),
-        remoteMediator = ConversationsRemoteMediator(
-            api,
-            transactionProvider,
-            conversationsDao,
-            accountManager,
-        ),
-        pagingSourceFactory = {
-            val activeAccount = accountManager.activeAccount
-            if (activeAccount == null) {
-                EmptyPagingSource()
-            } else {
-                conversationsDao.conversationsForAccount(activeAccount.id)
-            }
-        },
-    )
-        .flow
-        .map { pagingData ->
-            pagingData.map { conversation -> ConversationViewData.from(conversation) }
+    val conversationFlow = accountManager.activeAccountFlow
+        .filterIsInstance<Loadable.Loaded<AccountEntity?>>()
+        .mapNotNull { it.data }
+        .flatMapLatest { account ->
+            Pager(
+                config = PagingConfig(pageSize = 30),
+                remoteMediator = ConversationsRemoteMediator(
+                    api,
+                    transactionProvider,
+                    conversationsDao,
+                    accountManager,
+                ),
+                pagingSourceFactory = {
+                    conversationsDao.conversationsForAccount(account.id)
+                },
+            ).flow
+                .map { pagingData ->
+                    pagingData.map { conversation ->
+                        ConversationViewData.from(account.id, conversation)
+                    }
+                }
         }
         .cachedIn(viewModelScope)
 

@@ -24,7 +24,7 @@ import app.pachli.core.network.model.Status
 import app.pachli.core.ui.LinkListener
 
 interface StatusActionListener<T : IStatusViewData> : LinkListener {
-    fun onReply(pachliAccountId: Long, viewData: T)
+    fun onReply(viewData: T)
     fun onReblog(viewData: T, reblog: Boolean)
     fun onFavourite(viewData: T, favourite: Boolean)
     fun onBookmark(viewData: T, bookmark: Boolean)
@@ -36,8 +36,8 @@ interface StatusActionListener<T : IStatusViewData> : LinkListener {
      * Open reblog author for the status.
      */
     fun onOpenReblog(status: Status)
-    fun onExpandedChange(pachliAccountId: Long, viewData: T, expanded: Boolean)
-    fun onContentHiddenChange(pachliAccountId: Long, viewData: T, isShowingContent: Boolean)
+    fun onExpandedChange(viewData: T, expanded: Boolean)
+    fun onContentHiddenChange(viewData: T, isShowingContent: Boolean)
 
     /**
      * Called when the status [android.widget.ToggleButton] responsible for collapsing long
@@ -45,7 +45,7 @@ interface StatusActionListener<T : IStatusViewData> : LinkListener {
      *
      * @param isCollapsed Whether the status content is shown in a collapsed state or fully.
      */
-    fun onContentCollapsedChange(pachliAccountId: Long, viewData: T, isCollapsed: Boolean)
+    fun onContentCollapsedChange(viewData: T, isCollapsed: Boolean)
 
     /**
      * called when the reblog count has been clicked
@@ -60,7 +60,7 @@ interface StatusActionListener<T : IStatusViewData> : LinkListener {
     fun onShowEdits(statusId: String) {}
 
     /** Remove the content filter from the status. */
-    fun clearContentFilter(pachliAccountId: Long, viewData: T)
+    fun clearContentFilter(viewData: T)
 
     /** Edit the filter that matched this status. */
     fun onEditFilterById(pachliAccountId: Long, filterId: String)

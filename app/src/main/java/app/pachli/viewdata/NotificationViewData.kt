@@ -55,7 +55,7 @@ import app.pachli.core.network.model.TimelineAccount
  * because of the account that sent it, and why.
  */
 data class NotificationViewData(
-    val pachliAccountId: Long,
+    override val pachliAccountId: Long,
     val localDomain: String,
     val type: NotificationEntity.Type,
     val id: String,
@@ -93,6 +93,7 @@ data class NotificationViewData(
             account = data.account.toTimelineAccount(),
             statusViewData = data.status?.let {
                 StatusViewData.from(
+                    pachliAccountId = pachliAccountEntity.id,
                     it,
                     isExpanded = isExpanded,
                     isShowingContent = isShowingContent,

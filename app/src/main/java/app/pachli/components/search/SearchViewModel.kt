@@ -83,7 +83,7 @@ class SearchViewModel @Inject constructor(
     private val mastodonApi: MastodonApi,
     private val timelineCases: TimelineCases,
     private val accountManager: AccountManager,
-    private val serverRepository: ServerRepository,
+    serverRepository: ServerRepository,
 ) : ViewModel() {
 
     var currentQuery: String = ""
@@ -204,6 +204,7 @@ class SearchViewModel @Inject constructor(
     private val statusesPagingSourceFactory = SearchPagingSourceFactory(mastodonApi, SearchType.Status, loadedStatuses) {
         it.statuses.map { status ->
             StatusViewData.from(
+                pachliAccountId = activeAccount!!.id,
                 status,
                 isShowingContent = alwaysShowSensitiveMedia || !status.actionableStatus.sensitive,
                 isExpanded = alwaysOpenSpoiler,

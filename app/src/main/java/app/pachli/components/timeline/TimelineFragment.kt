@@ -171,7 +171,7 @@ class TimelineFragment :
 
         isSwipeToRefreshEnabled = arguments.getBoolean(ARG_ENABLE_SWIPE_TO_REFRESH, true)
 
-        adapter = TimelinePagingAdapter(pachliAccountId, this, viewModel.statusDisplayOptions.value)
+        adapter = TimelinePagingAdapter(this, viewModel.statusDisplayOptions.value)
     }
 
     override fun onCreateView(
@@ -569,7 +569,7 @@ class TimelineFragment :
 
         id?.let {
             Timber.d("saveVisibleId: Saving ID: %s", it)
-            viewModel.accept(InfallibleUiAction.SaveVisibleId(visibleId = it))
+            viewModel.accept(InfallibleUiAction.SaveVisibleId(pachliAccountId, visibleId = it))
         } ?: Timber.d("saveVisibleId: Not saving, as no ID was visible")
     }
 
@@ -630,8 +630,8 @@ class TimelineFragment :
         adapter.refresh()
     }
 
-    override fun onReply(pachliAccountId: Long, viewData: StatusViewData) {
-        super.reply(pachliAccountId, viewData.actionable)
+    override fun onReply(viewData: StatusViewData) {
+        super.reply(viewData.pachliAccountId, viewData.actionable)
     }
 
     override fun onReblog(viewData: StatusViewData, reblog: Boolean) {
@@ -650,8 +650,8 @@ class TimelineFragment :
         viewModel.accept(StatusAction.VoteInPoll(poll, choices, viewData))
     }
 
-    override fun clearContentFilter(pachliAccountId: Long, viewData: StatusViewData) {
-        viewModel.clearWarning(pachliAccountId, viewData)
+    override fun clearContentFilter(viewData: StatusViewData) {
+        viewModel.clearWarning(viewData)
     }
 
     override fun onEditFilterById(pachliAccountId: Long, filterId: String) {
@@ -669,12 +669,12 @@ class TimelineFragment :
         super.openReblog(status)
     }
 
-    override fun onExpandedChange(pachliAccountId: Long, viewData: StatusViewData, expanded: Boolean) {
-        viewModel.changeExpanded(pachliAccountId, expanded, viewData)
+    override fun onExpandedChange(viewData: StatusViewData, expanded: Boolean) {
+        viewModel.changeExpanded(expanded, viewData)
     }
 
-    override fun onContentHiddenChange(pachliAccountId: Long, viewData: StatusViewData, isShowingContent: Boolean) {
-        viewModel.changeContentShowing(pachliAccountId, isShowingContent, viewData)
+    override fun onContentHiddenChange(viewData: StatusViewData, isShowingContent: Boolean) {
+        viewModel.changeContentShowing(isShowingContent, viewData)
     }
 
     override fun onShowReblogs(statusId: String) {
@@ -687,8 +687,8 @@ class TimelineFragment :
         activity?.startActivityWithDefaultTransition(intent)
     }
 
-    override fun onContentCollapsedChange(pachliAccountId: Long, viewData: StatusViewData, isCollapsed: Boolean) {
-        viewModel.changeContentCollapsed(pachliAccountId, isCollapsed, viewData)
+    override fun onContentCollapsedChange(viewData: StatusViewData, isCollapsed: Boolean) {
+        viewModel.changeContentCollapsed(isCollapsed, viewData)
     }
 
     // Can only translate the home timeline at the moment

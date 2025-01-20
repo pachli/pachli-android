@@ -495,8 +495,8 @@ class NotificationsFragment :
         clearNotificationsForAccount(requireContext(), pachliAccountId)
     }
 
-    override fun onReply(pachliAccountId: Long, viewData: NotificationViewData) {
-        super.reply(pachliAccountId, viewData.statusViewData!!.actionable)
+    override fun onReply(viewData: NotificationViewData) {
+        super.reply(viewData.pachliAccountId, viewData.statusViewData!!.actionable)
     }
 
     override fun onReblog(viewData: NotificationViewData, reblog: Boolean) {
@@ -546,31 +546,23 @@ class NotificationsFragment :
         )
     }
 
-    // This is required by the interface StatusActionListener; the interface's ViewData T
-    // doesn't include pachliAccountId as a property.
-    // TODO: Update StatusActionListener.onExpandedChange to include the account ID.
-    override fun onExpandedChange(pachliAccountId: Long, viewData: NotificationViewData, expanded: Boolean) {
-        onExpandedChange(viewData, expanded)
-    }
-
     override fun onContentHiddenChange(
-        pachliAccountId: Long,
         viewData: NotificationViewData,
         isShowingContent: Boolean,
     ) {
         viewModel.accept(
             InfallibleUiAction.SetShowingContent(
-                pachliAccountId,
+                viewData.pachliAccountId,
                 viewData.statusViewData!!,
                 isShowingContent,
             ),
         )
     }
 
-    override fun onContentCollapsedChange(pachliAccountId: Long, viewData: NotificationViewData, isCollapsed: Boolean) {
+    override fun onContentCollapsedChange(viewData: NotificationViewData, isCollapsed: Boolean) {
         viewModel.accept(
             InfallibleUiAction.SetContentCollapsed(
-                pachliAccountId,
+                viewData.pachliAccountId,
                 viewData.statusViewData!!,
                 isCollapsed,
             ),
@@ -585,17 +577,17 @@ class NotificationsFragment :
     }
 
     override fun onNotificationContentCollapsedChange(isCollapsed: Boolean, viewData: NotificationViewData) {
-        onContentCollapsedChange(viewData.pachliAccountId, viewData, isCollapsed)
+        onContentCollapsedChange(viewData, isCollapsed)
     }
 
-    override fun clearContentFilter(pachliAccountId: Long, viewData: NotificationViewData) {
-        viewModel.accept(InfallibleUiAction.ClearContentFilter(pachliAccountId, viewData.id))
+    override fun clearContentFilter(viewData: NotificationViewData) {
+        viewModel.accept(InfallibleUiAction.ClearContentFilter(viewData.pachliAccountId, viewData.id))
     }
 
     override fun clearAccountFilter(viewData: NotificationViewData) {
         viewModel.accept(
             InfallibleUiAction.OverrideAccountFilter(
-                pachliAccountId,
+                viewData.pachliAccountId,
                 viewData.id,
                 viewData.accountFilterDecision,
             ),

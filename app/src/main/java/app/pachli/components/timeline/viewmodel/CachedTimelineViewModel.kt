@@ -85,6 +85,7 @@ class CachedTimelineViewModel @Inject constructor(
                 pagingData
                     .map {
                         StatusViewData.from(
+                            pachliAccountId = account.id,
                             it,
                             isExpanded = activeAccount.alwaysOpenSpoiler,
                             isShowingContent = activeAccount.alwaysShowSensitiveMedia,
@@ -99,21 +100,21 @@ class CachedTimelineViewModel @Inject constructor(
         // handled by CacheUpdater
     }
 
-    override fun changeExpanded(pachliAccountId: Long, expanded: Boolean, status: StatusViewData) {
+    override fun changeExpanded(expanded: Boolean, status: StatusViewData) {
         viewModelScope.launch {
-            repository.saveStatusViewData(pachliAccountId, status.copy(isExpanded = expanded))
+            repository.saveStatusViewData(status.copy(isExpanded = expanded))
         }
     }
 
-    override fun changeContentShowing(pachliAccountId: Long, isShowing: Boolean, status: StatusViewData) {
+    override fun changeContentShowing(isShowing: Boolean, status: StatusViewData) {
         viewModelScope.launch {
-            repository.saveStatusViewData(pachliAccountId, status.copy(isShowingContent = isShowing))
+            repository.saveStatusViewData(status.copy(isShowingContent = isShowing))
         }
     }
 
-    override fun changeContentCollapsed(pachliAccountId: Long, isCollapsed: Boolean, status: StatusViewData) {
+    override fun changeContentCollapsed(isCollapsed: Boolean, status: StatusViewData) {
         viewModelScope.launch {
-            repository.saveStatusViewData(pachliAccountId, status.copy(isCollapsed = isCollapsed))
+            repository.saveStatusViewData(status.copy(isCollapsed = isCollapsed))
         }
     }
 
@@ -129,9 +130,9 @@ class CachedTimelineViewModel @Inject constructor(
         }
     }
 
-    override fun clearWarning(pachliAccountId: Long, statusViewData: StatusViewData) {
+    override fun clearWarning(statusViewData: StatusViewData) {
         viewModelScope.launch {
-            repository.clearStatusWarning(pachliAccountId, statusViewData.actionableId)
+            repository.clearStatusWarning(statusViewData.pachliAccountId, statusViewData.actionableId)
         }
     }
 

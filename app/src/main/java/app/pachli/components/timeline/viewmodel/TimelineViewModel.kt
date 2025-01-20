@@ -111,7 +111,10 @@ sealed interface InfallibleUiAction : UiAction {
      * Infallible because if it fails there's nowhere to show the error, and nothing the user
      * can do.
      */
-    data class SaveVisibleId(val visibleId: String) : InfallibleUiAction
+    data class SaveVisibleId(
+        val pachliAccountId: Long,
+        val visibleId: String,
+    ) : InfallibleUiAction
 
     /** Ignore the saved reading position, load the page with the newest items */
     // Resets the account's reading position, which can't fail, which is why this is
@@ -374,7 +377,7 @@ abstract class TimelineViewModel(
                                     action.choices,
                                 )
                             is StatusAction.Translate -> {
-                                timelineCases.translate(activeAccount.id, action.statusViewData)
+                                timelineCases.translate(action.statusViewData)
                             }
                         }.getOrThrow()
                         uiSuccess.emit(StatusActionSuccess.from(action))
@@ -478,11 +481,11 @@ abstract class TimelineViewModel(
 
     abstract fun updatePoll(newPoll: Poll, status: StatusViewData)
 
-    abstract fun changeExpanded(pachliAccountId: Long, expanded: Boolean, status: StatusViewData)
+    abstract fun changeExpanded(expanded: Boolean, status: StatusViewData)
 
-    abstract fun changeContentShowing(pachliAccountId: Long, isShowing: Boolean, status: StatusViewData)
+    abstract fun changeContentShowing(isShowing: Boolean, status: StatusViewData)
 
-    abstract fun changeContentCollapsed(pachliAccountId: Long, isCollapsed: Boolean, status: StatusViewData)
+    abstract fun changeContentCollapsed(isCollapsed: Boolean, status: StatusViewData)
 
     abstract fun removeAllByAccountId(pachliAccountId: Long, accountId: String)
 
@@ -518,7 +521,7 @@ abstract class TimelineViewModel(
 //        reload.getAndUpdate { it + 1 }
     }
 
-    abstract fun clearWarning(pachliAccountId: Long, statusViewData: StatusViewData)
+    abstract fun clearWarning(statusViewData: StatusViewData)
 
     /** Triggered when currently displayed data must be reloaded. */
     protected abstract suspend fun invalidate(pachliAccountId: Long)

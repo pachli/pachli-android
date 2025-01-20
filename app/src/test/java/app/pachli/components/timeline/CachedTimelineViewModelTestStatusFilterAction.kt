@@ -50,6 +50,7 @@ import org.mockito.kotlin.verify
 class CachedTimelineViewModelTestStatusFilterAction : CachedTimelineViewModelTestBase() {
     private val status = mockStatus(pollOptions = listOf("Choice 1", "Choice 2", "Choice 3"))
     private val statusViewData = StatusViewData(
+        pachliAccountId = 1L,
         status = status,
         isExpanded = true,
         isShowingContent = false,

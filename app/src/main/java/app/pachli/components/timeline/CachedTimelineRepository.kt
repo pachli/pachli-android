@@ -109,11 +109,11 @@ class CachedTimelineRepository @Inject constructor(
         factory?.invalidate()
     }
 
-    suspend fun saveStatusViewData(pachliAccountId: Long, statusViewData: StatusViewData) = externalScope.launch {
+    suspend fun saveStatusViewData(statusViewData: StatusViewData) = externalScope.launch {
         timelineDao.upsertStatusViewData(
             StatusViewDataEntity(
                 serverId = statusViewData.actionableId,
-                timelineUserId = pachliAccountId,
+                timelineUserId = statusViewData.pachliAccountId,
                 expanded = statusViewData.isExpanded,
                 contentShowing = statusViewData.isShowingContent,
                 contentCollapsed = statusViewData.isCollapsed,
@@ -160,19 +160,19 @@ class CachedTimelineRepository @Inject constructor(
 
     suspend fun clearAndReloadFromNewest(pachliAccountId: Long) = externalScope.launch {
         timelineDao.removeAll(pachliAccountId)
-        remoteKeyDao.delete(pachliAccountId, CachedTimelineRemoteMediator.RKE_TIMELINE_ID)
+        remoteKeyDao.delete(pachliAccountId, RKE_TIMELINE_ID)
         invalidate(pachliAccountId)
     }
 
-    suspend fun translate(pachliAccountId: Long, statusViewData: StatusViewData): NetworkResult<Translation> {
-        saveStatusViewData(pachliAccountId, statusViewData.copy(translationState = TranslationState.TRANSLATING))
+    suspend fun translate(statusViewData: StatusViewData): NetworkResult<Translation> {
+        saveStatusViewData(statusViewData.copy(translationState = TranslationState.TRANSLATING))
         val translation = mastodonApi.translate(statusViewData.actionableId)
         translation.fold(
             {
                 translatedStatusDao.upsert(
                     TranslatedStatusEntity(
                         serverId = statusViewData.actionableId,
-                        timelineUserId = pachliAccountId,
+                        timelineUserId = statusViewData.pachliAccountId,
                         // TODO: Should this embed the network type instead of copying data
                         // from one type to another?
                         content = it.content,
@@ -182,18 +182,18 @@ class CachedTimelineRepository @Inject constructor(
                         provider = it.provider,
                     ),
                 )
-                saveStatusViewData(pachliAccountId, statusViewData.copy(translationState = TranslationState.SHOW_TRANSLATION))
+                saveStatusViewData(statusViewData.copy(translationState = TranslationState.SHOW_TRANSLATION))
             },
             {
                 // Reset the translation state
-                saveStatusViewData(pachliAccountId, statusViewData)
+                saveStatusViewData(statusViewData)
             },
         )
         return translation
     }
 
-    suspend fun translateUndo(pachliAccountId: Long, statusViewData: StatusViewData) {
-        saveStatusViewData(pachliAccountId, statusViewData.copy(translationState = TranslationState.SHOW_ORIGINAL))
+    suspend fun translateUndo(statusViewData: StatusViewData) {
+        saveStatusViewData(statusViewData.copy(translationState = TranslationState.SHOW_ORIGINAL))
     }
 
     /**
