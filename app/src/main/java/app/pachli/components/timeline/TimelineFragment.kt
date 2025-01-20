@@ -160,6 +160,19 @@ class TimelineFragment :
 
     override var pachliAccountId by Delegates.notNull<Long>()
 
+    /**
+     * Collect this flow to notify the adapter that the timestamps of the visible items have
+     * changed
+     */
+    private val updateTimestampFlow = flow {
+        while (true) {
+            delay(60.seconds)
+            emit(Unit)
+        }
+    }.onEach {
+        adapter.notifyItemRangeChanged(0, adapter.itemCount, listOf(StatusBaseViewHolder.Key.KEY_CREATED))
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -214,20 +227,6 @@ class TimelineFragment :
                     }
                 }
             }
-        }
-
-        /**
-         * Collect this flow to notify the adapter that the timestamps of the visible items have
-         * changed
-         */
-        // TODO: Copied from NotificationsFragment
-        val updateTimestampFlow = flow {
-            while (true) {
-                delay(60.seconds)
-                emit(Unit)
-            }
-        }.onEach {
-            adapter.notifyItemRangeChanged(0, adapter.itemCount, listOf(StatusBaseViewHolder.Key.KEY_CREATED))
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
