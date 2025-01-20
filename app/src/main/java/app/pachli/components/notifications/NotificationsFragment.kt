@@ -211,11 +211,7 @@ class NotificationsFragment :
 
         val saveIdListener = object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                if (newState != SCROLL_STATE_IDLE) return
-
-                // Save the ID of the first notification visible in the list, so the user's
-                // reading position is always restorable.
-                saveVisibleId()
+                if (newState == SCROLL_STATE_IDLE) saveVisibleId()
             }
         }
         binding.recyclerView.addOnScrollListener(saveIdListener)
