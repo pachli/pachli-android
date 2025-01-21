@@ -580,7 +580,7 @@
     <string name="title_tab_public_trending_links">Enlaces</string>
     <string name="update_dialog_neutral">No me recuerdes para esta versión</string>
     <string name="reaction_name_and_count">%1$s %2$d</string>
-    <string name="dialog_delete_filter_text">Elimina filtro \'%1$s\'?</string>
+    <string name="dialog_delete_filter_text">¿Eliminar filtro \"%1$s\"?</string>
     <string name="error_media_playback">La reproducción falló: %s</string>
     <string name="title_public_trending">En tendencia</string>
     <string name="translation_provider_fmt">%1$s</string>

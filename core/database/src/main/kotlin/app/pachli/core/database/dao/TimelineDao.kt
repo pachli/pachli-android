@@ -98,7 +98,7 @@ ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC""",
                  ORDER BY length(t1.serverId) DESC, t1.serverId DESC
              )
              WHERE timelineUserId = :pachliAccountId AND serverId = :statusId
-        """
+        """,
     )
     abstract suspend fun getStatusRowNumber(pachliAccountId: Long, statusId: String): Int
 
@@ -204,7 +204,21 @@ WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServe
     )
     abstract suspend fun deleteAlLStatusesForAccount(accountId: Long)
 
-    @Query("DELETE FROM TimelineAccountEntity WHERE timelineUserId = :accountId")
+    /**
+     * Deletes [TimelineAccountEntity] that are not referenced by a
+     * [TimelineStatusEntity] or [NotificationEntity].
+     */
+    @Query(
+        """
+        DELETE FROM TimelineAccountEntity
+         WHERE timelineUserId = :accountId
+           AND serverId NOT IN (
+             SELECT accountServerId FROM NotificationEntity
+             UNION
+             SELECT authorServerId FROM TimelineStatusEntity
+           )
+    """,
+    )
     abstract suspend fun removeAllAccounts(accountId: Long)
 
     @Query("DELETE FROM StatusViewDataEntity WHERE timelineUserId = :accountId")

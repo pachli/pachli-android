@@ -23,7 +23,6 @@ import app.pachli.core.data.model.MastodonList
 import app.pachli.core.data.repository.HasListId
 import app.pachli.core.data.repository.ListsError
 import app.pachli.core.data.repository.ListsRepository
-import app.pachli.core.network.model.MastoList
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.mapEither
@@ -46,7 +45,7 @@ sealed interface ListsWithMembership {
 }
 
 /**
- * A [MastoList] with a property for whether [ListsForAccountViewModel.accountId] is a
+ * A [MastodonList] with a property for whether [ListsForAccountViewModel.accountId] is a
  * member of the list.
  *
  * @property list The Mastodon list

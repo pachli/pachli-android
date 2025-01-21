@@ -1,14 +1,14 @@
 Pachli 2.8.2
 
-Nuevas características:
+Nuevo:
 
-- Permitir que el usuario elija comportamiento al tocar una pestaña
-- Añadir opción para descargar medios a directorios per-sender
-- Añadir opción para guardar archivos adjuntos a carpetas por cuenta
+- Se puede elegir el comportamiento al tocar una pestaña
+- Añadir opción para descargar medios en subcarpeta de cuenta que publica
+- Añadir opción para guardar archivos adjuntos en carpetas por cuenta que publica
 
 Arreglos:
 
 - Mostrar errores de notificación en lugar de JSON
-- Guardar la posición de lectura si no hay puesto completamente visible
-- Actualizar traducciones gallegas
-- Actualizar traducciones irlandesas
+- Guardar la posición de lectura si ninguna publicación es completamente visible
+- Actualizar traducciones al gallego
+- Actualizar traducciones al irlandés
