@@ -152,18 +152,21 @@ ORDER BY LENGTH(n.serverId) DESC, n.serverId DESC
     )
     fun pagingSource(pachliAccountId: Long): PagingSource<Int, NotificationData>
 
-    /** @return The database row number of the row for [notificationId]. */
+    /**
+     * @return Row number (0-based) of the notification with ID [notificationId]
+     * for [pachliAccountId]
+     */
     @Query(
         """
-SELECT RowNum
-FROM
-  (SELECT pachliAccountId, serverId,
-     (SELECT count(*) + 1
-      FROM NotificationEntity
-      WHERE rowid < t.rowid
-      ORDER BY length(serverId) DESC, serverId DESC) AS RowNum
-   FROM NotificationEntity t)
-WHERE pachliAccountId = :pachliAccountId AND serverId = :notificationId;
+            SELECT rownum
+              FROM (
+                SELECT t1.pachliAccountId AS pachliAccountId, t1.serverId, COUNT(t2.serverId) - 1 AS rownum
+                  FROM NotificationEntity t1
+                  JOIN NotificationEntity t2 ON t1.serverId <= t2.serverId
+                 GROUP BY t1.serverId
+                 ORDER BY length(t1.serverId) DESC, t1.serverId DESC
+             )
+             WHERE pachliAccountId = :pachliAccountId AND serverId = :notificationId
         """,
     )
     suspend fun getNotificationRowNumber(pachliAccountId: Long, notificationId: String): Int
