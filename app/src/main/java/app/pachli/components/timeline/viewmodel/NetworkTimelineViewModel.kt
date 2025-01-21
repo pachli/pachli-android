@@ -35,6 +35,7 @@ import app.pachli.core.eventhub.PinEvent
 import app.pachli.core.eventhub.ReblogEvent
 import app.pachli.core.model.FilterAction
 import app.pachli.core.network.model.Poll
+import app.pachli.core.network.model.Status
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.usecase.TimelineCases
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -59,11 +60,12 @@ class NetworkTimelineViewModel @Inject constructor(
     accountManager: AccountManager,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     sharedPreferencesRepository: SharedPreferencesRepository,
-) : TimelineViewModel(
+) : TimelineViewModel<Status>(
     savedStateHandle,
     timelineCases,
     eventHub,
     accountManager,
+    repository,
     statusDisplayOptionsRepository,
     sharedPreferencesRepository,
 ) {
@@ -72,12 +74,12 @@ class NetworkTimelineViewModel @Inject constructor(
     override var statuses: Flow<PagingData<StatusViewData>>
 
     init {
-        statuses = refreshFlow
+        statuses = accountFlow
             .flatMapLatest { getStatuses(it.data!!) }.cachedIn(viewModelScope)
     }
 
     /** @return Flow of statuses that make up the timeline of [timeline] for [account]. */
-    private fun getStatuses(
+    private suspend fun getStatuses(
         account: AccountEntity,
     ): Flow<PagingData<StatusViewData>> {
         Timber.d("getStatuses: kind: %s", timeline)
@@ -177,18 +179,6 @@ class NetworkTimelineViewModel @Inject constructor(
             }
         }
         repository.invalidate()
-    }
-
-    override fun reloadKeepingReadingPosition(pachliAccountId: Long) {
-        super.reloadKeepingReadingPosition(pachliAccountId)
-        viewModelScope.launch {
-            repository.reload()
-        }
-    }
-
-    override fun reloadFromNewest(pachliAccountId: Long) {
-        super.reloadFromNewest(pachliAccountId)
-        reloadKeepingReadingPosition(pachliAccountId)
     }
 
     override fun clearWarning(statusViewData: StatusViewData) {

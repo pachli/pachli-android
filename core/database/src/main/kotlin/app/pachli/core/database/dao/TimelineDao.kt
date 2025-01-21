@@ -83,31 +83,22 @@ ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC""",
     abstract fun getStatuses(account: Long): PagingSource<Int, TimelineStatusWithAccount>
 
     /**
-     * All statuses for [account] in timeline ID. Used to find the correct initialKey to restore
-     * the user's reading position.
+     * @return Row number (0 based) of the status with ID [statusId] for [pachliAccountId].
      *
      * @see [app.pachli.components.timeline.viewmodel.CachedTimelineViewModel.statuses]
      */
-//    @Query(
-//        """
-// SELECT serverId
-//  FROM TimelineStatusEntity
-// WHERE timelineUserId = :account
-// ORDER BY LENGTH(serverId) DESC, serverId DESC""",
-//    )
-//    abstract fun getStatusRowNumber(account: Long): List<String>
     @Query(
         """
-SELECT RowNum
-FROM
-  (SELECT timelineUserId, serverId,
-     (SELECT count(*) + 1
-      FROM TimelineStatusEntity
-      WHERE rowid < t.rowid
-      ORDER BY length(serverId) DESC, serverId DESC) AS RowNum
-   FROM TimelineStatusEntity t)
-WHERE timelineUserId = :pachliAccountId AND serverId = :statusId;
-        """,
+            SELECT rownum
+              FROM (
+                SELECT t1.timelineUserId AS timelineUserId, t1.serverId, COUNT(t2.serverId) - 1 AS rownum
+                  FROM TimelineStatusEntity t1
+                  JOIN TimelineStatusEntity t2 ON t1.serverId <= t2.serverId
+                 GROUP BY t1.serverId
+                 ORDER BY length(t1.serverId) DESC, t1.serverId DESC
+             )
+             WHERE timelineUserId = :pachliAccountId AND serverId = :statusId
+        """
     )
     abstract suspend fun getStatusRowNumber(pachliAccountId: Long, statusId: String): Int
 

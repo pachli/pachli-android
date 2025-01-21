@@ -37,7 +37,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.LoadState
-import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -92,9 +91,9 @@ import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.runningFold
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
+import postPrepend
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -117,7 +116,12 @@ class NotificationsFragment :
 
     private val binding by viewBinding(FragmentTimelineNotificationsBinding::bind)
 
-    private lateinit var adapter: NotificationsPagingAdapter
+    private val adapter = NotificationsPagingAdapter(
+        notificationDiffCallback,
+        statusActionListener = this,
+        notificationActionListener = this,
+        accountActionListener = this,
+    )
 
     private lateinit var layoutManager: LinearLayoutManager
 
@@ -191,14 +195,6 @@ class NotificationsFragment :
         (binding.recyclerView.itemAnimator as SimpleItemAnimator?)!!.supportsChangeAnimations =
             false
 
-        adapter = NotificationsPagingAdapter(
-            notificationDiffCallback,
-            statusActionListener = this@NotificationsFragment,
-            notificationActionListener = this@NotificationsFragment,
-            accountActionListener = this@NotificationsFragment,
-            statusDisplayOptions = viewModel.statusDisplayOptions.value,
-        )
-
         binding.recyclerView.setAccessibilityDelegateCompat(
             ListStatusAccessibilityDelegate(pachliAccountId, binding.recyclerView, this@NotificationsFragment) { pos: Int ->
                 if (pos in 0 until adapter.itemCount) {
@@ -235,62 +231,60 @@ class NotificationsFragment :
                 // Update status display from statusDisplayOptions. If the new options request
                 // relative time display collect the flow to periodically update the timestamp in the list gui elements.
                 launch {
-                    viewModel.statusDisplayOptions
-                        .collectLatest {
-                            // NOTE this this also triggered (emitted?) on resume.
+                    viewModel.statusDisplayOptions.collectLatest {
+                        // NOTE this this also triggered (emitted?) on resume.
 
-                            adapter.statusDisplayOptions = it
-                            adapter.notifyItemRangeChanged(0, adapter.itemCount, null)
+                        adapter.statusDisplayOptions = it
+                        adapter.notifyItemRangeChanged(0, adapter.itemCount, null)
 
-                            if (!it.useAbsoluteTime) {
-                                updateTimestampFlow.collect()
-                            }
+                        if (!it.useAbsoluteTime) {
+                            updateTimestampFlow.collect()
                         }
+                    }
                 }
 
                 // Update the UI from the loadState
-                adapter.loadStateFlow
-                    .collect { loadState ->
-                        when (loadState.refresh) {
-                            is LoadState.Error -> {
+                adapter.loadStateFlow.collect { loadState ->
+                    when (loadState.refresh) {
+                        is LoadState.Error -> {
+                            binding.progressIndicator.hide()
+                            binding.statusView.setup((loadState.refresh as LoadState.Error).error) {
+                                adapter.retry()
+                            }
+                            binding.recyclerView.hide()
+                            binding.statusView.show()
+                            binding.swipeRefreshLayout.isRefreshing = false
+                        }
+
+                        LoadState.Loading -> {
+                            /* nothing */
+                            binding.statusView.hide()
+                            binding.progressIndicator.show()
+                        }
+
+                        is LoadState.NotLoading -> {
+                            // Might still be loading if source.refresh is Loading, so only update
+                            // the UI when loading is completely quiet.
+                            if (loadState.source.refresh !is LoadState.Loading) {
                                 binding.progressIndicator.hide()
-                                binding.statusView.setup((loadState.refresh as LoadState.Error).error) {
-                                    adapter.retry()
-                                }
-                                binding.recyclerView.hide()
-                                binding.statusView.show()
                                 binding.swipeRefreshLayout.isRefreshing = false
-                            }
-
-                            LoadState.Loading -> {
-                                /* nothing */
-                                binding.statusView.hide()
-                                binding.progressIndicator.show()
-                            }
-
-                            is LoadState.NotLoading -> {
-                                // Might still be loading if source.refresh is Loading, so only update
-                                // the UI when loading is completely quiet.
-                                if (loadState.source.refresh !is LoadState.Loading) {
-                                    binding.progressIndicator.hide()
-                                    binding.swipeRefreshLayout.isRefreshing = false
-                                    if (adapter.itemCount == 0) {
-                                        binding.statusView.setup(BackgroundMessage.Empty())
-                                        binding.recyclerView.hide()
-                                        binding.statusView.show()
-                                    } else {
-                                        binding.statusView.hide()
-                                        binding.recyclerView.show()
-                                    }
+                                if (adapter.itemCount == 0) {
+                                    binding.statusView.setup(BackgroundMessage.Empty())
+                                    binding.recyclerView.hide()
+                                    binding.statusView.show()
+                                } else {
+                                    binding.statusView.hide()
+                                    binding.recyclerView.show()
                                 }
                             }
                         }
                     }
+                }
             }
         }
     }
 
-    private suspend fun bindUiResult(uiResult: Result<UiSuccess, UiError>) {
+    private fun bindUiResult(uiResult: Result<UiSuccess, UiError>) {
         // Show errors from the view model as snack bars.
         //
         // Errors are shown:
@@ -341,9 +335,7 @@ class NotificationsFragment :
             }
 
             when (uiSuccess) {
-                is UiSuccess.Block, is UiSuccess.Mute, is UiSuccess.MuteConversation -> viewLifecycleOwner.lifecycleScope.launch {
-                    refreshAdapterAndScrollToVisibleId()
-                }
+                is UiSuccess.Block, is UiSuccess.Mute, is UiSuccess.MuteConversation -> refreshAdapterAndScrollToVisibleId()
 
                 is UiSuccess.LoadNewest -> {
                     // Scroll to the top when prepending completes.
@@ -364,7 +356,7 @@ class NotificationsFragment :
 
     /**
      * Refreshes the adapter, waits for the first page to be updated, and scrolls the
-     * the recyclerview to the first notification that was visible before the refresh.
+     * recyclerview to the first notification that was visible before the refresh.
      *
      * This ensures the user's position is not lost during adapter refreshes.
      */
@@ -379,23 +371,6 @@ class NotificationsFragment :
             }
         }
         adapter.refresh()
-    }
-
-    /**
-     * Performs [action] after the next prepend operation completes on the adapter.
-     *
-     * A prepend operation is complete when the adapter's prepend [LoadState] transitions
-     * from [LoadState.Loading] to [LoadState.NotLoading].
-     */
-    private suspend fun <T : Any, VH : RecyclerView.ViewHolder> PagingDataAdapter<T, VH>.postPrepend(
-        action: () -> Unit,
-    ) {
-        val initial: Pair<LoadState?, LoadState?> = Pair(null, null)
-        loadStateFlow
-            .runningFold(initial) { prev, next -> prev.second to next.prepend }
-            .filter { it.first is LoadState.Loading && it.second is LoadState.NotLoading }
-            .take(1)
-            .collect { action() }
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -446,9 +421,7 @@ class NotificationsFragment :
         }
 
         binding.swipeRefreshLayout.isRefreshing = false
-        viewLifecycleOwner.lifecycleScope.launch {
-            refreshAdapterAndScrollToVisibleId()
-        }
+        refreshAdapterAndScrollToVisibleId()
         clearNotificationsForAccount(requireContext(), pachliAccountId)
     }
 
@@ -479,13 +452,11 @@ class NotificationsFragment :
     override fun onResume() {
         super.onResume()
 
-        if (::adapter.isInitialized) {
-            val a11yManager = ContextCompat.getSystemService(requireContext(), AccessibilityManager::class.java)
-            val wasEnabled = talkBackWasEnabled
-            talkBackWasEnabled = a11yManager?.isEnabled == true
-            if (talkBackWasEnabled && !wasEnabled) {
-                adapter.notifyItemRangeChanged(0, adapter.itemCount)
-            }
+        val a11yManager = ContextCompat.getSystemService(requireContext(), AccessibilityManager::class.java)
+        val wasEnabled = talkBackWasEnabled
+        talkBackWasEnabled = a11yManager?.isEnabled == true
+        if (talkBackWasEnabled && !wasEnabled) {
+            adapter.notifyItemRangeChanged(0, adapter.itemCount)
         }
 
         clearNotificationsForAccount(requireContext(), pachliAccountId)
@@ -617,15 +588,11 @@ class NotificationsFragment :
     }
 
     override fun onMute(mute: Boolean, id: String, position: Int, notifications: Boolean) {
-        viewLifecycleOwner.lifecycleScope.launch {
-            refreshAdapterAndScrollToVisibleId()
-        }
+        refreshAdapterAndScrollToVisibleId()
     }
 
     override fun onBlock(block: Boolean, id: String, position: Int) {
-        viewLifecycleOwner.lifecycleScope.launch {
-            refreshAdapterAndScrollToVisibleId()
-        }
+        refreshAdapterAndScrollToVisibleId()
     }
 
     override fun onRespondToFollowRequest(accept: Boolean, accountId: String, position: Int) {

@@ -44,13 +44,13 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.BuildConfig
 import app.pachli.R
 import app.pachli.adapter.StatusBaseViewHolder
-import app.pachli.components.timeline.util.isExpected
 import app.pachli.components.timeline.viewmodel.CachedTimelineViewModel
 import app.pachli.components.timeline.viewmodel.InfallibleUiAction
 import app.pachli.components.timeline.viewmodel.NetworkTimelineViewModel
 import app.pachli.components.timeline.viewmodel.StatusAction
 import app.pachli.components.timeline.viewmodel.StatusActionSuccess
 import app.pachli.components.timeline.viewmodel.TimelineViewModel
+import app.pachli.components.timeline.viewmodel.UiError
 import app.pachli.components.timeline.viewmodel.UiSuccess
 import app.pachli.core.activity.RefreshableFragment
 import app.pachli.core.activity.ReselectableFragment
@@ -78,11 +78,10 @@ import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.AppBarLayoutHost
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.ListStatusAccessibilityDelegate
-import app.pachli.util.PresentationState
-import app.pachli.util.UserRefreshState
-import app.pachli.util.asRefreshState
-import app.pachli.util.withPresentationState
 import at.connyduck.sparkbutton.helpers.Utils
+import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
@@ -96,12 +95,13 @@ import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.distinctUntilChangedBy
-import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
+import postPrepend
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -120,7 +120,7 @@ class TimelineFragment :
     //
     // If the navigation library was being used this would happen automatically, so this
     // workaround can be removed when that change happens.
-    private val viewModel: TimelineViewModel by lazy {
+    private val viewModel: TimelineViewModel<out Any> by lazy {
         if (timeline == Timeline.Home) {
             viewModels<CachedTimelineViewModel>(
                 extrasProducer = {
@@ -192,16 +192,6 @@ class TimelineFragment :
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.CREATED) {
-                launch {
-                    viewModel.statuses.collectLatest { pagingData ->
-                        adapter.submitData(pagingData)
-                    }
-                }
-            }
-        }
-
         return inflater.inflate(R.layout.fragment_timeline, container, false)
     }
 
@@ -231,107 +221,11 @@ class TimelineFragment :
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                // Show errors from the view model as snack bars.
-                //
-                // Errors are shown:
-                // - Indefinitely, so the user has a chance to read and understand
-                //   the message
-                // - With a max of 5 text lines, to allow space for longer errors.
-                //   E.g., on a typical device, an error message like "Bookmarking
-                //   post failed: Unable to resolve host 'mastodon.social': No
-                //   address associated with hostname" is 3 lines.
-                // - With a "Retry" option if the error included a UiAction to retry.
-                // TODO: Very similar to same code in NotificationsFragment
-                launch {
-                    viewModel.uiError.collect { error ->
-                        val message = getString(
-                            error.message,
-                            error.throwable.getErrorString(requireContext()),
-                        )
-                        Timber.d(error.throwable, message)
-                        snackbar?.dismiss()
-                        snackbar = Snackbar.make(
-                            // Without this the FAB will not move out of the way
-                            (activity as? ActionButtonActivity)?.actionButton ?: binding.root,
-                            message,
-                            Snackbar.LENGTH_INDEFINITE,
-                        )
-                        error.action?.let { action ->
-                            snackbar!!.setAction(app.pachli.core.ui.R.string.action_retry) {
-                                viewModel.accept(action)
-                            }
-                        }
-                        snackbar!!.show()
+                launch { viewModel.statuses.collectLatest { adapter.submitData(it) } }
 
-                        // The status view has pre-emptively updated its state to show
-                        // that the action succeeded. Since it hasn't, re-bind the view
-                        // to show the correct data.
-                        error.action?.let { action ->
-                            if (action !is StatusAction) return@let
+                launch { viewModel.uiResult.collect(::bindUiResult) }
 
-                            adapter.snapshot()
-                                .indexOfFirst { it?.id == action.statusViewData.id }
-                                .takeIf { it != RecyclerView.NO_POSITION }
-                                ?.let { adapter.notifyItemChanged(it) }
-                        }
-                    }
-                }
-
-                // Update adapter data when status actions are successful, and re-bind to update
-                // the UI.
-                launch {
-                    viewModel.uiSuccess
-                        .filterIsInstance<StatusActionSuccess>()
-                        .collect {
-                            val indexedViewData = adapter.snapshot()
-                                .withIndex()
-                                .firstOrNull { indexed ->
-                                    indexed.value?.id == it.action.statusViewData.id
-                                } ?: return@collect
-
-                            val statusViewData =
-                                indexedViewData.value ?: return@collect
-
-                            val status = when (it) {
-                                is StatusActionSuccess.Bookmark ->
-                                    statusViewData.status.copy(bookmarked = it.action.state)
-                                is StatusActionSuccess.Favourite ->
-                                    statusViewData.status.copy(favourited = it.action.state)
-                                is StatusActionSuccess.Reblog ->
-                                    statusViewData.status.copy(reblogged = it.action.state)
-                                is StatusActionSuccess.VoteInPoll ->
-                                    statusViewData.status.copy(
-                                        poll = it.action.poll.votedCopy(it.action.choices),
-                                    )
-                                is StatusActionSuccess.Translate -> statusViewData.status
-                            }
-                            (indexedViewData.value as StatusViewData).status = status
-
-                            adapter.notifyItemChanged(indexedViewData.index)
-                        }
-                }
-
-                // Refresh adapter on mutes and blocks
-                launch {
-                    viewModel.uiSuccess.collectLatest {
-                        when (it) {
-                            is UiSuccess.Block,
-                            is UiSuccess.Mute,
-                            is UiSuccess.MuteConversation,
-                            ->
-                                adapter.refresh()
-
-                            is UiSuccess.StatusSent -> handleStatusSentOrEdit(it.status)
-                            is UiSuccess.StatusEdited -> handleStatusSentOrEdit(it.status)
-
-                            else -> { /* nothing to do */ }
-                        }
-                    }
-                }
-
-                // Collect the uiState. Nothing is done with it, but if you don't collect it then
-                // accessing viewModel.uiState.value (e.g., to check whether the FAB should be
-                // hidden) always returns the initial state.
+                // Collect the uiState.
                 launch {
                     viewModel.uiState.collect { uiState ->
                         if (layoutManager.reverseLayout != uiState.reverseTimeline) {
@@ -347,162 +241,185 @@ class TimelineFragment :
                 // Update status display from statusDisplayOptions. If the new options request
                 // relative time display collect the flow to periodically re-bind the UI.
                 launch {
-                    viewModel.statusDisplayOptions
-                        .collectLatest {
-                            adapter.statusDisplayOptions = it
-                            layoutManager.findFirstVisibleItemPosition().let { first ->
-                                first == RecyclerView.NO_POSITION && return@let
-                                val count = layoutManager.findLastVisibleItemPosition() - first
-                                adapter.notifyItemRangeChanged(
-                                    first,
-                                    count,
-                                    null,
-                                )
-                            }
+                    viewModel.statusDisplayOptions.collectLatest {
+                        adapter.statusDisplayOptions = it
+                        adapter.notifyItemRangeChanged(0, adapter.itemCount, null)
 
-                            if (!it.useAbsoluteTime) {
-                                updateTimestampFlow.collect()
-                            }
-                        }
-                }
-
-                /** StateFlow (to allow multiple consumers) of UserRefreshState */
-                val refreshState = adapter.loadStateFlow.asRefreshState().stateIn(lifecycleScope)
-
-                // Scroll the list down (peek) if a refresh has completely finished. A refresh is
-                // finished when both the initial refresh is complete and any prepends have
-                // finished (so that DiffUtil has had a chance to process the data).
-                launch {
-                    if (!isSwipeToRefreshEnabled) return@launch
-
-                    /** True if the previous prepend resulted in a peek, false otherwise */
-                    var peeked = false
-
-                    /** ID of the item that was first in the adapter before the refresh */
-                    var previousFirstId: String? = null
-
-                    refreshState.collect { userRefreshState ->
-                        if (userRefreshState == UserRefreshState.ACTIVE) {
-                            // Refresh has started, reset peeked, and save the ID of the first item
-                            // in the adapter
-                            peeked = false
-                            if (adapter.itemCount != 0) previousFirstId = adapter.peek(0)?.id
-                        }
-
-                        if (userRefreshState == UserRefreshState.COMPLETE) {
-                            // Refresh has finished, pages are being prepended.
-
-                            // There might be multiple prepends after a refresh, only continue
-                            // if one them has not already caused a peek.
-                            if (peeked) return@collect
-
-                            // Compare the ID of the current first item with the previous first
-                            // item. If they're the same then this prepend did not add any new
-                            // items, and can be ignored.
-                            val firstId = if (adapter.itemCount != 0) adapter.peek(0)?.id else null
-                            if (previousFirstId == firstId) return@collect
-
-                            // New items were added and haven't peeked for this refresh. Schedule
-                            // a scroll to disclose that new items are available.
-                            binding.recyclerView.post {
-                                getView() ?: return@post
-                                binding.recyclerView.smoothScrollBy(
-                                    0,
-                                    Utils.dpToPx(requireContext(), -30),
-                                )
-                            }
-                            peeked = true
+                        if (!it.useAbsoluteTime) {
+                            updateTimestampFlow.collect()
                         }
                     }
                 }
 
-                // Manage the progress display. Rather than hide as soon as the Refresh portion
-                // completes, hide when then first Prepend completes. This is a better signal to
-                // the user that it is now possible to scroll up and see new content.
-                launch {
-                    refreshState.collect {
-                        when (it) {
-                            UserRefreshState.COMPLETE, UserRefreshState.ERROR -> {
+                adapter.loadStateFlow.collect { loadState ->
+                    when (loadState.refresh) {
+                        is LoadState.Error -> {
+                            binding.progressIndicator.hide()
+                            binding.statusView.setup((loadState.refresh as LoadState.Error).error) {
+                                adapter.retry()
+                            }
+                            binding.recyclerView.hide()
+                            binding.statusView.show()
+                            binding.swipeRefreshLayout.isRefreshing = false
+                        }
+
+                        LoadState.Loading -> {
+                            /* nothing */
+                            binding.statusView.hide()
+                            binding.progressIndicator.show()
+                        }
+
+                        is LoadState.NotLoading -> {
+                            // Might still be loading if source.refresh is Loading, so only update
+                            // the UI when loading is completely quiet.
+                            Timber.d("NotLoading .refresh:            ${loadState.refresh}")
+                            Timber.d("  NotLoading .source.refresh:   ${loadState.source.refresh}")
+                            Timber.d("  NotLoading .mediator.refresh: ${loadState.mediator?.refresh}")
+                            if (loadState.source.refresh !is LoadState.Loading) {
+                                binding.progressIndicator.hide()
                                 binding.swipeRefreshLayout.isRefreshing = false
+                                if (adapter.itemCount == 0) {
+                                    binding.statusView.setup(BackgroundMessage.Empty())
+                                    binding.recyclerView.hide()
+                                    binding.statusView.show()
+                                } else {
+                                    binding.statusView.hide()
+                                    binding.recyclerView.show()
+                                }
                             }
-                            else -> { /* nothing to do */ }
                         }
                     }
-                }
-
-                // Update the UI from the combined load state
-                launch {
-                    adapter.loadStateFlow.withPresentationState()
-                        .collect { (loadState, presentationState) ->
-                            when (presentationState) {
-                                PresentationState.ERROR -> {
-                                    val error = (loadState.mediator?.refresh as? LoadState.Error)?.error
-                                        ?: (loadState.source.refresh as? LoadState.Error)?.error
-                                        ?: IllegalStateException("unknown error")
-
-                                    // TODO: This error message should be specific about the operation
-                                    // At the moment it's just e.g., "An error occurred: HTTP 503"
-                                    // and a "Retry" button, so the user has no idea what's going
-                                    // to be retried.
-                                    val message = error.getErrorString(requireContext())
-
-                                    // Show errors as a snackbar if there is existing content to show
-                                    // (either cached, or in the adapter), or as a full screen error
-                                    // otherwise.
-                                    //
-                                    // Expected errors can be retried, unexpected ones cannot
-                                    if (adapter.itemCount > 0) {
-                                        snackbar = Snackbar.make(
-                                            (activity as ActionButtonActivity).actionButton
-                                                ?: binding.root,
-                                            message,
-                                            Snackbar.LENGTH_INDEFINITE,
-                                        ).apply {
-                                            if (error.isExpected()) {
-                                                setAction(app.pachli.core.ui.R.string.action_retry) { adapter.retry() }
-                                            }
-                                        }
-
-                                        snackbar!!.show()
-                                    } else {
-                                        val callback: ((v: View) -> Unit)? = if (error.isExpected()) {
-                                            {
-                                                snackbar?.dismiss()
-                                                adapter.retry()
-                                            }
-                                        } else {
-                                            null
-                                        }
-
-                                        binding.statusView.setup(error, callback)
-                                        binding.statusView.show()
-                                        binding.recyclerView.hide()
-                                    }
-                                }
-
-                                PresentationState.PRESENTED -> {
-                                    if (adapter.itemCount == 0) {
-                                        binding.statusView.setup(BackgroundMessage.Empty())
-                                        if (timeline == Timeline.Home) {
-                                            binding.statusView.showHelp(R.string.help_empty_home)
-                                        }
-                                        binding.statusView.show()
-                                        binding.recyclerView.hide()
-                                    } else {
-                                        binding.recyclerView.show()
-                                        binding.statusView.hide()
-                                    }
-                                }
-
-                                else -> {
-                                    // Nothing to do -- show/hiding the progress bars in non-error states
-                                    // is handled via refreshState.
-                                }
-                            }
-                        }
                 }
             }
         }
+    }
+
+    private fun bindUiResult(uiResult: Result<UiSuccess, UiError>) {
+        // Show errors from the view model as snack bars.
+        //
+        // Errors are shown:
+        // - Indefinitely, so the user has a chance to read and understand
+        //   the message
+        // - With a max of 5 text lines, to allow space for longer errors.
+        //   E.g., on a typical device, an error message like "Bookmarking
+        //   post failed: Unable to resolve host 'mastodon.social': No
+        //   address associated with hostname" is 3 lines.
+        // - With a "Retry" option if the error included a UiAction to retry.
+        uiResult.onFailure { uiError ->
+            val message = getString(
+                uiError.message,
+                uiError.throwable.getErrorString(requireContext()),
+            )
+            Timber.d(uiError.throwable, message)
+            snackbar?.dismiss()
+            snackbar = Snackbar.make(
+                // Without this the FAB will not move out of the way
+                (activity as? ActionButtonActivity)?.actionButton ?: binding.root,
+                message,
+                Snackbar.LENGTH_INDEFINITE,
+            )
+            uiError.action?.let { action ->
+                snackbar!!.setAction(app.pachli.core.ui.R.string.action_retry) {
+                    viewModel.accept(action)
+                }
+            }
+            snackbar!!.show()
+
+            // The status view has pre-emptively updated its state to show
+            // that the action succeeded. Since it hasn't, re-bind the view
+            // to show the correct data.
+            uiError.action?.let { action ->
+                if (action !is StatusAction) return@let
+
+                adapter.snapshot()
+                    .indexOfFirst { it?.id == action.statusViewData.id }
+                    .takeIf { it != RecyclerView.NO_POSITION }
+                    ?.let { adapter.notifyItemChanged(it) }
+            }
+        }
+
+        uiResult.onSuccess {
+            // Update adapter data when status actions are successful, and re-bind to update
+            // the UI.
+            // TODO: No - this should be handled by the ViewModel updating the data
+            // and invalidating the paging source
+            if (it is StatusActionSuccess) {
+                val indexedViewData = adapter.snapshot()
+                    .withIndex()
+                    .firstOrNull { indexed ->
+                        indexed.value?.id == it.action.statusViewData.id
+                    } ?: return
+
+                val statusViewData = indexedViewData.value ?: return
+
+                val status = when (it) {
+                    is StatusActionSuccess.Bookmark ->
+                        statusViewData.status.copy(bookmarked = it.action.state)
+
+                    is StatusActionSuccess.Favourite ->
+                        statusViewData.status.copy(favourited = it.action.state)
+
+                    is StatusActionSuccess.Reblog ->
+                        statusViewData.status.copy(reblogged = it.action.state)
+
+                    is StatusActionSuccess.VoteInPoll ->
+                        statusViewData.status.copy(
+                            poll = it.action.poll.votedCopy(it.action.choices),
+                        )
+
+                    is StatusActionSuccess.Translate -> statusViewData.status
+                }
+                (indexedViewData.value as StatusViewData).status = status
+
+                adapter.notifyItemChanged(indexedViewData.index)
+            }
+
+            // Refresh adapter on mutes and blocks
+            when (it) {
+                is UiSuccess.Block,
+                is UiSuccess.Mute,
+                is UiSuccess.MuteConversation,
+                ->
+                    refreshAdapterAndScrollToVisibleId()
+
+                is UiSuccess.StatusSent -> handleStatusSentOrEdit(it.status)
+                is UiSuccess.StatusEdited -> handleStatusSentOrEdit(it.status)
+
+                is UiSuccess.LoadNewest -> {
+                    // Scroll to the top when prepending completes.
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        adapter.postPrepend {
+                            binding.recyclerView.post {
+                                view ?: return@post
+                                binding.recyclerView.scrollToPosition(0)
+                            }
+                        }
+                    }
+                    adapter.refresh()
+                }
+
+                else -> { /* nothing to do */ }
+            }
+        }
+    }
+
+    /**
+     * Refreshes the adapter, waits for the first page to be updated, and scrolls the
+     * recyclerview to the first status that was visible before the refresh.
+     *
+     * This ensures the user's position is not lost during adapter refreshes.
+     */
+    private fun refreshAdapterAndScrollToVisibleId() {
+        getFirstVisibleStatus()?.id?.let { id ->
+            viewLifecycleOwner.lifecycleScope.launch {
+                adapter.onPagesUpdatedFlow.conflate().take(1).collect {
+                    binding.recyclerView.scrollToPosition(
+                        adapter.snapshot().items.indexOfFirst { it.id == id },
+                    )
+                }
+            }
+        }
+        adapter.refresh()
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -540,8 +457,17 @@ class TimelineFragment :
         }
     }
 
+    private fun getFirstVisibleStatus() = (
+        layoutManager.findFirstCompletelyVisibleItemPosition()
+            .takeIf { it != RecyclerView.NO_POSITION }
+            ?: layoutManager.findLastVisibleItemPosition()
+                .takeIf { it != RecyclerView.NO_POSITION }
+        )?.let { adapter.snapshot().getOrNull(it) }
+
     /**
-     * Save [statusId] as the reading position. If null then the ID of the best status is used.
+     * Saves the ID of the first visible status as the reading position.
+     *
+     * If null then the ID of the best status is used.
      *
      * The best status is the first completely visible status, if available. We assume the user
      * has read this far, or will recognise it on return.
@@ -553,23 +479,14 @@ class TimelineFragment :
      * In this case the best status is the last partially visible status, as we can assume the
      * user has read this far.
      */
-    fun saveVisibleId(statusId: String? = null) {
-        val id = statusId ?: (
-            layoutManager.findFirstCompletelyVisibleItemPosition()
-                .takeIf { it != RecyclerView.NO_POSITION }
-                ?: layoutManager.findLastVisibleItemPosition()
-                    .takeIf { it != RecyclerView.NO_POSITION }
-            )
-            ?.let { adapter.snapshot().getOrNull(it)?.id }
-
+    fun saveVisibleId() {
+        val id = getFirstVisibleStatus()?.id
         if (BuildConfig.DEBUG && id == null) {
             Toast.makeText(requireActivity(), "Could not find ID of item to save", LENGTH_LONG).show()
         }
-
         id?.let {
-            Timber.d("saveVisibleId: Saving ID: %s", it)
-            viewModel.accept(InfallibleUiAction.SaveVisibleId(pachliAccountId, visibleId = it))
-        } ?: Timber.d("saveVisibleId: Not saving, as no ID was visible")
+            viewModel.accept(InfallibleUiAction.SaveVisibleId(pachliAccountId, id))
+        }
     }
 
     private fun setupSwipeRefreshLayout() {
@@ -614,7 +531,6 @@ class TimelineFragment :
     /** Refresh the displayed content, as if the user had swiped on the SwipeRefreshLayout */
     override fun refreshContent() {
         Timber.d("Reloading via refreshContent")
-        binding.swipeRefreshLayout.isRefreshing = true
         onRefresh()
     }
 
@@ -624,9 +540,22 @@ class TimelineFragment :
      */
     override fun onRefresh() {
         Timber.d("Reloading via onRefresh")
-        binding.statusView.hide()
-        snackbar?.dismiss()
-        adapter.refresh()
+
+        // Peek the list when refreshing completes.
+        viewLifecycleOwner.lifecycleScope.launch {
+            adapter.postPrepend {
+                binding.recyclerView.post {
+                    view ?: return@post
+                    binding.recyclerView.smoothScrollBy(
+                        0,
+                        Utils.dpToPx(requireContext(), -30),
+                    )
+                }
+            }
+        }
+
+        binding.swipeRefreshLayout.isRefreshing = false
+        refreshAdapterAndScrollToVisibleId()
     }
 
     override fun onReply(viewData: StatusViewData) {

@@ -100,7 +100,6 @@ class CachedTimelineRemoteMediatorTest {
                 onBlocking { homeTimeline(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull()) } doReturn Response.error(500, "".toResponseBody())
             },
             pachliAccountId = activeAccount.id,
-            factory = pagingSourceFactory,
             transactionProvider = transactionProvider,
             timelineDao = db.timelineDao(),
             remoteKeyDao = db.remoteKeyDao(),
@@ -121,7 +120,6 @@ class CachedTimelineRemoteMediatorTest {
                 onBlocking { homeTimeline(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull()) } doThrow IOException()
             },
             pachliAccountId = activeAccount.id,
-            factory = pagingSourceFactory,
             transactionProvider = transactionProvider,
             timelineDao = db.timelineDao(),
             remoteKeyDao = db.remoteKeyDao(),
@@ -139,7 +137,6 @@ class CachedTimelineRemoteMediatorTest {
         val remoteMediator = CachedTimelineRemoteMediator(
             mastodonApi = mock(),
             pachliAccountId = activeAccount.id,
-            factory = pagingSourceFactory,
             transactionProvider = transactionProvider,
             timelineDao = db.timelineDao(),
             remoteKeyDao = db.remoteKeyDao(),
@@ -177,7 +174,6 @@ class CachedTimelineRemoteMediatorTest {
                 )
             },
             pachliAccountId = activeAccount.id,
-            factory = pagingSourceFactory,
             transactionProvider = transactionProvider,
             timelineDao = db.timelineDao(),
             remoteKeyDao = db.remoteKeyDao(),
@@ -229,7 +225,6 @@ class CachedTimelineRemoteMediatorTest {
                 )
             },
             pachliAccountId = activeAccount.id,
-            factory = pagingSourceFactory,
             transactionProvider = transactionProvider,
             timelineDao = db.timelineDao(),
             remoteKeyDao = db.remoteKeyDao(),
@@ -288,7 +283,6 @@ class CachedTimelineRemoteMediatorTest {
                 )
             },
             pachliAccountId = activeAccount.id,
-            factory = pagingSourceFactory,
             transactionProvider = transactionProvider,
             timelineDao = db.timelineDao(),
             remoteKeyDao = db.remoteKeyDao(),

@@ -6,15 +6,8 @@ import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TimelineStatusEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.database.model.TranslationState
-import app.pachli.core.network.json.BooleanIfNull
-import app.pachli.core.network.json.DefaultIfNull
-import app.pachli.core.network.json.Guarded
-import app.pachli.core.network.json.InstantJsonAdapter
-import app.pachli.core.network.json.LenientRfc3339DateJsonAdapter
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.TimelineAccount
-import com.squareup.moshi.Moshi
-import java.time.Instant
 import java.util.Date
 
 private val fixedDate = Date(1638889052000)

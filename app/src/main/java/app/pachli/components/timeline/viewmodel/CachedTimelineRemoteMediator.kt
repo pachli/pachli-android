@@ -18,7 +18,6 @@
 package app.pachli.components.timeline.viewmodel
 
 import androidx.paging.ExperimentalPagingApi
-import androidx.paging.InvalidatingPagingSourceFactory
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
@@ -44,7 +43,6 @@ import timber.log.Timber
 class CachedTimelineRemoteMediator(
     private val mastodonApi: MastodonApi,
     private val pachliAccountId: Long,
-    private val factory: InvalidatingPagingSourceFactory<Int, TimelineStatusWithAccount>,
     private val transactionProvider: TransactionProvider,
     private val timelineDao: TimelineDao,
     private val remoteKeyDao: RemoteKeyDao,
@@ -100,7 +98,6 @@ class CachedTimelineRemoteMediator(
             // This request succeeded with no new data, and pagination ends (unless this is a
             // REFRESH, which must always set endOfPaginationReached to false).
             if (statuses.isEmpty()) {
-                // factory.invalidate()
                 return MediatorResult.Success(endOfPaginationReached = loadType != LoadType.REFRESH)
             }
 
@@ -248,22 +245,18 @@ class CachedTimelineRemoteMediator(
      * Inserts `statuses` and the accounts referenced by those statuses in to the cache.
      */
     private suspend fun insertStatuses(pachliAccountId: Long, statuses: List<Status>) {
-        // TODO: Collect and insert the accounts in one go
+        check(transactionProvider.inTransaction())
 
-        for (status in statuses) {
-            timelineDao.insertAccount(TimelineAccountEntity.from(status.account, pachliAccountId))
-            status.reblog?.account?.let {
-                val account = TimelineAccountEntity.from(it, pachliAccountId)
-                timelineDao.insertAccount(account)
+        /** Unique accounts referenced in this batch of statuses. */
+        val accounts = buildSet {
+            statuses.forEach { status ->
+                add(status.account)
+                status.reblog?.account?.let { add(it) }
             }
-
-            timelineDao.insertStatus(
-                TimelineStatusEntity.from(
-                    status,
-                    timelineUserId = pachliAccountId,
-                ),
-            )
         }
+
+        timelineDao.upsertAccounts(accounts.map { TimelineAccountEntity.from(it, pachliAccountId) })
+        timelineDao.upsertStatuses(statuses.map { TimelineStatusEntity.from(it, pachliAccountId) })
     }
 
     companion object {

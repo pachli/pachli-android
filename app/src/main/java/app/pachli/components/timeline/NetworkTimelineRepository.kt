@@ -67,10 +67,15 @@ import timber.log.Timber
 //   - https://issuetracker.google.com/issues/235319241
 //   - https://issuetracker.google.com/issues/289824257
 
+interface TimelineRepository<T : Any> {
+    suspend fun getStatusStream(account: AccountEntity, kind: Timeline): Flow<PagingData<T>>
+    suspend fun invalidate(pachliAccountId: Long)
+}
+
 /** Timeline repository where the timeline information is backed by an in-memory cache. */
 class NetworkTimelineRepository @Inject constructor(
     private val mastodonApi: MastodonApi,
-) {
+) : TimelineRepository<Status> {
     private val pageCache = PageCache()
 
     private var factory: InvalidatingPagingSourceFactory<String, Status>? = null
@@ -78,22 +83,20 @@ class NetworkTimelineRepository @Inject constructor(
     // TODO: This should use assisted injection, and inject the account.
     private var activeAccount: AccountEntity? = null
 
-    /** @return flow of Mastodon [Status], loaded in [pageSize] increments */
+    /** @return flow of Mastodon [Status]. */
     @OptIn(ExperimentalPagingApi::class)
-    fun getStatusStream(
+    override suspend fun getStatusStream(
         account: AccountEntity,
         kind: Timeline,
-        pageSize: Int = PAGE_SIZE,
-        initialKey: String? = null,
     ): Flow<PagingData<Status>> {
-        Timber.d("getStatusStream(): key: %s", initialKey)
+        Timber.d("getStatusStream()")
 
         factory = InvalidatingPagingSourceFactory {
             NetworkTimelinePagingSource(pageCache)
         }
 
         return Pager(
-            config = PagingConfig(pageSize = pageSize),
+            config = PagingConfig(pageSize = PAGE_SIZE),
             remoteMediator = NetworkTimelineRemoteMediator(
                 mastodonApi,
                 account,
@@ -106,9 +109,11 @@ class NetworkTimelineRepository @Inject constructor(
     }
 
     /** Invalidate the active paging source, see [PagingSource.invalidate] */
-    fun invalidate() {
+    override suspend fun invalidate(pachliAccountId: Long) {
         factory?.invalidate()
     }
+
+    fun invalidate() = factory?.invalidate()
 
     fun removeAllByAccountId(accountId: String) {
         synchronized(pageCache) {

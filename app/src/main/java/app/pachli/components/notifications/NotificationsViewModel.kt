@@ -367,7 +367,7 @@ class NotificationsViewModel @AssistedInject constructor(
     private val sharedPreferencesRepository: SharedPreferencesRepository,
     @Assisted val pachliAccountId: Long,
 ) : ViewModel() {
-    val accountFlow = accountManager.getPachliAccountFlow(pachliAccountId)
+    private val accountFlow = accountManager.getPachliAccountFlow(pachliAccountId)
         .filterNotNull()
         .shareIn(viewModelScope, SharingStarted.WhileSubscribed(5000), replay = 1)
 

@@ -28,6 +28,7 @@ import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.eventhub.BookmarkEvent
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.FavoriteEvent
@@ -59,28 +60,25 @@ class CachedTimelineViewModel @Inject constructor(
     accountManager: AccountManager,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     sharedPreferencesRepository: SharedPreferencesRepository,
-) : TimelineViewModel(
+) : TimelineViewModel<TimelineStatusWithAccount>(
     savedStateHandle,
     timelineCases,
     eventHub,
     accountManager,
+    repository,
     statusDisplayOptionsRepository,
     sharedPreferencesRepository,
 ) {
-//    override var statuses: Flow<PagingData<StatusViewData>>
-
-//    init {
-    override var statuses = refreshFlow.flatMapLatest {
+    override var statuses = accountFlow.flatMapLatest {
         getStatuses(it.data!!)
     }.cachedIn(viewModelScope)
-//    }
 
     /** @return Flow of statuses that make up the timeline of [timeline] for [account]. */
     private suspend fun getStatuses(
         account: AccountEntity,
     ): Flow<PagingData<StatusViewData>> {
         Timber.d("getStatuses: kind: %s", timeline)
-        return repository.getStatusStream(account)
+        return repository.getStatusStream(account, timeline)
             .map { pagingData ->
                 pagingData
                     .map {
@@ -154,20 +152,6 @@ class CachedTimelineViewModel @Inject constructor(
 
     override fun handlePinEvent(pinEvent: PinEvent) {
         // handled by CacheUpdater
-    }
-
-    override fun reloadKeepingReadingPosition(pachliAccountId: Long) {
-        super.reloadKeepingReadingPosition(pachliAccountId)
-        viewModelScope.launch {
-            repository.clearAndReload(pachliAccountId)
-        }
-    }
-
-    override fun reloadFromNewest(pachliAccountId: Long) {
-        super.reloadFromNewest(pachliAccountId)
-        viewModelScope.launch {
-            repository.clearAndReloadFromNewest(pachliAccountId)
-        }
     }
 
     override suspend fun invalidate(pachliAccountId: Long) {

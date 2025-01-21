@@ -37,6 +37,7 @@ import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.database.model.TranslationState
+import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Translation
 import app.pachli.core.network.retrofit.MastodonApi
 import at.connyduck.calladapter.networkresult.NetworkResult
@@ -65,23 +66,26 @@ class CachedTimelineRepository @Inject constructor(
     private val remoteKeyDao: RemoteKeyDao,
     private val translatedStatusDao: TranslatedStatusDao,
     @ApplicationScope private val externalScope: CoroutineScope,
-) {
+) : TimelineRepository<TimelineStatusWithAccount> {
     private var factory: InvalidatingPagingSourceFactory<Int, TimelineStatusWithAccount>? = null
 
-    /** @return flow of Mastodon [TimelineStatusWithAccount], loaded in [pageSize] increments */
+    /** @return flow of Mastodon [TimelineStatusWithAccount. */
     @OptIn(ExperimentalPagingApi::class)
-    suspend fun getStatusStream(account: AccountEntity): Flow<PagingData<TimelineStatusWithAccount>> {
+    override suspend fun getStatusStream(
+        account: AccountEntity,
+        kind: Timeline,
+    ): Flow<PagingData<TimelineStatusWithAccount>> {
         Timber.d("getStatusStream, account is %s", account.fullName)
 
         factory = InvalidatingPagingSourceFactory { timelineDao.getStatuses(account.id) }
 
         val initialKey = remoteKeyDao.remoteKeyForKind(account.id, RKE_TIMELINE_ID, RemoteKeyKind.REFRESH)
-
         val row = initialKey?.key?.let { timelineDao.getStatusRowNumber(account.id, it) }
 
         Timber.d("initialKey: %s is row: %d", initialKey, row)
 
         return Pager(
+            initialKey = row,
             config = PagingConfig(
                 pageSize = PAGE_SIZE,
                 enablePlaceholders = false,
@@ -89,7 +93,6 @@ class CachedTimelineRepository @Inject constructor(
             remoteMediator = CachedTimelineRemoteMediator(
                 mastodonApi,
                 account.id,
-                factory!!,
                 transactionProvider,
                 timelineDao,
                 remoteKeyDao,
@@ -99,7 +102,7 @@ class CachedTimelineRepository @Inject constructor(
     }
 
     /** Invalidate the active paging source, see [androidx.paging.PagingSource.invalidate] */
-    suspend fun invalidate(pachliAccountId: Long) {
+    override suspend fun invalidate(pachliAccountId: Long) {
         // Invalidating when no statuses have been loaded can cause empty timelines because it
         // cancels the network load.
         if (timelineDao.getStatusCount(pachliAccountId) < 1) {
@@ -150,19 +153,6 @@ class CachedTimelineRepository @Inject constructor(
     suspend fun clearStatusWarning(pachliAccountId: Long, statusId: String) = externalScope.launch {
         timelineDao.clearWarning(pachliAccountId, statusId)
     }.join()
-
-    /** Remove all statuses and invalidate the pager, for the active account */
-    suspend fun clearAndReload(pachliAccountId: Long) = externalScope.launch {
-        Timber.d("clearAndReload()")
-        timelineDao.removeAll(pachliAccountId)
-        factory?.invalidate()
-    }.join()
-
-    suspend fun clearAndReloadFromNewest(pachliAccountId: Long) = externalScope.launch {
-        timelineDao.removeAll(pachliAccountId)
-        remoteKeyDao.delete(pachliAccountId, RKE_TIMELINE_ID)
-        invalidate(pachliAccountId)
-    }
 
     suspend fun translate(statusViewData: StatusViewData): NetworkResult<Translation> {
         saveStatusViewData(statusViewData.copy(translationState = TranslationState.TRANSLATING))
