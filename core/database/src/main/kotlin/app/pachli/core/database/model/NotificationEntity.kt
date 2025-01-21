@@ -122,6 +122,12 @@ data class AccountFilterDecisionUpdate(
                 onDelete = ForeignKey.CASCADE,
                 deferred = true,
             ),
+            ForeignKey(
+                entity = TimelineAccountEntity::class,
+                parentColumns = ["serverId", "timelineUserId"],
+                childColumns = ["accountServerId", "pachliAccountId"],
+                deferred = true,
+            ),
         ]
         ),
 )
