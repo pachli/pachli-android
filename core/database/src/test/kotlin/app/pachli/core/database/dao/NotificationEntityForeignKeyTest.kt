@@ -91,7 +91,7 @@ class NotificationEntityForeignKeyTest {
         bot = false,
         createdAt = Instant.now(),
         limited = false,
-        note = ""
+        note = "",
     )
 
     @Before

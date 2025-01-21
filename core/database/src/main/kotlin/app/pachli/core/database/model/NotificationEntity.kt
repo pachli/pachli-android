@@ -126,8 +126,8 @@ data class AccountFilterDecisionUpdate(
                 entity = TimelineAccountEntity::class,
                 parentColumns = ["serverId", "timelineUserId"],
                 childColumns = ["accountServerId", "pachliAccountId"],
-                deferred = true
-            )
+                deferred = true,
+            ),
         ]
         ),
 )

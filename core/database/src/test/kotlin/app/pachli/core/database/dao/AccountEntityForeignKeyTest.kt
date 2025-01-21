@@ -128,7 +128,7 @@ class AccountEntityForeignKeyTest {
         bot = false,
         createdAt = Instant.now(),
         limited = false,
-        note = ""
+        note = "",
     )
 
     @Before
