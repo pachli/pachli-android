@@ -199,7 +199,21 @@ WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServe
     )
     abstract suspend fun removeAllStatuses(accountId: Long)
 
-    @Query("DELETE FROM TimelineAccountEntity WHERE timelineUserId = :accountId")
+    /**
+     * Deletes [TimelineAccountEntity] that are not referenced by a
+     * [TimelineStatusEntity] or [NotificationEntity].
+     */
+    @Query(
+        """
+        DELETE FROM TimelineAccountEntity
+         WHERE timelineUserId = :accountId
+           AND serverId NOT IN (
+             SELECT accountServerId FROM NotificationEntity
+             UNION
+             SELECT authorServerId FROM TimelineStatusEntity
+           )
+    """,
+    )
     abstract suspend fun removeAllAccounts(accountId: Long)
 
     @Query("DELETE FROM StatusViewDataEntity WHERE timelineUserId = :accountId")

@@ -57,6 +57,8 @@ class NotificationEntityForeignKeyTest {
 
     @Inject lateinit var notificationDao: NotificationDao
 
+    @Inject lateinit var timelineDao: TimelineDao
+
     private val pachliAccountId = 1L
 
     /**
@@ -73,6 +75,25 @@ class NotificationEntityForeignKeyTest {
         isActive = true,
     )
 
+    /**
+     * Example remote account that sends the statuses and notifications
+     * referenced in these tests.
+     */
+    private val timelineAccount = TimelineAccountEntity(
+        serverId = "1",
+        timelineUserId = pachliAccountId,
+        localUsername = "example",
+        username = "example",
+        displayName = "Example",
+        url = "https://example.com",
+        avatar = "https://example.com/avatar",
+        emojis = emptyList(),
+        bot = false,
+        createdAt = Instant.now(),
+        limited = false,
+        note = ""
+    )
+
     @Before
     fun setup() {
         hilt.inject()
@@ -81,6 +102,7 @@ class NotificationEntityForeignKeyTest {
         // entities that reference this account.
         runTest {
             accountDao.upsert(activeAccount)
+            timelineDao.insertAccount(timelineAccount)
         }
     }
 
