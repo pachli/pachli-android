@@ -76,9 +76,6 @@ class NetworkTimelineRepository @Inject constructor(
 
     private var factory: InvalidatingPagingSourceFactory<String, Status>? = null
 
-    // TODO: This should use assisted injection, and inject the account.
-    private var activeAccount: AccountEntity? = null
-
     /** @return flow of Mastodon [Status]. */
     @OptIn(ExperimentalPagingApi::class)
     override suspend fun getStatusStream(
