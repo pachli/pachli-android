@@ -23,6 +23,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.PagingSource
+import app.pachli.components.timeline.TimelineRepository.Companion.PAGE_SIZE
 import app.pachli.components.timeline.viewmodel.NetworkTimelinePagingSource
 import app.pachli.components.timeline.viewmodel.NetworkTimelineRemoteMediator
 import app.pachli.components.timeline.viewmodel.PageCache
@@ -67,11 +68,6 @@ import timber.log.Timber
 //   - https://issuetracker.google.com/issues/235319241
 //   - https://issuetracker.google.com/issues/289824257
 
-interface TimelineRepository<T : Any> {
-    suspend fun getStatusStream(account: AccountEntity, kind: Timeline): Flow<PagingData<T>>
-    suspend fun invalidate(pachliAccountId: Long)
-}
-
 /** Timeline repository where the timeline information is backed by an in-memory cache. */
 class NetworkTimelineRepository @Inject constructor(
     private val mastodonApi: MastodonApi,
@@ -108,10 +104,7 @@ class NetworkTimelineRepository @Inject constructor(
         ).flow
     }
 
-    /** Invalidate the active paging source, see [PagingSource.invalidate] */
-    override suspend fun invalidate(pachliAccountId: Long) {
-        factory?.invalidate()
-    }
+    override suspend fun invalidate(pachliAccountId: Long) = factory?.invalidate() ?: Unit
 
     fun invalidate() = factory?.invalidate()
 
@@ -175,9 +168,5 @@ class NetworkTimelineRepository @Inject constructor(
             pageCache.clear()
         }
         invalidate()
-    }
-
-    companion object {
-        private const val PAGE_SIZE = 30
     }
 }
