@@ -162,11 +162,12 @@ ORDER BY LENGTH(n.serverId) DESC, n.serverId DESC
               FROM (
                 SELECT t1.pachliAccountId AS pachliAccountId, t1.serverId, COUNT(t2.serverId) - 1 AS rownum
                   FROM NotificationEntity t1
-                  JOIN NotificationEntity t2 ON t1.serverId <= t2.serverId
+                  JOIN NotificationEntity t2 ON t1.pachliAccountId = t2.pachliAccountId AND (LENGTH(t1.serverId) <= LENGTH(t2.serverId) AND t1.serverId <= t2.serverId)
+                 WHERE t1.pachliAccountId = :pachliAccountId
                  GROUP BY t1.serverId
                  ORDER BY length(t1.serverId) DESC, t1.serverId DESC
              )
-             WHERE pachliAccountId = :pachliAccountId AND serverId = :notificationId
+             WHERE serverId = :notificationId
         """,
     )
     suspend fun getNotificationRowNumber(pachliAccountId: Long, notificationId: String): Int

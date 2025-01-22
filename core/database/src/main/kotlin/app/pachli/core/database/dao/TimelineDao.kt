@@ -93,11 +93,12 @@ ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC""",
               FROM (
                 SELECT t1.timelineUserId AS timelineUserId, t1.serverId, COUNT(t2.serverId) - 1 AS rownum
                   FROM TimelineStatusEntity t1
-                  JOIN TimelineStatusEntity t2 ON t1.serverId <= t2.serverId
+                  JOIN TimelineStatusEntity t2 ON t1.timelineUserId = t2.timelineUserId AND (LENGTH(t1.serverId) <= LENGTH(t2.serverId) AND t1.serverId <= t2.serverId)
+                 WHERE t1.timelineUserId = :pachliAccountId
                  GROUP BY t1.serverId
                  ORDER BY length(t1.serverId) DESC, t1.serverId DESC
              )
-             WHERE timelineUserId = :pachliAccountId AND serverId = :statusId
+             WHERE serverId = :statusId
         """,
     )
     abstract suspend fun getStatusRowNumber(pachliAccountId: Long, statusId: String): Int
