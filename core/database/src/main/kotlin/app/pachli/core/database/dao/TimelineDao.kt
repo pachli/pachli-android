@@ -170,23 +170,6 @@ WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServe
     abstract suspend fun removeAllByUser(pachliAccountId: Long, userId: String)
 
     /**
-     * Removes everything for one account in the following tables:
-     *
-     * - TimelineStatusEntity
-     * - TimelineAccountEntity
-     * - StatusViewDataEntity
-     * - TranslatedStatusEntity
-     *
-     * @param accountId id of the account for which to clean tables
-     */
-    suspend fun removeAll(accountId: Long) {
-        deleteAlLStatusesForAccount(accountId)
-        removeAllAccounts(accountId)
-        removeAllStatusViewData(accountId)
-        removeAllTranslatedStatus(accountId)
-    }
-
-    /**
      * Removes all statuses from the cached **home** timeline.
      *
      * Statuses that are referenced by notifications are retained, to ensure
@@ -203,7 +186,7 @@ WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServe
            )
         """,
     )
-    abstract suspend fun deleteAlLStatusesForAccount(accountId: Long)
+    abstract suspend fun deleteAllStatusesForAccount(accountId: Long)
 
     /**
      * Deletes [TimelineAccountEntity] that are not referenced by a

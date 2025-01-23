@@ -109,7 +109,7 @@ class CachedTimelineRemoteMediator(
                 when (loadType) {
                     LoadType.REFRESH -> {
                         remoteKeyDao.deletePrevNext(pachliAccountId, RKE_TIMELINE_ID)
-                        timelineDao.deleteAlLStatusesForAccount(pachliAccountId)
+                        timelineDao.deleteAllStatusesForAccount(pachliAccountId)
 
                         remoteKeyDao.upsert(
                             RemoteKeyEntity(
