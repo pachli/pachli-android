@@ -28,15 +28,18 @@ class TestCall<T> : Call<T> {
     private var executed = false
     private var canceled = false
     private var callback: Callback<T>? = null
-    private var request = Request.Builder().url("https://example.com").build()
+
+    /**
+     * Request. Includes a path and query parameter to test that these are shown
+     * correctly in error messages.
+     */
+    private var request = Request.Builder().url("https://example.com/foo?x=1").build()
 
     fun completeWithException(t: Throwable) {
         synchronized(this) {
             callback?.onFailure(this, t)
         }
     }
-
-    fun complete(body: T): Unit = complete(Response.success(body))
 
     fun complete(response: Response<T>) {
         synchronized(this) {
