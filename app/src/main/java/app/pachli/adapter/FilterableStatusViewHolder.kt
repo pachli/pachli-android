@@ -35,28 +35,26 @@ open class FilterableStatusViewHolder<T : IStatusViewData>(
     var matchedFilter: Filter? = null
 
     override fun setupWithStatus(
-        pachliAccountId: Long,
         viewData: T,
         listener: StatusActionListener<T>,
         statusDisplayOptions: StatusDisplayOptions,
         payloads: Any?,
     ) {
-        super.setupWithStatus(pachliAccountId, viewData, listener, statusDisplayOptions, payloads)
-        setupFilterPlaceholder(pachliAccountId, viewData, listener)
+        super.setupWithStatus(viewData, listener, statusDisplayOptions, payloads)
+        setupFilterPlaceholder(viewData, listener)
     }
 
     private fun setupFilterPlaceholder(
-        pachliAccountId: Long,
-        status: T,
+        viewData: T,
         listener: StatusActionListener<T>,
     ) {
-        if (status.contentFilterAction !== FilterAction.WARN) {
+        if (viewData.contentFilterAction !== FilterAction.WARN) {
             matchedFilter = null
             setPlaceholderVisibility(false)
             return
         }
 
-        status.actionable.filtered?.find { it.filter.filterAction === NetworkFilterAction.WARN }?.let { result ->
+        viewData.actionable.filtered?.find { it.filter.filterAction === NetworkFilterAction.WARN }?.let { result ->
             this.matchedFilter = result.filter
             setPlaceholderVisibility(true)
 
@@ -71,10 +69,10 @@ open class FilterableStatusViewHolder<T : IStatusViewData>(
             binding.statusFilteredPlaceholder.statusFilterLabel.text = label
 
             binding.statusFilteredPlaceholder.statusFilterShowAnyway.setOnClickListener {
-                listener.clearContentFilter(pachliAccountId, status)
+                listener.clearContentFilter(viewData)
             }
             binding.statusFilteredPlaceholder.statusFilterEditFilter.setOnClickListener {
-                listener.onEditFilterById(pachliAccountId, result.filter.id)
+                listener.onEditFilterById(viewData.pachliAccountId, result.filter.id)
             }
         } ?: {
             matchedFilter = null

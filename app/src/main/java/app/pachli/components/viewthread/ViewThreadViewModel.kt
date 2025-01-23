@@ -147,6 +147,7 @@ class ViewThreadViewModel @Inject constructor(
                 // status content is the same. Then the status flickers as it is drawn twice.
                 if (status.actionableId == id) {
                     StatusViewData.from(
+                        pachliAccountId = account.id,
                         status = status.actionableStatus,
                         isExpanded = timelineStatusWithAccount.viewData?.expanded ?: account.alwaysOpenSpoiler,
                         isShowingContent = timelineStatusWithAccount.viewData?.contentShowing ?: (account.alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
@@ -157,6 +158,7 @@ class ViewThreadViewModel @Inject constructor(
                     )
                 } else {
                     StatusViewData.from(
+                        pachliAccountId = account.id,
                         timelineStatusWithAccount,
                         isExpanded = account.alwaysOpenSpoiler,
                         isShowingContent = (account.alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
@@ -186,6 +188,7 @@ class ViewThreadViewModel @Inject constructor(
             if (timelineStatusWithAccount != null) {
                 api.status(id).getOrNull()?.let {
                     detailedStatus = StatusViewData.from(
+                        pachliAccountId = account.id,
                         it,
                         isShowingContent = detailedStatus.isShowingContent,
                         isExpanded = detailedStatus.isExpanded,
@@ -207,6 +210,7 @@ class ViewThreadViewModel @Inject constructor(
                     val ancestors = statusContext.ancestors.map { status ->
                         val svd = cachedViewData[status.id]
                         StatusViewData.from(
+                            pachliAccountId = account.id,
                             status,
                             isShowingContent = svd?.contentShowing ?: (account.alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
                             isExpanded = svd?.expanded ?: account.alwaysOpenSpoiler,
@@ -219,6 +223,7 @@ class ViewThreadViewModel @Inject constructor(
                     val descendants = statusContext.descendants.map { status ->
                         val svd = cachedViewData[status.id]
                         StatusViewData.from(
+                            pachliAccountId = account.id,
                             status,
                             isShowingContent = svd?.contentShowing ?: (account.alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
                             isExpanded = svd?.expanded ?: account.alwaysOpenSpoiler,
@@ -336,7 +341,7 @@ class ViewThreadViewModel @Inject constructor(
             )
         }
         viewModelScope.launch {
-            repository.saveStatusViewData(activeAccount.id, status.copy(isExpanded = expanded))
+            repository.saveStatusViewData(status.copy(isExpanded = expanded))
         }
     }
 
@@ -345,7 +350,7 @@ class ViewThreadViewModel @Inject constructor(
             viewData.copy(isShowingContent = isShowing)
         }
         viewModelScope.launch {
-            repository.saveStatusViewData(activeAccount.id, status.copy(isShowingContent = isShowing))
+            repository.saveStatusViewData(status.copy(isShowingContent = isShowing))
         }
     }
 
@@ -354,7 +359,7 @@ class ViewThreadViewModel @Inject constructor(
             viewData.copy(isCollapsed = isCollapsed)
         }
         viewModelScope.launch {
-            repository.saveStatusViewData(activeAccount.id, status.copy(isCollapsed = isCollapsed))
+            repository.saveStatusViewData(status.copy(isCollapsed = isCollapsed))
         }
     }
 
@@ -456,11 +461,11 @@ class ViewThreadViewModel @Inject constructor(
 
     fun translate(statusViewData: StatusViewData) {
         viewModelScope.launch {
-            repository.translate(activeAccount.id, statusViewData).fold(
+            repository.translate(statusViewData).fold(
                 {
                     val translatedEntity = TranslatedStatusEntity(
                         serverId = statusViewData.actionableId,
-                        timelineUserId = activeAccount.id,
+                        timelineUserId = statusViewData.pachliAccountId,
                         content = it.content,
                         spoilerText = it.spoilerText,
                         poll = it.poll,
@@ -490,7 +495,6 @@ class ViewThreadViewModel @Inject constructor(
         }
         viewModelScope.launch {
             repository.saveStatusViewData(
-                activeAccount.id,
                 statusViewData.copy(translationState = TranslationState.SHOW_ORIGINAL),
             )
         }
@@ -563,6 +567,7 @@ class ViewThreadViewModel @Inject constructor(
     private fun StatusViewData.Companion.fromStatusAndUiState(account: AccountEntity, status: Status, isDetailed: Boolean = false): StatusViewData {
         val oldStatus = (_uiState.value as? ThreadUiState.Success)?.statusViewData?.find { it.id == status.id }
         return from(
+            pachliAccountId = account.id,
             status,
             isShowingContent = oldStatus?.isShowingContent ?: (account.alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
             isExpanded = oldStatus?.isExpanded ?: account.alwaysOpenSpoiler,

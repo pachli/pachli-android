@@ -35,6 +35,7 @@ import app.pachli.core.eventhub.PinEvent
 import app.pachli.core.eventhub.ReblogEvent
 import app.pachli.core.model.FilterAction
 import app.pachli.core.network.model.Poll
+import app.pachli.core.network.model.Status
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.usecase.TimelineCases
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -59,11 +60,12 @@ class NetworkTimelineViewModel @Inject constructor(
     accountManager: AccountManager,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     sharedPreferencesRepository: SharedPreferencesRepository,
-) : TimelineViewModel(
+) : TimelineViewModel<Status>(
     savedStateHandle,
     timelineCases,
     eventHub,
     accountManager,
+    repository,
     statusDisplayOptionsRepository,
     sharedPreferencesRepository,
 ) {
@@ -72,22 +74,20 @@ class NetworkTimelineViewModel @Inject constructor(
     override var statuses: Flow<PagingData<StatusViewData>>
 
     init {
-        statuses = refreshFlow
-            .flatMapLatest {
-                getStatuses(it.second, initialKey = getInitialKey())
-            }.cachedIn(viewModelScope)
+        statuses = accountFlow
+            .flatMapLatest { getStatuses(it.data!!) }.cachedIn(viewModelScope)
     }
 
     /** @return Flow of statuses that make up the timeline of [timeline] for [account]. */
-    private fun getStatuses(
+    private suspend fun getStatuses(
         account: AccountEntity,
-        initialKey: String? = null,
     ): Flow<PagingData<StatusViewData>> {
-        Timber.d("getStatuses: kind: %s, initialKey: %s", timeline, initialKey)
-        return repository.getStatusStream(account, kind = timeline, initialKey = initialKey)
+        Timber.d("getStatuses: kind: %s", timeline)
+        return repository.getStatusStream(account, kind = timeline)
             .map { pagingData ->
                 pagingData.map {
                     modifiedViewData[it.id] ?: StatusViewData.from(
+                        pachliAccountId = account.id,
                         it,
                         isShowingContent = statusDisplayOptions.value.showSensitiveMedia || !it.actionableStatus.sensitive,
                         isExpanded = statusDisplayOptions.value.openSpoiler,
@@ -105,21 +105,21 @@ class NetworkTimelineViewModel @Inject constructor(
         repository.invalidate()
     }
 
-    override fun changeExpanded(pachliAccountId: Long, expanded: Boolean, status: StatusViewData) {
+    override fun changeExpanded(expanded: Boolean, status: StatusViewData) {
         modifiedViewData[status.id] = status.copy(
             isExpanded = expanded,
         )
         repository.invalidate()
     }
 
-    override fun changeContentShowing(pachliAccountId: Long, isShowing: Boolean, status: StatusViewData) {
+    override fun changeContentShowing(isShowing: Boolean, status: StatusViewData) {
         modifiedViewData[status.id] = status.copy(
             isShowingContent = isShowing,
         )
         repository.invalidate()
     }
 
-    override fun changeContentCollapsed(pachliAccountId: Long, isCollapsed: Boolean, status: StatusViewData) {
+    override fun changeContentCollapsed(isCollapsed: Boolean, status: StatusViewData) {
         Timber.d("changeContentCollapsed: %s", isCollapsed)
         Timber.d("   %s", status.content)
         modifiedViewData[status.id] = status.copy(
@@ -181,19 +181,7 @@ class NetworkTimelineViewModel @Inject constructor(
         repository.invalidate()
     }
 
-    override fun reloadKeepingReadingPosition(pachliAccountId: Long) {
-        super.reloadKeepingReadingPosition(pachliAccountId)
-        viewModelScope.launch {
-            repository.reload()
-        }
-    }
-
-    override fun reloadFromNewest(pachliAccountId: Long) {
-        super.reloadFromNewest(pachliAccountId)
-        reloadKeepingReadingPosition(pachliAccountId)
-    }
-
-    override fun clearWarning(pachliAccountId: Long, statusViewData: StatusViewData) {
+    override fun clearWarning(statusViewData: StatusViewData) {
         viewModelScope.launch {
             repository.updateActionableStatusById(statusViewData.actionableId) {
                 it.copy(filtered = null)

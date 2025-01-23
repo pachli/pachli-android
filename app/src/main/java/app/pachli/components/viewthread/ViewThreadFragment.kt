@@ -96,7 +96,7 @@ class ViewThreadFragment :
 
         lifecycleScope.launch {
             val statusDisplayOptions = viewModel.statusDisplayOptions.value
-            adapter = ThreadAdapter(pachliAccountId, statusDisplayOptions, this@ViewThreadFragment)
+            adapter = ThreadAdapter(statusDisplayOptions, this@ViewThreadFragment)
         }
     }
 
@@ -279,8 +279,8 @@ class ViewThreadFragment :
         viewModel.refresh(thisThreadsStatusId)
     }
 
-    override fun onReply(pachliAccountId: Long, viewData: StatusViewData) {
-        super.reply(pachliAccountId, viewData.actionable)
+    override fun onReply(viewData: StatusViewData) {
+        super.reply(viewData.pachliAccountId, viewData.actionable)
     }
 
     override fun onReblog(viewData: StatusViewData, reblog: Boolean) {
@@ -339,11 +339,11 @@ class ViewThreadFragment :
         )
     }
 
-    override fun onExpandedChange(pachliAccountId: Long, viewData: StatusViewData, expanded: Boolean) {
+    override fun onExpandedChange(viewData: StatusViewData, expanded: Boolean) {
         viewModel.changeExpanded(expanded, viewData)
     }
 
-    override fun onContentHiddenChange(pachliAccountId: Long, viewData: StatusViewData, isShowingContent: Boolean) {
+    override fun onContentHiddenChange(viewData: StatusViewData, isShowingContent: Boolean) {
         viewModel.changeContentShowing(isShowingContent, viewData)
     }
 
@@ -357,7 +357,7 @@ class ViewThreadFragment :
         activity?.startActivityWithDefaultTransition(intent)
     }
 
-    override fun onContentCollapsedChange(pachliAccountId: Long, viewData: StatusViewData, isCollapsed: Boolean) {
+    override fun onContentCollapsedChange(viewData: StatusViewData, isCollapsed: Boolean) {
         viewModel.changeContentCollapsed(isCollapsed, viewData)
     }
 
@@ -397,7 +397,7 @@ class ViewThreadFragment :
         }
     }
 
-    override fun clearContentFilter(pachliAccountId: Long, viewData: StatusViewData) {
+    override fun clearContentFilter(viewData: StatusViewData) {
         viewModel.clearWarning(viewData)
     }
 

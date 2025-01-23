@@ -148,7 +148,7 @@ class NotificationsPagingAdapter(
     private val statusActionListener: StatusActionListener<NotificationViewData>,
     private val notificationActionListener: NotificationActionListener,
     private val accountActionListener: AccountActionListener,
-    var statusDisplayOptions: StatusDisplayOptions,
+    var statusDisplayOptions: StatusDisplayOptions = StatusDisplayOptions(),
 ) : PagingDataAdapter<NotificationViewData, RecyclerView.ViewHolder>(diffCallback) {
 
     private val absoluteTimeFormatter = AbsoluteTimeFormatter()

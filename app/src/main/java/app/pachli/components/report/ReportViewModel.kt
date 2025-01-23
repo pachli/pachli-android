@@ -27,7 +27,10 @@ import androidx.paging.map
 import app.pachli.components.report.adapter.StatusesPagingSource
 import app.pachli.components.report.model.StatusViewState
 import app.pachli.core.data.model.StatusViewData
+import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
+import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.eventhub.BlockEvent
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.MuteEvent
@@ -45,12 +48,16 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.launch
 
 @HiltViewModel
 class ReportViewModel @Inject constructor(
+    private val accountManager: AccountManager,
     private val mastodonApi: MastodonApi,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     private val eventHub: EventHub,
@@ -78,19 +85,24 @@ class ReportViewModel @Inject constructor(
 
     val statusDisplayOptions = statusDisplayOptionsRepository.flow
 
-    val statusesFlow = accountIdFlow.flatMapLatest { accountId ->
+    val activeAccountFlow = accountManager.accountsFlow
+        .filterIsInstance<Loadable.Loaded<AccountEntity?>>()
+        .mapNotNull { it.data }
+
+    val statusesFlow = activeAccountFlow.combine(accountIdFlow) { activeAccount, reportedAccountId ->
+        Pair(activeAccount, reportedAccountId)
+    }.flatMapLatest { (activeAccount, reportedAccountId) ->
         Pager(
             initialKey = statusId,
             config = PagingConfig(pageSize = 20, initialLoadSize = 20),
-            pagingSourceFactory = { StatusesPagingSource(accountId, mastodonApi) },
+            pagingSourceFactory = { StatusesPagingSource(reportedAccountId, mastodonApi) },
         ).flow
-    }
-        .map { pagingData ->
-            /* TODO: refactor reports to use the isShowingContent / isExpanded / isCollapsed attributes from StatusViewData
-             instead of StatusViewState */
-            pagingData.map { status -> StatusViewData.from(status, false, false, false) }
-        }
-        .cachedIn(viewModelScope)
+            .map { pagingData ->
+                /* TODO: refactor reports to use the isShowingContent / isExpanded / isCollapsed attributes from StatusViewData
+                 instead of StatusViewState */
+                pagingData.map { status -> StatusViewData.from(activeAccount.id, status, false, false, false) }
+            }
+    }.cachedIn(viewModelScope)
 
     private val selectedIds = HashSet<String>()
     val statusViewState = StatusViewState()

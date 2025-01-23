@@ -99,7 +99,6 @@ class NotificationsRepository @Inject constructor(
     private val remoteKeyDao: RemoteKeyDao,
     private val eventHub: EventHub,
 ) {
-
     private var factory: InvalidatingPagingSourceFactory<Int, NotificationData>? = null
 
     /**
@@ -144,12 +143,7 @@ class NotificationsRepository @Inject constructor(
      */
     suspend fun saveRefreshKey(pachliAccountId: Long, key: String?) = externalScope.async {
         remoteKeyDao.upsert(
-            RemoteKeyEntity(
-                pachliAccountId,
-                RKE_TIMELINE_ID,
-                RemoteKeyKind.REFRESH,
-                key,
-            ),
+            RemoteKeyEntity(pachliAccountId, RKE_TIMELINE_ID, RemoteKeyKind.REFRESH, key),
         )
     }.await()
 

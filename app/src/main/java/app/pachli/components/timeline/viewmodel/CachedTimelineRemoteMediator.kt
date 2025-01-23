@@ -18,7 +18,6 @@
 package app.pachli.components.timeline.viewmodel
 
 import androidx.paging.ExperimentalPagingApi
-import androidx.paging.InvalidatingPagingSourceFactory
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
@@ -42,10 +41,8 @@ import timber.log.Timber
 
 @OptIn(ExperimentalPagingApi::class)
 class CachedTimelineRemoteMediator(
-    private val initialKey: String?,
-    private val api: MastodonApi,
+    private val mastodonApi: MastodonApi,
     private val pachliAccountId: Long,
-    private val factory: InvalidatingPagingSourceFactory<Int, TimelineStatusWithAccount>,
     private val transactionProvider: TransactionProvider,
     private val timelineDao: TimelineDao,
     private val remoteKeyDao: RemoteKeyDao,
@@ -59,22 +56,15 @@ class CachedTimelineRemoteMediator(
         return try {
             val response = when (loadType) {
                 LoadType.REFRESH -> {
-                    val closestItem = state.anchorPosition?.let {
-                        state.closestItemToPosition(maxOf(0, it - (state.config.pageSize / 2)))
-                    }?.status?.serverId
-                    val statusId = closestItem ?: initialKey
-                    Timber.d("Loading from item: %s", statusId)
-                    getInitialPage(statusId, state.config.pageSize)
-                }
-
-                LoadType.APPEND -> {
-                    val rke = remoteKeyDao.remoteKeyForKind(
+                    // Ignore the provided state, always try and fetch from the remote
+                    // REFRESH key.
+                    val statusId = remoteKeyDao.remoteKeyForKind(
                         pachliAccountId,
                         RKE_TIMELINE_ID,
-                        RemoteKeyKind.NEXT,
-                    ) ?: return MediatorResult.Success(endOfPaginationReached = true)
-                    Timber.d("Loading from remoteKey: %s", rke)
-                    api.homeTimeline(maxId = rke.key, limit = state.config.pageSize)
+                        RemoteKeyKind.REFRESH,
+                    )?.key
+                    Timber.d("Loading from item: %s", statusId)
+                    getInitialPage(statusId, state.config.pageSize)
                 }
 
                 LoadType.PREPEND -> {
@@ -84,7 +74,17 @@ class CachedTimelineRemoteMediator(
                         RemoteKeyKind.PREV,
                     ) ?: return MediatorResult.Success(endOfPaginationReached = true)
                     Timber.d("Loading from remoteKey: %s", rke)
-                    api.homeTimeline(minId = rke.key, limit = state.config.pageSize)
+                    mastodonApi.homeTimeline(minId = rke.key, limit = state.config.pageSize)
+                }
+
+                LoadType.APPEND -> {
+                    val rke = remoteKeyDao.remoteKeyForKind(
+                        pachliAccountId,
+                        RKE_TIMELINE_ID,
+                        RemoteKeyKind.NEXT,
+                    ) ?: return MediatorResult.Success(endOfPaginationReached = true)
+                    Timber.d("Loading from remoteKey: %s", rke)
+                    mastodonApi.homeTimeline(maxId = rke.key, limit = state.config.pageSize)
                 }
             }
 
@@ -98,7 +98,6 @@ class CachedTimelineRemoteMediator(
             // This request succeeded with no new data, and pagination ends (unless this is a
             // REFRESH, which must always set endOfPaginationReached to false).
             if (statuses.isEmpty()) {
-                factory.invalidate()
                 return MediatorResult.Success(endOfPaginationReached = loadType != LoadType.REFRESH)
             }
 
@@ -109,8 +108,8 @@ class CachedTimelineRemoteMediator(
             transactionProvider {
                 when (loadType) {
                     LoadType.REFRESH -> {
-                        remoteKeyDao.delete(pachliAccountId, RKE_TIMELINE_ID)
-                        timelineDao.removeAllStatuses(pachliAccountId)
+                        remoteKeyDao.deletePrevNext(pachliAccountId, RKE_TIMELINE_ID)
+                        timelineDao.deleteAllStatusesForAccount(pachliAccountId)
 
                         remoteKeyDao.upsert(
                             RemoteKeyEntity(
@@ -120,6 +119,7 @@ class CachedTimelineRemoteMediator(
                                 links.next,
                             ),
                         )
+
                         remoteKeyDao.upsert(
                             RemoteKeyEntity(
                                 pachliAccountId,
@@ -179,7 +179,7 @@ class CachedTimelineRemoteMediator(
      */
     private suspend fun getInitialPage(statusId: String?, pageSize: Int): Response<List<Status>> = coroutineScope {
         // If the key is null this is straightforward, just return the most recent statuses.
-        statusId ?: return@coroutineScope api.homeTimeline(limit = pageSize)
+        statusId ?: return@coroutineScope mastodonApi.homeTimeline(limit = pageSize)
 
         // It's important to return *something* from this state. If an empty page is returned
         // (even with next/prev links) Pager3 assumes there is no more data to load and stops.
@@ -189,13 +189,17 @@ class CachedTimelineRemoteMediator(
         // you can not fetch the page itself.
 
         // Fetch the requested status, and the page immediately after (next)
-        val deferredStatus = async { api.status(statusId = statusId) }
+        val deferredStatus = async { mastodonApi.status(statusId = statusId) }
+        val deferredPrevPage = async {
+            mastodonApi.homeTimeline(minId = statusId, limit = pageSize * 3)
+        }
         val deferredNextPage = async {
-            api.homeTimeline(maxId = statusId, limit = pageSize)
+            mastodonApi.homeTimeline(maxId = statusId, limit = pageSize * 3)
         }
 
         deferredStatus.await().getOrNull()?.let { status ->
             val statuses = buildList {
+                deferredPrevPage.await().body()?.let { this.addAll(it) }
                 this.add(status)
                 deferredNextPage.await().body()?.let { this.addAll(it) }
             }
@@ -218,43 +222,41 @@ class CachedTimelineRemoteMediator(
         // The user's last read status was missing. Use the page of statuses chronologically older
         // than their desired status. This page must *not* be empty (as noted earlier, if it is,
         // paging stops).
-        deferredNextPage.await().let { response ->
-            if (response.isSuccessful) {
-                if (!response.body().isNullOrEmpty()) return@coroutineScope response
+        deferredNextPage.await().apply {
+            if (isSuccessful && !body().isNullOrEmpty()) {
+                return@coroutineScope this
             }
         }
 
         // There were no statuses older than the user's desired status. Return the page
         // of statuses immediately newer than their desired status. This page must
         // *not* be empty (as noted earlier, if it is, paging stops).
-        api.homeTimeline(minId = statusId, limit = pageSize).let { response ->
-            if (response.isSuccessful) {
-                if (!response.body().isNullOrEmpty()) return@coroutineScope response
+        deferredPrevPage.await().apply {
+            if (isSuccessful && !body().isNullOrEmpty()) {
+                return@coroutineScope this
             }
         }
 
         // Everything failed -- fallback to fetching the most recent statuses
-        return@coroutineScope api.homeTimeline(limit = pageSize)
+        return@coroutineScope mastodonApi.homeTimeline(limit = pageSize)
     }
 
     /**
      * Inserts `statuses` and the accounts referenced by those statuses in to the cache.
      */
     private suspend fun insertStatuses(pachliAccountId: Long, statuses: List<Status>) {
-        for (status in statuses) {
-            timelineDao.insertAccount(TimelineAccountEntity.from(status.account, pachliAccountId))
-            status.reblog?.account?.let {
-                val account = TimelineAccountEntity.from(it, pachliAccountId)
-                timelineDao.insertAccount(account)
-            }
+        check(transactionProvider.inTransaction())
 
-            timelineDao.insertStatus(
-                TimelineStatusEntity.from(
-                    status,
-                    timelineUserId = pachliAccountId,
-                ),
-            )
+        /** Unique accounts referenced in this batch of statuses. */
+        val accounts = buildSet {
+            statuses.forEach { status ->
+                add(status.account)
+                status.reblog?.account?.let { add(it) }
+            }
         }
+
+        timelineDao.upsertAccounts(accounts.map { TimelineAccountEntity.from(it, pachliAccountId) })
+        timelineDao.upsertStatuses(statuses.map { TimelineStatusEntity.from(it, pachliAccountId) })
     }
 
     companion object {

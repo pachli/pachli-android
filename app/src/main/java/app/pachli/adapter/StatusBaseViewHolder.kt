@@ -145,7 +145,6 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
     }
 
     protected fun setSpoilerAndContent(
-        pachliAccountId: Long,
         viewData: T,
         statusDisplayOptions: StatusDisplayOptions,
         listener: StatusActionListener<T>,
@@ -165,7 +164,6 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
             setContentWarningButtonText(expanded)
             contentWarningButton.setOnClickListener {
                 toggleExpandedState(
-                    pachliAccountId,
                     viewData,
                     true,
                     !expanded,
@@ -197,7 +195,6 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
     }
 
     protected open fun toggleExpandedState(
-        pachliAccountId: Long,
         viewData: T,
         sensitive: Boolean,
         expanded: Boolean,
@@ -205,11 +202,10 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
         listener: StatusActionListener<T>,
     ) {
         contentWarningDescription.invalidate()
-        listener.onExpandedChange(pachliAccountId, viewData, expanded)
+        listener.onExpandedChange(viewData, expanded)
         setContentWarningButtonText(expanded)
         setTextVisible(sensitive, expanded, viewData, statusDisplayOptions, listener)
         setupCard(
-            pachliAccountId,
             viewData,
             expanded,
             statusDisplayOptions.cardViewMode,
@@ -466,7 +462,6 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
     }
 
     protected fun setMediaPreviews(
-        pachliAccountId: Long,
         viewData: T,
         attachments: List<Attachment>,
         sensitive: Boolean,
@@ -498,7 +493,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
             } else {
                 imageView.foreground = null
             }
-            setAttachmentClickListener(pachliAccountId, viewData, imageView, listener, i, attachment, true)
+            setAttachmentClickListener(viewData, imageView, listener, i, attachment, true)
             if (sensitive) {
                 sensitiveMediaWarning.setText(R.string.post_sensitive_media_title)
             } else {
@@ -509,13 +504,13 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
             descriptionIndicator.visibility =
                 if (hasDescription && showingContent) View.VISIBLE else View.GONE
             sensitiveMediaShow.setOnClickListener { v: View ->
-                listener.onContentHiddenChange(pachliAccountId, viewData, false)
+                listener.onContentHiddenChange(viewData, false)
                 v.visibility = View.GONE
                 sensitiveMediaWarning.visibility = View.VISIBLE
                 descriptionIndicator.visibility = View.GONE
             }
             sensitiveMediaWarning.setOnClickListener { v: View ->
-                listener.onContentHiddenChange(pachliAccountId, viewData, true)
+                listener.onContentHiddenChange(viewData, true)
                 v.visibility = View.GONE
                 sensitiveMediaShow.visibility = View.VISIBLE
                 descriptionIndicator.visibility = if (hasDescription) View.VISIBLE else View.GONE
@@ -530,7 +525,6 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
     }
 
     protected fun setMediaLabel(
-        pachliAccountId: Long,
         viewData: T,
         attachments: List<Attachment>,
         sensitive: Boolean,
@@ -548,7 +542,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
                 // Set the icon next to the label.
                 val drawableId = attachments[0].iconResource()
                 mediaLabel.setCompoundDrawablesRelativeWithIntrinsicBounds(drawableId, 0, 0, 0)
-                setAttachmentClickListener(pachliAccountId, viewData, mediaLabel, listener, i, attachment, false)
+                setAttachmentClickListener(viewData, mediaLabel, listener, i, attachment, false)
             } else {
                 mediaLabel.visibility = View.GONE
             }
@@ -556,7 +550,6 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
     }
 
     private fun setAttachmentClickListener(
-        pachliAccountId: Long,
         viewData: T,
         view: View,
         listener: StatusActionListener<T>,
@@ -566,7 +559,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
     ) {
         view.setOnClickListener { v: View? ->
             if (sensitiveMediaWarning.visibility == View.VISIBLE) {
-                listener.onContentHiddenChange(pachliAccountId, viewData, true)
+                listener.onContentHiddenChange(viewData, true)
             } else {
                 listener.onViewMedia(viewData, index, if (animateTransition) v else null)
             }
@@ -584,7 +577,6 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
     }
 
     protected fun setupButtons(
-        pachliAccountId: Long,
         viewData: T,
         listener: StatusActionListener<T>,
         accountId: String,
@@ -594,7 +586,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
         avatar.setOnClickListener(profileButtonClickListener)
         displayName.setOnClickListener(profileButtonClickListener)
         replyButton.setOnClickListener {
-            listener.onReply(pachliAccountId, viewData)
+            listener.onReply(viewData)
         }
         reblogButton?.setEventListener { _: SparkButton?, buttonState: Boolean ->
             // return true to play animation
@@ -683,7 +675,6 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
     }
 
     open fun setupWithStatus(
-        pachliAccountId: Long,
         viewData: T,
         listener: StatusActionListener<T>,
         statusDisplayOptions: StatusDisplayOptions,
@@ -715,7 +706,6 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
             val sensitive = actionable.sensitive
             if (statusDisplayOptions.mediaPreviewEnabled && hasPreviewableAttachment(attachments)) {
                 setMediaPreviews(
-                    pachliAccountId,
                     viewData,
                     attachments,
                     sensitive,
@@ -731,13 +721,12 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
                     mediaLabel.visibility = View.GONE
                 }
             } else {
-                setMediaLabel(pachliAccountId, viewData, attachments, sensitive, listener, viewData.isShowingContent)
+                setMediaLabel(viewData, attachments, sensitive, listener, viewData.isShowingContent)
                 // Hide all unused views.
                 mediaPreview.visibility = View.GONE
                 hideSensitiveMediaWarning()
             }
             setupCard(
-                pachliAccountId,
                 viewData,
                 viewData.isExpanded,
                 statusDisplayOptions.cardViewMode,
@@ -745,14 +734,13 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
                 listener,
             )
             setupButtons(
-                pachliAccountId,
                 viewData,
                 listener,
                 actionable.account.id,
                 statusDisplayOptions,
             )
             setRebloggingEnabled(actionable.rebloggingAllowed(), actionable.visibility)
-            setSpoilerAndContent(pachliAccountId, viewData, statusDisplayOptions, listener)
+            setSpoilerAndContent(viewData, statusDisplayOptions, listener)
             setContentDescriptionForStatus(viewData, statusDisplayOptions)
 
             // Workaround for RecyclerView 1.0.0 / androidx.core 1.0.0
@@ -876,7 +864,6 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
     }
 
     protected fun setupCard(
-        pachliAccountId: Long,
         viewData: T,
         expanded: Boolean,
         cardViewMode: CardViewMode,
@@ -898,13 +885,13 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
             cardView.bind(card, viewData.actionable.sensitive, statusDisplayOptions, false) { card, target ->
                 if (target == PreviewCardView.Target.BYLINE) {
                     card.authors?.firstOrNull()?.account?.id?.let {
-                        context.startActivity(AccountActivityIntent(context, pachliAccountId, it))
+                        context.startActivity(AccountActivityIntent(context, viewData.pachliAccountId, it))
                     }
                     return@bind
                 }
 
                 if (card.kind == PreviewCardKind.PHOTO && card.embedUrl.isNotEmpty() && target == PreviewCardView.Target.IMAGE) {
-                    context.startActivity(ViewMediaActivityIntent(context, pachliAccountId, viewData.actionable.account.username, card.embedUrl))
+                    context.startActivity(ViewMediaActivityIntent(context, viewData.pachliAccountId, viewData.actionable.account.username, card.embedUrl))
                     return@bind
                 }
 

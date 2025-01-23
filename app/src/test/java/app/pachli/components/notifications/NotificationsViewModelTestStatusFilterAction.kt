@@ -31,7 +31,6 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import org.mockito.kotlin.any
-import org.mockito.kotlin.argumentCaptor
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.stub
 
@@ -47,6 +46,7 @@ import org.mockito.kotlin.stub
 class NotificationsViewModelTestStatusFilterAction : NotificationsViewModelTestBase() {
     private val status = mockStatus(pollOptions = listOf("Choice 1", "Choice 2", "Choice 3"))
     private val statusViewData = StatusViewData(
+        pachliAccountId = 1L,
         status = status,
         isExpanded = true,
         isShowingContent = false,
@@ -69,10 +69,6 @@ class NotificationsViewModelTestStatusFilterAction : NotificationsViewModelTestB
         choices = listOf(1, 0, 0),
         statusViewData,
     )
-
-    /** Captors for status ID and state arguments */
-    private val id = argumentCaptor<String>()
-    private val state = argumentCaptor<Boolean>()
 
     @Test
     fun `bookmark succeeds && emits UiSuccess`() = runTest {

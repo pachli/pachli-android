@@ -35,12 +35,12 @@ data class ConversationViewData(
     val lastStatus: StatusViewData,
 ) : IStatusViewData by lastStatus {
     companion object {
-        fun from(conversationEntity: ConversationEntity) = ConversationViewData(
+        fun from(pachliAccountId: Long, conversationEntity: ConversationEntity) = ConversationViewData(
             id = conversationEntity.id,
             order = conversationEntity.order,
             accounts = conversationEntity.accounts,
             unread = conversationEntity.unread,
-            lastStatus = StatusViewData.from(conversationEntity.lastStatus),
+            lastStatus = StatusViewData.from(pachliAccountId, conversationEntity.lastStatus),
         )
     }
 }

@@ -33,7 +33,6 @@ import app.pachli.databinding.ItemStatusWrapperBinding
 import app.pachli.interfaces.StatusActionListener
 
 class TimelinePagingAdapter(
-    private val pachliAccountId: Long,
     private val statusListener: StatusActionListener<StatusViewData>,
     var statusDisplayOptions: StatusDisplayOptions,
 ) : PagingDataAdapter<StatusViewData, RecyclerView.ViewHolder>(TimelineDifferCallback) {
@@ -73,7 +72,6 @@ class TimelinePagingAdapter(
             null
         }?.let {
             (viewHolder as StatusViewHolder<StatusViewData>).setupWithStatus(
-                pachliAccountId,
                 it,
                 statusListener,
                 statusDisplayOptions,

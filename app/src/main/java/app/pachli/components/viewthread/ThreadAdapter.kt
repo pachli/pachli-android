@@ -33,7 +33,6 @@ import app.pachli.databinding.ItemStatusWrapperBinding
 import app.pachli.interfaces.StatusActionListener
 
 class ThreadAdapter(
-    private val pachliAccountId: Long,
     private val statusDisplayOptions: StatusDisplayOptions,
     private val statusActionListener: StatusActionListener<StatusViewData>,
 ) : ListAdapter<StatusViewData, StatusBaseViewHolder<StatusViewData>>(ThreadDifferCallback) {
@@ -56,7 +55,7 @@ class ThreadAdapter(
 
     override fun onBindViewHolder(viewHolder: StatusBaseViewHolder<StatusViewData>, position: Int) {
         val status = getItem(position)
-        viewHolder.setupWithStatus(pachliAccountId, status, statusActionListener, statusDisplayOptions)
+        viewHolder.setupWithStatus(status, statusActionListener, statusDisplayOptions)
     }
 
     override fun getItemViewType(position: Int): Int {

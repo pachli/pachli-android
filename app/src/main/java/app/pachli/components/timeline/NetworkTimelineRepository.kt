@@ -22,7 +22,7 @@ import androidx.paging.InvalidatingPagingSourceFactory
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import androidx.paging.PagingSource
+import app.pachli.components.timeline.TimelineRepository.Companion.PAGE_SIZE
 import app.pachli.components.timeline.viewmodel.NetworkTimelinePagingSource
 import app.pachli.components.timeline.viewmodel.NetworkTimelineRemoteMediator
 import app.pachli.components.timeline.viewmodel.PageCache
@@ -70,30 +70,25 @@ import timber.log.Timber
 /** Timeline repository where the timeline information is backed by an in-memory cache. */
 class NetworkTimelineRepository @Inject constructor(
     private val mastodonApi: MastodonApi,
-) {
+) : TimelineRepository<Status> {
     private val pageCache = PageCache()
 
     private var factory: InvalidatingPagingSourceFactory<String, Status>? = null
 
-    // TODO: This should use assisted injection, and inject the account.
-    private var activeAccount: AccountEntity? = null
-
-    /** @return flow of Mastodon [Status], loaded in [pageSize] increments */
+    /** @return flow of Mastodon [Status]. */
     @OptIn(ExperimentalPagingApi::class)
-    fun getStatusStream(
+    override suspend fun getStatusStream(
         account: AccountEntity,
         kind: Timeline,
-        pageSize: Int = PAGE_SIZE,
-        initialKey: String? = null,
     ): Flow<PagingData<Status>> {
-        Timber.d("getStatusStream(): key: %s", initialKey)
+        Timber.d("getStatusStream()")
 
         factory = InvalidatingPagingSourceFactory {
             NetworkTimelinePagingSource(pageCache)
         }
 
         return Pager(
-            config = PagingConfig(pageSize = pageSize),
+            config = PagingConfig(pageSize = PAGE_SIZE),
             remoteMediator = NetworkTimelineRemoteMediator(
                 mastodonApi,
                 account,
@@ -105,10 +100,9 @@ class NetworkTimelineRepository @Inject constructor(
         ).flow
     }
 
-    /** Invalidate the active paging source, see [PagingSource.invalidate] */
-    fun invalidate() {
-        factory?.invalidate()
-    }
+    override suspend fun invalidate(pachliAccountId: Long) = factory?.invalidate() ?: Unit
+
+    fun invalidate() = factory?.invalidate()
 
     fun removeAllByAccountId(accountId: String) {
         synchronized(pageCache) {
@@ -170,9 +164,5 @@ class NetworkTimelineRepository @Inject constructor(
             pageCache.clear()
         }
         invalidate()
-    }
-
-    companion object {
-        private const val PAGE_SIZE = 30
     }
 }

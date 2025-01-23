@@ -83,19 +83,25 @@ ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC""",
     abstract fun getStatuses(account: Long): PagingSource<Int, TimelineStatusWithAccount>
 
     /**
-     * All statuses for [account] in timeline ID. Used to find the correct initialKey to restore
-     * the user's reading position.
+     * @return Row number (0 based) of the status with ID [statusId] for [pachliAccountId].
      *
      * @see [app.pachli.components.timeline.viewmodel.CachedTimelineViewModel.statuses]
      */
     @Query(
         """
-SELECT serverId
-  FROM TimelineStatusEntity
- WHERE timelineUserId = :account
- ORDER BY LENGTH(serverId) DESC, serverId DESC""",
+            SELECT rownum
+              FROM (
+                SELECT t1.timelineUserId AS timelineUserId, t1.serverId, COUNT(t2.serverId) - 1 AS rownum
+                  FROM TimelineStatusEntity t1
+                  JOIN TimelineStatusEntity t2 ON t1.timelineUserId = t2.timelineUserId AND (LENGTH(t1.serverId) <= LENGTH(t2.serverId) AND t1.serverId <= t2.serverId)
+                 WHERE t1.timelineUserId = :pachliAccountId
+                 GROUP BY t1.serverId
+                 ORDER BY length(t1.serverId) DESC, t1.serverId DESC
+             )
+             WHERE serverId = :statusId
+        """,
     )
-    abstract fun getStatusRowNumber(account: Long): List<String>
+    abstract suspend fun getStatusRowNumber(pachliAccountId: Long, statusId: String): Int
 
     @Query(
         """
@@ -164,23 +170,6 @@ WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServe
     abstract suspend fun removeAllByUser(pachliAccountId: Long, userId: String)
 
     /**
-     * Removes everything for one account in the following tables:
-     *
-     * - TimelineStatusEntity
-     * - TimelineAccountEntity
-     * - StatusViewDataEntity
-     * - TranslatedStatusEntity
-     *
-     * @param accountId id of the account for which to clean tables
-     */
-    suspend fun removeAll(accountId: Long) {
-        removeAllStatuses(accountId)
-        removeAllAccounts(accountId)
-        removeAllStatusViewData(accountId)
-        removeAllTranslatedStatus(accountId)
-    }
-
-    /**
      * Removes all statuses from the cached **home** timeline.
      *
      * Statuses that are referenced by notifications are retained, to ensure
@@ -197,7 +186,7 @@ WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServe
            )
         """,
     )
-    abstract suspend fun removeAllStatuses(accountId: Long)
+    abstract suspend fun deleteAllStatusesForAccount(accountId: Long)
 
     /**
      * Deletes [TimelineAccountEntity] that are not referenced by a

@@ -35,6 +35,8 @@ import app.pachli.core.network.replaceCrashingCharacters
  * [app.pachli.components.conversation.ConversationViewData].
  */
 interface IStatusViewData {
+    /** ID of the Pachli account that loaded this status. */
+    val pachliAccountId: Long
     val username: String
     val rebloggedAvatar: String?
 
@@ -117,6 +119,7 @@ interface IStatusViewData {
  * Data required to display a status.
  */
 data class StatusViewData(
+    override val pachliAccountId: Long,
     override var status: Status,
     override var translation: TranslatedStatusEntity? = null,
     override val isExpanded: Boolean,
@@ -196,6 +199,7 @@ data class StatusViewData(
 
     companion object {
         fun from(
+            pachliAccountId: Long,
             status: Status,
             isShowingContent: Boolean,
             isExpanded: Boolean,
@@ -217,6 +221,7 @@ data class StatusViewData(
             }
 
             return StatusViewData(
+                pachliAccountId = pachliAccountId,
                 status = status,
                 isShowingContent = isShowingContent,
                 isCollapsed = isCollapsed,
@@ -228,7 +233,8 @@ data class StatusViewData(
             )
         }
 
-        fun from(conversationStatusEntity: ConversationStatusEntity) = StatusViewData(
+        fun from(pachliAccountId: Long, conversationStatusEntity: ConversationStatusEntity) = StatusViewData(
+            pachliAccountId = pachliAccountId,
             status = Status(
                 id = conversationStatusEntity.id,
                 url = conversationStatusEntity.url,
@@ -281,6 +287,7 @@ data class StatusViewData(
          * the status viewdata is null.
          */
         fun from(
+            pachliAccountId: Long,
             timelineStatusWithAccount: TimelineStatusWithAccount,
             isExpanded: Boolean,
             isShowingContent: Boolean,
@@ -290,6 +297,7 @@ data class StatusViewData(
         ): StatusViewData {
             val status = timelineStatusWithAccount.toStatus()
             return StatusViewData(
+                pachliAccountId = pachliAccountId,
                 status = status,
                 translation = timelineStatusWithAccount.translatedStatus,
                 isExpanded = timelineStatusWithAccount.viewData?.expanded ?: isExpanded,

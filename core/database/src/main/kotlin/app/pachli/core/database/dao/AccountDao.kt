@@ -397,15 +397,6 @@ interface AccountDao {
     @Query(
         """
         UPDATE AccountEntity
-           SET lastVisibleHomeTimelineStatusId = :value
-         WHERE id = :accountId
-        """,
-    )
-    suspend fun setLastVisibleHomeTimelineStatusId(accountId: Long, value: String?)
-
-    @Query(
-        """
-        UPDATE AccountEntity
            SET notificationAccountFilterNotFollowed = :value
          WHERE id = :accountId
         """,

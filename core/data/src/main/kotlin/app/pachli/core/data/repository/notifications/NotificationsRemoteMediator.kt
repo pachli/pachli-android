@@ -221,18 +221,18 @@ class NotificationsRemoteMediator(
             // The user's last read notification was missing. Use the page of notifications
             // chronologically older than their desired notification. This page must *not* be
             // empty (as noted earlier, if it is, paging stops).
-            deferredNextPage.await().let { response ->
-                if (response.isSuccessful) {
-                    if (!response.body().isNullOrEmpty()) return@coroutineScope response
+            deferredNextPage.await().apply {
+                if (isSuccessful && !body().isNullOrEmpty()) {
+                    return@coroutineScope this
                 }
             }
 
             // There were no notifications older than the user's desired notification. Return the page
             // of notifications immediately newer than their desired notification. This page must
             // *not* be empty (as noted earlier, if it is, paging stops).
-            mastodonApi.notifications(minId = notificationId, limit = pageSize).let { response ->
-                if (response.isSuccessful) {
-                    if (!response.body().isNullOrEmpty()) return@coroutineScope response
+            deferredPrevPage.await().apply {
+                if (isSuccessful && !body().isNullOrEmpty()) {
+                    return@coroutineScope this
                 }
             }
 

@@ -96,12 +96,10 @@ class CachedTimelineRemoteMediatorTest {
     @ExperimentalPagingApi
     fun `should return error when network call returns error code`() {
         val remoteMediator = CachedTimelineRemoteMediator(
-            initialKey = null,
-            api = mock {
+            mastodonApi = mock {
                 onBlocking { homeTimeline(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull()) } doReturn Response.error(500, "".toResponseBody())
             },
             pachliAccountId = activeAccount.id,
-            factory = pagingSourceFactory,
             transactionProvider = transactionProvider,
             timelineDao = db.timelineDao(),
             remoteKeyDao = db.remoteKeyDao(),
@@ -118,12 +116,10 @@ class CachedTimelineRemoteMediatorTest {
     @ExperimentalPagingApi
     fun `should return error when network call fails`() {
         val remoteMediator = CachedTimelineRemoteMediator(
-            initialKey = null,
-            api = mock {
+            mastodonApi = mock {
                 onBlocking { homeTimeline(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull()) } doThrow IOException()
             },
             pachliAccountId = activeAccount.id,
-            factory = pagingSourceFactory,
             transactionProvider = transactionProvider,
             timelineDao = db.timelineDao(),
             remoteKeyDao = db.remoteKeyDao(),
@@ -139,10 +135,8 @@ class CachedTimelineRemoteMediatorTest {
     @ExperimentalPagingApi
     fun `should not prepend statuses`() {
         val remoteMediator = CachedTimelineRemoteMediator(
-            initialKey = null,
-            api = mock(),
+            mastodonApi = mock(),
             pachliAccountId = activeAccount.id,
-            factory = pagingSourceFactory,
             transactionProvider = transactionProvider,
             timelineDao = db.timelineDao(),
             remoteKeyDao = db.remoteKeyDao(),
@@ -170,8 +164,7 @@ class CachedTimelineRemoteMediatorTest {
     @ExperimentalPagingApi
     fun `should not try to refresh already cached statuses when db is empty`() {
         val remoteMediator = CachedTimelineRemoteMediator(
-            initialKey = null,
-            api = mock {
+            mastodonApi = mock {
                 onBlocking { homeTimeline(limit = 20) } doReturn Response.success(
                     listOf(
                         mockStatus("5"),
@@ -181,7 +174,6 @@ class CachedTimelineRemoteMediatorTest {
                 )
             },
             pachliAccountId = activeAccount.id,
-            factory = pagingSourceFactory,
             transactionProvider = transactionProvider,
             timelineDao = db.timelineDao(),
             remoteKeyDao = db.remoteKeyDao(),
@@ -224,8 +216,7 @@ class CachedTimelineRemoteMediatorTest {
         db.insert(statusesAlreadyInDb)
 
         val remoteMediator = CachedTimelineRemoteMediator(
-            initialKey = null,
-            api = mock {
+            mastodonApi = mock {
                 onBlocking { homeTimeline(limit = 20) } doReturn Response.success(
                     listOf(
                         mockStatus("3"),
@@ -234,7 +225,6 @@ class CachedTimelineRemoteMediatorTest {
                 )
             },
             pachliAccountId = activeAccount.id,
-            factory = pagingSourceFactory,
             transactionProvider = transactionProvider,
             timelineDao = db.timelineDao(),
             remoteKeyDao = db.remoteKeyDao(),
@@ -280,8 +270,7 @@ class CachedTimelineRemoteMediatorTest {
         db.remoteKeyDao().upsert(RemoteKeyEntity(1, RKE_TIMELINE_ID, RemoteKeyKind.NEXT, "5"))
 
         val remoteMediator = CachedTimelineRemoteMediator(
-            initialKey = null,
-            api = mock {
+            mastodonApi = mock {
                 onBlocking { homeTimeline(maxId = "5", limit = 20) } doReturn Response.success(
                     listOf(
                         mockStatus("3"),
@@ -294,7 +283,6 @@ class CachedTimelineRemoteMediatorTest {
                 )
             },
             pachliAccountId = activeAccount.id,
-            factory = pagingSourceFactory,
             transactionProvider = transactionProvider,
             timelineDao = db.timelineDao(),
             remoteKeyDao = db.remoteKeyDao(),

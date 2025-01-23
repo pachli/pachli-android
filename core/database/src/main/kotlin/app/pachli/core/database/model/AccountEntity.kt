@@ -99,12 +99,6 @@ data class AccountEntity(
     val pushAuth: String = "",
     val pushServerKey: String = "",
 
-    /**
-     * ID of the status at the top of the visible list in the home timeline when the
-     * user navigated away.
-     */
-    val lastVisibleHomeTimelineStatusId: String? = null,
-
     /** True if the connected Mastodon account is locked (has to manually approve all follow requests **/
     @ColumnInfo(defaultValue = "0")
     val locked: Boolean = false,

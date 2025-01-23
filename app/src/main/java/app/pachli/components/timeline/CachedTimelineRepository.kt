@@ -22,7 +22,9 @@ import androidx.paging.InvalidatingPagingSourceFactory
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import app.pachli.components.timeline.TimelineRepository.Companion.PAGE_SIZE
 import app.pachli.components.timeline.viewmodel.CachedTimelineRemoteMediator
+import app.pachli.components.timeline.viewmodel.CachedTimelineRemoteMediator.Companion.RKE_TIMELINE_ID
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.dao.RemoteKeyDao
@@ -30,6 +32,8 @@ import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.dao.TranslatedStatusDao
 import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.RemoteKeyEntity
+import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
 import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.database.model.TranslatedStatusEntity
@@ -42,6 +46,7 @@ import at.connyduck.calladapter.networkresult.fold
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -62,47 +67,33 @@ class CachedTimelineRepository @Inject constructor(
     private val remoteKeyDao: RemoteKeyDao,
     private val translatedStatusDao: TranslatedStatusDao,
     @ApplicationScope private val externalScope: CoroutineScope,
-) {
+) : TimelineRepository<TimelineStatusWithAccount> {
     private var factory: InvalidatingPagingSourceFactory<Int, TimelineStatusWithAccount>? = null
 
-    /** @return flow of Mastodon [TimelineStatusWithAccount], loaded in [pageSize] increments */
+    /** @return flow of Mastodon [TimelineStatusWithAccount. */
     @OptIn(ExperimentalPagingApi::class)
-    fun getStatusStream(
+    override suspend fun getStatusStream(
         account: AccountEntity,
         kind: Timeline,
-        pageSize: Int = PAGE_SIZE,
-        initialKey: String? = null,
     ): Flow<PagingData<TimelineStatusWithAccount>> {
-        Timber.d("getStatusStream(): key: %s", initialKey)
-
         Timber.d("getStatusStream, account is %s", account.fullName)
 
         factory = InvalidatingPagingSourceFactory { timelineDao.getStatuses(account.id) }
 
-        val row = initialKey?.let { key ->
-            // Room is row-keyed (by Int), not item-keyed, so the status ID string that was
-            // passed as `initialKey` won't work.
-            //
-            // Instead, get all the status IDs for this account, in timeline order, and find the
-            // row index that contains the status. The row index is the correct initialKey.
-            timelineDao.getStatusRowNumber(account.id)
-                .indexOfFirst { it == key }.takeIf { it != -1 }
-        }
+        val initialKey = remoteKeyDao.remoteKeyForKind(account.id, RKE_TIMELINE_ID, RemoteKeyKind.REFRESH)
+        val row = initialKey?.key?.let { timelineDao.getStatusRowNumber(account.id, it) }
 
         Timber.d("initialKey: %s is row: %d", initialKey, row)
 
         return Pager(
-            config = PagingConfig(
-                pageSize = pageSize,
-                jumpThreshold = PAGE_SIZE * 3,
-                enablePlaceholders = true,
-            ),
             initialKey = row,
+            config = PagingConfig(
+                pageSize = PAGE_SIZE,
+                enablePlaceholders = false,
+            ),
             remoteMediator = CachedTimelineRemoteMediator(
-                initialKey,
                 mastodonApi,
                 account.id,
-                factory!!,
                 transactionProvider,
                 timelineDao,
                 remoteKeyDao,
@@ -112,7 +103,7 @@ class CachedTimelineRepository @Inject constructor(
     }
 
     /** Invalidate the active paging source, see [androidx.paging.PagingSource.invalidate] */
-    suspend fun invalidate(pachliAccountId: Long) {
+    override suspend fun invalidate(pachliAccountId: Long) {
         // Invalidating when no statuses have been loaded can cause empty timelines because it
         // cancels the network load.
         if (timelineDao.getStatusCount(pachliAccountId) < 1) {
@@ -122,11 +113,11 @@ class CachedTimelineRepository @Inject constructor(
         factory?.invalidate()
     }
 
-    suspend fun saveStatusViewData(pachliAccountId: Long, statusViewData: StatusViewData) = externalScope.launch {
+    suspend fun saveStatusViewData(statusViewData: StatusViewData) = externalScope.launch {
         timelineDao.upsertStatusViewData(
             StatusViewDataEntity(
                 serverId = statusViewData.actionableId,
-                timelineUserId = pachliAccountId,
+                timelineUserId = statusViewData.pachliAccountId,
                 expanded = statusViewData.isExpanded,
                 contentShowing = statusViewData.isShowingContent,
                 contentCollapsed = statusViewData.isCollapsed,
@@ -164,28 +155,15 @@ class CachedTimelineRepository @Inject constructor(
         timelineDao.clearWarning(pachliAccountId, statusId)
     }.join()
 
-    /** Remove all statuses and invalidate the pager, for the active account */
-    suspend fun clearAndReload(pachliAccountId: Long) = externalScope.launch {
-        Timber.d("clearAndReload()")
-        timelineDao.removeAll(pachliAccountId)
-        factory?.invalidate()
-    }.join()
-
-    suspend fun clearAndReloadFromNewest(pachliAccountId: Long) = externalScope.launch {
-        timelineDao.removeAll(pachliAccountId)
-        remoteKeyDao.delete(pachliAccountId, CachedTimelineRemoteMediator.RKE_TIMELINE_ID)
-        invalidate(pachliAccountId)
-    }
-
-    suspend fun translate(pachliAccountId: Long, statusViewData: StatusViewData): NetworkResult<Translation> {
-        saveStatusViewData(pachliAccountId, statusViewData.copy(translationState = TranslationState.TRANSLATING))
+    suspend fun translate(statusViewData: StatusViewData): NetworkResult<Translation> {
+        saveStatusViewData(statusViewData.copy(translationState = TranslationState.TRANSLATING))
         val translation = mastodonApi.translate(statusViewData.actionableId)
         translation.fold(
             {
                 translatedStatusDao.upsert(
                     TranslatedStatusEntity(
                         serverId = statusViewData.actionableId,
-                        timelineUserId = pachliAccountId,
+                        timelineUserId = statusViewData.pachliAccountId,
                         // TODO: Should this embed the network type instead of copying data
                         // from one type to another?
                         content = it.content,
@@ -195,21 +173,31 @@ class CachedTimelineRepository @Inject constructor(
                         provider = it.provider,
                     ),
                 )
-                saveStatusViewData(pachliAccountId, statusViewData.copy(translationState = TranslationState.SHOW_TRANSLATION))
+                saveStatusViewData(statusViewData.copy(translationState = TranslationState.SHOW_TRANSLATION))
             },
             {
                 // Reset the translation state
-                saveStatusViewData(pachliAccountId, statusViewData)
+                saveStatusViewData(statusViewData)
             },
         )
         return translation
     }
 
-    suspend fun translateUndo(pachliAccountId: Long, statusViewData: StatusViewData) {
-        saveStatusViewData(pachliAccountId, statusViewData.copy(translationState = TranslationState.SHOW_ORIGINAL))
+    suspend fun translateUndo(statusViewData: StatusViewData) {
+        saveStatusViewData(statusViewData.copy(translationState = TranslationState.SHOW_ORIGINAL))
     }
 
-    companion object {
-        private const val PAGE_SIZE = 30
-    }
+    /**
+     * Saves the ID of the notification that future refreshes will try and restore
+     * from.
+     *
+     * @param pachliAccountId
+     * @param key Notification ID to restore from. Null indicates the refresh should
+     * refresh the newest notifications.
+     */
+    suspend fun saveRefreshKey(pachliAccountId: Long, key: String?) = externalScope.async {
+        remoteKeyDao.upsert(
+            RemoteKeyEntity(pachliAccountId, RKE_TIMELINE_ID, RemoteKeyKind.REFRESH, key),
+        )
+    }.await()
 }

@@ -85,15 +85,15 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
             MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL),
         )
         binding.searchRecyclerView.layoutManager = LinearLayoutManager(binding.searchRecyclerView.context)
-        return SearchStatusesAdapter(viewModel.activeAccount!!.id, statusDisplayOptions, this)
+        return SearchStatusesAdapter(statusDisplayOptions, this)
     }
 
-    override fun onContentHiddenChange(pachliAccountId: Long, viewData: StatusViewData, isShowingContent: Boolean) {
+    override fun onContentHiddenChange(viewData: StatusViewData, isShowingContent: Boolean) {
         viewModel.contentHiddenChange(viewData, isShowingContent)
     }
 
-    override fun onReply(pachliAccountId: Long, viewData: StatusViewData) {
-        reply(pachliAccountId, viewData)
+    override fun onReply(viewData: StatusViewData) {
+        reply(viewData)
     }
 
     override fun onFavourite(viewData: StatusViewData, favourite: Boolean) {
@@ -148,11 +148,11 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
         bottomSheetActivity?.viewAccount(pachliAccountId, status.account.id)
     }
 
-    override fun onExpandedChange(pachliAccountId: Long, viewData: StatusViewData, expanded: Boolean) {
+    override fun onExpandedChange(viewData: StatusViewData, expanded: Boolean) {
         viewModel.expandedChange(viewData, expanded)
     }
 
-    override fun onContentCollapsedChange(pachliAccountId: Long, viewData: StatusViewData, isCollapsed: Boolean) {
+    override fun onContentCollapsedChange(viewData: StatusViewData, isCollapsed: Boolean) {
         viewModel.collapsedChange(viewData, isCollapsed)
     }
 
@@ -160,7 +160,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
         viewModel.voteInPoll(viewData, poll, choices)
     }
 
-    override fun clearContentFilter(pachliAccountId: Long, viewData: StatusViewData) {}
+    override fun clearContentFilter(viewData: StatusViewData) {}
 
     override fun onReblog(viewData: StatusViewData, reblog: Boolean) {
         viewModel.reblog(viewData, reblog)
@@ -173,7 +173,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
         )
     }
 
-    private fun reply(pachliAccountId: Long, status: StatusViewData) {
+    private fun reply(status: StatusViewData) {
         val actionableStatus = status.actionable
         val mentionedUsernames = actionableStatus.mentions.map { it.username }
             .toMutableSet()
@@ -184,7 +184,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
 
         val intent = ComposeActivityIntent(
             requireContext(),
-            pachliAccountId,
+            status.pachliAccountId,
             ComposeOptions(
                 inReplyToId = status.actionableId,
                 replyVisibility = actionableStatus.visibility,

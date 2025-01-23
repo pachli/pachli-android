@@ -46,13 +46,12 @@ class ConversationViewHolder internal constructor(
     )
 
     fun setupWithConversation(
-        pachliAccountId: Long,
         viewData: ConversationViewData,
         payloads: Any?,
     ) {
         val (_, _, account, inReplyToId, _, _, _, _, _, _, _, _, _, _, favourited, bookmarked, sensitive, _, _, attachments) = viewData.status
         if (payloads == null) {
-            setupCollapsedState(pachliAccountId, viewData, listener)
+            setupCollapsedState(viewData, listener)
             setDisplayName(account.name, account.emojis, statusDisplayOptions)
             setUsername(account.username)
             setMetaData(viewData, statusDisplayOptions, listener)
@@ -61,7 +60,6 @@ class ConversationViewHolder internal constructor(
             setBookmarked(bookmarked)
             if (statusDisplayOptions.mediaPreviewEnabled && hasPreviewableAttachment(attachments)) {
                 setMediaPreviews(
-                    pachliAccountId,
                     viewData,
                     attachments,
                     sensitive,
@@ -77,19 +75,18 @@ class ConversationViewHolder internal constructor(
                     mediaLabel.visibility = View.GONE
                 }
             } else {
-                setMediaLabel(pachliAccountId, viewData, attachments, sensitive, listener, viewData.isShowingContent)
+                setMediaLabel(viewData, attachments, sensitive, listener, viewData.isShowingContent)
                 // Hide all unused views.
                 mediaPreview.visibility = View.GONE
                 hideSensitiveMediaWarning()
             }
             setupButtons(
-                pachliAccountId,
                 viewData,
                 listener,
                 account.id,
                 statusDisplayOptions,
             )
-            setSpoilerAndContent(pachliAccountId, viewData, statusDisplayOptions, listener)
+            setSpoilerAndContent(viewData, statusDisplayOptions, listener)
             setConversationName(viewData.accounts)
             setAvatars(viewData.accounts)
         } else {
@@ -139,14 +136,13 @@ class ConversationViewHolder internal constructor(
     }
 
     private fun setupCollapsedState(
-        pachliAccountId: Long,
         viewData: ConversationViewData,
         listener: StatusActionListener<ConversationViewData>,
     ) {
         /* input filter for TextViews have to be set before text */
         if (viewData.isCollapsible && (viewData.isExpanded || TextUtils.isEmpty(viewData.spoilerText))) {
             contentCollapseButton.setOnClickListener {
-                listener.onContentCollapsedChange(pachliAccountId, viewData, !viewData.isCollapsed)
+                listener.onContentCollapsedChange(viewData, !viewData.isCollapsed)
             }
             contentCollapseButton.show()
             if (viewData.isCollapsed) {

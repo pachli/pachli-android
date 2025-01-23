@@ -54,6 +54,7 @@ class StatusComparisonTest {
     @Test
     fun `two equal status view data - should be equal`() {
         val viewdata1 = StatusViewData(
+            pachliAccountId = 1L,
             status = createStatus(),
             isExpanded = false,
             isShowingContent = false,
@@ -61,6 +62,7 @@ class StatusComparisonTest {
             translationState = TranslationState.SHOW_ORIGINAL,
         )
         val viewdata2 = StatusViewData(
+            pachliAccountId = 1L,
             status = createStatus(),
             isExpanded = false,
             isShowingContent = false,
@@ -73,6 +75,7 @@ class StatusComparisonTest {
     @Test
     fun `status view data with different isExpanded - should not be equal`() {
         val viewdata1 = StatusViewData(
+            pachliAccountId = 1L,
             status = createStatus(),
             isExpanded = true,
             isShowingContent = false,
@@ -80,6 +83,7 @@ class StatusComparisonTest {
             translationState = TranslationState.SHOW_ORIGINAL,
         )
         val viewdata2 = StatusViewData(
+            pachliAccountId = 1L,
             status = createStatus(),
             isExpanded = false,
             isShowingContent = false,
@@ -92,6 +96,7 @@ class StatusComparisonTest {
     @Test
     fun `status view data with different statuses- should not be equal`() {
         val viewdata1 = StatusViewData(
+            pachliAccountId = 1L,
             status = createStatus(content = "whatever"),
             isExpanded = true,
             isShowingContent = false,
@@ -99,6 +104,7 @@ class StatusComparisonTest {
             translationState = TranslationState.SHOW_ORIGINAL,
         )
         val viewdata2 = StatusViewData(
+            pachliAccountId = 1L,
             status = createStatus(),
             isExpanded = false,
             isShowingContent = false,

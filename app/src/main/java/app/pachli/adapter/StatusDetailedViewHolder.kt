@@ -106,26 +106,24 @@ class StatusDetailedViewHolder(
     }
 
     override fun setupWithStatus(
-        pachliAccountId: Long,
         viewData: StatusViewData,
         listener: StatusActionListener<StatusViewData>,
         statusDisplayOptions: StatusDisplayOptions,
         payloads: Any?,
     ) {
         // We never collapse statuses in the detail view
-        val uncollapsedStatus =
+        val uncollapsedViewdata =
             if (viewData.isCollapsible && viewData.isCollapsed) viewData.copy(isCollapsed = false) else viewData
-        super.setupWithStatus(pachliAccountId, uncollapsedStatus, listener, statusDisplayOptions, payloads)
+        super.setupWithStatus(uncollapsedViewdata, listener, statusDisplayOptions, payloads)
         setupCard(
-            pachliAccountId,
-            uncollapsedStatus,
+            uncollapsedViewdata,
             viewData.isExpanded,
             CardViewMode.FULL_WIDTH,
             statusDisplayOptions,
             listener,
         ) // Always show card for detailed status
         if (payloads == null) {
-            val (_, _, _, _, _, _, _, _, _, _, reblogsCount, favouritesCount) = uncollapsedStatus.actionable
+            val (_, _, _, _, _, _, _, _, _, _, reblogsCount, favouritesCount) = uncollapsedViewdata.actionable
             if (!statusDisplayOptions.hideStats) {
                 setReblogAndFavCount(viewData, reblogsCount, favouritesCount, listener)
             } else {
