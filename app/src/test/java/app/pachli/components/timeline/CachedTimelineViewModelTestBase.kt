@@ -103,7 +103,7 @@ abstract class CachedTimelineViewModelTestBase {
     lateinit var moshi: Moshi
 
     protected lateinit var timelineCases: TimelineCases
-    protected lateinit var viewModel: TimelineViewModel
+    protected lateinit var viewModel: CachedTimelineViewModel
 
     private val eventHub = EventHub()
 

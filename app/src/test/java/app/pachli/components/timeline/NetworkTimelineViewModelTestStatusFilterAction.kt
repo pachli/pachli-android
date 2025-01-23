@@ -22,9 +22,12 @@ import app.pachli.ContentFilterV1Test.Companion.mockStatus
 import app.pachli.components.timeline.viewmodel.StatusAction
 import app.pachli.components.timeline.viewmodel.StatusActionSuccess
 import app.pachli.components.timeline.viewmodel.UiError
+import app.pachli.components.timeline.viewmodel.UiSuccess
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.model.TranslationState
 import at.connyduck.calladapter.networkresult.NetworkResult
+import com.github.michaelbull.result.get
+import com.github.michaelbull.result.getError
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.test.runTest
@@ -79,18 +82,17 @@ class NetworkTimelineViewModelTestStatusFilterAction : NetworkTimelineViewModelT
     private val state = argumentCaptor<Boolean>()
 
     @Test
-    fun `bookmark succeeds && emits UiSuccess`() = runTest {
+    fun `bookmark succeeds && emits Ok uiResult`() = runTest {
         // Given
         timelineCases.stub { onBlocking { bookmark(any(), any()) } doReturn NetworkResult.success(status) }
 
-        viewModel.uiSuccess.test {
+        viewModel.uiResult.test {
             // When
             viewModel.accept(bookmarkAction)
 
             // Then
-            val item = awaitItem()
-            assertThat(item).isInstanceOf(StatusActionSuccess.Bookmark::class.java)
-            assertThat((item as StatusActionSuccess).action).isEqualTo(bookmarkAction)
+            val item = awaitItem().get() as? StatusActionSuccess.Bookmark
+            assertThat(item?.action).isEqualTo(bookmarkAction)
         }
 
         // Then
@@ -100,36 +102,34 @@ class NetworkTimelineViewModelTestStatusFilterAction : NetworkTimelineViewModelT
     }
 
     @Test
-    fun `bookmark fails && emits UiError`() = runTest {
+    fun `bookmark fails && emits Err uiResult`() = runTest {
         // Given
         timelineCases.stub { onBlocking { bookmark(any(), any()) } doThrow httpException }
 
-        viewModel.uiError.test {
+        viewModel.uiResult.test {
             // When
             viewModel.accept(bookmarkAction)
 
             // Then
-            val item = awaitItem()
-            assertThat(item).isInstanceOf(UiError.Bookmark::class.java)
-            assertThat(item.action).isEqualTo(bookmarkAction)
+            val item = awaitItem().getError() as? UiError.Bookmark
+            assertThat(item?.action).isEqualTo(bookmarkAction)
         }
     }
 
     @Test
-    fun `favourite succeeds && emits UiSuccess`() = runTest {
+    fun `favourite succeeds && emits Ok uiResult`() = runTest {
         // Given
         timelineCases.stub {
             onBlocking { favourite(any(), any()) } doReturn NetworkResult.success(status)
         }
 
-        viewModel.uiSuccess.test {
+        viewModel.uiResult.test {
             // When
             viewModel.accept(favouriteAction)
 
             // Then
-            val item = awaitItem()
-            assertThat(item).isInstanceOf(StatusActionSuccess.Favourite::class.java)
-            assertThat((item as StatusActionSuccess).action).isEqualTo(favouriteAction)
+            val item = awaitItem().get() as? StatusActionSuccess.Favourite
+            assertThat(item?.action).isEqualTo(favouriteAction)
         }
 
         // Then
@@ -139,34 +139,32 @@ class NetworkTimelineViewModelTestStatusFilterAction : NetworkTimelineViewModelT
     }
 
     @Test
-    fun `favourite fails && emits UiError`() = runTest {
+    fun `favourite fails && emits Err uiResult`() = runTest {
         // Given
         timelineCases.stub { onBlocking { favourite(any(), any()) } doThrow httpException }
 
-        viewModel.uiError.test {
+        viewModel.uiResult.test {
             // When
             viewModel.accept(favouriteAction)
 
             // Then
-            val item = awaitItem()
-            assertThat(item).isInstanceOf(UiError.Favourite::class.java)
-            assertThat(item.action).isEqualTo(favouriteAction)
+            val item = awaitItem().getError() as? UiError.Favourite
+            assertThat(item?.action).isEqualTo(favouriteAction)
         }
     }
 
     @Test
-    fun `reblog succeeds && emits UiSuccess`() = runTest {
+    fun `reblog succeeds && emits Ok uiResult`() = runTest {
         // Given
         timelineCases.stub { onBlocking { reblog(any(), any()) } doReturn NetworkResult.success(status) }
 
-        viewModel.uiSuccess.test {
+        viewModel.uiResult.test {
             // When
             viewModel.accept(reblogAction)
 
             // Then
-            val item = awaitItem()
-            assertThat(item).isInstanceOf(StatusActionSuccess.Reblog::class.java)
-            assertThat((item as StatusActionSuccess).action).isEqualTo(reblogAction)
+            val item = awaitItem().get() as? StatusActionSuccess.Reblog
+            assertThat(item?.action).isEqualTo(reblogAction)
         }
 
         // Then
@@ -176,36 +174,34 @@ class NetworkTimelineViewModelTestStatusFilterAction : NetworkTimelineViewModelT
     }
 
     @Test
-    fun `reblog fails && emits UiError`() = runTest {
+    fun `reblog fails && emits Err uiResult`() = runTest {
         // Given
         timelineCases.stub { onBlocking { reblog(any(), any()) } doThrow httpException }
 
-        viewModel.uiError.test {
+        viewModel.uiResult.test {
             // When
             viewModel.accept(reblogAction)
 
             // Then
-            val item = awaitItem()
-            assertThat(item).isInstanceOf(UiError.Reblog::class.java)
-            assertThat(item.action).isEqualTo(reblogAction)
+            val item = awaitItem().getError() as? UiError.Reblog
+            assertThat(item?.action).isEqualTo(reblogAction)
         }
     }
 
     @Test
-    fun `voteinpoll succeeds && emits UiSuccess`() = runTest {
+    fun `voteinpoll succeeds && emits Ok uiResult`() = runTest {
         // Given
         timelineCases.stub {
             onBlocking { voteInPoll(any(), any(), any()) } doReturn NetworkResult.success(status.poll!!)
         }
 
-        viewModel.uiSuccess.test {
+        viewModel.uiResult.test {
             // When
             viewModel.accept(voteInPollAction)
 
             // Then
-            val item = awaitItem()
-            assertThat(item).isInstanceOf(StatusActionSuccess.VoteInPoll::class.java)
-            assertThat((item as StatusActionSuccess).action).isEqualTo(voteInPollAction)
+            val item = awaitItem().get() as? StatusActionSuccess.VoteInPoll
+            assertThat(item?.action).isEqualTo(voteInPollAction)
         }
 
         // Then
@@ -218,18 +214,17 @@ class NetworkTimelineViewModelTestStatusFilterAction : NetworkTimelineViewModelT
     }
 
     @Test
-    fun `voteinpoll fails && emits UiError`() = runTest {
+    fun `voteinpoll fails && emits Err uiResult`() = runTest {
         // Given
         timelineCases.stub { onBlocking { voteInPoll(any(), any(), any()) } doThrow httpException }
 
-        viewModel.uiError.test {
+        viewModel.uiResult.test {
             // When
             viewModel.accept(voteInPollAction)
 
             // Then
-            val item = awaitItem()
-            assertThat(item).isInstanceOf(UiError.VoteInPoll::class.java)
-            assertThat(item.action).isEqualTo(voteInPollAction)
+            val item = awaitItem().getError() as? UiError.VoteInPoll
+            assertThat(item?.action).isEqualTo(voteInPollAction)
         }
     }
 }

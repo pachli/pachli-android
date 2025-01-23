@@ -93,7 +93,7 @@ abstract class NetworkTimelineViewModelTestBase {
     lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
 
     protected lateinit var timelineCases: TimelineCases
-    protected lateinit var viewModel: TimelineViewModel
+    protected lateinit var viewModel: NetworkTimelineViewModel
 
     private val eventHub = EventHub()
 
