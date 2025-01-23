@@ -101,10 +101,11 @@ import java.util.TimeZone
         AutoMigration(from = 5, to = 6),
         AutoMigration(from = 6, to = 7, spec = AppDatabase.MIGRATE_6_7::class),
         AutoMigration(from = 7, to = 8, spec = AppDatabase.MIGRATE_7_8::class),
+        // 8 -> 9 is a custom migration
         AutoMigration(from = 9, to = 10),
         AutoMigration(from = 10, to = 11),
         AutoMigration(from = 11, to = 12, spec = AppDatabase.MIGRATE_11_12::class),
-        AutoMigration(from = 12, to = 13),
+        // 12 -> 13 is a custom migration
         AutoMigration(from = 13, to = 14, spec = AppDatabase.MIGRATE_13_14::class),
     ],
 )
@@ -254,5 +255,20 @@ val MIGRATE_8_9 = object : Migration(8, 9) {
                 db.insert("ContentFiltersEntity", CONFLICT_IGNORE, contentFiltersEntityValues)
             }
         }
+    }
+}
+
+/**
+ * Adds the FK constraint between NotificationEntity and TimelineAccountEntity.
+ *
+ * The relevant TimelineAccountEntity rows may not exist in the database, so
+ * recreate NotificationEntity with the new constraint but do not migrate the
+ * data. It's a cache, so the app will refetch notifications on launch.
+ */
+val MIGRATE_12_13 = object : Migration(12, 13) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL("CREATE TABLE IF NOT EXISTS `_new_NotificationEntity` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `type` TEXT NOT NULL, `createdAt` INTEGER NOT NULL, `accountServerId` TEXT NOT NULL, `statusServerId` TEXT, PRIMARY KEY(`pachliAccountId`, `serverId`), FOREIGN KEY(`pachliAccountId`) REFERENCES `AccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED, FOREIGN KEY(`accountServerId`, `pachliAccountId`) REFERENCES `TimelineAccountEntity`(`serverId`, `timelineUserId`) ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE INITIALLY DEFERRED)")
+        db.execSQL("DROP TABLE `NotificationEntity`")
+        db.execSQL("ALTER TABLE `_new_NotificationEntity` RENAME TO `NotificationEntity`")
     }
 }
