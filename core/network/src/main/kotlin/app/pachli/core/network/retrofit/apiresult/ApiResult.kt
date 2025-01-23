@@ -66,9 +66,13 @@ sealed class ApiError(
     open val throwable: Throwable,
 ) : PachliError {
     override val formatArgs: Array<out Any>? by lazy {
-        (
-            throwable.getServerErrorMessage() ?: throwable.localizedMessage?.trim()
-            )?.let { arrayOf("$it: ${request.method} ${request.url}") } ?: arrayOf("${request.method} ${request.url}")
+        val pathAndQuery = request.url.encodedQuery?.let { query ->
+            "${request.url.encodedPath}?$query"
+        } ?: request.url.encodedPath
+
+        (throwable.getServerErrorMessage() ?: throwable.localizedMessage?.trim())?.let { msg ->
+            arrayOf("$msg: ${request.method} $pathAndQuery")
+        } ?: arrayOf("${request.method} $pathAndQuery")
     }
     override val cause: PachliError? = null
 
