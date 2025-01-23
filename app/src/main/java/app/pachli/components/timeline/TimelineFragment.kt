@@ -280,6 +280,9 @@ class TimelineFragment :
                                 binding.swipeRefreshLayout.isRefreshing = false
                                 if (adapter.itemCount == 0) {
                                     binding.statusView.setup(BackgroundMessage.Empty())
+                                    if (timeline == Timeline.Home) {
+                                        binding.statusView.showHelp(R.string.help_empty_home)
+                                    }
                                     binding.recyclerView.hide()
                                     binding.statusView.show()
                                 } else {
