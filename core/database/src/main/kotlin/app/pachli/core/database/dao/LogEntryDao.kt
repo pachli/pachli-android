@@ -18,6 +18,7 @@
 package app.pachli.core.database.dao
 
 import androidx.room.Dao
+import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.TypeConverters
 import androidx.room.Upsert
@@ -30,9 +31,8 @@ import java.time.Instant
  */
 @Dao
 interface LogEntryDao {
-    /** Upsert [logEntry] */
-    @Upsert
-    suspend fun upsert(logEntry: LogEntryEntity): Long
+    @Insert
+    suspend fun insert(logEntry: LogEntryEntity): Long
 
     /** Load all [LogEntryEntity], ordered oldest first */
     @Query(

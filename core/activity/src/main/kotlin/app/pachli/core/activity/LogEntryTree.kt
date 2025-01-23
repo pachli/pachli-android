@@ -17,6 +17,7 @@
 
 package app.pachli.core.activity
 
+import android.database.sqlite.SQLiteException
 import android.util.Log
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.database.dao.LogEntryDao
@@ -58,15 +59,22 @@ class LogEntryTree @Inject constructor(
 
     override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
         externalScope.launch {
-            logEntryDao.upsert(
-                LogEntryEntity(
-                    instant = Instant.now(),
-                    priority = priority,
-                    tag = tag,
-                    message = message,
-                    t = t,
-                ),
-            )
+            try {
+                logEntryDao.insert(
+                    LogEntryEntity(
+                        instant = Instant.now(),
+                        priority = priority,
+                        tag = tag,
+                        message = message,
+                        t = t,
+                    ),
+                )
+            } catch (e: SQLiteException) {
+                // Might trigger a "cannot start a transaction within a transaction"
+                // exception here if the log is being written inside another
+                // transaction. Nothing to do except swallow the exception and
+                // continue.
+            }
         }
     }
 }
