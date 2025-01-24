@@ -235,6 +235,7 @@ class NotificationFetcher @Inject constructor(
                 notificationsLastReadId = newMarkerId,
             )
             accountManager.setNotificationMarkerId(account.id, newMarkerId)
+            Timber.d("Updated notification marker for %s to: %s", account.fullName, newMarkerId)
         }
 
         return notifications
