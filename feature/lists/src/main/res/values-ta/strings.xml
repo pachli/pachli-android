@@ -1,4 +1,24 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="title_lists">பட்டியல்கள்</string>
+    <string name="replies_policy_name_none">யாரும் இல்லை</string>
+    <string name="hint_list_name">பட்டியல் பெயர்</string>
+    <string name="list_exclusive_label">வீட்டு காலவரிசையிலிருந்து மறைக்கவும்</string>
+    <string name="replies_policy_title">பதில்களைக் காட்டு:</string>
+    <string name="replies_policy_name_followed">பின்பற்றப்பட்ட பயனர்</string>
+    <string name="replies_policy_name_list">பட்டியலின் உறுப்பினர்கள்</string>
+    <string name="error_create_list_fmt">\" %1$s\" பட்டியலை உருவாக்க முடியவில்லை: %2$s</string>
+    <string name="error_delete_list_fmt">\" %1$s\" பட்டியலை நீக்க முடியவில்லை: %2$s</string>
+    <string name="action_remove_from_list">பட்டியலிலிருந்து கணக்கை அகற்று</string>
+    <string name="error_rename_list_fmt">\" %1$s\" பட்டியலை புதுப்பிக்க முடியவில்லை: %2$s</string>
+    <string name="action_rename_list">பட்டியலைப் புதுப்பிக்கவும்</string>
+    <string name="action_create_list">ஒரு பட்டியலை உருவாக்கவும்</string>
+    <string name="action_add_to_list">பட்டியலில் கணக்கைச் சேர்க்கவும்</string>
+    <string name="action_delete_list">பட்டியலை நீக்கு</string>
+    <string name="failed_to_add_to_list">பட்டியலில் கணக்கைச் சேர்க்கத் தவறிவிட்டது</string>
+    <string name="failed_to_remove_from_list">பட்டியலிலிருந்து கணக்கை அகற்றுவதில் தோல்வி</string>
+    <string name="no_lists">உங்களிடம் எந்த பட்டியலும் இல்லை.</string>
+    <string name="hint_search_people_list">நீங்கள் பின்பற்றும் நபர்களைத் தேடுங்கள்</string>
+    <string name="action_add_or_remove_from_list">பட்டியலிலிருந்து சேர்க்கவும் அல்லது அகற்றவும்</string>
+    <string name="dialog_delete_list_warning">\"%s\" பட்டியலை நீக்கவா?</string>
 </resources>
