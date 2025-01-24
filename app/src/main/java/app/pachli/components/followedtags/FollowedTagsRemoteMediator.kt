@@ -7,6 +7,8 @@ import androidx.paging.RemoteMediator
 import app.pachli.core.network.model.HashTag
 import app.pachli.core.network.model.HttpHeaderLink
 import app.pachli.core.network.retrofit.MastodonApi
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import retrofit2.HttpException
 import retrofit2.Response
 
@@ -25,6 +27,7 @@ class FollowedTagsRemoteMediator(
 
             return applyResponse(response)
         } catch (e: Exception) {
+            currentCoroutineContext().ensureActive()
             MediatorResult.Error(e)
         }
     }

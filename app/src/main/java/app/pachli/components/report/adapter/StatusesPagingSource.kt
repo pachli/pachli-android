@@ -22,6 +22,8 @@ import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 
@@ -69,6 +71,7 @@ class StatusesPagingSource(
                 nextKey = result.lastOrNull()?.id,
             )
         } catch (e: Exception) {
+            currentCoroutineContext().ensureActive()
             Timber.w(e, "failed to load statuses")
             return LoadResult.Error(e)
         }

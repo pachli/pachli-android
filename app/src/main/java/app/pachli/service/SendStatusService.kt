@@ -50,7 +50,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.parcelize.Parcelize
@@ -179,6 +181,7 @@ class SendStatusService : Service() {
                     mediaCheckRetries++
                 }
             } catch (e: Exception) {
+                currentCoroutineContext().ensureActive()
                 Timber.w(e, "failed getting media status")
                 retrySending(statusId)
                 return@launch

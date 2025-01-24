@@ -23,6 +23,8 @@ import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -110,6 +112,7 @@ class InstanceListFragment :
                     onFetchInstancesFailure(Exception(response.message()))
                 }
             } catch (e: Exception) {
+                currentCoroutineContext().ensureActive()
                 onFetchInstancesFailure(e)
             }
         }

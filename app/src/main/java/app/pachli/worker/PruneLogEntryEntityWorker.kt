@@ -31,6 +31,8 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import java.time.Instant
 import kotlin.time.Duration.Companion.hours
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import timber.log.Timber
 
 /** Prune the database cache of old statuses. */
@@ -49,6 +51,7 @@ class PruneLogEntryEntityWorker @AssistedInject constructor(
             logEntryDao.prune(oldest)
             Result.success()
         } catch (e: Exception) {
+            currentCoroutineContext().ensureActive()
             Timber.e(e, "error in PruneLogEntryEntityWorker.doWork")
             Result.failure()
         }

@@ -53,6 +53,8 @@ import javax.inject.Inject
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -277,6 +279,7 @@ class ViewThreadViewModel @Inject constructor(
         try {
             timelineCases.reblog(status.actionableId, reblog).getOrThrow()
         } catch (t: Exception) {
+            currentCoroutineContext().ensureActive()
             ifExpected(t) {
                 Timber.d(t, "Failed to reblog status: %s", status.actionableId)
             }
@@ -287,6 +290,7 @@ class ViewThreadViewModel @Inject constructor(
         try {
             timelineCases.favourite(status.actionableId, favorite).getOrThrow()
         } catch (t: Exception) {
+            currentCoroutineContext().ensureActive()
             ifExpected(t) {
                 Timber.d(t, "Failed to favourite status: %s ", status.actionableId)
             }
@@ -297,6 +301,7 @@ class ViewThreadViewModel @Inject constructor(
         try {
             timelineCases.bookmark(status.actionableId, bookmark).getOrThrow()
         } catch (t: Exception) {
+            currentCoroutineContext().ensureActive()
             ifExpected(t) {
                 Timber.d(t, "Failed to bookmark status: %s", status.actionableId)
             }
@@ -312,6 +317,7 @@ class ViewThreadViewModel @Inject constructor(
         try {
             timelineCases.voteInPoll(status.actionableId, poll.id, choices).getOrThrow()
         } catch (t: Exception) {
+            currentCoroutineContext().ensureActive()
             ifExpected(t) {
                 Timber.d(t, "Failed to vote in poll: %s", status.actionableId)
             }

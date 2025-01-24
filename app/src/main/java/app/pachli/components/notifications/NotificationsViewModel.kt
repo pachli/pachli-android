@@ -62,6 +62,8 @@ import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -462,6 +464,7 @@ class NotificationsViewModel @AssistedInject constructor(
                         }
                         Ok(NotificationActionSuccess.from(action))
                     } catch (e: Exception) {
+                        currentCoroutineContext().ensureActive()
                         Err(UiError.make(e, action))
                     }
                     _uiResult.send(result)
@@ -583,6 +586,7 @@ class NotificationsViewModel @AssistedInject constructor(
                 if (!isSuccessful) _uiResult.send(Err(UiError.make(HttpException(this), action)))
             }
         } catch (e: Exception) {
+            currentCoroutineContext().ensureActive()
             _uiResult.send(Err(UiError.make(e, action)))
         }
     }
