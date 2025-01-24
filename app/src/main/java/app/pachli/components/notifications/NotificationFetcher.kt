@@ -43,7 +43,9 @@ import javax.inject.Inject
 import kotlin.collections.set
 import kotlin.math.min
 import kotlin.time.Duration.Companion.milliseconds
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.take
 import timber.log.Timber
@@ -144,6 +146,7 @@ class NotificationFetcher @Inject constructor(
                         entity,
                     )
                 } catch (e: Exception) {
+                    currentCoroutineContext().ensureActive()
                     Timber.e(e, "Error while fetching notifications")
                 }
             }
@@ -248,6 +251,7 @@ class NotificationFetcher @Inject constructor(
             Timber.d("Fetched marker for %s: %s", account.fullName, notificationMarker)
             notificationMarker
         } catch (e: Exception) {
+            currentCoroutineContext().ensureActive()
             Timber.e(e, "Failed to fetch marker")
             null
         }

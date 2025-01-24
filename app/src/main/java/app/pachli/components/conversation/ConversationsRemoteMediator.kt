@@ -10,6 +10,8 @@ import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.ConversationEntity
 import app.pachli.core.network.model.HttpHeaderLink
 import app.pachli.core.network.retrofit.MastodonApi
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import retrofit2.HttpException
 
 @OptIn(ExperimentalPagingApi::class)
@@ -73,6 +75,7 @@ class ConversationsRemoteMediator(
             }
             return MediatorResult.Success(endOfPaginationReached = nextKey == null)
         } catch (e: Exception) {
+            currentCoroutineContext().ensureActive()
             return MediatorResult.Error(e)
         }
     }

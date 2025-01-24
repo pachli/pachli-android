@@ -36,6 +36,8 @@ import app.pachli.usecase.TimelineCases
 import at.connyduck.calladapter.networkresult.fold
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterIsInstance
@@ -181,6 +183,7 @@ class ConversationsViewModel @Inject constructor(
                     accountId = accountManager.activeAccount!!.id,
                 )
             } catch (e: Exception) {
+                currentCoroutineContext().ensureActive()
                 Timber.w(e, "failed to delete conversation")
             }
         }
@@ -197,6 +200,7 @@ class ConversationsViewModel @Inject constructor(
                     muted,
                 )
             } catch (e: Exception) {
+                currentCoroutineContext().ensureActive()
                 Timber.w(e, "failed to mute conversation")
             }
         }

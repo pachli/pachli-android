@@ -44,6 +44,8 @@ import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.retrofit.MastodonApi
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import okhttp3.Headers
 import retrofit2.HttpException
 import retrofit2.Response
@@ -156,6 +158,7 @@ class NotificationsRemoteMediator(
 
             MediatorResult.Success(endOfPaginationReached = false)
         } catch (e: Exception) {
+            currentCoroutineContext().ensureActive()
             Timber.e(e, "error loading, loadtype = %s", loadType)
             MediatorResult.Error(e)
         }

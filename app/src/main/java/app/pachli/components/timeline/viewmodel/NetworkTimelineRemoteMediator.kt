@@ -28,6 +28,8 @@ import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
 import java.io.IOException
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import retrofit2.HttpException
 import retrofit2.Response
 import timber.log.Timber
@@ -97,6 +99,7 @@ class NetworkTimelineRemoteMediator(
 
             return MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
         } catch (e: Exception) {
+            currentCoroutineContext().ensureActive()
             Timber.e(e, "Error loading, LoadType = %s", loadType)
             MediatorResult.Error(e)
         }

@@ -23,6 +23,8 @@ import androidx.paging.RemoteMediator
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.network.retrofit.MastodonApi
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import retrofit2.HttpException
 
 @OptIn(ExperimentalPagingApi::class)
@@ -71,6 +73,7 @@ class AccountMediaRemoteMediator(
             viewModel.currentSource?.invalidate()
             return MediatorResult.Success(endOfPaginationReached = statuses.isEmpty())
         } catch (e: Exception) {
+            currentCoroutineContext().ensureActive()
             return MediatorResult.Error(e)
         }
     }
