@@ -244,7 +244,7 @@ class NotificationsFragment :
                 }
 
                 // Update the UI from the loadState
-                adapter.loadStateFlow.collect { loadState ->
+                adapter.loadStateFlow.distinctUntilChangedBy { it.refresh }.collect { loadState ->
                     when (loadState.refresh) {
                         is LoadState.Error -> {
                             binding.progressIndicator.hide()
