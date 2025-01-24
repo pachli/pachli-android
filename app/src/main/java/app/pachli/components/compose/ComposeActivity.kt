@@ -74,18 +74,22 @@ import app.pachli.components.compose.dialog.showAddPollDialog
 import app.pachli.components.compose.view.ComposeOptionsListener
 import app.pachli.components.compose.view.ComposeScheduleView
 import app.pachli.core.activity.BaseActivity
+import app.pachli.core.activity.emojify
 import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.string.mastodonLength
+import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.model.InstanceInfo.Companion.DEFAULT_CHARACTER_LIMIT
 import app.pachli.core.data.model.InstanceInfo.Companion.DEFAULT_MAX_MEDIA_ATTACHMENTS
+import app.pachli.core.data.repository.Loadable
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
+import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InReplyTo
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InitialCursorPosition
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.network.model.Attachment
@@ -99,6 +103,7 @@ import app.pachli.core.ui.makeIcon
 import app.pachli.databinding.ActivityComposeBinding
 import app.pachli.languageidentification.LanguageIdentifier
 import app.pachli.languageidentification.UNDETERMINED_LANGUAGE_TAG
+import app.pachli.util.CompositeWithOpaqueBackground
 import app.pachli.util.PickMediaFiles
 import app.pachli.util.getInitialLanguages
 import app.pachli.util.getLocaleList
@@ -107,6 +112,7 @@ import app.pachli.util.highlightSpans
 import app.pachli.util.iconRes
 import app.pachli.util.modernLanguageCode
 import app.pachli.util.setDrawableTint
+import com.bumptech.glide.Glide
 import com.canhub.cropper.CropImage
 import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.options
@@ -114,13 +120,12 @@ import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.getOrElse
 import com.github.michaelbull.result.mapBoth
 import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.snackbar.Snackbar
-import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.IconicsSize
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
-import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.withCreationCallback
 import java.io.File
@@ -157,6 +162,8 @@ class ComposeActivity :
     private lateinit var scheduleBehavior: BottomSheetBehavior<*>
 
     private var photoUploadUri: Uri? = null
+
+    private val avatarRadius48dp by unsafeLazy { resources.getDimensionPixelSize(DR.dimen.avatar_radius_48dp) }
 
     @VisibleForTesting
     var maximumTootCharacters = DEFAULT_CHARACTER_LIMIT
@@ -275,6 +282,10 @@ class ComposeActivity :
             onRemove = this::removeMediaFromQueue,
         )
 
+        binding.replyLoadingErrorRetry.setOnClickListener { viewModel.reloadReply() }
+
+        lifecycleScope.launch { viewModel.inReplyTo.collect(::bind) }
+
         lifecycleScope.launch {
             viewModel.accountFlow.take(1).collect { account ->
                 setupAvatar(account.entity)
@@ -307,8 +318,6 @@ class ComposeActivity :
                     LinearLayoutManager(this@ComposeActivity, LinearLayoutManager.HORIZONTAL, false)
                 binding.composeMediaPreviewBar.adapter = mediaAdapter
                 binding.composeMediaPreviewBar.itemAnimator = null
-
-                setupReplyViews(viewModel.replyingStatusAuthor, viewModel.replyingStatusContent)
 
                 composeOptions?.scheduledAt?.let {
                     binding.composeScheduleView.setDateTime(it)
@@ -385,31 +394,124 @@ class ComposeActivity :
         }
     }
 
-    private fun setupReplyViews(replyingStatusAuthor: String?, replyingStatusContent: String?) {
-        if (replyingStatusAuthor != null) {
-            binding.composeReplyView.text = getString(R.string.replying_to, replyingStatusAuthor)
-            binding.composeReplyView.show()
-            val arrowDownIcon = IconicsDrawable(this, GoogleMaterial.Icon.gmd_arrow_drop_down).apply { sizeDp = 12 }
+    // TODO:
+    // Compose options needs a "ReplyToAccount" class that contains relevant info:
+    // - avatarUrl
+    // - bot
+    // - displayname
+    // - username
+    // - emojis
+    //
+    // Needs a "Reply" class that contains:
+    // - (optional) Content warning
+    // - Content
 
-            setDrawableTint(this, arrowDownIcon, android.R.attr.textColorTertiary)
-            binding.composeReplyView.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, arrowDownIcon, null)
+    // Need a linear progress indicator while the reply is loading
 
-            binding.composeReplyView.setOnClickListener {
-                TransitionManager.beginDelayedTransition(binding.composeReplyContentView.parent as ViewGroup)
+    // Consider what happens if content is empty (e.g., it was just attachments)
 
-                if (binding.composeReplyContentView.isVisible) {
-                    binding.composeReplyContentView.hide()
-                    binding.composeReplyView.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, arrowDownIcon, null)
+    private fun bind(result: Result<Loadable<out InReplyTo.Status?>, UiError.ReloadReplyError>) {
+        fun hide() {
+            binding.statusAvatar.hide()
+            binding.statusAvatarInset.hide()
+            binding.statusDisplayName.hide()
+            binding.statusUsername.hide()
+            binding.statusContentWarningDescription.hide()
+            binding.statusContent.hide()
+            binding.replyDivider.hide()
+        }
+
+        fun show() {
+            binding.statusAvatar.show()
+            binding.statusAvatarInset.show()
+            binding.statusDisplayName.show()
+            binding.statusUsername.show()
+            binding.statusContentWarningDescription.show()
+            binding.statusContent.show()
+            binding.replyDivider.show()
+        }
+
+        result.onFailure { error ->
+            hide()
+            binding.replyProgressIndicator.hide()
+
+            // Setup failure group
+            // Show failure group
+            binding.replyLoadingErrorMessage.text = error.fmt(this@ComposeActivity)
+            binding.replyLoadingError.show()
+        }
+
+        result.onSuccess { loadable ->
+            binding.replyLoadingError.hide()
+
+            val inReplyTo = when (loadable) {
+                is Loadable.Loaded -> loadable.data
+                is Loadable.Loading -> {
+                    hide()
+                    binding.replyProgressIndicator.show()
+                    return
+                }
+            }
+
+            binding.replyProgressIndicator.hide()
+
+            // No reply? Hide all the reply UI and return.
+            if (inReplyTo == null) {
+                hide()
+                return
+            }
+
+            show()
+
+            with(inReplyTo) {
+                setReplyAvatar(this)
+
+                binding.statusDisplayName.apply {
+                    text = displayName.emojify(emojis, this, sharedPreferencesRepository.animateEmojis)
+                }
+                binding.statusUsername.text = username
+
+                if (contentWarning.isEmpty()) {
+                    binding.statusContentWarningDescription.hide()
                 } else {
-                    binding.composeReplyContentView.show()
-                    val arrowUpIcon = IconicsDrawable(this, GoogleMaterial.Icon.gmd_arrow_drop_up).apply { sizeDp = 12 }
+                    binding.statusContentWarningDescription.apply {
+                        text = contentWarning.emojify(emojis, this, sharedPreferencesRepository.animateEmojis)
+                    }
+                }
 
-                    setDrawableTint(this, arrowUpIcon, android.R.attr.textColorTertiary)
-                    binding.composeReplyView.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, arrowUpIcon, null)
+                binding.statusContent.apply {
+                    text = content.emojify(emojis, this, sharedPreferencesRepository.animateEmojis)
                 }
             }
         }
-        replyingStatusContent?.let { binding.composeReplyContentView.text = it }
+    }
+
+    private fun setReplyAvatar(inReplyTo: InReplyTo.Status) {
+        binding.statusAvatar.setPaddingRelative(0, 0, 0, 0)
+        // if (statusDisplayOptions.showBotOverlay && inReplyTo.isBot) {
+        if (true && inReplyTo.isBot) {
+            binding.statusAvatarInset.visibility = View.VISIBLE
+            Glide.with(binding.statusAvatarInset)
+                .load(DR.drawable.bot_badge)
+                .into(binding.statusAvatarInset)
+        } else {
+            binding.statusAvatarInset.visibility = View.GONE
+        }
+
+        loadAvatar(
+            inReplyTo.avatarUrl,
+            binding.statusAvatar,
+            avatarRadius48dp,
+            sharedPreferencesRepository.animateAvatars,
+            listOf(
+                CompositeWithOpaqueBackground(
+                    MaterialColors.getColor(
+                        binding.statusAvatar,
+                        android.R.attr.colorBackground,
+                    ),
+                ),
+            ),
+        )
     }
 
     private fun setupContentWarningField(startingContentWarning: String?) {

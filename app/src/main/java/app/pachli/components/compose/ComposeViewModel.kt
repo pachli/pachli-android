@@ -21,6 +21,7 @@ import android.net.Uri
 import android.text.Editable
 import android.text.Spanned
 import android.text.style.URLSpan
+import androidx.annotation.StringRes
 import androidx.annotation.VisibleForTesting
 import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
@@ -32,16 +33,19 @@ import app.pachli.components.compose.UploadState.Uploaded
 import app.pachli.components.drafts.DraftHelper
 import app.pachli.components.search.SearchType
 import app.pachli.core.common.PachliError
+import app.pachli.core.common.extensions.stateFlow
 import app.pachli.core.common.string.mastodonLength
 import app.pachli.core.common.string.randomAlphanumericString
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.InstanceInfoRepository
+import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.ServerRepository
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.model.ServerOperation
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.ComposeKind
+import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InReplyTo
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.NewPoll
 import app.pachli.core.network.model.Status
@@ -59,6 +63,7 @@ import com.github.michaelbull.result.andThen
 import com.github.michaelbull.result.get
 import com.github.michaelbull.result.getOrElse
 import com.github.michaelbull.result.mapBoth
+import com.github.michaelbull.result.mapEither
 import com.github.michaelbull.result.mapError
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
@@ -69,11 +74,14 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.z4kn4fein.semver.constraints.toConstraint
 import java.util.Date
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.stateIn
@@ -81,6 +89,21 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
+
+internal sealed interface UiAction {
+    /** Retry loading the status being replied to. */
+    data object ReloadReply : UiAction
+}
+
+internal sealed class UiError(
+    @StringRes override val resourceId: Int = -1,
+    override val formatArgs: Array<out String>? = null,
+    override val cause: PachliError? = null,
+) : PachliError {
+    data class ReloadReplyError(override val cause: PachliError) : UiError(
+        R.string.ui_error_reload_reply_fmt,
+    )
+}
 
 @HiltViewModel(assistedFactory = ComposeViewModel.Factory::class)
 class ComposeViewModel @AssistedInject constructor(
@@ -112,8 +135,39 @@ class ComposeViewModel @AssistedInject constructor(
     private val effectiveContentWarning
         get() = if (showContentWarning.value) contentWarning else ""
 
-    val replyingStatusAuthor: String? = composeOptions?.replyingStatusAuthor
-    val replyingStatusContent: String? = composeOptions?.replyingStatusContent
+    private val loadReply = MutableSharedFlow<Unit>(replay = 1).apply { tryEmit(Unit) }
+
+    /**
+     * Flow of data about the in-reply-to status for this post.
+     *
+     * - Ok(null) - this is not a reply
+     * - Ok(InReplyTo.Status) - this is a reply, with the status being replied to
+     * - Err() - error occurred fetching the parent
+     */
+    internal val inReplyTo = stateFlow(viewModelScope, Ok(Loadable.Loading<InReplyTo.Status>())) {
+        loadReply.flatMapLatest {
+            flow {
+                Timber.d("Loading reply")
+                emit(Ok(Loadable.Loading<InReplyTo.Status>()))
+
+                val result = when (val i = composeOptions?.inReplyTo) {
+                    is InReplyTo.Id -> {
+                        api.status(i.statusId).mapEither(
+                            { Loadable.Loaded(InReplyTo.Status.from(it.body))},
+                            { UiError.ReloadReplyError(it) }
+                        )
+                    }
+                    is InReplyTo.Status -> Ok(Loadable.Loaded(i))
+                    null -> Ok(Loadable.Loaded(null))
+                }
+
+//                emit(Err(UiError.ReloadReplyError(RuntimeException("test exception message that's long to check formatting"))))
+                emit(result)
+            }
+        }.flowWhileShared(SharingStarted.WhileSubscribed(5000))
+    }
+
+    internal fun reloadReply() = viewModelScope.launch { loadReply.emit(Unit) }
 
     /** The initial content for this status, before any edits */
     internal var initialContent: String = composeOptions?.content.orEmpty()
@@ -133,7 +187,6 @@ class ComposeViewModel @AssistedInject constructor(
     /** If editing a draft then the ID of the draft, otherwise 0 */
     private val draftId = composeOptions?.draftId ?: 0
     private val scheduledTootId: String? = composeOptions?.scheduledTootId
-    private val inReplyToId: String? = composeOptions?.inReplyToId
     private val originalStatusId: String? = composeOptions?.statusId
     private var startingVisibility: Status.Visibility = Status.Visibility.UNKNOWN
 
@@ -421,7 +474,7 @@ class ComposeViewModel @AssistedInject constructor(
         draftHelper.saveDraft(
             draftId = draftId,
             pachliAccountId = pachliAccountId,
-            inReplyToId = inReplyToId,
+            inReplyToId = composeOptions?.inReplyTo?.statusId,
             content = content,
             contentWarning = contentWarning,
             sensitive = markMediaAsSensitive.value,
@@ -468,7 +521,7 @@ class ComposeViewModel @AssistedInject constructor(
             sensitive = attachedMedia.isNotEmpty() && (markMediaAsSensitive.value || showContentWarning.value),
             media = attachedMedia,
             scheduledAt = scheduledAt.value,
-            inReplyToId = inReplyToId,
+            inReplyToId = composeOptions?.inReplyTo?.statusId,
             poll = poll.value,
             replyingStatusContent = null,
             replyingStatusAuthorUsername = null,

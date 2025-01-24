@@ -34,9 +34,11 @@ import app.pachli.core.navigation.TimelineActivityIntent.Companion.list
 import app.pachli.core.navigation.TimelineActivityIntent.Companion.publicFederated
 import app.pachli.core.navigation.TimelineActivityIntent.Companion.publicLocal
 import app.pachli.core.network.model.Attachment
+import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.NewPoll
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.Status
+import app.pachli.core.network.parseAsMastodonHtml
 import com.gaelmarhic.quadrant.QuadrantConstants
 import java.util.Date
 import kotlinx.parcelize.Parcelize
@@ -143,12 +145,10 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOpti
         val mediaUrls: List<String>? = null,
         val mediaDescriptions: List<String>? = null,
         val mentionedUsernames: Set<String>? = null,
-        val inReplyToId: String? = null,
         val replyVisibility: Status.Visibility? = null,
         val visibility: Status.Visibility? = null,
         val contentWarning: String? = null,
-        val replyingStatusAuthor: String? = null,
-        val replyingStatusContent: String? = null,
+        val inReplyTo: InReplyTo? = null,
         val mediaAttachments: List<Attachment>? = null,
         val draftAttachments: List<DraftAttachment>? = null,
         val scheduledAt: Date? = null,
@@ -188,6 +188,50 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOpti
 
             /** Position the cursor at the end of the line */
             END,
+        }
+
+        /** Composing a reply to an existing status. */
+        @Parcelize
+        sealed class InReplyTo : Parcelable {
+            abstract val statusId: String
+
+            /**
+             * Holds the ID of the status being replied to.
+             *
+             * Use when the caller only has the ID, and needs ComposeActivity to
+             * fetch the contents of the in-reply-to status.
+             */
+            data class Id(override val statusId: String) : InReplyTo()
+
+            /**
+             * Holds the content of the status being replied to.
+             *
+             * Use when the caller already has the in-reply-to status content which
+             * can be reused without a network round trip.
+             */
+            data class Status(
+                override val statusId: String,
+                val avatarUrl: String,
+                val isBot: Boolean,
+                val displayName: String,
+                val username: String,
+                val emojis: List<Emoji>?,
+                val contentWarning: String,
+                val content: String,
+            ) : InReplyTo() {
+                companion object {
+                    fun from(status: app.pachli.core.network.model.Status) = Status(
+                        statusId = status.id,
+                        avatarUrl = status.account.avatar,
+                        isBot = status.account.bot,
+                        displayName = status.account.name,
+                        username = status.account.localUsername,
+                        emojis = status.emojis,
+                        contentWarning = status.spoilerText,
+                        content = status.content.parseAsMastodonHtml().toString(),
+                    )
+                }
+            }
         }
     }
 
