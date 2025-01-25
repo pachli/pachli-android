@@ -183,7 +183,7 @@ SELECT
 
 FROM NotificationEntity AS n
 LEFT JOIN TimelineAccountEntity AS a ON (n.pachliAccountId = a.timelineUserId AND n.accountServerId = a.serverId)
-LEFT JOIN TimelineStatusEntity AS s ON (n.pachliAccountId = s.timelineUserId AND n.statusServerId = s.serverId)
+LEFT JOIN StatusEntity AS s ON (n.pachliAccountId = s.timelineUserId AND n.statusServerId = s.serverId)
 LEFT JOIN TimelineAccountEntity AS sa ON (n.pachliAccountId = sa.timelineUserId AND s.authorServerId = sa.serverId)
 LEFT JOIN TimelineAccountEntity AS rb ON (n.pachliAccountId = rb.timelineUserId AND s.reblogAccountId = rb.serverId)
 LEFT JOIN

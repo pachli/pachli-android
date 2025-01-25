@@ -27,9 +27,9 @@ import androidx.room.Transaction
 import androidx.room.TypeConverters
 import androidx.room.Upsert
 import app.pachli.core.database.Converters
+import app.pachli.core.database.model.StatusEntity
 import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineAccountEntity
-import app.pachli.core.database.model.TimelineStatusEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.network.model.Poll
 
@@ -44,10 +44,10 @@ abstract class TimelineDao {
     abstract suspend fun upsertAccounts(accounts: Collection<TimelineAccountEntity>)
 
     @Upsert
-    abstract suspend fun upsertStatuses(statuses: Collection<TimelineStatusEntity>)
+    abstract suspend fun upsertStatuses(statuses: Collection<StatusEntity>)
 
     @Upsert
-    abstract suspend fun insertStatus(timelineStatusEntity: TimelineStatusEntity): Long
+    abstract suspend fun insertStatus(statusEntity: StatusEntity): Long
 
     @Query(
         """
@@ -120,7 +120,7 @@ SELECT
     t.poll AS 't_poll',
     t.attachments AS 't_attachments',
     t.provider AS 't_provider'
-FROM TimelineStatusEntity AS s
+FROM StatusEntity AS s
 LEFT JOIN TimelineAccountEntity AS a ON (s.timelineUserId = a.timelineUserId AND s.authorServerId = a.serverId)
 LEFT JOIN TimelineAccountEntity AS rb ON (s.timelineUserId = rb.timelineUserId AND s.reblogAccountId = rb.serverId)
 LEFT JOIN
@@ -148,9 +148,9 @@ FROM (
         t1.timelineUserId,
         t1.serverId,
         COUNT(t2.serverId) - 1 AS rownum
-    FROM TimelineStatusEntity AS t1
+    FROM StatusEntity AS t1
     INNER JOIN
-        TimelineStatusEntity AS t2
+        StatusEntity AS t2
         ON
             t1.timelineUserId = t2.timelineUserId
             AND (LENGTH(t1.serverId) <= LENGTH(t2.serverId) AND t1.serverId <= t2.serverId)
@@ -234,7 +234,7 @@ SELECT
     t.poll AS 't_poll',
     t.attachments AS 't_attachments',
     t.provider AS 't_provider'
-FROM TimelineStatusEntity AS s
+FROM StatusEntity AS s
 LEFT JOIN TimelineAccountEntity AS a ON (s.timelineUserId = a.timelineUserId AND s.authorServerId = a.serverId)
 LEFT JOIN TimelineAccountEntity AS rb ON (s.timelineUserId = rb.timelineUserId AND s.reblogAccountId = rb.serverId)
 LEFT JOIN
@@ -253,7 +253,7 @@ WHERE
     @Query(
         """
 DELETE
-FROM TimelineStatusEntity
+FROM StatusEntity
 WHERE timelineUserId = :accountId
     AND (LENGTH(serverId) < LENGTH(:maxId) OR LENGTH(serverId) == LENGTH(:maxId) AND serverId <= :maxId)
     AND (LENGTH(serverId) > LENGTH(:minId) OR LENGTH(serverId) == LENGTH(:minId) AND serverId >= :minId)
@@ -263,7 +263,7 @@ WHERE timelineUserId = :accountId
 
     @Query(
         """
-UPDATE TimelineStatusEntity
+UPDATE StatusEntity
 SET
     favourited = :favourited
 WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServerId = :statusId)
@@ -273,7 +273,7 @@ WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServe
 
     @Query(
         """
-UPDATE TimelineStatusEntity
+UPDATE StatusEntity
 SET
     bookmarked = :bookmarked
 WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServerId = :statusId)
@@ -283,7 +283,7 @@ WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServe
 
     @Query(
         """
-UPDATE TimelineStatusEntity
+UPDATE StatusEntity
 SET
     reblogged = :reblogged
 WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServerId = :statusId)
@@ -294,7 +294,7 @@ WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServe
     @Query(
         """
 DELETE
-FROM TimelineStatusEntity
+FROM StatusEntity
 WHERE
     timelineUserId = :pachliAccountId
     AND (authorServerId = :userId OR reblogAccountId = :userId)
@@ -311,7 +311,7 @@ WHERE
     @Query(
         """
 DELETE
-FROM TimelineStatusEntity
+FROM StatusEntity
 WHERE
     timelineUserId = :accountId
     AND serverId NOT IN (
@@ -344,7 +344,7 @@ WHERE timelineUserId = :accountId
     @Query(
         """
 DELETE
-FROM TimelineStatusEntity
+FROM StatusEntity
 WHERE
     timelineUserId = :accountId
     AND serverId = :statusId
@@ -353,7 +353,7 @@ WHERE
     abstract suspend fun delete(accountId: Long, statusId: String)
 
     /**
-     * Cleans the TimelineStatusEntity and TimelineAccountEntity tables from old entries.
+     * Cleans the StatusEntity and TimelineAccountEntity tables from old entries.
      * @param accountId id of the account for which to clean tables
      * @param limit how many statuses to keep
      */
@@ -366,7 +366,7 @@ WHERE
     }
 
     /**
-     * Deletes rows from [TimelineStatusEntity], keeping the newest [keep]
+     * Deletes rows from [StatusEntity], keeping the newest [keep]
      * statuses.
      *
      * @param accountId id of the account for which to clean statuses
@@ -375,7 +375,7 @@ WHERE
     @Query(
         """
 DELETE
-FROM TimelineStatusEntity
+FROM StatusEntity
 WHERE timelineUserId = :accountId AND serverId IN (
     SELECT serverId
     FROM (
@@ -385,7 +385,7 @@ WHERE timelineUserId = :accountId AND serverId IN (
             -- join returns a NULL notification ID (because the status has
             -- no associated notification)
             SELECT s.serverId
-            FROM TimelineStatusEntity AS s
+            FROM StatusEntity AS s
             LEFT JOIN
                 NotificationEntity AS n
                 ON (s.serverId = n.statusServerId AND s.timelineUserId = n.pachliAccountId)
@@ -411,7 +411,7 @@ WHERE timelineUserId = :accountId AND serverId IN (
     abstract suspend fun cleanupStatuses(accountId: Long, keep: Int)
 
     /**
-     * Cleans the TimelineAccountEntity table from accounts that are no longer referenced in the TimelineStatusEntity table
+     * Cleans the TimelineAccountEntity table from accounts that are no longer referenced in the StatusEntity table
      * @param accountId id of the user account for which to clean timeline accounts
      */
     @Query(
@@ -422,12 +422,12 @@ WHERE
     timelineUserId = :accountId
     AND serverId NOT IN (
         SELECT authorServerId
-        FROM TimelineStatusEntity
+        FROM StatusEntity
         WHERE timelineUserId = :accountId
     )
     AND serverId NOT IN (
         SELECT reblogAccountId
-        FROM TimelineStatusEntity
+        FROM StatusEntity
         WHERE timelineUserId = :accountId AND reblogAccountId IS NOT NULL
     )
     AND serverId NOT IN (
@@ -483,7 +483,7 @@ WHERE
 
     @Query(
         """
-UPDATE TimelineStatusEntity
+UPDATE StatusEntity
 SET
     poll = :poll
 WHERE timelineUserId = :accountId AND (serverId = :statusId OR reblogServerId = :statusId)
@@ -519,7 +519,7 @@ WHERE
 
     @Query(
         """
-UPDATE TimelineStatusEntity
+UPDATE StatusEntity
 SET
     pinned = :pinned
 WHERE timelineUserId = :accountId AND (serverId = :statusId OR reblogServerId = :statusId)
@@ -530,7 +530,7 @@ WHERE timelineUserId = :accountId AND (serverId = :statusId OR reblogServerId = 
     @Query(
         """
 DELETE
-FROM TimelineStatusEntity
+FROM StatusEntity
 WHERE timelineUserId = :accountId AND authorServerId IN (
     SELECT serverId
     FROM TimelineAccountEntity
@@ -544,7 +544,7 @@ WHERE timelineUserId = :accountId AND authorServerId IN (
 
     @Query(
         """
-UPDATE TimelineStatusEntity
+UPDATE StatusEntity
 SET
     filtered = NULL
 WHERE timelineUserId = :accountId AND (serverId = :statusId OR reblogServerId = :statusId)
@@ -555,7 +555,7 @@ WHERE timelineUserId = :accountId AND (serverId = :statusId OR reblogServerId = 
     @Query(
         """
 SELECT COUNT(*)
-FROM TimelineStatusEntity
+FROM StatusEntity
 WHERE timelineUserId = :accountId
 """,
     )
@@ -565,7 +565,7 @@ WHERE timelineUserId = :accountId
     @Query(
         """
 SELECT serverId
-FROM TimelineStatusEntity
+FROM StatusEntity
 WHERE timelineUserId = :accountId
 ORDER BY LENGTH(serverId) DESC, serverId DESC
 LIMIT :count

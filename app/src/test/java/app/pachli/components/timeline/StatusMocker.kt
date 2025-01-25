@@ -1,9 +1,9 @@
 package app.pachli.components.timeline
 
 import app.pachli.core.data.model.StatusViewData
+import app.pachli.core.database.model.StatusEntity
 import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineAccountEntity
-import app.pachli.core.database.model.TimelineStatusEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.network.model.Status
@@ -99,7 +99,7 @@ fun mockStatusEntityWithAccount(
     val mockedStatus = mockStatus(id)
 
     return TimelineStatusWithAccount(
-        status = TimelineStatusEntity.from(
+        status = StatusEntity.from(
             mockedStatus,
             timelineUserId = userId,
         ),
