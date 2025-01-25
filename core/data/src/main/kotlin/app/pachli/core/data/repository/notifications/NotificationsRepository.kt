@@ -28,6 +28,7 @@ import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.dao.NotificationDao
 import app.pachli.core.database.dao.RemoteKeyDao
+import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.AccountFilterDecisionUpdate
@@ -97,6 +98,7 @@ class NotificationsRepository @Inject constructor(
     private val timelineDao: TimelineDao,
     private val notificationDao: NotificationDao,
     private val remoteKeyDao: RemoteKeyDao,
+    private val statusDao: StatusDao,
     private val eventHub: EventHub,
 ) {
     private var factory: InvalidatingPagingSourceFactory<Int, NotificationData>? = null
@@ -126,6 +128,7 @@ class NotificationsRepository @Inject constructor(
                 timelineDao,
                 remoteKeyDao,
                 notificationDao,
+                statusDao,
             ),
             pagingSourceFactory = factory!!,
         ).flow
@@ -262,12 +265,12 @@ class NotificationsRepository @Inject constructor(
             }
         }
 
-        timelineDao.setBookmarked(pachliAccountId, statusId, bookmarked)
+        statusDao.setBookmarked(pachliAccountId, statusId, bookmarked)
 
         val result = deferred.await()
 
         result.onFailure { throwable ->
-            timelineDao.setBookmarked(pachliAccountId, statusId, !bookmarked)
+            statusDao.setBookmarked(pachliAccountId, statusId, !bookmarked)
             return@async Err(StatusActionError.Bookmark(throwable))
         }
 
@@ -298,12 +301,12 @@ class NotificationsRepository @Inject constructor(
             }
         }
 
-        timelineDao.setFavourited(pachliAccountId, statusId, favourited)
+        statusDao.setFavourited(pachliAccountId, statusId, favourited)
 
         val result = deferred.await()
 
         result.onFailure { throwable ->
-            timelineDao.setFavourited(pachliAccountId, statusId, !favourited)
+            statusDao.setFavourited(pachliAccountId, statusId, !favourited)
             return@async Err(StatusActionError.Favourite(throwable))
         }
 
@@ -334,12 +337,12 @@ class NotificationsRepository @Inject constructor(
             }
         }
 
-        timelineDao.setReblogged(pachliAccountId, statusId, reblogged)
+        statusDao.setReblogged(pachliAccountId, statusId, reblogged)
 
         val result = deferred.await()
 
         result.onFailure { throwable ->
-            timelineDao.setReblogged(pachliAccountId, statusId, !reblogged)
+            statusDao.setReblogged(pachliAccountId, statusId, !reblogged)
             return@async Err(StatusActionError.Reblog(throwable))
         }
 
@@ -370,7 +373,7 @@ class NotificationsRepository @Inject constructor(
 
         mastodonApi.voteInPoll(pollId, choices)
             .onSuccess { poll ->
-                timelineDao.setVoted(pachliAccountId, statusId, poll)
+                statusDao.setVoted(pachliAccountId, statusId, poll)
                 eventHub.dispatch(PollVoteEvent(statusId, poll))
             }
             .onFailure { throwable -> return@async Err(StatusActionError.VoteInPoll(throwable)) }

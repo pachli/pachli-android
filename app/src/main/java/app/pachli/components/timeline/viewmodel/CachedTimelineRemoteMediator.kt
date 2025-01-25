@@ -22,6 +22,7 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import app.pachli.core.database.dao.RemoteKeyDao
+import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.RemoteKeyEntity
@@ -48,6 +49,7 @@ class CachedTimelineRemoteMediator(
     private val transactionProvider: TransactionProvider,
     private val timelineDao: TimelineDao,
     private val remoteKeyDao: RemoteKeyDao,
+    private val statusDao: StatusDao,
 ) : RemoteMediator<Int, TimelineStatusWithAccount>() {
     override suspend fun load(
         loadType: LoadType,
@@ -259,7 +261,7 @@ class CachedTimelineRemoteMediator(
         }
 
         timelineDao.upsertAccounts(accounts.map { TimelineAccountEntity.from(it, pachliAccountId) })
-        timelineDao.upsertStatuses(statuses.map { StatusEntity.from(it, pachliAccountId) })
+        statusDao.upsertStatuses(statuses.map { StatusEntity.from(it, pachliAccountId) })
     }
 
     companion object {
