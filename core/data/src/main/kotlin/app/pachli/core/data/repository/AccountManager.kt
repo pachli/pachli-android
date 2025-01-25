@@ -17,6 +17,7 @@
 
 package app.pachli.core.data.repository
 
+import android.database.sqlite.SQLiteException
 import app.pachli.core.common.PachliError
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.R
@@ -119,6 +120,23 @@ sealed interface SetActiveAccountError : PachliError {
         val wantedAccount: AccountEntity,
         val apiError: ApiError,
     ) : SetActiveAccountError, PachliError by apiError
+
+    /**
+     * A DAO exception occurred while logging in.
+     *
+     * @param fallbackAccount See [SetActiveAccountError.fallbackAccount]
+     * @param wantedAccount The account entity that could not be made active
+     * (if known)
+     */
+    data class Dao(
+        override val fallbackAccount: AccountEntity?,
+        val wantedAccount: AccountEntity?,
+        val sqlException: SQLiteException,
+    ) : SetActiveAccountError {
+        override val resourceId = R.string.account_manager_error_dao
+        override val formatArgs: Array<String> = arrayOf(sqlException.localizedMessage ?: "unknown")
+        override val cause = null
+    }
 
     /**
      * Catch-all for unexpected exceptions when logging in.
@@ -435,6 +453,8 @@ class AccountManager @Inject constructor(
             }
         } catch (e: ApiErrorException) {
             Err(SetActiveAccountError.Api(fallbackAccount, accountEntity!!, e.apiError))
+        } catch (e: SQLiteException) {
+            Err(SetActiveAccountError.Dao(fallbackAccount, accountEntity, e))
         } catch (e: Throwable) {
             currentCoroutineContext().ensureActive()
             Err(SetActiveAccountError.Unexpected(fallbackAccount, accountEntity!!, e))

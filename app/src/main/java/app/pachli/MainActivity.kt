@@ -660,6 +660,20 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                             }
                         }
 
+                        // Database errors are not retryable. Display the error, offer to
+                        // switch back to the fall back account.
+                        //
+                        // If these occur it's a bug in Pachli, the database should never
+                        // get to a bad state.
+                        is SetActiveAccountError.Dao -> {
+                            uiError.cause.wantedAccount?.let { builder.setTitle(it.fullName) }
+                            val button = builder.await(android.R.string.ok)
+                            if (button == AlertDialog.BUTTON_POSITIVE && uiError.cause.fallbackAccount != null) {
+                                viewModel.accept(FallibleUiAction.SetActiveAccount(uiError.cause.fallbackAccount!!.id))
+                            }
+                            return
+                        }
+
                         // Other errors are retryable.
                         is SetActiveAccountError.Unexpected -> {
                             builder.setTitle(uiError.cause.wantedAccount.fullName)
