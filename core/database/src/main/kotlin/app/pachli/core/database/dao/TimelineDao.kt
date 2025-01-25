@@ -188,23 +188,6 @@ WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServe
     )
     abstract suspend fun deleteAllStatusesForAccount(accountId: Long)
 
-    /**
-     * Deletes [TimelineAccountEntity] that are not referenced by a
-     * [TimelineStatusEntity] or [NotificationEntity].
-     */
-    @Query(
-        """
-        DELETE FROM TimelineAccountEntity
-         WHERE timelineUserId = :accountId
-           AND serverId NOT IN (
-             SELECT accountServerId FROM NotificationEntity
-             UNION
-             SELECT authorServerId FROM TimelineStatusEntity
-           )
-    """,
-    )
-    abstract suspend fun removeAllAccounts(accountId: Long)
-
     @Query("DELETE FROM StatusViewDataEntity WHERE timelineUserId = :accountId")
     abstract suspend fun removeAllStatusViewData(accountId: Long)
 
@@ -231,26 +214,68 @@ AND serverId = :statusId""",
     }
 
     /**
-     * Cleans the TimelineStatusEntity table from old status entries.
+     * Deletes rows from [TimelineStatusEntity], keeping the newest [keep]
+     * statuses.
+     *
      * @param accountId id of the account for which to clean statuses
-     * @param limit how many statuses to keep
+     * @param keep (1-based) how many statuses to keep
      */
     @Query(
-        """DELETE FROM TimelineStatusEntity WHERE timelineUserId = :accountId AND serverId NOT IN
-        (SELECT serverId FROM TimelineStatusEntity WHERE timelineUserId = :accountId ORDER BY LENGTH(serverId) DESC, serverId DESC LIMIT :limit)
-    """,
+        """
+DELETE
+  FROM TimelineStatusEntity
+ WHERE timelineUserId = :accountId AND serverId IN (
+    SELECT serverId FROM (
+        WITH statuses(serverId) AS (
+            -- Statuses that are not associated with a notification.
+            -- Left join with notifications, filter to statuses where the
+            -- join returns a NULL notification ID (because the status has
+            -- no associated notification)
+            SELECT s.serverId
+              FROM TimelineStatusEntity s
+         LEFT JOIN NotificationEntity n ON (s.serverId = n.statusServerId AND s.timelineUserId = n.pachliAccountId)
+             WHERE n.statusServerId IS NULL AND s.timelineUserId = :accountId
+        )
+        -- Calculate the row number for each row, and exclude rows where
+        -- the row number < limit
+        SELECT t1.serverId, COUNT(t2.serverId) AS rownum
+          FROM statuses t1
+          LEFT JOIN statuses t2
+            ON LENGTH(t1.serverId) < LENGTH(t2.serverId)
+               OR (LENGTH(t1.serverId) = LENGTH(t2.serverId) AND t1.serverId < t2.serverId)
+         GROUP BY t1.serverId
+        HAVING rownum > :keep
     )
-    abstract suspend fun cleanupStatuses(accountId: Long, limit: Int)
+)
+        """,
+    )
+    abstract suspend fun cleanupStatuses(accountId: Long, keep: Int)
 
     /**
      * Cleans the TimelineAccountEntity table from accounts that are no longer referenced in the TimelineStatusEntity table
      * @param accountId id of the user account for which to clean timeline accounts
      */
     @Query(
-        """DELETE FROM TimelineAccountEntity WHERE timelineUserId = :accountId AND serverId NOT IN
-        (SELECT authorServerId FROM TimelineStatusEntity WHERE timelineUserId = :accountId)
-        AND serverId NOT IN
-        (SELECT reblogAccountId FROM TimelineStatusEntity WHERE timelineUserId = :accountId AND reblogAccountId IS NOT NULL)""",
+        """
+DELETE
+  FROM TimelineAccountEntity
+ WHERE timelineUserId = :accountId
+        AND serverId NOT IN (
+            SELECT authorServerId
+              FROM TimelineStatusEntity
+             WHERE timelineUserId = :accountId
+        )
+        AND serverId NOT IN (
+            SELECT reblogAccountId
+              FROM TimelineStatusEntity
+             WHERE timelineUserId = :accountId AND reblogAccountId IS NOT NULL
+        )
+        AND serverId NOT IN (
+            SELECT accountServerId
+              FROM NotificationEntity
+             WHERE pachliAccountId = :accountId
+        )
+""",
     )
     abstract suspend fun cleanupAccounts(accountId: Long)
 
