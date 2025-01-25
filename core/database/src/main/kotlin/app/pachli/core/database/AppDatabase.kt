@@ -42,6 +42,7 @@ import app.pachli.core.database.dao.ListsDao
 import app.pachli.core.database.dao.LogEntryDao
 import app.pachli.core.database.dao.NotificationDao
 import app.pachli.core.database.dao.RemoteKeyDao
+import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.dao.TranslatedStatusDao
 import app.pachli.core.database.model.AccountEntity
@@ -125,6 +126,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun announcementsDao(): AnnouncementsDao
     abstract fun followingAccountDao(): FollowingAccountDao
     abstract fun notificationDao(): NotificationDao
+    abstract fun statusDao(): StatusDao
 
     @DeleteColumn("TimelineStatusEntity", "expanded")
     @DeleteColumn("TimelineStatusEntity", "contentCollapsed")
