@@ -214,9 +214,11 @@ AND serverId = :statusId""",
     }
 
     /**
-     * Cleans the TimelineStatusEntity table from old status entries.
+     * Deletes rows from [TimelineStatusEntity], keeping the newest [keep]
+     * statuses.
+     *
      * @param accountId id of the account for which to clean statuses
-     * @param limit how many statuses to keep
+     * @param keep (1-based) how many statuses to keep
      */
     @Query(
         """
@@ -236,16 +238,18 @@ DELETE
         )
         -- Calculate the row number for each row, and exclude rows where
         -- the row number < limit
-        SELECT t1.serverId, COUNT(t2.serverId) -1 as rownum
+        SELECT t1.serverId, COUNT(t2.serverId) AS rownum
           FROM statuses t1
-     LEFT JOIN statuses t2 ON LENGTH(t1.serverId) <= LENGTH(t2.serverId) AND t1.serverId <= t2.serverId
-      GROUP BY t1.serverId
-        HAVING rownum >= :limit
+          LEFT JOIN statuses t2
+            ON LENGTH(t1.serverId) < LENGTH(t2.serverId)
+               OR (LENGTH(t1.serverId) = LENGTH(t2.serverId) AND t1.serverId < t2.serverId)
+         GROUP BY t1.serverId
+        HAVING rownum > :keep
     )
 )
-        """
+        """,
     )
-    abstract suspend fun cleanupStatuses(accountId: Long, limit: Int)
+    abstract suspend fun cleanupStatuses(accountId: Long, keep: Int)
 
     /**
      * Cleans the TimelineAccountEntity table from accounts that are no longer referenced in the TimelineStatusEntity table

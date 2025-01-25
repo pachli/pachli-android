@@ -116,7 +116,7 @@ class TimelineDaoTest {
 
     @Test
     fun cleanup() = runTest {
-        val statusesBeforeCleanup = listOf(
+        val initialStatuses = listOf(
             makeStatus(statusId = 100),
             makeStatus(statusId = 10, authorServerId = "3"),
             makeStatus(statusId = 8, reblog = true, authorServerId = "10"),
@@ -126,14 +126,7 @@ class TimelineDaoTest {
             makeStatus(statusId = 1, authorServerId = "5"),
         )
 
-        val statusesAfterCleanup = listOf(
-            makeStatus(statusId = 100),
-            makeStatus(statusId = 10, authorServerId = "3"),
-            makeStatus(statusId = 8, reblog = true, authorServerId = "10"),
-            makeStatus(statusId = 2, accountId = 2, authorServerId = "5"),
-        )
-
-        for ((status, author, reblogAuthor) in statusesBeforeCleanup) {
+        for ((status, author, reblogAuthor) in initialStatuses) {
             timelineDao.insertAccount(author)
             reblogAuthor?.let {
                 timelineDao.insertAccount(it)
@@ -144,11 +137,23 @@ class TimelineDaoTest {
         timelineDao.cleanup(accountId = 1, limit = 3)
         timelineDao.cleanupAccounts(accountId = 1)
 
+        val wantAccount1StatusesAfterCleanup = listOf(
+            makeStatus(statusId = 100),
+            makeStatus(statusId = 10, authorServerId = "3"),
+            makeStatus(statusId = 8, reblog = true, authorServerId = "10"),
+        )
+
+        val wantAccount2StatusesAfterCleanup = listOf(
+            makeStatus(statusId = 2, accountId = 2, authorServerId = "5"),
+        )
+
         val loadParams: PagingSource.LoadParams<Int> = PagingSource.LoadParams.Refresh(null, 100, false)
 
-        val loadedStatuses = (timelineDao.getStatuses(1).load(loadParams) as PagingSource.LoadResult.Page).data
+        val gotAccount1StatusesAfterCleanup = (timelineDao.getStatuses(1).load(loadParams) as PagingSource.LoadResult.Page).data
+        val gotAccount2StatusesAfterCleanup = (timelineDao.getStatuses(2).load(loadParams) as PagingSource.LoadResult.Page).data
 
-        assertStatuses(statusesAfterCleanup, loadedStatuses)
+        assertStatuses(wantAccount1StatusesAfterCleanup, gotAccount1StatusesAfterCleanup)
+        assertStatuses(wantAccount2StatusesAfterCleanup, gotAccount2StatusesAfterCleanup)
 
         val loadedAccounts: MutableList<Pair<Long, String>> = mutableListOf()
         val accountCursor = db.query("SELECT timelineUserId, serverId FROM TimelineAccountEntity ORDER BY timelineUserId, serverId", null)
@@ -159,6 +164,7 @@ class TimelineDaoTest {
             loadedAccounts.add(accountId to serverId)
             accountCursor.moveToNext()
         }
+        accountCursor.close()
 
         val expectedAccounts = listOf(
             1L to "10",
