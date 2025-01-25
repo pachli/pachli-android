@@ -26,7 +26,7 @@ import app.pachli.core.network.model.TranslatedPoll
 /**
  * Translated version of a status, see https://docs.joinmastodon.org/entities/Translation/.
  *
- * There is *no* foreignkey relationship between this and [TimelineStatusEntity], as the
+ * There is *no* foreignkey relationship between this and [StatusEntity], as the
  * translation data is kept even if the status is deleted from the local cache (e.g., during
  * a refresh operation).
  */

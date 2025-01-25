@@ -21,8 +21,8 @@ import androidx.paging.PagingSource
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.core.database.AppDatabase
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.StatusEntity
 import app.pachli.core.database.model.TimelineAccountEntity
-import app.pachli.core.database.model.TimelineStatusEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.network.model.Card
 import app.pachli.core.network.model.Emoji
@@ -360,7 +360,7 @@ class TimelineDaoTest {
         authorServerId: String = "20",
         domain: String = "mastodon.example",
         cardUrl: String? = null,
-    ): Triple<TimelineStatusEntity, TimelineAccountEntity, TimelineAccountEntity?> {
+    ): Triple<StatusEntity, TimelineAccountEntity, TimelineAccountEntity?> {
         val author = TimelineAccountEntity(
             serverId = authorServerId,
             timelineUserId = accountId,
@@ -398,7 +398,7 @@ class TimelineDaoTest {
             else -> Card(cardUrl, "", "", PreviewCardKind.LINK, providerName = "", providerUrl = "")
         }
         val even = accountId % 2 == 0L
-        val status = TimelineStatusEntity(
+        val status = StatusEntity(
             serverId = statusId.toString(),
             url = "https://$domain/whatever/$statusId",
             timelineUserId = accountId,
@@ -435,7 +435,7 @@ class TimelineDaoTest {
     }
 
     private fun assertStatuses(
-        expected: List<Triple<TimelineStatusEntity, TimelineAccountEntity, TimelineAccountEntity?>>,
+        expected: List<Triple<StatusEntity, TimelineAccountEntity, TimelineAccountEntity?>>,
         provided: List<TimelineStatusWithAccount>,
     ) {
         for ((exp, prov) in expected.zip(provided)) {
