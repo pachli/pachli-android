@@ -10,5 +10,6 @@
 
     <string name="account_manager_error_account_does_not_exist">Account does not exist in local database. This should never happen. If you see this message please send a bug report.</string>
     <string name="account_manager_error_no_active_account">no account is marked active</string>
+    <string name="account_manager_error_dao">Database error, please report this to team@pachli.app: %1$s</string>
     <string name="account_manager_error_unexpected">unexpected error: %1$s</string>
 </resources>
