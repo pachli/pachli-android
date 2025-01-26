@@ -185,7 +185,8 @@ class App : SuspendingCliktCommand() {
     /**
      * Formats [sql] with `sqlfluff fix`.
      *
-     * @return The formatted string.
+     * @return A `Result` with either the formatted string, or errors that
+     * occurred during formatting.
      */
     private fun sqlfluffFix(sql: String): Result<String, String> {
         val cmdFix = arrayOf(sqlFluff.path, "fix", "-")
@@ -201,9 +202,7 @@ class App : SuspendingCliktCommand() {
 
         proc.waitFor(10, TimeUnit.SECONDS)
         val errors = proc.errorStream.bufferedReader().readText()
-        if (errors.isNotEmpty()) {
-            return Err(errors)
-        }
+        if (errors.isNotEmpty()) return Err(errors)
 
         val formattedSql = proc.inputStream.bufferedReader().readText().trim()
         val tq = "\"\"\""
