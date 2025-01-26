@@ -57,7 +57,7 @@
     <string name="post_edited">Redigerte %s</string>
     <string name="footer_empty">Ingenting her. Dra ned for å oppdatere!</string>
     <string name="notification_reblog_format">%s delte innlegget ditt</string>
-    <string name="notification_favourite_format">%s favorittmerka innlegget ditt</string>
+    <string name="notification_favourite_format">%s favorittmerkte innlegget ditt</string>
     <string name="notification_follow_format">%s fylgde deg</string>
     <string name="notification_follow_request_format">%s ynskjer å fylgje deg</string>
     <string name="notification_sign_up_format">%s registrerte seg</string>
@@ -86,7 +86,7 @@
     <string name="action_unbookmark">Fjern bokmerke</string>
     <string name="action_logout_confirm">Er du sikker på at du vil logge ut frå kontoen %1$s? Alle opplysningar, utkast, og innstillingar som er lagra på eininga, vil gå permanent tapt.</string>
     <string name="action_post_failed">Opplastinga mislykkast</string>
-    <string name="action_post_failed_detail">Opplasting av innlegget ditt mislykkast og innlegget har vorte lagra som eit utkast.\n\nDette skjedde enten fordi serveren ikkje kunne verte nådd, eller fordi serveren har nekta å ta imot innlegget ditt.</string>
+    <string name="action_post_failed_detail">Opplasting av innlegget ditt mislykkast og innlegget er vorte lagra som eit utkast.\n\nDette skjedde enten fordi serveren ikkje kunne verte nådd, eller fordi serveren har nekta å ta imot innlegget ditt.</string>
     <string name="action_post_failed_show_drafts">Syn utkast</string>
     <string name="action_post_failed_do_nothing">Lukk</string>
     <string name="action_unfollow">Avfylg</string>
@@ -168,7 +168,7 @@
     </plurals>
     <string name="action_logout">Logg ut</string>
     <string name="action_compose">Skriv</string>
-    <string name="action_post_failed_detail_plural">Opplasting av innlegga dine mislykkast og innlegga har vorte lagra som utkast.\n\nDette skjedde enten fordi serveren ikkje kunne verte nådd, eller fordi serveren har nekta å ta imot innlegget ditt.</string>
+    <string name="action_post_failed_detail_plural">Opplasting av innlegga dine mislykkast og innlegga er vorte lagra som utkast.\n\nDette skjedde enten fordi serveren ikkje kunne verte nådd, eller fordi serveren har nekta å ta imot innlegget ditt.</string>
     <string name="action_follow">Fylg</string>
     <string name="downloading_media">Lastar ned media</string>
     <string name="hint_display_name">Visningsnamn</string>
@@ -186,7 +186,7 @@
     <string name="dialog_title_finishing_media_upload">Avsluttar opplasting av media</string>
     <string name="dialog_message_uploading_media">Lastar opp…</string>
     <string name="dialog_redraft_post_warning">Slett dette innlegget og skriv det på nytt?</string>
-    <string name="mute_domain_warning">Er du sikker på at du vil blokkere alt frå %s? Du kjem ikkje til å sjå innhald frå domenet i nokre offentlege tidslinjer eller i varsla dine. Kontoer som fylgjer deg frå dette domenet vil verte fjerna.</string>
+    <string name="mute_domain_warning">Er du sikker på at du vil blokkere alt frå %s? Du kjem ikkje til å sjå innhald frå domenet i nokre offentlege tidslinjer eller i varsla dine. Kontoer som fylgjer deg frå dette domenet, vil verte fjerna.</string>
     <string name="dialog_block_warning">Blokker @%s?</string>
     <string name="post_privacy_public">Offentleg</string>
     <string name="post_text_size_small">Små</string>
@@ -208,10 +208,10 @@
     <string name="confirmation_domain_unmuted">%s avskjult</string>
     <string name="hint_note">Biografi</string>
     <string name="pref_title_notification_filters">Varsle meg når</string>
-    <string name="pref_title_notification_filter_mentions">eg vert nemnt</string>
+    <string name="pref_title_notification_filter_mentions">eg vert nemnd</string>
     <string name="pref_title_notification_alert_vibrate">Varsle med vibrasjon</string>
     <string name="pref_title_notification_alert_light">Varsle med ljos</string>
-    <string name="pref_title_notification_filter_follows">eg vert fylgt</string>
+    <string name="pref_title_notification_filter_follows">eg vert fylgd</string>
     <string name="pref_title_notification_filter_reports">det finst ein ny rapport</string>
     <string name="pref_title_appearance_settings">Utsjånad</string>
     <string name="pref_title_notification_filter_subscriptions">nokon eg fylgjer har skrive eit nytt innlegg</string>
@@ -242,7 +242,7 @@
     <string name="status_created_at_now">no</string>
     <string name="status_filtered_show_anyway">Syn likevel</string>
     <string name="status_filter_placeholder_label_format">Filtrert: &lt;b&gt;%1$s&lt;/b&gt;</string>
-    <string name="state_follow_requested">Fylgjeførespurnad sende</string>
+    <string name="state_follow_requested">Fylgjeførespurnad send</string>
     <string name="abbreviated_in_years">om %då</string>
     <string name="abbreviated_in_days">om %dd</string>
     <string name="abbreviated_days_ago">%dd</string>
@@ -264,22 +264,22 @@
     <string name="action_remove">Fjern</string>
     <string name="lock_account_label">Lås konto</string>
     <string name="lock_account_label_description">Krev at du godtar nye fylgjarar for hand</string>
-    <string name="set_focus_description">Trykk eller dra sirkelen for å velja fokuspunktet som vil alltid verte synt i miniatyrbilete.</string>
+    <string name="set_focus_description">Trykk eller drag sirkelen for å velja fokuspunktet som vil alltid verte synt i miniatyrbilete.</string>
     <string name="action_set_caption">Angje biletetekst</string>
     <string name="action_set_focus">Angje fokuspunkt</string>
     <string name="action_edit_image">Rediger bilete</string>
     <string name="unsaved_changes">Du har ulagra endringar.</string>
-    <string name="send_post_notification_title">Send innlegg…</string>
+    <string name="send_post_notification_title">Sender innlegg…</string>
     <string name="send_post_notification_error_title">Kunne ikkje sende innlegg</string>
-    <string name="send_post_notification_channel_name">Send innlegg</string>
+    <string name="send_post_notification_channel_name">Sender innlegg</string>
     <string name="compose_delete_draft">Slett utkast?</string>
     <string name="compose_save_draft">Lagre utkast?</string>
-    <string name="compose_save_draft_loses_media">Vedlegg vert lasta opp på nytt når du opnar utkastet igjen.</string>
+    <string name="compose_save_draft_loses_media">Vedlegg vert lasta opp på nytt når du opnar utkastet att.</string>
     <string name="action_compose_shortcut">Skriv</string>
     <string name="error_no_custom_emojis">Din instans (%s) har ingen eigendefinerte emojiar</string>
     <string name="system_default">Systemstandard</string>
-    <string name="send_post_notification_cancel_title">Sending avbrote</string>
-    <string name="send_post_notification_saved_content">Ein kopi av innlegget har vorte lagra i utkasta dine</string>
+    <string name="send_post_notification_cancel_title">Sending avbroten</string>
+    <string name="send_post_notification_saved_content">Ein kopi av innlegget er vorten lagra i utkasta dine</string>
     <string name="emoji_style">Emojistil</string>
     <string name="restart_required">Appen må startast på nytt</string>
     <string name="restart_emoji">Du må starte Pachli på nytt for å ta desse endringane i bruk</string>
@@ -305,7 +305,7 @@
     <string name="confirmation_hashtag_muted">#%s skjult</string>
     <string name="confirmation_hashtag_unmuted">#%s avskjult</string>
     <string name="confirmation_hashtag_unfollowed">#%s avfylgt</string>
-    <string name="post_sent">Sende!</string>
+    <string name="post_sent">Sendt!</string>
     <string name="post_sent_long">Svaret vart sendt.</string>
     <string name="hint_compose">Kva har du på hjarta?</string>
     <string name="hint_content_warning">Innhaldsåtvaring</string>
@@ -326,8 +326,8 @@
     <string name="pref_title_notification_alert_sound">Varsle med ljod</string>
     <string name="visibility_direct">Direkt: Syn bare for nemnde brukarar</string>
     <string name="pref_title_notification_filter_follow_requests">nokon vil fylgje meg</string>
-    <string name="pref_title_notification_filter_reblogs">innlegga mine vert delt</string>
-    <string name="pref_title_notification_filter_favourites">innlegga mine vert favorittmerka</string>
+    <string name="pref_title_notification_filter_reblogs">innlegga mine vert delte</string>
+    <string name="pref_title_notification_filter_favourites">innlegga mine vert favorittmerkte</string>
     <string name="pref_title_notification_filter_poll">avstemmingar vert avslutta</string>
     <string name="pref_title_timelines">Tidslinjer</string>
     <string name="pref_title_timeline_filters">Filter</string>
@@ -364,16 +364,16 @@
     <string name="notification_follow_request_name">Fylgjeførespurnadar</string>
     <string name="notification_follow_request_description">Varsel om fylgjeførespurnadar</string>
     <string name="notification_boost_name">Delingar</string>
-    <string name="notification_boost_description">Varsel når innlegga dine vert delt</string>
+    <string name="notification_boost_description">Varsel når innlegga dine vert delte</string>
     <string name="notification_favourite_name">Favorittar</string>
-    <string name="notification_favourite_description">Varsel når innlegga dine vert favorittmerka</string>
+    <string name="notification_favourite_description">Varsel når innlegga dine vert favorittmerkte</string>
     <string name="notification_poll_name">Avstemmingar</string>
     <string name="notification_poll_description">Varsel når avstemmingar vert avslutta</string>
     <string name="notification_subscription_name">Nye innlegg</string>
     <string name="notification_subscription_description">Varsel når noen eg fylgjer med varsel legg ut eit nytt innlegg</string>
     <string name="notification_sign_up_name">Registreringar</string>
     <string name="notification_update_name">Innleggsredigeringar</string>
-    <string name="notification_update_description">Varsel når innlegg du har samhandla med vert redigert</string>
+    <string name="notification_update_description">Varsel når innlegg du har samhandla med vert redigerte</string>
     <string name="notification_report_name">Rapportar</string>
     <string name="notification_report_description">Varsel om modereringsrapportar</string>
     <string name="notification_severed_relationships_name">Brotne forhold</string>
@@ -406,18 +406,18 @@
     <string name="failed_to_pin">Festing mislykkast</string>
     <string name="failed_to_unpin">Lausning mislykkast</string>
     <plurals name="favs">
-        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; favorittmerking</item>
-        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; favorittmerkingar</item>
+        <item quantity="one"><b>%1$s</b> favorittmerke</item>
+        <item quantity="other"><b>%1$s</b> favorittmerke</item>
     </plurals>
     <plurals name="reblogs">
         <item quantity="one">&lt;b&gt;%s&lt;/b&gt; deling</item>
         <item quantity="other">&lt;b&gt;%s&lt;/b&gt; delingar</item>
     </plurals>
     <string name="title_reblogged_by">Delt av</string>
-    <string name="title_favourited_by">Favorittmerka av</string>
+    <string name="title_favourited_by">Favorittmerkt av</string>
     <string name="conversation_0_recipients">Ingen andre deltakarar</string>
     <string name="conversation_1_recipients">%1$s</string>
-    <string name="report_description_1">Rapporten vert sende til moderatorane på serveren din. Du kan oppgje ei forklåring på kvifor du rapporterer kontoen nedanfor:</string>
+    <string name="report_description_1">Rapporten vert send til moderatorane på serveren din. Du kan oppgje ei forklåring på kvifor du rapporterer kontoen nedanfor:</string>
     <string name="duration_indefinite">Uendeleg</string>
     <string name="duration_30_min">30 minutt</string>
     <string name="duration_1_hour">1 time</string>
@@ -435,7 +435,7 @@
     <string name="review_notifications">Sjå over varsel</string>
     <string name="drafts_post_failed_to_send">Dette innlegget kunne ikkje sendast!</string>
     <string name="drafts_failed_loading_reply">Svaropplysningar kunne ikkje lastast inn</string>
-    <string name="drafts_post_reply_removed">Innlegget du skreiv et svar til har vorte fjerna</string>
+    <string name="drafts_post_reply_removed">Innlegget du skreiv et svar til, er vorte fjerna</string>
     <string name="draft_deleted">Utkast sletta</string>
     <plurals name="poll_info_people">
         <item quantity="one">%s person</item>
@@ -478,7 +478,7 @@
     <string name="description_post_edited">Redigert</string>
     <string name="description_post_reblogged">Delt</string>
     <string name="description_post_favourited">Favorittmarka</string>
-    <string name="description_post_bookmarked">Bokmerka</string>
+    <string name="description_post_bookmarked">Bokmerkt</string>
     <string name="description_visibility_public">Offentleg</string>
     <string name="description_visibility_unlisted">Ulista</string>
     <string name="description_visibility_private">Fylgjarar</string>
@@ -559,8 +559,8 @@
     <string name="update_dialog_negative">Minn meg aldri igjen</string>
     <string name="update_dialog_title">Ei oppdatering er tilgjengeleg</string>
     <string name="update_dialog_neutral">Ikkje minn meg om denne utgåva</string>
-    <string name="pref_labs_reverse_home_timeline_off_summary">Innlegg vert oppført nyaste først</string>
-    <string name="pref_labs_reverse_home_timeline_on_summary">Innlegg vert oppført eldste først</string>
+    <string name="pref_labs_reverse_home_timeline_off_summary">Innlegg vert oppførte nyaste først</string>
+    <string name="pref_labs_reverse_home_timeline_on_summary">Innlegg vert oppførte eldste først</string>
     <string name="translating">Omset…</string>
     <string name="pref_notification_up_distributor_none">Ingen</string>
     <string name="pref_notification_fetch_err_timestamp_fmt">✖ For %1$s sidan, kl. %2$s</string>
@@ -613,12 +613,12 @@
     <string name="language_display_name_format">%s (%s)</string>
     <string name="action_unfollow_hashtag_format">Avfylg #%s?</string>
     <string name="mute_notifications_switch">Demp varsel</string>
-    <string name="error_missing_edits">Serveren din veit at dette innlegget vart redigert, men har ingen kopi av endringene, så kan dei ikkje synast for deg.\n\nDette er <a href="https://github.com/mastodon/mastodon/issues/25398">Mastodon-problem #25398</a>.</string>
+    <string name="error_missing_edits">Serveren din veit at dette innlegget vart redigert, men han har ingen kopi av endringene, så kan dei ikkje synast for deg.\n\nDette er <a href="https://github.com/mastodon/mastodon/issues/25398">Mastodon-problem #25398</a>.</string>
     <string name="a11y_label_loading_thread">Lastar inn tråd</string>
     <string name="accessibility_talking_about_tag">%1$d folk snakkar om emneknaggen %2$s</string>
     <string name="total_usage">Total bruk</string>
     <string name="socket_timeout_exception">Det tok for lang tid å kontaktere serveren din</string>
-    <string name="ui_error_bookmark_fmt">Mislykkast i å bokmerke innlegg: %1$s</string>
+    <string name="ui_error_bookmark_fmt">Mislykkast i å bokmerkje innlegg: %1$s</string>
     <string name="ui_error_favourite_fmt">Mislykkast i å favorittmerke innlegg: %1$s</string>
     <string name="action_add">Legg til</string>
     <string name="error_media_playback">Avspeling mislykkast: %s</string>
@@ -632,7 +632,7 @@
     <string name="pref_title_notification_battery_optimisation">Batterioptimisering</string>
     <string name="pref_notification_battery_optimisation_is_disabled">Batterioptimisering er slegen av</string>
     <string name="pref_notification_fetch_ok_timestamp_fmt">✔ For %1$s sidan, kl. %2$s</string>
-    <string name="pref_change_unified_push_distributor_msg">Dette fjernar valet av Unified Push-distributøren og startar Pachli på nytt. \n \nDersom fleire distributørar er installert, vil du verte spurt om å velge éin.</string>
+    <string name="pref_change_unified_push_distributor_msg">Dette fjernar valet av Unified Push-distributøren og startar Pachli på nytt. \n \nDersom fleire distributørar er installert, vil du verte spurd om å velge éin.</string>
     <string name="server_repository_error">Kunne ikkje hente inn serveropplysningar for %1$s: %2$s</string>
     <string name="action_remove_tab">Fjern fane</string>
     <string name="action_manage_tabs">Handsam faner</string>
@@ -663,7 +663,7 @@
     <string name="report_category_spam">Spam</string>
     <string name="pref_update_notification_frequency_once_per_version">Éin gong per utgåve</string>
     <string name="ui_error_clear_notifications">Mislykkast i å slette varsel: %s</string>
-    <string name="account_date_joined">Blei med %1$s</string>
+    <string name="account_date_joined">Vart med %1$s</string>
     <string name="status_edit_info">Redigert: %1$s</string>
     <string name="status_created_info">Laga: %1$s</string>
     <string name="pref_notification_method_pull">Hent</string>
@@ -752,7 +752,7 @@
     <string name="upload_failed_modify_attachment">Vedlegg vart modifisert</string>
     <string name="search_operator_where_public">Lista innlegg</string>
     <string name="search_operator_where_dialog_public">Lista innlegg</string>
-    <string name="upload_failed_msg_fmt">Pachli skal prøve å laste opp vedlegg når du send innlegget. Dersom opplastinga mislykkast igjen, skal innlegget lagrast i utkasta dine.\n\nFeilen var: %1$s</string>
+    <string name="upload_failed_msg_fmt">Pachli skal prøve å laste opp vedlegg når du sender innlegget. Dersom opplastinga mislykkast igjen, skal innlegget lagrast i utkasta dine.\n\nFeilen var: %1$s</string>
     <string name="main_viewmodel_error_refresh_account">Å gjenoppfriske kontoen mislykkast med den følgende feilen:\n\n%1$s\n\nDu kan fortsetja, men det kan hende at dine lister og filter kan vera ufullstendige.</string>
     <string name="main_viewmodel_error_set_active_account">Å prøve å logge inn mislykkast med den fylgjande feilen:\n\n%1$s</string>
     <string name="pref_title_account_notification_filters">Varselfilter</string>
@@ -767,7 +767,7 @@
     <string name="account_filter_placeholder_label_younger_30d">Filtrert fordi: &lt;b&gt;kontoen vart oppretta på dei siste 30 dagane&lt;/b&gt;</string>
     <string name="account_filter_placeholder_label_limited_by_server">Filtrert fordi: &lt;b&gt;kontoen er avgrensa av moderatorane dine&lt;/b&gt;</string>
     <string name="search_operator_from_dialog_other_account">Kun innlegg frå denne kontoen</string>
-    <string name="account_filter_placeholder_type_favourite_fmt">Ein brukar (@&lt;b&gt;%1s&lt;/b&gt;) favorittmerka innlegget ditt</string>
+    <string name="account_filter_placeholder_type_favourite_fmt">Ein brukar (@<b>%1s</b>) favorittmerkte innlegget ditt</string>
     <string name="account_filter_placeholder_type_reblog_fmt">Ein brukar (@&lt;b&gt;%1s&lt;/b&gt;) delte innlegget ditt</string>
     <string name="pref_account_notification_filters_subtitle">Kva burde skje til varsel frå kontoar som…</string>
     <string name="search_operator_where_dialog_title">Avgrens til…</string>
