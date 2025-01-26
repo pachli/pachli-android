@@ -25,7 +25,7 @@
     <string name="title_favourites">Favoritos</string>
     <string name="title_mutes">Silenciados</string>
     <string name="title_blocks">Bloqueados</string>
-    <string name="title_follow_requests">Solicitudes</string>
+    <string name="title_follow_requests">Solicitudes de seguimiento</string>
     <string name="title_edit_profile">Editar tu perfil</string>
     <string name="title_drafts">Borradores</string>
     <string name="post_boosted_format">%s impulsó</string>
@@ -64,7 +64,7 @@
     <string name="action_view_favourites">Favoritos</string>
     <string name="action_view_mutes">Silenciados</string>
     <string name="action_view_blocks">Bloqueados</string>
-    <string name="action_view_follow_requests">Solicitudes</string>
+    <string name="action_view_follow_requests">Solicitudes de seguimiento</string>
     <string name="action_view_media">Multimedia</string>
     <string name="action_open_in_web">Abrir en el navegador</string>
     <string name="action_add_media">Añadir multimedia</string>
@@ -125,8 +125,8 @@
     <string name="pref_title_notification_filters">Notificar cuando</string>
     <string name="pref_title_notification_filter_mentions">me mencionan</string>
     <string name="pref_title_notification_filter_follows">me siguen</string>
-    <string name="pref_title_notification_filter_reblogs">mis posts son impulsados</string>
-    <string name="pref_title_notification_filter_favourites">me dan favorito</string>
+    <string name="pref_title_notification_filter_reblogs">mis publicaciones son impulsadas</string>
+    <string name="pref_title_notification_filter_favourites">mis publicaciones son marcadas como favoritas</string>
     <string name="pref_title_appearance_settings">Apariencia</string>
     <string name="pref_title_app_theme">Tema de la app</string>
     <string name="pref_title_timelines">Cronologías</string>
@@ -157,13 +157,13 @@
     <string name="post_text_size_large">Grande</string>
     <string name="post_text_size_largest">Enorme</string>
     <string name="notification_mention_name">Nuevas menciones</string>
-    <string name="notification_mention_descriptions">Notificaciones de nuevas menciones</string>
+    <string name="notification_mention_descriptions">Notificaciones sobre nuevas menciones</string>
     <string name="notification_follow_name">Nuevos seguidores</string>
-    <string name="notification_follow_description">Notificaciones de nuevos seguidores</string>
+    <string name="notification_follow_description">Notificaciones sobre nuevos seguidores</string>
     <string name="notification_boost_name">Impulsos</string>
     <string name="notification_boost_description">Notificaciones cuando impulsan tus publicaciones</string>
     <string name="notification_favourite_name">Favoritos</string>
-    <string name="notification_favourite_description">Notificaciones de tus estados marcados como favorito</string>
+    <string name="notification_favourite_description">Notificaciones cuando tus publicaciones son marcadas como favoritas</string>
     <string name="notification_mention_format">%s te mencionó</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s y %4$d otros</string>
     <string name="notification_summary_medium">%1$s, %2$s, y %3$s</string>
@@ -302,7 +302,7 @@
     <string name="action_open_media_n">Abrir contenido #%d</string>
     <string name="downloading_media">Descargando contenido</string>
     <string name="dialog_redraft_post_warning">¿Eliminar y volver a redactar esta publicación?</string>
-    <string name="pref_title_notification_filter_poll">encuestas han terminado</string>
+    <string name="pref_title_notification_filter_poll">las encuestas han terminado</string>
     <string name="notification_poll_description">Notificaciones sobre encuestas que han terminado</string>
     <string name="pref_title_public_filter_keywords">Cronologías públicas</string>
     <string name="pref_title_thread_filter_keywords">Conversaciones</string>
@@ -378,13 +378,13 @@
     <string name="no_drafts">No tienes ningún borrador.</string>
     <string name="no_scheduled_posts">No tienes ninguna publicación programada.</string>
     <string name="warning_scheduling_interval">Mastodon tiene un intervalo de programación mínimo de 5 minutos.</string>
-    <string name="notification_follow_request_name">Solicitudes</string>
+    <string name="notification_follow_request_name">Solicitudes de seguimiento</string>
     <string name="dialog_block_warning">Bloquear @%s\?</string>
     <string name="dialog_mute_warning">Silenciar @%s\?</string>
     <string name="action_mute_conversation">Silenciar conversación</string>
     <string name="action_unmute_conversation">Dejar de silenciar conversación</string>
-    <string name="notification_follow_request_description">Notificaciones de solicitudes</string>
-    <string name="pref_title_notification_filter_follow_requests">solicitud de seguimiento</string>
+    <string name="notification_follow_request_description">Notificaciones sobre solicitudes de seguimiento</string>
+    <string name="pref_title_notification_filter_follow_requests">me solicitan seguimiento</string>
     <string name="pref_title_confirm_reblogs">Pedir confirmación antes de impulsar</string>
     <string name="pref_title_show_cards_in_timelines">Mostrar previsualizaciones de enlaces en las cronologías</string>
     <string name="pref_title_enable_swipe_for_tabs">Habilitar gesto de deslizar para alternar entre pestañas</string>
@@ -460,7 +460,7 @@
     <string name="duration_365_days">365 días</string>
     <string name="failed_to_pin">Fallo al fijar</string>
     <string name="failed_to_unpin">Fallo al quitarlo</string>
-    <string name="notification_sign_up_description">Notificaciones de nuevos usuarios</string>
+    <string name="notification_sign_up_description">Notificaciones sobre nuevos usuarios</string>
     <string name="notification_update_name">Ediciones de una publicación</string>
     <string name="notification_update_description">Notificaciones cuando se editan publicaciones con las que has interactuado</string>
     <string name="status_count_one_plus">1+</string>
@@ -498,7 +498,7 @@
     <string name="post_edited">%s editado</string>
     <string name="error_status_source_load">Falló al cargar el estado de la origen desde el servidor.</string>
     <string name="confirmation_hashtag_unfollowed">Dejaste de seguir a #%s</string>
-    <string name="pref_title_notification_filter_reports">Hay una nueva denuncia</string>
+    <string name="pref_title_notification_filter_reports">hay una nueva denuncia</string>
     <string name="action_discard">Descartar cambios</string>
     <string name="action_continue_edit">Continuar editando</string>
     <string name="unsaved_changes">Tienes cambios sin guardar.</string>
@@ -544,7 +544,7 @@
     <string name="help_empty_home">Esta es tu <b> cronología de inicio</b>. Muestra las publicaciones recientes de las cuentas que sigues. \n \nPara encontrar cuentas, puedes mirar en alguna de las otras cronologías; por ejemplo, la cronología local de tu instancia [iconics gmd_group]. O puedes buscarlas por nombre [iconics gmd_search]; por ejemplo, busca Pachli para encontrar nuestra cuenta de Mastodon.</string>
     <string name="ui_error_bookmark_fmt">Fallo al añadir a marcadores: %1$s</string>
     <string name="select_list_manage">Gestionar listas</string>
-    <string name="ui_error_favourite_fmt">Fallo al favoritear publicación: %1$s</string>
+    <string name="ui_error_favourite_fmt">Fallo al marcar la publicación como favorita: %1$s</string>
     <string name="ui_error_clear_notifications">Fallo al limpiar notificaciones: %s</string>
     <string name="ui_error_accept_follow_request">Fallo al aceptar solicitud de seguimiento: %s</string>
     <string name="ui_error_reject_follow_request">Fallo al rechazar la solicitud de seguimiento: %s</string>
@@ -625,7 +625,7 @@
     <string name="notification_severed_relationships_unknown_body">Motivo desconocido</string>
     <string name="notification_severed_relationships_format">Se rompió la relación con &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="notification_severed_relationships_name">Relaciones rotas</string>
-    <string name="notification_severed_relationships_description">Notificaciones de relaciones rotas</string>
+    <string name="notification_severed_relationships_description">Notificaciones sobre relaciones rotas</string>
     <string name="poll_show_votes">Mostrar votos</string>
     <string name="manage_lists">Gestionar listas</string>
     <string name="error_filter_missing_keyword">Por lo menos se necesita una palabra clave o frase</string>
