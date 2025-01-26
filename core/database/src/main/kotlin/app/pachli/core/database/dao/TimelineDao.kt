@@ -51,34 +51,87 @@ abstract class TimelineDao {
 
     @Query(
         """
-SELECT s.serverId, s.url, s.timelineUserId,
-s.authorServerId, s.inReplyToId, s.inReplyToAccountId, s.createdAt, s.editedAt,
-s.emojis, s.reblogsCount, s.favouritesCount, s.repliesCount, s.reblogged, s.favourited, s.bookmarked, s.sensitive,
-s.spoilerText, s.visibility, s.mentions, s.tags, s.application, s.reblogServerId,s.reblogAccountId,
-s.content, s.attachments, s.poll, s.card, s.muted, s.pinned, s.language, s.filtered,
-a.serverId as 'a_serverId', a.timelineUserId as 'a_timelineUserId',
-a.localUsername as 'a_localUsername', a.username as 'a_username',
-a.displayName as 'a_displayName', a.url as 'a_url', a.avatar as 'a_avatar',
-a.emojis as 'a_emojis', a.bot as 'a_bot', a.createdAt as 'a_createdAt', a.limited as 'a_limited',
-a.note as 'a_note',
-rb.serverId as 'rb_serverId', rb.timelineUserId 'rb_timelineUserId',
-rb.localUsername as 'rb_localUsername', rb.username as 'rb_username',
-rb.displayName as 'rb_displayName', rb.url as 'rb_url', rb.avatar as 'rb_avatar',
-rb.emojis as 'rb_emojis', rb.bot as 'rb_bot', rb.createdAt as 'rb_createdAt', rb.limited as 'rb_limited',
-rb.note as 'rb_note',
-svd.serverId as 'svd_serverId', svd.timelineUserId as 'svd_timelineUserId',
-svd.expanded as 'svd_expanded', svd.contentShowing as 'svd_contentShowing',
-svd.contentCollapsed as 'svd_contentCollapsed', svd.translationState as 'svd_translationState',
-t.serverId as 't_serverId', t.timelineUserId as 't_timelineUserId', t.content as 't_content',
-t.spoilerText as 't_spoilerText', t.poll as 't_poll', t.attachments as 't_attachments',
-t.provider as 't_provider'
-FROM TimelineStatusEntity s
-LEFT JOIN TimelineAccountEntity a ON (s.timelineUserId = a.timelineUserId AND s.authorServerId = a.serverId)
-LEFT JOIN TimelineAccountEntity rb ON (s.timelineUserId = rb.timelineUserId AND s.reblogAccountId = rb.serverId)
-LEFT JOIN StatusViewDataEntity svd ON (s.timelineUserId = svd.timelineUserId AND (s.serverId = svd.serverId OR s.reblogServerId = svd.serverId))
-LEFT JOIN TranslatedStatusEntity t ON (s.timelineUserId = t.timelineUserId AND (s.serverId = t.serverId OR s.reblogServerId = t.serverId))
+SELECT
+    s.serverId,
+    s.url,
+    s.timelineUserId,
+    s.authorServerId,
+    s.inReplyToId,
+    s.inReplyToAccountId,
+    s.createdAt,
+    s.editedAt,
+    s.emojis,
+    s.reblogsCount,
+    s.favouritesCount,
+    s.repliesCount,
+    s.reblogged,
+    s.favourited,
+    s.bookmarked,
+    s.sensitive,
+    s.spoilerText,
+    s.visibility,
+    s.mentions,
+    s.tags,
+    s.application,
+    s.reblogServerId,
+    s.reblogAccountId,
+    s.content,
+    s.attachments,
+    s.poll,
+    s.card,
+    s.muted,
+    s.pinned,
+    s.language,
+    s.filtered,
+    a.serverId AS 'a_serverId',
+    a.timelineUserId AS 'a_timelineUserId',
+    a.localUsername AS 'a_localUsername',
+    a.username AS 'a_username',
+    a.displayName AS 'a_displayName',
+    a.url AS 'a_url',
+    a.avatar AS 'a_avatar',
+    a.emojis AS 'a_emojis',
+    a.bot AS 'a_bot',
+    a.createdAt AS 'a_createdAt',
+    a.limited AS 'a_limited',
+    a.note AS 'a_note',
+    rb.serverId AS 'rb_serverId',
+    rb.timelineUserId AS 'rb_timelineUserId',
+    rb.localUsername AS 'rb_localUsername',
+    rb.username AS 'rb_username',
+    rb.displayName AS 'rb_displayName',
+    rb.url AS 'rb_url',
+    rb.avatar AS 'rb_avatar',
+    rb.emojis AS 'rb_emojis',
+    rb.bot AS 'rb_bot',
+    rb.createdAt AS 'rb_createdAt',
+    rb.limited AS 'rb_limited',
+    rb.note AS 'rb_note',
+    svd.serverId AS 'svd_serverId',
+    svd.timelineUserId AS 'svd_timelineUserId',
+    svd.expanded AS 'svd_expanded',
+    svd.contentShowing AS 'svd_contentShowing',
+    svd.contentCollapsed AS 'svd_contentCollapsed',
+    svd.translationState AS 'svd_translationState',
+    t.serverId AS 't_serverId',
+    t.timelineUserId AS 't_timelineUserId',
+    t.content AS 't_content',
+    t.spoilerText AS 't_spoilerText',
+    t.poll AS 't_poll',
+    t.attachments AS 't_attachments',
+    t.provider AS 't_provider'
+FROM TimelineStatusEntity AS s
+LEFT JOIN TimelineAccountEntity AS a ON (s.timelineUserId = a.timelineUserId AND s.authorServerId = a.serverId)
+LEFT JOIN TimelineAccountEntity AS rb ON (s.timelineUserId = rb.timelineUserId AND s.reblogAccountId = rb.serverId)
+LEFT JOIN
+    StatusViewDataEntity AS svd
+    ON (s.timelineUserId = svd.timelineUserId AND (s.serverId = svd.serverId OR s.reblogServerId = svd.serverId))
+LEFT JOIN
+    TranslatedStatusEntity AS t
+    ON (s.timelineUserId = t.timelineUserId AND (s.serverId = t.serverId OR s.reblogServerId = t.serverId))
 WHERE s.timelineUserId = :account
-ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC""",
+ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC
+""",
     )
     abstract fun getStatuses(account: Long): PagingSource<Int, TimelineStatusWithAccount>
 
@@ -89,83 +142,163 @@ ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC""",
      */
     @Query(
         """
-            SELECT rownum
-              FROM (
-                SELECT t1.timelineUserId AS timelineUserId, t1.serverId, COUNT(t2.serverId) - 1 AS rownum
-                  FROM TimelineStatusEntity t1
-                  JOIN TimelineStatusEntity t2 ON t1.timelineUserId = t2.timelineUserId AND (LENGTH(t1.serverId) <= LENGTH(t2.serverId) AND t1.serverId <= t2.serverId)
-                 WHERE t1.timelineUserId = :pachliAccountId
-                 GROUP BY t1.serverId
-                 ORDER BY length(t1.serverId) DESC, t1.serverId DESC
-             )
-             WHERE serverId = :statusId
-        """,
+SELECT rownum
+FROM (
+    SELECT
+        t1.timelineUserId,
+        t1.serverId,
+        COUNT(t2.serverId) - 1 AS rownum
+    FROM TimelineStatusEntity AS t1
+    INNER JOIN
+        TimelineStatusEntity AS t2
+        ON
+            t1.timelineUserId = t2.timelineUserId
+            AND (LENGTH(t1.serverId) <= LENGTH(t2.serverId) AND t1.serverId <= t2.serverId)
+    WHERE t1.timelineUserId = :pachliAccountId
+    GROUP BY t1.serverId
+    ORDER BY LENGTH(t1.serverId) DESC, t1.serverId DESC
+)
+WHERE serverId = :statusId
+""",
     )
     abstract suspend fun getStatusRowNumber(pachliAccountId: Long, statusId: String): Int
 
     @Query(
         """
-SELECT s.serverId, s.url, s.timelineUserId,
-s.authorServerId, s.inReplyToId, s.inReplyToAccountId, s.createdAt, s.editedAt,
-s.emojis, s.reblogsCount, s.favouritesCount, s.repliesCount, s.reblogged, s.favourited, s.bookmarked, s.sensitive,
-s.spoilerText, s.visibility, s.mentions, s.tags, s.application, s.reblogServerId,s.reblogAccountId,
-s.content, s.attachments, s.poll, s.card, s.muted, s.pinned, s.language, s.filtered,
-a.serverId as 'a_serverId', a.timelineUserId as 'a_timelineUserId',
-a.localUsername as 'a_localUsername', a.username as 'a_username',
-a.displayName as 'a_displayName', a.url as 'a_url', a.avatar as 'a_avatar',
-a.emojis as 'a_emojis', a.bot as 'a_bot', a.createdAt as 'a_createdAt', a.limited as 'a_limited',
-a.note as 'a_note',
-rb.serverId as 'rb_serverId', rb.timelineUserId 'rb_timelineUserId',
-rb.localUsername as 'rb_localUsername', rb.username as 'rb_username',
-rb.displayName as 'rb_displayName', rb.url as 'rb_url', rb.avatar as 'rb_avatar',
-rb.emojis as 'rb_emojis', rb.bot as 'rb_bot', rb.createdAt as 'rb_createdAt', rb.limited as 'rb_limited',
-rb.note as 'rb_note',
-svd.serverId as 'svd_serverId', svd.timelineUserId as 'svd_timelineUserId',
-svd.expanded as 'svd_expanded', svd.contentShowing as 'svd_contentShowing',
-svd.contentCollapsed as 'svd_contentCollapsed', svd.translationState as 'svd_translationState',
-t.serverId as 't_serverId', t.timelineUserId as 't_timelineUserId', t.content as 't_content',
-t.spoilerText as 't_spoilerText', t.poll as 't_poll', t.attachments as 't_attachments',
-t.provider as 't_provider'
-FROM TimelineStatusEntity s
-LEFT JOIN TimelineAccountEntity a ON (s.timelineUserId = a.timelineUserId AND s.authorServerId = a.serverId)
-LEFT JOIN TimelineAccountEntity rb ON (s.timelineUserId = rb.timelineUserId AND s.reblogAccountId = rb.serverId)
-LEFT JOIN StatusViewDataEntity svd ON (s.timelineUserId = svd.timelineUserId AND (s.serverId = svd.serverId OR s.reblogServerId = svd.serverId))
-LEFT JOIN TranslatedStatusEntity t ON (s.timelineUserId = t.timelineUserId AND (s.serverId = t.serverId OR s.reblogServerId = t.serverId))
-WHERE (s.serverId = :statusId OR s.reblogServerId = :statusId)
-AND s.authorServerId IS NOT NULL""",
+SELECT
+    s.serverId,
+    s.url,
+    s.timelineUserId,
+    s.authorServerId,
+    s.inReplyToId,
+    s.inReplyToAccountId,
+    s.createdAt,
+    s.editedAt,
+    s.emojis,
+    s.reblogsCount,
+    s.favouritesCount,
+    s.repliesCount,
+    s.reblogged,
+    s.favourited,
+    s.bookmarked,
+    s.sensitive,
+    s.spoilerText,
+    s.visibility,
+    s.mentions,
+    s.tags,
+    s.application,
+    s.reblogServerId,
+    s.reblogAccountId,
+    s.content,
+    s.attachments,
+    s.poll,
+    s.card,
+    s.muted,
+    s.pinned,
+    s.language,
+    s.filtered,
+    a.serverId AS 'a_serverId',
+    a.timelineUserId AS 'a_timelineUserId',
+    a.localUsername AS 'a_localUsername',
+    a.username AS 'a_username',
+    a.displayName AS 'a_displayName',
+    a.url AS 'a_url',
+    a.avatar AS 'a_avatar',
+    a.emojis AS 'a_emojis',
+    a.bot AS 'a_bot',
+    a.createdAt AS 'a_createdAt',
+    a.limited AS 'a_limited',
+    a.note AS 'a_note',
+    rb.serverId AS 'rb_serverId',
+    rb.timelineUserId AS 'rb_timelineUserId',
+    rb.localUsername AS 'rb_localUsername',
+    rb.username AS 'rb_username',
+    rb.displayName AS 'rb_displayName',
+    rb.url AS 'rb_url',
+    rb.avatar AS 'rb_avatar',
+    rb.emojis AS 'rb_emojis',
+    rb.bot AS 'rb_bot',
+    rb.createdAt AS 'rb_createdAt',
+    rb.limited AS 'rb_limited',
+    rb.note AS 'rb_note',
+    svd.serverId AS 'svd_serverId',
+    svd.timelineUserId AS 'svd_timelineUserId',
+    svd.expanded AS 'svd_expanded',
+    svd.contentShowing AS 'svd_contentShowing',
+    svd.contentCollapsed AS 'svd_contentCollapsed',
+    svd.translationState AS 'svd_translationState',
+    t.serverId AS 't_serverId',
+    t.timelineUserId AS 't_timelineUserId',
+    t.content AS 't_content',
+    t.spoilerText AS 't_spoilerText',
+    t.poll AS 't_poll',
+    t.attachments AS 't_attachments',
+    t.provider AS 't_provider'
+FROM TimelineStatusEntity AS s
+LEFT JOIN TimelineAccountEntity AS a ON (s.timelineUserId = a.timelineUserId AND s.authorServerId = a.serverId)
+LEFT JOIN TimelineAccountEntity AS rb ON (s.timelineUserId = rb.timelineUserId AND s.reblogAccountId = rb.serverId)
+LEFT JOIN
+    StatusViewDataEntity AS svd
+    ON (s.timelineUserId = svd.timelineUserId AND (s.serverId = svd.serverId OR s.reblogServerId = svd.serverId))
+LEFT JOIN
+    TranslatedStatusEntity AS t
+    ON (s.timelineUserId = t.timelineUserId AND (s.serverId = t.serverId OR s.reblogServerId = t.serverId))
+WHERE
+    (s.serverId = :statusId OR s.reblogServerId = :statusId)
+    AND s.authorServerId IS NOT NULL
+""",
     )
     abstract suspend fun getStatus(statusId: String): TimelineStatusWithAccount?
 
     @Query(
-        """DELETE FROM TimelineStatusEntity WHERE timelineUserId = :accountId AND
-        (LENGTH(serverId) < LENGTH(:maxId) OR LENGTH(serverId) == LENGTH(:maxId) AND serverId <= :maxId)
-AND
-(LENGTH(serverId) > LENGTH(:minId) OR LENGTH(serverId) == LENGTH(:minId) AND serverId >= :minId)
-    """,
+        """
+DELETE
+FROM TimelineStatusEntity
+WHERE timelineUserId = :accountId
+    AND (LENGTH(serverId) < LENGTH(:maxId) OR LENGTH(serverId) == LENGTH(:maxId) AND serverId <= :maxId)
+    AND (LENGTH(serverId) > LENGTH(:minId) OR LENGTH(serverId) == LENGTH(:minId) AND serverId >= :minId)
+""",
     )
     abstract suspend fun deleteRange(accountId: Long, minId: String, maxId: String): Int
 
     @Query(
-        """UPDATE TimelineStatusEntity SET favourited = :favourited
-WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServerId = :statusId)""",
+        """
+UPDATE TimelineStatusEntity
+SET
+    favourited = :favourited
+WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServerId = :statusId)
+""",
     )
     abstract suspend fun setFavourited(pachliAccountId: Long, statusId: String, favourited: Boolean)
 
     @Query(
-        """UPDATE TimelineStatusEntity SET bookmarked = :bookmarked
-WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServerId = :statusId)""",
+        """
+UPDATE TimelineStatusEntity
+SET
+    bookmarked = :bookmarked
+WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServerId = :statusId)
+""",
     )
     abstract suspend fun setBookmarked(pachliAccountId: Long, statusId: String, bookmarked: Boolean)
 
     @Query(
-        """UPDATE TimelineStatusEntity SET reblogged = :reblogged
-WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServerId = :statusId)""",
+        """
+UPDATE TimelineStatusEntity
+SET
+    reblogged = :reblogged
+WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServerId = :statusId)
+""",
     )
     abstract suspend fun setReblogged(pachliAccountId: Long, statusId: String, reblogged: Boolean)
 
     @Query(
-        """DELETE FROM TimelineStatusEntity WHERE timelineUserId = :pachliAccountId AND
-(authorServerId = :userId OR reblogAccountId = :userId)""",
+        """
+DELETE
+FROM TimelineStatusEntity
+WHERE
+    timelineUserId = :pachliAccountId
+    AND (authorServerId = :userId OR reblogAccountId = :userId)
+""",
     )
     abstract suspend fun removeAllByUser(pachliAccountId: Long, userId: String)
 
@@ -177,26 +310,45 @@ WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServe
      */
     @Query(
         """
-        DELETE FROM TimelineStatusEntity
-         WHERE timelineUserId = :accountId
-           AND serverId NOT IN (
-             SELECT statusServerId
-               FROM NotificationEntity
-              WHERE statusServerId IS NOT NULL
-           )
-        """,
+DELETE
+FROM TimelineStatusEntity
+WHERE
+    timelineUserId = :accountId
+    AND serverId NOT IN (
+        SELECT statusServerId
+        FROM NotificationEntity
+        WHERE statusServerId IS NOT NULL
+    )
+""",
     )
     abstract suspend fun deleteAllStatusesForAccount(accountId: Long)
 
-    @Query("DELETE FROM StatusViewDataEntity WHERE timelineUserId = :accountId")
+    @Query(
+        """
+DELETE
+FROM StatusViewDataEntity
+WHERE timelineUserId = :accountId
+""",
+    )
     abstract suspend fun removeAllStatusViewData(accountId: Long)
 
-    @Query("DELETE FROM TranslatedStatusEntity WHERE timelineUserId = :accountId")
+    @Query(
+        """
+DELETE
+FROM TranslatedStatusEntity
+WHERE timelineUserId = :accountId
+""",
+    )
     abstract suspend fun removeAllTranslatedStatus(accountId: Long)
 
     @Query(
-        """DELETE FROM TimelineStatusEntity WHERE timelineUserId = :accountId
-AND serverId = :statusId""",
+        """
+DELETE
+FROM TimelineStatusEntity
+WHERE
+    timelineUserId = :accountId
+    AND serverId = :statusId
+""",
     )
     abstract suspend fun delete(accountId: Long, statusId: String)
 
@@ -223,31 +375,38 @@ AND serverId = :statusId""",
     @Query(
         """
 DELETE
-  FROM TimelineStatusEntity
- WHERE timelineUserId = :accountId AND serverId IN (
-    SELECT serverId FROM (
-        WITH statuses(serverId) AS (
+FROM TimelineStatusEntity
+WHERE timelineUserId = :accountId AND serverId IN (
+    SELECT serverId
+    FROM (
+        WITH statuses (serverId) AS (
             -- Statuses that are not associated with a notification.
             -- Left join with notifications, filter to statuses where the
             -- join returns a NULL notification ID (because the status has
             -- no associated notification)
             SELECT s.serverId
-              FROM TimelineStatusEntity s
-         LEFT JOIN NotificationEntity n ON (s.serverId = n.statusServerId AND s.timelineUserId = n.pachliAccountId)
-             WHERE n.statusServerId IS NULL AND s.timelineUserId = :accountId
+            FROM TimelineStatusEntity AS s
+            LEFT JOIN
+                NotificationEntity AS n
+                ON (s.serverId = n.statusServerId AND s.timelineUserId = n.pachliAccountId)
+            WHERE n.statusServerId IS NULL AND s.timelineUserId = :accountId
         )
+
         -- Calculate the row number for each row, and exclude rows where
         -- the row number < limit
-        SELECT t1.serverId, COUNT(t2.serverId) AS rownum
-          FROM statuses t1
-          LEFT JOIN statuses t2
-            ON LENGTH(t1.serverId) < LENGTH(t2.serverId)
-               OR (LENGTH(t1.serverId) = LENGTH(t2.serverId) AND t1.serverId < t2.serverId)
-         GROUP BY t1.serverId
+        SELECT
+            t1.serverId,
+            COUNT(t2.serverId) AS rownum
+        FROM statuses AS t1
+        LEFT JOIN statuses AS t2
+            ON
+                LENGTH(t1.serverId) < LENGTH(t2.serverId)
+                OR (LENGTH(t1.serverId) = LENGTH(t2.serverId) AND t1.serverId < t2.serverId)
+        GROUP BY t1.serverId
         HAVING rownum > :keep
     )
 )
-        """,
+""",
     )
     abstract suspend fun cleanupStatuses(accountId: Long, keep: Int)
 
@@ -258,23 +417,24 @@ DELETE
     @Query(
         """
 DELETE
-  FROM TimelineAccountEntity
- WHERE timelineUserId = :accountId
-        AND serverId NOT IN (
-            SELECT authorServerId
-              FROM TimelineStatusEntity
-             WHERE timelineUserId = :accountId
-        )
-        AND serverId NOT IN (
-            SELECT reblogAccountId
-              FROM TimelineStatusEntity
-             WHERE timelineUserId = :accountId AND reblogAccountId IS NOT NULL
-        )
-        AND serverId NOT IN (
-            SELECT accountServerId
-              FROM NotificationEntity
-             WHERE pachliAccountId = :accountId
-        )
+FROM TimelineAccountEntity
+WHERE
+    timelineUserId = :accountId
+    AND serverId NOT IN (
+        SELECT authorServerId
+        FROM TimelineStatusEntity
+        WHERE timelineUserId = :accountId
+    )
+    AND serverId NOT IN (
+        SELECT reblogAccountId
+        FROM TimelineStatusEntity
+        WHERE timelineUserId = :accountId AND reblogAccountId IS NOT NULL
+    )
+    AND serverId NOT IN (
+        SELECT accountServerId
+        FROM NotificationEntity
+        WHERE pachliAccountId = :accountId
+    )
 """,
     )
     abstract suspend fun cleanupAccounts(accountId: Long)
@@ -284,13 +444,19 @@ DELETE
      * entries.
      */
     @Query(
-        """DELETE
-             FROM StatusViewDataEntity
-            WHERE timelineUserId = :accountId
-              AND serverId NOT IN (
-                SELECT serverId FROM StatusViewDataEntity WHERE timelineUserId = :accountId ORDER BY LENGTH(serverId) DESC, serverId DESC LIMIT :limit
-              )
-        """,
+        """
+DELETE
+FROM StatusViewDataEntity
+WHERE
+    timelineUserId = :accountId
+    AND serverId NOT IN (
+        SELECT serverId
+        FROM StatusViewDataEntity
+        WHERE timelineUserId = :accountId
+        ORDER BY LENGTH(serverId) DESC, serverId DESC
+        LIMIT :limit
+    )
+""",
     )
     abstract suspend fun cleanupStatusViewData(accountId: Long, limit: Int)
 
@@ -299,19 +465,29 @@ DELETE
      * entries.
      */
     @Query(
-        """DELETE
-             FROM TranslatedStatusEntity
-            WHERE timelineUserId = :accountId
-              AND serverId NOT IN (
-                SELECT serverId FROM TranslatedStatusEntity WHERE timelineUserId = :accountId ORDER BY LENGTH(serverId) DESC, serverId DESC LIMIT :limit
-              )
-        """,
+        """
+DELETE
+FROM TranslatedStatusEntity
+WHERE
+    timelineUserId = :accountId
+    AND serverId NOT IN (
+        SELECT serverId
+        FROM TranslatedStatusEntity
+        WHERE timelineUserId = :accountId
+        ORDER BY LENGTH(serverId) DESC, serverId DESC
+        LIMIT :limit
+    )
+""",
     )
     abstract suspend fun cleanupTranslatedStatus(accountId: Long, limit: Int)
 
     @Query(
-        """UPDATE TimelineStatusEntity SET poll = :poll
-WHERE timelineUserId = :accountId AND (serverId = :statusId OR reblogServerId = :statusId)""",
+        """
+UPDATE TimelineStatusEntity
+SET
+    poll = :poll
+WHERE timelineUserId = :accountId AND (serverId = :statusId OR reblogServerId = :statusId)
+""",
     )
     abstract suspend fun setVoted(accountId: Long, statusId: String, poll: Poll)
 
@@ -324,10 +500,13 @@ WHERE timelineUserId = :accountId AND (serverId = :statusId OR reblogServerId = 
      * @return Map between serverIds and any cached viewdata for those statuses
      */
     @Query(
-        """SELECT *
-             FROM StatusViewDataEntity
-            WHERE timelineUserId = :accountId
-              AND serverId IN (:serverIds)""",
+        """
+SELECT *
+FROM StatusViewDataEntity
+WHERE
+    timelineUserId = :accountId
+    AND serverId IN (:serverIds)
+""",
     )
     abstract suspend fun getStatusViewData(
         accountId: Long,
@@ -339,38 +518,69 @@ WHERE timelineUserId = :accountId AND (serverId = :statusId OR reblogServerId = 
         >
 
     @Query(
-        """UPDATE TimelineStatusEntity SET pinned = :pinned
-WHERE timelineUserId = :accountId AND (serverId = :statusId OR reblogServerId = :statusId)""",
+        """
+UPDATE TimelineStatusEntity
+SET
+    pinned = :pinned
+WHERE timelineUserId = :accountId AND (serverId = :statusId OR reblogServerId = :statusId)
+""",
     )
     abstract suspend fun setPinned(accountId: Long, statusId: String, pinned: Boolean)
 
     @Query(
-        """DELETE FROM TimelineStatusEntity
+        """
+DELETE
+FROM TimelineStatusEntity
 WHERE timelineUserId = :accountId AND authorServerId IN (
-SELECT serverId FROM TimelineAccountEntity WHERE username LIKE '%@' || :instanceDomain
-AND timelineUserId = :accountId
-)""",
+    SELECT serverId
+    FROM TimelineAccountEntity
+    WHERE
+        username LIKE '%@' || :instanceDomain
+        AND timelineUserId = :accountId
+)
+""",
     )
     abstract suspend fun deleteAllFromInstance(accountId: Long, instanceDomain: String)
 
-    @Query("UPDATE TimelineStatusEntity SET filtered = NULL WHERE timelineUserId = :accountId AND (serverId = :statusId OR reblogServerId = :statusId)")
+    @Query(
+        """
+UPDATE TimelineStatusEntity
+SET
+    filtered = NULL
+WHERE timelineUserId = :accountId AND (serverId = :statusId OR reblogServerId = :statusId)
+""",
+    )
     abstract suspend fun clearWarning(accountId: Long, statusId: String): Int
 
-    @Query("SELECT COUNT(*) FROM TimelineStatusEntity WHERE timelineUserId = :accountId")
+    @Query(
+        """
+SELECT COUNT(*)
+FROM TimelineStatusEntity
+WHERE timelineUserId = :accountId
+""",
+    )
     abstract suspend fun getStatusCount(accountId: Long): Int
 
     /** Developer tools: Find N most recent status IDs */
-    @Query("SELECT serverId FROM TimelineStatusEntity WHERE timelineUserId = :accountId ORDER BY LENGTH(serverId) DESC, serverId DESC LIMIT :count")
+    @Query(
+        """
+SELECT serverId
+FROM TimelineStatusEntity
+WHERE timelineUserId = :accountId
+ORDER BY LENGTH(serverId) DESC, serverId DESC
+LIMIT :count
+""",
+    )
     abstract suspend fun getMostRecentNStatusIds(accountId: Long, count: Int): List<String>
 
     /** @returns The [timeline accounts][TimelineAccountEntity] known by [pachliAccountId]. */
     @Deprecated("Do not use, only present for tests")
     @Query(
         """
-        SELECT *
-          FROM TimelineAccountEntity
-         WHERE timelineUserId = :pachliAccountId
-        """,
+SELECT *
+FROM TimelineAccountEntity
+WHERE timelineUserId = :pachliAccountId
+""",
     )
     abstract suspend fun loadTimelineAccountsForAccount(pachliAccountId: Long): List<TimelineAccountEntity>
 }

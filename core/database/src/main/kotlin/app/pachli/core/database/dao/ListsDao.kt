@@ -30,32 +30,37 @@ import kotlinx.coroutines.flow.Flow
 interface ListsDao {
     @Query(
         """
-        DELETE
-          FROM MastodonListEntity
-         WHERE accountId = :pachliAccountId
-    """,
+DELETE
+FROM MastodonListEntity
+WHERE accountId = :pachliAccountId
+""",
     )
     suspend fun deleteAllForAccount(pachliAccountId: Long)
 
     @Query(
         """
-            SELECT *
-              FROM MastodonListEntity
-             WHERE accountId = :pachliAccountId
-        """,
+SELECT *
+FROM MastodonListEntity
+WHERE accountId = :pachliAccountId
+""",
     )
     fun flowByAccount(pachliAccountId: Long): Flow<List<MastodonListEntity>>
 
     @Query(
         """
-            SELECT *
-              FROM MastodonListEntity
-             WHERE accountId = :pachliAccountId
-        """,
+SELECT *
+FROM MastodonListEntity
+WHERE accountId = :pachliAccountId
+""",
     )
     suspend fun get(pachliAccountId: Long): List<MastodonListEntity>
 
-    @Query("SELECT * FROM MastodonListEntity")
+    @Query(
+        """
+SELECT *
+FROM MastodonListEntity
+""",
+    )
     fun flowAll(): Flow<List<MastodonListEntity>>
 
     @Upsert
@@ -66,10 +71,10 @@ interface ListsDao {
 
     @Query(
         """
-            DELETE
-              FROM MastodonListEntity
-             WHERE accountId = :pachliAccountId AND listId = :listId
-        """,
+DELETE
+FROM MastodonListEntity
+WHERE accountId = :pachliAccountId AND listId = :listId
+""",
     )
     suspend fun deleteForAccount(pachliAccountId: Long, listId: String)
 }

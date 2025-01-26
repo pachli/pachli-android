@@ -29,10 +29,10 @@ import app.pachli.core.database.model.AnnouncementEntity
 interface AnnouncementsDao {
     @Query(
         """
-        DELETE
-          FROM AnnouncementEntity
-         WHERE accountId = :accountId
-    """,
+DELETE
+FROM AnnouncementEntity
+WHERE accountId = :accountId
+""",
     )
     suspend fun deleteAllForAccount(accountId: Long)
 
@@ -44,19 +44,19 @@ interface AnnouncementsDao {
 
     @Query(
         """
-        DELETE
-          FROM AnnouncementEntity
-         WHERE accountId = :pachliAccountId AND announcementId = :announcementId
-    """,
+DELETE
+FROM AnnouncementEntity
+WHERE accountId = :pachliAccountId AND announcementId = :announcementId
+""",
     )
     suspend fun deleteForAccount(pachliAccountId: Long, announcementId: String)
 
     @Query(
         """
-        SELECT *
-          FROM AnnouncementEntity
-         WHERE accountId = :pachliAccountId
-        """,
+SELECT *
+FROM AnnouncementEntity
+WHERE accountId = :pachliAccountId
+""",
     )
     suspend fun loadAllForAccount(pachliAccountId: Long): List<AnnouncementEntity>
 }
