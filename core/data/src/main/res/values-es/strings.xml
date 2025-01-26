@@ -10,4 +10,5 @@
     <string name="account_manager_error_no_active_account">Ninguna cuenta está marcada como activa</string>
     <string name="account_manager_error_unexpected">error inesperado: %1$s</string>
     <string name="account_manager_error_account_does_not_exist">La cuenta no existe en la base de datos local. Esto no debería ocurrir. Si ves este mensaje, por favor, envía un reporte de error.</string>
+    <string name="account_manager_error_dao">Error en la base de datos. Por favor, repórtalo a team@pachli.app: %1$s</string>
 </resources>
