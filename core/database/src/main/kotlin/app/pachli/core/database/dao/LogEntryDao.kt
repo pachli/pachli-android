@@ -37,9 +37,9 @@ interface LogEntryDao {
     @Query(
         """
 SELECT *
-  FROM LogEntryEntity
- ORDER BY id ASC
- """,
+FROM LogEntryEntity
+ORDER BY id ASC
+""",
     )
     suspend fun loadAll(): List<LogEntryEntity>
 
@@ -48,9 +48,9 @@ SELECT *
     @Query(
         """
 DELETE
-  FROM LogEntryEntity
- WHERE instant < :cutoff
- """,
+FROM LogEntryEntity
+WHERE instant < :cutoff
+""",
     )
     suspend fun prune(cutoff: Instant)
 }

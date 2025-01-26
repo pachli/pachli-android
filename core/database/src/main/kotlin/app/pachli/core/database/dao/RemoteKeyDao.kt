@@ -27,42 +27,56 @@ interface RemoteKeyDao {
     @Upsert
     suspend fun upsert(remoteKey: RemoteKeyEntity)
 
-    @Query("SELECT * FROM RemoteKeyEntity WHERE accountId = :accountId AND timelineId = :timelineId AND kind = :kind")
+    @Query(
+        """
+SELECT *
+FROM RemoteKeyEntity
+WHERE accountId = :accountId AND timelineId = :timelineId AND kind = :kind
+""",
+    )
     suspend fun remoteKeyForKind(accountId: Long, timelineId: String, kind: RemoteKeyEntity.RemoteKeyKind): RemoteKeyEntity?
 
-    @Query("DELETE FROM RemoteKeyEntity WHERE accountId = :accountId AND timelineId = :timelineId")
+    @Query(
+        """
+DELETE
+FROM RemoteKeyEntity
+WHERE accountId = :accountId AND timelineId = :timelineId
+""",
+    )
     suspend fun delete(accountId: Long, timelineId: String)
 
     @Query(
         """
-        DELETE
-          FROM RemoteKeyEntity
-         WHERE accountId = :accountId
-           AND timelineId = :timelineId
-           AND (kind = 'PREV' OR kind = 'NEXT')
-        """,
+DELETE
+FROM RemoteKeyEntity
+WHERE
+    accountId = :accountId
+    AND timelineId = :timelineId
+    AND (kind = 'PREV' OR kind = 'NEXT')
+""",
     )
     suspend fun deletePrevNext(accountId: Long, timelineId: String)
 
     /** @return The remote key ID to use when refreshing. */
     @Query(
         """
-        SELECT `key`
-          FROM RemoteKeyEntity
-         WHERE accountId = :pachliAccountId
-           AND timelineId = :timelineId
-           AND kind = "REFRESH"
-        """,
+SELECT `key`
+FROM RemoteKeyEntity
+WHERE
+    accountId = :pachliAccountId
+    AND timelineId = :timelineId
+    AND kind = 'REFRESH'
+""",
     )
     suspend fun getRefreshKey(pachliAccountId: Long, timelineId: String): String?
 
     /** @return All remote keys for [pachliAccountId]. */
     @Query(
         """
-        SELECT *
-          FROM RemoteKeyEntity
-         WHERE accountId = :pachliAccountId
-        """,
+SELECT *
+FROM RemoteKeyEntity
+WHERE accountId = :pachliAccountId
+""",
     )
     suspend fun loadAllForAccount(pachliAccountId: Long): List<RemoteKeyEntity>
 }

@@ -30,10 +30,10 @@ import app.pachli.core.database.model.FollowingAccountEntity
 interface FollowingAccountDao {
     @Query(
         """
-        DELETE
-          FROM FollowingAccountEntity
-         WHERE pachliAccountId = :accountId
-    """,
+DELETE
+FROM FollowingAccountEntity
+WHERE pachliAccountId = :accountId
+""",
     )
     suspend fun deleteAllForAccount(accountId: Long)
 
@@ -48,10 +48,10 @@ interface FollowingAccountDao {
 
     @Query(
         """
-        SELECT *
-          FROM FollowingAccountEntity
-         WHERE pachliAccountId = :pachliAccountId
-        """,
+SELECT *
+FROM FollowingAccountEntity
+WHERE pachliAccountId = :pachliAccountId
+""",
     )
     suspend fun loadAllForAccount(pachliAccountId: Long): List<FollowingAccountEntity>
 }

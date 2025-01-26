@@ -1,0 +1,32 @@
+[sqlfluff]
+dialect = sqlite
+templater = placeholder
+max_line_length = 120
+
+# Disable specific rules:
+# - CP02 so identifier case is left alone.
+# - AM04, "Query produces an unknown number of result columns", allow "SELECT *"
+# - ST10, bug with placeholders in 3.3.0, https://github.com/sqlfluff/sqlfluff/issues/6493
+exclude_rules = CP02,AM04,ST10
+
+[sqlfluff:templater:placeholder]
+param_style = colon
+
+# Force a line break before FROM.
+[sqlfluff:layout:type:from_clause]
+keyword_line_position = leading
+
+# Force `SET` to a separate line.
+[sqlfluff:layout:type:set_clause_list]
+keyword_line_position = alone
+
+[sqlfluff:rules:capitalisation.keywords]
+capitalisation_policy = upper
+[sqlfluff:rules:capitalisation.identifiers]
+#extended_capitalisation_policy = camel
+[sqlfluff:rules:capitalisation.functions]
+extended_capitalisation_policy = upper
+[sqlfluff:rules:capitalisation.literals]
+capitalisation_policy = upper
+[sqlfluff:rules:capitalisation.types]
+extended_capitalisation_policy = upper

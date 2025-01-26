@@ -39,13 +39,31 @@ interface InstanceDao {
     suspend fun upsert(serverEntity: ServerEntity)
 
     @Transaction
-    @Query("SELECT * FROM InstanceInfoEntity WHERE instance = :instance LIMIT 1")
+    @Query(
+        """
+SELECT *
+FROM InstanceInfoEntity
+WHERE instance = :instance LIMIT 1
+""",
+    )
     suspend fun getInstanceInfo(instance: String): InstanceInfoEntity?
 
-    @Query("SELECT * FROM ServerEntity WHERE accountId = :pachliAccountId")
+    @Query(
+        """
+SELECT *
+FROM ServerEntity
+WHERE accountId = :pachliAccountId
+""",
+    )
     suspend fun getServer(pachliAccountId: Long): ServerEntity?
 
     @RewriteQueriesToDropUnusedColumns
-    @Query("SELECT * FROM EmojisEntity WHERE accountId = :pachliAccountId")
+    @Query(
+        """
+SELECT *
+FROM EmojisEntity
+WHERE accountId = :pachliAccountId
+""",
+    )
     suspend fun getEmojiInfo(pachliAccountId: Long): EmojisEntity?
 }

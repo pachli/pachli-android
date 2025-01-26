@@ -30,19 +30,19 @@ import kotlinx.coroutines.flow.Flow
 interface ContentFiltersDao {
     @Query(
         """
-        SELECT *
-          FROM ContentFiltersEntity
-         WHERE accountId = :pachliAccountId
-    """,
+SELECT *
+FROM ContentFiltersEntity
+WHERE accountId = :pachliAccountId
+""",
     )
     suspend fun getByAccount(pachliAccountId: Long): ContentFiltersEntity?
 
     @Query(
         """
-        SELECT *
-          FROM ContentFiltersEntity
-         WHERE accountId = :pachliAccountId
-        """,
+SELECT *
+FROM ContentFiltersEntity
+WHERE accountId = :pachliAccountId
+""",
     )
     fun flowByAccount(pachliAccountId: Long): Flow<ContentFiltersEntity?>
 

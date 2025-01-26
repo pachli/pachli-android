@@ -32,29 +32,49 @@ interface ConversationsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(conversation: ConversationEntity)
 
-    @Query("DELETE FROM ConversationEntity WHERE id = :id AND accountId = :accountId")
+    @Query(
+        """
+DELETE
+FROM ConversationEntity
+WHERE id = :id AND accountId = :accountId
+""",
+    )
     suspend fun delete(id: String, accountId: Long)
 
-    @Query("SELECT * FROM ConversationEntity WHERE accountId = :accountId ORDER BY `order` ASC")
+    @Query(
+        """
+SELECT *
+FROM ConversationEntity
+WHERE accountId = :accountId
+ORDER BY `order` ASC
+""",
+    )
     fun conversationsForAccount(accountId: Long): PagingSource<Int, ConversationEntity>
 
     @Deprecated("Use conversationsForAccount, this is only for use in tests")
     @Query(
         """
-        SELECT *
-          FROM ConversationEntity
-         WHERE accountId = :pachliAccountId
-        """,
+SELECT *
+FROM ConversationEntity
+WHERE accountId = :pachliAccountId
+""",
     )
     suspend fun loadAllForAccount(pachliAccountId: Long): List<ConversationEntity>
 
-    @Query("DELETE FROM ConversationEntity WHERE accountId = :accountId")
+    @Query(
+        """
+DELETE
+FROM ConversationEntity
+WHERE accountId = :accountId
+""",
+    )
     suspend fun deleteForAccount(accountId: Long)
 
     @Query(
         """
 UPDATE ConversationEntity
-SET s_bookmarked = :bookmarked
+SET
+    s_bookmarked = :bookmarked
 WHERE accountId = :accountId AND s_id = :lastStatusId
 """,
     )
@@ -63,7 +83,8 @@ WHERE accountId = :accountId AND s_id = :lastStatusId
     @Query(
         """
 UPDATE ConversationEntity
-SET s_collapsed = :collapsed
+SET
+    s_collapsed = :collapsed
 WHERE accountId = :accountId AND s_id = :lastStatusId
 """,
     )
@@ -72,7 +93,8 @@ WHERE accountId = :accountId AND s_id = :lastStatusId
     @Query(
         """
 UPDATE ConversationEntity
-SET s_expanded = :expanded
+SET
+    s_expanded = :expanded
 WHERE accountId = :accountId AND s_id = :lastStatusId
 """,
     )
@@ -81,7 +103,8 @@ WHERE accountId = :accountId AND s_id = :lastStatusId
     @Query(
         """
 UPDATE ConversationEntity
-SET s_favourited = :favourited
+SET
+    s_favourited = :favourited
 WHERE accountId = :accountId AND s_id = :lastStatusId
 """,
     )
@@ -90,7 +113,8 @@ WHERE accountId = :accountId AND s_id = :lastStatusId
     @Query(
         """
 UPDATE ConversationEntity
-SET s_muted = :muted
+SET
+    s_muted = :muted
 WHERE accountId = :accountId AND s_id = :lastStatusId
 """,
     )
@@ -99,7 +123,8 @@ WHERE accountId = :accountId AND s_id = :lastStatusId
     @Query(
         """
 UPDATE ConversationEntity
-SET s_showingHiddenContent = :showingHiddenContent
+SET
+    s_showingHiddenContent = :showingHiddenContent
 WHERE accountId = :accountId AND s_id = :lastStatusId
 """,
     )
@@ -107,10 +132,11 @@ WHERE accountId = :accountId AND s_id = :lastStatusId
 
     @Query(
         """
- UPDATE ConversationEntity
- SET s_poll = :poll
- WHERE accountId = :accountId AND s_id = :lastStatusId
- """,
+UPDATE ConversationEntity
+SET
+    s_poll = :poll
+WHERE accountId = :accountId AND s_id = :lastStatusId
+""",
     )
     suspend fun setVoted(accountId: Long, lastStatusId: String, poll: String)
 }

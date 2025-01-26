@@ -31,21 +31,59 @@ interface DraftDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertOrReplace(draft: DraftEntity)
 
-    @Query("SELECT * FROM DraftEntity WHERE accountId = :accountId ORDER BY id ASC")
+    @Query(
+        """
+SELECT *
+FROM DraftEntity
+WHERE accountId = :accountId
+ORDER BY id ASC
+""",
+    )
     fun draftsPagingSource(accountId: Long): PagingSource<Int, DraftEntity>
 
-    @Query("SELECT COUNT(*) FROM DraftEntity WHERE accountId = :accountId AND failedToSendNew = 1")
+    @Query(
+        """
+SELECT COUNT(*)
+FROM DraftEntity
+WHERE accountId = :accountId AND failedToSendNew = 1
+""",
+    )
     fun draftsNeedUserAlert(accountId: Long): LiveData<Int>
 
-    @Query("UPDATE DraftEntity SET failedToSendNew = 0 WHERE accountId = :accountId AND failedToSendNew = 1")
+    @Query(
+        """
+UPDATE DraftEntity
+SET
+    failedToSendNew = 0
+WHERE accountId = :accountId AND failedToSendNew = 1
+""",
+    )
     suspend fun draftsClearNeedUserAlert(accountId: Long)
 
-    @Query("SELECT * FROM DraftEntity WHERE accountId = :accountId")
+    @Query(
+        """
+SELECT *
+FROM DraftEntity
+WHERE accountId = :accountId
+""",
+    )
     suspend fun loadDrafts(accountId: Long): List<DraftEntity>
 
-    @Query("DELETE FROM DraftEntity WHERE id = :id")
+    @Query(
+        """
+DELETE
+FROM DraftEntity
+WHERE id = :id
+""",
+    )
     suspend fun delete(id: Int)
 
-    @Query("SELECT * FROM DraftEntity WHERE id = :id")
+    @Query(
+        """
+SELECT *
+FROM DraftEntity
+WHERE id = :id
+""",
+    )
     suspend fun find(id: Int): DraftEntity?
 }
