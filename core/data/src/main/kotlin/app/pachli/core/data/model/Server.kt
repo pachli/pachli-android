@@ -398,6 +398,13 @@ data class Server(
                     c[ORG_JOINMASTODON_STATUSES_SCHEDULED] = "1.0.0".toVersion()
                 }
 
+                AKKOMA -> {
+                    // https://akkoma.dev/AkkomaGang/akkoma/src/branch/develop/lib/pleroma/web/mastodon_api/controllers
+                    // Akkoma only has v1 filters.
+                    c[ORG_JOINMASTODON_FILTERS_CLIENT] = "1.1.0".toVersion()
+                    c[ORG_JOINMASTODON_STATUSES_SCHEDULED] = "1.0.0".toVersion()
+                }
+
                 // Everything else. Assume:
                 //
                 // - server side filtering
@@ -405,7 +412,7 @@ data class Server(
                 // - no translation
                 //
                 // This may be an incorrect assumption.
-                AKKOMA, FEDIBIRD, HOMETOWN, ICESHRIMP, PIXELFED, UNKNOWN -> {
+                FEDIBIRD, HOMETOWN, ICESHRIMP, PIXELFED, UNKNOWN -> {
                     c[ORG_JOINMASTODON_FILTERS_SERVER] = "1.0.0".toVersion()
                     c[ORG_JOINMASTODON_STATUSES_SCHEDULED] = "1.0.0".toVersion()
                 }
