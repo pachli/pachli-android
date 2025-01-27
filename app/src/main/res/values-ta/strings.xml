@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_empty">இது காலியாக இருக்க கூடாது.</string>
-    <string name="error_no_web_browser_found">வலை உலாவிகள் ஏதுமில்லை</string>
+    <string name="error_no_web_browser_found">வலை உலாவிகள் ஏதுமில்லை.</string>
     <string name="error_compose_character_limit">நிலை மிக நீளமாக உள்ளது!</string>
     <string name="error_media_upload_type">இந்த வகை கோப்பை பதிவேற்ற முடியாது.</string>
     <string name="error_media_upload_opening">அந்த கோப்பை திறக்க முடியவில்லை.</string>
@@ -41,7 +41,7 @@
     <string name="action_favourite">பிடித்தவை</string>
     <string name="action_compose">எழுது</string>
     <string name="action_logout">வெளியேறு</string>
-    <string name="action_logout_confirm">நீங்கள்  %1$s கணக்கிலிருந்து வெளியேற விரும்புகிறீர்களா?</string>
+    <string name="action_logout_confirm">நீங்கள் %1$s கணக்கிலிருந்து வெளியேற விரும்புகிறீர்களா? இது வரைவுகள் மற்றும் விருப்பத்தேர்வுகள் உட்பட கணக்கின் அனைத்து உள்ளூர் தரவையும் நீக்கும்.</string>
     <string name="action_follow">பின்பற்று</string>
     <string name="action_unfollow">பின்பற்றாதே</string>
     <string name="action_block">தடை</string>
@@ -140,9 +140,9 @@
     <string name="notification_follow_name">புதிய பின்பற்றுபவர்கள்</string>
     <string name="notification_follow_description">புதிய பின்தொடர்பவர்களைப் பற்றிய அறிவிப்புகள்</string>
     <string name="notification_boost_name">ஊக்கியாக</string>
-    <string name="notification_boost_description">எமது toot மேலேற்றும் போது தெரிவி.</string>
+    <string name="notification_boost_description">எமது அறிவிப்பு மேலேற்றும்போது தெரிவி</string>
     <string name="notification_favourite_name">பிடித்தவைகள்</string>
-    <string name="notification_favourite_description">எமது toot பிடித்தவையானால் தெரிவி.</string>
+    <string name="notification_favourite_description">எமது அறிவிப்பு பிடித்தவையானால் தெரிவி</string>
     <string name="notification_mention_format">%s தங்களை குறிபிட்டுள்ளார்</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s மற்றும் %4$d மற்றவர்கள்</string>
     <string name="notification_summary_medium">%1$s, %2$s, மற்றும் %3$s</string>
@@ -216,7 +216,7 @@
     <string name="unpin_action">விடுவி</string>
     <string name="pin_action">பொருத்து</string>
     <string name="action_view_account_preferences">கணக்கரின் முன்னுரிமைகள்</string>
-    <string name="error_sender_account_gone">டூத் அனுப்புவதில் பிழை ஏற்பட்டுள்ளது</string>
+    <string name="error_sender_account_gone">அறிவிப்பு அனுப்புவதில் பிழை ஏற்பட்டுள்ளது.</string>
     <string name="title_direct_messages">நேரடி தகவல்</string>
     <string name="title_tab_preferences">பட்டைகள்</string>
     <string name="title_posts_pinned">பொருத்தப்பட்டது</string>
@@ -349,7 +349,7 @@
     <string name="pref_notification_method_pull">இழுக்கவும்</string>
     <string name="pref_notification_fetch_method_title">அறிவிப்பு முறை</string>
     <string name="pref_notification_method_all_push">அனைத்து கணக்குகளும் ஒருங்கிணைந்த புசைப் பயன்படுத்துகின்றன. விவரங்களுக்கு தட்டவும்.</string>
-    <string name="pref_notification_fetch_ok_timestamp_fmt">✔ %1$s ago @ %2$s</string>
+    <string name="pref_notification_fetch_ok_timestamp_fmt">✔ %1$s முன்பு @ %2$s</string>
     <string name="pref_title_change_unified_push_distributor">ஒருங்கிணைந்த புச் விநியோகச்தரை மாற்றவும்</string>
     <string name="pref_title_update_check_now">புதுப்பிப்புக்கு இப்போது சரிபார்க்கவும்</string>
     <string name="compose_warn_language_dialog_title">போச்டின் மொழியை சரிபார்க்கவும்</string>
@@ -466,7 +466,7 @@
     <string name="label_filter_keywords">வடிகட்ட முக்கிய வார்த்தைகள் அல்லது சொற்றொடர்கள்</string>
     <string name="action_add">கூட்டு</string>
     <string name="pref_title_notification_up_distributor">ஒருங்கிணைந்த புச் விநியோகச்தர்</string>
-    <string name="pref_notification_fetch_err_timestamp_fmt">✖ %1$s ago @ %2$s</string>
+    <string name="pref_notification_fetch_err_timestamp_fmt">✖ %1$s முன்பு @ %2$s</string>
     <string name="pref_notification_fetch_server_rejected">%1$s நிராகரிக்கப்பட்ட புச் பதிவு</string>
     <string name="error_media_download">%1$s ஐ பதிவிறக்கம் செய்ய முடியவில்லை: %2$d %3$s</string>
     <string name="action_manage_tabs">தாவல்களை நிர்வகிக்கவும்</string>
@@ -493,7 +493,7 @@
     <string name="pref_summary_http_proxy_invalid">&lt;செல்லாத&gt;</string>
     <string name="filter_add_description">வடிகட்ட சொற்றொடர்</string>
     <string name="description_post_favourited">பிடித்தது</string>
-    <string name="description_poll">தேர்வுகளுடன் வாக்கெடுப்பு: %1$s, %2$s, %3$s, %4 $ s; %5 $ கள்</string>
+    <string name="description_poll">தேர்வுகளுடன் வாக்கெடுப்பு: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="failed_fetch_posts">இடுகைகளைப் பெறத் தவறிவிட்டது</string>
     <string name="poll_new_choice_hint">தேர்வு %d</string>
     <string name="no_announcements">அறிவிப்புகள் எதுவும் இல்லை.</string>
@@ -510,7 +510,7 @@
     <string name="account_date_joined">%1$s இல் இணைந்தது</string>
     <string name="ui_error_favourite_fmt">பிடித்த இடுகை தோல்வியுற்றது: %1$s</string>
     <string name="pref_title_confirm_status_language">இடுகையிடுவதற்கு முன் போச்டின் மொழி அமைப்பைச் சரிபார்க்கவும்</string>
-    <string name="pref_notification_fetch_needs_push">கணக்கில் \"புச்\" நோக்கம் இல்லை. வெளியேறி மீண்டும் மீண்டும் இதை சரிசெய்யலாம்.</string>
+    <string name="pref_notification_fetch_needs_push">கணக்கில் \"தள்ளு\" நோக்கம் இல்லை. வெளியேறி மீண்டும் உள்நுழைந்தால் இதைச் சரிசெய்யலாம்.</string>
     <string name="error_filter_missing_context">குறைந்தது ஒரு வடிகட்டி சூழல் தேவை</string>
     <string name="error_filter_missing_title">தலைப்பு தேவை</string>
     <string name="compose_warn_language_dialog_accept_and_dont_ask_fmt">இடுகையிடவும் (%1$s) மற்றும் மீண்டும் கேட்க வேண்டாம்</string>
@@ -538,7 +538,7 @@
     <string name="dialog_message_cancel_follow_request">பின்தொடர்தல் கோரிக்கையை ரத்து செய்யவா?</string>
     <string name="filter_expiration_format">%s (%s)</string>
     <string name="description_visibility_direct">நேரடி</string>
-    <string name="compose_preview_image_description">படங்களுக்கான செயல்கள்</string>
+    <string name="compose_preview_image_description">படங்களுக்கான செயல்கள் %s</string>
     <string name="duration_indefinite">காலவரையற்றது</string>
     <string name="duration_5_min">5 நிமிடங்கள்</string>
     <string name="duration_1_hour">1 மணி நேரம்</string>
@@ -572,7 +572,7 @@
     <string name="action_mute_domain">முடக்கு %s</string>
     <string name="action_unmute_domain">இயக்க %s</string>
     <string name="action_mute_conversation">முடக்கு உரையாடல்</string>
-    <string name="confirmation_hashtag_unmuted">#% S நிறுத்தங்கள்</string>
+    <string name="confirmation_hashtag_unmuted">#%s மறைநீக்கம்</string>
     <string name="dialog_mute_hide_notifications">அறிவிப்புகளை மறைக்கவும்</string>
     <string name="pref_title_notification_filter_poll">கருத்துக் கணிப்புகள் முடிந்துவிட்டன</string>
     <string name="pref_title_notification_filter_subscriptions">யாரோ ஒரு புதிய இடுகையை வெளியிட நான் சந்தா செலுத்தியுள்ளேன்</string>
@@ -589,7 +589,7 @@
     <string name="filter_dialog_whole_word_description">முக்கிய சொல் அல்லது சொற்றொடர் எண்ணெழுத்து மட்டுமே இருக்கும்போது, அது முழு வார்த்தையுடனும் பொருந்தினால் மட்டுமே அது பயன்படுத்தப்படும்</string>
     <string name="set_focus_description">சிறுபடங்களில் எப்போதும் காணப்படும் மைய புள்ளியைத் தேர்வுசெய்ய வட்டத்தைத் தட்டவும் அல்லது இழுக்கவும்.</string>
     <string name="conversation_more_recipients">%1$s, %2$s மற்றும் %3$d</string>
-    <string name="poll_info_format">&lt;!-15 வாக்குகள் • 1 மணிநேரம் மீதமுள்ளது-&gt; %1$s • %2$s</string>
+    <string name="poll_info_format"><!-- 15 வாக்குகள் • 1 மணிநேரம் மீதமுள்ளது--> %1$s • %2$s</string>
     <string name="poll_ended_created">நீங்கள் உருவாக்கிய வாக்கெடுப்பு முடிந்தது</string>
     <string name="report_sent_success">வெற்றிகரமாக அறிவிக்கப்பட்டது @%s</string>
     <string name="report_description_remote_instance">கணக்கு மற்றொரு சேவையகத்திலிருந்து வந்தது. அறிக்கையின் அநாமதேய நகலையும் அங்கே அனுப்பவா?</string>
@@ -646,7 +646,7 @@
     <string name="search_operator_link_dialog_title">இணைப்புகளுடன் இடுகைகளைக் காட்டவா?</string>
     <plurals name="poll_timespan_hours">
         <item quantity="one">%d மணிநேரம் மீதமுள்ளது</item>
-        <item quantity="other">%d மணிநேரம் மீதமுள்ளது</item>
+        <item quantity="other">%d மணிநேரங்கள் மீதமுள்ளது</item>
     </plurals>
     <string name="dialog_delete_filter_positive_action">நீக்கு</string>
     <string name="reaction_name_and_count">%1$s %2$d</string>
@@ -741,7 +741,7 @@
     <string name="description_post_edited">திருத்தப்பட்டது</string>
     <plurals name="poll_info_people">
         <item quantity="one">%s நபர்</item>
-        <item quantity="other">%மக்கள்</item>
+        <item quantity="other">%s நபர்கள்</item>
     </plurals>
     <string name="poll_info_closed">மூடப்பட்டது</string>
     <string name="poll_show_votes">வாக்குகளைக் காட்டு</string>
