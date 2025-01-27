@@ -5,9 +5,10 @@
     <string name="account_manager_error_unexpected">எதிர்பாராத பிழை: %1$s</string>
     <string name="server_repository_error_capabilities">பாகுபடுத்தும் சேவையக திறன்கள் தோல்வியடைந்தன: %1$s</string>
     <string name="error_filter_server_does_not_filter">சேவையகம் வடிப்பான்களை ஆதரிக்காது</string>
-    <string name="server_repository_error_get_well_known_node_info">பெறுதல் /</string>
+    <string name="server_repository_error_get_well_known_node_info">பெறுதல் /.well-known/nodeinfo failed: %1$s</string>
     <string name="server_repository_error_unsupported_schema">/</string>
     <string name="server_repository_error_get_node_info">நோடின்ஃபோ %1$s தோல்வியுற்றன: %2$s</string>
     <string name="server_repository_error_validate_node_info">Nodeinfo %1$s ஐ சரிபார்க்கவும் தோல்வியுற்றது: %2$s</string>
     <string name="server_repository_error_get_instance_info">பெறுதல்/API/V1/நிகழ்வு தோல்வியுற்றது: %1$s</string>
+    <string name="account_manager_error_dao">தரவுத்தளப் பிழை, தயவுசெய்து இதைப் புகாரளிக்கவும் team@pachli.app: %1$s</string>
 </resources>
