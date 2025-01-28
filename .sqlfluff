@@ -11,6 +11,7 @@ exclude_rules = CP02,AM04,ST10
 
 [sqlfluff:templater:placeholder]
 param_style = colon
+limit = 1
 
 # Force a line break before FROM.
 [sqlfluff:layout:type:from_clause]
