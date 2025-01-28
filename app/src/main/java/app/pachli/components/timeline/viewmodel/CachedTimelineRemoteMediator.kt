@@ -18,6 +18,7 @@
 package app.pachli.components.timeline.viewmodel
 
 import androidx.paging.ExperimentalPagingApi
+import androidx.paging.InvalidatingPagingSourceFactory
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
@@ -45,6 +46,7 @@ import timber.log.Timber
 class CachedTimelineRemoteMediator(
     private val mastodonApi: MastodonApi,
     private val pachliAccountId: Long,
+    private val factory: InvalidatingPagingSourceFactory<Int, TimelineStatusWithAccount>,
     private val transactionProvider: TransactionProvider,
     private val timelineDao: TimelineDao,
     private val remoteKeyDao: RemoteKeyDao,
@@ -100,6 +102,7 @@ class CachedTimelineRemoteMediator(
             // This request succeeded with no new data, and pagination ends (unless this is a
             // REFRESH, which must always set endOfPaginationReached to false).
             if (statuses.isEmpty()) {
+                factory.invalidate()
                 return MediatorResult.Success(endOfPaginationReached = loadType != LoadType.REFRESH)
             }
 

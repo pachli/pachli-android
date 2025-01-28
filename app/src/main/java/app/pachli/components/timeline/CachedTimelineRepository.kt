@@ -94,6 +94,7 @@ class CachedTimelineRepository @Inject constructor(
             remoteMediator = CachedTimelineRemoteMediator(
                 mastodonApi,
                 account.id,
+                factory!!,
                 transactionProvider,
                 timelineDao,
                 remoteKeyDao,
