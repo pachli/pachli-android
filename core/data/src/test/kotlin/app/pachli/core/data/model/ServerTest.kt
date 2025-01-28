@@ -290,7 +290,7 @@ class ServerTest(
                             kind = AKKOMA,
                             version = "3.9.3-0-gd83f5f66f-blob".toVersion(),
                             capabilities = mapOf(
-                                ORG_JOINMASTODON_FILTERS_SERVER to "1.0.0".toVersion(),
+                                ORG_JOINMASTODON_FILTERS_CLIENT to "1.1.0".toVersion(),
                                 ORG_JOINMASTODON_STATUSES_SCHEDULED to "1.0.0".toVersion(),
                             ),
                         ),
