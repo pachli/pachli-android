@@ -86,9 +86,11 @@ import kotlin.properties.Delegates
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.take
@@ -219,6 +221,21 @@ class NotificationsFragment :
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    // Wait for the very first page load, then scroll recyclerview
+                    // to the refresh key.
+                    viewModel.initialRefreshKey.combine(adapter.onPagesUpdatedFlow) { key, _ -> key }
+                        .take(1)
+                        .filterNotNull()
+                        .collect { key ->
+                            val snapshot = adapter.snapshot()
+                            val index = snapshot.items.indexOfFirst { it.id == key }
+                            binding.recyclerView.scrollToPosition(
+                                snapshot.placeholdersBefore + index,
+                            )
+                        }
+                }
+
                 launch { viewModel.pagingData.collectLatest { adapter.submitData(it) } }
 
                 launch { viewModel.uiResult.collect(::bindUiResult) }

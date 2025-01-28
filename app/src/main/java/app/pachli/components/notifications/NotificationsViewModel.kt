@@ -76,6 +76,7 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -372,6 +373,10 @@ class NotificationsViewModel @AssistedInject constructor(
     private val accountFlow = accountManager.getPachliAccountFlow(pachliAccountId)
         .filterNotNull()
         .shareIn(viewModelScope, SharingStarted.WhileSubscribed(5000), replay = 1)
+
+    val initialRefreshKey = accountFlow.flatMapLatest {
+        flow { emit(repository.getRefreshKey(it.id)) }
+    }
 
     /** The account to display notifications for */
     val account: AccountEntity

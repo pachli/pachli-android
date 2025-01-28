@@ -80,16 +80,16 @@ class CachedTimelineRepository @Inject constructor(
 
         factory = InvalidatingPagingSourceFactory { timelineDao.getStatuses(account.id) }
 
-        val initialKey = remoteKeyDao.remoteKeyForKind(account.id, RKE_TIMELINE_ID, RemoteKeyKind.REFRESH)
-        val row = initialKey?.key?.let { timelineDao.getStatusRowNumber(account.id, it) }
+        val initialKey = remoteKeyDao.remoteKeyForKind(account.id, RKE_TIMELINE_ID, RemoteKeyKind.REFRESH)?.key
+        val row = initialKey?.let { timelineDao.getStatusRowNumber(account.id, it) } ?: 0
 
         Timber.d("initialKey: %s is row: %d", initialKey, row)
 
         return Pager(
-            initialKey = row,
+            initialKey = (row - ((PAGE_SIZE * 3) / 2)).coerceAtLeast(0),
             config = PagingConfig(
                 pageSize = PAGE_SIZE,
-                enablePlaceholders = false,
+                enablePlaceholders = true,
             ),
             remoteMediator = CachedTimelineRemoteMediator(
                 mastodonApi,
@@ -188,16 +188,26 @@ class CachedTimelineRepository @Inject constructor(
     }
 
     /**
-     * Saves the ID of the notification that future refreshes will try and restore
+     * Saves the ID of the status that future refreshes will try and restore
      * from.
      *
      * @param pachliAccountId
-     * @param key Notification ID to restore from. Null indicates the refresh should
-     * refresh the newest notifications.
+     * @param key Status ID to restore from. Null indicates the refresh should
+     * refresh the newest statuses.
      */
     suspend fun saveRefreshKey(pachliAccountId: Long, key: String?) = externalScope.async {
+        Timber.d("saveRefreshKey: $key")
         remoteKeyDao.upsert(
             RemoteKeyEntity(pachliAccountId, RKE_TIMELINE_ID, RemoteKeyKind.REFRESH, key),
         )
+    }.await()
+
+    /**
+     * @param pachliAccountId
+     * @return The most recent saved refresh key. Null if not set, or the refresh
+     * should fetch the latest statuses.
+     */
+    suspend fun getRefreshKey(pachliAccountId: Long): String? = externalScope.async {
+        remoteKeyDao.getRefreshKey(pachliAccountId, RKE_TIMELINE_ID)
     }.await()
 }
