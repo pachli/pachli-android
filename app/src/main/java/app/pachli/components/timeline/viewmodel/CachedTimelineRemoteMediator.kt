@@ -41,6 +41,12 @@ import retrofit2.HttpException
 import retrofit2.Response
 import timber.log.Timber
 
+fun RemoteKeyKind.Companion.from(loadType: LoadType) = when (loadType) {
+    LoadType.REFRESH -> RemoteKeyKind.REFRESH
+    LoadType.PREPEND -> RemoteKeyKind.PREV
+    LoadType.APPEND -> RemoteKeyKind.NEXT
+}
+
 @OptIn(ExperimentalPagingApi::class)
 class CachedTimelineRemoteMediator(
     private val mastodonApi: MastodonApi,
@@ -54,86 +60,69 @@ class CachedTimelineRemoteMediator(
         state: PagingState<Int, TimelineStatusWithAccount>,
     ): MediatorResult {
         Timber.d("load(), account ID: %d, LoadType = %s", pachliAccountId, loadType)
-
         return try {
-            val response = when (loadType) {
-                LoadType.REFRESH -> {
-                    // Ignore the provided state, always try and fetch from the remote
-                    // REFRESH key.
-                    val statusId = remoteKeyDao.remoteKeyForKind(
-                        pachliAccountId,
-                        RKE_TIMELINE_ID,
-                        RemoteKeyKind.REFRESH,
-                    )?.key
-                    Timber.d("Loading from item: %s", statusId)
-                    getInitialPage(statusId, state.config.pageSize)
-                }
-
-                LoadType.PREPEND -> {
-                    val rke = remoteKeyDao.remoteKeyForKind(
-                        pachliAccountId,
-                        RKE_TIMELINE_ID,
-                        RemoteKeyKind.PREV,
-                    ) ?: return MediatorResult.Success(endOfPaginationReached = true)
-                    Timber.d("Loading from remoteKey: %s", rke)
-                    mastodonApi.homeTimeline(minId = rke.key, limit = state.config.pageSize)
-                }
-
-                LoadType.APPEND -> {
-                    val rke = remoteKeyDao.remoteKeyForKind(
-                        pachliAccountId,
-                        RKE_TIMELINE_ID,
-                        RemoteKeyKind.NEXT,
-                    ) ?: return MediatorResult.Success(endOfPaginationReached = true)
-                    Timber.d("Loading from remoteKey: %s", rke)
-                    mastodonApi.homeTimeline(maxId = rke.key, limit = state.config.pageSize)
-                }
-            }
-
-            val statuses = response.body()
-            if (!response.isSuccessful || statuses == null) {
-                return MediatorResult.Error(HttpException(response))
-            }
-
-            Timber.d("%d - # statuses loaded", statuses.size)
-
-            // This request succeeded with no new data, and pagination ends (unless this is a
-            // REFRESH, which must always set endOfPaginationReached to false).
-            if (statuses.isEmpty()) {
-                return MediatorResult.Success(endOfPaginationReached = loadType != LoadType.REFRESH)
-            }
-
-            Timber.d("  %s..%s", statuses.first().id, statuses.last().id)
-
-            val links = Links.from(response.headers()["link"])
-
             transactionProvider {
+                val remoteKey = remoteKeyDao.remoteKeyForKind(
+                    pachliAccountId,
+                    RKE_TIMELINE_ID,
+                    RemoteKeyKind.from(loadType),
+                )?.key
+                Timber.d("  from remoteKey: %s", remoteKey)
+
+                // - Load the data
+                val response = when (loadType) {
+                    LoadType.REFRESH -> getInitialPage(remoteKey, state.config.pageSize)
+                    LoadType.PREPEND -> mastodonApi.homeTimeline(minId = remoteKey, limit = state.config.pageSize)
+                    LoadType.APPEND -> mastodonApi.homeTimeline(maxId = remoteKey, limit = state.config.pageSize)
+                }
+
+                val statuses = response.body()
+                if (!response.isSuccessful || statuses == null) {
+                    return@transactionProvider MediatorResult.Error(HttpException(response))
+                }
+                Timber.d("  %d - # statuses loaded", statuses.size)
+
+                // This request succeeded with no new data, and pagination ends (unless this is a
+                // REFRESH, which must always set endOfPaginationReached to false).
+                if (statuses.isEmpty()) {
+                    val endOfPaginationReached = loadType != LoadType.REFRESH
+                    Timber.d("  No statuses found, returning Success(endOfPaginationReached = %s", endOfPaginationReached)
+                    return@transactionProvider MediatorResult.Success(endOfPaginationReached)
+                }
+
+                Timber.d("  %s..%s", statuses.first().id, statuses.last().id)
+
+                val links = Links.from(response.headers()["link"])
+                val next = links.next ?: statuses.last().id
+                val prev = links.prev ?: statuses.first().id
+
                 when (loadType) {
                     LoadType.REFRESH -> {
-                        remoteKeyDao.deletePrevNext(pachliAccountId, RKE_TIMELINE_ID)
                         timelineDao.deleteAllStatusesForAccount(pachliAccountId)
 
-                        remoteKeyDao.upsert(
-                            RemoteKeyEntity(
-                                pachliAccountId,
-                                RKE_TIMELINE_ID,
-                                RemoteKeyKind.NEXT,
-                                links.next,
-                            ),
-                        )
-
+                        Timber.d("  Saving new prev key: %s", prev)
                         remoteKeyDao.upsert(
                             RemoteKeyEntity(
                                 pachliAccountId,
                                 RKE_TIMELINE_ID,
                                 RemoteKeyKind.PREV,
-                                links.prev,
+                                prev,
+                            ),
+                        )
+
+                        Timber.d("  Saving new next key: %s", next)
+                        remoteKeyDao.upsert(
+                            RemoteKeyEntity(
+                                pachliAccountId,
+                                RKE_TIMELINE_ID,
+                                RemoteKeyKind.NEXT,
+                                next,
                             ),
                         )
                     }
-                    // links.prev may be null if there are no statuses, only set if non-null,
-                    // https://github.com/mastodon/mastodon/issues/25760
-                    LoadType.PREPEND -> links.prev?.let { prev ->
+
+                    LoadType.PREPEND -> {
+                        Timber.d("  Saving new prev key: %s", prev)
                         remoteKeyDao.upsert(
                             RemoteKeyEntity(
                                 pachliAccountId,
@@ -143,9 +132,9 @@ class CachedTimelineRemoteMediator(
                             ),
                         )
                     }
-                    // links.next may be null if there are no statuses, only set if non-null,
-                    // https://github.com/mastodon/mastodon/issues/25760
-                    LoadType.APPEND -> links.next?.let { next ->
+
+                    LoadType.APPEND -> {
+                        Timber.d("  Saving new next key: %s", next)
                         remoteKeyDao.upsert(
                             RemoteKeyEntity(
                                 pachliAccountId,
