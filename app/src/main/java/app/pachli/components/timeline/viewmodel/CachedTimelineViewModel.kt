@@ -43,6 +43,7 @@ import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -69,6 +70,10 @@ class CachedTimelineViewModel @Inject constructor(
     statusDisplayOptionsRepository,
     sharedPreferencesRepository,
 ) {
+    val initialRefreshKey = accountFlow.flatMapLatest {
+        flow { emit(repository.getRefreshKey(it.data!!.id)) }
+    }
+
     override var statuses = accountFlow.flatMapLatest {
         getStatuses(it.data!!)
     }.cachedIn(viewModelScope)

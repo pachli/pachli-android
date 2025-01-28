@@ -110,14 +110,14 @@ class NotificationsRepository @Inject constructor(
 
         // Room is row-keyed, not item-keyed. Find the user's REFRESH key, then find the
         // row of the notification with that ID, and use that as the Pager's initialKey.
-        val initialKey = remoteKeyDao.remoteKeyForKind(pachliAccountId, RKE_TIMELINE_ID, RemoteKeyKind.REFRESH)
-        val row = initialKey?.key?.let { notificationDao.getNotificationRowNumber(pachliAccountId, it) }
+        val initialKey = remoteKeyDao.remoteKeyForKind(pachliAccountId, RKE_TIMELINE_ID, RemoteKeyKind.REFRESH)?.key
+        val row = initialKey?.let { notificationDao.getNotificationRowNumber(pachliAccountId, it) } ?: 0
 
         return Pager(
-            initialKey = row,
+            initialKey = (row - ((PAGE_SIZE * 3) / 2)).coerceAtLeast(0),
             config = PagingConfig(
                 pageSize = PAGE_SIZE,
-                enablePlaceholders = false,
+                enablePlaceholders = true,
             ),
             remoteMediator = NotificationsRemoteMediator(
                 pachliAccountId,
@@ -147,8 +147,14 @@ class NotificationsRepository @Inject constructor(
         )
     }.await()
 
-    /** @return The notification ID to use when refreshing. */
-    suspend fun getRefreshKey(pachliAccountId: Long) = remoteKeyDao.getRefreshKey(pachliAccountId, RKE_TIMELINE_ID)
+    /**
+     * @param pachliAccountId
+     * @return The most recent saved refresh key. Null if not set, or the refresh
+     * should fetch the latest notifications.
+     */
+    suspend fun getRefreshKey(pachliAccountId: Long): String? = externalScope.async {
+        remoteKeyDao.getRefreshKey(pachliAccountId, RKE_TIMELINE_ID)
+    }.await()
 
     /**
      * Clears (deletes) all notifications from the server. Invalidates the repository
