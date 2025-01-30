@@ -161,7 +161,7 @@ class ApiResultCallTest {
                     val exception = (error as ClientError.NotFound).exception
                     assertThat(exception).isInstanceOf(HttpException::class.java)
                     assertThat(exception.code()).isEqualTo(404)
-                    assertThat(error.formatArgs).isEqualTo(arrayOf("HTTP 404 Not Found: GET https://example.com/"))
+                    assertThat(error.formatArgs).isEqualTo(arrayOf("HTTP 404 Not Found: GET /foo?x=1"))
                 }
 
                 override fun onFailure(call: Call<ApiResult<String>>, t: Throwable) {
@@ -189,7 +189,7 @@ class ApiResultCallTest {
                     val exception = (error as ClientError.NotFound).exception
                     assertThat(exception).isInstanceOf(HttpException::class.java)
                     assertThat(exception.code()).isEqualTo(404)
-                    assertThat(error.formatArgs).isEqualTo(arrayOf("$errorMsg: GET https://example.com/"))
+                    assertThat(error.formatArgs).isEqualTo(arrayOf("$errorMsg: GET /foo?x=1"))
                 }
 
                 override fun onFailure(call: Call<ApiResult<String>>, t: Throwable) {
@@ -218,7 +218,7 @@ class ApiResultCallTest {
                     val exception = (error as ClientError.NotFound).exception
                     assertThat(exception).isInstanceOf(HttpException::class.java)
                     assertThat(exception.code()).isEqualTo(404)
-                    assertThat(error.formatArgs).isEqualTo(arrayOf("$errorMsg: $descriptionMsg: GET https://example.com/"))
+                    assertThat(error.formatArgs).isEqualTo(arrayOf("$errorMsg: $descriptionMsg: GET /foo?x=1"))
                 }
 
                 override fun onFailure(call: Call<ApiResult<String>>, t: Throwable) {
@@ -241,7 +241,7 @@ class ApiResultCallTest {
                     assertThat(err).isInstanceOf(Err::class.java)
                     assertThat(err?.error?.request).isEqualTo(call.request())
                     assertThat(err?.error?.throwable).isEqualTo(exception)
-                    assertThat(err?.error?.formatArgs).isEqualTo(arrayOf("GET https://example.com/"))
+                    assertThat(err?.error?.formatArgs).isEqualTo(arrayOf("GET /foo?x=1"))
                 }
 
                 override fun onFailure(call: Call<ApiResult<String>>, t: Throwable) {
