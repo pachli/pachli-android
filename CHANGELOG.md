@@ -1,5 +1,23 @@
 # Pachli changelog
 
+## v2.9.2
+
+### New features and other improvements
+
+- Show lists sorted by title (#[1218](https://github.com/pachli/pachli-android/pull/1218), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Update server capabilities as Akkoma has v1 filter support (#[1238](https://github.com/pachli/pachli-android/pull/1238), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Remove "dummy.placeholder" from network error messages (#[1228](https://github.com/pachli/pachli-android/pull/1228), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show an error message if a Dao error occurs during login (#[1235](https://github.com/pachli/pachli-android/pull/1235), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Translations
+
+- Update Burmese translations ([--//--](https://github.com/pachli/pachli-android/commits?author=htetoh2006@outlook.com))
+- Update Irish translations ([Aindriú Mac Giolla Eoin](https://github.com/pachli/pachli-android/commits?author=aindriu80@gmail.com))
+- Update Norwegian Nynorsk translations ([Sunniva Løvstad](https://github.com/pachli/pachli-android/commits?author=weblate@turtle.garden))
+- Update Spanish translations ([Juan M Sevilla](https://github.com/pachli/pachli-android/commits?author=jumase@disroot.org))
+- Update Swedish translations ([jens persson](https://github.com/pachli/pachli-android/commits?author=jens@persson.cx))
+- Update Tamil translations ([தமிழ்நேரம்](https://github.com/pachli/pachli-android/commits?author=anishprabu.t@gmail.com))
+
 ## v2.9.1
 
 ### New features and other improvements
