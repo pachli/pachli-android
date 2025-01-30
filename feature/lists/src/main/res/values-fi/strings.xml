@@ -8,7 +8,7 @@
     <string name="error_rename_list_fmt">Listaa ei voitu päivittää \"%1$s\": %2$s</string>
     <string name="action_rename_list">Muuta listan nimeä</string>
     <string name="action_create_list">Luo lista</string>
-    <string name="dialog_delete_list_warning">Haluatko todella poistaa listan %s?</string>
+    <string name="dialog_delete_list_warning">Poista lista \"%s\"?</string>
     <string name="action_remove_from_list">Poista tili listalta</string>
     <string name="action_add_to_list">Lisää tili listalle</string>
     <string name="action_delete_list">Poista lista</string>
