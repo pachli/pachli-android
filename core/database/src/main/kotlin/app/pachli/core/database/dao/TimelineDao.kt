@@ -30,11 +30,15 @@ import app.pachli.core.database.Converters
 import app.pachli.core.database.model.StatusEntity
 import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineAccountEntity
+import app.pachli.core.database.model.TimelineStatusEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
 
 @Dao
 @TypeConverters(Converters::class)
 abstract class TimelineDao {
+    @Upsert
+    abstract suspend fun upsertStatuses(entities: List<TimelineStatusEntity>)
+
     @Insert(onConflict = REPLACE)
     abstract suspend fun insertAccount(timelineAccountEntity: TimelineAccountEntity): Long
 
@@ -105,27 +109,31 @@ SELECT
     svd.contentShowing AS 'svd_contentShowing',
     svd.contentCollapsed AS 'svd_contentCollapsed',
     svd.translationState AS 'svd_translationState',
-    t.serverId AS 't_serverId',
-    t.timelineUserId AS 't_timelineUserId',
-    t.content AS 't_content',
-    t.spoilerText AS 't_spoilerText',
-    t.poll AS 't_poll',
-    t.attachments AS 't_attachments',
-    t.provider AS 't_provider'
-FROM StatusEntity AS s
+    tr.serverId AS 't_serverId',
+    tr.timelineUserId AS 't_timelineUserId',
+    tr.content AS 't_content',
+    tr.spoilerText AS 't_spoilerText',
+    tr.poll AS 't_poll',
+    tr.attachments AS 't_attachments',
+    tr.provider AS 't_provider'
+FROM TimelineStatusEntity AS t
+LEFT JOIN StatusEntity AS s ON (t.pachliAccountId = :account AND (s.timelineUserId = :account AND s.serverId = t.statusId))
 LEFT JOIN TimelineAccountEntity AS a ON (s.timelineUserId = a.timelineUserId AND s.authorServerId = a.serverId)
 LEFT JOIN TimelineAccountEntity AS rb ON (s.timelineUserId = rb.timelineUserId AND s.reblogAccountId = rb.serverId)
 LEFT JOIN
     StatusViewDataEntity AS svd
     ON (s.timelineUserId = svd.timelineUserId AND (s.serverId = svd.serverId OR s.reblogServerId = svd.serverId))
 LEFT JOIN
-    TranslatedStatusEntity AS t
-    ON (s.timelineUserId = t.timelineUserId AND (s.serverId = t.serverId OR s.reblogServerId = t.serverId))
-WHERE s.timelineUserId = :account
+    TranslatedStatusEntity AS tr
+    ON (s.timelineUserId = tr.timelineUserId AND (s.serverId = tr.serverId OR s.reblogServerId = tr.serverId))
+WHERE t.kind = :timelineKind AND t.pachliAccountId = :account AND s.timelineUserId = :account
 ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC
 """,
     )
-    abstract fun getStatuses(account: Long): PagingSource<Int, TimelineStatusWithAccount>
+    abstract fun getStatuses(
+        account: Long,
+        timelineKind: TimelineStatusEntity.Kind = TimelineStatusEntity.Kind.HOME,
+    ): PagingSource<Int, TimelineStatusWithAccount>
 
     /**
      * @return Row number (0 based) of the status with ID [statusId] for [pachliAccountId].
@@ -136,13 +144,19 @@ ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC
         """
 SELECT rownum
 FROM (
+    WITH statuses(timelineUserId, serverId) AS (
+        SELECT s.timelineUserId, s.serverId
+        FROM TimelineStatusEntity t
+        LEFT JOIN StatusEntity s ON (t.statusId = s.serverId)
+        WHERE t.kind = :timelineKind AND t.pachliAccountId = :pachliAccountId
+    )
     SELECT
         t1.timelineUserId,
         t1.serverId,
         COUNT(t2.serverId) - 1 AS rownum
-    FROM StatusEntity AS t1
+    FROM statuses AS t1
     INNER JOIN
-        StatusEntity AS t2
+        statuses AS t2
         ON
             t1.timelineUserId = t2.timelineUserId
             AND (LENGTH(t1.serverId) <= LENGTH(t2.serverId) AND t1.serverId <= t2.serverId)
@@ -153,7 +167,11 @@ FROM (
 WHERE serverId = :statusId
 """,
     )
-    abstract suspend fun getStatusRowNumber(pachliAccountId: Long, statusId: String): Int
+    abstract suspend fun getStatusRowNumber(
+        pachliAccountId: Long,
+        statusId: String,
+        timelineKind: TimelineStatusEntity.Kind = TimelineStatusEntity.Kind.HOME,
+    ): Int
 
     @Query(
         """
@@ -240,6 +258,8 @@ WHERE
     AND s.authorServerId IS NOT NULL
 """,
     )
+    // TODO: Probably doesn't need to use TimelineStatus. Does need a
+    // pachliAccountId
     abstract suspend fun getStatus(statusId: String): TimelineStatusWithAccount?
 
     @Query(
@@ -251,39 +271,43 @@ WHERE timelineUserId = :accountId
     AND (LENGTH(serverId) > LENGTH(:minId) OR LENGTH(serverId) == LENGTH(:minId) AND serverId >= :minId)
 """,
     )
+    // TODO: Needs to use TimelineStatus, only used in developer tools
     abstract suspend fun deleteRange(accountId: Long, minId: String, maxId: String): Int
 
     @Query(
         """
 DELETE
-FROM StatusEntity
+FROM TimelineStatusEntity
 WHERE
-    timelineUserId = :pachliAccountId
-    AND (authorServerId = :userId OR reblogAccountId = :userId)
+    kind = :timelineKind
+    AND pachliAccountId = :pachliAccountId
+    AND statusId IN (
+        SELECT serverId
+        FROM StatusEntity
+        WHERE timelineUserId = :pachliAccountId
+         AND (authorServerId = :userId or reblogAccountId = :userId)
+    )
 """,
     )
-    abstract suspend fun removeAllByUser(pachliAccountId: Long, userId: String)
+    abstract suspend fun removeAllByUser(
+        pachliAccountId: Long,
+        userId: String,
+        timelineKind: TimelineStatusEntity.Kind = TimelineStatusEntity.Kind.HOME,
+    )
 
     /**
-     * Removes all statuses from the cached **home** timeline.
-     *
-     * Statuses that are referenced by notifications are retained, to ensure
-     * they show up in the Notifications list.
+     * Removes all statuses from [timelineKind] for [accountId]
      */
     @Query(
         """
 DELETE
-FROM StatusEntity
+FROM TimelineStatusEntity
 WHERE
-    timelineUserId = :accountId
-    AND serverId NOT IN (
-        SELECT statusServerId
-        FROM NotificationEntity
-        WHERE statusServerId IS NOT NULL
-    )
+    pachliAccountId = :accountId
+    AND kind = :timelineKind
 """,
     )
-    abstract suspend fun deleteAllStatusesForAccount(accountId: Long)
+    abstract suspend fun deleteAllStatusesForAccount(accountId: Long, timelineKind: TimelineStatusEntity.Kind = TimelineStatusEntity.Kind.HOME)
 
     @Query(
         """
@@ -310,56 +334,29 @@ WHERE timelineUserId = :accountId
      */
     @Transaction
     open suspend fun cleanup(accountId: Long, limit: Int) {
-        cleanupStatuses(accountId, limit)
+        cleanupStatuses(accountId)
         cleanupAccounts(accountId)
         cleanupStatusViewData(accountId, limit)
         cleanupTranslatedStatus(accountId, limit)
     }
 
     /**
-     * Deletes rows from [StatusEntity], keeping the newest [keep]
-     * statuses.
+     * Removes rows from [StatusEntity] that are not referenced elsewhere.
      *
      * @param accountId id of the account for which to clean statuses
-     * @param keep (1-based) how many statuses to keep
      */
     @Query(
         """
 DELETE
 FROM StatusEntity
-WHERE timelineUserId = :accountId AND serverId IN (
-    SELECT serverId
-    FROM (
-        WITH statuses (serverId) AS (
-            -- Statuses that are not associated with a notification.
-            -- Left join with notifications, filter to statuses where the
-            -- join returns a NULL notification ID (because the status has
-            -- no associated notification)
-            SELECT s.serverId
-            FROM StatusEntity AS s
-            LEFT JOIN
-                NotificationEntity AS n
-                ON (s.serverId = n.statusServerId AND s.timelineUserId = n.pachliAccountId)
-            WHERE n.statusServerId IS NULL AND s.timelineUserId = :accountId
-        )
-
-        -- Calculate the row number for each row, and exclude rows where
-        -- the row number < limit
-        SELECT
-            t1.serverId,
-            COUNT(t2.serverId) AS rownum
-        FROM statuses AS t1
-        LEFT JOIN statuses AS t2
-            ON
-                LENGTH(t1.serverId) < LENGTH(t2.serverId)
-                OR (LENGTH(t1.serverId) = LENGTH(t2.serverId) AND t1.serverId < t2.serverId)
-        GROUP BY t1.serverId
-        HAVING rownum > :keep
-    )
+WHERE timelineUserId = :accountId AND serverId NOT IN (
+    SELECT statusId from TimelineStatusEntity WHERE pachliAccountId = :accountId
+    UNION
+    SELECT statusServerId FROM NotificationEntity WHERE pachliAccountId = :accountId
 )
 """,
     )
-    abstract suspend fun cleanupStatuses(accountId: Long, keep: Int)
+    abstract suspend fun cleanupStatuses(accountId: Long)
 
     /**
      * Cleans the TimelineAccountEntity table from accounts that are no longer referenced in the StatusEntity table
@@ -460,27 +457,40 @@ WHERE
 
     @Query(
         """
-DELETE
-FROM StatusEntity
-WHERE timelineUserId = :accountId AND authorServerId IN (
-    SELECT serverId
-    FROM TimelineAccountEntity
-    WHERE
-        username LIKE '%@' || :instanceDomain
-        AND timelineUserId = :accountId
+WITH statuses(serverId) AS (
+    -- IDs of statuses written by accounts from :instanceDomain
+    SELECT s.serverId
+    FROM StatusEntity s
+    LEFT JOIN TimelineAccountEntity a ON (s.timelineUserId = a.timelineUserId AND (s.authorServerId = a.serverId OR s.reblogAccountId = a.serverId))
+    WHERE s.timelineUserId = :accountId AND a.username LIKE '%@' || :instanceDomain
 )
+DELETE
+FROM TimelineStatusEntity
+WHERE
+    kind = :timelineKind
+    AND pachliAccountId = :accountId
+    AND statusId IN (SELECT serverId FROM statuses)
 """,
     )
-    abstract suspend fun deleteAllFromInstance(accountId: Long, instanceDomain: String)
+    abstract suspend fun deleteAllFromInstance(
+        accountId: Long,
+        instanceDomain: String,
+        timelineKind: TimelineStatusEntity.Kind = TimelineStatusEntity.Kind.HOME,
+    )
 
     @Query(
         """
 SELECT COUNT(*)
-FROM StatusEntity
-WHERE timelineUserId = :accountId
+FROM TimelineStatusEntity
+WHERE
+    kind = :timelineKind
+    AND pachliAccountId = :accountId
 """,
     )
-    abstract suspend fun getStatusCount(accountId: Long): Int
+    abstract suspend fun getStatusCount(
+        accountId: Long,
+        timelineKind: TimelineStatusEntity.Kind = TimelineStatusEntity.Kind.HOME,
+    ): Int
 
     /** Developer tools: Find N most recent status IDs */
     @Query(

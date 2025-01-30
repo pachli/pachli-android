@@ -96,12 +96,14 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.conflate
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.take
+import kotlinx.coroutines.flow.zip
 import kotlinx.coroutines.launch
 import postPrepend
 import timber.log.Timber
@@ -187,6 +189,7 @@ class TimelineFragment :
         isSwipeToRefreshEnabled = arguments.getBoolean(ARG_ENABLE_SWIPE_TO_REFRESH, true)
 
         adapter = TimelinePagingAdapter(this, viewModel.statusDisplayOptions.value)
+        adapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT
     }
 
     override fun onCreateView(
@@ -222,6 +225,26 @@ class TimelineFragment :
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
+            adapter.onPagesUpdatedFlow.map { adapter.snapshot() }.distinctUntilChanged()
+                .combine(adapter.loadStateFlow.distinctUntilChanged()) { s, l ->
+                    Pair(s, l)
+                }.collect { (snapshot, l) ->
+                    Timber.e("snapshot-loadstate")
+                    Timber.d("  loadstate: $l")
+                    Timber.d("  loadstate.refresh: ${l.refresh}")
+                    Timber.d("  loadstate.source.refresh: ${l.source.refresh}")
+                    Timber.d("  loadstate.mediator.refresh: ${l.mediator?.refresh}")
+                    Timber.d("  loadstate.prepend: ${l.prepend}")
+                    Timber.d("  loadstate. append: ${l.append}")
+                    Timber.d("  snapshot size = ${snapshot.items.size}")
+                    Timber.d("  first ID: ${snapshot.items.firstOrNull()?.id}")
+                    Timber.d("   last ID: ${snapshot.items.lastOrNull()?.id}")
+                    Timber.d("  p before: ${snapshot.placeholdersBefore}")
+                    Timber.d("  p  after: ${snapshot.placeholdersAfter}")
+                }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
                     // Wait for the very first page load, then scroll recyclerview
@@ -231,6 +254,7 @@ class TimelineFragment :
                             .take(1)
                             .filterNotNull()
                             .collect { key ->
+                                Timber.d("First onPagesUpdatedFlow, restoring $key")
                                 val snapshot = adapter.snapshot()
                                 val index = snapshot.items.indexOfFirst { it.id == key }
                                 binding.recyclerView.scrollToPosition(
@@ -240,7 +264,12 @@ class TimelineFragment :
                     }
                 }
 
-                launch { viewModel.statuses.collectLatest { adapter.submitData(it) } }
+                launch {
+                    viewModel.statuses.collectLatest {
+                        Timber.w("Calling submitData(), expect a pageflow update")
+                        adapter.submitData(it)
+                    }
+                }
 
                 launch { viewModel.uiResult.collect(::bindUiResult) }
 
@@ -393,7 +422,7 @@ class TimelineFragment :
                 }
                 (indexedViewData.value as StatusViewData).status = status
 
-                adapter.notifyItemChanged(indexedViewData.index)
+//                adapter.notifyItemChanged(indexedViewData.index)
             }
 
             // Refresh adapter on mutes and blocks
@@ -434,13 +463,101 @@ class TimelineFragment :
     private fun refreshAdapterAndScrollToVisibleId() {
         getFirstVisibleStatus()?.id?.let { id ->
             viewLifecycleOwner.lifecycleScope.launch {
-                adapter.onPagesUpdatedFlow.conflate().take(1).collect {
-                    binding.recyclerView.scrollToPosition(
-                        adapter.snapshot().items.indexOfFirst { it.id == id },
-                    )
-                }
+                // Trying with postPrepend
+                //
+                // Doesn't work -- sometimes the item ID is not found in
+                // snapshot.items.indexOfFirst (returns -1)
+//                adapter.postPrepend {
+//                    val snapshot = adapter.snapshot()
+//                    val index = snapshot.items.indexOfFirst { it.id == id }
+//                    Timber.w("New scroll index: ${snapshot.placeholdersBefore} + $index")
+//                    if (index == -1) return@postPrepend
+//                    binding.recyclerView.scrollToPosition(index)
+//                }
+
+                // Trying with different loadStateFlow code from
+                // https://github.com/android/codelab-android-paging/issues/149
+                //
+                // Doesn't work -- it's never called after refresh
+//                adapter.loadStateFlow
+//                    .distinctUntilChanged { old, new ->
+//                        old.mediator?.prepend?.endOfPaginationReached.isTrue() ==
+//                            new.mediator?.prepend?.endOfPaginationReached.isTrue()
+//                    }
+//                    .filter { it.refresh is LoadState.NotLoading && it.prepend.endOfPaginationReached && !it.append.endOfPaginationReached }
+//                    .collect {
+//                        val snapshot = adapter.snapshot()
+//                        val index = snapshot.items.indexOfFirst { it.id == id }
+//                        Timber.w("New scroll index: ${snapshot.placeholdersBefore} + $index")
+//                        if (index == -1) return@collect
+//                        binding.recyclerView.scrollToPosition(index)
+//                    }
+
+                // From reddit thread, same problem as above, never called.
+//                adapter.loadStateFlow
+//                    .distinctUntilChanged { old, new ->
+//                        old.prepend.endOfPaginationReached == new.prepend.endOfPaginationReached
+//                    }
+//                    .filter { it.refresh is LoadState.NotLoading }
+//                    .filter { it.prepend.endOfPaginationReached }
+//                    .filter { !it.append.endOfPaginationReached }
+//                    .collect {
+//                        val snapshot = adapter.snapshot()
+//                        val index = snapshot.items.indexOfFirst { it.id == id }
+//                        Timber.w("New scroll index: ${snapshot.placeholdersBefore} + $index")
+//                        if (index == -1) return@collect
+//                        binding.recyclerView.scrollToPosition(index)
+//                    }
+
+                // Doesn't work, jumps around, with or without adding
+                // snapshot.placeholdersBefore
+//                adapter.onPagesUpdatedFlow.conflate()
+//                    .map {
+//                        val snapshot = adapter.snapshot()
+//                        val index = snapshot.items.indexOfFirst { it.id == id }
+//                        Pair(snapshot, index)
+//                    }
+//                    .filter { (_, index) -> index != -1 }
+//                    .take(1)
+//                    .collect { (snapshot, index) ->
+//                        Timber.e("New scroll index: ${snapshot.placeholdersBefore} + $index")
+//                        if (index == -1) return@collect
+// //                        binding.recyclerView.scrollToPosition(snapshot.placeholdersBefore + index)
+//                        binding.recyclerView.scrollToPosition(index)
+//                        cancel(null)
+//                    }
+
+                // Just like on very first page load.
+                // Still loses place.
+//                adapter.onPagesUpdatedFlow
+//                    .take(1)
+//                    .collect {
+//                        Timber.d("Post refresh onPagesUpdatedFlow, restoring $id")
+//                        val snapshot = adapter.snapshot()
+//                        val index = snapshot.items.indexOfFirst { it.id == id }
+//                        binding.recyclerView.scrollToPosition(
+//                            snapshot.placeholdersBefore + index,
+//                        )
+//                    }
+//                adapter.loadStateFlow
+//                    .filter { it.source.refresh is LoadState.NotLoading && it.mediator?.refresh is LoadState.NotLoading }
+//                    .take(1)
+//                    .combine(adapter.onPagesUpdatedFlow) { _, _ -> }
+//                    .collect {
+//                        Timber.d("Post refresh, restoring $id")
+//                        val snapshot = adapter.snapshot()
+//                        val index = snapshot.items.indexOfFirst { it.id == id }
+//                        Timber.e("New scroll index: ${snapshot.placeholdersBefore} + $index")
+//                        binding.recyclerView.scrollToPosition(
+//                            snapshot.placeholdersBefore + index,
+//                        )
+//                        cancel(null)
+//                    }
+
+                // Just log what happens
             }
         }
+
         adapter.refresh()
     }
 
@@ -472,7 +589,6 @@ class TimelineFragment :
             R.id.action_load_newest -> {
                 Timber.d("Reload because user chose load newest menu item")
                 viewModel.accept(InfallibleUiAction.LoadNewest)
-                refreshContent()
                 true
             }
             else -> false

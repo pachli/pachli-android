@@ -64,6 +64,7 @@ import app.pachli.core.database.model.ServerEntity
 import app.pachli.core.database.model.StatusEntity
 import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineAccountEntity
+import app.pachli.core.database.model.TimelineStatusEntity
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.model.ContentFilterVersion
 import java.text.SimpleDateFormat
@@ -93,8 +94,9 @@ import java.util.TimeZone
         NotificationReportEntity::class,
         NotificationViewDataEntity::class,
         NotificationRelationshipSeveranceEventEntity::class,
+        TimelineStatusEntity::class,
     ],
-    version = 15,
+    version = 16,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
@@ -110,6 +112,7 @@ import java.util.TimeZone
         // 12 -> 13 is a custom migration
         AutoMigration(from = 13, to = 14, spec = AppDatabase.MIGRATE_13_14::class),
         AutoMigration(from = 14, to = 15, spec = AppDatabase.MIGRATE_14_15::class),
+        AutoMigration(from = 15, to = 16),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {
