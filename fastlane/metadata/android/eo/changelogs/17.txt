@@ -1,0 +1,16 @@
+Pachli 2.6.0
+
+Novaj ecoj:
+
+Serĉis por "Suggested kontoj"
+Subtenaj servilfiltriloj en GoToSocial 0.16.0
+
+Fiksoj:
+
+Ĝisdatigu tiparon dum revenado de Preferoj
+Korekte pritraktas redakti la lingvon de statuso
+Improve-legebleco de statusaj amaskomunikilaj etikedoj
+Certteksto en nav menuo konto titolo estas legebla
+- Ne superas la maksimuman nombron da kreitaj mallongigoj
+Uzu defaŭltan "Navigate supren" enhavpriskribon en ViewThreadActivity
+Finna, hispanaj, kaj svedaj tradukoj
