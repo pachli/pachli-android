@@ -34,7 +34,16 @@ data class TimelineStatusEntity(
     val statusId: String,
 ) {
     /** Cacheable timeline kinds. */
-    enum class Kind {
-        HOME,
+    // TODO: Eventually these have to be the timeline kind types for
+    // RemoteKeyEntity too.
+    sealed interface Kind {
+        data object Home: Kind
+        data object Local: Kind
+        data object Federated: Kind
+        // data class RemoteLocal(val serverDomain: String): K ?
+        data class Hashtag(val hashtag: String) : Kind
+        data class Link(val url: String) : Kind
+        data class List(val listId: String) : Kind
+        data object Direct : Kind
     }
 }
