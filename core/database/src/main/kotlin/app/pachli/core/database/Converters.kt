@@ -313,7 +313,7 @@ class Converters @Inject constructor(
     fun jsonToAccountFilterDecision(s: String?) = s?.let { moshi.adapter<AccountFilterDecision>().fromJson(it) }
 
     @TypeConverter
-    fun timelineKindToJson(kind: TimelineStatusEntity.Kind) = moshi.adapter<TimelineStatusEntity.Kind>().toJson(kind)
+    fun timelineKindToJson(kind: TimelineStatusEntity.Kind): String = moshi.adapter<TimelineStatusEntity.Kind>().toJson(kind)
 
     @TypeConverter
     fun jsonToTimelineKind(s: String?) = s?.let { moshi.adapter<TimelineStatusEntity.Kind>().fromJson(s) }
