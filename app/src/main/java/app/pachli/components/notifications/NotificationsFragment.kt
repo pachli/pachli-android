@@ -87,7 +87,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterNotNull
@@ -261,6 +260,7 @@ class NotificationsFragment :
                 }
 
                 // Update the UI from the loadState
+                // TODO: Move to bindLoadState function
                 adapter.loadStateFlow.distinctUntilChangedBy { it.refresh }.collect { loadState ->
                     when (loadState.refresh) {
                         is LoadState.Error -> {
@@ -274,7 +274,6 @@ class NotificationsFragment :
                         }
 
                         LoadState.Loading -> {
-                            /* nothing */
                             binding.statusView.hide()
                             binding.progressIndicator.show()
                         }
@@ -347,12 +346,13 @@ class NotificationsFragment :
                     // remove it.
                     is NotificationActionSuccess.AcceptFollowRequest,
                     is NotificationActionSuccess.RejectFollowRequest,
-                    -> refreshAdapterAndScrollToVisibleId()
+                    -> adapter.refresh()
                 }
             }
 
             when (uiSuccess) {
-                is UiSuccess.Block, is UiSuccess.Mute, is UiSuccess.MuteConversation -> refreshAdapterAndScrollToVisibleId()
+                is UiSuccess.Block, is UiSuccess.Mute, is UiSuccess.MuteConversation,
+                -> adapter.refresh()
 
                 is UiSuccess.LoadNewest -> {
                     // Scroll to the top when prepending completes.
@@ -369,25 +369,6 @@ class NotificationsFragment :
                 else -> { /* nothing to do */ }
             }
         }
-    }
-
-    /**
-     * Refreshes the adapter, waits for the first page to be updated, and scrolls the
-     * recyclerview to the first notification that was visible before the refresh.
-     *
-     * This ensures the user's position is not lost during adapter refreshes.
-     */
-    private fun refreshAdapterAndScrollToVisibleId() {
-        getFirstVisibleNotification()?.id?.let { id ->
-            viewLifecycleOwner.lifecycleScope.launch {
-                adapter.onPagesUpdatedFlow.conflate().take(1).collect {
-                    binding.recyclerView.scrollToPosition(
-                        adapter.snapshot().items.indexOfFirst { it.id == id },
-                    )
-                }
-            }
-        }
-        adapter.refresh()
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -438,7 +419,7 @@ class NotificationsFragment :
         }
 
         binding.swipeRefreshLayout.isRefreshing = false
-        refreshAdapterAndScrollToVisibleId()
+        adapter.refresh()
         clearNotificationsForAccount(requireContext(), pachliAccountId)
     }
 
@@ -605,11 +586,11 @@ class NotificationsFragment :
     }
 
     override fun onMute(mute: Boolean, id: String, position: Int, notifications: Boolean) {
-        refreshAdapterAndScrollToVisibleId()
+        adapter.refresh()
     }
 
     override fun onBlock(block: Boolean, id: String, position: Int) {
-        refreshAdapterAndScrollToVisibleId()
+        adapter.refresh()
     }
 
     override fun onRespondToFollowRequest(accept: Boolean, accountId: String, position: Int) {

@@ -96,11 +96,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.zip
@@ -189,7 +187,7 @@ class TimelineFragment :
         isSwipeToRefreshEnabled = arguments.getBoolean(ARG_ENABLE_SWIPE_TO_REFRESH, true)
 
         adapter = TimelinePagingAdapter(this, viewModel.statusDisplayOptions.value)
-        adapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT
+//        adapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT
     }
 
     override fun onCreateView(
@@ -225,26 +223,6 @@ class TimelineFragment :
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            adapter.onPagesUpdatedFlow.map { adapter.snapshot() }.distinctUntilChanged()
-                .combine(adapter.loadStateFlow.distinctUntilChanged()) { s, l ->
-                    Pair(s, l)
-                }.collect { (snapshot, l) ->
-                    Timber.e("snapshot-loadstate")
-                    Timber.d("  loadstate: $l")
-                    Timber.d("  loadstate.refresh: ${l.refresh}")
-                    Timber.d("  loadstate.source.refresh: ${l.source.refresh}")
-                    Timber.d("  loadstate.mediator.refresh: ${l.mediator?.refresh}")
-                    Timber.d("  loadstate.prepend: ${l.prepend}")
-                    Timber.d("  loadstate. append: ${l.append}")
-                    Timber.d("  snapshot size = ${snapshot.items.size}")
-                    Timber.d("  first ID: ${snapshot.items.firstOrNull()?.id}")
-                    Timber.d("   last ID: ${snapshot.items.lastOrNull()?.id}")
-                    Timber.d("  p before: ${snapshot.placeholdersBefore}")
-                    Timber.d("  p  after: ${snapshot.placeholdersAfter}")
-                }
-        }
-
-        viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
                     // Wait for the very first page load, then scroll recyclerview
@@ -254,7 +232,6 @@ class TimelineFragment :
                             .take(1)
                             .filterNotNull()
                             .collect { key ->
-                                Timber.d("First onPagesUpdatedFlow, restoring $key")
                                 val snapshot = adapter.snapshot()
                                 val index = snapshot.items.indexOfFirst { it.id == key }
                                 binding.recyclerView.scrollToPosition(
@@ -264,12 +241,7 @@ class TimelineFragment :
                     }
                 }
 
-                launch {
-                    viewModel.statuses.collectLatest {
-                        Timber.w("Calling submitData(), expect a pageflow update")
-                        adapter.submitData(it)
-                    }
-                }
+                launch { viewModel.statuses.collectLatest { adapter.submitData(it) } }
 
                 launch { viewModel.uiResult.collect(::bindUiResult) }
 
@@ -299,6 +271,7 @@ class TimelineFragment :
                     }
                 }
 
+                // TODO: Move to bindLoadState function
                 adapter.loadStateFlow.distinctUntilChangedBy { it.refresh }.collect { loadState ->
                     when (loadState.refresh) {
                         is LoadState.Error -> {
@@ -312,7 +285,6 @@ class TimelineFragment :
                         }
 
                         LoadState.Loading -> {
-                            /* nothing */
                             binding.statusView.hide()
                             binding.progressIndicator.show()
                         }
@@ -320,9 +292,6 @@ class TimelineFragment :
                         is LoadState.NotLoading -> {
                             // Might still be loading if source.refresh is Loading, so only update
                             // the UI when loading is completely quiet.
-                            Timber.d("NotLoading .refresh:            ${loadState.refresh}")
-                            Timber.d("  NotLoading .source.refresh:   ${loadState.source.refresh}")
-                            Timber.d("  NotLoading .mediator.refresh: ${loadState.mediator?.refresh}")
                             if (loadState.source.refresh !is LoadState.Loading) {
                                 binding.progressIndicator.hide()
                                 binding.swipeRefreshLayout.isRefreshing = false
@@ -427,9 +396,7 @@ class TimelineFragment :
 
             // Refresh adapter on mutes and blocks
             when (it) {
-                is UiSuccess.Block,
-                is UiSuccess.Mute,
-                is UiSuccess.MuteConversation,
+                is UiSuccess.Block, is UiSuccess.Mute, is UiSuccess.MuteConversation,
                 -> adapter.refresh()
 
                 is UiSuccess.StatusSent -> handleStatusSentOrEdit(it.status)
