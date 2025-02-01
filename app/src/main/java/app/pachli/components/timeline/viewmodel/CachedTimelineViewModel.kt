@@ -78,10 +78,8 @@ class CachedTimelineViewModel @Inject constructor(
 
     override var statuses = accountFlow
         .distinctUntilChangedBy { it.data!!.id }
-        .flatMapLatest {
-            Timber.w("Triggering getStatuses")
-            getStatuses(it.data!!)
-        }.cachedIn(viewModelScope)
+        .flatMapLatest { getStatuses(it.data!!) }
+        .cachedIn(viewModelScope)
 
     /** @return Flow of statuses that make up the timeline of [timeline] for [account]. */
     private suspend fun getStatuses(

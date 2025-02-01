@@ -188,7 +188,6 @@ class TimelineFragment :
         isSwipeToRefreshEnabled = arguments.getBoolean(ARG_ENABLE_SWIPE_TO_REFRESH, true)
 
         adapter = TimelinePagingAdapter(this, viewModel.statusDisplayOptions.value)
-//        adapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT
     }
 
     override fun onCreateView(
@@ -353,8 +352,6 @@ class TimelineFragment :
                     is StatusActionSuccess.Translate -> statusViewData.status
                 }
                 (indexedViewData.value as StatusViewData).status = status
-
-//                adapter.notifyItemChanged(indexedViewData.index)
             }
 
             // Refresh adapter on mutes and blocks
