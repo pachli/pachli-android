@@ -162,9 +162,9 @@ class CachedTimelineRemoteMediator(
                     }
                 }
                 insertStatuses(pachliAccountId, statuses)
-            }
 
-            return MediatorResult.Success(endOfPaginationReached = false)
+                MediatorResult.Success(endOfPaginationReached = false)
+            }
         } catch (e: Exception) {
             currentCoroutineContext().ensureActive()
             Timber.e(e, "Error loading, LoadType = %s", loadType)

@@ -62,52 +62,51 @@ class NotificationsRemoteMediator(
     private val notificationDao: NotificationDao,
     private val statusDao: StatusDao,
 ) : RemoteMediator<Int, NotificationData>() {
-
     override suspend fun load(loadType: LoadType, state: PagingState<Int, NotificationData>): MediatorResult {
         return try {
-            val response = when (loadType) {
-                LoadType.REFRESH -> {
-                    // Ignore the provided state, always try and fetch from the remote
-                    // REFRESH key.
-                    val notificationId = remoteKeyDao.remoteKeyForKind(
-                        pachliAccountId,
-                        RKE_TIMELINE_ID,
-                        RemoteKeyKind.REFRESH,
-                    )?.key
-                    getInitialPage(notificationId, state.config.pageSize)
-                }
-
-                LoadType.PREPEND -> {
-                    val rke = remoteKeyDao.remoteKeyForKind(
-                        pachliAccountId,
-                        RKE_TIMELINE_ID,
-                        RemoteKeyKind.PREV,
-                    ) ?: return MediatorResult.Success(endOfPaginationReached = true)
-                    mastodonApi.notifications(minId = rke.key, limit = state.config.pageSize)
-                }
-
-                LoadType.APPEND -> {
-                    val rke = remoteKeyDao.remoteKeyForKind(
-                        pachliAccountId,
-                        RKE_TIMELINE_ID,
-                        RemoteKeyKind.NEXT,
-                    ) ?: return MediatorResult.Success(endOfPaginationReached = true)
-                    mastodonApi.notifications(maxId = rke.key, limit = state.config.pageSize)
-                }
-            }
-
-            val notifications = response.body()
-            if (!response.isSuccessful || notifications == null) {
-                return MediatorResult.Error(HttpException(response))
-            }
-
-            if (notifications.isEmpty()) {
-                return MediatorResult.Success(endOfPaginationReached = loadType != LoadType.REFRESH)
-            }
-
-            val links = Links.from(response.headers()["link"])
-
             transactionProvider {
+                val response = when (loadType) {
+                    LoadType.REFRESH -> {
+                        // Ignore the provided state, always try and fetch from the remote
+                        // REFRESH key.
+                        val notificationId = remoteKeyDao.remoteKeyForKind(
+                            pachliAccountId,
+                            RKE_TIMELINE_ID,
+                            RemoteKeyKind.REFRESH,
+                        )?.key
+                        getInitialPage(notificationId, state.config.pageSize)
+                    }
+
+                    LoadType.PREPEND -> {
+                        val rke = remoteKeyDao.remoteKeyForKind(
+                            pachliAccountId,
+                            RKE_TIMELINE_ID,
+                            RemoteKeyKind.PREV,
+                        ) ?: return@transactionProvider MediatorResult.Success(endOfPaginationReached = true)
+                        mastodonApi.notifications(minId = rke.key, limit = state.config.pageSize)
+                    }
+
+                    LoadType.APPEND -> {
+                        val rke = remoteKeyDao.remoteKeyForKind(
+                            pachliAccountId,
+                            RKE_TIMELINE_ID,
+                            RemoteKeyKind.NEXT,
+                        ) ?: return@transactionProvider MediatorResult.Success(endOfPaginationReached = true)
+                        mastodonApi.notifications(maxId = rke.key, limit = state.config.pageSize)
+                    }
+                }
+
+                val notifications = response.body()
+                if (!response.isSuccessful || notifications == null) {
+                    return@transactionProvider MediatorResult.Error(HttpException(response))
+                }
+
+                if (notifications.isEmpty()) {
+                    return@transactionProvider MediatorResult.Success(endOfPaginationReached = loadType != LoadType.REFRESH)
+                }
+
+                val links = Links.from(response.headers()["link"])
+
                 when (loadType) {
                     LoadType.REFRESH -> {
                         remoteKeyDao.deletePrevNext(pachliAccountId, RKE_TIMELINE_ID)
@@ -156,9 +155,9 @@ class NotificationsRemoteMediator(
                 }
 
                 upsertNotifications(pachliAccountId, notifications)
-            }
 
-            MediatorResult.Success(endOfPaginationReached = false)
+                MediatorResult.Success(endOfPaginationReached = false)
+            }
         } catch (e: Exception) {
             currentCoroutineContext().ensureActive()
             Timber.e(e, "error loading, loadtype = %s", loadType)
