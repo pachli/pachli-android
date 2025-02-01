@@ -35,6 +35,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.viewmodel.MutableCreationExtras
+import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -270,48 +271,7 @@ class TimelineFragment :
                     }
                 }
 
-                adapter.loadStateFlow.distinctUntilChangedBy { it.refresh }.collect { loadState ->
-                    when (loadState.refresh) {
-                        is LoadState.Error -> {
-                            binding.progressIndicator.hide()
-                            binding.statusView.setup((loadState.refresh as LoadState.Error).error) {
-                                adapter.retry()
-                            }
-                            binding.recyclerView.hide()
-                            binding.statusView.show()
-                            binding.swipeRefreshLayout.isRefreshing = false
-                        }
-
-                        LoadState.Loading -> {
-                            /* nothing */
-                            binding.statusView.hide()
-                            binding.progressIndicator.show()
-                        }
-
-                        is LoadState.NotLoading -> {
-                            // Might still be loading if source.refresh is Loading, so only update
-                            // the UI when loading is completely quiet.
-                            Timber.d("NotLoading .refresh:            ${loadState.refresh}")
-                            Timber.d("  NotLoading .source.refresh:   ${loadState.source.refresh}")
-                            Timber.d("  NotLoading .mediator.refresh: ${loadState.mediator?.refresh}")
-                            if (loadState.source.refresh !is LoadState.Loading) {
-                                binding.progressIndicator.hide()
-                                binding.swipeRefreshLayout.isRefreshing = false
-                                if (adapter.itemCount == 0) {
-                                    binding.statusView.setup(BackgroundMessage.Empty())
-                                    if (timeline == Timeline.Home) {
-                                        binding.statusView.showHelp(R.string.help_empty_home)
-                                    }
-                                    binding.recyclerView.hide()
-                                    binding.statusView.show()
-                                } else {
-                                    binding.statusView.hide()
-                                    binding.recyclerView.show()
-                                }
-                            }
-                        }
-                    }
-                }
+                adapter.loadStateFlow.distinctUntilChangedBy { it.refresh }.collect(::bindLoadState)
             }
         }
     }
@@ -421,6 +381,51 @@ class TimelineFragment :
                 }
 
                 else -> { /* nothing to do */ }
+            }
+        }
+    }
+
+    /**
+     * Binds [CombinedLoadStates] to the UI.
+     *
+     * Updates the UI based on the contents of [loadState.refresh][CombinedLoadStates.refresh]
+     * to show/hide Error, Loading, and NotLoading states.
+     */
+    private fun bindLoadState(loadState: CombinedLoadStates) {
+        when (loadState.refresh) {
+            is LoadState.Error -> {
+                binding.progressIndicator.hide()
+                binding.statusView.setup((loadState.refresh as LoadState.Error).error) {
+                    adapter.retry()
+                }
+                binding.recyclerView.hide()
+                binding.statusView.show()
+                binding.swipeRefreshLayout.isRefreshing = false
+            }
+
+            LoadState.Loading -> {
+                binding.statusView.hide()
+                binding.progressIndicator.show()
+            }
+
+            is LoadState.NotLoading -> {
+                // Might still be loading if source.refresh is Loading, so only update
+                // the UI when loading is completely quiet.
+                if (loadState.source.refresh !is LoadState.Loading) {
+                    binding.progressIndicator.hide()
+                    binding.swipeRefreshLayout.isRefreshing = false
+                    if (adapter.itemCount == 0) {
+                        binding.statusView.setup(BackgroundMessage.Empty())
+                        if (timeline == Timeline.Home) {
+                            binding.statusView.showHelp(R.string.help_empty_home)
+                        }
+                        binding.recyclerView.hide()
+                        binding.statusView.show()
+                    } else {
+                        binding.statusView.hide()
+                        binding.recyclerView.show()
+                    }
+                }
             }
         }
     }
