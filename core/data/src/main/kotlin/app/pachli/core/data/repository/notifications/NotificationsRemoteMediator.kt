@@ -155,9 +155,9 @@ class NotificationsRemoteMediator(
                 }
 
                 upsertNotifications(pachliAccountId, notifications)
-            }
 
-            MediatorResult.Success(endOfPaginationReached = false)
+                MediatorResult.Success(endOfPaginationReached = false)
+            }
         } catch (e: Exception) {
             currentCoroutineContext().ensureActive()
             Timber.e(e, "error loading, loadtype = %s", loadType)
