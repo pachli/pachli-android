@@ -132,11 +132,14 @@ ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC
     )
     abstract fun getStatuses(
         account: Long,
-        timelineKind: TimelineStatusEntity.Kind = TimelineStatusEntity.Kind.HOME,
+        timelineKind: TimelineStatusEntity.Kind = TimelineStatusEntity.Kind.Home,
     ): PagingSource<Int, TimelineStatusWithAccount>
 
     /**
-     * @return Row number (0 based) of the status with ID [statusId] for [pachliAccountId].
+     * @return Row number (0 based) of the status with ID [statusId] for [pachliAccountId]
+     * on [timelineKind].
+     *
+     * Rows are ordered newest (0) to oldest.
      *
      * @see [app.pachli.components.timeline.viewmodel.CachedTimelineViewModel.statuses]
      */
@@ -170,7 +173,7 @@ WHERE serverId = :statusId
     abstract suspend fun getStatusRowNumber(
         pachliAccountId: Long,
         statusId: String,
-        timelineKind: TimelineStatusEntity.Kind = TimelineStatusEntity.Kind.HOME,
+        timelineKind: TimelineStatusEntity.Kind = TimelineStatusEntity.Kind.Home,
     ): Int
 
     @Query(
@@ -292,7 +295,7 @@ WHERE
     abstract suspend fun removeAllByUser(
         pachliAccountId: Long,
         userId: String,
-        timelineKind: TimelineStatusEntity.Kind = TimelineStatusEntity.Kind.HOME,
+        timelineKind: TimelineStatusEntity.Kind = TimelineStatusEntity.Kind.Home,
     )
 
     /**
@@ -307,7 +310,7 @@ WHERE
     AND kind = :timelineKind
 """,
     )
-    abstract suspend fun deleteAllStatusesForAccount(accountId: Long, timelineKind: TimelineStatusEntity.Kind = TimelineStatusEntity.Kind.HOME)
+    abstract suspend fun deleteAllStatusesForAccountOnTimeline(accountId: Long, timelineKind: TimelineStatusEntity.Kind = TimelineStatusEntity.Kind.Home)
 
     @Query(
         """
@@ -475,7 +478,7 @@ WHERE
     abstract suspend fun deleteAllFromInstance(
         accountId: Long,
         instanceDomain: String,
-        timelineKind: TimelineStatusEntity.Kind = TimelineStatusEntity.Kind.HOME,
+        timelineKind: TimelineStatusEntity.Kind = TimelineStatusEntity.Kind.Home,
     )
 
     @Query(
@@ -489,7 +492,7 @@ WHERE
     )
     abstract suspend fun getStatusCount(
         accountId: Long,
-        timelineKind: TimelineStatusEntity.Kind = TimelineStatusEntity.Kind.HOME,
+        timelineKind: TimelineStatusEntity.Kind = TimelineStatusEntity.Kind.Home,
     ): Int
 
     /** Developer tools: Find N most recent status IDs */

@@ -113,8 +113,8 @@ class CachedTimelineRemoteMediator(
 
                 when (loadType) {
                     LoadType.REFRESH -> {
-//                        remoteKeyDao.deletePrevNext(pachliAccountId, RKE_TIMELINE_ID)
-                        timelineDao.deleteAllStatusesForAccount(pachliAccountId)
+                        timelineDao.deleteAllStatusesForAccountOnTimeline(
+                            pachliAccountId, TimelineStatusEntity.Kind.Home)
 
                         remoteKeyDao.upsert(
                             RemoteKeyEntity(
@@ -248,7 +248,8 @@ class CachedTimelineRemoteMediator(
     }
 
     /**
-     * Inserts `statuses` and the accounts referenced by those statuses in to the cache.
+     * Inserts `statuses` and the accounts referenced by those statuses in to the cache,
+     * then adds references to them in the Home timeline.
      */
     private suspend fun insertStatuses(pachliAccountId: Long, statuses: List<Status>) {
         check(transactionProvider.inTransaction())
@@ -266,7 +267,7 @@ class CachedTimelineRemoteMediator(
         timelineDao.upsertStatuses(
             statuses.map {
                 TimelineStatusEntity(
-                    kind = TimelineStatusEntity.Kind.HOME,
+                    kind = TimelineStatusEntity.Kind.Home,
                     pachliAccountId = pachliAccountId,
                     statusId = it.id,
                 )

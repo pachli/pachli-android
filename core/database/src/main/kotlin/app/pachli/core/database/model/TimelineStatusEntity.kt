@@ -20,6 +20,9 @@ package app.pachli.core.database.model
 import androidx.room.Entity
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
+import com.squareup.moshi.JsonClass
+import dev.zacsweers.moshix.sealed.annotations.DefaultNull
+import dev.zacsweers.moshix.sealed.annotations.TypeLabel
 
 /**
  * A timeline that contains items.
@@ -35,15 +38,35 @@ data class TimelineStatusEntity(
 ) {
     /** Cacheable timeline kinds. */
     // TODO: Eventually these have to be the timeline kind types for
-    // RemoteKeyEntity too.
+    // remotekeys
+    // TODO: See also core.model.Timeline
+    @DefaultNull
+    @JsonClass(generateAdapter = true, generator = "sealed:type")
     sealed interface Kind {
+        @TypeLabel("home")
         data object Home: Kind
+
+        @TypeLabel("local")
         data object Local: Kind
+
+        @TypeLabel("federated")
         data object Federated: Kind
+
         // data class RemoteLocal(val serverDomain: String): K ?
+
+        @TypeLabel("hashtag")
+        @JsonClass(generateAdapter = true)
         data class Hashtag(val hashtag: String) : Kind
+
+        @TypeLabel("link")
+        @JsonClass(generateAdapter = true)
         data class Link(val url: String) : Kind
+
+        @TypeLabel("list")
+        @JsonClass(generateAdapter = true)
         data class List(val listId: String) : Kind
+
+        @TypeLabel("direct")
         data object Direct : Kind
     }
 }

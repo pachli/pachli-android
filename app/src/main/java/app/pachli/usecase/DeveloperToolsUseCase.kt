@@ -33,7 +33,7 @@ class DeveloperToolsUseCase @Inject constructor(
      * Clear the home timeline cache.
      */
     suspend fun clearHomeTimelineCache(accountId: Long) {
-        timelineDao.deleteAllStatusesForAccount(accountId)
+        timelineDao.deleteAllStatusesForAccountOnTimeline(accountId)
     }
 
     /**
