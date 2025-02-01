@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Tusky Contributors
+ * Copyright (c) 2025 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -62,7 +62,7 @@ import java.util.Date
     indices = [Index("authorServerId", "timelineUserId")],
 )
 @TypeConverters(Converters::class)
-data class TimelineStatusEntity(
+data class StatusEntity(
     // id never flips: we need it for sorting so it's a real id
     val serverId: String,
     val url: String?,
@@ -99,7 +99,7 @@ data class TimelineStatusEntity(
     val filtered: List<FilterResult>?,
 ) {
     companion object {
-        fun from(status: Status, timelineUserId: Long) = TimelineStatusEntity(
+        fun from(status: Status, timelineUserId: Long) = StatusEntity(
             serverId = status.id,
             url = status.actionableStatus.url,
             timelineUserId = timelineUserId,
@@ -230,7 +230,7 @@ enum class TranslationState {
 /**
  * The local view data for a status.
  *
- * There is *no* foreignkey relationship between this and [TimelineStatusEntity], as the view
+ * There is *no* foreignkey relationship between this and [StatusEntity], as the view
  * data is kept even if the status is deleted from the local cache (e.g., during a refresh
  * operation).
  */
@@ -263,7 +263,7 @@ data class StatusViewDataEntity(
 
 data class TimelineStatusWithAccount(
     @Embedded
-    val status: TimelineStatusEntity,
+    val status: StatusEntity,
     @Embedded(prefix = "a_")
     val account: TimelineAccountEntity,
     // null when no reblog

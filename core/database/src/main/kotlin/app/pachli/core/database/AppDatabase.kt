@@ -26,6 +26,7 @@ import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.DeleteColumn
 import androidx.room.RenameColumn
+import androidx.room.RenameTable
 import androidx.room.RoomDatabase
 import androidx.room.migration.AutoMigrationSpec
 import androidx.room.migration.Migration
@@ -59,9 +60,9 @@ import app.pachli.core.database.model.NotificationReportEntity
 import app.pachli.core.database.model.NotificationViewDataEntity
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.ServerEntity
+import app.pachli.core.database.model.StatusEntity
 import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineAccountEntity
-import app.pachli.core.database.model.TimelineStatusEntity
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.model.ContentFilterVersion
 import java.text.SimpleDateFormat
@@ -75,7 +76,7 @@ import java.util.TimeZone
         AccountEntity::class,
         InstanceInfoEntity::class,
         EmojisEntity::class,
-        TimelineStatusEntity::class,
+        StatusEntity::class,
         TimelineAccountEntity::class,
         ConversationEntity::class,
         RemoteKeyEntity::class,
@@ -92,7 +93,7 @@ import java.util.TimeZone
         NotificationViewDataEntity::class,
         NotificationRelationshipSeveranceEventEntity::class,
     ],
-    version = 14,
+    version = 15,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
@@ -107,6 +108,7 @@ import java.util.TimeZone
         AutoMigration(from = 11, to = 12, spec = AppDatabase.MIGRATE_11_12::class),
         // 12 -> 13 is a custom migration
         AutoMigration(from = 13, to = 14, spec = AppDatabase.MIGRATE_13_14::class),
+        AutoMigration(from = 14, to = 15, spec = AppDatabase.MIGRATE_14_15::class),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -186,6 +188,9 @@ abstract class AppDatabase : RoomDatabase() {
     // lastVisibleHomeTimelineStatusId removed in favour of the REFRESH key in RemoteKeyEntity.
     @DeleteColumn("AccountEntity", "lastVisibleHomeTimelineStatusId")
     class MIGRATE_13_14 : AutoMigrationSpec
+
+    @RenameTable("TimelineStatusEntity", "StatusEntity")
+    class MIGRATE_14_15 : AutoMigrationSpec
 }
 
 val MIGRATE_8_9 = object : Migration(8, 9) {

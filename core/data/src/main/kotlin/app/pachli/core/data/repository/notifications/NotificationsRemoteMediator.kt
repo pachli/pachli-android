@@ -32,8 +32,8 @@ import app.pachli.core.database.model.NotificationRelationshipSeveranceEventEnti
 import app.pachli.core.database.model.NotificationReportEntity
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
+import app.pachli.core.database.model.StatusEntity
 import app.pachli.core.database.model.TimelineAccountEntity
-import app.pachli.core.database.model.TimelineStatusEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Notification
@@ -282,7 +282,7 @@ class NotificationsRemoteMediator(
 
         // Bulk upsert the discovered items.
         timelineDao.upsertAccounts(accounts.map { TimelineAccountEntity.from(it, pachliAccountId) })
-        timelineDao.upsertStatuses(statuses.map { TimelineStatusEntity.from(it, pachliAccountId) })
+        timelineDao.upsertStatuses(statuses.map { StatusEntity.from(it, pachliAccountId) })
         notificationDao.upsertReports(reports.mapNotNull { NotificationReportEntity.from(pachliAccountId, it) })
         notificationDao.upsertEvents(
             severanceEvents.mapNotNull {
@@ -303,7 +303,7 @@ fun NotificationData.Companion.from(pachliAccountId: Long, notification: Notific
     account = TimelineAccountEntity.from(notification.account, pachliAccountId),
     status = notification.status?.let { status ->
         TimelineStatusWithAccount(
-            status = TimelineStatusEntity.from(status, pachliAccountId),
+            status = StatusEntity.from(status, pachliAccountId),
             account = TimelineAccountEntity.from(status.account, pachliAccountId),
         )
     },

@@ -1,7 +1,7 @@
 package app.pachli.network
 
 import app.pachli.core.data.model.from
-import app.pachli.core.database.model.TimelineStatusEntity
+import app.pachli.core.database.model.StatusEntity
 import app.pachli.core.model.ContentFilter
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.FilterContext
@@ -63,7 +63,7 @@ class ContentFilterModel(private val filterContext: FilterContext, v1ContentFilt
     }
 
     /** @return the [FilterAction] that should be applied to this status */
-    fun filterActionFor(status: TimelineStatusEntity): FilterAction {
+    fun filterActionFor(status: StatusEntity): FilterAction {
         pattern?.let { pat ->
             // Patterns are expensive and thread-safe, matchers are neither.
             val matcher = pat.matcher("") ?: return FilterAction.NONE
