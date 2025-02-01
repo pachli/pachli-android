@@ -272,7 +272,6 @@ class TimelineFragment :
                     }
                 }
 
-                // TODO: Move to bindLoadState function
                 adapter.loadStateFlow.distinctUntilChangedBy { it.refresh }.collect(::bindLoadState)
             }
         }
