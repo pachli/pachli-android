@@ -103,6 +103,7 @@ class CachedTimelineRemoteMediatorTest {
             transactionProvider = transactionProvider,
             timelineDao = db.timelineDao(),
             remoteKeyDao = db.remoteKeyDao(),
+            statusDao = db.statusDao(),
         )
 
         val result = runBlocking { remoteMediator.load(LoadType.REFRESH, state()) }
@@ -123,6 +124,7 @@ class CachedTimelineRemoteMediatorTest {
             transactionProvider = transactionProvider,
             timelineDao = db.timelineDao(),
             remoteKeyDao = db.remoteKeyDao(),
+            statusDao = db.statusDao(),
         )
 
         val result = runBlocking { remoteMediator.load(LoadType.REFRESH, state()) }
@@ -140,6 +142,7 @@ class CachedTimelineRemoteMediatorTest {
             transactionProvider = transactionProvider,
             timelineDao = db.timelineDao(),
             remoteKeyDao = db.remoteKeyDao(),
+            statusDao = db.statusDao(),
         )
 
         val state = state(
@@ -177,6 +180,7 @@ class CachedTimelineRemoteMediatorTest {
             transactionProvider = transactionProvider,
             timelineDao = db.timelineDao(),
             remoteKeyDao = db.remoteKeyDao(),
+            statusDao = db.statusDao(),
         )
 
         val state = state(
@@ -228,6 +232,7 @@ class CachedTimelineRemoteMediatorTest {
             transactionProvider = transactionProvider,
             timelineDao = db.timelineDao(),
             remoteKeyDao = db.remoteKeyDao(),
+            statusDao = db.statusDao(),
         )
 
         val state = state(
@@ -286,6 +291,7 @@ class CachedTimelineRemoteMediatorTest {
             transactionProvider = transactionProvider,
             timelineDao = db.timelineDao(),
             remoteKeyDao = db.remoteKeyDao(),
+            statusDao = db.statusDao(),
         )
 
         val state = state(
@@ -335,7 +341,7 @@ class CachedTimelineRemoteMediatorTest {
                 statusWithAccount.reblogAccount?.let { account ->
                     timelineDao().insertAccount(account)
                 }
-                timelineDao().insertStatus(statusWithAccount.status)
+                statusDao().insertStatus(statusWithAccount.status)
             }
         }
     }

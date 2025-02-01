@@ -24,6 +24,7 @@ import androidx.paging.RemoteMediator
 import app.pachli.core.data.repository.notifications.NotificationsRepository.Companion.RKE_TIMELINE_ID
 import app.pachli.core.database.dao.NotificationDao
 import app.pachli.core.database.dao.RemoteKeyDao
+import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.NotificationData
@@ -59,6 +60,7 @@ class NotificationsRemoteMediator(
     private val timelineDao: TimelineDao,
     private val remoteKeyDao: RemoteKeyDao,
     private val notificationDao: NotificationDao,
+    private val statusDao: StatusDao,
 ) : RemoteMediator<Int, NotificationData>() {
 
     override suspend fun load(loadType: LoadType, state: PagingState<Int, NotificationData>): MediatorResult {
@@ -282,7 +284,7 @@ class NotificationsRemoteMediator(
 
         // Bulk upsert the discovered items.
         timelineDao.upsertAccounts(accounts.map { TimelineAccountEntity.from(it, pachliAccountId) })
-        timelineDao.upsertStatuses(statuses.map { StatusEntity.from(it, pachliAccountId) })
+        statusDao.upsertStatuses(statuses.map { StatusEntity.from(it, pachliAccountId) })
         notificationDao.upsertReports(reports.mapNotNull { NotificationReportEntity.from(pachliAccountId, it) })
         notificationDao.upsertEvents(
             severanceEvents.mapNotNull {

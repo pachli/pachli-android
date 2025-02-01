@@ -28,6 +28,7 @@ import app.pachli.components.timeline.viewmodel.CachedTimelineRemoteMediator.Com
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.dao.RemoteKeyDao
+import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.dao.TranslatedStatusDao
 import app.pachli.core.database.di.TransactionProvider
@@ -66,6 +67,7 @@ class CachedTimelineRepository @Inject constructor(
     val timelineDao: TimelineDao,
     private val remoteKeyDao: RemoteKeyDao,
     private val translatedStatusDao: TranslatedStatusDao,
+    private val statusDao: StatusDao,
     @ApplicationScope private val externalScope: CoroutineScope,
 ) : TimelineRepository<TimelineStatusWithAccount> {
     private var factory: InvalidatingPagingSourceFactory<Int, TimelineStatusWithAccount>? = null
@@ -97,6 +99,7 @@ class CachedTimelineRepository @Inject constructor(
                 transactionProvider,
                 timelineDao,
                 remoteKeyDao,
+                statusDao,
             ),
             pagingSourceFactory = factory!!,
         ).flow
@@ -152,7 +155,7 @@ class CachedTimelineRepository @Inject constructor(
 
     /** Clear the warning (remove the "filtered" setting) for the given status, for the active account */
     suspend fun clearStatusWarning(pachliAccountId: Long, statusId: String) = externalScope.launch {
-        timelineDao.clearWarning(pachliAccountId, statusId)
+        statusDao.clearWarning(pachliAccountId, statusId)
     }.join()
 
     suspend fun translate(statusViewData: StatusViewData): NetworkResult<Translation> {

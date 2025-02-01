@@ -31,23 +31,15 @@ import app.pachli.core.database.model.StatusEntity
 import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
-import app.pachli.core.network.model.Poll
 
 @Dao
 @TypeConverters(Converters::class)
 abstract class TimelineDao {
-
     @Insert(onConflict = REPLACE)
     abstract suspend fun insertAccount(timelineAccountEntity: TimelineAccountEntity): Long
 
     @Upsert
     abstract suspend fun upsertAccounts(accounts: Collection<TimelineAccountEntity>)
-
-    @Upsert
-    abstract suspend fun upsertStatuses(statuses: Collection<StatusEntity>)
-
-    @Upsert
-    abstract suspend fun insertStatus(statusEntity: StatusEntity): Long
 
     @Query(
         """
@@ -263,36 +255,6 @@ WHERE timelineUserId = :accountId
 
     @Query(
         """
-UPDATE StatusEntity
-SET
-    favourited = :favourited
-WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServerId = :statusId)
-""",
-    )
-    abstract suspend fun setFavourited(pachliAccountId: Long, statusId: String, favourited: Boolean)
-
-    @Query(
-        """
-UPDATE StatusEntity
-SET
-    bookmarked = :bookmarked
-WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServerId = :statusId)
-""",
-    )
-    abstract suspend fun setBookmarked(pachliAccountId: Long, statusId: String, bookmarked: Boolean)
-
-    @Query(
-        """
-UPDATE StatusEntity
-SET
-    reblogged = :reblogged
-WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServerId = :statusId)
-""",
-    )
-    abstract suspend fun setReblogged(pachliAccountId: Long, statusId: String, reblogged: Boolean)
-
-    @Query(
-        """
 DELETE
 FROM StatusEntity
 WHERE
@@ -340,17 +302,6 @@ WHERE timelineUserId = :accountId
 """,
     )
     abstract suspend fun removeAllTranslatedStatus(accountId: Long)
-
-    @Query(
-        """
-DELETE
-FROM StatusEntity
-WHERE
-    timelineUserId = :accountId
-    AND serverId = :statusId
-""",
-    )
-    abstract suspend fun delete(accountId: Long, statusId: String)
 
     /**
      * Cleans the StatusEntity and TimelineAccountEntity tables from old entries.
@@ -481,16 +432,6 @@ WHERE
     )
     abstract suspend fun cleanupTranslatedStatus(accountId: Long, limit: Int)
 
-    @Query(
-        """
-UPDATE StatusEntity
-SET
-    poll = :poll
-WHERE timelineUserId = :accountId AND (serverId = :statusId OR reblogServerId = :statusId)
-""",
-    )
-    abstract suspend fun setVoted(accountId: Long, statusId: String, poll: Poll)
-
     @Upsert
     abstract suspend fun upsertStatusViewData(svd: StatusViewDataEntity)
 
@@ -519,16 +460,6 @@ WHERE
 
     @Query(
         """
-UPDATE StatusEntity
-SET
-    pinned = :pinned
-WHERE timelineUserId = :accountId AND (serverId = :statusId OR reblogServerId = :statusId)
-""",
-    )
-    abstract suspend fun setPinned(accountId: Long, statusId: String, pinned: Boolean)
-
-    @Query(
-        """
 DELETE
 FROM StatusEntity
 WHERE timelineUserId = :accountId AND authorServerId IN (
@@ -541,16 +472,6 @@ WHERE timelineUserId = :accountId AND authorServerId IN (
 """,
     )
     abstract suspend fun deleteAllFromInstance(accountId: Long, instanceDomain: String)
-
-    @Query(
-        """
-UPDATE StatusEntity
-SET
-    filtered = NULL
-WHERE timelineUserId = :accountId AND (serverId = :statusId OR reblogServerId = :statusId)
-""",
-    )
-    abstract suspend fun clearWarning(accountId: Long, statusId: String): Int
 
     @Query(
         """

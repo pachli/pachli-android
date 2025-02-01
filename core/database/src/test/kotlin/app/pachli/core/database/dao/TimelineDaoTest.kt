@@ -54,6 +54,9 @@ class TimelineDaoTest {
     @Inject
     lateinit var timelineDao: TimelineDao
 
+    @Inject
+    lateinit var statusDao: StatusDao
+
     @Before
     fun setup() {
         hilt.inject()
@@ -101,7 +104,7 @@ class TimelineDaoTest {
             reblogger?.let {
                 timelineDao.insertAccount(it)
             }
-            timelineDao.insertStatus(status)
+            statusDao.insertStatus(status)
         }
 
         val pagingSource = timelineDao.getStatuses(setOne.first.timelineUserId)
@@ -131,7 +134,7 @@ class TimelineDaoTest {
             reblogAuthor?.let {
                 timelineDao.insertAccount(it)
             }
-            timelineDao.insertStatus(status)
+            statusDao.insertStatus(status)
         }
 
         timelineDao.cleanup(accountId = 1, limit = 3)
@@ -190,7 +193,7 @@ class TimelineDaoTest {
             reblogAuthor?.let {
                 timelineDao.insertAccount(it)
             }
-            timelineDao.insertStatus(status)
+            statusDao.insertStatus(status)
         }
 
         // status 2 gets deleted, newly loaded status contain only 1 + 3
@@ -207,7 +210,7 @@ class TimelineDaoTest {
             reblogAuthor?.let {
                 timelineDao.insertAccount(it)
             }
-            timelineDao.insertStatus(status)
+            statusDao.insertStatus(status)
         }
 
         // make sure status 2 is no longer in db
@@ -240,7 +243,7 @@ class TimelineDaoTest {
             reblogAuthor?.let {
                 timelineDao.insertAccount(it)
             }
-            timelineDao.insertStatus(status)
+            statusDao.insertStatus(status)
         }
 
         assertEquals(3, timelineDao.deleteRange(1, "12", "14"))
@@ -314,7 +317,7 @@ class TimelineDaoTest {
             reblogAuthor?.let {
                 timelineDao.insertAccount(it)
             }
-            timelineDao.insertStatus(status)
+            statusDao.insertStatus(status)
         }
 
         timelineDao.deleteAllFromInstance(1, "mastodon.red")
@@ -339,7 +342,7 @@ class TimelineDaoTest {
             reblogger?.let {
                 timelineDao.insertAccount(it)
             }
-            timelineDao.insertStatus(status)
+            statusDao.insertStatus(status)
         }
 
         val pagingSource = timelineDao.getStatuses(setOne.first.timelineUserId)
