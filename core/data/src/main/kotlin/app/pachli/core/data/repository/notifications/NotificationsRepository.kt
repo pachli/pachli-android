@@ -57,6 +57,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 /**
  * Errors that can occur acting on a status.
@@ -113,10 +114,10 @@ class NotificationsRepository @Inject constructor(
         // Room is row-keyed, not item-keyed. Find the user's REFRESH key, then find the
         // row of the notification with that ID, and use that as the Pager's initialKey.
         val initialKey = remoteKeyDao.remoteKeyForKind(pachliAccountId, RKE_TIMELINE_ID, RemoteKeyKind.REFRESH)?.key
-        val row = initialKey?.let { notificationDao.getNotificationRowNumber(pachliAccountId, it) } ?: 0
+        val row = initialKey?.let { notificationDao.getNotificationRowNumber(pachliAccountId, it) }
 
         return Pager(
-            initialKey = (row - ((PAGE_SIZE * 3) / 2)).coerceAtLeast(0),
+            initialKey = row?.let { (row - ((PAGE_SIZE * 3) / 2)).coerceAtLeast(0) },
             config = PagingConfig(
                 pageSize = PAGE_SIZE,
                 enablePlaceholders = true,
@@ -145,6 +146,7 @@ class NotificationsRepository @Inject constructor(
      * refresh the newest notifications.
      */
     suspend fun saveRefreshKey(pachliAccountId: Long, key: String?) = externalScope.async {
+        Timber.d("saveRefreshKey: $key")
         remoteKeyDao.upsert(
             RemoteKeyEntity(pachliAccountId, RKE_TIMELINE_ID, RemoteKeyKind.REFRESH, key),
         )
