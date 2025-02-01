@@ -70,5 +70,8 @@ data class RemoteKeyEntity(
          * the list.
          */
         REFRESH,
+        ;
+
+        companion object
     }
 }
