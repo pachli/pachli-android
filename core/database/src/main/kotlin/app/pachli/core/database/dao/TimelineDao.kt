@@ -117,7 +117,9 @@ SELECT
     tr.attachments AS 't_attachments',
     tr.provider AS 't_provider'
 FROM TimelineStatusEntity AS t
-LEFT JOIN StatusEntity AS s ON (t.pachliAccountId = :account AND (s.timelineUserId = :account AND s.serverId = t.statusId))
+LEFT JOIN
+    StatusEntity AS s
+    ON (t.pachliAccountId = :account AND (s.timelineUserId = :account AND t.statusId = s.serverId))
 LEFT JOIN TimelineAccountEntity AS a ON (s.timelineUserId = a.timelineUserId AND s.authorServerId = a.serverId)
 LEFT JOIN TimelineAccountEntity AS rb ON (s.timelineUserId = rb.timelineUserId AND s.reblogAccountId = rb.serverId)
 LEFT JOIN
@@ -147,12 +149,15 @@ ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC
         """
 SELECT rownum
 FROM (
-    WITH statuses(timelineUserId, serverId) AS (
-        SELECT s.timelineUserId, s.serverId
-        FROM TimelineStatusEntity t
-        LEFT JOIN StatusEntity s ON (t.statusId = s.serverId)
+    WITH statuses (timelineUserId, serverId) AS (
+        SELECT
+            s.timelineUserId,
+            s.serverId
+        FROM TimelineStatusEntity AS t
+        LEFT JOIN StatusEntity AS s ON (t.statusId = s.serverId)
         WHERE t.kind = :timelineKind AND t.pachliAccountId = :pachliAccountId
     )
+
     SELECT
         t1.timelineUserId,
         t1.serverId,
@@ -287,8 +292,9 @@ WHERE
     AND statusId IN (
         SELECT serverId
         FROM StatusEntity
-        WHERE timelineUserId = :pachliAccountId
-         AND (authorServerId = :userId or reblogAccountId = :userId)
+        WHERE
+            timelineUserId = :pachliAccountId
+            AND (authorServerId = :userId OR reblogAccountId = :userId)
     )
 """,
     )
@@ -353,9 +359,13 @@ WHERE timelineUserId = :accountId
 DELETE
 FROM StatusEntity
 WHERE timelineUserId = :accountId AND serverId NOT IN (
-    SELECT statusId from TimelineStatusEntity WHERE pachliAccountId = :accountId
+    SELECT statusId
+    FROM TimelineStatusEntity
+    WHERE pachliAccountId = :accountId
     UNION
-    SELECT statusServerId FROM NotificationEntity WHERE pachliAccountId = :accountId
+    SELECT statusServerId
+    FROM NotificationEntity
+    WHERE pachliAccountId = :accountId
 )
 """,
     )
@@ -460,19 +470,25 @@ WHERE
 
     @Query(
         """
-WITH statuses(serverId) AS (
+WITH statuses (serverId) AS (
     -- IDs of statuses written by accounts from :instanceDomain
     SELECT s.serverId
-    FROM StatusEntity s
-    LEFT JOIN TimelineAccountEntity a ON (s.timelineUserId = a.timelineUserId AND (s.authorServerId = a.serverId OR s.reblogAccountId = a.serverId))
+    FROM StatusEntity AS s
+    LEFT JOIN
+        TimelineAccountEntity AS a
+        ON (s.timelineUserId = a.timelineUserId AND (s.authorServerId = a.serverId OR s.reblogAccountId = a.serverId))
     WHERE s.timelineUserId = :accountId AND a.username LIKE '%@' || :instanceDomain
 )
+
 DELETE
 FROM TimelineStatusEntity
 WHERE
     kind = :timelineKind
     AND pachliAccountId = :accountId
-    AND statusId IN (SELECT serverId FROM statuses)
+    AND statusId IN (
+        SELECT serverId
+        FROM statuses
+    )
 """,
     )
     abstract suspend fun deleteAllFromInstance(
