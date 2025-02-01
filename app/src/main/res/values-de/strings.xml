@@ -600,4 +600,5 @@
     <string name="reaction_name_and_count">%1$s %2$d</string>
     <string name="announcement_date">%1$s %2$s</string>
     <string name="announcement_date_updated">(Aktualisiert: %1$s)</string>
+    <string name="notification_severed_relationships_user_domain_block_body">Du hast die Domain blockiert</string>
 </resources>
