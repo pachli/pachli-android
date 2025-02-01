@@ -114,7 +114,9 @@ class CachedTimelineRemoteMediator(
                 when (loadType) {
                     LoadType.REFRESH -> {
                         timelineDao.deleteAllStatusesForAccountOnTimeline(
-                            pachliAccountId, TimelineStatusEntity.Kind.Home)
+                            pachliAccountId,
+                            TimelineStatusEntity.Kind.Home,
+                        )
 
                         remoteKeyDao.upsert(
                             RemoteKeyEntity(

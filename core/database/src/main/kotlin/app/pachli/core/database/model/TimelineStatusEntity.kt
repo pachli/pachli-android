@@ -44,13 +44,13 @@ data class TimelineStatusEntity(
     @JsonClass(generateAdapter = true, generator = "sealed:type")
     sealed interface Kind {
         @TypeLabel("home")
-        data object Home: Kind
+        data object Home : Kind
 
         @TypeLabel("local")
-        data object Local: Kind
+        data object Local : Kind
 
         @TypeLabel("federated")
-        data object Federated: Kind
+        data object Federated : Kind
 
         // data class RemoteLocal(val serverDomain: String): K ?
 

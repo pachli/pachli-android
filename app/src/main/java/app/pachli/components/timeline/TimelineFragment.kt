@@ -278,7 +278,6 @@ class TimelineFragment :
         }
     }
 
-
     private fun bindUiResult(uiResult: Result<UiSuccess, UiError>) {
         // Show errors from the view model as snack bars.
         //
