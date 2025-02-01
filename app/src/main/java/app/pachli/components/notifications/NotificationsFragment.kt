@@ -36,6 +36,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -260,42 +261,7 @@ class NotificationsFragment :
                 }
 
                 // Update the UI from the loadState
-                // TODO: Move to bindLoadState function
-                adapter.loadStateFlow.distinctUntilChangedBy { it.refresh }.collect { loadState ->
-                    when (loadState.refresh) {
-                        is LoadState.Error -> {
-                            binding.progressIndicator.hide()
-                            binding.statusView.setup((loadState.refresh as LoadState.Error).error) {
-                                adapter.retry()
-                            }
-                            binding.recyclerView.hide()
-                            binding.statusView.show()
-                            binding.swipeRefreshLayout.isRefreshing = false
-                        }
-
-                        LoadState.Loading -> {
-                            binding.statusView.hide()
-                            binding.progressIndicator.show()
-                        }
-
-                        is LoadState.NotLoading -> {
-                            // Might still be loading if source.refresh is Loading, so only update
-                            // the UI when loading is completely quiet.
-                            if (loadState.source.refresh !is LoadState.Loading) {
-                                binding.progressIndicator.hide()
-                                binding.swipeRefreshLayout.isRefreshing = false
-                                if (adapter.itemCount == 0) {
-                                    binding.statusView.setup(BackgroundMessage.Empty())
-                                    binding.recyclerView.hide()
-                                    binding.statusView.show()
-                                } else {
-                                    binding.statusView.hide()
-                                    binding.recyclerView.show()
-                                }
-                            }
-                        }
-                    }
-                }
+                adapter.loadStateFlow.distinctUntilChangedBy { it.refresh }.collect(::bindLoadState)
             }
         }
     }
@@ -367,6 +333,48 @@ class NotificationsFragment :
                     adapter.refresh()
                 }
                 else -> { /* nothing to do */ }
+            }
+        }
+    }
+
+    /**
+     * Binds [CombinedLoadStates] to the UI.
+     *
+     * Updates the UI based on the contents of [loadState.refresh][CombinedLoadStates.refresh]
+     * to show/hide Error, Loading, and NotLoading states.
+     */
+    private fun bindLoadState(loadState: CombinedLoadStates) {
+        when (loadState.refresh) {
+            is LoadState.Error -> {
+                binding.progressIndicator.hide()
+                binding.statusView.setup((loadState.refresh as LoadState.Error).error) {
+                    adapter.retry()
+                }
+                binding.recyclerView.hide()
+                binding.statusView.show()
+                binding.swipeRefreshLayout.isRefreshing = false
+            }
+
+            LoadState.Loading -> {
+                binding.statusView.hide()
+                binding.progressIndicator.show()
+            }
+
+            is LoadState.NotLoading -> {
+                // Might still be loading if source.refresh is Loading, so only update
+                // the UI when loading is completely quiet.
+                if (loadState.source.refresh !is LoadState.Loading) {
+                    binding.progressIndicator.hide()
+                    binding.swipeRefreshLayout.isRefreshing = false
+                    if (adapter.itemCount == 0) {
+                        binding.statusView.setup(BackgroundMessage.Empty())
+                        binding.recyclerView.hide()
+                        binding.statusView.show()
+                    } else {
+                        binding.statusView.hide()
+                        binding.recyclerView.show()
+                    }
+                }
             }
         }
     }
