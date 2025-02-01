@@ -103,4 +103,12 @@
     <string name="filter_dialog_remove_button">Odstrániť</string>
     <string name="notification_favourite_name">Obľúbené</string>
     <string name="pref_title_post_tabs">Panely</string>
+    <string name="error_media_upload_permission">Vyžaduje sa povolenie na čítanie médií.</string>
+    <string name="error_media_download_permission">Vyžaduje sa povolenie na ukladanie médií.</string>
+    <string name="error_media_upload_image_or_video">obrázky a videá nemôžu byť pripojené k rovnakému príspevku.</string>
+    <string name="error_following_hashtag_format">Chyba pri sledovaní #%s</string>
+    <string name="error_image_edit_failed">Obrázok sa nepodarilo upraviť.</string>
+    <string name="error_media_upload_sending">Nahrávanie zlyhalo.</string>
+    <string name="error_unfollowing_hashtag_format">Chyba pri zrušení sledovania #%s</string>
+    <string name="error_following_hashtags_unsupported">Táto inštancia nepodporuje nasledujúce hashtagy.</string>
 </resources>
