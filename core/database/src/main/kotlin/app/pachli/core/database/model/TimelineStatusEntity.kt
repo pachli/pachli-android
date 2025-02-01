@@ -25,7 +25,8 @@ import dev.zacsweers.moshix.sealed.annotations.DefaultNull
 import dev.zacsweers.moshix.sealed.annotations.TypeLabel
 
 /**
- * A timeline that contains items.
+ * M:N association between a [TimelineStatusEntity.Kind] and the statuses
+ * that make up the timeline.
  */
 @Entity(
     primaryKeys = ["kind", "pachliAccountId", "statusId"],
@@ -36,7 +37,12 @@ data class TimelineStatusEntity(
     val pachliAccountId: Long,
     val statusId: String,
 ) {
-    /** Cacheable timeline kinds. */
+    /**
+     * Cacheable timeline kinds.
+     *
+     * Timelines that are not cacheable (e.g., search queries) do not belong
+     * here.
+     */
     // TODO: Eventually these have to be the timeline kind types for
     // remotekeys
     // TODO: See also core.model.Timeline
