@@ -42,6 +42,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
@@ -74,9 +75,10 @@ class CachedTimelineViewModel @Inject constructor(
         flow { emit(repository.getRefreshKey(it.data!!.id)) }
     }
 
-    override var statuses = accountFlow.flatMapLatest {
-        getStatuses(it.data!!)
-    }.cachedIn(viewModelScope)
+    override var statuses = accountFlow
+        .distinctUntilChangedBy { it.data!!.id }
+        .flatMapLatest { getStatuses(it.data!!) }
+        .cachedIn(viewModelScope)
 
     /** @return Flow of statuses that make up the timeline of [timeline] for [account]. */
     private suspend fun getStatuses(

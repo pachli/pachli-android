@@ -29,6 +29,7 @@ import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
 import app.pachli.core.database.model.StatusEntity
 import app.pachli.core.database.model.TimelineAccountEntity
+import app.pachli.core.database.model.TimelineStatusEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Status
@@ -68,7 +69,7 @@ class CachedTimelineRemoteMediator(
                             RKE_TIMELINE_ID,
                             RemoteKeyKind.REFRESH,
                         )?.key
-                        Timber.d("Loading from item: %s", statusId)
+                        Timber.d("Refresh from item: %s", statusId)
                         getInitialPage(statusId, state.config.pageSize)
                     }
 
@@ -78,7 +79,7 @@ class CachedTimelineRemoteMediator(
                             RKE_TIMELINE_ID,
                             RemoteKeyKind.PREV,
                         ) ?: return@transactionProvider MediatorResult.Success(endOfPaginationReached = true)
-                        Timber.d("Loading from remoteKey: %s", rke)
+                        Timber.d("Prepend from remoteKey: %s", rke)
                         mastodonApi.homeTimeline(minId = rke.key, limit = state.config.pageSize)
                     }
 
@@ -88,7 +89,7 @@ class CachedTimelineRemoteMediator(
                             RKE_TIMELINE_ID,
                             RemoteKeyKind.NEXT,
                         ) ?: return@transactionProvider MediatorResult.Success(endOfPaginationReached = true)
-                        Timber.d("Loading from remoteKey: %s", rke)
+                        Timber.d("Append from remoteKey: %s", rke)
                         mastodonApi.homeTimeline(maxId = rke.key, limit = state.config.pageSize)
                     }
                 }
@@ -112,8 +113,10 @@ class CachedTimelineRemoteMediator(
 
                 when (loadType) {
                     LoadType.REFRESH -> {
-                        remoteKeyDao.deletePrevNext(pachliAccountId, RKE_TIMELINE_ID)
-                        timelineDao.deleteAllStatusesForAccount(pachliAccountId)
+                        timelineDao.deleteAllStatusesForAccountOnTimeline(
+                            pachliAccountId,
+                            TimelineStatusEntity.Kind.Home,
+                        )
 
                         remoteKeyDao.upsert(
                             RemoteKeyEntity(
@@ -247,7 +250,8 @@ class CachedTimelineRemoteMediator(
     }
 
     /**
-     * Inserts `statuses` and the accounts referenced by those statuses in to the cache.
+     * Inserts `statuses` and the accounts referenced by those statuses in to the cache,
+     * then adds references to them in the Home timeline.
      */
     private suspend fun insertStatuses(pachliAccountId: Long, statuses: List<Status>) {
         check(transactionProvider.inTransaction())
@@ -262,6 +266,15 @@ class CachedTimelineRemoteMediator(
 
         timelineDao.upsertAccounts(accounts.map { TimelineAccountEntity.from(it, pachliAccountId) })
         statusDao.upsertStatuses(statuses.map { StatusEntity.from(it, pachliAccountId) })
+        timelineDao.upsertStatuses(
+            statuses.map {
+                TimelineStatusEntity(
+                    kind = TimelineStatusEntity.Kind.Home,
+                    pachliAccountId = pachliAccountId,
+                    statusId = it.id,
+                )
+            },
+        )
     }
 
     companion object {

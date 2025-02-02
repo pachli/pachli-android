@@ -23,6 +23,7 @@ import app.pachli.core.database.AppDatabase
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.StatusEntity
 import app.pachli.core.database.model.TimelineAccountEntity
+import app.pachli.core.database.model.TimelineStatusEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.network.model.Card
 import app.pachli.core.network.model.Emoji
@@ -105,6 +106,15 @@ class TimelineDaoTest {
                 timelineDao.insertAccount(it)
             }
             statusDao.insertStatus(status)
+            timelineDao.upsertStatuses(
+                listOf(
+                    TimelineStatusEntity(
+                        kind = TimelineStatusEntity.Kind.Home,
+                        pachliAccountId = status.timelineUserId,
+                        statusId = status.serverId,
+                    ),
+                ),
+            )
         }
 
         val pagingSource = timelineDao.getStatuses(setOne.first.timelineUserId)
@@ -135,10 +145,30 @@ class TimelineDaoTest {
                 timelineDao.insertAccount(it)
             }
             statusDao.insertStatus(status)
+            timelineDao.upsertStatuses(
+                listOf(
+                    TimelineStatusEntity(
+                        pachliAccountId = status.timelineUserId,
+                        kind = TimelineStatusEntity.Kind.Home,
+                        statusId = status.serverId,
+                    ),
+                ),
+            )
         }
 
-        timelineDao.cleanup(accountId = 1, limit = 3)
-        timelineDao.cleanupAccounts(accountId = 1)
+        // Remove some statuses from the home timeline for account 1L. This makes
+        // them targets for the cleanup.
+        arrayOf("5", "3", "1").forEach {
+            timelineDao.delete(
+                TimelineStatusEntity(
+                    pachliAccountId = 1L,
+                    kind = TimelineStatusEntity.Kind.Home,
+                    statusId = it,
+                ),
+            )
+        }
+
+        timelineDao.cleanup(accountId = 1)
 
         val wantAccount1StatusesAfterCleanup = listOf(
             makeStatus(statusId = 100),
@@ -150,7 +180,7 @@ class TimelineDaoTest {
             makeStatus(statusId = 2, accountId = 2, authorServerId = "5"),
         )
 
-        val loadParams: PagingSource.LoadParams<Int> = PagingSource.LoadParams.Refresh(null, 100, false)
+        val loadParams: PagingSource.LoadParams<Int> = PagingSource.LoadParams.Refresh(null, 100, true)
 
         val gotAccount1StatusesAfterCleanup = (timelineDao.getStatuses(1).load(loadParams) as PagingSource.LoadResult.Page).data
         val gotAccount2StatusesAfterCleanup = (timelineDao.getStatuses(2).load(loadParams) as PagingSource.LoadResult.Page).data
@@ -334,7 +364,7 @@ class TimelineDaoTest {
     }
 
     @Test
-    fun `preview card survives roundtrip`() = runTest {
+    fun previewCardSurvivesRoundtrip() = runTest {
         val setOne = makeStatus(statusId = 3, cardUrl = "https://foo.bar")
 
         for ((status, author, reblogger) in listOf(setOne)) {
@@ -343,6 +373,15 @@ class TimelineDaoTest {
                 timelineDao.insertAccount(it)
             }
             statusDao.insertStatus(status)
+            timelineDao.upsertStatuses(
+                listOf(
+                    TimelineStatusEntity(
+                        pachliAccountId = status.timelineUserId,
+                        kind = TimelineStatusEntity.Kind.Home,
+                        statusId = status.serverId,
+                    ),
+                ),
+            )
         }
 
         val pagingSource = timelineDao.getStatuses(setOne.first.timelineUserId)

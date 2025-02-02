@@ -88,7 +88,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterNotNull
@@ -313,12 +312,13 @@ class NotificationsFragment :
                     // remove it.
                     is NotificationActionSuccess.AcceptFollowRequest,
                     is NotificationActionSuccess.RejectFollowRequest,
-                    -> refreshAdapterAndScrollToVisibleId()
+                    -> adapter.refresh()
                 }
             }
 
             when (uiSuccess) {
-                is UiSuccess.Block, is UiSuccess.Mute, is UiSuccess.MuteConversation -> refreshAdapterAndScrollToVisibleId()
+                is UiSuccess.Block, is UiSuccess.Mute, is UiSuccess.MuteConversation,
+                -> adapter.refresh()
 
                 is UiSuccess.LoadNewest -> {
                     // Scroll to the top when prepending completes.
@@ -379,25 +379,6 @@ class NotificationsFragment :
         }
     }
 
-    /**
-     * Refreshes the adapter, waits for the first page to be updated, and scrolls the
-     * recyclerview to the first notification that was visible before the refresh.
-     *
-     * This ensures the user's position is not lost during adapter refreshes.
-     */
-    private fun refreshAdapterAndScrollToVisibleId() {
-        getFirstVisibleNotification()?.id?.let { id ->
-            viewLifecycleOwner.lifecycleScope.launch {
-                adapter.onPagesUpdatedFlow.conflate().take(1).collect {
-                    binding.recyclerView.scrollToPosition(
-                        adapter.snapshot().items.indexOfFirst { it.id == id },
-                    )
-                }
-            }
-        }
-        adapter.refresh()
-    }
-
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.fragment_notifications, menu)
         menu.findItem(R.id.action_refresh)?.apply {
@@ -446,7 +427,7 @@ class NotificationsFragment :
         }
 
         binding.swipeRefreshLayout.isRefreshing = false
-        refreshAdapterAndScrollToVisibleId()
+        adapter.refresh()
         clearNotificationsForAccount(requireContext(), pachliAccountId)
     }
 
@@ -613,11 +594,11 @@ class NotificationsFragment :
     }
 
     override fun onMute(mute: Boolean, id: String, position: Int, notifications: Boolean) {
-        refreshAdapterAndScrollToVisibleId()
+        adapter.refresh()
     }
 
     override fun onBlock(block: Boolean, id: String, position: Int) {
-        refreshAdapterAndScrollToVisibleId()
+        adapter.refresh()
     }
 
     override fun onRespondToFollowRequest(accept: Boolean, accountId: String, position: Int) {

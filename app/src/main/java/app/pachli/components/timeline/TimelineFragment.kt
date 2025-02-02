@@ -97,7 +97,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flow
@@ -352,17 +351,12 @@ class TimelineFragment :
                     is StatusActionSuccess.Translate -> statusViewData.status
                 }
                 (indexedViewData.value as StatusViewData).status = status
-
-                adapter.notifyItemChanged(indexedViewData.index)
             }
 
             // Refresh adapter on mutes and blocks
             when (it) {
-                is UiSuccess.Block,
-                is UiSuccess.Mute,
-                is UiSuccess.MuteConversation,
-                ->
-                    refreshAdapterAndScrollToVisibleId()
+                is UiSuccess.Block, is UiSuccess.Mute, is UiSuccess.MuteConversation,
+                -> adapter.refresh()
 
                 is UiSuccess.StatusSent -> handleStatusSentOrEdit(it.status)
                 is UiSuccess.StatusEdited -> handleStatusSentOrEdit(it.status)
@@ -430,25 +424,6 @@ class TimelineFragment :
         }
     }
 
-    /**
-     * Refreshes the adapter, waits for the first page to be updated, and scrolls the
-     * recyclerview to the first status that was visible before the refresh.
-     *
-     * This ensures the user's position is not lost during adapter refreshes.
-     */
-    private fun refreshAdapterAndScrollToVisibleId() {
-        getFirstVisibleStatus()?.id?.let { id ->
-            viewLifecycleOwner.lifecycleScope.launch {
-                adapter.onPagesUpdatedFlow.conflate().take(1).collect {
-                    binding.recyclerView.scrollToPosition(
-                        adapter.snapshot().items.indexOfFirst { it.id == id },
-                    )
-                }
-            }
-        }
-        adapter.refresh()
-    }
-
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.fragment_timeline, menu)
 
@@ -477,7 +452,6 @@ class TimelineFragment :
             R.id.action_load_newest -> {
                 Timber.d("Reload because user chose load newest menu item")
                 viewModel.accept(InfallibleUiAction.LoadNewest)
-                refreshContent()
                 true
             }
             else -> false
@@ -582,7 +556,7 @@ class TimelineFragment :
         }
 
         binding.swipeRefreshLayout.isRefreshing = false
-        refreshAdapterAndScrollToVisibleId()
+        adapter.refresh()
     }
 
     override fun onReply(viewData: StatusViewData) {

@@ -83,12 +83,12 @@ class CachedTimelineRepository @Inject constructor(
         factory = InvalidatingPagingSourceFactory { timelineDao.getStatuses(account.id) }
 
         val initialKey = remoteKeyDao.remoteKeyForKind(account.id, RKE_TIMELINE_ID, RemoteKeyKind.REFRESH)?.key
-        val row = initialKey?.let { timelineDao.getStatusRowNumber(account.id, it) } ?: 0
+        val row = initialKey?.let { timelineDao.getStatusRowNumber(account.id, it) }
 
         Timber.d("initialKey: %s is row: %d", initialKey, row)
 
         return Pager(
-            initialKey = (row - ((PAGE_SIZE * 3) / 2)).coerceAtLeast(0),
+            initialKey = row?.let { (row - ((PAGE_SIZE * 3) / 2)).coerceAtLeast(0) },
             config = PagingConfig(
                 pageSize = PAGE_SIZE,
                 enablePlaceholders = true,

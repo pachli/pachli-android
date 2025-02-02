@@ -45,7 +45,7 @@ class PruneCacheWorker @AssistedInject constructor(
     override suspend fun doWork(): Result {
         for (account in accountManager.accounts) {
             Timber.d("Pruning database using account ID: %d", account.id)
-            timelineDao.cleanup(account.id, MAX_STATUSES_IN_CACHE)
+            timelineDao.cleanup(account.id)
         }
         return Result.success()
     }
@@ -53,7 +53,6 @@ class PruneCacheWorker @AssistedInject constructor(
     override suspend fun getForegroundInfo() = ForegroundInfo(NOTIFICATION_ID_PRUNE_CACHE, notification)
 
     companion object {
-        private const val MAX_STATUSES_IN_CACHE = 1000
         const val PERIODIC_WORK_TAG = "PruneCacheWorker_periodic"
     }
 }
