@@ -19,6 +19,7 @@ package app.pachli.core.database.dao
 
 import androidx.paging.PagingSource
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.MapColumn
 import androidx.room.OnConflictStrategy.Companion.REPLACE
@@ -38,6 +39,12 @@ import app.pachli.core.database.model.TimelineStatusWithAccount
 abstract class TimelineDao {
     @Upsert
     abstract suspend fun upsertStatuses(entities: List<TimelineStatusEntity>)
+
+    @Delete
+    abstract suspend fun delete(entity: TimelineStatusEntity)
+
+    @Delete
+    abstract suspend fun delete(entities: List<TimelineStatusEntity>)
 
     @Insert(onConflict = REPLACE)
     abstract suspend fun insertAccount(timelineAccountEntity: TimelineAccountEntity): Long
@@ -128,7 +135,7 @@ LEFT JOIN
 LEFT JOIN
     TranslatedStatusEntity AS tr
     ON (s.timelineUserId = tr.timelineUserId AND (s.serverId = tr.serverId OR s.reblogServerId = tr.serverId))
-WHERE t.kind = :timelineKind AND t.pachliAccountId = :account AND s.timelineUserId = :account
+WHERE t.kind = :timelineKind AND t.pachliAccountId = :account --AND s.timelineUserId = :account
 ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC
 """,
     )
@@ -136,6 +143,117 @@ ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC
         account: Long,
         timelineKind: TimelineStatusEntity.Kind = TimelineStatusEntity.Kind.Home,
     ): PagingSource<Int, TimelineStatusWithAccount>
+
+    @Query(
+"""
+SELECT s.*
+FROM
+    TimelineStatusEntity AS t
+LEFT JOIN
+    StatusEntity AS s
+    ON (t.pachliAccountId = :account AND (s.timelineUserId = :account AND t.statusId = s.serverId))
+WHERE
+    t.kind = :timelineKind AND t.pachliAccountId = :account --AND s.timelineUserId = :account
+ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC
+"""
+    )
+    abstract fun c(
+        account: Long,
+        timelineKind: TimelineStatusEntity.Kind = TimelineStatusEntity.Kind.Home,
+    ): PagingSource<Int, StatusEntity>
+
+    @Query(
+        """
+SELECT
+    s.serverId,
+    s.url,
+    s.timelineUserId,
+    s.authorServerId,
+    s.inReplyToId,
+    s.inReplyToAccountId,
+    s.createdAt,
+    s.editedAt,
+    s.emojis,
+    s.reblogsCount,
+    s.favouritesCount,
+    s.repliesCount,
+    s.reblogged,
+    s.favourited,
+    s.bookmarked,
+    s.sensitive,
+    s.spoilerText,
+    s.visibility,
+    s.mentions,
+    s.tags,
+    s.application,
+    s.reblogServerId,
+    s.reblogAccountId,
+    s.content,
+    s.attachments,
+    s.poll,
+    s.card,
+    s.muted,
+    s.pinned,
+    s.language,
+    s.filtered,
+    a.serverId AS 'a_serverId',
+    a.timelineUserId AS 'a_timelineUserId',
+    a.localUsername AS 'a_localUsername',
+    a.username AS 'a_username',
+    a.displayName AS 'a_displayName',
+    a.url AS 'a_url',
+    a.avatar AS 'a_avatar',
+    a.emojis AS 'a_emojis',
+    a.bot AS 'a_bot',
+    a.createdAt AS 'a_createdAt',
+    a.limited AS 'a_limited',
+    a.note AS 'a_note',
+    rb.serverId AS 'rb_serverId',
+    rb.timelineUserId AS 'rb_timelineUserId',
+    rb.localUsername AS 'rb_localUsername',
+    rb.username AS 'rb_username',
+    rb.displayName AS 'rb_displayName',
+    rb.url AS 'rb_url',
+    rb.avatar AS 'rb_avatar',
+    rb.emojis AS 'rb_emojis',
+    rb.bot AS 'rb_bot',
+    rb.createdAt AS 'rb_createdAt',
+    rb.limited AS 'rb_limited',
+    rb.note AS 'rb_note',
+    svd.serverId AS 'svd_serverId',
+    svd.timelineUserId AS 'svd_timelineUserId',
+    svd.expanded AS 'svd_expanded',
+    svd.contentShowing AS 'svd_contentShowing',
+    svd.contentCollapsed AS 'svd_contentCollapsed',
+    svd.translationState AS 'svd_translationState',
+    tr.serverId AS 't_serverId',
+    tr.timelineUserId AS 't_timelineUserId',
+    tr.content AS 't_content',
+    tr.spoilerText AS 't_spoilerText',
+    tr.poll AS 't_poll',
+    tr.attachments AS 't_attachments',
+    tr.provider AS 't_provider'
+FROM TimelineStatusEntity AS t
+LEFT JOIN
+    StatusEntity AS s
+    ON (t.pachliAccountId = :account AND (s.timelineUserId = :account AND t.statusId = s.serverId))
+LEFT JOIN TimelineAccountEntity AS a ON (s.timelineUserId = a.timelineUserId AND s.authorServerId = a.serverId)
+LEFT JOIN TimelineAccountEntity AS rb ON (s.timelineUserId = rb.timelineUserId AND s.reblogAccountId = rb.serverId)
+LEFT JOIN
+    StatusViewDataEntity AS svd
+    ON (s.timelineUserId = svd.timelineUserId AND (s.serverId = svd.serverId OR s.reblogServerId = svd.serverId))
+LEFT JOIN
+    TranslatedStatusEntity AS tr
+    ON (s.timelineUserId = tr.timelineUserId AND (s.serverId = tr.serverId OR s.reblogServerId = tr.serverId))
+WHERE t.kind = :timelineKind AND t.pachliAccountId = :account --AND s.timelineUserId = :account
+ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC
+""",
+    )
+    abstract fun getStatusesAsList(
+        account: Long,
+        timelineKind: TimelineStatusEntity.Kind = TimelineStatusEntity.Kind.Home,
+    ): List<TimelineStatusWithAccount>
+
 
     /**
      * @return Row number (0 based) of the status with ID [statusId] for [pachliAccountId]
@@ -337,16 +455,16 @@ WHERE timelineUserId = :accountId
     abstract suspend fun removeAllTranslatedStatus(accountId: Long)
 
     /**
-     * Cleans the StatusEntity and TimelineAccountEntity tables from old entries.
+     * Removes cached data that is not part of any timeline.
+     *
      * @param accountId id of the account for which to clean tables
-     * @param limit how many statuses to keep
      */
     @Transaction
-    open suspend fun cleanup(accountId: Long, limit: Int) {
+    open suspend fun cleanup(accountId: Long) {
         cleanupStatuses(accountId)
         cleanupAccounts(accountId)
-        cleanupStatusViewData(accountId, limit)
-        cleanupTranslatedStatus(accountId, limit)
+        cleanupStatusViewData(accountId)
+        cleanupTranslatedStatus(accountId)
     }
 
     /**
@@ -401,8 +519,8 @@ WHERE
     abstract suspend fun cleanupAccounts(accountId: Long)
 
     /**
-     * Cleans the StatusViewDataEntity table of old view data, keeping the most recent [limit]
-     * entries.
+     * Removes rows from StatusViewDataEntity that reference statuses are that not
+     * part of any timeline.
      */
     @Query(
         """
@@ -411,19 +529,21 @@ FROM StatusViewDataEntity
 WHERE
     timelineUserId = :accountId
     AND serverId NOT IN (
-        SELECT serverId
-        FROM StatusViewDataEntity
-        WHERE timelineUserId = :accountId
-        ORDER BY LENGTH(serverId) DESC, serverId DESC
-        LIMIT :limit
+    SELECT statusId
+    FROM TimelineStatusEntity
+    WHERE pachliAccountId = :accountId
+    UNION
+    SELECT statusServerId
+    FROM NotificationEntity
+    WHERE pachliAccountId = :accountId
     )
 """,
     )
-    abstract suspend fun cleanupStatusViewData(accountId: Long, limit: Int)
+    abstract suspend fun cleanupStatusViewData(accountId: Long)
 
     /**
-     * Cleans the TranslatedStatusEntity table of old data, keeping the most recent [limit]
-     * entries.
+     * Removes rows from TranslatedStatusEntity that reference statuses that are not
+     * part of any timeline.
      */
     @Query(
         """
@@ -432,15 +552,17 @@ FROM TranslatedStatusEntity
 WHERE
     timelineUserId = :accountId
     AND serverId NOT IN (
-        SELECT serverId
-        FROM TranslatedStatusEntity
-        WHERE timelineUserId = :accountId
-        ORDER BY LENGTH(serverId) DESC, serverId DESC
-        LIMIT :limit
+    SELECT statusId
+    FROM TimelineStatusEntity
+    WHERE pachliAccountId = :accountId
+    UNION
+    SELECT statusServerId
+    FROM NotificationEntity
+    WHERE pachliAccountId = :accountId
     )
 """,
     )
-    abstract suspend fun cleanupTranslatedStatus(accountId: Long, limit: Int)
+    abstract suspend fun cleanupTranslatedStatus(accountId: Long)
 
     @Upsert
     abstract suspend fun upsertStatusViewData(svd: StatusViewDataEntity)
