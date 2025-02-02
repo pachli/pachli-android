@@ -148,3 +148,56 @@ jobs:
 
       - name: assemble ${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
         run: ./gradlew assemble${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}
+
+  # Connected tests are per-store-variant, debug builds only.
+  connected:
+    strategy:
+      matrix:
+        color: ["Orange"]
+        store: ["Fdroid", "Github", "Google"]
+        type: ["Debug"]
+        api-level: [31]
+        target: [default]
+    name: Android Emulator Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - uses: ./.github/actions/setup-build-env
+        with:
+          gradle-cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+
+      - name: AVD cache
+        uses: actions/cache@v4
+        id: avd-cache
+        with:
+          path: |
+            ~/.android/avd/*
+            ~/.android/adb*
+          key: avd-${{ matrix.api-level }}
+
+      - name: Create AVD and generate snapshot for caching
+        if: steps.avd-cache.outputs.cache-hit != 'true'
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.api-level }}
+          force-avd-creation: false
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: false
+          script: echo "Generated AVD snapshot for caching."
+
+      - name: Run tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.api-level }}
+          target: ${{ matrix.target }}
+          arch: x86_64
+          script: ./gradlew connected${{ matrix.color }}${{ matrix.store }}${{ matrix.type }}AndroidTest
