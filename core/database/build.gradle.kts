@@ -26,7 +26,15 @@ android {
     namespace = "app.pachli.core.database"
 
     defaultConfig {
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "app.pachli.core.database.HiltTestRunner"
+    }
+
+    packaging {
+        resources.excludes.apply {
+            // Otherwise this error:
+            // "2 files found with path 'META-INF/versions/9/OSGI-INF/MANIFEST.MF' from inputs:"
+            add("META-INF/versions/9/OSGI-INF/MANIFEST.MF")
+        }
     }
 }
 
@@ -48,4 +56,8 @@ dependencies {
     implementation(libs.semver)?.because("Converters has to convert Version")
 
     testImplementation(projects.core.testing)
+
+    androidTestImplementation(libs.androidx.test.rules)
+    androidTestImplementation(libs.hilt.android.testing)
+    kspAndroidTest(libs.hilt.android)
 }

@@ -111,9 +111,9 @@ class TimelineDaoTest {
                     TimelineStatusEntity(
                         kind = TimelineStatusEntity.Kind.Home,
                         pachliAccountId = status.timelineUserId,
-                        statusId = status.serverId
-                    )
-                )
+                        statusId = status.serverId,
+                    ),
+                ),
             )
         }
 
@@ -151,31 +151,9 @@ class TimelineDaoTest {
                         pachliAccountId = status.timelineUserId,
                         kind = TimelineStatusEntity.Kind.Home,
                         statusId = status.serverId,
-                    )
-                )
+                    ),
+                ),
             )
-        }
-
-        val l: PagingSource.LoadParams<Int> = PagingSource.LoadParams.Refresh(null, 100, true)
-//        val x = (timelineDao.c(1).load(l) as PagingSource.LoadResult.Page).data
-//        x.withIndex().forEach {
-//            println("${it.index}: ${it.value}")
-//        }
-//
-//        val y = timelineDao.c2(1)
-//        y.withIndex().forEach {
-//            println("${it.index}: ${it.value}")
-//        }
-
-        val getStatusesBeforeCleanup = (timelineDao.getStatuses(1).load(l) as PagingSource.LoadResult.Page).data
-        println("getStatuses() before calling cleanup()")
-        getStatusesBeforeCleanup.withIndex().forEach {
-            println("${it.index}: ${it.value}")
-        }
-
-        println("getStatusesAsList() before calling cleanup()")
-        timelineDao.getStatusesAsList(1).withIndex().forEach {
-            println("${it.index}: ${it.value}")
         }
 
         // Remove some statuses from the home timeline for account 1L. This makes
@@ -185,27 +163,12 @@ class TimelineDaoTest {
                 TimelineStatusEntity(
                     pachliAccountId = 1L,
                     kind = TimelineStatusEntity.Kind.Home,
-                    statusId = it
-                )
+                    statusId = it,
+                ),
             )
         }
 
         timelineDao.cleanup(accountId = 1)
-
-//        val y2 = timelineDao.c2(1)
-//        y2.withIndex().forEach {
-//            println("${it.index}: ${it.value}")
-//        }
-//        val l: PagingSource.LoadParams<Int> = PagingSource.LoadParams.Refresh(null, 100, true)
-//        val x = (timelineDao.c(1).load(l) as PagingSource.LoadResult.Page).data
-//        x.withIndex().forEach {
-//            println("${it.index}: ${it.value}")
-//        }
-//        val w2 = (timelineDao.getStatuses(1).load(l) as PagingSource.LoadResult.Page).data
-//        w2.withIndex().forEach {
-//            println("${it.index}: ${it.value}")
-//        }
-
 
         val wantAccount1StatusesAfterCleanup = listOf(
             makeStatus(statusId = 100),
@@ -222,14 +185,6 @@ class TimelineDaoTest {
         val gotAccount1StatusesAfterCleanup = (timelineDao.getStatuses(1).load(loadParams) as PagingSource.LoadResult.Page).data
         val gotAccount2StatusesAfterCleanup = (timelineDao.getStatuses(2).load(loadParams) as PagingSource.LoadResult.Page).data
 
-        println("Want")
-        wantAccount1StatusesAfterCleanup.withIndex().forEach { v ->
-            println("${v.index}: ${v.value}")
-        }
-        println("Got")
-        gotAccount1StatusesAfterCleanup.withIndex().forEach { v ->
-            println("${v.index}: ${v.value}")
-        }
         assertStatuses(wantAccount1StatusesAfterCleanup, gotAccount1StatusesAfterCleanup)
         assertStatuses(wantAccount2StatusesAfterCleanup, gotAccount2StatusesAfterCleanup)
 
@@ -409,7 +364,7 @@ class TimelineDaoTest {
     }
 
     @Test
-    fun `preview card survives roundtrip`() = runTest {
+    fun previewCardSurvivesRoundtrip() = runTest {
         val setOne = makeStatus(statusId = 3, cardUrl = "https://foo.bar")
 
         for ((status, author, reblogger) in listOf(setOne)) {
@@ -423,9 +378,9 @@ class TimelineDaoTest {
                     TimelineStatusEntity(
                         pachliAccountId = status.timelineUserId,
                         kind = TimelineStatusEntity.Kind.Home,
-                        statusId = status.serverId
-                    )
-                )
+                        statusId = status.serverId,
+                    ),
+                ),
             )
         }
 

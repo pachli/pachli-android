@@ -344,13 +344,15 @@ class CachedTimelineRemoteMediatorTest {
                 }
                 statusDao().insertStatus(statusWithAccount.status)
             }
-            timelineDao().upsertStatuses(statuses.map {
-                TimelineStatusEntity(
-                    pachliAccountId = it.status.timelineUserId,
-                    kind = TimelineStatusEntity.Kind.Home,
-                    statusId = it.status.serverId
-                )
-            })
+            timelineDao().upsertStatuses(
+                statuses.map {
+                    TimelineStatusEntity(
+                        pachliAccountId = it.status.timelineUserId,
+                        kind = TimelineStatusEntity.Kind.Home,
+                        statusId = it.status.serverId,
+                    )
+                },
+            )
         }
     }
 
