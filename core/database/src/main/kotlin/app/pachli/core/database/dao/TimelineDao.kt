@@ -164,7 +164,6 @@ FROM (
         LEFT JOIN StatusEntity AS s ON (t.statusId = s.serverId)
         WHERE t.kind = :timelineKind AND t.pachliAccountId = :pachliAccountId
     )
-
     SELECT
         t1.timelineUserId,
         t1.serverId,
