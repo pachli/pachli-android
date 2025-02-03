@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="error_filter_server_does_not_filter">Server nepodporuje filtre</string>
+    <string name="account_manager_error_no_active_account">žiadny účet nie je označený ako aktívny</string>
+    <string name="account_manager_error_account_does_not_exist">Účet neexistuje v lokálnej databáze. Toto by sa nikdy nemalo stať. Ak vidíš túto správu, pošli nám prosím hlásenie o chybe.</string>
+    <string name="server_repository_error_get_well_known_node_info">načítanie /.well-known/nodeinfo zlyhalo: %1$s</string>
+    <string name="server_repository_error_unsupported_schema">/.well-known/nodeinfo neobsahoval zrozumiteľné schémy</string>
+    <string name="server_repository_error_get_node_info">načítanie nodeinfo %1$s zlyhalo: %2$s</string>
+    <string name="server_repository_error_validate_node_info">validácia nodeinfo %1$s zlyhala: %2$s</string>
+    <string name="server_repository_error_get_instance_info">načítanie /api/v1/instance zlyhalo: %1$s</string>
+    <string name="server_repository_error_capabilities">spracovanie schopností servera zlyhalo: %1$s</string>
+    <string name="account_manager_error_dao">Chyba databázy, nahlás to prosím na team@pachli.app: %1$s</string>
+    <string name="account_manager_error_unexpected">neočakávaná chyba: %1$s</string>
+</resources>
