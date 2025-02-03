@@ -1,2 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="error_media_upload_sending">Įkėlimas nepavyko.</string>
+    <string name="error_muting_hashtag_format">Klaida nutildant #%s.</string>
+    <string name="account_filter_placeholder_label_domain">Iš naudotojo @<b>%1s</b></string>
+    <string name="account_filter_placeholder_label_not_following">Filtruojama, nes: <b>jų nesekate</b></string>
+    <string name="error_following_hashtag_format">Klaida sekant #%s.</string>
+    <string name="title_public_local">Vietinis</string>
+    <string name="title_public_federated">Federacinis</string>
+    <string name="title_posts_with_replies">Su atsakymais</string>
+    <string name="title_posts">Įrašai</string>
+    <string name="error_unfollowing_hashtag_format">Klaida nebesekant #%s.</string>
+    <string name="error_following_hashtags_unsupported">Šis serveris nepalaiko sekamų saitažodžių.</string>
+    <string name="title_notifications">Pranešimai</string>
+    <string name="title_public_trending">Tendencinga</string>
+    <string name="title_public_trending_hashtags">Tendencingi saitažodžiai</string>
+    <string name="title_public_trending_links">Tendencingos nuorodos</string>
+    <string name="title_public_trending_statuses">Tendencingi įrašai</string>
+    <string name="title_tab_public_trending_hashtags">Saitažodžiai</string>
+    <string name="title_tab_public_trending_links">Nuorodos</string>
+    <string name="title_tab_public_trending_statuses">Įrašai</string>
+    <string name="title_direct_messages">Asmeninės žinutės</string>
+    <string name="title_tab_preferences">Kortelės</string>
+    <string name="title_view_thread">Gija</string>
+    <string name="title_posts_pinned">Prisegta</string>
+    <string name="title_follows">Sekimai</string>
+    <string name="title_followers">Sekėjai</string>
+    <string name="title_favourites">Mėgstami</string>
+    <string name="title_bookmarks">Žymės</string>
+    <string name="title_mutes">Nutildyti naudotojai</string>
+    <string name="error_empty">Tai negali būti tuščias.</string>
+    <string name="error_no_web_browser_found">Nepavyko rasti naršyklės, kurią galima naudoti.</string>
+    <string name="error_compose_character_limit">Įrašas per ilgas.</string>
+    <string name="error_image_edit_failed">Vaizdo nepavyko redaguoti.</string>
+    <string name="error_media_upload_type">Tokio tipo failo įkelti negalima.</string>
+    <string name="error_media_upload_opening">Šio failo nepavyko atverti.</string>
+    <string name="error_media_upload_permission">Privalomas leidimas skaityti mediją.</string>
+    <string name="error_media_download_permission">Privalomas leidimas išsaugoti mediją.</string>
+    <string name="error_media_upload_image_or_video">vaizdai ir vaizdo įrašai negali būti pridedami prie to paties įrašo.</string>
+    <string name="title_home">Pagrindinis</string>
+    <string name="error_sender_account_gone">Klaida siunčiant įrašą.</string>
+</resources>
