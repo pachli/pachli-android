@@ -181,7 +181,7 @@ class CachedTimelineRemoteMediator(
 
         val status = async { mastodonApi.status(statusId = statusId) }
         val prevPage = async { mastodonApi.homeTimeline(minId = statusId, limit = pageSize * 3) }
-        val nextPage = async { mastodonApi.homeTimeline(maxId = statusId, limit = pageSize * 3)        }
+        val nextPage = async { mastodonApi.homeTimeline(maxId = statusId, limit = pageSize * 3) }
 
         val statuses = buildList {
             prevPage.await().body()?.let { this.addAll(it) }
