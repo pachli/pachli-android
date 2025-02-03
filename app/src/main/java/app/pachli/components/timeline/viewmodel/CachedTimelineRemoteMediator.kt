@@ -173,80 +173,30 @@ class CachedTimelineRemoteMediator(
     }
 
     /**
-     * Fetch the initial page of statuses, using key as the ID of the initial status to fetch.
-     *
-     * - If there is no key, a page of the most recent statuses is returned
-     * - If the status exists a page that contains the status, and the statuses immediately
-     *   before and after it are returned. This provides enough content that the list adapater
-     *   can restore the user's reading position.
-     * - If the status does not exist the page of statuses immediately before is returned (if
-     *   non-empty)
-     * - If there is no page of statuses immediately before then the page immediately after is
-     *   returned (if non-empty)
-     * - Finally, fall back to the most recent statuses
+     * @return The initial page of statuses centered on the status with [statusId],
+     * or the most recent statuses if [statusId] is null.
      */
     private suspend fun getInitialPage(statusId: String?, pageSize: Int): Response<List<Status>> = coroutineScope {
-        // If the key is null this is straightforward, just return the most recent statuses.
         statusId ?: return@coroutineScope mastodonApi.homeTimeline(limit = pageSize)
 
-        // It's important to return *something* from this state. If an empty page is returned
-        // (even with next/prev links) Pager3 assumes there is no more data to load and stops.
-        //
-        // In addition, the Mastodon API does not let you fetch a page that contains a given key.
-        // You can fetch the page immediately before the key, or the page immediately after, but
-        // you can not fetch the page itself.
+        val status = async { mastodonApi.status(statusId = statusId) }
+        val prevPage = async { mastodonApi.homeTimeline(minId = statusId, limit = pageSize * 3) }
+        val nextPage = async { mastodonApi.homeTimeline(maxId = statusId, limit = pageSize * 3)        }
 
-        // Fetch the requested status, and the page immediately after (next)
-        val deferredStatus = async { mastodonApi.status(statusId = statusId) }
-        val deferredPrevPage = async {
-            mastodonApi.homeTimeline(minId = statusId, limit = pageSize * 3)
-        }
-        val deferredNextPage = async {
-            mastodonApi.homeTimeline(maxId = statusId, limit = pageSize * 3)
+        val statuses = buildList {
+            prevPage.await().body()?.let { this.addAll(it) }
+            status.await().getOrNull()?.let { this.add(it) }
+            nextPage.await().body()?.let { this.addAll(it) }
         }
 
-        deferredStatus.await().getOrNull()?.let { status ->
-            val statuses = buildList {
-                deferredPrevPage.await().body()?.let { this.addAll(it) }
-                this.add(status)
-                deferredNextPage.await().body()?.let { this.addAll(it) }
-            }
+        val minId = statuses.firstOrNull()?.id ?: statusId
+        val maxId = statuses.lastOrNull()?.id ?: statusId
 
-            // "statuses" now contains at least one status we can return, and
-            // hopefully a full page.
+        val headers = Headers.Builder()
+            .add("link: </?max_id=$maxId>; rel=\"next\", </?min_id=$minId>; rel=\"prev\"")
+            .build()
 
-            // Build correct max_id and min_id links for the response. The "min_id" to use
-            // when fetching the next page is the same as "key". The "max_id" is the ID of
-            // the oldest status in the list.
-            val minId = statuses.first().id
-            val maxId = statuses.last().id
-            val headers = Headers.Builder()
-                .add("link: </?max_id=$maxId>; rel=\"next\", </?min_id=$minId>; rel=\"prev\"")
-                .build()
-
-            return@coroutineScope Response.success(statuses, headers)
-        }
-
-        // The user's last read status was missing. Use the page of statuses chronologically older
-        // than their desired status. This page must *not* be empty (as noted earlier, if it is,
-        // paging stops).
-        deferredNextPage.await().apply {
-            if (isSuccessful && !body().isNullOrEmpty()) {
-                return@coroutineScope this
-            }
-        }
-
-        // There were no statuses older than the user's desired status. Return the page
-        // of statuses immediately newer than their desired status. This page must
-        // *not* be empty (as noted earlier, if it is, paging stops).
-        deferredPrevPage.await().apply {
-            if (isSuccessful && !body().isNullOrEmpty()) {
-                return@coroutineScope this
-            }
-        }
-
-        // Everything failed -- fallback to fetching the most recent statuses
-        return@coroutineScope mastodonApi.homeTimeline(limit = pageSize)
+        return@coroutineScope Response.success(statuses, headers)
     }
 
     /**
