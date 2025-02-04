@@ -17,6 +17,7 @@
 
 package app.pachli.di
 
+import app.pachli.core.network.retrofit.apiresult.ApiResultCallAdapterFactory
 import app.pachli.updatecheck.FdroidService
 import dagger.Module
 import dagger.Provides
@@ -39,6 +40,7 @@ object UpdateCheckModule {
         .baseUrl("https://f-droid.org")
         .client(httpClient)
         .addConverterFactory(MoshiConverterFactory.create())
+        .addCallAdapterFactory(ApiResultCallAdapterFactory.create())
         .build()
         .create()
 }

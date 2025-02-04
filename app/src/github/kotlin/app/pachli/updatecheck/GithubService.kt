@@ -18,7 +18,7 @@
 package app.pachli.updatecheck
 
 import androidx.annotation.Keep
-import at.connyduck.calladapter.networkresult.NetworkResult
+import app.pachli.core.network.retrofit.apiresult.ApiResult
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import retrofit2.http.GET
@@ -47,5 +47,5 @@ interface GitHubService {
     suspend fun getLatestRelease(
         @Path("owner") owner: String,
         @Path("repo") repo: String,
-    ): NetworkResult<GitHubRelease>
+    ): ApiResult<GitHubRelease>
 }
