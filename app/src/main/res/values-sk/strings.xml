@@ -302,4 +302,6 @@
     <string name="hint_media_description_missing">Médiá by mali mať popis.</string>
     <string name="post_edited">Upravené %s</string>
     <string name="search_operator_where_dialog_library_hint">Tvoje vlastné príspevky, boosty, obľúbené préspevky, záložky, a príspevky, ktoré ťa @zmieňujú</string>
+    <string name="confirmation_hashtag_muted">#%s skrytý</string>
+    <string name="confirmation_hashtag_unmuted">Skrytie #%s zrušené</string>
 </resources>
