@@ -23,8 +23,6 @@ import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-import kotlinx.coroutines.currentCoroutineContext
-import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -103,18 +101,9 @@ class InstanceListFragment :
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            try {
-                val response = api.domainBlocks(id, bottomId)
-                val instances = response.body()
-                if (response.isSuccessful && instances != null) {
-                    onFetchInstancesSuccess(instances, response.headers()["Link"])
-                } else {
-                    onFetchInstancesFailure(Exception(response.message()))
-                }
-            } catch (e: Exception) {
-                currentCoroutineContext().ensureActive()
-                onFetchInstancesFailure(e)
-            }
+            api.domainBlocks(id, bottomId)
+                .onSuccess { onFetchInstancesSuccess(it.body, it.headers["Link"]) }
+                .onFailure { onFetchInstancesFailure(it.throwable) }
         }
     }
 

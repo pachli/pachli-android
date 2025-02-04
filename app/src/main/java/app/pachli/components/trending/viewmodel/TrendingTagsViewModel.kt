@@ -25,7 +25,8 @@ import app.pachli.core.network.model.end
 import app.pachli.core.network.model.start
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.viewdata.TrendingViewData
-import at.connyduck.calladapter.networkresult.fold
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.io.IOException
 import javax.inject.Inject
@@ -90,8 +91,9 @@ class TrendingTagsViewModel @Inject constructor(
 
         val contentFilters = contentFilters.replayCache.last()
 
-        mastodonApi.trendingTags(limit = LIMIT_TRENDING_HASHTAGS).fold(
-            { tagResponse ->
+        mastodonApi.trendingTags(limit = LIMIT_TRENDING_HASHTAGS)
+            .onSuccess {
+                val tagResponse = it.body
                 val firstTag = tagResponse.firstOrNull()
                 _uiState.value = if (firstTag == null) {
                     TrendingTagsUiState(emptyList(), LoadingState.LOADED)
@@ -111,16 +113,15 @@ class TrendingTagsViewModel @Inject constructor(
                     val header = TrendingViewData.Header(firstTag.start(), firstTag.end())
                     TrendingTagsUiState(listOf(header) + tags, LoadingState.LOADED)
                 }
-            },
-            { error ->
-                Timber.w(error, "failed loading trending tags")
-                if (error is IOException) {
+            }
+            .onFailure { error ->
+                Timber.w("failed loading trending tags: %s", error)
+                if (error.throwable is IOException) {
                     _uiState.value = TrendingTagsUiState(emptyList(), LoadingState.ERROR_NETWORK)
                 } else {
                     _uiState.value = TrendingTagsUiState(emptyList(), LoadingState.ERROR_OTHER)
                 }
-            },
-        )
+            }
     }
 
     private fun List<TrendingTag>.toTrendingViewDataTag(): List<TrendingViewData.Tag> {

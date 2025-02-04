@@ -23,9 +23,9 @@ import androidx.paging.RemoteMediator
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.network.retrofit.MastodonApi
+import com.github.michaelbull.result.getOrElse
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
-import retrofit2.HttpException
 
 @OptIn(ExperimentalPagingApi::class)
 class AccountMediaRemoteMediator(
@@ -53,13 +53,9 @@ class AccountMediaRemoteMediator(
                         return MediatorResult.Success(endOfPaginationReached = false)
                     }
                 }
-            }
+            }.getOrElse { return MediatorResult.Error(it.throwable) }
 
-            val statuses = statusResponse.body()
-            if (!statusResponse.isSuccessful || statuses == null) {
-                return MediatorResult.Error(HttpException(statusResponse))
-            }
-
+            val statuses = statusResponse.body
             val attachments = statuses.flatMap { status ->
                 AttachmentViewData.list(status, activeAccount.alwaysShowSensitiveMedia)
             }

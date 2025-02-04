@@ -37,8 +37,10 @@ dependencies {
     implementation(projects.core.preferences)
         ?.because("PreferenceEnum types in EnumListPreference")
 
-    // Uses HttpException from Retrofit
+    implementation(libs.retrofit.core)
+        ?.because("Uses HttpException")
     implementation(projects.core.network)
+        ?.because("ThrowableExtensions uses getServerErrorMessage")
 
     // Uses JsonDataException from Moshi
     implementation(libs.moshi)

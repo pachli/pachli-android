@@ -12,7 +12,7 @@ import app.pachli.core.network.model.HashTag
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
-import at.connyduck.calladapter.networkresult.fold
+import com.github.michaelbull.result.mapBoth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
@@ -52,7 +52,8 @@ class FollowedTagsViewModel @Inject constructor(
 
     suspend fun searchAutocompleteSuggestions(token: String): List<ComposeAutoCompleteAdapter.AutocompleteResult> {
         return api.search(query = token, type = SearchType.Hashtag.apiParameter, limit = 10)
-            .fold({ searchResult ->
+            .mapBoth({
+                val searchResult = it.body
                 searchResult.hashtags.map {
                     ComposeAutoCompleteAdapter.AutocompleteResult.HashtagResult(
                         hashtag = it.name,
@@ -60,7 +61,7 @@ class FollowedTagsViewModel @Inject constructor(
                     )
                 }
             }, { e ->
-                Timber.e(e, "Autocomplete search for %s failed.", token)
+                Timber.e("Autocomplete search for %s failed: %s", token, e)
                 emptyList()
             })
     }

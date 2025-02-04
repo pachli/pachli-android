@@ -52,7 +52,6 @@ import app.pachli.core.ui.MentionSpan
 import app.pachli.service.MediaToSend
 import app.pachli.service.ServiceClient
 import app.pachli.service.StatusToSend
-import at.connyduck.calladapter.networkresult.fold
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
@@ -550,15 +549,15 @@ class ComposeViewModel @AssistedInject constructor(
             }
             '#' -> {
                 return api.search(query = token, type = SearchType.Hashtag.apiParameter, limit = 10)
-                    .fold({ searchResult ->
-                        searchResult.hashtags.map {
+                    .mapBoth({ response ->
+                        response.body.hashtags.map {
                             AutocompleteResult.HashtagResult(
                                 hashtag = it.name,
                                 usage7d = it.history.sumOf { it.uses },
                             )
                         }.sortedByDescending { it.usage7d }
                     }, { e ->
-                        Timber.e(e, "Autocomplete search for %s failed.", token)
+                        Timber.e("Autocomplete search for %s failed: %s", token, e)
                         emptyList()
                     })
             }

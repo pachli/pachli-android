@@ -72,7 +72,6 @@ import app.pachli.core.network.model.Status
 import app.pachli.core.preferences.TabTapBehaviour
 import app.pachli.core.ui.ActionButtonScrollListener
 import app.pachli.core.ui.BackgroundMessage
-import app.pachli.core.ui.extensions.getErrorString
 import app.pachli.databinding.FragmentTimelineBinding
 import app.pachli.fragment.SFragment
 import app.pachli.interfaces.ActionButtonActivity
@@ -289,9 +288,8 @@ class TimelineFragment :
         uiResult.onFailure { uiError ->
             val message = getString(
                 uiError.message,
-                uiError.throwable.getErrorString(requireContext()),
+                uiError.error.fmt(requireContext()),
             )
-            Timber.d(uiError.throwable, message)
             snackbar?.dismiss()
             snackbar = Snackbar.make(
                 // Without this the FAB will not move out of the way

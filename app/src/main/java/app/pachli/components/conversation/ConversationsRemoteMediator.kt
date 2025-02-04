@@ -10,9 +10,9 @@ import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.ConversationEntity
 import app.pachli.core.network.model.HttpHeaderLink
 import app.pachli.core.network.retrofit.MastodonApi
+import com.github.michaelbull.result.getOrElse
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
-import retrofit2.HttpException
 
 @OptIn(ExperimentalPagingApi::class)
 class ConversationsRemoteMediator(
@@ -43,18 +43,16 @@ class ConversationsRemoteMediator(
 
         try {
             val conversationsResponse = api.getConversations(maxId = nextKey, limit = state.config.pageSize)
+                .getOrElse { return MediatorResult.Error(it.throwable) }
 
-            val conversations = conversationsResponse.body()
-            if (!conversationsResponse.isSuccessful || conversations == null) {
-                return MediatorResult.Error(HttpException(conversationsResponse))
-            }
+            val conversations = conversationsResponse.body
 
             transactionProvider {
                 if (loadType == LoadType.REFRESH) {
                     conversationsDao.deleteForAccount(activeAccount.id)
                 }
 
-                val linkHeader = conversationsResponse.headers()["Link"]
+                val linkHeader = conversationsResponse.headers["Link"]
                 val links = HttpHeaderLink.parse(linkHeader)
                 nextKey = HttpHeaderLink.findByRelationType(links, "next")?.uri?.getQueryParameter("max_id")
 

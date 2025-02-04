@@ -84,9 +84,9 @@ class AccountViewModel @AssistedInject constructor(
 
                         isFromOwnDomain = domain == activeAccount.domain
                     }
-                    .onFailure { t ->
-                        Timber.w("failed obtaining account: %s", t)
-                        accountData.postValue(Error(cause = t.throwable))
+                    .onFailure {
+                        Timber.w("failed obtaining account: %s", it)
+                        accountData.postValue(Error(cause = it.throwable))
                         isDataLoading = false
                         isRefreshing.postValue(false)
                     }
@@ -100,13 +100,13 @@ class AccountViewModel @AssistedInject constructor(
 
             viewModelScope.launch {
                 mastodonApi.relationships(listOf(accountId))
-                    .onSuccess { response ->
-                        val relationships = response.body
+                    .onSuccess {
+                        val relationships = it.body
                         relationshipData.postValue(if (relationships.isNotEmpty()) Success(relationships[0]) else Error())
                     }
-                    .onFailure { t ->
-                        Timber.w("failed obtaining relationships: %s", t)
-                        relationshipData.postValue(Error(cause = t.throwable))
+                    .onFailure {
+                        Timber.w("failed obtaining relationships: %s", it)
+                        relationshipData.postValue(Error(cause = it.throwable))
                     }
             }
         }

@@ -28,7 +28,7 @@ import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.network.model.TrendsLink
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
-import at.connyduck.calladapter.networkresult.fold
+import com.github.michaelbull.result.mapBoth
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -78,9 +78,9 @@ class TrendingLinksViewModel @AssistedInject constructor(
             flow {
                 emit(LoadState.Loading)
                 emit(
-                    repository.getTrendingLinks().fold(
-                        { list -> LoadState.Success(list) },
-                        { throwable -> LoadState.Error(throwable) },
+                    repository.getTrendingLinks().mapBoth(
+                        { response -> LoadState.Success(response.body) },
+                        { error -> LoadState.Error(error.throwable) },
                     ),
                 )
             }

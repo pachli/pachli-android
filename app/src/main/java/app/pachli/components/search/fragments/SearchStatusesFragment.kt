@@ -55,7 +55,8 @@ import app.pachli.core.network.model.Status.Mention
 import app.pachli.core.ui.ClipboardUseCase
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.view.showMuteAccountDialog
-import at.connyduck.calladapter.networkresult.fold
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -414,38 +415,36 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                 .setMessage(R.string.dialog_redraft_post_warning)
                 .setPositiveButton(android.R.string.ok) { _, _ ->
                     lifecycleScope.launch {
-                        viewModel.deleteStatusAsync(statusViewData.id).await().fold(
-                            { deletedStatus ->
-                                viewModel.removeItem(statusViewData)
+                        viewModel.deleteStatusAsync(statusViewData.id).await().onSuccess {
+                            val deletedStatus = it.body
+                            viewModel.removeItem(statusViewData)
 
-                                val redraftStatus = if (deletedStatus.isEmpty()) {
-                                    statusViewData.status.toDeletedStatus()
-                                } else {
-                                    deletedStatus
-                                }
+                            val redraftStatus = if (deletedStatus.isEmpty()) {
+                                statusViewData.status.toDeletedStatus()
+                            } else {
+                                deletedStatus
+                            }
 
-                                val intent = ComposeActivityIntent(
-                                    requireContext(),
-                                    pachliAccountId,
-                                    ComposeOptions(
-                                        content = redraftStatus.text.orEmpty(),
-                                        inReplyToId = redraftStatus.inReplyToId,
-                                        visibility = redraftStatus.visibility,
-                                        contentWarning = redraftStatus.spoilerText,
-                                        mediaAttachments = redraftStatus.attachments,
-                                        sensitive = redraftStatus.sensitive,
-                                        poll = redraftStatus.poll?.toNewPoll(redraftStatus.createdAt),
-                                        language = redraftStatus.language,
-                                        kind = ComposeOptions.ComposeKind.NEW,
-                                    ),
-                                )
-                                startActivity(intent)
-                            },
-                            { error ->
-                                Timber.w(error, "error deleting status")
-                                Toast.makeText(context, app.pachli.core.ui.R.string.error_generic, Toast.LENGTH_SHORT).show()
-                            },
-                        )
+                            val intent = ComposeActivityIntent(
+                                requireContext(),
+                                pachliAccountId,
+                                ComposeOptions(
+                                    content = redraftStatus.text.orEmpty(),
+                                    inReplyToId = redraftStatus.inReplyToId,
+                                    visibility = redraftStatus.visibility,
+                                    contentWarning = redraftStatus.spoilerText,
+                                    mediaAttachments = redraftStatus.attachments,
+                                    sensitive = redraftStatus.sensitive,
+                                    poll = redraftStatus.poll?.toNewPoll(redraftStatus.createdAt),
+                                    language = redraftStatus.language,
+                                    kind = ComposeOptions.ComposeKind.NEW,
+                                ),
+                            )
+                            startActivity(intent)
+                        }.onFailure { error ->
+                            Timber.w("error deleting status: %s", error)
+                            Toast.makeText(context, app.pachli.core.ui.R.string.error_generic, Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
                 .setNegativeButton(android.R.string.cancel, null)
@@ -455,30 +454,28 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
 
     private fun editStatus(pachliAccountId: Long, id: String, status: Status) {
         lifecycleScope.launch {
-            mastodonApi.statusSource(id).fold(
-                { source ->
-                    val composeOptions = ComposeOptions(
-                        content = source.text,
-                        inReplyToId = status.inReplyToId,
-                        visibility = status.visibility,
-                        contentWarning = source.spoilerText,
-                        mediaAttachments = status.attachments,
-                        sensitive = status.sensitive,
-                        language = status.language,
-                        statusId = source.id,
-                        poll = status.poll?.toNewPoll(status.createdAt),
-                        kind = ComposeOptions.ComposeKind.EDIT_POSTED,
-                    )
-                    startActivity(ComposeActivityIntent(requireContext(), pachliAccountId, composeOptions))
-                },
-                {
-                    Snackbar.make(
-                        requireView(),
-                        getString(R.string.error_status_source_load),
-                        Snackbar.LENGTH_SHORT,
-                    ).show()
-                },
-            )
+            mastodonApi.statusSource(id).onSuccess { response ->
+                val source = response.body
+                val composeOptions = ComposeOptions(
+                    content = source.text,
+                    inReplyToId = status.inReplyToId,
+                    visibility = status.visibility,
+                    contentWarning = source.spoilerText,
+                    mediaAttachments = status.attachments,
+                    sensitive = status.sensitive,
+                    language = status.language,
+                    statusId = source.id,
+                    poll = status.poll?.toNewPoll(status.createdAt),
+                    kind = ComposeOptions.ComposeKind.EDIT_POSTED,
+                )
+                startActivity(ComposeActivityIntent(requireContext(), pachliAccountId, composeOptions))
+            }.onFailure {
+                Snackbar.make(
+                    requireView(),
+                    getString(R.string.error_status_source_load),
+                    Snackbar.LENGTH_SHORT,
+                ).show()
+            }
         }
     }
 

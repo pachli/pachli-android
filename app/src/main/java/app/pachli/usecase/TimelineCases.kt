@@ -34,10 +34,9 @@ import app.pachli.core.network.model.Relationship
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.Translation
 import app.pachli.core.network.retrofit.MastodonApi
-import at.connyduck.calladapter.networkresult.NetworkResult
-import at.connyduck.calladapter.networkresult.fold
-import at.connyduck.calladapter.networkresult.onFailure
-import at.connyduck.calladapter.networkresult.onSuccess
+import app.pachli.core.network.retrofit.apiresult.ApiResult
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import javax.inject.Inject
 import timber.log.Timber
 
@@ -47,7 +46,7 @@ class TimelineCases @Inject constructor(
     private val cachedTimelineRepository: CachedTimelineRepository,
 ) {
 
-    suspend fun reblog(statusId: String, reblog: Boolean): NetworkResult<Status> {
+    suspend fun reblog(statusId: String, reblog: Boolean): ApiResult<Status> {
         return if (reblog) {
             mastodonApi.reblogStatus(statusId)
         } else {
@@ -57,7 +56,7 @@ class TimelineCases @Inject constructor(
         }
     }
 
-    suspend fun favourite(statusId: String, favourite: Boolean): NetworkResult<Status> {
+    suspend fun favourite(statusId: String, favourite: Boolean): ApiResult<Status> {
         return if (favourite) {
             mastodonApi.favouriteStatus(statusId)
         } else {
@@ -67,7 +66,7 @@ class TimelineCases @Inject constructor(
         }
     }
 
-    suspend fun bookmark(statusId: String, bookmark: Boolean): NetworkResult<Status> {
+    suspend fun bookmark(statusId: String, bookmark: Boolean): ApiResult<Status> {
         return if (bookmark) {
             mastodonApi.bookmarkStatus(statusId)
         } else {
@@ -77,7 +76,7 @@ class TimelineCases @Inject constructor(
         }
     }
 
-    suspend fun muteConversation(statusId: String, mute: Boolean): NetworkResult<Status> {
+    suspend fun muteConversation(statusId: String, mute: Boolean): ApiResult<Status> {
         return if (mute) {
             mastodonApi.muteConversation(statusId)
         } else {
@@ -105,45 +104,41 @@ class TimelineCases @Inject constructor(
         }
     }
 
-    suspend fun delete(statusId: String): NetworkResult<DeletedStatus> {
+    suspend fun delete(statusId: String): ApiResult<DeletedStatus> {
         return mastodonApi.deleteStatus(statusId)
             .onSuccess { eventHub.dispatch(StatusDeletedEvent(statusId)) }
-            .onFailure { Timber.w(it, "Failed to delete status") }
+            .onFailure { Timber.w("Failed to delete status: %s", it) }
     }
 
-    suspend fun pin(statusId: String, pin: Boolean): NetworkResult<Status> {
+    suspend fun pin(statusId: String, pin: Boolean): ApiResult<Status> {
         return if (pin) {
             mastodonApi.pinStatus(statusId)
         } else {
             mastodonApi.unpinStatus(statusId)
-        }.fold({ status ->
+        }.onSuccess {
             eventHub.dispatch(PinEvent(statusId, pin))
-            NetworkResult.success(status)
-        }, { e ->
-            Timber.w(e, "Failed to change pin state")
-            NetworkResult.failure(e)
-        })
-    }
-
-    suspend fun voteInPoll(statusId: String, pollId: String, choices: List<Int>): NetworkResult<Poll> {
-        if (choices.isEmpty()) {
-            return NetworkResult.failure(IllegalStateException())
-        }
-
-        return mastodonApi.voteInPoll(pollId, choices).onSuccess { poll ->
-            eventHub.dispatch(PollVoteEvent(statusId, poll))
         }
     }
 
-    suspend fun acceptFollowRequest(accountId: String): NetworkResult<Relationship> {
+    suspend fun voteInPoll(statusId: String, pollId: String, choices: List<Int>): ApiResult<Poll> {
+//        if (choices.isEmpty()) {
+//            return ApiResult.failure(IllegalStateException())
+//        }
+
+        return mastodonApi.voteInPoll(pollId, choices).onSuccess {
+            eventHub.dispatch(PollVoteEvent(statusId, it.body))
+        }
+    }
+
+    suspend fun acceptFollowRequest(accountId: String): ApiResult<Relationship> {
         return mastodonApi.authorizeFollowRequest(accountId)
     }
 
-    suspend fun rejectFollowRequest(accountId: String): NetworkResult<Relationship> {
+    suspend fun rejectFollowRequest(accountId: String): ApiResult<Relationship> {
         return mastodonApi.rejectFollowRequest(accountId)
     }
 
-    suspend fun translate(statusViewData: StatusViewData): NetworkResult<Translation> {
+    suspend fun translate(statusViewData: StatusViewData): ApiResult<Translation> {
         return cachedTimelineRepository.translate(statusViewData)
     }
 

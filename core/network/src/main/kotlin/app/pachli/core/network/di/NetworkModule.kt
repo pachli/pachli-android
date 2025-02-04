@@ -41,7 +41,6 @@ import app.pachli.core.preferences.PrefKeys.HTTP_PROXY_SERVER
 import app.pachli.core.preferences.ProxyConfiguration
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.preferences.getNonNullString
-import at.connyduck.calladapter.networkresult.NetworkResultCallAdapterFactory
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -147,7 +146,6 @@ object NetworkModule {
             .addConverterFactory(NewContentFilterConverterFactory)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .addCallAdapterFactory(ApiResultCallAdapterFactory.create())
-            .addCallAdapterFactory(NetworkResultCallAdapterFactory.create())
             .build()
     }
 

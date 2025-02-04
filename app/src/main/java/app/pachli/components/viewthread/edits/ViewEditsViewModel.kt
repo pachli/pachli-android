@@ -23,7 +23,7 @@ import app.pachli.components.viewthread.edits.PachliTagHandler.Companion.DELETED
 import app.pachli.components.viewthread.edits.PachliTagHandler.Companion.INSERTED_TEXT_EL
 import app.pachli.core.network.model.StatusEdit
 import app.pachli.core.network.retrofit.MastodonApi
-import at.connyduck.calladapter.networkresult.getOrElse
+import com.github.michaelbull.result.getOrElse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
@@ -66,9 +66,9 @@ class ViewEditsViewModel @Inject constructor(private val api: MastodonApi) : Vie
 
         viewModelScope.launch {
             val edits = api.statusEdits(statusId).getOrElse {
-                _uiState.value = EditsUiState.Error(it)
+                _uiState.value = EditsUiState.Error(it.throwable)
                 return@launch
-            }
+            }.body
 
             // `edits` might have fewer than the minimum number of entries because of
             // https://github.com/mastodon/mastodon/issues/25398.

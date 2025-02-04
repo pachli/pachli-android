@@ -27,7 +27,8 @@ import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.ui.ActionButtonScrollListener
 import app.pachli.databinding.ActivityFollowedTagsBinding
 import app.pachli.interfaces.HashtagActionListener
-import at.connyduck.calladapter.networkresult.fold
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -118,58 +119,52 @@ class FollowedTagsActivity :
 
     private fun follow(tagName: String, position: Int = -1) {
         lifecycleScope.launch {
-            api.followTag(tagName).fold(
-                {
-                    if (position == -1) {
-                        viewModel.tags.add(it)
-                    } else {
-                        viewModel.tags.add(position, it)
-                    }
-                    viewModel.currentSource?.invalidate()
-                },
-                {
-                    Snackbar.make(
-                        this@FollowedTagsActivity,
-                        binding.followedTagsView,
-                        getString(R.string.error_following_hashtag_format, tagName),
-                        Snackbar.LENGTH_SHORT,
-                    )
-                        .show()
-                },
-            )
+            api.followTag(tagName).onSuccess {
+                if (position == -1) {
+                    viewModel.tags.add(it.body)
+                } else {
+                    viewModel.tags.add(position, it.body)
+                }
+                viewModel.currentSource?.invalidate()
+            }.onFailure {
+                Snackbar.make(
+                    this@FollowedTagsActivity,
+                    binding.followedTagsView,
+                    getString(R.string.error_following_hashtag_format, tagName),
+                    Snackbar.LENGTH_SHORT,
+                )
+                    .show()
+            }
         }
     }
 
     override fun unfollow(tagName: String, position: Int) {
         lifecycleScope.launch {
-            api.unfollowTag(tagName).fold(
-                {
-                    viewModel.tags.removeAt(position)
-                    Snackbar.make(
-                        this@FollowedTagsActivity,
-                        binding.followedTagsView,
-                        getString(R.string.confirmation_hashtag_unfollowed, tagName),
-                        Snackbar.LENGTH_LONG,
-                    )
-                        .setAction(R.string.action_undo) {
-                            follow(tagName, position)
-                        }
-                        .show()
-                    viewModel.currentSource?.invalidate()
-                },
-                {
-                    Snackbar.make(
-                        this@FollowedTagsActivity,
-                        binding.followedTagsView,
-                        getString(
-                            R.string.error_unfollowing_hashtag_format,
-                            tagName,
-                        ),
-                        Snackbar.LENGTH_SHORT,
-                    )
-                        .show()
-                },
-            )
+            api.unfollowTag(tagName).onSuccess {
+                viewModel.tags.removeAt(position)
+                Snackbar.make(
+                    this@FollowedTagsActivity,
+                    binding.followedTagsView,
+                    getString(R.string.confirmation_hashtag_unfollowed, tagName),
+                    Snackbar.LENGTH_LONG,
+                )
+                    .setAction(R.string.action_undo) {
+                        follow(tagName, position)
+                    }
+                    .show()
+                viewModel.currentSource?.invalidate()
+            }.onFailure {
+                Snackbar.make(
+                    this@FollowedTagsActivity,
+                    binding.followedTagsView,
+                    getString(
+                        R.string.error_unfollowing_hashtag_format,
+                        tagName,
+                    ),
+                    Snackbar.LENGTH_SHORT,
+                )
+                    .show()
+            }
         }
     }
 

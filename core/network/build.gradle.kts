@@ -40,7 +40,6 @@ dependencies {
 
     implementation(libs.bundles.retrofit)
     implementation(libs.bundles.okhttp)
-    api(libs.networkresult.calladapter)
     implementation(libs.semver)
 
     testImplementation(libs.mockwebserver)

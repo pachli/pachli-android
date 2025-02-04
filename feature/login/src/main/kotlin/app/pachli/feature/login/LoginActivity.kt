@@ -41,9 +41,7 @@ import app.pachli.core.navigation.LoginActivityIntent
 import app.pachli.core.navigation.MainActivityIntent
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.getNonNullString
-import app.pachli.core.ui.extensions.getErrorString
 import app.pachli.feature.login.databinding.ActivityLoginBinding
-import at.connyduck.calladapter.networkresult.fold
 import com.bumptech.glide.Glide
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.onFailure
@@ -221,33 +219,31 @@ class LoginActivity : BaseActivity() {
                 oauthRedirectUri,
                 OAUTH_SCOPES,
                 getString(R.string.pachli_website),
-            ).fold(
-                { credentials ->
-                    // Before we open browser page we save the data.
-                    // Even if we don't open other apps user may go to password manager or somewhere else
-                    // and we will need to pick up the process where we left off.
-                    // Alternatively we could pass it all as part of the intent and receive it back
-                    // but it is a bit of a workaround.
-                    preferences.edit()
-                        .putString(DOMAIN, domain)
-                        .putString(CLIENT_ID, credentials.clientId)
-                        .putString(CLIENT_SECRET, credentials.clientSecret)
-                        .apply()
+            ).onSuccess {
+                val credentials = it.body
+                // Before we open browser page we save the data.
+                // Even if we don't open other apps user may go to password manager or somewhere else
+                // and we will need to pick up the process where we left off.
+                // Alternatively we could pass it all as part of the intent and receive it back
+                // but it is a bit of a workaround.
+                preferences.edit()
+                    .putString(DOMAIN, domain)
+                    .putString(CLIENT_ID, credentials.clientId)
+                    .putString(CLIENT_SECRET, credentials.clientSecret)
+                    .apply()
 
-                    redirectUserToAuthorizeAndLogin(domain, credentials.clientId, openInWebView)
-                },
-                { e ->
-                    binding.loginButton.isEnabled = true
-                    binding.domainTextInputLayout.error =
-                        String.format(
-                            getString(R.string.error_failed_app_registration_fmt),
-                            e.getErrorString(this@LoginActivity),
-                        )
-                    setLoading(false)
-                    Timber.e(e, "Error when creating/registing app")
-                    return@launch
-                },
-            )
+                redirectUserToAuthorizeAndLogin(domain, credentials.clientId, openInWebView)
+            }.onFailure { e ->
+                binding.loginButton.isEnabled = true
+                binding.domainTextInputLayout.error =
+                    getString(
+                        R.string.error_failed_app_registration_fmt,
+                        e.fmt(this@LoginActivity),
+                    )
+                setLoading(false)
+                Timber.e("Error when creating/registing app: %s", e.fmt(this@LoginActivity))
+                return@launch
+            }
         }
     }
 
@@ -333,25 +329,22 @@ class LoginActivity : BaseActivity() {
             oauthRedirectUri,
             code,
             "authorization_code",
-        ).fold(
-            { accessToken ->
-                viewModel.accept(
-                    FallibleUiAction.VerifyAndAddAccount(
-                        accessToken,
-                        domain,
-                        clientId,
-                        clientSecret,
-                        OAUTH_SCOPES,
-                    ),
-                )
-            },
-            { e ->
-                setLoading(false)
-                binding.domainTextInputLayout.error =
-                    getString(R.string.error_retrieving_oauth_token)
-                Timber.e(e, getString(R.string.error_retrieving_oauth_token))
-            },
-        )
+        ).onSuccess {
+            val accessToken = it.body
+            viewModel.accept(
+                FallibleUiAction.VerifyAndAddAccount(
+                    accessToken,
+                    domain,
+                    clientId,
+                    clientSecret,
+                    OAUTH_SCOPES,
+                ),
+            )
+        }.onFailure { e ->
+            setLoading(false)
+            binding.domainTextInputLayout.error =
+                getString(R.string.error_retrieving_oauth_token_fmt, e.fmt(this@LoginActivity))
+        }
     }
 
     private fun setLoading(loadingState: Boolean) {

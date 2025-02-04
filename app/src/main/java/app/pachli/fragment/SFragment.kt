@@ -59,12 +59,9 @@ import app.pachli.core.network.model.Status
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.ui.ClipboardUseCase
-import app.pachli.core.ui.extensions.getErrorString
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.usecase.TimelineCases
 import app.pachli.view.showMuteAccountDialog
-import at.connyduck.calladapter.networkresult.fold
-import at.connyduck.calladapter.networkresult.onFailure
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import com.google.android.material.snackbar.Snackbar
@@ -342,8 +339,8 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                 }
                 R.id.pin -> {
                     lifecycleScope.launch {
-                        timelineCases.pin(status.id, !status.isPinned()).onFailure { e: Throwable ->
-                            val message = e.getErrorString(requireContext())
+                        timelineCases.pin(status.id, !status.isPinned()).onFailure { e ->
+                            val message = e.fmt(requireContext())
                             Snackbar.make(requireView(), message, Snackbar.LENGTH_LONG).show()
                         }
                     }
@@ -443,9 +440,8 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
             .setMessage(R.string.dialog_delete_post_warning)
             .setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
                 lifecycleScope.launch {
-                    val result = timelineCases.delete(viewData.status.id).exceptionOrNull()
-                    if (result != null) {
-                        Timber.w(result, "error deleting status")
+                    timelineCases.delete(viewData.status.id).onFailure {
+                        Timber.w("error deleting status: %s", it)
                         Toast.makeText(context, app.pachli.core.ui.R.string.error_generic, Toast.LENGTH_SHORT).show()
                     }
                     // XXX: Removes the item even if there was an error. This is probably not
@@ -468,34 +464,33 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
             .setMessage(R.string.dialog_redraft_post_warning)
             .setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
                 lifecycleScope.launch {
-                    timelineCases.delete(statusViewData.status.id).fold(
-                        { deletedStatus ->
-                            removeItem(statusViewData)
-                            val sourceStatus = if (deletedStatus.isEmpty()) {
-                                statusViewData.status.toDeletedStatus()
-                            } else {
-                                deletedStatus
-                            }
-                            val composeOptions = ComposeOptions(
-                                content = sourceStatus.text,
-                                inReplyToId = sourceStatus.inReplyToId,
-                                visibility = sourceStatus.visibility,
-                                contentWarning = sourceStatus.spoilerText,
-                                mediaAttachments = sourceStatus.attachments,
-                                sensitive = sourceStatus.sensitive,
-                                modifiedInitialState = true,
-                                language = sourceStatus.language,
-                                poll = sourceStatus.poll?.toNewPoll(sourceStatus.createdAt),
-                                kind = ComposeOptions.ComposeKind.NEW,
-                            )
-                            startActivity(ComposeActivityIntent(requireContext(), pachliAccountId, composeOptions))
-                        },
-                        { error: Throwable? ->
-                            Timber.w(error, "error deleting status")
+                    timelineCases.delete(statusViewData.status.id).onSuccess {
+                        val deletedStatus = it.body
+                        removeItem(statusViewData)
+                        val sourceStatus = if (deletedStatus.isEmpty()) {
+                            statusViewData.status.toDeletedStatus()
+                        } else {
+                            deletedStatus
+                        }
+                        val composeOptions = ComposeOptions(
+                            content = sourceStatus.text,
+                            inReplyToId = sourceStatus.inReplyToId,
+                            visibility = sourceStatus.visibility,
+                            contentWarning = sourceStatus.spoilerText,
+                            mediaAttachments = sourceStatus.attachments,
+                            sensitive = sourceStatus.sensitive,
+                            modifiedInitialState = true,
+                            language = sourceStatus.language,
+                            poll = sourceStatus.poll?.toNewPoll(sourceStatus.createdAt),
+                            kind = ComposeOptions.ComposeKind.NEW,
+                        )
+                        startActivity(ComposeActivityIntent(requireContext(), pachliAccountId, composeOptions))
+                    }
+                        .onFailure {
+                            Timber.w("error deleting status: %s", it)
                             Toast.makeText(context, app.pachli.core.ui.R.string.error_generic, Toast.LENGTH_SHORT)
                                 .show()
-                        },
-                    )
+                        }
                 }
             }
             .setNegativeButton(android.R.string.cancel, null)
@@ -504,30 +499,29 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
 
     private fun editStatus(id: String, status: Status) {
         lifecycleScope.launch {
-            mastodonApi.statusSource(id).fold(
-                { source ->
-                    val composeOptions = ComposeOptions(
-                        content = source.text,
-                        inReplyToId = status.inReplyToId,
-                        visibility = status.visibility,
-                        contentWarning = source.spoilerText,
-                        mediaAttachments = status.attachments,
-                        sensitive = status.sensitive,
-                        language = status.language,
-                        statusId = source.id,
-                        poll = status.poll?.toNewPoll(status.createdAt),
-                        kind = ComposeOptions.ComposeKind.EDIT_POSTED,
-                    )
-                    startActivity(ComposeActivityIntent(requireContext(), pachliAccountId, composeOptions))
-                },
-                {
+            mastodonApi.statusSource(id).onSuccess {
+                val source = it.body
+                val composeOptions = ComposeOptions(
+                    content = source.text,
+                    inReplyToId = status.inReplyToId,
+                    visibility = status.visibility,
+                    contentWarning = source.spoilerText,
+                    mediaAttachments = status.attachments,
+                    sensitive = status.sensitive,
+                    language = status.language,
+                    statusId = source.id,
+                    poll = status.poll?.toNewPoll(status.createdAt),
+                    kind = ComposeOptions.ComposeKind.EDIT_POSTED,
+                )
+                startActivity(ComposeActivityIntent(requireContext(), pachliAccountId, composeOptions))
+            }
+                .onFailure {
                     Snackbar.make(
                         requireView(),
                         getString(R.string.error_status_source_load),
                         Snackbar.LENGTH_SHORT,
                     ).show()
-                },
-            )
+                }
         }
     }
 

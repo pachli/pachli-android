@@ -41,7 +41,6 @@ import app.pachli.util.Error
 import app.pachli.util.Loading
 import app.pachli.util.Resource
 import app.pachli.util.Success
-import at.connyduck.calladapter.networkresult.fold
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -173,17 +172,15 @@ class ReportViewModel @Inject constructor(
             } else {
                 mastodonApi.muteAccount(accountId)
             }
-                .onSuccess { response ->
-                    val relationship = response.body
+                .onSuccess {
+                    val relationship = it.body
                     val muting = relationship.muting
                     muteStateMutable.value = Success(muting)
                     if (muting) {
                         eventHub.dispatch(MuteEvent(accountId))
                     }
                 }
-                .onFailure { t ->
-                    muteStateMutable.value = Error(false, t.throwable.message)
-                }
+                .onFailure { muteStateMutable.value = Error(false, it.throwable.message) }
         }
 
         muteStateMutable.value = Loading()
@@ -197,16 +194,16 @@ class ReportViewModel @Inject constructor(
             } else {
                 mastodonApi.blockAccount(accountId)
             }
-                .onSuccess { response ->
-                    val relationship = response.body
+                .onSuccess {
+                    val relationship = it.body
                     val blocking = relationship.blocking
                     blockStateMutable.value = Success(blocking)
                     if (blocking) {
                         eventHub.dispatch(BlockEvent(accountId))
                     }
                 }
-                .onFailure { t ->
-                    blockStateMutable.value = Error(false, t.throwable.message)
+                .onFailure {
+                    blockStateMutable.value = Error(false, it.throwable.message)
                 }
         }
         blockStateMutable.value = Loading()
@@ -216,11 +213,8 @@ class ReportViewModel @Inject constructor(
         reportingStateMutable.value = Loading()
         viewModelScope.launch {
             mastodonApi.report(accountId, selectedIds.toList(), reportNote, if (isRemoteAccount) isRemoteNotify else null)
-                .fold({
-                    reportingStateMutable.value = Success(true)
-                }, { error ->
-                    reportingStateMutable.value = Error(cause = error)
-                })
+                .onSuccess { reportingStateMutable.value = Success(true) }
+                .onFailure { error -> reportingStateMutable.value = Error(cause = error.throwable) }
         }
     }
 
