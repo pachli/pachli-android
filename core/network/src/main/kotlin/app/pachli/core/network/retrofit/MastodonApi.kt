@@ -56,7 +56,6 @@ import app.pachli.core.network.model.UserListRepliesPolicy
 import app.pachli.core.network.retrofit.apiresult.ApiResult
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -202,7 +201,7 @@ interface MastodonApi {
     ): ApiResult<List<Notification>>
 
     @POST("api/v1/notifications/clear")
-    suspend fun clearNotifications(): ApiResult<ResponseBody>
+    suspend fun clearNotifications(): ApiResult<Unit>
 
     @FormUrlEncoded
     @PUT("api/v1/media/{mediaId}")
@@ -343,7 +342,7 @@ interface MastodonApi {
     @DELETE("api/v1/scheduled_statuses/{id}")
     suspend fun deleteScheduledStatus(
         @Path("id") scheduledStatusId: String,
-    ): ApiResult<ResponseBody>
+    ): ApiResult<Unit>
 
     @GET("api/v1/accounts/verify_credentials")
     suspend fun accountVerifyCredentials(
@@ -714,19 +713,19 @@ interface MastodonApi {
     @POST("api/v1/announcements/{id}/dismiss")
     suspend fun dismissAnnouncement(
         @Path("id") announcementId: String,
-    ): ApiResult<ResponseBody>
+    ): ApiResult<Unit>
 
     @PUT("api/v1/announcements/{id}/reactions/{name}")
     suspend fun addAnnouncementReaction(
         @Path("id") announcementId: String,
         @Path("name") name: String,
-    ): ApiResult<ResponseBody>
+    ): ApiResult<Unit>
 
     @DELETE("api/v1/announcements/{id}/reactions/{name}")
     suspend fun removeAnnouncementReaction(
         @Path("id") announcementId: String,
         @Path("name") name: String,
-    ): ApiResult<ResponseBody>
+    ): ApiResult<Unit>
 
     @FormUrlEncoded
     @POST("api/v1/reports")

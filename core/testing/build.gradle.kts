@@ -38,6 +38,10 @@ dependencies {
 
     implementation(libs.moshi)
     implementation(libs.moshi.adapters)
+    implementation(libs.okhttp.core)
+        ?.because("Includes testing utilities for ApiResult")
+    implementation(libs.retrofit.core)
+        ?.because("Includes testing utilities for ApiResult")
 
     api(libs.kotlinx.coroutines.test)
     api(libs.androidx.test.junit)

@@ -22,6 +22,8 @@ import app.pachli.ContentFilterV1Test.Companion.mockStatus
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.notifications.StatusActionError
 import app.pachli.core.database.model.TranslationState
+import app.pachli.core.network.retrofit.apiresult.ApiResult
+import app.pachli.core.testing.failure
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.get
@@ -53,6 +55,9 @@ class NotificationsViewModelTestStatusFilterAction : NotificationsViewModelTestB
         isCollapsed = false,
         translationState = TranslationState.SHOW_ORIGINAL,
     )
+
+    /** Empty error response, for API calls that return one */
+    private var emptyError = failure<ApiResult<Unit>>().getError()!!
 
     /** Action to bookmark a status */
     private val bookmarkAction = StatusAction.Bookmark(true, statusViewData)
@@ -89,7 +94,7 @@ class NotificationsViewModelTestStatusFilterAction : NotificationsViewModelTestB
         // Given
         notificationsRepository.stub {
             onBlocking { bookmark(any(), any(), any()) } doReturn Err(
-                StatusActionError.Bookmark(httpException),
+                StatusActionError.Bookmark(emptyError),
             )
         }
 
@@ -123,7 +128,7 @@ class NotificationsViewModelTestStatusFilterAction : NotificationsViewModelTestB
         // Given
         notificationsRepository.stub {
             onBlocking { favourite(any(), any(), any()) } doReturn Err(
-                StatusActionError.Favourite(httpException),
+                StatusActionError.Favourite(emptyError),
             )
         }
 
@@ -157,7 +162,7 @@ class NotificationsViewModelTestStatusFilterAction : NotificationsViewModelTestB
         // Given
         notificationsRepository.stub {
             onBlocking { reblog(any(), any(), any()) } doReturn Err(
-                StatusActionError.Reblog(httpException),
+                StatusActionError.Reblog(emptyError),
             )
         }
 
@@ -191,7 +196,7 @@ class NotificationsViewModelTestStatusFilterAction : NotificationsViewModelTestB
         // Given
         notificationsRepository.stub {
             onBlocking { voteInPoll(any(), any(), any(), any()) } doReturn Err(
-                StatusActionError.VoteInPoll(httpException),
+                StatusActionError.VoteInPoll(emptyError),
             )
         }
 

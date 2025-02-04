@@ -26,14 +26,12 @@ import app.pachli.core.testing.failure
 import app.pachli.core.testing.rules.MainCoroutineRule
 import app.pachli.core.testing.success
 import app.pachli.usecase.TimelineCases
-import at.connyduck.calladapter.networkresult.NetworkResult
 import com.github.michaelbull.result.andThen
 import com.github.michaelbull.result.onSuccess
 import com.squareup.moshi.Moshi
 import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
-import java.io.IOException
 import java.time.Instant
 import java.util.Date
 import javax.inject.Inject
@@ -209,8 +207,8 @@ class ViewThreadViewModelTest {
     @Test
     fun `should emit status even if context fails to load`() = runTest {
         mastodonApi.stub {
-            onBlocking { status(threadId) } doReturn NetworkResult.success(mockStatus(id = "2", inReplyToId = "1", inReplyToAccountId = "1"))
-            onBlocking { statusContext(threadId) } doReturn NetworkResult.failure(IOException())
+            onBlocking { status(threadId) } doReturn success(mockStatus(id = "2", inReplyToId = "1", inReplyToAccountId = "1"))
+            onBlocking { statusContext(threadId) } doReturn failure()
         }
 
         viewModel.uiState.test {
@@ -242,8 +240,8 @@ class ViewThreadViewModelTest {
     @Test
     fun `should emit error when status and context fail to load`() = runTest {
         mastodonApi.stub {
-            onBlocking { status(threadId) } doReturn NetworkResult.failure(IOException())
-            onBlocking { statusContext(threadId) } doReturn NetworkResult.failure(IOException())
+            onBlocking { status(threadId) } doReturn failure()
+            onBlocking { statusContext(threadId) } doReturn failure()
         }
 
         viewModel.uiState.test {
@@ -264,8 +262,8 @@ class ViewThreadViewModelTest {
     @Test
     fun `should emit error when status fails to load`() = runTest {
         mastodonApi.stub {
-            onBlocking { status(threadId) } doReturn NetworkResult.failure(IOException())
-            onBlocking { statusContext(threadId) } doReturn NetworkResult.success(
+            onBlocking { status(threadId) } doReturn failure()
+            onBlocking { statusContext(threadId) } doReturn success(
                 StatusContext(
                     ancestors = listOf(mockStatus(id = "1")),
                     descendants = listOf(mockStatus(id = "3", inReplyToId = "2", inReplyToAccountId = "1")),
@@ -588,8 +586,8 @@ class ViewThreadViewModelTest {
 
     private fun mockSuccessResponses() {
         mastodonApi.stub {
-            onBlocking { status(threadId) } doReturn NetworkResult.success(mockStatus(id = "2", inReplyToId = "1", inReplyToAccountId = "1", spoilerText = "Test"))
-            onBlocking { statusContext(threadId) } doReturn NetworkResult.success(
+            onBlocking { status(threadId) } doReturn success(mockStatus(id = "2", inReplyToId = "1", inReplyToAccountId = "1", spoilerText = "Test"))
+            onBlocking { statusContext(threadId) } doReturn success(
                 StatusContext(
                     ancestors = listOf(mockStatus(id = "1", spoilerText = "Test")),
                     descendants = listOf(mockStatus(id = "3", inReplyToId = "2", inReplyToAccountId = "1", spoilerText = "Test")),

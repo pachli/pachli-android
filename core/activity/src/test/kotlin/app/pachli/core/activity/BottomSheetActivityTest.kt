@@ -23,7 +23,7 @@ import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.testing.rules.MainCoroutineRule
-import at.connyduck.calladapter.networkresult.NetworkResult
+import app.pachli.core.testing.success
 import java.time.Instant
 import java.util.Date
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -55,7 +55,7 @@ class BottomSheetActivityTest {
     private val statusQuery = "http://mastodon.foo.bar/@User/345678"
     private val nonexistentStatusQuery = "http://mastodon.foo.bar/@User/345678000"
     private val nonMastodonQuery = "http://medium.com/@correspondent/345678"
-    private val emptyResponse = NetworkResult.success(
+    private val emptyResponse = success(
         SearchResult(emptyList(), emptyList(), emptyList()),
     )
 
@@ -71,7 +71,7 @@ class BottomSheetActivityTest {
         avatar = "",
         createdAt = Instant.now(),
     )
-    private val accountResponse = NetworkResult.success(
+    private val accountResponse = success(
         SearchResult(listOf(account), emptyList(), emptyList()),
     )
 
@@ -106,7 +106,7 @@ class BottomSheetActivityTest {
         language = null,
         filtered = null,
     )
-    private val statusResponse = NetworkResult.success(
+    private val statusResponse = success(
         SearchResult(emptyList(), listOf(status), emptyList()),
     )
 

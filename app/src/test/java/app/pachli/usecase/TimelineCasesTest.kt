@@ -8,11 +8,11 @@ import app.pachli.core.eventhub.PinEvent
 import app.pachli.core.network.extensions.getServerErrorMessage
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
-import at.connyduck.calladapter.networkresult.NetworkResult
+import app.pachli.core.testing.failure
+import app.pachli.core.testing.success
+import com.github.michaelbull.result.getErrorOr
 import java.util.Date
 import kotlinx.coroutines.runBlocking
-import okhttp3.Protocol
-import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -20,8 +20,6 @@ import org.junit.runner.RunWith
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.stub
-import retrofit2.HttpException
-import retrofit2.Response
 
 @RunWith(AndroidJUnit4::class)
 class TimelineCasesTest {
@@ -44,7 +42,7 @@ class TimelineCasesTest {
     @Test
     fun `pin success emits PinEvent`() {
         api.stub {
-            onBlocking { pinStatus(statusId) } doReturn NetworkResult.success(mockStatus(pinned = true))
+            onBlocking { pinStatus(statusId) } doReturn success(mockStatus(pinned = true))
         }
 
         runBlocking {
@@ -58,25 +56,15 @@ class TimelineCasesTest {
     @Test
     fun `pin failure with server error returns failure with server message`() {
         api.stub {
-            onBlocking { pinStatus(statusId) } doReturn NetworkResult.failure(
-                HttpException(
-                    Response.error<Status>(
-                        "{\"error\":\"Validation Failed: You have already pinned the maximum number of toots\"}".toResponseBody(),
-                        okhttp3.Response.Builder()
-                            .request(okhttp3.Request.Builder().url("http://localhost/").build())
-                            .protocol(Protocol.HTTP_1_1)
-                            .addHeader("content-type", "application/json")
-                            .code(422)
-                            .message("")
-                            .build(),
-                    ),
-                ),
+            onBlocking { pinStatus(statusId) } doReturn failure(
+                code = 422,
+                responseBody = "{\"error\":\"Validation Failed: You have already pinned the maximum number of toots\"}",
             )
         }
         runBlocking {
             assertEquals(
                 "Validation Failed: You have already pinned the maximum number of toots",
-                timelineCases.pin(statusId, true).exceptionOrNull()?.getServerErrorMessage(),
+                timelineCases.pin(statusId, true).getErrorOr(null)?.throwable?.getServerErrorMessage(),
             )
         }
     }

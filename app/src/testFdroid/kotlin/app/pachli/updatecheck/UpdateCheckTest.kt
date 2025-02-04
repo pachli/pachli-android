@@ -19,8 +19,9 @@ package app.pachli.updatecheck
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.core.preferences.SharedPreferencesRepository
+import app.pachli.core.testing.failure
 import app.pachli.core.testing.fakes.InMemorySharedPreferences
-import at.connyduck.calladapter.networkresult.NetworkResult
+import app.pachli.core.testing.success
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
@@ -50,7 +51,7 @@ class UpdateCheckTest {
     @Test
     fun `remoteFetchLatestVersionCode returns null on network error`() = runTest {
         fdroidService.stub {
-            onBlocking { getPackage(any()) } doReturn NetworkResult.failure(Exception())
+            onBlocking { getPackage(any()) } doReturn failure()
         }
 
         assertThat(updateCheck.remoteFetchLatestVersionCode()).isNull()
@@ -59,7 +60,7 @@ class UpdateCheckTest {
     @Test
     fun `remoteFetchLatestVersionCode returns suggestedVersionCode if in packages`() = runTest {
         fdroidService.stub {
-            onBlocking { getPackage(any()) } doReturn NetworkResult.success(
+            onBlocking { getPackage(any()) } doReturn success(
                 FdroidPackage(
                     packageName = "app.pachli",
                     suggestedVersionCode = 3,
@@ -79,7 +80,7 @@ class UpdateCheckTest {
     @Test
     fun `remoteFetchLatestVersionCode returns greatest code if suggestedVersionCode is missing`() = runTest {
         fdroidService.stub {
-            onBlocking { getPackage(any()) } doReturn NetworkResult.success(
+            onBlocking { getPackage(any()) } doReturn success(
                 FdroidPackage(
                     packageName = "app.pachli",
                     suggestedVersionCode = 3,

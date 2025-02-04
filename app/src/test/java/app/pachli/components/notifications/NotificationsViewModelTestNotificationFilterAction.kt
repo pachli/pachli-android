@@ -19,7 +19,8 @@ package app.pachli.components.notifications
 
 import app.cash.turbine.test
 import app.pachli.core.network.model.Relationship
-import at.connyduck.calladapter.networkresult.NetworkResult
+import app.pachli.core.testing.failure
+import app.pachli.core.testing.success
 import com.github.michaelbull.result.get
 import com.github.michaelbull.result.getError
 import com.google.common.truth.Truth.assertThat
@@ -29,7 +30,6 @@ import org.junit.Test
 import org.mockito.kotlin.any
 import org.mockito.kotlin.argumentCaptor
 import org.mockito.kotlin.doReturn
-import org.mockito.kotlin.doThrow
 import org.mockito.kotlin.stub
 import org.mockito.kotlin.verify
 
@@ -70,7 +70,7 @@ class NotificationsViewModelTestNotificationFilterAction : NotificationsViewMode
     fun `accepting follow request succeeds && emits UiSuccess`() = runTest {
         // Given
         timelineCases.stub {
-            onBlocking { acceptFollowRequest(any()) } doReturn NetworkResult.success(relationship)
+            onBlocking { acceptFollowRequest(any()) } doReturn success(relationship)
         }
 
         viewModel.uiResult.test {
@@ -92,7 +92,7 @@ class NotificationsViewModelTestNotificationFilterAction : NotificationsViewMode
     @Test
     fun `accepting follow request fails && emits UiError`() = runTest {
         // Given
-        timelineCases.stub { onBlocking { acceptFollowRequest(any()) } doThrow httpException }
+        timelineCases.stub { onBlocking { acceptFollowRequest(any()) } doReturn failure() }
 
         viewModel.uiResult.test {
             // When
@@ -107,7 +107,7 @@ class NotificationsViewModelTestNotificationFilterAction : NotificationsViewMode
     @Test
     fun `rejecting follow request succeeds && emits UiSuccess`() = runTest {
         // Given
-        timelineCases.stub { onBlocking { rejectFollowRequest(any()) } doReturn NetworkResult.success(relationship) }
+        timelineCases.stub { onBlocking { rejectFollowRequest(any()) } doReturn success(relationship) }
 
         viewModel.uiResult.test {
             // When
@@ -128,7 +128,7 @@ class NotificationsViewModelTestNotificationFilterAction : NotificationsViewMode
     @Test
     fun `rejecting follow request fails && emits UiError`() = runTest {
         // Given
-        timelineCases.stub { onBlocking { rejectFollowRequest(any()) } doThrow httpException }
+        timelineCases.stub { onBlocking { rejectFollowRequest(any()) } doReturn failure() }
 
         viewModel.uiResult.test {
             // When
