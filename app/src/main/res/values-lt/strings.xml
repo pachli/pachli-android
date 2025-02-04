@@ -39,4 +39,6 @@
     <string name="error_media_upload_image_or_video">vaizdai ir vaizdo įrašai negali būti pridedami prie to paties įrašo.</string>
     <string name="title_home">Pagrindinis</string>
     <string name="error_sender_account_gone">Klaida siunčiant įrašą.</string>
+    <string name="title_blocks">Užblokuoti naudotojai</string>
+    <string name="title_domain_mutes">Paslėpti domenai</string>
 </resources>
