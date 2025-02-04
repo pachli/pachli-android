@@ -825,9 +825,13 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
      * to the list, false if any existing item should be removed.
      */
     private suspend fun bindMainDrawerScheduledPosts(context: Context, pachliAccountId: Long, showSchedulePosts: Boolean) = drawerMutex.withLock {
-        val existingPosition = binding.mainDrawer.getPosition(DRAWER_ITEM_SCHEDULED_POSTS)
-        val showing = existingPosition != -1
+        // Can't use binding.mainDrawer.getPosition() here, as that returns -1 if the
+        // account list is open (https://github.com/mikepenz/MaterialDrawer/issues/2826).
+        // Instead, pull the position from the adapter for primary items. This is offset
+        // by 1 in the adapter that wraps all the items.
+        val existingPosition = binding.mainDrawer.itemAdapter.getAdapterPosition(DRAWER_ITEM_SCHEDULED_POSTS) + 1
 
+        val showing = existingPosition != 0
         if (showing == showSchedulePosts) return
 
         if (!showSchedulePosts) {
@@ -836,8 +840,8 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         }
 
         // Add the "Scheduled posts" item immediately after "Drafts"
-        binding.mainDrawer.addItemAtPosition(
-            binding.mainDrawer.getPosition(DRAWER_ITEM_DRAFTS) + 1,
+        binding.mainDrawer.addItemsAtPosition(
+            existingPosition + 1,
             primaryDrawerItem {
                 identifier = DRAWER_ITEM_SCHEDULED_POSTS
                 nameRes = R.string.action_access_scheduled_posts
@@ -857,6 +861,13 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
     /** Binds [lists] to the "Lists" section in the main drawer. */
     private suspend fun bindMainDrawerLists(pachliAccountId: Long, lists: List<MastodonList>) = drawerMutex.withLock {
+        // Can't use binding.mainDrawer.getPosition() here, as that returns -1 if the
+        // account list is open (https://github.com/mikepenz/MaterialDrawer/issues/2826).
+        // Instead, pull the position from the adapter for primary items. This is offset
+        // by 1 in the adapter that wraps all the items.
+        val headerPosition = binding.mainDrawer.itemAdapter.getAdapterPosition(DRAWER_ITEM_LISTS) + 1
+        if (headerPosition == 0) return@withLock
+
         binding.mainDrawer.removeItems(*listDrawerItems.toTypedArray())
 
         listDrawerItems.clear()
@@ -878,7 +889,9 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                 },
             )
         }
-        val headerPosition = binding.mainDrawer.getPosition(DRAWER_ITEM_LISTS)
+
+        // Insert items after the "Lists" header. Again, use the itemAdapter directly
+        // instead of addItemsAtPosition.
         binding.mainDrawer.addItemsAtPosition(headerPosition + 1, *listDrawerItems.toTypedArray())
         updateMainDrawerTypeface(
             EmbeddedFontFamily.from(sharedPreferencesRepository.getString(FONT_FAMILY, "default")),
