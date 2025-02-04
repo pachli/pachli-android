@@ -74,9 +74,6 @@ class ViewThreadFragment :
     private lateinit var adapter: ThreadAdapter
     private lateinit var thisThreadsStatusId: String
 
-    private var alwaysShowSensitiveMedia = false
-    private var alwaysOpenSpoiler = false
-
     override var pachliAccountId by Delegates.notNull<Long>()
 
     /**
@@ -95,8 +92,7 @@ class ViewThreadFragment :
         thisThreadsStatusId = requireArguments().getString(ARG_ID)!!
 
         lifecycleScope.launch {
-            val statusDisplayOptions = viewModel.statusDisplayOptions.value
-            adapter = ThreadAdapter(statusDisplayOptions, this@ViewThreadFragment)
+            adapter = ThreadAdapter(viewModel.statusDisplayOptions.value, this@ViewThreadFragment)
         }
     }
 
@@ -128,8 +124,6 @@ class ViewThreadFragment :
             MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL),
         )
         binding.recyclerView.addItemDecoration(ConversationLineItemDecoration(requireContext()))
-        alwaysShowSensitiveMedia = accountManager.activeAccount!!.alwaysShowSensitiveMedia
-        alwaysOpenSpoiler = accountManager.activeAccount!!.alwaysOpenSpoiler
 
         binding.recyclerView.adapter = adapter
 
@@ -303,7 +297,7 @@ class ViewThreadFragment :
         super.viewMedia(
             viewData.username,
             attachmentIndex,
-            list(viewData.actionable, alwaysShowSensitiveMedia),
+            list(viewData.actionable, viewModel.statusDisplayOptions.value.showSensitiveMedia),
             view,
         )
     }
