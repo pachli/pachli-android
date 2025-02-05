@@ -13,7 +13,7 @@
     <string name="error_failed_app_registration_fmt">そのインスタンスでの認証に失敗しました。失敗が続く場合、メニューからブラウザでのログインを試してください。: %1$s</string>
     <string name="error_authorization_unknown">不明な承認エラーが発生しました。失敗が続く場合、メニューからブラウザでのログインを試してください。</string>
     <string name="error_authorization_denied">認証が拒否されました。正しい認証情報を入力したことが確かな場合、メニューからブラウザでのログインを試してください。</string>
-    <string name="error_retrieving_oauth_token">ログイントークンの取得に失敗しました。もし失敗が続く場合、メニューからブラウザでのログインを試してください。</string>
+    <string name="error_retrieving_oauth_token_fmt">ログイントークンの取得に失敗しました。もし失敗が続く場合、メニューからブラウザでのログインを試してください。: %1$s</string>
     <string name="error_loading_account_details_fmt">アカウントの詳細情報の読み込みに失敗しました: %1$s</string>
     <string name="hint_domain">インスタンス</string>
     <string name="action_login">Pachli でログイン</string>

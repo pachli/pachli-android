@@ -7,10 +7,10 @@ import androidx.paging.RemoteMediator
 import app.pachli.core.network.model.HashTag
 import app.pachli.core.network.model.HttpHeaderLink
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.network.retrofit.apiresult.ApiResult
+import com.github.michaelbull.result.getOrElse
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
-import retrofit2.HttpException
-import retrofit2.Response
 
 @OptIn(ExperimentalPagingApi::class)
 class FollowedTagsRemoteMediator(
@@ -32,7 +32,7 @@ class FollowedTagsRemoteMediator(
         }
     }
 
-    private suspend fun request(loadType: LoadType): Response<List<HashTag>>? {
+    private suspend fun request(loadType: LoadType): ApiResult<List<HashTag>>? {
         return when (loadType) {
             LoadType.PREPEND -> null
             LoadType.APPEND -> api.followedTags(maxId = viewModel.nextKey)
@@ -44,13 +44,13 @@ class FollowedTagsRemoteMediator(
         }
     }
 
-    private fun applyResponse(response: Response<List<HashTag>>): MediatorResult {
-        val tags = response.body()
-        if (!response.isSuccessful || tags == null) {
-            return MediatorResult.Error(HttpException(response))
+    private fun applyResponse(result: ApiResult<List<HashTag>>): MediatorResult {
+        val response = result.getOrElse {
+            return MediatorResult.Error(it.throwable)
         }
+        val tags = response.body
 
-        val links = HttpHeaderLink.parse(response.headers()["Link"])
+        val links = HttpHeaderLink.parse(response.headers["Link"])
         viewModel.nextKey = HttpHeaderLink.findByRelationType(links, "next")?.uri?.getQueryParameter("max_id")
         viewModel.tags.addAll(tags)
         viewModel.currentSource?.invalidate()

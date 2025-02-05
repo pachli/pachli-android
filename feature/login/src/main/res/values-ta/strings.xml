@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="dialog_whats_an_instance">ஏதேனும் instance-ன் முகவரியையோ அல்லது களத்தின் முகவரியையோ இங்கு உள்ளிடவும், உதாரணமாக mastodon.social, icosahedron.website, social.tchncs.de, மற்றும் \u0020<a href="https://instances.social">மேலும்!</a> 
+    <string name="dialog_whats_an_instance">ஏதேனும் instance-ன் முகவரியையோ அல்லது களத்தின் முகவரியையோ இங்கு உள்ளிடவும், உதாரணமாக mastodon.social, icosahedron.website, social.tchncs.de, மற்றும் \u0020<a href="https://instances.social">மேலும்!</a>
 \n
 \nபயனர் கணக்கு இல்லையெனில் புதிய கணக்கிற்கான instance(களம்)-னை பதிவிடவும். நீங்கள் குறிப்பிடப்படும் களத்தில் உங்கள் கணக்கு பதிவாகும்.
 \n
-\nமேலும் இங்கு குறிப்பிடப்பட்ட ஏதேனும் ஒரு களத்தில் மட்டுமே உங்களால் கணக்கு ஆரம்பித்துக்கொள்ள இயலும் இருப்பினும் நம்மால் மற்ற களங்களில் உள்ள நண்பர்களையும் தொடர்பு கொள்ள இயலும் . 
+\nமேலும் இங்கு குறிப்பிடப்பட்ட ஏதேனும் ஒரு களத்தில் மட்டுமே உங்களால் கணக்கு ஆரம்பித்துக்கொள்ள இயலும் இருப்பினும் நம்மால் மற்ற களங்களில் உள்ள நண்பர்களையும் தொடர்பு கொள்ள இயலும் .
 \n
 \nமேலும் தகவல்கள் அறிய <a href="https://joinmastodon.org">joinmastodon.org</a>. \u0020</string>
     <string name="action_close">மூடு</string>
@@ -12,7 +12,7 @@
     <string name="error_failed_app_registration_fmt">அந்த instance(களத்தினை)-யை அங்கீகரிப்பதில் தோல்வி: %1$s</string>
     <string name="error_authorization_unknown">அடையாளம் தெரியாத அங்கீகார பிழை ஏற்பட்டுள்ளது.</string>
     <string name="error_authorization_denied">அங்கீகாரம் மறுக்கப்பட்டுள்ளது</string>
-    <string name="error_retrieving_oauth_token">உள்நுழைவு டோக்கனைப் பெறுவதில் தோல்வி.</string>
+    <string name="error_retrieving_oauth_token_fmt">உள்நுழைவு டோக்கனைப் பெறுவதில் தோல்வி: %1$s</string>
     <string name="hint_domain">எந்த instance(களம்)?</string>
     <string name="action_login">Mastodon மூலம்  உள்நுழைய</string>
     <string name="link_whats_an_instance">Instance(களம்) என்றால் என்ன?</string>

@@ -13,7 +13,7 @@
     <string name="error_failed_app_registration_fmt">L\'autenticacion en aquesta instància a fracassat. Se ten de se produire, ensajatz la connexion via Navigador via lo menú: %1$s</string>
     <string name="error_authorization_unknown">S\'es produch una error d\'autorizacion pas identificada. Se ten de se produire, ensajatz la connexion via Navigador via lo menú.</string>
     <string name="error_authorization_denied">L\'autorizacion es estada regetada.</string>
-    <string name="error_retrieving_oauth_token">Fracàs de l’obtencion del geton d\'iniciacion de session.</string>
+    <string name="error_retrieving_oauth_token_fmt">Fracàs de l’obtencion del geton d\'iniciacion de session: %1$s</string>
     <string name="error_loading_account_details_fmt">Fracàs del cargament dels detalhs del compte: %1$s</string>
     <string name="hint_domain">Quina instància ?</string>
     <string name="action_login">Començar la session amb Pachli</string>

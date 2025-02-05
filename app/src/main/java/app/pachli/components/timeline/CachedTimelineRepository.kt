@@ -42,8 +42,9 @@ import app.pachli.core.database.model.TranslationState
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Translation
 import app.pachli.core.network.retrofit.MastodonApi
-import at.connyduck.calladapter.networkresult.NetworkResult
-import at.connyduck.calladapter.networkresult.fold
+import app.pachli.core.network.retrofit.apiresult.ApiResult
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
@@ -158,31 +159,30 @@ class CachedTimelineRepository @Inject constructor(
         statusDao.clearWarning(pachliAccountId, statusId)
     }.join()
 
-    suspend fun translate(statusViewData: StatusViewData): NetworkResult<Translation> {
+    suspend fun translate(statusViewData: StatusViewData): ApiResult<Translation> {
         saveStatusViewData(statusViewData.copy(translationState = TranslationState.TRANSLATING))
         val translation = mastodonApi.translate(statusViewData.actionableId)
-        translation.fold(
-            {
-                translatedStatusDao.upsert(
-                    TranslatedStatusEntity(
-                        serverId = statusViewData.actionableId,
-                        timelineUserId = statusViewData.pachliAccountId,
-                        // TODO: Should this embed the network type instead of copying data
-                        // from one type to another?
-                        content = it.content,
-                        spoilerText = it.spoilerText,
-                        poll = it.poll,
-                        attachments = it.attachments,
-                        provider = it.provider,
-                    ),
-                )
-                saveStatusViewData(statusViewData.copy(translationState = TranslationState.SHOW_TRANSLATION))
-            },
-            {
-                // Reset the translation state
-                saveStatusViewData(statusViewData)
-            },
-        )
+        translation.onSuccess {
+            val body = it.body
+            translatedStatusDao.upsert(
+                TranslatedStatusEntity(
+                    serverId = statusViewData.actionableId,
+                    timelineUserId = statusViewData.pachliAccountId,
+                    // TODO: Should this embed the network type instead of copying data
+                    // from one type to another?
+                    content = body.content,
+                    spoilerText = body.spoilerText,
+                    poll = body.poll,
+                    attachments = body.attachments,
+                    provider = body.provider,
+                ),
+            )
+            saveStatusViewData(statusViewData.copy(translationState = TranslationState.SHOW_TRANSLATION))
+        }.onFailure {
+            // Reset the translation state
+            saveStatusViewData(statusViewData)
+        }
+
         return translation
     }
 

@@ -4,7 +4,7 @@
     <string name="error_failed_app_registration_fmt">Autentizácia servru zlyhala: %1$s</string>
     <string name="error_authorization_unknown">Vyskytla sa neidentifikovaná chyba autorizácie.</string>
     <string name="error_authorization_denied">Autorizácia bola zamietnutá.</string>
-    <string name="error_retrieving_oauth_token">Nepodarilo sa získať prihlasovací token.</string>
+    <string name="error_retrieving_oauth_token_fmt">Nepodarilo sa získať prihlasovací token: %1$s</string>
     <string name="hint_domain">Ktorý server\?</string>
     <string name="action_login">Prihlásiť sa účtom Mastodon</string>
     <string name="link_whats_an_instance">Čo je server\?</string>

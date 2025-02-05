@@ -13,7 +13,7 @@
     <string name="error_failed_app_registration_fmt">Máy chủ này không cấp quyền truy cập: %1$s</string>
     <string name="error_authorization_unknown">Xảy ra lỗi khi cố gắng truy cập.</string>
     <string name="error_authorization_denied">Truy cập bị từ chối.</string>
-    <string name="error_retrieving_oauth_token">Lấy token đăng nhập thất bại.</string>
+    <string name="error_retrieving_oauth_token_fmt">Lấy token đăng nhập thất bại: %1$s</string>
     <string name="error_loading_account_details_fmt">Không thể tải thông tin tài khoản: %1$s</string>
     <string name="hint_domain">Bạn ở máy chủ nào\?</string>
     <string name="action_login">Đăng nhập Mastodon</string>

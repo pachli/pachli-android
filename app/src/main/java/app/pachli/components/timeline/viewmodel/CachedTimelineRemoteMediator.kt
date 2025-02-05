@@ -34,13 +34,16 @@ import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.network.retrofit.apiresult.ApiResponse
+import app.pachli.core.network.retrofit.apiresult.ApiResult
+import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.get
+import com.github.michaelbull.result.getOrElse
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import okhttp3.Headers
-import retrofit2.HttpException
-import retrofit2.Response
 import timber.log.Timber
 
 @OptIn(ExperimentalPagingApi::class)
@@ -92,12 +95,9 @@ class CachedTimelineRemoteMediator(
                         Timber.d("Append from remoteKey: %s", rke)
                         mastodonApi.homeTimeline(maxId = rke.key, limit = state.config.pageSize)
                     }
-                }
+                }.getOrElse { return@transactionProvider MediatorResult.Error(it.throwable) }
 
-                val statuses = response.body()
-                if (!response.isSuccessful || statuses == null) {
-                    return@transactionProvider MediatorResult.Error(HttpException(response))
-                }
+                val statuses = response.body
 
                 Timber.d("%d - # statuses loaded", statuses.size)
 
@@ -109,7 +109,7 @@ class CachedTimelineRemoteMediator(
 
                 Timber.d("  %s..%s", statuses.first().id, statuses.last().id)
 
-                val links = Links.from(response.headers()["link"])
+                val links = Links.from(response.headers["link"])
 
                 when (loadType) {
                     LoadType.REFRESH -> {
@@ -176,7 +176,7 @@ class CachedTimelineRemoteMediator(
      * @return The initial page of statuses centered on the status with [statusId],
      * or the most recent statuses if [statusId] is null.
      */
-    private suspend fun getInitialPage(statusId: String?, pageSize: Int): Response<List<Status>> = coroutineScope {
+    private suspend fun getInitialPage(statusId: String?, pageSize: Int): ApiResult<List<Status>> = coroutineScope {
         statusId ?: return@coroutineScope mastodonApi.homeTimeline(limit = pageSize)
 
         val status = async { mastodonApi.status(statusId = statusId) }
@@ -184,9 +184,9 @@ class CachedTimelineRemoteMediator(
         val nextPage = async { mastodonApi.homeTimeline(maxId = statusId, limit = pageSize * 3) }
 
         val statuses = buildList {
-            prevPage.await().body()?.let { this.addAll(it) }
-            status.await().getOrNull()?.let { this.add(it) }
-            nextPage.await().body()?.let { this.addAll(it) }
+            prevPage.await().get()?.let { this.addAll(it.body) }
+            status.await().get()?.let { this.add(it.body) }
+            nextPage.await().get()?.let { this.addAll(it.body) }
         }
 
         val minId = statuses.firstOrNull()?.id ?: statusId
@@ -196,7 +196,7 @@ class CachedTimelineRemoteMediator(
             .add("link: </?max_id=$maxId>; rel=\"next\", </?min_id=$minId>; rel=\"prev\"")
             .build()
 
-        return@coroutineScope Response.success(statuses, headers)
+        return@coroutineScope Ok(ApiResponse(headers, statuses, 200))
     }
 
     /**

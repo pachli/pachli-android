@@ -21,6 +21,7 @@ import android.content.Intent
 import android.net.Uri
 import app.pachli.BuildConfig
 import app.pachli.core.preferences.SharedPreferencesRepository
+import com.github.michaelbull.result.get
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -34,7 +35,7 @@ class UpdateCheck @Inject constructor(
     }
 
     override suspend fun remoteFetchLatestVersionCode(): Int? {
-        val fdroidPackage = fdroidService.getPackage(BuildConfig.APPLICATION_ID).getOrNull() ?: return null
+        val fdroidPackage = fdroidService.getPackage(BuildConfig.APPLICATION_ID).get()?.body ?: return null
 
         // `packages` is a list of all packages that have been built and are available.
         //

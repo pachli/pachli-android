@@ -29,7 +29,6 @@ import app.pachli.util.Error
 import app.pachli.util.Loading
 import app.pachli.util.Resource
 import app.pachli.util.Success
-import at.connyduck.calladapter.networkresult.fold
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -80,89 +79,83 @@ class AnnouncementsViewModel @Inject constructor(
     fun addReaction(announcementId: String, name: String) {
         viewModelScope.launch {
             mastodonApi.addAnnouncementReaction(announcementId, name)
-                .fold(
-                    {
-                        announcementsMutable.postValue(
-                            Success(
-                                announcements.value?.data?.map { announcement ->
-                                    if (announcement.id == announcementId) {
-                                        announcement.copy(
-                                            reactions = if (announcement.reactions.find { reaction -> reaction.name == name } != null) {
-                                                announcement.reactions.map { reaction ->
-                                                    if (reaction.name == name) {
-                                                        reaction.copy(
-                                                            count = reaction.count + 1,
-                                                            me = true,
-                                                        )
-                                                    } else {
-                                                        reaction
-                                                    }
+                .onSuccess {
+                    announcementsMutable.postValue(
+                        Success(
+                            announcements.value?.data?.map { announcement ->
+                                if (announcement.id == announcementId) {
+                                    announcement.copy(
+                                        reactions = if (announcement.reactions.find { reaction -> reaction.name == name } != null) {
+                                            announcement.reactions.map { reaction ->
+                                                if (reaction.name == name) {
+                                                    reaction.copy(
+                                                        count = reaction.count + 1,
+                                                        me = true,
+                                                    )
+                                                } else {
+                                                    reaction
                                                 }
-                                            } else {
-                                                listOf(
-                                                    *announcement.reactions.toTypedArray(),
-                                                    emojis.value!!.find { emoji -> emoji.shortcode == name }!!.run {
-                                                        Announcement.Reaction(
-                                                            name,
-                                                            1,
-                                                            true,
-                                                            url,
-                                                            staticUrl,
-                                                        )
-                                                    },
-                                                )
-                                            },
-                                        )
-                                    } else {
-                                        announcement
-                                    }
-                                },
-                            ),
-                        )
-                    },
-                    {
-                        Timber.w(it, "Failed to add reaction to the announcement.")
-                    },
-                )
+                                            }
+                                        } else {
+                                            listOf(
+                                                *announcement.reactions.toTypedArray(),
+                                                emojis.value!!.find { emoji -> emoji.shortcode == name }!!.run {
+                                                    Announcement.Reaction(
+                                                        name,
+                                                        1,
+                                                        true,
+                                                        url,
+                                                        staticUrl,
+                                                    )
+                                                },
+                                            )
+                                        },
+                                    )
+                                } else {
+                                    announcement
+                                }
+                            },
+                        ),
+                    )
+                }.onFailure {
+                    Timber.w("Failed to add reaction to the announcement: %s", it)
+                }
         }
     }
 
     fun removeReaction(announcementId: String, name: String) {
         viewModelScope.launch {
             mastodonApi.removeAnnouncementReaction(announcementId, name)
-                .fold(
-                    {
-                        announcementsMutable.postValue(
-                            Success(
-                                announcements.value!!.data!!.map { announcement ->
-                                    if (announcement.id == announcementId) {
-                                        announcement.copy(
-                                            reactions = announcement.reactions.mapNotNull { reaction ->
-                                                if (reaction.name == name) {
-                                                    if (reaction.count > 1) {
-                                                        reaction.copy(
-                                                            count = reaction.count - 1,
-                                                            me = false,
-                                                        )
-                                                    } else {
-                                                        null
-                                                    }
+                .onSuccess {
+                    announcementsMutable.postValue(
+                        Success(
+                            announcements.value!!.data!!.map { announcement ->
+                                if (announcement.id == announcementId) {
+                                    announcement.copy(
+                                        reactions = announcement.reactions.mapNotNull { reaction ->
+                                            if (reaction.name == name) {
+                                                if (reaction.count > 1) {
+                                                    reaction.copy(
+                                                        count = reaction.count - 1,
+                                                        me = false,
+                                                    )
                                                 } else {
-                                                    reaction
+                                                    null
                                                 }
-                                            },
-                                        )
-                                    } else {
-                                        announcement
-                                    }
-                                },
-                            ),
-                        )
-                    },
-                    {
-                        Timber.w(it, "Failed to remove reaction from the announcement.")
-                    },
-                )
+                                            } else {
+                                                reaction
+                                            }
+                                        },
+                                    )
+                                } else {
+                                    announcement
+                                }
+                            },
+                        ),
+                    )
+                }.onFailure {
+                    Timber.w("Failed to remove reaction from the announcement: %s", it)
+                }
         }
     }
 }

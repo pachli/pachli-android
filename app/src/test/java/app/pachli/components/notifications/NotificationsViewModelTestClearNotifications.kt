@@ -18,6 +18,8 @@
 package app.pachli.components.notifications
 
 import app.cash.turbine.test
+import app.pachli.core.testing.failure
+import app.pachli.core.testing.success
 import com.github.michaelbull.result.getError
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -40,7 +42,7 @@ class NotificationsViewModelTestClearNotifications : NotificationsViewModelTestB
     @Test
     fun `clearing notifications succeeds`() = runTest {
         // Given
-        mastodonApi.stub { onBlocking { clearNotifications() } doReturn emptySuccess }
+        mastodonApi.stub { onBlocking { clearNotifications() } doReturn success(Unit) }
 
         // When
         viewModel.accept(FallibleUiAction.ClearNotifications)
@@ -52,7 +54,7 @@ class NotificationsViewModelTestClearNotifications : NotificationsViewModelTestB
     @Test
     fun `clearing notifications fails && emits UiError`() = runTest {
         // Given
-        notificationsRepository.stub { onBlocking { clearNotifications() } doReturn emptyError }
+        notificationsRepository.stub { onBlocking { clearNotifications() } doReturn failure() }
 
         viewModel.uiResult.test {
             // When

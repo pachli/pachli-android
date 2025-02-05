@@ -6,7 +6,7 @@
     <string name="error_failed_app_registration_fmt">無法連接此伺服器: %1$s</string>
     <string name="error_authorization_unknown">認證過程出現未知錯誤。如果此問題持續發生，請嘗試選單中的「在瀏覽器中登錄」。</string>
     <string name="error_authorization_denied">授權被拒絕。如果您確定提供了正確登入訊息，請嘗試選單中的「在瀏覽器中登錄」。</string>
-    <string name="error_retrieving_oauth_token">無法獲取登入資訊。如果此問題持續發生，請嘗試選單中的「在瀏覽器中登錄」。</string>
+    <string name="error_retrieving_oauth_token_fmt">無法獲取登入資訊。如果此問題持續發生，請嘗試選單中的「在瀏覽器中登錄」。: %1$s</string>
     <string name="hint_domain">哪一個域名？</string>
     <string name="action_login">登入 Mastodon 帳號</string>
     <string name="link_whats_an_instance">什麼是站點？</string>

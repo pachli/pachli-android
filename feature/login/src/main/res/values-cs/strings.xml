@@ -12,7 +12,7 @@
     <string name="error_failed_app_registration_fmt">Autentizace s tímto serverem nebyla úspěšná: %1$s</string>
     <string name="error_authorization_unknown">Vyskytla se neidentifikovaná chyba autorizace.</string>
     <string name="error_authorization_denied">Autorizace byla zamítnuta.</string>
-    <string name="error_retrieving_oauth_token">Nepodařilo se získat přihlašovací token.</string>
+    <string name="error_retrieving_oauth_token_fmt">Nepodařilo se získat přihlašovací token: %1$s</string>
     <string name="error_loading_account_details_fmt">Nepodařilo se načíst detaily účtu: %1$s</string>
     <string name="hint_domain">Který server?</string>
     <string name="action_login">Přihlásit se účtem Mastodon</string>

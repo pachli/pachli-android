@@ -13,7 +13,7 @@
     <string name="error_failed_app_registration_fmt">Authentifizieren mit dieser Instanz fehlgeschlagen. Falls das Problem weiter besteht, versuche dich über den Browser anzumelden: %1$s</string>
     <string name="error_authorization_unknown">Ein unbekannter Fehler ist bei der Autorisierung aufgetreten. Falls das Problem weiter besteht, versuche dich über den Browser anzumelden.</string>
     <string name="error_authorization_denied">Autorisierung wurde abgelehnt. Wenn du dir sicher bist, dass du die korrekten Anmeldedaten eingegeben hast, versuche dich über den Browser anzumelden.</string>
-    <string name="error_retrieving_oauth_token">Es konnte kein Anmelde-Token abgerufen werden. Falls das Problem weiter besteht, versuche dich über den Browser anzumelden.</string>
+    <string name="error_retrieving_oauth_token_fmt">Es konnte kein Anmelde-Token abgerufen werden. Falls das Problem weiter besteht, versuche dich über den Browser anzumelden: %1$s</string>
     <string name="error_loading_account_details_fmt">Fehler beim Laden der Kontodetails: %1$s</string>
     <string name="hint_domain">Welche Instanz?</string>
     <string name="action_login">Mit Pachli anmelden</string>

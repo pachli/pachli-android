@@ -61,7 +61,6 @@ import app.pachli.databinding.FragmentAccountListBinding
 import app.pachli.interfaces.AccountActionListener
 import app.pachli.interfaces.AppBarLayoutHost
 import app.pachli.view.EndlessOnScrollListener
-import at.connyduck.calladapter.networkresult.fold
 import com.github.michaelbull.result.getOrElse
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
@@ -273,19 +272,12 @@ class AccountListFragment :
                 api.authorizeFollowRequest(accountId)
             } else {
                 api.rejectFollowRequest(accountId)
-            }.fold(
-                {
-                    onRespondToFollowRequestSuccess(position)
-                },
-                { throwable ->
-                    val verb = if (accept) {
-                        "accept"
-                    } else {
-                        "reject"
-                    }
-                    Timber.e(throwable, "Failed to %s accountId %s", verb, accountId)
-                },
-            )
+            }.onSuccess {
+                onRespondToFollowRequestSuccess(position)
+            }.onFailure { error ->
+                val verb = if (accept) "accept" else "reject"
+                Timber.e("Failed to %s accountId %s: %s", verb, accountId, error.fmt(requireContext()))
+            }
         }
     }
 

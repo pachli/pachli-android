@@ -13,7 +13,7 @@
     <string name="error_failed_app_registration_fmt">Bu sunucuda kimlik doğrulama başarısız oldu. Sorun devam ederse menüdeki Tarayıcı ile Giriş Yap seçeneğini dene: %1$s</string>
     <string name="error_authorization_unknown">Tanımlanamayan bir yetkilendirme hatası oluştu. Sorun devam ederse menüdeki Tarayıcı ile Giriş Yap seçeneğini dene.</string>
     <string name="error_authorization_denied">Yetkilendirme reddedildi. Doğru hesap bilgilerini girdiğinden eminsen menüdeki Tarayıcı ile Giriş Yap seçeneğini dene.</string>
-    <string name="error_retrieving_oauth_token">Giriş belirteci alınırken hata oluştu. Sorun devam ederse menüdeki Tarayıcı ile Giriş Yap seçeneğini dene.</string>
+    <string name="error_retrieving_oauth_token_fmt">Giriş belirteci alınırken hata oluştu. Sorun devam ederse menüdeki Tarayıcı ile Giriş Yap seçeneğini dene: %1$s</string>
     <string name="error_loading_account_details_fmt">Hesap detayları alınırken hata: %1$s</string>
     <string name="hint_domain">Hangi sunucu\?</string>
     <string name="action_login">Pachli ile giriş yap</string>

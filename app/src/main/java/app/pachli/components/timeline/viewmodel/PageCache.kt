@@ -22,11 +22,11 @@ import androidx.paging.LoadType
 import app.pachli.BuildConfig
 import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Status
+import app.pachli.core.network.retrofit.apiresult.ApiError
+import app.pachli.core.network.retrofit.apiresult.ApiResult
+import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.map
 import java.util.LinkedList
-import kotlin.Result.Companion.failure
-import kotlin.Result.Companion.success
-import retrofit2.HttpException
-import retrofit2.Response
 import timber.log.Timber
 
 /** A page of data from the Mastodon API */
@@ -47,22 +47,15 @@ data class Page(
     override fun toString() = "size: ${"%2d".format(data.size)}, range: ${data.firstOrNull()?.id}..${data.lastOrNull()?.id}, prevKey: $prevKey, nextKey: $nextKey"
 
     companion object {
-        fun tryFrom(response: Response<List<Status>>): Result<Page> {
-            val statuses = response.body()
-            if (!response.isSuccessful || statuses == null) {
-                return failure(HttpException(response))
-            }
+        fun tryFrom(response: ApiResult<List<Status>>): Result<Page, ApiError> = response.map {
+            val links = Links.from(it.headers["link"])
+            Timber.d("  link: %s", links)
+            Timber.d("  %d - # statuses loaded", it.body.size)
 
-            val links = Links.from(response.headers()["link"])
-            Timber.d("  link: %s", response.headers()["link"])
-            Timber.d("  %d - # statuses loaded", statuses.size)
-
-            return success(
-                Page(
-                    data = statuses.toMutableList(),
-                    nextKey = links.next,
-                    prevKey = links.prev,
-                ),
+            Page(
+                data = it.body.toMutableList(),
+                nextKey = links.next,
+                prevKey = links.prev,
             )
         }
     }

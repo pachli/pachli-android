@@ -24,7 +24,8 @@ import androidx.paging.cachedIn
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.network.model.ScheduledStatus
 import app.pachli.core.network.retrofit.MastodonApi
-import at.connyduck.calladapter.networkresult.fold
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
@@ -46,14 +47,9 @@ class ScheduledStatusViewModel @Inject constructor(
 
     fun deleteScheduledStatus(status: ScheduledStatus) {
         viewModelScope.launch {
-            mastodonApi.deleteScheduledStatus(status.id).fold(
-                {
-                    pagingSourceFactory.remove(status)
-                },
-                { throwable ->
-                    Timber.w(throwable, "Error deleting scheduled status")
-                },
-            )
+            mastodonApi.deleteScheduledStatus(status.id)
+                .onSuccess { pagingSourceFactory.remove(status) }
+                .onFailure { Timber.w("Error deleting scheduled status: %s", it) }
         }
     }
 }

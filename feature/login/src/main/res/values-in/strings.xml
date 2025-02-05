@@ -5,7 +5,7 @@
     <string name="error_failed_app_registration_fmt">Gagal mengautentikasi dengan instance tersebut. Jika ini berlanjut, coba Masuk di Browser dari menu: %1$s</string>
     <string name="error_authorization_unknown">"Terjadi kesalahan otorisasi yang tidak diketahui. Jika ini  berlanjut, coba Masuk di Browser dari menu."</string>
     <string name="error_authorization_denied">Otorisasi ditolak. Jika Anda yakin telah memberikan kredensial yang benar, coba Masuk di Browser dari menu.</string>
-    <string name="error_retrieving_oauth_token">Gagal mendapatkan token masuk. Jika ini terus berlanjut, coba Masuk di Browser dari menu.</string>
+    <string name="error_retrieving_oauth_token_fmt">Gagal mendapatkan token masuk. Jika ini terus berlanjut, coba Masuk di Browser dari menu: %1$s</string>
     <string name="error_loading_account_details_fmt">Gagal memuat detail akun: %1$s</string>
     <string name="hint_domain">Instansi yang mana\?</string>
     <string name="action_login">Masuk dengan Mastodon</string>

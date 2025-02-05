@@ -36,7 +36,6 @@ import app.pachli.core.network.model.NewPoll
 import app.pachli.core.network.model.NewStatus
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
-import at.connyduck.calladapter.networkresult.fold
 import com.github.michaelbull.result.getOrElse
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
@@ -249,33 +248,33 @@ class SendStatusService : Service() {
                 )
             }
 
-            sendResult.fold(
-                { sentStatus ->
-                    statusesToSend.remove(statusId)
-                    // If the status was loaded from a draft, delete the draft and associated media files.
-                    if (statusToSend.draftId != 0) {
-                        draftHelper.deleteDraftAndAttachments(statusToSend.draftId)
-                    }
+            sendResult.onSuccess {
+                val sentStatus = it.body
+                statusesToSend.remove(statusId)
+                // If the status was loaded from a draft, delete the draft and associated media files.
+                if (statusToSend.draftId != 0) {
+                    draftHelper.deleteDraftAndAttachments(statusToSend.draftId)
+                }
 
-                    mediaUploader.cancelUploadScope(*statusToSend.media.map { it.localId }.toIntArray())
+                mediaUploader.cancelUploadScope(*statusToSend.media.map { it.localId }.toIntArray())
 
-                    val scheduled = statusToSend.scheduledAt != null
+                val scheduled = statusToSend.scheduledAt != null
 
-                    if (scheduled) {
-                        eventHub.dispatch(StatusScheduledEvent)
-                    } else if (!isNew) {
-                        eventHub.dispatch(StatusEditedEvent(statusToSend.statusId!!, sentStatus as Status))
-                    } else {
-                        eventHub.dispatch(StatusComposedEvent(sentStatus as Status))
-                    }
+                if (scheduled) {
+                    eventHub.dispatch(StatusScheduledEvent)
+                } else if (!isNew) {
+                    eventHub.dispatch(StatusEditedEvent(statusToSend.statusId!!, sentStatus as Status))
+                } else {
+                    eventHub.dispatch(StatusComposedEvent(sentStatus as Status))
+                }
 
-                    notificationManager.cancel(statusId)
-                },
-                { throwable ->
-                    Timber.w(throwable, "failed sending status")
-                    failOrRetry(throwable, statusId)
-                },
-            )
+                notificationManager.cancel(statusId)
+            }
+                .onFailure {
+                    Timber.w("failed sending status: %s", it)
+                    failOrRetry(it.throwable, statusId)
+                }
+
             stopSelfWhenDone()
         }
     }

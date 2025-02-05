@@ -50,8 +50,6 @@ import javax.inject.Inject
 import kotlin.properties.Delegates
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
-import okhttp3.ResponseBody
-import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Before
 import org.junit.Rule
 import org.junit.runner.RunWith
@@ -62,8 +60,6 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.reset
 import org.mockito.kotlin.stub
 import org.robolectric.annotation.Config
-import retrofit2.HttpException
-import retrofit2.Response
 
 open class PachliHiltApplication : PachliApplication()
 
@@ -108,15 +104,6 @@ abstract class NotificationsViewModelTestBase {
     private val eventHub = EventHub()
 
     private lateinit var accountPreferenceDataStore: AccountPreferenceDataStore
-
-    /** Empty success response, for API calls that return one */
-    protected var emptySuccess: Response<ResponseBody> = Response.success("".toResponseBody())
-
-    /** Empty error response, for API calls that return one */
-    protected var emptyError: Response<ResponseBody> = Response.error(404, "".toResponseBody())
-
-    /** Exception to throw when testing errors */
-    protected val httpException = HttpException(emptyError)
 
     private val account = Account(
         id = "1",

@@ -34,7 +34,6 @@ import app.pachli.util.Error
 import app.pachli.util.Loading
 import app.pachli.util.Resource
 import app.pachli.util.Success
-import at.connyduck.calladapter.networkresult.fold
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -150,16 +149,14 @@ class EditProfileViewModel @Inject constructor(
                 diff.field3?.second?.toRequestBody(MultipartBody.FORM),
                 diff.field4?.first?.toRequestBody(MultipartBody.FORM),
                 diff.field4?.second?.toRequestBody(MultipartBody.FORM),
-            ).fold(
-                { newAccountData ->
-                    accountManager.updateAccount(pachliAccountId, newAccountData)
-                    saveData.postValue(Success())
-                    eventHub.dispatch(ProfileEditedEvent(newAccountData))
-                },
-                { throwable ->
-                    saveData.postValue(Error(cause = throwable))
-                },
-            )
+            ).onSuccess {
+                val newAccountData = it.body
+                accountManager.updateAccount(pachliAccountId, newAccountData)
+                saveData.postValue(Success())
+                eventHub.dispatch(ProfileEditedEvent(newAccountData))
+            }.onFailure {
+                saveData.postValue(Error(cause = it.throwable))
+            }
         }
     }
 

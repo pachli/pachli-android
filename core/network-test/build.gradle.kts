@@ -39,4 +39,7 @@ dependencies {
     implementation(libs.moshi)
     implementation(libs.moshi.adapters)
     ksp(libs.moshi.codegen)
+
+    implementation(libs.bundles.okhttp)
+        ?.because("FakeNetworkModule mocks OkHttpClient")
 }

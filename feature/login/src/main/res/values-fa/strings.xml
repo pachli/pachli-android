@@ -13,7 +13,7 @@
     <string name="error_failed_app_registration_fmt">%1$s: احراز هویت با این نمونه شکست خورد. اگر مشکل ادامه داشت، ورود در مرورگر را از فهرست بیازمایید.</string>
     <string name="error_authorization_unknown">خطای احراز هویت ناشناخته‌ای رخ داد. اگر مشکل ادامه داشت، ورود در مرورگر را از فهرست بیازمایید.</string>
     <string name="error_authorization_denied">احراز هویت رد شد. اگر مطمئنید که اطّلاعات را درست وارد کرده‌اید، ورود در مرورگر را از فهرست بیازمایید.</string>
-    <string name="error_retrieving_oauth_token">دریافت ژتون ورود شکست خورد. اگر مشکل ادامه داشت، ورود در مرورگر را از فهرست بیازمایید.</string>
+    <string name="error_retrieving_oauth_token_fmt">%1$s: دریافت ژتون ورود شکست خورد. اگر مشکل ادامه داشت، ورود در مرورگر را از فهرست بیازمایید.</string>
     <string name="error_loading_account_details_fmt">%1$s: شکست در بار کردن جزییات حساب</string>
     <string name="hint_domain">کدام نمونه؟</string>
     <string name="action_login">ورود با تاسکی</string>

@@ -26,6 +26,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import app.pachli.R
 import app.pachli.components.timeline.TimelineRepository
+import app.pachli.core.common.PachliError
 import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
@@ -57,13 +58,10 @@ import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.preferences.TabTapBehaviour
 import app.pachli.network.ContentFilterModel
 import app.pachli.usecase.TimelineCases
-import at.connyduck.calladapter.networkresult.getOrThrow
-import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.mapEither
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.currentCoroutineContext
-import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -223,7 +221,7 @@ sealed interface StatusActionSuccess : UiSuccess {
 /** Errors from fallible view model actions that the UI will need to show */
 sealed interface UiError {
     /** The throwable associated with the error */
-    val throwable: Throwable
+    val error: PachliError
 
     /** The action that failed. Can be resent to retry the action */
     val action: UiAction?
@@ -233,48 +231,48 @@ sealed interface UiError {
     val message: Int
 
     data class Bookmark(
-        override val throwable: Throwable,
+        override val error: PachliError,
         override val action: StatusAction.Bookmark,
         override val message: Int = R.string.ui_error_bookmark_fmt,
     ) : UiError
 
     data class Favourite(
-        override val throwable: Throwable,
+        override val error: PachliError,
         override val action: StatusAction.Favourite,
         override val message: Int = R.string.ui_error_favourite_fmt,
     ) : UiError
 
     data class Reblog(
-        override val throwable: Throwable,
+        override val error: PachliError,
         override val action: StatusAction.Reblog,
         override val message: Int = R.string.ui_error_reblog_fmt,
     ) : UiError
 
     data class VoteInPoll(
-        override val throwable: Throwable,
+        override val error: PachliError,
         override val action: StatusAction.VoteInPoll,
         override val message: Int = R.string.ui_error_vote_fmt,
     ) : UiError
 
     data class TranslateStatus(
-        override val throwable: Throwable,
+        override val error: PachliError,
         override val action: StatusAction.Translate,
         override val message: Int = R.string.ui_error_translate_status_fmt,
     ) : UiError
 
     data class GetFilters(
-        override val throwable: Throwable,
+        override val error: PachliError,
         override val action: UiAction? = null,
         override val message: Int = R.string.ui_error_filter_v1_load_fmt,
     ) : UiError
 
     companion object {
-        fun make(throwable: Throwable, action: FallibleUiAction) = when (action) {
-            is StatusAction.Bookmark -> Bookmark(throwable, action)
-            is StatusAction.Favourite -> Favourite(throwable, action)
-            is StatusAction.Reblog -> Reblog(throwable, action)
-            is StatusAction.VoteInPoll -> VoteInPoll(throwable, action)
-            is StatusAction.Translate -> TranslateStatus(throwable, action)
+        fun make(error: PachliError, action: FallibleUiAction) = when (action) {
+            is StatusAction.Bookmark -> Bookmark(error, action)
+            is StatusAction.Favourite -> Favourite(error, action)
+            is StatusAction.Reblog -> Reblog(error, action)
+            is StatusAction.VoteInPoll -> VoteInPoll(error, action)
+            is StatusAction.Translate -> TranslateStatus(error, action)
         }
     }
 }
@@ -345,41 +343,40 @@ abstract class TimelineViewModel<T : Any>(
             uiAction.filterIsInstance<StatusAction>()
                 .throttleFirst() // avoid double-taps
                 .collect { action ->
-                    try {
-                        when (action) {
-                            is StatusAction.Bookmark ->
-                                timelineCases.bookmark(
-                                    action.statusViewData.actionableId,
-                                    action.state,
-                                )
-                            is StatusAction.Favourite ->
-                                timelineCases.favourite(
-                                    action.statusViewData.actionableId,
-                                    action.state,
-                                )
-                            is StatusAction.Reblog ->
-                                timelineCases.reblog(
-                                    action.statusViewData.actionableId,
-                                    action.state,
-                                )
-                            is StatusAction.VoteInPoll ->
-                                timelineCases.voteInPoll(
-                                    action.statusViewData.actionableId,
-                                    action.poll.id,
-                                    action.choices,
-                                )
-                            is StatusAction.Translate -> {
-                                timelineCases.translate(action.statusViewData)
-                            }
-                        }.getOrThrow()
-                        // TODO: This should look like the equivalent code in
-                        // NotificationsViewModel when timelineCases returns
-                        // Result<_, _> instead of NetworkResult.
-                        _uiResult.send(Ok(StatusActionSuccess.from(action)))
-                    } catch (e: Exception) {
-                        currentCoroutineContext().ensureActive()
-                        _uiResult.send(Err(UiError.make(e, action)))
-                    }
+                    val result = when (action) {
+                        is StatusAction.Bookmark ->
+                            timelineCases.bookmark(
+                                action.statusViewData.actionableId,
+                                action.state,
+                            )
+
+                        is StatusAction.Favourite ->
+                            timelineCases.favourite(
+                                action.statusViewData.actionableId,
+                                action.state,
+                            )
+
+                        is StatusAction.Reblog ->
+                            timelineCases.reblog(
+                                action.statusViewData.actionableId,
+                                action.state,
+                            )
+
+                        is StatusAction.VoteInPoll ->
+                            timelineCases.voteInPoll(
+                                action.statusViewData.actionableId,
+                                action.poll.id,
+                                action.choices,
+                            )
+
+                        is StatusAction.Translate -> {
+                            timelineCases.translate(action.statusViewData)
+                        }
+                    }.mapEither(
+                        { StatusActionSuccess.from(action) },
+                        { UiError.make(it, action) },
+                    )
+                    _uiResult.send(result)
                 }
         }
 

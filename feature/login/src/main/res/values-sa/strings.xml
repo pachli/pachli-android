@@ -13,7 +13,7 @@
     <string name="error_failed_app_registration_fmt">तेन विशिष्टस्थलेन प्रमाणीकरणं विफलं जातम् ।: %1$s</string>
     <string name="error_authorization_unknown">अज्ञातः प्रमाणीकरणदोषो जातः ।</string>
     <string name="error_authorization_denied">प्रमाणीकरणं निषिद्धम् ।</string>
-    <string name="error_retrieving_oauth_token">सम्प्रवेशस्तोकं न लब्धम् ।</string>
+    <string name="error_retrieving_oauth_token_fmt">सम्प्रवेशस्तोकं न लब्धम् ।: %1$s</string>
     <string name="error_loading_account_details_fmt">व्यक्तित्वलेखस्य विवरणानि दर्शनं विफलं जातम्: %1$s</string>
     <string name="hint_domain">किं विशिष्टस्थलम् \?</string>
     <string name="action_login">मास्टुडोनमाध्यमेन सम्प्रविश्यताम्</string>

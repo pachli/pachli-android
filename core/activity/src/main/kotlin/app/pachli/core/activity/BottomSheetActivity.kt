@@ -30,7 +30,8 @@ import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.ViewThreadActivityIntent
 import app.pachli.core.network.retrofit.MastodonApi
-import at.connyduck.calladapter.networkresult.fold
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import java.net.URI
 import java.net.URISyntaxException
@@ -80,33 +81,30 @@ abstract class BottomSheetActivity : BaseActivity() {
         onBeginSearch(url)
 
         lifecycleScope.launch {
-            mastodonApi.search(query = url, resolve = true).fold(
-                { searchResult ->
-                    val (accounts, statuses) = searchResult
-                    if (getCancelSearchRequested(url)) return@fold
+            mastodonApi.search(query = url, resolve = true).onSuccess { searchResult ->
+                val (accounts, statuses) = searchResult.body
+                if (getCancelSearchRequested(url)) return@onSuccess
+                onEndSearch(url)
+
+                statuses.firstOrNull()?.let {
+                    viewThread(pachliAccountId, it.id, it.url)
+                    return@onSuccess
+                }
+
+                // Some servers return (unrelated) accounts for url searches (#2804)
+                // Verify that the account's url matches the query
+                accounts.firstOrNull { it.url.equals(url, ignoreCase = true) }?.let {
+                    viewAccount(pachliAccountId, it.id)
+                    return@onSuccess
+                }
+
+                performUrlFallbackAction(url, lookupFallbackBehavior)
+            }.onFailure {
+                if (!getCancelSearchRequested(url)) {
                     onEndSearch(url)
-
-                    statuses.firstOrNull()?.let {
-                        viewThread(pachliAccountId, it.id, it.url)
-                        return@fold
-                    }
-
-                    // Some servers return (unrelated) accounts for url searches (#2804)
-                    // Verify that the account's url matches the query
-                    accounts.firstOrNull { it.url.equals(url, ignoreCase = true) }?.let {
-                        viewAccount(pachliAccountId, it.id)
-                        return@fold
-                    }
-
                     performUrlFallbackAction(url, lookupFallbackBehavior)
-                },
-                {
-                    if (!getCancelSearchRequested(url)) {
-                        onEndSearch(url)
-                        performUrlFallbackAction(url, lookupFallbackBehavior)
-                    }
-                },
-            )
+                }
+            }
         }
     }
 

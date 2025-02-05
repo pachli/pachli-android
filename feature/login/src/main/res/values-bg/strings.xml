@@ -16,7 +16,7 @@
     <string name="error_failed_app_registration_fmt">Неуспешно удостоверяване с тази инстанция: %1$s</string>
     <string name="error_authorization_unknown">Възникна неидентифицирана грешка при упълномощаване.</string>
     <string name="error_authorization_denied">Упълномощаването е отказано.</string>
-    <string name="error_retrieving_oauth_token">Получаването на токен за вход бе неуспешно.</string>
+    <string name="error_retrieving_oauth_token_fmt">Получаването на токен за вход бе неуспешно: %1$s</string>
     <string name="hint_domain">Коя инстанция\?</string>
     <string name="action_login">Влизане с Mastodon</string>
     <string name="link_whats_an_instance">Какво е инстанция\?</string>

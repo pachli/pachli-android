@@ -31,10 +31,12 @@ import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.network.parseAsMastodonHtml
+import app.pachli.core.network.retrofit.apiresult.ClientError
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.databinding.ActivityDraftsBinding
 import app.pachli.db.DraftsAlert
-import at.connyduck.calladapter.networkresult.fold
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
@@ -42,7 +44,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -106,45 +107,43 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
         lifecycleScope.launch {
             bottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
             viewModel.getStatus(draft.inReplyToId!!)
-                .fold(
-                    { status ->
-                        val composeOptions = ComposeOptions(
-                            draftId = draft.id,
-                            content = draft.content,
-                            contentWarning = draft.contentWarning,
-                            inReplyToId = draft.inReplyToId,
-                            replyingStatusContent = status.content.parseAsMastodonHtml().toString(),
-                            replyingStatusAuthor = status.account.localUsername,
-                            draftAttachments = draft.attachments,
-                            poll = draft.poll,
-                            sensitive = draft.sensitive,
-                            visibility = draft.visibility,
-                            scheduledAt = draft.scheduledAt,
-                            language = draft.language,
-                            statusId = draft.statusId,
-                            kind = ComposeOptions.ComposeKind.EDIT_DRAFT,
-                        )
+                .onSuccess {
+                    val status = it.body
+                    val composeOptions = ComposeOptions(
+                        draftId = draft.id,
+                        content = draft.content,
+                        contentWarning = draft.contentWarning,
+                        inReplyToId = draft.inReplyToId,
+                        replyingStatusContent = status.content.parseAsMastodonHtml().toString(),
+                        replyingStatusAuthor = status.account.localUsername,
+                        draftAttachments = draft.attachments,
+                        poll = draft.poll,
+                        sensitive = draft.sensitive,
+                        visibility = draft.visibility,
+                        scheduledAt = draft.scheduledAt,
+                        language = draft.language,
+                        statusId = draft.statusId,
+                        kind = ComposeOptions.ComposeKind.EDIT_DRAFT,
+                    )
 
-                        bottomSheet.state = BottomSheetBehavior.STATE_HIDDEN
+                    bottomSheet.state = BottomSheetBehavior.STATE_HIDDEN
 
-                        startActivity(ComposeActivityIntent(context, intent.pachliAccountId, composeOptions))
-                    },
-                    { throwable ->
-                        bottomSheet.state = BottomSheetBehavior.STATE_HIDDEN
+                    startActivity(ComposeActivityIntent(context, intent.pachliAccountId, composeOptions))
+                }.onFailure { error ->
+                    bottomSheet.state = BottomSheetBehavior.STATE_HIDDEN
 
-                        Timber.w(throwable, "failed loading reply information")
+                    Timber.w("failed loading reply information: %s", error)
 
-                        if (throwable is HttpException && throwable.code() == 404) {
-                            // the original status to which a reply was drafted has been deleted
-                            // let's open the ComposeActivity without reply information
-                            Toast.makeText(context, getString(R.string.drafts_post_reply_removed), Toast.LENGTH_LONG).show()
-                            openDraftWithoutReply(draft)
-                        } else {
-                            Snackbar.make(binding.root, getString(R.string.drafts_failed_loading_reply), Snackbar.LENGTH_SHORT)
-                                .show()
-                        }
-                    },
-                )
+                    if (error is ClientError.NotFound) {
+                        // the original status to which a reply was drafted has been deleted
+                        // let's open the ComposeActivity without reply information
+                        Toast.makeText(context, getString(R.string.drafts_post_reply_removed), Toast.LENGTH_LONG).show()
+                        openDraftWithoutReply(draft)
+                    } else {
+                        Snackbar.make(binding.root, getString(R.string.drafts_failed_loading_reply), Snackbar.LENGTH_SHORT)
+                            .show()
+                    }
+                }
         }
     }
 

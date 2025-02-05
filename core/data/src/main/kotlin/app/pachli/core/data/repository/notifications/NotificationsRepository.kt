@@ -17,7 +17,6 @@
 
 package app.pachli.core.data.repository.notifications
 
-import androidx.annotation.StringRes
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.InvalidatingPagingSourceFactory
 import androidx.paging.Pager
@@ -47,11 +46,12 @@ import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.retrofit.MastodonApi
-import at.connyduck.calladapter.networkresult.onFailure
-import at.connyduck.calladapter.networkresult.onSuccess
+import app.pachli.core.network.retrofit.apiresult.ApiError
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
@@ -69,23 +69,18 @@ import timber.log.Timber
  * @param throwable The wrapped throwable.
  */
 // TODO: The API calls should return an ApiResult, then this can wrap those.
-sealed class StatusActionError(open val throwable: Throwable) : PachliError {
-    @get:StringRes
-    override val resourceId = app.pachli.core.network.R.string.error_generic_fmt
-    override val formatArgs: Array<out Any>? = arrayOf(throwable)
-    override val cause: PachliError? = null
-
+sealed class StatusActionError(open val error: ApiError) : PachliError by error {
     /** Bookmarking a status failed. */
-    data class Bookmark(override val throwable: Throwable) : StatusActionError(throwable)
+    data class Bookmark(override val error: ApiError) : StatusActionError(error)
 
     /** Favouriting a status failed. */
-    data class Favourite(override val throwable: Throwable) : StatusActionError(throwable)
+    data class Favourite(override val error: ApiError) : StatusActionError(error)
 
     /** Reblogging a status failed. */
-    data class Reblog(override val throwable: Throwable) : StatusActionError(throwable)
+    data class Reblog(override val error: ApiError) : StatusActionError(error)
 
     /** Voting in a poll failed. */
-    data class VoteInPoll(override val throwable: Throwable) : StatusActionError(throwable)
+    data class VoteInPoll(override val error: ApiError) : StatusActionError(error)
 }
 
 /**
@@ -166,9 +161,7 @@ class NotificationsRepository @Inject constructor(
      * if successful.
      */
     suspend fun clearNotifications() = externalScope.async {
-        return@async mastodonApi.clearNotifications().apply {
-            if (isSuccessful) this@NotificationsRepository.invalidate()
-        }
+        return@async mastodonApi.clearNotifications().onSuccess { invalidate() }
     }.await()
 
     /**
@@ -369,16 +362,12 @@ class NotificationsRepository @Inject constructor(
         pollId: String,
         choices: List<Int>,
     ): Result<Unit, StatusActionError.VoteInPoll> = externalScope.async {
-        if (choices.isEmpty()) {
-            return@async Err(StatusActionError.VoteInPoll(IllegalStateException()))
-        }
-
         mastodonApi.voteInPoll(pollId, choices)
             .onSuccess { poll ->
-                statusDao.setVoted(pachliAccountId, statusId, poll)
-                eventHub.dispatch(PollVoteEvent(statusId, poll))
+                statusDao.setVoted(pachliAccountId, statusId, poll.body)
+                eventHub.dispatch(PollVoteEvent(statusId, poll.body))
             }
-            .onFailure { throwable -> return@async Err(StatusActionError.VoteInPoll(throwable)) }
+            .onFailure { return@async Err(StatusActionError.VoteInPoll(it)) }
 
         return@async Ok(Unit)
     }.await()

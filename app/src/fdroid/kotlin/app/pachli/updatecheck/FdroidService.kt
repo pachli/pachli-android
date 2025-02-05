@@ -18,7 +18,7 @@
 package app.pachli.updatecheck
 
 import androidx.annotation.Keep
-import at.connyduck.calladapter.networkresult.NetworkResult
+import app.pachli.core.network.retrofit.apiresult.ApiResult
 import com.squareup.moshi.JsonClass
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -42,5 +42,5 @@ interface FdroidService {
     @GET("/api/v1/packages/{package}")
     suspend fun getPackage(
         @Path("package") pkg: String,
-    ): NetworkResult<FdroidPackage>
+    ): ApiResult<FdroidPackage>
 }

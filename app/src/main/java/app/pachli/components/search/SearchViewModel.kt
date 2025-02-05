@@ -56,13 +56,13 @@ import app.pachli.core.network.model.DeletedStatus
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.network.retrofit.apiresult.ApiResult
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.getInitialLanguages
 import app.pachli.util.getLocaleList
-import at.connyduck.calladapter.networkresult.NetworkResult
-import at.connyduck.calladapter.networkresult.fold
-import at.connyduck.calladapter.networkresult.onFailure
 import com.github.michaelbull.result.mapBoth
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.z4kn4fein.semver.constraints.toConstraint
 import javax.inject.Inject
@@ -259,11 +259,12 @@ class SearchViewModel @Inject constructor(
 
     fun removeItem(statusViewData: StatusViewData) {
         viewModelScope.launch {
-            if (timelineCases.delete(statusViewData.id).isSuccess) {
-                if (loadedStatuses.remove(statusViewData)) {
-                    statusesPagingSourceFactory.invalidate()
+            timelineCases.delete(statusViewData.id)
+                .onSuccess {
+                    if (loadedStatuses.remove(statusViewData)) {
+                        statusesPagingSourceFactory.invalidate()
+                    }
                 }
-            }
         }
     }
 
@@ -273,16 +274,16 @@ class SearchViewModel @Inject constructor(
 
     fun reblog(statusViewData: StatusViewData, reblog: Boolean) {
         viewModelScope.launch {
-            timelineCases.reblog(statusViewData.id, reblog).fold({
-                updateStatus(
-                    statusViewData.status.copy(
-                        reblogged = reblog,
-                        reblog = statusViewData.status.reblog?.copy(reblogged = reblog),
-                    ),
-                )
-            }, { t ->
-                Timber.d(t, "Failed to reblog status %s", statusViewData.id)
-            })
+            timelineCases.reblog(statusViewData.id, reblog)
+                .onSuccess {
+                    updateStatus(
+                        statusViewData.status.copy(
+                            reblogged = reblog,
+                            reblog = statusViewData.status.reblog?.copy(reblogged = reblog),
+                        ),
+                    )
+                }
+                .onFailure { Timber.d("Failed to reblog status %s: %s", statusViewData.id, it) }
         }
     }
 
@@ -299,7 +300,7 @@ class SearchViewModel @Inject constructor(
         updateStatus(statusViewData.status.copy(poll = votedPoll))
         viewModelScope.launch {
             timelineCases.voteInPoll(statusViewData.id, votedPoll.id, choices)
-                .onFailure { t -> Timber.d(t, "Failed to vote in poll: %s", statusViewData.id) }
+                .onFailure { Timber.d("Failed to vote in poll: %s: %s", statusViewData.id, it) }
         }
     }
 
@@ -335,7 +336,7 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    fun deleteStatusAsync(id: String): Deferred<NetworkResult<DeletedStatus>> {
+    fun deleteStatusAsync(id: String): Deferred<ApiResult<DeletedStatus>> {
         return viewModelScope.async {
             timelineCases.delete(id)
         }
@@ -354,10 +355,10 @@ class SearchViewModel @Inject constructor(
         // knows about, therefore the accounts that posted those statuses will definitely
         // be known by the server and there is no need to resolve them further.
         return mastodonApi.search(query = token, resolve = false, type = SearchType.Account.apiParameter, limit = 10)
-            .fold(
-                { it.accounts.map { ComposeAutoCompleteAdapter.AutocompleteResult.AccountResult(it) } },
+            .mapBoth(
+                { it.body.accounts.map { ComposeAutoCompleteAdapter.AutocompleteResult.AccountResult(it) } },
                 {
-                    Timber.e(it, "Autocomplete search for %s failed.", token)
+                    Timber.e("Autocomplete search for %s failed: %s", token, it)
                     emptyList()
                 },
             )

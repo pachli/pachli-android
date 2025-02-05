@@ -48,7 +48,6 @@ import app.pachli.core.navigation.LoginActivityIntent.LoginMode
 import app.pachli.core.navigation.PreferencesActivityIntent
 import app.pachli.core.navigation.PreferencesActivityIntent.PreferenceScreen
 import app.pachli.core.navigation.TabPreferenceActivityIntent
-import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.PrefKeys
@@ -62,6 +61,8 @@ import app.pachli.util.getInitialLanguages
 import app.pachli.util.getLocaleList
 import app.pachli.util.getPachliDisplayName
 import app.pachli.util.iconRes
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.google.android.material.snackbar.Snackbar
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
@@ -70,9 +71,6 @@ import javax.inject.Inject
 import kotlin.properties.Delegates
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -331,34 +329,25 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
     private fun syncWithServer(visibility: String? = null, sensitive: Boolean? = null, language: String? = null) {
         // TODO these could also be "datastore backed" preferences (a ServerPreferenceDataStore);
         //  follow-up of issue #3204
-
-        mastodonApi.accountUpdateSource(visibility, sensitive, language)
-            .enqueue(
-                object : Callback<Account> {
-                    override fun onResponse(call: Call<Account>, response: Response<Account>) {
-                        val account = response.body()
-                        if (response.isSuccessful && account != null) {
-                            accountManager.activeAccount?.let {
-                                accountManager.setDefaultPostPrivacy(
-                                    it.id,
-                                    account.source?.privacy
-                                        ?: Status.Visibility.PUBLIC,
-                                )
-                                accountManager.setDefaultMediaSensitivity(it.id, account.source?.sensitive ?: false)
-                                accountManager.setDefaultPostLanguage(it.id, language.orEmpty())
-                            }
-                        } else {
-                            Timber.e("failed updating settings on server")
-                            showErrorSnackbar(visibility, sensitive)
-                        }
+        lifecycleScope.launch {
+            mastodonApi.accountUpdateSource(visibility, sensitive, language)
+                .onSuccess {
+                    val account = it.body
+                    accountManager.activeAccount?.let {
+                        accountManager.setDefaultPostPrivacy(
+                            it.id,
+                            account.source?.privacy
+                                ?: Status.Visibility.PUBLIC,
+                        )
+                        accountManager.setDefaultMediaSensitivity(it.id, account.source?.sensitive ?: false)
+                        accountManager.setDefaultPostLanguage(it.id, language.orEmpty())
                     }
-
-                    override fun onFailure(call: Call<Account>, t: Throwable) {
-                        Timber.e(t, "failed updating settings on server")
-                        showErrorSnackbar(visibility, sensitive)
-                    }
-                },
-            )
+                }
+                .onFailure {
+                    Timber.e("failed updating settings on server: %s", it)
+                    showErrorSnackbar(visibility, sensitive)
+                }
+        }
     }
 
     private fun showErrorSnackbar(visibility: String?, sensitive: Boolean?) {

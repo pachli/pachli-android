@@ -13,7 +13,7 @@
     <string name="error_failed_app_registration_fmt">Methu awdurdodi gyda\'r gweinydd hwnnw. Os bydd hyn yn parhau, ceisiwch Mewngofnodi yn Porwr o\'r ddewislen: %1$s</string>
     <string name="error_authorization_unknown">Bu gwall awdurdodi anhysbys. Os bydd hyn yn parhau, ceisiwch Mewngofnodi yn Porwr o\'r ddewislen.</string>
     <string name="error_authorization_denied">Gwrthodwyd awdurdodi. Os ydych chi\'n siŵr dy fod di wedi gyflenwi\'r manylion cywir, ceisiwch Mewngofnodi yn Porwr o\'r ddewislen.</string>
-    <string name="error_retrieving_oauth_token">Methu cael tocyn mewngofnodi. Os bydd hyn yn parhau, ceisiwch Mewngofnodi yn Porwr o\'r ddewislen.</string>
+    <string name="error_retrieving_oauth_token_fmt">Methu cael tocyn mewngofnodi. Os bydd hyn yn parhau, ceisiwch Mewngofnodi yn Porwr o\'r ddewislen: %1$s</string>
     <string name="error_loading_account_details_fmt">Wedi methu llwytho manylion cyfrif: %1$s</string>
     <string name="hint_domain">Pa weinydd\?</string>
     <string name="action_login">Mewngofnodi â Pachli</string>

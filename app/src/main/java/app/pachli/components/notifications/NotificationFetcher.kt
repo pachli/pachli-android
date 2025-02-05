@@ -35,6 +35,7 @@ import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.worker.NotificationWorker
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.mapBoth
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -242,20 +243,21 @@ class NotificationFetcher @Inject constructor(
     }
 
     private suspend fun fetchMarker(account: AccountEntity): Marker? {
-        return try {
-            val allMarkers = mastodonApi.markersWithAuth(
-                account.authHeader,
-                account.domain,
-                listOf("notifications"),
-            )
-            val notificationMarker = allMarkers["notifications"]
-            Timber.d("Fetched marker for %s: %s", account.fullName, notificationMarker)
-            notificationMarker
-        } catch (e: Exception) {
-            currentCoroutineContext().ensureActive()
-            Timber.e(e, "Failed to fetch marker")
-            null
-        }
+        return mastodonApi.markersWithAuth(
+            account.authHeader,
+            account.domain,
+            listOf("notifications"),
+        ).mapBoth(
+            {
+                val notificationMarker = it.body["notifications"]
+                Timber.d("Fetched marker for %s: %s", account.fullName, notificationMarker)
+                notificationMarker
+            },
+            {
+                Timber.e("Failed to fetch marker: %s", it)
+                null
+            },
+        )
     }
 
     companion object {

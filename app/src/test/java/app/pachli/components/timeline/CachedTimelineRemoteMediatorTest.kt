@@ -25,16 +25,15 @@ import app.pachli.core.network.json.DefaultIfNull
 import app.pachli.core.network.json.Guarded
 import app.pachli.core.network.json.InstantJsonAdapter
 import app.pachli.core.network.json.LenientRfc3339DateJsonAdapter
+import app.pachli.core.testing.failure
+import app.pachli.core.testing.success
 import com.google.common.truth.Truth.assertThat
 import com.squareup.moshi.Moshi
-import java.io.IOException
 import java.time.Instant
 import java.util.Date
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
-import okhttp3.Headers
-import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -43,10 +42,8 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.kotlin.anyOrNull
 import org.mockito.kotlin.doReturn
-import org.mockito.kotlin.doThrow
 import org.mockito.kotlin.mock
 import retrofit2.HttpException
-import retrofit2.Response
 
 @RunWith(AndroidJUnit4::class)
 class CachedTimelineRemoteMediatorTest {
@@ -98,7 +95,7 @@ class CachedTimelineRemoteMediatorTest {
     fun `should return error when network call returns error code`() {
         val remoteMediator = CachedTimelineRemoteMediator(
             mastodonApi = mock {
-                onBlocking { homeTimeline(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull()) } doReturn Response.error(500, "".toResponseBody())
+                onBlocking { homeTimeline(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull()) } doReturn failure(code = 500)
             },
             pachliAccountId = activeAccount.id,
             transactionProvider = transactionProvider,
@@ -119,7 +116,7 @@ class CachedTimelineRemoteMediatorTest {
     fun `should return error when network call fails`() {
         val remoteMediator = CachedTimelineRemoteMediator(
             mastodonApi = mock {
-                onBlocking { homeTimeline(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull()) } doThrow IOException()
+                onBlocking { homeTimeline(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull()) } doReturn failure()
             },
             pachliAccountId = activeAccount.id,
             transactionProvider = transactionProvider,
@@ -131,7 +128,7 @@ class CachedTimelineRemoteMediatorTest {
         val result = runBlocking { remoteMediator.load(LoadType.REFRESH, state()) }
 
         assertTrue(result is RemoteMediator.MediatorResult.Error)
-        assertTrue((result as RemoteMediator.MediatorResult.Error).throwable is IOException)
+        assertTrue((result as RemoteMediator.MediatorResult.Error).throwable is HttpException)
     }
 
     @Test
@@ -169,7 +166,7 @@ class CachedTimelineRemoteMediatorTest {
     fun `should not try to refresh already cached statuses when db is empty`() {
         val remoteMediator = CachedTimelineRemoteMediator(
             mastodonApi = mock {
-                onBlocking { homeTimeline(limit = 20) } doReturn Response.success(
+                onBlocking { homeTimeline(limit = 20) } doReturn success(
                     listOf(
                         mockStatus("5"),
                         mockStatus("4"),
@@ -222,7 +219,7 @@ class CachedTimelineRemoteMediatorTest {
 
         val remoteMediator = CachedTimelineRemoteMediator(
             mastodonApi = mock {
-                onBlocking { homeTimeline(limit = 20) } doReturn Response.success(
+                onBlocking { homeTimeline(limit = 20) } doReturn success(
                     listOf(
                         mockStatus("3"),
                         mockStatus("1"),
@@ -277,15 +274,14 @@ class CachedTimelineRemoteMediatorTest {
 
         val remoteMediator = CachedTimelineRemoteMediator(
             mastodonApi = mock {
-                onBlocking { homeTimeline(maxId = "5", limit = 20) } doReturn Response.success(
+                onBlocking { homeTimeline(maxId = "5", limit = 20) } doReturn success(
                     listOf(
                         mockStatus("3"),
                         mockStatus("2"),
                         mockStatus("1"),
                     ),
-                    Headers.Builder().add(
-                        "Link: <http://example.com/?min_id=3>; rel=\"prev\", <http://example.com/?max_id=1>; rel=\"next\"",
-                    ).build(),
+                    headers = arrayOf("Link", "<http://example.com/?min_id=3>; rel=\"prev\", <http://example.com/?max_id=1>; rel=\"next\""),
+
                 )
             },
             pachliAccountId = activeAccount.id,

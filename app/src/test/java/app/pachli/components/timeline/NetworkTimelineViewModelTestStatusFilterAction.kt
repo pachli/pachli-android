@@ -25,7 +25,8 @@ import app.pachli.components.timeline.viewmodel.UiError
 import app.pachli.components.timeline.viewmodel.UiSuccess
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.model.TranslationState
-import at.connyduck.calladapter.networkresult.NetworkResult
+import app.pachli.core.testing.failure
+import app.pachli.core.testing.success
 import com.github.michaelbull.result.get
 import com.github.michaelbull.result.getError
 import com.google.common.truth.Truth.assertThat
@@ -35,7 +36,6 @@ import org.junit.Test
 import org.mockito.kotlin.any
 import org.mockito.kotlin.argumentCaptor
 import org.mockito.kotlin.doReturn
-import org.mockito.kotlin.doThrow
 import org.mockito.kotlin.stub
 import org.mockito.kotlin.verify
 
@@ -84,7 +84,7 @@ class NetworkTimelineViewModelTestStatusFilterAction : NetworkTimelineViewModelT
     @Test
     fun `bookmark succeeds && emits Ok uiResult`() = runTest {
         // Given
-        timelineCases.stub { onBlocking { bookmark(any(), any()) } doReturn NetworkResult.success(status) }
+        timelineCases.stub { onBlocking { bookmark(any(), any()) } doReturn success(status) }
 
         viewModel.uiResult.test {
             // When
@@ -104,7 +104,7 @@ class NetworkTimelineViewModelTestStatusFilterAction : NetworkTimelineViewModelT
     @Test
     fun `bookmark fails && emits Err uiResult`() = runTest {
         // Given
-        timelineCases.stub { onBlocking { bookmark(any(), any()) } doThrow httpException }
+        timelineCases.stub { onBlocking { bookmark(any(), any()) } doReturn failure() }
 
         viewModel.uiResult.test {
             // When
@@ -120,7 +120,7 @@ class NetworkTimelineViewModelTestStatusFilterAction : NetworkTimelineViewModelT
     fun `favourite succeeds && emits Ok uiResult`() = runTest {
         // Given
         timelineCases.stub {
-            onBlocking { favourite(any(), any()) } doReturn NetworkResult.success(status)
+            onBlocking { favourite(any(), any()) } doReturn success(status)
         }
 
         viewModel.uiResult.test {
@@ -141,7 +141,7 @@ class NetworkTimelineViewModelTestStatusFilterAction : NetworkTimelineViewModelT
     @Test
     fun `favourite fails && emits Err uiResult`() = runTest {
         // Given
-        timelineCases.stub { onBlocking { favourite(any(), any()) } doThrow httpException }
+        timelineCases.stub { onBlocking { favourite(any(), any()) } doReturn failure() }
 
         viewModel.uiResult.test {
             // When
@@ -156,7 +156,7 @@ class NetworkTimelineViewModelTestStatusFilterAction : NetworkTimelineViewModelT
     @Test
     fun `reblog succeeds && emits Ok uiResult`() = runTest {
         // Given
-        timelineCases.stub { onBlocking { reblog(any(), any()) } doReturn NetworkResult.success(status) }
+        timelineCases.stub { onBlocking { reblog(any(), any()) } doReturn success(status) }
 
         viewModel.uiResult.test {
             // When
@@ -176,7 +176,7 @@ class NetworkTimelineViewModelTestStatusFilterAction : NetworkTimelineViewModelT
     @Test
     fun `reblog fails && emits Err uiResult`() = runTest {
         // Given
-        timelineCases.stub { onBlocking { reblog(any(), any()) } doThrow httpException }
+        timelineCases.stub { onBlocking { reblog(any(), any()) } doReturn failure() }
 
         viewModel.uiResult.test {
             // When
@@ -192,7 +192,7 @@ class NetworkTimelineViewModelTestStatusFilterAction : NetworkTimelineViewModelT
     fun `voteinpoll succeeds && emits Ok uiResult`() = runTest {
         // Given
         timelineCases.stub {
-            onBlocking { voteInPoll(any(), any(), any()) } doReturn NetworkResult.success(status.poll!!)
+            onBlocking { voteInPoll(any(), any(), any()) } doReturn success(status.poll!!)
         }
 
         viewModel.uiResult.test {
@@ -216,7 +216,7 @@ class NetworkTimelineViewModelTestStatusFilterAction : NetworkTimelineViewModelT
     @Test
     fun `voteinpoll fails && emits Err uiResult`() = runTest {
         // Given
-        timelineCases.stub { onBlocking { voteInPoll(any(), any(), any()) } doThrow httpException }
+        timelineCases.stub { onBlocking { voteInPoll(any(), any(), any()) } doReturn failure() }
 
         viewModel.uiResult.test {
             // When

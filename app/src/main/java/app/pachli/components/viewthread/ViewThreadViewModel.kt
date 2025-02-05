@@ -19,7 +19,6 @@ package app.pachli.components.viewthread
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.components.timeline.CachedTimelineRepository
-import app.pachli.components.timeline.util.ifExpected
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.Loadable
@@ -43,18 +42,18 @@ import app.pachli.core.model.FilterContext
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.network.retrofit.apiresult.ClientError
 import app.pachli.network.ContentFilterModel
 import app.pachli.usecase.TimelineCases
-import at.connyduck.calladapter.networkresult.fold
-import at.connyduck.calladapter.networkresult.getOrElse
-import at.connyduck.calladapter.networkresult.getOrThrow
+import com.github.michaelbull.result.get
+import com.github.michaelbull.result.getOrElse
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.channels.BufferOverflow
-import kotlinx.coroutines.currentCoroutineContext
-import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -64,7 +63,6 @@ import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
 import timber.log.Timber
 
 @HiltViewModel
@@ -171,11 +169,11 @@ class ViewThreadViewModel @Inject constructor(
                 }
             } else {
                 Timber.d("Loaded status from network")
-                val result = api.status(id).getOrElse { exception ->
-                    _uiState.value = ThreadUiState.Error(exception)
+                val result = api.status(id).getOrElse { error ->
+                    _uiState.value = ThreadUiState.Error(error.throwable)
                     return@launch
                 }
-                StatusViewData.fromStatusAndUiState(account, result, isDetailed = true)
+                StatusViewData.fromStatusAndUiState(account, result.body, isDetailed = true)
             }
 
             _uiState.value = ThreadUiState.LoadingThread(
@@ -188,7 +186,7 @@ class ViewThreadViewModel @Inject constructor(
             // for the status. Ignore errors, the user still has a functioning UI if the fetch
             // failed.
             if (timelineStatusWithAccount != null) {
-                api.status(id).getOrNull()?.let {
+                api.status(id).get()?.body?.let {
                     detailedStatus = StatusViewData.from(
                         pachliAccountId = account.id,
                         it,
@@ -204,54 +202,53 @@ class ViewThreadViewModel @Inject constructor(
 
             val contextResult = contextCall.await()
 
-            contextResult.fold(
-                { statusContext ->
-                    val ids = statusContext.ancestors.map { it.id } + statusContext.descendants.map { it.id }
-                    val cachedViewData = repository.getStatusViewData(activeAccount.id, ids)
-                    val cachedTranslations = repository.getStatusTranslations(activeAccount.id, ids)
-                    val ancestors = statusContext.ancestors.map { status ->
-                        val svd = cachedViewData[status.id]
-                        StatusViewData.from(
-                            pachliAccountId = account.id,
-                            status,
-                            isShowingContent = svd?.contentShowing ?: (account.alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
-                            isExpanded = svd?.expanded ?: account.alwaysOpenSpoiler,
-                            isCollapsed = svd?.contentCollapsed ?: true,
-                            isDetailed = false,
-                            translationState = svd?.translationState ?: TranslationState.SHOW_ORIGINAL,
-                            translation = cachedTranslations[status.id],
-                        )
-                    }.filterByFilterAction()
-                    val descendants = statusContext.descendants.map { status ->
-                        val svd = cachedViewData[status.id]
-                        StatusViewData.from(
-                            pachliAccountId = account.id,
-                            status,
-                            isShowingContent = svd?.contentShowing ?: (account.alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
-                            isExpanded = svd?.expanded ?: account.alwaysOpenSpoiler,
-                            isCollapsed = svd?.contentCollapsed ?: true,
-                            isDetailed = false,
-                            translationState = svd?.translationState ?: TranslationState.SHOW_ORIGINAL,
-                            translation = cachedTranslations[status.id],
-                        )
-                    }.filterByFilterAction()
-                    val statuses = ancestors + detailedStatus + descendants
-
-                    _uiState.value = ThreadUiState.Success(
-                        statusViewData = statuses,
-                        detailedStatusPosition = ancestors.size,
-                        revealButton = statuses.getRevealButtonState(),
+            contextResult.onSuccess {
+                val statusContext = it.body
+                val ids = statusContext.ancestors.map { it.id } + statusContext.descendants.map { it.id }
+                val cachedViewData = repository.getStatusViewData(activeAccount.id, ids)
+                val cachedTranslations = repository.getStatusTranslations(activeAccount.id, ids)
+                val ancestors = statusContext.ancestors.map { status ->
+                    val svd = cachedViewData[status.id]
+                    StatusViewData.from(
+                        pachliAccountId = account.id,
+                        status,
+                        isShowingContent = svd?.contentShowing ?: (account.alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
+                        isExpanded = svd?.expanded ?: account.alwaysOpenSpoiler,
+                        isCollapsed = svd?.contentCollapsed ?: true,
+                        isDetailed = false,
+                        translationState = svd?.translationState ?: TranslationState.SHOW_ORIGINAL,
+                        translation = cachedTranslations[status.id],
                     )
-                },
-                { throwable ->
-                    _errors.emit(throwable)
+                }.filterByFilterAction()
+                val descendants = statusContext.descendants.map { status ->
+                    val svd = cachedViewData[status.id]
+                    StatusViewData.from(
+                        pachliAccountId = account.id,
+                        status,
+                        isShowingContent = svd?.contentShowing ?: (account.alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
+                        isExpanded = svd?.expanded ?: account.alwaysOpenSpoiler,
+                        isCollapsed = svd?.contentCollapsed ?: true,
+                        isDetailed = false,
+                        translationState = svd?.translationState ?: TranslationState.SHOW_ORIGINAL,
+                        translation = cachedTranslations[status.id],
+                    )
+                }.filterByFilterAction()
+                val statuses = ancestors + detailedStatus + descendants
+
+                _uiState.value = ThreadUiState.Success(
+                    statusViewData = statuses,
+                    detailedStatusPosition = ancestors.size,
+                    revealButton = statuses.getRevealButtonState(),
+                )
+            }
+                .onFailure { error ->
+                    _errors.emit(error.throwable)
                     _uiState.value = ThreadUiState.Success(
                         statusViewData = listOf(detailedStatus),
                         detailedStatusPosition = 0,
                         revealButton = RevealButtonState.NO_BUTTON,
                     )
-                },
-            )
+                }
         }
     }
 
@@ -275,36 +272,21 @@ class ViewThreadViewModel @Inject constructor(
         }
     }
 
-    fun reblog(reblog: Boolean, status: StatusViewData): Job = viewModelScope.launch {
-        try {
-            timelineCases.reblog(status.actionableId, reblog).getOrThrow()
-        } catch (t: Exception) {
-            currentCoroutineContext().ensureActive()
-            ifExpected(t) {
-                Timber.d(t, "Failed to reblog status: %s", status.actionableId)
-            }
+    fun reblog(reblog: Boolean, status: StatusViewData) = viewModelScope.launch {
+        timelineCases.reblog(status.actionableId, reblog).onFailure {
+            Timber.d("Failed to reblog status: %s: %s", status.actionableId, it)
         }
     }
 
-    fun favorite(favorite: Boolean, status: StatusViewData): Job = viewModelScope.launch {
-        try {
-            timelineCases.favourite(status.actionableId, favorite).getOrThrow()
-        } catch (t: Exception) {
-            currentCoroutineContext().ensureActive()
-            ifExpected(t) {
-                Timber.d(t, "Failed to favourite status: %s ", status.actionableId)
-            }
+    fun favorite(favorite: Boolean, status: StatusViewData) = viewModelScope.launch {
+        timelineCases.favourite(status.actionableId, favorite).onFailure {
+            Timber.d("Failed to favourite status: %s: %s", status.actionableId, it)
         }
     }
 
-    fun bookmark(bookmark: Boolean, status: StatusViewData): Job = viewModelScope.launch {
-        try {
-            timelineCases.bookmark(status.actionableId, bookmark).getOrThrow()
-        } catch (t: Exception) {
-            currentCoroutineContext().ensureActive()
-            ifExpected(t) {
-                Timber.d(t, "Failed to bookmark status: %s", status.actionableId)
-            }
+    fun bookmark(bookmark: Boolean, status: StatusViewData) = viewModelScope.launch {
+        timelineCases.bookmark(status.actionableId, bookmark).onFailure {
+            Timber.d("Failed to bookmark status: %s: %s", status.actionableId, it)
         }
     }
 
@@ -314,13 +296,8 @@ class ViewThreadViewModel @Inject constructor(
             status.copy(poll = votedPoll)
         }
 
-        try {
-            timelineCases.voteInPoll(status.actionableId, poll.id, choices).getOrThrow()
-        } catch (t: Exception) {
-            currentCoroutineContext().ensureActive()
-            ifExpected(t) {
-                Timber.d(t, "Failed to vote in poll: %s", status.actionableId)
-            }
+        timelineCases.voteInPoll(status.actionableId, poll.id, choices).onFailure {
+            Timber.d("Failed to vote in poll: %s: %s", status.actionableId, it)
         }
     }
 
@@ -467,31 +444,29 @@ class ViewThreadViewModel @Inject constructor(
 
     fun translate(statusViewData: StatusViewData) {
         viewModelScope.launch {
-            repository.translate(statusViewData).fold(
-                {
-                    val translatedEntity = TranslatedStatusEntity(
-                        serverId = statusViewData.actionableId,
-                        timelineUserId = statusViewData.pachliAccountId,
-                        content = it.content,
-                        spoilerText = it.spoilerText,
-                        poll = it.poll,
-                        attachments = it.attachments,
-                        provider = it.provider,
-                    )
-                    updateStatusViewData(statusViewData.status.id) { viewData ->
-                        viewData.copy(translation = translatedEntity, translationState = TranslationState.SHOW_TRANSLATION)
-                    }
-                },
-                {
+            repository.translate(statusViewData).onSuccess {
+                val body = it.body
+                val translatedEntity = TranslatedStatusEntity(
+                    serverId = statusViewData.actionableId,
+                    timelineUserId = statusViewData.pachliAccountId,
+                    content = body.content,
+                    spoilerText = body.spoilerText,
+                    poll = body.poll,
+                    attachments = body.attachments,
+                    provider = body.provider,
+                )
+                updateStatusViewData(statusViewData.status.id) { viewData ->
+                    viewData.copy(translation = translatedEntity, translationState = TranslationState.SHOW_TRANSLATION)
+                }
+            }
+                .onFailure {
                     // Mastodon returns 403 if it thinks the original status language is the
                     // same as the user's language, ignoring the actual content of the status
                     // (https://github.com/mastodon/documentation/issues/1330). Nothing useful
                     // to do here so swallow the error
-                    if (it is HttpException && it.code() == 403) return@fold
-
-                    _errors.emit(it)
-                },
-            )
+                    if (it is ClientError && it.exception.code() == 403) return@launch
+                    _errors.emit(it.throwable)
+                }
         }
     }
 

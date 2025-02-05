@@ -25,6 +25,7 @@ import androidx.paging.cachedIn
 import androidx.paging.filter
 import androidx.paging.map
 import app.pachli.R
+import app.pachli.core.common.PachliError
 import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
@@ -56,14 +57,13 @@ import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.mapEither
+import com.github.michaelbull.result.onFailure
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.currentCoroutineContext
-import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -83,7 +83,6 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
 
 data class UiState(
     /** Filtered notification types */
@@ -288,8 +287,8 @@ sealed interface StatusActionSuccess : UiSuccess {
 
 /** Errors from fallible view model actions that the UI will need to show */
 sealed interface UiError {
-    /** The exception associated with the error */
-    val throwable: Throwable
+    /** The error associated with the error */
+    val error: PachliError
 
     /** The action that failed. Can be resent to retry the action */
     val action: UiAction?
@@ -299,62 +298,62 @@ sealed interface UiError {
     val message: Int
 
     data class ClearNotifications(
-        override val throwable: Throwable,
+        override val error: PachliError,
         override val action: FallibleUiAction.ClearNotifications = FallibleUiAction.ClearNotifications,
         override val message: Int = R.string.ui_error_clear_notifications,
     ) : UiError
 
     data class Bookmark(
-        override val throwable: Throwable,
+        override val error: PachliError,
         override val action: StatusAction.Bookmark,
         override val message: Int = R.string.ui_error_bookmark_fmt,
     ) : UiError
 
     data class Favourite(
-        override val throwable: Throwable,
+        override val error: PachliError,
         override val action: StatusAction.Favourite,
         override val message: Int = R.string.ui_error_favourite_fmt,
     ) : UiError
 
     data class Reblog(
-        override val throwable: Throwable,
+        override val error: PachliError,
         override val action: StatusAction.Reblog,
         override val message: Int = R.string.ui_error_reblog_fmt,
     ) : UiError
 
     data class VoteInPoll(
-        override val throwable: Throwable,
+        override val error: PachliError,
         override val action: StatusAction.VoteInPoll,
         override val message: Int = R.string.ui_error_vote_fmt,
     ) : UiError
 
     data class AcceptFollowRequest(
-        override val throwable: Throwable,
+        override val error: PachliError,
         override val action: NotificationAction.AcceptFollowRequest,
         override val message: Int = R.string.ui_error_accept_follow_request,
     ) : UiError
 
     data class RejectFollowRequest(
-        override val throwable: Throwable,
+        override val error: PachliError,
         override val action: NotificationAction.RejectFollowRequest,
         override val message: Int = R.string.ui_error_reject_follow_request,
     ) : UiError
 
     data class GetFilters(
-        override val throwable: Throwable,
+        override val error: PachliError,
         override val action: UiAction? = null,
         override val message: Int = R.string.ui_error_filter_v1_load_fmt,
     ) : UiError
 
     companion object {
-        fun make(throwable: Throwable, action: FallibleUiAction) = when (action) {
-            is StatusAction.Bookmark -> Bookmark(throwable, action)
-            is StatusAction.Favourite -> Favourite(throwable, action)
-            is StatusAction.Reblog -> Reblog(throwable, action)
-            is StatusAction.VoteInPoll -> VoteInPoll(throwable, action)
-            is NotificationAction.AcceptFollowRequest -> AcceptFollowRequest(throwable, action)
-            is NotificationAction.RejectFollowRequest -> RejectFollowRequest(throwable, action)
-            FallibleUiAction.ClearNotifications -> ClearNotifications(throwable)
+        fun make(error: PachliError, action: FallibleUiAction) = when (action) {
+            is StatusAction.Bookmark -> Bookmark(error, action)
+            is StatusAction.Favourite -> Favourite(error, action)
+            is StatusAction.Reblog -> Reblog(error, action)
+            is StatusAction.VoteInPoll -> VoteInPoll(error, action)
+            is NotificationAction.AcceptFollowRequest -> AcceptFollowRequest(error, action)
+            is NotificationAction.RejectFollowRequest -> RejectFollowRequest(error, action)
+            FallibleUiAction.ClearNotifications -> ClearNotifications(error)
         }
     }
 }
@@ -460,18 +459,15 @@ class NotificationsViewModel @AssistedInject constructor(
             uiAction.filterIsInstance<NotificationAction>()
                 .throttleFirst()
                 .collect { action ->
-                    val result = try {
-                        when (action) {
-                            is NotificationAction.AcceptFollowRequest ->
-                                timelineCases.acceptFollowRequest(action.accountId)
-                            is NotificationAction.RejectFollowRequest ->
-                                timelineCases.rejectFollowRequest(action.accountId)
-                        }
-                        Ok(NotificationActionSuccess.from(action))
-                    } catch (e: Exception) {
-                        currentCoroutineContext().ensureActive()
-                        Err(UiError.make(e, action))
-                    }
+                    val result = when (action) {
+                        is NotificationAction.AcceptFollowRequest ->
+                            timelineCases.acceptFollowRequest(action.accountId)
+                        is NotificationAction.RejectFollowRequest ->
+                            timelineCases.rejectFollowRequest(action.accountId)
+                    }.mapEither(
+                        { NotificationActionSuccess.from(action) },
+                        { UiError.make(it, action) },
+                    )
                     _uiResult.send(result)
                 }
         }
@@ -508,7 +504,7 @@ class NotificationsViewModel @AssistedInject constructor(
                         )
                     }.mapEither(
                         { StatusActionSuccess.from(action) },
-                        { UiError.make(it.throwable, action) },
+                        { UiError.make(it.error, action) },
                     )
                     _uiResult.send(result)
                 }
@@ -586,14 +582,8 @@ class NotificationsViewModel @AssistedInject constructor(
     }
 
     private suspend fun onClearNotifications(action: FallibleUiAction.ClearNotifications) {
-        try {
-            repository.clearNotifications().apply {
-                if (!isSuccessful) _uiResult.send(Err(UiError.make(HttpException(this), action)))
-            }
-        } catch (e: Exception) {
-            currentCoroutineContext().ensureActive()
-            _uiResult.send(Err(UiError.make(e, action)))
-        }
+        repository.clearNotifications()
+            .onFailure { _uiResult.send(Err(UiError.make(it, action))) }
     }
 
     private suspend fun getNotifications(

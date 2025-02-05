@@ -43,13 +43,16 @@ import app.pachli.core.network.model.Report
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.network.retrofit.apiresult.ApiResponse
+import app.pachli.core.network.retrofit.apiresult.ApiResult
+import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.get
+import com.github.michaelbull.result.getOrElse
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import okhttp3.Headers
-import retrofit2.HttpException
-import retrofit2.Response
 import timber.log.Timber
 
 @OptIn(ExperimentalPagingApi::class)
@@ -94,18 +97,14 @@ class NotificationsRemoteMediator(
                         ) ?: return@transactionProvider MediatorResult.Success(endOfPaginationReached = true)
                         mastodonApi.notifications(maxId = rke.key, limit = state.config.pageSize)
                     }
-                }
+                }.getOrElse { return@transactionProvider MediatorResult.Error(it.throwable) }
 
-                val notifications = response.body()
-                if (!response.isSuccessful || notifications == null) {
-                    return@transactionProvider MediatorResult.Error(HttpException(response))
-                }
-
+                val notifications = response.body
                 if (notifications.isEmpty()) {
                     return@transactionProvider MediatorResult.Success(endOfPaginationReached = loadType != LoadType.REFRESH)
                 }
 
-                val links = Links.from(response.headers()["link"])
+                val links = Links.from(response.headers["link"])
 
                 when (loadType) {
                     LoadType.REFRESH -> {
@@ -169,7 +168,7 @@ class NotificationsRemoteMediator(
      * @return The initial page of notifications centered on the notification with
      * [notificationId], or the most recent notifications if [notificationId] is null.
      */
-    private suspend fun getInitialPage(notificationId: String?, pageSize: Int): Response<List<Notification>> =
+    private suspend fun getInitialPage(notificationId: String?, pageSize: Int): ApiResult<List<Notification>> =
         coroutineScope {
             notificationId ?: return@coroutineScope mastodonApi.notifications(limit = pageSize)
 
@@ -178,9 +177,9 @@ class NotificationsRemoteMediator(
             val nextPage = async { mastodonApi.notifications(maxId = notificationId, limit = pageSize * 3) }
 
             val notifications = buildList {
-                prevPage.await().body()?.let { this.addAll(it) }
-                notification.await().getOrNull()?.let { this.add(it) }
-                nextPage.await().body()?.let { this.addAll(it) }
+                prevPage.await().get()?.let { this.addAll(it.body) }
+                notification.await().get()?.let { this.add(it.body) }
+                nextPage.await().get()?.let { this.addAll(it.body) }
             }
 
             val minId = notifications.firstOrNull()?.id ?: notificationId
@@ -190,7 +189,7 @@ class NotificationsRemoteMediator(
                 .add("link: </?max_id=$maxId>; rel=\"next\", </?min_id=$minId>; rel=\"prev\"")
                 .build()
 
-            return@coroutineScope Response.success(notifications, headers)
+            return@coroutineScope Ok(ApiResponse(headers, notifications, 200))
         }
 
     /**

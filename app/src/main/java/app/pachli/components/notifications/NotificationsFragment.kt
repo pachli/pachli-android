@@ -63,7 +63,6 @@ import app.pachli.core.network.model.Status
 import app.pachli.core.preferences.TabTapBehaviour
 import app.pachli.core.ui.ActionButtonScrollListener
 import app.pachli.core.ui.BackgroundMessage
-import app.pachli.core.ui.extensions.getErrorString
 import app.pachli.core.ui.makeIcon
 import app.pachli.databinding.FragmentTimelineNotificationsBinding
 import app.pachli.fragment.SFragment
@@ -96,7 +95,6 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import postPrepend
-import timber.log.Timber
 
 @AndroidEntryPoint
 class NotificationsFragment :
@@ -280,9 +278,8 @@ class NotificationsFragment :
         uiResult.onFailure { uiError ->
             val message = getString(
                 uiError.message,
-                uiError.throwable.getErrorString(requireContext()),
+                uiError.error.fmt(requireContext()),
             )
-            Timber.d(uiError.throwable, message)
             val snackbar = Snackbar.make(
                 // Without this the FAB will not move out of the way
                 (activity as ActionButtonActivity).actionButton ?: binding.root,

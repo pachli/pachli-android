@@ -13,7 +13,7 @@
     <string name="error_failed_app_registration_fmt">Erro ao autenticar com esta instância: %1$s</string>
     <string name="error_authorization_unknown">Ocorreu um erro de autorização não identificado.</string>
     <string name="error_authorization_denied">Autorização negada.</string>
-    <string name="error_retrieving_oauth_token">Erro ao adquirir token de login.</string>
+    <string name="error_retrieving_oauth_token_fmt">Erro ao adquirir token de login: %1$s</string>
     <string name="error_loading_account_details_fmt">Erro ao carregar os detalhes da conta: %1$s</string>
     <string name="hint_domain">Que instância\?</string>
     <string name="action_login">Entrar com Mastodon</string>

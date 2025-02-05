@@ -33,7 +33,8 @@ import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.usecase.TimelineCases
-import at.connyduck.calladapter.networkresult.fold
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.currentCoroutineContext
@@ -96,15 +97,15 @@ class ConversationsViewModel @Inject constructor(
      */
     fun favourite(favourite: Boolean, lastStatusId: String) {
         viewModelScope.launch {
-            timelineCases.favourite(lastStatusId, favourite).fold({
+            timelineCases.favourite(lastStatusId, favourite).onSuccess {
                 conversationsDao.setFavourited(
                     accountManager.activeAccount!!.id,
                     lastStatusId,
                     favourite,
                 )
-            }, { e ->
-                Timber.w(e, "failed to favourite status")
-            })
+            }.onFailure { e ->
+                Timber.w("failed to favourite status: %s", e)
+            }
         }
     }
 
@@ -113,15 +114,15 @@ class ConversationsViewModel @Inject constructor(
      */
     fun bookmark(bookmark: Boolean, lastStatusId: String) {
         viewModelScope.launch {
-            timelineCases.bookmark(lastStatusId, bookmark).fold({
+            timelineCases.bookmark(lastStatusId, bookmark).onSuccess {
                 conversationsDao.setBookmarked(
                     accountManager.activeAccount!!.id,
                     lastStatusId,
                     bookmark,
                 )
-            }, { e ->
-                Timber.w(e, "failed to bookmark status")
-            })
+            }.onFailure { e ->
+                Timber.w("failed to bookmark status: %s", e)
+            }
         }
     }
 
@@ -131,15 +132,14 @@ class ConversationsViewModel @Inject constructor(
     fun voteInPoll(choices: List<Int>, lastStatusId: String, pollId: String) {
         viewModelScope.launch {
             timelineCases.voteInPoll(lastStatusId, pollId, choices)
-                .fold({ poll ->
+                .onSuccess {
+                    val poll = it.body
                     conversationsDao.setVoted(
                         accountManager.activeAccount!!.id,
                         lastStatusId,
                         converters.pollToJson(poll)!!,
                     )
-                }, { e ->
-                    Timber.w(e, "failed to vote in poll")
-                })
+                }.onFailure { Timber.w("failed to vote in poll: %s", it) }
         }
     }
 

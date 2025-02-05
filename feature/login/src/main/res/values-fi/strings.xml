@@ -20,7 +20,7 @@
 \nInstanssi on paikka, jossa tilisi sijaitsee, mutta voit helposti olla yhteydessä ja seurata ihmisiä toisilla instansseilla, aivan kuin olisitte samalla sivustolla.
 \n
 \nLisää tietoa täällä: <a href="https://joinmastodon.org">joinmastodon.org</a> \u0020</string>
-    <string name="error_retrieving_oauth_token">Kirjautumispolettia ei saatu. Jos tämä jatkuu, valitse valikosta Kirjaudu selaimella.</string>
+    <string name="error_retrieving_oauth_token_fmt">Kirjautumispolettia ei saatu. Jos tämä jatkuu, valitse valikosta Kirjaudu selaimella: %1$s</string>
     <string name="instance_rule_title">Palvelimen %s säännöt</string>
     <string name="instance_rule_info">Kirjautumalla sisään hyväksyt palvelimen %s säännöt.</string>
 </resources>
