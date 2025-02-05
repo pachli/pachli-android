@@ -1,0 +1,9 @@
+Pachli 2.9.2
+
+Nuevas características:
+
+- Listas clasificadas por título
+- Actualizar las capacidades del servidor como Akkoma tiene soporte de filtro v1
+- Quitar "dummy.placeholder" de mensajes de error de red
+- Mostrar un mensaje de error si se produce un error de Dao durante el inicio de sesión
+- Actualizar las traducciones Burmese, Irlandés, Noruego Nynorsk, Español, Sueco y Tamil
