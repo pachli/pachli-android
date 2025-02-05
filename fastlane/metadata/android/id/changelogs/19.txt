@@ -1,0 +1,5 @@
+WinRAR 5.40
+
+Login
+
+- Gambar kartu pratinjau posisi benar, menunjukkan deskripsi kartu
