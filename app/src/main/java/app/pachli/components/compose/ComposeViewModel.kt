@@ -41,6 +41,7 @@ import app.pachli.core.data.repository.InstanceInfoRepository
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.ServerRepository
+import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.model.ServerOperation
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
@@ -116,6 +117,7 @@ class ComposeViewModel @AssistedInject constructor(
     private val draftHelper: DraftHelper,
     instanceInfoRepo: InstanceInfoRepository,
     serverRepository: ServerRepository,
+    statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
 ) : ViewModel() {
     /** The account being used to compose the status. */
@@ -203,6 +205,9 @@ class ComposeViewModel @AssistedInject constructor(
         sens ?: account.entity.defaultMediaSensitivity
     }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
+
+    /** Flow of changes to statusDisplayOptions, for use by the UI */
+    val statusDisplayOptions = statusDisplayOptionsRepository.flow
 
     private val _statusVisibility: MutableStateFlow<Status.Visibility> = MutableStateFlow(Status.Visibility.UNKNOWN)
     val statusVisibility = _statusVisibility.asStateFlow()

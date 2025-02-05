@@ -480,8 +480,7 @@ class ComposeActivity :
 
     private fun setReplyAvatar(inReplyTo: InReplyTo.Status) {
         binding.statusAvatar.setPaddingRelative(0, 0, 0, 0)
-        // if (statusDisplayOptions.showBotOverlay && inReplyTo.isBot) {
-        if (true && inReplyTo.isBot) {
+        if (viewModel.statusDisplayOptions.value.showBotOverlay && inReplyTo.isBot) {
             binding.statusAvatarInset.visibility = View.VISIBLE
             Glide.with(binding.statusAvatarInset)
                 .load(DR.drawable.bot_badge)
