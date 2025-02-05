@@ -180,7 +180,7 @@ interface MastodonApi {
         @Header("Authorization") auth: String,
         @Header(DOMAIN_HEADER) domain: String,
         @Query("timeline[]") timelines: List<String>,
-    ): Map<String, Marker>
+    ): ApiResult<Map<String, Marker>>
 
     @FormUrlEncoded
     @POST("api/v1/markers")
