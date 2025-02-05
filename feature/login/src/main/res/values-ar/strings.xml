@@ -13,7 +13,7 @@
     <string name="error_failed_app_registration_fmt">%1$s :أخففت المصادقة مع مثيل الخادم هذا</string>
     <string name="error_authorization_unknown">لقد وقع هناك خطأ مجهول في التصريح.</string>
     <string name="error_authorization_denied">تم رفض التصريح.</string>
-    <string name="error_retrieving_oauth_token">فشل الحصول على رمز الولوج.</string>
+    <string name="error_retrieving_oauth_token_fmt">%1$s: فشل الحصول على رمز الولوج.</string>
     <string name="error_loading_account_details_fmt">%1$s: فشلت عملية تحميل تفاصيل الحساب</string>
     <string name="hint_domain">أي مثيل خادم؟</string>
     <string name="action_login">الولوج باستخدام Pachli</string>

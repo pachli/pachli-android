@@ -13,7 +13,7 @@
     <string name="error_failed_app_registration_fmt">Authenticatie met die server is mislukt. Als het probleem blijft, probeer dan de browser login via het menu: %1$s</string>
     <string name="error_authorization_unknown">Er deed zich een onbekende autorisatiefout voor. Als dit blijft, probeer dan “ Via de browser inloggen” in het menu.</string>
     <string name="error_authorization_denied">Autorisatie werd geweigerd. Als u zeker weet dat u de correcte gegevens heeft ingevoerd, probeer dan in te loggen in de browser via het menu.</string>
-    <string name="error_retrieving_oauth_token">Kon geen inlogsleutel verkrijgen. Als het probleem zich blijft herhalen; probeer dan de browser login via menu.</string>
+    <string name="error_retrieving_oauth_token_fmt">Kon geen inlogsleutel verkrijgen. Als het probleem zich blijft herhalen; probeer dan de browser login via menu: %1$s</string>
     <string name="error_loading_account_details_fmt">Laden van accountdetails mislukt: %1$s</string>
     <string name="hint_domain">Welke Mastodonserver?</string>
     <string name="action_login">Aanmelden met Pachli</string>

@@ -13,7 +13,7 @@
     <string name="error_failed_app_registration_fmt">Échec d’authentification auprès de l’instance. Si cela continue à se produire, essayez Se connecter avec le navigateur depuis le menu: %1$s</string>
     <string name="error_authorization_unknown">Une erreur d’autorisation inconnue s’est produite. Si cela continue à se produire, essayez Se connecter avec le navigateur depuis le menu.</string>
     <string name="error_authorization_denied">Authentification refusée. Si vous êtes sur·e d\'avoir entré les bons identifiants, essayez Se connecter avec le navigateur depuis le menu.</string>
-    <string name="error_retrieving_oauth_token">Impossible de récupérer le jeton d’authentification. Si cela continue à se produire, essayez Se connecter avec le navigateur depuis le menu.</string>
+    <string name="error_retrieving_oauth_token_fmt">Impossible de récupérer le jeton d’authentification. Si cela continue à se produire, essayez Se connecter avec le navigateur depuis le menu: %1$s</string>
     <string name="error_loading_account_details_fmt">Les détails du compte n\'ont pas pu être chargés: %1$s</string>
     <string name="hint_domain">Quelle instance ?</string>
     <string name="action_login">Se connecter avec Pachli</string>

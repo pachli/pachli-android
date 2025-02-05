@@ -13,7 +13,7 @@
     <string name="error_failed_app_registration_fmt">Mistókst að auðkenna gagnvart þessu tilviki. Ef þetta er viðvarandi skaltu prófa \'Skrá inn í vafra\' úr valmyndinni: %1$s</string>
     <string name="error_authorization_unknown">Óskilgreind auðkenningarvilla kom upp. Mistókst að auðkenna gagnvart þessu tilviki. Ef þetta er viðvarandi skaltu prófa \'Skrá inn í vafra\' úr valmyndinni.</string>
     <string name="error_authorization_denied">Heimild var hafnað. Mistókst að auðkenna gagnvart þessu tilviki. Ef þetta er viðvarandi skaltu prófa \'Skrá inn í vafra\' úr valmyndinni.</string>
-    <string name="error_retrieving_oauth_token">Mistókst að fá innskráningarteikn. Mistókst að auðkenna gagnvart þessu tilviki. Ef þetta er viðvarandi skaltu prófa \'Skrá inn í vafra\' úr valmyndinni.</string>
+    <string name="error_retrieving_oauth_token_fmt">Mistókst að fá innskráningarteikn. Mistókst að auðkenna gagnvart þessu tilviki. Ef þetta er viðvarandi skaltu prófa \'Skrá inn í vafra\' úr valmyndinni: %1$s</string>
     <string name="error_loading_account_details_fmt">Mistókst að hlaða inn nánari upplýsingum notandaaðgangs: %1$s</string>
     <string name="hint_domain">Hvaða tilvik\?</string>
     <string name="action_login">Skrá inn með Pachli</string>

@@ -13,7 +13,7 @@
     <string name="error_failed_app_registration_fmt">Памылка праверкі сапраўднасці на гэтым серверы. Калі праблема застаецца, паспрабуйце ўвайсці з браўзера з меню: %1$s</string>
     <string name="error_authorization_unknown">Адбылася невядомая памылка праверкі сапраўднасці. Калі праблема застаецца, паспрабуйце ўвайсці з браўзера з меню.</string>
     <string name="error_authorization_denied">Аўтарызацыя была адхілена. Калі ўпэўнены што ўвялі сапраўдныя ўліковыя даныя, паспрабуйце ўвайсці з браўзера з меню.</string>
-    <string name="error_retrieving_oauth_token">Токен уваходу не атрыманы. Калі праблема застаецца, паспрабуйце ўвайсці з браўзера з меню.</string>
+    <string name="error_retrieving_oauth_token_fmt">Токен уваходу не атрыманы. Калі праблема застаецца, паспрабуйце ўвайсці з браўзера з меню: %1$s</string>
     <string name="error_loading_account_details_fmt">Дэталі ўліковага запісу не атрыманы: %1$s</string>
     <string name="hint_domain">Які сервер\?</string>
     <string name="action_login">Увайсці з Pachli</string>

@@ -13,7 +13,7 @@
     <string name="error_failed_app_registration_fmt">Misslyckades att autentisera med den instansen. Om detta kvarstår, försök Logga in i webbläsaren från menyn: %1$s</string>
     <string name="error_authorization_unknown">Ett oidentifierat auktoriseringsfel inträffade. Om detta kvarstår, försök Logga in i webbläsaren från menyn.</string>
     <string name="error_authorization_denied">Auktorisering nekades. Om du är säker på att du har angett rätt referenser, prova Logga in i webbläsaren från menyn.</string>
-    <string name="error_retrieving_oauth_token">Misslyckades med att hämta en inloggningstoken. Om detta kvarstår, försök Logga in i webbläsaren från menyn.</string>
+    <string name="error_retrieving_oauth_token_fmt">Misslyckades med att hämta en inloggningstoken. Om detta kvarstår, försök Logga in i webbläsaren från menyn: %1$s</string>
     <string name="error_loading_account_details_fmt">Kunde inte ladda kontodetaljer: %1$s</string>
     <string name="hint_domain">Vilken instans?</string>
     <string name="action_login">Logga in med Pachli</string>

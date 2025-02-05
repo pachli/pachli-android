@@ -20,7 +20,7 @@
     <string name="error_failed_app_registration_fmt">এই ইনস্ট্যান্স এর সঙ্গে প্রমাণীকরণ ব্যর্থ।: %1$s</string>
     <string name="error_authorization_unknown">একটি অজ্ঞাত প্রমাণীকরণ ত্রুটি ঘটেছে।</string>
     <string name="error_authorization_denied">অনুমোদন অস্বীকার করা হয়েছে।</string>
-    <string name="error_retrieving_oauth_token">একটি লগইন টোকেন পেতে ব্যর্থ।</string>
+    <string name="error_retrieving_oauth_token_fmt">একটি লগইন টোকেন পেতে ব্যর্থ।: %1$s</string>
     <string name="hint_domain">কোন ইনস্ট্যান্স\?</string>
     <string name="action_login">মাস্টোডনের সঙ্গে লগইন করো</string>
     <string name="link_whats_an_instance">ইনস্ট্যান্স কি\?</string>

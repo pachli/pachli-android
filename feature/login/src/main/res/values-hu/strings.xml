@@ -13,7 +13,7 @@
     <string name="error_failed_app_registration_fmt">Sikertelen hitelesítés ezen a példányon. Ha ez továbbra is fennáll, próbáld a Bejelentkezés Böngészőben opciót a menüben: %1$s</string>
     <string name="error_authorization_unknown">Azonosítatlan hitelesítési hiba történt. Ha ez továbbra is fennáll, próbáld a Bejelentkezés Böngészőben opciót a menüben.</string>
     <string name="error_authorization_denied">Engedély megtagadva. Ha biztos vagy benne, hogy a megfelelő hitelesítési adatokat adtad meg, próbáld a Bejelentkezés Böngészőben funkciót a menüben.</string>
-    <string name="error_retrieving_oauth_token">Bejelentkezési token megszerzése sikertelen. Ha ez továbbra is fennáll, próbáld a Bejelentkezés Böngészőben opciót a menüben.</string>
+    <string name="error_retrieving_oauth_token_fmt">Bejelentkezési token megszerzése sikertelen. Ha ez továbbra is fennáll, próbáld a Bejelentkezés Böngészőben opciót a menüben: %1$s</string>
     <string name="error_loading_account_details_fmt">Nem sikerült betölteni a fiókadatokat: %1$s</string>
     <string name="hint_domain">Melyik példány\?</string>
     <string name="action_login">Bejelentkezés Pachlival</string>

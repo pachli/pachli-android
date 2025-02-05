@@ -11,7 +11,7 @@
     <string name="error_failed_app_registration_fmt">Dh’fhàillig leis an dearbhadh leis an ionstans ud. Ma mhaireas an duilgheadas seo, feuch “Clàraich a-steach le brabhsair” on chlàr-taice: %1$s</string>
     <string name="error_authorization_unknown">Thachair mearachd leis an ùghdarrachadh nach do dh’aithnich sinn. Ma mhaireas an duilgheadas seo, feuch “Clàraich a-steach le brabhsair” on chlàr-taice.</string>
     <string name="error_authorization_denied">Chaidh an t-ùghdarrachadh a dhiùltadh. Ma tha thu cinnteach gun do chuir thu a-steach an teisteas ceart, feuch “Clàraich a-steach le brabhsair” on chlàr-taice.</string>
-    <string name="error_retrieving_oauth_token">Cha deach leinn tòcan clàraidh a-steach fhaighinn. Ma mhaireas an duilgheadas seo, feuch “Clàraich a-steach le brabhsair” on chlàr-taice.</string>
+    <string name="error_retrieving_oauth_token_fmt">Cha deach leinn tòcan clàraidh a-steach fhaighinn. Ma mhaireas an duilgheadas seo, feuch “Clàraich a-steach le brabhsair” on chlàr-taice: %1$s</string>
     <string name="error_loading_account_details_fmt">Mearachd a’ luchdadh fiosrachadh a’ chunntais: %1$s</string>
     <string name="hint_domain">Cò an t-ionstans\?</string>
     <string name="action_login">Clàraich a-steach le Pachli</string>

@@ -13,7 +13,7 @@
     <string name="error_failed_app_registration_fmt">Autentificēšana ar šo instanci neizdevās. Ja tas atkārtojas, izmantojot izvēlni, mēģiniet pieslēgties pārlūkā: %1$s</string>
     <string name="error_authorization_unknown">Radās neidentificēta autorizācijas kļūda. Ja tas atkārtojas, izmantojot izvēlni, mēģiniet pieslēgties pārlūkā.</string>
     <string name="error_authorization_denied">Autorizācija tika liegta. Ja ir pārliecība, ka ievadīti pareizi pieslēgšanās dati, izmantojot izvēlni, mēģiniet pieslēgties pārlūkā.</string>
-    <string name="error_retrieving_oauth_token">Neizdevās iegūt pieteikšanās pilnvaru. Ja tas atkārtojas, izmantojot izvēlni, mēģiniet pieslēgties pārlūkā.</string>
+    <string name="error_retrieving_oauth_token_fmt">Neizdevās iegūt pieteikšanās pilnvaru. Ja tas atkārtojas, izmantojot izvēlni, mēģiniet pieslēgties pārlūkā: %1$s</string>
     <string name="error_loading_account_details_fmt">Neizdevās ielādēt konta datus: %1$s</string>
     <string name="hint_domain">Kura instance\?</string>
     <string name="action_login">Pieslēgties ar Pachli</string>

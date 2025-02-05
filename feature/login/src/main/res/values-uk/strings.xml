@@ -13,7 +13,7 @@
     <string name="error_failed_app_registration_fmt">Помилка автентифікації цього сервера. Якщо проблема не зникає, спробуйте увійти через браузер з меню: %1$s</string>
     <string name="error_authorization_unknown">Сталася помилка невпізнання авторизації. Якщо проблема не зникає, спробуйте увійти через браузер з меню.</string>
     <string name="error_authorization_denied">Авторизацію відхилено. Якщо ви впевнені, що вказали правильні облікові дані, спробуйте увійти через браузер з меню.</string>
-    <string name="error_retrieving_oauth_token">Не вдалося отримати токен входу. Якщо проблема не зникає, спробуйте увійти через браузер з меню.</string>
+    <string name="error_retrieving_oauth_token_fmt">Не вдалося отримати токен входу. Якщо проблема не зникає, спробуйте увійти через браузер з меню: %1$s</string>
     <string name="error_loading_account_details_fmt">Не вдалося завантажити подробиці облікового запису: %1$s</string>
     <string name="hint_domain">Котрий сервер\?</string>
     <string name="action_login">Увійти з Pachli</string>

@@ -5,7 +5,7 @@
     <string name="error_failed_app_registration_fmt">ആ ഇൻസ്റ്റൻസുമായി ആധികാരികത ഉറപ്പുവരുത്തുന്നതിൽ പരാജയപ്പെട്ടിരിക്കുന്നു: %1$s</string>
     <string name="error_authorization_unknown">അജ്ഞാതമായ ഒരു ആധികാരികതാപിഴവ് സംഭവിച്ചിരിക്കുന്നു.</string>
     <string name="error_authorization_denied">ആധികാരികത ഉറപ്പുവരുത്താനായില്ല.</string>
-    <string name="error_retrieving_oauth_token">ഒരു പ്രവേശന ടോക്കൺ ലഭ്യമാക്കുന്നതിൽ പരാജയപ്പെട്ടു.</string>
+    <string name="error_retrieving_oauth_token_fmt">ഒരു പ്രവേശന ടോക്കൺ ലഭ്യമാക്കുന്നതിൽ പരാജയപ്പെട്ടു: %1$s</string>
     <string name="action_login">മസ്റ്റഡോൺ വഴി പ്രവേശിക്കുക</string>
     <string name="link_whats_an_instance">എന്താണ് ഒരു ഇൻസ്റ്റൻസ്\?</string>
 </resources>

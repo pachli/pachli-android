@@ -6,7 +6,7 @@
     <string name="error_failed_app_registration_fmt">Theip ar fhíordheimhniú leis an ásc sin: %1$s</string>
     <string name="error_authorization_unknown">Tharla earráid údaraithe neamhaitheanta.</string>
     <string name="error_authorization_denied">Diúltaíodh údarú.</string>
-    <string name="error_retrieving_oauth_token">Theip ar chomhartha logála isteach a fháil.</string>
+    <string name="error_retrieving_oauth_token_fmt">Theip ar chomhartha logála isteach a fháil: %1$s</string>
     <string name="error_loading_account_details_fmt">Theip ar sonraí an chuntais a lódáil: %1$s</string>
     <string name="hint_domain">Cén ásc\?</string>
     <string name="action_login">Logáil isteach le Mastodon</string>
