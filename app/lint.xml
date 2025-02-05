@@ -20,6 +20,10 @@
     <!-- Missing translations are OK -->
     <issue id="MissingTranslation" severity="ignore" />
 
+    <!-- Temporarily ignore MissingQuantity errors, due to
+         https://github.com/WeblateOrg/weblate/issues/7520#issuecomment-2632033621 -->
+    <issue id="MissingQuantity" severity="ignore" />
+
     <!-- Duplicate strings are OK. This can happen when e.g., "favourite" appears as both
          a noun and a verb -->
     <issue id="DuplicateStrings" severity="ignore" />
