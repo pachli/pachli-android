@@ -121,10 +121,6 @@ class TimelineCases @Inject constructor(
     }
 
     suspend fun voteInPoll(statusId: String, pollId: String, choices: List<Int>): ApiResult<Poll> {
-//        if (choices.isEmpty()) {
-//            return ApiResult.failure(IllegalStateException())
-//        }
-
         return mastodonApi.voteInPoll(pollId, choices).onSuccess {
             eventHub.dispatch(PollVoteEvent(statusId, it.body))
         }

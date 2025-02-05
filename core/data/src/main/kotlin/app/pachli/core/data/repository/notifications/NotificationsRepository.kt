@@ -362,16 +362,12 @@ class NotificationsRepository @Inject constructor(
         pollId: String,
         choices: List<Int>,
     ): Result<Unit, StatusActionError.VoteInPoll> = externalScope.async {
-//        if (choices.isEmpty()) {
-//            return@async Err(StatusActionError.VoteInPoll(IllegalStateException()))
-//        }
-
         mastodonApi.voteInPoll(pollId, choices)
             .onSuccess { poll ->
                 statusDao.setVoted(pachliAccountId, statusId, poll.body)
                 eventHub.dispatch(PollVoteEvent(statusId, poll.body))
             }
-            .onFailure { throwable -> return@async Err(StatusActionError.VoteInPoll(throwable)) }
+            .onFailure { return@async Err(StatusActionError.VoteInPoll(it)) }
 
         return@async Ok(Unit)
     }.await()
