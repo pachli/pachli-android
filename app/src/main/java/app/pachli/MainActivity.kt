@@ -824,19 +824,21 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         // account list is open (https://github.com/mikepenz/MaterialDrawer/issues/2826).
         // Instead, pull the position from the adapter for primary items. This is offset
         // by 1 in the adapter that wraps all the items.
-        val existingPosition = binding.mainDrawer.itemAdapter.getAdapterPosition(DRAWER_ITEM_SCHEDULED_POSTS) + 1
+        val existingPosition = binding.mainDrawer.itemAdapter.getAdapterPosition(DRAWER_ITEM_SCHEDULED_POSTS)
 
-        val showing = existingPosition != 0
+        val showing = existingPosition != -1
         if (showing == showSchedulePosts) return
 
         if (!showSchedulePosts) {
-            binding.mainDrawer.removeItemByPosition(existingPosition)
+            binding.mainDrawer.itemAdapter.removeByIdentifier(DRAWER_ITEM_SCHEDULED_POSTS)
             return
         }
 
         // Add the "Scheduled posts" item immediately after "Drafts"
-        binding.mainDrawer.addItemsAtPosition(
-            existingPosition + 1,
+        val relativeDraftsPosition = binding.mainDrawer.itemAdapter.getAdapterPosition(DRAWER_ITEM_DRAFTS)
+        val globalDraftsPosition = binding.mainDrawer.itemAdapter.getGlobalPosition(relativeDraftsPosition)
+        binding.mainDrawer.itemAdapter.add(
+            globalDraftsPosition + 1,
             primaryDrawerItem {
                 identifier = DRAWER_ITEM_SCHEDULED_POSTS
                 nameRes = R.string.action_access_scheduled_posts
