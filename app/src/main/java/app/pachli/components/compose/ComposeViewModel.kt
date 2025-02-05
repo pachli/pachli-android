@@ -51,6 +51,7 @@ import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.NewPoll
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.network.retrofit.apiresult.ApiError
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.preferences.ShowSelfUsername
 import app.pachli.core.ui.MentionSpan
@@ -146,14 +147,12 @@ class ComposeViewModel @AssistedInject constructor(
      * - Ok(InReplyTo.Status) - this is a reply, with the status being replied to
      * - Err() - error occurred fetching the parent
      */
-    internal val inReplyTo = stateFlow(viewModelScope, Ok(Loadable.Loading<InReplyTo.Status>())) {
+    internal val inReplyTo = stateFlow(viewModelScope, Ok(Loadable.Loaded(null))) {
         loadReply.flatMapLatest {
             flow {
-                Timber.d("Loading reply")
-                emit(Ok(Loadable.Loading<InReplyTo.Status>()))
-
-                val result = when (val i = composeOptions?.inReplyTo) {
+                when (val i = composeOptions?.inReplyTo) {
                     is InReplyTo.Id -> {
+                        emit(Ok(Loadable.Loading<InReplyTo.Status>()))
                         api.status(i.statusId).mapEither(
                             { Loadable.Loaded(InReplyTo.Status.from(it.body))},
                             { UiError.ReloadReplyError(it) }
@@ -161,10 +160,7 @@ class ComposeViewModel @AssistedInject constructor(
                     }
                     is InReplyTo.Status -> Ok(Loadable.Loaded(i))
                     null -> Ok(Loadable.Loaded(null))
-                }
-
-//                emit(Err(UiError.ReloadReplyError(RuntimeException("test exception message that's long to check formatting"))))
-                emit(result)
+                }.also { emit(it) }
             }
         }.flowWhileShared(SharingStarted.WhileSubscribed(5000))
     }

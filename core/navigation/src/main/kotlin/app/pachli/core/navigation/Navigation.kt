@@ -190,23 +190,27 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOpti
             END,
         }
 
-        /** Composing a reply to an existing status. */
+        /**
+         * The status the user is replying to.
+         */
         @Parcelize
         sealed class InReplyTo : Parcelable {
+            /** ID of the status being replied to. */
             abstract val statusId: String
 
             /**
-             * Holds the ID of the status being replied to.
+             * The ID of the status being replied to.
              *
-             * Use when the caller only has the ID, and needs ComposeActivity to
+             * Used when the caller only has the ID, and needs
+             * [ComposeActivity][app.pachli.components.compose.ComposeActivity] to
              * fetch the contents of the in-reply-to status.
              */
             data class Id(override val statusId: String) : InReplyTo()
 
             /**
-             * Holds the content of the status being replied to.
+             * The content of the status being replied to.
              *
-             * Use when the caller already has the in-reply-to status content which
+             * Uses when the caller already has the in-reply-to status content which
              * can be reused without a network round trip.
              */
             data class Status(
