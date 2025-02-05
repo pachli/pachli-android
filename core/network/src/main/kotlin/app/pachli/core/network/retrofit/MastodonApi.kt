@@ -277,12 +277,12 @@ interface MastodonApi {
         @Path("id") statusId: String,
     ): ApiResult<DeletedStatus>
 
-    @POST("api/v1/statuses/{id}/reblog2")
+    @POST("api/v1/statuses/{id}/reblog")
     suspend fun reblogStatus(
         @Path("id") statusId: String,
     ): ApiResult<Status>
 
-    @POST("api/v1/statuses/{id}/unreblog2")
+    @POST("api/v1/statuses/{id}/unreblog")
     suspend fun unreblogStatus(
         @Path("id") statusId: String,
     ): ApiResult<Status>
