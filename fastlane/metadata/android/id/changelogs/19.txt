@@ -1,5 +1,5 @@
-WinRAR 5.40
+Pachli 2.7.1
 
-Login
+Fixes:
 
 - Gambar kartu pratinjau posisi benar, menunjukkan deskripsi kartu
