@@ -284,7 +284,7 @@ class ComposeActivity :
 
         binding.replyLoadingErrorRetry.setOnClickListener { viewModel.reloadReply() }
 
-        lifecycleScope.launch { viewModel.inReplyTo.collect(::bind) }
+        lifecycleScope.launch { viewModel.inReplyTo.collect(::bindInReplyTo) }
 
         lifecycleScope.launch {
             viewModel.accountFlow.take(1).collect { account ->
@@ -364,6 +364,7 @@ class ComposeActivity :
                                 pickMedia(uri)
                             }
                         }
+
                         Intent.ACTION_SEND_MULTIPLE -> {
                             IntentCompat.getParcelableArrayListExtra(intent, Intent.EXTRA_STREAM, Uri::class.java)?.forEach { uri ->
                                 pickMedia(uri)
@@ -394,23 +395,18 @@ class ComposeActivity :
         }
     }
 
-    // TODO:
-    // Compose options needs a "ReplyToAccount" class that contains relevant info:
-    // - avatarUrl
-    // - bot
-    // - displayname
-    // - username
-    // - emojis
-    //
-    // Needs a "Reply" class that contains:
-    // - (optional) Content warning
-    // - Content
-
-    // Need a linear progress indicator while the reply is loading
-
-    // Consider what happens if content is empty (e.g., it was just attachments)
-
-    private fun bind(result: Result<Loadable<out InReplyTo.Status?>, UiError.ReloadReplyError>) {
+    /**
+     * Binds the [InReplyTo] data to the UI.
+     *
+     * If there is no [InReplyTo] data the "reply" portion of the UI is hidden.
+     *
+     * Otherwise, either show the reply, or, if loading the reply failed, show UI
+     * that allows the user to retry fetching it.
+     *
+     * @param result
+     */
+    private fun bindInReplyTo(result: Result<Loadable<out InReplyTo.Status?>, UiError.ReloadReplyError>) {
+        /** Hides the UI elements for an in-reply-to status. */
         fun hide() {
             binding.statusAvatar.hide()
             binding.statusAvatarInset.hide()
@@ -421,6 +417,7 @@ class ComposeActivity :
             binding.replyDivider.hide()
         }
 
+        /** Shows the UI elements for an in-reply-to status. */
         fun show() {
             binding.statusAvatar.show()
             binding.statusAvatarInset.show()
@@ -431,58 +428,53 @@ class ComposeActivity :
             binding.replyDivider.show()
         }
 
-        result.onFailure { error ->
+        val loadable = result.getOrElse {
             hide()
             binding.replyProgressIndicator.hide()
-
-            // Setup failure group
-            // Show failure group
-            binding.replyLoadingErrorMessage.text = error.fmt(this@ComposeActivity)
+            // Setup and show failure group
+            binding.replyLoadingErrorMessage.text = it.fmt(this@ComposeActivity)
             binding.replyLoadingError.show()
+            return
         }
 
-        result.onSuccess { loadable ->
-            binding.replyLoadingError.hide()
+        binding.replyLoadingError.hide()
 
-            val inReplyTo = when (loadable) {
-                is Loadable.Loaded -> loadable.data
-                is Loadable.Loading -> {
-                    hide()
-                    binding.replyProgressIndicator.show()
-                    return
-                }
-            }
-
-            binding.replyProgressIndicator.hide()
-
-            // No reply? Hide all the reply UI and return.
-            if (inReplyTo == null) {
+        val inReplyTo = when (loadable) {
+            is Loadable.Loaded -> loadable.data
+            is Loadable.Loading -> {
                 hide()
+                binding.replyProgressIndicator.show()
                 return
             }
+        }
 
-            show()
+        binding.replyProgressIndicator.hide()
 
-            with(inReplyTo) {
-                setReplyAvatar(this)
+        // No reply? Hide all the reply UI and return.
+        if (inReplyTo == null) {
+            hide()
+            return
+        }
 
-                binding.statusDisplayName.apply {
-                    text = displayName.emojify(emojis, this, sharedPreferencesRepository.animateEmojis)
-                }
-                binding.statusUsername.text = username
+        show()
 
-                if (contentWarning.isEmpty()) {
-                    binding.statusContentWarningDescription.hide()
-                } else {
-                    binding.statusContentWarningDescription.apply {
-                        text = contentWarning.emojify(emojis, this, sharedPreferencesRepository.animateEmojis)
-                    }
-                }
+        with(inReplyTo) {
+            setReplyAvatar(this)
 
-                binding.statusContent.apply {
-                    text = content.emojify(emojis, this, sharedPreferencesRepository.animateEmojis)
-                }
+            binding.statusDisplayName.text =
+                displayName.emojify(emojis, binding.statusDisplayName, sharedPreferencesRepository.animateEmojis)
+            binding.statusUsername.text = username
+
+            if (contentWarning.isEmpty()) {
+                binding.statusContentWarningDescription.hide()
+            } else {
+                binding.statusContentWarningDescription.text =
+                    contentWarning.emojify(emojis, binding.statusContentWarningDescription, sharedPreferencesRepository.animateEmojis)
+                binding.statusContentWarningDescription.show()
             }
+
+            binding.statusContent.text =
+                content.emojify(emojis, binding.statusContent, sharedPreferencesRepository.animateEmojis)
         }
     }
 
