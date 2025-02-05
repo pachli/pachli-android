@@ -1,0 +1,16 @@
+Pachli 2.6.0
+
+Uudet ominaisuudet:
+
+Näytä "Suggested Accounts"
+Tukipalvelimen suodattimet GoToSocial 0.16.0
+
+Korjaukset:
+
+Päivitä fontti, kun palaat mieltymyksistä
+- Käsittele oikein status-kielen muokkaamista
+Parantaa status media -merkintöjen luettavuutta
+Varmistaa tekstin nav-valikkotilin otsikko on luettavissa
+- Älä ylitä luotujen pikakuvakkeiden enimmäismäärää
+Käyttää oletusarvoista "Navigate Up"-sisältökuvausta ViewThreadActivity
+Päivitä suomen, espanjan ja ruotsinkielisiä käännöksiä
