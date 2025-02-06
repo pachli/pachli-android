@@ -1,0 +1,16 @@
+Pachli 2.6.0
+
+Nové funkce:
+
+- Zobrazit "Suggested účty"
+- Podporuje filtry serveru v GoToSocial 0.16.0
+
+Opravy:
+
+- Aktualizace fontu při návratu z Předvolby
+- Správně zacházet s editací jazyka stavu
+- Zlepšete čitelnost popisů stavu
+- Ujistěte se, že text v hlavičce nav menu účtu je legitimní
+- Nepřekračujte maximální počet vytvořených zkratek
+- Použijte výchozí "Navigate up" popis obsahu v ViewThreadActivity
+- Aktualizace finských, španělských a švédských překladů

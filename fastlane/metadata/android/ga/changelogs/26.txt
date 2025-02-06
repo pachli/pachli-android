@@ -1,0 +1,9 @@
+Pachli 2.9.2
+
+Gnéithe nua:
+
+- Liostaí Taispeáin curtha in eagar de réir teidil
+- Nuashonraigh cumais freastalaí mar Akkoma Tá tacaíocht scagaire v1
+- Bain "dummy.placeholder" ó theachtaireachtaí earráide líonra
+- Taispeáin teachtaireacht earráide má tharlaíonn earráid Dao le linn logáil isteach
+- Nuashonraigh Burmese, Irish, Ioruais Nynorsk, Spáinnis, Sualainnis, agus aistriúcháin Tamil

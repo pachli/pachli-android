@@ -1,2 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="replies_policy_name_none">Niekam</string>
+    <string name="error_delete_list_fmt">Nepavyko ištrinti sąrašo „%1$s“: %2$s.</string>
+    <string name="list_exclusive_label">Slėpti nuo pagrindinės laiko skalės</string>
+    <string name="hint_list_name">Sąrašo pavadinimas</string>
+    <string name="replies_policy_name_followed">Kiekvienam sekamam naudotojui</string>
+    <string name="replies_policy_title">Rodyti atsakymus:</string>
+    <string name="replies_policy_name_list">Sąrašo nariams</string>
+    <string name="title_lists">Sąrašai</string>
+    <string name="error_create_list_fmt">Nepavyko sukurti sąrašo „%1$s“: %2$s.</string>
+    <string name="action_rename_list">Atnaujinti sąrašą</string>
+    <string name="action_create_list">Kurti sąrašą</string>
+    <string name="error_rename_list_fmt">Nepavyko atnaujinti sąrašo „%1$s“: %2$s.</string>
+    <string name="action_add_to_list">Įtraukti paskyrą į sąrašą</string>
+    <string name="action_delete_list">Ištrinti sąrašą</string>
+    <string name="dialog_delete_list_warning">Ištrinti sąrašą „%s“?</string>
+    <string name="action_remove_from_list">Šalinti paskyrą iš sąrašo</string>
+    <string name="no_lists">Neturite jokių sąrašų.</string>
+    <string name="hint_search_people_list">Ieškokite asmenų, kuriuos sekate</string>
+    <string name="action_add_or_remove_from_list">Įtraukti arba šalinti iš sąrašo</string>
+    <string name="failed_to_remove_from_list">Nepavyko pašalinti paskyros iš sąrašo.</string>
+    <string name="failed_to_add_to_list">Nepavyko įtraukti paskyros į sąrašą.</string>
+</resources>

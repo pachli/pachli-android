@@ -1,0 +1,17 @@
+Pachli 2.1.0
+
+Nieuwe kenmerken:
+
+- Laat rollen zien op profielen
+- Toon composeknop als kijklijst
+- Toon composeknop als je boekhouderslijsten ziet
+
+Vertaling:
+
+- Toon vertaald inhoud in draden
+Bereken de lengte van de posten en peilingen met emojis correct
+- Prevent crash
+Als een preview kaart geen auteur heeft
+Als er een fout plaatsvindt in een tijdlijn zonder FAB
+- Op profiel als de rekening nul 'createAt' veld
+- Vertaling:

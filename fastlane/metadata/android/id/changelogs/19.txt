@@ -1,0 +1,5 @@
+Pachli 2.7.1
+
+Fixes:
+
+- Gambar kartu pratinjau posisi benar, menunjukkan deskripsi kartu

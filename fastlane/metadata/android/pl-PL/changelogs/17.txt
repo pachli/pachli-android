@@ -1,0 +1,16 @@
+Pachli 2.6.0.
+
+Nowe cechy:
+
+Show „Suggested Accounts” (ang.).
+- filtry wspierające w GoToSocial 0,16.0
+
+Fiksy
+
+- Update font kiedy wraca z Preferences.
+- poprawka do edycji języka.
+- Czytanie czytelności nazw mediów.
+Tekst w nav menu jest czytelny.
+– Nie przekroczy maksymalnej liczby wykonywanych skrótów.
+Domyślny opis treści w ViewThreadActivity.
+- Update fiński, hiszpański i szwedzkie tłumaczenia
