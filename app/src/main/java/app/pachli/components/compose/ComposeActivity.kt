@@ -462,7 +462,7 @@ class ComposeActivity :
 
             binding.statusDisplayName.text =
                 displayName.emojify(emojis, binding.statusDisplayName, sharedPreferencesRepository.animateEmojis)
-            binding.statusUsername.text = username
+            binding.statusUsername.text = getString(app.pachli.core.designsystem.R.string.post_username_format, username)
 
             if (contentWarning.isEmpty()) {
                 binding.statusContentWarningDescription.hide()
