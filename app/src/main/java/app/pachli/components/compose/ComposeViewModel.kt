@@ -91,17 +91,13 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 
-internal sealed interface UiAction {
-    /** Retry loading the status being replied to. */
-    data object ReloadReply : UiAction
-}
-
 internal sealed class UiError(
     @StringRes override val resourceId: Int = -1,
     override val formatArgs: Array<out String>? = null,
     override val cause: PachliError? = null,
 ) : PachliError {
-    data class ReloadReplyError(override val cause: PachliError) : UiError(
+    /** Error occurred loading the status this is a reply to. */
+    data class LoadInReplyToError(override val cause: PachliError) : UiError(
         R.string.ui_error_reload_reply_fmt,
     )
 }
@@ -154,7 +150,7 @@ class ComposeViewModel @AssistedInject constructor(
                         emit(Ok(Loadable.Loading<InReplyTo.Status>()))
                         api.status(i.statusId).mapEither(
                             { Loadable.Loaded(InReplyTo.Status.from(it.body)) },
-                            { UiError.ReloadReplyError(it) },
+                            { UiError.LoadInReplyToError(it) },
                         )
                     }
                     is InReplyTo.Status -> Ok(Loadable.Loaded(i))
@@ -164,6 +160,7 @@ class ComposeViewModel @AssistedInject constructor(
         }.flowWhileShared(SharingStarted.WhileSubscribed(5000))
     }
 
+    /** Triggers a reload of the status being replied to. */
     internal fun reloadReply() = viewModelScope.launch { loadReply.emit(Unit) }
 
     /** The initial content for this status, before any edits */

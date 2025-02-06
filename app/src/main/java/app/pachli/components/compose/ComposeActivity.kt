@@ -404,7 +404,7 @@ class ComposeActivity :
      *
      * @param result
      */
-    private fun bindInReplyTo(result: Result<Loadable<out InReplyTo.Status?>, UiError.ReloadReplyError>) {
+    private fun bindInReplyTo(result: Result<Loadable<out InReplyTo.Status?>, UiError.LoadInReplyToError>) {
         /** Hides the UI elements for an in-reply-to status. */
         fun hide() {
             binding.statusAvatar.hide()

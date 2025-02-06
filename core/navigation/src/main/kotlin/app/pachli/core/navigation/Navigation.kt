@@ -199,7 +199,7 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOpti
             abstract val statusId: String
 
             /**
-             * The ID of the status being replied to.
+             * ID of the status being replied to.
              *
              * Used when the caller only has the ID, and needs
              * [ComposeActivity][app.pachli.components.compose.ComposeActivity] to
@@ -208,9 +208,9 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOpti
             data class Id(override val statusId: String) : InReplyTo()
 
             /**
-             * The content of the status being replied to.
+             * Content of the status being replied to.
              *
-             * Uses when the caller already has the in-reply-to status content which
+             * Used when the caller already has the in-reply-to status content which
              * can be reused without a network round trip.
              */
             data class Status(

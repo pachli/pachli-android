@@ -20,7 +20,6 @@
             android:layout_gravity="end"
             android:padding="8dp"
             tools:ignore="ContentDescription" />
-        <!--content description will be set in code -->
 
         <Spinner
             android:id="@+id/composePostLanguageButton"
@@ -129,11 +128,7 @@
                     android:layout_gravity="center"
                     android:text="@string/action_retry"/>
             </LinearLayout>
-            <!--
-              Avatar, name, and content being replied to.
-              - CW is shown if present
-              - Polls and attachments are not shown
-            -->
+
             <ImageView
                 android:id="@+id/status_avatar"
                 android:layout_width="48dp"
@@ -247,8 +242,6 @@
                 android:importantForAccessibility="no"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp" />
-
-            <!-- Posting as @foo@bar... -->
 
             <androidx.constraintlayout.widget.Barrier
                 android:id="@+id/replyBarrier"
