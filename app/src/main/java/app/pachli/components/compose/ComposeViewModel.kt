@@ -51,7 +51,6 @@ import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.NewPoll
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
-import app.pachli.core.network.retrofit.apiresult.ApiError
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.preferences.ShowSelfUsername
 import app.pachli.core.ui.MentionSpan
@@ -154,8 +153,8 @@ class ComposeViewModel @AssistedInject constructor(
                     is InReplyTo.Id -> {
                         emit(Ok(Loadable.Loading<InReplyTo.Status>()))
                         api.status(i.statusId).mapEither(
-                            { Loadable.Loaded(InReplyTo.Status.from(it.body))},
-                            { UiError.ReloadReplyError(it) }
+                            { Loadable.Loaded(InReplyTo.Status.from(it.body)) },
+                            { UiError.ReloadReplyError(it) },
                         )
                     }
                     is InReplyTo.Status -> Ok(Loadable.Loaded(i))

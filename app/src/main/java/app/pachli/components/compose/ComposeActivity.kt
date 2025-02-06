@@ -120,7 +120,6 @@ import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.getOrElse
 import com.github.michaelbull.result.mapBoth
 import com.github.michaelbull.result.onFailure
-import com.github.michaelbull.result.onSuccess
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.snackbar.Snackbar

@@ -30,7 +30,6 @@ import app.pachli.core.database.model.DraftEntity
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.pachliAccountId
-import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.network.retrofit.apiresult.ClientError
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.databinding.ActivityDraftsBinding
