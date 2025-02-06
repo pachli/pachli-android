@@ -188,7 +188,6 @@
     <string name="follows_you">پیگیرتان است</string>
     <string name="pref_title_alway_show_sensitive_media">نمایش همیشگی محتوای حساس</string>
     <string name="title_media">رسانه</string>
-    <string name="replying_to">در حال پاسخ به @%s</string>
     <string name="add_account_name">افزودن حساب</string>
     <string name="add_account_description">افزودن حساب ماستودون جدید</string>
     <string name="compose_active_account_description">%1$s فرستادن از طرف</string>

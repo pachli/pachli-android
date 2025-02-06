@@ -207,7 +207,6 @@
     <string name="follows_you">Volgt jou</string>
     <string name="pref_title_alway_show_sensitive_media">Altijd gevoelige inhoud (nsfw) tonen</string>
     <string name="title_media">Media</string>
-    <string name="replying_to">Aan het reageren op @%s</string>
     <string name="add_account_name">Account toevoegen</string>
     <string name="add_account_description">Een nieuw Mastodonaccount toevoegen</string>
     <string name="compose_active_account_description">Berichten plaatsen als %1$s</string>

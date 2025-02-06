@@ -307,7 +307,6 @@
     <string name="notification_report_format">Uusi raportti %s</string>
     <string name="send_post_content_to">Jaa julkaisu…</string>
     <string name="confirmation_hashtag_muted">#%s hiljennetty</string>
-    <string name="replying_to">Vastaus käyttäjälle @%s</string>
     <string name="confirmation_hashtag_unmuted">#%s näytetään</string>
     <string name="post_edited">Muokattu %s</string>
     <string name="pref_title_show_self_boosts">Näytä itsetehostukset</string>

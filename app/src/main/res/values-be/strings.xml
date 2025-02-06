@@ -282,7 +282,6 @@
     <string name="abbreviated_seconds_ago">%dс</string>
     <string name="title_media">Медыя</string>
     <string name="pref_title_alway_open_spoiler">Заўсёды разгортваць допіс з далікатным зместам</string>
-    <string name="replying_to">Адказ для @%s</string>
     <string name="pref_title_public_filter_keywords">Публічныя стужкі</string>
     <string name="pref_title_thread_filter_keywords">Размовы</string>
     <string name="filter_addition_title">Дадаць фільтр</string>
