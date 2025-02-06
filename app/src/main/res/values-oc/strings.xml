@@ -183,7 +183,6 @@
     <string name="follows_you">Vos sèc</string>
     <string name="pref_title_alway_show_sensitive_media">Mostrar lo contengut sensible (NSFW)</string>
     <string name="title_media">Mèdia</string>
-    <string name="replying_to">En responsa a @%s</string>
     <string name="add_account_name">Apondre un compte</string>
     <string name="add_account_description">Apondre un nòu compte Mastodon</string>
     <string name="compose_active_account_description">Publicar coma %1$s</string>

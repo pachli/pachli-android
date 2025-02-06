@@ -194,7 +194,6 @@
     <string name="follows_you">Yn eich dilyn chi</string>
     <string name="pref_title_alway_show_sensitive_media">Dangos cynnwys sensitif bob tro</string>
     <string name="title_media">Cyfryngau</string>
-    <string name="replying_to">Yn ymateb i @%s</string>
     <string name="add_account_name">Ychwanegu Cyfrif</string>
     <string name="add_account_description">Ychwanegu Cyfrif Mastodon newydd</string>
     <string name="compose_active_account_description">Yn postio fel %1$s</string>

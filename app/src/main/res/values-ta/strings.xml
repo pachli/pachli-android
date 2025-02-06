@@ -178,7 +178,6 @@
     <string name="follows_you">நீங்கள் பின் தொடரபடுகிறீர்கள்</string>
     <string name="pref_title_alway_show_sensitive_media">எல்லா nsfw(உணர்ச்சிகரமான) உள்ளடக்கத்தையும் எப்போதும் காண்பி</string>
     <string name="title_media">ஊடகம்</string>
-    <string name="replying_to">\@%s -க்கு பதிலளி</string>
     <string name="add_account_name">கணக்கை சேர்க்க</string>
     <string name="add_account_description">புதிய Mastodon கணக்கைச் சேர்க்க</string>
     <string name="compose_active_account_description">%1$s கணக்குடன் பதிவிட</string>

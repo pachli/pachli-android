@@ -224,7 +224,6 @@
     <string name="follows_you">Ti segue</string>
     <string name="pref_title_alway_show_sensitive_media">Mostra sempre i contenuti sensibili</string>
     <string name="title_media">Media</string>
-    <string name="replying_to">Rispondendo a @%s</string>
     <string name="pref_title_public_filter_keywords">Timeline pubbliche</string>
     <string name="pref_title_thread_filter_keywords">Conversazioni</string>
     <string name="filter_addition_title">Aggiungi filtro</string>

@@ -244,7 +244,6 @@
     <string name="abbreviated_hours_ago">%dó</string>
     <string name="abbreviated_minutes_ago">%dp</string>
     <string name="abbreviated_seconds_ago">%dmp</string>
-    <string name="replying_to">Válasz @%s részére</string>
     <string name="pref_title_public_filter_keywords">Nyilvános idővonalak</string>
     <string name="pref_title_thread_filter_keywords">Beszélgetések</string>
     <string name="filter_addition_title">Szűrő hozzáadása</string>

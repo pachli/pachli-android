@@ -201,7 +201,6 @@
     <string name="follows_you">Te sigue</string>
     <string name="pref_title_alway_show_sensitive_media">Mostrar contenido sensible</string>
     <string name="title_media">Multimedia</string>
-    <string name="replying_to">Respondiendo a @%s</string>
     <string name="add_account_name">Añadir cuenta</string>
     <string name="add_account_description">Añadir cuenta de Mastodon</string>
     <string name="compose_active_account_description">Publicar como %1$s</string>

@@ -54,6 +54,7 @@ import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.AccountFilterReason
 import app.pachli.core.model.FilterAction
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
+import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InReplyTo
 import app.pachli.core.navigation.MainActivityIntent
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.RelationshipSeveranceEvent
@@ -425,9 +426,6 @@ private fun getStatusComposeIntent(
     account: AccountEntity,
 ): PendingIntent {
     val status = body.status!!
-    val citedLocalAuthor = status.account.localUsername
-    val citedText = status.content.parseAsMastodonHtml().toString()
-    val inReplyToId = status.id
     val (_, _, account1, _, _, _, _, _, _, _, _, _, _, _, _, _, _, contentWarning, replyVisibility, _, mentions, _, _, _, _, _, _, language) = status.actionableStatus
     val mentionedUsernames: MutableSet<String> = LinkedHashSet()
     mentionedUsernames.add(account1.username)
@@ -437,11 +435,9 @@ private fun getStatusComposeIntent(
         }
     }
     val composeOptions = ComposeOptions(
-        inReplyToId = inReplyToId,
         replyVisibility = replyVisibility,
         contentWarning = contentWarning,
-        replyingStatusAuthor = citedLocalAuthor,
-        replyingStatusContent = citedText,
+        inReplyTo = InReplyTo.Status.from(status),
         mentionedUsernames = mentionedUsernames,
         modifiedInitialState = true,
         language = language,

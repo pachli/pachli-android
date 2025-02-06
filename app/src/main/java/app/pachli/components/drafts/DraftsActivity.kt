@@ -30,7 +30,6 @@ import app.pachli.core.database.model.DraftEntity
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.pachliAccountId
-import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.network.retrofit.apiresult.ClientError
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.databinding.ActivityDraftsBinding
@@ -113,9 +112,7 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
                         draftId = draft.id,
                         content = draft.content,
                         contentWarning = draft.contentWarning,
-                        inReplyToId = draft.inReplyToId,
-                        replyingStatusContent = status.content.parseAsMastodonHtml().toString(),
-                        replyingStatusAuthor = status.account.localUsername,
+                        inReplyTo = ComposeOptions.InReplyTo.Status.from(status),
                         draftAttachments = draft.attachments,
                         poll = draft.poll,
                         sensitive = draft.sensitive,

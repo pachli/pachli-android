@@ -398,7 +398,6 @@
     <string name="restart_required">Nepieciešama lietotnes restartēšana</string>
     <string name="reblog_private">Pastiprināt sākotnējai auditorijai</string>
     <string name="description_post_reblogged">Pastiprināts</string>
-    <string name="replying_to">Atbildot @%s</string>
     <string name="lock_account_label_description">Prasa manuāli apstiprināt sekotājus</string>
     <string name="title_reblogged_by">Pastiprināja</string>
     <plurals name="reblogs">

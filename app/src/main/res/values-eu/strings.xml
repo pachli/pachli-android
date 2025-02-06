@@ -191,7 +191,6 @@
     <string name="follows_you">Jarraitzen zaitu</string>
     <string name="pref_title_alway_show_sensitive_media">Eduki mingarria erakutsi</string>
     <string name="title_media">Multimedia</string>
-    <string name="replying_to">\@%s-(r)i erantzuten</string>
     <string name="add_account_name">Gehitu kontua</string>
     <string name="add_account_description">Mastodon kontua gehitu</string>
     <string name="compose_active_account_description">%1$s kontuarekin tut egiten</string>

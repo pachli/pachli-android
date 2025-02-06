@@ -45,6 +45,7 @@ import app.pachli.core.domain.DownloadUrlUseCase
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
+import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InReplyTo
 import app.pachli.core.navigation.EditContentFilterActivityIntent
 import app.pachli.core.navigation.ReportActivityIntent
 import app.pachli.core.navigation.ViewMediaActivityIntent
@@ -187,12 +188,10 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
             requireContext(),
             status.pachliAccountId,
             ComposeOptions(
-                inReplyToId = status.actionableId,
+                inReplyTo = InReplyTo.Status.from(status.actionable),
                 replyVisibility = actionableStatus.visibility,
                 contentWarning = actionableStatus.spoilerText,
                 mentionedUsernames = mentionedUsernames,
-                replyingStatusAuthor = actionableStatus.account.localUsername,
-                replyingStatusContent = status.content.toString(),
                 language = actionableStatus.language,
                 kind = ComposeOptions.ComposeKind.NEW,
             ),
@@ -430,7 +429,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                                 pachliAccountId,
                                 ComposeOptions(
                                     content = redraftStatus.text.orEmpty(),
-                                    inReplyToId = redraftStatus.inReplyToId,
+                                    inReplyTo = redraftStatus.inReplyToId?.let { InReplyTo.Id(it) },
                                     visibility = redraftStatus.visibility,
                                     contentWarning = redraftStatus.spoilerText,
                                     mediaAttachments = redraftStatus.attachments,
@@ -458,7 +457,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                 val source = response.body
                 val composeOptions = ComposeOptions(
                     content = source.text,
-                    inReplyToId = status.inReplyToId,
+                    inReplyTo = status.inReplyToId?.let { InReplyTo.Id(it) },
                     visibility = status.visibility,
                     contentWarning = source.spoilerText,
                     mediaAttachments = status.attachments,

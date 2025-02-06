@@ -369,7 +369,6 @@
     <string name="pref_title_alway_show_sensitive_media">Always show sensitive content</string>
     <string name="pref_title_alway_open_spoiler">Always expand posts marked with content warnings</string>
     <string name="title_media">Media</string>
-    <string name="replying_to">Replying to @%s</string>
     <string name="pref_title_public_filter_keywords">Public timelines</string>
     <string name="pref_title_thread_filter_keywords">Threads</string>
     <string name="pref_title_account_filter_keywords">Profiles</string>
@@ -878,4 +877,6 @@
     <string name="account_filter_placeholder_label_not_following">Filtered because: &lt;b>you don\'t follow them&lt;/b></string>
     <string name="account_filter_placeholder_label_younger_30d">Filtered because: &lt;b>created in last 30 days&lt;/b></string>
     <string name="account_filter_placeholder_label_limited_by_server">Filtered because: &lt;b>limited by your moderators&lt;/b></string>
+
+    <string name="ui_error_reload_reply_fmt">Could not load post: %1$s</string>
 </resources>

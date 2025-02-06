@@ -265,7 +265,6 @@
     <string name="filter_dialog_whole_word_description">जब संकेत शब्द या वाक्यांश केवल अल्फ़ान्यूमेरिक होता है, तो यह केवल तभी लागू होगा जब यह पूरे शब्द से मेल खाता होगा</string>
     <string name="filter_dialog_update_button">अपडेट करें</string>
     <string name="pref_title_thread_filter_keywords">संवाद</string>
-    <string name="replying_to">\@%s को जवाब दे रहे है</string>
     <string name="title_media">मीडिया</string>
     <string name="pref_title_alway_show_sensitive_media">संवेदनशील विषय वस्तु</string>
     <string name="follows_you">आपको फॉलो करते है</string>
