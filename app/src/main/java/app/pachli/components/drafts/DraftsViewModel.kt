@@ -56,7 +56,7 @@ class DraftsViewModel @Inject constructor(
 
     fun restoreDraft(draft: DraftEntity) {
         viewModelScope.launch {
-            draftDao.insertOrReplace(draft)
+            draftDao.upsert(draft)
             deletedDrafts.remove(draft)
         }
     }

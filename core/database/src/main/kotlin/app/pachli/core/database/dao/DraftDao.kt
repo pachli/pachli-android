@@ -20,16 +20,14 @@ package app.pachli.core.database.dao
 import androidx.lifecycle.LiveData
 import androidx.paging.PagingSource
 import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Upsert
 import app.pachli.core.database.model.DraftEntity
 
 @Dao
 interface DraftDao {
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertOrReplace(draft: DraftEntity)
+    @Upsert
+    suspend fun upsert(draft: DraftEntity)
 
     @Query(
         """

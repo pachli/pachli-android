@@ -129,7 +129,7 @@ class DraftHelper @Inject constructor(
             statusId = statusId,
         )
 
-        draftDao.insertOrReplace(draft)
+        draftDao.upsert(draft)
         Timber.d("saved draft to db")
     }
 
