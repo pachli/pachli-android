@@ -548,7 +548,7 @@
     <string name="notification_listenable_worker_description">Meldingen als Pachli werkt op de achtergrond</string>
     <string name="socket_timeout_exception">Contact zoeken met je server duurde te lang</string>
     <string name="dialog_delete_filter_positive_action">Verwijder</string>
-    <string name="dialog_delete_filter_text">Verwijder filter \'%1$s\'\?</string>
+    <string name="dialog_delete_filter_text">Verwijder filter \'%1$s\'?</string>
     <string name="ui_error_translate_status_fmt">Vertaling faalde: %1$s</string>
     <string name="update_dialog_negative">Herinner mij nooit</string>
     <string name="translating">Vertalen…</string>
