@@ -19,7 +19,7 @@ jobs:
   # ktlintCheck does not have per-variant tasks, so runs once over everything
   ktlint:
     name: ktlintCheck
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     steps:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
@@ -34,7 +34,7 @@ jobs:
   # Tools are not per-variant
   tools:
     name: Test tools
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     steps:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
@@ -50,7 +50,7 @@ jobs:
   # Custom lint rules are not per-variant
   custom-lint:
     name: Custom lint
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     steps:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
@@ -74,7 +74,7 @@ jobs:
         store: [ "Fdroid", "Github", "Google" ]
         type: [ "Debug", "Release" ]
     name: Android Lint
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
 
     steps:
       - name: Checkout
@@ -115,7 +115,7 @@ jobs:
         store: [ "Fdroid", "Github", "Google" ]
         type: [ "Debug", "Release" ]
     name: Android Test
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
 
     steps:
       - name: Checkout
@@ -136,7 +136,7 @@ jobs:
         store: [ "Fdroid", "Github", "Google" ]
         type: [ "Debug", "Release" ]
     name: Android Assemble
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
 
     steps:
       - name: Checkout
@@ -159,7 +159,7 @@ jobs:
         api-level: [31]
         target: [default]
     name: Android Emulator Tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
 
     steps:
       - name: Checkout
