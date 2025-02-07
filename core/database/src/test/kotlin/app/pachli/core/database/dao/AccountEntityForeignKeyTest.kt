@@ -283,7 +283,7 @@ class AccountEntityForeignKeyTest {
             language = null,
             statusId = null,
         )
-        draftDao.insertOrReplace(draft)
+        draftDao.upsert(draft)
 
         // Check everything is as expected.
         assertThat(draftDao.loadDrafts(pachliAccountId)).containsExactly(draft)
