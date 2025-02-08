@@ -131,7 +131,7 @@ data class AccountFilterDecisionUpdate(
             ),
         ]
         ),
-    indices = [Index(value=["accountServerId", "pachliAccountId"])]
+    indices = [Index(value = ["accountServerId", "pachliAccountId"])],
 )
 @TypeConverters(Converters::class)
 data class NotificationEntity(
