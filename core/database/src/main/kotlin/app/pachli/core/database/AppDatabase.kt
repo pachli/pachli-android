@@ -96,7 +96,7 @@ import java.util.TimeZone
         NotificationRelationshipSeveranceEventEntity::class,
         TimelineStatusEntity::class,
     ],
-    version = 16,
+    version = 17,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
@@ -113,6 +113,7 @@ import java.util.TimeZone
         AutoMigration(from = 13, to = 14, spec = AppDatabase.MIGRATE_13_14::class),
         AutoMigration(from = 14, to = 15, spec = AppDatabase.MIGRATE_14_15::class),
         AutoMigration(from = 15, to = 16),
+        AutoMigration(from = 16, to = 17),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {

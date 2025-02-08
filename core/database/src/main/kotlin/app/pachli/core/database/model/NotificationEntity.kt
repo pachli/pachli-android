@@ -20,6 +20,7 @@ package app.pachli.core.database.model
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
 import app.pachli.core.model.AccountFilterDecision
@@ -130,6 +131,7 @@ data class AccountFilterDecisionUpdate(
             ),
         ]
         ),
+    indices = [Index(value=["accountServerId", "pachliAccountId"])]
 )
 @TypeConverters(Converters::class)
 data class NotificationEntity(
