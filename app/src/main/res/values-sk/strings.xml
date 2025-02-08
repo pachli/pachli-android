@@ -760,4 +760,14 @@
     <string name="search_operator_language_dialog_title">Obmedziť na príspevky napísané v…</string>
     <string name="search_operator_replies_replies_only">Zobraziť len odpovede</string>
     <string name="search_operator_replies_no_replies">Vylúčiť odpovede</string>
+    <string name="search_operator_sensitive_dialog_title">Príspevky s citlivým obsahom</string>
+    <string name="search_operator_sensitive_dialog_all">Všetky príspevky</string>
+    <string name="search_operator_sensitive_no_sensitive">Vylúčiť citlivý obsah</string>
+    <string name="search_operator_sensitive_dialog_sensitive_only">Iba citlivý obsah</string>
+    <string name="search_operator_sensitive_dialog_no_sensitive">Vylúčiť citlivý obsah</string>
+    <string name="search_operator_sensitive_sensitive_only">Iba citlivý obsah</string>
+    <string name="search_operator_where_dialog_all">Všetky príspevky</string>
+    <string name="search_operator_sensitive_all">S citlivým obsahom ▾</string>
+    <string name="search_operator_where_all">Všetky príspevky ▾</string>
+    <string name="search_operator_where_library">Tvoja knižnica</string>
 </resources>
