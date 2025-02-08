@@ -150,6 +150,7 @@ SELECT
     -- NotificationReportEntity
     report.pachliAccountId AS 'report_pachliAccountId',
     report.serverId AS 'report_serverId',
+    report.reportId AS 'report_reportId',
     report.actionTaken AS 'report_actionTaken',
     report.actionTakenAt AS 'report_actionTakenAt',
     report.category AS 'report_category',
@@ -157,7 +158,7 @@ SELECT
     report.forwarded AS 'report_forwarded',
     report.createdAt AS 'report_createdAt',
     report.statusIds AS 'report_statusIds',
-    report.ruleIds AS 'report_rulesIds',
+    report.ruleIds AS 'report_ruleIds',
     report.target_serverId AS 'report_target_serverId',
     report.target_timelineUserId AS 'report_target_timelineUserId',
     report.target_localUsername AS 'report_target_localUsername',
