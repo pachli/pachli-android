@@ -770,4 +770,14 @@
     <string name="search_operator_sensitive_all">S citlivým obsahom ▾</string>
     <string name="search_operator_where_all">Všetky príspevky ▾</string>
     <string name="search_operator_where_library">Tvoja knižnica</string>
+    <string name="search_operator_where_dialog_public">Verejné príspevky</string>
+    <string name="main_viewmodel_error_set_active_account">Prihlásenie sa nepodarilo s nasledujúcou chybou:\n\n%1$s</string>
+    <string name="main_viewmodel_error_refresh_account">Obnovenie účtu zlyhalo s nasledujúcou chybou:\n\n%1$s\n\nMôžeš pokračovať, ale tvoje zoznamy a filtre môžu byť nekompletné.</string>
+    <string name="search_operator_where_dialog_all_hint">Príspevky v tvojej knižnici a verejné príspevky</string>
+    <string name="search_operator_where_public">Verejné príspevky</string>
+    <string name="upload_failed_msg_fmt">Pri odoslaní príspevku sa nahrávanie zopakuje. Ak opätovne zlyhá, príspevok sa uloží do konceptov.\n\nChyba: %1$s</string>
+    <string name="search_operator_where_dialog_title">Obmedziť na…</string>
+    <string name="search_operator_where_dialog_library">Tvoja knižnica</string>
+    <string name="search_operator_where_dialog_public_hint">Verejné, vyhľadateľné príspevky, ktoré pozná server</string>
+    <string name="upload_failed_modify_attachment">Upraviť prílohu</string>
 </resources>
