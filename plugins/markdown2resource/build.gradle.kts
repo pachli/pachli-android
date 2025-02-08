@@ -19,7 +19,7 @@
 plugins {
     `java-gradle-plugin`
     `maven-publish`
-    kotlin("jvm") version "2.0.21"
+    kotlin("jvm") version "2.1.10"
 }
 
 group = "app.pachli.plugins"
