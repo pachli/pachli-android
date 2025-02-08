@@ -1,4 +1,4 @@
-Pachli
+Pachli 2.6.0
 
 新特点:
 
