@@ -25,6 +25,7 @@ import androidx.paging.cachedIn
 import androidx.paging.map
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.Loadable
+import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.database.Converters
 import app.pachli.core.database.dao.ConversationsDao
 import app.pachli.core.database.di.TransactionProvider
@@ -37,6 +38,7 @@ import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlin.properties.Delegates
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.SharingStarted
@@ -59,13 +61,17 @@ class ConversationsViewModel @Inject constructor(
     private val accountManager: AccountManager,
     private val api: MastodonApi,
     sharedPreferencesRepository: SharedPreferencesRepository,
+    private val statusRepository: StatusRepository,
 ) : ViewModel() {
+
+    var pachliAccountId by Delegates.notNull<Long>()
 
     @OptIn(ExperimentalPagingApi::class)
     val conversationFlow = accountManager.activeAccountFlow
         .filterIsInstance<Loadable.Loaded<AccountEntity?>>()
         .mapNotNull { it.data }
         .flatMapLatest { account ->
+            pachliAccountId = account.id
             Pager(
                 config = PagingConfig(pageSize = 30),
                 remoteMediator = ConversationsRemoteMediator(
@@ -97,7 +103,7 @@ class ConversationsViewModel @Inject constructor(
      */
     fun favourite(favourite: Boolean, lastStatusId: String) {
         viewModelScope.launch {
-            timelineCases.favourite(lastStatusId, favourite).onSuccess {
+            statusRepository.favourite(pachliAccountId, lastStatusId, favourite).onSuccess {
                 conversationsDao.setFavourited(
                     accountManager.activeAccount!!.id,
                     lastStatusId,
@@ -114,7 +120,7 @@ class ConversationsViewModel @Inject constructor(
      */
     fun bookmark(bookmark: Boolean, lastStatusId: String) {
         viewModelScope.launch {
-            timelineCases.bookmark(lastStatusId, bookmark).onSuccess {
+            statusRepository.bookmark(pachliAccountId, lastStatusId, bookmark).onSuccess {
                 conversationsDao.setBookmarked(
                     accountManager.activeAccount!!.id,
                     lastStatusId,
