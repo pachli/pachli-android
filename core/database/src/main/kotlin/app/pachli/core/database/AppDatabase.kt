@@ -96,7 +96,7 @@ import java.util.TimeZone
         NotificationRelationshipSeveranceEventEntity::class,
         TimelineStatusEntity::class,
     ],
-    version = 17,
+    version = 18,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
@@ -114,6 +114,7 @@ import java.util.TimeZone
         AutoMigration(from = 14, to = 15, spec = AppDatabase.MIGRATE_14_15::class),
         AutoMigration(from = 15, to = 16),
         AutoMigration(from = 16, to = 17),
+        AutoMigration(from = 17, to = 18, spec = AppDatabase.MIGRATE_17_18::class),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -197,6 +198,38 @@ abstract class AppDatabase : RoomDatabase() {
 
     @RenameTable("TimelineStatusEntity", "StatusEntity")
     class MIGRATE_14_15 : AutoMigrationSpec
+
+    // Removing the embedded status from ConversationStatusEntity, and joining
+    // on StatusEntity.
+    @RenameColumn("ConversationEntity", "accountId", "pachliAccountId")
+    @DeleteColumn("ConversationEntity", "s_id")
+    @DeleteColumn("ConversationEntity", "s_url")
+    @DeleteColumn("ConversationEntity", "s_inReplyToId")
+    @DeleteColumn("ConversationEntity", "s_inReplyToAccountId")
+    @DeleteColumn("ConversationEntity", "s_account")
+    @DeleteColumn("ConversationEntity", "s_content")
+    @DeleteColumn("ConversationEntity", "s_createdAt")
+    @DeleteColumn("ConversationEntity", "s_editedAt")
+    @DeleteColumn("ConversationEntity", "s_emojis")
+    @DeleteColumn("ConversationEntity", "s_favouritesCount")
+    @DeleteColumn("ConversationEntity", "s_repliesCount")
+    @DeleteColumn("ConversationEntity", "s_favourited")
+    @DeleteColumn("ConversationEntity", "s_bookmarked")
+    @DeleteColumn("ConversationEntity", "s_sensitive")
+    @DeleteColumn("ConversationEntity", "s_spoilerText")
+    @DeleteColumn("ConversationEntity", "s_attachments")
+    @DeleteColumn("ConversationEntity", "s_mentions")
+    @DeleteColumn("ConversationEntity", "s_tags")
+    @DeleteColumn("ConversationEntity", "s_showingHiddenContent")
+    @DeleteColumn("ConversationEntity", "s_expanded")
+    @DeleteColumn("ConversationEntity", "s_collapsed")
+    @DeleteColumn("ConversationEntity", "s_muted")
+    @DeleteColumn("ConversationEntity", "s_poll")
+    @DeleteColumn("ConversationEntity", "s_language")
+    @DeleteColumn("ConversationEntity", "s_showingHiddenContent")
+    @DeleteColumn("ConversationEntity", "s_collapsed")
+    @DeleteColumn("ConversationEntity", "s_expanded")
+    class MIGRATE_17_18 : AutoMigrationSpec
 }
 
 val MIGRATE_8_9 = object : Migration(8, 9) {

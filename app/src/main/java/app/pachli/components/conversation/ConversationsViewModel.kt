@@ -19,8 +19,6 @@ package app.pachli.components.conversation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.ExperimentalPagingApi
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import androidx.paging.map
 import app.pachli.core.data.repository.AccountManager
@@ -28,7 +26,6 @@ import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.database.Converters
 import app.pachli.core.database.dao.ConversationsDao
-import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.PrefKeys
@@ -55,7 +52,7 @@ import timber.log.Timber
 @HiltViewModel
 class ConversationsViewModel @Inject constructor(
     private val timelineCases: TimelineCases,
-    transactionProvider: TransactionProvider,
+    private val repository: ConversationsRepository,
     private val conversationsDao: ConversationsDao,
     private val converters: Converters,
     private val accountManager: AccountManager,
@@ -63,6 +60,8 @@ class ConversationsViewModel @Inject constructor(
     sharedPreferencesRepository: SharedPreferencesRepository,
     private val statusRepository: StatusRepository,
 ) : ViewModel() {
+    // TODO: AssistedInject this
+    var pachliAccountId by Delegates.notNull<Long>()
 
     var pachliAccountId by Delegates.notNull<Long>()
 
@@ -72,18 +71,7 @@ class ConversationsViewModel @Inject constructor(
         .mapNotNull { it.data }
         .flatMapLatest { account ->
             pachliAccountId = account.id
-            Pager(
-                config = PagingConfig(pageSize = 30),
-                remoteMediator = ConversationsRemoteMediator(
-                    api,
-                    transactionProvider,
-                    conversationsDao,
-                    accountManager,
-                ),
-                pagingSourceFactory = {
-                    conversationsDao.conversationsForAccount(account.id)
-                },
-            ).flow
+            repository.conversations(account.id)
                 .map { pagingData ->
                     pagingData.map { conversation ->
                         ConversationViewData.from(account.id, conversation)
@@ -103,15 +91,7 @@ class ConversationsViewModel @Inject constructor(
      */
     fun favourite(favourite: Boolean, lastStatusId: String) {
         viewModelScope.launch {
-            statusRepository.favourite(pachliAccountId, lastStatusId, favourite).onSuccess {
-                conversationsDao.setFavourited(
-                    accountManager.activeAccount!!.id,
-                    lastStatusId,
-                    favourite,
-                )
-            }.onFailure { e ->
-                Timber.w("failed to favourite status: %s", e)
-            }
+            statusRepository.favourite(pachliAccountId, lastStatusId, favourite)
         }
     }
 
@@ -120,15 +100,7 @@ class ConversationsViewModel @Inject constructor(
      */
     fun bookmark(bookmark: Boolean, lastStatusId: String) {
         viewModelScope.launch {
-            statusRepository.bookmark(pachliAccountId, lastStatusId, bookmark).onSuccess {
-                conversationsDao.setBookmarked(
-                    accountManager.activeAccount!!.id,
-                    lastStatusId,
-                    bookmark,
-                )
-            }.onFailure { e ->
-                Timber.w("failed to bookmark status: %s", e)
-            }
+            statusRepository.bookmark(pachliAccountId, lastStatusId, bookmark)
         }
     }
 
@@ -137,45 +109,37 @@ class ConversationsViewModel @Inject constructor(
      */
     fun voteInPoll(choices: List<Int>, lastStatusId: String, pollId: String) {
         viewModelScope.launch {
-            timelineCases.voteInPoll(lastStatusId, pollId, choices)
-                .onSuccess {
-                    val poll = it.body
-                    conversationsDao.setVoted(
-                        accountManager.activeAccount!!.id,
-                        lastStatusId,
-                        converters.pollToJson(poll)!!,
-                    )
-                }.onFailure { Timber.w("failed to vote in poll: %s", it) }
+            statusRepository.voteInPoll(pachliAccountId, lastStatusId, pollId, choices)
         }
     }
 
     fun expandHiddenStatus(pachliAccountId: Long, expanded: Boolean, lastStatusId: String) {
         viewModelScope.launch {
-            conversationsDao.setExpanded(
-                pachliAccountId,
-                lastStatusId,
-                expanded,
-            )
+//            conversationsDao.setExpanded(
+//                pachliAccountId,
+//                lastStatusId,
+//                expanded,
+//            )
         }
     }
 
     fun collapseLongStatus(pachliAccountId: Long, collapsed: Boolean, lastStatusId: String) {
         viewModelScope.launch {
-            conversationsDao.setCollapsed(
-                pachliAccountId,
-                lastStatusId,
-                collapsed,
-            )
+//            conversationsDao.setCollapsed(
+//                pachliAccountId,
+//                lastStatusId,
+//                collapsed,
+//            )
         }
     }
 
     fun showContent(pachliAccountId: Long, showingHiddenContent: Boolean, lastStatusId: String) {
         viewModelScope.launch {
-            conversationsDao.setShowingHiddenContent(
-                pachliAccountId,
-                lastStatusId,
-                showingHiddenContent,
-            )
+//            conversationsDao.setShowingHiddenContent(
+//                pachliAccountId,
+//                lastStatusId,
+//                showingHiddenContent,
+//            )
         }
     }
 
@@ -200,11 +164,11 @@ class ConversationsViewModel @Inject constructor(
             try {
                 timelineCases.muteConversation(lastStatusId, muted)
 
-                conversationsDao.setMuted(
-                    accountManager.activeAccount!!.id,
-                    lastStatusId,
-                    muted,
-                )
+//                conversationsDao.setMuted(
+//                    accountManager.activeAccount!!.id,
+//                    lastStatusId,
+//                    muted,
+//                )
             } catch (e: Exception) {
                 currentCoroutineContext().ensureActive()
                 Timber.w(e, "failed to mute conversation")

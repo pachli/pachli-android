@@ -19,7 +19,8 @@ package app.pachli.components.conversation
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.model.ConversationAccountEntity
-import app.pachli.core.database.model.ConversationEntity
+import app.pachli.core.database.model.ConversationData
+import app.pachli.core.model.FilterAction
 
 /**
  * Data necessary to show a conversation.
@@ -35,12 +36,19 @@ data class ConversationViewData(
     val lastStatus: StatusViewData,
 ) : IStatusViewData by lastStatus {
     companion object {
-        fun from(pachliAccountId: Long, conversationEntity: ConversationEntity) = ConversationViewData(
-            id = conversationEntity.id,
-            order = conversationEntity.order,
-            accounts = conversationEntity.accounts,
-            unread = conversationEntity.unread,
-            lastStatus = StatusViewData.from(pachliAccountId, conversationEntity.lastStatus),
+        fun from(pachliAccountId: Long, conversationData: ConversationData) = ConversationViewData(
+            id = conversationData.id,
+            order = conversationData.order,
+            accounts = conversationData.accounts,
+            unread = conversationData.unread,
+            lastStatus = StatusViewData.from(
+                pachliAccountId,
+                conversationData.lastStatus,
+                isExpanded = true,
+                isShowingContent = true,
+                isDetailed = false,
+                contentFilterAction = FilterAction.NONE,
+            ),
         )
     }
 }

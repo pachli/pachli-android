@@ -24,7 +24,7 @@ import app.pachli.core.database.model.AnnouncementEntity
 import app.pachli.core.database.model.ContentFiltersEntity
 import app.pachli.core.database.model.ConversationAccountEntity
 import app.pachli.core.database.model.ConversationEntity
-import app.pachli.core.database.model.ConversationStatusEntity
+import app.pachli.core.database.model.ConversationStatus
 import app.pachli.core.database.model.DraftEntity
 import app.pachli.core.database.model.EmojisEntity
 import app.pachli.core.database.model.FilterActionUpdate
@@ -217,7 +217,7 @@ class AccountEntityForeignKeyTest {
             order = 1,
             accounts = emptyList(),
             unread = true,
-            lastStatus = ConversationStatusEntity(
+            lastStatus = ConversationStatus(
                 id = "1",
                 url = null,
                 inReplyToId = null,
@@ -252,7 +252,7 @@ class AccountEntityForeignKeyTest {
                 language = null,
             ),
         )
-        conversationDao.insert(conversation)
+        conversationDao.upsert(conversation)
 
         // Check everything is as expected.
         assertThat(conversationDao.loadAllForAccount(pachliAccountId)).containsExactly(conversation)
