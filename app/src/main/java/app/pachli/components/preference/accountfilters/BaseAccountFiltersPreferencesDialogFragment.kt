@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Pachli Association
+ * Copyright (c) 2025 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -15,7 +15,7 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.components.preference
+package app.pachli.components.preference.accountfilters
 
 import android.app.Dialog
 import android.content.Context
@@ -34,14 +34,16 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import app.pachli.R
+import app.pachli.core.model.AccountFilterReason
 import app.pachli.core.model.FilterAction
-import app.pachli.databinding.PrefAccountNotificationFiltersBinding
+import app.pachli.databinding.PrefAccountFiltersBinding
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.withCreationCallback
 import kotlin.properties.Delegates
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 /** String resource to use as the "title" for the [FilterAction]. */
@@ -124,28 +126,35 @@ class FilterActionAdapter(context: Context) : ArrayAdapter<FilterAction>(
 }
 
 /**
- * Shows a dialog that allows the user to choose the notification filtering options
+ * Shows a dialog that allows the user to choose the timeline filtering options
  * for:
  *
  * - accounts that are not followed
  * - accounts younger than 30 days
  * - accounts limited by the server
  *
- * The user's choices are persisted to the account preferences for the Pachli
- * account ID passed to
- * [newInstance][AccountNotificationFiltersPreferencesDialogFragment.newInstance].
+ * @param timeline The [AccountFilterTimeline] affected by the filters.
+ * @param dialogTitleId String resource to use as the dialog's title.
+ * @param dialogSubtitleId String resource to use as the dialog's subtitle.
  */
 @AndroidEntryPoint
-class AccountNotificationFiltersPreferencesDialogFragment : DialogFragment(R.layout.pref_account_notification_filters) {
-    private val viewModel: AccountNotificationFiltersPreferenceViewModel by viewModels(
+abstract class BaseAccountFiltersPreferencesDialogFragment(
+    private val timeline: AccountFilterTimeline,
+    @StringRes private val dialogTitleId: Int,
+    @StringRes private val dialogSubtitleId: Int,
+) : DialogFragment(R.layout.pref_account_filters) {
+    private val viewModel: AccountFiltersPreferenceViewModel by viewModels(
         extrasProducer = {
-            defaultViewModelCreationExtras.withCreationCallback<AccountNotificationFiltersPreferenceViewModel.Factory> { factory ->
-                factory.create(requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID))
+            defaultViewModelCreationExtras.withCreationCallback<AccountFiltersPreferenceViewModel.Factory> { factory ->
+                factory.create(
+                    requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID),
+                    timeline,
+                )
             }
         },
     )
 
-    private lateinit var binding: PrefAccountNotificationFiltersBinding
+    private lateinit var binding: PrefAccountFiltersBinding
 
     private lateinit var adapter: ArrayAdapter<FilterAction>
 
@@ -157,10 +166,11 @@ class AccountNotificationFiltersPreferencesDialogFragment : DialogFragment(R.lay
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        binding = PrefAccountNotificationFiltersBinding.inflate(layoutInflater)
+        binding = PrefAccountFiltersBinding.inflate(layoutInflater)
+        binding.title.text = getString(dialogSubtitleId)
 
         val builder = AlertDialog.Builder(requireContext())
-            .setTitle(R.string.pref_title_account_notification_filters)
+            .setTitle(dialogTitleId)
             .setView(binding.root)
         return builder.create()
     }
@@ -178,17 +188,38 @@ class AccountNotificationFiltersPreferencesDialogFragment : DialogFragment(R.lay
 
                 launch {
                     binding.menuFilterNotFollowing.filterActionFlow()
-                        .collect { viewModel.setNotificationAccountFilterNotFollowing(it) }
+                        .map {
+                            InfallibleUiAction.SetAccountFilter(
+                                pachliAccountId,
+                                reason = AccountFilterReason.NOT_FOLLOWING,
+                                action = it,
+                            )
+                        }
+                        .collect { viewModel.accept(it) }
                 }
 
                 launch {
                     binding.menuFilterYounger30d.filterActionFlow()
-                        .collect { viewModel.setNotificationAccountFilterYounger30d(it) }
+                        .map {
+                            InfallibleUiAction.SetAccountFilter(
+                                pachliAccountId,
+                                reason = AccountFilterReason.YOUNGER_30D,
+                                action = it,
+                            )
+                        }
+                        .collect { viewModel.accept(it) }
                 }
 
                 launch {
                     binding.menuFilterLimitedByServer.filterActionFlow()
-                        .collect { viewModel.setNotificationAccountFilterLimitedByServer(it) }
+                        .map {
+                            InfallibleUiAction.SetAccountFilter(
+                                pachliAccountId,
+                                reason = AccountFilterReason.LIMITED_BY_SERVER,
+                                action = it,
+                            )
+                        }
+                        .collect { viewModel.accept(it) }
                 }
             }
         }
@@ -203,16 +234,6 @@ class AccountNotificationFiltersPreferencesDialogFragment : DialogFragment(R.lay
     }
 
     companion object {
-        private const val ARG_PACHLI_ACCOUNT_ID = "app.pachli.ARG_PACHLI_ACCOUNT_ID"
-
-        fun newInstance(
-            pachliAccountId: Long,
-        ): AccountNotificationFiltersPreferencesDialogFragment {
-            val fragment = AccountNotificationFiltersPreferencesDialogFragment()
-            fragment.arguments = Bundle(1).apply {
-                putLong(ARG_PACHLI_ACCOUNT_ID, pachliAccountId)
-            }
-            return fragment
-        }
+        protected const val ARG_PACHLI_ACCOUNT_ID = "app.pachli.ARG_PACHLI_ACCOUNT_ID"
     }
 }
