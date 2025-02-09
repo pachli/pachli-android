@@ -61,7 +61,7 @@ class NetworkTimelineViewModel @Inject constructor(
     accountManager: AccountManager,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     sharedPreferencesRepository: SharedPreferencesRepository,
-    statusRepository: StatusRepository
+    statusRepository: StatusRepository,
 ) : TimelineViewModel<Status>(
     savedStateHandle,
     timelineCases,
@@ -70,7 +70,7 @@ class NetworkTimelineViewModel @Inject constructor(
     repository,
     statusDisplayOptionsRepository,
     sharedPreferencesRepository,
-    statusRepository
+    statusRepository,
 ) {
     private val modifiedViewData = mutableMapOf<String, StatusViewData>()
 

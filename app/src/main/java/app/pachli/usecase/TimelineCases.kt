@@ -19,14 +19,11 @@ package app.pachli.usecase
 import app.pachli.components.timeline.CachedTimelineRepository
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.eventhub.BlockEvent
-import app.pachli.core.eventhub.BookmarkEvent
 import app.pachli.core.eventhub.EventHub
-import app.pachli.core.eventhub.FavoriteEvent
 import app.pachli.core.eventhub.MuteConversationEvent
 import app.pachli.core.eventhub.MuteEvent
 import app.pachli.core.eventhub.PinEvent
 import app.pachli.core.eventhub.PollVoteEvent
-import app.pachli.core.eventhub.ReblogEvent
 import app.pachli.core.eventhub.StatusDeletedEvent
 import app.pachli.core.network.model.DeletedStatus
 import app.pachli.core.network.model.Poll

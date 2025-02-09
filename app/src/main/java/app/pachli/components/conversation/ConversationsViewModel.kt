@@ -24,15 +24,12 @@ import androidx.paging.map
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.StatusRepository
-import app.pachli.core.database.Converters
 import app.pachli.core.database.dao.ConversationsDao
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.usecase.TimelineCases
-import com.github.michaelbull.result.onFailure
-import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlin.properties.Delegates
@@ -54,15 +51,12 @@ class ConversationsViewModel @Inject constructor(
     private val timelineCases: TimelineCases,
     private val repository: ConversationsRepository,
     private val conversationsDao: ConversationsDao,
-    private val converters: Converters,
     private val accountManager: AccountManager,
     private val api: MastodonApi,
     sharedPreferencesRepository: SharedPreferencesRepository,
     private val statusRepository: StatusRepository,
 ) : ViewModel() {
     // TODO: AssistedInject this
-    var pachliAccountId by Delegates.notNull<Long>()
-
     var pachliAccountId by Delegates.notNull<Long>()
 
     @OptIn(ExperimentalPagingApi::class)

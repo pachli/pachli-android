@@ -63,7 +63,7 @@ class CachedTimelineViewModel @Inject constructor(
     accountManager: AccountManager,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     sharedPreferencesRepository: SharedPreferencesRepository,
-    statusRepository: StatusRepository
+    statusRepository: StatusRepository,
 ) : TimelineViewModel<TimelineStatusWithAccount>(
     savedStateHandle,
     timelineCases,
@@ -72,7 +72,7 @@ class CachedTimelineViewModel @Inject constructor(
     repository,
     statusDisplayOptionsRepository,
     sharedPreferencesRepository,
-    statusRepository
+    statusRepository,
 ) {
     val initialRefreshKey = accountFlow.flatMapLatest {
         flow { emit(repository.getRefreshKey(it.data!!.id)) }
