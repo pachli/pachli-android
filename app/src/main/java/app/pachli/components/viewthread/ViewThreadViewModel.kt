@@ -23,6 +23,7 @@ import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
+import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.TranslatedStatusEntity
@@ -74,6 +75,7 @@ class ViewThreadViewModel @Inject constructor(
     private val timelineDao: TimelineDao,
     private val repository: CachedTimelineRepository,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
+    private val statusRepository: StatusRepository,
 ) : ViewModel() {
     private val _uiState: MutableStateFlow<ThreadUiState> = MutableStateFlow(ThreadUiState.Loading)
     val uiState: Flow<ThreadUiState>
@@ -273,19 +275,19 @@ class ViewThreadViewModel @Inject constructor(
     }
 
     fun reblog(reblog: Boolean, status: StatusViewData) = viewModelScope.launch {
-        timelineCases.reblog(status.actionableId, reblog).onFailure {
+        statusRepository.reblog(status.pachliAccountId, status.actionableId, reblog).onFailure {
             Timber.d("Failed to reblog status: %s: %s", status.actionableId, it)
         }
     }
 
     fun favorite(favorite: Boolean, status: StatusViewData) = viewModelScope.launch {
-        timelineCases.favourite(status.actionableId, favorite).onFailure {
+        statusRepository.favourite(status.pachliAccountId, status.actionableId, favorite).onFailure {
             Timber.d("Failed to favourite status: %s: %s", status.actionableId, it)
         }
     }
 
     fun bookmark(bookmark: Boolean, status: StatusViewData) = viewModelScope.launch {
-        timelineCases.bookmark(status.actionableId, bookmark).onFailure {
+        statusRepository.bookmark(status.pachliAccountId, status.actionableId, bookmark).onFailure {
             Timber.d("Failed to bookmark status: %s: %s", status.actionableId, it)
         }
     }

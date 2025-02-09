@@ -45,37 +45,6 @@ class TimelineCases @Inject constructor(
     private val eventHub: EventHub,
     private val cachedTimelineRepository: CachedTimelineRepository,
 ) {
-
-    suspend fun reblog(statusId: String, reblog: Boolean): ApiResult<Status> {
-        return if (reblog) {
-            mastodonApi.reblogStatus(statusId)
-        } else {
-            mastodonApi.unreblogStatus(statusId)
-        }.onSuccess {
-            eventHub.dispatch(ReblogEvent(statusId, reblog))
-        }
-    }
-
-    suspend fun favourite(statusId: String, favourite: Boolean): ApiResult<Status> {
-        return if (favourite) {
-            mastodonApi.favouriteStatus(statusId)
-        } else {
-            mastodonApi.unfavouriteStatus(statusId)
-        }.onSuccess {
-            eventHub.dispatch(FavoriteEvent(statusId, favourite))
-        }
-    }
-
-    suspend fun bookmark(statusId: String, bookmark: Boolean): ApiResult<Status> {
-        return if (bookmark) {
-            mastodonApi.bookmarkStatus(statusId)
-        } else {
-            mastodonApi.unbookmarkStatus(statusId)
-        }.onSuccess {
-            eventHub.dispatch(BookmarkEvent(statusId, bookmark))
-        }
-    }
-
     suspend fun muteConversation(statusId: String, mute: Boolean): ApiResult<Status> {
         return if (mute) {
             mastodonApi.muteConversation(statusId)

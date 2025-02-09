@@ -37,6 +37,7 @@ import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.ServerRepository
+import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_BY_DATE
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_FROM
@@ -83,6 +84,7 @@ class SearchViewModel @Inject constructor(
     private val mastodonApi: MastodonApi,
     private val timelineCases: TimelineCases,
     private val accountManager: AccountManager,
+    private val statusRepository: StatusRepository,
     serverRepository: ServerRepository,
 ) : ViewModel() {
 
@@ -274,7 +276,7 @@ class SearchViewModel @Inject constructor(
 
     fun reblog(statusViewData: StatusViewData, reblog: Boolean) {
         viewModelScope.launch {
-            timelineCases.reblog(statusViewData.id, reblog)
+            statusRepository.reblog(statusViewData.pachliAccountId, statusViewData.id, reblog)
                 .onSuccess {
                     updateStatus(
                         statusViewData.status.copy(
@@ -307,14 +309,14 @@ class SearchViewModel @Inject constructor(
     fun favorite(statusViewData: StatusViewData, isFavorited: Boolean) {
         updateStatus(statusViewData.status.copy(favourited = isFavorited))
         viewModelScope.launch {
-            timelineCases.favourite(statusViewData.id, isFavorited)
+            statusRepository.favourite(statusViewData.pachliAccountId, statusViewData.id, isFavorited)
         }
     }
 
     fun bookmark(statusViewData: StatusViewData, isBookmarked: Boolean) {
         updateStatus(statusViewData.status.copy(bookmarked = isBookmarked))
         viewModelScope.launch {
-            timelineCases.bookmark(statusViewData.id, isBookmarked)
+            statusRepository.bookmark(statusViewData.pachliAccountId, statusViewData.id, isBookmarked)
         }
     }
 
