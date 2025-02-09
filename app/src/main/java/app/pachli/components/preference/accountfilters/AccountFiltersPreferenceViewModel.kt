@@ -19,7 +19,6 @@ package app.pachli.components.preference.accountfilters
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.pachli.components.preference.accountfilters.AccountFilterTimeline.CONVERSATIONS
 import app.pachli.components.preference.accountfilters.AccountFilterTimeline.NOTIFICATIONS
 import app.pachli.components.preference.accountfilters.InfallibleUiAction.SetAccountFilter
 import app.pachli.core.common.extensions.throttleFirst
