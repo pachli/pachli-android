@@ -20,6 +20,7 @@ import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.model.ConversationAccountEntity
 import app.pachli.core.database.model.ConversationEntity
+import app.pachli.core.model.AccountFilterDecision
 
 /**
  * Data necessary to show a conversation.
@@ -33,6 +34,7 @@ data class ConversationViewData(
     val accounts: List<ConversationAccountEntity>,
     val unread: Boolean,
     val lastStatus: StatusViewData,
+    val accountFilterDecision: AccountFilterDecision? = null,
 ) : IStatusViewData by lastStatus {
     companion object {
         fun from(pachliAccountId: Long, conversationEntity: ConversationEntity) = ConversationViewData(

@@ -42,6 +42,7 @@ import kotlinx.coroutines.launch
 
 /** The timeline these account filters will be applied to. */
 enum class AccountFilterTimeline {
+    CONVERSATIONS,
     NOTIFICATIONS,
 }
 
@@ -80,6 +81,11 @@ class AccountFiltersPreferenceViewModel @AssistedInject constructor(
         .filterNotNull()
         .map {
             when (accountFilterTimeline) {
+                CONVERSATIONS -> UiState(
+                    filterNotFollowing = it.entity.conversationAccountFilterNotFollowed,
+                    filterYounger30d = it.entity.conversationAccountFilterYounger30d,
+                    filterLimitedByServer = it.entity.conversationAccountFilterLimitedByServer,
+                )
                 NOTIFICATIONS -> UiState(
                     filterNotFollowing = it.entity.notificationAccountFilterNotFollowed,
                     filterYounger30d = it.entity.notificationAccountFilterYounger30d,
@@ -106,7 +112,19 @@ class AccountFiltersPreferenceViewModel @AssistedInject constructor(
 
     private suspend fun onApplyFilter(action: SetAccountFilter) {
         when (accountFilterTimeline) {
+            CONVERSATIONS -> onApplyConversationFilter(action)
             NOTIFICATIONS -> onApplyNotificationFilter(action)
+        }
+    }
+
+    private suspend fun onApplyConversationFilter(action: SetAccountFilter) {
+        when (action.reason) {
+            AccountFilterReason.NOT_FOLLOWING ->
+                accountManager.setConversationAccountFilterNotFollowed(pachliAccountId, action.action)
+            AccountFilterReason.YOUNGER_30D ->
+                accountManager.setConversationAccountFilterYounger30d(pachliAccountId, action.action)
+            AccountFilterReason.LIMITED_BY_SERVER ->
+                accountManager.setConversationAccountFilterLimitedByServer(pachliAccountId, action.action)
         }
     }
 
