@@ -27,6 +27,7 @@ import app.pachli.components.timeline.CachedTimelineRepository
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
+import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.eventhub.BookmarkEvent
@@ -62,6 +63,7 @@ class CachedTimelineViewModel @Inject constructor(
     accountManager: AccountManager,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     sharedPreferencesRepository: SharedPreferencesRepository,
+    statusRepository: StatusRepository,
 ) : TimelineViewModel<TimelineStatusWithAccount>(
     savedStateHandle,
     timelineCases,
@@ -70,6 +72,7 @@ class CachedTimelineViewModel @Inject constructor(
     repository,
     statusDisplayOptionsRepository,
     sharedPreferencesRepository,
+    statusRepository,
 ) {
     val initialRefreshKey = accountFlow.flatMapLatest {
         flow { emit(repository.getRefreshKey(it.data!!.id)) }

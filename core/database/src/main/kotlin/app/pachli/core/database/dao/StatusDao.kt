@@ -40,6 +40,15 @@ abstract class StatusDao {
 
     @Query(
         """
+SELECT *
+FROM StatusEntity
+WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId)
+        """,
+    )
+    abstract suspend fun getStatus(pachliAccountId: Long, statusId: String): StatusEntity?
+
+    @Query(
+        """
 UPDATE StatusEntity
 SET
     favourited = :favourited

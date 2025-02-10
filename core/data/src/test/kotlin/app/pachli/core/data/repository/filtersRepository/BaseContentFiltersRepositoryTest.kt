@@ -22,6 +22,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.HiltTestApplication_Application
 import app.pachli.core.data.repository.OfflineFirstContentFiltersRepository
+import app.pachli.core.data.repository.PachliHiltApplication
 import app.pachli.core.data.source.ContentFiltersLocalDataSource
 import app.pachli.core.data.source.ContentFiltersRemoteDataSource
 import app.pachli.core.database.AppDatabase

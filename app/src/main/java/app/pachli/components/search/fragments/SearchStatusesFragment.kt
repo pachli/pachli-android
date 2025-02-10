@@ -329,7 +329,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                     return@setOnMenuItemClickListener true
                 }
                 R.id.pin -> {
-                    viewModel.pinStatus(status, !status.isPinned())
+                    viewModel.pinStatus(statusViewData, !status.isPinned())
                     return@setOnMenuItemClickListener true
                 }
             }
