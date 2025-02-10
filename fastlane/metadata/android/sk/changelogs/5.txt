@@ -1,0 +1,5 @@
+Pachli 1.2.2
+
+Nové funkcie:
+
+-  Zapracovanie zásady ochrany osobných údajov priamo do aplikácie
