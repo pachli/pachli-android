@@ -139,7 +139,7 @@ class ConversationsViewModel @Inject constructor(
         viewModelScope.launch {
             statusRepository.voteInPoll(pachliAccountId, lastStatusId, pollId, choices)
                 .onSuccess {
-                    conversationsDao.setVoted(
+                    conversationsDao.setPoll(
                         pachliAccountId,
                         lastStatusId,
                         converters.pollToJson(it)!!,
