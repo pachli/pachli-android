@@ -1,0 +1,19 @@
+Pachli 1.3.0
+
+Nové funkcie:
+
+-  Pridaná možnosť skryť vlastné zdieľania
+-  Zobrazenie celého mena a používateľského mena v profile
+-  Vylepšené zobrazenie "nejasných" odkazov 
+-  Úprava správania pri prehrávaní videa 
+
+Opravy:
+
+-  Zobrazenie správy o prázdnej časovej osi
+-  Použitie Pachli modrej a oranžovej pre ikony notifikácií
+-  Zobrazenie médií pri obnovení fragmentu ViewMediaFragment 
+-  Zobrazenie indikátorov vlákien a ďalších oddeľovačov s použitím farieb Material Designu
+
+Preklady:
+
+-  Aktualizované preklady do poľského a japonského jazyka
