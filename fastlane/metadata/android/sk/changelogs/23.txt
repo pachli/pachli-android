@@ -14,4 +14,4 @@ Opravy:
 - Zobrazenie ankiet pri úprave naplánovaných príspevkov
 - Pád aplikácie pri konverzáciách bez účastníkov
 
-- Aktualizované preklady barmštiny, fínčiny, litovčiny, španielčiny, ukrajinčiny
+- Aktualizované preklady do barmštiny, fínčiny, litovčiny, španielčiny, ukrajinčiny
