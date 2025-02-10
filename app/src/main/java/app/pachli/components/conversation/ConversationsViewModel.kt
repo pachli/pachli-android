@@ -134,7 +134,7 @@ class ConversationsViewModel @Inject constructor(
             timelineCases.voteInPoll(lastStatusId, pollId, choices)
                 .onSuccess {
                     val poll = it.body
-                    conversationsDao.setVoted(
+                    conversationsDao.setPoll(
                         accountManager.activeAccount!!.id,
                         lastStatusId,
                         converters.pollToJson(poll)!!,

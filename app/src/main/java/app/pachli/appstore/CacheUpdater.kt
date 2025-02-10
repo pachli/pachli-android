@@ -42,7 +42,7 @@ class CacheUpdater @Inject constructor(
                     is StatusDeletedEvent ->
                         statusDao.delete(accountId, event.statusId)
                     is PollVoteEvent -> {
-                        statusDao.setVoted(accountId, event.statusId, event.poll)
+                        statusDao.setPoll(accountId, event.statusId, event.poll)
                     }
                     is PinEvent ->
                         statusDao.setPinned(accountId, event.statusId, event.pinned)
