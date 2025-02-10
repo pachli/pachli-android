@@ -7,7 +7,7 @@ Nové funkcie:
 - Zobraz položky "Oznámenia", "Sledované hashtagy" a "Zoznamy" v ľavej navigácii
 - Automaticky skryť panel nástrojov prehliadača obrázkov
 
-Fixes:
+Opravy:
 
 - Vylepšené rozpoznávanie odkazov pri písaní príspevku
 - Aktualizácia panelov po premenovaní alebo vymazaní zoznamov

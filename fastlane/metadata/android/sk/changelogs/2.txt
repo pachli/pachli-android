@@ -1,0 +1,11 @@
+Pachli 1.1
+
+Opravy:
+
+-  Správne zobrazenie farby kontrastu na paneloch s hashtagmi 
+-  Prispôsobenie veľkosti monochromatickej ikony
+-  Obnovenie pozície používateľa na domovskej časovej osi
+-  Oprava, aby pri obnovovaní nedochádzalo k medzere v časovej osi 
+-  Zobrazenie FAB podľa preferencií používateľa
+-  Oprava blikania panela s nástrojmi pri posúvaní zoznamov
+-  Oprava pádu pri vstupe do MainActivity na zariadeniach Pixel C
