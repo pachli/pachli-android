@@ -324,7 +324,7 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    fun pinAccount(status: Status, isPin: Boolean) {
+    fun pinStatus(status: Status, isPin: Boolean) {
         viewModelScope.launch {
             timelineCases.pin(status.id, isPin)
         }
