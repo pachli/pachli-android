@@ -783,7 +783,7 @@
     <string name="pref_title_account_notification_filters">Filtre upozornení</string>
     <string name="pref_account_notification_filters_subtitle">Čo sa má stať s upozorneniami z účtov…</string>
     <string name="account_filter_placeholder_type_follow_fmt">Účet @<b>%1s</b> ťa začal sledovať</string>
-    <string name="pref_account_notification_filters_label_limited_by_server">... ktoré boli obmedzené tvojimi moderátormi</string>
+    <string name="pref_account_notification_filters_label_limited_by_server">… ktoré boli obmedzené tvojimi moderátormi</string>
     <string name="account_filter_placeholder_type_follow_request_fmt">Žiadosť o sledovanie z účtu @<b>%1s</b></string>
     <string name="account_filter_placeholder_label_younger_30d">Filtrované, pretože: <b>vytvorené za posledných 30 dní</b></string>
     <string name="account_filter_placeholder_label_domain">Z účtu @<b>%1s</b></string>
@@ -793,7 +793,7 @@
     <string name="notification_severed_relationships_description">Upozornenia na prerušené spojenia</string>
     <string name="action_relogin">Znova sa prihlásiť</string>
     <string name="ui_error_reload_reply_fmt">Nepodarilo sa načítať príspevok: %1$s</string>
-    <string name="pref_account_notification_filters_label_not_followed">... ktoré nesleduješ</string>
-    <string name="pref_account_notification_filters_label_younger_30d">... ktoré boli vytvorené za posledných 30 dní</string>
+    <string name="pref_account_notification_filters_label_not_followed">… ktoré nesleduješ</string>
+    <string name="pref_account_notification_filters_label_younger_30d">… ktoré boli vytvorené za posledných 30 dní</string>
     <string name="account_filter_placeholder_type_mention_fmt">Účet @<b>%1s</b> ťa zmienil</string>
 </resources>
