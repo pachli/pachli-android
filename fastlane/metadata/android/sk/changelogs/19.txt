@@ -2,4 +2,4 @@ Pachli 2.7.1
 
 Opravy:
 
-- Správne umiestnenie náhľad obrázkov karty, popis karty
+- Správne umiestnenie obrázkov náhľadov kariet, popis karty
