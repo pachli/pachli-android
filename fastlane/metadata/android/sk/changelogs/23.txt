@@ -1,5 +1,17 @@
 Pachli 2.8.3
 
+Nové funkcie:
+
+- Zobrazenie ponuky zdieľania po dlhom stlačení odkazov a pod
+- Zobrazenie tlačidla "Kopírovať" pre odkazy a pod. v dialógových oknách prístupnosti 
+- Pridanie možností prístupnosti pre záložky 
+- Zobrazenie času naplánovaného príspevku
+- Pridanie možnosti "Viac sa nepýtať" pri potvrdzovaní jazyka príspevku 
+
 Opravy:
 
-- Správne umiestnenie náhľad obrázkov karty, popis karty
+- Vypnutá podpora "Naplánovaných príspevkov" pre GoToSocial
+- Zobrazenie ankiet pri úprave naplánovaných príspevkov
+- Pád aplikácie pri konverzáciách bez účastníkov
+
+- Aktualizované preklady barmštiny, fínčiny, litovčiny, španielčiny, ukrajinčiny

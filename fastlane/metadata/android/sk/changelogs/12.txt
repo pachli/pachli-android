@@ -12,4 +12,4 @@ Opravy:
 - Nechaj obrazovku zapnutú počas prehrávania médií
 - Zlepši prehľadnosť popisov štatistík
 - Pri písaní príspevku z notifikácie zobrazuj správny účet/časovú os
-- Aktualizované preklady arabčiny, holandčiny, fínštiny, francúzštiny, indonézštiny, španielčiny a švédčiny
+- Aktualizované preklady do arabčiny, holandčiny, fínštiny, francúzštiny, indonézštiny, španielčiny a švédčiny

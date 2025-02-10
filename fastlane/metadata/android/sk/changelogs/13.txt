@@ -13,4 +13,4 @@ Fixes:
 - Aktualizácia panelov po premenovaní alebo vymazaní zoznamov
 - Zaistenie kompletného odhlásenia z účtov
 - Kontrola, či sú súbory pred zdieľaním úplne stiahnuté
-- Aktulizácia prekladov fínštiny, kabylčiny a španielčiny
+- Aktulizácia prekladov do fínštiny, kabylčiny a španielčiny

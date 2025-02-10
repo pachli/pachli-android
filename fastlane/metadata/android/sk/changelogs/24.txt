@@ -2,14 +2,14 @@ Pachli 2.9.0
 
 Nové funkcie:
 
-- Presunutie karty a obsah predfs z labs
-- Počiatočná podpora pre filtrovanie notifikácie odoslaním účtu
-- Podpora Pleroma vracia dátumy bez časového pásma
-- Zobraziť ďalšie a11y akcie pre trendy odkazy a navrhol účty
+- Presun nastavení zarovnania záložiek a obsahu z experimentálnych funkcií
+- Úvodná podpora pre filtrovanie notifikácií podľa odosielajúceho účtu
+- Podpora pre Pleromu, ktorá vracia dátumy bez časovej zóny
+- Zobrazenie dodatočných akcií pre uľahčenie prístupnosti pre populárne odkazy a navrhované účty
 
 Opravy:
 
-- Uistite sa, že položky v a11y dialógy sú klikovateľné
-- Nestrácajte obrázky / titulky po neúspešných nahrávok
-- Fix skrutkované pády
-- Aktualizovať fínske, írske, nórsky (Bokmål, Nynorsk), a španielske preklady
+- Opravená interakcia s prvkami v dialógových oknách pre uľahčenie prístupu
+- Obrázky a popisky sa už nestratia po neúspešnom nahrávaní
+- Opravené rôzne pády 
+- Aktualizované preklady do fínštiny, írčiny, nórčiny (Bokmål a Nynorsk) a španielčiny
