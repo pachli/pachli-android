@@ -273,19 +273,35 @@ class ViewThreadViewModel @Inject constructor(
     }
 
     fun reblog(reblog: Boolean, status: StatusViewData) = viewModelScope.launch {
+        updateStatus(status.id) {
+            it.copy(
+                reblogged = reblog,
+                reblog = it.reblog?.copy(reblogged = reblog),
+            )
+        }
         timelineCases.reblog(status.actionableId, reblog).onFailure {
+            updateStatus(status.id) { it }
             Timber.d("Failed to reblog status: %s: %s", status.actionableId, it)
         }
     }
 
     fun favorite(favorite: Boolean, status: StatusViewData) = viewModelScope.launch {
+        updateStatus(status.id) {
+            it.copy(
+                favourited = favorite,
+                favouritesCount = it.favouritesCount + 1,
+            )
+        }
         timelineCases.favourite(status.actionableId, favorite).onFailure {
+            updateStatus(status.id) { it }
             Timber.d("Failed to favourite status: %s: %s", status.actionableId, it)
         }
     }
 
     fun bookmark(bookmark: Boolean, status: StatusViewData) = viewModelScope.launch {
+        updateStatus(status.id) { it.copy(bookmarked = bookmark) }
         timelineCases.bookmark(status.actionableId, bookmark).onFailure {
+            updateStatus(status.id) { it }
             Timber.d("Failed to bookmark status: %s: %s", status.actionableId, it)
         }
     }
@@ -297,6 +313,7 @@ class ViewThreadViewModel @Inject constructor(
         }
 
         timelineCases.voteInPoll(status.actionableId, poll.id, choices).onFailure {
+            updateStatus(status.id) { it }
             Timber.d("Failed to vote in poll: %s: %s", status.actionableId, it)
         }
     }
