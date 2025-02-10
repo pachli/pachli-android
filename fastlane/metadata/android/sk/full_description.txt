@@ -1,0 +1,11 @@
+Pachli je plnohodnotný klient pre Mastodon a podobné servery.
+
+• Čítaj, odpovedaj, filtruj, uverejňuj, zaraďuj medzi obľúbené a zdieľaj príspevky
+• Prekladaj príspevky z iných jazykov
+• Tvoja časová os je uložená lokálne, takže si ju môžeš prezerať aj offline
+• Rozpíš si koncepty príspevkov teraz a dokonči ich neskôr
+• Napíš príspevky teraz a naplánuj ich neskoršie uverejnenie
+• Čítaj a prispievaj z viacerých účtov
+• Viacero tém
+• Zamerané na zabezpečenie dostupnosti všetkých funkcií pre ľudí s postihnutím
+• Open source, https://github.com/pachli
