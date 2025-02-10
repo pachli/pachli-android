@@ -44,6 +44,7 @@ import app.pachli.core.activity.openLink
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.ServerRepository
+import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.domain.DownloadUrlUseCase
@@ -81,6 +82,9 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
 
     @Inject
     lateinit var accountManager: AccountManager
+
+    @Inject
+    lateinit var statusRepository: StatusRepository
 
     @Inject
     lateinit var timelineCases: TimelineCases
@@ -338,7 +342,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                 }
                 R.id.pin -> {
                     lifecycleScope.launch {
-                        timelineCases.pin(status.id, !status.isPinned()).onFailure { e ->
+                        statusRepository.pin(pachliAccountId, status.id, !status.isPinned()).onFailure { e ->
                             val message = e.fmt(requireContext())
                             Snackbar.make(requireView(), message, Snackbar.LENGTH_LONG).show()
                         }

@@ -17,7 +17,6 @@
 
 package app.pachli.core.data.repository
 
-import android.app.Application
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.cash.turbine.test
 import app.pachli.core.data.model.InstanceInfo.Companion.DEFAULT_CHARACTER_LIMIT
@@ -34,7 +33,6 @@ import app.pachli.core.testing.rules.MainCoroutineRule
 import app.pachli.core.testing.success
 import com.github.michaelbull.result.andThen
 import com.github.michaelbull.result.onSuccess
-import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import java.time.Instant
@@ -56,11 +54,6 @@ import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.reset
 import org.mockito.kotlin.stub
 import org.robolectric.annotation.Config
-
-open class PachliHiltApplication : Application()
-
-@CustomTestApplication(PachliHiltApplication::class)
-interface HiltTestApplication
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltAndroidTest

@@ -32,6 +32,7 @@ import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
+import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.eventhub.BlockEvent
 import app.pachli.core.eventhub.BookmarkEvent
@@ -285,6 +286,7 @@ abstract class TimelineViewModel<T : Any>(
     private val repository: TimelineRepository<T>,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
+    private val statusRepository: StatusRepository,
 ) : ViewModel() {
     val uiState: StateFlow<UiState>
 
@@ -345,25 +347,29 @@ abstract class TimelineViewModel<T : Any>(
                 .collect { action ->
                     val result = when (action) {
                         is StatusAction.Bookmark ->
-                            timelineCases.bookmark(
+                            statusRepository.bookmark(
+                                action.statusViewData.pachliAccountId,
                                 action.statusViewData.actionableId,
                                 action.state,
                             )
 
                         is StatusAction.Favourite ->
-                            timelineCases.favourite(
+                            statusRepository.favourite(
+                                action.statusViewData.pachliAccountId,
                                 action.statusViewData.actionableId,
                                 action.state,
                             )
 
                         is StatusAction.Reblog ->
-                            timelineCases.reblog(
+                            statusRepository.reblog(
+                                action.statusViewData.pachliAccountId,
                                 action.statusViewData.actionableId,
                                 action.state,
                             )
 
                         is StatusAction.VoteInPoll ->
-                            timelineCases.voteInPoll(
+                            statusRepository.voteInPoll(
+                                action.statusViewData.pachliAccountId,
                                 action.statusViewData.actionableId,
                                 action.poll.id,
                                 action.choices,

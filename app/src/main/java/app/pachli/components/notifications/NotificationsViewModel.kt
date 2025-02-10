@@ -31,6 +31,7 @@ import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
+import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.data.repository.notifications.NotificationsRepository
 import app.pachli.core.data.repository.notifications.from
 import app.pachli.core.database.model.AccountEntity
@@ -367,6 +368,7 @@ class NotificationsViewModel @AssistedInject constructor(
     private val eventHub: EventHub,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
+    private val statusRepository: StatusRepository,
     @Assisted val pachliAccountId: Long,
 ) : ViewModel() {
     private val accountFlow = accountManager.getPachliAccountFlow(pachliAccountId)
@@ -478,25 +480,25 @@ class NotificationsViewModel @AssistedInject constructor(
                 .throttleFirst() // avoid double-taps
                 .collect { action ->
                     val result = when (action) {
-                        is StatusAction.Bookmark -> repository.bookmark(
+                        is StatusAction.Bookmark -> statusRepository.bookmark(
                             pachliAccountId,
                             action.statusViewData.actionableId,
                             action.state,
                         )
 
-                        is StatusAction.Favourite -> repository.favourite(
+                        is StatusAction.Favourite -> statusRepository.favourite(
                             pachliAccountId,
                             action.statusViewData.actionableId,
                             action.state,
                         )
 
-                        is StatusAction.Reblog -> repository.reblog(
+                        is StatusAction.Reblog -> statusRepository.reblog(
                             pachliAccountId,
                             action.statusViewData.actionableId,
                             action.state,
                         )
 
-                        is StatusAction.VoteInPoll -> repository.voteInPoll(
+                        is StatusAction.VoteInPoll -> statusRepository.voteInPoll(
                             pachliAccountId,
                             action.statusViewData.actionableId,
                             action.poll.id,

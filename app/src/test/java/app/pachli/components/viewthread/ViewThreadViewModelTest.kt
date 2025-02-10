@@ -9,6 +9,7 @@ import app.pachli.components.timeline.mockStatus
 import app.pachli.components.timeline.mockStatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
+import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.eventhub.BookmarkEvent
 import app.pachli.core.eventhub.EventHub
@@ -92,6 +93,9 @@ class ViewThreadViewModelTest {
     @Inject
     lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
 
+    @Inject
+    lateinit var statusRepository: StatusRepository
+
     private lateinit var viewModel: ViewThreadViewModel
 
     private val threadId = "1234"
@@ -163,6 +167,7 @@ class ViewThreadViewModelTest {
             timelineDao,
             cachedTimelineRepository,
             statusDisplayOptionsRepository,
+            statusRepository,
         )
     }
 
