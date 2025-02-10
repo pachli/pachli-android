@@ -278,7 +278,7 @@ class SearchViewModel @Inject constructor(
                 statusViewData.status.copy(
                     reblogged = reblog,
                     reblog = statusViewData.status.reblog?.copy(
-                        reblogged = reblog
+                        reblogged = reblog,
                     ),
                 ),
             )
