@@ -137,15 +137,14 @@ class ConversationsViewModel @Inject constructor(
      */
     fun voteInPoll(choices: List<Int>, lastStatusId: String, pollId: String) {
         viewModelScope.launch {
-            timelineCases.voteInPoll(lastStatusId, pollId, choices)
+            statusRepository.voteInPoll(pachliAccountId, lastStatusId, pollId, choices)
                 .onSuccess {
-                    val poll = it.body
                     conversationsDao.setVoted(
-                        accountManager.activeAccount!!.id,
+                        pachliAccountId,
                         lastStatusId,
-                        converters.pollToJson(poll)!!,
+                        converters.pollToJson(it)!!,
                     )
-                }.onFailure { Timber.w("failed to vote in poll: %s", it) }
+                }
         }
     }
 

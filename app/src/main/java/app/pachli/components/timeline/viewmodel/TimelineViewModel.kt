@@ -368,7 +368,8 @@ abstract class TimelineViewModel<T : Any>(
                             )
 
                         is StatusAction.VoteInPoll ->
-                            timelineCases.voteInPoll(
+                            statusRepository.voteInPoll(
+                                action.statusViewData.pachliAccountId,
                                 action.statusViewData.actionableId,
                                 action.poll.id,
                                 action.choices,

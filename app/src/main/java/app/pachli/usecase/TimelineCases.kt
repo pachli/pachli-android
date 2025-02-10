@@ -19,17 +19,11 @@ package app.pachli.usecase
 import app.pachli.components.timeline.CachedTimelineRepository
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.eventhub.BlockEvent
-import app.pachli.core.eventhub.BookmarkEvent
 import app.pachli.core.eventhub.EventHub
-import app.pachli.core.eventhub.FavoriteEvent
 import app.pachli.core.eventhub.MuteConversationEvent
 import app.pachli.core.eventhub.MuteEvent
-import app.pachli.core.eventhub.PinEvent
-import app.pachli.core.eventhub.PollVoteEvent
-import app.pachli.core.eventhub.ReblogEvent
 import app.pachli.core.eventhub.StatusDeletedEvent
 import app.pachli.core.network.model.DeletedStatus
-import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Relationship
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.Translation
@@ -64,10 +58,10 @@ class TimelineCases @Inject constructor(
         }
     }
 
-    suspend fun block(statusId: String) {
+    suspend fun block(accountId: String) {
         try {
-            mastodonApi.blockAccount(statusId)
-            eventHub.dispatch(BlockEvent(statusId))
+            mastodonApi.blockAccount(accountId)
+            eventHub.dispatch(BlockEvent(accountId))
         } catch (t: Throwable) {
             Timber.w(t, "Failed to block account")
         }
@@ -77,22 +71,6 @@ class TimelineCases @Inject constructor(
         return mastodonApi.deleteStatus(statusId)
             .onSuccess { eventHub.dispatch(StatusDeletedEvent(statusId)) }
             .onFailure { Timber.w("Failed to delete status: %s", it) }
-    }
-
-    suspend fun pin(statusId: String, pin: Boolean): ApiResult<Status> {
-        return if (pin) {
-            mastodonApi.pinStatus(statusId)
-        } else {
-            mastodonApi.unpinStatus(statusId)
-        }.onSuccess {
-            eventHub.dispatch(PinEvent(statusId, pin))
-        }
-    }
-
-    suspend fun voteInPoll(statusId: String, pollId: String, choices: List<Int>): ApiResult<Poll> {
-        return mastodonApi.voteInPoll(pollId, choices).onSuccess {
-            eventHub.dispatch(PollVoteEvent(statusId, it.body))
-        }
     }
 
     suspend fun acceptFollowRequest(accountId: String): ApiResult<Relationship> {

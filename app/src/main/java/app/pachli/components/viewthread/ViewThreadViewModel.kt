@@ -298,9 +298,11 @@ class ViewThreadViewModel @Inject constructor(
             status.copy(poll = votedPoll)
         }
 
-        timelineCases.voteInPoll(status.actionableId, poll.id, choices).onFailure {
-            Timber.d("Failed to vote in poll: %s: %s", status.actionableId, it)
-        }
+        statusRepository.voteInPoll(status.pachliAccountId, status.actionableId, poll.id, choices)
+            .onFailure {
+                Timber.d("Failed to vote in poll: %s: %s", status.actionableId, it)
+                updateStatus(status.id) { it.copy(poll = poll) }
+            }
     }
 
     fun removeStatus(statusToRemove: StatusViewData) {

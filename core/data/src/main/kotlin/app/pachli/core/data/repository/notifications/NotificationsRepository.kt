@@ -36,7 +36,6 @@ import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
 import app.pachli.core.database.model.StatusViewDataEntity
-import app.pachli.core.eventhub.EventHub
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
 import app.pachli.core.network.model.Notification
@@ -61,7 +60,6 @@ class NotificationsRepository @Inject constructor(
     private val notificationDao: NotificationDao,
     private val remoteKeyDao: RemoteKeyDao,
     private val statusDao: StatusDao,
-    private val eventHub: EventHub,
 ) {
     private var factory: InvalidatingPagingSourceFactory<Int, NotificationData>? = null
 
