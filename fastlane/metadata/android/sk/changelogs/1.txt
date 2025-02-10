@@ -1,0 +1,20 @@
+Nové funkcie:
+
+- Načítanie príspevkov priebežne počas posúvania
+- Populárne odkazy a príspevky
+- Viac ako 5 panelov
+- Výber z ponuky dostupných typov písma
+- Nový prehrávač médií
+- Filtre upozornení
+- "Exkluzívne" zoznamy
+- Pridaj "záložky" k panelom
+
+Opravy zahŕňajú"
+
+- Obrázky sa "nelepia" pri zväčšovaní alebo posúvaní medzi nimi
+
+Zmeny prostredia zahŕňajú:
+
+- Vizuálne vynovenie, nová farebná schéma
+- Predvolený motív z nastavenia systému Android
+- "Vymazať upozornenie" je teraz položkou menu

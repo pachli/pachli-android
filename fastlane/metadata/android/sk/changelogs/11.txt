@@ -1,0 +1,17 @@
+Pachli 2.2.0
+
+Nové funkcie:
+
+- Zakázanie funkcií filtra, ak to server nepodporuje
+
+Opravy:
+
+- Zabezpečenie, aby sa akcie vykonávali len pre správny stav
+- Zabránenie úniku MainActivity v DrawerImageLoader
+- Zobrazenie správnej hodnoty populárnych tagov na konci riadkov grafu
+- Aktualizovaný švédsky preklad
+- Aktualizovaný indonézsky preklad
+- Aktualizovaný holandský preklad 
+- Aktualizovaný portugalský preklad
+- Aktualizovaný fínsky preklad 
+- Aktualizovaný arabský preklad

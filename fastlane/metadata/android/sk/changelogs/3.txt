@@ -1,0 +1,12 @@
+Pachli 1.2
+
+Nové funkcie:
+
+-  Zobraziť zvislé posuvníky na posúvateľných zoznamoch
+
+Opravy:
+
+-  Obnovenie pozície čítania používateľa za každých okolností 
+-  Zapnutie/vypnutie tlačidla hlasovania, keď používateľ môže/nemôže hlasovať (
+-  Použitie správnej farby pre stavovú lištu
+-  Zabezpečenie viditeľnosti textu možností ankety oproti pozadiu

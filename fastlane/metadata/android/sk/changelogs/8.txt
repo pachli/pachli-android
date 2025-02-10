@@ -1,0 +1,15 @@
+Pachli 2.0.0
+
+Nové funkcie:
+
+- Preklad príspevkov na uložených časových osiach
+- Zobrazenie tlačidla "Napísať" pri prezeraní hashtagov a obľúbených príspevkov
+- Viac informácií v náhľadoch odkazov
+- Upozornenie používateľa na chybu animácie v systéme Android
+
+Opravy:
+
+- Predchádzanie chybe ClassCastException pri spracovaní chýb časovej osi
+- Aktualizácia farieb tém
+- Zabezpečenie zachovania dátových tried súvisiacich s aktualizáciou
+- Aktualizácia prekladov do nemčiny, taliančiny a japončiny

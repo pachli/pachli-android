@@ -1,0 +1,16 @@
+Pachli 2.4.0
+
+Nové funkcie:
+
+- Upozornie na prerušené spojenia
+- Zobrazovanie výsledkov hlasovania pred hlasovaním, nastaviť pravidlá odpovedania pre zoznam
+- Položky "Oznámenia", "Sledované hashtagy" a "Zoznamy" v ľavej navigácii
+- Automaticky skryť panel nástrojov prehliadača obrázkov
+
+Opravy:
+
+- Vylepšené rozpoznávanie odkazov pri písaní príspevku
+- Aktualizácia panelov po premenovaní alebo vymazaní zoznamov
+- Zaistenie kompletného odhlásenia z účtov
+- Kontrola, či sú súbory pred zdieľaním úplne stiahnuté
+- Aktulizácia prekladov do fínštiny, kabylčiny a španielčiny
