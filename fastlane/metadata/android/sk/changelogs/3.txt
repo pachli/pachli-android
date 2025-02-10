@@ -7,6 +7,6 @@ Nové funkcie:
 Opravy:
 
 -  Obnovenie pozície čítania používateľa za každých okolností 
--  Zapnutie/vypnutie tlačidla hlasovania, keď užívateľ môže/nemôže hlasovať (
+-  Zapnutie/vypnutie tlačidla hlasovania, keď používateľ môže/nemôže hlasovať (
 -  Použitie správnej farby pre stavovú lištu
 -  Zabezpečenie viditeľnosti textu možností ankety oproti pozadiu

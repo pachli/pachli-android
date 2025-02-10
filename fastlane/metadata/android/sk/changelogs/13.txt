@@ -2,9 +2,9 @@ Pachli 2.4.0
 
 Nové funkcie:
 
-- Upozorni používateľa na prerušené spojenia
-- Umožni užívateľovi zobraziť výsledky hlasovania pred hlasovaním, nastaviť pravidlá odpovedania pre zoznam
-- Zobraz položky "Oznámenia", "Sledované hashtagy" a "Zoznamy" v ľavej navigácii
+- Upozornie na prerušené spojenia
+- Zobrazovanie výsledkov hlasovania pred hlasovaním, nastaviť pravidlá odpovedania pre zoznam
+- Položky "Oznámenia", "Sledované hashtagy" a "Zoznamy" v ľavej navigácii
 - Automaticky skryť panel nástrojov prehliadača obrázkov
 
 Opravy:
