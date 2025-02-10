@@ -1,0 +1,15 @@
+Pachli 2.3.0
+
+Nové funkcie:
+
+- Zobraz neorezané médiá na stránkach médií účtu
+- Umožniť užívateľovi spustiť kontroly aktualizácií
+- Zobraziť ukážku pre prehrávateľné audio prílohy
+- Zobraziť informácie o načítaní upozornení
+
+Opravy:
+
+- Nechaj obrazovku zapnutú počas prehrávania médií
+- Zlepši prehľadnosť popisov štatistík
+- Pri písaní príspevku z notifikácie zobrazuj správny účet/časovú os
+- Aktualizované preklady arabčiny, holandčiny, fínštiny, francúzštiny, indonézštiny, španielčiny a švédčiny
