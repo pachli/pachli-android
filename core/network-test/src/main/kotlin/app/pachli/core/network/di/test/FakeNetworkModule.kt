@@ -19,6 +19,8 @@ package app.pachli.core.network.di.test
 
 import app.pachli.core.model.VersionAdapter
 import app.pachli.core.network.di.NetworkModule
+import app.pachli.core.network.json.BooleanIfNull
+import app.pachli.core.network.json.DefaultIfNull
 import app.pachli.core.network.json.Guarded
 import app.pachli.core.network.json.InstantJsonAdapter
 import app.pachli.core.network.json.LenientRfc3339DateJsonAdapter
@@ -47,6 +49,8 @@ object FakeNetworkModule {
         .add(Date::class.java, LenientRfc3339DateJsonAdapter())
         .add(Instant::class.java, InstantJsonAdapter())
         .add(Guarded.Factory())
+        .add(DefaultIfNull.Factory())
+        .add(BooleanIfNull.Factory())
         .build()
 
     @Provides
