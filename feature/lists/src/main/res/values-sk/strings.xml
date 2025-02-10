@@ -2,4 +2,7 @@
 <resources>
     <string name="title_lists">Zoznamy</string>
     <string name="hint_list_name">Názov zoznamu</string>
+    <string name="list_exclusive_label">Skryť z domovskej časovej osi</string>
+    <string name="replies_policy_title">Zobraziť odpovede pre:</string>
+    <string name="replies_policy_name_followed">Kohokoľvek, koho sledujem</string>
 </resources>
