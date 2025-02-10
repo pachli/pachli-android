@@ -1,12 +1,12 @@
 Nové funkcie:
 
-- Žiadne "Stiahni viac", príspevky sa načítajú priebežne počas posúvania
+- Načítanie príspevkov priebežne počas posúvania
 - Populárne odkazy a príspevky
 - Viac ako 5 panelov
-- Vyber si z ponuky dostupných typov písma
+- Výber z ponuky dostupných typov písma
 - Nový prehrávač médií
 - Filtre upozornení
-- Označ zoznamy ako "exkluzívne"
+- "Exkluzívne" zoznamy
 - Pridaj "záložky" k panelom
 
 Opravy zahŕňajú"
@@ -16,5 +16,5 @@ Opravy zahŕňajú"
 Zmeny prostredia zahŕňajú:
 
 - Vizuálne vynovenie, nová farebná schéma
-- Urči predvolený motív z tvojho nastavenia systému Android
+- Predvolený motív z nastavenia systému Android
 - "Vymazať upozornenie" je teraz položkou menu

@@ -5,7 +5,7 @@ Nové funkcie:
 - Experimentálne nastavenie pre zobrazenie domácej časovej osi od najnovších príspevkov po najstaršie 
 - Vylepšená spoľahlivosť push a pull notifikácií 
 
-Fixes:
+Opravy:
 
 - Zobraziť názov aplikácie, z ktorej bol príspevok odoslaný, ak chýba odkaz na ňu
 - Tolerancia k chýbajúcim poliam v príspevkoch na serveri
