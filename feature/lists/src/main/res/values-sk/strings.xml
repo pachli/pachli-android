@@ -5,4 +5,20 @@
     <string name="list_exclusive_label">Skryť z domovskej časovej osi</string>
     <string name="replies_policy_title">Zobraziť odpovede pre:</string>
     <string name="replies_policy_name_followed">Kohokoľvek, koho sledujem</string>
+    <string name="replies_policy_name_list">Členov zoznamu</string>
+    <string name="replies_policy_name_none">Nikoho</string>
+    <string name="error_create_list_fmt">Nebolo možné vytvoriť zoznam \"%1$s\": %2$s</string>
+    <string name="error_delete_list_fmt">Nebolo možné vymazať zoznam \"%1$s\": %2$s</string>
+    <string name="action_rename_list">Premenovať zoznam</string>
+    <string name="error_rename_list_fmt">Nepodarilo sa premenovať zoznam \"%1$s\": %2$s</string>
+    <string name="action_create_list">Vytvoriť zoznam</string>
+    <string name="dialog_delete_list_warning">Vymazať zoznam \"%s\"?</string>
+    <string name="action_remove_from_list">Odstraniť účet zo zoznamu</string>
+    <string name="action_add_to_list">Pridať účet do zoznamu</string>
+    <string name="action_delete_list">Vymazať zoznam</string>
+    <string name="failed_to_add_to_list">Nepodarilo sa pridať účet do zoznamu</string>
+    <string name="failed_to_remove_from_list">Nepodarilo sa odstrániť účet zo zoznamu</string>
+    <string name="no_lists">Nemáš žiadne zoznamy.</string>
+    <string name="hint_search_people_list">Hľadať medzi ľuďmi, ktorých sleduješ</string>
+    <string name="action_add_or_remove_from_list">Pridať alebo odstrániť zo zoznamu</string>
 </resources>
