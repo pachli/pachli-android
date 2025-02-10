@@ -138,5 +138,5 @@ SET
 WHERE accountId = :accountId AND s_id = :lastStatusId
 """,
     )
-    suspend fun setVoted(accountId: Long, lastStatusId: String, poll: String)
+    suspend fun setPoll(accountId: Long, lastStatusId: String, poll: String)
 }
