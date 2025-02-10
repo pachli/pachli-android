@@ -13,4 +13,4 @@ Opravy:
 - Zabezpečenie, že text v navigačnom paneli je správny
 - Neprekračuj maximálny počet vytvorených skratiek
 - Použi predvolené "Navigate up" opis obsahu v ViewThreadActivity
-- Aktualizácia prekladov fínštiny, španielčiny a švédčiny
+- Aktualizácia prekladov do fínštiny, španielčiny a švédčiny
