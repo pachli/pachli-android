@@ -1,0 +1,18 @@
+Pachli 2.7.0
+
+Nové funkcie:
+
+- Nové rozhranie pre vyhľadávacie operátory
+- Upozornenie, ak je jazyk príspevku nesprávny 
+- Zobrazenie mien autorov
+- Možnosť úpravy filtra priamo z časovej osi
+- Automatické dopĺňanie hashtagov s počtom ich použití
+
+Opravy:
+
+- Povolenie názvu populárneho tagu
+- Povolenie filtrovania serverov pre GoToSocial verzie 0.16+
+- Skrytie klávesnice po zobrazení výsledkov vyhľadávania
+- Oprava výpočtu dĺžky príspevku 
+- Oprava interpunkcie v popise obsahu
+- Aktualizácia prekladov do čínštiny, fínčiny, írčiny, španielčiny a nórčiny

@@ -276,16 +276,17 @@ class SearchViewModel @Inject constructor(
 
     fun reblog(statusViewData: StatusViewData, reblog: Boolean) {
         viewModelScope.launch {
+            updateStatus(
+                statusViewData.status.copy(
+                    reblogged = reblog,
+                    reblog = statusViewData.status.reblog?.copy(reblogged = reblog),
+                ),
+            )
             statusRepository.reblog(statusViewData.pachliAccountId, statusViewData.id, reblog)
-                .onSuccess {
-                    updateStatus(
-                        statusViewData.status.copy(
-                            reblogged = reblog,
-                            reblog = statusViewData.status.reblog?.copy(reblogged = reblog),
-                        ),
-                    )
+                .onFailure {
+                    updateStatus(statusViewData.status)
+                    Timber.d("Failed to reblog status %s: %s", statusViewData.id, it)
                 }
-                .onFailure { Timber.d("Failed to reblog status %s: %s", statusViewData.id, it) }
         }
     }
 
@@ -301,8 +302,11 @@ class SearchViewModel @Inject constructor(
         val votedPoll = poll.votedCopy(choices)
         updateStatus(statusViewData.status.copy(poll = votedPoll))
         viewModelScope.launch {
-            timelineCases.voteInPoll(statusViewData.id, votedPoll.id, choices)
-                .onFailure { Timber.d("Failed to vote in poll: %s: %s", statusViewData.id, it) }
+            statusRepository.voteInPoll(statusViewData.pachliAccountId, statusViewData.id, votedPoll.id, choices)
+                .onFailure {
+                    updateStatus(statusViewData.status)
+                    Timber.d("Failed to vote in poll: %s: %s", statusViewData.id, it)
+                }
         }
     }
 
@@ -310,6 +314,7 @@ class SearchViewModel @Inject constructor(
         updateStatus(statusViewData.status.copy(favourited = isFavorited))
         viewModelScope.launch {
             statusRepository.favourite(statusViewData.pachliAccountId, statusViewData.id, isFavorited)
+                .onFailure { updateStatus(statusViewData.status) }
         }
     }
 
@@ -317,6 +322,7 @@ class SearchViewModel @Inject constructor(
         updateStatus(statusViewData.status.copy(bookmarked = isBookmarked))
         viewModelScope.launch {
             statusRepository.bookmark(statusViewData.pachliAccountId, statusViewData.id, isBookmarked)
+                .onFailure { updateStatus(statusViewData.status) }
         }
     }
 
@@ -326,9 +332,9 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    fun pinAccount(status: Status, isPin: Boolean) {
+    fun pinStatus(statusViewData: StatusViewData, isPin: Boolean) {
         viewModelScope.launch {
-            timelineCases.pin(status.id, isPin)
+            statusRepository.pin(statusViewData.pachliAccountId, statusViewData.id, isPin)
         }
     }
 

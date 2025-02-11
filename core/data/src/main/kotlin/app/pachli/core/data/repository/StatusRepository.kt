@@ -20,15 +20,17 @@ package app.pachli.core.data.repository
 import app.pachli.core.common.PachliError
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.database.dao.StatusDao
+import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.eventhub.BookmarkEvent
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.FavoriteEvent
+import app.pachli.core.eventhub.PinEvent
 import app.pachli.core.eventhub.PollVoteEvent
 import app.pachli.core.eventhub.ReblogEvent
+import app.pachli.core.network.model.Poll
+import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiError
-import com.github.michaelbull.result.Err
-import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.mapEither
 import com.github.michaelbull.result.onFailure
@@ -52,6 +54,9 @@ sealed class StatusActionError(open val error: ApiError) : PachliError by error 
     /** Reblogging a status failed. */
     data class Reblog(override val error: ApiError) : StatusActionError(error)
 
+    /** Pin/unpinning a status failed. */
+    data class Pin(override val error: ApiError) : StatusActionError(error)
+
     /** Voting in a poll failed. */
     data class VoteInPoll(override val error: ApiError) : StatusActionError(error)
 }
@@ -59,23 +64,35 @@ sealed class StatusActionError(open val error: ApiError) : PachliError by error 
 class StatusRepository @Inject constructor(
     @ApplicationScope private val externalScope: CoroutineScope,
     private val mastodonApi: MastodonApi,
+    private val transactionProvider: TransactionProvider,
     private val statusDao: StatusDao,
     private val eventHub: EventHub,
 ) {
+    /**
+     * Sets the bookmarked state of [statusId] to [bookmarked].
+     *
+     * Sends [BookmarkEvent] if successful.
+     *
+     * @param pachliAccountId
+     * @param statusId ID of the status to affect.
+     * @param bookmarked New bookmarked state.
+     */
     suspend fun bookmark(
         pachliAccountId: Long,
         statusId: String,
         bookmarked: Boolean,
-    ): Result<Unit, StatusActionError.Bookmark> = externalScope.async {
-        statusDao.setBookmarked(pachliAccountId, statusId, bookmarked)
-        return@async if (bookmarked) {
-            mastodonApi.bookmarkStatus(statusId)
-        } else {
-            mastodonApi.unbookmarkStatus(statusId)
+    ): Result<Status, StatusActionError.Bookmark> = externalScope.async {
+        transactionProvider {
+            statusDao.setBookmarked(pachliAccountId, statusId, bookmarked)
+            if (bookmarked) {
+                mastodonApi.bookmarkStatus(statusId)
+            } else {
+                mastodonApi.unbookmarkStatus(statusId)
+            }
+                .onSuccess { eventHub.dispatch(BookmarkEvent(statusId, bookmarked)) }
+                .onFailure { statusDao.setBookmarked(pachliAccountId, statusId, !bookmarked) }
+                .mapEither({ it.body }, { StatusActionError.Bookmark(it) })
         }
-            .onSuccess { eventHub.dispatch(BookmarkEvent(statusId, bookmarked)) }
-            .onFailure { statusDao.setBookmarked(pachliAccountId, statusId, !bookmarked) }
-            .mapEither({ }, { StatusActionError.Bookmark(it) })
     }.await()
 
     /**
@@ -91,16 +108,18 @@ class StatusRepository @Inject constructor(
         pachliAccountId: Long,
         statusId: String,
         favourited: Boolean,
-    ): Result<Unit, StatusActionError.Favourite> = externalScope.async {
-        statusDao.setFavourited(pachliAccountId, statusId, favourited)
-        return@async if (favourited) {
-            mastodonApi.favouriteStatus(statusId)
-        } else {
-            mastodonApi.unfavouriteStatus(statusId)
+    ): Result<Status, StatusActionError.Favourite> = externalScope.async {
+        transactionProvider {
+            statusDao.setFavourited(pachliAccountId, statusId, favourited)
+            if (favourited) {
+                mastodonApi.favouriteStatus(statusId)
+            } else {
+                mastodonApi.unfavouriteStatus(statusId)
+            }
+                .onSuccess { eventHub.dispatch(FavoriteEvent(statusId, favourited)) }
+                .onFailure { statusDao.setFavourited(pachliAccountId, statusId, !favourited) }
+                .mapEither({ it.body }, { StatusActionError.Favourite(it) })
         }
-            .onSuccess { eventHub.dispatch(FavoriteEvent(statusId, favourited)) }
-            .onFailure { statusDao.setFavourited(pachliAccountId, statusId, !favourited) }
-            .mapEither({}, { StatusActionError.Favourite(it) })
     }.await()
 
     /**
@@ -110,22 +129,49 @@ class StatusRepository @Inject constructor(
      *
      * @param pachliAccountId
      * @param statusId ID of the status to affect.
-     * @param reblogged New bookmark state.
+     * @param reblogged New reblog state.
      */
     suspend fun reblog(
         pachliAccountId: Long,
         statusId: String,
         reblogged: Boolean,
-    ): Result<Unit, StatusActionError.Reblog> = externalScope.async {
-        statusDao.setReblogged(pachliAccountId, statusId, reblogged)
-        return@async if (reblogged) {
-            mastodonApi.reblogStatus(statusId)
-        } else {
-            mastodonApi.unreblogStatus(statusId)
+    ): Result<Status, StatusActionError.Reblog> = externalScope.async {
+        transactionProvider {
+            statusDao.setReblogged(pachliAccountId, statusId, reblogged)
+            if (reblogged) {
+                mastodonApi.reblogStatus(statusId)
+            } else {
+                mastodonApi.unreblogStatus(statusId)
+            }
+                .onSuccess { eventHub.dispatch(ReblogEvent(statusId, reblogged)) }
+                .onFailure { statusDao.setReblogged(pachliAccountId, statusId, !reblogged) }
+                .mapEither({ it.body }, { StatusActionError.Reblog(it) })
         }
-            .onSuccess { eventHub.dispatch(ReblogEvent(statusId, reblogged)) }
-            .onFailure { statusDao.setReblogged(pachliAccountId, statusId, !reblogged) }
-            .mapEither({}, { StatusActionError.Reblog(it) })
+    }.await()
+
+    /**
+     * Sets the pinned state of [statusId] to [pinned].
+     *
+     * Sends [PinEvent] if successful.
+     *
+     * @param pachliAccountId
+     * @param statusId ID of the status to affect.
+     * @param pinned New pinned state.
+     */
+    suspend fun pin(
+        pachliAccountId: Long,
+        statusId: String,
+        pinned: Boolean,
+    ): Result<Status, StatusActionError.Pin> = externalScope.async {
+        statusDao.setPinned(pachliAccountId, statusId, pinned)
+        return@async if (pinned) {
+            mastodonApi.pinStatus(statusId)
+        } else {
+            mastodonApi.unpinStatus(statusId)
+        }
+            .onSuccess { eventHub.dispatch(PinEvent(statusId, pinned)) }
+            .onFailure { statusDao.setPinned(pachliAccountId, statusId, !pinned) }
+            .mapEither({ it.body }, { StatusActionError.Pin(it) })
     }.await()
 
     /**
@@ -143,14 +189,20 @@ class StatusRepository @Inject constructor(
         statusId: String,
         pollId: String,
         choices: List<Int>,
-    ): Result<Unit, StatusActionError.VoteInPoll> = externalScope.async {
-        mastodonApi.voteInPoll(pollId, choices)
-            .onSuccess { poll ->
-                statusDao.setVoted(pachliAccountId, statusId, poll.body)
-                eventHub.dispatch(PollVoteEvent(statusId, poll.body))
+    ): Result<Poll, StatusActionError.VoteInPoll> = externalScope.async {
+        transactionProvider {
+            val poll = statusDao.getStatus(pachliAccountId, statusId)?.poll
+            poll?.let {
+                statusDao.setPoll(pachliAccountId, statusId, poll.votedCopy(choices))
             }
-            .onFailure { return@async Err(StatusActionError.VoteInPoll(it)) }
 
-        return@async Ok(Unit)
+            mastodonApi.voteInPoll(pollId, choices)
+                .onSuccess { poll ->
+                    statusDao.setPoll(pachliAccountId, statusId, poll.body)
+                    eventHub.dispatch(PollVoteEvent(statusId, poll.body))
+                }
+                .onFailure { poll?.let { statusDao.setPoll(pachliAccountId, statusId, it) } }
+                .mapEither({ it.body }, { StatusActionError.VoteInPoll(it) })
+        }
     }.await()
 }

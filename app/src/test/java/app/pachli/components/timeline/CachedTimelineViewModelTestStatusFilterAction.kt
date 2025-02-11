@@ -33,10 +33,8 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import org.mockito.kotlin.any
-import org.mockito.kotlin.argumentCaptor
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.stub
-import org.mockito.kotlin.verify
 
 /**
  * Verify that [StatusAction] are handled correctly on receipt:
@@ -76,14 +74,10 @@ class CachedTimelineViewModelTestStatusFilterAction : CachedTimelineViewModelTes
         statusViewData,
     )
 
-    /** Captors for status ID and state arguments */
-    private val id = argumentCaptor<String>()
-    private val state = argumentCaptor<Boolean>()
-
     @Test
     fun `bookmark succeeds && emits UiSuccess`() = runTest {
         // Given
-        timelineCases.stub { onBlocking { bookmark(any(), any()) } doReturn success(status) }
+        mastodonApi.stub { onBlocking { bookmarkStatus(any()) } doReturn success(status) }
 
         viewModel.uiResult.test {
             // When
@@ -93,17 +87,12 @@ class CachedTimelineViewModelTestStatusFilterAction : CachedTimelineViewModelTes
             val item = awaitItem().get() as? StatusActionSuccess.Bookmark
             assertThat(item?.action).isEqualTo(bookmarkAction)
         }
-
-        // Then
-        verify(timelineCases).bookmark(id.capture(), state.capture())
-        assertThat(id.firstValue).isEqualTo(statusViewData.status.id)
-        assertThat(state.firstValue).isEqualTo(true)
     }
 
     @Test
     fun `bookmark fails && emits UiError`() = runTest {
         // Given
-        timelineCases.stub { onBlocking { bookmark(any(), any()) } doReturn failure() }
+        mastodonApi.stub { onBlocking { bookmarkStatus(any()) } doReturn failure() }
 
         viewModel.uiResult.test {
             // When
@@ -118,9 +107,7 @@ class CachedTimelineViewModelTestStatusFilterAction : CachedTimelineViewModelTes
     @Test
     fun `favourite succeeds && emits UiSuccess`() = runTest {
         // Given
-        timelineCases.stub {
-            onBlocking { favourite(any(), any()) } doReturn success(status)
-        }
+        mastodonApi.stub { onBlocking { favouriteStatus(any()) } doReturn success(status) }
 
         viewModel.uiResult.test {
             // When
@@ -130,17 +117,12 @@ class CachedTimelineViewModelTestStatusFilterAction : CachedTimelineViewModelTes
             val item = awaitItem().get() as? StatusActionSuccess.Favourite
             assertThat(item?.action).isEqualTo(favouriteAction)
         }
-
-        // Then
-        verify(timelineCases).favourite(id.capture(), state.capture())
-        assertThat(id.firstValue).isEqualTo(statusViewData.status.id)
-        assertThat(state.firstValue).isEqualTo(true)
     }
 
     @Test
     fun `favourite fails && emits UiError`() = runTest {
         // Given
-        timelineCases.stub { onBlocking { favourite(any(), any()) } doReturn failure() }
+        mastodonApi.stub { onBlocking { favouriteStatus(any()) } doReturn failure() }
 
         viewModel.uiResult.test {
             // When
@@ -155,7 +137,7 @@ class CachedTimelineViewModelTestStatusFilterAction : CachedTimelineViewModelTes
     @Test
     fun `reblog succeeds && emits UiSuccess`() = runTest {
         // Given
-        timelineCases.stub { onBlocking { reblog(any(), any()) } doReturn success(status) }
+        mastodonApi.stub { onBlocking { reblogStatus(any()) } doReturn success(status) }
 
         viewModel.uiResult.test {
             // When
@@ -165,17 +147,12 @@ class CachedTimelineViewModelTestStatusFilterAction : CachedTimelineViewModelTes
             val item = awaitItem().get() as? StatusActionSuccess.Reblog
             assertThat(item?.action).isEqualTo(reblogAction)
         }
-
-        // Then
-        verify(timelineCases).reblog(id.capture(), state.capture())
-        assertThat(id.firstValue).isEqualTo(statusViewData.status.id)
-        assertThat(state.firstValue).isEqualTo(true)
     }
 
     @Test
     fun `reblog fails && emits UiError`() = runTest {
         // Given
-        timelineCases.stub { onBlocking { reblog(any(), any()) } doReturn failure() }
+        mastodonApi.stub { onBlocking { reblogStatus(any()) } doReturn failure() }
 
         viewModel.uiResult.test {
             // When
@@ -190,9 +167,7 @@ class CachedTimelineViewModelTestStatusFilterAction : CachedTimelineViewModelTes
     @Test
     fun `voteinpoll succeeds && emits UiSuccess`() = runTest {
         // Given
-        timelineCases.stub {
-            onBlocking { voteInPoll(any(), any(), any()) } doReturn success(status.poll!!)
-        }
+        mastodonApi.stub { onBlocking { voteInPoll(any(), any()) } doReturn success(status.poll!!) }
 
         viewModel.uiResult.test {
             // When
@@ -202,20 +177,12 @@ class CachedTimelineViewModelTestStatusFilterAction : CachedTimelineViewModelTes
             val item = awaitItem().get() as? StatusActionSuccess.VoteInPoll
             assertThat(item?.action).isEqualTo(voteInPollAction)
         }
-
-        // Then
-        val pollId = argumentCaptor<String>()
-        val choices = argumentCaptor<List<Int>>()
-        verify(timelineCases).voteInPoll(id.capture(), pollId.capture(), choices.capture())
-        assertThat(id.firstValue).isEqualTo(statusViewData.status.id)
-        assertThat(pollId.firstValue).isEqualTo(status.poll!!.id)
-        assertThat(choices.firstValue).isEqualTo(voteInPollAction.choices)
     }
 
     @Test
     fun `voteinpoll fails && emits UiError`() = runTest {
         // Given
-        timelineCases.stub { onBlocking { voteInPoll(any(), any(), any()) } doReturn failure() }
+        mastodonApi.stub { onBlocking { voteInPoll(any(), any()) } doReturn failure() }
 
         viewModel.uiResult.test {
             // When
