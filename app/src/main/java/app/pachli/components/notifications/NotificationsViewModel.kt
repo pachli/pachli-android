@@ -628,14 +628,20 @@ class NotificationsViewModel @AssistedInject constructor(
         .filter { UiPrefs.prefKeys.contains(it) }
         .onStart { emit(null) }
 
-    private fun onContentCollapsed(action: InfallibleUiAction.SetContentCollapsed) =
+    private fun onContentCollapsed(action: InfallibleUiAction.SetContentCollapsed) {
         repository.setContentCollapsed(action.pachliAccountId, action.statusViewData, action.isCollapsed)
+        repository.invalidate()
+    }
 
-    private fun onShowingContent(action: InfallibleUiAction.SetShowingContent) =
+    private fun onShowingContent(action: InfallibleUiAction.SetShowingContent) {
         repository.setShowingContent(action.pachliAccountId, action.statusViewData, action.isShowingContent)
+        repository.invalidate()
+    }
 
-    private fun onExpanded(action: InfallibleUiAction.SetExpanded) =
+    private fun onExpanded(action: InfallibleUiAction.SetExpanded) {
         repository.setExpanded(action.pachliAccountId, action.statusViewData, action.isExpanded)
+        repository.invalidate()
+    }
 
     private fun onClearContentFilter(action: InfallibleUiAction.ClearContentFilter) {
         repository.clearContentFilter(action.pachliAccountId, action.notificationId)

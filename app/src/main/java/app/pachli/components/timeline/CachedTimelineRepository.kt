@@ -27,6 +27,7 @@ import app.pachli.components.timeline.viewmodel.CachedTimelineRemoteMediator
 import app.pachli.components.timeline.viewmodel.CachedTimelineRemoteMediator.Companion.RKE_TIMELINE_ID
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.model.StatusViewData
+import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TimelineDao
@@ -69,6 +70,7 @@ class CachedTimelineRepository @Inject constructor(
     private val remoteKeyDao: RemoteKeyDao,
     private val translatedStatusDao: TranslatedStatusDao,
     private val statusDao: StatusDao,
+    private val statusRepository: StatusRepository,
     @ApplicationScope private val externalScope: CoroutineScope,
 ) : TimelineRepository<TimelineStatusWithAccount> {
     private var factory: InvalidatingPagingSourceFactory<Int, TimelineStatusWithAccount>? = null
@@ -117,19 +119,6 @@ class CachedTimelineRepository @Inject constructor(
         factory?.invalidate()
     }
 
-    suspend fun saveStatusViewData(statusViewData: StatusViewData) = externalScope.launch {
-        statusDao.upsertStatusViewData(
-            StatusViewDataEntity(
-                serverId = statusViewData.actionableId,
-                timelineUserId = statusViewData.pachliAccountId,
-                expanded = statusViewData.isExpanded,
-                contentShowing = statusViewData.isShowingContent,
-                contentCollapsed = statusViewData.isCollapsed,
-                translationState = statusViewData.translationState,
-            ),
-        )
-    }.join()
-
     /**
      * @return Map between statusIDs and any viewdata for them cached in the repository.
      */
@@ -160,7 +149,7 @@ class CachedTimelineRepository @Inject constructor(
     }.join()
 
     suspend fun translate(statusViewData: StatusViewData): ApiResult<Translation> {
-        saveStatusViewData(statusViewData.copy(translationState = TranslationState.TRANSLATING))
+        statusRepository.setTranslationState(statusViewData.pachliAccountId, statusViewData.id, TranslationState.TRANSLATING)
         val translation = mastodonApi.translate(statusViewData.actionableId)
         translation.onSuccess {
             val body = it.body
@@ -177,17 +166,17 @@ class CachedTimelineRepository @Inject constructor(
                     provider = body.provider,
                 ),
             )
-            saveStatusViewData(statusViewData.copy(translationState = TranslationState.SHOW_TRANSLATION))
+            statusRepository.setTranslationState(statusViewData.pachliAccountId, statusViewData.id, TranslationState.SHOW_TRANSLATION)
         }.onFailure {
             // Reset the translation state
-            saveStatusViewData(statusViewData)
+            statusRepository.setTranslationState(statusViewData.pachliAccountId, statusViewData.id, TranslationState.SHOW_ORIGINAL)
         }
 
         return translation
     }
 
     suspend fun translateUndo(statusViewData: StatusViewData) {
-        saveStatusViewData(statusViewData.copy(translationState = TranslationState.SHOW_ORIGINAL))
+        statusRepository.setTranslationState(statusViewData.pachliAccountId, statusViewData.id, TranslationState.SHOW_ORIGINAL)
     }
 
     /**

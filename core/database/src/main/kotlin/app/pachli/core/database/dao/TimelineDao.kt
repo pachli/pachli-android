@@ -109,7 +109,7 @@ SELECT
     rb.limited AS 'rb_limited',
     rb.note AS 'rb_note',
     svd.serverId AS 'svd_serverId',
-    svd.timelineUserId AS 'svd_timelineUserId',
+    svd.pachliAccountId AS 'svd_pachliAccountId',
     svd.expanded AS 'svd_expanded',
     svd.contentShowing AS 'svd_contentShowing',
     svd.contentCollapsed AS 'svd_contentCollapsed',
@@ -129,7 +129,7 @@ LEFT JOIN TimelineAccountEntity AS a ON (s.timelineUserId = a.timelineUserId AND
 LEFT JOIN TimelineAccountEntity AS rb ON (s.timelineUserId = rb.timelineUserId AND s.reblogAccountId = rb.serverId)
 LEFT JOIN
     StatusViewDataEntity AS svd
-    ON (s.timelineUserId = svd.timelineUserId AND (s.serverId = svd.serverId OR s.reblogServerId = svd.serverId))
+    ON (s.timelineUserId = svd.pachliAccountId AND (s.serverId = svd.serverId OR s.reblogServerId = svd.serverId))
 LEFT JOIN
     TranslatedStatusEntity AS tr
     ON (s.timelineUserId = tr.timelineUserId AND (s.serverId = tr.serverId OR s.reblogServerId = tr.serverId))
@@ -244,7 +244,7 @@ SELECT
     rb.limited AS 'rb_limited',
     rb.note AS 'rb_note',
     svd.serverId AS 'svd_serverId',
-    svd.timelineUserId AS 'svd_timelineUserId',
+    svd.pachliAccountId AS 'svd_pachliAccountId',
     svd.expanded AS 'svd_expanded',
     svd.contentShowing AS 'svd_contentShowing',
     svd.contentCollapsed AS 'svd_contentCollapsed',
@@ -261,7 +261,7 @@ LEFT JOIN TimelineAccountEntity AS a ON (s.timelineUserId = a.timelineUserId AND
 LEFT JOIN TimelineAccountEntity AS rb ON (s.timelineUserId = rb.timelineUserId AND s.reblogAccountId = rb.serverId)
 LEFT JOIN
     StatusViewDataEntity AS svd
-    ON (s.timelineUserId = svd.timelineUserId AND (s.serverId = svd.serverId OR s.reblogServerId = svd.serverId))
+    ON (s.timelineUserId = svd.pachliAccountId AND (s.serverId = svd.serverId OR s.reblogServerId = svd.serverId))
 LEFT JOIN
     TranslatedStatusEntity AS t
     ON (s.timelineUserId = t.timelineUserId AND (s.serverId = t.serverId OR s.reblogServerId = t.serverId))
@@ -326,7 +326,7 @@ WHERE
         """
 DELETE
 FROM StatusViewDataEntity
-WHERE timelineUserId = :accountId
+WHERE pachliAccountId = :accountId
 """,
     )
     abstract suspend fun removeAllStatusViewData(accountId: Long)
@@ -413,7 +413,7 @@ WHERE
 DELETE
 FROM StatusViewDataEntity
 WHERE
-    timelineUserId = :accountId
+    pachliAccountId = :accountId
     AND serverId NOT IN (
         SELECT statusId
         FROM TimelineStatusEntity

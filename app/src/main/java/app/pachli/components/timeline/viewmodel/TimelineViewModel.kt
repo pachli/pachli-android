@@ -17,6 +17,7 @@
 
 package app.pachli.components.timeline.viewmodel
 
+import androidx.annotation.CallSuper
 import androidx.annotation.StringRes
 import androidx.annotation.VisibleForTesting
 import androidx.core.os.bundleOf
@@ -476,11 +477,50 @@ abstract class TimelineViewModel<T : Any>(
 
     abstract fun updatePoll(newPoll: Poll, status: StatusViewData)
 
-    abstract fun changeExpanded(expanded: Boolean, status: StatusViewData)
+    /**
+     * Sets the expanded state of [status] in [StatusRepository] to [expanded] and
+     * invalidates the repository.
+     *
+     * Subclasses should call through to this **after** changing any internal state
+     * to avoid invalidating the repository twice.
+     */
+    @CallSuper
+    open fun changeExpanded(expanded: Boolean, status: StatusViewData) {
+        viewModelScope.launch {
+            statusRepository.setExpanded(status.pachliAccountId, status.id, expanded)
+            repository.invalidate(status.pachliAccountId)
+        }
+    }
 
-    abstract fun changeContentShowing(isShowing: Boolean, status: StatusViewData)
+    /**
+     * Sets the content-showing state of [status] in [StatusRepository] to
+     * [isShowing] and invalidates the repository.
+     *
+     * Subclasses should call through to this **after** changing any internal state
+     * to avoid invalidating the repository twice.
+     */
+    @CallSuper
+    open fun changeContentShowing(isShowing: Boolean, status: StatusViewData) {
+        viewModelScope.launch {
+            statusRepository.setContentShowing(status.pachliAccountId, status.id, isShowing)
+            repository.invalidate(status.pachliAccountId)
+        }
+    }
 
-    abstract fun changeContentCollapsed(isCollapsed: Boolean, status: StatusViewData)
+    /**
+     * Sets the collapsed state of [status] in [StatusRepository] to [collapsed] and
+     * invalidates the repository.
+     *
+     * Subclasses should call through to this **after** changing any internal state
+     * to avoid invalidating the repository twice.
+     */
+    @CallSuper
+    open fun changeContentCollapsed(isCollapsed: Boolean, status: StatusViewData) {
+        viewModelScope.launch {
+            statusRepository.setContentCollapsed(status.pachliAccountId, status.id, isCollapsed)
+            repository.invalidate(status.pachliAccountId)
+        }
+    }
 
     abstract fun removeAllByAccountId(pachliAccountId: Long, accountId: String)
 

@@ -21,6 +21,11 @@ import app.pachli.core.common.PachliError
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.di.TransactionProvider
+import app.pachli.core.database.model.StatusViewDataContentCollapsed
+import app.pachli.core.database.model.StatusViewDataContentShowing
+import app.pachli.core.database.model.StatusViewDataExpanded
+import app.pachli.core.database.model.StatusViewDataTranslationState
+import app.pachli.core.database.model.TranslationState
 import app.pachli.core.eventhub.BookmarkEvent
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.FavoriteEvent
@@ -205,4 +210,56 @@ class StatusRepository @Inject constructor(
                 .mapEither({ it.body }, { StatusActionError.VoteInPoll(it) })
         }
     }.await()
+
+    /**
+     * Sets the expanded state of [statusId] to [expanded].
+     */
+    suspend fun setExpanded(pachliAccountId: Long, statusId: String, expanded: Boolean) {
+        statusDao.setExpanded(
+            StatusViewDataExpanded(
+                pachliAccountId = pachliAccountId,
+                serverId = statusId,
+                expanded = expanded,
+            ),
+        )
+    }
+
+    /**
+     * Sets the showing state of [statusId] to [contentShowing].
+     */
+    suspend fun setContentShowing(pachliAccountId: Long, statusId: String, contentShowing: Boolean) {
+        statusDao.setContentShowing(
+            StatusViewDataContentShowing(
+                pachliAccountId = pachliAccountId,
+                serverId = statusId,
+                contentShowing = contentShowing,
+            ),
+        )
+    }
+
+    /**
+     * Sets the content-collapsed state of [statusId] to [contentCollapsed].
+     */
+    suspend fun setContentCollapsed(pachliAccountId: Long, statusId: String, contentCollapsed: Boolean) {
+        statusDao.setContentCollapsed(
+            StatusViewDataContentCollapsed(
+                pachliAccountId = pachliAccountId,
+                serverId = statusId,
+                contentCollapsed = contentCollapsed,
+            ),
+        )
+    }
+
+    /**
+     * Sets the translation state of [statusId] to [translationState].
+     */
+    suspend fun setTranslationState(pachliAccountId: Long, statusId: String, translationState: TranslationState) {
+        statusDao.setTranslationState(
+            StatusViewDataTranslationState(
+                pachliAccountId = pachliAccountId,
+                serverId = statusId,
+                translationState = translationState,
+            ),
+        )
+    }
 }

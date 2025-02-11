@@ -24,7 +24,11 @@ import androidx.room.TypeConverters
 import androidx.room.Upsert
 import app.pachli.core.database.Converters
 import app.pachli.core.database.model.StatusEntity
+import app.pachli.core.database.model.StatusViewDataContentCollapsed
+import app.pachli.core.database.model.StatusViewDataContentShowing
 import app.pachli.core.database.model.StatusViewDataEntity
+import app.pachli.core.database.model.StatusViewDataExpanded
+import app.pachli.core.database.model.StatusViewDataTranslationState
 import app.pachli.core.network.model.Poll
 
 /**
@@ -135,7 +139,7 @@ WHERE timelineUserId = :accountId AND (serverId = :statusId OR reblogServerId = 
 SELECT *
 FROM StatusViewDataEntity
 WHERE
-    timelineUserId = :accountId
+    pachliAccountId = :accountId
     AND serverId IN (:serverIds)
 """,
     )
@@ -147,4 +151,29 @@ WHERE
         String,
         StatusViewDataEntity,
         >
+
+    /** Upserts [partial], setting the [expanded][StatusViewDataEntity.expanded] property. */
+    @Upsert(entity = StatusViewDataEntity::class)
+    abstract suspend fun setExpanded(partial: StatusViewDataExpanded)
+
+    /**
+     * Upserts [partial], setting the [contentShowing][StatusViewDataEntity.contentShowing]
+     * property.
+     */
+    @Upsert(entity = StatusViewDataEntity::class)
+    abstract suspend fun setContentShowing(partial: StatusViewDataContentShowing)
+
+    /**
+     * Upserts [partial], setting the [contentCollapsed][StatusViewDataEntity.contentCollapsed]
+     * property.
+     */
+    @Upsert(entity = StatusViewDataEntity::class)
+    abstract suspend fun setContentCollapsed(partial: StatusViewDataContentCollapsed)
+
+    /**
+     * Upserts [partial], setting the [translationState][StatusViewDataEntity.translationState]
+     * property.
+     */
+    @Upsert(entity = StatusViewDataEntity::class)
+    abstract suspend fun setTranslationState(partial: StatusViewDataTranslationState)
 }
