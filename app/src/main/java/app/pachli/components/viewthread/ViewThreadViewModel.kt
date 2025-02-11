@@ -344,7 +344,7 @@ class ViewThreadViewModel @Inject constructor(
             )
         }
         viewModelScope.launch {
-            repository.saveStatusViewData(status.copy(isExpanded = expanded))
+            statusRepository.setExpanded(status.pachliAccountId, status.id, expanded)
         }
     }
 
@@ -353,7 +353,7 @@ class ViewThreadViewModel @Inject constructor(
             viewData.copy(isShowingContent = isShowing)
         }
         viewModelScope.launch {
-            repository.saveStatusViewData(status.copy(isShowingContent = isShowing))
+            statusRepository.setContentShowing(status.pachliAccountId, status.id, isShowing)
         }
     }
 
@@ -362,7 +362,7 @@ class ViewThreadViewModel @Inject constructor(
             viewData.copy(isCollapsed = isCollapsed)
         }
         viewModelScope.launch {
-            repository.saveStatusViewData(status.copy(isCollapsed = isCollapsed))
+            statusRepository.setContentCollapsed(status.pachliAccountId, status.id, isCollapsed)
         }
     }
 
@@ -475,7 +475,7 @@ class ViewThreadViewModel @Inject constructor(
                     attachments = body.attachments,
                     provider = body.provider,
                 )
-                updateStatusViewData(statusViewData.status.id) { viewData ->
+                updateStatusViewData(statusViewData.id) { viewData ->
                     viewData.copy(translation = translatedEntity, translationState = TranslationState.SHOW_TRANSLATION)
                 }
             }
@@ -491,13 +491,11 @@ class ViewThreadViewModel @Inject constructor(
     }
 
     fun translateUndo(statusViewData: StatusViewData) {
-        updateStatusViewData(statusViewData.status.id) { viewData ->
+        updateStatusViewData(statusViewData.id) { viewData ->
             viewData.copy(translationState = TranslationState.SHOW_ORIGINAL)
         }
         viewModelScope.launch {
-            repository.saveStatusViewData(
-                statusViewData.copy(translationState = TranslationState.SHOW_ORIGINAL),
-            )
+            statusRepository.setTranslationState(statusViewData.pachliAccountId, statusViewData.id, TranslationState.SHOW_ORIGINAL)
         }
     }
 

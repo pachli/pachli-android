@@ -112,23 +112,21 @@ class NetworkTimelineViewModel @Inject constructor(
         modifiedViewData[status.id] = status.copy(
             isExpanded = expanded,
         )
-        repository.invalidate()
+        super.changeExpanded(expanded, status)
     }
 
     override fun changeContentShowing(isShowing: Boolean, status: StatusViewData) {
         modifiedViewData[status.id] = status.copy(
             isShowingContent = isShowing,
         )
-        repository.invalidate()
+        super.changeContentShowing(isShowing, status)
     }
 
     override fun changeContentCollapsed(isCollapsed: Boolean, status: StatusViewData) {
-        Timber.d("changeContentCollapsed: %s", isCollapsed)
-        Timber.d("   %s", status.content)
         modifiedViewData[status.id] = status.copy(
             isCollapsed = isCollapsed,
         )
-        repository.invalidate()
+        super.changeContentCollapsed(isCollapsed, status)
     }
 
     override fun removeAllByAccountId(pachliAccountId: Long, accountId: String) {
