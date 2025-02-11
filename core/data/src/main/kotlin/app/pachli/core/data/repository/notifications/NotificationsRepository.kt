@@ -164,7 +164,7 @@ class NotificationsRepository @Inject constructor(
     // functions, with separate repositories for timelines and notifications.
     private suspend fun saveStatusViewData(pachliAccountId: Long, statusViewData: StatusViewData) =
         externalScope.launch {
-            timelineDao.upsertStatusViewData(
+            statusDao.upsertStatusViewData(
                 StatusViewDataEntity(
                     serverId = statusViewData.actionableId,
                     timelineUserId = pachliAccountId,

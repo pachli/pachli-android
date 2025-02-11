@@ -118,7 +118,7 @@ class CachedTimelineRepository @Inject constructor(
     }
 
     suspend fun saveStatusViewData(statusViewData: StatusViewData) = externalScope.launch {
-        timelineDao.upsertStatusViewData(
+        statusDao.upsertStatusViewData(
             StatusViewDataEntity(
                 serverId = statusViewData.actionableId,
                 timelineUserId = statusViewData.pachliAccountId,
@@ -134,7 +134,7 @@ class CachedTimelineRepository @Inject constructor(
      * @return Map between statusIDs and any viewdata for them cached in the repository.
      */
     suspend fun getStatusViewData(pachliAccountId: Long, statusId: List<String>): Map<String, StatusViewDataEntity> {
-        return timelineDao.getStatusViewData(pachliAccountId, statusId)
+        return statusDao.getStatusViewData(pachliAccountId, statusId)
     }
 
     /**
