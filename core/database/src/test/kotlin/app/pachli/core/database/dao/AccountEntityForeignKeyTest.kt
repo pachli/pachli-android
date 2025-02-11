@@ -96,6 +96,8 @@ class AccountEntityForeignKeyTest {
 
     @Inject lateinit var translatedStatusDao: TranslatedStatusDao
 
+    @Inject lateinit var statusDao: StatusDao
+
     private val pachliAccountId = 1L
 
     /**
@@ -450,16 +452,16 @@ class AccountEntityForeignKeyTest {
             contentCollapsed = false,
             translationState = TranslationState.SHOW_ORIGINAL,
         )
-        timelineDao.upsertStatusViewData(statusViewData)
+        statusDao.upsertStatusViewData(statusViewData)
 
         // Check everything is as expected.
-        assertThat(timelineDao.getStatusViewData(pachliAccountId, listOf("1"))).containsExactly("1", statusViewData)
+        assertThat(statusDao.getStatusViewData(pachliAccountId, listOf("1"))).containsExactly("1", statusViewData)
 
         // When -- delete the account.
         accountDao.delete(activeAccount)
 
         // Then
-        assertThat(timelineDao.getStatusViewData(pachliAccountId, listOf("1"))).isEmpty()
+        assertThat(statusDao.getStatusViewData(pachliAccountId, listOf("1"))).isEmpty()
     }
 
     @Test

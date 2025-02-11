@@ -452,32 +452,6 @@ WHERE
     )
     abstract suspend fun cleanupTranslatedStatus(accountId: Long)
 
-    @Upsert
-    abstract suspend fun upsertStatusViewData(svd: StatusViewDataEntity)
-
-    /**
-     * @param accountId the accountId to query
-     * @param serverIds the IDs of the statuses to check
-     * @return Map between serverIds and any cached viewdata for those statuses
-     */
-    @Query(
-        """
-SELECT *
-FROM StatusViewDataEntity
-WHERE
-    timelineUserId = :accountId
-    AND serverId IN (:serverIds)
-""",
-    )
-    abstract suspend fun getStatusViewData(
-        accountId: Long,
-        serverIds: List<String>,
-    ): Map<
-        @MapColumn(columnName = "serverId")
-        String,
-        StatusViewDataEntity,
-        >
-
     @Query(
         """
 WITH statuses (serverId) AS (

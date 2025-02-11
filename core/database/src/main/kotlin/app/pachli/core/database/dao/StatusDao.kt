@@ -18,11 +18,13 @@
 package app.pachli.core.database.dao
 
 import androidx.room.Dao
+import androidx.room.MapColumn
 import androidx.room.Query
 import androidx.room.TypeConverters
 import androidx.room.Upsert
 import app.pachli.core.database.Converters
 import app.pachli.core.database.model.StatusEntity
+import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.network.model.Poll
 
 /**
@@ -117,4 +119,32 @@ WHERE timelineUserId = :accountId AND (serverId = :statusId OR reblogServerId = 
 """,
     )
     abstract suspend fun clearWarning(accountId: Long, statusId: String): Int
+
+    // StatusViewData methods
+
+    @Upsert
+    abstract suspend fun upsertStatusViewData(svd: StatusViewDataEntity)
+
+    /**
+     * @param accountId the accountId to query
+     * @param serverIds the IDs of the statuses to check
+     * @return Map between serverIds and any cached viewdata for those statuses
+     */
+    @Query(
+        """
+SELECT *
+FROM StatusViewDataEntity
+WHERE
+    timelineUserId = :accountId
+    AND serverId IN (:serverIds)
+""",
+    )
+    abstract suspend fun getStatusViewData(
+        accountId: Long,
+        serverIds: List<String>,
+    ): Map<
+        @MapColumn(columnName = "serverId")
+        String,
+        StatusViewDataEntity,
+        >
 }
