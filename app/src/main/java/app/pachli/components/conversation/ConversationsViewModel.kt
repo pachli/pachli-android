@@ -68,7 +68,12 @@ class ConversationsViewModel @Inject constructor(
             repository.conversations(account.id)
                 .map { pagingData ->
                     pagingData.map { conversation ->
-                        ConversationViewData.from(account.id, conversation)
+                        ConversationViewData.from(
+                            account.id,
+                            conversation,
+                            defaultIsExpanded = account.alwaysOpenSpoiler,
+                            defaultIsShowingContent = (account.alwaysShowSensitiveMedia || !conversation.lastStatus.status.sensitive),
+                        )
                     }
                 }
         }

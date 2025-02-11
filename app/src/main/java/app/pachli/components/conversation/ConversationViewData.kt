@@ -35,15 +35,20 @@ data class ConversationViewData(
     val lastStatus: StatusViewData,
 ) : IStatusViewData by lastStatus {
     companion object {
-        fun from(pachliAccountId: Long, conversationData: ConversationData) = ConversationViewData(
+        fun from(
+            pachliAccountId: Long,
+            conversationData: ConversationData,
+            defaultIsExpanded: Boolean,
+            defaultIsShowingContent: Boolean,
+        ) = ConversationViewData(
             id = conversationData.id,
             accounts = conversationData.accounts,
             unread = conversationData.unread,
             lastStatus = StatusViewData.from(
                 pachliAccountId,
                 conversationData.lastStatus,
-                isExpanded = true,
-                isShowingContent = true,
+                isExpanded = defaultIsExpanded,
+                isShowingContent = defaultIsShowingContent,
                 isDetailed = false,
                 contentFilterAction = FilterAction.NONE,
             ),
