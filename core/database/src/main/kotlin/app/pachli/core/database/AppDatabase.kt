@@ -199,9 +199,12 @@ abstract class AppDatabase : RoomDatabase() {
     @RenameTable("TimelineStatusEntity", "StatusEntity")
     class MIGRATE_14_15 : AutoMigrationSpec
 
+    // Rename for consistency with other code.
+    @RenameColumn("ConversationEntity", "accountId", "pachliAccountId")
+    // Conversations are now ordered by date of most recent status.
+    @DeleteColumn("ConversationEntity", "order")
     // Removing the embedded status from ConversationStatusEntity, and joining
     // on StatusEntity.
-    @RenameColumn("ConversationEntity", "accountId", "pachliAccountId")
     @DeleteColumn("ConversationEntity", "s_id")
     @DeleteColumn("ConversationEntity", "s_url")
     @DeleteColumn("ConversationEntity", "s_inReplyToId")

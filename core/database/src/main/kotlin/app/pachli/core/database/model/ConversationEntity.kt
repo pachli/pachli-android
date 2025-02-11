@@ -35,7 +35,6 @@ import kotlin.contracts.ExperimentalContracts
 data class ConversationData(
     val pachliAccountId: Long,
     val id: String,
-    val order: Int,
     val accounts: List<ConversationAccountEntity>,
     val unread: Boolean,
     @Embedded(prefix = "s_")
@@ -61,7 +60,6 @@ data class ConversationData(
 data class ConversationEntity(
     val pachliAccountId: Long,
     val id: String,
-    val order: Int,
     val accounts: List<ConversationAccountEntity>,
     val unread: Boolean,
     @ColumnInfo(defaultValue = "")
@@ -72,13 +70,11 @@ data class ConversationEntity(
         fun from(
             conversation: Conversation,
             pachliAccountId: Long,
-            order: Int,
         ): ConversationEntity? {
             return conversation.lastStatus?.let {
                 ConversationEntity(
                     pachliAccountId = pachliAccountId,
                     id = conversation.id,
-                    order = order,
                     accounts = conversation.accounts.map { ConversationAccountEntity.from(it) },
                     unread = conversation.unread,
                     lastStatusServerId = it.id,

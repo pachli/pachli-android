@@ -68,12 +68,12 @@ class ConversationsRemoteMediator(
                 val conversationEntities = mutableSetOf<ConversationEntity>()
                 val statuses = mutableSetOf<Status>()
 
-                conversations.filterNot { it.lastStatus == null }.withIndex().forEach { (index, value) ->
-                    val lastStatus = value.lastStatus!!
+                conversations.filterNot { it.lastStatus == null }.forEach {
+                    val lastStatus = it.lastStatus!!
                     accounts.add(lastStatus.account)
                     lastStatus.reblog?.account?.let { accounts.add(it) }
                     statuses.add(lastStatus)
-                    conversationEntities.add(ConversationEntity.from(value, pachliAccountId, index)!!)
+                    conversationEntities.add(ConversationEntity.from(it, pachliAccountId)!!)
                 }
 
                 timelineDao.upsertAccounts(accounts.map { TimelineAccountEntity.from(it, pachliAccountId) })

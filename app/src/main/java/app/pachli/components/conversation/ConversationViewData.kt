@@ -30,7 +30,6 @@ import app.pachli.core.model.FilterAction
  */
 data class ConversationViewData(
     val id: String,
-    val order: Int,
     val accounts: List<ConversationAccountEntity>,
     val unread: Boolean,
     val lastStatus: StatusViewData,
@@ -38,7 +37,6 @@ data class ConversationViewData(
     companion object {
         fun from(pachliAccountId: Long, conversationData: ConversationData) = ConversationViewData(
             id = conversationData.id,
-            order = conversationData.order,
             accounts = conversationData.accounts,
             unread = conversationData.unread,
             lastStatus = StatusViewData.from(

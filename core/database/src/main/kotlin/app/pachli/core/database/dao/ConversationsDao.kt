@@ -47,7 +47,6 @@ SELECT
     -- Conversation info
     c.pachliAccountId,
     c.id,
-    c.`order`,
     c.accounts,
     c.unread,
 
@@ -141,7 +140,7 @@ LEFT JOIN
     TranslatedStatusEntity AS t
     ON (c.pachliAccountId = t.timelineUserId AND (s.serverId = t.serverId OR s.reblogServerId = t.serverId))
 WHERE pachliAccountId = :accountId
-ORDER BY `order` ASC
+ORDER BY s.createdAt DESC
 """,
     )
     fun conversationsForAccount(accountId: Long): PagingSource<Int, ConversationData>
