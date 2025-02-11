@@ -76,7 +76,7 @@ class NotificationsRepository @Inject constructor(
         val row = initialKey?.let { notificationDao.getNotificationRowNumber(pachliAccountId, it) }
 
         return Pager(
-            initialKey = row?.let { (row - ((PAGE_SIZE * 3) / 2)).coerceAtLeast(0) },
+            initialKey = row,
             config = PagingConfig(
                 pageSize = PAGE_SIZE,
                 enablePlaceholders = true,
