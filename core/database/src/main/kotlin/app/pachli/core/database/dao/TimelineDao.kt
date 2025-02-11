@@ -21,7 +21,6 @@ import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
-import androidx.room.MapColumn
 import androidx.room.OnConflictStrategy.Companion.REPLACE
 import androidx.room.Query
 import androidx.room.Transaction
@@ -29,7 +28,6 @@ import androidx.room.TypeConverters
 import androidx.room.Upsert
 import app.pachli.core.database.Converters
 import app.pachli.core.database.model.StatusEntity
-import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TimelineStatusEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
@@ -451,32 +449,6 @@ WHERE
 """,
     )
     abstract suspend fun cleanupTranslatedStatus(accountId: Long)
-
-    @Upsert
-    abstract suspend fun upsertStatusViewData(svd: StatusViewDataEntity)
-
-    /**
-     * @param accountId the accountId to query
-     * @param serverIds the IDs of the statuses to check
-     * @return Map between serverIds and any cached viewdata for those statuses
-     */
-    @Query(
-        """
-SELECT *
-FROM StatusViewDataEntity
-WHERE
-    timelineUserId = :accountId
-    AND serverId IN (:serverIds)
-""",
-    )
-    abstract suspend fun getStatusViewData(
-        accountId: Long,
-        serverIds: List<String>,
-    ): Map<
-        @MapColumn(columnName = "serverId")
-        String,
-        StatusViewDataEntity,
-        >
 
     @Query(
         """
