@@ -349,6 +349,7 @@ class TimelineFragment :
                     is StatusActionSuccess.Translate -> statusViewData.status
                 }
                 (indexedViewData.value as StatusViewData).status = status
+                adapter.notifyItemChanged(indexedViewData.index)
             }
 
             // Refresh adapter on mutes and blocks
