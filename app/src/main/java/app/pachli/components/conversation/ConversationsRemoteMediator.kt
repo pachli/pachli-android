@@ -31,7 +31,7 @@ class ConversationsRemoteMediator(
 ) : RemoteMediator<Int, ConversationData>() {
 
     private var nextKey: String? = null
-    
+
     override suspend fun load(
         loadType: LoadType,
         state: PagingState<Int, ConversationData>,

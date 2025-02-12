@@ -17,6 +17,7 @@
 
 package app.pachli.core.database.dao
 
+import android.app.people.ConversationStatus
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.core.database.AppDatabase
 import app.pachli.core.database.model.AccountEntity
@@ -24,7 +25,6 @@ import app.pachli.core.database.model.AnnouncementEntity
 import app.pachli.core.database.model.ContentFiltersEntity
 import app.pachli.core.database.model.ConversationAccountEntity
 import app.pachli.core.database.model.ConversationEntity
-import app.pachli.core.database.model.ConversationStatus
 import app.pachli.core.database.model.DraftEntity
 import app.pachli.core.database.model.EmojisEntity
 import app.pachli.core.database.model.FilterActionUpdate
@@ -213,10 +213,10 @@ class AccountEntityForeignKeyTest {
 
     @Test
     fun `deleting account deletes ConversationEntity`() = runTest {
+
         val conversation = ConversationEntity(
-            accountId = pachliAccountId,
+            pachliAccountId = pachliAccountId,
             id = "1",
-            order = 1,
             accounts = emptyList(),
             unread = true,
             lastStatus = ConversationStatus(

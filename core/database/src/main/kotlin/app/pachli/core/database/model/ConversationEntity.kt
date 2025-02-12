@@ -39,8 +39,6 @@ data class ConversationData(
     val unread: Boolean,
     @Embedded(prefix = "s_")
     val lastStatus: TimelineStatusWithAccount,
-//    @Embedded(prefix = "svd_")
-//    val lastStatusViewData: StatusViewDataEntity?
 )
 
 @Entity(
