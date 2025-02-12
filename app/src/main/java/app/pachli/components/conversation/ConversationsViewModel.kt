@@ -114,31 +114,19 @@ class ConversationsViewModel @Inject constructor(
 
     fun expandHiddenStatus(pachliAccountId: Long, expanded: Boolean, lastStatusId: String) {
         viewModelScope.launch {
-//            conversationsDao.setExpanded(
-//                pachliAccountId,
-//                lastStatusId,
-//                expanded,
-//            )
+            statusRepository.setExpanded(pachliAccountId, lastStatusId, expanded)
         }
     }
 
     fun collapseLongStatus(pachliAccountId: Long, collapsed: Boolean, lastStatusId: String) {
         viewModelScope.launch {
-//            conversationsDao.setCollapsed(
-//                pachliAccountId,
-//                lastStatusId,
-//                collapsed,
-//            )
+            statusRepository.setContentCollapsed(pachliAccountId, lastStatusId, collapsed)
         }
     }
 
     fun showContent(pachliAccountId: Long, showingHiddenContent: Boolean, lastStatusId: String) {
         viewModelScope.launch {
-//            conversationsDao.setShowingHiddenContent(
-//                pachliAccountId,
-//                lastStatusId,
-//                showingHiddenContent,
-//            )
+            statusRepository.setContentShowing(pachliAccountId, lastStatusId, showingHiddenContent)
         }
     }
 
