@@ -106,6 +106,15 @@ class ConversationsViewModel @Inject constructor(
     /**
      * @param lastStatusId ID of the last status in the conversation
      */
+    fun muteConversation(muted: Boolean, lastStatusId: String) {
+        viewModelScope.launch {
+            statusRepository.mute(pachliAccountId, lastStatusId, muted)
+        }
+    }
+
+    /**
+     * @param lastStatusId ID of the last status in the conversation
+     */
     fun voteInPoll(choices: List<Int>, lastStatusId: String, pollId: String) {
         viewModelScope.launch {
             statusRepository.voteInPoll(pachliAccountId, lastStatusId, pollId, choices)
@@ -142,23 +151,6 @@ class ConversationsViewModel @Inject constructor(
             } catch (e: Exception) {
                 currentCoroutineContext().ensureActive()
                 Timber.w(e, "failed to delete conversation")
-            }
-        }
-    }
-
-    fun muteConversation(muted: Boolean, lastStatusId: String) {
-        viewModelScope.launch {
-            try {
-                timelineCases.muteConversation(lastStatusId, muted)
-
-//                conversationsDao.setMuted(
-//                    accountManager.activeAccount!!.id,
-//                    lastStatusId,
-//                    muted,
-//                )
-            } catch (e: Exception) {
-                currentCoroutineContext().ensureActive()
-                Timber.w(e, "failed to mute conversation")
             }
         }
     }
