@@ -370,6 +370,10 @@ WHERE timelineUserId = :accountId AND serverId NOT IN (
     SELECT statusServerId
     FROM NotificationEntity
     WHERE pachliAccountId = :accountId
+    UNION
+    SELECT lastStatusServerId
+    FROM ConversationEntity
+    WHERE pachliAccountId = :accountId
 )
 """,
     )
