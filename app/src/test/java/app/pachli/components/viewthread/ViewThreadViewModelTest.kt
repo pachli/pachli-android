@@ -5,8 +5,6 @@ import app.cash.turbine.test
 import app.pachli.PachliApplication
 import app.pachli.components.compose.HiltTestApplication_Application
 import app.pachli.components.timeline.CachedTimelineRepository
-import app.pachli.core.testing.fakes.fakeStatus
-import app.pachli.core.testing.fakes.fakeStatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.data.repository.StatusRepository
@@ -24,6 +22,8 @@ import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.NodeInfoApi
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.testing.failure
+import app.pachli.core.testing.fakes.fakeStatus
+import app.pachli.core.testing.fakes.fakeStatusViewData
 import app.pachli.core.testing.rules.MainCoroutineRule
 import app.pachli.core.testing.success
 import app.pachli.usecase.TimelineCases
