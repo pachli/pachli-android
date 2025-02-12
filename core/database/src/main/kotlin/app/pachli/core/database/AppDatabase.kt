@@ -297,10 +297,12 @@ val MIGRATE_12_13 = object : Migration(12, 13) {
  */
 val MIGRATE_18_19 = object : Migration(18, 19) {
     override fun migrate(db: SupportSQLiteDatabase) {
-        db.execSQL("""
+        db.execSQL(
+            """
 DELETE
 FROM StatusEntity
 WHERE timelineUserId NOT IN (SELECT id FROM AccountEntity)
-        """.trimIndent())
+            """.trimIndent(),
+        )
     }
 }
