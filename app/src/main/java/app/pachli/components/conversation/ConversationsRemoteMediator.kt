@@ -50,8 +50,10 @@ class ConversationsRemoteMediator(
 
             val conversations = conversationsResponse.body
 
-            // TODO: "conversations" may be empty.
-
+            if (conversations.isEmpty()) {
+                return MediatorResult.Success(endOfPaginationReached = loadType != LoadType.REFRESH)
+            }
+            
             transactionProvider {
                 if (loadType == LoadType.REFRESH) {
                     conversationsDao.deleteForAccount(pachliAccountId)
@@ -77,6 +79,7 @@ class ConversationsRemoteMediator(
                 statusDao.upsertStatuses(statuses.map { StatusEntity.from(it, pachliAccountId) })
                 conversationsDao.upsert(conversationEntities)
             }
+
             return MediatorResult.Success(endOfPaginationReached = nextKey == null)
         } catch (e: Exception) {
             currentCoroutineContext().ensureActive()

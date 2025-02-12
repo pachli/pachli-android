@@ -51,14 +51,10 @@ class ConversationsRepository @Inject constructor(
     suspend fun conversations(pachliAccountId: Long): Flow<PagingData<ConversationData>> {
         factory = InvalidatingPagingSourceFactory { conversationsDao.conversationsForAccount(pachliAccountId) }
 
-        // Room is row-keyed, not item-keyed. Find the user's REFRESH key, then find the
-        // row of the notification with that ID, and use that as the Pager's initialKey.
-        val initialKey = remoteKeyDao.remoteKeyForKind(pachliAccountId, RKE_TIMELINE_ID, RemoteKeyKind.REFRESH)?.key
-//        val row = initialKey?.let { conversationsDao.getConversationRowNumber(pachliAccountId, it) }
-        val row = 0
+        // The Mastodon conversations API does not support fetching a specific conversation
+        // so it is not possible to restore the user's reading position.
 
         return Pager(
-            initialKey = row,
             config = PagingConfig(
                 pageSize = PAGE_SIZE,
                 enablePlaceholders = true,
@@ -77,7 +73,5 @@ class ConversationsRepository @Inject constructor(
 
     companion object {
         private const val PAGE_SIZE = 30
-
-        internal const val RKE_TIMELINE_ID = "CONVERSATIONS"
     }
 }
