@@ -29,7 +29,6 @@ import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.ConversationData
-import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
 import app.pachli.core.network.retrofit.MastodonApi
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope

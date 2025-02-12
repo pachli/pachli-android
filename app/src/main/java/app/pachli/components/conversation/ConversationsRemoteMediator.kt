@@ -53,7 +53,7 @@ class ConversationsRemoteMediator(
             if (conversations.isEmpty()) {
                 return MediatorResult.Success(endOfPaginationReached = loadType != LoadType.REFRESH)
             }
-            
+
             transactionProvider {
                 if (loadType == LoadType.REFRESH) {
                     conversationsDao.deleteForAccount(pachliAccountId)
