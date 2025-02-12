@@ -96,7 +96,7 @@ import java.util.TimeZone
         NotificationRelationshipSeveranceEventEntity::class,
         TimelineStatusEntity::class,
     ],
-    version = 19,
+    version = 20,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
@@ -115,7 +115,8 @@ import java.util.TimeZone
         AutoMigration(from = 15, to = 16),
         AutoMigration(from = 16, to = 17),
         AutoMigration(from = 17, to = 18, spec = AppDatabase.MIGRATE_17_18::class),
-        AutoMigration(from = 18, to = 19, spec = AppDatabase.MIGRATE_18_19::class),
+        // 18 -> 19 is a custom migration
+        AutoMigration(from = 19, to = 20, spec = AppDatabase.MIGRATE_19_20::class),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -236,7 +237,11 @@ abstract class AppDatabase : RoomDatabase() {
     @DeleteColumn("ConversationEntity", "s_showingHiddenContent")
     @DeleteColumn("ConversationEntity", "s_collapsed")
     @DeleteColumn("ConversationEntity", "s_expanded")
-    class MIGRATE_18_19 : AutoMigrationSpec
+    class MIGRATE_19_20 : AutoMigrationSpec {
+        override fun onPostMigrate(db: SupportSQLiteDatabase) {
+            super.onPostMigrate(db)
+        }
+    }
 }
 
 val MIGRATE_8_9 = object : Migration(8, 9) {
@@ -321,5 +326,22 @@ val MIGRATE_12_13 = object : Migration(12, 13) {
         db.execSQL("CREATE TABLE IF NOT EXISTS `_new_NotificationEntity` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `type` TEXT NOT NULL, `createdAt` INTEGER NOT NULL, `accountServerId` TEXT NOT NULL, `statusServerId` TEXT, PRIMARY KEY(`pachliAccountId`, `serverId`), FOREIGN KEY(`pachliAccountId`) REFERENCES `AccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED, FOREIGN KEY(`accountServerId`, `pachliAccountId`) REFERENCES `TimelineAccountEntity`(`serverId`, `timelineUserId`) ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE INITIALLY DEFERRED)")
         db.execSQL("DROP TABLE `NotificationEntity`")
         db.execSQL("ALTER TABLE `_new_NotificationEntity` RENAME TO `NotificationEntity`")
+    }
+}
+
+/**
+ * Removes any StatusEntity that reference a non-existent [AccountEntity.id] in
+ * [StatusEntity.timelineUserId].
+ *
+ * Version 20 introduces that as an FK constraint, this ensures that any statuses
+ * in the cache that break that constraint are removed.
+ */
+val MIGRATE_18_19 = object : Migration(18, 19) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL("""
+DELETE
+FROM StatusEntity
+WHERE timelineUserId NOT IN (SELECT id FROM AccountEntity)
+        """.trimIndent())
     }
 }

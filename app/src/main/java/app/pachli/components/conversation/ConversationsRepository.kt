@@ -24,7 +24,6 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.database.dao.ConversationsDao
-import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.di.TransactionProvider
@@ -38,11 +37,9 @@ class ConversationsRepository @Inject constructor(
     @ApplicationScope internal val externalScope: CoroutineScope,
     private val mastodonApi: MastodonApi,
     private val transactionProvider: TransactionProvider,
-    private val remoteKeyDao: RemoteKeyDao,
     private val conversationsDao: ConversationsDao,
     private val statusDao: StatusDao,
     private val timelineDao: TimelineDao,
-
 ) {
     private var factory: InvalidatingPagingSourceFactory<Int, ConversationData>? = null
 
