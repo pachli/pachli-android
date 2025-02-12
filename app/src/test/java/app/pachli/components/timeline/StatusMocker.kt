@@ -109,7 +109,7 @@ fun mockStatusEntityWithAccount(
         ),
         viewData = StatusViewDataEntity(
             serverId = id,
-            timelineUserId = userId,
+            pachliAccountId = userId,
             expanded = expanded,
             contentShowing = false,
             contentCollapsed = true,

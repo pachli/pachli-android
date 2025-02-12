@@ -445,8 +445,8 @@ class AccountEntityForeignKeyTest {
     @Test
     fun `deleting account deletes StatusViewDataEntity`() = runTest {
         val statusViewData = StatusViewDataEntity(
+            pachliAccountId = pachliAccountId,
             serverId = "1",
-            timelineUserId = pachliAccountId,
             expanded = false,
             contentShowing = false,
             contentCollapsed = false,

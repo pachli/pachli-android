@@ -216,51 +216,6 @@ data class TimelineAccountEntity(
     }
 }
 
-enum class TranslationState {
-    /** Show the original, untranslated status */
-    SHOW_ORIGINAL,
-
-    /** Show the original, untranslated status, but translation is happening */
-    TRANSLATING,
-
-    /** Show the translated status */
-    SHOW_TRANSLATION,
-}
-
-/**
- * The local view data for a status.
- *
- * There is *no* foreignkey relationship between this and [StatusEntity], as the view
- * data is kept even if the status is deleted from the local cache (e.g., during a refresh
- * operation).
- */
-@Entity(
-    primaryKeys = ["serverId", "timelineUserId"],
-    foreignKeys = [
-        ForeignKey(
-            entity = AccountEntity::class,
-            parentColumns = arrayOf("id"),
-            childColumns = arrayOf("timelineUserId"),
-            onDelete = ForeignKey.CASCADE,
-            deferred = true,
-        ),
-    ],
-    indices = [Index(value = ["timelineUserId"])],
-)
-data class StatusViewDataEntity(
-    val serverId: String,
-    val timelineUserId: Long,
-    /** Corresponds to [app.pachli.viewdata.IStatusViewData.isExpanded] */
-    val expanded: Boolean,
-    /** Corresponds to [app.pachli.viewdata.IStatusViewData.isShowingContent] */
-    val contentShowing: Boolean,
-    /** Corresponds to [app.pachli.viewdata.IStatusViewData.isCollapsed] */
-    val contentCollapsed: Boolean,
-    /** Show the translated version of the status (if it exists) */
-    @ColumnInfo(defaultValue = "SHOW_ORIGINAL")
-    val translationState: TranslationState,
-)
-
 data class TimelineStatusWithAccount(
     @Embedded
     val status: StatusEntity,

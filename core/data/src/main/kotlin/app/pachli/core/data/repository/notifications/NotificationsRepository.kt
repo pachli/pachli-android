@@ -24,6 +24,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.model.StatusViewData
+import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.database.dao.NotificationDao
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.StatusDao
@@ -35,7 +36,6 @@ import app.pachli.core.database.model.NotificationData
 import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
-import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
 import app.pachli.core.network.model.Notification
@@ -60,6 +60,7 @@ class NotificationsRepository @Inject constructor(
     private val notificationDao: NotificationDao,
     private val remoteKeyDao: RemoteKeyDao,
     private val statusDao: StatusDao,
+    private val statusRepository: StatusRepository,
 ) {
     private var factory: InvalidatingPagingSourceFactory<Int, NotificationData>? = null
 
@@ -159,47 +160,28 @@ class NotificationsRepository @Inject constructor(
         )
     }
 
-    // Copied from CachedTimelineRepository
-    // Status management probably belongs in a StatusRepository to hold these
-    // functions, with separate repositories for timelines and notifications.
-    private suspend fun saveStatusViewData(pachliAccountId: Long, statusViewData: StatusViewData) =
-        externalScope.launch {
-            statusDao.upsertStatusViewData(
-                StatusViewDataEntity(
-                    serverId = statusViewData.actionableId,
-                    timelineUserId = pachliAccountId,
-                    expanded = statusViewData.isExpanded,
-                    contentShowing = statusViewData.isShowingContent,
-                    contentCollapsed = statusViewData.isCollapsed,
-                    translationState = statusViewData.translationState,
-                ),
-            )
-        }.join()
-
     /**
      * Saves a copy of [statusViewData] with [StatusViewData.isCollapsed] set to
      * [isCollapsed].
      */
-    fun setContentCollapsed(pachliAccountId: Long, statusViewData: StatusViewData, isCollapsed: Boolean) =
-        externalScope.launch {
-            saveStatusViewData(pachliAccountId, statusViewData.copy(isCollapsed = isCollapsed))
-        }
+    fun setContentCollapsed(pachliAccountId: Long, statusViewData: StatusViewData, isCollapsed: Boolean) = externalScope.launch {
+        statusRepository.setContentCollapsed(pachliAccountId, statusViewData.id, isCollapsed)
+    }
 
     /**
      * Saves a copy of [statusViewData] with [StatusViewData.isShowingContent] set to
      * [isShowingContent].
      */
-    fun setShowingContent(pachliAccountId: Long, statusViewData: StatusViewData, isShowingContent: Boolean) =
-        externalScope.launch {
-            saveStatusViewData(pachliAccountId, statusViewData.copy(isShowingContent = isShowingContent))
-        }
+    fun setShowingContent(pachliAccountId: Long, statusViewData: StatusViewData, isShowingContent: Boolean) = externalScope.launch {
+        statusRepository.setContentShowing(pachliAccountId, statusViewData.id, isShowingContent)
+    }
 
     /**
      * Saves a copy of [statusViewData] with [StatusViewData.isExpanded] set to
      * [isExpanded].
      */
     fun setExpanded(pachliAccountId: Long, statusViewData: StatusViewData, isExpanded: Boolean) = externalScope.launch {
-        saveStatusViewData(pachliAccountId, statusViewData.copy(isExpanded = isExpanded))
+        statusRepository.setExpanded(pachliAccountId, statusViewData.id, isExpanded)
     }
 
     companion object {

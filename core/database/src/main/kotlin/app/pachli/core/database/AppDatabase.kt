@@ -96,7 +96,7 @@ import java.util.TimeZone
         NotificationRelationshipSeveranceEventEntity::class,
         TimelineStatusEntity::class,
     ],
-    version = 18,
+    version = 19,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
@@ -115,6 +115,7 @@ import java.util.TimeZone
         AutoMigration(from = 15, to = 16),
         AutoMigration(from = 16, to = 17),
         AutoMigration(from = 17, to = 18, spec = AppDatabase.MIGRATE_17_18::class),
+        AutoMigration(from = 18, to = 19, spec = AppDatabase.MIGRATE_18_19::class),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -199,6 +200,9 @@ abstract class AppDatabase : RoomDatabase() {
     @RenameTable("TimelineStatusEntity", "StatusEntity")
     class MIGRATE_14_15 : AutoMigrationSpec
 
+    @RenameColumn("StatusViewDataEntity", "timelineUserId", "pachliAccountId")
+    class MIGRATE_17_18 : AutoMigrationSpec
+
     // Rename for consistency with other code.
     @RenameColumn("ConversationEntity", "accountId", "pachliAccountId")
     // Conversations are now ordered by date of most recent status.
@@ -232,7 +236,7 @@ abstract class AppDatabase : RoomDatabase() {
     @DeleteColumn("ConversationEntity", "s_showingHiddenContent")
     @DeleteColumn("ConversationEntity", "s_collapsed")
     @DeleteColumn("ConversationEntity", "s_expanded")
-    class MIGRATE_17_18 : AutoMigrationSpec
+    class MIGRATE_18_19 : AutoMigrationSpec
 }
 
 val MIGRATE_8_9 = object : Migration(8, 9) {

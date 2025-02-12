@@ -126,7 +126,7 @@ SELECT
 
     -- Status view data
     svd.serverId AS 's_svd_serverId',
-    svd.timelineUserId AS 's_svd_timelineUserId',
+    svd.pachliAccountId AS 's_svd_pachliAccountId',
     svd.expanded AS 's_svd_expanded',
     svd.contentShowing AS 's_svd_contentShowing',
     svd.contentCollapsed AS 's_svd_contentCollapsed',
@@ -189,7 +189,7 @@ LEFT JOIN TimelineAccountEntity AS sa ON (n.pachliAccountId = sa.timelineUserId 
 LEFT JOIN TimelineAccountEntity AS rb ON (n.pachliAccountId = rb.timelineUserId AND s.reblogAccountId = rb.serverId)
 LEFT JOIN
     StatusViewDataEntity AS svd
-    ON (n.pachliAccountId = svd.timelineUserId AND (s.serverId = svd.serverId OR s.reblogServerId = svd.serverId))
+    ON (n.pachliAccountId = svd.pachliAccountId AND (s.serverId = svd.serverId OR s.reblogServerId = svd.serverId))
 LEFT JOIN
     TranslatedStatusEntity AS t
     ON (n.pachliAccountId = t.timelineUserId AND (s.serverId = t.serverId OR s.reblogServerId = t.serverId))

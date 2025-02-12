@@ -108,24 +108,6 @@ class CachedTimelineViewModel @Inject constructor(
         // handled by CacheUpdater
     }
 
-    override fun changeExpanded(expanded: Boolean, status: StatusViewData) {
-        viewModelScope.launch {
-            repository.saveStatusViewData(status.copy(isExpanded = expanded))
-        }
-    }
-
-    override fun changeContentShowing(isShowing: Boolean, status: StatusViewData) {
-        viewModelScope.launch {
-            repository.saveStatusViewData(status.copy(isShowingContent = isShowing))
-        }
-    }
-
-    override fun changeContentCollapsed(isCollapsed: Boolean, status: StatusViewData) {
-        viewModelScope.launch {
-            repository.saveStatusViewData(status.copy(isCollapsed = isCollapsed))
-        }
-    }
-
     override fun removeAllByAccountId(pachliAccountId: Long, accountId: String) {
         viewModelScope.launch {
             repository.removeAllByAccountId(pachliAccountId, accountId)

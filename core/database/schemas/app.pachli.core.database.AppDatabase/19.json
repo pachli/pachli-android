@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 18,
-    "identityHash": "05120aec0625e3e37b68b79d29871a9b",
+    "version": 19,
+    "identityHash": "8849a88837ae82c3f34b0100309794ca",
     "entities": [
       {
         "tableName": "DraftEntity",
@@ -920,11 +920,11 @@
       },
       {
         "tableName": "ConversationEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`accountId` INTEGER NOT NULL, `id` TEXT NOT NULL, `order` INTEGER NOT NULL, `accounts` TEXT NOT NULL, `unread` INTEGER NOT NULL, `s_id` TEXT NOT NULL, `s_url` TEXT, `s_inReplyToId` TEXT, `s_inReplyToAccountId` TEXT, `s_account` TEXT NOT NULL, `s_content` TEXT NOT NULL, `s_createdAt` INTEGER NOT NULL, `s_editedAt` INTEGER, `s_emojis` TEXT NOT NULL, `s_favouritesCount` INTEGER NOT NULL, `s_repliesCount` INTEGER NOT NULL, `s_favourited` INTEGER NOT NULL, `s_bookmarked` INTEGER NOT NULL, `s_sensitive` INTEGER NOT NULL, `s_spoilerText` TEXT NOT NULL, `s_attachments` TEXT NOT NULL, `s_mentions` TEXT NOT NULL, `s_tags` TEXT, `s_showingHiddenContent` INTEGER NOT NULL, `s_expanded` INTEGER NOT NULL, `s_collapsed` INTEGER NOT NULL, `s_muted` INTEGER NOT NULL, `s_poll` TEXT, `s_language` TEXT, PRIMARY KEY(`id`, `accountId`), FOREIGN KEY(`accountId`) REFERENCES `AccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `id` TEXT NOT NULL, `accounts` TEXT NOT NULL, `unread` INTEGER NOT NULL, `lastStatusServerId` TEXT NOT NULL DEFAULT '', PRIMARY KEY(`id`, `pachliAccountId`), FOREIGN KEY(`pachliAccountId`) REFERENCES `AccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
         "fields": [
           {
-            "fieldPath": "accountId",
-            "columnName": "accountId",
+            "fieldPath": "pachliAccountId",
+            "columnName": "pachliAccountId",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -932,12 +932,6 @@
             "fieldPath": "id",
             "columnName": "id",
             "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "order",
-            "columnName": "order",
-            "affinity": "INTEGER",
             "notNull": true
           },
           {
@@ -953,166 +947,29 @@
             "notNull": true
           },
           {
-            "fieldPath": "lastStatus.id",
-            "columnName": "s_id",
+            "fieldPath": "lastStatusServerId",
+            "columnName": "lastStatusServerId",
             "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "lastStatus.url",
-            "columnName": "s_url",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "lastStatus.inReplyToId",
-            "columnName": "s_inReplyToId",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "lastStatus.inReplyToAccountId",
-            "columnName": "s_inReplyToAccountId",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "lastStatus.account",
-            "columnName": "s_account",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "lastStatus.content",
-            "columnName": "s_content",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "lastStatus.createdAt",
-            "columnName": "s_createdAt",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "lastStatus.editedAt",
-            "columnName": "s_editedAt",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "lastStatus.emojis",
-            "columnName": "s_emojis",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "lastStatus.favouritesCount",
-            "columnName": "s_favouritesCount",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "lastStatus.repliesCount",
-            "columnName": "s_repliesCount",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "lastStatus.favourited",
-            "columnName": "s_favourited",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "lastStatus.bookmarked",
-            "columnName": "s_bookmarked",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "lastStatus.sensitive",
-            "columnName": "s_sensitive",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "lastStatus.spoilerText",
-            "columnName": "s_spoilerText",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "lastStatus.attachments",
-            "columnName": "s_attachments",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "lastStatus.mentions",
-            "columnName": "s_mentions",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "lastStatus.tags",
-            "columnName": "s_tags",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "lastStatus.showingHiddenContent",
-            "columnName": "s_showingHiddenContent",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "lastStatus.expanded",
-            "columnName": "s_expanded",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "lastStatus.collapsed",
-            "columnName": "s_collapsed",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "lastStatus.muted",
-            "columnName": "s_muted",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "lastStatus.poll",
-            "columnName": "s_poll",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "lastStatus.language",
-            "columnName": "s_language",
-            "affinity": "TEXT",
-            "notNull": false
+            "notNull": true,
+            "defaultValue": "''"
           }
         ],
         "primaryKey": {
           "autoGenerate": false,
           "columnNames": [
             "id",
-            "accountId"
+            "pachliAccountId"
           ]
         },
         "indices": [
           {
-            "name": "index_ConversationEntity_accountId",
+            "name": "index_ConversationEntity_pachliAccountId",
             "unique": false,
             "columnNames": [
-              "accountId"
+              "pachliAccountId"
             ],
             "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_ConversationEntity_accountId` ON `${TABLE_NAME}` (`accountId`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_ConversationEntity_pachliAccountId` ON `${TABLE_NAME}` (`pachliAccountId`)"
           }
         ],
         "foreignKeys": [
@@ -1121,7 +978,7 @@
             "onDelete": "CASCADE",
             "onUpdate": "NO ACTION",
             "columns": [
-              "accountId"
+              "pachliAccountId"
             ],
             "referencedColumns": [
               "id"
@@ -2019,7 +1876,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '05120aec0625e3e37b68b79d29871a9b')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8849a88837ae82c3f34b0100309794ca')"
     ]
   }
 }

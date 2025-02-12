@@ -114,7 +114,7 @@ SELECT
 
     -- Status view data
     svd.serverId AS 's_svd_serverId',
-    svd.timelineUserId AS 's_svd_timelineUserId',
+    svd.pachliAccountId AS 's_svd_pachliAccountId',
     svd.expanded AS 's_svd_expanded',
     svd.contentShowing AS 's_svd_contentShowing',
     svd.contentCollapsed AS 's_svd_contentCollapsed',
@@ -135,11 +135,11 @@ LEFT JOIN TimelineAccountEntity AS sa ON (c.pachliAccountId = sa.timelineUserId 
 LEFT JOIN TimelineAccountEntity AS rb ON (c.pachliAccountId = rb.timelineUserId AND s.reblogAccountId = rb.serverId)
 LEFT JOIN
     StatusViewDataEntity AS svd
-    ON (c.pachliAccountId = svd.timelineUserId AND (s.serverId = svd.serverId OR s.reblogServerId = svd.serverId))
+    ON (c.pachliAccountId = svd.pachliAccountId AND (s.serverId = svd.serverId OR s.reblogServerId = svd.serverId))
 LEFT JOIN
     TranslatedStatusEntity AS t
     ON (c.pachliAccountId = t.timelineUserId AND (s.serverId = t.serverId OR s.reblogServerId = t.serverId))
-WHERE pachliAccountId = :accountId
+WHERE c.pachliAccountId = :accountId
 ORDER BY s.createdAt DESC
 """,
     )
