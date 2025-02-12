@@ -46,8 +46,8 @@ data class ConversationData(
     foreignKeys = [
         ForeignKey(
             entity = AccountEntity::class,
-            parentColumns = arrayOf("id"),
-            childColumns = arrayOf("pachliAccountId"),
+            parentColumns = ["id"],
+            childColumns = ["pachliAccountId"],
             onDelete = ForeignKey.CASCADE,
             deferred = true,
         ),

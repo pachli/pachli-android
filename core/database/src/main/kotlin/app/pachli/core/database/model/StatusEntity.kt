@@ -51,6 +51,13 @@ import java.util.Date
     foreignKeys = (
         [
             ForeignKey(
+                entity = AccountEntity::class,
+                parentColumns = ["id"],
+                childColumns = ["timelineUserId"],
+                onDelete = ForeignKey.CASCADE,
+                deferred = true,
+            ),
+            ForeignKey(
                 entity = TimelineAccountEntity::class,
                 parentColumns = ["serverId", "timelineUserId"],
                 childColumns = ["authorServerId", "timelineUserId"],

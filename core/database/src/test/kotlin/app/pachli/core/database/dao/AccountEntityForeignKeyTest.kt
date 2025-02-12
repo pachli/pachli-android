@@ -17,13 +17,11 @@
 
 package app.pachli.core.database.dao
 
-import android.app.people.ConversationStatus
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.core.database.AppDatabase
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.AnnouncementEntity
 import app.pachli.core.database.model.ContentFiltersEntity
-import app.pachli.core.database.model.ConversationAccountEntity
 import app.pachli.core.database.model.ConversationEntity
 import app.pachli.core.database.model.DraftEntity
 import app.pachli.core.database.model.EmojisEntity
@@ -34,6 +32,7 @@ import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.database.model.NotificationViewDataEntity
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.ServerEntity
+import app.pachli.core.database.model.StatusEntity
 import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TranslatedStatusEntity
@@ -44,6 +43,7 @@ import app.pachli.core.model.ServerKind
 import app.pachli.core.network.model.Announcement
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.UserListRepliesPolicy
+import app.pachli.core.testing.fakes.fakeStatus
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -213,46 +213,15 @@ class AccountEntityForeignKeyTest {
 
     @Test
     fun `deleting account deletes ConversationEntity`() = runTest {
+        val statusEntity = StatusEntity.from(fakeStatus(), pachliAccountId)
+        statusDao.upsertStatuses(listOf(statusEntity))
 
         val conversation = ConversationEntity(
             pachliAccountId = pachliAccountId,
             id = "1",
             accounts = emptyList(),
             unread = true,
-            lastStatus = ConversationStatus(
-                id = "1",
-                url = null,
-                inReplyToId = null,
-                inReplyToAccountId = null,
-                account = ConversationAccountEntity(
-                    id = "1",
-                    localUsername = "foo@bar",
-                    username = "foo",
-                    displayName = "Foo",
-                    avatar = "",
-                    emojis = emptyList(),
-                    createdAt = Instant.now(),
-                ),
-                content = "",
-                createdAt = Date(),
-                editedAt = Date(),
-                emojis = emptyList(),
-                favouritesCount = 0,
-                repliesCount = 0,
-                favourited = false,
-                bookmarked = false,
-                sensitive = false,
-                spoilerText = "",
-                attachments = emptyList(),
-                mentions = emptyList(),
-                tags = emptyList(),
-                showingHiddenContent = false,
-                expanded = false,
-                collapsed = false,
-                muted = false,
-                poll = null,
-                language = null,
-            ),
+            lastStatusServerId = statusEntity.serverId,
         )
         conversationDao.upsert(conversation)
 
