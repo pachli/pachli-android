@@ -26,6 +26,8 @@ import app.pachli.core.network.json.Guarded
 import app.pachli.core.network.json.InstantJsonAdapter
 import app.pachli.core.network.json.LenientRfc3339DateJsonAdapter
 import app.pachli.core.testing.failure
+import app.pachli.core.testing.fakes.fakeStatus
+import app.pachli.core.testing.fakes.fakeStatusEntityWithAccount
 import app.pachli.core.testing.success
 import com.google.common.truth.Truth.assertThat
 import com.squareup.moshi.Moshi
@@ -147,7 +149,7 @@ class CachedTimelineRemoteMediatorTest {
             listOf(
                 PagingSource.LoadResult.Page(
                     data = listOf(
-                        mockStatusEntityWithAccount("3"),
+                        fakeStatusEntityWithAccount("3"),
                     ),
                     prevKey = null,
                     nextKey = 1,
@@ -168,9 +170,9 @@ class CachedTimelineRemoteMediatorTest {
             mastodonApi = mock {
                 onBlocking { homeTimeline(limit = 20) } doReturn success(
                     listOf(
-                        mockStatus("5"),
-                        mockStatus("4"),
-                        mockStatus("3"),
+                        fakeStatus("5"),
+                        fakeStatus("4"),
+                        fakeStatus("3"),
                     ),
                 )
             },
@@ -198,9 +200,9 @@ class CachedTimelineRemoteMediatorTest {
 
         db.assertStatuses(
             listOf(
-                mockStatusEntityWithAccount("5"),
-                mockStatusEntityWithAccount("4"),
-                mockStatusEntityWithAccount("3"),
+                fakeStatusEntityWithAccount("5"),
+                fakeStatusEntityWithAccount("4"),
+                fakeStatusEntityWithAccount("3"),
             ),
         )
     }
@@ -210,9 +212,9 @@ class CachedTimelineRemoteMediatorTest {
     fun `should remove deleted status from db and keep state of other cached statuses`() = runTest {
         // Given
         val statusesAlreadyInDb = listOf(
-            mockStatusEntityWithAccount("3", expanded = true),
-            mockStatusEntityWithAccount("2"),
-            mockStatusEntityWithAccount("1", expanded = false),
+            fakeStatusEntityWithAccount("3", expanded = true),
+            fakeStatusEntityWithAccount("2"),
+            fakeStatusEntityWithAccount("1", expanded = false),
         )
 
         db.insert(statusesAlreadyInDb)
@@ -221,8 +223,8 @@ class CachedTimelineRemoteMediatorTest {
             mastodonApi = mock {
                 onBlocking { homeTimeline(limit = 20) } doReturn success(
                     listOf(
-                        mockStatus("3"),
-                        mockStatus("1"),
+                        fakeStatus("3"),
+                        fakeStatus("1"),
                     ),
                 )
             },
@@ -253,8 +255,8 @@ class CachedTimelineRemoteMediatorTest {
             listOf(
                 // id="2" was in the database initially, but not in the results returned
                 // from the API, so it should have been deleted here.
-                mockStatusEntityWithAccount("3", expanded = true),
-                mockStatusEntityWithAccount("1", expanded = false),
+                fakeStatusEntityWithAccount("3", expanded = true),
+                fakeStatusEntityWithAccount("1", expanded = false),
             ),
         )
     }
@@ -263,9 +265,9 @@ class CachedTimelineRemoteMediatorTest {
     @ExperimentalPagingApi
     fun `should append statuses`() = runTest {
         val statusesAlreadyInDb = listOf(
-            mockStatusEntityWithAccount("8"),
-            mockStatusEntityWithAccount("7"),
-            mockStatusEntityWithAccount("5"),
+            fakeStatusEntityWithAccount("8"),
+            fakeStatusEntityWithAccount("7"),
+            fakeStatusEntityWithAccount("5"),
         )
 
         db.insert(statusesAlreadyInDb)
@@ -276,9 +278,9 @@ class CachedTimelineRemoteMediatorTest {
             mastodonApi = mock {
                 onBlocking { homeTimeline(maxId = "5", limit = 20) } doReturn success(
                     listOf(
-                        mockStatus("3"),
-                        mockStatus("2"),
-                        mockStatus("1"),
+                        fakeStatus("3"),
+                        fakeStatus("2"),
+                        fakeStatus("1"),
                     ),
                     headers = arrayOf("Link", "<http://example.com/?min_id=3>; rel=\"prev\", <http://example.com/?max_id=1>; rel=\"next\""),
 
@@ -307,12 +309,12 @@ class CachedTimelineRemoteMediatorTest {
         assertEquals(false, (result as RemoteMediator.MediatorResult.Success).endOfPaginationReached)
         db.assertStatuses(
             listOf(
-                mockStatusEntityWithAccount("8"),
-                mockStatusEntityWithAccount("7"),
-                mockStatusEntityWithAccount("5"),
-                mockStatusEntityWithAccount("3"),
-                mockStatusEntityWithAccount("2"),
-                mockStatusEntityWithAccount("1"),
+                fakeStatusEntityWithAccount("8"),
+                fakeStatusEntityWithAccount("7"),
+                fakeStatusEntityWithAccount("5"),
+                fakeStatusEntityWithAccount("3"),
+                fakeStatusEntityWithAccount("2"),
+                fakeStatusEntityWithAccount("1"),
             ),
         )
     }
