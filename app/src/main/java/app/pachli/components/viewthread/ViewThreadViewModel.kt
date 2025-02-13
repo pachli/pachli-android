@@ -23,6 +23,7 @@ import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
+import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.TranslatedStatusEntity
@@ -74,6 +75,7 @@ class ViewThreadViewModel @Inject constructor(
     private val timelineDao: TimelineDao,
     private val repository: CachedTimelineRepository,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
+    private val statusRepository: StatusRepository,
 ) : ViewModel() {
     private val _uiState: MutableStateFlow<ThreadUiState> = MutableStateFlow(ThreadUiState.Loading)
     val uiState: Flow<ThreadUiState>
@@ -273,19 +275,35 @@ class ViewThreadViewModel @Inject constructor(
     }
 
     fun reblog(reblog: Boolean, status: StatusViewData) = viewModelScope.launch {
-        timelineCases.reblog(status.actionableId, reblog).onFailure {
+        updateStatus(status.id) {
+            it.copy(
+                reblogged = reblog,
+                reblog = it.reblog?.copy(reblogged = reblog),
+            )
+        }
+        statusRepository.reblog(status.pachliAccountId, status.actionableId, reblog).onFailure {
+            updateStatus(status.id) { it }
             Timber.d("Failed to reblog status: %s: %s", status.actionableId, it)
         }
     }
 
     fun favorite(favorite: Boolean, status: StatusViewData) = viewModelScope.launch {
-        timelineCases.favourite(status.actionableId, favorite).onFailure {
+        updateStatus(status.id) {
+            it.copy(
+                favourited = favorite,
+                favouritesCount = it.favouritesCount + 1,
+            )
+        }
+        statusRepository.favourite(status.pachliAccountId, status.actionableId, favorite).onFailure {
+            updateStatus(status.id) { it }
             Timber.d("Failed to favourite status: %s: %s", status.actionableId, it)
         }
     }
 
     fun bookmark(bookmark: Boolean, status: StatusViewData) = viewModelScope.launch {
-        timelineCases.bookmark(status.actionableId, bookmark).onFailure {
+        updateStatus(status.id) { it.copy(bookmarked = bookmark) }
+        statusRepository.bookmark(status.pachliAccountId, status.actionableId, bookmark).onFailure {
+            updateStatus(status.id) { it }
             Timber.d("Failed to bookmark status: %s: %s", status.actionableId, it)
         }
     }
@@ -296,9 +314,11 @@ class ViewThreadViewModel @Inject constructor(
             status.copy(poll = votedPoll)
         }
 
-        timelineCases.voteInPoll(status.actionableId, poll.id, choices).onFailure {
-            Timber.d("Failed to vote in poll: %s: %s", status.actionableId, it)
-        }
+        statusRepository.voteInPoll(status.pachliAccountId, status.actionableId, poll.id, choices)
+            .onFailure {
+                Timber.d("Failed to vote in poll: %s: %s", status.actionableId, it)
+                updateStatus(status.id) { it.copy(poll = poll) }
+            }
     }
 
     fun removeStatus(statusToRemove: StatusViewData) {
@@ -324,7 +344,7 @@ class ViewThreadViewModel @Inject constructor(
             )
         }
         viewModelScope.launch {
-            repository.saveStatusViewData(status.copy(isExpanded = expanded))
+            statusRepository.setExpanded(status.pachliAccountId, status.id, expanded)
         }
     }
 
@@ -333,7 +353,7 @@ class ViewThreadViewModel @Inject constructor(
             viewData.copy(isShowingContent = isShowing)
         }
         viewModelScope.launch {
-            repository.saveStatusViewData(status.copy(isShowingContent = isShowing))
+            statusRepository.setContentShowing(status.pachliAccountId, status.id, isShowing)
         }
     }
 
@@ -342,7 +362,7 @@ class ViewThreadViewModel @Inject constructor(
             viewData.copy(isCollapsed = isCollapsed)
         }
         viewModelScope.launch {
-            repository.saveStatusViewData(status.copy(isCollapsed = isCollapsed))
+            statusRepository.setContentCollapsed(status.pachliAccountId, status.id, isCollapsed)
         }
     }
 
@@ -455,7 +475,7 @@ class ViewThreadViewModel @Inject constructor(
                     attachments = body.attachments,
                     provider = body.provider,
                 )
-                updateStatusViewData(statusViewData.status.id) { viewData ->
+                updateStatusViewData(statusViewData.id) { viewData ->
                     viewData.copy(translation = translatedEntity, translationState = TranslationState.SHOW_TRANSLATION)
                 }
             }
@@ -471,13 +491,11 @@ class ViewThreadViewModel @Inject constructor(
     }
 
     fun translateUndo(statusViewData: StatusViewData) {
-        updateStatusViewData(statusViewData.status.id) { viewData ->
+        updateStatusViewData(statusViewData.id) { viewData ->
             viewData.copy(translationState = TranslationState.SHOW_ORIGINAL)
         }
         viewModelScope.launch {
-            repository.saveStatusViewData(
-                statusViewData.copy(translationState = TranslationState.SHOW_ORIGINAL),
-            )
+            statusRepository.setTranslationState(statusViewData.pachliAccountId, statusViewData.id, TranslationState.SHOW_ORIGINAL)
         }
     }
 

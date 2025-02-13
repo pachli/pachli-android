@@ -18,11 +18,17 @@
 package app.pachli.core.database.dao
 
 import androidx.room.Dao
+import androidx.room.MapColumn
 import androidx.room.Query
 import androidx.room.TypeConverters
 import androidx.room.Upsert
 import app.pachli.core.database.Converters
 import app.pachli.core.database.model.StatusEntity
+import app.pachli.core.database.model.StatusViewDataContentCollapsed
+import app.pachli.core.database.model.StatusViewDataContentShowing
+import app.pachli.core.database.model.StatusViewDataEntity
+import app.pachli.core.database.model.StatusViewDataExpanded
+import app.pachli.core.database.model.StatusViewDataTranslationState
 import app.pachli.core.network.model.Poll
 
 /**
@@ -37,6 +43,15 @@ abstract class StatusDao {
 
     @Upsert
     abstract suspend fun insertStatus(statusEntity: StatusEntity): Long
+
+    @Query(
+        """
+SELECT *
+FROM StatusEntity
+WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId)
+        """,
+    )
+    abstract suspend fun getStatus(pachliAccountId: Long, statusId: String): StatusEntity?
 
     @Query(
         """
@@ -70,6 +85,16 @@ WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServe
 
     @Query(
         """
+UPDATE StatusEntity
+SET
+    muted = :muted
+WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServerId = :statusId)
+        """,
+    )
+    abstract suspend fun setMuted(pachliAccountId: Long, statusId: String, muted: Boolean)
+
+    @Query(
+        """
 DELETE
 FROM StatusEntity
 WHERE
@@ -87,7 +112,7 @@ SET
 WHERE timelineUserId = :accountId AND (serverId = :statusId OR reblogServerId = :statusId)
 """,
     )
-    abstract suspend fun setVoted(accountId: Long, statusId: String, poll: Poll)
+    abstract suspend fun setPoll(accountId: Long, statusId: String, poll: Poll)
 
     @Query(
         """
@@ -108,4 +133,57 @@ WHERE timelineUserId = :accountId AND (serverId = :statusId OR reblogServerId = 
 """,
     )
     abstract suspend fun clearWarning(accountId: Long, statusId: String): Int
+
+    // StatusViewData methods
+
+    @Upsert
+    abstract suspend fun upsertStatusViewData(svd: StatusViewDataEntity)
+
+    /**
+     * @param accountId the accountId to query
+     * @param serverIds the IDs of the statuses to check
+     * @return Map between serverIds and any cached viewdata for those statuses
+     */
+    @Query(
+        """
+SELECT *
+FROM StatusViewDataEntity
+WHERE
+    pachliAccountId = :accountId
+    AND serverId IN (:serverIds)
+""",
+    )
+    abstract suspend fun getStatusViewData(
+        accountId: Long,
+        serverIds: List<String>,
+    ): Map<
+        @MapColumn(columnName = "serverId")
+        String,
+        StatusViewDataEntity,
+        >
+
+    /** Upserts [partial], setting the [expanded][StatusViewDataEntity.expanded] property. */
+    @Upsert(entity = StatusViewDataEntity::class)
+    abstract suspend fun setExpanded(partial: StatusViewDataExpanded)
+
+    /**
+     * Upserts [partial], setting the [contentShowing][StatusViewDataEntity.contentShowing]
+     * property.
+     */
+    @Upsert(entity = StatusViewDataEntity::class)
+    abstract suspend fun setContentShowing(partial: StatusViewDataContentShowing)
+
+    /**
+     * Upserts [partial], setting the [contentCollapsed][StatusViewDataEntity.contentCollapsed]
+     * property.
+     */
+    @Upsert(entity = StatusViewDataEntity::class)
+    abstract suspend fun setContentCollapsed(partial: StatusViewDataContentCollapsed)
+
+    /**
+     * Upserts [partial], setting the [translationState][StatusViewDataEntity.translationState]
+     * property.
+     */
+    @Upsert(entity = StatusViewDataEntity::class)
+    abstract suspend fun setTranslationState(partial: StatusViewDataTranslationState)
 }

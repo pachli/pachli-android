@@ -17,73 +17,91 @@
 
 package app.pachli.core.database.model
 
+import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
-import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Conversation
 import app.pachli.core.network.model.Emoji
-import app.pachli.core.network.model.HashTag
-import app.pachli.core.network.model.Poll
-import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.TimelineAccount
 import com.squareup.moshi.JsonClass
 import java.time.Instant
-import java.util.Date
+import kotlin.contracts.ExperimentalContracts
 
+/**
+ * Data to show a conversation.
+ *
+ * The result of joining [ConversationEntity] with the last status and
+ * any other necessary data.
+ */
+@TypeConverters(Converters::class)
+data class ConversationData(
+    val pachliAccountId: Long,
+    val id: String,
+    val accounts: List<ConversationAccount>,
+    val unread: Boolean,
+    @Embedded(prefix = "s_")
+    val lastStatus: TimelineStatusWithAccount,
+)
+
+/**
+ * Represents a [Conversation].
+ *
+ * @param pachliAccountId
+ * @param id Conversation ID
+ * @param accounts List of [ConversationAccount] in the conversation.
+ * @param unread True if the conversation is currently marked unread
+ * @param lastStatusServerId Server ID of the most recent status in the conversation
+ */
 @Entity(
-    primaryKeys = ["id", "accountId"],
+    primaryKeys = ["id", "pachliAccountId"],
     foreignKeys = [
         ForeignKey(
             entity = AccountEntity::class,
-            parentColumns = arrayOf("id"),
-            childColumns = arrayOf("accountId"),
+            parentColumns = ["id"],
+            childColumns = ["pachliAccountId"],
             onDelete = ForeignKey.CASCADE,
             deferred = true,
         ),
     ],
-    indices = [Index(value = ["accountId"])],
+    indices = [Index(value = ["pachliAccountId"])],
 )
 @TypeConverters(Converters::class)
 data class ConversationEntity(
-    val accountId: Long,
+    val pachliAccountId: Long,
     val id: String,
-    val order: Int,
-    val accounts: List<ConversationAccountEntity>,
+    val accounts: List<ConversationAccount>,
     val unread: Boolean,
-    @Embedded(prefix = "s_") val lastStatus: ConversationStatusEntity,
+    @ColumnInfo(defaultValue = "")
+    val lastStatusServerId: String,
 ) {
     companion object {
+        @OptIn(ExperimentalContracts::class)
         fun from(
             conversation: Conversation,
-            /** Pachli account ID (timelineUserId in other entities) */
-            accountId: Long,
-            order: Int,
-            expanded: Boolean,
-            contentShowing: Boolean,
-            contentCollapsed: Boolean,
-        ) = ConversationEntity(
-            accountId = accountId,
-            id = conversation.id,
-            order = order,
-            accounts = conversation.accounts.map { ConversationAccountEntity.from(it) },
-            unread = conversation.unread,
-            lastStatus = ConversationStatusEntity.from(
-                conversation.lastStatus!!,
-                expanded = expanded,
-                contentShowing = contentShowing,
-                contentCollapsed = contentCollapsed,
-            ),
-        )
+            pachliAccountId: Long,
+        ): ConversationEntity? {
+            return conversation.lastStatus?.let {
+                ConversationEntity(
+                    pachliAccountId = pachliAccountId,
+                    id = conversation.id,
+                    accounts = conversation.accounts.map { ConversationAccount.from(it) },
+                    unread = conversation.unread,
+                    lastStatusServerId = it.id,
+                )
+            }
+        }
     }
 }
 
-// TODO: Not an entity, should remove the suffix.
+/**
+ * Participants in a [ConversationData].
+ */
 @JsonClass(generateAdapter = true)
-data class ConversationAccountEntity(
+data class ConversationAccount(
     val id: String,
     val localUsername: String,
     val username: String,
@@ -92,22 +110,9 @@ data class ConversationAccountEntity(
     val emojis: List<Emoji>,
     val createdAt: Instant?,
 ) {
-    fun toAccount(): TimelineAccount {
-        return TimelineAccount(
-            id = id,
-            localUsername = localUsername,
-            username = username,
-            displayName = displayName,
-            note = "",
-            url = "",
-            avatar = avatar,
-            emojis = emojis,
-            createdAt = createdAt,
-        )
-    }
 
     companion object {
-        fun from(timelineAccount: TimelineAccount) = ConversationAccountEntity(
+        fun from(timelineAccount: TimelineAccount) = ConversationAccount(
             id = timelineAccount.id,
             localUsername = timelineAccount.localUsername,
             username = timelineAccount.username,
@@ -115,70 +120,6 @@ data class ConversationAccountEntity(
             avatar = timelineAccount.avatar,
             emojis = timelineAccount.emojis.orEmpty(),
             createdAt = timelineAccount.createdAt,
-        )
-    }
-}
-
-// TODO: Not an entity, should remove the "Entity" suffix.
-@TypeConverters(Converters::class)
-data class ConversationStatusEntity(
-    val id: String,
-    val url: String?,
-    val inReplyToId: String?,
-    val inReplyToAccountId: String?,
-    val account: ConversationAccountEntity,
-    val content: String,
-    val createdAt: Date,
-    val editedAt: Date?,
-    val emojis: List<Emoji>,
-    val favouritesCount: Int,
-    val repliesCount: Int,
-    val favourited: Boolean,
-    val bookmarked: Boolean,
-    val sensitive: Boolean,
-    val spoilerText: String,
-    val attachments: List<Attachment>,
-    val mentions: List<Status.Mention>,
-    val tags: List<HashTag>?,
-    val showingHiddenContent: Boolean,
-    val expanded: Boolean,
-    val collapsed: Boolean,
-    val muted: Boolean,
-    val poll: Poll?,
-    val language: String?,
-) {
-
-    companion object {
-        fun from(
-            status: Status,
-            expanded: Boolean,
-            contentShowing: Boolean,
-            contentCollapsed: Boolean,
-        ) = ConversationStatusEntity(
-            id = status.id,
-            url = status.url,
-            inReplyToId = status.inReplyToId,
-            inReplyToAccountId = status.inReplyToAccountId,
-            account = ConversationAccountEntity.from(status.account),
-            content = status.content,
-            createdAt = status.createdAt,
-            editedAt = status.editedAt,
-            emojis = status.emojis,
-            favouritesCount = status.favouritesCount,
-            repliesCount = status.repliesCount,
-            favourited = status.favourited,
-            bookmarked = status.bookmarked,
-            sensitive = status.sensitive,
-            spoilerText = status.spoilerText,
-            attachments = status.attachments,
-            mentions = status.mentions,
-            tags = status.tags,
-            showingHiddenContent = contentShowing,
-            expanded = expanded,
-            collapsed = contentCollapsed,
-            muted = status.muted ?: false,
-            poll = status.poll,
-            language = status.language,
         )
     }
 }

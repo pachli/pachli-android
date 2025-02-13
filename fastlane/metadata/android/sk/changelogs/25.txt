@@ -1,0 +1,16 @@
+Pachli 2.9.1
+
+Nové funkcie:
+
+- Zobrazenie príspevkov, ktoré zmieňujú populárny odkaz
+- Zobrazenie metódy požiadavky a URL adresy v chybách ApiResult 
+- Pridanie nórčiny nynorsk ako zvoliteľný jazyk
+
+Opravy:
+
+- Chyba "KeyStoreException: BKS not found" pri prihlásení
+- Korektné zobrazenie neznámych typov oznámení
+- Pád pri aktualizácii položiek hlavného menu
+- Pád pri prepínaní možnosti "Zobraziť zdieľania"
+- Zobrazenie úprav upozornení na obsah
+- Aktualizácia prekladov do fínštiny, írštiny, nórčiny (nynorsk), španielčiny a švédčiny

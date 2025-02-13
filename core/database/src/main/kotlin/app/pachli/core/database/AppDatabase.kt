@@ -96,7 +96,7 @@ import java.util.TimeZone
         NotificationRelationshipSeveranceEventEntity::class,
         TimelineStatusEntity::class,
     ],
-    version = 18,
+    version = 21,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
@@ -114,7 +114,10 @@ import java.util.TimeZone
         AutoMigration(from = 14, to = 15, spec = AppDatabase.MIGRATE_14_15::class),
         AutoMigration(from = 15, to = 16),
         AutoMigration(from = 16, to = 17),
-        AutoMigration(from = 17, to = 18),
+        AutoMigration(from = 17, to = 18, spec = AppDatabase.MIGRATE_17_18::class),
+        // 18 -> 19 is a custom migration
+        AutoMigration(from = 19, to = 20, spec = AppDatabase.MIGRATE_19_20::class),
+        AutoMigration(from = 20, to = 21),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -198,6 +201,48 @@ abstract class AppDatabase : RoomDatabase() {
 
     @RenameTable("TimelineStatusEntity", "StatusEntity")
     class MIGRATE_14_15 : AutoMigrationSpec
+
+    @RenameColumn("StatusViewDataEntity", "timelineUserId", "pachliAccountId")
+    class MIGRATE_17_18 : AutoMigrationSpec
+
+    // Rename for consistency with other code.
+    @RenameColumn("ConversationEntity", "accountId", "pachliAccountId")
+    // Conversations are now ordered by date of most recent status.
+    @DeleteColumn("ConversationEntity", "order")
+    // Removing the embedded status from ConversationStatusEntity, and joining
+    // on StatusEntity.
+    @DeleteColumn("ConversationEntity", "s_id")
+    @DeleteColumn("ConversationEntity", "s_url")
+    @DeleteColumn("ConversationEntity", "s_inReplyToId")
+    @DeleteColumn("ConversationEntity", "s_inReplyToAccountId")
+    @DeleteColumn("ConversationEntity", "s_account")
+    @DeleteColumn("ConversationEntity", "s_content")
+    @DeleteColumn("ConversationEntity", "s_createdAt")
+    @DeleteColumn("ConversationEntity", "s_editedAt")
+    @DeleteColumn("ConversationEntity", "s_emojis")
+    @DeleteColumn("ConversationEntity", "s_favouritesCount")
+    @DeleteColumn("ConversationEntity", "s_repliesCount")
+    @DeleteColumn("ConversationEntity", "s_favourited")
+    @DeleteColumn("ConversationEntity", "s_bookmarked")
+    @DeleteColumn("ConversationEntity", "s_sensitive")
+    @DeleteColumn("ConversationEntity", "s_spoilerText")
+    @DeleteColumn("ConversationEntity", "s_attachments")
+    @DeleteColumn("ConversationEntity", "s_mentions")
+    @DeleteColumn("ConversationEntity", "s_tags")
+    @DeleteColumn("ConversationEntity", "s_showingHiddenContent")
+    @DeleteColumn("ConversationEntity", "s_expanded")
+    @DeleteColumn("ConversationEntity", "s_collapsed")
+    @DeleteColumn("ConversationEntity", "s_muted")
+    @DeleteColumn("ConversationEntity", "s_poll")
+    @DeleteColumn("ConversationEntity", "s_language")
+    @DeleteColumn("ConversationEntity", "s_showingHiddenContent")
+    @DeleteColumn("ConversationEntity", "s_collapsed")
+    @DeleteColumn("ConversationEntity", "s_expanded")
+    class MIGRATE_19_20 : AutoMigrationSpec {
+        override fun onPostMigrate(db: SupportSQLiteDatabase) {
+            super.onPostMigrate(db)
+        }
+    }
 }
 
 val MIGRATE_8_9 = object : Migration(8, 9) {
@@ -282,5 +327,24 @@ val MIGRATE_12_13 = object : Migration(12, 13) {
         db.execSQL("CREATE TABLE IF NOT EXISTS `_new_NotificationEntity` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `type` TEXT NOT NULL, `createdAt` INTEGER NOT NULL, `accountServerId` TEXT NOT NULL, `statusServerId` TEXT, PRIMARY KEY(`pachliAccountId`, `serverId`), FOREIGN KEY(`pachliAccountId`) REFERENCES `AccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED, FOREIGN KEY(`accountServerId`, `pachliAccountId`) REFERENCES `TimelineAccountEntity`(`serverId`, `timelineUserId`) ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE INITIALLY DEFERRED)")
         db.execSQL("DROP TABLE `NotificationEntity`")
         db.execSQL("ALTER TABLE `_new_NotificationEntity` RENAME TO `NotificationEntity`")
+    }
+}
+
+/**
+ * Removes any StatusEntity that reference a non-existent [AccountEntity.id] in
+ * [StatusEntity.timelineUserId].
+ *
+ * Version 20 introduces that as an FK constraint, this ensures that any statuses
+ * in the cache that break that constraint are removed.
+ */
+val MIGRATE_18_19 = object : Migration(18, 19) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL(
+            """
+DELETE
+FROM StatusEntity
+WHERE timelineUserId NOT IN (SELECT id FROM AccountEntity)
+            """.trimIndent(),
+        )
     }
 }

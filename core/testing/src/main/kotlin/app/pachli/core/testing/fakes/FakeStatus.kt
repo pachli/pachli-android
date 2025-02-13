@@ -1,4 +1,21 @@
-package app.pachli.components.timeline
+/*
+ * Copyright (c) 2025 Pachli Association
+ *
+ * This file is a part of Pachli.
+ *
+ * This program is free software; you can redistribute it and/or modify it under the terms of the
+ * GNU General Public License as published by the Free Software Foundation; either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * Pachli is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+ * the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+ * Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with Pachli; if not,
+ * see <http://www.gnu.org/licenses>.
+ */
+
+package app.pachli.core.testing.fakes
 
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.model.StatusEntity
@@ -12,7 +29,7 @@ import java.util.Date
 
 private val fixedDate = Date(1638889052000)
 
-fun mockStatus(
+fun fakeStatus(
     id: String = "100",
     inReplyToId: String? = null,
     inReplyToAccountId: String? = null,
@@ -61,7 +78,7 @@ fun mockStatus(
     filtered = null,
 )
 
-fun mockStatusViewData(
+fun fakeStatusViewData(
     id: String = "100",
     inReplyToId: String? = null,
     inReplyToAccountId: String? = null,
@@ -75,7 +92,7 @@ fun mockStatusViewData(
     bookmarked: Boolean = true,
 ) = StatusViewData(
     pachliAccountId = 1L,
-    status = mockStatus(
+    status = fakeStatus(
         id = id,
         inReplyToId = inReplyToId,
         inReplyToAccountId = inReplyToAccountId,
@@ -91,25 +108,25 @@ fun mockStatusViewData(
     translationState = TranslationState.SHOW_ORIGINAL,
 )
 
-fun mockStatusEntityWithAccount(
+fun fakeStatusEntityWithAccount(
     id: String = "100",
     userId: Long = 1,
     expanded: Boolean = false,
 ): TimelineStatusWithAccount {
-    val mockedStatus = mockStatus(id)
+    val status = fakeStatus(id)
 
     return TimelineStatusWithAccount(
         status = StatusEntity.from(
-            mockedStatus,
+            status,
             timelineUserId = userId,
         ),
         account = TimelineAccountEntity.from(
-            mockedStatus.account,
+            status.account,
             accountId = userId,
         ),
         viewData = StatusViewDataEntity(
             serverId = id,
-            timelineUserId = userId,
+            pachliAccountId = userId,
             expanded = expanded,
             contentShowing = false,
             contentCollapsed = true,

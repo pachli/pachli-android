@@ -2,13 +2,13 @@ Pachli 2.8.2
 
 Nové funkcie:
 
-- Umožnite užívateľovi zvoliť správanie pri prerezaní karty
-- Pridať možnosť stiahnuť médiá na per-sender adresárov
-- Pridať možnosť uložiť prílohy na per-account priečinky
+- Možnosť prispôsobiť si akciu po klepnutí na záložku/kartu
+- Možnosť sťahovať médiá do priečinkov pre každého odosielateľa zvlášť 
+- Možnosť ukladať prílohy do priečinkov pre každý účet zvlášť 
 
 Opravy:
 
-- Zobraziť oznámenia fetch chýb namiesto JSON
-- Uložiť pozíciu na čítanie, ak nie je úplne viditeľný
-- Aktualizácia preklady Galician
-- Aktualizácia írskych prekladov
+- Zobraziť chybové hlásenia namiesto JSON údajov
+- Uložiť pozíciu čítania, ak príspevok nie je celý zobrazený
+- Aktualizácia prekladu galícijčiny
+- Aktualizácia prekladu írčiny

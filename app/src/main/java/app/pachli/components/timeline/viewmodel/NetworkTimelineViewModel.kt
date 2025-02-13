@@ -27,6 +27,7 @@ import app.pachli.components.timeline.NetworkTimelineRepository
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
+import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.eventhub.BookmarkEvent
 import app.pachli.core.eventhub.EventHub
@@ -60,6 +61,7 @@ class NetworkTimelineViewModel @Inject constructor(
     accountManager: AccountManager,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     sharedPreferencesRepository: SharedPreferencesRepository,
+    statusRepository: StatusRepository,
 ) : TimelineViewModel<Status>(
     savedStateHandle,
     timelineCases,
@@ -68,6 +70,7 @@ class NetworkTimelineViewModel @Inject constructor(
     repository,
     statusDisplayOptionsRepository,
     sharedPreferencesRepository,
+    statusRepository,
 ) {
     private val modifiedViewData = mutableMapOf<String, StatusViewData>()
 
@@ -109,23 +112,21 @@ class NetworkTimelineViewModel @Inject constructor(
         modifiedViewData[status.id] = status.copy(
             isExpanded = expanded,
         )
-        repository.invalidate()
+        super.changeExpanded(expanded, status)
     }
 
     override fun changeContentShowing(isShowing: Boolean, status: StatusViewData) {
         modifiedViewData[status.id] = status.copy(
             isShowingContent = isShowing,
         )
-        repository.invalidate()
+        super.changeContentShowing(isShowing, status)
     }
 
     override fun changeContentCollapsed(isCollapsed: Boolean, status: StatusViewData) {
-        Timber.d("changeContentCollapsed: %s", isCollapsed)
-        Timber.d("   %s", status.content)
         modifiedViewData[status.id] = status.copy(
             isCollapsed = isCollapsed,
         )
-        repository.invalidate()
+        super.changeContentCollapsed(isCollapsed, status)
     }
 
     override fun removeAllByAccountId(pachliAccountId: Long, accountId: String) {

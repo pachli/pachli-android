@@ -1,0 +1,16 @@
+Pachli 2.5.0
+
+Nové funkcie:
+
+- Plynulejšie prechody v aplikácii
+- Pridané certifikáty Let's Encrypt
+- Načítavanie viacerých populárnych príspevkov, odkazov a hashtagov
+- Jednoduchšie pridávanie a odoberanie časových osí z panelov
+- Aktualizácia prekladov do fínštiny, kabilčiny a španielčiny 
+
+Opravy:
+
+- Zapnutie akcií TalkBack v notifikáciách a konverzáciách
+- Vylepšené prechody pri vstupe /výstupe z videa
+- Aktualizácia vyrovnávacej pamäte stránok pre spracovanie nechronologického poradia
+- Možnosť nastaviť expiráciu filtra na "neobmedzene"

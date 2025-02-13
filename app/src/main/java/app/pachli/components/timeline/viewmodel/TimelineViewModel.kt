@@ -17,6 +17,7 @@
 
 package app.pachli.components.timeline.viewmodel
 
+import androidx.annotation.CallSuper
 import androidx.annotation.StringRes
 import androidx.annotation.VisibleForTesting
 import androidx.core.os.bundleOf
@@ -32,6 +33,7 @@ import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
+import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.eventhub.BlockEvent
 import app.pachli.core.eventhub.BookmarkEvent
@@ -285,6 +287,7 @@ abstract class TimelineViewModel<T : Any>(
     private val repository: TimelineRepository<T>,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
+    private val statusRepository: StatusRepository,
 ) : ViewModel() {
     val uiState: StateFlow<UiState>
 
@@ -345,25 +348,29 @@ abstract class TimelineViewModel<T : Any>(
                 .collect { action ->
                     val result = when (action) {
                         is StatusAction.Bookmark ->
-                            timelineCases.bookmark(
+                            statusRepository.bookmark(
+                                action.statusViewData.pachliAccountId,
                                 action.statusViewData.actionableId,
                                 action.state,
                             )
 
                         is StatusAction.Favourite ->
-                            timelineCases.favourite(
+                            statusRepository.favourite(
+                                action.statusViewData.pachliAccountId,
                                 action.statusViewData.actionableId,
                                 action.state,
                             )
 
                         is StatusAction.Reblog ->
-                            timelineCases.reblog(
+                            statusRepository.reblog(
+                                action.statusViewData.pachliAccountId,
                                 action.statusViewData.actionableId,
                                 action.state,
                             )
 
                         is StatusAction.VoteInPoll ->
-                            timelineCases.voteInPoll(
+                            statusRepository.voteInPoll(
+                                action.statusViewData.pachliAccountId,
                                 action.statusViewData.actionableId,
                                 action.poll.id,
                                 action.choices,
@@ -470,11 +477,50 @@ abstract class TimelineViewModel<T : Any>(
 
     abstract fun updatePoll(newPoll: Poll, status: StatusViewData)
 
-    abstract fun changeExpanded(expanded: Boolean, status: StatusViewData)
+    /**
+     * Sets the expanded state of [status] in [StatusRepository] to [expanded] and
+     * invalidates the repository.
+     *
+     * Subclasses should call through to this **after** changing any internal state
+     * to avoid invalidating the repository twice.
+     */
+    @CallSuper
+    open fun changeExpanded(expanded: Boolean, status: StatusViewData) {
+        viewModelScope.launch {
+            statusRepository.setExpanded(status.pachliAccountId, status.id, expanded)
+            repository.invalidate(status.pachliAccountId)
+        }
+    }
 
-    abstract fun changeContentShowing(isShowing: Boolean, status: StatusViewData)
+    /**
+     * Sets the content-showing state of [status] in [StatusRepository] to
+     * [isShowing] and invalidates the repository.
+     *
+     * Subclasses should call through to this **after** changing any internal state
+     * to avoid invalidating the repository twice.
+     */
+    @CallSuper
+    open fun changeContentShowing(isShowing: Boolean, status: StatusViewData) {
+        viewModelScope.launch {
+            statusRepository.setContentShowing(status.pachliAccountId, status.id, isShowing)
+            repository.invalidate(status.pachliAccountId)
+        }
+    }
 
-    abstract fun changeContentCollapsed(isCollapsed: Boolean, status: StatusViewData)
+    /**
+     * Sets the collapsed state of [status] in [StatusRepository] to [collapsed] and
+     * invalidates the repository.
+     *
+     * Subclasses should call through to this **after** changing any internal state
+     * to avoid invalidating the repository twice.
+     */
+    @CallSuper
+    open fun changeContentCollapsed(isCollapsed: Boolean, status: StatusViewData) {
+        viewModelScope.launch {
+            statusRepository.setContentCollapsed(status.pachliAccountId, status.id, isCollapsed)
+            repository.invalidate(status.pachliAccountId)
+        }
+    }
 
     abstract fun removeAllByAccountId(pachliAccountId: Long, accountId: String)
 

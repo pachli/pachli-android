@@ -22,9 +22,7 @@ import app.pachli.core.database.AppDatabase
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.AnnouncementEntity
 import app.pachli.core.database.model.ContentFiltersEntity
-import app.pachli.core.database.model.ConversationAccountEntity
 import app.pachli.core.database.model.ConversationEntity
-import app.pachli.core.database.model.ConversationStatusEntity
 import app.pachli.core.database.model.DraftEntity
 import app.pachli.core.database.model.EmojisEntity
 import app.pachli.core.database.model.FilterActionUpdate
@@ -34,6 +32,7 @@ import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.database.model.NotificationViewDataEntity
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.ServerEntity
+import app.pachli.core.database.model.StatusEntity
 import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TranslatedStatusEntity
@@ -44,6 +43,7 @@ import app.pachli.core.model.ServerKind
 import app.pachli.core.network.model.Announcement
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.UserListRepliesPolicy
+import app.pachli.core.testing.fakes.fakeStatus
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -95,6 +95,8 @@ class AccountEntityForeignKeyTest {
     @Inject lateinit var timelineDao: TimelineDao
 
     @Inject lateinit var translatedStatusDao: TranslatedStatusDao
+
+    @Inject lateinit var statusDao: StatusDao
 
     private val pachliAccountId = 1L
 
@@ -211,48 +213,17 @@ class AccountEntityForeignKeyTest {
 
     @Test
     fun `deleting account deletes ConversationEntity`() = runTest {
+        val statusEntity = StatusEntity.from(fakeStatus(), pachliAccountId)
+        statusDao.upsertStatuses(listOf(statusEntity))
+
         val conversation = ConversationEntity(
-            accountId = pachliAccountId,
+            pachliAccountId = pachliAccountId,
             id = "1",
-            order = 1,
             accounts = emptyList(),
             unread = true,
-            lastStatus = ConversationStatusEntity(
-                id = "1",
-                url = null,
-                inReplyToId = null,
-                inReplyToAccountId = null,
-                account = ConversationAccountEntity(
-                    id = "1",
-                    localUsername = "foo@bar",
-                    username = "foo",
-                    displayName = "Foo",
-                    avatar = "",
-                    emojis = emptyList(),
-                    createdAt = Instant.now(),
-                ),
-                content = "",
-                createdAt = Date(),
-                editedAt = Date(),
-                emojis = emptyList(),
-                favouritesCount = 0,
-                repliesCount = 0,
-                favourited = false,
-                bookmarked = false,
-                sensitive = false,
-                spoilerText = "",
-                attachments = emptyList(),
-                mentions = emptyList(),
-                tags = emptyList(),
-                showingHiddenContent = false,
-                expanded = false,
-                collapsed = false,
-                muted = false,
-                poll = null,
-                language = null,
-            ),
+            lastStatusServerId = statusEntity.serverId,
         )
-        conversationDao.insert(conversation)
+        conversationDao.upsert(conversation)
 
         // Check everything is as expected.
         assertThat(conversationDao.loadAllForAccount(pachliAccountId)).containsExactly(conversation)
@@ -443,23 +414,23 @@ class AccountEntityForeignKeyTest {
     @Test
     fun `deleting account deletes StatusViewDataEntity`() = runTest {
         val statusViewData = StatusViewDataEntity(
+            pachliAccountId = pachliAccountId,
             serverId = "1",
-            timelineUserId = pachliAccountId,
             expanded = false,
             contentShowing = false,
             contentCollapsed = false,
             translationState = TranslationState.SHOW_ORIGINAL,
         )
-        timelineDao.upsertStatusViewData(statusViewData)
+        statusDao.upsertStatusViewData(statusViewData)
 
         // Check everything is as expected.
-        assertThat(timelineDao.getStatusViewData(pachliAccountId, listOf("1"))).containsExactly("1", statusViewData)
+        assertThat(statusDao.getStatusViewData(pachliAccountId, listOf("1"))).containsExactly("1", statusViewData)
 
         // When -- delete the account.
         accountDao.delete(activeAccount)
 
         // Then
-        assertThat(timelineDao.getStatusViewData(pachliAccountId, listOf("1"))).isEmpty()
+        assertThat(statusDao.getStatusViewData(pachliAccountId, listOf("1"))).isEmpty()
     }
 
     @Test

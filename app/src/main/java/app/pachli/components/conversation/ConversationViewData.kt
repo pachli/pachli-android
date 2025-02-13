@@ -18,9 +18,10 @@ package app.pachli.components.conversation
 
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusViewData
-import app.pachli.core.database.model.ConversationAccountEntity
-import app.pachli.core.database.model.ConversationEntity
+import app.pachli.core.database.model.ConversationAccount
+import app.pachli.core.database.model.ConversationData
 import app.pachli.core.model.AccountFilterDecision
+import app.pachli.core.model.FilterAction
 
 /**
  * Data necessary to show a conversation.
@@ -30,19 +31,29 @@ import app.pachli.core.model.AccountFilterDecision
  */
 data class ConversationViewData(
     val id: String,
-    val order: Int,
-    val accounts: List<ConversationAccountEntity>,
+    val accounts: List<ConversationAccount>,
     val unread: Boolean,
     val lastStatus: StatusViewData,
     val accountFilterDecision: AccountFilterDecision? = null,
 ) : IStatusViewData by lastStatus {
     companion object {
-        fun from(pachliAccountId: Long, conversationEntity: ConversationEntity) = ConversationViewData(
-            id = conversationEntity.id,
-            order = conversationEntity.order,
-            accounts = conversationEntity.accounts,
-            unread = conversationEntity.unread,
-            lastStatus = StatusViewData.from(pachliAccountId, conversationEntity.lastStatus),
+        fun from(
+            pachliAccountId: Long,
+            conversationData: ConversationData,
+            defaultIsExpanded: Boolean,
+            defaultIsShowingContent: Boolean,
+        ) = ConversationViewData(
+            id = conversationData.id,
+            accounts = conversationData.accounts,
+            unread = conversationData.unread,
+            lastStatus = StatusViewData.from(
+                pachliAccountId,
+                conversationData.lastStatus,
+                isExpanded = defaultIsExpanded,
+                isShowingContent = defaultIsShowingContent,
+                isDetailed = false,
+                contentFilterAction = FilterAction.NONE,
+            ),
         )
     }
 }

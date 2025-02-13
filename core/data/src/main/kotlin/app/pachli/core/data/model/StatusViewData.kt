@@ -20,7 +20,6 @@ import android.text.Spanned
 import android.text.SpannedString
 import app.pachli.core.common.util.shouldTrimStatus
 import app.pachli.core.data.BuildConfig
-import app.pachli.core.database.model.ConversationStatusEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.database.model.TranslationState
@@ -232,46 +231,6 @@ data class StatusViewData(
                 translation = translation,
             )
         }
-
-        fun from(pachliAccountId: Long, conversationStatusEntity: ConversationStatusEntity) = StatusViewData(
-            pachliAccountId = pachliAccountId,
-            status = Status(
-                id = conversationStatusEntity.id,
-                url = conversationStatusEntity.url,
-                account = conversationStatusEntity.account.toAccount(),
-                inReplyToId = conversationStatusEntity.inReplyToId,
-                inReplyToAccountId = conversationStatusEntity.inReplyToAccountId,
-                content = conversationStatusEntity.content,
-                reblog = null,
-                createdAt = conversationStatusEntity.createdAt,
-                editedAt = conversationStatusEntity.editedAt,
-                emojis = conversationStatusEntity.emojis,
-                reblogsCount = 0,
-                favouritesCount = conversationStatusEntity.favouritesCount,
-                repliesCount = conversationStatusEntity.repliesCount,
-                reblogged = false,
-                favourited = conversationStatusEntity.favourited,
-                bookmarked = conversationStatusEntity.bookmarked,
-                sensitive = conversationStatusEntity.sensitive,
-                spoilerText = conversationStatusEntity.spoilerText,
-                visibility = Status.Visibility.DIRECT,
-                attachments = conversationStatusEntity.attachments,
-                mentions = conversationStatusEntity.mentions,
-                tags = conversationStatusEntity.tags,
-                application = null,
-                pinned = false,
-                muted = conversationStatusEntity.muted,
-                poll = conversationStatusEntity.poll,
-                card = null,
-                language = conversationStatusEntity.language,
-                filtered = null,
-            ),
-            isExpanded = conversationStatusEntity.expanded,
-            isShowingContent = conversationStatusEntity.showingHiddenContent,
-            isCollapsed = conversationStatusEntity.collapsed,
-            // TODO: Include translationState in conversationStatusEntity
-            translationState = TranslationState.SHOW_ORIGINAL,
-        )
 
         /**
          *
