@@ -19,23 +19,17 @@ package app.pachli.components.conversation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.ExperimentalPagingApi
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import androidx.paging.map
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.StatusRepository
-import app.pachli.core.database.Converters
 import app.pachli.core.database.dao.ConversationsDao
-import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.usecase.TimelineCases
-import com.github.michaelbull.result.onFailure
-import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlin.properties.Delegates
@@ -55,15 +49,14 @@ import timber.log.Timber
 @HiltViewModel
 class ConversationsViewModel @Inject constructor(
     private val timelineCases: TimelineCases,
-    transactionProvider: TransactionProvider,
+    private val repository: ConversationsRepository,
     private val conversationsDao: ConversationsDao,
-    private val converters: Converters,
     private val accountManager: AccountManager,
     private val api: MastodonApi,
     sharedPreferencesRepository: SharedPreferencesRepository,
     private val statusRepository: StatusRepository,
 ) : ViewModel() {
-
+    // TODO: AssistedInject this
     var pachliAccountId by Delegates.notNull<Long>()
 
     @OptIn(ExperimentalPagingApi::class)
@@ -72,21 +65,15 @@ class ConversationsViewModel @Inject constructor(
         .mapNotNull { it.data }
         .flatMapLatest { account ->
             pachliAccountId = account.id
-            Pager(
-                config = PagingConfig(pageSize = 30),
-                remoteMediator = ConversationsRemoteMediator(
-                    api,
-                    transactionProvider,
-                    conversationsDao,
-                    accountManager,
-                ),
-                pagingSourceFactory = {
-                    conversationsDao.conversationsForAccount(account.id)
-                },
-            ).flow
+            repository.conversations(account.id)
                 .map { pagingData ->
                     pagingData.map { conversation ->
-                        ConversationViewData.from(account.id, conversation)
+                        ConversationViewData.from(
+                            account.id,
+                            conversation,
+                            defaultIsExpanded = account.alwaysOpenSpoiler,
+                            defaultIsShowingContent = (account.alwaysShowSensitiveMedia || !conversation.lastStatus.status.sensitive),
+                        )
                     }
                 }
         }
@@ -103,15 +90,7 @@ class ConversationsViewModel @Inject constructor(
      */
     fun favourite(favourite: Boolean, lastStatusId: String) {
         viewModelScope.launch {
-            statusRepository.favourite(pachliAccountId, lastStatusId, favourite).onSuccess {
-                conversationsDao.setFavourited(
-                    accountManager.activeAccount!!.id,
-                    lastStatusId,
-                    favourite,
-                )
-            }.onFailure { e ->
-                Timber.w("failed to favourite status: %s", e)
-            }
+            statusRepository.favourite(pachliAccountId, lastStatusId, favourite)
         }
     }
 
@@ -120,15 +99,16 @@ class ConversationsViewModel @Inject constructor(
      */
     fun bookmark(bookmark: Boolean, lastStatusId: String) {
         viewModelScope.launch {
-            statusRepository.bookmark(pachliAccountId, lastStatusId, bookmark).onSuccess {
-                conversationsDao.setBookmarked(
-                    accountManager.activeAccount!!.id,
-                    lastStatusId,
-                    bookmark,
-                )
-            }.onFailure { e ->
-                Timber.w("failed to bookmark status: %s", e)
-            }
+            statusRepository.bookmark(pachliAccountId, lastStatusId, bookmark)
+        }
+    }
+
+    /**
+     * @param lastStatusId ID of the last status in the conversation
+     */
+    fun muteConversation(muted: Boolean, lastStatusId: String) {
+        viewModelScope.launch {
+            statusRepository.mute(pachliAccountId, lastStatusId, muted)
         }
     }
 
@@ -138,43 +118,24 @@ class ConversationsViewModel @Inject constructor(
     fun voteInPoll(choices: List<Int>, lastStatusId: String, pollId: String) {
         viewModelScope.launch {
             statusRepository.voteInPoll(pachliAccountId, lastStatusId, pollId, choices)
-                .onSuccess {
-                    conversationsDao.setPoll(
-                        pachliAccountId,
-                        lastStatusId,
-                        converters.pollToJson(it)!!,
-                    )
-                }
         }
     }
 
     fun expandHiddenStatus(pachliAccountId: Long, expanded: Boolean, lastStatusId: String) {
         viewModelScope.launch {
-            conversationsDao.setExpanded(
-                pachliAccountId,
-                lastStatusId,
-                expanded,
-            )
+            statusRepository.setExpanded(pachliAccountId, lastStatusId, expanded)
         }
     }
 
     fun collapseLongStatus(pachliAccountId: Long, collapsed: Boolean, lastStatusId: String) {
         viewModelScope.launch {
-            conversationsDao.setCollapsed(
-                pachliAccountId,
-                lastStatusId,
-                collapsed,
-            )
+            statusRepository.setContentCollapsed(pachliAccountId, lastStatusId, collapsed)
         }
     }
 
     fun showContent(pachliAccountId: Long, showingHiddenContent: Boolean, lastStatusId: String) {
         viewModelScope.launch {
-            conversationsDao.setShowingHiddenContent(
-                pachliAccountId,
-                lastStatusId,
-                showingHiddenContent,
-            )
+            statusRepository.setContentShowing(pachliAccountId, lastStatusId, showingHiddenContent)
         }
     }
 
@@ -190,23 +151,6 @@ class ConversationsViewModel @Inject constructor(
             } catch (e: Exception) {
                 currentCoroutineContext().ensureActive()
                 Timber.w(e, "failed to delete conversation")
-            }
-        }
-    }
-
-    fun muteConversation(muted: Boolean, lastStatusId: String) {
-        viewModelScope.launch {
-            try {
-                timelineCases.muteConversation(lastStatusId, muted)
-
-                conversationsDao.setMuted(
-                    accountManager.activeAccount!!.id,
-                    lastStatusId,
-                    muted,
-                )
-            } catch (e: Exception) {
-                currentCoroutineContext().ensureActive()
-                Timber.w(e, "failed to mute conversation")
             }
         }
     }

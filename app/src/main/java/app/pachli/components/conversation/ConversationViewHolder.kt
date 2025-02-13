@@ -29,7 +29,7 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.util.SmartLengthInputFilter
 import app.pachli.core.data.model.StatusDisplayOptions
-import app.pachli.core.database.model.ConversationAccountEntity
+import app.pachli.core.database.model.ConversationAccount
 import app.pachli.interfaces.StatusActionListener
 
 class ConversationViewHolder internal constructor(
@@ -100,7 +100,7 @@ class ConversationViewHolder internal constructor(
         }
     }
 
-    private fun setConversationName(accounts: List<ConversationAccountEntity>) {
+    private fun setConversationName(accounts: List<ConversationAccount>) {
         conversationNameTextView.text = when (accounts.size) {
             0 -> context.getString(R.string.conversation_0_recipients)
             1 -> context.getString(
@@ -121,7 +121,7 @@ class ConversationViewHolder internal constructor(
         }
     }
 
-    private fun setAvatars(accounts: List<ConversationAccountEntity>) {
+    private fun setAvatars(accounts: List<ConversationAccount>) {
         avatars.withIndex().forEach { views ->
             accounts.getOrNull(views.index)?.also { account ->
                 loadAvatar(

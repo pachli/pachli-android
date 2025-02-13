@@ -29,6 +29,7 @@ import app.pachli.core.database.model.TranslationState
 import app.pachli.core.eventhub.BookmarkEvent
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.FavoriteEvent
+import app.pachli.core.eventhub.MuteConversationEvent
 import app.pachli.core.eventhub.PinEvent
 import app.pachli.core.eventhub.PollVoteEvent
 import app.pachli.core.eventhub.ReblogEvent
@@ -58,6 +59,9 @@ sealed class StatusActionError(open val error: ApiError) : PachliError by error 
 
     /** Reblogging a status failed. */
     data class Reblog(override val error: ApiError) : StatusActionError(error)
+
+    /** Mute/unmuting a status failed. */
+    data class Mute(override val error: ApiError) : StatusActionError(error)
 
     /** Pin/unpinning a status failed. */
     data class Pin(override val error: ApiError) : StatusActionError(error)
@@ -152,6 +156,31 @@ class StatusRepository @Inject constructor(
                 .onFailure { statusDao.setReblogged(pachliAccountId, statusId, !reblogged) }
                 .mapEither({ it.body }, { StatusActionError.Reblog(it) })
         }
+    }.await()
+
+    /**
+     * Sets the muted state of [statusId] to [muted].
+     *
+     * Sends [app.pachli.core.eventhub.MuteConversationEvent] if successful.
+     *
+     * @param pachliAccountId
+     * @param statusId ID of the status to affect.
+     * @param muted New pinned state.
+     */
+    suspend fun mute(
+        pachliAccountId: Long,
+        statusId: String,
+        muted: Boolean,
+    ): Result<Status, StatusActionError.Mute> = externalScope.async {
+        statusDao.setMuted(pachliAccountId, statusId, muted)
+        return@async if (muted) {
+            mastodonApi.muteConversation(statusId)
+        } else {
+            mastodonApi.unmuteConversation(statusId)
+        }
+            .onSuccess { eventHub.dispatch(MuteConversationEvent(statusId, muted)) }
+            .onFailure { statusDao.setMuted(pachliAccountId, statusId, !muted) }
+            .mapEither({ it.body }, { StatusActionError.Mute(it) })
     }.await()
 
     /**

@@ -85,6 +85,16 @@ WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServe
 
     @Query(
         """
+UPDATE StatusEntity
+SET
+    muted = :muted
+WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServerId = :statusId)
+        """,
+    )
+    abstract suspend fun setMuted(pachliAccountId: Long, statusId: String, muted: Boolean)
+
+    @Query(
+        """
 DELETE
 FROM StatusEntity
 WHERE
