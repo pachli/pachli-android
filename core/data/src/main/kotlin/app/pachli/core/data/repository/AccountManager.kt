@@ -794,6 +794,18 @@ class AccountManager @Inject constructor(
         accountDao.setNotificationLight(accountId, value)
     }
 
+    suspend fun setConversationAccountFilterNotFollowed(accountId: Long, action: FilterAction) {
+        accountDao.setConversationAccountFilterNotFollowed(accountId, action)
+    }
+
+    suspend fun setConversationAccountFilterYounger30d(accountId: Long, action: FilterAction) {
+        accountDao.setConversationAccountFilterYounger30d(accountId, action)
+    }
+
+    suspend fun setConversationAccountFilterLimitedByServer(accountId: Long, action: FilterAction) {
+        accountDao.setConversationAccountFilterLimitedByServer(accountId, action)
+    }
+
     suspend fun setNotificationAccountFilterNotFollowed(accountId: Long, action: FilterAction) {
         accountDao.setNotificationAccountFilterNotFollowed(accountId, action)
     }

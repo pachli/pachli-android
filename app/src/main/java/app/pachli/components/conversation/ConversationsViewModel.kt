@@ -23,13 +23,14 @@ import androidx.paging.cachedIn
 import androidx.paging.map
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.Loadable
+import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.database.dao.ConversationsDao
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
-import app.pachli.usecase.TimelineCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlin.properties.Delegates
@@ -48,7 +49,6 @@ import timber.log.Timber
 
 @HiltViewModel
 class ConversationsViewModel @Inject constructor(
-    private val timelineCases: TimelineCases,
     private val repository: ConversationsRepository,
     private val conversationsDao: ConversationsDao,
     private val accountManager: AccountManager,
@@ -84,6 +84,41 @@ class ConversationsViewModel @Inject constructor(
         .map { !sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false) }
         .onStart { emit(!sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false)) }
         .shareIn(viewModelScope, replay = 1, started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000))
+
+    /**
+     * @ret
+     */
+    fun filterConversationByAccount(accountWithFilters: PachliAccount, conversationViewData: ConversationViewData): AccountFilterDecision {
+        // Do we show this account, based on the status.
+        // If we have already replied to them in the thread then we can show the status.
+        //
+        // API only returns the last status in the conversation.
+
+        // Last status is from us? Show it.
+
+        // Last status is not from us. Have we replied to them elsewhere in the thread?
+        // - Get the full thread
+        // - Walk up the list of ancestors, look for a status posted from accountWithFilters that
+        // is s reply to the account that posted the last status.
+
+        // Scenarios to consider:
+        // - Other account starts a new thread with a DM
+        //   - There is no inReplyTo status
+        //   - See if the filter needs to be applied
+        // - Other account replies to an existing thread with a DM
+        //   - Get the full thread
+        //   - Walk up the thread to find the first status with DIRECT visibility. That's the
+        //     start of the thread.
+        //   - From that post down in the thread, are any posts from us that reply to this account?
+        //    - If yes, ignore filter
+        //    - If no, see if the filter needs to be applied
+
+//        if (conversationViewData.lastStatus.status.inReplyToAccountId) {
+//
+//        }
+
+        return AccountFilterDecision.None
+    }
 
     /**
      * @param lastStatusId ID of the last status in the conversation

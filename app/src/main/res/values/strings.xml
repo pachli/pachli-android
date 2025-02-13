@@ -867,6 +867,9 @@
     <string name="pref_account_notification_filters_label_younger_30d">… created in last 30 days</string>
     <string name="pref_account_notification_filters_label_limited_by_server">… limited by your moderators</string>
 
+    <string name="pref_title_account_conversation_filters">Conversation filters</string>
+    <string name="pref_account_conversation_filters_subtitle">What should happen to conversations started by accounts…</string>
+
     <string name="account_filter_placeholder_type_favourite_fmt">A user @&lt;b>%1s&lt;/b> favorited your post</string>
     <string name="account_filter_placeholder_type_follow_fmt">A user @&lt;b>%1s&lt;/b> followed you</string>
     <string name="account_filter_placeholder_type_follow_request_fmt">Follow request from a user @&lt;b>%1s&lt;/b></string>

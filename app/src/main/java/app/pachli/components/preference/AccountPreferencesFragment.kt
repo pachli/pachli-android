@@ -29,6 +29,7 @@ import androidx.preference.PreferenceFragmentCompat
 import app.pachli.BuildConfig
 import app.pachli.R
 import app.pachli.components.notifications.activeAccountNeedsPushScope
+import app.pachli.components.preference.accountfilters.AccountConversationFiltersPreferenceDialogFragment
 import app.pachli.components.preference.accountfilters.AccountNotificationFiltersPreferencesDialogFragment
 import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithTransition
@@ -217,6 +218,15 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                     setTitle(R.string.pref_title_account_notification_filters)
                     setOnPreferenceClickListener {
                         AccountNotificationFiltersPreferencesDialogFragment.Companion.newInstance(pachliAccountId)
+                            .show(parentFragmentManager, null)
+                        return@setOnPreferenceClickListener true
+                    }
+                }
+
+                preference {
+                    setTitle(R.string.pref_title_account_conversation_filters)
+                    setOnPreferenceClickListener {
+                        AccountConversationFiltersPreferenceDialogFragment.Companion.newInstance(pachliAccountId)
                             .show(parentFragmentManager, null)
                         return@setOnPreferenceClickListener true
                     }
