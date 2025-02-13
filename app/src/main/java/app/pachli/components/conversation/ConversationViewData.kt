@@ -18,7 +18,7 @@ package app.pachli.components.conversation
 
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusViewData
-import app.pachli.core.database.model.ConversationAccountEntity
+import app.pachli.core.database.model.ConversationAccount
 import app.pachli.core.database.model.ConversationData
 import app.pachli.core.model.FilterAction
 
@@ -30,7 +30,7 @@ import app.pachli.core.model.FilterAction
  */
 data class ConversationViewData(
     val id: String,
-    val accounts: List<ConversationAccountEntity>,
+    val accounts: List<ConversationAccount>,
     val unread: Boolean,
     val lastStatus: StatusViewData,
 ) : IStatusViewData by lastStatus {

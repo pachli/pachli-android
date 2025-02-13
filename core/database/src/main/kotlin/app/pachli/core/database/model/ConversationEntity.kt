@@ -31,16 +31,31 @@ import com.squareup.moshi.JsonClass
 import java.time.Instant
 import kotlin.contracts.ExperimentalContracts
 
+/**
+ * Data to show a conversation.
+ *
+ * The result of joining [ConversationEntity] with the last status and
+ * any other necessary data.
+ */
 @TypeConverters(Converters::class)
 data class ConversationData(
     val pachliAccountId: Long,
     val id: String,
-    val accounts: List<ConversationAccountEntity>,
+    val accounts: List<ConversationAccount>,
     val unread: Boolean,
     @Embedded(prefix = "s_")
     val lastStatus: TimelineStatusWithAccount,
 )
 
+/**
+ * Represents a [Conversation].
+ *
+ * @param pachliAccountId
+ * @param id Conversation ID
+ * @param accounts List of [ConversationAccount] in the conversation.
+ * @param unread True if the conversation is currently marked unread
+ * @param lastStatusServerId Server ID of the most recent status in the conversation
+ */
 @Entity(
     primaryKeys = ["id", "pachliAccountId"],
     foreignKeys = [
@@ -58,7 +73,7 @@ data class ConversationData(
 data class ConversationEntity(
     val pachliAccountId: Long,
     val id: String,
-    val accounts: List<ConversationAccountEntity>,
+    val accounts: List<ConversationAccount>,
     val unread: Boolean,
     @ColumnInfo(defaultValue = "")
     val lastStatusServerId: String,
@@ -73,7 +88,7 @@ data class ConversationEntity(
                 ConversationEntity(
                     pachliAccountId = pachliAccountId,
                     id = conversation.id,
-                    accounts = conversation.accounts.map { ConversationAccountEntity.from(it) },
+                    accounts = conversation.accounts.map { ConversationAccount.from(it) },
                     unread = conversation.unread,
                     lastStatusServerId = it.id,
                 )
@@ -82,9 +97,11 @@ data class ConversationEntity(
     }
 }
 
-// TODO: Not an entity, should remove the suffix.
+/**
+ * Participants in a [ConversationData].
+ */
 @JsonClass(generateAdapter = true)
-data class ConversationAccountEntity(
+data class ConversationAccount(
     val id: String,
     val localUsername: String,
     val username: String,
@@ -95,7 +112,7 @@ data class ConversationAccountEntity(
 ) {
 
     companion object {
-        fun from(timelineAccount: TimelineAccount) = ConversationAccountEntity(
+        fun from(timelineAccount: TimelineAccount) = ConversationAccount(
             id = timelineAccount.id,
             localUsername = timelineAccount.localUsername,
             username = timelineAccount.username,

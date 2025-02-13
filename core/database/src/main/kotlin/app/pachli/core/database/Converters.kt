@@ -18,7 +18,7 @@ package app.pachli.core.database
 
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
-import app.pachli.core.database.model.ConversationAccountEntity
+import app.pachli.core.database.model.ConversationAccount
 import app.pachli.core.database.model.DraftAttachment
 import app.pachli.core.database.model.TimelineStatusEntity
 import app.pachli.core.model.AccountFilterDecision
@@ -118,23 +118,23 @@ class Converters @Inject constructor(
     }
 
     @TypeConverter
-    fun accountToJson(account: ConversationAccountEntity?): String {
-        return moshi.adapter<ConversationAccountEntity>().toJson(account)
+    fun accountToJson(account: ConversationAccount?): String {
+        return moshi.adapter<ConversationAccount>().toJson(account)
     }
 
     @TypeConverter
-    fun jsonToAccount(accountJson: String?): ConversationAccountEntity? {
-        return accountJson?.let { moshi.adapter<ConversationAccountEntity>().fromJson(it) }
+    fun jsonToAccount(accountJson: String?): ConversationAccount? {
+        return accountJson?.let { moshi.adapter<ConversationAccount>().fromJson(it) }
     }
 
     @TypeConverter
-    fun accountListToJson(accountList: List<ConversationAccountEntity>?): String {
-        return moshi.adapter<List<ConversationAccountEntity>>().toJson(accountList)
+    fun accountListToJson(accountList: List<ConversationAccount>?): String {
+        return moshi.adapter<List<ConversationAccount>>().toJson(accountList)
     }
 
     @TypeConverter
-    fun jsonToAccountList(accountListJson: String?): List<ConversationAccountEntity>? {
-        return accountListJson?.let { moshi.adapter<List<ConversationAccountEntity>?>().fromJson(it) }
+    fun jsonToAccountList(accountListJson: String?): List<ConversationAccount>? {
+        return accountListJson?.let { moshi.adapter<List<ConversationAccount>?>().fromJson(it) }
     }
 
     @TypeConverter
