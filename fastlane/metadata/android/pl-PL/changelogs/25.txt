@@ -1,0 +1,16 @@
+Pachli 2.9.1
+
+Nowości:
+
+- Pokazywanie wpisów dotyczących popularnego odnośnika
+- Pokazywanie metody żądania i URL w błędach ApiResult
+- Dodanie języwka nynorsk jako wybieralny
+
+Poprawki:
+
+- Błąd „KeyStoreException: BKS not found” w czasie logowania
+- Właściwe pokazywanie powiadomień nieznanego typu
+- Bez awarii przy aktualizacji elementów głównej szuflady
+- Bez awarii przy przełączaniu opcji „Pokaż podbicia”
+- Pokazywanie edycji ostrzeżeń o zawartości
+- Aktualizacja tłumaczeń na fiński, irlandzki, norweski nyorsk, hiszpański i szwedzki

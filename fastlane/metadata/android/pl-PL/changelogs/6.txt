@@ -1,0 +1,19 @@
+Pachli 1.3.0
+
+Nowości:
+
+- Dodane ustawienie ukrywania „samo-podbić”
+- Pokazywanie pełnych nazw i adresów kont w widoku profilu
+- Poprawione wyświetlanie „zaciemnionych” odnośników
+- Poprawione zachowanie UX odtwarzania wideo
+
+Poprawki:
+
+- Widoczność wiadomości o pustej osi czasu
+- Używanie kolorów Pachli (niebieski i pomarańczowy) w ikonach powiadomień
+- Pokazywanie mediów przy wznawianiu ViewMediaFragment
+- Pokazywanie wskaźników wątków i innych rozdzielaczy przy użyciu kolorów Material
+
+Tłumaczenia:
+
+- Aktualizacja tłumaczeń na polski i japoński

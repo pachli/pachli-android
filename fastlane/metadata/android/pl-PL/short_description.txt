@@ -1,1 +1,1 @@
-Pełny klient Androida dla Mastodona i podobnych serwerów.
+W pełni funkcjonalny klient Androida dla Mastodona i podobnych serwerów.

@@ -1,0 +1,16 @@
+Pachli 2.5.2
+
+Nowości:
+
+- Wsparcie tłumaczenia na serwerach Hometown/Glitch
+
+Poprawki:
+
+- Zapobieganie awariom na stronie „Ukryte domeny”
+- Pokazywanie przydatnych komunikatów dla wszystkich błędów
+- Only include transitionKind in intents for Pachli activities 
+- Proponowanie aktualizacji tylko do wersji zbudowanych przez F-Droid
+- Włączenie ponownie akcji dostępności na wszystkich osiach czasu
+- Pytanie o zapisanie/porzucenie zmian po edytowaniu biogramu
+- Pokazywanie historii edycji dla ankiet
+- Aktualizacja tłumaczeń na fiński, francuski i hiszpański

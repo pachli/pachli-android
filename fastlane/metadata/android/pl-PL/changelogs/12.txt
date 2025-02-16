@@ -1,0 +1,15 @@
+Pachli 2.3.0
+
+Nowości:
+
+- Nie przycinanie mediów na stronie mediów konta
+- Pozwolenie na ręczne sprawdzanie aktualizacji
+- Pokazywanie podglądu załączników audio
+- Pokazywanie informacje o pobieraniu powiadomień
+
+Poprawki:
+
+- Utrzymywanie włączonego ekranu przy odtwarzaniu mediów
+- Czytelność opisów statystyk
+- Pokazywanie właściwego konta/osi czasu przy tworzeniu wpisu z powiadomień
+- Aktualizacja tłumaczeń na arabski, holenderski, fiński, francuski, indonezyjski, hiszpański i szwedzki

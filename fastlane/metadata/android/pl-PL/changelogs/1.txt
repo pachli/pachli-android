@@ -1,0 +1,20 @@
+Nowe możliwości obejmują:
+
+- Żadnego „Załaduj więcej”, wpisy ładują się gdy przewijasz
+- Popularne odnośniki i wpisy
+- Więcej niż 5 kart
+- Wybierz spomiędzy kilku czcionek nastawionych na dostępność
+- Nowy odtwarzacz multimediów
+- Filtry powiadomień
+- Ukrywanie list z ogólnych osi czasu
+- Dodawanie zakładek do kart
+
+Poprawki błędów obejmują:
+
+- Obrazy nie "utykają" przy powiększaniu lub przewijaniu pomiędzy nimi
+
+Poprawki UX obejmują:
+
+- Wizualne odświeżenie, nowy schemat kolorystyczny
+- Pobieranie domyślnego motywu z ustawień Androida
+- „Wyczyść powiadomienia” w menu

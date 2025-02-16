@@ -1,5 +1,5 @@
 Pachli 2.1.1
 
-Fiksy
+Poprawki:
 
-Prevent crash if the trending tab is present
+- Zapobieganie błędom przy obecnej karcie popularnych elementów
