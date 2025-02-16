@@ -1,0 +1,15 @@
+Pachli 2.0.0
+
+Nowości:
+
+- Tłumaczenie wpisów na osiach w pamięci podręcznej
+- Pokazywanie wpisu tworzenia wpisu w czasie wyświetlania hasztagów i polubionych
+- Zwiększenie ilości informacji w podglądzie odnośników
+- Ostrzeganie o błędzie animacji na Androidzie
+
+Poprawki:
+
+- Zapobieganie ClassCastException przy obsłudze błędów osi czasu
+- Aktualizacja kolorów motywów
+- Upewnienie się, że klasy danych związane z aktualizacją są zachowywane
+- Aktualizacja tłumaczenia na niemiecki, włoski i japoński

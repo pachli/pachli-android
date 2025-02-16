@@ -1,0 +1,11 @@
+Pachli 1.1
+
+Poprawki:
+
+- Użycie właściego koloru kontrastującego na karcie hasztagów
+- Skalowanie ikon monochromatycznych
+- Odtwarzanie pozycji na domowej osi czasu
+- Odświeżanie nie powoduje przerwy w osi czasu
+- Pokazywanie pływającego przycisku zgodnie z preferencjami
+- Naprawione migotanie paska narzędzi przy przewijaniu list
+- Naprawiona awaria przy wejściu MainActivity na urządzeniach Pixel C

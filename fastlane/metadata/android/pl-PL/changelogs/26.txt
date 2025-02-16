@@ -1,0 +1,9 @@
+Pachli 2.9.2
+
+Nowości:
+
+- Pokazywanie list sortowanych wg tytułów
+- Aktualizacja możliwości serwerów, bo Akkoma ma wsparcie dla filtrów
+- Usunięcie „dummy.placeholder” z komunikatów błędów sieci
+- Komunikat błedu jeżeli wystąpi błąd dostępu do danych przy logowaniu
+- Aktualizacja tłumaczeń na birmański, irlandzki, norweski nyorsk, hiszpański, szwedzki i tamilski

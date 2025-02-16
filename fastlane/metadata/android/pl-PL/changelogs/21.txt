@@ -1,0 +1,7 @@
+Pachli 2.8.1
+
+Poprawki:
+
+- Zapobieganie awariom przy wysyłaniu wpisu, gdy media się jeszcze wgrywają
+- Przywrócenie przejść wideo na androidx.media3 1.4.0 i 1.4.1 
+- Tekst na kartach podglądu nie wchodzi na obrazy

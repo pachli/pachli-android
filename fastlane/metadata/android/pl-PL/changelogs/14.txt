@@ -1,0 +1,16 @@
+Pachli 2.5.0
+
+Nowości:
+
+- Płynniejsze przejścia UX
+- Dołączone certyfikaty Let's Encrypt
+- Pobierz więcej popularnych wpisów, odnośników i hasztagów
+- Uproszczone dodawanie/usuwanie osi czasu z kart
+- Aktualizacja tłumaczeń na fiński, kabylski i hiszpański
+
+Poprawki:
+
+- Włączony talkback w powiadomieniach i rozmowach
+- Poprawione przejścia do/z wideo
+- Aktualizacja PageCache do obsługi porządkowania niechronologicznego
+- Możliwość ustawienia wygasania filtra na „nieokreślony”

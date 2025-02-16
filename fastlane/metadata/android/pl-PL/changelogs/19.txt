@@ -1,5 +1,5 @@
 Pachli 2.7.1
 
-Fiksy
+Poprawki:
 
-Correctly position Preview card images, show Opis karty karty
+- Właściwa pozycja obrazów w kartach podglądu, pokazywanie opisu karty
