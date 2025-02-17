@@ -56,8 +56,8 @@
     <string name="action_send_public">Wyślij!</string>
     <string name="action_view_preferences">Preferencje</string>
     <string name="action_view_favourites">Polubione</string>
-    <string name="action_view_mutes">Wyciszeni użytkownicy</string>
-    <string name="action_view_blocks">Zablokowani użytkownicy</string>
+    <string name="action_view_mutes">Wyciszone konta</string>
+    <string name="action_view_blocks">Zablokowane konta</string>
     <string name="action_view_follow_requests">Prośby o obserwację</string>
     <string name="action_view_media">Multimedia</string>
     <string name="action_open_in_web">Otwórz w przeglądarce</string>
@@ -85,8 +85,8 @@
     <string name="send_post_link_to">Udostępnij odnośnik do wpisu do…</string>
     <string name="send_post_content_to">Udostępnij wpis do…</string>
     <string name="confirmation_reported">Wyślij!</string>
-    <string name="confirmation_unblocked">Odblokowano użytkownika</string>
-    <string name="confirmation_unmuted">Cofnięto wyciszenie użytkownika</string>
+    <string name="confirmation_unblocked">Odblokowano konto</string>
+    <string name="confirmation_unmuted">Cofnięto wyciszenie konta</string>
     <string name="post_sent">Wyślij!</string>
     <string name="post_sent_long">Odpowiedź wysłano pomyślnie.</string>
     <string name="hint_compose">Co Ci chodzi po głowie?</string>
@@ -208,7 +208,7 @@
     <string name="expand_collapse_all_posts">Rozwiń/zwiń wszystkie wpisy</string>
     <string name="action_open_post">Otwórz wpis</string>
     <string name="restart_required">Wymagane jest ponowne uruchomienie</string>
-    <string name="restart_emoji">Musisz uruchomić ponownie Pachliego, aby zastosować zmiany</string>
+    <string name="restart_emoji">Musisz uruchomić Pachli ponownie, aby zastosować zmiany</string>
     <string name="later">Później</string>
     <string name="restart">Uruchom ponownie</string>
     <string name="download_failed">Pobieranie nie powiodło się</string>
@@ -275,7 +275,7 @@
         <item quantity="other">Wprowadź opisy dla niewidomych i niedowidzących (maksymalna długość: %d)</item>
     </plurals>
     <string name="pref_title_absolute_time">Użyj czasu absolutnego</string>
-    <string name="label_remote_account">Informacje poniżej mogą niekompletnie przedstawiać profil użytkownika. Kliknij, by otworzyć pełny profil w przeglądarce.</string>
+    <string name="label_remote_account">Informacje poniżej mogą niekompletnie przedstawiać profil tego konta. Kliknij, by otworzyć pełny profil w przeglądarce.</string>
     <string name="unpin_action">Odepnij z profilu</string>
     <string name="pin_action">Przypnij do profilu</string>
     <plurals name="favs">
@@ -454,7 +454,7 @@
     <string name="pachli_compose_post_quicksetting_label">Utwórz wpis</string>
     <string name="notification_sign_up_format">Nowa rejestracja: %s</string>
     <string name="notification_sign_up_name">Rejestracje</string>
-    <string name="notification_sign_up_description">Powiadomienia o nowych użytkownikach</string>
+    <string name="notification_sign_up_description">Powiadomienia o nowych kontach</string>
     <string name="notification_update_description">Powiadomienia o edycji wpisów z wcześniejszymi interakcjami</string>
     <string name="pref_title_notification_filter_sign_ups">ktoś zarejestrował się</string>
     <string name="pref_title_notification_filter_updates">Wpis z wcześniejszą interakcją został edytowany</string>
@@ -498,8 +498,8 @@
     <string name="action_continue_edit">Kontynuuj edycję</string>
     <string name="report_category_spam">Spam</string>
     <string name="send_account_link_to">Udostępnij odnośnik do konta…</string>
-    <string name="send_account_username_to">Udostępnij nazwę użytkownika…</string>
-    <string name="account_username_copied">Skopiowano nazwę użytkownika</string>
+    <string name="send_account_username_to">Udostępnij nazwę konta…</string>
+    <string name="account_username_copied">Skopiowano nazwę konta</string>
     <string name="description_post_edited">Edytowano</string>
     <string name="report_category_other">Inne</string>
     <string name="post_edited">Edytowano %s</string>
@@ -688,7 +688,7 @@
     <string name="total_accounts">Liczba kont</string>
     <string name="ui_error_translate_status_fmt">Tłumaczenie się nie powiodło: %1$s</string>
     <string name="dialog_delete_filter_text">Usunąć filtr \'%1$s\'?\"</string>
-    <string name="load_newest_statuses">Pokaż najnowsze wpisy</string>
+    <string name="load_newest_statuses">Wczytaj najnowsze wpisy</string>
     <string name="help_empty_home">To twoja <b>oś czasu</b>. Pokazuje ostatnie wpisy kont, które obserwujesz.\n\nBy znaleźć konta, możesz na przykład odnaleźć je na innych osiach czasu, takich jak lokalna oś czasu twojego serwera [iconics gmd_group]. Lub wyszukać po nazwie [iconics gmd_search]; na przykład wyszukaj \"Pachli\", by znaleźć nasze konto na Mastodonie.</string>
     <string name="dialog_save_profile_changes_message">Czy chcesz zapisać zmiany profilu?</string>
     <string name="reaction_name_and_count">%1$s %2$d</string>
@@ -710,7 +710,7 @@
     <string name="search_operator_attachment_has_media_except_3_label_fmt">Każdy oprócz %1$s, %2$s, %3$s</string>
     <string name="search_operator_attachment_specific_media_include_1_exclude_2_fmt">Z %1$s, bez %2$s i %3$s</string>
     <string name="search_operator_poll_dialog_title">Pokazać wpisy z ankietami?</string>
-    <string name="load_newest_notifications">Pokaż najnowsze powiadomienia</string>
+    <string name="load_newest_notifications">Wczytaj najnowsze powiadomienia</string>
     <string name="search_operator_from_dialog_title">Ograniczyć do konkretnych kont?</string>
     <string name="search_operator_attachment_none">Brak</string>
     <string name="search_operator_where_dialog_title">Ogranicz do…</string>
