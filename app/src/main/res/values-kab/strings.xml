@@ -34,8 +34,8 @@
     <string name="action_open_faved_by">Sken-d ismenyifen</string>
     <string name="notification_favourite_name">Ismenyifen</string>
     <plurals name="favs">
-        <item quantity="one">&lt;b>%1$s&lt;/b> n usmenyaf</item>
-        <item quantity="other">&lt;b>%1$s&lt;/b> n ismenyifen</item>
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; n usmenyaf</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; n ismenyifen</item>
     </plurals>
     <string name="no_drafts">Ur tesɛiḍ ara irewwayen.</string>
     <string name="title_notifications">Tilɣa</string>
@@ -280,4 +280,6 @@
     <string name="post_media_image">Tugna</string>
     <string name="label_filter_title">Azwel</string>
     <string name="action_add">Rnu</string>
+    <string name="title_public_federated">Asdukklan</string>
+    <string name="post_privacy_public">Azayez</string>
 </resources>
