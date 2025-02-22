@@ -10,4 +10,6 @@
     <string name="pref_main_nav_position_option_bottom">கீழே</string>
     <string name="pref_show_self_username_always">எப்போதும்</string>
     <string name="pref_show_self_username_never">ஒருபோதும் இல்லை</string>
+    <string name="pref_title_downloads">இருப்பிடத்தைப் பதிவிறக்கவும்</string>
+    <string name="download_location_downloads">கோப்புறை பதிவிறக்கவும்</string>
 </resources>
