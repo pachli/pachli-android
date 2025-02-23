@@ -881,5 +881,6 @@
     <string name="account_filter_placeholder_label_younger_30d">Filtered because: &lt;b>created in last 30 days&lt;/b></string>
     <string name="account_filter_placeholder_label_limited_by_server">Filtered because: &lt;b>limited by your moderators&lt;/b></string>
 
+    <string name="account_filter_placeholder_type_conversation">A user @&lt;b>%1$s&lt;/b> started a conversation</string>
     <string name="ui_error_reload_reply_fmt">Could not load post: %1$s</string>
 </resources>

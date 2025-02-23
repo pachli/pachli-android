@@ -49,6 +49,7 @@ import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.AnnouncementEntity
 import app.pachli.core.database.model.ContentFiltersEntity
 import app.pachli.core.database.model.ConversationEntity
+import app.pachli.core.database.model.ConversationViewDataEntity
 import app.pachli.core.database.model.DraftEntity
 import app.pachli.core.database.model.EmojisEntity
 import app.pachli.core.database.model.FollowingAccountEntity
@@ -95,6 +96,7 @@ import java.util.TimeZone
         NotificationViewDataEntity::class,
         NotificationRelationshipSeveranceEventEntity::class,
         TimelineStatusEntity::class,
+        ConversationViewDataEntity::class,
     ],
     version = 21,
     autoMigrations = [

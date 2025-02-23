@@ -65,8 +65,7 @@ import java.util.Date
 
 abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
     itemView: View,
-) :
-    RecyclerView.ViewHolder(itemView) {
+) : RecyclerView.ViewHolder(itemView) {
     object Key {
         const val KEY_CREATED = "created"
     }

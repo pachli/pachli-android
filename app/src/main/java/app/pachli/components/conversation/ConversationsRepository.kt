@@ -44,7 +44,7 @@ class ConversationsRepository @Inject constructor(
     private var factory: InvalidatingPagingSourceFactory<Int, ConversationData>? = null
 
     @OptIn(ExperimentalPagingApi::class)
-    suspend fun conversations(pachliAccountId: Long): Flow<PagingData<ConversationData>> {
+    fun conversations(pachliAccountId: Long): Flow<PagingData<ConversationData>> {
         factory = InvalidatingPagingSourceFactory { conversationsDao.conversationsForAccount(pachliAccountId) }
 
         // The Mastodon conversations API does not support fetching a specific conversation

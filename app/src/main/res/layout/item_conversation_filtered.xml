@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/status_filtered_placeholder"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="14dp"
+    android:paddingEnd="14dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:minHeight="48dp">
+
+    <TextView
+        android:id="@+id/account_filter_domain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="10dp"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLines="2"
+        android:paddingStart="28dp"
+        android:textSize="?attr/status_text_medium"
+        app:drawableStartCompat="@drawable/ic_person_add_24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="A user @example.com followed you"
+        tools:ignore="RtlSymmetry,SelectableText" />
+
+    <TextView
+        android:id="@+id/account_filter_reason"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/account_filter_domain"
+        android:layout_marginTop="8dp"
+        android:textColor="?android:textColorTertiary"
+        android:paddingStart="38dp"
+        android:textSize="?attr/status_text_medium"
+        android:textAlignment="center"
+        android:textIsSelectable="false"
+        tools:text="Warning because account is younger than 28d"
+        tools:ignore="RtlSymmetry" />
+
+    <Button
+        android:id="@+id/account_filter_edit_filter"
+        style="@style/AppButton.TextButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:importantForAccessibility="no"
+        android:text="@string/filter_edit_title"
+        android:textSize="?attr/status_text_medium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/account_filter_show_anyway"
+        app:layout_constraintTop_toTopOf="@+id/account_filter_show_anyway" />
+
+    <Button
+        android:id="@+id/account_filter_show_anyway"
+        style="@style/AppButton.Outlined"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:importantForAccessibility="no"
+        android:layout_marginTop="8dp"
+        android:text="@string/status_filtered_show_anyway"
+        android:textSize="?attr/status_text_medium"
+        app:layout_constraintStart_toEndOf="@id/account_filter_edit_filter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/account_filter_reason" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,26 +22,27 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.cachedIn
 import androidx.paging.map
 import app.pachli.core.data.repository.AccountManager
-import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.database.dao.ConversationsDao
-import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.ConversationData
 import app.pachli.core.model.AccountFilterDecision
+import app.pachli.core.model.AccountFilterReason
+import app.pachli.core.model.FilterAction
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.time.Duration
+import java.time.Instant
 import javax.inject.Inject
 import kotlin.properties.Delegates
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
@@ -60,19 +61,23 @@ class ConversationsViewModel @Inject constructor(
     var pachliAccountId by Delegates.notNull<Long>()
 
     @OptIn(ExperimentalPagingApi::class)
-    val conversationFlow = accountManager.activeAccountFlow
-        .filterIsInstance<Loadable.Loaded<AccountEntity?>>()
-        .mapNotNull { it.data }
-        .flatMapLatest { account ->
-            pachliAccountId = account.id
-            repository.conversations(account.id)
+    val conversationFlow = accountManager.activePachliAccountFlow
+        .flatMapLatest { pachliAccount ->
+            pachliAccountId = pachliAccount.id
+            repository.conversations(pachliAccount.id)
                 .map { pagingData ->
                     pagingData.map { conversation ->
+                        val accountFilterDecision = if (conversation.isConversationStarter) {
+                            conversation.viewData?.accountFilterDecision
+                                ?: filterConversationByAccount(pachliAccount, conversation)
+                        } else null
+
                         ConversationViewData.from(
-                            account.id,
+                            pachliAccount,
                             conversation,
-                            defaultIsExpanded = account.alwaysOpenSpoiler,
-                            defaultIsShowingContent = (account.alwaysShowSensitiveMedia || !conversation.lastStatus.status.sensitive),
+                            defaultIsExpanded = pachliAccount.entity.alwaysOpenSpoiler,
+                            defaultIsShowingContent = (pachliAccount.entity.alwaysShowSensitiveMedia || !conversation.lastStatus.status.sensitive),
+                            accountFilterDecision = accountFilterDecision
                         )
                     }
                 }
@@ -88,36 +93,62 @@ class ConversationsViewModel @Inject constructor(
     /**
      * @ret
      */
-    fun filterConversationByAccount(accountWithFilters: PachliAccount, conversationViewData: ConversationViewData): AccountFilterDecision {
-        // Do we show this account, based on the status.
-        // If we have already replied to them in the thread then we can show the status.
-        //
-        // API only returns the last status in the conversation.
+    // TODO: This is very similar to the code in NotificationHelper.filterNotificationsByAccount.
+    // Think about how the different account filters can be represented so this can be
+    // generalised.
+    fun filterConversationByAccount(accountWithFilters: PachliAccount, conversation: ConversationData): AccountFilterDecision {
+        if (!conversation.isConversationStarter) return AccountFilterDecision.None
 
-        // Last status is from us? Show it.
+        // The status to test against
+        val status = conversation.lastStatus.status
 
-        // Last status is not from us. Have we replied to them elsewhere in the thread?
-        // - Get the full thread
-        // - Walk up the list of ancestors, look for a status posted from accountWithFilters that
-        // is s reply to the account that posted the last status.
+        // The account that wrote the last status
+        val accountToTest = conversation.lastStatus.account
 
-        // Scenarios to consider:
-        // - Other account starts a new thread with a DM
-        //   - There is no inReplyTo status
-        //   - See if the filter needs to be applied
-        // - Other account replies to an existing thread with a DM
-        //   - Get the full thread
-        //   - Walk up the thread to find the first status with DIRECT visibility. That's the
-        //     start of the thread.
-        //   - From that post down in the thread, are any posts from us that reply to this account?
-        //    - If yes, ignore filter
-        //    - If no, see if the filter needs to be applied
+        // Any conversations where we wrote the last status are not filtered.
+        if (accountWithFilters.entity.accountId == accountToTest.serverId) return AccountFilterDecision.None
 
-//        if (conversationViewData.lastStatus.status.inReplyToAccountId) {
-//
-//        }
+        val decisions = buildList {
+            // Check the following relationship.
+            if (accountWithFilters.entity.conversationAccountFilterNotFollowed != FilterAction.NONE) {
+                if (accountWithFilters.following.none { it.serverId == accountToTest.serverId }) {
+                    add(
+                        AccountFilterDecision.make(
+                            accountWithFilters.entity.conversationAccountFilterNotFollowed,
+                            AccountFilterReason.NOT_FOLLOWING,
+                        ),
+                    )
+                }
+            }
 
-        return AccountFilterDecision.None
+            // Check the age of the account relative to the status.
+            accountToTest.createdAt?.let { createdAt ->
+                if (accountWithFilters.entity.conversationAccountFilterYounger30d != FilterAction.NONE) {
+                    if (Duration.between(createdAt, Instant.ofEpochMilli(status.createdAt)) < Duration.ofDays(30)) {
+                        add(
+                            AccountFilterDecision.make(
+                                accountWithFilters.entity.conversationAccountFilterYounger30d,
+                                AccountFilterReason.YOUNGER_30D,
+                            ),
+                        )
+                    }
+                }
+            }
+
+            // Check limited status
+            if (accountToTest.limited && accountWithFilters.entity.conversationAccountFilterLimitedByServer != FilterAction.NONE) {
+                add(
+                    AccountFilterDecision.make(
+                        accountWithFilters.entity.notificationAccountFilterLimitedByServer,
+                        AccountFilterReason.LIMITED_BY_SERVER,
+                    ),
+                )
+            }
+        }
+
+        return decisions.firstOrNull { it is AccountFilterDecision.Hide }
+            ?: decisions.firstOrNull { it is AccountFilterDecision.Warn }
+            ?: AccountFilterDecision.None
     }
 
     /**

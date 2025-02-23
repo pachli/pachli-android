@@ -66,6 +66,8 @@ class FilterableNotificationViewHolder(
         }
 
         binding.accountFilterEditFilter.setOnClickListener {
+            // TODO: This is already part of notifcationActionListener,
+            // does it need "Account" in "editAccountNotificationFilter" ?
             notificationActionListener.editAccountNotificationFilter()
         }
     }

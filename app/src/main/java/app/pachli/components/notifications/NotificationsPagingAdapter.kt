@@ -153,9 +153,9 @@ class NotificationsPagingAdapter(
 
     private val absoluteTimeFormatter = AbsoluteTimeFormatter()
 
-    /** View holders in this adapter must implement this interface */
+    /** View holders in this adapter must implement this interface. */
     interface ViewHolder {
-        /** Bind the data from the notification and payloads to the view */
+        /** Bind the data from the notification and payloads to the view. */
         fun bind(
             viewData: NotificationViewData,
             payloads: List<*>?,

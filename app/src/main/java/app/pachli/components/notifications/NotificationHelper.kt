@@ -723,7 +723,9 @@ fun filterNotificationByAccount(accountWithFilters: PachliAccount, notificationD
         }
     }
 
-    return decisions.firstOrNull { it is AccountFilterDecision.Hide } ?: decisions.firstOrNull { it is AccountFilterDecision.Warn } ?: AccountFilterDecision.None
+    return decisions.firstOrNull { it is AccountFilterDecision.Hide }
+        ?: decisions.firstOrNull { it is AccountFilterDecision.Warn }
+        ?: AccountFilterDecision.None
 }
 
 private fun getChannelId(account: AccountEntity, notification: Notification): String? {

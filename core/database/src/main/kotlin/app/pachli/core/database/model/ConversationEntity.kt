@@ -24,6 +24,7 @@ import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
+import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.network.model.Conversation
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.TimelineAccount
@@ -45,16 +46,51 @@ data class ConversationData(
     val unread: Boolean,
     @Embedded(prefix = "s_")
     val lastStatus: TimelineStatusWithAccount,
+    val isConversationStarter: Boolean,
+    @Embedded(prefix = "cvd_") val viewData: ConversationViewDataEntity?,
 )
+
+/**
+ * View data for a conversation, distinct from the viewdata for any
+ * statuses in the conversation.
+ */
+@Entity(
+    primaryKeys = ["pachliAccountId", "serverId"],
+    foreignKeys = (
+        [
+            ForeignKey(
+                entity = AccountEntity::class,
+                parentColumns = ["id"],
+                childColumns = ["pachliAccountId"],
+                onDelete = ForeignKey.CASCADE,
+                deferred = true
+            )
+        ]
+        ),
+)
+@TypeConverters(Converters::class)
+data class ConversationViewDataEntity(
+    val pachliAccountId: Long,
+    val serverId: String,
+    val accountFilterDecision: AccountFilterDecision?
+)
+
+/**
+ * Pachli specific viewdata for the conversation.
+ *
+ * Note: This is not the viewdata for the
+ */
 
 /**
  * Represents a [Conversation].
  *
  * @param pachliAccountId
- * @param id Conversation ID
+ * @param id Conversation ID.
  * @param accounts List of [ConversationAccount] in the conversation.
- * @param unread True if the conversation is currently marked unread
- * @param lastStatusServerId Server ID of the most recent status in the conversation
+ * @param unread True if the conversation is currently marked unread.
+ * @param lastStatusServerId Server ID of the most recent status in the conversation.
+ * @param isConversationStarter True if the status in [lastStatusServerId] is part
+ * of the chain of statuses that started the conversation.
  */
 @Entity(
     primaryKeys = ["id", "pachliAccountId"],
@@ -77,12 +113,15 @@ data class ConversationEntity(
     val unread: Boolean,
     @ColumnInfo(defaultValue = "")
     val lastStatusServerId: String,
+    @ColumnInfo(defaultValue = "1")
+    val isConversationStarter: Boolean,
 ) {
     companion object {
         @OptIn(ExperimentalContracts::class)
         fun from(
             conversation: Conversation,
             pachliAccountId: Long,
+            isInitial: Boolean,
         ): ConversationEntity? {
             return conversation.lastStatus?.let {
                 ConversationEntity(
@@ -91,6 +130,7 @@ data class ConversationEntity(
                     accounts = conversation.accounts.map { ConversationAccount.from(it) },
                     unread = conversation.unread,
                     lastStatusServerId = it.id,
+                    isConversationStarter = isInitial,
                 )
             }
         }

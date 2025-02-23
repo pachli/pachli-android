@@ -49,6 +49,7 @@ SELECT
     c.id,
     c.accounts,
     c.unread,
+    c.isConversationStarter,
 
     -- The last status
     -- The status in the notification (if any)
@@ -127,7 +128,12 @@ SELECT
     t.spoilerText AS 's_t_spoilerText',
     t.poll AS 's_t_poll',
     t.attachments AS 's_t_attachments',
-    t.provider AS 's_t_provider'
+    t.provider AS 's_t_provider',
+
+    -- ConversationViewDataEntity
+    cvd.pachliAccountId AS 'cvd_pachliAccountId',
+    cvd.serverId AS 'cvd_serverId',
+    cvd.accountFilterDecision AS 'cvd_accountFilterDecision'
 
 FROM ConversationEntity AS c
 LEFT JOIN StatusEntity AS s ON (c.pachliAccountId = s.timelineUserId AND c.lastStatusServerId = s.serverId)
@@ -139,6 +145,9 @@ LEFT JOIN
 LEFT JOIN
     TranslatedStatusEntity AS t
     ON (c.pachliAccountId = t.timelineUserId AND (s.serverId = t.serverId OR s.reblogServerId = t.serverId))
+LEFT JOIN
+    ConversationViewDataEntity AS cvd
+    ON c.pachliAccountId = cvd.pachliAccountId AND c.id = cvd.serverId
 WHERE c.pachliAccountId = :accountId
 ORDER BY s.createdAt DESC
 """,

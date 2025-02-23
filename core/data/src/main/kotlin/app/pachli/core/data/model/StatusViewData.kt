@@ -23,6 +23,7 @@ import app.pachli.core.data.BuildConfig
 import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.database.model.TranslationState
+import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.parseAsMastodonHtml
@@ -102,11 +103,6 @@ interface IStatusViewData {
 
     val rebloggingStatus: Status?
 
-    // TODO: This means that null checks are required elsewhere in the code to deal with
-    // the possibility that this might not be NONE, but that status.filtered is null or
-    // empty (e.g., StatusBaseViewHolder.setupFilterPlaceholder()). It would be better
-    // if the Filter.Action class subtypes carried the FilterResult information with them,
-    // and it's impossible to construct them with an empty list.
     /** The [FilterAction] to apply, based on the status' content. */
     var contentFilterAction: FilterAction
 
