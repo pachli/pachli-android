@@ -19,7 +19,7 @@ package app.pachli.components.timeline
 
 import app.cash.turbine.test
 import app.pachli.ContentFilterV1Test.Companion.mockStatus
-import app.pachli.components.timeline.viewmodel.StatusAction
+import app.pachli.components.timeline.viewmodel.FallibleStatusAction
 import app.pachli.components.timeline.viewmodel.StatusActionSuccess
 import app.pachli.components.timeline.viewmodel.UiError
 import app.pachli.core.data.model.StatusViewData
@@ -37,7 +37,7 @@ import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.stub
 
 /**
- * Verify that [StatusAction] are handled correctly on receipt:
+ * Verify that [FallibleStatusAction] are handled correctly on receipt:
  *
  * - Is the correct [UiSuccess] or [UiError] value emitted?
  * - Is the correct [TimelineCases] function called, with the correct arguments?
@@ -59,16 +59,16 @@ class CachedTimelineViewModelTestStatusFilterAction : CachedTimelineViewModelTes
     )
 
     /** Action to bookmark a status */
-    private val bookmarkAction = StatusAction.Bookmark(true, statusViewData)
+    private val bookmarkAction = FallibleStatusAction.Bookmark(true, statusViewData)
 
     /** Action to favourite a status */
-    private val favouriteAction = StatusAction.Favourite(true, statusViewData)
+    private val favouriteAction = FallibleStatusAction.Favourite(true, statusViewData)
 
     /** Action to reblog a status */
-    private val reblogAction = StatusAction.Reblog(true, statusViewData)
+    private val reblogAction = FallibleStatusAction.Reblog(true, statusViewData)
 
     /** Action to vote in a poll */
-    private val voteInPollAction = StatusAction.VoteInPoll(
+    private val voteInPollAction = FallibleStatusAction.VoteInPoll(
         poll = status.poll!!,
         choices = listOf(1, 0, 0),
         statusViewData,

@@ -46,9 +46,10 @@ import app.pachli.BuildConfig
 import app.pachli.R
 import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.components.timeline.viewmodel.CachedTimelineViewModel
+import app.pachli.components.timeline.viewmodel.FallibleStatusAction
+import app.pachli.components.timeline.viewmodel.InfallibleStatusAction
 import app.pachli.components.timeline.viewmodel.InfallibleUiAction
 import app.pachli.components.timeline.viewmodel.NetworkTimelineViewModel
-import app.pachli.components.timeline.viewmodel.StatusAction
 import app.pachli.components.timeline.viewmodel.StatusActionSuccess
 import app.pachli.components.timeline.viewmodel.TimelineViewModel
 import app.pachli.components.timeline.viewmodel.UiError
@@ -308,7 +309,7 @@ class TimelineFragment :
             // that the action succeeded. Since it hasn't, re-bind the view
             // to show the correct data.
             uiError.action?.let { action ->
-                if (action !is StatusAction) return@let
+                if (action !is FallibleStatusAction) return@let
 
                 adapter.snapshot()
                     .indexOfFirst { it?.id == action.statusViewData.id }
@@ -563,19 +564,19 @@ class TimelineFragment :
     }
 
     override fun onReblog(viewData: StatusViewData, reblog: Boolean) {
-        viewModel.accept(StatusAction.Reblog(reblog, viewData))
+        viewModel.accept(FallibleStatusAction.Reblog(reblog, viewData))
     }
 
     override fun onFavourite(viewData: StatusViewData, favourite: Boolean) {
-        viewModel.accept(StatusAction.Favourite(favourite, viewData))
+        viewModel.accept(FallibleStatusAction.Favourite(favourite, viewData))
     }
 
     override fun onBookmark(viewData: StatusViewData, bookmark: Boolean) {
-        viewModel.accept(StatusAction.Bookmark(bookmark, viewData))
+        viewModel.accept(FallibleStatusAction.Bookmark(bookmark, viewData))
     }
 
     override fun onVoteInPoll(viewData: StatusViewData, poll: Poll, choices: List<Int>) {
-        viewModel.accept(StatusAction.VoteInPoll(poll, choices, viewData))
+        viewModel.accept(FallibleStatusAction.VoteInPoll(poll, choices, viewData))
     }
 
     override fun clearContentFilter(viewData: StatusViewData) {
@@ -623,11 +624,11 @@ class TimelineFragment :
     override fun canTranslate() = timeline == Timeline.Home
 
     override fun onTranslate(statusViewData: StatusViewData) {
-        viewModel.accept(StatusAction.Translate(statusViewData))
+        viewModel.accept(FallibleStatusAction.Translate(statusViewData))
     }
 
     override fun onTranslateUndo(statusViewData: StatusViewData) {
-        viewModel.accept(InfallibleUiAction.TranslateUndo(statusViewData))
+        viewModel.accept(InfallibleStatusAction.TranslateUndo(statusViewData))
     }
 
     override fun onViewMedia(viewData: StatusViewData, attachmentIndex: Int, view: View?) {
