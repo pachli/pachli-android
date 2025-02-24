@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="error_json_data_fmt">Twój serwer zwrócił nieprawidłową odpowiedź: %1$s</string>
+    <string name="error_429_rate_limit_fmt">Twój serwer ogranicza przepustowość twoich żądań: %1$s</string>
+    <string name="error_network_fmt">Wystąpił błąd sieci: %s</string>
+    <string name="error_missing_content_type_fmt">Twój serwer ma błędy w konfiguracji, odpowiedź nie ma typu zawartości: %1$s</string>
+    <string name="error_wrong_content_type_fmt">Twój serwer ma błędy w konfiguracji i zwrócił \'%2$s\' z błędnym typem zawartości, \'%1$s\'</string>
+    <string name="error_404_not_found_fmt">Twój serwer nie wspiera tej funkcji: %1$s</string>
+    <string name="node_info_error_no_software">nie zawierał blokady oprogramowania</string>
+    <string name="node_info_error_no_software_name">brak nazwy oprogramowania lub jest pusta</string>
+    <string name="node_info_error_no_software_version">brak wersji oprogramowania lub jest pusta</string>
+    <string name="server_error_unparseable_version">nie można było przetworzyć \"%1$s\" jako wersji: %2$s</string>
+    <string name="error_generic_fmt">%1$s</string>
+</resources>
