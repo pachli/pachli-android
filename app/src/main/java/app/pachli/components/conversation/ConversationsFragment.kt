@@ -77,9 +77,11 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 
+/**
+ * Actions taken from the broader UI (which can include actions triggered by the
+ * per-Conversation UI if not specific to that conversation).
+ */
 sealed interface UiAction {
-//    @JvmInline
-//    value class InfallibleStatusAction(val a: app.pachli.components.timeline.viewmodel.InfallibleStatusAction) : app.pachli.components.timeline.viewmodel.InfallibleStatusAction by a
     /**
      * Called when the user clicks "Edit filter" from a status filtered
      * by the account.
@@ -87,7 +89,9 @@ sealed interface UiAction {
     data class EditAccountFilter(val pachliAccountId: Long) : UiAction
 }
 
-// sealed interface ConversationAction : app.pachli.components.timeline.viewmodel.StatusAction {
+/**
+ * Actions taken from an individual [ConversationViewData].
+ */
 internal sealed interface ConversationAction : UiAction {
     /**
      * Called when the user clicks "Show anyway" to see a status filtered
@@ -98,10 +102,6 @@ internal sealed interface ConversationAction : UiAction {
         val conversationId: String,
         val accountFilterDecision: AccountFilterDecision,
     ) : ConversationAction
-
-//    @JvmInline
-//    value class StatusAction(val statusAction: app.pachli.components.timeline.viewmodel.StatusAction) :
-//        ConversationAction
 }
 
 @AndroidEntryPoint
@@ -220,30 +220,6 @@ class ConversationsFragment :
             }
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.conversationFlow.collectLatest { pagingData ->
-                adapter.submitData(pagingData)
-            }
-        }
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                val useAbsoluteTime = sharedPreferencesRepository.getBoolean(PrefKeys.ABSOLUTE_TIME_VIEW, false)
-                while (!useAbsoluteTime) {
-                    adapter.notifyItemRangeChanged(
-                        0,
-                        adapter.itemCount,
-                        listOf(StatusBaseViewHolder.Key.KEY_CREATED),
-                    )
-                    delay(1.minutes)
-                }
-            }
-        }
-
-        lifecycleScope.launch {
-            sharedPreferencesRepository.changes.filterNotNull().collect { onPreferenceChanged(it) }
-        }
-
         bind()
     }
 
@@ -252,6 +228,22 @@ class ConversationsFragment :
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 launch { uiAction.throttleFirst().collect(::bindUiAction) }
+
+                launch { viewModel.conversationFlow.collectLatest { adapter.submitData(it) } }
+
+                launch {
+                    val useAbsoluteTime = sharedPreferencesRepository.getBoolean(PrefKeys.ABSOLUTE_TIME_VIEW, false)
+                    while (!useAbsoluteTime) {
+                        adapter.notifyItemRangeChanged(
+                            0,
+                            adapter.itemCount,
+                            listOf(StatusBaseViewHolder.Key.KEY_CREATED),
+                        )
+                        delay(1.minutes)
+                    }
+                }
+
+                launch { sharedPreferencesRepository.changes.filterNotNull().collect { onPreferenceChanged(it) } }
             }
         }
     }

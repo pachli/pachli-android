@@ -31,7 +31,6 @@ import app.pachli.core.model.FilterAction
 import app.pachli.databinding.ItemConversationBinding
 import app.pachli.databinding.ItemConversationFilteredBinding
 import app.pachli.interfaces.StatusActionListener
-import timber.log.Timber
 
 internal class ConversationAdapter(
     private var statusDisplayOptions: StatusDisplayOptions,
@@ -58,9 +57,6 @@ internal class ConversationAdapter(
 
     override fun getItemViewType(position: Int): Int {
         val item = getItem(position)
-        Timber.d("getItemViewType(): ${item?.lastStatus?.id}")
-        Timber.d("  cfa: ${item?.lastStatus?.contentFilterAction}")
-        Timber.d("  afa: ${item?.accountFilterDecision}")
 
         if (item?.lastStatus?.contentFilterAction == FilterAction.WARN) {
             return ConversationViewKind.STATUS_FILTERED.ordinal
@@ -81,7 +77,6 @@ internal class ConversationAdapter(
                 ConversationViewHolder(
                     ItemConversationBinding.inflate(inflater, parent, false),
                     listener,
-                    accept,
                 )
             ConversationViewKind.STATUS_FILTERED ->
                 FilterableConversationStatusViewHolder(

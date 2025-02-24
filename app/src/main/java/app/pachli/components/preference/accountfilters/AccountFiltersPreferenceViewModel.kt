@@ -104,38 +104,62 @@ class AccountFiltersPreferenceViewModel @AssistedInject constructor(
     init {
         viewModelScope.launch {
             uiAction
-                .throttleFirst()
                 .filterIsInstance<SetAccountFilter>()
-                .distinctUntilChanged().collectLatest(::onApplyFilter)
+                .throttleFirst()
+                .distinctUntilChanged().collectLatest(::onSetAccountFilter)
         }
     }
 
-    private suspend fun onApplyFilter(action: SetAccountFilter) {
+    private suspend fun onSetAccountFilter(action: SetAccountFilter) {
         when (accountFilterTimeline) {
-            CONVERSATIONS -> onApplyConversationFilter(action)
-            NOTIFICATIONS -> onApplyNotificationFilter(action)
+            CONVERSATIONS -> onSetConversationAccountFilter(action)
+            NOTIFICATIONS -> onSetNotificationAccountFilter(action)
         }
     }
 
-    private suspend fun onApplyConversationFilter(action: SetAccountFilter) {
+    /**
+     * Sets the account's conversation account filters from [action].
+     */
+    private suspend fun onSetConversationAccountFilter(action: SetAccountFilter) {
         when (action.reason) {
             AccountFilterReason.NOT_FOLLOWING ->
-                accountManager.setConversationAccountFilterNotFollowed(pachliAccountId, action.action)
+                accountManager.setConversationAccountFilterNotFollowed(
+                    action.pachliAccountId,
+                    action.action,
+                )
             AccountFilterReason.YOUNGER_30D ->
-                accountManager.setConversationAccountFilterYounger30d(pachliAccountId, action.action)
+                accountManager.setConversationAccountFilterYounger30d(
+                    action.pachliAccountId,
+                    action.action,
+                )
             AccountFilterReason.LIMITED_BY_SERVER ->
-                accountManager.setConversationAccountFilterLimitedByServer(pachliAccountId, action.action)
+                accountManager.setConversationAccountFilterLimitedByServer(
+                    action.pachliAccountId,
+                    action.action,
+                )
         }
     }
 
-    private suspend fun onApplyNotificationFilter(action: SetAccountFilter) {
+    /**
+     * Sets the account's notification account filters from [action].
+     */
+    private suspend fun onSetNotificationAccountFilter(action: SetAccountFilter) {
         when (action.reason) {
             AccountFilterReason.NOT_FOLLOWING ->
-                accountManager.setNotificationAccountFilterNotFollowed(pachliAccountId, action.action)
+                accountManager.setNotificationAccountFilterNotFollowed(
+                    action.pachliAccountId,
+                    action.action,
+                )
             AccountFilterReason.YOUNGER_30D ->
-                accountManager.setNotificationAccountFilterYounger30d(pachliAccountId, action.action)
+                accountManager.setNotificationAccountFilterYounger30d(
+                    action.pachliAccountId,
+                    action.action,
+                )
             AccountFilterReason.LIMITED_BY_SERVER ->
-                accountManager.setNotificationAccountFilterLimitedByServer(pachliAccountId, action.action)
+                accountManager.setNotificationAccountFilterLimitedByServer(
+                    action.pachliAccountId,
+                    action.action,
+                )
         }
     }
 

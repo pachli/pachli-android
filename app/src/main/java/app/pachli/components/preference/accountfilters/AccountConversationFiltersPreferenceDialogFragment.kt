@@ -21,6 +21,9 @@ import android.os.Bundle
 import app.pachli.R
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * A dialog to set account filters for conversations.
+ */
 @AndroidEntryPoint
 class AccountConversationFiltersPreferenceDialogFragment :
     BaseAccountFiltersPreferencesDialogFragment(
@@ -30,9 +33,7 @@ class AccountConversationFiltersPreferenceDialogFragment :
     ) {
 
     companion object {
-        fun newInstance(
-            pachliAccountId: Long,
-        ): AccountConversationFiltersPreferenceDialogFragment {
+        fun newInstance(pachliAccountId: Long): AccountConversationFiltersPreferenceDialogFragment {
             val fragment = AccountConversationFiltersPreferenceDialogFragment()
             fragment.arguments = Bundle(1).apply {
                 putLong(ARG_PACHLI_ACCOUNT_ID, pachliAccountId)

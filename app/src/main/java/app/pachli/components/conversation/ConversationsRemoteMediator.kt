@@ -70,8 +70,6 @@ class ConversationsRemoteMediator(
                 val conversationEntities = mutableSetOf<ConversationEntity>()
                 val statuses = mutableSetOf<Status>()
 
-                // Figure out whether lastStatus in each conversation is the
-                // start of the conversation or somewhere in the middle.
                 val conversationStarter = isConversationStarter(conversations.map { it.lastStatus!! })
 
                 conversations.forEach {
@@ -121,7 +119,7 @@ class ConversationsRemoteMediator(
      * @return Mapping of statusIDs to Boolean, true if the status ID is the
      * conversation starter, false otherwise.
      */
-    suspend fun isConversationStarter(statuses: List<Status>): Map<String, Boolean> {
+    private suspend fun isConversationStarter(statuses: List<Status>): Map<String, Boolean> {
         /**
          * Statuses that will need to be checked remotely.
          *
@@ -141,10 +139,11 @@ class ConversationsRemoteMediator(
                 continue
             }
 
-            // If account.id == inReplyToAccountId then this is part of chain of
-            // statuses that started the thread, all posted by the same account.
-            // It doesn't matter that it's multiple statuses, the whole chain
-            // is considered to have started the thread.
+            // If the account posting this status is also the account that posted
+            // the parent status hen this is part of chain of statuses that started
+            // the thread, all posted by the same account.  It doesn't matter that
+            // it's multiple statuses, the whole chain is considered to have started
+            // the thread.
             if (status.account.id == status.inReplyToAccountId) {
                 result[status.id] = true
                 continue

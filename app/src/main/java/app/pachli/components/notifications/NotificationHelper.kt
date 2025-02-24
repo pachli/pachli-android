@@ -655,7 +655,8 @@ fun filterNotification(
  * Returns the [AccountFilterDecision] for [notificationData] based on the notification
  * filters in [accountWithFilters].
  *
- * @return The most severe [AccountFilterDecision], in order [Hide], [Warn], or [None].
+ * @return The most severe [AccountFilterDecision], in order [Hide][AccountFilterDecision.Hide],
+ * [Warn][AccountFilterDecision.Warn], or [None][AccountFilterDecision.None].
  */
 fun filterNotificationByAccount(accountWithFilters: PachliAccount, notificationData: NotificationData): AccountFilterDecision {
     val notification = notificationData.notification

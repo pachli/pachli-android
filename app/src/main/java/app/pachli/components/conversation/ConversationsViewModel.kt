@@ -103,7 +103,7 @@ class ConversationsViewModel @Inject constructor(
         }
     }
 
-    private suspend fun onConversationAction(conversationAction: ConversationAction) {
+    private fun onConversationAction(conversationAction: ConversationAction) {
         when (conversationAction) {
             is ConversationAction.OverrideAccountFilter ->
                 repository.setAccountFilterDecision(
@@ -111,25 +111,31 @@ class ConversationsViewModel @Inject constructor(
                     conversationAction.conversationId,
                     AccountFilterDecision.Override(conversationAction.accountFilterDecision),
                 )
-
-            is UiAction.EditAccountFilter -> TODO()
         }
     }
 
     /**
-     * @ret
+     * Returns the [AccountFilterDecision] for [conversationData] based on the notification
+     * filters in [accountWithFilters].
+     *
+     * @return The most severe [AccountFilterDecision], in order [Hide][AccountFilterDecision.Hide],
+     * [Warn][AccountFilterDecision.Warn], or [None][AccountFilterDecision.None].
      */
     // TODO: This is very similar to the code in NotificationHelper.filterNotificationsByAccount.
     // Think about how the different account filters can be represented so this can be
     // generalised.
-    private fun filterConversationByAccount(accountWithFilters: PachliAccount, conversation: ConversationData): AccountFilterDecision {
-        if (!conversation.isConversationStarter) return AccountFilterDecision.None
+    private fun filterConversationByAccount(
+        accountWithFilters: PachliAccount,
+        conversationData: ConversationData,
+    ): AccountFilterDecision {
+        // Only the initial account posting in a conversation is tested.
+        if (!conversationData.isConversationStarter) return AccountFilterDecision.None
 
         // The status to test against
-        val status = conversation.lastStatus.status
+        val status = conversationData.lastStatus.status
 
         // The account that wrote the last status
-        val accountToTest = conversation.lastStatus.account
+        val accountToTest = conversationData.lastStatus.account
 
         // Any conversations where we wrote the last status are not filtered.
         if (accountWithFilters.entity.accountId == accountToTest.serverId) return AccountFilterDecision.None

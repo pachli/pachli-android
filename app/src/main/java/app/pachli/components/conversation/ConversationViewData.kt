@@ -20,7 +20,6 @@ package app.pachli.components.conversation
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.PachliAccount
-import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.ConversationAccount
 import app.pachli.core.database.model.ConversationData
 import app.pachli.core.model.AccountFilterDecision
@@ -31,6 +30,15 @@ import app.pachli.core.model.FilterAction
  *
  * Each conversation wraps the [StatusViewData] for the last status in the
  * conversation for display.
+ *
+ * @param pachliAccountId
+ * @param localDomain The domain associated with [pachliAccountId].
+ * @param id Server ID of this conversation.
+ * @param accounts Accounts participating in this conversation.
+ * @param unread True if this conversation is marked unread.
+ * @param lastStatus The most recent [StatusViewData] in this conversation.
+ * @param accountFilterDecision The account filter decision for this conversation.
+ * @param isConversationStarter True if [lastStatus] is starting the conversation.
  */
 data class ConversationViewData(
     override val pachliAccountId: Long,
@@ -43,12 +51,21 @@ data class ConversationViewData(
     val isConversationStarter: Boolean,
 ) : IStatusViewData by lastStatus {
     companion object {
+        /**
+         * Creates a [ConversationViewData].
+         *
+         * @param pachliAccount
+         * @param conversationData
+         * @param defaultIsExpanded Default value for the `isExpanded` property if not set.
+         * @param defaultIsShowingContent Default value for the `isShowingContent` property if not set.
+         * @param accountFilterDecision
+         */
         fun from(
             pachliAccount: PachliAccount,
             conversationData: ConversationData,
             defaultIsExpanded: Boolean,
             defaultIsShowingContent: Boolean,
-            accountFilterDecision: AccountFilterDecision?
+            accountFilterDecision: AccountFilterDecision?,
         ) = ConversationViewData(
             pachliAccountId = pachliAccount.id,
             localDomain = pachliAccount.entity.domain,
@@ -64,7 +81,7 @@ data class ConversationViewData(
                 contentFilterAction = FilterAction.NONE,
             ),
             isConversationStarter = conversationData.isConversationStarter,
-            accountFilterDecision = accountFilterDecision
+            accountFilterDecision = accountFilterDecision,
         )
     }
 }
