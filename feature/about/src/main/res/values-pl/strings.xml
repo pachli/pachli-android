@@ -1,18 +1,65 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="about_title_activity">O programie</string>
     <string name="about_device_info_title">Twoje urządzenie</string>
     <string name="about_account_info_title">Twoje konto</string>
     <string name="about_powered_by_pachli">Napędzane przez Pachli</string>
-    <string name="about_pachli_license">Pachli jest wolnym i otwartoźródłowym oprogramowaniem. Jest on dostępny na licencji GNU General Public License w wersji trzeciej. Możesz przeczytać przetłumaczoną treść licencji <a href="https://web.archive.org/web/20171024013739/http://itlaw.computerworld.pl/wp-content/uploads/2008/03/powszechna-licencja-publiczna-gnu_v2.pdf">tutaj</a></string>
-    <string name="about_project_site">        Strona projektu:\n
-        https://pachli.app
-    </string>
-    <string name="about_bug_feature_request_site">        Zgłoszenia błędów i propozycje funkcji:\n
-        https://github.com/pachli/pachli-android/issues
-    </string>
+    <string name="about_pachli_license">Pachli jest wolnym i otwartoźródłowym oprogramowaniem. Jest on dostępny na licencji GNU General Public License w wersji trzeciej. Nieoficjalne tłumaczenie licencji na język polski możesz przeczytać tutaj: https://www.joomla.pl/o-joomla/licencje/licencja-gnu-gpl-v-3-0</string>
+    <string name="about_project_site">Strona projektu: https://pachli.app</string>
+    <string name="about_bug_feature_request_site">Zgłoszenia błędów i propozycje funkcji:\nhttps://github.com/pachli/pachli-android/issues</string>
     <string name="about_privacy_policy">Polityka prywatności</string>
-    <string name="about_pachli_account">Profil Pachli’ego</string>
+    <string name="about_pachli_account">Profil Pachli</string>
     <string name="title_licenses">Licencje</string>
     <string name="license_description">Pachli zawiera kod i zasoby następujących projektów open source:</string>
+    <string name="notification_details_title">Szczegóły</string>
+    <string name="notification_details_push_notifications_with_unifiedpush">Powiadomienia push za pomocą UnifiedPush</string>
+    <string name="notification_details_accounts_unified_push_subscription">Czy wszystkie konta mają subskrypcję?</string>
+    <string name="notification_details_last_fetch_label">Ostatnie żądanie /api/v1/notifications</string>
+    <string name="notification_details_standby_bucket_working_set">Zestaw roboczy. Ograniczony do 10 minut co 2 godziny</string>
+    <string name="notification_details_standby_bucket_rare">Rzadki. Ograniczony do 10 minut co 24 godziny</string>
+    <string name="notification_details_standby_bucket_restricted">Z ograniczeniem. Raz dziennie</string>
+    <string name="notification_log_filter_content_description">Filtruj dziennik po tagach</string>
+    <string name="notification_log_sort">Najnowsze najpierw</string>
+    <string name="notification_log_previous_attempts">Poprzednia próba: %1$d</string>
+    <string name="notification_log_scheduled_in">Zaplanowana na %1$s @ %2$s</string>
+    <string name="notification_log_method_push">Powiadomienia są pobierane przy użyciu UnifiedPush i powinny być natychmiastowe</string>
+    <string name="notification_log_method_unknown">Mechanizm powiadomień nie został określony</string>
+    <string name="notification_log_download_failed">Pobieranie się nie powiodło: %1$s</string>
+    <string name="notitication_log_filter_dialog_title">Pokaż priorytety dziennika</string>
+    <string name="action_refresh">Odśwież</string>
+    <string name="about_copied">Skopiowano numer wersji i informacje o urządzeniu</string>
+    <string name="about_copy">Skopiuj numer wersji i informacje o urządzeniu</string>
+    <string name="about_device_info">%s %s\nWersja Androida: %s\nPoziom SDK: %d</string>
+    <string name="about_account_info">\@%s@%s\nWersja: %s</string>
+    <string name="notification_details_last_fetch_help">Niezależnie od sposobu powiadomień, to pokazuje dla każdego konta, kiedy wystąpiło ostatnie pobranie, czy było udane i komunikat o błędzie jeżeli nie było.</string>
+    <string name="notification_details_standby_bucket_frequent">Częsty. Ograniczony do 10 minut co 8 godzin</string>
+    <string name="notification_details_accounts_unified_push_url">Czy wszystkie konta mają URL UnifiedPush?</string>
+    <string name="notification_details_ago">%1$s temu @ %2$s</string>
+    <string name="notification_details_accounts_unified_push_url_help">Jedno lub więcej kont nie jest skonfigurowane z URL UnifiedPush, powiadomienia push dla tego konta są wyłączone.</string>
+    <string name="notification_details_ntfy_exempt_help">NTFY nie jest wyłączone z optymalizacji baterii. System może opóźniać powiadomienia, gdy ekran jest wyłączony.</string>
+    <string name="notification_log_title">Dziennik</string>
+    <string name="notification_log_method_pusherror">UnifiedPush jest włączony, ale napotkał błąd: %1$s</string>
+    <string name="about_nivenly_foundation">Pachli jest projektem <a href="https://nivenly.org">Nivenly Foundation</a>.</string>
+    <string name="notification_details_any_account_needs_migration">Czy wszystkie konta mają zakres \'push\' OAuth?</string>
+    <string name="notification_details_accounts_unified_push_subscription_help">Jedno lub więcej kont nie mogło zaktualizować swojej subskrypcji UnifiedPush i nie będzie otrzymywać powiadomień.</string>
+    <string name="notification_details_notifications_enabled_help"><![CDATA[Powiadomienia nie są włączone dla żadnego z twoich kont. Zmień to w Preferencje konta > Powiadomienia. Do tego czasu wszystkie powiadomienia są wyłączone.]]></string>
+    <string name="notification_details_unifiedpush_available">Czy UnifiedPush jest dostępny?</string>
+    <string name="notification_details_ntfy_exempt">Czy NTFY jest wyłączone z optymalizacji baterii?</string>
+    <string name="notification_details_any_account_needs_migration_help">Jedno lub więcej kont nie ma zakresu \'push\' OAuth, powiadomienia push są wyłączone.</string>
+    <string name="notification_details_android_notifications_enabled">Czy są włączone powiadomienia Androida?</string>
+    <string name="notification_details_unifiedpush_available_help">UnifiedPush (ntfy.sh) jest niedostępny, powiadomienia będą pobierane okresowo. Reszta tej sekcji wyjaśnia, dlaczego UnifiedPush nie jest używany, ale jest nieistotna dla tego, jak obecnie są pobierane powiadomienia.</string>
+    <string name="notification_details_pull_section">Powiadomienia pull z okresowym sprawdzaniem</string>
+    <string name="notification_details_pachli_exempt">Czy Pachli jest wyłączony z optymalizacji baterii?</string>
+    <string name="notification_details_pachli_exempt_help">Pachli nie jest wyłączony z optymalizacji baterii. System może opóźniać powiadomienia, gdy ekran jest wyłączony.</string>
+    <string name="notification_log_filter">Filtruj</string>
+    <string name="notification_details_workers_help">To jest lista procesów pobierających nowe powiadomienia. Powinien być jeden, ze statusem RUNNING lub ENQUEUED i powinien być zaplanowany na pracę w ciągu mniej niż 15 minut od teraz.</string>
+    <string name="notification_details_usage_event">Ograniczenia zarządzania energią</string>
+    <string name="notification_details_usage_event_label">Android może ograniczać, co aplikacje mogą robić w tle. To lista przypadków, gdy Pachli był ograniczany w ciągu ostatnich trzech dni, od najnowszych.</string>
+    <string name="notification_details_standby_bucket_exempted">Wyłączony</string>
+    <string name="notification_details_standby_bucket_active">Aktywny. Nieograniczona praca w tle</string>
+    <string name="notification_details_standby_bucket_never">Nigdy</string>
+    <string name="notification_details_standby_bucket_unknown">Nieznany</string>
+    <string name="notification_log_download_content_description">Pobierz dzienniki</string>
+    <string name="notification_log_download">Pobierz</string>
+    <string name="notification_log_method_pull">Powiadomienia są pobierane okresowo, co około 15 minut</string>
 </resources>
