@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="error_filter_server_does_not_filter">Serwer nie wspiera filtrów</string>
+    <string name="account_manager_error_no_active_account">brak konta oznaczonego jako aktywne</string>
+    <string name="server_repository_error_unsupported_schema">/.well-known/nodeinfo nie zawiera zrozumiałych schematów</string>
+    <string name="server_repository_error_get_instance_info">pobieranie /api/v1/instance się nie powiodło: %1$s</string>
+    <string name="server_repository_error_get_well_known_node_info">pobieranie /.well-known/nodeinfo sie nie powiodło: %1$s</string>
+    <string name="server_repository_error_get_node_info">pobieranie informacji węzła %1$s się nie powiodło: %2$s</string>
+    <string name="server_repository_error_validate_node_info">sprawdzanie informacji węzła %1$s się nie powiodło: %2$s</string>
+    <string name="server_repository_error_capabilities">przetwarzanie możliwości serwera się nie powiodło: %1$s</string>
+    <string name="account_manager_error_account_does_not_exist">Konto nie istnieje w lokalnej bazie danych. To nie powinno się wydarzyć. Jeżeli widzisz tę wiadomość, proszę wyślij raport o błędzie.</string>
+    <string name="account_manager_error_dao">Błąd bazy danych. Proszę, zgłoś to do team@pachli.app: %1$s</string>
+    <string name="account_manager_error_unexpected">nieoczekiwany błąd: %1$s</string>
+</resources>
