@@ -1,2 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="title_suggestions">Proponowane konta</string>
+    <string name="source_unknown">(serwer zwrócił nierozpoznawalne źródła)</string>
+    <string name="sources_featured">Wybrane przez ekipę twojego serwera</string>
+    <string name="sources_most_followed">Jedno z najczęściej obserwowanych na twoim serwerze</string>
+    <string name="sources_most_interactions">Przyciąga sporo uwagi na twoim serwerze</string>
+    <string name="sources_similar_to_recently_followed">Podobne do kont, które ostatnio zaobserwowano</string>
+    <string name="sources_friends_of_friends">Popularne wśród osób, które obserwujesz</string>
+    <string name="sources_unknown">(serwer zwrócił nierozpoznawalne źródła)</string>
+    <string name="action_follow_account">Obserwuj</string>
+    <string name="action_dismiss_follow_suggestion">Odrzuć</string>
+    <string name="follows_count_fmt"><b>%1$s</b> obserwowanych</string>
+    <string name="statuses_count_fmt"><b>%1$s</b> wpisów</string>
+    <string name="statuses_count_per_week_fmt"><b>%1$s</b> wpisów (<b>%2$d</b> na tydzień)</string>
+    <string name="statuses_count_per_week_last_fmt"><b>%1$s</b> wpisów (<b>%2$d</b> na tydzień, ostatni <b>%3$s</b>)</string>
+    <string name="ui_error_follow_account_fmt">Obserwowanie %1$s się nie powiodło: %2$s</string>
+    <string name="ui_error_delete_suggestion_fmt">Odrzucanie sugestii %1$s się nie powiodło: %2$s</string>
+    <string name="follower_count_fmt"><b>%1$s</b> obserwujących</string>
+</resources>
