@@ -162,18 +162,6 @@ sealed interface InfallibleStatusAction : InfallibleUiAction, StatusAction {
     val statusViewData: StatusViewData
 
     data class TranslateUndo(override val statusViewData: StatusViewData) : InfallibleStatusAction
-
-//    /**
-//     * Called when the user clicks "Show anyway" to see a status filtered
-//     * by the account.
-//     */
-//    data class ClearAccountFilter(override val statusViewData: StatusViewData) : InfallibleStatusAction
-//
-//    /**
-//     * Called when the user clicks "Edit filter" from a status filtered
-//     * by the account.
-//     */
-//    data class EditAccountFilter(override val statusViewData: StatusViewData) : InfallibleStatusAction
 }
 
 /** Actions the user can trigger on an individual status */
