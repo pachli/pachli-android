@@ -28,10 +28,13 @@ import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.ConversationData
+import app.pachli.core.database.model.ConversationViewDataEntity
+import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.network.retrofit.MastodonApi
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 
 class ConversationsRepository @Inject constructor(
     @ApplicationScope internal val externalScope: CoroutineScope,
@@ -65,6 +68,27 @@ class ConversationsRepository @Inject constructor(
             ),
             pagingSourceFactory = factory!!,
         ).flow
+    }
+
+    /**
+     * Sets the [AccountFilterDecision] for [conversationId] to [accountFilterDecision].
+     *
+     * @param pachliAccountId
+     * @param conversationId Conversation's server ID.
+     * @param accountFilterDecision New [AccountFilterDecision].
+     */
+    fun setAccountFilterDecision(
+        pachliAccountId: Long,
+        conversationId: String,
+        accountFilterDecision: AccountFilterDecision,
+    ) = externalScope.launch {
+        conversationsDao.upsert(
+            ConversationViewDataEntity(
+                pachliAccountId,
+                conversationId,
+                accountFilterDecision,
+            ),
+        )
     }
 
     companion object {

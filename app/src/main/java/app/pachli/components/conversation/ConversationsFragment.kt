@@ -37,12 +37,15 @@ import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.R
 import app.pachli.adapter.StatusBaseViewHolder
+import app.pachli.components.preference.accountfilters.AccountConversationFiltersPreferenceDialogFragment
 import app.pachli.core.activity.ReselectableFragment
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
+import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.eventhub.EventHub
+import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.TimelineActivityIntent
@@ -69,9 +72,37 @@ import javax.inject.Inject
 import kotlin.properties.Delegates
 import kotlin.time.Duration.Companion.minutes
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
+
+sealed interface UiAction {
+//    @JvmInline
+//    value class InfallibleStatusAction(val a: app.pachli.components.timeline.viewmodel.InfallibleStatusAction) : app.pachli.components.timeline.viewmodel.InfallibleStatusAction by a
+    /**
+     * Called when the user clicks "Edit filter" from a status filtered
+     * by the account.
+     */
+    data class EditAccountFilter(val pachliAccountId: Long) : UiAction
+}
+
+// sealed interface ConversationAction : app.pachli.components.timeline.viewmodel.StatusAction {
+internal sealed interface ConversationAction : UiAction {
+    /**
+     * Called when the user clicks "Show anyway" to see a status filtered
+     * by the account.
+     */
+    data class OverrideAccountFilter(
+        val pachliAccountId: Long,
+        val conversationId: String,
+        val accountFilterDecision: AccountFilterDecision,
+    ) : ConversationAction
+
+//    @JvmInline
+//    value class StatusAction(val statusAction: app.pachli.components.timeline.viewmodel.StatusAction) :
+//        ConversationAction
+}
 
 @AndroidEntryPoint
 class ConversationsFragment :
@@ -94,6 +125,12 @@ class ConversationsFragment :
 
     private val binding by viewBinding(FragmentTimelineBinding::bind)
 
+    /** Flow of actions the user has taken in the UI */
+    private val uiAction = MutableSharedFlow<UiAction>()
+
+    /** Accepts user actions from UI components and emit them in to [uiAction]. */
+    private val accept: (UiAction) -> Unit = { action -> lifecycleScope.launch { uiAction.emit(action) } }
+
     private lateinit var adapter: ConversationAdapter
 
     override var pachliAccountId by Delegates.notNull<Long>()
@@ -114,7 +151,7 @@ class ConversationsFragment :
         viewLifecycleOwner.lifecycleScope.launch {
             val statusDisplayOptions = statusDisplayOptionsRepository.flow.value
 
-            adapter = ConversationAdapter(statusDisplayOptions, this@ConversationsFragment)
+            adapter = ConversationAdapter(statusDisplayOptions, this@ConversationsFragment, accept)
 
             setupRecyclerView()
 
@@ -205,6 +242,26 @@ class ConversationsFragment :
 
         lifecycleScope.launch {
             sharedPreferencesRepository.changes.filterNotNull().collect { onPreferenceChanged(it) }
+        }
+
+        bind()
+    }
+
+    /** Binds data to the UI. */
+    private fun bind() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                launch { uiAction.throttleFirst().collect(::bindUiAction) }
+            }
+        }
+    }
+
+    /** Process user actions. */
+    private fun bindUiAction(uiAction: UiAction) {
+        when (uiAction) {
+            is ConversationAction.OverrideAccountFilter -> viewModel.accept(uiAction)
+            is UiAction.EditAccountFilter -> AccountConversationFiltersPreferenceDialogFragment.newInstance(pachliAccountId)
+                .show(parentFragmentManager, null)
         }
     }
 

@@ -23,6 +23,7 @@ import androidx.room.Query
 import androidx.room.Upsert
 import app.pachli.core.database.model.ConversationData
 import app.pachli.core.database.model.ConversationEntity
+import app.pachli.core.database.model.ConversationViewDataEntity
 
 @Dao
 interface ConversationsDao {
@@ -31,6 +32,9 @@ interface ConversationsDao {
 
     @Upsert
     suspend fun upsert(conversation: ConversationEntity)
+
+    @Upsert
+    suspend fun upsert(conversationViewData: ConversationViewDataEntity)
 
     @Query(
         """

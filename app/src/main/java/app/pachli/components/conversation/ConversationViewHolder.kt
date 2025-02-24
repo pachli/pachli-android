@@ -35,6 +35,7 @@ import timber.log.Timber
 class ConversationViewHolder internal constructor(
     private val binding: ItemConversationBinding,
     private val listener: StatusActionListener<ConversationViewData>,
+    accept: (ConversationAction) -> Unit,
 ) : ConversationAdapter.ViewHolder, StatusBaseViewHolder<ConversationViewData>(binding.root) {
     private val avatars: Array<ImageView> = arrayOf(
         avatar,
@@ -46,7 +47,7 @@ class ConversationViewHolder internal constructor(
         Timber.d("binding: $viewData")
         val (_, _, account, inReplyToId, _, _, _, _, _, _, _, _, _, _, favourited, bookmarked, sensitive, _, _, attachments) = viewData.status
         Timber.d("  payloads: $payloads")
-        if (payloads.isNullOrEmpty()) {// == null) {
+        if (payloads.isNullOrEmpty()) { // == null) {
             setupCollapsedState(viewData, listener)
             setDisplayName(account.name, account.emojis, statusDisplayOptions)
 //            setUsername(account.username)

@@ -33,9 +33,10 @@ import app.pachli.databinding.ItemConversationFilteredBinding
 import app.pachli.interfaces.StatusActionListener
 import timber.log.Timber
 
-class ConversationAdapter(
+internal class ConversationAdapter(
     private var statusDisplayOptions: StatusDisplayOptions,
     private val listener: StatusActionListener<ConversationViewData>,
+    private val accept: (UiAction) -> Unit,
 ) : PagingDataAdapter<ConversationViewData, RecyclerView.ViewHolder>(CONVERSATION_COMPARATOR) {
     /** View holders in this adapter must implement this interface. */
     interface ViewHolder {
@@ -80,17 +81,19 @@ class ConversationAdapter(
                 ConversationViewHolder(
                     ItemConversationBinding.inflate(inflater, parent, false),
                     listener,
+                    accept,
                 )
             ConversationViewKind.STATUS_FILTERED ->
                 FilterableConversationStatusViewHolder(
                     // Wrong layout
                     ItemConversationBinding.inflate(inflater, parent, false),
                     listener,
+                    accept,
                 )
             ConversationViewKind.ACCOUNT_FILTERED ->
                 FilterableConversationViewHolder(
                     ItemConversationFilteredBinding.inflate(inflater, parent, false),
-                    listener,
+                    accept,
                 )
         }
     }
@@ -153,9 +156,10 @@ enum class ConversationViewKind {
 /**
  * View holder for conversations filtered because the status matches a content filter.
  */
-class FilterableConversationStatusViewHolder(
+class FilterableConversationStatusViewHolder internal constructor(
     private val binding: ItemConversationBinding, // <-- wrong type, needs to be the right layout
     private val listener: StatusActionListener<ConversationViewData>,
+    accept: (ConversationAction) -> Unit,
 ) : ConversationAdapter.ViewHolder, RecyclerView.ViewHolder(binding.root) {
     override fun bind(viewData: ConversationViewData, payloads: List<*>?, statusDisplayOptions: StatusDisplayOptions) {
         TODO("Not yet implemented")
@@ -166,11 +170,12 @@ class FilterableConversationStatusViewHolder(
  * View holder for conversations filtered because the status matches an account filter.
  */
 // Note: item_conversation_filtered.xml is identical to item_notification_filtered_xml
-class FilterableConversationViewHolder(
+class FilterableConversationViewHolder internal constructor(
     private val binding: ItemConversationFilteredBinding,
-    private val listener: StatusActionListener<ConversationViewData>,
-
+    accept: (UiAction) -> Unit,
 ) : ConversationAdapter.ViewHolder, RecyclerView.ViewHolder(binding.root) {
+    private lateinit var viewData: ConversationViewData
+
     private val context = binding.root.context
 
     private val notFollowing = HtmlCompat.fromHtml(
@@ -190,16 +195,22 @@ class FilterableConversationViewHolder(
 
     init {
         binding.accountFilterShowAnyway.setOnClickListener {
-            // Need to implement StatusActionListener.clearAccountFilter
+            accept(
+                ConversationAction.OverrideAccountFilter(
+                    viewData.pachliAccountId,
+                    viewData.id,
+                    viewData.accountFilterDecision!!,
+                ),
+            )
         }
 
         binding.accountFilterEditFilter.setOnClickListener {
-            // Need to implement StatusActionListener.editAccountConversationFilter()
+            accept(UiAction.EditAccountFilter(viewData.pachliAccountId))
         }
     }
 
     override fun bind(viewData: ConversationViewData, payloads: List<*>?, statusDisplayOptions: StatusDisplayOptions) {
-        // this.viewData = viewData
+        this.viewData = viewData
         binding.accountFilterDomain.text = HtmlCompat.fromHtml(
             context.getString(
                 R.string.account_filter_placeholder_type_conversation,

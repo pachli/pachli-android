@@ -39,8 +39,10 @@ import javax.inject.Inject
 import kotlin.properties.Delegates
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
@@ -60,6 +62,9 @@ class ConversationsViewModel @Inject constructor(
     // TODO: AssistedInject this
     var pachliAccountId by Delegates.notNull<Long>()
 
+    private val uiAction = MutableSharedFlow<UiAction>()
+    val accept: (UiAction) -> Unit = { action -> viewModelScope.launch { uiAction.emit(action) } }
+
     @OptIn(ExperimentalPagingApi::class)
     val conversationFlow = accountManager.activePachliAccountFlow
         .flatMapLatest { pachliAccount ->
@@ -70,14 +75,16 @@ class ConversationsViewModel @Inject constructor(
                         val accountFilterDecision = if (conversation.isConversationStarter) {
                             conversation.viewData?.accountFilterDecision
                                 ?: filterConversationByAccount(pachliAccount, conversation)
-                        } else null
+                        } else {
+                            null
+                        }
 
                         ConversationViewData.from(
                             pachliAccount,
                             conversation,
                             defaultIsExpanded = pachliAccount.entity.alwaysOpenSpoiler,
                             defaultIsShowingContent = (pachliAccount.entity.alwaysShowSensitiveMedia || !conversation.lastStatus.status.sensitive),
-                            accountFilterDecision = accountFilterDecision
+                            accountFilterDecision = accountFilterDecision,
                         )
                     }
                 }
@@ -90,13 +97,32 @@ class ConversationsViewModel @Inject constructor(
         .onStart { emit(!sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false)) }
         .shareIn(viewModelScope, replay = 1, started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000))
 
+    init {
+        viewModelScope.launch {
+            uiAction.filterIsInstance<ConversationAction>().collect(::onConversationAction)
+        }
+    }
+
+    private suspend fun onConversationAction(conversationAction: ConversationAction) {
+        when (conversationAction) {
+            is ConversationAction.OverrideAccountFilter ->
+                repository.setAccountFilterDecision(
+                    conversationAction.pachliAccountId,
+                    conversationAction.conversationId,
+                    AccountFilterDecision.Override(conversationAction.accountFilterDecision),
+                )
+
+            is UiAction.EditAccountFilter -> TODO()
+        }
+    }
+
     /**
      * @ret
      */
     // TODO: This is very similar to the code in NotificationHelper.filterNotificationsByAccount.
     // Think about how the different account filters can be represented so this can be
     // generalised.
-    fun filterConversationByAccount(accountWithFilters: PachliAccount, conversation: ConversationData): AccountFilterDecision {
+    private fun filterConversationByAccount(accountWithFilters: PachliAccount, conversation: ConversationData): AccountFilterDecision {
         if (!conversation.isConversationStarter) return AccountFilterDecision.None
 
         // The status to test against

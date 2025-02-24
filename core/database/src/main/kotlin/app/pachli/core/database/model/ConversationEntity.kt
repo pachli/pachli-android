@@ -63,8 +63,8 @@ data class ConversationData(
                 parentColumns = ["id"],
                 childColumns = ["pachliAccountId"],
                 onDelete = ForeignKey.CASCADE,
-                deferred = true
-            )
+                deferred = true,
+            ),
         ]
         ),
 )
@@ -72,14 +72,8 @@ data class ConversationData(
 data class ConversationViewDataEntity(
     val pachliAccountId: Long,
     val serverId: String,
-    val accountFilterDecision: AccountFilterDecision?
+    val accountFilterDecision: AccountFilterDecision?,
 )
-
-/**
- * Pachli specific viewdata for the conversation.
- *
- * Note: This is not the viewdata for the
- */
 
 /**
  * Represents a [Conversation].
