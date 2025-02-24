@@ -19,13 +19,13 @@
     <string name="pref_show_self_username_always">Zawsze</string>
     <string name="pref_show_self_username_disambiguate">Gdy wiele kont jest zalogowanych</string>
     <string name="pref_show_self_username_never">Nigdy</string>
-    <string name="pref_title_tab_alignment">Wyrównanie kart głównej nawigacji</string>
+    <string name="pref_title_tab_alignment">Wyrównanie paska z kartami</string>
     <string name="pref_tab_alignment_start">Początek kierunek tekstu</string>
     <string name="pref_tab_alignment_justify_if_possible">Pełna szerokość</string>
     <string name="pref_tab_alignment_end">Koniec kierunku tekstu</string>
     <string name="pref_title_tab_contents">Zawartość paska z kartami</string>
-    <string name="pref_tab_contents_icon_text_inline">Ikona i tekst poniżej</string>
-    <string name="pref_tab_contents_icon_text_below">Tekst poniżej</string>
+    <string name="pref_tab_contents_icon_text_inline">Ikona i tekst obok</string>
+    <string name="pref_tab_contents_icon_text_below">Ikona i tekst poniżej</string>
     <string name="pref_tab_contents_icon_only">Tylko ikona</string>
     <string name="pref_tab_contents_text_only">Tylko tekst</string>
 </resources>
