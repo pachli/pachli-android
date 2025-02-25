@@ -29,6 +29,7 @@ import androidx.preference.PreferenceFragmentCompat
 import app.pachli.BuildConfig
 import app.pachli.R
 import app.pachli.components.notifications.activeAccountNeedsPushScope
+import app.pachli.components.preference.accountfilters.AccountConversationFiltersPreferenceDialogFragment
 import app.pachli.components.preference.accountfilters.AccountNotificationFiltersPreferencesDialogFragment
 import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithTransition
@@ -40,6 +41,7 @@ import app.pachli.core.data.repository.canFilterV1
 import app.pachli.core.data.repository.canFilterV2
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.eventhub.EventHub
+import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_STATUSES_GET
 import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.navigation.ContentFiltersActivityIntent
 import app.pachli.core.navigation.FollowedTagsActivityIntent
@@ -68,6 +70,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import dagger.hilt.android.AndroidEntryPoint
+import io.github.z4kn4fein.semver.constraints.toConstraint
 import javax.inject.Inject
 import kotlin.properties.Delegates
 import kotlinx.coroutines.flow.distinctUntilChangedBy
@@ -100,6 +103,13 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
      */
     private lateinit var filterPreference: Preference
 
+    /**
+     * The conversation account filter preference.
+     *
+     * Is enabled/disabled at runtime.
+     */
+    private lateinit var conversationAccountFilterPreference: Preference
+
     private var pachliAccountId by Delegates.notNull<Long>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -118,6 +128,12 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                     .distinctUntilChangedBy { it.server }
                     .collect { account ->
                         filterPreference.isEnabled = account.server.canFilterV2() || account.server.canFilterV1()
+
+                        conversationAccountFilterPreference.isEnabled =
+                            account.server.can(
+                                ORG_JOINMASTODON_STATUSES_GET,
+                                ">=1.0.0".toConstraint(),
+                            )
                     }
             }
         }
@@ -219,6 +235,18 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                         AccountNotificationFiltersPreferencesDialogFragment.Companion.newInstance(pachliAccountId)
                             .show(parentFragmentManager, null)
                         return@setOnPreferenceClickListener true
+                    }
+                }
+
+                conversationAccountFilterPreference = preference {
+                    setTitle(R.string.pref_title_account_conversation_filters)
+                    setOnPreferenceClickListener {
+                        AccountConversationFiltersPreferenceDialogFragment.Companion.newInstance(pachliAccountId)
+                            .show(parentFragmentManager, null)
+                        return@setOnPreferenceClickListener true
+                    }
+                    setSummaryProvider {
+                        if (it.isEnabled) "" else context.getString(R.string.pref_summary_account_conversation_filters)
                     }
                 }
             }

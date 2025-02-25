@@ -66,7 +66,7 @@ import java.util.Date
         ]
         ),
     // Avoiding rescanning status table when accounts table changes. Recommended by Room(c).
-    indices = [Index("authorServerId", "timelineUserId")],
+    indices = [Index("authorServerId", "timelineUserId"), Index("timelineUserId")],
 )
 @TypeConverters(Converters::class)
 data class StatusEntity(

@@ -655,7 +655,8 @@ fun filterNotification(
  * Returns the [AccountFilterDecision] for [notificationData] based on the notification
  * filters in [accountWithFilters].
  *
- * @return The most severe [AccountFilterDecision], in order [Hide], [Warn], or [None].
+ * @return The most severe [AccountFilterDecision], in order [Hide][AccountFilterDecision.Hide],
+ * [Warn][AccountFilterDecision.Warn], or [None][AccountFilterDecision.None].
  */
 fun filterNotificationByAccount(accountWithFilters: PachliAccount, notificationData: NotificationData): AccountFilterDecision {
     val notification = notificationData.notification
@@ -723,7 +724,9 @@ fun filterNotificationByAccount(accountWithFilters: PachliAccount, notificationD
         }
     }
 
-    return decisions.firstOrNull { it is AccountFilterDecision.Hide } ?: decisions.firstOrNull { it is AccountFilterDecision.Warn } ?: AccountFilterDecision.None
+    return decisions.firstOrNull { it is AccountFilterDecision.Hide }
+        ?: decisions.firstOrNull { it is AccountFilterDecision.Warn }
+        ?: AccountFilterDecision.None
 }
 
 private fun getChannelId(account: AccountEntity, notification: Notification): String? {

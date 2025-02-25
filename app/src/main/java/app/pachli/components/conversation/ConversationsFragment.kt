@@ -37,14 +37,20 @@ import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.R
 import app.pachli.adapter.StatusBaseViewHolder
+import app.pachli.components.preference.accountfilters.AccountConversationFiltersPreferenceDialogFragment
 import app.pachli.core.activity.ReselectableFragment
+import app.pachli.core.activity.extensions.TransitionKind
+import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
+import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.eventhub.EventHub
+import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AttachmentViewData
+import app.pachli.core.navigation.EditContentFilterActivityIntent
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
@@ -65,13 +71,48 @@ import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.withCreationCallback
 import javax.inject.Inject
 import kotlin.properties.Delegates
 import kotlin.time.Duration.Companion.minutes
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
+
+/**
+ * Actions taken from the broader UI (which can include actions triggered by the
+ * per-Conversation UI if not specific to that conversation).
+ */
+sealed interface UiAction {
+    /**
+     * Called when the user clicks "Edit filter" from a status filtered
+     * by the account.
+     */
+    data class EditAccountFilter(val pachliAccountId: Long) : UiAction
+}
+
+/**
+ * Actions taken from an individual [ConversationViewData].
+ */
+internal sealed interface ConversationAction : UiAction {
+    /**
+     * Called when the user clicks "Show anyway" to see a status filtered
+     * by the account.
+     */
+    data class OverrideAccountFilter(
+        val pachliAccountId: Long,
+        val conversationId: String,
+        val accountFilterDecision: AccountFilterDecision,
+    ) : ConversationAction
+
+    /** Clear the content filter. */
+    data class ClearContentFilter(
+        val pachliAccountId: Long,
+        val conversationId: String,
+    ) : ConversationAction
+}
 
 @AndroidEntryPoint
 class ConversationsFragment :
@@ -90,9 +131,21 @@ class ConversationsFragment :
     @Inject
     lateinit var sharedPreferencesRepository: SharedPreferencesRepository
 
-    private val viewModel: ConversationsViewModel by viewModels()
+    private val viewModel: ConversationsViewModel by viewModels(
+        extrasProducer = {
+            defaultViewModelCreationExtras.withCreationCallback<ConversationsViewModel.Factory> { factory ->
+                factory.create(requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID))
+            }
+        },
+    )
 
     private val binding by viewBinding(FragmentTimelineBinding::bind)
+
+    /** Flow of actions the user has taken in the UI */
+    private val uiAction = MutableSharedFlow<UiAction>()
+
+    /** Accepts user actions from UI components and emit them in to [uiAction]. */
+    private val accept: (UiAction) -> Unit = { action -> lifecycleScope.launch { uiAction.emit(action) } }
 
     private lateinit var adapter: ConversationAdapter
 
@@ -114,7 +167,7 @@ class ConversationsFragment :
         viewLifecycleOwner.lifecycleScope.launch {
             val statusDisplayOptions = statusDisplayOptionsRepository.flow.value
 
-            adapter = ConversationAdapter(statusDisplayOptions, this@ConversationsFragment)
+            adapter = ConversationAdapter(statusDisplayOptions, this@ConversationsFragment, accept)
 
             setupRecyclerView()
 
@@ -183,28 +236,46 @@ class ConversationsFragment :
             }
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.conversationFlow.collectLatest { pagingData ->
-                adapter.submitData(pagingData)
-            }
-        }
+        bind()
+    }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                val useAbsoluteTime = sharedPreferencesRepository.getBoolean(PrefKeys.ABSOLUTE_TIME_VIEW, false)
-                while (!useAbsoluteTime) {
-                    adapter.notifyItemRangeChanged(
-                        0,
-                        adapter.itemCount,
-                        listOf(StatusBaseViewHolder.Key.KEY_CREATED),
-                    )
-                    delay(1.minutes)
-                }
-            }
-        }
-
+    /** Binds data to the UI. */
+    private fun bind() {
         lifecycleScope.launch {
-            sharedPreferencesRepository.changes.filterNotNull().collect { onPreferenceChanged(it) }
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                launch { uiAction.throttleFirst().collect(::bindUiAction) }
+
+                launch { viewModel.conversationFlow.collectLatest { adapter.submitData(it) } }
+
+                launch {
+                    val useAbsoluteTime = sharedPreferencesRepository.getBoolean(PrefKeys.ABSOLUTE_TIME_VIEW, false)
+                    while (!useAbsoluteTime) {
+                        adapter.notifyItemRangeChanged(
+                            0,
+                            adapter.itemCount,
+                            listOf(StatusBaseViewHolder.Key.KEY_CREATED),
+                        )
+                        delay(1.minutes)
+                    }
+                }
+
+                launch { sharedPreferencesRepository.changes.filterNotNull().collect { onPreferenceChanged(it) } }
+            }
+        }
+    }
+
+    /** Process user actions. */
+    private fun bindUiAction(uiAction: UiAction) {
+        when (uiAction) {
+            is ConversationAction.OverrideAccountFilter -> viewModel.accept(uiAction)
+            is UiAction.EditAccountFilter -> AccountConversationFiltersPreferenceDialogFragment.newInstance(pachliAccountId)
+                .show(parentFragmentManager, null)
+
+            is ConversationAction.ClearContentFilter -> {
+                // Do nothing. This action isn't sent from FilterConversationStatusViewHolder,
+                // the listener callback `clearContentFilter` (see later in this file) is
+                // called instead.
+            }
         }
     }
 
@@ -357,10 +428,20 @@ class ConversationsFragment :
     }
 
     override fun clearContentFilter(viewData: ConversationViewData) {
+        viewModel.accept(
+            ConversationAction.ClearContentFilter(
+                viewData.pachliAccountId,
+                viewData.id,
+            ),
+        )
     }
 
-    // Filters don't apply in conversations
-    override fun onEditFilterById(pachliAccountId: Long, filterId: String) {}
+    override fun onEditFilterById(pachliAccountId: Long, filterId: String) {
+        requireActivity().startActivityWithTransition(
+            EditContentFilterActivityIntent.edit(requireContext(), pachliAccountId, filterId),
+            TransitionKind.SLIDE_FROM_END,
+        )
+    }
 
     override fun onReselect() {
         if (isAdded) {

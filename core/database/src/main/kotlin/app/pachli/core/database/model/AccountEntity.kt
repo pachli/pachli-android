@@ -114,6 +114,19 @@ data class AccountEntity(
     /** [FilterAction] for notifications from account limited by the server. */
     @ColumnInfo(defaultValue = "NONE")
     var notificationAccountFilterLimitedByServer: FilterAction = FilterAction.NONE,
+
+    /** [FilterAction] for conversations from accounts this account does not follow. */
+    @ColumnInfo(defaultValue = "NONE")
+    var conversationAccountFilterNotFollowed: FilterAction = FilterAction.NONE,
+
+    /** [FilterAction] for conversations from accounts younger than 30 days. */
+    @ColumnInfo(defaultValue = "NONE")
+    var conversationAccountFilterYounger30d: FilterAction = FilterAction.NONE,
+
+    /** [FilterAction] for conversations from account limited by the server. */
+    @ColumnInfo(defaultValue = "NONE")
+    var conversationAccountFilterLimitedByServer: FilterAction = FilterAction.NONE,
+
 ) {
 
     val identifier: String

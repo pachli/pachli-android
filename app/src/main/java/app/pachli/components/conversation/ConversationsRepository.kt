@@ -27,11 +27,16 @@ import app.pachli.core.database.dao.ConversationsDao
 import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.di.TransactionProvider
+import app.pachli.core.database.model.ConversationAccountFilterDecisionUpdate
+import app.pachli.core.database.model.ConversationContentFilterActionUpdate
 import app.pachli.core.database.model.ConversationData
+import app.pachli.core.model.AccountFilterDecision
+import app.pachli.core.model.FilterAction
 import app.pachli.core.network.retrofit.MastodonApi
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 
 class ConversationsRepository @Inject constructor(
     @ApplicationScope internal val externalScope: CoroutineScope,
@@ -44,7 +49,7 @@ class ConversationsRepository @Inject constructor(
     private var factory: InvalidatingPagingSourceFactory<Int, ConversationData>? = null
 
     @OptIn(ExperimentalPagingApi::class)
-    suspend fun conversations(pachliAccountId: Long): Flow<PagingData<ConversationData>> {
+    fun conversations(pachliAccountId: Long): Flow<PagingData<ConversationData>> {
         factory = InvalidatingPagingSourceFactory { conversationsDao.conversationsForAccount(pachliAccountId) }
 
         // The Mastodon conversations API does not support fetching a specific conversation
@@ -65,6 +70,37 @@ class ConversationsRepository @Inject constructor(
             ),
             pagingSourceFactory = factory!!,
         ).flow
+    }
+
+    /**
+     * Sets the [FilterAction] for [conversationId] to [FilterAction.NONE]
+     *
+     * @param pachliAccountId
+     * @param conversationId Conversation's server ID.
+     */
+    fun clearContentFilter(pachliAccountId: Long, conversationId: String) = externalScope.launch {
+        conversationsDao.upsert(ConversationContentFilterActionUpdate(pachliAccountId, conversationId, FilterAction.NONE))
+    }
+
+    /**
+     * Sets the [AccountFilterDecision] for [conversationId] to [accountFilterDecision].
+     *
+     * @param pachliAccountId
+     * @param conversationId Conversation's server ID.
+     * @param accountFilterDecision New [AccountFilterDecision].
+     */
+    fun setAccountFilterDecision(
+        pachliAccountId: Long,
+        conversationId: String,
+        accountFilterDecision: AccountFilterDecision,
+    ) = externalScope.launch {
+        conversationsDao.upsert(
+            ConversationAccountFilterDecisionUpdate(
+                pachliAccountId,
+                conversationId,
+                accountFilterDecision,
+            ),
+        )
     }
 
     companion object {

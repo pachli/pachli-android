@@ -98,23 +98,23 @@ data class FilterKeyword(
  */
 // The @Json annotations are used when this is serialized by NewContentFilterConverterFactory
 enum class FilterContext {
-    /** Filter applies to home timeline and lists */
+    /** Filter applies to home timeline and lists. */
     @Json(name = "home")
     HOME,
 
-    /** Filter applies to notifications */
+    /** Filter applies to notifications. */
     @Json(name = "notifications")
     NOTIFICATIONS,
 
-    /** Filter applies to public timelines */
+    /** Filter applies to public timelines. */
     @Json(name = "public")
     PUBLIC,
 
-    /** Filter applies to expanded thread */
+    /** Filter applies to conversations. */
     @Json(name = "thread")
-    THREAD,
+    CONVERSATIONS,
 
-    /** Filter applies when viewing a profile */
+    /** Filter applies when viewing a profile. */
     @Json(name = "account")
     ACCOUNT,
 
@@ -139,7 +139,7 @@ enum class FilterContext {
             Timeline.TrendingLinks,
             is Timeline.Link,
             -> PUBLIC
-            Timeline.Conversations -> null
+            Timeline.Conversations -> CONVERSATIONS
         }
     }
 }
