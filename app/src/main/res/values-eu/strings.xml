@@ -277,12 +277,12 @@
     <string name="filter_dialog_whole_word_description">Gako-hitza edo esaldia alfanumerikoa denean bakarrik, hitz osoarekin bat datorrenean bakarrik aplikatuko da</string>
     <string name="filter_add_description">Iragazteko esaldia</string>
     <plurals name="favs">
-        <item quantity="one">Gogoko &lt;b>%1$s&lt;/b></item>
-        <item quantity="other">&lt;b>%1$s&lt;/b> Gogoko</item>
+        <item quantity="one">Gogoko &lt;b&gt;%1$s&lt;/b&gt;</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Gogoko</item>
     </plurals>
     <plurals name="reblogs">
-        <item quantity="one">Bultzada &lt;b>%s&lt;/b></item>
-        <item quantity="other">&lt;b>%s&lt;/b> Bultzada</item>
+        <item quantity="one">Bultzada &lt;b&gt;%s&lt;/b&gt;</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; Bultzada</item>
     </plurals>
     <string name="title_reblogged_by">Bultzatuta</string>
     <string name="title_favourited_by">Gogokoa</string>
