@@ -287,12 +287,12 @@
     <string name="title_favourited_by">پەسەندکراوە لەلایەن</string>
     <string name="title_reblogged_by">پۆست کراوەتەوە لەلایەن</string>
     <plurals name="reblogs">
-        <item quantity="one">&lt;b>%s&lt;/b> پۆستکردنەوە</item>
-        <item quantity="other">&lt;b>%s&lt;/b> پۆستکردنەوە</item>
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; پۆستکردنەوە</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; پۆستکردنەوە</item>
     </plurals>
     <plurals name="favs">
-        <item quantity="one">&lt;b>%1$s&lt;/b> دڵخواز</item>
-        <item quantity="other">&lt;b>%1$s&lt;/b> دڵخواز</item>
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; دڵخواز</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; دڵخواز</item>
     </plurals>
     <string name="pin_action">Pin</string>
     <string name="unpin_action">لابردن</string>
