@@ -626,9 +626,9 @@
     <string name="search_operator_sensitive_dialog_all">Wszystkie wpisy</string>
     <string name="pref_title_account_notification_filters">Fitry powiadomień</string>
     <string name="pref_account_notification_filters_subtitle">Co powinno stać się z powiadomieniami od kont…</string>
-    <string name="pref_account_notification_filters_label_younger_30d">... utworzonych w ciągu ostatnich 30 dni</string>
-    <string name="pref_account_notification_filters_label_not_followed">... których nie obserwujesz</string>
-    <string name="pref_account_notification_filters_label_limited_by_server">... ograniczonych przez moderację</string>
+    <string name="pref_account_notification_filters_label_younger_30d">… utworzonych w ciągu ostatnich 30 dni</string>
+    <string name="pref_account_notification_filters_label_not_followed">… których nie obserwujesz</string>
+    <string name="pref_account_notification_filters_label_limited_by_server">… ograniczonych przez moderację</string>
     <string name="account_filter_placeholder_type_favourite_fmt">Polubienie twojego wpisu przez @<b>%1s</b></string>
     <string name="account_filter_placeholder_type_follow_fmt">Konto @<b>%1s</b> cię obserwuje</string>
     <string name="account_filter_placeholder_type_mention_fmt">Nowa wzmianka od @<b>%1s</b></string>
