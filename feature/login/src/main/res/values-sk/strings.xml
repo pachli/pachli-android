@@ -1,11 +1,20 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_invalid_domain">Neplatná doména</string>
-    <string name="error_failed_app_registration_fmt">Autentizácia servru zlyhala: %1$s</string>
-    <string name="error_authorization_unknown">Vyskytla sa neidentifikovaná chyba autorizácie.</string>
-    <string name="error_authorization_denied">Autorizácia bola zamietnutá.</string>
-    <string name="error_retrieving_oauth_token_fmt">Nepodarilo sa získať prihlasovací token: %1$s</string>
-    <string name="hint_domain">Ktorý server\?</string>
-    <string name="action_login">Prihlásiť sa účtom Mastodon</string>
-    <string name="link_whats_an_instance">Čo je server\?</string>
+    <string name="error_invalid_domain">Zadaná neplatná doména</string>
+    <string name="error_failed_app_registration_fmt">Autentizácia s touto inštanciou zlyhala: %1$s</string>
+    <string name="error_authorization_unknown">Vyskytla sa neidentifikovaná chyba autorizácie. Ak problém pretrváva, skús sa prihlásiť cez prehliadač z menu.</string>
+    <string name="error_authorization_denied">Autorizácia bola zamietnutá. Ak si si istý/istá, že boli zadané správne prihlasovacie údaje, skús prihlásenie cez prehliadač z menu.</string>
+    <string name="error_retrieving_oauth_token_fmt">Nepodarilo sa získať prihlasovací token. Ak problém pretrváva, skús sa prihlásiť cez prehliadač z menu: %1$s</string>
+    <string name="hint_domain">Ktorá inštancia?</string>
+    <string name="action_login">Prihlásiť sa z Pachli</string>
+    <string name="link_whats_an_instance">Čo je to inštancia?</string>
+    <string name="error_loading_account_details_fmt">Nepodarilo se načítať detaily účtu: %1$s</string>
+    <string name="dialog_whats_an_instance">Tu môže byť zadaná adresa alebo doména akejkoľvek inštancie, napríklad mastodon.social, icosahedron.website, social.tchncs.de a <a href="https://instances.social">ďalšie!</a> \n\nInštancia je jediné miesto, kde je hosťovaný tvoj účet, ale môžeš jednoducho komunikovať a sledovať ľudí na iných inštanciách, ako keby si bol/a na tej istej stránke. \n\nĎalšie informácie nájdeš na <a href="https://joinmastodon.org">joinmastodon.org</a>.</string>
+    <string name="action_close">Zavrieť</string>
+    <string name="action_browser_login">Prihlásenie cez prehliadač</string>
+    <string name="login_connection">Pripájam sa…</string>
+    <string name="title_login">Prihlásenie</string>
+    <string name="error_could_not_load_login_page">Nepodarilo sa načítať prihlasovaciu stránku.</string>
+    <string name="instance_rule_info">Prihlásením súhlasíš s pravidlami inštancie %s.</string>
+    <string name="instance_rule_title">Pravidlá inštancie %s</string>
 </resources>
