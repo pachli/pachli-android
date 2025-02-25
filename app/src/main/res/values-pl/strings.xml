@@ -186,7 +186,7 @@
     <string name="abbreviated_seconds_ago">%d s temu</string>
     <string name="follows_you">Obserwuje cię</string>
     <string name="pref_title_alway_show_sensitive_media">Zawsze wyświetlaj drażliwą zawartość</string>
-    <string name="title_media">Zawartość multimedialna</string>
+    <string name="title_media">Multimedia</string>
     <string name="add_account_name">Dodaj konto</string>
     <string name="add_account_description">Dodaj nowe konto Mastodon</string>
     <string name="compose_active_account_description">Publikowanie jako %1$s</string>
