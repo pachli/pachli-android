@@ -1,5 +1,65 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="about_title_activity">O aplikácii</string>
     <string name="title_licenses">Licencie</string>
+    <string name="notification_details_android_notifications_enabled">Sú upozornenia systému Android povolené?</string>
+    <string name="notification_details_push_notifications_with_unifiedpush">Push upozornenia cez UnifiedPush</string>
+    <string name="notification_details_any_account_needs_migration">Sú pre všetky účty povolené push upozornenia cez OAuth?</string>
+    <string name="notification_details_accounts_unified_push_url">Všetky účty majú UnifiedPush URL?</string>
+    <string name="notification_details_ntfy_exempt">Je NTFY vyňaté z optimalizácie batérie?</string>
+    <string name="notification_details_pull_section">Sťahovanie upozornení v pravidelných intervaloch</string>
+    <string name="notification_details_pachli_exempt">Je Pachli vyňaté z optimalizácie batérie?</string>
+    <string name="notification_details_workers_help">Toto je zoznam procesov, ktoré sťahujú nové notifikácie. Mal by tu byť jeden proces, jeho stav by mal byť BEŽÍ alebo ZARADENÝ a mal by byť naplánovaný na spustenie do 15 minút.</string>
+    <string name="notification_details_last_fetch_label">Posledná žiadosť /api/v1/notifications</string>
+    <string name="notification_details_usage_event">Obmedzenia správy napájania</string>
+    <string name="notification_details_ago">%1$s pred @ %2$s</string>
+    <string name="notification_details_standby_bucket_exempted">Vyňaté</string>
+    <string name="notification_details_standby_bucket_active">Aktívne. Neobmedzené úlohy na pozadí</string>
+    <string name="notification_details_standby_bucket_working_set">Pracovná zostava. Obmedzené na 10 minút každé 2 hodiny</string>
+    <string name="notification_details_standby_bucket_rare">Zriedkavé. Obmedzené na 10 minút každých 24 hodín</string>
+    <string name="notification_details_standby_bucket_restricted">Obmedzené. Raz za deň</string>
+    <string name="notification_details_standby_bucket_never">Nikdy</string>
+    <string name="notification_details_standby_bucket_unknown">Neznáme</string>
+    <string name="notification_log_title">Log</string>
+    <string name="notification_log_filter">Filter</string>
+    <string name="notification_log_sort">Zoradiť od najnovších</string>
+    <string name="notification_log_previous_attempts">Predchádzajúce pokusy: %1$d</string>
+    <string name="notification_log_scheduled_in">Naplánované na %1$s @ %2$s</string>
+    <string name="notification_log_method_pull">Upozornenia sa sťahujú pravidelne, približne každých 15 minút</string>
+    <string name="notification_log_method_unknown">Mechanizmus upozornení nebol nastavený</string>
+    <string name="notification_log_download_failed">Sťahovanie zlyhalo: %1$s</string>
+    <string name="about_device_info_title">Tvoje zariadenie</string>
+    <string name="about_account_info_title">Tvoj účet</string>
+    <string name="about_copied">Verzia a informácie o zariadení skopírované</string>
+    <string name="about_copy">Kopírovať verziu a informácie o zariadení</string>
+    <string name="about_powered_by_pachli">Beží na Pachli</string>
+    <string name="about_pachli_license">Pachli je bezplatný a open-source software. Je licencovaný pod GNU General Public License, verzia 3. Licenciu si môžeš pozrieť tu:: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
+    <string name="about_project_site">Web projektu: https://pachli.app</string>
+    <string name="about_bug_feature_request_site">Hlásenie chýb a návrhy\"\nhttps://github.com/pachli/pachli-android/issues</string>
+    <string name="about_privacy_policy">Zásady ochrany osobných údajov</string>
+    <string name="about_pachli_account">Profil aplikácie Pachli</string>
+    <string name="about_account_info">\@%s@%s\nVerzia: %s</string>
+    <string name="license_description">Pachli obsahuje kód a zdroje z následujúcích open source projektov:</string>
+    <string name="about_device_info">%s %s\nAndroid verzia: %s\nSDK level: %d</string>
+    <string name="notification_details_any_account_needs_migration_help">Jeden alebo viacero účtov nemá rozsah „push“ protokolu OAuth, push upozornenia sú preto vypnuté.</string>
+    <string name="notification_details_title">Detaily</string>
+    <string name="notification_details_notifications_enabled_help"><![CDATA[Pre žiadny z tvojich účtov nie sú povolené upozornenia. Zmeň to v Nastaveniach účtu. > Upozornenia. Dovtedy sú všetky upozornenia vypnuté.]]></string>
+    <string name="notification_details_unifiedpush_available">Je k dispozícii UnifiedPush?</string>
+    <string name="notification_details_unifiedpush_available_help">Služba UnifiedPush (ntfy.sh) nie je dostupná, upozornenia sa budú sťahovať v pravidelných intervaloch. Zvyšok tejto sekcie vysvetľuje, prečo sa UnifiedPush nepoužíva, ale nie je relevantný pre aktuálny spôsob sťahovania upozornení.</string>
+    <string name="notification_details_accounts_unified_push_url_help">Pre jeden alebo viacero účtov nie je nastavená URL adresa UnifiedPush, push upozornenia pre tieto účty sú vypnuté.</string>
+    <string name="notification_details_standby_bucket_frequent">Časté. Obmedzené na 10 minút každé 2 hodiny</string>
+    <string name="notification_details_accounts_unified_push_subscription">Sú všetky účty prihlásené k odberu?</string>
+    <string name="notification_details_accounts_unified_push_subscription_help">Pre jeden alebo viacero účtov sa nepodarilo aktualizovať odber UnifiedPush. Tieto účty nebudú dostávať upozornenia.</string>
+    <string name="notification_details_ntfy_exempt_help">NTFY nie je vyňatá z optimalizácie batérie. Android môže oneskoriť upozornenia, keď je obrazovka vypnutá.</string>
+    <string name="notification_log_download">Stiahnuť</string>
+    <string name="notification_log_method_pusherror">UnifiedPush je povolený, ale vyskytla sa chyba: %1$s</string>
+    <string name="notification_details_pachli_exempt_help">Pachli nie je vyňaté z optimalizácie batérie. Android môže oneskoriť upozornenia, keď je obrazovka vypnutá.</string>
+    <string name="notification_details_last_fetch_help">Bez ohľadu na spôsob doručovania upozornení, tu vidíš, kedy prebehla posledná kontrola upozornení pre každý účet, jej výsledok a prípadnú chybovú správu.</string>
+    <string name="notification_details_usage_event_label">Android môže obmedziť činnosť aplikácií na pozadí. Tu je zoznam obmedzení pre Pachli za posledné tri dni, od najnovších po najstaršie.</string>
+    <string name="notification_log_filter_content_description">Filtrovať záznamy podľa značky</string>
+    <string name="about_nivenly_foundation">Pachli je projektom <a href="https://nivenly.org">Nivenly Foundation</a>.</string>
+    <string name="notification_log_download_content_description">Stiahnuť logy</string>
+    <string name="notification_log_method_push">Upozornenia sú doručované pomocou UnifiedPush a mali by byť okamžité</string>
+    <string name="notitication_log_filter_dialog_title">Zobraziť priority logu</string>
+    <string name="action_refresh">Obnoviť</string>
 </resources>
