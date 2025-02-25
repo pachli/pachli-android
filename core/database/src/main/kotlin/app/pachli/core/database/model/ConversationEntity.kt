@@ -25,12 +25,12 @@ import androidx.room.Index
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
 import app.pachli.core.model.AccountFilterDecision
+import app.pachli.core.model.FilterAction
 import app.pachli.core.network.model.Conversation
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.TimelineAccount
 import com.squareup.moshi.JsonClass
 import java.time.Instant
-import kotlin.contracts.ExperimentalContracts
 
 /**
  * Data to show a conversation.
@@ -72,6 +72,25 @@ data class ConversationData(
 data class ConversationViewDataEntity(
     val pachliAccountId: Long,
     val serverId: String,
+    val contentFilterAction: FilterAction? = null,
+    val accountFilterDecision: AccountFilterDecision? = null,
+)
+
+/**
+ * Partial entity to update [ConversationViewDataEntity.contentFilterAction].
+ */
+data class ConversationContentFilterActionUpdate(
+    val pachliAccountId: Long,
+    val serverId: String,
+    val contentFilterAction: FilterAction,
+)
+
+/**
+ * Partial entity to update [ConversationViewDataEntity.accountFilterDecision].
+ */
+data class ConversationAccountFilterDecisionUpdate(
+    val pachliAccountId: Long,
+    val serverId: String,
     val accountFilterDecision: AccountFilterDecision?,
 )
 
@@ -111,7 +130,6 @@ data class ConversationEntity(
     val isConversationStarter: Boolean,
 ) {
     companion object {
-        @OptIn(ExperimentalContracts::class)
         fun from(
             conversation: Conversation,
             pachliAccountId: Long,

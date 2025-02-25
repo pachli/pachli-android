@@ -18,7 +18,6 @@ package app.pachli.components.conversation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.ExperimentalPagingApi
 import androidx.paging.cachedIn
 import androidx.paging.map
 import app.pachli.core.data.repository.AccountManager
@@ -28,21 +27,26 @@ import app.pachli.core.database.dao.ConversationsDao
 import app.pachli.core.database.model.ConversationData
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.AccountFilterReason
+import app.pachli.core.model.ContentFilterVersion
 import app.pachli.core.model.FilterAction
+import app.pachli.core.model.FilterContext
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
+import app.pachli.network.ContentFilterModel
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.time.Duration
 import java.time.Instant
-import javax.inject.Inject
-import kotlin.properties.Delegates
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
@@ -50,28 +54,40 @@ import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-@HiltViewModel
-class ConversationsViewModel @Inject constructor(
+@HiltViewModel(assistedFactory = ConversationsViewModel.Factory::class)
+class ConversationsViewModel @AssistedInject constructor(
     private val repository: ConversationsRepository,
     private val conversationsDao: ConversationsDao,
     private val accountManager: AccountManager,
     private val api: MastodonApi,
     sharedPreferencesRepository: SharedPreferencesRepository,
     private val statusRepository: StatusRepository,
+    @Assisted val pachliAccountId: Long,
 ) : ViewModel() {
-    // TODO: AssistedInject this
-    var pachliAccountId by Delegates.notNull<Long>()
+    private val accountFlow = accountManager.getPachliAccountFlow(pachliAccountId)
+        .filterNotNull()
+        .shareIn(viewModelScope, SharingStarted.WhileSubscribed(5000), replay = 1)
 
     private val uiAction = MutableSharedFlow<UiAction>()
     val accept: (UiAction) -> Unit = { action -> viewModelScope.launch { uiAction.emit(action) } }
 
-    @OptIn(ExperimentalPagingApi::class)
-    val conversationFlow = accountManager.activePachliAccountFlow
+    val conversationFlow = accountFlow
         .flatMapLatest { pachliAccount ->
-            pachliAccountId = pachliAccount.id
+            val contentFilterModel = when (pachliAccount.contentFilters.version) {
+                ContentFilterVersion.V2 -> ContentFilterModel(FilterContext.CONVERSATIONS)
+                ContentFilterVersion.V1 -> ContentFilterModel(
+                    FilterContext.CONVERSATIONS,
+                    pachliAccount.contentFilters.contentFilters,
+                )
+            }
+
             repository.conversations(pachliAccount.id)
                 .map { pagingData ->
                     pagingData.map { conversation ->
+                        val contentFilterAction =
+                            conversation.viewData?.contentFilterAction
+                                ?: contentFilterModel.filterActionFor(conversation.lastStatus.status)
+
                         val accountFilterDecision = if (conversation.isConversationStarter) {
                             conversation.viewData?.accountFilterDecision
                                 ?: filterConversationByAccount(pachliAccount, conversation)
@@ -79,11 +95,12 @@ class ConversationsViewModel @Inject constructor(
                             null
                         }
 
-                        ConversationViewData.from(
+                        ConversationViewData.make(
                             pachliAccount,
                             conversation,
                             defaultIsExpanded = pachliAccount.entity.alwaysOpenSpoiler,
                             defaultIsShowingContent = (pachliAccount.entity.alwaysShowSensitiveMedia || !conversation.lastStatus.status.sensitive),
+                            contentFilterAction = contentFilterAction,
                             accountFilterDecision = accountFilterDecision,
                         )
                     }
@@ -110,6 +127,11 @@ class ConversationsViewModel @Inject constructor(
                     conversationAction.pachliAccountId,
                     conversationAction.conversationId,
                     AccountFilterDecision.Override(conversationAction.accountFilterDecision),
+                )
+            is ConversationAction.ClearContentFilter ->
+                repository.clearContentFilter(
+                    conversationAction.pachliAccountId,
+                    conversationAction.conversationId,
                 )
         }
     }
@@ -251,5 +273,11 @@ class ConversationsViewModel @Inject constructor(
                 Timber.w(e, "failed to delete conversation")
             }
         }
+    }
+
+    @AssistedFactory
+    interface Factory {
+        /** Creates [ConversationsViewModel] with [pachliAccountId] as the active account. */
+        fun create(pachliAccountId: Long): ConversationsViewModel
     }
 }

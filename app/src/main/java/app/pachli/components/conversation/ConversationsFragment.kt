@@ -39,6 +39,8 @@ import app.pachli.R
 import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.components.preference.accountfilters.AccountConversationFiltersPreferenceDialogFragment
 import app.pachli.core.activity.ReselectableFragment
+import app.pachli.core.activity.extensions.TransitionKind
+import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.throttleFirst
@@ -48,6 +50,7 @@ import app.pachli.core.eventhub.EventHub
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AttachmentViewData
+import app.pachli.core.navigation.EditContentFilterActivityIntent
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
@@ -68,6 +71,7 @@ import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.withCreationCallback
 import javax.inject.Inject
 import kotlin.properties.Delegates
 import kotlin.time.Duration.Companion.minutes
@@ -102,6 +106,12 @@ internal sealed interface ConversationAction : UiAction {
         val conversationId: String,
         val accountFilterDecision: AccountFilterDecision,
     ) : ConversationAction
+
+    /** Clear the content filter. */
+    data class ClearContentFilter(
+        val pachliAccountId: Long,
+        val conversationId: String,
+    ) : ConversationAction
 }
 
 @AndroidEntryPoint
@@ -121,7 +131,13 @@ class ConversationsFragment :
     @Inject
     lateinit var sharedPreferencesRepository: SharedPreferencesRepository
 
-    private val viewModel: ConversationsViewModel by viewModels()
+    private val viewModel: ConversationsViewModel by viewModels(
+        extrasProducer = {
+            defaultViewModelCreationExtras.withCreationCallback<ConversationsViewModel.Factory> { factory ->
+                factory.create(requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID))
+            }
+        },
+    )
 
     private val binding by viewBinding(FragmentTimelineBinding::bind)
 
@@ -254,6 +270,12 @@ class ConversationsFragment :
             is ConversationAction.OverrideAccountFilter -> viewModel.accept(uiAction)
             is UiAction.EditAccountFilter -> AccountConversationFiltersPreferenceDialogFragment.newInstance(pachliAccountId)
                 .show(parentFragmentManager, null)
+
+            is ConversationAction.ClearContentFilter -> {
+                // Do nothing. This action isn't sent from FilterConversationStatusViewHolder,
+                // the listener callback `clearContentFilter` (see later in this file) is
+                // called instead.
+            }
         }
     }
 
@@ -406,10 +428,20 @@ class ConversationsFragment :
     }
 
     override fun clearContentFilter(viewData: ConversationViewData) {
+        viewModel.accept(
+            ConversationAction.ClearContentFilter(
+                viewData.pachliAccountId,
+                viewData.id,
+            ),
+        )
     }
 
-    // Filters don't apply in conversations
-    override fun onEditFilterById(pachliAccountId: Long, filterId: String) {}
+    override fun onEditFilterById(pachliAccountId: Long, filterId: String) {
+        requireActivity().startActivityWithTransition(
+            EditContentFilterActivityIntent.edit(requireContext(), pachliAccountId, filterId),
+            TransitionKind.SLIDE_FROM_END,
+        )
+    }
 
     override fun onReselect() {
         if (isAdded) {

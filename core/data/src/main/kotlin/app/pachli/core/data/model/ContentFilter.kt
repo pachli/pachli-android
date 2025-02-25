@@ -24,10 +24,10 @@ import app.pachli.core.model.FilterAction.NONE
 import app.pachli.core.model.FilterAction.WARN
 import app.pachli.core.model.FilterContext
 import app.pachli.core.model.FilterContext.ACCOUNT
+import app.pachli.core.model.FilterContext.CONVERSATIONS
 import app.pachli.core.model.FilterContext.HOME
 import app.pachli.core.model.FilterContext.NOTIFICATIONS
 import app.pachli.core.model.FilterContext.PUBLIC
-import app.pachli.core.model.FilterContext.THREAD
 import app.pachli.core.model.FilterKeyword
 import app.pachli.core.network.model.Filter as NetworkFilter
 import app.pachli.core.network.model.FilterAction as NetworkFilterAction
@@ -47,28 +47,25 @@ fun ContentFilter.Companion.from(filter: NetworkFilter) = ContentFilter(
     keywords = filter.keywords.map { FilterKeyword.from(it) },
 )
 
-fun FilterContext.Companion.from(networkFilter: NetworkFilterContext) =
-    when (networkFilter) {
-        NetworkFilterContext.HOME -> HOME
-        NetworkFilterContext.NOTIFICATIONS -> NOTIFICATIONS
-        NetworkFilterContext.PUBLIC -> PUBLIC
-        NetworkFilterContext.THREAD -> THREAD
-        NetworkFilterContext.ACCOUNT -> ACCOUNT
-    }
+fun FilterContext.Companion.from(networkFilter: NetworkFilterContext) = when (networkFilter) {
+    NetworkFilterContext.HOME -> HOME
+    NetworkFilterContext.NOTIFICATIONS -> NOTIFICATIONS
+    NetworkFilterContext.PUBLIC -> PUBLIC
+    NetworkFilterContext.CONVERSATION -> CONVERSATIONS
+    NetworkFilterContext.ACCOUNT -> ACCOUNT
+}
 
-fun FilterAction.Companion.from(networkAction: NetworkFilterAction) =
-    when (networkAction) {
-        NetworkFilterAction.NONE -> NONE
-        NetworkFilterAction.WARN -> WARN
-        NetworkFilterAction.HIDE -> HIDE
-    }
+fun FilterAction.Companion.from(networkAction: NetworkFilterAction) = when (networkAction) {
+    NetworkFilterAction.NONE -> NONE
+    NetworkFilterAction.WARN -> WARN
+    NetworkFilterAction.HIDE -> HIDE
+}
 
-fun FilterKeyword.Companion.from(networkKeyword: NetworkFilterKeyword) =
-    FilterKeyword(
-        id = networkKeyword.id,
-        keyword = networkKeyword.keyword,
-        wholeWord = networkKeyword.wholeWord,
-    )
+fun FilterKeyword.Companion.from(networkKeyword: NetworkFilterKeyword) = FilterKeyword(
+    id = networkKeyword.id,
+    keyword = networkKeyword.keyword,
+    wholeWord = networkKeyword.wholeWord,
+)
 
 /**
  * Returns a [ContentFilter] from a

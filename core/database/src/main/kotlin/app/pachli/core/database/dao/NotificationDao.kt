@@ -25,8 +25,8 @@ import androidx.room.Transaction
 import androidx.room.TypeConverters
 import androidx.room.Upsert
 import app.pachli.core.database.Converters
-import app.pachli.core.database.model.AccountFilterDecisionUpdate
 import app.pachli.core.database.model.FilterActionUpdate
+import app.pachli.core.database.model.NotificationAccountFilterDecisionUpdate
 import app.pachli.core.database.model.NotificationData
 import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.database.model.NotificationRelationshipSeveranceEventEntity
@@ -256,7 +256,7 @@ WHERE pachliAccountId = :pachliAccountId
     suspend fun upsert(filterActionUpdate: FilterActionUpdate)
 
     @Upsert(entity = NotificationViewDataEntity::class)
-    suspend fun upsert(accountFilterDecisionUpdate: AccountFilterDecisionUpdate)
+    suspend fun upsert(notificationAccountFilterDecisionUpdate: NotificationAccountFilterDecisionUpdate)
 
     @Deprecated("Only present for use in tests")
     @Query(

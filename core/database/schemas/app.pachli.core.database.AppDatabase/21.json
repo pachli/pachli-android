@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 21,
-    "identityHash": "7f5e16229b94954b6dfa1e1d796761ba",
+    "identityHash": "8abfab58d784f5f76342fdc6ebc883c1",
     "entities": [
       {
         "tableName": "DraftEntity",
@@ -810,6 +810,15 @@
             ],
             "orders": [],
             "createSql": "CREATE INDEX IF NOT EXISTS `index_StatusEntity_authorServerId_timelineUserId` ON `${TABLE_NAME}` (`authorServerId`, `timelineUserId`)"
+          },
+          {
+            "name": "index_StatusEntity_timelineUserId",
+            "unique": false,
+            "columnNames": [
+              "timelineUserId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_StatusEntity_timelineUserId` ON `${TABLE_NAME}` (`timelineUserId`)"
           }
         ],
         "foreignKeys": [
@@ -1913,7 +1922,7 @@
       },
       {
         "tableName": "ConversationViewDataEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `accountFilterDecision` TEXT, PRIMARY KEY(`pachliAccountId`, `serverId`), FOREIGN KEY(`pachliAccountId`) REFERENCES `AccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `contentFilterAction` TEXT, `accountFilterDecision` TEXT, PRIMARY KEY(`pachliAccountId`, `serverId`), FOREIGN KEY(`pachliAccountId`) REFERENCES `AccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
         "fields": [
           {
             "fieldPath": "pachliAccountId",
@@ -1926,6 +1935,12 @@
             "columnName": "serverId",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "contentFilterAction",
+            "columnName": "contentFilterAction",
+            "affinity": "TEXT",
+            "notNull": false
           },
           {
             "fieldPath": "accountFilterDecision",
@@ -1960,7 +1975,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7f5e16229b94954b6dfa1e1d796761ba')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8abfab58d784f5f76342fdc6ebc883c1')"
     ]
   }
 }

@@ -60,11 +60,12 @@ data class ConversationViewData(
          * @param defaultIsShowingContent Default value for the `isShowingContent` property if not set.
          * @param accountFilterDecision
          */
-        fun from(
+        fun make(
             pachliAccount: PachliAccount,
             conversationData: ConversationData,
             defaultIsExpanded: Boolean,
             defaultIsShowingContent: Boolean,
+            contentFilterAction: FilterAction,
             accountFilterDecision: AccountFilterDecision?,
         ) = ConversationViewData(
             pachliAccountId = pachliAccount.id,
@@ -78,7 +79,7 @@ data class ConversationViewData(
                 isExpanded = defaultIsExpanded,
                 isShowingContent = defaultIsShowingContent,
                 isDetailed = false,
-                contentFilterAction = FilterAction.NONE,
+                contentFilterAction = contentFilterAction,
             ),
             isConversationStarter = conversationData.isConversationStarter,
             accountFilterDecision = accountFilterDecision,

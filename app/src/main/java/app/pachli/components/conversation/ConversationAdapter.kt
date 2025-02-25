@@ -23,6 +23,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
+import app.pachli.adapter.FilterableStatusViewHolder
 import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.model.AccountFilterDecision
@@ -30,6 +31,7 @@ import app.pachli.core.model.AccountFilterReason
 import app.pachli.core.model.FilterAction
 import app.pachli.databinding.ItemConversationBinding
 import app.pachli.databinding.ItemConversationFilteredBinding
+import app.pachli.databinding.ItemStatusWrapperBinding
 import app.pachli.interfaces.StatusActionListener
 
 internal class ConversationAdapter(
@@ -80,10 +82,8 @@ internal class ConversationAdapter(
                 )
             ConversationViewKind.STATUS_FILTERED ->
                 FilterableConversationStatusViewHolder(
-                    // Wrong layout
-                    ItemConversationBinding.inflate(inflater, parent, false),
+                    ItemStatusWrapperBinding.inflate(inflater, parent, false),
                     listener,
-                    accept,
                 )
             ConversationViewKind.ACCOUNT_FILTERED ->
                 FilterableConversationViewHolder(
@@ -152,12 +152,19 @@ enum class ConversationViewKind {
  * View holder for conversations filtered because the status matches a content filter.
  */
 class FilterableConversationStatusViewHolder internal constructor(
-    private val binding: ItemConversationBinding, // <-- wrong type, needs to be the right layout
+    binding: ItemStatusWrapperBinding,
     private val listener: StatusActionListener<ConversationViewData>,
-    accept: (ConversationAction) -> Unit,
-) : ConversationAdapter.ViewHolder, RecyclerView.ViewHolder(binding.root) {
+) : ConversationAdapter.ViewHolder, FilterableStatusViewHolder<ConversationViewData>(binding) {
     override fun bind(viewData: ConversationViewData, payloads: List<*>?, statusDisplayOptions: StatusDisplayOptions) {
-        TODO("Not yet implemented")
+        if (payloads.isNullOrEmpty()) {
+            showStatusContent(true)
+        }
+        setupWithStatus(
+            viewData,
+            listener,
+            statusDisplayOptions,
+            payloads?.firstOrNull(),
+        )
     }
 }
 

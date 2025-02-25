@@ -20,12 +20,17 @@ package app.pachli.core.database.dao
 import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Query
+import androidx.room.TypeConverters
 import androidx.room.Upsert
+import app.pachli.core.database.Converters
+import app.pachli.core.database.model.ConversationAccountFilterDecisionUpdate
+import app.pachli.core.database.model.ConversationContentFilterActionUpdate
 import app.pachli.core.database.model.ConversationData
 import app.pachli.core.database.model.ConversationEntity
 import app.pachli.core.database.model.ConversationViewDataEntity
 
 @Dao
+@TypeConverters(Converters::class)
 interface ConversationsDao {
     @Upsert
     suspend fun upsert(conversations: Collection<ConversationEntity>)
@@ -35,6 +40,12 @@ interface ConversationsDao {
 
     @Upsert
     suspend fun upsert(conversationViewData: ConversationViewDataEntity)
+
+    @Upsert(entity = ConversationViewDataEntity::class)
+    suspend fun upsert(conversationContentFilterActionUpdate: ConversationContentFilterActionUpdate)
+
+    @Upsert(entity = ConversationViewDataEntity::class)
+    suspend fun upsert(conversationAccountFilterDecisionUpdate: ConversationAccountFilterDecisionUpdate)
 
     @Query(
         """
@@ -137,6 +148,7 @@ SELECT
     -- ConversationViewDataEntity
     cvd.pachliAccountId AS 'cvd_pachliAccountId',
     cvd.serverId AS 'cvd_serverId',
+    cvd.contentFilterAction AS 'cvd_contentFilterAction',
     cvd.accountFilterDecision AS 'cvd_accountFilterDecision'
 
 FROM ConversationEntity AS c

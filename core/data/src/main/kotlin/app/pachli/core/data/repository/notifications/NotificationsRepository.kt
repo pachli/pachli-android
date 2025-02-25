@@ -30,8 +30,8 @@ import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.di.TransactionProvider
-import app.pachli.core.database.model.AccountFilterDecisionUpdate
 import app.pachli.core.database.model.FilterActionUpdate
+import app.pachli.core.database.model.NotificationAccountFilterDecisionUpdate
 import app.pachli.core.database.model.NotificationData
 import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.database.model.RemoteKeyEntity
@@ -152,7 +152,7 @@ class NotificationsRepository @Inject constructor(
         accountFilterDecision: AccountFilterDecision,
     ) = externalScope.launch {
         notificationDao.upsert(
-            AccountFilterDecisionUpdate(
+            NotificationAccountFilterDecisionUpdate(
                 pachliAccountId,
                 notificationId,
                 accountFilterDecision,

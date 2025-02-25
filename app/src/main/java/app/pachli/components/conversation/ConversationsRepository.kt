@@ -27,9 +27,11 @@ import app.pachli.core.database.dao.ConversationsDao
 import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.di.TransactionProvider
+import app.pachli.core.database.model.ConversationAccountFilterDecisionUpdate
+import app.pachli.core.database.model.ConversationContentFilterActionUpdate
 import app.pachli.core.database.model.ConversationData
-import app.pachli.core.database.model.ConversationViewDataEntity
 import app.pachli.core.model.AccountFilterDecision
+import app.pachli.core.model.FilterAction
 import app.pachli.core.network.retrofit.MastodonApi
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
@@ -71,6 +73,16 @@ class ConversationsRepository @Inject constructor(
     }
 
     /**
+     * Sets the [FilterAction] for [conversationId] to [FilterAction.NONE]
+     *
+     * @param pachliAccountId
+     * @param conversationId Conversation's server ID.
+     */
+    fun clearContentFilter(pachliAccountId: Long, conversationId: String) = externalScope.launch {
+        conversationsDao.upsert(ConversationContentFilterActionUpdate(pachliAccountId, conversationId, FilterAction.NONE))
+    }
+
+    /**
      * Sets the [AccountFilterDecision] for [conversationId] to [accountFilterDecision].
      *
      * @param pachliAccountId
@@ -83,7 +95,7 @@ class ConversationsRepository @Inject constructor(
         accountFilterDecision: AccountFilterDecision,
     ) = externalScope.launch {
         conversationsDao.upsert(
-            ConversationViewDataEntity(
+            ConversationAccountFilterDecisionUpdate(
                 pachliAccountId,
                 conversationId,
                 accountFilterDecision,
