@@ -1,1 +1,1 @@
-Plne vybavený Android klient pre Mastodon a podobné servery.
+Plnohodnotný Android klient pre Mastodon a podobné servery.
