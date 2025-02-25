@@ -311,20 +311,20 @@
     <string name="poll_ended_created">لقد انتهى استطلاع رأي قمتَ بإنشائه</string>
     <string name="pref_title_notification_filter_poll">تنتهي استطلاعات الرأي</string>
     <plurals name="favs">
-        <item quantity="zero">&lt;b>%1$s&lt;/b> مفضلة</item>
-        <item quantity="one">&lt;b>%1$s&lt;/b> مفضلة</item>
-        <item quantity="two">&lt;b>%1$s&lt;/b> مفضلتين</item>
-        <item quantity="few">&lt;b>%1$s&lt;/b> مفضلة</item>
-        <item quantity="many">&lt;b>%1$s&lt;/b> مفضلات</item>
-        <item quantity="other">&lt;b>%1$s&lt;/b> مفضلات</item>
+        <item quantity="zero">&lt;b&gt;%1$s&lt;/b&gt; مفضلة</item>
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; مفضلة</item>
+        <item quantity="two">&lt;b&gt;%1$s&lt;/b&gt; مفضلتين</item>
+        <item quantity="few">&lt;b&gt;%1$s&lt;/b&gt; مفضلة</item>
+        <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; مفضلات</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; مفضلات</item>
     </plurals>
     <plurals name="reblogs">
-        <item quantity="zero">&lt;b>%s&lt;/b> مشاركة</item>
-        <item quantity="one">&lt;b>%s&lt;/b> مشاركة</item>
-        <item quantity="two">&lt;b>%s&lt;/b> مشاركتين</item>
-        <item quantity="few">&lt;b>%s&lt;/b> مشاركات</item>
-        <item quantity="many">&lt;b>%s&lt;/b> مشاركات</item>
-        <item quantity="other">&lt;b>%s&lt;/b> مشاركات</item>
+        <item quantity="zero">&lt;b&gt;%s&lt;/b&gt; مشاركة</item>
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; مشاركة</item>
+        <item quantity="two">&lt;b&gt;%s&lt;/b&gt; مشاركتين</item>
+        <item quantity="few">&lt;b&gt;%s&lt;/b&gt; مشاركات</item>
+        <item quantity="many">&lt;b&gt;%s&lt;/b&gt; مشاركات</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; مشاركات</item>
     </plurals>
     <string name="pref_title_bot_overlay">إظهار علامة البوتات</string>
     <plurals name="poll_timespan_days">
