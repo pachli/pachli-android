@@ -30,7 +30,6 @@ import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.database.model.ConversationAccount
 import app.pachli.databinding.ItemConversationBinding
 import app.pachli.interfaces.StatusActionListener
-import timber.log.Timber
 
 class ConversationViewHolder internal constructor(
     private val binding: ItemConversationBinding,
@@ -44,8 +43,7 @@ class ConversationViewHolder internal constructor(
 
     override fun bind(viewData: ConversationViewData, payloads: List<*>?, statusDisplayOptions: StatusDisplayOptions) {
         val (_, _, account, inReplyToId, _, _, _, _, _, _, _, _, _, _, favourited, bookmarked, sensitive, _, _, attachments) = viewData.status
-        Timber.d("  payloads: $payloads")
-        if (payloads.isNullOrEmpty()) { // == null) {
+        if (payloads.isNullOrEmpty()) {
             setupCollapsedState(viewData, listener)
             setDisplayName(account.name, account.emojis, statusDisplayOptions)
             setUsername(account.username)
