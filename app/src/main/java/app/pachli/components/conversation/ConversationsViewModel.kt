@@ -19,6 +19,7 @@ package app.pachli.components.conversation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
+import androidx.paging.filter
 import androidx.paging.map
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.PachliAccount
@@ -83,27 +84,30 @@ class ConversationsViewModel @AssistedInject constructor(
 
             repository.conversations(pachliAccount.id)
                 .map { pagingData ->
-                    pagingData.map { conversation ->
-                        val contentFilterAction =
-                            conversation.viewData?.contentFilterAction
-                                ?: contentFilterModel.filterActionFor(conversation.lastStatus.status)
+                    pagingData
+                        .map { conversation ->
+                            val contentFilterAction =
+                                conversation.viewData?.contentFilterAction
+                                    ?: contentFilterModel.filterActionFor(conversation.lastStatus.status)
 
-                        val accountFilterDecision = if (conversation.isConversationStarter) {
-                            conversation.viewData?.accountFilterDecision
-                                ?: filterConversationByAccount(pachliAccount, conversation)
-                        } else {
-                            null
+                            val accountFilterDecision = if (conversation.isConversationStarter) {
+                                conversation.viewData?.accountFilterDecision
+                                    ?: filterConversationByAccount(pachliAccount, conversation)
+                            } else {
+                                null
+                            }
+
+                            ConversationViewData.make(
+                                pachliAccount,
+                                conversation,
+                                defaultIsExpanded = pachliAccount.entity.alwaysOpenSpoiler,
+                                defaultIsShowingContent = (pachliAccount.entity.alwaysShowSensitiveMedia || !conversation.lastStatus.status.sensitive),
+                                contentFilterAction = contentFilterAction,
+                                accountFilterDecision = accountFilterDecision,
+                            )
                         }
-
-                        ConversationViewData.make(
-                            pachliAccount,
-                            conversation,
-                            defaultIsExpanded = pachliAccount.entity.alwaysOpenSpoiler,
-                            defaultIsShowingContent = (pachliAccount.entity.alwaysShowSensitiveMedia || !conversation.lastStatus.status.sensitive),
-                            contentFilterAction = contentFilterAction,
-                            accountFilterDecision = accountFilterDecision,
-                        )
-                    }
+                        .filter { it.contentFilterAction != FilterAction.HIDE }
+                        .filter { it.accountFilterDecision !is AccountFilterDecision.Hide }
                 }
         }
         .cachedIn(viewModelScope)
