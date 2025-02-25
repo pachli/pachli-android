@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_network">Vyskytla sa chyba v sieti! Prosím skontrolujte svoje pripojenie a skúste to znova!</string>
+    <string name="error_network">Vyskytla sa chyba v sieti. Prosím skontrolujte svoje pripojenie a skúste to znova.</string>
     <string name="error_generic">Vyskytla sa chyba.</string>
     <string name="action_links">Odkazy</string>
     <string name="action_mentions">Zmienky</string>
@@ -8,4 +8,13 @@
     <string name="title_links_dialog">Odkazy</string>
     <string name="title_hashtags_dialog">Hashtagy</string>
     <string name="title_mentions_dialog">Zmienky</string>
+    <string name="button_done">Hotovo</string>
+    <string name="action_retry">Skúsiť znova</string>
+    <string name="message_empty">Tu nič nie je.</string>
+    <string name="action_view_profile">Profil</string>
+    <string name="action_more">Viac</string>
+    <string name="action_refresh">Obnoviť</string>
+    <string name="url_domain_notifier">" (🔗 %s)"</string>
+    <string name="item_copied">Text skopírovaný</string>
+    <string name="action_copy_item">Kopírovať položku</string>
 </resources>
