@@ -1,5 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_open_as">Otvoriť ako %s</string>
     <string name="performing_lookup_title">Vyhľadávanie…</string>
+    <string name="send_error_report">Odoslať chybové hlásenie</string>
+    <string name="post_lookup_error_format">Chyba pri vyhľadávaní príspevku %s</string>
 </resources>
