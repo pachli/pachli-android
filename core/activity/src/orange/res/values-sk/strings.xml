@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="acra_dialog_title">Hlásenie o chybe %1$s</string>
+    <string name="acra_dialog_text">Kliknutím na OK pripravíš e-mail pre vývojárov s podrobnosťami</string>
+    <string name="acra_email_body">Tieto dáta budú odoslané vývojárom.\n\n Prosím, skontroluj, či neobsahujú nič, čo nechceš zdieľať, a popíš, čo si robil/a, keď došlo k pádu.\n\n ----\n Tvoj popis:\n\n ----</string>
+</resources>
