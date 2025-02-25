@@ -14,33 +14,29 @@
 
     <TextView
         android:id="@+id/account_filter_domain"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawablePadding="10dp"
         android:ellipsize="end"
-        android:gravity="center_vertical"
         android:maxLines="2"
-        android:paddingStart="28dp"
+        android:textAlignment="center"
         android:textSize="?attr/status_text_medium"
-        app:drawableStartCompat="@drawable/ic_person_add_24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="A user @example.com followed you"
-        tools:ignore="RtlSymmetry,SelectableText" />
+        tools:ignore="RtlSymmetry,SelectableText"
+        tools:text="A user @example.com followed you" />
 
     <TextView
         android:id="@+id/account_filter_reason"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/account_filter_domain"
         android:layout_marginTop="8dp"
-        android:textColor="?android:textColorTertiary"
-        android:paddingStart="38dp"
-        android:textSize="?attr/status_text_medium"
         android:textAlignment="center"
+        android:textColor="?android:textColorTertiary"
         android:textIsSelectable="false"
-        tools:text="Warning because account is younger than 28d"
-        tools:ignore="RtlSymmetry" />
+        android:textSize="?attr/status_text_medium"
+        app:layout_constraintTop_toBottomOf="@id/account_filter_domain"
+        tools:ignore="RtlSymmetry"
+        tools:text="Warning because account is younger than 28d" />
 
     <Button
         android:id="@+id/account_filter_edit_filter"
