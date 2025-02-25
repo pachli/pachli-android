@@ -23,7 +23,6 @@ import app.pachli.core.data.BuildConfig
 import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.database.model.TranslationState
-import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.parseAsMastodonHtml
