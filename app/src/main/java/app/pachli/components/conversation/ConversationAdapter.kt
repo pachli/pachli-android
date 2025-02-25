@@ -20,9 +20,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import app.pachli.R
 import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.core.data.model.StatusDisplayOptions
+import app.pachli.databinding.ItemConversationBinding
 import app.pachli.interfaces.StatusActionListener
 
 class ConversationAdapter(
@@ -39,8 +39,13 @@ class ConversationAdapter(
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ConversationViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_conversation, parent, false)
-        return ConversationViewHolder(view, statusDisplayOptions, listener)
+        val inflater = LayoutInflater.from(parent.context)
+
+        return ConversationViewHolder(
+            ItemConversationBinding.inflate(inflater, parent, false),
+            statusDisplayOptions,
+            listener,
+        )
     }
 
     override fun onBindViewHolder(holder: ConversationViewHolder, position: Int) {
