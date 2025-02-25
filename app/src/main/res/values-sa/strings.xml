@@ -377,12 +377,12 @@
     <string name="title_favourited_by">निम्नमित्रस्य प्रीतिः</string>
     <string name="title_reblogged_by">निम्नमित्रेण प्रकाशितम्</string>
     <plurals name="reblogs">
-        <item quantity="one">&lt;b>%s&lt;/b> प्रकाशनम्</item>
-        <item quantity="other">&lt;b>%s&lt;/b> प्रकाशने</item>
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; प्रकाशनम्</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; प्रकाशने</item>
     </plurals>
     <plurals name="favs">
-        <item quantity="one">&lt;b>%1$s&lt;/b> प्रियम्</item>
-        <item quantity="other">&lt;b>%1$s&lt;/b> प्रिये</item>
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; प्रियम्</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; प्रिये</item>
     </plurals>
     <string name="total_usage">समस्त-उपयोगः</string>
     <string name="total_accounts">सकललेखाः</string>
