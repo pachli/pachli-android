@@ -279,8 +279,8 @@
     <string name="unpin_action">Kitűzés eltávolítása</string>
     <string name="pin_action">Kitűzés</string>
     <plurals name="favs">
-        <item quantity="one">&lt;b>%1$s&lt;/b> Kedvenc</item>
-        <item quantity="other">&lt;b>%1$s&lt;/b> Kedvenc</item>
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Kedvenc</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Kedvenc</item>
     </plurals>
     <plurals name="reblogs">
         <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Megtolás</item>
