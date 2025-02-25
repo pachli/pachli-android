@@ -37,8 +37,8 @@ class ConversationViewHolder internal constructor(
 ) : ConversationAdapter.ViewHolder, StatusBaseViewHolder<ConversationViewData>(binding.root) {
     private val avatars: Array<ImageView> = arrayOf(
         avatar,
-        itemView.findViewById(R.id.status_avatar_1),
-        itemView.findViewById(R.id.status_avatar_2),
+        binding.statusAvatar1,
+        binding.statusAvatar2,
     )
 
     override fun bind(viewData: ConversationViewData, payloads: List<*>?, statusDisplayOptions: StatusDisplayOptions) {
