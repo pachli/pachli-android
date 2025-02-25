@@ -369,8 +369,9 @@
     <string name="pref_title_alway_show_sensitive_media">Always show sensitive content</string>
     <string name="pref_title_alway_open_spoiler">Always expand posts marked with content warnings</string>
     <string name="title_media">Media</string>
+    <string name="pref_title_public_filter_home_and_lists">Home and lists</string>
     <string name="pref_title_public_filter_keywords">Public timelines</string>
-    <string name="pref_title_thread_filter_keywords">Threads</string>
+    <string name="pref_title_thread_filter_keywords">Conversations</string>
     <string name="pref_title_account_filter_keywords">Profiles</string>
     <string name="filter_addition_title">Add filter</string>
     <string name="filter_edit_title">Edit filter</string>
@@ -867,6 +868,10 @@
     <string name="pref_account_notification_filters_label_younger_30d">… created in last 30 days</string>
     <string name="pref_account_notification_filters_label_limited_by_server">… limited by your moderators</string>
 
+    <string name="pref_title_account_conversation_filters">Conversation filters</string>
+    <string name="pref_summary_account_conversation_filters">Your server does not support conversation filters</string>
+    <string name="pref_account_conversation_filters_subtitle">What should happen to conversations started by accounts…</string>
+
     <string name="account_filter_placeholder_type_favourite_fmt">A user @&lt;b>%1s&lt;/b> favorited your post</string>
     <string name="account_filter_placeholder_type_follow_fmt">A user @&lt;b>%1s&lt;/b> followed you</string>
     <string name="account_filter_placeholder_type_follow_request_fmt">Follow request from a user @&lt;b>%1s&lt;/b></string>
@@ -878,5 +883,6 @@
     <string name="account_filter_placeholder_label_younger_30d">Filtered because: &lt;b>created in last 30 days&lt;/b></string>
     <string name="account_filter_placeholder_label_limited_by_server">Filtered because: &lt;b>limited by your moderators&lt;/b></string>
 
+    <string name="account_filter_placeholder_type_conversation">A user @&lt;b>%1$s&lt;/b> started a conversation</string>
     <string name="ui_error_reload_reply_fmt">Could not load post: %1$s</string>
 </resources>

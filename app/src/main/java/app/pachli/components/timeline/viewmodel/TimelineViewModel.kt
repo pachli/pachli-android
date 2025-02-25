@@ -203,8 +203,7 @@ sealed interface StatusActionSuccess : UiSuccess {
 
     data class Reblog(override val action: FallibleStatusAction.Reblog) : StatusActionSuccess
 
-    data class VoteInPoll(override val action: FallibleStatusAction.VoteInPoll) :
-        StatusActionSuccess
+    data class VoteInPoll(override val action: FallibleStatusAction.VoteInPoll) : StatusActionSuccess
 
     data class Translate(override val action: FallibleStatusAction.Translate) : StatusActionSuccess
 

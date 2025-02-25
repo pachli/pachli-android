@@ -120,4 +120,13 @@ enum class ServerOperation(id: String, versions: List<Version>) {
             Version(major = 1),
         ),
     ),
+
+    /** Fetch many statuses at once. */
+    ORG_JOINMASTODON_STATUSES_GET(
+        "org.joinmastodon.statuses.get",
+        listOf(
+            // Initial introduction in Mastodon 4.3.0
+            Version(major = 1),
+        ),
+    ),
 }

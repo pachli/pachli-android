@@ -57,7 +57,7 @@ class ContentContentFilterViewDataTest {
 
     @Test
     fun `diff contexts only affects contexts`() {
-        val newContexts = setOf(FilterContext.HOME, FilterContext.THREAD)
+        val newContexts = setOf(FilterContext.HOME, FilterContext.CONVERSATIONS)
 
         val update = originalContentFilterViewData
             .copy(contexts = newContexts)

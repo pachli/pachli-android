@@ -465,4 +465,34 @@ WHERE id = :accountId
 """,
     )
     suspend fun setNotificationAccountFilterLimitedByServer(accountId: Long, value: FilterAction)
+
+    @Query(
+        """
+UPDATE AccountEntity
+SET
+    conversationAccountFilterNotFollowed = :value
+WHERE id = :accountId
+""",
+    )
+    suspend fun setConversationAccountFilterNotFollowed(accountId: Long, value: FilterAction)
+
+    @Query(
+        """
+UPDATE AccountEntity
+SET
+    conversationAccountFilterYounger30d = :value
+WHERE id = :accountId
+""",
+    )
+    suspend fun setConversationAccountFilterYounger30d(accountId: Long, value: FilterAction)
+
+    @Query(
+        """
+UPDATE AccountEntity
+SET
+    conversationAccountFilterLimitedByServer = :value
+WHERE id = :accountId
+""",
+    )
+    suspend fun setConversationAccountFilterLimitedByServer(accountId: Long, value: FilterAction)
 }

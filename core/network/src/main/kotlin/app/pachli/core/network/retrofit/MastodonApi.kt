@@ -236,6 +236,11 @@ interface MastodonApi {
         @Path("id") statusId: String,
     ): ApiResult<Status>
 
+    @GET("api/v1/statuses")
+    suspend fun statuses(
+        @Query("id[]") ids: List<String>,
+    ): ApiResult<List<Status>>
+
     @PUT("api/v1/statuses/{id}")
     suspend fun editStatus(
         @Path("id") statusId: String,

@@ -222,6 +222,7 @@ class AccountEntityForeignKeyTest {
             accounts = emptyList(),
             unread = true,
             lastStatusServerId = statusEntity.serverId,
+            isConversationStarter = true,
         )
         conversationDao.upsert(conversation)
 

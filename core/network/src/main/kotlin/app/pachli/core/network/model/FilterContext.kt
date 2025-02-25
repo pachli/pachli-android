@@ -32,24 +32,24 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = false)
 @HasDefault
 enum class FilterContext {
-    /** Filter applies to home timeline and lists */
+    /** Filter applies to home timeline and lists. */
     @Json(name = "home")
     HOME,
 
-    /** Filter applies to notifications */
+    /** Filter applies to notifications. */
     @Json(name = "notifications")
     NOTIFICATIONS,
 
-    /** Filter applies to public timelines */
+    /** Filter applies to public timelines. */
     @Default
     @Json(name = "public")
     PUBLIC,
 
-    /** Filter applies to expanded thread */
+    /** Filter applies to conversation. */
     @Json(name = "thread")
-    THREAD,
+    CONVERSATION,
 
-    /** Filter applies when viewing a profile */
+    /** Filter applies when viewing a profile. */
     @Json(name = "account")
     ACCOUNT,
 
@@ -82,7 +82,7 @@ enum class FilterContext {
             app.pachli.core.model.FilterContext.HOME -> HOME
             app.pachli.core.model.FilterContext.NOTIFICATIONS -> NOTIFICATIONS
             app.pachli.core.model.FilterContext.PUBLIC -> PUBLIC
-            app.pachli.core.model.FilterContext.THREAD -> THREAD
+            app.pachli.core.model.FilterContext.CONVERSATIONS -> CONVERSATION
             app.pachli.core.model.FilterContext.ACCOUNT -> ACCOUNT
         }
     }

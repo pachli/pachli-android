@@ -33,21 +33,17 @@ import app.pachli.interfaces.StatusActionListener
 
 class ConversationViewHolder internal constructor(
     private val binding: ItemConversationBinding,
-    private val statusDisplayOptions: StatusDisplayOptions,
     private val listener: StatusActionListener<ConversationViewData>,
-) : StatusBaseViewHolder<ConversationViewData>(binding.root) {
+) : ConversationAdapter.ViewHolder, StatusBaseViewHolder<ConversationViewData>(binding.root) {
     private val avatars: Array<ImageView> = arrayOf(
         avatar,
         binding.statusAvatar1,
         binding.statusAvatar2,
     )
 
-    fun setupWithConversation(
-        viewData: ConversationViewData,
-        payloads: Any?,
-    ) {
+    override fun bind(viewData: ConversationViewData, payloads: List<*>?, statusDisplayOptions: StatusDisplayOptions) {
         val (_, _, account, inReplyToId, _, _, _, _, _, _, _, _, _, _, favourited, bookmarked, sensitive, _, _, attachments) = viewData.status
-        if (payloads == null) {
+        if (payloads.isNullOrEmpty()) {
             setupCollapsedState(viewData, listener)
             setDisplayName(account.name, account.emojis, statusDisplayOptions)
             setUsername(account.username)
@@ -85,7 +81,7 @@ class ConversationViewHolder internal constructor(
             )
             setSpoilerAndContent(viewData, statusDisplayOptions, listener)
             setConversationName(viewData.accounts)
-            setAvatars(viewData.accounts)
+            setAvatars(viewData.accounts, statusDisplayOptions.animateAvatars)
         } else {
             if (payloads is List<*>) {
                 for (item in payloads) {
@@ -118,14 +114,14 @@ class ConversationViewHolder internal constructor(
         }
     }
 
-    private fun setAvatars(accounts: List<ConversationAccount>) {
+    private fun setAvatars(accounts: List<ConversationAccount>, animateAvatars: Boolean) {
         avatars.withIndex().forEach { views ->
             accounts.getOrNull(views.index)?.also { account ->
                 loadAvatar(
                     account.avatar,
                     views.value,
                     avatarRadius48dp,
-                    statusDisplayOptions.animateAvatars,
+                    animateAvatars,
                 )
                 views.value.show()
             } ?: views.value.hide()
