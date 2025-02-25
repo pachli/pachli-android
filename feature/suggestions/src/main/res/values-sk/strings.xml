@@ -1,2 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="title_suggestions">Navrhované účty</string>
+    <string name="source_unknown">(server vrátil nerozpoznaný zdroj)</string>
+    <string name="sources_featured">Vybrané tímom tvojho servera</string>
+    <string name="sources_most_followed">Jeden z najsledovanejších na tvojom serveri</string>
+    <string name="sources_most_interactions">Získava popularitu na tvojom serveri</string>
+    <string name="sources_similar_to_recently_followed">Podobné ako účty, ktoré si nedávno sledoval/a</string>
+    <string name="sources_friends_of_friends">Populárne medzi ľuďmi, ktorých sleduješ</string>
+    <string name="sources_unknown">(server vrátil nerozpoznané zdroje)</string>
+    <string name="action_follow_account">Sledovať</string>
+    <string name="action_dismiss_follow_suggestion">Zavrieť</string>
+    <string name="ui_error_delete_suggestion_fmt">Odmietnutie návrhu pre %1$s zlyhalo: %2$s</string>
+    <string name="ui_error_follow_account_fmt">Sledovanie účtu %1$s zlyhalo: %2$s</string>
+    <string name="follows_count_fmt"><b>%1$s</b> sledovaných</string>
+    <string name="follower_count_fmt"><b>%1$s</b> sledujúcich</string>
+    <string name="statuses_count_fmt"><b>%1$s</b> príspevkov</string>
+    <string name="statuses_count_per_week_last_fmt"><b>%1$s</b> príspevkov (<b>%2$d</b> za týždeň, posledný <b>%3$s</b>)</string>
+    <string name="statuses_count_per_week_fmt"><b>%1$s</b> príspevkov (<b>%2$d</b> za týždeň)</string>
+</resources>
