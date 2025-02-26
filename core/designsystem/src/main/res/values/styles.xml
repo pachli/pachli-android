@@ -30,6 +30,10 @@
         <item name="status_text_large">22sp</item>
     </style>
 
+    <style name="FontAtkinsonHyperlegibleNext">
+        <item name="android:fontFamily">@font/atkinson_hyperlegible_next</item>
+    </style>
+
     <style name="FontAtkinsonHyperlegible">
         <item name="android:fontFamily">@font/atkinson_hyperlegible</item>
     </style>

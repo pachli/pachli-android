@@ -22,6 +22,7 @@ import androidx.annotation.StyleRes
 
 enum class EmbeddedFontFamily(@FontRes val font: Int, @StyleRes val style: Int) {
     DEFAULT(-1, -1),
+    ATKINSON_HYPERLEGIBLE_NEXT(R.font.atkinson_hyperlegible_next, R.style.FontAtkinsonHyperlegibleNext),
     ATKINSON_HYPERLEGIBLE(R.font.atkinson_hyperlegible, R.style.FontAtkinsonHyperlegible),
     COMICNEUE(R.font.comicneue, R.style.FontComicNeue),
     ESTEDAD(R.font.estedad, R.style.FontEstedad),

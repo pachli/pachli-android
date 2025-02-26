@@ -26,6 +26,7 @@
 
     <string-array name="pref_font_family_names">
         <item>@string/system_default</item>
+        <item>Atkinson Hyperlegible Next</item>
         <item>Atkinson Hyperlegible</item>
         <item>Comic Neue</item>
         <item>Estedad</item>
@@ -36,6 +37,7 @@
 
     <string-array name="pref_font_family_values">
         <item>default</item>
+        <item>atkinson_hyperlegible_next</item>
         <item>atkinson_hyperlegible</item>
         <item>comicneue</item>
         <item>estedad</item>
