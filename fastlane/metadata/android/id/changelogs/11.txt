@@ -1,0 +1,19 @@
+Pachli 2.2.0
+
+Fitur Baru:
+
+- Nonaktifkan fungsi filter jika tidak didukung oleh server 
+
+
+Perbaikan:
+
+- Pastikan tindakan terjadi terhadap status yang benar .
+- Jangan bocor MainActivity di LacerimageLoader .
+- Tampilkan nilai tag tren yang benar di akhir baris bagan 
+.
+- Perbarui terjemahan Swedia .
+- Perbarui terjemahan Indonesia .
+- Perbarui terjemahan Belanda .
+- Perbarui Portugis .
+- Perbarui terjemahan Finlandia .
+- Perbarui terjemahan bahasa Arab

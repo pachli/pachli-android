@@ -1,0 +1,20 @@
+Fitur baru meliputi:
+
+- "Muat lebih banyak" posting memuat saat Anda menggulir
+- Trending Links and Posts
+- Lebih dari 5 tab
+- Pilih berbagai font yg dapat diakses
+- Pemutar Media Baru
+- filter pemberitahuan
+- Tandai daftar "eksklusif"
+- Tambahkan "Bookmark" ke tab
+
+Perbaikan bug :
+
+- Gambar tidak "menempel" saat memperbesar/menggesek di antara mereka
+
+Perubahan UX meliputi:
+
+- Refresh visual, skema warna baru
+- Tentukan tema default dari pengaturan Anda
+- "Bersihkan Notif" adalah item menu
