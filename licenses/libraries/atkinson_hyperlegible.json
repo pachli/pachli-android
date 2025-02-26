@@ -11,7 +11,7 @@
     "name": "Atkinson Hyperlegible font",
     "tag": "font",
     "licenses": [
-        "atkinson_hyperlegible_2020_1104"
+      "sil_ofl_1_1"
     ],
     "website": "https://brailleinstitute.org/freefont"
 }
