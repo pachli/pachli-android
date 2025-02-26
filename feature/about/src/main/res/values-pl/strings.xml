@@ -26,7 +26,6 @@
     <string name="notification_log_method_unknown">Mechanizm powiadomień nie został określony</string>
     <string name="notification_log_download_failed">Pobieranie się nie powiodło: %1$s</string>
     <string name="notitication_log_filter_dialog_title">Pokaż priorytety dziennika</string>
-    <string name="action_refresh">Odśwież</string>
     <string name="about_copied">Skopiowano numer wersji i informacje o urządzeniu</string>
     <string name="about_copy">Skopiuj numer wersji i informacje o urządzeniu</string>
     <string name="about_device_info">%s %s\nWersja Androida: %s\nPoziom SDK: %d</string>

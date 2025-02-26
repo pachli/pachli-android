@@ -18,5 +18,4 @@
     <string name="about_account_info">\@%s@%s
 \n版本: %s</string>
     <string name="license_description">Pachli 使用了以下开源项目的源码：</string>
-    <string name="action_refresh">刷新</string>
 </resources>

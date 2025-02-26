@@ -39,7 +39,6 @@
     <string name="about_account_info">\@%s@%s
 \nLeagan: %s</string>
     <string name="about_nivenly_foundation">Is tionscadal <a href="https://nivenly.org">Fondúireacht Nivenly</a> é Pachli.</string>
-    <string name="action_refresh">Athnuaigh</string>
     <string name="about_copied">Leagan cóipeáilte agus faisnéis gléas</string>
     <string name="notification_log_filter_content_description">Scag logs de réir clib</string>
     <string name="notification_details_title">Sonraí</string>

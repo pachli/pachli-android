@@ -191,6 +191,7 @@
     <string name="download_image">Downloading %1$s</string>
     <string name="action_copy_link">Copy the link</string>
     <string name="action_share_as">Share as …</string>
+    <string name="action_refresh_account">Refresh account</string>
     <string name="download_media">Download media</string>
     <string name="downloading_media">Downloading media</string>
     <string name="send_post_link_to">Share post URL to…</string>
