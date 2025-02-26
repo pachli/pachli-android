@@ -45,3 +45,14 @@ open class NoUnderlineURLSpan(val url: String) : URLSpan(url) {
  * Mentions of other users ("@user@example.org")
  */
 open class MentionSpan(url: String) : NoUnderlineURLSpan(url)
+
+/**
+ * Hashtags (`#foo`)
+ *
+ * @param hashtag Text of the tag, without the leading `#`.
+ * @param url URL for the tag.
+ * @param listener Listener for clicks on the tag.
+ */
+class HashtagSpan(val hashtag: String, url: String, val listener: LinkListener) : NoUnderlineURLSpan(url) {
+    override fun onClick(view: View) = listener.onViewTag(hashtag)
+}

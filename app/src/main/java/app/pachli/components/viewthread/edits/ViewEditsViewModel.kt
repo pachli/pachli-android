@@ -45,6 +45,7 @@ import org.pageseeder.diffx.token.impl.SpaceToken
 import org.pageseeder.diffx.xml.NamespaceSet
 import org.pageseeder.xmlwriter.XML.NamespaceAware
 import org.pageseeder.xmlwriter.XMLStringWriter
+import timber.log.Timber
 
 @HiltViewModel
 class ViewEditsViewModel @Inject constructor(private val api: MastodonApi) : ViewModel() {
@@ -91,7 +92,12 @@ class ViewEditsViewModel @Inject constructor(private val api: MastodonApi) : Vie
                     // a block element ("<a ...> some text") is not. Guard against
                     // this be wrapping everything in a div.
                     // https://github.com/tuskyapp/Tusky/issues/4253
-                    .map { it.copy(content = "<div>${it.content}</div>") }
+                    .map {
+                        it.copy(
+                            content = "<div>${it.content}</div>",
+                            spoilerText = "<div>${it.spoilerText}</div>",
+                        )
+                    }
                     .sortedBy { it.createdAt }
                     .reversed()
                     .toMutableList()
@@ -109,8 +115,8 @@ class ViewEditsViewModel @Inject constructor(private val api: MastodonApi) : Vie
                 val contentDiff = HtmlDiffOutput()
 
                 try {
-                    var currentSpoilerText = loader.load("<div>${sortedEdits[0].spoilerText}</div>")
-                    var previousSpoilerText = loader.load("<div>${sortedEdits[1].spoilerText}</div>")
+                    var currentSpoilerText = loader.load(sortedEdits[0].spoilerText)
+                    var previousSpoilerText = loader.load(sortedEdits[1].spoilerText)
 
                     // The XML processor expects `br` to be closed
                     var currentContent =
@@ -122,7 +128,7 @@ class ViewEditsViewModel @Inject constructor(private val api: MastodonApi) : Vie
                         processor.diff(previousSpoilerText, currentSpoilerText, spoilerDiff)
                         processor.diff(previousContent, currentContent, contentDiff)
                         sortedEdits[i - 1] = sortedEdits[i - 1].copy(
-                            spoilerText = spoilerDiff.xml.toString().removePrefix("<div/>"),
+                            spoilerText = spoilerDiff.xml.toString(),
                             content = contentDiff.xml.toString(),
                         )
 
@@ -136,7 +142,8 @@ class ViewEditsViewModel @Inject constructor(private val api: MastodonApi) : Vie
                         }
                     }
                     _uiState.value = EditsUiState.Success(sortedEdits)
-                } catch (_: LoadingException) {
+                } catch (e: LoadingException) {
+                    Timber.e(e, "Could not diff")
                     // Something failed parsing the XML from the server. Rather than
                     // show an error just return the sorted edits so the user can at
                     // least visually scan the differences.

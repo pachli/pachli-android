@@ -26,7 +26,6 @@ import androidx.annotation.VisibleForTesting
 import androidx.core.net.toUri
 import androidx.core.text.method.LinkMovementMethodCompat
 import app.pachli.core.activity.EmojiSpan
-import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.network.model.HashTag
 import app.pachli.core.network.model.Status.Mention
 import com.mikepenz.iconics.IconicsColor
@@ -129,6 +128,10 @@ fun markupHiddenUrls(textView: TextView, content: CharSequence): SpannableString
     return spannableContent
 }
 
+/**
+ * Replaces [span] with a more appropriate span type based on the text contents
+ * of [span].
+ */
 @VisibleForTesting
 fun setClickableText(
     span: URLSpan,
@@ -141,12 +144,12 @@ fun setClickableText(
     val end = getSpanEnd(span)
     val flags = getSpanFlags(span)
 
-    val text = subSequence(start, end)
-    // Wrap the text so that "@foo" or "#foo" is rendered that way in RTL text, and
-    // not "foo@" or "foo#".
-    val wrappedText = text.unicodeWrap()
+    // Clear the existing span.
+    removeSpan(span)
 
-    val customSpan = when (text[0]) {
+    // Determine the new span from the text content.
+    val text = subSequence(start, end)
+    val newSpan = when (text[0]) {
         '#' -> getCustomSpanForTag(text, tags, span, listener)
         '@' -> getCustomSpanForMention(mentions, span, listener)
         else -> null
@@ -154,9 +157,22 @@ fun setClickableText(
         override fun onClick(view: View) = listener.onViewUrl(url)
     }
 
-    removeSpan(span)
+    // Wrap the text so that "@foo" or "#foo" is rendered that way in RTL text, and
+    // not "foo@" or "foo#".
+    //
+    // Can't use CharSequence.unicodeWrap() here as that returns a String, which will
+    // remove any spans (e.g., those inserted when viewing edits to a status) that
+    // indicate where the added/removed text is, meaning that added/removed hashtags,
+    // mentions, etc, wouldn't be highlighted in the diff view.
+    val wrappedText = SpannableStringBuilder(text)
+    wrappedText.insert(0, "\u2068")
+    wrappedText.append("\u2069")
+
+    // Set the correct span on the wrapped text.
+    wrappedText.setSpan(newSpan, 0, wrappedText.length, flags)
+
+    // Replace the previous text with the wrapped and spanned text.
     replace(start, end, wrappedText)
-    setSpan(customSpan, start, end + 1, flags)
 }
 
 @VisibleForTesting
@@ -170,9 +186,7 @@ fun getTagName(text: CharSequence, tags: List<HashTag>?): String? {
 
 private fun getCustomSpanForTag(text: CharSequence, tags: List<HashTag>?, span: URLSpan, listener: LinkListener): ClickableSpan? {
     return getTagName(text, tags)?.let {
-        object : NoUnderlineURLSpan(span.url) {
-            override fun onClick(view: View) = listener.onViewTag(it)
-        }
+        HashtagSpan(it, span.url, listener)
     }
 }
 

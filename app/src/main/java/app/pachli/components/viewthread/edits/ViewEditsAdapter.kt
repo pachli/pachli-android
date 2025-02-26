@@ -105,7 +105,7 @@ class ViewEditsAdapter(
 
         binding.statusEditInfo.text = context.getString(infoStringRes, timestamp)
 
-        if (edit.spoilerText.isEmpty()) {
+        if (edit.spoilerText.removePrefix("<div/>").isEmpty()) {
             binding.statusEditContentWarningDescription.hide()
             binding.statusEditContentWarningSeparator.hide()
         } else {
@@ -125,7 +125,7 @@ class ViewEditsAdapter(
             .parseAsMastodonHtml(pachliTagHandler)
             .emojify(edit.emojis, binding.statusEditContent, animateEmojis)
 
-        setClickableText(binding.statusEditContent, emojifiedText, emptyList(), emptyList(), listener)
+        setClickableText(binding.statusEditContent, emojifiedText, emptyList(), null, listener)
 
         val poll = edit.poll
         if (poll == null) {
