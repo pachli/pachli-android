@@ -20,6 +20,5 @@
     <string name="notification_details_title">Išsami informacija</string>
     <string name="notification_details_notifications_enabled_help">Pranešimai neįjungti nė vienoje jūsų paskyroje. Pakeiskite tai per Paskyros nuostatos &gt; Pranešimai. Iki tol visi pranešimai yra išjungti.</string>
     <string name="notification_details_unifiedpush_available">„UnifiedPush“ pasiekiama?</string>
-    <string name="action_refresh">Atnaujinti</string>
     <string name="notitication_log_filter_dialog_title">Rodyti žurnalo prioritetus</string>
 </resources>

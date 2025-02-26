@@ -66,5 +66,4 @@
     <string name="notification_log_method_unknown">Metoden som brukes for å levere varslinger, er ukjent</string>
     <string name="notification_log_method_pusherror">UnifiedPush er påslått men har oppdaget en feil: %1$s</string>
     <string name="notification_log_download_failed">Nedlasting mislyktes: %1$s</string>
-    <string name="action_refresh">Last inn på nytt</string>
 </resources>

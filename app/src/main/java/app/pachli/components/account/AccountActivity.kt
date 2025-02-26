@@ -1051,7 +1051,7 @@ class AccountActivity :
                 viewModel.changeShowReblogsState()
                 return true
             }
-            R.id.action_refresh -> {
+            R.id.action_refresh_account -> {
                 binding.swipeRefreshLayout.isRefreshing = true
                 onRefresh()
                 return true

@@ -35,5 +35,4 @@
     <string name="notification_details_ntfy_exempt_help">NTFY ei ole vapautettu akunkäytön optimoinnista. Android voi viivyttää ilmoituksia kun näyttö ei ole käytössä.</string>
     <string name="notification_details_pachli_exempt_help">Pachli ei ole vapautettu akunkäytön optimoinnista. Android saattaa viivyttää ilmoituksia kun näyttö ei ole käytössä.</string>
     <string name="notification_details_pachli_exempt">Onko Pachli vapautettu akunkäytön optimoinnista?</string>
-    <string name="action_refresh">Päivitä</string>
 </resources>
