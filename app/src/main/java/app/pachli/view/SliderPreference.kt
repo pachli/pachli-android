@@ -31,8 +31,6 @@ import app.pachli.core.designsystem.R as DR
 import app.pachli.databinding.PrefSliderBinding
 import com.google.android.material.slider.LabelFormatter.LABEL_GONE
 import com.google.android.material.slider.Slider
-import java.lang.Float.max
-import java.lang.Float.min
 
 /**
  * Slider preference
@@ -66,7 +64,7 @@ class SliderPreference @JvmOverloads constructor(
     var value: Float = DEFAULT_VALUE
         get() = _value
         set(v) {
-            val clamped = max(max(v, valueFrom), min(v, valueTo))
+            val clamped = v.coerceIn(valueFrom, valueTo)
             if (clamped == field) return
             _value = clamped
             persistFloat(v)
