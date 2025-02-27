@@ -423,7 +423,7 @@
         <item quantity="other">Popis pre zrakovo postihnutých (limit %d znakov)</item>
     </plurals>
     <string name="post_media_audio">Audio</string>
-    <string name="pref_title_thread_filter_keywords">Vlákna</string>
+    <string name="pref_title_thread_filter_keywords">Konverzácie</string>
     <string name="filter_add_description">Fráza pre filtrovanie</string>
     <string name="notification_clear_text">Naozaj si si istý/á, že chceš natrvalo vymazať všetky svoje oznámenia?</string>
     <string name="a11y_label_loading_thread">Načítavam vlákno</string>
@@ -796,4 +796,10 @@
     <string name="pref_account_notification_filters_label_not_followed">… ktoré nesleduješ</string>
     <string name="pref_account_notification_filters_label_younger_30d">… ktoré boli vytvorené za posledných 30 dní</string>
     <string name="account_filter_placeholder_type_mention_fmt">Účet @<b>%1s</b> ťa zmienil</string>
+    <string name="pref_title_public_filter_home_and_lists">Domov a zoznamy</string>
+    <string name="action_refresh_account">Aktualizovať účet</string>
+    <string name="account_filter_placeholder_type_conversation">Účet @<b>%1$s</b> začal konverzáciu</string>
+    <string name="pref_account_conversation_filters_subtitle">Čo sa má stať s konverzáciami začatými účtami…</string>
+    <string name="pref_summary_account_conversation_filters">Tvoj server nepodporuje filtre konverzácií</string>
+    <string name="pref_title_account_conversation_filters">Filtre konverzácií</string>
 </resources>
