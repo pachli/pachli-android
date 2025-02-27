@@ -5,7 +5,7 @@
     <string name="sources_featured">Wybrane przez ekipę twojego serwera</string>
     <string name="sources_most_followed">Jedno z najczęściej obserwowanych na twoim serwerze</string>
     <string name="sources_most_interactions">Przyciąga sporo uwagi na twoim serwerze</string>
-    <string name="sources_similar_to_recently_followed">Podobne do kont, które ostatnio zaobserwowano</string>
+    <string name="sources_similar_to_recently_followed">Podobne do kont, które obserwujesz</string>
     <string name="sources_friends_of_friends">Popularne wśród osób, które obserwujesz</string>
     <string name="sources_unknown">(serwer zwrócił nierozpoznawalne źródła)</string>
     <string name="action_follow_account">Obserwuj</string>
