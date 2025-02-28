@@ -1,0 +1,20 @@
+파탈리 2.10.0
+
+새로운 기능:
+
+- Atkinson Hyperlegible Next 글꼴 추가
+- 대화 내용 및 계정 필터
+- 게시물을 표시
+
+수정 :
+
+- "Refresh" 메뉴 수정
+- 게시물 편집을 볼 때 하이라이트 태그
+- assorted 충돌 방지
+- 오류에서 "dummy.placeholder" 제거
+- 제목별 정렬
+- UI 크기 슬라이더와 충돌 수정
+
+번역:
+
+- Burmese, German, Indonesian, Irish, Kabyle, Lithuanian, 노르웨이 Nynorsk, 폴란드어, Slovak, 스페인어, 스웨덴어, 타밀
