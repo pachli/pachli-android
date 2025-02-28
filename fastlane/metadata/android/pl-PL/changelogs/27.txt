@@ -1,0 +1,20 @@
+Pachli 2.10.0
+
+Nowości:
+
+- Dodana czcionka Atkinson Hyperlegible Next
+- Filtry zawartości i kont w rozmowach
+- Pokazywanie wpisu, na który się odpowiada
+
+Poprawki:
+
+- Podwójna pozycja "Odśwież" w menu
+- Podświetlanie hasztagów przy wyświetlaniu edycji wpisu
+- Zapobieganie różnym awariom
+- Usunięcie "dummy.placeholder" z błędów
+- Sortowanie list według tytułu
+- Naprawiona awaria związana z rozmiarem suwaka
+
+Tłumaczenia:
+
+- Birmański, niemiecki, indonezyjski, irlandzki, kabylski, litewski, norweski (nynorsk), polski, słowacki, hiszpański, szwedzki, tamilski
