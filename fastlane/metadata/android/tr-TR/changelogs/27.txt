@@ -1,0 +1,20 @@
+Pachli 2.10.00.0
+
+Yeni özellikler:
+
+- Add Atkinson Hyperlegible Next font
+- Konuşma içeriği ve hesabı filtreleri
+- Postayı göster
+
+Fixes:
+
+- Fix tekrar "Refresh" menüsü
+- Posta düzenlemelerini izleyen yüksek ışık etiketleri
+- Assorted kazaları önlemek
+- Hatalardan "dummy.placeholder" alın
+- Sort tarafından listeler
+- UI boyutu kaydırıcı ile kaza düzeltme
+
+Çeviriler:
+
+- Burmese, Alman, Endonezya, İrlandalı, Kabala, Litvanyalı, Norveç Nynorsk, Polonya, Slovakya, İsveç, Tamil
