@@ -105,7 +105,7 @@ class ViewEditsAdapter(
 
         binding.statusEditInfo.text = context.getString(infoStringRes, timestamp)
 
-        if (edit.spoilerText.removePrefix("<div/>").isEmpty()) {
+        if (edit.spoilerText.removePrefix("<div></div>").removePrefix("<div/>").isEmpty()) {
             binding.statusEditContentWarningDescription.hide()
             binding.statusEditContentWarningSeparator.hide()
         } else {
