@@ -1,0 +1,20 @@
+Pachli 2.10.
+
+Nieuwe kenmerken:
+
+Vertaling:
+- Conversatie inhoud en rekening filters
+- Laat de post zien dat ze antwoorden.
+
+Vertaling:
+
+Fix duplicaat "Refresh" menu
+- Hoge lichte tags als kijkcijfers
+- Voorbedachte crash
+- Verwijder "dummy.
+- Sort lijst met titels
+- Een ongeluk met UI-maat-slider
+
+Vertaling:
+
+- Burmese, Duits, Indonesisch, Iers, Kabyle, Lithuan, Noorse Nynorsk, Pools, Slovak, Spaans, Zweeds, Tamilish
