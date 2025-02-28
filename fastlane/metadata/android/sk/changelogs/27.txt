@@ -1,0 +1,20 @@
+Bradavičkehliadky 2.10.0
+
+Nové funkcie:
+
+- Pridať Atkinson Hyperlegible Ďalší písmo
+- Konzultačný obsah a filtre účtov
+- Ukážte príspevok, ktorý je odpovedal
+
+Opravy:
+
+- Fix duplicitné "Refresh" menu
+- Highlight tagy pri prezeraní post úprav
+- Zabráňte zakaleniu havárií
+- Odstrániť "dummy.placeholder" od chýb
+- Triedy podľa titulu
+- Fix havária s UI veľkosť lider
+
+Preklady:
+
+- Burmese, Nemecké, indonézske, írske, Kabyle, Litovčina, nórsky Nynorsk, Poľský, slovenský, španielsky, Tamil
