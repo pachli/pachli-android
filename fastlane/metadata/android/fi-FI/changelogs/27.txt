@@ -1,0 +1,20 @@
+Pachli 2.10.0
+
+Uudet ominaisuudet:
+
+Lisää Atkinson Hyperlegible Next font
+Keskustelusisältö ja tilisuodattimet
+Näytä, että posti on vastattu
+
+Korjaukset:
+
+Korjaa "Refresh"-valikko
+Korostukset, kun katselet postiedoksiantoja
+Vältettävä nyrkkeilyä
+Poista "dummy.placeholder" virheistä
+Listat otsikolla
+Korjaus törmäys UI-koon liukumi
+
+Käännökset:
+
+Burmese, saksalainen, indonesialainen, irlantilainen, Kabyle, Liettua, Norwegian Nynorsk, Puola, Slovak, espanja, tamili
