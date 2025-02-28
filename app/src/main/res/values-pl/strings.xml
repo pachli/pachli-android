@@ -582,7 +582,7 @@
     <string name="pref_title_content_filters">Filtry treści</string>
     <string name="notification_severed_relationships_name">Przerwane relacje</string>
     <string name="action_filter_search">Wyszukiwanie zaawansowane</string>
-    <string name="action_suggestions">Konta proponowane</string>
+    <string name="action_suggestions">Proponowane konta</string>
     <string name="action_translate">Przetłumacz</string>
     <string name="notification_severed_relationships_description">Powiadomienia o przerwanych relacjach</string>
     <string name="pref_title_show_self_boosts">Pokaż samopodbicia</string>
