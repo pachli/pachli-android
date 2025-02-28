@@ -22,6 +22,7 @@ import androidx.room.Room
 import androidx.room.withTransaction
 import app.pachli.core.database.AppDatabase
 import app.pachli.core.database.Converters
+import app.pachli.core.database.MIGRATE_10_11
 import app.pachli.core.database.MIGRATE_12_13
 import app.pachli.core.database.MIGRATE_18_19
 import app.pachli.core.database.MIGRATE_8_9
@@ -45,6 +46,7 @@ object DatabaseModule {
             .addTypeConverter(converters)
             .allowMainThreadQueries()
             .addMigrations(MIGRATE_8_9)
+            .addMigrations(MIGRATE_10_11)
             .addMigrations(MIGRATE_12_13)
             .addMigrations(MIGRATE_18_19)
             .build()

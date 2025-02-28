@@ -109,7 +109,7 @@ import java.util.TimeZone
         AutoMigration(from = 7, to = 8, spec = AppDatabase.MIGRATE_7_8::class),
         // 8 -> 9 is a custom migration
         AutoMigration(from = 9, to = 10),
-        AutoMigration(from = 10, to = 11),
+        // 10 -> 11 is a custom migration
         AutoMigration(from = 11, to = 12, spec = AppDatabase.MIGRATE_11_12::class),
         // 12 -> 13 is a custom migration
         AutoMigration(from = 13, to = 14, spec = AppDatabase.MIGRATE_13_14::class),
@@ -314,6 +314,67 @@ val MIGRATE_8_9 = object : Migration(8, 9) {
                 db.insert("ContentFiltersEntity", CONFLICT_IGNORE, contentFiltersEntityValues)
             }
         }
+    }
+}
+
+/**
+ * Clears references to deleted accounts.
+ *
+ * The migration from 10 -> 11 adds FK relationships to the AccountEntity table. Because of
+ * earlier bugs the child tables in those relationships may contain orphoned rows that
+ * reference accounts that have been logged out and deleted from AccountEntity. Trying to
+ * create those FK relationships will fail because of that.
+ *
+ * Remove any rows from those tables that reference an ID that is not in AccountEntity. This
+ * won't delete any live user data because it was supposed to be deleted when the user
+ * logged out.
+ */
+val MIGRATE_10_11 = object : Migration(10, 11) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        // Delete the data that would break the FK relationship.
+        db.execSQL("DELETE FROM DraftEntity WHERE accountId NOT IN (SELECT id FROM AccountEntity)")
+        db.execSQL("DELETE FROM TimelineAccountEntity WHERE timelineUserId NOT IN (SELECT id FROM AccountEntity)")
+        db.execSQL("DELETE FROM ConversationEntity WHERE accountId NOT IN (SELECT id FROM AccountEntity)")
+        db.execSQL("DELETE FROM RemoteKeyEntity WHERE accountId NOT IN (SELECT id FROM AccountEntity)")
+        db.execSQL("DELETE FROM StatusViewDataEntity WHERE timelineUserId NOT IN (SELECT id FROM AccountEntity)")
+        db.execSQL("DELETE FROM FollowingAccountEntity WHERE pachliAccountId NOT IN (SELECT id FROM AccountEntity)")
+
+        // Create tables with the new relationships and copy data over.
+        db.execSQL("CREATE TABLE IF NOT EXISTS `_new_DraftEntity` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `accountId` INTEGER NOT NULL, `inReplyToId` TEXT, `content` TEXT, `contentWarning` TEXT, `sensitive` INTEGER NOT NULL, `visibility` INTEGER NOT NULL, `attachments` TEXT NOT NULL, `poll` TEXT, `failedToSend` INTEGER NOT NULL, `failedToSendNew` INTEGER NOT NULL, `scheduledAt` INTEGER, `language` TEXT, `statusId` TEXT, FOREIGN KEY(`accountId`) REFERENCES `AccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)")
+        db.execSQL("INSERT INTO `_new_DraftEntity` (`id`,`accountId`,`inReplyToId`,`content`,`contentWarning`,`sensitive`,`visibility`,`attachments`,`poll`,`failedToSend`,`failedToSendNew`,`scheduledAt`,`language`,`statusId`) SELECT `id`,`accountId`,`inReplyToId`,`content`,`contentWarning`,`sensitive`,`visibility`,`attachments`,`poll`,`failedToSend`,`failedToSendNew`,`scheduledAt`,`language`,`statusId` FROM `DraftEntity`")
+        db.execSQL("DROP TABLE `DraftEntity`")
+        db.execSQL("ALTER TABLE `_new_DraftEntity` RENAME TO `DraftEntity`")
+        db.execSQL("CREATE INDEX IF NOT EXISTS `index_DraftEntity_accountId` ON `DraftEntity` (`accountId`)")
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS `_new_TimelineAccountEntity` (`serverId` TEXT NOT NULL, `timelineUserId` INTEGER NOT NULL, `localUsername` TEXT NOT NULL, `username` TEXT NOT NULL, `displayName` TEXT NOT NULL, `url` TEXT NOT NULL, `avatar` TEXT NOT NULL, `emojis` TEXT NOT NULL, `bot` INTEGER NOT NULL, `createdAt` INTEGER, PRIMARY KEY(`serverId`, `timelineUserId`), FOREIGN KEY(`timelineUserId`) REFERENCES `AccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)")
+        db.execSQL("INSERT INTO `_new_TimelineAccountEntity` (`serverId`,`timelineUserId`,`localUsername`,`username`,`displayName`,`url`,`avatar`,`emojis`,`bot`,`createdAt`) SELECT `serverId`,`timelineUserId`,`localUsername`,`username`,`displayName`,`url`,`avatar`,`emojis`,`bot`,`createdAt` FROM `TimelineAccountEntity`")
+        db.execSQL("DROP TABLE `TimelineAccountEntity`")
+        db.execSQL("ALTER TABLE `_new_TimelineAccountEntity` RENAME TO `TimelineAccountEntity`")
+        db.execSQL("CREATE INDEX IF NOT EXISTS `index_TimelineAccountEntity_timelineUserId` ON `TimelineAccountEntity` (`timelineUserId`)")
+
+        db.execSQL(
+            "CREATE TABLE IF NOT EXISTS `_new_ConversationEntity` (`accountId` INTEGER NOT NULL, `id` TEXT NOT NULL, `order` INTEGER NOT NULL, `accounts` TEXT NOT NULL, `unread` INTEGER NOT NULL, `s_id` TEXT NOT NULL, `s_url` TEXT, `s_inReplyToId` TEXT, `s_inReplyToAccountId` TEXT, `s_account` TEXT NOT NULL, `s_content` TEXT NOT NULL, `s_createdAt` INTEGER NOT NULL, `s_editedAt` INTEGER, `s_emojis` TEXT NOT NULL, `s_favouritesCount` INTEGER NOT NULL, `s_repliesCount` INTEGER NOT NULL, `s_favourited` INTEGER NOT NULL, `s_bookmarked` INTEGER NOT NULL, `s_sensitive` INTEGER NOT NULL, `s_spoilerText` TEXT NOT NULL, `s_attachments` TEXT NOT NULL, `s_mentions` TEXT NOT NULL, `s_tags` TEXT, `s_showingHiddenContent` INTEGER NOT NULL, `s_expanded` INTEGER NOT NULL, `s_collapsed` INTEGER NOT NULL, `s_muted` INTEGER NOT NULL, `s_poll` TEXT, `s_language` TEXT, PRIMARY KEY(`id`, `accountId`), FOREIGN KEY(`accountId`) REFERENCES `AccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
+        )
+        db.execSQL("INSERT INTO `_new_ConversationEntity` (`accountId`,`id`,`order`,`accounts`,`unread`,`s_id`,`s_url`,`s_inReplyToId`,`s_inReplyToAccountId`,`s_account`,`s_content`,`s_createdAt`,`s_editedAt`,`s_emojis`,`s_favouritesCount`,`s_repliesCount`,`s_favourited`,`s_bookmarked`,`s_sensitive`,`s_spoilerText`,`s_attachments`,`s_mentions`,`s_tags`,`s_showingHiddenContent`,`s_expanded`,`s_collapsed`,`s_muted`,`s_poll`,`s_language`) SELECT `accountId`,`id`,`order`,`accounts`,`unread`,`s_id`,`s_url`,`s_inReplyToId`,`s_inReplyToAccountId`,`s_account`,`s_content`,`s_createdAt`,`s_editedAt`,`s_emojis`,`s_favouritesCount`,`s_repliesCount`,`s_favourited`,`s_bookmarked`,`s_sensitive`,`s_spoilerText`,`s_attachments`,`s_mentions`,`s_tags`,`s_showingHiddenContent`,`s_expanded`,`s_collapsed`,`s_muted`,`s_poll`,`s_language` FROM `ConversationEntity`")
+        db.execSQL("DROP TABLE `ConversationEntity`")
+        db.execSQL("ALTER TABLE `_new_ConversationEntity` RENAME TO `ConversationEntity`")
+        db.execSQL("CREATE INDEX IF NOT EXISTS `index_ConversationEntity_accountId` ON `ConversationEntity` (`accountId`)")
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS `_new_RemoteKeyEntity` (`accountId` INTEGER NOT NULL, `timelineId` TEXT NOT NULL, `kind` TEXT NOT NULL, `key` TEXT, PRIMARY KEY(`accountId`, `timelineId`, `kind`), FOREIGN KEY(`accountId`) REFERENCES `AccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)")
+        db.execSQL("INSERT INTO `_new_RemoteKeyEntity` (`accountId`,`timelineId`,`kind`,`key`) SELECT `accountId`,`timelineId`,`kind`,`key` FROM `RemoteKeyEntity`")
+        db.execSQL("DROP TABLE `RemoteKeyEntity`")
+        db.execSQL("ALTER TABLE `_new_RemoteKeyEntity` RENAME TO `RemoteKeyEntity`")
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS `_new_StatusViewDataEntity` (`serverId` TEXT NOT NULL, `timelineUserId` INTEGER NOT NULL, `expanded` INTEGER NOT NULL, `contentShowing` INTEGER NOT NULL, `contentCollapsed` INTEGER NOT NULL, `translationState` TEXT NOT NULL DEFAULT 'SHOW_ORIGINAL', PRIMARY KEY(`serverId`, `timelineUserId`), FOREIGN KEY(`timelineUserId`) REFERENCES `AccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)")
+        db.execSQL("INSERT INTO `_new_StatusViewDataEntity` (`serverId`,`timelineUserId`,`expanded`,`contentShowing`,`contentCollapsed`,`translationState`) SELECT `serverId`,`timelineUserId`,`expanded`,`contentShowing`,`contentCollapsed`,`translationState` FROM `StatusViewDataEntity`")
+        db.execSQL("DROP TABLE `StatusViewDataEntity`")
+        db.execSQL("ALTER TABLE `_new_StatusViewDataEntity` RENAME TO `StatusViewDataEntity`")
+        db.execSQL("CREATE INDEX IF NOT EXISTS `index_StatusViewDataEntity_timelineUserId` ON `StatusViewDataEntity` (`timelineUserId`)")
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS `_new_FollowingAccountEntity` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, PRIMARY KEY(`pachliAccountId`, `serverId`), FOREIGN KEY(`pachliAccountId`) REFERENCES `AccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)")
+        db.execSQL("INSERT INTO `_new_FollowingAccountEntity` (`pachliAccountId`,`serverId`) SELECT `pachliAccountId`,`serverId` FROM `FollowingAccountEntity`")
+        db.execSQL("DROP TABLE `FollowingAccountEntity`")
+        db.execSQL("ALTER TABLE `_new_FollowingAccountEntity` RENAME TO `FollowingAccountEntity`")
     }
 }
 
