@@ -1,5 +1,46 @@
 # Pachli changelog
 
+## v2.10.0
+
+### New features and other improvements
+
+- Add Atkinson Hyperlegible Next as a selectable font (#[1311](https://github.com/pachli/pachli-android/pull/1311), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Implement content and account filters for conversations (#[1293](https://github.com/pachli/pachli-android/pull/1293), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Reflect status view changes in conversation view (#[1287](https://github.com/pachli/pachli-android/pull/1287), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Always show the post being replied to when replying (#[1263](https://github.com/pachli/pachli-android/pull/1263), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Persist notification filtering decisions locally (#[1196](https://github.com/pachli/pachli-android/pull/1196), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Significant bug fixes
+
+- Ensure UI size slider value can't go out of bounds and crash (#[1315](https://github.com/pachli/pachli-android/pull/1315), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Avoid duplicate "Refresh" menus, rename to "Refresh account" (#[1313](https://github.com/pachli/pachli-android/pull/1313), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Highlight modified hashtags when viewing status edits (#[1312](https://github.com/pachli/pachli-android/pull/1312), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Update UI on boosts, etc (#[1286](https://github.com/pachli/pachli-android/pull/1286), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Always opportunistically update status actions in search and threads (#[1283](https://github.com/pachli/pachli-android/pull/1283), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Don't crash when using active acccount before SetActiveAccount (#[1260](https://github.com/pachli/pachli-android/pull/1260), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Don't crash when viewing a thread and active account data is null (#[1259](https://github.com/pachli/pachli-android/pull/1259), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Don't crash when resuming if the account selector was open (#[1258](https://github.com/pachli/pachli-android/pull/1258), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Scroll and restore position correctly in Home and Notifications (#[1240](https://github.com/pachli/pachli-android/pull/1240), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Update server capabilities as Akkoma has v1 filter support (#[1238](https://github.com/pachli/pachli-android/pull/1238), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show an error message if a Dao error occurs during login (#[1235](https://github.com/pachli/pachli-android/pull/1235), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Remove "dummy.placeholder" from network error messages (#[1228](https://github.com/pachli/pachli-android/pull/1228), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show lists sorted by title (#[1218](https://github.com/pachli/pachli-android/pull/1218), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Translations
+
+- Update Burmese translations ([--//--](https://github.com/pachli/pachli-android/commits?author=htetoh2006@outlook.com))
+- Update German translations ([Björn Bause-Engel](https://github.com/pachli/pachli-android/commits?author=github@bjoernengel.de))
+- Update Indonesian translations ([Doctorredits_here](https://github.com/pachli/pachli-android/commits?author=182783629+doctorreditshere@users.noreply.github.com))
+- Update Irish translations ([Aindriú Mac Giolla Eoin](https://github.com/pachli/pachli-android/commits?author=aindriu80@gmail.com))
+- Update Kabyle translations ([ButterflyOfFire](https://github.com/pachli/pachli-android/commits?author=boffire@users.noreply.hosted.weblate.org))
+- Update Lithuanian translations ([Vaclovas Intas](https://github.com/pachli/pachli-android/commits?author=Gateway_31@protonmail.com))
+- Update Norwegian Nynorsk translations ([Sunniva Løvstad](https://github.com/pachli/pachli-android/commits?author=weblate@turtle.garden))
+- Update Polish translations ([Łukasz Horodecki](https://github.com/pachli/pachli-android/commits?author=dakilla@gmail.com))
+- Update Slovak translations ([Russssty](https://github.com/pachli/pachli-android/commits?author=rastislav.podracky@outlook.com))
+- Update Spanish translations ([Juan M Sevilla](https://github.com/pachli/pachli-android/commits?author=jumase@disroot.org))
+- Update Swedish translations ([jens persson](https://github.com/pachli/pachli-android/commits?author=jens@persson.cx))
+- Update Tamil translations ([தமிழ்நேரம்](https://github.com/pachli/pachli-android/commits?author=anishprabu.t@gmail.com))
+
 ## v2.9.2
 
 ### New features and other improvements

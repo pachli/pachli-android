@@ -1,0 +1,20 @@
+Pachli 2.10.0
+
+New features:
+
+- Add Atkinson Hyperlegible Next font
+- Conversation content and account filters
+- Show the post being replied to
+
+Fixes:
+
+- Fix duplicate "Refresh" menu
+- Highlight tags when viewing post edits
+- Prevent assorted crashes
+- Remove "dummy.placeholder" from errors
+- Sort lists by title
+- Fix crash with UI size slider
+
+Translations:
+
+- Burmese, German, Indonesian, Irish, Kabyle, Lithuanian, Norwegian Nynorsk, Polish, Slovak, Spanish, Swedish, Tamil
