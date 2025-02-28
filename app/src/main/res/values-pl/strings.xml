@@ -10,7 +10,7 @@
     <string name="error_media_upload_image_or_video">do wpisu nie mogą być dołączone jednocześnie obrazy i pliki wideo.</string>
     <string name="error_media_upload_sending">Wysyłanie nie powiodło się.</string>
     <string name="error_sender_account_gone">Wysyłanie wpisu nie powiodło się.</string>
-    <string name="title_home">Strona główna</string>
+    <string name="title_home">Twoja oś czasu</string>
     <string name="title_notifications">Powiadomienia</string>
     <string name="title_public_local">Lokalna oś czasu</string>
     <string name="title_public_federated">Globalna oś czasu</string>
@@ -203,7 +203,7 @@
     <string name="action_compose_shortcut">Nowy wpis</string>
     <string name="error_no_custom_emojis">Twoja instancja %s nie używa żadnych niestandardowych emoji</string>
     <string name="emoji_style">Styl emoji</string>
-    <string name="system_default">Domyślny systemu</string>
+    <string name="system_default">Jak w systemie</string>
     <string name="download_fonts">Musisz najpierw pobrać te zestawy emoji</string>
     <string name="expand_collapse_all_posts">Rozwiń/zwiń wszystkie wpisy</string>
     <string name="action_open_post">Otwórz wpis</string>
@@ -228,7 +228,7 @@
     <string name="action_view_account_preferences">Ustawienia konta</string>
     <string name="action_open_faved_by">Pokaż polubione</string>
     <string name="action_share_as">Udostępnij jako …</string>
-    <string name="title_tab_preferences">Zakładki</string>
+    <string name="title_tab_preferences">Karty</string>
     <string name="title_domain_mutes">Ukryte domeny</string>
     <string name="action_unreblog">Cofnij podbicie</string>
     <string name="action_view_domain_mutes">Ukryte domeny</string>
@@ -260,7 +260,7 @@
     <string name="about_pachli_version">Pachli %s</string>
     <string name="pref_title_alway_open_spoiler">Zawsze rozwijaj wpisy z ostrzeżeniami o zawartości</string>
     <string name="pref_title_public_filter_keywords">Publiczne osi czasu</string>
-    <string name="pref_title_thread_filter_keywords">Wątki</string>
+    <string name="pref_title_thread_filter_keywords">Rozmowy</string>
     <string name="filter_addition_title">Dodaj filtr</string>
     <string name="filter_edit_title">Edytuj filtr</string>
     <string name="filter_dialog_remove_button">Usuń</string>
@@ -815,4 +815,10 @@
     <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">błąd w dostępie do danych przez nieobsługiwany schemat: %1$s</string>
     <string name="search_operator_embed_dialog_title">Pokazać wpisy z kartami podglądu?</string>
     <string name="search_operator_attachment_dialog_any_label">Jakiekolwiek</string>
+    <string name="pref_title_public_filter_home_and_lists">Twoja oś czasu i listy</string>
+    <string name="pref_title_account_conversation_filters">Filtry rozmów</string>
+    <string name="pref_summary_account_conversation_filters">Twój serwer nie wspiera filtrowania rozmów</string>
+    <string name="pref_account_conversation_filters_subtitle">Co powinno się stać z rozmowami zaczętymi przez konta…</string>
+    <string name="account_filter_placeholder_type_conversation">Konto @<b>%1$s</b> zaczęło rozmowę</string>
+    <string name="action_refresh_account">Odśwież konto</string>
 </resources>
