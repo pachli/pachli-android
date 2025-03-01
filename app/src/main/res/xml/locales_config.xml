@@ -52,4 +52,5 @@
     <locale android:name="my"/>
     <locale android:name="lt"/>
     <locale android:name="nn"/>
+    <locale android:name="sk" />
 </locale-config>
