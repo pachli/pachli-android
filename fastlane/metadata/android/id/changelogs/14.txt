@@ -1,0 +1,16 @@
+Pachli 2.5.0
+
+Fitur Baru:
+
+- Transisi UX yang lebih halus
+- Bundel Let's Encrypt Certificates
+- Ambil lebih banyak posting, tautan & tagar yang lebih tren 
+- Sederhanakan Menambah/Menghapus Jadwal dari Tab
+- Perbarui terjemahan Finlandia, Kabyle, dan Spanyol 
+
+Perbaikan:
+
+- Mengaktifkan tindakan talkback dalam pemberitahuan & percakapan 
+- Tingkatkan transisi masuk/keluar video 
+- Perbarui pagecache untuk menangani pemesanan nonkronologis 
+- Izinkan kedaluwarsa filter diatur ke "tidak terbatas"
