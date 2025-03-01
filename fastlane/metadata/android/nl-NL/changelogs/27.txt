@@ -1,4 +1,4 @@
-Pachli 2.10.
+Pachli 2.10.0
 
 Nieuwe kenmerken:
 
