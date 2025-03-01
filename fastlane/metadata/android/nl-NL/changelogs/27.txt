@@ -1,8 +1,7 @@
 Pachli 2.10.0
 
 Nieuwe kenmerken:
-
-Vertaling:
+- Add Atkinson Hyperlegible Next font
 - Conversatie inhoud en rekening filters
 - Laat de post zien dat ze antwoorden.
 
@@ -15,6 +14,6 @@ Fix duplicaat "Refresh" menu
 - Sort lijst met titels
 - Een ongeluk met UI-maat-slider
 
-Vertaling:
+Translations:
 
 - Burmese, Duits, Indonesisch, Iers, Kabyle, Lithuan, Noorse Nynorsk, Pools, Slovak, Spaans, Zweeds, Tamilish
