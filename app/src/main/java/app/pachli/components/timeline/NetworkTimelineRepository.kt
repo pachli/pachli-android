@@ -157,6 +157,7 @@ class NetworkTimelineRepository @Inject constructor(
                 }
             }
         }
+        invalidate()
     }
 
     fun reload() {

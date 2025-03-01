@@ -161,7 +161,6 @@ class NetworkTimelineViewModel @Inject constructor(
                 it.copy(favourited = favEvent.favourite)
             }
         }
-        repository.invalidate()
     }
 
     override fun handleBookmarkEvent(bookmarkEvent: BookmarkEvent) {
@@ -170,7 +169,6 @@ class NetworkTimelineViewModel @Inject constructor(
                 it.copy(bookmarked = bookmarkEvent.bookmark)
             }
         }
-        repository.invalidate()
     }
 
     override fun handlePinEvent(pinEvent: PinEvent) {
@@ -179,7 +177,6 @@ class NetworkTimelineViewModel @Inject constructor(
                 it.copy(pinned = pinEvent.pinned)
             }
         }
-        repository.invalidate()
     }
 
     override fun clearWarning(statusViewData: StatusViewData) {
