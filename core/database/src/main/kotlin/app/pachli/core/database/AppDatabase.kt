@@ -321,7 +321,7 @@ val MIGRATE_8_9 = object : Migration(8, 9) {
  * Clears references to deleted accounts.
  *
  * The migration from 10 -> 11 adds FK relationships to the AccountEntity table. Because of
- * earlier bugs the child tables in those relationships may contain orphoned rows that
+ * earlier bugs the child tables in those relationships may contain orphaned rows that
  * reference accounts that have been logged out and deleted from AccountEntity. Trying to
  * create those FK relationships will fail because of that.
  *
