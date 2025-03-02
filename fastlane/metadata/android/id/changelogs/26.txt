@@ -1,0 +1,9 @@
+Pachli 2.9.2
+
+Fitur Baru:
+
+- Daftar tampilan diurutkan berdasarkan judul
+- Perbarui kemampuan server karena Akkoma memiliki dukungan filter V1
+- Hapus "dummy.placeHolder" dari pesan kesalahan jaringan
+- Tampilkan pesan kesalahan jika terjadi kesalahan DAO selama login
+- Perbarui terjemahan Burma, Irlandia, Norwegia, Spanyol, Swedia, dan Tamil Norwegia

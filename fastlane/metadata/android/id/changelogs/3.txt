@@ -1,0 +1,12 @@
+Pachli 1.2
+
+Fitur Baru:
+
+- Tampilkan gulir vertikal pada daftar yang dapat digulir 
+
+Perbaikan:
+
+- Kembalikan posisi membaca pengguna dalam segala keadaan 
+- Mengaktifkan/Nonaktifkan tombol VOTE Saat pengguna dapat/tidak dapat memilih 
+- Gunakan warna yang benar untuk bilah status
+- Pastikan teks opsi jajak pendapat terlihat di latar belakang
