@@ -75,3 +75,12 @@ jobs:
           whatsNewDirectory: googleplay/whatsnew
           status: completed
           mappingFile: app/build/outputs/mapping/orangeGoogleRelease/mapping.txt
+
+      - name: Create release in pachli-android-current
+        uses: ncipollo/release-action@v1
+        with:
+          artifactErrorsFailBuild: false
+          artifacts: ${{steps.sign_app_apk.outputs.signedReleaseFile}}
+          bodyFile: googleplay/whatsnew/whatsnew-en-US
+          repo: pachli-android-current
+          tag: pachli-current-${{ github.sha }}
