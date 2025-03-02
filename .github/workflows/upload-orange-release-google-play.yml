@@ -80,7 +80,7 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           artifactErrorsFailBuild: false
-          artifacts: ${{steps.sign_app_aab.outputs.signedReleaseFile}}
+          artifacts: ${{steps.sign_app_apk.outputs.signedReleaseFile}}
           bodyFile: googleplay/whatsnew/whatsnew-en-US
           repo: pachli-android-current
           tag: pachli-current-${{ github.sha }}
