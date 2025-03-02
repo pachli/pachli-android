@@ -79,6 +79,7 @@ jobs:
       - name: Create release in pachli-android-current
         uses: ncipollo/release-action@v1
         with:
+          token: ${{ secrets.PACHLI_ANDROID_CURRENT_CONTENTS_PAT }}
           artifactErrorsFailBuild: false
           artifacts: ${{steps.sign_app_apk.outputs.signedReleaseFile}}
           bodyFile: googleplay/whatsnew/whatsnew-en-US
