@@ -1,0 +1,15 @@
+Pachli 2.0.0
+
+Fitur Baru:
+
+- Terjemahkan status pada jadwal yang di -cache 
+- Tampilkan tombol Compose saat melihat tagar dan favorit
+- Tingkatkan jumlah informasi dalam pratinjau tautan 
+- Peringatkan pengguna tentang bug animasi android 
+
+Perbaikan:
+
+- Cegah ClassCastException saat menangani kesalahan jadwal waktu 
+- Perbarui warna tema
+- Pastikan kelas data terkait pembaruan dipertahankan 
+- Perbarui terjemahan Jerman, Italia, dan Jepang

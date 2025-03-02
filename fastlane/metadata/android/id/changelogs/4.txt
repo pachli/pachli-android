@@ -1,0 +1,5 @@
+Pachli 1.2.1
+
+Fitur Baru:
+
+- Tautan ke Kebijakan Privasi dari "Tentang"

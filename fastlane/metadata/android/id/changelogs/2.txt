@@ -1,0 +1,11 @@
+Pachli 1.1
+
+Perbaikan:
+
+- Gunakan warna kontras yang benar pada chip tab hashtag
+- Skala ikon monokrom agar sesuai
+- Mengembalikan posisi home timeline pengguna
+- Pastikan menyegarkan tidak membuat kesenjangan di garis waktu
+- Tampilkan FAB sesuai dengan preferensi pengguna
+- Perbaiki bilah alat berkedip ketika scrolling daftar
+- Perbaiki crash saat memasuki MainActivity pada perangkat Pixel C
