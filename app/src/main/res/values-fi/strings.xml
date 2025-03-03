@@ -251,7 +251,7 @@
     <string name="post_media_attachments">Liitteet</string>
     <string name="title_media">Media</string>
     <string name="pref_title_public_filter_keywords">Julkiset aikajanat</string>
-    <string name="pref_title_thread_filter_keywords">Ketjut</string>
+    <string name="pref_title_thread_filter_keywords">Keskustelut</string>
     <string name="filter_addition_title">Lisää suodatin</string>
     <string name="later">Myöhemmin</string>
     <string name="description_post_cw">Sisältövaroitus: %s</string>
@@ -797,7 +797,7 @@
     <string name="preview_card_byline_name_only_fmt">Tehnyt &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="action_refresh_account">Päivitä tili</string>
     <string name="pref_title_account_conversation_filters">Keskustelusuodattimet</string>
-    <string name="pref_account_conversation_filters_subtitle">Mitä tehdään keskusteluille, jotka aloittanut tili…</string>
+    <string name="pref_account_conversation_filters_subtitle">Mitä tehdään keskusteluille, jotka on aloittanut tili…</string>
     <string name="pref_title_public_filter_home_and_lists">Koti ja listat</string>
     <string name="pref_summary_account_conversation_filters">Palvelimesi ei tue keskustelusuodattimia</string>
     <string name="account_filter_placeholder_type_conversation">Käyttäjä @<b>%1$s</b> aloitti keskustelun</string>
