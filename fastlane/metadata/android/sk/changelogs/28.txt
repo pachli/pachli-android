@@ -1,0 +1,11 @@
+Bradavičkehliadka 2.1
+
+Opravy:
+
+- Uistite sa, že všetky jazyky sú vybrané pomocou nastavení systému
+- Odstráňte staré údaje o účte pred vytvorením FK obmedzení
+- Uistite sa, že "Show Každopádne" pracuje vo všetkých časových obdobiach
+
+Preklady:
+
+- fínsky, indonézsky, írsky, Poľský
