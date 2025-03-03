@@ -19,6 +19,7 @@ package app.pachli.updatecheck
 
 import android.content.Intent
 import android.net.Uri
+import app.pachli.BuildConfig
 import app.pachli.core.preferences.SharedPreferencesRepository
 import com.github.michaelbull.result.get
 import javax.inject.Inject
@@ -30,11 +31,18 @@ class UpdateCheck @Inject constructor(
     private val versionCodeExtractor = """(\d+)\.apk""".toRegex()
 
     override val updateIntent = Intent(Intent.ACTION_VIEW).apply {
-        data = Uri.parse("https://www.github.com/pachli/pachli-android/releases/latest")
+        data = when (BuildConfig.FLAVOR_color) {
+            "orange" -> Uri.parse("https://www.github.com/pachli/pachli-android-current/releases/latest")
+            else -> Uri.parse("https://www.github.com/pachli/pachli-android/releases/latest")
+        }
     }
 
     override suspend fun remoteFetchLatestVersionCode(): Int? {
-        val release = gitHubService.getLatestRelease("pachli", "pachli-android").get()?.body ?: return null
+        val release = when (BuildConfig.FLAVOR_color) {
+            "orange" -> gitHubService.getLatestRelease("pachli", "pachli-android-current").get()?.body
+            else -> gitHubService.getLatestRelease("pachli", "pachli-android").get()?.body
+        } ?: return null
+
         for (asset in release.assets) {
             if (asset.contentType != "application/vnd.android.package-archive") continue
             return versionCodeExtractor.find(asset.name)?.groups?.get(1)?.value?.toIntOrNull() ?: continue
