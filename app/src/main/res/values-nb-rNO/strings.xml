@@ -173,7 +173,6 @@
         <item quantity="other">%d nye interaksjoner</item>
     </plurals>
     <string name="description_account_locked">Låst konto</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <string name="post_share_content">Del inneholdet i innlegget</string>
     <string name="post_share_link">Del lenke til tuten</string>
     <string name="post_media_images">Bilder</string>

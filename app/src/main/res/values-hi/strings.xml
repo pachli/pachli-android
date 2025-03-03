@@ -47,7 +47,6 @@
     <string name="title_posts">पोस्ट</string>
     <string name="title_home">घर</string>
     <string name="restart_emoji">इन परिवर्तनों को लागू करने के लिए आपको टस्की को पुनः आरंभ करना होगा</string>
-    <string name="about_pachli_version">टस्की %s</string>
     <string name="description_account_locked">बंद खाता</string>
     <string name="notification_summary_small">%1$s तथा %2$s</string>
     <string name="notification_summary_medium">%1$s, %2$s, तथा %3$s</string>

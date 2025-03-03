@@ -206,7 +206,6 @@
         <item quantity="other">%d nýjar aðgerðir</item>
     </plurals>
     <string name="description_account_locked">Læstur notandaaðgangur</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <string name="post_share_content">Deila efni úr færslu</string>
     <string name="post_share_link">Deila tengli á færslu</string>
     <string name="post_media_images">Myndir</string>

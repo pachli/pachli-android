@@ -256,7 +256,6 @@
     <string name="pref_title_animate_gif_avatars">پویانمایی آواتارهای جیف</string>
     <string name="notification_poll_name">نظرسنجی‌ها</string>
     <string name="notification_poll_description">آگاهی‌ها دربارهٔ نظرسنجی‌های پایان‌یافته</string>
-    <string name="about_pachli_version">تاسکی %s</string>
     <string name="abbreviated_years_ago">%d سال</string>
     <string name="abbreviated_days_ago">%d روز</string>
     <string name="abbreviated_hours_ago">%d ساعت</string>

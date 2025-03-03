@@ -94,7 +94,6 @@
     <string name="notification_follow_name">Pengikut Baru</string>
     <string name="notification_follow_description">Notifikasi tentang pengikut baru</string>
     <string name="notification_sign_up_name">Daftar</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <string name="post_media_video">Video</string>
     <string name="post_media_audio">Audio</string>
     <string name="post_media_attachments">Lampiran</string>

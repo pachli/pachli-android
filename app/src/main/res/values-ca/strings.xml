@@ -134,7 +134,6 @@
         <item quantity="other">%d interaccions noves</item>
     </plurals>
     <string name="description_account_locked">Compte blocat</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <!-- note to translators: the url can be changed to link to the localized version of the license -->
     <string name="post_share_content">Comparteix el contingut de la publicació</string>
     <string name="post_share_link">Comparteix l\'enllaç a la publicació</string>

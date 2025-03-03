@@ -91,7 +91,6 @@
     <string name="post_text_size_largest">Lielākais</string>
     <string name="notification_poll_name">Aptaujas</string>
     <string name="notification_report_name">Ziņojumi</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <string name="post_media_video">Video</string>
     <string name="post_media_audio">Audio</string>
     <string name="post_media_attachments">Pielikumi</string>

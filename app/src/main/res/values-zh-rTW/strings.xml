@@ -333,7 +333,6 @@
     <string name="mute_domain_warning">你確定要封鎖 %s 域名嗎？您將不會在任何聯邦時間軸或通知中看到該域名中的內容，且來自該域名的關注者將被移除。</string>
     <string name="mute_domain_warning_dialog_ok">隱藏整個域名</string>
     <string name="pref_title_animate_gif_avatars">GIF 動畫大頭貼</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <string name="filter_dialog_whole_word">整個單詞</string>
     <string name="filter_dialog_whole_word_description">如果關鍵字或短語僅為字母或數字，則只有在匹配整個單詞時才會應用</string>
     <string name="description_poll">使用以下選項創建投票：%1$s, %2$s, %3$s, %4$s; %5$s</string>

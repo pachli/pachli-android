@@ -198,7 +198,6 @@
     <string name="notification_notification_worker">Recupero notifiche…</string>
     <string name="notification_prune_cache">Pulizia cache…</string>
     <string name="description_account_locked">Account bloccato</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <!-- note to translators:
          * you should think of “free” as in “free speech,” not as in “free beer”.
            We sometimes call it “libre software,” borrowing the French or Spanish word for “free” as in freedom,

@@ -147,7 +147,6 @@
     <string name="post_media_images">ภาพ</string>
     <string name="post_share_link">แบ่งปันลิงก์ Toot</string>
     <string name="post_share_content">แบ่งปันเนื้อหา Toot</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <string name="description_account_locked">บัญชีไม่สาธารณะ</string>
     <plurals name="notification_title_summary">
         <item quantity="other">การโต้ตอบใหม่จำนวน %d</item>

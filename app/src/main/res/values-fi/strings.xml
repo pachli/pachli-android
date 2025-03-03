@@ -29,7 +29,6 @@
     <string name="lock_account_label">Lukitse tili</string>
     <string name="add_account_name">Lisää tili</string>
     <string name="follows_you">Seuraa sinua</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <string name="description_account_locked">Lukittu tili</string>
     <string name="notification_subscription_name">Uudet tuuttaukset</string>
     <string name="notification_follow_request_name">Seuraamispyynnöt</string>

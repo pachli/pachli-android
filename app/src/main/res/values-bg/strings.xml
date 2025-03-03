@@ -155,7 +155,6 @@
     <string name="post_media_images">Изображения</string>
     <string name="post_share_link">Споделяне на връзка към публикация</string>
     <string name="post_share_content">Споделяне на съдържание на публикация</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <string name="description_account_locked">Заключен акаунт</string>
     <plurals name="notification_title_summary">
         <item quantity="other">%d нови взаимодействия</item>

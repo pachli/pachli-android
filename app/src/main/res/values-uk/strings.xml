@@ -273,7 +273,6 @@
     <string name="post_media_images">Зображення</string>
     <string name="post_share_link">Поділитися посиланням на допис</string>
     <string name="post_share_content">Поділитися вмістом допису</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <string name="description_account_locked">Заблокований обліковий запис</string>
     <plurals name="notification_title_summary">
         <item quantity="one">%d нова взаємодія</item>

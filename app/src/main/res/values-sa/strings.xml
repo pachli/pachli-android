@@ -187,7 +187,6 @@
     <string name="post_media_images">चित्राणि</string>
     <string name="post_share_link">दौत्याय जालस्थानं विभाज्यताम्</string>
     <string name="post_share_content">दौत्यविषयो विभाज्यताम्</string>
-    <string name="about_pachli_version">टस्की %s</string>
     <string name="description_account_locked">कपाटितव्यक्तिविवरणलेखः</string>
     <plurals name="notification_title_summary">
         <item quantity="one">%d नवपरस्परक्रिया</item>

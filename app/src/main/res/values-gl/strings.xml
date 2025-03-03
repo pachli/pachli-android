@@ -259,7 +259,6 @@
     <string name="post_media_images">Imaxes</string>
     <string name="post_share_link">Compartir ligazón ao toot</string>
     <string name="post_share_content">Compartir contido do toot</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <string name="description_account_locked">Conta bloqueada</string>
     <plurals name="notification_title_summary">
         <item quantity="one">%d nova interacción</item>
