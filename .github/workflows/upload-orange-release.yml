@@ -1,4 +1,4 @@
-name: Upload orangeRelease to Google Play
+name: Upload orangeRelease
 
 on:
   workflow_dispatch:
@@ -20,17 +20,32 @@ jobs:
       - name: Test
         run: ./gradlew app:testOrangeGoogleReleaseUnitTest --stacktrace
 
-      - name: Build APK
+      - name: Build APK for Google
         run: ./gradlew assembleOrangeGoogleRelease --stacktrace
 
-      - name: Build AAB
+      - name: Build APK for Github
+        run: ./gradlew assembleOrangeGithubRelease --stacktrace
+
+      - name: Build AAB for Google
         run: ./gradlew :app:bundleOrangeGoogleRelease --stacktrace
 
       - uses: r0adkll/sign-android-release@dbeba6b98a60b0fd540c02443c7f428cdedf0e7f # v1.0.4
-        name: Sign app APK
-        id: sign_app_apk
+        name: Sign app Google APK
+        id: sign_app_google_apk
         with:
           releaseDirectory: app/build/outputs/apk/orangeGoogle/release
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          alias: ${{ secrets.SIGNING_KEY_ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+        env:
+          BUILD_TOOLS_VERSION: "34.0.0"
+
+      - uses: r0adkll/sign-android-release@dbeba6b98a60b0fd540c02443c7f428cdedf0e7f # v1.0.4
+        name: Sign app Github APK
+        id: sign_app_github_apk
+        with:
+          releaseDirectory: app/build/outputs/apk/orangeGithub/release
           signingKeyBase64: ${{ secrets.SIGNING_KEY }}
           alias: ${{ secrets.SIGNING_KEY_ALIAS }}
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
@@ -50,12 +65,12 @@ jobs:
         env:
           BUILD_TOOLS_VERSION: "34.0.0"
 
-      - name: Upload APK Release Asset
+      - name: Upload Google APK Release Asset
         id: upload-release-asset-apk
         uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4
         with:
           name: app-release.apk
-          path: ${{steps.sign_app_apk.outputs.signedReleaseFile}}
+          path: ${{steps.sign_app_google_apk.outputs.signedReleaseFile}}
           compression-level: 0
 
       - name: Generate whatsnew
@@ -81,7 +96,7 @@ jobs:
         with:
           token: ${{ secrets.PACHLI_ANDROID_CURRENT_CONTENTS_PAT }}
           artifactErrorsFailBuild: false
-          artifacts: ${{steps.sign_app_apk.outputs.signedReleaseFile}}
+          artifacts: ${{steps.sign_app_github_apk.outputs.signedReleaseFile}}
           bodyFile: googleplay/whatsnew/whatsnew-en-US
           repo: pachli-android-current
           tag: pachli-current-${{ github.sha }}
