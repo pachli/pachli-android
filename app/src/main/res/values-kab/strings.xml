@@ -67,7 +67,6 @@
     <string name="notification_summary_large">%1$s, %2$s, %3$s d %4$d nniḍen</string>
     <string name="notification_summary_medium">%1$s, %2$s, akked %3$s</string>
     <string name="notification_summary_small">%1$s akked %2$s</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <string name="post_media_images">Tugniwin</string>
     <string name="post_media_video">Tibidyutin</string>
     <string name="follows_you">Yeṭṭafar-ik·ikem-id</string>

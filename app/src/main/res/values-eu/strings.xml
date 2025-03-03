@@ -263,7 +263,6 @@
     <string name="pref_title_animate_gif_avatars">GIF abatarrak animatu</string>
     <string name="notification_poll_name">Galdeketak</string>
     <string name="notification_poll_description">Bukatutako galdeketen jakinarazpenak</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <string name="abbreviated_hours_ago">%dh</string>
     <string name="abbreviated_minutes_ago">%dm</string>
     <string name="abbreviated_seconds_ago">%ds</string>

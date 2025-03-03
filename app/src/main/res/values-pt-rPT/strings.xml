@@ -239,7 +239,6 @@
     <string name="notification_summary_large">%1$s, %2$s, %3$s e %4$d outros</string>
     <string name="notification_summary_medium">%1$s, %2$s e %3$s</string>
     <string name="description_account_locked">Perfil Privado</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <string name="filter_dialog_update_button">Atualizar</string>
     <string name="post_share_content">Partilhar conteúdo do toot</string>
     <string name="post_share_link">Partilhar hiperligação do toot</string>

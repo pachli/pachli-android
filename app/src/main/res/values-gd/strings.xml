@@ -273,7 +273,6 @@
     <string name="state_follow_requested">Iarrtas leantainn air</string>
     <string name="post_media_video">Videothan</string>
     <string name="post_media_images">Dealbhan</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <string name="description_account_locked">Cunntas glaiste</string>
     <plurals name="notification_title_summary">
         <item quantity="one">%d chonaltradh ùr</item>

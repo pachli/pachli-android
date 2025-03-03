@@ -221,7 +221,6 @@
     <string name="notification_boost_description">Thông báo khi tút của bạn được đăng lại</string>
     <string name="notification_boost_name">Đăng lại</string>
     <string name="notification_follow_request_description">Thông báo về lượt yêu cầu theo dõi</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <string name="description_account_locked">Tài khoản bị khóa</string>
     <string name="notification_poll_description">Thông báo khi một cuộc bình chọn kết thúc</string>
     <string name="notification_poll_name">Bình chọn</string>

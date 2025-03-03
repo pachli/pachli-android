@@ -72,7 +72,6 @@
     <string name="post_media_images">চিত্রগুলি</string>
     <string name="post_share_link">টুট এর সাথে লিংক ভাগ করুন</string>
     <string name="post_share_content">টুট এর কন্টেন্ট ভাগ করুন</string>
-    <string name="about_pachli_version">টাস্কি %s</string>
     <string name="description_account_locked">লক অ্যাকাউন্ট</string>
     <string name="notification_poll_description">শেষ হয়েছে যে নির্বাচনগুলির সম্পর্কে বিজ্ঞপ্তি</string>
     <string name="notification_poll_name">নির্বাচনগুলি</string>

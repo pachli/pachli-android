@@ -586,7 +586,6 @@
     <string name="pref_notification_fetch_method_title">Spôsob upozornenia</string>
     <string name="notification_notification_worker">Načítavam upozornenia…</string>
     <string name="notification_prune_cache">Údržba cache…</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <string name="abbreviated_in_days">za %dd</string>
     <string name="load_newest_statuses">Načítať najnovšie príspevky</string>
     <string name="update_dialog_neutral">Neupozorňuj ma na túto verziu</string>

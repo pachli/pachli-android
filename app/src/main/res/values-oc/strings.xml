@@ -241,7 +241,6 @@
     <string name="pref_title_proxy_settings">Servidor mandatari</string>
     <string name="pref_default_media_sensitivity">Totjorn marcar los mèdias coma sensibles</string>
     <string name="pref_failed_to_sync">Fracàs de la sincronizacion dels paramètres</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <string name="abbreviated_days_ago">%dd</string>
     <string name="abbreviated_hours_ago">%dh</string>
     <string name="abbreviated_minutes_ago">%dm</string>

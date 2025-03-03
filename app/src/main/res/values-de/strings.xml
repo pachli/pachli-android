@@ -332,7 +332,6 @@
     <string name="duration_3_days">3 Tage</string>
     <string name="duration_7_days">7 Tage</string>
     <string name="edit_poll">Bearbeiten</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <string name="action_add_poll">Umfrage hinzufügen</string>
     <string name="pref_title_alway_open_spoiler">Beiträge mit Inhaltswarnungen immer ausklappen</string>
     <string name="description_poll">Umfrage mit den Möglichkeiten: %1$s, %2$s, %3$s, %4$s; %5$s</string>

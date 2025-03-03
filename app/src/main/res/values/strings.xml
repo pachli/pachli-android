@@ -336,7 +336,6 @@
     <string name="notification_notification_worker">Fetching notifications…</string>
     <string name="notification_prune_cache">Cache maintenance…</string>
     <string name="description_account_locked">Locked Account</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <!-- note to translators:
          * you should think of “free” as in “free speech,” not as in “free beer”.
            We sometimes call it “libre software,” borrowing the French or Spanish word for “free” as in freedom,

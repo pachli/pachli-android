@@ -383,7 +383,6 @@
     <string name="notification_mention_format">%s nemnde deg</string>
     <string name="notification_notification_worker">Hentar varsel…</string>
     <string name="description_account_locked">Låst konto</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <string name="post_share_link">Del lenkja til innlegget</string>
     <string name="post_media_image">Bilete</string>
     <string name="post_media_images">Bilete</string>

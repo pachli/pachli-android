@@ -174,7 +174,6 @@
         <item quantity="other">%d novih interakcij</item>
     </plurals>
     <string name="description_account_locked">Zaklenjen račun</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <string name="post_share_content">Deli vsebino tuta</string>
     <string name="post_share_link">Deli povezavo do tuta</string>
     <string name="post_media_images">Slike</string>

@@ -174,7 +174,6 @@
         <item quantity="other">%d novas interações</item>
     </plurals>
     <string name="description_account_locked">Perfil trancado</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <!-- note to translators:
          * you should think of “free” as in “free speech,” not as in “free beer”.
            We sometimes call it “libre software,” borrowing the French or Spanish word for “free” as in freedom,

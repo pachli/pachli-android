@@ -412,7 +412,6 @@
     <string name="pref_title_alway_open_spoiler">總是顯示被標注為內容警告的嘟文</string>
     <string name="post_media_attachments">附件</string>
     <string name="post_media_audio">錄音</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <string name="notification_subscription_description">當你關注的人發布新嘟文時通知</string>
     <string name="notification_subscription_name">新嘟文</string>
     <string name="notification_follow_request_description">關注請求的通知</string>

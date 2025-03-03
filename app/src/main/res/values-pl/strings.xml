@@ -257,7 +257,6 @@
     <string name="pref_failed_to_sync">Synchronizacja ustawień nie powiodła się</string>
     <string name="notification_poll_name">Ankiety</string>
     <string name="notification_poll_description">Powiadomienia o zakończeniu ankiet</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <string name="pref_title_alway_open_spoiler">Zawsze rozwijaj wpisy z ostrzeżeniami o zawartości</string>
     <string name="pref_title_public_filter_keywords">Publiczne osi czasu</string>
     <string name="pref_title_thread_filter_keywords">Rozmowy</string>

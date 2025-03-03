@@ -190,7 +190,6 @@
         <item quantity="other">Новых событий: %d</item>
     </plurals>
     <string name="description_account_locked">Закрытый аккаунт</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <!-- note to translators: the url can be changed to link to the localized version of the license -->
     <string name="post_share_content">Поделиться содержанием гудка</string>
     <string name="post_share_link">Поделиться ссылкой на гудок</string>
