@@ -1,0 +1,11 @@
+Pachli 2.10.1
+
+Arreglos:
+
+- Asegurar que todos los idiomas sean seleccionables mediante la configuración del sistema
+- Retire los datos antiguos de la cuenta antes de crear restricciones FK
+- Asegurar que "Mostrar de todos modos" funcione en todos los plazos
+
+Traducciones:
+
+- Finlandés, indonesio, irlandés, polaco
