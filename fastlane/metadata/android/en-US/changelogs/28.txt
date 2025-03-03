@@ -1,0 +1,11 @@
+Pachli 2.10.1
+
+Fixes:
+
+- Ensure all languages are selectable via system settings
+- Remove old account data before creating FK constraints
+- Ensure "Show Anyway" works in all timelines
+
+Translations:
+
+- Finnish, Indonesian, Irish, Polish
