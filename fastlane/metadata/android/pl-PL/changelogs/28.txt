@@ -1,0 +1,11 @@
+Pachli 2.10.1
+
+Fiksy
+
+- wszystkie języki są wybierane za pomocą ustawień systemowych.
+Remove stare dane rachunkowe przed tworzeniem ograniczeń FK.
+Ensure „Show Anyway” pracuje we wszystkich liniach czasowych.
+
+Tłumaczenie:
+
+Fiński, indonezyjski, irlandzki, polski
