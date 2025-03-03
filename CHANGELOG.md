@@ -1,5 +1,20 @@
 # Pachli changelog
 
+## v2.10.1
+
+### Significant bug fixes
+
+- Ensure all languages are selectable via system settings (#[1327](https://github.com/pachli/pachli-android/pull/1327), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Remove old account data before creating FK constraints (#[1322](https://github.com/pachli/pachli-android/pull/1322), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Ensure "Show Anyway" works in all timelines (#[1324](https://github.com/pachli/pachli-android/pull/1324), [Angelo Suzuki](https://github.com/pachli/pachli-android/commits?author=1063155+tinsukE@users.noreply.github.com))
+
+### Translations
+
+- Update Finnish translations ([Kalle Kniivilä](https://github.com/pachli/pachli-android/commits?author=kalle.kniivila@gmail.com))
+- Update Indonesian translations ([Doctorredits_here](https://github.com/pachli/pachli-android/commits?author=182783629+doctorreditshere@users.noreply.github.com))
+- Update Irish translations ([Aindriú Mac Giolla Eoin](https://github.com/pachli/pachli-android/commits?author=aindriu80@gmail.com))
+- Update Polish translations ([Łukasz Horodecki](https://github.com/pachli/pachli-android/commits?author=dakilla@gmail.com))
+
 ## v2.10.0
 
 ### New features and other improvements
