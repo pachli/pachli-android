@@ -136,12 +136,18 @@ class FilterActionAdapter(context: Context) : ArrayAdapter<FilterAction>(
  * @param timeline The [AccountFilterTimeline] affected by the filters.
  * @param dialogTitleId String resource to use as the dialog's title.
  * @param dialogSubtitleId String resource to use as the dialog's subtitle.
+ * @param labelNotFollowed String resource to use as the label for the "not followed" menu
+ * @param labelYounger30d String resource to use as the label for the "last 30 days" menu
+ * @param labelLimitedByServer String resource to use as the label for the "limited" menu
  */
 @AndroidEntryPoint
 abstract class BaseAccountFiltersPreferencesDialogFragment(
     private val timeline: AccountFilterTimeline,
     @StringRes private val dialogTitleId: Int,
     @StringRes private val dialogSubtitleId: Int,
+    @StringRes private val labelNotFollowed: Int,
+    @StringRes private val labelYounger30d: Int,
+    @StringRes private val labelLimitedByServer: Int,
 ) : DialogFragment(R.layout.pref_account_filters) {
     private val viewModel: AccountFiltersPreferenceViewModel by viewModels(
         extrasProducer = {
@@ -168,6 +174,10 @@ abstract class BaseAccountFiltersPreferencesDialogFragment(
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         binding = PrefAccountFiltersBinding.inflate(layoutInflater)
         binding.title.text = getString(dialogSubtitleId)
+
+        binding.titleNotFollowed.text = getString(labelNotFollowed)
+        binding.titleYounger30d.text = getString(labelYounger30d)
+        binding.titleLimitedByServer.text = getString(labelLimitedByServer)
 
         val builder = AlertDialog.Builder(requireContext())
             .setTitle(dialogTitleId)

@@ -27,6 +27,9 @@ class AccountNotificationFiltersPreferencesDialogFragment :
         AccountFilterTimeline.NOTIFICATIONS,
         R.string.pref_title_account_notification_filters,
         R.string.pref_account_notification_filters_subtitle,
+        R.string.pref_account_notification_filters_label_not_followed,
+        R.string.pref_account_notification_filters_label_younger_30d,
+        R.string.pref_account_notification_filters_label_limited_by_server,
     ) {
     companion object {
         fun newInstance(

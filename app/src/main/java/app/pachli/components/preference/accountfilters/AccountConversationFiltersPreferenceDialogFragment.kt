@@ -30,6 +30,9 @@ class AccountConversationFiltersPreferenceDialogFragment :
         AccountFilterTimeline.CONVERSATIONS,
         R.string.pref_title_account_conversation_filters,
         R.string.pref_account_conversation_filters_subtitle,
+        R.string.pref_account_conversation_filters_label_not_followed,
+        R.string.pref_account_conversation_filters_label_younger_30d,
+        R.string.pref_account_conversation_filters_label_limited_by_server,
     ) {
 
     companion object {
