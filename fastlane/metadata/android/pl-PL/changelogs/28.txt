@@ -1,6 +1,6 @@
 Pachli 2.10.1
 
-Poprawki
+Poprawki:
 
 - Wszystkie języki są wybieralne w ustawieniach systemowych.
 - Usuwanie starych danych konta po wylogowaniu.
