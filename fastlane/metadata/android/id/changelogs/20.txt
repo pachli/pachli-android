@@ -1,0 +1,14 @@
+Pachli 2.8.0
+
+Fitur baru:
+
+- Preferensi eksperimental untuk membalikkan timeline beranda
+- Meningkatkan keandalan notifikasi push dan pull
+
+Perbaikan:
+
+- Tampilkan nama aplikasi posting jika tautan aplikasi hilang
+- Menoleransi bidang status yang hilang di veganism.social
+- Merender tagar, sebutan, dan paras awal dengan benar di RTL
+- Filter pencarian menggunakan warna yang benar dalam mode gelap dan hitam
+- Perbarui terjemahan bahasa Finlandia, Galicia, Irlandia, Norwegia, dan Spanyol

@@ -35,7 +35,7 @@
     <string name="about_powered_by_pachli">Beží na Pachli</string>
     <string name="about_pachli_license">Pachli je bezplatný a open-source software. Je licencovaný pod GNU General Public License, verzia 3. Licenciu si môžeš pozrieť tu:: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
     <string name="about_project_site">Web projektu: https://pachli.app</string>
-    <string name="about_bug_feature_request_site">Hlásenie chýb a návrhy\"\nhttps://github.com/pachli/pachli-android/issues</string>
+    <string name="about_bug_feature_request_site">Hlásenie chýb a návrhy:\nhttps://github.com/pachli/pachli-android/issues</string>
     <string name="about_privacy_policy">Zásady ochrany osobných údajov</string>
     <string name="about_pachli_account">Profil aplikácie Pachli</string>
     <string name="about_account_info">\@%s@%s\nVerzia: %s</string>

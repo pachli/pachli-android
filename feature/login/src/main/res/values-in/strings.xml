@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_close">Tutup</string>
     <string name="error_invalid_domain">Domain yang dimasukkan tidak valid</string>
@@ -14,4 +14,7 @@
     <string name="title_login">Masuk</string>
     <string name="error_could_not_load_login_page">Tidak dapat memuat halaman masuk.</string>
     <string name="action_browser_login">Masuk dengan Browser</string>
+    <string name="dialog_whats_an_instance">Alamat atau domain instance mana pun dapat dimasukkan di sini, seperti mastodon.social, icosahedron.website, social.tchncs.de, dan <a href="https://instances.social">lebih banyak lagi!</a> \n\nInstance adalah satu tempat di mana akun Anda di-host, tetapi Anda dapat dengan mudah berkomunikasi dengan dan mengikuti orang-orang di instance lain seolah-olah Anda berada di situs yang sama. \n\nInfo lebih lanjut dapat ditemukan di <a href="https://joinmastodon.org">joinmastodon.org</a>.</string>
+    <string name="instance_rule_info">Dengan masuk, Anda menyetujui aturan %s.</string>
+    <string name="instance_rule_title">%s aturan</string>
 </resources>

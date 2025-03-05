@@ -1,0 +1,17 @@
+Pachli 2.8.3
+
+Fitur baru:
+
+- Tampilkan lembar berbagi pada tautan yang diklik lama, dll.
+- Tampilkan tombol "salin" untuk tautan, dll. dalam dialog aksesibilitas
+- Tambahkan opsi aksesibilitas untuk tab
+- Tampilkan waktu posting yang dijadwalkan
+- Tambahkan "Jangan tanya lagi" saat mengonfirmasi bahasa postingan
+
+Perbaikan:
+
+- Nonaktifkan dukungan "Postingan terjadwal" di GoToSocial
+- Tampilkan jajak pendapat jika mengedit postingan terjadwal
+- Jangan mogok jika percakapan tidak memiliki peserta
+
+- Memperbarui terjemahan bahasa Burma, Finlandia, Lithuania, Spanyol, Ukraina

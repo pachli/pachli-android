@@ -1,0 +1,16 @@
+Pachli 2.6.0
+
+Fitur baru:
+
+-  Tampilkan "Akun yang disarankan"
+- Mendukung filter server di GoToSocial 0.16.0
+
+Perbaikan:
+
+-  Perbarui font saat kembali dari Preferensi
+- Tangani pengeditan bahasa status dengan benar
+- Tingkatkan keterbacaan label media status
+- Pastikan teks di tajuk akun menu navigasi dapat terbaca
+- Jangan melebihi maksimum pintasan yang dibuat
+- Gunakan deskripsi konten "Navigasi ke atas" default di ViewThreadActivity
+- Perbarui terjemahan bahasa Finlandia, Spanyol, & Swedia

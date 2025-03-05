@@ -1,0 +1,19 @@
+Pachli 1.3.0
+
+Fitur baru:
+
+- Menambahkan preferensi untuk menyembunyikan "peningkatan diri"
+- Tampilkan tampilan penuh dan nama pengguna di tampilan profil
+- Memperbaiki tampilan tautan yang "dikaburkan"
+- Menyesuaikan perilaku UX pemutaran video
+
+Perbaikan:
+
+- Pastikan pesan timeline kosong terlihat
+- Gunakan warna biru dan oranye Pachli untuk ikon notifikasi
+- Tampilkan media saat melanjutkan ViewMediaFragment
+- Tampilkan indikator utas dan pembatas lain menggunakan warna Material
+
+Terjemahan:
+
+- Memperbarui terjemahan bahasa Polandia dan Jepang

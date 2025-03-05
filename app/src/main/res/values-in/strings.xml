@@ -127,7 +127,7 @@
     <string name="add_account_name">Tambah Akun</string>
     <string name="later">Nanti</string>
     <string name="pachli_compose_post_quicksetting_label">Tulis Postingan</string>
-    <string name="error_media_upload_image_or_video">Gambar dan video tidak dapat disematkan ke dalam post yang sama.</string>
+    <string name="error_media_upload_image_or_video">gambar dan video tidak dapat dilampirkan ke postingan yang sama.</string>
     <string name="title_public_federated">Federasi</string>
     <string name="title_migration_relogin">Login ulang untuk notifikasi push</string>
     <string name="title_follow_requests">Permintaan mengikuti</string>
@@ -252,4 +252,29 @@
     <string name="confirmation_hashtag_muted">#%s tersembunyi</string>
     <string name="confirmation_hashtag_unmuted">#%s tidak tersembunyi</string>
     <string name="confirmation_hashtag_unfollowed">#%s berhenti mengikuti</string>
+    <string name="pref_title_http_proxy_port_message">Port harus berada di antara %d dan %d</string>
+    <string name="pref_summary_http_proxy_disabled">Dilepaskan</string>
+    <string name="pref_title_notification_filter_updates">postingan yang berinteraksi dengan saya diedit</string>
+    <plurals name="notification_severed_relationships_summary_followers_fmt">
+        <item quantity="other">%1$s pengikut di hapus</item>
+    </plurals>
+    <string name="notification_severed_relationships_format">Hubungan dengan <b>%1$s</b> terputus</string>
+    <string name="notification_severed_relationships_domain_block_body">Moderator menangguhkan domain tersebut</string>
+    <string name="pref_title_notification_filter_follow_requests">ikuti diminta</string>
+    <plurals name="notification_severed_relationships_summary_following_fmt">
+        <item quantity="other">%1$s akun yang kamu ikuti telah dihapus</item>
+    </plurals>
+    <string name="notification_unknown">Jenis pemberitahuan yang tidak diketahui</string>
+    <string name="pref_title_notification_filter_reports">ada laporan baru</string>
+    <string name="pref_title_content_filters">Penyaring konten</string>
+    <string name="pref_title_http_proxy_port">Port proxy HTTP</string>
+    <string name="pref_summary_http_proxy_missing">&lt;tidak diatur&gt;</string>
+    <string name="action_filter_search">Filter pencarian</string>
+    <string name="action_suggestions">Akun yang disarankan</string>
+    <string name="notification_severed_relationships_user_domain_block_body">Kamu memblokir domain</string>
+    <string name="notification_severed_relationships_account_suspension_body">Moderator menangguhkan akun tersebut</string>
+    <string name="notification_severed_relationships_unknown_body">Alasan yang tidak diketahui</string>
+    <string name="action_refresh_account">Refresh akun</string>
+    <string name="mute_domain_warning">Apakah Anda yakin ingin memblokir semua %s? Anda tidak akan melihat konten dari domain tersebut di timeline publik atau notifikasi Anda. Pengikut Anda dari domain tersebut akan dihapus.</string>
+    <string name="pref_title_timeline_filters">Filter</string>
 </resources>

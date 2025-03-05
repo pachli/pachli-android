@@ -1,0 +1,15 @@
+Pachli 2.9.0
+
+Fitur baru:
+
+- Memindahkan perataan tab dan preferensi konten dari lab 
+- Dukungan awal untuk memfilter pemberitahuan dengan mengirim akun 
+- Mendukung tanggal pengembalian Pleroma tanpa zona waktu 
+- Tampilkan tindakan a11y ekstra untuk tautan yang sedang tren dan akun yang disarankan 
+
+Perbaikan:
+
+- Pastikan item dalam dialog a11y dapat diklik 
+- Jangan kehilangan gambar / keterangan setelah unggahan gagal 
+- Perbaiki berbagai macam kerusakan
+- Memperbarui terjemahan bahasa Finlandia, Irlandia, Norwegia (Bokmål, Nynorsk), dan Spanyol

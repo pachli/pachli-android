@@ -45,7 +45,7 @@
     <string name="post_sent">Odoslané!</string>
     <string name="post_sent_long">Odpoveď bola úspešne odoslaná.</string>
     <string name="hint_display_name">Zobrazované meno</string>
-    <string name="hint_note">O vás</string>
+    <string name="hint_note">O tebe</string>
     <string name="hint_search">Hľadať…</string>
     <string name="search_no_results">Žiadne výsledky</string>
     <string name="label_quick_reply">Odpovedať…</string>
@@ -801,4 +801,7 @@
     <string name="pref_account_conversation_filters_subtitle">Čo sa má stať s konverzáciami začatými účtami…</string>
     <string name="pref_summary_account_conversation_filters">Tvoj server nepodporuje filtre konverzácií</string>
     <string name="pref_title_account_conversation_filters">Filtre konverzácií</string>
+    <string name="pref_account_conversation_filters_label_younger_30d">… ktoré boli vytvorené za posledných 30 dní</string>
+    <string name="pref_account_conversation_filters_label_limited_by_server">… ktoré boli obmedzené tvojimi moderátormi</string>
+    <string name="pref_account_conversation_filters_label_not_followed">… ktoré nesleduješ</string>
 </resources>
