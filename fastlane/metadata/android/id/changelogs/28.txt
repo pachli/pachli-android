@@ -1,0 +1,11 @@
+Pachli 2.10.1
+
+Perbaikan:
+
+- Pastikan semua bahasa dapat dipilih melalui pengaturan sistem
+- Hapus data akun lama sebelum membuat batasan FK
+- Pastikan "Tampilkan Pokoknya" berfungsi di semua lini masa
+
+Terjemahan:
+
+- Bahasa Finlandia, Indonesia, Irlandia, Polandia
