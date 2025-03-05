@@ -25,12 +25,14 @@ import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.model.FilterAction
 import app.pachli.core.network.model.Filter
 import app.pachli.core.network.model.FilterAction as NetworkFilterAction
+import app.pachli.core.ui.SetStatusContent
 import app.pachli.databinding.ItemStatusWrapperBinding
 import app.pachli.interfaces.StatusActionListener
 
 open class FilterableStatusViewHolder<T : IStatusViewData>(
     private val binding: ItemStatusWrapperBinding,
-) : StatusViewHolder<T>(binding.statusContainer, binding.root) {
+    setStatusContent: SetStatusContent,
+) : StatusViewHolder<T>(binding.statusContainer, setStatusContent, binding.root) {
     /** The filter that matched the status, null if the status is not being filtered. */
     var matchedFilter: Filter? = null
 

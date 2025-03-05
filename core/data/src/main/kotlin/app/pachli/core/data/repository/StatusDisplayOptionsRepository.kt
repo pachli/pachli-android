@@ -76,11 +76,10 @@ class StatusDisplayOptionsRepository @Inject constructor(
         PrefKeys.USE_BLURHASH,
         PrefKeys.WELLBEING_HIDE_STATS_POSTS,
         PrefKeys.SHOW_STATS_INLINE,
+        PrefKeys.LAB_RENDER_MARKDOWN,
     )
 
     init {
-        Timber.d("Created StatusDisplayOptionsRepository")
-
         // Update whenever preferences change
         externalScope.launch {
             sharedPreferencesRepository.changes.filter { prefKeys.contains(it) }.collect { key ->
@@ -125,6 +124,9 @@ class StatusDisplayOptionsRepository @Inject constructor(
                         )
                         PrefKeys.SHOW_STATS_INLINE -> prev.copy(
                             showStatsInline = sharedPreferencesRepository.getBoolean(key, default.showStatsInline),
+                        )
+                        PrefKeys.LAB_RENDER_MARKDOWN -> prev.copy(
+                            renderMarkdown = sharedPreferencesRepository.getBoolean(key, default.renderMarkdown),
                         )
                         else -> {
                             prev
@@ -195,6 +197,7 @@ class StatusDisplayOptionsRepository @Inject constructor(
             showSensitiveMedia = account?.alwaysShowSensitiveMedia ?: default.showSensitiveMedia,
             openSpoiler = account?.alwaysOpenSpoiler ?: default.openSpoiler,
             canTranslate = default.canTranslate,
+            renderMarkdown = sharedPreferencesRepository.getBoolean(PrefKeys.LAB_RENDER_MARKDOWN, default.renderMarkdown),
         )
     }
 }

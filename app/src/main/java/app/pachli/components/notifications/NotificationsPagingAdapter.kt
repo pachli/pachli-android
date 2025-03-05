@@ -31,6 +31,7 @@ import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
 import app.pachli.core.network.model.Status
+import app.pachli.core.ui.SetStatusContent
 import app.pachli.databinding.ItemFollowBinding
 import app.pachli.databinding.ItemFollowRequestBinding
 import app.pachli.databinding.ItemNotificationFilteredBinding
@@ -145,6 +146,7 @@ interface NotificationActionListener {
  */
 class NotificationsPagingAdapter(
     diffCallback: DiffUtil.ItemCallback<NotificationViewData>,
+    private val setStatusContent: SetStatusContent,
     private val statusActionListener: StatusActionListener<NotificationViewData>,
     private val notificationActionListener: NotificationActionListener,
     private val accountActionListener: AccountActionListener,
@@ -183,12 +185,14 @@ class NotificationsPagingAdapter(
             NotificationViewKind.STATUS -> {
                 StatusViewHolder(
                     ItemStatusBinding.inflate(inflater, parent, false),
+                    setStatusContent,
                     statusActionListener,
                 )
             }
             NotificationViewKind.STATUS_FILTERED -> {
                 FilterableStatusViewHolder(
                     ItemStatusWrapperBinding.inflate(inflater, parent, false),
+                    setStatusContent,
                     statusActionListener,
                 )
             }
@@ -202,6 +206,7 @@ class NotificationsPagingAdapter(
             NotificationViewKind.NOTIFICATION -> {
                 StatusNotificationViewHolder(
                     ItemStatusNotificationBinding.inflate(inflater, parent, false),
+                    setStatusContent,
                     statusActionListener,
                     notificationActionListener,
                     absoluteTimeFormatter,

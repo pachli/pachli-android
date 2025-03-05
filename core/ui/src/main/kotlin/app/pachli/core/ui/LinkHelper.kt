@@ -70,8 +70,18 @@ fun setClickableText(view: TextView, content: CharSequence, mentions: List<Menti
     view.movementMethod = LinkMovementMethodCompat.getInstance()
 }
 
-@VisibleForTesting
-fun markupHiddenUrls(textView: TextView, content: CharSequence): SpannableStringBuilder {
+/**
+ * Ensures "hidden" URLs show the destination.
+ *
+ * For a status created through Mastodon there's no mechanism to post an
+ * `<a href="...">...</a>` link, so the link target is always visible to the
+ * user.
+ *
+ * That is not the case for statuses that may have originated from
+ * non-Mastodon servers. Find those links and insert a "🔗" marker and the
+ * link's domain.
+ */
+internal fun markupHiddenUrls(textView: TextView, content: CharSequence): SpannableStringBuilder {
     val spannableContent = SpannableStringBuilder(content)
     val originalSpans = spannableContent.getSpans(0, content.length, URLSpan::class.java)
     val obscuredLinkSpans = originalSpans.filter {
@@ -132,8 +142,7 @@ fun markupHiddenUrls(textView: TextView, content: CharSequence): SpannableString
  * Replaces [span] with a more appropriate span type based on the text contents
  * of [span].
  */
-@VisibleForTesting
-fun setClickableText(
+internal fun setClickableText(
     span: URLSpan,
     builder: SpannableStringBuilder,
     mentions: List<Mention>,

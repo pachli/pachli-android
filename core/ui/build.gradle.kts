@@ -18,6 +18,7 @@
 plugins {
     alias(libs.plugins.pachli.android.library)
     alias(libs.plugins.pachli.android.hilt)
+    kotlin("kapt")
 }
 
 android {
@@ -50,4 +51,14 @@ dependencies {
 
     api(libs.material.iconics)
     api(libs.material.typeface)
+
+    // Markdown support
+    implementation(libs.markwon)
+    implementation(libs.markwon.html)
+    implementation(libs.markwon.inline.parser)
+    implementation(libs.markwon.simple.ext)
+    implementation(libs.markwon.strikethrough)
+    implementation(libs.markwon.syntax.highlight)
+    kapt(libs.prism4j)
+    implementation(libs.ksoup.entities)
 }

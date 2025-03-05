@@ -54,6 +54,8 @@ import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.Status.Mention
 import app.pachli.core.ui.ClipboardUseCase
+import app.pachli.core.ui.SetMarkdownContent
+import app.pachli.core.ui.SetMastodonHtmlContent
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.view.showMuteAccountDialog
 import com.github.michaelbull.result.onFailure
@@ -83,11 +85,17 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
     override fun createAdapter(): PagingDataAdapter<StatusViewData, *> {
         val statusDisplayOptions = statusDisplayOptionsRepository.flow.value
 
+        val setStatusContent = if (statusDisplayOptions.renderMarkdown) {
+            SetMarkdownContent(requireContext())
+        } else {
+            SetMastodonHtmlContent
+        }
+
         binding.searchRecyclerView.addItemDecoration(
             MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL),
         )
         binding.searchRecyclerView.layoutManager = LinearLayoutManager(binding.searchRecyclerView.context)
-        return SearchStatusesAdapter(statusDisplayOptions, this)
+        return SearchStatusesAdapter(setStatusContent, statusDisplayOptions, this)
     }
 
     override fun onContentHiddenChange(viewData: StatusViewData, isShowingContent: Boolean) {

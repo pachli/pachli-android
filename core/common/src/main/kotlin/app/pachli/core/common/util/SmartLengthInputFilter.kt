@@ -38,7 +38,7 @@ private const val LENGTH_DEFAULT = 500
  * @param message The message to trim.
  * @return Whether the message should be trimmed or not.
  */
-fun shouldTrimStatus(message: Spanned): Boolean {
+fun shouldTrimStatus(message: CharSequence): Boolean {
     return message.isNotEmpty() && LENGTH_DEFAULT.toFloat() / message.length < 0.75
 }
 

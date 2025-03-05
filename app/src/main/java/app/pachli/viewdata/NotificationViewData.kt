@@ -17,7 +17,6 @@
 
 package app.pachli.viewdata
 
-import android.text.Spanned
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.model.AccountEntity
@@ -133,7 +132,7 @@ data class NotificationViewData(
         get() = statusViewData?.isCollapsed ?: throw IllegalStateException()
     override val spoilerText: String
         get() = statusViewData?.spoilerText ?: throw IllegalStateException()
-    override val content: Spanned
+    override val content: CharSequence
         get() = statusViewData?.content ?: throw IllegalStateException()
     override val status: Status
         get() = statusViewData?.status ?: throw IllegalStateException()

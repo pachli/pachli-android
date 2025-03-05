@@ -27,8 +27,8 @@ import app.pachli.core.common.string.trimTrailingWhitespace
  * parse a String containing html from the Mastodon api to Spanned
  */
 @JvmOverloads
-fun String.parseAsMastodonHtml(tagHandler: TagHandler? = null): Spanned {
-    return this.replace("<br> ", "<br>&nbsp;")
+fun CharSequence.parseAsMastodonHtml(tagHandler: TagHandler? = null): Spanned {
+    return this.replace("<br> ".toRegex(), "<br>&nbsp;")
         .replace("<br /> ", "<br />&nbsp;")
         .replace("<br/> ", "<br/>&nbsp;")
         .replace("  ", "&nbsp;&nbsp;")
@@ -42,6 +42,7 @@ fun replaceCrashingCharacters(content: Spanned): Spanned {
     return replaceCrashingCharacters(content as CharSequence) as Spanned
 }
 
+// See https://github.com/tuskyapp/Tusky/issues/563
 fun replaceCrashingCharacters(content: CharSequence): CharSequence? {
     var replacing = false
     var builder: SpannableStringBuilder? = null
