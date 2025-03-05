@@ -100,3 +100,4 @@ jobs:
           bodyFile: googleplay/whatsnew/whatsnew-en-US
           repo: pachli-android-current
           tag: pachli-current-${{ github.sha }}
+          makeLatest: true
