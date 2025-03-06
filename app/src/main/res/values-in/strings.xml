@@ -404,4 +404,20 @@
     <string name="delete_scheduled_post_warning">Menghapus pos terjadwal ini?</string>
     <string name="language_display_name_format">%s %s</string>
     <string name="draft_deleted">Draf dihapus</string>
+    <string name="ui_success_rejected_follow_request">Permintaan ikuti ditolak</string>
+    <string name="filter_action_warn">Memperingatkan</string>
+    <string name="filter_action_hide">Sembunyikan</string>
+    <string name="filter_action_none">Tampilkan</string>
+    <string name="label_filter_context">Filter konteks</string>
+    <string name="hint_filter_title">Filter saya</string>
+    <string name="filter_description_none">Tampilkan seperti biasa</string>
+    <string name="label_filter_title">Judul</string>
+    <string name="filter_description_warn">Bersembunyi dengan peringatan</string>
+    <string name="ui_error_reject_follow_request">Menolak permintaan mengikuti gagal: %s</string>
+    <string name="label_filter_keywords">Kata kunci atau frasa untuk difilter</string>
+    <string name="filter_description_hide">Sembunyikan sepenuhnya</string>
+    <string name="label_filter_action">Tindakan filter</string>
+    <string name="ui_success_accepted_follow_request">Permintaan ikuti diterima</string>
+    <string name="ui_error_filter_v1_load_fmt">Memuat filter gagal: %1$s</string>
+    <string name="action_add">Tambah</string>
 </resources>
