@@ -385,4 +385,23 @@
     <string name="download_fonts">Anda harus mengunduh set emoji ini terlebih dahulu</string>
     <string name="expand_collapse_all_posts">Memperluas/Memperkecil semua tulisan</string>
     <string name="profile_metadata_label">Metadata profil</string>
+    <string name="account_date_joined">Bergabung %1$s</string>
+    <string name="saving_draft">Menyimpan konsep…</string>
+    <string name="report_category_violation">Pelanggaran aturan</string>
+    <string name="report_category_other">Lainnya</string>
+    <string name="announcement_date">%1$s %2$s</string>
+    <string name="report_category_spam">spam</string>
+    <plurals name="error_upload_max_media_reached">
+        <item quantity="other">Anda tidak dapat mengunggah lebih dari %1$d lampiran media.</item>
+    </plurals>
+    <string name="drafts_post_failed_to_send">Kiriman ini gagal terkirim!</string>
+    <string name="follow_requests_info">Meskipun akun Anda tidak dikunci, staf %1$s berpikir bahwa Anda mungkin ingin meninjau permintaan mengikuti dari akun-akun ini secara manual.</string>
+    <string name="action_subscribe_account">Berlangganan</string>
+    <string name="action_unsubscribe_account">Hapus Berlangganan</string>
+    <string name="drafts_failed_loading_reply">Gagal memuat informasi balasan</string>
+    <string name="drafts_post_reply_removed">Postingan yang Anda buat sebagai balasan telah dihapus</string>
+    <string name="announcement_date_updated">(Diperbarui: %1$s)</string>
+    <string name="delete_scheduled_post_warning">Menghapus pos terjadwal ini?</string>
+    <string name="language_display_name_format">%s %s</string>
+    <string name="draft_deleted">Draf dihapus</string>
 </resources>
