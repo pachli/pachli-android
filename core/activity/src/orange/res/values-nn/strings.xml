@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="acra_dialog_title">%1$s-feilrapport</string>
+    <string name="acra_dialog_text">Trykk på OK for å forberede ein e-post til utviklarane med feilopplysningar</string>
+    <string name="acra_email_body">Desse opplysningane skal sendast til utviklarane.\n\n· Syrg for at opplysningane ikkje inneheld noko som du ikkje vil dele, og venlegast beskriv det du gjorde da appen kræsja.\n\n·----\n· Di beskriving her:\n\n·----</string>
+</resources>
