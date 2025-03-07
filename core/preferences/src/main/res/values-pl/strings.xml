@@ -28,4 +28,5 @@
     <string name="pref_tab_contents_icon_text_below">Ikona i tekst poniżej</string>
     <string name="pref_tab_contents_icon_only">Tylko ikona</string>
     <string name="pref_tab_contents_text_only">Tylko tekst</string>
+    <string name="pref_title_render_markdown">Render Markdown</string>
 </resources>
