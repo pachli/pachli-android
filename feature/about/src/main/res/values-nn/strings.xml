@@ -1,2 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="about_title_activity">Om</string>
+    <string name="about_device_info_title">Eininga di</string>
+    <string name="about_account_info_title">Kontoen din</string>
+    <string name="about_copied">Kopierte versjon- og einingsopplysningar</string>
+    <string name="about_copy">Kopier versjon- og einingsopplysningar</string>
+    <string name="about_powered_by_pachli">Dreven av Pachli</string>
+    <string name="about_pachli_license">Pachli er fri programvare med open kjeldekode. Han er lisensiert under GNU General Public License, versjon 3. Du kan lesa meir om lisensen her (på engelsk): https://www.gnu.org/licenses/gpl-3.0.en.html</string>
+    <string name="about_project_site">Prosjektheimside: https://pachli.app</string>
+    <string name="about_bug_feature_request_site">Feilrapportar og funksjonsførespurnadar::\nhttps://github.com/pachli/pachli-android/issues</string>
+    <string name="about_privacy_policy">Personvernserklæring</string>
+    <string name="about_pachli_account">Pachlis profil</string>
+    <string name="title_licenses">Lisensar</string>
+    <string name="about_device_info">%s %s\nAndroid-versjon: %s\nSDK-nivå: %d</string>
+    <string name="about_account_info">\@%s@%s\nVersjon: %s</string>
+    <string name="license_description">Pachli inneheld kode og element fra dei fylgjande prosjekta med open kjeldekode:</string>
+    <string name="notification_details_title">Detaljar</string>
+    <string name="notification_details_android_notifications_enabled">Er Android-varsel påslegne?</string>
+    <string name="notification_details_unifiedpush_available">Er UnifiedPush tilgjengeleg?</string>
+    <string name="notification_details_unifiedpush_available_help">UnifiedPush (dvs. ntfy.sh) er ikkje tilgjengeleg og Pachli skal såleis sjå berre sporadisk etter varsel. Resten av dette avsnittet skal forklare kvifor UnifiedPush vert ikkje brukt, men slike opplysingar er ikkje relevante til korleis Pachli skal sjå etter varslinger no.</string>
+    <string name="notification_details_any_account_needs_migration">Har alle kontoar «push»-løyva?</string>
+    <string name="notification_details_notifications_enabled_help"><![CDATA[Varsel er ikkje påslegne for nokon av kontoane dine. Du kan lett forandre dette ved å gå til Kontoinnstillingar → Varsel. Heilt til du gjer dette, skal varsel ikkej sendast.]]></string>
+    <string name="notification_details_push_notifications_with_unifiedpush">Pushvarsler med UnifiedPush</string>
+</resources>
