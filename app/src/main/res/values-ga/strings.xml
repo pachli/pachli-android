@@ -833,4 +833,7 @@
     <string name="action_refresh_account">Athnuaigh cuntas</string>
     <string name="pref_title_public_filter_home_and_lists">Baile agus liostaí</string>
     <string name="pref_title_account_conversation_filters">Scagairí comhrá</string>
+    <string name="pref_account_conversation_filters_label_limited_by_server">… teoranta ag do mhodhnóirí</string>
+    <string name="pref_account_conversation_filters_label_younger_30d">… a cruthaíodh le 30 lá anuas</string>
+    <string name="pref_account_conversation_filters_label_not_followed">… ní leanann tú</string>
 </resources>
