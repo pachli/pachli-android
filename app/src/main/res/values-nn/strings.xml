@@ -200,7 +200,7 @@
     </plurals>
     <string name="filter_edit_title">Rediger filter</string>
     <string name="pref_title_public_filter_keywords">Offentlege tidslinjer</string>
-    <string name="pref_title_thread_filter_keywords">Trådar</string>
+    <string name="pref_title_thread_filter_keywords">Samtaler</string>
     <string name="filter_addition_title">Legg til filter</string>
     <string name="filter_dialog_remove_button">Slett</string>
     <string name="confirmation_unmuted">Brukar avdempa</string>
@@ -781,4 +781,14 @@
     <string name="search_operator_language_checked_fmt">%1$s</string>
     <string name="search_operator_language_dialog_all">Alle språk</string>
     <string name="search_operator_replies_dialog_replies_only">Syn kun svar</string>
+    <string name="pref_account_conversation_filters_label_limited_by_server">…som er begrensa av moderatorane dine</string>
+    <string name="pref_title_account_conversation_filters">Samtalefilter</string>
+    <string name="pref_summary_account_conversation_filters">Serveren din støttar ikke samtalefilter</string>
+    <string name="pref_account_conversation_filters_subtitle">Kva burde skje samtaler starta av kontoar…</string>
+    <string name="pref_account_conversation_filters_label_not_followed">…som du ikkje fylgjer</string>
+    <string name="pref_account_conversation_filters_label_younger_30d">…som vart oppretta på dei siste 30 dagane</string>
+    <string name="pref_title_public_filter_home_and_lists">Heim og lister</string>
+    <string name="ui_error_reload_reply_fmt">Kunne ikkje laste inn innlegg: %1$s</string>
+    <string name="action_refresh_account">Last inn konto på nytt</string>
+    <string name="account_filter_placeholder_type_conversation">Ein brukar @<b>%1$s</b> starta ei samtale</string>
 </resources>
