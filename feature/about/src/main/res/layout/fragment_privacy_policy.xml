@@ -28,6 +28,7 @@
         android:layout_marginStart="@dimen/text_content_margin"
         android:layout_marginEnd="@dimen/text_content_margin"
         android:layout_marginBottom="@dimen/text_content_margin"
+        android:textIsSelectable="true"
         tools:text="@tools:sample/lorem[500]" />
 
 </androidx.core.widget.NestedScrollView>
