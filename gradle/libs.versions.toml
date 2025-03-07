@@ -202,6 +202,7 @@ markwon-inline-parser = { module = "io.noties.markwon:inline-parser", version.re
 markwon-simple-ext = { module = "io.noties.markwon:simple-ext", version.ref = "markwon" }
 markwon-strikethrough = { module = "io.noties.markwon:ext-strikethrough", version.ref = "markwon" }
 markwon-syntax-highlight = { module = "io.noties.markwon:syntax-highlight", version.ref = "markwon" }
+markwon-tables = { module = "io.noties.markwon:ext-tables", version.ref = "markwon" }
 material-drawer-core = { module = "com.mikepenz:materialdrawer", version.ref = "material-drawer" }
 material-drawer-iconics = { module = "com.mikepenz:materialdrawer-iconics", version.ref = "material-drawer" }
 material-iconics = { module = "com.mikepenz:iconics-core", version.ref="material-iconics" }

@@ -11,7 +11,6 @@ pluginManagement {
     }
 
     includeBuild("build-logic")
-    includeBuild("plugins/markdown2resource")
 }
 
 dependencyResolutionManagement {

@@ -18,12 +18,14 @@
 package app.pachli.feature.about
 
 import android.os.Bundle
-import android.util.Base64
 import android.view.View
 import androidx.fragment.app.Fragment
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.feature.about.databinding.FragmentPrivacyPolicyBinding
 import dagger.hilt.android.AndroidEntryPoint
+import io.noties.markwon.Markwon
+import io.noties.markwon.ext.tables.TablePlugin
+import java.io.IOException
 
 @AndroidEntryPoint
 class PrivacyPolicyFragment : Fragment(R.layout.fragment_privacy_policy) {
@@ -31,8 +33,25 @@ class PrivacyPolicyFragment : Fragment(R.layout.fragment_privacy_policy) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val encoded = Base64.encodeToString(markdownR.html.PRIVACY_md.toByteArray(), Base64.NO_PADDING)
-        binding.policy.loadData(encoded, "text/html", "base64")
+        val context = requireContext()
+
+        val markwon = Markwon.builder(context)
+            .usePlugin(TablePlugin.create(context))
+            .build()
+
+        try {
+            context.assets.open("PRIVACY.md").use {
+                val buffer = ByteArray(it.available())
+                it.read(buffer)
+                markwon.setMarkdown(binding.policy, String(buffer))
+            }
+        } catch (e: IOException) {
+            // Should never happen, but belt-and-braces just in case.
+            markwon.setMarkdown(
+                binding.policy,
+                "[Pachli Privacy Policy](https://pachli.app/privacy/)",
+            )
+        }
     }
 
     companion object {

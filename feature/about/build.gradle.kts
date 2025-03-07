@@ -15,12 +15,12 @@
  * see <http://www.gnu.org/licenses>.
  */
 
+import com.android.build.gradle.internal.tasks.factory.dependsOn
+
 plugins {
     alias(libs.plugins.pachli.android.library)
     alias(libs.plugins.pachli.android.hilt)
     alias(libs.plugins.aboutlibraries)
-
-    id("app.pachli.plugins.markdown2resource")
 }
 
 android {
@@ -39,9 +39,17 @@ aboutLibraries {
     prettyPrint = true
 }
 
-markdown2resource {
-    files.add(layout.projectDirectory.file("../../PRIVACY.md"))
-}
+val privacyPolicySpec = copySpec { from("../../PRIVACY.md") }
+
+val copyPrivacyPolicy =
+    tasks.register<Copy>("copyPrivacyPolicy") {
+        into("src/main/assets")
+        with(privacyPolicySpec)
+    }
+
+afterEvaluate { tasks.named("preBuild").dependsOn(copyPrivacyPolicy) }
+
+tasks.clean { delete("src/main/assets/PRIVACY.md") }
 
 dependencies {
     implementation(projects.core.activity)
@@ -61,4 +69,8 @@ dependencies {
 
     // For FixedSizeDrawable
     implementation(libs.glide.core)
+
+    // Markdown support for the privacy policy
+    implementation(libs.markwon)
+    implementation(libs.markwon.tables)
 }
