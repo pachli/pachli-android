@@ -1,2 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="error_network">Ein nettverksfeil har oppstått. Sjekk tilkoplinga di og prøv igjen.</string>
+    <string name="error_generic">Ein feil har oppstått.</string>
+    <string name="message_empty">Her va\' det berre fesk! (Ingenting her.)</string>
+    <string name="action_retry">Prøv igjen</string>
+    <string name="button_done">Ferdig</string>
+    <string name="action_view_profile">Profil</string>
+    <string name="action_more">Meir</string>
+    <string name="action_refresh">Oppdater</string>
+    <string name="url_domain_notifier">" (🔗 %s)"</string>
+    <string name="action_links">Lenkjer</string>
+    <string name="action_mentions">Nemningar</string>
+    <string name="action_hashtags">Emneknaggar</string>
+    <string name="title_links_dialog">Lenkjer</string>
+    <string name="title_hashtags_dialog">Emneknaggar</string>
+    <string name="item_copied">Tekst kopiert</string>
+    <string name="action_copy_item">Kopier oppføring</string>
+    <string name="title_mentions_dialog">Nemningar</string>
+</resources>
