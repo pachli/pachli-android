@@ -25,6 +25,7 @@ import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.ReplacementSpan
 import android.view.View
+import androidx.core.graphics.withSave
 import app.pachli.core.network.model.Emoji
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
@@ -95,35 +96,34 @@ class EmojiSpan(val viewWeakReference: WeakReference<View>) : ReplacementSpan() 
 
     override fun draw(canvas: Canvas, text: CharSequence, start: Int, end: Int, x: Float, top: Int, y: Int, bottom: Int, paint: Paint) {
         imageDrawable?.let { drawable ->
-            canvas.save()
+            canvas.withSave {
+                // start with a width relative to the text size
+                var emojiWidth = paint.textSize * 1.1
 
-            // start with a width relative to the text size
-            var emojiWidth = paint.textSize * 1.1
+                // calculate the height, keeping the aspect ratio correct
+                val drawableWidth = drawable.intrinsicWidth
+                val drawableHeight = drawable.intrinsicHeight
+                var emojiHeight = emojiWidth / drawableWidth * drawableHeight
 
-            // calculate the height, keeping the aspect ratio correct
-            val drawableWidth = drawable.intrinsicWidth
-            val drawableHeight = drawable.intrinsicHeight
-            var emojiHeight = emojiWidth / drawableWidth * drawableHeight
+                // how much vertical space there is draw the emoji
+                val drawableSpace = (bottom - top).toDouble()
 
-            // how much vertical space there is draw the emoji
-            val drawableSpace = (bottom - top).toDouble()
+                // in case the calculated height is bigger than the available space, scale the emoji down, preserving aspect ratio
+                if (emojiHeight > drawableSpace) {
+                    emojiWidth *= drawableSpace / emojiHeight
+                    emojiHeight = drawableSpace
+                }
+                emojiHeight *= scaleFactor
+                emojiWidth *= scaleFactor
 
-            // in case the calculated height is bigger than the available space, scale the emoji down, preserving aspect ratio
-            if (emojiHeight > drawableSpace) {
-                emojiWidth *= drawableSpace / emojiHeight
-                emojiHeight = drawableSpace
+                drawable.setBounds(0, 0, emojiWidth.toInt(), emojiHeight.toInt())
+
+                // vertically center the emoji in the line
+                val transY = top + (drawableSpace / 2 - emojiHeight / 2)
+
+                translate(x, transY.toFloat())
+                drawable.draw(this)
             }
-            emojiHeight *= scaleFactor
-            emojiWidth *= scaleFactor
-
-            drawable.setBounds(0, 0, emojiWidth.toInt(), emojiHeight.toInt())
-
-            // vertically center the emoji in the line
-            val transY = top + (drawableSpace / 2 - emojiHeight / 2)
-
-            canvas.translate(x, transY.toFloat())
-            drawable.draw(canvas)
-            canvas.restore()
         }
     }
 

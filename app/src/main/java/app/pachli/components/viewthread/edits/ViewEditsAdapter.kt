@@ -2,8 +2,6 @@ package app.pachli.components.viewthread.edits
 
 import android.content.Context
 import android.graphics.Typeface
-import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
 import android.text.Editable
 import android.text.Html
 import android.text.Spannable
@@ -16,6 +14,7 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
@@ -176,10 +175,10 @@ class ViewEditsAdapter(
 
                 val blurhash = attachment.blurhash
 
-                val placeholder: Drawable = if (blurhash != null && useBlurhash) {
+                val placeholder = if (blurhash != null && useBlurhash) {
                     decodeBlurHash(context, blurhash)
                 } else {
-                    ColorDrawable(MaterialColors.getColor(imageView, android.R.attr.colorBackground))
+                    MaterialColors.getColor(imageView, android.R.attr.colorBackground).toDrawable()
                 }
 
                 if (attachment.previewUrl.isNullOrEmpty()) {

@@ -20,6 +20,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.edit
 import app.pachli.core.activity.NotificationConfig
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.database.model.AccountEntity
@@ -230,10 +231,10 @@ suspend fun disablePushNotificationsForAccount(context: Context, api: MastodonAp
 
     UnifiedPush.unregisterApp(context, account.unifiedPushInstance)
 
-    prefs.edit().apply {
+    prefs.edit {
         putString(PREF_MASTER_DISTRIBUTOR, savedDistributor)
         putBoolean(PREF_MASTER_DISTRIBUTOR_ACK, savedDistributorAck)
-    }.apply()
+    }
 }
 
 /**

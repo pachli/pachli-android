@@ -39,6 +39,7 @@ import android.view.MotionEvent.ACTION_UP
 import android.view.ViewConfiguration
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat.startActivity
+import androidx.core.graphics.withSave
 import androidx.core.view.doOnLayout
 import app.pachli.core.designsystem.R as DR
 import java.lang.Float.max
@@ -439,15 +440,15 @@ class ClickableSpanTextView @JvmOverloads constructor(
         // Paint span boundaries. Optimised out on release builds, or debug builds where
         // showSpanBoundaries is false.
         if (BuildConfig.DEBUG && showSpanBoundaries) {
-            canvas.save()
-            for (rect in delegateRects.keys) {
-                canvas.drawRect(rect, paddingDebugPaint)
-            }
+            canvas.withSave {
+                for (rect in delegateRects.keys) {
+                    drawRect(rect, paddingDebugPaint)
+                }
 
-            for (rect in spanRects.keys) {
-                canvas.drawRect(rect, spanDebugPaint)
+                for (rect in spanRects.keys) {
+                    drawRect(rect, spanDebugPaint)
+                }
             }
-            canvas.restore()
         }
     }
 

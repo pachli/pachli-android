@@ -18,6 +18,7 @@
 package app.pachli.components.notifications.domain
 
 import android.content.Context
+import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import app.pachli.components.notifications.chooseUnifiedPushDistributor
 import app.pachli.components.notifications.disableAllNotifications
@@ -58,9 +59,9 @@ class EnableAllNotificationsUseCase @Inject constructor(
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         val usePreviousDistributor = prefs.getBoolean(PrefKeys.USE_PREVIOUS_UNIFIED_PUSH_DISTRIBUTOR, true)
         if (!usePreviousDistributor) {
-            prefs.edit().apply {
+            prefs.edit {
                 putBoolean(PrefKeys.USE_PREVIOUS_UNIFIED_PUSH_DISTRIBUTOR, true)
-            }.apply()
+            }
         }
 
         val distributor = chooseUnifiedPushDistributor(context, usePreviousDistributor)

@@ -19,8 +19,8 @@ package app.pachli.core.domain
 
 import android.app.DownloadManager
 import android.content.Context
-import android.net.Uri
 import android.os.Environment
+import androidx.core.net.toUri
 import app.pachli.core.preferences.DownloadLocation.DOWNLOADS
 import app.pachli.core.preferences.DownloadLocation.DOWNLOADS_PER_ACCOUNT
 import app.pachli.core.preferences.DownloadLocation.DOWNLOADS_PER_SENDER
@@ -52,7 +52,7 @@ class DownloadUrlUseCase @Inject constructor(
      * start with an "@", one is prepended to the download directory if missing.
      */
     operator fun invoke(url: String, recipient: String, sender: String) {
-        val uri = Uri.parse(url)
+        val uri = url.toUri()
         val filename = uri.lastPathSegment ?: return
         val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
         val request = DownloadManager.Request(uri)

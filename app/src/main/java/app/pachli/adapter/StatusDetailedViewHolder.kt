@@ -7,6 +7,7 @@ import android.text.method.LinkMovementMethod
 import android.text.style.DynamicDrawableSpan
 import android.text.style.ImageSpan
 import android.view.View
+import androidx.core.view.isGone
 import app.pachli.R
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
@@ -94,7 +95,7 @@ class StatusDetailedViewHolder(
         } else {
             binding.statusFavourites.hide()
         }
-        if (binding.statusReblogs.visibility == View.GONE && binding.statusFavourites.visibility == View.GONE) {
+        if (binding.statusReblogs.isGone && binding.statusFavourites.isGone) {
             binding.statusInfoDivider.hide()
         } else {
             binding.statusInfoDivider.show()

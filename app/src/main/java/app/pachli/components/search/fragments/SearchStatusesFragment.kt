@@ -19,13 +19,13 @@ package app.pachli.components.search.fragments
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Build
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.app.ActivityOptionsCompat
+import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
@@ -365,7 +365,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
 
     private fun accountIsInMentions(account: AccountEntity?, mentions: List<Mention>): Boolean {
         return mentions.firstOrNull {
-            account?.username == it.username && account.domain == Uri.parse(it.url)?.host
+            account?.username == it.username && account.domain == it.url.toUri().host
         } != null
     }
 
