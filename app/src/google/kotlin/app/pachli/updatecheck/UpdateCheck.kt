@@ -18,7 +18,7 @@
 package app.pachli.updatecheck
 
 import android.content.Intent
-import android.net.Uri
+import androidx.core.net.toUri
 import app.pachli.BuildConfig
 import app.pachli.core.preferences.SharedPreferencesRepository
 import com.google.android.play.core.appupdate.AppUpdateManager
@@ -30,9 +30,7 @@ class UpdateCheck @Inject constructor(
     private val appUpdateManager: AppUpdateManager,
 ) : UpdateCheckBase(sharedPreferencesRepository) {
     override val updateIntent = Intent(Intent.ACTION_VIEW).apply {
-        data = Uri.parse(
-            "https://play.google.com/store/apps/details?id=${BuildConfig.APPLICATION_ID}",
-        )
+        data = "https://play.google.com/store/apps/details?id=${BuildConfig.APPLICATION_ID}".toUri()
         setPackage("com.android.vending")
     }
 

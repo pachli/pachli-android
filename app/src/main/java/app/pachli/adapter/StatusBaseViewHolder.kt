@@ -2,8 +2,6 @@ package app.pachli.adapter
 
 import android.content.Context
 import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
 import android.text.TextUtils
 import android.text.format.DateUtils
 import android.view.View
@@ -16,7 +14,9 @@ import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.PopupMenu
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.graphics.drawable.toDrawable
 import androidx.core.text.HtmlCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.core.activity.decodeBlurHash
@@ -111,10 +111,10 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
         val icon = makeIcon(context, GoogleMaterial.Icon.gmd_translate, textSize.toInt())
         setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null)
     }
-    protected val avatarRadius48dp: Int = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_48dp)
-    private val avatarRadius36dp: Int = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_36dp)
-    private val avatarRadius24dp: Int = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_24dp)
-    private val mediaPreviewUnloaded: Drawable = ColorDrawable(MaterialColors.getColor(itemView, android.R.attr.textColorLink))
+    protected val avatarRadius48dp = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_48dp)
+    private val avatarRadius36dp = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_36dp)
+    private val avatarRadius24dp = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_24dp)
+    private val mediaPreviewUnloaded = MaterialColors.getColor(itemView, android.R.attr.textColorLink).toDrawable()
 
     init {
         (itemView as ViewGroup).expandTouchSizeToFillRow(
@@ -427,7 +427,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
         bookmarkButton.isChecked = bookmarked
     }
 
-    private fun decodeBlurHash(blurhash: String): BitmapDrawable {
+    private fun decodeBlurHash(blurhash: String): BitmapDrawable? {
         return decodeBlurHash(context, blurhash)
     }
 
@@ -562,7 +562,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
         animateTransition: Boolean,
     ) {
         view.setOnClickListener { v: View? ->
-            if (sensitiveMediaWarning.visibility == View.VISIBLE) {
+            if (sensitiveMediaWarning.isVisible) {
                 listener.onContentHiddenChange(viewData, true)
             } else {
                 listener.onViewMedia(viewData, index, if (animateTransition) v else null)

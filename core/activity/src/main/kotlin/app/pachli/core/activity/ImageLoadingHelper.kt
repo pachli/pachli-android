@@ -22,6 +22,7 @@ import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.widget.ImageView
 import androidx.annotation.Px
+import androidx.core.graphics.drawable.toDrawable
 import app.pachli.core.common.util.BlurHashDecoder
 import app.pachli.core.designsystem.R as DR
 import com.bumptech.glide.Glide
@@ -69,6 +70,6 @@ fun loadAvatar(
     }
 }
 
-fun decodeBlurHash(context: Context, blurhash: String, width: Int = 32, height: Int = 32): BitmapDrawable {
-    return BitmapDrawable(context.resources, BlurHashDecoder.decode(blurhash, width, height, 1f))
+fun decodeBlurHash(context: Context, blurhash: String, width: Int = 32, height: Int = 32): BitmapDrawable? {
+    return BlurHashDecoder.decode(blurhash, width, height, 1f)?.toDrawable(context.resources)
 }

@@ -19,7 +19,6 @@ package app.pachli.components.preference
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.os.PowerManager
 import android.provider.Settings
@@ -30,6 +29,8 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.edit
+import androidx.core.net.toUri
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -373,9 +374,12 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                                 // So work around that by setting a preference to indicate that
                                 // the chosen distributor should be ignored. This is then used
                                 // in MainActivity and passed to chooseUnifiedPushDistributor.
-                                sharedPreferencesRepository.edit().apply {
-                                    putBoolean(PrefKeys.USE_PREVIOUS_UNIFIED_PUSH_DISTRIBUTOR, false)
-                                }.commit()
+                                sharedPreferencesRepository.edit(commit = true) {
+                                    putBoolean(
+                                        PrefKeys.USE_PREVIOUS_UNIFIED_PUSH_DISTRIBUTOR,
+                                        false,
+                                    )
+                                }
 
                                 val packageManager = context.packageManager
                                 val intent = packageManager.getLaunchIntentForPackage(context.packageName)!!
@@ -441,7 +445,7 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                         if (shouldIgnore) {
                             val intent = Intent().apply {
                                 action = Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
-                                data = Uri.parse("package:${context.packageName}")
+                                data = "package:${context.packageName}".toUri()
                             }
                             context.startActivity(intent)
                         }

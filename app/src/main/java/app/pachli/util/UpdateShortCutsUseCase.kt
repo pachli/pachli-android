@@ -17,13 +17,13 @@
 package app.pachli.util
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.text.TextUtils
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.app.Person
 import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.content.pm.ShortcutManagerCompat
+import androidx.core.graphics.createBitmap
 import androidx.core.graphics.drawable.IconCompat
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.R as DR
@@ -74,7 +74,7 @@ class UpdateShortCutsUseCase @Inject constructor(
                 } ?: return@mapNotNull null
 
                 // inset the loaded bitmap inside a 108dp transparent canvas so it looks good as adaptive icon
-                val outBmp = Bitmap.createBitmap(outerSize, outerSize, Bitmap.Config.ARGB_8888)
+                val outBmp = createBitmap(outerSize, outerSize)
 
                 val canvas = Canvas(outBmp)
                 val border = (outerSize - innerSize) / 2

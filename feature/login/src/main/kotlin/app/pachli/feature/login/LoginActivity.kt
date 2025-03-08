@@ -27,6 +27,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.edit
 import androidx.core.net.toUri
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -226,11 +227,11 @@ class LoginActivity : BaseActivity() {
                 // and we will need to pick up the process where we left off.
                 // Alternatively we could pass it all as part of the intent and receive it back
                 // but it is a bit of a workaround.
-                preferences.edit()
-                    .putString(DOMAIN, domain)
-                    .putString(CLIENT_ID, credentials.clientId)
-                    .putString(CLIENT_SECRET, credentials.clientSecret)
-                    .apply()
+                preferences.edit {
+                    putString(DOMAIN, domain)
+                        .putString(CLIENT_ID, credentials.clientId)
+                        .putString(CLIENT_SECRET, credentials.clientSecret)
+                }
 
                 redirectUserToAuthorizeAndLogin(domain, credentials.clientId, openInWebView)
             }.onFailure { e ->

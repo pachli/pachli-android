@@ -17,12 +17,12 @@
 package app.pachli.util
 
 import android.content.Context
-import android.graphics.drawable.ColorDrawable
 import android.text.InputFilter
 import android.text.TextUtils
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.graphics.drawable.toDrawable
 import app.pachli.R
 import app.pachli.core.activity.decodeBlurHash
 import app.pachli.core.activity.emojify
@@ -92,7 +92,7 @@ class StatusViewHelper(private val itemView: View) {
             return
         }
 
-        val mediaPreviewUnloaded = ColorDrawable(MaterialColors.getColor(itemView, android.R.attr.colorBackground))
+        val mediaPreviewUnloaded = MaterialColors.getColor(itemView, android.R.attr.colorBackground).toDrawable()
 
         val n = min(attachments.size, Status.MAX_MEDIA_ATTACHMENTS)
 

@@ -22,6 +22,7 @@ import android.content.res.TypedArray
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.withStyledAttributes
 import androidx.preference.Preference
 import androidx.preference.PreferenceViewHolder
 import app.pachli.R
@@ -72,13 +73,13 @@ class SliderPreference @JvmOverloads constructor(
         }
 
     /** @see Slider.setValueFrom */
-    var valueFrom: Float
+    var valueFrom = 0.0f
 
     /** @see Slider.setValueTo */
-    var valueTo: Float
+    var valueTo = 100.0f
 
     /** @see Slider.setStepSize */
-    var stepSize: Float
+    var stepSize = 5.0f
 
     /**
      * Format string to be applied to values before setting the summary. For more control set
@@ -112,25 +113,24 @@ class SliderPreference @JvmOverloads constructor(
         // preference layout to the right of the title and summary.
         layoutResource = R.layout.pref_slider
 
-        val a = context.obtainStyledAttributes(attrs, DR.styleable.SliderPreference, defStyleAttr, defStyleRes)
+        context.withStyledAttributes(attrs, DR.styleable.SliderPreference, defStyleAttr, defStyleRes) {
+            value = getFloat(DR.styleable.SliderPreference_android_value, DEFAULT_VALUE)
+            valueFrom =
+                getFloat(DR.styleable.SliderPreference_android_valueFrom, DEFAULT_VALUE_FROM)
+            valueTo = getFloat(DR.styleable.SliderPreference_android_valueTo, DEFAULT_VALUE_TO)
+            stepSize = getFloat(DR.styleable.SliderPreference_android_stepSize, DEFAULT_STEP_SIZE)
+            format = getString(DR.styleable.SliderPreference_format) ?: DEFAULT_FORMAT
 
-        value = a.getFloat(DR.styleable.SliderPreference_android_value, DEFAULT_VALUE)
-        valueFrom = a.getFloat(DR.styleable.SliderPreference_android_valueFrom, DEFAULT_VALUE_FROM)
-        valueTo = a.getFloat(DR.styleable.SliderPreference_android_valueTo, DEFAULT_VALUE_TO)
-        stepSize = a.getFloat(DR.styleable.SliderPreference_android_stepSize, DEFAULT_STEP_SIZE)
-        format = a.getString(DR.styleable.SliderPreference_format) ?: DEFAULT_FORMAT
+            val decrementIconResource = getResourceId(DR.styleable.SliderPreference_iconStart, -1)
+            if (decrementIconResource != -1) {
+                decrementIcon = AppCompatResources.getDrawable(context, decrementIconResource)
+            }
 
-        val decrementIconResource = a.getResourceId(DR.styleable.SliderPreference_iconStart, -1)
-        if (decrementIconResource != -1) {
-            decrementIcon = AppCompatResources.getDrawable(context, decrementIconResource)
+            val incrementIconResource = getResourceId(DR.styleable.SliderPreference_iconEnd, -1)
+            if (incrementIconResource != -1) {
+                incrementIcon = AppCompatResources.getDrawable(context, incrementIconResource)
+            }
         }
-
-        val incrementIconResource = a.getResourceId(DR.styleable.SliderPreference_iconEnd, -1)
-        if (incrementIconResource != -1) {
-            incrementIcon = AppCompatResources.getDrawable(context, incrementIconResource)
-        }
-
-        a.recycle()
     }
 
     override fun onGetDefaultValue(a: TypedArray, i: Int): Any {

@@ -18,7 +18,7 @@
 package app.pachli.updatecheck
 
 import android.content.Intent
-import android.net.Uri
+import androidx.core.net.toUri
 import app.pachli.BuildConfig
 import app.pachli.core.preferences.SharedPreferencesRepository
 import com.github.michaelbull.result.get
@@ -32,8 +32,8 @@ class UpdateCheck @Inject constructor(
 
     override val updateIntent = Intent(Intent.ACTION_VIEW).apply {
         data = when (BuildConfig.FLAVOR_color) {
-            "orange" -> Uri.parse("https://www.github.com/pachli/pachli-android-current/releases/latest")
-            else -> Uri.parse("https://www.github.com/pachli/pachli-android/releases/latest")
+            "orange" -> "https://www.github.com/pachli/pachli-android-current/releases/latest".toUri()
+            else -> "https://www.github.com/pachli/pachli-android/releases/latest".toUri()
         }
     }
 

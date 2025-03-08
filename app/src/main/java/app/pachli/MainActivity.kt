@@ -26,7 +26,6 @@ import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.Animatable
-import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
@@ -47,6 +46,7 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.toDrawable
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.GravityCompat
 import androidx.core.view.MenuProvider
@@ -763,19 +763,21 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
         DrawerImageLoader.init(MainDrawerImageLoader(glide, viewModel.uiState.value.animateAvatars))
 
-        binding.mainDrawerLayout.addDrawerListener(object : DrawerListener {
-            override fun onDrawerSlide(drawerView: View, slideOffset: Float) { }
+        binding.mainDrawerLayout.addDrawerListener(
+            object : DrawerListener {
+                override fun onDrawerSlide(drawerView: View, slideOffset: Float) {}
 
-            override fun onDrawerOpened(drawerView: View) {
-                onBackPressedCallback.isEnabled = true
-            }
+                override fun onDrawerOpened(drawerView: View) {
+                    onBackPressedCallback.isEnabled = true
+                }
 
-            override fun onDrawerClosed(drawerView: View) {
-                onBackPressedCallback.isEnabled = binding.tabLayout.selectedTabPosition > 0
-            }
+                override fun onDrawerClosed(drawerView: View) {
+                    onBackPressedCallback.isEnabled = binding.tabLayout.selectedTabPosition > 0
+                }
 
-            override fun onDrawerStateChanged(newState: Int) { }
-        })
+                override fun onDrawerStateChanged(newState: Int) {}
+            },
+        )
     }
 
     /**
@@ -1418,7 +1420,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
                         override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                             activeToolbar.navigationIcon = FixedSizeDrawable(
-                                BitmapDrawable(resources, resource),
+                                resource.toDrawable(resources),
                                 navIconSize,
                                 navIconSize,
                             )
