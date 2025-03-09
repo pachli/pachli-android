@@ -44,7 +44,7 @@
     <string name="notitication_log_filter_dialog_title">Mostrar prioridades del registro</string>
     <string name="notification_details_title">Detalles</string>
     <string name="notification_details_android_notifications_enabled">¿Están habilitadas las notificaciones de Android?</string>
-    <string name="notification_details_notifications_enabled_help">Las notificaciones no están habilitadas para ninguna de tus cuentas. Modifícalo en Preferencias de cuenta &gt; Notificaciones. En tanto, todas las notificaciones permanecerán deshabilitadas.</string>
+    <string name="notification_details_notifications_enabled_help"><![CDATA[Las notificaciones no están habilitadas para ninguna de tus cuentas. Modifícalo en Preferencias de cuenta > Notificaciones. En tanto, todas las notificaciones permanecerán deshabilitadas.]]></string>
     <string name="notification_details_unifiedpush_available">¿Está disponible UnifiedPush?</string>
     <string name="notification_details_unifiedpush_available_help">UnifiedPush (ntfy.sh) no está disponible; las notificaciones serán obtenidas periódicamente. El resto de esta sección explica por qué no se está usando UnifiedPush, pero no es relevante para saber cómo se obtienen las notificaciones actualmente.</string>
     <string name="notification_details_any_account_needs_migration_help">Una o más cuentas no tienen alcance \'push\' de OAuth; las notificaciones push están deshabilitadas.</string>
