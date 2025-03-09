@@ -91,7 +91,7 @@
     <string name="action_share_as">Compartir como…</string>
     <string name="send_post_link_to">Compartir URL…</string>
     <string name="send_post_content_to">Compartir contenido…</string>
-    <string name="send_media_to">Compartir medios a…</string>
+    <string name="send_media_to">Compartir medios con…</string>
     <string name="confirmation_reported">¡Enviado!</string>
     <string name="confirmation_unblocked">El usuario ya no está bloqueado</string>
     <string name="confirmation_unmuted">El usuario ya no está silenciado</string>
@@ -103,7 +103,7 @@
     <string name="hint_note">Biografía</string>
     <string name="hint_search">Buscar…</string>
     <string name="search_no_results">Sin resultados</string>
-    <string name="label_quick_reply">Respuesta…</string>
+    <string name="label_quick_reply">Responder…</string>
     <string name="label_avatar">Avatar</string>
     <string name="label_header">Cabecera</string>
     <string name="dialog_title_finishing_media_upload">Terminando de subir multimedia</string>
@@ -150,7 +150,7 @@
     <string name="post_privacy_public">Público</string>
     <string name="post_privacy_unlisted">Oculto</string>
     <string name="post_privacy_followers_only">Privado</string>
-    <string name="pref_post_text_size">Tamaño del texto</string>
+    <string name="pref_post_text_size">Tamaño del texto de las publicaciones</string>
     <string name="post_text_size_smallest">Diminuto</string>
     <string name="post_text_size_small">Pequeño</string>
     <string name="post_text_size_medium">Medio</string>
@@ -213,17 +213,17 @@
     <string name="lock_account_label">Proteger cuenta</string>
     <string name="lock_account_label_description">Tendrá que admitir los seguidores manualmente</string>
     <string name="compose_save_draft">¿Guardar borrador?</string>
-    <string name="send_post_notification_title">Enviando estado…</string>
-    <string name="send_post_notification_error_title">Error al enviar el estado</string>
-    <string name="send_post_notification_channel_name">Enviando estado</string>
+    <string name="send_post_notification_title">Enviando publicación…</string>
+    <string name="send_post_notification_error_title">Error al enviar publicación</string>
+    <string name="send_post_notification_channel_name">Enviando Publicaciones</string>
     <string name="send_post_notification_cancel_title">Envío cancelado</string>
-    <string name="send_post_notification_saved_content">Una copia del estado se ha guardado en borradores</string>
+    <string name="send_post_notification_saved_content">Una copia de la publicación se ha guardado en Borradores</string>
     <string name="action_compose_shortcut">Redactar</string>
     <string name="error_no_custom_emojis">Su instancia %s no ofrece emojis personalizados</string>
     <string name="emoji_style">Estilo de los emojis</string>
     <string name="system_default">Sistema</string>
     <string name="download_fonts">Tendrás que descargarlos primero</string>
-    <string name="expand_collapse_all_posts">Expandir/ocultar todos los estados</string>
+    <string name="expand_collapse_all_posts">Expandir/Ocultar todas las publicaciones</string>
     <string name="action_open_post">Abrir</string>
     <string name="restart_required">Reinicio requerido</string>
     <string name="restart_emoji">Tendrás que reiniciar la aplicación para aplicar estos cambios</string>
@@ -239,7 +239,7 @@
     <string name="profile_metadata_content_label">Contenido</string>
     <string name="pref_title_absolute_time">Usar tiempo absoluto</string>
     <string name="label_remote_account">La información de abajo puede mostrar el perfil del usuario incompleto. Pulse para abrir el perfil completo en el navegador.</string>
-    <string name="unpin_action">No fijar</string>
+    <string name="unpin_action">Desfijar</string>
     <string name="pin_action">Fijar</string>
     <plurals name="favs">
         <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Favorito</item>
@@ -296,7 +296,7 @@
         <item quantity="other">%s votos</item>
     </plurals>
     <string name="poll_info_closed">cerrada</string>
-    <string name="action_delete_and_redraft">Eliminar y editar</string>
+    <string name="action_delete_and_redraft">Eliminar y reescribir</string>
     <string name="action_open_media_n">Abrir contenido #%d</string>
     <string name="downloading_media">Descargando contenido</string>
     <string name="dialog_redraft_post_warning">¿Eliminar y volver a redactar esta publicación?</string>
@@ -342,8 +342,8 @@
     <string name="report_sent_success">\@%s reportado satisfactoriamente</string>
     <string name="hint_additional_info">Comentarios adicionales</string>
     <string name="report_remote_instance">Reenviar a %s</string>
-    <string name="failed_report">Reporte fallido</string>
-    <string name="failed_fetch_posts">Fallo al obtener estados</string>
+    <string name="failed_report">Fallo al reportar</string>
+    <string name="failed_fetch_posts">Fallo al obtener publicaciones</string>
     <string name="report_description_1">El reporte será enviado a un moderador de tu servidor. Puedes añadir una explicación de por qué estás reportando esta cuenta a continuación:</string>
     <string name="report_description_remote_instance">La cuenta es de otro servidor. ¿Enviar una copia anónima del reporte\?</string>
     <string name="pref_title_alway_open_spoiler">Mostrar siempre publicaciones marcadas con avisos de contenido</string>
@@ -365,8 +365,8 @@
     <string name="title_scheduled_posts">Publicaciones programadas</string>
     <string name="action_edit">Editar</string>
     <string name="action_access_scheduled_posts">Publicaciones programadas</string>
-    <string name="action_schedule_post">Programar estado</string>
-    <string name="action_reset_schedule">Reiniciar</string>
+    <string name="action_schedule_post">Programar Publicación</string>
+    <string name="action_reset_schedule">Restablecer</string>
     <string name="title_bookmarks">Marcadores</string>
     <string name="action_bookmark">Marcador</string>
     <string name="action_view_bookmarks">Marcadores</string>
@@ -441,7 +441,7 @@
     <string name="action_delete_conversation">Eliminar conversación</string>
     <string name="pref_title_confirm_favourites">Pedir confirmación antes de marcar como favorito</string>
     <string name="pref_title_notification_filter_updates">una publicación con la que interactué se editó</string>
-    <string name="error_image_edit_failed">Esta imagen no puede ser editada.</string>
+    <string name="error_image_edit_failed">La imagen no se pudo editar.</string>
     <string name="action_add_reaction">añadir reacción</string>
     <string name="pref_title_notification_filter_sign_ups">alguien se registró</string>
     <string name="error_following_hashtag_format">Error al seguir #%s</string>
@@ -456,8 +456,8 @@
     <string name="account_date_joined">Se unió %1$s</string>
     <string name="duration_14_days">14 días</string>
     <string name="duration_365_days">365 días</string>
-    <string name="failed_to_pin">Fallo al fijar</string>
-    <string name="failed_to_unpin">Fallo al quitarlo</string>
+    <string name="failed_to_pin">Fallo al Fijar</string>
+    <string name="failed_to_unpin">Fallo al Desfijar</string>
     <string name="notification_sign_up_description">Notificaciones sobre nuevos usuarios</string>
     <string name="notification_update_name">Ediciones de una publicación</string>
     <string name="notification_update_description">Notificaciones cuando se editan publicaciones con las que has interactuado</string>
@@ -488,13 +488,13 @@
     <string name="error_muting_hashtag_format">Error al silenciar #%s</string>
     <string name="error_unmuting_hashtag_format">Error al reactivar #%s</string>
     <string name="notification_report_description">Notificaciones sobre informes de moderación</string>
-    <string name="error_following_hashtags_unsupported">Esta instancia no soporta el seguimiento de etiquetas.</string>
+    <string name="error_following_hashtags_unsupported">Esta instancia no es compatible con el seguimiento de etiquetas.</string>
     <string name="title_followed_hashtags">Etiquetas seguidas</string>
     <string name="report_category_other">Otros</string>
     <string name="post_media_alt">ALT</string>
     <string name="action_unfollow_hashtag_format">¿Dejar de seguir a #%s\?</string>
     <string name="post_edited">%s editado</string>
-    <string name="error_status_source_load">Falló al cargar el estado de la origen desde el servidor.</string>
+    <string name="error_status_source_load">Fallo al cargar el estado de la origen desde el servidor.</string>
     <string name="confirmation_hashtag_unfollowed">Dejaste de seguir a #%s</string>
     <string name="pref_title_notification_filter_reports">hay una nueva denuncia</string>
     <string name="action_discard">Descartar cambios</string>
@@ -510,16 +510,12 @@
     <string name="pref_summary_http_proxy_disabled">Desactivado</string>
     <string name="pref_summary_http_proxy_missing">&lt;sin establecer&gt;</string>
     <string name="pref_summary_http_proxy_invalid">&lt;inválido&gt;</string>
-    <string name="action_post_failed_detail">No se ha podido subir tu publicación y se ha guardado en Borradores.
-\n
-\nO no se ha podido contactar con el servidor, o ha rechazado tu publicación.</string>
-    <string name="action_post_failed_detail_plural">Tus publicaciones no se han podido subir y se han guardado en Borradores.
-\n
-\nO no se ha podido contactar con el servidor o, o ha rechazado tus publicaciones.</string>
+    <string name="action_post_failed_detail">No se ha podido subir tu publicación y se ha guardado en Borradores. \n \nO bien no se ha podido contactar con el servidor, o bien ha rechazado tu publicación.</string>
+    <string name="action_post_failed_detail_plural">Tus publicaciones no se han podido subir y se han guardado en Borradores. \n \nO bien no se ha podido contactar con el servidor, o bien ha rechazado tus publicaciones.</string>
     <string name="action_post_failed_show_drafts">Mostrar borradores</string>
-    <string name="send_account_username_to">Compartir nombre de usuario de la cuenta a…</string>
+    <string name="send_account_username_to">Compartir nombre de usuario de la cuenta con…</string>
     <string name="account_username_copied">Nombre de usuario copiado</string>
-    <string name="description_browser_login">Puede soportar métodos de autenticación adicionales, pero hace falta un navegador soportado.</string>
+    <string name="description_browser_login">Puede que permita métodos de autenticación adicionales, pero hace falta un navegador compatible.</string>
     <string name="description_login">Funciona en la mayoría de los casos. No se comparten datos con otras apps.</string>
     <string name="action_share_account_username">Compartir el nombre de usuario de la cuenta</string>
     <string name="send_account_link_to">Compartir URL de la cuenta con…</string>
@@ -551,7 +547,7 @@
     <string name="hint_filter_title">Mi filtro</string>
     <string name="filter_edit_keyword_title">Editar palabra</string>
     <string name="filter_description_format">%s: %s</string>
-    <string name="ui_error_reblog_fmt">Falló al impulsar publicación: %1$s</string>
+    <string name="ui_error_reblog_fmt">Fallo al impulsar publicación: %1$s</string>
     <string name="ui_error_vote_fmt">Fallo al votar en la encuesta: %1$s</string>
     <string name="label_filter_title">Título</string>
     <string name="filter_action_warn">Aviso</string>
@@ -564,7 +560,7 @@
     <string name="action_add">Añadir</string>
     <string name="filter_keyword_display_format">%s (palabra completa)</string>
     <string name="filter_keyword_addition_title">Añadir palabra</string>
-    <string name="pref_ui_text_size">Tamaño de fuente</string>
+    <string name="pref_ui_text_size">Tamaño de fuente de la interfaz</string>
     <string name="notification_notification_worker">Obteniendo notificaciones…</string>
     <string name="load_newest_notifications">Cargar notificaciones más nuevas</string>
     <string name="compose_delete_draft">¿Eliminar borrador\?</string>
@@ -606,7 +602,7 @@
     <string name="label_image">Imagen</string>
     <string name="action_translate_undo">Deshacer traducción</string>
     <string name="notification_prune_cache">Mantenimiento de caché…</string>
-    <string name="pref_summary_content_filters">Tu servidor no soporta los filtros</string>
+    <string name="pref_summary_content_filters">Tu servidor no es compatible con los filtros de contenido</string>
     <string name="server_repository_error">No se pudo obtener la info del servidor %1$s: %2$s</string>
     <string name="error_media_download">No se pudo descargar %1$s: %2$d %3$s</string>
     <string name="pref_title_update_check_now">Buscar actualizaciones ahora</string>
@@ -694,11 +690,11 @@
     <string name="search_operator_link_dialog_all">Con o sin enlaces</string>
     <string name="search_operator_no_link">Sin enlaces</string>
     <string name="search_operator_link_dialog_title">¿Mostrar publicaciones con enlaces?</string>
-    <string name="search_operator_language_dialog_title">Limitar a publicaciones escritas…</string>
+    <string name="search_operator_language_dialog_title">Limitar a publicaciones escritas en…</string>
     <string name="search_operator_language_all">Cualquier idioma ▾</string>
     <string name="search_operator_language_checked_fmt">%1$s</string>
     <string name="search_operator_date_dialog_title">Limitar a publicaciones enviadas…</string>
-    <string name="search_operator_language_dialog_all">Cualquier idioma</string>
+    <string name="search_operator_language_dialog_all">cualquier idioma</string>
     <string name="search_operator_replies_dialog_replies_only">Sólo mostrar respuestas</string>
     <string name="search_operator_replies_dialog_no_replies">Sin respuestas</string>
     <string name="search_operator_where_all">Todas las publicaciones ▾</string>
@@ -817,4 +813,10 @@
     <string name="pref_title_account_conversation_filters">Filtros de conversaciones</string>
     <string name="pref_summary_account_conversation_filters">Tu servidor no es compatible con los filtros de conversaciones</string>
     <string name="action_refresh_account">Recargar cuenta</string>
+    <string name="pref_account_conversation_filters_label_not_followed">… que no sigues</string>
+    <string name="pref_account_conversation_filters_label_younger_30d">… creadas en los últimos 30 días</string>
+    <string name="ui_error_reload_reply_fmt">No se pudo cargar la publicación: %1$s</string>
+    <string name="pref_account_conversation_filters_subtitle">Qué debería ocurrir con las conversaciones iniciadas por cuentas…</string>
+    <string name="account_filter_placeholder_type_conversation">Un usuario de <b>%1$s</b> inició una conversación</string>
+    <string name="pref_account_conversation_filters_label_limited_by_server">… limitadas por tus moderadores</string>
 </resources>
