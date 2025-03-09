@@ -395,7 +395,7 @@
         <item quantity="few"><b>%1$s</b> obľúbenia</item>
         <item quantity="other"><b>%1$s</b> obľúbení</item>
     </plurals>
-    <string name="account_date_joined">Pripojil/a sa %1$s</string>
+    <string name="account_date_joined">Dátum registrácie %1$s</string>
     <string name="announcement_date_updated">(Aktualizované: %1$s)</string>
     <plurals name="reblogs">
         <item quantity="one"><b>%s</b> zdieľanie</item>
