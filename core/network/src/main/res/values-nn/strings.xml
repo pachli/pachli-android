@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="node_info_error_no_software">inneheldt ikkje programvareblokkering</string>
+    <string name="node_info_error_no_software_name">programvarenamn saknar eller er tomt</string>
+    <string name="node_info_error_no_software_version">programvareversjon saknar eller er tom</string>
+    <string name="server_error_unparseable_version">kunne ikkje tolke «%1$s» som ein versjon: %2$s</string>
+    <string name="error_generic_fmt">%1$s</string>
+    <string name="error_404_not_found_fmt">serveren din støttar ikkje denne funksjonen: %1$s</string>
+    <string name="error_429_rate_limit_fmt">serveren din fartsavgrensar førespurnadane dine: %1$s</string>
+    <string name="error_json_data_fmt">Serveren din gav eit ugyldig svar: %1$s</string>
+    <string name="error_network_fmt">Ein nettverksfeil oppstod: %s</string>
+    <string name="error_missing_content_type_fmt">serveren din er konfigurert feil, svaret har ingen content-type: %1$s</string>
+    <string name="error_wrong_content_type_fmt">serveren din er feil konfigurert og gav «%2$s» med feil content-type «%1$s»</string>
+</resources>

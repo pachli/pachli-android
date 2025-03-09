@@ -1,0 +1,1 @@
+Ein fullfunksjonert Android-klient for Mastodon og liknande serverar.
