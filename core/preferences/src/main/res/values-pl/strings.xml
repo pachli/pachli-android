@@ -5,10 +5,10 @@
     <string name="app_theme_auto">Zmieniaj automatycznie po zachodzie słońca</string>
     <string name="app_theme_dark">Ciemny</string>
     <string name="app_theme_system">Użyj motywu systemu</string>
-    <string name="download_location_downloads">Folder</string>
+    <string name="download_location_downloads">Folder pobierania</string>
     <string name="download_location_per_account">Podfoldery dla kont w folderze pobierania</string>
     <string name="pref_category_downloads">Pobieranie</string>
-    <string name="pref_title_downloads">Lokalizacja pobierania</string>
+    <string name="pref_title_downloads">Miejsce pobierania</string>
     <string name="pref_title_tab_tap">Akcja po dotknięciu karty</string>
     <string name="download_location_per_sender">Podfoldery dla nadawców w folderze pobierania</string>
     <string name="tab_tap_behaviour_jump_to_next_page">Przejdź do następnej strony</string>
@@ -28,5 +28,5 @@
     <string name="pref_tab_contents_icon_text_below">Ikona i tekst poniżej</string>
     <string name="pref_tab_contents_icon_only">Tylko ikona</string>
     <string name="pref_tab_contents_text_only">Tylko tekst</string>
-    <string name="pref_title_render_markdown">Render Markdown</string>
+    <string name="pref_title_render_markdown">Renderuj Markdown</string>
 </resources>
