@@ -27,7 +27,9 @@ import java.time.Instant
 data class Report(
     val id: String,
     val category: Category,
+    @Json(name = "action_taken")
     val actionTaken: Boolean,
+    @Json(name = "action_taken_at")
     val actionTakenAt: Instant,
     val comment: String,
     val forwarded: Boolean,
