@@ -541,7 +541,7 @@ class AccountActivity :
                 account.createdAt?.let { createdAt ->
                     binding.accountDateJoined.text = resources.getString(
                         R.string.account_date_joined,
-                        SimpleDateFormat("MMMM, yyyy", Locale.getDefault()).format(createdAt),
+                        SimpleDateFormat("LLLL yyyy", Locale.getDefault()).format(createdAt),
                     )
                     binding.accountDateJoined.show()
                 } ?: binding.accountDateJoined.hide()
