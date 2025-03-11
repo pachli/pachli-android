@@ -17,6 +17,7 @@
 
 package app.pachli.core.network.model
 
+import app.pachli.core.network.json.BooleanIfNull
 import app.pachli.core.network.json.Default
 import app.pachli.core.network.json.HasDefault
 import com.squareup.moshi.Json
@@ -32,6 +33,9 @@ data class Report(
     @Json(name = "action_taken_at")
     val actionTakenAt: Instant,
     val comment: String,
+    // Not documented as being null, but is nullable in the wild.
+    // https://github.com/pachli/pachli-android/issues/1352
+    @BooleanIfNull(false)
     val forwarded: Boolean,
     @Json(name = "status_ids") val statusIds: List<String>?,
     @Json(name = "created_at") val createdAt: Instant,
