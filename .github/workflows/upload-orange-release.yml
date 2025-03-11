@@ -78,10 +78,10 @@ jobs:
         run: |
           mkdir -p googleplay/whatsnew
           commitid=$(curl -s https://api.github.com/repos/pachli/pachli-android-current/releases/latest | jq -r '.tag_name | split("-") | .[2]')
-          git log --pretty=format:"%s" "${commitid}"..HEAD | awk '!x[$0]++' > googleplay/whatsnew/whatsnew-en-US
+          git log --pretty=format:"- %s" "${commitid}"..HEAD | awk '!x[$0]++' > googleplay/whatsnew/whatsnew-en-US
           whatsnew_size=$(wc -c < googleplay/whatsnew/whatsnew-en-US)
           if [ "$whatsnew_size" -gt "500" ]; then
-                  git log --pretty=format:"%s" "${commitid}"..HEAD | awk '!x[$0]++' | awk '{i += (length() + 1); if (i <= 485) print $ALL}' > googleplay/whatsnew/whatsnew-en-US
+                  git log --pretty=format:"- %s" "${commitid}"..HEAD | awk '!x[$0]++' | awk '{i += (length() + 1); if (i <= 465) print $ALL}' > googleplay/whatsnew/whatsnew-en-US
                   echo "... and more" >> googleplay/whatsnew/whatsnew-en-US
           fi
 
