@@ -28,5 +28,5 @@
     <string name="pref_tab_contents_text_only">Téacs amháin</string>
     <string name="pref_tab_contents_icon_text_inline">Icon le téacs in aice</string>
     <string name="pref_tab_contents_icon_text_below">Icon le téacs thíos</string>
-    <string name="pref_title_render_markdown">Render Marks</string>
+    <string name="pref_title_render_markdown"></string>
 </resources>
