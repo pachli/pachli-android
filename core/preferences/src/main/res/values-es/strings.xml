@@ -28,5 +28,4 @@
     <string name="pref_tab_alignment_justify_if_possible">Ampliar a ancho completo</string>
     <string name="pref_tab_alignment_end">Fin de la dirección de texto</string>
     <string name="pref_title_tab_contents">Contenido de las principales pestañas de navegación</string>
-    <string name="pref_title_render_markdown"></string>
 </resources>

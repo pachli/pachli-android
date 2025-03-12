@@ -28,5 +28,4 @@
     <string name="pref_tab_contents_icon_text_below">Ícone com texto abaixo</string>
     <string name="pref_tab_contents_icon_only">Apenas ícone</string>
     <string name="pref_tab_contents_text_only">Só texto</string>
-    <string name="pref_title_render_markdown"></string>
 </resources>

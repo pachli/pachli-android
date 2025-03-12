@@ -28,5 +28,4 @@
     <string name="pref_tab_contents_icon_text_inline">Ikona s textem vedle</string>
     <string name="pref_tab_contents_icon_only">Jen ikony</string>
     <string name="pref_tab_contents_text_only">Jen text</string>
-    <string name="pref_title_render_markdown"></string>
 </resources>
