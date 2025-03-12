@@ -28,5 +28,4 @@
     <string name="pref_tab_contents_icon_text_below">Icon szöveg alább</string>
     <string name="pref_tab_contents_icon_only">Csak ikon</string>
     <string name="pref_tab_contents_text_only">Csak szöveg</string>
-    <string name="pref_title_render_markdown"></string>
 </resources>

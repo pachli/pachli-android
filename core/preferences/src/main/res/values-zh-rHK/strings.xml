@@ -28,5 +28,4 @@
     <string name="pref_tab_contents_icon_text_below">内容提要</string>
     <string name="pref_title_tab_contents">主要导航表的内容</string>
     <string name="pref_tab_contents_icon_only">Icon</string>
-    <string name="pref_title_render_markdown"></string>
 </resources>

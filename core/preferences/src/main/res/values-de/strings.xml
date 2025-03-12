@@ -28,5 +28,4 @@
     <string name="pref_tab_contents_icon_text_below">Icon mit Text unten</string>
     <string name="pref_tab_contents_text_only">Nur-Text</string>
     <string name="pref_tab_contents_icon_only">Nur Icon</string>
-    <string name="pref_title_render_markdown"></string>
 </resources>
