@@ -50,7 +50,7 @@ kotlin = "2.1.10"
 kotlin-result = "1.1.20"
 ksoup = "0.5.0"
 ksp = "2.1.10-1.0.29"
-image-cropper = "4.3.2"
+image-cropper = "4.3.3"
 leakcanary = "2.14"
 lint = "31.9.0" # = agp + 23.0.0 (= 8.8.2), see https://github.com/googlesamples/android-custom-lint-rules#lint-version
 markwon = "4.6.2"
@@ -190,7 +190,7 @@ kotlinx-coroutines-play-services = { module = "org.jetbrains.kotlinx:kotlinx-cor
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
 ksoup-entities = { module = "com.mohamedrejeb.ksoup:ksoup-entities", version.ref = "ksoup" }
-image-cropper = { module = "com.github.CanHub:Android-Image-Cropper", version.ref = "image-cropper" }
+image-cropper = { module = "com.vanniktech:android-image-cropper", version.ref = "image-cropper" }
 leakcanary = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanary" }
 lint-api = { module = "com.android.tools.lint:lint-api", version.ref = "lint" }
 lint-checks = { module = "com.android.tools.lint:lint-checks", version.ref = "lint" }
