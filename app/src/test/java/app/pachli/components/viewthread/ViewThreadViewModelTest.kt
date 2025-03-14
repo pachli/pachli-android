@@ -28,6 +28,8 @@ import app.pachli.core.testing.rules.MainCoroutineRule
 import app.pachli.core.testing.success
 import app.pachli.usecase.TimelineCases
 import com.github.michaelbull.result.andThen
+import com.github.michaelbull.result.get
+import com.github.michaelbull.result.getError
 import com.github.michaelbull.result.onSuccess
 import com.squareup.moshi.Moshi
 import dagger.hilt.android.testing.CustomTestApplication
@@ -174,16 +176,16 @@ class ViewThreadViewModelTest {
     fun `should emit status and context when both load`() = runTest {
         mockSuccessResponses()
 
-        viewModel.uiState.test {
+        viewModel.uiResult.test {
             viewModel.loadThread(threadId)
-            var item: ThreadUiState
+            var item: ThreadUiState?
 
             do {
-                item = awaitItem()
-            } while (item !is ThreadUiState.Success)
+                item = awaitItem().get()
+            } while (item !is ThreadUiState.Loaded)
 
             assertEquals(
-                ThreadUiState.Success(
+                ThreadUiState.Loaded(
                     statusViewData = listOf(
                         fakeStatusViewData(id = "1", spoilerText = "Test"),
                         fakeStatusViewData(
@@ -215,16 +217,16 @@ class ViewThreadViewModelTest {
             onBlocking { statusContext(threadId) } doReturn failure()
         }
 
-        viewModel.uiState.test {
+        viewModel.uiResult.test {
             viewModel.loadThread(threadId)
-            var item: ThreadUiState
+            var item: ThreadUiState?
 
             do {
-                item = awaitItem()
-            } while (item !is ThreadUiState.Success)
+                item = awaitItem().get()
+            } while (item !is ThreadUiState.Loaded)
 
             assertEquals(
-                ThreadUiState.Success(
+                ThreadUiState.Loaded(
                     statusViewData = listOf(
                         fakeStatusViewData(
                             id = "2",
@@ -248,16 +250,16 @@ class ViewThreadViewModelTest {
             onBlocking { statusContext(threadId) } doReturn failure()
         }
 
-        viewModel.uiState.test {
+        viewModel.uiResult.test {
             viewModel.loadThread(threadId)
-            var item: ThreadUiState
+            var item: ThreadError?
 
             do {
-                item = awaitItem()
-            } while (item !is ThreadUiState.Error)
+                item = awaitItem().getError()
+            } while (item !is ThreadError)
 
             assertEquals(
-                ThreadUiState.Error::class.java,
+                ThreadError.Api::class.java,
                 item.javaClass,
             )
         }
@@ -275,16 +277,16 @@ class ViewThreadViewModelTest {
             )
         }
 
-        viewModel.uiState.test {
+        viewModel.uiResult.test {
             viewModel.loadThread(threadId)
-            var item: ThreadUiState
+            var item: ThreadError?
 
             do {
-                item = awaitItem()
-            } while (item !is ThreadUiState.Error)
+                item = awaitItem().getError()
+            } while (item !is ThreadError)
 
             assertEquals(
-                ThreadUiState.Error::class.java,
+                ThreadError.Api::class.java,
                 item.javaClass,
             )
         }
@@ -292,16 +294,16 @@ class ViewThreadViewModelTest {
 
     @Test
     fun `should update state when reveal button is toggled`() = runTest {
-        viewModel.uiState.test {
+        viewModel.uiResult.test {
             mockSuccessResponses()
 
             viewModel.loadThread(threadId)
-            while (awaitItem() !is ThreadUiState.Success) {
+            while (awaitItem().get() !is ThreadUiState.Loaded) {
             }
             viewModel.toggleRevealButton()
 
             assertEquals(
-                ThreadUiState.Success(
+                ThreadUiState.Loaded(
                     statusViewData = listOf(
                         fakeStatusViewData(id = "1", spoilerText = "Test", isExpanded = true),
                         fakeStatusViewData(
@@ -323,23 +325,23 @@ class ViewThreadViewModelTest {
                     detailedStatusPosition = 1,
                     revealButton = RevealButtonState.HIDE,
                 ),
-                expectMostRecentItem(),
+                expectMostRecentItem().get(),
             )
         }
     }
 
     @Test
     fun `should handle favorite event`() = runTest {
-        viewModel.uiState.test {
+        viewModel.uiResult.test {
             mockSuccessResponses()
 
             viewModel.loadThread(threadId)
-            while (awaitItem() !is ThreadUiState.Success) {
+            while (awaitItem().get() !is ThreadUiState.Loaded) {
             }
 
             eventHub.dispatch(FavoriteEvent(statusId = "1", false))
             assertEquals(
-                ThreadUiState.Success(
+                ThreadUiState.Loaded(
                     statusViewData = listOf(
                         fakeStatusViewData(id = "1", spoilerText = "Test", favourited = false),
                         fakeStatusViewData(
@@ -359,23 +361,23 @@ class ViewThreadViewModelTest {
                     detailedStatusPosition = 1,
                     revealButton = RevealButtonState.REVEAL,
                 ),
-                expectMostRecentItem(),
+                expectMostRecentItem().get(),
             )
         }
     }
 
     @Test
     fun `should handle reblog event`() = runTest {
-        viewModel.uiState.test {
+        viewModel.uiResult.test {
             mockSuccessResponses()
 
             viewModel.loadThread(threadId)
-            while (awaitItem() !is ThreadUiState.Success) {
+            while (awaitItem().get() !is ThreadUiState.Loaded) {
             }
             eventHub.dispatch(ReblogEvent(statusId = "2", true))
 
             assertEquals(
-                ThreadUiState.Success(
+                ThreadUiState.Loaded(
                     statusViewData = listOf(
                         fakeStatusViewData(id = "1", spoilerText = "Test"),
                         fakeStatusViewData(
@@ -396,23 +398,23 @@ class ViewThreadViewModelTest {
                     detailedStatusPosition = 1,
                     revealButton = RevealButtonState.REVEAL,
                 ),
-                expectMostRecentItem(),
+                expectMostRecentItem().get(),
             )
         }
     }
 
     @Test
     fun `should handle bookmark event`() = runTest {
-        viewModel.uiState.test {
+        viewModel.uiResult.test {
             mockSuccessResponses()
 
             viewModel.loadThread(threadId)
-            while (awaitItem() !is ThreadUiState.Success) {
+            while (awaitItem().get() !is ThreadUiState.Loaded) {
             }
             eventHub.dispatch(BookmarkEvent(statusId = "3", false))
 
             assertEquals(
-                ThreadUiState.Success(
+                ThreadUiState.Loaded(
                     statusViewData = listOf(
                         fakeStatusViewData(id = "1", spoilerText = "Test"),
                         fakeStatusViewData(
@@ -433,23 +435,23 @@ class ViewThreadViewModelTest {
                     detailedStatusPosition = 1,
                     revealButton = RevealButtonState.REVEAL,
                 ),
-                expectMostRecentItem(),
+                expectMostRecentItem().get(),
             )
         }
     }
 
     @Test
     fun `should remove status`() = runTest {
-        viewModel.uiState.test {
+        viewModel.uiResult.test {
             mockSuccessResponses()
 
             viewModel.loadThread(threadId)
-            while (awaitItem() !is ThreadUiState.Success) {
+            while (awaitItem().get() !is ThreadUiState.Loaded) {
             }
             viewModel.removeStatus(fakeStatusViewData(id = "3", inReplyToId = "2", inReplyToAccountId = "1", spoilerText = "Test"))
 
             assertEquals(
-                ThreadUiState.Success(
+                ThreadUiState.Loaded(
                     statusViewData = listOf(
                         fakeStatusViewData(id = "1", spoilerText = "Test"),
                         fakeStatusViewData(
@@ -463,18 +465,18 @@ class ViewThreadViewModelTest {
                     detailedStatusPosition = 1,
                     revealButton = RevealButtonState.REVEAL,
                 ),
-                expectMostRecentItem(),
+                expectMostRecentItem().get(),
             )
         }
     }
 
     @Test
     fun `should change status expanded state`() = runTest {
-        viewModel.uiState.test {
+        viewModel.uiResult.test {
             mockSuccessResponses()
 
             viewModel.loadThread(threadId)
-            while (awaitItem() !is ThreadUiState.Success) {
+            while (awaitItem().get() !is ThreadUiState.Loaded) {
             }
             viewModel.changeExpanded(
                 true,
@@ -482,7 +484,7 @@ class ViewThreadViewModelTest {
             )
 
             assertEquals(
-                ThreadUiState.Success(
+                ThreadUiState.Loaded(
                     statusViewData = listOf(
                         fakeStatusViewData(id = "1", spoilerText = "Test"),
                         fakeStatusViewData(
@@ -503,18 +505,18 @@ class ViewThreadViewModelTest {
                     detailedStatusPosition = 1,
                     revealButton = RevealButtonState.REVEAL,
                 ),
-                expectMostRecentItem(),
+                expectMostRecentItem().get(),
             )
         }
     }
 
     @Test
     fun `should change content collapsed state`() = runTest {
-        viewModel.uiState.test {
+        viewModel.uiResult.test {
             mockSuccessResponses()
 
             viewModel.loadThread(threadId)
-            while (awaitItem() !is ThreadUiState.Success) {
+            while (awaitItem().get() !is ThreadUiState.Loaded) {
             }
             viewModel.changeContentCollapsed(
                 true,
@@ -522,7 +524,7 @@ class ViewThreadViewModelTest {
             )
 
             assertEquals(
-                ThreadUiState.Success(
+                ThreadUiState.Loaded(
                     statusViewData = listOf(
                         fakeStatusViewData(id = "1", spoilerText = "Test"),
                         fakeStatusViewData(
@@ -543,18 +545,18 @@ class ViewThreadViewModelTest {
                     detailedStatusPosition = 1,
                     revealButton = RevealButtonState.REVEAL,
                 ),
-                expectMostRecentItem(),
+                expectMostRecentItem().get(),
             )
         }
     }
 
     @Test
     fun `should change content showing state`() = runTest {
-        viewModel.uiState.test {
+        viewModel.uiResult.test {
             mockSuccessResponses()
 
             viewModel.loadThread(threadId)
-            while (awaitItem() !is ThreadUiState.Success) {
+            while (awaitItem().get() !is ThreadUiState.Loaded) {
             }
             viewModel.changeContentShowing(
                 true,
@@ -562,7 +564,7 @@ class ViewThreadViewModelTest {
             )
 
             assertEquals(
-                ThreadUiState.Success(
+                ThreadUiState.Loaded(
                     statusViewData = listOf(
                         fakeStatusViewData(id = "1", spoilerText = "Test"),
                         fakeStatusViewData(
@@ -583,7 +585,7 @@ class ViewThreadViewModelTest {
                     detailedStatusPosition = 1,
                     revealButton = RevealButtonState.REVEAL,
                 ),
-                expectMostRecentItem(),
+                expectMostRecentItem().get(),
             )
         }
     }
