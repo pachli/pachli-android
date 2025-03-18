@@ -17,7 +17,6 @@
 
 package app.pachli.core.network.model
 
-import app.pachli.core.model.Timeline
 import app.pachli.core.network.json.Default
 import app.pachli.core.network.json.HasDefault
 import com.squareup.moshi.Json
@@ -45,7 +44,7 @@ enum class FilterContext {
     @Json(name = "public")
     PUBLIC,
 
-    /** Filter applies to conversation. */
+    /** Filter applies to conversations (threads, **not** private messages). */
     @Json(name = "thread")
     CONVERSATION,
 
@@ -56,28 +55,6 @@ enum class FilterContext {
     ;
 
     companion object {
-        /**
-         * @return The filter context for [timeline], or null if filters are not applied
-         *     to this timeline.
-         */
-        @Deprecated("Use app.pachli.core.model.FilterContext instead")
-        fun from(timeline: Timeline): FilterContext? = when (timeline) {
-            is Timeline.Home, is Timeline.UserList -> HOME
-            is Timeline.User -> ACCOUNT
-            Timeline.Notifications -> NOTIFICATIONS
-            Timeline.Bookmarks,
-            Timeline.Favourites,
-            Timeline.PublicFederated,
-            Timeline.PublicLocal,
-            is Timeline.Hashtags,
-            Timeline.TrendingStatuses,
-            Timeline.TrendingHashtags,
-            Timeline.TrendingLinks,
-            is Timeline.Link,
-            -> PUBLIC
-            Timeline.Conversations -> null
-        }
-
         fun from(filterContext: app.pachli.core.model.FilterContext) = when (filterContext) {
             app.pachli.core.model.FilterContext.HOME -> HOME
             app.pachli.core.model.FilterContext.NOTIFICATIONS -> NOTIFICATIONS

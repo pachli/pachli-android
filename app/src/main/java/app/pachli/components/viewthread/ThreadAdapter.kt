@@ -71,10 +71,13 @@ class ThreadAdapter(
 
     override fun getItemViewType(position: Int): Int {
         val viewData = getItem(position)
-        return if (viewData.isDetailed) {
-            VIEW_TYPE_STATUS_DETAILED
-        } else if (viewData.contentFilterAction == FilterAction.WARN) {
+        // Check contentFilterAction first to ensure that detailed statuses are also
+        // filtered. This allows the user to view the thread and get more context to
+        // decide whether or not to view the detailed status.
+        return if (viewData.contentFilterAction == FilterAction.WARN) {
             VIEW_TYPE_STATUS_FILTERED
+        } else if (viewData.isDetailed) {
+            VIEW_TYPE_STATUS_DETAILED
         } else {
             VIEW_TYPE_STATUS
         }

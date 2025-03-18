@@ -45,7 +45,6 @@ import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ClientError
 import app.pachli.network.ContentFilterModel
-import app.pachli.usecase.TimelineCases
 import com.github.michaelbull.result.get
 import com.github.michaelbull.result.getOrElse
 import com.github.michaelbull.result.onFailure
@@ -69,7 +68,6 @@ import timber.log.Timber
 @HiltViewModel
 class ViewThreadViewModel @Inject constructor(
     private val api: MastodonApi,
-    private val timelineCases: TimelineCases,
     eventHub: EventHub,
     private val accountManager: AccountManager,
     private val timelineDao: TimelineDao,
@@ -118,8 +116,8 @@ class ViewThreadViewModel @Inject constructor(
                 .distinctUntilChangedBy { it.contentFilters }
                 .collect { account ->
                     contentFilterModel = when (account.contentFilters.version) {
-                        ContentFilterVersion.V2 -> ContentFilterModel(FilterContext.NOTIFICATIONS)
-                        ContentFilterVersion.V1 -> ContentFilterModel(FilterContext.NOTIFICATIONS, account.contentFilters.contentFilters)
+                        ContentFilterVersion.V2 -> ContentFilterModel(FilterContext.CONVERSATIONS)
+                        ContentFilterVersion.V1 -> ContentFilterModel(FilterContext.CONVERSATIONS, account.contentFilters.contentFilters)
                     }
                     updateStatuses()
                 }
@@ -155,6 +153,8 @@ class ViewThreadViewModel @Inject constructor(
                         isShowingContent = timelineStatusWithAccount.viewData?.contentShowing ?: (account.alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
                         isCollapsed = timelineStatusWithAccount.viewData?.contentCollapsed ?: true,
                         isDetailed = true,
+                        contentFilterAction = contentFilterModel?.filterActionFor(status.actionableStatus)
+                            ?: FilterAction.NONE,
                         translationState = timelineStatusWithAccount.viewData?.translationState ?: TranslationState.SHOW_ORIGINAL,
                         translation = timelineStatusWithAccount.translatedStatus,
                     )
@@ -165,8 +165,9 @@ class ViewThreadViewModel @Inject constructor(
                         isExpanded = account.alwaysOpenSpoiler,
                         isShowingContent = (account.alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
                         isDetailed = true,
+                        contentFilterAction = contentFilterModel?.filterActionFor(status.actionableStatus)
+                            ?: FilterAction.NONE,
                         translationState = TranslationState.SHOW_ORIGINAL,
-                        contentFilterAction = FilterAction.NONE,
                     )
                 }
             } else {
@@ -196,6 +197,7 @@ class ViewThreadViewModel @Inject constructor(
                         isExpanded = detailedStatus.isExpanded,
                         isCollapsed = detailedStatus.isCollapsed,
                         isDetailed = true,
+                        contentFilterAction = contentFilterModel?.filterActionFor(it) ?: FilterAction.NONE,
                         translationState = detailedStatus.translationState,
                         translation = detailedStatus.translation,
                     )
@@ -218,6 +220,7 @@ class ViewThreadViewModel @Inject constructor(
                         isExpanded = svd?.expanded ?: account.alwaysOpenSpoiler,
                         isCollapsed = svd?.contentCollapsed ?: true,
                         isDetailed = false,
+                        contentFilterAction = contentFilterModel?.filterActionFor(status) ?: FilterAction.NONE,
                         translationState = svd?.translationState ?: TranslationState.SHOW_ORIGINAL,
                         translation = cachedTranslations[status.id],
                     )
@@ -231,6 +234,7 @@ class ViewThreadViewModel @Inject constructor(
                         isExpanded = svd?.expanded ?: account.alwaysOpenSpoiler,
                         isCollapsed = svd?.contentCollapsed ?: true,
                         isDetailed = false,
+                        contentFilterAction = contentFilterModel?.filterActionFor(status) ?: FilterAction.NONE,
                         translationState = svd?.translationState ?: TranslationState.SHOW_ORIGINAL,
                         translation = cachedTranslations[status.id],
                     )

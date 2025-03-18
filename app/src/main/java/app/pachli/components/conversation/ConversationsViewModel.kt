@@ -28,13 +28,10 @@ import app.pachli.core.database.dao.ConversationsDao
 import app.pachli.core.database.model.ConversationData
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.AccountFilterReason
-import app.pachli.core.model.ContentFilterVersion
 import app.pachli.core.model.FilterAction
-import app.pachli.core.model.FilterContext
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
-import app.pachli.network.ContentFilterModel
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -74,22 +71,10 @@ class ConversationsViewModel @AssistedInject constructor(
 
     val conversationFlow = accountFlow
         .flatMapLatest { pachliAccount ->
-            val contentFilterModel = when (pachliAccount.contentFilters.version) {
-                ContentFilterVersion.V2 -> ContentFilterModel(FilterContext.CONVERSATIONS)
-                ContentFilterVersion.V1 -> ContentFilterModel(
-                    FilterContext.CONVERSATIONS,
-                    pachliAccount.contentFilters.contentFilters,
-                )
-            }
-
             repository.conversations(pachliAccount.id)
                 .map { pagingData ->
                     pagingData
                         .map { conversation ->
-                            val contentFilterAction =
-                                conversation.viewData?.contentFilterAction
-                                    ?: contentFilterModel.filterActionFor(conversation.lastStatus.status)
-
                             val accountFilterDecision = if (conversation.isConversationStarter) {
                                 conversation.viewData?.accountFilterDecision
                                     ?: filterConversationByAccount(pachliAccount, conversation)
@@ -102,11 +87,10 @@ class ConversationsViewModel @AssistedInject constructor(
                                 conversation,
                                 defaultIsExpanded = pachliAccount.entity.alwaysOpenSpoiler,
                                 defaultIsShowingContent = (pachliAccount.entity.alwaysShowSensitiveMedia || !conversation.lastStatus.status.sensitive),
-                                contentFilterAction = contentFilterAction,
+                                contentFilterAction = FilterAction.NONE,
                                 accountFilterDecision = accountFilterDecision,
                             )
                         }
-                        .filter { it.contentFilterAction != FilterAction.HIDE }
                         .filter { it.accountFilterDecision !is AccountFilterDecision.Hide }
                 }
         }
