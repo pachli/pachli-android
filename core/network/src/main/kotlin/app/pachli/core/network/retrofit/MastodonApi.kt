@@ -64,6 +64,7 @@ import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.HTTP
 import retrofit2.http.Header
+import retrofit2.http.Headers
 import retrofit2.http.Multipart
 import retrofit2.http.PATCH
 import retrofit2.http.POST
@@ -661,6 +662,7 @@ interface MastodonApi {
         @Path("id") id: String,
     ): ApiResult<Unit>
 
+    @Headers("Content-Type: application/x-www-form-urlencoded")
     @POST("api/v2/filters")
     suspend fun createFilter(@Body newContentFilter: NewContentFilter): ApiResult<Filter>
 
