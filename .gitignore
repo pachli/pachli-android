@@ -12,3 +12,5 @@ profile-out-*
 app/*/release
 app-release.apk
 .kotlin
+
+feature/about/src/main/assets/PRIVACY.md
