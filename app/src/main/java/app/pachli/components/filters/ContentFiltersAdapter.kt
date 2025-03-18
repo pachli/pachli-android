@@ -3,7 +3,7 @@ package app.pachli.components.filters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.StringRes
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.ListAdapter
 import app.pachli.R
 import app.pachli.core.model.ContentFilter
 import app.pachli.core.ui.BindingHolder
@@ -11,11 +11,8 @@ import app.pachli.databinding.ItemRemovableBinding
 import app.pachli.util.getRelativeTimeSpanString
 import com.google.android.material.color.MaterialColors
 
-class FiltersAdapter(val listener: ContentFiltersListener, val contentFilters: List<ContentFilter>) :
-    RecyclerView.Adapter<BindingHolder<ItemRemovableBinding>>() {
-
-    override fun getItemCount(): Int = contentFilters.size
-
+class ContentFiltersAdapter(val listener: ContentFiltersListener) :
+    ListAdapter<ContentFilter, BindingHolder<ItemRemovableBinding>>(ContentFilterDiffer) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingHolder<ItemRemovableBinding> {
         return BindingHolder(ItemRemovableBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
@@ -26,7 +23,7 @@ class FiltersAdapter(val listener: ContentFiltersListener, val contentFilters: L
         val actions = resources.getStringArray(R.array.filter_actions)
         val filterContextNames = resources.getStringArray(R.array.filter_contexts)
 
-        val filter = contentFilters[position]
+        val filter = currentList[position]
         val context = binding.root.context
         binding.textPrimary.text = filter.expiresAt?.let {
             context.getString(
@@ -45,7 +42,10 @@ class FiltersAdapter(val listener: ContentFiltersListener, val contentFilters: L
             secondaryText = context.getString(
                 R.string.filter_description_format,
                 actions.getOrNull(filter.filterAction.ordinal - 1),
-                filter.contexts.map { filterContextNames.getOrNull(it.ordinal) }.joinToString("/"),
+                filter.contexts
+                    .sortedBy { it.ordinal }
+                    .map { filterContextNames.getOrNull(it.ordinal) }
+                    .joinToString(" / "),
             )
             secondaryTextColor = android.R.attr.textColorTertiary
         } else {
@@ -97,4 +97,9 @@ fun ContentFilter.validate() = buildSet {
     if (title.isBlank()) add(ContentFilterValidationError.NO_TITLE)
     if (keywords.isEmpty()) add(ContentFilterValidationError.NO_KEYWORDS)
     if (contexts.isEmpty()) add(ContentFilterValidationError.NO_CONTEXT)
+}
+
+private object ContentFilterDiffer : androidx.recyclerview.widget.DiffUtil.ItemCallback<ContentFilter>() {
+    override fun areItemsTheSame(oldItem: ContentFilter, newItem: ContentFilter) = oldItem.id == newItem.id
+    override fun areContentsTheSame(oldItem: ContentFilter, newItem: ContentFilter) = oldItem == newItem
 }

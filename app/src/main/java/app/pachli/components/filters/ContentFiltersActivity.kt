@@ -21,6 +21,7 @@ import app.pachli.databinding.ActivityContentFiltersBinding
 import com.google.android.material.color.MaterialColors
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.withCreationCallback
+import java.text.Collator
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -34,6 +35,8 @@ class ContentFiltersActivity : BaseActivity(), ContentFiltersListener {
             }
         },
     )
+
+    private val adapter = ContentFiltersAdapter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +61,8 @@ class ContentFiltersActivity : BaseActivity(), ContentFiltersListener {
         binding.swipeRefreshLayout.setColorSchemeColors(MaterialColors.getColor(binding.root, androidx.appcompat.R.attr.colorPrimary))
         binding.includedToolbar.appbar.setLiftOnScrollTargetView(binding.filtersList)
 
+        binding.filtersList.adapter = adapter
+
         setTitle(R.string.pref_title_content_filters)
 
         bind()
@@ -67,7 +72,7 @@ class ContentFiltersActivity : BaseActivity(), ContentFiltersListener {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 viewModel.contentFilters.collect { contentFilters ->
-                    binding.filtersList.adapter = FiltersAdapter(this@ContentFiltersActivity, contentFilters.contentFilters)
+                    adapter.submitList(contentFilters.contentFilters.sortedWith(comparebyTitle))
                     if (contentFilters.contentFilters.isEmpty()) {
                         binding.messageView.setup(BackgroundMessage.Empty())
                         binding.messageView.show()
@@ -102,5 +107,16 @@ class ContentFiltersActivity : BaseActivity(), ContentFiltersListener {
 
     override fun updateContentFilter(updatedContentFilter: ContentFilter) {
         launchEditContentFilterActivity(updatedContentFilter)
+    }
+
+    companion object {
+        /** Locale aware collator by text. */
+        private val text: Collator = Collator.getInstance().apply { strength = Collator.SECONDARY }
+
+        /**
+         * Locale-aware comparator for content fitlers. Case-insenstive comparison by
+         * the filter's title.
+         */
+        val comparebyTitle: Comparator<ContentFilter> = compareBy(text) { it.title }
     }
 }
