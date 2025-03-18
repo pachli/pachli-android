@@ -19,6 +19,7 @@ package app.pachli.components.viewthread
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.components.timeline.CachedTimelineRepository
+import app.pachli.core.common.PachliError
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.Loadable
@@ -43,8 +44,12 @@ import app.pachli.core.model.FilterContext
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.network.retrofit.apiresult.ApiError
 import app.pachli.core.network.retrofit.apiresult.ClientError
 import app.pachli.network.ContentFilterModel
+import com.github.michaelbull.result.Err
+import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.get
 import com.github.michaelbull.result.getOrElse
 import com.github.michaelbull.result.onFailure
@@ -53,15 +58,15 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
-import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.getAndUpdate
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -75,13 +80,15 @@ class ViewThreadViewModel @Inject constructor(
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     private val statusRepository: StatusRepository,
 ) : ViewModel() {
-    private val _uiState: MutableStateFlow<ThreadUiState> = MutableStateFlow(ThreadUiState.Loading)
-    val uiState: Flow<ThreadUiState>
-        get() = _uiState
+    // TODO: For consistency with other fragments the UiState should not include
+    // the list of statuses. Look at SuggestionsViewModel for ideas.
+    private val _uiResult: MutableStateFlow<Result<ThreadUiState, ThreadError>> =
+        MutableStateFlow(Ok(ThreadUiState.Loading))
+    val uiResult: Flow<Result<ThreadUiState, ThreadError>>
+        get() = _uiResult
 
-    private val _errors = MutableSharedFlow<Throwable>(replay = 0, extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
-    val errors: Flow<Throwable>
-        get() = _errors
+    private val _errors = Channel<Throwable>()
+    val errors = _errors.receiveAsFlow()
 
     var isInitialLoad: Boolean = true
 
@@ -126,7 +133,7 @@ class ViewThreadViewModel @Inject constructor(
 
     fun loadThread(id: String) {
         viewModelScope.launch {
-            _uiState.value = ThreadUiState.Loading
+            _uiResult.value = Ok(ThreadUiState.Loading)
 
             val account = accountManager.activeAccountFlow
                 .filterIsInstance<Loadable.Loaded<AccountEntity?>>()
@@ -173,15 +180,17 @@ class ViewThreadViewModel @Inject constructor(
             } else {
                 Timber.d("Loaded status from network")
                 val result = api.status(id).getOrElse { error ->
-                    _uiState.value = ThreadUiState.Error(error.throwable)
+                    _uiResult.value = Err(ThreadError.Api(error))
                     return@launch
                 }
                 StatusViewData.fromStatusAndUiState(account, result.body, isDetailed = true)
             }
 
-            _uiState.value = ThreadUiState.LoadingThread(
-                statusViewDatum = detailedStatus,
-                revealButton = detailedStatus.getRevealButtonState(),
+            _uiResult.value = Ok(
+                ThreadUiState.LoadingThread(
+                    statusViewDatum = detailedStatus,
+                    revealButton = detailedStatus.getRevealButtonState(),
+                ),
             )
 
             // If the detailedStatus was loaded from the database it might be out-of-date
@@ -241,36 +250,40 @@ class ViewThreadViewModel @Inject constructor(
                 }.filterByFilterAction()
                 val statuses = ancestors + detailedStatus + descendants
 
-                _uiState.value = ThreadUiState.Success(
-                    statusViewData = statuses,
-                    detailedStatusPosition = ancestors.size,
-                    revealButton = statuses.getRevealButtonState(),
+                _uiResult.value = Ok(
+                    ThreadUiState.Loaded(
+                        statusViewData = statuses,
+                        detailedStatusPosition = ancestors.size,
+                        revealButton = statuses.getRevealButtonState(),
+                    ),
                 )
             }
                 .onFailure { error ->
-                    _errors.emit(error.throwable)
-                    _uiState.value = ThreadUiState.Success(
-                        statusViewData = listOf(detailedStatus),
-                        detailedStatusPosition = 0,
-                        revealButton = RevealButtonState.NO_BUTTON,
+                    _uiResult.value = Ok(
+                        ThreadUiState.Loaded(
+                            statusViewData = listOf(detailedStatus),
+                            detailedStatusPosition = 0,
+                            revealButton = RevealButtonState.NO_BUTTON,
+                        ),
                     )
+                    _errors.send(error.throwable)
                 }
         }
     }
 
     fun retry(id: String) {
-        _uiState.value = ThreadUiState.Loading
+        _uiResult.value = Ok(ThreadUiState.Loading)
         loadThread(id)
     }
 
     fun refresh(id: String) {
-        _uiState.value = ThreadUiState.Refreshing
+        _uiResult.value = Ok(ThreadUiState.Refreshing)
         loadThread(id)
     }
 
     fun detailedStatus(): StatusViewData? {
-        return when (val uiState = _uiState.value) {
-            is ThreadUiState.Success -> uiState.statusViewData.find { status ->
+        return when (val uiState = _uiResult.value.get()) {
+            is ThreadUiState.Loaded -> uiState.statusViewData.find { status ->
                 status.isDetailed
             }
             is ThreadUiState.LoadingThread -> uiState.statusViewDatum
@@ -489,7 +502,7 @@ class ViewThreadViewModel @Inject constructor(
                     // (https://github.com/mastodon/documentation/issues/1330). Nothing useful
                     // to do here so swallow the error
                     if (it is ClientError && it.exception.code() == 403) return@launch
-                    _errors.emit(it.throwable)
+                    _errors.send(it.throwable)
                 }
         }
     }
@@ -568,7 +581,8 @@ class ViewThreadViewModel @Inject constructor(
      * status in _uiState (if that status exists).
      */
     private fun StatusViewData.Companion.fromStatusAndUiState(account: AccountEntity, status: Status, isDetailed: Boolean = false): StatusViewData {
-        val oldStatus = (_uiState.value as? ThreadUiState.Success)?.statusViewData?.find { it.id == status.id }
+        val oldStatus =
+            (_uiResult.value.get() as? ThreadUiState.Loaded)?.statusViewData?.find { it.id == status.id }
         return from(
             pachliAccountId = account.id,
             status,
@@ -579,12 +593,15 @@ class ViewThreadViewModel @Inject constructor(
         )
     }
 
-    private inline fun updateSuccess(updater: (ThreadUiState.Success) -> ThreadUiState.Success) {
-        _uiState.update { uiState ->
-            if (uiState is ThreadUiState.Success) {
-                updater(uiState)
+    /**
+     * Updates [_uiResult] using [updater] if [_uiResult] is already [ThreadUiState.Loaded].
+     */
+    private inline fun updateSuccess(updater: (ThreadUiState.Loaded) -> ThreadUiState.Loaded) {
+        _uiResult.getAndUpdate { v ->
+            if (v.get() is ThreadUiState.Loaded) {
+                Ok(updater(v.get() as ThreadUiState.Loaded))
             } else {
-                uiState
+                v
             }
         }
     }
@@ -605,16 +622,12 @@ class ViewThreadViewModel @Inject constructor(
 
     private fun updateStatus(statusId: String, updater: (Status) -> Status) {
         updateStatusViewData(statusId) { viewData ->
-            viewData.copy(
-                status = updater(viewData.status),
-            )
+            viewData.copy(status = updater(viewData.status))
         }
     }
 
     fun clearWarning(viewData: StatusViewData) {
-        updateStatus(viewData.id) { status ->
-            status.copy(filtered = null)
-        }
+        updateStatusViewData(viewData.id) { it.copy(contentFilterAction = FilterAction.NONE) }
     }
 }
 
@@ -628,11 +641,8 @@ sealed interface ThreadUiState {
         val revealButton: RevealButtonState,
     ) : ThreadUiState
 
-    /** An error occurred at any point */
-    class Error(val throwable: Throwable) : ThreadUiState
-
     /** Successfully loaded the full thread */
-    data class Success(
+    data class Loaded(
         val statusViewData: List<StatusViewData>,
         val revealButton: RevealButtonState,
         val detailedStatusPosition: Int,
@@ -640,6 +650,11 @@ sealed interface ThreadUiState {
 
     /** Refreshing the thread with a swipe */
     data object Refreshing : ThreadUiState
+}
+
+sealed interface ThreadError : PachliError {
+    @JvmInline
+    value class Api(private val error: ApiError) : ThreadError, PachliError by error
 }
 
 enum class RevealButtonState {
