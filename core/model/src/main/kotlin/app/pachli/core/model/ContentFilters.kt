@@ -110,7 +110,7 @@ enum class FilterContext {
     @Json(name = "public")
     PUBLIC,
 
-    /** Filter applies to conversations. */
+    /** Filter applies to conversations (threads, **not** private messages). */
     @Json(name = "thread")
     CONVERSATIONS,
 
@@ -139,7 +139,7 @@ enum class FilterContext {
             Timeline.TrendingLinks,
             is Timeline.Link,
             -> PUBLIC
-            Timeline.Conversations -> CONVERSATIONS
+            Timeline.Conversations -> null
         }
     }
 }

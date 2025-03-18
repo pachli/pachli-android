@@ -161,7 +161,6 @@ class ViewThreadViewModelTest {
 
         viewModel = ViewThreadViewModel(
             mastodonApi,
-            timelineCases,
             eventHub,
             accountManager,
             timelineDao,
