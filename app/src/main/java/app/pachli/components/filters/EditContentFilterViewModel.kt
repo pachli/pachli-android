@@ -64,7 +64,11 @@ data class ContentFilterViewData(
     /** Filter's ID. Null if this is a new, un-saved filter. */
     val id: String? = null,
     val title: String = "",
-    val contexts: Set<FilterContext> = emptySet(),
+    /**
+     * Contexts the filter applies to. Default for new filters is to
+     * apply to all contexts.
+     */
+    val contexts: Set<FilterContext> = FilterContext.entries.toSet(),
     /**
      * The number of seconds in the future the filter should expire.
      * "-1" means "use the filter's current value".
