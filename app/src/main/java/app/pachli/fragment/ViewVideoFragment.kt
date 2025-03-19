@@ -273,7 +273,7 @@ class ViewVideoFragment : ViewMediaFragment() {
     private fun releasePlayer() {
         player?.let {
             savedSeekPosition = it.currentPosition
-            it.release()
+            if (it.isCommandAvailable(Player.COMMAND_RELEASE)) it.release()
             player = null
             binding.videoView.player = null
         }
