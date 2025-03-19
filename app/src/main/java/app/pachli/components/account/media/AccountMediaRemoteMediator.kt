@@ -24,8 +24,6 @@ import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.network.retrofit.MastodonApi
 import com.github.michaelbull.result.getOrElse
-import kotlinx.coroutines.currentCoroutineContext
-import kotlinx.coroutines.ensureActive
 
 @OptIn(ExperimentalPagingApi::class)
 class AccountMediaRemoteMediator(
@@ -37,40 +35,37 @@ class AccountMediaRemoteMediator(
         loadType: LoadType,
         state: PagingState<String, AttachmentViewData>,
     ): MediatorResult {
-        try {
-            val statusResponse = when (loadType) {
-                LoadType.REFRESH -> {
-                    api.accountStatuses(viewModel.accountId, onlyMedia = true)
-                }
-                LoadType.PREPEND -> {
-                    return MediatorResult.Success(endOfPaginationReached = true)
-                }
-                LoadType.APPEND -> {
-                    val maxId = state.lastItemOrNull()?.statusId
-                    if (maxId != null) {
-                        api.accountStatuses(viewModel.accountId, maxId = maxId, onlyMedia = true)
-                    } else {
-                        return MediatorResult.Success(endOfPaginationReached = false)
-                    }
-                }
-            }.getOrElse { return MediatorResult.Error(it.throwable) }
-
-            val statuses = statusResponse.body
-            val attachments = statuses.flatMap { status ->
-                AttachmentViewData.list(status, activeAccount.alwaysShowSensitiveMedia)
+        val statusResponse = when (loadType) {
+            LoadType.REFRESH -> {
+                api.accountStatuses(viewModel.accountId, onlyMedia = true)
             }
 
-            if (loadType == LoadType.REFRESH) {
-                viewModel.attachmentData.clear()
+            LoadType.PREPEND -> {
+                return MediatorResult.Success(endOfPaginationReached = true)
             }
 
-            viewModel.attachmentData.addAll(attachments)
+            LoadType.APPEND -> {
+                val maxId = state.lastItemOrNull()?.statusId
+                if (maxId != null) {
+                    api.accountStatuses(viewModel.accountId, maxId = maxId, onlyMedia = true)
+                } else {
+                    return MediatorResult.Success(endOfPaginationReached = false)
+                }
+            }
+        }.getOrElse { return MediatorResult.Error(it.throwable) }
 
-            viewModel.currentSource?.invalidate()
-            return MediatorResult.Success(endOfPaginationReached = statuses.isEmpty())
-        } catch (e: Exception) {
-            currentCoroutineContext().ensureActive()
-            return MediatorResult.Error(e)
+        val statuses = statusResponse.body
+        val attachments = statuses.flatMap { status ->
+            AttachmentViewData.list(status, activeAccount.alwaysShowSensitiveMedia)
         }
+
+        if (loadType == LoadType.REFRESH) {
+            viewModel.attachmentData.clear()
+        }
+
+        viewModel.attachmentData.addAll(attachments)
+
+        viewModel.currentSource?.invalidate()
+        return MediatorResult.Success(endOfPaginationReached = statuses.isEmpty())
     }
 }
