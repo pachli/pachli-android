@@ -29,8 +29,6 @@ import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiResult
 import com.github.michaelbull.result.getOrElse
-import kotlinx.coroutines.currentCoroutineContext
-import kotlinx.coroutines.ensureActive
 import timber.log.Timber
 
 /** Remote mediator for accessing timelines that are not backed by the database. */
@@ -47,61 +45,55 @@ class NetworkTimelineRemoteMediator(
             return MediatorResult.Success(endOfPaginationReached = true)
         }
 
-        return try {
-            val key = when (loadType) {
-                LoadType.REFRESH -> {
-                    // Find the closest page to the current position
-                    val itemKey = state.anchorPosition?.let { state.closestItemToPosition(it) }?.id
-                    itemKey?.let { ik ->
-                        // Find the page that contains the item, so the remote key can be determined
-                        val pageContainingItem = pageCache.getPageById(ik)
+        val key = when (loadType) {
+            LoadType.REFRESH -> {
+                // Find the closest page to the current position
+                val itemKey = state.anchorPosition?.let { state.closestItemToPosition(it) }?.id
+                itemKey?.let { ik ->
+                    // Find the page that contains the item, so the remote key can be determined
+                    val pageContainingItem = pageCache.getPageById(ik)
 
-                        // Double check the item appears in the page
-                        if (BuildConfig.DEBUG) {
-                            pageContainingItem ?: throw java.lang.IllegalStateException("page with $itemKey not found")
-                            pageContainingItem.data.find { it.id == itemKey }
-                                ?: throw java.lang.IllegalStateException("$itemKey not found in returned page")
-                        }
-
-                        // The desired key is the prevKey of the page immediately before this one
-                        pageCache.getPrevPage(pageContainingItem?.prevKey)?.prevKey
+                    // Double check the item appears in the page
+                    if (BuildConfig.DEBUG) {
+                        pageContainingItem ?: throw java.lang.IllegalStateException("page with $itemKey not found")
+                        pageContainingItem.data.find { it.id == itemKey }
+                            ?: throw java.lang.IllegalStateException("$itemKey not found in returned page")
                     }
-                }
-                LoadType.APPEND -> {
-                    pageCache.lastPage?.nextKey ?: return MediatorResult.Success(endOfPaginationReached = true)
-                }
-                LoadType.PREPEND -> {
-                    pageCache.firstPage?.prevKey ?: return MediatorResult.Success(endOfPaginationReached = true)
+
+                    // The desired key is the prevKey of the page immediately before this one
+                    pageCache.getPrevPage(pageContainingItem?.prevKey)?.prevKey
                 }
             }
-
-            Timber.d("- load(), type = %s, key = %s", loadType, key)
-
-            val page = Page.tryFrom(fetchStatusPageByKind(loadType, key, state.config.initialLoadSize))
-                .getOrElse { return MediatorResult.Error(it.throwable) }
-
-            val endOfPaginationReached = page.data.isEmpty()
-            if (!endOfPaginationReached) {
-                synchronized(pageCache) {
-                    pageCache.add(page, loadType)
-                    Timber.d(
-                        "  Page %s complete for %s, now got %d pages",
-                        loadType,
-                        timeline,
-                        pageCache.size,
-                    )
-                    pageCache.debug()
-                }
-                Timber.d("  Invalidating paging source")
-                factory.invalidate()
+            LoadType.APPEND -> {
+                pageCache.lastPage?.nextKey ?: return MediatorResult.Success(endOfPaginationReached = true)
             }
-
-            return MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
-        } catch (e: Exception) {
-            currentCoroutineContext().ensureActive()
-            Timber.e(e, "Error loading, LoadType = %s", loadType)
-            MediatorResult.Error(e)
+            LoadType.PREPEND -> {
+                pageCache.firstPage?.prevKey ?: return MediatorResult.Success(endOfPaginationReached = true)
+            }
         }
+
+        Timber.d("- load(), type = %s, key = %s", loadType, key)
+
+        val page = Page.tryFrom(fetchStatusPageByKind(loadType, key, state.config.initialLoadSize))
+            .getOrElse { return MediatorResult.Error(it.throwable) }
+
+        val endOfPaginationReached = page.data.isEmpty()
+        if (!endOfPaginationReached) {
+            synchronized(pageCache) {
+                pageCache.add(page, loadType)
+                Timber.d(
+                    "  Page %s complete for %s, now got %d pages",
+                    loadType,
+                    timeline,
+                    pageCache.size,
+                )
+                pageCache.debug()
+            }
+            Timber.d("  Invalidating paging source")
+            factory.invalidate()
+        }
+
+        return MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
     }
 
     private suspend fun fetchStatusPageByKind(loadType: LoadType, key: String?, loadSize: Int): ApiResult<List<Status>> {

@@ -50,21 +50,13 @@ class TimelineCases @Inject constructor(
     }
 
     suspend fun mute(statusId: String, notifications: Boolean, duration: Int?) {
-        try {
-            mastodonApi.muteAccount(statusId, notifications, duration)
-            eventHub.dispatch(MuteEvent(statusId))
-        } catch (t: Throwable) {
-            Timber.w(t, "Failed to mute account")
-        }
+        mastodonApi.muteAccount(statusId, notifications, duration)
+            .onSuccess { eventHub.dispatch(MuteEvent(statusId)) }
     }
 
     suspend fun block(accountId: String) {
-        try {
-            mastodonApi.blockAccount(accountId)
-            eventHub.dispatch(BlockEvent(accountId))
-        } catch (t: Throwable) {
-            Timber.w(t, "Failed to block account")
-        }
+        mastodonApi.blockAccount(accountId)
+            .onSuccess { eventHub.dispatch(BlockEvent(accountId)) }
     }
 
     suspend fun delete(statusId: String): ApiResult<DeletedStatus> {

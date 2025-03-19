@@ -19,8 +19,6 @@ import app.pachli.core.network.retrofit.MastodonApi
 import com.github.michaelbull.result.getOrElse
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
-import kotlinx.coroutines.currentCoroutineContext
-import kotlinx.coroutines.ensureActive
 import timber.log.Timber
 
 @OptIn(ExperimentalPagingApi::class)
@@ -47,55 +45,50 @@ class ConversationsRemoteMediator(
             nextKey = null
         }
 
-        try {
-            val conversationsResponse = api.getConversations(maxId = nextKey, limit = state.config.pageSize)
-                .getOrElse { return MediatorResult.Error(it.throwable) }
+        val conversationsResponse = api.getConversations(maxId = nextKey, limit = state.config.pageSize)
+            .getOrElse { return MediatorResult.Error(it.throwable) }
 
-            val conversations = conversationsResponse.body.filterNot { it.lastStatus == null }
+        val conversations = conversationsResponse.body.filterNot { it.lastStatus == null }
 
-            if (conversations.isEmpty()) {
-                return MediatorResult.Success(endOfPaginationReached = loadType != LoadType.REFRESH)
-            }
-
-            transactionProvider {
-                if (loadType == LoadType.REFRESH) {
-                    conversationsDao.deleteForAccount(pachliAccountId)
-                }
-
-                val linkHeader = conversationsResponse.headers["Link"]
-                val links = HttpHeaderLink.parse(linkHeader)
-                nextKey = HttpHeaderLink.findByRelationType(links, "next")?.uri?.getQueryParameter("max_id")
-
-                val accounts = mutableSetOf<TimelineAccount>()
-                val conversationEntities = mutableSetOf<ConversationEntity>()
-                val statuses = mutableSetOf<Status>()
-
-                val conversationStarter = isConversationStarter(conversations.map { it.lastStatus!! })
-
-                conversations.forEach {
-                    val lastStatus = it.lastStatus!!
-                    accounts.add(lastStatus.account)
-                    lastStatus.reblog?.account?.let { accounts.add(it) }
-                    statuses.add(lastStatus)
-                    conversationEntities.add(
-                        ConversationEntity.from(
-                            it,
-                            pachliAccountId,
-                            conversationStarter[it.lastStatus!!.id] == true,
-                        )!!,
-                    )
-                }
-
-                timelineDao.upsertAccounts(accounts.map { TimelineAccountEntity.from(it, pachliAccountId) })
-                statusDao.upsertStatuses(statuses.map { StatusEntity.from(it, pachliAccountId) })
-                conversationsDao.upsert(conversationEntities)
-            }
-
-            return MediatorResult.Success(endOfPaginationReached = nextKey == null)
-        } catch (e: Exception) {
-            currentCoroutineContext().ensureActive()
-            return MediatorResult.Error(e)
+        if (conversations.isEmpty()) {
+            return MediatorResult.Success(endOfPaginationReached = loadType != LoadType.REFRESH)
         }
+
+        transactionProvider {
+            if (loadType == LoadType.REFRESH) {
+                conversationsDao.deleteForAccount(pachliAccountId)
+            }
+
+            val linkHeader = conversationsResponse.headers["Link"]
+            val links = HttpHeaderLink.parse(linkHeader)
+            nextKey = HttpHeaderLink.findByRelationType(links, "next")?.uri?.getQueryParameter("max_id")
+
+            val accounts = mutableSetOf<TimelineAccount>()
+            val conversationEntities = mutableSetOf<ConversationEntity>()
+            val statuses = mutableSetOf<Status>()
+
+            val conversationStarter = isConversationStarter(conversations.map { it.lastStatus!! })
+
+            conversations.forEach {
+                val lastStatus = it.lastStatus!!
+                accounts.add(lastStatus.account)
+                lastStatus.reblog?.account?.let { accounts.add(it) }
+                statuses.add(lastStatus)
+                conversationEntities.add(
+                    ConversationEntity.from(
+                        it,
+                        pachliAccountId,
+                        conversationStarter[it.lastStatus!!.id] == true,
+                    )!!,
+                )
+            }
+
+            timelineDao.upsertAccounts(accounts.map { TimelineAccountEntity.from(it, pachliAccountId) })
+            statusDao.upsertStatuses(statuses.map { StatusEntity.from(it, pachliAccountId) })
+            conversationsDao.upsert(conversationEntities)
+        }
+
+        return MediatorResult.Success(endOfPaginationReached = nextKey == null)
     }
 
     /**

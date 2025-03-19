@@ -180,16 +180,13 @@ class AccountListFragment :
 
     override fun onMute(mute: Boolean, id: String, position: Int, notifications: Boolean) {
         viewLifecycleOwner.lifecycleScope.launch {
-            try {
-                if (!mute) {
-                    api.unmuteAccount(id)
-                } else {
-                    api.muteAccount(id, notifications)
-                }
-                onMuteSuccess(mute, id, position, notifications)
-            } catch (_: Throwable) {
-                onMuteFailure(mute, id, notifications)
+            if (!mute) {
+                api.unmuteAccount(id)
+            } else {
+                api.muteAccount(id, notifications)
             }
+                .onSuccess { onMuteSuccess(mute, id, position, notifications) }
+                .onFailure { onMuteFailure(mute, id, notifications) }
         }
     }
 
