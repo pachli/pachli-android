@@ -14,4 +14,5 @@
     <string name="pref_show_self_username_never">Никога</string>
     <string name="pref_tab_contents_icon_only">Само икона</string>
     <string name="pref_tab_contents_text_only">Само текст</string>
+    <string name="download_location_downloads">Папка за изтегляния %1</string>
 </resources>
