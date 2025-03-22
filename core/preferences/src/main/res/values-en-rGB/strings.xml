@@ -11,4 +11,5 @@
     <string name="pref_show_self_username_never">Never</string>
     <string name="pref_tab_contents_icon_only">Icon only</string>
     <string name="pref_tab_contents_text_only">Text only</string>
+    <string name="download_location_downloads">Download folder: %1</string>
 </resources>
