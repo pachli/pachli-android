@@ -9,4 +9,6 @@
     <string name="pref_category_tabs">Ljepblêden</string>
     <string name="pref_main_nav_position_option_top">Boppe</string>
     <string name="pref_main_nav_position_option_bottom">Ûnder</string>
+    <string name="pref_show_self_username_always">Altyd</string>
+    <string name="pref_show_self_username_never">Nea</string>
 </resources>
