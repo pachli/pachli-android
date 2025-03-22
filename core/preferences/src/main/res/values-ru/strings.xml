@@ -28,4 +28,5 @@
     <string name="pref_tab_alignment_justify_if_possible">Расширение до полной ширины</string>
     <string name="pref_tab_contents_icon_only">Только значок</string>
     <string name="pref_tab_contents_text_only">Только текст</string>
+    <string name="pref_title_render_markdown">Отметка</string>
 </resources>
