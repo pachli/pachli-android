@@ -28,5 +28,5 @@
     <string name="pref_tab_contents_icon_text_below">Ікона з текстом нижче</string>
     <string name="pref_tab_contents_icon_only">Лише іконка</string>
     <string name="pref_tab_contents_text_only">Лише текст</string>
-    <string name="pref_title_render_markdown">Рендер маркування</string>
+    <string name="pref_title_render_markdown"></string>
 </resources>
