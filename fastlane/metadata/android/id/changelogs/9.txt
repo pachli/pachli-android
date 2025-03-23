@@ -6,7 +6,7 @@ Fitur baru:
 - Tampilkan tombol compose saat melihat daftar
 - Tampilkan tombol compose saat melihat daftar bookmark
 
-Login
+Perbaikan:
 
 - Tampilkan konten diterjemahkan dalam benang
 - Menghitung panjang posting dan polutan dengan emoji dengan benar
