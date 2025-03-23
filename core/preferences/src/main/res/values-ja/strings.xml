@@ -28,5 +28,4 @@
     <string name="pref_title_tab_contents">メインナビゲーションタブのコンテンツ</string>
     <string name="pref_tab_contents_text_only">テキストのみ</string>
     <string name="pref_tab_contents_icon_only">アイコンのみ</string>
-    <string name="pref_title_render_markdown"></string>
 </resources>

@@ -28,5 +28,4 @@
     <string name="pref_tab_contents_icon_text_below">ไอคอนที่มีข้อความด้านล่าง</string>
     <string name="pref_tab_contents_icon_only">ไอคอนเท่านั้น</string>
     <string name="pref_tab_contents_text_only">ข้อความเท่านั้น</string>
-    <string name="pref_title_render_markdown"></string>
 </resources>
