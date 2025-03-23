@@ -45,6 +45,7 @@ import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.get
 import com.github.michaelbull.result.mapEither
+import com.github.michaelbull.result.runCatching
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File
 import java.io.IOException
@@ -384,7 +385,7 @@ class MediaUploader @Inject constructor(
 
     private val contentResolver = context.contentResolver
 
-    private suspend fun upload(media: QueuedMedia): Flow<Result<UploadState, MediaUploaderError.UploadMediaError>> {
+    private fun upload(media: QueuedMedia): Flow<Result<UploadState, MediaUploaderError.UploadMediaError>> {
         return callbackFlow {
             var mimeType = contentResolver.getType(media.uri)
 
@@ -396,8 +397,12 @@ class MediaUploader @Inject constructor(
                     it.startsWith("video/", ignoreCase = true)
                 ) {
                     val retriever = MediaMetadataRetriever()
-                    retriever.setDataSource(context, media.uri)
-                    mimeType = retriever.extractMetadata(METADATA_KEY_MIMETYPE)
+                    // setDataSource may throw. If it does there's nothing to be done,
+                    // leave the sniffed mimeType as null.
+                    mimeType = runCatching {
+                        retriever.setDataSource(context, media.uri)
+                        retriever.extractMetadata(METADATA_KEY_MIMETYPE)
+                    }.get()
                 }
             }
             val map = MimeTypeMap.getSingleton()
