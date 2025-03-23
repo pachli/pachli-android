@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_empty">Tas nevar būt tukšs.</string>
+    <string name="error_empty">Šis nevar būt tukšs.</string>
     <string name="error_no_web_browser_found">Nevarēja atrast tīmekļa pārlūku, ko izmantot.</string>
     <string name="error_compose_character_limit">Ieraksts ir pārāk garš!</string>
     <string name="error_image_edit_failed">Attēlu nevarēja rediģēt.</string>
-    <string name="error_media_upload_type">Šī veida failu nevar augšupielādēt.</string>
-    <string name="error_media_upload_opening">Šo failu nevarēja atvērt.</string>
-    <string name="error_media_upload_image_or_video">Ierakstam nevar vienlaicīgi pievienot gan attēlus, gan video.</string>
+    <string name="error_media_upload_type">Tāda veida datni nevar augšupielādēt.</string>
+    <string name="error_media_upload_opening">To datni nevarēja atvērt.</string>
+    <string name="error_media_upload_image_or_video">ierakstam nevar vienlaicīgi pievienot gan attēlus, gan video.</string>
     <string name="title_public_local">Vietējā</string>
     <string name="title_notifications">Paziņojumi</string>
     <string name="title_tab_preferences">Cilnes</string>
@@ -21,13 +21,13 @@
     <string name="title_follow_requests">Sekošanas pieprasījumi</string>
     <string name="title_scheduled_posts">Ieplānotie ieraksti</string>
     <string name="title_announcements">Paziņojumi</string>
-    <string name="post_sensitive_media_title">Sensitīvs saturs</string>
+    <string name="post_sensitive_media_title">Jutīgs saturs</string>
     <string name="post_content_show_less">Sakļaut</string>
     <string name="post_content_warning_show_more">Rādīt vairāk</string>
     <string name="post_content_warning_show_less">Rādīt mazāk</string>
-    <string name="notification_follow_format">%s sāka tev sekot</string>
+    <string name="notification_follow_format">%s uzsāka Tev sekot</string>
     <string name="notification_sign_up_format">%s reģistrējās</string>
-    <string name="footer_empty">Šeit nekā nav. Pavelciet uz leju, lai atjauninātu!</string>
+    <string name="footer_empty">Šeit nekā nav. Jāpavelk uz leju, lai atjauninātu.</string>
     <string name="notification_update_format">%s laboja savu ierakstu</string>
     <string name="post_media_alt">ALT</string>
     <string name="action_quick_reply">Ātrā atbilde</string>
@@ -45,7 +45,7 @@
     <string name="action_view_mutes">Apklusinātie lietotāji</string>
     <string name="action_view_blocks">Bloķētie lietotāji</string>
     <string name="action_view_media">Multivide</string>
-    <string name="action_share">Dalīties</string>
+    <string name="action_share">Kopīgot</string>
     <string name="action_add_poll">Pievienot aptauju</string>
     <string name="action_photo_take">Uzņemt fotoattēlu</string>
     <string name="action_mute">Apklusināt</string>
@@ -72,10 +72,10 @@
     <string name="hint_content_warning">Satura brīdinājums</string>
     <string name="post_sent_long">Atbilde sekmīgi nosūtīta.</string>
     <string name="label_avatar">Avatars</string>
-    <string name="search_no_results">Nav rezultātu</string>
+    <string name="search_no_results">Nekas netika atrasts</string>
     <string name="label_quick_reply">Atbildēt…</string>
     <string name="dialog_download_image">Lejupielādēt</string>
-    <string name="dialog_delete_post_warning">Dzēst šo ierakstu\?</string>
+    <string name="dialog_delete_post_warning">Izdzēst šo ierakstu?</string>
     <string name="dialog_delete_conversation_warning">Dzēst šo sarunu\?</string>
     <string name="pref_title_language">Valoda</string>
     <string name="pref_title_post_tabs">Cilnes</string>
@@ -105,7 +105,7 @@
     <string name="action_edit_image">Labot attēlu</string>
     <string name="send_post_notification_title">Sūta ierakstu…</string>
     <string name="send_post_notification_cancel_title">Sūtīšana atcelta</string>
-    <string name="compose_save_draft_loses_media">Vai saglabāt melnrakstu (atjaunojot melnrakstu, pielikumi tiks augšupielādēti vēlreiz)?</string>
+    <string name="compose_save_draft_loses_media">Pielikumi tiks atkal augšupielādēti pēc melnraksta atjaunošanas.</string>
     <string name="later">Vēlāk</string>
     <string name="restart">Sākt no jauna</string>
     <string name="system_default">Sistēmas noklusējuma</string>
@@ -185,17 +185,17 @@
     <string name="pref_title_notification_filter_follow_requests">sekošana pieprasīta</string>
     <string name="notification_follow_request_name">Sekošanas pieprasījumi</string>
     <string name="notification_subscription_name">Jauni ieraksti</string>
-    <string name="follows_you">Seko tev</string>
+    <string name="follows_you">Seko Tev</string>
     <string name="compose_save_draft">Saglabāt melnrakstu\?</string>
     <string name="download_failed">Lejupielāde neizdevās</string>
     <string name="duration_14_days">14 dienas</string>
     <string name="duration_90_days">90 dienas</string>
     <string name="draft_deleted">Melnraksts dzēsts</string>
     <string name="saving_draft">Saglabā melnrakstu…</string>
-    <string name="post_sensitive_media_directions">Klikšķini, lai apskatītu</string>
+    <string name="post_sensitive_media_directions">Klikšķināt, lai apskatītu</string>
     <string name="report_description_1">Ziņojums tiks nosūtīts jūsu servera moderatoram. Zemāk var sniegt skaidrojumu, kāpēc ziņojat par šo kontu:</string>
     <string name="filter_dialog_whole_word_description">Ja atslēgvārds vai frāze ir tikai burtciparu, to pielietos tikai tad, ja tas atbildīs visam vārdam</string>
-    <string name="label_remote_account">Tālāk norādītā informācija var nepilnīgi atspoguļot lietotāja profilu. Nospiediet, lai pārlūkprogrammā atvērtu pilnu profilu.</string>
+    <string name="label_remote_account">Zemāk esošā informācija var nepilnīgi atspoguļot lietotāja profilu. Nospiest, lai pārlūkā atvērtu pilnu profilu.</string>
     <string name="notification_report_format">Jauns ziņojums par %s</string>
     <string name="action_mute_conversation">Apklusināt sarunu</string>
     <string name="action_access_scheduled_posts">Ieplānotie ieraksti</string>
@@ -208,12 +208,12 @@
     <string name="title_blocks">Bloķētie lietotāji</string>
     <string name="pref_title_http_proxy_enable">Iespējot HTTP starpniekserveri</string>
     <string name="pref_title_http_proxy_server">HTTP starpniekserveris</string>
-    <string name="pref_title_http_proxy_port_message">Portam būtu jābūt starp %d un %d</string>
+    <string name="pref_title_http_proxy_port_message">Portam ir jābūt starp %d un %d</string>
     <string name="action_view_account_preferences">Konta iestatījumi</string>
-    <string name="mute_domain_warning">Vai tiešām vēlaties bloķēt visu %s\? Šī domēna saturs netiks rādīts ne publiskajās laika līnijās, ne paziņojumos. Jūsu sekotāji no šī domēna tiks noņemti.</string>
+    <string name="mute_domain_warning">Vai tiešām liegt visu no %s? Šī domēna saturs netiks rādīts ne publiskajās laika līnijās, ne paziņojumos. Sekotāji no šī domēna tiks noņemti.</string>
     <string name="send_post_notification_saved_content">Ieraksta kopija tika saglabāta tavos melnrakstos</string>
     <string name="restart_emoji">Lai pielietotu šīs izmaiņas, ir jāpārstartē Pachli</string>
-    <string name="error_status_source_load">Neizdevās ielādēt statusa avotu no servera.</string>
+    <string name="error_status_source_load">Neizdevās no servera ielādēt stāvokļa avotu.</string>
     <string name="error_sender_account_gone">Sūtot ziņu, radās kļūda.</string>
     <string name="title_posts_pinned">Piesprausts</string>
     <string name="title_followed_hashtags">Sekotie tēmturi</string>
@@ -227,8 +227,8 @@
     <string name="action_hide_reblogs">Paslēpt pastiprinājumus</string>
     <string name="action_open_reblogger">Atvērt pastiprinājuma autoru</string>
     <string name="action_open_reblogged_by">Parādīt pastiprinājumus</string>
-    <string name="action_share_as">Dalīties, izmantojot…</string>
-    <string name="send_post_content_to">Dalīties ar ierakstu…</string>
+    <string name="action_share_as">Kopīgot kā…</string>
+    <string name="send_post_content_to">Kopīgot ierakstu…</string>
     <string name="hint_display_name">Nosaukums</string>
     <string name="dialog_mute_warning">Vai apklusināt @%s\?</string>
     <string name="dialog_mute_hide_notifications">Paslēpt paziņojumus</string>
@@ -256,7 +256,7 @@
     <string name="title_edits">Labojumi</string>
     <string name="action_unreblog">Noņemt pastiprinājumu</string>
     <string name="notification_update_name">Ierakstu labojumi</string>
-    <string name="send_media_to">Dalīties ar failu…</string>
+    <string name="send_media_to">Kopīgot informācijas nesēju…</string>
     <string name="description_account_locked">Privāts konts</string>
     <string name="abbreviated_seconds_ago">%ds</string>
     <string name="abbreviated_minutes_ago">%dm</string>
@@ -283,11 +283,11 @@
     <string name="error_unmuting_hashtag_format">Radās kļūda, atceļot #%s apklusināšanu</string>
     <string name="title_direct_messages">Tiešās ziņas</string>
     <string name="post_media_hidden_title">Multivide ir paslēpta</string>
-    <string name="notification_reblog_format">%s pastiprināja tavu ierakstu</string>
-    <string name="notification_follow_request_format">%s lūdza atļauju tev sekot</string>
+    <string name="notification_reblog_format">%s pastiprināja Tavu ierakstu</string>
+    <string name="notification_follow_request_format">%s lūdza atļauju sekot Tev</string>
     <string name="notification_summary_report_format">%s · pievienoti %d ieraksti</string>
     <string name="action_compose">Rakstīt</string>
-    <string name="action_logout_confirm">Vai tiešām vēlies iziet no konta %1$s\?</string>
+    <string name="action_logout_confirm">Vai tiešām atteikties no %1$s? Tas izdzēsīs visus vietējos konta datus, tajā skaitā melnrakstus un iestatījumus.</string>
     <string name="action_add_media">Pievienot multividi</string>
     <string name="action_open_drawer">Atvērt izvēlni</string>
     <string name="action_open_media_n">Atvērt multividi #%d</string>
@@ -310,7 +310,7 @@
     <string name="poll_ended_voted">Aptauja, kurā tu balsoji, ir noslēgusies</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s un %4$d citi</string>
     <string name="title_media">Multivide</string>
-    <string name="pref_title_alway_show_sensitive_media">Vienmēr rādīt sensitīvu saturu</string>
+    <string name="pref_title_alway_show_sensitive_media">Vienmēr rādīt jutīgu saturu</string>
     <string name="unsaved_changes">Tev ir nesaglabātas izmaiņas.</string>
     <string name="description_post_media">Multivide: %s</string>
     <string name="description_poll">Aptauja ar izvēlēm: %1$s, %2$s, %3$s, %4$s; %5$s</string>
@@ -320,11 +320,11 @@
     <string name="compose_preview_image_description">Darības ar attēlu %s</string>
     <string name="pachli_compose_post_quicksetting_label">Rakstīt ziņu</string>
     <string name="action_mention">Pieminēt</string>
-    <string name="pref_title_gradient_for_media">Rādīt krāsainus gradientus paslēptajai multividei</string>
+    <string name="pref_title_gradient_for_media">Rādīt krāsainas krāsu pārejas paslēptajiem informācijas nesējiem</string>
     <string name="pref_title_show_media_preview">Lejupielādēt multivides priekšskatījumus</string>
     <string name="action_unmute">Atcelt apklusināšanu</string>
     <string name="action_unmute_desc">Atcelt %s apklusināšanu</string>
-    <string name="send_post_link_to">Dalīties ar ieraksta URL…</string>
+    <string name="send_post_link_to">Kopīgot ieraksta URL…</string>
     <string name="confirmation_unmuted">Lietotāja apklusināšana atcelta</string>
     <string name="pref_title_notification_filter_reblogs">mani ieraksti tiek pastiprināti</string>
     <string name="pref_title_custom_tabs">Izmantot Chrome pielāgotās cilnes</string>
@@ -332,21 +332,21 @@
     <string name="action_unmute_conversation">Atcelt sarunas apklusināšanu</string>
     <string name="pref_main_nav_position">Galvenās navigācijas atrašanās vieta</string>
     <string name="post_privacy_public">Publisks</string>
-    <string name="action_share_account_link">Dalīties ar saiti uz kontu</string>
-    <string name="action_share_account_username">Dalīties ar konta lietotājvārdu</string>
-    <string name="send_account_link_to">Dalīties ar konta URL…</string>
-    <string name="send_account_username_to">Dalīties ar konta lietotājvārdu…</string>
+    <string name="action_share_account_link">Kopīgot konta saiti</string>
+    <string name="action_share_account_username">Kopīgot konta lietotājvārdu</string>
+    <string name="send_account_link_to">Kopīgot konta URL…</string>
+    <string name="send_account_username_to">Kopīgot konta lietotājvārdu…</string>
     <string name="account_username_copied">Lietotājvārds nokopēts</string>
     <string name="pref_title_notification_alert_sound">Paziņot ar skaņu</string>
     <string name="label_header">Galvene</string>
-    <string name="pref_title_bot_overlay">Rādīt botu indikatoru</string>
+    <string name="pref_title_bot_overlay">Rādīt botu rādītājus</string>
     <string name="pref_default_post_privacy">Noklusējuma ierakstu privātums</string>
     <string name="pref_default_post_language">Noklusējuma ierakstu valoda</string>
     <string name="pref_failed_to_sync">Neizdevās sinhronizēt iestatījumus</string>
-    <string name="pref_post_text_size">Ierakstu teksta izmērs</string>
+    <string name="pref_post_text_size">Ierakstu teksta lielums</string>
     <string name="notification_mention_descriptions">Paziņojumi par jauniem pieminējumiem</string>
     <string name="notification_follow_request_description">Paziņojumi par sekošanas pieprasījumiem</string>
-    <string name="notification_boost_description">Paziņojumi par tavu ierakstu pastiprināšanu</string>
+    <string name="notification_boost_description">Paziņojumi par Tavu ierakstu pastiprināšanu</string>
     <string name="no_drafts">Tev nav neviena melnraksta.</string>
     <string name="no_announcements">Nav paziņojumu.</string>
     <string name="pref_title_show_self_username">Rādīt lietotājvārdu rīkjoslās</string>
@@ -359,26 +359,26 @@
     <string name="failed_report">Ziņošana neizdevās</string>
     <string name="notification_follow_description">Paziņojumi par jauniem sekotājiem</string>
     <string name="notification_poll_description">Paziņojumi par pabeigtajām aptaujām</string>
-    <string name="notification_subscription_description">Paziņojumi par jauniem ierakstiem no kāda, kura ierakstus esi abonējis</string>
+    <string name="notification_subscription_description">Paziņojumi par jauniem ierakstiem no konta, kuru abonēji</string>
     <string name="notification_sign_up_description">Paziņojumi par jauniem lietotājiem</string>
     <string name="wellbeing_hide_stats_profile">Slēpt profilu kvantitatīvo statistiku</string>
     <string name="wellbeing_hide_stats_posts">Slēpt ierakstu kvantitatīvo statistiku</string>
     <string name="drafts_failed_loading_reply">Neizdevās ielādēt atbildes informāciju</string>
     <string name="action_delete_and_redraft">Dzēst un sākt no jauna</string>
     <string name="dialog_message_cancel_follow_request">Vai atcelt sekošanas pieprasījumu\?</string>
-    <string name="dialog_redraft_post_warning">Vai dzēst šo ierakstu un sākt no jauna\?</string>
+    <string name="dialog_redraft_post_warning">Izdzēst šo ierakstu un sākt no jauna?</string>
     <string name="send_post_notification_error_title">Sūtot ziņu, radās kļūda</string>
     <string name="account_moved_description">%1$s ir pārcēlies uz:</string>
     <string name="failed_to_pin">Piespraušana neizdevās</string>
     <string name="failed_to_unpin">Atspraušana neizdevās</string>
-    <string name="post_share_content">Dalīties ar ieraksta saturu</string>
+    <string name="post_share_content">Kopīgot ieraksta saturu</string>
     <string name="set_focus_description">Pieskaries vai velc apli, lai izvēlētos fokusa punktu, kas vienmēr būs redzams sīktēlos.</string>
     <string name="expand_collapse_all_posts">Izplest/sakļaut visus ierakstus</string>
     <string name="notification_report_description">Paziņojumi par moderēšanas ziņojumiem</string>
-    <string name="notification_mention_format">%s pieminēja tevi</string>
+    <string name="notification_mention_format">%s pieminēja Tevi</string>
     <string name="notification_summary_small">%1$s un %2$s</string>
     <string name="notification_summary_medium">%1$s, %2$s un %3$s</string>
-    <string name="post_share_link">Dalīties ar saiti uz ierakstu</string>
+    <string name="post_share_link">Kopīgot ieraksta saiti</string>
     <string name="pref_title_absolute_time">Izmantot absolūto laiku</string>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s un %2$s</string>
@@ -405,7 +405,7 @@
         <item quantity="other">&lt;b&gt;%s&lt;/b&gt; pastiprinājumi</item>
     </plurals>
     <string name="title_favourites">Izlases</string>
-    <string name="notification_favourite_format">%s pievienoja tavu ierakstu izlasei</string>
+    <string name="notification_favourite_format">%s pievienoja izlasei Tavu ierakstu</string>
     <string name="action_favourite">Pievienot izlasei</string>
     <string name="action_unfavourite">Noņemt no izlases</string>
     <string name="action_send">PUBLICĒT</string>
@@ -462,14 +462,10 @@
     <string name="abbreviated_in_years">pēc %dg</string>
     <string name="abbreviated_in_seconds">pēc %ds</string>
     <string name="pref_title_alway_open_spoiler">Vienmēr izvērst ziņas, kas atzīmētas ar satura brīdinājumu</string>
-    <string name="action_post_failed_detail">Neizdevās augšupielādēt tavu ierakstu un tas tika saglabāts melnrakstos.
-\n
-\nVai nu neizdevās sazināties ar serveri, vai arī tas noraidīja ierakstu.</string>
-    <string name="action_post_failed_detail_plural">Neizdevās augšupielādēt tavus ierakstus un tie tika saglabāti melnrakstos.
-\n
-\nVai nu neizdevās sazināties ar serveri, vai arī tas noraidīja ierakstus.</string>
-    <string name="notification_favourite_description">Paziņojumi par tavu ierakstu pievienošanu izlasei</string>
-    <string name="title_migration_relogin">Pieslēdzies vēlreiz, lai iespējotu pašpiegādātos paziņojumus</string>
+    <string name="action_post_failed_detail">Neizdevās augšupielādēt Tavu ierakstu, un tas tika saglabāts kā melnraksts. \n \nVai nu neizdevās sazināties ar serveri, vai arī tas noraidīja ierakstu.</string>
+    <string name="action_post_failed_detail_plural">Neizdevās augšupielādēt Tavus ierakstus, un tie tika saglabāti kā melnraksti. \n \nVai nu neizdevās sazināties ar serveri, vai arī tas noraidīja ierakstus.</string>
+    <string name="notification_favourite_description">Paziņojumi par Tavu ierakstu pievienošanu izlasei</string>
+    <string name="title_migration_relogin">Jāpiesakās vēlreiz, lai iespējotu pašpiegādes paziņojumus</string>
     <string name="wellbeing_mode_notice">Daļa informācijas, kas varētu ietekmēt tavu garīgo labsajūtu, tiks slēpta. Tas ietver:
 \n
 \n - Pievienošanas izlasei/pastiprināšanas/jaunu sekotāju paziņojumus
@@ -484,7 +480,7 @@
     <string name="total_accounts">Konti kopā</string>
     <string name="dialog_follow_hashtag_title">Sekot tēmturim</string>
     <string name="dialog_follow_hashtag_hint">#tēmturis</string>
-    <string name="title_public_trending_hashtags">Tendenču tēmturi</string>
+    <string name="title_public_trending_hashtags">Izplatīti tēmturi</string>
     <string name="action_add">Pievienot</string>
     <string name="filter_description_format">%s: %s</string>
     <string name="label_filter_context">Filtra konteksts</string>
