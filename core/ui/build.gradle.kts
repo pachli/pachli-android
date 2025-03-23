@@ -56,9 +56,11 @@ dependencies {
     implementation(libs.markwon)
     implementation(libs.markwon.html)
     implementation(libs.markwon.inline.parser)
+    implementation(libs.markwon.latex)
     implementation(libs.markwon.simple.ext)
     implementation(libs.markwon.strikethrough)
     implementation(libs.markwon.syntax.highlight)
     kapt(libs.prism4j)
     implementation(libs.ksoup.entities)
+    implementation(libs.jlatexmath.android)
 }
