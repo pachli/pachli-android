@@ -671,7 +671,7 @@
     <string name="search_operator_attachment_has_media_except_2_label_fmt">Všetky okrem %1$s, %2$s</string>
     <string name="search_operator_attachment_no_media_label">Žiadne médiá</string>
     <string name="server_repository_error">Nepodarilo sa načítať informácie o serveri pre %1$s: %2$s</string>
-    <string name="error_media_download">Nepodarilo sa stiahnuť %1$s: %2$d %3$s</string>
+    <string name="error_media_download">Nepodarilo sa stiahnuť %1$s: %2$s</string>
     <string name="compose_warn_language_dialog_accept_and_dont_ask_fmt">Uverejniť tak, ako je (%1$s) a viac sa nepýtať</string>
     <string name="error_prepare_media_unsupported_mime_type_fmt">server nepodporuje typ súboru: %1$s</string>
     <string name="search_operator_attachment_dialog_title">Obmedziť na príspevky s médiami?</string>

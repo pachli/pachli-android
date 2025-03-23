@@ -612,7 +612,7 @@
     <string name="update_dialog_negative">Minn meg aldri</string>
     <string name="server_repository_error">Kunne ikke hente inn serveropplysninger for %1$s: %2$s</string>
     <string name="pref_update_next_scheduled_check">Nest planlagt kontroll: %1$s</string>
-    <string name="error_media_download">Klarte ikke laste ned %1$s: %2$d %3$s</string>
+    <string name="error_media_download">Klarte ikke laste ned %1$s: %2$s</string>
     <string name="compose_warn_language_dialog_accept_language_fmt">Tut slik som det er (på %1$s)</string>
     <string name="action_add_to_tab">Legg til til fane</string>
     <string name="pref_title_update_check_now">Se etter oppdateringer nå</string>

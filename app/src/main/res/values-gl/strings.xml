@@ -678,7 +678,7 @@
     <string name="search_operator_where_dialog_library">A túa biblioteca</string>
     <string name="search_operator_where_dialog_public">Publicacións públicas</string>
     <string name="search_operator_where_dialog_public_hint">Públicas, publicacións ás que pode acceder calquera servidor</string>
-    <string name="error_media_download">Non se descargou %1$s: %2$d %3$s</string>
+    <string name="error_media_download">Non se descargou %1$s: %2$s</string>
     <string name="action_remove_tab">Retirar pestana</string>
     <string name="pref_update_next_scheduled_check">Próxima comprobación: %1$s</string>
     <string name="action_open_byline_account">Ver o perfil da autora do artigo</string>
