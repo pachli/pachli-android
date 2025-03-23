@@ -41,6 +41,7 @@ import io.noties.markwon.ext.latex.JLatexMathPlugin
 import io.noties.markwon.ext.strikethrough.StrikethroughPlugin
 import io.noties.markwon.html.HtmlPlugin
 import io.noties.markwon.inlineparser.MarkwonInlineParserPlugin
+import io.noties.markwon.movement.MovementMethodPlugin
 import io.noties.markwon.syntax.Prism4jThemeDefault
 import io.noties.markwon.syntax.SyntaxHighlightPlugin
 import io.noties.prism4j.Prism4j
@@ -106,6 +107,7 @@ class SetMarkdownContent(context: Context) : SetStatusContent {
     }
 
     private val markwon = Markwon.builder(context)
+        .usePlugin(MovementMethodPlugin.create(LinkMovementMethodCompat.getInstance()))
         .usePlugin(HtmlPlugin.create())
         .usePlugin(SoftBreakAddsNewLinePlugin.create())
         .usePlugin(MarkwonInlineParserPlugin.create())
