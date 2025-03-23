@@ -25,8 +25,8 @@
     <string name="pref_title_tab_alignment">Align tab navigasi utama</string>
     <string name="pref_tab_contents_icon_only">Hanya Ikon</string>
     <string name="pref_tab_contents_text_only">Hanya teks</string>
-    <string name="pref_tab_contents_icon_text_inline">Login</string>
-    <string name="pref_tab_contents_icon_text_below">Login</string>
+    <string name="pref_tab_contents_icon_text_inline"></string>
+    <string name="pref_tab_contents_icon_text_below"></string>
     <string name="tab_tap_behaviour_jump_to_next_page">Jump to next page</string>
-    <string name="pref_title_render_markdown">Login</string>
+    <string name="pref_title_render_markdown"></string>
 </resources>
