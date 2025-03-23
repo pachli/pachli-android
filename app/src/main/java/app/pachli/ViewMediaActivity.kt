@@ -50,12 +50,17 @@ import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.ViewMediaActivityIntent
 import app.pachli.core.navigation.ViewThreadActivityIntent
 import app.pachli.core.navigation.pachliAccountId
+import app.pachli.core.network.retrofit.apiresult.ApiError
 import app.pachli.core.ui.ClipboardUseCase
 import app.pachli.databinding.ActivityViewMediaBinding
 import app.pachli.fragment.MediaActionsListener
 import app.pachli.pager.ImagePagerAdapter
 import app.pachli.pager.SingleImagePagerAdapter
 import app.pachli.util.getTemporaryMediaFilename
+import com.github.michaelbull.result.coroutines.runSuspendCatching
+import com.github.michaelbull.result.mapError
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
@@ -299,22 +304,21 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
 
         lifecycleScope.launch {
             val request = Request.Builder().url(url).build()
-            val response = async(Dispatchers.IO) {
-                val response = okHttpClient.newCall(request).execute()
-                response.body?.let { body ->
-                    file.sink().buffer().use { it.writeAll(body.source()) }
-                }
-                return@async response
-            }.await()
+            val call = okHttpClient.newCall(request)
+            val response = async(Dispatchers.IO) { runSuspendCatching { call.execute() } }.await()
+                .onSuccess {
+                    it.body?.let { body -> file.sink().buffer().use { it.writeAll(body.source()) } }
+                    it.close()
+                }.mapError { ApiError.from(call.request(), it) }
 
             isDownloading = false
             binding.progressBarShare.hide()
             invalidateOptionsMenu()
 
-            if (!response.isSuccessful) {
+            response.onFailure {
                 Snackbar.make(
                     binding.root,
-                    getString(R.string.error_media_download, url, response.code, response.message),
+                    getString(R.string.error_media_download, url, it.fmt(this@ViewMediaActivity)),
                     Snackbar.LENGTH_INDEFINITE,
                 ).show()
                 return@launch

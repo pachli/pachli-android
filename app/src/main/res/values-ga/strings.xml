@@ -742,7 +742,7 @@
     <string name="pref_notification_battery_optimisation_ok">Ní gá optamú ceallraí a dhíchumasú.</string>
     <string name="pref_notification_method_push">Brúigh</string>
     <string name="pref_update_next_scheduled_check">An chéad seiceáil sceidealta eile: %1$s</string>
-    <string name="error_media_download">Níorbh fhéidir %1$s a íoslódáil: %2$d%3$s</string>
+    <string name="error_media_download">Níorbh fhéidir %1$s a íoslódáil: %2$s</string>
     <string name="action_add_to_tab_success">Cuireadh \'%1$s\' le cluaisíní</string>
     <string name="action_remove_tab">Bain cluaisín</string>
     <string name="search_operator_where_dialog_library_hint">Do phoist féin, boosts, Favorites, leabharmharcanna, agus poist a @mention tú</string>

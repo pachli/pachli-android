@@ -604,7 +604,7 @@
     <string name="notification_prune_cache">Mantenimiento de caché…</string>
     <string name="pref_summary_content_filters">Tu servidor no es compatible con los filtros de contenido</string>
     <string name="server_repository_error">No se pudo obtener la info del servidor %1$s: %2$s</string>
-    <string name="error_media_download">No se pudo descargar %1$s: %2$d %3$s</string>
+    <string name="error_media_download">No se pudo descargar %1$s: %2$s</string>
     <string name="pref_title_update_check_now">Buscar actualizaciones ahora</string>
     <string name="pref_update_check_no_updates">No hay actualizaciones disponibles</string>
     <string name="pref_update_next_scheduled_check">Próxima comprobación: %1$s</string>
