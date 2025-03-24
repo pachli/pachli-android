@@ -18,17 +18,24 @@ package app.pachli.usecase
 
 import app.pachli.components.timeline.CachedTimelineRepository
 import app.pachli.core.data.model.StatusViewData
+import app.pachli.core.data.repository.StatusRepository
+import app.pachli.core.database.dao.TranslatedStatusDao
+import app.pachli.core.database.model.TranslationState
+import app.pachli.core.database.model.toEntity
 import app.pachli.core.eventhub.BlockEvent
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.MuteConversationEvent
 import app.pachli.core.eventhub.MuteEvent
 import app.pachli.core.eventhub.StatusDeletedEvent
+import app.pachli.core.model.translation.TranslatedStatus
 import app.pachli.core.network.model.DeletedStatus
 import app.pachli.core.network.model.Relationship
 import app.pachli.core.network.model.Status
-import app.pachli.core.network.model.Translation
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiResult
+import app.pachli.translation.TranslationService
+import app.pachli.translation.TranslatorError
+import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import javax.inject.Inject
@@ -38,6 +45,9 @@ class TimelineCases @Inject constructor(
     private val mastodonApi: MastodonApi,
     private val eventHub: EventHub,
     private val cachedTimelineRepository: CachedTimelineRepository,
+    private val statusRepository: StatusRepository,
+    private val translatedStatusDao: TranslatedStatusDao,
+    private val translationService: TranslationService,
 ) {
     suspend fun muteConversation(statusId: String, mute: Boolean): ApiResult<Status> {
         return if (mute) {
@@ -81,12 +91,24 @@ class TimelineCases @Inject constructor(
         return mastodonApi.rejectFollowRequest(accountId)
     }
 
-    suspend fun translate(statusViewData: StatusViewData): ApiResult<Translation> {
-        return cachedTimelineRepository.translate(statusViewData)
+    suspend fun translate(statusViewData: StatusViewData): Result<TranslatedStatus, TranslatorError> {
+        statusRepository.setTranslationState(statusViewData.pachliAccountId, statusViewData.id, TranslationState.TRANSLATING)
+        val translation = translationService.translate(statusViewData)
+        translation.onSuccess {
+            translatedStatusDao.upsert(
+                it.toEntity(statusViewData.pachliAccountId, statusViewData.actionableId),
+            )
+            statusRepository.setTranslationState(statusViewData.pachliAccountId, statusViewData.id, TranslationState.SHOW_TRANSLATION)
+        }.onFailure {
+            // Reset the translation state
+            statusRepository.setTranslationState(statusViewData.pachliAccountId, statusViewData.id, TranslationState.SHOW_ORIGINAL)
+        }
+
+        return translation
     }
 
     suspend fun translateUndo(pachliAccountId: Long, statusViewData: StatusViewData) {
-        cachedTimelineRepository.translateUndo(statusViewData)
+        statusRepository.setTranslationState(statusViewData.pachliAccountId, statusViewData.id, TranslationState.SHOW_ORIGINAL)
     }
 
     suspend fun saveRefreshKey(pachliAccountId: Long, statusId: String?) {

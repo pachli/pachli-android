@@ -49,7 +49,7 @@ data class IdentifiedLanguage(
 
 sealed class LanguageIdentifierError(
     @StringRes override val resourceId: Int = -1,
-    override val formatArgs: Array<out String>? = null,
+    override val formatArgs: Array<out Any>? = null,
     override val cause: PachliError? = null,
 ) : PachliError {
 

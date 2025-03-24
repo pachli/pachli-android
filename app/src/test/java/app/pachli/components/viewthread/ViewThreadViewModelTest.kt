@@ -31,7 +31,6 @@ import com.github.michaelbull.result.andThen
 import com.github.michaelbull.result.get
 import com.github.michaelbull.result.getError
 import com.github.michaelbull.result.onSuccess
-import com.squareup.moshi.Moshi
 import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -88,9 +87,6 @@ class ViewThreadViewModelTest {
 
     @Inject
     lateinit var timelineDao: TimelineDao
-
-    @Inject
-    lateinit var moshi: Moshi
 
     @Inject
     lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
@@ -169,6 +165,7 @@ class ViewThreadViewModelTest {
             cachedTimelineRepository,
             statusDisplayOptionsRepository,
             statusRepository,
+            timelineCases,
         )
     }
 
