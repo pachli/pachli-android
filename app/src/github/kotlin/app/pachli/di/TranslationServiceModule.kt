@@ -18,8 +18,8 @@
 package app.pachli.di
 
 import app.pachli.core.network.retrofit.MastodonApi
-import app.pachli.translation.ServerTranslator
-import app.pachli.translation.Translator
+import app.pachli.translation.ServerTranslationService
+import app.pachli.translation.TranslationService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,8 +28,8 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-object TranslatorModule {
+object TranslationServiceModule {
     @Provides
     @Singleton
-    fun providesTranslator(mastodonApi: MastodonApi): Translator = ServerTranslator(mastodonApi)
+    fun providesTranslationService(mastodonApi: MastodonApi): TranslationService = ServerTranslationService(mastodonApi)
 }

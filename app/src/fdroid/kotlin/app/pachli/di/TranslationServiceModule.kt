@@ -28,8 +28,8 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-object TranslatorModule {
+object TranslationServiceModule {
     @Provides
     @Singleton
-    fun providesTranslator(mastodonApi: MastodonApi): TranslationService = ServerTranslationService(mastodonApi)
+    fun providesTranslationService(mastodonApi: MastodonApi): TranslationService = ServerTranslationService(mastodonApi)
 }
