@@ -52,7 +52,16 @@ data class Translation(
 
     /** The service that provided the machine translation */
     val provider: String,
-)
+) {
+    fun toModel() = app.pachli.core.model.translation.TranslatedStatus(
+        content = content,
+        detectedSourceLanguage = detectedSourceLanguage,
+        spoilerText = spoilerText,
+        poll = this.poll?.toModel(),
+        attachments = attachments.map { it.toModel() },
+        provider = this.provider,
+    )
+}
 
 /**
  * A translated poll. Does not contain all the poll data, only the translated text.
@@ -62,17 +71,41 @@ data class Translation(
 data class TranslatedPoll(
     val id: String,
     val options: List<TranslatedPollOption>,
-)
+) {
+    fun toModel() = app.pachli.core.model.translation.TranslatedPoll(
+        id = this.id,
+        options = this.options.map { it.toModel() },
+    )
+}
 
 /** A translated poll option. */
 @JsonClass(generateAdapter = true)
 data class TranslatedPollOption(
     val title: String,
-)
+) {
+    fun toModel() = app.pachli.core.model.translation.TranslatedPollOption(title)
+}
 
 /** A translated attachment. Only the description is translated */
 @JsonClass(generateAdapter = true)
 data class TranslatedAttachment(
     val id: String,
-    val description: String,
+    val description: String?,
+) {
+    fun toModel() = app.pachli.core.model.translation.TranslatedAttachment(
+        id = id,
+        description = description,
+    )
+}
+
+fun app.pachli.core.model.translation.TranslatedPoll.toNetworkModel() = TranslatedPoll(
+    id = this.id,
+    options = this.options.map { it.toNetworkModel() },
+)
+
+fun app.pachli.core.model.translation.TranslatedPollOption.toNetworkModel() = TranslatedPollOption(this.title)
+
+fun app.pachli.core.model.translation.TranslatedAttachment.toNetworkModel() = TranslatedAttachment(
+    id = this.id,
+    description = this.description,
 )

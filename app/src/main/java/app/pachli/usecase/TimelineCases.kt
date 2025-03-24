@@ -20,19 +20,22 @@ import app.pachli.components.timeline.CachedTimelineRepository
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.database.dao.TranslatedStatusDao
-import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.database.model.TranslationState
+import app.pachli.core.database.model.toEntity
 import app.pachli.core.eventhub.BlockEvent
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.MuteConversationEvent
 import app.pachli.core.eventhub.MuteEvent
 import app.pachli.core.eventhub.StatusDeletedEvent
+import app.pachli.core.model.translation.TranslatedStatus
 import app.pachli.core.network.model.DeletedStatus
 import app.pachli.core.network.model.Relationship
 import app.pachli.core.network.model.Status
-import app.pachli.core.network.model.Translation
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiResult
+import app.pachli.translation.TranslationService
+import app.pachli.translation.TranslatorError
+import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import javax.inject.Inject
@@ -44,6 +47,7 @@ class TimelineCases @Inject constructor(
     private val cachedTimelineRepository: CachedTimelineRepository,
     private val statusRepository: StatusRepository,
     private val translatedStatusDao: TranslatedStatusDao,
+    private val translationService: TranslationService,
 ) {
     suspend fun muteConversation(statusId: String, mute: Boolean): ApiResult<Status> {
         return if (mute) {
@@ -87,23 +91,12 @@ class TimelineCases @Inject constructor(
         return mastodonApi.rejectFollowRequest(accountId)
     }
 
-    suspend fun translate(statusViewData: StatusViewData): ApiResult<Translation> {
+    suspend fun translate(statusViewData: StatusViewData): Result<TranslatedStatus, TranslatorError> {
         statusRepository.setTranslationState(statusViewData.pachliAccountId, statusViewData.id, TranslationState.TRANSLATING)
-        val translation = mastodonApi.translate(statusViewData.actionableId)
+        val translation = translationService.translate(statusViewData)
         translation.onSuccess {
-            val body = it.body
             translatedStatusDao.upsert(
-                TranslatedStatusEntity(
-                    serverId = statusViewData.actionableId,
-                    timelineUserId = statusViewData.pachliAccountId,
-                    // TODO: Should this embed the network type instead of copying data
-                    // from one type to another?
-                    content = body.content,
-                    spoilerText = body.spoilerText,
-                    poll = body.poll,
-                    attachments = body.attachments,
-                    provider = body.provider,
-                ),
+                it.toEntity(statusViewData.pachliAccountId, statusViewData.actionableId),
             )
             statusRepository.setTranslationState(statusViewData.pachliAccountId, statusViewData.id, TranslationState.SHOW_TRANSLATION)
         }.onFailure {

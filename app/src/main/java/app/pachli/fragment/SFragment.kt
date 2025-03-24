@@ -62,6 +62,7 @@ import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.ui.ClipboardUseCase
 import app.pachli.interfaces.StatusActionListener
+import app.pachli.translation.TranslationService
 import app.pachli.usecase.TimelineCases
 import app.pachli.view.showMuteAccountDialog
 import com.github.michaelbull.result.onFailure
@@ -97,6 +98,9 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
 
     @Inject
     lateinit var clipboard: ClipboardUseCase
+
+    @Inject
+    lateinit var translationService: TranslationService
 
     private var serverCanTranslate = false
 
@@ -233,7 +237,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
         } else {
             popup.inflate(R.menu.status_more)
             popup.menu.findItem(R.id.status_download_media).isVisible = status.attachments.isNotEmpty()
-            if (serverCanTranslate && canTranslate() && status.visibility != Status.Visibility.PRIVATE && status.visibility != Status.Visibility.DIRECT) {
+            if (serverCanTranslate && canTranslate() && translationService.canTranslate(viewData)) {
                 popup.menu.findItem(R.id.status_translate).isVisible = viewData.translationState == TranslationState.SHOW_ORIGINAL
                 popup.menu.findItem(R.id.status_translate_undo).isVisible = viewData.translationState == TranslationState.SHOW_TRANSLATION
             } else {
