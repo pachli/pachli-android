@@ -1,2 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="title_suggestions">Ieteiktie konti</string>
+    <string name="sources_featured">Mūsu servera komandas pašrocīgi atlasīti</string>
+    <string name="sources_most_followed">Viens no visvairāk sekotajiem Tavā serverī</string>
+    <string name="sources_friends_of_friends">Izplatīts cilvēku, kuriem seko, vidū</string>
+    <string name="sources_unknown">(serveris atgrieza neatpazītus avotus)</string>
+    <string name="ui_error_delete_suggestion_fmt">%1$s ieteikumu noraidīšana neizdevās: %2$s</string>
+    <string name="ui_error_follow_account_fmt">Sekošana %1$s neizdevāš: %2$s</string>
+    <string name="follower_count_fmt"><b>%1$s</b> sekotājs/i/u</string>
+    <string name="statuses_count_fmt"><b>%1$s</b> ieraksts/i/u</string>
+    <string name="statuses_count_per_week_fmt"><b>%1$s</b> ieraksts/i/u (<b>%2$d</b> nedēļā)</string>
+    <string name="action_follow_account">Sekot</string>
+    <string name="sources_similar_to_recently_followed">Līdzīgs kontiem, kuriem nesen sāki sekot</string>
+    <string name="follows_count_fmt">Seko <b>%1$s</b></string>
+    <string name="source_unknown">(serveris atgrieza neatpazītu avotu)</string>
+    <string name="sources_most_interactions">Iegūst daudz uzmanības Tavā serverī</string>
+    <string name="statuses_count_per_week_last_fmt"><b>%1$s</b> ieraksts/i/u (<b>%2$d</b> nedēļā, pēdējais <b>%3$s</b>)</string>
+    <string name="action_dismiss_follow_suggestion">Noraidīt</string>
+</resources>
