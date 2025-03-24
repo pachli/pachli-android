@@ -26,7 +26,6 @@ import app.pachli.components.timeline.TimelineRepository.Companion.PAGE_SIZE
 import app.pachli.components.timeline.viewmodel.CachedTimelineRemoteMediator
 import app.pachli.components.timeline.viewmodel.CachedTimelineRemoteMediator.Companion.RKE_TIMELINE_ID
 import app.pachli.core.common.di.ApplicationScope
-import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.StatusDao
@@ -39,13 +38,8 @@ import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
 import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.database.model.TranslatedStatusEntity
-import app.pachli.core.database.model.TranslationState
 import app.pachli.core.model.Timeline
-import app.pachli.core.network.model.Translation
 import app.pachli.core.network.retrofit.MastodonApi
-import app.pachli.core.network.retrofit.apiresult.ApiResult
-import com.github.michaelbull.result.onFailure
-import com.github.michaelbull.result.onSuccess
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
@@ -147,37 +141,6 @@ class CachedTimelineRepository @Inject constructor(
     suspend fun clearStatusWarning(pachliAccountId: Long, statusId: String) = externalScope.launch {
         statusDao.clearWarning(pachliAccountId, statusId)
     }.join()
-
-    suspend fun translate(statusViewData: StatusViewData): ApiResult<Translation> {
-        statusRepository.setTranslationState(statusViewData.pachliAccountId, statusViewData.id, TranslationState.TRANSLATING)
-        val translation = mastodonApi.translate(statusViewData.actionableId)
-        translation.onSuccess {
-            val body = it.body
-            translatedStatusDao.upsert(
-                TranslatedStatusEntity(
-                    serverId = statusViewData.actionableId,
-                    timelineUserId = statusViewData.pachliAccountId,
-                    // TODO: Should this embed the network type instead of copying data
-                    // from one type to another?
-                    content = body.content,
-                    spoilerText = body.spoilerText,
-                    poll = body.poll,
-                    attachments = body.attachments,
-                    provider = body.provider,
-                ),
-            )
-            statusRepository.setTranslationState(statusViewData.pachliAccountId, statusViewData.id, TranslationState.SHOW_TRANSLATION)
-        }.onFailure {
-            // Reset the translation state
-            statusRepository.setTranslationState(statusViewData.pachliAccountId, statusViewData.id, TranslationState.SHOW_ORIGINAL)
-        }
-
-        return translation
-    }
-
-    suspend fun translateUndo(statusViewData: StatusViewData) {
-        statusRepository.setTranslationState(statusViewData.pachliAccountId, statusViewData.id, TranslationState.SHOW_ORIGINAL)
-    }
 
     /**
      * Saves the ID of the status that future refreshes will try and restore

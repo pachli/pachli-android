@@ -376,8 +376,14 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
      */
     open fun canTranslate() = false
 
+    /**
+     * Translate [statusViewData].
+     */
     open fun onTranslate(statusViewData: T) {}
 
+    /**
+     * Undo the translation of [statusViewData].
+     */
     open fun onTranslateUndo(statusViewData: T) {}
 
     private fun onMute(accountId: String, accountUsername: String) {

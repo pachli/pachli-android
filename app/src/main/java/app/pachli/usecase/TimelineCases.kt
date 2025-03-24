@@ -18,6 +18,10 @@ package app.pachli.usecase
 
 import app.pachli.components.timeline.CachedTimelineRepository
 import app.pachli.core.data.model.StatusViewData
+import app.pachli.core.data.repository.StatusRepository
+import app.pachli.core.database.dao.TranslatedStatusDao
+import app.pachli.core.database.model.TranslatedStatusEntity
+import app.pachli.core.database.model.TranslationState
 import app.pachli.core.eventhub.BlockEvent
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.MuteConversationEvent
@@ -38,6 +42,8 @@ class TimelineCases @Inject constructor(
     private val mastodonApi: MastodonApi,
     private val eventHub: EventHub,
     private val cachedTimelineRepository: CachedTimelineRepository,
+    private val statusRepository: StatusRepository,
+    private val translatedStatusDao: TranslatedStatusDao,
 ) {
     suspend fun muteConversation(statusId: String, mute: Boolean): ApiResult<Status> {
         return if (mute) {
@@ -82,11 +88,34 @@ class TimelineCases @Inject constructor(
     }
 
     suspend fun translate(statusViewData: StatusViewData): ApiResult<Translation> {
-        return cachedTimelineRepository.translate(statusViewData)
+        statusRepository.setTranslationState(statusViewData.pachliAccountId, statusViewData.id, TranslationState.TRANSLATING)
+        val translation = mastodonApi.translate(statusViewData.actionableId)
+        translation.onSuccess {
+            val body = it.body
+            translatedStatusDao.upsert(
+                TranslatedStatusEntity(
+                    serverId = statusViewData.actionableId,
+                    timelineUserId = statusViewData.pachliAccountId,
+                    // TODO: Should this embed the network type instead of copying data
+                    // from one type to another?
+                    content = body.content,
+                    spoilerText = body.spoilerText,
+                    poll = body.poll,
+                    attachments = body.attachments,
+                    provider = body.provider,
+                ),
+            )
+            statusRepository.setTranslationState(statusViewData.pachliAccountId, statusViewData.id, TranslationState.SHOW_TRANSLATION)
+        }.onFailure {
+            // Reset the translation state
+            statusRepository.setTranslationState(statusViewData.pachliAccountId, statusViewData.id, TranslationState.SHOW_ORIGINAL)
+        }
+
+        return translation
     }
 
     suspend fun translateUndo(pachliAccountId: Long, statusViewData: StatusViewData) {
-        cachedTimelineRepository.translateUndo(statusViewData)
+        statusRepository.setTranslationState(statusViewData.pachliAccountId, statusViewData.id, TranslationState.SHOW_ORIGINAL)
     }
 
     suspend fun saveRefreshKey(pachliAccountId: Long, statusId: String?) {

@@ -47,6 +47,7 @@ import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import app.pachli.core.network.retrofit.apiresult.ClientError
 import app.pachli.network.ContentFilterModel
+import app.pachli.usecase.TimelineCases
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
@@ -79,6 +80,7 @@ class ViewThreadViewModel @Inject constructor(
     private val repository: CachedTimelineRepository,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     private val statusRepository: StatusRepository,
+    private val timelineCases: TimelineCases,
 ) : ViewModel() {
     // TODO: For consistency with other fragments the UiState should not include
     // the list of statuses. Look at SuggestionsViewModel for ideas.
@@ -481,7 +483,7 @@ class ViewThreadViewModel @Inject constructor(
 
     fun translate(statusViewData: StatusViewData) {
         viewModelScope.launch {
-            repository.translate(statusViewData).onSuccess {
+            timelineCases.translate(statusViewData).onSuccess {
                 val body = it.body
                 val translatedEntity = TranslatedStatusEntity(
                     serverId = statusViewData.actionableId,
