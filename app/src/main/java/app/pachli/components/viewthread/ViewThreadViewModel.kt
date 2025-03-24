@@ -492,6 +492,10 @@ class ViewThreadViewModel @Inject constructor(
 
     fun translate(statusViewData: StatusViewData) {
         viewModelScope.launch {
+            updateStatusViewData(statusViewData.id) { viewData ->
+                viewData.copy(translationState = TranslationState.TRANSLATING)
+            }
+
             timelineCases.translate(statusViewData)
                 .onSuccess {
                     val translatedEntity = it.toEntity(statusViewData.pachliAccountId, statusViewData.actionableId)
@@ -499,7 +503,12 @@ class ViewThreadViewModel @Inject constructor(
                         viewData.copy(translation = translatedEntity, translationState = TranslationState.SHOW_TRANSLATION)
                     }
                 }
-                .onFailure { _errors.send(it) }
+                .onFailure {
+                    updateStatusViewData(statusViewData.id) { viewData ->
+                        viewData.copy(translationState = TranslationState.SHOW_ORIGINAL)
+                    }
+                    _errors.send(it)
+                }
         }
     }
 

@@ -17,6 +17,7 @@
 
 package app.pachli.di
 
+import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.translation.ServerTranslationService
 import app.pachli.translation.TranslationService
@@ -31,5 +32,5 @@ import javax.inject.Singleton
 object TranslationServiceModule {
     @Provides
     @Singleton
-    fun providesTranslationService(mastodonApi: MastodonApi): TranslationService = ServerTranslationService(mastodonApi)
+    fun providesTranslationService(mastodonApi: MastodonApi, statusDisplayOptionsRepository: StatusDisplayOptionsRepository): TranslationService = ServerTranslationService(mastodonApi, statusDisplayOptionsRepository)
 }

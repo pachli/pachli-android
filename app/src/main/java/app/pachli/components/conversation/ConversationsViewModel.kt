@@ -31,6 +31,7 @@ import app.pachli.core.model.FilterAction
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
+import app.pachli.usecase.TimelineCases
 import com.github.michaelbull.result.onSuccess
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
@@ -56,6 +57,7 @@ class ConversationsViewModel @AssistedInject constructor(
     accountManager: AccountManager,
     private val api: MastodonApi,
     sharedPreferencesRepository: SharedPreferencesRepository,
+    private val timelineCases: TimelineCases,
     @Assisted val pachliAccountId: Long,
 ) : ViewModel() {
     private val accountFlow = accountManager.getPachliAccountFlow(pachliAccountId)
@@ -251,6 +253,18 @@ class ConversationsViewModel @AssistedInject constructor(
                     accountId = viewData.pachliAccountId,
                 )
             }
+        }
+    }
+
+    fun translate(conversationViewData: ConversationViewData) {
+        viewModelScope.launch {
+            timelineCases.translate(conversationViewData.lastStatus)
+        }
+    }
+
+    fun translateUndo(conversationViewData: ConversationViewData) {
+        viewModelScope.launch {
+            timelineCases.translateUndo(conversationViewData.lastStatus)
         }
     }
 

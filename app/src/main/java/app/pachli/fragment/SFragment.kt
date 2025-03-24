@@ -21,20 +21,17 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
-import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import androidx.annotation.CallSuper
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
+import app.pachli.BuildConfig
 import app.pachli.R
 import app.pachli.core.activity.BaseActivity
 import app.pachli.core.activity.OpenUrlUseCase
@@ -50,7 +47,6 @@ import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.domain.DownloadUrlUseCase
 import app.pachli.core.model.Attachment
-import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE
 import app.pachli.core.model.Status
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AttachmentViewData
@@ -71,7 +67,6 @@ import app.pachli.view.showMuteAccountDialog
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import com.google.android.material.snackbar.Snackbar
-import io.github.z4kn4fein.semver.constraints.toConstraint
 import javax.inject.Inject
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -106,8 +101,6 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
     @Inject
     lateinit var openUrl: OpenUrlUseCase
 
-    private var serverCanTranslate = false
-
     protected abstract val pachliAccountId: Long
 
     @Deprecated("Use startActivityWithTransition or startActivityWithDefaultTransition")
@@ -118,43 +111,6 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (context as? ViewUrlActivity) ?: throw IllegalStateException("Fragment must be attached to a BottomSheetActivity")
-    }
-
-    @CallSuper
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                serverRepository.flow.collect { result ->
-                    result.onSuccess {
-                        serverCanTranslate = it.can(
-                            operation = ORG_JOINMASTODON_STATUSES_TRANSLATE,
-                            constraint = ">=1.0".toConstraint(),
-                        )
-                    }
-                    result.onFailure {
-                        val msg = getString(
-                            R.string.server_repository_error,
-                            accountManager.activeAccount!!.domain,
-                            it.fmt(requireContext()),
-                        )
-                        Timber.e(msg)
-                        try {
-                            Snackbar.make(requireView(), msg, Snackbar.LENGTH_INDEFINITE)
-                                .setAction(app.pachli.core.ui.R.string.action_retry) { serverRepository.reload() }
-                                .show()
-                        } catch (_: IllegalArgumentException) {
-                            // On rare occasions this code is running before the fragment's
-                            // view is connected to the parent. This causes Snackbar.make()
-                            // to crash.  See https://issuetracker.google.com/issues/228215869.
-                            // For now, swallow the exception.
-                        }
-                        serverCanTranslate = false
-                    }
-                }
-            }
-        }
     }
 
     protected fun openReblog(status: Status) {
@@ -236,8 +192,11 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
         } else {
             popup.inflate(R.menu.status_more)
             popup.menu.findItem(R.id.status_download_media).isVisible = status.attachments.isNotEmpty()
-            if (serverCanTranslate && canTranslate() && translationService.canTranslate(viewData)) {
-                popup.menu.findItem(R.id.status_translate).isVisible = viewData.translationState == TranslationState.SHOW_ORIGINAL
+            if (translationService.canTranslate(viewData)) {
+                popup.menu.findItem(R.id.status_translate).apply {
+                    setTitle(translationService.labelResource)
+                    isVisible = viewData.translationState == TranslationState.SHOW_ORIGINAL
+                }
                 popup.menu.findItem(R.id.status_translate_undo).isVisible = viewData.translationState == TranslationState.SHOW_TRANSLATION
             } else {
                 popup.menu.findItem(R.id.status_translate).isVisible = false
@@ -245,25 +204,26 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
             }
         }
         val menu = popup.menu
+
+        // "Open as..." appears if:
+        // - If it's not a DIRECT message.
+        // - It is a DIRECT message, and any of our other accounts are also mentioned.
         val openAsItem = menu.findItem(R.id.status_open_as)
-        val openAsText = (activity as BaseActivity?)?.openAsText
-        if (openAsText == null) {
-            openAsItem.isVisible = false
+        if (status.visibility != Status.Visibility.DIRECT || accountManager.accountsOrderedByActive.drop(1).any { accountIsInMentions(it, status.mentions) }) {
+            val openAsText = (activity as BaseActivity?)?.openAsText
+            if (openAsText == null) {
+                openAsItem.isVisible = false
+            } else {
+                openAsItem.title = openAsText
+            }
         } else {
-            openAsItem.title = openAsText
+            openAsItem.isVisible = false
         }
-        val muteConversationItem = menu.findItem(R.id.status_mute_conversation)
-        val mutable = statusIsByCurrentUser || accountIsInMentions(activeAccount, status.mentions)
-        muteConversationItem.isVisible = mutable
-        if (mutable) {
-            muteConversationItem.setTitle(
-                if (status.muted != true) {
-                    R.string.action_mute_conversation
-                } else {
-                    R.string.action_unmute_conversation
-                },
-            )
-        }
+
+        menu.findItem(R.id.status_mute_conversation)?.isVisible = status.muted == false && (statusIsByCurrentUser || accountIsInMentions(activeAccount, status.mentions))
+        menu.findItem(R.id.status_unmute_conversation)?.isVisible = status.muted == true && (statusIsByCurrentUser || accountIsInMentions(activeAccount, status.mentions))
+        menu.findItem(R.id.conversation_delete)?.isVisible = status.visibility == Status.Visibility.DIRECT
+
         popup.setOnMenuItemClickListener { item: MenuItem ->
             when (item.itemId) {
                 R.id.post_share_content -> {
@@ -354,9 +314,19 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                 }
                 R.id.status_mute_conversation -> {
                     lifecycleScope.launch {
-                        timelineCases.muteConversation(pachliAccountId, status.id, status.muted != true)
+                        timelineCases.muteConversation(pachliAccountId, status.id, true)
                     }
                     return@setOnMenuItemClickListener true
+                }
+
+                R.id.status_unmute_conversation -> {
+                    lifecycleScope.launch {
+                        timelineCases.muteConversation(pachliAccountId, status.id, false)
+                    }
+                }
+
+                R.id.conversation_delete -> {
+                    onConversationDelete(viewData)
                 }
                 R.id.status_translate -> {
                     onTranslate(viewData)
@@ -372,22 +342,11 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
         popup.show()
     }
 
-    /**
-     * True if this class can translate statuses (assuming the server can). Superclasses should
-     * override this if they support translating a status, and also override [onTranslate]
-     * and [onTranslateUndo].
-     */
-    open fun canTranslate() = false
+    /** Translate [viewData]. */
+    abstract fun onTranslate(viewData: T)
 
-    /**
-     * Translate [statusViewData].
-     */
-    open fun onTranslate(statusViewData: T) {}
-
-    /**
-     * Undo the translation of [statusViewData].
-     */
-    open fun onTranslateUndo(statusViewData: T) {}
+    /** Undo the translation of [viewData]. */
+    abstract fun onTranslateUndo(viewData: T)
 
     private fun onMute(accountId: String, accountUsername: String) {
         showMuteAccountDialog(this.requireActivity(), accountUsername) { notifications: Boolean?, duration: Int? ->
@@ -536,6 +495,10 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                     ).show()
                 }
         }
+    }
+
+    open fun onConversationDelete(viewData: T) {
+        if (BuildConfig.DEBUG) throw RuntimeException("onConversationDelete should have been overridden")
     }
 
     private fun showOpenAsDialog(statusUrl: String?, dialogTitle: CharSequence?) {

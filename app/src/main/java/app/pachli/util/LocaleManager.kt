@@ -54,7 +54,7 @@ class LocaleManager @Inject constructor(
         // if we are on Android < 13 we have to save the selected language so we can apply it at appstart
         // on Android 13+ the system handles it for us
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-            sharedPreferencesRepository.language = value
+            sharedPreferencesRepository.language = value ?: ""
         }
         applyLanguageToApp(value)
     }
@@ -93,7 +93,7 @@ class LocaleManager @Inject constructor(
     }
 
     companion object {
-        private const val DEFAULT = "default"
+        const val DEFAULT = "default"
         private const val HANDLED_BY_SYSTEM = "handled_by_system"
     }
 }

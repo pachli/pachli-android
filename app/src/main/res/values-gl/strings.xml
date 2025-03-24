@@ -687,7 +687,6 @@
     <string name="search_operator_attachment_none">Nada</string>
     <string name="search_operator_embed_all">Tarxetas de previsualización ▾</string>
     <string name="search_operator_embed_only">Só tarxetas de previsualización</string>
-    <string name="server_repository_error">Non se obtivo a información do servidor %1$s: %2$s</string>
     <string name="error_filter_missing_keyword">Require polo menos unha palabra ou frase</string>
     <string name="error_filter_missing_context">Require polo menos un contexto a filtrar</string>
     <string name="pref_update_check_no_updates">Non hai actualizacións dispoñibles</string>

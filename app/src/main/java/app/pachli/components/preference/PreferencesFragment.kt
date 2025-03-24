@@ -62,6 +62,7 @@ import app.pachli.core.preferences.ShowSelfUsername
 import app.pachli.core.preferences.TabAlignment
 import app.pachli.core.preferences.TabContents
 import app.pachli.core.preferences.TabTapBehaviour
+import app.pachli.core.preferences.TranslationBackend
 import app.pachli.core.preferences.UpdateNotificationFrequency
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.core.ui.extensions.asDdHhMmSs
@@ -77,6 +78,7 @@ import app.pachli.settings.preference
 import app.pachli.settings.preferenceCategory
 import app.pachli.settings.sliderPreference
 import app.pachli.settings.switchPreference
+import app.pachli.translation.TranslationService
 import app.pachli.updatecheck.UpdateCheck
 import app.pachli.updatecheck.UpdateCheckResult.AT_LATEST
 import app.pachli.util.LocaleManager
@@ -114,6 +116,9 @@ class PreferencesFragment : PreferenceFragmentCompat() {
     @Inject
     lateinit var proxyPreferenceSummaryProvider: ProxyPreferencesFragment.SummaryProvider
 
+    @Inject
+    lateinit var translationService: TranslationService
+
     private val iconSize by unsafeLazy { resources.getDimensionPixelSize(DR.dimen.preference_icon_size) }
 
     override fun onCreateView(
@@ -121,19 +126,26 @@ class PreferencesFragment : PreferenceFragmentCompat() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        // Show the "Check for update now" summary. This must also change
-        // depending on the update notification frequency. You can't link two
-        // preferences like that as a dependency, so listen for changes to
-        // the relevant keys and update the summary when they change.
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 sharedPreferencesRepository.changes.collect { prefKey ->
                     when (prefKey) {
+                        // Show the "Check for update now" summary. This must also change
+                        // depending on the update notification frequency. You can't link two
+                        // preferences like that as a dependency, so listen for changes to
+                        // the relevant keys and update the summary when they change.
                         PrefKeys.UPDATE_NOTIFICATION_FREQUENCY,
                         PrefKeys.UPDATE_NOTIFICATION_LAST_NOTIFICATION_MS,
                         -> {
                             findPreference<Preference>(PrefKeys.UPDATE_NOTIFICATION_LAST_NOTIFICATION_MS)?.let {
                                 it.summary = updateCheck.provideSummary(it)
+                            }
+                        }
+                        // If the language changes check if the translation backend supports
+                        // it. If it doesn't then reset to TranslationBackend.SERVER_ONLY.
+                        PrefKeys.LANGUAGE -> {
+                            if (translationService.canTranslateTo(sharedPreferencesRepository.languageExpandDefault) is Err) {
+                                sharedPreferencesRepository.translationBackend = TranslationBackend.SERVER_ONLY
                             }
                         }
                         else -> { /* do nothing */ }
@@ -303,6 +315,8 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                     key = PrefKeys.DEFAULT_AUDIO_PLAYBACK
                 }
             }
+
+            translationService.preferenceCategory(this, parentFragmentManager)
 
             preferenceCategory(app.pachli.core.preferences.R.string.pref_category_tabs) {
                 enumListPreference<MainNavigationPosition> {
@@ -574,6 +588,12 @@ class PreferencesFragment : PreferenceFragmentCompat() {
             val fragment = FontFamilyDialogFragment.newInstance(PrefKeys.FONT_FAMILY)
             fragment.setTargetFragment(this, 0)
             fragment.show(parentFragmentManager, FontFamilyDialogFragment.TXN_TAG)
+            return
+        }
+        if (PrefKeys.TRANSLATION_BACKEND == preference.key) {
+            val fragment = TranslationBackendDialogFragment.newInstance(PrefKeys.TRANSLATION_BACKEND)
+            fragment.setTargetFragment(this, 0)
+            fragment.show(parentFragmentManager, TranslationBackendDialogFragment.TXN_TAG)
             return
         }
         if (!EmojiPickerPreference.onDisplayPreferenceDialog(this, preference)) {

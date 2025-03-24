@@ -663,7 +663,6 @@
     <string name="pref_notification_battery_optimisation_is_disabled">Оптимизация батареи отключена</string>
     <string name="pref_notification_battery_optimisation_ok">Оптимизацию батареи отключать не нужно.</string>
     <string name="pref_title_change_unified_push_distributor">Сменить распределитель UnifiedPush</string>
-    <string name="server_repository_error">Не удалось получить информацию о сервере для %1$s: %2$s</string>
     <string name="pref_title_update_check_now">Проверить наличие обновлений</string>
     <string name="pref_update_check_no_updates">Нет доступных обновлений</string>
     <string name="pref_update_next_scheduled_check">Следующая запланированная проверка: %1$s</string>

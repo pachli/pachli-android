@@ -23,6 +23,7 @@ import androidx.core.content.edit
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.designsystem.EmbeddedFontFamily
 import app.pachli.core.preferences.PrefKeys.FONT_FAMILY
+import java.util.Locale
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
@@ -76,6 +77,21 @@ class SharedPreferencesRepository @Inject constructor(
             edit { putBoolean(PrefKeys.CONFIRM_STATUS_LANGUAGE, value) }
         }
 
+    /** How statuses should be translated. */
+    var translationBackend: TranslationBackend
+        get() = if (BuildConfig.FLAVOR_store != "google") {
+            TranslationBackend.SERVER_ONLY
+        } else {
+            getEnum(PrefKeys.TRANSLATION_BACKEND, TranslationBackend.SERVER_FIRST)
+        }
+        set(value) {
+            edit { putEnum(PrefKeys.TRANSLATION_BACKEND, value) }
+        }
+
+    /** True if downloading translation models should only be done over Wi-Fi. */
+    val translationDownloadRequireWiFi: Boolean
+        get() = getBoolean(PrefKeys.TRANSLATION_DOWNLOAD_REQUIRE_WIFI, true)
+
     /** Location of downloaded files. */
     val downloadLocation: DownloadLocation
         get() = getEnum(PrefKeys.DOWNLOAD_LOCATION, DownloadLocation.DOWNLOADS)
@@ -126,10 +142,21 @@ class SharedPreferencesRepository @Inject constructor(
      *
      * @see [app.pachli.util.LocaleManager].
      */
-    var language: String?
+    var language: String
         get() = getNonNullString(PrefKeys.LANGUAGE, "default")
         set(value) {
             edit { putString(PrefKeys.LANGUAGE, value) }
+        }
+
+    /**
+     * Same as [language], but if the user has chosen to use the system language it is
+     * expanded to the language code the device is using.
+     */
+    val languageExpandDefault: String
+        get() = when (val l = language) {
+            "default" -> Locale.getDefault().language
+            "handled_by_system" -> Locale.getDefault().language
+            else -> l
         }
 
     /** Screen location of primary navigation UI (tabs, etc). */
@@ -285,6 +312,13 @@ class SharedPreferencesRepository @Inject constructor(
     }
 
     init {
+        // If the user has migrated from a Google build to a non-Google build the
+        // translation backend property may be incorrect. Shouldn't happen in the
+        // wild, but can happen when trying different build flavours locally.
+        if (BuildConfig.FLAVOR_store != "google" && getEnum(PrefKeys.TRANSLATION_BACKEND, TranslationBackend.SERVER_ONLY) != TranslationBackend.SERVER_ONLY) {
+            edit { putEnum(PrefKeys.TRANSLATION_BACKEND, TranslationBackend.SERVER_ONLY) }
+        }
+
         sharedPreferences.registerOnSharedPreferenceChangeListener(listener)
     }
 }

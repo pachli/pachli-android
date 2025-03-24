@@ -43,7 +43,7 @@ interface PreferenceEnum {
          * a string representation.
          */
         inline fun <reified E> from(
-            s: String?,
+            s: CharSequence?,
         ): E?
             where E : Enum<E>,
                   E : PreferenceEnum {

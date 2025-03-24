@@ -283,14 +283,12 @@ class ViewThreadFragment :
         }
     }
 
-    override fun canTranslate() = true
-
-    override fun onTranslate(statusViewData: StatusViewData) {
-        viewModel.translate(statusViewData)
+    override fun onTranslate(viewData: StatusViewData) {
+        viewModel.translate(viewData)
     }
 
-    override fun onTranslateUndo(statusViewData: StatusViewData) {
-        viewModel.translateUndo(statusViewData)
+    override fun onTranslateUndo(viewData: StatusViewData) {
+        viewModel.translateUndo(viewData)
     }
 
     override fun onResume() {

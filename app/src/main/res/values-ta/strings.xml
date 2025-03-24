@@ -613,7 +613,6 @@
     <string name="ui_success_rejected_follow_request">கோரிக்கை தடுக்கப்பட்டது</string>
     <string name="update_dialog_title">புதுப்பிப்பு கிடைக்கிறது</string>
     <string name="translation_provider_fmt">%1$s</string>
-    <string name="server_repository_error">%1$s க்கு சேவையக தகவலைப் பெற முடியவில்லை: %2$s</string>
     <string name="pref_update_check_no_updates">புதுப்பிப்புகள் எதுவும் கிடைக்கவில்லை</string>
     <string name="action_open_link">இணைப்பை திற</string>
     <string name="search_operator_attachment_specific_media_exclude_3_fmt">இல்லை %1$s, %2$s, %3$s</string>

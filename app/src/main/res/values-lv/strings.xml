@@ -601,7 +601,6 @@
     <string name="compose_warn_language_dialog_change_language_fmt">Nomainīt valodu uz %1$s un iesūtīt</string>
     <string name="pref_title_notification_up_distributor">Vienotās pašpiegādes izplatītājs</string>
     <string name="action_manage_tabs">Pārvaldīt cilnes</string>
-    <string name="server_repository_error">Nevarēja iegūt servera informāciju par %1$s: %2$s</string>
     <string name="action_remove_tab">Noņemt cilni</string>
     <string name="error_filter_missing_keyword">Ir nepieciešams vismaz viens atslēgvārds vai vārdkopa</string>
     <string name="compose_warn_language_dialog_accept_language_fmt">Iesūtīt tādu, kā ir (%1$s)</string>

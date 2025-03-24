@@ -577,7 +577,6 @@
     <string name="filter_action_hide">Folaigh</string>
     <string name="label_filter_context">Comhthéacsanna scagtha</string>
     <string name="label_filter_keywords">Eochairfhocail nó frásaí le scagadh</string>
-    <string name="server_repository_error">Níorbh fhéidir faisnéis freastalaí a fháil le haghaidh %1$s: %2$s</string>
     <string name="no_announcements">Níl aon fhógraí ann.</string>
     <string name="pachli_compose_post_quicksetting_label">Cum Post</string>
     <string name="total_usage">Úsáid iomlán</string>

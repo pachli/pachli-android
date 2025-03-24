@@ -31,7 +31,7 @@ import app.pachli.view.PreviewCardView.Target
 import dagger.hilt.android.EntryPointAccessors
 
 /**
- * Accessbility delete for [TrendingLinkViewHolder].
+ * Accessbility delegate for [TrendingLinkViewHolder].
  *
  * Each item shows an action to open the link.
  *
