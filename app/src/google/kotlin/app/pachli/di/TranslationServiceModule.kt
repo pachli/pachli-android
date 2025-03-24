@@ -17,8 +17,8 @@
 
 package app.pachli.di
 
-import app.pachli.core.network.retrofit.MastodonApi
-import app.pachli.translation.ServerTranslationService
+import app.pachli.languageidentification.LanguageIdentifier
+import app.pachli.translation.MlKitTranslationService
 import app.pachli.translation.TranslationService
 import dagger.Module
 import dagger.Provides
@@ -31,5 +31,5 @@ import javax.inject.Singleton
 object TranslationServiceModule {
     @Provides
     @Singleton
-    fun providesTranslationService(mastodonApi: MastodonApi): TranslationService = ServerTranslationService(mastodonApi)
+    fun providesTranslationService(languageIdentifierFactory: LanguageIdentifier.Factory): TranslationService = MlKitTranslationService(languageIdentifierFactory)
 }

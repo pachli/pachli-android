@@ -188,6 +188,9 @@ dependencies {
     googleImplementation(libs.mlkit.language.id)
     googleImplementation(libs.kotlinx.coroutines.play.services)
 
+    // Translation
+    googleImplementation(libs.mlkit.translation)
+
     implementation(libs.semver)
 
     debugImplementation(libs.leakcanary)

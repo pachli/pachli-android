@@ -60,6 +60,7 @@ material-drawer = "9.0.2"
 material-iconics = "5.5.0-compose01"
 material-typeface = "4.0.0.3-kotlin"
 mlkit-language-id = "17.0.0"
+mlkit-translation = "17.0.3"
 mockito-inline = "5.2.0"
 mockito-kotlin = "5.4.0"
 moshi = "1.15.2"
@@ -211,6 +212,7 @@ material-drawer-iconics = { module = "com.mikepenz:materialdrawer-iconics", vers
 material-iconics = { module = "com.mikepenz:iconics-core", version.ref="material-iconics" }
 material-typeface = { module = "com.mikepenz:google-material-typeface", version.ref = "material-typeface" }
 mlkit-language-id = { module = "com.google.android.gms:play-services-mlkit-language-id", version.ref = "mlkit-language-id" }
+mlkit-translation = { module = "com.google.mlkit:translate", version.ref = "mlkit-translation" }
 mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito-kotlin" }
 mockito-inline = { module = "org.mockito:mockito-inline", version.ref = "mockito-inline" }
 mockwebserver = { module = "com.squareup.okhttp3:mockwebserver", version.ref = "okhttp" }

@@ -31,6 +31,12 @@ import com.github.michaelbull.result.mapEither
 sealed interface TranslatorError : PachliError {
     @JvmInline
     value class ApiError(val error: app.pachli.core.network.retrofit.apiresult.ApiError) : TranslatorError, PachliError by error
+
+    data class ThrowableError(val throwable: Throwable) : TranslatorError {
+        override val resourceId: Int = -1
+        override val formatArgs: Array<Any> = arrayOf(throwable.localizedMessage ?: "")
+        override val cause: PachliError? = null
+    }
 }
 
 interface TranslationService {
