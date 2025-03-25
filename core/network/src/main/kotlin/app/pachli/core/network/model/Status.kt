@@ -17,6 +17,7 @@
 
 package app.pachli.core.network.model
 
+import android.app.Application
 import android.text.SpannableStringBuilder
 import android.text.style.URLSpan
 import app.pachli.core.common.extensions.getOrElse
@@ -76,15 +77,19 @@ data class Status(
         @Default
         UNKNOWN,
 
+        /** Visible to everyone, shown in public timelines. */
         @Json(name = "public")
         PUBLIC,
 
+        /* Visible to public, but not included in public timelines. */
         @Json(name = "unlisted")
         UNLISTED,
 
+        /* Visible to followers only, and to any mentioned users. */
         @Json(name = "private")
         PRIVATE,
 
+        /* Visible only to mentioned users. */
         @Json(name = "direct")
         DIRECT,
         ;
