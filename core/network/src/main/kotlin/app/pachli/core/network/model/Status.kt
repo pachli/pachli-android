@@ -17,7 +17,6 @@
 
 package app.pachli.core.network.model
 
-import android.app.Application
 import android.text.SpannableStringBuilder
 import android.text.style.URLSpan
 import app.pachli.core.common.extensions.getOrElse
