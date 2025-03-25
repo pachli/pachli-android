@@ -25,6 +25,8 @@ import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.data.repository.StatusRepository
+import app.pachli.core.database.dao.StatusDao
+import app.pachli.core.database.dao.TranslatedStatusDao
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.di.test.DEFAULT_INSTANCE_V2
@@ -91,6 +93,12 @@ abstract class NetworkTimelineViewModelTestBase {
 
     @Inject
     lateinit var statusRepository: StatusRepository
+
+    @Inject
+    lateinit var statusDao: StatusDao
+
+    @Inject
+    lateinit var translatedStatusDao: TranslatedStatusDao
 
     protected lateinit var timelineCases: TimelineCases
     protected lateinit var viewModel: NetworkTimelineViewModel

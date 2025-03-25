@@ -21,6 +21,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.cash.turbine.test
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.database.dao.StatusDao
+import app.pachli.core.database.dao.TranslatedStatusDao
 import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.PinEvent
@@ -71,9 +72,12 @@ class StatusRepositoryTest {
     lateinit var statusDao: StatusDao
 
     @Inject
+    lateinit var translatedStatusDao: TranslatedStatusDao
+
+    @Inject
     lateinit var eventHub: EventHub
 
-    lateinit var statusRepository: StatusRepository
+    private lateinit var statusRepository: StatusRepository
 
     private val statusId = "1234"
 
@@ -87,6 +91,7 @@ class StatusRepositoryTest {
             mastodonApi,
             transactionProvider,
             statusDao,
+            translatedStatusDao,
             eventHub,
         )
     }
