@@ -107,7 +107,7 @@ class TimelineCases @Inject constructor(
         return translation
     }
 
-    suspend fun translateUndo(pachliAccountId: Long, statusViewData: StatusViewData) {
+    suspend fun translateUndo(statusViewData: StatusViewData) {
         statusRepository.setTranslationState(statusViewData.pachliAccountId, statusViewData.id, TranslationState.SHOW_ORIGINAL)
     }
 

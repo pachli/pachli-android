@@ -20,6 +20,12 @@ data class Poll(
     @Json(name = "own_votes") val ownVotes: List<Int>?,
 ) {
 
+    /**
+     * @param choices Indices of the user's choices
+     * @return A copy of the poll with the vote counts for each choice
+     * updated to reflect the user's voting choices in [choices], and
+     * with [voted][Poll.voted] set to `true`.
+     */
     fun votedCopy(choices: List<Int>): Poll {
         val newOptions = options.mapIndexed { index, option ->
             if (choices.contains(index)) {
