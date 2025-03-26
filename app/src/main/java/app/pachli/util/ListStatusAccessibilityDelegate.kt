@@ -86,6 +86,8 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
 
             val parsedContent = status.content.parseAsMastodonHtml()
 
+            info.contentDescription = parsedContent
+
             info.addAction(openProfileAction)
             if (parsedContent.getLinks().any()) info.addAction(linksAction)
 
@@ -215,10 +217,6 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
                 else -> return super.performAccessibilityAction(host, action, args)
             }
             return true
-        }
-
-        private fun getStatus(childView: View): T {
-            return statusProvider.getStatus(recyclerView.getChildAdapterPosition(childView))!!
         }
     }
 
