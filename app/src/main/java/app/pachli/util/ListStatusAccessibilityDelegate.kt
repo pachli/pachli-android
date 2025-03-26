@@ -86,8 +86,6 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
 
             val parsedContent = status.content.parseAsMastodonHtml()
 
-            info.contentDescription = parsedContent
-
             info.addAction(openProfileAction)
             if (parsedContent.getLinks().any()) info.addAction(linksAction)
 

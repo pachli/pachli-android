@@ -37,6 +37,7 @@ import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.PreviewCardKind
 import app.pachli.core.network.model.Status
+import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.preferences.CardViewMode
 import app.pachli.core.ui.SetStatusContent
 import app.pachli.core.ui.makeIcon
@@ -796,7 +797,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
             // Content is optional, and hidden if there are spoilers or the status is
             // marked sensitive, and it has not been expanded.
             if (TextUtils.isEmpty(viewData.spoilerText) || !sensitive || viewData.isExpanded) {
-                append(viewData.content, ", ")
+                append(viewData.content.parseAsMastodonHtml(), ", ")
             }
 
             viewData.actionable.poll?.let {
