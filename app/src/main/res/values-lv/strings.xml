@@ -193,7 +193,7 @@
     <string name="draft_deleted">Melnraksts dzēsts</string>
     <string name="saving_draft">Saglabā melnrakstu…</string>
     <string name="post_sensitive_media_directions">Klikšķināt, lai apskatītu</string>
-    <string name="report_description_1">Ziņojums tiks nosūtīts Tava servera satura pārraudzītājam. Zemāk var sniegt skaidrojumu, kāpēc ziņo par šo kontu:</string>
+    <string name="report_description_1">Ziņojums tiks nosūtīts Tava servera satura pārraudzītājam. Zemāk vari sniegt skaidrojumu, kāpēc Tu ziņo par šo kontu:</string>
     <string name="filter_dialog_whole_word_description">Ja atslēgvārds vai frāze ir tikai burtciparu, to pielietos tikai tad, ja tas atbildīs visam vārdam</string>
     <string name="label_remote_account">Zemāk esošā informācija var nepilnīgi atspoguļot lietotāja profilu. Nospiest, lai pārlūkā atvērtu pilnu profilu.</string>
     <string name="notification_report_format">Jauns ziņojums par %s</string>
@@ -502,4 +502,16 @@
     <string name="search_operator_sensitive_dialog_no_sensitive">Neiekļaut jūtīgu saturu</string>
     <string name="search_operator_sensitive_dialog_sensitive_only">Tikai jūtīgs saturs</string>
     <string name="search_operator_sensitive_dialog_title">Ieraksti ar jūtīgu saturu</string>
+    <string name="pref_account_conversation_filters_label_limited_by_server">... satura pārraudzītāju ierobežots</string>
+    <string name="pref_account_notification_filters_label_limited_by_server">... satura pārraudzītāju ierobežots</string>
+    <string name="title_tab_public_trending_hashtags">Tēmturi</string>
+    <string name="notification_severed_relationships_domain_block_body">Satura pārraudzītājs apturēja domēnu</string>
+    <string name="notification_severed_relationships_account_suspension_body">Satura pārraudzītājs apturēja kontu</string>
+    <string name="account_filter_placeholder_type_mention_fmt">Lietotājs @<b>%1s</b> pieminēja Tevi</string>
+    <string name="action_send_private_content_description">Nosūtīt tikai sekotājiem paredzētu ierakstu</string>
+    <string name="action_send_direct_content_description">Nosūtīt tiešu ziņu</string>
+    <string name="visibility_direct">Tiešs: iesūtīt tikai pieminētajiem lietotājiem</string>
+    <string name="action_send_public_content_description">Nosūtīt publisku ierakstu</string>
+    <string name="search_operator_where_dialog_library_hint">Tavi ieraksti, pastiprinājumi, izlase, grāmatzīmes un ieraksti, kuros Tevi @piemin</string>
+    <string name="account_filter_placeholder_label_limited_by_server">Atlasīts jo: <b>satura pārraudzītāju ierobežots</b></string>
 </resources>
