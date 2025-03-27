@@ -34,8 +34,8 @@ import app.pachli.core.network.model.HashTag
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.LinkListener
+import app.pachli.core.ui.SetStatusContent
 import app.pachli.core.ui.setClickableMentions
-import app.pachli.core.ui.setClickableText
 import app.pachli.databinding.ItemReportStatusBinding
 import app.pachli.util.StatusViewHelper
 import app.pachli.util.StatusViewHelper.Companion.COLLAPSE_INPUT_FILTER
@@ -46,6 +46,7 @@ import java.util.Date
 
 open class StatusViewHolder(
     private val binding: ItemReportStatusBinding,
+    private val setStatusContent: SetStatusContent,
     private val statusDisplayOptions: StatusDisplayOptions,
     private val viewState: StatusViewState,
     private val adapterHandler: AdapterHandler,
@@ -152,8 +153,7 @@ open class StatusViewHolder(
         listener: LinkListener,
     ) {
         if (expanded) {
-            val emojifiedText = content.emojify(emojis, binding.statusContent, statusDisplayOptions.animateEmojis)
-            setClickableText(binding.statusContent, emojifiedText, mentions, tags, listener)
+            setStatusContent(binding.statusContent, content, statusDisplayOptions, emojis, mentions, tags, listener)
         } else {
             setClickableMentions(binding.statusContent, mentions, listener)
         }

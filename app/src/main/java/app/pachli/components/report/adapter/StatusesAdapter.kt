@@ -24,9 +24,11 @@ import androidx.recyclerview.widget.RecyclerView
 import app.pachli.components.report.model.StatusViewState
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusViewData
+import app.pachli.core.ui.SetStatusContent
 import app.pachli.databinding.ItemReportStatusBinding
 
 class StatusesAdapter(
+    private val setStatusContent: SetStatusContent,
     private val statusDisplayOptions: StatusDisplayOptions,
     private val statusViewState: StatusViewState,
     private val adapterHandler: AdapterHandler,
@@ -40,6 +42,7 @@ class StatusesAdapter(
         val binding = ItemReportStatusBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return StatusViewHolder(
             binding,
+            setStatusContent,
             statusDisplayOptions,
             statusViewState,
             adapterHandler,
@@ -55,11 +58,9 @@ class StatusesAdapter(
 
     companion object {
         val STATUS_COMPARATOR = object : DiffUtil.ItemCallback<StatusViewData>() {
-            override fun areContentsTheSame(oldItem: StatusViewData, newItem: StatusViewData): Boolean =
-                oldItem == newItem
+            override fun areContentsTheSame(oldItem: StatusViewData, newItem: StatusViewData): Boolean = oldItem == newItem
 
-            override fun areItemsTheSame(oldItem: StatusViewData, newItem: StatusViewData): Boolean =
-                oldItem.id == newItem.id
+            override fun areItemsTheSame(oldItem: StatusViewData, newItem: StatusViewData): Boolean = oldItem.id == newItem.id
         }
     }
 }

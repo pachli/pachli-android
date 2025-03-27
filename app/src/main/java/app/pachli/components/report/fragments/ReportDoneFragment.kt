@@ -38,7 +38,7 @@ class ReportDoneFragment : Fragment(R.layout.fragment_report_done) {
     private val binding by viewBinding(FragmentReportDoneBinding::bind)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.textReported.text = getString(R.string.report_sent_success, viewModel.accountUserName)
+        binding.textReported.text = getString(R.string.report_sent_success, viewModel.reportedAccountUsername)
         handleClicks()
         subscribeObservables()
     }
