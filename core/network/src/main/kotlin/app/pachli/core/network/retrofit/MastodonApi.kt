@@ -630,7 +630,7 @@ interface MastodonApi {
     @DELETE("/api/v1/conversations/{id}")
     suspend fun deleteConversation(
         @Path("id") conversationId: String,
-    )
+    ): ApiResult<Unit>
 
     @FormUrlEncoded
     @POST("api/v1/filters")

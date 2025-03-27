@@ -49,9 +49,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.parcelize.Parcelize
@@ -162,28 +160,21 @@ class SendStatusService : Service() {
             }
 
             // then wait until server finished processing the media
-            try {
-                var mediaCheckRetries = 0
-                while (media.any { mediaItem -> !mediaItem.processed }) {
-                    delay(1000L * mediaCheckRetries)
-                    media.forEach { mediaItem ->
-                        if (!mediaItem.processed) {
-                            mastodonApi.getMedia(mediaItem.id!!)
-                                .onSuccess { mediaItem.processed = it.code == 200 }
-                                .onFailure {
-                                    failSending(statusId)
-                                    stopSelfWhenDone()
-                                    return@launch
-                                }
-                        }
+            var mediaCheckRetries = 0
+            while (media.any { mediaItem -> !mediaItem.processed }) {
+                delay(1000L * mediaCheckRetries)
+                media.forEach { mediaItem ->
+                    if (!mediaItem.processed) {
+                        mastodonApi.getMedia(mediaItem.id!!)
+                            .onSuccess { mediaItem.processed = it.code == 200 }
+                            .onFailure {
+                                failSending(statusId)
+                                stopSelfWhenDone()
+                                return@launch
+                            }
                     }
-                    mediaCheckRetries++
                 }
-            } catch (e: Exception) {
-                currentCoroutineContext().ensureActive()
-                Timber.w(e, "failed getting media status")
-                retrySending(statusId)
-                return@launch
+                mediaCheckRetries++
             }
 
             val isNew = statusToSend.statusId == null
