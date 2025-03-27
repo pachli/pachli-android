@@ -2,7 +2,7 @@
 name: Bug report
 about: Create a report to help us improve
 title: ''
-labels: ''
+labels: 'bug'
 assignees: ''
 
 ---
@@ -31,6 +31,9 @@ Please include the version of Pachli and Android you are using, and the software
 
 **Additional context**
 Add any other context about the problem here.
+
+**Mastodon account, for credit**
+If you would like to be credited in the release notes please include your Mastodon account name here.
 
 **Affirmation**
 I have checked other issues for this project (open and closed) and I cannot find one that matches the problem I am reporting.
