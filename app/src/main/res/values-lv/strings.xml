@@ -514,4 +514,26 @@
     <string name="action_send_public_content_description">Nosūtīt publisku ierakstu</string>
     <string name="search_operator_where_dialog_library_hint">Tavi ieraksti, pastiprinājumi, izlase, grāmatzīmes un ieraksti, kuros Tevi @piemin</string>
     <string name="account_filter_placeholder_label_limited_by_server">Atlasīts jo: <b>satura pārraudzītāju ierobežots</b></string>
+    <string name="title_tab_public_trending_statuses">Ieraksti</string>
+    <string name="notification_severed_relationships_user_domain_block_body">Tu liedzi domēnu</string>
+    <string name="notification_severed_relationships_unknown_body">Nezināms iemesls</string>
+    <plurals name="notification_severed_relationships_summary_following_fmt">
+        <item quantity="zero">Noņemti %1$s kontu, kuriem seko</item>
+        <item quantity="one">Noņemts %1$s konts, kuram seko</item>
+        <item quantity="other">Noņemti %1$s konti, kuriem seko</item>
+    </plurals>
+    <string name="notification_severed_relationships_format">Pārrauta saikne ar <b>%1$s</b></string>
+    <string name="pref_title_show_self_boosts_description">Kāds, kurs pats pastiprina savu ierakstu</string>
+    <string name="action_translate">Tulkot</string>
+    <string name="action_translate_undo">Atsaukt tulkošanu</string>
+    <string name="notification_unknown">Nezināms paziņojuma veids</string>
+    <string name="pref_title_show_self_boosts">Rādīt pašpastiprinājumus</string>
+    <plurals name="notification_severed_relationships_summary_followers_fmt">
+        <item quantity="zero">Noņemti %1$s sekotāju</item>
+        <item quantity="one">Noņemts %1$s sekotājs</item>
+        <item quantity="other">Noņemti %1$s sekotāji</item>
+    </plurals>
+    <string name="action_suggestions">Ieteiktie konti</string>
+    <string name="action_refresh_account">Atsvaidzināt kontu</string>
+    <string name="confirmation_hashtag_muted">#%s paslēpts</string>
 </resources>
