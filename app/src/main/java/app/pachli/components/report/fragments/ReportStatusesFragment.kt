@@ -46,6 +46,8 @@ import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.navigation.ViewMediaActivityIntent
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Status
+import app.pachli.core.ui.SetMarkdownContent
+import app.pachli.core.ui.SetMastodonHtmlContent
 import app.pachli.databinding.FragmentReportStatusesBinding
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
@@ -83,6 +85,19 @@ class ReportStatusesFragment :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         pachliAccountId = requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID)
+
+        val setStatusContent = if (viewModel.statusDisplayOptions.value.renderMarkdown) {
+            SetMarkdownContent(requireContext())
+        } else {
+            SetMastodonHtmlContent
+        }
+
+        adapter = StatusesAdapter(
+            setStatusContent,
+            viewModel.statusDisplayOptions.value,
+            viewModel.statusViewState,
+            this@ReportStatusesFragment,
+        )
     }
 
     override fun showMedia(v: View?, status: Status?, idx: Int) {
@@ -153,14 +168,6 @@ class ReportStatusesFragment :
 
     private fun initStatusesView() {
         lifecycleScope.launch {
-            val statusDisplayOptions = viewModel.statusDisplayOptions.value
-
-            adapter = StatusesAdapter(
-                statusDisplayOptions,
-                viewModel.statusViewState,
-                this@ReportStatusesFragment,
-            )
-
             binding.recyclerView.addItemDecoration(
                 MaterialDividerItemDecoration(
                     requireContext(),

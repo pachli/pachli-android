@@ -26,13 +26,25 @@ import app.pachli.core.navigation.ReportActivityIntent
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.databinding.ActivityReportBinding
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.withCreationCallback
 
 /**
  * Report a status or user.
  */
 @AndroidEntryPoint
 class ReportActivity : BottomSheetActivity() {
-    private val viewModel: ReportViewModel by viewModels()
+    private val viewModel: ReportViewModel by viewModels(
+        extrasProducer = {
+            defaultViewModelCreationExtras.withCreationCallback<ReportViewModel.Factory> {
+                it.create(
+                    intent.pachliAccountId,
+                    ReportActivityIntent.getAccountId(intent),
+                    ReportActivityIntent.getAccountUserName(intent),
+                    ReportActivityIntent.getStatusId(intent),
+                )
+            }
+        },
+    )
 
     private val binding by viewBinding(ActivityReportBinding::inflate)
 
@@ -44,14 +56,12 @@ class ReportActivity : BottomSheetActivity() {
             throw IllegalStateException("accountId ($accountId) or accountUserName ($accountUserName) is blank")
         }
 
-        viewModel.init(accountId, accountUserName, ReportActivityIntent.getStatusId(intent))
-
         setContentView(binding.root)
 
         setSupportActionBar(binding.includedToolbar.toolbar)
 
         supportActionBar?.apply {
-            title = getString(R.string.report_username_format, viewModel.accountUserName)
+            title = getString(R.string.report_username_format, viewModel.reportedAccountUsername)
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowHomeEnabled(true)
             setHomeAsUpIndicator(app.pachli.core.ui.R.drawable.ic_close_24dp)
