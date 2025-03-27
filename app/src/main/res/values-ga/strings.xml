@@ -836,4 +836,8 @@
     <string name="pref_account_conversation_filters_label_limited_by_server">… teoranta ag do mhodhnóirí</string>
     <string name="pref_account_conversation_filters_label_younger_30d">… a cruthaíodh le 30 lá anuas</string>
     <string name="pref_account_conversation_filters_label_not_followed">… ní leanann tú</string>
+    <string name="action_send_direct_content_description">Seol teachtaireacht dhíreach</string>
+    <string name="action_send_public_content_description">Seol post poiblí</string>
+    <string name="action_send_unlisted_content_description">Seol postáil neamhliostaithe</string>
+    <string name="action_send_private_content_description">Seol ríomhphost chuig leantóirí amháin</string>
 </resources>
