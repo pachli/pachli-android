@@ -536,4 +536,26 @@
     <string name="action_suggestions">Ieteiktie konti</string>
     <string name="action_refresh_account">Atsvaidzināt kontu</string>
     <string name="confirmation_hashtag_muted">#%s paslēpts</string>
+    <string name="status_filtered_show_anyway">Vienalga parādīt</string>
+    <string name="status_filter_placeholder_label_format">Atlasīts: <b>%1$s</b></string>
+    <string name="notification_prune_cache">Kešatmiņas uzturēšanas darbi…</string>
+    <string name="notification_listenable_worker_description">Paziņojumi, kad Pachli darbojas fonā</string>
+    <string name="profile_metadata_label_label">Iezīme</string>
+    <plurals name="hint_describe_for_visually_impaired">
+        <item quantity="zero">Aprakstīt saturu cilvēkiem ar redzes traucējumiem (%d rakstzīmju ierobežojums)</item>
+        <item quantity="one">Aprakstīt saturu cilvēkiem ar redzes traucējumiem (%d rakstzīmes ierobežojums)</item>
+        <item quantity="other">Aprakstīt saturu cilvēkiem ar redzes traucējumiem (%d rakstzīmju ierobežojums)</item>
+    </plurals>
+    <string name="notification_unknown_name">Nezināms</string>
+    <string name="notification_listenable_worker_name">Fona darbības</string>
+    <string name="action_set_caption">Iestatīt uzrakstu</string>
+    <plurals name="notification_title_summary">
+        <item quantity="zero">%d jaunu mijiedarbību</item>
+        <item quantity="one">%d jauna mijiedarbība</item>
+        <item quantity="other">%d jaunas mijiedarbības</item>
+    </plurals>
+    <string name="notification_severed_relationships_description">Paziņojumi par pārtrauktām saiknēm</string>
+    <string name="notification_notification_worker">Iegūst paziņojumus…</string>
+    <string name="compose_delete_draft">Izdzēst melnrakstu?</string>
+    <string name="manage_lists">Pārvaldīt sarakstus</string>
 </resources>
