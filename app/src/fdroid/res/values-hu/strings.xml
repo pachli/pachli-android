@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="update_dialog_message">Megnyitja az F-Droid-ot a részletekért?</string>
+    <string name="update_dialog_positive">F-Droid megnyitása</string>
+</resources>
