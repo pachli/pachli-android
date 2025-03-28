@@ -502,8 +502,8 @@
     <string name="search_operator_sensitive_dialog_no_sensitive">Neiekļaut jūtīgu saturu</string>
     <string name="search_operator_sensitive_dialog_sensitive_only">Tikai jūtīgs saturs</string>
     <string name="search_operator_sensitive_dialog_title">Ieraksti ar jūtīgu saturu</string>
-    <string name="pref_account_conversation_filters_label_limited_by_server">... satura pārraudzītāju ierobežots</string>
-    <string name="pref_account_notification_filters_label_limited_by_server">... satura pārraudzītāju ierobežots</string>
+    <string name="pref_account_conversation_filters_label_limited_by_server">… satura pārraudzītāju ierobežots</string>
+    <string name="pref_account_notification_filters_label_limited_by_server">… satura pārraudzītāju ierobežots</string>
     <string name="title_tab_public_trending_hashtags">Tēmturi</string>
     <string name="notification_severed_relationships_domain_block_body">Satura pārraudzītājs apturēja domēnu</string>
     <string name="notification_severed_relationships_account_suspension_body">Satura pārraudzītājs apturēja kontu</string>
