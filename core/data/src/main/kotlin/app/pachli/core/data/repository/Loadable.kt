@@ -17,6 +17,11 @@
 
 package app.pachli.core.data.repository
 
+import app.pachli.core.data.repository.Loadable.Loaded
+import app.pachli.core.data.repository.Loadable.Loading
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.contract
+
 /**
  * Generic interface for loadable content.
  *
@@ -24,8 +29,23 @@ package app.pachli.core.data.repository
  * for that.
  */
 // Note: Experimental for the moment.
-sealed interface Loadable<T> {
-    /** Data is loading from a remote source. */
-    class Loading<T>() : Loadable<T>
+sealed interface Loadable<out T> {
+    /** Data is loading. */
+    data object Loading : Loadable<Nothing>
+
+    /** Data is loaded. */
     data class Loaded<T>(val data: T) : Loadable<T>
+}
+
+@OptIn(ExperimentalContracts::class)
+fun <T> Loadable<T>.get(): T? {
+    contract {
+        returnsNotNull() implies (this@get is Loaded<T>)
+        returns(null) implies (this@get is Loading)
+    }
+
+    return when (this) {
+        is Loaded<T> -> this.data
+        is Loading -> null
+    }
 }

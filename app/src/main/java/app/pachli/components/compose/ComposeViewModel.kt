@@ -147,7 +147,7 @@ class ComposeViewModel @AssistedInject constructor(
             flow {
                 when (val i = composeOptions?.inReplyTo) {
                     is InReplyTo.Id -> {
-                        emit(Ok(Loadable.Loading<InReplyTo.Status>()))
+                        emit(Ok(Loadable.Loading))
                         api.status(i.statusId).mapEither(
                             { Loadable.Loaded(InReplyTo.Status.from(it.body)) },
                             { UiError.LoadInReplyToError(it) },
