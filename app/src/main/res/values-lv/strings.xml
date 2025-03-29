@@ -193,7 +193,7 @@
     <string name="draft_deleted">Melnraksts dzēsts</string>
     <string name="saving_draft">Saglabā melnrakstu…</string>
     <string name="post_sensitive_media_directions">Klikšķināt, lai apskatītu</string>
-    <string name="report_description_1">Ziņojums tiks nosūtīts Tava servera satura pārraudzītājam. Zemāk var sniegt skaidrojumu, kāpēc ziņo par šo kontu:</string>
+    <string name="report_description_1">Ziņojums tiks nosūtīts Tava servera satura pārraudzītājam. Zemāk vari sniegt skaidrojumu, kāpēc Tu ziņo par šo kontu:</string>
     <string name="filter_dialog_whole_word_description">Ja atslēgvārds vai frāze ir tikai burtciparu, to pielietos tikai tad, ja tas atbildīs visam vārdam</string>
     <string name="label_remote_account">Zemāk esošā informācija var nepilnīgi atspoguļot lietotāja profilu. Nospiest, lai pārlūkā atvērtu pilnu profilu.</string>
     <string name="notification_report_format">Jauns ziņojums par %s</string>
@@ -502,4 +502,60 @@
     <string name="search_operator_sensitive_dialog_no_sensitive">Neiekļaut jūtīgu saturu</string>
     <string name="search_operator_sensitive_dialog_sensitive_only">Tikai jūtīgs saturs</string>
     <string name="search_operator_sensitive_dialog_title">Ieraksti ar jūtīgu saturu</string>
+    <string name="pref_account_conversation_filters_label_limited_by_server">… satura pārraudzītāju ierobežots</string>
+    <string name="pref_account_notification_filters_label_limited_by_server">… satura pārraudzītāju ierobežots</string>
+    <string name="title_tab_public_trending_hashtags">Tēmturi</string>
+    <string name="notification_severed_relationships_domain_block_body">Satura pārraudzītājs apturēja domēnu</string>
+    <string name="notification_severed_relationships_account_suspension_body">Satura pārraudzītājs apturēja kontu</string>
+    <string name="account_filter_placeholder_type_mention_fmt">Lietotājs @<b>%1s</b> pieminēja Tevi</string>
+    <string name="action_send_private_content_description">Nosūtīt tikai sekotājiem paredzētu ierakstu</string>
+    <string name="action_send_direct_content_description">Nosūtīt tiešu ziņu</string>
+    <string name="visibility_direct">Tiešs: iesūtīt tikai pieminētajiem lietotājiem</string>
+    <string name="action_send_public_content_description">Nosūtīt publisku ierakstu</string>
+    <string name="search_operator_where_dialog_library_hint">Tavi ieraksti, pastiprinājumi, izlase, grāmatzīmes un ieraksti, kuros Tevi @piemin</string>
+    <string name="account_filter_placeholder_label_limited_by_server">Atlasīts jo: <b>satura pārraudzītāju ierobežots</b></string>
+    <string name="title_tab_public_trending_statuses">Ieraksti</string>
+    <string name="notification_severed_relationships_user_domain_block_body">Tu liedzi domēnu</string>
+    <string name="notification_severed_relationships_unknown_body">Nezināms iemesls</string>
+    <plurals name="notification_severed_relationships_summary_following_fmt">
+        <item quantity="zero">Noņemti %1$s kontu, kuriem seko</item>
+        <item quantity="one">Noņemts %1$s konts, kuram seko</item>
+        <item quantity="other">Noņemti %1$s konti, kuriem seko</item>
+    </plurals>
+    <string name="notification_severed_relationships_format">Pārrauta saikne ar <b>%1$s</b></string>
+    <string name="pref_title_show_self_boosts_description">Kāds, kurs pats pastiprina savu ierakstu</string>
+    <string name="action_translate">Tulkot</string>
+    <string name="action_translate_undo">Atsaukt tulkošanu</string>
+    <string name="notification_unknown">Nezināms paziņojuma veids</string>
+    <string name="pref_title_show_self_boosts">Rādīt pašpastiprinājumus</string>
+    <plurals name="notification_severed_relationships_summary_followers_fmt">
+        <item quantity="zero">Noņemti %1$s sekotāju</item>
+        <item quantity="one">Noņemts %1$s sekotājs</item>
+        <item quantity="other">Noņemti %1$s sekotāji</item>
+    </plurals>
+    <string name="action_suggestions">Ieteiktie konti</string>
+    <string name="action_refresh_account">Atsvaidzināt kontu</string>
+    <string name="confirmation_hashtag_muted">#%s paslēpts</string>
+    <string name="status_filtered_show_anyway">Vienalga parādīt</string>
+    <string name="status_filter_placeholder_label_format">Atlasīts: <b>%1$s</b></string>
+    <string name="notification_prune_cache">Kešatmiņas uzturēšanas darbi…</string>
+    <string name="notification_listenable_worker_description">Paziņojumi, kad Pachli darbojas fonā</string>
+    <string name="profile_metadata_label_label">Iezīme</string>
+    <plurals name="hint_describe_for_visually_impaired">
+        <item quantity="zero">Aprakstīt saturu cilvēkiem ar redzes traucējumiem (%d rakstzīmju ierobežojums)</item>
+        <item quantity="one">Aprakstīt saturu cilvēkiem ar redzes traucējumiem (%d rakstzīmes ierobežojums)</item>
+        <item quantity="other">Aprakstīt saturu cilvēkiem ar redzes traucējumiem (%d rakstzīmju ierobežojums)</item>
+    </plurals>
+    <string name="notification_unknown_name">Nezināms</string>
+    <string name="notification_listenable_worker_name">Fona darbības</string>
+    <string name="action_set_caption">Iestatīt uzrakstu</string>
+    <plurals name="notification_title_summary">
+        <item quantity="zero">%d jaunu mijiedarbību</item>
+        <item quantity="one">%d jauna mijiedarbība</item>
+        <item quantity="other">%d jaunas mijiedarbības</item>
+    </plurals>
+    <string name="notification_severed_relationships_description">Paziņojumi par pārtrauktām saiknēm</string>
+    <string name="notification_notification_worker">Iegūst paziņojumus…</string>
+    <string name="compose_delete_draft">Izdzēst melnrakstu?</string>
+    <string name="manage_lists">Pārvaldīt sarakstus</string>
 </resources>
