@@ -196,17 +196,12 @@ class AccountManager @Inject constructor(
         accountDao.getActiveAccountFlow()
             .distinctUntilChanged()
             .map { Loadable.Loaded(it) }
-            .stateIn(externalScope, SharingStarted.Eagerly, Loadable.Loading())
+            .stateIn(externalScope, SharingStarted.Eagerly, Loadable.Loading)
 
     /** The active account, or null if there is no active account. */
     @Deprecated("Caller should use getPachliAccountFlow with a specific account ID")
     val activeAccount: AccountEntity?
-        get() {
-            return when (val loadable = activeAccountFlow.value) {
-                is Loadable.Loading -> null
-                is Loadable.Loaded -> loadable.data
-            }
-        }
+        get() = activeAccountFlow.value.get()
 
     /** All logged in accounts. */
     val accountsFlow = accountDao.loadAllFlow().stateIn(externalScope, SharingStarted.Eagerly, emptyList())
