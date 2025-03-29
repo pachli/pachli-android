@@ -18,6 +18,9 @@ package app.pachli.components.report
 
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import app.pachli.R
 import app.pachli.components.report.adapter.ReportPagerAdapter
 import app.pachli.core.activity.BottomSheetActivity
@@ -27,6 +30,8 @@ import app.pachli.core.navigation.pachliAccountId
 import app.pachli.databinding.ActivityReportBinding
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.withCreationCallback
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 /**
  * Report a status or user.
@@ -68,10 +73,7 @@ class ReportActivity : BottomSheetActivity() {
         }
 
         initViewPager()
-        if (savedInstanceState == null) {
-            viewModel.navigateTo(Screen.Statuses)
-        }
-        subscribeObservables()
+        bind()
     }
 
     private fun initViewPager() {
@@ -84,33 +86,30 @@ class ReportActivity : BottomSheetActivity() {
         binding.wizard.adapter = ReportPagerAdapter(this, intent.pachliAccountId)
     }
 
-    private fun subscribeObservables() {
-        viewModel.navigation.observe(this) { screen ->
-            if (screen != null) {
-                viewModel.navigated()
-                when (screen) {
-                    Screen.Statuses -> showStatusesPage()
-                    Screen.Note -> showNotesPage()
-                    Screen.Done -> showDonePage()
-                    Screen.Back -> showPreviousScreen()
-                    Screen.Finish -> closeScreen()
-                }
-            }
-        }
+    private fun bind() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                launch { viewModel.navigation.collectLatest(::bindNavigation) }
 
-        viewModel.checkUrl.observe(this) {
-            if (!it.isNullOrBlank()) {
-                viewModel.urlChecked()
-                viewUrl(intent.pachliAccountId, it)
+                launch { viewModel.checkUrl.collect(::bindCheckUrl) }
             }
         }
     }
 
-    private fun showPreviousScreen() {
-        when (binding.wizard.currentItem) {
-            0 -> closeScreen()
-            1 -> showStatusesPage()
+    private fun bindNavigation(screen: Screen) {
+        when (screen) {
+            Screen.Statuses -> showStatusesPage()
+            Screen.Note -> showNotesPage()
+            Screen.Done -> showDonePage()
+            Screen.Finish -> closeScreen()
         }
+    }
+
+    private fun bindCheckUrl(url: String?) {
+        if (url.isNullOrBlank()) return
+
+        viewModel.urlChecked()
+        viewUrl(intent.pachliAccountId, url)
     }
 
     private fun showDonePage() {
