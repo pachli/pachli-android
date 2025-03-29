@@ -16,10 +16,19 @@
 
 package app.pachli.components.report
 
+/**
+ * The "Report account" screen to display.
+ */
 enum class Screen {
+    /** Shows [ReportStatusesFragment][app.pachli.components.report.fragments.ReportStatusesFragment]. */
     Statuses,
+
+    /** Shows [ReportNoteFragment][app.pachli.components.report.fragments.ReportNoteFragment]. */
     Note,
+
+    /** Shows [ReportDoneFragment][app.pachli.components.report.fragments.ReportDoneFragment]. */
     Done,
-    Back,
+
+    /** Signal to finish [ReportActivity][app.pachli.components.report.ReportActivity]. */
     Finish,
 }

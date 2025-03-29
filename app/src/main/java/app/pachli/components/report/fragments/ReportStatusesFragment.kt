@@ -62,6 +62,10 @@ import kotlin.properties.Delegates
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+/**
+ * Show a list of statuses from the account the user is reporting. Allow
+ * the user to choose one or more of these to include in the report.
+ */
 @AndroidEntryPoint
 class ReportStatusesFragment :
     Fragment(R.layout.fragment_report_statuses),
@@ -167,7 +171,7 @@ class ReportStatusesFragment :
     }
 
     private fun initStatusesView() {
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             binding.recyclerView.addItemDecoration(
                 MaterialDividerItemDecoration(
                     requireContext(),
@@ -214,7 +218,7 @@ class ReportStatusesFragment :
 
     private fun handleClicks() {
         binding.buttonCancel.setOnClickListener {
-            viewModel.navigateTo(Screen.Back)
+            viewModel.navigateBack()
         }
 
         binding.buttonContinue.setOnClickListener {
