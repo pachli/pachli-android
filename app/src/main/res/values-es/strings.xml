@@ -452,7 +452,7 @@
     <string name="delete_scheduled_post_warning">¿Eliminar publicación programada\?</string>
     <string name="set_focus_description">Toca o arrastra el círculo para centrar el foco de la imagen, que será visible en las miniaturas.</string>
     <string name="compose_save_draft_loses_media">Los adjuntos se subirán de nuevo cuando vuelvas al borrador.</string>
-    <string name="pref_title_show_self_username">Mostrar nombre de usuario en la barra de herramientas</string>
+    <string name="pref_title_show_self_username">Mostrar identificador en la barra de herramientas</string>
     <string name="account_date_joined">Se unió %1$s</string>
     <string name="duration_14_days">14 días</string>
     <string name="duration_365_days">365 días</string>
@@ -513,11 +513,11 @@
     <string name="action_post_failed_detail">No se ha podido subir tu publicación y se ha guardado en Borradores. \n \nO bien no se ha podido contactar con el servidor, o bien ha rechazado tu publicación.</string>
     <string name="action_post_failed_detail_plural">Tus publicaciones no se han podido subir y se han guardado en Borradores. \n \nO bien no se ha podido contactar con el servidor, o bien ha rechazado tus publicaciones.</string>
     <string name="action_post_failed_show_drafts">Mostrar borradores</string>
-    <string name="send_account_username_to">Compartir nombre de usuario de la cuenta con…</string>
-    <string name="account_username_copied">Nombre de usuario copiado</string>
+    <string name="send_account_username_to">Compartir identificador de la cuenta con…</string>
+    <string name="account_username_copied">Identificador copiado</string>
     <string name="description_browser_login">Puede que permita métodos de autenticación adicionales, pero hace falta un navegador compatible.</string>
     <string name="description_login">Funciona en la mayoría de los casos. No se comparten datos con otras apps.</string>
-    <string name="action_share_account_username">Compartir el nombre de usuario de la cuenta</string>
+    <string name="action_share_account_username">Compartir el identificador de la cuenta</string>
     <string name="send_account_link_to">Compartir URL de la cuenta con…</string>
     <string name="action_share_account_link">Compartir enlace a la cuenta</string>
     <string name="title_public_trending_hashtags">Hashtags en tendencia</string>
@@ -819,4 +819,8 @@
     <string name="pref_account_conversation_filters_subtitle">Qué debería ocurrir con las conversaciones iniciadas por cuentas…</string>
     <string name="account_filter_placeholder_type_conversation">Un usuario de <b>%1$s</b> inició una conversación</string>
     <string name="pref_account_conversation_filters_label_limited_by_server">… limitadas por tus moderadores</string>
+    <string name="action_send_unlisted_content_description">Enviar como no listado</string>
+    <string name="action_send_public_content_description">Enviar como público</string>
+    <string name="action_send_private_content_description">Enviar sólo para seguidores</string>
+    <string name="action_send_direct_content_description">Enviar mensaje directo</string>
 </resources>
