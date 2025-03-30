@@ -28,4 +28,5 @@
     <string name="pref_tab_contents_text_only">טקסט רק</string>
     <string name="pref_tab_contents_icon_text_inline">סמל עם טקסט לציד</string>
     <string name="pref_tab_contents_icon_text_below">סמל עם טקסט למטה</string>
+    <string name="pref_title_render_markdown">פענוח טקסט Markdown</string>
 </resources>
