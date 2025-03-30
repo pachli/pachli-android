@@ -30,6 +30,8 @@ android {
 
 dependencies {
     implementation(projects.core.common)
+    implementation(projects.core.designsystem)
+        ?.because("Preferences uses EmbeddedFontFamily")
 
     implementation(libs.bundles.androidx)
 }

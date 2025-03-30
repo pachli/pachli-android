@@ -19,6 +19,7 @@ package app.pachli
 
 import android.app.Application
 import android.content.Context
+import androidx.core.content.edit
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
@@ -149,19 +150,27 @@ class PachliApplication : Application() {
 
     private fun upgradeSharedPreferences(oldVersion: Int, newVersion: Int) {
         Timber.d("Upgrading shared preferences: %d -> %d", oldVersion, newVersion)
-        val editor = sharedPreferencesRepository.edit()
+        sharedPreferencesRepository.edit {
+            // General usage is:
+            //
+            // if (oldVersion < ...) {
+            //     ... use `editor` to modify the preferences ...
+            // }
 
-        // General usage is:
-        //
-        // if (oldVersion < ...) {
-        //     ... use `editor` to modify the preferences ...
-        // }
+            if (oldVersion < 2024101701) {
+                remove(PrefKeys.Deprecated.WELLBEING_LIMITED_NOTIFICATIONS)
+            }
 
-        if (oldVersion < 2024101701) {
-            editor.remove(PrefKeys.Deprecated.WELLBEING_LIMITED_NOTIFICATIONS)
+            // Deleted ATKINSON_HYPERLEGIBLE, migrate any font preferences that used
+            // that to ATKINSON_HYPERLEGIBLE_NEXT.
+            if (oldVersion < 2025033001) {
+                val fontPref = sharedPreferencesRepository.getString(PrefKeys.FONT_FAMILY, "default")
+                if (fontPref == "atkinson_hyperlegible") {
+                    putString(PrefKeys.FONT_FAMILY, "atkinson_hyperlegible_next")
+                }
+            }
+
+            putInt(PrefKeys.SCHEMA_VERSION, newVersion)
         }
-
-        editor.putInt(PrefKeys.SCHEMA_VERSION, newVersion)
-        editor.apply()
     }
 }

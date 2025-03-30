@@ -34,10 +34,6 @@
         <item name="android:fontFamily">@font/atkinson_hyperlegible_next</item>
     </style>
 
-    <style name="FontAtkinsonHyperlegible">
-        <item name="android:fontFamily">@font/atkinson_hyperlegible</item>
-    </style>
-
     <style name="FontComicNeue">
         <item name="android:fontFamily">@font/comicneue</item>
     </style>
