@@ -128,8 +128,7 @@ abstract class BaseActivity : AppCompatActivity(), MenuProvider {
         getTheme().applyStyle(style, true)
 
         // Set application font family
-        val fontFamily =
-            EmbeddedFontFamily.from(sharedPreferencesRepository.getString(PrefKeys.FONT_FAMILY, "default"))
+        val fontFamily = sharedPreferencesRepository.fontFamily
         if (fontFamily !== EmbeddedFontFamily.DEFAULT) {
             getTheme().applyStyle(fontFamily.style, true)
         }

@@ -109,7 +109,6 @@ import app.pachli.core.network.model.Announcement
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.retrofit.apiresult.ClientError
 import app.pachli.core.preferences.MainNavigationPosition
-import app.pachli.core.preferences.PrefKeys.FONT_FAMILY
 import app.pachli.core.preferences.TabAlignment
 import app.pachli.core.preferences.TabContents
 import app.pachli.core.ui.AlignableTabLayoutAlignment
@@ -817,9 +816,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                 }
             },
         )
-        updateMainDrawerTypeface(
-            EmbeddedFontFamily.from(sharedPreferencesRepository.getString(FONT_FAMILY, "default")),
-        )
+        updateMainDrawerTypeface(sharedPreferencesRepository.fontFamily)
     }
 
     /**
@@ -862,9 +859,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             },
         )
 
-        updateMainDrawerTypeface(
-            EmbeddedFontFamily.from(sharedPreferencesRepository.getString(FONT_FAMILY, "default")),
-        )
+        updateMainDrawerTypeface(sharedPreferencesRepository.fontFamily)
     }
 
     /** Binds [lists] to the "Lists" section in the main drawer. */
@@ -901,9 +896,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         // Insert items after the "Lists" header. Again, use the itemAdapter directly
         // instead of addItemsAtPosition.
         binding.mainDrawer.addItemsAtPosition(headerPosition + 1, *listDrawerItems.toTypedArray())
-        updateMainDrawerTypeface(
-            EmbeddedFontFamily.from(sharedPreferencesRepository.getString(FONT_FAMILY, "default")),
-        )
+        updateMainDrawerTypeface(sharedPreferencesRepository.fontFamily)
     }
 
     /**
@@ -1108,10 +1101,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                 },
             )
         }
-
-        updateMainDrawerTypeface(
-            EmbeddedFontFamily.from(sharedPreferencesRepository.getString(FONT_FAMILY, "default")),
-        )
+        updateMainDrawerTypeface(sharedPreferencesRepository.fontFamily)
     }
 
     private fun buildDeveloperToolsDialog(): AlertDialog {

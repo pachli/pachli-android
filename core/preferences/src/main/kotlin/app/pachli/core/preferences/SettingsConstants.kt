@@ -24,12 +24,13 @@ package app.pachli.core.preferences
  *   preference value to the new preference.
  * - Renaming a preference key. The migration should copy the user's previous value for the
  *   preference under the old key to the value for the new, and delete the old preference.
+ * - Deleting an option from an enum preference.
  *
  * A compatible change is:
  *
  * - Adding a new preference that does not change the interpretation of an existing preference
  */
-const val SCHEMA_VERSION = 2024101701
+const val SCHEMA_VERSION = 2025033001
 
 /** The schema version for fresh installs */
 const val NEW_INSTALL_SCHEMA_VERSION = 0
