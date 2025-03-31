@@ -1,5 +1,42 @@
 # Pachli changelog
 
+## v2.11.0
+
+### New features and other improvements
+
+- Replace Atkinson Hyperlegible with "Next" variant (#[1425](https://github.com/pachli/pachli-android/pull/1425), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Support translation throughout the app (#[1414](https://github.com/pachli/pachli-android/pull/1414), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Make new content filters default to active in all contexts (#[1389](https://github.com/pachli/pachli-android/pull/1389), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Implement Markdown rendering, controlled by a lab preference (#[1353](https://github.com/pachli/pachli-android/pull/1353), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Significant bug fixes
+
+- Stop the report UI from sometimes hanging, honour Markdown setting (#[1419](https://github.com/pachli/pachli-android/pull/1419), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Always set an accessible description on the "Toot" button (#[1415](https://github.com/pachli/pachli-android/pull/1415), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Don't crash when determining upload MIME type (#[1402](https://github.com/pachli/pachli-android/pull/1402), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Don't crash if download error happens when sharing media (#[1401](https://github.com/pachli/pachli-android/pull/1401), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Don't crash when processing severed relationship notifications (#[1400](https://github.com/pachli/pachli-android/pull/1400), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Prevent crash on long press if span is not attached (#[1394](https://github.com/pachli/pachli-android/pull/1394), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Reduce risk of ANR, only call ExoPlayer release() when the command is available (#[1393](https://github.com/pachli/pachli-android/pull/1393), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Create filters with the correct content-type (#[1390](https://github.com/pachli/pachli-android/pull/1390), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Improve display of lists of content filters (#[1388](https://github.com/pachli/pachli-android/pull/1388), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Filter correctly in threads and private messages (#[1387](https://github.com/pachli/pachli-android/pull/1387), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Support editing captions of uploaded images (#[1382](https://github.com/pachli/pachli-android/pull/1382), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Allow Report notifications with a null `forwarded` property (#[1372](https://github.com/pachli/pachli-android/pull/1372), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Correctly parse `action_taken` and similar in report notifications (#[1371](https://github.com/pachli/pachli-android/pull/1371), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show join date in grammatically correct form (#[1367](https://github.com/pachli/pachli-android/pull/1367), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Translations
+
+- Update Finnish translations ([Kalle Kniivilä](https://github.com/pachli/pachli-android/commits?author=kalle.kniivila@gmail.com))
+- Update Indonesian translations ([Doctorredits_here](https://github.com/pachli/pachli-android/commits?author=182783629+doctorreditshere@users.noreply.github.com))
+- Update Irish translations ([Aindriú Mac Giolla Eoin](https://github.com/pachli/pachli-android/commits?author=aindriu80@gmail.com))
+- Update Latvian translations ([Edgars Andersons](https://github.com/pachli/pachli-android/commits?author=Edgars+Weblate@gaitenis.id.lv))
+- Update Norwegian Nynorsk translations ([sunniva](https://github.com/pachli/pachli-android/commits?author=sunniva@users.noreply.hosted.weblate.org))
+- Update Polish translations ([Łukasz Horodecki](https://github.com/pachli/pachli-android/commits?author=dakilla@gmail.com))
+- Update Slovak translations ([Russssty](https://github.com/pachli/pachli-android/commits?author=russssty@users.noreply.hosted.weblate.org))
+- Update Spanish translations ([Juan M Sevilla](https://github.com/pachli/pachli-android/commits?author=jumase@disroot.org))
+
 ## v2.10.1
 
 ### Significant bug fixes
