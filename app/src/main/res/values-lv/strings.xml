@@ -558,4 +558,10 @@
     <string name="notification_notification_worker">Iegūst paziņojumus…</string>
     <string name="compose_delete_draft">Izdzēst melnrakstu?</string>
     <string name="manage_lists">Pārvaldīt sarakstus</string>
+    <string name="announcement_date">%1$s %2$s</string>
+    <string name="ui_error_clear_notifications">Paziņojumu notīrīšana neizdevās: %s</string>
+    <string name="socket_timeout_exception">Sazināšanās ar serveri aizņēma pārāk ilgu laiku</string>
+    <string name="ui_error_bookmark_fmt">Ieraksta pievienošana grāmatzīmēm neizdevās: %1$s</string>
+    <string name="announcement_date_updated">(Atjaunināts: %1$s)</string>
+    <string name="error_missing_edits">Serveris zina, ka šis ieraksts tika labots, bet tam nav labojumu kopijas, tādēļ tos nevar parādīt.\n\nŠī ir <a href="https://github.com/mastodon/mastodon/issues/25398">Mastodon nepilnība #25398</a>.</string>
 </resources>
