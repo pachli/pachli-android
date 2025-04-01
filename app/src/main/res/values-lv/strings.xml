@@ -564,4 +564,8 @@
     <string name="ui_error_bookmark_fmt">Ieraksta pievienošana grāmatzīmēm neizdevās: %1$s</string>
     <string name="announcement_date_updated">(Atjaunināts: %1$s)</string>
     <string name="error_missing_edits">Serveris zina, ka šis ieraksts tika labots, bet tam nav labojumu kopijas, tādēļ tos nevar parādīt.\n\nŠī ir <a href="https://github.com/mastodon/mastodon/issues/25398">Mastodon nepilnība #25398</a>.</string>
+    <string name="ui_error_filter_v1_load_fmt">Atlasītāju ielādēšana neizdevās: %1$s</string>
+    <string name="filter_action_none">Parādīt</string>
+    <string name="filter_description_none">Parādīt kā parasti</string>
+    <string name="label_filter_keywords">Atslēgvārdi vai vārdkopas, pēc kurām atlasīt</string>
 </resources>
