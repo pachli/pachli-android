@@ -20,10 +20,12 @@ package app.pachli.core.ui
 import android.content.Context
 import android.graphics.Color
 import android.text.style.URLSpan
+import android.util.TypedValue
 import android.widget.TextView
 import androidx.core.text.method.LinkMovementMethodCompat
 import app.pachli.core.activity.emojify
 import app.pachli.core.data.model.StatusDisplayOptions
+import app.pachli.core.designsystem.R
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.HashTag
 import app.pachli.core.network.model.Status
@@ -35,9 +37,11 @@ import io.noties.markwon.AbstractMarkwonPlugin
 import io.noties.markwon.Markwon
 import io.noties.markwon.SoftBreakAddsNewLinePlugin
 import io.noties.markwon.core.MarkwonTheme
+import io.noties.markwon.ext.latex.JLatexMathPlugin
 import io.noties.markwon.ext.strikethrough.StrikethroughPlugin
 import io.noties.markwon.html.HtmlPlugin
-import io.noties.markwon.simple.ext.SimpleExtPlugin
+import io.noties.markwon.inlineparser.MarkwonInlineParserPlugin
+import io.noties.markwon.movement.MovementMethodPlugin
 import io.noties.markwon.syntax.Prism4jThemeDefault
 import io.noties.markwon.syntax.SyntaxHighlightPlugin
 import io.noties.prism4j.Prism4j
@@ -93,10 +97,25 @@ object SetMastodonHtmlContent : SetStatusContent {
  */
 @PrismBundle(includeAll = true, grammarLocatorClassName = ".MySuperGrammerLocator")
 class SetMarkdownContent(context: Context) : SetStatusContent {
+    val textSize: Float
+
+    init {
+        val typedValue = TypedValue()
+        val displayMetrics = context.resources.displayMetrics
+        context.theme.resolveAttribute(R.attr.status_text_medium, typedValue, true)
+        textSize = typedValue.getDimension(displayMetrics)
+    }
+
     private val markwon = Markwon.builder(context)
-        .usePlugin(SimpleExtPlugin.create())
+        .usePlugin(MovementMethodPlugin.create(LinkMovementMethodCompat.getInstance()))
         .usePlugin(HtmlPlugin.create())
         .usePlugin(SoftBreakAddsNewLinePlugin.create())
+        .usePlugin(MarkwonInlineParserPlugin.create())
+        .usePlugin(
+            JLatexMathPlugin.create(textSize) {
+                it.inlinesEnabled(true)
+            },
+        )
         .usePlugin(
             SyntaxHighlightPlugin.create(
                 Prism4j(MySuperGrammerLocator()),
@@ -176,11 +195,24 @@ object PreProcessMastodonHtml : AbstractMarkwonPlugin() {
     /** Match any inline code element (i.e., between two literal backquotes. */
     private val rxLiteral = """(?<!`)`(.+?)`""".toRegex(setOf(RegexOption.MULTILINE))
 
-    /** Match any opening `p` element, with optional whitespace before it. */
-    private val rxPEl = """\s*<p\s*>""".toRegex()
+    /**
+     * Match any opening `p` element, with optional whitespace before it, and optional
+     * whitespace immediately after the opening tag.
+     *
+     * The optional whitespace after the tag is to catch `<p>   ...`, which would
+     * appear as a code block because of the indentation.
+     */
+    private val rxPEl = """\s*<p\s*>\s*""".toRegex()
 
     /** Match `<br>`, `<br/>` (with optional spaces). */
     private val rxBrEl = """<br\s*/?>""".toRegex()
+
+    /**
+     * Match `~~~` at the start of a line. These are an alternative mechanism for
+     * starting a fenced code block. They seem to be much less frequent than
+     * using backticks.
+     */
+    private val rxThreeTilde = """^~~~""".toRegex(RegexOption.MULTILINE)
 
     /**
      * Processes [input] and removes/replaces some HTML content.
@@ -195,7 +227,7 @@ object PreProcessMastodonHtml : AbstractMarkwonPlugin() {
         // - Links in fenced code blocks are not clickable
         //   Eg., a hashtag in a fenced code block is not clickable
         val processed = input
-            // Remove <p> with any preceeding whitespace (just in case a parapgraph was
+            // Remove <p> with any preceeding whitespace (just in case a paragraph was
             // indented -- not removing the whitespace could cause it to be treated as
             // a code block).
             .replace(rxPEl, "")
@@ -205,6 +237,20 @@ object PreProcessMastodonHtml : AbstractMarkwonPlugin() {
             .replace(rxBrEl, "\n")
             // Convert leading quote markers from entities to ">".
             .replace("&gt; ", "> ")
+            // Three ~ at the start of a line are unlikely to be a fenced code block
+            // and are more likely to be decoration. Escape them so they are not parsed
+            // as code.
+            //
+            // https://dair-community.social/@emilymbender/114172441506624981
+            .replace(rxThreeTilde, Regex.escapeReplacement("""\~\~\~"""))
+            // Hack for Mathstodon. Mathstodon uses `\[...\]` for block latex content
+            // and `\(...\)` for inline latex content (those are literal backslash and
+            // bracket/brace characters). Rewrite those to block or inline level `$$`
+            // strings so the JLatexMath plugin will parse them.
+            .replace("""\[""", "\n\n$$\n")
+            .replace("""\]""", "\n$$\n\n")
+            .replace("""\(""", "$$")
+            .replace("""\)""", "$$")
             // HTML in fenced code blocks is treated literally by Markwon.
             // So remove all HTML tags inside fenced blocks (keep the content).
             //

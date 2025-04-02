@@ -21,20 +21,32 @@ import android.view.View
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import app.pachli.R
+import app.pachli.components.report.AccountType
 import app.pachli.components.report.ReportViewModel
 import app.pachli.components.report.Screen
+import app.pachli.core.common.PachliError
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.common.extensions.visible
+import app.pachli.core.data.repository.Loadable
 import app.pachli.databinding.FragmentReportNoteBinding
-import app.pachli.util.Error
-import app.pachli.util.Loading
-import app.pachli.util.Success
+import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import java.io.IOException
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
+/**
+ * Allows the user to enter final comments and decide whether a copy of the
+ * report should be forwarded to the remote admins (if appropriate).
+ */
 @AndroidEntryPoint
 class ReportNoteFragment : Fragment(R.layout.fragment_report_note) {
 
@@ -43,10 +55,9 @@ class ReportNoteFragment : Fragment(R.layout.fragment_report_note) {
     private val binding by viewBinding(FragmentReportNoteBinding::bind)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        fillViews()
         handleChanges()
         handleClicks()
-        subscribeObservables()
+        bind()
     }
 
     private fun handleChanges() {
@@ -58,44 +69,44 @@ class ReportNoteFragment : Fragment(R.layout.fragment_report_note) {
         }
     }
 
-    private fun fillViews() {
+    private fun bind() {
         binding.editNote.setText(viewModel.reportNote)
 
-        if (viewModel.isRemoteAccount) {
-            binding.checkIsNotifyRemote.show()
-            binding.reportDescriptionRemoteInstance.show()
-        } else {
-            binding.checkIsNotifyRemote.hide()
-            binding.reportDescriptionRemoteInstance.hide()
-        }
+        binding.checkIsNotifyRemote.visible(viewModel.reportedAccountType is AccountType.Remote)
+        binding.reportDescriptionRemoteInstance.visible(viewModel.reportedAccountType is AccountType.Remote)
 
-        if (viewModel.isRemoteAccount) {
-            binding.checkIsNotifyRemote.text = getString(R.string.report_remote_instance, viewModel.remoteServer)
+        if (viewModel.reportedAccountType is AccountType.Remote) {
+            binding.checkIsNotifyRemote.text = getString(R.string.report_remote_instance, (viewModel.reportedAccountType as AccountType.Remote).server)
         }
         binding.checkIsNotifyRemote.isChecked = viewModel.isRemoteNotify
-    }
 
-    private fun subscribeObservables() {
-        viewModel.reportingState.observe(viewLifecycleOwner) {
-            when (it) {
-                is Success -> viewModel.navigateTo(Screen.Done)
-                is Loading -> showLoading()
-                is Error -> showError(it.cause)
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                launch { viewModel.reportingState.collectLatest(::bindReportingState) }
             }
         }
     }
 
-    private fun showError(error: Throwable?) {
+    private fun bindReportingState(reportingState: Result<Loadable<Unit>, PachliError>) {
+        reportingState
+            .onSuccess {
+                when (it) {
+                    is Loadable.Loading -> showLoading()
+                    is Loadable.Loaded<*> -> viewModel.navigateTo(Screen.Done)
+                }
+            }
+            .onFailure { showError(it) }
+    }
+
+    private fun showError(error: PachliError) {
         binding.editNote.isEnabled = true
         binding.checkIsNotifyRemote.isEnabled = true
         binding.buttonReport.isEnabled = true
         binding.buttonBack.isEnabled = true
         binding.progressBar.hide()
 
-        Snackbar.make(binding.buttonBack, if (error is IOException) app.pachli.core.ui.R.string.error_network else app.pachli.core.ui.R.string.error_generic, Snackbar.LENGTH_LONG)
-            .setAction(app.pachli.core.ui.R.string.action_retry) {
-                sendReport()
-            }
+        Snackbar.make(binding.buttonBack, error.fmt(requireContext()), Snackbar.LENGTH_INDEFINITE)
+            .setAction(app.pachli.core.ui.R.string.action_retry) { sendReport() }
             .show()
     }
 
@@ -113,7 +124,7 @@ class ReportNoteFragment : Fragment(R.layout.fragment_report_note) {
 
     private fun handleClicks() {
         binding.buttonBack.setOnClickListener {
-            viewModel.navigateTo(Screen.Back)
+            viewModel.navigateBack()
         }
 
         binding.buttonReport.setOnClickListener {

@@ -56,6 +56,14 @@ interface StatusActionListener<T : IStatusViewData> : LinkListener {
      * called when the favourite count has been clicked
      */
     fun onShowFavs(statusId: String) {}
+
+    /**
+     * Called when voting on a poll.
+     *
+     * @param viewData
+     * @param poll The poll the user is voting in.
+     * @param choices The indices of the options the user is voting for.
+     */
     fun onVoteInPoll(viewData: T, poll: Poll, choices: List<Int>)
     fun onShowEdits(statusId: String) {}
 

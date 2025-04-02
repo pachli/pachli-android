@@ -117,7 +117,7 @@
     <string name="download_media">Stiahnuť médiá</string>
     <string name="dialog_mute_warning">Stíšiť @%s?</string>
     <string name="dialog_block_warning">Zablokovať @%s?</string>
-    <string name="visibility_unlisted">Neuvedené: Nezobrazovať na verejných časových osách</string>
+    <string name="visibility_unlisted">Tiché verejné: Nezobrazovať na verejných časových osách</string>
     <string name="pref_title_notification_filter_favourites">sú moje príspevky obľúbené</string>
     <string name="pref_summary_http_proxy_missing">&lt;nenastavené&gt;</string>
     <string name="post_boosted_format">%s zdieľal/a</string>
@@ -327,7 +327,7 @@
     <string name="notification_boost_name">Zdieľania</string>
     <string name="notification_subscription_description">Upozornenia, keď niekto, koho sleduješ, uverejní nový príspevok</string>
     <string name="pref_main_nav_position">Umiestnenie hlavného navigačného panelu</string>
-    <string name="post_privacy_unlisted">Neuvedené</string>
+    <string name="post_privacy_unlisted">Tiché verejné</string>
     <string name="notification_mention_name">Nové zmienenia</string>
     <string name="post_privacy_followers_only">Len pre sledujúcich</string>
     <string name="hint_compose">Čo je nové?</string>
@@ -377,7 +377,7 @@
     <string name="ui_error_translate_status_fmt">Preklad zlyhal: %1$s</string>
     <string name="ui_error_filter_v1_load_fmt">Načítanie filtrov zlyhalo: %1$s</string>
     <string name="pref_title_account_filter_keywords">Profily</string>
-    <string name="description_visibility_unlisted">Neuvedené</string>
+    <string name="description_visibility_unlisted">Tiché verejné</string>
     <string name="title_accounts">Účty</string>
     <string name="warning_scheduling_interval">Mastodon má minimálny interval plánovania 5 minút.</string>
     <string name="pref_title_show_cards_in_timelines">Zobrazovať náhľady odkazov v časových osiach</string>
@@ -671,7 +671,7 @@
     <string name="search_operator_attachment_has_media_except_2_label_fmt">Všetky okrem %1$s, %2$s</string>
     <string name="search_operator_attachment_no_media_label">Žiadne médiá</string>
     <string name="server_repository_error">Nepodarilo sa načítať informácie o serveri pre %1$s: %2$s</string>
-    <string name="error_media_download">Nepodarilo sa stiahnuť %1$s: %2$d %3$s</string>
+    <string name="error_media_download">Nepodarilo sa stiahnuť %1$s: %2$s</string>
     <string name="compose_warn_language_dialog_accept_and_dont_ask_fmt">Uverejniť tak, ako je (%1$s) a viac sa nepýtať</string>
     <string name="error_prepare_media_unsupported_mime_type_fmt">server nepodporuje typ súboru: %1$s</string>
     <string name="search_operator_attachment_dialog_title">Obmedziť na príspevky s médiami?</string>
@@ -804,4 +804,8 @@
     <string name="pref_account_conversation_filters_label_younger_30d">… ktoré boli vytvorené za posledných 30 dní</string>
     <string name="pref_account_conversation_filters_label_limited_by_server">… ktoré boli obmedzené tvojimi moderátormi</string>
     <string name="pref_account_conversation_filters_label_not_followed">… ktoré nesleduješ</string>
+    <string name="action_send_direct_content_description">Odoslať príspevok iba pre uvedené účty</string>
+    <string name="action_send_public_content_description">Odoslať verejný príspevok</string>
+    <string name="action_send_unlisted_content_description">Odoslať tichý verejný príspevok</string>
+    <string name="action_send_private_content_description">Odoslať príspevok len pre sledujúcich</string>
 </resources>

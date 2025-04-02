@@ -216,10 +216,6 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
             }
             return true
         }
-
-        private fun getStatus(childView: View): T {
-            return statusProvider.getStatus(recyclerView.getChildAdapterPosition(childView))!!
-        }
     }
 
     private val collapseCwAction = AccessibilityActionCompat(

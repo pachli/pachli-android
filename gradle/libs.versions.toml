@@ -45,6 +45,7 @@ glide = "4.16.0"
 glide-animation-plugin = "2.23.0"
 hilt = "2.55"
 org-json = "20250107"
+jlatexmath-android = "0.2.0"
 junit = "4.13.2"
 kotlin = "2.1.10"
 kotlin-result = "1.1.20"
@@ -179,6 +180,7 @@ glide-okhttp3-integration = { module = "com.github.bumptech.glide:okhttp3-integr
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
 hilt-android-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt" }
+jlatexmath-android = { module = "ru.noties:jlatexmath-android", version.ref = "jlatexmath-android" }
 junit = { module = "junit:junit", version.ref = "junit" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit-jupiter" }
 junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit-jupiter" }
@@ -200,6 +202,7 @@ markwon = { module = "io.noties.markwon:core", version.ref = "markwon" }
 markwon-html = { module = "io.noties.markwon:html", version.ref = "markwon" }
 markwon-inline-parser = { module = "io.noties.markwon:inline-parser", version.ref = "markwon" }
 markwon-simple-ext = { module = "io.noties.markwon:simple-ext", version.ref = "markwon" }
+markwon-latex = { module = "io.noties.markwon:ext-latex", version.ref = "markwon" }
 markwon-strikethrough = { module = "io.noties.markwon:ext-strikethrough", version.ref = "markwon" }
 markwon-syntax-highlight = { module = "io.noties.markwon:syntax-highlight", version.ref = "markwon" }
 markwon-tables = { module = "io.noties.markwon:ext-tables", version.ref = "markwon" }

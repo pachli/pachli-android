@@ -178,6 +178,7 @@ SELECT
     rse.eventId AS 'rse_eventId',
     rse.type AS 'rse_type',
     rse.purged AS 'rse_purged',
+    rse.targetName AS 'rse_targetName',
     rse.followersCount AS 'rse_followersCount',
     rse.followingCount AS 'rse_followingCount',
     rse.createdAt AS 'rse_createdAt'

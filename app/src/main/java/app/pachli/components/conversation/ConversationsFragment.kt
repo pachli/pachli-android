@@ -349,6 +349,9 @@ class ConversationsFragment :
         adapter.refresh()
     }
 
+    // Can't translate conversations because of Mastodon privacy settings.
+    override fun canTranslate() = false
+
     override fun onReblog(viewData: ConversationViewData, reblog: Boolean) {
         // its impossible to reblog private messages
     }

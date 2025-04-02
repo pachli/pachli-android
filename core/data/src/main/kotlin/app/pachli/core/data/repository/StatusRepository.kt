@@ -20,6 +20,7 @@ package app.pachli.core.data.repository
 import app.pachli.core.common.PachliError
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.database.dao.StatusDao
+import app.pachli.core.database.dao.TranslatedStatusDao
 import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.StatusViewDataContentCollapsed
 import app.pachli.core.database.model.StatusViewDataContentShowing
@@ -75,6 +76,7 @@ class StatusRepository @Inject constructor(
     private val mastodonApi: MastodonApi,
     private val transactionProvider: TransactionProvider,
     private val statusDao: StatusDao,
+    private val translatedStatusDao: TranslatedStatusDao,
     private val eventHub: EventHub,
 ) {
     /**
@@ -291,4 +293,8 @@ class StatusRepository @Inject constructor(
             ),
         )
     }
+
+    suspend fun getStatusViewData(pachliAccountId: Long, statusId: String) = statusDao.getStatusViewData(pachliAccountId, statusId)
+
+    suspend fun getTranslation(pachliAccountId: Long, statusId: String) = translatedStatusDao.getTranslation(pachliAccountId, statusId)
 }

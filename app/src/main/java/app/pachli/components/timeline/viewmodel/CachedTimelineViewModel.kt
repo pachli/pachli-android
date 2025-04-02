@@ -36,7 +36,6 @@ import app.pachli.core.eventhub.FavoriteEvent
 import app.pachli.core.eventhub.PinEvent
 import app.pachli.core.eventhub.ReblogEvent
 import app.pachli.core.model.FilterAction
-import app.pachli.core.network.model.Poll
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.usecase.TimelineCases
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -104,10 +103,6 @@ class CachedTimelineViewModel @Inject constructor(
             }
     }
 
-    override fun updatePoll(newPoll: Poll, status: StatusViewData) {
-        // handled by CacheUpdater
-    }
-
     override fun removeAllByAccountId(pachliAccountId: Long, accountId: String) {
         viewModelScope.launch {
             repository.removeAllByAccountId(pachliAccountId, accountId)
@@ -145,6 +140,56 @@ class CachedTimelineViewModel @Inject constructor(
     override fun handlePinEvent(pinEvent: PinEvent) {
         // handled by CacheUpdater
     }
+
+    override fun onChangeExpanded(isExpanded: Boolean, statusViewData: StatusViewData) {
+        viewModelScope.launch {
+            statusRepository.setExpanded(statusViewData.pachliAccountId, statusViewData.id, isExpanded)
+            repository.invalidate(statusViewData.pachliAccountId)
+        }
+    }
+
+    override fun onChangeContentShowing(isShowing: Boolean, statusViewData: StatusViewData) {
+        viewModelScope.launch {
+            statusRepository.setContentShowing(statusViewData.pachliAccountId, statusViewData.id, isShowing)
+            repository.invalidate(statusViewData.pachliAccountId)
+        }
+    }
+
+    override fun onContentCollapsed(isCollapsed: Boolean, statusViewData: StatusViewData) {
+        viewModelScope.launch {
+            statusRepository.setContentCollapsed(statusViewData.pachliAccountId, statusViewData.id, isCollapsed)
+            repository.invalidate(statusViewData.pachliAccountId)
+        }
+    }
+
+    override suspend fun onBookmark(action: FallibleStatusAction.Bookmark) = statusRepository.bookmark(
+        action.statusViewData.pachliAccountId,
+        action.statusViewData.actionableId,
+        action.state,
+    )
+
+    override suspend fun onFavourite(action: FallibleStatusAction.Favourite) = statusRepository.favourite(
+        action.statusViewData.pachliAccountId,
+        action.statusViewData.actionableId,
+        action.state,
+    )
+
+    override suspend fun onReblog(action: FallibleStatusAction.Reblog) = statusRepository.reblog(
+        action.statusViewData.pachliAccountId,
+        action.statusViewData.actionableId,
+        action.state,
+    )
+
+    override suspend fun onVoteInPoll(action: FallibleStatusAction.VoteInPoll) = statusRepository.voteInPoll(
+        action.statusViewData.pachliAccountId,
+        action.statusViewData.actionableId,
+        action.poll.id,
+        action.choices,
+    )
+
+    override suspend fun onTranslate(action: FallibleStatusAction.Translate) = timelineCases.translate(action.statusViewData)
+
+    override suspend fun onUndoTranslate(action: InfallibleStatusAction.TranslateUndo) = timelineCases.translateUndo(action.statusViewData)
 
     override suspend fun invalidate(pachliAccountId: Long) {
         repository.invalidate(pachliAccountId)

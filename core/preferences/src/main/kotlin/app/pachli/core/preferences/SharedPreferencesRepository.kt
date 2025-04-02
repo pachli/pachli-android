@@ -21,6 +21,8 @@ import android.content.SharedPreferences
 import androidx.annotation.Keep
 import androidx.core.content.edit
 import app.pachli.core.common.di.ApplicationScope
+import app.pachli.core.designsystem.EmbeddedFontFamily
+import app.pachli.core.preferences.PrefKeys.FONT_FAMILY
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
@@ -72,6 +74,10 @@ class SharedPreferencesRepository @Inject constructor(
     /** True if swipe-gesture between tabs should be enabled. */
     val enableTabSwipe: Boolean
         get() = getBoolean(PrefKeys.ENABLE_SWIPE_FOR_TABS, true)
+
+    /** Application font. */
+    val fontFamily: EmbeddedFontFamily
+        get() = EmbeddedFontFamily.from(getString(FONT_FAMILY, "default"))
 
     /** Whether to hide the top toolbar. */
     val hideTopToolbar: Boolean

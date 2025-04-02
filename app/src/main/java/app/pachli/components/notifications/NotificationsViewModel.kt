@@ -243,45 +243,59 @@ sealed interface NotificationActionSuccess : UiSuccess {
     }
 }
 
+sealed interface StatusAction
+
+sealed interface InfallibleStatusAction : InfallibleUiAction, StatusAction {
+    val statusViewData: StatusViewData
+
+    data class TranslateUndo(override val statusViewData: StatusViewData) : InfallibleStatusAction
+}
+
 /** Actions the user can trigger on an individual status */
-sealed interface StatusAction : FallibleUiAction {
+sealed interface FallibleStatusAction : FallibleUiAction, StatusAction {
     val statusViewData: StatusViewData
 
     /** Set the bookmark state for a status */
-    data class Bookmark(val state: Boolean, override val statusViewData: StatusViewData) : StatusAction
+    data class Bookmark(val state: Boolean, override val statusViewData: StatusViewData) : FallibleStatusAction
 
     /** Set the favourite state for a status */
-    data class Favourite(val state: Boolean, override val statusViewData: StatusViewData) : StatusAction
+    data class Favourite(val state: Boolean, override val statusViewData: StatusViewData) : FallibleStatusAction
 
     /** Set the reblog state for a status */
-    data class Reblog(val state: Boolean, override val statusViewData: StatusViewData) : StatusAction
+    data class Reblog(val state: Boolean, override val statusViewData: StatusViewData) : FallibleStatusAction
 
     /** Vote in a poll */
     data class VoteInPoll(
         val poll: Poll,
         val choices: List<Int>,
         override val statusViewData: StatusViewData,
-    ) : StatusAction
+    ) : FallibleStatusAction
+
+    /** Translate a status */
+    data class Translate(override val statusViewData: StatusViewData) : FallibleStatusAction
 }
 
 /** Changes to a status' visible state after API calls */
 sealed interface StatusActionSuccess : UiSuccess {
-    val action: StatusAction
+    val action: FallibleStatusAction
 
-    data class Bookmark(override val action: StatusAction.Bookmark) : StatusActionSuccess
+    data class Bookmark(override val action: FallibleStatusAction.Bookmark) : StatusActionSuccess
 
-    data class Favourite(override val action: StatusAction.Favourite) : StatusActionSuccess
+    data class Favourite(override val action: FallibleStatusAction.Favourite) : StatusActionSuccess
 
-    data class Reblog(override val action: StatusAction.Reblog) : StatusActionSuccess
+    data class Reblog(override val action: FallibleStatusAction.Reblog) : StatusActionSuccess
 
-    data class VoteInPoll(override val action: StatusAction.VoteInPoll) : StatusActionSuccess
+    data class VoteInPoll(override val action: FallibleStatusAction.VoteInPoll) : StatusActionSuccess
+
+    data class Translate(override val action: FallibleStatusAction.Translate) : StatusActionSuccess
 
     companion object {
-        fun from(action: StatusAction) = when (action) {
-            is StatusAction.Bookmark -> Bookmark(action)
-            is StatusAction.Favourite -> Favourite(action)
-            is StatusAction.Reblog -> Reblog(action)
-            is StatusAction.VoteInPoll -> VoteInPoll(action)
+        fun from(action: FallibleStatusAction) = when (action) {
+            is FallibleStatusAction.Bookmark -> Bookmark(action)
+            is FallibleStatusAction.Favourite -> Favourite(action)
+            is FallibleStatusAction.Reblog -> Reblog(action)
+            is FallibleStatusAction.VoteInPoll -> VoteInPoll(action)
+            is FallibleStatusAction.Translate -> Translate(action)
         }
     }
 }
@@ -306,26 +320,32 @@ sealed interface UiError {
 
     data class Bookmark(
         override val error: PachliError,
-        override val action: StatusAction.Bookmark,
+        override val action: FallibleStatusAction.Bookmark,
         override val message: Int = R.string.ui_error_bookmark_fmt,
     ) : UiError
 
     data class Favourite(
         override val error: PachliError,
-        override val action: StatusAction.Favourite,
+        override val action: FallibleStatusAction.Favourite,
         override val message: Int = R.string.ui_error_favourite_fmt,
     ) : UiError
 
     data class Reblog(
         override val error: PachliError,
-        override val action: StatusAction.Reblog,
+        override val action: FallibleStatusAction.Reblog,
         override val message: Int = R.string.ui_error_reblog_fmt,
     ) : UiError
 
     data class VoteInPoll(
         override val error: PachliError,
-        override val action: StatusAction.VoteInPoll,
+        override val action: FallibleStatusAction.VoteInPoll,
         override val message: Int = R.string.ui_error_vote_fmt,
+    ) : UiError
+
+    data class TranslateStatus(
+        override val error: PachliError,
+        override val action: FallibleStatusAction.Translate,
+        override val message: Int = R.string.ui_error_translate_status_fmt,
     ) : UiError
 
     data class AcceptFollowRequest(
@@ -348,10 +368,11 @@ sealed interface UiError {
 
     companion object {
         fun make(error: PachliError, action: FallibleUiAction) = when (action) {
-            is StatusAction.Bookmark -> Bookmark(error, action)
-            is StatusAction.Favourite -> Favourite(error, action)
-            is StatusAction.Reblog -> Reblog(error, action)
-            is StatusAction.VoteInPoll -> VoteInPoll(error, action)
+            is FallibleStatusAction.Bookmark -> Bookmark(error, action)
+            is FallibleStatusAction.Favourite -> Favourite(error, action)
+            is FallibleStatusAction.Reblog -> Reblog(error, action)
+            is FallibleStatusAction.VoteInPoll -> VoteInPoll(error, action)
+            is FallibleStatusAction.Translate -> TranslateStatus(error, action)
             is NotificationAction.AcceptFollowRequest -> AcceptFollowRequest(error, action)
             is NotificationAction.RejectFollowRequest -> RejectFollowRequest(error, action)
             FallibleUiAction.ClearNotifications -> ClearNotifications(error)
@@ -476,37 +497,39 @@ class NotificationsViewModel @AssistedInject constructor(
 
         // Handle StatusAction.*
         viewModelScope.launch {
-            uiAction.filterIsInstance<StatusAction>()
+            uiAction.filterIsInstance<FallibleStatusAction>()
                 .throttleFirst() // avoid double-taps
                 .collect { action ->
                     val result = when (action) {
-                        is StatusAction.Bookmark -> statusRepository.bookmark(
+                        is FallibleStatusAction.Bookmark -> statusRepository.bookmark(
                             pachliAccountId,
                             action.statusViewData.actionableId,
                             action.state,
                         )
 
-                        is StatusAction.Favourite -> statusRepository.favourite(
+                        is FallibleStatusAction.Favourite -> statusRepository.favourite(
                             pachliAccountId,
                             action.statusViewData.actionableId,
                             action.state,
                         )
 
-                        is StatusAction.Reblog -> statusRepository.reblog(
+                        is FallibleStatusAction.Reblog -> statusRepository.reblog(
                             pachliAccountId,
                             action.statusViewData.actionableId,
                             action.state,
                         )
 
-                        is StatusAction.VoteInPoll -> statusRepository.voteInPoll(
+                        is FallibleStatusAction.VoteInPoll -> statusRepository.voteInPoll(
                             pachliAccountId,
                             action.statusViewData.actionableId,
                             action.poll.id,
                             action.choices,
                         )
+
+                        is FallibleStatusAction.Translate -> timelineCases.translate(action.statusViewData)
                     }.mapEither(
                         { StatusActionSuccess.from(action) },
-                        { UiError.make(it.error, action) },
+                        { UiError.make(it, action) },
                     )
                     _uiResult.send(result)
                 }
@@ -535,6 +558,13 @@ class NotificationsViewModel @AssistedInject constructor(
                     is MuteEvent -> _uiResult.send(Ok(UiSuccess.Mute))
                     is MuteConversationEvent -> _uiResult.send(Ok(UiSuccess.MuteConversation))
                 }
+            }
+        }
+
+        // Undo status translations
+        viewModelScope.launch {
+            uiAction.filterIsInstance<InfallibleStatusAction.TranslateUndo>().collectLatest {
+                timelineCases.translateUndo(it.statusViewData)
             }
         }
 

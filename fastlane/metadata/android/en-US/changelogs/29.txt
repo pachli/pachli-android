@@ -1,0 +1,20 @@
+Pachli 2.11.0
+
+New features:
+
+- Support translation throughout the app
+- Content filters default to all contexts
+- Experimental Markdown support
+
+Fixes:
+
+- Stop the report UI from hanging
+- Set description on the "Toot" button
+- Prevent various crashes
+- Create filters with the correct content-type
+- Filter correctly in threads and private messages
+- Support editing captions of uploaded images
+
+Translations:
+
+- Finnish, Indonesian, Irish, Latvian, Norwegian Nynorsk, Polish, Slovak, Spanish

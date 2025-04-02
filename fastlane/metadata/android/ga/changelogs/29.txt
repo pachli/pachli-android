@@ -1,0 +1,20 @@
+Pacli 2.11.0
+
+Gnéithe nua:
+
+- Tacaigh leis an aistriúchán ar fud na haipe
+- Scagairí ábhar
+- Tacaíocht Markdown Turgnamhach
+
+Ceartúcháin:
+
+- Stop an Chomhéadain tuairisce ó crochta
+- Socraigh cur síos ar an gcnaipe "Toot".
+- Cosc a chur ar tuairteanna éagsúla
+- Cruthaigh scagairí leis an gcineál ábhair ceart
+- Scag i gceart i snáitheanna
+- Tacaigh le fotheidil eagarthóireachtae
+
+Aistriúcháin:
+
+- Fionlainnis, Indinéisis, Gaeilge, Laitvis, Ioruais Nynorsk, Polainnis, Slóvaicis, Spáinnis

@@ -1,0 +1,1 @@
+Pilnīgs Mastodon un līdzīgu serveru Android klients.

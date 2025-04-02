@@ -26,7 +26,9 @@ data class Relationship(
     val id: String,
     val following: Boolean,
     @Json(name = "followed_by") val followedBy: Boolean,
+    /** True if this account is blocked. */
     val blocking: Boolean,
+    /** True if this account is muted. */
     val muting: Boolean,
     @Json(name = "muting_notifications") val mutingNotifications: Boolean,
     val requested: Boolean,

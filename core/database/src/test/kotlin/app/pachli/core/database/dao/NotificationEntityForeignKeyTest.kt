@@ -184,6 +184,7 @@ class NotificationEntityForeignKeyTest {
             eventId = "1",
             type = NotificationRelationshipSeveranceEventEntity.Type.DOMAIN_BLOCK,
             purged = false,
+            targetName = "test",
             followersCount = 1,
             followingCount = 1,
             createdAt = Instant.now().truncatedTo(ChronoUnit.MILLIS),

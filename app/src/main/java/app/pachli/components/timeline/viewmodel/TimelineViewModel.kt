@@ -17,7 +17,6 @@
 
 package app.pachli.components.timeline.viewmodel
 
-import androidx.annotation.CallSuper
 import androidx.annotation.StringRes
 import androidx.annotation.VisibleForTesting
 import androidx.core.os.bundleOf
@@ -32,6 +31,7 @@ import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.Loadable
+import app.pachli.core.data.repository.StatusActionError
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.database.model.AccountEntity
@@ -53,12 +53,14 @@ import app.pachli.core.model.ContentFilterVersion
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.FilterContext
 import app.pachli.core.model.Timeline
+import app.pachli.core.model.translation.TranslatedStatus
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.preferences.TabTapBehaviour
 import app.pachli.network.ContentFilterModel
+import app.pachli.translation.TranslatorError
 import app.pachli.usecase.TimelineCases
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
@@ -156,7 +158,7 @@ sealed interface UiSuccess {
     data object LoadNewest : UiSuccess
 }
 
-sealed interface StatusAction
+sealed interface StatusAction : UiAction
 
 sealed interface InfallibleStatusAction : InfallibleUiAction, StatusAction {
     val statusViewData: StatusViewData
@@ -182,7 +184,13 @@ sealed interface FallibleStatusAction : FallibleUiAction, StatusAction {
     data class Reblog(val state: Boolean, override val statusViewData: StatusViewData) :
         FallibleStatusAction
 
-    /** Vote in a poll */
+    /**
+     * Vote in a poll.
+     *
+     * @param poll Poll the user is voting in.
+     * @param choices Indices of the choices the user is voting for.
+     * @param statusViewData
+     */
     data class VoteInPoll(
         val poll: Poll,
         val choices: List<Int>,
@@ -287,13 +295,13 @@ sealed interface UiError {
 
 abstract class TimelineViewModel<T : Any>(
     savedStateHandle: SavedStateHandle,
-    private val timelineCases: TimelineCases,
+    protected val timelineCases: TimelineCases,
     private val eventHub: EventHub,
     protected val accountManager: AccountManager,
     private val repository: TimelineRepository<T>,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
-    private val statusRepository: StatusRepository,
+    protected val statusRepository: StatusRepository,
 ) : ViewModel() {
     val uiState: StateFlow<UiState>
 
@@ -353,38 +361,11 @@ abstract class TimelineViewModel<T : Any>(
                 .throttleFirst() // avoid double-taps
                 .collect { action ->
                     val result = when (action) {
-                        is FallibleStatusAction.Bookmark ->
-                            statusRepository.bookmark(
-                                action.statusViewData.pachliAccountId,
-                                action.statusViewData.actionableId,
-                                action.state,
-                            )
-
-                        is FallibleStatusAction.Favourite ->
-                            statusRepository.favourite(
-                                action.statusViewData.pachliAccountId,
-                                action.statusViewData.actionableId,
-                                action.state,
-                            )
-
-                        is FallibleStatusAction.Reblog ->
-                            statusRepository.reblog(
-                                action.statusViewData.pachliAccountId,
-                                action.statusViewData.actionableId,
-                                action.state,
-                            )
-
-                        is FallibleStatusAction.VoteInPoll ->
-                            statusRepository.voteInPoll(
-                                action.statusViewData.pachliAccountId,
-                                action.statusViewData.actionableId,
-                                action.poll.id,
-                                action.choices,
-                            )
-
-                        is FallibleStatusAction.Translate -> {
-                            timelineCases.translate(action.statusViewData)
-                        }
+                        is FallibleStatusAction.Bookmark -> onBookmark(action)
+                        is FallibleStatusAction.Favourite -> onFavourite(action)
+                        is FallibleStatusAction.Reblog -> onReblog(action)
+                        is FallibleStatusAction.VoteInPoll -> onVoteInPoll(action)
+                        is FallibleStatusAction.Translate -> onTranslate(action)
                     }.mapEither(
                         { StatusActionSuccess.from(action) },
                         { UiError.make(it, action) },
@@ -473,60 +454,98 @@ abstract class TimelineViewModel<T : Any>(
 
         // Undo status translations
         viewModelScope.launch {
-            uiAction.filterIsInstance<InfallibleStatusAction.TranslateUndo>().collectLatest {
-                timelineCases.translateUndo(activeAccount.id, it.statusViewData)
-            }
+            uiAction.filterIsInstance<InfallibleStatusAction.TranslateUndo>().collectLatest(::onUndoTranslate)
         }
 
         viewModelScope.launch { eventHub.events.collect { handleEvent(it) } }
     }
 
-    abstract fun updatePoll(newPoll: Poll, status: StatusViewData)
-
     /**
-     * Sets the expanded state of [status] in [StatusRepository] to [expanded] and
-     * invalidates the repository.
+     * Bookmark a status.
      *
-     * Subclasses should call through to this **after** changing any internal state
-     * to avoid invalidating the repository twice.
+     * Subclasses should:
+     *
+     * 1. Opportunistically update the status state.
+     * 2. Perform the operation.
+     * 3. On failure, revert the status state change from (1).
      */
-    @CallSuper
-    open fun changeExpanded(expanded: Boolean, status: StatusViewData) {
-        viewModelScope.launch {
-            statusRepository.setExpanded(status.pachliAccountId, status.id, expanded)
-            repository.invalidate(status.pachliAccountId)
-        }
-    }
+    abstract suspend fun onBookmark(action: FallibleStatusAction.Bookmark): Result<Status, StatusActionError.Bookmark>
 
     /**
-     * Sets the content-showing state of [status] in [StatusRepository] to
+     * Favourite a status.
+     *
+     * Subclasses should:
+     *
+     * 1. Opportunistically update the status state call [invalidate].
+     * 2. Perform the operation.
+     * 3. On failure, revert the status state change from (1).
+     */
+    abstract suspend fun onFavourite(action: FallibleStatusAction.Favourite): Result<Status, StatusActionError.Favourite>
+
+    /**
+     * Reblog a status.
+     *
+     * Subclasses should:
+     *
+     * 1. Opportunistically update the status state.
+     * 2. Perform the operation.
+     * 3. On failure, revert the status state change from (1).
+     */
+    abstract suspend fun onReblog(action: FallibleStatusAction.Reblog): Result<Status, StatusActionError.Reblog>
+
+    /**
+     * Vote in a poll.
+     *
+     * Subclasses should:
+     *
+     * 1. Opportunistically update the status state.
+     * 2. Perform the operation.
+     * 3. On failure, revert the status state change from (1).
+     */
+    abstract suspend fun onVoteInPoll(action: FallibleStatusAction.VoteInPoll): Result<Poll, StatusActionError.VoteInPoll>
+
+    /**
+     * Translate a status.
+     *
+     * Subclasses should:
+     *
+     * 1. Opportunistically update [translationState][StatusViewData.translationState]
+     * to [TRANSLATING][app.pachli.core.database.model.TranslationState.TRANSLATING].
+     * 2. Perform the operation.
+     * 3. On success, update [translationState][StatusViewData.translationState]
+     * to [TranslationState.SHOW_TRANSLATION][app.pachli.core.database.model.TranslationState.SHOW_TRANSLATION]
+     * and update [translation][StatusViewData.translation].     .
+     * 3. Revert the status state change from (1) if the operation failed.
+     */
+    abstract suspend fun onTranslate(action: FallibleStatusAction.Translate): Result<TranslatedStatus, TranslatorError> // = timelineCases.translate(action.statusViewData)
+
+    /**
+     * Undo translating a status.
+     *
+     * Subclasses should:
+     *
+     * 1. Update [translationState][StatusViewData.translationState]
+     * to [SHOW_ORIGINAL][app.pachli.core.database.model.TranslationState.SHOW_ORIGINAL].
+     */
+    abstract suspend fun onUndoTranslate(action: InfallibleStatusAction.TranslateUndo)
+
+    /**
+     * Sets the expanded state of [statusViewData] in [StatusRepository] to [isExpanded] and
+     * invalidates the repository.
+     */
+    abstract fun onChangeExpanded(isExpanded: Boolean, statusViewData: StatusViewData)
+
+    /**
+     * Sets the content-showing state of [statusViewData] in [StatusRepository] to
      * [isShowing] and invalidates the repository.
-     *
-     * Subclasses should call through to this **after** changing any internal state
-     * to avoid invalidating the repository twice.
      */
-    @CallSuper
-    open fun changeContentShowing(isShowing: Boolean, status: StatusViewData) {
-        viewModelScope.launch {
-            statusRepository.setContentShowing(status.pachliAccountId, status.id, isShowing)
-            repository.invalidate(status.pachliAccountId)
-        }
-    }
+    abstract fun onChangeContentShowing(isShowing: Boolean, statusViewData: StatusViewData)
 
     /**
-     * Sets the collapsed state of [status] in [StatusRepository] to [collapsed] and
+     * Sets the collapsed state of [statusViewData] in [StatusRepository] to [isCollapsed] and
      * invalidates the repository.
-     *
-     * Subclasses should call through to this **after** changing any internal state
-     * to avoid invalidating the repository twice.
      */
-    @CallSuper
-    open fun changeContentCollapsed(isCollapsed: Boolean, status: StatusViewData) {
-        viewModelScope.launch {
-            statusRepository.setContentCollapsed(status.pachliAccountId, status.id, isCollapsed)
-            repository.invalidate(status.pachliAccountId)
-        }
-    }
+    abstract fun onContentCollapsed(isCollapsed: Boolean, statusViewData: StatusViewData)
 
     abstract fun removeAllByAccountId(pachliAccountId: Long, accountId: String)
 

@@ -313,6 +313,7 @@ fun NotificationRelationshipSeveranceEventEntity.Companion.from(
             RelationshipSeveranceEvent.Type.UNKNOWN -> NotificationRelationshipSeveranceEventEntity.Type.UNKNOWN
         },
         purged = rse.purged,
+        targetName = rse.targetName,
         followersCount = rse.followersCount,
         followingCount = rse.followingCount,
         createdAt = rse.createdAt,

@@ -38,6 +38,7 @@ import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.activity.openLink
+import app.pachli.core.common.PachliError
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
@@ -50,7 +51,6 @@ import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
 import app.pachli.core.ui.SetMarkdownContent
 import app.pachli.core.ui.SetMastodonHtmlContent
-import app.pachli.core.ui.extensions.getErrorString
 import app.pachli.databinding.FragmentViewThreadBinding
 import app.pachli.fragment.SFragment
 import app.pachli.interfaces.StatusActionListener
@@ -65,7 +65,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlin.properties.Delegates
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @AndroidEntryPoint
 class ViewThreadFragment :
@@ -234,11 +233,10 @@ class ViewThreadFragment :
         }
     }
 
-    private fun bindError(throwable: Throwable) {
-        Timber.w(throwable, "failed to load status context")
+    private fun bindError(error: PachliError) {
         try {
             val context = view?.context ?: return
-            val msg = throwable.getErrorString(context)
+            val msg = error.fmt(context)
             Snackbar.make(binding.root, msg, Snackbar.LENGTH_INDEFINITE)
                 .setAction(app.pachli.core.ui.R.string.action_retry) {
                     viewModel.retry(thisThreadsStatusId)

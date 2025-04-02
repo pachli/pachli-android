@@ -480,23 +480,37 @@ class NotificationsFragment :
     }
 
     override fun onReblog(viewData: NotificationViewData, reblog: Boolean) {
-        viewModel.accept(StatusAction.Reblog(reblog, viewData.statusViewData!!))
+        viewModel.accept(FallibleStatusAction.Reblog(reblog, viewData.statusViewData!!))
     }
 
     override fun onFavourite(viewData: NotificationViewData, favourite: Boolean) {
-        viewModel.accept(StatusAction.Favourite(favourite, viewData.statusViewData!!))
+        viewModel.accept(FallibleStatusAction.Favourite(favourite, viewData.statusViewData!!))
     }
 
     override fun onBookmark(viewData: NotificationViewData, bookmark: Boolean) {
-        viewModel.accept(StatusAction.Bookmark(bookmark, viewData.statusViewData!!))
+        viewModel.accept(FallibleStatusAction.Bookmark(bookmark, viewData.statusViewData!!))
     }
 
     override fun onVoteInPoll(viewData: NotificationViewData, poll: Poll, choices: List<Int>) {
-        viewModel.accept(StatusAction.VoteInPoll(poll, choices, viewData.statusViewData!!))
+        viewModel.accept(FallibleStatusAction.VoteInPoll(poll, choices, viewData.statusViewData!!))
     }
 
     override fun onMore(view: View, viewData: NotificationViewData) {
         super.more(view, viewData)
+    }
+
+    override fun canTranslate() = true
+
+    override fun onTranslate(statusViewData: NotificationViewData) {
+        statusViewData.statusViewData?.let {
+            viewModel.accept(FallibleStatusAction.Translate(it))
+        }
+    }
+
+    override fun onTranslateUndo(statusViewData: NotificationViewData) {
+        statusViewData.statusViewData?.let {
+            viewModel.accept(InfallibleStatusAction.TranslateUndo(it))
+        }
     }
 
     override fun onViewMedia(viewData: NotificationViewData, attachmentIndex: Int, view: View?) {

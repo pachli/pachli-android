@@ -162,6 +162,25 @@ WHERE
         StatusViewDataEntity,
         >
 
+    /**
+     * @param accountId the accountId to query.
+     * @param serverId the IDs of the status to check.
+     * @return [StatusViewDataEntity] for [serverId], null if none exists.
+     */
+    @Query(
+        """
+SELECT *
+FROM StatusViewDataEntity
+WHERE
+    pachliAccountId = :accountId
+    AND serverId = :serverId
+""",
+    )
+    abstract suspend fun getStatusViewData(
+        accountId: Long,
+        serverId: String,
+    ): StatusViewDataEntity?
+
     /** Upserts [partial], setting the [expanded][StatusViewDataEntity.expanded] property. */
     @Upsert(entity = StatusViewDataEntity::class)
     abstract suspend fun setExpanded(partial: StatusViewDataExpanded)

@@ -128,8 +128,7 @@ abstract class BaseActivity : AppCompatActivity(), MenuProvider {
         getTheme().applyStyle(style, true)
 
         // Set application font family
-        val fontFamily =
-            EmbeddedFontFamily.from(sharedPreferencesRepository.getString(PrefKeys.FONT_FAMILY, "default"))
+        val fontFamily = sharedPreferencesRepository.fontFamily
         if (fontFamily !== EmbeddedFontFamily.DEFAULT) {
             getTheme().applyStyle(fontFamily.style, true)
         }
@@ -293,7 +292,7 @@ abstract class BaseActivity : AppCompatActivity(), MenuProvider {
         }
 
     fun openAsAccount(url: String, account: AccountEntity) {
-        startActivity(MainActivityIntent.redirect(this, account.id, url))
+        startActivity(MainActivityIntent.openAs(this, account.id, url))
         finish()
     }
 

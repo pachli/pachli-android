@@ -17,6 +17,7 @@
 
 package app.pachli.core.database.model
 
+import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.ForeignKey
@@ -278,6 +279,8 @@ data class NotificationRelationshipSeveranceEventEntity(
     val eventId: String,
     val type: Type,
     val purged: Boolean,
+    @ColumnInfo(defaultValue = "")
+    val targetName: String,
     val followersCount: Int,
     val followingCount: Int,
     val createdAt: Instant,

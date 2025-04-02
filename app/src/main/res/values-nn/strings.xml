@@ -565,7 +565,7 @@
     <string name="pref_notification_fetch_needs_push">Kontoen har ikkje «push»-løyve. Å logge ut og så inn igjen kan fikse dette.</string>
     <string name="pref_update_check_no_updates">Det finst ingen tigjengelege oppdateringar</string>
     <string name="pref_update_next_scheduled_check">Nest planlagt kontroll: %1$s</string>
-    <string name="error_media_download">Mislykkast i å laste ned %1$s: %2$d%3$s</string>
+    <string name="error_media_download">Mislykkast i å laste ned %1$s: %2$s</string>
     <string name="action_add_to_tab">Legg til i fane</string>
     <string name="action_add_to_tab_success">La til «%1$s» i fanene</string>
     <string name="error_filter_missing_title">Tittel krevst</string>

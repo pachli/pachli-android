@@ -26,19 +26,27 @@ import androidx.paging.map
 import app.pachli.components.timeline.NetworkTimelineRepository
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.StatusActionError
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.TranslationState
+import app.pachli.core.database.model.toEntity
 import app.pachli.core.eventhub.BookmarkEvent
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.FavoriteEvent
 import app.pachli.core.eventhub.PinEvent
 import app.pachli.core.eventhub.ReblogEvent
 import app.pachli.core.model.FilterAction
+import app.pachli.core.model.translation.TranslatedStatus
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
 import app.pachli.core.preferences.SharedPreferencesRepository
+import app.pachli.translation.TranslatorError
 import app.pachli.usecase.TimelineCases
+import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -89,44 +97,21 @@ class NetworkTimelineViewModel @Inject constructor(
         return repository.getStatusStream(account, kind = timeline)
             .map { pagingData ->
                 pagingData.map {
-                    modifiedViewData[it.id] ?: StatusViewData.from(
+                    val existingViewData = statusRepository.getStatusViewData(account.id, it.actionableId)
+                    val existingTranslation = statusRepository.getTranslation(account.id, it.actionableId)
+
+                    modifiedViewData[it.actionableId] ?: StatusViewData.from(
                         pachliAccountId = account.id,
                         it,
-                        isShowingContent = statusDisplayOptions.value.showSensitiveMedia || !it.actionableStatus.sensitive,
-                        isExpanded = statusDisplayOptions.value.openSpoiler,
-                        isCollapsed = true,
+                        isShowingContent = existingViewData?.contentShowing ?: statusDisplayOptions.value.showSensitiveMedia || !it.actionableStatus.sensitive,
+                        isExpanded = existingViewData?.expanded ?: statusDisplayOptions.value.openSpoiler,
+                        isCollapsed = existingViewData?.contentCollapsed ?: true,
                         contentFilterAction = shouldFilterStatus(it),
+                        translationState = existingViewData?.translationState ?: TranslationState.SHOW_ORIGINAL,
+                        translation = existingTranslation,
                     )
                 }.filter { it.contentFilterAction != FilterAction.HIDE }
             }
-    }
-
-    override fun updatePoll(newPoll: Poll, status: StatusViewData) {
-        modifiedViewData[status.id] = status.copy(
-            status = status.status.copy(poll = newPoll),
-        )
-        repository.invalidate()
-    }
-
-    override fun changeExpanded(expanded: Boolean, status: StatusViewData) {
-        modifiedViewData[status.id] = status.copy(
-            isExpanded = expanded,
-        )
-        super.changeExpanded(expanded, status)
-    }
-
-    override fun changeContentShowing(isShowing: Boolean, status: StatusViewData) {
-        modifiedViewData[status.id] = status.copy(
-            isShowingContent = isShowing,
-        )
-        super.changeContentShowing(isShowing, status)
-    }
-
-    override fun changeContentCollapsed(isCollapsed: Boolean, status: StatusViewData) {
-        modifiedViewData[status.id] = status.copy(
-            isCollapsed = isCollapsed,
-        )
-        super.changeContentCollapsed(isCollapsed, status)
     }
 
     override fun removeAllByAccountId(pachliAccountId: Long, accountId: String) {
@@ -185,6 +170,124 @@ class NetworkTimelineViewModel @Inject constructor(
                 it.copy(filtered = null)
             }
         }
+    }
+
+    override fun onChangeExpanded(isExpanded: Boolean, statusViewData: StatusViewData) {
+        viewModelScope.launch {
+            statusRepository.setExpanded(statusViewData.pachliAccountId, statusViewData.actionableId, isExpanded)
+            modifiedViewData[statusViewData.actionableId] = statusViewData.copy(isExpanded = isExpanded)
+            repository.invalidate()
+        }
+    }
+
+    override fun onChangeContentShowing(isShowing: Boolean, statusViewData: StatusViewData) {
+        viewModelScope.launch {
+            statusRepository.setContentShowing(statusViewData.pachliAccountId, statusViewData.actionableId, isShowing)
+            modifiedViewData[statusViewData.id] = statusViewData.copy(isShowingContent = isShowing)
+            repository.invalidate()
+        }
+    }
+
+    override fun onContentCollapsed(isCollapsed: Boolean, statusViewData: StatusViewData) {
+        viewModelScope.launch {
+            statusRepository.setContentCollapsed(statusViewData.pachliAccountId, statusViewData.actionableId, isCollapsed)
+            modifiedViewData[statusViewData.actionableId] = statusViewData.copy(isCollapsed = isCollapsed)
+            repository.invalidate()
+        }
+    }
+
+    override suspend fun onBookmark(action: FallibleStatusAction.Bookmark): Result<Status, StatusActionError.Bookmark> {
+        repository.updateActionableStatusById(action.statusViewData.actionableId) {
+            it.copy(bookmarked = action.state)
+        }
+
+        return statusRepository.bookmark(
+            action.statusViewData.pachliAccountId,
+            action.statusViewData.actionableId,
+            action.state,
+        ).onFailure {
+            repository.updateActionableStatusById(action.statusViewData.actionableId) {
+                it.copy(bookmarked = !action.state)
+            }
+        }
+    }
+
+    override suspend fun onFavourite(action: FallibleStatusAction.Favourite): Result<Status, StatusActionError.Favourite> {
+        repository.updateActionableStatusById(action.statusViewData.actionableId) {
+            it.copy(favourited = action.state)
+        }
+
+        return statusRepository.favourite(
+            action.statusViewData.pachliAccountId,
+            action.statusViewData.actionableId,
+            action.state,
+        ).onFailure {
+            repository.updateActionableStatusById(action.statusViewData.actionableId) {
+                it.copy(favourited = !action.state)
+            }
+        }
+    }
+
+    override suspend fun onReblog(action: FallibleStatusAction.Reblog): Result<Status, StatusActionError.Reblog> {
+        repository.updateActionableStatusById(action.statusViewData.actionableId) {
+            it.copy(reblogged = action.state)
+        }
+
+        return statusRepository.reblog(
+            action.statusViewData.pachliAccountId,
+            action.statusViewData.actionableId,
+            action.state,
+        ).onFailure {
+            repository.updateActionableStatusById(action.statusViewData.actionableId) {
+                it.copy(reblogged = !action.state)
+            }
+        }
+    }
+
+    override suspend fun onVoteInPoll(action: FallibleStatusAction.VoteInPoll): Result<Poll, StatusActionError.VoteInPoll> {
+        repository.updateActionableStatusById(action.statusViewData.actionableId) {
+            it.copy(poll = action.poll.votedCopy(action.choices))
+        }
+
+        return statusRepository.voteInPoll(
+            action.statusViewData.pachliAccountId,
+            action.statusViewData.actionableId,
+            action.poll.id,
+            action.choices,
+        ).onFailure {
+            repository.updateActionableStatusById(action.statusViewData.actionableId) {
+                it.copy(poll = action.poll)
+            }
+        }
+    }
+
+    override suspend fun onTranslate(action: FallibleStatusAction.Translate): Result<TranslatedStatus, TranslatorError> {
+        modifiedViewData[action.statusViewData.actionableId] = action.statusViewData.copy(
+            translationState = TranslationState.TRANSLATING,
+        )
+        repository.invalidate()
+
+        return timelineCases.translate(action.statusViewData)
+            .onSuccess {
+                modifiedViewData[action.statusViewData.actionableId] = action.statusViewData.copy(
+                    translation = it.toEntity(action.statusViewData.pachliAccountId, action.statusViewData.actionableId),
+                    translationState = TranslationState.SHOW_TRANSLATION,
+                )
+                repository.invalidate()
+            }
+            .onFailure {
+                modifiedViewData[action.statusViewData.actionableId] = action.statusViewData.copy(
+                    translationState = TranslationState.SHOW_ORIGINAL,
+                )
+                repository.invalidate()
+            }
+    }
+
+    override suspend fun onUndoTranslate(action: InfallibleStatusAction.TranslateUndo) {
+        modifiedViewData[action.statusViewData.actionableId] = action.statusViewData.copy(
+            translationState = TranslationState.SHOW_ORIGINAL,
+        )
+        repository.invalidate()
     }
 
     override suspend fun invalidate(pachliAccountId: Long) {

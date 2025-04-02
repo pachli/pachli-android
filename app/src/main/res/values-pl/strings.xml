@@ -603,7 +603,7 @@
     <string name="error_filter_missing_keyword">Co najmniej jedno słowo kluczowe lub fraza są wymagane</string>
     <string name="update_dialog_title">Aktualizacja jest dostępna</string>
     <string name="update_dialog_neutral">Nie przypominaj mi o tej wersji</string>
-    <string name="error_media_download">Nie udało się pobrać %1$s: %2$d %3$s</string>
+    <string name="error_media_download">Nie udało się pobrać %1$s: %2$s</string>
     <string name="compose_warn_language_dialog_change_language_fmt">Zmień język na %1$s i opublikuj</string>
     <string name="compose_warn_language_dialog_accept_language_fmt">Wyślij bez zmiany (%1$s)</string>
     <string name="error_media_uploader_upload_not_found_fmt">nie odnaleziono multimediów wgranych z ID %1$s</string>
@@ -823,4 +823,8 @@
     <string name="pref_account_conversation_filters_label_limited_by_server">… ograniczone przez moderację</string>
     <string name="pref_account_conversation_filters_label_not_followed">… których nie obserwujesz</string>
     <string name="pref_account_conversation_filters_label_younger_30d">… utworzone w ciągu ostatnich 30 dni</string>
+    <string name="action_send_public_content_description">Wyślij publiczny wpis</string>
+    <string name="action_send_unlisted_content_description">Wyślij niepubliczny wpis</string>
+    <string name="action_send_private_content_description">Wyślij wpis tylko dla obserwujących</string>
+    <string name="action_send_direct_content_description">Wyślij wiadomość bezpośrednią</string>
 </resources>

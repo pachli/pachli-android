@@ -14,10 +14,10 @@ import com.github.michaelbull.result.getOrElse
 class FollowedTagsRemoteMediator(
     private val api: MastodonApi,
     private val viewModel: FollowedTagsViewModel,
-) : RemoteMediator<String, String>() {
+) : RemoteMediator<String, HashTag>() {
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<String, String>,
+        state: PagingState<String, HashTag>,
     ): MediatorResult {
         val response = request(loadType)
             ?: return MediatorResult.Success(endOfPaginationReached = true)

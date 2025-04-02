@@ -27,8 +27,8 @@ import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.model.AccountEntity
-import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.database.model.TranslationState
+import app.pachli.core.database.model.toEntity
 import app.pachli.core.eventhub.BlockEvent
 import app.pachli.core.eventhub.BookmarkEvent
 import app.pachli.core.eventhub.EventHub
@@ -45,8 +45,8 @@ import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiError
-import app.pachli.core.network.retrofit.apiresult.ClientError
 import app.pachli.network.ContentFilterModel
+import app.pachli.usecase.TimelineCases
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
@@ -79,6 +79,7 @@ class ViewThreadViewModel @Inject constructor(
     private val repository: CachedTimelineRepository,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     private val statusRepository: StatusRepository,
+    private val timelineCases: TimelineCases,
 ) : ViewModel() {
     // TODO: For consistency with other fragments the UiState should not include
     // the list of statuses. Look at SuggestionsViewModel for ideas.
@@ -87,7 +88,7 @@ class ViewThreadViewModel @Inject constructor(
     val uiResult: Flow<Result<ThreadUiState, ThreadError>>
         get() = _uiResult
 
-    private val _errors = Channel<Throwable>()
+    private val _errors = Channel<PachliError>()
     val errors = _errors.receiveAsFlow()
 
     var isInitialLoad: Boolean = true
@@ -266,7 +267,7 @@ class ViewThreadViewModel @Inject constructor(
                             revealButton = RevealButtonState.NO_BUTTON,
                         ),
                     )
-                    _errors.send(error.throwable)
+                    _errors.send(error)
                 }
         }
     }
@@ -481,29 +482,14 @@ class ViewThreadViewModel @Inject constructor(
 
     fun translate(statusViewData: StatusViewData) {
         viewModelScope.launch {
-            repository.translate(statusViewData).onSuccess {
-                val body = it.body
-                val translatedEntity = TranslatedStatusEntity(
-                    serverId = statusViewData.actionableId,
-                    timelineUserId = statusViewData.pachliAccountId,
-                    content = body.content,
-                    spoilerText = body.spoilerText,
-                    poll = body.poll,
-                    attachments = body.attachments,
-                    provider = body.provider,
-                )
-                updateStatusViewData(statusViewData.id) { viewData ->
-                    viewData.copy(translation = translatedEntity, translationState = TranslationState.SHOW_TRANSLATION)
+            timelineCases.translate(statusViewData)
+                .onSuccess {
+                    val translatedEntity = it.toEntity(statusViewData.pachliAccountId, statusViewData.actionableId)
+                    updateStatusViewData(statusViewData.id) { viewData ->
+                        viewData.copy(translation = translatedEntity, translationState = TranslationState.SHOW_TRANSLATION)
+                    }
                 }
-            }
-                .onFailure {
-                    // Mastodon returns 403 if it thinks the original status language is the
-                    // same as the user's language, ignoring the actual content of the status
-                    // (https://github.com/mastodon/documentation/issues/1330). Nothing useful
-                    // to do here so swallow the error
-                    if (it is ClientError && it.exception.code() == 403) return@launch
-                    _errors.send(it.throwable)
-                }
+                .onFailure { _errors.send(it) }
         }
     }
 
