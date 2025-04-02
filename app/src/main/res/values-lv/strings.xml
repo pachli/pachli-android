@@ -568,4 +568,23 @@
     <string name="filter_action_none">Parādīt</string>
     <string name="filter_description_none">Parādīt kā parasti</string>
     <string name="label_filter_keywords">Atslēgvārdi vai vārdkopas, pēc kurām atlasīt</string>
+    <string name="pref_title_update_settings">Programmatūras atjauninājumi</string>
+    <string name="dialog_save_profile_changes_message">Vai saglabāt sava profila izmaiņas?</string>
+    <string name="update_dialog_negative">Nekad neatgādināt man</string>
+    <string name="translating">Tulko…</string>
+    <string name="dialog_delete_filter_text">Izdzēst atlasītāju \"%1$s\"?\"</string>
+    <string name="dialog_delete_filter_positive_action">Izdzēst</string>
+    <string name="reaction_name_and_count">%1$s %2$d</string>
+    <string name="pref_title_update_notification_frequency">Paziņot man par jaunām Pachli versijām</string>
+    <string name="pref_update_notification_frequency_once_per_version">Vienreiz par katru versiju</string>
+    <string name="translation_provider_fmt">%1$s</string>
+    <string name="update_dialog_title">Ir pieejams atjauninājums</string>
+    <string name="pref_update_notification_frequency_never">Nekad</string>
+    <string name="update_dialog_neutral">Neatgādināt man par šo versiju</string>
+    <string name="pref_labs_reverse_home_timeline_off_summary">Ieraksti tiek kārtoti sākot ar jaunāko</string>
+    <string name="pref_labs_reverse_home_timeline_on_summary">Ieraksti tiek kārtoti sākot ar vecāko</string>
+    <string name="pref_update_notification_frequency_always">Vienmēr</string>
+    <string name="pref_title_labs">Laboratorijas izmēģinājumi</string>
+    <string name="pref_labs_reverse_home_timeline_title">Apvērsta laika joslas secība</string>
+    <string name="pref_labs_warning">Šīs ir izmēģinājuma iespējas. Nav nodrošināts, ka tās darbojas vai tiks iekļautas nākotnes versijās. Jāizmanto uz savu atbildību.</string>
 </resources>
