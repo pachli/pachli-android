@@ -99,7 +99,7 @@ class FollowedTagsActivity :
     }
 
     private fun setupAdapter(): FollowedTagsAdapter {
-        return FollowedTagsAdapter(this, viewModel).apply {
+        return FollowedTagsAdapter(this).apply {
             addLoadStateListener { loadState ->
                 binding.followedTagsProgressBar.visible(loadState.refresh == LoadState.Loading && itemCount == 0)
 
