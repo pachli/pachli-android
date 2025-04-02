@@ -117,14 +117,13 @@ class FollowedTagsActivity :
         }
     }
 
-    private fun follow(tagName: String, position: Int = -1) {
+    /**
+     * @param tagName Name of the tag, without the leading `#`.
+     */
+    private fun follow(tagName: String) {
         lifecycleScope.launch {
             api.followTag(tagName).onSuccess {
-                if (position == -1) {
-                    viewModel.tags.add(it.body)
-                } else {
-                    viewModel.tags.add(position, it.body)
-                }
+                viewModel.tags.add(it.body)
                 viewModel.currentSource?.invalidate()
             }.onFailure {
                 Snackbar.make(
@@ -138,10 +137,13 @@ class FollowedTagsActivity :
         }
     }
 
-    override fun unfollow(tagName: String, position: Int) {
+    /**
+     * @param tagName Name of the tag, without the leading `#`.
+     */
+    override fun unfollow(tagName: String) {
         lifecycleScope.launch {
             api.unfollowTag(tagName).onSuccess {
-                viewModel.tags.removeAt(position)
+                viewModel.tags.removeIf { it.name == tagName }
                 Snackbar.make(
                     this@FollowedTagsActivity,
                     binding.followedTagsView,
@@ -149,7 +151,7 @@ class FollowedTagsActivity :
                     Snackbar.LENGTH_LONG,
                 )
                     .setAction(R.string.action_undo) {
-                        follow(tagName, position)
+                        follow(tagName)
                     }
                     .show()
                 viewModel.currentSource?.invalidate()
