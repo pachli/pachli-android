@@ -292,7 +292,7 @@ abstract class BaseActivity : AppCompatActivity(), MenuProvider {
         }
 
     fun openAsAccount(url: String, account: AccountEntity) {
-        startActivity(MainActivityIntent.redirect(this, account.id, url))
+        startActivity(MainActivityIntent.openAs(this, account.id, url))
         finish()
     }
 
