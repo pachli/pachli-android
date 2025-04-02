@@ -114,7 +114,7 @@ class ContentFiltersActivity : BaseActivity(), ContentFiltersListener {
         private val text: Collator = Collator.getInstance().apply { strength = Collator.SECONDARY }
 
         /**
-         * Locale-aware comparator for content fitlers. Case-insenstive comparison by
+         * Locale-aware comparator for content filters. Case-insenstive comparison by
          * the filter's title.
          */
         val comparebyTitle: Comparator<ContentFilter> = compareBy(text) { it.title }

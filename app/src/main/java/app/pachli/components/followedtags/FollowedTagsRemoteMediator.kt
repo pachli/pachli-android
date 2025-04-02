@@ -16,10 +16,10 @@ import kotlinx.coroutines.ensureActive
 class FollowedTagsRemoteMediator(
     private val api: MastodonApi,
     private val viewModel: FollowedTagsViewModel,
-) : RemoteMediator<String, String>() {
+) : RemoteMediator<String, HashTag>() {
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<String, String>,
+        state: PagingState<String, HashTag>,
     ): MediatorResult {
         return try {
             val response = request(loadType)
