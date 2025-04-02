@@ -50,10 +50,7 @@ import com.github.michaelbull.result.get
 import com.github.michaelbull.result.getOrElse
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.currentCoroutineContext
-import kotlinx.coroutines.ensureActive
 import okhttp3.Headers
-import timber.log.Timber
 
 @OptIn(ExperimentalPagingApi::class)
 class NotificationsRemoteMediator(
@@ -66,101 +63,95 @@ class NotificationsRemoteMediator(
     private val statusDao: StatusDao,
 ) : RemoteMediator<Int, NotificationData>() {
     override suspend fun load(loadType: LoadType, state: PagingState<Int, NotificationData>): MediatorResult {
-        return try {
-            transactionProvider {
-                val response = when (loadType) {
-                    LoadType.REFRESH -> {
-                        // Ignore the provided state, always try and fetch from the remote
-                        // REFRESH key.
-                        val notificationId = remoteKeyDao.remoteKeyForKind(
-                            pachliAccountId,
-                            RKE_TIMELINE_ID,
-                            RemoteKeyKind.REFRESH,
-                        )?.key
-                        getInitialPage(notificationId, state.config.pageSize)
-                    }
+        return transactionProvider {
+            val response = when (loadType) {
+                LoadType.REFRESH -> {
+                    // Ignore the provided state, always try and fetch from the remote
+                    // REFRESH key.
+                    val notificationId = remoteKeyDao.remoteKeyForKind(
+                        pachliAccountId,
+                        RKE_TIMELINE_ID,
+                        RemoteKeyKind.REFRESH,
+                    )?.key
+                    getInitialPage(notificationId, state.config.pageSize)
+                }
 
-                    LoadType.PREPEND -> {
-                        val rke = remoteKeyDao.remoteKeyForKind(
-                            pachliAccountId,
-                            RKE_TIMELINE_ID,
-                            RemoteKeyKind.PREV,
-                        ) ?: return@transactionProvider MediatorResult.Success(endOfPaginationReached = true)
-                        mastodonApi.notifications(minId = rke.key, limit = state.config.pageSize)
-                    }
+                LoadType.PREPEND -> {
+                    val rke = remoteKeyDao.remoteKeyForKind(
+                        pachliAccountId,
+                        RKE_TIMELINE_ID,
+                        RemoteKeyKind.PREV,
+                    ) ?: return@transactionProvider MediatorResult.Success(endOfPaginationReached = true)
+                    mastodonApi.notifications(minId = rke.key, limit = state.config.pageSize)
+                }
 
-                    LoadType.APPEND -> {
-                        val rke = remoteKeyDao.remoteKeyForKind(
+                LoadType.APPEND -> {
+                    val rke = remoteKeyDao.remoteKeyForKind(
+                        pachliAccountId,
+                        RKE_TIMELINE_ID,
+                        RemoteKeyKind.NEXT,
+                    ) ?: return@transactionProvider MediatorResult.Success(endOfPaginationReached = true)
+                    mastodonApi.notifications(maxId = rke.key, limit = state.config.pageSize)
+                }
+            }.getOrElse { return@transactionProvider MediatorResult.Error(it.throwable) }
+
+            val notifications = response.body
+            if (notifications.isEmpty()) {
+                return@transactionProvider MediatorResult.Success(endOfPaginationReached = loadType != LoadType.REFRESH)
+            }
+
+            val links = Links.from(response.headers["link"])
+
+            when (loadType) {
+                LoadType.REFRESH -> {
+                    remoteKeyDao.deletePrevNext(pachliAccountId, RKE_TIMELINE_ID)
+                    notificationDao.deleteAllNotificationsForAccount(pachliAccountId)
+
+                    remoteKeyDao.upsert(
+                        RemoteKeyEntity(
                             pachliAccountId,
                             RKE_TIMELINE_ID,
                             RemoteKeyKind.NEXT,
-                        ) ?: return@transactionProvider MediatorResult.Success(endOfPaginationReached = true)
-                        mastodonApi.notifications(maxId = rke.key, limit = state.config.pageSize)
-                    }
-                }.getOrElse { return@transactionProvider MediatorResult.Error(it.throwable) }
+                            links.next,
+                        ),
+                    )
 
-                val notifications = response.body
-                if (notifications.isEmpty()) {
-                    return@transactionProvider MediatorResult.Success(endOfPaginationReached = loadType != LoadType.REFRESH)
+                    remoteKeyDao.upsert(
+                        RemoteKeyEntity(
+                            pachliAccountId,
+                            RKE_TIMELINE_ID,
+                            RemoteKeyKind.PREV,
+                            links.prev,
+                        ),
+                    )
                 }
 
-                val links = Links.from(response.headers["link"])
-
-                when (loadType) {
-                    LoadType.REFRESH -> {
-                        remoteKeyDao.deletePrevNext(pachliAccountId, RKE_TIMELINE_ID)
-                        notificationDao.deleteAllNotificationsForAccount(pachliAccountId)
-
-                        remoteKeyDao.upsert(
-                            RemoteKeyEntity(
-                                pachliAccountId,
-                                RKE_TIMELINE_ID,
-                                RemoteKeyKind.NEXT,
-                                links.next,
-                            ),
-                        )
-
-                        remoteKeyDao.upsert(
-                            RemoteKeyEntity(
-                                pachliAccountId,
-                                RKE_TIMELINE_ID,
-                                RemoteKeyKind.PREV,
-                                links.prev,
-                            ),
-                        )
-                    }
-
-                    LoadType.PREPEND -> links.prev?.let {
-                        remoteKeyDao.upsert(
-                            RemoteKeyEntity(
-                                pachliAccountId,
-                                RKE_TIMELINE_ID,
-                                RemoteKeyKind.PREV,
-                                it,
-                            ),
-                        )
-                    }
-
-                    LoadType.APPEND -> links.next?.let {
-                        remoteKeyDao.upsert(
-                            RemoteKeyEntity(
-                                pachliAccountId,
-                                RKE_TIMELINE_ID,
-                                RemoteKeyKind.NEXT,
-                                it,
-                            ),
-                        )
-                    }
+                LoadType.PREPEND -> links.prev?.let {
+                    remoteKeyDao.upsert(
+                        RemoteKeyEntity(
+                            pachliAccountId,
+                            RKE_TIMELINE_ID,
+                            RemoteKeyKind.PREV,
+                            it,
+                        ),
+                    )
                 }
 
-                upsertNotifications(pachliAccountId, notifications)
-
-                MediatorResult.Success(endOfPaginationReached = false)
+                LoadType.APPEND -> links.next?.let {
+                    remoteKeyDao.upsert(
+                        RemoteKeyEntity(
+                            pachliAccountId,
+                            RKE_TIMELINE_ID,
+                            RemoteKeyKind.NEXT,
+                            it,
+                        ),
+                    )
+                }
             }
-        } catch (e: Exception) {
-            currentCoroutineContext().ensureActive()
-            Timber.e(e, "error loading, loadtype = %s", loadType)
-            MediatorResult.Error(e)
+
+            upsertNotifications(pachliAccountId, notifications)
+
+            MediatorResult.Success(endOfPaginationReached = false)
         }
     }
 
@@ -168,29 +159,28 @@ class NotificationsRemoteMediator(
      * @return The initial page of notifications centered on the notification with
      * [notificationId], or the most recent notifications if [notificationId] is null.
      */
-    private suspend fun getInitialPage(notificationId: String?, pageSize: Int): ApiResult<List<Notification>> =
-        coroutineScope {
-            notificationId ?: return@coroutineScope mastodonApi.notifications(limit = pageSize)
+    private suspend fun getInitialPage(notificationId: String?, pageSize: Int): ApiResult<List<Notification>> = coroutineScope {
+        notificationId ?: return@coroutineScope mastodonApi.notifications(limit = pageSize)
 
-            val notification = async { mastodonApi.notification(id = notificationId) }
-            val prevPage = async { mastodonApi.notifications(minId = notificationId, limit = pageSize * 3) }
-            val nextPage = async { mastodonApi.notifications(maxId = notificationId, limit = pageSize * 3) }
+        val notification = async { mastodonApi.notification(id = notificationId) }
+        val prevPage = async { mastodonApi.notifications(minId = notificationId, limit = pageSize * 3) }
+        val nextPage = async { mastodonApi.notifications(maxId = notificationId, limit = pageSize * 3) }
 
-            val notifications = buildList {
-                prevPage.await().get()?.let { this.addAll(it.body) }
-                notification.await().get()?.let { this.add(it.body) }
-                nextPage.await().get()?.let { this.addAll(it.body) }
-            }
-
-            val minId = notifications.firstOrNull()?.id ?: notificationId
-            val maxId = notifications.lastOrNull()?.id ?: notificationId
-
-            val headers = Headers.Builder()
-                .add("link: </?max_id=$maxId>; rel=\"next\", </?min_id=$minId>; rel=\"prev\"")
-                .build()
-
-            return@coroutineScope Ok(ApiResponse(headers, notifications, 200))
+        val notifications = buildList {
+            prevPage.await().get()?.let { this.addAll(it.body) }
+            notification.await().get()?.let { this.add(it.body) }
+            nextPage.await().get()?.let { this.addAll(it.body) }
         }
+
+        val minId = notifications.firstOrNull()?.id ?: notificationId
+        val maxId = notifications.lastOrNull()?.id ?: notificationId
+
+        val headers = Headers.Builder()
+            .add("link: </?max_id=$maxId>; rel=\"next\", </?min_id=$minId>; rel=\"prev\"")
+            .build()
+
+        return@coroutineScope Ok(ApiResponse(headers, notifications, 200))
+    }
 
     /**
      * Upserts [notifications] and related data in to the local database.

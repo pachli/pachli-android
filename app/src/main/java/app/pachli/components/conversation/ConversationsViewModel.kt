@@ -32,14 +32,13 @@ import app.pachli.core.model.FilterAction
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
+import com.github.michaelbull.result.onSuccess
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.time.Duration
 import java.time.Instant
-import kotlinx.coroutines.currentCoroutineContext
-import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.filter
@@ -50,7 +49,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @HiltViewModel(assistedFactory = ConversationsViewModel.Factory::class)
 class ConversationsViewModel @AssistedInject constructor(
@@ -249,16 +247,11 @@ class ConversationsViewModel @AssistedInject constructor(
 
     fun remove(viewData: ConversationViewData) {
         viewModelScope.launch {
-            try {
-                api.deleteConversation(conversationId = viewData.id)
-
+            api.deleteConversation(conversationId = viewData.id).onSuccess {
                 conversationsDao.delete(
                     id = viewData.id,
                     accountId = accountManager.activeAccount!!.id,
                 )
-            } catch (e: Exception) {
-                currentCoroutineContext().ensureActive()
-                Timber.w(e, "failed to delete conversation")
             }
         }
     }

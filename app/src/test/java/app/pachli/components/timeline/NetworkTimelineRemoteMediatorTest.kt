@@ -36,7 +36,6 @@ import app.pachli.core.testing.fakes.fakeStatus
 import app.pachli.core.testing.success
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.test.runTest
-import okio.IOException
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -85,26 +84,6 @@ class NetworkTimelineRemoteMediatorTest {
         assertThat(result).isInstanceOf(RemoteMediator.MediatorResult.Error::class.java)
         assertThat((result as RemoteMediator.MediatorResult.Error).throwable).isInstanceOf(HttpException::class.java)
         assertThat((result.throwable as HttpException).code()).isEqualTo(500)
-    }
-
-    @Test
-    @ExperimentalPagingApi
-    fun `should return error when network call fails`() = runTest {
-        // Given
-        val remoteMediator = NetworkTimelineRemoteMediator(
-            api = mock(defaultAnswer = { throw IOException() }),
-            activeAccount = activeAccount,
-            factory = pagingSourceFactory,
-            pageCache = PageCache(),
-            timeline = Timeline.Home,
-        )
-
-        // When
-        val result = remoteMediator.load(LoadType.REFRESH, state())
-
-        // Then
-        assertThat(result).isInstanceOf(RemoteMediator.MediatorResult.Error::class.java)
-        assertThat((result as RemoteMediator.MediatorResult.Error).throwable).isInstanceOf(IOException::class.java)
     }
 
     @Test
@@ -308,15 +287,14 @@ class NetworkTimelineRemoteMediatorTest {
     companion object {
         private const val PAGE_SIZE = 20
 
-        private fun state(pages: List<PagingSource.LoadResult.Page<String, Status>> = emptyList()) =
-            PagingState(
-                pages = pages,
-                anchorPosition = null,
-                config = PagingConfig(
-                    pageSize = PAGE_SIZE,
-                    initialLoadSize = PAGE_SIZE,
-                ),
-                leadingPlaceholderCount = 0,
-            )
+        private fun state(pages: List<PagingSource.LoadResult.Page<String, Status>> = emptyList()) = PagingState(
+            pages = pages,
+            anchorPosition = null,
+            config = PagingConfig(
+                pageSize = PAGE_SIZE,
+                initialLoadSize = PAGE_SIZE,
+            ),
+            leadingPlaceholderCount = 0,
+        )
     }
 }
