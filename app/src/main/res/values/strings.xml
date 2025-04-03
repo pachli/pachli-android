@@ -66,14 +66,18 @@
     <string name="title_announcements">Announcements</string>
     <string name="title_followed_hashtags">Followed hashtags</string>
     <plurals name="followed_hashtags_posts_count_fmt">
-        <item quantity="one">%1$s post</item>
-        <item quantity="other">%1$s posts</item>
+        <item quantity="one">%1$d post</item>
+        <item quantity="other">%1$d posts</item>
     </plurals>
     <plurals name="followed_hashtags_accounts_count_fmt">
-        <item quantity="one">%1$s account</item>
-        <item quantity="other">%1$s accounts</item>
+        <item quantity="one">%1$d account</item>
+        <item quantity="other">%1$d accounts</item>
     </plurals>
-    <string name="followed_hashtags_summary_fmt">%1$s from %2$s (last 7 days)</string>
+    <plurals name="followed_hashtags_days_count_fmt">
+        <item quantity="one">%1$d day</item>
+        <item quantity="other">%1$d days</item>
+    </plurals>
+    <string name="followed_hashtags_summary_fmt">%1$s from %2$s (last %3$s)</string>
     <string name="title_edits">Edits</string>
     <string name="dialog_follow_hashtag_title">Follow hashtag</string>
     <string name="dialog_follow_hashtag_hint">#hashtag</string>

@@ -25,11 +25,13 @@ class FollowedTagsAdapter(
 
                 val usage = tag.history.sumOf { it.uses }
                 val accounts = tag.history.sumOf { it.accounts }
+                val days = tag.history.size
 
                 tagStats.text = root.resources.getString(
                     R.string.followed_hashtags_summary_fmt,
                     root.resources.getQuantityString(R.plurals.followed_hashtags_posts_count_fmt, usage, usage),
                     root.resources.getQuantityString(R.plurals.followed_hashtags_accounts_count_fmt, accounts, accounts),
+                    root.resources.getQuantityString(R.plurals.followed_hashtags_days_count_fmt, days, days),
                 )
 
                 followedTagUnfollow.setOnClickListener {
