@@ -587,4 +587,15 @@
     <string name="pref_title_labs">Laboratorijas izmēģinājumi</string>
     <string name="pref_labs_reverse_home_timeline_title">Apvērsta laika joslas secība</string>
     <string name="pref_labs_warning">Šīs ir izmēģinājuma iespējas. Nav nodrošināts, ka tās darbojas vai tiks iekļautas nākotnes versijās. Jāizmanto uz savu atbildību.</string>
+    <plurals name="followed_hashtags_accounts_count_fmt">
+        <item quantity="zero">%1$s kontu</item>
+        <item quantity="one">%1$s konts</item>
+        <item quantity="other">%1$s konti</item>
+    </plurals>
+    <plurals name="followed_hashtags_posts_count_fmt">
+        <item quantity="zero">%1$s ierakstu</item>
+        <item quantity="one">%1$s ieraksts</item>
+        <item quantity="other">%1$s ieraksti</item>
+    </plurals>
+    <string name="followed_hashtags_summary_fmt">%1$s no %2$s (pēdējās 7 dienās)</string>
 </resources>
