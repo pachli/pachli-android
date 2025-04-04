@@ -802,4 +802,21 @@
     <string name="pref_account_conversation_filters_label_younger_30d">… joka on luotu viimeisten 30 päivän aikana</string>
     <string name="pref_account_conversation_filters_label_not_followed">… jota et seuraa</string>
     <string name="pref_account_conversation_filters_label_limited_by_server">… jonka moderaattorisi on rajoittanut</string>
+    <string name="action_send_direct_content_description">Kirjoita suunnattu viesti</string>
+    <plurals name="followed_hashtags_accounts_count_fmt">
+        <item quantity="one">%1$d tili</item>
+        <item quantity="other">%1$d tiliä</item>
+    </plurals>
+    <plurals name="followed_hashtags_days_count_fmt">
+        <item quantity="one">%1$d päivä</item>
+        <item quantity="other">%1$d päivää</item>
+    </plurals>
+    <string name="action_send_private_content_description">Kirjoita julkaisu vain seuraajille</string>
+    <plurals name="followed_hashtags_posts_count_fmt">
+        <item quantity="one">%1$d julkaisu</item>
+        <item quantity="other">%1$d julkaisua</item>
+    </plurals>
+    <string name="action_send_unlisted_content_description">Kirjoita listaamaton julkaisu</string>
+    <string name="followed_hashtags_summary_fmt">%1$s lähettänyt %2$s (viimeiset %3$s)</string>
+    <string name="action_send_public_content_description">Kirjoita julkinen julkaisu</string>
 </resources>
