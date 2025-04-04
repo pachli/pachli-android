@@ -57,7 +57,7 @@ class NetworkTimelineRemoteMediator(
                     if (BuildConfig.DEBUG) {
                         pageContainingItem ?: throw java.lang.IllegalStateException("page with $itemKey not found")
                         pageContainingItem.data.find { it.id == itemKey }
-                            ?: throw java.lang.IllegalStateException("$itemKey not found in returned page")
+                            ?: throw java.lang.IllegalStateException("$itemKey not found in returned page, might be Mastodon bug https://github.com/mastodon/mastodon/issues/30172")
                     }
 
                     // The desired key is the prevKey of the page immediately before this one
