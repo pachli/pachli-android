@@ -693,11 +693,8 @@
     <string name="reaction_name_and_count">%1$s %2$d</string>
     <string name="pref_title_update_settings">Aktualizacje oprogramowania</string>
     <string name="pref_title_update_notification_frequency">Powiadamiaj mnie o nowych wersjach Pachli</string>
-    <string name="pref_update_notification_frequency_never">Nigdy</string>
-    <string name="pref_update_notification_frequency_once_per_version">Jeden raz na wersję</string>
     <string name="translating">Tłumaczenie…</string>
     <string name="pref_title_notification_battery_optimisation">Optymalizacja użycia baterii</string>
-    <string name="pref_update_notification_frequency_always">Zawsze</string>
     <string name="pref_labs_reverse_home_timeline_title">Odwrócona kolejność na osi czasu</string>
     <string name="pref_labs_reverse_home_timeline_on_summary">Wpisy są ułożone od najstarszych</string>
     <string name="search_operator_attachment_has_media_except_1_label_fmt">Wszystkie oprócz %1$s</string>

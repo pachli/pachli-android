@@ -601,9 +601,6 @@
     <string name="title_tab_public_trending_links">Collegamenti</string>
     <string name="update_dialog_neutral">Non ricordarmelo per questa versione</string>
     <string name="pref_title_update_settings">Aggiornamenti Software</string>
-    <string name="pref_update_notification_frequency_always">Sempre</string>
-    <string name="pref_update_notification_frequency_never">Mai</string>
     <string name="title_tab_public_trending_statuses">Post</string>
-    <string name="pref_update_notification_frequency_once_per_version">Una volta per versione</string>
     <string name="update_dialog_title">Un aggiornamento è disponibile</string>
 </resources>

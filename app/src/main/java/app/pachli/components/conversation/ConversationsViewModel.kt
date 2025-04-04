@@ -96,8 +96,8 @@ class ConversationsViewModel @AssistedInject constructor(
 
     val showFabWhileScrolling = sharedPreferencesRepository.changes
         .filter { it == null || it == PrefKeys.FAB_HIDE }
-        .map { !sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false) }
-        .onStart { emit(!sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false)) }
+        .map { !sharedPreferencesRepository.hideFabWhenScrolling }
+        .onStart { emit(!sharedPreferencesRepository.hideFabWhenScrolling) }
         .shareIn(viewModelScope, replay = 1, started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000))
 
     init {

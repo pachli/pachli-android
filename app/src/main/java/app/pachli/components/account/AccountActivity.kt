@@ -78,7 +78,6 @@ import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.Relationship
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.preferences.AppTheme
-import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.ui.ClipboardUseCase
 import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.extensions.reduceSwipeSensitivity
@@ -207,7 +206,7 @@ class AccountActivity :
         // Obtain information to fill out the profile.
         viewModel.setAccountInfo(AccountActivityIntent.getAccountId(intent))
 
-        hideFab = sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false)
+        hideFab = sharedPreferencesRepository.hideFabWhenScrolling
 
         handleWindowInsets()
         setupToolbar()
@@ -274,7 +273,7 @@ class AccountActivity :
         }
 
         // If wellbeing mode is enabled, follow stats and posts count should be hidden
-        val wellbeingEnabled = sharedPreferencesRepository.getBoolean(PrefKeys.WELLBEING_HIDE_STATS_PROFILE, false)
+        val wellbeingEnabled = sharedPreferencesRepository.hideStatsInProfile
 
         if (wellbeingEnabled) {
             binding.accountStatuses.hide()
@@ -687,7 +686,7 @@ class AccountActivity :
         showingReblogs = relation.showingReblogs
 
         // If wellbeing mode is enabled, "follows you" text should not be visible
-        val wellbeingEnabled = sharedPreferencesRepository.getBoolean(PrefKeys.WELLBEING_HIDE_STATS_PROFILE, false)
+        val wellbeingEnabled = sharedPreferencesRepository.hideStatsInProfile
 
         binding.accountFollowsYouChip.visible(relation.followedBy && !wellbeingEnabled)
 

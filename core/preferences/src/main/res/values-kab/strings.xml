@@ -10,4 +10,5 @@
     <string name="pref_main_nav_position_option_bottom">Adda</string>
     <string name="pref_show_self_username_never">Werǧin</string>
     <string name="pref_show_self_username_always">Yalas</string>
+    <string name="pref_update_notification_frequency_never">Werǧin</string>
 </resources>

@@ -29,4 +29,7 @@
     <string name="pref_tab_alignment_end">Fin de la dirección de texto</string>
     <string name="pref_title_tab_contents">Contenido de las principales pestañas de navegación</string>
     <string name="pref_title_render_markdown">Render Markdown</string>
+    <string name="pref_update_notification_frequency_never">Nunca</string>
+    <string name="pref_update_notification_frequency_once_per_version">Una vez por versión</string>
+    <string name="pref_update_notification_frequency_always">Siempre</string>
 </resources>

@@ -500,8 +500,6 @@
     <string name="ui_error_translate_status_fmt">மொழிபெயர்ப்பு தோல்வியுற்றது: %1$s</string>
     <string name="ui_error_filter_v1_load_fmt">ஏற்றுதல் வடிப்பான்கள் தோல்வியடைந்தன: %1$s</string>
     <string name="pref_title_update_notification_frequency">புதிய பச்ச்லி பதிப்புகள் பற்றி சொல்லுங்கள்</string>
-    <string name="pref_update_notification_frequency_once_per_version">ஒரு பதிப்பிற்கு ஒரு முறை</string>
-    <string name="pref_update_notification_frequency_always">எப்போதும்</string>
     <string name="search_operator_attachment_no_media_label">நடுத்தர அல்ல</string>
     <string name="search_operator_from_ignore_me">எனது பதிவுகள் அல்ல</string>
     <string name="report_remote_instance">%s க்கு முன்னோக்கி</string>
@@ -757,7 +755,6 @@
     <string name="search_operator_attachment_specific_media_include_2_fmt">%1$s உடன், %2$s</string>
     <string name="search_operator_attachment_specific_media_exclude_2_fmt">இல்லை %1$s, %2$s</string>
     <string name="dialog_save_profile_changes_message">உங்கள் சுயவிவர மாற்றங்களைச் சேமிக்க விரும்புகிறீர்களா?</string>
-    <string name="pref_update_notification_frequency_never">ஒருபோதும்</string>
     <string name="update_dialog_neutral">இந்த பதிப்பிற்கு எனக்கு நினைவூட்ட வேண்டாம்</string>
     <string name="pref_labs_warning">இவை சோதனை நற்பொருத்தங்கள். அவர்கள் வேலை செய்யும் எந்த உத்தரவாதமும் இல்லை, அல்லது எதிர்கால பதிப்புகளில் சேர்க்கப்படும். உங்கள் சொந்த ஆபத்தில் பயன்படுத்தவும்.</string>
     <string name="pref_labs_reverse_home_timeline_title">தலைகீழ் காலவரிசை ஒழுங்கு</string>

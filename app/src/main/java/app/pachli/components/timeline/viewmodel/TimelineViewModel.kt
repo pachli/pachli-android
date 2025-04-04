@@ -402,7 +402,7 @@ abstract class TimelineViewModel<T : Any>(
             .filter { watchedPrefs.contains(it) }
             .map {
                 UiState(
-                    showFabWhileScrolling = !sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false),
+                    showFabWhileScrolling = !sharedPreferencesRepository.hideFabWhenScrolling,
                     reverseTimeline = sharedPreferencesRepository.getBoolean(PrefKeys.LAB_REVERSE_TIMELINE, false),
                     tabTapBehaviour = sharedPreferencesRepository.tabTapBehaviour,
                 )
@@ -410,20 +410,17 @@ abstract class TimelineViewModel<T : Any>(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
                 initialValue = UiState(
-                    showFabWhileScrolling = !sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false),
-                    reverseTimeline = sharedPreferencesRepository.getBoolean(PrefKeys.LAB_REVERSE_TIMELINE, false),
+                    showFabWhileScrolling = !sharedPreferencesRepository.hideFabWhenScrolling,
+                    reverseTimeline = sharedPreferencesRepository.reverseTimeline,
                     tabTapBehaviour = sharedPreferencesRepository.tabTapBehaviour,
                 ),
             )
 
         if (timeline is Timeline.Home) {
             // Note the variable is "true if filter" but the underlying preference/settings text is "true if show"
-            filterRemoveReplies =
-                !sharedPreferencesRepository.getBoolean(PrefKeys.TAB_FILTER_HOME_REPLIES, true)
-            filterRemoveReblogs =
-                !sharedPreferencesRepository.getBoolean(PrefKeys.TAB_FILTER_HOME_BOOSTS, true)
-            filterRemoveSelfReblogs =
-                !sharedPreferencesRepository.getBoolean(PrefKeys.TAB_SHOW_HOME_SELF_BOOSTS, true)
+            filterRemoveReplies = !sharedPreferencesRepository.tabHomeShowReplies
+            filterRemoveReblogs = !sharedPreferencesRepository.tabHomeShowReblogs
+            filterRemoveSelfReblogs = !sharedPreferencesRepository.tabHomeShowSelfReblogs
         }
 
         // Save the visible status ID (if it's the home timeline)

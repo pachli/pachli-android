@@ -621,7 +621,6 @@
     <string name="action_add">Legg til</string>
     <string name="error_media_playback">Avspeling mislykkast: %s</string>
     <string name="dialog_save_profile_changes_message">Vil du lagre endringane til profilen din?</string>
-    <string name="pref_update_notification_frequency_never">Aldri</string>
     <string name="pref_title_labs">Labbeksperiment</string>
     <string name="pref_labs_reverse_home_timeline_title">Vend om rekkjefylgja på tidslinjane</string>
     <string name="translation_provider_fmt">%1$s</string>
@@ -656,10 +655,8 @@
     <string name="search_operator_from_dialog_all">Alle kontoar</string>
     <string name="help_empty_home">Dette er <b>heimtidslinja</b> di. Ho syner dei nyaste innlegga frå kontoane du fylgjer.\n\nFor å utforske kontoar, kan du anten oppdage dei i ei av dei andre tidslinjene (t.d. den lokale tidslinja av serveren din [iconics gmd_group]) eller søkje etter namnet deira [iconics gmd_search] (t.d. søk etter Pachli for å finne vår konto).</string>
     <string name="report_category_other">Annat</string>
-    <string name="pref_update_notification_frequency_always">Alltid</string>
     <string name="pref_notification_fetch_method_title">Varselmetode</string>
     <string name="report_category_spam">Spam</string>
-    <string name="pref_update_notification_frequency_once_per_version">Éin gong per utgåve</string>
     <string name="ui_error_clear_notifications">Mislykkast i å slette varsel: %s</string>
     <string name="account_date_joined">Vart med %1$s</string>
     <string name="status_edit_info">Redigert: %1$s</string>

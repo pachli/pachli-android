@@ -353,7 +353,6 @@
     <string name="filter_action_hide">Skryť</string>
     <string name="dialog_save_profile_changes_message">Chceš uložiť zmeny vo svojom profile?</string>
     <string name="pref_title_update_notification_frequency">Upozorniť na nové verzie Pachli</string>
-    <string name="pref_update_notification_frequency_always">Vždy</string>
     <string name="post_media_image">Obrázok</string>
     <string name="failed_report">Nahlásenie zlyhalo</string>
     <string name="label_duration">Doba trvania</string>
@@ -441,7 +440,6 @@
         <item quantity="other">zostáva %d dní</item>
     </plurals>
     <string name="poll_info_time_absolute">končí o %s</string>
-    <string name="pref_update_notification_frequency_once_per_version">Raz za verziu</string>
     <string name="no_scheduled_posts">Nemáš žiadne naplánované príspevky.</string>
     <string name="follow_requests_info">Hoci tvoj účet nie je uzamknutý, tím serveru %1$s odporúča manuálnu kontrolu žiadostí o sledovanie.</string>
     <string name="pref_title_show_self_username">Zobraziť používateľské meno v nástrojových lištách</string>
@@ -512,7 +510,6 @@
     <string name="filter_action_warn">Upozorniť</string>
     <string name="filter_action_none">Ukázať</string>
     <string name="total_accounts">Celkový počet účtov</string>
-    <string name="pref_update_notification_frequency_never">Nikdy</string>
     <string name="filter_description_warn">Skryť s upozornením</string>
     <string name="filter_description_none">Zobraziť normálne</string>
     <string name="pref_notification_battery_optimisation_is_disabled">Optimalizácia batérie je vypnutá</string>

@@ -17,4 +17,7 @@
     <string name="pref_show_self_username_disambiguate">Cando hai máis dunha conta activa</string>
     <string name="pref_show_self_username_never">Nunca</string>
     <string name="pref_tab_contents_icon_only">Só a icona</string>
+    <string name="pref_update_notification_frequency_never">Nunca</string>
+    <string name="pref_update_notification_frequency_once_per_version">Unha vez por versión</string>
+    <string name="pref_update_notification_frequency_always">Sempre</string>
 </resources>

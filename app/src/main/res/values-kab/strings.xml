@@ -266,7 +266,6 @@
     <string name="pref_summary_http_proxy_invalid">&lt;armeɣtu&gt;</string>
     <string name="notification_unknown_name">Arussin</string>
     <string name="filter_apply">Snes</string>
-    <string name="pref_update_notification_frequency_never">Werǧin</string>
     <string name="post_media_alt">ALT</string>
     <string name="action_post_failed_do_nothing">Zgel</string>
     <string name="pref_summary_http_proxy_disabled">Yensa</string>

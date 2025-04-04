@@ -45,9 +45,9 @@ fun highlightSpans(text: Spannable, colour: Int) {
 
     for (entity in entities) {
         val span = when (entity.type) {
-            Extractor.Entity.Type.URL -> NoUnderlineURLSpan(string.substring(entity.start, entity.end))
+            Extractor.Entity.Type.URL -> NoUnderlineURLSpan(string.substring(entity.start, entity.end), null)
             Extractor.Entity.Type.HASHTAG -> ForegroundColorSpan(colour)
-            Extractor.Entity.Type.MENTION -> MentionSpan(string.substring(entity.start, entity.end))
+            Extractor.Entity.Type.MENTION -> MentionSpan(string.substring(entity.start, entity.end), null)
         }
         text.setSpan(span, entity.start, entity.end, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
     }

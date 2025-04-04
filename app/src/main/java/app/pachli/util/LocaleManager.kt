@@ -22,9 +22,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.preference.PreferenceDataStore
 import app.pachli.R
-import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
-import app.pachli.core.preferences.getNonNullString
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -36,7 +34,7 @@ class LocaleManager @Inject constructor(
 ) : PreferenceDataStore() {
 
     fun setLocale() {
-        val language = sharedPreferencesRepository.getNonNullString(PrefKeys.LANGUAGE, DEFAULT)
+        val language = sharedPreferencesRepository.language
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (language != HANDLED_BY_SYSTEM) {
@@ -44,9 +42,7 @@ class LocaleManager @Inject constructor(
                 // hand over the old setting to the system and save a dummy value in Shared Preferences
                 applyLanguageToApp(language)
 
-                sharedPreferencesRepository.edit()
-                    .putString(PrefKeys.LANGUAGE, HANDLED_BY_SYSTEM)
-                    .apply()
+                sharedPreferencesRepository.language = HANDLED_BY_SYSTEM
             }
         } else {
             // on Android < 13 we have to apply the language at every app start
@@ -58,9 +54,7 @@ class LocaleManager @Inject constructor(
         // if we are on Android < 13 we have to save the selected language so we can apply it at appstart
         // on Android 13+ the system handles it for us
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-            sharedPreferencesRepository.edit()
-                .putString(PrefKeys.LANGUAGE, value)
-                .apply()
+            sharedPreferencesRepository.language = value
         }
         applyLanguageToApp(value)
     }
@@ -84,7 +78,7 @@ class LocaleManager @Inject constructor(
                     }
             }
         } else {
-            sharedPreferencesRepository.getNonNullString(PrefKeys.LANGUAGE, DEFAULT)
+            sharedPreferencesRepository.language
         }
     }
 

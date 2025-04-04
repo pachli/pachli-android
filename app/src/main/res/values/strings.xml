@@ -279,7 +279,9 @@
     <string name="pref_title_content_filters">Content filters</string>
     <string name="pref_summary_content_filters">Your server does not support content filters</string>
     <string name="pref_title_browser_settings">Browser</string>
-    <string name="pref_title_custom_tabs">Use Chrome Custom Tabs</string>
+    <string name="pref_title_custom_tabs">Open links in Custom Tabs</string>
+    <string name="pref_custom_tabs_true">Faster, your preferred browser in Pachli</string>
+    <string name="pref_custom_tabs_false">Slower, uses your preferred browser</string>
     <string name="pref_title_hide_follow_button">Hide compose button while scrolling</string>
     <string name="pref_title_font_family">Font family</string>
     <string name="pref_title_language">Language</string>
@@ -679,9 +681,6 @@
     <string name="reaction_name_and_count">%1$s %2$d</string>
     <string name="pref_title_update_settings">Software updates</string>
     <string name="pref_title_update_notification_frequency">Tell me about new Pachli versions</string>
-    <string name="pref_update_notification_frequency_never">Never</string>
-    <string name="pref_update_notification_frequency_once_per_version">Once per version</string>
-    <string name="pref_update_notification_frequency_always">Always</string>
     <string name="update_dialog_title">An update is available</string>
     <string name="update_dialog_neutral">Don\'t remind me for this version</string>
     <string name="update_dialog_negative">Never remind me</string>

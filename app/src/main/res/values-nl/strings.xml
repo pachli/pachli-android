@@ -570,8 +570,6 @@
     <string name="ui_error_favourite_fmt">Post als favoriet markeren faalde: %1$s</string>
     <string name="ui_error_bookmark_fmt">Bookmarken van post faalde: %1$s</string>
     <string name="compose_save_draft_loses_media">Voorlopige versie opslaan? (Bijlagen zullen worden geupload als je de versie herstelt.)</string>
-    <string name="pref_update_notification_frequency_always">Altijd</string>
-    <string name="pref_update_notification_frequency_never">Nooit</string>
     <string name="filter_keyword_addition_title">Voeg sleutelwoord toe</string>
     <string name="label_filter_keywords">Sleutelwoorden of zinnen om te filteren</string>
     <string name="pref_title_show_self_boosts_description">Iemand die hun eigen post boost</string>
@@ -582,7 +580,6 @@
     <string name="announcement_date_updated">(Bijgewerkt: %1$s)</string>
     <string name="title_tab_public_trending_statuses">Posts</string>
     <string name="help_empty_home">Dit is je <b>Thuis tijdlijn</b>. Het toont de meest recente posts van accounts die je volgt. \n \nOm meer accounts te vinden, kun je ze ontdekken in een van de andere tijdlijnen. Bijvoorbeeld de lokale tijdlijn van jouw instance [iconics gmd_group]. Of je kunt zoeken op naam [iconics gmd_search]; bijvoorbeeld als je zoekt op Pachli dan vind je ons Mastodon account.</string>
-    <string name="pref_update_notification_frequency_once_per_version">Eenmaal per versie</string>
     <string name="pref_title_font_family">Lettertype-familie</string>
     <string name="ui_success_rejected_follow_request">Volg verzoek geblokkeerd</string>
     <string name="action_translate">Vertalen</string>

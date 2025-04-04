@@ -17,7 +17,6 @@
 
 package app.pachli.core.activity
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
@@ -52,6 +51,9 @@ abstract class BottomSheetActivity : BaseActivity() {
 
     @Inject
     lateinit var mastodonApi: MastodonApi
+
+    @Inject
+    lateinit var openUrl: OpenUrlUseCase
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
@@ -158,7 +160,7 @@ abstract class BottomSheetActivity : BaseActivity() {
 
     @VisibleForTesting(otherwise = VisibleForTesting.PROTECTED)
     open fun openLink(url: String) {
-        (this as Context).openLink(url)
+        openUrl(url)
     }
 
     private fun showQuerySheet() {

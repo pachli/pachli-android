@@ -37,7 +37,6 @@ import app.pachli.components.viewthread.edits.ViewEditsFragment
 import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
-import app.pachli.core.activity.openLink
 import app.pachli.core.common.PachliError
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
@@ -103,7 +102,7 @@ class ViewThreadFragment :
             SetMastodonHtmlContent
         }
 
-        adapter = ThreadAdapter(viewModel.statusDisplayOptions.value, this, setStatusContent)
+        adapter = ThreadAdapter(viewModel.statusDisplayOptions.value, this, setStatusContent, openUrl)
     }
 
     override fun onCreateView(
@@ -128,6 +127,7 @@ class ViewThreadFragment :
                 pachliAccountId,
                 binding.recyclerView,
                 this,
+                openUrl,
             ) { index -> adapter.currentList.getOrNull(index) },
         )
         binding.recyclerView.addItemDecoration(
@@ -269,7 +269,7 @@ class ViewThreadFragment :
                 true
             }
             R.id.action_open_in_web -> {
-                context?.openLink(requireArguments().getString(ARG_URL)!!)
+                openUrl(requireArguments().getString(ARG_URL)!!)
                 true
             }
             R.id.action_refresh -> {
@@ -342,7 +342,7 @@ class ViewThreadFragment :
             // already viewing the status with this url
             // probably just a preview federated and the user is clicking again to view more -> open the browser
             // this can happen with some friendica statuses
-            requireContext().openLink(url)
+            openUrl(url)
             return
         }
         super.onViewUrl(url)

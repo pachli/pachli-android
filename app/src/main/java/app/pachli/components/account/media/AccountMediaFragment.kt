@@ -33,8 +33,8 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager.VERTICAL
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.R
+import app.pachli.core.activity.OpenUrlUseCase
 import app.pachli.core.activity.RefreshableFragment
-import app.pachli.core.activity.openLink
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
@@ -50,6 +50,7 @@ import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kotlin.properties.Delegates
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -63,6 +64,9 @@ class AccountMediaFragment :
     OnRefreshListener,
     RefreshableFragment,
     MenuProvider {
+
+    @Inject
+    lateinit var openUrl: OpenUrlUseCase
 
     private val binding by viewBinding(FragmentTimelineBinding::bind)
 
@@ -179,9 +183,7 @@ class AccountMediaFragment :
                     startActivity(intent)
                 }
             }
-            Attachment.Type.UNKNOWN -> {
-                context?.openLink(selected.attachment.url)
-            }
+            Attachment.Type.UNKNOWN -> openUrl(selected.attachment.url)
         }
     }
 

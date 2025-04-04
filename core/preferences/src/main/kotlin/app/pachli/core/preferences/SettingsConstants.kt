@@ -81,25 +81,61 @@ object PrefKeys {
     const val HTTP_PROXY_SERVER = "httpProxyServer"
     const val HTTP_PROXY_PORT = "httpProxyPort"
 
+    // Server-side preference, only written to from AccountPreferenceFragment.
     const val DEFAULT_POST_PRIVACY = "defaultPostPrivacy"
+
+    // Server-side preference, only written to from AccountPreferenceFragment.
     const val DEFAULT_POST_LANGUAGE = "defaultPostLanguage"
+
+    // Server-side preference, only written to from AccountPreferenceFragment.
     const val DEFAULT_MEDIA_SENSITIVITY = "defaultMediaSensitivity"
+
+    // Account preference
     const val MEDIA_PREVIEW_ENABLED = "mediaPreviewEnabled"
+
+    // Account preference
     const val ALWAYS_SHOW_SENSITIVE_MEDIA = "alwaysShowSensitiveMedia"
+
+    // Account preference
     const val ALWAYS_OPEN_SPOILER = "alwaysOpenSpoiler"
 
+    // Account preference
     const val NOTIFICATIONS_ENABLED = "notificationsEnabled"
+
+    // Account preference
     const val NOTIFICATION_ALERT_LIGHT = "notificationAlertLight"
+
+    // Account preference
     const val NOTIFICATION_ALERT_VIBRATE = "notificationAlertVibrate"
+
+    // Account preference
     const val NOTIFICATION_ALERT_SOUND = "notificationAlertSound"
+
+    // Account preference
     const val NOTIFICATION_FILTER_POLLS = "notificationFilterPolls"
+
+    // Account preference
     const val NOTIFICATION_FILTER_FAVS = "notificationFilterFavourites"
+
+    // Account preference
     const val NOTIFICATION_FILTER_REBLOGS = "notificationFilterReblogs"
+
+    // Account preference
     const val NOTIFICATION_FILTER_FOLLOW_REQUESTS = "notificationFilterFollowRequests"
+
+    // Account preference
     const val NOTIFICATIONS_FILTER_FOLLOWS = "notificationFilterFollows"
+
+    // Account preference
     const val NOTIFICATION_FILTER_SUBSCRIPTIONS = "notificationFilterSubscriptions"
+
+    // Account preference
     const val NOTIFICATION_FILTER_SIGN_UPS = "notificationFilterSignUps"
+
+    // Account preference
     const val NOTIFICATION_FILTER_UPDATES = "notificationFilterUpdates"
+
+    // Account preference
     const val NOTIFICATION_FILTER_REPORTS = "notificationFilterReports"
 
     const val TAB_FILTER_HOME_REPLIES = "tabFilterHomeReplies_v2" // This was changed once to reset an unintentionally set default.

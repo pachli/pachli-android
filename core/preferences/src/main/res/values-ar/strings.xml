@@ -29,4 +29,7 @@
     <string name="pref_tab_contents_icon_only">الأيقونة فقط</string>
     <string name="pref_tab_contents_text_only">الوصف بالكلمات فقط</string>
     <string name="pref_title_render_markdown">نقطة الصفر</string>
+    <string name="pref_update_notification_frequency_never">أبدًا</string>
+    <string name="pref_update_notification_frequency_once_per_version">مرة واحدة كل نسخة</string>
+    <string name="pref_update_notification_frequency_always">دائما</string>
 </resources>

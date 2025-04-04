@@ -256,7 +256,7 @@ class ConversationsFragment :
                 launch { viewModel.conversationFlow.collectLatest { adapter.submitData(it) } }
 
                 launch {
-                    val useAbsoluteTime = sharedPreferencesRepository.getBoolean(PrefKeys.ABSOLUTE_TIME_VIEW, false)
+                    val useAbsoluteTime = sharedPreferencesRepository.useAbsoluteTime
                     while (!useAbsoluteTime) {
                         adapter.notifyItemRangeChanged(
                             0,
@@ -309,7 +309,7 @@ class ConversationsFragment :
 
     private fun setupRecyclerView() {
         binding.recyclerView.setAccessibilityDelegateCompat(
-            ListStatusAccessibilityDelegate(pachliAccountId, binding.recyclerView, this) { pos ->
+            ListStatusAccessibilityDelegate(pachliAccountId, binding.recyclerView, this, openUrl) { pos ->
                 if (pos in 0 until adapter.itemCount) {
                     adapter.peek(pos)
                 } else {
@@ -317,6 +317,7 @@ class ConversationsFragment :
                 }
             },
         )
+
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
 

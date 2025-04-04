@@ -588,8 +588,6 @@
     <string name="announcement_date">%1$s %2$s</string>
     <string name="load_newest_statuses">Ladda de nyaste inläggen</string>
     <string name="dialog_save_profile_changes_message">Vill du spara dina profiländringar?</string>
-    <string name="pref_update_notification_frequency_always">Alltid</string>
-    <string name="pref_update_notification_frequency_never">Aldrig</string>
     <string name="pref_title_show_self_boosts_description">Någon som knuffar sin toot</string>
     <string name="ui_error_filter_v1_load_fmt">Laddning av filter misslyckades: %1$s</string>
     <string name="confirmation_hashtag_muted">#%s dold</string>
@@ -597,7 +595,6 @@
     <string name="pref_title_show_self_boosts">Visa självknuffar</string>
     <string name="announcement_date_updated">(Uppdaterad: %1$s)</string>
     <string name="title_tab_public_trending_statuses">Toots</string>
-    <string name="pref_update_notification_frequency_once_per_version">En gång per version</string>
     <string name="pref_title_font_family">Fontfamilj</string>
     <string name="action_translate">Översätta</string>
     <string name="update_dialog_title">En uppdatering är tillgänglig</string>

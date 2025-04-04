@@ -38,9 +38,9 @@ import app.pachli.R
 import app.pachli.components.trending.viewmodel.InfallibleUiAction
 import app.pachli.components.trending.viewmodel.LoadState
 import app.pachli.components.trending.viewmodel.TrendingLinksViewModel
+import app.pachli.core.activity.OpenUrlUseCase
 import app.pachli.core.activity.RefreshableFragment
 import app.pachli.core.activity.ReselectableFragment
-import app.pachli.core.activity.openLink
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
@@ -64,6 +64,7 @@ import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.withCreationCallback
 import io.github.z4kn4fein.semver.constraints.toConstraint
+import javax.inject.Inject
 import kotlin.properties.Delegates
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
@@ -78,6 +79,9 @@ class TrendingLinksFragment :
     ReselectableFragment,
     RefreshableFragment,
     MenuProvider {
+
+    @Inject
+    lateinit var openUrl: OpenUrlUseCase
 
     private val viewModel: TrendingLinksViewModel by viewModels(
         extrasProducer = {
@@ -268,8 +272,8 @@ class TrendingLinksFragment :
 
     private fun onOpenLink(card: PreviewCard, target: Target) {
         when (target) {
-            Target.CARD -> requireContext().openLink(card.url)
-            Target.IMAGE -> requireContext().openLink(card.url)
+            Target.CARD -> openUrl(card.url)
+            Target.IMAGE -> openUrl(card.url)
             Target.BYLINE -> card.authors?.firstOrNull()?.account?.id?.let {
                 startActivity(AccountActivityIntent(requireContext(), pachliAccountId, it))
             }
