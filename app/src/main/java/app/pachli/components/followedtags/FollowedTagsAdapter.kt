@@ -19,9 +19,7 @@ class FollowedTagsAdapter(
         getItem(position)?.let { tag ->
             with(holder.binding) {
                 followedTag.text = tag.name
-                followedTag.setOnClickListener {
-                    actionListener.onViewTag(tag.name)
-                }
+                root.setOnClickListener { actionListener.onViewTag(tag.name) }
 
                 val usage = tag.history.sumOf { it.uses }
                 val accounts = tag.history.sumOf { it.accounts }
@@ -34,9 +32,7 @@ class FollowedTagsAdapter(
                     root.resources.getQuantityString(R.plurals.followed_hashtags_days_count_fmt, days, days),
                 )
 
-                followedTagUnfollow.setOnClickListener {
-                    actionListener.unfollow(tag.name)
-                }
+                followedTagUnfollow.setOnClickListener { actionListener.unfollow(tag.name) }
             }
         }
     }
