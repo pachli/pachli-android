@@ -580,8 +580,6 @@
     <string name="dialog_delete_filter_positive_action">Supprimer</string>
     <string name="pref_title_update_settings">Mises à jour logicielles</string>
     <string name="pref_title_update_notification_frequency">M\'informer des nouvelles versions de Pachli</string>
-    <string name="pref_update_notification_frequency_never">Jamais</string>
-    <string name="pref_update_notification_frequency_always">Toujours</string>
     <string name="update_dialog_title">Une mise à jour est disponible</string>
     <string name="update_dialog_neutral">Ne plus me rappeller pour cette version</string>
     <string name="translating">Traduction …</string>
@@ -597,7 +595,6 @@
     <string name="error_media_playback">La lecture a échoué : %s</string>
     <string name="dialog_save_profile_changes_message">Voulez-vous sauvegarder les changements apportés à votre profil ?</string>
     <string name="reaction_name_and_count">%1$s %2$d</string>
-    <string name="pref_update_notification_frequency_once_per_version">Une fois par version</string>
     <string name="notification_listenable_worker_name">Activité en arrière-plan</string>
     <string name="notification_notification_worker">Récupération des notifications …</string>
     <string name="notification_prune_cache">Maintenance du cache …</string>

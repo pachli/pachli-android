@@ -6,9 +6,9 @@ import android.text.Spanned
 import android.text.method.LinkMovementMethod
 import android.text.style.DynamicDrawableSpan
 import android.text.style.ImageSpan
-import android.view.View
 import androidx.core.view.isGone
 import app.pachli.R
+import app.pachli.core.activity.OpenUrlUseCase
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.data.model.StatusDisplayOptions
@@ -27,6 +27,7 @@ import java.util.Locale
 class StatusDetailedViewHolder(
     private val binding: ItemStatusDetailedBinding,
     setStatusContent: SetStatusContent,
+    private val openUrl: OpenUrlUseCase,
 ) : StatusBaseViewHolder<StatusViewData>(binding.root, setStatusContent) {
 
     override fun setMetaData(
@@ -59,18 +60,14 @@ class StatusDetailedViewHolder(
             val spanEnd = spanStart + editedAtString.length
             sb.append(editedAtString)
             viewData.status.editedAt?.also {
-                val editedClickSpan: NoUnderlineURLSpan = object : NoUnderlineURLSpan("") {
-                    override fun onClick(view: View) {
-                        listener.onShowEdits(viewData.actionableId)
-                    }
-                }
+                val editedClickSpan = NoUnderlineURLSpan(viewData.actionableId, listener::onShowEdits)
                 sb.setSpan(editedClickSpan, spanStart, spanEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
             }
         }
 
         app?.also { (name, website) ->
             sb.append(metadataJoiner)
-            website?.also { sb.append(createClickableText(name, it)) } ?: sb.append(name)
+            website?.also { sb.append(createClickableText(name, it, openUrl::invoke)) } ?: sb.append(name)
         }
 
         metaInfo.movementMethod = LinkMovementMethod.getInstance()
@@ -127,7 +124,7 @@ class StatusDetailedViewHolder(
         ) // Always show card for detailed status
         if (payloads == null) {
             val (_, _, _, _, _, _, _, _, _, _, reblogsCount, favouritesCount) = uncollapsedViewdata.actionable
-            if (!statusDisplayOptions.hideStats) {
+            if (!statusDisplayOptions.hideStatsInDetailedView) {
                 setReblogAndFavCount(viewData, reblogsCount, favouritesCount, listener)
             } else {
                 hideQuantitativeStats()

@@ -51,7 +51,6 @@ import app.pachli.components.timeline.TimelineLoadStateAdapter
 import app.pachli.core.activity.ReselectableFragment
 import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithTransition
-import app.pachli.core.activity.openLink
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
@@ -206,7 +205,7 @@ class NotificationsFragment :
             false
 
         binding.recyclerView.setAccessibilityDelegateCompat(
-            ListStatusAccessibilityDelegate(pachliAccountId, binding.recyclerView, this@NotificationsFragment) { pos: Int ->
+            ListStatusAccessibilityDelegate(pachliAccountId, binding.recyclerView, this@NotificationsFragment, openUrl) { pos: Int ->
                 if (pos in 0 until adapter.itemCount) {
                     adapter.peek(pos)
                 } else {
@@ -635,9 +634,7 @@ class NotificationsFragment :
     }
 
     override fun onViewReport(reportId: String) {
-        requireContext().openLink(
-            "https://${viewModel.account.domain}/admin/reports/$reportId",
-        )
+        openUrl("https://${viewModel.account.domain}/admin/reports/$reportId")
     }
 
     override fun removeItem(viewData: NotificationViewData) {

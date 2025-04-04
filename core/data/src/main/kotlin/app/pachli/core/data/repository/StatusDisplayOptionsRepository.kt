@@ -87,34 +87,34 @@ class StatusDisplayOptionsRepository @Inject constructor(
                 _flow.update { prev ->
                     when (key) {
                         PrefKeys.ANIMATE_GIF_AVATARS -> prev.copy(
-                            animateAvatars = sharedPreferencesRepository.getBoolean(key, default.animateAvatars),
+                            animateAvatars = sharedPreferencesRepository.animateAvatars,
                         )
                         PrefKeys.MEDIA_PREVIEW_ENABLED -> prev.copy(
                             mediaPreviewEnabled = accountManager.activeAccount?.mediaPreviewEnabled ?: default.mediaPreviewEnabled,
                         )
                         PrefKeys.ABSOLUTE_TIME_VIEW -> prev.copy(
-                            useAbsoluteTime = sharedPreferencesRepository.getBoolean(key, default.useAbsoluteTime),
+                            useAbsoluteTime = sharedPreferencesRepository.useAbsoluteTime,
                         )
                         PrefKeys.SHOW_BOT_OVERLAY -> prev.copy(
-                            showBotOverlay = sharedPreferencesRepository.getBoolean(key, default.showBotOverlay),
+                            showBotOverlay = sharedPreferencesRepository.showBotOverlay,
                         )
                         PrefKeys.USE_BLURHASH -> prev.copy(
-                            useBlurhash = sharedPreferencesRepository.getBoolean(key, default.useBlurhash),
+                            useBlurhash = sharedPreferencesRepository.useBlurHash,
                         )
                         PrefKeys.SHOW_CARDS_IN_TIMELINES -> prev.copy(
-                            cardViewMode = if (sharedPreferencesRepository.getBoolean(key, false)) CardViewMode.INDENTED else CardViewMode.NONE,
+                            cardViewMode = if (sharedPreferencesRepository.showLinkPreviewCards) CardViewMode.INDENTED else CardViewMode.NONE,
                         )
                         PrefKeys.CONFIRM_FAVOURITES -> prev.copy(
-                            confirmFavourites = sharedPreferencesRepository.getBoolean(key, default.confirmFavourites),
+                            confirmFavourites = sharedPreferencesRepository.confirmFavourites,
                         )
                         PrefKeys.CONFIRM_REBLOGS -> prev.copy(
-                            confirmReblogs = sharedPreferencesRepository.getBoolean(key, default.confirmReblogs),
+                            confirmReblogs = sharedPreferencesRepository.confirmReblogs,
                         )
                         PrefKeys.WELLBEING_HIDE_STATS_POSTS -> prev.copy(
-                            hideStats = sharedPreferencesRepository.getBoolean(key, default.hideStats),
+                            hideStatsInDetailedView = sharedPreferencesRepository.hideStatsInDetailedView,
                         )
                         PrefKeys.ANIMATE_CUSTOM_EMOJIS -> prev.copy(
-                            animateEmojis = sharedPreferencesRepository.getBoolean(key, default.animateEmojis),
+                            animateEmojis = sharedPreferencesRepository.animateEmojis,
                         )
                         PrefKeys.ALWAYS_SHOW_SENSITIVE_MEDIA -> prev.copy(
                             showSensitiveMedia = accountManager.activeAccount?.alwaysShowSensitiveMedia ?: default.showSensitiveMedia,
@@ -123,10 +123,10 @@ class StatusDisplayOptionsRepository @Inject constructor(
                             openSpoiler = accountManager.activeAccount?.alwaysOpenSpoiler ?: default.openSpoiler,
                         )
                         PrefKeys.SHOW_STATS_INLINE -> prev.copy(
-                            showStatsInline = sharedPreferencesRepository.getBoolean(key, default.showStatsInline),
+                            showStatsInline = sharedPreferencesRepository.showInlineStats,
                         )
                         PrefKeys.LAB_RENDER_MARKDOWN -> prev.copy(
-                            renderMarkdown = sharedPreferencesRepository.getBoolean(key, default.renderMarkdown),
+                            renderMarkdown = sharedPreferencesRepository.renderMarkdown,
                         )
                         else -> {
                             prev
@@ -182,22 +182,22 @@ class StatusDisplayOptionsRepository @Inject constructor(
             animateAvatars = sharedPreferencesRepository.animateAvatars,
             animateEmojis = sharedPreferencesRepository.animateEmojis,
             mediaPreviewEnabled = account?.mediaPreviewEnabled ?: default.mediaPreviewEnabled,
-            useAbsoluteTime = sharedPreferencesRepository.getBoolean(PrefKeys.ABSOLUTE_TIME_VIEW, default.useAbsoluteTime),
-            showBotOverlay = sharedPreferencesRepository.getBoolean(PrefKeys.SHOW_BOT_OVERLAY, default.showBotOverlay),
-            useBlurhash = sharedPreferencesRepository.getBoolean(PrefKeys.USE_BLURHASH, default.useBlurhash),
-            cardViewMode = if (sharedPreferencesRepository.getBoolean(PrefKeys.SHOW_CARDS_IN_TIMELINES, false)) {
+            useAbsoluteTime = sharedPreferencesRepository.useAbsoluteTime,
+            showBotOverlay = sharedPreferencesRepository.showBotOverlay,
+            useBlurhash = sharedPreferencesRepository.useBlurHash,
+            cardViewMode = if (sharedPreferencesRepository.showLinkPreviewCards) {
                 CardViewMode.INDENTED
             } else {
                 default.cardViewMode
             },
-            confirmReblogs = sharedPreferencesRepository.getBoolean(PrefKeys.CONFIRM_REBLOGS, default.confirmReblogs),
-            confirmFavourites = sharedPreferencesRepository.getBoolean(PrefKeys.CONFIRM_FAVOURITES, default.confirmFavourites),
-            hideStats = sharedPreferencesRepository.getBoolean(PrefKeys.WELLBEING_HIDE_STATS_POSTS, default.hideStats),
-            showStatsInline = sharedPreferencesRepository.getBoolean(PrefKeys.SHOW_STATS_INLINE, default.showStatsInline),
+            confirmReblogs = sharedPreferencesRepository.confirmReblogs,
+            confirmFavourites = sharedPreferencesRepository.confirmFavourites,
+            hideStatsInDetailedView = sharedPreferencesRepository.hideStatsInDetailedView,
+            showStatsInline = sharedPreferencesRepository.showInlineStats,
             showSensitiveMedia = account?.alwaysShowSensitiveMedia ?: default.showSensitiveMedia,
             openSpoiler = account?.alwaysOpenSpoiler ?: default.openSpoiler,
             canTranslate = default.canTranslate,
-            renderMarkdown = sharedPreferencesRepository.getBoolean(PrefKeys.LAB_RENDER_MARKDOWN, default.renderMarkdown),
+            renderMarkdown = sharedPreferencesRepository.renderMarkdown,
         )
     }
 }

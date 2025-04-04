@@ -96,7 +96,6 @@ import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.Status
 import app.pachli.core.preferences.AppTheme
-import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.ui.extensions.await
 import app.pachli.core.ui.makeIcon
@@ -527,7 +526,7 @@ class ComposeActivity :
                 this,
                 sharedPreferencesRepository.animateAvatars,
                 sharedPreferencesRepository.animateEmojis,
-                preferences.getBoolean(PrefKeys.SHOW_BOT_OVERLAY, true),
+                sharedPreferencesRepository.showBotOverlay,
             ),
         )
         binding.composeEditField.setTokenizer(ComposeTokenizer())

@@ -28,12 +28,14 @@ import app.pachli.core.preferences.SharedPreferencesRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File
 import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * Downloads a URL respecting the user's preferences.
  *
  * @see [invoke]
  */
+@Singleton
 class DownloadUrlUseCase @Inject constructor(
     @ApplicationContext val context: Context,
     private val sharedPreferencesRepository: SharedPreferencesRepository,

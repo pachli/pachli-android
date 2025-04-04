@@ -583,8 +583,6 @@
     <string name="announcement_date">%1$s %2$s</string>
     <string name="load_newest_statuses">Cargar las publicaciones más nuevas</string>
     <string name="dialog_save_profile_changes_message">¿Quieres guardar tus cambios de perfil?</string>
-    <string name="pref_update_notification_frequency_always">Siempre</string>
-    <string name="pref_update_notification_frequency_never">Nunca</string>
     <string name="pref_title_show_self_boosts_description">Alguien impulsa su propia publicación</string>
     <string name="ui_error_filter_v1_load_fmt">La carga de filtros falló: %1$s</string>
     <string name="confirmation_hashtag_muted">#%s oculto(s)</string>
@@ -592,7 +590,6 @@
     <string name="pref_title_show_self_boosts">Mostrar auto-impulsos</string>
     <string name="announcement_date_updated">(Actualizado: %1$s)</string>
     <string name="title_tab_public_trending_statuses">Publicaciones</string>
-    <string name="pref_update_notification_frequency_once_per_version">Una vez por versión</string>
     <string name="pref_title_font_family">Familia de fuente</string>
     <string name="notification_listenable_worker_description">Notificaciones cuando Pachli está trabajando en el fondo</string>
     <string name="action_translate">Traducir</string>

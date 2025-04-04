@@ -35,12 +35,8 @@ import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.NewContentFilterConverterFactory
 import app.pachli.core.network.retrofit.apiresult.ApiResultCallAdapterFactory
 import app.pachli.core.network.util.localHandshakeCertificates
-import app.pachli.core.preferences.PrefKeys.HTTP_PROXY_ENABLED
-import app.pachli.core.preferences.PrefKeys.HTTP_PROXY_PORT
-import app.pachli.core.preferences.PrefKeys.HTTP_PROXY_SERVER
 import app.pachli.core.preferences.ProxyConfiguration
 import app.pachli.core.preferences.SharedPreferencesRepository
-import app.pachli.core.preferences.getNonNullString
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -87,9 +83,9 @@ object NetworkModule {
         instanceSwitchAuthInterceptor: InstanceSwitchAuthInterceptor,
     ): OkHttpClient {
         val versionName = versionName(context)
-        val httpProxyEnabled = preferences.getBoolean(HTTP_PROXY_ENABLED, false)
-        val httpServer = preferences.getNonNullString(HTTP_PROXY_SERVER, "")
-        val httpPort = preferences.getNonNullString(HTTP_PROXY_PORT, "-1").toIntOrNull() ?: -1
+        val httpProxyEnabled = preferences.httpProxyEnabled
+        val httpServer = preferences.httpProxyServer ?: ""
+        val httpPort = preferences.httpProxyPort
         val cacheSize = 25 * 1024 * 1024L // 25 MiB
         val builder = OkHttpClient.Builder()
             .addInterceptor { chain ->

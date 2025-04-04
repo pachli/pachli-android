@@ -32,6 +32,8 @@ interface PreferenceEnum {
      * The value to persist in [SharedPreferencesRepository].
      *
      * If null the enum's [name][Enum.name] property is used.
+     *
+     * @see [putEnum]
      */
     val value: String?
 

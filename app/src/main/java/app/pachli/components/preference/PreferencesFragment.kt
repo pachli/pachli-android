@@ -29,13 +29,13 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.edit
 import androidx.core.net.toUri
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.SwitchPreferenceCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import app.pachli.R
 import app.pachli.components.notifications.AccountNotificationMethod
@@ -58,6 +58,7 @@ import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.preferences.ShowSelfUsername
 import app.pachli.core.preferences.TabAlignment
 import app.pachli.core.preferences.TabContents
+import app.pachli.core.preferences.UpdateNotificationFrequency
 import app.pachli.core.ui.extensions.await
 import app.pachli.core.ui.makeIcon
 import app.pachli.databinding.AccountNotificationDetailsListItemBinding
@@ -73,7 +74,6 @@ import app.pachli.settings.sliderPreference
 import app.pachli.settings.switchPreference
 import app.pachli.updatecheck.UpdateCheck
 import app.pachli.updatecheck.UpdateCheckResult.AT_LATEST
-import app.pachli.updatecheck.UpdateNotificationFrequency
 import app.pachli.util.LocaleManager
 import app.pachli.view.FontFamilyDialogFragment
 import com.github.michaelbull.result.Err
@@ -105,6 +105,9 @@ class PreferencesFragment : PreferenceFragmentCompat() {
 
     @Inject
     lateinit var powerManager: PowerManager
+
+    @Inject
+    lateinit var proxyPreferenceSummaryProvider: ProxyPreferencesFragment.SummaryProvider
 
     private val iconSize by unsafeLazy { resources.getDimensionPixelSize(DR.dimen.preference_icon_size) }
 
@@ -374,12 +377,7 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                                 // So work around that by setting a preference to indicate that
                                 // the chosen distributor should be ignored. This is then used
                                 // in MainActivity and passed to chooseUnifiedPushDistributor.
-                                sharedPreferencesRepository.edit(commit = true) {
-                                    putBoolean(
-                                        PrefKeys.USE_PREVIOUS_UNIFIED_PUSH_DISTRIBUTOR,
-                                        false,
-                                    )
-                                }
+                                sharedPreferencesRepository.usePreviousUnifiedPushDistributor = false
 
                                 val packageManager = context.packageManager
                                 val intent = packageManager.getLaunchIntentForPackage(context.packageName)!!
@@ -460,6 +458,13 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                     key = PrefKeys.CUSTOM_TABS
                     setTitle(R.string.pref_title_custom_tabs)
                     isSingleLineTitle = false
+
+                    setSummaryProvider {
+                        when ((it as SwitchPreferenceCompat).isChecked) {
+                            true -> context.getString(R.string.pref_custom_tabs_true)
+                            else -> context.getString(R.string.pref_custom_tabs_false)
+                        }
+                    }
                 }
             }
 
@@ -488,19 +493,16 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                 preference {
                     setTitle(R.string.pref_title_http_proxy_settings)
                     fragment = ProxyPreferencesFragment::class.qualifiedName
-                    summaryProvider = ProxyPreferencesFragment.SummaryProvider
+                    summaryProvider = proxyPreferenceSummaryProvider
                 }
             }
 
             preferenceCategory(R.string.pref_title_update_settings) {
                 it.icon = makeIcon(GoogleMaterial.Icon.gmd_upgrade)
 
-                listPreference {
-                    setDefaultValue(UpdateNotificationFrequency.ALWAYS.name)
-                    setEntries(R.array.pref_update_notification_frequency_names)
-                    setEntryValues(R.array.pref_update_notification_frequency_values)
+                enumListPreference<UpdateNotificationFrequency> {
+                    setDefaultValue(UpdateNotificationFrequency.ALWAYS)
                     key = PrefKeys.UPDATE_NOTIFICATION_FREQUENCY
-                    setSummaryProvider { entry }
                     setTitle(R.string.pref_title_update_notification_frequency)
                     isSingleLineTitle = false
                     icon = makeIcon(GoogleMaterial.Icon.gmd_calendar_today)

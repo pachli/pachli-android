@@ -41,7 +41,6 @@ import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.TimelineActivityIntent
-import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.core.ui.LinkListener
@@ -99,7 +98,7 @@ class ViewEditsFragment :
 
         val animateAvatars = sharedPreferencesRepository.animateAvatars
         val animateEmojis = sharedPreferencesRepository.animateEmojis
-        val useBlurhash = sharedPreferencesRepository.getBoolean(PrefKeys.USE_BLURHASH, true)
+        val useBlurhash = sharedPreferencesRepository.useBlurHash
         val avatarRadius: Int = requireContext().resources.getDimensionPixelSize(DR.dimen.avatar_radius_48dp)
 
         viewLifecycleOwner.lifecycleScope.launch {

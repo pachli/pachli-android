@@ -20,9 +20,20 @@ package app.pachli.core.ui
 import android.text.TextPaint
 import android.text.style.URLSpan
 import android.view.View
-import app.pachli.core.activity.openLink
 
-open class NoUnderlineURLSpan(val url: String) : URLSpan(url) {
+fun interface OnClickListener {
+    fun onClick(url: String)
+}
+
+/**
+ * Span that highlights content and optionally makes it clickable.
+ *
+ * @param url Link destination. This can be anything the [onClickListener] can
+ * resolve when clicked, not just a URL.
+ * @param onClickListener Called when the span is clicked on. If null the span
+ * highlights the text but it is not clickable.
+ */
+open class NoUnderlineURLSpan(val url: String, private val onClickListener: OnClickListener?) : URLSpan(url) {
 
     // This should not be necessary. But if you don't do this the [StatusLengthTest] tests
     // fail. Without this, accessing the `url` property, or calling `getUrl()` (which should
@@ -37,22 +48,22 @@ open class NoUnderlineURLSpan(val url: String) : URLSpan(url) {
     }
 
     override fun onClick(view: View) {
-        view.context.openLink(url)
+        onClickListener?.onClick(url)
     }
 }
 
 /**
  * Mentions of other users ("@user@example.org")
+ *
+ * @param url
+ * @param onClickListener
  */
-open class MentionSpan(url: String) : NoUnderlineURLSpan(url)
+open class MentionSpan(url: String, onClickListener: OnClickListener?) : NoUnderlineURLSpan(url, onClickListener)
 
 /**
  * Hashtags (`#foo`)
  *
  * @param hashtag Text of the tag, without the leading `#`.
- * @param url URL for the tag.
- * @param listener Listener for clicks on the tag.
+ * @param onClickListener Listener for clicks on the tag.
  */
-class HashtagSpan(val hashtag: String, url: String, val listener: LinkListener) : NoUnderlineURLSpan(url) {
-    override fun onClick(view: View) = listener.onViewTag(hashtag)
-}
+class HashtagSpan(val hashtag: String, url: String, onClickListener: OnClickListener) : NoUnderlineURLSpan(url, onClickListener)

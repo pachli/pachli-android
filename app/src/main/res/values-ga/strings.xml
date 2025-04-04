@@ -661,8 +661,6 @@
     <string name="search_operator_sensitive_dialog_title">Poist le hábhar íogair</string>
     <string name="search_operator_where_dialog_public">Poist phoiblí</string>
     <string name="search_operator_where_dialog_public_hint">Poist phoiblí, inchuardaithe ar a dtugtar an freastalaí</string>
-    <string name="pref_update_notification_frequency_once_per_version">Uair amháin in aghaidh an leagain</string>
-    <string name="pref_update_notification_frequency_always">I gcónaí</string>
     <string name="notification_severed_relationships_format">Scaradh an gaol le &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="action_share_account_link">Comhroinn nasc chuig an gcuntas</string>
     <string name="pref_title_show_self_boosts_description">Duine éigin ag cur lena bpost féin</string>
@@ -674,7 +672,6 @@
     <string name="load_newest_notifications">Luchtaigh na fógraí is nuaí</string>
     <string name="load_newest_statuses">Luchtaigh na poist is nuaí</string>
     <string name="error_media_playback">Theip ar athsheinm: %s</string>
-    <string name="pref_update_notification_frequency_never">Riamh</string>
     <string name="review_notifications">Fógraí Athbhreithnithe</string>
     <string name="a11y_label_loading_thread">Snáithe á luchtú</string>
     <string name="error_prepare_media_unknown_file_size">níorbh fhéidir méid an chomhaid a chinneadh</string>

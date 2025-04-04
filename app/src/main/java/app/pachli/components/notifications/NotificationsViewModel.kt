@@ -589,7 +589,7 @@ class NotificationsViewModel @AssistedInject constructor(
             combine(accountFlow.distinctUntilChangedBy { it.entity.notificationsFilter }, getUiPrefs()) { account, _ ->
                 UiState(
                     activeFilter = deserialize(account.entity.notificationsFilter),
-                    showFabWhileScrolling = !sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false),
+                    showFabWhileScrolling = !sharedPreferencesRepository.hideFabWhenScrolling,
                     tabTapBehaviour = sharedPreferencesRepository.tabTapBehaviour,
                 )
             }.stateIn(

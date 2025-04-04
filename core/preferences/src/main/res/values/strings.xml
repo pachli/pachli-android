@@ -50,4 +50,7 @@
     <string name="pref_tab_contents_icon_text_below">Icon with text below</string>
 
     <string name="pref_title_render_markdown">Render Markdown</string>
+    <string name="pref_update_notification_frequency_never">Never</string>
+    <string name="pref_update_notification_frequency_once_per_version">Once per version</string>
+    <string name="pref_update_notification_frequency_always">Always</string>
 </resources>

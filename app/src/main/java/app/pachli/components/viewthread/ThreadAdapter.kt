@@ -24,6 +24,7 @@ import app.pachli.adapter.FilterableStatusViewHolder
 import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.adapter.StatusDetailedViewHolder
 import app.pachli.adapter.StatusViewHolder
+import app.pachli.core.activity.OpenUrlUseCase
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.model.FilterAction
@@ -37,6 +38,7 @@ class ThreadAdapter(
     private val statusDisplayOptions: StatusDisplayOptions,
     private val statusActionListener: StatusActionListener<StatusViewData>,
     private val setStatusContent: SetStatusContent,
+    private val openUrl: OpenUrlUseCase,
 ) : ListAdapter<StatusViewData, StatusBaseViewHolder<StatusViewData>>(ThreadDifferCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StatusBaseViewHolder<StatusViewData> {
@@ -58,6 +60,7 @@ class ThreadAdapter(
                 StatusDetailedViewHolder(
                     ItemStatusDetailedBinding.inflate(inflater, parent, false),
                     setStatusContent,
+                    openUrl,
                 )
             }
             else -> error("Unknown item type: $viewType")

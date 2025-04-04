@@ -471,7 +471,7 @@ class TimelineFragment :
 
     private fun setupRecyclerView() {
         binding.recyclerView.setAccessibilityDelegateCompat(
-            ListStatusAccessibilityDelegate(pachliAccountId, binding.recyclerView, this) { pos ->
+            ListStatusAccessibilityDelegate(pachliAccountId, binding.recyclerView, this, openUrl) { pos ->
                 if (pos in 0 until adapter.itemCount) {
                     adapter.peek(pos)
                 } else {

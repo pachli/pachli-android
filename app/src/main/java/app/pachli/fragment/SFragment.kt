@@ -38,9 +38,9 @@ import androidx.lifecycle.repeatOnLifecycle
 import app.pachli.R
 import app.pachli.core.activity.BaseActivity
 import app.pachli.core.activity.BottomSheetActivity
+import app.pachli.core.activity.OpenUrlUseCase
 import app.pachli.core.activity.PostLookupFallbackBehavior
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
-import app.pachli.core.activity.openLink
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.ServerRepository
@@ -101,6 +101,9 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
 
     @Inject
     lateinit var translationService: TranslationService
+
+    @Inject
+    lateinit var openUrl: OpenUrlUseCase
 
     private var serverCanTranslate = false
 
@@ -434,9 +437,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                     startActivity(intent)
                 }
             }
-            Attachment.Type.UNKNOWN -> {
-                requireContext().openLink(attachment.url)
-            }
+            Attachment.Type.UNKNOWN -> openUrl(attachment.url)
         }
     }
 

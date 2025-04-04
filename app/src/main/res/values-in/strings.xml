@@ -420,7 +420,6 @@
     <string name="ui_success_accepted_follow_request">Permintaan ikuti diterima</string>
     <string name="ui_error_filter_v1_load_fmt">Memuat filter gagal: %1$s</string>
     <string name="action_add">Tambah</string>
-    <string name="pref_update_notification_frequency_never">Jangan pernah</string>
     <string name="pref_title_custom_tabs">Gunakan Tab kustom Chrome</string>
     <string name="pref_summary_content_filters">Server Anda tidak mendukung filter konten</string>
     <string name="pref_title_bot_overlay">Tampilkan indikator untuk bot</string>

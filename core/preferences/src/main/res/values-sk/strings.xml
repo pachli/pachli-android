@@ -29,4 +29,7 @@
     <string name="pref_tab_contents_icon_only">Iba ikony</string>
     <string name="pref_tab_contents_text_only">Len text</string>
     <string name="pref_title_render_markdown">Zobraziť Markdown</string>
+    <string name="pref_update_notification_frequency_never">Nikdy</string>
+    <string name="pref_update_notification_frequency_once_per_version">Raz za verziu</string>
+    <string name="pref_update_notification_frequency_always">Vždy</string>
 </resources>

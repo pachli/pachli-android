@@ -29,4 +29,7 @@
     <string name="pref_tab_contents_icon_only">Tylko ikona</string>
     <string name="pref_tab_contents_text_only">Tylko tekst</string>
     <string name="pref_title_render_markdown">Renderuj Markdown</string>
+    <string name="pref_update_notification_frequency_never">Nigdy</string>
+    <string name="pref_update_notification_frequency_once_per_version">Jeden raz na wersję</string>
+    <string name="pref_update_notification_frequency_always">Zawsze</string>
 </resources>

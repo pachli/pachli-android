@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.adapter.FilterableStatusViewHolder
 import app.pachli.adapter.StatusBaseViewHolder
-import app.pachli.core.activity.openLink
+import app.pachli.core.activity.OpenUrlUseCase
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.network.model.Status.Companion.MAX_MEDIA_ATTACHMENTS
 import app.pachli.core.network.parseAsMastodonHtml
@@ -27,6 +27,7 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
     private val pachliAccountId: Long,
     private val recyclerView: RecyclerView,
     private val statusActionListener: StatusActionListener<T>,
+    private val openUrl: OpenUrlUseCase,
     private val statusProvider: StatusProvider<T>,
 ) : PachliRecyclerViewAccessibilityDelegate(recyclerView) {
     override fun getItemDelegate(): AccessibilityDelegateCompat = itemDelegate
@@ -164,7 +165,7 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
                     showA11yDialogWithCopyButton(
                         app.pachli.core.ui.R.string.title_links_dialog,
                         links.map { it.url },
-                    ) { context.openLink(links[it].url) }
+                    ) { openUrl(links[it].url) }
                 }
 
                 app.pachli.core.ui.R.id.action_mentions -> {

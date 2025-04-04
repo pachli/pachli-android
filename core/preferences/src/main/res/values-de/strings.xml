@@ -29,4 +29,7 @@
     <string name="pref_tab_contents_text_only">Nur-Text</string>
     <string name="pref_tab_contents_icon_only">Nur Icon</string>
     <string name="pref_title_render_markdown">Render Markdown</string>
+    <string name="pref_update_notification_frequency_never">Nie</string>
+    <string name="pref_update_notification_frequency_once_per_version">Einmal pro Version</string>
+    <string name="pref_update_notification_frequency_always">Immer</string>
 </resources>

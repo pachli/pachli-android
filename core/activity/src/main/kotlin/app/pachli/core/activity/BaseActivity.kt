@@ -48,7 +48,6 @@ import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.LoginActivityIntent
 import app.pachli.core.navigation.MainActivityIntent
 import app.pachli.core.preferences.AppTheme
-import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.snackbar.Snackbar
@@ -123,8 +122,7 @@ abstract class BaseActivity : AppCompatActivity(), MenuProvider {
         setTaskDescription(TaskDescription(appName, appIcon, recentsBackgroundColor))
 
         // Set status text size
-        val style =
-            textStyle(sharedPreferencesRepository.getString(PrefKeys.STATUS_TEXT_SIZE, "medium")!!)
+        val style = textStyle(sharedPreferencesRepository.statusTextSize)
         getTheme().applyStyle(style, true)
 
         // Set application font family
@@ -143,8 +141,8 @@ abstract class BaseActivity : AppCompatActivity(), MenuProvider {
             SharedPreferencesRepositoryEntryPoint::class.java,
         ).sharedPreferencesRepository()
 
-        // Scale text in the UI from PrefKeys.UI_TEXT_SCALE_RATIO
-        val uiScaleRatio = sharedPreferencesRepository.getFloat(PrefKeys.UI_TEXT_SCALE_RATIO, 100f)
+        // Scale text in the UI from the user's preference.
+        val uiScaleRatio = sharedPreferencesRepository.uiTextScaleRatio
         val configuration = newBase.resources.configuration
 
         // Adjust `fontScale` in the configuration.

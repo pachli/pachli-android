@@ -33,10 +33,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import app.pachli.core.activity.BaseActivity
+import app.pachli.core.activity.OpenUrlUseCase
 import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.setCloseTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
-import app.pachli.core.activity.openLinkInCustomTab
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.navigation.LoginActivityIntent
 import app.pachli.core.navigation.MainActivityIntent
@@ -63,6 +63,9 @@ class LoginActivity : BaseActivity() {
 
     @Inject
     lateinit var mastodonApi: MastodonApi
+
+    @Inject
+    lateinit var openUrl: OpenUrlUseCase
 
     private val viewModel: LoginViewModel by viewModels()
 
@@ -266,7 +269,7 @@ class LoginActivity : BaseActivity() {
         if (openInWebView) {
             doWebViewAuth.launch(LoginData(domain, uri, oauthRedirectUri.toUri()))
         } else {
-            openLinkInCustomTab(uri, this)
+            openUrl(uri, useCustomTab = true)
         }
     }
 

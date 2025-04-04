@@ -36,7 +36,6 @@ import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.navigation.pachliAccountId
-import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.databinding.ActivityAnnouncementsBinding
 import app.pachli.util.Error
@@ -98,11 +97,11 @@ class AnnouncementsActivity :
             MaterialDividerItemDecoration(this, MaterialDividerItemDecoration.VERTICAL),
         )
 
-        val wellbeingEnabled = sharedPreferencesRepository.getBoolean(PrefKeys.WELLBEING_HIDE_STATS_POSTS, false)
+        val hideStatsInDetailedPosts = sharedPreferencesRepository.hideStatsInDetailedView
         val animateEmojis = sharedPreferencesRepository.animateEmojis
-        val useAbsoluteTime = sharedPreferencesRepository.getBoolean(PrefKeys.ABSOLUTE_TIME_VIEW, false)
+        val useAbsoluteTime = sharedPreferencesRepository.useAbsoluteTime
 
-        adapter = AnnouncementAdapter(emptyList(), this, wellbeingEnabled, animateEmojis, useAbsoluteTime)
+        adapter = AnnouncementAdapter(emptyList(), this, hideStatsInDetailedPosts, animateEmojis, useAbsoluteTime)
 
         binding.announcementsList.adapter = adapter
 

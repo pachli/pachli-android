@@ -24,11 +24,13 @@ import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.ProxyConfiguration
 import app.pachli.core.preferences.ProxyConfiguration.Companion.MAX_PROXY_PORT
 import app.pachli.core.preferences.ProxyConfiguration.Companion.MIN_PROXY_PORT
-import app.pachli.core.preferences.getNonNullString
+import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.settings.makePreferenceScreen
 import app.pachli.settings.preferenceCategory
 import app.pachli.settings.switchPreference
 import app.pachli.settings.validatedEditTextPreference
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlin.system.exitProcess
 
 class ProxyPreferencesFragment : PreferenceFragmentCompat() {
@@ -83,23 +85,19 @@ class ProxyPreferencesFragment : PreferenceFragmentCompat() {
         }
     }
 
-    object SummaryProvider : Preference.SummaryProvider<Preference> {
+    @Singleton
+    class SummaryProvider @Inject constructor(
+        private val sharedPreferencesRepository: SharedPreferencesRepository,
+    ) : Preference.SummaryProvider<Preference> {
         override fun provideSummary(preference: Preference): CharSequence {
-            val sharedPreferences = preference.sharedPreferences
-            sharedPreferences ?: return ""
-
-            if (!sharedPreferences.getBoolean(PrefKeys.HTTP_PROXY_ENABLED, false)) {
+            if (!sharedPreferencesRepository.httpProxyEnabled) {
                 return preference.context.getString(R.string.pref_summary_http_proxy_disabled)
             }
 
             val missing = preference.context.getString(R.string.pref_summary_http_proxy_missing)
 
-            val server = sharedPreferences.getNonNullString(PrefKeys.HTTP_PROXY_SERVER, missing)
-            val port = try {
-                sharedPreferences.getNonNullString(PrefKeys.HTTP_PROXY_PORT, "-1").toInt()
-            } catch (e: NumberFormatException) {
-                -1
-            }
+            val server = sharedPreferencesRepository.httpProxyServer ?: missing
+            val port = sharedPreferencesRepository.httpProxyPort
 
             if (port < MIN_PROXY_PORT || port > MAX_PROXY_PORT) {
                 val invalid = preference.context.getString(R.string.pref_summary_http_proxy_invalid)

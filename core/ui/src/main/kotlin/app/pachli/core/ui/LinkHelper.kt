@@ -20,7 +20,6 @@ import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.ClickableSpan
 import android.text.style.URLSpan
-import android.view.View
 import android.widget.TextView
 import androidx.annotation.VisibleForTesting
 import androidx.core.net.toUri
@@ -162,9 +161,7 @@ internal fun setClickableText(
         '#' -> getCustomSpanForTag(text, tags, span, listener)
         '@' -> getCustomSpanForMention(mentions, span, listener)
         else -> null
-    } ?: object : NoUnderlineURLSpan(span.url) {
-        override fun onClick(view: View) = listener.onViewUrl(url)
-    }
+    } ?: NoUnderlineURLSpan(span.url, listener::onViewUrl)
 
     // Wrap the text so that "@foo" or "#foo" is rendered that way in RTL text, and
     // not "foo@" or "foo#".
@@ -194,21 +191,15 @@ fun getTagName(text: CharSequence, tags: List<HashTag>?): String? {
 }
 
 private fun getCustomSpanForTag(text: CharSequence, tags: List<HashTag>?, span: URLSpan, listener: LinkListener): ClickableSpan? {
-    return getTagName(text, tags)?.let {
-        HashtagSpan(it, span.url, listener)
+    return getTagName(text, tags)?.let { tagName ->
+        HashtagSpan(tagName, span.url) { listener.onViewTag(tagName) }
     }
 }
 
 private fun getCustomSpanForMention(mentions: List<Mention>, span: URLSpan, listener: LinkListener): ClickableSpan? {
     // https://github.com/tuskyapp/Tusky/pull/2339
-    return mentions.firstOrNull { it.url == span.url }?.let {
-        getCustomSpanForMentionUrl(span.url, it.id, listener)
-    }
-}
-
-private fun getCustomSpanForMentionUrl(url: String, mentionId: String, listener: LinkListener): ClickableSpan {
-    return object : MentionSpan(url) {
-        override fun onClick(view: View) = listener.onViewAccount(mentionId)
+    return mentions.firstOrNull { it.url == span.url }?.let { mention ->
+        MentionSpan(mention.url) { listener.onViewAccount(mention.id) }
     }
 }
 
@@ -233,7 +224,7 @@ fun setClickableMentions(view: TextView, mentions: List<Mention>?, listener: Lin
         var firstMention = true
 
         for (mention in mentions) {
-            val customSpan = getCustomSpanForMentionUrl(mention.url, mention.id, listener)
+            val customSpan = MentionSpan(mention.url) { listener.onViewAccount(mention.id) }
             end += 1 + mention.localUsername.length // length of @ + username
             flags = getSpanFlags(customSpan)
             if (firstMention) {
@@ -253,8 +244,13 @@ fun setClickableMentions(view: TextView, mentions: List<Mention>?, listener: Lin
     view.movementMethod = LinkMovementMethodCompat.getInstance()
 }
 
-fun createClickableText(text: String, link: String): CharSequence {
+fun createClickableText(text: String, link: String, onClickListener: OnClickListener): CharSequence {
     return SpannableStringBuilder(text).apply {
-        setSpan(NoUnderlineURLSpan(link), 0, text.length, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
+        setSpan(
+            NoUnderlineURLSpan(link, onClickListener),
+            0,
+            text.length,
+            Spanned.SPAN_INCLUSIVE_EXCLUSIVE,
+        )
     }
 }

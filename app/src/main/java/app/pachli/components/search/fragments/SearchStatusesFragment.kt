@@ -34,10 +34,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import app.pachli.R
 import app.pachli.components.search.adapter.SearchStatusesAdapter
 import app.pachli.core.activity.BaseActivity
+import app.pachli.core.activity.OpenUrlUseCase
 import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
-import app.pachli.core.activity.openLink
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.model.AccountEntity
@@ -78,6 +78,9 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
 
     @Inject
     lateinit var clipboard: ClipboardUseCase
+
+    @Inject
+    lateinit var openUrl: OpenUrlUseCase
 
     override val data: Flow<PagingData<StatusViewData>>
         get() = viewModel.statusesFlow
@@ -143,9 +146,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                     startActivity(intent)
                 }
             }
-            Attachment.Type.UNKNOWN -> {
-                context?.openLink(actionable.attachments[attachmentIndex].url)
-            }
+            Attachment.Type.UNKNOWN -> openUrl(actionable.attachments[attachmentIndex].url)
         }
     }
 
