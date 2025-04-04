@@ -588,16 +588,16 @@
     <string name="pref_labs_reverse_home_timeline_title">Apvērsta laika joslas secība</string>
     <string name="pref_labs_warning">Šīs ir izmēģinājuma iespējas. Nav nodrošināts, ka tās darbojas vai tiks iekļautas nākotnes versijās. Jāizmanto uz savu atbildību.</string>
     <plurals name="followed_hashtags_accounts_count_fmt">
-        <item quantity="zero">%1$s kontu</item>
-        <item quantity="one">%1$s konts</item>
-        <item quantity="other">%1$s konti</item>
+        <item quantity="zero">%1$d kontu</item>
+        <item quantity="one">%1$d konts</item>
+        <item quantity="other">%1$d konti</item>
     </plurals>
     <plurals name="followed_hashtags_posts_count_fmt">
-        <item quantity="zero">%1$s ierakstu</item>
-        <item quantity="one">%1$s ieraksts</item>
-        <item quantity="other">%1$s ieraksti</item>
+        <item quantity="zero">%1$d ierakstu</item>
+        <item quantity="one">%1$d ieraksts</item>
+        <item quantity="other">%1$d ieraksti</item>
     </plurals>
-    <string name="followed_hashtags_summary_fmt">%1$s no %2$s (pēdējās 7 dienās)</string>
+    <string name="followed_hashtags_summary_fmt">%1$s no %2$s (pēdējā(s) %3$s)</string>
     <string name="action_add_to_tab_success">\"%1$s\" pievienots cilnēm</string>
     <string name="error_filter_missing_title">Ir nepieciešams nosaukums</string>
     <string name="pref_title_update_check_now">Pārbaudīt atjauninājumus tagad</string>
@@ -621,4 +621,9 @@
     <string name="compose_warn_language_dialog_accept_language_fmt">Iesūtīt tādu, kā ir (%1$s)</string>
     <string name="compose_warn_language_dialog_title">Jāpārbauda ieraksta valoda</string>
     <string name="compose_warn_language_dialog_fmt">%1$s ir iestatīta kā ieraksta valoda, bet tas varētu būt rakstīts %2$s.</string>
+    <plurals name="followed_hashtags_days_count_fmt">
+        <item quantity="zero">%1$d dienu</item>
+        <item quantity="one">%1$d diena</item>
+        <item quantity="other">%1$d dienas</item>
+    </plurals>
 </resources>
