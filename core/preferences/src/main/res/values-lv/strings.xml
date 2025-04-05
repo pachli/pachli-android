@@ -15,6 +15,6 @@
     <string name="pref_show_self_username_disambiguate">Kad pievienoti vairāki konti</string>
     <string name="pref_show_self_username_never">Nekad</string>
     <string name="pref_update_notification_frequency_never">Nekad</string>
-    <string name="pref_update_notification_frequency_once_per_version">Vienreiz par katru versiju</string>
+    <string name="pref_update_notification_frequency_once_per_version">Vienreiz katrai versijai</string>
     <string name="pref_update_notification_frequency_always">Vienmēr</string>
 </resources>
