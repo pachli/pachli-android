@@ -295,7 +295,7 @@
     <string name="downloading_media">Lejupielādē multividi</string>
     <string name="hint_media_description_missing">Multividei ir jābūt aprakstam.</string>
     <string name="dialog_title_finishing_media_upload">Pabeidz multivides augšupielādi</string>
-    <string name="pref_title_hide_follow_button">Ritinot paslēpt jauna ieraksta pogu</string>
+    <string name="pref_title_hide_follow_button">Ritināšanas laikā paslēpt ieraksta sastādīšanas pogu</string>
     <string name="pref_default_media_sensitivity">Vienmēr atzīmēt informācijas nesējus kā jūtīgus</string>
     <string name="error_no_custom_emojis">Instancē %s nav neviena pielāgota emocijzīmje</string>
     <string name="download_fonts">Vispirms jālejupielādē šie emocijzīmju komplekti</string>
@@ -327,7 +327,7 @@
     <string name="send_post_link_to">Kopīgot ieraksta URL…</string>
     <string name="confirmation_unmuted">Lietotāja apklusināšana atcelta</string>
     <string name="pref_title_notification_filter_reblogs">mani ieraksti tiek pastiprināti</string>
-    <string name="pref_title_custom_tabs">Izmantot Chrome pielāgotās cilnes</string>
+    <string name="pref_title_custom_tabs">Atvērt saites pielāgotās cilnēs</string>
     <string name="action_unmute_domain">Atcelt %s apklusināšanu</string>
     <string name="action_unmute_conversation">Atcelt sarunas apklusināšanu</string>
     <string name="pref_main_nav_position">Galvenās navigācijas atrašanās vieta</string>
@@ -636,4 +636,6 @@
     <string name="search_operator_attachment_has_media_except_3_label_fmt">Jebkurš, izņemot %1$s, %2$s, %3$s</string>
     <string name="search_operator_attachment_specific_media_include_1_fmt">Ar %1$s</string>
     <string name="search_operator_attachment_specific_media_exclude_2_fmt">Bez %1$s, %2$s</string>
+    <string name="pref_custom_tabs_true">Ātrāk, izvēlētais pārlūks Pachli</string>
+    <string name="pref_custom_tabs_false">Lēnāk, izmanto izvēlēto pārlūku</string>
 </resources>
