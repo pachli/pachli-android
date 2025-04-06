@@ -22,12 +22,12 @@ import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.NotificationData
 import app.pachli.core.database.model.NotificationEntity
+import app.pachli.core.database.model.NotificationReportEntity
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
 import app.pachli.core.network.model.RelationshipSeveranceEvent
-import app.pachli.core.network.model.Report
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.TimelineAccount
 
@@ -60,7 +60,7 @@ data class NotificationViewData(
     val id: String,
     val account: TimelineAccount,
     var statusViewData: StatusViewData?,
-    val report: Report?,
+    val report: NotificationReportEntity?,
     val relationshipSeveranceEvent: RelationshipSeveranceEvent?,
     val isAboutSelf: Boolean,
     val accountFilterDecision: AccountFilterDecision,
@@ -100,7 +100,7 @@ data class NotificationViewData(
                     contentFilterAction = contentFilterAction,
                 )
             },
-            report = null,
+            report = data.report,
             relationshipSeveranceEvent = null,
             isAboutSelf = isAboutSelf,
             accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
