@@ -131,7 +131,7 @@
     <string name="pref_title_app_theme">Tema de la app</string>
     <string name="pref_title_timelines">Cronologías</string>
     <string name="pref_title_browser_settings">Navegador</string>
-    <string name="pref_title_custom_tabs">Usar pestañas de Chrome</string>
+    <string name="pref_title_custom_tabs">Abrir enlaces en Pestañas Personalizadas</string>
     <string name="pref_title_hide_follow_button">Ocultar botón de redacción al bajar</string>
     <string name="pref_title_post_filter">Filtros de cronología</string>
     <string name="pref_title_post_tabs">Pestañas</string>
@@ -820,4 +820,22 @@
     <string name="action_send_public_content_description">Enviar como público</string>
     <string name="action_send_private_content_description">Enviar sólo para seguidores</string>
     <string name="action_send_direct_content_description">Enviar mensaje directo</string>
+    <plurals name="followed_hashtags_posts_count_fmt">
+        <item quantity="one">%1$d publicación</item>
+        <item quantity="many">%1$d publicaciones</item>
+        <item quantity="other">%1$d publicaciones</item>
+    </plurals>
+    <string name="followed_hashtags_summary_fmt">%1$s de %2$s (última: %3$s)</string>
+    <plurals name="followed_hashtags_days_count_fmt">
+        <item quantity="one">%1$d día</item>
+        <item quantity="many">%1$d días</item>
+        <item quantity="other">%1$d días</item>
+    </plurals>
+    <string name="pref_custom_tabs_true">Más rápido: tu navegador preferido en Pachli</string>
+    <string name="pref_custom_tabs_false">Más lento: abre tu navegador preferido</string>
+    <plurals name="followed_hashtags_accounts_count_fmt">
+        <item quantity="one">%1$d cuenta</item>
+        <item quantity="many">%1$d cuentas</item>
+        <item quantity="other">%1$d cuentas</item>
+    </plurals>
 </resources>
