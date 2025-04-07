@@ -1,0 +1,17 @@
+Pachli 2.2.0
+
+Jaunas iespējas:
+
+- Atspējota atlasīšanas iespēja, ja serveris to nenodrošina
+
+Labojumi:
+
+- Nodrošināts, ka darbības notiek atbilstoši pareizam stāvoklim
+- Novērsta MainActivity nopludināšana DrawerImageLoader
+- Rāda pareizas izplatītu tēmturu vērtības diagrammu līniju beigās
+- Atjaunināts zviedru tulkojums
+- Atjaunināts indonēziešu tulkojums
+- Atjaunināts nīderlandiešu tulkojums
+- Atjaunināts portugāļu tulkojums
+- Atjaunināts somu tulkojums
+- Atjaunināts arābu tulkojums
