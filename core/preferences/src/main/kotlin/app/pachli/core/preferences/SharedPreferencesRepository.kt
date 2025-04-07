@@ -28,6 +28,7 @@ import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 /**
  * An implementation of [SharedPreferences] that exposes all changes to the
@@ -135,10 +136,6 @@ class SharedPreferencesRepository @Inject constructor(
     val mainNavigationPosition: MainNavigationPosition
         get() = getEnum(PrefKeys.MAIN_NAV_POSITION, MainNavigationPosition.TOP)
 
-    /** True if links should be opened in a Chrome custom tab. */
-    val useCustomTab: Boolean
-        get() = getBoolean(PrefKeys.CUSTOM_TABS, false)
-
     /** True to parse content as Markdown. */
     val renderMarkdown: Boolean
         get() = getBoolean(PrefKeys.LAB_RENDER_MARKDOWN, false)
@@ -231,6 +228,10 @@ class SharedPreferencesRepository @Inject constructor(
     val useBlurHash: Boolean
         get() = getBoolean(PrefKeys.USE_BLURHASH, true)
 
+    /** True if links should be opened in a Chrome custom tab. */
+    val useCustomTab: Boolean
+        get() = getBoolean(PrefKeys.CUSTOM_TABS, false)
+
     /**
      * True if the user's previous choice of UnifiedPush distributor should be
      * used by default.
@@ -252,6 +253,32 @@ class SharedPreferencesRepository @Inject constructor(
         SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
             externalScope.launch { changes.emit(key) }
         }
+
+    fun upgradeSharedPreferences(oldVersion: Int, newVersion: Int) {
+        Timber.d("Upgrading shared preferences: %d -> %d", oldVersion, newVersion)
+        edit {
+            // General usage is:
+            //
+            // if (oldVersion < ...) {
+            //     ... use `editor` to modify the preferences ...
+            // }
+
+            if (oldVersion < 2024101701) {
+                remove(PrefKeys.Deprecated.WELLBEING_LIMITED_NOTIFICATIONS)
+            }
+
+            // Deleted ATKINSON_HYPERLEGIBLE, migrate any font preferences that used
+            // that to ATKINSON_HYPERLEGIBLE_NEXT.
+            if (oldVersion < 2025033001) {
+                val fontPref = getString(FONT_FAMILY, "default")
+                if (fontPref == "atkinson_hyperlegible") {
+                    putString(FONT_FAMILY, "atkinson_hyperlegible_next")
+                }
+            }
+
+            putInt(PrefKeys.SCHEMA_VERSION, newVersion)
+        }
+    }
 
     init {
         sharedPreferences.registerOnSharedPreferenceChangeListener(listener)

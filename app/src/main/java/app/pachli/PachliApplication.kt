@@ -19,7 +19,6 @@ package app.pachli
 
 import android.app.Application
 import android.content.Context
-import androidx.core.content.edit
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
@@ -94,7 +93,7 @@ class PachliApplication : Application() {
         // Migrate shared preference keys and defaults from version to version.
         val oldVersion = sharedPreferencesRepository.getInt(PrefKeys.SCHEMA_VERSION, NEW_INSTALL_SCHEMA_VERSION)
         if (oldVersion != SCHEMA_VERSION) {
-            upgradeSharedPreferences(oldVersion, SCHEMA_VERSION)
+            sharedPreferencesRepository.upgradeSharedPreferences(oldVersion, SCHEMA_VERSION)
         }
 
         // In this case, we want to have the emoji preferences merged with the other ones
@@ -146,31 +145,5 @@ class PachliApplication : Application() {
             ExistingPeriodicWorkPolicy.KEEP,
             pruneCachedMediaWorker,
         )
-    }
-
-    private fun upgradeSharedPreferences(oldVersion: Int, newVersion: Int) {
-        Timber.d("Upgrading shared preferences: %d -> %d", oldVersion, newVersion)
-        sharedPreferencesRepository.edit {
-            // General usage is:
-            //
-            // if (oldVersion < ...) {
-            //     ... use `editor` to modify the preferences ...
-            // }
-
-            if (oldVersion < 2024101701) {
-                remove(PrefKeys.Deprecated.WELLBEING_LIMITED_NOTIFICATIONS)
-            }
-
-            // Deleted ATKINSON_HYPERLEGIBLE, migrate any font preferences that used
-            // that to ATKINSON_HYPERLEGIBLE_NEXT.
-            if (oldVersion < 2025033001) {
-                val fontPref = sharedPreferencesRepository.getString(PrefKeys.FONT_FAMILY, "default")
-                if (fontPref == "atkinson_hyperlegible") {
-                    putString(PrefKeys.FONT_FAMILY, "atkinson_hyperlegible_next")
-                }
-            }
-
-            putInt(PrefKeys.SCHEMA_VERSION, newVersion)
-        }
     }
 }

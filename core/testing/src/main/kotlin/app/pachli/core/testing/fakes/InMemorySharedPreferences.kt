@@ -20,6 +20,8 @@ package app.pachli.core.testing.fakes
 import android.content.SharedPreferences
 import android.content.SharedPreferences.Editor
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
+import app.pachli.core.preferences.PrefKeys
+import app.pachli.core.preferences.SCHEMA_VERSION
 
 /**
  * An in-memory implementation of [SharedPreferences] suitable for use in tests.
@@ -30,7 +32,9 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 class InMemorySharedPreferences(
     initialValues: Map<String, Any?>? = null,
 ) : SharedPreferences {
-    private var store: MutableMap<String, Any?> = initialValues?.toMutableMap() ?: mutableMapOf()
+    private var store: MutableMap<String, Any?> = initialValues?.toMutableMap() ?: mutableMapOf(
+        PrefKeys.SCHEMA_VERSION to SCHEMA_VERSION,
+    )
 
     private var listeners: MutableSet<OnSharedPreferenceChangeListener> = HashSet()
 

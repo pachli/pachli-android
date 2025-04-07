@@ -53,4 +53,9 @@
     <string name="pref_update_notification_frequency_never">Never</string>
     <string name="pref_update_notification_frequency_once_per_version">Once per version</string>
     <string name="pref_update_notification_frequency_always">Always</string>
+
+    <string name="pref_title_export_settings">Export settings</string>
+    <string name="pref_summary_export_settings">Tap to save app and account settings to a local file</string>
+    <string name="pref_title_import_settings">Import settings</string>
+    <string name="pref_summary_import_settings">Tap to restore settings from a file created using \"Export settings\"</string>
 </resources>

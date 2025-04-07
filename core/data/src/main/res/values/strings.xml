@@ -12,4 +12,7 @@
     <string name="account_manager_error_no_active_account">no account is marked active</string>
     <string name="account_manager_error_dao">Database error, please report this to team@pachli.app: %1$s</string>
     <string name="account_manager_error_unexpected">unexpected error: %1$s</string>
+    <string name="error_preference_importer_null_on_import">importing file returned null</string>
+    <string name="error_preference_importer_missing_schema_version">file does not contain a schema version</string>
+    <string name="error_preference_importer_wrong_version_fmt">file is an unknown version: %1$s</string>
 </resources>
