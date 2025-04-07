@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Pachli Association
+ * Copyright 2025 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -15,4 +15,24 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.di
+package app.pachli.core.testing.di
+
+import android.content.SharedPreferences
+import app.pachli.core.preferences.di.PreferencesModule
+import app.pachli.core.testing.fakes.InMemorySharedPreferences
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.components.SingletonComponent
+import dagger.hilt.testing.TestInstallIn
+import javax.inject.Singleton
+
+@TestInstallIn(
+    components = [SingletonComponent::class],
+    replaces = [PreferencesModule::class],
+)
+@Module
+object FakePreferencesModule {
+    @Provides
+    @Singleton
+    fun providesSharedPreferences(): SharedPreferences = InMemorySharedPreferences()
+}

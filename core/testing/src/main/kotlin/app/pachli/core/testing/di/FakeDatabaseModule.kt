@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Pachli Association
+ * Copyright 2025 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -15,7 +15,7 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.core.testing.fakes
+package app.pachli.core.testing.di
 
 import androidx.room.Room
 import androidx.test.platform.app.InstrumentationRegistry
