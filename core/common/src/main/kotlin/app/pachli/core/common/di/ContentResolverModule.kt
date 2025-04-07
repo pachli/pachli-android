@@ -18,6 +18,7 @@
 package app.pachli.core.common.di
 
 import android.app.Application
+import android.content.ContentResolver
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,5 +30,5 @@ import javax.inject.Singleton
 object ContentResolverModule {
     @Provides
     @Singleton
-    fun providesContentResolver(application: Application) = application.contentResolver
+    fun providesContentResolver(application: Application): ContentResolver = application.contentResolver
 }
