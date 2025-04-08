@@ -31,18 +31,18 @@
     <string name="error_media_upload_permission">Teastaíonn cead chun na meáin a léamh.</string>
     <string name="error_media_upload_opening">Ní fhéadfaí an comhad sin a oscailt.</string>
     <string name="pref_title_hide_follow_button">Folaigh an cnaipe cum agus tú ag scrollaigh</string>
-    <string name="pref_title_custom_tabs">Úsáid Chrome Custom Tabs</string>
+    <string name="pref_title_custom_tabs">Oscail naisc i gCluaisíní Saincheaptha</string>
     <string name="pref_title_browser_settings">Brabhsálaí</string>
     <string name="pref_title_timeline_filters">Scagairí</string>
     <string name="pref_title_timelines">Amlínte</string>
     <string name="pref_title_app_theme">Téama an Aip</string>
     <string name="pref_title_appearance_settings">Dealramh</string>
-    <string name="pref_title_notification_filter_poll">tá deireadh leis na pobalbhreitheanna</string>
-    <string name="pref_title_notification_filter_favourites">tá mo chuid postálacha tofa</string>
-    <string name="pref_title_notification_filter_reblogs">athchraoltar mó chuid postálacha</string>
-    <string name="pref_title_notification_filter_follow_requests">lean iarrtar</string>
-    <string name="pref_title_notification_filter_follows">lean</string>
-    <string name="pref_title_notification_filter_mentions">luaigh</string>
+    <string name="pref_title_notification_filter_poll">Tá deireadh tagtha le pobalbhreitheanna</string>
+    <string name="pref_title_notification_filter_favourites">Is fearr liom mo chuid post</string>
+    <string name="pref_title_notification_filter_reblogs">Treisítear mo phoist</string>
+    <string name="pref_title_notification_filter_follow_requests">Leanúint iarrtha</string>
+    <string name="pref_title_notification_filter_follows">Leanta</string>
+    <string name="pref_title_notification_filter_mentions">Luaite</string>
     <string name="pref_title_notification_filters">Cuir in iúl dom cathain</string>
     <string name="pref_title_notification_alert_light">Fógra le solas</string>
     <string name="pref_title_notification_alert_vibrate">Cuir in iúl le tonnchrith</string>
@@ -433,7 +433,7 @@
     <string name="action_post_failed_detail">Theip ar do phost a uaslódáil agus sábháladh é ar dhréachtaí.\n\nNíorbh fhéidir teagmháil a dhéanamh leis an bhfreastalaí, nó dhiúltaigh sé don phost.</string>
     <string name="action_post_failed_show_drafts">Taispeáin dréachtaí</string>
     <string name="action_translate_undo">Cealaigh an t-aistriú</string>
-    <string name="pref_title_notification_filter_subscriptions">duine éigin a bhfuil síntiús agam le post nua a fhoilsiú</string>
+    <string name="pref_title_notification_filter_subscriptions">D\'fhoilsigh duine éigin a bhfuil mé suibscríofa dó postáil nua</string>
     <string name="pref_title_http_proxy_port_message">Ba chóir go mbeadh an port idir %d agus %d</string>
     <string name="notification_sign_up_name">Cláraigh</string>
     <string name="action_set_focus">Socraigh pointe fócais</string>
@@ -451,7 +451,7 @@
     <string name="action_share_account_username">Comhroinn ainm úsáideora an chuntais</string>
     <string name="send_account_link_to">Comhroinn URL an chuntais go…</string>
     <string name="send_account_username_to">Comhroinn ainm úsáideora an chuntais…</string>
-    <string name="pref_title_notification_filter_updates">tá post a ndearna mé idirghníomhú leis curtha in eagar</string>
+    <string name="pref_title_notification_filter_updates">Tá postáil a raibh idirghníomhú agam leis curtha in eagar</string>
     <string name="pref_summary_content_filters">Ní thacaíonn do fhreastalaí le scagairí inneachair</string>
     <string name="notification_notification_worker">Fógraí á bhfáil…</string>
     <string name="set_focus_description">Tapáil nó tarraing an ciorcal chun an pointe fócasach a roghnú a bheidh le feiceáil i mionsamhlacha i gcónaí.</string>
@@ -634,7 +634,7 @@
     <string name="search_operator_where_dialog_library">Do leabharlann</string>
     <string name="action_filter_search">Cuardach scagtha</string>
     <string name="confirmation_hashtag_unmuted">#%s gan cheilt</string>
-    <string name="pref_title_notification_filter_sign_ups">shínigh duine éigin suas</string>
+    <string name="pref_title_notification_filter_sign_ups">Chláraigh duine éigin</string>
     <string name="pref_default_post_language">Teanga phostála réamhshocraithe</string>
     <string name="notification_listenable_worker_name">Gníomhaíocht chúlra</string>
     <string name="notification_listenable_worker_description">Fógraí nuair atá Pachli ag obair sa chúlra</string>
@@ -675,7 +675,7 @@
     <string name="review_notifications">Fógraí Athbhreithnithe</string>
     <string name="a11y_label_loading_thread">Snáithe á luchtú</string>
     <string name="error_prepare_media_unknown_file_size">níorbh fhéidir méid an chomhaid a chinneadh</string>
-    <string name="pref_title_notification_filter_reports">tá tuarascáil nua ann</string>
+    <string name="pref_title_notification_filter_reports">Tá tuairisc nua ann</string>
     <string name="pref_title_wellbeing_mode">Folláine</string>
     <string name="drafts_post_reply_removed">Baineadh an post ar dhréachtaigh tú freagra air</string>
     <string name="socket_timeout_exception">Thóg sé rófhada teagmháil a dhéanamh le do fhreastalaí</string>
@@ -859,4 +859,7 @@
         <item quantity="many">%1$d postáil</item>
         <item quantity="other">%1$d postáil</item>
     </plurals>
+    <string name="pref_custom_tabs_false">Níos moille, úsáideann an brabhsálaí is fearr leat</string>
+    <string name="pref_title_notification_filter_severed_relationships">Scartar gaol ina dhiaidh/ina dhiaidh sin</string>
+    <string name="pref_custom_tabs_true">Níos tapúla, an brabhsálaí is fearr leat i Pachli</string>
 </resources>
