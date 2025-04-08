@@ -154,7 +154,7 @@ class LabPreferencesFragment : PreferenceFragmentCompat() {
                 setSummary(app.pachli.core.preferences.R.string.pref_summary_export_settings)
                 isIconSpaceReserved = false
 
-                setOnPreferenceClickListener { _ ->
+                setOnPreferenceClickListener {
                     exportPreferences.launch(getExportFileName())
                     true
                 }
