@@ -677,4 +677,14 @@
     <string name="search_operator_embed_dialog_no_embeds">Tikai ierakstus bez priekšskatījuma kartītēm</string>
     <string name="title_public_trending">Izplatīts</string>
     <string name="title_public_trending_links">Izplatītas saites</string>
+    <string name="description_visibility_unlisted">Neiekļauts</string>
+    <string name="action_send_unlisted_content_description">Nosūtīt neiekļautu ierakstu</string>
+    <string name="title_public_trending_statuses">Izplatīti ieraksti</string>
+    <string name="title_tab_public_trending_links">Saites</string>
+    <string name="confirmation_hashtag_unmuted">#%s paslēpšana atcelta</string>
+    <string name="action_filter_search">Atlasīt meklēšanu</string>
+    <string name="label_image">Attēls</string>
+    <string name="visibility_unlisted">Neiekļauts: nerādīt publiskās laika joslās</string>
+    <string name="visibility_public">Publisks: pieejams publiskās laika joslās</string>
+    <string name="post_privacy_unlisted">Neiekļauts</string>
 </resources>
