@@ -63,10 +63,23 @@ class NotificationPreferencesFragment : PreferenceFragmentCompat() {
                 category.isIconSpaceReserved = false
 
                 switchPreference {
+                    setTitle(R.string.pref_title_notification_filter_mentions)
+                    key = PrefKeys.NOTIFICATION_FILTER_MENTIONS
+                    isIconSpaceReserved = false
+                    isChecked = activeAccount.notificationsMentioned
+                    isSingleLineTitle = false
+                    setOnPreferenceChangeListener { _, newValue ->
+                        accountManager.setNotificationsMentioned(activeAccount.id, newValue as Boolean)
+                        true
+                    }
+                }
+
+                switchPreference {
                     setTitle(R.string.pref_title_notification_filter_follows)
                     key = PrefKeys.NOTIFICATIONS_FILTER_FOLLOWS
                     isIconSpaceReserved = false
                     isChecked = activeAccount.notificationsFollowed
+                    isSingleLineTitle = false
                     setOnPreferenceChangeListener { _, newValue ->
                         accountManager.setNotificationsFollowed(activeAccount.id, newValue as Boolean)
                         true
@@ -78,6 +91,7 @@ class NotificationPreferencesFragment : PreferenceFragmentCompat() {
                     key = PrefKeys.NOTIFICATION_FILTER_FOLLOW_REQUESTS
                     isIconSpaceReserved = false
                     isChecked = activeAccount.notificationsFollowRequested
+                    isSingleLineTitle = false
                     setOnPreferenceChangeListener { _, newValue ->
                         accountManager.setNotificationsFollowRequested(activeAccount.id, newValue as Boolean)
                         true
@@ -89,6 +103,7 @@ class NotificationPreferencesFragment : PreferenceFragmentCompat() {
                     key = PrefKeys.NOTIFICATION_FILTER_REBLOGS
                     isIconSpaceReserved = false
                     isChecked = activeAccount.notificationsReblogged
+                    isSingleLineTitle = false
                     setOnPreferenceChangeListener { _, newValue ->
                         accountManager.setNotificationsReblogged(activeAccount.id, newValue as Boolean)
                         true
@@ -100,6 +115,7 @@ class NotificationPreferencesFragment : PreferenceFragmentCompat() {
                     key = PrefKeys.NOTIFICATION_FILTER_FAVS
                     isIconSpaceReserved = false
                     isChecked = activeAccount.notificationsFavorited
+                    isSingleLineTitle = false
                     setOnPreferenceChangeListener { _, newValue ->
                         accountManager.setNotificationsFavorited(activeAccount.id, newValue as Boolean)
                         true
@@ -111,6 +127,7 @@ class NotificationPreferencesFragment : PreferenceFragmentCompat() {
                     key = PrefKeys.NOTIFICATION_FILTER_POLLS
                     isIconSpaceReserved = false
                     isChecked = activeAccount.notificationsPolls
+                    isSingleLineTitle = false
                     setOnPreferenceChangeListener { _, newValue ->
                         accountManager.setNotificationsPolls(activeAccount.id, newValue as Boolean)
                         true
@@ -122,6 +139,7 @@ class NotificationPreferencesFragment : PreferenceFragmentCompat() {
                     key = PrefKeys.NOTIFICATION_FILTER_SUBSCRIPTIONS
                     isIconSpaceReserved = false
                     isChecked = activeAccount.notificationsSubscriptions
+                    isSingleLineTitle = false
                     setOnPreferenceChangeListener { _, newValue ->
                         accountManager.setNotificationsSubscriptions(activeAccount.id, newValue as Boolean)
                         true
@@ -133,6 +151,7 @@ class NotificationPreferencesFragment : PreferenceFragmentCompat() {
                     key = PrefKeys.NOTIFICATION_FILTER_SIGN_UPS
                     isIconSpaceReserved = false
                     isChecked = activeAccount.notificationsSignUps
+                    isSingleLineTitle = false
                     setOnPreferenceChangeListener { _, newValue ->
                         accountManager.setNotificationsSignUps(activeAccount.id, newValue as Boolean)
                         true
@@ -144,6 +163,7 @@ class NotificationPreferencesFragment : PreferenceFragmentCompat() {
                     key = PrefKeys.NOTIFICATION_FILTER_UPDATES
                     isIconSpaceReserved = false
                     isChecked = activeAccount.notificationsUpdates
+                    isSingleLineTitle = false
                     setOnPreferenceChangeListener { _, newValue ->
                         accountManager.setNotificationsUpdates(activeAccount.id, newValue as Boolean)
                         true
@@ -155,8 +175,21 @@ class NotificationPreferencesFragment : PreferenceFragmentCompat() {
                     key = PrefKeys.NOTIFICATION_FILTER_REPORTS
                     isIconSpaceReserved = false
                     isChecked = activeAccount.notificationsReports
+                    isSingleLineTitle = false
                     setOnPreferenceChangeListener { _, newValue ->
                         accountManager.setNotificationsReports(activeAccount.id, newValue as Boolean)
+                        true
+                    }
+                }
+
+                switchPreference {
+                    setTitle(R.string.pref_title_notification_filter_severed_relationships)
+                    key = PrefKeys.NOTIFICATION_FILTER_SEVERED_RELATIONSHIPS
+                    isIconSpaceReserved = false
+                    isChecked = activeAccount.notificationsSeveredRelationships
+                    isSingleLineTitle = false
+                    setOnPreferenceChangeListener { _, newValue ->
+                        accountManager.setNotificationsSeveredRelationships(activeAccount.id, newValue as Boolean)
                         true
                     }
                 }

@@ -33,7 +33,8 @@ import java.time.Instant
  *
  * Collates data from the different notification tables into a single type.
  *
- * @param notification The notification. * @param account Account that sent the notification.
+ * @param notification The notification.
+ * @param account Account that sent the notification.
  * @param status (optional) Status associated with the notification.
  * @param viewData (optional) Local view data for the notification.
  */

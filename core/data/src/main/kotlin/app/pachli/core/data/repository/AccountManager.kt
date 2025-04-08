@@ -741,6 +741,10 @@ class AccountManager @Inject constructor(
         accountDao.setNotificationsEnabled(accountId, value)
     }
 
+    fun setNotificationsMentioned(accountId: Long, value: Boolean) {
+        accountDao.setNotificationsMentioned(accountId, value)
+    }
+
     fun setNotificationsFollowed(accountId: Long, value: Boolean) {
         accountDao.setNotificationsFollowed(accountId, value)
     }
@@ -775,6 +779,10 @@ class AccountManager @Inject constructor(
 
     fun setNotificationsReports(accountId: Long, value: Boolean) {
         accountDao.setNotificationsReports(accountId, value)
+    }
+
+    fun setNotificationsSeveredRelationships(accountId: Long, value: Boolean) {
+        accountDao.setNotificationsSeveredRelationships(accountId, value)
     }
 
     fun setNotificationSound(accountId: Long, value: Boolean) {
