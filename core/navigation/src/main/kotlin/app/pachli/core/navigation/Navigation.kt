@@ -25,7 +25,6 @@ import app.pachli.core.database.model.DraftAttachment
 import app.pachli.core.model.ContentFilter
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
-import app.pachli.core.navigation.LoginActivityIntent.LoginMode
 import app.pachli.core.navigation.TimelineActivityIntent.Companion.bookmarks
 import app.pachli.core.navigation.TimelineActivityIntent.Companion.conversations
 import app.pachli.core.navigation.TimelineActivityIntent.Companion.favourites
@@ -605,7 +604,7 @@ class TimelineActivityIntent private constructor(context: Context, pachliAccount
          * @param context
          */
         fun bookmarks(context: Context, pachliAccountId: Long) = TimelineActivityIntent(context, pachliAccountId).apply {
-            putExtra(EXTRA_TIMELINE, Timeline.Bookmarks as Parcelable)
+            putExtra(EXTRA_TIMELINE, Timeline.Bookmarks)
         }
 
         /**
@@ -614,7 +613,7 @@ class TimelineActivityIntent private constructor(context: Context, pachliAccount
          * @param context
          */
         fun conversations(context: Context, pachliAccountId: Long) = TimelineActivityIntent(context, pachliAccountId).apply {
-            putExtra(EXTRA_TIMELINE, Timeline.Conversations as Parcelable)
+            putExtra(EXTRA_TIMELINE, Timeline.Conversations)
         }
 
         /**
@@ -623,7 +622,7 @@ class TimelineActivityIntent private constructor(context: Context, pachliAccount
          * @param context
          */
         fun favourites(context: Context, pachliAccountId: Long) = TimelineActivityIntent(context, pachliAccountId).apply {
-            putExtra(EXTRA_TIMELINE, Timeline.Favourites as Parcelable)
+            putExtra(EXTRA_TIMELINE, Timeline.Favourites)
         }
 
         /**
@@ -633,7 +632,7 @@ class TimelineActivityIntent private constructor(context: Context, pachliAccount
          * @param hashtag The hashtag to show, without the leading "`#`"
          */
         fun hashtag(context: Context, pachliAccountId: Long, hashtag: String) = TimelineActivityIntent(context, pachliAccountId).apply {
-            putExtra(EXTRA_TIMELINE, Timeline.Hashtags(listOf(hashtag)) as Parcelable)
+            putExtra(EXTRA_TIMELINE, Timeline.Hashtags(listOf(hashtag)))
         }
 
         /**
@@ -644,7 +643,7 @@ class TimelineActivityIntent private constructor(context: Context, pachliAccount
          * @param title URL's title.
          */
         fun link(context: Context, pachliAccountId: Long, url: String, title: String) = TimelineActivityIntent(context, pachliAccountId).apply {
-            putExtra(EXTRA_TIMELINE, Timeline.Link(url, title) as Parcelable)
+            putExtra(EXTRA_TIMELINE, Timeline.Link(url, title))
         }
 
         /**
@@ -655,7 +654,7 @@ class TimelineActivityIntent private constructor(context: Context, pachliAccount
          * @param title The title to display
          */
         fun list(context: Context, pachliAccountId: Long, listId: String, title: String) = TimelineActivityIntent(context, pachliAccountId).apply {
-            putExtra(EXTRA_TIMELINE, Timeline.UserList(listId, title) as Parcelable)
+            putExtra(EXTRA_TIMELINE, Timeline.UserList(listId, title))
         }
 
         /**
@@ -664,7 +663,7 @@ class TimelineActivityIntent private constructor(context: Context, pachliAccount
          * @param context
          */
         fun publicFederated(context: Context, pachliAccountId: Long) = TimelineActivityIntent(context, pachliAccountId).apply {
-            putExtra(EXTRA_TIMELINE, Timeline.PublicFederated as Parcelable)
+            putExtra(EXTRA_TIMELINE, Timeline.PublicFederated)
         }
 
         /**
@@ -673,7 +672,7 @@ class TimelineActivityIntent private constructor(context: Context, pachliAccount
          * @param context
          */
         fun publicLocal(context: Context, pachliAccountId: Long) = TimelineActivityIntent(context, pachliAccountId).apply {
-            putExtra(EXTRA_TIMELINE, Timeline.PublicLocal as Parcelable)
+            putExtra(EXTRA_TIMELINE, Timeline.PublicLocal)
         }
 
         /**
@@ -682,7 +681,7 @@ class TimelineActivityIntent private constructor(context: Context, pachliAccount
          * @param context
          */
         fun notifications(context: Context, pachliAccountId: Long) = TimelineActivityIntent(context, pachliAccountId).apply {
-            putExtra(EXTRA_TIMELINE, Timeline.Notifications as Parcelable)
+            putExtra(EXTRA_TIMELINE, Timeline.Notifications)
         }
 
         /** @return The [Timeline] to show */
