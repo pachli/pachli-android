@@ -837,4 +837,26 @@
     <string name="action_send_public_content_description">Seol post poiblí</string>
     <string name="action_send_unlisted_content_description">Seol postáil neamhliostaithe</string>
     <string name="action_send_private_content_description">Seol ríomhphost chuig leantóirí amháin</string>
+    <string name="followed_hashtags_summary_fmt">%1$s ó %2$s (%3$s deireanach)</string>
+    <plurals name="followed_hashtags_accounts_count_fmt">
+        <item quantity="one">%1$d cuntas</item>
+        <item quantity="two">%1$d cuntais</item>
+        <item quantity="few">%1$d cuntais</item>
+        <item quantity="many">%1$d cuntais</item>
+        <item quantity="other">%1$d cuntais</item>
+    </plurals>
+    <plurals name="followed_hashtags_days_count_fmt">
+        <item quantity="one">%1$d lá</item>
+        <item quantity="two">%1$d laethanta</item>
+        <item quantity="few">%1$d laethanta</item>
+        <item quantity="many">%1$d laethanta</item>
+        <item quantity="other">%1$d laethanta</item>
+    </plurals>
+    <plurals name="followed_hashtags_posts_count_fmt">
+        <item quantity="one">%1$d post</item>
+        <item quantity="two">%1$d postáil</item>
+        <item quantity="few">%1$d postáil</item>
+        <item quantity="many">%1$d postáil</item>
+        <item quantity="other">%1$d postáil</item>
+    </plurals>
 </resources>
