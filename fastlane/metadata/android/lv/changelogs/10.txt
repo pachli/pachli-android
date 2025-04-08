@@ -1,0 +1,5 @@
+Pachli 2.1.1
+
+Labojumi:
+
+- Novērsta avārija, ja cilne "Izplatīts" ir klātesoša
