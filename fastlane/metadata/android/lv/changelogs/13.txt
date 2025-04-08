@@ -1,0 +1,15 @@
+Pachli 2.4.0
+
+Jaunas iespējas:
+
+- Paziņot lietotājiem par pārtrauktām saiknēm
+- Ļauts lietotājiem redzēt aptaujas iznākumu pirms balsošanas, iestatīt saraksta atbildēšanas pamatnostādnes
+- "Paziņojumi", "Tēmturi, kuriem seko" un sarakstu vienuma rādīšana kreisajā joslā
+- Automātiska att. skatītāja rīkjoslas paslēpšana
+
+Labojumi:
+
+- Uzlabota URL izgūšana rakstīšanas laikā
+- Cilnes tiek atjauninātas, kad saraksti tiek pārdēvēti vai izdzēsti
+- Tiek nodrošināts, ka datnes pirms kopīgošanas tiek lejupielādētas
+- Atjaunināts somu, kabiļu un spāņu tulkojums
