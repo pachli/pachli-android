@@ -741,6 +741,10 @@ class AccountManager @Inject constructor(
         accountDao.setNotificationsEnabled(accountId, value)
     }
 
+    fun setNotificationsMentioned(accountId: Long, value: Boolean) {
+        accountDao.setNotificationsMentioned(accountId, value)
+    }
+
     fun setNotificationsFollowed(accountId: Long, value: Boolean) {
         accountDao.setNotificationsFollowed(accountId, value)
     }
@@ -775,6 +779,10 @@ class AccountManager @Inject constructor(
 
     fun setNotificationsReports(accountId: Long, value: Boolean) {
         accountDao.setNotificationsReports(accountId, value)
+    }
+
+    fun setNotificationsSeveredRelationships(accountId: Long, value: Boolean) {
+        accountDao.setNotificationsSeveredRelationships(accountId, value)
     }
 
     fun setNotificationSound(accountId: Long, value: Boolean) {
@@ -832,7 +840,7 @@ class AccountManager @Inject constructor(
     // reference the object properties in the query.
     suspend fun updateFromRedactedAccount(pachliAccountId: Long, redactedAccount: RedactedAccount) = transactionProvider {
         setNotificationsEnabled(pachliAccountId, redactedAccount.notificationsEnabled)
-        // Why no entry for mentions?
+        setNotificationsMentioned(pachliAccountId, redactedAccount.notificationsMentioned)
         setNotificationsFollowed(pachliAccountId, redactedAccount.notificationsFollowed)
         setNotificationsFollowRequested(pachliAccountId, redactedAccount.notificationsFollowRequested)
         setNotificationsReblogged(pachliAccountId, redactedAccount.notificationsReblogged)
@@ -842,7 +850,7 @@ class AccountManager @Inject constructor(
         setNotificationsSignUps(pachliAccountId, redactedAccount.notificationsSignUps)
         setNotificationsUpdates(pachliAccountId, redactedAccount.notificationsUpdates)
         setNotificationsReports(pachliAccountId, redactedAccount.notificationsReports)
-        // Why no entry for severed relationships?
+        setNotificationsSeveredRelationships(pachliAccountId, redactedAccount.notificationsSeveredRelationships)
         setNotificationSound(pachliAccountId, redactedAccount.notificationSound)
         setNotificationVibration(pachliAccountId, redactedAccount.notificationVibration)
         setNotificationLight(pachliAccountId, redactedAccount.notificationLight)
