@@ -309,6 +309,17 @@ WHERE id = :accountId
         """
 UPDATE AccountEntity
 SET
+    notificationsMentioned = :value
+WHERE id = :accountId
+""",
+    )
+    fun setNotificationsMentioned(accountId: Long, value: Boolean)
+
+    // TODO: Should be suspend
+    @Query(
+        """
+UPDATE AccountEntity
+SET
     notificationsFollowed = :value
 WHERE id = :accountId
 """,
@@ -402,6 +413,17 @@ WHERE id = :accountId
 """,
     )
     fun setNotificationsReports(accountId: Long, value: Boolean)
+
+    // TODO: Should be suspend
+    @Query(
+        """
+UPDATE AccountEntity
+SET
+    notificationsSeveredRelationships = :value
+WHERE id = :accountId
+""",
+    )
+    fun setNotificationsSeveredRelationships(accountId: Long, value: Boolean)
 
     // TODO: Should be suspend
     @Query(
