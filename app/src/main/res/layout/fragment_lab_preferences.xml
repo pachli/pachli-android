@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright 2024 Pachli Association
+  ~ Copyright 2025 Pachli Association
   ~
   ~ This file is a part of Pachli.
   ~
@@ -15,16 +15,24 @@
   ~ see <http://www.gnu.org/licenses>.
   -->
 
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    style="@style/TextSizeMedium"
-    android:textColor="?colorError"
-    android:background="?colorErrorContainer"
-    android:paddingStart="?listPreferredItemPaddingStart"
-    android:paddingEnd="?listPreferredItemPaddingEnd"
-    android:paddingTop="8dp"
-    android:paddingBottom="8dp"
-    android:text="@string/pref_labs_warning"
-    tools:ignore="Overdraw" />
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/TextSizeMedium"
+        android:textColor="?colorError"
+        android:background="?colorErrorContainer"
+        android:paddingStart="?listPreferredItemPaddingStart"
+        android:paddingEnd="?listPreferredItemPaddingEnd"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:text="@string/pref_labs_warning"
+        tools:ignore="Overdraw" />
+
+</LinearLayout>

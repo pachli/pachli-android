@@ -39,9 +39,20 @@ import app.pachli.core.network.model.Status
 @TypeConverters(Converters::class)
 data class AccountEntity(
     @field:PrimaryKey(autoGenerate = true) var id: Long,
+    /** The domain of the account's server (e.g., "mastodon.social") */
     val domain: String,
     val accessToken: String,
+    /**
+     * Client ID key, used for obtaining OAuth tokens.
+     *
+     * - [Mastodon.Application.clientId](https://docs.joinmastodon.org/entities/Application/#client_id)
+     */
     val clientId: String,
+    /**
+     * Client secret key, used for obtaining OAuth tokens.
+     *
+     * - [Mastodon.Application.clientSecret](https://docs.joinmastodon.org/entities/Application/#client_secret)
+     */
     val clientSecret: String,
     val isActive: Boolean,
     /** Account's remote (server) ID. */
@@ -126,9 +137,7 @@ data class AccountEntity(
     /** [FilterAction] for conversations from account limited by the server. */
     @ColumnInfo(defaultValue = "NONE")
     var conversationAccountFilterLimitedByServer: FilterAction = FilterAction.NONE,
-
 ) {
-
     val identifier: String
         get() = "$domain:$accountId"
 

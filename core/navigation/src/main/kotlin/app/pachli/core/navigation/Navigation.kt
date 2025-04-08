@@ -25,7 +25,6 @@ import app.pachli.core.database.model.DraftAttachment
 import app.pachli.core.model.ContentFilter
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
-import app.pachli.core.navigation.LoginActivityIntent.LoginMode
 import app.pachli.core.navigation.TimelineActivityIntent.Companion.bookmarks
 import app.pachli.core.navigation.TimelineActivityIntent.Companion.conversations
 import app.pachli.core.navigation.TimelineActivityIntent.Companion.favourites
