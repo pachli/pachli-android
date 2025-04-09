@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="error_preference_importer_null_on_import">datnes ievietošana atgrieza null</string>
+    <string name="error_preference_importer_wrong_version_fmt">datnei ir nezināma versija: %1$s</string>
+    <string name="error_preference_importer_missing_schema_version">datne nesatur shēmas versiju</string>
+</resources>
