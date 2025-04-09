@@ -1,0 +1,16 @@
+Pachli 2.5.0
+
+Jaunas iespējas:
+
+- Plūdenākas UX pārejas
+- Iekļauti Let's Encrypt sertifikāti
+- Iegūst vairāk izplatītu ierakstu, saišu un tēmturu
+- Vienkāršota laika joslu pievienošana/noņemšana no cilnēm
+- Atjaunināts somu, kabiliešu un spāņu tulkojums
+
+Labojumi:
+
+- Iespējotas TalkBack darbības paziņojumos un sarunās
+- Uzlabotas pārejas uz/no video
+- Atjaunināta PageCache, lai apstrādātu ne laikā balstītu secību
+- Ļauts iestatīt atlases derīgumu kā "nenoteikts"
