@@ -114,14 +114,14 @@
     <string name="pref_title_notification_alert_vibrate">Powiadamiaj wibracją</string>
     <string name="pref_title_notification_alert_light">Powiadamiaj diodą</string>
     <string name="pref_title_notification_filters">Powiadom mnie, gdy</string>
-    <string name="pref_title_notification_filter_mentions">wspomniano o mnie</string>
-    <string name="pref_title_notification_filter_follows">zaczęto mnie obserwować</string>
-    <string name="pref_title_notification_filter_reblogs">moje wpisy zostaną podbite</string>
-    <string name="pref_title_notification_filter_favourites">moje posty zostaną dodane do polubionych</string>
+    <string name="pref_title_notification_filter_mentions">Wspomniano o mnie</string>
+    <string name="pref_title_notification_filter_follows">Zaczęto mnie obserwować</string>
+    <string name="pref_title_notification_filter_reblogs">Moje wpisy zostaną podbite</string>
+    <string name="pref_title_notification_filter_favourites">Moje posty zostaną dodane do polubionych</string>
     <string name="pref_title_appearance_settings">Wygląd</string>
     <string name="pref_title_app_theme">Motyw</string>
     <string name="pref_title_browser_settings">Przeglądarka</string>
-    <string name="pref_title_custom_tabs">Używaj niestandardowych kart Chrome</string>
+    <string name="pref_title_custom_tabs">Używaj niestandardowych kart przeglądarki</string>
     <string name="pref_title_hide_follow_button">Ukryj przycisk nowego wpisu podczas przewijania</string>
     <string name="pref_title_post_filter">Filtrowanie osi czasu</string>
     <string name="pref_title_post_tabs">Karty</string>
@@ -246,7 +246,7 @@
     <string name="dialog_redraft_post_warning">Usunąć i napisać ponownie ten wpis\?</string>
     <string name="mute_domain_warning">Czy na pewno chcesz zablokować wszystko z domeny %s? Nie będziesz widzieć zawartości z tej domeny w żadnej osi czasu ani w twoich powiadomieniach. Twoi obserwujący z tej domeny będą usunięci.</string>
     <string name="mute_domain_warning_dialog_ok">Schowaj całą domenę</string>
-    <string name="pref_title_notification_filter_poll">ankiety zostały zakończone</string>
+    <string name="pref_title_notification_filter_poll">Ankiety zostały zakończone</string>
     <string name="pref_title_timelines">Osi czasu</string>
     <string name="pref_title_timeline_filters">Filtry</string>
     <string name="pref_title_language">Język</string>
@@ -419,7 +419,7 @@
     <string name="pref_title_enable_swipe_for_tabs">Włącz gest przesuwania, by przełączać między kartami</string>
     <string name="post_media_attachments">Załączniki</string>
     <string name="notification_follow_request_description">Powiadomienia o prośbach o obserwowanie</string>
-    <string name="pref_title_notification_filter_subscriptions">ktoś, kogo obserwuję opublikował nowy wpis</string>
+    <string name="pref_title_notification_filter_subscriptions">Ktoś, kogo obserwuję opublikował nowy wpis</string>
     <string name="pref_title_notification_filter_follow_requests">Wysłano prośbę o obserwowanie</string>
     <string name="title_announcements">Ogłoszenia</string>
     <string name="pref_title_wellbeing_mode">Dla dobrego samopoczucia</string>
@@ -455,8 +455,8 @@
     <string name="notification_sign_up_name">Rejestracje</string>
     <string name="notification_sign_up_description">Powiadomienia o nowych kontach</string>
     <string name="notification_update_description">Powiadomienia o edycji wpisów z wcześniejszymi interakcjami</string>
-    <string name="pref_title_notification_filter_sign_ups">ktoś zarejestrował się</string>
-    <string name="pref_title_notification_filter_updates">Wpis z wcześniejszą interakcją został edytowany</string>
+    <string name="pref_title_notification_filter_sign_ups">Ktoś się zarejestrował</string>
+    <string name="pref_title_notification_filter_updates">Wpis z wcześniejszą interakcją został zmieniony</string>
     <string name="notification_update_format">Edycja wpisu przez %s</string>
     <string name="notification_update_name">Edycje wpisów</string>
     <string name="saving_draft">Zapisywanie szkicu…</string>
@@ -477,7 +477,7 @@
     <string name="action_add_reaction">dodaj reakcję</string>
     <string name="notification_header_report_format">Konto %s zgłosiło %s</string>
     <string name="confirmation_hashtag_unfollowed">Odobserwowano #%s</string>
-    <string name="pref_title_notification_filter_reports">jest nowe zgłoszenie</string>
+    <string name="pref_title_notification_filter_reports">Jest nowe zgłoszenie</string>
     <string name="notification_report_name">Zgłoszenia</string>
     <string name="notification_report_description">Powiadomienia o zgłoszeniach moderacyjnych</string>
     <string name="action_set_focus">Ustaw punkt skupienia</string>
@@ -824,4 +824,29 @@
     <string name="action_send_unlisted_content_description">Wyślij niepubliczny wpis</string>
     <string name="action_send_private_content_description">Wyślij wpis tylko dla obserwujących</string>
     <string name="action_send_direct_content_description">Wyślij wiadomość bezpośrednią</string>
+    <string name="followed_hashtags_summary_fmt">%1$s od %2$s (ostatnie %3$s)</string>
+    <plurals name="followed_hashtags_posts_count_fmt">
+        <item quantity="one">%1$d wpis</item>
+        <item quantity="few">%1$d wpisy</item>
+        <item quantity="many">%1$d wpisów</item>
+        <item quantity="other">%1$d wpisów</item>
+    </plurals>
+    <plurals name="followed_hashtags_days_count_fmt">
+        <item quantity="one">%1$d dzień</item>
+        <item quantity="few">%1$d dni</item>
+        <item quantity="many">%1$d dni</item>
+        <item quantity="other">%1$d dni</item>
+    </plurals>
+    <plurals name="followed_hashtags_accounts_count_fmt">
+        <item quantity="one">%1$d konto</item>
+        <item quantity="few">%1$d kont</item>
+        <item quantity="many">%1$d kont</item>
+        <item quantity="other">%1$d kont</item>
+    </plurals>
+    <string name="pref_title_notification_filter_severed_relationships">Relacja obserwowania została przerwana</string>
+    <string name="pref_custom_tabs_false">Wolniejsze, używa twojej wybranej przeglądarki</string>
+    <string name="export_preferences_ok_fmt">Preferencje zapisane w pliku %1$s</string>
+    <string name="error_export_preferences_fmt">Nie udało się zapisać ustawień w pliku %1$s: %2$s</string>
+    <string name="error_import_preferences_fmt">Nie udało się wczytać ustawień z pliku %1$s: %2$s</string>
+    <string name="pref_custom_tabs_true">Szybsze, używa twojej wybranej przeglądarki w Pachli</string>
 </resources>
