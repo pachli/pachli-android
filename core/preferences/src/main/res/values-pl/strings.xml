@@ -32,4 +32,8 @@
     <string name="pref_update_notification_frequency_never">Nigdy</string>
     <string name="pref_update_notification_frequency_once_per_version">Jeden raz na wersję</string>
     <string name="pref_update_notification_frequency_always">Zawsze</string>
+    <string name="pref_title_import_settings">Import ustawień</string>
+    <string name="pref_summary_import_settings">Stuknij, by odtworzyć ustawienia z pliku stworzonego przez „Eksport ustawień”</string>
+    <string name="pref_summary_export_settings">Stuknij, by zapisać ustawienia aplikacji i kont do lokalnego pliku</string>
+    <string name="pref_title_export_settings">Eksport ustawień</string>
 </resources>
