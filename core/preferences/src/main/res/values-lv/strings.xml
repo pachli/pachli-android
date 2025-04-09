@@ -5,9 +5,9 @@
     <string name="app_theme_auto">Automātiski saulrietā</string>
     <string name="app_theme_dark">Tumša</string>
     <string name="app_theme_system">Izmantot sistēmas dizainu</string>
-    <string name="pref_category_downloads">Ieladētas</string>
-    <string name="pref_title_downloads">Lejuplādes vieta</string>
-    <string name="download_location_downloads">Lejupielādes mape:</string>
+    <string name="pref_category_downloads">Lejupielādes</string>
+    <string name="pref_title_downloads">Lejupielāžu vieta</string>
+    <string name="download_location_downloads">Lejupielāžu mape</string>
     <string name="pref_category_tabs">Cilnes</string>
     <string name="pref_main_nav_position_option_top">Augšā</string>
     <string name="pref_main_nav_position_option_bottom">Apakšā</string>
@@ -17,4 +17,14 @@
     <string name="pref_update_notification_frequency_never">Nekad</string>
     <string name="pref_update_notification_frequency_once_per_version">Vienreiz katrai versijai</string>
     <string name="pref_update_notification_frequency_always">Vienmēr</string>
+    <string name="download_location_per_sender">Lejupielāžu mapē atsevišķa mape katram sūtītājam</string>
+    <string name="pref_title_tab_tap">Darbība, kad piesit cilnei</string>
+    <string name="tab_tap_behaviour_jump_to_next_page">Pārlēkt uz nākamo lapu</string>
+    <string name="tab_tap_behaviour_jump_to_newest">Pārlēkt uz jaunāko saturu</string>
+    <string name="pref_title_export_settings">Izgūt iestatījumus</string>
+    <string name="pref_title_import_settings">Ievietot iestatījumus</string>
+    <string name="pref_summary_export_settings">Piesist, lai saglabātu lietotnes un konta iestatījumus vietējā datnē</string>
+    <string name="pref_summary_import_settings">Piesist, lai atjaunotu iestatījumus no datnes, kas izveidota ar \"Izgūt iestatījumus\"</string>
+    <string name="download_location_per_account">Lejupielāžu mapē atsevišķa mape katram kontam</string>
+    <string name="pref_title_tab_alignment">Pielīdzināt galvenās pārvietošanās cilnes</string>
 </resources>
