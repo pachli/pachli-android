@@ -27,4 +27,13 @@
     <string name="pref_summary_import_settings">Piesist, lai atjaunotu iestatījumus no datnes, kas izveidota ar \"Izgūt iestatījumus\"</string>
     <string name="download_location_per_account">Lejupielāžu mapē atsevišķa mape katram kontam</string>
     <string name="pref_title_tab_alignment">Pielīdzināt galvenās pārvietošanās cilnes</string>
+    <string name="pref_title_render_markdown">Atveidot Markdown</string>
+    <string name="pref_tab_alignment_start">Teksta virziena sākums</string>
+    <string name="pref_title_tab_contents">Galveno pārvietošanās ciļņu saturs</string>
+    <string name="pref_tab_contents_icon_only">Tikai ikona</string>
+    <string name="pref_tab_contents_text_only">Tikai teksts</string>
+    <string name="pref_tab_contents_icon_text_inline">Ikona ar tekstu blakus</string>
+    <string name="pref_tab_contents_icon_text_below">Ikona ar tekstu apakšā</string>
+    <string name="pref_tab_alignment_justify_if_possible">Izvērst līdz pilnam platumam</string>
+    <string name="pref_tab_alignment_end">Teksta virziena beigas</string>
 </resources>
