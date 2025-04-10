@@ -714,4 +714,14 @@
     <string name="ui_error_reblog_fmt">Ieraksta pastiprināšana neizdevās: %1$s</string>
     <string name="poll_show_votes">Rādīt balsojumus</string>
     <string name="conversation_0_recipients">Nav citu dalībnieku</string>
+    <string name="pref_notification_fetch_ok_timestamp_fmt">✔ Pirms %1$s @ %2$s</string>
+    <string name="error_prepare_media_unknown_file_size">datnes lielumu nevarēja noteikt</string>
+    <string name="error_media_uploader_upload_not_found_fmt">informācijas nesēju augšupielāde ar Id %1$s nav atrasta</string>
+    <string name="error_pick_media_fmt">Ierakstam nevarēja pievienot datni: %1$s</string>
+    <string name="error_prepare_media_unknown_mime_type">datnes veids nav zināms</string>
+    <string name="error_prepare_media_io_fmt">%1$s</string>
+    <string name="error_prepare_media_unsupported_mime_type_fmt">serveris neatbalsta datnes veidu: %1$s</string>
+    <string name="preview_card_byline_fediverse_account_fmt">No <b>%1$s</b>. Apskatīt vairāk ierakstu</string>
+    <string name="error_prepare_media_file_is_too_large_fmt">datnes izmērs ir %1$s, lielākais pieļaujamais lielums ir %2$s</string>
+    <string name="pref_notification_fetch_method_title">Paziņojuma veids</string>
 </resources>
