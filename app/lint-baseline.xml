@@ -33,7 +33,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/AndroidManifest.xml"
-            line="25"
+            line="27"
             column="9"/>
     </issue>
 
@@ -44,7 +44,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/AndroidManifest.xml"
-            line="26"
+            line="28"
             column="9"/>
     </issue>
 
@@ -55,7 +55,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/AndroidManifest.xml"
-            line="27"
+            line="29"
             column="9"/>
     </issue>
 
@@ -423,19 +423,8 @@
         errorLine2="                              ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/AndroidManifest.xml"
-            line="25"
+            line="27"
             column="31"/>
-    </issue>
-
-    <issue
-        id="DataExtractionRules"
-        message="The attribute `android:allowBackup` is deprecated from Android 12 and higher and may be removed in future versions. Consider adding the attribute `android:dataExtractionRules` specifying an `@xml` resource which configures cloud backups and device transfers on Android 12 and higher."
-        errorLine1="        android:allowBackup=&quot;false&quot;"
-        errorLine2="                             ~~~~~">
-        <location
-            file="src/main/AndroidManifest.xml"
-            line="19"
-            column="30"/>
     </issue>
 
     <issue
