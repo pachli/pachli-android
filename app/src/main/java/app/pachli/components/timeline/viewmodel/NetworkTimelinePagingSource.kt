@@ -56,9 +56,9 @@ class NetworkTimelinePagingSource @Inject constructor(
         }
 
         if (page == null) {
-            Timber.d("  Returning empty page")
+            Timber.d("  Returning empty page for %s", params.javaClass.simpleName)
         } else {
-            Timber.d("  Returning full page:")
+            Timber.d("  Returning full page for %s", params.javaClass.simpleName)
             Timber.d("     %s", page)
         }
 
@@ -66,7 +66,7 @@ class NetworkTimelinePagingSource @Inject constructor(
         // is a lot of spurious animation, especially during the initial load, as multiple pages
         // are loaded and the paging source is repeatedly invalidated.
         if (invalid) {
-            Timber.d("Invalidated, returning LoadResult.Invalid")
+            Timber.d("Invalidated, returning LoadResult.Invalid for %s", params.javaClass.simpleName)
             return INVALID
         }
 

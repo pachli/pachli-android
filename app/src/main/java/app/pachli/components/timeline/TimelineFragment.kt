@@ -231,8 +231,9 @@ class TimelineFragment :
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
-                    // Wait for the very first page load, then scroll recyclerview
-                    // to the refresh key.
+                    // If this is a cached timeline there's a refresh key. Wait for the very
+                    // first page load, then scroll recyclerview to the refresh key so any
+                    // remaining page loads keep it in focus.
                     (viewModel as? CachedTimelineViewModel)?.let { vm ->
                         vm.initialRefreshKey.combine(adapter.onPagesUpdatedFlow) { key, _ -> key }
                             .take(1)
@@ -240,10 +241,24 @@ class TimelineFragment :
                             .collect { key ->
                                 val snapshot = adapter.snapshot()
                                 val index = snapshot.items.indexOfFirst { it.id == key }
-                                binding.recyclerView.scrollToPosition(
-                                    snapshot.placeholdersBefore + index,
-                                )
+                                val position = snapshot.placeholdersBefore + index
+                                binding.recyclerView.post {
+                                    getView() ?: return@post
+                                    binding.recyclerView.scrollToPosition(position)
+                                }
                             }
+                    }
+
+                    // If this is a non-cached timeline the user should be placed at the
+                    // top of the timeline. Wait for the prepend operations to complete
+                    // then do that.
+                    (viewModel as? NetworkTimelineViewModel)?.let { vm ->
+                        adapter.postPrepend {
+                            binding.recyclerView.post {
+                                getView() ?: return@post
+                                binding.recyclerView.scrollToPosition(0)
+                            }
+                        }
                     }
                 }
 
