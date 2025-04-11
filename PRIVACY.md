@@ -41,8 +41,7 @@ For this to happen all of the following conditions must be met:
 3. You must have enabled Google's [Android backup and restore](https://support.google.com/android/answer/2819582?hl=en) feature on your device (**Settings** > **System** > **Backup**).
 4. You must have enabled screen-unlock, with a pin, pattern, or password.
 
-If all these conditions are met then a copy of your Pachli data, including your account information
-and preferences are **encrypted** and periodically uploaded to your Google Drive, approximately once per day when:
+If all these conditions are met then a copy of your Pachli data, including your account information and preferences are **encrypted** and periodically uploaded to your Google Drive, approximately once per day when:
 
 1. At least 24 hours have elapsed since the last backup.
 2. The device is idle.
