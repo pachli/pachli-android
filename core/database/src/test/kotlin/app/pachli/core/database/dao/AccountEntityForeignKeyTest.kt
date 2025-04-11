@@ -53,7 +53,6 @@ import java.time.temporal.ChronoUnit
 import java.util.Date
 import javax.inject.Inject
 import kotlinx.coroutines.test.runTest
-import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -143,11 +142,6 @@ class AccountEntityForeignKeyTest {
             accountDao.upsert(activeAccount)
             timelineDao.insertAccount(timelineAccount)
         }
-    }
-
-    @After
-    fun tearDown() {
-        db.close()
     }
 
     @Test

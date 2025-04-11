@@ -34,7 +34,6 @@ import java.time.Instant
 import java.time.temporal.ChronoUnit
 import javax.inject.Inject
 import kotlinx.coroutines.test.runTest
-import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -104,11 +103,6 @@ class NotificationEntityForeignKeyTest {
             accountDao.upsert(activeAccount)
             timelineDao.insertAccount(timelineAccount)
         }
-    }
-
-    @After
-    fun tearDown() {
-        db.close()
     }
 
     @Suppress("DEPRECATION")

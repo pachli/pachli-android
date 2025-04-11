@@ -55,7 +55,6 @@ import kotlin.properties.Delegates
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
-import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -189,9 +188,6 @@ class ComposeActivityTest {
             .onSuccess { accountManager.refresh(it) }
             .get()!!.id
     }
-
-    @After
-    fun closeDb() = db.close()
 
     /**
      * When tests do something like this (lines marked "->")

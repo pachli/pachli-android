@@ -53,7 +53,6 @@ import java.util.Date
 import javax.inject.Inject
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
-import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.runner.RunWith
@@ -182,11 +181,6 @@ abstract class V2Test : BaseContentFiltersRepositoryTest() {
             instanceDao,
         )
     }
-
-    @After
-    fun tearDown() {
-        appDatabase.close()
-    }
 }
 
 abstract class V1Test : BaseContentFiltersRepositoryTest() {
@@ -248,11 +242,6 @@ abstract class V1Test : BaseContentFiltersRepositoryTest() {
             remoteDataSource,
             instanceDao,
         )
-    }
-
-    @After
-    fun tearDown() {
-        appDatabase.close()
     }
 }
 

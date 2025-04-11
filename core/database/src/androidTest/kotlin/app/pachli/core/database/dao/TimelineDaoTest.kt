@@ -33,7 +33,6 @@ import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import javax.inject.Inject
 import kotlinx.coroutines.test.runTest
-import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
@@ -86,11 +85,6 @@ class TimelineDaoTest {
 
             accountDao.upsert(inactiveAccount)
         }
-    }
-
-    @After
-    fun tearDown() {
-        db.close()
     }
 
     @Test
