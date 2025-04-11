@@ -41,7 +41,6 @@ import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
-import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
@@ -146,11 +145,6 @@ class InstanceInfoRepositoryTest {
         )
             .andThen { accountManager.setActiveAccount(it) }
             .onSuccess { accountManager.refresh(it) }
-    }
-
-    @After
-    fun tearDown() {
-        appDatabase.close()
     }
 
     @Test

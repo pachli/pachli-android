@@ -36,7 +36,6 @@ import java.util.Date
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
-import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -84,12 +83,6 @@ class CachedTimelineRemoteMediatorTest {
         runTest { db.accountDao().upsert(activeAccount) }
 
         pagingSourceFactory = mock()
-    }
-
-    @After
-    @ExperimentalCoroutinesApi
-    fun tearDown() {
-        db.close()
     }
 
     @Test
