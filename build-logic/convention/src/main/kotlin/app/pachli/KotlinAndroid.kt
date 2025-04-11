@@ -95,6 +95,9 @@ private fun Project.configureKotlin() {
                 // Enable experimental coroutines APIs, including Flow
                 "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
                 "-opt-in=kotlinx.coroutines.FlowPreview",
+                // https://kotlinlang.org/docs/whatsnew1520.html#support-for-jspecify-nullness-annotations
+                "-Xtype-enhancement-improvements-strict-mode",
+                "-Xjspecify-annotations=strict",
             )
         }
     }
