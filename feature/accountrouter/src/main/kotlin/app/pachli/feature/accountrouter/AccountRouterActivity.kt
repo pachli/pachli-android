@@ -19,9 +19,10 @@ package app.pachli.feature.accountrouter
 
 import android.app.NotificationManager
 import android.content.Intent
-import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
+import android.view.View
+import android.view.ViewTreeObserver
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -32,10 +33,9 @@ import app.pachli.core.activity.BaseActivity
 import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
-import app.pachli.core.data.repository.Loadable
-import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.SetActiveAccountError
 import app.pachli.core.data.repository.get
+import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.navigation.AccountRouterActivityIntent
 import app.pachli.core.navigation.AccountRouterActivityIntent.Payload
 import app.pachli.core.navigation.ComposeActivityIntent
@@ -47,13 +47,14 @@ import app.pachli.core.network.retrofit.apiresult.ClientError
 import app.pachli.core.ui.extensions.await
 import app.pachli.feature.accountrouter.AccountRouterViewModel.Companion.canHandleMimeType
 import app.pachli.feature.accountrouter.FallibleUiAction.SetActiveAccount
-import com.bumptech.glide.load.MultiTransformation
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 /**
  * Determines the correct account to use, and routes the user to the correct
@@ -63,39 +64,52 @@ import kotlinx.coroutines.launch
 class AccountRouterActivity : BaseActivity() {
     private val viewModel: AccountRouterViewModel by viewModels()
 
-    private lateinit var transforms: MultiTransformation<Bitmap>
-
     override fun requiresLogin() = false
 
+    private var dismissSplashScreen = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        Timber.d("onCreate")
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
             installSplashScreen()
         }
         super.onCreate(savedInstanceState)
+//        setContentView(R.layout.activity_account_router)
 
-        transforms = MultiTransformation(
-            listOf(
-                CenterCrop(),
-                RoundedCorners(resources.getDimensionPixelSize(app.pachli.core.designsystem.R.dimen.avatar_radius_48dp)),
-            ),
+        val content: View = findViewById(android.R.id.content)
+        content.viewTreeObserver.addOnPreDrawListener(
+            object : ViewTreeObserver.OnPreDrawListener {
+                override fun onPreDraw(): Boolean {
+                    if (!dismissSplashScreen) return false
+                    content.viewTreeObserver.removeOnPreDrawListener(this)
+                    return true
+                }
+            },
         )
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                launch { viewModel.accounts.collect { bindAccount(savedInstanceState, it) } }
+                launch {
+                    // Get the first set of loaded accounts (as AccountEntity).
+                    viewModel.accounts
+                        .map { it.get() }
+                        .filterNotNull()
+                        .map { it.map { it.entity } }
+                        .take(1)
+                        .collect { bindAccount(savedInstanceState, it) }
+                }
 
                 launch {
                     viewModel.uiResult.collect {
-                        it.onSuccess { bindUiSuccess(it) }.onFailure { bindUiFailure(it) }
+                        it.onSuccess { bindUiSuccess(it) }.onFailure { bindUiError(it) }
                     }
                 }
             }
         }
     }
 
-    private fun bindAccount(savedInstanceState: Bundle?, loadableAccounts: Loadable<List<PachliAccount>>) {
-        // Can't do anything until the local accounts are loaded.
-        val accounts = loadableAccounts.get() ?: return
+    private fun bindAccount(savedInstanceState: Bundle?, accounts: List<AccountEntity>) {
+        Timber.d("bindAccount: $accounts")
 
         // Only thing to do if there are no accounts is to prompt the user to login.
         if (accounts.isEmpty()) {
@@ -106,9 +120,6 @@ class AccountRouterActivity : BaseActivity() {
         }
 
         if (savedInstanceState != null) return
-
-        // check for savedInstanceState in order to not handle intent events more than once
-        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
 
         val pachliAccountId: Long = resolvePachliAccountId(intent.pachliAccountId, accounts) ?: run {
             // Requested account does not exist, ask the user to choose (or maybe show an error
@@ -121,6 +132,7 @@ class AccountRouterActivity : BaseActivity() {
         val payload = AccountRouterActivityIntent.payload(intent)
             ?: Payload.MainActivity(MainActivityIntent.start(this, pachliAccountId))
 
+//        Timber.d("  payload: $payload")
         when (payload) {
             is Payload.QuickTile -> {
                 showAccountChooserDialog(getString(R.string.action_share_as), true) { account ->
@@ -130,11 +142,9 @@ class AccountRouterActivity : BaseActivity() {
             }
 
             is Payload.NotificationCompose -> {
+                val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
                 notificationManager.cancel(payload.notificationTag, payload.notificationId)
-                launchComposeActivityAndExit(
-                    intent.pachliAccountId,
-                    payload.composeOptions,
-                )
+                launchComposeActivityAndExit(intent.pachliAccountId, payload.composeOptions)
             }
 
             Payload.ShareContent -> {
@@ -156,6 +166,8 @@ class AccountRouterActivity : BaseActivity() {
     }
 
     private fun bindUiSuccess(success: UiSuccess) {
+        Timber.d("bindUiSuccess: $success")
+
         when (success) {
             is UiSuccess.SetActiveAccount -> viewModel.accept(
                 FallibleUiAction.RefreshAccount(
@@ -166,11 +178,6 @@ class AccountRouterActivity : BaseActivity() {
 
             is UiSuccess.RefreshAccount -> {
                 val payload = success.action.payload
-//                if (payload !is Payload.MainActivity) {
-//                    if (BuildConfig.DEBUG) throw RuntimeException("RefreshAccount with payload that is not MainActivity: $payload")
-//                    return
-//                }
-
                 val intent = payload.mainActivityIntent
                 startActivityWithTransition(intent, TransitionKind.EXPLODE)
                 finish()
@@ -178,7 +185,8 @@ class AccountRouterActivity : BaseActivity() {
         }
     }
 
-    private suspend fun bindUiFailure(uiError: UiError) {
+    private suspend fun bindUiError(uiError: UiError) {
+//        Timber.d("bindUiError: uiError")
         when (uiError) {
             is UiError.SetActiveAccount -> {
                 // Logging in failed. Show a dialog explaining what's happened.
@@ -216,6 +224,8 @@ class AccountRouterActivity : BaseActivity() {
                                     finish()
                                 }
 
+                                // TODO: Get rid of the "fallback" account idea. This should show
+                                // the user a list of accounts and they can try again.
                                 AlertDialog.BUTTON_NEGATIVE -> {
                                     uiError.cause.fallbackAccount?.run {
                                         viewModel.accept(SetActiveAccount(id, uiError.action.payload))
@@ -293,9 +303,9 @@ class AccountRouterActivity : BaseActivity() {
      *  then that account ID (i.e., input == output).
      *  - Otherwise the account does not exist locally, returns null
      */
-    private fun resolvePachliAccountId(pachliAccountId: Long?, accounts: List<PachliAccount>): Long? {
+    private fun resolvePachliAccountId(pachliAccountId: Long?, accounts: List<AccountEntity>): Long? {
         if (pachliAccountId == null || pachliAccountId == -1L) {
-            return accounts.find { it.entity.isActive }?.id
+            return accounts.find { it.isActive }?.id
         }
 
         return accounts.find { it.id == pachliAccountId }?.id

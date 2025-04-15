@@ -31,7 +31,6 @@ import app.pachli.core.navigation.AccountRouterActivityIntent.Payload
 import app.pachli.core.navigation.ComposeActivityIntent
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.mapEither
-import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.channels.Channel
@@ -42,6 +41,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 internal sealed interface UiState {
     data object Loading : UiState
@@ -171,7 +171,6 @@ internal class AccountRouterViewModel @Inject constructor(
     /** Processes actions received from the UI and updates [_uiState]. */
     private suspend fun onUiAction(uiAction: UiAction) {
         val result = when (uiAction) {
-            // is FallibleUiAction.VerifyAndAddAccount -> verifyAndAddAccount(uiAction)
             is FallibleUiAction.RefreshAccount -> onRefreshAccount(uiAction)
             is FallibleUiAction.SetActiveAccount -> onSetActiveAccount(uiAction)
         }
@@ -179,152 +178,18 @@ internal class AccountRouterViewModel @Inject constructor(
         _uiResult.send(result)
     }
 
-    /**
-     * Parses the payload from [intent] and ensures the relevant account is refreshed.
-     */
-//    private fun onParsePayload(intent: Intent, savedInstanceState: Bundle?) {
-//        Timber.d("Parsing payload")
-//        Timber.d("  intent: $intent")
-//        Timber.d("  savedInstanceState: $savedInstanceState")
-//
-//        val pachliAccountId = accountManager.resolvePachliAccountId(intent.pachliAccountId)
-//        Timber.d("  pachliAccountId: ${intent.pachliAccountId}")
-//        Timber.d("  pachliAccountId (resolved): $pachliAccountId")
-//
-//        // If the account can't be determined then either ask the user to login, or show
-//        if (pachliAccountId == null) {
-//            _uiState.value = UiState.ShowLogin
-//            return
-//        }
-//
-//        if (savedInstanceState != null) {
-//            Timber.d("Have savedInstanceState")
-//            accept(
-//                FallibleUiAction.RefreshAccount(
-//                    intent.pachliAccountId,
-//                    UiState.FromMainActivity(intent.pachliAccountId),
-//                ),
-//            )
-//            return
-//        }
-//
-//        val payload = AccountRouterIntent.payload(intent)
-//        Timber.d("  payload: $payload")
-//
-//        when (payload) {
-//            AccountRouterIntent.Payload.QuickTile -> {
-//                // TODO: Handle the case where there's a single account, no need to show account
-//                // chooser.
-//                _uiState.value = UiState.ChooseAccount(
-//                    onChooseAccount = { accept(FallibleUiAction.RefreshAccount(it, UiState.FromQuickTile(it))) },
-//                )
-//            }
-//            // Don't switch account
-//            is AccountRouterIntent.Payload.NotificationCompose -> accept(
-//                FallibleUiAction.RefreshAccount(
-//                    pachliAccountId,
-//                    UiState.FromNotificationCompose(
-//                        pachliAccountId,
-//                        payload.notificationId,
-//                        payload.notificationTag,
-//                        payload.composeOptions,
-//                    ),
-//                ),
-//            )
-//
-//            // Existing code doesn't switch account -- suspect that's a bug.
-//            is AccountRouterIntent.Payload.Notification -> when (payload.notificationType) {
-//                Notification.Type.FOLLOW_REQUEST -> {
-//                    accept(
-//                        FallibleUiAction.RefreshAccount(
-//                            pachliAccountId,
-//                            UiState.FromFollowRequest(
-//                                pachliAccountId,
-//                                payload.notificationId,
-//                                payload.notificationTag,
-//                            ),
-//                        ),
-//                    )
-//                }
-//
-//                else -> {
-//                    accept(
-//                        FallibleUiAction.RefreshAccount(
-//                            pachliAccountId,
-//                            UiState.FromMainActivity(
-//                                pachliAccountId,
-//                                showNotificationTab = true,
-//                            ),
-//                        ),
-//                    )
-//                }
-//            }
-//            // Switch account
-//            AccountRouterIntent.Payload.OpenDrafts -> {
-//                accept(
-//                    FallibleUiAction.RefreshAccount(
-//                        pachliAccountId,
-//                        UiState.FromOpenDrafts(pachliAccountId),
-//                        makeActive = true,
-//                    ),
-//                )
-//            }
-//            // ?
-//            is AccountRouterIntent.Payload.Redirect ->
-//                accept(
-//                    FallibleUiAction.RefreshAccount(
-//                        pachliAccountId,
-//                        UiState.FromRedirect(
-//                            pachliAccountId,
-//                            payload.url,
-//                        ),
-//                    ),
-//                )
-//            // Don't switch account
-//            AccountRouterIntent.Payload.Shortcut -> {
-//                // accept(FallibleUiAction.RefreshAccount(it, successState = UiState.FromShortcut(pachliAccountId)))
-//            }
-//
-//            AccountRouterIntent.Payload.SwitchAccount -> TODO()
-//            null -> {
-//                if (canHandleMimeType(intent.type)) {
-//                    // Payload should be a type that means "There is content to share"
-//                    _uiState.value = UiState.ChooseAccount(
-//                        onChooseAccount = {
-//                            accept(
-//                                FallibleUiAction.RefreshAccount(
-//                                    pachliAccountId = it,
-//                                    UiState.FromSharedData(pachliAccountId, intent),
-//                                ),
-//                            )
-//                        },
-//                    )
-//                } else {
-//                    // Payload should be a type that means "Launch MainActivity as normal"
-//                    accept(
-//                        FallibleUiAction.RefreshAccount(
-//                            pachliAccountId = pachliAccountId,
-//                            UiState.FromMainActivity(pachliAccountId),
-//                        ),
-//                    )
-//                }
-//            }
-//        }
-//    }
-
     private suspend fun onSetActiveAccount(action: FallibleUiAction.SetActiveAccount): Result<UiSuccess.SetActiveAccount, UiError.SetActiveAccount> {
+        Timber.d("onSetActiveAccount")
         return accountManager.setActiveAccount(action.pachliAccountId)
+            .on { Timber.d("result: $it") }
             .mapEither(
                 { UiSuccess.SetActiveAccount(action, it) },
                 { UiError.SetActiveAccount(action, it) },
             )
-            .onSuccess {
-//                pachliAccountIdFlow.value = it.accountEntity.id
-//                uiAction.emit(FallibleUiAction.RefreshAccount(it.accountEntity))
-            }
     }
 
     private suspend fun onRefreshAccount(action: FallibleUiAction.RefreshAccount): Result<UiSuccess.RefreshAccount, UiError.RefreshAccount> {
+        Timber.d("onRefreshAccount")
         return accountManager.refresh(action.accountEntity.id)
             .mapEither(
                 { UiSuccess.RefreshAccount(action) },
@@ -338,4 +203,9 @@ internal class AccountRouterViewModel @Inject constructor(
             return mimeType != null && (mimeType.startsWith("image/") || mimeType.startsWith("video/") || mimeType.startsWith("audio/") || mimeType == "text/plain")
         }
     }
+}
+
+inline fun <V, E> Result<V, E>.on(block: (Result<V, E>) -> Unit): Result<V, E> {
+    block(this)
+    return this
 }
