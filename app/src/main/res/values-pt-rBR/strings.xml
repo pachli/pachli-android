@@ -89,7 +89,6 @@
     <string name="action_open_faved_by">Mostrar favoritos</string>
     <string name="download_image">Baixando %1$s</string>
     <string name="action_copy_link">Copiar URL</string>
-    <string name="action_share_as">Compartilhar como…</string>
     <string name="send_post_link_to">Compartilhar URL do Toot em…</string>
     <string name="send_post_content_to">Compartilhar Toot em…</string>
     <string name="send_media_to">Compartilhar mídia via…</string>

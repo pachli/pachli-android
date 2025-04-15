@@ -130,7 +130,6 @@
     <string name="action_open_media_n">Abrir conteúdo multimédia #%d</string>
     <string name="download_image">A descarregar %1$s</string>
     <string name="action_copy_link">Copiar a hiperligação</string>
-    <string name="action_share_as">Partilhar como…</string>
     <string name="download_media">Descarregar conteúdo multimédia</string>
     <string name="downloading_media">A descarregar conteúdo multimédia</string>
     <string name="send_post_link_to">Partilhar hiperligação do toot via…</string>

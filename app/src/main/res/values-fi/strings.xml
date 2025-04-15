@@ -183,7 +183,6 @@
     </plurals>
     <string name="edit_hashtag_hint">Aihetunniste ilman #-merkkiä</string>
     <string name="title_domain_mutes">Piilotetut verkkotunnukset</string>
-    <string name="action_share_as">Jaa…</string>
     <string name="error_no_web_browser_found">Verkkoselainta ei löytynyt.</string>
     <string name="action_delete_conversation">Poista keskustelu</string>
     <string name="notification_subscription_format">%s julkaisi juuri</string>
@@ -786,9 +785,6 @@
         <item quantity="other">%1$s seuraamaasi tiilä poistettu</item>
     </plurals>
     <string name="upload_failed_msg_fmt">Latausta yritetään uudestaan kun lähetät julkaisun. Jos se epäonnistuu jälleen, julkaisu tallennetaan luonnoksiisi.\n\nVirhe oli: %1$s</string>
-    <string name="main_viewmodel_error_set_active_account">Kirjautuminen epäonnistui, virhe oli:\n\n%1$s</string>
-    <string name="main_viewmodel_error_refresh_account">Tilin päivittäminen epäonnistui, virhe oli:\n\n%1$s\n\nVoit jatkaa, mutta listasi ja suodattimesi saattavat olla eivät ehkä ole ajan tasalla.</string>
-    <string name="action_relogin">Kirjaudu uudestaan</string>
     <string name="upload_failed_modify_attachment">Muokkaa liitettä</string>
     <string name="notification_unknown">Tuntematon ilmoitustyyppi</string>
     <string name="preview_card_timeline_link_fmt">Katso &lt;b&gt;%1$s&lt;/b&gt; julkaisua tästä linkistä</string>

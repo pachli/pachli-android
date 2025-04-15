@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="main_viewmodel_error_set_active_account">Kirjautuminen epäonnistui, virhe oli:\n\n%1$s</string>
+    <string name="main_viewmodel_error_refresh_account">Tilin päivittäminen epäonnistui, virhe oli:\n\n%1$s\n\nVoit jatkaa, mutta listasi ja suodattimesi saattavat olla eivät ehkä ole ajan tasalla.</string>
+    <string name="action_relogin">Kirjaudu uudestaan</string>
+    <string name="action_share_as">Jaa…</string>
+</resources>

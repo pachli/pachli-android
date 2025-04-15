@@ -227,7 +227,6 @@
     <string name="action_hide_reblogs">Paslēpt pastiprinājumus</string>
     <string name="action_open_reblogger">Atvērt pastiprinājuma autoru</string>
     <string name="action_open_reblogged_by">Parādīt pastiprinājumus</string>
-    <string name="action_share_as">Kopīgot kā…</string>
     <string name="send_post_content_to">Kopīgot ierakstu…</string>
     <string name="hint_display_name">Nosaukums</string>
     <string name="dialog_mute_warning">Vai apklusināt @%s\?</string>

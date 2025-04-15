@@ -227,7 +227,6 @@
     <string name="action_delete_and_redraft">Usuń i przeredaguj</string>
     <string name="action_view_account_preferences">Ustawienia konta</string>
     <string name="action_open_faved_by">Pokaż polubione</string>
-    <string name="action_share_as">Udostępnij jako …</string>
     <string name="title_tab_preferences">Karty</string>
     <string name="title_domain_mutes">Ukryte domeny</string>
     <string name="action_unreblog">Cofnij podbicie</string>
@@ -683,9 +682,6 @@
     <string name="upload_failed_modify_attachment">Modyfikuj załącznik</string>
     <string name="upload_failed_msg_fmt">Wgrywanie będzie ponowione przy wysyłaniu wpisu. Jeżeli ponownie się nie powiedzie, wpis zostanie zapisany w szkicach.\n\nBłąd: %1$s</string>
     <string name="search_operator_replies_dialog_no_replies">Bez odpowiedzi</string>
-    <string name="main_viewmodel_error_refresh_account">Odświeżenie konta się nie powiodło i zwróciło błąd:\n\n%1$s\n\nMożesz kontynuować, ale twoje listy i filtry mogą być niekompletne.</string>
-    <string name="action_relogin">Ponowne zalogowanie</string>
-    <string name="main_viewmodel_error_set_active_account">Próba zalogowania nie powiodła się i zwróciła błąd:\n\n%1$s</string>
     <string name="total_accounts">Liczba kont</string>
     <string name="ui_error_translate_status_fmt">Tłumaczenie się nie powiodło: %1$s</string>
     <string name="dialog_delete_filter_text">Usunąć filtr \'%1$s\'?\"</string>

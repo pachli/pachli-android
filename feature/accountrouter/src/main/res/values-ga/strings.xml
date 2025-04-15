@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="main_viewmodel_error_set_active_account">Theip ar an iarracht logáil isteach leis an earráid seo a leanas:\n\n%1$s</string>
+    <string name="main_viewmodel_error_refresh_account">Theip ar athnuachan an chuntais leis an earráid seo a leanas:\n\n%1$s\n\nIs féidir leat leanúint ar aghaidh, ach seans go mbeidh do liostaí agus do scagairí neamhiomlán.</string>
+    <string name="action_relogin">Ath-logáil isteach</string>
+    <string name="action_share_as">Comhroinn mar …</string>
+</resources>

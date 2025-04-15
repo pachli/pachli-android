@@ -139,6 +139,7 @@ dependencies {
     implementation(projects.core.ui)
 
     implementation(projects.feature.about)
+    implementation(projects.feature.accountrouter)
     implementation(projects.feature.lists)
     implementation(projects.feature.login)
     implementation(projects.feature.suggestions)

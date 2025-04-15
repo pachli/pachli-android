@@ -158,7 +158,6 @@
     <string name="send_post_link_to">টুট URL ভাগ করুন …</string>
     <string name="downloading_media">মিডিয়া ডাউনলোড করা হচ্ছে</string>
     <string name="download_media">মিডিয়া ডাউনলোড করুন</string>
-    <string name="action_share_as">হিসাবে ভাগ করুন …</string>
     <string name="action_copy_link">লিঙ্ক অনুলিপি করুন</string>
     <string name="download_image">\'%1$s ডাউনলোড হচ্ছে\'</string>
     <string name="action_open_media_n">মিডিয়া খুলুন #%d</string>

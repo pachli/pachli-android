@@ -277,6 +277,26 @@ class AccountManager @Inject constructor(
     }
 
     /**
+     * Resolves [pachliAccountId] to an actual Pachli account ID.
+     *
+     * If:
+     *  - [pachliAccountId] is null, returns the active account ID, or null if
+     *  no active account.
+     *  - [pachliAccountId] is `-1`, returns the active account ID, or null if
+     *  no active account.
+     *  - [pachliAccountId] references an account that exists in the database,
+     *  then that account ID (i.e., input == output).
+     *  - Otherwise the account does not exist locally, returns null
+     */
+    fun resolvePachliAccountId(pachliAccountId: Long?): Long? {
+        if (pachliAccountId == null || pachliAccountId == -1L) {
+            return accounts.find { it.isActive }?.id
+        }
+
+        return accounts.find { it.id == pachliAccountId }?.id
+    }
+
+    /**
      * Verifies the account has valid credentials according to the remote server
      * and adds it to the local database if it does.
      *
@@ -378,7 +398,7 @@ class AccountManager @Inject constructor(
 
         return try {
             transactionProvider {
-                Timber.d("setActiveAcccount(%d)", accountId)
+                Timber.d("setActiveAccount(%d)", accountId)
 
                 // Handle "-1" as the accountId.
                 val previousActiveAccount = accountDao.getActiveAccount()
@@ -454,6 +474,11 @@ class AccountManager @Inject constructor(
             currentCoroutineContext().ensureActive()
             Err(SetActiveAccountError.Unexpected(fallbackAccount, accountEntity!!, e))
         }
+    }
+
+    suspend fun refresh(pachliAccountId: Long): Result<Unit, RefreshAccountError> {
+        // TODO: Ok(unit) not OK here, should handle the case where getAccountById fails
+        return getAccountById(pachliAccountId)?.let { return@let refresh(it) } ?: Ok(Unit)
     }
 
     /**

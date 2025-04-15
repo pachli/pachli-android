@@ -296,7 +296,6 @@
     <string name="label_remote_account">Dei lista opplysningane kan vera feilaktige eller ufullstendige. Trykk for å opne profilen i nettlesar.</string>
     <string name="download_image">Lastar ned %1$s</string>
     <string name="action_copy_link">Kopier lenkje</string>
-    <string name="action_share_as">Del som…</string>
     <string name="download_media">Last ned media</string>
     <string name="send_post_content_to">Del innlegg til…</string>
     <string name="send_account_link_to">Del konto-URL til…</string>
@@ -750,8 +749,6 @@
     <string name="search_operator_where_public">Lista innlegg</string>
     <string name="search_operator_where_dialog_public">Lista innlegg</string>
     <string name="upload_failed_msg_fmt">Pachli skal prøve å laste opp vedlegg når du sender innlegget. Dersom opplastinga mislykkast igjen, skal innlegget lagrast i utkasta dine.\n\nFeilen var: %1$s</string>
-    <string name="main_viewmodel_error_refresh_account">Å gjenoppfriske kontoen mislykkast med den følgende feilen:\n\n%1$s\n\nDu kan fortsetja, men det kan hende at dine lister og filter kan vera ufullstendige.</string>
-    <string name="main_viewmodel_error_set_active_account">Å prøve å logge inn mislykkast med den fylgjande feilen:\n\n%1$s</string>
     <string name="pref_title_account_notification_filters">Varselfilter</string>
     <string name="pref_account_notification_filters_label_not_followed">…du ikkje fylgjer</string>
     <string name="pref_account_notification_filters_label_younger_30d">…vart oppretta på dei siste 30 dagane</string>
@@ -772,7 +769,6 @@
     <string name="search_operator_where_dialog_all_hint">Innlegg i biblioteket ditt og lista innlegg</string>
     <string name="search_operator_where_dialog_library">Biblioteket ditt</string>
     <string name="search_operator_where_dialog_library_hint">Dine eigne innlegg, delingar, favorittmerke, bokmerke, og innlegg som @nemner deg</string>
-    <string name="action_relogin">Logg inn på nytt</string>
     <string name="search_operator_from_dialog_me">Kun mine innlegg</string>
     <string name="search_operator_from_dialog_ignore_me">Alle innlegg unnateke mine</string>
     <string name="search_operator_poll_no_polls">Utan avstemmingar</string>

@@ -84,7 +84,6 @@
     <string name="send_post_link_to">Comhroinn URL na postála chuig…</string>
     <string name="downloading_media">Meáin íoslódála</string>
     <string name="download_media">Íoslódáil meáin</string>
-    <string name="action_share_as">Comhroinn mar …</string>
     <string name="action_copy_link">Cóipeáil an nasc</string>
     <string name="download_image">Ag íoslódáil %1$s</string>
     <string name="action_open_media_n">Meáin oscailte #%d</string>
@@ -802,9 +801,6 @@
         <item quantity="many">%1$s leantóirí bainte</item>
         <item quantity="other">%1$s leantóirí bainte</item>
     </plurals>
-    <string name="main_viewmodel_error_set_active_account">Theip ar an iarracht logáil isteach leis an earráid seo a leanas:\n\n%1$s</string>
-    <string name="action_relogin">Ath-logáil isteach</string>
-    <string name="main_viewmodel_error_refresh_account">Theip ar athnuachan an chuntais leis an earráid seo a leanas:\n\n%1$s\n\nIs féidir leat leanúint ar aghaidh, ach seans go mbeidh do liostaí agus do scagairí neamhiomlán.</string>
     <string name="filter_description_none">Taispeáin mar is gnách</string>
     <string name="pref_title_account_notification_filters">Scagairí fógra</string>
     <string name="pref_account_notification_filters_subtitle">Cad ba cheart a tharlú d\'fhógraí ó chuntais…</string>

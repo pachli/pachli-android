@@ -159,7 +159,6 @@
     <string name="action_hide_media">Sembunyikan media</string>
     <string name="action_open_drawer">Buka laci</string>
     <string name="action_delete_and_redraft">Hapus dan draf ulang</string>
-    <string name="action_share_as">Bagikan sebagai…</string>
     <string name="send_post_link_to">Bagikan URL post kepada…</string>
     <string name="action_toggle_visibility">Visibilitas post</string>
     <string name="send_post_content_to">Bagikan post kepada…</string>

@@ -68,7 +68,6 @@
     <string name="send_post_content_to">Đăng lại tút với…</string>
     <string name="downloading_media">Đang lưu vào thiết bị</string>
     <string name="download_media">Tải xuống</string>
-    <string name="action_share_as">Đăng lại với tư cách …</string>
     <string name="action_copy_link">Chép URL</string>
     <string name="download_image">Đang tải %1$s</string>
     <string name="action_open_media_n">Mở tập tin #%d</string>

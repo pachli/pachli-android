@@ -248,7 +248,6 @@
     <string name="send_post_link_to">แชร์ URL Toot ไป…</string>
     <string name="downloading_media">กำลังดาวน์โหลดสื่อ</string>
     <string name="download_media">ดาวน์โหลดสื่อ</string>
-    <string name="action_share_as">แบ่งปันโดย…</string>
     <string name="action_copy_link">คัดลอกลิงก์</string>
     <string name="download_image">กำลังดาวน์โหลด %1$s</string>
     <string name="action_open_media_n">เปิดสื่อ #%d</string>

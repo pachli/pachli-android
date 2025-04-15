@@ -89,7 +89,6 @@
     <string name="action_add_tab">Sekme ekle</string>
     <string name="download_image">%1$s indiriliyor</string>
     <string name="action_copy_link">Bağlantıyı kopyala</string>
-    <string name="action_share_as">Olarak paylaş …</string>
     <string name="send_post_link_to">Gönderi adresini paylaş…</string>
     <string name="send_post_content_to">Gönderiyi paylaş…</string>
     <string name="send_media_to">Medyayı paylaş…</string>

@@ -90,7 +90,6 @@
     <string name="action_open_faved_by">Kedvencek megjelenítése</string>
     <string name="download_image">%1$s letöltése</string>
     <string name="action_copy_link">Link másolása</string>
-    <string name="action_share_as">Megosztás mint …</string>
     <string name="send_post_link_to">Bejegyzés URL megosztása…</string>
     <string name="send_post_content_to">Bejegyzés megosztása…</string>
     <string name="confirmation_reported">Elküldve!</string>
