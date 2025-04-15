@@ -172,7 +172,8 @@ class AccountRouterActivity : BaseActivity() {
 //                }
 
                 val intent = payload.mainActivityIntent
-                startActivityWithDefaultTransition(intent)
+                startActivityWithTransition(intent, TransitionKind.EXPLODE)
+                finish()
             }
         }
     }
