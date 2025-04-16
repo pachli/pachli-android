@@ -724,4 +724,24 @@
     <string name="preview_card_byline_fediverse_account_fmt">No <b>%1$s</b>. Apskatīt vairāk ierakstu</string>
     <string name="error_prepare_media_file_is_too_large_fmt">datnes izmērs ir %1$s, lielākais pieļaujamais lielums ir %2$s</string>
     <string name="pref_notification_fetch_method_title">Paziņojuma veids</string>
+    <string name="search_operator_from_ignore_account_fmt">Ne %1$s</string>
+    <string name="search_operator_from_dialog_title">Ierobežot noteiktiem kontiem?</string>
+    <string name="search_operator_from_ignore_me">Ne mani ieraksti</string>
+    <string name="search_operator_from_account_fmt">Tikai %1$s</string>
+    <string name="search_operator_attachment_none">Neviens</string>
+    <string name="search_operator_from_all">No ▾</string>
+    <string name="search_operator_from_me">Tikai mani ieraksti</string>
+    <string name="search_operator_attachment_at_least_one">Vismaz viens</string>
+    <string name="search_operator_attachment_no_media_label">Nav informācijas nesēju</string>
+    <string name="search_operator_attachment_dialog_image_label">Attēli</string>
+    <string name="search_operator_from_dialog_all">Visi konti</string>
+    <string name="search_operator_attachment_dialog_video_label">Video</string>
+    <string name="search_operator_attachment_dialog_audio_label">Skaņa</string>
+    <string name="search_operator_from_dialog_me">Tikai mani ieraksti</string>
+    <string name="search_operator_from_dialog_ignore_me">Visi ieraksti, izņemot manus</string>
+    <string name="search_operator_from_dialog_other_account">Tikai ieraksti no šī konta</string>
+    <string name="search_operator_attachment_kind_image_label">attēli</string>
+    <string name="search_operator_attachment_all">Informācijas nesēji ▾</string>
+    <string name="search_operator_attachment_kind_video_label">video</string>
+    <string name="search_operator_attachment_specific_media_exclude_3_fmt">Nav %1$s, %2$s, %3$s</string>
 </resources>
