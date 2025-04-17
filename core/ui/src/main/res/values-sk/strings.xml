@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_network">Vyskytla sa chyba v sieti. Prosím skontrolujte svoje pripojenie a skúste to znova.</string>
+    <string name="error_network">Vyskytla sa chyba v sieti. Prosím skontroluj svoje pripojenie a skús znova.</string>
     <string name="error_generic">Vyskytla sa chyba.</string>
     <string name="action_links">Odkazy</string>
     <string name="action_mentions">Zmienky</string>
