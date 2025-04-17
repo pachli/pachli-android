@@ -249,7 +249,7 @@
     <string name="pref_title_app_theme">Motiv aplikácie</string>
     <string name="pref_title_timelines">Časové osi</string>
     <string name="pref_summary_http_proxy_disabled">Deaktivované</string>
-    <string name="pref_title_custom_tabs">Použiť vlastné karty prehliadača Chrome</string>
+    <string name="pref_title_custom_tabs">Otvoriť odkaz vo Vlastných kartách (Chrome)</string>
     <string name="pref_title_animate_custom_emojis">Animovať vlastné emotikony</string>
     <string name="pref_summary_http_proxy_invalid">&lt;neplatné&gt;</string>
     <string name="pref_default_post_privacy">Predvolené nastavenie súkromia príspevku</string>
@@ -821,4 +821,10 @@
         <item quantity="few">%1$d dni</item>
         <item quantity="other">%1$d dní</item>
     </plurals>
+    <string name="pref_custom_tabs_true">Rýchlejšie, tvoj preferovaný prehliadač v Pachli</string>
+    <string name="pref_title_notification_filter_severed_relationships">Spojenie so sledovaným/sledujúcim bolo prerušené</string>
+    <string name="pref_custom_tabs_false">Pomalšie, tvoj preferovaný prehliadač</string>
+    <string name="export_preferences_ok_fmt">Preferencie exportované do %1$s</string>
+    <string name="error_export_preferences_fmt">Nepodarilo sa exportovať nastavania do %1$s: %2$s</string>
+    <string name="error_import_preferences_fmt">Nepodarilo sa importovať nastavenia z %1$s: %2$s</string>
 </resources>
