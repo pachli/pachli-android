@@ -118,7 +118,7 @@
     <string name="dialog_mute_warning">Stíšiť @%s?</string>
     <string name="dialog_block_warning">Zablokovať @%s?</string>
     <string name="visibility_unlisted">Tiché verejné: Nezobrazovať na verejných časových osách</string>
-    <string name="pref_title_notification_filter_favourites">sú moje príspevky obľúbené</string>
+    <string name="pref_title_notification_filter_favourites">Moje príspevky sú obľúbené</string>
     <string name="pref_summary_http_proxy_missing">&lt;nenastavené&gt;</string>
     <string name="post_boosted_format">%s zdieľal/a</string>
     <string name="title_edits">Úpravy</string>
@@ -135,7 +135,7 @@
     <string name="pref_title_proxy_settings">Proxy</string>
     <string name="send_post_content_to">Zdieľať príspevok s…</string>
     <string name="visibility_public">Verejné: Uverejniť na verejných časových osách</string>
-    <string name="pref_title_notification_filter_subscriptions">niekto, koho odoberám, uverejní nový príspevok</string>
+    <string name="pref_title_notification_filter_subscriptions">Niekto, koho odoberám, uverejnil/a nový príspevok</string>
     <string name="action_suggestions">Navrhované účty</string>
     <string name="account_username_copied">Používateľské meno bolo skopírované</string>
     <string name="pref_title_notification_filters">Upozorniť ma, keď</string>
@@ -245,7 +245,7 @@
     <string name="dialog_delete_conversation_warning">Vymazať túto konverzáciu?</string>
     <string name="dialog_mute_hide_notifications">Skryť upozornenia</string>
     <string name="visibility_direct">Priame: Uverejniť iba pre uvedené účty</string>
-    <string name="pref_title_notification_filter_sign_ups">sa niekto zaregistroval</string>
+    <string name="pref_title_notification_filter_sign_ups">Niekto sa zaregistroval</string>
     <string name="pref_title_app_theme">Motiv aplikácie</string>
     <string name="pref_title_timelines">Časové osi</string>
     <string name="pref_summary_http_proxy_disabled">Deaktivované</string>
@@ -267,10 +267,10 @@
     <string name="pref_failed_to_sync">Nepodarilo se synchronizovať nastavenie</string>
     <string name="title_favourited_by">Obľúbené účtom</string>
     <string name="action_open_drawer">Otvoriť menu</string>
-    <string name="pref_title_notification_filter_follows">som sledovaný/á</string>
-    <string name="pref_title_notification_filter_follow_requests">som požiadaný/á o sledovanie</string>
+    <string name="pref_title_notification_filter_follows">Sledované</string>
+    <string name="pref_title_notification_filter_follow_requests">Požiadané o sledovanie</string>
     <string name="hint_content_warning">Varovanie pred obsahom</string>
-    <string name="pref_title_notification_filter_updates">príspevok, s ktorým som interagoval/a, bol upravený</string>
+    <string name="pref_title_notification_filter_updates">Príspevok, s ktorým som interagoval/a, bol upravený</string>
     <string name="pref_title_hide_follow_button">Skryť tlačidlo pre písanie pri skrolovaní</string>
     <string name="pref_title_language">Jazyk</string>
     <string name="pref_title_animate_gif_avatars">Animovať GIF avatary</string>
@@ -290,10 +290,10 @@
     <string name="notification_sign_up_format">%s sa zaregistroval/a</string>
     <string name="notification_subscription_format">%s práve uverejnil/a príspevok</string>
     <string name="notification_update_format">%s upravil/a svoj príspevok</string>
-    <string name="pref_title_notification_filter_mentions">som zmiený/á</string>
-    <string name="pref_title_notification_filter_reblogs">sú moje príspevky zdieľané</string>
-    <string name="pref_title_notification_filter_poll">skončia ankety</string>
-    <string name="pref_title_notification_filter_reports">je nové hlásenie</string>
+    <string name="pref_title_notification_filter_mentions">Zmienky</string>
+    <string name="pref_title_notification_filter_reblogs">Moje príspevky sú zdieľané</string>
+    <string name="pref_title_notification_filter_poll">Ankety skončili</string>
+    <string name="pref_title_notification_filter_reports">Nové hlásenie</string>
     <string name="pref_title_post_filter">Filtrovanie časovej osi</string>
     <string name="pref_title_show_boosts">Zobraziť zdieľania</string>
     <string name="pref_title_show_replies">Zobraziť odpovede</string>
@@ -805,4 +805,20 @@
     <string name="action_send_public_content_description">Odoslať verejný príspevok</string>
     <string name="action_send_unlisted_content_description">Odoslať tichý verejný príspevok</string>
     <string name="action_send_private_content_description">Odoslať príspevok len pre sledujúcich</string>
+    <string name="followed_hashtags_summary_fmt">%1$s z %2$s (posledné %3$s)</string>
+    <plurals name="followed_hashtags_posts_count_fmt">
+        <item quantity="one">%1$d príspevok</item>
+        <item quantity="few">%1$d príspevky</item>
+        <item quantity="other">%1$d príspevkov</item>
+    </plurals>
+    <plurals name="followed_hashtags_accounts_count_fmt">
+        <item quantity="one">%1$d účet</item>
+        <item quantity="few">%1$d účty</item>
+        <item quantity="other">%1$d účtov</item>
+    </plurals>
+    <plurals name="followed_hashtags_days_count_fmt">
+        <item quantity="one">%1$d deň</item>
+        <item quantity="few">%1$d dni</item>
+        <item quantity="other">%1$d dní</item>
+    </plurals>
 </resources>
