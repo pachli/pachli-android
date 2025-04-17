@@ -11,4 +11,7 @@
     <string name="server_repository_error_capabilities">spracovanie schopností servera zlyhalo: %1$s</string>
     <string name="account_manager_error_dao">Chyba databázy, nahlás to prosím na team@pachli.app: %1$s</string>
     <string name="account_manager_error_unexpected">neočakávaná chyba: %1$s</string>
+    <string name="error_preference_importer_missing_schema_version">súbor neobsahuje verziu schémy</string>
+    <string name="error_preference_importer_null_on_import">importovanie súboru vrátilo null</string>
+    <string name="error_preference_importer_wrong_version_fmt">súbor neznámej verzie: %1$s</string>
 </resources>
