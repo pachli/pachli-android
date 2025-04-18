@@ -336,7 +336,6 @@
     <string name="filter_dialog_whole_word_description">如果關鍵字或短語僅為字母或數字，則只有在匹配整個單詞時才會應用</string>
     <string name="description_poll">使用以下選項創建投票：%1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="compose_preview_image_description">圖片 %s 的動作</string>
-    <string name="button_continue">繼續</string>
     <string name="button_back">返回</string>
     <string name="report_sent_success">成功回報 @%s</string>
     <string name="hint_additional_info">附加留言</string>

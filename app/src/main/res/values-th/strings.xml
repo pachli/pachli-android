@@ -20,7 +20,6 @@
     <string name="hint_additional_info">ความคิดเห็นเพิ่มเติม</string>
     <string name="report_sent_success">รายงาน @%s เรียบร้อยแล้ว</string>
     <string name="button_back">ย้อนกลับ</string>
-    <string name="button_continue">ต่อไป</string>
     <plurals name="poll_timespan_seconds">
         <item quantity="other">เหลืออีก %d วินาที</item>
     </plurals>

@@ -552,7 +552,6 @@
         <item quantity="one">%d second left</item>
         <item quantity="other">%d seconds left</item>
     </plurals>
-    <string name="button_continue">Continue</string>
     <string name="button_back">Back</string>
     <string name="report_sent_success">Successfully reported @%s</string>
     <string name="hint_additional_info">Additional comments</string>

@@ -15,4 +15,5 @@
     <string name="title_links_dialog">Länkar</string>
     <string name="title_hashtags_dialog">Hashtaggar</string>
     <string name="title_mentions_dialog">Omnämnanden</string>
+    <string name="button_continue">Fortsätt</string>
 </resources>

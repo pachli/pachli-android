@@ -17,4 +17,5 @@
     <string name="item_copied">Texto copiado</string>
     <string name="action_copy_item">Copiar ítem</string>
     <string name="title_mentions_dialog">Menciones</string>
+    <string name="button_continue">Continuar</string>
 </resources>

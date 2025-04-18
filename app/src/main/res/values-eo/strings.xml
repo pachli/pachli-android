@@ -317,7 +317,6 @@
     <string name="mute_domain_warning">Ĉu vi certas ke vi volas tute bloki %s\? Vi ne vidos enhavon de tiu domajno en publika tempolinio aŭ en viaj sciigoj. Viaj sekvantoj el tiu domajno estos forigitaj.</string>
     <string name="mute_domain_warning_dialog_ok">Kaŝi la tutan domajnon</string>
     <string name="description_poll">Balotenketo kun elektoj: %1$s, %2$s, %3$s, %4$s, %5$s</string>
-    <string name="button_continue">Daŭrigi</string>
     <string name="button_back">Reveni</string>
     <string name="report_sent_success">\@%s sukcese signalita</string>
     <string name="hint_additional_info">Pliaj komentoj</string>

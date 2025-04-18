@@ -37,7 +37,6 @@
     <string name="action_logout">Đăng xuất</string>
     <string name="action_send_public">ĐĂNG</string>
     <string name="button_back">Quay lại</string>
-    <string name="button_continue">Tiếp tục</string>
     <string name="filter_dialog_update_button">Cập nhật</string>
     <string name="filter_dialog_remove_button">Xóa</string>
     <string name="action_send">ĐĂNG</string>

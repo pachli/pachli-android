@@ -39,7 +39,6 @@
     <string name="create_poll_title">पोल</string>
     <string name="title_accounts">खाता</string>
     <string name="button_back">पीछे</string>
-    <string name="button_continue">जारी रखें</string>
     <string name="poll_vote">वोट</string>
     <string name="poll_info_closed">बन्द है</string>
     <string name="compose_shortcut_short_label">लिखें</string>

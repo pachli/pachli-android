@@ -325,7 +325,6 @@
         <item quantity="one">%d seconde over</item>
         <item quantity="other">%d seconden over</item>
     </plurals>
-    <string name="button_continue">Doorgaan</string>
     <string name="button_back">Terug</string>
     <string name="report_sent_success">Het rapporteren van @%s is geslaagd</string>
     <string name="hint_additional_info">Extra opmerkingen</string>

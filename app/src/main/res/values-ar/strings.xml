@@ -364,7 +364,6 @@
     <string name="confirmation_domain_unmuted">لم يعُد %s مخفيا</string>
     <string name="mute_domain_warning_dialog_ok">اخفِ كافة النطاق</string>
     <string name="pref_title_animate_gif_avatars">تنشيط الصور المتحركة GIF للحسابات</string>
-    <string name="button_continue">واصل</string>
     <string name="button_back">العودة</string>
     <string name="report_sent_success">تم الابلاغ عن @%s بنجاح</string>
     <string name="hint_additional_info">تعليقات إضافية</string>

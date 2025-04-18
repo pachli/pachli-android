@@ -17,7 +17,9 @@
 
 package app.pachli.feature.accountrouter
 
+import android.app.Dialog
 import android.app.NotificationManager
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -44,9 +46,11 @@ import app.pachli.core.navigation.LoginActivityIntent.LoginMode
 import app.pachli.core.navigation.MainActivityIntent
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.network.retrofit.apiresult.ClientError
-import app.pachli.core.ui.extensions.await
+import app.pachli.core.ui.AlertDialogFragment
+import app.pachli.core.ui.ChooseAccountDialogFragment
 import app.pachli.feature.accountrouter.AccountRouterViewModel.Companion.canHandleMimeType
 import app.pachli.feature.accountrouter.FallibleUiAction.SetActiveAccount
+import app.pachli.feature.accountrouter.databinding.DialogChooseAccountShowErrorBinding
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.AndroidEntryPoint
@@ -54,11 +58,14 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 /**
  * Determines the correct account to use, and routes the user to the correct
  * activity.
+ *
+ * If routing to MainActivity the active account is set and refreshed to ensure
+ * the app has up-to-date data. Errors that occur during this process are shown
+ * to the user with options for handling them.
  */
 @AndroidEntryPoint
 class AccountRouterActivity : BaseActivity() {
@@ -69,12 +76,10 @@ class AccountRouterActivity : BaseActivity() {
     private var dismissSplashScreen = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Timber.d("onCreate")
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
             installSplashScreen()
         }
         super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_account_router)
 
         val content: View = findViewById(android.R.id.content)
         content.viewTreeObserver.addOnPreDrawListener(
@@ -108,56 +113,86 @@ class AccountRouterActivity : BaseActivity() {
         }
     }
 
-    private fun bindAccount(savedInstanceState: Bundle?, accounts: List<AccountEntity>) {
-        Timber.d("bindAccount: $accounts")
-
+    /**
+     * Determine the account to act as and launch the appropriate activity.
+     *
+     * @param accounts The available accounts.
+     */
+    private suspend fun bindAccount(savedInstanceState: Bundle?, accounts: List<AccountEntity>) {
         // Only thing to do if there are no accounts is to prompt the user to login.
         if (accounts.isEmpty()) {
             val intent = LoginActivityIntent(this@AccountRouterActivity)
                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivityWithDefaultTransition(intent)
+            finish()
             return
         }
 
         if (savedInstanceState != null) return
 
         val pachliAccountId: Long = resolvePachliAccountId(intent.pachliAccountId, accounts) ?: run {
-            // Requested account does not exist, ask the user to choose (or maybe show an error
-            // instead).
-            // TODO: Dialog
-            if (BuildConfig.DEBUG) throw RuntimeException("Could not resolve account with ID ${intent.pachliAccountId}")
-            -1L
+            // Requested account does not exist, ask the user to choose
+//            if (BuildConfig.DEBUG) throw RuntimeException("Could not resolve account with ID ${intent.pachliAccountId}")
+            dismissSplashScreen = true
+            val account = ChooseAccountDialogFragment
+                .newInstance(getString(R.string.title_choose_account_dialog), true)
+                .await(supportFragmentManager)
+            if (account == null) {
+                finish()
+                return
+            }
+            account.id
         }
 
+        // Determine the payload. If there is no payload then start MainActivity with
+        // the appropriate account.
         val payload = AccountRouterActivityIntent.payload(intent)
             ?: Payload.MainActivity(MainActivityIntent.start(this, pachliAccountId))
 
-//        Timber.d("  payload: $payload")
         when (payload) {
             is Payload.QuickTile -> {
-                showAccountChooserDialog(getString(R.string.action_share_as), true) { account ->
-                    val requestedId = account.id
-                    launchComposeActivityAndExit(requestedId)
+                dismissSplashScreen = true
+                val account = if (accounts.size == 1) {
+                    accounts.first()
+                } else {
+                    ChooseAccountDialogFragment
+                        .newInstance(getString(R.string.action_share_as), true)
+                        .await(supportFragmentManager)?.entity
                 }
+                if (account == null) {
+                    finish()
+                    return
+                }
+                launchComposeActivityAndExit(account.id)
             }
 
             is Payload.NotificationCompose -> {
                 val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
                 notificationManager.cancel(payload.notificationTag, payload.notificationId)
-                launchComposeActivityAndExit(intent.pachliAccountId, payload.composeOptions)
+                launchComposeActivityAndExit(pachliAccountId, payload.composeOptions)
             }
 
             Payload.ShareContent -> {
+                dismissSplashScreen = true
                 // If the intent contains data to share choose the account to share from
                 // and start the composer.
                 if (canHandleMimeType(intent.type)) {
-                    // Determine the account to use.
-                    showAccountChooserDialog(getString(R.string.action_share_as), true) { account ->
-                        val requestedId = account.id
-                        forwardToComposeActivityAndExit(requestedId, intent)
+                    val account = if (accounts.size == 1) {
+                        accounts.first()
+                    } else {
+                        ChooseAccountDialogFragment
+                            .newInstance(getString(R.string.action_share_as), true)
+                            .await(supportFragmentManager)?.entity
                     }
+                    account?.let { forwardToComposeActivityAndExit(account.id, intent) }
+                } else {
+                    AlertDialogFragment.newInstance(
+                        title = getString(R.string.title_error_mime_type),
+                        message = getString(R.string.error_mime_type_fmt, intent.type),
+                        positiveText = null,
+                    ).await(supportFragmentManager)
+                    finish()
                 }
-                // TODO: Show an error if we can't handle the content
                 return
             }
 
@@ -166,8 +201,6 @@ class AccountRouterActivity : BaseActivity() {
     }
 
     private fun bindUiSuccess(success: UiSuccess) {
-        Timber.d("bindUiSuccess: $success")
-
         when (success) {
             is UiSuccess.SetActiveAccount -> viewModel.accept(
                 FallibleUiAction.RefreshAccount(
@@ -186,33 +219,54 @@ class AccountRouterActivity : BaseActivity() {
     }
 
     private suspend fun bindUiError(uiError: UiError) {
-//        Timber.d("bindUiError: uiError")
+        dismissSplashScreen = true
+
+        // Every handler must either send a new UiAction or finish the activity.
+
         when (uiError) {
             is UiError.SetActiveAccount -> {
-                // Logging in failed. Show a dialog explaining what's happened.
-                val builder = AlertDialog.Builder(this)
-                    .setMessage(uiError.fmt(this))
-                    .create()
-
                 when (uiError.cause) {
                     is SetActiveAccountError.AccountDoesNotExist -> {
                         // Special case AccountDoesNotExist, as that should never happen. If it does
-                        // there's nothing to do except try and switch back to the previous account.
-                        val button = builder.await(android.R.string.ok)
-                        if (button == AlertDialog.BUTTON_POSITIVE && uiError.cause.fallbackAccount != null) {
-                            viewModel.accept(uiError.action.copy(pachliAccountId = uiError.cause.fallbackAccount!!.id))
-                        }
-                        return
+                        // there's nothing to do except try and switch back to another account.
+                        ChooseAccountWithErrorDialogFragment.newInstance(
+                            getString(R.string.title_error_dialog),
+                            uiError.fmt(this),
+                        ).await(supportFragmentManager)?.let { account ->
+                            viewModel.accept(uiError.action.copy(pachliAccountId = account.id))
+                        } ?: finish()
                     }
 
                     is SetActiveAccountError.Api -> when (uiError.cause.apiError) {
-                        // Special case invalid tokens. The user can be prompted to relogin. Cancelling
-                        // switches to the fallback account, or finishes if there is none.
+                        // Special case invalid tokens. The user can be prompted to relogin.
+                        // Cancelling chooses from other accounts, or finishes if there are none.
                         is ClientError.Unauthorized -> {
-                            builder.setTitle(uiError.cause.wantedAccount.fullName)
+                            val accountCount = viewModel.accounts.value.get().orEmpty().size
 
-                            val button = builder.await(R.string.action_relogin, android.R.string.cancel)
+                            val message = if (accountCount > 1) {
+                                getString(
+                                    R.string.client_error_unauthorized_multiple_fmt,
+                                    uiError.fmt(this),
+                                    getString(R.string.action_relogin),
+                                    getString(android.R.string.cancel),
+                                )
+                            } else {
+                                getString(
+                                    R.string.client_error_unauthorized_fmt,
+                                    uiError.fmt(this),
+                                    getString(R.string.action_relogin),
+                                )
+                            }
+
+                            val button = AlertDialogFragment.newInstance(
+                                uiError.cause.wantedAccount.fullName,
+                                message = message,
+                                positiveText = getString(R.string.action_relogin),
+                                negativeText = getString(android.R.string.cancel),
+                            ).await(supportFragmentManager)
+
                             when (button) {
+                                // OK? Let the user re-authenticate.
                                 AlertDialog.BUTTON_POSITIVE -> {
                                     startActivityWithTransition(
                                         LoginActivityIntent(
@@ -224,11 +278,19 @@ class AccountRouterActivity : BaseActivity() {
                                     finish()
                                 }
 
-                                // TODO: Get rid of the "fallback" account idea. This should show
-                                // the user a list of accounts and they can try again.
+                                // Cancel? If this is the only account then finish. Otherwise
+                                // show the available accounts and allow the user to choose
+                                // another one.
                                 AlertDialog.BUTTON_NEGATIVE -> {
-                                    uiError.cause.fallbackAccount?.run {
-                                        viewModel.accept(SetActiveAccount(id, uiError.action.payload))
+                                    if (accountCount == 1) {
+                                        finish()
+                                        return
+                                    }
+                                    ChooseAccountDialogFragment.newInstance(
+                                        getString(R.string.title_choose_account_dialog),
+                                        true,
+                                    ).await(supportFragmentManager)?.let { account ->
+                                        viewModel.accept(uiError.action.copy(pachliAccountId = account.id))
                                     } ?: finish()
                                 }
                             }
@@ -236,57 +298,90 @@ class AccountRouterActivity : BaseActivity() {
 
                         // Other API errors are retryable.
                         else -> {
-                            builder.setTitle(uiError.cause.wantedAccount.fullName)
-                            val button = builder.await(app.pachli.core.ui.R.string.action_retry, android.R.string.cancel)
-                            when (button) {
-                                AlertDialog.BUTTON_POSITIVE -> viewModel.accept(uiError.action)
-                                else -> {
-                                    uiError.cause.fallbackAccount?.run {
-                                        viewModel.accept(uiError.action)
-                                    } ?: finish()
-                                }
-                            }
+                            ChooseAccountWithErrorDialogFragment.newInstance(
+                                uiError.cause.wantedAccount.fullName,
+                                uiError.fmt(this),
+                            ).await(supportFragmentManager)?.let { account ->
+                                viewModel.accept(uiError.action.copy(pachliAccountId = account.id))
+                            } ?: finish()
                         }
                     }
 
-                    // Database errors are not retryable. Display the error, offer to
-                    // switch back to the fall back account.
+                    // Database errors are not retryable. Display the error.
                     //
                     // If these occur it's a bug in Pachli, the database should never
                     // get to a bad state.
                     is SetActiveAccountError.Dao -> {
-                        uiError.cause.wantedAccount?.let { builder.setTitle(it.fullName) }
-                        val button = builder.await(android.R.string.ok)
-                        if (button == AlertDialog.BUTTON_POSITIVE && uiError.cause.fallbackAccount != null) {
-                            viewModel.accept(uiError.action.copy(pachliAccountId = uiError.cause.fallbackAccount!!.id))
-                        }
-                        return
+                        ChooseAccountWithErrorDialogFragment.newInstance(
+                            uiError.cause.wantedAccount?.fullName ?: getString(R.string.title_error_dialog),
+                            uiError.fmt(this),
+                        ).await(supportFragmentManager)?.let { account ->
+                            viewModel.accept(uiError.action.copy(pachliAccountId = account.id))
+                        } ?: finish()
                     }
 
                     // Other errors are retryable.
                     is SetActiveAccountError.Unexpected -> {
-                        builder.setTitle(uiError.cause.wantedAccount.fullName)
-                        val button = builder.await(app.pachli.core.ui.R.string.action_retry, android.R.string.cancel)
-                        when (button) {
-                            AlertDialog.BUTTON_POSITIVE -> viewModel.accept(uiError.action)
-                            else -> {
-                                uiError.cause.fallbackAccount?.let {
-                                    viewModel.accept(uiError.action.copy(pachliAccountId = it.id))
-                                } ?: finish()
-                            }
-                        }
+                        ChooseAccountWithErrorDialogFragment.newInstance(
+                            uiError.cause.wantedAccount.fullName,
+                            uiError.fmt(this),
+                        ).await(supportFragmentManager)?.let { account ->
+                            viewModel.accept(uiError.action.copy(pachliAccountId = account.id))
+                        } ?: finish()
                     }
                 }
             }
 
             is UiError.RefreshAccount -> {
-                // Dialog that explains refreshing failed, with retry option.
-                val button = AlertDialog.Builder(this)
-                    .setTitle(uiError.action.accountEntity.fullName)
-                    .setMessage(uiError.fmt(this))
-                    .create()
-                    .await(app.pachli.core.ui.R.string.action_retry, android.R.string.cancel)
-                if (button == AlertDialog.BUTTON_POSITIVE) viewModel.accept(uiError.action)
+                // Whether or not to describe "Cancel" as "Choose another account" depends
+                // on how many accounts exist.
+                val accountCount = viewModel.accounts.value.get().orEmpty().size
+
+                val button = AlertDialogFragment.newInstance(
+                    uiError.cause.wantedAccount.fullName,
+                    message = uiError.fmt(this),
+                    positiveText = getString(app.pachli.core.ui.R.string.button_continue),
+                    negativeText = getString(if (accountCount > 1) R.string.action_choose_another_account else android.R.string.cancel),
+                    neutralText = getString(app.pachli.core.ui.R.string.action_retry),
+                ).await(supportFragmentManager)
+
+                when (button) {
+                    AlertDialog.BUTTON_POSITIVE -> {
+                        // Pretend the action succeeded.
+                        bindUiSuccess(UiSuccess.RefreshAccount(uiError.action))
+                    }
+
+                    AlertDialog.BUTTON_NEGATIVE -> {
+                        // Cancelled. If there are no more accounts then exit, otherwise
+                        // show the account chooser, excluding the active account.
+                        if (accountCount == 1) {
+                            finish()
+                            return
+                        }
+
+                        // Show account chooser, then make that account active.
+                        ChooseAccountDialogFragment.newInstance(
+                            getString(R.string.title_choose_account_dialog),
+                            false,
+                        ).await(supportFragmentManager)?.let { account ->
+                            // Ignore the payload, as it's not going to be valid for the new
+                            // account (e.g., if the user tapped on a Drafts notification for
+                            // one account, opening drafts for the new account is not going to
+                            // be helpful). Just start MainActivity for this account.
+                            viewModel.accept(
+                                SetActiveAccount(
+                                    pachliAccountId = account.id,
+                                    payload = Payload.MainActivity(MainActivityIntent.start(this, account.id)),
+                                ),
+                            )
+                        } ?: finish()
+                    }
+
+                    AlertDialog.BUTTON_NEUTRAL -> {
+                        // Refresh
+                        viewModel.accept(uiError.action)
+                    }
+                }
             }
         }
     }
@@ -330,5 +425,60 @@ class AccountRouterActivity : BaseActivity() {
         composeIntent.pachliAccountId = pachliAccountId
         startActivity(composeIntent)
         finish()
+    }
+}
+
+/** @see [ChooseAccountWithErrorDialogFragment.Companion]. */
+@AndroidEntryPoint
+class ChooseAccountWithErrorDialogFragment : ChooseAccountDialogFragment() {
+    private val errorMsg by lazy { requireArguments().getCharSequence(ARG_ERROR_MSG) }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val binding = DialogChooseAccountShowErrorBinding.inflate(layoutInflater, null, false)
+        binding.message.text = errorMsg
+
+        binding.tryAgain.text = getString(
+            if (adapter.count == 1) {
+                R.string.error_login_failed_hint
+            } else {
+                R.string.error_login_failed_hint_multiple
+            },
+        )
+
+        return AlertDialog.Builder(requireActivity())
+            .setTitle(title)
+            .setAdapter(adapter) { _: DialogInterface?, index: Int ->
+                result = adapter.getItem(index)
+                dismiss()
+            }
+            .setView(binding.root)
+            .create()
+    }
+
+    /**
+     * A suspendable dialog showing the available
+     * [PachliAccount][app.pachli.core.data.repository.PachliAccount] accounts, and
+     * an error message below the list.
+     *
+     * @see [ChooseAccountDialogFragment.Companion].
+     */
+    companion object {
+        private const val ARG_ERROR_MSG = "app.pachli.ARG_ERROR_MSG"
+
+        /**
+         * Creates the dialog.
+         *
+         * @param title Text to show as the dialog's title.
+         * @param errorMsg Text to show as the error message.
+         *
+         * @see [ChooseAccountDialogFragment.newInstance].
+         */
+        fun newInstance(title: CharSequence?, errorMsg: CharSequence?): ChooseAccountWithErrorDialogFragment {
+            val args = newInstance(title, true).arguments
+            args?.putCharSequence(ARG_ERROR_MSG, errorMsg)
+            return ChooseAccountWithErrorDialogFragment().apply {
+                arguments = args
+            }
+        }
     }
 }

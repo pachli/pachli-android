@@ -396,7 +396,6 @@
     <string name="create_poll_title">Апытанне</string>
     <string name="duration_1_day">1 дзень</string>
     <string name="duration_3_days">3 дні</string>
-    <string name="button_continue">Працягнуць</string>
     <plurals name="poll_timespan_minutes">
         <item quantity="one">Засталася %d хвіліна</item>
         <item quantity="few">Засталося %d хвіліны</item>

@@ -19,7 +19,6 @@
     <string name="hint_additional_info">Допълнителни коментари</string>
     <string name="report_sent_success">Успешно докладване на @%s</string>
     <string name="button_back">Назад</string>
-    <string name="button_continue">Продължаване</string>
     <plurals name="poll_timespan_seconds">
         <item quantity="one">Остава %d секунда</item>
         <item quantity="other">Остават %d секунди</item>

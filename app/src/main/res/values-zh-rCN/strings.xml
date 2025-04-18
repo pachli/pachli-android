@@ -336,7 +336,6 @@
     <string name="description_poll">使用以下选项创建投票：%1$s，%2$s，%3$s，%4$s；%5$s</string>
     <string name="select_list_title">选择列表</string>
     <string name="list">列表</string>
-    <string name="button_continue">继续</string>
     <string name="button_back">返回</string>
     <string name="report_sent_success">成功举报 @%s</string>
     <string name="hint_additional_info">附加留言</string>

@@ -41,7 +41,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 internal sealed interface UiState {
     data object Loading : UiState
@@ -179,9 +178,7 @@ internal class AccountRouterViewModel @Inject constructor(
     }
 
     private suspend fun onSetActiveAccount(action: FallibleUiAction.SetActiveAccount): Result<UiSuccess.SetActiveAccount, UiError.SetActiveAccount> {
-        Timber.d("onSetActiveAccount")
         return accountManager.setActiveAccount(action.pachliAccountId)
-            .on { Timber.d("result: $it") }
             .mapEither(
                 { UiSuccess.SetActiveAccount(action, it) },
                 { UiError.SetActiveAccount(action, it) },
@@ -189,7 +186,6 @@ internal class AccountRouterViewModel @Inject constructor(
     }
 
     private suspend fun onRefreshAccount(action: FallibleUiAction.RefreshAccount): Result<UiSuccess.RefreshAccount, UiError.RefreshAccount> {
-        Timber.d("onRefreshAccount")
         return accountManager.refresh(action.accountEntity.id)
             .mapEither(
                 { UiSuccess.RefreshAccount(action) },

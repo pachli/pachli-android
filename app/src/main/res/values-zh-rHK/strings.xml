@@ -400,7 +400,6 @@
     <string name="hint_additional_info">額外的評論</string>
     <string name="report_sent_success">成功回報 @%s</string>
     <string name="button_back">返回</string>
-    <string name="button_continue">繼續</string>
     <plurals name="poll_info_people">
         <item quantity="other">%s 人</item>
     </plurals>

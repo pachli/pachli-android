@@ -346,7 +346,6 @@
         <item quantity="many">Zostało %d sekund</item>
         <item quantity="other">Zostało %d sekund</item>
     </plurals>
-    <string name="button_continue">Kontynuuj</string>
     <string name="button_back">Wstecz</string>
     <string name="report_sent_success">Zgłoszenie @%s powiodło się</string>
     <string name="hint_additional_info">Dodatkowe komentarze</string>

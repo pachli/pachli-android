@@ -333,7 +333,6 @@
     <string name="report_description_1">通報をサーバーのモデレーターに送信します。以下にこのアカウントを通報理由を入力できます:</string>
     <string name="failed_fetch_posts">投稿を取得できませんでした</string>
     <string name="button_back">戻る</string>
-    <string name="button_continue">続ける</string>
     <string name="compose_shortcut_short_label">投稿</string>
     <string name="compose_shortcut_long_label">投稿する</string>
     <string name="list">リスト</string>

@@ -15,4 +15,5 @@
     <string name="title_links_dialog">Посилання</string>
     <string name="title_hashtags_dialog">Хештеги</string>
     <string name="title_mentions_dialog">Згадки</string>
+    <string name="button_continue">Продовжити</string>
 </resources>

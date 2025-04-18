@@ -123,7 +123,6 @@
     <string name="hint_additional_info">Comentarios adicionais</string>
     <string name="report_sent_success">Denuncia feita sobre @%s</string>
     <string name="button_back">Atrás</string>
-    <string name="button_continue">Continuar</string>
     <plurals name="poll_timespan_seconds">
         <item quantity="one">queda %d segundo</item>
         <item quantity="other">quedan %d segundos</item>

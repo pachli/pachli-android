@@ -363,7 +363,6 @@
         <item quantity="many">D\'imigh %d soicindí</item>
         <item quantity="other">D\'imigh %d soicindí</item>
     </plurals>
-    <string name="button_continue">Lean ar aghaidh</string>
     <string name="button_back">Ar ais</string>
     <string name="report_sent_success">Tuairiscíodh go rathúil @%s</string>
     <string name="hint_additional_info">Tuairimí Breise</string>

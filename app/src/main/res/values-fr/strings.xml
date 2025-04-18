@@ -330,7 +330,6 @@
     <string name="action_mute_domain">Masquer %s</string>
     <string name="confirmation_domain_unmuted">%s n’est plus masqué·e</string>
     <string name="mute_domain_warning_dialog_ok">Masquer le domaine entier</string>
-    <string name="button_continue">Continuer</string>
     <string name="button_back">Retour</string>
     <string name="report_sent_success">\@%s signalé avec succès</string>
     <string name="hint_additional_info">Commentaires additionnels</string>

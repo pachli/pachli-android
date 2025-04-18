@@ -362,7 +362,6 @@
         <item quantity="many">%d secondi rimasti</item>
         <item quantity="other">%d secondi rimasti</item>
     </plurals>
-    <string name="button_continue">Continua</string>
     <string name="button_back">Indietro</string>
     <string name="report_sent_success">Segnalato @%s con successo</string>
     <string name="hint_additional_info">Altri commenti</string>

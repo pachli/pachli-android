@@ -15,4 +15,5 @@
     <string name="title_links_dialog">Saites</string>
     <string name="title_hashtags_dialog">Tēmturi</string>
     <string name="title_mentions_dialog">Pieminējumi</string>
+    <string name="button_continue">Turpināt</string>
 </resources>

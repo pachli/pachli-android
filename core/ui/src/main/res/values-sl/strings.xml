@@ -13,4 +13,5 @@
     <string name="title_links_dialog">Povezave</string>
     <string name="title_hashtags_dialog">Ključniki</string>
     <string name="title_mentions_dialog">Omembe</string>
+    <string name="button_continue">Nadaljuj</string>
 </resources>
