@@ -31,7 +31,7 @@ data class Report(
     @Json(name = "action_taken")
     val actionTaken: Boolean,
     @Json(name = "action_taken_at")
-    val actionTakenAt: Instant,
+    val actionTakenAt: Instant?,
     val comment: String,
     // Not documented as being null, but is nullable in the wild.
     // https://github.com/pachli/pachli-android/issues/1352

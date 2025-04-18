@@ -20,16 +20,27 @@ package app.pachli.core.network.json
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.JsonReader
+import com.squareup.moshi.JsonReader.Token.NULL
 import com.squareup.moshi.JsonWriter
 import com.squareup.moshi.ToJson
 import java.time.Instant
 
-class InstantJsonAdapter : JsonAdapter<Instant>() {
+class InstantJsonAdapter : JsonAdapter<Instant?>() {
     @FromJson
-    override fun fromJson(reader: JsonReader): Instant = Instant.parse(reader.readJsonValue().toString())
+    override fun fromJson(reader: JsonReader): Instant? {
+        if (reader.peek() == NULL) {
+            return reader.nextNull()
+        }
+        val string = reader.nextString()
+        return Instant.parse(string)
+    }
 
     @ToJson
     override fun toJson(writer: JsonWriter, value: Instant?) {
-        writer.jsonValue(value.toString())
+        if (value == null) {
+            writer.nullValue()
+        } else {
+            writer.jsonValue(value.toString())
+        }
     }
 }
