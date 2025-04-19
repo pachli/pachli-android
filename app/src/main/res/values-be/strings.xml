@@ -61,9 +61,6 @@
     <string name="notification_update_format">%s адрэдагаваў(-ла) свой допіс</string>
     <string name="notification_report_format">Новая скарга на %s</string>
     <string name="notification_header_report_format">%s скардзіцца на %s</string>
-    <plurals name="notification_summary_report_format">
-        <item quantity="other">%1$s · %2$d допісаў дададзена</item>
-    </plurals>
     <string name="report_username_format">Паскардзіцца на @%s</string>
     <string name="action_quick_reply">Хуткі адказ</string>
     <string name="action_reply">Адказаць</string>

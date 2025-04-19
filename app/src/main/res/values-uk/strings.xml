@@ -483,9 +483,6 @@
     <string name="action_unfollow_hashtag_format">Не слідкувати за #%s\?</string>
     <string name="status_created_at_now">зараз</string>
     <string name="notification_header_report_format">%s скаржиться %s</string>
-    <plurals name="notification_summary_report_format">
-        <item quantity="other">%1$s · %2$d прикріплених дописів</item>
-    </plurals>
     <string name="confirmation_hashtag_unfollowed">#%s не відстежується</string>
     <string name="pref_title_notification_filter_reports">з\'явилася нова скарга</string>
     <string name="notification_report_name">Скарги</string>
