@@ -58,6 +58,7 @@ import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.preferences.ShowSelfUsername
 import app.pachli.core.preferences.TabAlignment
 import app.pachli.core.preferences.TabContents
+import app.pachli.core.preferences.TabTapBehaviour
 import app.pachli.core.preferences.UpdateNotificationFrequency
 import app.pachli.core.ui.extensions.await
 import app.pachli.core.ui.makeIcon
@@ -310,6 +311,12 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                     setDefaultValue(TabContents.ICON_ONLY)
                     setTitle(app.pachli.core.preferences.R.string.pref_title_tab_contents)
                     key = PrefKeys.TAB_CONTENTS
+                }
+
+                enumListPreference<TabTapBehaviour> {
+                    setDefaultValue(TabTapBehaviour.JUMP_TO_NEXT_PAGE)
+                    setTitle(app.pachli.core.preferences.R.string.pref_title_tab_tap)
+                    key = PrefKeys.TAB_TAP_BEHAVIOUR
                 }
 
                 switchPreference {
