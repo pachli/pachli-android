@@ -515,9 +515,6 @@
     <string name="description_login">Działa w większości przypadków. Żadne dane nie są udostępniane innym aplikacjom.</string>
     <string name="description_browser_login">Może obsługiwać dodatkowe formy weryfikacji, ale wymaga kompatybilnej przeglądarki.</string>
     <string name="notification_report_format">Nowe zgłoszenie dotyczące %s</string>
-    <plurals name="notification_summary_report_format">
-        <item quantity="other">%1$s · %2$d załączonych wpisów</item>
-    </plurals>
     <string name="failed_to_pin">Nie udało się przypiąć</string>
     <string name="failed_to_unpin">Nie udało się odpiąć</string>
     <string name="error_status_source_load">Błąd ładowania źródła statusu z serwera.</string>
