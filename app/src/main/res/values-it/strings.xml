@@ -513,7 +513,9 @@
     <string name="action_continue_edit">Continua a modificare</string>
     <string name="notification_report_format">Nuova segnalazione su %s</string>
     <string name="notification_header_report_format">%s ha segnalato %s</string>
-    <string name="notification_summary_report_format">%s · %d post allegati</string>
+    <plurals name="notification_summary_report_format">
+        <item quantity="other">%1$s · %2$d post allegati</item>
+    </plurals>
     <string name="action_add_reaction">aggiungi reazione</string>
     <string name="unsaved_changes">Hai delle modifiche non salvate.</string>
     <string name="confirmation_hashtag_unfollowed">Non segui più #%s</string>

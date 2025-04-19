@@ -482,7 +482,9 @@
     <string name="pref_title_http_proxy_port_message">Lo pòrt deu èsser entre %d e %d</string>
     <string name="error_muting_hashtag_format">Fracàs en silenciant #%s</string>
     <string name="error_unmuting_hashtag_format">Fracàs en quitant de silenciar #%s</string>
-    <string name="notification_summary_report_format">%s · %d publicacions juntadas</string>
+    <plurals name="notification_summary_report_format">
+        <item quantity="other">%1$s · %2$d publicacions juntadas</item>
+    </plurals>
     <string name="post_edited">%s modificat</string>
     <string name="description_post_edited">Modificada</string>
     <string name="error_status_source_load">Fracàs del cargament de l’estatut a partir del servidor.</string>

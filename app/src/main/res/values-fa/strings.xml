@@ -465,7 +465,9 @@
     <string name="compose_save_draft_loses_media">ذخیرهٔ پیش‌نویس؟ (پیوست‌ها هنگام بازگردانی پیش‌نویس، دوباره بارگذاری خواهند شد)</string>
     <string name="notification_report_format">گزارش جدید روی %s</string>
     <string name="notification_header_report_format">%s، %s را گزارش داد</string>
-    <string name="notification_summary_report_format">%s · %d فرسته پیوسته</string>
+    <plurals name="notification_summary_report_format">
+        <item quantity="other">%1$s · %2$d فرسته پیوسته</item>
+    </plurals>
     <string name="error_following_hashtags_unsupported">این نمونه از پی‌گیری برچسب‌ها پشتیبانی نمی‌کند.</string>
     <string name="title_followed_hashtags">برچسب‌های دنبالی</string>
     <string name="confirmation_hashtag_unfollowed">پی‌گیری #%s لغو شد</string>

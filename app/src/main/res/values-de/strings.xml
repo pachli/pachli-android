@@ -469,7 +469,9 @@
     <string name="description_post_language">Sprache des Beitrags</string>
     <string name="action_set_focus">Fokuspunkt setzen</string>
     <string name="action_add_reaction">Reaktion hinzufügen</string>
-    <string name="notification_summary_report_format">%s · %d Beiträge angehängt</string>
+    <plurals name="notification_summary_report_format">
+        <item quantity="other">%1$s · %2$d Beiträge angehängt</item>
+    </plurals>
     <string name="notification_header_report_format">%s hat %s gemeldet</string>
     <string name="confirmation_hashtag_unfollowed">#%s entfolgt</string>
     <string name="pref_default_post_language">Standard-Beitragssprache</string>

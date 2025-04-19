@@ -17,6 +17,10 @@
 
 package app.pachli.components.notifications
 
+import android.graphics.Typeface
+import android.text.SpannableStringBuilder
+import android.text.Spanned
+import android.text.style.StyleSpan
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.core.activity.emojify
@@ -75,7 +79,14 @@ class FollowViewHolder(
                 },
             )
         val wrappedDisplayName = account.name.unicodeWrap()
-        val wholeMessage = String.format(format, wrappedDisplayName)
+        val wholeMessage = SpannableStringBuilder(String.format(format, wrappedDisplayName))
+        val displayNameIndex = format.indexOf("%s")
+        wholeMessage.setSpan(
+            StyleSpan(Typeface.BOLD),
+            displayNameIndex,
+            displayNameIndex + wrappedDisplayName.length,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE,
+        )
         val emojifiedMessage =
             wholeMessage.emojify(
                 account.emojis,
@@ -85,12 +96,6 @@ class FollowViewHolder(
         binding.notificationText.text = emojifiedMessage
         val username = context.getString(DR.string.post_username_format, account.username)
         binding.notificationUsername.text = username
-        val emojifiedDisplayName = wrappedDisplayName.emojify(
-            account.emojis,
-            binding.notificationUsername,
-            animateEmojis,
-        )
-        binding.notificationDisplayName.text = emojifiedDisplayName
         loadAvatar(
             account.avatar,
             binding.notificationAvatar,

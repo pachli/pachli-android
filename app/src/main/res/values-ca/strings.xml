@@ -442,7 +442,9 @@
     <string name="notification_update_format">%s ha editat la seva publicació</string>
     <string name="notification_report_format">Nou informe sobre %s</string>
     <string name="notification_header_report_format">%s ha informat %s</string>
-    <string name="notification_summary_report_format">%s · %d publicacions adjuntes</string>
+    <plurals name="notification_summary_report_format">
+        <item quantity="other">%1$s · %2$d publicacions adjuntes</item>
+    </plurals>
     <string name="action_unbookmark">Elimina el marcador</string>
     <string name="action_delete_conversation">Suprimeix la conversa</string>
     <string name="notification_sign_up_name">Inscripcions</string>

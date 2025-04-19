@@ -437,7 +437,9 @@
     <string name="title_edits">Aldaketak</string>
     <string name="notification_report_format">Salaketa berria %s-(r)i</string>
     <string name="notification_header_report_format">%s-(e)k %s salatu du</string>
-    <string name="notification_summary_report_format">%s · %d tutak finkatuak</string>
+    <plurals name="notification_summary_report_format">
+        <item quantity="other">%1$s · %2$d tutak finkatuak</item>
+    </plurals>
     <string name="title_followed_hashtags">Jarraitutako traolak</string>
     <string name="notification_update_format">%s-(e)k bere tuta editatu du</string>
     <string name="title_migration_relogin">Berriro saioa hasi push motako jakinarazpenak gaitzeko</string>

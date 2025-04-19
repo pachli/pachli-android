@@ -502,7 +502,9 @@
     <string name="action_discard">Veranderingen ongedaan maken</string>
     <string name="post_edited">Bewerkt %s</string>
     <string name="notification_header_report_format">%s gerapporteerd %s</string>
-    <string name="notification_summary_report_format">%s · %d berichten bijgevoegd</string>
+    <plurals name="notification_summary_report_format">
+        <item quantity="other">%1$s · %2$d berichten bijgevoegd</item>
+    </plurals>
     <string name="action_share_account_link">Link naar account delen</string>
     <string name="action_share_account_username">Deel de gebruikersnaam van het account</string>
     <string name="send_account_username_to">Accountgebruikersnaam delen om…</string>

@@ -19,7 +19,7 @@
         android:drawablePadding="10dp"
         android:ellipsize="end"
         android:gravity="center_vertical"
-        android:maxLines="1"
+        android:maxLines="2"
         android:paddingStart="28dp"
         android:textColor="?android:textColorSecondary"
         android:textSize="?attr/status_text_medium"
@@ -43,6 +43,7 @@
         android:id="@+id/notification_reporter_avatar"
         android:layout_width="24dp"
         android:layout_height="24dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintRight_toRightOf="@id/notification_reportee_avatar"
         app:layout_constraintBottom_toBottomOf="@id/notification_reportee_avatar"
         android:contentDescription="@string/action_view_profile" />
@@ -77,5 +78,36 @@
         android:textSize="?attr/status_text_medium"
         android:textStyle="bold"
         tools:text="Spam" />
+
+    <TextView
+        android:id="@+id/title_report_comment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/notification_category"
+        app:layout_constraintStart_toStartOf="@id/notification_category"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:importantForAccessibility="no"
+        android:hyphenationFrequency="full"
+        android:lineSpacingMultiplier="1.1"
+        android:textColor="?android:textColorTertiary"
+        android:textSize="?attr/status_text_medium"
+        android:textStyle="bold"
+        android:text="@string/title_report_comment" />
+
+    <TextView
+        android:id="@+id/report_comment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/title_report_comment"
+        app:layout_constraintStart_toStartOf="@id/title_report_comment"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:importantForAccessibility="no"
+        android:hyphenationFrequency="full"
+        android:lineSpacingMultiplier="1.1"
+        android:paddingBottom="10dp"
+        android:textColor="?android:textColorTertiary"
+        android:textSize="?attr/status_text_medium"
+        tools:ignore="SelectableText"
+        tools:text="Reporting because..." />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

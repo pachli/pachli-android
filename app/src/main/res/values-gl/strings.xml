@@ -469,7 +469,9 @@
     <string name="status_created_at_now">agora</string>
     <string name="notification_report_format">Nova denuncia en %s</string>
     <string name="notification_header_report_format">%s denunciou a %s</string>
-    <string name="notification_summary_report_format">%s · %d publicacións fixadas</string>
+    <plurals name="notification_summary_report_format">
+        <item quantity="other">%1$s · %2$d publicacións fixadas</item>
+    </plurals>
     <string name="confirmation_hashtag_unfollowed">Xa non segues a #%s</string>
     <string name="pref_title_notification_filter_reports">hai unha nova denuncia</string>
     <string name="hint_media_description_missing">O multimedia debería ter unha descrición.</string>

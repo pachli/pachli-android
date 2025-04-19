@@ -451,7 +451,9 @@
     <string name="status_created_at_now">vừa xong</string>
     <string name="notification_report_format">Báo cáo mới trên %s</string>
     <string name="notification_header_report_format">%s báo cáo %s</string>
-    <string name="notification_summary_report_format">%s trước · %d tút</string>
+    <plurals name="notification_summary_report_format">
+        <item quantity="other">%1$s trước · %2$d tút</item>
+    </plurals>
     <string name="confirmation_hashtag_unfollowed">Đã bỏ theo dõi #%s</string>
     <string name="pref_title_notification_filter_reports">có một báo cáo mới</string>
     <string name="notification_report_name">Báo cáo</string>

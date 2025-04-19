@@ -573,7 +573,9 @@
     <string name="notification_severed_relationships_account_suspension_body">Chuir modhnóir an cuntas ar fionraí</string>
     <string name="notification_severed_relationships_unknown_body">Cúis anaithnid</string>
     <string name="notification_header_report_format">%s tuairiscithe %s</string>
-    <string name="notification_summary_report_format">%s · %d post ceangailte</string>
+    <plurals name="notification_summary_report_format">
+        <item quantity="other">%1$s · %2$d post ceangailte</item>
+    </plurals>
     <string name="action_add_reaction">cuir imoibriú leis</string>
     <string name="action_translate">Aistrigh</string>
     <string name="account_username_copied">Cóipeáladh an t- ainm úsáideora</string>

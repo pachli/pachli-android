@@ -218,7 +218,9 @@
     <string name="post_content_show_less">Tutup</string>
     <string name="post_edited">Diedit %s</string>
     <string name="notification_report_format">Laporan baru tentang %s</string>
-    <string name="notification_summary_report_format">%s - %d posting terlampir</string>
+    <plurals name="notification_summary_report_format">
+        <item quantity="other">%1$s - %2$d posting terlampir</item>
+    </plurals>
     <string name="action_bookmark">Penanda</string>
     <string name="action_post_failed">Unggahan gagal</string>
     <string name="action_post_failed_detail">Postingan Anda gagal diunggah dan telah disimpan ke draf.

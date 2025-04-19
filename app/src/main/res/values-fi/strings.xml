@@ -312,7 +312,9 @@
     <string name="pref_title_alway_open_spoiler">Avaa aina sisältövaroituksella varustetut julkaisut</string>
     <string name="title_tab_public_trending_statuses">Julkaisut</string>
     <string name="action_share_account_link">Jaa linkki tiliin</string>
-    <string name="notification_summary_report_format">%s · %d julkaisua liitteenä</string>
+    <plurals name="notification_summary_report_format">
+        <item quantity="other">%1$s · %2$d julkaisua liitteenä</item>
+    </plurals>
     <string name="send_account_link_to">Jaa tilin URL…</string>
     <string name="abbreviated_hours_ago">%dt</string>
     <string name="filter_expiration_format">%s (%s)</string>

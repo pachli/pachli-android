@@ -36,7 +36,9 @@
     <string name="notification_update_format">%s သည်၎င်းတို့၌ပိုစ့်ကိုပြုပြင်ခဲ့သည်</string>
     <string name="notification_report_format">%s သို့တိုင်ကြားမှုများ</string>
     <string name="notification_severed_relationships_unknown_body">အမျိုးအမည်မသိသောအကြောင်းပြချက်</string>
-    <string name="notification_summary_report_format">%s မှ %d အထိပိုစ့်များပါဝင်သည်</string>
+    <plurals name="notification_summary_report_format">
+        <item quantity="other">%1$s မှ %2$d အထိပိုစ့်များပါဝင်သည်</item>
+    </plurals>
     <string name="report_comment_hint">ဖြည့်စွက်မှတ်ချက်များရှိပါသလား</string>
     <string name="action_unreblog">ပယ်ဖျက်မည်</string>
     <string name="action_favourite">ကြိုက်သည်</string>

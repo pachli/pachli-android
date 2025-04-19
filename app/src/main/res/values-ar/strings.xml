@@ -526,7 +526,9 @@
     <string name="action_continue_edit">الاستمرار في التعديل</string>
     <string name="post_media_alt">ALT</string>
     <string name="notification_header_report_format">%s أبلغ عن %s</string>
-    <string name="notification_summary_report_format">%s · %d منشورات ملحقة</string>
+    <plurals name="notification_summary_report_format">
+        <item quantity="other">%1$s · %2$d منشورات ملحقة</item>
+    </plurals>
     <string name="failed_to_pin">فشل التثبيت</string>
     <string name="description_post_language">لغة المنشور</string>
     <string name="delete_scheduled_post_warning">هل تريد حذف هذا المنشور المُبَرمَج؟</string>
