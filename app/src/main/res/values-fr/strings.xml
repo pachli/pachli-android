@@ -492,7 +492,9 @@
     <string name="post_media_alt">ALT</string>
     <string name="notification_report_format">Nouveau signalement sur %s</string>
     <string name="notification_header_report_format">%s a signalé %s</string>
-    <string name="notification_summary_report_format">%s · %d posts joints</string>
+    <plurals name="notification_summary_report_format">
+        <item quantity="other">%1$s · %2$d posts joints</item>
+    </plurals>
     <string name="notification_report_name">Signalements</string>
     <string name="set_focus_description">Appuyez ou faites glissez le cercle pour déplacer le point focal, qui sera toujours visible sur les vignettes.</string>
     <string name="notification_unknown_name">Inconnu</string>

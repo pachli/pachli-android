@@ -477,7 +477,9 @@
     <string name="error_unmuting_hashtag_format">Hiba #%s némításának feloldása közben</string>
     <string name="notification_report_format">Új bejelentés a %s-n</string>
     <string name="notification_header_report_format">%s bejelentette %s-t</string>
-    <string name="notification_summary_report_format">%s · %d bejegyzés csatolva</string>
+    <plurals name="notification_summary_report_format">
+        <item quantity="other">%1$s · %2$d bejegyzés csatolva</item>
+    </plurals>
     <string name="confirmation_hashtag_unfollowed">#%s kikövetve</string>
     <string name="notification_report_name">Bejelentések</string>
     <string name="notification_report_description">Értesítések moderációs bejelentésekről</string>

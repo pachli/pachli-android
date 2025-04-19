@@ -215,7 +215,9 @@
     <string name="notification_favourite_description">Upozornenia, keď sú tvoje príspevky označené ako obľúbené</string>
     <string name="notification_unknown">Neznámy typ upozornenia</string>
     <string name="notification_header_report_format">%s nahlásil %s</string>
-    <string name="notification_summary_report_format">%s · %d priložených príspevkov</string>
+    <plurals name="notification_summary_report_format">
+        <item quantity="other">%1$s · %2$d priložených príspevkov</item>
+    </plurals>
     <string name="report_comment_hint">Ďalšie komentáre?</string>
     <string name="action_unfavourite">Odstrániť z obľúbených</string>
     <string name="action_unbookmark">Odstrániť záložku</string>

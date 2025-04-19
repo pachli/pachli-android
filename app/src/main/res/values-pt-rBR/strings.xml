@@ -572,7 +572,9 @@
     <string name="notification_report_name">Denúncias</string>
     <string name="filter_description_hide">Ocultar completamente</string>
     <string name="filter_description_format">%s: %s</string>
-    <string name="notification_summary_report_format">%s · %d Toots anexados</string>
+    <plurals name="notification_summary_report_format">
+        <item quantity="other">%1$s · %2$d Toots anexados</item>
+    </plurals>
     <string name="send_account_link_to">Compartilhar URL da conta para…</string>
     <string name="post_media_image">Imagem</string>
     <string name="filter_action_hide">Ocultar</string>

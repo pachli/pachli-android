@@ -115,7 +115,10 @@
     </plurals>
     <string name="notification_unknown">Unknown notification type</string>
     <string name="notification_header_report_format">%s reported %s</string>
-    <string name="notification_summary_report_format">%s · %d posts attached</string>
+    <plurals name="notification_summary_report_format">
+        <item quantity="one">%1$s · %2$d post attached</item>
+        <item quantity="other">%1$s · %2$d posts attached</item>
+    </plurals>
     <string name="report_username_format">Report @%s</string>
     <string name="report_comment_hint">Additional comments?</string>
     <string name="action_quick_reply">Quick Reply</string>
@@ -624,9 +627,11 @@
     <string name="saving_draft">Saving draft…</string>
     <string name="delete_scheduled_post_warning">Delete this scheduled post?</string>
     <string name="language_display_name_format">%s (%s)</string>
+    <string name="title_report_category_fmt">Category: %1$s</string>
     <string name="report_category_violation">Rule violation</string>
     <string name="report_category_spam">Spam</string>
     <string name="report_category_other">Other</string>
+    <string name="title_report_comment">Comment from reporter</string>
     <string name="action_unfollow_hashtag_format">Unfollow #%s?</string>
     <string name="mute_notifications_switch">Mute notifications</string>
     <!-- Reading order preference -->

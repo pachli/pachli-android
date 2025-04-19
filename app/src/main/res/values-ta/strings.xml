@@ -327,7 +327,9 @@
     <string name="dialog_follow_hashtag_title">ஏச்டேக்கைப் பின்தொடரவும்</string>
     <string name="notification_update_format">%s தங்கள் இடுகையைத் திருத்தியுள்ளன</string>
     <string name="notification_header_report_format">%s %s</string>
-    <string name="notification_summary_report_format">%s · %d பதிவுகள் இணைக்கப்பட்டுள்ளன</string>
+    <plurals name="notification_summary_report_format">
+        <item quantity="other">%1$s · %2$d பதிவுகள் இணைக்கப்பட்டுள்ளன</item>
+    </plurals>
     <string name="action_post_failed_detail_plural">உங்கள் பதிவுகள் பதிவேற்றத் தவறிவிட்டன, மேலும் அவை வரைவுகளுக்கு சேமிக்கப்பட்டுள்ளன.\n\n சேவையகத்தைத் தொடர்பு கொள்ள முடியவில்லை, அல்லது அது இடுகைகளை நிராகரித்தது.</string>
     <string name="action_post_failed_do_nothing">தள்ளுபடி</string>
     <string name="action_send">டூட்</string>

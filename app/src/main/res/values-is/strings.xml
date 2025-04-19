@@ -464,7 +464,9 @@
     <string name="action_unfollow_hashtag_format">Hætta að fylgjast með #%s\?</string>
     <string name="notification_report_format">Ný kæra vegna %s</string>
     <string name="notification_header_report_format">%s kærði %s</string>
-    <string name="notification_summary_report_format">%s · %d færslur viðhengdar</string>
+    <plurals name="notification_summary_report_format">
+        <item quantity="other">%1$s · %2$d færslur viðhengdar</item>
+    </plurals>
     <string name="post_edited">Breytti %s</string>
     <string name="confirmation_hashtag_unfollowed">Hætt að fylgjast með #%s</string>
     <string name="notification_report_name">Kærur</string>

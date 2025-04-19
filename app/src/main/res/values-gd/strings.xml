@@ -518,7 +518,9 @@
     <string name="post_edited">Air a dheasachadh %s</string>
     <string name="notification_report_format">Gearan ùr air %s</string>
     <string name="notification_header_report_format">Rinn %s gearan mu %s</string>
-    <string name="notification_summary_report_format">%s · Tha postaichean ris, %d dhiubh</string>
+    <plurals name="notification_summary_report_format">
+        <item quantity="other">%1$s · Tha postaichean ris, %2$d dhiubh</item>
+    </plurals>
     <string name="action_share_account_link">Co-roinn ceangal dhan chunntas</string>
     <string name="account_username_copied">Chaidh lethbhreac a dhèanamh dhen ainm-chleachdaiche</string>
     <string name="unsaved_changes">Tha atharraichean gun sàbhaladh agad.</string>

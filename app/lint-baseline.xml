@@ -91,7 +91,7 @@
             line="410"
             column="28"/>
         <location
-            file="${:core:activity*buildDir}/generated/res/resValues/orangeFdroid/debug/values/gradleResValues.xml"
+            file="${:core:activity*buildDir}/generated/res/resValues/blueFdroid/debug/values/gradleResValues.xml"
             line="7"
             column="5"
             message="This definition does not require arguments"/>
@@ -302,7 +302,7 @@
         errorLine2="                                                  ^">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="498"
+            line="500"
             column="51"/>
     </issue>
 
@@ -313,7 +313,7 @@
         errorLine2="                                          ^">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="614"
+            line="616"
             column="43"/>
     </issue>
 
@@ -324,7 +324,7 @@
         errorLine2="                                                  ^">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="706"
+            line="708"
             column="51"/>
     </issue>
 
@@ -335,7 +335,7 @@
         errorLine2="                                                                   ^">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="730"
+            line="732"
             column="68"/>
     </issue>
 
@@ -363,23 +363,12 @@
 
     <issue
         id="PluralsCandidate"
-        message="Formatting %d followed by words (&quot;posts&quot;): This should probably be a plural rather than a string"
-        errorLine1="    &lt;string name=&quot;notification_summary_report_format&quot;>%s · %d posts attached&lt;/string>"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values/strings.xml"
-            line="118"
-            column="5"/>
-    </issue>
-
-    <issue
-        id="PluralsCandidate"
         message="Formatting %d followed by words (&quot;and&quot;): This should probably be a plural rather than a string"
         errorLine1="    &lt;string name=&quot;pref_title_http_proxy_port_message&quot;>Port should be between %d and %d&lt;/string>"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="303"
+            line="306"
             column="5"/>
     </issue>
 
@@ -390,7 +379,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="349"
+            line="352"
             column="5"/>
     </issue>
 
@@ -401,7 +390,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="466"
+            line="469"
             column="5"/>
     </issue>
 
@@ -412,7 +401,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="638"
+            line="643"
             column="5"/>
     </issue>
 
@@ -885,7 +874,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="120"
+            line="123"
             column="13"/>
     </issue>
 
@@ -896,7 +885,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="128"
+            line="131"
             column="13"/>
     </issue>
 
@@ -907,7 +896,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="166"
+            line="169"
             column="13"/>
     </issue>
 
@@ -918,7 +907,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="220"
+            line="223"
             column="13"/>
     </issue>
 
@@ -929,7 +918,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="241"
+            line="244"
             column="13"/>
     </issue>
 
@@ -940,7 +929,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="242"
+            line="245"
             column="13"/>
     </issue>
 
@@ -951,7 +940,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="293"
+            line="296"
             column="13"/>
     </issue>
 
@@ -962,7 +951,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="398"
+            line="401"
             column="13"/>
     </issue>
 
@@ -973,7 +962,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="432"
+            line="435"
             column="13"/>
     </issue>
 
@@ -984,7 +973,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="435"
+            line="438"
             column="13"/>
     </issue>
 
@@ -995,7 +984,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="436"
+            line="439"
             column="13"/>
     </issue>
 
@@ -1006,7 +995,7 @@
         errorLine2="            ~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="437"
+            line="440"
             column="13"/>
     </issue>
 
@@ -1017,7 +1006,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="439"
+            line="442"
             column="13"/>
     </issue>
 
@@ -1028,7 +1017,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="451"
+            line="454"
             column="13"/>
     </issue>
 
@@ -1039,7 +1028,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="452"
+            line="455"
             column="13"/>
     </issue>
 
@@ -1050,7 +1039,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="504"
+            line="507"
             column="13"/>
     </issue>
 
@@ -1061,7 +1050,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="505"
+            line="508"
             column="13"/>
     </issue>
 
@@ -1072,7 +1061,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="515"
+            line="518"
             column="13"/>
     </issue>
 
@@ -1083,7 +1072,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="516"
+            line="519"
             column="13"/>
     </issue>
 
@@ -1094,7 +1083,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="517"
+            line="520"
             column="13"/>
     </issue>
 
@@ -1105,7 +1094,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="520"
+            line="523"
             column="13"/>
     </issue>
 
@@ -1116,7 +1105,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="558"
+            line="561"
             column="13"/>
     </issue>
 
@@ -1127,7 +1116,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="600"
+            line="603"
             column="13"/>
     </issue>
 
@@ -1138,7 +1127,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="606"
+            line="609"
             column="13"/>
     </issue>
 
@@ -1149,7 +1138,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="630"
+            line="635"
             column="13"/>
     </issue>
 
@@ -1160,7 +1149,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="656"
+            line="661"
             column="13"/>
     </issue>
 
@@ -1464,18 +1453,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_follow.xml"
-            line="41"
-            column="6"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="    &lt;TextView"
-        errorLine2="     ~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_follow.xml"
-            line="57"
+            line="42"
             column="6"/>
     </issue>
 
@@ -1629,7 +1607,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_report_notification.xml"
-            line="50"
+            line="51"
             column="6"/>
     </issue>
 
@@ -1640,7 +1618,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_report_notification.xml"
-            line="65"
+            line="66"
             column="6"/>
     </issue>
 
@@ -2080,7 +2058,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/item_report_notification.xml"
-            line="54"
+            line="55"
             column="9"/>
     </issue>
 

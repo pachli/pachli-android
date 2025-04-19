@@ -73,7 +73,9 @@
     <string name="notification_severed_relationships_account_suspension_body">Ein moderator suspenderte kontoen</string>
     <string name="notification_severed_relationships_unknown_body">Ukjend årsak</string>
     <string name="notification_header_report_format">%s rapporterte %s</string>
-    <string name="notification_summary_report_format">%s · %d innlegg lagt ved</string>
+    <plurals name="notification_summary_report_format">
+        <item quantity="other">%1$s · %2$d innlegg lagt ved</item>
+    </plurals>
     <string name="report_username_format">Rapporter @%s</string>
     <string name="report_comment_hint">Har du fleire kommentarar?</string>
     <string name="action_quick_reply">Hurtigsvar</string>

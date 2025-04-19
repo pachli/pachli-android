@@ -25,6 +25,8 @@ import app.pachli.components.notifications.NotificationActionListener
 import app.pachli.components.notifications.NotificationsPagingAdapter
 import app.pachli.core.activity.emojify
 import app.pachli.core.activity.loadAvatar
+import app.pachli.core.common.extensions.hide
+import app.pachli.core.common.extensions.show
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.database.model.NotificationReportEntity
@@ -87,12 +89,25 @@ class ReportNotificationViewHolder(
             reporterName,
             reporteeName,
         )
-        binding.notificationSummary.text = itemView.context.getString(
-            R.string.notification_summary_report_format,
+        binding.notificationSummary.text = itemView.context.resources.getQuantityString(
+            R.plurals.notification_summary_report_format,
+            report.statusIds?.size ?: 0,
             getRelativeTimeSpanString(itemView.context, report.createdAt.toEpochMilli(), System.currentTimeMillis()),
             report.statusIds?.size ?: 0,
         )
-        binding.notificationCategory.text = getTranslatedCategory(itemView.context, report.category)
+        binding.notificationCategory.text = itemView.context.getString(
+            R.string.title_report_category_fmt,
+            getTranslatedCategory(itemView.context, report.category),
+        )
+
+        if (report.comment.isNotBlank()) {
+            binding.titleReportComment.show()
+            binding.reportComment.text = report.comment
+            binding.reportComment.show()
+        } else {
+            binding.titleReportComment.hide()
+            binding.reportComment.hide()
+        }
 
         // Fancy avatar inset
         val padding = Utils.dpToPx(binding.notificationReporteeAvatar.context, 12)

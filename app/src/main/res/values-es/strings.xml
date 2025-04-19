@@ -483,7 +483,9 @@
     <string name="description_post_edited">Editado</string>
     <string name="notification_report_format">Nueva denuncia en %s</string>
     <string name="notification_header_report_format">%s denunció a %s</string>
-    <string name="notification_summary_report_format">%s · %d publicaciones fijadas</string>
+    <plurals name="notification_summary_report_format">
+        <item quantity="other">%1$s · %2$d publicaciones fijadas</item>
+    </plurals>
     <string name="language_display_name_format">%s (%s)</string>
     <string name="error_muting_hashtag_format">Error al silenciar #%s</string>
     <string name="error_unmuting_hashtag_format">Error al reactivar #%s</string>
