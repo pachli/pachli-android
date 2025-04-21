@@ -766,4 +766,6 @@
     <string name="account_filter_placeholder_type_conversation">Lietotājs @<b>%1$s</b> uzsāka sarunu</string>
     <string name="action_relogin">Pieteikties no jauna</string>
     <string name="ui_error_reload_reply_fmt">Nevarēja ielādēt ierakstu: %1$s</string>
+    <string name="title_report_comment">Piebilde no ziņotāja</string>
+    <string name="title_report_category_fmt">Kategorija: %1$s</string>
 </resources>
