@@ -32,8 +32,8 @@
     <string name="post_content_warning_show_more">Pokaż więcej</string>
     <string name="post_content_warning_show_less">Pokaż mniej</string>
     <string name="footer_empty">Pusto tutaj. Pociągnij, aby odświeżyć!</string>
-    <string name="notification_reblog_format">Podbicie twojego wpisu przez %s</string>
-    <string name="notification_favourite_format">Polubienie twojego wpisu przez %s</string>
+    <string name="notification_reblog_format">Osoba %s podbiła twój wpis</string>
+    <string name="notification_favourite_format">Osoba %s polubiła twój wpis</string>
     <string name="notification_follow_format">%s cię obserwuje</string>
     <string name="report_username_format">Zgłoś @%s</string>
     <string name="report_comment_hint">Dodatkowe komentarze?</string>
@@ -627,11 +627,11 @@
     <string name="pref_account_notification_filters_label_younger_30d">… utworzonych w ciągu ostatnich 30 dni</string>
     <string name="pref_account_notification_filters_label_not_followed">… których nie obserwujesz</string>
     <string name="pref_account_notification_filters_label_limited_by_server">… ograniczonych przez moderację</string>
-    <string name="account_filter_placeholder_type_favourite_fmt">Polubienie twojego wpisu przez @<b>%1s</b></string>
+    <string name="account_filter_placeholder_type_favourite_fmt">Osoba @<b>%1s</b> polubiła twój wpis</string>
     <string name="account_filter_placeholder_type_follow_fmt">Konto @<b>%1s</b> cię obserwuje</string>
     <string name="account_filter_placeholder_type_mention_fmt">Nowa wzmianka od @<b>%1s</b></string>
     <string name="account_filter_placeholder_type_follow_request_fmt">Prośba o obserwację od @<b>%1s</b></string>
-    <string name="account_filter_placeholder_type_reblog_fmt">Podbicie twojego wpisu przez @<b>%1s</b></string>
+    <string name="account_filter_placeholder_type_reblog_fmt">Osoba @<b>%1s</b> podbiła twój wpis</string>
     <string name="account_filter_placeholder_label_domain">Od konta @<b>%1s</b></string>
     <string name="account_filter_placeholder_label_not_following">Odfiltrowane z powodu: <b>nie obserwujesz tego konta</b></string>
     <string name="announcement_date">%1$s %2$s</string>
