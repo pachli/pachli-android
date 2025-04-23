@@ -27,7 +27,7 @@ import androidx.core.graphics.createBitmap
 import androidx.core.graphics.drawable.IconCompat
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.R as DR
-import app.pachli.core.navigation.MainActivityIntent
+import app.pachli.core.navigation.AccountRouterActivityIntent
 import com.bumptech.glide.Glide
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.util.concurrent.ExecutionException
@@ -90,8 +90,7 @@ class UpdateShortCutsUseCase @Inject constructor(
                     .build()
 
                 // This intent will be sent when the user clicks on one of the launcher shortcuts.
-                // Intent from share sheet will be different
-                val intent = MainActivityIntent.fromShortcut(context, account.id)
+                val intent = AccountRouterActivityIntent.fromShortcut(context, account.id)
 
                 ShortcutInfoCompat.Builder(context, account.id.toString())
                     .setIntent(intent)

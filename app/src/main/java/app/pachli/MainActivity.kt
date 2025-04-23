@@ -1153,7 +1153,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                 binding.bottomNav.hide()
                 binding.composeButton.hide()
                 val nextAccount = logout.invoke(pachliAccount.entity).get()
-                val intent = nextAccount?.let { MainActivityIntent(this@MainActivity, it.id) }
+                val intent = nextAccount?.let { AccountRouterActivityIntent.startMainActivity(this@MainActivity, it.id) }
                     ?: LoginActivityIntent(this@MainActivity, LoginMode.Default)
                 startActivity(intent)
                 finish()
