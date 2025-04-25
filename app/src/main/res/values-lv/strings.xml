@@ -808,4 +808,29 @@
     <string name="upload_failed_modify_attachment">Labot pielikumu</string>
     <string name="pref_notification_method_all_push">Visi konti izmanto UnifiedPush. Piesist, lai uzzinātu vairāk.</string>
     <string name="search_operator_sensitive_dialog_all">Visi ieraksti</string>
+    <string name="ui_error_accept_follow_request">Sekošanas pieprasījuma apstiprināšana neizdevās: %s</string>
+    <string name="load_newest_statuses">Ielādēt jaunākos ierakstus</string>
+    <string name="action_open_link">Atvērt saiti</string>
+    <plurals name="favs">
+        <item quantity="zero"><b>%1$s</b> ierakstu izlasē</item>
+        <item quantity="one"><b>%1$s</b> ieraksts izlasē</item>
+        <item quantity="other"><b>%1$s</b> ieraksti izlasē</item>
+    </plurals>
+    <string name="error_media_playback">Atskaņošana neizdevās: %s</string>
+    <string name="load_newest_notifications">Ielādēt jaunākos paziņojumus</string>
+    <string name="pref_notification_up_distributor_none">Neviens</string>
+    <string name="action_open_byline_account">Rādīt raksta autora profilu</string>
+    <string name="action_timeline_link">Ieraksti par šo saiti</string>
+    <string name="search_operator_replies_all">Ar atbildēm ▾</string>
+    <string name="search_operator_replies_replies_only">Rādīt tikai atbildes</string>
+    <string name="error_save_filter_failed_fmt">Atlasītāja saglabāšana neizdevās: %1$s</string>
+    <string name="ui_error_reject_follow_request">Sekošanas pieprasījuma noraidīšana neizdevās: %s</string>
+    <string name="preview_card_byline_name_only_fmt">No <b>%1$s</b></string>
+    <string name="preview_card_timeline_link_fmt">Apskatīt <b>%1$s</b> ierakstus par šo saiti</string>
+    <string name="error_load_filter_failed_fmt">Atlasītāja ielādēšana neizdevās: %1$s</string>
+    <string name="error_delete_filter_failed_fmt">Atlasītāja izdzēšana neizdevās: %1$s</string>
+    <string name="search_operator_attachment_dialog_title">Tikai ieraksti ar informācijas nesējiem?</string>
+    <string name="search_operator_attachment_dialog_any_label">Jebkurš veids</string>
+    <string name="pref_notification_up_distributor_name_fmt">%1$s. Jāpiesit, lai atvērtu</string>
+    <string name="help_empty_home">Šī ir tava <b>mājas laika līnija</b>. Tajā tiek parādīti neseni ieraksti no kontiem, kuriem seko.\n\nLai izpētītu kontus, tos var atklāt kādā no citām laika līnijām. Piemēram, vietējā sava servera laika līnijā [iconics mgd_group]. Vai arī var meklēt kontus pēc vārda [iconics gmd_search]; piemēram, meklēt \"Pachli\", lai atrastu mūsu Mastodon kontu.</string>
 </resources>
