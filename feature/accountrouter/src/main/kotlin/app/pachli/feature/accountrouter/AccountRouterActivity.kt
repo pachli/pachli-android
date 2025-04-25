@@ -38,6 +38,7 @@ import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.data.repository.SetActiveAccountError
 import app.pachli.core.data.repository.get
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.domain.LogoutUseCase
 import app.pachli.core.navigation.AccountRouterActivityIntent
 import app.pachli.core.navigation.AccountRouterActivityIntent.Payload
 import app.pachli.core.navigation.ComposeActivityIntent
@@ -54,10 +55,12 @@ import app.pachli.feature.accountrouter.databinding.DialogChooseAccountShowError
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 /**
  * Determines the correct account to use, and routes the user to the correct
@@ -69,6 +72,9 @@ import kotlinx.coroutines.launch
  */
 @AndroidEntryPoint
 class AccountRouterActivity : BaseActivity() {
+    @Inject
+    lateinit var logout: LogoutUseCase
+
     private val viewModel: AccountRouterViewModel by viewModels()
 
     override fun requiresLogin() = false
@@ -149,7 +155,40 @@ class AccountRouterActivity : BaseActivity() {
         val payload = AccountRouterActivityIntent.payload(intent)
             ?: Payload.MainActivity(MainActivityIntent.start(this, pachliAccountId))
 
+        Timber.d("Processing payload: $payload")
+
+        // Determine nextAccount
+        // If nextAccount == null, delete account; start Login process
+        // else; Mark nextAccount as active; delete previous account
+
         when (payload) {
+            is Payload.Logout -> {
+                val accountToLogout = accounts.find { it.id == pachliAccountId }
+                if (accountToLogout == null) {
+                    // can't happen
+                    return
+                }
+                val nextAccount = accounts.firstOrNull { it.id != pachliAccountId }
+                if (nextAccount == null) {
+                    logout(accountToLogout)
+                        .onSuccess {
+                            val intent = LoginActivityIntent(this, LoginMode.Default).apply {
+                                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                            }
+                            startActivityWithDefaultTransition(intent)
+                            finish()
+                        }
+                        .onFailure { }
+                    return
+                }
+                viewModel.accept(
+                    SetActiveAccount(
+                        nextAccount.id,
+                        Payload.MainActivity(MainActivityIntent.start(this, nextAccount.id)),
+                        logoutAccount = accountToLogout,
+                    ),
+                )
+            }
             is Payload.QuickTile -> {
                 dismissSplashScreen = true
                 val account = if (accounts.size == 1) {
@@ -200,14 +239,25 @@ class AccountRouterActivity : BaseActivity() {
         }
     }
 
-    private fun bindUiSuccess(success: UiSuccess) {
+    private suspend fun bindUiSuccess(success: UiSuccess) {
         when (success) {
-            is UiSuccess.SetActiveAccount -> viewModel.accept(
-                FallibleUiAction.RefreshAccount(
-                    success.accountEntity,
-                    success.action.payload,
-                ),
-            )
+            is UiSuccess.SetActiveAccount -> {
+                success.action.logoutAccount?.let { accountToLogout ->
+                    logout(accountToLogout)
+                        .onFailure {
+                            // TODO: Show an error dialog
+                            // Maybe -- there's nothing useful the user can do here. The logout
+                            // action isn't sensibly retryable.
+                        }
+                }
+
+                viewModel.accept(
+                    FallibleUiAction.RefreshAccount(
+                        success.accountEntity,
+                        success.action.payload,
+                    ),
+                )
+            }
 
             is UiSuccess.RefreshAccount -> {
                 val payload = success.action.payload
@@ -387,7 +437,7 @@ class AccountRouterActivity : BaseActivity() {
     }
 
     /**
-     * Resolves [pachliAccountId] to an actual Pachli account ID.
+     * Resolves [pachliAccountId] to a valid Pachli account ID.
      *
      * If:
      *  - [pachliAccountId] is null, returns the active account ID, or null if

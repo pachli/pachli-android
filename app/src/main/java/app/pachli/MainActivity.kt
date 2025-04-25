@@ -118,7 +118,6 @@ import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.pager.MainPagerAdapter
 import app.pachli.updatecheck.UpdateCheck
 import app.pachli.usecase.DeveloperToolsUseCase
-import app.pachli.usecase.LogoutUseCase
 import app.pachli.util.UpdateShortCutsUseCase
 import app.pachli.util.getDimension
 import com.bumptech.glide.Glide
@@ -127,7 +126,6 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.FixedSizeDrawable
 import com.bumptech.glide.request.transition.Transition
-import com.github.michaelbull.result.get
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
@@ -191,9 +189,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
     @Inject
     lateinit var cacheUpdater: CacheUpdater
-
-    @Inject
-    lateinit var logout: LogoutUseCase
 
     @Inject
     lateinit var draftsAlert: DraftsAlert
@@ -272,12 +267,17 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+//        Timber.d("Loading account ${intent.pachliAccountId}")
+//        viewModel.load(intent.pachliAccountId)
+
         var showNotificationTab = MainActivityIntent.getOpenNotificationTab(intent)
 
         // check for savedInstanceState in order to not handle intent events more than once
         if (intent != null && savedInstanceState == null) {
             val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-            when (val payload = MainActivityIntent.payload(intent)) {
+            val payload = MainActivityIntent.payload(intent)
+            Timber.d("Payload: $payload")
+            when (payload) {
                 is Payload.Notification -> {
                     notificationManager.cancel(payload.notificationTag, payload.notificationId)
                     when (payload.notificationType) {
@@ -379,35 +379,35 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         // Process changes to the account's lists.
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                account.distinctUntilChangedBy { it.lists }.collectLatest { account ->
-                    bindMainDrawerLists(account.id, account.lists)
+                Timber.d("Hit state RESUMED")
+                launch {
+                    account.distinctUntilChangedBy { it.lists }.collectLatest { account ->
+                        Timber.d("RESUMED: lists: ")
+                        bindMainDrawerLists(account.id, account.lists)
+                    }
                 }
-            }
-        }
-
-        // Process changes to the account's profile picture.
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                account.distinctUntilChangedBy { it.entity.profilePictureUrl }.collectLatest {
-                    bindDrawerAvatar(it.entity.profilePictureUrl, false)
+                // Process changes to the account's profile picture.
+                launch {
+                    account.distinctUntilChangedBy { it.entity.profilePictureUrl }.collectLatest {
+                        Timber.d("RESUMED: profilePicture")
+                        bindDrawerAvatar(it.entity.profilePictureUrl, false)
+                    }
                 }
-            }
-        }
 
-        // Process changes to the account's tab preferences.
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                account.distinctUntilChangedBy { it.entity.tabPreferences }.collectLatest {
-                    bindTabs(it.entity, showNotificationTab)
-                    showNotificationTab = false
+                // Process changes to the account's tab preferences.
+                launch {
+                    account.distinctUntilChangedBy { it.entity.tabPreferences }.collectLatest {
+                        Timber.d("RESUMED: tabs")
+                        bindTabs(it.entity, showNotificationTab)
+                        showNotificationTab = false
+                    }
                 }
-            }
-        }
 
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                account.distinctUntilChangedBy { it.announcements }.collectLatest {
-                    bindMainDrawerAnnouncements(it.announcements)
+                launch {
+                    account.distinctUntilChangedBy { it.announcements }.collectLatest {
+                        Timber.d("RESUMED: Announcements")
+                        bindMainDrawerAnnouncements(it.announcements)
+                    }
                 }
             }
         }
@@ -1140,7 +1140,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     private fun logout(pachliAccount: PachliAccount) {
         lifecycleScope.launch {
             val button = AlertDialog.Builder(this@MainActivity)
-                .setTitle(R.string.action_logout)
+                .setTitle(getString(R.string.title_logout_fmt, pachliAccount.entity.fullName))
                 .setMessage(getString(R.string.action_logout_confirm, pachliAccount.entity.fullName))
                 .create()
                 .await(android.R.string.ok, android.R.string.cancel)
@@ -1152,10 +1152,13 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                 binding.progressBar.show()
                 binding.bottomNav.hide()
                 binding.composeButton.hide()
-                val nextAccount = logout.invoke(pachliAccount.entity).get()
-                val intent = nextAccount?.let { AccountRouterActivityIntent.startMainActivity(this@MainActivity, it.id) }
-                    ?: LoginActivityIntent(this@MainActivity, LoginMode.Default)
-                startActivity(intent)
+
+                // Don't logout in MainActivity as that will change the active account and
+                // trigger operations (e.g., saveVisibleId) in running fragments. Instead,
+                // logging out happens in the AccountRouter.
+                val intent = AccountRouterActivityIntent.logout(this@MainActivity, pachliAccount.id)
+                val options = Bundle().apply { putInt("android.activity.splashScreenStyle", 1) }
+                startActivity(intent, options)
                 finish()
             }
         }

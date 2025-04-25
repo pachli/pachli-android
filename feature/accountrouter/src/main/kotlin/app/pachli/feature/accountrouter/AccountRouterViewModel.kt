@@ -95,6 +95,7 @@ internal sealed interface FallibleUiAction : UiAction {
     data class SetActiveAccount(
         val pachliAccountId: Long,
         val payload: Payload.MainActivity,
+        val logoutAccount: AccountEntity? = null,
     ) : FallibleUiAction
 
     data class RefreshAccount(

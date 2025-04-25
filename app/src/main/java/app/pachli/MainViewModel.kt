@@ -101,6 +101,13 @@ internal class MainViewModel @AssistedInject constructor(
     private val accountManager: AccountManager,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
 ) : ViewModel() {
+//    val pachliAccountId = MutableSharedFlow<Long>(replay = 1)
+//
+//    val pachliAccountFlow = pachliAccountId.flatMapLatest { pachliAccountId ->
+//        Timber.d("Loading account: $pachliAccountId")
+//        accountManager.getPachliAccountFlow(pachliAccountId).filterNotNull()
+//    }.shareIn(viewModelScope, SharingStarted.WhileSubscribed(5000), replay = 1)
+
     val pachliAccountFlow = accountManager.getPachliAccountFlow(pachliAccountId)
         .filterNotNull()
         .shareIn(viewModelScope, SharingStarted.WhileSubscribed(5000), replay = 1)
@@ -108,9 +115,6 @@ internal class MainViewModel @AssistedInject constructor(
     private val uiAction = MutableSharedFlow<UiAction>()
 
     val accept: (UiAction) -> Unit = { action -> viewModelScope.launch { uiAction.emit(action) } }
-
-//    private val _uiResult = Channel<Result<UiSuccess, UiError>>()
-//    val uiResult = _uiResult.receiveAsFlow()
 
     private val watchedPrefs = setOf(
         PrefKeys.ANIMATE_GIF_AVATARS,
@@ -145,41 +149,17 @@ internal class MainViewModel @AssistedInject constructor(
         viewModelScope.launch { uiAction.collect { launch { onUiAction(it) } } }
     }
 
+//    fun load(pachliAccountId: Long) {
+//        this.pachliAccountId.tryEmit(pachliAccountId)
+//    }
+
     private suspend fun onUiAction(uiAction: UiAction) {
         if (uiAction is InfallibleUiAction) {
             when (uiAction) {
                 is InfallibleUiAction.TabRemoveTimeline -> onTabRemoveTimeline(uiAction.timeline)
             }
         }
-
-//        if (uiAction is FallibleUiAction) {
-//            val result = when (uiAction) {
-//                is FallibleUiAction.SetActiveAccount -> onSetActiveAccount(uiAction)
-//                is FallibleUiAction.RefreshAccount -> onRefreshAccount(uiAction)
-//            }
-//            _uiResult.send(result)
-//        }
     }
-
-//    private suspend fun onSetActiveAccount(action: FallibleUiAction.SetActiveAccount): Result<UiSuccess.SetActiveAccount, UiError.SetActiveAccount> {
-//        return accountManager.setActiveAccount(action.pachliAccountId)
-//            .mapEither(
-//                { UiSuccess.SetActiveAccount(action, it) },
-//                { UiError.SetActiveAccount(action, it) },
-//            )
-//            .onSuccess {
-//                pachliAccountIdFlow.value = it.accountEntity.id
-//                uiAction.emit(FallibleUiAction.RefreshAccount(it.accountEntity))
-//            }
-//    }
-//
-//    private suspend fun onRefreshAccount(action: FallibleUiAction.RefreshAccount): Result<UiSuccess.RefreshAccount, UiError.RefreshAccount> {
-//        return accountManager.refresh(action.accountEntity)
-//            .mapEither(
-//                { UiSuccess.RefreshAccount(action) },
-//                { UiError.RefreshAccount(action, it) },
-//            )
-//    }
 
     private suspend fun onTabRemoveTimeline(timeline: Timeline) {
         val active = pachliAccountFlow.replayCache.last().entity

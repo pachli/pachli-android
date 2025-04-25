@@ -42,7 +42,7 @@ class UpdateShortCutsUseCase @Inject constructor(
      * Updates shortcuts to reflect [accounts].
      *
      * The first [N][ShortcutManagerCompat.getMaxShortcutCountPerActivity] accounts
-     * are converted to shortcuts which launch [app.pachli.MainActivity]. The
+     * are converted to shortcuts which launch [app.pachli.feature.accountrouter.AccountRouterActivity]. The
      * active account is always included.
      */
     suspend operator fun invoke(accounts: List<AccountEntity>) = withContext(Dispatchers.IO) {

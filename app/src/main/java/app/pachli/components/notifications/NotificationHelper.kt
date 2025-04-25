@@ -564,14 +564,6 @@ fun createNotificationChannelsForAccount(account: AccountEntity, context: Contex
     }
 }
 
-fun deleteNotificationChannelsForAccount(account: AccountEntity, context: Context) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        val notificationManager =
-            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.deleteNotificationChannelGroup(account.identifier)
-    }
-}
-
 fun enablePullNotifications(context: Context) {
     Timber.i("Enabling pull notifications for all accounts")
     val workManager = WorkManager.getInstance(context)

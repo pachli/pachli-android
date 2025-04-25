@@ -40,7 +40,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
@@ -70,18 +69,18 @@ class CachedTimelineViewModel @Inject constructor(
     sharedPreferencesRepository,
     statusRepository,
 ) {
-    val initialRefreshKey = pachliAccountId.distinctUntilChanged().flatMapLatest { pachliAccountId ->
-        flow { emit(repository.getRefreshKey(pachliAccountId)) }
+    val initialRefreshKey = accountFlow.flatMapLatest {
+        flow { emit(repository.getRefreshKey(it.data!!.id)) }
     }
 
-    override val statuses = pachliAccountFlow.distinctUntilChangedBy { it.id }.flatMapLatest { pachliAccount ->
-        repository.getStatusStream(pachliAccount.id, timeline).map { pagingData ->
+    override val statuses = pachliAccountId.distinctUntilChanged().flatMapLatest { pachliAccountId ->
+        repository.getStatusStream(pachliAccountId, timeline).map { pagingData ->
             pagingData.map {
                 StatusViewData.from(
-                    pachliAccountId = pachliAccount.id,
+                    pachliAccountId = pachliAccountId,
                     it,
-                    isExpanded = pachliAccount.entity.alwaysOpenSpoiler,
-                    isShowingContent = pachliAccount.entity.alwaysShowSensitiveMedia,
+                    isExpanded = activeAccount.alwaysOpenSpoiler,
+                    isShowingContent = activeAccount.alwaysShowSensitiveMedia,
                     contentFilterAction = shouldFilterStatus(it.toStatus()),
                 )
             }.filter { it.contentFilterAction != FilterAction.HIDE }

@@ -25,7 +25,6 @@ import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.domain.notifications.DisablePushNotificationsForAccountUseCase
 import app.pachli.core.domain.notifications.NotificationConfig
 import app.pachli.core.domain.notifications.hasPushScope
-import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.SharedPreferencesRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
@@ -34,14 +33,13 @@ import timber.log.Timber
 
 class EnableAllNotificationsUseCase @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val api: MastodonApi,
     private val accountManager: AccountManager,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
     private val disablePushNotificationsForAccount: DisablePushNotificationsForAccountUseCase,
 ) {
     suspend operator fun invoke() {
         // Start from a clean slate.
-        disableAllNotifications(context, api, accountManager)
+        disableAllNotifications()
 
         // Launch a single pull worker to periodically get notifications from all accounts,
         // irrespective of whether or not UnifiedPush is configured.
@@ -87,16 +85,16 @@ class EnableAllNotificationsUseCase @Inject constructor(
      * - Cancels notification workers
      * - Unregisters instances from the UnifiedPush distributor
      */
-    private suspend fun disableAllNotifications(context: Context, api: MastodonApi, accountManager: AccountManager) {
+    private suspend fun disableAllNotifications() {
         Timber.d("Disabling all notifications")
-        disablePushNotifications(context, api, accountManager)
+        disablePushNotifications()
         disablePullNotifications(context)
     }
 
     /**
      * Disables push notifications for each account.
      */
-    private suspend fun disablePushNotifications(context: Context, api: MastodonApi, accountManager: AccountManager) {
+    private suspend fun disablePushNotifications() {
         accountManager.accounts.forEach { disablePushNotificationsForAccount(it) }
     }
 }

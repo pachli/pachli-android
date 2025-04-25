@@ -565,6 +565,8 @@ interface MastodonApi {
     @FormUrlEncoded
     @POST("oauth/revoke")
     suspend fun revokeOAuthToken(
+        @Header("Authorization") auth: String,
+        @Header(DOMAIN_HEADER) domain: String,
         @Field("client_id") clientId: String,
         @Field("client_secret") clientSecret: String,
         @Field("token") token: String,

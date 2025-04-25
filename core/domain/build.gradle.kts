@@ -37,4 +37,7 @@ dependencies {
     implementation(projects.core.network)
         ?.because("Depends on UserListRepliesPolicy type")
     implementation(projects.core.preferences)
+
+    implementation(libs.unified.push)
+        ?.because("core.domain.notifications uses UnifiedPush")
 }

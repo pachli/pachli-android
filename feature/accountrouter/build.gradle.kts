@@ -34,6 +34,7 @@ dependencies {
     implementation(projects.core.activity)
     implementation(projects.core.common)
     implementation(projects.core.designsystem)
+    implementation(projects.core.domain)
     implementation(projects.core.navigation)
     implementation(projects.core.network)
         ?.because("Payload.Notification relies on the network type")
