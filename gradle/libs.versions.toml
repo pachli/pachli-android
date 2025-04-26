@@ -77,7 +77,7 @@ timber = "5.0.1"
 touchimageview = "3.6"
 truth = "1.4.4"
 turbine = "1.2.0"
-unified-push = "2.5.0"
+unified-push = "3.0.9"
 xmlwriter = "1.0.4"
 
 # Tool dependencies
