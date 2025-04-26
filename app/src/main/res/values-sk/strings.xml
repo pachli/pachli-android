@@ -216,6 +216,8 @@
     <string name="notification_unknown">Neznámy typ upozornenia</string>
     <string name="notification_header_report_format">%s nahlásil %s</string>
     <plurals name="notification_summary_report_format">
+        <item quantity="one">%1$s · %2$d priložený príspevok</item>
+        <item quantity="few">%1$s · %2$d priložené príspevky</item>
         <item quantity="other">%1$s · %2$d priložených príspevkov</item>
     </plurals>
     <string name="report_comment_hint">Ďalšie komentáre?</string>
@@ -829,4 +831,6 @@
     <string name="export_preferences_ok_fmt">Preferencie exportované do %1$s</string>
     <string name="error_export_preferences_fmt">Nepodarilo sa exportovať nastavania do %1$s: %2$s</string>
     <string name="error_import_preferences_fmt">Nepodarilo sa importovať nastavenia z %1$s: %2$s</string>
+    <string name="title_report_category_fmt">Kategória: %1$s</string>
+    <string name="title_report_comment">Komentár nahlásujúceho</string>
 </resources>
