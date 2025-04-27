@@ -49,8 +49,7 @@
         <item name="colorSecondaryFixed">@color/md_theme_light_secondaryFixed</item>
         <item name="colorOnSecondaryFixed">@color/md_theme_light_onSecondaryFixed</item>
         <item name="colorSecondaryFixedDim">@color/md_theme_light_secondaryFixedDim</item>
-        <item name="colorOnSecondaryFixedVariant">@color/md_theme_light_onSecondaryFixedVariant
-        </item>
+        <item name="colorOnSecondaryFixedVariant">@color/md_theme_light_onSecondaryFixedVariant</item>
         <item name="colorTertiaryFixed">@color/md_theme_light_tertiaryFixed</item>
         <item name="colorOnTertiaryFixed">@color/md_theme_light_onTertiaryFixed</item>
         <item name="colorTertiaryFixedDim">@color/md_theme_light_tertiaryFixedDim</item>

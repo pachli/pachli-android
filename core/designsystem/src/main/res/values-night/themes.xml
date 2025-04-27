@@ -48,8 +48,7 @@
         <item name="colorSecondaryFixed">@color/md_theme_dark_secondaryFixed</item>
         <item name="colorOnSecondaryFixed">@color/md_theme_dark_onSecondaryFixed</item>
         <item name="colorSecondaryFixedDim">@color/md_theme_dark_secondaryFixedDim</item>
-        <item name="colorOnSecondaryFixedVariant">@color/md_theme_dark_onSecondaryFixedVariant
-        </item>
+        <item name="colorOnSecondaryFixedVariant">@color/md_theme_dark_onSecondaryFixedVariant</item>
         <item name="colorTertiaryFixed">@color/md_theme_dark_tertiaryFixed</item>
         <item name="colorOnTertiaryFixed">@color/md_theme_dark_onTertiaryFixed</item>
         <item name="colorTertiaryFixedDim">@color/md_theme_dark_tertiaryFixedDim</item>
