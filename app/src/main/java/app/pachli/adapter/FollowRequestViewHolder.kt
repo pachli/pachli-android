@@ -24,8 +24,6 @@ import android.text.style.StyleSpan
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.components.notifications.NotificationsPagingAdapter
-import app.pachli.core.activity.emojify
-import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.visible
@@ -35,6 +33,8 @@ import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.LinkListener
+import app.pachli.core.ui.emojify
+import app.pachli.core.ui.loadAvatar
 import app.pachli.core.ui.setClickableText
 import app.pachli.databinding.ItemFollowRequestBinding
 import app.pachli.interfaces.AccountActionListener

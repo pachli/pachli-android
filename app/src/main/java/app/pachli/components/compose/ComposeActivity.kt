@@ -74,8 +74,6 @@ import app.pachli.components.compose.dialog.showAddPollDialog
 import app.pachli.components.compose.view.ComposeOptionsListener
 import app.pachli.components.compose.view.ComposeScheduleView
 import app.pachli.core.activity.BaseActivity
-import app.pachli.core.activity.emojify
-import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
@@ -97,7 +95,9 @@ import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.Status
 import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.SharedPreferencesRepository
+import app.pachli.core.ui.emojify
 import app.pachli.core.ui.extensions.await
+import app.pachli.core.ui.loadAvatar
 import app.pachli.core.ui.makeIcon
 import app.pachli.databinding.ActivityComposeBinding
 import app.pachli.languageidentification.LanguageIdentifier

@@ -26,8 +26,6 @@ import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.text.HtmlCompat
 import app.pachli.R
-import app.pachli.core.activity.decodeBlurHash
-import app.pachli.core.activity.emojify
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.string.unicodeWrap
@@ -36,6 +34,8 @@ import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.PreviewCard
 import app.pachli.core.network.model.TrendsLink
+import app.pachli.core.ui.decodeBlurHash
+import app.pachli.core.ui.emojify
 import app.pachli.databinding.PreviewCardBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.MultiTransformation

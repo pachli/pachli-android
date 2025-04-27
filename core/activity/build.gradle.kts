@@ -41,6 +41,7 @@ dependencies {
     implementation(projects.core.network)
 
     implementation(projects.core.preferences)
+    implementation(projects.core.ui)
 
     implementation(libs.bundles.androidx)
 

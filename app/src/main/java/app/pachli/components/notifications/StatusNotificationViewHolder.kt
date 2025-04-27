@@ -28,8 +28,6 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.adapter.StatusBaseViewHolder
-import app.pachli.core.activity.emojify
-import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.common.util.SmartLengthInputFilter
@@ -40,6 +38,8 @@ import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.SetStatusContent
+import app.pachli.core.ui.emojify
+import app.pachli.core.ui.loadAvatar
 import app.pachli.databinding.ItemStatusNotificationBinding
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.getRelativeTimeSpanString

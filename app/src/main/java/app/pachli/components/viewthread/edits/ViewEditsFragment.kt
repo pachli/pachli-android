@@ -31,9 +31,7 @@ import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.R
 import app.pachli.core.activity.BottomSheetActivity
-import app.pachli.core.activity.emojify
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
-import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
@@ -44,6 +42,8 @@ import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.core.ui.LinkListener
+import app.pachli.core.ui.emojify
+import app.pachli.core.ui.loadAvatar
 import app.pachli.databinding.FragmentViewEditsBinding
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration

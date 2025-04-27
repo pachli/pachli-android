@@ -20,7 +20,6 @@ import android.text.InputFilter
 import android.text.TextUtils
 import android.view.View
 import app.pachli.R
-import app.pachli.core.activity.emojify
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.visible
@@ -32,6 +31,7 @@ import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.model.FilterAction
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.ui.SetStatusContent
+import app.pachli.core.ui.emojify
 import app.pachli.databinding.ItemStatusBinding
 import app.pachli.interfaces.StatusActionListener
 import at.connyduck.sparkbutton.helpers.Utils
