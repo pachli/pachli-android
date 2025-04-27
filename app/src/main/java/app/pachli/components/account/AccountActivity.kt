@@ -49,6 +49,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsCompat.Type.systemBars
 import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.MarginPageTransformer
 import app.pachli.R
@@ -113,6 +114,7 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 import javax.inject.Inject
 import kotlin.math.abs
+import kotlinx.coroutines.launch
 
 /**
  * Show a single account's profile details.
@@ -1002,8 +1004,10 @@ class AccountActivity :
             }
             R.id.action_open_as -> {
                 loadedAccount?.let { loadedAccount ->
-                    showAccountChooserDialog(item.title, false) { account ->
-                        openAsAccount(loadedAccount.url, account)
+                    lifecycleScope.launch {
+                        showAccountChooserDialog(item.title, false)?.let { account ->
+                            openAsAccount(loadedAccount.url, account)
+                        }
                     }
                 }
             }
