@@ -23,7 +23,6 @@ import android.text.style.URLSpan
 import android.util.TypedValue
 import android.widget.TextView
 import androidx.core.text.method.LinkMovementMethodCompat
-import app.pachli.core.activity.emojify
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.designsystem.R
 import app.pachli.core.network.model.Emoji

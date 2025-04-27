@@ -20,12 +20,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
-import app.pachli.core.activity.emojify
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.Field
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.BindingHolder
 import app.pachli.core.ui.LinkListener
+import app.pachli.core.ui.emojify
 import app.pachli.core.ui.setClickableText
 import app.pachli.databinding.ItemAccountFieldBinding
 

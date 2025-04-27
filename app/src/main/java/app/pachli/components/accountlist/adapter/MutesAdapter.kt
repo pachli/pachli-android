@@ -20,11 +20,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.ViewCompat
 import app.pachli.R
-import app.pachli.core.activity.emojify
-import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.ui.BindingHolder
+import app.pachli.core.ui.emojify
+import app.pachli.core.ui.loadAvatar
 import app.pachli.databinding.ItemMutedUserBinding
 import app.pachli.interfaces.AccountActionListener
 

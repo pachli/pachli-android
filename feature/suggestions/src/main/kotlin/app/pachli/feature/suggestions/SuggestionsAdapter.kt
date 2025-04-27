@@ -27,8 +27,6 @@ import androidx.core.view.children
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import app.pachli.core.activity.emojify
-import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.visible
@@ -37,6 +35,8 @@ import app.pachli.core.common.util.formatNumber
 import app.pachli.core.data.model.Suggestion
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.LinkListener
+import app.pachli.core.ui.emojify
+import app.pachli.core.ui.loadAvatar
 import app.pachli.core.ui.setClickableText
 import app.pachli.feature.suggestions.SuggestionViewHolder.ChangePayload
 import app.pachli.feature.suggestions.UiAction.NavigationAction

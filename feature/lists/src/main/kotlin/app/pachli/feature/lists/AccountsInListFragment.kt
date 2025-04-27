@@ -32,8 +32,6 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
-import app.pachli.core.activity.emojify
-import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.PachliError
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
@@ -46,6 +44,8 @@ import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.ui.BindingHolder
+import app.pachli.core.ui.emojify
+import app.pachli.core.ui.loadAvatar
 import app.pachli.feature.lists.databinding.FragmentAccountsInListBinding
 import app.pachli.feature.lists.databinding.ItemAccountInListBinding
 import com.github.michaelbull.result.Result

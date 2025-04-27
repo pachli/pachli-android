@@ -25,6 +25,8 @@ import android.widget.ArrayAdapter
 import app.pachli.core.activity.databinding.ItemAutocompleteAccountBinding
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.ui.emojify
+import app.pachli.core.ui.loadAvatar
 
 class AccountSelectionAdapter(
     context: Context,

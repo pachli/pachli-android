@@ -22,13 +22,13 @@ import android.view.View
 import android.widget.ImageView
 import app.pachli.R
 import app.pachli.adapter.StatusBaseViewHolder
-import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.util.SmartLengthInputFilter
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.database.model.ConversationAccount
 import app.pachli.core.ui.SetStatusContent
+import app.pachli.core.ui.loadAvatar
 import app.pachli.databinding.ItemConversationBinding
 import app.pachli.interfaces.StatusActionListener
 

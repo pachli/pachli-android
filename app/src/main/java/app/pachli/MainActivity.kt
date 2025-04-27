@@ -65,7 +65,6 @@ import app.pachli.components.notifications.domain.EnableAllNotificationsUseCase
 import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.activity.PostLookupFallbackBehavior
 import app.pachli.core.activity.ReselectableFragment
-import app.pachli.core.activity.emojify
 import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
@@ -112,6 +111,7 @@ import app.pachli.core.preferences.MainNavigationPosition
 import app.pachli.core.preferences.TabAlignment
 import app.pachli.core.preferences.TabContents
 import app.pachli.core.ui.AlignableTabLayoutAlignment
+import app.pachli.core.ui.emojify
 import app.pachli.core.ui.extensions.await
 import app.pachli.core.ui.extensions.reduceSwipeSensitivity
 import app.pachli.core.ui.makeIcon

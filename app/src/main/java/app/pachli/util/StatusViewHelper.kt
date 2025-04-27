@@ -24,8 +24,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.graphics.drawable.toDrawable
 import app.pachli.R
-import app.pachli.core.activity.decodeBlurHash
-import app.pachli.core.activity.emojify
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.util.AbsoluteTimeFormatter
@@ -34,6 +32,8 @@ import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.Status
+import app.pachli.core.ui.decodeBlurHash
+import app.pachli.core.ui.emojify
 import app.pachli.view.MediaPreviewImageView
 import app.pachli.viewdata.PollViewData
 import app.pachli.viewdata.buildDescription

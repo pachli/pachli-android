@@ -15,7 +15,7 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.core.activity
+package app.pachli.core.ui
 
 import android.graphics.Canvas
 import android.graphics.Paint

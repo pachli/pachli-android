@@ -19,9 +19,6 @@ import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
-import app.pachli.core.activity.decodeBlurHash
-import app.pachli.core.activity.emojify
-import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.string.unicodeWrap
@@ -40,6 +37,9 @@ import app.pachli.core.network.model.Status
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.preferences.CardViewMode
 import app.pachli.core.ui.SetStatusContent
+import app.pachli.core.ui.decodeBlurHash
+import app.pachli.core.ui.emojify
+import app.pachli.core.ui.loadAvatar
 import app.pachli.core.ui.makeIcon
 import app.pachli.core.ui.setClickableMentions
 import app.pachli.interfaces.StatusActionListener
