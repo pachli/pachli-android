@@ -1,4 +1,5 @@
-/* Copyright 2022 Tusky contributors
+/*
+ * Copyright 2022 Tusky contributors
  *
  * This file is a part of Pachli.
  *
@@ -14,7 +15,7 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.util
+package app.pachli.core.common.util
 
 import android.util.Base64
 import java.security.KeyPairGenerator
