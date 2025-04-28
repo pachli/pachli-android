@@ -20,26 +20,13 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.edit
-import app.pachli.core.common.util.CryptoUtil
 import app.pachli.core.data.repository.AccountManager
-import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.domain.notifications.AccountNotificationMethod
 import app.pachli.core.domain.notifications.AppNotificationMethod
-import app.pachli.core.domain.notifications.NotificationConfig
 import app.pachli.core.domain.notifications.hasPushScope
 import app.pachli.core.domain.notifications.notificationMethod
-import app.pachli.core.network.model.Notification
-import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.ui.extensions.awaitSingleChoiceItem
-import com.github.michaelbull.result.onFailure
-import com.github.michaelbull.result.onSuccess
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.unifiedpush.android.connector.PREF_MASTER
-import org.unifiedpush.android.connector.PREF_MASTER_DISTRIBUTOR
-import org.unifiedpush.android.connector.PREF_MASTER_DISTRIBUTOR_ACK
 import org.unifiedpush.android.connector.UnifiedPush
 import timber.log.Timber
 
@@ -145,120 +132,4 @@ fun getApplicationLabel(context: Context, packageName: String): String? {
     } catch (e: PackageManager.NameNotFoundException) {
         null
     } as String?
-}
-
-/**
- * Disables all notifications.
- *
- * - Cancels notification workers
- * - Unregisters instances from the UnifiedPush distributor
- */
-suspend fun disableAllNotifications(context: Context, api: MastodonApi, accountManager: AccountManager) {
-    Timber.d("Disabling all notifications")
-    disablePushNotifications(context, api, accountManager)
-    disablePullNotifications(context)
-}
-
-/**
- * Disables push push notifications for each account.
- */
-private suspend fun disablePushNotifications(context: Context, api: MastodonApi, accountManager: AccountManager) {
-    accountManager.accounts.forEach { disablePushNotificationsForAccount(context, api, accountManager, it) }
-}
-
-/**
- * Disables UnifiedPush notifications for [account].
- *
- * - Clears UnifiedPush related data from the account's data
- * - Calls the server to disable push notifications
- * - Unregisters from the UnifiedPush provider
- */
-suspend fun disablePushNotificationsForAccount(context: Context, api: MastodonApi, accountManager: AccountManager, account: AccountEntity) {
-    if (account.notificationMethod != AccountNotificationMethod.PUSH) return
-
-    // Clear the push notification from the account.
-    accountManager.clearPushNotificationData(account.id)
-    NotificationConfig.notificationMethodAccount[account.fullName] = NotificationConfig.Method.Pull
-
-    // Try and unregister the endpoint from the server. Nothing we can do if this fails, and no
-    // need to wait for it to complete.
-    withContext(Dispatchers.IO) {
-        launch {
-            api.unsubscribePushNotifications("Bearer ${account.accessToken}", account.domain)
-        }
-    }
-
-    // Unregister from the UnifiedPush provider.
-    //
-    // UnifiedPush.unregisterApp will try and remove the user's distributor choice (including
-    // whether or not instances had acked it). Work around this bug by saving the values, and
-    // restoring them afterwards.
-    val prefs = context.getSharedPreferences(PREF_MASTER, Context.MODE_PRIVATE)
-    val savedDistributor = UnifiedPush.getSavedDistributor(context)
-    val savedDistributorAck = prefs.getBoolean(PREF_MASTER_DISTRIBUTOR_ACK, false)
-
-    UnifiedPush.unregisterApp(context, account.unifiedPushInstance)
-
-    prefs.edit {
-        putString(PREF_MASTER_DISTRIBUTOR, savedDistributor)
-        putBoolean(PREF_MASTER_DISTRIBUTOR_ACK, savedDistributorAck)
-    }
-}
-
-/**
- * Subscription data for [MastodonApi.subscribePushNotifications]. Fetches all user visible
- * notifications.
- */
-val subscriptionData = buildMap {
-    Notification.Type.visibleTypes.forEach {
-        put("data[alerts][${it.presentation}]", true)
-    }
-}
-
-/**
- * Finishes Unified Push distributor registration
- *
- * Called from [app.pachli.receiver.UnifiedPushBroadcastReceiver.onNewEndpoint] after
- * the distributor has set the endpoint.
- */
-suspend fun registerUnifiedPushEndpoint(
-    context: Context,
-    api: MastodonApi,
-    accountManager: AccountManager,
-    account: AccountEntity,
-    endpoint: String,
-) = withContext(Dispatchers.IO) {
-    // Generate a prime256v1 key pair for WebPush
-    // Decryption is unimplemented for now, since Mastodon uses an old WebPush
-    // standard which does not send needed information for decryption in the payload
-    // This makes it not directly compatible with UnifiedPush
-    // As of now, we use it purely as a way to trigger a pull
-    val keyPair = CryptoUtil.generateECKeyPair(CryptoUtil.CURVE_PRIME256_V1)
-    val auth = CryptoUtil.secureRandomBytesEncoded(16)
-
-    api.subscribePushNotifications(
-        account.authHeader,
-        account.domain,
-        endpoint,
-        keyPair.pubkey,
-        auth,
-        subscriptionData,
-    ).onFailure { error ->
-        Timber.w("Error setting push endpoint for account %s %d: %s", account, account.id, error.fmt(context))
-        NotificationConfig.notificationMethodAccount[account.fullName] = NotificationConfig.Method.PushError(error.throwable)
-        disablePushNotificationsForAccount(context, api, accountManager, account)
-    }.onSuccess {
-        Timber.d("UnifiedPush registration succeeded for account %d", account.id)
-
-        accountManager.setPushNotificationData(
-            account.id,
-            unifiedPushUrl = endpoint,
-            pushServerKey = it.body.serverKey,
-            pushAuth = auth,
-            pushPrivKey = keyPair.privKey,
-            pushPubKey = keyPair.pubkey,
-        )
-
-        NotificationConfig.notificationMethodAccount[account.fullName] = NotificationConfig.Method.Push
-    }
 }
