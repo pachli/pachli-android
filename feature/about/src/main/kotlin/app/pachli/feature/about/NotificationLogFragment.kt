@@ -71,7 +71,7 @@ import timber.log.Timber
 
 /**
  * Fragment that shows logs from [LogEntryDao], and can download them as a text
- * report with additional information from [app.pachli.core.activity.NotificationConfig].
+ * report with additional information from [app.pachli.core.domain.notifications.NotificationConfig].
  */
 @AndroidEntryPoint
 class NotificationLogFragment :
@@ -426,11 +426,9 @@ class LogEntryAdapter : ListAdapter<LogEntryEntity, LogEntryAdapter.ViewHolder>(
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        ViewHolder(ItemLogEntryBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(ItemLogEntryBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) =
-        holder.bind(getItem(position))
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(getItem(position))
 
     companion object {
         val tagSpan = ForegroundColorSpan(Color.GRAY)

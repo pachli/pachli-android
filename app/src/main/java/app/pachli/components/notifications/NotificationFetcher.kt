@@ -20,13 +20,13 @@ package app.pachli.components.notifications
 import android.app.NotificationManager
 import android.content.Context
 import androidx.annotation.WorkerThread
-import app.pachli.core.activity.NotificationConfig
 import app.pachli.core.common.string.isLessThan
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.notifications.NotificationsRepository
 import app.pachli.core.data.repository.notifications.from
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.NotificationData
+import app.pachli.core.domain.notifications.NotificationConfig
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Marker

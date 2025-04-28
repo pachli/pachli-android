@@ -43,13 +43,13 @@ import androidx.work.WorkRequest
 import app.pachli.BuildConfig
 import app.pachli.MainActivity
 import app.pachli.R
-import app.pachli.core.activity.NotificationConfig
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.NotificationData
 import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.domain.notifications.NotificationConfig
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.AccountFilterReason
 import app.pachli.core.model.FilterAction
@@ -943,12 +943,10 @@ fun pendingIntentFlags(mutable: Boolean): Int {
  *
  * @throws IllegalStateException if the value at [key] is not valid for the enum [T].
  */
-inline fun <reified T : Enum<T>> Bundle.getEnum(key: String) =
-    getInt(key, -1).let { if (it >= 0) enumValues<T>()[it] else throw IllegalStateException("unrecognised enum ordinal: $it") }
+inline fun <reified T : Enum<T>> Bundle.getEnum(key: String) = getInt(key, -1).let { if (it >= 0) enumValues<T>()[it] else throw IllegalStateException("unrecognised enum ordinal: $it") }
 
 /**
  * Inserts an enum [value] into the mapping of this [Bundle], replacing any
  * existing value for the given [key].
  */
-fun <T : Enum<T>> Bundle.putEnum(key: String, value: T?) =
-    putInt(key, value?.ordinal ?: -1)
+fun <T : Enum<T>> Bundle.putEnum(key: String, value: T?) = putInt(key, value?.ordinal ?: -1)

@@ -21,9 +21,9 @@ import android.content.Context
 import app.pachli.components.notifications.chooseUnifiedPushDistributor
 import app.pachli.components.notifications.disableAllNotifications
 import app.pachli.components.notifications.enablePullNotifications
-import app.pachli.components.notifications.hasPushScope
-import app.pachli.core.activity.NotificationConfig
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.domain.notifications.NotificationConfig
+import app.pachli.core.domain.notifications.hasPushScope
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.SharedPreferencesRepository
 import javax.inject.Inject

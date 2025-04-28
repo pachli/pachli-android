@@ -38,18 +38,19 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import app.pachli.R
-import app.pachli.components.notifications.AccountNotificationMethod
-import app.pachli.components.notifications.AppNotificationMethod
 import app.pachli.components.notifications.getApplicationLabel
-import app.pachli.components.notifications.hasPushScope
 import app.pachli.components.notifications.notificationMethod
-import app.pachli.core.activity.NotificationConfig
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.domain.notifications.AccountNotificationMethod
+import app.pachli.core.domain.notifications.AppNotificationMethod
+import app.pachli.core.domain.notifications.NotificationConfig
+import app.pachli.core.domain.notifications.hasPushScope
+import app.pachli.core.domain.notifications.notificationMethod
 import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.DownloadLocation
 import app.pachli.core.preferences.MainNavigationPosition
