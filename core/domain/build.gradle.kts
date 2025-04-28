@@ -31,6 +31,8 @@ android {
 dependencies {
     implementation(projects.core.common)
     implementation(projects.core.data)
+    implementation(libs.unified.push)
+        ?.because("core.domain.notifications uses UnifiedPush")
     implementation(projects.core.model)
     implementation(projects.core.network)
         ?.because("Depends on UserListRepliesPolicy type")

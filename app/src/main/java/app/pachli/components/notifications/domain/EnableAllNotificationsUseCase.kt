@@ -19,23 +19,27 @@ package app.pachli.components.notifications.domain
 
 import android.content.Context
 import app.pachli.components.notifications.chooseUnifiedPushDistributor
-import app.pachli.components.notifications.disableAllNotifications
+import app.pachli.components.notifications.disablePullNotifications
 import app.pachli.components.notifications.enablePullNotifications
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.domain.notifications.DisablePushNotificationsForAccountUseCase
 import app.pachli.core.domain.notifications.NotificationConfig
 import app.pachli.core.domain.notifications.hasPushScope
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.SharedPreferencesRepository
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import org.unifiedpush.android.connector.UnifiedPush
 import timber.log.Timber
 
 class EnableAllNotificationsUseCase @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val api: MastodonApi,
     private val accountManager: AccountManager,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
+    private val disablePushNotificationsForAccount: DisablePushNotificationsForAccountUseCase,
 ) {
-    suspend operator fun invoke(context: Context) {
+    suspend operator fun invoke() {
         // Start from a clean slate.
         disableAllNotifications(context, api, accountManager)
 
@@ -75,5 +79,24 @@ class EnableAllNotificationsUseCase @Inject constructor(
             Timber.Forest.d("Registering instance %s, %s with %s", it.unifiedPushInstance, it.fullName, distributor)
             UnifiedPush.registerApp(context, it.unifiedPushInstance, messageForDistributor = it.fullName)
         }
+    }
+
+    /**
+     * Disables all notifications.
+     *
+     * - Cancels notification workers
+     * - Unregisters instances from the UnifiedPush distributor
+     */
+    private suspend fun disableAllNotifications(context: Context, api: MastodonApi, accountManager: AccountManager) {
+        Timber.d("Disabling all notifications")
+        disablePushNotifications(context, api, accountManager)
+        disablePullNotifications(context)
+    }
+
+    /**
+     * Disables push notifications for each account.
+     */
+    private suspend fun disablePushNotifications(context: Context, api: MastodonApi, accountManager: AccountManager) {
+        accountManager.accounts.forEach { disablePushNotificationsForAccount(it) }
     }
 }

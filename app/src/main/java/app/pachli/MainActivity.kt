@@ -384,7 +384,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             repeatOnLifecycle(Lifecycle.State.CREATED) {
                 // TODO: Continue to call this, as it sets properties in NotificationConfig
                 androidNotificationsAreEnabled(this@MainActivity)
-                enableAllNotifications(this@MainActivity)
+                enableAllNotifications()
             }
         }
 
