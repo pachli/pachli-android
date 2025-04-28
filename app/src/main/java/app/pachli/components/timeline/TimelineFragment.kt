@@ -92,7 +92,6 @@ import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.properties.Delegates
 import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
@@ -145,7 +144,7 @@ class TimelineFragment :
 
     private val binding by viewBinding(FragmentTimelineBinding::bind)
 
-    private lateinit var timeline: Timeline
+    private val timeline: Timeline by lazy { requireArguments().getParcelable(ARG_KIND)!! }
 
     private lateinit var adapter: TimelinePagingAdapter
 
@@ -159,9 +158,9 @@ class TimelineFragment :
     // the snackbar when the fragment is paused.
     private var snackbar: Snackbar? = null
 
-    private var isSwipeToRefreshEnabled = true
+    private val isSwipeToRefreshEnabled by lazy { requireArguments().getBoolean(ARG_ENABLE_SWIPE_TO_REFRESH, true) }
 
-    override var pachliAccountId by Delegates.notNull<Long>()
+    override val pachliAccountId by lazy { requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID) }
 
     /**
      * Collect this flow to notify the adapter that the timestamps of the visible items have
@@ -179,13 +178,7 @@ class TimelineFragment :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val arguments = requireArguments()
-
-        pachliAccountId = arguments.getLong(ARG_PACHLI_ACCOUNT_ID)
-
-        timeline = arguments.getParcelable(ARG_KIND)!!
-
-        isSwipeToRefreshEnabled = arguments.getBoolean(ARG_ENABLE_SWIPE_TO_REFRESH, true)
+        viewModel.accept(InfallibleUiAction.LoadPachliAccount(pachliAccountId))
     }
 
     override fun onCreateView(
@@ -439,7 +432,7 @@ class TimelineFragment :
             }
             R.id.action_load_newest -> {
                 Timber.d("Reload because user chose load newest menu item")
-                viewModel.accept(InfallibleUiAction.LoadNewest)
+                viewModel.accept(InfallibleUiAction.LoadNewest(pachliAccountId))
                 true
             }
             else -> false
@@ -730,7 +723,7 @@ class TimelineFragment :
                     saveVisibleId()
                 }
 
-                TabTapBehaviour.JUMP_TO_NEWEST -> viewModel.accept(InfallibleUiAction.LoadNewest)
+                TabTapBehaviour.JUMP_TO_NEWEST -> viewModel.accept(InfallibleUiAction.LoadNewest(pachliAccountId))
             }
         }
     }

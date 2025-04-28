@@ -107,7 +107,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
 
     private var serverCanTranslate = false
 
-    protected abstract var pachliAccountId: Long
+    protected abstract val pachliAccountId: Long
 
     override fun startActivity(intent: Intent) {
         if (intent.component?.className?.startsWith("app.pachli.") == true) {
@@ -358,7 +358,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                 }
                 R.id.status_mute_conversation -> {
                     lifecycleScope.launch {
-                        timelineCases.muteConversation(status.id, status.muted != true)
+                        timelineCases.muteConversation(pachliAccountId, status.id, status.muted != true)
                     }
                     return@setOnMenuItemClickListener true
                 }
@@ -396,7 +396,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
     private fun onMute(accountId: String, accountUsername: String) {
         showMuteAccountDialog(this.requireActivity(), accountUsername) { notifications: Boolean?, duration: Int? ->
             lifecycleScope.launch {
-                timelineCases.mute(accountId, notifications == true, duration)
+                timelineCases.mute(pachliAccountId, accountId, notifications == true, duration)
             }
         }
     }
@@ -406,7 +406,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
             .setMessage(getString(R.string.dialog_block_warning, accountUsername))
             .setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
                 lifecycleScope.launch {
-                    timelineCases.block(accountId)
+                    timelineCases.block(pachliAccountId, accountId)
                 }
             }
             .setNegativeButton(android.R.string.cancel, null)
