@@ -21,9 +21,13 @@ import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.edit
-import app.pachli.core.activity.NotificationConfig
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.domain.notifications.AccountNotificationMethod
+import app.pachli.core.domain.notifications.AppNotificationMethod
+import app.pachli.core.domain.notifications.NotificationConfig
+import app.pachli.core.domain.notifications.hasPushScope
+import app.pachli.core.domain.notifications.notificationMethod
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.ui.extensions.awaitSingleChoiceItem
@@ -39,42 +43,6 @@ import org.unifiedpush.android.connector.PREF_MASTER_DISTRIBUTOR_ACK
 import org.unifiedpush.android.connector.UnifiedPush
 import timber.log.Timber
 
-/** The notification method an account is using. */
-enum class AccountNotificationMethod {
-    /** Notifications are pushed. */
-    PUSH,
-
-    /** Notifications are pulled. */
-    PULL,
-}
-
-/** The overall app notification method. */
-enum class AppNotificationMethod {
-    /** All accounts are configured to use UnifiedPush, and are registered with the distributor. */
-    ALL_PUSH,
-
-    /**
-     * Some accounts are configured to use UnifiedPush, and are registered with the distributor.
-     * For other accounts either registration failed, or their server does not support push, and
-     * notifications are pulled.
-     */
-    MIXED,
-
-    /** All accounts are configured to pull notifications. */
-    ALL_PULL,
-}
-
-/** The account's [AccountNotificationMethod]. */
-val AccountEntity.notificationMethod: AccountNotificationMethod
-    get() {
-        if (unifiedPushUrl.isBlank()) return AccountNotificationMethod.PULL
-        return AccountNotificationMethod.PUSH
-    }
-
-/** True if the account has the `push` OAuth scope, false otherwise. */
-val AccountEntity.hasPushScope: Boolean
-    get() = oauthScopes.contains("push")
-
 /**
  * Logs the current state of UnifiedPush preferences for debugging.
  *
@@ -89,7 +57,7 @@ fun logUnifiedPushPreferences(context: Context, msg: String? = null) {
     }
 }
 
-/** @return The app level [AppNotificationMethod]. */
+/** @return The app level [app.pachli.core.domain.notifications.AppNotificationMethod]. */
 fun notificationMethod(context: Context, accountManager: AccountManager): AppNotificationMethod {
     UnifiedPush.getAckDistributor(context) ?: return AppNotificationMethod.ALL_PULL
 
