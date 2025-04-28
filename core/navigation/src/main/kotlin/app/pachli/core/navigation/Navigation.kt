@@ -207,11 +207,13 @@ class AccountRouterActivityIntent(context: Context, pachliAccountId: Long) : Int
         @Parcelize
         data object ShareContent : Payload
 
-        /**
-         * Open main activity.
-         */
+        /** Open main activity. */
         @Parcelize
         data class MainActivity(val mainActivityIntent: MainActivityIntent) : Payload
+
+        /** Log out the account in [Intent.pachliAccountId]. */
+        @Parcelize
+        data object Logout : Payload
     }
 
     companion object {
@@ -340,6 +342,24 @@ class AccountRouterActivityIntent(context: Context, pachliAccountId: Long) : Int
             url: String,
         ) = AccountRouterActivityIntent(context, pachliAccountId).apply {
             putExtra(EXTRA_PAYLOAD, MainActivityIntent.openAs(context, pachliAccountId, url))
+        }
+
+        /**
+         * Switches the active account to [pachliAccountId] and then starts
+         * MainActivity.
+         */
+        fun startMainActivity(context: Context, pachliAccountId: Long) = AccountRouterActivityIntent(context, pachliAccountId).apply {
+            putExtra(
+                EXTRA_PAYLOAD,
+                MainActivityIntent.start(context, pachliAccountId).apply {
+                    flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
+                },
+            )
+            flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
+        }
+
+        fun logout(context: Context, pachliAccountId: Long) = AccountRouterActivityIntent(context, pachliAccountId).apply {
+            putExtra(EXTRA_PAYLOAD, Payload.Logout)
         }
     }
 }

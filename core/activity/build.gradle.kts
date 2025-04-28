@@ -40,8 +40,8 @@ dependencies {
     // BottomSheetActivity needs MastodonApi for searching
     implementation(projects.core.network)
 
-    implementation(projects.core.preferences)
-    implementation(projects.core.ui)
+    api(projects.core.preferences)
+        ?.because("api because BaseActivity exposes SharedPreferences as an injected field")
 
     implementation(projects.core.ui)
         ?.because("ChooseAccountDialogFragment and other UI components")
