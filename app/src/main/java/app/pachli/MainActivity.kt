@@ -269,6 +269,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             installSplashScreen()
         }
         super.onCreate(savedInstanceState)
+        setContentView(binding.root)
 
         var showNotificationTab = false
 
@@ -283,7 +284,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                             launchComposeActivityAndExit(requestedId)
                         }
                     }
-                    return
                 }
 
                 is Payload.NotificationCompose -> {
@@ -350,7 +350,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         viewModel.accept(FallibleUiAction.SetActiveAccount(intent.pachliAccountId))
 
         window.statusBarColor = Color.TRANSPARENT // don't draw a status bar, the DrawerLayout and the MaterialDrawerLayout have their own
-        setContentView(binding.root)
 
         glide = Glide.with(this)
 
