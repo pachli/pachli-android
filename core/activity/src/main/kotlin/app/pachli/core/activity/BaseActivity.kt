@@ -57,8 +57,6 @@ import dagger.hilt.android.EntryPointAccessors.fromApplication
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Inject
 import kotlin.properties.Delegates
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -248,7 +246,7 @@ abstract class BaseActivity : AppCompatActivity(), MenuProvider {
         dialogTitle: CharSequence?,
         showActiveAccount: Boolean,
     ): AccountEntity? {
-        val accounts = accountManager.accountsOrderedByActiveFlow.take(1).first()
+        val accounts = accountManager.accountsOrderedByActive
         when (accounts.size) {
             1 -> return accounts.first()
             2 -> if (!showActiveAccount) return accounts.last()
