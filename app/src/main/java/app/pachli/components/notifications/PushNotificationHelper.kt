@@ -21,6 +21,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.edit
+import app.pachli.core.common.util.CryptoUtil
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.domain.notifications.AccountNotificationMethod
@@ -31,7 +32,6 @@ import app.pachli.core.domain.notifications.notificationMethod
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.ui.extensions.awaitSingleChoiceItem
-import app.pachli.util.CryptoUtil
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import kotlinx.coroutines.Dispatchers
