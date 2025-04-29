@@ -578,4 +578,10 @@
     <string name="error_missing_edits">Ваш сервер знає, що цей допис було змінено, але не має копії редагувань, тому вони не можуть бути вам показані.
 \n
 \nЦе <a href="https://github.com/mastodon/mastodon/issues/25398">помилка #25398 у Mastodon</a>.</string>
+    <plurals name="notification_summary_report_format">
+        <item quantity="one">%1$s · %2$d прикріплених дописів</item>
+        <item quantity="few">%1$s · %2$d прикріплених дописів</item>
+        <item quantity="many">%1$s · %2$d прикріплених дописів</item>
+        <item quantity="other">%1$s · %2$d прикріплених дописів</item>
+    </plurals>
 </resources>
