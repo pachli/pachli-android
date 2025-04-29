@@ -560,4 +560,10 @@
     <string name="filter_keyword_display_format">%s (цэлае слова)</string>
     <string name="filter_keyword_addition_title">Дадаць ключавое слова</string>
     <string name="filter_edit_keyword_title">Змяніць ключавое слова</string>
+    <plurals name="notification_summary_report_format">
+        <item quantity="one">%1$s · %2$d допісаў дададзена</item>
+        <item quantity="few">%1$s · %2$d допісаў дададзена</item>
+        <item quantity="many">%1$s · %2$d допісаў дададзена</item>
+        <item quantity="other">%1$s · %2$d допісаў дададзена</item>
+    </plurals>
 </resources>
