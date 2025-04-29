@@ -69,7 +69,7 @@ class OauthLogin : ActivityResultContract<LoginData, LoginResult>() {
         } else {
             intent?.let {
                 IntentCompat.getParcelableExtra(it, EXTRA_RESULT, LoginResult::class.java)
-            } ?: LoginResult.Err("failed parsing LoginWebViewActivity result")
+            } ?: LoginResult.Error("failed parsing LoginWebViewActivity result")
         }
     }
 
@@ -97,11 +97,17 @@ data class LoginData(
 ) : Parcelable
 
 sealed interface LoginResult : Parcelable {
+    /**
+     * Login succeeded, with result code [code].
+     */
     @Parcelize
-    data class Ok(val code: String) : LoginResult
+    data class Code(val code: String) : LoginResult
 
+    /**
+     * Login failed, with [errorMessage].
+     */
     @Parcelize
-    data class Err(val errorMessage: String) : LoginResult
+    data class Error(val errorMessage: String) : LoginResult
 
     @Parcelize
     data object Cancel : LoginResult
@@ -155,7 +161,7 @@ class LoginWebViewActivity : BaseActivity() {
                 error: WebResourceError,
             ) {
                 Timber.d("Failed to load %s: %d %s", data.url, error.errorCode, error.description)
-                sendResult(LoginResult.Err(getString(R.string.error_could_not_load_login_page)))
+                sendResult(LoginResult.Error(getString(R.string.error_could_not_load_login_page)))
             }
 
             override fun shouldOverrideUrlLoading(
@@ -176,10 +182,10 @@ class LoginWebViewActivity : BaseActivity() {
                 return if (url.scheme == oauthUrl.scheme && url.host == oauthUrl.host) {
                     val error = url.getQueryParameter("error")
                     if (error != null) {
-                        sendResult(LoginResult.Err(error))
+                        sendResult(LoginResult.Error(error))
                     } else {
                         val code = url.getQueryParameter("code").orEmpty()
-                        sendResult(LoginResult.Ok(code))
+                        sendResult(LoginResult.Code(code))
                     }
                     true
                 } else {
