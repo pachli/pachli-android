@@ -82,10 +82,11 @@ class LoginActivity : BaseActivity() {
 
     private val doWebViewAuth = registerForActivityResult(OauthLogin()) { result ->
         when (result) {
-            is LoginResult.Ok -> lifecycleScope.launch {
+            is LoginResult.Code -> lifecycleScope.launch {
                 fetchOauthToken(result.code)
             }
-            is LoginResult.Err -> displayError(result.errorMessage)
+
+            is LoginResult.Error -> displayError(result.errorMessage)
             is LoginResult.Cancel -> setLoading(false)
         }
     }
@@ -175,9 +176,7 @@ class LoginActivity : BaseActivity() {
         }
     }
 
-    override fun requiresLogin(): Boolean {
-        return false
-    }
+    override fun requiresLogin() = false
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menu?.add(R.string.action_browser_login)?.apply {
