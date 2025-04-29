@@ -180,11 +180,22 @@ class ViewThreadViewModel @Inject constructor(
                 }
             } else {
                 Timber.d("Loaded status from network")
-                val result = api.status(id).getOrElse { error ->
+                val statusCall = async { api.status(id) }
+                val existingViewData = statusRepository.getStatusViewData(account.id, id)
+                val existingTranslation = statusRepository.getTranslation(account.id, id)
+
+                val status = statusCall.await().getOrElse { error ->
                     _uiResult.value = Err(ThreadError.Api(error))
                     return@launch
-                }
-                StatusViewData.fromStatusAndUiState(account, result.body, isDetailed = true)
+                }.body
+
+                val statusViewData = StatusViewData.fromStatusAndUiState(account, status, isDetailed = true)
+                existingViewData?.let {
+                    statusViewData.copy(
+                        translationState = existingViewData.translationState,
+                        translation = existingTranslation,
+                    )
+                } ?: statusViewData
             }
 
             _uiResult.value = Ok(
