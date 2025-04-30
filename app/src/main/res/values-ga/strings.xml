@@ -574,6 +574,10 @@
     <string name="notification_severed_relationships_unknown_body">Cúis anaithnid</string>
     <string name="notification_header_report_format">%s tuairiscithe %s</string>
     <plurals name="notification_summary_report_format">
+        <item quantity="one">%1$s · %2$d post ceangailte</item>
+        <item quantity="two">%1$s · %2$d post ceangailte</item>
+        <item quantity="few">%1$s · %2$d post ceangailte</item>
+        <item quantity="many">%1$s · %2$d post ceangailte</item>
         <item quantity="other">%1$s · %2$d post ceangailte</item>
     </plurals>
     <string name="action_add_reaction">cuir imoibriú leis</string>
@@ -864,4 +868,9 @@
     <string name="pref_custom_tabs_false">Níos moille, úsáideann an brabhsálaí is fearr leat</string>
     <string name="pref_title_notification_filter_severed_relationships">Scartar gaol ina dhiaidh/ina dhiaidh sin</string>
     <string name="pref_custom_tabs_true">Níos tapúla, an brabhsálaí is fearr leat i Pachli</string>
+    <string name="title_report_category_fmt">Catagóir: %1$s</string>
+    <string name="title_report_comment">Trácht ón tuairisceoir</string>
+    <string name="export_preferences_ok_fmt">Roghanna a easpórtáileadh chuig %1$s</string>
+    <string name="error_export_preferences_fmt">Níorbh fhéidir roghanna a easpórtáil chuig %1$s: %2$s</string>
+    <string name="error_import_preferences_fmt">Níorbh fhéidir roghanna a iompórtáil ó %1$s: %2$s</string>
 </resources>
