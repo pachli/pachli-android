@@ -18,4 +18,6 @@
     <string name="action_add_or_remove_from_list">Pievienot vai noņemt no saraksta</string>
     <string name="list_exclusive_label">Slēpt no galvenās laika skalas</string>
     <string name="replies_policy_title">Rādīt atbildes uz:</string>
+    <string name="replies_policy_name_list">Saraksta dalībnieki</string>
+    <string name="replies_policy_name_none">Nevienam</string>
 </resources>
