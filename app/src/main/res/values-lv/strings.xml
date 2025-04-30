@@ -27,7 +27,7 @@
     <string name="post_content_warning_show_less">Rādīt mazāk</string>
     <string name="notification_follow_format">%s uzsāka Tev sekot</string>
     <string name="notification_sign_up_format">%s reģistrējās</string>
-    <string name="footer_empty">Šeit nekā nav. Jāpavelk uz leju, lai atjauninātu.</string>
+    <string name="footer_empty">Šeit nekā nav. Pavelciet uz leju, lai atsvaidzinātu!</string>
     <string name="notification_update_format">%s laboja savu ierakstu</string>
     <string name="post_media_alt">ALT</string>
     <string name="action_quick_reply">Ātrā atbilde</string>
