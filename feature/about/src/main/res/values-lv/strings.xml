@@ -12,8 +12,8 @@
     <string name="notification_details_android_notifications_enabled">Vai Android paziņojumi ir iespējoti?</string>
     <string name="about_device_info_title">Jūsu ierīce</string>
     <string name="about_account_info_title">Jūsu konts</string>
-    <string name="about_copied">Kopēta versija un ierīces informācija</string>
-    <string name="about_copy">Kopēt versiju un ierīces informāciju</string>
+    <string name="about_copied">Starpliktuvē ievietota informācija par versiju un ierīci</string>
+    <string name="about_copy">Ievietot starpliktuvē informāciju par versiju un ierīci</string>
     <string name="about_device_info">%s %s\nAndroid versija: %s\nSDK līmenis: %d</string>
     <string name="about_account_info">\@%s@%s\nVersija: %s</string>
     <string name="notification_details_title">Informācija</string>
