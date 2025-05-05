@@ -38,8 +38,8 @@ import app.pachli.adapter.AccountFieldEditAdapter
 import app.pachli.core.activity.BaseActivity
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
-import app.pachli.core.data.model.InstanceInfo.Companion.DEFAULT_MAX_ACCOUNT_FIELDS
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_MAX_ACCOUNT_FIELDS
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.ui.extensions.await
 import app.pachli.core.ui.extensions.getErrorString

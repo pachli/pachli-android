@@ -19,16 +19,22 @@ package app.pachli.core.data.repository
 
 import androidx.annotation.VisibleForTesting
 import app.pachli.core.common.di.ApplicationScope
-import app.pachli.core.data.model.InstanceInfo
-import app.pachli.core.data.model.InstanceInfo.Companion.DEFAULT_CHARACTER_LIMIT
 import app.pachli.core.database.dao.InstanceDao
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.EmojisEntity
 import app.pachli.core.database.model.InstanceInfoEntity
+import app.pachli.core.database.model.asModel
+import app.pachli.core.model.InstanceInfo
+import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_CHARACTER_LIMIT
+import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_MAX_ACCOUNT_FIELDS
 import app.pachli.core.network.model.Emoji
+import app.pachli.core.network.model.InstanceV1
+import app.pachli.core.network.model.InstanceV2
 import app.pachli.core.network.retrofit.MastodonApi
+import com.github.michaelbull.result.map
 import com.github.michaelbull.result.mapBoth
 import com.github.michaelbull.result.onSuccess
+import com.github.michaelbull.result.orElse
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
@@ -121,32 +127,74 @@ class InstanceInfoRepository @Inject constructor(
     }
 
     /**
-     * Returns information about the instance.
-     * Will always try to fetch the most up-to-date data from the api, falls back to cache in case it is not available.
-     * Never throws, returns defaults of vanilla Mastodon in case of error.
+     * Refreshes the local cache of instance info, and returns it.
+     *
+     * If the network call fails then returns the cached copy. If there is no cached copy
+     * then returns vanilla defaults.
      */
     private suspend fun getInstanceInfo(domain: String): InstanceInfo {
-        api.getInstanceV1().onSuccess { result ->
-            val instance = result.body
-            val instanceEntity = InstanceInfoEntity(
-                instance = domain,
-                maxPostCharacters = instance.configuration.statuses.maxCharacters ?: instance.maxTootChars ?: DEFAULT_CHARACTER_LIMIT,
-                maxPollOptions = instance.configuration.polls.maxOptions,
-                maxPollOptionLength = instance.configuration.polls.maxCharactersPerOption,
-                minPollDuration = instance.configuration.polls.minExpiration,
-                maxPollDuration = instance.configuration.polls.maxExpiration,
-                charactersReservedPerUrl = instance.configuration.statuses.charactersReservedPerUrl,
-                version = instance.version,
-                videoSizeLimit = instance.configuration.mediaAttachments.videoSizeLimit,
-                imageSizeLimit = instance.configuration.mediaAttachments.imageSizeLimit,
-                imageMatrixLimit = instance.configuration.mediaAttachments.imageMatrixLimit,
-                maxMediaAttachments = instance.configuration.statuses.maxMediaAttachments,
-                maxFields = instance.pleroma?.metadata?.fieldLimits?.maxFields,
-                maxFieldNameLength = instance.pleroma?.metadata?.fieldLimits?.nameLength,
-                maxFieldValueLength = instance.pleroma?.metadata?.fieldLimits?.valueLength,
-            )
-            instanceDao.upsert(instanceEntity)
-        }
-        return instanceDao.getInstanceInfo(domain)?.let { InstanceInfo.from(it) } ?: InstanceInfo()
+        return api.getInstanceV2()
+            .map { it.body.asEntity(domain) }
+            .orElse { api.getInstanceV1().map { it.body.asEntity(domain) } }
+            .onSuccess { instanceDao.upsert(it) }
+            .mapBoth({ it.asModel() }, { InstanceInfo() })
     }
 }
+
+/**
+ * Returns [InstanceInfoEntity] for this [InstanceV1].
+ *
+ * There's no guarantee the [InstanceV1.uri] field will be just the domain, as some
+ * servers return URLs or possibly other junk (https://akkoma.dev/AkkomaGang/akkoma/issues/907,
+ * https://activitypub.software/TransFem-org/Sharkey/-/issues/1046), so require the
+ * caller to explicitly provide the domain to use as the primary key for this entity.
+ *
+ * @param domain Primary key for this domain
+ */
+fun InstanceV1.asEntity(domain: String) = InstanceInfoEntity(
+    instance = domain,
+    maxPostCharacters = configuration.statuses.maxCharacters ?: maxTootChars ?: DEFAULT_CHARACTER_LIMIT,
+    maxPollOptions = configuration.polls.maxOptions,
+    maxPollOptionLength = configuration.polls.maxCharactersPerOption,
+    minPollDuration = configuration.polls.minExpiration,
+    maxPollDuration = configuration.polls.maxExpiration,
+    charactersReservedPerUrl = configuration.statuses.charactersReservedPerUrl,
+    version = version,
+    videoSizeLimit = configuration.mediaAttachments.videoSizeLimit,
+    imageSizeLimit = configuration.mediaAttachments.imageSizeLimit,
+    imageMatrixLimit = configuration.mediaAttachments.imageMatrixLimit,
+    maxMediaAttachments = configuration.statuses.maxMediaAttachments,
+    maxFields = pleroma?.metadata?.fieldLimits?.maxFields ?: DEFAULT_MAX_ACCOUNT_FIELDS,
+    maxFieldNameLength = null,
+    maxFieldValueLength = null,
+    enabledTranslation = false,
+)
+
+/**
+ * Returns [InstanceInfoEntity] for this [InstanceV2].
+ *
+ * There's no guarantee the [InstanceV2.domain] field will be just the domain, as some
+ * servers return URLs or possibly other junk (https://akkoma.dev/AkkomaGang/akkoma/issues/907,
+ * https://activitypub.software/TransFem-org/Sharkey/-/issues/1046), so require the
+ * caller to explicitly provide the domain to use as the primary key for this entity.
+ *
+ * @param domain Primary key for this domain
+ */
+fun InstanceV2.asEntity(domain: String) = InstanceInfoEntity(
+    instance = domain,
+    maxPostCharacters = configuration.statuses.maxCharacters,
+    maxPollOptions = configuration.polls.maxOptions,
+    maxPollOptionLength = configuration.polls.maxCharactersPerOption,
+    minPollDuration = configuration.polls.minExpiration,
+    maxPollDuration = configuration.polls.maxExpiration,
+    charactersReservedPerUrl = configuration.statuses.charactersReservedPerUrl,
+    version = version,
+    videoSizeLimit = configuration.mediaAttachments.videoSizeLimit,
+    imageSizeLimit = configuration.mediaAttachments.imageSizeLimit,
+    imageMatrixLimit = configuration.mediaAttachments.imageMatrixLimit,
+    maxMediaAttachments = configuration.statuses.maxMediaAttachments,
+    maxFields = DEFAULT_MAX_ACCOUNT_FIELDS,
+    maxFieldNameLength = null,
+    maxFieldValueLength = null,
+    enabledTranslation = configuration.translation.enabled,
+)
