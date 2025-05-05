@@ -263,11 +263,6 @@
     <string name="lock_account_label_description">स्वयमेवाऽनुसर्तॄणां कृतेऽनुमतिर्दातव्या</string>
     <string name="lock_account_label">लेखा अवरुध्यताम्</string>
     <string name="action_remove">नश्यताम्</string>
-    <string name="action_set_caption">शीर्षकवाक्यं लिख्यताम्</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="other">दृष्ट्यां येषां समस्याऽस्ति तेषांं कृते विवरणम्
-\n(%d परिमिता न्यूनाक्षरसङ्ख्या)</item>
-    </plurals>
     <string name="compose_active_account_description">%1$s लेखया प्रकटनं क्रियते</string>
     <string name="download_failed">अवारोपणे दोषः</string>
     <string name="restart">पुनः प्रारभ्यताम्</string>

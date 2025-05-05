@@ -186,7 +186,6 @@
     <string name="add_account_name">Apondre un compte</string>
     <string name="add_account_description">Apondre un nòu compte Mastodon</string>
     <string name="compose_active_account_description">Publicar coma %1$s</string>
-    <string name="action_set_caption">Apondre una legenda</string>
     <string name="action_remove">Levar</string>
     <string name="lock_account_label">Clavar lo compte</string>
     <string name="lock_account_label_description">Demanda que validetz manualament los seguidors</string>
@@ -252,10 +251,6 @@
     <string name="filter_dialog_remove_button">Suprimir</string>
     <string name="filter_dialog_update_button">Actualizar</string>
     <string name="filter_add_description">Frasa de filtrar</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="one">Descriure lo contengut pels mal vesents (%d caractèr maximum)</item>
-        <item quantity="other">Descriure los contenguts pels mal vesents (%d caractèrs maximum)</item>
-    </plurals>
     <plurals name="favs">
         <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Favorit</item>
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Favorits</item>
@@ -546,7 +541,6 @@
     <string name="filter_description_format">%s : %s</string>
     <string name="label_filter_keywords">Mots clau o frasas de filtrar</string>
     <string name="hint_description">Descripcion</string>
-    <string name="post_media_image">Imatge</string>
     <string name="select_list_empty">Avètz pas encara de lista</string>
     <string name="select_list_manage">Gerir las listas</string>
     <string name="ui_error_favourite_fmt">Fracàs de la mes en favorit : %1$s</string>

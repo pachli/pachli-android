@@ -98,7 +98,7 @@ import java.util.TimeZone
         TimelineStatusEntity::class,
         ConversationViewDataEntity::class,
     ],
-    version = 23,
+    version = 24,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
@@ -121,7 +121,10 @@ import java.util.TimeZone
         AutoMigration(from = 19, to = 20, spec = AppDatabase.MIGRATE_19_20::class),
         AutoMigration(from = 20, to = 21),
         AutoMigration(from = 21, to = 22),
+        // Removed nullability from some InstanceEntity properties.
         AutoMigration(from = 22, to = 23),
+        // Added InstanceInfoEntity.maxMediaDescriptionChars.
+        AutoMigration(from = 23, to = 24),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {

@@ -289,9 +289,6 @@
     <string name="pref_title_thread_filter_keywords">Percakapan</string>
     <string name="pref_title_account_filter_keywords">Profil</string>
     <string name="filter_add_description">Frasa yang akan difilter</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="other">Jelaskan konten untuk tunanetra (batas karakter %d)</item>
-    </plurals>
     <string name="compose_save_draft">Simpan Draft?</string>
     <string name="unsaved_changes">Anda memiliki perubahan yang belum disimpan.</string>
     <string name="send_post_notification_channel_name">Mengirim Postingan</string>
@@ -359,11 +356,9 @@
     <string name="send_post_notification_title">Mengirim kiriman…</string>
     <string name="send_post_notification_cancel_title">Mengirim dibatalkan</string>
     <string name="abbreviated_minutes_ago">%dm</string>
-    <string name="post_media_image">Gambar</string>
     <plurals name="notification_title_summary">
         <item quantity="other">%d interaksi baru</item>
     </plurals>
-    <string name="action_set_caption">Buat caption</string>
     <string name="send_post_notification_saved_content">Salinan postingan telah disimpan ke draf Anda</string>
     <string name="reblog_private">Meningkatkan jumlah pemirsa asli</string>
     <string name="unreblog_private">Batalkan dorongan</string>

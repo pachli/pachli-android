@@ -204,13 +204,6 @@
     <string name="notification_mention_descriptions">Varsler om nye nevnelser</string>
     <string name="abbreviated_in_years">om %då</string>
     <string name="compose_active_account_description">Poster som %1$s</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="one">Beskriv innhold for de med nedsatt synsevne
-\n(maks %d tegn)</item>
-        <item quantity="other">Beskriv innhold for de med nedsatt synsevne
-\n(maks %d tegn)</item>
-    </plurals>
-    <string name="action_set_caption">Sett bildetekst</string>
     <string name="action_remove">Slett</string>
     <string name="lock_account_label">Lås konto</string>
     <string name="lock_account_label_description">Krever at du manuelt godkjenner nye følgere</string>
@@ -499,7 +492,6 @@
     <string name="status_edit_info">Redigert: %1$s</string>
     <string name="hint_media_description_missing">Media bør ha en beskrivelse.</string>
     <string name="hint_description">Beskrivelse</string>
-    <string name="post_media_image">Bilde</string>
     <string name="ui_error_bookmark_fmt">Å bokmerke innlegget misslyktes: %1$s</string>
     <string name="hint_filter_title">Mitt filter</string>
     <string name="filter_edit_keyword_title">Rediger nøkkelord</string>
@@ -758,7 +750,6 @@
     <string name="search_operator_where_dialog_library_hint">Dine egne innlegg, fremhevinger, favoritmerker, bokmerker, og innlegg som @nevner deg</string>
     <string name="search_operator_where_dialog_public">Fødererte innlegg</string>
     <string name="upload_failed_msg_fmt">Pachli skal prøve å laste opp vedlegg når du sender innlegget. Dersom det mislykkes igjen, skal innlegget lagres i utkastene dine.\n\nFeilen var: %1$s</string>
-    <string name="upload_failed_modify_attachment">Vedlegg ble modifisert</string>
     <string name="pref_title_confirm_status_language">Sjekk innleggets språkinnstilling før innlegget publiseres</string>
     <string name="compose_warn_language_dialog_accept_and_dont_ask_fmt">Tut på %1$s og ikke spør igjen</string>
     <string name="main_viewmodel_error_set_active_account">Å prøve å logge inn mislyktes med den følgende feilen:\n\n%1$s</string>

@@ -489,7 +489,6 @@
     <string name="ui_success_accepted_follow_request">Sekošanas pieprasījums apstiprināts</string>
     <string name="ui_success_rejected_follow_request">Sekošanas pieprasījums liegts</string>
     <string name="post_privacy_followers_only">Tikai sekotājiem</string>
-    <string name="post_media_image">Attēls</string>
     <string name="filter_description_hide">Paslēpt pilnībā</string>
     <string name="select_list_empty">Tev vēl nav sarakstu</string>
     <string name="select_list_manage">Pārvaldīt sarakstus</string>
@@ -545,14 +544,8 @@
     <string name="notification_prune_cache">Kešatmiņas uzturēšanas darbi…</string>
     <string name="notification_listenable_worker_description">Paziņojumi, kad Pachli darbojas fonā</string>
     <string name="profile_metadata_label_label">Iezīme</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="zero">Aprakstīt saturu cilvēkiem ar redzes traucējumiem (%d rakstzīmju ierobežojums)</item>
-        <item quantity="one">Aprakstīt saturu cilvēkiem ar redzes traucējumiem (%d rakstzīmes ierobežojums)</item>
-        <item quantity="other">Aprakstīt saturu cilvēkiem ar redzes traucējumiem (%d rakstzīmju ierobežojums)</item>
-    </plurals>
     <string name="notification_unknown_name">Nezināms</string>
     <string name="notification_listenable_worker_name">Fona darbības</string>
-    <string name="action_set_caption">Iestatīt uzrakstu</string>
     <plurals name="notification_title_summary">
         <item quantity="zero">%d jaunu mijiedarbību</item>
         <item quantity="one">%d jauna mijiedarbība</item>
@@ -805,7 +798,6 @@
     <string name="search_operator_where_dialog_public">Publiskie ieraksti</string>
     <string name="upload_failed_msg_fmt">Augšupielāde tiks atkārtoti mēģināta, kad nosūtīsi ierakstu. Ja tā atkal neizdosies, ieraksts tiks saglabāts pie melnrakstiem.\n\nKļūda: %1$s</string>
     <string name="main_viewmodel_error_set_active_account">Mēģinājums pieteikties neizdevās šādas kļūdas dēļ:\n\n%1$s</string>
-    <string name="upload_failed_modify_attachment">Labot pielikumu</string>
     <string name="pref_notification_method_all_push">Visi konti izmanto UnifiedPush. Piesist, lai uzzinātu vairāk.</string>
     <string name="search_operator_sensitive_dialog_all">Visi ieraksti</string>
     <string name="ui_error_accept_follow_request">Sekošanas pieprasījuma apstiprināšana neizdevās: %s</string>

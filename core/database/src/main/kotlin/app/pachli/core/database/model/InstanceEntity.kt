@@ -24,6 +24,7 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
 import app.pachli.core.model.InstanceInfo
+import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_MAX_MEDIA_DESCRIPTION_CHARS
 import app.pachli.core.network.model.Emoji
 
 @Entity
@@ -41,6 +42,8 @@ data class InstanceInfoEntity(
     val imageSizeLimit: Long,
     val imageMatrixLimit: Int,
     val maxMediaAttachments: Int,
+    @ColumnInfo(defaultValue = DEFAULT_MAX_MEDIA_DESCRIPTION_CHARS.toString())
+    val maxMediaDescriptionChars: Int,
     val maxFields: Int,
     val maxFieldNameLength: Int?,
     val maxFieldValueLength: Int?,
@@ -65,6 +68,7 @@ fun InstanceInfoEntity?.asModel(): InstanceInfo {
         imageSizeLimit = imageSizeLimit,
         imageMatrixLimit = imageMatrixLimit,
         maxMediaAttachments = maxMediaAttachments,
+        maxMediaDescriptionChars = maxMediaDescriptionChars,
         maxFields = maxFields,
         maxFieldNameLength = maxFieldNameLength,
         maxFieldValueLength = maxFieldValueLength,

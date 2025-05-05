@@ -159,7 +159,6 @@
     <string name="report_username_format">Ilmianna @%s</string>
     <string name="report_comment_hint">Lisähuomautuksia\?</string>
     <string name="error_media_upload_permission">Tiedostojen lähettäminen vaatii lukuoikeuden.</string>
-    <string name="action_set_caption">Aseta kuvaus</string>
     <string name="action_bookmark">Kirjanmerkki</string>
     <string name="action_unmute_domain">Poista mykistys verkkonimeltä %s</string>
     <string name="notification_mention_format">%s on maininnut sinut</string>
@@ -177,10 +176,6 @@
     <string name="action_open_reblogged_by">Näytä jaot</string>
     <string name="action_show_reblogs">Näytä jaetut julkaisut</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s ja %4$d muuta</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="one">Kuvaa sisältö näkövammaisille (enintään %d merkki)</item>
-        <item quantity="other">Kuvaa sisältö näkövammaisille (enintään %d merkkiä)</item>
-    </plurals>
     <string name="edit_hashtag_hint">Aihetunniste ilman #-merkkiä</string>
     <string name="title_domain_mutes">Piilotetut verkkotunnukset</string>
     <string name="action_share_as">Jaa…</string>
@@ -387,7 +382,6 @@
     <string name="abbreviated_in_hours">%dt</string>
     <string name="notification_report_name">Raportit</string>
     <string name="abbreviated_in_days">%dp</string>
-    <string name="post_media_image">Kuva</string>
     <string name="pref_title_font_family">Kirjasinperhe</string>
     <string name="notification_mention_descriptions">Ilmoitukset uusista maininnoista</string>
     <string name="notification_update_description">Ilmoitukset, kun viestit, joihin olet reagoinut, on muokattu</string>
@@ -790,7 +784,6 @@
     <string name="main_viewmodel_error_set_active_account">Kirjautuminen epäonnistui, virhe oli:\n\n%1$s</string>
     <string name="main_viewmodel_error_refresh_account">Tilin päivittäminen epäonnistui, virhe oli:\n\n%1$s\n\nVoit jatkaa, mutta listasi ja suodattimesi saattavat olla eivät ehkä ole ajan tasalla.</string>
     <string name="action_relogin">Kirjaudu uudestaan</string>
-    <string name="upload_failed_modify_attachment">Muokkaa liitettä</string>
     <string name="notification_unknown">Tuntematon ilmoitustyyppi</string>
     <string name="preview_card_timeline_link_fmt">Katso &lt;b&gt;%1$s&lt;/b&gt; julkaisua tästä linkistä</string>
     <string name="action_timeline_link">Julkaisuja tästä linkistä</string>

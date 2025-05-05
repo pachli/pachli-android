@@ -22,6 +22,7 @@ import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_CHARACTER_LIMIT
 import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_IMAGE_MATRIX_LIMIT
 import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_IMAGE_SIZE_LIMIT
 import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_MAX_MEDIA_ATTACHMENTS
+import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_MAX_MEDIA_DESCRIPTION_CHARS
 import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_MAX_OPTION_COUNT
 import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_MAX_OPTION_LENGTH
 import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_MAX_POLL_DURATION
@@ -190,6 +191,9 @@ data class MediaAttachments(
 
     /** The maximum number of pixels (width times height) for video uploads. */
     @Json(name = "video_matrix_limit") val videoMatrixLimit: Int = DEFAULT_VIDEO_MATRIX_LIMIX,
+
+    /** Maximum number of characters in a media description. */
+    @Json(name = "description_limit") val descriptionLimit: Int = DEFAULT_MAX_MEDIA_DESCRIPTION_CHARS,
 )
 
 @JsonClass(generateAdapter = true)
