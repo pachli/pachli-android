@@ -19,8 +19,8 @@ package app.pachli.core.data.repository
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.cash.turbine.test
-import app.pachli.core.data.model.InstanceInfo.Companion.DEFAULT_CHARACTER_LIMIT
 import app.pachli.core.database.AppDatabase
+import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_CHARACTER_LIMIT
 import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.InstanceConfiguration
 import app.pachli.core.network.model.InstanceV1
@@ -208,7 +208,7 @@ class InstanceInfoRepositoryTest {
 
     private fun getInstanceWithCustomConfiguration(maximumLegacyTootCharacters: Int? = null, configuration: InstanceConfiguration = InstanceConfiguration()): InstanceV1 {
         return InstanceV1(
-            uri = "https://example.token",
+            uri = "example.token",
             version = "2.6.3",
             maxTootChars = maximumLegacyTootCharacters,
             pollConfiguration = null,

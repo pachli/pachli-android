@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Tusky contributors
+ * Copyright 2025 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -15,9 +15,7 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.core.data.model
-
-import app.pachli.core.common.extensions.MiB
+package app.pachli.core.model
 
 // Know that these fields are all used somewhere
 //
@@ -36,7 +34,7 @@ data class InstanceInfo(
     val maxFields: Int = DEFAULT_MAX_ACCOUNT_FIELDS,
     val maxFieldNameLength: Int? = null,
     val maxFieldValueLength: Int? = null,
-    val version: String? = "(Pachli defaults)",
+    val version: String = "(Pachli defaults)",
 ) {
     companion object {
         const val DEFAULT_CHARACTER_LIMIT = 500
@@ -45,8 +43,10 @@ data class InstanceInfo(
         const val DEFAULT_MIN_POLL_DURATION = 300
         const val DEFAULT_MAX_POLL_DURATION = 604800L
 
-        val DEFAULT_VIDEO_SIZE_LIMIT = 40L.MiB
-        val DEFAULT_IMAGE_SIZE_LIMIT = 10L.MiB
+        const val DEFAULT_VIDEO_SIZE_LIMIT = 40L * 1024 * 1024 // 40 MiB
+        const val DEFAULT_VIDEO_MATRIX_LIMIX = 4096 * 4096
+        const val DEFAULT_VIDEO_FRAME_RATE_LIMIT = 30
+        const val DEFAULT_IMAGE_SIZE_LIMIT = 10L * 1024 * 1024 // 10 MiB
         const val DEFAULT_IMAGE_MATRIX_LIMIT = 4096 * 4096
 
         // Mastodon only counts URLs as this long in terms of status character limits
@@ -54,24 +54,5 @@ data class InstanceInfo(
 
         const val DEFAULT_MAX_MEDIA_ATTACHMENTS = 4
         const val DEFAULT_MAX_ACCOUNT_FIELDS = 4
-
-        fun from(info: app.pachli.core.database.model.InstanceInfoEntity): InstanceInfo {
-            return InstanceInfo(
-                maxChars = info.maxPostCharacters ?: DEFAULT_CHARACTER_LIMIT,
-                pollMaxOptions = info.maxPollOptions ?: DEFAULT_MAX_OPTION_COUNT,
-                pollMaxLength = info.maxPollOptionLength ?: DEFAULT_MAX_OPTION_COUNT,
-                pollMinDuration = info.minPollDuration ?: DEFAULT_MIN_POLL_DURATION,
-                pollMaxDuration = info.maxPollDuration ?: DEFAULT_MAX_POLL_DURATION,
-                charactersReservedPerUrl = info.charactersReservedPerUrl ?: DEFAULT_CHARACTERS_RESERVED_PER_URL,
-                videoSizeLimit = info.videoSizeLimit ?: DEFAULT_VIDEO_SIZE_LIMIT,
-                imageSizeLimit = info.imageSizeLimit ?: DEFAULT_IMAGE_SIZE_LIMIT,
-                imageMatrixLimit = info.imageMatrixLimit ?: DEFAULT_IMAGE_MATRIX_LIMIT,
-                maxMediaAttachments = info.maxMediaAttachments ?: DEFAULT_MAX_MEDIA_ATTACHMENTS,
-                maxFields = info.maxFields ?: DEFAULT_MAX_ACCOUNT_FIELDS,
-                maxFieldNameLength = info.maxFieldNameLength,
-                maxFieldValueLength = info.maxFieldValueLength,
-                version = info.version ?: "(Pachli defaults)",
-            )
-        }
     }
 }

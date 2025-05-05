@@ -98,7 +98,7 @@ import java.util.TimeZone
         TimelineStatusEntity::class,
         ConversationViewDataEntity::class,
     ],
-    version = 22,
+    version = 23,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
@@ -121,6 +121,7 @@ import java.util.TimeZone
         AutoMigration(from = 19, to = 20, spec = AppDatabase.MIGRATE_19_20::class),
         AutoMigration(from = 20, to = 21),
         AutoMigration(from = 21, to = 22),
+        AutoMigration(from = 22, to = 23),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {
