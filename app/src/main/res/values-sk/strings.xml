@@ -357,7 +357,6 @@
     <string name="filter_action_hide">Skryť</string>
     <string name="dialog_save_profile_changes_message">Chceš uložiť zmeny vo svojom profile?</string>
     <string name="pref_title_update_notification_frequency">Upozorniť na nové verzie Pachli</string>
-    <string name="post_media_image">Obrázok</string>
     <string name="failed_report">Nahlásenie zlyhalo</string>
     <string name="label_duration">Doba trvania</string>
     <string name="reaction_name_and_count">%1$s %2$d</string>
@@ -420,11 +419,6 @@
     <string name="wellbeing_mode_notice">Niektoré informácie, ktoré by mohli mať vplyv na tvoju duševnú pohodu, budú skryté. Týka sa to:\n\n - Upozornení na zdieľanie, sledovaníe a pridanie medzi obľúbené\n - Počtu obľúbení a zdieľaní pri príspevkoch\n - Štatistík sledujúcich a príspevkov na profiloch\n\nPush upozornenia nebudú ovplyvnené, ale môžeš si skontrolovať ich nastavenia manuálne.</string>
     <string name="notifications_apply_filter">Filtrovať upozornenia</string>
     <string name="filter_apply">Použiť</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="one">Popis pre zrakovo postihnutých (limit %d znak)</item>
-        <item quantity="few">Popis pre zrakovo postihnutých (limit %d znaky)</item>
-        <item quantity="other">Popis pre zrakovo postihnutých (limit %d znakov)</item>
-    </plurals>
     <string name="post_media_audio">Audio</string>
     <string name="pref_title_thread_filter_keywords">Konverzácie</string>
     <string name="filter_add_description">Fráza pre filtrovanie</string>
@@ -472,7 +466,6 @@
     <string name="post_media_attachments">Prílohy</string>
     <string name="filter_dialog_whole_word">Celé slovo</string>
     <string name="add_account_description">Pridať nový účet Mastodon</string>
-    <string name="action_set_caption">Pridať popis</string>
     <string name="compose_save_draft_loses_media">Prílohy budú opätovne nahrané po obnovení konceptu.</string>
     <string name="unsaved_changes">Máš neuložené zmeny.</string>
     <string name="action_compose_shortcut">Napísať</string>
@@ -779,7 +772,6 @@
     <string name="search_operator_where_dialog_title">Obmedziť na…</string>
     <string name="search_operator_where_dialog_library">Tvoja knižnica</string>
     <string name="search_operator_where_dialog_public_hint">Verejné, vyhľadateľné príspevky, ktoré pozná server</string>
-    <string name="upload_failed_modify_attachment">Upraviť prílohu</string>
     <string name="pref_title_account_notification_filters">Filtre upozornení</string>
     <string name="pref_account_notification_filters_subtitle">Čo sa má stať s upozorneniami z účtov…</string>
     <string name="account_filter_placeholder_type_follow_fmt">Účet @<b>%1s</b> ťa začal sledovať</string>

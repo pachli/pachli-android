@@ -58,18 +58,6 @@
             android:textSize="?attr/status_text_large"
             android:textStyle="bold" />
 
-        <ImageButton
-            android:id="@+id/descriptionMissingWarningButton"
-            style="@style/AppImageButton"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:contentDescription="@string/hint_media_description_missing"
-            android:padding="8dp"
-            app:srcCompat="@drawable/ic_missing_description_24dp"
-            app:tint="@color/tusky_orange_light"
-            app:tooltipText="@string/hint_media_description_missing"
-            android:visibility="invisible" />
     </com.google.android.material.appbar.MaterialToolbar>
 
     <androidx.core.widget.NestedScrollView

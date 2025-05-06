@@ -31,6 +31,8 @@ data class InstanceInfo(
     val imageSizeLimit: Long = DEFAULT_IMAGE_SIZE_LIMIT,
     val imageMatrixLimit: Int = DEFAULT_IMAGE_MATRIX_LIMIT,
     val maxMediaAttachments: Int = DEFAULT_MAX_MEDIA_ATTACHMENTS,
+    /** Maximum number of characters in a media description. */
+    val maxMediaDescriptionChars: Int = DEFAULT_MAX_MEDIA_DESCRIPTION_CHARS,
     val maxFields: Int = DEFAULT_MAX_ACCOUNT_FIELDS,
     val maxFieldNameLength: Int? = null,
     val maxFieldValueLength: Int? = null,
@@ -53,6 +55,9 @@ data class InstanceInfo(
         const val DEFAULT_CHARACTERS_RESERVED_PER_URL = 23
 
         const val DEFAULT_MAX_MEDIA_ATTACHMENTS = 4
+
+        // Default Mastodon limit
+        const val DEFAULT_MAX_MEDIA_DESCRIPTION_CHARS = 1500
         const val DEFAULT_MAX_ACCOUNT_FIELDS = 4
     }
 }

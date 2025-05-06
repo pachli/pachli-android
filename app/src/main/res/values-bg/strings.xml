@@ -117,11 +117,6 @@
     <string name="lock_account_label_description">Изисква ръчно одобряване на последователи</string>
     <string name="lock_account_label">Заключване на акаунт</string>
     <string name="action_remove">Премахване</string>
-    <string name="action_set_caption">Задаване на надпис</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="other">Опишете за хора със зрителни увреждания
-\n(%d ограничение на знаците)</item>
-    </plurals>
     <string name="compose_active_account_description">Публикуване с акаунт %1$s</string>
     <string name="add_account_description">Добавяне на нов Mastodon акаунт</string>
     <string name="add_account_name">Добавяне на акаунт</string>
