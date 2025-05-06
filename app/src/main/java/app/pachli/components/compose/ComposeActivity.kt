@@ -114,7 +114,8 @@ import app.pachli.util.setDrawableTint
 import com.bumptech.glide.Glide
 import com.canhub.cropper.CropImage
 import com.canhub.cropper.CropImageContract
-import com.canhub.cropper.options
+import com.canhub.cropper.CropImageContractOptions
+import com.canhub.cropper.CropImageOptions
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.getOrElse
 import com.github.michaelbull.result.mapBoth
@@ -1285,10 +1286,13 @@ class ComposeActivity :
         viewModel.cropImageItemOld = item
 
         cropImage.launch(
-            options(uri = item.uri) {
-                setOutputUri(uriNew)
-                setOutputCompressFormat(if (isPng) Bitmap.CompressFormat.PNG else Bitmap.CompressFormat.JPEG)
-            },
+            CropImageContractOptions(
+                uri = item.uri,
+                cropImageOptions = CropImageOptions(
+                    customOutputUri = uriNew,
+                    outputCompressFormat = if (isPng) Bitmap.CompressFormat.PNG else Bitmap.CompressFormat.JPEG,
+                ),
+            ),
         )
     }
 
