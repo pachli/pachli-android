@@ -68,7 +68,6 @@ import app.pachli.adapter.EmojiAdapter
 import app.pachli.adapter.LocaleAdapter
 import app.pachli.adapter.OnEmojiSelectedListener
 import app.pachli.components.compose.ComposeViewModel.ConfirmationKind
-import app.pachli.components.compose.dialog.CaptionDialog
 import app.pachli.components.compose.dialog.makeFocusDialog
 import app.pachli.components.compose.dialog.showAddPollDialog
 import app.pachli.components.compose.view.ComposeOptionsListener
@@ -80,11 +79,11 @@ import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.string.mastodonLength
 import app.pachli.core.common.util.unsafeLazy
-import app.pachli.core.data.model.InstanceInfo.Companion.DEFAULT_CHARACTER_LIMIT
-import app.pachli.core.data.model.InstanceInfo.Companion.DEFAULT_MAX_MEDIA_ATTACHMENTS
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_CHARACTER_LIMIT
+import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_MAX_MEDIA_ATTACHMENTS
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InReplyTo
@@ -114,7 +113,8 @@ import app.pachli.util.setDrawableTint
 import com.bumptech.glide.Glide
 import com.canhub.cropper.CropImage
 import com.canhub.cropper.CropImageContract
-import com.canhub.cropper.options
+import com.canhub.cropper.CropImageContractOptions
+import com.canhub.cropper.CropImageOptions
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.getOrElse
 import com.github.michaelbull.result.mapBoth
@@ -151,8 +151,7 @@ class ComposeActivity :
     OnEmojiSelectedListener,
 
     OnReceiveContentListener,
-    ComposeScheduleView.OnTimeSetListener,
-    CaptionDialog.Listener {
+    ComposeScheduleView.OnTimeSetListener {
 
     private lateinit var composeOptionsBehavior: BottomSheetBehavior<*>
     private lateinit var addMediaBehavior: BottomSheetBehavior<*>
@@ -265,21 +264,6 @@ class ComposeActivity :
 
         val composeOptions: ComposeOptions? = ComposeActivityIntent.getComposeOptions(intent)
 
-        val mediaAdapter = MediaPreviewAdapter(
-            this,
-            onAddCaption = { item ->
-                CaptionDialog.newInstance(item.localId, item.serverId, item.description, item.uri).show(supportFragmentManager, "caption_dialog")
-            },
-            onAddFocus = { item ->
-                makeFocusDialog(item.focus, item.uri) { newFocus ->
-                    viewModel.updateFocus(item.localId, newFocus)
-                }
-                // TODO this is inconsistent to CaptionDialog (device rotation)?
-            },
-            onEditImage = this::editImageInQueue,
-            onRemove = this::removeMediaFromQueue,
-        )
-
         binding.replyLoadingErrorRetry.setOnClickListener { viewModel.reloadReply() }
 
         lifecycleScope.launch { viewModel.inReplyTo.collect(::bindInReplyTo) }
@@ -310,10 +294,22 @@ class ComposeActivity :
                     setupComposeField(sharedPreferencesRepository, viewModel.initialContent, composeOptions)
                 }
 
+                val mediaAdapter = MediaPreviewAdapter(
+                    descriptionLimit = account.instanceInfo.maxMediaDescriptionChars,
+                    onDescriptionChanged = this@ComposeActivity::onUpdateDescription,
+                    onEditFocus = { item ->
+                        makeFocusDialog(item.focus, item.uri) { newFocus ->
+                            viewModel.updateFocus(item.localId, newFocus)
+                        }
+                    },
+                    onEditImage = this@ComposeActivity::editImageInQueue,
+                    onRemoveMedia = this@ComposeActivity::removeMediaFromQueue,
+                )
+
                 subscribeToUpdates(mediaAdapter)
 
                 binding.composeMediaPreviewBar.layoutManager =
-                    LinearLayoutManager(this@ComposeActivity, LinearLayoutManager.HORIZONTAL, false)
+                    LinearLayoutManager(this@ComposeActivity, LinearLayoutManager.VERTICAL, false)
                 binding.composeMediaPreviewBar.adapter = mediaAdapter
                 binding.composeMediaPreviewBar.itemAnimator = null
 
@@ -686,9 +682,6 @@ class ComposeActivity :
         binding.composeScheduleView.setListener(this)
         binding.atButton.setOnClickListener { atButtonClicked() }
         binding.hashButton.setOnClickListener { hashButtonClicked() }
-        binding.descriptionMissingWarningButton.setOnClickListener {
-            displayTransientMessage(R.string.hint_media_description_missing)
-        }
 
         val cameraIcon = makeIcon(this, GoogleMaterial.Icon.gmd_camera_alt, IconicsSize.dp(18))
         binding.actionPhotoTake.setCompoundDrawablesRelativeWithIntrinsicBounds(cameraIcon, null, null, null)
@@ -851,7 +844,6 @@ class ComposeActivity :
     private fun updateSensitiveMediaToggle(markMediaSensitive: Boolean, contentWarningShown: Boolean) {
         if (viewModel.media.value.isEmpty()) {
             binding.composeHideMediaButton.hide()
-            binding.descriptionMissingWarningButton.hide()
         } else {
             binding.composeHideMediaButton.show()
             @ColorInt val color = if (contentWarningShown) {
@@ -869,15 +861,6 @@ class ComposeActivity :
                 }
             }
             binding.composeHideMediaButton.drawable.colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)
-
-            var oneMediaWithoutDescription = false
-            for (media in viewModel.media.value) {
-                if (media.description.isNullOrEmpty()) {
-                    oneMediaWithoutDescription = true
-                    break
-                }
-            }
-            binding.descriptionMissingWarningButton.visibility = if (oneMediaWithoutDescription) View.VISIBLE else View.GONE
         }
     }
 
@@ -1285,10 +1268,13 @@ class ComposeActivity :
         viewModel.cropImageItemOld = item
 
         cropImage.launch(
-            options(uri = item.uri) {
-                setOutputUri(uriNew)
-                setOutputCompressFormat(if (isPng) Bitmap.CompressFormat.PNG else Bitmap.CompressFormat.JPEG)
-            },
+            CropImageContractOptions(
+                uri = item.uri,
+                cropImageOptions = CropImageOptions(
+                    customOutputUri = uriNew,
+                    outputCompressFormat = if (isPng) Bitmap.CompressFormat.PNG else Bitmap.CompressFormat.JPEG,
+                ),
+            ),
         )
     }
 
@@ -1553,8 +1539,11 @@ class ComposeActivity :
         scheduleBehavior.state = BottomSheetBehavior.STATE_HIDDEN
     }
 
-    override fun onUpdateDescription(localId: Int, serverId: String?, description: String) {
-        viewModel.updateDescription(localId, serverId, description)
+    fun onUpdateDescription(media: QueuedMedia, description: String) {
+        // Do nothing if no changes.
+        if (media.description.isNullOrBlank() && description.isBlank()) return
+        if (media.description == description) return
+        viewModel.updateDescription(media.localId, media.serverId, description)
     }
 
     companion object {

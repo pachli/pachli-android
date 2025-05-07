@@ -32,8 +32,8 @@
     <string name="post_content_warning_show_more">Pokaż więcej</string>
     <string name="post_content_warning_show_less">Pokaż mniej</string>
     <string name="footer_empty">Pusto tutaj. Pociągnij, aby odświeżyć!</string>
-    <string name="notification_reblog_format">Podbicie twojego wpisu przez %s</string>
-    <string name="notification_favourite_format">Polubienie twojego wpisu przez %s</string>
+    <string name="notification_reblog_format">Osoba %s podbiła twój wpis</string>
+    <string name="notification_favourite_format">Osoba %s polubiła twój wpis</string>
     <string name="notification_follow_format">%s cię obserwuje</string>
     <string name="report_username_format">Zgłoś @%s</string>
     <string name="report_comment_hint">Dodatkowe komentarze?</string>
@@ -190,7 +190,6 @@
     <string name="add_account_name">Dodaj konto</string>
     <string name="add_account_description">Dodaj nowe konto Mastodon</string>
     <string name="compose_active_account_description">Publikowanie jako %1$s</string>
-    <string name="action_set_caption">Ustaw opis</string>
     <string name="action_remove">Usuń</string>
     <string name="lock_account_label">Zablokuj konto</string>
     <string name="lock_account_label_description">Wymaga od Ciebie ręcznej akceptacji próśb o obserwacje</string>
@@ -267,12 +266,6 @@
     <string name="filter_dialog_whole_word">Całe słowo</string>
     <string name="filter_dialog_whole_word_description">Kiedy słowo kluczowe lub fraza są tylko alfanumeryczne, filtr będzie zastosowany jeśli pasuje do całego słowa</string>
     <string name="filter_add_description">Fraza, która ma być filtrowana</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="one">Wprowadź opis dla niewidomych i niedowidzących (maksymalna długość: %d)</item>
-        <item quantity="few">Wprowadź opisy dla niewidomych i niedowidzących (maksymalna długość: %d)</item>
-        <item quantity="many">Wprowadź opisy dla niewidomych i niedowidzących (maksymalna długość: %d)</item>
-        <item quantity="other">Wprowadź opisy dla niewidomych i niedowidzących (maksymalna długość: %d)</item>
-    </plurals>
     <string name="pref_title_absolute_time">Użyj czasu absolutnego</string>
     <string name="label_remote_account">Informacje poniżej mogą niekompletnie przedstawiać profil tego konta. Kliknij, by otworzyć pełny profil w przeglądarce.</string>
     <string name="unpin_action">Odepnij z profilu</string>
@@ -515,9 +508,6 @@
     <string name="description_login">Działa w większości przypadków. Żadne dane nie są udostępniane innym aplikacjom.</string>
     <string name="description_browser_login">Może obsługiwać dodatkowe formy weryfikacji, ale wymaga kompatybilnej przeglądarki.</string>
     <string name="notification_report_format">Nowe zgłoszenie dotyczące %s</string>
-    <plurals name="notification_summary_report_format">
-        <item quantity="other">%1$s · %2$d załączonych wpisów</item>
-    </plurals>
     <string name="failed_to_pin">Nie udało się przypiąć</string>
     <string name="failed_to_unpin">Nie udało się odpiąć</string>
     <string name="error_status_source_load">Błąd ładowania źródła statusu z serwera.</string>
@@ -549,7 +539,6 @@
     <string name="title_tab_public_trending_statuses">Wpisy</string>
     <string name="filter_description_hide">Ukryj całkowicie</string>
     <string name="filter_description_format">%s: %s</string>
-    <string name="post_media_image">Obraz</string>
     <string name="filter_action_hide">Ukryj</string>
     <string name="label_filter_title">Tytuł</string>
     <string name="pref_title_font_family">Czcionka</string>
@@ -630,11 +619,11 @@
     <string name="pref_account_notification_filters_label_younger_30d">… utworzonych w ciągu ostatnich 30 dni</string>
     <string name="pref_account_notification_filters_label_not_followed">… których nie obserwujesz</string>
     <string name="pref_account_notification_filters_label_limited_by_server">… ograniczonych przez moderację</string>
-    <string name="account_filter_placeholder_type_favourite_fmt">Polubienie twojego wpisu przez @<b>%1s</b></string>
+    <string name="account_filter_placeholder_type_favourite_fmt">Osoba @<b>%1s</b> polubiła twój wpis</string>
     <string name="account_filter_placeholder_type_follow_fmt">Konto @<b>%1s</b> cię obserwuje</string>
     <string name="account_filter_placeholder_type_mention_fmt">Nowa wzmianka od @<b>%1s</b></string>
     <string name="account_filter_placeholder_type_follow_request_fmt">Prośba o obserwację od @<b>%1s</b></string>
-    <string name="account_filter_placeholder_type_reblog_fmt">Podbicie twojego wpisu przez @<b>%1s</b></string>
+    <string name="account_filter_placeholder_type_reblog_fmt">Osoba @<b>%1s</b> podbiła twój wpis</string>
     <string name="account_filter_placeholder_label_domain">Od konta @<b>%1s</b></string>
     <string name="account_filter_placeholder_label_not_following">Odfiltrowane z powodu: <b>nie obserwujesz tego konta</b></string>
     <string name="announcement_date">%1$s %2$s</string>
@@ -680,7 +669,6 @@
     <string name="search_operator_link_dialog_no_link">Tylko wpisy bez odnośników</string>
     <string name="search_operator_embed_dialog_only">Tylko wpisy z kartami podglądu</string>
     <string name="search_operator_date_checked_same_day">%1$s</string>
-    <string name="upload_failed_modify_attachment">Modyfikuj załącznik</string>
     <string name="upload_failed_msg_fmt">Wgrywanie będzie ponowione przy wysyłaniu wpisu. Jeżeli ponownie się nie powiedzie, wpis zostanie zapisany w szkicach.\n\nBłąd: %1$s</string>
     <string name="search_operator_replies_dialog_no_replies">Bez odpowiedzi</string>
     <string name="main_viewmodel_error_refresh_account">Odświeżenie konta się nie powiodło i zwróciło błąd:\n\n%1$s\n\nMożesz kontynuować, ale twoje listy i filtry mogą być niekompletne.</string>
@@ -851,4 +839,12 @@
     <string name="error_export_preferences_fmt">Nie udało się zapisać ustawień w pliku %1$s: %2$s</string>
     <string name="error_import_preferences_fmt">Nie udało się wczytać ustawień z pliku %1$s: %2$s</string>
     <string name="pref_custom_tabs_true">Szybsze, używa twojej wybranej przeglądarki w Pachli</string>
+    <string name="title_report_category_fmt">Kategoria: %1$s</string>
+    <string name="title_report_comment">Komentarz osoby zgłaszającej</string>
+    <plurals name="notification_summary_report_format">
+        <item quantity="one">%1$s · %2$d załączony wpis</item>
+        <item quantity="few">%1$s · %2$d załączone wpisy</item>
+        <item quantity="many">%1$s · %2$d załączonych wpisów</item>
+        <item quantity="other">%1$s · %2$d załączonych wpisów</item>
+    </plurals>
 </resources>

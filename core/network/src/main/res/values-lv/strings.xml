@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="error_generic_fmt">%1$s</string>
+    <string name="error_404_not_found_fmt">jūsu serveris neatbalsta šo funkciju: %1$s</string>
+</resources>

@@ -1,0 +1,18 @@
+Pachli 2.12.0
+
+Gnéithe nua:
+
+- Feabhsú ar thaispeántas fógraí riarthóra
+- Cúltacaí scamall criptithe taobh an chliaint
+- Sainroghanna easpórtála/allmhairithe
+
+Socruithe:
+
+- Taispeáin poist/tuairiscí meán aistrithe agus snáitheanna á bhféachaint
+- Socruithe iomadúla fógraí
+- Ceadaigh scagadh tráchta
+- Cosc a chur ar "Níor aimsíodh taifead" agus cuntas difriúil á oscailt
+
+Aistriúcháin:
+
+- Fionlainnis, Gaeilge, Laitvis, Polainnis, Slóvaicis, Spáinnis

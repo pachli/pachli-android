@@ -180,7 +180,6 @@
     <string name="add_account_name">கணக்கை சேர்க்க</string>
     <string name="add_account_description">புதிய Mastodon கணக்கைச் சேர்க்க</string>
     <string name="compose_active_account_description">%1$s கணக்குடன் பதிவிட</string>
-    <string name="action_set_caption">தலைப்பை அமை</string>
     <string name="action_remove">நீக்கு</string>
     <string name="lock_account_label">கணக்கை முடக்கு</string>
     <string name="lock_account_label_description">நீங்களாக பின்பற்றுபவர்களை அங்கீகரிக்க</string>
@@ -284,10 +283,6 @@
     <string name="notification_listenable_worker_name">பின்னணி செயல்பாடு</string>
     <string name="notification_listenable_worker_description">பச்ச்லி பின்னணியில் வேலை செய்யும் போது அறிவிப்புகள்</string>
     <string name="notification_unknown_name">தெரியவில்லை</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="one">பார்வையற்றோருக்கான உள்ளடக்கத்தை விவரிக்கவும் (%d எழுத்து வரம்பு)</item>
-        <item quantity="other">பார்வையற்றோருக்கான உள்ளடக்கங்களை விவரிக்கவும் (%d எழுத்து வரம்பு)</item>
-    </plurals>
     <string name="notification_notification_worker">அறிவிப்புகளைப் பெறுதல்…</string>
     <string name="post_media_attachments">இணைப்புகள்</string>
     <string name="status_count_one_plus">1+</string>
@@ -560,7 +555,6 @@
     <string name="search_operator_language_dialog_title">எழுதப்பட்ட இடுகைகளுக்கு வரம்பு…</string>
     <string name="search_operator_sensitive_dialog_no_sensitive">முக்கியமான உள்ளடக்கத்தை விலக்கு</string>
     <string name="search_operator_where_all">அனைத்து இடுகைகளும்</string>
-    <string name="upload_failed_modify_attachment">இணைப்பை மாற்றவும்</string>
     <string name="main_viewmodel_error_set_active_account">உள்நுழைய முயற்சிப்பது பின்வரும் பிழையுடன் தோல்வியுற்றது:\n\n %1$s</string>
     <string name="main_viewmodel_error_refresh_account">புத்துணர்ச்சியூட்டும் கணக்கு பின்வரும் பிழையுடன் தோல்வியடைந்தது:\n\n %1$s\n\n நீங்கள் தொடரலாம், ஆனால் உங்கள் பட்டியல்கள் மற்றும் வடிப்பான்கள் முழுமையடையாது.</string>
     <string name="notification_unknown">அறியப்படாத அறிவிப்பு வகை</string>
@@ -656,7 +650,6 @@
     <string name="send_account_link_to">கணக்கு முகவரி ஐப் பகிரவும்…</string>
     <string name="send_account_username_to">கணக்கு பயனர்பெயரைப் பகிரவும்…</string>
     <string name="confirmation_hashtag_muted">#%s மறைக்கப்பட்டுள்ளன</string>
-    <string name="post_media_image">படம்</string>
     <string name="failed_to_pin">பின் தவறிவிட்டது</string>
     <string name="error_filter_missing_keyword">குறைந்தது ஒரு முக்கிய சொல் அல்லது சொற்றொடர் தேவை</string>
     <string name="conversation_0_recipients">வேறு பங்கேற்பாளர்கள் இல்லை</string>

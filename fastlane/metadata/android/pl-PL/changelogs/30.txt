@@ -1,0 +1,18 @@
+Pachli 2.12.0
+
+Nowości:
+
+- Poprawione wyświetlanie powiadomień administratora
+- Szyfrowane po stronie klienta kopie zapasowe w chmurze
+- Eksport/ import preferencji
+
+Poprawki:
+
+- Pokazuj przetłumaczone wpisy / opisy mediów przy przeglądaniu wątków
+- Poprawki powiadomień
+- Filtrowanie wzmianek i przerwanych relacji na starszych urządzeniach
+- Zapobiegaj „Nie znaleziono rekordu” przy otwieraniu jako inne konto
+
+Tłumaczenia:
+
+- fiński, irlandzki, litewski, polski, słowacki, hiszpański

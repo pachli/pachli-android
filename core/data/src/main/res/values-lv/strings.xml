@@ -3,4 +3,6 @@
     <string name="error_preference_importer_null_on_import">datnes ievietošana atgrieza null</string>
     <string name="error_preference_importer_wrong_version_fmt">datnei ir nezināma versija: %1$s</string>
     <string name="error_preference_importer_missing_schema_version">datne nesatur shēmas versiju</string>
+    <string name="account_manager_error_unexpected">negaidīta kļūda: %1$s</string>
+    <string name="account_manager_error_dao">Datubāzes kļūda, lūdzu, ziņojiet par to uz team@pachli.app: %1$s</string>
 </resources>

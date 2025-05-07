@@ -1,5 +1,38 @@
 # Pachli changelog
 
+## v2.12.0
+
+### New features and other improvements
+
+- Update colour scheme, adjusts contrast (#[1452](https://github.com/pachli/pachli-android/pull/1452), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Move tab-tap behaviour preference out of "Lab experiments" (#[1477](https://github.com/pachli/pachli-android/pull/1477), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Improve the display of admin notifications (#[1475](https://github.com/pachli/pachli-android/pull/1475), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Enable client-side encrypted cloud backups (#[1457](https://github.com/pachli/pachli-android/pull/1457), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Lab support for exporting/importing preferences (#[1451](https://github.com/pachli/pachli-android/pull/1451), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show hashtag usage and account stats in search results (#[1442](https://github.com/pachli/pachli-android/pull/1442), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show hashtag statistics in the Followed Tags screen (#[1433](https://github.com/pachli/pachli-android/pull/1433), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Sort followed hashtags by hashtag name (#[1432](https://github.com/pachli/pachli-android/pull/1432), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Significant bug fixes
+
+- Show translated posts / media descriptions when viewing threads (#[1504](https://github.com/pachli/pachli-android/pull/1504), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Don't error on nullable `Report.actionTakenAt` property (#[1474](https://github.com/pachli/pachli-android/pull/1474), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Set initial reading position for non-cached timelines to the top (#[1468](https://github.com/pachli/pachli-android/pull/1468), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Allow filtering of mentions and severed relationships on older devices (#[1454](https://github.com/pachli/pachli-android/pull/1454), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Prevent crash, correctly pass report data to notifications (#[1449](https://github.com/pachli/pachli-android/pull/1449), [Austin Huang](https://github.com/pachli/pachli-android/commits?author=im@austinhuang.me))
+- Allow clicks anywhere on FollowedTag view (#[1445](https://github.com/pachli/pachli-android/pull/1445), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Prevent "Record not found" when opening as a different account (#[1431](https://github.com/pachli/pachli-android/pull/1431), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Translations
+
+- Update Finnish translations ([Kalle Kniivilä](https://github.com/pachli/pachli-android/commits?author=kalle.kniivila@gmail.com))
+- Update Irish translations ([Aindriú Mac Giolla Eoin](https://github.com/pachli/pachli-android/commits?author=aindriu80@gmail.com))
+- Update Latvian translations ([Edgars Andersons](https://github.com/pachli/pachli-android/commits?author=Edgars+Weblate@gaitenis.id.lv))
+- Update Latvian translations ([ℂ𝕠𝕠𝕠𝕝 (𝕘𝕚𝕥𝕙𝕦𝕓.𝕔𝕠𝕞/ℂ𝕠𝕠𝕠𝕝)](https://github.com/pachli/pachli-android/commits?author=coool@mail.lv))
+- Update Polish translations ([Łukasz Horodecki](https://github.com/pachli/pachli-android/commits?author=dakilla@gmail.com))
+- Update Slovak translations ([Russssty](https://github.com/pachli/pachli-android/commits?author=russssty@users.noreply.hosted.weblate.org))
+- Update Spanish translations ([Juan M Sevilla](https://github.com/pachli/pachli-android/commits?author=jumase@disroot.org))
+
 ## v2.11.0
 
 ### New features and other improvements

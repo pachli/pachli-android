@@ -258,15 +258,10 @@
     <string name="manage_lists">Handsam lister</string>
     <string name="filter_dialog_whole_word_description">Dersom nøkkelordet eller -frasen er kun alfanumerisk, skal det kun verte bruka dersom det stemmer overens med heile ordet</string>
     <string name="filter_expiration_format">%s (%s)</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="one">Beskriv innhald for dei med nedsatt synsevne \n(maks %d teikn)</item>
-        <item quantity="other">Beskriv innhald for dei med nedsatt synsevne \n(maks %d teikn)</item>
-    </plurals>
     <string name="action_remove">Fjern</string>
     <string name="lock_account_label">Lås konto</string>
     <string name="lock_account_label_description">Krev at du godtar nye fylgjarar for hand</string>
     <string name="set_focus_description">Trykk eller drag sirkelen for å velja fokuspunktet som vil alltid verte synt i miniatyrbilete.</string>
-    <string name="action_set_caption">Angje biletetekst</string>
     <string name="action_set_focus">Angje fokuspunkt</string>
     <string name="action_edit_image">Rediger bilete</string>
     <string name="unsaved_changes">Du har ulagra endringar.</string>
@@ -386,7 +381,6 @@
     <string name="notification_notification_worker">Hentar varsel…</string>
     <string name="description_account_locked">Låst konto</string>
     <string name="post_share_link">Del lenkja til innlegget</string>
-    <string name="post_media_image">Bilete</string>
     <string name="post_media_images">Bilete</string>
     <string name="post_media_video">Video</string>
     <string name="post_media_audio">Ljod</string>
@@ -746,7 +740,6 @@
     <string name="search_operator_where_all">Alle innlegg ▾</string>
     <string name="search_operator_where_library">Biblioteket ditt</string>
     <string name="search_operator_where_dialog_public_hint">Oppførte og søkjelege innlegg som serveren veit om</string>
-    <string name="upload_failed_modify_attachment">Vedlegg vart modifisert</string>
     <string name="search_operator_where_public">Lista innlegg</string>
     <string name="search_operator_where_dialog_public">Lista innlegg</string>
     <string name="upload_failed_msg_fmt">Pachli skal prøve å laste opp vedlegg når du sender innlegget. Dersom opplastinga mislykkast igjen, skal innlegget lagrast i utkasta dine.\n\nFeilen var: %1$s</string>
