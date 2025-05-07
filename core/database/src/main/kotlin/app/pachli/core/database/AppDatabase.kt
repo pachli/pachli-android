@@ -121,8 +121,8 @@ import java.util.TimeZone
         AutoMigration(from = 19, to = 20, spec = AppDatabase.MIGRATE_19_20::class),
         AutoMigration(from = 20, to = 21),
         AutoMigration(from = 21, to = 22),
-        // Removed nullability from some InstanceEntity properties.
-        AutoMigration(from = 22, to = 23),
+        // Removed nullability from some InstanceInfoEntity properties.
+        // 22 -> 23 is a custom migration.
         // Added InstanceInfoEntity.maxMediaDescriptionChars.
         AutoMigration(from = 23, to = 24),
     ],
@@ -414,5 +414,18 @@ FROM StatusEntity
 WHERE timelineUserId NOT IN (SELECT id FROM AccountEntity)
             """.trimIndent(),
         )
+    }
+}
+
+/**
+ * Removes nullability from some fields in InstanceInfoEntity. This is a cache,
+ * so don't copy existing data (which may be null instead of containing defaults),
+ * as the data will be refreshed when the user logs in.
+ */
+val MIGRATE_22_23 = object : Migration(22, 23) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL("CREATE TABLE IF NOT EXISTS `_new_InstanceInfoEntity` (`instance` TEXT NOT NULL, `maxPostCharacters` INTEGER NOT NULL, `maxPollOptions` INTEGER NOT NULL, `maxPollOptionLength` INTEGER NOT NULL, `minPollDuration` INTEGER NOT NULL, `maxPollDuration` INTEGER NOT NULL, `charactersReservedPerUrl` INTEGER NOT NULL, `version` TEXT NOT NULL, `videoSizeLimit` INTEGER NOT NULL, `imageSizeLimit` INTEGER NOT NULL, `imageMatrixLimit` INTEGER NOT NULL, `maxMediaAttachments` INTEGER NOT NULL, `maxFields` INTEGER NOT NULL, `maxFieldNameLength` INTEGER, `maxFieldValueLength` INTEGER, `enabledTranslation` INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(`instance`))")
+        db.execSQL("DROP TABLE `InstanceInfoEntity`")
+        db.execSQL("ALTER TABLE `_new_InstanceInfoEntity` RENAME TO `InstanceInfoEntity`")
     }
 }
