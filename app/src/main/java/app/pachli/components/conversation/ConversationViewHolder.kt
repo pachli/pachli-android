@@ -31,12 +31,14 @@ import app.pachli.core.ui.SetStatusContent
 import app.pachli.core.ui.loadAvatar
 import app.pachli.databinding.ItemConversationBinding
 import app.pachli.interfaces.StatusActionListener
+import com.bumptech.glide.RequestManager
 
 class ConversationViewHolder internal constructor(
     private val binding: ItemConversationBinding,
+    glide: RequestManager,
     setStatusContent: SetStatusContent,
     private val listener: StatusActionListener<ConversationViewData>,
-) : ConversationAdapter.ViewHolder, StatusBaseViewHolder<ConversationViewData>(binding.root, setStatusContent) {
+) : ConversationAdapter.ViewHolder, StatusBaseViewHolder<ConversationViewData>(binding.root, glide, setStatusContent) {
     private val avatars: Array<ImageView> = arrayOf(
         avatar,
         binding.statusAvatar1,
@@ -120,6 +122,7 @@ class ConversationViewHolder internal constructor(
         avatars.withIndex().forEach { views ->
             accounts.getOrNull(views.index)?.also { account ->
                 loadAvatar(
+                    glide,
                     account.avatar,
                     views.value,
                     avatarRadius48dp,

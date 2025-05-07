@@ -27,7 +27,7 @@ import android.text.style.ReplacementSpan
 import android.view.View
 import androidx.core.graphics.withSave
 import app.pachli.core.network.model.Emoji
-import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
@@ -41,7 +41,7 @@ import java.util.regex.Pattern
  * @param view a reference to the a view the emojis will be shown in (should be the TextView, but parents of the TextView are also acceptable)
  * @return the text with the shortcodes replaced by EmojiSpans
 */
-fun CharSequence.emojify(emojis: List<Emoji>?, view: View, animate: Boolean): Spanned {
+fun CharSequence.emojify(glide: RequestManager, emojis: List<Emoji>?, view: View, animate: Boolean): Spanned {
     if (emojis.isNullOrEmpty()) {
         return SpannableStringBuilder.valueOf(this)
     }
@@ -59,8 +59,7 @@ fun CharSequence.emojify(emojis: List<Emoji>?, view: View, animate: Boolean): Sp
             val span = EmojiSpan(WeakReference(view))
 
             builder.setSpan(span, matcher.start(), matcher.end(), 0)
-            Glide.with(view)
-                .asDrawable()
+            glide.asDrawable()
                 .load(
                     if (animate) {
                         url

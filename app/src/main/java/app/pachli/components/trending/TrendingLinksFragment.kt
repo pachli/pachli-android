@@ -55,6 +55,7 @@ import app.pachli.databinding.FragmentTrendingLinksBinding
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.AppBarLayoutHost
 import app.pachli.view.PreviewCardView.Target
+import com.bumptech.glide.Glide
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.snackbar.Snackbar
 import com.mikepenz.iconics.IconicsDrawable
@@ -130,6 +131,7 @@ class TrendingLinksFragment :
         }
 
         trendingLinksAdapter = TrendingLinksAdapter(
+            Glide.with(this),
             viewModel.statusDisplayOptions.value,
             false,
             ::onOpenLink,

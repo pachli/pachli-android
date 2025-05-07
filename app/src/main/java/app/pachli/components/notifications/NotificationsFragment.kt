@@ -73,6 +73,7 @@ import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.ListStatusAccessibilityDelegate
 import app.pachli.viewdata.NotificationViewData
 import at.connyduck.sparkbutton.helpers.Utils
+import com.bumptech.glide.Glide
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
@@ -167,6 +168,7 @@ class NotificationsFragment :
         }
 
         adapter = NotificationsPagingAdapter(
+            Glide.with(this),
             notificationDiffCallback,
             setStatusContent,
             statusActionListener = this,

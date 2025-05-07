@@ -34,8 +34,10 @@ import app.pachli.databinding.ItemConversationBinding
 import app.pachli.databinding.ItemConversationFilteredBinding
 import app.pachli.databinding.ItemStatusWrapperBinding
 import app.pachli.interfaces.StatusActionListener
+import com.bumptech.glide.RequestManager
 
 internal class ConversationAdapter(
+    private val glide: RequestManager,
     private var statusDisplayOptions: StatusDisplayOptions,
     private val setStatusContent: SetStatusContent,
     private val listener: StatusActionListener<ConversationViewData>,
@@ -80,12 +82,14 @@ internal class ConversationAdapter(
             ConversationViewKind.STATUS ->
                 ConversationViewHolder(
                     ItemConversationBinding.inflate(inflater, parent, false),
+                    glide,
                     setStatusContent,
                     listener,
                 )
             ConversationViewKind.STATUS_FILTERED ->
                 FilterableConversationStatusViewHolder(
                     ItemStatusWrapperBinding.inflate(inflater, parent, false),
+                    glide,
                     setStatusContent,
                     listener,
                 )
@@ -157,9 +161,10 @@ enum class ConversationViewKind {
  */
 class FilterableConversationStatusViewHolder internal constructor(
     binding: ItemStatusWrapperBinding,
+    glide: RequestManager,
     setStatusContent: SetStatusContent,
     private val listener: StatusActionListener<ConversationViewData>,
-) : ConversationAdapter.ViewHolder, FilterableStatusViewHolder<ConversationViewData>(binding, setStatusContent) {
+) : ConversationAdapter.ViewHolder, FilterableStatusViewHolder<ConversationViewData>(binding, glide, setStatusContent) {
     override fun bind(viewData: ConversationViewData, payloads: List<*>?, statusDisplayOptions: StatusDisplayOptions) {
         if (payloads.isNullOrEmpty()) {
             showStatusContent(true)

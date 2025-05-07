@@ -28,6 +28,7 @@ import app.pachli.core.common.extensions.visible
 import app.pachli.core.database.model.DraftEntity
 import app.pachli.core.ui.BindingHolder
 import app.pachli.databinding.ItemDraftBinding
+import com.bumptech.glide.RequestManager
 
 interface DraftActionListener {
     fun onOpenDraft(draft: DraftEntity)
@@ -35,6 +36,7 @@ interface DraftActionListener {
 }
 
 class DraftsAdapter(
+    private val glide: RequestManager,
     private val listener: DraftActionListener,
 ) : PagingDataAdapter<DraftEntity, BindingHolder<ItemDraftBinding>>(
     object : DiffUtil.ItemCallback<DraftEntity>() {
@@ -54,7 +56,7 @@ class DraftsAdapter(
         val viewHolder = BindingHolder(binding)
 
         binding.draftMediaPreview.layoutManager = LinearLayoutManager(binding.root.context, RecyclerView.HORIZONTAL, false)
-        binding.draftMediaPreview.adapter = DraftMediaAdapter {
+        binding.draftMediaPreview.adapter = DraftMediaAdapter(glide) {
             getItem(viewHolder.bindingAdapterPosition)?.let { draft ->
                 listener.onOpenDraft(draft)
             }
