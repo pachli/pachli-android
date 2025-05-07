@@ -45,6 +45,7 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.model.AccountFilterDecision
@@ -66,6 +67,7 @@ import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.ListStatusAccessibilityDelegate
 import at.connyduck.sparkbutton.helpers.Utils
+import com.bumptech.glide.Glide
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.mikepenz.iconics.IconicsDrawable
@@ -153,6 +155,8 @@ class ConversationsFragment :
 
     override var pachliAccountId by Delegates.notNull<Long>()
 
+    private val glide by unsafeLazy { Glide.with(this) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         pachliAccountId = requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID)
@@ -175,7 +179,7 @@ class ConversationsFragment :
                 SetMastodonHtmlContent
             }
 
-            adapter = ConversationAdapter(statusDisplayOptions, setStatusContent, this@ConversationsFragment, accept)
+            adapter = ConversationAdapter(glide, statusDisplayOptions, setStatusContent, this@ConversationsFragment, accept)
 
             setupRecyclerView()
 

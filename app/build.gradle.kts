@@ -161,9 +161,6 @@ dependencies {
 
     implementation(libs.conscrypt.android)
 
-    implementation(libs.bundles.glide)
-    ksp(libs.glide.compiler)
-
     implementation(libs.sparkbutton)
 
     implementation(libs.touchimageview)

@@ -412,7 +412,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="520"
+            line="519"
             column="9"/>
     </issue>
 
@@ -467,7 +467,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/accountlist/adapter/MutesAdapter.kt"
-            line="109"
+            line="111"
             column="9"/>
     </issue>
 

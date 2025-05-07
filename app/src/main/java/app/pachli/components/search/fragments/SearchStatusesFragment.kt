@@ -58,6 +58,7 @@ import app.pachli.core.ui.SetMarkdownContent
 import app.pachli.core.ui.SetMastodonHtmlContent
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.view.showMuteAccountDialog
+import com.bumptech.glide.Glide
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import com.google.android.material.divider.MaterialDividerItemDecoration
@@ -98,7 +99,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
             MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL),
         )
         binding.searchRecyclerView.layoutManager = LinearLayoutManager(binding.searchRecyclerView.context)
-        return SearchStatusesAdapter(setStatusContent, statusDisplayOptions, this)
+        return SearchStatusesAdapter(Glide.with(this), setStatusContent, statusDisplayOptions, this)
     }
 
     override fun onContentHiddenChange(viewData: StatusViewData, isShowingContent: Boolean) {

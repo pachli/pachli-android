@@ -39,9 +39,11 @@ import app.pachli.core.ui.setClickableText
 import app.pachli.databinding.ItemFollowRequestBinding
 import app.pachli.interfaces.AccountActionListener
 import app.pachli.viewdata.NotificationViewData
+import com.bumptech.glide.RequestManager
 
 class FollowRequestViewHolder(
     private val binding: ItemFollowRequestBinding,
+    private val glide: RequestManager,
     private val accountActionListener: AccountActionListener,
     private val linkListener: LinkListener,
     private val showHeader: Boolean,
@@ -74,6 +76,7 @@ class FollowRequestViewHolder(
     ) {
         val wrappedName = account.name.unicodeWrap()
         val emojifiedName: CharSequence = wrappedName.emojify(
+            glide,
             account.emojis,
             itemView,
             animateEmojis,
@@ -91,7 +94,7 @@ class FollowRequestViewHolder(
                     wrappedName.length,
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE,
                 )
-            }.emojify(account.emojis, itemView, animateEmojis)
+            }.emojify(glide, account.emojis, itemView, animateEmojis)
         }
         binding.notificationTextView.visible(showHeader)
         val formattedUsername = itemView.context.getString(DR.string.post_username_format, account.username)
@@ -102,11 +105,11 @@ class FollowRequestViewHolder(
             binding.accountNote.show()
 
             val emojifiedNote = account.note.parseAsMastodonHtml()
-                .emojify(account.emojis, binding.accountNote, animateEmojis)
+                .emojify(glide, account.emojis, binding.accountNote, animateEmojis)
             setClickableText(binding.accountNote, emojifiedNote, emptyList(), null, linkListener)
         }
         val avatarRadius = binding.avatar.context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_48dp)
-        loadAvatar(account.avatar, binding.avatar, avatarRadius, animateAvatar)
+        loadAvatar(glide, account.avatar, binding.avatar, avatarRadius, animateAvatar)
         binding.avatarBadge.visible(showBotOverlay && account.bot)
     }
 

@@ -110,7 +110,6 @@ import app.pachli.util.highlightSpans
 import app.pachli.util.iconRes
 import app.pachli.util.modernLanguageCode
 import app.pachli.util.setDrawableTint
-import com.bumptech.glide.Glide
 import com.canhub.cropper.CropImage
 import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.CropImageContractOptions
@@ -295,6 +294,7 @@ class ComposeActivity :
                 }
 
                 val mediaAdapter = MediaPreviewAdapter(
+                    glide = glide,
                     descriptionLimit = account.instanceInfo.maxMediaDescriptionChars,
                     onDescriptionChanged = this@ComposeActivity::onUpdateDescription,
                     onEditFocus = { item ->
@@ -456,19 +456,19 @@ class ComposeActivity :
             setReplyAvatar(this)
 
             binding.statusDisplayName.text =
-                displayName.emojify(emojis, binding.statusDisplayName, sharedPreferencesRepository.animateEmojis)
+                displayName.emojify(glide, emojis, binding.statusDisplayName, sharedPreferencesRepository.animateEmojis)
             binding.statusUsername.text = getString(app.pachli.core.designsystem.R.string.post_username_format, username)
 
             if (contentWarning.isEmpty()) {
                 binding.statusContentWarningDescription.hide()
             } else {
                 binding.statusContentWarningDescription.text =
-                    contentWarning.emojify(emojis, binding.statusContentWarningDescription, sharedPreferencesRepository.animateEmojis)
+                    contentWarning.emojify(glide, emojis, binding.statusContentWarningDescription, sharedPreferencesRepository.animateEmojis)
                 binding.statusContentWarningDescription.show()
             }
 
             binding.statusContent.text =
-                content.emojify(emojis, binding.statusContent, sharedPreferencesRepository.animateEmojis)
+                content.emojify(glide, emojis, binding.statusContent, sharedPreferencesRepository.animateEmojis)
         }
     }
 
@@ -476,14 +476,14 @@ class ComposeActivity :
         binding.statusAvatar.setPaddingRelative(0, 0, 0, 0)
         if (viewModel.statusDisplayOptions.value.showBotOverlay && inReplyTo.isBot) {
             binding.statusAvatarInset.visibility = View.VISIBLE
-            Glide.with(binding.statusAvatarInset)
-                .load(DR.drawable.bot_badge)
+            glide.load(DR.drawable.bot_badge)
                 .into(binding.statusAvatarInset)
         } else {
             binding.statusAvatarInset.visibility = View.GONE
         }
 
         loadAvatar(
+            glide,
             inReplyTo.avatarUrl,
             binding.statusAvatar,
             avatarRadius48dp,
@@ -519,6 +519,7 @@ class ComposeActivity :
 
         binding.composeEditField.setAdapter(
             ComposeAutoCompleteAdapter(
+                glide,
                 this,
                 sharedPreferencesRepository.animateAvatars,
                 sharedPreferencesRepository.animateEmojis,
@@ -735,6 +736,7 @@ class ComposeActivity :
         }
 
         loadAvatar(
+            glide,
             account.profilePictureUrl,
             binding.composeAvatar,
             avatarSize / 8,
@@ -1478,7 +1480,7 @@ class ComposeActivity :
     private fun setEmojiList(emojiList: List<Emoji>?) {
         if (emojiList != null) {
             val animateEmojis = sharedPreferencesRepository.animateEmojis
-            binding.emojiView.adapter = EmojiAdapter(emojiList, this@ComposeActivity, animateEmojis)
+            binding.emojiView.adapter = EmojiAdapter(glide, emojiList, this@ComposeActivity, animateEmojis)
             enableButton(binding.composeEmojiButton, true, emojiList.isNotEmpty())
         }
     }
