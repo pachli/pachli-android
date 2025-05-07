@@ -568,7 +568,7 @@
     <string name="dialog_save_profile_changes_message">Vai saglabāt sava profila izmaiņas?</string>
     <string name="update_dialog_negative">Nekad neatgādināt man</string>
     <string name="translating">Tulko…</string>
-    <string name="dialog_delete_filter_text">Izdzēst atlasītāju \"%1$s\"?\"</string>
+    <string name="dialog_delete_filter_text">Izdzēst atlasītāju \"%1$s\"?</string>
     <string name="dialog_delete_filter_positive_action">Izdzēst</string>
     <string name="reaction_name_and_count">%1$s %2$d</string>
     <string name="pref_title_update_notification_frequency">Paziņot man par jaunām Pachli versijām</string>
@@ -795,7 +795,7 @@
     <string name="search_operator_where_dialog_all_hint">Ieraksti Tavā bibliotēkā un publiskie ieraksti</string>
     <string name="search_operator_where_dialog_library">Tava bibliotēka</string>
     <string name="search_operator_where_dialog_public">Publiskie ieraksti</string>
-    <string name="upload_failed_msg_fmt">Augšupielāde tiks atkārtoti mēģināta, kad nosūtīsi ierakstu. Ja tā atkal neizdosies, ieraksts tiks saglabāts pie melnrakstiem.\n\nKļūda: %1$s</string>
+    <string name="upload_failed_msg_fmt">Pielikuma augšupielāde neizdevās. Augšupielāde tiks mēģināta atkārtoti, kad nosūtīsi ierakstu. Ja tā atkal neizdosies, ieraksts tiks saglabāts pie melnrakstiem.\n\nKļūda: %1$s</string>
     <string name="main_viewmodel_error_set_active_account">Mēģinājums pieteikties neizdevās šādas kļūdas dēļ:\n\n%1$s</string>
     <string name="pref_notification_method_all_push">Visi konti izmanto UnifiedPush. Piesist, lai uzzinātu vairāk.</string>
     <string name="search_operator_sensitive_dialog_all">Visi ieraksti</string>
