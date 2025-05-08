@@ -30,11 +30,9 @@ import app.pachli.core.common.PachliError
 import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
-import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.StatusActionError
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.data.repository.StatusRepository
-import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.eventhub.BlockEvent
 import app.pachli.core.eventhub.BookmarkEvent
 import app.pachli.core.eventhub.DomainMuteEvent
@@ -76,6 +74,7 @@ import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.fold
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -113,6 +112,17 @@ sealed interface FallibleUiAction : UiAction {
  */
 sealed interface InfallibleUiAction : UiAction {
     /**
+     * Directs the ViewModel to load the account identified by [pachliAccountId].
+     * This will trigger fetching statuses for that account, and emit into the
+     * [TimelineViewModel.statuses] flow.
+     */
+    // Do not replace this with a function that returns the flow. The UI would call it
+    // on every restart (e.g., configuration change) causing the flow to be recreated.
+    // This way the flow is cached in the viewmodel, and the UI can recollect it on
+    // restart with very little delay.
+    data class LoadPachliAccount(val pachliAccountId: Long) : InfallibleUiAction
+
+    /**
      * User is leaving the fragment, save the ID of the visible status.
      *
      * Infallible because if it fails there's nowhere to show the error, and nothing the user
@@ -127,7 +137,7 @@ sealed interface InfallibleUiAction : UiAction {
     // Resets the account's reading position, which can't fail, which is why this is
     // infallible. Reloading the data may fail, but that's handled by the paging system /
     // adapter refresh logic.
-    data object LoadNewest : InfallibleUiAction
+    data class LoadNewest(val pachliAccountId: Long) : InfallibleUiAction
 }
 
 sealed interface UiSuccess {
@@ -303,8 +313,15 @@ abstract class TimelineViewModel<T : Any>(
     private val sharedPreferencesRepository: SharedPreferencesRepository,
     protected val statusRepository: StatusRepository,
 ) : ViewModel() {
+    /**
+     * The account to load statuses for. Receiving [InfallibleUiAction.LoadPachliAccount]
+     * emits in to this.
+     */
+    val pachliAccountId = MutableSharedFlow<Long>(replay = 1)
+
     val uiState: StateFlow<UiState>
 
+    /** Flow of statuses that make up the timeline of [timeline] for [pachliAccountId]. */
     abstract val statuses: Flow<PagingData<StatusViewData>>
 
     /** Flow of changes to statusDisplayOptions, for use by the UI */
@@ -323,26 +340,30 @@ abstract class TimelineViewModel<T : Any>(
 
     val timeline: Timeline = savedStateHandle.get<Timeline>(TIMELINE_TAG)!!
 
-    private var filterRemoveReplies = false
-    private var filterRemoveReblogs = false
-    private var filterRemoveSelfReblogs = false
+    private var filterRemoveReplies = timeline is Timeline.Home && !sharedPreferencesRepository.tabHomeShowReplies
+    private var filterRemoveReblogs = timeline is Timeline.Home && !sharedPreferencesRepository.tabHomeShowReblogs
+    private var filterRemoveSelfReblogs = timeline is Timeline.Home && !sharedPreferencesRepository.tabHomeShowSelfReblogs
 
-    protected val activeAccount: AccountEntity
-        get() {
-            return accountManager.activeAccount!!
-        }
-
-    protected val accountFlow = accountManager.activeAccountFlow
-        .filterIsInstance<Loadable.Loaded<AccountEntity?>>()
-        .filter { it.data != null }
-        .distinctUntilChangedBy { it.data?.id!! }
+    /**
+     * Flow of PachliAccount that updates whenever the underlying account changes, or
+     * [pachliAccountId] changes.
+     */
+    protected val pachliAccountFlow = pachliAccountId.distinctUntilChanged().flatMapLatest { pachliAccountId ->
+        accountManager.getPachliAccountFlow(pachliAccountId)
+    }.filterNotNull()
 
     private var contentFilterModel: ContentFilterModel? = null
 
     init {
+        // Handle LoadPachliAcccount. Emit the received account ID to pachliAccountFlow.
+        viewModelScope.launch {
+            uiAction.filterIsInstance<InfallibleUiAction.LoadPachliAccount>()
+                .collectLatest { pachliAccountId.emit(it.pachliAccountId) }
+        }
+
         viewModelScope.launch {
             FilterContext.from(timeline)?.let { filterContext ->
-                accountManager.activePachliAccountFlow
+                pachliAccountFlow
                     .distinctUntilChangedBy { it.contentFilters }
                     .fold(false) { reload, account ->
                         contentFilterModel = when (account.contentFilters.version) {
@@ -416,13 +437,6 @@ abstract class TimelineViewModel<T : Any>(
                 ),
             )
 
-        if (timeline is Timeline.Home) {
-            // Note the variable is "true if filter" but the underlying preference/settings text is "true if show"
-            filterRemoveReplies = !sharedPreferencesRepository.tabHomeShowReplies
-            filterRemoveReblogs = !sharedPreferencesRepository.tabHomeShowReblogs
-            filterRemoveSelfReblogs = !sharedPreferencesRepository.tabHomeShowSelfReblogs
-        }
-
         // Save the visible status ID (if it's the home timeline)
         if (timeline == Timeline.Home) {
             viewModelScope.launch {
@@ -430,8 +444,8 @@ abstract class TimelineViewModel<T : Any>(
                     .filterIsInstance<InfallibleUiAction.SaveVisibleId>()
                     .distinctUntilChanged()
                     .collectLatest { action ->
-                        Timber.d("setLastVisibleHomeTimelineStatusId: %d, %s", activeAccount.id, action.visibleId)
-                        timelineCases.saveRefreshKey(activeAccount.id, action.visibleId)
+                        Timber.d("setLastVisibleHomeTimelineStatusId: %d, %s", action.pachliAccountId, action.visibleId)
+                        timelineCases.saveRefreshKey(action.pachliAccountId, action.visibleId)
                     }
             }
         }
@@ -440,9 +454,9 @@ abstract class TimelineViewModel<T : Any>(
         viewModelScope.launch {
             uiAction
                 .filterIsInstance<InfallibleUiAction.LoadNewest>()
-                .collectLatest {
+                .collectLatest { action ->
                     if (timeline == Timeline.Home) {
-                        timelineCases.saveRefreshKey(activeAccount.id, null)
+                        timelineCases.saveRefreshKey(action.pachliAccountId, null)
                     }
                     Timber.d("Reload because InfallibleUiAction.LoadNewest")
                     _uiResult.send(Ok(UiSuccess.LoadNewest))
@@ -578,6 +592,8 @@ abstract class TimelineViewModel<T : Any>(
 
     // TODO: Update this so that the list of UIPrefs is correct
     private suspend fun onPreferenceChanged(key: String) {
+        val pachliAccountId = pachliAccountId.replayCache.firstOrNull() ?: return
+
         when (key) {
             PrefKeys.TAB_FILTER_HOME_REPLIES -> {
                 val filter = sharedPreferencesRepository.getBoolean(PrefKeys.TAB_FILTER_HOME_REPLIES, true)
@@ -585,7 +601,7 @@ abstract class TimelineViewModel<T : Any>(
                 filterRemoveReplies = timeline is Timeline.Home && !filter
                 if (oldRemoveReplies != filterRemoveReplies) {
                     Timber.d("Reload because TAB_FILTER_HOME_REPLIES changed")
-                    repository.invalidate(activeAccount.id)
+                    repository.invalidate(pachliAccountId)
                 }
             }
             PrefKeys.TAB_FILTER_HOME_BOOSTS -> {
@@ -594,7 +610,7 @@ abstract class TimelineViewModel<T : Any>(
                 filterRemoveReblogs = timeline is Timeline.Home && !filter
                 if (oldRemoveReblogs != filterRemoveReblogs) {
                     Timber.d("Reload because TAB_FILTER_HOME_BOOSTS changed")
-                    repository.invalidate(activeAccount.id)
+                    repository.invalidate(pachliAccountId)
                 }
             }
             PrefKeys.TAB_SHOW_HOME_SELF_BOOSTS -> {
@@ -603,7 +619,7 @@ abstract class TimelineViewModel<T : Any>(
                 filterRemoveSelfReblogs = timeline is Timeline.Home && !filter
                 if (oldRemoveSelfReblogs != filterRemoveSelfReblogs) {
                     Timber.d("Reload because TAB_SHOW_SOME_SELF_BOOSTS changed")
-                    repository.invalidate(activeAccount.id)
+                    repository.invalidate(pachliAccountId)
                 }
             }
         }
@@ -617,30 +633,26 @@ abstract class TimelineViewModel<T : Any>(
             is PinEvent -> handlePinEvent(event)
             is MuteConversationEvent -> {
                 Timber.d("Reload because MuteConversationEvent")
-                repository.invalidate(activeAccount.id)
+                repository.invalidate(event.pachliAccountId)
             }
             is UnfollowEvent -> {
                 if (timeline is Timeline.Home) {
-                    val id = event.accountId
-                    removeAllByAccountId(activeAccount.id, id)
+                    removeAllByAccountId(event.pachliAccountId, event.accountId)
                 }
             }
             is BlockEvent -> {
                 if (timeline !is Timeline.User) {
-                    val id = event.accountId
-                    removeAllByAccountId(activeAccount.id, id)
+                    removeAllByAccountId(event.pachliAccountId, event.accountId)
                 }
             }
             is MuteEvent -> {
                 if (timeline !is Timeline.User) {
-                    val id = event.accountId
-                    removeAllByAccountId(activeAccount.id, id)
+                    removeAllByAccountId(event.pachliAccountId, event.accountId)
                 }
             }
             is DomainMuteEvent -> {
                 if (timeline !is Timeline.User) {
-                    val instance = event.instance
-                    removeAllByInstance(activeAccount.id, instance)
+                    removeAllByInstance(event.pachliAccountId, event.instance)
                 }
             }
             is StatusDeletedEvent -> {

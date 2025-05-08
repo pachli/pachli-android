@@ -180,7 +180,7 @@ class StatusRepository @Inject constructor(
         } else {
             mastodonApi.unmuteConversation(statusId)
         }
-            .onSuccess { eventHub.dispatch(MuteConversationEvent(statusId, muted)) }
+            .onSuccess { eventHub.dispatch(MuteConversationEvent(pachliAccountId, statusId, muted)) }
             .onFailure { statusDao.setMuted(pachliAccountId, statusId, !muted) }
             .mapEither({ it.body }, { StatusActionError.Mute(it) })
     }.await()
