@@ -313,7 +313,6 @@
         <item quantity="one">%d saniye kaldı</item>
         <item quantity="other">%d saniyeler kaldı</item>
     </plurals>
-    <string name="button_continue">Devam</string>
     <string name="button_back">Geri</string>
     <string name="report_sent_success">\@%s başarıyla bildirildi</string>
     <string name="hint_additional_info">Ek Yorumlar</string>

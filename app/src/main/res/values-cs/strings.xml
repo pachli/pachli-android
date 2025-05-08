@@ -324,7 +324,6 @@
     <string name="confirmation_domain_unmuted">Skrytí domény %s bylo zrušeno</string>
     <string name="mute_domain_warning">Jste si jistý/á, že chcete zablokovat vše z domény %s\? Z této domény neuvidíte obsah v žádné veřejné časové ose ani v oznámeních. Vaši sledující z této domény budou odstraněni.</string>
     <string name="mute_domain_warning_dialog_ok">Skrýt celou doménu</string>
-    <string name="button_continue">Pokračovat</string>
     <string name="button_back">Zpět</string>
     <string name="report_sent_success">\@%s byla/a úspěšně nahlášen/a</string>
     <string name="hint_additional_info">Další komentáře</string>

@@ -314,7 +314,6 @@
     </plurals>
     <string name="pref_title_animate_gif_avatars">Animirane podobe GIF</string>
     <string name="description_poll">Anketa z izbiro: %1$s, %2$s, %3$s, %4$s; %5$s</string>
-    <string name="button_continue">Nadaljuj</string>
     <string name="button_back">Nazaj</string>
     <string name="report_sent_success">\@%s je uspešno prijavljen</string>
     <string name="hint_additional_info">Dodatni komentarji</string>

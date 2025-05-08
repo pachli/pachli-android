@@ -350,7 +350,6 @@
     <string name="abbreviated_in_seconds">za %ds</string>
     <string name="follows_you">Sleduje ťa</string>
     <string name="add_poll_choice">Pridať voľbu</string>
-    <string name="button_continue">Pokračovať</string>
     <string name="poll_allow_multiple_choices">Viacero možností</string>
     <string name="poll_new_choice_hint">Možnosť %d</string>
     <string name="accessibility_talking_about_tag">%1$d ľudí diskutuje o hashtagu %2$s</string>

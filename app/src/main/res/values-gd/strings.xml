@@ -108,7 +108,6 @@
     <string name="hint_additional_info">Beachdan a bharrachd</string>
     <string name="report_sent_success">Chaidh do gearan air @%s a chlàradh</string>
     <string name="button_back">Air ais</string>
-    <string name="button_continue">Air adhart</string>
     <plurals name="poll_timespan_seconds">
         <item quantity="one">Tha %d diog air fhàgail</item>
         <item quantity="two">Tha %d dhiog air fhàgail</item>

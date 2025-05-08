@@ -159,7 +159,6 @@
         <item quantity="one">%d n tasdidt id yugran</item>
         <item quantity="other">%d n tisdidin id yugran</item>
     </plurals>
-    <string name="button_continue">Kemmel</string>
     <string name="button_back">Uɣal</string>
     <string name="failed_report">Tella-d tuccḍa deg cetki</string>
     <string name="failed_search">Tucḍa n unadi</string>

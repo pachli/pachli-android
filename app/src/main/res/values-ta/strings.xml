@@ -308,7 +308,6 @@
         <item quantity="one">%d இரண்டாவது இடது</item>
         <item quantity="other">%d விநாடிகள் எஞ்சியுள்ளன</item>
     </plurals>
-    <string name="button_continue">தொடரவும்</string>
     <string name="button_back">பின்</string>
     <string name="hint_additional_info">கூடுதல் கருத்துகள்</string>
     <string name="report_description_1">அறிக்கை உங்கள் சேவையக மதிப்பீட்டாளருக்கு அனுப்பப்படும். இந்த கணக்கை நீங்கள் ஏன் கீழே புகாரளிக்கிறீர்கள் என்பதற்கான விளக்கத்தை நீங்கள் வழங்கலாம்:</string>

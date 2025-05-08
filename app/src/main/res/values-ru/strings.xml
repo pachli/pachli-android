@@ -329,7 +329,6 @@
     <string name="poll_vote">Голосовать</string>
     <string name="poll_ended_voted">Опрос, в котором вы приняли участие, завершился</string>
     <string name="poll_ended_created">Созданный вами опрос завершился</string>
-    <string name="button_continue">Продолжить</string>
     <string name="button_back">Назад</string>
     <string name="hint_additional_info">Дополнительные комментарии</string>
     <string name="title_domain_mutes">Скрытые домены</string>

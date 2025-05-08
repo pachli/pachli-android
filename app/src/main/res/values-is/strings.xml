@@ -305,7 +305,6 @@
     <string name="poll_vote">Greiða atkvæði</string>
     <string name="poll_ended_voted">Könnun sem þú tókst þátt í er lokið</string>
     <string name="poll_ended_created">Könnuninni þinni er lokið</string>
-    <string name="button_continue">Halda áfram</string>
     <string name="button_back">Til baka</string>
     <string name="report_sent_success">Tókst að kæra @%s</string>
     <string name="hint_additional_info">Aðrar athugasemdir</string>

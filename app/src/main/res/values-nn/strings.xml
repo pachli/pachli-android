@@ -495,7 +495,6 @@
     <string name="poll_show_votes">Syn røyster</string>
     <string name="poll_ended_voted">Ei avstemming du har røysta i er avslutta</string>
     <string name="poll_ended_created">Ei avstemming du har laga er avslutta</string>
-    <string name="button_continue">Fortsett</string>
     <string name="button_back">Tilbake</string>
     <string name="report_sent_success">Rapporterte @%s</string>
     <string name="hint_additional_info">Vidare kommentar</string>

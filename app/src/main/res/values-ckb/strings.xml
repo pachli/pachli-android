@@ -231,7 +231,6 @@
     <string name="hint_additional_info">سەرنجەکانی زیاتر</string>
     <string name="report_sent_success">سەرکەوتووانە ڕاپۆرتکرا @%s</string>
     <string name="button_back">دواوە</string>
-    <string name="button_continue">بەردەوام بە</string>
     <plurals name="poll_timespan_seconds">
         <item quantity="one">%d چرکەی ماوەو</item>
         <item quantity="other">%d دووەم چەپ</item>
