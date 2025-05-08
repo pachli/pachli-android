@@ -113,9 +113,13 @@ sealed interface FallibleUiAction : UiAction {
 sealed interface InfallibleUiAction : UiAction {
     /**
      * Directs the ViewModel to load the account identified by [pachliAccountId].
-     * This will trigger the fetching statuses for that account, emitted into
-     * the [TimelineViewModel.statuses] flow.
+     * This will trigger fetching statuses for that account, and emit into the
+     * [TimelineViewModel.statuses] flow.
      */
+    // Do not replace this with a function that returns the flow. The UI would call it
+    // on every restart (e.g., configuration change) causing the flow to be recreated.
+    // This way the flow is cached in the viewmodel, and the UI can recollect it on
+    // restart with very little delay.
     data class LoadPachliAccount(val pachliAccountId: Long) : InfallibleUiAction
 
     /**
@@ -336,10 +340,14 @@ abstract class TimelineViewModel<T : Any>(
 
     val timeline: Timeline = savedStateHandle.get<Timeline>(TIMELINE_TAG)!!
 
-    private var filterRemoveReplies = false
-    private var filterRemoveReblogs = false
-    private var filterRemoveSelfReblogs = false
+    private var filterRemoveReplies = timeline is Timeline.Home && !sharedPreferencesRepository.tabHomeShowReplies
+    private var filterRemoveReblogs = timeline is Timeline.Home && !sharedPreferencesRepository.tabHomeShowReblogs
+    private var filterRemoveSelfReblogs = timeline is Timeline.Home && !sharedPreferencesRepository.tabHomeShowSelfReblogs
 
+    /**
+     * Flow of PachliAccount that updates whenever the underlying account changes, or
+     * [pachliAccountId] changes.
+     */
     protected val pachliAccountFlow = pachliAccountId.distinctUntilChanged().flatMapLatest { pachliAccountId ->
         accountManager.getPachliAccountFlow(pachliAccountId)
     }.filterNotNull()
@@ -347,6 +355,12 @@ abstract class TimelineViewModel<T : Any>(
     private var contentFilterModel: ContentFilterModel? = null
 
     init {
+        // Handle LoadPachliAcccount. Emit the received account ID to pachliAccountFlow.
+        viewModelScope.launch {
+            uiAction.filterIsInstance<InfallibleUiAction.LoadPachliAccount>()
+                .collectLatest { pachliAccountId.emit(it.pachliAccountId) }
+        }
+
         viewModelScope.launch {
             FilterContext.from(timeline)?.let { filterContext ->
                 pachliAccountFlow
@@ -422,18 +436,6 @@ abstract class TimelineViewModel<T : Any>(
                     tabTapBehaviour = sharedPreferencesRepository.tabTapBehaviour,
                 ),
             )
-
-        if (timeline is Timeline.Home) {
-            // Note the variable is "true if filter" but the underlying preference/settings text is "true if show"
-            filterRemoveReplies = !sharedPreferencesRepository.tabHomeShowReplies
-            filterRemoveReblogs = !sharedPreferencesRepository.tabHomeShowReblogs
-            filterRemoveSelfReblogs = !sharedPreferencesRepository.tabHomeShowSelfReblogs
-        }
-
-        viewModelScope.launch {
-            uiAction.filterIsInstance<InfallibleUiAction.LoadPachliAccount>()
-                .collectLatest { pachliAccountId.emit(it.pachliAccountId) }
-        }
 
         // Save the visible status ID (if it's the home timeline)
         if (timeline == Timeline.Home) {

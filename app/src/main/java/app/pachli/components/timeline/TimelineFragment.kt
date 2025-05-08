@@ -61,6 +61,7 @@ import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.model.Timeline
@@ -144,7 +145,7 @@ class TimelineFragment :
 
     private val binding by viewBinding(FragmentTimelineBinding::bind)
 
-    private val timeline: Timeline by lazy { requireArguments().getParcelable(ARG_KIND)!! }
+    private val timeline: Timeline by unsafeLazy { requireArguments().getParcelable(ARG_KIND)!! }
 
     private lateinit var adapter: TimelinePagingAdapter
 
@@ -158,9 +159,9 @@ class TimelineFragment :
     // the snackbar when the fragment is paused.
     private var snackbar: Snackbar? = null
 
-    private val isSwipeToRefreshEnabled by lazy { requireArguments().getBoolean(ARG_ENABLE_SWIPE_TO_REFRESH, true) }
+    private val isSwipeToRefreshEnabled by unsafeLazy { requireArguments().getBoolean(ARG_ENABLE_SWIPE_TO_REFRESH, true) }
 
-    override val pachliAccountId by lazy { requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID) }
+    override val pachliAccountId by unsafeLazy { requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID) }
 
     /**
      * Collect this flow to notify the adapter that the timestamps of the visible items have
@@ -631,23 +632,15 @@ class TimelineFragment :
     }
 
     override fun onViewTag(tag: String) {
-        val timelineKind = viewModel.timeline
-
         // If already viewing a tag page, then ignore any request to view that tag again.
-        if ((timelineKind as? Timeline.Hashtags)?.tags?.contains(tag) == true) {
-            return
-        }
+        if ((timeline as? Timeline.Hashtags)?.tags?.contains(tag) == true) return
 
         super.viewTag(tag)
     }
 
     override fun onViewAccount(id: String) {
-        val timelineKind = viewModel.timeline
-
         // Ignore request to view the account page we're currently viewing
-        if (timelineKind is Timeline.User && timelineKind.id == id) {
-            return
-        }
+        (timeline as? Timeline.User)?.let { if (it.id == id) return }
 
         super.viewAccount(id)
     }
