@@ -15,4 +15,5 @@
     <string name="title_links_dialog">الروابط</string>
     <string name="title_hashtags_dialog">الوسوم</string>
     <string name="title_mentions_dialog">الإشارات</string>
+    <string name="button_continue">واصل</string>
 </resources>

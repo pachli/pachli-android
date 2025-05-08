@@ -17,4 +17,5 @@
     <string name="title_mentions_dialog">Pieminējumi</string>
     <string name="action_copy_item">Kopēt vienuma tekstu</string>
     <string name="item_copied">Teksts nokopēts</string>
+    <string name="button_continue">Turpināt</string>
 </resources>

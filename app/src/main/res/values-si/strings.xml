@@ -134,7 +134,6 @@
     <string name="abbreviated_in_years">වර්. %d කින්</string>
     <string name="restart_emoji">මෙම වෙනස්කම් යෙදීමට ඔබ ටුස්කි නැවත ඇරඹිය යුතුය</string>
     <string name="action_edit">සංස්කරණය</string>
-    <string name="button_continue">ඉදිරියට</string>
     <string name="pref_title_post_filter">කාලරේඛාව පෙරීම</string>
     <string name="conversation_more_recipients">%1$s, %2$s සහ තවත් %3$d</string>
     <string name="pref_title_timelines">කාලරේඛා</string>

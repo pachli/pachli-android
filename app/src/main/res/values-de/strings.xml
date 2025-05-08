@@ -310,7 +310,6 @@
     <string name="pref_title_animate_gif_avatars">GIF-Profilbilder animieren</string>
     <string name="filter_dialog_whole_word">Ganzes Wort</string>
     <string name="filter_dialog_whole_word_description">Wenn das Wort oder die Formulierung nur aus Buchstaben oder Zahlen besteht, tritt der Filter nur dann in Kraft, wenn er exakt dieser Zeichenfolge entspricht</string>
-    <string name="button_continue">Weiter</string>
     <string name="button_back">Zurück</string>
     <string name="report_sent_success">\@%s wurde erfolgreich gemeldet</string>
     <string name="hint_additional_info">Zusätzliche Anmerkungen</string>

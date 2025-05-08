@@ -173,7 +173,6 @@
     <string name="hint_additional_info">Додаткові коментарі</string>
     <string name="report_sent_success">Звіт @%s надіслано</string>
     <string name="button_back">Назад</string>
-    <string name="button_continue">Продовжити</string>
     <plurals name="poll_timespan_seconds">
         <item quantity="one">Залишилася %d секунда</item>
         <item quantity="few">Залишилося %d секунди</item>

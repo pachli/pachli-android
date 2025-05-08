@@ -13,4 +13,5 @@
     <string name="title_links_dialog">Estekak</string>
     <string name="title_hashtags_dialog">Traolak</string>
     <string name="title_mentions_dialog">Aipamenak</string>
+    <string name="button_continue">Jarraitu</string>
 </resources>

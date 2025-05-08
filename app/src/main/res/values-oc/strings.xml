@@ -315,7 +315,6 @@
     <string name="compose_preview_image_description">Accions per l’imatge %s</string>
     <string name="pref_title_animate_gif_avatars">Activar l’animacion dels avatars</string>
     <string name="description_poll">Sondatge amb opcion : %1$s, %2$s, %3$s, %4$s; %5$s</string>
-    <string name="button_continue">Contunhar</string>
     <string name="button_back">Tornar</string>
     <string name="report_sent_success">\@%s corrèctament senhalat</string>
     <string name="hint_additional_info">Comentaris suplementaris</string>

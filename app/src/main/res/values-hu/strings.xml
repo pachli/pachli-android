@@ -323,7 +323,6 @@
         <item quantity="one">%d másodperc maradt</item>
         <item quantity="other">%d másodperc maradt</item>
     </plurals>
-    <string name="button_continue">Folytatás</string>
     <string name="button_back">Vissza</string>
     <string name="report_sent_success">\@%s sikeresen bejelentettük</string>
     <string name="hint_additional_info">Egyéb megjegyzések</string>

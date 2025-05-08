@@ -331,7 +331,6 @@
     <string name="filter_dialog_whole_word">Toda palabra</string>
     <string name="filter_dialog_whole_word_description">Cuando la palabra o frase sea solo alfanumérica, solo se aplicará si coincide con toda la palabra</string>
     <string name="description_poll">Encuesta con opciones: %1$s, %2$s, %3$s, %4$s; %5$s</string>
-    <string name="button_continue">Continuar</string>
     <string name="button_back">Atrás</string>
     <string name="report_sent_success">\@%s reportado satisfactoriamente</string>
     <string name="hint_additional_info">Comentarios adicionales</string>

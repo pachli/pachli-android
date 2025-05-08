@@ -15,4 +15,5 @@
     <string name="title_links_dialog">Collegamenti</string>
     <string name="title_hashtags_dialog">Hashtag</string>
     <string name="title_mentions_dialog">Menzioni</string>
+    <string name="button_continue">Continua</string>
 </resources>

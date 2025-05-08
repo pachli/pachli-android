@@ -14,4 +14,5 @@
     <string name="title_links_dialog">Odkazy</string>
     <string name="title_hashtags_dialog">Hashtagy</string>
     <string name="title_mentions_dialog">Zmínky</string>
+    <string name="button_continue">Pokračovat</string>
 </resources>

@@ -324,7 +324,6 @@
         <item quantity="one">Segundu %d geratzen da</item>
         <item quantity="other">%d segundu geratzen da</item>
     </plurals>
-    <string name="button_continue">Jarraitu</string>
     <string name="button_back">Itzuli</string>
     <string name="report_sent_success">\@%s jakinarazi duzu arrakastaz</string>
     <string name="hint_additional_info">Iruzkin gehigarriak</string>

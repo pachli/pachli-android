@@ -364,7 +364,6 @@
     <string name="poll_vote">Pleidleisio</string>
     <string name="poll_ended_voted">Mae pôl rydych wedi pleidleisio ynddo wedi dod i ben</string>
     <string name="poll_ended_created">Mae pôl a greoch wedi dod i ben</string>
-    <string name="button_continue">Parhau</string>
     <string name="button_back">Nôl</string>
     <string name="hint_additional_info">Sylwadau ychwanegol</string>
     <string name="pref_main_nav_position">Prif lleoliad y panel llywio</string>

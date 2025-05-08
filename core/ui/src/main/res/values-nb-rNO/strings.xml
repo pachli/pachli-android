@@ -15,4 +15,5 @@
     <string name="title_links_dialog">Lenker</string>
     <string name="title_hashtags_dialog">Stikkord</string>
     <string name="title_mentions_dialog">Nevnelser</string>
+    <string name="button_continue">Fortsett</string>
 </resources>
