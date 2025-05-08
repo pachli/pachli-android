@@ -26,10 +26,11 @@ import app.pachli.R
 import app.pachli.core.database.model.DraftAttachment
 import app.pachli.core.designsystem.R as DR
 import app.pachli.view.MediaPreviewImageView
-import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 
 class DraftMediaAdapter(
+    private val glide: RequestManager,
     private val attachmentClick: () -> Unit,
 ) : ListAdapter<DraftAttachment, DraftMediaAdapter.DraftMediaViewHolder>(
     object : DiffUtil.ItemCallback<DraftAttachment>() {
@@ -58,17 +59,16 @@ class DraftMediaAdapter(
                 } else {
                     holder.imageView.clearFocus()
                 }
-                var glide = Glide.with(holder.itemView.context)
-                    .load(attachment.uri)
+                var request = glide.load(attachment.uri)
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .dontAnimate()
                     .centerInside()
 
                 if (attachment.focus != null) {
-                    glide = glide.addListener(holder.imageView)
+                    request = request.addListener(holder.imageView)
                 }
 
-                glide.into(holder.imageView)
+                request.into(holder.imageView)
             }
         }
     }

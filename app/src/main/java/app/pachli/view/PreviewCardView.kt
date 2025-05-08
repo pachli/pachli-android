@@ -37,7 +37,7 @@ import app.pachli.core.network.model.TrendsLink
 import app.pachli.core.ui.decodeBlurHash
 import app.pachli.core.ui.emojify
 import app.pachli.databinding.PreviewCardBinding
-import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -124,6 +124,7 @@ class PreviewCardView @JvmOverloads constructor(
      * @param listener
      */
     fun bind(
+        glide: RequestManager,
         card: PreviewCard,
         sensitive: Boolean,
         statusDisplayOptions: StatusDisplayOptions,
@@ -162,8 +163,7 @@ class PreviewCardView @JvmOverloads constructor(
                 setStartEndLayout()
             }.build()
 
-            val builder = Glide.with(cardImage.context)
-                .load(card.image)
+            val builder = glide.load(card.image)
                 .dontTransform()
             if (statusDisplayOptions.useBlurhash && !card.blurhash.isNullOrBlank()) {
                 builder
@@ -176,11 +176,11 @@ class PreviewCardView @JvmOverloads constructor(
             cardImage.show()
             cardImage.shapeAppearanceModel = setStartEndLayout().build()
 
-            Glide.with(cardImage.context)
-                .load(decodeBlurHash(cardImage.context, card.blurhash!!))
+            glide.load(decodeBlurHash(cardImage.context, card.blurhash!!))
                 .dontTransform()
                 .into(cardImage)
         } else {
+            glide.clear(cardImage)
             cardImage.hide()
         }
 
@@ -192,13 +192,13 @@ class PreviewCardView @JvmOverloads constructor(
         when {
             // Author has an account, link to that, with their avatar.
             author?.account != null -> {
-                val name = author.account?.name.unicodeWrap().emojify(author.account?.emojis, authorInfo, false)
+                val name = author.account?.name.unicodeWrap().emojify(glide, author.account?.emojis, authorInfo, false)
                 authorInfo.text = HtmlCompat.fromHtml(
                     authorInfo.context.getString(R.string.preview_card_byline_fediverse_account_fmt, name),
                     HtmlCompat.FROM_HTML_MODE_LEGACY,
                 )
 
-                Glide.with(authorInfo.context).load(author.account?.avatar).transform(bylineAvatarTransformation)
+                glide.load(author.account?.avatar).transform(bylineAvatarTransformation)
                     .placeholder(DR.drawable.avatar_default).into(bylineAvatarTarget)
                 authorInfo.show()
                 showBylineDivider = true

@@ -23,52 +23,52 @@ import com.android.tools.lint.detector.api.Detector
 import com.android.tools.lint.detector.api.Issue
 
 @Suppress("ktlint:standard:function-naming")
-class ContextCompatGetDrawableDetectorTest : LintDetectorTest() {
-    override fun getDetector(): Detector = ContextCompatGetDrawableDetector()
+class GlideWithViewDetectorTest : LintDetectorTest() {
+    override fun getDetector(): Detector = GlideWithViewDetector()
 
-    override fun getIssues(): List<Issue> = listOf(ContextCompatGetDrawableDetector.ISSUE)
+    override fun getIssues(): List<Issue> = listOf(GlideWithViewDetector.ISSUE)
 
-    fun `test Intent component constructor emits warning`() {
+    fun `test Glide with view emits warning`() {
         lint().files(
-            Context,
-            ContextCompat,
+            View,
+            Glide,
             kotlin(
                 """
                 package test.pkg
 
-                import android.content.Context
-                import androidx.core.content.ContextCompat
+                import android.view.View
+                import com.bumptech.glide.Glide
 
-                fun foo() = ContextCompat.getDrawable(Context(), 0)
+                val x = Glide.with(View())
             """,
             ).indented(),
         ).allowMissingSdk().testModes(TestMode.DEFAULT).run().expect(
-            """src/test/pkg/test.kt:6: Warning: Use AppCompatResources.getDrawable [ContextCompatGetDrawableDetector]
-fun foo() = ContextCompat.getDrawable(Context(), 0)
-            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            """src/test/pkg/test.kt:6: Warning: Use an activity or fragment, not a view. [GlideWithViewDetector]
+val x = Glide.with(View())
+        ~~~~~~~~~~~~~~~~~~
 0 errors, 1 warnings""",
         )
     }
 
     companion object Stubs {
-        /** Stub for `android.content.Context` */
-        private val Context = java(
+        /** Stub for `android.view.View` */
+        private val View = java(
             """
-            package android.content;
+            package android.view;
 
-            public class Context {}
+            public class View {}
             """,
         ).indented()
 
-        /** Stub for `androidx.core.content.ContextCompat` */
-        private val ContextCompat = java(
+        /** Stub for `com.bumptech.glide.Glide` */
+        private val Glide = java(
             """
-                package androidx.core.content;
+                package com.bumptech.glide;
 
-                import android.content.Context;
+                import android.view.View;
 
-                public class ContextCompat {
-                     public static void getDrawable(Context context, int resource) { return null; }
+                public class Glide {
+                     public static RequestManager with(View view) { return RequestManager(); }
                 }
             """,
         ).indented()

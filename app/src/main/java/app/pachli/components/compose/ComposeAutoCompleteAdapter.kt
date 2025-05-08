@@ -34,10 +34,11 @@ import app.pachli.core.ui.emojify
 import app.pachli.core.ui.loadAvatar
 import app.pachli.databinding.ItemAutocompleteEmojiBinding
 import app.pachli.databinding.ItemAutocompleteHashtagBinding
-import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
 import kotlinx.coroutines.runBlocking
 
 class ComposeAutoCompleteAdapter(
+    private val glide: RequestManager,
     private val autocompletionProvider: AutocompletionProvider,
     private val animateAvatar: Boolean,
     private val animateEmojis: Boolean,
@@ -114,9 +115,15 @@ class ComposeAutoCompleteAdapter(
                 val accountResult = getItem(position) as AutocompleteResult.AccountResult
                 val account = accountResult.account
                 binding.username.text = context.getString(DR.string.post_username_format, account.username)
-                binding.displayName.text = account.name.emojify(account.emojis, binding.displayName, animateEmojis)
+                binding.displayName.text = account.name.emojify(
+                    glide,
+                    account.emojis,
+                    binding.displayName,
+                    animateEmojis,
+                )
                 val avatarRadius = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_42dp)
                 loadAvatar(
+                    glide,
                     account.avatar,
                     binding.avatar,
                     avatarRadius,
@@ -133,8 +140,7 @@ class ComposeAutoCompleteAdapter(
                 val emojiResult = getItem(position) as AutocompleteResult.EmojiResult
                 val (shortcode, url) = emojiResult.emoji
                 binding.shortcode.text = context.getString(R.string.emoji_shortcode_format, shortcode)
-                Glide.with(binding.preview)
-                    .load(url)
+                glide.load(url)
                     .into(binding.preview)
             }
         }

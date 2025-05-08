@@ -49,7 +49,6 @@ import app.pachli.util.Loading
 import app.pachli.util.Success
 import app.pachli.viewmodel.EditProfileViewModel
 import app.pachli.viewmodel.ProfileDataInUi
-import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.FitCenter
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -174,8 +173,7 @@ class EditProfileActivity : BaseActivity() {
                             (me.source?.fields?.size ?: 0) < maxAccountFields
 
                         if (viewModel.avatarData.value == null) {
-                            Glide.with(this)
-                                .load(me.avatar)
+                            glide.load(me.avatar)
                                 .placeholder(DR.drawable.avatar_default)
                                 .transform(
                                     FitCenter(),
@@ -185,8 +183,7 @@ class EditProfileActivity : BaseActivity() {
                         }
 
                         if (viewModel.headerData.value == null) {
-                            Glide.with(this)
-                                .load(me.header)
+                            glide.load(me.header)
                                 .into(binding.headerPreview)
                         }
                     }
@@ -266,18 +263,17 @@ class EditProfileActivity : BaseActivity() {
         ) { imageUri ->
 
             // skipping all caches so we can always reuse the same uri
-            val glide = Glide.with(imageView)
-                .load(imageUri)
+            val request = glide.load(imageUri)
                 .skipMemoryCache(true)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
 
             if (roundedCorners) {
-                glide.transform(
+                request.transform(
                     FitCenter(),
                     RoundedCorners(resources.getDimensionPixelSize(DR.dimen.avatar_radius_80dp)),
                 ).into(imageView)
             } else {
-                glide.into(imageView)
+                request.into(imageView)
             }
 
             imageView.show()

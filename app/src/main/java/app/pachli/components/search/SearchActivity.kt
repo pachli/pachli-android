@@ -537,6 +537,7 @@ class SearchActivity :
 
                 dialogBinding.account.setAdapter(
                     ComposeAutoCompleteAdapter(
+                        glide,
                         this@SearchActivity,
                         animateAvatar = false,
                         animateEmojis = false,

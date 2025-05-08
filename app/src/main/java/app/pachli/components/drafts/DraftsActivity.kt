@@ -71,7 +71,7 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
 
         binding.draftsErrorMessageView.setup(BackgroundMessage.Empty(R.string.no_drafts))
 
-        val adapter = DraftsAdapter(this)
+        val adapter = DraftsAdapter(glide, this)
 
         binding.draftsRecyclerView.adapter = adapter
         binding.draftsRecyclerView.layoutManager = LinearLayoutManager(this)

@@ -27,6 +27,7 @@ import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.ui.ActionButtonScrollListener
 import app.pachli.databinding.ActivityFollowedTagsBinding
 import app.pachli.interfaces.HashtagActionListener
+import com.bumptech.glide.Glide
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import com.google.android.material.divider.MaterialDividerItemDecoration
@@ -184,6 +185,7 @@ class FollowedTagsActivity :
             val autoCompleteTextView = layout.findViewById<AutoCompleteTextView>(R.id.hashtag)!!
             autoCompleteTextView.setAdapter(
                 ComposeAutoCompleteAdapter(
+                    Glide.with(this),
                     requireActivity() as FollowedTagsActivity,
                     animateAvatar = false,
                     animateEmojis = false,

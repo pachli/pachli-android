@@ -26,8 +26,10 @@ import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.ui.SetStatusContent
 import app.pachli.databinding.ItemReportStatusBinding
+import com.bumptech.glide.RequestManager
 
 class StatusesAdapter(
+    private val glide: RequestManager,
     private val setStatusContent: SetStatusContent,
     private val statusDisplayOptions: StatusDisplayOptions,
     private val statusViewState: StatusViewState,
@@ -42,6 +44,7 @@ class StatusesAdapter(
         val binding = ItemReportStatusBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return StatusViewHolder(
             binding,
+            glide,
             setStatusContent,
             statusDisplayOptions,
             statusViewState,

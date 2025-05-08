@@ -27,9 +27,11 @@ import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.ui.emojify
 import app.pachli.core.ui.loadAvatar
+import com.bumptech.glide.RequestManager
 
 class AccountSelectionAdapter(
     context: Context,
+    private val glide: RequestManager,
     private val animateAvatars: Boolean,
     private val animateEmojis: Boolean,
 ) : ArrayAdapter<AccountEntity>(context, R.layout.item_autocomplete_account) {
@@ -42,14 +44,17 @@ class AccountSelectionAdapter(
         }
 
         val account = getItem(position)
+
         if (account != null) {
             binding.username.text = account.fullName
-            binding.displayName.text = account.displayName.emojify(account.emojis, binding.displayName, animateEmojis)
+            binding.displayName.text = account.displayName.emojify(glide, account.emojis, binding.displayName, animateEmojis)
             binding.avatarBadge.visibility = View.GONE // We never want to display the bot badge here
 
             val avatarRadius = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_42dp)
 
-            loadAvatar(account.profilePictureUrl, binding.avatar, avatarRadius, animateAvatars)
+            loadAvatar(glide, account.profilePictureUrl, binding.avatar, avatarRadius, animateAvatars)
+        } else {
+            glide.clear(binding.avatar)
         }
 
         return binding.root

@@ -49,6 +49,7 @@ import app.pachli.core.network.model.Status
 import app.pachli.core.ui.SetMarkdownContent
 import app.pachli.core.ui.SetMastodonHtmlContent
 import app.pachli.databinding.FragmentReportStatusesBinding
+import com.bumptech.glide.Glide
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
@@ -97,6 +98,7 @@ class ReportStatusesFragment :
         }
 
         adapter = StatusesAdapter(
+            Glide.with(this),
             setStatusContent,
             viewModel.statusDisplayOptions.value,
             viewModel.statusViewState,

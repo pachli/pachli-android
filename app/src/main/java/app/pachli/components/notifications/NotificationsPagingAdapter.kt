@@ -44,6 +44,7 @@ import app.pachli.databinding.ItemUnknownNotificationBinding
 import app.pachli.interfaces.AccountActionListener
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.viewdata.NotificationViewData
+import com.bumptech.glide.RequestManager
 
 /** How to present the notification in the UI */
 enum class NotificationViewKind {
@@ -145,6 +146,7 @@ interface NotificationActionListener {
  * @param statusDisplayOptions
  */
 class NotificationsPagingAdapter(
+    private val glide: RequestManager,
     diffCallback: DiffUtil.ItemCallback<NotificationViewData>,
     private val setStatusContent: SetStatusContent,
     private val statusActionListener: StatusActionListener<NotificationViewData>,
@@ -185,6 +187,7 @@ class NotificationsPagingAdapter(
             NotificationViewKind.STATUS -> {
                 StatusViewHolder(
                     ItemStatusBinding.inflate(inflater, parent, false),
+                    glide,
                     setStatusContent,
                     statusActionListener,
                 )
@@ -192,6 +195,7 @@ class NotificationsPagingAdapter(
             NotificationViewKind.STATUS_FILTERED -> {
                 FilterableStatusViewHolder(
                     ItemStatusWrapperBinding.inflate(inflater, parent, false),
+                    glide,
                     setStatusContent,
                     statusActionListener,
                 )
@@ -206,6 +210,7 @@ class NotificationsPagingAdapter(
             NotificationViewKind.NOTIFICATION -> {
                 StatusNotificationViewHolder(
                     ItemStatusNotificationBinding.inflate(inflater, parent, false),
+                    glide,
                     setStatusContent,
                     statusActionListener,
                     notificationActionListener,
@@ -215,6 +220,7 @@ class NotificationsPagingAdapter(
             NotificationViewKind.FOLLOW -> {
                 FollowViewHolder(
                     ItemFollowBinding.inflate(inflater, parent, false),
+                    glide,
                     notificationActionListener,
                     statusActionListener,
                 )
@@ -222,6 +228,7 @@ class NotificationsPagingAdapter(
             NotificationViewKind.FOLLOW_REQUEST -> {
                 FollowRequestViewHolder(
                     ItemFollowRequestBinding.inflate(inflater, parent, false),
+                    glide,
                     accountActionListener,
                     statusActionListener,
                     showHeader = true,
@@ -230,6 +237,7 @@ class NotificationsPagingAdapter(
             NotificationViewKind.REPORT -> {
                 ReportNotificationViewHolder(
                     ItemReportNotificationBinding.inflate(inflater, parent, false),
+                    glide,
                     notificationActionListener,
                 )
             }

@@ -21,14 +21,16 @@ import app.pachli.databinding.ItemStatusDetailedBinding
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.description
 import app.pachli.util.icon
+import com.bumptech.glide.RequestManager
 import java.text.DateFormat
 import java.util.Locale
 
 class StatusDetailedViewHolder(
     private val binding: ItemStatusDetailedBinding,
+    glide: RequestManager,
     setStatusContent: SetStatusContent,
     private val openUrl: OpenUrlUseCase,
-) : StatusBaseViewHolder<StatusViewData>(binding.root, setStatusContent) {
+) : StatusBaseViewHolder<StatusViewData>(binding.root, glide, setStatusContent) {
 
     override fun setMetaData(
         viewData: StatusViewData,

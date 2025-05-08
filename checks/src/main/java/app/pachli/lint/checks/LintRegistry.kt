@@ -11,6 +11,7 @@ class LintRegistry : IssueRegistry() {
             AndroidxToolbarDetector.ISSUE,
             ContextCompatGetDrawableDetector.ISSUE,
             DateDotTimeDetector.ISSUE,
+            GlideWithViewDetector.ISSUE,
             IntentDetector.ISSUE,
         )
 

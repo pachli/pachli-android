@@ -101,7 +101,7 @@ class AnnouncementsActivity :
         val animateEmojis = sharedPreferencesRepository.animateEmojis
         val useAbsoluteTime = sharedPreferencesRepository.useAbsoluteTime
 
-        adapter = AnnouncementAdapter(emptyList(), this, hideStatsInDetailedPosts, animateEmojis, useAbsoluteTime)
+        adapter = AnnouncementAdapter(glide, emptyList(), this, hideStatsInDetailedPosts, animateEmojis, useAbsoluteTime)
 
         binding.announcementsList.adapter = adapter
 
@@ -133,7 +133,7 @@ class AnnouncementsActivity :
         }
 
         viewModel.emojis.observe(this) {
-            picker.adapter = EmojiAdapter(it, this, animateEmojis)
+            picker.adapter = EmojiAdapter(glide, it, this, animateEmojis)
         }
 
         viewModel.load()
