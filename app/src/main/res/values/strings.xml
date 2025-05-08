@@ -367,7 +367,6 @@
     -->
     <string name="post_share_content">Share content of post</string>
     <string name="post_share_link">Share link to post</string>
-    <string name="post_media_image">Image</string>
     <string name="post_media_images">Images</string>
     <string name="post_media_video">Video</string>
     <string name="post_media_audio">Audio</string>
@@ -879,7 +878,6 @@
 
 
     <string name="upload_failed_msg_fmt">The upload will be retried when you send the post. If it fails again the post will be saved in your drafts.\n\nThe error was: %1$s</string>
-    <string name="upload_failed_modify_attachment">Modify attachment</string>
     <string name="pref_title_account_notification_filters">Notification filters</string>
     <string name="pref_account_notification_filters_subtitle">What should happen to notifications from accounts…</string>
     <string name="pref_account_notification_filters_label_not_followed">… you don\'t follow</string>

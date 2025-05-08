@@ -47,7 +47,6 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toDrawable
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.GravityCompat
 import androidx.core.view.MenuProvider
 import androidx.core.view.forEach
@@ -164,11 +163,9 @@ import com.mikepenz.materialdrawer.util.removeItems
 import com.mikepenz.materialdrawer.util.updateBadge
 import com.mikepenz.materialdrawer.widget.AccountHeaderView
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.lifecycle.withCreationCallback
 import de.c1710.filemojicompat_ui.helpers.EMOJI_PREFERENCE
 import javax.inject.Inject
 import kotlin.math.max
-import kotlin.properties.Delegates
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
@@ -209,13 +206,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     @Inject
     lateinit var updateShortCuts: UpdateShortCutsUseCase
 
-    private val viewModel: MainViewModel by viewModels(
-        extrasProducer = {
-            defaultViewModelCreationExtras.withCreationCallback<MainViewModel.Factory> { factory ->
-                factory.create(intent.pachliAccountId)
-            }
-        },
-    )
+    private val viewModel: MainViewModel by viewModels()
 
     private val binding by viewBinding(ActivityMainBinding::inflate)
 
@@ -251,25 +242,17 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
      */
     private val listDrawerItems = mutableListOf<PrimaryDrawerItem>()
 
-    /**
-     * Version of [intent.pachliAccountId] where `-1` has been resolved to the
-     * actual active account value.
-     */
-    private var pachliAccountId by Delegates.notNull<Long>()
+    private val pachliAccountId by unsafeLazy { intent.pachliAccountId }
 
     /** Mutex to protect modifications to the drawer's items. */
     private val drawerMutex = Mutex()
 
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
-            installSplashScreen()
-        }
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-//        Timber.d("Loading account ${intent.pachliAccountId}")
-//        viewModel.load(intent.pachliAccountId)
+        viewModel.accept(InfallibleUiAction.LoadPachliAccount(pachliAccountId))
 
         var showNotificationTab = MainActivityIntent.getOpenNotificationTab(intent)
 
@@ -346,7 +329,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 // One-off setup independent of the UI state.
-                val initialAccount = viewModel.pachliAccountFlow.filterNotNull().first()
+                val initialAccount = account.first()
                 createNotificationChannelsForAccount(initialAccount.entity, this@MainActivity)
 
                 bindMainDrawer(initialAccount)
@@ -383,7 +366,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                 Timber.d("Hit state RESUMED")
                 launch {
                     account.distinctUntilChangedBy { it.lists }.collectLatest { account ->
-                        Timber.d("RESUMED: lists: ")
+                        Timber.d("RESUMED: lists: ${account.lists}")
                         bindMainDrawerLists(account.id, account.lists)
                     }
                 }
@@ -412,12 +395,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                 }
             }
         }
-
-//        lifecycleScope.launch {
-//            repeatOnLifecycle(Lifecycle.State.RESUMED) {
-//                viewModel.uiResult.collect(::bindUiResult)
-//            }
-//        }
 
         selectedEmojiPack = sharedPreferencesRepository.getString(EMOJI_PREFERENCE, "")
 
@@ -461,7 +438,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             }
             R.id.action_remove_tab -> {
                 val timeline = tabAdapter.tabs[binding.viewPager.currentItem].timeline
-                viewModel.accept(InfallibleUiAction.TabRemoveTimeline(timeline))
+                viewModel.accept(InfallibleUiAction.TabRemoveTimeline(pachliAccountId, timeline))
                 true
             }
             R.id.action_tab_preferences -> {

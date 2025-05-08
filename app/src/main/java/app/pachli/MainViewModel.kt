@@ -19,6 +19,7 @@ package app.pachli
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import app.pachli.components.timeline.viewmodel.TimelineViewModel
 import app.pachli.core.data.model.Server
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.database.model.AccountEntity
@@ -30,18 +31,17 @@ import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.preferences.ShowSelfUsername
 import app.pachli.core.preferences.TabAlignment
 import app.pachli.core.preferences.TabContents
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.z4kn4fein.semver.constraints.toConstraint
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.onStart
-import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
@@ -49,8 +49,19 @@ import kotlinx.coroutines.launch
 internal sealed interface UiAction
 
 internal sealed interface InfallibleUiAction : UiAction {
-    /** Remove [timeline] from the active account's tabs. */
-    data class TabRemoveTimeline(val timeline: Timeline) : InfallibleUiAction
+    /**
+     * Directs the ViewModel to load the account identified by [pachliAccountId].
+     * This will trigger fetching statuses for that account, and emit into the
+     * [TimelineViewModel.statuses] flow.
+     */
+    // Do not replace this with a function that returns the flow. The UI would call it
+    // on every restart (e.g., configuration change) causing the flow to be recreated.
+    // This way the flow is cached in the viewmodel, and the UI can recollect it on
+    // restart with very little delay.
+    data class LoadPachliAccount(val pachliAccountId: Long) : InfallibleUiAction
+
+    /** Remove [timeline] from the [pachliAccountId]'s tabs tabs. */
+    data class TabRemoveTimeline(val pachliAccountId: Long, val timeline: Timeline) : InfallibleUiAction
 }
 
 /**
@@ -95,22 +106,16 @@ data class UiState(
     }
 }
 
-@HiltViewModel(assistedFactory = MainViewModel.Factory::class)
-internal class MainViewModel @AssistedInject constructor(
-    @Assisted private val pachliAccountId: Long,
+@HiltViewModel
+internal class MainViewModel @Inject constructor(
     private val accountManager: AccountManager,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
 ) : ViewModel() {
-//    val pachliAccountId = MutableSharedFlow<Long>(replay = 1)
-//
-//    val pachliAccountFlow = pachliAccountId.flatMapLatest { pachliAccountId ->
-//        Timber.d("Loading account: $pachliAccountId")
-//        accountManager.getPachliAccountFlow(pachliAccountId).filterNotNull()
-//    }.shareIn(viewModelScope, SharingStarted.WhileSubscribed(5000), replay = 1)
+    val pachliAccountId = MutableSharedFlow<Long>(replay = 1)
 
-    val pachliAccountFlow = accountManager.getPachliAccountFlow(pachliAccountId)
-        .filterNotNull()
-        .shareIn(viewModelScope, SharingStarted.WhileSubscribed(5000), replay = 1)
+    val pachliAccountFlow = pachliAccountId.distinctUntilChanged().flatMapLatest {
+        accountManager.getPachliAccountFlow(it)
+    }.filterNotNull()
 
     private val uiAction = MutableSharedFlow<UiAction>()
 
@@ -149,27 +154,19 @@ internal class MainViewModel @AssistedInject constructor(
         viewModelScope.launch { uiAction.collect { launch { onUiAction(it) } } }
     }
 
-//    fun load(pachliAccountId: Long) {
-//        this.pachliAccountId.tryEmit(pachliAccountId)
-//    }
-
     private suspend fun onUiAction(uiAction: UiAction) {
         if (uiAction is InfallibleUiAction) {
             when (uiAction) {
-                is InfallibleUiAction.TabRemoveTimeline -> onTabRemoveTimeline(uiAction.timeline)
+                is InfallibleUiAction.LoadPachliAccount -> pachliAccountId.emit(uiAction.pachliAccountId)
+                is InfallibleUiAction.TabRemoveTimeline -> ::onTabRemoveTimeline
             }
         }
     }
 
-    private suspend fun onTabRemoveTimeline(timeline: Timeline) {
-        val active = pachliAccountFlow.replayCache.last().entity
-        val tabPreferences = active.tabPreferences.filterNot { it == timeline }
-        accountManager.setTabPreferences(active.id, tabPreferences)
-    }
-
-    @AssistedFactory
-    interface Factory {
-        /** Creates [MainViewModel] with [pachliAccountId] as the active account. */
-        fun create(pachliAccountId: Long): MainViewModel
+    private suspend fun onTabRemoveTimeline(action: InfallibleUiAction.TabRemoveTimeline) {
+        accountManager.getAccountById(action.pachliAccountId)
+            ?.tabPreferences
+            ?.filter { it == action.timeline }
+            ?.let { accountManager.setTabPreferences(action.pachliAccountId, it) }
     }
 }

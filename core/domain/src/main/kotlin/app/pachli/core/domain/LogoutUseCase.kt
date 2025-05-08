@@ -24,6 +24,7 @@ import androidx.core.content.pm.ShortcutManagerCompat
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.LogoutError
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.domain.notifications.DisablePushNotificationsForAccountUseCase
 import app.pachli.core.network.retrofit.MastodonApi
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
@@ -62,7 +63,7 @@ class LogoutUseCase @Inject constructor(
             .onFailure { result = Err(LogoutError.Api(it)) }
 
         // Clear notification channels
-        deleteNotificationChannelsForAccount(account, context)
+        deleteNotificationChannelsForAccount(account)
 
         // Remove shortcut associated with the account
         ShortcutManagerCompat.disableShortcuts(context, listOf(account.id.toString()), null)
@@ -73,7 +74,7 @@ class LogoutUseCase @Inject constructor(
         return result
     }
 
-    private fun deleteNotificationChannelsForAccount(account: AccountEntity, context: Context) {
+    private fun deleteNotificationChannelsForAccount(account: AccountEntity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val notificationManager =
                 context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager

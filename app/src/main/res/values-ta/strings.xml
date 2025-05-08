@@ -557,7 +557,6 @@
     <string name="search_operator_language_dialog_title">எழுதப்பட்ட இடுகைகளுக்கு வரம்பு…</string>
     <string name="search_operator_sensitive_dialog_no_sensitive">முக்கியமான உள்ளடக்கத்தை விலக்கு</string>
     <string name="search_operator_where_all">அனைத்து இடுகைகளும்</string>
-    <string name="upload_failed_modify_attachment">இணைப்பை மாற்றவும்</string>
     <string name="notification_unknown">அறியப்படாத அறிவிப்பு வகை</string>
     <string name="pref_title_show_self_boosts">தன்வய பூச்ட்களைக் காட்டு</string>
     <string name="action_delete_and_redraft">நீக்கு மற்றும் மீண்டும் வரைவு</string>
@@ -651,7 +650,6 @@
     <string name="send_account_link_to">கணக்கு முகவரி ஐப் பகிரவும்…</string>
     <string name="send_account_username_to">கணக்கு பயனர்பெயரைப் பகிரவும்…</string>
     <string name="confirmation_hashtag_muted">#%s மறைக்கப்பட்டுள்ளன</string>
-    <string name="post_media_image">படம்</string>
     <string name="failed_to_pin">பின் தவறிவிட்டது</string>
     <string name="error_filter_missing_keyword">குறைந்தது ஒரு முக்கிய சொல் அல்லது சொற்றொடர் தேவை</string>
     <string name="conversation_0_recipients">வேறு பங்கேற்பாளர்கள் இல்லை</string>

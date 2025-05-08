@@ -384,7 +384,6 @@
     <string name="abbreviated_in_hours">%dt</string>
     <string name="notification_report_name">Raportit</string>
     <string name="abbreviated_in_days">%dp</string>
-    <string name="post_media_image">Kuva</string>
     <string name="pref_title_font_family">Kirjasinperhe</string>
     <string name="notification_mention_descriptions">Ilmoitukset uusista maininnoista</string>
     <string name="notification_update_description">Ilmoitukset, kun viestit, joihin olet reagoinut, on muokattu</string>
@@ -784,7 +783,6 @@
         <item quantity="other">%1$s seuraamaasi tiilä poistettu</item>
     </plurals>
     <string name="upload_failed_msg_fmt">Latausta yritetään uudestaan kun lähetät julkaisun. Jos se epäonnistuu jälleen, julkaisu tallennetaan luonnoksiisi.\n\nVirhe oli: %1$s</string>
-    <string name="upload_failed_modify_attachment">Muokkaa liitettä</string>
     <string name="notification_unknown">Tuntematon ilmoitustyyppi</string>
     <string name="preview_card_timeline_link_fmt">Katso &lt;b&gt;%1$s&lt;/b&gt; julkaisua tästä linkistä</string>
     <string name="action_timeline_link">Julkaisuja tästä linkistä</string>

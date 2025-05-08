@@ -47,8 +47,8 @@ import app.pachli.core.navigation.LoginActivityIntent.LoginMode
 import app.pachli.core.navigation.MainActivityIntent
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.network.retrofit.apiresult.ClientError
-import app.pachli.core.ui.AlertDialogFragment
-import app.pachli.core.ui.ChooseAccountDialogFragment
+import app.pachli.core.ui.AlertSuspendDialogFragment
+import app.pachli.core.ui.ChooseAccountSuspendDialogFragment
 import app.pachli.feature.accountrouter.AccountRouterViewModel.Companion.canHandleMimeType
 import app.pachli.feature.accountrouter.FallibleUiAction.SetActiveAccount
 import app.pachli.feature.accountrouter.databinding.DialogChooseAccountShowErrorBinding
@@ -140,7 +140,7 @@ class AccountRouterActivity : BaseActivity() {
             // Requested account does not exist, ask the user to choose
 //            if (BuildConfig.DEBUG) throw RuntimeException("Could not resolve account with ID ${intent.pachliAccountId}")
             dismissSplashScreen = true
-            val account = ChooseAccountDialogFragment
+            val account = ChooseAccountSuspendDialogFragment
                 .newInstance(getString(R.string.title_choose_account_dialog), true)
                 .await(supportFragmentManager)
             if (account == null) {
@@ -194,7 +194,7 @@ class AccountRouterActivity : BaseActivity() {
                 val account = if (accounts.size == 1) {
                     accounts.first()
                 } else {
-                    ChooseAccountDialogFragment
+                    ChooseAccountSuspendDialogFragment
                         .newInstance(getString(R.string.action_share_as), true)
                         .await(supportFragmentManager)?.entity
                 }
@@ -219,13 +219,13 @@ class AccountRouterActivity : BaseActivity() {
                     val account = if (accounts.size == 1) {
                         accounts.first()
                     } else {
-                        ChooseAccountDialogFragment
+                        ChooseAccountSuspendDialogFragment
                             .newInstance(getString(R.string.action_share_as), true)
                             .await(supportFragmentManager)?.entity
                     }
                     account?.let { forwardToComposeActivityAndExit(account.id, intent) }
                 } else {
-                    AlertDialogFragment.newInstance(
+                    AlertSuspendDialogFragment.newInstance(
                         title = getString(R.string.title_error_mime_type),
                         message = getString(R.string.error_mime_type_fmt, intent.type),
                         positiveText = null,
@@ -279,7 +279,7 @@ class AccountRouterActivity : BaseActivity() {
                     is SetActiveAccountError.AccountDoesNotExist -> {
                         // Special case AccountDoesNotExist, as that should never happen. If it does
                         // there's nothing to do except try and switch back to another account.
-                        ChooseAccountWithErrorDialogFragment.newInstance(
+                        ChooseAccountWithErrorSuspendDialogFragment.newInstance(
                             getString(R.string.title_error_dialog),
                             uiError.fmt(this),
                         ).await(supportFragmentManager)?.let { account ->
@@ -308,7 +308,7 @@ class AccountRouterActivity : BaseActivity() {
                                 )
                             }
 
-                            val button = AlertDialogFragment.newInstance(
+                            val button = AlertSuspendDialogFragment.newInstance(
                                 uiError.cause.wantedAccount.fullName,
                                 message = message,
                                 positiveText = getString(R.string.action_relogin),
@@ -336,7 +336,7 @@ class AccountRouterActivity : BaseActivity() {
                                         finish()
                                         return
                                     }
-                                    ChooseAccountDialogFragment.newInstance(
+                                    ChooseAccountSuspendDialogFragment.newInstance(
                                         getString(R.string.title_choose_account_dialog),
                                         true,
                                     ).await(supportFragmentManager)?.let { account ->
@@ -348,7 +348,7 @@ class AccountRouterActivity : BaseActivity() {
 
                         // Other API errors are retryable.
                         else -> {
-                            ChooseAccountWithErrorDialogFragment.newInstance(
+                            ChooseAccountWithErrorSuspendDialogFragment.newInstance(
                                 uiError.cause.wantedAccount.fullName,
                                 uiError.fmt(this),
                             ).await(supportFragmentManager)?.let { account ->
@@ -362,7 +362,7 @@ class AccountRouterActivity : BaseActivity() {
                     // If these occur it's a bug in Pachli, the database should never
                     // get to a bad state.
                     is SetActiveAccountError.Dao -> {
-                        ChooseAccountWithErrorDialogFragment.newInstance(
+                        ChooseAccountWithErrorSuspendDialogFragment.newInstance(
                             uiError.cause.wantedAccount?.fullName ?: getString(R.string.title_error_dialog),
                             uiError.fmt(this),
                         ).await(supportFragmentManager)?.let { account ->
@@ -372,7 +372,7 @@ class AccountRouterActivity : BaseActivity() {
 
                     // Other errors are retryable.
                     is SetActiveAccountError.Unexpected -> {
-                        ChooseAccountWithErrorDialogFragment.newInstance(
+                        ChooseAccountWithErrorSuspendDialogFragment.newInstance(
                             uiError.cause.wantedAccount.fullName,
                             uiError.fmt(this),
                         ).await(supportFragmentManager)?.let { account ->
@@ -387,7 +387,7 @@ class AccountRouterActivity : BaseActivity() {
                 // on how many accounts exist.
                 val accountCount = viewModel.accounts.value.get().orEmpty().size
 
-                val button = AlertDialogFragment.newInstance(
+                val button = AlertSuspendDialogFragment.newInstance(
                     uiError.cause.wantedAccount.fullName,
                     message = uiError.fmt(this),
                     positiveText = getString(app.pachli.core.ui.R.string.button_continue),
@@ -410,7 +410,7 @@ class AccountRouterActivity : BaseActivity() {
                         }
 
                         // Show account chooser, then make that account active.
-                        ChooseAccountDialogFragment.newInstance(
+                        ChooseAccountSuspendDialogFragment.newInstance(
                             getString(R.string.title_choose_account_dialog),
                             false,
                         ).await(supportFragmentManager)?.let { account ->
@@ -478,9 +478,9 @@ class AccountRouterActivity : BaseActivity() {
     }
 }
 
-/** @see [ChooseAccountWithErrorDialogFragment.Companion]. */
+/** @see [ChooseAccountWithErrorSuspendDialogFragment.Companion]. */
 @AndroidEntryPoint
-class ChooseAccountWithErrorDialogFragment : ChooseAccountDialogFragment() {
+class ChooseAccountWithErrorSuspendDialogFragment : ChooseAccountSuspendDialogFragment() {
     private val errorMsg by lazy { requireArguments().getCharSequence(ARG_ERROR_MSG) }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -510,7 +510,7 @@ class ChooseAccountWithErrorDialogFragment : ChooseAccountDialogFragment() {
      * [PachliAccount][app.pachli.core.data.repository.PachliAccount] accounts, and
      * an error message below the list.
      *
-     * @see [ChooseAccountDialogFragment.Companion].
+     * @see [ChooseAccountSuspendDialogFragment.Companion].
      */
     companion object {
         private const val ARG_ERROR_MSG = "app.pachli.ARG_ERROR_MSG"
@@ -523,10 +523,10 @@ class ChooseAccountWithErrorDialogFragment : ChooseAccountDialogFragment() {
          *
          * @see [ChooseAccountDialogFragment.newInstance].
          */
-        fun newInstance(title: CharSequence?, errorMsg: CharSequence?): ChooseAccountWithErrorDialogFragment {
+        fun newInstance(title: CharSequence?, errorMsg: CharSequence?): ChooseAccountWithErrorSuspendDialogFragment {
             val args = newInstance(title, true).arguments
             args?.putCharSequence(ARG_ERROR_MSG, errorMsg)
-            return ChooseAccountWithErrorDialogFragment().apply {
+            return ChooseAccountWithErrorSuspendDialogFragment().apply {
                 arguments = args
             }
         }

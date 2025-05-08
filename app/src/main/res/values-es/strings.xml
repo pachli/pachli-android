@@ -527,7 +527,6 @@
     <string name="dialog_follow_hashtag_title">Seguir etiqueta</string>
     <string name="dialog_follow_hashtag_hint">#etiqueta</string>
     <string name="hint_description">Descripción</string>
-    <string name="post_media_image">Imagen</string>
     <string name="pref_title_account_filter_keywords">Perfiles</string>
     <string name="notification_unknown_name">Desconocido</string>
     <string name="status_filtered_show_anyway">Mostrar de todas formas</string>
@@ -782,7 +781,6 @@
         <item quantity="many">Se eliminaron %1$s cuentas que seguías</item>
         <item quantity="other">Se eliminaron %1$s cuentas que seguías</item>
     </plurals>
-    <string name="upload_failed_modify_attachment">Modificar adjunto</string>
     <string name="filter_action_none">Mostrar</string>
     <string name="filter_description_none">Mostrar normalmente</string>
     <string name="pref_account_notification_filters_label_not_followed">… que no sigues</string>
