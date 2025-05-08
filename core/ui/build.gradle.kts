@@ -51,6 +51,9 @@ dependencies {
     // Some views inherit from AndroidX views
     implementation(libs.bundles.androidx)
 
+    implementation(libs.bundles.glide)
+        ?.because("Loads account avatars and emojis")
+
     api(libs.material.iconics)
     api(libs.material.typeface)
 

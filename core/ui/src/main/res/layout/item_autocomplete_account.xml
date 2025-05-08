@@ -45,6 +45,7 @@
         app:layout_constraintStart_toEndOf="@id/avatar"
         app:layout_constraintTop_toTopOf="@id/avatar"
         app:layout_constraintVertical_chainStyle="packed"
+        tools:ignore="SelectableText"
         tools:text="Display name" />
 
     <TextView
@@ -60,6 +61,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/avatar"
         app:layout_constraintTop_toBottomOf="@id/displayName"
+        tools:ignore="SelectableText"
         tools:text="\@username" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

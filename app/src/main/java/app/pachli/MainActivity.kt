@@ -269,6 +269,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             installSplashScreen()
         }
         super.onCreate(savedInstanceState)
+        setContentView(binding.root)
 
         var showNotificationTab = false
 
@@ -277,11 +278,12 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             when (val payload = MainActivityIntent.payload(intent)) {
                 is Payload.QuickTile -> {
-                    showAccountChooserDialog(getString(R.string.action_share_as), true) { account ->
-                        val requestedId = account.id
-                        launchComposeActivityAndExit(requestedId)
+                    lifecycleScope.launch {
+                        chooseAccount(getString(R.string.action_share_as), true)?.let { account ->
+                            val requestedId = account.id
+                            launchComposeActivityAndExit(requestedId)
+                        }
                     }
-                    return
                 }
 
                 is Payload.NotificationCompose -> {
@@ -334,9 +336,11 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     // and start the composer.
                     if (canHandleMimeType(intent.type)) {
                         // Determine the account to use.
-                        showAccountChooserDialog(getString(R.string.action_share_as), true) { account ->
-                            val requestedId = account.id
-                            forwardToComposeActivityAndExit(requestedId, intent)
+                        lifecycleScope.launch {
+                            chooseAccount(getString(R.string.action_share_as), true)?.let { account ->
+                                val requestedId = account.id
+                                forwardToComposeActivityAndExit(requestedId, intent)
+                            }
                         }
                     }
                 }
@@ -346,7 +350,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         viewModel.accept(FallibleUiAction.SetActiveAccount(intent.pachliAccountId))
 
         window.statusBarColor = Color.TRANSPARENT // don't draw a status bar, the DrawerLayout and the MaterialDrawerLayout have their own
-        setContentView(binding.root)
 
         glide = Glide.with(this)
 

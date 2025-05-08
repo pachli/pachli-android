@@ -18,7 +18,6 @@ package app.pachli.core.activity
 
 import android.app.ActivityManager.TaskDescription
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
@@ -31,7 +30,6 @@ import android.view.View
 import androidx.annotation.CallSuper
 import androidx.annotation.StringRes
 import androidx.annotation.StyleRes
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -49,6 +47,7 @@ import app.pachli.core.navigation.LoginActivityIntent
 import app.pachli.core.navigation.MainActivityIntent
 import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.SharedPreferencesRepository
+import app.pachli.core.ui.ChooseAccountSuspendDialogFragment
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.EntryPoint
@@ -58,8 +57,6 @@ import dagger.hilt.android.EntryPointAccessors.fromApplication
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Inject
 import kotlin.properties.Delegates
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -229,54 +226,35 @@ abstract class BaseActivity : AppCompatActivity(), MenuProvider {
     }
 
     /**
-     * Displays a dialog allowing the user to choose from the available accounts.
+     * Chooses and returns an account.
      *
-     * @param dialogTitle
-     * @parma showActiveAccount True if the active account should be included in
+     * If only one account exists then returns that.
+     *
+     * If two accounts exist and [showActiveAccount] is false then the non-active
+     * account is returned.
+     *
+     * Otherwise, displays a dialog allowing the user to choose from the available
+     * accounts. The user's choice is returned, or null if they cancelled the dialog.
+     *
+     * @param dialogTitle Title to show in the dialog (if shown)
+     * @param showActiveAccount True if the active account should be included in
      * the list of accounts.
-     * @parma listener
+     * @return The chosen account, or null if the user did not choose an account
+     * (see [ChooseAccountSuspendDialogFragment.result]).
      */
-    fun showAccountChooserDialog(
+    suspend fun chooseAccount(
         dialogTitle: CharSequence?,
         showActiveAccount: Boolean,
-        listener: AccountSelectionListener,
-    ) {
-        lifecycleScope.launch {
-            val accounts = accountManager.accountsOrderedByActiveFlow.take(1).first().toMutableList()
-            val activeAccount = accounts.first()
-            when (accounts.size) {
-                1 -> {
-                    listener.onAccountSelected(activeAccount)
-                    return@launch
-                }
-
-                2 -> {
-                    if (!showActiveAccount) {
-                        for (account in accounts) {
-                            if (activeAccount !== account) {
-                                listener.onAccountSelected(account)
-                                return@launch
-                            }
-                        }
-                    }
-                }
-            }
-            if (!showActiveAccount) {
-                accounts.remove(activeAccount)
-            }
-            val adapter = AccountSelectionAdapter(
-                this@BaseActivity,
-                sharedPreferencesRepository.animateAvatars,
-                sharedPreferencesRepository.animateEmojis,
-            )
-            adapter.addAll(accounts)
-            AlertDialog.Builder(this@BaseActivity)
-                .setTitle(dialogTitle)
-                .setAdapter(adapter) { _: DialogInterface?, index: Int ->
-                    listener.onAccountSelected(accounts[index])
-                }
-                .show()
+    ): AccountEntity? {
+        val accounts = accountManager.accountsOrderedByActive
+        when (accounts.size) {
+            1 -> return accounts.first()
+            2 -> if (!showActiveAccount) return accounts.last()
         }
+        return ChooseAccountSuspendDialogFragment.newInstance(
+            dialogTitle,
+            showActiveAccount,
+        ).await(supportFragmentManager)?.entity
     }
 
     val openAsText: String?
