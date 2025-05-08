@@ -42,6 +42,7 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
@@ -114,8 +115,8 @@ internal class MainViewModel @Inject constructor(
     val pachliAccountId = MutableSharedFlow<Long>(replay = 1)
 
     val pachliAccountFlow = pachliAccountId.distinctUntilChanged().flatMapLatest {
-        accountManager.getPachliAccountFlow(it)
-    }.filterNotNull()
+        accountManager.getPachliAccountFlow(it).filterNotNull()
+    }.shareIn(viewModelScope, SharingStarted.WhileSubscribed(5000), replay = 1)
 
     private val uiAction = MutableSharedFlow<UiAction>()
 

@@ -24,12 +24,6 @@
     android:paddingBottom="?listPreferredItemPaddingStart"
     android:orientation="vertical">
 
-<!--    <TextView-->
-<!--        android:id="@+id/description"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="@string/error_login_failed" />-->
-
     <TextView
         android:id="@+id/message"
         android:layout_marginTop="8dp"
@@ -39,8 +33,9 @@
         android:paddingEnd="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="?colorError"
+        android:textColor="?colorOnErrorContainer"
         android:background="?colorErrorContainer"
+        android:textIsSelectable="true"
         tools:text="This is the error message" />
 
     <TextView
@@ -48,5 +43,6 @@
         android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textIsSelectable="false"
         tools:text="Tap the same account to try again, or a different account to login with that account" />
 </LinearLayout>

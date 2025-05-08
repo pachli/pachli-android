@@ -38,13 +38,8 @@ dependencies {
     implementation(projects.core.navigation)
     implementation(projects.core.network)
         ?.because("Payload.Notification relies on the network type")
-//    implementation(projects.core.preferences)
     implementation(projects.core.ui)
-//
     implementation(libs.bundles.androidx)
-//    implementation(libs.androidx.webkit)
-//
-//    // Loading the logo
     implementation(libs.bundles.glide)
         ?.because("Loading logo and avatar images")
 }

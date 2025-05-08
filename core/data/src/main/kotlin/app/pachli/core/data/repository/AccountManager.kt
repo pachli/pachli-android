@@ -267,26 +267,6 @@ class AccountManager @Inject constructor(
     }
 
     /**
-     * Resolves [pachliAccountId] to an actual Pachli account ID.
-     *
-     * If:
-     *  - [pachliAccountId] is null, returns the active account ID, or null if
-     *  no active account.
-     *  - [pachliAccountId] is `-1`, returns the active account ID, or null if
-     *  no active account.
-     *  - [pachliAccountId] references an account that exists in the database,
-     *  then that account ID (i.e., input == output).
-     *  - Otherwise the account does not exist locally, returns null
-     */
-    fun resolvePachliAccountId(pachliAccountId: Long?): Long? {
-        if (pachliAccountId == null || pachliAccountId == -1L) {
-            return accounts.find { it.isActive }?.id
-        }
-
-        return accounts.find { it.id == pachliAccountId }?.id
-    }
-
-    /**
      * Verifies the account has valid credentials according to the remote server
      * and adds it to the local database if it does.
      *

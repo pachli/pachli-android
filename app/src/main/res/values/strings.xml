@@ -407,12 +407,7 @@
     <string name="add_account_description">Add new Mastodon Account</string>
     <string name="manage_lists">Manage lists</string>
     <string name="compose_active_account_description">Posting as %1$s</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="one">Describe content for the visually impaired (%d character limit)</item>
-        <item quantity="other">Describe contents for the visually impaired (%d character limit)</item>
-    </plurals>
     <string name="set_focus_description">Tap or drag the circle to choose the focal point which will always be visible in thumbnails.</string>
-    <string name="action_set_caption">Set caption</string>
     <string name="action_set_focus">Set focus point</string>
     <string name="action_edit_image">Edit image</string>
     <string name="action_remove">Remove</string>
@@ -876,8 +871,7 @@
     <string name="search_operator_where_dialog_public">Public posts</string>
     <string name="search_operator_where_dialog_public_hint">Public, searchable posts known by server</string>
 
-
-    <string name="upload_failed_msg_fmt">The upload will be retried when you send the post. If it fails again the post will be saved in your drafts.\n\nThe error was: %1$s</string>
+    <string name="upload_failed_msg_fmt">Uploading attachment failed. The upload will be retried when you send the post. If it fails again the post will be saved in your drafts.\n\nThe error was: %1$s</string>
     <string name="pref_title_account_notification_filters">Notification filters</string>
     <string name="pref_account_notification_filters_subtitle">What should happen to notifications from accounts…</string>
     <string name="pref_account_notification_filters_label_not_followed">… you don\'t follow</string>

@@ -72,8 +72,6 @@ class CachedTimelineRepository @Inject constructor(
         pachliAccountId: Long,
         kind: Timeline,
     ): Flow<PagingData<TimelineStatusWithAccount>> {
-//        Timber.d("getStatusStream, account is %s", account.fullName)
-
         factory = InvalidatingPagingSourceFactory { timelineDao.getStatuses(pachliAccountId) }
 
         val initialKey = remoteKeyDao.remoteKeyForKind(pachliAccountId, RKE_TIMELINE_ID, RemoteKeyKind.REFRESH)?.key

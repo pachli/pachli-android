@@ -17,7 +17,6 @@
 
 package app.pachli.feature.accountrouter
 
-import android.content.Intent
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -28,7 +27,6 @@ import app.pachli.core.data.repository.RefreshAccountError
 import app.pachli.core.data.repository.SetActiveAccountError
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.navigation.AccountRouterActivityIntent.Payload
-import app.pachli.core.navigation.ComposeActivityIntent
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.mapEither
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -44,48 +42,6 @@ import kotlinx.coroutines.launch
 
 internal sealed interface UiState {
     data object Loading : UiState
-
-    data object ShowLogin : UiState
-
-    data class ChooseAccount(
-        val onChooseAccount: (Long) -> Unit,
-    ) : UiState
-
-//    data class Success(
-//        val pachliAccountId: Long,
-//        val payload: MainActivityIntent.Payload,
-//    ) : UiState
-
-    data class FromQuickTile(val pachliAccountId: Long) : UiState
-
-    data class FromNotificationCompose(
-        val pachliAccountId: Long,
-        val notificationId: Int,
-        val notificationTag: String?,
-        val composeOptions: ComposeActivityIntent.ComposeOptions?,
-    ) : UiState
-
-    data class FromOpenDrafts(val pachliAccountId: Long) : UiState
-
-    data class FromRedirect(val pachliAccountId: Long, val url: String) : UiState
-
-    data class FromShortcut(val pachliAccountId: Long) : UiState
-
-    data class FromFollowRequest(
-        val pachliAccountId: Long,
-        val notificationId: Int,
-        val notificationTag: String?,
-    ) : UiState
-
-    data class FromMainActivity(
-        val pachliAccountId: Long,
-        val showNotificationTab: Boolean = false,
-    ) : UiState
-
-    data class FromSharedData(
-        val pachliAccountId: Long,
-        val intent: Intent,
-    ) : UiState
 }
 
 /** Actions the user can take from the UI. */
@@ -108,13 +64,6 @@ internal sealed interface FallibleUiAction : UiAction {
 internal sealed interface UiSuccess {
     val action: FallibleUiAction
 
-    /** @see [FallibleUiAction.VerifyAndAddAccount]. */
-//    data class VerifyAndAddAccount(
-//        override val action: FallibleUiAction.VerifyAndAddAccount,
-//        val accountId: Long,
-//    ) : UiSuccess
-
-//    data class RefreshAccount(val payload: AccountRouterIntent.Payload) : UiSuccess
     data class SetActiveAccount(
         override val action: FallibleUiAction.SetActiveAccount,
         val accountEntity: AccountEntity,
