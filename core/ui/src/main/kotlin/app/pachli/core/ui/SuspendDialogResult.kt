@@ -26,7 +26,8 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
-import app.pachli.core.ui.AlertDialogFragment.Companion.newInstance
+import app.pachli.core.common.util.unsafeLazy
+import app.pachli.core.ui.AlertSuspendDialogFragment.Companion.newInstance
 import kotlin.coroutines.resume
 import kotlinx.coroutines.suspendCancellableCoroutine
 
@@ -71,8 +72,13 @@ interface SuspendDialogResult<T> {
     }
 }
 
-/** @see [AlertDialogFragment.Companion]. */
-class AlertDialogFragment : AppCompatDialogFragment(), SuspendDialogResult<Int> {
+/**
+ * Do not create this fragment directly, use
+ * [newInstance][AlertSuspendDialogFragment.Companion.newInstance].
+ *
+ * @see [AlertSuspendDialogFragment.Companion].
+ */
+class AlertSuspendDialogFragment : AppCompatDialogFragment(), SuspendDialogResult<Int> {
     /**
      * The button the user clicked.
      *
@@ -80,11 +86,11 @@ class AlertDialogFragment : AppCompatDialogFragment(), SuspendDialogResult<Int> 
      */
     override var result: Int = AlertDialog.BUTTON_NEGATIVE
 
-    private val title by lazy { requireArguments().getString(ARG_TITLE) }
-    private val message by lazy { requireArguments().getString(ARG_MESSAGE) }
-    private val positiveText by lazy { requireArguments().getString(ARG_POSITIVE_TEXT) }
-    private val negativeText by lazy { requireArguments().getString(ARG_NEGATIVE_TEXT) }
-    private val neutralText by lazy { requireArguments().getString(ARG_NEUTRAL_TEXT) }
+    private val title by unsafeLazy { requireArguments().getString(ARG_TITLE) }
+    private val message by unsafeLazy { requireArguments().getString(ARG_MESSAGE) }
+    private val positiveText by unsafeLazy { requireArguments().getString(ARG_POSITIVE_TEXT) }
+    private val negativeText by unsafeLazy { requireArguments().getString(ARG_NEGATIVE_TEXT) }
+    private val neutralText by unsafeLazy { requireArguments().getString(ARG_NEUTRAL_TEXT) }
 
     val listener = DialogInterface.OnClickListener { _, which ->
         result = which
@@ -122,7 +128,7 @@ class AlertDialogFragment : AppCompatDialogFragment(), SuspendDialogResult<Int> 
         private const val ARG_NEUTRAL_TEXT = "app.pachli.ARG_NEUTRAL_TEXT"
 
         /**
-         * Creates [AlertDialogFragment].
+         * Creates [AlertSuspendDialogFragment].
          *
          * @param title Text to show as the dialog's title.
          * @param message Text to show as the dialog's main message.
@@ -132,7 +138,7 @@ class AlertDialogFragment : AppCompatDialogFragment(), SuspendDialogResult<Int> 
          * null the button is not shown.
          * @param neutralText Text to show as the dialog's neutral button. If
          * null the button is not shown.
-         * @return [AlertDialogFragment].
+         * @return [AlertSuspendDialogFragment].
          */
         fun newInstance(
             title: CharSequence?,
@@ -140,7 +146,7 @@ class AlertDialogFragment : AppCompatDialogFragment(), SuspendDialogResult<Int> 
             positiveText: CharSequence?,
             negativeText: CharSequence? = null,
             neutralText: CharSequence? = null,
-        ) = AlertDialogFragment().apply {
+        ) = AlertSuspendDialogFragment().apply {
             arguments = Bundle().apply {
                 putCharSequence(ARG_TITLE, title)
                 putCharSequence(ARG_MESSAGE, message)

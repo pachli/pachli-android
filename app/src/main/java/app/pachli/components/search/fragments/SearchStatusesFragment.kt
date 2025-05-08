@@ -372,7 +372,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
 
     private fun showOpenAsDialog(statusUrl: String, dialogTitle: CharSequence?) {
         viewLifecycleOwner.lifecycleScope.launch {
-            bottomSheetActivity?.showAccountChooserDialog(dialogTitle, false)?.let { account ->
+            bottomSheetActivity?.chooseAccount(dialogTitle, false)?.let { account ->
                 bottomSheetActivity?.openAsAccount(statusUrl, account)
             }
         }

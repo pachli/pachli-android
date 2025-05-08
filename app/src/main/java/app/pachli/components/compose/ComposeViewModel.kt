@@ -60,14 +60,11 @@ import app.pachli.service.StatusToSend
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
-import com.github.michaelbull.result.andThen
 import com.github.michaelbull.result.get
 import com.github.michaelbull.result.getOrElse
 import com.github.michaelbull.result.mapBoth
 import com.github.michaelbull.result.mapEither
 import com.github.michaelbull.result.mapError
-import com.github.michaelbull.result.onFailure
-import com.github.michaelbull.result.onSuccess
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -546,47 +543,7 @@ class ComposeViewModel @AssistedInject constructor(
     }
 
     fun updateDescription(localId: Int, serverId: String?, description: String) {
-        // If the image hasn't been uploaded then update the state locally.
-        if (serverId == null) {
-            updateMediaItem(localId) { it.copy(description = description) }
-            return
-        }
-
-        // If editing an existing post the update must go through the status edit API
-        // when user presses the button, just update the local copy of the description.
-        if (editing) {
-            updateMediaItem(localId) { it.copy(description = description) }
-            return
-        }
-
-        // Update the remote description and report any errors. Update the local description
-        // if there are errors so the user still has the text and can try and correct it.
-        viewModelScope.launch {
-            api.updateMedia(serverId, description = description)
-                .andThen { api.getMedia(serverId) }
-                .onSuccess { response ->
-                    val state = if (response.code == 200) {
-                        Uploaded.Processed(serverId)
-                    } else {
-                        Uploaded.Processing(serverId)
-                    }
-                    updateMediaItem(localId) {
-                        it.copy(
-                            description = description,
-                            uploadState = Ok(state),
-                        )
-                    }
-                }
-                .mapError { MediaUploaderError.UpdateMediaError(serverId, it) }
-                .onFailure { error ->
-                    updateMediaItem(localId) {
-                        it.copy(
-                            description = description,
-                            uploadState = Err(error),
-                        )
-                    }
-                }
-        }
+        updateMediaItem(localId) { it.copy(description = description) }
     }
 
     fun updateFocus(localId: Int, focus: Attachment.Focus) {

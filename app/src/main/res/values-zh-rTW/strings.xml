@@ -222,10 +222,6 @@
     <string name="add_account_name">加入帳號</string>
     <string name="add_account_description">加入新的 Mastodon 帳號</string>
     <string name="compose_active_account_description">以 %1$s 發嘟文</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="other">為視覺障礙用戶提供的描述（限制 %d 字）</item>
-    </plurals>
-    <string name="action_set_caption">設定圖片標題</string>
     <string name="action_remove">移除</string>
     <string name="lock_account_label">保護你的帳戶（鎖嘟）</string>
     <string name="lock_account_label_description">你需要手動審核所有關注請求</string>

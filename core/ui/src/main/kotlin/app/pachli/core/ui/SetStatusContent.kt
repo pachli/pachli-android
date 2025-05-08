@@ -161,7 +161,7 @@ class PachliMarkwonTheme(private val context: Context) : AbstractMarkwonPlugin()
     override fun configureTheme(builder: MarkwonTheme.Builder) {
         val codeBackgroundColor = MaterialColors.getColor(
             context,
-            com.google.android.material.R.attr.colorSurfaceVariant,
+            com.google.android.material.R.attr.colorSurfaceContainerLow,
             Color.WHITE,
         )
         val codeTextColor = MaterialColors.getColor(

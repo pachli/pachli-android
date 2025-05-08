@@ -216,11 +216,6 @@
     <string name="add_account_name">Lägg till konto</string>
     <string name="add_account_description">Lägg till ett nytt Mastodon-konto</string>
     <string name="compose_active_account_description">Publicerar som %1$s</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="one">Beskriv innehåll för synskadade (max %d tecken)</item>
-        <item quantity="other">Beskriv innehåll för synskadade (max %d tecken)</item>
-    </plurals>
-    <string name="action_set_caption">Ange bildtext</string>
     <string name="action_remove">Ta bort</string>
     <string name="lock_account_label">Lås konto</string>
     <string name="lock_account_label_description">Kräver att du manuellt godkänner följare</string>
@@ -525,7 +520,6 @@
     <string name="total_usage">Total användning</string>
     <string name="total_accounts">Totala konton</string>
     <string name="hint_description">Beskrivning</string>
-    <string name="post_media_image">Bild</string>
     <string name="description_browser_login">Kan stödja ytterligare autentiseringsmetoder, men kräver en webbläsare som stöds.</string>
     <string name="filter_description_format">%s: %s</string>
     <string name="filter_keyword_addition_title">Lägg till nyckelord</string>

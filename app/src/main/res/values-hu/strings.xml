@@ -265,11 +265,6 @@
     <string name="filter_dialog_whole_word">Teljes szó</string>
     <string name="filter_dialog_whole_word_description">Ha a kulcsszó csak alfanumerikus karakterekből áll, csak teljes szóra fog illeszkedni</string>
     <string name="compose_active_account_description">Bejegyzés mint %1$s</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="one">Tartalom leírása látássérültek számára (%d karakteres korlát)</item>
-        <item quantity="other">Tartalom leírása látássérültek számára (%d karakteres korlát)</item>
-    </plurals>
-    <string name="action_set_caption">Cím beállítása</string>
     <string name="lock_account_label_description">Minden követődet külön engedélyezned kell</string>
     <string name="expand_collapse_all_posts">Összes bejegyzés kibontása/összecsukása</string>
     <string name="reblog_private">Megtolás az eredeti közönségnek</string>
@@ -551,7 +546,6 @@
     <string name="filter_description_format">%s: %s</string>
     <string name="help_empty_home">Ez a <b>kezdő idővonalad</b>. Megjeleníti a követett fiókok legfrissebb bejegyzéseit. \n \nMás fiókokat másik idővonalakon fedezhetsz fel. Például a példányod helyi idővonalán [iconics gmd_group]. Vagy megkeresheted őket név szerint [iconics gmd_search]; például keress rá a Pachlira, hogy megtaláld a Mastodon-fiókunkat.</string>
     <string name="hint_description">Leírás</string>
-    <string name="post_media_image">Kép</string>
     <string name="select_list_empty">Még nincsenek listáid</string>
     <string name="select_list_manage">Listák kezelése</string>
     <string name="pref_ui_text_size">UI betűméret</string>

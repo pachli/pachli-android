@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright 2025 Pachli Association
+  ~
+  ~ This file is a part of Pachli.
+  ~
+  ~ This program is free software; you can redistribute it and/or modify it under the terms of the
+  ~ GNU General Public License as published by the Free Software Foundation; either version 3 of the
+  ~ License, or (at your option) any later version.
+  ~
+  ~ Pachli is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+  ~ the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+  ~ Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License along with Pachli; if not,
+  ~ see <http://www.gnu.org/licenses>.
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp">
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/contentBarrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="media,descriptionLayout" />
+
+    <app.pachli.components.compose.view.ProgressImageView
+        android:id="@+id/media"
+        android:layout_width="@dimen/compose_media_preview_size"
+        android:layout_height="@dimen/compose_media_preview_size"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="9dp"
+        android:importantForAccessibility="no"
+        app:layout_constraintBottom_toBottomOf="@id/media"
+        app:layout_constraintEnd_toEndOf="@id/media"
+        android:background="@drawable/background_circle"
+        android:src="@drawable/ic_more_horiz_24dp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/descriptionLayout"
+        style="?attr/textInputFilledStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:counterEnabled="true"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@id/media"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:hint="@string/hint_description"
+        app:boxBackgroundColor="?attr/colorSurfaceContainerLow"
+        app:errorEnabled="true"
+        app:errorTextColor="@color/pachli_orange"
+        app:errorIconTint="@color/pachli_orange"
+        app:errorIconDrawable="@drawable/ic_missing_description_24dp"
+        app:boxStrokeErrorColor="@color/pachli_orange"
+        app:cursorErrorColor="@color/pachli_orange"
+        app:layout_constraintVertical_weight="1">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:gravity="top"
+            android:minLines="@integer/compose_media_preview_lines"
+            android:importantForAutofill="no"
+            android:inputType="textCapSentences|textMultiLine|textAutoCorrect|textLongMessage"
+            android:textSize="?attr/status_text_medium" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/error_msg"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:padding="8dp"
+        android:textIsSelectable="true"
+        app:layout_constraintTop_toBottomOf="@id/contentBarrier"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:backgroundTint="?colorErrorContainer"
+        android:textColor="?colorOnErrorContainer" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

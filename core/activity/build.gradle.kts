@@ -46,6 +46,9 @@ dependencies {
     implementation(projects.core.ui)
         ?.because("ChooseAccountDialogFragment and other UI components")
 
+    implementation(projects.core.ui)
+        ?.because("ChooseAccountDialogFragment and other UI components")
+
     implementation(libs.bundles.androidx)
 
     // Loading avatars

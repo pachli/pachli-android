@@ -324,11 +324,6 @@
     <string name="lock_account_label_description">داوات لێدەکات کە بە دەستی شوێنکەوتوانی پەسەند بکە</string>
     <string name="lock_account_label">داخستنی ئەژمێر</string>
     <string name="action_remove">لابردن</string>
-    <string name="action_set_caption">دانانی سەردێڕ</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="other">وەسف بکە بۆ بینایی داڕماو
-\n(%d سنوری کاراکتەر)</item>
-    </plurals>
     <string name="compose_active_account_description">%1$s بڵاوکردنەوە بە هەژماری</string>
     <string name="add_account_description">زیادکردنی ئەژمێری ماتۆدۆنی نوێ</string>
     <string name="add_account_name">زیادکردنی ئەژمێر</string>

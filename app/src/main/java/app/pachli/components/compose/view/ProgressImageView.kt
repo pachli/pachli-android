@@ -25,11 +25,8 @@ import android.graphics.PorterDuffXfermode
 import android.graphics.RectF
 import android.util.AttributeSet
 import androidx.annotation.OptIn
-import androidx.appcompat.content.res.AppCompatResources
-import app.pachli.R
 import app.pachli.components.compose.MediaUploaderError
 import app.pachli.components.compose.UploadState
-import app.pachli.core.designsystem.R as DR
 import app.pachli.core.ui.makeIcon
 import app.pachli.view.MediaPreviewImageView
 import at.connyduck.sparkbutton.helpers.Utils
@@ -58,18 +55,7 @@ class ProgressImageView
     private val clearPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         xfermode = PorterDuffXfermode(PorterDuff.Mode.DST_OUT)
     }
-    private val markBgPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        style = Paint.Style.FILL
-        color = context.getColor(DR.color.tusky_grey_10)
-    }
-    private val captionDrawable = AppCompatResources.getDrawable(
-        context,
-        R.drawable.spellcheck,
-    )!!.apply {
-        setTint(Color.WHITE)
-    }
-    private val circleRadius = Utils.dpToPx(context, 14)
-    private val circleMargin = Utils.dpToPx(context, 14)
+
     private val uploadErrorRadius = Utils.dpToPx(context, 24)
 
     private val uploadErrorDrawable = makeIcon(context, GoogleMaterial.Icon.gmd_error, 48).apply {
@@ -79,15 +65,6 @@ class ProgressImageView
     @OptIn(ExperimentalBadgeUtils::class)
     fun setResult(result: Result<UploadState, MediaUploaderError>) {
         this.result = result
-        invalidate()
-    }
-
-    fun setChecked(checked: Boolean) {
-        markBgPaint.color = if (checked) {
-            MaterialColors.getColor(this, androidx.appcompat.R.attr.colorPrimary)
-        } else {
-            context.getColor(DR.color.tusky_grey_10)
-        }
         invalidate()
     }
 
@@ -125,22 +102,12 @@ class ProgressImageView
             canvas.drawArc(biggerRect, angle, 360 - angle - 90, true, clearPaint)
         }
         canvas.restore()
-        val circleY = height - circleMargin - circleRadius / 2
-        val circleX = width - circleMargin - circleRadius / 2
-        canvas.drawCircle(circleX.toFloat(), circleY.toFloat(), circleRadius.toFloat(), markBgPaint)
-        captionDrawable.setBounds(
-            width - circleMargin - circleRadius,
-            height - circleMargin - circleRadius,
-            width - circleMargin,
-            height - circleMargin,
-        )
-        captionDrawable.draw(canvas)
     }
 
     private fun onDrawError(canvas: Canvas) {
         setColorFilter(
             MaterialColors.getColor(this, androidx.appcompat.R.attr.colorError),
-            PorterDuff.Mode.DARKEN,
+            PorterDuff.Mode.MULTIPLY,
         )
         uploadErrorDrawable.setBounds(
             (width / 2) - uploadErrorRadius,

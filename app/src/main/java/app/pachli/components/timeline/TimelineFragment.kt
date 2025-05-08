@@ -61,6 +61,7 @@ import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.model.Timeline
@@ -92,7 +93,6 @@ import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.properties.Delegates
 import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
@@ -145,7 +145,7 @@ class TimelineFragment :
 
     private val binding by viewBinding(FragmentTimelineBinding::bind)
 
-    private lateinit var timeline: Timeline
+    private val timeline: Timeline by unsafeLazy { requireArguments().getParcelable(ARG_KIND)!! }
 
     private lateinit var adapter: TimelinePagingAdapter
 
@@ -159,9 +159,9 @@ class TimelineFragment :
     // the snackbar when the fragment is paused.
     private var snackbar: Snackbar? = null
 
-    private var isSwipeToRefreshEnabled = true
+    private val isSwipeToRefreshEnabled by unsafeLazy { requireArguments().getBoolean(ARG_ENABLE_SWIPE_TO_REFRESH, true) }
 
-    override var pachliAccountId by Delegates.notNull<Long>()
+    override val pachliAccountId by unsafeLazy { requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID) }
 
     /**
      * Collect this flow to notify the adapter that the timestamps of the visible items have
@@ -178,14 +178,6 @@ class TimelineFragment :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val arguments = requireArguments()
-
-        pachliAccountId = arguments.getLong(ARG_PACHLI_ACCOUNT_ID)
-
-        timeline = arguments.getParcelable(ARG_KIND)!!
-
-        isSwipeToRefreshEnabled = arguments.getBoolean(ARG_ENABLE_SWIPE_TO_REFRESH, true)
 
         viewModel.accept(InfallibleUiAction.LoadPachliAccount(pachliAccountId))
     }
@@ -441,7 +433,7 @@ class TimelineFragment :
             }
             R.id.action_load_newest -> {
                 Timber.d("Reload because user chose load newest menu item")
-                viewModel.accept(InfallibleUiAction.LoadNewest)
+                viewModel.accept(InfallibleUiAction.LoadNewest(pachliAccountId))
                 true
             }
             else -> false
@@ -640,23 +632,15 @@ class TimelineFragment :
     }
 
     override fun onViewTag(tag: String) {
-        val timelineKind = viewModel.timeline
-
         // If already viewing a tag page, then ignore any request to view that tag again.
-        if ((timelineKind as? Timeline.Hashtags)?.tags?.contains(tag) == true) {
-            return
-        }
+        if ((timeline as? Timeline.Hashtags)?.tags?.contains(tag) == true) return
 
         super.viewTag(tag)
     }
 
     override fun onViewAccount(id: String) {
-        val timelineKind = viewModel.timeline
-
         // Ignore request to view the account page we're currently viewing
-        if (timelineKind is Timeline.User && timelineKind.id == id) {
-            return
-        }
+        (timeline as? Timeline.User)?.let { if (it.id == id) return }
 
         super.viewAccount(id)
     }
@@ -732,7 +716,7 @@ class TimelineFragment :
                     saveVisibleId()
                 }
 
-                TabTapBehaviour.JUMP_TO_NEWEST -> viewModel.accept(InfallibleUiAction.LoadNewest)
+                TabTapBehaviour.JUMP_TO_NEWEST -> viewModel.accept(InfallibleUiAction.LoadNewest(pachliAccountId))
             }
         }
     }

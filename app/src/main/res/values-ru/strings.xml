@@ -244,7 +244,6 @@
     <string name="add_account_name">Добавить аккаунт</string>
     <string name="add_account_description">Добавить новый акканут Mastodon</string>
     <string name="compose_active_account_description">Отправка от имени %1$s</string>
-    <string name="action_set_caption">Добавить примечание</string>
     <string name="action_remove">Удалить</string>
     <string name="lock_account_label">Закрыть аккаунт</string>
     <string name="lock_account_label_description">Вам придётся вручную подтверждать подписчиков</string>

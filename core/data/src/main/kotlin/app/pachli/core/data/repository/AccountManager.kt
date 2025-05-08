@@ -671,10 +671,8 @@ class AccountManager @Inject constructor(
     private suspend fun fetchInstanceInfo(domain: String): Result<InstanceInfoEntity, ApiError> {
         // TODO: InstanceInfoEntity needs to gain support for recording translation
         return mastodonApi.getInstanceV2()
-            .map { InstanceInfoEntity.make(domain, it.body) }
-            .orElse {
-                mastodonApi.getInstanceV1().map { InstanceInfoEntity.make(domain, it.body) }
-            }
+            .map { it.body.asEntity(domain) }
+            .orElse { mastodonApi.getInstanceV1().map { it.body.asEntity(domain) } }
     }
 
     /**
