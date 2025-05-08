@@ -33,11 +33,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.viewModelScope
+import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.preferences.SharedPreferencesRepository
-import app.pachli.core.ui.ChooseAccountDialogFragment.Companion.newInstance
+import app.pachli.core.ui.ChooseAccountSuspendDialogFragment.Companion.newInstance
 import app.pachli.core.ui.databinding.ItemAutocompleteAccountBinding
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -48,9 +49,14 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-/** @see [ChooseAccountDialogFragment.Companion]. */
+/**
+ * Do not create this fragment directly, use
+ * [newInstance][ChooseAccountSuspendDialogFragment.Companion.newInstance].
+ *
+ * @see [ChooseAccountSuspendDialogFragment.Companion].
+ */
 @AndroidEntryPoint
-open class ChooseAccountDialogFragment : AppCompatDialogFragment(), SuspendDialogResult<PachliAccount?> {
+open class ChooseAccountSuspendDialogFragment : AppCompatDialogFragment(), SuspendDialogResult<PachliAccount?> {
     /**
      * The account the user chose.
      *
@@ -63,10 +69,10 @@ open class ChooseAccountDialogFragment : AppCompatDialogFragment(), SuspendDialo
     protected lateinit var adapter: ChooseAccountAdapter
 
     /** Text to display in the dialog's title. */
-    protected val title by lazy { requireArguments().getCharSequence(ARG_TITLE) }
+    protected val title by unsafeLazy { requireArguments().getCharSequence(ARG_TITLE) }
 
     /** True if the active account should be included in the list. */
-    private val includeActive by lazy { requireArguments().getBoolean(ARG_INCLUDE_ACTIVE) }
+    private val includeActive by unsafeLazy { requireArguments().getBoolean(ARG_INCLUDE_ACTIVE) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -122,7 +128,7 @@ open class ChooseAccountDialogFragment : AppCompatDialogFragment(), SuspendDialo
          * @param title Text to show as the dialog's title.
          * @param includeActive True if the active account should be included in the list.
          */
-        fun newInstance(title: CharSequence?, includeActive: Boolean) = ChooseAccountDialogFragment().apply {
+        fun newInstance(title: CharSequence?, includeActive: Boolean) = ChooseAccountSuspendDialogFragment().apply {
             arguments = Bundle().apply {
                 putCharSequence(ARG_TITLE, title)
                 putBoolean(ARG_INCLUDE_ACTIVE, includeActive)
@@ -131,7 +137,7 @@ open class ChooseAccountDialogFragment : AppCompatDialogFragment(), SuspendDialo
     }
 }
 
-/** Viewmodel for [ChooseAccountDialogFragment]. */
+/** Viewmodel for [ChooseAccountSuspendDialogFragment]. */
 @HiltViewModel
 internal class ChooseAccountViewModel @Inject constructor(
     accountManager: AccountManager,
@@ -152,7 +158,7 @@ internal class ChooseAccountViewModel @Inject constructor(
 }
 
 /**
- * Adapter for [ChooseAccountDialogFragment].
+ * Adapter for [ChooseAccountSuspendDialogFragment].
  *
  * Displays each account with its avatar, name, and username.
  */

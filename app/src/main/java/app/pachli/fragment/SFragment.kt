@@ -546,7 +546,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
 
         (activity as BaseActivity).apply {
             viewLifecycleOwner.lifecycleScope.launch {
-                showAccountChooserDialog(dialogTitle, false)?.let { account ->
+                chooseAccount(dialogTitle, false)?.let { account ->
                     openAsAccount(statusUrl, account)
                 }
             }

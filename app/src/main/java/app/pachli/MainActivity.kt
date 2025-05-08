@@ -279,7 +279,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             when (val payload = MainActivityIntent.payload(intent)) {
                 is Payload.QuickTile -> {
                     lifecycleScope.launch {
-                        showAccountChooserDialog(getString(R.string.action_share_as), true)?.let { account ->
+                        chooseAccount(getString(R.string.action_share_as), true)?.let { account ->
                             val requestedId = account.id
                             launchComposeActivityAndExit(requestedId)
                         }
@@ -337,7 +337,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     if (canHandleMimeType(intent.type)) {
                         // Determine the account to use.
                         lifecycleScope.launch {
-                            showAccountChooserDialog(getString(R.string.action_share_as), true)?.let { account ->
+                            chooseAccount(getString(R.string.action_share_as), true)?.let { account ->
                                 val requestedId = account.id
                                 forwardToComposeActivityAndExit(requestedId, intent)
                             }

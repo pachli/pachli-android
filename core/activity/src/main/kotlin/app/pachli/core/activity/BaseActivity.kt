@@ -47,7 +47,7 @@ import app.pachli.core.navigation.LoginActivityIntent
 import app.pachli.core.navigation.MainActivityIntent
 import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.SharedPreferencesRepository
-import app.pachli.core.ui.ChooseAccountDialogFragment
+import app.pachli.core.ui.ChooseAccountSuspendDialogFragment
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.EntryPoint
@@ -230,19 +230,19 @@ abstract class BaseActivity : AppCompatActivity(), MenuProvider {
      *
      * If only one account exists then returns that.
      *
-     * If two accounts exist, and [showActiveAccount] is true then the non-active
+     * If two accounts exist and [showActiveAccount] is false then the non-active
      * account is returned.
      *
      * Otherwise, displays a dialog allowing the user to choose from the available
      * accounts. The user's choice is returned, or null if they cancelled the dialog.
      *
-     * @param dialogTitle
+     * @param dialogTitle Title to show in the dialog (if shown)
      * @param showActiveAccount True if the active account should be included in
      * the list of accounts.
      * @return The chosen account, or null if the user did not choose an account
-     * (see [ChooseAccountDialogFragment.result]).
+     * (see [ChooseAccountSuspendDialogFragment.result]).
      */
-    suspend fun showAccountChooserDialog(
+    suspend fun chooseAccount(
         dialogTitle: CharSequence?,
         showActiveAccount: Boolean,
     ): AccountEntity? {
@@ -251,7 +251,7 @@ abstract class BaseActivity : AppCompatActivity(), MenuProvider {
             1 -> return accounts.first()
             2 -> if (!showActiveAccount) return accounts.last()
         }
-        return ChooseAccountDialogFragment.newInstance(
+        return ChooseAccountSuspendDialogFragment.newInstance(
             dialogTitle,
             showActiveAccount,
         ).await(supportFragmentManager)?.entity

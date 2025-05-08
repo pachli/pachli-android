@@ -1005,7 +1005,7 @@ class AccountActivity :
             R.id.action_open_as -> {
                 loadedAccount?.let { loadedAccount ->
                     lifecycleScope.launch {
-                        showAccountChooserDialog(item.title, false)?.let { account ->
+                        chooseAccount(item.title, false)?.let { account ->
                             openAsAccount(loadedAccount.url, account)
                         }
                     }
