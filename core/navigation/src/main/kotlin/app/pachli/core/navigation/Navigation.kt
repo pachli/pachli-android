@@ -191,14 +191,9 @@ class IntentRouterActivityIntent(context: Context, pachliAccountId: Long) : Inte
 
             if (payload != null) return payload
 
-            if (canHandleMimeType(intent.type)) return Payload.ShareContent
+            if (intent.type != null) return Payload.ShareContent
 
             return null
-        }
-
-        // TODO: Copied from ComposeActivity, can be deleted from there
-        private fun canHandleMimeType(mimeType: String?): Boolean {
-            return mimeType != null && (mimeType.startsWith("image/") || mimeType.startsWith("video/") || mimeType.startsWith("audio/") || mimeType == "text/plain")
         }
 
         /**
