@@ -162,46 +162,6 @@ class AccountRouterActivityIntent(context: Context, pachliAccountId: Long) : Int
         ) : Payload
 
         /**
-         * Started from a shortcut.
-         */
-        // Use MainActivity
-//        @Parcelize
-//        data object Shortcut : Payload
-
-        /**
-         * Started by tapping on an Android notification body.
-         *
-         * @param notificationId Notification's ID
-         * @param notificationTag Notification's tag (Mastodon notification ID)
-         * @param notificationType Notification's type
-         */
-//        @Parcelize
-//        data class Notification(
-//            val notificationId: Int,
-//            val notificationTag: String?,
-//            val notificationType: app.pachli.core.network.model.Notification.Type,
-//        ) : Payload
-
-        /**
-         * Started to open drafts (e.g., after a post failed to send).
-         */
-//        @Parcelize
-//        data object OpenDrafts : Payload
-
-        /**
-         * Started to redirect to [url].
-         */
-//        @Parcelize
-//        data class Redirect(val url: String) : Payload, KeepActiveAccount
-
-        /**
-         * Started to change the active account and launch MainActivity.
-         */
-        // Use MainActivity with MainActivityIntent.Payload.Start
-//        @Parcelize
-//        data object SwitchAccount : Payload
-
-        /**
          * Sharing content from a share sheet.
          */
         @Parcelize
@@ -225,8 +185,6 @@ class AccountRouterActivityIntent(context: Context, pachliAccountId: Long) : Int
 
         /** @return The [Payload] derived from [intent]. */
         fun payload(intent: Intent): Payload? {
-//            intent ?: return Payload.MainActivity
-
             val payload = IntentCompat.getParcelableExtra(
                 intent,
                 EXTRA_PAYLOAD,
@@ -640,32 +598,6 @@ class MainActivityIntent(
             action = ACTION_MAIN
             putExtra(EXTRA_PAYLOAD_SHORTCUT, true)
         }
-
-        /**
-         * Open MainActivity from a notification's "Compose" button.
-         *
-         * @param context
-         * @param pachliAccountId
-         * @param composeOptions
-         * @param notificationId Notification's ID
-         * @param notificationTag Notification's tag (Mastodon notification ID)
-         */
-//        fun fromNotificationCompose(
-//            context: Context,
-//            pachliAccountId: Long,
-//            composeOptions: ComposeOptions,
-//            notificationId: Int,
-//            notificationTag: String,
-//        ) = MainActivityIntent(context, pachliAccountId).apply {
-//            putExtra(
-//                EXTRA_PAYLOAD,
-//                Payload.NotificationCompose(
-//                    composeOptions,
-//                    notificationId,
-//                    notificationTag,
-//                ),
-//            )
-//        }
 
         /**
          * Switches the active account to [pachliAccountId] and takes the user to the correct place

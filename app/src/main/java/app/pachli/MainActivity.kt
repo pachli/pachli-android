@@ -363,17 +363,14 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         // Process changes to the account's lists.
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                Timber.d("Hit state RESUMED")
                 launch {
                     account.distinctUntilChangedBy { it.lists }.collectLatest { account ->
-                        Timber.d("RESUMED: lists: ${account.lists}")
                         bindMainDrawerLists(account.id, account.lists)
                     }
                 }
                 // Process changes to the account's profile picture.
                 launch {
                     account.distinctUntilChangedBy { it.entity.profilePictureUrl }.collectLatest {
-                        Timber.d("RESUMED: profilePicture")
                         bindDrawerAvatar(it.entity.profilePictureUrl, false)
                     }
                 }
@@ -381,7 +378,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                 // Process changes to the account's tab preferences.
                 launch {
                     account.distinctUntilChangedBy { it.entity.tabPreferences }.collectLatest {
-                        Timber.d("RESUMED: tabs")
                         bindTabs(it.entity, showNotificationTab)
                         showNotificationTab = false
                     }
@@ -389,7 +385,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
                 launch {
                     account.distinctUntilChangedBy { it.announcements }.collectLatest {
-                        Timber.d("RESUMED: Announcements")
                         bindMainDrawerAnnouncements(it.announcements)
                     }
                 }
