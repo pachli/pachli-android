@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
     <string name="action_share_as">Kopīgot kā…</string>
+    <string name="main_viewmodel_error_refresh_account">Konta atsvaidzināšana neizdevās ar šo kļūdu:\n\n%1$s\n\nVari turpināt, bet tavi saraksti un atlases var būt nepilnīgas.</string>
+    <string name="action_relogin">Pieteikties no jauna</string>
+    <string name="main_viewmodel_error_set_active_account">Mēģinājums pieteikties neizdevās šādas kļūdas dēļ:\n\n%1$s</string>
 </resources>

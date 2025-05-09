@@ -132,7 +132,7 @@
     <string name="action_compose">Compose</string>
     <string name="action_logout">Log out</string>
     <string name="title_logout_fmt">Log out %1$s</string>
-    <string name="action_logout_confirm">This will delete all local data of the account, including drafts and preferences.\n\nThis does not delete your account on the server.</string>
+    <string name="action_logout_confirm">This will delete all local data of account %1$s, including drafts and preferences.\n\nThis does not delete your account on the server.</string>
     <string name="action_post_failed">Upload failed</string>
     <string name="action_post_failed_detail">Your post failed to upload and has been saved to drafts.\n\nEither the server could not be contacted, or it rejected the post.</string>
     <string name="action_post_failed_detail_plural">Your posts failed to upload and have been saved to drafts.\n\nEither the server could not be contacted, or it rejected the posts.</string>
