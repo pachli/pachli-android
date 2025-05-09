@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="acra_dialog_title">%1$s kļūdas ziņojums</string>
-    <string name="acra_email_body">Šie dati tiks nosūtīti izstrādātājiem.\n\n Lūdzu, pārbaudiet, ka nav iekļauta informācija, ko nevēlaties kopīgot, un, lūdzu, aprakstiet, ko darījāt, lai izraisītu avāriju.\n\n ----\n Jūsu apraksts:\n\n ----</string>
-    <string name="acra_dialog_text">Noklikšķiniet uz Labi, lai izstrādātājiem sagatavotu e-pastu ar detalizētu informāciju</string>
+    <string name="acra_email_body">Šie dati tiks nosūtīti izstrādātājiem.\n\n Lūgums pārliecināties, ka nav iekļauta informācija, ko nav vēlēšanās kopīgot, un lūgums aprakstīt, kas tika darīts, kad notika avārija.\n\n ----\n Apraksts:\n\n ----</string>
+    <string name="acra_dialog_text">Klikšķināt uz \"Labi\", lai sagatavotu izstrādātājiem e-pasta ziņojumu ar informāciju</string>
 </resources>
