@@ -359,14 +359,15 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             }
         }
 
-        // Process changes to the account's lists.
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                // Process changes to the account's lists.
                 launch {
                     account.distinctUntilChangedBy { it.lists }.collectLatest { account ->
                         bindMainDrawerLists(account.id, account.lists)
                     }
                 }
+
                 // Process changes to the account's profile picture.
                 launch {
                     account.distinctUntilChangedBy { it.entity.profilePictureUrl }.collectLatest {
@@ -382,6 +383,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     }
                 }
 
+                // Process changes to account's announcements.
                 launch {
                     account.distinctUntilChangedBy { it.announcements }.collectLatest {
                         bindMainDrawerAnnouncements(it.announcements)
