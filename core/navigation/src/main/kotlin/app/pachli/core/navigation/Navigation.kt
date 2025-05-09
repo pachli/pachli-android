@@ -50,7 +50,9 @@ const val PACHLI_ACCOUNT_ID_ACTIVE = -1L
  * [id][app.pachli.core.database.model.AccountEntity.id] of the account that is
  * "active" for the purposes of this activity.
  *
- * If [PACHLI_ACCOUNT_ID_ACTIVE] then the current active account should be used.
+ * [PACHLI_ACCOUNT_ID_ACTIVE] is a marker only used by [IntentRouterActivityIntent]
+ * and indicates the active account should be used. All other activities expect
+ * an explicit Pachli account ID.
  */
 var Intent.pachliAccountId: Long
     get() = getLongExtra(EXTRA_PACHLI_ACCOUNT_ID, PACHLI_ACCOUNT_ID_ACTIVE)

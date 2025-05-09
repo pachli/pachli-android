@@ -45,6 +45,7 @@ import app.pachli.core.navigation.IntentRouterActivityIntent.Payload
 import app.pachli.core.navigation.LoginActivityIntent
 import app.pachli.core.navigation.LoginActivityIntent.LoginMode
 import app.pachli.core.navigation.MainActivityIntent
+import app.pachli.core.navigation.PACHLI_ACCOUNT_ID_ACTIVE
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.network.retrofit.apiresult.ClientError
 import app.pachli.core.ui.AlertSuspendDialogFragment
@@ -495,14 +496,14 @@ class IntentRouterActivity : BaseActivity() {
      * If:
      *  - [pachliAccountId] is null, returns the active account ID, or null if
      *  no active account.
-     *  - [pachliAccountId] is `-1`, returns the active account ID, or null if
-     *  no active account.
+     *  - [pachliAccountId] is [PACHLI_ACCOUNT_ID_ACTIVE], returns the active account ID,
+     *  or null if no active account.
      *  - [pachliAccountId] references an account that exists in the database,
      *  then that account ID (i.e., input == output).
      *  - Otherwise the account does not exist locally, returns null
      */
     private fun resolvePachliAccountId(pachliAccountId: Long?, accounts: List<AccountEntity>): Long? {
-        if (pachliAccountId == null || pachliAccountId == -1L) {
+        if (pachliAccountId == null || pachliAccountId == PACHLI_ACCOUNT_ID_ACTIVE) {
             return accounts.find { it.isActive }?.id
         }
 

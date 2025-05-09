@@ -21,7 +21,6 @@ import android.Manifest.permission.POST_NOTIFICATIONS
 import android.annotation.SuppressLint
 import android.app.NotificationManager
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -63,9 +62,7 @@ import app.pachli.components.notifications.domain.EnableAllNotificationsUseCase
 import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.activity.PostLookupFallbackBehavior
 import app.pachli.core.activity.ReselectableFragment
-import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
-import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
@@ -1097,17 +1094,11 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     /**
      * Relaunches MainActivity, switched to the account identified by [accountId].
      */
-    private fun changeAccountAndRestart(accountId: Long, forward: Intent? = null) {
+    private fun changeAccountAndRestart(accountId: Long) {
         cacheUpdater.stop()
-        val intent = MainActivityIntent(this, accountId)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        if (forward != null) {
-            intent.type = forward.type
-            intent.action = forward.action
-            intent.putExtras(forward)
-        }
-        intent.pachliAccountId = accountId
-        startActivityWithTransition(intent, TransitionKind.EXPLODE)
+        val intent = IntentRouterActivityIntent.startMainActivity(this, accountId)
+        val options = Bundle().apply { putInt("android.activity.splashScreenStyle", 1) }
+        startActivity(intent, options)
         finish()
     }
 

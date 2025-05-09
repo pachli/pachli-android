@@ -19,7 +19,6 @@ package app.pachli
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.pachli.components.timeline.viewmodel.TimelineViewModel
 import app.pachli.core.data.model.Server
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.database.model.AccountEntity
@@ -52,16 +51,10 @@ internal sealed interface UiAction
 internal sealed interface InfallibleUiAction : UiAction {
     /**
      * Directs the ViewModel to load the account identified by [pachliAccountId].
-     * This will trigger fetching statuses for that account, and emit into the
-     * [TimelineViewModel.statuses] flow.
      */
-    // Do not replace this with a function that returns the flow. The UI would call it
-    // on every restart (e.g., configuration change) causing the flow to be recreated.
-    // This way the flow is cached in the viewmodel, and the UI can recollect it on
-    // restart with very little delay.
     data class LoadPachliAccount(val pachliAccountId: Long) : InfallibleUiAction
 
-    /** Remove [timeline] from the [pachliAccountId]'s tabs tabs. */
+    /** Remove [timeline] from the [pachliAccountId]'s tabs. */
     data class TabRemoveTimeline(val pachliAccountId: Long, val timeline: Timeline) : InfallibleUiAction
 }
 
@@ -122,6 +115,7 @@ internal class MainViewModel @Inject constructor(
 
     val accept: (UiAction) -> Unit = { action -> viewModelScope.launch { uiAction.emit(action) } }
 
+    /** Preferences that affect the [UiState]. */
     private val watchedPrefs = setOf(
         PrefKeys.ANIMATE_GIF_AVATARS,
         PrefKeys.ANIMATE_CUSTOM_EMOJIS,
@@ -133,9 +127,12 @@ internal class MainViewModel @Inject constructor(
         PrefKeys.TAB_CONTENTS,
     )
 
+    /** Flow that emits whenever one of [watchedPrefs] changes. */
+    val prefChangesFlow = sharedPreferencesRepository.changes.filter { watchedPrefs.contains(it) }.onStart { emit(null) }
+
     val uiState =
         combine(
-            sharedPreferencesRepository.changes.filter { watchedPrefs.contains(it) }.onStart { emit(null) },
+            prefChangesFlow,
             accountManager.accountsFlow,
             pachliAccountFlow,
         ) { _, accounts, pachliAccount ->
