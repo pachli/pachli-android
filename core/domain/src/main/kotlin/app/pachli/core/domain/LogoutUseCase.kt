@@ -34,6 +34,7 @@ import com.github.michaelbull.result.onFailure
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
+/** @see [invoke]. */
 class LogoutUseCase @Inject constructor(
     @ApplicationContext private val context: Context,
     private val api: MastodonApi,
@@ -69,7 +70,6 @@ class LogoutUseCase @Inject constructor(
         ShortcutManagerCompat.disableShortcuts(context, listOf(account.id.toString()), null)
         ShortcutManagerCompat.removeDynamicShortcuts(context, listOf(account.id.toString()))
 
-        // return accountManager.logActiveAccountOut()
         accountManager.deleteAccount(account)
         return result
     }

@@ -78,6 +78,7 @@ class IntentRouterActivity : BaseActivity() {
 
     override fun requiresLogin() = false
 
+    /** True if the splash screen can be dismissed. */
     private var dismissSplashScreen = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -86,6 +87,7 @@ class IntentRouterActivity : BaseActivity() {
         }
         super.onCreate(savedInstanceState)
 
+        // Dismiss the splashscreen when dismissSplashScreen is true.
         val content: View = findViewById(android.R.id.content)
         content.viewTreeObserver.addOnPreDrawListener(
             object : ViewTreeObserver.OnPreDrawListener {
@@ -158,48 +160,8 @@ class IntentRouterActivity : BaseActivity() {
         // else; Mark nextAccount as active; delete previous account
 
         when (payload) {
-            is Payload.Logout -> {
-                val accountToLogout = accounts.find { it.id == pachliAccountId }
-                if (accountToLogout == null) {
-                    // can't happen
-                    return
-                }
-                val nextAccount = accounts.firstOrNull { it.id != pachliAccountId }
-                if (nextAccount == null) {
-                    logout(accountToLogout)
-                        .onSuccess {
-                            val intent = LoginActivityIntent(this, LoginMode.Default).apply {
-                                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-                            }
-                            startActivityWithDefaultTransition(intent)
-                            finish()
-                        }
-                        .onFailure { }
-                    return
-                }
-                viewModel.accept(
-                    SetActiveAccount(
-                        nextAccount.id,
-                        Payload.MainActivity(MainActivityIntent.start(this, nextAccount.id)),
-                        logoutAccount = accountToLogout,
-                    ),
-                )
-            }
-            is Payload.QuickTile -> {
-                dismissSplashScreen = true
-                val account = if (accounts.size == 1) {
-                    accounts.first()
-                } else {
-                    ChooseAccountSuspendDialogFragment
-                        .newInstance(getString(R.string.action_share_as), true)
-                        .await(supportFragmentManager)?.entity
-                }
-                if (account == null) {
-                    finish()
-                    return
-                }
-                launchComposeActivityAndExit(account.id)
-            }
+            is Payload.Logout -> routeLogout(accounts, pachliAccountId)
+            is Payload.QuickTile -> routeQuickTile(accounts)
 
             is Payload.NotificationCompose -> {
                 val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
@@ -208,31 +170,119 @@ class IntentRouterActivity : BaseActivity() {
             }
 
             Payload.ShareContent -> {
-                dismissSplashScreen = true
-                // If the intent contains data to share choose the account to share from
-                // and start the composer.
-                if (canHandleMimeType(intent.type)) {
-                    val account = if (accounts.size == 1) {
-                        accounts.first()
-                    } else {
-                        ChooseAccountSuspendDialogFragment
-                            .newInstance(getString(R.string.action_share_as), true)
-                            .await(supportFragmentManager)?.entity
-                    }
-                    account?.let { forwardToComposeActivityAndExit(account.id, intent) }
-                } else {
-                    AlertSuspendDialogFragment.newInstance(
-                        title = getString(R.string.title_error_mime_type),
-                        message = getString(R.string.error_mime_type_fmt, intent.type),
-                        positiveText = null,
-                    ).await(supportFragmentManager)
-                    finish()
-                }
+                routeShareContent(accounts)
                 return
             }
 
             is Payload.MainActivity -> viewModel.accept(SetActiveAccount(pachliAccountId, payload))
         }
+    }
+
+    /**
+     * Logs out [pachliAccountId].
+     *
+     * If there are no other accounts the user is prompted to log in to a new
+     * account.
+     *
+     * If there are other accounts the next account is selected.
+     */
+    private suspend fun routeLogout(
+        accounts: List<AccountEntity>,
+        pachliAccountId: Long,
+    ) {
+        val accountToLogout = accounts.find { it.id == pachliAccountId }
+        if (accountToLogout == null) {
+            // can't happen
+            return
+        }
+        val nextAccount = accounts.firstOrNull { it.id != pachliAccountId }
+
+        // No next account? Prompt the user to log in.
+        if (nextAccount == null) {
+            logout(accountToLogout)
+                .onSuccess {
+                    val intent = LoginActivityIntent(this, LoginMode.Default).apply {
+                        addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                    }
+                    startActivityWithDefaultTransition(intent)
+                    finish()
+                }
+                .onFailure { }
+            return
+        }
+
+        // There must always be either 0 accounts, or N accounts with exactly 1 account
+        // marked active. To maintain this invariant the next account must be made active
+        // first, and then the previous account can be logged out. Set the next active
+        // account here, the other half of logging out is handled when SetActiveAccount
+        // is processed in bindUiSuccess.
+        viewModel.accept(
+            SetActiveAccount(
+                nextAccount.id,
+                Payload.MainActivity(MainActivityIntent.start(this, nextAccount.id)),
+                logoutAccount = accountToLogout,
+            ),
+        )
+    }
+
+    /**
+     * Launches ComposeActivity after tapping a quick tile.
+     *
+     * If multiple accounts exist the user is always shown an account chooser, as
+     * a quick tile tap does not imply they want to use the active account.
+     *
+     * Does not change the active account.
+     */
+    private suspend fun routeQuickTile(accounts: List<AccountEntity>) {
+        dismissSplashScreen = true
+        val account = if (accounts.size == 1) {
+            accounts.first()
+        } else {
+            ChooseAccountSuspendDialogFragment
+                .newInstance(getString(R.string.action_share_as), true)
+                .await(supportFragmentManager)?.entity
+        }
+        if (account == null) {
+            finish()
+            return
+        }
+        launchComposeActivityAndExit(account.id)
+    }
+
+    /**
+     * Launches ComposeActivity after receiving shared content.
+     *
+     * If multiple accounts exist the user is always shown an account chooser,
+     * as receiving shared content does not imply they want to use the active
+     * account.
+     *
+     * Does not change the active account.
+     *
+     * Shows an error dialog if Pachli cannot handle the content.
+     */
+    private suspend fun routeShareContent(accounts: List<AccountEntity>) {
+        dismissSplashScreen = true
+        // If the intent contains data to share choose the account to share from
+        // and start the composer.
+        if (!canHandleMimeType(intent.type)) {
+            AlertSuspendDialogFragment.newInstance(
+                title = getString(R.string.title_error_mime_type),
+                message = getString(R.string.error_mime_type_fmt, intent.type),
+                positiveText = null,
+            ).await(supportFragmentManager)
+            finish()
+            return
+        }
+
+        val account = if (accounts.size == 1) {
+            accounts.first()
+        } else {
+            ChooseAccountSuspendDialogFragment
+                .newInstance(getString(R.string.action_share_as), true)
+                .await(supportFragmentManager)?.entity
+        }
+        account?.let { forwardToComposeActivityAndExit(account.id, intent) }
+        return
     }
 
     private suspend fun bindUiSuccess(success: UiSuccess) {
