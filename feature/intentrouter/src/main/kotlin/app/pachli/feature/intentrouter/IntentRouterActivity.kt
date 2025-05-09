@@ -285,8 +285,13 @@ class IntentRouterActivity : BaseActivity() {
         return
     }
 
+    /**
+     * Handles successful UI actions.
+     */
     private suspend fun bindUiSuccess(success: UiSuccess) {
         when (success) {
+            // The new active account has been set. Log out the previous account
+            // (if necessary), and refresh the new active account.
             is UiSuccess.SetActiveAccount -> {
                 success.action.logoutAccount?.let { accountToLogout ->
                     logout(accountToLogout)
@@ -305,6 +310,8 @@ class IntentRouterActivity : BaseActivity() {
                 )
             }
 
+            // The new active account has been refreshed. Launch MainActivity
+            // and finish this activity.
             is UiSuccess.RefreshAccount -> {
                 val payload = success.action.payload
                 val intent = payload.mainActivityIntent
@@ -502,6 +509,12 @@ class IntentRouterActivity : BaseActivity() {
         return accounts.find { it.id == pachliAccountId }?.id
     }
 
+    /**
+     * Starts [ComposeActivityIntent] for [pachliAccountId] with [composeOptions] and
+     * finishes this activity.
+     *
+     * **Does not** change the active account.
+     */
     private fun launchComposeActivityAndExit(pachliAccountId: Long, composeOptions: ComposeActivityIntent.ComposeOptions? = null) {
         startActivity(
             ComposeActivityIntent(this, pachliAccountId, composeOptions).apply {
@@ -511,6 +524,15 @@ class IntentRouterActivity : BaseActivity() {
         finish()
     }
 
+    /**
+     * Starts [ComposeActivityIntent] for [pachliAccountId] with [composeOptions] and
+     * finishes this activity.
+     *
+     * The [Intent.action], [Intent.type], and extras from [intent] are included in the intent
+     * that starts ComposeActivity.
+     *
+     * **Does not** change the active account.
+     */
     private fun forwardToComposeActivityAndExit(pachliAccountId: Long, intent: Intent, composeOptions: ComposeActivityIntent.ComposeOptions? = null) {
         val composeIntent = ComposeActivityIntent(this, pachliAccountId, composeOptions).apply {
             action = intent.action
