@@ -82,12 +82,12 @@ internal sealed class UiError(
     data class SetActiveAccount(
         override val action: FallibleUiAction.SetActiveAccount,
         override val cause: SetActiveAccountError,
-    ) : UiError(R.string.main_viewmodel_error_set_active_account, action, cause)
+    ) : UiError(R.string.error_set_active_account, action, cause)
 
     data class RefreshAccount(
         override val action: FallibleUiAction.RefreshAccount,
         override val cause: RefreshAccountError,
-    ) : UiError(R.string.main_viewmodel_error_refresh_account, action, cause)
+    ) : UiError(R.string.error_refresh_account, action, cause)
 }
 
 @HiltViewModel

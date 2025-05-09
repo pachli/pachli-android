@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <string name="main_viewmodel_error_set_active_account">Å prøve å logge inn mislykkast med den fylgjande feilen:\n\n%1$s</string>
-    <string name="main_viewmodel_error_refresh_account">Å gjenoppfriske kontoen mislykkast med den følgende feilen:\n\n%1$s\n\nDu kan fortsetja, men det kan hende at dine lister og filter kan vera ufullstendige.</string>
+    <string name="error_set_active_account">Å prøve å logge inn mislykkast med den fylgjande feilen:\n\n%1$s</string>
+    <string name="error_refresh_account">Å gjenoppfriske kontoen mislykkast med den følgende feilen:\n\n%1$s\n\nDu kan fortsetja, men det kan hende at dine lister og filter kan vera ufullstendige.</string>
     <string name="action_relogin">Logg inn på nytt</string>
     <string name="action_share_as">Del som…</string>
 </resources>

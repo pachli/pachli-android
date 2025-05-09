@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <string name="main_viewmodel_error_set_active_account">உள்நுழைய முயற்சிப்பது பின்வரும் பிழையுடன் தோல்வியுற்றது:\n\n %1$s</string>
-    <string name="main_viewmodel_error_refresh_account">புத்துணர்ச்சியூட்டும் கணக்கு பின்வரும் பிழையுடன் தோல்வியடைந்தது:\n\n %1$s\n\n நீங்கள் தொடரலாம், ஆனால் உங்கள் பட்டியல்கள் மற்றும் வடிப்பான்கள் முழுமையடையாது.</string>
+    <string name="error_set_active_account">உள்நுழைய முயற்சிப்பது பின்வரும் பிழையுடன் தோல்வியுற்றது:\n\n %1$s</string>
+    <string name="error_refresh_account">புத்துணர்ச்சியூட்டும் கணக்கு பின்வரும் பிழையுடன் தோல்வியடைந்தது:\n\n %1$s\n\n நீங்கள் தொடரலாம், ஆனால் உங்கள் பட்டியல்கள் மற்றும் வடிப்பான்கள் முழுமையடையாது.</string>
     <string name="action_relogin">மறு உள்நுழைவு</string>
     <string name="action_share_as">பகிர்ந்து கொள்ளுங்கள்…</string>
 </resources>
