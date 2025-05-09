@@ -159,7 +159,7 @@ internal class MainViewModel @Inject constructor(
         if (uiAction is InfallibleUiAction) {
             when (uiAction) {
                 is InfallibleUiAction.LoadPachliAccount -> pachliAccountId.emit(uiAction.pachliAccountId)
-                is InfallibleUiAction.TabRemoveTimeline -> ::onTabRemoveTimeline
+                is InfallibleUiAction.TabRemoveTimeline -> onTabRemoveTimeline(uiAction)
             }
         }
     }
@@ -167,7 +167,7 @@ internal class MainViewModel @Inject constructor(
     private suspend fun onTabRemoveTimeline(action: InfallibleUiAction.TabRemoveTimeline) {
         accountManager.getAccountById(action.pachliAccountId)
             ?.tabPreferences
-            ?.filter { it == action.timeline }
+            ?.filter { it != action.timeline }
             ?.let { accountManager.setTabPreferences(action.pachliAccountId, it) }
     }
 }
