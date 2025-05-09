@@ -570,7 +570,7 @@
     <string name="title_tab_public_trending_links">Liens</string>
     <string name="title_tab_public_trending_statuses">Publications</string>
     <string name="pref_ui_text_size">Taille du texte de IU</string>
-    <string name="dialog_delete_filter_text">Supprimer le filtre « %1$s » ?</string>
+    <string name="dialog_delete_filter_text">Supprimer le filtre « %1$s » ?</string>
     <string name="dialog_delete_filter_positive_action">Supprimer</string>
     <string name="pref_title_update_settings">Mises à jour logicielles</string>
     <string name="pref_title_update_notification_frequency">M\'informer des nouvelles versions de Pachli</string>

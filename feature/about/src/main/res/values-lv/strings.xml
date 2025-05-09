@@ -22,7 +22,7 @@
     <string name="notification_details_any_account_needs_migration">Vai visiem kontiem ir OAuth tvērums \"push\"?</string>
     <string name="notification_details_accounts_unified_push_url">Vai visiem kontiem ir UnifiedPush URL?</string>
     <string name="notification_details_accounts_unified_push_url_help">Vienam vai vairākiem kontiem nav norādīts UnifiedPush URL, pašpiegādes paziņojumi šim kontam ir atspējoti.</string>
-    <string name="notification_details_accounts_unified_push_subscription">Vai ir abonēti visi konti?</string>
+    <string name="notification_details_accounts_unified_push_subscription">Vai visi konti ir abonēti?</string>
     <string name="notification_details_accounts_unified_push_subscription_help">Vienam vai vairākiem kontiem neizdevās atjaunināt savu UnifiedPush abonementu, paziņojumi netiks saņemti.</string>
     <string name="notification_details_ntfy_exempt">Vai izslēgta akumulatora optimizēšana lietotnei ntfy?</string>
     <string name="about_privacy_policy">Privātuma pamatnostādnes</string>

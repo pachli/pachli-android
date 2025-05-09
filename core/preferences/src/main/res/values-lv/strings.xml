@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_theme_light">Gaiša</string>
-    <string name="app_theme_black">Melna</string>
+    <string name="app_theme_light">Gaišs</string>
+    <string name="app_theme_black">Melns</string>
     <string name="app_theme_auto">Automātiski saulrietā</string>
-    <string name="app_theme_dark">Tumša</string>
-    <string name="app_theme_system">Izmantot sistēmas dizainu</string>
+    <string name="app_theme_dark">Tumšs</string>
+    <string name="app_theme_system">Izmantot sistēmas izskatu</string>
     <string name="pref_category_downloads">Lejupielādes</string>
     <string name="pref_title_downloads">Lejupielāžu vieta</string>
     <string name="download_location_downloads">Lejupielāžu mape</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_network">Radās tīkla kļūda! Lūdzu, pārbaudiet interneta savienojumu un mēģiniet vēlreiz.</string>
-    <string name="error_generic">Notika kļūda.</string>
+    <string name="error_network">Atgadījās tīkla kļūda. Lūgums pārbaudīt savienojumu un mēģināt vēlreiz.</string>
+    <string name="error_generic">Atgadījās kļūda.</string>
     <string name="message_empty">Šeit nekā nav.</string>
     <string name="action_retry">Mēģināt vēlreiz</string>
     <string name="button_done">Gatavs</string>
@@ -15,7 +15,7 @@
     <string name="title_links_dialog">Saites</string>
     <string name="title_hashtags_dialog">Tēmturi</string>
     <string name="title_mentions_dialog">Pieminējumi</string>
-    <string name="action_copy_item">Kopēt vienuma tekstu</string>
-    <string name="item_copied">Teksts nokopēts</string>
+    <string name="action_copy_item">Ievietot vienuma tekstu starpliktuvē</string>
+    <string name="item_copied">Teksts ievietots starpliktuvē</string>
     <string name="button_continue">Turpināt</string>
 </resources>
