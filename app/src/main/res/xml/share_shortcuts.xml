@@ -1,5 +1,5 @@
 <shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
-    <share-target android:targetClass="app.pachli.feature.accountrouter.AccountRouterActivity">
+    <share-target android:targetClass="app.pachli.feature.intentrouter.IntentRouterActivity">
         <data android:mimeType="text/plain" />
         <category android:name="app.pachli.Share" />
     </share-target>

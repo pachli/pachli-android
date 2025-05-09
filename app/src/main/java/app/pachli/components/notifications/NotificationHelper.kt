@@ -53,9 +53,9 @@ import app.pachli.core.domain.notifications.NotificationConfig
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.AccountFilterReason
 import app.pachli.core.model.FilterAction
-import app.pachli.core.navigation.AccountRouterActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InReplyTo
+import app.pachli.core.navigation.IntentRouterActivityIntent
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.RelationshipSeveranceEvent
 import app.pachli.core.network.parseAsMastodonHtml
@@ -299,7 +299,7 @@ fun updateSummaryNotifications(
 
         // All notifications in this group have the same type, so get it from the first.
         val notificationType = members[0].notification.extras.getEnum<Notification.Type>(EXTRA_NOTIFICATION_TYPE)
-        val summaryResultIntent = AccountRouterActivityIntent.fromNotification(
+        val summaryResultIntent = IntentRouterActivityIntent.fromNotification(
             context,
             account.id,
             -1,
@@ -357,7 +357,7 @@ private fun newAndroidNotification(
     body: Notification,
     account: AccountEntity,
 ): NotificationCompat.Builder {
-    val eventResultIntent = AccountRouterActivityIntent.fromNotification(
+    val eventResultIntent = IntentRouterActivityIntent.fromNotification(
         context,
         account.id,
         notificationId,
@@ -443,7 +443,7 @@ private fun getStatusComposeIntent(
         language = language,
         kind = ComposeOptions.ComposeKind.NEW,
     )
-    val composeIntent = AccountRouterActivityIntent.fromNotificationCompose(
+    val composeIntent = IntentRouterActivityIntent.fromNotificationCompose(
         context,
         account.id,
         composeOptions,

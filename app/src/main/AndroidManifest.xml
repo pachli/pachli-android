@@ -33,7 +33,7 @@
             android:value="langid" />
 
         <activity
-            android:name=".feature.accountrouter.AccountRouterActivity"
+            android:name=".feature.intentrouter.IntentRouterActivity"
             android:exported="true"
             android:theme="@style/SplashTheme">
 

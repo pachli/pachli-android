@@ -30,7 +30,7 @@ dependencyResolutionManagement {
 
 plugins {
     id("com.gradle.develocity") version "4.0.1"
-    id("org.gradle.toolchains.foojay-resolver-convention") version("0.10.0")
+    id("org.gradle.toolchains.foojay-resolver-convention") version ("0.10.0")
 }
 
 develocity {
@@ -65,7 +65,7 @@ include(":core:network-test")
 include(":core:testing")
 include(":core:ui")
 include(":feature:about")
-include(":feature:accountrouter")
+include(":feature:intentrouter")
 include(":feature:lists")
 include(":feature:login")
 include(":feature:suggestions")

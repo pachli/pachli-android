@@ -22,7 +22,7 @@ plugins {
 }
 
 android {
-    namespace = "app.pachli.feature.accountrouter"
+    namespace = "app.pachli.feature.intentrouter"
 
     defaultConfig {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

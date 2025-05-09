@@ -131,9 +131,9 @@ class AccountListActivityIntent(context: Context, pachliAccountId: Long, kind: K
     }
 }
 
-class AccountRouterActivityIntent(context: Context, pachliAccountId: Long) : Intent() {
+class IntentRouterActivityIntent(context: Context, pachliAccountId: Long) : Intent() {
     init {
-        setClassName(context, QuadrantConstants.ACCOUNT_ROUTER_ACTIVITY)
+        setClassName(context, QuadrantConstants.INTENT_ROUTER_ACTIVITY)
         this.pachliAccountId = pachliAccountId
     }
 
@@ -161,9 +161,7 @@ class AccountRouterActivityIntent(context: Context, pachliAccountId: Long) : Int
             val notificationTag: String?,
         ) : Payload
 
-        /**
-         * Sharing content from a share sheet.
-         */
+        /** Sharing content from a share sheet. */
         @Parcelize
         data object ShareContent : Payload
 
@@ -207,7 +205,7 @@ class AccountRouterActivityIntent(context: Context, pachliAccountId: Long) : Int
          * Open from a tap on a quick tile. There is a single quick tile
          * irrespective of how many accounts are logged in, so use -1L as the account ID.
          */
-        fun fromQuickTile(context: Context) = AccountRouterActivityIntent(context, -1L).apply {
+        fun fromQuickTile(context: Context) = IntentRouterActivityIntent(context, -1L).apply {
             putExtra(EXTRA_PAYLOAD, Payload.QuickTile).apply {
                 flags = FLAG_ACTIVITY_NEW_TASK
             }
@@ -216,7 +214,7 @@ class AccountRouterActivityIntent(context: Context, pachliAccountId: Long) : Int
         /**
          * Open from a tap on a shortcut.
          */
-        fun fromShortcut(context: Context, pachliAccountId: Long) = AccountRouterActivityIntent(context, pachliAccountId).apply {
+        fun fromShortcut(context: Context, pachliAccountId: Long) = IntentRouterActivityIntent(context, pachliAccountId).apply {
             action = ACTION_MAIN
             putExtra(EXTRA_PAYLOAD_SHORTCUT, true)
         }
@@ -236,7 +234,7 @@ class AccountRouterActivityIntent(context: Context, pachliAccountId: Long) : Int
             composeOptions: ComposeOptions,
             notificationId: Int,
             notificationTag: String,
-        ) = AccountRouterActivityIntent(context, pachliAccountId).apply {
+        ) = IntentRouterActivityIntent(context, pachliAccountId).apply {
             putExtra(
                 EXTRA_PAYLOAD,
                 Payload.NotificationCompose(
@@ -265,7 +263,7 @@ class AccountRouterActivityIntent(context: Context, pachliAccountId: Long) : Int
             notificationId: Int,
             notificationTag: String?,
             type: Notification.Type,
-        ) = AccountRouterActivityIntent(context, pachliAccountId).apply {
+        ) = IntentRouterActivityIntent(context, pachliAccountId).apply {
             putExtra(
                 EXTRA_PAYLOAD,
                 MainActivityIntent.fromNotification(
@@ -281,7 +279,7 @@ class AccountRouterActivityIntent(context: Context, pachliAccountId: Long) : Int
         /**
          * Switches the active account to the provided accountId and then opens drafts
          */
-        fun fromDraftsNotification(context: Context, pachliAccountId: Long) = AccountRouterActivityIntent(context, pachliAccountId).apply {
+        fun fromDraftsNotification(context: Context, pachliAccountId: Long) = IntentRouterActivityIntent(context, pachliAccountId).apply {
             putExtra(EXTRA_PAYLOAD, Payload.MainActivity(MainActivityIntent.fromDraftsNotification(context, pachliAccountId)))
         }
 
@@ -298,7 +296,7 @@ class AccountRouterActivityIntent(context: Context, pachliAccountId: Long) : Int
             context: Context,
             pachliAccountId: Long,
             url: String,
-        ) = AccountRouterActivityIntent(context, pachliAccountId).apply {
+        ) = IntentRouterActivityIntent(context, pachliAccountId).apply {
             putExtra(EXTRA_PAYLOAD, MainActivityIntent.openAs(context, pachliAccountId, url))
         }
 
@@ -306,7 +304,7 @@ class AccountRouterActivityIntent(context: Context, pachliAccountId: Long) : Int
          * Switches the active account to [pachliAccountId] and then starts
          * MainActivity.
          */
-        fun startMainActivity(context: Context, pachliAccountId: Long) = AccountRouterActivityIntent(context, pachliAccountId).apply {
+        fun startMainActivity(context: Context, pachliAccountId: Long) = IntentRouterActivityIntent(context, pachliAccountId).apply {
             putExtra(
                 EXTRA_PAYLOAD,
                 MainActivityIntent.start(context, pachliAccountId).apply {
@@ -316,7 +314,7 @@ class AccountRouterActivityIntent(context: Context, pachliAccountId: Long) : Int
             flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
         }
 
-        fun logout(context: Context, pachliAccountId: Long) = AccountRouterActivityIntent(context, pachliAccountId).apply {
+        fun logout(context: Context, pachliAccountId: Long) = IntentRouterActivityIntent(context, pachliAccountId).apply {
             putExtra(EXTRA_PAYLOAD, Payload.Logout)
         }
     }

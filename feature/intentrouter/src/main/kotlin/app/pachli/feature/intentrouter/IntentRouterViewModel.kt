@@ -15,7 +15,7 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.feature.accountrouter
+package app.pachli.feature.intentrouter
 
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
@@ -26,7 +26,7 @@ import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.RefreshAccountError
 import app.pachli.core.data.repository.SetActiveAccountError
 import app.pachli.core.database.model.AccountEntity
-import app.pachli.core.navigation.AccountRouterActivityIntent.Payload
+import app.pachli.core.navigation.IntentRouterActivityIntent.Payload
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.mapEither
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -91,7 +91,7 @@ internal sealed class UiError(
 }
 
 @HiltViewModel
-internal class AccountRouterViewModel @Inject constructor(
+internal class IntentRouterViewModel @Inject constructor(
     private val accountManager: AccountManager,
 ) : ViewModel() {
     val accounts = accountManager.pachliAccountsFlow.map { Loadable.Loaded(it) }.stateIn(

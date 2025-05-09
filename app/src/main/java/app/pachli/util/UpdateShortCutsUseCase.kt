@@ -27,7 +27,7 @@ import androidx.core.graphics.createBitmap
 import androidx.core.graphics.drawable.IconCompat
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.R as DR
-import app.pachli.core.navigation.AccountRouterActivityIntent
+import app.pachli.core.navigation.IntentRouterActivityIntent
 import com.bumptech.glide.Glide
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.util.concurrent.ExecutionException
@@ -42,7 +42,7 @@ class UpdateShortCutsUseCase @Inject constructor(
      * Updates shortcuts to reflect [accounts].
      *
      * The first [N][ShortcutManagerCompat.getMaxShortcutCountPerActivity] accounts
-     * are converted to shortcuts which launch [app.pachli.feature.accountrouter.AccountRouterActivity]. The
+     * are converted to shortcuts which launch [app.pachli.feature.intentrouter.IntentRouterActivity]. The
      * active account is always included.
      */
     suspend operator fun invoke(accounts: List<AccountEntity>) = withContext(Dispatchers.IO) {
@@ -90,7 +90,7 @@ class UpdateShortCutsUseCase @Inject constructor(
                     .build()
 
                 // This intent will be sent when the user clicks on one of the launcher shortcuts.
-                val intent = AccountRouterActivityIntent.fromShortcut(context, account.id)
+                val intent = IntentRouterActivityIntent.fromShortcut(context, account.id)
 
                 ShortcutInfoCompat.Builder(context, account.id.toString())
                     .setIntent(intent)

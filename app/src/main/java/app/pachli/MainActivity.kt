@@ -82,12 +82,12 @@ import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.AboutActivityIntent
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AccountListActivityIntent
-import app.pachli.core.navigation.AccountRouterActivityIntent
 import app.pachli.core.navigation.AnnouncementsActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.DraftsActivityIntent
 import app.pachli.core.navigation.EditProfileActivityIntent
 import app.pachli.core.navigation.FollowedTagsActivityIntent
+import app.pachli.core.navigation.IntentRouterActivityIntent
 import app.pachli.core.navigation.ListsActivityIntent
 import app.pachli.core.navigation.LoginActivityIntent
 import app.pachli.core.navigation.LoginActivityIntent.LoginMode
@@ -258,11 +258,10 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
         // check for savedInstanceState in order to not handle intent events more than once
         if (intent != null && savedInstanceState == null) {
-            val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             val payload = MainActivityIntent.payload(intent)
-            Timber.d("Payload: $payload")
             when (payload) {
                 is Payload.Notification -> {
+                    val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
                     notificationManager.cancel(payload.notificationTag, payload.notificationId)
                     when (payload.notificationType) {
                         Notification.Type.FOLLOW_REQUEST -> {
@@ -1128,8 +1127,8 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
                 // Don't logout in MainActivity as that will change the active account and
                 // trigger operations (e.g., saveVisibleId) in running fragments. Instead,
-                // logging out happens in the AccountRouter.
-                val intent = AccountRouterActivityIntent.logout(this@MainActivity, pachliAccount.id)
+                // logging out happens in the IntentRouter.
+                val intent = IntentRouterActivityIntent.logout(this@MainActivity, pachliAccount.id)
                 val options = Bundle().apply { putInt("android.activity.splashScreenStyle", 1) }
                 startActivity(intent, options)
                 finish()

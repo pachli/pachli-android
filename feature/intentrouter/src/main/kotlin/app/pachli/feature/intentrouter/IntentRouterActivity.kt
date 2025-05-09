@@ -15,7 +15,7 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.feature.accountrouter
+package app.pachli.feature.intentrouter
 
 import android.app.Dialog
 import android.app.NotificationManager
@@ -39,9 +39,9 @@ import app.pachli.core.data.repository.SetActiveAccountError
 import app.pachli.core.data.repository.get
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.domain.LogoutUseCase
-import app.pachli.core.navigation.AccountRouterActivityIntent
-import app.pachli.core.navigation.AccountRouterActivityIntent.Payload
 import app.pachli.core.navigation.ComposeActivityIntent
+import app.pachli.core.navigation.IntentRouterActivityIntent
+import app.pachli.core.navigation.IntentRouterActivityIntent.Payload
 import app.pachli.core.navigation.LoginActivityIntent
 import app.pachli.core.navigation.LoginActivityIntent.LoginMode
 import app.pachli.core.navigation.MainActivityIntent
@@ -49,9 +49,9 @@ import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.network.retrofit.apiresult.ClientError
 import app.pachli.core.ui.AlertSuspendDialogFragment
 import app.pachli.core.ui.ChooseAccountSuspendDialogFragment
-import app.pachli.feature.accountrouter.AccountRouterViewModel.Companion.canHandleMimeType
-import app.pachli.feature.accountrouter.FallibleUiAction.SetActiveAccount
-import app.pachli.feature.accountrouter.databinding.DialogChooseAccountShowErrorBinding
+import app.pachli.feature.intentrouter.FallibleUiAction.SetActiveAccount
+import app.pachli.feature.intentrouter.IntentRouterViewModel.Companion.canHandleMimeType
+import app.pachli.feature.intentrouter.databinding.DialogChooseAccountShowErrorBinding
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.AndroidEntryPoint
@@ -60,22 +60,21 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 /**
- * Determines the correct account to use, and routes the user to the correct
- * activity.
+ * Parses the intent, determines the correct account to use, and routes the user
+ * to the correct activity.
  *
  * If routing to MainActivity the active account is set and refreshed to ensure
  * the app has up-to-date data. Errors that occur during this process are shown
  * to the user with options for handling them.
  */
 @AndroidEntryPoint
-class AccountRouterActivity : BaseActivity() {
+class IntentRouterActivity : BaseActivity() {
     @Inject
     lateinit var logout: LogoutUseCase
 
-    private val viewModel: AccountRouterViewModel by viewModels()
+    private val viewModel: IntentRouterViewModel by viewModels()
 
     override fun requiresLogin() = false
 
@@ -127,7 +126,7 @@ class AccountRouterActivity : BaseActivity() {
     private suspend fun bindAccount(savedInstanceState: Bundle?, accounts: List<AccountEntity>) {
         // Only thing to do if there are no accounts is to prompt the user to login.
         if (accounts.isEmpty()) {
-            val intent = LoginActivityIntent(this@AccountRouterActivity)
+            val intent = LoginActivityIntent(this@IntentRouterActivity)
                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivityWithDefaultTransition(intent)
             finish()
@@ -138,7 +137,6 @@ class AccountRouterActivity : BaseActivity() {
 
         val pachliAccountId: Long = resolvePachliAccountId(intent.pachliAccountId, accounts) ?: run {
             // Requested account does not exist, ask the user to choose
-//            if (BuildConfig.DEBUG) throw RuntimeException("Could not resolve account with ID ${intent.pachliAccountId}")
             dismissSplashScreen = true
             val account = ChooseAccountSuspendDialogFragment
                 .newInstance(getString(R.string.title_choose_account_dialog), true)
@@ -152,10 +150,8 @@ class AccountRouterActivity : BaseActivity() {
 
         // Determine the payload. If there is no payload then start MainActivity with
         // the appropriate account.
-        val payload = AccountRouterActivityIntent.payload(intent)
+        val payload = IntentRouterActivityIntent.payload(intent)
             ?: Payload.MainActivity(MainActivityIntent.start(this, pachliAccountId))
-
-        Timber.d("Processing payload: $payload")
 
         // Determine nextAccount
         // If nextAccount == null, delete account; start Login process

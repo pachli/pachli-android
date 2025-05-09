@@ -239,7 +239,7 @@ class AccountManager @Inject constructor(
 
     fun getPachliAccountFlow(pachliAccountId: Long): Flow<PachliAccount?> {
         // TODO: Nothing should be calling this with -1L, as IDs should be
-        // resolved to a valid ID in `AccountRouterActivity`. Verify this, then
+        // resolved to a valid ID in `IntentRouterActivity`. Verify this, then
         // remove this check (or replace it with a debug assert to ensure -1L
         // is not passed.
         val accountFlow = if (pachliAccountId == -1L) {

@@ -30,7 +30,7 @@ import app.pachli.core.activity.BaseActivity
 import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.eventhub.EventHub
-import app.pachli.core.navigation.AccountRouterActivityIntent
+import app.pachli.core.navigation.IntentRouterActivityIntent
 import app.pachli.core.navigation.PreferencesActivityIntent
 import app.pachli.core.navigation.PreferencesActivityIntent.PreferenceScreen
 import app.pachli.core.navigation.pachliAccountId
@@ -61,7 +61,7 @@ class PreferencesActivity :
              * Either the back stack activities need to all be recreated, or do the easier thing, which
              * is hijack the back button press and use it to launch a new MainActivity and clear the
              * back stack. */
-            val intent = AccountRouterActivityIntent.startMainActivity(this@PreferencesActivity, intent.pachliAccountId)
+            val intent = IntentRouterActivityIntent.startMainActivity(this@PreferencesActivity, intent.pachliAccountId)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivityWithDefaultTransition(intent)
         }

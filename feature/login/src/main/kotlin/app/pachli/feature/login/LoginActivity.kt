@@ -38,7 +38,7 @@ import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.setCloseTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.extensions.viewBinding
-import app.pachli.core.navigation.AccountRouterActivityIntent
+import app.pachli.core.navigation.IntentRouterActivityIntent
 import app.pachli.core.navigation.LoginActivityIntent
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.getNonNullString
@@ -166,7 +166,7 @@ class LoginActivity : BaseActivity() {
         uiResult.onSuccess { uiSuccess ->
             when (uiSuccess) {
                 is UiSuccess.VerifyAndAddAccount -> {
-                    val intent = AccountRouterActivityIntent.startMainActivity(this, uiSuccess.accountId)
+                    val intent = IntentRouterActivityIntent.startMainActivity(this, uiSuccess.accountId)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivityWithTransition(intent, TransitionKind.EXPLODE)
                     finishAffinity()
