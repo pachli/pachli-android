@@ -425,45 +425,39 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             }
         }
 
-        // Process changes to the account's lists.
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                account.distinctUntilChangedBy { it.lists }.collectLatest { account ->
-                    bindMainDrawerLists(account.id, account.lists)
+                // Process changes to the account's lists.
+                launch {
+                    account.distinctUntilChangedBy { it.lists }.collectLatest { account ->
+                        bindMainDrawerLists(account.id, account.lists)
+                    }
                 }
-            }
-        }
 
-        // Process changes to the account's profile picture.
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                account.distinctUntilChangedBy { it.entity.profilePictureUrl }.collectLatest {
-                    bindDrawerAvatar(it.entity.profilePictureUrl, false)
+                // Process changes to the account's profile picture.
+                launch {
+                    account.distinctUntilChangedBy { it.entity.profilePictureUrl }.collectLatest {
+                        bindDrawerAvatar(it.entity.profilePictureUrl, false)
+                    }
                 }
-            }
-        }
 
-        // Process changes to the account's tab preferences.
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                account.distinctUntilChangedBy { it.entity.tabPreferences }.collectLatest {
-                    bindTabs(it.entity, showNotificationTab)
-                    showNotificationTab = false
+                // Process changes to the account's tab preferences.
+                launch {
+                    account.distinctUntilChangedBy { it.entity.tabPreferences }.collectLatest {
+                        bindTabs(it.entity, showNotificationTab)
+                        showNotificationTab = false
+                    }
                 }
-            }
-        }
 
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                account.distinctUntilChangedBy { it.announcements }.collectLatest {
-                    bindMainDrawerAnnouncements(it.announcements)
+                launch {
+                    account.distinctUntilChangedBy { it.announcements }.collectLatest {
+                        bindMainDrawerAnnouncements(it.announcements)
+                    }
                 }
-            }
-        }
 
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                viewModel.uiResult.collect(::bindUiResult)
+                launch {
+                    viewModel.uiResult.collect(::bindUiResult)
+                }
             }
         }
 
