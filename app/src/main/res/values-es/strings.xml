@@ -387,7 +387,7 @@
     <string name="add_hashtag_title">Añadir etiqueta</string>
     <string name="notification_follow_request_format">%s solicita seguirte</string>
     <string name="pref_main_nav_position">Posición de navegación principal</string>
-    <string name="pref_title_gradient_for_media">Mostrar degradados colorido para los medios ocultos</string>
+    <string name="pref_title_gradient_for_media">Mostrar difuminados coloridos para los medios ocultos</string>
     <string name="action_unmute_domain">Dejar de silenciar a %s</string>
     <string name="action_unmute_desc">Dejar de silenciar a %s</string>
     <string name="dialog_mute_hide_notifications">Ocultar notificaciones</string>
@@ -476,6 +476,8 @@
     <string name="notification_report_format">Nueva denuncia en %s</string>
     <string name="notification_header_report_format">%s denunció a %s</string>
     <plurals name="notification_summary_report_format">
+        <item quantity="one">%1$s · %2$d publicación fijada</item>
+        <item quantity="many">%1$s · %2$d publicaciones fijadas</item>
         <item quantity="other">%1$s · %2$d publicaciones fijadas</item>
     </plurals>
     <string name="language_display_name_format">%s (%s)</string>
@@ -827,4 +829,5 @@
         <item quantity="many">%1$d cuentas</item>
         <item quantity="other">%1$d cuentas</item>
     </plurals>
+    <string name="title_logout_fmt">Cerrar sesión de %1$s</string>
 </resources>
