@@ -286,7 +286,7 @@
     <string name="action_block">Блокиране</string>
     <string name="action_unfollow">Отследване</string>
     <string name="action_follow">Последване</string>
-    <string name="action_logout_confirm">Сигурни ли сте, че искате да излезете от акаунта %1$s\?</string>
+    <string name="action_logout_confirm">Сигурни ли сте, че искате да излезете от акаунта %1$s?</string>
     <string name="action_logout">Излизане</string>
     <string name="action_compose">Композиране</string>
     <string name="action_unfavourite">Премахване от любими</string>
