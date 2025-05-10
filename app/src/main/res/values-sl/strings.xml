@@ -92,7 +92,6 @@
     <string name="action_open_media_n">Odpri medij #%d</string>
     <string name="download_image">Prejemanje %1$s</string>
     <string name="action_copy_link">Kopiraj povezavo</string>
-    <string name="action_share_as">Deli kot …</string>
     <string name="download_media">Prenos medija</string>
     <string name="downloading_media">Prejemanje medija</string>
     <string name="send_post_link_to">Deli URL tuta z…</string>

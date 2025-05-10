@@ -29,7 +29,7 @@ import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.StatusComposedEvent
 import app.pachli.core.eventhub.StatusEditedEvent
 import app.pachli.core.eventhub.StatusScheduledEvent
-import app.pachli.core.navigation.MainActivityIntent
+import app.pachli.core.navigation.IntentRouterActivityIntent
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.MediaAttribute
 import app.pachli.core.network.model.NewPoll
@@ -398,7 +398,7 @@ class SendStatusService : Service() {
         pachliAccountId: Long,
         statusId: Int,
     ): Notification {
-        val intent = MainActivityIntent.fromDraftsNotification(this, pachliAccountId)
+        val intent = IntentRouterActivityIntent.fromDraftsNotification(this, pachliAccountId)
 
         val pendingIntent = PendingIntent.getActivity(
             this,

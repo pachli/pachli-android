@@ -238,7 +238,6 @@
     <string name="action_open_reblogged_by">نمایش تقویت‌ها</string>
     <string name="action_open_faved_by">نمایش برگزیده‌ها</string>
     <string name="action_open_media_n">گشودن رسانه #%d</string>
-    <string name="action_share_as">هم‌رسانی به عنوان …</string>
     <string name="download_media">بارگیری رسانه</string>
     <string name="downloading_media">در حال بارگیری رسانه</string>
     <string name="confirmation_domain_unmuted">%s نانهفته</string>

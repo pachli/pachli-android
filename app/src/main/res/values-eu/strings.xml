@@ -245,7 +245,6 @@
     <string name="action_open_reblogged_by">Bultzadak erakutsi</string>
     <string name="action_open_faved_by">Gogokoak erakutsi</string>
     <string name="action_open_media_n">Ireki media #%d</string>
-    <string name="action_share_as">… bezala partekatu</string>
     <string name="download_media">Media jaisten</string>
     <string name="downloading_media">Media jaisten</string>
     <string name="confirmation_domain_unmuted">%s ez dago ezkutatua</string>

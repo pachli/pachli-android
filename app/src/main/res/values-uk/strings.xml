@@ -35,7 +35,6 @@
     <string name="hint_compose">Що відбувається\?</string>
     <string name="post_sent">Надіслано!</string>
     <string name="confirmation_reported">Надіслано!</string>
-    <string name="action_share_as">Поділитися як …</string>
     <string name="action_copy_link">Копіювати посилання</string>
     <string name="download_image">Завантаження %1$s</string>
     <string name="action_open_faved_by">Показати, хто вподобав</string>

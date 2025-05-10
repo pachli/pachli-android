@@ -55,7 +55,7 @@ import app.pachli.core.model.AccountFilterReason
 import app.pachli.core.model.FilterAction
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InReplyTo
-import app.pachli.core.navigation.MainActivityIntent
+import app.pachli.core.navigation.IntentRouterActivityIntent
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.RelationshipSeveranceEvent
 import app.pachli.core.network.parseAsMastodonHtml
@@ -299,9 +299,9 @@ fun updateSummaryNotifications(
 
         // All notifications in this group have the same type, so get it from the first.
         val notificationType = members[0].notification.extras.getEnum<Notification.Type>(EXTRA_NOTIFICATION_TYPE)
-        val summaryResultIntent = MainActivityIntent.fromNotification(
+        val summaryResultIntent = IntentRouterActivityIntent.fromNotification(
             context,
-            accountId.toLong(),
+            account.id,
             -1,
             null,
             type = notificationType,
@@ -357,7 +357,7 @@ private fun newAndroidNotification(
     body: Notification,
     account: AccountEntity,
 ): NotificationCompat.Builder {
-    val eventResultIntent = MainActivityIntent.fromNotification(
+    val eventResultIntent = IntentRouterActivityIntent.fromNotification(
         context,
         account.id,
         notificationId,
@@ -443,7 +443,7 @@ private fun getStatusComposeIntent(
         language = language,
         kind = ComposeOptions.ComposeKind.NEW,
     )
-    val composeIntent = MainActivityIntent.fromNotificationCompose(
+    val composeIntent = IntentRouterActivityIntent.fromNotificationCompose(
         context,
         account.id,
         composeOptions,
@@ -561,14 +561,6 @@ fun createNotificationChannelsForAccount(account: AccountEntity, context: Contex
             channels.add(channel)
         }
         notificationManager.createNotificationChannels(channels)
-    }
-}
-
-fun deleteNotificationChannelsForAccount(account: AccountEntity, context: Context) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        val notificationManager =
-            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.deleteNotificationChannelGroup(account.identifier)
     }
 }
 

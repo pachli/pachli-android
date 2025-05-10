@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_set_active_account">Prihlásenie sa nepodarilo s nasledujúcou chybou:\n\n%1$s</string>
+    <string name="error_refresh_account">Obnovenie účtu zlyhalo s nasledujúcou chybou:\n\n%1$s\n\nMôžeš pokračovať, ale tvoje zoznamy a filtre môžu byť nekompletné.</string>
+    <string name="action_relogin">Znova sa prihlásiť</string>
+    <string name="action_share_as">Zdieľať ako…</string>
+</resources>

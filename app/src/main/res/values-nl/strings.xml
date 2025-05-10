@@ -95,7 +95,6 @@
     <string name="action_open_media_n">Media #%d openen</string>
     <string name="download_image">%1$s aan het downloaden</string>
     <string name="action_copy_link">Link kopiëren</string>
-    <string name="action_share_as">Delen als …</string>
     <string name="send_post_link_to">Link van het bericht delen met…</string>
     <string name="send_post_content_to">Inhoud van het bericht delen met…</string>
     <string name="send_media_to">Media delen met …</string>

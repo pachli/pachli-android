@@ -143,7 +143,6 @@
     <string name="pref_default_post_language">Predvolený jazyk príspevku</string>
     <string name="label_header">Záhlavie</string>
     <string name="action_mute">Stíšiť</string>
-    <string name="action_share_as">Zdieľať ako…</string>
     <string name="pref_title_browser_settings">Prehliadač</string>
     <string name="title_public_local">Miestne</string>
     <string name="title_public_trending">Populárne</string>
@@ -763,8 +762,6 @@
     <string name="search_operator_where_all">Všetky príspevky ▾</string>
     <string name="search_operator_where_library">Tvoja knižnica</string>
     <string name="search_operator_where_dialog_public">Verejné príspevky</string>
-    <string name="main_viewmodel_error_set_active_account">Prihlásenie sa nepodarilo s nasledujúcou chybou:\n\n%1$s</string>
-    <string name="main_viewmodel_error_refresh_account">Obnovenie účtu zlyhalo s nasledujúcou chybou:\n\n%1$s\n\nMôžeš pokračovať, ale tvoje zoznamy a filtre môžu byť nekompletné.</string>
     <string name="search_operator_where_dialog_all_hint">Príspevky v tvojej knižnici a verejné príspevky</string>
     <string name="search_operator_where_public">Verejné príspevky</string>
     <string name="upload_failed_msg_fmt">Pri odoslaní príspevku sa nahrávanie zopakuje. Ak opätovne zlyhá, príspevok sa uloží do konceptov.\n\nChyba: %1$s</string>
@@ -782,7 +779,6 @@
     <string name="account_filter_placeholder_label_limited_by_server">Filtrované, pretože: <b>obmedzené tvojimi moderátormi</b></string>
     <string name="notification_severed_relationships_name">Prerušené spojenia</string>
     <string name="notification_severed_relationships_description">Upozornenia na prerušené spojenia</string>
-    <string name="action_relogin">Znova sa prihlásiť</string>
     <string name="ui_error_reload_reply_fmt">Nepodarilo sa načítať príspevok: %1$s</string>
     <string name="pref_account_notification_filters_label_not_followed">… ktoré nesleduješ</string>
     <string name="pref_account_notification_filters_label_younger_30d">… ktoré boli vytvorené za posledných 30 dní</string>

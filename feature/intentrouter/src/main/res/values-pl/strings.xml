@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="error_set_active_account">Próba zalogowania nie powiodła się i zwróciła błąd:\n\n%1$s</string>
+    <string name="error_refresh_account">Odświeżenie konta się nie powiodło i zwróciło błąd:\n\n%1$s\n\nMożesz kontynuować, ale twoje listy i filtry mogą być niekompletne.</string>
+    <string name="action_relogin">Ponowne zalogowanie</string>
+    <string name="action_share_as">Udostępnij jako …</string>
+</resources>
