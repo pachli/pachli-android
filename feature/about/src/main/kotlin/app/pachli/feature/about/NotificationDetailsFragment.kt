@@ -58,7 +58,7 @@ import javax.inject.Inject
 import kotlinx.coroutines.launch
 
 /**
- * Fragment that shows details from [NotificationConfig].
+ * Fragment that shows details from [app.pachli.core.domain.notifications.NotificationConfig].
  */
 @AndroidEntryPoint
 class NotificationDetailsFragment :

@@ -226,7 +226,6 @@
     <string name="action_hide_reblogs">Paslēpt pastiprinājumus</string>
     <string name="action_open_reblogger">Atvērt pastiprinājuma autoru</string>
     <string name="action_open_reblogged_by">Parādīt pastiprinājumus</string>
-    <string name="action_share_as">Kopīgot kā…</string>
     <string name="send_post_content_to">Kopīgot ierakstu…</string>
     <string name="hint_display_name">Nosaukums</string>
     <string name="dialog_mute_warning">Vai apklusināt @%s\?</string>
@@ -748,7 +747,6 @@
     <string name="pref_account_notification_filters_label_younger_30d">… kas izveidoti pēdējās 30 dienās</string>
     <string name="pref_account_conversation_filters_subtitle">Kam vajadzētu notikt ar sarunām, kuras uzsāka konti, …</string>
     <string name="pref_summary_account_conversation_filters">Tavs serveris neatbalsta sarunu atlasītājus</string>
-    <string name="main_viewmodel_error_refresh_account">Konta atsvaidzināšana neizdevās ar šo kļūdu:\n\n%1$s\n\nVari turpināt, bet tavi saraksti un atlases var būt nepilnīgas.</string>
     <string name="pref_account_conversation_filters_label_younger_30d">… kas ir izveidoti pēdējās 30 dienās</string>
     <string name="account_filter_placeholder_type_favourite_fmt">Lietotājs @<b>%1s</b> ievietoja izlasē Tavu ierakstu</string>
     <string name="account_filter_placeholder_type_follow_fmt">Lietotājs @<b>%1s</b> seko Tev</string>
@@ -758,7 +756,6 @@
     <string name="account_filter_placeholder_label_not_following">Atlasīts jo: <b>Tu neseko viņiem</b></string>
     <string name="account_filter_placeholder_label_younger_30d">Atlasīts jo: <b>izveidots pēdējās 30 dienās</b></string>
     <string name="account_filter_placeholder_type_conversation">Lietotājs @<b>%1$s</b> uzsāka sarunu</string>
-    <string name="action_relogin">Pieteikties no jauna</string>
     <string name="ui_error_reload_reply_fmt">Nevarēja ielādēt ierakstu: %1$s</string>
     <string name="title_report_comment">Piebilde no ziņotāja</string>
     <string name="title_report_category_fmt">Kategorija: %1$s</string>
@@ -795,8 +792,7 @@
     <string name="search_operator_where_dialog_all_hint">Ieraksti Tavā bibliotēkā un publiskie ieraksti</string>
     <string name="search_operator_where_dialog_library">Tava bibliotēka</string>
     <string name="search_operator_where_dialog_public">Publiskie ieraksti</string>
-    <string name="upload_failed_msg_fmt">Pielikuma augšupielāde neizdevās. Augšupielāde tiks mēģināta atkārtoti, kad nosūtīsi ierakstu. Ja tā atkal neizdosies, ieraksts tiks saglabāts pie melnrakstiem.\n\nKļūda: %1$s</string>
-    <string name="main_viewmodel_error_set_active_account">Mēģinājums pieteikties neizdevās šādas kļūdas dēļ:\n\n%1$s</string>
+    <string name="upload_failed_msg_fmt">Augšupielāde tiks atkārtoti mēģināta, kad nosūtīsi ierakstu. Ja tā atkal neizdosies, ieraksts tiks saglabāts pie melnrakstiem.\n\nKļūda: %1$s</string>
     <string name="pref_notification_method_all_push">Visi konti izmanto UnifiedPush. Piesist, lai uzzinātu vairāk.</string>
     <string name="search_operator_sensitive_dialog_all">Visi ieraksti</string>
     <string name="ui_error_accept_follow_request">Sekošanas pieprasījuma apstiprināšana neizdevās: %s</string>

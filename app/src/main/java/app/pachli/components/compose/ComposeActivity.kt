@@ -1554,10 +1554,6 @@ class ComposeActivity :
         private const val KEY_SCHEDULED_TIME = "app.pachli.KEY_SCHEDULED_TIME"
         private const val KEY_CONTENT_WARNING_VISIBLE = "app.pachli.KEY_CONTENT_WARNING_VISIBLE"
 
-        fun canHandleMimeType(mimeType: String?): Boolean {
-            return mimeType != null && (mimeType.startsWith("image/") || mimeType.startsWith("video/") || mimeType.startsWith("audio/") || mimeType == "text/plain")
-        }
-
         /**
          * [InputFilter] that uses the "Mastodon" length of a string, where emojis always
          * count as a single character.

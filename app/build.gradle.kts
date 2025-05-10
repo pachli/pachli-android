@@ -139,6 +139,7 @@ dependencies {
     implementation(projects.core.ui)
 
     implementation(projects.feature.about)
+    implementation(projects.feature.intentrouter)
     implementation(projects.feature.lists)
     implementation(projects.feature.login)
     implementation(projects.feature.suggestions)

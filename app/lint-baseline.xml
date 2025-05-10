@@ -203,7 +203,7 @@
         errorLine2="                                           ^">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="99"
+            line="98"
             column="44"/>
     </issue>
 
@@ -214,7 +214,7 @@
         errorLine2="                                                ^">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="100"
+            line="99"
             column="49"/>
     </issue>
 
@@ -225,7 +225,7 @@
         errorLine2="                                     ^">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="103"
+            line="102"
             column="38"/>
     </issue>
 
@@ -236,7 +236,7 @@
         errorLine2="                                                                     ^">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="118"
+            line="117"
             column="70"/>
     </issue>
 
@@ -247,7 +247,7 @@
         errorLine2="                                                                             ^">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="151"
+            line="150"
             column="78"/>
     </issue>
 
@@ -258,7 +258,7 @@
         errorLine2="                                                                ^">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="157"
+            line="156"
             column="65"/>
     </issue>
 
@@ -269,7 +269,7 @@
         errorLine2="                               ^">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="192"
+            line="191"
             column="32"/>
     </issue>
 
@@ -280,7 +280,7 @@
         errorLine2="                                          ^">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="252"
+            line="251"
             column="43"/>
     </issue>
 
@@ -291,7 +291,7 @@
         errorLine2="                                                                                     ^">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="375"
+            line="373"
             column="86"/>
     </issue>
 
@@ -302,7 +302,7 @@
         errorLine2="                                                  ^">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="493"
+            line="491"
             column="51"/>
     </issue>
 
@@ -313,7 +313,7 @@
         errorLine2="                                          ^">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="608"
+            line="606"
             column="43"/>
     </issue>
 
@@ -324,7 +324,7 @@
         errorLine2="                                                  ^">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="700"
+            line="698"
             column="51"/>
     </issue>
 
@@ -335,7 +335,7 @@
         errorLine2="                                                                   ^">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="724"
+            line="722"
             column="68"/>
     </issue>
 
@@ -390,7 +390,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="637"
+            line="636"
             column="5"/>
     </issue>
 
@@ -594,7 +594,7 @@
 
     <issue
         id="Overdraw"
-        message="Possible overdraw: Root element paints background `?android:attr/colorBackground` with a theme that also paints a background (inferred theme is `@style/SplashTheme`)"
+        message="Possible overdraw: Root element paints background `?android:attr/colorBackground` with a theme that also paints a background (inferred theme is `@style/AppTheme`)"
         errorLine1="    android:background=&quot;?android:attr/colorBackground&quot;"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
@@ -885,7 +885,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="169"
+            line="170"
             column="13"/>
     </issue>
 
@@ -1094,7 +1094,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="555"
+            line="554"
             column="13"/>
     </issue>
 
@@ -1105,7 +1105,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="597"
+            line="596"
             column="13"/>
     </issue>
 
@@ -1116,7 +1116,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="603"
+            line="602"
             column="13"/>
     </issue>
 
@@ -1127,7 +1127,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="629"
+            line="628"
             column="13"/>
     </issue>
 
@@ -1138,7 +1138,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="655"
+            line="654"
             column="13"/>
     </issue>
 
@@ -2080,7 +2080,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/util/UpdateShortCutsUseCase.kt"
-            line="106"
+            line="105"
             column="9"/>
     </issue>
 

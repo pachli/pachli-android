@@ -355,7 +355,6 @@
     <string name="send_media_to">Co-roinn am meadhan le…</string>
     <string name="downloading_media">A’ luchdadh a-nuas meadhanan</string>
     <string name="download_media">Luchdaich a-nuas meadhanan</string>
-    <string name="action_share_as">Co-roinn mar …</string>
     <string name="action_copy_link">Dèan lethbhreac dhen cheangal</string>
     <string name="download_image">A’ luchdadh a-nuas %1$s</string>
     <string name="action_open_media_n">Fosgail meadhan #%d</string>

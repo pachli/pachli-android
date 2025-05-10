@@ -95,7 +95,6 @@
     <string name="action_open_media_n">Datei #%d öffnen</string>
     <string name="download_image">%1$s heruntergeladen</string>
     <string name="action_copy_link">Link kopieren</string>
-    <string name="action_share_as">Teilen als …</string>
     <string name="send_post_link_to">Beitragslink teilen an …</string>
     <string name="send_post_content_to">Beitrag teilen an …</string>
     <string name="send_media_to">Mediendateien teilen an …</string>

@@ -177,7 +177,6 @@
     <string name="notification_summary_large">%1$s, %2$s, %3$s ja %4$d muuta</string>
     <string name="edit_hashtag_hint">Aihetunniste ilman #-merkkiä</string>
     <string name="title_domain_mutes">Piilotetut verkkotunnukset</string>
-    <string name="action_share_as">Jaa…</string>
     <string name="error_no_web_browser_found">Verkkoselainta ei löytynyt.</string>
     <string name="action_delete_conversation">Poista keskustelu</string>
     <string name="notification_subscription_format">%s julkaisi juuri</string>
@@ -307,7 +306,6 @@
     <string name="title_tab_public_trending_statuses">Julkaisut</string>
     <string name="action_share_account_link">Jaa linkki tiliin</string>
     <plurals name="notification_summary_report_format">
-        <item quantity="one">%1$s·%2$d julkaisu liitteenä</item>
         <item quantity="other">%1$s · %2$d julkaisua liitteenä</item>
     </plurals>
     <string name="send_account_link_to">Jaa tilin URL…</string>
@@ -780,9 +778,6 @@
         <item quantity="other">%1$s seuraamaasi tiilä poistettu</item>
     </plurals>
     <string name="upload_failed_msg_fmt">Latausta yritetään uudestaan kun lähetät julkaisun. Jos se epäonnistuu jälleen, julkaisu tallennetaan luonnoksiisi.\n\nVirhe oli: %1$s</string>
-    <string name="main_viewmodel_error_set_active_account">Kirjautuminen epäonnistui, virhe oli:\n\n%1$s</string>
-    <string name="main_viewmodel_error_refresh_account">Tilin päivittäminen epäonnistui, virhe oli:\n\n%1$s\n\nVoit jatkaa, mutta listasi ja suodattimesi saattavat olla eivät ehkä ole ajan tasalla.</string>
-    <string name="action_relogin">Kirjaudu uudestaan</string>
     <string name="notification_unknown">Tuntematon ilmoitustyyppi</string>
     <string name="preview_card_timeline_link_fmt">Katso &lt;b&gt;%1$s&lt;/b&gt; julkaisua tästä linkistä</string>
     <string name="action_timeline_link">Julkaisuja tästä linkistä</string>
@@ -820,6 +815,4 @@
     <string name="export_preferences_ok_fmt">Asetukset viety kohteeseen %1$s</string>
     <string name="error_export_preferences_fmt">Asetuksia ei voitu viedä kohteeseen %1$s: %2$s</string>
     <string name="error_import_preferences_fmt">Asetuksia ei voitu tuoda kohteesta %1$s: %2$s</string>
-    <string name="title_report_comment">Raportoijan kommentti</string>
-    <string name="title_report_category_fmt">Kategoria: %1$s</string>
 </resources>

@@ -400,7 +400,6 @@
     <string name="send_post_link_to">Compartir URL do toot a…</string>
     <string name="downloading_media">Descargando multimedia</string>
     <string name="download_media">Descargar multimedia</string>
-    <string name="action_share_as">Compartir como …</string>
     <string name="action_copy_link">Copiar ligazón</string>
     <string name="download_image">Descargando %1$s</string>
     <string name="action_open_media_n">Abrir multimedia #%d</string>

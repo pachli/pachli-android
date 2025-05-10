@@ -304,7 +304,6 @@
     <string name="description_post_favourited">Hoffwyd</string>
     <string name="saving_draft">Yn cadw drafft…</string>
     <string name="action_open_media_n">Agor cyfryngau #%d</string>
-    <string name="action_share_as">Rhannu fel …</string>
     <string name="downloading_media">Yn llwytho cyfryngau</string>
     <string name="download_media">Llwytho cyfryngau</string>
     <string name="dialog_redraft_post_warning">Dileu ac ailddrafftio\'r neges hon\?</string>

@@ -96,7 +96,6 @@
     <string name="action_open_media_n">打开媒体文件 #%d</string>
     <string name="download_image">正在下载 %1$s…</string>
     <string name="action_copy_link">复制链接</string>
-    <string name="action_share_as">分享为 …</string>
     <string name="download_media">下载媒体文件</string>
     <string name="downloading_media">正在下载媒体文件</string>
     <string name="send_post_link_to">分享链接到…</string>

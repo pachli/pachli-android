@@ -33,27 +33,7 @@
             android:value="langid" />
 
         <activity
-            android:name=".feature.login.LoginActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:host="${applicationId}"
-                    android:scheme="@string/oauth_scheme" />
-            </intent-filter>
-        </activity>
-
-        <activity android:name=".feature.login.LoginWebViewActivity" />
-
-        <activity
-            android:name=".MainActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden|screenLayout|smallestScreenSize"
-            android:alwaysRetainTaskState="true"
+            android:name=".feature.intentrouter.IntentRouterActivity"
             android:exported="true"
             android:theme="@style/SplashTheme">
 
@@ -113,6 +93,31 @@
             <meta-data
                 android:name="android.app.shortcuts"
                 android:resource="@xml/share_shortcuts" />
+        </activity>
+
+        <activity
+            android:name=".feature.login.LoginActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="${applicationId}"
+                    android:scheme="@string/oauth_scheme" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".feature.login.LoginWebViewActivity" />
+
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden|screenLayout|smallestScreenSize"
+            android:alwaysRetainTaskState="true"
+            android:exported="false">
         </activity>
         <activity
             android:name=".components.compose.ComposeActivity"

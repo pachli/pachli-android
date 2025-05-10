@@ -293,7 +293,6 @@
     <string name="send_media_to">मीडिया को साझा करें …</string>
     <string name="send_post_content_to">टूट को साझा करें …</string>
     <string name="send_post_link_to">टूट यूआरएल को साझा करें …</string>
-    <string name="action_share_as">साझा करें …</string>
     <string name="download_image">%1$s डाउनलोड हो रहा है</string>
     <string name="action_unmute_desc">अनम्यूट %s</string>
     <string name="action_view_domain_mutes">छिपे हुए डोमेन</string>

@@ -95,7 +95,6 @@
     <string name="action_open_media_n">Åpne media #%d</string>
     <string name="download_image">Laster ned %1$s</string>
     <string name="action_copy_link">Kopier lenken</string>
-    <string name="action_share_as">Del som …</string>
     <string name="download_media">Last ned media</string>
     <string name="downloading_media">Laster ned media</string>
     <string name="send_post_link_to">Del tut-URL til…</string>
@@ -751,7 +750,6 @@
     <string name="upload_failed_msg_fmt">Pachli skal prøve å laste opp vedlegg når du sender innlegget. Dersom det mislykkes igjen, skal innlegget lagres i utkastene dine.\n\nFeilen var: %1$s</string>
     <string name="pref_title_confirm_status_language">Sjekk innleggets språkinnstilling før innlegget publiseres</string>
     <string name="compose_warn_language_dialog_accept_and_dont_ask_fmt">Tut på %1$s og ikke spør igjen</string>
-    <string name="main_viewmodel_error_set_active_account">Å prøve å logge inn mislyktes med den følgende feilen:\n\n%1$s</string>
     <plurals name="notification_severed_relationships_summary_followers_fmt">
         <item quantity="one">%1$s følger ble fjernet</item>
         <item quantity="other">%1$s følgere ble fjernet</item>
@@ -762,8 +760,6 @@
         <item quantity="one">%1$s konto du følger ble fjernet</item>
         <item quantity="other">%1$s kontoer du følger ble fjernet</item>
     </plurals>
-    <string name="main_viewmodel_error_refresh_account">Å gjenoppfriske kontoen mislyktes med den følgende feilen:\n\n%1$s\n\nDu kan fortsette, men det kan hende at dine lister og filtere kan være ufullstendige.</string>
-    <string name="action_relogin">Logg inn på nytt</string>
     <string name="filter_action_none">Vis</string>
     <string name="filter_description_none">Vis som vanlig</string>
     <string name="pref_title_account_notification_filters">Varselfiltre</string>

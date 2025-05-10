@@ -131,7 +131,8 @@
     <string name="action_unbookmark">Remove bookmark</string>
     <string name="action_compose">Compose</string>
     <string name="action_logout">Log out</string>
-    <string name="action_logout_confirm">Are you sure you want to log out of %1$s? This will delete all local data of the account, including drafts and preferences.</string>
+    <string name="title_logout_fmt">Log out %1$s</string>
+    <string name="action_logout_confirm">This will delete all local data of account %1$s, including drafts and preferences.\n\nThis does not delete your account on the server.</string>
     <string name="action_post_failed">Upload failed</string>
     <string name="action_post_failed_detail">Your post failed to upload and has been saved to drafts.\n\nEither the server could not be contacted, or it rejected the post.</string>
     <string name="action_post_failed_detail_plural">Your posts failed to upload and have been saved to drafts.\n\nEither the server could not be contacted, or it rejected the posts.</string>
@@ -210,7 +211,6 @@
     <string name="action_open_media_n">Open media #%d</string>
     <string name="download_image">Downloading %1$s</string>
     <string name="action_copy_link">Copy the link</string>
-    <string name="action_share_as">Share as …</string>
     <string name="action_refresh_account">Refresh account</string>
     <string name="download_media">Download media</string>
     <string name="downloading_media">Downloading media</string>
@@ -871,11 +871,7 @@
     <string name="search_operator_where_dialog_public">Public posts</string>
     <string name="search_operator_where_dialog_public_hint">Public, searchable posts known by server</string>
 
-
     <string name="upload_failed_msg_fmt">Uploading attachment failed. The upload will be retried when you send the post. If it fails again the post will be saved in your drafts.\n\nThe error was: %1$s</string>
-    <string name="main_viewmodel_error_set_active_account">Trying to log in failed with the following error:\n\n%1$s</string>
-    <string name="main_viewmodel_error_refresh_account">Refreshing account failed with the following error:\n\n%1$s\n\nYou can continue, but your lists and filters may be incomplete.</string>
-    <string name="action_relogin">Re-login</string>
     <string name="pref_title_account_notification_filters">Notification filters</string>
     <string name="pref_account_notification_filters_subtitle">What should happen to notifications from accounts…</string>
     <string name="pref_account_notification_filters_label_not_followed">… you don\'t follow</string>

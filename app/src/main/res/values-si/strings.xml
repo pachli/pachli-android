@@ -160,7 +160,6 @@
     <string name="pref_title_show_replies">පිළිතුරු පෙන්වන්න</string>
     <string name="notification_mention_descriptions">නව සැඳහුම් පිළිබඳව දැනුම්දීම්</string>
     <string name="action_search">සොයන්න</string>
-    <string name="action_share_as">ලෙස බෙදාගන්න …</string>
     <string name="title_home">මුල</string>
     <string name="abbreviated_minutes_ago">වි. %d</string>
     <string name="failed_search">සෙවීමට අසමත් විය</string>

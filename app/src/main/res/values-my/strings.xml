@@ -229,7 +229,6 @@
     <string name="action_delete">ဖျက်မည်</string>
     <string name="action_emoji_keyboard">အီမိုဂျီ ကီးဘုတ်</string>
     <string name="pref_title_edit_notification_settings">သတိပေးချက်များ</string>
-    <string name="action_share_as">ဖြင့် မျှဝေမည် …</string>
     <string name="pref_title_notification_filter_poll">ပြီးဆုံးသွားသောစစ်တမ်းများ</string>
     <string name="action_toggle_visibility">ပိုစ့်မြင်နိုင်မှု</string>
     <string name="action_suggestions">လူသိများသောအကောင့်များ</string>

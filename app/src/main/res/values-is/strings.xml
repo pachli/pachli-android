@@ -108,7 +108,6 @@
     <string name="action_open_media_n">Opna myndefni #%d</string>
     <string name="download_image">Sæki %1$s</string>
     <string name="action_copy_link">Afrita tengilinn</string>
-    <string name="action_share_as">Deila sem …</string>
     <string name="download_media">Sækja myndefni</string>
     <string name="downloading_media">Næ í myndefni</string>
     <string name="send_post_link_to">Deila slóð á færslu til…</string>

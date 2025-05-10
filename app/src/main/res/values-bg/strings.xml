@@ -229,7 +229,6 @@
     <string name="send_post_link_to">Споделяне на URL адреса на публикацията в…</string>
     <string name="downloading_media">Теглене на мултимедия</string>
     <string name="download_media">Изтегляне на мултимедия</string>
-    <string name="action_share_as">Споделяне като …</string>
     <string name="action_copy_link">Копиране на връзката</string>
     <string name="download_image">Изтегляне на %1$s</string>
     <string name="action_open_media_n">Отваряне на мултимедия #%d</string>
