@@ -44,7 +44,7 @@
     <string name="action_favourite">Aimar</string>
     <string name="action_compose">Redactar</string>
     <string name="action_logout">Tampar la session</string>
-    <string name="action_logout_confirm">Volètz vertadièrament vos desconnectar del compte %1$s ?</string>
+    <string name="action_logout_confirm">Volètz vertadièrament vos desconnectar del compte %1$s ?</string>
     <string name="action_follow">Seguir</string>
     <string name="action_unfollow">Quitar de seguir</string>
     <string name="action_block">Blocar</string>
