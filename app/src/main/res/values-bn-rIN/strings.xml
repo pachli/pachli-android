@@ -50,7 +50,7 @@
     <string name="action_unfavourite">পছন্দ সরান</string>
     <string name="action_compose">রচনা</string>
     <string name="action_logout">লগ আউট</string>
-    <string name="action_logout_confirm">আপনি কি অ্যাকাউন্ট %1$s থেকে লগ আউট করতে চান\?</string>
+    <string name="action_logout_confirm">আপনি কি অ্যাকাউন্ট %1$s থেকে লগ আউট করতে চান?</string>
     <string name="action_follow">অনুসরণ কর</string>
     <string name="action_unfollow">অনুসরণ করা বন্ধ করুন</string>
     <string name="action_block">অবরুদ্ধ</string>
