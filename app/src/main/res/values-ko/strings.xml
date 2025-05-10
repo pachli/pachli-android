@@ -51,7 +51,7 @@
     <string name="action_unfavourite">좋아요 취소</string>
     <string name="action_compose">작성</string>
     <string name="action_logout">로그아웃</string>
-    <string name="action_logout_confirm">정말로 %1$s에서 로그아웃하시겠습니까\?</string>
+    <string name="action_logout_confirm">정말로 %1$s에서 로그아웃하시겠습니까?</string>
     <string name="action_follow">팔로우</string>
     <string name="action_unfollow">팔로우 해제</string>
     <string name="action_block">차단</string>
