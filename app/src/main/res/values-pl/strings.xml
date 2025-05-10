@@ -667,11 +667,11 @@
     <string name="search_operator_link_dialog_no_link">Tylko wpisy bez odnośników</string>
     <string name="search_operator_embed_dialog_only">Tylko wpisy z kartami podglądu</string>
     <string name="search_operator_date_checked_same_day">%1$s</string>
-    <string name="upload_failed_msg_fmt">Wgrywanie będzie ponowione przy wysyłaniu wpisu. Jeżeli ponownie się nie powiedzie, wpis zostanie zapisany w szkicach.\n\nBłąd: %1$s</string>
+    <string name="upload_failed_msg_fmt">Nie powiodło się wgrywanie załącznika. Wgrywanie będzie ponowione przy wysyłaniu wpisu. Jeżeli ponownie się nie powiedzie, wpis zostanie zapisany w szkicach.\n\nBłąd: %1$s</string>
     <string name="search_operator_replies_dialog_no_replies">Bez odpowiedzi</string>
     <string name="total_accounts">Liczba kont</string>
     <string name="ui_error_translate_status_fmt">Tłumaczenie się nie powiodło: %1$s</string>
-    <string name="dialog_delete_filter_text">Usunąć filtr \'%1$s\'?\"</string>
+    <string name="dialog_delete_filter_text">Usunąć filtr \'%1$s\'?</string>
     <string name="load_newest_statuses">Wczytaj najnowsze wpisy</string>
     <string name="help_empty_home">To twoja <b>oś czasu</b>. Pokazuje ostatnie wpisy kont, które obserwujesz.\n\nBy znaleźć konta, możesz na przykład odnaleźć je na innych osiach czasu, takich jak lokalna oś czasu twojego serwera [iconics gmd_group]. Lub wyszukać po nazwie [iconics gmd_search]; na przykład wyszukaj \"Pachli\", by znaleźć nasze konto na Mastodonie.</string>
     <string name="dialog_save_profile_changes_message">Czy chcesz zapisać zmiany profilu?</string>

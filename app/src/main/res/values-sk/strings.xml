@@ -562,7 +562,7 @@
     <string name="help_empty_home">Toto je tvoja <b>domovská časová os</b>. Zobrazuje najnovšie príspevky účtov, ktoré sleduješ.\n\nAk chceš nájsť ďalšie účty, môžeš ich objaviť v jednej z ďalších časových osí. Napríklad v lokálnej časovej osi tvojej inštancie [iconics gmd_group]. Alebo ich môžeš vyhľadať podľa mena [iconics gmd_search]; napríklad zadaj Pachli a nájdeš náš Mastodon účet.</string>
     <string name="load_newest_notifications">Načítať najnovšie upozornenia</string>
     <string name="error_media_playback">Prehrávanie zlyhalo: %s</string>
-    <string name="dialog_delete_filter_text">Vymazať filter \'%1$s\'?\"</string>
+    <string name="dialog_delete_filter_text">Vymazať filter \'%1$s\'?</string>
     <string name="dialog_delete_filter_positive_action">Vymazať</string>
     <string name="update_dialog_title">Je dostupná aktualizácia</string>
     <string name="update_dialog_negative">Neupozorňovať</string>
@@ -764,7 +764,7 @@
     <string name="search_operator_where_dialog_public">Verejné príspevky</string>
     <string name="search_operator_where_dialog_all_hint">Príspevky v tvojej knižnici a verejné príspevky</string>
     <string name="search_operator_where_public">Verejné príspevky</string>
-    <string name="upload_failed_msg_fmt">Pri odoslaní príspevku sa nahrávanie zopakuje. Ak opätovne zlyhá, príspevok sa uloží do konceptov.\n\nChyba: %1$s</string>
+    <string name="upload_failed_msg_fmt">Nahratie prílohy zlyhalo. Pokus o nahratie sa zopakuje, keď odošleš príspevok. Ak sa to nepodarí znova, príspevok sa uloží do konceptov.\n\nChyba: %1$s</string>
     <string name="search_operator_where_dialog_title">Obmedziť na…</string>
     <string name="search_operator_where_dialog_library">Tvoja knižnica</string>
     <string name="search_operator_where_dialog_public_hint">Verejné, vyhľadateľné príspevky, ktoré pozná server</string>
