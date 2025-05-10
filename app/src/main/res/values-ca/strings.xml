@@ -165,7 +165,7 @@
     <string name="action_unreblog">Elimina l\'impuls</string>
     <string name="post_media_hidden_title">Multimèdia amagada</string>
     <string name="post_content_show_less">Amaga</string>
-    <string name="action_logout_confirm">Estàs segur de tancar la sessió de %1$s\?</string>
+    <string name="action_logout_confirm">Estàs segur de tancar la sessió de %1$s?</string>
     <string name="action_hide_reblogs">Amaga els impulsos</string>
     <string name="action_show_reblogs">Mostra els impulsos</string>
     <string name="action_delete_and_redraft">Elimina i reescriu</string>
