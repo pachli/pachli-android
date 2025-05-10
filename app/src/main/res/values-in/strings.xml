@@ -149,7 +149,7 @@
     <string name="action_unbookmark">Hapus bookmark</string>
     <string name="action_compose">Menyusun</string>
     <string name="action_logout">Keluar</string>
-    <string name="action_logout_confirm">Apakah kamu yakin ingin keluar dari akun %1$s\?</string>
+    <string name="action_logout_confirm">Apakah kamu yakin ingin keluar dari akun %1$s?</string>
     <string name="action_hide_reblogs">Sembunyikan boost</string>
     <string name="action_show_reblogs">Tampilkan boost</string>
     <string name="action_view_domain_mutes">Domain tersembunyi</string>
