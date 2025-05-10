@@ -292,7 +292,7 @@
     <string name="action_block">บล็อก</string>
     <string name="action_unfollow">เลิกติดตาม</string>
     <string name="action_follow">ติดตาม</string>
-    <string name="action_logout_confirm">คุณต้องการออกจากระบบของบัญชี %1$s หรือไม่\?</string>
+    <string name="action_logout_confirm">คุณต้องการออกจากระบบของบัญชี %1$s หรือไม่?</string>
     <string name="action_compose">เขียนโพสต์ใหม่</string>
     <string name="action_unfavourite">เลิกชื่นชอบ</string>
     <string name="action_bookmark">คั่นหน้า</string>
