@@ -77,7 +77,7 @@
     <string name="action_unbookmark">Remover dos itens guardados</string>
     <string name="action_compose">Escrever</string>
     <string name="action_logout">Sair</string>
-    <string name="action_logout_confirm">Tem a certeza que deseja sair da conta %1$s\?</string>
+    <string name="action_logout_confirm">Tem a certeza que deseja sair da conta %1$s?</string>
     <string name="action_follow">Seguir</string>
     <string name="action_unfollow">Deixar de seguir</string>
     <string name="action_block">Bloquear</string>
