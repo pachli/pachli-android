@@ -38,10 +38,6 @@ fun CharSequence.parseAsMastodonHtml(tagHandler: TagHandler? = null): Spanned {
         .trimTrailingWhitespace()
 }
 
-fun replaceCrashingCharacters(content: Spanned): Spanned {
-    return replaceCrashingCharacters(content as CharSequence) as Spanned
-}
-
 // See https://github.com/tuskyapp/Tusky/issues/563
 fun replaceCrashingCharacters(content: CharSequence): CharSequence? {
     var replacing = false

@@ -23,7 +23,6 @@ import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.R
 import app.pachli.core.data.model.MastodonList
 import app.pachli.core.data.model.Server
-import app.pachli.core.data.repository.LogoutError.NoActiveAccount
 import app.pachli.core.data.repository.ServerRepository.Error.GetNodeInfo
 import app.pachli.core.data.repository.ServerRepository.Error.GetWellKnownNodeInfo
 import app.pachli.core.data.repository.ServerRepository.Error.UnsupportedSchema
@@ -320,32 +319,6 @@ class AccountManager @Inject constructor(
 
     suspend fun clearPushNotificationData(accountId: Long) {
         setPushNotificationData(accountId, "", "", "", "", "")
-    }
-
-    /**
-     * Deletes all data for the active account, sets the next active account, and
-     * returns the active account.
-     *
-     * @return The new active account, or null if there are no more accounts (the
-     * user logged out of the last account).
-     */
-    suspend fun logActiveAccountOut(): Result<AccountEntity?, LogoutError> {
-        return transactionProvider {
-            val activeAccount = accountDao.getActiveAccount() ?: return@transactionProvider Err(NoActiveAccount)
-            Timber.d("logout: Logging out %d", activeAccount.id)
-
-            accountDao.delete(activeAccount)
-
-            val accounts = accountDao.loadAll()
-
-            val newActiveAccount = accounts.firstOrNull() ?: return@transactionProvider Ok(null)
-
-            // Have to set the active account here. If you don't there's a brief
-            // period where there's no active account, and BaseActivity.redirectIfNotLoggedIn
-            // sends the user to the log in screen.
-            return@transactionProvider setActiveAccount(newActiveAccount.id)
-                .mapError { LogoutError.SetActiveAccount(it) }
-        }
     }
 
     suspend fun deleteAccount(account: AccountEntity) = accountDao.delete(account)

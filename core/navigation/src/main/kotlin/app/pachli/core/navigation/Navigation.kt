@@ -587,14 +587,6 @@ class MainActivityIntent(
         }
 
         /**
-         * Open MainActivity from a tap on a shortcut.
-         */
-        fun fromShortcut(context: Context, pachliAccountId: Long) = MainActivityIntent(context, pachliAccountId).apply {
-            action = ACTION_MAIN
-            putExtra(EXTRA_PAYLOAD_SHORTCUT, true)
-        }
-
-        /**
          * Switches the active account to [pachliAccountId] and takes the user to the correct place
          * according to the notification they clicked.
          *
