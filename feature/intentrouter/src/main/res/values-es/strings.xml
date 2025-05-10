@@ -1,7 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_set_active_account">El inicio de sesión falló con el siguiente error:\n\n%1$s</string>
-    <string name="error_refresh_account">La actualización de la cuenta falló con el siguiente error:\n\n%1$s\n\nPuedes continuar, pero tus listas y filtros pueden estar incompletos.</string>
+    <string name="error_set_active_account">El inicio de sesión falló con el siguiente error: %1$s</string>
+    <string name="error_refresh_account">La actualización de la cuenta falló con el siguiente error: %1$s\n\nPuedes continuar, pero tus listas y filtros pueden estar incompletos.</string>
     <string name="action_relogin">Volver a iniciar sesión</string>
     <string name="action_share_as">Compartir como…</string>
+    <string name="client_error_unauthorized_multiple_fmt">%1$s\n\nToca \"%2$s\" para intentarlo nuevamente o \"%3$s\" para elegir otra cuenta.</string>
+    <string name="client_error_unauthorized_fmt">%1$s\n\nToca \"%2$s\" para volver a intentarlo.</string>
+    <string name="title_error_mime_type">Tipo no reconocido</string>
+    <string name="title_error_dialog">El inicio de sesión falló</string>
+    <string name="error_login_failed_hint">Toca sobre la cuenta para intentarlo nuevamente.</string>
+    <string name="error_refresh_account_fmt">Fallo al obtener algunos detalles de la cuenta:\n\n%1$s\n\nToca \"%2$s\" para continuar, pero algunos datos pueden ser incorrectos (por ejemplo, filtros y listas).\n\nPresiona \"%3$s\" para volver a intentarlo.\n\nPulsa \"%4$s\" para elegir otra cuenta.</string>
+    <string name="action_choose_another_account">Elegir otra cuenta</string>
+    <string name="title_choose_account_dialog">Elegir cuenta</string>
+    <string name="error_login_failed_hint_multiple">Toca la misma cuenta para volver a intentarlo o pulsa sobre otra cuenta para iniciar sesión con ella.</string>
+    <string name="error_mime_type_fmt">Pachli fue abierto para compartir contenido del tipo \"%1$s\", pero Pachli no maneja ese tipo.</string>
 </resources>
