@@ -50,7 +50,7 @@
     <string name="action_unfavourite">Nuligi stelumon</string>
     <string name="action_compose">Verki</string>
     <string name="action_logout">Elsaluti</string>
-    <string name="action_logout_confirm">Ĉu vi certas, ke vi volas elsaluti el la konto %1$s\?</string>
+    <string name="action_logout_confirm">Ĉu vi certas, ke vi volas elsaluti el la konto %1$s?</string>
     <string name="action_follow">Sekvi</string>
     <string name="action_unfollow">Ne plu sekvi</string>
     <string name="action_block">Bloki</string>
