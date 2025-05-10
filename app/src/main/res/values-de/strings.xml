@@ -51,7 +51,7 @@
     <string name="action_unfavourite">Aus Favoriten entfernen</string>
     <string name="action_compose">Beitrag erstellen</string>
     <string name="action_logout">Abmelden</string>
-    <string name="action_logout_confirm">Möchtest du %1$s wirklich abmelden\? Dadurch werden alle lokalen Daten des Profils, wie Entwürfe und Einstellungen, gelöscht.</string>
+    <string name="action_logout_confirm">Möchtest du %1$s wirklich abmelden? Dadurch werden alle lokalen Daten des Profils, wie Entwürfe und Einstellungen, gelöscht.</string>
     <string name="action_follow">Folgen</string>
     <string name="action_unfollow">Entfolgen</string>
     <string name="action_block">Blockieren</string>
