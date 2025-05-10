@@ -48,7 +48,7 @@
     <string name="action_favourite">Gözdele</string>
     <string name="action_compose">Oluştur</string>
     <string name="action_logout">Oturumu kapat</string>
-    <string name="action_logout_confirm">Bu oturumu sonlandırmak istediğinizden emin misiniz%1$s\? Bu, taslaklar ve tercihler dahil olmak üzere hesabın tüm yerel verilerini silecektir.</string>
+    <string name="action_logout_confirm">Bu oturumu sonlandırmak istediğinizden emin misiniz%1$s? Bu, taslaklar ve tercihler dahil olmak üzere hesabın tüm yerel verilerini silecektir.</string>
     <string name="action_follow">Takip et</string>
     <string name="action_unfollow">Takibi bırak</string>
     <string name="action_block">Engelle</string>
