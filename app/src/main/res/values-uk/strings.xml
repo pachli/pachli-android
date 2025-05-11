@@ -26,7 +26,6 @@
     <string name="action_edit_profile">Редагувати профіль</string>
     <string name="action_view_account_preferences">Налаштування облікового запису</string>
     <string name="action_view_preferences">Налаштування</string>
-    <string name="action_logout">Вийти</string>
     <string name="title_drafts">Чернетки</string>
     <string name="title_favourites">Вподобане</string>
     <string name="search_no_results">Немає результатів</string>
@@ -67,7 +66,6 @@
     <string name="action_block">Заблокувати</string>
     <string name="action_unfollow">Відписатися</string>
     <string name="action_follow">Підписатися</string>
-    <string name="action_logout_confirm">Ви впевнені, що хочете вийти %1$s? Це призведе до видалення всіх локальних даних облікового запису, включно з чернетками та вподобаннями.</string>
     <string name="action_compose">Написати</string>
     <string name="action_unfavourite">Не подобається</string>
     <string name="action_bookmark">Додати в закладки</string>
@@ -232,7 +230,6 @@
     <string name="send_post_notification_title">Надсилання допису…</string>
     <string name="compose_active_account_description">Публікування як %1$s</string>
     <string name="add_account_description">Додати новий обліковий запис Mastodon</string>
-    <string name="add_account_name">Додати обліковий запис</string>
     <string name="filter_add_description">Фільтрувати фразу</string>
     <string name="filter_dialog_whole_word_description">Коли ключове слово або фраза є лише буквено-цифровими, вони застосовуватимуться лише, якщо вони збігатимуться з цілим словом</string>
     <string name="filter_dialog_whole_word">Ціле слово</string>

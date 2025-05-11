@@ -55,8 +55,6 @@
     <string name="action_block">अवरुध्यताम्</string>
     <string name="action_unfollow">अनुसरणं अपाकुरुताम्</string>
     <string name="action_follow">अनुस्रियताम्</string>
-    <string name="action_logout_confirm">नूनमेव बहिर्गन्तुमीहते %1$s इति व्यक्तित्वलेखात् ?</string>
-    <string name="action_logout">बहिर्गम्यताम्</string>
     <string name="action_compose">रच्यताम्</string>
     <string name="action_unfavourite">प्रियता निष्क्रियताम्</string>
     <string name="action_bookmark">पुटचिह्नं क्रियताम्</string>
@@ -157,7 +155,6 @@
     <string name="dialog_title_finishing_media_upload">सामग्रीणामुपारोपणसिद्धिः वर्तमाना</string>
     <string name="dialog_message_cancel_follow_request">अनुसरणानुरोधो नश्यताम् \?</string>
     <string name="add_account_description">नवमास्टोडोनलेखा युज्यताम्</string>
-    <string name="add_account_name">नवलेखा युज्यताम्</string>
     <string name="filter_add_description">शोधनार्थं वाक्यांशः</string>
     <string name="filter_dialog_whole_word_description">यदा शब्दो वा वाक्यांशश्चिह्नरहितो भवति, तर्हि विन्यासोऽयं स्थाप्यते केवलं यदा पूर्णत्वेन शब्दसमानता वर्तते</string>
     <string name="filter_dialog_whole_word">सर्वः शब्दः</string>

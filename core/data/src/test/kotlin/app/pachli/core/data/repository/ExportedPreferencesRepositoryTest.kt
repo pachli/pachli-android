@@ -21,7 +21,8 @@ import android.content.ContentResolver
 import android.net.Uri
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.cash.turbine.test
-import app.pachli.core.network.model.Account
+import app.pachli.core.network.model.AccountSource
+import app.pachli.core.network.model.CredentialAccount
 import app.pachli.core.network.model.InstanceConfiguration
 import app.pachli.core.network.model.InstanceV1
 import app.pachli.core.network.model.nodeinfo.UnvalidatedJrd
@@ -44,7 +45,6 @@ import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import java.io.ByteArrayOutputStream
 import java.time.Instant
-import java.util.Date
 import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -89,16 +89,17 @@ class ExportedPreferencesRepositoryTest {
 
     private lateinit var exportedPreferencesRepository: ExportedPreferencesRepository
 
-    private val account = Account(
+    private val account = CredentialAccount(
         id = "1",
         localUsername = "username",
         username = "username@domain.example",
         displayName = "Display Name",
-        createdAt = Date.from(Instant.now()),
+        createdAt = Instant.now(),
         note = "",
         url = "",
         avatar = "",
         header = "",
+        source = AccountSource(),
     )
 
     private val contentResolver = mock<ContentResolver>()

@@ -12,4 +12,7 @@
     <string name="title_links_dialog">Tautan</string>
     <string name="title_hashtags_dialog">Hashtag</string>
     <string name="title_mentions_dialog">Menyebutkan</string>
+    <string name="action_logout_confirm">Apakah kamu yakin ingin keluar dari akun %1$s?</string>
+    <string name="add_account_name">Tambah Akun</string>
+    <string name="action_logout">Keluar</string>
 </resources>

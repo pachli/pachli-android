@@ -32,7 +32,6 @@
     <string name="notification_details_pull_section">Iegūt paziņojumus ar strādņiem, kas darbojas ik pēc noteikta laika</string>
     <string name="notification_details_pachli_exempt">Vai lietotnei Pachli ir izslēgta akumulatora optimizēšana?</string>
     <string name="notification_details_pachli_exempt_help">Lietotnei Pachli nav izslēgta akumulatora optimizēšana. Android var aizkavēt paziņojumus, kad ekrāns ir izslēgts.</string>
-    <string name="notification_details_last_fetch_label">Pēdējāis /api/v1/notifications pieprasījums</string>
     <string name="notification_details_usage_event">Jaudas pārvaldības ierobežojumi</string>
     <string name="notification_details_ago">pirms %1$s @ %2$s</string>
     <string name="notification_details_standby_bucket_exempted">Izslēgta</string>

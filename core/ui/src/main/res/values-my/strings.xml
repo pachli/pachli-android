@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="action_logout_confirm">သင် %1$s? မှထွက်ရန် သေချာသလား။ပုံကြမ်းများနှင့်ချိန်ညှိမှုများကိုဖျက်မည်ဖြစ်သည်။</string>
+    <string name="action_logout">ထွက်မည်</string>
+</resources>

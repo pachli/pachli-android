@@ -49,8 +49,6 @@
     <string name="action_favourite">Favori</string>
     <string name="action_unfavourite">Supprimer le favori</string>
     <string name="action_compose">Écrire</string>
-    <string name="action_logout">Déconnexion</string>
-    <string name="action_logout_confirm">Êtes-vous certain·e· de vouloir déconnecter le compte %1$s ?</string>
     <string name="action_follow">Suivre</string>
     <string name="action_unfollow">Ne plus suivre</string>
     <string name="action_block">Bloquer</string>
@@ -216,7 +214,6 @@
     <string name="filter_dialog_remove_button">Supprimer</string>
     <string name="filter_dialog_update_button">Mettre à jour</string>
     <string name="filter_add_description">Phrase à filtrer</string>
-    <string name="add_account_name">Ajouter un compte</string>
     <string name="add_account_description">Ajouter un nouveau compte Mastodon</string>
     <string name="compose_active_account_description">Publier en tant que %1$s</string>
     <string name="action_remove">Supprimer le média</string>

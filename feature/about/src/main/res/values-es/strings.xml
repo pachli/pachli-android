@@ -26,7 +26,6 @@
     <string name="notification_details_accounts_unified_push_url">¿Todas las cuentas tienen una URL de UnifiedPush?</string>
     <string name="notification_details_ntfy_exempt">¿NTFY está excluida de la optimización de la batería?</string>
     <string name="notification_details_pull_section">Notificaciones pull con obtenciones periódicas mediante workers</string>
-    <string name="notification_details_last_fetch_label">Última solicitud /api/v1/notifications</string>
     <string name="notification_details_usage_event">Restricciones de la administración de energía</string>
     <string name="notification_details_standby_bucket_exempted">Excluida</string>
     <string name="notification_details_standby_bucket_frequent">Frecuente. Limitado a 10 minutos cada 2 horas</string>

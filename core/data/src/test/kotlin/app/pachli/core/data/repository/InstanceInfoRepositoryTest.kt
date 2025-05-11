@@ -21,7 +21,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.cash.turbine.test
 import app.pachli.core.database.AppDatabase
 import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_CHARACTER_LIMIT
-import app.pachli.core.network.model.Account
+import app.pachli.core.network.model.AccountSource
+import app.pachli.core.network.model.CredentialAccount
 import app.pachli.core.network.model.InstanceConfiguration
 import app.pachli.core.network.model.InstanceV1
 import app.pachli.core.network.model.nodeinfo.UnvalidatedJrd
@@ -36,7 +37,6 @@ import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import java.time.Instant
-import java.util.Date
 import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.advanceUntilIdle
@@ -88,16 +88,17 @@ class InstanceInfoRepositoryTest {
      */
     private var instanceResponseCallback: (() -> InstanceV1) = { getInstanceWithCustomConfiguration() }
 
-    private val account = Account(
+    private val account = CredentialAccount(
         id = "1",
         localUsername = "username",
         username = "username@domain.example",
         displayName = "Display Name",
-        createdAt = Date.from(Instant.now()),
+        createdAt = Instant.now(),
         note = "",
         url = "",
         avatar = "",
         header = "",
+        source = AccountSource(),
     )
 
     @Before

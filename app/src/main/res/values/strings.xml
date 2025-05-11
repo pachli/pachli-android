@@ -130,9 +130,6 @@
     <string name="action_bookmark">Bookmark</string>
     <string name="action_unbookmark">Remove bookmark</string>
     <string name="action_compose">Compose</string>
-    <string name="action_logout">Log out</string>
-    <string name="title_logout_fmt">Log out %1$s</string>
-    <string name="action_logout_confirm">This will delete all local data of account %1$s, including drafts and preferences.\n\nThis does not delete your account on the server.</string>
     <string name="action_post_failed">Upload failed</string>
     <string name="action_post_failed_detail">Your post failed to upload and has been saved to drafts.\n\nEither the server could not be contacted, or it rejected the post.</string>
     <string name="action_post_failed_detail_plural">Your posts failed to upload and have been saved to drafts.\n\nEither the server could not be contacted, or it rejected the posts.</string>
@@ -403,8 +400,8 @@
     <string name="filter_dialog_whole_word_description">When the keyword or phrase is alphanumeric only, it will only be applied if it matches the whole word</string>
     <string name="filter_add_description">Phrase to filter</string>
     <string name="filter_expiration_format">%s (%s)</string>
-    <string name="add_account_name">Add Account</string>
-    <string name="add_account_description">Add new Mastodon Account</string>
+    <string name="add_account_description">Add new Mastodon account</string>
+    <string name="manage_accounts_name">Manage accounts</string>
     <string name="manage_lists">Manage lists</string>
     <string name="compose_active_account_description">Posting as %1$s</string>
     <string name="set_focus_description">Tap or drag the circle to choose the focal point which will always be visible in thumbnails.</string>
@@ -705,14 +702,7 @@
     <string name="pref_notification_battery_optimisation_is_disabled">Battery optimisation is disabled</string>
     <string name="pref_notification_battery_optimisation_ok">Battery optimisation does not need to be disabled.</string>
 
-    <string name="pref_notification_method_push">Push</string>
-    <string name="pref_notification_method_pull">Pull</string>
-    <string name="pref_notification_fetch_method_title">Notification method</string>
-    <string name="pref_notification_fetch_ok_timestamp_fmt">✔ %1$s ago @ %2$s</string>
-    <string name="pref_notification_fetch_err_timestamp_fmt">✖ %1$s ago @ %2$s</string>
 
-    <string name="pref_notification_fetch_needs_push">Account does not have \"push\" scope. Logging out and back in may fix this.</string>
-    <string name="pref_notification_fetch_server_rejected">%1$s rejected push registration</string>
 
     <string name="pref_title_change_unified_push_distributor">Change Unified Push distributor</string>
     <string name="pref_change_unified_push_distributor_msg">This will clear the Unified Push distributor choice and restart Pachli.\n

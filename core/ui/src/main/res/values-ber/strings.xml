@@ -3,4 +3,6 @@
     <string name="error_generic">ⵝⴻⵍⵍⴰ ⴷ ⵝⵓⵛⴹⴰ.</string>
     <string name="action_view_profile">ⴰⵎⴻⵖⵏⵓ</string>
     <string name="button_continue">ⴽⴻⵎⵎⴻⵍ</string>
+    <string name="add_account_name">ⵔⵏⵓ ⴰⵎⵉⴹⴰⵏ</string>
+    <string name="action_logout">ⴼⴼⴻⵖ</string>
 </resources>

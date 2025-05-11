@@ -16,4 +16,7 @@
     <string name="title_hashtags_dialog">Myllumerki</string>
     <string name="title_mentions_dialog">Tilvísanir</string>
     <string name="button_continue">Halda áfram</string>
+    <string name="action_logout_confirm">Ertu viss um að þú viljir skrá þig út af notandaaðgangnum %1$s? Þetta mun eyða öllum staðværum gögnum af aðgangnum, þar með talið drögum og kjörstillingum.</string>
+    <string name="add_account_name">Bæta við aðgang</string>
+    <string name="action_logout">Skrá út</string>
 </resources>

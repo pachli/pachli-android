@@ -14,4 +14,7 @@
     <string name="title_hashtags_dialog">Traolak</string>
     <string name="title_mentions_dialog">Aipamenak</string>
     <string name="button_continue">Jarraitu</string>
+    <string name="action_logout_confirm">Ziur zaude %1$s saioa itxi nahi duzula?</string>
+    <string name="add_account_name">Gehitu kontua</string>
+    <string name="action_logout">Saioa itxi</string>
 </resources>

@@ -18,4 +18,16 @@
     <string name="action_copy_item">Copiar ítem</string>
     <string name="title_mentions_dialog">Menciones</string>
     <string name="button_continue">Continuar</string>
+    <string name="pref_notification_method_push">Push</string>
+    <string name="pref_notification_method_pull">Pull</string>
+    <string name="pref_notification_fetch_method_title">Método de notificación</string>
+    <string name="pref_notification_fetch_ok_timestamp_fmt">✔ Hace %1$s: %2$s</string>
+    <string name="pref_notification_fetch_err_timestamp_fmt">✖ Hace %1$s: %2$s</string>
+    <string name="pref_notification_fetch_server_rejected">%1$s rechazó el registro push</string>
+    <string name="pref_notification_fetch_needs_push">La cuenta no tiene alcance \"push\". Cerrar sesión y volver a iniciar podría solucionarlo.</string>
+    <string name="title_logout_fmt">Cerrar sesión de %1$s</string>
+    <string name="action_logout_confirm">Se eliminarán todos los datos locales de la cuenta %1$s, incluyendo borradores y preferencias.\n\nEsto no borra tu cuenta en el servidor.</string>
+    <string name="add_account_name">Añadir cuenta</string>
+    <string name="notification_details_last_fetch_label">Última solicitud /api/v1/notifications</string>
+    <string name="action_logout">Cerrar sesión</string>
 </resources>

@@ -47,8 +47,6 @@
     <string name="action_reblog">Megtolás</string>
     <string name="action_favourite">Kedvencnek jelölés</string>
     <string name="action_compose">Szerkesztés</string>
-    <string name="action_logout">Kijelentkezés</string>
-    <string name="action_logout_confirm">Biztosan ki szeretnél jelentkezni a következőből: %1$s?</string>
     <string name="action_follow">Követés</string>
     <string name="action_unfollow">Követés vége</string>
     <string name="action_block">Letiltás</string>
@@ -186,7 +184,6 @@
     <string name="follows_you">Követ téged</string>
     <string name="pref_title_alway_show_sensitive_media">Mindig mutassa a kényes tartalmat</string>
     <string name="title_media">Média</string>
-    <string name="add_account_name">Fiók hozzáadása</string>
     <string name="add_account_description">Új Mastodon-fiók hozzáadása</string>
     <string name="action_remove">Törlés</string>
     <string name="lock_account_label">Fiók zárolása</string>

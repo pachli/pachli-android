@@ -39,7 +39,7 @@ fun NotificationEntity.Type.icon(context: Context) = when (this) {
 
     NotificationEntity.Type.MENTION -> getIconWithColor(
         context,
-        R.drawable.ic_mention_24dp,
+        app.pachli.core.ui.R.drawable.ic_mention_24dp,
         androidx.appcompat.R.attr.colorPrimary,
     )
 

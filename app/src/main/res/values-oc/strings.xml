@@ -43,8 +43,6 @@
     <string name="action_reblog">Partejar</string>
     <string name="action_favourite">Aimar</string>
     <string name="action_compose">Redactar</string>
-    <string name="action_logout">Tampar la session</string>
-    <string name="action_logout_confirm">Volètz vertadièrament vos desconnectar del compte %1$s ?</string>
     <string name="action_follow">Seguir</string>
     <string name="action_unfollow">Quitar de seguir</string>
     <string name="action_block">Blocar</string>
@@ -183,7 +181,6 @@
     <string name="follows_you">Vos sèc</string>
     <string name="pref_title_alway_show_sensitive_media">Mostrar lo contengut sensible (NSFW)</string>
     <string name="title_media">Mèdia</string>
-    <string name="add_account_name">Apondre un compte</string>
     <string name="add_account_description">Apondre un nòu compte Mastodon</string>
     <string name="compose_active_account_description">Publicar coma %1$s</string>
     <string name="action_remove">Levar</string>

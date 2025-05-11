@@ -14,4 +14,7 @@
     <string name="title_hashtags_dialog">Хэштеги</string>
     <string name="title_mentions_dialog">Упоминания</string>
     <string name="button_continue">Продолжить</string>
+    <string name="action_logout_confirm">Вы действительно хотите выйти из учётной записи %1$s?</string>
+    <string name="add_account_name">Добавить аккаунт</string>
+    <string name="action_logout">Выйти</string>
 </resources>

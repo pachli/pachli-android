@@ -34,7 +34,6 @@
     <string name="action_edit_profile">Hồ sơ</string>
     <string name="action_view_account_preferences">Cá nhân</string>
     <string name="action_view_preferences">Cài đặt</string>
-    <string name="action_logout">Đăng xuất</string>
     <string name="action_send_public">ĐĂNG</string>
     <string name="button_back">Quay lại</string>
     <string name="filter_dialog_update_button">Cập nhật</string>
@@ -115,7 +114,6 @@
     <string name="action_block">Chặn</string>
     <string name="action_unfollow">Bỏ theo dõi</string>
     <string name="action_follow">Theo dõi</string>
-    <string name="action_logout_confirm">Bạn có muốn đăng xuất tài khoản %1$s? Dữ liệu của tài khoản sẽ bị xóa, bao gồm những bản nháp và thiết lập.</string>
     <string name="action_compose">Soạn tút</string>
     <string name="action_unfavourite">Bỏ lưu</string>
     <string name="action_bookmark">Lưu</string>
@@ -359,7 +357,6 @@
     <string name="action_remove">Hủy bỏ</string>
     <string name="compose_active_account_description">Đăng với tư cách %1$s</string>
     <string name="add_account_description">Thêm tài khoản Mastodon</string>
-    <string name="add_account_name">Thêm tài khoản</string>
     <string name="filter_add_description">Cụm từ muốn lọc</string>
     <string name="filter_dialog_whole_word_description">Chỉ có tác dụng nếu cụm từ là chữ-số trùng khớp, viết liền không dấu cách</string>
     <string name="description_post_media">Media: %s</string>

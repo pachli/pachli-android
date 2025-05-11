@@ -137,6 +137,9 @@ data class AccountEntity(
     /** [FilterAction] for conversations from account limited by the server. */
     @ColumnInfo(defaultValue = "NONE")
     var conversationAccountFilterLimitedByServer: FilterAction = FilterAction.NONE,
+
+    @ColumnInfo(defaultValue = "0")
+    val isBot: Boolean = false,
 ) {
     val identifier: String
         get() = "$domain:$accountId"
