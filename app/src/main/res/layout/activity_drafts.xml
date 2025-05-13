@@ -27,9 +27,4 @@
         android:layout_gravity="center"
         tools:src="@drawable/errorphant_error"
         tools:visibility="visible" />
-
-    <include
-        android:id="@+id/bottomSheet"
-        layout="@layout/item_status_bottom_sheet" />
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

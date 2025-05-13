@@ -53,8 +53,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.MarginPageTransformer
 import app.pachli.R
-import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.activity.ReselectableFragment
+import app.pachli.core.activity.ViewUrlActivity
 import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
@@ -121,7 +121,7 @@ import kotlinx.coroutines.launch
  */
 @AndroidEntryPoint
 class AccountActivity :
-    BottomSheetActivity(),
+    ViewUrlActivity(),
     ActionButtonActivity,
     MenuProvider,
     LinkListener {
@@ -989,7 +989,7 @@ class AccountActivity :
     }
 
     override fun onViewUrl(url: String) {
-        viewUrl(intent.pachliAccountId, url)
+        viewUrl(url)
     }
 
     override fun onMenuItemSelected(item: MenuItem): Boolean {

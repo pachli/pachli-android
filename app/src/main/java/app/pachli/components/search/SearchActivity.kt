@@ -68,7 +68,7 @@ import app.pachli.components.search.SearchOperatorViewData.IsSensitiveOperatorVi
 import app.pachli.components.search.SearchOperatorViewData.LanguageOperatorViewData
 import app.pachli.components.search.SearchOperatorViewData.WhereOperatorViewData
 import app.pachli.components.search.adapter.SearchPagerAdapter
-import app.pachli.core.activity.BottomSheetActivity
+import app.pachli.core.activity.ViewUrlActivity
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.toggleVisibility
@@ -121,7 +121,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SearchActivity :
-    BottomSheetActivity(),
+    ViewUrlActivity(),
     MenuProvider,
     SearchView.OnQueryTextListener,
     ComposeAutoCompleteAdapter.AutocompletionProvider {
@@ -976,7 +976,7 @@ class SearchActivity :
         menu.findItem(R.id.action_filter_search)?.apply {
             isVisible = showFilterIcon
         }
-        return super<BottomSheetActivity>.onPrepareMenu(menu)
+        return super<ViewUrlActivity>.onPrepareMenu(menu)
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {

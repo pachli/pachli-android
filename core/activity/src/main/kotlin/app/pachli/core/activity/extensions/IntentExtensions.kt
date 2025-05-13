@@ -69,3 +69,7 @@ fun Intent.getTransitionKind(): TransitionKind? {
         getSerializableExtra(EXTRA_TRANSITION_KIND) as? TransitionKind
     }
 }
+
+/** True if [Intent] is for a Pachli component, false otherwise. */
+val Intent.forPachliComponent: Boolean
+    get() = this.component?.className?.startsWith("app.pachli") == true

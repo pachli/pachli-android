@@ -30,7 +30,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.R
-import app.pachli.core.activity.BottomSheetActivity
+import app.pachli.core.activity.ViewUrlActivity
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
@@ -203,11 +203,11 @@ class ViewEditsFragment :
     }
 
     override fun onViewUrl(url: String) {
-        bottomSheetActivity?.viewUrl(pachliAccountId, url)
+        bottomSheetActivity?.viewUrl(url)
     }
 
     private val bottomSheetActivity
-        get() = (activity as? BottomSheetActivity)
+        get() = (activity as? ViewUrlActivity)
 
     companion object {
         private const val ARG_PACHLI_ACCOUNT_ID = "app.pachli.ARG_PACHLI_ACCOUNT_ID"

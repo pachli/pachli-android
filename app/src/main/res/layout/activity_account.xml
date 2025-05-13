@@ -467,8 +467,6 @@
             android:contentDescription="@string/action_mention"
             app:srcCompat="@drawable/ic_create_24dp" />
 
-        <include layout="@layout/item_status_bottom_sheet" />
-
         <ImageView
             android:id="@+id/accountAvatarImageView"
             android:layout_width="@dimen/account_activity_avatar_size"

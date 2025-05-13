@@ -32,6 +32,7 @@ import app.pachli.components.notifications.activeAccountNeedsPushScope
 import app.pachli.components.preference.accountfilters.AccountConversationFiltersPreferenceDialogFragment
 import app.pachli.components.preference.accountfilters.AccountNotificationFiltersPreferencesDialogFragment
 import app.pachli.core.activity.extensions.TransitionKind
+import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.AccountManager
@@ -348,10 +349,10 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
             val intent = Intent()
             intent.action = "android.settings.APP_NOTIFICATION_SETTINGS"
             intent.putExtra("android.provider.extra.APP_PACKAGE", BuildConfig.APPLICATION_ID)
-            requireActivity().startActivity(intent)
+            startActivityWithDefaultTransition(intent)
         } else {
             val intent = PreferencesActivityIntent(requireContext(), pachliAccountId, PreferenceScreen.NOTIFICATION)
-            requireActivity().startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
+            startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
         }
     }
 

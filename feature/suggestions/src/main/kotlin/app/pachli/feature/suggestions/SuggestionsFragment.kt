@@ -34,10 +34,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
-import app.pachli.core.activity.BottomSheetActivity
-import app.pachli.core.activity.PostLookupFallbackBehavior
 import app.pachli.core.activity.RefreshableFragment
 import app.pachli.core.activity.ReselectableFragment
+import app.pachli.core.activity.ViewUrlActivity
 import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.extensions.hide
@@ -87,7 +86,7 @@ class SuggestionsFragment :
 
     private val binding by viewBinding(FragmentSuggestionsBinding::bind)
 
-    private lateinit var bottomSheetActivity: BottomSheetActivity
+    private lateinit var bottomSheetActivity: ViewUrlActivity
 
     private lateinit var suggestionsAdapter: SuggestionsAdapter
 
@@ -108,7 +107,7 @@ class SuggestionsFragment :
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        bottomSheetActivity = (context as? BottomSheetActivity) ?: throw IllegalStateException("Fragment must be attached to a BottomSheetActivity")
+        bottomSheetActivity = (context as? ViewUrlActivity) ?: throw IllegalStateException("Fragment must be attached to a BottomSheetActivity")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -192,9 +191,7 @@ class SuggestionsFragment :
                     )
 
                     is NavigationAction.ViewUrl -> bottomSheetActivity.viewUrl(
-                        pachliAccountId,
                         uiAction.url,
-                        PostLookupFallbackBehavior.OPEN_IN_BROWSER,
                     )
                 }
             }

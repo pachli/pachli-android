@@ -28,7 +28,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import app.pachli.R
 import app.pachli.adapter.EmojiAdapter
 import app.pachli.adapter.OnEmojiSelectedListener
-import app.pachli.core.activity.BottomSheetActivity
+import app.pachli.core.activity.ViewUrlActivity
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
@@ -52,7 +52,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AnnouncementsActivity :
-    BottomSheetActivity(),
+    ViewUrlActivity(),
     AnnouncementActionListener,
     OnEmojiSelectedListener,
     MenuProvider {
@@ -196,6 +196,6 @@ class AnnouncementsActivity :
     }
 
     override fun onViewUrl(url: String) {
-        viewUrl(intent.pachliAccountId, url)
+        viewUrl(url)
     }
 }

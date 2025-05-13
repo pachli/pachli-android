@@ -17,9 +17,7 @@
 
 package app.pachli.core.activity
 
-import android.os.Bundle
 import android.view.View
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.lifecycleScope
@@ -28,25 +26,32 @@ import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.ViewThreadActivityIntent
+import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.network.retrofit.MastodonApi
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
-import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 import java.net.URI
 import java.net.URISyntaxException
 import javax.inject.Inject
 import kotlinx.coroutines.launch
 
 /**
- * Base class for all activities that open links
+ * Base class for all activities that open URLs.
  *
- * Links are checked against the api if they are mastodon links so they can be opened in Pachli
+ * If a URL appears to be to a status or account a search is performed on the
+ * user's server to try and find that status or account. If successful it is
+ * then shown in the Pachli UI.
  *
- * Subclasses must have a bottom sheet with Id item_status_bottom_sheet in their layout hierarchy
+ *
+ *
+ * Links are checked against the api if they are mastodon links so they can be
+ * opened in Pachli.
+ *
+ * Displays a Snackbar while the link is resolved.
  */
-abstract class BottomSheetActivity : BaseActivity() {
-
-    lateinit var bottomSheet: BottomSheetBehavior<LinearLayout>
+abstract class ViewUrlActivity : BaseActivity() {
     var searchUrl: String? = null
 
     @Inject
@@ -55,26 +60,23 @@ abstract class BottomSheetActivity : BaseActivity() {
     @Inject
     lateinit var openUrl: OpenUrlUseCase
 
-    override fun onPostCreate(savedInstanceState: Bundle?) {
-        super.onPostCreate(savedInstanceState)
+    var snackbar: Snackbar? = null
 
-        val bottomSheetLayout: LinearLayout = findViewById(R.id.item_status_bottom_sheet)
-        bottomSheet = BottomSheetBehavior.from(bottomSheetLayout)
-        bottomSheet.state = BottomSheetBehavior.STATE_HIDDEN
-        bottomSheet.addBottomSheetCallback(
-            object : BottomSheetBehavior.BottomSheetCallback() {
-                override fun onStateChanged(bottomSheet: View, newState: Int) {
-                    if (newState == BottomSheetBehavior.STATE_HIDDEN) {
-                        cancelActiveSearch()
-                    }
-                }
-
-                override fun onSlide(bottomSheet: View, slideOffset: Float) {}
-            },
-        )
-    }
-
-    open fun viewUrl(pachliAccountId: Long, url: String, lookupFallbackBehavior: PostLookupFallbackBehavior = PostLookupFallbackBehavior.OPEN_IN_BROWSER) {
+    /**
+     * Determines if [url] likely points to a status or account.
+     *
+     * If it does not then [url] is opened in the browser, using [openUrl].
+     *
+     * If it does then search the user's server for [url] to see if it
+     * resolves to either a status or account. If it does then view the
+     * status or account in Pachli.
+     *
+     * If the search fails, or there is no match, use [lookupFallbackBehavior].
+     *
+     * @param url
+     * @param lookupFallbackBehavior
+     */
+    open fun viewUrl(url: String, lookupFallbackBehavior: PostLookupFallbackBehavior = PostLookupFallbackBehavior.OPEN_IN_BROWSER) {
         if (!looksLikeMastodonUrl(url)) {
             openLink(url)
             return
@@ -89,14 +91,14 @@ abstract class BottomSheetActivity : BaseActivity() {
                 onEndSearch(url)
 
                 statuses.firstOrNull()?.let {
-                    viewThread(pachliAccountId, it.id, it.url)
+                    viewThread(intent.pachliAccountId, it.id, it.url)
                     return@onSuccess
                 }
 
                 // Some servers return (unrelated) accounts for url searches (#2804)
                 // Verify that the account's url matches the query
                 accounts.firstOrNull { it.url.equals(url, ignoreCase = true) }?.let {
-                    viewAccount(pachliAccountId, it.id)
+                    viewAccount(intent.pachliAccountId, it.id)
                     return@onSuccess
                 }
 
@@ -132,7 +134,7 @@ abstract class BottomSheetActivity : BaseActivity() {
     @VisibleForTesting
     fun onBeginSearch(url: String) {
         searchUrl = url
-        showQuerySheet()
+        showSnackbar()
     }
 
     @VisibleForTesting
@@ -147,7 +149,7 @@ abstract class BottomSheetActivity : BaseActivity() {
             // Don't clear query if there's no match,
             // since we might just now be getting the response for a canceled search
             searchUrl = null
-            hideQuerySheet()
+            hideSnackbar()
         }
     }
 
@@ -159,17 +161,23 @@ abstract class BottomSheetActivity : BaseActivity() {
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PROTECTED)
-    open fun openLink(url: String) {
-        openUrl(url)
+    open fun openLink(url: String) = openUrl(url)
+
+    @VisibleForTesting()
+    open fun makeSnackbar() = Snackbar.make(window.decorView.rootView, R.string.performing_lookup_title, Snackbar.LENGTH_INDEFINITE)
+        .apply {
+            behavior = object : BaseTransientBottomBar.Behavior() {
+                override fun canSwipeDismissView(child: View) = false
+            }
+        }
+
+    private fun showSnackbar() {
+        // Show snackbar
+        snackbar?.dismiss()
+        makeSnackbar().also { snackbar = it }.show()
     }
 
-    private fun showQuerySheet() {
-        bottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
-    }
-
-    private fun hideQuerySheet() {
-        bottomSheet.state = BottomSheetBehavior.STATE_HIDDEN
-    }
+    private fun hideSnackbar() = snackbar?.dismiss()
 
     companion object {
         // https://mastodon.foo.bar/@User

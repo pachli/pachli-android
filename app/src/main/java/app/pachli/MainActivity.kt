@@ -59,9 +59,9 @@ import app.pachli.appstore.CacheUpdater
 import app.pachli.components.notifications.createNotificationChannelsForAccount
 import app.pachli.components.notifications.domain.AndroidNotificationsAreEnabledUseCase
 import app.pachli.components.notifications.domain.EnableAllNotificationsUseCase
-import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.activity.PostLookupFallbackBehavior
 import app.pachli.core.activity.ReselectableFragment
+import app.pachli.core.activity.ViewUrlActivity
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.common.extensions.hide
@@ -174,7 +174,7 @@ import kotlinx.coroutines.sync.withLock
 import timber.log.Timber
 
 @AndroidEntryPoint
-class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
+class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
     @Inject
     @ApplicationScope
     lateinit var externalScope: CoroutineScope
@@ -270,7 +270,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                     }
                 }
 
-                is Payload.OpenAs -> viewUrl(intent.pachliAccountId, payload.url, PostLookupFallbackBehavior.DISPLAY_ERROR)
+                is Payload.OpenAs -> viewUrl(payload.url, PostLookupFallbackBehavior.DISPLAY_ERROR)
 
                 Payload.OpenDrafts -> startActivity(DraftsActivityIntent(this, intent.pachliAccountId))
 
@@ -411,7 +411,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     }
 
     override fun onPrepareMenu(menu: Menu) {
-        super<BottomSheetActivity>.onPrepareMenu(menu)
+        super<ViewUrlActivity>.onPrepareMenu(menu)
 
         menu.findItem(R.id.action_remove_tab).isVisible = tabAdapter.tabs.getOrNull(binding.viewPager.currentItem)?.let {
             it.timeline != Timeline.Home

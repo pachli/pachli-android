@@ -31,8 +31,7 @@ import app.pachli.components.accountlist.adapter.FollowAdapter
 import app.pachli.components.accountlist.adapter.FollowRequestsAdapter
 import app.pachli.components.accountlist.adapter.FollowRequestsHeaderAdapter
 import app.pachli.components.accountlist.adapter.MutesAdapter
-import app.pachli.core.activity.BottomSheetActivity
-import app.pachli.core.activity.PostLookupFallbackBehavior
+import app.pachli.core.activity.ViewUrlActivity
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
@@ -174,7 +173,7 @@ class AccountListFragment :
     }
 
     override fun onViewUrl(url: String) {
-        (activity as? BottomSheetActivity)?.viewUrl(pachliAccountId, url, PostLookupFallbackBehavior.OPEN_IN_BROWSER)
+        (activity as? ViewUrlActivity)?.viewUrl(url)
     }
 
     override fun onMute(mute: Boolean, id: String, position: Int, notifications: Boolean) {
