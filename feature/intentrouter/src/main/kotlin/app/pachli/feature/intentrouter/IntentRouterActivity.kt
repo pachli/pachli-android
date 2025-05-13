@@ -21,6 +21,8 @@ import android.app.Dialog
 import android.app.NotificationManager
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -154,7 +156,7 @@ class IntentRouterActivity : BaseActivity() {
         // Determine the payload. If there is no payload then start MainActivity with
         // the appropriate account.
         val payload = IntentRouterActivityIntent.payload(intent)
-            ?: Payload.MainActivity(MainActivityIntent.start(this, pachliAccountId))
+            ?: Payload.MainActivity.start()
 
         // Determine nextAccount
         // If nextAccount == null, delete account; start Login process
@@ -220,7 +222,7 @@ class IntentRouterActivity : BaseActivity() {
         viewModel.accept(
             SetActiveAccount(
                 nextAccount.id,
-                Payload.MainActivity(MainActivityIntent.start(this, nextAccount.id)),
+                Payload.MainActivity.start(),
                 logoutAccount = accountToLogout,
             ),
         )
@@ -315,7 +317,10 @@ class IntentRouterActivity : BaseActivity() {
             // and finish this activity.
             is UiSuccess.RefreshAccount -> {
                 val payload = success.action.payload
-                val intent = payload.mainActivityIntent
+                val intent = MainActivityIntent(this, success.action.accountEntity.id).apply {
+                    putExtra(MainActivityIntent.EXTRA_PAYLOAD, payload.mainActivityPayload)
+                    flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
+                }
                 startActivityWithTransition(intent, TransitionKind.EXPLODE)
                 finish()
             }
@@ -475,7 +480,7 @@ class IntentRouterActivity : BaseActivity() {
                             viewModel.accept(
                                 SetActiveAccount(
                                     pachliAccountId = account.id,
-                                    payload = Payload.MainActivity(MainActivityIntent.start(this, account.id)),
+                                    payload = Payload.MainActivity.start(),
                                 ),
                             )
                         } ?: finish()
@@ -519,7 +524,7 @@ class IntentRouterActivity : BaseActivity() {
     private fun launchComposeActivityAndExit(pachliAccountId: Long, composeOptions: ComposeActivityIntent.ComposeOptions? = null) {
         startActivity(
             ComposeActivityIntent(this, pachliAccountId, composeOptions).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
             },
         )
         finish()
@@ -539,7 +544,7 @@ class IntentRouterActivity : BaseActivity() {
             action = intent.action
             type = intent.type
             putExtras(intent)
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
         }
         composeIntent.pachliAccountId = pachliAccountId
         startActivity(composeIntent)
