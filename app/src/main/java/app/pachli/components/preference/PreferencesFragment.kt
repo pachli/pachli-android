@@ -40,6 +40,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import app.pachli.R
 import app.pachli.components.notifications.getApplicationLabel
 import app.pachli.components.notifications.notificationMethod
+import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.util.unsafeLazy
@@ -355,7 +356,7 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                     setOnPreferenceClickListener {
                         distributorPkg?.let { pkg ->
                             context.packageManager.getLaunchIntentForPackage(pkg)?.also {
-                                startActivity(it)
+                                startActivityWithDefaultTransition(it)
                             }
                         }
 

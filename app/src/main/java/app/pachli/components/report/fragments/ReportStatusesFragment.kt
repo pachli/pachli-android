@@ -37,6 +37,7 @@ import app.pachli.components.report.ReportViewModel
 import app.pachli.components.report.Screen
 import app.pachli.components.report.adapter.AdapterHandler
 import app.pachli.components.report.adapter.StatusesAdapter
+import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.data.repository.AccountManager
@@ -120,9 +121,9 @@ class ReportStatusesFragment :
                         val url = actionable.attachments[idx].url
                         ViewCompat.setTransitionName(v, url)
                         val options = ActivityOptionsCompat.makeSceneTransitionAnimation(requireActivity(), v, url)
-                        startActivity(intent, options.toBundle())
+                        startActivityWithDefaultTransition(intent, options.toBundle())
                     } else {
-                        startActivity(intent)
+                        startActivityWithDefaultTransition(intent)
                     }
                 }
                 Attachment.Type.UNKNOWN -> {
@@ -234,11 +235,11 @@ class ReportStatusesFragment :
         return viewModel.isStatusChecked(id)
     }
 
-    override fun onViewAccount(id: String) = startActivity(
+    override fun onViewAccount(id: String) = startActivityWithDefaultTransition(
         AccountActivityIntent(requireContext(), pachliAccountId, id),
     )
 
-    override fun onViewTag(tag: String) = startActivity(
+    override fun onViewTag(tag: String) = startActivityWithDefaultTransition(
         TimelineActivityIntent.hashtag(requireContext(), pachliAccountId, tag),
     )
 

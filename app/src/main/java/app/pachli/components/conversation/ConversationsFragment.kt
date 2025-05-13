@@ -40,6 +40,7 @@ import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.components.preference.accountfilters.AccountConversationFiltersPreferenceDialogFragment
 import app.pachli.core.activity.ReselectableFragment
 import app.pachli.core.activity.extensions.TransitionKind
+import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
@@ -419,12 +420,12 @@ class ConversationsFragment :
 
     override fun onViewAccount(id: String) {
         val intent = AccountActivityIntent(requireContext(), pachliAccountId, id)
-        startActivity(intent)
+        startActivityWithDefaultTransition(intent)
     }
 
     override fun onViewTag(tag: String) {
         val intent = TimelineActivityIntent.hashtag(requireContext(), pachliAccountId, tag)
-        startActivity(intent)
+        startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
     }
 
     override fun removeItem(viewData: ConversationViewData) {

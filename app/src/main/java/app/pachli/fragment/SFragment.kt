@@ -40,7 +40,9 @@ import app.pachli.core.activity.BaseActivity
 import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.activity.OpenUrlUseCase
 import app.pachli.core.activity.PostLookupFallbackBehavior
+import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
+import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.ServerRepository
@@ -109,12 +111,9 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
 
     protected abstract val pachliAccountId: Long
 
+    @Deprecated("Use startActivityWithTransition or startActivityWithDefaultTransition")
     override fun startActivity(intent: Intent) {
-        if (intent.component?.className?.startsWith("app.pachli.") == true) {
-            requireActivity().startActivityWithDefaultTransition(intent)
-        } else {
-            super.startActivity(intent)
-        }
+        super.startActivity(intent)
     }
 
     override fun onAttach(context: Context) {
@@ -202,7 +201,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
         )
 
         val intent = ComposeActivityIntent(requireContext(), pachliAccountId, composeOptions)
-        requireActivity().startActivity(intent)
+        startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
     }
 
     /**
@@ -281,7 +280,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                         )
                         putExtra(Intent.EXTRA_SUBJECT, statusUrl)
                     }
-                    startActivity(
+                    startActivityWithDefaultTransition(
                         Intent.createChooser(
                             sendIntent,
                             resources.getText(R.string.send_post_content_to),
@@ -295,7 +294,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                         putExtra(Intent.EXTRA_TEXT, statusUrl)
                         type = "text/plain"
                     }
-                    startActivity(
+                    startActivityWithDefaultTransition(
                         Intent.createChooser(
                             sendIntent,
                             resources.getText(R.string.send_post_link_to),
@@ -432,9 +431,9 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                         view,
                         url,
                     )
-                    startActivity(intent, options.toBundle())
+                    startActivityWithDefaultTransition(intent, options.toBundle())
                 } else {
-                    startActivity(intent)
+                    startActivityWithDefaultTransition(intent)
                 }
             }
             Attachment.Type.UNKNOWN -> openUrl(attachment.url)
@@ -442,11 +441,14 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
     }
 
     protected fun viewTag(tag: String) {
-        startActivity(TimelineActivityIntent.hashtag(requireContext(), pachliAccountId, tag))
+        startActivityWithTransition(
+            TimelineActivityIntent.hashtag(requireContext(), pachliAccountId, tag),
+            TransitionKind.SLIDE_FROM_END,
+        )
     }
 
     private fun openReportPage(accountId: String, accountUsername: String, statusId: String) {
-        startActivity(ReportActivityIntent(requireContext(), pachliAccountId, accountId, accountUsername, statusId))
+        startActivityWithDefaultTransition(ReportActivityIntent(requireContext(), pachliAccountId, accountId, accountUsername, statusId))
     }
 
     private fun showConfirmDeleteDialog(viewData: T) {
@@ -498,7 +500,10 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                             poll = sourceStatus.poll?.toNewPoll(sourceStatus.createdAt),
                             kind = ComposeOptions.ComposeKind.NEW,
                         )
-                        startActivity(ComposeActivityIntent(requireContext(), pachliAccountId, composeOptions))
+                        startActivityWithTransition(
+                            ComposeActivityIntent(requireContext(), pachliAccountId, composeOptions),
+                            TransitionKind.SLIDE_FROM_END,
+                        )
                     }
                         .onFailure {
                             Timber.w("error deleting status: %s", it)
@@ -527,7 +532,10 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                     poll = status.poll?.toNewPoll(status.createdAt),
                     kind = ComposeOptions.ComposeKind.EDIT_POSTED,
                 )
-                startActivity(ComposeActivityIntent(requireContext(), pachliAccountId, composeOptions))
+                startActivityWithTransition(
+                    ComposeActivityIntent(requireContext(), pachliAccountId, composeOptions),
+                    TransitionKind.SLIDE_FROM_END,
+                )
             }
                 .onFailure {
                     Snackbar.make(
