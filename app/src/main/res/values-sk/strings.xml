@@ -188,7 +188,7 @@
     <string name="pref_title_bot_overlay">Zobraziť indikátor botov</string>
     <string name="notification_severed_relationships_unknown_body">Neznámy dôvod</string>
     <string name="notification_severed_relationships_account_suspension_body">Moderátor pozastavil účet</string>
-    <string name="action_logout_confirm">Naozaj sa chceš odhlásiť z %1$s? Týmto sa odstránia všetky lokálne údaje účtu vrátane konceptov a predvolieb.</string>
+    <string name="action_logout_confirm">Týmto sa odstránia všetky lokálne údaje účtu %1$s vrátane konceptov a nastavení.\n\nTvoj účet na serveri týmto nebude zrušený.</string>
     <string name="action_post_failed">Nahrávanie zlyhalo</string>
     <string name="action_post_failed_show_drafts">Zobraziť koncepty</string>
     <string name="action_unmute">Zrušiť stíšenie</string>
@@ -820,4 +820,5 @@
     <string name="error_import_preferences_fmt">Nepodarilo sa importovať nastavenia z %1$s: %2$s</string>
     <string name="title_report_category_fmt">Kategória: %1$s</string>
     <string name="title_report_comment">Komentár nahlásujúceho</string>
+    <string name="title_logout_fmt">Odhlásiť %1$s</string>
 </resources>
