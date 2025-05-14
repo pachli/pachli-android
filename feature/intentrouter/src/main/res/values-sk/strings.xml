@@ -1,7 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_set_active_account">Prihlásenie sa nepodarilo s nasledujúcou chybou:\n\n%1$s</string>
-    <string name="error_refresh_account">Obnovenie účtu zlyhalo s nasledujúcou chybou:\n\n%1$s\n\nMôžeš pokračovať, ale tvoje zoznamy a filtre môžu byť nekompletné.</string>
+    <string name="error_set_active_account">Prihlásenie sa nepodarilo s nasledujúcou chybou: %1$s</string>
+    <string name="error_refresh_account">Obnovenie účtu zlyhalo s nasledujúcou chybou: %1$s\n\nMôžeš pokračovať, ale tvoje zoznamy a filtre môžu byť nekompletné.</string>
     <string name="action_relogin">Znova sa prihlásiť</string>
     <string name="action_share_as">Zdieľať ako…</string>
+    <string name="title_choose_account_dialog">Vyber účet</string>
+    <string name="title_error_dialog">Prihlásenie zlyhalo</string>
+    <string name="client_error_unauthorized_fmt">%1$s\n\nKlepni na \"%2$s\" pre opakované prihlásenie.</string>
+    <string name="action_choose_another_account">Vyber iný účet</string>
+    <string name="error_login_failed_hint_multiple">Klepni na ten istý účet pre opakované prihlásenie, alebo na iný účet pre prihlásenie cez neho.</string>
+    <string name="client_error_unauthorized_multiple_fmt">%1$s\n\nPre opakované prihlásenie klepni na „%2$s“, alebo klepni na „%3$s“ pre výber iného účtu.</string>
+    <string name="error_login_failed_hint">Klepni na účet pre opakované prihlásenie.</string>
+    <string name="error_refresh_account_fmt">Načítanie niektorých údajov o účte zlyhalo:\n\n%1$s\n\nPre pokračovanie klepni na \"%2$s\", ale niektoré informácie môžu byť nesprávne (napr. filtre a zoznamy).\n\nKlepni na \"%3$s\" pre opakovanie.\n\nKlepni na \"%4$s\" pre výber iného účtu.</string>
+    <string name="title_error_mime_type">Nerozpoznaný typ</string>
+    <string name="error_mime_type_fmt">Pachli bola otvorená na zdieľanie obsahu s typom \"%1$s\", ale Pachli túto funkciu nepodporuje.</string>
 </resources>
