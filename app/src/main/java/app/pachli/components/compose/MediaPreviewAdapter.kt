@@ -42,7 +42,7 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.network.model.Attachment
 import app.pachli.databinding.ItemComposeMediaAttachmentBinding
-import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.get
@@ -100,6 +100,7 @@ typealias OnRemoveMediaListener = (item: QueuedMedia) -> Unit
  * media attachment.
  */
 class MediaPreviewAdapter(
+    private val glide: RequestManager,
     private val descriptionLimit: Int,
     private val onDescriptionChanged: OnDescriptionChangedListener,
     private val onEditFocus: OnEditFocusListener,
@@ -109,6 +110,7 @@ class MediaPreviewAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AttachmentViewHolder {
         return AttachmentViewHolder(
             ItemComposeMediaAttachmentBinding.inflate(LayoutInflater.from(parent.context), parent, false),
+            glide,
             descriptionLimit,
             onDescriptionChanged = onDescriptionChanged,
             onMediaClick = ::showMediaPopup,
@@ -232,6 +234,7 @@ class MediaPreviewAdapter(
  */
 class AttachmentViewHolder(
     val binding: ItemComposeMediaAttachmentBinding,
+    private val glide: RequestManager,
     descriptionLimit: Int,
     private val onDescriptionChanged: OnDescriptionChangedListener,
     private val onMediaClick: (QueuedMedia, View) -> Unit,
@@ -290,19 +293,19 @@ class AttachmentViewHolder(
     private fun bindUri(item: QueuedMedia) = with(binding.media) {
         if (item.type == QueuedMedia.Type.AUDIO) {
             // TODO: Fancy waveform display?
+            glide.clear(this)
             setImageResource(R.drawable.ic_music_box_preview_24dp)
             return@with
         }
 
-        var glide = Glide.with(context)
-            .load(item.uri)
+        var request = glide.load(item.uri)
             .diskCacheStrategy(DiskCacheStrategy.NONE)
             .dontAnimate()
             .centerInside()
 
-        if (item.focus != null) glide = glide.addListener(this)
+        if (item.focus != null) request = request.addListener(this)
 
-        glide.into(this)
+        request.into(this)
 
         // Default Talkback behaviour reads out that this is a button with
         // options available. Enhance the experience by listing the options.

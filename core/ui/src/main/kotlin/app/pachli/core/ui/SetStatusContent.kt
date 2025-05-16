@@ -30,6 +30,7 @@ import app.pachli.core.network.model.HashTag
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.PreProcessMastodonHtml.processMarkdown
+import com.bumptech.glide.RequestManager
 import com.google.android.material.color.MaterialColors
 import com.mohamedrejeb.ksoup.entities.KsoupEntities
 import io.noties.markwon.AbstractMarkwonPlugin
@@ -46,13 +47,18 @@ import io.noties.markwon.syntax.SyntaxHighlightPlugin
 import io.noties.prism4j.Prism4j
 import io.noties.prism4j.annotations.PrismBundle
 
-/** Interface for setting the content of a status. */
+/**
+ * Interface for setting the content of a status.
+ *
+ * @see [SetStatusContent.invoke]
+ */
 interface SetStatusContent {
     /**
      * Processes [content] according to [statusDisplayOptions], embedding any [emojis],
      * [mentions], and [hashtags]. Clicks on these are sent to [listener]. Sets the
      * processed content as the [text][TextView.setText] on [textView].
      *
+     * @param glide RequestManager used to load images.
      * @param textView
      * @param content
      * @param statusDisplayOptions
@@ -62,6 +68,7 @@ interface SetStatusContent {
      * @param listener
      */
     operator fun invoke(
+        glide: RequestManager,
         textView: TextView,
         content: CharSequence,
         statusDisplayOptions: StatusDisplayOptions,
@@ -77,6 +84,7 @@ interface SetStatusContent {
  */
 object SetMastodonHtmlContent : SetStatusContent {
     override operator fun invoke(
+        glide: RequestManager,
         textView: TextView,
         content: CharSequence,
         statusDisplayOptions: StatusDisplayOptions,
@@ -86,7 +94,7 @@ object SetMastodonHtmlContent : SetStatusContent {
         listener: LinkListener,
     ) {
         val parsedContent = content.parseAsMastodonHtml()
-        val emojifiedText = parsedContent.emojify(emojis, textView, statusDisplayOptions.animateEmojis)
+        val emojifiedText = parsedContent.emojify(glide, emojis, textView, statusDisplayOptions.animateEmojis)
         setClickableText(textView, emojifiedText, mentions, hashtags, listener)
     }
 }
@@ -128,6 +136,7 @@ class SetMarkdownContent(context: Context) : SetStatusContent {
         .build()
 
     override operator fun invoke(
+        glide: RequestManager,
         textView: TextView,
         content: CharSequence,
         statusDisplayOptions: StatusDisplayOptions,
@@ -138,7 +147,7 @@ class SetMarkdownContent(context: Context) : SetStatusContent {
     ) {
         val spanned = markwon.toMarkdown(content.toString())
 
-        val emojifiedText = spanned.emojify(emojis, textView, statusDisplayOptions.animateEmojis)
+        val emojifiedText = spanned.emojify(glide, emojis, textView, statusDisplayOptions.animateEmojis)
 
         // This block does what setClickableText does.
         val spannableContent = markupHiddenUrls(textView, emojifiedText)

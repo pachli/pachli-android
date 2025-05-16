@@ -32,8 +32,10 @@ import app.pachli.core.ui.SetStatusContent
 import app.pachli.databinding.ItemStatusBinding
 import app.pachli.databinding.ItemStatusWrapperBinding
 import app.pachli.interfaces.StatusActionListener
+import com.bumptech.glide.RequestManager
 
 class TimelinePagingAdapter(
+    private val glide: RequestManager,
     private val setStatusContent: SetStatusContent,
     private val statusListener: StatusActionListener<StatusViewData>,
     var statusDisplayOptions: StatusDisplayOptions,
@@ -44,12 +46,14 @@ class TimelinePagingAdapter(
             VIEW_TYPE_STATUS_FILTERED -> {
                 FilterableStatusViewHolder<StatusViewData>(
                     ItemStatusWrapperBinding.inflate(inflater, viewGroup, false),
+                    glide,
                     setStatusContent,
                 )
             }
             VIEW_TYPE_STATUS -> {
                 StatusViewHolder<StatusViewData>(
                     ItemStatusBinding.inflate(inflater, viewGroup, false),
+                    glide,
                     setStatusContent,
                 )
             }

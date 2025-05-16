@@ -43,7 +43,6 @@ import app.pachli.core.navigation.LoginActivityIntent
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.getNonNullString
 import app.pachli.feature.login.databinding.ActivityLoginBinding
-import com.bumptech.glide.Glide
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
@@ -113,8 +112,7 @@ class LoginActivity : BaseActivity() {
         }
 
         if (BuildConfig.CUSTOM_LOGO_URL.isNotBlank()) {
-            Glide.with(binding.loginLogo)
-                .load(BuildConfig.CUSTOM_LOGO_URL)
+            glide.load(BuildConfig.CUSTOM_LOGO_URL)
                 .placeholder(null)
                 .into(binding.loginLogo)
         }

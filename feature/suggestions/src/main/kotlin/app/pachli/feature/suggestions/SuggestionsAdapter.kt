@@ -42,6 +42,7 @@ import app.pachli.feature.suggestions.SuggestionViewHolder.ChangePayload
 import app.pachli.feature.suggestions.UiAction.NavigationAction
 import app.pachli.feature.suggestions.UiAction.SuggestionAction
 import app.pachli.feature.suggestions.databinding.ItemSuggestionBinding
+import com.bumptech.glide.RequestManager
 import java.time.Duration
 import java.time.Instant
 import kotlin.math.roundToInt
@@ -55,6 +56,7 @@ import kotlin.math.roundToInt
 // TODO: This is quite similar to AccountAdapter, see if some functionality can be
 // made common. See things like FollowRequestViewHolder.setupWithAccount as well.
 internal class SuggestionsAdapter(
+    private val glide: RequestManager,
     private var animateAvatars: Boolean,
     private var animateEmojis: Boolean,
     private var showBotOverlay: Boolean,
@@ -64,7 +66,7 @@ internal class SuggestionsAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SuggestionViewHolder {
         val binding = ItemSuggestionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return SuggestionViewHolder(binding, accept)
+        return SuggestionViewHolder(binding, glide, accept)
     }
 
     fun setAnimateAvatars(animateAvatars: Boolean) {
@@ -119,6 +121,7 @@ internal class SuggestionsAdapter(
  */
 internal class SuggestionViewHolder(
     internal val binding: ItemSuggestionBinding,
+    private val glide: RequestManager,
     private val accept: (UiAction) -> Unit,
 ) : RecyclerView.ViewHolder(binding.root) {
     internal lateinit var viewData: SuggestionViewData
@@ -215,7 +218,7 @@ internal class SuggestionViewHolder(
 
     /** Binds the avatar image, respecting [animateAvatars]. */
     fun bindAvatar(viewData: SuggestionViewData, animateAvatars: Boolean) = with(binding) {
-        loadAvatar(viewData.suggestion.account.avatar, avatar, avatarRadius, animateAvatars)
+        loadAvatar(glide, viewData.suggestion.account.avatar, avatar, avatarRadius, animateAvatars)
     }
 
     /**
@@ -224,7 +227,12 @@ internal class SuggestionViewHolder(
      */
     fun bindAnimateEmojis(viewData: SuggestionViewData, animateEmojis: Boolean) = with(binding) {
         val account = viewData.suggestion.account
-        displayName.text = account.name.unicodeWrap().emojify(account.emojis, itemView, animateEmojis)
+        displayName.text = account.name.unicodeWrap().emojify(
+            glide,
+            account.emojis,
+            itemView,
+            animateEmojis,
+        )
 
         if (account.note.isBlank()) {
             @SuppressLint("SetTextI18n")
@@ -233,7 +241,7 @@ internal class SuggestionViewHolder(
         } else {
             accountNote.show()
             val emojifiedNote = account.note.parseAsMastodonHtml()
-                .emojify(account.emojis, accountNote, animateEmojis)
+                .emojify(glide, account.emojis, accountNote, animateEmojis)
 
             setClickableText(accountNote, emojifiedNote, emptyList(), null, linkListener)
         }
