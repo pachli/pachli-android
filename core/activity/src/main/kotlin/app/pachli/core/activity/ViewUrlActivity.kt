@@ -142,12 +142,12 @@ abstract class ViewUrlActivity : BaseActivity() {
 
     @VisibleForTesting
     fun onEndSearch(url: String?) {
-        if (url == searchUrl) {
-            // Don't clear query if there's no match,
-            // since we might just now be getting the response for a canceled search
-            searchUrl = null
-            snackbar?.dismiss()
-        }
+        // Don't clear query if there's no match,
+        // since we might just now be getting the response for a canceled search
+        if (url != searchUrl) return
+
+        searchUrl = null
+        snackbar?.dismiss()
     }
 
     @VisibleForTesting
