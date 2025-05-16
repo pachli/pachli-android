@@ -24,7 +24,6 @@ import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.testing.rules.MainCoroutineRule
 import app.pachli.core.testing.success
-import com.google.android.material.snackbar.Snackbar
 import java.time.Instant
 import java.util.Date
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -285,6 +284,6 @@ class ViewUrlActivityTest {
             this.fallbackBehavior = fallbackBehavior
         }
 
-        override fun makeSnackbar(): Snackbar = mock()
+        override fun showSnackbar() {}
     }
 }
