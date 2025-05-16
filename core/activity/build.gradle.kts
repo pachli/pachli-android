@@ -52,7 +52,9 @@ dependencies {
     implementation(libs.bundles.androidx)
 
     // Loading avatars
-    implementation(libs.bundles.glide)
+    api(libs.bundles.glide)?.because("Exposes RequestManager type")
+    ksp(libs.glide.compiler)
+
     implementation(projects.core.database)
 
     // Crash reporting in orange (Pachli Current) builds only

@@ -33,8 +33,10 @@ import app.pachli.databinding.ItemStatusBinding
 import app.pachli.databinding.ItemStatusDetailedBinding
 import app.pachli.databinding.ItemStatusWrapperBinding
 import app.pachli.interfaces.StatusActionListener
+import com.bumptech.glide.RequestManager
 
 class ThreadAdapter(
+    private val glide: RequestManager,
     private val statusDisplayOptions: StatusDisplayOptions,
     private val statusActionListener: StatusActionListener<StatusViewData>,
     private val setStatusContent: SetStatusContent,
@@ -47,18 +49,21 @@ class ThreadAdapter(
             VIEW_TYPE_STATUS -> {
                 StatusViewHolder(
                     ItemStatusBinding.inflate(inflater, parent, false),
+                    glide,
                     setStatusContent,
                 )
             }
             VIEW_TYPE_STATUS_FILTERED -> {
                 FilterableStatusViewHolder(
                     ItemStatusWrapperBinding.inflate(inflater, parent, false),
+                    glide,
                     setStatusContent,
                 )
             }
             VIEW_TYPE_STATUS_DETAILED -> {
                 StatusDetailedViewHolder(
                     ItemStatusDetailedBinding.inflate(inflater, parent, false),
+                    glide,
                     setStatusContent,
                     openUrl,
                 )

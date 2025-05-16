@@ -21,9 +21,11 @@ import android.view.ViewGroup
 import app.pachli.adapter.AccountViewHolder
 import app.pachli.databinding.ItemAccountBinding
 import app.pachli.interfaces.AccountActionListener
+import com.bumptech.glide.RequestManager
 
 /** Displays either a follows or following list.  */
 class FollowAdapter(
+    val glide: RequestManager,
     accountActionListener: AccountActionListener,
     animateAvatar: Boolean,
     animateEmojis: Boolean,
@@ -37,7 +39,7 @@ class FollowAdapter(
 
     override fun createAccountViewHolder(parent: ViewGroup): AccountViewHolder {
         val binding = ItemAccountBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return AccountViewHolder(binding)
+        return AccountViewHolder(binding, glide)
     }
 
     override fun onBindAccountViewHolder(viewHolder: AccountViewHolder, position: Int) {

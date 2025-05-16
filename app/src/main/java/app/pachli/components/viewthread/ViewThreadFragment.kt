@@ -55,6 +55,7 @@ import app.pachli.databinding.FragmentViewThreadBinding
 import app.pachli.fragment.SFragment
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.ListStatusAccessibilityDelegate
+import com.bumptech.glide.Glide
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
@@ -102,7 +103,7 @@ class ViewThreadFragment :
             SetMastodonHtmlContent
         }
 
-        adapter = ThreadAdapter(viewModel.statusDisplayOptions.value, this, setStatusContent, openUrl)
+        adapter = ThreadAdapter(Glide.with(this), viewModel.statusDisplayOptions.value, this, setStatusContent, openUrl)
     }
 
     override fun onCreateView(
@@ -359,7 +360,7 @@ class ViewThreadFragment :
     }
 
     override fun onEditFilterById(pachliAccountId: Long, filterId: String) {
-        requireActivity().startActivityWithTransition(
+        startActivityWithTransition(
             EditContentFilterActivityIntent.edit(requireContext(), pachliAccountId, filterId),
             TransitionKind.SLIDE_FROM_END,
         )
@@ -375,12 +376,12 @@ class ViewThreadFragment :
 
     override fun onShowReblogs(statusId: String) {
         val intent = AccountListActivityIntent(requireContext(), pachliAccountId, AccountListActivityIntent.Kind.REBLOGGED, statusId)
-        activity?.startActivityWithDefaultTransition(intent)
+        startActivityWithDefaultTransition(intent)
     }
 
     override fun onShowFavs(statusId: String) {
         val intent = AccountListActivityIntent(requireContext(), pachliAccountId, AccountListActivityIntent.Kind.FAVOURITED, statusId)
-        activity?.startActivityWithDefaultTransition(intent)
+        startActivityWithDefaultTransition(intent)
     }
 
     override fun onContentCollapsedChange(viewData: StatusViewData, isCollapsed: Boolean) {

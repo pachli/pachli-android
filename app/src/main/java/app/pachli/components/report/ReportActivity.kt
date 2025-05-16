@@ -23,7 +23,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import app.pachli.R
 import app.pachli.components.report.adapter.ReportPagerAdapter
-import app.pachli.core.activity.BottomSheetActivity
+import app.pachli.core.activity.ViewUrlActivity
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.navigation.ReportActivityIntent
 import app.pachli.core.navigation.pachliAccountId
@@ -37,7 +37,7 @@ import kotlinx.coroutines.launch
  * Report a status or user.
  */
 @AndroidEntryPoint
-class ReportActivity : BottomSheetActivity() {
+class ReportActivity : ViewUrlActivity() {
     private val viewModel: ReportViewModel by viewModels(
         extrasProducer = {
             defaultViewModelCreationExtras.withCreationCallback<ReportViewModel.Factory> {

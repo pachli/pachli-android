@@ -40,6 +40,4 @@ dependencies {
         ?.because("Payload.Notification relies on the network type")
     implementation(projects.core.ui)
     implementation(libs.bundles.androidx)
-    implementation(libs.bundles.glide)
-        ?.because("Loading logo and avatar images")
 }

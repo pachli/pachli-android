@@ -17,36 +17,35 @@
 
 package app.pachli.core.activity
 
-import android.os.Bundle
 import android.view.View
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.lifecycleScope
 import app.pachli.core.activity.extensions.TransitionKind
-import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.ViewThreadActivityIntent
+import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.network.retrofit.MastodonApi
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
-import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 import java.net.URI
 import java.net.URISyntaxException
 import javax.inject.Inject
 import kotlinx.coroutines.launch
 
 /**
- * Base class for all activities that open links
+ * Base class for all activities that open URLs.
  *
- * Links are checked against the api if they are mastodon links so they can be opened in Pachli
+ * If a URL appears to be to a status or account a search is performed on the
+ * user's server to try and find that status or account. If successful an
+ * activity to show the status's thread or the account is started.
  *
- * Subclasses must have a bottom sheet with Id item_status_bottom_sheet in their layout hierarchy
+ * Displays a Snackbar while the link is resolved.
  */
-abstract class BottomSheetActivity : BaseActivity() {
-
-    lateinit var bottomSheet: BottomSheetBehavior<LinearLayout>
+abstract class ViewUrlActivity : BaseActivity() {
     var searchUrl: String? = null
 
     @Inject
@@ -55,25 +54,25 @@ abstract class BottomSheetActivity : BaseActivity() {
     @Inject
     lateinit var openUrl: OpenUrlUseCase
 
-    override fun onPostCreate(savedInstanceState: Bundle?) {
-        super.onPostCreate(savedInstanceState)
+    var snackbar: Snackbar? = null
 
-        val bottomSheetLayout: LinearLayout = findViewById(R.id.item_status_bottom_sheet)
-        bottomSheet = BottomSheetBehavior.from(bottomSheetLayout)
-        bottomSheet.state = BottomSheetBehavior.STATE_HIDDEN
-        bottomSheet.addBottomSheetCallback(
-            object : BottomSheetBehavior.BottomSheetCallback() {
-                override fun onStateChanged(bottomSheet: View, newState: Int) {
-                    if (newState == BottomSheetBehavior.STATE_HIDDEN) {
-                        cancelActiveSearch()
-                    }
-                }
-
-                override fun onSlide(bottomSheet: View, slideOffset: Float) {}
-            },
-        )
-    }
-
+    /**
+     * Launches an activity to view [url].
+     *
+     * If [url] does not seem to be a Mastodon URL for a status or account the
+     * then [url] is opened in the browser, using [openUrl].
+     *
+     * If it does then search the user's server for [url] to see if it
+     * resolves to either a status or account. If it does then start the
+     * appropriate activity to view the status (thread) or account in Pachli.
+     *
+     * If the search fails, or there is no match, use [lookupFallbackBehavior].
+     *
+     * @param pachliAccountId
+     * @param url URL to view
+     * @param lookupFallbackBehavior Behaviour if the URL does not match a status
+     * or account.
+     */
     open fun viewUrl(pachliAccountId: Long, url: String, lookupFallbackBehavior: PostLookupFallbackBehavior = PostLookupFallbackBehavior.OPEN_IN_BROWSER) {
         if (!looksLikeMastodonUrl(url)) {
             openLink(url)
@@ -119,7 +118,7 @@ abstract class BottomSheetActivity : BaseActivity() {
 
     open fun viewAccount(pachliAccountId: Long, id: String) {
         val intent = AccountActivityIntent(this, pachliAccountId, id)
-        startActivityWithDefaultTransition(intent)
+        startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
     }
 
     protected open fun performUrlFallbackAction(url: String, fallbackBehavior: PostLookupFallbackBehavior) {
@@ -132,7 +131,7 @@ abstract class BottomSheetActivity : BaseActivity() {
     @VisibleForTesting
     fun onBeginSearch(url: String) {
         searchUrl = url
-        showQuerySheet()
+        showSnackbar()
     }
 
     @VisibleForTesting
@@ -143,12 +142,12 @@ abstract class BottomSheetActivity : BaseActivity() {
 
     @VisibleForTesting
     fun onEndSearch(url: String?) {
-        if (url == searchUrl) {
-            // Don't clear query if there's no match,
-            // since we might just now be getting the response for a canceled search
-            searchUrl = null
-            hideQuerySheet()
-        }
+        // Don't clear query if there's no match,
+        // since we might just now be getting the response for a canceled search
+        if (url != searchUrl) return
+
+        searchUrl = null
+        snackbar?.dismiss()
     }
 
     @VisibleForTesting
@@ -159,16 +158,24 @@ abstract class BottomSheetActivity : BaseActivity() {
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PROTECTED)
-    open fun openLink(url: String) {
-        openUrl(url)
-    }
+    open fun openLink(url: String) = openUrl(url)
 
-    private fun showQuerySheet() {
-        bottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
-    }
-
-    private fun hideQuerySheet() {
-        bottomSheet.state = BottomSheetBehavior.STATE_HIDDEN
+    /**
+     * Shows the snackbar while searching.
+     *
+     * Replaces any existing snackbar.
+     */
+    // Visible so tests can override this with a mock.
+    @VisibleForTesting()
+    open fun showSnackbar() {
+        // Show snackbar
+        snackbar?.dismiss()
+        Snackbar.make(window.decorView.rootView, R.string.performing_lookup_title, Snackbar.LENGTH_INDEFINITE)
+            .apply {
+                behavior = object : BaseTransientBottomBar.Behavior() {
+                    override fun canSwipeDismissView(child: View) = false
+                }
+            }.also { snackbar = it }.show()
     }
 
     companion object {

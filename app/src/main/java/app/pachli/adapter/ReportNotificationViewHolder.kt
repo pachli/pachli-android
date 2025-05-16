@@ -36,9 +36,11 @@ import app.pachli.databinding.ItemReportNotificationBinding
 import app.pachli.util.getRelativeTimeSpanString
 import app.pachli.viewdata.NotificationViewData
 import at.connyduck.sparkbutton.helpers.Utils
+import com.bumptech.glide.RequestManager
 
 class ReportNotificationViewHolder(
     private val binding: ItemReportNotificationBinding,
+    private val glide: RequestManager,
     private val notificationActionListener: NotificationActionListener,
 ) : NotificationsPagingAdapter.ViewHolder, RecyclerView.ViewHolder(binding.root) {
 
@@ -72,11 +74,13 @@ class ReportNotificationViewHolder(
         animateEmojis: Boolean,
     ) {
         val reporterName = reporter.name.unicodeWrap().emojify(
+            glide,
             reporter.emojis,
             binding.root,
             animateEmojis,
         )
         val reporteeName = report.targetAccount.toTimelineAccount().name.unicodeWrap().emojify(
+            glide,
             report.targetAccount.emojis,
             itemView,
             animateEmojis,
@@ -114,12 +118,14 @@ class ReportNotificationViewHolder(
         binding.notificationReporteeAvatar.setPaddingRelative(0, 0, padding, padding)
 
         loadAvatar(
+            glide,
             report.targetAccount.avatar,
             binding.notificationReporteeAvatar,
             itemView.context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_36dp),
             animateAvatar,
         )
         loadAvatar(
+            glide,
             reporter.avatar,
             binding.notificationReporterAvatar,
             itemView.context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_24dp),

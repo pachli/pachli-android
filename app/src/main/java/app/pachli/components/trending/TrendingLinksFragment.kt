@@ -41,6 +41,8 @@ import app.pachli.components.trending.viewmodel.TrendingLinksViewModel
 import app.pachli.core.activity.OpenUrlUseCase
 import app.pachli.core.activity.RefreshableFragment
 import app.pachli.core.activity.ReselectableFragment
+import app.pachli.core.activity.extensions.TransitionKind
+import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
@@ -55,6 +57,7 @@ import app.pachli.databinding.FragmentTrendingLinksBinding
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.AppBarLayoutHost
 import app.pachli.view.PreviewCardView.Target
+import com.bumptech.glide.Glide
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.snackbar.Snackbar
 import com.mikepenz.iconics.IconicsDrawable
@@ -130,6 +133,7 @@ class TrendingLinksFragment :
         }
 
         trendingLinksAdapter = TrendingLinksAdapter(
+            Glide.with(this),
             viewModel.statusDisplayOptions.value,
             false,
             ::onOpenLink,
@@ -275,7 +279,10 @@ class TrendingLinksFragment :
             Target.CARD -> openUrl(card.url)
             Target.IMAGE -> openUrl(card.url)
             Target.BYLINE -> card.authors?.firstOrNull()?.account?.id?.let {
-                startActivity(AccountActivityIntent(requireContext(), pachliAccountId, it))
+                startActivityWithTransition(
+                    AccountActivityIntent(requireContext(), pachliAccountId, it),
+                    TransitionKind.SLIDE_FROM_END,
+                )
             }
 
             Target.TIMELINE_LINK -> {
@@ -285,7 +292,7 @@ class TrendingLinksFragment :
                     card.url,
                     card.title,
                 )
-                startActivity(intent)
+                startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
             }
         }
     }

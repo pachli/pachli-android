@@ -53,8 +53,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.MarginPageTransformer
 import app.pachli.R
-import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.activity.ReselectableFragment
+import app.pachli.core.activity.ViewUrlActivity
 import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
@@ -92,7 +92,6 @@ import app.pachli.util.Error
 import app.pachli.util.Loading
 import app.pachli.util.Success
 import app.pachli.view.showMuteAccountDialog
-import com.bumptech.glide.Glide
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.chip.Chip
 import com.google.android.material.color.MaterialColors
@@ -121,7 +120,7 @@ import kotlinx.coroutines.launch
  */
 @AndroidEntryPoint
 class AccountActivity :
-    BottomSheetActivity(),
+    ViewUrlActivity(),
     ActionButtonActivity,
     MenuProvider,
     LinkListener {
@@ -249,7 +248,7 @@ class AccountActivity :
         binding.accountFollowsYouChip.hide()
 
         // setup the RecyclerView for the account fields
-        accountFieldAdapter = AccountFieldAdapter(this, animateEmojis)
+        accountFieldAdapter = AccountFieldAdapter(glide, this, animateEmojis)
         binding.accountFieldList.isNestedScrollingEnabled = false
         binding.accountFieldList.layoutManager = LinearLayoutManager(this)
         binding.accountFieldList.adapter = accountFieldAdapter
@@ -499,7 +498,7 @@ class AccountActivity :
 
         val usernameFormatted = getString(DR.string.post_username_format, account.username)
         binding.accountUsernameTextView.text = usernameFormatted
-        binding.accountDisplayNameTextView.text = account.name.emojify(account.emojis, binding.accountDisplayNameTextView, animateEmojis)
+        binding.accountDisplayNameTextView.text = account.name.emojify(glide, account.emojis, binding.accountDisplayNameTextView, animateEmojis)
 
         // Long press on username to copy it to clipboard
         for (view in listOf(binding.accountUsernameTextView, binding.accountDisplayNameTextView)) {
@@ -512,7 +511,7 @@ class AccountActivity :
             }
         }
 
-        val emojifiedNote = account.note.parseAsMastodonHtml().emojify(account.emojis, binding.accountNoteTextView, animateEmojis)
+        val emojifiedNote = account.note.parseAsMastodonHtml().emojify(glide, account.emojis, binding.accountNoteTextView, animateEmojis)
         setClickableText(binding.accountNoteTextView, emojifiedNote, emptyList(), null, this)
 
         accountFieldAdapter.fields = account.fields.orEmpty()
@@ -559,14 +558,14 @@ class AccountActivity :
         loadedAccount?.let { account ->
 
             loadAvatar(
+                glide,
                 account.avatar,
                 binding.accountAvatarImageView,
                 resources.getDimensionPixelSize(DR.dimen.avatar_radius_94dp),
                 animateAvatar,
             )
 
-            Glide.with(this)
-                .asBitmap()
+            glide.asBitmap()
                 .load(account.header)
                 .centerCrop()
                 .into(binding.accountHeaderImageView)
@@ -593,7 +592,7 @@ class AccountActivity :
      */
     private fun updateToolbar() {
         loadedAccount?.let { account ->
-            supportActionBar?.title = account.name.emojify(account.emojis, binding.accountToolbar, animateEmojis)
+            supportActionBar?.title = account.name.emojify(glide, account.emojis, binding.accountToolbar, animateEmojis)
             supportActionBar?.subtitle = String.format(getString(DR.string.post_username_format), account.username)
         }
     }
@@ -615,7 +614,7 @@ class AccountActivity :
 
             val avatarRadius = resources.getDimensionPixelSize(DR.dimen.avatar_radius_48dp)
 
-            loadAvatar(movedAccount.avatar, binding.accountMovedAvatar, avatarRadius, animateAvatar)
+            loadAvatar(glide, movedAccount.avatar, binding.accountMovedAvatar, avatarRadius, animateAvatar)
 
             binding.accountMovedText.text = getString(R.string.account_moved_description, movedAccount.name)
         }

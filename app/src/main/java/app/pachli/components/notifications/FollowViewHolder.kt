@@ -35,9 +35,11 @@ import app.pachli.core.ui.loadAvatar
 import app.pachli.core.ui.setClickableText
 import app.pachli.databinding.ItemFollowBinding
 import app.pachli.viewdata.NotificationViewData
+import com.bumptech.glide.RequestManager
 
 class FollowViewHolder(
     private val binding: ItemFollowBinding,
+    private val glide: RequestManager,
     private val notificationActionListener: NotificationActionListener,
     private val linkListener: LinkListener,
 ) : NotificationsPagingAdapter.ViewHolder, RecyclerView.ViewHolder(binding.root) {
@@ -89,6 +91,7 @@ class FollowViewHolder(
         )
         val emojifiedMessage =
             wholeMessage.emojify(
+                glide,
                 account.emojis,
                 binding.notificationText,
                 animateEmojis,
@@ -97,6 +100,7 @@ class FollowViewHolder(
         val username = context.getString(DR.string.post_username_format, account.username)
         binding.notificationUsername.text = username
         loadAvatar(
+            glide,
             account.avatar,
             binding.notificationAvatar,
             avatarRadius42dp,
@@ -104,6 +108,7 @@ class FollowViewHolder(
         )
 
         val emojifiedNote = account.note.parseAsMastodonHtml().emojify(
+            glide,
             account.emojis,
             binding.notificationAccountNote,
             animateEmojis,

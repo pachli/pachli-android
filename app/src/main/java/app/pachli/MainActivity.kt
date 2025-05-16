@@ -59,9 +59,9 @@ import app.pachli.appstore.CacheUpdater
 import app.pachli.components.notifications.createNotificationChannelsForAccount
 import app.pachli.components.notifications.domain.AndroidNotificationsAreEnabledUseCase
 import app.pachli.components.notifications.domain.EnableAllNotificationsUseCase
-import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.activity.PostLookupFallbackBehavior
 import app.pachli.core.activity.ReselectableFragment
+import app.pachli.core.activity.ViewUrlActivity
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.common.extensions.hide
@@ -117,7 +117,6 @@ import app.pachli.updatecheck.UpdateCheck
 import app.pachli.usecase.DeveloperToolsUseCase
 import app.pachli.util.UpdateShortCutsUseCase
 import app.pachli.util.getDimension
-import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.target.CustomTarget
@@ -174,7 +173,7 @@ import kotlinx.coroutines.sync.withLock
 import timber.log.Timber
 
 @AndroidEntryPoint
-class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
+class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
     @Inject
     @ApplicationScope
     lateinit var externalScope: CoroutineScope
@@ -212,8 +211,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     private lateinit var header: AccountHeaderView
 
     private var onTabSelectedListener: OnTabSelectedListener? = null
-
-    private lateinit var glide: RequestManager
 
     // We need to know if the emoji pack has been changed
     private var selectedEmojiPack: String? = null
@@ -281,8 +278,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         }
 
         window.statusBarColor = Color.TRANSPARENT // don't draw a status bar, the DrawerLayout and the MaterialDrawerLayout have their own
-
-        glide = Glide.with(this)
 
         // Determine which of the three toolbars should be the supportActionBar (which hosts
         // the options menu).
@@ -411,7 +406,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     }
 
     override fun onPrepareMenu(menu: Menu) {
-        super<BottomSheetActivity>.onPrepareMenu(menu)
+        super<ViewUrlActivity>.onPrepareMenu(menu)
 
         menu.findItem(R.id.action_remove_tab).isVisible = tabAdapter.tabs.getOrNull(binding.viewPager.currentItem)?.let {
             it.timeline != Timeline.Home
@@ -1223,7 +1218,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         val profiles: MutableList<IProfile> = uiState.accounts.map { acc ->
             ProfileDrawerItem().apply {
                 isSelected = acc.isActive
-                nameText = acc.displayName.emojify(acc.emojis, header, animateEmojis)
+                nameText = acc.displayName.emojify(glide, acc.emojis, header, animateEmojis)
                 iconUrl = acc.profilePictureUrl
                 isNameShown = true
                 identifier = acc.id

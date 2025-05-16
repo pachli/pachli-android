@@ -24,7 +24,7 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import app.pachli.core.activity.BottomSheetActivity
+import app.pachli.core.activity.ViewUrlActivity
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.ui.extensions.reduceSwipeSensitivity
@@ -36,7 +36,7 @@ import com.mikepenz.aboutlibraries.LibsBuilder
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AboutActivity : BottomSheetActivity(), MenuProvider {
+class AboutActivity : ViewUrlActivity(), MenuProvider {
 
     private val binding: ActivityAboutBinding by viewBinding(ActivityAboutBinding::inflate)
 
