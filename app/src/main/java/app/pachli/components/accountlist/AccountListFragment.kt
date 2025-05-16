@@ -167,13 +167,13 @@ class AccountListFragment :
     }
 
     override fun onViewTag(tag: String) {
-        activity?.startActivityWithDefaultTransition(
+        startActivityWithDefaultTransition(
             TimelineActivityIntent.hashtag(requireContext(), pachliAccountId, tag),
         )
     }
 
     override fun onViewAccount(id: String) {
-        activity?.startActivityWithDefaultTransition(
+        startActivityWithDefaultTransition(
             AccountActivityIntent(requireContext(), pachliAccountId, id),
         )
     }

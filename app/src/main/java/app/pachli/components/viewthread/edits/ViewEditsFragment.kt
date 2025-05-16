@@ -200,13 +200,13 @@ class ViewEditsFragment :
     }
 
     override fun onViewAccount(id: String) {
-        bottomSheetActivity?.startActivityWithDefaultTransition(
+        startActivityWithDefaultTransition(
             AccountActivityIntent(requireContext(), pachliAccountId, id),
         )
     }
 
     override fun onViewTag(tag: String) {
-        bottomSheetActivity?.startActivityWithDefaultTransition(
+        startActivityWithDefaultTransition(
             TimelineActivityIntent.hashtag(requireContext(), pachliAccountId, tag),
         )
     }

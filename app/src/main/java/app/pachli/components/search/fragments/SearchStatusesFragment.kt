@@ -179,7 +179,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
     }
 
     override fun onEditFilterById(pachliAccountId: Long, filterId: String) {
-        requireActivity().startActivityWithTransition(
+        startActivityWithTransition(
             EditContentFilterActivityIntent.edit(requireContext(), pachliAccountId, filterId),
             TransitionKind.SLIDE_FROM_END,
         )
@@ -206,7 +206,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                 kind = ComposeOptions.ComposeKind.NEW,
             ),
         )
-        bottomSheetActivity?.startActivityWithDefaultTransition(intent)
+        startActivityWithDefaultTransition(intent)
     }
 
     private fun more(statusViewData: StatusViewData, view: View) {
