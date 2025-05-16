@@ -153,11 +153,11 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
 
     override fun onViewThread(status: Status) {
         val actionableStatus = status.actionableStatus
-        bottomSheetActivity?.viewThread(pachliAccountId, actionableStatus.id, actionableStatus.url)
+        viewUrlActivity?.viewThread(pachliAccountId, actionableStatus.id, actionableStatus.url)
     }
 
     override fun onOpenReblog(status: Status) {
-        bottomSheetActivity?.viewAccount(pachliAccountId, status.account.id)
+        viewUrlActivity?.viewAccount(pachliAccountId, status.account.id)
     }
 
     override fun onExpandedChange(viewData: StatusViewData, expanded: Boolean) {
@@ -179,7 +179,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
     }
 
     override fun onEditFilterById(pachliAccountId: Long, filterId: String) {
-        requireActivity().startActivityWithTransition(
+        startActivityWithTransition(
             EditContentFilterActivityIntent.edit(requireContext(), pachliAccountId, filterId),
             TransitionKind.SLIDE_FROM_END,
         )
@@ -206,7 +206,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                 kind = ComposeOptions.ComposeKind.NEW,
             ),
         )
-        bottomSheetActivity?.startActivityWithDefaultTransition(intent)
+        startActivityWithDefaultTransition(intent)
     }
 
     private fun more(statusViewData: StatusViewData, view: View) {
@@ -245,7 +245,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
         }
 
         val openAsItem = popup.menu.findItem(R.id.status_open_as)
-        val openAsText = bottomSheetActivity?.openAsText
+        val openAsText = viewUrlActivity?.openAsText
         if (openAsText == null) {
             openAsItem.isVisible = false
         } else {
@@ -373,8 +373,8 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
 
     private fun showOpenAsDialog(statusUrl: String, dialogTitle: CharSequence?) {
         viewLifecycleOwner.lifecycleScope.launch {
-            bottomSheetActivity?.chooseAccount(dialogTitle, false)?.let { account ->
-                bottomSheetActivity?.openAsAccount(statusUrl, account)
+            viewUrlActivity?.chooseAccount(dialogTitle, false)?.let { account ->
+                viewUrlActivity?.openAsAccount(statusUrl, account)
             }
         }
     }

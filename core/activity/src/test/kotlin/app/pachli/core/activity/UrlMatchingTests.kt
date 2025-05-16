@@ -17,7 +17,7 @@
 
 package app.pachli.core.activity
 
-import app.pachli.core.activity.BottomSheetActivity.Companion.looksLikeMastodonUrl
+import app.pachli.core.activity.ViewUrlActivity.Companion.looksLikeMastodonUrl
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith

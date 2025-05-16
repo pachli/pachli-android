@@ -24,6 +24,7 @@ import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.testing.rules.MainCoroutineRule
 import app.pachli.core.testing.success
+import com.google.android.material.snackbar.Snackbar
 import java.time.Instant
 import java.util.Date
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -42,14 +43,14 @@ import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class BottomSheetActivityTest {
+class ViewUrlActivityTest {
     @get:Rule
     val instantTaskExecutorRule: InstantTaskExecutorRule = InstantTaskExecutorRule()
 
     @get:Rule
     val mainCoroutineRule = MainCoroutineRule(dispatcher = StandardTestDispatcher())
 
-    private lateinit var activity: FakeBottomSheetActivity
+    private lateinit var activity: FakeViewUrlActivity
     private lateinit var apiMock: MastodonApi
     private val accountQuery = "http://mastodon.foo.bar/@User"
     private val statusQuery = "http://mastodon.foo.bar/@User/345678"
@@ -119,7 +120,7 @@ class BottomSheetActivityTest {
             onBlocking { search(eq(nonMastodonQuery), eq(null), anyBoolean(), eq(null), eq(null), eq(null)) } doReturn emptyResponse
         }
 
-        activity = FakeBottomSheetActivity(apiMock)
+        activity = FakeViewUrlActivity(apiMock)
     }
 
     @Test
@@ -253,7 +254,7 @@ class BottomSheetActivityTest {
         assertEquals(null, activity.accountId)
     }
 
-    class FakeBottomSheetActivity(api: MastodonApi) : BottomSheetActivity() {
+    class FakeViewUrlActivity(api: MastodonApi) : ViewUrlActivity() {
 
         var pachliAccountId: Long? = null
         var statusId: String? = null
@@ -263,7 +264,6 @@ class BottomSheetActivityTest {
 
         init {
             mastodonApi = api
-            bottomSheet = mock()
         }
 
         override fun openLink(url: String) {
@@ -284,5 +284,7 @@ class BottomSheetActivityTest {
             this.link = url
             this.fallbackBehavior = fallbackBehavior
         }
+
+        override fun makeSnackbar(): Snackbar = mock()
     }
 }

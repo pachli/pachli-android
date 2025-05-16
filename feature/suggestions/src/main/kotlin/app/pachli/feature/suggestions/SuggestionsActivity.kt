@@ -19,8 +19,8 @@ package app.pachli.feature.suggestions
 
 import android.os.Bundle
 import androidx.fragment.app.commit
-import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.activity.ReselectableFragment
+import app.pachli.core.activity.ViewUrlActivity
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.feature.suggestions.databinding.ActivitySuggestionsBinding
@@ -31,7 +31,7 @@ import dagger.hilt.android.AndroidEntryPoint
  * the suggestion.
  */
 @AndroidEntryPoint
-class SuggestionsActivity : BottomSheetActivity() {
+class SuggestionsActivity : ViewUrlActivity() {
     private val binding by viewBinding(ActivitySuggestionsBinding::inflate)
 
     override fun onCreate(savedInstanceState: Bundle?) {
