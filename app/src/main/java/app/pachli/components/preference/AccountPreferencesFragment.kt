@@ -158,7 +158,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                 setIcon(R.drawable.ic_add_to_tab_24)
                 setOnPreferenceClickListener {
                     val intent = TabPreferenceActivityIntent(context, pachliAccountId)
-                    activity?.startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
+                    startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
                     true
                 }
             }
@@ -168,7 +168,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                 setIcon(R.drawable.ic_hashtag)
                 setOnPreferenceClickListener {
                     val intent = FollowedTagsActivityIntent(context, pachliAccountId)
-                    activity?.startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
+                    startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
                     true
                 }
             }
@@ -178,7 +178,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                 setIcon(R.drawable.ic_mute_24dp)
                 setOnPreferenceClickListener {
                     val intent = AccountListActivityIntent(context, pachliAccountId, AccountListActivityIntent.Kind.MUTES)
-                    activity?.startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
+                    startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
                     true
                 }
             }
@@ -188,7 +188,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                 icon = makeIcon(GoogleMaterial.Icon.gmd_block)
                 setOnPreferenceClickListener {
                     val intent = AccountListActivityIntent(context, pachliAccountId, AccountListActivityIntent.Kind.BLOCKS)
-                    activity?.startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
+                    startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
                     true
                 }
             }
@@ -198,7 +198,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                 setIcon(R.drawable.ic_mute_24dp)
                 setOnPreferenceClickListener {
                     val intent = InstanceListActivityIntent(context)
-                    activity?.startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
+                    startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
                     true
                 }
             }
@@ -209,7 +209,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                     setIcon(R.drawable.ic_logout)
                     setOnPreferenceClickListener {
                         val intent = LoginActivityIntent(context, LoginMode.Reauthenticate(accountManager.activeAccount!!.domain))
-                        activity?.startActivityWithTransition(intent, TransitionKind.EXPLODE)
+                        startActivityWithTransition(intent, TransitionKind.EXPLODE)
                         true
                     }
                 }
@@ -222,7 +222,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                     setTitle(R.string.pref_title_content_filters)
                     setOnPreferenceClickListener {
                         val intent = ContentFiltersActivityIntent(requireContext(), pachliAccountId)
-                        activity?.startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
+                        startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
                         true
                     }
                     setSummaryProvider {

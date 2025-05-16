@@ -179,12 +179,12 @@ class SuggestionsFragment :
         when (uiAction) {
             is NavigationAction -> {
                 when (uiAction) {
-                    is NavigationAction.ViewAccount -> requireActivity().startActivityWithTransition(
+                    is NavigationAction.ViewAccount -> startActivityWithTransition(
                         AccountActivityIntent(requireContext(), pachliAccountId, uiAction.accountId),
                         TransitionKind.SLIDE_FROM_END,
                     )
 
-                    is NavigationAction.ViewHashtag -> requireActivity().startActivityWithTransition(
+                    is NavigationAction.ViewHashtag -> startActivityWithTransition(
                         TimelineActivityIntent.hashtag(
                             requireContext(),
                             pachliAccountId,
