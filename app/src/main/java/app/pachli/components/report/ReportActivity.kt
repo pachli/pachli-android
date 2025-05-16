@@ -109,7 +109,7 @@ class ReportActivity : ViewUrlActivity() {
         if (url.isNullOrBlank()) return
 
         viewModel.urlChecked()
-        viewUrl(url)
+        viewUrl(intent.pachliAccountId, url)
     }
 
     private fun showDonePage() {

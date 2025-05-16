@@ -43,7 +43,7 @@ import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class BottomSheetActivityTest {
+class ViewUrlActivityTest {
     @get:Rule
     val instantTaskExecutorRule: InstantTaskExecutorRule = InstantTaskExecutorRule()
 
@@ -285,6 +285,6 @@ class BottomSheetActivityTest {
             this.fallbackBehavior = fallbackBehavior
         }
 
-        override fun makeSnackbar(): Snackbar = mock()
+        override fun showSnackbar() {}
     }
 }

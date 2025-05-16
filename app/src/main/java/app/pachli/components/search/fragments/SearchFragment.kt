@@ -153,22 +153,22 @@ abstract class SearchFragment<T : Any> :
     }
 
     override fun onViewAccount(id: String) {
-        bottomSheetActivity?.startActivityWithDefaultTransition(
+        startActivityWithDefaultTransition(
             AccountActivityIntent(requireContext(), pachliAccountId, id),
         )
     }
 
     override fun onViewTag(tag: String) {
-        bottomSheetActivity?.startActivityWithDefaultTransition(
+        startActivityWithDefaultTransition(
             TimelineActivityIntent.hashtag(requireContext(), pachliAccountId, tag),
         )
     }
 
     override fun onViewUrl(url: String) {
-        bottomSheetActivity?.viewUrl(url)
+        viewUrlActivity?.viewUrl(pachliAccountId, url)
     }
 
-    protected val bottomSheetActivity
+    protected val viewUrlActivity
         get() = (activity as? ViewUrlActivity)
 
     override fun onRefresh() {

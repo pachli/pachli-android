@@ -200,22 +200,22 @@ class ViewEditsFragment :
     }
 
     override fun onViewAccount(id: String) {
-        bottomSheetActivity?.startActivityWithDefaultTransition(
+        startActivityWithDefaultTransition(
             AccountActivityIntent(requireContext(), pachliAccountId, id),
         )
     }
 
     override fun onViewTag(tag: String) {
-        bottomSheetActivity?.startActivityWithDefaultTransition(
+        startActivityWithDefaultTransition(
             TimelineActivityIntent.hashtag(requireContext(), pachliAccountId, tag),
         )
     }
 
     override fun onViewUrl(url: String) {
-        bottomSheetActivity?.viewUrl(url)
+        viewUrlActivity?.viewUrl(pachliAccountId, url)
     }
 
-    private val bottomSheetActivity
+    private val viewUrlActivity
         get() = (activity as? ViewUrlActivity)
 
     companion object {

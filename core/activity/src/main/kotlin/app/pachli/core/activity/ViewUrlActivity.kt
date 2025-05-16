@@ -22,7 +22,6 @@ import android.widget.Toast
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.lifecycleScope
 import app.pachli.core.activity.extensions.TransitionKind
-import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.ViewThreadActivityIntent
@@ -41,13 +40,8 @@ import kotlinx.coroutines.launch
  * Base class for all activities that open URLs.
  *
  * If a URL appears to be to a status or account a search is performed on the
- * user's server to try and find that status or account. If successful it is
- * then shown in the Pachli UI.
- *
- *
- *
- * Links are checked against the api if they are mastodon links so they can be
- * opened in Pachli.
+ * user's server to try and find that status or account. If successful an
+ * activity to show the status's thread or the account is started.
  *
  * Displays a Snackbar while the link is resolved.
  */
@@ -63,20 +57,23 @@ abstract class ViewUrlActivity : BaseActivity() {
     var snackbar: Snackbar? = null
 
     /**
-     * Determines if [url] likely points to a status or account.
+     * Launches an activity to view [url].
      *
-     * If it does not then [url] is opened in the browser, using [openUrl].
+     * If [url] does not seem to be a Mastodon URL for a status or account the
+     * then [url] is opened in the browser, using [openUrl].
      *
      * If it does then search the user's server for [url] to see if it
-     * resolves to either a status or account. If it does then view the
-     * status or account in Pachli.
+     * resolves to either a status or account. If it does then start the
+     * appropriate activity to view the status (thread) or account in Pachli.
      *
      * If the search fails, or there is no match, use [lookupFallbackBehavior].
      *
-     * @param url
-     * @param lookupFallbackBehavior
+     * @param pachliAccountId
+     * @param url URL to view
+     * @param lookupFallbackBehavior Behaviour if the URL does not match a status
+     * or account.
      */
-    open fun viewUrl(url: String, lookupFallbackBehavior: PostLookupFallbackBehavior = PostLookupFallbackBehavior.OPEN_IN_BROWSER) {
+    open fun viewUrl(pachliAccountId: Long, url: String, lookupFallbackBehavior: PostLookupFallbackBehavior = PostLookupFallbackBehavior.OPEN_IN_BROWSER) {
         if (!looksLikeMastodonUrl(url)) {
             openLink(url)
             return
@@ -91,14 +88,14 @@ abstract class ViewUrlActivity : BaseActivity() {
                 onEndSearch(url)
 
                 statuses.firstOrNull()?.let {
-                    viewThread(intent.pachliAccountId, it.id, it.url)
+                    viewThread(pachliAccountId, it.id, it.url)
                     return@onSuccess
                 }
 
                 // Some servers return (unrelated) accounts for url searches (#2804)
                 // Verify that the account's url matches the query
                 accounts.firstOrNull { it.url.equals(url, ignoreCase = true) }?.let {
-                    viewAccount(intent.pachliAccountId, it.id)
+                    viewAccount(pachliAccountId, it.id)
                     return@onSuccess
                 }
 
@@ -121,7 +118,7 @@ abstract class ViewUrlActivity : BaseActivity() {
 
     open fun viewAccount(pachliAccountId: Long, id: String) {
         val intent = AccountActivityIntent(this, pachliAccountId, id)
-        startActivityWithDefaultTransition(intent)
+        startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
     }
 
     protected open fun performUrlFallbackAction(url: String, fallbackBehavior: PostLookupFallbackBehavior) {
@@ -149,7 +146,7 @@ abstract class ViewUrlActivity : BaseActivity() {
             // Don't clear query if there's no match,
             // since we might just now be getting the response for a canceled search
             searchUrl = null
-            hideSnackbar()
+            snackbar?.dismiss()
         }
     }
 
@@ -163,21 +160,23 @@ abstract class ViewUrlActivity : BaseActivity() {
     @VisibleForTesting(otherwise = VisibleForTesting.PROTECTED)
     open fun openLink(url: String) = openUrl(url)
 
+    /**
+     * Shows the snackbar while searching.
+     *
+     * Replaces any existing snackbar.
+     */
+    // Visible so tests can override this with a mock.
     @VisibleForTesting()
-    open fun makeSnackbar() = Snackbar.make(window.decorView.rootView, R.string.performing_lookup_title, Snackbar.LENGTH_INDEFINITE)
-        .apply {
-            behavior = object : BaseTransientBottomBar.Behavior() {
-                override fun canSwipeDismissView(child: View) = false
-            }
-        }
-
-    private fun showSnackbar() {
+    open fun showSnackbar() {
         // Show snackbar
         snackbar?.dismiss()
-        makeSnackbar().also { snackbar = it }.show()
+        Snackbar.make(window.decorView.rootView, R.string.performing_lookup_title, Snackbar.LENGTH_INDEFINITE)
+            .apply {
+                behavior = object : BaseTransientBottomBar.Behavior() {
+                    override fun canSwipeDismissView(child: View) = false
+                }
+            }.also { snackbar = it }.show()
     }
-
-    private fun hideSnackbar() = snackbar?.dismiss()
 
     companion object {
         // https://mastodon.foo.bar/@User

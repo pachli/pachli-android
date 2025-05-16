@@ -267,7 +267,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
                     }
                 }
 
-                is Payload.OpenAs -> viewUrl(payload.url, PostLookupFallbackBehavior.DISPLAY_ERROR)
+                is Payload.OpenAs -> viewUrl(intent.pachliAccountId, payload.url, PostLookupFallbackBehavior.DISPLAY_ERROR)
 
                 Payload.OpenDrafts -> startActivity(DraftsActivityIntent(this, intent.pachliAccountId))
 

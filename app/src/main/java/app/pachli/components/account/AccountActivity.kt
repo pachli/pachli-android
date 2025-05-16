@@ -988,7 +988,7 @@ class AccountActivity :
     }
 
     override fun onViewUrl(url: String) {
-        viewUrl(url)
+        viewUrl(intent.pachliAccountId, url)
     }
 
     override fun onMenuItemSelected(item: MenuItem): Boolean {

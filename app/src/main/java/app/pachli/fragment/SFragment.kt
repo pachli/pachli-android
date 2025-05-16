@@ -117,9 +117,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context !is ViewUrlActivity) {
-            throw IllegalStateException("Fragment must be attached to a ViewUrlActivity!")
-        }
+        (context as? ViewUrlActivity) ?: throw IllegalStateException("Fragment must be attached to a BottomSheetActivity")
     }
 
     @CallSuper
@@ -159,24 +157,23 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
         }
     }
 
-    protected fun openReblog(status: Status?) {
-        if (status == null) return
+    protected fun openReblog(status: Status) {
         val intent = AccountActivityIntent(requireActivity(), pachliAccountId, status.account.id)
         startActivityWithDefaultTransition(intent)
     }
 
-    protected fun viewThread(statusId: String?, statusUrl: String?) {
-        val intent = ViewThreadActivityIntent(requireActivity(), pachliAccountId, statusId!!, statusUrl)
+    protected fun viewThread(statusId: String, statusUrl: String?) {
+        val intent = ViewThreadActivityIntent(requireActivity(), pachliAccountId, statusId, statusUrl)
         startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
     }
 
-    protected fun viewAccount(accountId: String?) {
-        val intent = AccountActivityIntent(requireActivity(), pachliAccountId, accountId!!)
+    protected fun viewAccount(accountId: String) {
+        val intent = AccountActivityIntent(requireActivity(), pachliAccountId, accountId)
         startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
     }
 
     override fun onViewUrl(url: String) {
-        (requireActivity() as? ViewUrlActivity)?.viewUrl(url)
+        (requireActivity() as? ViewUrlActivity)?.viewUrl(pachliAccountId, url)
     }
 
     protected fun reply(pachliAccountId: Long, status: Status) {

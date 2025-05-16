@@ -87,8 +87,6 @@ class SuggestionsFragment :
 
     private val binding by viewBinding(FragmentSuggestionsBinding::bind)
 
-    private lateinit var bottomSheetActivity: ViewUrlActivity
-
     private lateinit var suggestionsAdapter: SuggestionsAdapter
 
     private var talkBackWasEnabled = false
@@ -108,7 +106,7 @@ class SuggestionsFragment :
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        bottomSheetActivity = (context as? ViewUrlActivity) ?: throw IllegalStateException("Fragment must be attached to a BottomSheetActivity")
+        (context as? ViewUrlActivity) ?: throw IllegalStateException("Fragment must be attached to a BottomSheetActivity")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -178,12 +176,12 @@ class SuggestionsFragment :
         when (uiAction) {
             is NavigationAction -> {
                 when (uiAction) {
-                    is NavigationAction.ViewAccount -> requireActivity().startActivityWithTransition(
+                    is NavigationAction.ViewAccount -> startActivityWithTransition(
                         AccountActivityIntent(requireContext(), pachliAccountId, uiAction.accountId),
                         TransitionKind.SLIDE_FROM_END,
                     )
 
-                    is NavigationAction.ViewHashtag -> requireActivity().startActivityWithTransition(
+                    is NavigationAction.ViewHashtag -> startActivityWithTransition(
                         TimelineActivityIntent.hashtag(
                             requireContext(),
                             pachliAccountId,
@@ -192,7 +190,8 @@ class SuggestionsFragment :
                         TransitionKind.SLIDE_FROM_END,
                     )
 
-                    is NavigationAction.ViewUrl -> bottomSheetActivity.viewUrl(
+                    is NavigationAction.ViewUrl -> (requireActivity() as? ViewUrlActivity)?.viewUrl(
+                        pachliAccountId,
                         uiAction.url,
                     )
                 }

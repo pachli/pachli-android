@@ -166,19 +166,19 @@ class AccountListFragment :
     }
 
     override fun onViewTag(tag: String) {
-        activity?.startActivityWithDefaultTransition(
+        startActivityWithDefaultTransition(
             TimelineActivityIntent.hashtag(requireContext(), pachliAccountId, tag),
         )
     }
 
     override fun onViewAccount(id: String) {
-        activity?.startActivityWithDefaultTransition(
+        startActivityWithDefaultTransition(
             AccountActivityIntent(requireContext(), pachliAccountId, id),
         )
     }
 
     override fun onViewUrl(url: String) {
-        (activity as? ViewUrlActivity)?.viewUrl(url)
+        (activity as? ViewUrlActivity)?.viewUrl(pachliAccountId, url)
     }
 
     override fun onMute(mute: Boolean, id: String, position: Int, notifications: Boolean) {
