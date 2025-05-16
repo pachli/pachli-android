@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_open_as">Ouvrir comme %s</string>
     <string name="post_lookup_error_format">Erreur lors de la recherche du post %s</string>
