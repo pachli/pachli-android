@@ -37,9 +37,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import app.pachli.R
 import app.pachli.core.activity.BaseActivity
-import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.activity.OpenUrlUseCase
-import app.pachli.core.activity.PostLookupFallbackBehavior
+import app.pachli.core.activity.ViewUrlActivity
 import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
@@ -51,6 +50,7 @@ import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.domain.DownloadUrlUseCase
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE
+import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
@@ -58,6 +58,7 @@ import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InReplyTo
 import app.pachli.core.navigation.ReportActivityIntent
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.navigation.ViewMediaActivityIntent
+import app.pachli.core.navigation.ViewThreadActivityIntent
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.parseAsMastodonHtml
@@ -77,8 +78,6 @@ import timber.log.Timber
 
 abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener<T> {
     protected abstract fun removeItem(viewData: T)
-
-    private lateinit var bottomSheetActivity: BottomSheetActivity
 
     @Inject
     lateinit var mastodonApi: MastodonApi
@@ -118,11 +117,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        bottomSheetActivity = if (context is BottomSheetActivity) {
-            context
-        } else {
-            throw IllegalStateException("Fragment must be attached to a BottomSheetActivity!")
-        }
+        (context as? ViewUrlActivity) ?: throw IllegalStateException("Fragment must be attached to a BottomSheetActivity")
     }
 
     @CallSuper
@@ -162,21 +157,23 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
         }
     }
 
-    protected fun openReblog(status: Status?) {
-        if (status == null) return
-        bottomSheetActivity.viewAccount(pachliAccountId, status.account.id)
+    protected fun openReblog(status: Status) {
+        val intent = AccountActivityIntent(requireActivity(), pachliAccountId, status.account.id)
+        startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
     }
 
-    protected fun viewThread(statusId: String?, statusUrl: String?) {
-        bottomSheetActivity.viewThread(pachliAccountId, statusId!!, statusUrl)
+    protected fun viewThread(statusId: String, statusUrl: String?) {
+        val intent = ViewThreadActivityIntent(requireActivity(), pachliAccountId, statusId, statusUrl)
+        startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
     }
 
-    protected fun viewAccount(accountId: String?) {
-        bottomSheetActivity.viewAccount(pachliAccountId, accountId!!)
+    protected fun viewAccount(accountId: String) {
+        val intent = AccountActivityIntent(requireActivity(), pachliAccountId, accountId)
+        startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
     }
 
     override fun onViewUrl(url: String) {
-        bottomSheetActivity.viewUrl(pachliAccountId, url, PostLookupFallbackBehavior.OPEN_IN_BROWSER)
+        (requireActivity() as? ViewUrlActivity)?.viewUrl(pachliAccountId, url)
     }
 
     protected fun reply(pachliAccountId: Long, status: Status) {

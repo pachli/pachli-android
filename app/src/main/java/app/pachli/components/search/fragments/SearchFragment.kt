@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import app.pachli.R
 import app.pachli.components.search.SearchViewModel
-import app.pachli.core.activity.BottomSheetActivity
+import app.pachli.core.activity.ViewUrlActivity
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
@@ -165,11 +165,11 @@ abstract class SearchFragment<T : Any> :
     }
 
     override fun onViewUrl(url: String) {
-        bottomSheetActivity?.viewUrl(pachliAccountId, url)
+        viewUrlActivity?.viewUrl(pachliAccountId, url)
     }
 
-    protected val bottomSheetActivity
-        get() = (activity as? BottomSheetActivity)
+    protected val viewUrlActivity
+        get() = (activity as? ViewUrlActivity)
 
     override fun onRefresh() {
         adapter.refresh()

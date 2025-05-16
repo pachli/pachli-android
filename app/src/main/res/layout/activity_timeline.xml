@@ -25,6 +25,4 @@
         app:layout_anchor="@id/fragmentContainer"
         app:layout_anchorGravity="bottom|end"
         app:srcCompat="@drawable/ic_create_24dp" />
-    <include layout="@layout/item_status_bottom_sheet" />
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
