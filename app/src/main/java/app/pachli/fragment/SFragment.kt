@@ -159,7 +159,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
 
     protected fun openReblog(status: Status) {
         val intent = AccountActivityIntent(requireActivity(), pachliAccountId, status.account.id)
-        startActivityWithDefaultTransition(intent)
+        startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
     }
 
     protected fun viewThread(statusId: String, statusUrl: String?) {
