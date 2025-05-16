@@ -25,7 +25,7 @@ import androidx.annotation.Px
 import androidx.core.graphics.drawable.toDrawable
 import app.pachli.core.common.util.BlurHashDecoder
 import app.pachli.core.designsystem.R as DR
-import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.Transformation
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -34,6 +34,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 private val centerCropTransformation = CenterCrop()
 
 fun loadAvatar(
+    glide: RequestManager,
     url: String?,
     imageView: ImageView,
     @Px radius: Int,
@@ -41,8 +42,7 @@ fun loadAvatar(
     transforms: List<Transformation<Bitmap>>? = null,
 ) {
     if (url.isNullOrBlank()) {
-        Glide.with(imageView)
-            .load(DR.drawable.avatar_default)
+        glide.load(DR.drawable.avatar_default)
             .into(imageView)
     } else {
         val multiTransformation = MultiTransformation(
@@ -54,14 +54,12 @@ fun loadAvatar(
         )
 
         if (animate) {
-            Glide.with(imageView)
-                .load(url)
+            glide.load(url)
                 .transform(multiTransformation)
                 .placeholder(DR.drawable.avatar_default)
                 .into(imageView)
         } else {
-            Glide.with(imageView)
-                .asBitmap()
+            glide.asBitmap()
                 .load(url)
                 .transform(multiTransformation)
                 .placeholder(DR.drawable.avatar_default)

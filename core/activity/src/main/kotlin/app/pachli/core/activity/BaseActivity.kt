@@ -38,6 +38,7 @@ import androidx.lifecycle.lifecycleScope
 import app.pachli.core.activity.extensions.canOverrideActivityTransitions
 import app.pachli.core.activity.extensions.getTransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
+import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.database.model.AccountEntity
@@ -48,6 +49,7 @@ import app.pachli.core.navigation.LoginActivityIntent
 import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.ui.ChooseAccountSuspendDialogFragment
+import com.bumptech.glide.Glide
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.EntryPoint
@@ -79,6 +81,12 @@ abstract class BaseActivity : AppCompatActivity(), MenuProvider {
     interface SharedPreferencesRepositoryEntryPoint {
         fun sharedPreferencesRepository(): SharedPreferencesRepository
     }
+
+    /**
+     * Glide [RequestManager][com.bumptech.glide.RequestManager] that can be passed to
+     * anything that needs it scoped to this activity's lifecycle.
+     */
+    protected val glide by unsafeLazy { Glide.with(this) }
 
     override fun setTheme(@StyleRes themeId: Int) {
         activeThemeId = themeId

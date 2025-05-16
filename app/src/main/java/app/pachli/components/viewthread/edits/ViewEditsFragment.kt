@@ -45,6 +45,7 @@ import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.emojify
 import app.pachli.core.ui.loadAvatar
 import app.pachli.databinding.FragmentViewEditsBinding
+import com.bumptech.glide.Glide
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.mikepenz.iconics.IconicsDrawable
@@ -136,8 +137,11 @@ class ViewEditsFragment :
                         binding.statusView.hide()
                         binding.initialProgressBar.hide()
 
+                        val glide = Glide.with(this@ViewEditsFragment)
+
                         binding.recyclerView.adapter = ViewEditsAdapter(
                             context = requireContext(),
+                            glide = glide,
                             edits = uiState.edits,
                             animateEmojis = animateEmojis,
                             useBlurhash = useBlurhash,
@@ -148,9 +152,14 @@ class ViewEditsFragment :
                         (binding.recyclerView.layoutManager as LinearLayoutManager).scrollToPosition(0)
 
                         val account = uiState.edits.first().account
-                        loadAvatar(account.avatar, binding.statusAvatar, avatarRadius, animateAvatars)
+                        loadAvatar(glide, account.avatar, binding.statusAvatar, avatarRadius, animateAvatars)
 
-                        binding.statusDisplayName.text = account.name.unicodeWrap().emojify(account.emojis, binding.statusDisplayName, animateEmojis)
+                        binding.statusDisplayName.text = account.name.unicodeWrap().emojify(
+                            glide,
+                            account.emojis,
+                            binding.statusDisplayName,
+                            animateEmojis,
+                        )
                         binding.statusUsername.text = account.username
                     }
                 }

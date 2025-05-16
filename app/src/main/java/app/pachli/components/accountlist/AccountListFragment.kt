@@ -36,6 +36,7 @@ import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AccountListActivityIntent.Kind
@@ -59,6 +60,7 @@ import app.pachli.databinding.FragmentAccountListBinding
 import app.pachli.interfaces.AccountActionListener
 import app.pachli.interfaces.AppBarLayoutHost
 import app.pachli.view.EndlessOnScrollListener
+import com.bumptech.glide.Glide
 import com.github.michaelbull.result.getOrElse
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
@@ -98,6 +100,8 @@ class AccountListFragment :
 
     private var pachliAccountId by Delegates.notNull<Long>()
 
+    private val glide by unsafeLazy { Glide.with(this) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         pachliAccountId = requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID)
@@ -124,18 +128,19 @@ class AccountListFragment :
         val activeAccount = accountManager.activeAccount!!
 
         adapter = when (kind) {
-            BLOCKS -> BlocksAdapter(this, animateAvatar, animateEmojis, showBotOverlay)
-            MUTES -> MutesAdapter(this, animateAvatar, animateEmojis, showBotOverlay)
+            BLOCKS -> BlocksAdapter(glide, this, animateAvatar, animateEmojis, showBotOverlay)
+            MUTES -> MutesAdapter(glide, this, animateAvatar, animateEmojis, showBotOverlay)
             FOLLOW_REQUESTS -> {
                 val headerAdapter = FollowRequestsHeaderAdapter(
                     instanceName = activeAccount.domain,
                     accountLocked = activeAccount.locked,
                 )
-                val followRequestsAdapter = FollowRequestsAdapter(this, this, animateAvatar, animateEmojis, showBotOverlay)
+                val followRequestsAdapter = FollowRequestsAdapter(glide, this, this, animateAvatar, animateEmojis, showBotOverlay)
                 binding.recyclerView.adapter = ConcatAdapter(headerAdapter, followRequestsAdapter)
                 followRequestsAdapter
             }
-            else -> FollowAdapter(this, animateAvatar, animateEmojis, showBotOverlay)
+
+            else -> FollowAdapter(glide, this, animateAvatar, animateEmojis, showBotOverlay)
         }
         if (binding.recyclerView.adapter == null) {
             binding.recyclerView.adapter = adapter

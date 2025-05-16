@@ -45,6 +45,7 @@ import app.pachli.core.navigation.ViewMediaActivityIntent
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.databinding.FragmentTimelineBinding
+import com.bumptech.glide.Glide
 import com.google.android.material.color.MaterialColors
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
@@ -88,6 +89,7 @@ class AccountMediaFragment :
 
         adapter = AccountMediaGridAdapter(
             context = view.context,
+            glide = Glide.with(this),
             statusDisplayOptions = viewModel.statusDisplayOptions.value,
             onAttachmentClickListener = ::onAttachmentClick,
         )

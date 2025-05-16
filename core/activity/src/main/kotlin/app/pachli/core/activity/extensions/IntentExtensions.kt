@@ -22,7 +22,7 @@ import android.os.Build
 import androidx.annotation.AnimRes
 import app.pachli.core.designsystem.R as DR
 
-const val EXTRA_TRANSITION_KIND = "transition_kind"
+const val EXTRA_TRANSITION_KIND = "app.pachli.core.activity.extensions.EXTRA_TRANSITION_KIND"
 
 /**
  * The type of transition and animation resources to use when opening and closing

@@ -58,6 +58,7 @@ import app.pachli.core.ui.makeIcon
 import app.pachli.feature.suggestions.UiAction.GetSuggestions
 import app.pachli.feature.suggestions.UiAction.NavigationAction
 import app.pachli.feature.suggestions.databinding.FragmentSuggestionsBinding
+import com.bumptech.glide.Glide
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
@@ -119,6 +120,7 @@ class SuggestionsFragment :
         requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
         suggestionsAdapter = SuggestionsAdapter(
+            glide = Glide.with(this),
             animateAvatars = viewModel.uiState.value.animateAvatars,
             animateEmojis = viewModel.uiState.value.animateEmojis,
             showBotOverlay = viewModel.uiState.value.showBotOverlay,

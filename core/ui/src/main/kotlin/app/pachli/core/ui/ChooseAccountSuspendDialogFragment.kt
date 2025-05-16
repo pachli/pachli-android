@@ -40,6 +40,8 @@ import app.pachli.core.designsystem.R as DR
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.ui.ChooseAccountSuspendDialogFragment.Companion.newInstance
 import app.pachli.core.ui.databinding.ItemAutocompleteAccountBinding
+import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -79,6 +81,7 @@ open class ChooseAccountSuspendDialogFragment : AppCompatDialogFragment(), Suspe
 
         adapter = ChooseAccountAdapter(
             requireActivity(),
+            Glide.with(this),
             viewModel.animateAvatars,
             viewModel.animateEmojis,
         )
@@ -164,6 +167,7 @@ internal class ChooseAccountViewModel @Inject constructor(
  */
 class ChooseAccountAdapter(
     context: Context,
+    private val glide: RequestManager,
     private val animateAvatars: Boolean,
     private val animateEmojis: Boolean,
 ) : ArrayAdapter<PachliAccount>(context, R.layout.item_autocomplete_account) {
@@ -177,11 +181,11 @@ class ChooseAccountAdapter(
         val account = getItem(position) ?: return binding.root
 
         binding.username.text = account.entity.fullName
-        binding.displayName.text = account.entity.displayName.emojify(account.emojis, binding.displayName, animateEmojis)
+        binding.displayName.text = account.entity.displayName.emojify(glide, account.emojis, binding.displayName, animateEmojis)
         binding.avatarBadge.visibility = View.GONE // We never want to display the bot badge here
 
         val avatarRadius = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_42dp)
-        loadAvatar(account.entity.profilePictureUrl, binding.avatar, avatarRadius, animateAvatars)
+        loadAvatar(glide, account.entity.profilePictureUrl, binding.avatar, avatarRadius, animateAvatars)
 
         return binding.root
     }

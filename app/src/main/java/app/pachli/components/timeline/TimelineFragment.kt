@@ -82,6 +82,7 @@ import app.pachli.interfaces.AppBarLayoutHost
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.ListStatusAccessibilityDelegate
 import at.connyduck.sparkbutton.helpers.Utils
+import com.bumptech.glide.Glide
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
@@ -200,7 +201,7 @@ class TimelineFragment :
             SetMastodonHtmlContent
         }
 
-        adapter = TimelinePagingAdapter(setStatusContent, this, viewModel.statusDisplayOptions.value)
+        adapter = TimelinePagingAdapter(Glide.with(this), setStatusContent, this, viewModel.statusDisplayOptions.value)
 
         layoutManager = LinearLayoutManager(context)
 

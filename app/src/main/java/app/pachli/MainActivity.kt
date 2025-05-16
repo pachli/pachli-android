@@ -117,7 +117,6 @@ import app.pachli.updatecheck.UpdateCheck
 import app.pachli.usecase.DeveloperToolsUseCase
 import app.pachli.util.UpdateShortCutsUseCase
 import app.pachli.util.getDimension
-import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.target.CustomTarget
@@ -213,8 +212,6 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
 
     private var onTabSelectedListener: OnTabSelectedListener? = null
 
-    private lateinit var glide: RequestManager
-
     // We need to know if the emoji pack has been changed
     private var selectedEmojiPack: String? = null
 
@@ -281,8 +278,6 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
         }
 
         window.statusBarColor = Color.TRANSPARENT // don't draw a status bar, the DrawerLayout and the MaterialDrawerLayout have their own
-
-        glide = Glide.with(this)
 
         // Determine which of the three toolbars should be the supportActionBar (which hosts
         // the options menu).
@@ -1223,7 +1218,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
         val profiles: MutableList<IProfile> = uiState.accounts.map { acc ->
             ProfileDrawerItem().apply {
                 isSelected = acc.isActive
-                nameText = acc.displayName.emojify(acc.emojis, header, animateEmojis)
+                nameText = acc.displayName.emojify(glide, acc.emojis, header, animateEmojis)
                 iconUrl = acc.profilePictureUrl
                 isNameShown = true
                 identifier = acc.id

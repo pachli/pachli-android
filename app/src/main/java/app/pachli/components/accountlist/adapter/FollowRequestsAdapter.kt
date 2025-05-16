@@ -22,9 +22,11 @@ import app.pachli.adapter.FollowRequestViewHolder
 import app.pachli.core.ui.LinkListener
 import app.pachli.databinding.ItemFollowRequestBinding
 import app.pachli.interfaces.AccountActionListener
+import com.bumptech.glide.RequestManager
 
 /** Displays a list of follow requests with accept/reject buttons. */
 class FollowRequestsAdapter(
+    private val glide: RequestManager,
     accountActionListener: AccountActionListener,
     private val linkListener: LinkListener,
     animateAvatar: Boolean,
@@ -45,6 +47,7 @@ class FollowRequestsAdapter(
         )
         return FollowRequestViewHolder(
             binding,
+            glide,
             accountActionListener,
             linkListener,
             showHeader = false,

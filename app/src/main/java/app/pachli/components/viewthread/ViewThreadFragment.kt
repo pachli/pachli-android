@@ -55,6 +55,7 @@ import app.pachli.databinding.FragmentViewThreadBinding
 import app.pachli.fragment.SFragment
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.ListStatusAccessibilityDelegate
+import com.bumptech.glide.Glide
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
@@ -102,7 +103,7 @@ class ViewThreadFragment :
             SetMastodonHtmlContent
         }
 
-        adapter = ThreadAdapter(viewModel.statusDisplayOptions.value, this, setStatusContent, openUrl)
+        adapter = ThreadAdapter(Glide.with(this), viewModel.statusDisplayOptions.value, this, setStatusContent, openUrl)
     }
 
     override fun onCreateView(

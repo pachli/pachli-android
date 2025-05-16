@@ -110,14 +110,11 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
 
     protected abstract val pachliAccountId: Long
 
-    //    override fun startActivity(intent: Intent) {
-//        if (intent.forPachliComponent) {
-//            requireActivity().startActivityWithDefaultTransition(intent)
-//        } else {
-//            super.startActivity(intent)
-//        }
-//    }
-//
+    @Deprecated("Use startActivityWithTransition or startActivityWithDefaultTransition")
+    override fun startActivity(intent: Intent) {
+        super.startActivity(intent)
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context !is ViewUrlActivity) {
@@ -204,7 +201,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
         )
 
         val intent = ComposeActivityIntent(requireContext(), pachliAccountId, composeOptions)
-        startActivityWithDefaultTransition(intent)
+        startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
     }
 
     /**
@@ -444,7 +441,10 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
     }
 
     protected fun viewTag(tag: String) {
-        startActivityWithDefaultTransition(TimelineActivityIntent.hashtag(requireContext(), pachliAccountId, tag))
+        startActivityWithTransition(
+            TimelineActivityIntent.hashtag(requireContext(), pachliAccountId, tag),
+            TransitionKind.SLIDE_FROM_END,
+        )
     }
 
     private fun openReportPage(accountId: String, accountUsername: String, statusId: String) {
@@ -500,7 +500,10 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                             poll = sourceStatus.poll?.toNewPoll(sourceStatus.createdAt),
                             kind = ComposeOptions.ComposeKind.NEW,
                         )
-                        startActivityWithDefaultTransition(ComposeActivityIntent(requireContext(), pachliAccountId, composeOptions))
+                        startActivityWithTransition(
+                            ComposeActivityIntent(requireContext(), pachliAccountId, composeOptions),
+                            TransitionKind.SLIDE_FROM_END,
+                        )
                     }
                         .onFailure {
                             Timber.w("error deleting status: %s", it)
@@ -529,7 +532,10 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                     poll = status.poll?.toNewPoll(status.createdAt),
                     kind = ComposeOptions.ComposeKind.EDIT_POSTED,
                 )
-                startActivityWithDefaultTransition(ComposeActivityIntent(requireContext(), pachliAccountId, composeOptions))
+                startActivityWithTransition(
+                    ComposeActivityIntent(requireContext(), pachliAccountId, composeOptions),
+                    TransitionKind.SLIDE_FROM_END,
+                )
             }
                 .onFailure {
                     Snackbar.make(
