@@ -187,8 +187,10 @@ class ComposeActivity :
     lateinit var languageIdentifierFactory: LanguageIdentifier.Factory
 
     private val takePicture = registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
+        // photoUploadUri should never be null at this point, but don't crash if it is.
+        val uploadUri = photoUploadUri ?: return@registerForActivityResult
         if (success) {
-            pickMedia(photoUploadUri!!)
+            pickMedia(uploadUri)
         }
     }
     private val pickMediaFile = registerForActivityResult(PickMediaFiles()) { uris ->
@@ -259,6 +261,11 @@ class ComposeActivity :
         }
         setContentView(binding.root)
 
+        // Restore photoUploadUri early, as it's needed by `takePicture`.
+        savedInstanceState?.let {
+            photoUploadUri = BundleCompat.getParcelable(it, KEY_PHOTO_UPLOAD_URI, Uri::class.java)
+        }
+
         setupActionBar()
 
         val composeOptions: ComposeOptions? = ComposeActivityIntent.getComposeOptions(intent)
@@ -323,8 +330,6 @@ class ComposeActivity :
 
                 /* Finally, overwrite state with data from saved instance state. */
                 savedInstanceState?.let {
-                    photoUploadUri = BundleCompat.getParcelable(it, KEY_PHOTO_UPLOAD_URI, Uri::class.java)
-
                     (it.getSerializable(KEY_VISIBILITY) as Status.Visibility).apply {
                         setStatusVisibility(this)
                     }
