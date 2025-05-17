@@ -117,6 +117,7 @@ import app.pachli.updatecheck.UpdateCheck
 import app.pachli.usecase.DeveloperToolsUseCase
 import app.pachli.util.UpdateShortCutsUseCase
 import app.pachli.util.getDimension
+import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.target.CustomTarget
@@ -537,7 +538,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
         header.currentProfileName.setTextColor(headerTextColor)
         header.currentProfileEmail.setTextColor(headerTextColor)
 
-        DrawerImageLoader.init(MainDrawerImageLoader(glide, viewModel.uiState.value.animateAvatars))
+        DrawerImageLoader.init(MainDrawerImageLoader(viewModel.uiState.value.animateAvatars))
 
         binding.mainDrawerLayout.addDrawerListener(
             object : DrawerListener {
@@ -1292,8 +1293,14 @@ private var AbstractDrawerItem<*, *>.onClick: () -> Unit
 /**
  * Load images in to the drawer using the [RequestManager] in [glide].
  */
-class MainDrawerImageLoader(val glide: RequestManager, val animateAvatars: Boolean) : AbstractDrawerImageLoader() {
+// Can't pass `RequestManager` as a parameter here; it references the activity, and
+// is leaked by MaterialDrawer. Since `MainDrawerImageLoader` is only used in an activity
+// it's OK to use `Glide.with(View)` here, as the view's context is also the activity's
+// context.
+@SuppressLint("GlideWithViewDetector")
+class MainDrawerImageLoader(val animateAvatars: Boolean) : AbstractDrawerImageLoader() {
     override fun set(imageView: ImageView, uri: Uri, placeholder: Drawable, tag: String?) {
+        val glide = Glide.with(imageView)
         if (animateAvatars) {
             glide.load(uri).placeholder(placeholder).into(imageView)
         } else {
@@ -1302,7 +1309,7 @@ class MainDrawerImageLoader(val glide: RequestManager, val animateAvatars: Boole
     }
 
     override fun cancel(imageView: ImageView) {
-        glide.clear(imageView)
+        Glide.with(imageView).clear(imageView)
     }
 
     override fun placeholder(ctx: Context, tag: String?): Drawable {
