@@ -131,7 +131,7 @@
     <string name="action_block">Bac</string>
     <string name="action_unfollow">Stop ag leanúint</string>
     <string name="action_follow">Lean</string>
-    <string name="action_logout_confirm">An bhfuil tú cinnte gur mhaith leat logáil amach as %1$s? Scriosfaidh sé seo sonraí áitiúla uile an chuntais, lena n-áirítear dréachtaí agus sainroghanna.</string>
+    <string name="action_logout_confirm">Scriosfaidh sé seo gach sonraí áitiúla de chuntas %1$s, lena n-áirítear dréachtaí agus roghanna.\n\nNí scriosfaidh sé seo do chuntas ar an bhfreastalaí.</string>
     <string name="action_compose">Cum</string>
     <string name="action_unfavourite">Bain togha</string>
     <string name="action_bookmark">Leabharmharc</string>
@@ -858,4 +858,5 @@
     <string name="export_preferences_ok_fmt">Roghanna a easpórtáileadh chuig %1$s</string>
     <string name="error_export_preferences_fmt">Níorbh fhéidir roghanna a easpórtáil chuig %1$s: %2$s</string>
     <string name="error_import_preferences_fmt">Níorbh fhéidir roghanna a iompórtáil ó %1$s: %2$s</string>
+    <string name="title_logout_fmt">Logáil amach %1$s</string>
 </resources>
