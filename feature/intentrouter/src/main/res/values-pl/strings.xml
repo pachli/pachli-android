@@ -1,7 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_set_active_account">Próba zalogowania nie powiodła się i zwróciła błąd:\n\n%1$s</string>
     <string name="error_refresh_account">Odświeżenie konta się nie powiodło i zwróciło błąd:\n\n%1$s\n\nMożesz kontynuować, ale twoje listy i filtry mogą być niekompletne.</string>
     <string name="action_relogin">Ponowne zalogowanie</string>
     <string name="action_share_as">Udostępnij jako …</string>
+    <string name="title_choose_account_dialog">Wybierz konto</string>
+    <string name="client_error_unauthorized_fmt">%1$s\n\nDotknij \"%2$s\" by spróbować ponownie.</string>
+    <string name="error_login_failed_hint_multiple">Dotknij tego samego konta, by spróbować ponownie lub innego, żeby się na nie zalogować.</string>
+    <string name="action_choose_another_account">Wybierz inne konto</string>
+    <string name="title_error_mime_type">Nierozpoznany typ</string>
+    <string name="error_mime_type_fmt">Aplikacja Pachli została otworzona, by udostępnić treść typu \"%1$s\", ale Pachli nie obsługuje tego typu.</string>
+    <string name="error_refresh_account_fmt">Pobieranie niektórych szczegółów konta się nie powiodło:\n\n%1$s\n\nDotknij \"%2$s\", by kontynuować, ale niektóre informacje mogą być nieprawidłowe (np. filtry i listy).\n\nDotknij \"%3$s\", by spróbować ponownie.\n\nDotknij \"%4$s\", by wybrać inne konto.</string>
+    <string name="title_error_dialog">Zalogowanie się nie powiodło</string>
+    <string name="client_error_unauthorized_multiple_fmt">%1$s\n\nDotknij \"%2$s\", by spróbować ponownie lub \"%3$s\" by wybrać inne konto.</string>
+    <string name="error_login_failed_hint">Dotknij konta, by spróbować ponownie.</string>
 </resources>
