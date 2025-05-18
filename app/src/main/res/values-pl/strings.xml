@@ -43,7 +43,7 @@
     <string name="action_favourite">Polub</string>
     <string name="action_compose">Napisz</string>
     <string name="action_logout">Wyloguj się</string>
-    <string name="action_logout_confirm">Czy na pewno chcesz się wylogować z konta %1$s? To usunie wszystkie lokalne dane konta, włączając szkice i preferencje.</string>
+    <string name="action_logout_confirm">To usunie wszystkie lokalne dane konta %1$s, włączając szkice i preferencje.\n\nTwoje konto na serwerze nie zostanie usunięte.</string>
     <string name="action_follow">Obserwuj</string>
     <string name="action_unfollow">Przestań obserwować</string>
     <string name="action_block">Zablokuj</string>
@@ -842,4 +842,5 @@
         <item quantity="many">%1$s · %2$d załączonych wpisów</item>
         <item quantity="other">%1$s · %2$d załączonych wpisów</item>
     </plurals>
+    <string name="title_logout_fmt">Wyloguj %1$s</string>
 </resources>
