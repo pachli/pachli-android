@@ -50,6 +50,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.content.IntentCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.content.res.use
 import androidx.core.os.BundleCompat
 import androidx.core.view.ContentInfoCompat
@@ -117,6 +118,7 @@ import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.getOrElse
 import com.github.michaelbull.result.mapBoth
 import com.github.michaelbull.result.onFailure
+import com.google.android.material.R as MaterialR
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.snackbar.Snackbar
@@ -159,6 +161,14 @@ class ComposeActivity :
     private var photoUploadUri: Uri? = null
 
     private val avatarRadius48dp by unsafeLazy { resources.getDimensionPixelSize(DR.dimen.avatar_radius_48dp) }
+
+    /** Float alpha value to use for views to indicate they are disabled. */
+    private val disabledAlphaFloat by unsafeLazy {
+        ResourcesCompat.getFloat(resources, MaterialR.dimen.material_emphasis_disabled)
+    }
+
+    /** Float alpha value to use for drawable resources to indicate they are disabled. */
+    private val disabledAlphaInt by unsafeLazy { (disabledAlphaFloat * 255).toInt() }
 
     @VisibleForTesting
     var maximumTootCharacters = DEFAULT_CHARACTER_LIMIT
@@ -847,26 +857,37 @@ class ComposeActivity :
         this.viewModel.toggleMarkSensitive()
     }
 
-    private fun updateSensitiveMediaToggle(markMediaSensitive: Boolean, contentWarningShown: Boolean) {
+    private fun updateSensitiveMediaToggle(markMediaSensitive: Boolean, contentWarningShown: Boolean) = with(binding.composeHideMediaButton) {
         if (viewModel.media.value.isEmpty()) {
-            binding.composeHideMediaButton.hide()
+            hide()
         } else {
-            binding.composeHideMediaButton.show()
-            @ColorInt val color = if (contentWarningShown) {
-                binding.composeHideMediaButton.setImageResource(R.drawable.ic_hide_media_24dp)
-                binding.composeHideMediaButton.isClickable = false
-                getColor(DR.color.transparent_tusky_blue)
-            } else {
-                binding.composeHideMediaButton.isClickable = true
-                if (markMediaSensitive) {
-                    binding.composeHideMediaButton.setImageResource(R.drawable.ic_hide_media_24dp)
-                    MaterialColors.getColor(binding.composeHideMediaButton, android.R.attr.colorPrimary)
-                } else {
-                    binding.composeHideMediaButton.setImageResource(R.drawable.ic_eye_24dp)
-                    MaterialColors.getColor(binding.composeHideMediaButton, android.R.attr.colorControlNormal)
+            show()
+
+            when {
+                contentWarningShown -> {
+                    // Control is disabled, content warning forces media to be sensitive.
+                    alpha = disabledAlphaFloat
+                    isClickable = false
+                    setImageResource(R.drawable.ic_hide_media_24dp)
+                    drawable.clearColorFilter()
+                }
+
+                markMediaSensitive -> {
+                    // Control is active, icon and colour highlight this.
+                    alpha = 1F
+                    isClickable = true
+                    setImageResource(R.drawable.ic_hide_media_24dp)
+                    setDrawableTint(this@ComposeActivity, drawable, android.R.attr.colorPrimary)
+                }
+
+                else -> {
+                    // Control is available for use.
+                    alpha = 1F
+                    isClickable = true
+                    setImageResource(R.drawable.ic_eye_24dp)
+                    setDrawableTint(this@ComposeActivity, drawable, android.R.attr.colorControlNormal)
                 }
             }
-            binding.composeHideMediaButton.drawable.colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)
         }
     }
 
@@ -1238,16 +1259,13 @@ class ComposeActivity :
 
     private fun enablePollButton(enable: Boolean) {
         binding.addPollTextActionTextView.isEnabled = enable
-        val textColor = MaterialColors.getColor(
-            binding.addPollTextActionTextView,
+        binding.addPollTextActionTextView.compoundDrawables.getOrNull(0)?.let { drawable ->
             if (enable) {
-                android.R.attr.textColorTertiary
+                drawable.alpha = 255
             } else {
-                android.R.attr.colorPrimary
-            },
-        )
-        binding.addPollTextActionTextView.setTextColor(textColor)
-        binding.addPollTextActionTextView.compoundDrawablesRelative[0].colorFilter = PorterDuffColorFilter(textColor, PorterDuff.Mode.SRC_IN)
+                drawable.alpha = disabledAlphaInt
+            }
+        }
     }
 
     private fun editImageInQueue(item: QueuedMedia) {
