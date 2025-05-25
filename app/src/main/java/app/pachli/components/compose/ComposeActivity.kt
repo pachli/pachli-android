@@ -1229,15 +1229,11 @@ class ComposeActivity :
 
     private fun enableButton(button: ImageButton, clickable: Boolean, colorActive: Boolean) {
         button.isEnabled = clickable
-        setDrawableTint(
-            this,
-            button.drawable,
-            if (colorActive) {
-                android.R.attr.textColorTertiary
-            } else {
-                DR.attr.textColorDisabled
-            },
-        )
+        if (colorActive) {
+            setDrawableTint(this, button.drawable, android.R.attr.textColorTertiary)
+        } else {
+            button.drawable.clearColorFilter()
+        }
     }
 
     private fun enablePollButton(enable: Boolean) {
