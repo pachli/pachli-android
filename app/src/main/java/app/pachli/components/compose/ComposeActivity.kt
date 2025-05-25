@@ -37,7 +37,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ImageButton
-import android.widget.LinearLayout
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
@@ -1007,13 +1006,6 @@ class ComposeActivity :
     }
 
     private fun setupPollView() {
-        val margin = resources.getDimensionPixelSize(DR.dimen.compose_media_preview_margin)
-        val marginBottom = resources.getDimensionPixelSize(DR.dimen.compose_media_preview_margin_bottom)
-
-        val layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        layoutParams.setMargins(margin, margin, margin, marginBottom)
-        binding.pollPreview.layoutParams = layoutParams
-
         binding.pollPreview.setOnClickListener {
             val popup = PopupMenu(this, binding.pollPreview)
             val editId = 1
