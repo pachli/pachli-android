@@ -157,6 +157,6 @@ data class AccountEntity(
 fun defaultTabs() = listOf(
     Timeline.Home,
     Timeline.Notifications,
-    Timeline.PublicLocal,
+    Timeline.TrendingStatuses,
     Timeline.Conversations,
 )
