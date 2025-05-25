@@ -355,23 +355,55 @@ class IntentRouterActivityIntent(context: Context, pachliAccountId: Long) : Inte
 class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOptions: ComposeOptions? = null) : Intent() {
     @Parcelize
     data class ComposeOptions(
+        /**
+         * Server ID of the scheduled status that should be updated when this status is sent.
+         *
+         * Null if this should be sent as a new status.
+         */
         val scheduledTootId: String? = null,
-        val draftId: Int? = null,
+        /**
+         * ID of the draft this status should be saved to if the user chooses to save
+         * and exit rather than post.
+         *
+         * 0 if a new draft should be created in this case.
+         */
+        val draftId: Int = 0,
         val content: String? = null,
         val mediaUrls: List<String>? = null,
-        val mediaDescriptions: List<String>? = null,
+        // val mediaDescriptions: List<String>? = null,
         val mentionedUsernames: Set<String>? = null,
-        val replyVisibility: Status.Visibility? = null,
         val visibility: Status.Visibility? = null,
         val contentWarning: String? = null,
+        /**
+         * Details of the status being replied to, if this a reply.
+         *
+         * Null if this is not a reply.
+         */
         val inReplyTo: InReplyTo? = null,
+        /**
+         * Existing media attachments on this status.
+         *
+         * Mutually exclusive with [draftAttachments].
+         */
         val mediaAttachments: List<Attachment>? = null,
+        /**
+         * Draft media attachments on this status. Attached, but not uploaded.
+         *
+         * Mutually exclusive with [mediaAttachments]
+         */
         val draftAttachments: List<DraftAttachment>? = null,
         val scheduledAt: Date? = null,
         val sensitive: Boolean? = null,
         val poll: NewPoll? = null,
+        // TOOD: What is this for?
         val modifiedInitialState: Boolean? = null,
+        /** Language the status is written in. Null to use the device's default language. */
         val language: String? = null,
+        /**
+         * Server ID of the status that should be updated when this status is sent.
+         *
+         * Null if this should be sent as a new status.
+         */
         val statusId: String? = null,
         val kind: ComposeKind? = null,
         val initialCursorPosition: InitialCursorPosition = InitialCursorPosition.END,
@@ -431,6 +463,7 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOpti
              */
             data class Status(
                 override val statusId: String,
+                val visibility: Status.Visibility,
                 val avatarUrl: String,
                 val isBot: Boolean,
                 val displayName: String,
@@ -442,6 +475,7 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOpti
                 companion object {
                     fun from(status: app.pachli.core.network.model.Status) = Status(
                         statusId = status.id,
+                        visibility = status.visibility,
                         avatarUrl = status.account.avatar,
                         isBot = status.account.bot,
                         displayName = status.account.name,
@@ -465,8 +499,8 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOpti
     companion object {
         private const val EXTRA_COMPOSE_OPTIONS = "app.pachli.EXTRA_COMPOSE_OPTIONS"
 
-        /** @return the [ComposeOptions] passed in this intent, or null */
-        fun getComposeOptions(intent: Intent) = IntentCompat.getParcelableExtra(intent, EXTRA_COMPOSE_OPTIONS, ComposeOptions::class.java)
+        /** @return the [ComposeOptions] passed in this intent, or default [ComposeOptions]. */
+        fun getComposeOptions(intent: Intent) = IntentCompat.getParcelableExtra(intent, EXTRA_COMPOSE_OPTIONS, ComposeOptions::class.java) ?: ComposeOptions()
     }
 }
 

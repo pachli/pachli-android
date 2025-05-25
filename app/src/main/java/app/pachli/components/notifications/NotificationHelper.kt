@@ -435,7 +435,6 @@ private fun getStatusComposeIntent(
         }
     }
     val composeOptions = ComposeOptions(
-        replyVisibility = replyVisibility,
         contentWarning = contentWarning,
         inReplyTo = InReplyTo.Status.from(status),
         mentionedUsernames = mentionedUsernames,

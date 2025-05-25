@@ -101,19 +101,20 @@ typealias OnRemoveMediaListener = (item: QueuedMedia) -> Unit
  */
 class MediaPreviewAdapter(
     private val glide: RequestManager,
-    private val descriptionLimit: Int,
     private val onDescriptionChanged: OnDescriptionChangedListener,
     private val onEditFocus: OnEditFocusListener,
     private val onEditImage: OnEditImageListener,
     private val onRemoveMedia: OnRemoveMediaListener,
 ) : ListAdapter<QueuedMedia, AttachmentViewHolder>(QUEUED_MEDIA_DIFFER) {
+    private var descriptionLimit = 1500
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AttachmentViewHolder {
         return AttachmentViewHolder(
             ItemComposeMediaAttachmentBinding.inflate(LayoutInflater.from(parent.context), parent, false),
             glide,
-            descriptionLimit,
             onDescriptionChanged = onDescriptionChanged,
             onMediaClick = ::showMediaPopup,
+            getDescriptionLimit = { return@AttachmentViewHolder descriptionLimit },
         )
     }
 
@@ -123,6 +124,13 @@ class MediaPreviewAdapter(
 
     override fun onBindViewHolder(holder: AttachmentViewHolder, position: Int, payloads: List<Any?>) {
         holder.bind(getItem(position), payloads)
+    }
+
+    fun setMediaDescriptionLimit(limit: Int) {
+        if (limit != descriptionLimit) {
+            descriptionLimit = limit
+            notifyItemRangeChanged(0, itemCount, Payload.MEDIA_DESCRIPTION_LIMIT)
+        }
     }
 
     /**
@@ -195,6 +203,9 @@ class MediaPreviewAdapter(
 
             /** [QueuedMedia.uploadState] changed */
             UPLOAD_STATE,
+
+            /** Media description limit changed. */
+            MEDIA_DESCRIPTION_LIMIT,
         }
 
         private val QUEUED_MEDIA_DIFFER = object : DiffUtil.ItemCallback<QueuedMedia>() {
@@ -228,23 +239,23 @@ class MediaPreviewAdapter(
  * Displays media attachments using [ItemComposeMediaAttachmentBinding].
  *
  * @param binding View binding for the UI.
- * @param descriptionLimit Max characters for a media description.
  * @param onDescriptionChanged Called when the description is changed.
  * @param onMediaClick Called when the user clicks the media preview image.
+ * @param getDescriptionLimit Called to fetch the current media description limit.
  */
 class AttachmentViewHolder(
     val binding: ItemComposeMediaAttachmentBinding,
     private val glide: RequestManager,
-    descriptionLimit: Int,
     private val onDescriptionChanged: OnDescriptionChangedListener,
     private val onMediaClick: (QueuedMedia, View) -> Unit,
+    private val getDescriptionLimit: () -> Int,
 ) : RecyclerView.ViewHolder(binding.root) {
     private val context = binding.root.context
 
     private lateinit var item: QueuedMedia
 
     init {
-        binding.descriptionLayout.counterMaxLength = descriptionLimit
+        binding.descriptionLayout.counterMaxLength = getDescriptionLimit()
         binding.description.doAfterTextChanged { it?.let { onDescriptionChanged(item, it.toString()) } }
 
         binding.media.setOnClickListener { onMediaClick(item, binding.media) }
@@ -270,6 +281,7 @@ class AttachmentViewHolder(
                 Payload.DESCRIPTION -> bindDescription(item.description)
                 Payload.FOCUS -> bindFocus(item.focus)
                 Payload.UPLOAD_STATE -> bindUploadState(item.uploadState)
+                Payload.MEDIA_DESCRIPTION_LIMIT -> binding.descriptionLayout.counterMaxLength = getDescriptionLimit()
                 else -> bindAll(item)
             }
         }

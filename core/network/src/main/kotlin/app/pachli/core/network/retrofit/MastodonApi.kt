@@ -232,7 +232,7 @@ interface MastodonApi {
         @Body status: NewStatus,
     ): ApiResult<ScheduledStatus>
 
-    @GET("api/v1/statuses/{id}")
+    @GET("api/v1/statuses2/{id}")
     suspend fun status(
         @Path("id") statusId: String,
     ): ApiResult<Status>

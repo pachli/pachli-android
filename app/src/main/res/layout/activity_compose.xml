@@ -311,6 +311,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/compose_media_preview_margin"
                 app:layout_constraintTop_toBottomOf="@id/composeMediaPreviewBar"
+                app:layout_constraintStart_toStartOf="parent"
                 android:minWidth="@dimen/poll_preview_min_width"
                 android:visibility="gone"
                 tools:visibility="visible" />

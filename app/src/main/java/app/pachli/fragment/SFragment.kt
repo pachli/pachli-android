@@ -189,8 +189,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
         ).apply { remove(loggedInUsername) }
 
         val composeOptions = ComposeOptions(
-            inReplyTo = InReplyTo.Status.from(status.actionableStatus),
-            replyVisibility = actionableStatus.visibility,
+            inReplyTo = InReplyTo.Status.from(actionableStatus),
             contentWarning = actionableStatus.spoilerText,
             mentionedUsernames = mentionedUsernames,
             language = actionableStatus.language,

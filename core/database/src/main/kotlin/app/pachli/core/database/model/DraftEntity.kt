@@ -50,6 +50,10 @@ import kotlinx.parcelize.Parcelize
 data class DraftEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val accountId: Long,
+    /**
+     * If this draft is a reply to an existing status then this is the ID of that
+     * status. Null otherwise.
+     */
     val inReplyToId: String?,
     val content: String?,
     val contentWarning: String?,
@@ -60,7 +64,12 @@ data class DraftEntity(
     val failedToSend: Boolean,
     val failedToSendNew: Boolean,
     val scheduledAt: Date?,
+    /** Language the draft is written in. Null to use the device's default language. */
     val language: String?,
+    /**
+     * If this draft is an edit of an existing status then this is the ID of that
+     * status. Null otherwise.
+     */
     val statusId: String?,
 )
 
