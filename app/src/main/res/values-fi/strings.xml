@@ -167,7 +167,7 @@
     <string name="action_unmute_conversation">Poista keskustelun mykistys</string>
     <string name="download_image">Ladataan kuvaa %1$s</string>
     <string name="action_mute_conversation">Mykistä keskustelu</string>
-    <string name="action_logout_confirm">Halutako varmasti kirjautua ulos tililtä %1$s? Tämä poistaa kaiken laittellesi tallennetun tiedon tilistä, mukaanlukien luonnokset ja asetukset.</string>
+    <string name="action_logout_confirm">Tämä poistaa kaiken laittellesi tallennetun tiedon tilistä %1$s, mukaanlukien luonnokset ja asetukset.\n\nTämä ei poista tiliäsi palvelimelta.</string>
     <string name="action_unreblog">Poista jako</string>
     <string name="action_mute_domain">Mykistä %s</string>
     <string name="action_view_domain_mutes">Piilotetut verkkonimet</string>
@@ -306,6 +306,7 @@
     <string name="title_tab_public_trending_statuses">Julkaisut</string>
     <string name="action_share_account_link">Jaa linkki tiliin</string>
     <plurals name="notification_summary_report_format">
+        <item quantity="one">%1$s·%2$d julkaisu liitteenä</item>
         <item quantity="other">%1$s · %2$d julkaisua liitteenä</item>
     </plurals>
     <string name="send_account_link_to">Jaa tilin URL…</string>
@@ -416,7 +417,7 @@
     <string name="ui_error_clear_notifications">Ilmoitusten nollaaminen epäonnistui: %s</string>
     <string name="pref_title_show_self_username">Näytä käyttäjänimi työkalurivissä</string>
     <string name="reaction_name_and_count">%1$s %2$d</string>
-    <string name="dialog_delete_filter_text">Poistetaanko suodatin \'%1$s\'?\"</string>
+    <string name="dialog_delete_filter_text">Poistetaanko suodatin \'%1$s\'?</string>
     <string name="follow_requests_info">Vaikka tiliäsi ei ole lukittu, palvelimen %1$s ylläpito arvelee, että saatat haluta hyväksyä näiden tilien seuraajapyynnöt käsin.</string>
     <string name="language_display_name_format">%s (%s)</string>
     <string name="total_accounts">Tilien kokonaismärä</string>
@@ -777,7 +778,7 @@
         <item quantity="one">%1$s seuraamasi tili poistettu</item>
         <item quantity="other">%1$s seuraamaasi tiilä poistettu</item>
     </plurals>
-    <string name="upload_failed_msg_fmt">Latausta yritetään uudestaan kun lähetät julkaisun. Jos se epäonnistuu jälleen, julkaisu tallennetaan luonnoksiisi.\n\nVirhe oli: %1$s</string>
+    <string name="upload_failed_msg_fmt">Lataus epäonnistui. Latausta yritetään uudestaan kun lähetät julkaisun. Jos se epäonnistuu jälleen, julkaisu tallennetaan luonnoksiisi.\n\nVirhe oli: %1$s</string>
     <string name="notification_unknown">Tuntematon ilmoitustyyppi</string>
     <string name="preview_card_timeline_link_fmt">Katso &lt;b&gt;%1$s&lt;/b&gt; julkaisua tästä linkistä</string>
     <string name="action_timeline_link">Julkaisuja tästä linkistä</string>
@@ -815,4 +816,7 @@
     <string name="export_preferences_ok_fmt">Asetukset viety kohteeseen %1$s</string>
     <string name="error_export_preferences_fmt">Asetuksia ei voitu viedä kohteeseen %1$s: %2$s</string>
     <string name="error_import_preferences_fmt">Asetuksia ei voitu tuoda kohteesta %1$s: %2$s</string>
+    <string name="title_report_category_fmt">Kategoria: %1$s</string>
+    <string name="title_report_comment">Raportoijan kommentti</string>
+    <string name="title_logout_fmt">Kirjaudu ulos %1$s</string>
 </resources>
