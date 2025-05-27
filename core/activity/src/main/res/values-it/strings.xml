@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_open_as">Apri come %s</string>
-    <string name="post_lookup_error_format">Errore nella ricerca del post %s</string>
+    <string name="post_lookup_error_format">Errore nella ricerca di %s</string>
     <string name="performing_lookup_title">Ricerca in corso…</string>
+    <string name="send_error_report">Invia segnalazione errore</string>
 </resources>
