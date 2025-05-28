@@ -1,5 +1,36 @@
 # Pachli changelog
 
+## v2.13.0
+
+### New features and other improvements
+
+- Parse Instants from servers that don't include the timezone (#[1544](https://github.com/pachli/pachli-android/pull/1544), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Replace Local timeline with Trending in default tabs (#[1543](https://github.com/pachli/pachli-android/pull/1543), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Make media descriptions more important when composing (#[1516](https://github.com/pachli/pachli-android/pull/1516), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Significant bug fixes
+
+- Use alpha instead of colour for disabled items when composing (#[1542](https://github.com/pachli/pachli-android/pull/1542), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Improve colours when compose buttons are enabled (#[1541](https://github.com/pachli/pachli-android/pull/1541), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Display poll previews correctly (#[1540](https://github.com/pachli/pachli-android/pull/1540), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Don't crash if ComposeActivity is destroyed while taking a picture (#[1537](https://github.com/pachli/pachli-android/pull/1537), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Don't leak MainActivity in DrawerImageLoader (#[1536](https://github.com/pachli/pachli-android/pull/1536), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Ensure transition/animation listener is always removed (#[1530](https://github.com/pachli/pachli-android/pull/1530), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Create/pass MainActivity payload through IntentRouterActivity (#[1532](https://github.com/pachli/pachli-android/pull/1532), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Start-align "Vote" button's position (#[1524](https://github.com/pachli/pachli-android/pull/1524), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Translations
+
+- Update Chinese (Simplified Han script) translations ([bai0012](https://github.com/pachli/pachli-android/commits?author=baicongrui@gmail.com))
+- Update Finnish translations ([Kalle Kniivilä](https://github.com/pachli/pachli-android/commits?author=kalle.kniivila@gmail.com))
+- Update Irish translations ([Aindriú Mac Giolla Eoin](https://github.com/pachli/pachli-android/commits?author=aindriu80@gmail.com))
+- Update Italian translations ([Manuel Tassi](https://github.com/pachli/pachli-android/commits?author=mannivuwiki@gmail.com))
+- Update Kabyle translations ([ButterflyOfFire](https://github.com/pachli/pachli-android/commits?author=boffire@users.noreply.hosted.weblate.org))
+- Update Latvian translations ([Edgars Andersons](https://github.com/pachli/pachli-android/commits?author=Edgars+Weblate@gaitenis.id.lv))
+- Update Polish translations ([Łukasz Horodecki](https://github.com/pachli/pachli-android/commits?author=dakilla@gmail.com))
+- Update Slovak translations ([Russssty](https://github.com/pachli/pachli-android/commits?author=russssty@users.noreply.hosted.weblate.org))
+- Update Spanish translations ([Juan M Sevilla](https://github.com/pachli/pachli-android/commits?author=jumase@disroot.org))
+
 ## v2.12.0
 
 ### New features and other improvements
