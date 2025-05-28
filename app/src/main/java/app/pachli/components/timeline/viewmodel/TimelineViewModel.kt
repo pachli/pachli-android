@@ -340,6 +340,18 @@ abstract class TimelineViewModel<T : Any>(
 
     val timeline: Timeline = savedStateHandle.get<Timeline>(TIMELINE_TAG)!!
 
+    /**
+     * Flow of the status ID to use when initially refreshing the list, and where
+     * the user's reading position should be restored to. Null if the user's
+     * reading position should not be restored, or the reading position was
+     * explicitly cleared.
+     */
+    val initialRefreshStatusId = pachliAccountId.distinctUntilChanged().map { pachliAccountId ->
+        timeline.remoteKeyTimelineId?.let {
+            timelineCases.getRefreshStatusId(pachliAccountId, it)
+        }
+    }
+
     private var filterRemoveReplies = timeline is Timeline.Home && !sharedPreferencesRepository.tabHomeShowReplies
     private var filterRemoveReblogs = timeline is Timeline.Home && !sharedPreferencesRepository.tabHomeShowReblogs
     private var filterRemoveSelfReblogs = timeline is Timeline.Home && !sharedPreferencesRepository.tabHomeShowSelfReblogs
@@ -438,14 +450,14 @@ abstract class TimelineViewModel<T : Any>(
             )
 
         // Save the visible status ID (if it's the home timeline)
-        if (timeline == Timeline.Home) {
+        timeline.remoteKeyTimelineId?.let { refreshKeyPrimaryKey ->
             viewModelScope.launch {
                 uiAction
                     .filterIsInstance<InfallibleUiAction.SaveVisibleId>()
                     .distinctUntilChanged()
                     .collectLatest { action ->
                         Timber.d("setLastVisibleHomeTimelineStatusId: %d, %s", action.pachliAccountId, action.visibleId)
-                        timelineCases.saveRefreshKey(action.pachliAccountId, action.visibleId)
+                        timelineCases.saveRefreshStatusId(action.pachliAccountId, refreshKeyPrimaryKey, action.visibleId)
                     }
             }
         }
@@ -455,8 +467,8 @@ abstract class TimelineViewModel<T : Any>(
             uiAction
                 .filterIsInstance<InfallibleUiAction.LoadNewest>()
                 .collectLatest { action ->
-                    if (timeline == Timeline.Home) {
-                        timelineCases.saveRefreshKey(action.pachliAccountId, null)
+                    timeline.remoteKeyTimelineId?.let { refreshKeyPrimaryKey ->
+                        timelineCases.saveRefreshStatusId(action.pachliAccountId, refreshKeyPrimaryKey, null)
                     }
                     Timber.d("Reload because InfallibleUiAction.LoadNewest")
                     _uiResult.send(Ok(UiSuccess.LoadNewest))

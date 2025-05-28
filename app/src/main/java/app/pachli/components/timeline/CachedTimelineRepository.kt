@@ -24,14 +24,12 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import app.pachli.components.timeline.TimelineRepository.Companion.PAGE_SIZE
 import app.pachli.components.timeline.viewmodel.CachedTimelineRemoteMediator
-import app.pachli.components.timeline.viewmodel.CachedTimelineRemoteMediator.Companion.RKE_TIMELINE_ID
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.dao.TranslatedStatusDao
 import app.pachli.core.database.di.TransactionProvider
-import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
 import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
@@ -41,7 +39,6 @@ import app.pachli.core.network.retrofit.MastodonApi
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -70,11 +67,14 @@ class CachedTimelineRepository @Inject constructor(
     @OptIn(ExperimentalPagingApi::class)
     override suspend fun getStatusStream(
         pachliAccountId: Long,
-        kind: Timeline,
+        timeline: Timeline,
     ): Flow<PagingData<TimelineStatusWithAccount>> {
         factory = InvalidatingPagingSourceFactory { timelineDao.getStatuses(pachliAccountId) }
 
-        val initialKey = remoteKeyDao.remoteKeyForKind(pachliAccountId, RKE_TIMELINE_ID, RemoteKeyKind.REFRESH)?.key
+        val initialKey = timeline.remoteKeyTimelineId?.let { timelineId ->
+            remoteKeyDao.remoteKeyForKind(pachliAccountId, timelineId, RemoteKeyKind.REFRESH)?.key
+        }
+
         val row = initialKey?.let { timelineDao.getStatusRowNumber(pachliAccountId, it) }
 
         Timber.d("initialKey: %s is row: %d", initialKey, row)
@@ -136,28 +136,4 @@ class CachedTimelineRepository @Inject constructor(
     suspend fun clearStatusWarning(pachliAccountId: Long, statusId: String) = externalScope.launch {
         statusDao.clearWarning(pachliAccountId, statusId)
     }.join()
-
-    /**
-     * Saves the ID of the status that future refreshes will try and restore
-     * from.
-     *
-     * @param pachliAccountId
-     * @param key Status ID to restore from. Null indicates the refresh should
-     * refresh the newest statuses.
-     */
-    suspend fun saveRefreshKey(pachliAccountId: Long, key: String?) = externalScope.async {
-        Timber.d("saveRefreshKey: $key")
-        remoteKeyDao.upsert(
-            RemoteKeyEntity(pachliAccountId, RKE_TIMELINE_ID, RemoteKeyKind.REFRESH, key),
-        )
-    }.await()
-
-    /**
-     * @param pachliAccountId
-     * @return The most recent saved refresh key. Null if not set, or the refresh
-     * should fetch the latest statuses.
-     */
-    suspend fun getRefreshKey(pachliAccountId: Long): String? = externalScope.async {
-        remoteKeyDao.getRefreshKey(pachliAccountId, RKE_TIMELINE_ID)
-    }.await()
 }

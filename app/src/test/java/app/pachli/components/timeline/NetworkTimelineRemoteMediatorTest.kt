@@ -24,18 +24,31 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
+import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
 import app.pachli.components.timeline.viewmodel.NetworkTimelineRemoteMediator
 import app.pachli.components.timeline.viewmodel.Page
 import app.pachli.components.timeline.viewmodel.PageCache
+import app.pachli.core.database.AppDatabase
+import app.pachli.core.database.Converters
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.model.Timeline
+import app.pachli.core.network.json.BooleanIfNull
+import app.pachli.core.network.json.DefaultIfNull
+import app.pachli.core.network.json.Guarded
+import app.pachli.core.network.json.InstantJsonAdapter
+import app.pachli.core.network.json.LenientRfc3339DateJsonAdapter
 import app.pachli.core.network.model.Status
 import app.pachli.core.testing.failure
 import app.pachli.core.testing.fakes.fakeStatus
 import app.pachli.core.testing.success
 import com.google.common.truth.Truth.assertThat
+import com.squareup.moshi.Moshi
+import java.time.Instant
+import java.util.Date
 import kotlinx.coroutines.test.runTest
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -60,9 +73,29 @@ class NetworkTimelineRemoteMediatorTest {
 
     private lateinit var pagingSourceFactory: InvalidatingPagingSourceFactory<String, Status>
 
+    private lateinit var db: AppDatabase
+
+    private val moshi: Moshi = Moshi.Builder()
+        .add(Date::class.java, LenientRfc3339DateJsonAdapter())
+        .add(Instant::class.java, InstantJsonAdapter())
+        .add(Guarded.Factory())
+        .add(DefaultIfNull.Factory())
+        .add(BooleanIfNull.Factory())
+        .build()
+
     @Before
     fun setup() {
         pagingSourceFactory = mock()
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+
+        db = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java)
+            .addTypeConverter(Converters(moshi))
+            .build()
+    }
+
+    @After
+    fun teardown() {
+        db.close()
     }
 
     @Test
@@ -71,9 +104,11 @@ class NetworkTimelineRemoteMediatorTest {
         // Given
         val remoteMediator = NetworkTimelineRemoteMediator(
             api = mock(defaultAnswer = { failure<Unit>(code = 500) }),
+            pachliAccountId = activeAccount.id,
             factory = pagingSourceFactory,
             pageCache = PageCache(),
             timeline = Timeline.Home,
+            remoteKeyDao = db.remoteKeyDao(),
         )
 
         // When
@@ -100,9 +135,11 @@ class NetworkTimelineRemoteMediatorTest {
                     ),
                 )
             },
+            pachliAccountId = activeAccount.id,
             factory = pagingSourceFactory,
             pageCache = pages,
             timeline = Timeline.Home,
+            remoteKeyDao = db.remoteKeyDao(),
         )
 
         val state = state(
@@ -163,9 +200,11 @@ class NetworkTimelineRemoteMediatorTest {
                     ),
                 )
             },
+            pachliAccountId = activeAccount.id,
             factory = pagingSourceFactory,
             pageCache = pages,
             timeline = Timeline.Home,
+            remoteKeyDao = db.remoteKeyDao(),
         )
 
         val state = state(
@@ -234,9 +273,11 @@ class NetworkTimelineRemoteMediatorTest {
                     ),
                 )
             },
+            pachliAccountId = activeAccount.id,
             factory = pagingSourceFactory,
             pageCache = pages,
             timeline = Timeline.Home,
+            remoteKeyDao = db.remoteKeyDao(),
         )
 
         val state = state(

@@ -41,14 +41,7 @@ data class RemoteKeyEntity(
     /**
      * Identifier for the timeline these keys relate to.
      *
-     * At the moment there is only one valid value here, "home", as that
-     * is the only timeline that is cached. As more timelines become cacheable
-     * this will need to be expanded.
-     *
-     * This also needs to be extensible in the future to cover the case where
-     * the user might have multiple timelines from the same base timeline, but
-     * with different configurations. E.g., two home timelines, one with boosts
-     * and replies turned off, and one with boosts and replies turned on.
+     * See [Timeline.refreshKeyPrimaryKey][app.pachli.core.model.Timeline.remoteKeyTimelineId].
      */
     val timelineId: String,
     val kind: RemoteKeyKind,

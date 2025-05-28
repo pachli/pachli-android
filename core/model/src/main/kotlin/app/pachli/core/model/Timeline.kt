@@ -22,75 +22,86 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import dev.zacsweers.moshix.sealed.annotations.NestedSealed
 import dev.zacsweers.moshix.sealed.annotations.TypeLabel
+import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 
 /** A timeline's type. Hold's data necessary to display that timeline. */
 @Parcelize
 @JsonClass(generateAdapter = true, generator = "sealed:kind")
-sealed interface Timeline : Parcelable {
-    @Parcelize
-    @TypeLabel("home")
-    data object Home : Timeline
+sealed class Timeline : Parcelable {
+    /**
+     * **If** this timeline restores the reading position then this is
+     * the value to use for RemoteKeyEntity.timelineId when saving the
+     * reading position.
+     *
+     * Null if this timeline does not support restoring the reading
+     * position.
+     *
+     * This also needs to be extensible in the future to cover the case where
+     * the user might have multiple timelines from the same base timeline, but
+     * with different configurations. E.g., two home timelines, one with boosts
+     * and replies turned off, and one with boosts and replies turned on.
+     */
+    @IgnoredOnParcel
+    open val remoteKeyTimelineId: String? = null
 
-    @Parcelize
+    @TypeLabel("home")
+    data object Home : Timeline() {
+        @IgnoredOnParcel
+        override val remoteKeyTimelineId: String = "HOME"
+    }
+
     @TypeLabel("notifications")
-    data object Notifications : Timeline
+    data object Notifications : Timeline() {
+        @IgnoredOnParcel
+        override val remoteKeyTimelineId: String = "NOTIFICATIONS"
+    }
 
     /** Federated timeline */
-    @Parcelize
     @TypeLabel("federated")
-    data object PublicFederated : Timeline
+    data object PublicFederated : Timeline()
 
     /** Local timeline of the user's server */
-    @Parcelize
     @TypeLabel("local")
-    data object PublicLocal : Timeline
+    data object PublicLocal : Timeline()
 
     // TODO: LOCAL_REMOTE
 
-    @Parcelize
     @TypeLabel("hashtag")
     @JsonClass(generateAdapter = true)
-    data class Hashtags(val tags: List<String>) : Timeline
+    data class Hashtags(val tags: List<String>) : Timeline()
 
-    @Parcelize
     @TypeLabel("direct")
-    data object Conversations : Timeline
+    data object Conversations : Timeline()
 
     /** Any timeline showing statuses from a single user */
-    @Parcelize
     @NestedSealed
-    sealed interface User : Timeline {
-        val id: String
+    @Parcelize
+    sealed class User : Timeline() {
+        abstract val id: String
 
         /** Timeline showing just a user's statuses (no replies) */
-        @Parcelize
         @TypeLabel("userPosts")
         @JsonClass(generateAdapter = true)
-        data class Posts(override val id: String) : User
+        data class Posts(override val id: String) : User()
 
         /** Timeline showing a user's pinned statuses */
-        @Parcelize
         @TypeLabel("userPinned")
         @JsonClass(generateAdapter = true)
-        data class Pinned(override val id: String) : User
+        data class Pinned(override val id: String) : User()
 
         /** Timeline showing a user's top-level statuses and replies they have made */
-        @Parcelize
         @TypeLabel("userReplies")
         @JsonClass(generateAdapter = true)
-        data class Replies(override val id: String) : User
+        data class Replies(override val id: String) : User()
     }
 
-    @Parcelize
     @TypeLabel("favourites")
-    data object Favourites : Timeline
+    data object Favourites : Timeline()
 
-    @Parcelize
     @TypeLabel("bookmarks")
-    data object Bookmarks : Timeline
+    data object Bookmarks : Timeline()
 
-    @Parcelize
     @TypeLabel("list")
     @JsonClass(generateAdapter = true)
     data class UserList(
@@ -98,25 +109,24 @@ sealed interface Timeline : Parcelable {
         val listId: String,
         @Json(name = "title")
         val title: String,
-    ) : Timeline
+    ) : Timeline() {
+        @IgnoredOnParcel
+        override val remoteKeyTimelineId: String = "USER_LIST:$listId"
+    }
 
-    @Parcelize
     @TypeLabel("trending_tags")
-    data object TrendingHashtags : Timeline
+    data object TrendingHashtags : Timeline()
 
-    @Parcelize
     @TypeLabel("trending_links")
-    data object TrendingLinks : Timeline
+    data object TrendingLinks : Timeline()
 
-    @Parcelize
     @TypeLabel("trending_statuses")
-    data object TrendingStatuses : Timeline
+    data object TrendingStatuses : Timeline()
 
     /** Timeline of statuses that mention [url] (which has [title]). */
-    @Parcelize
     @TypeLabel("link")
     @JsonClass(generateAdapter = true)
-    data class Link(val url: String, val title: String) : Timeline
+    data class Link(val url: String, val title: String) : Timeline()
 
     // TODO: DRAFTS
 
