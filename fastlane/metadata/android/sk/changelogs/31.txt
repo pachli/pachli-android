@@ -1,0 +1,18 @@
+Pachli 2.13.0
+
+Nové funkcie:
+
+- Parsovanie časov zu serverov, ktoré neobsahujú časovú zónu
+- Miestna časová os nahradená populárnou v predvolených paneloch
+- Zvýšený dôraz na popisy médií pri písaní príspevku
+
+Opravy:
+
+- Farebne vylepšené tlačidlá pri písaní príspevku
+- Oprava zobrazenia náhľadu ankiet
+- Zabránenie pádu keď je ComposeActivity ukončený počas fotografovania
+- Zarovnanie pozície tlačidla "Hlasovať"
+
+Preklady:
+
+- Čínština, Fínčina, Írčina, Taliančina, Kabylčina, Lotyština, Poľština, Slovenčina, Španielčina
