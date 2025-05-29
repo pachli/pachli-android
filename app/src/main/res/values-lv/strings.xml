@@ -214,7 +214,7 @@
     <string name="restart_emoji">Būs nepieciešams palaist Pachli no jauna, lai pielietotu šīs izmaiņas</string>
     <string name="error_status_source_load">Neizdevās no servera ielādēt stāvokļa avotu.</string>
     <string name="error_sender_account_gone">Sūtot ziņu, radās kļūda.</string>
-    <string name="title_posts_pinned">Piesprausts</string>
+    <string name="title_posts_pinned">Piespraustie</string>
     <string name="title_followed_hashtags">Sekotie tēmturi</string>
     <string name="post_boosted_format">%s pastiprināja</string>
     <string name="post_edited">Labots %s</string>

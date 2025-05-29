@@ -1,0 +1,18 @@
+Pachli 2.13.0
+
+Jaunas iespējas:
+
+- Instants apstrāde no serveriem, kuri neiekļauj laika joslu
+- Noklusējuma cilnēs "Vietējā laika līnija" aizstāta ar "Izplatīts"
+- Palielināts informācijas nesēju apraksta svarīgums ieraksta sastādīšanā
+
+Labojumi:
+
+- Uzlabotas pogu krāsas ierakstu sastādīšanā
+- Pareiza aptauju priekšskatījumu attēlošana
+- Novērsta avārija, ja ComposeActivity ir iznīcints, kamēr tiek uzņemts attēls
+- Pogas "Balsot" novietojums pielīdzināts sākumam
+
+Tulkojumi:
+
+- ķīniešu, somu, īru, itāļu, kabiļu, latviešu, poļu, slovāku, spāņu valoda
