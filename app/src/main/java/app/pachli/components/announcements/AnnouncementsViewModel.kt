@@ -68,7 +68,7 @@ class AnnouncementsViewModel @Inject constructor(
                                     accountManager.deleteAnnouncement(accountManager.activeAccount!!.id, announcement.id)
                                 }
                                 .onFailure { throwable ->
-                                    Timber.d("Failed to mark announcement as read.", throwable)
+                                    Timber.d("Failed to mark announcement as read: %s", throwable)
                                 }
                         }
                 }
