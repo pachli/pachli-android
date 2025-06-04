@@ -262,7 +262,7 @@ class LoginWebViewActivity : BaseActivity() {
     override fun requiresLogin() = false
 
     private fun sendResult(result: LoginResult) {
-        setResult(Activity.RESULT_OK, OauthLogin.makeResultIntent(result))
+        setResult(RESULT_OK, OauthLogin.makeResultIntent(result))
         finish()
     }
 }

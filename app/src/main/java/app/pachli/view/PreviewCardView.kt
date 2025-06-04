@@ -21,7 +21,6 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.text.HtmlCompat
@@ -247,7 +246,7 @@ class PreviewCardView @JvmOverloads constructor(
         // Move image to top.
         val lpCardImage = cardImage.layoutParams as ConstraintLayout.LayoutParams
         lpCardImage.height = cardImage.resources.getDimensionPixelSize(DR.dimen.card_image_vertical_height)
-        lpCardImage.width = ViewGroup.LayoutParams.MATCH_PARENT
+        lpCardImage.width = LayoutParams.MATCH_PARENT
         lpCardImage.bottomToBottom = ConstraintLayout.LayoutParams.UNSET
         cardImage.layoutParams = lpCardImage
 

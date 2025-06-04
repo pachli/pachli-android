@@ -22,6 +22,7 @@ import android.app.NotificationManager
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.os.Build
 import android.os.Bundle
@@ -132,7 +133,7 @@ class IntentRouterActivity : BaseActivity() {
         // Only thing to do if there are no accounts is to prompt the user to login.
         if (accounts.isEmpty()) {
             val intent = LoginActivityIntent(this@IntentRouterActivity)
-                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                .addFlags(FLAG_ACTIVITY_CLEAR_TOP or FLAG_ACTIVITY_NEW_TASK)
             startActivityWithDefaultTransition(intent)
             finish()
             return
@@ -205,7 +206,7 @@ class IntentRouterActivity : BaseActivity() {
             logout(accountToLogout)
                 .onSuccess {
                     val intent = LoginActivityIntent(this, LoginMode.Default).apply {
-                        addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                        addFlags(FLAG_ACTIVITY_CLEAR_TOP or FLAG_ACTIVITY_NEW_TASK)
                     }
                     startActivityWithDefaultTransition(intent)
                     finish()
