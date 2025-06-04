@@ -340,17 +340,6 @@
     </issue>
 
     <issue
-        id="ImpliedQuantity"
-        message="The quantity `&apos;one&apos;` matches more than one specific number in this locale (0, 1), but the message did not include a formatting argument (such as `%d`). This is usually an internationalization error. See full issue explanation for more."
-        errorLine1="        &lt;item quantity=&quot;one&quot;>برهم‌کنشی جدید&lt;/item>"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values-fa/strings.xml"
-            line="167"
-            column="9"/>
-    </issue>
-
-    <issue
         id="PluralsCandidate"
         message="Formatting %d followed by words (&quot;and&quot;): This should probably be a plural rather than a string"
         errorLine1="    &lt;string name=&quot;pref_title_http_proxy_port_message&quot;>Port should be between %d and %d&lt;/string>"
