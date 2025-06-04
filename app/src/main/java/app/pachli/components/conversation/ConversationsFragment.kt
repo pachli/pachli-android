@@ -40,11 +40,13 @@ import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.components.preference.accountfilters.AccountConversationFiltersPreferenceDialogFragment
 import app.pachli.core.activity.ReselectableFragment
 import app.pachli.core.activity.extensions.TransitionKind
+import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.model.AccountFilterDecision
@@ -66,6 +68,7 @@ import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.ListStatusAccessibilityDelegate
 import at.connyduck.sparkbutton.helpers.Utils
+import com.bumptech.glide.Glide
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.mikepenz.iconics.IconicsDrawable
@@ -153,6 +156,8 @@ class ConversationsFragment :
 
     override var pachliAccountId by Delegates.notNull<Long>()
 
+    private val glide by unsafeLazy { Glide.with(this) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         pachliAccountId = requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID)
@@ -175,7 +180,7 @@ class ConversationsFragment :
                 SetMastodonHtmlContent
             }
 
-            adapter = ConversationAdapter(statusDisplayOptions, setStatusContent, this@ConversationsFragment, accept)
+            adapter = ConversationAdapter(glide, statusDisplayOptions, setStatusContent, this@ConversationsFragment, accept)
 
             setupRecyclerView()
 
@@ -419,12 +424,12 @@ class ConversationsFragment :
 
     override fun onViewAccount(id: String) {
         val intent = AccountActivityIntent(requireContext(), pachliAccountId, id)
-        startActivity(intent)
+        startActivityWithDefaultTransition(intent)
     }
 
     override fun onViewTag(tag: String) {
         val intent = TimelineActivityIntent.hashtag(requireContext(), pachliAccountId, tag)
-        startActivity(intent)
+        startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
     }
 
     override fun removeItem(viewData: ConversationViewData) {
@@ -449,7 +454,7 @@ class ConversationsFragment :
     }
 
     override fun onEditFilterById(pachliAccountId: Long, filterId: String) {
-        requireActivity().startActivityWithTransition(
+        startActivityWithTransition(
             EditContentFilterActivityIntent.edit(requireContext(), pachliAccountId, filterId),
             TransitionKind.SLIDE_FROM_END,
         )

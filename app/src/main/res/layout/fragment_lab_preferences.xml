@@ -26,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/TextSizeMedium"
-        android:textColor="?colorError"
+        android:textColor="?colorOnErrorContainer"
         android:background="?colorErrorContainer"
         android:paddingStart="?listPreferredItemPaddingStart"
         android:paddingEnd="?listPreferredItemPaddingEnd"

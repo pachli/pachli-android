@@ -7,8 +7,11 @@
     <string name="server_repository_error_get_instance_info">fallo al obtener /api/v1/instance: %1$s</string>
     <string name="server_repository_error_capabilities">fallo al analizar las capacidades del servidor: %1$s</string>
     <string name="error_filter_server_does_not_filter">El servidor no es compatible con filtros</string>
-    <string name="account_manager_error_no_active_account">Ninguna cuenta está marcada como activa</string>
+    <string name="account_manager_error_no_active_account">ninguna cuenta está marcada como activa</string>
     <string name="account_manager_error_unexpected">error inesperado: %1$s</string>
-    <string name="account_manager_error_account_does_not_exist">La cuenta no existe en la base de datos local. Esto no debería ocurrir. Si ves este mensaje, por favor, envía un reporte de error.</string>
+    <string name="account_manager_error_account_does_not_exist">La cuenta no existe en la base de datos local. Esto no debería ocurrir. Si ves este mensaje, por favor, repórtalo a team@pachli.app.</string>
     <string name="account_manager_error_dao">Error en la base de datos. Por favor, repórtalo a team@pachli.app: %1$s</string>
+    <string name="error_preference_importer_null_on_import">importar el archivo devolvió null</string>
+    <string name="error_preference_importer_missing_schema_version">el archivo no contiene una versión de esquema</string>
+    <string name="error_preference_importer_wrong_version_fmt">el archivo es de versión desconocida: %1$s</string>
 </resources>

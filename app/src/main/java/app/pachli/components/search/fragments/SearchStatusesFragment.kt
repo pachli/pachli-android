@@ -58,6 +58,7 @@ import app.pachli.core.ui.SetMarkdownContent
 import app.pachli.core.ui.SetMastodonHtmlContent
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.view.showMuteAccountDialog
+import com.bumptech.glide.Glide
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import com.google.android.material.divider.MaterialDividerItemDecoration
@@ -98,7 +99,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
             MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL),
         )
         binding.searchRecyclerView.layoutManager = LinearLayoutManager(binding.searchRecyclerView.context)
-        return SearchStatusesAdapter(setStatusContent, statusDisplayOptions, this)
+        return SearchStatusesAdapter(Glide.with(this), setStatusContent, statusDisplayOptions, this)
     }
 
     override fun onContentHiddenChange(viewData: StatusViewData, isShowingContent: Boolean) {
@@ -141,9 +142,9 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                         view,
                         url,
                     )
-                    startActivity(intent, options.toBundle())
+                    startActivityWithDefaultTransition(intent, options.toBundle())
                 } else {
-                    startActivity(intent)
+                    startActivityWithDefaultTransition(intent)
                 }
             }
             Attachment.Type.UNKNOWN -> openUrl(actionable.attachments[attachmentIndex].url)
@@ -152,11 +153,11 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
 
     override fun onViewThread(status: Status) {
         val actionableStatus = status.actionableStatus
-        bottomSheetActivity?.viewThread(pachliAccountId, actionableStatus.id, actionableStatus.url)
+        viewUrlActivity?.viewThread(pachliAccountId, actionableStatus.id, actionableStatus.url)
     }
 
     override fun onOpenReblog(status: Status) {
-        bottomSheetActivity?.viewAccount(pachliAccountId, status.account.id)
+        viewUrlActivity?.viewAccount(pachliAccountId, status.account.id)
     }
 
     override fun onExpandedChange(viewData: StatusViewData, expanded: Boolean) {
@@ -178,7 +179,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
     }
 
     override fun onEditFilterById(pachliAccountId: Long, filterId: String) {
-        requireActivity().startActivityWithTransition(
+        startActivityWithTransition(
             EditContentFilterActivityIntent.edit(requireContext(), pachliAccountId, filterId),
             TransitionKind.SLIDE_FROM_END,
         )
@@ -205,7 +206,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                 kind = ComposeOptions.ComposeKind.NEW,
             ),
         )
-        bottomSheetActivity?.startActivityWithDefaultTransition(intent)
+        startActivityWithDefaultTransition(intent)
     }
 
     private fun more(statusViewData: StatusViewData, view: View) {
@@ -244,7 +245,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
         }
 
         val openAsItem = popup.menu.findItem(R.id.status_open_as)
-        val openAsText = bottomSheetActivity?.openAsText
+        val openAsText = viewUrlActivity?.openAsText
         if (openAsText == null) {
             openAsItem.isVisible = false
         } else {
@@ -278,7 +279,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                         statusToShare.content
                     sendIntent.putExtra(Intent.EXTRA_TEXT, stringToShare)
                     sendIntent.type = "text/plain"
-                    startActivity(Intent.createChooser(sendIntent, resources.getText(R.string.send_post_content_to)))
+                    startActivityWithDefaultTransition(Intent.createChooser(sendIntent, resources.getText(R.string.send_post_content_to)))
                     return@setOnMenuItemClickListener true
                 }
                 R.id.post_share_link -> {
@@ -286,7 +287,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                     sendIntent.action = Intent.ACTION_SEND
                     sendIntent.putExtra(Intent.EXTRA_TEXT, statusUrl)
                     sendIntent.type = "text/plain"
-                    startActivity(Intent.createChooser(sendIntent, resources.getText(R.string.send_post_link_to)))
+                    startActivityWithDefaultTransition(Intent.createChooser(sendIntent, resources.getText(R.string.send_post_link_to)))
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_copy_link -> {
@@ -371,8 +372,10 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
     }
 
     private fun showOpenAsDialog(statusUrl: String, dialogTitle: CharSequence?) {
-        bottomSheetActivity?.showAccountChooserDialog(dialogTitle, false) { account ->
-            bottomSheetActivity?.openAsAccount(statusUrl, account)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewUrlActivity?.chooseAccount(dialogTitle, false)?.let { account ->
+                viewUrlActivity?.openAsAccount(statusUrl, account)
+            }
         }
     }
 
@@ -399,7 +402,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
     }
 
     private fun openReportPage(accountId: String, accountUsername: String, statusId: String) {
-        startActivity(ReportActivityIntent(requireContext(), this.pachliAccountId, accountId, accountUsername, statusId))
+        startActivityWithDefaultTransition(ReportActivityIntent(requireContext(), this.pachliAccountId, accountId, accountUsername, statusId))
     }
 
     // TODO: Identical to the same function in SFragment.kt
@@ -448,7 +451,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                                     kind = ComposeOptions.ComposeKind.NEW,
                                 ),
                             )
-                            startActivity(intent)
+                            startActivityWithDefaultTransition(intent)
                         }.onFailure { error ->
                             Timber.w("error deleting status: %s", error)
                             Toast.makeText(context, app.pachli.core.ui.R.string.error_generic, Toast.LENGTH_SHORT).show()
@@ -476,7 +479,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                     poll = status.poll?.toNewPoll(status.createdAt),
                     kind = ComposeOptions.ComposeKind.EDIT_POSTED,
                 )
-                startActivity(ComposeActivityIntent(requireContext(), pachliAccountId, composeOptions))
+                startActivityWithDefaultTransition(ComposeActivityIntent(requireContext(), pachliAccountId, composeOptions))
             }.onFailure {
                 Snackbar.make(
                     requireView(),

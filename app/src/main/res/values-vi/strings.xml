@@ -37,7 +37,6 @@
     <string name="action_logout">Đăng xuất</string>
     <string name="action_send_public">ĐĂNG</string>
     <string name="button_back">Quay lại</string>
-    <string name="button_continue">Tiếp tục</string>
     <string name="filter_dialog_update_button">Cập nhật</string>
     <string name="filter_dialog_remove_button">Xóa</string>
     <string name="action_send">ĐĂNG</string>
@@ -68,7 +67,6 @@
     <string name="send_post_content_to">Đăng lại tút với…</string>
     <string name="downloading_media">Đang lưu vào thiết bị</string>
     <string name="download_media">Tải xuống</string>
-    <string name="action_share_as">Đăng lại với tư cách …</string>
     <string name="action_copy_link">Chép URL</string>
     <string name="download_image">Đang tải %1$s</string>
     <string name="action_open_media_n">Mở tập tin #%d</string>
@@ -117,7 +115,7 @@
     <string name="action_block">Chặn</string>
     <string name="action_unfollow">Bỏ theo dõi</string>
     <string name="action_follow">Theo dõi</string>
-    <string name="action_logout_confirm">Bạn có muốn đăng xuất tài khoản %1$s\? Dữ liệu của tài khoản sẽ bị xóa, bao gồm những bản nháp và thiết lập.</string>
+    <string name="action_logout_confirm">Bạn có muốn đăng xuất tài khoản %1$s? Dữ liệu của tài khoản sẽ bị xóa, bao gồm những bản nháp và thiết lập.</string>
     <string name="action_compose">Soạn tút</string>
     <string name="action_unfavourite">Bỏ lưu</string>
     <string name="action_bookmark">Lưu</string>
@@ -359,11 +357,6 @@
     <string name="lock_account_label_description">Tự bạn sẽ phê duyệt người theo dõi</string>
     <string name="lock_account_label">Tài khoản riêng tư</string>
     <string name="action_remove">Hủy bỏ</string>
-    <string name="action_set_caption">Mô tả</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="other">Mô tả dành cho người khiếm thị
-\n(Tối đa %d ký tự)</item>
-    </plurals>
     <string name="compose_active_account_description">Đăng với tư cách %1$s</string>
     <string name="add_account_description">Thêm tài khoản Mastodon</string>
     <string name="add_account_name">Thêm tài khoản</string>
@@ -536,7 +529,6 @@
     <string name="pref_title_show_stat_inline">Hiện số tương tác trên tút</string>
     <string name="help_empty_home">Đây là <b>bảng tin của bạn</b>. Nó sẽ hiện những tút gần đây từ những người bạn theo dõi. \n \nĐể khám phá mọi người, bạn có thể xem qua ở các bảng tin khác. Ví dụ: [iconics gmd_group] Bảng tin máy chủ của bạn. Hoặc bạn cũng có thể [iconics gmd_search] tìm theo tên người dùng; ví dụ như Pachli.</string>
     <string name="hint_description">Mô tả</string>
-    <string name="post_media_image">Hình ảnh</string>
     <string name="select_list_manage">Quản lý danh sách</string>
     <string name="select_list_empty">Bạn chưa có danh sách</string>
     <string name="load_newest_notifications">Tải những thông báo mới nhất</string>

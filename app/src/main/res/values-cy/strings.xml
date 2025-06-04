@@ -45,7 +45,7 @@
     <string name="action_favourite">Hoffi</string>
     <string name="action_compose">Creu</string>
     <string name="action_logout">Allgofnodi</string>
-    <string name="action_logout_confirm">Ydych chi\'n siŵr eich bod am allgofnodi o\'r cyfrif %1$s\? Bydd hyn yn dileu\'r holl ddata lleol, gan gynnwys drafftiau a chyfeiriadau.</string>
+    <string name="action_logout_confirm">Ydych chi\'n siŵr eich bod am allgofnodi o\'r cyfrif %1$s? Bydd hyn yn dileu\'r holl ddata lleol, gan gynnwys drafftiau a chyfeiriadau.</string>
     <string name="action_follow">Dilyn</string>
     <string name="action_unfollow">Dad-ddilyn</string>
     <string name="action_block">Blocio</string>
@@ -197,7 +197,6 @@
     <string name="add_account_name">Ychwanegu Cyfrif</string>
     <string name="add_account_description">Ychwanegu Cyfrif Mastodon newydd</string>
     <string name="compose_active_account_description">Yn postio fel %1$s</string>
-    <string name="action_set_caption">Gosod pennawd</string>
     <string name="action_remove">Dileu</string>
     <string name="lock_account_label">Cloi cyfrif</string>
     <string name="lock_account_label_description">Bydd angen cymeradwyo\'ch dilynwyr eich hun</string>
@@ -305,7 +304,6 @@
     <string name="description_post_favourited">Hoffwyd</string>
     <string name="saving_draft">Yn cadw drafft…</string>
     <string name="action_open_media_n">Agor cyfryngau #%d</string>
-    <string name="action_share_as">Rhannu fel …</string>
     <string name="downloading_media">Yn llwytho cyfryngau</string>
     <string name="download_media">Llwytho cyfryngau</string>
     <string name="dialog_redraft_post_warning">Dileu ac ailddrafftio\'r neges hon\?</string>
@@ -365,7 +363,6 @@
     <string name="poll_vote">Pleidleisio</string>
     <string name="poll_ended_voted">Mae pôl rydych wedi pleidleisio ynddo wedi dod i ben</string>
     <string name="poll_ended_created">Mae pôl a greoch wedi dod i ben</string>
-    <string name="button_continue">Parhau</string>
     <string name="button_back">Nôl</string>
     <string name="hint_additional_info">Sylwadau ychwanegol</string>
     <string name="pref_main_nav_position">Prif lleoliad y panel llywio</string>
@@ -524,14 +521,6 @@
         <item quantity="many">Nid oes modd i chi lanlwytho mwy na %1$d atodiad cyfryngau.</item>
         <item quantity="other">Nid oes modd i chi lanlwytho mwy na %1$d atodiad cyfryngau.</item>
     </plurals>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="zero">Disgrifiwch y cynnwys ar gyfer pobl â nam ar eu golwg (terfyn nodau o %d)</item>
-        <item quantity="one">Disgrifiwch y cynnwys ar gyfer pobl â nam ar eu golwg (terfyn nodau o %d)</item>
-        <item quantity="two">Disgrifiwch y cynnwys ar gyfer pobl â nam ar eu golwg (terfyn nodau o %d)</item>
-        <item quantity="few">Disgrifiwch y cynnwys ar gyfer pobl â nam ar eu golwg (terfyn nodau o %d)</item>
-        <item quantity="many">Disgrifiwch y cynnwys ar gyfer pobl â nam ar eu golwg (terfyn nodau o %d)</item>
-        <item quantity="other">Disgrifiwch y cynnwys ar gyfer pobl â nam ar eu golwg (terfyn nodau o %d)</item>
-    </plurals>
     <string name="action_continue_edit">Parhau i olygu</string>
     <string name="status_edit_info">Golygwyd: %1$s</string>
     <string name="status_created_info">Crëwyd: %1$s</string>
@@ -595,7 +584,6 @@
     <string name="filter_edit_keyword_title">Golygu allweddair</string>
     <string name="filter_description_format">%s: %s</string>
     <string name="hint_description">Disgrifiad</string>
-    <string name="post_media_image">Delwedd</string>
     <string name="select_list_empty">Nid oes gennych restrau, eto</string>
     <string name="select_list_manage">Rheoli rhestrau</string>
     <string name="help_empty_home">Hwn yw\'ch <b>ffrwd cartref</b>. Mae\'n dangos negeseuon diweddar y cyfrifon rydych yn eu dilyn. \n \nI archwilio cyfrifon gallwch un ai eu darganfod o fewn un o\'r llinellau amser eraill. Er enghraifft, mae llinell amser eich enghraifft chi [iconics gmd_group]. Neu gallwch eu chwilio yn ôl eu henw [iconics gmd_search]; er enghraifft, chwilio am Pachli i ganfod ein cyfrif Mastodon.</string>

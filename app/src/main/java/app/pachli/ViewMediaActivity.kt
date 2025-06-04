@@ -168,8 +168,8 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
         window.sharedElementEnterTransition.addListener(
             object : NoopTransitionListener {
                 override fun onTransitionEnd(transition: Transition) {
-                    adapter.onTransitionEnd(binding.viewPager.currentItem)
                     window.sharedElementEnterTransition.removeListener(this)
+                    adapter.onTransitionEnd(binding.viewPager.currentItem)
                 }
             },
         )
@@ -220,8 +220,8 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
             .setListener(
                 object : AnimatorListenerAdapter() {
                     override fun onAnimationEnd(animation: Animator) {
-                        binding.toolbar.visibility = visibility
                         animation.removeListener(this)
+                        binding.toolbar.visibility = visibility
                     }
                 },
             )

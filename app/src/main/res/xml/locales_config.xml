@@ -21,6 +21,7 @@
     <locale android:name="it"/> <!-- Italian -->
     <locale android:name="lv"/> <!-- Latvian -->
     <locale android:name="lt"/> <!-- Lithuanian -->
+    <locale android:name="lmo"/> <!-- Lombard -->
     <locale android:name="hu"/> <!-- Hungarian -->
     <locale android:name="nl"/> <!-- Dutch -->
     <locale android:name="nb-NO"/> <!-- Norwegian Bokmål (Norway) -->

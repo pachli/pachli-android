@@ -23,8 +23,6 @@ import android.text.Spanned
 import android.text.style.StyleSpan
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
-import app.pachli.core.activity.emojify
-import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.database.model.NotificationEntity
@@ -32,12 +30,16 @@ import app.pachli.core.designsystem.R as DR
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.LinkListener
+import app.pachli.core.ui.emojify
+import app.pachli.core.ui.loadAvatar
 import app.pachli.core.ui.setClickableText
 import app.pachli.databinding.ItemFollowBinding
 import app.pachli.viewdata.NotificationViewData
+import com.bumptech.glide.RequestManager
 
 class FollowViewHolder(
     private val binding: ItemFollowBinding,
+    private val glide: RequestManager,
     private val notificationActionListener: NotificationActionListener,
     private val linkListener: LinkListener,
 ) : NotificationsPagingAdapter.ViewHolder, RecyclerView.ViewHolder(binding.root) {
@@ -89,6 +91,7 @@ class FollowViewHolder(
         )
         val emojifiedMessage =
             wholeMessage.emojify(
+                glide,
                 account.emojis,
                 binding.notificationText,
                 animateEmojis,
@@ -97,6 +100,7 @@ class FollowViewHolder(
         val username = context.getString(DR.string.post_username_format, account.username)
         binding.notificationUsername.text = username
         loadAvatar(
+            glide,
             account.avatar,
             binding.notificationAvatar,
             avatarRadius42dp,
@@ -104,6 +108,7 @@ class FollowViewHolder(
         )
 
         val emojifiedNote = account.note.parseAsMastodonHtml().emojify(
+            glide,
             account.emojis,
             binding.notificationAccountNote,
             animateEmojis,

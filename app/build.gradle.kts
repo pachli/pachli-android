@@ -32,8 +32,8 @@ android {
 
     defaultConfig {
         applicationId = "app.pachli"
-        versionCode = 29
-        versionName = "2.11.0"
+        versionCode = 31
+        versionName = "2.13.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments["disableAnalytics"] = "true"
@@ -139,6 +139,7 @@ dependencies {
     implementation(projects.core.ui)
 
     implementation(projects.feature.about)
+    implementation(projects.feature.intentrouter)
     implementation(projects.feature.lists)
     implementation(projects.feature.login)
     implementation(projects.feature.suggestions)
@@ -159,9 +160,6 @@ dependencies {
     implementation(libs.okio)
 
     implementation(libs.conscrypt.android)
-
-    implementation(libs.bundles.glide)
-    ksp(libs.glide.compiler)
 
     implementation(libs.sparkbutton)
 

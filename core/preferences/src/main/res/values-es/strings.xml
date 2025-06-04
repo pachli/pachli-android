@@ -32,4 +32,8 @@
     <string name="pref_update_notification_frequency_never">Nunca</string>
     <string name="pref_update_notification_frequency_once_per_version">Una vez por versión</string>
     <string name="pref_update_notification_frequency_always">Siempre</string>
+    <string name="pref_summary_export_settings">Toca para guardar las preferencias de la aplicación y de la cuenta en un archivo local</string>
+    <string name="pref_title_export_settings">Exportar preferencias</string>
+    <string name="pref_title_import_settings">Importar preferencias</string>
+    <string name="pref_summary_import_settings">Toca para restaurar las preferencias desde un archivo creado usando \"Exportar preferencias\"</string>
 </resources>

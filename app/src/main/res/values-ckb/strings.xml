@@ -12,7 +12,6 @@
     <string name="send_post_link_to">هاوبەشکردنی توتی URL بۆ…</string>
     <string name="downloading_media">داگرتنی میدیا</string>
     <string name="download_media">داگرتنی میدیا</string>
-    <string name="action_share_as">هاوبەش کردن وەک …</string>
     <string name="action_copy_link">بەستەرەکە ڕوونوس بکە</string>
     <string name="download_image">داگرتنی %1$s</string>
     <string name="action_open_media_n">کردنەوەی میدیا #%d</string>
@@ -231,7 +230,6 @@
     <string name="hint_additional_info">سەرنجەکانی زیاتر</string>
     <string name="report_sent_success">سەرکەوتووانە ڕاپۆرتکرا @%s</string>
     <string name="button_back">دواوە</string>
-    <string name="button_continue">بەردەوام بە</string>
     <plurals name="poll_timespan_seconds">
         <item quantity="one">%d چرکەی ماوەو</item>
         <item quantity="other">%d دووەم چەپ</item>
@@ -326,11 +324,6 @@
     <string name="lock_account_label_description">داوات لێدەکات کە بە دەستی شوێنکەوتوانی پەسەند بکە</string>
     <string name="lock_account_label">داخستنی ئەژمێر</string>
     <string name="action_remove">لابردن</string>
-    <string name="action_set_caption">دانانی سەردێڕ</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="other">وەسف بکە بۆ بینایی داڕماو
-\n(%d سنوری کاراکتەر)</item>
-    </plurals>
     <string name="compose_active_account_description">%1$s بڵاوکردنەوە بە هەژماری</string>
     <string name="add_account_description">زیادکردنی ئەژمێری ماتۆدۆنی نوێ</string>
     <string name="add_account_name">زیادکردنی ئەژمێر</string>

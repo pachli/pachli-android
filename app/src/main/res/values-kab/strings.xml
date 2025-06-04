@@ -50,7 +50,6 @@
     <string name="action_emoji_keyboard">Anasiw n imujiyen</string>
     <string name="action_add_tab">Rnu iccer</string>
     <string name="action_copy_link">Nɣel aseɣwen</string>
-    <string name="action_share_as">Bḍu amzun d…</string>
     <string name="send_post_link_to">Bḍu aseɣwen n tijewwiq s…</string>
     <string name="send_post_content_to">Bḍu tijewwiqt d…</string>
     <string name="hint_compose">d-acu i gellan d amaynut\?</string>
@@ -159,7 +158,6 @@
         <item quantity="one">%d n tasdidt id yugran</item>
         <item quantity="other">%d n tisdidin id yugran</item>
     </plurals>
-    <string name="button_continue">Kemmel</string>
     <string name="button_back">Uɣal</string>
     <string name="failed_report">Tella-d tuccḍa deg cetki</string>
     <string name="failed_search">Tucḍa n unadi</string>
@@ -275,7 +273,6 @@
     <string name="report_category_other">Wayeḍ</string>
     <string name="search_operator_attachment_dialog_video_label">Tavidyutt</string>
     <string name="search_operator_language_checked_fmt">%1$s</string>
-    <string name="post_media_image">Tugna</string>
     <string name="label_filter_title">Azwel</string>
     <string name="action_add">Rnu</string>
     <string name="title_public_federated">Asdukklan</string>

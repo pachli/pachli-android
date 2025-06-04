@@ -101,7 +101,6 @@
     <string name="action_open_media_n">Apri media #%d</string>
     <string name="download_image">Scaricando %1$s</string>
     <string name="action_copy_link">Copia collegamento</string>
-    <string name="action_share_as">Condividi come …</string>
     <string name="send_post_link_to">Condividi URL del messaggio su…</string>
     <string name="send_post_content_to">Condividi messaggio su…</string>
     <string name="send_media_to">Condividi media su…</string>
@@ -233,15 +232,6 @@
     <string name="add_account_name">Aggiungi account</string>
     <string name="add_account_description">Aggiungi un nuovo Account Mastodon</string>
     <string name="compose_active_account_description">Pubblicando come %1$s</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="one">Descrivi il contenuto per gli ipovedenti
-\n(limite di %d caratteri)</item>
-        <item quantity="many">Descrivi i contenuti per gli ipovedenti
-\n(limite di %d caratteri)</item>
-        <item quantity="other">Descrivi i contenuti per gli ipovedenti
-\n(limite di %d caratteri)</item>
-    </plurals>
-    <string name="action_set_caption">Inserisci descrizione</string>
     <string name="action_remove">Rimuovi</string>
     <string name="lock_account_label">Blocca account</string>
     <string name="lock_account_label_description">Richiede una tua approvazione manuale per seguirti</string>
@@ -363,7 +353,6 @@
         <item quantity="many">%d secondi rimasti</item>
         <item quantity="other">%d secondi rimasti</item>
     </plurals>
-    <string name="button_continue">Continua</string>
     <string name="button_back">Indietro</string>
     <string name="report_sent_success">Segnalato @%s con successo</string>
     <string name="hint_additional_info">Altri commenti</string>
@@ -555,7 +544,6 @@
     <string name="help_empty_home">Questa è la tua <b>Timeline principale</b>. Mostra i post più recenti degli account che segui. \n \nPer esplorare gli account puoi scoprirli in una delle altre timeline. Per esempio la timeline locale della tua istanza [iconica gmd_group]. O puoi cercarli per nome [iconica gmd_search]; per esempio cerca “Pachli” per trovare il nostro account Mastodon.</string>
     <string name="hint_description">Descrizione</string>
     <string name="notification_unknown_name">Sconosciuto</string>
-    <string name="post_media_image">Immagine</string>
     <string name="label_filter_title">Titolo</string>
     <string name="filter_action_warn">Avvisa</string>
     <string name="filter_action_hide">Nascondi</string>

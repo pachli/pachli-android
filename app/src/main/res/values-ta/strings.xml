@@ -180,7 +180,6 @@
     <string name="add_account_name">கணக்கை சேர்க்க</string>
     <string name="add_account_description">புதிய Mastodon கணக்கைச் சேர்க்க</string>
     <string name="compose_active_account_description">%1$s கணக்குடன் பதிவிட</string>
-    <string name="action_set_caption">தலைப்பை அமை</string>
     <string name="action_remove">நீக்கு</string>
     <string name="lock_account_label">கணக்கை முடக்கு</string>
     <string name="lock_account_label_description">நீங்களாக பின்பற்றுபவர்களை அங்கீகரிக்க</string>
@@ -284,10 +283,6 @@
     <string name="notification_listenable_worker_name">பின்னணி செயல்பாடு</string>
     <string name="notification_listenable_worker_description">பச்ச்லி பின்னணியில் வேலை செய்யும் போது அறிவிப்புகள்</string>
     <string name="notification_unknown_name">தெரியவில்லை</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="one">பார்வையற்றோருக்கான உள்ளடக்கத்தை விவரிக்கவும் (%d எழுத்து வரம்பு)</item>
-        <item quantity="other">பார்வையற்றோருக்கான உள்ளடக்கங்களை விவரிக்கவும் (%d எழுத்து வரம்பு)</item>
-    </plurals>
     <string name="notification_notification_worker">அறிவிப்புகளைப் பெறுதல்…</string>
     <string name="post_media_attachments">இணைப்புகள்</string>
     <string name="status_count_one_plus">1+</string>
@@ -313,7 +308,6 @@
         <item quantity="one">%d இரண்டாவது இடது</item>
         <item quantity="other">%d விநாடிகள் எஞ்சியுள்ளன</item>
     </plurals>
-    <string name="button_continue">தொடரவும்</string>
     <string name="button_back">பின்</string>
     <string name="hint_additional_info">கூடுதல் கருத்துகள்</string>
     <string name="report_description_1">அறிக்கை உங்கள் சேவையக மதிப்பீட்டாளருக்கு அனுப்பப்படும். இந்த கணக்கை நீங்கள் ஏன் கீழே புகாரளிக்கிறீர்கள் என்பதற்கான விளக்கத்தை நீங்கள் வழங்கலாம்:</string>
@@ -405,7 +399,6 @@
     <string name="search_operator_where_dialog_library">உங்கள் நூலகம்</string>
     <string name="search_operator_where_dialog_library_hint">உங்கள் சொந்த இடுகைகள், ஊக்கங்கள், பிடித்தவை, புக்மார்க்குகள் மற்றும் இடுகைகள்</string>
     <string name="upload_failed_msg_fmt">நீங்கள் இடுகையை அனுப்பும்போது பதிவேற்றம் மீண்டும் செய்யப்படும். அது மீண்டும் தோல்வியுற்றால், உங்கள் வரைவுகளில் இடுகை சேமிக்கப்படும்.\n\n பிழை: %1$s</string>
-    <string name="action_relogin">மறு உள்நுழைவு</string>
     <string name="pref_account_notification_filters_label_limited_by_server">… உங்கள் மதிப்பீட்டாளர்களால் வரையறுக்கப்பட்டுள்ளது</string>
     <string name="account_filter_placeholder_type_favourite_fmt">ஒரு பயனர் @<b>%1s </b> உங்கள் இடுகைக்கு பிடித்தது</string>
     <string name="account_filter_placeholder_label_domain">ஒரு பயனரிடமிருந்து @<b>%1s </b></string>
@@ -531,7 +524,6 @@
     <string name="action_access_scheduled_posts">திட்டமிடப்பட்ட இடுகைகள்</string>
     <string name="action_open_reblogger">திறந்த பூச்ட் ஆசிரியர்</string>
     <string name="action_open_faved_by">பிடித்தவைகளைக் காட்டு</string>
-    <string name="action_share_as">பகிர்ந்து கொள்ளுங்கள்…</string>
     <string name="confirmation_domain_unmuted">%s</string>
     <string name="dialog_message_cancel_follow_request">பின்தொடர்தல் கோரிக்கையை ரத்து செய்யவா?</string>
     <string name="filter_expiration_format">%s (%s)</string>
@@ -560,9 +552,6 @@
     <string name="search_operator_language_dialog_title">எழுதப்பட்ட இடுகைகளுக்கு வரம்பு…</string>
     <string name="search_operator_sensitive_dialog_no_sensitive">முக்கியமான உள்ளடக்கத்தை விலக்கு</string>
     <string name="search_operator_where_all">அனைத்து இடுகைகளும்</string>
-    <string name="upload_failed_modify_attachment">இணைப்பை மாற்றவும்</string>
-    <string name="main_viewmodel_error_set_active_account">உள்நுழைய முயற்சிப்பது பின்வரும் பிழையுடன் தோல்வியுற்றது:\n\n %1$s</string>
-    <string name="main_viewmodel_error_refresh_account">புத்துணர்ச்சியூட்டும் கணக்கு பின்வரும் பிழையுடன் தோல்வியடைந்தது:\n\n %1$s\n\n நீங்கள் தொடரலாம், ஆனால் உங்கள் பட்டியல்கள் மற்றும் வடிப்பான்கள் முழுமையடையாது.</string>
     <string name="notification_unknown">அறியப்படாத அறிவிப்பு வகை</string>
     <string name="pref_title_show_self_boosts">தன்வய பூச்ட்களைக் காட்டு</string>
     <string name="action_delete_and_redraft">நீக்கு மற்றும் மீண்டும் வரைவு</string>
@@ -656,7 +645,6 @@
     <string name="send_account_link_to">கணக்கு முகவரி ஐப் பகிரவும்…</string>
     <string name="send_account_username_to">கணக்கு பயனர்பெயரைப் பகிரவும்…</string>
     <string name="confirmation_hashtag_muted">#%s மறைக்கப்பட்டுள்ளன</string>
-    <string name="post_media_image">படம்</string>
     <string name="failed_to_pin">பின் தவறிவிட்டது</string>
     <string name="error_filter_missing_keyword">குறைந்தது ஒரு முக்கிய சொல் அல்லது சொற்றொடர் தேவை</string>
     <string name="conversation_0_recipients">வேறு பங்கேற்பாளர்கள் இல்லை</string>

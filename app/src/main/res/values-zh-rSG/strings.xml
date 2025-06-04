@@ -96,7 +96,6 @@
     <string name="action_open_media_n">打开媒体文件 #%d</string>
     <string name="download_image">正在下载 %1$s…</string>
     <string name="action_copy_link">复制链接</string>
-    <string name="action_share_as">分享为 …</string>
     <string name="download_media">下载媒体文件</string>
     <string name="downloading_media">正在下载媒体文件</string>
     <string name="send_post_link_to">分享链接到…</string>
@@ -223,10 +222,6 @@
     <string name="add_account_name">添加账号</string>
     <string name="add_account_description">添加新的 Mastodon 账号</string>
     <string name="compose_active_account_description">以 %1$s 发布嘟文</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="other">为视觉障碍用户提供的描述\n(限制 %d 字)</item>
-    </plurals>
-    <string name="action_set_caption">设置图片标题</string>
     <string name="action_remove">移除</string>
     <string name="lock_account_label">保护你的帐户（锁嘟）</string>
     <string name="lock_account_label_description">你需要手动审核所有关注请求</string>

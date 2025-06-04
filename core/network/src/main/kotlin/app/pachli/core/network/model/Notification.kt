@@ -95,19 +95,7 @@ data class Notification(
             fun byString(s: String) = entries.firstOrNull { s == it.presentation } ?: UNKNOWN
 
             /** Notification types for UI display (omits UNKNOWN) */
-            val visibleTypes = listOf(
-                MENTION,
-                REBLOG,
-                FAVOURITE,
-                FOLLOW,
-                FOLLOW_REQUEST,
-                POLL,
-                STATUS,
-                SIGN_UP,
-                UPDATE,
-                REPORT,
-                SEVERED_RELATIONSHIPS,
-            )
+            val visibleTypes = Type.entries.filter { it != UNKNOWN }
         }
 
         override fun toString(): String {

@@ -26,6 +26,7 @@ import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.network.model.TrendsLink
 import app.pachli.databinding.ItemTrendingLinkBinding
 import app.pachli.view.PreviewCardView
+import com.bumptech.glide.RequestManager
 
 /**
  * @param statusDisplayOptions
@@ -34,6 +35,7 @@ import app.pachli.view.PreviewCardView
  * @param onViewLink
  */
 class TrendingLinksAdapter(
+    private val glide: RequestManager,
     statusDisplayOptions: StatusDisplayOptions,
     showTimelineLink: Boolean,
     private val onViewLink: PreviewCardView.OnClickListener,
@@ -59,6 +61,7 @@ class TrendingLinksAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrendingLinkViewHolder {
         return TrendingLinkViewHolder(
             ItemTrendingLinkBinding.inflate(LayoutInflater.from(parent.context)),
+            glide,
             onViewLink,
         )
     }

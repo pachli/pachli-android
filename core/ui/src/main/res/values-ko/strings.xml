@@ -13,4 +13,5 @@
     <string name="title_links_dialog">링크</string>
     <string name="title_hashtags_dialog">해시태그</string>
     <string name="title_mentions_dialog">멘션</string>
+    <string name="button_continue">다음</string>
 </resources>

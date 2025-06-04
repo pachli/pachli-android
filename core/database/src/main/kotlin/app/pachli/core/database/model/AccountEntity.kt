@@ -149,8 +149,6 @@ data class AccountEntity(
     val unifiedPushInstance: String
         get() = id.toString()
 
-    fun isLoggedIn() = accessToken.isNotEmpty()
-
     /** Value of the "Authorization" header for this account ("Bearer $accessToken"). */
     val authHeader: String
         get() = "Bearer $accessToken"
@@ -159,6 +157,6 @@ data class AccountEntity(
 fun defaultTabs() = listOf(
     Timeline.Home,
     Timeline.Notifications,
-    Timeline.PublicLocal,
+    Timeline.TrendingStatuses,
     Timeline.Conversations,
 )

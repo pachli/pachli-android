@@ -15,4 +15,5 @@
     <string name="title_links_dialog">Liens</string>
     <string name="title_hashtags_dialog">Hashtags</string>
     <string name="title_mentions_dialog">Mentions</string>
+    <string name="button_continue">Continuer</string>
 </resources>

@@ -108,7 +108,6 @@
     <string name="hint_additional_info">Beachdan a bharrachd</string>
     <string name="report_sent_success">Chaidh do gearan air @%s a chlàradh</string>
     <string name="button_back">Air ais</string>
-    <string name="button_continue">Air adhart</string>
     <plurals name="poll_timespan_seconds">
         <item quantity="one">Tha %d diog air fhàgail</item>
         <item quantity="two">Tha %d dhiog air fhàgail</item>
@@ -215,13 +214,6 @@
     <string name="compose_save_draft">A bheil thu airson a shàbhaladh ’na dhreachd\?</string>
     <string name="lock_account_label_description">Feumaidh tu gabhail ri luchd-leantainn ùr a làimh</string>
     <string name="lock_account_label">Glais an cunntas</string>
-    <string name="action_set_caption">Suidhich am fo-thiotal</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="one">Mìnich an t-susbaint dhan fheadhainn air a bheil cion-lèirsinn (%d charactar air a char as fhaide)</item>
-        <item quantity="two">Mìnich an t-susbaint dhan fheadhainn air a bheil cion-lèirsinn (%d charactar air a char as fhaide)</item>
-        <item quantity="few">Mìnich an t-susbaint dhan fheadhainn air a bheil cion-lèirsinn (%d caractaran air a char as fhaide)</item>
-        <item quantity="other">Mìnich an t-susbaint dhan fheadhainn air a bheil cion-lèirsinn (%d caractar air a char as fhaide)</item>
-    </plurals>
     <string name="compose_active_account_description">A’ postadh mar %1$s</string>
     <string name="add_account_description">Cuir cunntas Mastodon ùr ris</string>
     <string name="add_account_name">Cuir cunntas ris</string>
@@ -363,7 +355,6 @@
     <string name="send_media_to">Co-roinn am meadhan le…</string>
     <string name="downloading_media">A’ luchdadh a-nuas meadhanan</string>
     <string name="download_media">Luchdaich a-nuas meadhanan</string>
-    <string name="action_share_as">Co-roinn mar …</string>
     <string name="action_copy_link">Dèan lethbhreac dhen cheangal</string>
     <string name="download_image">A’ luchdadh a-nuas %1$s</string>
     <string name="action_open_media_n">Fosgail meadhan #%d</string>
@@ -394,7 +385,7 @@
     <string name="action_view_blocks">Cleachdaichean bacte</string>
     <string name="action_view_mutes">Cleachdaichean mùchte</string>
     <string name="action_view_bookmarks">Comharran-lìn</string>
-    <string name="action_logout_confirm">A bheil thu cinnteach gu bheil thu airson clàradh a-mach à %1$s\? Thèid gach dàta ionadail a’ chunntais a sguabadh às, a’ gabhail a-staigh nan dreachdan is roghainnean.</string>
+    <string name="action_logout_confirm">A bheil thu cinnteach gu bheil thu airson clàradh a-mach à %1$s? Thèid gach dàta ionadail a’ chunntais a sguabadh às, a’ gabhail a-staigh nan dreachdan is roghainnean.</string>
     <string name="action_unfavourite">Thoir air falbh o na h-annsachdan</string>
     <string name="action_bookmark">Cuir ris na comharran-lìn</string>
     <string name="action_favourite">Cuir ris na h-annsachdan</string>
@@ -534,7 +525,6 @@
     <string name="dialog_follow_hashtag_title">Lean an taga hais</string>
     <string name="dialog_follow_hashtag_hint">#TagaHais</string>
     <string name="hint_description">Tuairisgeul</string>
-    <string name="post_media_image">Dealbh</string>
     <string name="filter_action_warn">Thoir rabhadh</string>
     <string name="filter_action_hide">Falaich</string>
     <string name="notification_unknown_name">Neo-aithnichte</string>

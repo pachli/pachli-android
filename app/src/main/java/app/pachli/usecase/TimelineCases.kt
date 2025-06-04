@@ -49,24 +49,24 @@ class TimelineCases @Inject constructor(
     private val translatedStatusDao: TranslatedStatusDao,
     private val translationService: TranslationService,
 ) {
-    suspend fun muteConversation(statusId: String, mute: Boolean): ApiResult<Status> {
+    suspend fun muteConversation(pachliAccountId: Long, statusId: String, mute: Boolean): ApiResult<Status> {
         return if (mute) {
             mastodonApi.muteConversation(statusId)
         } else {
             mastodonApi.unmuteConversation(statusId)
         }.onSuccess {
-            eventHub.dispatch(MuteConversationEvent(statusId, mute))
+            eventHub.dispatch(MuteConversationEvent(pachliAccountId, statusId, mute))
         }
     }
 
-    suspend fun mute(statusId: String, notifications: Boolean, duration: Int?) {
+    suspend fun mute(pachliAccountId: Long, statusId: String, notifications: Boolean, duration: Int?) {
         mastodonApi.muteAccount(statusId, notifications, duration)
-            .onSuccess { eventHub.dispatch(MuteEvent(statusId)) }
+            .onSuccess { eventHub.dispatch(MuteEvent(pachliAccountId, statusId)) }
     }
 
-    suspend fun block(accountId: String) {
+    suspend fun block(pachliAccountId: Long, accountId: String) {
         mastodonApi.blockAccount(accountId)
-            .onSuccess { eventHub.dispatch(BlockEvent(accountId)) }
+            .onSuccess { eventHub.dispatch(BlockEvent(pachliAccountId, accountId)) }
     }
 
     suspend fun delete(statusId: String): ApiResult<DeletedStatus> {

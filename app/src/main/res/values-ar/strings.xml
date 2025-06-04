@@ -93,7 +93,6 @@
     <string name="action_open_faved_by">اعرض المفضلات</string>
     <string name="download_image">تنزيل %1$s</string>
     <string name="action_copy_link">إنسخ الرابط</string>
-    <string name="action_share_as">شاركه كـ…</string>
     <string name="send_post_link_to">شارك رابط التبويق مع…</string>
     <string name="send_post_content_to">شارك التبويق على…</string>
     <string name="send_media_to">شارك الوسيط مع…</string>
@@ -219,21 +218,6 @@
     <string name="add_account_name">إضافة حساب</string>
     <string name="add_account_description">إضافة حساب ماستدون جديد</string>
     <string name="compose_active_account_description">النشر بإسم %1$s</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="zero">وصف لضعاف البصر
-\n(%d أحرف على أقصى تقدير)</item>
-        <item quantity="one">وصف لضعاف البصر
-\n(حرف واحد على أقصى تقدير)</item>
-        <item quantity="two">وصف لضعاف البصر
-\n(حرفان على أقصى تقدير)</item>
-        <item quantity="few">وصف لضعاف البصر
-\n(%d حروف على أقصى تقدير)</item>
-        <item quantity="many">وصف لضعاف البصر
-\n(%d حرفًا على أقصى تقدير)</item>
-        <item quantity="other">وصف لضعاف البصر
-\n(%d حرف على أقصى تقدير)</item>
-    </plurals>
-    <string name="action_set_caption">إضافة شرح</string>
     <string name="action_remove">حذف</string>
     <string name="lock_account_label">تجميد الحساب</string>
     <string name="lock_account_label_description">يتطلب منك قبول طلبات المتابَعة يدويا</string>
@@ -365,7 +349,6 @@
     <string name="confirmation_domain_unmuted">لم يعُد %s مخفيا</string>
     <string name="mute_domain_warning_dialog_ok">اخفِ كافة النطاق</string>
     <string name="pref_title_animate_gif_avatars">تنشيط الصور المتحركة GIF للحسابات</string>
-    <string name="button_continue">واصل</string>
     <string name="button_back">العودة</string>
     <string name="report_sent_success">تم الابلاغ عن @%s بنجاح</string>
     <string name="hint_additional_info">تعليقات إضافية</string>
@@ -595,7 +578,6 @@
     <string name="title_tab_public_trending_statuses">المنشورات</string>
     <string name="filter_description_hide">إخفاء تماما</string>
     <string name="filter_description_format">%s: %s</string>
-    <string name="post_media_image">صورة</string>
     <string name="filter_action_hide">إخفاء</string>
     <string name="label_filter_title">العنوان</string>
     <string name="pref_title_font_family">عائلة الخطوط</string>

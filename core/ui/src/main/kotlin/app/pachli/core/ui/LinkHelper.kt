@@ -24,7 +24,6 @@ import android.widget.TextView
 import androidx.annotation.VisibleForTesting
 import androidx.core.net.toUri
 import androidx.core.text.method.LinkMovementMethodCompat
-import app.pachli.core.activity.EmojiSpan
 import app.pachli.core.network.model.HashTag
 import app.pachli.core.network.model.Status.Mention
 import com.mikepenz.iconics.IconicsColor

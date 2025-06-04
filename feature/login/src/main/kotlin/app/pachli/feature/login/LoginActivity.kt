@@ -38,12 +38,11 @@ import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.setCloseTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.navigation.IntentRouterActivityIntent
 import app.pachli.core.navigation.LoginActivityIntent
-import app.pachli.core.navigation.MainActivityIntent
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.getNonNullString
 import app.pachli.feature.login.databinding.ActivityLoginBinding
-import com.bumptech.glide.Glide
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
@@ -82,10 +81,11 @@ class LoginActivity : BaseActivity() {
 
     private val doWebViewAuth = registerForActivityResult(OauthLogin()) { result ->
         when (result) {
-            is LoginResult.Ok -> lifecycleScope.launch {
+            is LoginResult.Code -> lifecycleScope.launch {
                 fetchOauthToken(result.code)
             }
-            is LoginResult.Err -> displayError(result.errorMessage)
+
+            is LoginResult.Error -> displayError(result.errorMessage)
             is LoginResult.Cancel -> setLoading(false)
         }
     }
@@ -112,8 +112,7 @@ class LoginActivity : BaseActivity() {
         }
 
         if (BuildConfig.CUSTOM_LOGO_URL.isNotBlank()) {
-            Glide.with(binding.loginLogo)
-                .load(BuildConfig.CUSTOM_LOGO_URL)
+            glide.load(BuildConfig.CUSTOM_LOGO_URL)
                 .placeholder(null)
                 .into(binding.loginLogo)
         }
@@ -165,7 +164,7 @@ class LoginActivity : BaseActivity() {
         uiResult.onSuccess { uiSuccess ->
             when (uiSuccess) {
                 is UiSuccess.VerifyAndAddAccount -> {
-                    val intent = MainActivityIntent(this, uiSuccess.accountId)
+                    val intent = IntentRouterActivityIntent.startMainActivity(this, uiSuccess.accountId)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivityWithTransition(intent, TransitionKind.EXPLODE)
                     finishAffinity()
@@ -175,9 +174,7 @@ class LoginActivity : BaseActivity() {
         }
     }
 
-    override fun requiresLogin(): Boolean {
-        return false
-    }
+    override fun requiresLogin() = false
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menu?.add(R.string.action_browser_login)?.apply {

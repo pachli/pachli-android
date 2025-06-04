@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="acra_dialog_text">Clicca OK per preparare un\'e-mail con i dettagli agli sviluppatori</string>
+    <string name="acra_dialog_title">%1$s rapporto d\'errore</string>
+    <string name="acra_email_body">Questi dati verranno inviati agli sviluppatori.\n\n Si prega di controllare che non vengano inclusi dati che tu non voglia condividere, e si prega di descrivere cosa si stesse facendo quando è avvenuto il crash.\n\n ----\n La tua descrizione è qui:\n\n ----</string>
+</resources>

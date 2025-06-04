@@ -48,7 +48,7 @@
     <string name="action_favourite">Favorito</string>
     <string name="action_compose">Redactar</string>
     <string name="action_logout">Cerrar sesión</string>
-    <string name="action_logout_confirm">¿Seguro que quiere cerrar la sesión de %1$s? Esto eliminará todos los datos locales de la cuenta, incluyendo borradores y preferencias.</string>
+    <string name="action_logout_confirm">Se eliminarán todos los datos locales de la cuenta %1$s, incluyendo borradores y preferencias.\n\nEsto no borra tu cuenta en el servidor.</string>
     <string name="action_follow">Seguir</string>
     <string name="action_unfollow">Dejar de seguir</string>
     <string name="action_block">Bloquear</string>
@@ -59,8 +59,8 @@
     <string name="action_delete">Eliminar</string>
     <string name="action_send">PUBLICAR</string>
     <string name="action_send_public">¡PUBLICAR!</string>
-    <string name="action_view_preferences">Ajustes</string>
-    <string name="action_view_account_preferences">Preferencias de cuenta</string>
+    <string name="action_view_preferences">Preferencias</string>
+    <string name="action_view_account_preferences">Preferencias de la cuenta</string>
     <string name="action_view_favourites">Favoritos</string>
     <string name="action_view_mutes">Silenciados</string>
     <string name="action_view_blocks">Bloqueados</string>
@@ -88,7 +88,6 @@
     <string name="action_add_tab">Añadir pestaña</string>
     <string name="download_image">Descargando %1$s</string>
     <string name="action_copy_link">Copiar el enlace</string>
-    <string name="action_share_as">Compartir como…</string>
     <string name="send_post_link_to">Compartir URL…</string>
     <string name="send_post_content_to">Compartir contenido…</string>
     <string name="send_media_to">Compartir medios con…</string>
@@ -123,10 +122,10 @@
     <string name="pref_title_notification_alert_vibrate">Notificar con vibración</string>
     <string name="pref_title_notification_alert_light">Notificar con led</string>
     <string name="pref_title_notification_filters">Notificar cuando</string>
-    <string name="pref_title_notification_filter_mentions">me mencionan</string>
-    <string name="pref_title_notification_filter_follows">me siguen</string>
-    <string name="pref_title_notification_filter_reblogs">mis publicaciones son impulsadas</string>
-    <string name="pref_title_notification_filter_favourites">mis publicaciones son marcadas como favoritas</string>
+    <string name="pref_title_notification_filter_mentions">Me mencionan</string>
+    <string name="pref_title_notification_filter_follows">Me siguen</string>
+    <string name="pref_title_notification_filter_reblogs">Mis publicaciones son impulsadas</string>
+    <string name="pref_title_notification_filter_favourites">Mis publicaciones son marcadas como favoritas</string>
     <string name="pref_title_appearance_settings">Apariencia</string>
     <string name="pref_title_app_theme">Tema de la app</string>
     <string name="pref_title_timelines">Cronologías</string>
@@ -203,12 +202,6 @@
     <string name="add_account_name">Añadir cuenta</string>
     <string name="add_account_description">Añadir cuenta de Mastodon</string>
     <string name="compose_active_account_description">Publicar como %1$s</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="one">Descripción para persona con problema de visión (Límite de %d caracteres)</item>
-        <item quantity="many">Descripción para personas con problema de visión (Límite de %d caracteres)</item>
-        <item quantity="other">Descripción para personas con problema de visión (Límite de %d caracteres)</item>
-    </plurals>
-    <string name="action_set_caption">Añadir leyenda</string>
     <string name="action_remove">Eliminar</string>
     <string name="lock_account_label">Proteger cuenta</string>
     <string name="lock_account_label_description">Tendrá que admitir los seguidores manualmente</string>
@@ -300,7 +293,7 @@
     <string name="action_open_media_n">Abrir contenido #%d</string>
     <string name="downloading_media">Descargando contenido</string>
     <string name="dialog_redraft_post_warning">¿Eliminar y volver a redactar esta publicación?</string>
-    <string name="pref_title_notification_filter_poll">las encuestas han terminado</string>
+    <string name="pref_title_notification_filter_poll">Las encuestas han terminado</string>
     <string name="notification_poll_description">Notificaciones sobre encuestas que han terminado</string>
     <string name="pref_title_public_filter_keywords">Cronologías públicas</string>
     <string name="pref_title_thread_filter_keywords">Conversaciones</string>
@@ -337,7 +330,6 @@
     <string name="filter_dialog_whole_word">Toda palabra</string>
     <string name="filter_dialog_whole_word_description">Cuando la palabra o frase sea solo alfanumérica, solo se aplicará si coincide con toda la palabra</string>
     <string name="description_poll">Encuesta con opciones: %1$s, %2$s, %3$s, %4$s; %5$s</string>
-    <string name="button_continue">Continuar</string>
     <string name="button_back">Atrás</string>
     <string name="report_sent_success">\@%s reportado satisfactoriamente</string>
     <string name="hint_additional_info">Comentarios adicionales</string>
@@ -382,7 +374,7 @@
     <string name="action_mute_conversation">Silenciar conversación</string>
     <string name="action_unmute_conversation">Dejar de silenciar conversación</string>
     <string name="notification_follow_request_description">Notificaciones sobre solicitudes de seguimiento</string>
-    <string name="pref_title_notification_filter_follow_requests">me solicitan seguimiento</string>
+    <string name="pref_title_notification_filter_follow_requests">Me solicitan seguimiento</string>
     <string name="pref_title_confirm_reblogs">Pedir confirmación antes de impulsar</string>
     <string name="pref_title_show_cards_in_timelines">Mostrar previsualizaciones de enlaces en las cronologías</string>
     <string name="pref_title_enable_swipe_for_tabs">Habilitar gesto de deslizar para alternar entre pestañas</string>
@@ -395,7 +387,7 @@
     <string name="add_hashtag_title">Añadir etiqueta</string>
     <string name="notification_follow_request_format">%s solicita seguirte</string>
     <string name="pref_main_nav_position">Posición de navegación principal</string>
-    <string name="pref_title_gradient_for_media">Mostrar degradados colorido para los medios ocultos</string>
+    <string name="pref_title_gradient_for_media">Mostrar difuminados coloridos para los medios ocultos</string>
     <string name="action_unmute_domain">Dejar de silenciar a %s</string>
     <string name="action_unmute_desc">Dejar de silenciar a %s</string>
     <string name="dialog_mute_hide_notifications">Ocultar notificaciones</string>
@@ -416,7 +408,7 @@
     <string name="pref_title_wellbeing_mode">Bienestar</string>
     <string name="notification_subscription_description">Notificaciones cuando alguien al que estoy suscrito escribe una publicación</string>
     <string name="notification_subscription_name">Nuevas publicaciones</string>
-    <string name="pref_title_notification_filter_subscriptions">alguien al que estoy suscrito hizo una nueva publicación</string>
+    <string name="pref_title_notification_filter_subscriptions">Alguien a quien estoy suscrito hizo una nueva publicación</string>
     <string name="wellbeing_mode_notice">Se ocultarán algunas informaciones que podrían afectar a tu bienestar. Esto incluye:
 \n
 \n- Notificaciones de favoritos, impulsos y seguidores
@@ -440,10 +432,10 @@
     <string name="action_unsubscribe_account">Darse de baja</string>
     <string name="action_delete_conversation">Eliminar conversación</string>
     <string name="pref_title_confirm_favourites">Pedir confirmación antes de marcar como favorito</string>
-    <string name="pref_title_notification_filter_updates">una publicación con la que interactué se editó</string>
+    <string name="pref_title_notification_filter_updates">Una publicación con la que interactué se editó</string>
     <string name="error_image_edit_failed">La imagen no se pudo editar.</string>
     <string name="action_add_reaction">añadir reacción</string>
-    <string name="pref_title_notification_filter_sign_ups">alguien se registró</string>
+    <string name="pref_title_notification_filter_sign_ups">Alguien se registró</string>
     <string name="error_following_hashtag_format">Error al seguir #%s</string>
     <string name="error_unfollowing_hashtag_format">Error dejando de seguir #%s</string>
     <string name="title_migration_relogin">Reingresa para activar notificaciones push</string>
@@ -484,6 +476,8 @@
     <string name="notification_report_format">Nueva denuncia en %s</string>
     <string name="notification_header_report_format">%s denunció a %s</string>
     <plurals name="notification_summary_report_format">
+        <item quantity="one">%1$s · %2$d publicación fijada</item>
+        <item quantity="many">%1$s · %2$d publicaciones fijadas</item>
         <item quantity="other">%1$s · %2$d publicaciones fijadas</item>
     </plurals>
     <string name="language_display_name_format">%s (%s)</string>
@@ -498,7 +492,7 @@
     <string name="post_edited">%s editado</string>
     <string name="error_status_source_load">Fallo al cargar el estado de la origen desde el servidor.</string>
     <string name="confirmation_hashtag_unfollowed">Dejaste de seguir a #%s</string>
-    <string name="pref_title_notification_filter_reports">hay una nueva denuncia</string>
+    <string name="pref_title_notification_filter_reports">Hay una nueva denuncia</string>
     <string name="action_discard">Descartar cambios</string>
     <string name="action_continue_edit">Continuar editando</string>
     <string name="unsaved_changes">Tienes cambios sin guardar.</string>
@@ -529,7 +523,6 @@
     <string name="dialog_follow_hashtag_title">Seguir etiqueta</string>
     <string name="dialog_follow_hashtag_hint">#etiqueta</string>
     <string name="hint_description">Descripción</string>
-    <string name="post_media_image">Imagen</string>
     <string name="pref_title_account_filter_keywords">Perfiles</string>
     <string name="notification_unknown_name">Desconocido</string>
     <string name="status_filtered_show_anyway">Mostrar de todas formas</string>
@@ -773,7 +766,7 @@
     <string name="conversation_0_recipients">Ningún participante más</string>
     <string name="pref_title_confirm_status_language">Revisar idioma de la publicación antes de publicar</string>
     <string name="compose_warn_language_dialog_accept_and_dont_ask_fmt">Publicar como está (%1$s) y no volver a preguntar</string>
-    <string name="upload_failed_msg_fmt">Se intentará subir nuevamente cuando envíes la publicación. Si vuelve a fallar, la publicación se guardará en tus borradores.\n\nEl error fue: %1$s</string>
+    <string name="upload_failed_msg_fmt">Fallo al subir adjunto. Se intentará subir nuevamente cuando envíes la publicación. Si vuelve a fallar, la publicación se guardará en tus borradores.\n\nEl error fue: %1$s</string>
     <plurals name="notification_severed_relationships_summary_followers_fmt">
         <item quantity="one">%1$s seguidor eliminado</item>
         <item quantity="many">%1$s seguidores eliminados</item>
@@ -784,10 +777,6 @@
         <item quantity="many">Se eliminaron %1$s cuentas que seguías</item>
         <item quantity="other">Se eliminaron %1$s cuentas que seguías</item>
     </plurals>
-    <string name="upload_failed_modify_attachment">Modificar adjunto</string>
-    <string name="main_viewmodel_error_set_active_account">El inicio de sesión falló con el siguiente error:\n\n%1$s</string>
-    <string name="main_viewmodel_error_refresh_account">La actualización de la cuenta falló con el siguiente error:\n\n%1$s\n\nPuedes continuar, pero tus listas y filtros pueden estar incompletos.</string>
-    <string name="action_relogin">Volver a iniciar sesión</string>
     <string name="filter_action_none">Mostrar</string>
     <string name="filter_description_none">Mostrar normalmente</string>
     <string name="pref_account_notification_filters_label_not_followed">… que no sigues</string>
@@ -840,4 +829,11 @@
         <item quantity="many">%1$d cuentas</item>
         <item quantity="other">%1$d cuentas</item>
     </plurals>
+    <string name="title_logout_fmt">Cerrar sesión de %1$s</string>
+    <string name="title_report_category_fmt">Categoría: %1$s</string>
+    <string name="title_report_comment">Comentario de quien denuncia</string>
+    <string name="pref_title_notification_filter_severed_relationships">Una relación seguidor/siguiendo se ha roto</string>
+    <string name="error_import_preferences_fmt">No se pudieron exportar las preferencias desde %1$s: %2$s</string>
+    <string name="export_preferences_ok_fmt">Preferencias exportadas a %1$s</string>
+    <string name="error_export_preferences_fmt">No se pudieron exportar las preferencias a %1$s: %2$s</string>
 </resources>

@@ -42,7 +42,4 @@
                 tools:visibility="visible" />
         </FrameLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-    <include layout="@layout/item_status_bottom_sheet" />
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
