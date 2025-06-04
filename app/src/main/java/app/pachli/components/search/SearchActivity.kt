@@ -18,7 +18,6 @@ package app.pachli.components.search
 
 import android.annotation.SuppressLint
 import android.app.SearchManager
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -1012,7 +1011,7 @@ class SearchActivity :
 
     private fun bindSearchView() {
         searchView.setIconifiedByDefault(false)
-        searchView.setSearchableInfo((getSystemService(Context.SEARCH_SERVICE) as? SearchManager)?.getSearchableInfo(componentName))
+        searchView.setSearchableInfo((getSystemService(SEARCH_SERVICE) as? SearchManager)?.getSearchableInfo(componentName))
 
         setSearchViewWidth(showFilterIcon)
 
