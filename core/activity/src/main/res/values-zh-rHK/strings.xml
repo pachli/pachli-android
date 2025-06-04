@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_open_as">打開為 %s</string>
     <string name="post_lookup_error_format">尋找嘟文時發生錯誤 %s</string>

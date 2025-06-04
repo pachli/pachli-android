@@ -95,7 +95,6 @@
     <string name="action_open_media_n">Ouvrir le média #%d</string>
     <string name="download_image">Téléchargement de %1$s</string>
     <string name="action_copy_link">Copier le lien</string>
-    <string name="action_share_as">Partager comme …</string>
     <string name="download_media">Télécharger le média</string>
     <string name="downloading_media">Téléchargement du média</string>
     <string name="send_post_link_to">Partager le lien du message avec…</string>
@@ -220,12 +219,6 @@
     <string name="add_account_name">Ajouter un compte</string>
     <string name="add_account_description">Ajouter un nouveau compte Mastodon</string>
     <string name="compose_active_account_description">Publier en tant que %1$s</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="one">Décrire pour les malvoyants (%d caractère maximum)</item>
-        <item quantity="many"/>
-        <item quantity="other">Décrire pour les malvoyants (%d caractères maximum)</item>
-    </plurals>
-    <string name="action_set_caption">Mettre une légende</string>
     <string name="action_remove">Supprimer le média</string>
     <string name="lock_account_label">Verrouiller le compte</string>
     <string name="lock_account_label_description">Vous devez approuver manuellement les abonnements</string>
@@ -331,7 +324,6 @@
     <string name="action_mute_domain">Masquer %s</string>
     <string name="confirmation_domain_unmuted">%s n’est plus masqué·e</string>
     <string name="mute_domain_warning_dialog_ok">Masquer le domaine entier</string>
-    <string name="button_continue">Continuer</string>
     <string name="button_back">Retour</string>
     <string name="report_sent_success">\@%s signalé avec succès</string>
     <string name="hint_additional_info">Commentaires additionnels</string>
@@ -485,7 +477,6 @@
     <string name="pref_title_http_proxy_port_message">Le port doit être entre %d et %d</string>
     <string name="action_set_focus">Définir le point focal</string>
     <string name="hint_description">Description</string>
-    <string name="post_media_image">Image</string>
     <string name="action_post_failed">Le téléversement a échoué</string>
     <string name="action_post_failed_show_drafts">Afficher les brouillons</string>
     <string name="action_post_failed_do_nothing">Ignorer</string>
@@ -578,7 +569,7 @@
     <string name="title_tab_public_trending_links">Liens</string>
     <string name="title_tab_public_trending_statuses">Publications</string>
     <string name="pref_ui_text_size">Taille du texte de IU</string>
-    <string name="dialog_delete_filter_text">Supprimer le filtre « %1$s » ?</string>
+    <string name="dialog_delete_filter_text">Supprimer le filtre « %1$s » ?</string>
     <string name="dialog_delete_filter_positive_action">Supprimer</string>
     <string name="pref_title_update_settings">Mises à jour logicielles</string>
     <string name="pref_title_update_notification_frequency">M\'informer des nouvelles versions de Pachli</string>

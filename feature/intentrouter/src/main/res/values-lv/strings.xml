@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_share_as">Kopīgot kā…</string>
+    <string name="error_refresh_account">Konta atsvaidzināšana neizdevās ar šo kļūdu: %1$s\n\nVari turpināt, bet Tavi saraksti un atlases var būt nepilnīgas.</string>
+    <string name="action_relogin">Pieteikties no jauna</string>
+    <string name="error_set_active_account">Mēģinājums pieteikties neizdevās šādas kļūdas dēļ: %1$s</string>
+    <string name="title_error_dialog">Pieteikšanās neizdevās</string>
+    <string name="error_login_failed_hint_multiple">Piesist tam pašam kontam, lai mēģinātu vēlreiz, vai citam kontam, lai pieteiktos ar to.</string>
+    <string name="client_error_unauthorized_fmt">%1$s\n\nPiesist \"%2$s\", lai mēģinātu vēlreiz.</string>
+    <string name="action_choose_another_account">Izvēlēties citu kontu</string>
+    <string name="title_error_mime_type">Neatpazīts veids</string>
+    <string name="error_mime_type_fmt">Pachli tika atvērta, lai kopīgotu saturu ar veidu \"%1$s\", bet Pachli neapstrādā to.</string>
+    <string name="error_login_failed_hint">Piesist kontam, lai mēģinātu vēlreiz.</string>
+    <string name="error_refresh_account_fmt">Neizdevās atsevišķas konta informācijas iegūšana:\n\n%1$s\n\nPiesist \"%2$s\", lai turpinātu, bet noteikta informācija var nebūt pareiza (piem., atlasītāji un saraksti).\n\nPiesist \"%3$s\", lai mēģinātu vēlreiz.\n\nPiesist \"%4$s\", lai izvēlētos citu kontu.</string>
+    <string name="title_choose_account_dialog">Izvēlēties kontu</string>
+    <string name="client_error_unauthorized_multiple_fmt">%1$s\n\nPiesist \"%2$s\", lai mēģinātu vēlreiz, vai \"%3$s\", lai izvēlētos citu kontu.</string>
+</resources>

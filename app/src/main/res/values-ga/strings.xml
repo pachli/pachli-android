@@ -84,7 +84,6 @@
     <string name="send_post_link_to">Comhroinn URL na postála chuig…</string>
     <string name="downloading_media">Meáin íoslódála</string>
     <string name="download_media">Íoslódáil meáin</string>
-    <string name="action_share_as">Comhroinn mar …</string>
     <string name="action_copy_link">Cóipeáil an nasc</string>
     <string name="download_image">Ag íoslódáil %1$s</string>
     <string name="action_open_media_n">Meáin oscailte #%d</string>
@@ -132,7 +131,7 @@
     <string name="action_block">Bac</string>
     <string name="action_unfollow">Stop ag leanúint</string>
     <string name="action_follow">Lean</string>
-    <string name="action_logout_confirm">An bhfuil tú cinnte gur mhaith leat logáil amach as %1$s? Scriosfaidh sé seo sonraí áitiúla uile an chuntais, lena n-áirítear dréachtaí agus sainroghanna.</string>
+    <string name="action_logout_confirm">Scriosfaidh sé seo gach sonraí áitiúla de chuntas %1$s, lena n-áirítear dréachtaí agus roghanna.\n\nNí scriosfaidh sé seo do chuntas ar an bhfreastalaí.</string>
     <string name="action_compose">Cum</string>
     <string name="action_unfavourite">Bain togha</string>
     <string name="action_bookmark">Leabharmharc</string>
@@ -254,14 +253,6 @@
     <string name="report_description_1">Seolfar an tuarascáil chuig do mhodhnóir freastalaí. Féadfaidh tú míniú a thabhairt ar an bhfáth go bhfuil tú ag tuairisciú an chuntais seo thíos:</string>
     <string name="add_account_description">Cuir Cuntas Mastodon nua leis</string>
     <string name="compose_active_account_description">Postáil le cuntas %1$s</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="one">Déan cur síos ar ábhar do dhaoine lagamhairc (%d teorainn carachtar)</item>
-        <item quantity="two">Déan cur síos ar an ábhar do dhaoine lagamhairc (%d teorainn carachtar)</item>
-        <item quantity="few">Déan cur síos ar an ábhar do dhaoine lagamhairc (%d teorainn carachtar)</item>
-        <item quantity="many">Déan cur síos ar an ábhar do dhaoine lagamhairc (%d teorainn carachtar)</item>
-        <item quantity="other">Déan cur síos ar an ábhar do dhaoine lagamhairc (%d teorainn carachtar)</item>
-    </plurals>
-    <string name="action_set_caption">Socraigh fotheideal</string>
     <string name="action_remove">Bain</string>
     <string name="lock_account_label">Cuntas glasála</string>
     <string name="lock_account_label_description">Éileofar ort leantóirí a cheadú de láimh</string>
@@ -364,7 +355,6 @@
         <item quantity="many">D\'imigh %d soicindí</item>
         <item quantity="other">D\'imigh %d soicindí</item>
     </plurals>
-    <string name="button_continue">Lean ar aghaidh</string>
     <string name="button_back">Ar ais</string>
     <string name="report_sent_success">Tuairiscíodh go rathúil @%s</string>
     <string name="hint_additional_info">Tuairimí Breise</string>
@@ -524,8 +514,7 @@
     <string name="search_operator_where_all">Gach post ▾</string>
     <string name="search_operator_where_library">Do leabharlann</string>
     <string name="search_operator_where_dialog_all_hint">Poist i do leabharlann agus i do phoist phoiblí</string>
-    <string name="upload_failed_msg_fmt">Déanfar an t-uaslódáil a aisghabháil nuair a sheolann tú an post. Má theipeann air arís sábhálfar an post i do dhréachtaí.\n\nEarráid a bhí ann: %1$s</string>
-    <string name="upload_failed_modify_attachment">Mionathraigh iatán</string>
+    <string name="upload_failed_msg_fmt">Theip ar uaslódáil an cheangaltáin. Déanfar iarracht eile an t-uaslódáil nuair a sheolfaidh tú an post. Má theipeann air arís, sábhálfar an post i do dhréachtaí.\n\nBa é an earráid: %1$s</string>
     <string name="duration_30_days">laethanta 30</string>
     <string name="duration_60_days">laethanta 60</string>
     <string name="pref_title_confirm_favourites">Taispeáin deimhniú roimh fhabhar</string>
@@ -574,6 +563,10 @@
     <string name="notification_severed_relationships_unknown_body">Cúis anaithnid</string>
     <string name="notification_header_report_format">%s tuairiscithe %s</string>
     <plurals name="notification_summary_report_format">
+        <item quantity="one">%1$s · %2$d post ceangailte</item>
+        <item quantity="two">%1$s · %2$d post ceangailte</item>
+        <item quantity="few">%1$s · %2$d post ceangailte</item>
+        <item quantity="many">%1$s · %2$d post ceangailte</item>
         <item quantity="other">%1$s · %2$d post ceangailte</item>
     </plurals>
     <string name="action_add_reaction">cuir imoibriú leis</string>
@@ -667,7 +660,6 @@
     <string name="action_share_account_link">Comhroinn nasc chuig an gcuntas</string>
     <string name="pref_title_show_self_boosts_description">Duine éigin ag cur lena bpost féin</string>
     <string name="notification_prune_cache">Cothabháil taisce…</string>
-    <string name="post_media_image">Íomhá</string>
     <string name="description_login">Oibríonn sé i bhformhór na gcásanna. Ní sceitear aon sonraí chuig aipeanna eile.</string>
     <string name="ui_success_accepted_follow_request">Glacadh leis an iarratas seo a leanas</string>
     <string name="filter_edit_keyword_title">Cuir eochairfhocal in eagar</string>
@@ -683,7 +675,7 @@
     <string name="socket_timeout_exception">Thóg sé rófhada teagmháil a dhéanamh le do fhreastalaí</string>
     <string name="ui_error_bookmark_fmt">Theip ar phost leabharmharcála: %1$s</string>
     <string name="ui_error_favourite_fmt">Theip ar fhabhar an phoist: %1$s</string>
-    <string name="dialog_delete_filter_text">Scrios an scagaire \'%1$s\'?\"</string>
+    <string name="dialog_delete_filter_text">Scrios an scagaire \'%1$s\'?</string>
     <string name="pref_notification_up_distributor_name_fmt">%1$s. Tapáil le hoscailt</string>
     <string name="pref_notification_up_distributor_none">Ceann ar bith</string>
     <string name="pref_title_notification_method">Modh fógartha</string>
@@ -802,9 +794,6 @@
         <item quantity="many">%1$s leantóirí bainte</item>
         <item quantity="other">%1$s leantóirí bainte</item>
     </plurals>
-    <string name="main_viewmodel_error_set_active_account">Theip ar an iarracht logáil isteach leis an earráid seo a leanas:\n\n%1$s</string>
-    <string name="action_relogin">Ath-logáil isteach</string>
-    <string name="main_viewmodel_error_refresh_account">Theip ar athnuachan an chuntais leis an earráid seo a leanas:\n\n%1$s\n\nIs féidir leat leanúint ar aghaidh, ach seans go mbeidh do liostaí agus do scagairí neamhiomlán.</string>
     <string name="filter_description_none">Taispeáin mar is gnách</string>
     <string name="pref_title_account_notification_filters">Scagairí fógra</string>
     <string name="pref_account_notification_filters_subtitle">Cad ba cheart a tharlú d\'fhógraí ó chuntais…</string>
@@ -864,4 +853,10 @@
     <string name="pref_custom_tabs_false">Níos moille, úsáideann an brabhsálaí is fearr leat</string>
     <string name="pref_title_notification_filter_severed_relationships">Scartar gaol ina dhiaidh/ina dhiaidh sin</string>
     <string name="pref_custom_tabs_true">Níos tapúla, an brabhsálaí is fearr leat i Pachli</string>
+    <string name="title_report_category_fmt">Catagóir: %1$s</string>
+    <string name="title_report_comment">Trácht ón tuairisceoir</string>
+    <string name="export_preferences_ok_fmt">Roghanna a easpórtáileadh chuig %1$s</string>
+    <string name="error_export_preferences_fmt">Níorbh fhéidir roghanna a easpórtáil chuig %1$s: %2$s</string>
+    <string name="error_import_preferences_fmt">Níorbh fhéidir roghanna a iompórtáil ó %1$s: %2$s</string>
+    <string name="title_logout_fmt">Logáil amach %1$s</string>
 </resources>

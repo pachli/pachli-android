@@ -21,7 +21,6 @@ import android.Manifest.permission.POST_NOTIFICATIONS
 import android.annotation.SuppressLint
 import android.app.NotificationManager
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -47,7 +46,6 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toDrawable
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.GravityCompat
 import androidx.core.view.MenuProvider
 import androidx.core.view.forEach
@@ -58,17 +56,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewpager2.widget.MarginPageTransformer
 import app.pachli.appstore.CacheUpdater
-import app.pachli.components.compose.ComposeActivity.Companion.canHandleMimeType
 import app.pachli.components.notifications.createNotificationChannelsForAccount
 import app.pachli.components.notifications.domain.AndroidNotificationsAreEnabledUseCase
 import app.pachli.components.notifications.domain.EnableAllNotificationsUseCase
-import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.activity.PostLookupFallbackBehavior
 import app.pachli.core.activity.ReselectableFragment
-import app.pachli.core.activity.emojify
-import app.pachli.core.activity.extensions.TransitionKind
+import app.pachli.core.activity.ViewUrlActivity
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
-import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
@@ -77,7 +71,6 @@ import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.model.MastodonList
 import app.pachli.core.data.repository.ListsRepository.Companion.compareByListTitle
 import app.pachli.core.data.repository.PachliAccount
-import app.pachli.core.data.repository.SetActiveAccountError
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.EmbeddedFontFamily
 import app.pachli.core.designsystem.R as DR
@@ -91,6 +84,7 @@ import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.DraftsActivityIntent
 import app.pachli.core.navigation.EditProfileActivityIntent
 import app.pachli.core.navigation.FollowedTagsActivityIntent
+import app.pachli.core.navigation.IntentRouterActivityIntent
 import app.pachli.core.navigation.ListsActivityIntent
 import app.pachli.core.navigation.LoginActivityIntent
 import app.pachli.core.navigation.LoginActivityIntent.LoginMode
@@ -107,11 +101,11 @@ import app.pachli.core.navigation.TrendingActivityIntent
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.network.model.Announcement
 import app.pachli.core.network.model.Notification
-import app.pachli.core.network.retrofit.apiresult.ClientError
 import app.pachli.core.preferences.MainNavigationPosition
 import app.pachli.core.preferences.TabAlignment
 import app.pachli.core.preferences.TabContents
 import app.pachli.core.ui.AlignableTabLayoutAlignment
+import app.pachli.core.ui.emojify
 import app.pachli.core.ui.extensions.await
 import app.pachli.core.ui.extensions.reduceSwipeSensitivity
 import app.pachli.core.ui.makeIcon
@@ -121,7 +115,6 @@ import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.pager.MainPagerAdapter
 import app.pachli.updatecheck.UpdateCheck
 import app.pachli.usecase.DeveloperToolsUseCase
-import app.pachli.usecase.LogoutUseCase
 import app.pachli.util.UpdateShortCutsUseCase
 import app.pachli.util.getDimension
 import com.bumptech.glide.Glide
@@ -130,10 +123,6 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.FixedSizeDrawable
 import com.bumptech.glide.request.transition.Transition
-import com.github.michaelbull.result.Result
-import com.github.michaelbull.result.get
-import com.github.michaelbull.result.onFailure
-import com.github.michaelbull.result.onSuccess
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
@@ -174,7 +163,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import de.c1710.filemojicompat_ui.helpers.EMOJI_PREFERENCE
 import javax.inject.Inject
 import kotlin.math.max
-import kotlin.properties.Delegates
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
@@ -186,7 +174,7 @@ import kotlinx.coroutines.sync.withLock
 import timber.log.Timber
 
 @AndroidEntryPoint
-class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
+class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
     @Inject
     @ApplicationScope
     lateinit var externalScope: CoroutineScope
@@ -196,9 +184,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
     @Inject
     lateinit var cacheUpdater: CacheUpdater
-
-    @Inject
-    lateinit var logout: LogoutUseCase
 
     @Inject
     lateinit var draftsAlert: DraftsAlert
@@ -228,8 +213,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
 
     private var onTabSelectedListener: OnTabSelectedListener? = null
 
-    private lateinit var glide: RequestManager
-
     // We need to know if the emoji pack has been changed
     private var selectedEmojiPack: String? = null
 
@@ -254,101 +237,48 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
      */
     private val listDrawerItems = mutableListOf<PrimaryDrawerItem>()
 
-    /**
-     * Version of [intent.pachliAccountId] where `-1` has been resolved to the
-     * actual active account value.
-     */
-    private var pachliAccountId by Delegates.notNull<Long>()
+    private val pachliAccountId by unsafeLazy { intent.pachliAccountId }
 
     /** Mutex to protect modifications to the drawer's items. */
     private val drawerMutex = Mutex()
 
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
-            installSplashScreen()
-        }
         super.onCreate(savedInstanceState)
+        setContentView(binding.root)
 
-        var showNotificationTab = false
+        viewModel.accept(InfallibleUiAction.LoadPachliAccount(pachliAccountId))
+
+        var showNotificationTab = MainActivityIntent.getOpenNotificationTab(intent)
 
         // check for savedInstanceState in order to not handle intent events more than once
         if (intent != null && savedInstanceState == null) {
-            val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-            when (val payload = MainActivityIntent.payload(intent)) {
-                is Payload.QuickTile -> {
-                    showAccountChooserDialog(getString(R.string.action_share_as), true) { account ->
-                        val requestedId = account.id
-                        launchComposeActivityAndExit(requestedId)
-                    }
-                    return
-                }
-
-                is Payload.NotificationCompose -> {
-                    notificationManager.cancel(payload.notificationTag, payload.notificationId)
-                    launchComposeActivityAndExit(
-                        intent.pachliAccountId,
-                        payload.composeOptions,
-                    )
-                    return
-                }
-
+            val payload = MainActivityIntent.payload(intent)
+            when (payload) {
                 is Payload.Notification -> {
+                    val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
                     notificationManager.cancel(payload.notificationTag, payload.notificationId)
-                    viewModel.accept(FallibleUiAction.SetActiveAccount(intent.pachliAccountId))
                     when (payload.notificationType) {
                         Notification.Type.FOLLOW_REQUEST -> {
                             val intent = AccountListActivityIntent(this, intent.pachliAccountId, AccountListActivityIntent.Kind.FOLLOW_REQUESTS)
                             startActivityWithDefaultTransition(intent)
                         }
 
-                        else -> {
-                            showNotificationTab = true
-                        }
+                        else -> showNotificationTab = true
                     }
                 }
 
-                Payload.OpenDrafts -> {
-                    viewModel.accept(FallibleUiAction.SetActiveAccount(intent.pachliAccountId))
-                    startActivity(DraftsActivityIntent(this, intent.pachliAccountId))
-                }
+                is Payload.OpenAs -> viewUrl(intent.pachliAccountId, payload.url, PostLookupFallbackBehavior.DISPLAY_ERROR)
 
-                // Handled when [FallibleUiAction.SetActiveAccount] succeeds.
-                is Payload.OpenAs -> {
-                    viewModel.accept(FallibleUiAction.SetActiveAccount(intent.pachliAccountId))
-                }
+                Payload.OpenDrafts -> startActivity(DraftsActivityIntent(this, intent.pachliAccountId))
 
-                is Payload.Shortcut -> {
-                    launchComposeActivityAndExit(intent.pachliAccountId)
-                    // Alternate behaviour -- switch to this account instead.
-//                    startActivity(
-//                        MainActivityIntent(this, intent.pachliAccountId).apply {
-//                            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-//                        },
-//                    )
-                    return
-                }
-
-                null -> {
-                    // If the intent contains data to share choose the account to share from
-                    // and start the composer.
-                    if (canHandleMimeType(intent.type)) {
-                        // Determine the account to use.
-                        showAccountChooserDialog(getString(R.string.action_share_as), true) { account ->
-                            val requestedId = account.id
-                            forwardToComposeActivityAndExit(requestedId, intent)
-                        }
-                    }
+                Payload.Start -> {
+                    /* Fall through, normal startup. */
                 }
             }
         }
 
-        viewModel.accept(FallibleUiAction.SetActiveAccount(intent.pachliAccountId))
-
         window.statusBarColor = Color.TRANSPARENT // don't draw a status bar, the DrawerLayout and the MaterialDrawerLayout have their own
-        setContentView(binding.root)
-
-        glide = Glide.with(this)
 
         // Determine which of the three toolbars should be the supportActionBar (which hosts
         // the options menu).
@@ -384,14 +314,14 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             repeatOnLifecycle(Lifecycle.State.CREATED) {
                 // TODO: Continue to call this, as it sets properties in NotificationConfig
                 androidNotificationsAreEnabled(this@MainActivity)
-                enableAllNotifications(this@MainActivity)
+                enableAllNotifications()
             }
         }
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 // One-off setup independent of the UI state.
-                val initialAccount = viewModel.pachliAccountFlow.filterNotNull().first()
+                val initialAccount = account.first()
                 createNotificationChannelsForAccount(initialAccount.entity, this@MainActivity)
 
                 bindMainDrawer(initialAccount)
@@ -422,45 +352,36 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             }
         }
 
-        // Process changes to the account's lists.
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                account.distinctUntilChangedBy { it.lists }.collectLatest { account ->
-                    bindMainDrawerLists(account.id, account.lists)
+                // Process changes to the account's lists.
+                launch {
+                    account.distinctUntilChangedBy { it.lists }.collectLatest { account ->
+                        bindMainDrawerLists(account.id, account.lists)
+                    }
                 }
-            }
-        }
 
-        // Process changes to the account's profile picture.
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                account.distinctUntilChangedBy { it.entity.profilePictureUrl }.collectLatest {
-                    bindDrawerAvatar(it.entity.profilePictureUrl, false)
+                // Process changes to the account's profile picture.
+                launch {
+                    account.distinctUntilChangedBy { it.entity.profilePictureUrl }.collectLatest {
+                        bindDrawerAvatar(it.entity.profilePictureUrl, false)
+                    }
                 }
-            }
-        }
 
-        // Process changes to the account's tab preferences.
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                account.distinctUntilChangedBy { it.entity.tabPreferences }.collectLatest {
-                    bindTabs(it.entity, showNotificationTab)
-                    showNotificationTab = false
+                // Process changes to the account's tab preferences.
+                launch {
+                    account.distinctUntilChangedBy { it.entity.tabPreferences }.collectLatest {
+                        bindTabs(it.entity, showNotificationTab)
+                        showNotificationTab = false
+                    }
                 }
-            }
-        }
 
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                account.distinctUntilChangedBy { it.announcements }.collectLatest {
-                    bindMainDrawerAnnouncements(it.announcements)
+                // Process changes to account's announcements.
+                launch {
+                    account.distinctUntilChangedBy { it.announcements }.collectLatest {
+                        bindMainDrawerAnnouncements(it.announcements)
+                    }
                 }
-            }
-        }
-
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                viewModel.uiResult.collect(::bindUiResult)
             }
         }
 
@@ -486,11 +407,11 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     }
 
     override fun onPrepareMenu(menu: Menu) {
-        super<BottomSheetActivity>.onPrepareMenu(menu)
+        super<ViewUrlActivity>.onPrepareMenu(menu)
 
         menu.findItem(R.id.action_remove_tab).isVisible = tabAdapter.tabs.getOrNull(binding.viewPager.currentItem)?.let {
             it.timeline != Timeline.Home
-        } ?: false
+        } == true
 
         // If the main toolbar is hidden then there's no space in the top/bottomNav to show
         // the menu items as icons, so forceably disable them
@@ -506,7 +427,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
             }
             R.id.action_remove_tab -> {
                 val timeline = tabAdapter.tabs[binding.viewPager.currentItem].timeline
-                viewModel.accept(InfallibleUiAction.TabRemoveTimeline(timeline))
+                viewModel.accept(InfallibleUiAction.TabRemoveTimeline(pachliAccountId, timeline))
                 true
             }
             R.id.action_tab_preferences -> {
@@ -572,151 +493,6 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         return super.onKeyDown(keyCode, event)
     }
 
-    private fun launchComposeActivityAndExit(pachliAccountId: Long, composeOptions: ComposeActivityIntent.ComposeOptions? = null) {
-        startActivity(
-            ComposeActivityIntent(this, pachliAccountId, composeOptions).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            },
-        )
-        finish()
-    }
-
-    private fun forwardToComposeActivityAndExit(pachliAccountId: Long, intent: Intent, composeOptions: ComposeActivityIntent.ComposeOptions? = null) {
-        val composeIntent = ComposeActivityIntent(this, pachliAccountId, composeOptions).apply {
-            action = intent.action
-            type = intent.type
-            putExtras(intent)
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        }
-        composeIntent.pachliAccountId = pachliAccountId
-        startActivity(composeIntent)
-        finish()
-    }
-
-    /** Act on the result of UI actions. */
-    private suspend fun bindUiResult(uiResult: Result<UiSuccess, UiError>) {
-        uiResult.onFailure { uiError ->
-            when (uiError) {
-                is UiError.SetActiveAccount -> {
-                    // Logging in failed. Show a dialog explaining what's happened.
-                    val builder = AlertDialog.Builder(this@MainActivity)
-                        .setMessage(uiError.fmt(this))
-                        .create()
-
-                    when (uiError.cause) {
-                        is SetActiveAccountError.AccountDoesNotExist -> {
-                            // Special case AccountDoesNotExist, as that should never happen. If it does
-                            // there's nothing to do except try and switch back to the previous account.
-                            val button = builder.await(android.R.string.ok)
-                            if (button == AlertDialog.BUTTON_POSITIVE && uiError.cause.fallbackAccount != null) {
-                                viewModel.accept(FallibleUiAction.SetActiveAccount(uiError.cause.fallbackAccount!!.id))
-                            }
-                            return
-                        }
-
-                        is SetActiveAccountError.Api -> when (uiError.cause.apiError) {
-                            // Special case invalid tokens. The user can be prompted to relogin. Cancelling
-                            // switches to the fallback account, or finishes if there is none.
-                            is ClientError.Unauthorized -> {
-                                builder.setTitle(uiError.cause.wantedAccount.fullName)
-
-                                val button = builder.await(R.string.action_relogin, android.R.string.cancel)
-                                when (button) {
-                                    AlertDialog.BUTTON_POSITIVE -> {
-                                        startActivityWithTransition(
-                                            LoginActivityIntent(
-                                                this@MainActivity,
-                                                LoginMode.Reauthenticate(uiError.cause.wantedAccount.domain),
-                                            ),
-                                            TransitionKind.EXPLODE,
-                                        )
-                                        finish()
-                                    }
-
-                                    AlertDialog.BUTTON_NEGATIVE -> {
-                                        uiError.cause.fallbackAccount?.run {
-                                            viewModel.accept(FallibleUiAction.SetActiveAccount(id))
-                                        } ?: finish()
-                                    }
-                                }
-                            }
-
-                            // Other API errors are retryable.
-                            else -> {
-                                builder.setTitle(uiError.cause.wantedAccount.fullName)
-                                val button = builder.await(app.pachli.core.ui.R.string.action_retry, android.R.string.cancel)
-                                when (button) {
-                                    AlertDialog.BUTTON_POSITIVE -> viewModel.accept(uiError.action)
-                                    else -> {
-                                        uiError.cause.fallbackAccount?.run {
-                                            viewModel.accept(FallibleUiAction.SetActiveAccount(id))
-                                        } ?: finish()
-                                    }
-                                }
-                            }
-                        }
-
-                        // Database errors are not retryable. Display the error, offer to
-                        // switch back to the fall back account.
-                        //
-                        // If these occur it's a bug in Pachli, the database should never
-                        // get to a bad state.
-                        is SetActiveAccountError.Dao -> {
-                            uiError.cause.wantedAccount?.let { builder.setTitle(it.fullName) }
-                            val button = builder.await(android.R.string.ok)
-                            if (button == AlertDialog.BUTTON_POSITIVE && uiError.cause.fallbackAccount != null) {
-                                viewModel.accept(FallibleUiAction.SetActiveAccount(uiError.cause.fallbackAccount!!.id))
-                            }
-                            return
-                        }
-
-                        // Other errors are retryable.
-                        is SetActiveAccountError.Unexpected -> {
-                            builder.setTitle(uiError.cause.wantedAccount.fullName)
-                            val button = builder.await(app.pachli.core.ui.R.string.action_retry, android.R.string.cancel)
-                            when (button) {
-                                AlertDialog.BUTTON_POSITIVE -> viewModel.accept(uiError.action)
-                                else -> {
-                                    uiError.cause.fallbackAccount?.run {
-                                        viewModel.accept(FallibleUiAction.SetActiveAccount(id))
-                                    } ?: finish()
-                                }
-                            }
-                        }
-                    }
-                }
-
-                is UiError.RefreshAccount -> {
-                    // Dialog that explains refreshing failed, with retry option.
-                    val button = AlertDialog.Builder(this@MainActivity)
-                        .setTitle(uiError.action.accountEntity.fullName)
-                        .setMessage(uiError.fmt(this))
-                        .create()
-                        .await(app.pachli.core.ui.R.string.action_retry, android.R.string.cancel)
-                    if (button == AlertDialog.BUTTON_POSITIVE) viewModel.accept(uiError.action)
-                }
-            }
-        }
-        uiResult.onSuccess { uiSuccess ->
-            when (uiSuccess) {
-                is UiSuccess.RefreshAccount -> {
-                    /* do nothing */
-                }
-
-                is UiSuccess.SetActiveAccount -> {
-                    pachliAccountId = uiSuccess.accountEntity.id
-
-                    // Now the active account has changed it's safe to perform
-                    // the redirect.
-                    val payload = MainActivityIntent.payload(intent)
-                    if (payload is Payload.OpenAs) {
-                        viewUrl(intent.pachliAccountId, payload.url, PostLookupFallbackBehavior.DISPLAY_ERROR)
-                    }
-                }
-            }
-        }
-    }
-
     /**
      * Initialises the main drawer and header properties.
      *
@@ -762,7 +538,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         header.currentProfileName.setTextColor(headerTextColor)
         header.currentProfileEmail.setTextColor(headerTextColor)
 
-        DrawerImageLoader.init(MainDrawerImageLoader(glide, viewModel.uiState.value.animateAvatars))
+        DrawerImageLoader.init(MainDrawerImageLoader(viewModel.uiState.value.animateAvatars))
 
         binding.mainDrawerLayout.addDrawerListener(
             object : DrawerListener {
@@ -1314,24 +1090,18 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
     /**
      * Relaunches MainActivity, switched to the account identified by [accountId].
      */
-    private fun changeAccountAndRestart(accountId: Long, forward: Intent? = null) {
+    private fun changeAccountAndRestart(accountId: Long) {
         cacheUpdater.stop()
-        val intent = MainActivityIntent(this, accountId)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        if (forward != null) {
-            intent.type = forward.type
-            intent.action = forward.action
-            intent.putExtras(forward)
-        }
-        intent.pachliAccountId = accountId
-        startActivityWithTransition(intent, TransitionKind.EXPLODE)
+        val intent = IntentRouterActivityIntent.startMainActivity(this, accountId)
+        val options = Bundle().apply { putInt("android.activity.splashScreenStyle", 1) }
+        startActivity(intent, options)
         finish()
     }
 
     private fun logout(pachliAccount: PachliAccount) {
         lifecycleScope.launch {
             val button = AlertDialog.Builder(this@MainActivity)
-                .setTitle(R.string.action_logout)
+                .setTitle(getString(R.string.title_logout_fmt, pachliAccount.entity.fullName))
                 .setMessage(getString(R.string.action_logout_confirm, pachliAccount.entity.fullName))
                 .create()
                 .await(android.R.string.ok, android.R.string.cancel)
@@ -1343,10 +1113,13 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
                 binding.progressBar.show()
                 binding.bottomNav.hide()
                 binding.composeButton.hide()
-                val nextAccount = logout.invoke(pachliAccount.entity).get()
-                val intent = nextAccount?.let { MainActivityIntent(this@MainActivity, it.id) }
-                    ?: LoginActivityIntent(this@MainActivity, LoginMode.Default)
-                startActivity(intent)
+
+                // Don't logout in MainActivity as that will change the active account and
+                // trigger operations (e.g., saveVisibleId) in running fragments. Instead,
+                // logging out happens in the IntentRouter.
+                val intent = IntentRouterActivityIntent.logout(this@MainActivity, pachliAccount.id)
+                val options = Bundle().apply { putInt("android.activity.splashScreenStyle", 1) }
+                startActivity(intent, options)
                 finish()
             }
         }
@@ -1446,7 +1219,7 @@ class MainActivity : BottomSheetActivity(), ActionButtonActivity, MenuProvider {
         val profiles: MutableList<IProfile> = uiState.accounts.map { acc ->
             ProfileDrawerItem().apply {
                 isSelected = acc.isActive
-                nameText = acc.displayName.emojify(acc.emojis, header, animateEmojis)
+                nameText = acc.displayName.emojify(glide, acc.emojis, header, animateEmojis)
                 iconUrl = acc.profilePictureUrl
                 isNameShown = true
                 identifier = acc.id
@@ -1520,8 +1293,14 @@ private var AbstractDrawerItem<*, *>.onClick: () -> Unit
 /**
  * Load images in to the drawer using the [RequestManager] in [glide].
  */
-class MainDrawerImageLoader(val glide: RequestManager, val animateAvatars: Boolean) : AbstractDrawerImageLoader() {
+// Can't pass `RequestManager` as a parameter here; it references the activity, and
+// is leaked by MaterialDrawer. Since `MainDrawerImageLoader` is only used in an activity
+// it's OK to use `Glide.with(View)` here, as the view's context is also the activity's
+// context.
+@SuppressLint("GlideWithViewDetector")
+class MainDrawerImageLoader(val animateAvatars: Boolean) : AbstractDrawerImageLoader() {
     override fun set(imageView: ImageView, uri: Uri, placeholder: Drawable, tag: String?) {
+        val glide = Glide.with(imageView)
         if (animateAvatars) {
             glide.load(uri).placeholder(placeholder).into(imageView)
         } else {
@@ -1530,7 +1309,7 @@ class MainDrawerImageLoader(val glide: RequestManager, val animateAvatars: Boole
     }
 
     override fun cancel(imageView: ImageView) {
-        glide.clear(imageView)
+        Glide.with(imageView).clear(imageView)
     }
 
     override fun placeholder(ctx: Context, tag: String?): Drawable {

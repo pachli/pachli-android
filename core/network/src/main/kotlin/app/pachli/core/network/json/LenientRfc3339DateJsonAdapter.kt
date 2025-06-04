@@ -17,11 +17,13 @@
 
 package app.pachli.core.network.json
 
+import com.squareup.moshi.FromJson
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.JsonDataException
 import com.squareup.moshi.JsonReader
 import com.squareup.moshi.JsonReader.Token.NULL
 import com.squareup.moshi.JsonWriter
+import com.squareup.moshi.ToJson
 import java.util.Calendar
 import java.util.Date
 import java.util.GregorianCalendar
@@ -84,6 +86,7 @@ import timber.log.Timber
 class LenientRfc3339DateJsonAdapter : JsonAdapter<Date>() {
     /** The underlying deserialization logic is thread-safe and does not require synchronization. **/
     @Throws(IOException::class)
+    @FromJson
     override fun fromJson(reader: JsonReader): Date? {
         if (reader.peek() == NULL) {
             return reader.nextNull()
@@ -94,6 +97,7 @@ class LenientRfc3339DateJsonAdapter : JsonAdapter<Date>() {
 
     /*** The underlying serialization logic is thread-safe and does not require synchronization. **/
     @Throws(IOException::class)
+    @ToJson
     override fun toJson(writer: JsonWriter, value: Date?) {
         if (value == null) {
             writer.nullValue()

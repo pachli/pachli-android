@@ -1,0 +1,18 @@
+Pachli 2.12.0
+
+New features:
+
+- Improve display of admin notifications
+- Client-side encrypted cloud backups
+- Export/import preferences
+
+Fixes:
+
+- Show translated posts / media descriptions when viewing threads
+- Multiple notification fixes
+- Allow filtering of mentions and severed relationships on older devices
+- Prevent "Record not found" when opening as a different account
+
+Translations:
+
+- Finnish, Irish, Latvian, Polish, Slovak, Spanish

@@ -15,4 +15,5 @@
     <string name="title_links_dialog">Tenglar</string>
     <string name="title_hashtags_dialog">Myllumerki</string>
     <string name="title_mentions_dialog">Tilvísanir</string>
+    <string name="button_continue">Halda áfram</string>
 </resources>

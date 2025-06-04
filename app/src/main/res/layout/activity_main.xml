@@ -86,8 +86,6 @@
             app:layout_anchorGravity="bottom|end"
             app:srcCompat="@drawable/ic_create_24dp" />
 
-        <include layout="@layout/item_status_bottom_sheet" />
-
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"

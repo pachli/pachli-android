@@ -20,7 +20,6 @@ import android.text.InputFilter
 import android.text.TextUtils
 import android.view.View
 import app.pachli.R
-import app.pachli.core.activity.emojify
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.visible
@@ -32,15 +31,18 @@ import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.model.FilterAction
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.ui.SetStatusContent
+import app.pachli.core.ui.emojify
 import app.pachli.databinding.ItemStatusBinding
 import app.pachli.interfaces.StatusActionListener
 import at.connyduck.sparkbutton.helpers.Utils
+import com.bumptech.glide.RequestManager
 
 open class StatusViewHolder<T : IStatusViewData>(
     private val binding: ItemStatusBinding,
+    glide: RequestManager,
     setStatusContent: SetStatusContent,
     root: View? = null,
-) : StatusBaseViewHolder<T>(root ?: binding.root, setStatusContent) {
+) : StatusBaseViewHolder<T>(root ?: binding.root, glide, setStatusContent) {
 
     override fun setupWithStatus(
         viewData: T,
@@ -82,7 +84,7 @@ open class StatusViewHolder<T : IStatusViewData>(
         val wrappedName: CharSequence = name.unicodeWrap()
         val boostedText: CharSequence = context.getString(R.string.post_boosted_format, wrappedName)
         val emojifiedText =
-            boostedText.emojify(accountEmoji, statusInfo, statusDisplayOptions.animateEmojis)
+            boostedText.emojify(glide, accountEmoji, statusInfo, statusDisplayOptions.animateEmojis)
         statusInfo.text = emojifiedText
         statusInfo.show()
     }

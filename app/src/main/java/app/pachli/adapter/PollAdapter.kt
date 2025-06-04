@@ -19,15 +19,16 @@ package app.pachli.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import app.pachli.core.activity.emojify
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.ui.BindingHolder
+import app.pachli.core.ui.emojify
 import app.pachli.core.ui.makeIcon
 import app.pachli.databinding.ItemPollBinding
 import app.pachli.viewdata.PollOptionViewData
 import app.pachli.viewdata.buildDescription
 import app.pachli.viewdata.calculatePercent
+import com.bumptech.glide.RequestManager
 import com.google.android.material.R
 import com.google.android.material.color.MaterialColors
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
@@ -43,6 +44,7 @@ typealias ResultClickListener = () -> Unit
 // data from polls that have been edited, and the "shape" of that data is quite different (no
 // information about vote counts, poll IDs, etc).
 class PollAdapter(
+    private val glide: RequestManager,
     val options: List<PollOptionViewData>,
     private val votesCount: Int,
     private val votersCount: Int?,
@@ -131,20 +133,20 @@ class PollAdapter(
                 tintColor = MaterialColors.getColor(resultTextView, R.attr.colorPrimaryContainer)
                 textColor = MaterialColors.getColor(resultTextView, R.attr.colorOnPrimaryContainer)
                 itemText = buildDescription(option.title, percent, option.voted, resultTextView.context)
-                    .emojify(emojis, resultTextView, animateEmojis)
+                    .emojify(glide, emojis, resultTextView, animateEmojis)
             }
             displayMode == DisplayMode.RESULT || showVotes -> {
                 level = percent * 100
                 tintColor = MaterialColors.getColor(resultTextView, R.attr.colorSecondaryContainer)
                 textColor = MaterialColors.getColor(resultTextView, R.attr.colorOnSecondaryContainer)
                 itemText = buildDescription(option.title, percent, option.voted, resultTextView.context)
-                    .emojify(emojis, resultTextView, animateEmojis)
+                    .emojify(glide, emojis, resultTextView, animateEmojis)
             }
             else -> {
                 level = 0
                 tintColor = MaterialColors.getColor(resultTextView, R.attr.colorSecondaryContainer)
                 textColor = MaterialColors.getColor(resultTextView, android.R.attr.textColorPrimary)
-                itemText = option.title.emojify(emojis, radioButton, animateEmojis)
+                itemText = option.title.emojify(glide, emojis, radioButton, animateEmojis)
             }
         }
 

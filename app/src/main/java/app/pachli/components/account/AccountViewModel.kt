@@ -153,7 +153,7 @@ class AccountViewModel @AssistedInject constructor(
         viewModelScope.launch {
             mastodonApi.blockDomain(instance)
                 .onSuccess {
-                    eventHub.dispatch(DomainMuteEvent(instance))
+                    eventHub.dispatch(DomainMuteEvent(pachliAccountId, instance))
                     val relation = relationshipData.value?.data
                     if (relation != null) {
                         relationshipData.postValue(Success(relation.copy(blockingDomain = true)))
@@ -277,10 +277,11 @@ class AccountViewModel @AssistedInject constructor(
                     RelationShipAction.FOLLOW -> accountManager.followAccount(pachliAccountId, accountId)
                     RelationShipAction.UNFOLLOW -> {
                         accountManager.unfollowAccount(pachliAccountId, accountId)
-                        eventHub.dispatch(UnfollowEvent(accountId))
+                        eventHub.dispatch(UnfollowEvent(pachliAccountId, accountId))
                     }
-                    RelationShipAction.BLOCK -> eventHub.dispatch(BlockEvent(accountId))
-                    RelationShipAction.MUTE -> eventHub.dispatch(MuteEvent(accountId))
+
+                    RelationShipAction.BLOCK -> eventHub.dispatch(BlockEvent(pachliAccountId, accountId))
+                    RelationShipAction.MUTE -> eventHub.dispatch(MuteEvent(pachliAccountId, accountId))
                     else -> { }
                 }
             }

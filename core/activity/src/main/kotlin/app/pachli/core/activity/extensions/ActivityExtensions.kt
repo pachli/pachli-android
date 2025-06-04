@@ -22,6 +22,7 @@ import android.app.Activity.OVERRIDE_TRANSITION_CLOSE
 import android.app.Activity.OVERRIDE_TRANSITION_OPEN
 import android.content.Intent
 import android.os.Build
+import android.os.Bundle
 import androidx.annotation.ChecksSdkIntAtLeast
 import app.pachli.core.activity.BaseActivity
 import app.pachli.core.activity.BuildConfig
@@ -34,7 +35,7 @@ import app.pachli.core.activity.BuildConfig
  *
  * See [BaseActivity.onCreate] for the other half of this code.
  */
-fun Activity.startActivityWithTransition(intent: Intent, transitionKind: TransitionKind) {
+fun Activity.startActivityWithTransition(intent: Intent, transitionKind: TransitionKind, options: Bundle? = null) {
     if (BuildConfig.DEBUG) {
         if (this !is BaseActivity) {
             throw IllegalStateException("startActivityWithTransition must be used with BaseActivity subclass")
@@ -42,7 +43,7 @@ fun Activity.startActivityWithTransition(intent: Intent, transitionKind: Transit
     }
 
     intent.putExtra(EXTRA_TRANSITION_KIND, transitionKind)
-    startActivity(intent)
+    startActivity(intent, options)
 
     if (canOverrideActivityTransitions()) {
         overrideActivityTransition(OVERRIDE_TRANSITION_OPEN, transitionKind.openEnter, transitionKind.openExit)
@@ -53,7 +54,7 @@ fun Activity.startActivityWithTransition(intent: Intent, transitionKind: Transit
 }
 
 /** See [Activity.startActivityWithTransition] */
-fun Activity.startActivityWithDefaultTransition(intent: Intent) = startActivityWithTransition(intent, TransitionKind.DEFAULT)
+fun Activity.startActivityWithDefaultTransition(intent: Intent, options: Bundle? = null) = startActivityWithTransition(intent, TransitionKind.DEFAULT, options)
 
 /**
  * Overrides any "close" transition already set for this activity and

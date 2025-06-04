@@ -26,7 +26,6 @@ import app.pachli.components.timeline.TimelineRepository.Companion.PAGE_SIZE
 import app.pachli.components.timeline.viewmodel.NetworkTimelinePagingSource
 import app.pachli.components.timeline.viewmodel.NetworkTimelineRemoteMediator
 import app.pachli.components.timeline.viewmodel.PageCache
-import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
@@ -78,7 +77,7 @@ class NetworkTimelineRepository @Inject constructor(
     /** @return flow of Mastodon [Status]. */
     @OptIn(ExperimentalPagingApi::class)
     override suspend fun getStatusStream(
-        account: AccountEntity,
+        pachliAccountId: Long,
         kind: Timeline,
     ): Flow<PagingData<Status>> {
         Timber.d("getStatusStream()")
@@ -91,7 +90,6 @@ class NetworkTimelineRepository @Inject constructor(
             config = PagingConfig(pageSize = PAGE_SIZE),
             remoteMediator = NetworkTimelineRemoteMediator(
                 mastodonApi,
-                account,
                 factory!!,
                 pageCache,
                 kind,

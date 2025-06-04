@@ -15,4 +15,5 @@
     <string name="title_links_dialog">Ceanglaichean</string>
     <string name="title_hashtags_dialog">Tagaichean hais</string>
     <string name="title_mentions_dialog">Iomraidhean</string>
+    <string name="button_continue">Air adhart</string>
 </resources>

@@ -19,7 +19,7 @@ package app.pachli.components.viewthread
 import android.os.Bundle
 import androidx.fragment.app.commit
 import app.pachli.R
-import app.pachli.core.activity.BottomSheetActivity
+import app.pachli.core.activity.ViewUrlActivity
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.navigation.ViewThreadActivityIntent
 import app.pachli.core.navigation.pachliAccountId
@@ -30,7 +30,7 @@ import dagger.hilt.android.AndroidEntryPoint
  * View the statuses in a single thread.
  */
 @AndroidEntryPoint
-class ViewThreadActivity : BottomSheetActivity() {
+class ViewThreadActivity : ViewUrlActivity() {
     private val binding by viewBinding(ActivityViewThreadBinding::inflate)
 
     override fun onCreate(savedInstanceState: Bundle?) {

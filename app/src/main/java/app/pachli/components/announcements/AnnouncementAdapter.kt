@@ -25,19 +25,19 @@ import android.view.ViewGroup
 import androidx.core.view.size
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
-import app.pachli.core.activity.EmojiSpan
-import app.pachli.core.activity.emojify
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.network.model.Announcement
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.BindingHolder
+import app.pachli.core.ui.EmojiSpan
 import app.pachli.core.ui.LinkListener
+import app.pachli.core.ui.emojify
 import app.pachli.core.ui.setClickableText
 import app.pachli.databinding.ItemAnnouncementBinding
 import app.pachli.util.equalByMinute
 import app.pachli.util.getRelativeTimeSpanString
-import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
 import com.google.android.material.chip.Chip
 import java.lang.ref.WeakReference
 
@@ -48,6 +48,7 @@ interface AnnouncementActionListener : LinkListener {
 }
 
 class AnnouncementAdapter(
+    private val glide: RequestManager,
     private var items: List<Announcement> = emptyList(),
     private val listener: AnnouncementActionListener,
     private val hideStatsInDetailedPosts: Boolean = false,
@@ -91,7 +92,7 @@ class AnnouncementAdapter(
         val chips = holder.binding.chipGroup
         val addReactionChip = holder.binding.addReactionChip
 
-        val emojifiedText: CharSequence = item.content.parseAsMastodonHtml().emojify(item.emojis, text, animateEmojis)
+        val emojifiedText: CharSequence = item.content.parseAsMastodonHtml().emojify(glide, item.emojis, text, animateEmojis)
 
         setClickableText(text, emojifiedText, item.mentions, item.tags, listener)
 
@@ -128,8 +129,7 @@ class AnnouncementAdapter(
                             span.contentDescription = reaction.name
                         }
                         spanBuilder.setSpan(span, 0, 1, 0)
-                        Glide.with(this)
-                            .asDrawable()
+                        glide.asDrawable()
                             .load(
                                 if (animateEmojis) {
                                     reaction.url

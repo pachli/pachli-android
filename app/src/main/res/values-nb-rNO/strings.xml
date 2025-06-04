@@ -95,7 +95,6 @@
     <string name="action_open_media_n">Åpne media #%d</string>
     <string name="download_image">Laster ned %1$s</string>
     <string name="action_copy_link">Kopier lenken</string>
-    <string name="action_share_as">Del som …</string>
     <string name="download_media">Last ned media</string>
     <string name="downloading_media">Laster ned media</string>
     <string name="send_post_link_to">Del tut-URL til…</string>
@@ -204,13 +203,6 @@
     <string name="notification_mention_descriptions">Varsler om nye nevnelser</string>
     <string name="abbreviated_in_years">om %då</string>
     <string name="compose_active_account_description">Poster som %1$s</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="one">Beskriv innhold for de med nedsatt synsevne
-\n(maks %d tegn)</item>
-        <item quantity="other">Beskriv innhold for de med nedsatt synsevne
-\n(maks %d tegn)</item>
-    </plurals>
-    <string name="action_set_caption">Sett bildetekst</string>
     <string name="action_remove">Slett</string>
     <string name="lock_account_label">Lås konto</string>
     <string name="lock_account_label_description">Krever at du manuelt godkjenner nye følgere</string>
@@ -315,7 +307,6 @@
     <string name="compose_preview_image_description">Handlinger for bilde %s</string>
     <string name="pref_title_animate_gif_avatars">Animer GIF-avatarer</string>
     <string name="description_poll">Avstemming med valg: %1$s, %2$s, %3$s, %4$s; %5$s</string>
-    <string name="button_continue">Fortsett</string>
     <string name="button_back">Tilbake</string>
     <string name="report_sent_success">\@%s er rapportert</string>
     <string name="hint_additional_info">Flere kommentarer</string>
@@ -499,7 +490,6 @@
     <string name="status_edit_info">Redigert: %1$s</string>
     <string name="hint_media_description_missing">Media bør ha en beskrivelse.</string>
     <string name="hint_description">Beskrivelse</string>
-    <string name="post_media_image">Bilde</string>
     <string name="ui_error_bookmark_fmt">Å bokmerke innlegget misslyktes: %1$s</string>
     <string name="hint_filter_title">Mitt filter</string>
     <string name="filter_edit_keyword_title">Rediger nøkkelord</string>
@@ -758,10 +748,8 @@
     <string name="search_operator_where_dialog_library_hint">Dine egne innlegg, fremhevinger, favoritmerker, bokmerker, og innlegg som @nevner deg</string>
     <string name="search_operator_where_dialog_public">Fødererte innlegg</string>
     <string name="upload_failed_msg_fmt">Pachli skal prøve å laste opp vedlegg når du sender innlegget. Dersom det mislykkes igjen, skal innlegget lagres i utkastene dine.\n\nFeilen var: %1$s</string>
-    <string name="upload_failed_modify_attachment">Vedlegg ble modifisert</string>
     <string name="pref_title_confirm_status_language">Sjekk innleggets språkinnstilling før innlegget publiseres</string>
     <string name="compose_warn_language_dialog_accept_and_dont_ask_fmt">Tut på %1$s og ikke spør igjen</string>
-    <string name="main_viewmodel_error_set_active_account">Å prøve å logge inn mislyktes med den følgende feilen:\n\n%1$s</string>
     <plurals name="notification_severed_relationships_summary_followers_fmt">
         <item quantity="one">%1$s følger ble fjernet</item>
         <item quantity="other">%1$s følgere ble fjernet</item>
@@ -772,8 +760,6 @@
         <item quantity="one">%1$s konto du følger ble fjernet</item>
         <item quantity="other">%1$s kontoer du følger ble fjernet</item>
     </plurals>
-    <string name="main_viewmodel_error_refresh_account">Å gjenoppfriske kontoen mislyktes med den følgende feilen:\n\n%1$s\n\nDu kan fortsette, men det kan hende at dine lister og filtere kan være ufullstendige.</string>
-    <string name="action_relogin">Logg inn på nytt</string>
     <string name="filter_action_none">Vis</string>
     <string name="filter_description_none">Vis som vanlig</string>
     <string name="pref_title_account_notification_filters">Varselfiltre</string>

@@ -191,11 +191,6 @@
     <string name="add_account_name">افزودن حساب</string>
     <string name="add_account_description">افزودن حساب ماستودون جدید</string>
     <string name="compose_active_account_description">%1$s فرستادن از طرف</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="one">توصیف محتوا برای کم‌بینایان (کران ۱ نویسه)</item>
-        <item quantity="other">توصیف محتوا برای کم‌بینایان (کران %d نویسه)</item>
-    </plurals>
-    <string name="action_set_caption">تنظیم عنوان</string>
     <string name="action_remove">برداشتن</string>
     <string name="lock_account_label">قفل حساب</string>
     <string name="lock_account_label_description">لازم است پی‌گیران را دستی تأیید کنید</string>
@@ -243,7 +238,6 @@
     <string name="action_open_reblogged_by">نمایش تقویت‌ها</string>
     <string name="action_open_faved_by">نمایش برگزیده‌ها</string>
     <string name="action_open_media_n">گشودن رسانه #%d</string>
-    <string name="action_share_as">هم‌رسانی به عنوان …</string>
     <string name="download_media">بارگیری رسانه</string>
     <string name="downloading_media">در حال بارگیری رسانه</string>
     <string name="confirmation_domain_unmuted">%s نانهفته</string>
@@ -316,7 +310,6 @@
         <item quantity="one">%d دقیقه مانده</item>
         <item quantity="other">%d دقیقه مانده</item>
     </plurals>
-    <string name="button_continue">ادامه</string>
     <string name="button_back">بازگشت</string>
     <string name="report_sent_success">‫@%s با موفّقیت گزارش شد</string>
     <string name="hint_additional_info">نظرهای اضافی</string>
@@ -432,7 +425,7 @@
     <string name="pachli_compose_post_quicksetting_label">ایجاد فرسته</string>
     <string name="notification_update_description">آگاهی‌ها هنگام ویرایش فرسته‌هایی که با آن‌ها تعامل داشته‌اید</string>
     <string name="action_unbookmark">برداشن نشانک</string>
-    <string name="action_logout_confirm">%1$s مطمئنید که می‌خواهید از  خارج شوید؟ این کار تمامی داده‌های محلی از جمله پیش‌نویس‌ها و ترجیحات را حذف خواهد کرد.</string>
+    <string name="action_logout_confirm">%1$s مطمئنید که می‌خواهید از خارج شوید؟ این کار تمامی داده‌های محلی از جمله پیش‌نویس‌ها و ترجیحات را حذف خواهد کرد.</string>
     <string name="duration_14_days">۱۴ روز</string>
     <string name="duration_30_days">۳۰ روز</string>
     <string name="duration_60_days">۶۰ روز</string>
@@ -553,7 +546,6 @@
     <string name="pref_title_show_stat_inline">نمایش آمار فرسته‌ها در خط زمانی</string>
     <string name="help_empty_home">این <b>خط زمانی خانگیتان</b> است. فرسته‌های جدید را از حساب‌هایی که پی‌می‌گیرید نشان می‌دهد. \n \nبرای کاوش حساب‌ها می‌توانید آن‌ها را در دیگر خط‌های زمانی (برای نمونه خط زمانی محلّی نمونه‌تان [iconics gmd_group]) یافته یا با نام (برای نمونه Pachli برای حساب ماستودونمان) بجوییدشان [iconics gmd_search].</string>
     <string name="hint_description">شرح</string>
-    <string name="post_media_image">تصویر</string>
     <string name="select_list_empty">هنوز هیچ سیاهه‌ای ندارید</string>
     <string name="select_list_manage">مدیریت سیاهه‌ها</string>
     <string name="load_newest_notifications">بار کردن جدیدترین آگاهی‌ها</string>

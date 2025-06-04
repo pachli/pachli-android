@@ -1,0 +1,18 @@
+Pachli 2.13.0
+
+Gnéithe nua:
+
+- Parsáil Meandaracha ó fhreastalaithe nach n-áirítear an crios ama
+- Athsholáthar Amlíne Áitiúil le Treochtaíe
+- Déan cur síos meán níos tábhachtaí
+
+Socruithe:
+
+- Feabhsú dathanna ar chnaipí agus tú ag scríobh
+- Taispeáin réamhamhairc pobalbhreithe i gceart
+- Ná tuairteáil má scriostar ComposeActivity l
+- Tosaigh ag ailíniú suíomh an chnaipe "Vóta"
+
+Aistriúcháin:
+
+- Sínis, Fionlainnis, Gaeilge, Iodáilis, Cabile, Laitvis, Polainnis, Slóvaicis, Spáinnis

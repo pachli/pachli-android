@@ -22,10 +22,9 @@ import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequest
 import androidx.work.OutOfQuotaPolicy
 import androidx.work.WorkManager
-import app.pachli.components.notifications.disablePushNotificationsForAccount
-import app.pachli.components.notifications.registerUnifiedPushEndpoint
 import app.pachli.core.data.repository.AccountManager
-import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.domain.RegisterUnifiedPushEndpointUseCase
+import app.pachli.core.domain.notifications.DisablePushNotificationsForAccountUseCase
 import app.pachli.worker.NotificationWorker
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -41,7 +40,10 @@ class UnifiedPushBroadcastReceiver : MessagingReceiver() {
     lateinit var accountManager: AccountManager
 
     @Inject
-    lateinit var mastodonApi: MastodonApi
+    lateinit var registerUnifiedPushEndpoint: RegisterUnifiedPushEndpointUseCase
+
+    @Inject
+    lateinit var disablePushNotificationsForAccount: DisablePushNotificationsForAccountUseCase
 
     override fun onMessage(context: Context, message: ByteArray, instance: String) {
         Timber.d("onMessage")
@@ -63,7 +65,7 @@ class UnifiedPushBroadcastReceiver : MessagingReceiver() {
             Timber.d("Endpoint available for account %s: %s", account, instance)
             // Launch the coroutine in global scope -- it is short and we don't want to lose the registration event
             // and there is no saner way to use structured concurrency in a receiver
-            GlobalScope.launch { registerUnifiedPushEndpoint(context, mastodonApi, accountManager, account, endpoint) }
+            GlobalScope.launch { registerUnifiedPushEndpoint(account, endpoint) }
         }
     }
 
@@ -78,7 +80,7 @@ class UnifiedPushBroadcastReceiver : MessagingReceiver() {
         Timber.d("onUnregistered with instance $instance")
         accountManager.getAccountById(instance.toLong())?.let { account ->
             GlobalScope.launch {
-                disablePushNotificationsForAccount(context, mastodonApi, accountManager, account)
+                disablePushNotificationsForAccount(account)
             }
         }
     }

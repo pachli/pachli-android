@@ -19,7 +19,6 @@ package app.pachli.components.timeline.viewmodel
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.filter
 import androidx.paging.map
@@ -28,7 +27,6 @@ import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.data.repository.StatusRepository
-import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.eventhub.BookmarkEvent
 import app.pachli.core.eventhub.EventHub
@@ -41,13 +39,12 @@ import app.pachli.usecase.TimelineCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 /**
  * TimelineViewModel that caches all statuses in a local database
@@ -73,35 +70,23 @@ class CachedTimelineViewModel @Inject constructor(
     sharedPreferencesRepository,
     statusRepository,
 ) {
-    val initialRefreshKey = accountFlow.flatMapLatest {
-        flow { emit(repository.getRefreshKey(it.data!!.id)) }
+    val initialRefreshKey = pachliAccountId.distinctUntilChanged().flatMapLatest { pachliAccountId ->
+        flow { emit(repository.getRefreshKey(pachliAccountId)) }
     }
 
-    override var statuses = accountFlow
-        .distinctUntilChangedBy { it.data!!.id }
-        .flatMapLatest { getStatuses(it.data!!) }
-        .cachedIn(viewModelScope)
-
-    /** @return Flow of statuses that make up the timeline of [timeline] for [account]. */
-    private suspend fun getStatuses(
-        account: AccountEntity,
-    ): Flow<PagingData<StatusViewData>> {
-        Timber.d("getStatuses: kind: %s", timeline)
-        return repository.getStatusStream(account, timeline)
-            .map { pagingData ->
-                pagingData
-                    .map {
-                        StatusViewData.from(
-                            pachliAccountId = account.id,
-                            it,
-                            isExpanded = activeAccount.alwaysOpenSpoiler,
-                            isShowingContent = activeAccount.alwaysShowSensitiveMedia,
-                            contentFilterAction = shouldFilterStatus(it.toStatus()),
-                        )
-                    }
-                    .filter { it.contentFilterAction != FilterAction.HIDE }
-            }
-    }
+    override val statuses = pachliAccountFlow.distinctUntilChangedBy { it.id }.flatMapLatest { pachliAccount ->
+        repository.getStatusStream(pachliAccount.id, timeline).map { pagingData ->
+            pagingData.map {
+                StatusViewData.from(
+                    pachliAccountId = pachliAccount.id,
+                    it,
+                    isExpanded = pachliAccount.entity.alwaysOpenSpoiler,
+                    isShowingContent = pachliAccount.entity.alwaysShowSensitiveMedia,
+                    contentFilterAction = shouldFilterStatus(it.toStatus()),
+                )
+            }.filter { it.contentFilterAction != FilterAction.HIDE }
+        }
+    }.cachedIn(viewModelScope)
 
     override fun removeAllByAccountId(pachliAccountId: Long, accountId: String) {
         viewModelScope.launch {

@@ -37,7 +37,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ImageButton
-import android.widget.LinearLayout
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
@@ -51,6 +50,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.content.IntentCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.content.res.use
 import androidx.core.os.BundleCompat
 import androidx.core.view.ContentInfoCompat
@@ -68,25 +68,22 @@ import app.pachli.adapter.EmojiAdapter
 import app.pachli.adapter.LocaleAdapter
 import app.pachli.adapter.OnEmojiSelectedListener
 import app.pachli.components.compose.ComposeViewModel.ConfirmationKind
-import app.pachli.components.compose.dialog.CaptionDialog
 import app.pachli.components.compose.dialog.makeFocusDialog
 import app.pachli.components.compose.dialog.showAddPollDialog
 import app.pachli.components.compose.view.ComposeOptionsListener
 import app.pachli.components.compose.view.ComposeScheduleView
 import app.pachli.core.activity.BaseActivity
-import app.pachli.core.activity.emojify
-import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.string.mastodonLength
 import app.pachli.core.common.util.unsafeLazy
-import app.pachli.core.data.model.InstanceInfo.Companion.DEFAULT_CHARACTER_LIMIT
-import app.pachli.core.data.model.InstanceInfo.Companion.DEFAULT_MAX_MEDIA_ATTACHMENTS
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_CHARACTER_LIMIT
+import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_MAX_MEDIA_ATTACHMENTS
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InReplyTo
@@ -97,7 +94,9 @@ import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.Status
 import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.SharedPreferencesRepository
+import app.pachli.core.ui.emojify
 import app.pachli.core.ui.extensions.await
+import app.pachli.core.ui.loadAvatar
 import app.pachli.core.ui.makeIcon
 import app.pachli.databinding.ActivityComposeBinding
 import app.pachli.languageidentification.LanguageIdentifier
@@ -111,14 +110,15 @@ import app.pachli.util.highlightSpans
 import app.pachli.util.iconRes
 import app.pachli.util.modernLanguageCode
 import app.pachli.util.setDrawableTint
-import com.bumptech.glide.Glide
 import com.canhub.cropper.CropImage
 import com.canhub.cropper.CropImageContract
-import com.canhub.cropper.options
+import com.canhub.cropper.CropImageContractOptions
+import com.canhub.cropper.CropImageOptions
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.getOrElse
 import com.github.michaelbull.result.mapBoth
 import com.github.michaelbull.result.onFailure
+import com.google.android.material.R as MaterialR
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.snackbar.Snackbar
@@ -151,8 +151,7 @@ class ComposeActivity :
     OnEmojiSelectedListener,
 
     OnReceiveContentListener,
-    ComposeScheduleView.OnTimeSetListener,
-    CaptionDialog.Listener {
+    ComposeScheduleView.OnTimeSetListener {
 
     private lateinit var composeOptionsBehavior: BottomSheetBehavior<*>
     private lateinit var addMediaBehavior: BottomSheetBehavior<*>
@@ -162,6 +161,14 @@ class ComposeActivity :
     private var photoUploadUri: Uri? = null
 
     private val avatarRadius48dp by unsafeLazy { resources.getDimensionPixelSize(DR.dimen.avatar_radius_48dp) }
+
+    /** Float alpha value to use for views to indicate they are disabled. */
+    private val disabledAlphaFloat by unsafeLazy {
+        ResourcesCompat.getFloat(resources, MaterialR.dimen.material_emphasis_disabled)
+    }
+
+    /** Float alpha value to use for drawable resources to indicate they are disabled. */
+    private val disabledAlphaInt by unsafeLazy { (disabledAlphaFloat * 255).toInt() }
 
     @VisibleForTesting
     var maximumTootCharacters = DEFAULT_CHARACTER_LIMIT
@@ -189,8 +196,10 @@ class ComposeActivity :
     lateinit var languageIdentifierFactory: LanguageIdentifier.Factory
 
     private val takePicture = registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
+        // photoUploadUri should never be null at this point, but don't crash if it is.
+        val uploadUri = photoUploadUri ?: return@registerForActivityResult
         if (success) {
-            pickMedia(photoUploadUri!!)
+            pickMedia(uploadUri)
         }
     }
     private val pickMediaFile = registerForActivityResult(PickMediaFiles()) { uris ->
@@ -261,24 +270,14 @@ class ComposeActivity :
         }
         setContentView(binding.root)
 
+        // Restore photoUploadUri early, as it's needed by `takePicture`.
+        savedInstanceState?.let {
+            photoUploadUri = BundleCompat.getParcelable(it, KEY_PHOTO_UPLOAD_URI, Uri::class.java)
+        }
+
         setupActionBar()
 
         val composeOptions: ComposeOptions? = ComposeActivityIntent.getComposeOptions(intent)
-
-        val mediaAdapter = MediaPreviewAdapter(
-            this,
-            onAddCaption = { item ->
-                CaptionDialog.newInstance(item.localId, item.serverId, item.description, item.uri).show(supportFragmentManager, "caption_dialog")
-            },
-            onAddFocus = { item ->
-                makeFocusDialog(item.focus, item.uri) { newFocus ->
-                    viewModel.updateFocus(item.localId, newFocus)
-                }
-                // TODO this is inconsistent to CaptionDialog (device rotation)?
-            },
-            onEditImage = this::editImageInQueue,
-            onRemove = this::removeMediaFromQueue,
-        )
 
         binding.replyLoadingErrorRetry.setOnClickListener { viewModel.reloadReply() }
 
@@ -310,10 +309,23 @@ class ComposeActivity :
                     setupComposeField(sharedPreferencesRepository, viewModel.initialContent, composeOptions)
                 }
 
+                val mediaAdapter = MediaPreviewAdapter(
+                    glide = glide,
+                    descriptionLimit = account.instanceInfo.maxMediaDescriptionChars,
+                    onDescriptionChanged = this@ComposeActivity::onUpdateDescription,
+                    onEditFocus = { item ->
+                        makeFocusDialog(item.focus, item.uri) { newFocus ->
+                            viewModel.updateFocus(item.localId, newFocus)
+                        }
+                    },
+                    onEditImage = this@ComposeActivity::editImageInQueue,
+                    onRemoveMedia = this@ComposeActivity::removeMediaFromQueue,
+                )
+
                 subscribeToUpdates(mediaAdapter)
 
                 binding.composeMediaPreviewBar.layoutManager =
-                    LinearLayoutManager(this@ComposeActivity, LinearLayoutManager.HORIZONTAL, false)
+                    LinearLayoutManager(this@ComposeActivity, LinearLayoutManager.VERTICAL, false)
                 binding.composeMediaPreviewBar.adapter = mediaAdapter
                 binding.composeMediaPreviewBar.itemAnimator = null
 
@@ -327,8 +339,6 @@ class ComposeActivity :
 
                 /* Finally, overwrite state with data from saved instance state. */
                 savedInstanceState?.let {
-                    photoUploadUri = BundleCompat.getParcelable(it, KEY_PHOTO_UPLOAD_URI, Uri::class.java)
-
                     (it.getSerializable(KEY_VISIBILITY) as Status.Visibility).apply {
                         setStatusVisibility(this)
                     }
@@ -460,19 +470,19 @@ class ComposeActivity :
             setReplyAvatar(this)
 
             binding.statusDisplayName.text =
-                displayName.emojify(emojis, binding.statusDisplayName, sharedPreferencesRepository.animateEmojis)
+                displayName.emojify(glide, emojis, binding.statusDisplayName, sharedPreferencesRepository.animateEmojis)
             binding.statusUsername.text = getString(app.pachli.core.designsystem.R.string.post_username_format, username)
 
             if (contentWarning.isEmpty()) {
                 binding.statusContentWarningDescription.hide()
             } else {
                 binding.statusContentWarningDescription.text =
-                    contentWarning.emojify(emojis, binding.statusContentWarningDescription, sharedPreferencesRepository.animateEmojis)
+                    contentWarning.emojify(glide, emojis, binding.statusContentWarningDescription, sharedPreferencesRepository.animateEmojis)
                 binding.statusContentWarningDescription.show()
             }
 
             binding.statusContent.text =
-                content.emojify(emojis, binding.statusContent, sharedPreferencesRepository.animateEmojis)
+                content.emojify(glide, emojis, binding.statusContent, sharedPreferencesRepository.animateEmojis)
         }
     }
 
@@ -480,14 +490,14 @@ class ComposeActivity :
         binding.statusAvatar.setPaddingRelative(0, 0, 0, 0)
         if (viewModel.statusDisplayOptions.value.showBotOverlay && inReplyTo.isBot) {
             binding.statusAvatarInset.visibility = View.VISIBLE
-            Glide.with(binding.statusAvatarInset)
-                .load(DR.drawable.bot_badge)
+            glide.load(DR.drawable.bot_badge)
                 .into(binding.statusAvatarInset)
         } else {
             binding.statusAvatarInset.visibility = View.GONE
         }
 
         loadAvatar(
+            glide,
             inReplyTo.avatarUrl,
             binding.statusAvatar,
             avatarRadius48dp,
@@ -523,6 +533,7 @@ class ComposeActivity :
 
         binding.composeEditField.setAdapter(
             ComposeAutoCompleteAdapter(
+                glide,
                 this,
                 sharedPreferencesRepository.animateAvatars,
                 sharedPreferencesRepository.animateEmojis,
@@ -686,9 +697,6 @@ class ComposeActivity :
         binding.composeScheduleView.setListener(this)
         binding.atButton.setOnClickListener { atButtonClicked() }
         binding.hashButton.setOnClickListener { hashButtonClicked() }
-        binding.descriptionMissingWarningButton.setOnClickListener {
-            displayTransientMessage(R.string.hint_media_description_missing)
-        }
 
         val cameraIcon = makeIcon(this, GoogleMaterial.Icon.gmd_camera_alt, IconicsSize.dp(18))
         binding.actionPhotoTake.setCompoundDrawablesRelativeWithIntrinsicBounds(cameraIcon, null, null, null)
@@ -742,6 +750,7 @@ class ComposeActivity :
         }
 
         loadAvatar(
+            glide,
             account.profilePictureUrl,
             binding.composeAvatar,
             avatarSize / 8,
@@ -848,36 +857,37 @@ class ComposeActivity :
         this.viewModel.toggleMarkSensitive()
     }
 
-    private fun updateSensitiveMediaToggle(markMediaSensitive: Boolean, contentWarningShown: Boolean) {
+    private fun updateSensitiveMediaToggle(markMediaSensitive: Boolean, contentWarningShown: Boolean) = with(binding.composeHideMediaButton) {
         if (viewModel.media.value.isEmpty()) {
-            binding.composeHideMediaButton.hide()
-            binding.descriptionMissingWarningButton.hide()
+            hide()
         } else {
-            binding.composeHideMediaButton.show()
-            @ColorInt val color = if (contentWarningShown) {
-                binding.composeHideMediaButton.setImageResource(R.drawable.ic_hide_media_24dp)
-                binding.composeHideMediaButton.isClickable = false
-                getColor(DR.color.transparent_tusky_blue)
-            } else {
-                binding.composeHideMediaButton.isClickable = true
-                if (markMediaSensitive) {
-                    binding.composeHideMediaButton.setImageResource(R.drawable.ic_hide_media_24dp)
-                    MaterialColors.getColor(binding.composeHideMediaButton, android.R.attr.colorPrimary)
-                } else {
-                    binding.composeHideMediaButton.setImageResource(R.drawable.ic_eye_24dp)
-                    MaterialColors.getColor(binding.composeHideMediaButton, android.R.attr.colorControlNormal)
-                }
-            }
-            binding.composeHideMediaButton.drawable.colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)
+            show()
 
-            var oneMediaWithoutDescription = false
-            for (media in viewModel.media.value) {
-                if (media.description.isNullOrEmpty()) {
-                    oneMediaWithoutDescription = true
-                    break
+            when {
+                contentWarningShown -> {
+                    // Control is disabled, content warning forces media to be sensitive.
+                    alpha = disabledAlphaFloat
+                    isClickable = false
+                    setImageResource(R.drawable.ic_hide_media_24dp)
+                    drawable.clearColorFilter()
+                }
+
+                markMediaSensitive -> {
+                    // Control is active, icon and colour highlight this.
+                    alpha = 1F
+                    isClickable = true
+                    setImageResource(R.drawable.ic_hide_media_24dp)
+                    setDrawableTint(this@ComposeActivity, drawable, android.R.attr.colorPrimary)
+                }
+
+                else -> {
+                    // Control is available for use.
+                    alpha = 1F
+                    isClickable = true
+                    setImageResource(R.drawable.ic_eye_24dp)
+                    setDrawableTint(this@ComposeActivity, drawable, android.R.attr.colorControlNormal)
                 }
             }
-            binding.descriptionMissingWarningButton.visibility = if (oneMediaWithoutDescription) View.VISIBLE else View.GONE
         }
     }
 
@@ -1017,13 +1027,6 @@ class ComposeActivity :
     }
 
     private fun setupPollView() {
-        val margin = resources.getDimensionPixelSize(DR.dimen.compose_media_preview_margin)
-        val marginBottom = resources.getDimensionPixelSize(DR.dimen.compose_media_preview_margin_bottom)
-
-        val layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        layoutParams.setMargins(margin, margin, margin, marginBottom)
-        binding.pollPreview.layoutParams = layoutParams
-
         binding.pollPreview.setOnClickListener {
             val popup = PopupMenu(this, binding.pollPreview)
             val editId = 1
@@ -1247,29 +1250,22 @@ class ComposeActivity :
 
     private fun enableButton(button: ImageButton, clickable: Boolean, colorActive: Boolean) {
         button.isEnabled = clickable
-        setDrawableTint(
-            this,
-            button.drawable,
-            if (colorActive) {
-                android.R.attr.textColorTertiary
-            } else {
-                DR.attr.textColorDisabled
-            },
-        )
+        if (colorActive) {
+            setDrawableTint(this, button.drawable, android.R.attr.textColorTertiary)
+        } else {
+            button.drawable.clearColorFilter()
+        }
     }
 
     private fun enablePollButton(enable: Boolean) {
         binding.addPollTextActionTextView.isEnabled = enable
-        val textColor = MaterialColors.getColor(
-            binding.addPollTextActionTextView,
+        binding.addPollTextActionTextView.compoundDrawables.getOrNull(0)?.let { drawable ->
             if (enable) {
-                android.R.attr.textColorTertiary
+                drawable.alpha = 255
             } else {
-                android.R.attr.colorPrimary
-            },
-        )
-        binding.addPollTextActionTextView.setTextColor(textColor)
-        binding.addPollTextActionTextView.compoundDrawablesRelative[0].colorFilter = PorterDuffColorFilter(textColor, PorterDuff.Mode.SRC_IN)
+                drawable.alpha = disabledAlphaInt
+            }
+        }
     }
 
     private fun editImageInQueue(item: QueuedMedia) {
@@ -1285,10 +1281,13 @@ class ComposeActivity :
         viewModel.cropImageItemOld = item
 
         cropImage.launch(
-            options(uri = item.uri) {
-                setOutputUri(uriNew)
-                setOutputCompressFormat(if (isPng) Bitmap.CompressFormat.PNG else Bitmap.CompressFormat.JPEG)
-            },
+            CropImageContractOptions(
+                uri = item.uri,
+                cropImageOptions = CropImageOptions(
+                    customOutputUri = uriNew,
+                    outputCompressFormat = if (isPng) Bitmap.CompressFormat.PNG else Bitmap.CompressFormat.JPEG,
+                ),
+            ),
         )
     }
 
@@ -1492,7 +1491,7 @@ class ComposeActivity :
     private fun setEmojiList(emojiList: List<Emoji>?) {
         if (emojiList != null) {
             val animateEmojis = sharedPreferencesRepository.animateEmojis
-            binding.emojiView.adapter = EmojiAdapter(emojiList, this@ComposeActivity, animateEmojis)
+            binding.emojiView.adapter = EmojiAdapter(glide, emojiList, this@ComposeActivity, animateEmojis)
             enableButton(binding.composeEmojiButton, true, emojiList.isNotEmpty())
         }
     }
@@ -1553,8 +1552,11 @@ class ComposeActivity :
         scheduleBehavior.state = BottomSheetBehavior.STATE_HIDDEN
     }
 
-    override fun onUpdateDescription(localId: Int, serverId: String?, description: String) {
-        viewModel.updateDescription(localId, serverId, description)
+    fun onUpdateDescription(media: QueuedMedia, description: String) {
+        // Do nothing if no changes.
+        if (media.description.isNullOrBlank() && description.isBlank()) return
+        if (media.description == description) return
+        viewModel.updateDescription(media.localId, media.serverId, description)
     }
 
     companion object {
@@ -1564,10 +1566,6 @@ class ComposeActivity :
         private const val KEY_VISIBILITY = "app.pachli.KEY_VISIBILITY"
         private const val KEY_SCHEDULED_TIME = "app.pachli.KEY_SCHEDULED_TIME"
         private const val KEY_CONTENT_WARNING_VISIBLE = "app.pachli.KEY_CONTENT_WARNING_VISIBLE"
-
-        fun canHandleMimeType(mimeType: String?): Boolean {
-            return mimeType != null && (mimeType.startsWith("image/") || mimeType.startsWith("video/") || mimeType.startsWith("audio/") || mimeType == "text/plain")
-        }
 
         /**
          * [InputFilter] that uses the "Mastodon" length of a string, where emojis always

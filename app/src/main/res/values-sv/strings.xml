@@ -95,7 +95,6 @@
     <string name="action_open_media_n">Öppna media #%d</string>
     <string name="download_image">Laddar ned %1$s</string>
     <string name="action_copy_link">Kopiera länk</string>
-    <string name="action_share_as">Dela som …</string>
     <string name="send_post_link_to">Dela toot-URL till…</string>
     <string name="send_post_content_to">Dela toot till…</string>
     <string name="send_media_to">Dela media till…</string>
@@ -217,11 +216,6 @@
     <string name="add_account_name">Lägg till konto</string>
     <string name="add_account_description">Lägg till ett nytt Mastodon-konto</string>
     <string name="compose_active_account_description">Publicerar som %1$s</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="one">Beskriv innehåll för synskadade (max %d tecken)</item>
-        <item quantity="other">Beskriv innehåll för synskadade (max %d tecken)</item>
-    </plurals>
-    <string name="action_set_caption">Ange bildtext</string>
     <string name="action_remove">Ta bort</string>
     <string name="lock_account_label">Lås konto</string>
     <string name="lock_account_label_description">Kräver att du manuellt godkänner följare</string>
@@ -332,7 +326,6 @@
     <string name="confirmation_domain_unmuted">%s inte tystad längre</string>
     <string name="mute_domain_warning">Är du säker på att du vill blockera allt från %s\? Du kommer inte kunna se något innehåll från denna domän i publika tidslinjer eller i dina notifieringar. Dina följare på domänen kommer inte att bli borttagna.</string>
     <string name="mute_domain_warning_dialog_ok">Dölj hela domänen</string>
-    <string name="button_continue">Fortsätt</string>
     <string name="button_back">Tillbaka</string>
     <string name="report_sent_success">Anmälan av @%s har lyckats</string>
     <string name="hint_additional_info">Ytterligare kommentarer</string>
@@ -527,7 +520,6 @@
     <string name="total_usage">Total användning</string>
     <string name="total_accounts">Totala konton</string>
     <string name="hint_description">Beskrivning</string>
-    <string name="post_media_image">Bild</string>
     <string name="description_browser_login">Kan stödja ytterligare autentiseringsmetoder, men kräver en webbläsare som stöds.</string>
     <string name="filter_description_format">%s: %s</string>
     <string name="filter_keyword_addition_title">Lägg till nyckelord</string>

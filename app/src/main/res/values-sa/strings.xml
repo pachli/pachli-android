@@ -55,7 +55,7 @@
     <string name="action_block">अवरुध्यताम्</string>
     <string name="action_unfollow">अनुसरणं अपाकुरुताम्</string>
     <string name="action_follow">अनुस्रियताम्</string>
-    <string name="action_logout_confirm">नूनमेव बहिर्गन्तुमीहते %1$s इति व्यक्तित्वलेखात् \?</string>
+    <string name="action_logout_confirm">नूनमेव बहिर्गन्तुमीहते %1$s इति व्यक्तित्वलेखात् ?</string>
     <string name="action_logout">बहिर्गम्यताम्</string>
     <string name="action_compose">रच्यताम्</string>
     <string name="action_unfavourite">प्रियता निष्क्रियताम्</string>
@@ -90,7 +90,6 @@
     <string name="send_post_link_to">दौत्यजालस्थलमस्मै विभाज्यताम् …</string>
     <string name="downloading_media">सामग्री अवारोप्यमाणा</string>
     <string name="download_media">सामग्री अवारोप्यताम्</string>
-    <string name="action_share_as">एवं विभाज्यताम् …</string>
     <string name="action_copy_link">जालस्थलं प्रतिलिख्यताम्</string>
     <string name="download_image">अवारोप्यमाणम् %1$s</string>
     <string name="action_open_media_n">उद्घाट्यताम् #%d</string>
@@ -263,11 +262,6 @@
     <string name="lock_account_label_description">स्वयमेवाऽनुसर्तॄणां कृतेऽनुमतिर्दातव्या</string>
     <string name="lock_account_label">लेखा अवरुध्यताम्</string>
     <string name="action_remove">नश्यताम्</string>
-    <string name="action_set_caption">शीर्षकवाक्यं लिख्यताम्</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="other">दृष्ट्यां येषां समस्याऽस्ति तेषांं कृते विवरणम्
-\n(%d परिमिता न्यूनाक्षरसङ्ख्या)</item>
-    </plurals>
     <string name="compose_active_account_description">%1$s लेखया प्रकटनं क्रियते</string>
     <string name="download_failed">अवारोपणे दोषः</string>
     <string name="restart">पुनः प्रारभ्यताम्</string>
@@ -317,7 +311,6 @@
     <string name="hint_additional_info">अन्याः टिप्पण्यः</string>
     <string name="report_sent_success">साफल्येनाऽऽवेदनं दत्तमस्य @%s</string>
     <string name="button_back">पूर्वम्</string>
-    <string name="button_continue">निरन्तरम्</string>
     <plurals name="poll_timespan_seconds">
         <item quantity="one">%d क्षणम्</item>
         <item quantity="other">%d क्षणे</item>

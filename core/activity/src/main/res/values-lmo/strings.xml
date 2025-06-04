@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="post_lookup_error_format">Errur durant la ricerca di %s</string>
+</resources>

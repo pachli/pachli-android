@@ -19,7 +19,6 @@ package app.pachli.components.timeline.viewmodel
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.filter
 import androidx.paging.map
@@ -29,7 +28,6 @@ import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.StatusActionError
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.data.repository.StatusRepository
-import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.database.model.toEntity
 import app.pachli.core.eventhub.BookmarkEvent
@@ -50,11 +48,10 @@ import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 /**
  * TimelineViewModel that caches all statuses in an in-memory list
@@ -82,26 +79,15 @@ class NetworkTimelineViewModel @Inject constructor(
 ) {
     private val modifiedViewData = mutableMapOf<String, StatusViewData>()
 
-    override var statuses: Flow<PagingData<StatusViewData>>
-
-    init {
-        statuses = accountFlow
-            .flatMapLatest { getStatuses(it.data!!) }.cachedIn(viewModelScope)
-    }
-
-    /** @return Flow of statuses that make up the timeline of [timeline] for [account]. */
-    private suspend fun getStatuses(
-        account: AccountEntity,
-    ): Flow<PagingData<StatusViewData>> {
-        Timber.d("getStatuses: kind: %s", timeline)
-        return repository.getStatusStream(account, kind = timeline)
+    override val statuses = pachliAccountId.distinctUntilChanged().flatMapLatest { pachliAccountId ->
+        repository.getStatusStream(pachliAccountId, kind = timeline)
             .map { pagingData ->
                 pagingData.map {
-                    val existingViewData = statusRepository.getStatusViewData(account.id, it.actionableId)
-                    val existingTranslation = statusRepository.getTranslation(account.id, it.actionableId)
+                    val existingViewData = statusRepository.getStatusViewData(pachliAccountId, it.actionableId)
+                    val existingTranslation = statusRepository.getTranslation(pachliAccountId, it.actionableId)
 
                     modifiedViewData[it.actionableId] ?: StatusViewData.from(
-                        pachliAccountId = account.id,
+                        pachliAccountId = pachliAccountId,
                         it,
                         isShowingContent = existingViewData?.contentShowing ?: statusDisplayOptions.value.showSensitiveMedia || !it.actionableStatus.sensitive,
                         isExpanded = existingViewData?.expanded ?: statusDisplayOptions.value.openSpoiler,
@@ -112,7 +98,7 @@ class NetworkTimelineViewModel @Inject constructor(
                     )
                 }.filter { it.contentFilterAction != FilterAction.HIDE }
             }
-    }
+    }.cachedIn(viewModelScope)
 
     override fun removeAllByAccountId(pachliAccountId: Long, accountId: String) {
         viewModelScope.launch {

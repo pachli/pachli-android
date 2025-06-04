@@ -220,9 +220,9 @@ class ViewImageFragment : ViewMediaFragment() {
             .setListener(
                 object : AnimatorListenerAdapter() {
                     override fun onAnimationEnd(animation: Animator) {
+                        animation.removeListener(this)
                         view ?: return
                         binding.captionSheet.visible(isDescriptionVisible)
-                        animation.removeListener(this)
                     }
                 },
             )

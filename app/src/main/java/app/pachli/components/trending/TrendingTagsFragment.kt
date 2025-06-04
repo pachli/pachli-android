@@ -181,12 +181,8 @@ class TrendingTagsFragment :
     }
 
     fun onViewTag(tag: String) {
-        activity?.startActivityWithDefaultTransition(
-            TimelineActivityIntent.hashtag(
-                requireContext(),
-                pachliAccountId,
-                tag,
-            ),
+        startActivityWithDefaultTransition(
+            TimelineActivityIntent.hashtag(requireContext(), pachliAccountId, tag),
         )
     }
 
