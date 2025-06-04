@@ -12,6 +12,8 @@
         android:layout_height="wrap_content"
         android:hint="@string/filter_add_description"
         app:layout_constraintTop_toTopOf="parent"
+        android:inputType="text"
+        android:importantForAutofill="no"
         />
     <CheckBox
         android:id="@+id/phraseWholeWord"

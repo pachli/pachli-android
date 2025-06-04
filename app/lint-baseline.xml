@@ -1997,17 +1997,6 @@
     </issue>
 
     <issue
-        id="TextFields"
-        message="This text field does not specify an `inputType`"
-        errorLine1="    &lt;EditText"
-        errorLine2="     ~~~~~~~~">
-        <location
-            file="src/main/res/layout/dialog_filter.xml"
-            line="9"
-            column="6"/>
-    </issue>
-
-    <issue
         id="NegativeMargin"
         message="Margin values should not be negative"
         errorLine1="        android:layout_marginTop=&quot;-4dp&quot;"
@@ -2027,17 +2016,6 @@
             file="src/main/res/layout/item_status.xml"
             line="236"
             column="9"/>
-    </issue>
-
-    <issue
-        id="Autofill"
-        message="Missing `autofillHints` attribute"
-        errorLine1="    &lt;EditText"
-        errorLine2="     ~~~~~~~~">
-        <location
-            file="src/main/res/layout/dialog_filter.xml"
-            line="9"
-            column="6"/>
     </issue>
 
     <issue
