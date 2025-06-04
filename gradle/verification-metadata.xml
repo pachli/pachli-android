@@ -38,6 +38,8 @@
             <trusting group="androidx.exifinterface"/>
             <trusting group="androidx.fragment"/>
             <trusting group="androidx.paging"/>
+            <trusting group="androidx.room"/>
+            <trusting group="androidx.sqlite"/>
             <trusting group="androidx.transition"/>
             <trusting group="^com[.]android($|([.].*))" regex="true"/>
          </trusted-key>
@@ -153,6 +155,7 @@
             <trusting group="androidx.hilt"/>
             <trusting group="androidx.lifecycle"/>
             <trusting group="androidx.navigation"/>
+            <trusting group="androidx.paging" name="paging-common" version="3.3.2"/>
             <trusting group="androidx.profileinstaller"/>
             <trusting group="androidx.recyclerview"/>
             <trusting group="androidx.transition"/>
