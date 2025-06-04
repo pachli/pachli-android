@@ -35,6 +35,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.R
 import app.pachli.core.activity.OpenUrlUseCase
 import app.pachli.core.activity.RefreshableFragment
+import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
@@ -44,6 +45,7 @@ import app.pachli.core.navigation.ViewMediaActivityIntent
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.databinding.FragmentTimelineBinding
+import com.bumptech.glide.Glide
 import com.google.android.material.color.MaterialColors
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
@@ -87,6 +89,7 @@ class AccountMediaFragment :
 
         adapter = AccountMediaGridAdapter(
             context = view.context,
+            glide = Glide.with(this),
             statusDisplayOptions = viewModel.statusDisplayOptions.value,
             onAttachmentClickListener = ::onAttachmentClick,
         )
@@ -178,9 +181,9 @@ class AccountMediaFragment :
                     val url = selected.attachment.url
                     ViewCompat.setTransitionName(view, url)
                     val options = ActivityOptionsCompat.makeSceneTransitionAnimation(requireActivity(), view, url)
-                    startActivity(intent, options.toBundle())
+                    startActivityWithDefaultTransition(intent, options.toBundle())
                 } else {
-                    startActivity(intent)
+                    startActivityWithDefaultTransition(intent)
                 }
             }
             Attachment.Type.UNKNOWN -> openUrl(selected.attachment.url)

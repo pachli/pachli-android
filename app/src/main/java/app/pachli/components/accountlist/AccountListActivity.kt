@@ -19,7 +19,7 @@ package app.pachli.components.accountlist
 import android.os.Bundle
 import androidx.fragment.app.commit
 import app.pachli.R
-import app.pachli.core.activity.BottomSheetActivity
+import app.pachli.core.activity.ViewUrlActivity
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.navigation.AccountListActivityIntent.Kind.BLOCKS
@@ -39,7 +39,7 @@ import dagger.hilt.android.AndroidEntryPoint
  * Show a list of accounts of a particular kind.
  */
 @AndroidEntryPoint
-class AccountListActivity : BottomSheetActivity(), AppBarLayoutHost {
+class AccountListActivity : ViewUrlActivity(), AppBarLayoutHost {
     private val binding: ActivityAccountListBinding by viewBinding(ActivityAccountListBinding::inflate)
 
     override val appBarLayout: AppBarLayout

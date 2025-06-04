@@ -28,11 +28,13 @@ import app.pachli.core.network.model.FilterAction as NetworkFilterAction
 import app.pachli.core.ui.SetStatusContent
 import app.pachli.databinding.ItemStatusWrapperBinding
 import app.pachli.interfaces.StatusActionListener
+import com.bumptech.glide.RequestManager
 
 open class FilterableStatusViewHolder<T : IStatusViewData>(
     private val binding: ItemStatusWrapperBinding,
+    glide: RequestManager,
     setStatusContent: SetStatusContent,
-) : StatusViewHolder<T>(binding.statusContainer, setStatusContent, binding.root) {
+) : StatusViewHolder<T>(binding.statusContainer, glide, setStatusContent, binding.root) {
     /** The filter that matched the status, null if the status is not being filtered. */
     var matchedFilter: Filter? = null
 

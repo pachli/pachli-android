@@ -32,8 +32,6 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
-import app.pachli.core.activity.emojify
-import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.PachliError
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
@@ -46,8 +44,11 @@ import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.ui.BindingHolder
+import app.pachli.core.ui.emojify
+import app.pachli.core.ui.loadAvatar
 import app.pachli.feature.lists.databinding.FragmentAccountsInListBinding
 import app.pachli.feature.lists.databinding.ItemAccountInListBinding
+import com.bumptech.glide.Glide
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.get
 import com.github.michaelbull.result.mapBoth
@@ -249,11 +250,17 @@ class AccountsInListFragment : DialogFragment() {
 
         override fun onBindViewHolder(holder: BindingHolder<ItemAccountInListBinding>, position: Int) {
             val account = getItem(position)
-            holder.binding.displayName.text = account.name.emojify(account.emojis, holder.binding.displayName, animateEmojis)
+            val glide = Glide.with(this@AccountsInListFragment)
+            holder.binding.displayName.text = account.name.emojify(
+                glide,
+                account.emojis,
+                holder.binding.displayName,
+                animateEmojis,
+            )
             holder.binding.username.text = binding.root.context.getString(DR.string.post_username_format, account.username)
             holder.binding.avatarBadge.visible(account.bot)
             holder.binding.checkBox.isChecked = true
-            loadAvatar(account.avatar, holder.binding.avatar, radius, animateAvatar)
+            loadAvatar(glide, account.avatar, holder.binding.avatar, radius, animateAvatar)
         }
     }
 
@@ -290,9 +297,10 @@ class AccountsInListFragment : DialogFragment() {
         override fun onBindViewHolder(holder: BindingHolder<ItemAccountInListBinding>, position: Int) {
             val (account, inAList) = getItem(position)
 
-            holder.binding.displayName.text = account.name.emojify(account.emojis, holder.binding.displayName, animateEmojis)
+            val glide = Glide.with(this@AccountsInListFragment)
+            holder.binding.displayName.text = account.name.emojify(glide, account.emojis, holder.binding.displayName, animateEmojis)
             holder.binding.username.text = binding.root.context.getString(DR.string.post_username_format, account.username)
-            loadAvatar(account.avatar, holder.binding.avatar, radius, animateAvatar)
+            loadAvatar(glide, account.avatar, holder.binding.avatar, radius, animateAvatar)
             holder.binding.avatarBadge.visible(account.bot)
 
             with(holder.binding.checkBox) {

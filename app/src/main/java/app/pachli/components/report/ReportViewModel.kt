@@ -232,7 +232,7 @@ class ReportViewModel @AssistedInject constructor(
                 .onSuccess {
                     _muting.emit(Ok(Loadable.Loaded(it)))
                     if (it) {
-                        eventHub.dispatch(MuteEvent(this@ReportViewModel.reportedAccountId))
+                        eventHub.dispatch(MuteEvent(pachliAccountId, this@ReportViewModel.reportedAccountId))
                     }
                 }
                 .onFailure { _muting.emit(Err(it)) }
@@ -252,7 +252,7 @@ class ReportViewModel @AssistedInject constructor(
                 .onSuccess {
                     _blocking.emit(Ok(Loadable.Loaded(it)))
                     if (it) {
-                        eventHub.dispatch(BlockEvent(this@ReportViewModel.reportedAccountId))
+                        eventHub.dispatch(BlockEvent(pachliAccountId, this@ReportViewModel.reportedAccountId))
                     }
                 }
                 .onFailure { _blocking.emit(Err(it)) }

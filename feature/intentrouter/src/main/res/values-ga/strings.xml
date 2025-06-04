@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_set_active_account">Theip ar an iarracht logáil isteach agus an earráid seo a leanas ann: %1$s</string>
+    <string name="error_refresh_account">Theip ar an gcuntas a athnuachan agus an earráid seo a leanas ann: %1$s\n\nIs féidir leat leanúint ar aghaidh, ach d\'fhéadfadh do liostaí agus do scagairí a bheith neamhiomlán.</string>
+    <string name="action_relogin">Ath-logáil isteach</string>
+    <string name="action_share_as">Comhroinn mar …</string>
+    <string name="title_error_dialog">Theip ar logáil isteach</string>
+    <string name="error_login_failed_hint">Tapáil an cuntas chun iarracht eile a dhéanamh.</string>
+    <string name="client_error_unauthorized_fmt">%1$s\n\nBeartaigh \"%2$s\" chun iarracht eile a dhéanamh.</string>
+    <string name="title_error_mime_type">Cineál anaithnid</string>
+    <string name="client_error_unauthorized_multiple_fmt">%1$s\n\nTapáil \"%2$s\" chun iarracht eile a dhéanamh, nó \"%3$s\" chun cuntas difriúil a roghnú.</string>
+    <string name="title_choose_account_dialog">Roghnaigh cuntas</string>
+    <string name="error_mime_type_fmt">Osclaíodh Pachli chun ábhar a roinnt leis an gcineál \"%1$s\", ach ní láimhseálann Pachli an cineál sin.</string>
+    <string name="error_refresh_account_fmt">Theip ar roinnt sonraí cuntais a fháil:\n\n%1$s\n\nTapáil \"%2$s\" chun leanúint ar aghaidh, ach d\'fhéadfadh roinnt faisnéise a bheith mícheart (m.sh., scagairí agus liostaí).\n\nTapáil \"%3$s\" chun iarracht eile a dhéanamh.\n\nTapáil \"%4$s\" chun cuntas eile a roghnú.</string>
+    <string name="action_choose_another_account">Roghnaigh cuntas eile</string>
+    <string name="error_login_failed_hint_multiple">Tapáil an cuntas céanna chun iarracht eile a dhéanamh, nó cuntas difriúil chun logáil isteach leis an gcuntas sin.</string>
+</resources>

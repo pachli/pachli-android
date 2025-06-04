@@ -18,16 +18,18 @@ package app.pachli.components.accountlist.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import app.pachli.core.activity.emojify
-import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.ui.BindingHolder
+import app.pachli.core.ui.emojify
+import app.pachli.core.ui.loadAvatar
 import app.pachli.databinding.ItemBlockedUserBinding
 import app.pachli.interfaces.AccountActionListener
+import com.bumptech.glide.RequestManager
 
 /** Displays a list of blocked accounts. */
 class BlocksAdapter(
+    val glide: RequestManager,
     accountActionListener: AccountActionListener,
     animateAvatar: Boolean,
     animateEmojis: Boolean,
@@ -49,13 +51,13 @@ class BlocksAdapter(
         val binding = viewHolder.binding
         val context = binding.root.context
 
-        val emojifiedName = account.name.emojify(account.emojis, binding.blockedUserDisplayName, animateEmojis)
+        val emojifiedName = account.name.emojify(glide, account.emojis, binding.blockedUserDisplayName, animateEmojis)
         binding.blockedUserDisplayName.text = emojifiedName
         val formattedUsername = context.getString(DR.string.post_username_format, account.username)
         binding.blockedUserUsername.text = formattedUsername
 
         val avatarRadius = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_48dp)
-        loadAvatar(account.avatar, binding.blockedUserAvatar, avatarRadius, animateAvatar)
+        loadAvatar(glide, account.avatar, binding.blockedUserAvatar, avatarRadius, animateAvatar)
 
         binding.blockedUserBotBadge.visible(showBotOverlay && account.bot)
 

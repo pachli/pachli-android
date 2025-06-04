@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_open_as">Agor fel %s</string>
     <string name="post_lookup_error_format">Gwall wrth chwilio am y neges %s</string>

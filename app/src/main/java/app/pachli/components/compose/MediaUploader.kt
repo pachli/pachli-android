@@ -33,7 +33,7 @@ import app.pachli.components.compose.UploadState.Uploaded
 import app.pachli.core.common.PachliError
 import app.pachli.core.common.string.randomAlphanumericString
 import app.pachli.core.common.util.formatNumber
-import app.pachli.core.data.model.InstanceInfo
+import app.pachli.core.model.InstanceInfo
 import app.pachli.core.network.model.MediaUploadApi
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import app.pachli.util.MEDIA_SIZE_UNKNOWN

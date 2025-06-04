@@ -31,9 +31,8 @@ android {
 }
 
 dependencies {
-    // Calls "openLink" from projects.core.activity
-    implementation(projects.core.activity)
     implementation(projects.core.common)
+    implementation(projects.core.data)
     implementation(projects.core.designsystem)
     implementation(projects.core.preferences)
         ?.because("PreferenceEnum types in EnumListPreference")
@@ -43,11 +42,17 @@ dependencies {
     implementation(projects.core.network)
         ?.because("ThrowableExtensions uses getServerErrorMessage")
 
+    implementation(libs.bundles.glide)
+        ?.because("Loads account avatars and emojis")
+
     // Uses JsonDataException from Moshi
     implementation(libs.moshi)
 
     // Some views inherit from AndroidX views
     implementation(libs.bundles.androidx)
+
+    implementation(libs.bundles.glide)
+        ?.because("Loads account avatars and emojis")
 
     api(libs.material.iconics)
     api(libs.material.typeface)

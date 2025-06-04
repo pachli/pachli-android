@@ -26,8 +26,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
-import app.pachli.core.activity.NotificationConfig
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.domain.notifications.NotificationConfig
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -45,7 +45,7 @@ data class UiState(
     /** Timestamp for this state. Ensures that each state is different */
     val now: Instant,
 
-    /** @see [app.pachli.core.activity.NotificationConfig.androidNotificationsEnabled] */
+    /** @see [NotificationConfig.androidNotificationsEnabled] */
     val androidNotificationsEnabled: Boolean,
 
     /**
@@ -54,13 +54,13 @@ data class UiState(
      */
     val notificationEnabledAccounts: String,
 
-    /** @see [app.pachli.core.activity.NotificationConfig.notificationMethod] */
+    /** @see [NotificationConfig.notificationMethod] */
     val notificationMethod: NotificationConfig.Method,
 
-    /** @see [app.pachli.core.activity.NotificationConfig.unifiedPushAvailable] */
+    /** @see [NotificationConfig.unifiedPushAvailable] */
     val unifiedPushAvailable: Boolean,
 
-    /** @see [app.pachli.core.activity.NotificationConfig.anyAccountNeedsMigration] */
+    /** @see [NotificationConfig.anyAccountNeedsMigration] */
     val anyAccountNeedsMigration: Boolean,
 
     /** Formatted string of accounts and whether the account needs migration */

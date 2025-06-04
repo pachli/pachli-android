@@ -42,9 +42,10 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.data.model.StatusViewData
+import app.pachli.core.database.model.TranslationState
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.AccountListActivityIntent
-import app.pachli.core.navigation.AttachmentViewData.Companion.list
+import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.EditContentFilterActivityIntent
 import app.pachli.core.network.model.Poll
 import app.pachli.core.network.model.Status
@@ -54,6 +55,7 @@ import app.pachli.databinding.FragmentViewThreadBinding
 import app.pachli.fragment.SFragment
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.ListStatusAccessibilityDelegate
+import com.bumptech.glide.Glide
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
@@ -77,7 +79,7 @@ class ViewThreadFragment :
     private val binding by viewBinding(FragmentViewThreadBinding::bind)
 
     private lateinit var adapter: ThreadAdapter
-    private lateinit var thisThreadsStatusId: String
+    private val thisThreadsStatusId by lazy { requireArguments().getString(ARG_ID)!! }
 
     override var pachliAccountId by Delegates.notNull<Long>()
 
@@ -94,7 +96,6 @@ class ViewThreadFragment :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         pachliAccountId = requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID)
-        thisThreadsStatusId = requireArguments().getString(ARG_ID)!!
 
         val setStatusContent = if (viewModel.statusDisplayOptions.value.renderMarkdown) {
             SetMarkdownContent(requireContext())
@@ -102,7 +103,7 @@ class ViewThreadFragment :
             SetMastodonHtmlContent
         }
 
-        adapter = ThreadAdapter(viewModel.statusDisplayOptions.value, this, setStatusContent, openUrl)
+        adapter = ThreadAdapter(Glide.with(this), viewModel.statusDisplayOptions.value, this, setStatusContent, openUrl)
     }
 
     override fun onCreateView(
@@ -320,12 +321,18 @@ class ViewThreadFragment :
     }
 
     override fun onViewMedia(viewData: StatusViewData, attachmentIndex: Int, view: View?) {
-        super.viewMedia(
-            viewData.username,
-            attachmentIndex,
-            list(viewData.actionable, viewModel.statusDisplayOptions.value.showSensitiveMedia),
-            view,
-        )
+        // Pass the translated media descriptions through (if appropriate)
+        val actionable = if (viewData.translationState == TranslationState.SHOW_TRANSLATION) {
+            viewData.actionable.copy(
+                attachments = viewData.translation?.attachments?.zip(viewData.actionable.attachments) { t, a ->
+                    a.copy(description = t.description)
+                } ?: viewData.actionable.attachments,
+            )
+        } else {
+            viewData.actionable
+        }
+
+        super.viewMedia(actionable.account.username, attachmentIndex, AttachmentViewData.list(actionable), view)
     }
 
     override fun onViewThread(status: Status) {
@@ -353,7 +360,7 @@ class ViewThreadFragment :
     }
 
     override fun onEditFilterById(pachliAccountId: Long, filterId: String) {
-        requireActivity().startActivityWithTransition(
+        startActivityWithTransition(
             EditContentFilterActivityIntent.edit(requireContext(), pachliAccountId, filterId),
             TransitionKind.SLIDE_FROM_END,
         )
@@ -369,12 +376,12 @@ class ViewThreadFragment :
 
     override fun onShowReblogs(statusId: String) {
         val intent = AccountListActivityIntent(requireContext(), pachliAccountId, AccountListActivityIntent.Kind.REBLOGGED, statusId)
-        activity?.startActivityWithDefaultTransition(intent)
+        startActivityWithDefaultTransition(intent)
     }
 
     override fun onShowFavs(statusId: String) {
         val intent = AccountListActivityIntent(requireContext(), pachliAccountId, AccountListActivityIntent.Kind.FAVOURITED, statusId)
-        activity?.startActivityWithDefaultTransition(intent)
+        startActivityWithDefaultTransition(intent)
     }
 
     override fun onContentCollapsedChange(viewData: StatusViewData, isCollapsed: Boolean) {

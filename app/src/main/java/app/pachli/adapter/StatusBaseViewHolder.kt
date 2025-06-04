@@ -19,9 +19,6 @@ import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
-import app.pachli.core.activity.decodeBlurHash
-import app.pachli.core.activity.emojify
-import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.string.unicodeWrap
@@ -40,6 +37,9 @@ import app.pachli.core.network.model.Status
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.preferences.CardViewMode
 import app.pachli.core.ui.SetStatusContent
+import app.pachli.core.ui.decodeBlurHash
+import app.pachli.core.ui.emojify
+import app.pachli.core.ui.loadAvatar
 import app.pachli.core.ui.makeIcon
 import app.pachli.core.ui.setClickableMentions
 import app.pachli.interfaces.StatusActionListener
@@ -57,7 +57,7 @@ import app.pachli.view.PreviewCardView
 import app.pachli.viewdata.PollViewData.Companion.from
 import at.connyduck.sparkbutton.SparkButton
 import at.connyduck.sparkbutton.helpers.Utils
-import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.color.MaterialColors
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
@@ -66,6 +66,7 @@ import java.util.Date
 
 abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
     itemView: View,
+    protected val glide: RequestManager,
     protected val setStatusContent: SetStatusContent,
 ) : RecyclerView.ViewHolder(itemView) {
     object Key {
@@ -134,7 +135,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
         customEmojis: List<Emoji>?,
         statusDisplayOptions: StatusDisplayOptions,
     ) {
-        displayName.text = name.emojify(customEmojis, displayName, statusDisplayOptions.animateEmojis)
+        displayName.text = name.emojify(glide, customEmojis, displayName, statusDisplayOptions.animateEmojis)
     }
 
     protected fun setUsername(name: String) {
@@ -155,6 +156,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
         val expanded = viewData.isExpanded
         if (sensitive) {
             val emojiSpoiler = spoilerText.emojify(
+                glide,
                 viewData.actionable.emojis,
                 contentWarningDescription,
                 statusDisplayOptions.animateEmojis,
@@ -241,6 +243,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
 
         if (!sensitive || viewData.isExpanded) {
             setStatusContent(
+                glide,
                 this.content,
                 viewData.content,
                 statusDisplayOptions,
@@ -262,6 +265,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
                 }
 
                 pollView.bind(
+                    glide,
                     pollViewData,
                     emojis,
                     statusDisplayOptions,
@@ -294,8 +298,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
             avatar.setPaddingRelative(0, 0, 0, 0)
             if (statusDisplayOptions.showBotOverlay && isBot) {
                 avatarInset.visibility = View.VISIBLE
-                Glide.with(avatarInset)
-                    .load(DR.drawable.bot_badge)
+                glide.load(DR.drawable.bot_badge)
                     .into(avatarInset)
             } else {
                 avatarInset.visibility = View.GONE
@@ -307,6 +310,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
             avatarInset.visibility = View.VISIBLE
             avatarInset.background = null
             loadAvatar(
+                glide,
                 rebloggedUrl,
                 avatarInset,
                 avatarRadius24dp,
@@ -316,6 +320,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
             avatarRadius = avatarRadius36dp
         }
         loadAvatar(
+            glide,
             url,
             avatar,
             avatarRadius,
@@ -441,8 +446,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
         val placeholder = blurhash?.let { decodeBlurHash(it) } ?: mediaPreviewUnloaded
         if (TextUtils.isEmpty(previewUrl)) {
             imageView.removeFocalPoint()
-            Glide.with(imageView)
-                .load(placeholder)
+            glide.load(placeholder)
                 .centerInside()
                 .into(imageView)
             return
@@ -450,16 +454,14 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
 
         if (focus != null) { // If there is a focal point for this attachment:
             imageView.setFocalPoint(focus)
-            Glide.with(context)
-                .load(previewUrl)
+            glide.load(previewUrl)
                 .placeholder(placeholder)
                 .centerInside()
                 .addListener(imageView)
                 .into(imageView)
         } else {
             imageView.removeFocalPoint()
-            Glide.with(imageView)
-                .load(previewUrl)
+            glide.load(previewUrl)
                 .placeholder(placeholder)
                 .centerInside()
                 .into(imageView)
@@ -887,7 +889,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
             (!viewData.isCollapsible || !viewData.isCollapsed)
         ) {
             cardView.visibility = View.VISIBLE
-            cardView.bind(card, viewData.actionable.sensitive, statusDisplayOptions, false) { card, target ->
+            cardView.bind(glide, card, viewData.actionable.sensitive, statusDisplayOptions, false) { card, target ->
                 if (target == PreviewCardView.Target.BYLINE) {
                     card.authors?.firstOrNull()?.account?.id?.let {
                         context.startActivity(AccountActivityIntent(context, viewData.pachliAccountId, it))

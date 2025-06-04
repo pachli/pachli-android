@@ -75,6 +75,7 @@
         <item>Italiano</item> <!-- it: Italian -->
         <item>Latviešu</item> <!-- lv: Latvian -->
         <item>Lietuvių</item> <!-- lt: Lithuanian -->
+        <item>Lombard</item> <!-- lmo: Lombard -->
         <item>Magyar</item> <!-- hu: Hungarian -->
         <item>Nederlands</item> <!-- nl: Dutch -->
         <item>Norsk Bokmål (Norge)</item> <!-- nb-NO: Norwegian Bokmål (Norway) -->
@@ -141,6 +142,7 @@
         <item>it</item>
         <item>lv</item>
         <item>lt</item>
+        <item>lmo</item>
         <item>hu</item>
         <item>nl</item>
         <item>nb-NO</item>

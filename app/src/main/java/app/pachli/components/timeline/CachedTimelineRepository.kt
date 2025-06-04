@@ -31,7 +31,6 @@ import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.dao.TranslatedStatusDao
 import app.pachli.core.database.di.TransactionProvider
-import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
 import app.pachli.core.database.model.StatusViewDataEntity
@@ -70,15 +69,13 @@ class CachedTimelineRepository @Inject constructor(
     /** @return flow of Mastodon [TimelineStatusWithAccount. */
     @OptIn(ExperimentalPagingApi::class)
     override suspend fun getStatusStream(
-        account: AccountEntity,
+        pachliAccountId: Long,
         kind: Timeline,
     ): Flow<PagingData<TimelineStatusWithAccount>> {
-        Timber.d("getStatusStream, account is %s", account.fullName)
+        factory = InvalidatingPagingSourceFactory { timelineDao.getStatuses(pachliAccountId) }
 
-        factory = InvalidatingPagingSourceFactory { timelineDao.getStatuses(account.id) }
-
-        val initialKey = remoteKeyDao.remoteKeyForKind(account.id, RKE_TIMELINE_ID, RemoteKeyKind.REFRESH)?.key
-        val row = initialKey?.let { timelineDao.getStatusRowNumber(account.id, it) }
+        val initialKey = remoteKeyDao.remoteKeyForKind(pachliAccountId, RKE_TIMELINE_ID, RemoteKeyKind.REFRESH)?.key
+        val row = initialKey?.let { timelineDao.getStatusRowNumber(pachliAccountId, it) }
 
         Timber.d("initialKey: %s is row: %d", initialKey, row)
 
@@ -90,7 +87,7 @@ class CachedTimelineRepository @Inject constructor(
             ),
             remoteMediator = CachedTimelineRemoteMediator(
                 mastodonApi,
-                account.id,
+                pachliAccountId,
                 transactionProvider,
                 timelineDao,
                 remoteKeyDao,

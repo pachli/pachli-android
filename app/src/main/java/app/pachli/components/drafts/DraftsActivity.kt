@@ -18,7 +18,6 @@ package app.pachli.components.drafts
 
 import android.content.Context
 import android.os.Bundle
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -36,7 +35,6 @@ import app.pachli.databinding.ActivityDraftsBinding
 import app.pachli.db.DraftsAlert
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -54,7 +52,6 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
     private val viewModel: DraftsViewModel by viewModels()
 
     private lateinit var binding: ActivityDraftsBinding
-    private lateinit var bottomSheet: BottomSheetBehavior<LinearLayout>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,15 +68,13 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
 
         binding.draftsErrorMessageView.setup(BackgroundMessage.Empty(R.string.no_drafts))
 
-        val adapter = DraftsAdapter(this)
+        val adapter = DraftsAdapter(glide, this)
 
         binding.draftsRecyclerView.adapter = adapter
         binding.draftsRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.draftsRecyclerView.addItemDecoration(
             MaterialDividerItemDecoration(this, MaterialDividerItemDecoration.VERTICAL),
         )
-
-        bottomSheet = BottomSheetBehavior.from(binding.bottomSheet.root)
 
         lifecycleScope.launch {
             viewModel.drafts.collectLatest { draftData ->
@@ -104,7 +99,6 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
         val context = this as Context
 
         lifecycleScope.launch {
-            bottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
             viewModel.getStatus(draft.inReplyToId!!)
                 .onSuccess {
                     val status = it.body
@@ -123,12 +117,8 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
                         kind = ComposeOptions.ComposeKind.EDIT_DRAFT,
                     )
 
-                    bottomSheet.state = BottomSheetBehavior.STATE_HIDDEN
-
                     startActivity(ComposeActivityIntent(context, intent.pachliAccountId, composeOptions))
                 }.onFailure { error ->
-                    bottomSheet.state = BottomSheetBehavior.STATE_HIDDEN
-
                     Timber.w("failed loading reply information: %s", error)
 
                     if (error is ClientError.NotFound) {

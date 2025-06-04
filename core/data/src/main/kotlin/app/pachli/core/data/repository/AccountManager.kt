@@ -23,7 +23,6 @@ import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.R
 import app.pachli.core.data.model.MastodonList
 import app.pachli.core.data.model.Server
-import app.pachli.core.data.repository.LogoutError.NoActiveAccount
 import app.pachli.core.data.repository.ServerRepository.Error.GetNodeInfo
 import app.pachli.core.data.repository.ServerRepository.Error.GetWellKnownNodeInfo
 import app.pachli.core.data.repository.ServerRepository.Error.UnsupportedSchema
@@ -84,24 +83,12 @@ import timber.log.Timber
 /** Errors that can occur when setting the active account. */
 sealed interface SetActiveAccountError : PachliError {
     /**
-     * Suggested account to fallback to on failure.
-     *
-     * The caller may want to present this as an option to the user if logging
-     * in fails.
-     *
-     * May be null if there was no previous active account.
-     */
-    val fallbackAccount: AccountEntity?
-
-    /**
      * The requested account could not be found in the local database. Should
      * never happen.
      *
-     * @param fallbackAccount See [SetActiveAccountError.fallbackAccount]
      * @param accountId ID of the account that could not be found.
      */
     data class AccountDoesNotExist(
-        override val fallbackAccount: AccountEntity?,
         val accountId: Long,
     ) : SetActiveAccountError {
         override val resourceId = R.string.account_manager_error_account_does_not_exist
@@ -112,11 +99,9 @@ sealed interface SetActiveAccountError : PachliError {
     /**
      * An API error occurred while logging in.
      *
-     * @param fallbackAccount See [SetActiveAccountError.fallbackAccount]
      * @param wantedAccount The account entity that could not be made active.
      */
     data class Api(
-        override val fallbackAccount: AccountEntity?,
         val wantedAccount: AccountEntity,
         val apiError: ApiError,
     ) : SetActiveAccountError, PachliError by apiError
@@ -124,12 +109,10 @@ sealed interface SetActiveAccountError : PachliError {
     /**
      * A DAO exception occurred while logging in.
      *
-     * @param fallbackAccount See [SetActiveAccountError.fallbackAccount]
      * @param wantedAccount The account entity that could not be made active
      * (if known)
      */
     data class Dao(
-        override val fallbackAccount: AccountEntity?,
         val wantedAccount: AccountEntity?,
         val sqlException: SQLiteException,
     ) : SetActiveAccountError {
@@ -141,12 +124,10 @@ sealed interface SetActiveAccountError : PachliError {
     /**
      * Catch-all for unexpected exceptions when logging in.
      *
-     * @param fallbackAccount See [SetActiveAccountError.fallbackAccount]
      * @param wantedAccount The account entity that could not be made active.
      * @param throwable Throwable that caused the error
      */
     data class Unexpected(
-        override val fallbackAccount: AccountEntity?,
         val wantedAccount: AccountEntity,
         val throwable: Throwable,
     ) : SetActiveAccountError {
@@ -157,8 +138,12 @@ sealed interface SetActiveAccountError : PachliError {
 }
 
 sealed interface RefreshAccountError : PachliError {
-    @JvmInline
-    value class General(private val pachliError: PachliError) : RefreshAccountError, PachliError by pachliError
+    val wantedAccount: AccountEntity
+
+    data class General(override val wantedAccount: AccountEntity, override val cause: PachliError) : RefreshAccountError {
+        override val resourceId = app.pachli.core.network.R.string.error_generic_fmt
+        override val formatArgs: Array<String>? = null
+    }
 }
 
 /** Errors that can occur logging out. */
@@ -252,6 +237,10 @@ class AccountManager @Inject constructor(
     }
 
     fun getPachliAccountFlow(pachliAccountId: Long): Flow<PachliAccount?> {
+        // TODO: Nothing should be calling this with -1L, as IDs should be
+        // resolved to a valid ID in `IntentRouterActivity`. Verify this, then
+        // remove this check (or replace it with a debug assert to ensure -1L
+        // is not passed.
         val accountFlow = if (pachliAccountId == -1L) {
             accountDao.getActiveAccountId().flatMapLatest {
                 accountDao.getPachliAccountFlow(it)
@@ -332,31 +321,7 @@ class AccountManager @Inject constructor(
         setPushNotificationData(accountId, "", "", "", "", "")
     }
 
-    /**
-     * Deletes all data for the active account, sets the next active account, and
-     * returns the active account.
-     *
-     * @return The new active account, or null if there are no more accounts (the
-     * user logged out of the last account).
-     */
-    suspend fun logActiveAccountOut(): Result<AccountEntity?, LogoutError> {
-        return transactionProvider {
-            val activeAccount = accountDao.getActiveAccount() ?: return@transactionProvider Err(NoActiveAccount)
-            Timber.d("logout: Logging out %d", activeAccount.id)
-
-            accountDao.delete(activeAccount)
-
-            val accounts = accountDao.loadAll()
-
-            val newActiveAccount = accounts.firstOrNull() ?: return@transactionProvider Ok(null)
-
-            // Have to set the active account here. If you don't there's a brief
-            // period where there's no active account, and BaseActivity.redirectIfNotLoggedIn
-            // sends the user to the log in screen.
-            return@transactionProvider setActiveAccount(newActiveAccount.id)
-                .mapError { LogoutError.SetActiveAccount(it) }
-        }
-    }
+    suspend fun deleteAccount(account: AccountEntity) = accountDao.delete(account)
 
     /**
      * Changes the active account.
@@ -370,15 +335,12 @@ class AccountManager @Inject constructor(
         /** Wrapper to pass an API error out of the transaction. */
         data class ApiErrorException(val apiError: ApiError) : Exception()
 
-        /** Account to fallback to if switching fails. */
-        var fallbackAccount: AccountEntity? = null
-
         /** Account we're trying to switch to. */
         var accountEntity: AccountEntity? = null
 
         return try {
             transactionProvider {
-                Timber.d("setActiveAcccount(%d)", accountId)
+                Timber.d("setActiveAccount(%d)", accountId)
 
                 // Handle "-1" as the accountId.
                 val previousActiveAccount = accountDao.getActiveAccount()
@@ -388,19 +350,9 @@ class AccountManager @Inject constructor(
                     accountDao.getAccountById(accountId)
                 }
 
-                // Fall back to either the previous account (if known), or the first account
-                // that isn't this one.
-                fallbackAccount = previousActiveAccount
-                    ?: accountDao.loadAll().firstOrNull { it.id != accountId }
-
                 if (newActiveAccount == null) {
                     Timber.d("Account %d not in database", accountId)
-                    return@transactionProvider Err(
-                        SetActiveAccountError.AccountDoesNotExist(
-                            fallbackAccount,
-                            accountId,
-                        ),
-                    )
+                    return@transactionProvider Err(SetActiveAccountError.AccountDoesNotExist(accountId))
                 }
 
                 accountEntity = newActiveAccount
@@ -447,13 +399,18 @@ class AccountManager @Inject constructor(
                 return@transactionProvider Ok(finalAccount)
             }
         } catch (e: ApiErrorException) {
-            Err(SetActiveAccountError.Api(fallbackAccount, accountEntity!!, e.apiError))
+            Err(SetActiveAccountError.Api(accountEntity!!, e.apiError))
         } catch (e: SQLiteException) {
-            Err(SetActiveAccountError.Dao(fallbackAccount, accountEntity, e))
+            Err(SetActiveAccountError.Dao(accountEntity, e))
         } catch (e: Throwable) {
             currentCoroutineContext().ensureActive()
-            Err(SetActiveAccountError.Unexpected(fallbackAccount, accountEntity!!, e))
+            Err(SetActiveAccountError.Unexpected(accountEntity!!, e))
         }
+    }
+
+    suspend fun refresh(pachliAccountId: Long): Result<Unit, RefreshAccountError> {
+        // TODO: Ok(unit) not OK here, should handle the case where getAccountById fails
+        return getAccountById(pachliAccountId)?.let { return@let refresh(it) } ?: Ok(Unit)
     }
 
     /**
@@ -466,24 +423,24 @@ class AccountManager @Inject constructor(
         // Kick off network fetches that can happen in parallel because they do not
         // depend on one another.
         val deferNodeInfo = externalScope.async {
-            fetchNodeInfo().mapError { RefreshAccountError.General(it) }
+            fetchNodeInfo().mapError { RefreshAccountError.General(account, it) }
         }
 
         val deferInstanceInfo = externalScope.async {
             fetchInstanceInfo(account.domain)
-                .mapError { RefreshAccountError.General(it) }
+                .mapError { RefreshAccountError.General(account, it) }
                 .onSuccess { instanceDao.upsert(it) }
         }
 
         val deferEmojis = externalScope.async {
             mastodonApi.getCustomEmojis()
-                .mapError { RefreshAccountError.General(it) }
+                .mapError { RefreshAccountError.General(account, it) }
                 .onSuccess { instanceDao.upsert(EmojisEntity(accountId = account.id, emojiList = it.body)) }
         }
 
         val deferAnnouncements = externalScope.async {
             mastodonApi.listAnnouncements(false)
-                .mapError { RefreshAccountError.General(it) }
+                .mapError { RefreshAccountError.General(account, it) }
                 .map {
                     it.body.map {
                         AnnouncementEntity(
@@ -506,7 +463,7 @@ class AccountManager @Inject constructor(
             val following = buildList {
                 do {
                     val response = mastodonApi.accountFollowing(account.accountId, maxId)
-                        .getOrElse { return@async Err(it) }
+                        .getOrElse { return@async Err(RefreshAccountError.General(account, it)) }
 
                     addAll(response.body.map { FollowingAccountEntity.from(account.id, it) })
                     val links = HttpHeaderLink.parse(response.headers["Link"])
@@ -531,7 +488,7 @@ class AccountManager @Inject constructor(
         // Can't use ServerRespository here because it depends on AccountManager.
         // TODO: Break that dependency, re-write ServerRepository to be offline-first.
         Server.from(nodeInfo.software, instanceInfo)
-            .mapError { RefreshAccountError.General(it) }
+            .mapError { RefreshAccountError.General(account, it) }
             .onSuccess {
                 instanceDao.upsert(
                     ServerEntity(
@@ -548,20 +505,20 @@ class AccountManager @Inject constructor(
             .orElse {
                 when (it) {
                     ContentFiltersError.ServerDoesNotFilter -> Ok(Unit)
-                    else -> Err(RefreshAccountError.General(it))
+                    else -> Err(RefreshAccountError.General(account, it))
                 }
             }.bind()
 
         deferEmojis.await().bind()
 
         externalScope.async { listsRepository.refresh(account.id) }.await()
-            .mapError { RefreshAccountError.General(it) }.bind()
+            .mapError { RefreshAccountError.General(account, it) }.bind()
 
         // Ignore errors when fetching announcements, they're non-fatal.
         // TODO: Add a capability for announcements.
         deferAnnouncements.await().orElse { Ok(emptyList()) }.bind()
 
-        deferFollowing.await()
+        deferFollowing.await().bind()
     }
 
     /**
@@ -667,10 +624,8 @@ class AccountManager @Inject constructor(
     private suspend fun fetchInstanceInfo(domain: String): Result<InstanceInfoEntity, ApiError> {
         // TODO: InstanceInfoEntity needs to gain support for recording translation
         return mastodonApi.getInstanceV2()
-            .map { InstanceInfoEntity.make(domain, it.body) }
-            .orElse {
-                mastodonApi.getInstanceV1().map { InstanceInfoEntity.make(domain, it.body) }
-            }
+            .map { it.body.asEntity(domain) }
+            .orElse { mastodonApi.getInstanceV1().map { it.body.asEntity(domain) } }
     }
 
     /**

@@ -71,7 +71,6 @@ class NetworkTimelineRemoteMediatorTest {
         // Given
         val remoteMediator = NetworkTimelineRemoteMediator(
             api = mock(defaultAnswer = { failure<Unit>(code = 500) }),
-            activeAccount = activeAccount,
             factory = pagingSourceFactory,
             pageCache = PageCache(),
             timeline = Timeline.Home,
@@ -101,7 +100,6 @@ class NetworkTimelineRemoteMediatorTest {
                     ),
                 )
             },
-            activeAccount = activeAccount,
             factory = pagingSourceFactory,
             pageCache = pages,
             timeline = Timeline.Home,
@@ -165,7 +163,6 @@ class NetworkTimelineRemoteMediatorTest {
                     ),
                 )
             },
-            activeAccount = activeAccount,
             factory = pagingSourceFactory,
             pageCache = pages,
             timeline = Timeline.Home,
@@ -237,7 +234,6 @@ class NetworkTimelineRemoteMediatorTest {
                     ),
                 )
             },
-            activeAccount = activeAccount,
             factory = pagingSourceFactory,
             pageCache = pages,
             timeline = Timeline.Home,

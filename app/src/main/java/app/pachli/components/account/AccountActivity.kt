@@ -49,16 +49,15 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsCompat.Type.systemBars
 import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.MarginPageTransformer
 import app.pachli.R
-import app.pachli.core.activity.BottomSheetActivity
 import app.pachli.core.activity.ReselectableFragment
-import app.pachli.core.activity.emojify
+import app.pachli.core.activity.ViewUrlActivity
 import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
-import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
@@ -80,8 +79,10 @@ import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.preferences.AppTheme
 import app.pachli.core.ui.ClipboardUseCase
 import app.pachli.core.ui.LinkListener
+import app.pachli.core.ui.emojify
 import app.pachli.core.ui.extensions.reduceSwipeSensitivity
 import app.pachli.core.ui.getDomain
+import app.pachli.core.ui.loadAvatar
 import app.pachli.core.ui.setClickableText
 import app.pachli.databinding.ActivityAccountBinding
 import app.pachli.db.DraftsAlert
@@ -91,7 +92,6 @@ import app.pachli.util.Error
 import app.pachli.util.Loading
 import app.pachli.util.Success
 import app.pachli.view.showMuteAccountDialog
-import com.bumptech.glide.Glide
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.chip.Chip
 import com.google.android.material.color.MaterialColors
@@ -113,13 +113,14 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 import javax.inject.Inject
 import kotlin.math.abs
+import kotlinx.coroutines.launch
 
 /**
  * Show a single account's profile details.
  */
 @AndroidEntryPoint
 class AccountActivity :
-    BottomSheetActivity(),
+    ViewUrlActivity(),
     ActionButtonActivity,
     MenuProvider,
     LinkListener {
@@ -247,7 +248,7 @@ class AccountActivity :
         binding.accountFollowsYouChip.hide()
 
         // setup the RecyclerView for the account fields
-        accountFieldAdapter = AccountFieldAdapter(this, animateEmojis)
+        accountFieldAdapter = AccountFieldAdapter(glide, this, animateEmojis)
         binding.accountFieldList.isNestedScrollingEnabled = false
         binding.accountFieldList.layoutManager = LinearLayoutManager(this)
         binding.accountFieldList.adapter = accountFieldAdapter
@@ -497,7 +498,7 @@ class AccountActivity :
 
         val usernameFormatted = getString(DR.string.post_username_format, account.username)
         binding.accountUsernameTextView.text = usernameFormatted
-        binding.accountDisplayNameTextView.text = account.name.emojify(account.emojis, binding.accountDisplayNameTextView, animateEmojis)
+        binding.accountDisplayNameTextView.text = account.name.emojify(glide, account.emojis, binding.accountDisplayNameTextView, animateEmojis)
 
         // Long press on username to copy it to clipboard
         for (view in listOf(binding.accountUsernameTextView, binding.accountDisplayNameTextView)) {
@@ -510,7 +511,7 @@ class AccountActivity :
             }
         }
 
-        val emojifiedNote = account.note.parseAsMastodonHtml().emojify(account.emojis, binding.accountNoteTextView, animateEmojis)
+        val emojifiedNote = account.note.parseAsMastodonHtml().emojify(glide, account.emojis, binding.accountNoteTextView, animateEmojis)
         setClickableText(binding.accountNoteTextView, emojifiedNote, emptyList(), null, this)
 
         accountFieldAdapter.fields = account.fields.orEmpty()
@@ -557,14 +558,14 @@ class AccountActivity :
         loadedAccount?.let { account ->
 
             loadAvatar(
+                glide,
                 account.avatar,
                 binding.accountAvatarImageView,
                 resources.getDimensionPixelSize(DR.dimen.avatar_radius_94dp),
                 animateAvatar,
             )
 
-            Glide.with(this)
-                .asBitmap()
+            glide.asBitmap()
                 .load(account.header)
                 .centerCrop()
                 .into(binding.accountHeaderImageView)
@@ -591,7 +592,7 @@ class AccountActivity :
      */
     private fun updateToolbar() {
         loadedAccount?.let { account ->
-            supportActionBar?.title = account.name.emojify(account.emojis, binding.accountToolbar, animateEmojis)
+            supportActionBar?.title = account.name.emojify(glide, account.emojis, binding.accountToolbar, animateEmojis)
             supportActionBar?.subtitle = String.format(getString(DR.string.post_username_format), account.username)
         }
     }
@@ -613,7 +614,7 @@ class AccountActivity :
 
             val avatarRadius = resources.getDimensionPixelSize(DR.dimen.avatar_radius_48dp)
 
-            loadAvatar(movedAccount.avatar, binding.accountMovedAvatar, avatarRadius, animateAvatar)
+            loadAvatar(glide, movedAccount.avatar, binding.accountMovedAvatar, avatarRadius, animateAvatar)
 
             binding.accountMovedText.text = getString(R.string.account_moved_description, movedAccount.name)
         }
@@ -1002,8 +1003,10 @@ class AccountActivity :
             }
             R.id.action_open_as -> {
                 loadedAccount?.let { loadedAccount ->
-                    showAccountChooserDialog(item.title, false) { account ->
-                        openAsAccount(loadedAccount.url, account)
+                    lifecycleScope.launch {
+                        chooseAccount(item.title, false)?.let { account ->
+                            openAsAccount(loadedAccount.url, account)
+                        }
                     }
                 }
             }

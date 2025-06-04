@@ -20,8 +20,6 @@ import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.adapter.PollAdapter
 import app.pachli.adapter.PollAdapter.DisplayMode
-import app.pachli.core.activity.decodeBlurHash
-import app.pachli.core.activity.emojify
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.visible
@@ -31,16 +29,19 @@ import app.pachli.core.network.model.StatusEdit
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.BindingHolder
 import app.pachli.core.ui.LinkListener
+import app.pachli.core.ui.decodeBlurHash
+import app.pachli.core.ui.emojify
 import app.pachli.core.ui.setClickableText
 import app.pachli.databinding.ItemStatusEditBinding
 import app.pachli.util.aspectRatios
 import app.pachli.viewdata.PollOptionViewData
-import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
 import com.google.android.material.color.MaterialColors
 import org.xml.sax.XMLReader
 
 class ViewEditsAdapter(
     context: Context,
+    private val glide: RequestManager,
     private val edits: List<StatusEdit>,
     private val animateEmojis: Boolean,
     private val useBlurhash: Boolean,
@@ -113,6 +114,7 @@ class ViewEditsAdapter(
             binding.statusEditContentWarningDescription.text = edit.spoilerText
                 .parseAsMastodonHtml(pachliTagHandler)
                 .emojify(
+                    glide,
                     edit.emojis,
                     binding.statusEditContentWarningDescription,
                     animateEmojis,
@@ -122,7 +124,7 @@ class ViewEditsAdapter(
         val emojifiedText = edit
             .content
             .parseAsMastodonHtml(pachliTagHandler)
-            .emojify(edit.emojis, binding.statusEditContent, animateEmojis)
+            .emojify(glide, edit.emojis, binding.statusEditContent, animateEmojis)
 
         setClickableText(binding.statusEditContent, emojifiedText, emptyList(), null, listener)
 
@@ -138,6 +140,7 @@ class ViewEditsAdapter(
             // binding.statusEditPollDescription.show()
 
             val pollAdapter = PollAdapter(
+                glide,
                 options = poll.options.map { PollOptionViewData.from(it) },
                 votesCount = 0,
                 votersCount = null,
@@ -183,8 +186,7 @@ class ViewEditsAdapter(
 
                 if (attachment.previewUrl.isNullOrEmpty()) {
                     imageView.removeFocalPoint()
-                    Glide.with(imageView)
-                        .load(placeholder)
+                    glide.load(placeholder)
                         .centerInside()
                         .into(imageView)
                 } else {
@@ -192,16 +194,14 @@ class ViewEditsAdapter(
 
                     if (focus != null) {
                         imageView.setFocalPoint(focus)
-                        Glide.with(imageView.context)
-                            .load(attachment.previewUrl)
+                        glide.load(attachment.previewUrl)
                             .placeholder(placeholder)
                             .centerInside()
                             .addListener(imageView)
                             .into(imageView)
                     } else {
                         imageView.removeFocalPoint()
-                        Glide.with(imageView)
-                            .load(attachment.previewUrl)
+                        glide.load(attachment.previewUrl)
                             .placeholder(placeholder)
                             .centerInside()
                             .into(imageView)

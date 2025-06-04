@@ -10,7 +10,6 @@
     <string name="send_post_notification_title">Toot oan it ferstjoeren…</string>
     <string name="compose_save_draft">Skets bewarje\?</string>
     <string name="action_remove">Fuortsmite</string>
-    <string name="action_set_caption">Ûnderskrift pleatse</string>
     <string name="add_account_description">Nij Mastodon Account Tafoegje</string>
     <string name="add_account_name">Account Tafoegje</string>
     <string name="filter_dialog_update_button">Fernije</string>
@@ -102,7 +101,6 @@
     <string name="send_post_link_to">Toot URL ferstjoere nei…</string>
     <string name="downloading_media">Media oan it delheljen</string>
     <string name="download_media">Media delhelje</string>
-    <string name="action_share_as">Diele as…</string>
     <string name="action_copy_link">Keppeling kopiearje</string>
     <string name="download_image">Oan it delheljen fan %1$s</string>
     <string name="action_open_media_n">Media #%d iepenje</string>

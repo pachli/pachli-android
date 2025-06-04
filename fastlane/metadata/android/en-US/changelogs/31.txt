@@ -1,0 +1,18 @@
+Pachli 2.13.0
+
+New features:
+
+- Parse Instants from servers that don't include the timezone
+- Replace Local timeline with Trending in default tabs
+- Make media descriptions more important when composing
+
+Fixes:
+
+- Improve colours on buttons when composing
+- Display poll previews correctly
+- Don't crash if ComposeActivity is destroyed while taking a picture
+- Start-align "Vote" button's position
+
+Translations:
+
+- Chinese, Finnish, Irish, Italian, Kabyle, Latvian, Polish, Slovak, Spanish

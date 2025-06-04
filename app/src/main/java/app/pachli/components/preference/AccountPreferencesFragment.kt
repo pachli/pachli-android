@@ -32,6 +32,7 @@ import app.pachli.components.notifications.activeAccountNeedsPushScope
 import app.pachli.components.preference.accountfilters.AccountConversationFiltersPreferenceDialogFragment
 import app.pachli.components.preference.accountfilters.AccountNotificationFiltersPreferencesDialogFragment
 import app.pachli.core.activity.extensions.TransitionKind
+import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.AccountManager
@@ -157,7 +158,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                 setIcon(R.drawable.ic_add_to_tab_24)
                 setOnPreferenceClickListener {
                     val intent = TabPreferenceActivityIntent(context, pachliAccountId)
-                    activity?.startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
+                    startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
                     true
                 }
             }
@@ -167,7 +168,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                 setIcon(R.drawable.ic_hashtag)
                 setOnPreferenceClickListener {
                     val intent = FollowedTagsActivityIntent(context, pachliAccountId)
-                    activity?.startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
+                    startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
                     true
                 }
             }
@@ -177,7 +178,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                 setIcon(R.drawable.ic_mute_24dp)
                 setOnPreferenceClickListener {
                     val intent = AccountListActivityIntent(context, pachliAccountId, AccountListActivityIntent.Kind.MUTES)
-                    activity?.startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
+                    startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
                     true
                 }
             }
@@ -187,7 +188,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                 icon = makeIcon(GoogleMaterial.Icon.gmd_block)
                 setOnPreferenceClickListener {
                     val intent = AccountListActivityIntent(context, pachliAccountId, AccountListActivityIntent.Kind.BLOCKS)
-                    activity?.startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
+                    startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
                     true
                 }
             }
@@ -197,7 +198,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                 setIcon(R.drawable.ic_mute_24dp)
                 setOnPreferenceClickListener {
                     val intent = InstanceListActivityIntent(context)
-                    activity?.startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
+                    startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
                     true
                 }
             }
@@ -208,7 +209,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                     setIcon(R.drawable.ic_logout)
                     setOnPreferenceClickListener {
                         val intent = LoginActivityIntent(context, LoginMode.Reauthenticate(accountManager.activeAccount!!.domain))
-                        activity?.startActivityWithTransition(intent, TransitionKind.EXPLODE)
+                        startActivityWithTransition(intent, TransitionKind.EXPLODE)
                         true
                     }
                 }
@@ -221,7 +222,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                     setTitle(R.string.pref_title_content_filters)
                     setOnPreferenceClickListener {
                         val intent = ContentFiltersActivityIntent(requireContext(), pachliAccountId)
-                        activity?.startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
+                        startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
                         true
                     }
                     setSummaryProvider {
@@ -348,10 +349,10 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
             val intent = Intent()
             intent.action = "android.settings.APP_NOTIFICATION_SETTINGS"
             intent.putExtra("android.provider.extra.APP_PACKAGE", BuildConfig.APPLICATION_ID)
-            requireActivity().startActivity(intent)
+            startActivityWithDefaultTransition(intent)
         } else {
             val intent = PreferencesActivityIntent(requireContext(), pachliAccountId, PreferenceScreen.NOTIFICATION)
-            requireActivity().startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
+            startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
         }
     }
 

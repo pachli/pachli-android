@@ -56,13 +56,14 @@ dependencies {
     implementation(projects.core.common)
     implementation(projects.core.data)
     implementation(projects.core.designsystem)
+    implementation(projects.core.domain)
+    implementation(projects.core.model)
     implementation(projects.core.navigation)
     implementation(projects.core.ui)
 
     // TODO: These three dependencies are required by BottomSheetActivity,
     // make this part of the projects.core.activity API?
     implementation(projects.core.network)
-    implementation(projects.core.preferences)
     implementation(libs.bundles.androidx)
 
     implementation(libs.bundles.aboutlibraries)

@@ -20,8 +20,8 @@ package app.pachli.components.notifications.domain
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
-import app.pachli.core.activity.NotificationConfig
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.domain.notifications.NotificationConfig
 import java.util.Locale
 import javax.inject.Inject
 import timber.log.Timber

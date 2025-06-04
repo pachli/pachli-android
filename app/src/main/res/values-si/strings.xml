@@ -122,7 +122,7 @@
         <item quantity="one">තත්. %d ක් ඉතිරිය</item>
         <item quantity="other">තත්. %d ක් ඉතිරිය</item>
     </plurals>
-    <string name="action_logout_confirm">ඔබට %1$s ගිණුමෙන් නික්මෙන්ට ඇවැසි බව විශ්වාසද\?</string>
+    <string name="action_logout_confirm">ඔබට %1$s ගිණුමෙන් නික්මෙන්ට ඇවැසි බව විශ්වාසද?</string>
     <string name="title_public_local">ස්ථානීය</string>
     <string name="action_view_favourites">ප්‍රියතමයන්</string>
     <string name="label_quick_reply">පිළිතුරු…</string>
@@ -134,7 +134,6 @@
     <string name="abbreviated_in_years">වර්. %d කින්</string>
     <string name="restart_emoji">මෙම වෙනස්කම් යෙදීමට ඔබ ටුස්කි නැවත ඇරඹිය යුතුය</string>
     <string name="action_edit">සංස්කරණය</string>
-    <string name="button_continue">ඉදිරියට</string>
     <string name="pref_title_post_filter">කාලරේඛාව පෙරීම</string>
     <string name="conversation_more_recipients">%1$s, %2$s සහ තවත් %3$d</string>
     <string name="pref_title_timelines">කාලරේඛා</string>
@@ -161,7 +160,6 @@
     <string name="pref_title_show_replies">පිළිතුරු පෙන්වන්න</string>
     <string name="notification_mention_descriptions">නව සැඳහුම් පිළිබඳව දැනුම්දීම්</string>
     <string name="action_search">සොයන්න</string>
-    <string name="action_share_as">ලෙස බෙදාගන්න …</string>
     <string name="title_home">මුල</string>
     <string name="abbreviated_minutes_ago">වි. %d</string>
     <string name="failed_search">සෙවීමට අසමත් විය</string>

@@ -23,7 +23,6 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import app.pachli.BuildConfig
-import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
@@ -35,16 +34,11 @@ import timber.log.Timber
 @OptIn(ExperimentalPagingApi::class)
 class NetworkTimelineRemoteMediator(
     private val api: MastodonApi,
-    private val activeAccount: AccountEntity,
     private val factory: InvalidatingPagingSourceFactory<String, Status>,
     private val pageCache: PageCache,
     private val timeline: Timeline,
 ) : RemoteMediator<String, Status>() {
     override suspend fun load(loadType: LoadType, state: PagingState<String, Status>): MediatorResult {
-        if (!activeAccount.isLoggedIn()) {
-            return MediatorResult.Success(endOfPaginationReached = true)
-        }
-
         val key = when (loadType) {
             LoadType.REFRESH -> {
                 // Find the closest page to the current position

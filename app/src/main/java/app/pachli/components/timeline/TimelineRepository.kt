@@ -19,7 +19,6 @@ package app.pachli.components.timeline
 
 import androidx.paging.PagingData
 import androidx.paging.PagingSource
-import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.model.Timeline
 import kotlinx.coroutines.flow.Flow
 
@@ -28,8 +27,8 @@ import kotlinx.coroutines.flow.Flow
  * of type [T].
  */
 interface TimelineRepository<T : Any> {
-    /** @return Flow of [T] for [account] and [kind]. */
-    suspend fun getStatusStream(account: AccountEntity, kind: Timeline): Flow<PagingData<T>>
+    /** @return Flow of [T] for [pachliAccountId] and [kind]. */
+    suspend fun getStatusStream(pachliAccountId: Long, kind: Timeline): Flow<PagingData<T>>
 
     /** Invalidate the active paging source for [pachliAccountId], see [PagingSource.invalidate] */
     suspend fun invalidate(pachliAccountId: Long)

@@ -47,7 +47,7 @@
     <string name="action_block">Bloquear</string>
     <string name="action_unfollow">Deixar de seguir</string>
     <string name="action_follow">Seguir</string>
-    <string name="action_logout_confirm">Tes a certeza de querer pechar a sesión %1$s\? Isto eliminará todos os datos locais da conta, incluíndo borradores e preferencias.</string>
+    <string name="action_logout_confirm">Tes a certeza de querer pechar a sesión %1$s? Isto eliminará todos os datos locais da conta, incluíndo borradores e preferencias.</string>
     <string name="action_logout">Pechar sesión</string>
     <string name="action_compose">Redactar</string>
     <string name="action_unfavourite">Eliminar favorito</string>
@@ -123,7 +123,6 @@
     <string name="hint_additional_info">Comentarios adicionais</string>
     <string name="report_sent_success">Denuncia feita sobre @%s</string>
     <string name="button_back">Atrás</string>
-    <string name="button_continue">Continuar</string>
     <plurals name="poll_timespan_seconds">
         <item quantity="one">queda %d segundo</item>
         <item quantity="other">quedan %d segundos</item>
@@ -221,11 +220,6 @@
     <string name="lock_account_label_description">Require que aprobes manualmente as seguidoras</string>
     <string name="lock_account_label">Bloquear conta</string>
     <string name="action_remove">Eliminar</string>
-    <string name="action_set_caption">Escribir descrición</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="one">Describe para persoas con deficiencias visuais (límite %d caracter)</item>
-        <item quantity="other">Describe para persoas con deficiencias visuais (%d caracteres como máximo)</item>
-    </plurals>
     <string name="compose_active_account_description">Publicar como %1$s</string>
     <string name="add_account_description">Engadir unha nova conta Mastodon</string>
     <string name="add_account_name">Engadir conta</string>
@@ -406,7 +400,6 @@
     <string name="send_post_link_to">Compartir URL do toot a…</string>
     <string name="downloading_media">Descargando multimedia</string>
     <string name="download_media">Descargar multimedia</string>
-    <string name="action_share_as">Compartir como …</string>
     <string name="action_copy_link">Copiar ligazón</string>
     <string name="download_image">Descargando %1$s</string>
     <string name="action_open_media_n">Abrir multimedia #%d</string>
@@ -517,7 +510,6 @@
     <string name="dialog_follow_hashtag_hint">#cancelo</string>
     <string name="hint_description">Descrición</string>
     <string name="help_empty_home">Esta é a túa <b>cronoloxía de inicio</b>. Mostra as publicacións recentes das contas que segues. \n \nPara atopar contas podes mirar nalgunha das outras cronoloxías. Por exemplo, na cronoloxía local da túa instancia [iconics gmd_group]. Ou buscalas polo seu nome [iconics gmd_search]; por exemplo busca Pachli para atopar a nosa conta en Mastodon.</string>
-    <string name="post_media_image">Imaxe</string>
     <string name="hint_filter_title">O meu filtro</string>
     <string name="notification_unknown_name">Descoñecido</string>
     <string name="socket_timeout_exception">Estamos tardando demasiado en conectar co servidor</string>

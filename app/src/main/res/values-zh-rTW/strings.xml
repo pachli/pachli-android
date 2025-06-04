@@ -96,7 +96,6 @@
     <string name="action_open_media_n">打開媒體 #%d</string>
     <string name="download_image">正在下載 %1$s</string>
     <string name="action_copy_link">複製連結</string>
-    <string name="action_share_as">分享為 …</string>
     <string name="download_media">下載媒體</string>
     <string name="downloading_media">正在下載媒體</string>
     <string name="send_post_link_to">分享連結到…</string>
@@ -223,10 +222,6 @@
     <string name="add_account_name">加入帳號</string>
     <string name="add_account_description">加入新的 Mastodon 帳號</string>
     <string name="compose_active_account_description">以 %1$s 發嘟文</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="other">為視覺障礙用戶提供的描述（限制 %d 字）</item>
-    </plurals>
-    <string name="action_set_caption">設定圖片標題</string>
     <string name="action_remove">移除</string>
     <string name="lock_account_label">保護你的帳戶（鎖嘟）</string>
     <string name="lock_account_label_description">你需要手動審核所有關注請求</string>
@@ -337,7 +332,6 @@
     <string name="filter_dialog_whole_word_description">如果關鍵字或短語僅為字母或數字，則只有在匹配整個單詞時才會應用</string>
     <string name="description_poll">使用以下選項創建投票：%1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="compose_preview_image_description">圖片 %s 的動作</string>
-    <string name="button_continue">繼續</string>
     <string name="button_back">返回</string>
     <string name="report_sent_success">成功回報 @%s</string>
     <string name="hint_additional_info">附加留言</string>

@@ -20,16 +20,18 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
-import app.pachli.core.activity.emojify
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.Field
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.BindingHolder
 import app.pachli.core.ui.LinkListener
+import app.pachli.core.ui.emojify
 import app.pachli.core.ui.setClickableText
 import app.pachli.databinding.ItemAccountFieldBinding
+import com.bumptech.glide.RequestManager
 
 class AccountFieldAdapter(
+    private val glide: RequestManager,
     private val linkListener: LinkListener,
     private val animateEmojis: Boolean,
 ) : RecyclerView.Adapter<BindingHolder<ItemAccountFieldBinding>>() {
@@ -49,10 +51,10 @@ class AccountFieldAdapter(
         val nameTextView = holder.binding.accountFieldName
         val valueTextView = holder.binding.accountFieldValue
 
-        val emojifiedName = field.name.emojify(emojis, nameTextView, animateEmojis)
+        val emojifiedName = field.name.emojify(glide, emojis, nameTextView, animateEmojis)
         nameTextView.text = emojifiedName
 
-        val emojifiedValue = field.value.parseAsMastodonHtml().emojify(emojis, valueTextView, animateEmojis)
+        val emojifiedValue = field.value.parseAsMastodonHtml().emojify(glide, emojis, valueTextView, animateEmojis)
         setClickableText(valueTextView, emojifiedValue, emptyList(), null, linkListener)
 
         if (field.verifiedAt != null) {

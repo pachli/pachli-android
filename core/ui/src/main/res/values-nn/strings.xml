@@ -17,4 +17,5 @@
     <string name="item_copied">Tekst kopiert</string>
     <string name="action_copy_item">Kopier oppføring</string>
     <string name="title_mentions_dialog">Nemningar</string>
+    <string name="button_continue">Fortsett</string>
 </resources>

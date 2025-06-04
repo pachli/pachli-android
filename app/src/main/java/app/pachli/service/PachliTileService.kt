@@ -20,7 +20,7 @@ import android.app.PendingIntent
 import android.os.Build
 import android.service.quicksettings.TileService
 import androidx.annotation.RequiresApi
-import app.pachli.core.navigation.MainActivityIntent
+import app.pachli.core.navigation.IntentRouterActivityIntent
 
 /**
  * Small Addition that adds in a QuickSettings tile
@@ -29,7 +29,7 @@ import app.pachli.core.navigation.MainActivityIntent
 @RequiresApi(24)
 class PachliTileService : TileService() {
     override fun onClick() {
-        val intent = MainActivityIntent.fromQuickTile(this)
+        val intent = IntentRouterActivityIntent.fromQuickTile(this)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
             startActivityAndCollapse(pendingIntent)
