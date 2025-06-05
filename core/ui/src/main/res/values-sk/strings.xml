@@ -18,4 +18,16 @@
     <string name="item_copied">Text skopírovaný</string>
     <string name="action_copy_item">Kopírovať položku</string>
     <string name="button_continue">Pokračovať</string>
+    <string name="pref_notification_method_push">Push</string>
+    <string name="pref_notification_method_pull">Pull</string>
+    <string name="pref_notification_fetch_method_title">Spôsob upozornenia</string>
+    <string name="pref_notification_fetch_ok_timestamp_fmt">✔ Pred %1$s @ %2$s</string>
+    <string name="pref_notification_fetch_err_timestamp_fmt">✖ Pred %1$s @ %2$s</string>
+    <string name="pref_notification_fetch_server_rejected">%1$s zamietol registráciu push notifikácií</string>
+    <string name="pref_notification_fetch_needs_push">Účet nemá povolené push notifikácie. Skús sa odhlásiť a znova prihlásiť.</string>
+    <string name="title_logout_fmt">Odhlásiť %1$s</string>
+    <string name="action_logout_confirm">Týmto sa odstránia všetky lokálne údaje účtu %1$s vrátane konceptov a nastavení.\n\nTvoj účet na serveri týmto nebude zrušený.</string>
+    <string name="add_account_name">Pridať účet</string>
+    <string name="notification_details_last_fetch_label">Posledná žiadosť /api/v1/notifications</string>
+    <string name="action_logout">Odhlásiť sa</string>
 </resources>

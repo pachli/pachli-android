@@ -2,7 +2,6 @@
 <resources>
     <string name="title_favourites">Eftirlæti</string>
     <string name="title_drafts">Drög</string>
-    <string name="action_logout">Skrá út</string>
     <string name="action_view_preferences">Kjörstillingar</string>
     <string name="action_view_account_preferences">Eiginleikar notandaaðgangs</string>
     <string name="action_edit_profile">Breyta notandasniði</string>
@@ -58,7 +57,6 @@
     <string name="action_bookmark">Bókamerki</string>
     <string name="action_unfavourite">Fjarlægja eftirlæti</string>
     <string name="action_compose">Semja skilaboð</string>
-    <string name="action_logout_confirm">Ertu viss um að þú viljir skrá þig út af notandaaðgangnum %1$s? Þetta mun eyða öllum staðværum gögnum af aðgangnum, þar með talið drögum og kjörstillingum.</string>
     <string name="action_follow">Fylgja</string>
     <string name="action_unfollow">Hætta að fylgjast með</string>
     <string name="action_block">Útiloka</string>
@@ -233,7 +231,6 @@
     <string name="filter_dialog_whole_word">Heil orð</string>
     <string name="filter_dialog_whole_word_description">Þegar stikkorð eða frasi er einungis tölur og bókstafir, verður það aðeins notað ef það samsvarar heilu orði</string>
     <string name="filter_add_description">Frasi sem á að sía</string>
-    <string name="add_account_name">Bæta við aðgang</string>
     <string name="add_account_description">Bæta við nýjum Mastodon-aðgangi</string>
     <string name="compose_active_account_description">Sendi sem %1$s</string>
     <string name="action_remove">Fjarlægja</string>

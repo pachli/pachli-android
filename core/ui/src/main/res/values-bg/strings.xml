@@ -14,4 +14,7 @@
     <string name="title_hashtags_dialog">Хаштагове</string>
     <string name="title_mentions_dialog">Споменавания</string>
     <string name="button_continue">Продължаване</string>
+    <string name="action_logout_confirm">Сигурни ли сте, че искате да излезете от акаунта %1$s?</string>
+    <string name="add_account_name">Добавяне на акаунт</string>
+    <string name="action_logout">Излизане</string>
 </resources>

@@ -146,6 +146,7 @@ dependencies {
     implementation(projects.feature.intentrouter)
     implementation(projects.feature.lists)
     implementation(projects.feature.login)
+    implementation(projects.feature.manageaccounts)
     implementation(projects.feature.suggestions)
 
     implementation(libs.kotlinx.coroutines.android)

@@ -27,7 +27,6 @@
     <string name="send_post_notification_title">Lähetetään tuuttausta…</string>
     <string name="compose_save_draft">Tallennetaanko luonnoksena\?</string>
     <string name="lock_account_label">Lukitse tili</string>
-    <string name="add_account_name">Lisää tili</string>
     <string name="follows_you">Seuraa sinua</string>
     <string name="description_account_locked">Lukittu tili</string>
     <string name="notification_subscription_name">Uudet tuuttaukset</string>
@@ -56,7 +55,6 @@
     <string name="action_view_follow_requests">Seuraamispyynnöt</string>
     <string name="action_view_blocks">Estetyt tilit</string>
     <string name="action_view_account_preferences">Tiliasetukset</string>
-    <string name="action_logout">Kirjaudu ulos</string>
     <string name="post_content_warning_show_less">Näytä vähemmän</string>
     <string name="post_content_warning_show_more">Näytä lisää</string>
     <string name="post_media_hidden_title">Media piilotettu</string>
@@ -167,7 +165,6 @@
     <string name="action_unmute_conversation">Poista keskustelun mykistys</string>
     <string name="download_image">Ladataan kuvaa %1$s</string>
     <string name="action_mute_conversation">Mykistä keskustelu</string>
-    <string name="action_logout_confirm">Tämä poistaa kaiken laittellesi tallennetun tiedon tilistä %1$s, mukaanlukien luonnokset ja asetukset.\n\nTämä ei poista tiliäsi palvelimelta.</string>
     <string name="action_unreblog">Poista jako</string>
     <string name="action_mute_domain">Mykistä %s</string>
     <string name="action_view_domain_mutes">Piilotetut verkkonimet</string>
@@ -728,16 +725,10 @@
     <string name="pref_labs_reverse_home_timeline_title">Aikajana käänteisessä järjestyksessä</string>
     <string name="pref_labs_reverse_home_timeline_off_summary">Uusimmat julkaisut ensin</string>
     <string name="pref_labs_reverse_home_timeline_on_summary">Vanhimmat julkaisut ensin</string>
-    <string name="pref_notification_method_pull">Ilmoitusten haku</string>
-    <string name="pref_notification_fetch_method_title">Ilmoitustapa</string>
-    <string name="pref_notification_fetch_ok_timestamp_fmt">✔%1$s sitten @ %2$s</string>
-    <string name="pref_notification_fetch_err_timestamp_fmt">✖ %1$s sitten @ %2$s</string>
-    <string name="pref_notification_fetch_server_rejected">%1$s ei hyväksynyt puskuilmoitusten rekisteröintiä</string>
     <string name="pref_title_change_unified_push_distributor">Vaihda Unified Push -puskuilmoitusten jakelijaa</string>
     <string name="pref_change_unified_push_distributor_msg">Tämä tyhjentää Unified Push -ilmoitusten jakelijan valinnan ja käynnistää Pachlin uudestaan.
 \n
 \nJos useita Unified Push -jakelijoita on asennettu, sinua pyydetään valitsemaan niistä yksi.</string>
-    <string name="pref_notification_fetch_needs_push">Tililtä puuttuu puskuilmoitusten valtuutus (scope). Ulos ja takaisin kirjautuminen voi ratkaista ongelman.</string>
     <string name="pref_title_notification_up_distributor">Unified push -ilmoitusten jakelija</string>
     <string name="pref_notification_up_distributor_none">Ei ole</string>
     <string name="pref_notification_up_distributor_name_fmt">%1$s. Napauta avataksesi</string>
@@ -749,7 +740,6 @@
     <string name="pref_notification_battery_optimisation_should_ignore">Virrankäytön optimoinnnin tulisi olla pois käytöstä. Napauta avataksesi.</string>
     <string name="pref_notification_battery_optimisation_is_disabled">Virrankäytön optimointi on poistettu käytöstä</string>
     <string name="pref_notification_battery_optimisation_ok">Virrankäytön optimointia ei tarvitse poistaa käytöstä.</string>
-    <string name="pref_notification_method_push">Puskuilmoitus</string>
     <string name="pref_title_content_filters">Sisältösuodattimet</string>
     <string name="conversation_0_recipients">Ei muita osanottajia</string>
     <string name="compose_warn_language_dialog_accept_and_dont_ask_fmt">Julkaise muutoksetta (%1$s) äläkä kysy uudelleen</string>
@@ -818,5 +808,4 @@
     <string name="error_import_preferences_fmt">Asetuksia ei voitu tuoda kohteesta %1$s: %2$s</string>
     <string name="title_report_category_fmt">Kategoria: %1$s</string>
     <string name="title_report_comment">Raportoijan kommentti</string>
-    <string name="title_logout_fmt">Kirjaudu ulos %1$s</string>
 </resources>

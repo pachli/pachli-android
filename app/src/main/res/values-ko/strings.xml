@@ -50,8 +50,6 @@
     <string name="action_favourite">좋아요</string>
     <string name="action_unfavourite">좋아요 취소</string>
     <string name="action_compose">작성</string>
-    <string name="action_logout">로그아웃</string>
-    <string name="action_logout_confirm">정말로 %1$s에서 로그아웃하시겠습니까?</string>
     <string name="action_follow">팔로우</string>
     <string name="action_unfollow">팔로우 해제</string>
     <string name="action_block">차단</string>
@@ -229,7 +227,6 @@
     <string name="filter_dialog_whole_word">단어 전체에 매칭</string>
     <string name="filter_dialog_whole_word_description">키워드나 문장이 영숫자로만 이루어져 있을 경우, 단어 전체와 일치할 때에만 필터링합니다.</string>
     <string name="filter_add_description">필터링할 문구 입력</string>
-    <string name="add_account_name">계정 추가</string>
     <string name="add_account_description">마스토돈 계정을 추가합니다</string>
     <string name="compose_active_account_description">%1$s로서 포스팅</string>
     <string name="action_remove">삭제</string>

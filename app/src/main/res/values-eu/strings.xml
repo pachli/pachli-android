@@ -44,8 +44,6 @@
     <string name="action_reblog">Bultzatu</string>
     <string name="action_favourite">Gogokoa</string>
     <string name="action_compose">Idatzi</string>
-    <string name="action_logout">Saioa itxi</string>
-    <string name="action_logout_confirm">Ziur zaude %1$s saioa itxi nahi duzula?</string>
     <string name="action_follow">Jarraitu</string>
     <string name="action_unfollow">Jarraitzeari utzi</string>
     <string name="action_block">Blokeatu</string>
@@ -191,7 +189,6 @@
     <string name="follows_you">Jarraitzen zaitu</string>
     <string name="pref_title_alway_show_sensitive_media">Eduki mingarria erakutsi</string>
     <string name="title_media">Multimedia</string>
-    <string name="add_account_name">Gehitu kontua</string>
     <string name="add_account_description">Mastodon kontua gehitu</string>
     <string name="compose_active_account_description">%1$s kontuarekin tut egiten</string>
     <string name="action_remove">Ezabatu</string>

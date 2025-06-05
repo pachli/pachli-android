@@ -44,7 +44,6 @@
     <string name="action_reblog">تقویت</string>
     <string name="action_favourite">برگزیدن</string>
     <string name="action_compose">ایجاد</string>
-    <string name="action_logout">خروج</string>
     <string name="action_follow">پیگیری</string>
     <string name="action_unfollow">ناپیگیری</string>
     <string name="action_block">انسداد</string>
@@ -188,7 +187,6 @@
     <string name="follows_you">پیگیرتان است</string>
     <string name="pref_title_alway_show_sensitive_media">نمایش همیشگی محتوای حساس</string>
     <string name="title_media">رسانه</string>
-    <string name="add_account_name">افزودن حساب</string>
     <string name="add_account_description">افزودن حساب ماستودون جدید</string>
     <string name="compose_active_account_description">%1$s فرستادن از طرف</string>
     <string name="action_remove">برداشتن</string>
@@ -425,7 +423,6 @@
     <string name="pachli_compose_post_quicksetting_label">ایجاد فرسته</string>
     <string name="notification_update_description">آگاهی‌ها هنگام ویرایش فرسته‌هایی که با آن‌ها تعامل داشته‌اید</string>
     <string name="action_unbookmark">برداشن نشانک</string>
-    <string name="action_logout_confirm">%1$s مطمئنید که می‌خواهید از خارج شوید؟ این کار تمامی داده‌های محلی از جمله پیش‌نویس‌ها و ترجیحات را حذف خواهد کرد.</string>
     <string name="duration_14_days">۱۴ روز</string>
     <string name="duration_30_days">۳۰ روز</string>
     <string name="duration_60_days">۶۰ روز</string>

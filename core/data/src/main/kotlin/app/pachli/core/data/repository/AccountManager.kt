@@ -309,6 +309,7 @@ class AccountManager @Inject constructor(
                 oauthScopes = oauthScopes,
                 isActive = true,
                 accountId = networkAccount.id,
+                isBot = networkAccount.bot,
             )
 
             Timber.d("addAccount: upsert account id: %d, isActive: %s", newAccount.id, newAccount.isActive)
@@ -378,11 +379,12 @@ class AccountManager @Inject constructor(
                     displayName = account.name,
                     profilePictureUrl = account.avatar,
                     profileHeaderPictureUrl = account.header,
-                    defaultPostPrivacy = account.source?.privacy ?: Status.Visibility.PUBLIC,
-                    defaultPostLanguage = account.source?.language.orEmpty(),
-                    defaultMediaSensitivity = account.source?.sensitive ?: false,
-                    emojis = account.emojis.orEmpty(),
+                    defaultPostPrivacy = account.source.privacy ?: Status.Visibility.PUBLIC,
+                    defaultPostLanguage = account.source.language.orEmpty(),
+                    defaultMediaSensitivity = account.source.sensitive == true,
+                    emojis = account.emojis,
                     locked = account.locked,
+                    isBot = account.bot,
                 )
 
                 Timber.d("setActiveAccount: saving id: %d, isActive: %s", finalAccount.id, finalAccount.isActive)

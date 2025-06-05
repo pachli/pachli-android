@@ -46,7 +46,6 @@
     <string name="notification_details_accounts_unified_push_subscription">Er alle kontoer abonnerte?</string>
     <string name="notification_details_pachli_exempt_help">Pachli er ikke unntatt fra batteribrukoptimiseringer og som følge kan det skje at Android forsinker varslingene mens skjermen er avslått.</string>
     <string name="notification_details_workers_help">Dette er listen over «workers»ene som ser etter nye varslinger. Det bør finnes én, tilstandet dens bør være RUNNING eller ENQUEUED, og det bør stå at det skal kjøre om mindre enn 15 minutter.</string>
-    <string name="notification_details_last_fetch_label">Siste forespørsel av /api/v1/notifications</string>
     <string name="notification_details_standby_bucket_working_set">«Working» er angitt. Begrenset til ti minutter om to timer</string>
     <string name="notification_details_usage_event_label">Android kan begrense hva apper kan gjøre i bakgrunnen. Dette er listen over hvordan Pachli har blitt begrenset av systemet i løpet av de siste tre dagene, med de nyeste hendelsene først.</string>
     <string name="notification_details_ago">For %1$s siden @ %2$s</string>

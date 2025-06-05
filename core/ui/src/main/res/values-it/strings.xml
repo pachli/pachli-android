@@ -16,4 +16,7 @@
     <string name="title_hashtags_dialog">Hashtag</string>
     <string name="title_mentions_dialog">Menzioni</string>
     <string name="button_continue">Continua</string>
+    <string name="action_logout_confirm">Sei sicuro di volerti disconnettere dall\'account %1$s?</string>
+    <string name="add_account_name">Aggiungi account</string>
+    <string name="action_logout">Disconnettiti</string>
 </resources>

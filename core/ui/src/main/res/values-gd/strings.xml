@@ -16,4 +16,7 @@
     <string name="title_hashtags_dialog">Tagaichean hais</string>
     <string name="title_mentions_dialog">Iomraidhean</string>
     <string name="button_continue">Air adhart</string>
+    <string name="action_logout_confirm">A bheil thu cinnteach gu bheil thu airson clàradh a-mach à %1$s? Thèid gach dàta ionadail a’ chunntais a sguabadh às, a’ gabhail a-staigh nan dreachdan is roghainnean.</string>
+    <string name="add_account_name">Cuir cunntas ris</string>
+    <string name="action_logout">Clàraich a-mach</string>
 </resources>

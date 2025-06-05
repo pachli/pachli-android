@@ -2,7 +2,6 @@
 <resources>
     <string name="title_favourites">പ്രിയപ്പെട്ടവ</string>
     <string name="title_drafts">കരടുകൾ</string>
-    <string name="action_logout">പുറത്തിറങ്ങുക</string>
     <string name="action_view_preferences">മുൻഗണനകൾ</string>
     <string name="action_view_account_preferences">അക്കൗണ്ട് മുൻഗണനകൾ</string>
     <string name="action_edit_profile">പ്രൊഫൈൽ തിരുത്തുക</string>
@@ -71,7 +70,6 @@
     <string name="action_hide_reblogs">ബൂട്ട്‌സ് മറയ്‌ക്കുക</string>
     <string name="action_unblock">നിരോധനം നീക്കുക</string>
     <string name="action_block">നിരോധിക്കുക</string>
-    <string name="action_logout_confirm">ഈ അക്കൗണ്ടിൽ നിന്നും പുറത്തു പോകാൻ ഉറപ്പിച്ചോ %1$s?</string>
     <string name="action_compose">എഴുതുക</string>
     <string name="action_quick_reply">പെട്ടന്നുള്ള മറുപടി</string>
     <string name="report_comment_hint">കൂടുതൽ പറയാൻ ഉണ്ടോ\?</string>
@@ -102,7 +100,6 @@
     <string name="notification_mention_name">പുതിയ സൂചനകൾ</string>
     <string name="unreblog_private">ബൂസ്റ്റ് ചെയ്യേണ്ട</string>
     <string name="filter_apply">പ്രയോഗിക്കുക</string>
-    <string name="add_account_name">അക്കൗണ്ട് ചേർക്കുക</string>
     <string name="pref_title_notification_filter_mentions">സൂചിപ്പിച്ചു</string>
     <string name="pref_title_appearance_settings">രൂപം</string>
     <string name="follows_you">നിങ്ങളെ പിന്തുടരുന്നു</string>

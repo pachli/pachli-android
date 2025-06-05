@@ -44,7 +44,6 @@ data class Account(
     @Json(name = "followers_count") val followersCount: Int = 0,
     @Json(name = "following_count") val followingCount: Int = 0,
     @Json(name = "statuses_count") val statusesCount: Int = 0,
-    val source: AccountSource? = null,
     val bot: Boolean = false,
     // nullable for backward compatibility
     val emojis: List<Emoji>? = emptyList(),
@@ -53,7 +52,6 @@ data class Account(
     val moved: Account? = null,
     val roles: List<Role>? = emptyList(),
 ) {
-
     val name: String
         get() = if (displayName.isNullOrEmpty()) {
             localUsername
@@ -63,15 +61,6 @@ data class Account(
 
     fun isRemote(): Boolean = this.username != this.localUsername
 }
-
-@JsonClass(generateAdapter = true)
-data class AccountSource(
-    val privacy: Status.Visibility?,
-    val sensitive: Boolean?,
-    val note: String?,
-    val fields: List<StringField>?,
-    val language: String?,
-)
 
 @JsonClass(generateAdapter = true)
 data class Field(

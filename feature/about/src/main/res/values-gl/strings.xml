@@ -36,7 +36,6 @@
     <string name="notification_details_pachli_exempt">Está Pachli exenta das optimizacións da batería?</string>
     <string name="notification_details_pachli_exempt_help">Pachli non está exenta das optimizacións da batería. Android podería retrasar as notificacións cando a pantalla está apagada.</string>
     <string name="notification_details_workers_help">Esta é a lista de tarefas que obteñen novas notificacións. Debería haber unha, cuxo estado debe ser RUNNING ou ENQUEUED, e debería estar programada para realizarse en menos de 15 desde agora.</string>
-    <string name="notification_details_last_fetch_label">Última solicitude /api/v1/notifications</string>
     <string name="notification_details_any_account_needs_migration">Teñen todas as contas o ámbito «push» OAuth?</string>
     <string name="notification_details_last_fetch_help">Independentemente do método de notificación, isto mostra, para cada conta, cando se obtiveron as últimas e se foi correcta así como a mensaxe do erro se non o foi.</string>
     <string name="notification_details_usage_event">Restricións da xestión de enerxía</string>

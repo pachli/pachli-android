@@ -2,7 +2,6 @@
 <resources>
     <string name="title_favourites">Ismenyifen</string>
     <string name="title_drafts">Irewwayen</string>
-    <string name="action_logout">Ffeɣ</string>
     <string name="action_view_preferences">Iɣewwaṛen</string>
     <string name="action_view_account_preferences">Iɣewwaṛen n umiḍan</string>
     <string name="action_edit_profile">Ẓreg amaɣnu</string>
@@ -71,7 +70,6 @@
     <string name="follows_you">Yeṭṭafar-ik·ikem-id</string>
     <string name="filter_dialog_remove_button">Kkes</string>
     <string name="filter_dialog_update_button">Lqem</string>
-    <string name="add_account_name">Rnu amiḍan</string>
     <string name="add_account_description">Rnu yiwen umiḍan amaynut n Maṣṭudun</string>
     <string name="action_compose_shortcut">Aru</string>
     <string name="error_no_custom_emojis">Tummant-ik·im %s ur tesɛi ara imujiyen udmawanen</string>

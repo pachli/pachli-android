@@ -46,8 +46,6 @@
     <string name="action_favourite">Favoritar</string>
     <string name="action_unfavourite">Desfavoritar</string>
     <string name="action_compose">Compor</string>
-    <string name="action_logout">Sair</string>
-    <string name="action_logout_confirm">Tem certeza que deseja sair da conta %1$s? Isso excluirá todos os dados locais da conta, incluindo rascunhos e preferências.</string>
     <string name="action_follow">Seguir</string>
     <string name="action_unfollow">Deixar de seguir</string>
     <string name="action_block">Bloquear</string>
@@ -198,7 +196,6 @@
     <string name="follows_you">te segue</string>
     <string name="pref_title_alway_show_sensitive_media">Sempre mostrar mídia sensível</string>
     <string name="title_media">Mídia</string>
-    <string name="add_account_name">Adicionar conta</string>
     <string name="add_account_description">Adicionar nova conta Mastodon</string>
     <string name="compose_active_account_description">Postando como %1$s</string>
     <string name="action_remove">Remover</string>
