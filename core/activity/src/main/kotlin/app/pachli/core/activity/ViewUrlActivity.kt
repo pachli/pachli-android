@@ -25,7 +25,6 @@ import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.ViewThreadActivityIntent
-import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.network.retrofit.MastodonApi
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess

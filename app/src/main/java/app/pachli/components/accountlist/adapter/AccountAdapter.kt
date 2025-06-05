@@ -22,7 +22,7 @@ import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.ui.BindingHolder
 import app.pachli.databinding.ItemFooterBinding
 import app.pachli.interfaces.AccountActionListener
-import app.pachli.util.removeDuplicates
+import app.pachli.util.removeDuplicatesTo
 
 /** Generic adapter with bottom loading indicator. */
 abstract class AccountAdapter<AVH : RecyclerView.ViewHolder> internal constructor(
@@ -77,7 +77,7 @@ abstract class AccountAdapter<AVH : RecyclerView.ViewHolder> internal constructo
     }
 
     fun update(newAccounts: List<TimelineAccount>) {
-        accountList = removeDuplicates(newAccounts)
+        accountList = newAccounts.removeDuplicatesTo(ArrayList())
         notifyDataSetChanged()
     }
 

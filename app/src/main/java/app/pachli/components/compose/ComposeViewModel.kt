@@ -280,7 +280,7 @@ class ComposeViewModel @AssistedInject constructor(
         }
     }
 
-    suspend fun addMediaToQueue(
+    fun addMediaToQueue(
         type: QueuedMedia.Type,
         uri: Uri,
         mediaSize: Long,

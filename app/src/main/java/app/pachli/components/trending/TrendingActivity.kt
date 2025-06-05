@@ -126,7 +126,7 @@ class TrendingActivity : ViewUrlActivity(), AppBarLayoutHost, MenuProvider {
         // Check if this timeline is in a tab; if not, enable the add_to_tab menu item
         val currentTabs = accountManager.activeAccount?.tabPreferences.orEmpty()
         val hideMenu = currentTabs.contains(timeline)
-        menu.findItem(R.id.action_add_to_tab)?.setVisible(!hideMenu)
+        menu.findItem(R.id.action_add_to_tab)?.isVisible = !hideMenu
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem) = when (menuItem.itemId) {
@@ -139,7 +139,7 @@ class TrendingActivity : ViewUrlActivity(), AppBarLayoutHost, MenuProvider {
                 }
             }
             Toast.makeText(this, getString(R.string.action_add_to_tab_success, tabViewData.title(this)), Toast.LENGTH_LONG).show()
-            menuItem.setVisible(false)
+            menuItem.isVisible = false
             true
         }
         else -> super.onMenuItemSelected(menuItem)

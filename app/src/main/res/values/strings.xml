@@ -16,7 +16,7 @@
   ~ see <http://www.gnu.org/licenses>.
   -->
 
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="error_empty">This cannot be empty.</string>
     <string name="error_no_web_browser_found">Couldn\'t find a web browser to use.</string>
     <string name="error_compose_character_limit">The post is too long!</string>
@@ -346,7 +346,7 @@
     <string name="notification_listenable_worker_description">Notifications when Pachli is working in the background</string>
     <string name="notification_unknown_name">Unknown</string>
     <string name="notification_mention_format">%s mentioned you</string>
-    <string name="notification_summary_large">%1$s, %2$s, %3$s and %4$d others</string>
+    <string name="notification_summary_large" tools:ignore="PluralsCandidate">%1$s, %2$s, %3$s and %4$d others</string>
     <string name="notification_summary_medium">%1$s, %2$s, and %3$s</string>
     <string name="notification_summary_small">%1$s and %2$s</string>
     <plurals name="notification_title_summary">
@@ -457,7 +457,7 @@
     <string name="conversation_0_recipients">No other participants</string>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s and %2$s</string>
-    <string name="conversation_more_recipients">%1$s, %2$s and %3$d more</string>
+    <string name="conversation_more_recipients" tools:ignore="PluralsCandidate">%1$s, %2$s and %3$d more</string>
     <string name="description_post_media">
         Media: %s
     </string>

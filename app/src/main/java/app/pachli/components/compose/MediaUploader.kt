@@ -195,21 +195,21 @@ sealed interface UploadState {
          *
          * @property serverId Server-side identifier for this media item
          */
-        data class Processing(override val serverId: String) : UploadState.Uploaded
+        data class Processing(override val serverId: String) : Uploaded
 
         /**
          * Upload has completed, and the server has processed the media.
          *
          * @property serverId Server-side identifier for this media item
          */
-        data class Processed(override val serverId: String) : UploadState.Uploaded
+        data class Processed(override val serverId: String) : Uploaded
 
         /**
          * Post has been published, editing is impossible.
          *
          * @property serverId Server-side identifier for this media item
          */
-        data class Published(override val serverId: String) : UploadState.Uploaded
+        data class Published(override val serverId: String) : Uploaded
     }
 }
 

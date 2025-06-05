@@ -25,7 +25,6 @@ import android.graphics.ColorMatrixColorFilter
 import android.graphics.Paint
 import android.graphics.Shader
 import androidx.annotation.ColorInt
-import com.bumptech.glide.load.Key
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
 import java.nio.ByteBuffer
@@ -110,7 +109,7 @@ class CompositeWithOpaqueBackground(@ColorInt val backgroundColor: Int) : Bitmap
 
     companion object {
         private val ID = CompositeWithOpaqueBackground::class.qualifiedName!!
-        private val ID_BYTES = ID.toByteArray(Key.CHARSET)
+        private val ID_BYTES = ID.toByteArray(CHARSET)
 
         /** Paint with a color filter that converts 8bpp alpha images to a 1bpp mask */
         private val EXTRACT_MASK_PAINT = Paint().apply {

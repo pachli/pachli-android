@@ -17,7 +17,6 @@
 
 package app.pachli.feature.login
 
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -119,7 +118,7 @@ class LoginActivity : BaseActivity() {
 
         preferences = getSharedPreferences(
             getString(R.string.preferences_file_key),
-            Context.MODE_PRIVATE,
+            MODE_PRIVATE,
         )
 
         binding.loginButton.setOnClickListener { onLoginClick(true) }

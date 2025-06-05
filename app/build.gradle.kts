@@ -72,6 +72,10 @@ android {
         includeInBundle = false
     }
 
+    lint {
+        checkDependencies = true
+    }
+
     testOptions {
         unitTests.all {
             it.systemProperty("robolectric.logging.enabled", "true")
