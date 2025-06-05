@@ -1327,7 +1327,13 @@ class MainDrawerImageLoader(val animateAvatars: Boolean) : AbstractDrawerImageLo
     }
 
     override fun cancel(imageView: ImageView) {
-        Glide.with(imageView).clear(imageView)
+        // Glide may throw an exception if the activity is being destroyed.
+        // This can be safely ignored. See https://github.com/bumptech/glide/issues/5528.
+        try {
+            Glide.with(imageView).clear(imageView)
+        } catch (_: IllegalArgumentException) {
+            /* do nothing */
+        }
     }
 
     override fun placeholder(ctx: Context, tag: String?): Drawable {
