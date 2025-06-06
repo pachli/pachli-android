@@ -34,7 +34,8 @@ import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.defaultTabs
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.AccountListActivityIntent
-import app.pachli.core.network.model.Account
+import app.pachli.core.network.model.AccountSource
+import app.pachli.core.network.model.CredentialAccount
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.retrofit.MastodonApi
@@ -93,16 +94,17 @@ class MainActivityTest {
     @Inject
     lateinit var mastodonApi: MastodonApi
 
-    val account = Account(
+    val account = CredentialAccount(
         id = "1",
         localUsername = "username",
         username = "username@domain.example",
         displayName = "Display Name",
-        createdAt = Date.from(Instant.now()),
+        createdAt = Instant.now(),
         note = "",
         url = "",
         avatar = "",
         header = "",
+        source = AccountSource(),
     )
 
     @Inject

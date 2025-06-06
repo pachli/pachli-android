@@ -49,8 +49,6 @@
     <string name="action_favourite">Stelumi</string>
     <string name="action_unfavourite">Nuligi stelumon</string>
     <string name="action_compose">Verki</string>
-    <string name="action_logout">Elsaluti</string>
-    <string name="action_logout_confirm">Ĉu vi certas, ke vi volas elsaluti el la konto %1$s?</string>
     <string name="action_follow">Sekvi</string>
     <string name="action_unfollow">Ne plu sekvi</string>
     <string name="action_block">Bloki</string>
@@ -215,7 +213,6 @@
     <string name="filter_dialog_remove_button">Forigi</string>
     <string name="filter_dialog_update_button">Aktualigi</string>
     <string name="filter_add_description">Frazo filtrota</string>
-    <string name="add_account_name">Aldoni konton</string>
     <string name="add_account_description">Aldoni novan Mastodon-konton</string>
     <string name="compose_active_account_description">Afiŝi per konto %1$s</string>
     <string name="action_remove">Forigi</string>

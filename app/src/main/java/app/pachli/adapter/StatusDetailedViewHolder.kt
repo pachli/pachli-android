@@ -37,7 +37,11 @@ class StatusDetailedViewHolder(
         statusDisplayOptions: StatusDisplayOptions,
         listener: StatusActionListener<StatusViewData>,
     ) {
-        val (_, _, _, _, _, _, _, createdAt, editedAt, _, _, _, _, _, _, _, _, _, visibility, _, _, _, app) = viewData.actionable
+        val createdAt = viewData.actionable.createdAt
+        val editedAt = viewData.actionable.editedAt
+        val visibility = viewData.actionable.visibility
+        val app = viewData.actionable.application
+
         val visibilityIcon = visibility.icon(metaInfo)
         val visibilityString = visibility.description(context)
         val sb = SpannableStringBuilder(visibilityString)
@@ -125,7 +129,8 @@ class StatusDetailedViewHolder(
             listener,
         ) // Always show card for detailed status
         if (payloads == null) {
-            val (_, _, _, _, _, _, _, _, _, _, reblogsCount, favouritesCount) = uncollapsedViewdata.actionable
+            val reblogsCount = uncollapsedViewdata.actionable.reblogsCount
+            val favouritesCount = uncollapsedViewdata.actionable.favouritesCount
             if (!statusDisplayOptions.hideStatsInDetailedView) {
                 setReblogAndFavCount(viewData, reblogsCount, favouritesCount, listener)
             } else {

@@ -46,7 +46,13 @@ class ConversationViewHolder internal constructor(
     )
 
     override fun bind(viewData: ConversationViewData, payloads: List<*>?, statusDisplayOptions: StatusDisplayOptions) {
-        val (_, _, account, inReplyToId, _, _, _, _, _, _, _, _, _, _, favourited, bookmarked, sensitive, _, _, attachments) = viewData.status
+        val account = viewData.actionable.account
+        val inReplyToId = viewData.actionable.inReplyToId
+        val favourited = viewData.actionable.favourited
+        val bookmarked = viewData.actionable.bookmarked
+        val sensitive = viewData.actionable.sensitive
+        val attachments = viewData.actionable.attachments
+
         if (payloads.isNullOrEmpty()) {
             setupCollapsedState(viewData, listener)
             setDisplayName(account.name, account.emojis, statusDisplayOptions)

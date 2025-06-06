@@ -98,7 +98,7 @@ import java.util.TimeZone
         TimelineStatusEntity::class,
         ConversationViewDataEntity::class,
     ],
-    version = 24,
+    version = 25,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
@@ -125,6 +125,8 @@ import java.util.TimeZone
         // 22 -> 23 is a custom migration.
         // Added InstanceInfoEntity.maxMediaDescriptionChars.
         AutoMigration(from = 23, to = 24),
+        // Added "isBot" to AccountEntity
+        AutoMigration(from = 24, to = 25),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {

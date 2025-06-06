@@ -49,8 +49,6 @@
     <string name="action_favourite">最愛</string>
     <string name="action_unfavourite">取消最愛</string>
     <string name="action_compose">撰寫嘟文</string>
-    <string name="action_logout">登出</string>
-    <string name="action_logout_confirm">您確定要登出 %1$s 嗎？這會刪除帳戶所有本機數據，包括草稿和選項。</string>
     <string name="action_follow">關注</string>
     <string name="action_unfollow">取消關注</string>
     <string name="action_block">封鎖</string>
@@ -219,7 +217,6 @@
     <string name="filter_dialog_remove_button">移除</string>
     <string name="filter_dialog_update_button">更新</string>
     <string name="filter_add_description">需要過濾的文字</string>
-    <string name="add_account_name">加入帳號</string>
     <string name="add_account_description">加入新的 Mastodon 帳號</string>
     <string name="compose_active_account_description">以 %1$s 發嘟文</string>
     <string name="action_remove">移除</string>

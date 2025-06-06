@@ -6,14 +6,12 @@ import android.text.TextUtils
 import android.text.format.DateUtils
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.PopupMenu
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
@@ -82,9 +80,6 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
     private val favouriteButton: SparkButton = itemView.findViewById(R.id.status_favourite)
     private val bookmarkButton: SparkButton = itemView.findViewById(R.id.status_bookmark)
     private val moreButton: ImageButton = itemView.findViewById(R.id.status_more)
-    private val mediaContainer: ConstraintLayout = itemView.findViewById<ConstraintLayout?>(R.id.status_media_preview_container).apply {
-        clipToOutline = true
-    }
     protected val mediaPreview: MediaPreviewLayout = itemView.findViewById(R.id.status_media_preview)
     private val sensitiveMediaWarning: TextView = itemView.findViewById(R.id.status_sensitive_media_warning)
     private val sensitiveMediaShow: View = itemView.findViewById(R.id.status_sensitive_media_button)
@@ -103,10 +98,6 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
     private val contentWarningDescription: TextView = itemView.findViewById(R.id.status_content_warning_description)
     private val pollView: PollView = itemView.findViewById(R.id.status_poll)
     private val cardView: PreviewCardView? = itemView.findViewById(R.id.status_card_view)
-    private val filteredPlaceholder: ConstraintLayout? = itemView.findViewById(R.id.status_filtered_placeholder)
-    private val filteredPlaceholderLabel: TextView? = itemView.findViewById(R.id.status_filter_label)
-    private val filteredPlaceholderShowButton: Button? = itemView.findViewById(R.id.status_filter_show_anyway)
-    private val statusContainer: ConstraintLayout? = itemView.findViewById(R.id.status_container)
     private val numberFormat = NumberFormat.getNumberInstance()
     private val absoluteTimeFormatter = AbsoluteTimeFormatter()
     private val translationProvider: TextView? = itemView.findViewById<TextView?>(R.id.translationProvider)?.apply {
@@ -151,7 +142,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
         statusDisplayOptions: StatusDisplayOptions,
         listener: StatusActionListener<T>,
     ) {
-        val spoilerText = viewData.spoilerText
+        val spoilerText = viewData.actionable.spoilerText
         val sensitive = !TextUtils.isEmpty(spoilerText)
         val expanded = viewData.isExpanded
         if (sensitive) {
@@ -222,7 +213,11 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
         statusDisplayOptions: StatusDisplayOptions,
         listener: StatusActionListener<T>,
     ) {
-        val (_, _, _, _, _, _, _, _, _, emojis, _, _, _, _, _, _, _, _, _, _, mentions, tags, _, _, _, poll) = viewData.actionable
+        val emojis = viewData.actionable.emojis
+        val mentions = viewData.actionable.mentions
+        val tags = viewData.actionable.tags
+        val poll = viewData.actionable.poll
+
         when (viewData.translationState) {
             TranslationState.SHOW_ORIGINAL -> translationProvider?.hide()
             TranslationState.TRANSLATING -> {
@@ -334,7 +329,9 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
         statusDisplayOptions: StatusDisplayOptions,
         listener: StatusActionListener<T>,
     ) {
-        val (_, _, _, _, _, _, _, createdAt, editedAt) = viewData.actionable
+        val createdAt = viewData.actionable.createdAt
+        val editedAt = viewData.actionable.editedAt
+
         var timestampText: String
         timestampText = if (statusDisplayOptions.useAbsoluteTime) {
             absoluteTimeFormatter.format(createdAt, true)
@@ -690,7 +687,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
         if (payloads == null) {
             val actionable = viewData.actionable
             setDisplayName(actionable.account.name, actionable.account.emojis, statusDisplayOptions)
-            setUsername(viewData.username)
+            setUsername(actionable.account.username)
             setMetaData(viewData, statusDisplayOptions, listener)
             setIsReply(actionable.inReplyToId != null)
             setReplyCount(actionable.repliesCount, statusDisplayOptions.showStatsInline)
@@ -769,7 +766,17 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
 
     /** Creates and sets the content description for the status. */
     private fun setContentDescriptionForStatus(viewData: T, statusDisplayOptions: StatusDisplayOptions) {
-        val (_, _, account, _, _, _, _, createdAt, editedAt, _, reblogsCount, favouritesCount, _, reblogged, favourited, bookmarked, sensitive, _, visibility) = viewData.actionable
+        val account = viewData.actionable.account
+        val createdAt = viewData.actionable.createdAt
+        val editedAt = viewData.actionable.editedAt
+        val reblogsCount = viewData.actionable.reblogsCount
+        val favouritesCount = viewData.actionable.favouritesCount
+        val reblogged = viewData.actionable.reblogged
+        val favourited = viewData.actionable.favourited
+        val bookmarked = viewData.actionable.bookmarked
+        val sensitive = viewData.actionable.sensitive
+        val visibility = viewData.actionable.visibility
+        val spoilerText = viewData.actionable.spoilerText
 
         // Build the content description using a string builder instead of a string resource
         // as there are many places where optional ";" and "," are needed.
@@ -798,7 +805,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
 
             // Content is optional, and hidden if there are spoilers or the status is
             // marked sensitive, and it has not been expanded.
-            if (TextUtils.isEmpty(viewData.spoilerText) || !sensitive || viewData.isExpanded) {
+            if (TextUtils.isEmpty(spoilerText) || !sensitive || viewData.isExpanded) {
                 append(viewData.content.parseAsMastodonHtml(), ", ")
             }
 
@@ -820,7 +827,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
 
             getReblogDescription(context, viewData)?.let { append(", ", it) }
 
-            append(", ", viewData.username)
+            append(", ", viewData.actionable.account.username)
 
             if (reblogged) {
                 append(", ", context.getString(R.string.description_post_reblogged))
@@ -879,7 +886,11 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
     ) {
         cardView ?: return
 
-        val (_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, sensitive, _, _, attachments, _, _, _, _, _, poll, card) = viewData.actionable
+        val sensitive = viewData.actionable.sensitive
+        val attachments = viewData.actionable.attachments
+        val poll = viewData.actionable.poll
+        val card = viewData.actionable.card
+
         if (cardViewMode !== CardViewMode.NONE &&
             attachments.isEmpty() &&
             poll == null &&
@@ -946,11 +957,10 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
 
         /** @return "Content warning: {spoilerText}", for use in a content description. */
         private fun getContentWarningDescription(context: Context, status: IStatusViewData): String? {
-            return if (!TextUtils.isEmpty(status.spoilerText)) {
-                context.getString(R.string.description_post_cw, status.spoilerText)
-            } else {
-                null
-            }
+            val spoilerText = status.actionable.spoilerText
+            if (spoilerText.isEmpty()) return null
+
+            return context.getString(R.string.description_post_cw, status.spoilerText)
         }
     }
 }

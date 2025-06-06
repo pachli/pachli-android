@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="title_drafts">Koncepty</string>
-    <string name="action_logout">Odhlásiť sa</string>
     <string name="action_view_preferences">Nastavenia</string>
     <string name="action_view_account_preferences">Nastavenia účtu</string>
     <string name="action_edit_profile">Upraviť profil</string>
@@ -188,7 +187,6 @@
     <string name="pref_title_bot_overlay">Zobraziť indikátor botov</string>
     <string name="notification_severed_relationships_unknown_body">Neznámy dôvod</string>
     <string name="notification_severed_relationships_account_suspension_body">Moderátor pozastavil účet</string>
-    <string name="action_logout_confirm">Týmto sa odstránia všetky lokálne údaje účtu %1$s vrátane konceptov a nastavení.\n\nTvoj účet na serveri týmto nebude zrušený.</string>
     <string name="action_post_failed">Nahrávanie zlyhalo</string>
     <string name="action_post_failed_show_drafts">Zobraziť koncepty</string>
     <string name="action_unmute">Zrušiť stíšenie</string>
@@ -422,7 +420,6 @@
     <string name="filter_add_description">Fráza pre filtrovanie</string>
     <string name="notification_clear_text">Naozaj si si istý/á, že chceš natrvalo vymazať všetky svoje oznámenia?</string>
     <string name="a11y_label_loading_thread">Načítavam vlákno</string>
-    <string name="add_account_name">Pridať účet</string>
     <string name="filter_addition_title">Pridať filter</string>
     <string name="compose_shortcut_short_label">Napísať</string>
     <string name="profile_metadata_label_label">Označenie</string>
@@ -519,10 +516,7 @@
     <string name="select_list_manage">Spravovať zoznamy</string>
     <string name="duration_6_hours">6 hodín</string>
     <string name="total_usage">Celková vyťaženosť</string>
-    <string name="pref_notification_method_push">Push</string>
-    <string name="pref_notification_method_pull">Pull</string>
     <string name="error_missing_edits">Tento príspevok bol upravený, ale tvoj server nemá informácie o týchto zmenách, takže ich nevidíš.\n\nJedná sa o problém <a href="https://github.com/mastodon/mastodon/issues/25398">Mastodon issue #25398</a>.</string>
-    <string name="pref_notification_fetch_needs_push">Účet nemá povolené push notifikácie. Skús sa odhlásiť a znova prihlásiť.</string>
     <string name="notification_update_description">Upozornenia na zmeny príspevkov, s ktorými si interagoval/a</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s a ďalších %4$d</string>
     <string name="status_count_one_plus">1+</string>
@@ -575,7 +569,6 @@
     <string name="account_note_hint">Tvoja súkromá poznámka o tomto účte</string>
     <string name="label_filter_title">Názov</string>
     <string name="pref_notification_up_distributor_none">Žiadny</string>
-    <string name="pref_notification_fetch_method_title">Spôsob upozornenia</string>
     <string name="notification_notification_worker">Načítavam upozornenia…</string>
     <string name="notification_prune_cache">Údržba cache…</string>
     <string name="abbreviated_in_days">za %dd</string>
@@ -633,7 +626,6 @@
     <string name="pref_labs_reverse_home_timeline_on_summary">Príspevky sú zoradené od najstaršieho po najnovší</string>
     <string name="compose_warn_language_dialog_change_language_fmt">Zmeniť jazyk na %1$s a uverejniť</string>
     <string name="pref_title_update_check_now">Skontrolovať aktualizácie teraz</string>
-    <string name="pref_notification_fetch_server_rejected">%1$s zamietol registráciu push notifikácií</string>
     <string name="pref_update_check_no_updates">Nie sú dostupné žiadne aktualizácie</string>
     <string name="pref_update_next_scheduled_check">Ďalšia plánovaná kontrola: %1$s</string>
     <string name="search_operator_attachment_all">Médiá ▾</string>
@@ -690,8 +682,6 @@
     <string name="search_operator_from_account_fmt">Iba %1$s</string>
     <string name="search_operator_from_ignore_account_fmt">Okrem %1$s</string>
     <string name="search_operator_embed_dialog_only">Iba príspevky s kartami náhľadov</string>
-    <string name="pref_notification_fetch_ok_timestamp_fmt">✔ Pred %1$s @ %2$s</string>
-    <string name="pref_notification_fetch_err_timestamp_fmt">✖ Pred %1$s @ %2$s</string>
     <string name="action_add_to_tab">Pridať do panelu</string>
     <string name="action_remove_tab">Odstrániť panel</string>
     <string name="error_prepare_media_file_is_too_large_fmt">súbor má veľkosť %1$s, maximálna povolená veľkosť je %2$s</string>
@@ -820,5 +810,4 @@
     <string name="error_import_preferences_fmt">Nepodarilo sa importovať nastavenia z %1$s: %2$s</string>
     <string name="title_report_category_fmt">Kategória: %1$s</string>
     <string name="title_report_comment">Komentár nahlásujúceho</string>
-    <string name="title_logout_fmt">Odhlásiť %1$s</string>
 </resources>

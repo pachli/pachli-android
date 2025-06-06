@@ -309,6 +309,7 @@ class AccountManager @Inject constructor(
                 oauthScopes = oauthScopes,
                 isActive = true,
                 accountId = networkAccount.id,
+                isBot = networkAccount.bot,
             )
 
             Timber.d("addAccount: upsert account id: %d, isActive: %s", newAccount.id, newAccount.isActive)
@@ -378,11 +379,12 @@ class AccountManager @Inject constructor(
                     displayName = account.name,
                     profilePictureUrl = account.avatar,
                     profileHeaderPictureUrl = account.header,
-                    defaultPostPrivacy = account.source?.privacy ?: Status.Visibility.PUBLIC,
-                    defaultPostLanguage = account.source?.language.orEmpty(),
-                    defaultMediaSensitivity = account.source?.sensitive ?: false,
-                    emojis = account.emojis.orEmpty(),
+                    defaultPostPrivacy = account.source.privacy ?: Status.Visibility.PUBLIC,
+                    defaultPostLanguage = account.source.language.orEmpty(),
+                    defaultMediaSensitivity = account.source.sensitive == true,
+                    emojis = account.emojis,
                     locked = account.locked,
+                    isBot = account.bot,
                 )
 
                 Timber.d("setActiveAccount: saving id: %d, isActive: %s", finalAccount.id, finalAccount.isActive)
@@ -518,7 +520,18 @@ class AccountManager @Inject constructor(
         // TODO: Add a capability for announcements.
         deferAnnouncements.await().orElse { Ok(emptyList()) }.bind()
 
-        deferFollowing.await().bind()
+        // Fetching the user's list of followed accounts may take some time if they
+        // follow a lot of accounts. This information is only used when filtering
+        // notifications and conversations, and only if the user has set the
+        // relevant options.
+        //
+        // If the options are set then wait for the API calls to complete. Otherwise
+        // this can happen in the background.
+        if (account.notificationAccountFilterNotFollowed != FilterAction.NONE ||
+            account.conversationAccountFilterNotFollowed != FilterAction.NONE
+        ) {
+            deferFollowing.await().bind()
+        }
     }
 
     /**

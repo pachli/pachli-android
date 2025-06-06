@@ -39,7 +39,7 @@ import io.github.z4kn4fein.semver.Version
  * @param server Details about the account's server.
  * @param contentFilters Account's content filters.
  * @param announcements Announcements from the account's server.
- * @param following Accounts this account is following
+ * @param following Accounts this account is following.
  */
 // TODO: Still not sure if it's better to have one class that contains everything,
 // or provide dedicated functions that return specific flows for the different

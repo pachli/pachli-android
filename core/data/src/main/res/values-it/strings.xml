@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="error_filter_server_does_not_filter">Il server non supporta filtri</string>
+    <string name="account_manager_error_unexpected">errore inaspettato: %1$s</string>
+    <string name="account_manager_error_no_active_account">nessun account è segnato come attivo</string>
+    <string name="error_preference_importer_null_on_import">l\'importazione del file ha prodotto null</string>
+    <string name="account_manager_error_account_does_not_exist">L\'account non esiste nel database locale. Questo non dovrebbe mai succedere. Se vedi questo messaggio si prega di segnalare l\'accaduto a team@pachli.app.</string>
+    <string name="server_repository_error_validate_node_info">la validazione del nodeinfo %1$s è fallita: %2$s</string>
+    <string name="error_preference_importer_missing_schema_version">il file non contiene una versione schema</string>
+    <string name="error_preference_importer_wrong_version_fmt">il file è una versione sconosciuta: %1$s</string>
+    <string name="account_manager_error_dao">Errore del database, si prega di segnalarlo a team@pachli.app: %1$s</string>
+</resources>

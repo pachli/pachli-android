@@ -48,6 +48,8 @@ import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.domain.notifications.NotificationConfig
+import app.pachli.core.ui.extensions.asDdHhMmSs
+import app.pachli.core.ui.extensions.instantFormatter
 import app.pachli.feature.about.databinding.FragmentNotificationDetailsBinding
 import app.pachli.feature.about.databinding.ItemUsageEventBinding
 import app.pachli.feature.about.databinding.ItemWorkInfoBinding

@@ -50,8 +50,6 @@
     <string name="action_favourite">Favorisieren</string>
     <string name="action_unfavourite">Aus Favoriten entfernen</string>
     <string name="action_compose">Beitrag erstellen</string>
-    <string name="action_logout">Abmelden</string>
-    <string name="action_logout_confirm">Möchtest du %1$s wirklich abmelden? Dadurch werden alle lokalen Daten des Profils, wie Entwürfe und Einstellungen, gelöscht.</string>
     <string name="action_follow">Folgen</string>
     <string name="action_unfollow">Entfolgen</string>
     <string name="action_block">Blockieren</string>
@@ -203,7 +201,6 @@
     <string name="filter_edit_title">Filter bearbeiten</string>
     <string name="filter_dialog_remove_button">Entfernen</string>
     <string name="filter_dialog_update_button">Aktualisieren</string>
-    <string name="add_account_name">Konto hinzufügen</string>
     <string name="add_account_description">Neues Mastodon-Konto hinzufügen</string>
     <string name="compose_active_account_description">Veröffentlichen als %1$s</string>
     <string name="action_remove">Entfernen</string>

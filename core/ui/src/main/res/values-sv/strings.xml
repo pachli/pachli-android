@@ -16,4 +16,7 @@
     <string name="title_hashtags_dialog">Hashtaggar</string>
     <string name="title_mentions_dialog">Omnämnanden</string>
     <string name="button_continue">Fortsätt</string>
+    <string name="action_logout_confirm">Är du säker på att du vill logga ut från kontot %1$s? All lokal information kommer att raderas, inklusive utkast och inställningar.</string>
+    <string name="add_account_name">Lägg till konto</string>
+    <string name="action_logout">Logga ut</string>
 </resources>

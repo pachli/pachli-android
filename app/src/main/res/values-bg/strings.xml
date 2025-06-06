@@ -118,7 +118,6 @@
     <string name="action_remove">Премахване</string>
     <string name="compose_active_account_description">Публикуване с акаунт %1$s</string>
     <string name="add_account_description">Добавяне на нов Mastodon акаунт</string>
-    <string name="add_account_name">Добавяне на акаунт</string>
     <string name="filter_add_description">Фраза за филтриране</string>
     <string name="filter_dialog_whole_word_description">Когато ключовата дума или фраза е само буквено-цифрова, тя ще бъде приложена само ако съответства на цялата дума</string>
     <string name="filter_dialog_whole_word">Цяла дума</string>
@@ -286,8 +285,6 @@
     <string name="action_block">Блокиране</string>
     <string name="action_unfollow">Отследване</string>
     <string name="action_follow">Последване</string>
-    <string name="action_logout_confirm">Сигурни ли сте, че искате да излезете от акаунта %1$s?</string>
-    <string name="action_logout">Излизане</string>
     <string name="action_compose">Композиране</string>
     <string name="action_unfavourite">Премахване от любими</string>
     <string name="action_bookmark">Отмятане</string>

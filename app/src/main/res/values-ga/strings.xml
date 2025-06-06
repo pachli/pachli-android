@@ -131,7 +131,6 @@
     <string name="action_block">Bac</string>
     <string name="action_unfollow">Stop ag leanúint</string>
     <string name="action_follow">Lean</string>
-    <string name="action_logout_confirm">Scriosfaidh sé seo gach sonraí áitiúla de chuntas %1$s, lena n-áirítear dréachtaí agus roghanna.\n\nNí scriosfaidh sé seo do chuntas ar an bhfreastalaí.</string>
     <string name="action_compose">Cum</string>
     <string name="action_unfavourite">Bain togha</string>
     <string name="action_bookmark">Leabharmharc</string>
@@ -145,7 +144,6 @@
     <string name="action_edit_profile">Cuir próifíl in eagar</string>
     <string name="action_view_account_preferences">Roghanna Cuntais</string>
     <string name="action_view_preferences">Sainroghanna</string>
-    <string name="action_logout">Logáil Amach</string>
     <string name="title_drafts">Dréachtaí</string>
     <string name="title_favourites">Toghanna</string>
     <string name="post_media_images">Íomhánna</string>
@@ -226,7 +224,6 @@
     <string name="filter_dialog_update_button">Nuashonrú</string>
     <string name="filter_dialog_whole_word">Focal iomlán</string>
     <string name="filter_add_description">Frása le scagadh</string>
-    <string name="add_account_name">Cuir Cuntas leis</string>
     <string name="pref_title_alway_open_spoiler">Leathnaigh i gcónaí postálacha atá marcáilte le rabhaidh ábhair</string>
     <string name="title_media">Meáin</string>
     <string name="pref_title_thread_filter_keywords">Comhráite</string>
@@ -731,7 +728,6 @@
     <string name="pref_notification_method_all_push">Úsáideann gach cuntas UnifiedPush. Tapáil le haghaidh sonraí.</string>
     <string name="pref_notification_battery_optimisation_is_disabled">Tá optamú ceallraí díchumasaithe</string>
     <string name="pref_notification_battery_optimisation_ok">Ní gá optamú ceallraí a dhíchumasú.</string>
-    <string name="pref_notification_method_push">Brúigh</string>
     <string name="pref_update_next_scheduled_check">An chéad seiceáil sceidealta eile: %1$s</string>
     <string name="error_media_download">Níorbh fhéidir %1$s a íoslódáil: %2$s</string>
     <string name="action_add_to_tab_success">Cuireadh \'%1$s\' le cluaisíní</string>
@@ -745,12 +741,6 @@
     <string name="ui_error_accept_follow_request">Theip ar ghlacadh leis an iarratas seo a leanas: %s</string>
     <string name="filter_description_warn">Folaigh le rabhadh</string>
     <string name="label_filter_action">Scag gníomh</string>
-    <string name="pref_notification_method_pull">Tarraingt</string>
-    <string name="pref_notification_fetch_method_title">Modh fógartha</string>
-    <string name="pref_notification_fetch_ok_timestamp_fmt">✔ %1$s ó shin @ %2$s</string>
-    <string name="pref_notification_fetch_err_timestamp_fmt">✖ %1$s ó shin @ %2$s</string>
-    <string name="pref_notification_fetch_needs_push">Níl raon feidhme \"brú\" ag an gcuntas. D\'fhéadfadh logáil amach agus ar ais isteach é seo a shocrú.</string>
-    <string name="pref_notification_fetch_server_rejected">Dhiúltaigh %1$s brúchlárú</string>
     <string name="pref_title_change_unified_push_distributor">Athraigh dáileoir Brú Aontaithe</string>
     <string name="error_media_uploader_upload_not_found_fmt">níor aimsíodh uaslódáil meán le haitheantas %1$s</string>
     <string name="error_prepare_media_content_resolver_missing_path_fmt">bhí cosán in easnamh ar URI an réiteora inneachair: %1$s</string>
@@ -858,5 +848,4 @@
     <string name="export_preferences_ok_fmt">Roghanna a easpórtáileadh chuig %1$s</string>
     <string name="error_export_preferences_fmt">Níorbh fhéidir roghanna a easpórtáil chuig %1$s: %2$s</string>
     <string name="error_import_preferences_fmt">Níorbh fhéidir roghanna a iompórtáil ó %1$s: %2$s</string>
-    <string name="title_logout_fmt">Logáil amach %1$s</string>
 </resources>

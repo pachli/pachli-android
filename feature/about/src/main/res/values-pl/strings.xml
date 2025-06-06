@@ -14,7 +14,6 @@
     <string name="notification_details_title">Szczegóły</string>
     <string name="notification_details_push_notifications_with_unifiedpush">Powiadomienia push za pomocą UnifiedPush</string>
     <string name="notification_details_accounts_unified_push_subscription">Czy wszystkie konta mają subskrypcję?</string>
-    <string name="notification_details_last_fetch_label">Ostatnie żądanie /api/v1/notifications</string>
     <string name="notification_details_standby_bucket_working_set">Zestaw roboczy. Ograniczony do 10 minut co 2 godziny</string>
     <string name="notification_details_standby_bucket_rare">Rzadki. Ograniczony do 10 minut co 24 godziny</string>
     <string name="notification_details_standby_bucket_restricted">Z ograniczeniem. Raz dziennie</string>

@@ -101,7 +101,6 @@
     <string name="filter_dialog_remove_button">Noņemt</string>
     <string name="filter_dialog_update_button">Atjaunināt</string>
     <string name="filter_edit_title">Labot filtru</string>
-    <string name="add_account_name">Pievienot kontu</string>
     <string name="action_edit_image">Labot attēlu</string>
     <string name="send_post_notification_title">Sūta ierakstu…</string>
     <string name="send_post_notification_cancel_title">Sūtīšana atcelta</string>
@@ -214,14 +213,13 @@
     <string name="restart_emoji">Būs nepieciešams palaist Pachli no jauna, lai pielietotu šīs izmaiņas</string>
     <string name="error_status_source_load">Neizdevās no servera ielādēt stāvokļa avotu.</string>
     <string name="error_sender_account_gone">Sūtot ziņu, radās kļūda.</string>
-    <string name="title_posts_pinned">Piesprausts</string>
+    <string name="title_posts_pinned">Piespraustie</string>
     <string name="title_followed_hashtags">Sekotie tēmturi</string>
     <string name="post_boosted_format">%s pastiprināja</string>
     <string name="post_edited">Labots %s</string>
     <string name="notification_subscription_format">%s nupat publicēja</string>
     <string name="report_username_format">Ziņot par @%s</string>
     <string name="notification_header_report_format">%s ziņoja par %s</string>
-    <string name="action_logout">Iziet</string>
     <string name="action_show_reblogs">Parādīt pastiprinājumus</string>
     <string name="action_hide_reblogs">Paslēpt pastiprinājumus</string>
     <string name="action_open_reblogger">Atvērt pastiprinājuma autoru</string>
@@ -289,7 +287,6 @@
         <item quantity="other">%1$s · pievienoti %2$d ieraksti</item>
     </plurals>
     <string name="action_compose">Rakstīt</string>
-    <string name="action_logout_confirm">Tas izdzēsīs visus vietējos konta %1$s datus, tajā skaitā melnrakstus un iestatījumus.\n\nTas neizdzēsīs kontu serverī.</string>
     <string name="action_add_media">Pievienot multividi</string>
     <string name="action_open_drawer">Atvērt izvēlni</string>
     <string name="action_open_media_n">Atvērt multividi #%d</string>
@@ -595,10 +592,7 @@
     <string name="pref_title_update_check_now">Pārbaudīt atjauninājumus tagad</string>
     <string name="pref_update_next_scheduled_check">Nākamā paredzētā pārbaude: %1$s</string>
     <string name="compose_warn_language_dialog_accept_and_dont_ask_fmt">Iesūtīt tādu, kā ir(%1$s), un vairs nevaicāt</string>
-    <string name="pref_notification_fetch_needs_push">Kontam nav \"push\" tvēruma. Atteikšanās un pieteikšanās vēlreiz var to novērst.</string>
     <string name="pref_update_check_no_updates">Atjauninājumi nav pieejami</string>
-    <string name="pref_notification_fetch_err_timestamp_fmt">✖ pirms %1$s @ %2$s</string>
-    <string name="pref_notification_fetch_server_rejected">%1$s atteica pašpiegādes reģistrēšanos</string>
     <string name="pref_title_change_unified_push_distributor">Nomainīt vienotās pašpiegādes izplatītāju</string>
     <string name="error_media_download">Nevarēja lejupielādēt %1$s: %2$s</string>
     <string name="error_filter_missing_context">Ir nepieciešams vismaz viens atlases konteksts</string>
@@ -709,7 +703,6 @@
     <string name="ui_error_reblog_fmt">Ieraksta pastiprināšana neizdevās: %1$s</string>
     <string name="poll_show_votes">Rādīt balsojumus</string>
     <string name="conversation_0_recipients">Nav citu dalībnieku</string>
-    <string name="pref_notification_fetch_ok_timestamp_fmt">✔ Pirms %1$s @ %2$s</string>
     <string name="error_prepare_media_unknown_file_size">datnes lielumu nevarēja noteikt</string>
     <string name="error_media_uploader_upload_not_found_fmt">informācijas nesēju augšupielāde ar Id %1$s nav atrasta</string>
     <string name="error_pick_media_fmt">Ierakstam nevarēja pievienot datni: %1$s</string>
@@ -718,7 +711,6 @@
     <string name="error_prepare_media_unsupported_mime_type_fmt">serveris neatbalsta datnes veidu: %1$s</string>
     <string name="preview_card_byline_fediverse_account_fmt">No <b>%1$s</b>. Apskatīt vairāk ierakstu</string>
     <string name="error_prepare_media_file_is_too_large_fmt">datnes izmērs ir %1$s, lielākais pieļaujamais lielums ir %2$s</string>
-    <string name="pref_notification_fetch_method_title">Paziņojuma veids</string>
     <string name="search_operator_from_ignore_account_fmt">Ne %1$s</string>
     <string name="search_operator_from_dialog_title">Ierobežot noteiktiem kontiem?</string>
     <string name="search_operator_from_ignore_me">Ne mani ieraksti</string>
@@ -769,8 +761,6 @@
     <string name="pref_title_public_filter_home_and_lists">Sākums un saraksti</string>
     <string name="search_operator_where_library">Tava bibliotēka</string>
     <string name="search_operator_where_all">Visi ieraksti ▾</string>
-    <string name="pref_notification_method_pull">Atgādāšana</string>
-    <string name="pref_notification_method_push">Pašpiegāde</string>
     <string name="pref_notification_method_all_pull">Tiek iegūti apmēram reizi 15 minūtēs. Piesist, lai uzzinātu vairāk.</string>
     <string name="pref_notification_method_mixed">Daži konti izmanto UnifiedPush, daži - pārbauda ik pēc 15 minūtēm. Piesist, lai uzzinātu vairāk</string>
     <string name="pref_notification_battery_optimisation_should_ignore">Akumulatora optimizēšanai vajadzētu būt atspējotai. Piesist, lai atvērtu.</string>
@@ -820,5 +810,4 @@
     <string name="search_operator_attachment_dialog_any_label">Jebkurš veids</string>
     <string name="pref_notification_up_distributor_name_fmt">%1$s. Jāpiesit, lai atvērtu</string>
     <string name="help_empty_home">Šī ir tava <b>mājas laika līnija</b>. Tajā tiek parādīti neseni ieraksti no kontiem, kuriem seko.\n\nLai izpētītu kontus, tos var atklāt kādā no citām laika līnijām. Piemēram, vietējā sava servera laika līnijā [iconics mgd_group]. Vai arī var meklēt kontus pēc vārda [iconics gmd_search]; piemēram, meklēt \"Pachli\", lai atrastu mūsu Mastodon kontu.</string>
-    <string name="title_logout_fmt">Atteikties %1$s</string>
 </resources>

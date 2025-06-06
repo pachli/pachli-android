@@ -112,7 +112,6 @@
     <string name="action_remove">ลบ</string>
     <string name="compose_active_account_description">โพสต์ด้วยบัญชี %1$s</string>
     <string name="add_account_description">เพิ่มบัญชี Mastodon ใหม่</string>
-    <string name="add_account_name">เพิ่มบัญชี</string>
     <string name="filter_add_description">วลีที่ต้องการกรอง</string>
     <string name="filter_dialog_whole_word_description">ถ้าคำหลักหรือวลีเป็นอักษรผสมตัวเลข จะใช้ได้ผลเมื่อตรงทั้งคำเท่านั้น</string>
     <string name="filter_dialog_whole_word">ทั้งคำ</string>
@@ -292,7 +291,6 @@
     <string name="action_block">บล็อก</string>
     <string name="action_unfollow">เลิกติดตาม</string>
     <string name="action_follow">ติดตาม</string>
-    <string name="action_logout_confirm">คุณต้องการออกจากระบบของบัญชี %1$s หรือไม่?</string>
     <string name="action_compose">เขียนโพสต์ใหม่</string>
     <string name="action_unfavourite">เลิกชื่นชอบ</string>
     <string name="action_bookmark">คั่นหน้า</string>
@@ -350,7 +348,6 @@
     <string name="action_edit_profile">แก้ไขโปรไฟล์</string>
     <string name="action_view_account_preferences">การกำหนดลักษณะบัญชี</string>
     <string name="action_view_preferences">การกำหนดลักษณะ</string>
-    <string name="action_logout">ออกจากระบบ</string>
     <string name="title_drafts">ฉบับร่าง</string>
     <string name="title_favourites">ชื่นชอบ</string>
     <string name="poll_allow_multiple_choices">เลือกได้หลายตัวเลือก</string>

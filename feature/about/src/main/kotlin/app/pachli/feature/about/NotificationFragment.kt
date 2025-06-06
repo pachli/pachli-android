@@ -34,9 +34,6 @@ import app.pachli.feature.about.databinding.FragmentNotificationBinding
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
-import java.time.Duration
-import java.time.ZoneId
-import java.time.format.DateTimeFormatter
 
 /**
  * Fragment that hosts [NotificationDetailsFragment] and [NotificationLogFragment]
@@ -117,24 +114,3 @@ class NotificationFragmentAdapter(val fragment: Fragment) : CustomFragmentStateA
         }
     }
 }
-
-/**
- * @return The [Duration] formatted as `NNdNNhNNmNNs` (e.g., `01d23h15m23s`) with any leading
- *     zero components removed. So 34 minutes and 15 seconds is `34m15s` not `00d00h34m15s`.
- */
-fun Duration.asDdHhMmSs(): String {
-    val days = this.toDaysPart()
-    val hours = this.toHoursPart()
-    val minutes = this.toMinutesPart()
-    val seconds = this.toSecondsPart()
-
-    return when {
-        days > 0 -> "%02dd%02dh%02dm%02ds".format(days, hours, minutes, seconds)
-        hours > 0 -> "%02dh%02dm%02ds".format(hours, minutes, seconds)
-        minutes > 0 -> "%02dm%02ds".format(minutes, seconds)
-        else -> "%02ds".format(seconds)
-    }
-}
-
-val instantFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm:ss")
-    .withZone(ZoneId.systemDefault())

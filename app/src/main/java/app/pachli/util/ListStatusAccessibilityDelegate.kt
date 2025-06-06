@@ -56,13 +56,13 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
                 if (status.statusViewData == null) return
             }
 
-            if (status.spoilerText.isNotEmpty()) {
+            val actionable = status.actionable
+            if (actionable.spoilerText.isNotEmpty()) {
                 info.addAction(if (status.isExpanded) collapseCwAction else expandCwAction)
             }
 
             info.addAction(replyAction)
 
-            val actionable = status.actionable
             if (actionable.rebloggingAllowed()) {
                 info.addAction(if (actionable.reblogged) unreblogAction else reblogAction)
             }

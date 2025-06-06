@@ -49,8 +49,6 @@
     <string name="action_favourite">Нравится</string>
     <string name="action_unfavourite">Убрать из избранного</string>
     <string name="action_compose">Сочинить</string>
-    <string name="action_logout">Выйти</string>
-    <string name="action_logout_confirm">Вы действительно хотите выйти из учётной записи %1$s?</string>
     <string name="action_follow">Подписаться</string>
     <string name="action_unfollow">Отписаться</string>
     <string name="action_block">Заблокировать</string>
@@ -241,7 +239,6 @@
     <string name="filter_dialog_remove_button">Удалить</string>
     <string name="filter_dialog_update_button">Обновить</string>
     <string name="filter_add_description">Слова на фильтр</string>
-    <string name="add_account_name">Добавить аккаунт</string>
     <string name="add_account_description">Добавить новый акканут Mastodon</string>
     <string name="compose_active_account_description">Отправка от имени %1$s</string>
     <string name="action_remove">Удалить</string>

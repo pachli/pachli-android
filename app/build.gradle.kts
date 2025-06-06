@@ -32,8 +32,8 @@ android {
 
     defaultConfig {
         applicationId = "app.pachli"
-        versionCode = 30
-        versionName = "2.12.0"
+        versionCode = 31
+        versionName = "2.13.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments["disableAnalytics"] = "true"
@@ -70,6 +70,10 @@ android {
     dependenciesInfo {
         includeInApk = false
         includeInBundle = false
+    }
+
+    lint {
+        checkDependencies = true
     }
 
     testOptions {
@@ -142,6 +146,7 @@ dependencies {
     implementation(projects.feature.intentrouter)
     implementation(projects.feature.lists)
     implementation(projects.feature.login)
+    implementation(projects.feature.manageaccounts)
     implementation(projects.feature.suggestions)
 
     implementation(libs.kotlinx.coroutines.android)

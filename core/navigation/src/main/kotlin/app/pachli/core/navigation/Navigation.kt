@@ -927,6 +927,12 @@ class LoginWebViewActivityIntent(context: Context) : Intent() {
     }
 }
 
+class ManageAccountsActivityIntent(context: Context) : Intent() {
+    init {
+        setClassName(context, QuadrantConstants.MANAGE_ACCOUNTS_ACTIVITY)
+    }
+}
+
 class ScheduledStatusActivityIntent(context: Context, pachliAccountId: Long) : Intent() {
     init {
         setClassName(context, QuadrantConstants.SCHEDULED_STATUS_ACTIVITY)

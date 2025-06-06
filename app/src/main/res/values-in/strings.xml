@@ -124,7 +124,6 @@
     <string name="post_text_size_smallest">Terkecil</string>
     <string name="notification_favourite_name">Favorit</string>
     <string name="post_media_images">Gambar</string>
-    <string name="add_account_name">Tambah Akun</string>
     <string name="later">Nanti</string>
     <string name="pachli_compose_post_quicksetting_label">Tulis Postingan</string>
     <string name="error_media_upload_image_or_video">gambar dan video tidak dapat dilampirkan ke postingan yang sama.</string>
@@ -148,8 +147,6 @@
     <string name="action_unfavourite">Hapus favorit</string>
     <string name="action_unbookmark">Hapus bookmark</string>
     <string name="action_compose">Menyusun</string>
-    <string name="action_logout">Keluar</string>
-    <string name="action_logout_confirm">Apakah kamu yakin ingin keluar dari akun %1$s?</string>
     <string name="action_hide_reblogs">Sembunyikan boost</string>
     <string name="action_show_reblogs">Tampilkan boost</string>
     <string name="action_view_domain_mutes">Domain tersembunyi</string>

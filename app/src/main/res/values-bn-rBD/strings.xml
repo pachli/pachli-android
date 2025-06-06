@@ -46,7 +46,6 @@
     <string name="lock_account_label">অ্যাকাউন্ট লক করুন</string>
     <string name="compose_active_account_description">অ্যাকাউন্ট %1$s থেকে পোস্ট করা হচ্ছে</string>
     <string name="add_account_description">নতুন ম্যাস্টোডোন অ্যাকাউন্ট যোগ করুন</string>
-    <string name="add_account_name">অ্যাকাউন্ট যোগ করুন</string>
     <string name="filter_add_description">বাক্য ফিল্টার কর</string>
     <string name="filter_dialog_update_button">আপডেট</string>
     <string name="filter_dialog_remove_button">সরাও</string>
@@ -198,8 +197,6 @@
     <string name="action_block">অবরুদ্ধ</string>
     <string name="action_unfollow">অনুসরণ করা বন্ধ করুন</string>
     <string name="action_follow">অনুসরণ কর</string>
-    <string name="action_logout_confirm">আপনি কি অ্যাকাউন্ট %1$s থেকে লগ আউট করতে চান?</string>
-    <string name="action_logout">লগ আউট</string>
     <string name="action_compose">রচনা</string>
     <string name="action_unfavourite">পছন্দ সরান</string>
     <string name="action_favourite">পছন্দ</string>

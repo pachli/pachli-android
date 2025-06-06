@@ -26,6 +26,9 @@ import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.Rect
 import android.graphics.RectF
+import android.os.Build
+import android.text.Selection
+import android.text.Spannable
 import android.text.Spanned
 import android.text.style.ClickableSpan
 import android.text.style.URLSpan
@@ -44,9 +47,6 @@ import androidx.core.view.doOnLayout
 import app.pachli.core.designsystem.R as DR
 import java.lang.Float.max
 import java.lang.Float.min
-import kotlin.collections.component1
-import kotlin.collections.component2
-import kotlin.collections.set
 import kotlin.math.abs
 import timber.log.Timber
 
@@ -216,6 +216,28 @@ class ClickableSpanTextView @JvmOverloads constructor(
                 delegateRects[rect] = span
             }
         }
+    }
+
+    override fun dispatchTouchEvent(event: MotionEvent): Boolean {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O_MR1) return super.dispatchTouchEvent(event)
+
+        // Prevent crash on Android <= O_MR1. The selection state can be lost
+        // later, causing `selectionEnd` to return -1. Fix this by explicitly
+        // resetting the selection (if present) or resetting the text.
+        //
+        // See https://issuetracker.google.com/issues/37068143.
+        val start = selectionStart
+        val end = selectionEnd
+        val content = text as? Spannable
+
+        if (content != null && (start < 0 || end < 0)) {
+            Selection.setSelection(content, content.length)
+        } else if (start != end && event.actionMasked == ACTION_DOWN) {
+            text = null
+            text = content
+        }
+
+        return super.dispatchTouchEvent(event)
     }
 
     /**

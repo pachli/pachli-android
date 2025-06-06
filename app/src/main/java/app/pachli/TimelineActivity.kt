@@ -159,7 +159,7 @@ class TimelineActivity : ViewUrlActivity(), AppBarLayoutHost, ActionButtonActivi
         // addable to a tab)
         val currentTabs = accountManager.activeAccount?.tabPreferences.orEmpty()
         val hideMenu = timeline is Timeline.Link || currentTabs.contains(timeline)
-        menu.findItem(R.id.action_add_to_tab)?.setVisible(!hideMenu)
+        menu.findItem(R.id.action_add_to_tab)?.isVisible = !hideMenu
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
@@ -167,7 +167,7 @@ class TimelineActivity : ViewUrlActivity(), AppBarLayoutHost, ActionButtonActivi
             R.id.action_add_to_tab -> {
                 addToTab()
                 Toast.makeText(this, getString(R.string.action_add_to_tab_success, supportActionBar?.title), Toast.LENGTH_LONG).show()
-                menuItem.setVisible(false)
+                menuItem.isVisible = false
                 true
             }
             R.id.action_follow_hashtag -> {

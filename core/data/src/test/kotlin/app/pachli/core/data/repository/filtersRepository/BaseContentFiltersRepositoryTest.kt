@@ -29,7 +29,8 @@ import app.pachli.core.database.AppDatabase
 import app.pachli.core.database.dao.ContentFiltersDao
 import app.pachli.core.database.dao.InstanceDao
 import app.pachli.core.network.di.test.DEFAULT_INSTANCE_V2
-import app.pachli.core.network.model.Account
+import app.pachli.core.network.model.AccountSource
+import app.pachli.core.network.model.CredentialAccount
 import app.pachli.core.network.model.Filter
 import app.pachli.core.network.model.FilterAction
 import app.pachli.core.network.model.FilterContext
@@ -49,7 +50,6 @@ import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import java.time.Instant
-import java.util.Date
 import javax.inject.Inject
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
@@ -112,16 +112,17 @@ abstract class BaseContentFiltersRepositoryTest {
 
     protected var pachliAccountId = 0L
 
-    protected val account = Account(
+    protected val account = CredentialAccount(
         id = "1",
         localUsername = "username",
         username = "username@domain.example",
         displayName = "Display Name",
-        createdAt = Date.from(Instant.now()),
+        createdAt = Instant.now(),
         note = "",
         url = "",
         avatar = "",
         header = "",
+        source = AccountSource(),
     )
 }
 

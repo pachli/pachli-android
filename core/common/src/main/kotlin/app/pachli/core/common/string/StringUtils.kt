@@ -2,15 +2,14 @@ package app.pachli.core.common.string
 
 import android.text.Spanned
 import java.text.BreakIterator
-import java.util.Random
+import kotlin.random.Random
 
 private const val POSSIBLE_CHARS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 fun randomAlphanumericString(count: Int): String {
     val chars = CharArray(count)
-    val random = Random()
     for (i in 0 until count) {
-        chars[i] = POSSIBLE_CHARS[random.nextInt(POSSIBLE_CHARS.length)]
+        chars[i] = POSSIBLE_CHARS[Random.nextInt(POSSIBLE_CHARS.length)]
     }
     return String(chars)
 }

@@ -15,4 +15,7 @@
     <string name="title_hashtags_dialog">Hashtagy</string>
     <string name="title_mentions_dialog">Zmínky</string>
     <string name="button_continue">Pokračovat</string>
+    <string name="action_logout_confirm">Jste si jistý/á, že se chcete odhlásit z účtu %1$s?</string>
+    <string name="add_account_name">Přidat účet</string>
+    <string name="action_logout">Odhlásit se</string>
 </resources>

@@ -33,7 +33,6 @@
     <string name="notification_details_ntfy_exempt_help">NTFY is niet uitgezonderd van batterij optimalisaties. Android kan notificaties vertragen wanneer het scherm uitgeschakeld is.</string>
     <string name="notification_details_pachli_exempt_help">Pachli is niet uitgezonderd van batterij optimalisatie. Android kan notificaties vertragen wanneer het scherm uitgeschakeld is.</string>
     <string name="notification_details_workers_help">Dit is de lijst van periodiek werk voor nieuwe notificaties. Er zou één moeten zijn, met de staat RUNNING of ENQUEUED, en zij zou geplanned moeten zijn om binnen 15 minuten uit te voeren.</string>
-    <string name="notification_details_last_fetch_label">Laatste /api/v1/notifications verzoek</string>
     <string name="notification_details_last_fetch_help">Ongeacht de notificatie methode, toont dit, per account, wanneer het laatste fetch verzoek gebeurde, of het een succes was, en het fout bericht indien dit niet het geval was.</string>
     <string name="notification_details_usage_event">Energie beheer restricties</string>
     <string name="notification_details_ago">%1$s geleden @ %2$s</string>

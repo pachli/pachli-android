@@ -16,4 +16,7 @@
     <string name="title_hashtags_dialog">Хештеги</string>
     <string name="title_mentions_dialog">Згадки</string>
     <string name="button_continue">Продовжити</string>
+    <string name="action_logout_confirm">Ви впевнені, що хочете вийти %1$s? Це призведе до видалення всіх локальних даних облікового запису, включно з чернетками та вподобаннями.</string>
+    <string name="add_account_name">Додати обліковий запис</string>
+    <string name="action_logout">Вийти</string>
 </resources>
