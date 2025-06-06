@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="server_repository_error_get_well_known_node_info">получение /.well-known/nodeinfo не удалось: %1$s</string>
+    <string name="server_repository_error_unsupported_schema">/.well-known/nodeinfo не содержит понятных схем</string>
+    <string name="server_repository_error_get_node_info">получение nodeinfo %1$s не удалось: %2$s</string>
+    <string name="server_repository_error_validate_node_info">проверка nodeinfo %1$s не удалась: %2$s</string>
+    <string name="server_repository_error_get_instance_info">получение /api/v1/instance не удалось: %1$s</string>
+</resources>
