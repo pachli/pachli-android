@@ -151,7 +151,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
         statusDisplayOptions: StatusDisplayOptions,
         listener: StatusActionListener<T>,
     ) {
-        val spoilerText = viewData.spoilerText
+        val spoilerText = viewData.actionable.spoilerText
         val sensitive = !TextUtils.isEmpty(spoilerText)
         val expanded = viewData.isExpanded
         if (sensitive) {
@@ -222,7 +222,11 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
         statusDisplayOptions: StatusDisplayOptions,
         listener: StatusActionListener<T>,
     ) {
-        val (_, _, _, _, _, _, _, _, _, emojis, _, _, _, _, _, _, _, _, _, _, mentions, tags, _, _, _, poll) = viewData.actionable
+        val emojis = viewData.actionable.emojis
+        val mentions = viewData.actionable.mentions
+        val tags = viewData.actionable.tags
+        val poll = viewData.actionable.poll
+
         when (viewData.translationState) {
             TranslationState.SHOW_ORIGINAL -> translationProvider?.hide()
             TranslationState.TRANSLATING -> {
@@ -334,7 +338,9 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
         statusDisplayOptions: StatusDisplayOptions,
         listener: StatusActionListener<T>,
     ) {
-        val (_, _, _, _, _, _, _, createdAt, editedAt) = viewData.actionable
+        val createdAt = viewData.actionable.createdAt
+        val editedAt = viewData.actionable.editedAt
+
         var timestampText: String
         timestampText = if (statusDisplayOptions.useAbsoluteTime) {
             absoluteTimeFormatter.format(createdAt, true)
@@ -690,7 +696,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
         if (payloads == null) {
             val actionable = viewData.actionable
             setDisplayName(actionable.account.name, actionable.account.emojis, statusDisplayOptions)
-            setUsername(viewData.username)
+            setUsername(actionable.account.username)
             setMetaData(viewData, statusDisplayOptions, listener)
             setIsReply(actionable.inReplyToId != null)
             setReplyCount(actionable.repliesCount, statusDisplayOptions.showStatsInline)
@@ -769,7 +775,17 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
 
     /** Creates and sets the content description for the status. */
     private fun setContentDescriptionForStatus(viewData: T, statusDisplayOptions: StatusDisplayOptions) {
-        val (_, _, account, _, _, _, _, createdAt, editedAt, _, reblogsCount, favouritesCount, _, reblogged, favourited, bookmarked, sensitive, _, visibility) = viewData.actionable
+        val account = viewData.actionable.account
+        val createdAt = viewData.actionable.createdAt
+        val editedAt = viewData.actionable.editedAt
+        val reblogsCount = viewData.actionable.reblogsCount
+        val favouritesCount = viewData.actionable.favouritesCount
+        val reblogged = viewData.actionable.reblogged
+        val favourited = viewData.actionable.favourited
+        val bookmarked = viewData.actionable.bookmarked
+        val sensitive = viewData.actionable.sensitive
+        val visibility = viewData.actionable.visibility
+        val spoilerText = viewData.actionable.spoilerText
 
         // Build the content description using a string builder instead of a string resource
         // as there are many places where optional ";" and "," are needed.
@@ -798,7 +814,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
 
             // Content is optional, and hidden if there are spoilers or the status is
             // marked sensitive, and it has not been expanded.
-            if (TextUtils.isEmpty(viewData.spoilerText) || !sensitive || viewData.isExpanded) {
+            if (TextUtils.isEmpty(spoilerText) || !sensitive || viewData.isExpanded) {
                 append(viewData.content.parseAsMastodonHtml(), ", ")
             }
 
@@ -820,7 +836,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
 
             getReblogDescription(context, viewData)?.let { append(", ", it) }
 
-            append(", ", viewData.username)
+            append(", ", viewData.actionable.account.username)
 
             if (reblogged) {
                 append(", ", context.getString(R.string.description_post_reblogged))
@@ -879,7 +895,11 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
     ) {
         cardView ?: return
 
-        val (_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, sensitive, _, _, attachments, _, _, _, _, _, poll, card) = viewData.actionable
+        val sensitive = viewData.actionable.sensitive
+        val attachments = viewData.actionable.attachments
+        val poll = viewData.actionable.poll
+        val card = viewData.actionable.card
+
         if (cardViewMode !== CardViewMode.NONE &&
             attachments.isEmpty() &&
             poll == null &&
@@ -946,11 +966,10 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
 
         /** @return "Content warning: {spoilerText}", for use in a content description. */
         private fun getContentWarningDescription(context: Context, status: IStatusViewData): String? {
-            return if (!TextUtils.isEmpty(status.spoilerText)) {
-                context.getString(R.string.description_post_cw, status.spoilerText)
-            } else {
-                null
-            }
+            val spoilerText = status.actionable.spoilerText
+            if (spoilerText.isEmpty()) return null
+
+            return context.getString(R.string.description_post_cw, status.spoilerText)
         }
     }
 }

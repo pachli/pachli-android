@@ -83,7 +83,7 @@ class AccountMediaGridAdapter(
                 overlay.setBackgroundResource(0)
                 overlay.visible(item.attachment.type.isPlayable())
 
-                val (placeholder, _, _) = item.attachment.placeholder(context, preview)
+                val placeholder = item.attachment.placeholder(context, preview).first
 
                 glide.asBitmap()
                     .load(item.attachment.previewUrl)
