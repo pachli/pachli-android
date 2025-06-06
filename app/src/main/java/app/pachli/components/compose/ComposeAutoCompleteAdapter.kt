@@ -112,8 +112,7 @@ class ComposeAutoCompleteAdapter(
 
         when (val binding = view.tag) {
             is ItemAutocompleteAccountBinding -> {
-                val accountResult = getItem(position) as AutocompleteResult.AccountResult
-                val account = accountResult.account
+                val account = (getItem(position) as AutocompleteResult.AccountResult).account
                 binding.username.text = context.getString(DR.string.post_username_format, account.username)
                 binding.displayName.text = account.name.emojify(
                     glide,
@@ -137,11 +136,9 @@ class ComposeAutoCompleteAdapter(
                 binding.usage7d.text = formatNumber(result.usage7d.toLong(), 10000)
             }
             is ItemAutocompleteEmojiBinding -> {
-                val emojiResult = getItem(position) as AutocompleteResult.EmojiResult
-                val (shortcode, url) = emojiResult.emoji
-                binding.shortcode.text = context.getString(R.string.emoji_shortcode_format, shortcode)
-                glide.load(url)
-                    .into(binding.preview)
+                val emoji = (getItem(position) as AutocompleteResult.EmojiResult).emoji
+                binding.shortcode.text = context.getString(R.string.emoji_shortcode_format, emoji.shortcode)
+                glide.load(emoji.url).into(binding.preview)
             }
         }
         return view
