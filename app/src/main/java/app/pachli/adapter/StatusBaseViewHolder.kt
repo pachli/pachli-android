@@ -6,14 +6,12 @@ import android.text.TextUtils
 import android.text.format.DateUtils
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.PopupMenu
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
@@ -82,9 +80,6 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
     private val favouriteButton: SparkButton = itemView.findViewById(R.id.status_favourite)
     private val bookmarkButton: SparkButton = itemView.findViewById(R.id.status_bookmark)
     private val moreButton: ImageButton = itemView.findViewById(R.id.status_more)
-    private val mediaContainer: ConstraintLayout = itemView.findViewById<ConstraintLayout?>(R.id.status_media_preview_container).apply {
-        clipToOutline = true
-    }
     protected val mediaPreview: MediaPreviewLayout = itemView.findViewById(R.id.status_media_preview)
     private val sensitiveMediaWarning: TextView = itemView.findViewById(R.id.status_sensitive_media_warning)
     private val sensitiveMediaShow: View = itemView.findViewById(R.id.status_sensitive_media_button)
@@ -103,10 +98,6 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
     private val contentWarningDescription: TextView = itemView.findViewById(R.id.status_content_warning_description)
     private val pollView: PollView = itemView.findViewById(R.id.status_poll)
     private val cardView: PreviewCardView? = itemView.findViewById(R.id.status_card_view)
-    private val filteredPlaceholder: ConstraintLayout? = itemView.findViewById(R.id.status_filtered_placeholder)
-    private val filteredPlaceholderLabel: TextView? = itemView.findViewById(R.id.status_filter_label)
-    private val filteredPlaceholderShowButton: Button? = itemView.findViewById(R.id.status_filter_show_anyway)
-    private val statusContainer: ConstraintLayout? = itemView.findViewById(R.id.status_container)
     private val numberFormat = NumberFormat.getNumberInstance()
     private val absoluteTimeFormatter = AbsoluteTimeFormatter()
     private val translationProvider: TextView? = itemView.findViewById<TextView?>(R.id.translationProvider)?.apply {
