@@ -1,2 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="sources_featured">由您的服务器团队精心挑选</string>
+    <string name="source_unknown">（服务器返回无法识别的源）</string>
+    <string name="title_suggestions">推荐帐号</string>
+    <string name="sources_most_followed">服务器上最受关注的账号</string>
+    <string name="sources_friends_of_friends">在您关注的人中受欢迎</string>
+    <string name="sources_unknown">（服务器返回无法识别的源）</string>
+    <string name="action_follow_account">关注</string>
+    <string name="action_dismiss_follow_suggestion">取消</string>
+    <string name="ui_error_delete_suggestion_fmt">取消对%1$s的建议失败：%2$s</string>
+    <string name="ui_error_follow_account_fmt">关注%1$s失败：%2$s</string>
+    <string name="follower_count_fmt"><b>%1$s</b>关注者</string>
+    <string name="follows_count_fmt"><b>%1$s</b>关注</string>
+    <string name="statuses_count_per_week_fmt"><b>%1$s</b>条嘟文（每周<b>%2$d</b> 条）</string>
+    <string name="statuses_count_fmt"><b>%1$s</b> 嘟文</string>
+    <string name="sources_similar_to_recently_followed">类似于您最近关注的帐户</string>
+    <string name="sources_most_interactions">在您的服务器上获得大量关注</string>
+</resources>
