@@ -29,7 +29,8 @@ import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_CHARACTERS_RESERVED_
 import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_CHARACTER_LIMIT
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
-import app.pachli.core.network.model.Account
+import app.pachli.core.network.model.AccountSource
+import app.pachli.core.network.model.CredentialAccount
 import app.pachli.core.network.model.InstanceConfiguration
 import app.pachli.core.network.model.InstanceV1
 import app.pachli.core.network.model.SearchResult
@@ -48,7 +49,6 @@ import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import java.time.Instant
-import java.util.Date
 import java.util.Locale
 import javax.inject.Inject
 import kotlin.properties.Delegates
@@ -118,16 +118,17 @@ class ComposeActivityTest {
 
     private var pachliAccountId by Delegates.notNull<Long>()
 
-    val account = Account(
+    val account = CredentialAccount(
         id = "1",
         localUsername = "username",
         username = "username@domain.example",
         displayName = "Display Name",
-        createdAt = Date.from(Instant.now()),
+        createdAt = Instant.now(),
         note = "",
         url = "",
         avatar = "",
         header = "",
+        source = AccountSource(),
     )
 
     @Before

@@ -12,4 +12,7 @@
     <string name="title_links_dialog">链接</string>
     <string name="title_hashtags_dialog">话题</string>
     <string name="title_mentions_dialog">提及</string>
+    <string name="action_logout_confirm">确定要退出账号 %1$s 吗？</string>
+    <string name="add_account_name">添加账号</string>
+    <string name="action_logout">退出登录</string>
 </resources>

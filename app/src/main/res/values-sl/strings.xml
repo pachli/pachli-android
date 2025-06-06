@@ -47,8 +47,6 @@
     <string name="action_unreblog">Odstrani spodbudo</string>
     <string name="action_favourite">Vzljubi</string>
     <string name="action_compose">Sestavi</string>
-    <string name="action_logout">Odjava</string>
-    <string name="action_logout_confirm">Ali ste prepričani, da se želite odjaviti iz računa %1$s?</string>
     <string name="action_follow">Sledi</string>
     <string name="action_unfollow">Prenehaj slediti</string>
     <string name="action_block">Blokiraj</string>
@@ -198,7 +196,6 @@
     <string name="filter_dialog_remove_button">Odstrani</string>
     <string name="filter_dialog_update_button">Posodobi</string>
     <string name="filter_add_description">Filtriraj frazo</string>
-    <string name="add_account_name">Dodaj račun</string>
     <string name="add_account_description">Dodaj nov Mastodon račun</string>
     <string name="compose_active_account_description">Objavljanje z računom %1$s</string>
     <string name="action_remove">Odstrani</string>

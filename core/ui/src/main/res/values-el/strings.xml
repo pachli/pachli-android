@@ -7,4 +7,6 @@
     <string name="action_more">Περισσότερα</string>
     <string name="action_links">Σύνδεσμοι</string>
     <string name="title_links_dialog">Σύνδεσμοι</string>
+    <string name="action_logout_confirm">Είστε σίγουροι ότι θέλετε να αποσυνδεθείτε από τον λογαριασμό %1$s;</string>
+    <string name="action_logout">Αποσύνδεση</string>
 </resources>

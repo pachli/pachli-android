@@ -391,7 +391,11 @@ private fun getStatusReplyIntent(
 ): PendingIntent {
     val status = body.status!!
     val inReplyToId = status.id
-    val (_, _, account1, _, _, _, _, _, _, _, _, _, _, _, _, _, _, contentWarning, replyVisibility, _, mentions) = status.actionableStatus
+    val account1 = status.actionableStatus.account
+    val contentWarning = status.actionableStatus.spoilerText
+    val replyVisibility = status.actionableStatus.visibility
+    val mentions = status.actionableStatus.mentions
+
     var mentionedUsernames: MutableList<String?> = ArrayList()
     mentionedUsernames.add(account1.username)
     for ((_, _, username) in mentions) {
@@ -426,7 +430,12 @@ private fun getStatusComposeIntent(
     account: AccountEntity,
 ): PendingIntent {
     val status = body.status!!
-    val (_, _, account1, _, _, _, _, _, _, _, _, _, _, _, _, _, _, contentWarning, replyVisibility, _, mentions, _, _, _, _, _, _, language) = status.actionableStatus
+    val account1 = status.actionableStatus.account
+    val contentWarning = status.actionableStatus.spoilerText
+    val replyVisibility = status.actionableStatus.visibility
+    val mentions = status.actionableStatus.mentions
+    val language = status.actionableStatus.language
+
     val mentionedUsernames: MutableSet<String> = LinkedHashSet()
     mentionedUsernames.add(account1.username)
     for ((_, _, mentionedUsername) in mentions) {

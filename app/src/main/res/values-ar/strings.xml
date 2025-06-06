@@ -49,8 +49,6 @@
     <string name="action_favourite">تفضيل</string>
     <string name="action_unfavourite">إزالة المفضلة</string>
     <string name="action_compose">حرر</string>
-    <string name="action_logout">خروج</string>
-    <string name="action_logout_confirm">متأكد مِن أنك تود الخروج من الحساب %1$s؟</string>
     <string name="action_follow">إتبع</string>
     <string name="action_unfollow">إلغاء المتابعة</string>
     <string name="action_block">قم بحظره</string>
@@ -215,7 +213,6 @@
     <string name="filter_dialog_remove_button">إزالة</string>
     <string name="filter_dialog_update_button">تحديث</string>
     <string name="filter_add_description">العبارة التي يلزم تصفيتها</string>
-    <string name="add_account_name">إضافة حساب</string>
     <string name="add_account_description">إضافة حساب ماستدون جديد</string>
     <string name="compose_active_account_description">النشر بإسم %1$s</string>
     <string name="action_remove">حذف</string>

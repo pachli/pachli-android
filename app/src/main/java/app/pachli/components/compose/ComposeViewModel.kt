@@ -150,6 +150,7 @@ internal sealed interface FallibleUiAction : UiAction {
     ) : FallibleUiAction
 
     /**
+     * Attaches media identified by [uri] to this post.
      *
      * @param replaceItemId [ID][QueuedMedia.localId] of an existing
      * attachment that should be replaced. Null if this media should
@@ -212,8 +213,6 @@ class ComposeViewModel @Inject constructor(
         accountManager.getPachliAccountFlow(it).filterNotNull()
     }.shareIn(viewModelScope, SharingStarted.WhileSubscribed(5000), replay = 1)
 
-//    private lateinit var pachliAccount: PachliAccount
-
     val composeOptions = MutableStateFlow<ComposeOptions>(ComposeOptions())
 
     /** Flow of user actions received from the UI */
@@ -266,8 +265,6 @@ class ComposeViewModel @Inject constructor(
                 }
             }.flowWhileShared(SharingStarted.WhileSubscribed(5000))
     }
-
-//    internal fun reloadReply() = viewModelScope.launch { reloadReply.emit(Unit) }
 
     /** The initial content for this status, before any edits */
     private val initialContent = MutableSharedFlow<String>(replay = 1)
@@ -390,6 +387,7 @@ class ComposeViewModel @Inject constructor(
     var cropImageItemOld: QueuedMedia? = null
 
     // TODO: Copied from MainViewModel. Probably belongs back in AccountManager
+
     /** True if the account's username should be shown, false otherwise. */
     val displaySelfUsername = sharedPreferencesRepository.changes.filter { it == PrefKeys.SHOW_SELF_USERNAME }.onStart { emit(null) }
         .combine(accountManager.accountsFlow) { _, accounts ->

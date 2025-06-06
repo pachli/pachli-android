@@ -16,4 +16,7 @@
     <string name="title_hashtags_dialog">Etiquetas</string>
     <string name="title_mentions_dialog">Mencions</string>
     <string name="button_continue">Contunhar</string>
+    <string name="action_logout_confirm">Volètz vertadièrament vos desconnectar del compte %1$s ?</string>
+    <string name="add_account_name">Apondre un compte</string>
+    <string name="action_logout">Tampar la session</string>
 </resources>

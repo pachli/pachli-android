@@ -280,16 +280,7 @@ class ComposeActivity :
 
         setupActionBar()
 
-//        val composeOptions: ComposeOptions? = ComposeActivityIntent.getComposeOptions(intent)
-        val composeOptions = ComposeActivityIntent.getComposeOptions(intent).let { composeOptions ->
-            savedInstanceState?.let {
-                composeOptions.copy(
-                    visibility = BundleCompat.getSerializable(it, KEY_VISIBILITY, Status.Visibility::class.java),
-                    scheduledAt = BundleCompat.getSerializable(it, KEY_SCHEDULED_TIME, Date::class.java),
-                    // TODO: Something about the content warning visibility?
-                )
-            } ?: composeOptions
-        }
+        val composeOptions = ComposeActivityIntent.getComposeOptions(intent)
 
         binding.replyLoadingErrorRetry.setOnClickListener { viewModel.accept(FallibleUiAction.LoadInReplyTo) }
 
@@ -356,22 +347,20 @@ class ComposeActivity :
                         setupPollView(account.instanceInfo)
                         applyShareIntent(intent, savedInstanceState)
 
-                        /* Finally, overwrite state with data from saved instance state. */
-                        // TODO: This should update composeOptions before it gets sent to
-                        // the viewmodel.
-//                        savedInstanceState?.let {
-//                            (it.getSerializable(KEY_VISIBILITY) as Status.Visibility).apply {
-//                                setStatusVisibility(this)
-//                            }
-//
-//                            it.getBoolean(KEY_CONTENT_WARNING_VISIBLE).apply {
-//                                viewModel.showContentWarningChanged(this)
-//                            }
-//
-//                            (it.getSerializable(KEY_SCHEDULED_TIME) as? Date)?.let { time ->
-//                                viewModel.updateScheduledAt(time)
-//                            }
-//                        }
+                        /* Finally, update state with data from saved instance state. */
+                        savedInstanceState?.let {
+                            (it.getSerializable(KEY_VISIBILITY) as Status.Visibility).apply {
+                                setStatusVisibility(this)
+                            }
+
+                            it.getBoolean(KEY_CONTENT_WARNING_VISIBLE).apply {
+                                viewModel.showContentWarningChanged(this)
+                            }
+
+                            (it.getSerializable(KEY_SCHEDULED_TIME) as? Date)?.let { time ->
+                                viewModel.updateScheduledAt(time)
+                            }
+                        }
 
                         binding.composeEditField.post {
                             binding.composeEditField.requestFocus()
@@ -388,47 +377,48 @@ class ComposeActivity :
         viewModel.setup(intent.pachliAccountId, composeOptions)
     }
 
+    /*
+     * Get incoming images being sent through a share action from another app. Only do this
+     * when savedInstanceState is null, otherwise both the images from the intent and the
+     * instance state will be re-queued.
+     */
     private fun applyShareIntent(intent: Intent, savedInstanceState: Bundle?) {
-        if (savedInstanceState == null) {
-            /* Get incoming images being sent through a share action from another app. Only do this
-             * when savedInstanceState is null, otherwise both the images from the intent and the
-             * instance state will be re-queued. */
-            intent.type?.also { type ->
-                if (type.startsWith("image/") || type.startsWith("video/") || type.startsWith("audio/")) {
-                    when (intent.action) {
-                        Intent.ACTION_SEND -> {
-                            IntentCompat.getParcelableExtra(intent, Intent.EXTRA_STREAM, Uri::class.java)?.let { uri ->
-                                pickMedia(uri)
-                            }
-                        }
+        if (savedInstanceState != null) return
+        val type = intent.type ?: return
 
-                        Intent.ACTION_SEND_MULTIPLE -> {
-                            IntentCompat.getParcelableArrayListExtra(intent, Intent.EXTRA_STREAM, Uri::class.java)?.forEach { uri ->
-                                pickMedia(uri)
-                            }
-                        }
+        if (type.startsWith("image/") || type.startsWith("video/") || type.startsWith("audio/")) {
+            when (intent.action) {
+                Intent.ACTION_SEND -> {
+                    IntentCompat.getParcelableExtra(intent, Intent.EXTRA_STREAM, Uri::class.java)?.let { uri ->
+                        pickMedia(uri)
                     }
                 }
 
-                val subject = intent.getStringExtra(Intent.EXTRA_SUBJECT)
-                val text = intent.getStringExtra(Intent.EXTRA_TEXT).orEmpty()
-                val shareBody = if (!subject.isNullOrBlank() && subject !in text) {
-                    subject + '\n' + text
-                } else {
-                    text
-                }
-
-                if (shareBody.isNotBlank()) {
-                    val start = binding.composeEditField.selectionStart.coerceAtLeast(0)
-                    val end = binding.composeEditField.selectionEnd.coerceAtLeast(0)
-                    val left = min(start, end)
-                    val right = max(start, end)
-                    binding.composeEditField.text.replace(left, right, shareBody, 0, shareBody.length)
-                    // move edittext cursor to first when shareBody parsed
-                    binding.composeEditField.text.insert(0, "\n")
-                    binding.composeEditField.setSelection(0)
+                Intent.ACTION_SEND_MULTIPLE -> {
+                    IntentCompat.getParcelableArrayListExtra(intent, Intent.EXTRA_STREAM, Uri::class.java)?.forEach { uri ->
+                        pickMedia(uri)
+                    }
                 }
             }
+        }
+
+        val subject = intent.getStringExtra(Intent.EXTRA_SUBJECT)
+        val text = intent.getStringExtra(Intent.EXTRA_TEXT).orEmpty()
+        val shareBody = if (!subject.isNullOrBlank() && subject !in text) {
+            subject + '\n' + text
+        } else {
+            text
+        }
+
+        if (shareBody.isNotBlank()) {
+            val start = binding.composeEditField.selectionStart.coerceAtLeast(0)
+            val end = binding.composeEditField.selectionEnd.coerceAtLeast(0)
+            val left = min(start, end)
+            val right = max(start, end)
+            binding.composeEditField.text.replace(left, right, shareBody, 0, shareBody.length)
+            // move edittext cursor to first when shareBody parsed
+            binding.composeEditField.text.insert(0, "\n")
+            binding.composeEditField.setSelection(0)
         }
     }
 
@@ -529,7 +519,7 @@ class ComposeActivity :
 
             binding.statusDisplayName.text =
                 displayName.emojify(glide, emojis, binding.statusDisplayName, sharedPreferencesRepository.animateEmojis)
-            binding.statusUsername.text = getString(app.pachli.core.designsystem.R.string.post_username_format, username)
+            binding.statusUsername.text = getString(DR.string.post_username_format, username)
 
             if (contentWarning.isEmpty()) {
                 binding.statusContentWarningDescription.hide()

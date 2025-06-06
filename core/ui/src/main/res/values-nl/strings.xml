@@ -16,4 +16,8 @@
     <string name="title_hashtags_dialog">Hashtags</string>
     <string name="title_mentions_dialog">Vermeldingen</string>
     <string name="button_continue">Doorgaan</string>
+    <string name="action_logout_confirm">Weet je zeker dat je %1$s wil afmelden? Dit verwijdert alle lokale gegevens van het account, inclusief conceptberichten en voorkeuren.</string>
+    <string name="add_account_name">Account toevoegen</string>
+    <string name="notification_details_last_fetch_label">Laatste /api/v1/notifications verzoek</string>
+    <string name="action_logout">Uitloggen</string>
 </resources>

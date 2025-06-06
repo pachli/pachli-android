@@ -15,4 +15,7 @@
     <string name="title_hashtags_dialog">निश्रेणिचिह्नशीर्षकाः</string>
     <string name="title_mentions_dialog">उल्लेखाः</string>
     <string name="button_continue">निरन्तरम्</string>
+    <string name="action_logout_confirm">नूनमेव बहिर्गन्तुमीहते %1$s इति व्यक्तित्वलेखात् ?</string>
+    <string name="add_account_name">नवलेखा युज्यताम्</string>
+    <string name="action_logout">बहिर्गम्यताम्</string>
 </resources>

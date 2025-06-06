@@ -44,8 +44,6 @@
     <string name="action_favourite">ကြိုက်သည်</string>
     <string name="action_bookmark">သိမ်းဆည်းမည်</string>
     <string name="action_compose">စာစီမည်</string>
-    <string name="action_logout">ထွက်မည်</string>
-    <string name="action_logout_confirm">သင် %1$s? မှထွက်ရန် သေချာသလား။ပုံကြမ်းများနှင့်ချိန်ညှိမှုများကိုဖျက်မည်ဖြစ်သည်။</string>
     <string name="action_post_failed_show_drafts">ပုံကြမ်းများပြရန်</string>
     <string name="action_post_failed_do_nothing">ပယ်ဖျက်မည်</string>
     <string name="action_follow">စောင့်ကြည့်မည်</string>

@@ -68,8 +68,6 @@
     <string name="action_block">بلۆک</string>
     <string name="action_unfollow">بەدوادانەچو</string>
     <string name="action_follow">شوێنی بکەوە</string>
-    <string name="action_logout_confirm">ئایا دڵنیایت لەوەی دەتەوێت بچیتەدەرەوە لە هەژماری %1$s؟</string>
-    <string name="action_logout">چوونەدەرەوە</string>
     <string name="action_compose">دروستکردن</string>
     <string name="action_unfavourite">لابردنی دڵخوازەکان</string>
     <string name="action_bookmark">نیشانه</string>
@@ -326,7 +324,6 @@
     <string name="action_remove">لابردن</string>
     <string name="compose_active_account_description">%1$s بڵاوکردنەوە بە هەژماری</string>
     <string name="add_account_description">زیادکردنی ئەژمێری ماتۆدۆنی نوێ</string>
-    <string name="add_account_name">زیادکردنی ئەژمێر</string>
     <string name="filter_add_description">دەستەواژە بۆ فلتەر</string>
     <string name="filter_dialog_whole_word">هەموو وشەکە</string>
     <string name="filter_dialog_update_button">نوێکردنەوە</string>

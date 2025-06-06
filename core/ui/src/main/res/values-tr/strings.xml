@@ -16,4 +16,7 @@
     <string name="title_hashtags_dialog">Etiketler</string>
     <string name="title_mentions_dialog">Bahsedenler</string>
     <string name="button_continue">Devam</string>
+    <string name="action_logout_confirm">Bu oturumu sonlandırmak istediğinizden emin misiniz%1$s? Bu, taslaklar ve tercihler dahil olmak üzere hesabın tüm yerel verilerini silecektir.</string>
+    <string name="add_account_name">Hesap Ekle</string>
+    <string name="action_logout">Oturumu kapat</string>
 </resources>

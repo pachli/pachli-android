@@ -38,7 +38,6 @@
     <string name="action_reblog">Impulsa</string>
     <string name="action_favourite">Preferit</string>
     <string name="action_compose">Escriure</string>
-    <string name="action_logout">Tanca sessió</string>
     <string name="action_follow">Segueix</string>
     <string name="action_unfollow">Deixa de seguir</string>
     <string name="action_block">Bloca</string>
@@ -165,7 +164,6 @@
     <string name="action_unreblog">Elimina l\'impuls</string>
     <string name="post_media_hidden_title">Multimèdia amagada</string>
     <string name="post_content_show_less">Amaga</string>
-    <string name="action_logout_confirm">Estàs segur de tancar la sessió de %1$s?</string>
     <string name="action_hide_reblogs">Amaga els impulsos</string>
     <string name="action_show_reblogs">Mostra els impulsos</string>
     <string name="action_delete_and_redraft">Elimina i reescriu</string>
@@ -209,7 +207,6 @@
     <string name="filter_addition_title">Afegir un filtre</string>
     <string name="filter_edit_title">Modificar un filtre</string>
     <string name="filter_dialog_remove_button">Eliminar</string>
-    <string name="add_account_name">Afegir un compte</string>
     <string name="action_open_reblogger">Obre l\'autor de l\'impuls</string>
     <string name="action_open_reblogged_by">Mostra els impulsos</string>
     <string name="notification_poll_description">Notificacions d\'enquestes que han finalitzat</string>

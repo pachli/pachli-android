@@ -49,8 +49,6 @@
     <string name="action_favourite">喜欢</string>
     <string name="action_unfavourite">取消喜欢</string>
     <string name="action_compose">发表嘟文</string>
-    <string name="action_logout">注销</string>
-    <string name="action_logout_confirm">你确定要退出登录 %1$s 吗？这会删除账户的所有本地数据，包括草稿和选项。</string>
     <string name="action_follow">关注</string>
     <string name="action_unfollow">取消关注</string>
     <string name="action_block">屏蔽</string>
@@ -219,7 +217,6 @@
     <string name="filter_dialog_remove_button">移除</string>
     <string name="filter_dialog_update_button">更新</string>
     <string name="filter_add_description">需要过滤的文字</string>
-    <string name="add_account_name">添加账号</string>
     <string name="add_account_description">添加新的 Mastodon 账号</string>
     <string name="compose_active_account_description">以 %1$s 身份发布嘟文</string>
     <string name="action_remove">移除</string>

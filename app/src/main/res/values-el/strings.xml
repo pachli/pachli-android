@@ -10,7 +10,6 @@
     <string name="action_reset_schedule">Επαναφορά</string>
     <string name="notification_follow_format">ο/η %s σας ακολούθησε</string>
     <string name="action_view_mutes">Χρήστες σε σίγαση</string>
-    <string name="action_logout">Αποσύνδεση</string>
     <string name="action_unfollow">Μην ακολουθείτε</string>
     <string name="action_unmute_domain">Άρση σίγασης του %s</string>
     <string name="action_delete_and_redraft">Διαγραφή και αναδιατύπωση</string>
@@ -26,7 +25,6 @@
     <string name="title_favourites">Αγαπημένα</string>
     <string name="error_compose_character_limit">Η δημοσίευση είναι πολύ μεγάλη!</string>
     <string name="action_emoji_keyboard">Πληκτρολόγιο emoji</string>
-    <string name="action_logout_confirm">Είστε σίγουροι ότι θέλετε να αποσυνδεθείτε από τον λογαριασμό %1$s;</string>
     <string name="title_drafts">Προσχέδια</string>
     <string name="action_view_favourites">Αγαπημένα</string>
     <string name="label_quick_reply">Απάντηση…</string>

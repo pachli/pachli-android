@@ -19,6 +19,8 @@ package app.pachli.core.ui.extensions
 
 import android.content.DialogInterface
 import android.content.DialogInterface.BUTTON_NEGATIVE
+import android.content.DialogInterface.BUTTON_NEUTRAL
+import android.content.DialogInterface.BUTTON_POSITIVE
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -46,9 +48,9 @@ suspend fun AlertDialog.await(
         cont.resume(which) { dismiss() }
     }
 
-    positiveText?.let { setButton(AlertDialog.BUTTON_POSITIVE, positiveText, listener) }
-    negativeText?.let { setButton(AlertDialog.BUTTON_NEGATIVE, it, listener) }
-    neutralText?.let { setButton(AlertDialog.BUTTON_NEUTRAL, it, listener) }
+    positiveText?.let { setButton(BUTTON_POSITIVE, positiveText, listener) }
+    negativeText?.let { setButton(BUTTON_NEGATIVE, it, listener) }
+    neutralText?.let { setButton(BUTTON_NEUTRAL, it, listener) }
 
     setOnCancelListener { cont.cancel() }
     cont.invokeOnCancellation { dismiss() }

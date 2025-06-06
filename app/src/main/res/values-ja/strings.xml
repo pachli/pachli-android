@@ -47,8 +47,6 @@
     <string name="action_reblog">ブースト</string>
     <string name="action_favourite">お気に入り</string>
     <string name="action_compose">投稿する</string>
-    <string name="action_logout">ログアウト</string>
-    <string name="action_logout_confirm">アカウント %1$s からログアウトしてもよろしいですか？ログアウトすると、下書きや詳細設定を含めて、ローカルに保存されているアカウントの全てのデータが削除されます。</string>
     <string name="action_follow">フォローする</string>
     <string name="action_unfollow">フォロー解除</string>
     <string name="action_block">ブロック</string>
@@ -203,7 +201,6 @@
     <string name="title_media">メディア</string>
     <string name="filter_addition_title">フィルターを追加</string>
     <string name="filter_edit_title">フィルターを編集</string>
-    <string name="add_account_name">アカウントを追加</string>
     <string name="add_account_description">新しいMastodonアカウントを追加</string>
     <string name="compose_active_account_description">%1$sとして投稿</string>
     <string name="action_remove">消去</string>

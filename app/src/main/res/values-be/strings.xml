@@ -151,8 +151,6 @@
     <string name="description_account_locked">Заблакаваны ўліковы запіс</string>
     <string name="action_unbookmark">Выдаліць з закладак</string>
     <string name="action_compose">Напісаць</string>
-    <string name="action_logout">Выхад</string>
-    <string name="action_logout_confirm">Вы ўпэўнены, што жадаеце выйсці з уліковага запісу %1$s?</string>
     <string name="action_follow">Падпісацца</string>
     <string name="action_unfollow">Адпісацца</string>
     <string name="action_block">Заблакаваць</string>
@@ -301,7 +299,6 @@
     <string name="conversation_more_recipients">%1$s, %2$s і яшчэ %3$d</string>
     <string name="action_discard">Скасаваць змены</string>
     <string name="action_continue_edit">Працягнуць рэдагаванне</string>
-    <string name="add_account_name">Дадаць уліковы запіс</string>
     <string name="compose_active_account_description">Публікаваць як %1$s</string>
     <string name="set_focus_description">Націсніце або перацягніце кола каб абраць пункт фокусу, які будзе заўсёды бачны на паменшаных выявах.</string>
     <string name="action_set_focus">Задаць пункт фокуса</string>

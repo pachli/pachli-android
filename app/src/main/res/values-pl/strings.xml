@@ -42,8 +42,6 @@
     <string name="action_reblog">Podbij</string>
     <string name="action_favourite">Polub</string>
     <string name="action_compose">Napisz</string>
-    <string name="action_logout">Wyloguj się</string>
-    <string name="action_logout_confirm">To usunie wszystkie lokalne dane konta %1$s, włączając szkice i preferencje.\n\nTwoje konto na serwerze nie zostanie usunięte.</string>
     <string name="action_follow">Obserwuj</string>
     <string name="action_unfollow">Przestań obserwować</string>
     <string name="action_block">Zablokuj</string>
@@ -187,7 +185,6 @@
     <string name="follows_you">Obserwuje cię</string>
     <string name="pref_title_alway_show_sensitive_media">Zawsze wyświetlaj drażliwą zawartość</string>
     <string name="title_media">Multimedia</string>
-    <string name="add_account_name">Dodaj konto</string>
     <string name="add_account_description">Dodaj nowe konto Mastodon</string>
     <string name="compose_active_account_description">Publikowanie jako %1$s</string>
     <string name="action_remove">Usuń</string>
@@ -637,9 +634,6 @@
     <string name="pref_notification_method_mixed">Niektóre konta używają UnifiedPush, inne pobierają co 15 minut. Dotknij po szczegóły.</string>
     <string name="pref_notification_method_all_push">Wszystkie konta używają UnifiedPush. Dotknij po szczegóły.</string>
     <string name="pref_notification_battery_optimisation_is_disabled">Optymalizacja użycia baterii jest wyłączona.</string>
-    <string name="pref_notification_method_push">Push</string>
-    <string name="pref_notification_method_pull">Pull</string>
-    <string name="pref_notification_fetch_method_title">Metoda pobierania powiadomień</string>
     <string name="compose_warn_language_dialog_accept_and_dont_ask_fmt">Wyślij bez zmiany (%1$s) i nie pytaj więcej</string>
     <string name="error_prepare_media_content_resolver_missing_path_fmt">dostęp do danych się nie powiódł przez brak ścieżki: %1$s</string>
     <string name="action_open_byline_account">Pokaż profil osoby, która napisała artykuł</string>
@@ -781,10 +775,6 @@
     <string name="search_operator_where_dialog_library">Twojej biblioteki</string>
     <string name="ui_error_reject_follow_request">Odrzucenie prośby o obserwację się nie powiodło: %s</string>
     <string name="label_filter_context">Miejsca działania filtra</string>
-    <string name="pref_notification_fetch_ok_timestamp_fmt">✔ %1$s temu @ %2$s</string>
-    <string name="pref_notification_fetch_err_timestamp_fmt">✖ %1$s temu @ %2$s</string>
-    <string name="pref_notification_fetch_needs_push">Konto nie ma zakresu „push”. Wylogowanie i ponowne zalogowanie może to naprawić.</string>
-    <string name="pref_notification_fetch_server_rejected">%1$s odrzucił rejestrację push</string>
     <string name="pref_title_change_unified_push_distributor">Zmień dystrybutora UnifiedPush</string>
     <string name="search_operator_date_dialog_last_6_months">W ciągu ostatnich 6 miesięcy</string>
     <string name="search_operator_from_dialog_all">Wszystkie konta</string>
@@ -842,5 +832,4 @@
         <item quantity="many">%1$s · %2$d załączonych wpisów</item>
         <item quantity="other">%1$s · %2$d załączonych wpisów</item>
     </plurals>
-    <string name="title_logout_fmt">Wyloguj %1$s</string>
 </resources>

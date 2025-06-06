@@ -11,7 +11,6 @@
     <string name="compose_save_draft">Skets bewarje\?</string>
     <string name="action_remove">Fuortsmite</string>
     <string name="add_account_description">Nij Mastodon Account Tafoegje</string>
-    <string name="add_account_name">Account Tafoegje</string>
     <string name="filter_dialog_update_button">Fernije</string>
     <string name="filter_dialog_remove_button">Fuortsmite</string>
     <string name="filter_edit_title">Filter oanpasse</string>
@@ -154,7 +153,6 @@
     <string name="action_block">Blokkearje</string>
     <string name="action_unfollow">Net mear folgje</string>
     <string name="action_follow">Folgje</string>
-    <string name="action_logout">Útlogge</string>
     <string name="action_compose">Gearstelle</string>
     <string name="action_unfavourite">Net mear as favoryt oanmerke</string>
     <string name="action_favourite">As favoryt oanmerke</string>

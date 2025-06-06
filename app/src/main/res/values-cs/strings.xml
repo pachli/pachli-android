@@ -49,8 +49,6 @@
     <string name="action_favourite">Oblíbit</string>
     <string name="action_unfavourite">Odstranit oblíbení</string>
     <string name="action_compose">Napsat</string>
-    <string name="action_logout">Odhlásit se</string>
-    <string name="action_logout_confirm">Jste si jistý/á, že se chcete odhlásit z účtu %1$s?</string>
     <string name="action_follow">Sledovat</string>
     <string name="action_unfollow">Přestat sledovat</string>
     <string name="action_block">Blokovat</string>
@@ -216,7 +214,6 @@
     <string name="filter_dialog_remove_button">Odstranit</string>
     <string name="filter_dialog_update_button">Aktualizovat</string>
     <string name="filter_add_description">Fráze k filtrování</string>
-    <string name="add_account_name">Přidat účet</string>
     <string name="add_account_description">Přidat nový účet Mastodon</string>
     <string name="compose_active_account_description">Píšete jako %1$s</string>
     <string name="action_remove">Odstranit</string>

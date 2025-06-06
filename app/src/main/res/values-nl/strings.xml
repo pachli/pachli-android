@@ -49,8 +49,6 @@
     <string name="action_favourite">Als favoriet markeren</string>
     <string name="action_unfavourite">Favoriet verwijderen</string>
     <string name="action_compose">Bericht schrijven</string>
-    <string name="action_logout">Uitloggen</string>
-    <string name="action_logout_confirm">Weet je zeker dat je %1$s wil afmelden? Dit verwijdert alle lokale gegevens van het account, inclusief conceptberichten en voorkeuren.</string>
     <string name="action_follow">Volgen</string>
     <string name="action_unfollow">Ontvolgen</string>
     <string name="action_block">Blokkeren</string>
@@ -205,7 +203,6 @@
     <string name="follows_you">Volgt jou</string>
     <string name="pref_title_alway_show_sensitive_media">Altijd gevoelige inhoud (nsfw) tonen</string>
     <string name="title_media">Media</string>
-    <string name="add_account_name">Account toevoegen</string>
     <string name="add_account_description">Een nieuw Mastodonaccount toevoegen</string>
     <string name="compose_active_account_description">Berichten plaatsen als %1$s</string>
     <string name="action_remove">Verwijderen</string>

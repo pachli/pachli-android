@@ -23,6 +23,7 @@ import app.pachli.core.network.model.Announcement
 import app.pachli.core.network.model.AppCredentials
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Conversation
+import app.pachli.core.network.model.CredentialAccount
 import app.pachli.core.network.model.DeletedStatus
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.Filter
@@ -353,7 +354,7 @@ interface MastodonApi {
     suspend fun accountVerifyCredentials(
         @Header(DOMAIN_HEADER) domain: String? = null,
         @Header("Authorization") auth: String? = null,
-    ): ApiResult<Account>
+    ): ApiResult<CredentialAccount>
 
     @FormUrlEncoded
     @PATCH("api/v1/accounts/update_credentials")
@@ -361,7 +362,7 @@ interface MastodonApi {
         @Field("source[privacy]") privacy: String?,
         @Field("source[sensitive]") sensitive: Boolean?,
         @Field("source[language]") language: String?,
-    ): ApiResult<Account>
+    ): ApiResult<CredentialAccount>
 
     @Multipart
     @PATCH("api/v1/accounts/update_credentials")

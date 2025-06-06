@@ -76,8 +76,6 @@
     <string name="action_bookmark">Guardar</string>
     <string name="action_unbookmark">Remover dos itens guardados</string>
     <string name="action_compose">Escrever</string>
-    <string name="action_logout">Sair</string>
-    <string name="action_logout_confirm">Tem a certeza que deseja sair da conta %1$s?</string>
     <string name="action_follow">Seguir</string>
     <string name="action_unfollow">Deixar de seguir</string>
     <string name="action_block">Bloquear</string>
@@ -268,7 +266,6 @@
     <string name="filter_dialog_remove_button">Remover</string>
     <string name="filter_dialog_whole_word_description">Se a palavra ou frase for alfanumérica, só será aplicado se corresponder à palavra completa</string>
     <string name="filter_add_description">Frase para filtrar</string>
-    <string name="add_account_name">Adicionar Conta</string>
     <string name="add_account_description">Adicionar nova Conta Mastodon</string>
     <string name="compose_active_account_description">Publicar com a conta %1$s</string>
     <string name="action_remove">Remover</string>

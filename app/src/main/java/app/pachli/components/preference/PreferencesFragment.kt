@@ -62,11 +62,11 @@ import app.pachli.core.preferences.TabAlignment
 import app.pachli.core.preferences.TabContents
 import app.pachli.core.preferences.TabTapBehaviour
 import app.pachli.core.preferences.UpdateNotificationFrequency
+import app.pachli.core.ui.extensions.asDdHhMmSs
 import app.pachli.core.ui.extensions.await
+import app.pachli.core.ui.extensions.instantFormatter
 import app.pachli.core.ui.makeIcon
 import app.pachli.databinding.AccountNotificationDetailsListItemBinding
-import app.pachli.feature.about.asDdHhMmSs
-import app.pachli.feature.about.instantFormatter
 import app.pachli.settings.emojiPreference
 import app.pachli.settings.enumListPreference
 import app.pachli.settings.listPreference
@@ -596,8 +596,8 @@ class AccountNotificationDetailsAdapter(context: Context, accounts: List<Account
     @get:StringRes
     private val AccountNotificationMethod.stringRes: Int
         get() = when (this) {
-            AccountNotificationMethod.PUSH -> R.string.pref_notification_method_push
-            AccountNotificationMethod.PULL -> R.string.pref_notification_method_pull
+            AccountNotificationMethod.PUSH -> app.pachli.core.ui.R.string.pref_notification_method_push
+            AccountNotificationMethod.PULL -> app.pachli.core.ui.R.string.pref_notification_method_pull
         }
 
     /**
@@ -613,9 +613,9 @@ class AccountNotificationDetailsAdapter(context: Context, accounts: List<Account
         return when (notificationMethod) {
             AccountNotificationMethod.PUSH -> unifiedPushUrl
             AccountNotificationMethod.PULL -> if (hasPushScope) {
-                context.getString(R.string.pref_notification_fetch_server_rejected, domain)
+                context.getString(app.pachli.core.ui.R.string.pref_notification_fetch_server_rejected, domain)
             } else {
-                context.getString(R.string.pref_notification_fetch_needs_push)
+                context.getString(app.pachli.core.ui.R.string.pref_notification_fetch_needs_push)
             }
         }
     }
@@ -650,8 +650,8 @@ class AccountNotificationDetailsAdapter(context: Context, accounts: List<Account
             val result = lastFetch.second
 
             val (resTimestamp, error) = when (result) {
-                is Ok -> Pair(R.string.pref_notification_fetch_ok_timestamp_fmt, null)
-                is Err -> Pair(R.string.pref_notification_fetch_err_timestamp_fmt, result.error)
+                is Ok -> Pair(app.pachli.core.ui.R.string.pref_notification_fetch_ok_timestamp_fmt, null)
+                is Err -> Pair(app.pachli.core.ui.R.string.pref_notification_fetch_err_timestamp_fmt, result.error)
             }
 
             lastFetchTime.text = context.getString(

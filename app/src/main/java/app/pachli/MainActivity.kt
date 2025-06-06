@@ -90,6 +90,7 @@ import app.pachli.core.navigation.LoginActivityIntent
 import app.pachli.core.navigation.LoginActivityIntent.LoginMode
 import app.pachli.core.navigation.MainActivityIntent
 import app.pachli.core.navigation.MainActivityIntent.Payload
+import app.pachli.core.navigation.ManageAccountsActivityIntent
 import app.pachli.core.navigation.PreferencesActivityIntent
 import app.pachli.core.navigation.PreferencesActivityIntent.PreferenceScreen
 import app.pachli.core.navigation.ScheduledStatusActivityIntent
@@ -516,11 +517,19 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
             addProfile(
                 ProfileSettingDrawerItem().apply {
                     identifier = DRAWER_ITEM_ADD_ACCOUNT
-                    nameRes = R.string.add_account_name
+                    nameRes = app.pachli.core.ui.R.string.add_account_name
                     descriptionRes = R.string.add_account_description
                     iconicsIcon = GoogleMaterial.Icon.gmd_add
                 },
                 0,
+            )
+            addProfile(
+                ProfileSettingDrawerItem().apply {
+                    identifier = DRAWER_ITEM_MANAGE_ACCOUNTS
+                    nameRes = R.string.manage_accounts_name
+                    iconRes = R.drawable.ic_manage_accounts
+                },
+                1,
             )
             attachToSliderView(binding.mainDrawer)
             dividerBelowHeader = false
@@ -854,7 +863,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
                     }
                 },
                 secondaryDrawerItem {
-                    nameRes = R.string.action_logout
+                    nameRes = app.pachli.core.ui.R.string.action_logout
                     iconRes = R.drawable.ic_logout
                     onClick = { logout(pachliAccount) }
                 },
@@ -1083,6 +1092,10 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
                 LoginActivityIntent(this, LoginMode.AdditionalLogin),
             )
 
+            profile.identifier == DRAWER_ITEM_MANAGE_ACCOUNTS -> startActivityWithDefaultTransition(
+                ManageAccountsActivityIntent(this),
+            )
+
             else -> changeAccountAndRestart(profile.identifier)
         }
     }
@@ -1101,8 +1114,8 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
     private fun logout(pachliAccount: PachliAccount) {
         lifecycleScope.launch {
             val button = AlertDialog.Builder(this@MainActivity)
-                .setTitle(getString(R.string.title_logout_fmt, pachliAccount.entity.fullName))
-                .setMessage(getString(R.string.action_logout_confirm, pachliAccount.entity.fullName))
+                .setTitle(getString(app.pachli.core.ui.R.string.title_logout_fmt, pachliAccount.entity.fullName))
+                .setMessage(getString(app.pachli.core.ui.R.string.action_logout_confirm, pachliAccount.entity.fullName))
                 .create()
                 .await(android.R.string.ok, android.R.string.cancel)
 
@@ -1227,11 +1240,13 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
             }
         }.toMutableList()
 
-        // reuse the already existing "add account" item
+        // Re-use the already existing "Add account" and "Manage account" items.
         for (profile in header.profiles.orEmpty()) {
             if (profile.identifier == DRAWER_ITEM_ADD_ACCOUNT) {
                 profiles.add(profile)
-                break
+            }
+            if (profile.identifier == DRAWER_ITEM_MANAGE_ACCOUNTS) {
+                profiles.add(profile)
             }
         }
         header.clear()
@@ -1260,6 +1275,9 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
 
         /** Drawer identifier for the "Scheduled posts" item. */
         private const val DRAWER_ITEM_SCHEDULED_POSTS = 18L
+
+        /** Drawer identifier for the "Manage accounts" item. */
+        private const val DRAWER_ITEM_MANAGE_ACCOUNTS = -14L
     }
 }
 
@@ -1309,7 +1327,13 @@ class MainDrawerImageLoader(val animateAvatars: Boolean) : AbstractDrawerImageLo
     }
 
     override fun cancel(imageView: ImageView) {
-        Glide.with(imageView).clear(imageView)
+        // Glide may throw an exception if the activity is being destroyed.
+        // This can be safely ignored. See https://github.com/bumptech/glide/issues/5528.
+        try {
+            Glide.with(imageView).clear(imageView)
+        } catch (_: IllegalArgumentException) {
+            /* do nothing */
+        }
     }
 
     override fun placeholder(ctx: Context, tag: String?): Drawable {

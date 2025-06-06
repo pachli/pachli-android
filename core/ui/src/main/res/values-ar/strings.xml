@@ -16,4 +16,7 @@
     <string name="title_hashtags_dialog">الوسوم</string>
     <string name="title_mentions_dialog">الإشارات</string>
     <string name="button_continue">واصل</string>
+    <string name="action_logout_confirm">متأكد مِن أنك تود الخروج من الحساب %1$s؟</string>
+    <string name="add_account_name">إضافة حساب</string>
+    <string name="action_logout">خروج</string>
 </resources>
