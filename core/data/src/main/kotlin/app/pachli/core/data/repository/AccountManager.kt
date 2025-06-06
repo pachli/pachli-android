@@ -520,7 +520,18 @@ class AccountManager @Inject constructor(
         // TODO: Add a capability for announcements.
         deferAnnouncements.await().orElse { Ok(emptyList()) }.bind()
 
-        deferFollowing.await().bind()
+        // Fetching the user's list of followed accounts may take some time if they
+        // follow a lot of accounts. This information is only used when filtering
+        // notifications and conversations, and only if the user has set the
+        // relevant options.
+        //
+        // If the options are set then wait for the API calls to complete. Otherwise
+        // this can happen in the background.
+        if (account.notificationAccountFilterNotFollowed != FilterAction.NONE ||
+            account.conversationAccountFilterNotFollowed != FilterAction.NONE
+        ) {
+            deferFollowing.await().bind()
+        }
     }
 
     /**
