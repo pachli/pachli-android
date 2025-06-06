@@ -11,7 +11,6 @@ import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import app.pachli.components.timeline.viewmodel.CachedTimelineRemoteMediator
-import app.pachli.components.timeline.viewmodel.CachedTimelineRemoteMediator.Companion.RKE_TIMELINE_ID
 import app.pachli.core.database.AppDatabase
 import app.pachli.core.database.Converters
 import app.pachli.core.database.di.TransactionProvider
@@ -20,6 +19,7 @@ import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
 import app.pachli.core.database.model.TimelineStatusEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
+import app.pachli.core.model.Timeline
 import app.pachli.core.network.json.BooleanIfNull
 import app.pachli.core.network.json.DefaultIfNull
 import app.pachli.core.network.json.Guarded
@@ -41,6 +41,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.kotlin.any
 import org.mockito.kotlin.anyOrNull
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
@@ -161,7 +162,7 @@ class CachedTimelineRemoteMediatorTest {
     fun `should not try to refresh already cached statuses when db is empty`() {
         val remoteMediator = CachedTimelineRemoteMediator(
             mastodonApi = mock {
-                onBlocking { homeTimeline(limit = 20) } doReturn success(
+                onBlocking { homeTimeline(maxId = anyOrNull(), minId = anyOrNull(), sinceId = anyOrNull(), limit = any()) } doReturn success(
                     listOf(
                         fakeStatus("5"),
                         fakeStatus("4"),
@@ -214,7 +215,7 @@ class CachedTimelineRemoteMediatorTest {
 
         val remoteMediator = CachedTimelineRemoteMediator(
             mastodonApi = mock {
-                onBlocking { homeTimeline(limit = 20) } doReturn success(
+                onBlocking { homeTimeline(maxId = anyOrNull(), minId = anyOrNull(), sinceId = anyOrNull(), limit = any()) } doReturn success(
                     listOf(
                         fakeStatus("3"),
                         fakeStatus("1"),
@@ -264,8 +265,8 @@ class CachedTimelineRemoteMediatorTest {
         )
 
         db.insert(statusesAlreadyInDb)
-        db.remoteKeyDao().upsert(RemoteKeyEntity(1, RKE_TIMELINE_ID, RemoteKeyKind.PREV, "8"))
-        db.remoteKeyDao().upsert(RemoteKeyEntity(1, RKE_TIMELINE_ID, RemoteKeyKind.NEXT, "5"))
+        db.remoteKeyDao().upsert(RemoteKeyEntity(1, Timeline.Home.remoteKeyTimelineId, RemoteKeyKind.PREV, "8"))
+        db.remoteKeyDao().upsert(RemoteKeyEntity(1, Timeline.Home.remoteKeyTimelineId, RemoteKeyKind.NEXT, "5"))
 
         val remoteMediator = CachedTimelineRemoteMediator(
             mastodonApi = mock {
