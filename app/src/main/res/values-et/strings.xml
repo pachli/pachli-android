@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="title_notifications">Teavitused</string>
+    <string name="error_compose_character_limit">Postitus on liiga pikk!</string>
+    <string name="error_empty">See väli ei saa jääda tühjaks.</string>
+    <string name="title_public_local">Sinu server</string>
+    <string name="error_image_edit_failed">Pildi muutmine ei õnnestunud.</string>
+    <string name="error_no_web_browser_found">Ei leidnud toimivat veebibrauserit.</string>
+    <string name="title_home">Avaleht</string>
+    <string name="error_media_upload_type">Seda failitüüpi ei saa üles laadida.</string>
+</resources>
