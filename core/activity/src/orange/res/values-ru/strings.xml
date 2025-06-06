@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="acra_dialog_title">Пожаловаться на ошибку %1$s</string>
+    <string name="acra_dialog_text">Нажмите OK чтобы подготовиться письмо для разработчиком с подробностями</string>
+    <string name="acra_email_body">Эти данные будут отправлены разработчикам.\n\nПожалуйста, проверьте, не содержит ли чего-то, чем вы не хотите делиться, и опишите, что вы делали, когда произошёл сбой.\n\n----\nВаше описание здесь:\n\n----</string>
+</resources>
