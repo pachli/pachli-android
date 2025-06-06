@@ -28,6 +28,6 @@
     <string name="title_logout_fmt">Atteikties %1$s</string>
     <string name="action_logout_confirm">Tas izdzēsīs visus vietējos konta %1$s datus, tajā skaitā melnrakstus un iestatījumus.\n\nTas neizdzēsīs kontu serverī.</string>
     <string name="add_account_name">Pievienot kontu</string>
-    <string name="notification_details_last_fetch_label">Pēdējāis /api/v1/notifications pieprasījums</string>
-    <string name="action_logout">Iziet</string>
+    <string name="notification_details_last_fetch_label">Pēdējais /api/v1/notifications pieprasījums</string>
+    <string name="action_logout">Atteikties</string>
 </resources>
