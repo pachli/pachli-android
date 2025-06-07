@@ -22,7 +22,10 @@ import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.core.data.model.StatusDisplayOptions
-import app.pachli.core.network.model.RelationshipSeveranceEvent
+import app.pachli.core.network.model.RelationshipSeveranceEvent.Type.ACCOUNT_SUSPENSION
+import app.pachli.core.network.model.RelationshipSeveranceEvent.Type.DOMAIN_BLOCK
+import app.pachli.core.network.model.RelationshipSeveranceEvent.Type.UNKNOWN
+import app.pachli.core.network.model.RelationshipSeveranceEvent.Type.USER_DOMAIN_BLOCK
 import app.pachli.databinding.ItemSeveredRelationshipsBinding
 import app.pachli.util.getRelativeTimeSpanString
 import app.pachli.viewdata.NotificationViewData
@@ -35,15 +38,35 @@ class SeveredRelationshipsViewHolder(
         payloads: List<*>?,
         statusDisplayOptions: StatusDisplayOptions,
     ) {
+        val context = itemView.context
         val event = viewData.relationshipSeveranceEvent!!
+
         if (payloads.isNullOrEmpty()) {
-            binding.notificationTopText.text = HtmlCompat.fromHtml(
-                itemView.context.getString(
-                    R.string.notification_severed_relationships_format,
+            val topTextHtml = when (event.type) {
+                DOMAIN_BLOCK -> context.getString(
+                    R.string.notification_severed_relationships_domain_block_fmt,
+                    viewData.localDomain,
                     event.targetName,
-                ),
-                HtmlCompat.FROM_HTML_MODE_LEGACY,
-            )
+                )
+
+                USER_DOMAIN_BLOCK -> context.getString(
+                    R.string.notification_severed_relationships_user_domain_block_fmt,
+                    event.targetName,
+                )
+
+                ACCOUNT_SUSPENSION -> context.getString(
+                    R.string.notification_severed_relationships_account_suspension_fmt,
+                    viewData.localDomain,
+                    event.targetName,
+                )
+
+                UNKNOWN -> context.getString(
+                    R.string.notification_severed_relationships_unknown_fmt,
+                    event.targetName,
+                )
+            }
+
+            binding.notificationTopText.text = HtmlCompat.fromHtml(topTextHtml, HtmlCompat.FROM_HTML_MODE_LEGACY)
 
             binding.datetime.text = getRelativeTimeSpanString(itemView.context, event.createdAt.toEpochMilli(), System.currentTimeMillis())
 
@@ -58,14 +81,6 @@ class SeveredRelationshipsViewHolder(
                 event.followingCount,
                 event.followingCount,
             )
-
-            val resourceId = when (event.type) {
-                RelationshipSeveranceEvent.Type.DOMAIN_BLOCK -> R.string.notification_severed_relationships_domain_block_body
-                RelationshipSeveranceEvent.Type.USER_DOMAIN_BLOCK -> R.string.notification_severed_relationships_user_domain_block_body
-                RelationshipSeveranceEvent.Type.ACCOUNT_SUSPENSION -> R.string.notification_severed_relationships_account_suspension_body
-                RelationshipSeveranceEvent.Type.UNKNOWN -> R.string.notification_severed_relationships_unknown_body
-            }
-            binding.notificationCategory.text = itemView.context.getString(resourceId)
         } else {
             if (payloads.any { it == StatusBaseViewHolder.Key.KEY_CREATED }) {
                 binding.datetime.text = getRelativeTimeSpanString(itemView.context, event.createdAt.toEpochMilli(), System.currentTimeMillis())
