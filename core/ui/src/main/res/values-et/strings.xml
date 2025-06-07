@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="action_mentions">Mainimised</string>
+    <string name="title_links_dialog">Lingid</string>
+    <string name="error_network">Tekkis võrguühenduse viga. Palun kontrolli nutiseadme ühenduse toimimist ja proovi uuesti.</string>
+    <string name="error_generic">Tekkis viga.</string>
+    <string name="message_empty">Siin pole midagi.</string>
+    <string name="action_retry">Proovi uuesti</string>
+    <string name="button_done">Valmis</string>
+    <string name="action_view_profile">Profiil</string>
+    <string name="action_more">Veel</string>
+    <string name="action_refresh">Uuenda andmeid</string>
+    <string name="url_domain_notifier">" (🔗 %s)"</string>
+    <string name="action_links">Lingid</string>
+    <string name="action_hashtags">Teemaviited</string>
+</resources>
