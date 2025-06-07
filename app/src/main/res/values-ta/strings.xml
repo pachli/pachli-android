@@ -469,10 +469,6 @@
     <string name="account_filter_placeholder_label_limited_by_server">வடிகட்டப்பட்டது: <b> உங்கள் மதிப்பீட்டாளர்களால் வரையறுக்கப்பட்டுள்ளது </b></string>
     <string name="ui_error_bookmark_fmt">புக்மார்க்கிங் இடுகை தோல்வியுற்றது: %1$s</string>
     <string name="ui_error_reblog_fmt">போச்டிங் போச்ட் தோல்வியுற்றது: %1$s</string>
-    <string name="notification_severed_relationships_domain_block_body">ஒரு மதிப்பீட்டாளர் டொமைனை இடைநீக்கம் செய்தார்</string>
-    <string name="notification_severed_relationships_format"><b>%1$s </b> உடன் உறவு துண்டிக்கப்பட்டது</string>
-    <string name="notification_severed_relationships_unknown_body">தெரியாத காரணம்</string>
-    <string name="notification_severed_relationships_account_suspension_body">ஒரு மதிப்பீட்டாளர் கணக்கை இடைநீக்கம் செய்தார்</string>
     <string name="action_view_bookmarks">புக்மார்க்குகள்</string>
     <string name="action_open_media_n">திறந்த மீடியா #%d</string>
     <string name="pref_summary_http_proxy_invalid">&lt;செல்லாத&gt;</string>
@@ -631,7 +627,6 @@
     <string name="post_content_show_more">விரிவாக்கு</string>
     <string name="post_edited">திருத்தப்பட்ட %s</string>
     <string name="notification_subscription_format">%s இப்போது இடுகையிடப்பட்டது</string>
-    <string name="notification_severed_relationships_user_domain_block_body">நீங்கள் டொமைனைத் தடுத்தீர்கள்</string>
     <string name="action_view_domain_mutes">மறைக்கப்பட்ட களங்கள்</string>
     <string name="send_account_link_to">கணக்கு முகவரி ஐப் பகிரவும்…</string>
     <string name="send_account_username_to">கணக்கு பயனர்பெயரைப் பகிரவும்…</string>

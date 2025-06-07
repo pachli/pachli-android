@@ -256,8 +256,6 @@
     <plurals name="notification_severed_relationships_summary_followers_fmt">
         <item quantity="other">%1$s pengikut di hapus</item>
     </plurals>
-    <string name="notification_severed_relationships_format">Hubungan dengan <b>%1$s</b> terputus</string>
-    <string name="notification_severed_relationships_domain_block_body">Moderator menangguhkan domain tersebut</string>
     <string name="pref_title_notification_filter_follow_requests">ikuti diminta</string>
     <plurals name="notification_severed_relationships_summary_following_fmt">
         <item quantity="other">%1$s akun yang kamu ikuti telah dihapus</item>
@@ -269,9 +267,6 @@
     <string name="pref_summary_http_proxy_missing">&lt;tidak diatur&gt;</string>
     <string name="action_filter_search">Filter pencarian</string>
     <string name="action_suggestions">Akun yang disarankan</string>
-    <string name="notification_severed_relationships_user_domain_block_body">Kamu memblokir domain</string>
-    <string name="notification_severed_relationships_account_suspension_body">Moderator menangguhkan akun tersebut</string>
-    <string name="notification_severed_relationships_unknown_body">Alasan yang tidak diketahui</string>
     <string name="action_refresh_account">Refresh akun</string>
     <string name="mute_domain_warning">Apakah Anda yakin ingin memblokir semua %s? Anda tidak akan melihat konten dari domain tersebut di timeline publik atau notifikasi Anda. Pengikut Anda dari domain tersebut akan dihapus.</string>
     <string name="pref_title_timeline_filters">Filter</string>

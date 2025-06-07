@@ -35,7 +35,6 @@
     <string name="notification_subscription_format">%s ပိုစ့်တင်သည်</string>
     <string name="notification_update_format">%s သည်၎င်းတို့၌ပိုစ့်ကိုပြုပြင်ခဲ့သည်</string>
     <string name="notification_report_format">%s သို့တိုင်ကြားမှုများ</string>
-    <string name="notification_severed_relationships_unknown_body">အမျိုးအမည်မသိသောအကြောင်းပြချက်</string>
     <plurals name="notification_summary_report_format">
         <item quantity="other">%1$s မှ %2$d အထိပိုစ့်များပါဝင်သည်</item>
     </plurals>
@@ -88,9 +87,6 @@
     <string name="post_content_show_less">ဖြန့်မည်</string>
     <string name="footer_empty">ဘာမှမရှိ။ ရီဖလက်ရှ်လုပ်ရန်အောက်သို့ဆွဲပါ!</string>
     <string name="notification_follow_format">%s မှသင့်အားစောင့်ကြည့်ခြင်းစတင်သည်</string>
-    <string name="notification_severed_relationships_user_domain_block_body">သင် ဒိုမိန်းအားဘလော့ခ်ထားသည်</string>
-    <string name="notification_severed_relationships_domain_block_body">မော်ဒရေတာတစ်ဦးမှ ဒိုမိန်းအားကန့်သတ်ထားသည်</string>
-    <string name="notification_severed_relationships_account_suspension_body">မော်ဒရေတာတစ်ဦးမှ အကောင့်အား ကန့်သတ်ထားသည်</string>
     <string name="notification_header_report_format">%s မှ %s အားတိုင်ကြားထားသည်</string>
     <string name="report_username_format">\@%s အားတိုင်ကြားမည်</string>
     <string name="action_quick_reply">အမြန်ပြန်စာ</string>
@@ -156,7 +152,6 @@
     <string name="pref_summary_content_filters">သင့်ဆာဗာသည် အကြောင်းအရာစစ်ထုတ်မှုကိုမထောက်ပံ့ပါ</string>
     <string name="pref_title_browser_settings">ဘရောက်ဇာ</string>
     <string name="pref_title_custom_tabs">ဘရောက်ဇာ custom တဘ်များကိုသုံးမည်</string>
-    <string name="notification_severed_relationships_format"><b>%1$s</b> နှင့်ဆက်ဆံရေးစတင်သည်</string>
     <string name="action_report">တိုင်ကြားမည်</string>
     <string name="action_view_preferences">ပြင်ဆင်စရာများ</string>
     <string name="action_view_mutes">ကန့်သတ်ထားသောအသုံးပြုသူ</string>

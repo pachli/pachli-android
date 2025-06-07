@@ -68,10 +68,6 @@
     </plurals>
     <string name="notification_update_format">%s redigerte innlegget sitt</string>
     <string name="notification_report_format">Ny rapport på %s</string>
-    <string name="notification_severed_relationships_format">Braut forholdet med &lt;b&gt;%1$s&lt;/b&gt;</string>
-    <string name="notification_severed_relationships_domain_block_body">Ein moderator suspenderte instansen</string>
-    <string name="notification_severed_relationships_account_suspension_body">Ein moderator suspenderte kontoen</string>
-    <string name="notification_severed_relationships_unknown_body">Ukjend årsak</string>
     <string name="notification_header_report_format">%s rapporterte %s</string>
     <plurals name="notification_summary_report_format">
         <item quantity="other">%1$s · %2$d innlegg lagt ved</item>
@@ -162,7 +158,6 @@
     <string name="error_media_upload_type">Den filtypen kan ikkje lastast opp.</string>
     <string name="error_media_upload_opening">Den filen kunne ikkje verte opna.</string>
     <string name="error_following_hashtags_unsupported">Denne instansen støttar ikkje fylging av emneknaggar.</string>
-    <string name="notification_severed_relationships_user_domain_block_body">Du blokkerte instansen</string>
     <plurals name="notification_severed_relationships_summary_following_fmt">
         <item quantity="one">%1$s konto du fylgjer vart fjerna</item>
         <item quantity="other">%1$s kontoar du fylgjer vart fjerna</item>

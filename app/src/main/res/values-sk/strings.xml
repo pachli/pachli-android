@@ -161,9 +161,6 @@
     <string name="notification_reblog_format">%s zdieľal/a tvoj príspevok</string>
     <string name="notification_follow_format">%s ťa sleduje</string>
     <string name="notification_follow_request_format">%s ťa požiadal o sledovanie</string>
-    <string name="notification_severed_relationships_format">Vzťah s <b>%1$s</b> bol prerušený</string>
-    <string name="notification_severed_relationships_domain_block_body">Moderátor pozastavil doménu</string>
-    <string name="notification_severed_relationships_user_domain_block_body">Zablokoval/a si doménu</string>
     <string name="action_delete_conversation">Vymazať konverzáciu</string>
     <string name="action_share_account_username">Zdieľať používateľské meno účtu</string>
     <string name="action_discard">Zahodiť zmeny</string>
@@ -185,8 +182,6 @@
     </plurals>
     <string name="account_filter_placeholder_type_favourite_fmt">\@<b>%1s</b> si obľúbil/a tvoj príspevok</string>
     <string name="pref_title_bot_overlay">Zobraziť indikátor botov</string>
-    <string name="notification_severed_relationships_unknown_body">Neznámy dôvod</string>
-    <string name="notification_severed_relationships_account_suspension_body">Moderátor pozastavil účet</string>
     <string name="action_post_failed">Nahrávanie zlyhalo</string>
     <string name="action_post_failed_show_drafts">Zobraziť koncepty</string>
     <string name="action_unmute">Zrušiť stíšenie</string>
