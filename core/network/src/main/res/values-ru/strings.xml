@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="node_info_error_no_software_version">версия ПО отсутствует или пустое</string>
+    <string name="server_error_unparseable_version">невозможно разобрать \"%1$s\" как версию: %2$s</string>
+    <string name="error_generic_fmt">Произошла ошибка: %1$s</string>
+    <string name="node_info_error_no_software_name">название ПО отсутствует или пустое</string>
+    <string name="node_info_error_no_software">не содержит блока информации о ПО</string>
+</resources>

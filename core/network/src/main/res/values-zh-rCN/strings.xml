@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="error_wrong_content_type_fmt">你的服务器配置错误，返回的“%2$s”具有错误的 content-type“%1$s”</string>
+    <string name="error_429_rate_limit_fmt">你的服务器正在限制请求速率：%1$s</string>
+    <string name="error_json_data_fmt">服务器返回了无效响应：%1$s</string>
+    <string name="error_network_fmt">出现网络错误：%s</string>
+    <string name="error_missing_content_type_fmt">你的服务器配置错误，响应不具有content-type“%1$s”</string>
+    <string name="node_info_error_no_software_version">软件版本缺失、为空或空白</string>
+    <string name="node_info_error_no_software">不包含软件块</string>
+    <string name="server_error_unparseable_version">无法将“%1$s”解析为版本：%2$s</string>
+    <string name="node_info_error_no_software_name">软件名称缺失、为空或空白</string>
+    <string name="error_404_not_found_fmt">你的服务器不支持此功能：%1$s</string>
+    <string name="error_generic_fmt">%1$s</string>
+</resources>

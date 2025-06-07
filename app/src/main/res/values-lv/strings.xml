@@ -810,4 +810,5 @@
     <string name="search_operator_attachment_dialog_any_label">Jebkurš veids</string>
     <string name="pref_notification_up_distributor_name_fmt">%1$s. Jāpiesit, lai atvērtu</string>
     <string name="help_empty_home">Šī ir tava <b>mājas laika līnija</b>. Tajā tiek parādīti neseni ieraksti no kontiem, kuriem seko.\n\nLai izpētītu kontus, tos var atklāt kādā no citām laika līnijām. Piemēram, vietējā sava servera laika līnijā [iconics mgd_group]. Vai arī var meklēt kontus pēc vārda [iconics gmd_search]; piemēram, meklēt \"Pachli\", lai atrastu mūsu Mastodon kontu.</string>
+    <string name="manage_accounts_name">Pārvaldīt kontus</string>
 </resources>
