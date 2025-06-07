@@ -22,12 +22,14 @@ import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.NotificationData
 import app.pachli.core.database.model.NotificationEntity
+import app.pachli.core.database.model.NotificationRelationshipSeveranceEventEntity
 import app.pachli.core.database.model.NotificationReportEntity
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
 import app.pachli.core.network.model.RelationshipSeveranceEvent
+import app.pachli.core.network.model.RelationshipSeveranceEvent.Type
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.TimelineAccount
 
@@ -101,7 +103,22 @@ data class NotificationViewData(
                 )
             },
             report = data.report,
-            relationshipSeveranceEvent = null,
+            relationshipSeveranceEvent = data.relationshipSeveranceEvent?.let {
+                RelationshipSeveranceEvent(
+                    id = it.serverId,
+                    type = when (it.type) {
+                        NotificationRelationshipSeveranceEventEntity.Type.DOMAIN_BLOCK -> Type.DOMAIN_BLOCK
+                        NotificationRelationshipSeveranceEventEntity.Type.USER_DOMAIN_BLOCK -> Type.USER_DOMAIN_BLOCK
+                        NotificationRelationshipSeveranceEventEntity.Type.ACCOUNT_SUSPENSION -> Type.ACCOUNT_SUSPENSION
+                        NotificationRelationshipSeveranceEventEntity.Type.UNKNOWN -> Type.UNKNOWN
+                    },
+                    purged = it.purged,
+                    targetName = it.targetName,
+                    followersCount = it.followersCount,
+                    followingCount = it.followingCount,
+                    createdAt = it.createdAt,
+                )
+            },
             isAboutSelf = isAboutSelf,
             accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
         )
