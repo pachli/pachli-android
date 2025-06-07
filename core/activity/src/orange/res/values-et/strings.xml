@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="acra_email_body">Järgnev teave saadetakse arendajatele.\n\n Palun kontrolli, et aruandes poleks midagi, mida sa jagada ei soovi ning kirjelda, mida sa vea juhtumise eel ja ajal tegid.\n\n ----\n Sinu kirjeldus olukorra kohta:\n\n ----</string>
+    <string name="acra_dialog_title">Veateade: %1$s</string>
+    <string name="acra_dialog_text">Koostamaks üksikasjalikku e-kirja arendajatele klõpsi „Sobib“</string>
+</resources>
