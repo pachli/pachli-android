@@ -13,4 +13,21 @@
     <string name="url_domain_notifier">" (🔗 %s)"</string>
     <string name="action_links">Lingid</string>
     <string name="action_hashtags">Teemaviited</string>
+    <string name="title_mentions_dialog">Mainimised</string>
+    <string name="pref_notification_fetch_err_timestamp_fmt">✖ %1$s tagasi @ %2$s</string>
+    <string name="title_logout_fmt">Logi välja: %1$s</string>
+    <string name="add_account_name">Lisa kasutajakonto</string>
+    <string name="title_hashtags_dialog">Teemaviited</string>
+    <string name="item_copied">Teks on kopeeritud</string>
+    <string name="action_copy_item">Kopeeri objekt</string>
+    <string name="button_continue">Jätka</string>
+    <string name="pref_notification_method_push">Tõuketeade</string>
+    <string name="pref_notification_method_pull">Andmete laadimine</string>
+    <string name="pref_notification_fetch_method_title">Teavituste meetod</string>
+    <string name="pref_notification_fetch_ok_timestamp_fmt">✔ %1$s tagasi @ %2$s</string>
+    <string name="pref_notification_fetch_server_rejected">%1$s keeldus tõuketeenuste registreerimisest</string>
+    <string name="pref_notification_fetch_needs_push">Kasutajakontol puudub tõuketeenuste toimeala. Välja ja uuesti sisse logimine võib selle vea parandada.</string>
+    <string name="action_logout_confirm">Järgnevaga kustuvad kõik %1$s kohalikud andmed, sh kavandid ja eelistused.\n\nSellega ei kustu konto sinu koduserverist.</string>
+    <string name="notification_details_last_fetch_label">Viimane päring /api/v1/notifications otspunkti</string>
+    <string name="action_logout">Logi välja</string>
 </resources>
