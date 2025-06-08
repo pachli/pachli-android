@@ -209,8 +209,8 @@ class ComposeViewModel @AssistedInject constructor(
 
     private val _media: MutableStateFlow<List<QueuedMedia>> = MutableStateFlow(emptyList())
     val media = _media.asStateFlow()
-    private val _closeConfirmation = MutableStateFlow(ConfirmationKind.NONE)
-    val closeConfirmationKind = _closeConfirmation.asStateFlow()
+    private val _closeConfirmationKind = MutableStateFlow(ConfirmationKind.NONE)
+    val closeConfirmationKind = _closeConfirmationKind.asStateFlow()
     private val _statusLength = MutableStateFlow(0)
     val statusLength = _statusLength.asStateFlow()
 
@@ -389,7 +389,7 @@ class ComposeViewModel @AssistedInject constructor(
     }
 
     private fun updateCloseConfirmation() {
-        _closeConfirmation.value = if (isDirty()) {
+        _closeConfirmationKind.value = if (isDirty()) {
             when (composeKind) {
                 ComposeKind.NEW -> if (isEmpty(content, effectiveContentWarning)) {
                     ConfirmationKind.NONE
