@@ -12,4 +12,64 @@
         <item quantity="one">%1$d postitus</item>
         <item quantity="other">%1$d postitust</item>
     </plurals>
+    <plurals name="followed_hashtags_accounts_count_fmt">
+        <item quantity="one">%1$d kasutajakonto</item>
+        <item quantity="other">%1$d kasutajakontot</item>
+    </plurals>
+    <plurals name="followed_hashtags_days_count_fmt">
+        <item quantity="one">%1$d päev</item>
+        <item quantity="other">%1$d päeva</item>
+    </plurals>
+    <plurals name="poll_timespan_days">
+        <item quantity="one">Jäänud on %d päev</item>
+        <item quantity="other">Jäänud on %d päeva</item>
+    </plurals>
+    <plurals name="poll_timespan_hours">
+        <item quantity="one">Jäänud on %d tund</item>
+        <item quantity="other">Jäänud on %d tundi</item>
+    </plurals>
+    <plurals name="poll_timespan_minutes">
+        <item quantity="one">Jäänud on %d minut</item>
+        <item quantity="other">Jäänud on %d minutit</item>
+    </plurals>
+    <plurals name="poll_timespan_seconds">
+        <item quantity="one">Jäänud on %d sekund</item>
+        <item quantity="other">Jäänud on %d sekundit</item>
+    </plurals>
+    <plurals name="notification_severed_relationships_summary_following_fmt">
+        <item quantity="one">%1$s sinu jälgitud kasutajakonto on eemaldatud.</item>
+        <item quantity="other">%1$s sinu jälgitud kasutajakontot on eemaldatud.</item>
+    </plurals>
+    <plurals name="poll_info_votes">
+        <item quantity="one">%s hääl</item>
+        <item quantity="other">%s häält</item>
+    </plurals>
+    <plurals name="notification_title_summary">
+        <item quantity="one">%d uus vastasmõju</item>
+        <item quantity="other">%d uut vastasmõju</item>
+    </plurals>
+    <plurals name="favs">
+        <item quantity="one"><b>%1$s</b> lemmik</item>
+        <item quantity="other"><b>%1$s</b> lemmikut</item>
+    </plurals>
+    <plurals name="reblogs">
+        <item quantity="one"><b>%s</b> hooandmine</item>
+        <item quantity="other"><b>%s</b> hooandmist</item>
+    </plurals>
+    <plurals name="poll_info_people">
+        <item quantity="one">%s isik</item>
+        <item quantity="other">%s isikut</item>
+    </plurals>
+    <plurals name="error_upload_max_media_reached">
+        <item quantity="one">Sa ei saa üles laadida enam kui %1$d meediamanuse.</item>
+        <item quantity="other">Sa ei saa üles laadida enam kui %1$d meediamanust.</item>
+    </plurals>
+    <plurals name="notification_summary_report_format">
+        <item quantity="one">%1$s · %2$d postituse manus on lisatud</item>
+        <item quantity="other">%1$s · %2$d postituse manust on lisatud</item>
+    </plurals>
+    <plurals name="notification_severed_relationships_summary_followers_fmt">
+        <item quantity="one">%1$s jälgija on eemaldatud.</item>
+        <item quantity="other">%1$s jälgijat on eemaldatud.</item>
+    </plurals>
 </resources>
