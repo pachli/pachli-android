@@ -16,7 +16,6 @@
 
 package app.pachli.components.compose
 
-import android.content.ContentResolver
 import android.net.Uri
 import android.text.Editable
 import android.text.Spanned
@@ -34,6 +33,7 @@ import app.pachli.components.compose.UploadState.Uploaded
 import app.pachli.components.drafts.DraftHelper
 import app.pachli.components.search.SearchType
 import app.pachli.core.common.PachliError
+import app.pachli.core.common.extensions.dirtyIf
 import app.pachli.core.common.extensions.stateFlow
 import app.pachli.core.common.string.mastodonLength
 import app.pachli.core.common.string.randomAlphanumericString
@@ -78,7 +78,6 @@ import java.util.Date
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -95,7 +94,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.receiveAsFlow
-import kotlinx.coroutines.flow.runningFold
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -140,6 +138,29 @@ internal data class InitialUiState(
 }
 
 internal sealed interface UiAction
+
+// updateFocus
+// showContentWarningChanged
+// updateScheduledAt
+// setup
+// onContentWarningChanged
+// onContentChanged
+// onLanguageChanged
+// toggleMarkSensitive
+// onPollChanged
+// onVisibilityChanged
+// removeMediaFromQueue
+// stopUploads
+// shouldShowSaveDraftDialog -- should be a flow (maybe)
+// updateDescription
+//
+// sendStatus
+// - Should this use all the state in the viewModel instead of taking params?
+
+// TODO
+// - A flow that tracks whether or not the post can be sent (Bool). This replaces
+// the check in ComposeActivity.sendStatus(), and is collected to determine whether
+// the toot button is active (note: poll still requires non-empty content)
 
 internal sealed interface FallibleUiAction : UiAction {
     data object LoadInReplyTo : FallibleUiAction
@@ -239,13 +260,15 @@ class ComposeViewModel @Inject constructor(
     /**
      * Flow of data about the in-reply-to status for this post.
      *
+     * Loadable.Loaded contents are:
      * - Ok(null) - this is not a reply.
      * - Ok(InReplyTo.Status) - this is a reply, with the status being replied to.
+     *
      * - Err() - error occurred fetching the status being replied to.
      */
     // Reload the reply when either the status being replied to changes or the user
     // explicitly triggers a reload.
-    internal val inReplyTo = stateFlow(viewModelScope, Ok(Loadable.Loaded(null))) {
+    internal val inReplyTo = stateFlow(viewModelScope, Ok(Loadable.Loading)) {
         reloadReply.combine(composeOptions.map { it.inReplyTo }.distinctUntilChanged()) { _, inReplyTo -> inReplyTo }
             .flatMapLatest { inReplyTo ->
                 flow {
@@ -277,18 +300,14 @@ class ComposeViewModel @Inject constructor(
 //    private val draftId = composeOptions.map { it.draftId }
 //        .onEach { Timber.d("draftId: $it") }
 //        .shareIn(viewModelScope, SharingStarted.WhileSubscribed(5000), replay = 1)
-    private val scheduledPostId = composeOptions.map { it.scheduledTootId }.stateIn(
-        viewModelScope,
-        SharingStarted.WhileSubscribed(5000),
-        null,
-    )
+
+    /** If editing a status, the original ID of the status. */
     private val originalStatusId = composeOptions.map { it.statusId }.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5000),
         null,
     )
 
-    //    private var contentWarningStateChanged: Boolean = false
     private val modifiedInitialState = composeOptions.map { it.modifiedInitialState == true }
         .stateIn(
             viewModelScope,
@@ -309,10 +328,10 @@ class ComposeViewModel @Inject constructor(
 
     // This is Spanned rather than Editable because if the value is updated
     // by ComposeActivity
-    private val fContent = MutableStateFlow<Spanned>(SpannedString(""))
+    private val content = MutableStateFlow<Spanned>(SpannedString(""))
 
     // -- Flows for content warning.
-    private val fContentWarning = MutableStateFlow("")
+    private val contentWarning = MutableStateFlow("")
 
     // TODO: This is probably wrong, this should be Flow<Boolean> toggled by the user.
 //    val showContentWarning = fContentWarning.map { it.isNotBlank() }
@@ -323,7 +342,7 @@ class ComposeViewModel @Inject constructor(
      * The effective content warning. Either the real content warning, or the empty string
      * if the content warning has been hidden
      */
-    val fEffectiveContentWarning = combine(showContentWarning, fContentWarning) { show, cw ->
+    val effectiveContentWarning = combine(showContentWarning, contentWarning) { show, cw ->
         Timber.d("Evaluating effectiveContentWarning")
         Timber.d("  show: $show")
         Timber.d("    cw: $cw")
@@ -333,7 +352,7 @@ class ComposeViewModel @Inject constructor(
         .shareIn(viewModelScope, SharingStarted.WhileSubscribed(5000), replay = 1)
 
     /** Length of the status. */
-    val fStatusLength = combine(fContent, fContentWarning, instanceInfo) { content, contentWarning, instanceInfo ->
+    val statusLength = combine(content, contentWarning, instanceInfo) { content, contentWarning, instanceInfo ->
         statusLength(content, contentWarning, instanceInfo.charactersReservedPerUrl)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0)
 
@@ -341,6 +360,7 @@ class ComposeViewModel @Inject constructor(
 
     private val _statusVisibility: MutableStateFlow<Status.Visibility> = MutableStateFlow(Status.Visibility.UNKNOWN)
     val statusVisibility = _statusVisibility.asStateFlow()
+
     private val _poll: MutableStateFlow<NewPoll?> = MutableStateFlow(null)
     val poll = _poll.asStateFlow()
 
@@ -356,10 +376,6 @@ class ComposeViewModel @Inject constructor(
      *
      * Used to determine if the media has changed.
      */
-//    private val initialMedia: MutableSharedFlow<List<QueuedMedia>> = MutableSharedFlow(replay = 1)
-
-//    private val _statusLength = MutableStateFlow(0)
-//    val statusLength = _statusLength.asStateFlow()
 
     private val _languages = MutableStateFlow(emptyList<String>())
     val languages = _languages.asStateFlow()
@@ -400,76 +416,17 @@ class ComposeViewModel @Inject constructor(
 
     private var setupComplete = false
 
-//    val dirtyContent2 = combine(composeOptions, fContent) { initial, content ->
-//        Timber.d("dirtyContent check: '$content'")
-//        Timber.d("           initial: '${initial.content}'")
-//        !content.contentEquals(initial.content.orEmpty())
-//    }.onEach { Timber.d("dirtyContent?: $it") }
-//
-//    val dirtyContent3 = fContent.runningFold(Pair<Spanned?, Spanned?>(null, null)) { acc, value ->
-//        (acc.first ?: value) to value
-//    }
-//        //   .runningFold(false) { _, value -> value.first.toString() != value.second.toString() }
-//        .map { it.first.toString() != it.second.toString() }
-//        .onEach { Timber.d("dirtyContent?: $it") }
-
-    /**
-     * Tracks the earliest and most recent emissions in a [Flow<T>] and returns
-     * them as a [Pair<T, T>].
-     *
-     * The [first][Pair.first] item in the [Pair] is the earliest value in the original flow,
-     * the [second][Pair.second] item is the latest value in the original flow.
-     */
-    fun <T> Flow<T>.trackFirstLast() = runningFold(null as Pair<T, T>?) { acc, value -> (acc?.first ?: value) to value }
-        .filterNotNull()
-
-    inline fun <T> Flow<Pair<T, T>>.dirtyIf2(crossinline transform: suspend (first: T, last: T) -> Boolean): Flow<Boolean> {
-        return map { transform(it.first, it.second) }.distinctUntilChanged()
-    }
-
-    /**
-     * Returns a [Flow<Boolean>][Flow] that tracks the "dirty" state of the upstream
-     * flow.
-     *
-     * [predicate]'s arguments are the first emission in to the upstream flow (after
-     * collecting this flow), and the most recent emission in to the upstream flow.
-     * [predicate] should compare them and return either true (if they are meaningfully
-     * different) or false otherwise.
-     *
-     * This flow is distinct, so emissions from the upstream flow that do not change the
-     * dirty state do not generate a corresponding emission from this flow.
-     */
-    inline fun <T> Flow<T>.dirtyIf(crossinline predicate: suspend (first: T, last: T) -> Boolean): Flow<Boolean> {
-        return trackFirstLast().map { predicate(it.first, it.second) }.distinctUntilChanged()
-    }
-
-    val dirtyContent = fContent // .trackFirstLast()
-//        .map { it.first.toString() != it.second.toString() }
+    val dirtyContent = content
         .dirtyIf { first, last -> first.toString() != last.toString() }
         .onEach { Timber.d("dirtyContent?: $it") }
 
-//    val dirtyContentWarning = combine(composeOptions, fEffectiveContentWarning) { initial, cw ->
-//        cw != (initial.contentWarning.orEmpty())
-//    }.onEach { Timber.d("dirtyContentWarning: $it") }
-
-    val dirtyContentWarning = fEffectiveContentWarning
+    val dirtyContentWarning = effectiveContentWarning
         .dirtyIf { first, last -> first != last }
         .onEach { Timber.d("dirtyContentWarning: $it") }
 
     // Note: This will get called multiple times when media is uploading as
     // QueuedMedia includes the upload percentage, which will change. At the
     // moment do nothing about this, but consider it for the future.
-//    val dirtyMedia = combine(initialMedia, media) { initial, media ->
-//        if (initial.size != media.size) return@combine true
-//
-//        initial.zip(media) { initial, media ->
-//            if (initial.description.orEmpty() != media.description.orEmpty()) return@combine true
-//            if (initial.uri != media.uri) return@combine true
-//            if (initial.focus != media.focus) return@combine true
-//        }
-//
-//        return@combine false
-//    }.onEach { Timber.d("dirtyMedia: $it") }
     val dirtyMedia = media.dirtyIf { first, last ->
         if (first.size != last.size) return@dirtyIf true
 
@@ -482,47 +439,32 @@ class ComposeViewModel @Inject constructor(
         return@dirtyIf false
     }.onEach { Timber.d("dirtyMedia: $it") }
 
-    //    val dirtyPoll = combine(composeOptions.map { it.poll }, poll) { initial, poll ->
-//        initial != poll
-//    }.onEach { Timber.d("dirtyPoll: $it") }
     val dirtyPoll = poll.dirtyIf { first, second -> first != second }
 
-    //    val dirtyLanguage = combine(composeOptions.map { it.language }, language) { initial, language ->
-//        Timber.d("dirtyLanguage: $initial $language")
-//        initial != language
-//    }.onEach { Timber.d("dirtyLanguage: $it") }
     val dirtyLanguage = language.dirtyIf { first, last -> first != last }
         .onEach { Timber.d("dirtyLanguage: $it") }
-
-//    val dirtyVisibility = combine(initialVisibility, statusVisibility) { initial, vis ->
-//        initial != vis
-//    }.onEach { Timber.d("dirtyVisibility: $it") }
 
     val dirtyVisibility = statusVisibility.dirtyIf { first, last -> first != last }
         .onEach { Timber.d("dirtyVisibility: $it") }
 
+    val dirtyScheduledAt = scheduledAt.dirtyIf { first, last -> first != last }
+        .onEach { Timber.d("dirtyScheduledAt: $it") }
+
+    val dirtySensitive = markMediaAsSensitive.dirtyIf { first, last -> first != last }
+        .onEach { Timber.d("dirtySensitive: $it") }
+
     /**
      * @return True if content of this status is "dirty", meaning one or more of the
-     *   following have changed since the compose session started: content,
-     *   content warning and content warning visibility, media, polls, or the
-     *   scheduled time to send.
+     *   following have changed since the compose session started:
+     *   - content
+     *   - content warning
+     *   - content warning visibility
+     *   - media
+     *   - polls
+     *   - scheduled time to send
+     *   - sensitivity
+     *   - language
      */
-    // TODO: Add modifiedInitialState, need a 6 param version of this function
-    // TODO: Should consider the schedule time too
-    // TODO: Should consider the visibility too
-//    val fIsDirty = combine(dirtyContent, dirtyContentWarning, dirtyMedia, dirtyPoll, dirtyLanguage) {
-//            dirtyContent,
-//            dirtyContentWarning,
-//            dirtyMedia,
-//            dirtyPoll,
-//            dirtyLanguage,
-//        ->
-//
-//        Timber.d("isDirty: $dirtyContent $dirtyContentWarning $dirtyMedia $dirtyPoll $dirtyLanguage")
-//
-//        dirtyContent || dirtyContentWarning || dirtyMedia || dirtyPoll || dirtyLanguage
-//    }
-
     val fIsDirty = combine(
         dirtyContent,
         dirtyContentWarning,
@@ -530,7 +472,8 @@ class ComposeViewModel @Inject constructor(
         dirtyPoll,
         dirtyLanguage,
         dirtyVisibility,
-        // scheduleTime
+        dirtyScheduledAt,
+        dirtySensitive,
         // modifiedInitialState, whatever that's for
     ) { flows -> flows.any { it == true } }.distinctUntilChanged()
         .onEach { Timber.d("isDirty: $it") }
@@ -543,7 +486,7 @@ class ComposeViewModel @Inject constructor(
                 _scheduledAt.value = composeOptions.scheduledAt
 
                 _showContentWarning.value = composeOptions.contentWarning.orEmpty().isNotEmpty()
-                fContentWarning.value = composeOptions.contentWarning.orEmpty()
+                contentWarning.value = composeOptions.contentWarning.orEmpty()
 
 //                Timber.d("show content warning?: ${_showContentWarning.value}")
 //                Timber.d("  actual cw: ${fContentWarning.value}")
@@ -576,7 +519,6 @@ class ComposeViewModel @Inject constructor(
                 val visibility = composeOptions.visibility ?: (composeOptions.inReplyTo as? InReplyTo.Status)?.visibility?.let {
                     account.entity.defaultPostPrivacy.coerceAtLeast(it)
                 } ?: account.entity.defaultPostPrivacy
-//                initialVisibility.emit(visibility)
                 _statusVisibility.value = visibility
 
                 initialContent.emit(
@@ -631,7 +573,6 @@ class ComposeViewModel @Inject constructor(
                         addUploadedMedia(account.entity, attachment.id, mediaType, attachment.url.toUri(), attachment.description, attachment.meta?.focus)
                     }
                 }
-//                initialMedia.emit(media.value)
 
                 _initialUiState.emit(
                     InitialUiState(
@@ -647,7 +588,7 @@ class ComposeViewModel @Inject constructor(
                                 }
                             }
                         } ?: composeOptions.content.orEmpty(),
-                        contentWarning = fContentWarning.value,
+                        contentWarning = contentWarning.value,
 
                         // TODO:
                         // initialVisibility
@@ -674,10 +615,6 @@ class ComposeViewModel @Inject constructor(
 
     /**
      * Copies selected media and adds to the upload queue.
-     *
-     * @param mediaUri [ContentResolver] URI for the file to copy
-     * @param description media description / caption
-     * @param focus focus, if relevant
      */
     private suspend fun onPickMedia(
         account: PachliAccount,
@@ -694,31 +631,9 @@ class ComposeViewModel @Inject constructor(
             }
         }
 
-//        accept(FallibleUiAction.AttachMedia(type, uri, size, action.description, null))
-        Timber.d("Adding media to queue")
         addMediaToQueue(account, type, uri, size)
-        Timber.d("onPickMedia returning")
         return@withContext Ok(Unit)
     }
-
-    /**
-     * Copies selected media and adds to the upload queue.
-     *
-     * @param mediaUri [ContentResolver] URI for the file to copy
-     * @param description media description / caption
-     * @param focus focus, if relevant
-     */
-//    suspend fun pickMedia(mediaUri: Uri, description: String? = null) = withContext(Dispatchers.IO) {
-//        val (type, uri, size) = mediaUploader.prepareMedia(mediaUri, instanceInfo.value)
-//            .mapError { PickMediaError.PrepareMediaError(it) }.getOrElse { return@withContext Err(it) }
-//        val mediaItems = media.value
-//        if (type != QueuedMedia.Type.IMAGE && mediaItems.isNotEmpty() && mediaItems[0].type == QueuedMedia.Type.IMAGE) {
-//            _uiResult.send(Err(PickMediaError.MixedMediaTypesError))
-//        } else {
-//            val queuedMedia = addMediaToQueue(type, uri, size, description, null)
-// //            _uiResult.send(Ok(queuedMedia))
-//        }
-//    }
 
     private suspend fun onUpdateMedia(account: PachliAccount, uiAction: FallibleUiAction.AttachMedia) {
         addMediaToQueue(
@@ -732,7 +647,7 @@ class ComposeViewModel @Inject constructor(
         )
     }
 
-    internal suspend fun addMediaToQueue(
+    internal fun addMediaToQueue(
         account: PachliAccount,
         type: QueuedMedia.Type,
         uri: Uri,
@@ -804,14 +719,13 @@ class ComposeViewModel @Inject constructor(
         // as this is a stateflow where modifications that set the same value are
         // ignored. So call .toSpanned() to ensure the new value is different from
         // the previous value.
-        Timber.d("onContentChanged: newContent: ${newContent.hashCode()}")
-        fContent.value = newContent.toSpanned()
+        content.value = newContent.toSpanned()
     }
 
     /** Call this when the status' content warning changes */
     fun onContentWarningChanged(newContentWarning: String) {
         Timber.d("cw changed")
-        fContentWarning.value = newContentWarning
+        contentWarning.value = newContentWarning
     }
 
     /** Call this to attach or clear the status' poll */
@@ -829,25 +743,20 @@ class ComposeViewModel @Inject constructor(
         _language.value = newLanguage
     }
 
-//    @VisibleForTesting
-//    fun updateStatusLength() {
-//        _statusLength.value = statusLength(content, effectiveContentWarning, instanceInfo.value.charactersReservedPerUrl)
-//    }
-
-    val fCloseConfirmationKind = combine(fIsDirty, composeKind, fEffectiveContentWarning) { dirty, composeKind, cw ->
+    val closeConfirmationKind = combine(fIsDirty, composeKind, effectiveContentWarning) { dirty, composeKind, cw ->
         Timber.d("Creating new closeConfirmationKind")
         if (!dirty) return@combine ConfirmationKind.NONE
 
         // TODO: The isEmpty checks here should probably be extended. At the moment this
         // doesn't consider added media or palls.
         return@combine when (composeKind) {
-            ComposeKind.NEW -> if (isEmpty(fContent.value, cw)) {
+            ComposeKind.NEW -> if (isEmpty(content.value, cw)) {
                 ConfirmationKind.NONE
             } else {
                 ConfirmationKind.SAVE_OR_DISCARD
             }
 
-            ComposeKind.EDIT_DRAFT -> if (isEmpty(fContent.value, cw)) {
+            ComposeKind.EDIT_DRAFT -> if (isEmpty(content.value, cw)) {
                 ConfirmationKind.CONTINUE_EDITING_OR_DISCARD_DRAFT
             } else {
                 ConfirmationKind.UPDATE_OR_DISCARD
@@ -872,9 +781,6 @@ class ComposeViewModel @Inject constructor(
         if (draftId == 0) return
 
         viewModelScope.launch {
-//            draftId.replayCache.lastOrNull()?.takeIf { it != 0 }?.let {
-//                draftHelper.deleteDraftAndAttachments(it)
-//            }
             draftHelper.deleteDraftAndAttachments(draftId)
         }
     }
@@ -933,9 +839,10 @@ class ComposeViewModel @Inject constructor(
     ) {
         // TODO: Should probably return Result here if this fails, surface failure to
         // the user.
-        scheduledPostId.value.takeIf { !it.isNullOrEmpty() }?.let {
-            api.deleteScheduledStatus(it)
-        }
+//        scheduledPostId.value.takeIf { !it.isNullOrEmpty() }?.let {
+//            api.deleteScheduledStatus(it)
+//        }
+        composeOptions.value.scheduledTootId?.let { api.deleteScheduledStatus(it) }
 
         val attachedMedia = media.value.map { item ->
             MediaToSend(
@@ -948,7 +855,6 @@ class ComposeViewModel @Inject constructor(
             )
         }
 
-        return
         val tootToSend = StatusToSend(
             text = content,
             warningText = spoilerText,

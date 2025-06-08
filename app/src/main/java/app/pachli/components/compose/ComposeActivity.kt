@@ -36,6 +36,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.PopupMenu
 import android.widget.Toast
@@ -72,8 +73,8 @@ import app.pachli.adapter.OnEmojiSelectedListener
 import app.pachli.components.compose.ComposeViewModel.ConfirmationKind
 import app.pachli.components.compose.dialog.makeFocusDialog
 import app.pachli.components.compose.dialog.showAddPollDialog
-import app.pachli.components.compose.view.ComposeOptionsListener
 import app.pachli.components.compose.view.ComposeScheduleView
+import app.pachli.components.compose.view.ComposeVisibilityListener
 import app.pachli.core.activity.BaseActivity
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
@@ -104,7 +105,6 @@ import app.pachli.core.ui.makeIcon
 import app.pachli.databinding.ActivityComposeBinding
 import app.pachli.languageidentification.LanguageIdentifier
 import app.pachli.languageidentification.UNDETERMINED_LANGUAGE_TAG
-import app.pachli.util.CompositeWithOpaqueBackground
 import app.pachli.util.PickMediaFiles
 import app.pachli.util.getLocaleList
 import app.pachli.util.getMediaSize
@@ -148,7 +148,7 @@ import timber.log.Timber
 @AndroidEntryPoint
 class ComposeActivity :
     BaseActivity(),
-    ComposeOptionsListener,
+    ComposeVisibilityListener,
     ComposeAutoCompleteAdapter.AutocompletionProvider,
     OnEmojiSelectedListener,
 
@@ -158,8 +158,8 @@ class ComposeActivity :
     /** The active snackbar */
     private var snackbar: Snackbar? = null
 
-    private lateinit var composeOptionsBehavior: BottomSheetBehavior<*>
-    private lateinit var addMediaBehavior: BottomSheetBehavior<*>
+    private lateinit var visibilityBehavior: BottomSheetBehavior<*>
+    private lateinit var addAttachmentBehavior: BottomSheetBehavior<*>
     private lateinit var emojiBehavior: BottomSheetBehavior<*>
     private lateinit var scheduleBehavior: BottomSheetBehavior<*>
 
@@ -249,13 +249,13 @@ class ComposeActivity :
      */
     private val onBackPressedCallback = object : OnBackPressedCallback(false) {
         override fun handleOnBackPressed() {
-            if (composeOptionsBehavior.state == BottomSheetBehavior.STATE_EXPANDED ||
-                addMediaBehavior.state == BottomSheetBehavior.STATE_EXPANDED ||
+            if (visibilityBehavior.state == BottomSheetBehavior.STATE_EXPANDED ||
+                addAttachmentBehavior.state == BottomSheetBehavior.STATE_EXPANDED ||
                 emojiBehavior.state == BottomSheetBehavior.STATE_EXPANDED ||
                 scheduleBehavior.state == BottomSheetBehavior.STATE_EXPANDED
             ) {
-                composeOptionsBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-                addMediaBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+                visibilityBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+                addAttachmentBehavior.state = BottomSheetBehavior.STATE_HIDDEN
                 emojiBehavior.state = BottomSheetBehavior.STATE_HIDDEN
                 scheduleBehavior.state = BottomSheetBehavior.STATE_HIDDEN
                 return
@@ -343,7 +343,7 @@ class ComposeActivity :
 //                            binding.composeScheduleView.setDateTime(it)
 //                        }
 
-                        setupContentWarningField(initial.contentWarning)
+                        bindContentWarning(initial.contentWarning)
                         setupPollView(account.instanceInfo)
                         applyShareIntent(intent, savedInstanceState)
 
@@ -461,7 +461,7 @@ class ComposeActivity :
      *
      * @param result
      */
-    private fun bindInReplyTo(result: Result<Loadable<out InReplyTo.Status?>, UiError.LoadInReplyToError>) {
+    private fun bindInReplyTo(result: Result<Loadable<InReplyTo.Status?>, UiError.LoadInReplyToError>) {
         /** Hides the UI elements for an in-reply-to status. */
         fun hide() {
             binding.statusAvatar.hide()
@@ -515,7 +515,7 @@ class ComposeActivity :
         show()
 
         with(inReplyTo) {
-            setReplyAvatar(this)
+            bindReplyAvatar(this)
 
             binding.statusDisplayName.text =
                 displayName.emojify(glide, emojis, binding.statusDisplayName, sharedPreferencesRepository.animateEmojis)
@@ -534,12 +534,12 @@ class ComposeActivity :
         }
     }
 
-    private fun setReplyAvatar(inReplyTo: InReplyTo.Status) {
+    /** Loads the avatar of the account being replied to into the UI. */
+    private fun bindReplyAvatar(inReplyTo: InReplyTo.Status) {
         binding.statusAvatar.setPaddingRelative(0, 0, 0, 0)
         if (viewModel.statusDisplayOptions.value.showBotOverlay && inReplyTo.isBot) {
             binding.statusAvatarInset.visibility = View.VISIBLE
-            glide.load(DR.drawable.bot_badge)
-                .into(binding.statusAvatarInset)
+            glide.load(DR.drawable.bot_badge).into(binding.statusAvatarInset)
         } else {
             binding.statusAvatarInset.visibility = View.GONE
         }
@@ -550,18 +550,14 @@ class ComposeActivity :
             binding.statusAvatar,
             avatarRadius48dp,
             sharedPreferencesRepository.animateAvatars,
-            listOf(
-                CompositeWithOpaqueBackground(
-                    MaterialColors.getColor(
-                        binding.statusAvatar,
-                        android.R.attr.colorBackground,
-                    ),
-                ),
-            ),
         )
     }
 
-    private fun setupContentWarningField(startingContentWarning: String?) {
+    /**
+     * Binds [startingContentWarning] to the UI, listens for any changes to the
+     * content warning and forwards to the [viewModel].
+     */
+    private fun bindContentWarning(startingContentWarning: String?) {
         binding.composeContentWarningField.doOnTextChanged { newContentWarning, _, _, _ ->
             viewModel.onContentWarningChanged(newContentWarning?.toString() ?: "")
         }
@@ -620,25 +616,24 @@ class ComposeActivity :
             viewModel.pachliAccountFlow.map { it.instanceInfo }.distinctUntilChanged().collect { instanceData ->
                 maximumTootCharacters = instanceData.maxChars
                 maxUploadMediaNumber = instanceData.maxMediaAttachments
-                // TODO: Next line probably not needed, as the statusLength calculation
-                // already combines instance info.
-//                updateVisibleCharactersLeft(viewModel.statusLength.value)
             }
         }
 
-        lifecycleScope.launch { viewModel.fStatusLength.collect(::updateVisibleCharactersLeft) }
-
         lifecycleScope.launch {
-            viewModel.fCloseConfirmationKind.collect { updateOnBackPressedCallbackState(it, bottomSheetStates()) }
+            viewModel.statusLength.collect(::updateVisibleCharactersLeft)
         }
 
         lifecycleScope.launch {
-            viewModel.emojis.collect(::setEmojiList)
+            viewModel.closeConfirmationKind.collect { updateOnBackPressedCallbackState(it, bottomSheetStates()) }
+        }
+
+        lifecycleScope.launch {
+            viewModel.emojis.collect(::bindEmojiList)
         }
 
         lifecycleScope.launch {
             viewModel.showContentWarning.combine(viewModel.markMediaAsSensitive) { showContentWarning, markSensitive ->
-                updateSensitiveMediaToggle(markSensitive, showContentWarning)
+                updateMarkSensitiveButton(markSensitive, showContentWarning)
                 showContentWarning(showContentWarning)
             }.collect()
         }
@@ -652,7 +647,7 @@ class ComposeActivity :
                 mediaAdapter.submitList(media)
 
                 binding.composeMediaPreviewBar.visible(media.isNotEmpty())
-                updateSensitiveMediaToggle(
+                updateMarkSensitiveButton(
                     viewModel.markMediaAsSensitive.value,
                     viewModel.showContentWarning.value,
                 )
@@ -686,12 +681,13 @@ class ComposeActivity :
             }
         }
 
+        // Determine whether the add attachment options are enabled.
         lifecycleScope.launch {
             viewModel.media.combine(viewModel.poll) { media, poll ->
                 val active = poll == null &&
                     media.size < maxUploadMediaNumber &&
                     (media.isEmpty() || media.first().type == QueuedMedia.Type.IMAGE)
-                enableButton(binding.composeAddMediaButton, active, active)
+                enableButton(binding.composeAddAttachmentButton, active, active)
                 enablePollButton(media.isEmpty())
             }.collect()
         }
@@ -699,8 +695,8 @@ class ComposeActivity :
 
     /** @return List of states of the different bottomsheets */
     private fun bottomSheetStates() = listOf(
-        composeOptionsBehavior.state,
-        addMediaBehavior.state,
+        visibilityBehavior.state,
+        addAttachmentBehavior.state,
         emojiBehavior.state,
         scheduleBehavior.state,
     )
@@ -720,19 +716,19 @@ class ComposeActivity :
     private fun setupButtons(pachliAccount: PachliAccount) {
         binding.composeOptionsBottomSheet.listener = this
 
-        composeOptionsBehavior = BottomSheetBehavior.from(binding.composeOptionsBottomSheet)
-        addMediaBehavior = BottomSheetBehavior.from(binding.addMediaBottomSheet)
+        visibilityBehavior = BottomSheetBehavior.from(binding.composeOptionsBottomSheet)
+        addAttachmentBehavior = BottomSheetBehavior.from(binding.addMediaBottomSheet)
         scheduleBehavior = BottomSheetBehavior.from(binding.composeScheduleView)
         emojiBehavior = BottomSheetBehavior.from(binding.emojiView)
 
         val bottomSheetCallback = object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
-                updateOnBackPressedCallbackState(viewModel.fCloseConfirmationKind.value, bottomSheetStates())
+                updateOnBackPressedCallbackState(viewModel.closeConfirmationKind.value, bottomSheetStates())
             }
             override fun onSlide(bottomSheet: View, slideOffset: Float) { }
         }
-        composeOptionsBehavior.addBottomSheetCallback(bottomSheetCallback)
-        addMediaBehavior.addBottomSheetCallback(bottomSheetCallback)
+        visibilityBehavior.addBottomSheetCallback(bottomSheetCallback)
+        addAttachmentBehavior.addBottomSheetCallback(bottomSheetCallback)
         scheduleBehavior.addBottomSheetCallback(bottomSheetCallback)
         emojiBehavior.addBottomSheetCallback(bottomSheetCallback)
 
@@ -740,11 +736,11 @@ class ComposeActivity :
 
         // Setup the interface buttons.
         binding.composeTootButton.setOnClickListener { onSendClicked(pachliAccount.id) }
-        binding.composeAddMediaButton.setOnClickListener { openPickDialog() }
-        binding.composeToggleVisibilityButton.setOnClickListener { showComposeOptions() }
+        binding.composeAddAttachmentButton.setOnClickListener { onAddAttachmentClick() }
+        binding.composeToggleVisibilityButton.setOnClickListener { showVisibilityOptions() }
         binding.composeContentWarningButton.setOnClickListener { onContentWarningChanged() }
-        binding.composeEmojiButton.setOnClickListener { showEmojis() }
-        binding.composeHideMediaButton.setOnClickListener { toggleHideMedia() }
+        binding.composeEmojiButton.setOnClickListener { onEmojiClick() }
+        binding.composeMarkSensitiveButton.setOnClickListener { onMarkSensitiveClick() }
         binding.composeScheduleButton.setOnClickListener { onScheduleClick() }
         binding.composeScheduleView.setResetOnClickListener { resetSchedule() }
         binding.composeScheduleView.setListener(this)
@@ -755,7 +751,7 @@ class ComposeActivity :
         binding.actionPhotoTake.setCompoundDrawablesRelativeWithIntrinsicBounds(cameraIcon, null, null, null)
 
         val imageIcon = makeIcon(this, GoogleMaterial.Icon.gmd_image, IconicsSize.dp(18))
-        binding.actionPhotoPick.setCompoundDrawablesRelativeWithIntrinsicBounds(imageIcon, null, null, null)
+        binding.actionAddMedia.setCompoundDrawablesRelativeWithIntrinsicBounds(imageIcon, null, null, null)
 
         val pollIcon = makeIcon(this, GoogleMaterial.Icon.gmd_poll, IconicsSize.dp(18))
         binding.addPollTextActionTextView.setCompoundDrawablesRelativeWithIntrinsicBounds(pollIcon, null, null, null)
@@ -763,8 +759,8 @@ class ComposeActivity :
         binding.actionPhotoTake.visible(Intent(MediaStore.ACTION_IMAGE_CAPTURE).resolveActivity(packageManager) != null)
 
         binding.actionPhotoTake.setOnClickListener { initiateCameraApp() }
-        binding.actionPhotoPick.setOnClickListener { onMediaPick() }
-        binding.addPollTextActionTextView.setOnClickListener { openPollDialog(pachliAccount.instanceInfo) }
+        binding.actionAddMedia.setOnClickListener { onAddMediaClick() }
+        binding.addPollTextActionTextView.setOnClickListener { onAddPollClick(pachliAccount.instanceInfo) }
 
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
     }
@@ -830,52 +826,69 @@ class ComposeActivity :
         binding.composeEditField.setSelection(start + text.length)
     }
 
-    fun prependSelectedWordsWith(text: CharSequence) {
-        // If you select "backward" in an editable, you get SelectionStart > SelectionEnd
-        val start = binding.composeEditField.selectionStart.coerceAtMost(binding.composeEditField.selectionEnd)
-        val end = binding.composeEditField.selectionStart.coerceAtLeast(binding.composeEditField.selectionEnd)
-        val editorText = binding.composeEditField.text
+    /**
+     * Inserts [text] in to [EditText] immediately before each word in the
+     * selected text.
+     *
+     * E.g., given current text is `foo bar baz` and [text] is `#`
+     *
+     * If `bar baz` is selected the result is `foo #bar #baz`.
+     *
+     * Only words that start in the selection are considered.
+     *
+     * - If `r baz` is selected the result is `foo bar #baz`.
+     * - If `bar ba` is selected the result is `foo #bar #baz`.
+     *
+     * If no text is selected [text] is inserted at the caret.
+     */
+    fun EditText.prependSelectedWordsWith(text: CharSequence) {
+        // Ensure selectionStart < selectionEnd (selecting backwards in an EditText
+        // can cause this).
+        val start = selectionStart.coerceAtMost(selectionEnd)
+        val end = selectionStart.coerceAtLeast(selectionEnd)
+        val editorText = getText()
 
+        // No selection? Insert at caret, move the cursor to immediately after the
+        // insertion, and finish.
         if (start == end) {
-            // No selection, just insert text at caret
             editorText.insert(start, text)
-            // Set the cursor after the inserted text
-            binding.composeEditField.setSelection(start + text.length)
-        } else {
-            var wasWord: Boolean
-            var isWord = end < editorText.length && !Character.isWhitespace(editorText[end])
-            var newEnd = end
+            setSelection(start + text.length)
+            return
+        }
 
-            // Iterate the selection backward so we don't have to juggle indices on insertion
-            var index = end - 1
-            while (index >= start - 1 && index >= 0) {
-                wasWord = isWord
-                isWord = !Character.isWhitespace(editorText[index])
-                if (wasWord && !isWord) {
-                    // We've reached the beginning of a word, perform insert
-                    editorText.insert(index + 1, text)
-                    newEnd += text.length
-                }
-                --index
-            }
+        var wasWord: Boolean
+        var isWord = end < editorText.length && !Character.isWhitespace(editorText[end])
+        var newEnd = end
 
-            if (start == 0 && isWord) {
-                // Special case when the selection includes the start of the text
-                editorText.insert(0, text)
+        // Iterate the selection backward so we don't have to juggle indices on insertion
+        var index = end - 1
+        while (index >= start - 1 && index >= 0) {
+            wasWord = isWord
+            isWord = !Character.isWhitespace(editorText[index])
+            if (wasWord && !isWord) {
+                // We've reached the beginning of a word, perform insert
+                editorText.insert(index + 1, text)
                 newEnd += text.length
             }
-
-            // Keep the same text (including insertions) selected
-            binding.composeEditField.setSelection(start, newEnd)
+            --index
         }
+
+        // Special case when the selection includes the start of the text
+        if (start == 0 && isWord) {
+            editorText.insert(0, text)
+            newEnd += text.length
+        }
+
+        // Keep the same text (including insertions) selected
+        setSelection(start, newEnd)
     }
 
     private fun atButtonClicked() {
-        prependSelectedWordsWith("@")
+        binding.composeEditField.prependSelectedWordsWith("@")
     }
 
     private fun hashButtonClicked() {
-        prependSelectedWordsWith("#")
+        binding.composeEditField.prependSelectedWordsWith("#")
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -886,14 +899,7 @@ class ComposeActivity :
         super.onSaveInstanceState(outState)
     }
 
-    private fun displayPermamentMessage(message: String) {
-        val bar = Snackbar.make(binding.activityCompose, message, Snackbar.LENGTH_INDEFINITE)
-        // necessary so snackbar is shown over everything
-        bar.view.elevation = resources.getDimension(DR.dimen.compose_activity_snackbar_elevation)
-        bar.setAnchorView(R.id.composeBottomBar)
-        bar.show()
-    }
-
+    /** Displays a [Snackbar] showing [message], anchored to the bottom bar. */
     private fun displayTransientMessage(message: String) {
         val bar = Snackbar.make(binding.activityCompose, message, Snackbar.LENGTH_LONG)
         // necessary so snackbar is shown over everything
@@ -902,15 +908,22 @@ class ComposeActivity :
         bar.show()
     }
 
+    /** Displays a [Snackbar] showing [message], anchored to the bottom bar. */
     private fun displayTransientMessage(@StringRes stringId: Int) {
         displayTransientMessage(getString(stringId))
     }
 
-    private fun toggleHideMedia() {
+    /**
+     * Handles clicking the "mark sensitive" (eye) button in the bottom bar.
+     *
+     * Toggles the state of the status' sensitivity.
+     */
+    private fun onMarkSensitiveClick() {
         this.viewModel.toggleMarkSensitive()
     }
 
-    private fun updateSensitiveMediaToggle(markMediaSensitive: Boolean, contentWarningShown: Boolean) = with(binding.composeHideMediaButton) {
+    // TODO: Should use a color state list.
+    private fun updateMarkSensitiveButton(markMediaSensitive: Boolean, contentWarningShown: Boolean) = with(binding.composeMarkSensitiveButton) {
         if (viewModel.media.value.isEmpty()) {
             hide()
         } else {
@@ -944,6 +957,7 @@ class ComposeActivity :
         }
     }
 
+    // TODO: Should use a color state list.
     private fun updateScheduleButton() {
         if (viewModel.editing) {
             // Can't reschedule a published status
@@ -960,11 +974,18 @@ class ComposeActivity :
         }
     }
 
+    /**
+     * Enables / disables the bottom bar buttons.
+     *
+     * @param enable True if the buttons should be enabled.
+     * @param editing True if editing a posted status (disables visibility and
+     * scheduling buttons irrespective of [enable]).
+     */
     private fun enableButtons(enable: Boolean, editing: Boolean) {
-        binding.composeAddMediaButton.isClickable = enable
+        binding.composeAddAttachmentButton.isClickable = enable
         binding.composeToggleVisibilityButton.isClickable = enable && !editing
         binding.composeEmojiButton.isClickable = enable
-        binding.composeHideMediaButton.isClickable = enable
+        binding.composeMarkSensitiveButton.isClickable = enable
         binding.composeScheduleButton.isClickable = enable && !editing
         binding.composeTootButton.isEnabled = enable
     }
@@ -981,17 +1002,26 @@ class ComposeActivity :
         }
     }
 
-    private fun showComposeOptions() {
-        if (composeOptionsBehavior.state == BottomSheetBehavior.STATE_HIDDEN || composeOptionsBehavior.state == BottomSheetBehavior.STATE_COLLAPSED) {
-            composeOptionsBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-            addMediaBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+    private fun showVisibilityOptions() {
+        if (visibilityBehavior.state == BottomSheetBehavior.STATE_HIDDEN || visibilityBehavior.state == BottomSheetBehavior.STATE_COLLAPSED) {
+            visibilityBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+            addAttachmentBehavior.state = BottomSheetBehavior.STATE_HIDDEN
             emojiBehavior.state = BottomSheetBehavior.STATE_HIDDEN
             scheduleBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
         } else {
-            composeOptionsBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
+            visibilityBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
         }
     }
 
+    /**
+     * Handles clicking the "schedule" button in the bottom bar.
+     *
+     * Either:
+     *
+     * - Shows the UI to choose a date/time, if the status is not currently
+     * scheduled (see [ComposeScheduleView.openPickDateDialog]), or
+     * - Shows/hides a UI to edit/clear the scheduling data (see [showScheduleView].
+     */
     private fun onScheduleClick() {
         if (viewModel.scheduledAt.value == null) {
             binding.composeScheduleView.openPickDateDialog()
@@ -1000,53 +1030,75 @@ class ComposeActivity :
         }
     }
 
+    /**
+     * Shows a bottom sheet displaying the scheduled date/time for the status,
+     * and a UI to clear it.
+     */
     private fun showScheduleView() {
         if (scheduleBehavior.state == BottomSheetBehavior.STATE_HIDDEN || scheduleBehavior.state == BottomSheetBehavior.STATE_COLLAPSED) {
             scheduleBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-            composeOptionsBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-            addMediaBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+            visibilityBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+            addAttachmentBehavior.state = BottomSheetBehavior.STATE_HIDDEN
             emojiBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
         } else {
             scheduleBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
         }
     }
 
-    private fun showEmojis() {
+    /**
+     * Handles clicking the "emoji" button in the bottom bar.
+     *
+     * Shows/hides the bottom sheet displaying an emoji grid to choose from.
+     */
+    private fun onEmojiClick() {
         binding.emojiView.adapter?.let {
             if (it.itemCount == 0) {
                 val errorMessage = getString(R.string.error_no_custom_emojis, accountManager.activeAccount!!.domain)
                 displayTransientMessage(errorMessage)
+                return
+            }
+
+            if (emojiBehavior.state == BottomSheetBehavior.STATE_HIDDEN || emojiBehavior.state == BottomSheetBehavior.STATE_COLLAPSED) {
+                emojiBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+                visibilityBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+                addAttachmentBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+                scheduleBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
             } else {
-                if (emojiBehavior.state == BottomSheetBehavior.STATE_HIDDEN || emojiBehavior.state == BottomSheetBehavior.STATE_COLLAPSED) {
-                    emojiBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-                    composeOptionsBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-                    addMediaBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-                    scheduleBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
-                } else {
-                    emojiBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
-                }
+                emojiBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
             }
         }
     }
 
-    private fun openPickDialog() {
-        if (addMediaBehavior.state == BottomSheetBehavior.STATE_HIDDEN || addMediaBehavior.state == BottomSheetBehavior.STATE_COLLAPSED) {
-            addMediaBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-            composeOptionsBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+    /**
+     * Handles clicking the "Add attachment" button in the bottom bar.
+     *
+     * Shows/hides the bottom sheet display a menu of attachment options.
+     */
+    private fun onAddAttachmentClick() {
+        if (addAttachmentBehavior.state == BottomSheetBehavior.STATE_HIDDEN || addAttachmentBehavior.state == BottomSheetBehavior.STATE_COLLAPSED) {
+            addAttachmentBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+            visibilityBehavior.state = BottomSheetBehavior.STATE_HIDDEN
             emojiBehavior.state = BottomSheetBehavior.STATE_HIDDEN
             scheduleBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
         } else {
-            addMediaBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
+            addAttachmentBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
         }
     }
 
-    private fun onMediaPick() {
-        addMediaBehavior.addBottomSheetCallback(
+    /**
+     * Handles clicking the "Add media" button in the "Add attachment" menu.
+     *
+     * Requests the necessary permissions, or directly launches
+     * [pickMediaFile]. If permissions are necessary the media picker is
+     * launched in [onRequestPermissionsResult].
+     */
+    private fun onAddMediaClick() {
+        addAttachmentBehavior.addBottomSheetCallback(
             object : BottomSheetBehavior.BottomSheetCallback() {
                 override fun onStateChanged(bottomSheet: View, newState: Int) {
                     // Wait until bottom sheet is not collapsed and show next screen after
                     if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
-                        addMediaBehavior.removeBottomSheetCallback(this)
+                        addAttachmentBehavior.removeBottomSheetCallback(this)
                         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q && ContextCompat.checkSelfPermission(this@ComposeActivity, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                             ActivityCompat.requestPermissions(
                                 this@ComposeActivity,
@@ -1062,11 +1114,14 @@ class ComposeActivity :
                 override fun onSlide(bottomSheet: View, slideOffset: Float) {}
             },
         )
-        addMediaBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+        addAttachmentBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
     }
 
-    private fun openPollDialog(instanceInfo: InstanceInfo) = lifecycleScope.launch {
-        addMediaBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+    /**
+     * Handles clicking the "Add poll" button in the "Add attachment" menu.
+     */
+    private fun onAddPollClick(instanceInfo: InstanceInfo) = lifecycleScope.launch {
+        addAttachmentBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
         showAddPollDialog(
             context = this@ComposeActivity,
             poll = viewModel.poll.value,
@@ -1087,7 +1142,7 @@ class ComposeActivity :
             popup.menu.add(0, removeId, 0, R.string.action_remove)
             popup.setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
-                    editId -> openPollDialog(instanceInfo)
+                    editId -> onAddPollClick(instanceInfo)
                     removeId -> removePoll()
                 }
                 true
@@ -1103,11 +1158,8 @@ class ComposeActivity :
 
     override fun onVisibilityChanged(visibility: Status.Visibility) {
         viewModel.onStatusVisibilityChanged(visibility)
-        composeOptionsBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+        visibilityBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
     }
-
-//    @VisibleForTesting
-//    val selectedLanguage by unsafeLazy { viewModel.language }
 
     private fun updateVisibleCharactersLeft(textLength: Int) {
         val remainingLength = maximumTootCharacters - textLength
@@ -1239,8 +1291,8 @@ class ComposeActivity :
     private fun sendStatus(pachliAccountId: Long) {
         enableButtons(false, viewModel.editing)
         val contentText = binding.composeEditField.text.toString()
-        val spoilerText = viewModel.fEffectiveContentWarning.replayCache.firstOrNull().orEmpty()
-        val statusLength = viewModel.fStatusLength.value
+        val spoilerText = viewModel.effectiveContentWarning.replayCache.firstOrNull().orEmpty()
+        val statusLength = viewModel.statusLength.value
         if ((statusLength <= 0 || contentText.isBlank()) && viewModel.media.value.isEmpty()) {
             binding.composeEditField.error = getString(R.string.error_empty)
             enableButtons(true, viewModel.editing)
@@ -1267,7 +1319,7 @@ class ComposeActivity :
                     R.string.error_media_upload_permission,
                     Snackbar.LENGTH_SHORT,
                 ).apply {
-                    setAction(app.pachli.core.ui.R.string.action_retry) { onMediaPick() }
+                    setAction(app.pachli.core.ui.R.string.action_retry) { onAddMediaClick() }
                     // necessary so snackbar is shown over everything
                     view.elevation = resources.getDimension(DR.dimen.compose_activity_snackbar_elevation)
                     show()
@@ -1277,7 +1329,7 @@ class ComposeActivity :
     }
 
     private fun initiateCameraApp() {
-        addMediaBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+        addAttachmentBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
 
         val photoFile: File = try {
             createNewImageFile(this)
@@ -1298,6 +1350,8 @@ class ComposeActivity :
 
     private fun enableButton(button: ImageButton, clickable: Boolean, colorActive: Boolean) {
         button.isEnabled = clickable
+        // TODO: This should use button.isActivated, and the button should have a color
+        // state list.
         if (colorActive) {
             setDrawableTint(this, button.drawable, android.R.attr.textColorTertiary)
         } else {
@@ -1361,15 +1415,6 @@ class ComposeActivity :
                 description = description,
             ),
         )
-//        lifecycleScope.launch {
-//            viewModel.pickMedia(uri, description).onFailure {
-//                val message = getString(
-//                    R.string.error_pick_media_fmt,
-//                    it.fmt(this@ComposeActivity),
-//                )
-//                displayPermamentMessage(message)
-//            }
-//        }
     }
 
     /**
@@ -1427,7 +1472,7 @@ class ComposeActivity :
     private fun handleCloseButton() {
         val contentText = binding.composeEditField.text.toString()
         val contentWarning = binding.composeContentWarningField.text.toString()
-        when (viewModel.fCloseConfirmationKind.value) {
+        when (viewModel.closeConfirmationKind.value) {
             ConfirmationKind.NONE -> {
                 viewModel.stopUploads()
                 finish()
@@ -1553,12 +1598,10 @@ class ComposeActivity :
         replaceTextAtCaret(":$shortcode: ")
     }
 
-    private fun setEmojiList(emojiList: List<Emoji>?) {
-        if (emojiList != null) {
-            val animateEmojis = sharedPreferencesRepository.animateEmojis
-            binding.emojiView.adapter = EmojiAdapter(glide, emojiList, this@ComposeActivity, animateEmojis)
-            enableButton(binding.composeEmojiButton, true, emojiList.isNotEmpty())
-        }
+    private fun bindEmojiList(emojiList: List<Emoji>) {
+        val animateEmojis = sharedPreferencesRepository.animateEmojis
+        binding.emojiView.adapter = EmojiAdapter(glide, emojiList, this@ComposeActivity, animateEmojis)
+        enableButton(binding.composeEmojiButton, true, emojiList.isNotEmpty())
     }
 
     /** Media queued for upload. */
