@@ -377,12 +377,17 @@ class ComposeActivity :
         viewModel.setup(intent.pachliAccountId, composeOptions)
     }
 
-    /*
-     * Get incoming images being sent through a share action from another app. Only do this
-     * when savedInstanceState is null, otherwise both the images from the intent and the
-     * instance state will be re-queued.
+    /**
+     * Updates the status based on content coming from a share intent.
+     *
+     * If the intent contains attachments (image, video, audio) those are attached.
+     *
+     * The [Intent.EXTRA_SUBJECT] and [Intent.EXTRA_TEXT] are used to build
+     * the initial status content.
      */
     private fun applyShareIntent(intent: Intent, savedInstanceState: Bundle?) {
+        // Only act if savedInstanceState is null, otherwise the attachments from the
+        // intent and the attachments from the instance state will both be added.
         if (savedInstanceState != null) return
         val type = intent.type ?: return
 
@@ -448,6 +453,25 @@ class ComposeActivity :
                 // to crash.  See https://issuetracker.google.com/issues/228215869.
                 // For now, swallow the exception.
             }
+        }
+
+        val subject = intent.getStringExtra(Intent.EXTRA_SUBJECT)
+        val text = intent.getStringExtra(Intent.EXTRA_TEXT).orEmpty()
+        val shareBody = if (!subject.isNullOrBlank() && subject !in text) {
+            subject + '\n' + text
+        } else {
+            text
+        }
+
+        if (shareBody.isNotBlank()) {
+            val start = binding.composeEditField.selectionStart.coerceAtLeast(0)
+            val end = binding.composeEditField.selectionEnd.coerceAtLeast(0)
+            val left = min(start, end)
+            val right = max(start, end)
+            binding.composeEditField.text.replace(left, right, shareBody, 0, shareBody.length)
+            // move edittext cursor to first when shareBody parsed
+            binding.composeEditField.text.insert(0, "\n")
+            binding.composeEditField.setSelection(0)
         }
     }
 
@@ -735,9 +759,9 @@ class ComposeActivity :
         enableButton(binding.composeEmojiButton, clickable = false, colorActive = false)
 
         // Setup the interface buttons.
-        binding.composeTootButton.setOnClickListener { onSendClicked(pachliAccount.id) }
+        binding.composeTootButton.setOnClickListener { onSendClick(pachliAccount.id) }
         binding.composeAddAttachmentButton.setOnClickListener { onAddAttachmentClick() }
-        binding.composeToggleVisibilityButton.setOnClickListener { showVisibilityOptions() }
+        binding.composeChangeVisibilityButton.setOnClickListener { onChangeVisibilityClick() }
         binding.composeContentWarningButton.setOnClickListener { onContentWarningChanged() }
         binding.composeEmojiButton.setOnClickListener { onEmojiClick() }
         binding.composeMarkSensitiveButton.setOnClickListener { onMarkSensitiveClick() }
@@ -908,7 +932,7 @@ class ComposeActivity :
         bar.show()
     }
 
-    /** Displays a [Snackbar] showing [message], anchored to the bottom bar. */
+    /** Displays a [Snackbar] showing [stringId], anchored to the bottom bar. */
     private fun displayTransientMessage(@StringRes stringId: Int) {
         displayTransientMessage(getString(stringId))
     }
@@ -983,7 +1007,7 @@ class ComposeActivity :
      */
     private fun enableButtons(enable: Boolean, editing: Boolean) {
         binding.composeAddAttachmentButton.isClickable = enable
-        binding.composeToggleVisibilityButton.isClickable = enable && !editing
+        binding.composeChangeVisibilityButton.isClickable = enable && !editing
         binding.composeEmojiButton.isClickable = enable
         binding.composeMarkSensitiveButton.isClickable = enable
         binding.composeScheduleButton.isClickable = enable && !editing
@@ -995,14 +1019,19 @@ class ComposeActivity :
         binding.composeTootButton.setStatusVisibility(binding.composeTootButton, visibility)
 
         val iconRes = visibility.iconRes() ?: R.drawable.ic_lock_open_24dp
-        binding.composeToggleVisibilityButton.setImageResource(iconRes)
+        binding.composeChangeVisibilityButton.setImageResource(iconRes)
         if (viewModel.editing) {
             // Can't update visibility on published status
-            enableButton(binding.composeToggleVisibilityButton, clickable = false, colorActive = false)
+            enableButton(binding.composeChangeVisibilityButton, clickable = false, colorActive = false)
         }
     }
 
-    private fun showVisibilityOptions() {
+    /**
+     * Handles clicking the "Visibility" button in the bottom bar.
+     *
+     * Shows/hides the bottom sheet displaying a menu of visibility options.
+     */
+    private fun onChangeVisibilityClick() {
         if (visibilityBehavior.state == BottomSheetBehavior.STATE_HIDDEN || visibilityBehavior.state == BottomSheetBehavior.STATE_COLLAPSED) {
             visibilityBehavior.state = BottomSheetBehavior.STATE_EXPANDED
             addAttachmentBehavior.state = BottomSheetBehavior.STATE_HIDDEN
@@ -1072,7 +1101,7 @@ class ComposeActivity :
     /**
      * Handles clicking the "Add attachment" button in the bottom bar.
      *
-     * Shows/hides the bottom sheet display a menu of attachment options.
+     * Shows/hides the bottom sheet displaying a menu of attachment options.
      */
     private fun onAddAttachmentClick() {
         if (addAttachmentBehavior.state == BottomSheetBehavior.STATE_HIDDEN || addAttachmentBehavior.state == BottomSheetBehavior.STATE_COLLAPSED) {
@@ -1182,7 +1211,7 @@ class ComposeActivity :
         return binding.composeScheduleView.verifyScheduledTime(viewModel.scheduledAt.value)
     }
 
-    private fun onSendClicked(pachliAccountId: Long) = lifecycleScope.launch {
+    private fun onSendClick(pachliAccountId: Long) = lifecycleScope.launch {
         if (viewModel.confirmStatusLanguage) confirmStatusLanguage()
 
         if (verifyScheduledTime()) {
@@ -1456,7 +1485,7 @@ class ComposeActivity :
             if (event.isCtrlPressed) {
                 if (keyCode == KeyEvent.KEYCODE_ENTER) {
                     // send toot by pressing CTRL + ENTER
-                    this.onSendClicked(intent.pachliAccountId)
+                    this.onSendClick(intent.pachliAccountId)
                     return true
                 }
             }
@@ -1604,20 +1633,23 @@ class ComposeActivity :
         enableButton(binding.composeEmojiButton, true, emojiList.isNotEmpty())
     }
 
-    /** Media queued for upload. */
+    /**
+     * Media queued for upload.
+     *
+     * @param account
+     * @param localId Pachli identified for this media, while it's queued.
+     * @param uri Local URI for this media on device.
+     * @param type Media's [Type].
+     * @param mediaSize Media size in bytes, or [app.pachli.util.MEDIA_SIZE_UNKNOWN]. See [getMediaSize].
+     * @param description
+     * @param focus
+     * @param uploadState
+     */
     data class QueuedMedia(
         val account: AccountEntity,
-        /** Pachli identifier for this media, while it's queued. */
         val localId: Int,
-        /** Local URI for this media on device. */
         val uri: Uri,
-        /** Media's [Type]. */
         val type: Type,
-        /**
-         * Media size in bytes, or [app.pachli.util.MEDIA_SIZE_UNKNOWN].
-         *
-         * @see getMediaSize
-         */
         val mediaSize: Long,
         val description: String? = null,
         val focus: Attachment.Focus? = null,

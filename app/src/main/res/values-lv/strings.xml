@@ -516,9 +516,9 @@
     <string name="notification_severed_relationships_user_domain_block_body">Tu liedzi domēnu</string>
     <string name="notification_severed_relationships_unknown_body">Nezināms iemesls</string>
     <plurals name="notification_severed_relationships_summary_following_fmt">
-        <item quantity="zero">Noņemti %1$s kontu, kuriem seko</item>
-        <item quantity="one">Noņemts %1$s konts, kuram seko</item>
-        <item quantity="other">Noņemti %1$s konti, kuriem seko</item>
+        <item quantity="zero">Noņemti %1$s kontu, kuriem seko.</item>
+        <item quantity="one">Noņemts %1$s konts, kuram seko.</item>
+        <item quantity="other">Noņemti %1$s konti, kuriem seko.</item>
     </plurals>
     <string name="notification_severed_relationships_format">Pārrauta saikne ar <b>%1$s</b></string>
     <string name="pref_title_show_self_boosts_description">Kāds, kurs pats pastiprina savu ierakstu</string>
@@ -527,9 +527,9 @@
     <string name="notification_unknown">Nezināms paziņojuma veids</string>
     <string name="pref_title_show_self_boosts">Rādīt pašpastiprinājumus</string>
     <plurals name="notification_severed_relationships_summary_followers_fmt">
-        <item quantity="zero">Noņemti %1$s sekotāju</item>
-        <item quantity="one">Noņemts %1$s sekotājs</item>
-        <item quantity="other">Noņemti %1$s sekotāji</item>
+        <item quantity="zero">Noņemti %1$s sekotāju.</item>
+        <item quantity="one">Noņemts %1$s sekotājs.</item>
+        <item quantity="other">Noņemti %1$s sekotāji.</item>
     </plurals>
     <string name="action_suggestions">Ieteiktie konti</string>
     <string name="action_refresh_account">Atsvaidzināt kontu</string>
@@ -810,4 +810,9 @@
     <string name="search_operator_attachment_dialog_any_label">Jebkurš veids</string>
     <string name="pref_notification_up_distributor_name_fmt">%1$s. Jāpiesit, lai atvērtu</string>
     <string name="help_empty_home">Šī ir tava <b>mājas laika līnija</b>. Tajā tiek parādīti neseni ieraksti no kontiem, kuriem seko.\n\nLai izpētītu kontus, tos var atklāt kādā no citām laika līnijām. Piemēram, vietējā sava servera laika līnijā [iconics mgd_group]. Vai arī var meklēt kontus pēc vārda [iconics gmd_search]; piemēram, meklēt \"Pachli\", lai atrastu mūsu Mastodon kontu.</string>
+    <string name="manage_accounts_name">Pārvaldīt kontus</string>
+    <string name="notification_severed_relationships_domain_block_fmt">%1$s pārvaldītājs liedza <b>%2$s</b></string>
+    <string name="notification_severed_relationships_user_domain_block_fmt">Tu liedzi <b>%1$s</b></string>
+    <string name="notification_severed_relationships_account_suspension_fmt">%1$s pārvaldītājs liedza <b>%2$s</b></string>
+    <string name="notification_severed_relationships_unknown_fmt"><b>%1$s</b> ir liegts (nezināms iemesls)</string>
 </resources>
