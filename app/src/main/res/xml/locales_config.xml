@@ -6,6 +6,7 @@
     <locale android:name="cs"/> <!-- Czech -->
     <locale android:name="cy"/> <!-- Welsh -->
     <locale android:name="de"/> <!-- German -->
+    <locale android:name="et"/> <!-- Estonian -->
     <locale android:name="en"/> <!-- English -->
     <locale android:name="en-GB"/> <!-- English (United Kingdom) -->
     <locale android:name="es"/> <!-- Spanish -->

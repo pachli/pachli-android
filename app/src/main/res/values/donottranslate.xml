@@ -60,6 +60,7 @@
         <item>Čeština</item> <!-- cs: Czech -->
         <item>Cymraeg</item> <!-- cy: Welsh -->
         <item>Deutsch</item> <!-- de: German -->
+        <item>Eesti</item> <!-- et: Estonian -->
         <item>English</item> <!-- en: English -->
         <item>English (United Kingdom)</item> <!-- en-GB: English (United Kingdom) -->
         <item>Español</item> <!-- es: Spanish -->
@@ -127,6 +128,7 @@
         <item>cs</item>
         <item>cy</item>
         <item>de</item>
+        <item>et</item>
         <item>en</item>
         <item>en-GB</item>
         <item>es</item>
