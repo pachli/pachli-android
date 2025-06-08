@@ -210,7 +210,7 @@ class ComposeViewModel @AssistedInject constructor(
     private val _media: MutableStateFlow<List<QueuedMedia>> = MutableStateFlow(emptyList())
     val media = _media.asStateFlow()
     private val _closeConfirmation = MutableStateFlow(ConfirmationKind.NONE)
-    val closeConfirmation = _closeConfirmation.asStateFlow()
+    val closeConfirmationKind = _closeConfirmation.asStateFlow()
     private val _statusLength = MutableStateFlow(0)
     val statusLength = _statusLength.asStateFlow()
 

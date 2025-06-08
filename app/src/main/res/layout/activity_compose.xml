@@ -343,7 +343,7 @@
             android:textColor="?android:textColorTertiary" />
 
         <TextView
-            android:id="@+id/actionPhotoPick"
+            android:id="@+id/action_add_media"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -420,7 +420,7 @@
         android:paddingBottom="4dp">
 
         <ImageButton
-            android:id="@+id/composeAddMediaButton"
+            android:id="@+id/compose_add_attachment_button"
             style="@style/AppImageButton"
             android:layout_width="36dp"
             android:layout_height="36dp"
@@ -431,7 +431,7 @@
             app:tooltipText="@string/action_add_media" />
 
         <ImageButton
-            android:id="@+id/composeToggleVisibilityButton"
+            android:id="@+id/compose_change_visibility_button"
             style="@style/AppImageButton"
             android:layout_width="36dp"
             android:layout_height="36dp"
@@ -443,7 +443,7 @@
             tools:src="@drawable/ic_public_24dp" />
 
         <ImageButton
-            android:id="@+id/composeHideMediaButton"
+            android:id="@+id/compose_mark_sensitive_button"
             style="@style/AppImageButton"
             android:layout_width="36dp"
             android:layout_height="36dp"
