@@ -761,12 +761,12 @@
     <string name="account_filter_placeholder_label_younger_30d">Suodatettu koska: &lt;b&gt;luotu viimeisten 30 päivän aikana&lt;/b&gt;</string>
     <string name="account_filter_placeholder_label_limited_by_server">Suodatettu koska: &lt;b&gt;moderaattorisi rajoittama&lt;/b&gt;</string>
     <plurals name="notification_severed_relationships_summary_followers_fmt">
-        <item quantity="one">%1$s seuraaja poistettu</item>
-        <item quantity="other">%1$s seuraajaa poistettu</item>
+        <item quantity="one">%1$s seuraaja poistettu.</item>
+        <item quantity="other">%1$s seuraajaa poistettu.</item>
     </plurals>
     <plurals name="notification_severed_relationships_summary_following_fmt">
-        <item quantity="one">%1$s seuraamasi tili poistettu</item>
-        <item quantity="other">%1$s seuraamaasi tiilä poistettu</item>
+        <item quantity="one">%1$s seuraamasi tili poistettu.</item>
+        <item quantity="other">%1$s seuraamaasi tiilä poistettu.</item>
     </plurals>
     <string name="upload_failed_msg_fmt">Lataus epäonnistui. Latausta yritetään uudestaan kun lähetät julkaisun. Jos se epäonnistuu jälleen, julkaisu tallennetaan luonnoksiisi.\n\nVirhe oli: %1$s</string>
     <string name="notification_unknown">Tuntematon ilmoitustyyppi</string>
