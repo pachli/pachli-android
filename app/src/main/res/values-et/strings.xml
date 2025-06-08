@@ -8,4 +8,8 @@
     <string name="error_no_web_browser_found">Ei leidnud toimivat veebibrauserit.</string>
     <string name="title_home">Avaleht</string>
     <string name="error_media_upload_type">Seda failitüüpi ei saa üles laadida.</string>
+    <plurals name="followed_hashtags_posts_count_fmt">
+        <item quantity="one">%1$d postitus</item>
+        <item quantity="other">%1$d postitust</item>
+    </plurals>
 </resources>
