@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="hint_list_name">Loendi nimi</string>
+    <string name="list_exclusive_label">Peida kodulehe ajajoonelt</string>
+    <string name="replies_policy_title">Näita vastuseid kasutajatele:</string>
+</resources>
