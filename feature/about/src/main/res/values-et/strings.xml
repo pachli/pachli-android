@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="about_title_activity">Rakenduse teave</string>
+    <string name="about_account_info_title">Sinu kasutajakonto</string>
+    <string name="about_copied">Versiooni number ja seadme teave on kopeeritud</string>
+    <string name="about_copy">Kopeeri versiooni number ja seadme teave</string>
+    <string name="about_device_info_title">Sinu seade</string>
+</resources>

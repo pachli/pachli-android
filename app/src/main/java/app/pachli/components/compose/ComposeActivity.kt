@@ -865,7 +865,7 @@ class ComposeActivity :
      *
      * If no text is selected [text] is inserted at the caret.
      */
-    fun EditText.prependSelectedWordsWith(text: CharSequence) {
+    fun prependSelectedWordsWith(text: CharSequence) = with(binding.composeEditField) {
         // Ensure selectionStart < selectionEnd (selecting backwards in an EditText
         // can cause this).
         val start = selectionStart.coerceAtMost(selectionEnd)
@@ -908,11 +908,11 @@ class ComposeActivity :
     }
 
     private fun atButtonClicked() {
-        binding.composeEditField.prependSelectedWordsWith("@")
+        prependSelectedWordsWith("@")
     }
 
     private fun hashButtonClicked() {
-        binding.composeEditField.prependSelectedWordsWith("#")
+        prependSelectedWordsWith("#")
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
