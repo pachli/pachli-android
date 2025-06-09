@@ -851,7 +851,7 @@ class ComposeActivity :
     }
 
     /**
-     * Inserts [text] in to [EditText] immediately before each word in the
+     * Inserts [text] in to the editor immediately before each word in the
      * selected text.
      *
      * E.g., given current text is `foo bar baz` and [text] is `#`
@@ -884,7 +884,7 @@ class ComposeActivity :
         var isWord = end < editorText.length && !Character.isWhitespace(editorText[end])
         var newEnd = end
 
-        // Iterate the selection backward so we don't have to juggle indices on insertion
+        // Iterate the selection backward so we don't have to juggle indices on insertion.
         var index = end - 1
         while (index >= start - 1 && index >= 0) {
             wasWord = isWord
@@ -897,13 +897,13 @@ class ComposeActivity :
             --index
         }
 
-        // Special case when the selection includes the start of the text
         if (start == 0 && isWord) {
+            // Special case when the selection includes the start of the text.
             editorText.insert(0, text)
             newEnd += text.length
         }
 
-        // Keep the same text (including insertions) selected
+        // Keep the same text (including insertions) selected.
         setSelection(start, newEnd)
     }
 
