@@ -70,8 +70,8 @@ import app.pachli.adapter.OnEmojiSelectedListener
 import app.pachli.components.compose.ComposeViewModel.ConfirmationKind
 import app.pachli.components.compose.dialog.makeFocusDialog
 import app.pachli.components.compose.dialog.showAddPollDialog
-import app.pachli.components.compose.view.ComposeOptionsListener
 import app.pachli.components.compose.view.ComposeScheduleView
+import app.pachli.components.compose.view.ComposeVisibilityListener
 import app.pachli.core.activity.BaseActivity
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
@@ -144,7 +144,7 @@ import timber.log.Timber
 @AndroidEntryPoint
 class ComposeActivity :
     BaseActivity(),
-    ComposeOptionsListener,
+    ComposeVisibilityListener,
     ComposeAutoCompleteAdapter.AutocompletionProvider,
     OnEmojiSelectedListener,
 
@@ -509,6 +509,10 @@ class ComposeActivity :
         )
     }
 
+    /**
+     * Binds [startingContentWarning] to the UI, listens for any changes to the
+     * content warning and forwards to the [viewModel].
+     */
     private fun bindContentWarning(startingContentWarning: String?) {
         binding.composeContentWarningField.doOnTextChanged { newContentWarning, _, _, _ ->
             viewModel.onContentWarningChanged(newContentWarning?.toString() ?: "")
@@ -773,44 +777,61 @@ class ComposeActivity :
         binding.composeEditField.setSelection(start + text.length)
     }
 
-    fun prependSelectedWordsWith(text: CharSequence) {
-        // If you select "backward" in an editable, you get SelectionStart > SelectionEnd
-        val start = binding.composeEditField.selectionStart.coerceAtMost(binding.composeEditField.selectionEnd)
-        val end = binding.composeEditField.selectionStart.coerceAtLeast(binding.composeEditField.selectionEnd)
-        val editorText = binding.composeEditField.text
+    /**
+     * Inserts [text] in to the editor immediately before each word in the
+     * selected text.
+     *
+     * E.g., given current text is `foo bar baz` and [text] is `#`
+     *
+     * If `bar baz` is selected the result is `foo #bar #baz`.
+     *
+     * Only words that start in the selection are considered.
+     *
+     * - If `r baz` is selected the result is `foo bar #baz`.
+     * - If `bar ba` is selected the result is `foo #bar #baz`.
+     *
+     * If no text is selected [text] is inserted at the caret.
+     */
+    fun prependSelectedWordsWith(text: CharSequence) = with(binding.composeEditField) {
+        // Ensure selectionStart < selectionEnd (selecting backwards in an EditText
+        // can cause this).
+        val start = selectionStart.coerceAtMost(selectionEnd)
+        val end = selectionStart.coerceAtLeast(selectionEnd)
+        val editorText = getText()
 
+        // No selection? Insert at caret, move the cursor to immediately after the
+        // insertion, and finish.
         if (start == end) {
-            // No selection, just insert text at caret
             editorText.insert(start, text)
-            // Set the cursor after the inserted text
-            binding.composeEditField.setSelection(start + text.length)
-        } else {
-            var wasWord: Boolean
-            var isWord = end < editorText.length && !Character.isWhitespace(editorText[end])
-            var newEnd = end
+            setSelection(start + text.length)
+            return
+        }
 
-            // Iterate the selection backward so we don't have to juggle indices on insertion
-            var index = end - 1
-            while (index >= start - 1 && index >= 0) {
-                wasWord = isWord
-                isWord = !Character.isWhitespace(editorText[index])
-                if (wasWord && !isWord) {
-                    // We've reached the beginning of a word, perform insert
-                    editorText.insert(index + 1, text)
-                    newEnd += text.length
-                }
-                --index
-            }
+        var wasWord: Boolean
+        var isWord = end < editorText.length && !Character.isWhitespace(editorText[end])
+        var newEnd = end
 
-            if (start == 0 && isWord) {
-                // Special case when the selection includes the start of the text
-                editorText.insert(0, text)
+        // Iterate the selection backward so we don't have to juggle indices on insertion.
+        var index = end - 1
+        while (index >= start - 1 && index >= 0) {
+            wasWord = isWord
+            isWord = !Character.isWhitespace(editorText[index])
+            if (wasWord && !isWord) {
+                // We've reached the beginning of a word, perform insert
+                editorText.insert(index + 1, text)
                 newEnd += text.length
             }
-
-            // Keep the same text (including insertions) selected
-            binding.composeEditField.setSelection(start, newEnd)
+            --index
         }
+
+        if (start == 0 && isWord) {
+            // Special case when the selection includes the start of the text.
+            editorText.insert(0, text)
+            newEnd += text.length
+        }
+
+        // Keep the same text (including insertions) selected.
+        setSelection(start, newEnd)
     }
 
     private fun atButtonClicked() {
@@ -996,15 +1017,16 @@ class ComposeActivity :
             if (it.itemCount == 0) {
                 val errorMessage = getString(R.string.error_no_custom_emojis, accountManager.activeAccount!!.domain)
                 displayTransientMessage(errorMessage)
+                return
+            }
+
+            if (emojiBehavior.state == BottomSheetBehavior.STATE_HIDDEN || emojiBehavior.state == BottomSheetBehavior.STATE_COLLAPSED) {
+                emojiBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+                visibilityBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+                addAttachmentBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+                scheduleBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
             } else {
-                if (emojiBehavior.state == BottomSheetBehavior.STATE_HIDDEN || emojiBehavior.state == BottomSheetBehavior.STATE_COLLAPSED) {
-                    emojiBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-                    visibilityBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-                    addAttachmentBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-                    scheduleBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
-                } else {
-                    emojiBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
-                }
+                emojiBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
             }
         }
     }
