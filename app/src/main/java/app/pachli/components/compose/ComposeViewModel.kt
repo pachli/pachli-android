@@ -785,6 +785,7 @@ class ComposeViewModel @Inject constructor(
         }
     }
 
+    /** Cancels all in-progress uploads. */
     fun stopUploads() {
         mediaUploader.cancelUploadScope(*media.value.map { it.localId }.toIntArray())
     }

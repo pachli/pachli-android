@@ -36,7 +36,6 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.PopupMenu
 import android.widget.Toast
@@ -216,12 +215,6 @@ class ComposeActivity :
             viewModel.cropImageItemOld?.let { itemOld ->
                 val size = getMediaSize(contentResolver, uriNew)
 
-                // TODO: This needs a life cycle parameter, so the upload is cancelled
-                // if the user navigates away from the activity.
-                //
-                // Maybe... Uploads could also continue if the user uploads one image,
-                // then takes a photo to attach as another image. Only cancel if the
-                // user explicitly abandons composing.
                 viewModel.accept(
                     FallibleUiAction.AttachMedia(
                         type = itemOld.type,
@@ -261,7 +254,7 @@ class ComposeActivity :
                 return
             }
 
-            handleCloseButton()
+            confirmAndFinish()
         }
     }
 
@@ -453,25 +446,6 @@ class ComposeActivity :
                 // to crash.  See https://issuetracker.google.com/issues/228215869.
                 // For now, swallow the exception.
             }
-        }
-
-        val subject = intent.getStringExtra(Intent.EXTRA_SUBJECT)
-        val text = intent.getStringExtra(Intent.EXTRA_TEXT).orEmpty()
-        val shareBody = if (!subject.isNullOrBlank() && subject !in text) {
-            subject + '\n' + text
-        } else {
-            text
-        }
-
-        if (shareBody.isNotBlank()) {
-            val start = binding.composeEditField.selectionStart.coerceAtLeast(0)
-            val end = binding.composeEditField.selectionEnd.coerceAtLeast(0)
-            val left = min(start, end)
-            val right = max(start, end)
-            binding.composeEditField.text.replace(left, right, shareBody, 0, shareBody.length)
-            // move edittext cursor to first when shareBody parsed
-            binding.composeEditField.text.insert(0, "\n")
-            binding.composeEditField.setSelection(0)
         }
     }
 
@@ -1472,7 +1446,7 @@ class ComposeActivity :
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
-            handleCloseButton()
+            confirmAndFinish()
             return true
         }
 
@@ -1498,7 +1472,11 @@ class ComposeActivity :
         return super.onKeyDown(keyCode, event)
     }
 
-    private fun handleCloseButton() {
+    /**
+     * Finish the activity, optionally displaying a confirmation dialog to the
+     * user first.
+     */
+    private fun confirmAndFinish() {
         val contentText = binding.composeEditField.text.toString()
         val contentWarning = binding.composeContentWarningField.text.toString()
         when (viewModel.closeConfirmationKind.value) {
@@ -1597,6 +1575,7 @@ class ComposeActivity :
 
     private fun deleteDraftAndFinish() {
         viewModel.deleteDraft(draftId)
+        viewModel.stopUploads()
         finish()
     }
 
