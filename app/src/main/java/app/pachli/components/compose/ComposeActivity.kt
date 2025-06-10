@@ -704,11 +704,8 @@ class ComposeActivity :
      * open. Otherwise disables.
      */
     private fun updateOnBackPressedCallbackState(confirmationKind: ConfirmationKind, bottomSheetStates: List<Int>) {
-        Timber.d("uobpc: $confirmationKind")
-        Timber.d("uobpc: ${bottomSheetStates()}")
         onBackPressedCallback.isEnabled = confirmationKind != ConfirmationKind.NONE ||
             bottomSheetStates.any { it == BottomSheetBehavior.STATE_EXPANDED }
-        Timber.d("backPressedCallback enabled: ${onBackPressedCallback.isEnabled}")
     }
 
     private fun setupButtons(pachliAccount: PachliAccount) {
