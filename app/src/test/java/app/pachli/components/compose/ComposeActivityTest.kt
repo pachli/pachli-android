@@ -740,7 +740,7 @@ class ComposeActivityTest {
         accountManager.getPachliAccountFlow(pachliAccountId).first()
         rule.scenario.onActivity {
             dispatcher.scheduler.advanceUntilIdle()
-            assertEquals(Locale.getDefault().language, it.selectedLanguage)
+            assertEquals(Locale.getDefault().language, it.viewModel.language)
         }
     }
 
@@ -751,7 +751,7 @@ class ComposeActivityTest {
         accountManager.getPachliAccountFlow(pachliAccountId).first()
         rule.scenario.onActivity {
             dispatcher.scheduler.advanceUntilIdle()
-            assertEquals("no", it.selectedLanguage)
+            assertEquals("no", it.viewModel.language)
         }
     }
 
@@ -764,7 +764,7 @@ class ComposeActivityTest {
         accountManager.getPachliAccountFlow(pachliAccountId).first()
         rule.scenario.onActivity {
             dispatcher.scheduler.advanceUntilIdle()
-            assertEquals("yi", it.selectedLanguage)
+            assertEquals("yi", it.viewModel.language)
         }
     }
 
@@ -775,7 +775,7 @@ class ComposeActivityTest {
         accountManager.getPachliAccountFlow(pachliAccountId).first()
         rule.scenario.onActivity {
             dispatcher.scheduler.advanceUntilIdle()
-            assertEquals("zzz", it.selectedLanguage)
+            assertEquals("zzz", it.viewModel.language)
         }
     }
 
