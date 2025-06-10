@@ -356,8 +356,6 @@ class ComposeViewModel @Inject constructor(
         statusLength(content, contentWarning, instanceInfo.charactersReservedPerUrl)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0)
 
-    private val initialVisibility = MutableSharedFlow<Status.Visibility>(replay = 1)
-
     private val _statusVisibility: MutableStateFlow<Status.Visibility> = MutableStateFlow(Status.Visibility.UNKNOWN)
     val statusVisibility = _statusVisibility.asStateFlow()
 
@@ -369,13 +367,6 @@ class ComposeViewModel @Inject constructor(
 
     private val _media: MutableStateFlow<List<QueuedMedia>> = MutableStateFlow(emptyList())
     val media = _media.asStateFlow()
-
-    /**
-     * If composing from an existing status, or a draft, the list of media attached to the
-     * status before any edits.
-     *
-     * Used to determine if the media has changed.
-     */
 
     private val _languages = MutableStateFlow(emptyList<String>())
     val languages = _languages.asStateFlow()
@@ -465,7 +456,7 @@ class ComposeViewModel @Inject constructor(
      *   - sensitivity
      *   - language
      */
-    val fIsDirty = combine(
+    val isDirty = combine(
         dirtyContent,
         dirtyContentWarning,
         dirtyMedia,
@@ -743,7 +734,7 @@ class ComposeViewModel @Inject constructor(
         _language.value = newLanguage
     }
 
-    val closeConfirmationKind = combine(fIsDirty, composeKind, effectiveContentWarning) { dirty, composeKind, cw ->
+    val closeConfirmationKind = combine(isDirty, composeKind, effectiveContentWarning) { dirty, composeKind, cw ->
         Timber.d("Creating new closeConfirmationKind")
         if (!dirty) return@combine ConfirmationKind.NONE
 
@@ -942,75 +933,12 @@ class ComposeViewModel @Inject constructor(
     }
 
     fun setup(pachliAccountId: Long, composeOptions: ComposeOptions) {
-//        if (setupComplete) {
-//            return
-//        }
-
+        Timber.d("setup()")
         viewModelScope.launch {
             this@ComposeViewModel.composeOptions.value = composeOptions
             this@ComposeViewModel.pachliAccountId.emit(pachliAccountId)
         }
 
-//        _scheduledAt.value = composeOptions.scheduledAt
-//
-//        _fContentWarning.value = composeOptions.contentWarning.orEmpty()
-//
-//        pachliAccount = account
-//
-//        val preferredVisibility = account.entity.defaultPostPrivacy
-//
-//        val replyVisibility = composeOptions.replyVisibility ?: Status.Visibility.UNKNOWN
-//        startingVisibility = Status.Visibility.getOrUnknown(
-//            preferredVisibility.ordinal.coerceAtLeast(replyVisibility.ordinal),
-//        )
-//
-// //        if (!contentWarningStateChanged) {
-// //            _showContentWarning.value = contentWarning.isNotBlank()
-// //        }
-//
-//        // recreate media list
-//        val draftAttachments = composeOptions.draftAttachments
-//        if (draftAttachments != null) {
-//            // when coming from DraftActivity
-//            viewModelScope.launch {
-//                draftAttachments.forEach { attachment ->
-//                    pickMedia(attachment.uri, attachment.description, attachment.focus)
-//                }
-//            }
-//        } else {
-//            composeOptions.mediaAttachments?.forEach { a ->
-//                // when coming from redraft or ScheduledTootActivity
-//                val mediaType = when (a.type) {
-//                    Attachment.Type.VIDEO, Attachment.Type.GIFV -> QueuedMedia.Type.VIDEO
-//                    Attachment.Type.UNKNOWN, Attachment.Type.IMAGE -> QueuedMedia.Type.IMAGE
-//                    Attachment.Type.AUDIO -> QueuedMedia.Type.AUDIO
-//                }
-//                addUploadedMedia(account.entity, a.id, mediaType, a.url.toUri(), a.description, a.meta?.focus)
-//            }
-//        }
-//
-//        val tootVisibility = composeOptions.visibility ?: Status.Visibility.UNKNOWN
-//        if (tootVisibility != Status.Visibility.UNKNOWN) {
-//            startingVisibility = tootVisibility
-//        }
-//        _statusVisibility.value = startingVisibility
-//        val mentionedUsernames = composeOptions.mentionedUsernames
-//        if (mentionedUsernames != null) {
-//            val builder = StringBuilder()
-//            for (name in mentionedUsernames) {
-//                builder.append('@')
-//                builder.append(name)
-//                builder.append(' ')
-//            }
-//            initialContent = builder.toString()
-//        }
-//
-//        val poll = composeOptions.poll
-//        if (poll != null && composeOptions.mediaAttachments.isNullOrEmpty()) {
-//            _poll.value = poll
-//        }
-
-//        updateCloseConfirmation()
         setupComplete = true
     }
 
