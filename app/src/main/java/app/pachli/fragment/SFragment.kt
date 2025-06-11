@@ -36,6 +36,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import app.pachli.R
+import app.pachli.components.drafts.DraftHelper
 import app.pachli.core.activity.BaseActivity
 import app.pachli.core.activity.OpenUrlUseCase
 import app.pachli.core.activity.ViewUrlActivity
@@ -68,10 +69,12 @@ import app.pachli.interfaces.StatusActionListener
 import app.pachli.translation.TranslationService
 import app.pachli.usecase.TimelineCases
 import app.pachli.view.showMuteAccountDialog
+import com.github.michaelbull.result.getOrElse
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import com.google.android.material.snackbar.Snackbar
 import io.github.z4kn4fein.semver.constraints.toConstraint
+import java.util.Date
 import javax.inject.Inject
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -105,6 +108,9 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
 
     @Inject
     lateinit var openUrl: OpenUrlUseCase
+
+    @Inject
+    lateinit var draftHelper: DraftHelper
 
     private var serverCanTranslate = false
 
@@ -476,6 +482,36 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
             .setMessage(R.string.dialog_redraft_post_warning)
             .setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
                 lifecycleScope.launch {
+                    val status = statusViewData.actionable
+
+                    // status.content has HTML tags, so fetch the original content.
+                    val source = mastodonApi.statusSource(status.id).getOrElse {
+                        Timber.w("error getting status source: %s", it)
+                        val context = requireContext()
+                        val error = context.getString(app.pachli.core.network.R.string.error_generic_fmt, it.fmt(context))
+                        Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
+                        return@launch
+                    }.body
+
+                    val draftId = draftHelper.saveDraft(
+                        draftId = 0,
+                        pachliAccountId = pachliAccountId,
+                        inReplyToId = status.inReplyToId,
+                        content = source.text,
+                        contentWarning = source.spoilerText,
+                        sensitive = status.sensitive,
+                        visibility = status.visibility,
+                        mediaUris = status.attachments.map { it.url },
+                        mediaDescriptions = status.attachments.map { it.description },
+                        mediaFocus = status.attachments.map { it.meta?.focus },
+                        poll = status.poll?.toNewPoll(Date()),
+                        failedToSend = false,
+                        failedToSendAlert = false,
+                        language = status.language,
+                        scheduledAt = null,
+                        statusId = null,
+                    )
+
                     timelineCases.delete(statusViewData.status.id).onSuccess {
                         val deletedStatus = it.body
                         removeItem(statusViewData)
@@ -491,10 +527,10 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                             contentWarning = sourceStatus.spoilerText,
                             mediaAttachments = sourceStatus.attachments,
                             sensitive = sourceStatus.sensitive,
-                            modifiedInitialState = true,
                             language = sourceStatus.language,
                             poll = sourceStatus.poll?.toNewPoll(sourceStatus.createdAt),
-                            kind = ComposeOptions.ComposeKind.NEW,
+                            kind = ComposeOptions.ComposeKind.EDIT_DRAFT,
+                            draftId = draftId,
                         )
                         startActivityWithTransition(
                             ComposeActivityIntent(requireContext(), pachliAccountId, composeOptions),
@@ -503,6 +539,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                     }
                         .onFailure {
                             Timber.w("error deleting status: %s", it)
+                            draftHelper.deleteDraftAndAttachments(draftId)
                             Toast.makeText(context, app.pachli.core.ui.R.string.error_generic, Toast.LENGTH_SHORT)
                                 .show()
                         }

@@ -308,13 +308,6 @@ class ComposeViewModel @Inject constructor(
         null,
     )
 
-    private val modifiedInitialState = composeOptions.map { it.modifiedInitialState == true }
-        .stateIn(
-            viewModelScope,
-            SharingStarted.WhileSubscribed(5000),
-            false,
-        )
-
     val instanceInfo = MutableStateFlow(InstanceInfo())
     val emojis = MutableStateFlow(emptyList<Emoji>())
 
@@ -761,7 +754,7 @@ class ComposeViewModel @Inject constructor(
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), ConfirmationKind.NONE)
 
     private fun isEmpty(content: CharSequence, contentWarning: CharSequence): Boolean {
-        return !modifiedInitialState.value && (content.isBlank() && contentWarning.isBlank() && media.value.isEmpty() && poll.value == null)
+        return content.isBlank() && contentWarning.isBlank() && media.value.isEmpty() && poll.value == null
     }
 
     fun showContentWarningChanged(value: Boolean) {

@@ -432,7 +432,6 @@ private fun getStatusComposeIntent(
     val status = body.status!!
     val account1 = status.actionableStatus.account
     val contentWarning = status.actionableStatus.spoilerText
-    val replyVisibility = status.actionableStatus.visibility
     val mentions = status.actionableStatus.mentions
     val language = status.actionableStatus.language
 
@@ -447,7 +446,6 @@ private fun getStatusComposeIntent(
         contentWarning = contentWarning,
         inReplyTo = InReplyTo.Status.from(status),
         mentionedUsernames = mentionedUsernames,
-        modifiedInitialState = true,
         language = language,
         kind = ComposeOptions.ComposeKind.NEW,
     )

@@ -331,11 +331,6 @@ class ComposeActivity :
 
                         subscribeToUpdates(mediaAdapter)
 
-                        // TODO: Should be set later when viewModel.scheduledAt is collected
-//                        composeOptions?.scheduledAt?.let {
-//                            binding.composeScheduleView.setDateTime(it)
-//                        }
-
                         bindContentWarning(initial.contentWarning)
                         setupPollView(account.instanceInfo)
                         applyShareIntent(intent, savedInstanceState)
@@ -343,7 +338,7 @@ class ComposeActivity :
                         /* Finally, update state with data from saved instance state. */
                         savedInstanceState?.let {
                             (it.getSerializable(KEY_VISIBILITY) as Status.Visibility).apply {
-                                setStatusVisibility(this)
+                                viewModel.onStatusVisibilityChanged(this)
                             }
 
                             it.getBoolean(KEY_CONTENT_WARNING_VISIBLE).apply {

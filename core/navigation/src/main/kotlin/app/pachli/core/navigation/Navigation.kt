@@ -372,7 +372,6 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOpti
      * @param scheduledAt
      * @param sensitive
      * @param poll
-     * @param modifiedInitialState
      * @param language Language the status is written in. Null to use the device's default
      * language.
      * @param statusId Server ID of the status that should be updated when this status is
@@ -395,7 +394,6 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOpti
         val scheduledAt: Date? = null,
         val sensitive: Boolean? = null,
         val poll: NewPoll? = null,
-        val modifiedInitialState: Boolean? = null,
         val language: String? = null,
         val statusId: String? = null,
         val kind: ComposeKind? = null,
