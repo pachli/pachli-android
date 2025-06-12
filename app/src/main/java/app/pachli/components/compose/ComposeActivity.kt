@@ -337,16 +337,16 @@ class ComposeActivity :
 
                         /* Finally, update state with data from saved instance state. */
                         savedInstanceState?.let {
-                            (it.getSerializable(KEY_VISIBILITY) as Status.Visibility).apply {
-                                viewModel.onStatusVisibilityChanged(this)
+                            BundleCompat.getSerializable(it, KEY_VISIBILITY, Status.Visibility::class.java)?.let {
+                                viewModel.onStatusVisibilityChanged(it)
                             }
 
                             it.getBoolean(KEY_CONTENT_WARNING_VISIBLE).apply {
                                 viewModel.showContentWarningChanged(this)
                             }
 
-                            (it.getSerializable(KEY_SCHEDULED_TIME) as? Date)?.let { time ->
-                                viewModel.updateScheduledAt(time)
+                            BundleCompat.getSerializable(it, KEY_SCHEDULED_TIME, Date::class.java)?.let {
+                                viewModel.updateScheduledAt(it)
                             }
                         }
 
