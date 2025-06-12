@@ -89,7 +89,6 @@ import app.pachli.core.model.InstanceInfo
 import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_CHARACTER_LIMIT
 import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_MAX_MEDIA_ATTACHMENTS
 import app.pachli.core.navigation.ComposeActivityIntent
-import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InReplyTo
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InitialCursorPosition
 import app.pachli.core.navigation.pachliAccountId
@@ -324,9 +323,9 @@ class ComposeActivity :
                         bindButtons(account)
 
                         if (savedInstanceState != null) {
-                            setupComposeField(null, composeOptions)
+                            setupComposeField(null, composeOptions.initialCursorPosition)
                         } else {
-                            setupComposeField(initial.content, composeOptions)
+                            setupComposeField(initial.content, composeOptions.initialCursorPosition)
                         }
 
                         subscribeToUpdates(mediaAdapter)
@@ -561,7 +560,7 @@ class ComposeActivity :
         }
     }
 
-    private fun setupComposeField(startingText: String?, composeOptions: ComposeOptions?) {
+    private fun setupComposeField(startingText: String?, initialCursorPosition: InitialCursorPosition) {
         binding.composeEditField.setOnReceiveContentListener(this)
 
         binding.composeEditField.setOnKeyListener { _, keyCode, event -> this.onKeyDown(keyCode, event) }
@@ -587,7 +586,7 @@ class ComposeActivity :
         startingText?.let {
             binding.composeEditField.setText(it)
 
-            when (composeOptions?.initialCursorPosition ?: InitialCursorPosition.END) {
+            when (initialCursorPosition ?: InitialCursorPosition.END) {
                 InitialCursorPosition.START -> binding.composeEditField.setSelection(0)
                 InitialCursorPosition.END -> binding.composeEditField.setSelection(
                     binding.composeEditField.length(),
@@ -1291,7 +1290,7 @@ class ComposeActivity :
     private fun sendStatus(pachliAccountId: Long) {
         enableButtons(false, viewModel.editing)
         val contentText = binding.composeEditField.text.toString()
-        val spoilerText = viewModel.effectiveContentWarning.replayCache.firstOrNull().orEmpty()
+        val spoilerText = viewModel.effectiveContentWarning.value
         val statusLength = viewModel.statusLength.value
         if ((statusLength <= 0 || contentText.isBlank()) && viewModel.media.value.isEmpty()) {
             binding.composeEditField.error = getString(R.string.error_empty)

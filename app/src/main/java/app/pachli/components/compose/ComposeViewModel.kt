@@ -468,7 +468,6 @@ class ComposeViewModel @Inject constructor(
         dirtyVisibility,
         dirtyScheduledAt,
         dirtySensitive,
-        // modifiedInitialState, whatever that's for
     ) { flows -> flows.any { it == true } }.distinctUntilChanged()
         .onEach { Timber.d("isDirty: $it") }
 
