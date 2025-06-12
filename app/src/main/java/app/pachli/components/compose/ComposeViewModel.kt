@@ -296,12 +296,7 @@ class ComposeViewModel @Inject constructor(
     private val _language = MutableStateFlow<String?>(null)
     val language: StateFlow<String?> = _language.asStateFlow()
 
-    /** If editing a draft then the ID of the draft, otherwise 0 */
-//    private val draftId = composeOptions.map { it.draftId }
-//        .onEach { Timber.d("draftId: $it") }
-//        .shareIn(viewModelScope, SharingStarted.WhileSubscribed(5000), replay = 1)
-
-    /** If editing a status, the original ID of the status. */
+    /** If editing a status, the original ID of the status, otherwise null. */
     private val originalStatusId = composeOptions.map { it.statusId }.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5000),
@@ -317,17 +312,20 @@ class ComposeViewModel @Inject constructor(
     /** Flow of changes to statusDisplayOptions, for use by the UI */
     val statusDisplayOptions = statusDisplayOptionsRepository.flow
 
-    // -- Flows for content.
-
+    /** Flow of the main content of the status. */
     // This is Spanned rather than Editable because if the value is updated
     // by ComposeActivity
     private val content = MutableStateFlow<Spanned>(SpannedString(""))
 
-    // -- Flows for content warning.
+    /**
+     * Flow of the content warning for this status. May not be visible,
+     * depending on [_showContentWarning].
+     *
+     * @see effectiveContentWarning
+     */
     private val contentWarning = MutableStateFlow("")
 
     // TODO: This is probably wrong, this should be Flow<Boolean> toggled by the user.
-//    val showContentWarning = fContentWarning.map { it.isNotBlank() }
     private val _showContentWarning = MutableStateFlow(false)
     val showContentWarning = _showContentWarning.asStateFlow()
 
@@ -336,32 +334,44 @@ class ComposeViewModel @Inject constructor(
      * if the content warning has been hidden
      */
     val effectiveContentWarning = combine(showContentWarning, contentWarning) { show, cw ->
-        Timber.d("Evaluating effectiveContentWarning")
-        Timber.d("  show: $show")
-        Timber.d("    cw: $cw")
         if (show) cw else ""
     }.onEach { Timber.d("fEffectiveContentWarning: $it") }
-        // .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), "")
-        .shareIn(viewModelScope, SharingStarted.WhileSubscribed(5000), replay = 1)
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), "")
+//        .shareIn(viewModelScope, SharingStarted.WhileSubscribed(5000), replay = 1)
 
-    /** Length of the status. */
-    val statusLength = combine(content, contentWarning, instanceInfo) { content, contentWarning, instanceInfo ->
+    /**
+     * Effective status length.
+     *
+     * Derived from the [effectiveContentWarning], [content], and [instanceInfo] (to
+     * determine how long URLs are).
+     */
+    val statusLength = combine(content, effectiveContentWarning, instanceInfo) { content, contentWarning, instanceInfo ->
         statusLength(content, contentWarning, instanceInfo.charactersReservedPerUrl)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0)
 
     private val _statusVisibility: MutableStateFlow<Status.Visibility> = MutableStateFlow(Status.Visibility.UNKNOWN)
+
+    /** Status visibility. */
     val statusVisibility = _statusVisibility.asStateFlow()
 
     private val _poll: MutableStateFlow<NewPoll?> = MutableStateFlow(null)
+
+    /** Poll, if present. Null if no poll is present. */
     val poll = _poll.asStateFlow()
 
     private val _scheduledAt = MutableStateFlow<Date?>(null)
+
+    /** Status scheduled date/time. Null if the status is not scheduled. */
     val scheduledAt = _scheduledAt.asStateFlow()
 
     private val _media: MutableStateFlow<List<QueuedMedia>> = MutableStateFlow(emptyList())
+
+    /** List of queued media attached to this status. */
     val media = _media.asStateFlow()
 
     private val _languages = MutableStateFlow(emptyList<String>())
+
+    /** List of languages available to write in. */
     val languages = _languages.asStateFlow()
 
     /** Flow of whether or not the server can schedule posts. */
@@ -718,7 +728,7 @@ class ComposeViewModel @Inject constructor(
     }
 
     /** Call this to change the status' visibility */
-    fun onStatusVisibilityChanged(newVisibility: Status.Visibility) {
+    fun onVisibilityChanged(newVisibility: Status.Visibility) {
         _statusVisibility.value = newVisibility
     }
 
@@ -765,6 +775,12 @@ class ComposeViewModel @Inject constructor(
         return content.value.isBlank() && effectiveContentWarning.isBlank() && media.value.isEmpty() && poll.value == null
     }
 
+    /**
+     * Sets whether or not to show the content warning field.
+     *
+     * @param value If true, show the content warning field, false otherwise.
+     * @see effectiveContentWarning
+     */
     fun showContentWarningChanged(value: Boolean) {
         _showContentWarning.value = value
     }

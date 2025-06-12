@@ -321,7 +321,7 @@ class ComposeActivity :
 
                         mediaAdapter.setMediaDescriptionLimit(account.instanceInfo.maxMediaDescriptionChars)
 
-                        setupButtons(account)
+                        bindButtons(account)
 
                         if (savedInstanceState != null) {
                             setupComposeField(null, composeOptions)
@@ -332,13 +332,15 @@ class ComposeActivity :
                         subscribeToUpdates(mediaAdapter)
 
                         bindContentWarning(initial.contentWarning)
-                        setupPollView(account.instanceInfo)
+
+                        binding.pollPreview.setOnClickListener { onPollClick(account.instanceInfo) }
+
                         applyShareIntent(intent, savedInstanceState)
 
                         /* Finally, update state with data from saved instance state. */
                         savedInstanceState?.let {
                             BundleCompat.getSerializable(it, KEY_VISIBILITY, Status.Visibility::class.java)?.let {
-                                viewModel.onStatusVisibilityChanged(it)
+                                viewModel.onVisibilityChanged(it)
                             }
 
                             it.getBoolean(KEY_CONTENT_WARNING_VISIBLE).apply {
@@ -559,10 +561,7 @@ class ComposeActivity :
         }
     }
 
-    private fun setupComposeField(
-        startingText: String?,
-        composeOptions: ComposeOptions?,
-    ) {
+    private fun setupComposeField(startingText: String?, composeOptions: ComposeOptions?) {
         binding.composeEditField.setOnReceiveContentListener(this)
 
         binding.composeEditField.setOnKeyListener { _, keyCode, event -> this.onKeyDown(keyCode, event) }
@@ -703,7 +702,7 @@ class ComposeActivity :
             bottomSheetStates.any { it == BottomSheetBehavior.STATE_EXPANDED }
     }
 
-    private fun setupButtons(pachliAccount: PachliAccount) {
+    private fun bindButtons(pachliAccount: PachliAccount) {
         binding.composeOptionsBottomSheet.listener = this
 
         visibilityBehavior = BottomSheetBehavior.from(binding.composeOptionsBottomSheet)
@@ -724,7 +723,20 @@ class ComposeActivity :
 
         enableButton(binding.composeEmojiButton, clickable = false, colorActive = false)
 
-        // Setup the interface buttons.
+        // Setup the interface buttons, top to bottom, left to right.
+        binding.atButton.setOnClickListener { onAtButtonClicked() }
+        binding.hashButton.setOnClickListener { onHashButtonClicked() }
+
+        binding.composePostLanguageButton.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                viewModel.onLanguageChanged((parent.adapter.getItem(position) as Locale).modernLanguageCode)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                parent.setSelection(0)
+            }
+        }
+
         binding.composeTootButton.setOnClickListener { onSendClick(pachliAccount.id) }
         binding.composeAddAttachmentButton.setOnClickListener { onAddAttachmentClick() }
         binding.composeChangeVisibilityButton.setOnClickListener { onChangeVisibilityClick() }
@@ -732,10 +744,9 @@ class ComposeActivity :
         binding.composeEmojiButton.setOnClickListener { onEmojiClick() }
         binding.composeMarkSensitiveButton.setOnClickListener { onMarkSensitiveClick() }
         binding.composeScheduleButton.setOnClickListener { onScheduleClick() }
+
         binding.composeScheduleView.setResetOnClickListener { resetSchedule() }
         binding.composeScheduleView.setListener(this)
-        binding.atButton.setOnClickListener { atButtonClicked() }
-        binding.hashButton.setOnClickListener { hashButtonClicked() }
 
         val cameraIcon = makeIcon(this, GoogleMaterial.Icon.gmd_camera_alt, IconicsSize.dp(18))
         binding.actionPhotoTake.setCompoundDrawablesRelativeWithIntrinsicBounds(cameraIcon, null, null, null)
@@ -747,26 +758,17 @@ class ComposeActivity :
         binding.addPollTextActionTextView.setCompoundDrawablesRelativeWithIntrinsicBounds(pollIcon, null, null, null)
 
         binding.actionPhotoTake.visible(Intent(MediaStore.ACTION_IMAGE_CAPTURE).resolveActivity(packageManager) != null)
-
         binding.actionPhotoTake.setOnClickListener { initiateCameraApp() }
+
         binding.actionAddMedia.setOnClickListener { onAddMediaClick() }
         binding.addPollTextActionTextView.setOnClickListener { onAddPollClick(pachliAccount.instanceInfo) }
 
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
     }
 
-    private fun setupLanguageSpinner(initialLanguages: List<String>) {
-        binding.composePostLanguageButton.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                viewModel.onLanguageChanged((parent.adapter.getItem(position) as Locale).modernLanguageCode)
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>) {
-                parent.setSelection(0)
-            }
-        }
+    private fun setupLanguageSpinner(languages: List<String>) {
         binding.composePostLanguageButton.apply {
-            locales = getLocaleList(initialLanguages)
+            locales = getLocaleList(languages)
             adapter = LocaleAdapter(context, android.R.layout.simple_spinner_dropdown_item, locales)
             setSelection(0)
         }
@@ -873,11 +875,11 @@ class ComposeActivity :
         setSelection(start, newEnd)
     }
 
-    private fun atButtonClicked() {
+    private fun onAtButtonClicked() {
         prependSelectedWordsWith("@")
     }
 
-    private fun hashButtonClicked() {
+    private fun onHashButtonClicked() {
         prependSelectedWordsWith("#")
     }
 
@@ -1112,9 +1114,7 @@ class ComposeActivity :
         addAttachmentBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
     }
 
-    /**
-     * Handles clicking the "Add poll" button in the "Add attachment" menu.
-     */
+    /** Shows a dialog to add a poll (if none exists) or edit the poll. */
     private fun onAddPollClick(instanceInfo: InstanceInfo) = lifecycleScope.launch {
         addAttachmentBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
         showAddPollDialog(
@@ -1128,31 +1128,33 @@ class ComposeActivity :
         )
     }
 
-    private fun setupPollView(instanceInfo: InstanceInfo) {
-        binding.pollPreview.setOnClickListener {
-            val popup = PopupMenu(this, binding.pollPreview)
-            val editId = 1
-            val removeId = 2
-            popup.menu.add(0, editId, 0, R.string.edit_poll)
-            popup.menu.add(0, removeId, 0, R.string.action_remove)
-            popup.setOnMenuItemClickListener { menuItem ->
-                when (menuItem.itemId) {
-                    editId -> onAddPollClick(instanceInfo)
-                    removeId -> removePoll()
-                }
-                true
+    /**
+     * Handles clicks on the poll. Displays a menu allowing the user to edit the
+     * poll or remove it.
+     *
+     * @param instanceInfo Instance info for data like `pollMaxOptions`.
+     */
+    private fun onPollClick(instanceInfo: InstanceInfo) {
+        val popup = PopupMenu(this, binding.pollPreview)
+        val editId = 1
+        val removeId = 2
+        popup.menu.add(0, editId, 0, R.string.edit_poll)
+        popup.menu.add(0, removeId, 0, R.string.action_remove)
+        popup.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                editId -> onAddPollClick(instanceInfo)
+                removeId -> removePoll()
             }
-            popup.show()
+            true
         }
+        popup.show()
     }
 
-    private fun removePoll() {
-        viewModel.onPollChanged(null)
-        binding.pollPreview.hide()
-    }
+    /** Removes any attached poll. */
+    private fun removePoll() = viewModel.onPollChanged(null)
 
     override fun onVisibilityChanged(visibility: Status.Visibility) {
-        viewModel.onStatusVisibilityChanged(visibility)
+        viewModel.onVisibilityChanged(visibility)
         visibilityBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
     }
 
@@ -1266,7 +1268,10 @@ class ComposeActivity :
         if (dialog == AlertDialog.BUTTON_NEUTRAL) viewModel.confirmStatusLanguage = false
     }
 
-    /** This is for the fancy keyboards which can insert images and stuff, and drag&drop etc */
+    /**
+     * This is for the fancy keyboards which can insert images and stuff, and drag&drop etc
+     *
+     */
     override fun onReceiveContent(view: View, contentInfo: ContentInfoCompat): ContentInfoCompat? {
         if (contentInfo.clip.description.hasMimeType("image/*")) {
             val split = contentInfo.partition { item: ClipData.Item -> item.uri != null }
