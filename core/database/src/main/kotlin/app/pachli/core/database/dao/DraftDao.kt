@@ -27,7 +27,7 @@ import app.pachli.core.database.model.DraftEntity
 @Dao
 interface DraftDao {
     @Upsert
-    suspend fun upsert(draft: DraftEntity)
+    suspend fun upsert(draft: DraftEntity): Long
 
     @Query(
         """

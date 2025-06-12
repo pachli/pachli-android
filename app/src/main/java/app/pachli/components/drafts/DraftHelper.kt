@@ -66,7 +66,7 @@ class DraftHelper @Inject constructor(
         scheduledAt: Date?,
         language: String?,
         statusId: String?,
-    ) = withContext(Dispatchers.IO) {
+    ): Int = withContext(Dispatchers.IO) {
         val externalFilesDir = context.getExternalFilesDir("Pachli")
 
         if (externalFilesDir == null || !(externalFilesDir.exists())) {
@@ -129,8 +129,9 @@ class DraftHelper @Inject constructor(
             statusId = statusId,
         )
 
-        draftDao.upsert(draft)
-        Timber.d("saved draft to db")
+        val key = draftDao.upsert(draft).toInt()
+        Timber.d("saved draft to db: %s", key)
+        return@withContext if (draftId == 0) key else draftId
     }
 
     suspend fun deleteDraftAndAttachments(draftId: Int) {
