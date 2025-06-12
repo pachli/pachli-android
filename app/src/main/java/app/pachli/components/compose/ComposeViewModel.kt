@@ -731,16 +731,14 @@ class ComposeViewModel @Inject constructor(
         Timber.d("Creating new closeConfirmationKind")
         if (!dirty) return@combine ConfirmationKind.NONE
 
-        // TODO: The isEmpty checks here should probably be extended. At the moment this
-        // doesn't consider added media or palls.
         return@combine when (composeKind) {
-            ComposeKind.NEW -> if (isEmpty(content.value, cw)) {
+            ComposeKind.NEW -> if (isEmpty(cw)) {
                 ConfirmationKind.NONE
             } else {
                 ConfirmationKind.SAVE_OR_DISCARD
             }
 
-            ComposeKind.EDIT_DRAFT -> if (isEmpty(content.value, cw)) {
+            ComposeKind.EDIT_DRAFT -> if (isEmpty(cw)) {
                 ConfirmationKind.CONTINUE_EDITING_OR_DISCARD_DRAFT
             } else {
                 ConfirmationKind.UPDATE_OR_DISCARD
@@ -753,14 +751,25 @@ class ComposeViewModel @Inject constructor(
         .onEach { Timber.d("New close confirmation: $it") }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), ConfirmationKind.NONE)
 
-    private fun isEmpty(content: CharSequence, contentWarning: CharSequence): Boolean {
-        return content.isBlank() && contentWarning.isBlank() && media.value.isEmpty() && poll.value == null
+    /**
+     * True if the status being composed is empty. This means:
+     *
+     * - Blank content (empty, or only whitespace)
+     * - Blank content warning
+     * - No media
+     * - No poll
+     *
+     * @param effectiveContentWarning
+     */
+    private fun isEmpty(effectiveContentWarning: CharSequence): Boolean {
+        return content.value.isBlank() && effectiveContentWarning.isBlank() && media.value.isEmpty() && poll.value == null
     }
 
     fun showContentWarningChanged(value: Boolean) {
         _showContentWarning.value = value
     }
 
+    /** Deletes the draft identified by [draftId]. Does nothing if [draftId] is 0 */
     fun deleteDraft(draftId: Int) {
         if (draftId == 0) return
 
