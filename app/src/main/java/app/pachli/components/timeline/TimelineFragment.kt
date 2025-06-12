@@ -99,8 +99,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.distinctUntilChangedBy
-import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.take
@@ -226,35 +227,38 @@ class TimelineFragment :
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
-                    // If this is a cached timeline there's a refresh key. Wait for the very
-                    // first page load, then scroll recyclerview to the refresh key so any
-                    // remaining page loads keep it in focus.
-                    (viewModel as? CachedTimelineViewModel)?.let { vm ->
-                        vm.initialRefreshKey.combine(adapter.onPagesUpdatedFlow) { key, _ -> key }
-                            .take(1)
-                            .filterNotNull()
-                            .collect { key ->
-                                val snapshot = adapter.snapshot()
-                                val index = snapshot.items.indexOfFirst { it.id == key }
-                                val position = snapshot.placeholdersBefore + index
-                                binding.recyclerView.post {
-                                    getView() ?: return@post
-                                    binding.recyclerView.scrollToPosition(position)
+                    // Wait for the initial refresh key and the first page load. If
+                    // the initial refresh key is null then schedule a jump to the top
+                    // after all pages have been loaded. Otherwise restore the user's
+                    // reading position after the first page load so any remaining page
+                    // loads keep it in focus.
+                    viewModel.initialRefreshStatusId.combine(adapter.onPagesUpdatedFlow.conflate()) { statusId, _ -> statusId }
+                        .filter { adapter.snapshot().isNotEmpty() }
+                        .take(1)
+                        .collect { statusId ->
+                            // User's reading position is either not restored, or it is and it was
+                            // explicitly nulled. Jump to the top of the timeline when all
+                            // prepends have finished.
+                            if (statusId == null) {
+                                adapter.postPrepend {
+                                    binding.recyclerView.post {
+                                        getView() ?: return@post
+                                        binding.recyclerView.scrollToPosition(0)
+                                    }
                                 }
+                                return@collect
                             }
-                    }
 
-                    // If this is a non-cached timeline the user should be placed at the
-                    // top of the timeline. Wait for the prepend operations to complete
-                    // then do that.
-                    (viewModel as? NetworkTimelineViewModel)?.let { vm ->
-                        adapter.postPrepend {
+                            // Restore the user's reading position now.
+                            val snapshot = adapter.snapshot()
+                            val index = snapshot.items.indexOfFirst { it.id == statusId }
+                            val position = snapshot.placeholdersBefore + index
+                            Timber.d("Restoring position, index: $index, position: $position")
                             binding.recyclerView.post {
                                 getView() ?: return@post
-                                binding.recyclerView.scrollToPosition(0)
+                                binding.recyclerView.scrollToPosition(position)
                             }
                         }
-                    }
                 }
 
                 launch { viewModel.statuses.collectLatest { adapter.submitData(it) } }

@@ -16,10 +16,13 @@
 
 package app.pachli.usecase
 
-import app.pachli.components.timeline.CachedTimelineRepository
+import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.StatusRepository
+import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.TranslatedStatusDao
+import app.pachli.core.database.model.RemoteKeyEntity
+import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.database.model.toEntity
 import app.pachli.core.eventhub.BlockEvent
@@ -39,15 +42,18 @@ import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import javax.inject.Inject
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class TimelineCases @Inject constructor(
     private val mastodonApi: MastodonApi,
     private val eventHub: EventHub,
-    private val cachedTimelineRepository: CachedTimelineRepository,
     private val statusRepository: StatusRepository,
     private val translatedStatusDao: TranslatedStatusDao,
     private val translationService: TranslationService,
+    private val remoteKeyDao: RemoteKeyDao,
+    @ApplicationScope private val externalScope: CoroutineScope,
 ) {
     suspend fun muteConversation(pachliAccountId: Long, statusId: String, mute: Boolean): ApiResult<Status> {
         return if (mute) {
@@ -103,7 +109,30 @@ class TimelineCases @Inject constructor(
         statusRepository.setTranslationState(statusViewData.pachliAccountId, statusViewData.id, TranslationState.SHOW_ORIGINAL)
     }
 
-    suspend fun saveRefreshKey(pachliAccountId: Long, statusId: String?) {
-        cachedTimelineRepository.saveRefreshKey(pachliAccountId, statusId)
+    /**
+     * @param pachliAccountId
+     * @param remoteKeyTimelineId The timeline's [Timeline.remoteKeyTimelineId][app.pachli.core.model.Timeline.remoteKeyTimelineId].
+     * @return The most recent saved status ID to use in a refresh. Null if not set, or the refresh
+     * should fetch the latest statuses.
+     * @see saveRefreshStatusId
+     */
+    suspend fun getRefreshStatusId(pachliAccountId: Long, remoteKeyTimelineId: String): String? {
+        return remoteKeyDao.getRefreshKey(pachliAccountId, remoteKeyTimelineId)
+    }
+
+    /**
+     * Saves the ID of the status that future refreshes will try and restore
+     * from.
+     *
+     * @param pachliAccountId
+     * @param remoteKeyTimelineId The timeline's [Timeline.remoteKeyTimelineId][app.pachli.core.model.Timeline.remoteKeyTimelineId].
+     * @param statusId Status ID to restore from. Null indicates the refresh should
+     * refresh the newest statuses.
+     * @see getRefreshStatusId
+     */
+    fun saveRefreshStatusId(pachliAccountId: Long, remoteKeyTimelineId: String, statusId: String?) = externalScope.launch {
+        remoteKeyDao.upsert(
+            RemoteKeyEntity(pachliAccountId, remoteKeyTimelineId, RemoteKeyKind.REFRESH, statusId),
+        )
     }
 }
