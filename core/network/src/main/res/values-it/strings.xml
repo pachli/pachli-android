@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_generic_fmt">Si è verificato un errore: %s</string>
-    <string name="error_404_not_found_fmt">Il tuo server non supporta questa feature: %1$s</string>
+    <string name="error_generic_fmt">%1$s</string>
+    <string name="error_404_not_found_fmt">Il tuo server non supporta questa funzionalità: %1$s</string>
     <string name="error_network_fmt">Si è verificato un errore di rete: %s</string>
     <string name="node_info_error_no_software">non contiene un blocco di software</string>
+    <string name="error_json_data_fmt">IL tuo server ha riportato una risposta non valida: %1$s</string>
+    <string name="node_info_error_no_software_name">il nome del software è vuoto, o assente</string>
 </resources>
