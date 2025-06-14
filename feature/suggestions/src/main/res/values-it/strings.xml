@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="title_suggestions">Account suggeriti</string>
+    <string name="sources_featured">Selezionati manualmente dalla squadra del tuo server</string>
+    <string name="sources_most_followed">Uno dei più seguiti sul tuo server</string>
+    <string name="sources_similar_to_recently_followed">Simili agli account che hai seguito recentemente</string>
+    <string name="sources_friends_of_friends">Popolari fra le persone che segui</string>
+    <string name="sources_unknown">(il server ha riportato fonti non riconosciute)</string>
+    <string name="action_follow_account">Segui</string>
+    <string name="action_dismiss_follow_suggestion">Scartare</string>
+    <string name="follower_count_fmt"><b>%1$s</b> seguaci</string>
+    <string name="follows_count_fmt"><b>%1$s</b> seguiti</string>
+    <string name="statuses_count_fmt"><b>%1$s</b> post</string>
+</resources>
