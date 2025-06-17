@@ -443,7 +443,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                                     inReplyTo = redraftStatus.inReplyToId?.let { InReplyTo.Id(it) },
                                     visibility = redraftStatus.visibility,
                                     contentWarning = redraftStatus.spoilerText,
-                                    mediaAttachments = redraftStatus.attachments,
+                                    mediaAttachments = redraftStatus.attachments.orEmpty(),
                                     sensitive = redraftStatus.sensitive,
                                     poll = redraftStatus.poll?.toNewPoll(redraftStatus.createdAt),
                                     language = redraftStatus.language,

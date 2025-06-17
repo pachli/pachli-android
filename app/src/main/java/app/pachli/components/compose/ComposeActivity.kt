@@ -134,8 +134,6 @@ import kotlin.math.max
 import kotlin.math.min
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -152,14 +150,15 @@ class ComposeActivity :
 
     OnReceiveContentListener,
     ComposeScheduleView.OnTimeSetListener {
+    private val binding by viewBinding(ActivityComposeBinding::inflate)
 
     /** The active snackbar */
     private var snackbar: Snackbar? = null
 
-    private lateinit var visibilityBehavior: BottomSheetBehavior<*>
-    private lateinit var addAttachmentBehavior: BottomSheetBehavior<*>
-    private lateinit var emojiBehavior: BottomSheetBehavior<*>
-    private lateinit var scheduleBehavior: BottomSheetBehavior<*>
+    private val visibilityBehavior by unsafeLazy { BottomSheetBehavior.from(binding.composeOptionsBottomSheet) }
+    private val addAttachmentBehavior by unsafeLazy { BottomSheetBehavior.from(binding.addMediaBottomSheet) }
+    private val scheduleBehavior by unsafeLazy { BottomSheetBehavior.from(binding.composeScheduleView) }
+    private val emojiBehavior by unsafeLazy { BottomSheetBehavior.from(binding.emojiView) }
 
     private var photoUploadUri: Uri? = null
 
@@ -178,8 +177,6 @@ class ComposeActivity :
 
     @VisibleForTesting
     val viewModel: ComposeViewModel by viewModels()
-
-    private val binding by viewBinding(ActivityComposeBinding::inflate)
 
     private var maxUploadMediaNumber = DEFAULT_MAX_MEDIA_ATTACHMENTS
 
@@ -200,7 +197,7 @@ class ComposeActivity :
     }
 
     private val pickMediaFile = registerForActivityResult(PickMediaFiles()) { uris ->
-        if (viewModel.media.value.size + uris.size > maxUploadMediaNumber) {
+        if (viewModel.media.getOrEmpty().size + uris.size > maxUploadMediaNumber) {
             Toast.makeText(this, resources.getQuantityString(R.plurals.error_upload_max_media_reached, maxUploadMediaNumber, maxUploadMediaNumber), Toast.LENGTH_SHORT).show()
         } else {
             uris.forEach { uri -> pickMedia(uri) }
@@ -297,11 +294,98 @@ class ComposeActivity :
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    viewModel.content.collect {
+                        Timber.d("vm.content changed: $it")
+                    }
+                }
                 launch { viewModel.uiResult.collect(::bindUiResult) }
 
                 launch {
-                    viewModel.initialUiState.collect { initial ->
-                        val account = initial.account
+                    viewModel.closeConfirmationKind.collect { updateOnBackPressedCallbackState(it, bottomSheetStates()) }
+                }
+
+                launch {
+                    viewModel.instanceInfo.collect { instanceData ->
+                        maximumTootCharacters = instanceData.maxChars
+                        maxUploadMediaNumber = instanceData.maxMediaAttachments
+                    }
+                }
+
+                launch {
+                    viewModel.statusLength.collect(::updateVisibleCharactersLeft)
+                }
+
+                launch {
+                    viewModel.emojis.collect(::bindEmojiList)
+                }
+
+                launch {
+                    viewModel.showContentWarning.combine(viewModel.markMediaAsSensitive) { showContentWarning, markSensitive ->
+                        updateMarkSensitiveButton(markSensitive, showContentWarning)
+                        showContentWarning(showContentWarning)
+                    }.collect()
+                }
+
+                launch {
+                    viewModel.statusVisibility.collect(::setStatusVisibility)
+                }
+
+                launch {
+                    combine(viewModel.markMediaAsSensitive, viewModel.showContentWarning) { sens, cw ->
+                        updateMarkSensitiveButton(sens, cw)
+                    }
+                }
+
+                launch {
+                    viewModel.poll.collect { poll ->
+                        binding.pollPreview.visible(poll != null)
+                        poll?.let(binding.pollPreview::setPoll)
+                    }
+                }
+
+                launch {
+                    viewModel.scheduledAt.collect { scheduledAt ->
+                        if (scheduledAt == null) {
+                            binding.composeScheduleView.resetSchedule()
+                        } else {
+                            binding.composeScheduleView.setDateTime(scheduledAt)
+                        }
+                        updateScheduleButton()
+                    }
+                }
+
+                // Hide the "Schedule" button if the server can't schedule. Simply
+                // disabling it could be confusing to users wondering why they can't
+                // use it.
+                launch {
+                    viewModel.serverCanSchedule.collect {
+                        binding.composeScheduleButton.visible(it)
+                    }
+                }
+
+                // Determine whether the add attachment options are enabled.
+                launch {
+                    viewModel.media.combine(viewModel.poll) { media, poll ->
+                        val active = poll == null &&
+                            media.size < maxUploadMediaNumber &&
+                            (media.isEmpty() || media.first().type == QueuedMedia.Type.IMAGE)
+                        enableButton(binding.composeAddAttachmentButton, active, active)
+                        enablePollButton(media.isEmpty())
+                    }.collect()
+                }
+
+                launch {
+                    viewModel.media.collect { media ->
+                        mediaAdapter.submitList(media)
+
+                        binding.composeMediaPreviewBar.visible(media.isNotEmpty())
+                    }
+                }
+
+                launch {
+                    viewModel.pachliAccountFlow.collect { account ->
+//                        val account = initial.account
                         setupAvatar(account.entity)
 
                         launch {
@@ -322,34 +406,32 @@ class ComposeActivity :
 
                         bindButtons(account)
 
-                        if (savedInstanceState != null) {
-                            setupComposeField(null, composeOptions.initialCursorPosition)
-                        } else {
-                            setupComposeField(initial.content, composeOptions.initialCursorPosition)
-                        }
+//                        if (savedInstanceState != null) {
+//                            setupComposeField(null, composeOptions.initialCursorPosition)
+//                        } else {
+//                            setupComposeField(initial.content, composeOptions.initialCursorPosition)
+//                        }
 
-                        subscribeToUpdates(mediaAdapter)
-
-                        bindContentWarning(initial.contentWarning)
+//                        bindContentWarning(initial.contentWarning)
 
                         binding.pollPreview.setOnClickListener { onPollClick(account.instanceInfo) }
 
                         applyShareIntent(intent, savedInstanceState)
 
                         /* Finally, update state with data from saved instance state. */
-                        savedInstanceState?.let {
-                            BundleCompat.getSerializable(it, KEY_VISIBILITY, Status.Visibility::class.java)?.let {
-                                viewModel.onVisibilityChanged(it)
-                            }
-
-                            it.getBoolean(KEY_CONTENT_WARNING_VISIBLE).apply {
-                                viewModel.showContentWarningChanged(this)
-                            }
-
-                            BundleCompat.getSerializable(it, KEY_SCHEDULED_TIME, Date::class.java)?.let {
-                                viewModel.updateScheduledAt(it)
-                            }
-                        }
+//                        savedInstanceState?.let {
+//                            BundleCompat.getSerializable(it, KEY_STATUS_VISIBILITY, Status.Visibility::class.java)?.let {
+//                                viewModel.onVisibilityChanged(it)
+//                            }
+//
+//                            it.getBoolean(KEY_SHOW_CONTENT_WARNING).apply {
+//                                viewModel.showContentWarningChanged(this)
+//                            }
+//
+//                            BundleCompat.getSerializable(it, KET_SCHEDULED_AT, Date::class.java)?.let {
+//                                viewModel.updateScheduledAt(it)
+//                            }
+//                        }
 
                         binding.composeEditField.post {
                             binding.composeEditField.requestFocus()
@@ -363,6 +445,82 @@ class ComposeActivity :
             }
         }
 
+        // All the code that binds UI upates to the viewmodel has to happen here first.
+        // Main editor
+        binding.composeEditField.setOnReceiveContentListener(this)
+
+        binding.composeEditField.setOnKeyListener { _, keyCode, event -> this.onKeyDown(keyCode, event) }
+
+        binding.composeEditField.setAdapter(
+            ComposeAutoCompleteAdapter(
+                glide,
+                this,
+                sharedPreferencesRepository.animateAvatars,
+                sharedPreferencesRepository.animateEmojis,
+                sharedPreferencesRepository.showBotOverlay,
+            ),
+        )
+        binding.composeEditField.setTokenizer(ComposeTokenizer())
+
+        val mentionColour = binding.composeEditField.linkTextColors.defaultColor
+        highlightSpans(binding.composeEditField.text, mentionColour)
+        binding.composeEditField.doAfterTextChanged { editable ->
+            Timber.d("composeEditField text has changed: $editable")
+            highlightSpans(editable!!, mentionColour)
+            viewModel.onContentChanged(editable)
+        }
+
+        // work around Android platform bug -> https://issuetracker.google.com/issues/67102093
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.O ||
+            Build.VERSION.SDK_INT == Build.VERSION_CODES.O_MR1
+        ) {
+            binding.composeEditField.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
+        }
+
+        // Anything set here won't be considered dirty content by the viewmodel.
+//        if (savedInstanceState != null) {
+//            setupComposeField(null, composeOptions.initialCursorPosition)
+//        } else {
+        // Set the initial content for the editor. Any changes to this (e.g.,
+        // when the editor restores its own state) will be considered dirty
+        // by the viewModel. This **must** return a non-null string, a null string
+        // is ignored by the view.
+        val initial = composeOptions.mentionedUsernames?.let {
+            buildString {
+                it.forEach {
+                    append('@')
+                    append(it)
+                    append(' ')
+                }
+            }
+        } ?: composeOptions.content ?: ""
+        Timber.d("setupComposeField: '$initial'")
+        setupComposeField(initial, composeOptions.initialCursorPosition)
+        Timber.d("setupComposeField: done")
+//        }
+
+        // Content warnings
+        binding.composeContentWarningField.doOnTextChanged { newContentWarning, _, _, _ ->
+            viewModel.onContentWarningChanged(newContentWarning?.toString() ?: "")
+        }
+        binding.composeContentWarningField.setText(composeOptions.contentWarning ?: "")
+        viewModel.showContentWarningChanged(composeOptions.contentWarning != null)
+
+//        savedInstanceState?.let {
+//            BundleCompat.getSerializable(it, KEY_STATUS_VISIBILITY, Status.Visibility::class.java)?.let {
+//                viewModel.onVisibilityChanged(it)
+//            }
+//
+//            it.getBoolean(KEY_SHOW_CONTENT_WARNING).apply {
+//                viewModel.showContentWarningChanged(this)
+//            }
+//
+//            BundleCompat.getSerializable(it, KET_SCHEDULED_AT, Date::class.java)?.let {
+//                viewModel.updateScheduledAt(it)
+//            }
+//        }
+
+        // Initialise the initial content
         viewModel.setup(intent.pachliAccountId, composeOptions)
     }
 
@@ -552,136 +710,110 @@ class ComposeActivity :
      * content warning and forwards to the [viewModel].
      */
     private fun bindContentWarning(startingContentWarning: String?) {
-        binding.composeContentWarningField.doOnTextChanged { newContentWarning, _, _, _ ->
-            viewModel.onContentWarningChanged(newContentWarning?.toString() ?: "")
-        }
         if (startingContentWarning != null) {
             binding.composeContentWarningField.setText(startingContentWarning)
         }
     }
 
     private fun setupComposeField(startingText: String?, initialCursorPosition: InitialCursorPosition) {
-        binding.composeEditField.setOnReceiveContentListener(this)
-
-        binding.composeEditField.setOnKeyListener { _, keyCode, event -> this.onKeyDown(keyCode, event) }
-
-        binding.composeEditField.setAdapter(
-            ComposeAutoCompleteAdapter(
-                glide,
-                this,
-                sharedPreferencesRepository.animateAvatars,
-                sharedPreferencesRepository.animateEmojis,
-                sharedPreferencesRepository.showBotOverlay,
-            ),
-        )
-        binding.composeEditField.setTokenizer(ComposeTokenizer())
-
-        val mentionColour = binding.composeEditField.linkTextColors.defaultColor
-        highlightSpans(binding.composeEditField.text, mentionColour)
-        binding.composeEditField.doAfterTextChanged { editable ->
-            highlightSpans(editable!!, mentionColour)
-            viewModel.onContentChanged(editable)
-        }
-
         startingText?.let {
             binding.composeEditField.setText(it)
 
-            when (initialCursorPosition ?: InitialCursorPosition.END) {
+            when (initialCursorPosition) {
                 InitialCursorPosition.START -> binding.composeEditField.setSelection(0)
                 InitialCursorPosition.END -> binding.composeEditField.setSelection(
                     binding.composeEditField.length(),
                 )
             }
         }
-
-        // work around Android platform bug -> https://issuetracker.google.com/issues/67102093
-        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.O ||
-            Build.VERSION.SDK_INT == Build.VERSION_CODES.O_MR1
-        ) {
-            binding.composeEditField.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
-        }
     }
 
     private fun subscribeToUpdates(mediaAdapter: MediaPreviewAdapter) {
-        lifecycleScope.launch {
-            viewModel.pachliAccountFlow.map { it.instanceInfo }.distinctUntilChanged().collect { instanceData ->
-                maximumTootCharacters = instanceData.maxChars
-                maxUploadMediaNumber = instanceData.maxMediaAttachments
-            }
-        }
+//        lifecycleScope.launch {
+//            viewModel.instanceInfo.collect { instanceData ->
+//                maximumTootCharacters = instanceData.maxChars
+//                maxUploadMediaNumber = instanceData.maxMediaAttachments
+//            }
+//        }
+//
+//        lifecycleScope.launch {
+//            viewModel.statusLength.collect(::updateVisibleCharactersLeft)
+//        }
 
-        lifecycleScope.launch {
-            viewModel.statusLength.collect(::updateVisibleCharactersLeft)
-        }
+//        lifecycleScope.launch {
+//            viewModel.closeConfirmationKind.collect { updateOnBackPressedCallbackState(it, bottomSheetStates()) }
+//        }
 
-        lifecycleScope.launch {
-            viewModel.closeConfirmationKind.collect { updateOnBackPressedCallbackState(it, bottomSheetStates()) }
-        }
-
-        lifecycleScope.launch {
-            viewModel.emojis.collect(::bindEmojiList)
-        }
-
-        lifecycleScope.launch {
-            viewModel.showContentWarning.combine(viewModel.markMediaAsSensitive) { showContentWarning, markSensitive ->
-                updateMarkSensitiveButton(markSensitive, showContentWarning)
-                showContentWarning(showContentWarning)
-            }.collect()
-        }
-
-        lifecycleScope.launch {
-            viewModel.statusVisibility.collect(::setStatusVisibility)
-        }
+//        lifecycleScope.launch {
+//            viewModel.emojis.collect(::bindEmojiList)
+//        }
+//
+//        lifecycleScope.launch {
+//            viewModel.showContentWarning.combine(viewModel.markMediaAsSensitive) { showContentWarning, markSensitive ->
+//                updateMarkSensitiveButton(markSensitive, showContentWarning)
+//                showContentWarning(showContentWarning)
+//            }.collect()
+//        }
+//
+//        lifecycleScope.launch {
+//            viewModel.statusVisibility.collect(::setStatusVisibility)
+//        }
 
         lifecycleScope.launch {
             viewModel.media.collect { media ->
                 mediaAdapter.submitList(media)
 
                 binding.composeMediaPreviewBar.visible(media.isNotEmpty())
-                updateMarkSensitiveButton(
-                    viewModel.markMediaAsSensitive.value,
-                    viewModel.showContentWarning.value,
-                )
+//                updateMarkSensitiveButton(
+//                    viewModel.markMediaAsSensitive.value,
+//                    viewModel.showContentWarning.value,
+//                )
             }
         }
 
-        lifecycleScope.launch {
-            viewModel.poll.collect { poll ->
-                binding.pollPreview.visible(poll != null)
-                poll?.let(binding.pollPreview::setPoll)
-            }
-        }
-
-        lifecycleScope.launch {
-            viewModel.scheduledAt.collect { scheduledAt ->
-                if (scheduledAt == null) {
-                    binding.composeScheduleView.resetSchedule()
-                } else {
-                    binding.composeScheduleView.setDateTime(scheduledAt)
-                }
-                updateScheduleButton()
-            }
-        }
-
-        // Hide the "Schedule" button if the server can't schedule. Simply
-        // disabling it could be confusing to users wondering why they can't
-        // use it.
-        lifecycleScope.launch {
-            viewModel.serverCanSchedule.collect {
-                binding.composeScheduleButton.visible(it)
-            }
-        }
-
-        // Determine whether the add attachment options are enabled.
-        lifecycleScope.launch {
-            viewModel.media.combine(viewModel.poll) { media, poll ->
-                val active = poll == null &&
-                    media.size < maxUploadMediaNumber &&
-                    (media.isEmpty() || media.first().type == QueuedMedia.Type.IMAGE)
-                enableButton(binding.composeAddAttachmentButton, active, active)
-                enablePollButton(media.isEmpty())
-            }.collect()
-        }
+//        lifecycleScope.launch {
+//            combine(viewModel.markMediaAsSensitive, viewModel.showContentWarning) { sens, cw ->
+//                updateMarkSensitiveButton(sens, cw)
+//            }
+//        }
+//
+//        lifecycleScope.launch {
+//            viewModel.poll.collect { poll ->
+//                binding.pollPreview.visible(poll != null)
+//                poll?.let(binding.pollPreview::setPoll)
+//            }
+//        }
+//
+//        lifecycleScope.launch {
+//            viewModel.scheduledAt.collect { scheduledAt ->
+//                if (scheduledAt == null) {
+//                    binding.composeScheduleView.resetSchedule()
+//                } else {
+//                    binding.composeScheduleView.setDateTime(scheduledAt)
+//                }
+//                updateScheduleButton()
+//            }
+//        }
+//
+//        // Hide the "Schedule" button if the server can't schedule. Simply
+//        // disabling it could be confusing to users wondering why they can't
+//        // use it.
+//        lifecycleScope.launch {
+//            viewModel.serverCanSchedule.collect {
+//                binding.composeScheduleButton.visible(it)
+//            }
+//        }
+//
+//        // Determine whether the add attachment options are enabled.
+//        lifecycleScope.launch {
+//            viewModel.media.combine(viewModel.poll) { media, poll ->
+//                val active = poll == null &&
+//                    media.size < maxUploadMediaNumber &&
+//                    (media.isEmpty() || media.first().type == QueuedMedia.Type.IMAGE)
+//                enableButton(binding.composeAddAttachmentButton, active, active)
+//                enablePollButton(media.isEmpty())
+//            }.collect()
+//        }
     }
 
     /** @return List of states of the different bottomsheets */
@@ -704,10 +836,10 @@ class ComposeActivity :
     private fun bindButtons(pachliAccount: PachliAccount) {
         binding.composeOptionsBottomSheet.listener = this
 
-        visibilityBehavior = BottomSheetBehavior.from(binding.composeOptionsBottomSheet)
-        addAttachmentBehavior = BottomSheetBehavior.from(binding.addMediaBottomSheet)
-        scheduleBehavior = BottomSheetBehavior.from(binding.composeScheduleView)
-        emojiBehavior = BottomSheetBehavior.from(binding.emojiView)
+//        visibilityBehavior = BottomSheetBehavior.from(binding.composeOptionsBottomSheet)
+//        addAttachmentBehavior = BottomSheetBehavior.from(binding.addMediaBottomSheet)
+//        scheduleBehavior = BottomSheetBehavior.from(binding.composeScheduleView)
+//        emojiBehavior = BottomSheetBehavior.from(binding.emojiView)
 
         val bottomSheetCallback = object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
@@ -884,9 +1016,9 @@ class ComposeActivity :
 
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putParcelable(KEY_PHOTO_UPLOAD_URI, photoUploadUri)
-        outState.putSerializable(KEY_VISIBILITY, viewModel.statusVisibility.value)
-        outState.putBoolean(KEY_CONTENT_WARNING_VISIBLE, viewModel.showContentWarning.value)
-        outState.putSerializable(KEY_SCHEDULED_TIME, viewModel.scheduledAt.value)
+//        outState.putSerializable(KEY_STATUS_VISIBILITY, viewModel.statusVisibility.getOr(Status.Visibility.UNKNOWN))
+//        outState.putBoolean(KEY_SHOW_CONTENT_WARNING, viewModel.showContentWarning.getOr(false))
+//        outState.putSerializable(KET_SCHEDULED_AT, viewModel.scheduledAt.getOrNull())
         super.onSaveInstanceState(outState)
     }
 
@@ -915,7 +1047,7 @@ class ComposeActivity :
 
     // TODO: Should use a color state list.
     private fun updateMarkSensitiveButton(markMediaSensitive: Boolean, contentWarningShown: Boolean) = with(binding.composeMarkSensitiveButton) {
-        if (viewModel.media.value.isEmpty()) {
+        if (viewModel.media.getOrEmpty().isEmpty()) {
             hide()
         } else {
             show()
@@ -954,7 +1086,7 @@ class ComposeActivity :
             // Can't reschedule a published status
             enableButton(binding.composeScheduleButton, clickable = false, colorActive = false)
         } else {
-            val attr = if (viewModel.scheduledAt.value == null) {
+            val attr = if (viewModel.scheduledAt.getOrNull() == null) {
                 android.R.attr.colorControlNormal
             } else {
                 android.R.attr.colorPrimary
@@ -1019,7 +1151,7 @@ class ComposeActivity :
      * - Shows/hides a UI to edit/clear the scheduling data (see [showScheduleView].
      */
     private fun onScheduleClick() {
-        if (viewModel.scheduledAt.value == null) {
+        if (viewModel.scheduledAt.getOrNull() == null) {
             binding.composeScheduleView.openPickDateDialog()
         } else {
             showScheduleView()
@@ -1118,7 +1250,7 @@ class ComposeActivity :
         addAttachmentBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
         showAddPollDialog(
             context = this@ComposeActivity,
-            poll = viewModel.poll.value,
+            poll = viewModel.poll.getOrNull(),
             maxOptionCount = instanceInfo.pollMaxOptions,
             maxOptionLength = instanceInfo.pollMaxLength,
             minDuration = instanceInfo.pollMinDuration,
@@ -1175,7 +1307,7 @@ class ComposeActivity :
     }
 
     private fun verifyScheduledTime(): Boolean {
-        return binding.composeScheduleView.verifyScheduledTime(viewModel.scheduledAt.value)
+        return binding.composeScheduleView.verifyScheduledTime(viewModel.scheduledAt.getOrNull())
     }
 
     private fun onSendClick(pachliAccountId: Long) = lifecycleScope.launch {
@@ -1202,7 +1334,7 @@ class ComposeActivity :
         // See https://github.com/mastodon/mastodon/issues/23541
 
         // Null check. Shouldn't be necessary
-        val currentLang = viewModel.language.value ?: return
+        val currentLang = viewModel.language.getOrNull() ?: return
 
         // Try and identify the language the status is written in. Limit to the
         // first three possibilities. Don't show errors to the user, just bail,
@@ -1290,9 +1422,9 @@ class ComposeActivity :
     private fun sendStatus(pachliAccountId: Long) {
         enableButtons(false, viewModel.editing)
         val contentText = binding.composeEditField.text.toString()
-        val spoilerText = viewModel.effectiveContentWarning.value
-        val statusLength = viewModel.statusLength.value
-        if ((statusLength <= 0 || contentText.isBlank()) && viewModel.media.value.isEmpty()) {
+        val spoilerText = viewModel.effectiveContentWarning.getOrNull() ?: ""
+        val statusLength = viewModel.statusLength.getOr(-1)
+        if ((statusLength <= 0 || contentText.isBlank()) && viewModel.media.getOrEmpty().isEmpty()) {
             binding.composeEditField.error = getString(R.string.error_empty)
             enableButtons(true, viewModel.editing)
         } else if (statusLength <= maximumTootCharacters) {
@@ -1474,7 +1606,13 @@ class ComposeActivity :
      */
     private fun confirmAndFinish() {
         val contentText = binding.composeEditField.text.toString()
-        val contentWarning = binding.composeContentWarningField.text.toString()
+//        val contentWarning = binding.composeContentWarningField.text.toString()
+//        val contentWarning = if (viewModel.showContentWarning.getOr(false)) {
+//            viewModel.effectiveContentWarning.value
+//        } else {
+//            null
+//        }
+        val contentWarning = viewModel.effectiveContentWarning.getOrNull()
         when (viewModel.closeConfirmationKind.value) {
             ConfirmationKind.NONE -> {
                 viewModel.stopUploads()
@@ -1494,7 +1632,7 @@ class ComposeActivity :
     /**
      * User is editing a new post, and can either save the changes as a draft or discard them.
      */
-    private fun getSaveAsDraftOrDiscardDialog(contentText: String, contentWarning: String): AlertDialog.Builder {
+    private fun getSaveAsDraftOrDiscardDialog(contentText: String, contentWarning: String?): AlertDialog.Builder {
         val builder = AlertDialog.Builder(this)
             .setTitle(R.string.compose_save_draft)
             .setPositiveButton(R.string.action_save) { _, _ ->
@@ -1506,7 +1644,7 @@ class ComposeActivity :
                 deleteDraftAndFinish()
             }
 
-        if (viewModel.media.value.isNotEmpty()) {
+        if (viewModel.media.getOrEmpty().isNotEmpty()) {
             builder.setMessage(R.string.compose_save_draft_loses_media)
         }
 
@@ -1517,7 +1655,7 @@ class ComposeActivity :
      * User is editing an existing draft, and can either update the draft with the new changes or
      * discard them.
      */
-    private fun getUpdateDraftOrDiscardDialog(contentText: String, contentWarning: String): AlertDialog.Builder {
+    private fun getUpdateDraftOrDiscardDialog(contentText: String, contentWarning: String?): AlertDialog.Builder {
         val builder = AlertDialog.Builder(this)
             .setTitle(R.string.compose_save_draft)
             .setPositiveButton(R.string.action_save) { _, _ ->
@@ -1529,7 +1667,7 @@ class ComposeActivity :
                 finish()
             }
 
-        if (viewModel.media.value.isNotEmpty()) {
+        if (viewModel.media.getOrEmpty().isNotEmpty()) {
             builder.setMessage(R.string.compose_save_draft_loses_media)
         }
 
@@ -1575,7 +1713,7 @@ class ComposeActivity :
         finish()
     }
 
-    private fun saveDraftAndFinish(contentText: String, contentWarning: String) {
+    private fun saveDraftAndFinish(contentText: String, contentWarning: String?) {
         lifecycleScope.launch {
             val dialog = if (viewModel.shouldShowSaveDraftDialog()) {
                 ProgressDialog.show(
@@ -1686,9 +1824,9 @@ class ComposeActivity :
         private const val PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1
 
         private const val KEY_PHOTO_UPLOAD_URI = "app.pachli.KEY_PHOTO_UPLOAD_URI"
-        private const val KEY_VISIBILITY = "app.pachli.KEY_VISIBILITY"
-        private const val KEY_SCHEDULED_TIME = "app.pachli.KEY_SCHEDULED_TIME"
-        private const val KEY_CONTENT_WARNING_VISIBLE = "app.pachli.KEY_CONTENT_WARNING_VISIBLE"
+//        private const val KEY_STATUS_VISIBILITY = "app.pachli.KEY_VISIBILITY"
+//        private const val KET_SCHEDULED_AT = "app.pachli.KEY_SCHEDULED_TIME"
+//        private const val KEY_SHOW_CONTENT_WARNING = "app.pachli.KEY_CONTENT_WARNING_VISIBLE"
 
         /**
          * [InputFilter] that uses the "Mastodon" length of a string, where emojis always

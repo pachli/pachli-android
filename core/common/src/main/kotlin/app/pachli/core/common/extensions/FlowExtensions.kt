@@ -94,9 +94,12 @@ private val DEFAULT_THROTTLE_FIRST_TIMEOUT = 500.milliseconds
  *
  * The [first][Pair.first] item in the [Pair] is the earliest value in the original flow,
  * the [second][Pair.second] item is the latest value in the original flow.
+ *
+ * These are identical if there has only been a single emission in the original flow.
  */
-fun <T> Flow<T>.trackFirstLast() = runningFold(null as Pair<T, T>?) { acc, value -> (acc?.first ?: value) to value }
-    .filterNotNull()
+fun <T> Flow<T>.trackFirstLast() = runningFold(null as Pair<T, T>?) { acc, value ->
+    acc?.let { it.first to value } ?: (value to value)
+}.filterNotNull()
 
 /**
  * Returns a [Flow<Boolean>][Flow] that tracks the "dirty" state of the upstream
@@ -111,7 +114,11 @@ fun <T> Flow<T>.trackFirstLast() = runningFold(null as Pair<T, T>?) { acc, value
  * dirty state do not generate a corresponding emission from this flow.
  */
 inline fun <T> Flow<T>.dirtyIf(crossinline predicate: suspend (first: T, last: T) -> Boolean): Flow<Boolean> {
-    return trackFirstLast().map { predicate(it.first, it.second) }.distinctUntilChanged()
+    return trackFirstLast().map {
+//        Timber.d("dirtyIf: ${it.first}")
+//        Timber.d("       : ${it.second}")
+        predicate(it.first, it.second)
+    }.distinctUntilChanged()
 }
 
 /*
