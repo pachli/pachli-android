@@ -16,19 +16,16 @@
 
 package app.pachli.core.network.model
 
-import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import kotlinx.parcelize.Parcelize
 
-@Parcelize
 @JsonClass(generateAdapter = true)
 data class Emoji(
     val shortcode: String,
     val url: String,
     @Json(name = "static_url") val staticUrl: String,
     @Json(name = "visible_in_picker") val visibleInPicker: Boolean?,
-) : Parcelable {
+) {
     fun asModel() = app.pachli.core.model.Emoji(
         shortcode = shortcode,
         url = url,
