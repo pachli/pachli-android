@@ -684,12 +684,5 @@ abstract class TimelineViewModel<T : Any>(
         fun creationExtras(timeline: Timeline) = bundleOf(
             TIMELINE_TAG to timeline,
         )
-
-        fun filterContextMatchesKind(
-            timeline: Timeline,
-            filterContext: List<FilterContext>,
-        ): Boolean {
-            return filterContext.contains(FilterContext.from(timeline))
-        }
     }
 }

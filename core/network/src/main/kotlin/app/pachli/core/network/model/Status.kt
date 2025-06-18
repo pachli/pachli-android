@@ -17,12 +17,8 @@
 
 package app.pachli.core.network.model
 
-import android.text.SpannableStringBuilder
-import android.text.style.URLSpan
-import app.pachli.core.common.extensions.getOrElse
 import app.pachli.core.network.json.Default
 import app.pachli.core.network.json.HasDefault
-import app.pachli.core.network.parseAsMastodonHtml
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import java.util.Date
@@ -60,7 +56,6 @@ data class Status(
     val language: String?,
     val filtered: List<FilterResult>?,
 ) {
-
     val actionableId: String
         get() = reblog?.id ?: id
 
@@ -110,64 +105,6 @@ data class Status(
             PRIVATE -> app.pachli.core.model.Status.Visibility.PRIVATE
             DIRECT -> app.pachli.core.model.Status.Visibility.DIRECT
         }
-
-        companion object {
-            @JvmStatic
-            fun getOrUnknown(index: Int) = Enum.getOrElse<Visibility>(index) { UNKNOWN }
-
-            @JvmStatic
-            fun byString(s: String): Visibility {
-                return when (s) {
-                    "public" -> PUBLIC
-                    "unlisted" -> UNLISTED
-                    "private" -> PRIVATE
-                    "direct" -> DIRECT
-                    "unknown" -> UNKNOWN
-                    else -> UNKNOWN
-                }
-            }
-        }
-    }
-
-    fun rebloggingAllowed(): Boolean {
-        return (visibility != Visibility.DIRECT && visibility != Visibility.UNKNOWN)
-    }
-
-    fun isPinned(): Boolean {
-        return pinned == true
-    }
-
-    fun toDeletedStatus(): DeletedStatus {
-        return DeletedStatus(
-            text = getEditableText(),
-            inReplyToId = inReplyToId,
-            spoilerText = spoilerText,
-            visibility = visibility,
-            sensitive = sensitive,
-            attachments = attachments,
-            poll = poll,
-            createdAt = createdAt,
-            language = language,
-        )
-    }
-
-    private fun getEditableText(): String {
-        val contentSpanned = content.parseAsMastodonHtml()
-        val builder = SpannableStringBuilder(content.parseAsMastodonHtml())
-        for (span in contentSpanned.getSpans(0, content.length, URLSpan::class.java)) {
-            val url = span.url
-            for ((_, url1, username) in mentions) {
-                if (url == url1) {
-                    val start = builder.getSpanStart(span)
-                    val end = builder.getSpanEnd(span)
-                    if (start >= 0 && end >= 0) {
-                        builder.replace(start, end, "@$username")
-                    }
-                    break
-                }
-            }
-        }
-        return builder.toString()
     }
 
     fun asModel(): app.pachli.core.model.Status = app.pachli.core.model.Status(
@@ -228,11 +165,6 @@ data class Status(
             name = name,
             website = website,
         )
-    }
-
-    companion object {
-        const val MAX_MEDIA_ATTACHMENTS = 4
-        const val MAX_POLL_OPTIONS = 4
     }
 }
 

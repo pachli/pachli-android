@@ -91,9 +91,6 @@ data class Notification(
         ;
 
         companion object {
-            @JvmStatic
-            fun byString(s: String) = entries.firstOrNull { s == it.presentation } ?: UNKNOWN
-
             /** Notification types for UI display (omits UNKNOWN) */
             val visibleTypes = Type.entries.filter { it != UNKNOWN }
         }
@@ -128,18 +125,6 @@ data class Notification(
         }
         val notification = other as Notification?
         return notification?.id == this.id
-    }
-
-    // for Pleroma compatibility that uses Mention type
-    fun rewriteToStatusTypeIfNeeded(accountId: String): Notification {
-        if (type == Type.MENTION && status != null) {
-            return if (status.mentions.any { it.id == accountId }) {
-                this
-            } else {
-                copy(type = Type.STATUS)
-            }
-        }
-        return this
     }
 
     fun asModel() = app.pachli.core.model.Notification(
