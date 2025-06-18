@@ -20,7 +20,7 @@ package app.pachli.adapter
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.designsystem.R as DR
-import app.pachli.core.network.model.TimelineAccount
+import app.pachli.core.model.TimelineAccount
 import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.emojify
 import app.pachli.core.ui.loadAvatar

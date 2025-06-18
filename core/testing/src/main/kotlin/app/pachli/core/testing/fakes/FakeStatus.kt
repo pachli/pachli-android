@@ -18,9 +18,8 @@
 package app.pachli.core.testing.fakes
 
 import app.pachli.core.data.model.StatusViewData
-import app.pachli.core.database.model.StatusEntity
+import app.pachli.core.data.repository.notifications.asEntity
 import app.pachli.core.database.model.StatusViewDataEntity
-import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.network.model.Status
@@ -28,6 +27,17 @@ import app.pachli.core.network.model.TimelineAccount
 import java.util.Date
 
 private val fixedDate = Date(1638889052000)
+
+fun fakeAccount() = TimelineAccount(
+    id = "1",
+    localUsername = "connyduck",
+    username = "connyduck@mastodon.example",
+    displayName = "Conny Duck",
+    note = "This is their bio",
+    url = "https://mastodon.example/@ConnyDuck",
+    avatar = "https://mastodon.example/system/accounts/avatars/000/150/486/original/ab27d7ddd18a10ea.jpg",
+    createdAt = null,
+)
 
 fun fakeStatus(
     id: String = "100",
@@ -40,16 +50,7 @@ fun fakeStatus(
 ) = Status(
     id = id,
     url = "https://mastodon.example/@ConnyDuck/$id",
-    account = TimelineAccount(
-        id = "1",
-        localUsername = "connyduck",
-        username = "connyduck@mastodon.example",
-        displayName = "Conny Duck",
-        note = "This is their bio",
-        url = "https://mastodon.example/@ConnyDuck",
-        avatar = "https://mastodon.example/system/accounts/avatars/000/150/486/original/ab27d7ddd18a10ea.jpg",
-        createdAt = null,
-    ),
+    account = fakeAccount(),
     inReplyToId = inReplyToId,
     inReplyToAccountId = inReplyToAccountId,
     reblog = null,
@@ -100,7 +101,7 @@ fun fakeStatusViewData(
         reblogged = reblogged,
         favourited = favourited,
         bookmarked = bookmarked,
-    ),
+    ).asModel(),
     isExpanded = isExpanded,
     isShowingContent = isShowingContent,
     isCollapsed = isCollapsed,
@@ -116,14 +117,8 @@ fun fakeStatusEntityWithAccount(
     val status = fakeStatus(id)
 
     return TimelineStatusWithAccount(
-        status = StatusEntity.from(
-            status,
-            timelineUserId = userId,
-        ),
-        account = TimelineAccountEntity.from(
-            status.account,
-            accountId = userId,
-        ),
+        status = status.asEntity(userId),
+        account = status.account.asEntity(userId),
         viewData = StatusViewDataEntity(
             serverId = id,
             pachliAccountId = userId,

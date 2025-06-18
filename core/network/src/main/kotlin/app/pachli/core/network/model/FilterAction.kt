@@ -40,6 +40,12 @@ enum class FilterAction {
 
     ;
 
+    fun asModel() = when (this) {
+        NONE -> FilterAction.NONE
+        WARN -> FilterAction.WARN
+        HIDE -> FilterAction.HIDE
+    }
+
     companion object {
         fun from(filterAction: FilterAction) = when (filterAction) {
             FilterAction.NONE -> NONE

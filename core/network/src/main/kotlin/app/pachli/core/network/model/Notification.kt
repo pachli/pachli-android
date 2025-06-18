@@ -101,6 +101,21 @@ data class Notification(
         override fun toString(): String {
             return presentation
         }
+
+        fun asModel(): app.pachli.core.model.Notification.Type = when (this) {
+            UNKNOWN -> app.pachli.core.model.Notification.Type.UNKNOWN
+            MENTION -> app.pachli.core.model.Notification.Type.MENTION
+            REBLOG -> app.pachli.core.model.Notification.Type.REBLOG
+            FAVOURITE -> app.pachli.core.model.Notification.Type.FAVOURITE
+            FOLLOW -> app.pachli.core.model.Notification.Type.FOLLOW
+            FOLLOW_REQUEST -> app.pachli.core.model.Notification.Type.FOLLOW_REQUEST
+            POLL -> app.pachli.core.model.Notification.Type.POLL
+            STATUS -> app.pachli.core.model.Notification.Type.STATUS
+            SIGN_UP -> app.pachli.core.model.Notification.Type.SIGN_UP
+            UPDATE -> app.pachli.core.model.Notification.Type.UPDATE
+            REPORT -> app.pachli.core.model.Notification.Type.REPORT
+            SEVERED_RELATIONSHIPS -> app.pachli.core.model.Notification.Type.SEVERED_RELATIONSHIPS
+        }
     }
 
     override fun hashCode(): Int {
@@ -126,4 +141,14 @@ data class Notification(
         }
         return this
     }
+
+    fun asModel() = app.pachli.core.model.Notification(
+        type = type.asModel(),
+        id = id,
+        createdAt = createdAt,
+        account = account.asModel(),
+        status = status?.asModel(),
+        report = report?.asModel(),
+        relationshipSeveranceEvent = relationshipSeveranceEvent?.asModel(),
+    )
 }

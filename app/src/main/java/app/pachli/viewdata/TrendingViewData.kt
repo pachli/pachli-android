@@ -16,7 +16,7 @@
 
 package app.pachli.viewdata
 
-import app.pachli.core.network.model.TrendingTag
+import app.pachli.core.model.TrendingTag
 import java.util.Date
 
 sealed interface TrendingViewData {

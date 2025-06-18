@@ -28,20 +28,19 @@ import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.NotificationData
-import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.database.model.NotificationRelationshipSeveranceEventEntity
 import app.pachli.core.database.model.NotificationReportEntity
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
 import app.pachli.core.database.model.StatusEntity
-import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
+import app.pachli.core.database.model.asEntity
+import app.pachli.core.model.Status
+import app.pachli.core.model.TimelineAccount
 import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.RelationshipSeveranceEvent
 import app.pachli.core.network.model.Report
-import app.pachli.core.network.model.Status
-import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiResponse
 import app.pachli.core.network.retrofit.apiresult.ApiResult
@@ -207,9 +206,9 @@ class NotificationsRemoteMediator(
 
         // Collect the different items from this batch of notifications.
         notifications.forEach { notification ->
-            accounts.add(notification.account)
+            accounts.add(notification.account.asModel())
 
-            notification.status?.let { status ->
+            notification.status?.asModel()?.let { status ->
                 accounts.add(status.account)
                 status.reblog?.account?.let { accounts.add(it) }
                 statuses.add(status)
@@ -220,7 +219,7 @@ class NotificationsRemoteMediator(
         }
 
         // Bulk upsert the discovered items.
-        timelineDao.upsertAccounts(accounts.map { TimelineAccountEntity.from(it, pachliAccountId) })
+        timelineDao.upsertAccounts(accounts.asEntity(pachliAccountId))
         statusDao.upsertStatuses(statuses.map { StatusEntity.from(it, pachliAccountId) })
         notificationDao.upsertReports(reports.mapNotNull { NotificationReportEntity.from(pachliAccountId, it) })
         notificationDao.upsertEvents(
@@ -229,7 +228,7 @@ class NotificationsRemoteMediator(
             },
         )
         notificationDao.upsertNotifications(
-            notifications.map { NotificationEntity.from(pachliAccountId, it) },
+            notifications.map { it.asEntity(pachliAccountId) },
         )
     }
 }
@@ -238,29 +237,17 @@ class NotificationsRemoteMediator(
  * @return A [NotificationData] from a network [Notification] for [pachliAccountId].
  */
 fun NotificationData.Companion.from(pachliAccountId: Long, notification: Notification) = NotificationData(
-    notification = NotificationEntity.from(pachliAccountId, notification),
-    account = TimelineAccountEntity.from(notification.account, pachliAccountId),
+    notification = notification.asEntity(pachliAccountId),
+    account = notification.account.asEntity(pachliAccountId), // TimelineAccountEntity.from(notification.account, pachliAccountId),
     status = notification.status?.let { status ->
         TimelineStatusWithAccount(
-            status = StatusEntity.from(status, pachliAccountId),
-            account = TimelineAccountEntity.from(status.account, pachliAccountId),
+            status = status.asEntity(pachliAccountId),
+            account = status.account.asEntity(pachliAccountId),
         )
     },
     viewData = null,
     report = NotificationReportEntity.from(pachliAccountId, notification),
     relationshipSeveranceEvent = NotificationRelationshipSeveranceEventEntity.from(pachliAccountId, notification),
-)
-
-/**
- * @return A [NotificationEntity] from a network [Notification] for [pachliAccountId].
- */
-fun NotificationEntity.Companion.from(pachliAccountId: Long, notification: Notification) = NotificationEntity(
-    pachliAccountId = pachliAccountId,
-    serverId = notification.id,
-    type = NotificationEntity.Type.from(notification.type),
-    createdAt = notification.createdAt.toInstant(),
-    accountServerId = notification.account.id,
-    statusServerId = notification.status?.id,
 )
 
 /**
@@ -288,7 +275,7 @@ fun NotificationReportEntity.Companion.from(
         createdAt = report.createdAt,
         statusIds = report.statusIds,
         ruleIds = report.ruleIds,
-        targetAccount = TimelineAccountEntity.from(report.targetAccount, pachliAccountId),
+        targetAccount = report.targetAccount.asEntity(pachliAccountId),
     )
 }
 

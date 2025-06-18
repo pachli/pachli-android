@@ -17,8 +17,8 @@
 
 package app.pachli.core.data.model
 
+import app.pachli.core.model.Account
 import app.pachli.core.network.json.Default
-import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.SuggestionSource
 
 /**
@@ -76,13 +76,13 @@ data class Suggestion(
             networkSuggestion.sources?.let { sources ->
                 return Suggestion(
                     sources = sources.map { SuggestionSources.from(it) },
-                    account = networkSuggestion.account,
+                    account = networkSuggestion.account.asModel(),
                 )
             }
 
             return Suggestion(
                 sources = listOf(SuggestionSources.from(networkSuggestion.source)),
-                account = networkSuggestion.account,
+                account = networkSuggestion.account.asModel(),
             )
         }
     }

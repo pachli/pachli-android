@@ -80,4 +80,20 @@ data class TimelineAccount(
             username.substring(index + 1)
         } ?: ""
     }
+
+    fun asModel() = app.pachli.core.model.TimelineAccount(
+        id = id,
+        localUsername = localUsername,
+        username = username,
+        displayName = displayName,
+        url = url,
+        avatar = avatar,
+        note = note,
+        bot = bot,
+        emojis = emojis?.map { it.asModel() },
+        createdAt = createdAt,
+        limited = limited,
+    )
 }
+
+fun Iterable<TimelineAccount>.asModel() = map { it.asModel() }

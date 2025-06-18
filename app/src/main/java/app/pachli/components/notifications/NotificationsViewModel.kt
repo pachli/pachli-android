@@ -27,15 +27,15 @@ import androidx.paging.map
 import app.pachli.R
 import app.pachli.core.common.PachliError
 import app.pachli.core.common.extensions.throttleFirst
+import app.pachli.core.data.model.ContentFilterModel
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.data.repository.notifications.NotificationsRepository
-import app.pachli.core.data.repository.notifications.from
+import app.pachli.core.data.repository.notifications.asEntity
 import app.pachli.core.database.model.AccountEntity
-import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.eventhub.BlockEvent
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.MuteConversationEvent
@@ -44,12 +44,11 @@ import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.ContentFilterVersion
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.FilterContext
-import app.pachli.core.network.model.Notification
-import app.pachli.core.network.model.Poll
+import app.pachli.core.model.Notification
+import app.pachli.core.model.Poll
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.preferences.TabTapBehaviour
-import app.pachli.network.ContentFilterModel
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.deserialize
 import app.pachli.util.serialize
@@ -622,7 +621,10 @@ class NotificationsViewModel @AssistedInject constructor(
         pachliAccount: PachliAccount,
         filters: Set<Notification.Type>,
     ): Flow<PagingData<NotificationViewData>> {
-        val activeFilters = filters.map { NotificationEntity.Type.from(it) }
+        val activeFilters = filters.map { it.asEntity() }
+        // TODO: This could be more efficient if the filters were passed to the
+        // repository.notifications() call, and the repository did the filtering.
+        // (better,
         return repository.notifications(pachliAccountId)
             .map { pagingData ->
                 pagingData

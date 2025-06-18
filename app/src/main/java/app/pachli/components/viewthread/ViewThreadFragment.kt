@@ -44,11 +44,11 @@ import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.model.Poll
+import app.pachli.core.model.Status
 import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.EditContentFilterActivityIntent
-import app.pachli.core.network.model.Poll
-import app.pachli.core.network.model.Status
 import app.pachli.core.ui.SetMarkdownContent
 import app.pachli.core.ui.SetMastodonHtmlContent
 import app.pachli.databinding.FragmentViewThreadBinding

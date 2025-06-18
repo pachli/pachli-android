@@ -24,7 +24,7 @@ import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.appcompat.content.res.AppCompatResources
 import app.pachli.R
-import app.pachli.core.network.model.Status
+import app.pachli.core.model.Status
 
 // TODO: Not part of the [Status] implementation because that module doesn't
 // store resources (yet).

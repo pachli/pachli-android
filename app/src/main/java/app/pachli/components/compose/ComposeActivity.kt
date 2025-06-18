@@ -82,16 +82,16 @@ import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.model.Attachment
+import app.pachli.core.model.Emoji
 import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_CHARACTER_LIMIT
 import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_MAX_MEDIA_ATTACHMENTS
+import app.pachli.core.model.Status
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InReplyTo
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InitialCursorPosition
 import app.pachli.core.navigation.pachliAccountId
-import app.pachli.core.network.model.Attachment
-import app.pachli.core.network.model.Emoji
-import app.pachli.core.network.model.Status
 import app.pachli.core.preferences.AppTheme
 import app.pachli.core.ui.emojify
 import app.pachli.core.ui.extensions.await

@@ -55,7 +55,27 @@ data class Attachment(
         @Json(name = "unknown")
         @Default
         UNKNOWN,
+
+        ;
+
+        fun asModel() = when (this) {
+            IMAGE -> app.pachli.core.model.Attachment.Type.IMAGE
+            GIFV -> app.pachli.core.model.Attachment.Type.GIFV
+            VIDEO -> app.pachli.core.model.Attachment.Type.VIDEO
+            AUDIO -> app.pachli.core.model.Attachment.Type.AUDIO
+            UNKNOWN -> app.pachli.core.model.Attachment.Type.UNKNOWN
+        }
     }
+
+    fun asModel() = app.pachli.core.model.Attachment(
+        id = id,
+        url = url,
+        previewUrl = previewUrl,
+        meta = meta?.asModel(),
+        type = type.asModel(),
+        description = description,
+        blurhash = blurhash,
+    )
 
     /**
      * The meta data of an [Attachment].
@@ -69,7 +89,14 @@ data class Attachment(
         val duration: Float?,
         val original: Size?,
         val small: Size?,
-    ) : Parcelable
+    ) : Parcelable {
+        fun asModel() = app.pachli.core.model.Attachment.MetaData(
+            focus = focus?.asModel(),
+            duration = duration,
+            original = original?.asModel(),
+            small = small?.asModel(),
+        )
+    }
 
     /**
      * The Focus entity, used to specify the focal point of an image.
@@ -84,6 +111,11 @@ data class Attachment(
         val y: Float = 0f,
     ) : Parcelable {
         fun toMastodonApiString(): String = "$x,$y"
+
+        fun asModel() = app.pachli.core.model.Attachment.Focus(
+            x = x,
+            y = y,
+        )
     }
 
     /**
@@ -106,6 +138,12 @@ data class Attachment(
 
                 return (width / height).toDouble()
             }
+
+        fun asModel() = app.pachli.core.model.Attachment.Size(
+            width = width,
+            height = height,
+            aspect = aspect,
+        )
     }
 
     /**
@@ -117,3 +155,5 @@ data class Attachment(
         return !(meta?.original?.width == null && meta?.small?.width == null)
     }
 }
+
+fun Iterable<Attachment>.asModel() = map { it.asModel() }

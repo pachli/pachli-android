@@ -27,7 +27,7 @@ import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.util.AbsoluteTimeFormatter
-import app.pachli.core.network.model.Announcement
+import app.pachli.core.model.Announcement
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.BindingHolder
 import app.pachli.core.ui.EmojiSpan

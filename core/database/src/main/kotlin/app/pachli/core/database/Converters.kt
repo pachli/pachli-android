@@ -22,20 +22,20 @@ import app.pachli.core.database.model.ConversationAccount
 import app.pachli.core.database.model.DraftAttachment
 import app.pachli.core.database.model.TimelineStatusEntity
 import app.pachli.core.model.AccountFilterDecision
+import app.pachli.core.model.Announcement
+import app.pachli.core.model.Attachment
+import app.pachli.core.model.Card
 import app.pachli.core.model.ContentFilter
+import app.pachli.core.model.Emoji
+import app.pachli.core.model.FilterResult
+import app.pachli.core.model.HashTag
+import app.pachli.core.model.NewPoll
+import app.pachli.core.model.Poll
 import app.pachli.core.model.ServerOperation
+import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
-import app.pachli.core.network.model.Announcement
-import app.pachli.core.network.model.Attachment
-import app.pachli.core.network.model.Card
-import app.pachli.core.network.model.Emoji
-import app.pachli.core.network.model.FilterResult
-import app.pachli.core.network.model.HashTag
-import app.pachli.core.network.model.NewPoll
-import app.pachli.core.network.model.Poll
-import app.pachli.core.network.model.Status
-import app.pachli.core.network.model.TranslatedAttachment
-import app.pachli.core.network.model.TranslatedPoll
+import app.pachli.core.model.TranslatedAttachment
+import app.pachli.core.model.TranslatedPoll
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapter
 import io.github.z4kn4fein.semver.Version
@@ -270,8 +270,7 @@ class Converters @Inject constructor(
     }
 
     @TypeConverter
-    fun contentFiltersToJson(contentFilters: List<ContentFilter>): String =
-        moshi.adapter<List<ContentFilter>>().toJson(contentFilters)
+    fun contentFiltersToJson(contentFilters: List<ContentFilter>): String = moshi.adapter<List<ContentFilter>>().toJson(contentFilters)
 
     @TypeConverter
     fun jsonToContentFilters(s: String?) = s?.let { moshi.adapter<List<ContentFilter>>().fromJson(it) }

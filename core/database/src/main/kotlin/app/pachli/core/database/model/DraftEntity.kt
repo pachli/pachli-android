@@ -26,9 +26,9 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
-import app.pachli.core.network.model.Attachment
-import app.pachli.core.network.model.NewPoll
-import app.pachli.core.network.model.Status
+import app.pachli.core.model.Attachment
+import app.pachli.core.model.NewPoll
+import app.pachli.core.model.Status
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import java.util.Date

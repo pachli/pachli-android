@@ -1,0 +1,21 @@
+package app.pachli.core.model
+
+import com.squareup.moshi.JsonClass
+
+/**
+ * @param name Hashtag name, without the leading `#`.
+ */
+@JsonClass(generateAdapter = true)
+data class HashTag(
+    val name: String,
+    val url: String,
+    val history: List<HashTagHistory> = emptyList(),
+    val following: Boolean? = null,
+)
+
+@JsonClass(generateAdapter = true)
+data class HashTagHistory(
+    val day: String,
+    val accounts: Int,
+    val uses: Int,
+)

@@ -31,8 +31,8 @@ import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.common.util.formatNumber
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.designsystem.R as DR
-import app.pachli.core.network.model.PreviewCard
-import app.pachli.core.network.model.TrendsLink
+import app.pachli.core.model.PreviewCard
+import app.pachli.core.model.TrendsLink
 import app.pachli.core.ui.decodeBlurHash
 import app.pachli.core.ui.emojify
 import app.pachli.databinding.PreviewCardBinding

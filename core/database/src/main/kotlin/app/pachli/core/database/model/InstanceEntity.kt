@@ -23,9 +23,9 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
+import app.pachli.core.model.Emoji
 import app.pachli.core.model.InstanceInfo
 import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_MAX_MEDIA_DESCRIPTION_CHARS
-import app.pachli.core.network.model.Emoji
 
 @Entity
 @TypeConverters(Converters::class)

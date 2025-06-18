@@ -22,7 +22,7 @@ import android.view.WindowManager
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AlertDialog
 import app.pachli.R
-import app.pachli.core.network.model.NewPoll
+import app.pachli.core.model.NewPoll
 import app.pachli.databinding.DialogAddPollBinding
 
 const val DAY_SECONDS = 60 * 60 * 24

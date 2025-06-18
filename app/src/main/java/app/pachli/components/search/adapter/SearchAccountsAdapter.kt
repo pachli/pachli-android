@@ -21,7 +21,7 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import app.pachli.adapter.AccountViewHolder
-import app.pachli.core.network.model.TimelineAccount
+import app.pachli.core.model.TimelineAccount
 import app.pachli.core.ui.LinkListener
 import app.pachli.databinding.ItemAccountBinding
 import com.bumptech.glide.RequestManager

@@ -11,4 +11,12 @@ data class FilterKeyword(
     val id: String,
     val keyword: String,
     @Json(name = "whole_word") val wholeWord: Boolean,
-) : Parcelable
+) : Parcelable {
+    fun asModel() = app.pachli.core.model.FilterKeyword(
+        id = id,
+        keyword = keyword,
+        wholeWord = wholeWord,
+    )
+}
+
+fun Iterable<FilterKeyword>.asModel() = map { it.asModel() }

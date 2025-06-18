@@ -21,7 +21,7 @@ import android.view.View
 import androidx.paging.PagingData
 import androidx.paging.PagingDataAdapter
 import app.pachli.components.search.adapter.SearchAccountsAdapter
-import app.pachli.core.network.model.TimelineAccount
+import app.pachli.core.model.TimelineAccount
 import app.pachli.core.preferences.SharedPreferencesRepository
 import com.bumptech.glide.Glide
 import com.google.android.material.divider.MaterialDividerItemDecoration

@@ -22,7 +22,12 @@ import android.content.Intent
 import android.os.Parcelable
 import androidx.core.content.IntentCompat
 import app.pachli.core.database.model.DraftAttachment
+import app.pachli.core.model.Attachment
 import app.pachli.core.model.ContentFilter
+import app.pachli.core.model.Emoji
+import app.pachli.core.model.NewPoll
+import app.pachli.core.model.Notification
+import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.TimelineActivityIntent.Companion.bookmarks
@@ -32,11 +37,6 @@ import app.pachli.core.navigation.TimelineActivityIntent.Companion.hashtag
 import app.pachli.core.navigation.TimelineActivityIntent.Companion.list
 import app.pachli.core.navigation.TimelineActivityIntent.Companion.publicFederated
 import app.pachli.core.navigation.TimelineActivityIntent.Companion.publicLocal
-import app.pachli.core.network.model.Attachment
-import app.pachli.core.network.model.Emoji
-import app.pachli.core.network.model.NewPoll
-import app.pachli.core.network.model.Notification
-import app.pachli.core.network.model.Status
 import app.pachli.core.network.parseAsMastodonHtml
 import com.gaelmarhic.quadrant.QuadrantConstants
 import java.util.Date
@@ -440,7 +440,7 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOpti
                 val content: String,
             ) : InReplyTo() {
                 companion object {
-                    fun from(status: app.pachli.core.network.model.Status) = Status(
+                    fun from(status: app.pachli.core.model.Status) = Status(
                         statusId = status.id,
                         avatarUrl = status.account.avatar,
                         isBot = status.account.bot,
@@ -577,7 +577,7 @@ class MainActivityIntent(
         data class Notification(
             val notificationId: Int,
             val notificationTag: String?,
-            val notificationType: app.pachli.core.network.model.Notification.Type,
+            val notificationType: app.pachli.core.model.Notification.Type,
         ) : Payload
 
         /** Start as normal, no special processing. */

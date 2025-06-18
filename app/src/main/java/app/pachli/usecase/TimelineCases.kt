@@ -38,7 +38,10 @@ import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiResult
 import app.pachli.translation.TranslationService
 import app.pachli.translation.TranslatorError
+import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.getOrElse
+import com.github.michaelbull.result.map
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import javax.inject.Inject
@@ -76,9 +79,22 @@ class TimelineCases @Inject constructor(
     }
 
     suspend fun delete(statusId: String): ApiResult<DeletedStatus> {
+        // Some servers (Pleroma?, see https://github.com/tuskyapp/Tusky/pull/1461) don't
+        // return the text of the status when deleting. Work around that by fetching
+        // the status source first, and using content from that if necessary.
+        val source = mastodonApi.statusSource(statusId)
+            .getOrElse { return Err(it) }.body
+
         return mastodonApi.deleteStatus(statusId)
             .onSuccess { eventHub.dispatch(StatusDeletedEvent(statusId)) }
             .onFailure { Timber.w("Failed to delete status: %s", it) }
+            .map {
+                if (it.body.isEmpty()) {
+                    it.copy(body = it.body.copy(text = source.text, spoilerText = source.spoilerText))
+                } else {
+                    it
+                }
+            }
     }
 
     suspend fun acceptFollowRequest(accountId: String): ApiResult<Relationship> {

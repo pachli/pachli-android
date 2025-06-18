@@ -41,12 +41,12 @@ import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.model.Attachment
+import app.pachli.core.model.Status
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.navigation.ViewMediaActivityIntent
-import app.pachli.core.network.model.Attachment
-import app.pachli.core.network.model.Status
 import app.pachli.core.ui.SetMarkdownContent
 import app.pachli.core.ui.SetMastodonHtmlContent
 import app.pachli.databinding.FragmentReportStatusesBinding

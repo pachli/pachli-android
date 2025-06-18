@@ -21,4 +21,18 @@ data class Filter(
     // TODO: https://github.com/mastodon/mastodon/issues/29142
     val keywords: List<FilterKeyword> = emptyList(),
     // val statuses: List<FilterStatus>,
-) : Parcelable
+) : Parcelable {
+    /**
+     * Returns a [ContentFilter] from a [v2 Mastodon filter][NetworkFilter].
+     */
+    fun asModel() = app.pachli.core.model.ContentFilter(
+        id = id,
+        title = title,
+        contexts = contexts.asModel().toSet(),
+        expiresAt = expiresAt,
+        filterAction = filterAction.asModel(),
+        keywords = keywords.asModel(),
+    )
+}
+
+fun Iterable<Filter>.asModel() = map { it.asModel() }

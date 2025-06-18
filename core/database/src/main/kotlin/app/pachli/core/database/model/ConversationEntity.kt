@@ -25,10 +25,10 @@ import androidx.room.Index
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
 import app.pachli.core.model.AccountFilterDecision
+import app.pachli.core.model.Conversation
+import app.pachli.core.model.Emoji
 import app.pachli.core.model.FilterAction
-import app.pachli.core.network.model.Conversation
-import app.pachli.core.network.model.Emoji
-import app.pachli.core.network.model.TimelineAccount
+import app.pachli.core.model.TimelineAccount
 import com.squareup.moshi.JsonClass
 import java.time.Instant
 

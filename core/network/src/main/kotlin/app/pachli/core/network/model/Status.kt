@@ -103,6 +103,14 @@ data class Status(
             }
         }
 
+        fun asModel() = when (this) {
+            UNKNOWN -> app.pachli.core.model.Status.Visibility.UNKNOWN
+            PUBLIC -> app.pachli.core.model.Status.Visibility.PUBLIC
+            UNLISTED -> app.pachli.core.model.Status.Visibility.UNLISTED
+            PRIVATE -> app.pachli.core.model.Status.Visibility.PRIVATE
+            DIRECT -> app.pachli.core.model.Status.Visibility.DIRECT
+        }
+
         companion object {
             @JvmStatic
             fun getOrUnknown(index: Int) = Enum.getOrElse<Visibility>(index) { UNKNOWN }
@@ -126,7 +134,7 @@ data class Status(
     }
 
     fun isPinned(): Boolean {
-        return pinned ?: false
+        return pinned == true
     }
 
     fun toDeletedStatus(): DeletedStatus {
@@ -162,6 +170,38 @@ data class Status(
         return builder.toString()
     }
 
+    fun asModel(): app.pachli.core.model.Status = app.pachli.core.model.Status(
+        id = id,
+        url = url,
+        account = account.asModel(),
+        inReplyToId = inReplyToId,
+        inReplyToAccountId = inReplyToAccountId,
+        reblog = reblog?.asModel(),
+        content = content,
+        createdAt = createdAt,
+        editedAt = editedAt,
+        emojis = emojis.asModel(),
+        reblogsCount = reblogsCount,
+        favouritesCount = favouritesCount,
+        repliesCount = repliesCount,
+        reblogged = reblogged,
+        favourited = favourited,
+        bookmarked = bookmarked,
+        sensitive = sensitive,
+        spoilerText = spoilerText,
+        visibility = visibility.asModel(),
+        attachments = attachments.asModel(),
+        mentions = mentions.asModel(),
+        tags = tags?.asModel(),
+        application = application?.asModel(),
+        pinned = pinned,
+        muted = muted,
+        poll = poll?.asModel(),
+        card = card?.asModel(),
+        language = language,
+        filtered = filtered?.asModel(),
+    )
+
     @JsonClass(generateAdapter = true)
     data class Mention(
         val id: String,
@@ -170,16 +210,34 @@ data class Status(
         @Json(name = "acct") val username: String,
         /** The username, without the server part or leading "@". */
         @Json(name = "username") val localUsername: String,
-    )
+    ) {
+        fun asModel() = app.pachli.core.model.Status.Mention(
+            id = id,
+            url = url,
+            username = username,
+            localUsername = localUsername,
+        )
+    }
 
     @JsonClass(generateAdapter = true)
     data class Application(
         val name: String,
         val website: String?,
-    )
+    ) {
+        fun asModel() = app.pachli.core.model.Status.Application(
+            name = name,
+            website = website,
+        )
+    }
 
     companion object {
         const val MAX_MEDIA_ATTACHMENTS = 4
         const val MAX_POLL_OPTIONS = 4
     }
 }
+
+@JvmName("iterableStatusAsModel")
+fun Iterable<Status>.asModel() = map { it.asModel() }
+
+@JvmName("iterableStatusMentionAsModel")
+fun Iterable<Status.Mention>.asModel() = map { it.asModel() }

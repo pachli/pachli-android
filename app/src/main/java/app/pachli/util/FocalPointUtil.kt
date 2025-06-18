@@ -17,7 +17,7 @@
 package app.pachli.util
 
 import android.graphics.Matrix
-import app.pachli.core.network.model.Attachment.Focus
+import app.pachli.core.model.Attachment.Focus
 
 /**
  * Calculates the image matrix needed to maintain the correct cropping for image views based on

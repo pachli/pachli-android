@@ -121,7 +121,7 @@ class StatusComparisonTest {
             \u003cp\u003e\u003cspan class=\"h-card\"\u003e\u003ca href=\"https://mastodon.social/@ConnyDuck\" class=\"u-url mention\" rel=\"nofollow noopener noreferrer\" target=\"_blank\"\u003e@\u003cspan\u003eConnyDuck@mastodon.social\u003c/span\u003e\u003c/a\u003e\u003c/span\u003e Hi\u003c/p\u003e
         """.trimIndent(),
         note: String = "",
-    ): Status {
+    ): app.pachli.core.model.Status {
         val statusJson = """
             {
                 "id": "$id",
@@ -226,6 +226,6 @@ class StatusComparisonTest {
                 "poll": null
             }
         """.trimIndent()
-        return moshi.adapter<Status>().fromJson(statusJson)!!
+        return moshi.adapter<Status>().fromJson(statusJson)!!.asModel()
     }
 }

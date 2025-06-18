@@ -23,8 +23,8 @@ import android.text.style.URLSpan
 import android.widget.TextView
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import app.pachli.core.network.model.HashTag
-import app.pachli.core.network.model.Status
+import app.pachli.core.model.HashTag
+import app.pachli.core.model.Status
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith

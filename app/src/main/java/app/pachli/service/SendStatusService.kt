@@ -29,12 +29,13 @@ import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.StatusComposedEvent
 import app.pachli.core.eventhub.StatusEditedEvent
 import app.pachli.core.eventhub.StatusScheduledEvent
+import app.pachli.core.model.Attachment
+import app.pachli.core.model.MediaAttribute
+import app.pachli.core.model.NewPoll
+import app.pachli.core.model.NewStatus
+import app.pachli.core.model.Status
 import app.pachli.core.navigation.IntentRouterActivityIntent
-import app.pachli.core.network.model.Attachment
-import app.pachli.core.network.model.MediaAttribute
-import app.pachli.core.network.model.NewPoll
-import app.pachli.core.network.model.NewStatus
-import app.pachli.core.network.model.Status
+import app.pachli.core.network.model.asNetworkModel
 import app.pachli.core.network.retrofit.MastodonApi
 import com.github.michaelbull.result.getOrElse
 import com.github.michaelbull.result.onFailure
@@ -219,14 +220,14 @@ class SendStatusService : Service() {
                         account.authHeader,
                         account.domain,
                         statusToSend.idempotencyKey,
-                        newStatus,
+                        newStatus.asNetworkModel(),
                     )
                 } else {
                     mastodonApi.createScheduledStatus(
                         account.authHeader,
                         account.domain,
                         statusToSend.idempotencyKey,
-                        newStatus,
+                        newStatus.asNetworkModel(),
                     )
                 }
             } else {
@@ -235,7 +236,7 @@ class SendStatusService : Service() {
                     account.authHeader,
                     account.domain,
                     statusToSend.idempotencyKey,
-                    newStatus,
+                    newStatus.asNetworkModel(),
                 )
             }
 

@@ -18,8 +18,8 @@
 package app.pachli.core.navigation
 
 import android.os.Parcelable
-import app.pachli.core.network.model.Attachment
-import app.pachli.core.network.model.Status
+import app.pachli.core.model.Attachment
+import app.pachli.core.model.Status
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 

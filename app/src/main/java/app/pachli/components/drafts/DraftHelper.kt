@@ -25,9 +25,9 @@ import app.pachli.BuildConfig
 import app.pachli.core.database.dao.DraftDao
 import app.pachli.core.database.model.DraftAttachment
 import app.pachli.core.database.model.DraftEntity
-import app.pachli.core.network.model.Attachment
-import app.pachli.core.network.model.NewPoll
-import app.pachli.core.network.model.Status
+import app.pachli.core.model.Attachment
+import app.pachli.core.model.NewPoll
+import app.pachli.core.model.Status
 import app.pachli.util.copyToFile
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File

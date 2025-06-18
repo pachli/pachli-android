@@ -60,6 +60,7 @@ data class ContentFilter(
 //
 // The @Json annotations are used when this is serialized by
 // NewContentFilterConverterFactory.
+
 /** A filter choice, either content filter or account filter. */
 enum class FilterAction {
     /** No filtering, show item as normal. */

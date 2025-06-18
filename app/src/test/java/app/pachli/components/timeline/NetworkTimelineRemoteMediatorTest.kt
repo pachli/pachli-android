@@ -33,13 +33,14 @@ import app.pachli.components.timeline.viewmodel.PageCache
 import app.pachli.core.database.AppDatabase
 import app.pachli.core.database.Converters
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.json.BooleanIfNull
 import app.pachli.core.network.json.DefaultIfNull
 import app.pachli.core.network.json.Guarded
 import app.pachli.core.network.json.InstantJsonAdapter
 import app.pachli.core.network.json.LenientRfc3339DateJsonAdapter
-import app.pachli.core.network.model.Status
+import app.pachli.core.network.model.asModel
 import app.pachli.core.testing.failure
 import app.pachli.core.testing.fakes.fakeStatus
 import app.pachli.core.testing.success
@@ -159,7 +160,7 @@ class NetworkTimelineRemoteMediatorTest {
         val expectedPages = PageCache().apply {
             add(
                 Page(
-                    data = mutableListOf(fakeStatus("7"), fakeStatus("6"), fakeStatus("5")),
+                    data = listOf(fakeStatus("7"), fakeStatus("6"), fakeStatus("5")).asModel().toMutableList(),
                     prevKey = "7",
                     nextKey = "5",
                 ),
@@ -182,7 +183,7 @@ class NetworkTimelineRemoteMediatorTest {
         val pages = PageCache().apply {
             add(
                 Page(
-                    data = mutableListOf(fakeStatus("7"), fakeStatus("6"), fakeStatus("5")),
+                    data = listOf(fakeStatus("7"), fakeStatus("6"), fakeStatus("5")).asModel().toMutableList(),
                     prevKey = "7",
                     nextKey = "5",
                 ),
@@ -210,7 +211,7 @@ class NetworkTimelineRemoteMediatorTest {
         val state = state(
             listOf(
                 PagingSource.LoadResult.Page(
-                    data = listOf(fakeStatus("7"), fakeStatus("6"), fakeStatus("5")),
+                    data = listOf(fakeStatus("7"), fakeStatus("6"), fakeStatus("5")).asModel(),
                     prevKey = "7",
                     nextKey = "5",
                 ),
@@ -224,7 +225,7 @@ class NetworkTimelineRemoteMediatorTest {
         val expectedPages = PageCache().apply {
             add(
                 Page(
-                    data = mutableListOf(fakeStatus("7"), fakeStatus("6"), fakeStatus("5")),
+                    data = listOf(fakeStatus("7"), fakeStatus("6"), fakeStatus("5")).asModel().toMutableList(),
                     prevKey = "7",
                     nextKey = "5",
                 ),
@@ -232,7 +233,7 @@ class NetworkTimelineRemoteMediatorTest {
             )
             add(
                 Page(
-                    data = mutableListOf(fakeStatus("10"), fakeStatus("9"), fakeStatus("8")),
+                    data = listOf(fakeStatus("10"), fakeStatus("9"), fakeStatus("8")).asModel().toMutableList(),
                     prevKey = "10",
                     nextKey = "8",
                 ),
@@ -255,7 +256,7 @@ class NetworkTimelineRemoteMediatorTest {
         val pages = PageCache().apply {
             add(
                 Page(
-                    data = mutableListOf(fakeStatus("7"), fakeStatus("6"), fakeStatus("5")),
+                    data = listOf(fakeStatus("7"), fakeStatus("6"), fakeStatus("5")).asModel().toMutableList(),
                     prevKey = "7",
                     nextKey = "5",
                 ),
@@ -283,7 +284,7 @@ class NetworkTimelineRemoteMediatorTest {
         val state = state(
             listOf(
                 PagingSource.LoadResult.Page(
-                    data = listOf(fakeStatus("7"), fakeStatus("6"), fakeStatus("5")),
+                    data = listOf(fakeStatus("7"), fakeStatus("6"), fakeStatus("5")).asModel().toMutableList(),
                     prevKey = "7",
                     nextKey = "5",
                 ),
@@ -297,7 +298,7 @@ class NetworkTimelineRemoteMediatorTest {
         val expectedPages = PageCache().apply {
             add(
                 Page(
-                    data = mutableListOf(fakeStatus("7"), fakeStatus("6"), fakeStatus("5")),
+                    data = listOf(fakeStatus("7"), fakeStatus("6"), fakeStatus("5")).asModel().toMutableList(),
                     prevKey = "7",
                     nextKey = "5",
                 ),
@@ -305,7 +306,7 @@ class NetworkTimelineRemoteMediatorTest {
             )
             add(
                 Page(
-                    data = mutableListOf(fakeStatus("4"), fakeStatus("3"), fakeStatus("2")),
+                    data = listOf(fakeStatus("4"), fakeStatus("3"), fakeStatus("2")).asModel().toMutableList(),
                     prevKey = "4",
                     nextKey = "2",
                 ),

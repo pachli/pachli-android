@@ -16,6 +16,8 @@
 
 package app.pachli.core.network.model
 
+import app.pachli.core.network.model.Announcement.AnnouncementStatus
+import app.pachli.core.network.model.Announcement.Reaction
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import java.util.Date
@@ -49,6 +51,23 @@ data class Announcement(
         return id.hashCode()
     }
 
+    fun asModel() = app.pachli.core.model.Announcement(
+        id = id,
+        content = content,
+        startsAt = startsAt,
+        endsAt = endsAt,
+        allDay = allDay,
+        publishedAt = publishedAt,
+        updatedAt = updatedAt,
+        read = read,
+        mentions = mentions.asModel(),
+        statuses = statuses.asModel(),
+        tags = tags.asModel(),
+        emojis = emojis.asModel(),
+        reactions = reactions.asModel(),
+
+    )
+
     @JsonClass(generateAdapter = true)
     data class Reaction(
         val name: String,
@@ -56,11 +75,33 @@ data class Announcement(
         val me: Boolean,
         val url: String?,
         @Json(name = "static_url") val staticUrl: String?,
-    )
+    ) {
+        fun asModel() = app.pachli.core.model.Announcement.Reaction(
+            name = name,
+            count = count,
+            me = me,
+            url = url,
+            staticUrl = staticUrl,
+        )
+    }
 
     @JsonClass(generateAdapter = true)
     data class AnnouncementStatus(
         val id: String,
         val url: String,
-    )
+    ) {
+        fun asModel() = app.pachli.core.model.Announcement.AnnouncementStatus(
+            id = id,
+            url = url,
+        )
+    }
 }
+
+@JvmName("iterableAnnouncementAsModel")
+fun Iterable<Announcement>.asModel() = map { it.asModel() }
+
+@JvmName("iterableReactionAsModel")
+fun Iterable<Reaction>.asModel() = map { it.asModel() }
+
+@JvmName("iterableAnnouncementStatusAsModel")
+fun Iterable<AnnouncementStatus>.asModel() = map { it.asModel() }

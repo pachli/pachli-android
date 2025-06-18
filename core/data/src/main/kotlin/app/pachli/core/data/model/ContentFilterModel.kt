@@ -1,12 +1,27 @@
-package app.pachli.network
+/*
+ * Copyright 2025 Pachli Association
+ *
+ * This file is a part of Pachli.
+ *
+ * This program is free software; you can redistribute it and/or modify it under the terms of the
+ * GNU General Public License as published by the Free Software Foundation; either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * Pachli is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+ * the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+ * Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with Pachli; if not,
+ * see <http://www.gnu.org/licenses>.
+ */
 
-import app.pachli.core.data.model.from
+package app.pachli.core.data.model
+
 import app.pachli.core.database.model.StatusEntity
 import app.pachli.core.model.ContentFilter
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.FilterContext
-import app.pachli.core.network.model.FilterContext as NetworkFilterContext
-import app.pachli.core.network.model.Status
+import app.pachli.core.model.Status
 import app.pachli.core.network.parseAsMastodonHtml
 import java.util.Date
 import java.util.regex.Pattern
@@ -27,7 +42,7 @@ class ContentFilterModel(private val filterContext: FilterContext, v1ContentFilt
         }
     }
 
-    /** @return the [FilterAction] that should be applied to this status */
+    /** @return the [app.pachli.core.model.FilterAction] that should be applied to [status]. */
     fun filterActionFor(status: Status): FilterAction {
         pattern?.let { pat ->
             // Patterns are expensive and thread-safe, matchers are neither.
@@ -52,13 +67,13 @@ class ContentFilterModel(private val filterContext: FilterContext, v1ContentFilt
         }
 
         val matchingKind = status.filtered?.filter { result ->
-            result.filter.contexts.contains(NetworkFilterContext.from(filterContext))
+            result.filter.contexts.contains(filterContext)
         }
 
         return if (matchingKind.isNullOrEmpty()) {
             FilterAction.NONE
         } else {
-            matchingKind.maxOf { FilterAction.from(it.filter.filterAction) }
+            matchingKind.maxOf { it.filter.filterAction }
         }
     }
 
@@ -87,13 +102,13 @@ class ContentFilterModel(private val filterContext: FilterContext, v1ContentFilt
         }
 
         val matchingKind = status.filtered?.filter { result ->
-            result.filter.contexts.contains(NetworkFilterContext.from(filterContext))
+            result.filter.contexts.contains(filterContext)
         }
 
         return if (matchingKind.isNullOrEmpty()) {
             FilterAction.NONE
         } else {
-            matchingKind.maxOf { FilterAction.from(it.filter.filterAction) }
+            matchingKind.maxOf { it.filter.filterAction }
         }
     }
 

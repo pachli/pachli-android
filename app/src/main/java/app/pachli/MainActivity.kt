@@ -68,13 +68,14 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
-import app.pachli.core.data.model.MastodonList
 import app.pachli.core.data.repository.ListsRepository.Companion.compareByListTitle
 import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.EmbeddedFontFamily
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.eventhub.EventHub
+import app.pachli.core.model.MastodonList
+import app.pachli.core.model.Notification
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.AboutActivityIntent
 import app.pachli.core.navigation.AccountActivityIntent
@@ -100,8 +101,6 @@ import app.pachli.core.navigation.TabPreferenceActivityIntent
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.navigation.TrendingActivityIntent
 import app.pachli.core.navigation.pachliAccountId
-import app.pachli.core.network.model.Announcement
-import app.pachli.core.network.model.Notification
 import app.pachli.core.preferences.MainNavigationPosition
 import app.pachli.core.preferences.TabAlignment
 import app.pachli.core.preferences.TabContents
@@ -1219,7 +1218,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
      *
      * Shows/clears a badge showing the number of unread announcements.
      */
-    private suspend fun bindMainDrawerAnnouncements(announcements: List<Announcement>) = drawerMutex.withLock {
+    private suspend fun bindMainDrawerAnnouncements(announcements: List<app.pachli.core.model.Announcement>) = drawerMutex.withLock {
         val unread = announcements.count { !it.read }
         binding.mainDrawer.updateBadge(DRAWER_ITEM_ANNOUNCEMENTS, StringHolder(if (unread <= 0) null else unread.toString()))
     }

@@ -4,6 +4,8 @@ import app.pachli.core.network.json.BooleanIfNull
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import java.util.Date
+import kotlin.collections.map
+import kotlin.collections.mapIndexed
 
 @JsonClass(generateAdapter = true)
 data class Poll(
@@ -50,10 +52,29 @@ data class Poll(
         } ?: 3600,
         multiple,
     )
+
+    fun asModel() = app.pachli.core.model.Poll(
+        id = id,
+        expiresAt = expiresAt,
+        expired = expired,
+        multiple = multiple,
+        votesCount = votesCount,
+        votersCount = votersCount,
+        options = options.asModel(),
+        voted = voted,
+        ownVotes = ownVotes,
+    )
 }
 
 @JsonClass(generateAdapter = true)
 data class PollOption(
     val title: String,
     @Json(name = "votes_count") val votesCount: Int,
-)
+) {
+    fun asModel() = app.pachli.core.model.PollOption(
+        title = title,
+        votesCount = votesCount,
+    )
+}
+
+fun Iterable<PollOption>.asModel() = map { it.asModel() }
