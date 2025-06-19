@@ -1303,7 +1303,7 @@ class ComposeActivity :
 
         val photoFile: File = try {
             createNewImageFile(this)
-        } catch (ex: IOException) {
+        } catch (_: IOException) {
             displayTransientMessage(R.string.error_media_upload_opening)
             return
         }

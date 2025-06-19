@@ -282,7 +282,7 @@ class AccountsInListFragment : DialogFragment() {
             val holder = BindingHolder(binding)
 
             binding.checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
-                val (account, inAList) = getItem(holder.bindingAdapterPosition)
+                val (account, _) = getItem(holder.bindingAdapterPosition)
 
                 if (isChecked) {
                     onAddToList(account)

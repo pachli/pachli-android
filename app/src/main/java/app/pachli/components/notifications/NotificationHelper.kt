@@ -346,7 +346,7 @@ fun updateSummaryNotifications(
         // See https://github.com/tuskyapp/Tusky/pull/3626#discussion_r1192963664
         try {
             Thread.sleep(1000)
-        } catch (ignored: InterruptedException) {
+        } catch (_: InterruptedException) {
         }
     }
 }

@@ -144,7 +144,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                             Snackbar.make(requireView(), msg, Snackbar.LENGTH_INDEFINITE)
                                 .setAction(app.pachli.core.ui.R.string.action_retry) { serverRepository.reload() }
                                 .show()
-                        } catch (e: IllegalArgumentException) {
+                        } catch (_: IllegalArgumentException) {
                             // On rare occasions this code is running before the fragment's
                             // view is connected to the parent. This causes Snackbar.make()
                             // to crash.  See https://issuetracker.google.com/issues/228215869.
