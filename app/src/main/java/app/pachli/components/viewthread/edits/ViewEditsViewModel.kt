@@ -55,7 +55,7 @@ class ViewEditsViewModel @Inject constructor(private val api: MastodonApi) : Vie
     val uiState: StateFlow<EditsUiState> = _uiState.asStateFlow()
 
     /** The API call to fetch edit history returned less than two items */
-    object MissingEditsException : Exception()
+    data object MissingEditsException : Exception()
 
     fun loadEdits(statusId: String, force: Boolean = false, refreshing: Boolean = false) {
         if (!force && _uiState.value !is EditsUiState.Initial) return
