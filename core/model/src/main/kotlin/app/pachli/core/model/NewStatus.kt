@@ -22,16 +22,15 @@ import com.squareup.moshi.JsonClass
 import java.util.Date
 import kotlinx.parcelize.Parcelize
 
-@JsonClass(generateAdapter = true)
 data class NewStatus(
     val status: String,
-    @Json(name = "spoiler_text") val warningText: String,
-    @Json(name = "in_reply_to_id") val inReplyToId: String?,
+    val warningText: String,
+    val inReplyToId: String?,
     val visibility: String,
     val sensitive: Boolean,
-    @Json(name = "media_ids") val mediaIds: List<String>?,
-    @Json(name = "media_attributes") val mediaAttributes: List<MediaAttribute>?,
-    @Json(name = "scheduled_at") val scheduledAt: Date?,
+    val mediaIds: List<String>?,
+    val mediaAttributes: List<MediaAttribute>?,
+    val scheduledAt: Date?,
     val poll: NewPoll?,
     val language: String?,
 )
@@ -47,7 +46,6 @@ data class NewPoll(
 // It would be nice if we could reuse MediaToSend,
 // but the server requires a different format for focus
 @Parcelize
-@JsonClass(generateAdapter = true)
 data class MediaAttribute(
     val id: String,
     val description: String?,

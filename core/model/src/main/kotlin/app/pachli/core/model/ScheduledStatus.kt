@@ -16,14 +16,11 @@
 
 package app.pachli.core.model
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
 import java.util.Date
 
-@JsonClass(generateAdapter = true)
 data class ScheduledStatus(
     val id: String,
-    @Json(name = "scheduled_at") val scheduledAt: Date,
+    val scheduledAt: Date,
     val params: StatusParams,
-    @Json(name = "media_attachments") val mediaAttachments: List<Attachment>,
+    val mediaAttachments: List<Attachment>,
 )

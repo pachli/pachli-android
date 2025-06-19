@@ -17,22 +17,13 @@
 
 package app.pachli.core.model
 
-import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 enum class PreviewCardKind {
     UNKNOWN,
-
-    @Json(name = "link")
     LINK,
-
-    @Json(name = "photo")
     PHOTO,
-
-    @Json(name = "video")
     VIDEO,
-
-    @Json(name = "rich")
     RICH,
 }
 
@@ -72,7 +63,6 @@ data class PreviewCardAuthor(
     val account: TimelineAccount? = null,
 )
 
-@JsonClass(generateAdapter = true)
 data class LinkHistory(
     val day: String,
     val accounts: Int,
@@ -80,21 +70,20 @@ data class LinkHistory(
 )
 
 /** Represents a https://docs.joinmastodon.org/entities/PreviewCard/#trends-link */
-@JsonClass(generateAdapter = true)
 data class TrendsLink(
     override val url: String,
     override val title: String,
     override val description: String,
-    @Json(name = "type") override val kind: PreviewCardKind,
-    @Json(name = "author_name") override val authorName: String = "",
-    @Json(name = "author_url") override val authorUrl: String,
-    @Json(name = "provider_name") override val providerName: String,
-    @Json(name = "provider_url") override val providerUrl: String,
+    override val kind: PreviewCardKind,
+    override val authorName: String = "",
+    override val authorUrl: String,
+    override val providerName: String,
+    override val providerUrl: String,
     override val html: String,
     override val width: Int,
     override val height: Int,
     override val image: String? = null,
-    @Json(name = "embed_url") override val embedUrl: String,
+    override val embedUrl: String,
     override val blurhash: String? = null,
     override val authors: List<PreviewCardAuthor>? = null,
     val history: List<LinkHistory>,

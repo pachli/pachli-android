@@ -22,29 +22,28 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import java.util.Date
 
-@JsonClass(generateAdapter = true)
 data class Status(
     val id: String,
     // not present if it's reblog
     val url: String?,
     val account: TimelineAccount,
-    @Json(name = "in_reply_to_id") val inReplyToId: String?,
-    @Json(name = "in_reply_to_account_id") val inReplyToAccountId: String?,
+    val inReplyToId: String?,
+    val inReplyToAccountId: String?,
     val reblog: Status?,
     val content: String,
-    @Json(name = "created_at") val createdAt: Date,
-    @Json(name = "edited_at") val editedAt: Date?,
+    val createdAt: Date,
+    val editedAt: Date?,
     val emojis: List<Emoji>,
-    @Json(name = "reblogs_count") val reblogsCount: Int,
-    @Json(name = "favourites_count") val favouritesCount: Int,
-    @Json(name = "replies_count") val repliesCount: Int,
+    val reblogsCount: Int,
+    val favouritesCount: Int,
+    val repliesCount: Int,
     val reblogged: Boolean = false,
     val favourited: Boolean = false,
     val bookmarked: Boolean = false,
     val sensitive: Boolean,
-    @Json(name = "spoiler_text") val spoilerText: String,
+    val spoilerText: String,
     val visibility: Visibility,
-    @Json(name = "media_attachments") val attachments: List<Attachment>,
+    val attachments: List<Attachment>,
     val mentions: List<Mention>,
     val tags: List<HashTag>?,
     val application: Application?,
@@ -70,19 +69,15 @@ data class Status(
         UNKNOWN,
 
         /** Visible to everyone, shown in public timelines. */
-        @Json(name = "public")
         PUBLIC,
 
         /* Visible to public, but not included in public timelines. */
-        @Json(name = "unlisted")
         UNLISTED,
 
         /* Visible to followers only, and to any mentioned users. */
-        @Json(name = "private")
         PRIVATE,
 
         /* Visible only to mentioned users. */
-        @Json(name = "direct")
         DIRECT,
         ;
 

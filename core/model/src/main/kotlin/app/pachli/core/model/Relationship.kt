@@ -17,26 +17,22 @@
 
 package app.pachli.core.model
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
-
-@JsonClass(generateAdapter = true)
 data class Relationship(
     val id: String,
     val following: Boolean,
-    @Json(name = "followed_by") val followedBy: Boolean,
+    val followedBy: Boolean,
     /** True if this account is blocked. */
     val blocking: Boolean,
     /** True if this account is muted. */
     val muting: Boolean,
-    @Json(name = "muting_notifications") val mutingNotifications: Boolean,
+    val mutingNotifications: Boolean,
     val requested: Boolean,
-    @Json(name = "showing_reblogs") val showingReblogs: Boolean,
+    val showingReblogs: Boolean,
     /**
      * Pleroma extension, same as 'notifying' on Mastodon.
      */
     val subscribing: Boolean? = null,
-    @Json(name = "domain_blocking") val blockingDomain: Boolean,
+    val blockingDomain: Boolean,
     // nullable for backward compatibility / feature detection
     val note: String?,
     // since 3.3.0rc

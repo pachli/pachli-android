@@ -17,72 +17,57 @@
 
 package app.pachli.core.model
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
 import java.util.Date
 
 // TODO: These should be different subclasses per type, so that each subclass can
 // carry the non-null data that it needs.
-@JsonClass(generateAdapter = true)
+
 data class Notification(
     val type: Type,
     val id: String,
-    @Json(name = "created_at") val createdAt: Date,
+    val createdAt: Date,
     val account: TimelineAccount,
     val status: Status?,
     val report: Report?,
-    @Json(name = "event")
     val relationshipSeveranceEvent: RelationshipSeveranceEvent? = null,
 ) {
 
     /** From https://docs.joinmastodon.org/entities/Notification/#type */
-    @JsonClass(generateAdapter = false)
+
     enum class Type(val presentation: String) {
-        @Json(name = "unknown")
         UNKNOWN("unknown"),
 
         /** Someone mentioned you */
-        @Json(name = "mention")
         MENTION("mention"),
 
         /** Someone boosted one of your statuses */
-        @Json(name = "reblog")
         REBLOG("reblog"),
 
         /** Someone favourited one of your statuses */
-        @Json(name = "favourite")
         FAVOURITE("favourite"),
 
         /** Someone followed you */
-        @Json(name = "follow")
         FOLLOW("follow"),
 
         /** Someone requested to follow you */
-        @Json(name = "follow_request")
         FOLLOW_REQUEST("follow_request"),
 
         /** A poll you have voted in or created has ended */
-        @Json(name = "poll")
         POLL("poll"),
 
         /** Someone you enabled notifications for has posted a status */
-        @Json(name = "status")
         STATUS("status"),
 
         /** Someone signed up (optionally sent to admins) */
-        @Json(name = "admin.sign_up")
         SIGN_UP("admin.sign_up"),
 
         /** A status you reblogged has been updated */
-        @Json(name = "update")
         UPDATE("update"),
 
         /** A new report has been filed */
-        @Json(name = "admin.report")
         REPORT("admin.report"),
 
         /** Some of your follow relationships have been severed as a result of a moderation or block event */
-        @Json(name = "severed_relationships")
         SEVERED_RELATIONSHIPS("severed_relationships"),
         ;
 

@@ -17,14 +17,11 @@
 
 package app.pachli.core.model
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
 import java.time.Instant
 
 /**
  * Summary of a moderation or block event that caused follow relationships to be severed.
  */
-@JsonClass(generateAdapter = true)
 data class RelationshipSeveranceEvent(
     /** The ID of the relationship severance event in the database. */
     val id: String,
@@ -40,32 +37,25 @@ data class RelationshipSeveranceEvent(
      * Name of the target of the moderation/block event. This is either a domain name or
      * a user handle, depending on the event type.
      */
-    @Json(name = "target_name")
     val targetName: String,
 
     /** Number of follower accounts removed. */
-    @Json(name = "followers_count")
     val followersCount: Int = 0,
 
     /** Number of followed accounts removed. */
-    @Json(name = "following_count")
     val followingCount: Int = 0,
 
     /** When the event took place. */
-    @Json(name = "created_at")
     val createdAt: Instant,
 ) {
     enum class Type {
         /** A moderator suspended a whole domain */
-        @Json(name = "domain_block")
         DOMAIN_BLOCK,
 
         /** The user blocked a whole domain */
-        @Json(name = "user_domain_block")
         USER_DOMAIN_BLOCK,
 
         /** A moderator suspended a specific account */
-        @Json(name = "account_suspension")
         ACCOUNT_SUSPENSION,
 
         UNKNOWN,

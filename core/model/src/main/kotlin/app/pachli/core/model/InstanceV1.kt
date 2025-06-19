@@ -29,11 +29,8 @@ import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_MIN_POLL_DURATION
 import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_VIDEO_FRAME_RATE_LIMIT
 import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_VIDEO_MATRIX_LIMIX
 import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_VIDEO_SIZE_LIMIT
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
 
 /** https://docs.joinmastodon.org/entities/V1_Instance/ */
-@JsonClass(generateAdapter = true)
 data class InstanceV1(
     val uri: String,
     // val title: String,
@@ -44,14 +41,14 @@ data class InstanceV1(
     // val stats: Map<String, Int>?,
     // val thumbnail: String?,
     // val languages: List<String>,
-    // @Json(name = "contact_account") val contactAccount: Account,
+    // val contactAccount: Account,
     @Deprecated("Replaced with StatusConfiguration.max_characters")
-    @Json(name = "max_toot_chars") val maxTootChars: Int? = DEFAULT_CHARACTER_LIMIT,
-    @Json(name = "poll_limits") val pollConfiguration: PollConfiguration? = null,
+    val maxTootChars: Int? = DEFAULT_CHARACTER_LIMIT,
+    val pollConfiguration: PollConfiguration? = null,
     val configuration: InstanceConfiguration = InstanceConfiguration(),
-    @Json(name = "max_media_attachments") val maxMediaAttachments: Int = DEFAULT_MAX_MEDIA_ATTACHMENTS,
+    val maxMediaAttachments: Int = DEFAULT_MAX_MEDIA_ATTACHMENTS,
     val pleroma: PleromaConfiguration? = null,
-    @Json(name = "upload_limit") val uploadLimit: Long? = null,
+    val uploadLimit: Long? = null,
     val rules: List<InstanceRules> = emptyList(),
 ) {
     override fun hashCode(): Int {
@@ -67,57 +64,49 @@ data class InstanceV1(
     }
 }
 
-@JsonClass(generateAdapter = true)
 data class PollConfiguration(
-    @Json(name = "max_options") val maxOptions: Int = DEFAULT_MAX_OPTION_COUNT,
-    @Json(name = "max_option_chars") val maxOptionChars: Int = DEFAULT_MAX_OPTION_LENGTH,
-    @Json(name = "max_characters_per_option") val maxCharactersPerOption: Int = DEFAULT_MAX_OPTION_LENGTH,
-    @Json(name = "min_expiration") val minExpiration: Int = DEFAULT_MIN_POLL_DURATION,
-    @Json(name = "max_expiration") val maxExpiration: Long = DEFAULT_MAX_POLL_DURATION,
+    val maxOptions: Int = DEFAULT_MAX_OPTION_COUNT,
+    val maxOptionChars: Int = DEFAULT_MAX_OPTION_LENGTH,
+    val maxCharactersPerOption: Int = DEFAULT_MAX_OPTION_LENGTH,
+    val minExpiration: Int = DEFAULT_MIN_POLL_DURATION,
+    val maxExpiration: Long = DEFAULT_MAX_POLL_DURATION,
 )
 
-@JsonClass(generateAdapter = true)
 data class InstanceConfiguration(
     val statuses: StatusConfiguration = StatusConfiguration(),
-    @Json(name = "media_attachments") val mediaAttachments: MediaAttachmentConfiguration = MediaAttachmentConfiguration(),
+    val mediaAttachments: MediaAttachmentConfiguration = MediaAttachmentConfiguration(),
     val polls: PollConfiguration = PollConfiguration(),
 )
 
-@JsonClass(generateAdapter = true)
 data class StatusConfiguration(
-    @Json(name = "max_characters") val maxCharacters: Int? = null,
-    @Json(name = "max_media_attachments") val maxMediaAttachments: Int = DEFAULT_MAX_OPTION_COUNT,
-    @Json(name = "characters_reserved_per_url") val charactersReservedPerUrl: Int = DEFAULT_CHARACTERS_RESERVED_PER_URL,
+    val maxCharacters: Int? = null,
+    val maxMediaAttachments: Int = DEFAULT_MAX_OPTION_COUNT,
+    val charactersReservedPerUrl: Int = DEFAULT_CHARACTERS_RESERVED_PER_URL,
 )
 
-@JsonClass(generateAdapter = true)
 data class MediaAttachmentConfiguration(
-    @Json(name = "supported_mime_types") val supportedMimeTypes: List<String> = emptyList(),
-    @Json(name = "image_size_limit") val imageSizeLimit: Long = DEFAULT_IMAGE_SIZE_LIMIT,
-    @Json(name = "image_matrix_limit") val imageMatrixLimit: Int = DEFAULT_IMAGE_MATRIX_LIMIT,
-    @Json(name = "video_size_limit") val videoSizeLimit: Long = DEFAULT_VIDEO_SIZE_LIMIT,
-    @Json(name = "video_frame_rate_limit") val videoFrameRateLimit: Int? = DEFAULT_VIDEO_FRAME_RATE_LIMIT,
-    @Json(name = "video_matrix_limit") val videoMatrixLimit: Int? = DEFAULT_VIDEO_MATRIX_LIMIX,
+    val supportedMimeTypes: List<String> = emptyList(),
+    val imageSizeLimit: Long = DEFAULT_IMAGE_SIZE_LIMIT,
+    val imageMatrixLimit: Int = DEFAULT_IMAGE_MATRIX_LIMIT,
+    val videoSizeLimit: Long = DEFAULT_VIDEO_SIZE_LIMIT,
+    val videoFrameRateLimit: Int? = DEFAULT_VIDEO_FRAME_RATE_LIMIT,
+    val videoMatrixLimit: Int? = DEFAULT_VIDEO_MATRIX_LIMIX,
 )
 
-@JsonClass(generateAdapter = true)
 data class PleromaConfiguration(
     val metadata: PleromaMetadata?,
 )
 
-@JsonClass(generateAdapter = true)
 data class PleromaMetadata(
-    @Json(name = "fields_limits") val fieldLimits: PleromaFieldLimits,
+    val fieldLimits: PleromaFieldLimits,
 )
 
-@JsonClass(generateAdapter = true)
 data class PleromaFieldLimits(
-    @Json(name = "max_fields") val maxFields: Int = DEFAULT_MAX_ACCOUNT_FIELDS,
-    @Json(name = "name_length") val nameLength: Int?,
-    @Json(name = "value_length") val valueLength: Int?,
+    val maxFields: Int = DEFAULT_MAX_ACCOUNT_FIELDS,
+    val nameLength: Int?,
+    val valueLength: Int?,
 )
 
-@JsonClass(generateAdapter = true)
 data class InstanceRules(
     val id: String,
     val text: String,

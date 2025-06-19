@@ -16,12 +16,8 @@
 
 package app.pachli.core.model
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
-
-@JsonClass(generateAdapter = true)
 data class NotificationSubscribeResult(
     val id: Int,
     val endpoint: String,
-    @Json(name = "server_key") val serverKey: String,
+    val serverKey: String,
 )

@@ -17,36 +17,28 @@
 
 package app.pachli.core.model
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
 import java.time.Instant
 
-@JsonClass(generateAdapter = true)
 data class Report(
     val id: String,
     val category: Category,
-    @Json(name = "action_taken")
     val actionTaken: Boolean,
-    @Json(name = "action_taken_at")
     val actionTakenAt: Instant?,
     val comment: String,
     val forwarded: Boolean = false,
-    @Json(name = "status_ids") val statusIds: List<String>?,
-    @Json(name = "created_at") val createdAt: Instant,
-    @Json(name = "rule_ids") val ruleIds: List<String>?,
-    @Json(name = "target_account") val targetAccount: TimelineAccount,
+    val statusIds: List<String>?,
+    val createdAt: Instant,
+    val ruleIds: List<String>?,
+    val targetAccount: TimelineAccount,
 ) {
     enum class Category {
         /** Unwanted or repetitive content. */
-        @Json(name = "spam")
         SPAM,
 
         /** A specific rule was violated. */
-        @Json(name = "violation")
         VIOLATION,
 
         /** Some other reason. */
-        @Json(name = "other")
         OTHER,
     }
 }

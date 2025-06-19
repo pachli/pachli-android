@@ -17,41 +17,38 @@
 
 package app.pachli.core.model
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
 import java.time.Instant
 import java.util.Date
 
 /** Like [Account], but with the additional [source] and [role] properties. */
-@JsonClass(generateAdapter = true)
 data class CredentialAccount(
     val id: String,
-    @Json(name = "username") val localUsername: String,
-    @Json(name = "acct") val username: String,
+    val localUsername: String,
+    val username: String,
     // should never be null per API definition, but some servers break the contract
-    @Json(name = "display_name") val displayName: String?,
+    val displayName: String?,
     val note: String,
     val source: AccountSource,
     val url: String,
     val avatar: String,
-    @Json(name = "avatar_static") val avatarStatic: String? = null,
+    val avatarStatic: String? = null,
     val header: String = "",
-    @Json(name = "header_static") val headerStatic: String? = null,
+    val headerStatic: String? = null,
     val locked: Boolean = false,
     val emojis: List<Emoji> = emptyList(),
     val fields: List<Field> = emptyList(),
     val bot: Boolean = false,
     val discoverable: Boolean? = false,
-    @Json(name = "noindex") val noIndex: Boolean = true,
+    val noIndex: Boolean = true,
     val moved: Account? = null,
     val suspended: Boolean = false,
     val limited: Boolean = false,
     // Should never be null, but some servers break the contract.
     val createdAt: Instant?,
-    @Json(name = "last_status_at") val lastStatusAt: Date? = null,
-    @Json(name = "followers_count") val followersCount: Int = 0,
-    @Json(name = "following_count") val followingCount: Int = 0,
-    @Json(name = "statuses_count") val statusesCount: Int = 0,
+    val lastStatusAt: Date? = null,
+    val followersCount: Int = 0,
+    val followingCount: Int = 0,
+    val statusesCount: Int = 0,
     val role: Role? = null,
     val roles: List<Role>? = emptyList(),
 ) {
@@ -63,12 +60,11 @@ data class CredentialAccount(
         }
 }
 
-@JsonClass(generateAdapter = true)
 data class AccountSource(
     val privacy: Status.Visibility? = null,
     val sensitive: Boolean? = null,
     val note: String? = null,
     val fields: List<StringField> = emptyList(),
     val language: String? = null,
-    @Json(name = "attribution_domains") val attributionDomains: List<String> = emptyList(),
+    val attributionDomains: List<String> = emptyList(),
 )

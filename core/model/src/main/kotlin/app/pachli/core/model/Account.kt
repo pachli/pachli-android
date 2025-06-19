@@ -16,34 +16,31 @@
 
 package app.pachli.core.model
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
 import java.util.Date
 
-@JsonClass(generateAdapter = true)
 data class Account(
     val id: String,
     /** The username of the account, without the domain */
-    @Json(name = "username") val localUsername: String,
+    val localUsername: String,
     /**
      * The webfinger account URI. Equal to [localUsername] for local users, or
      * [localUsername]@domain for remote users.
      */
-    @Json(name = "acct") val username: String,
+    val username: String,
     // should never be null per API definition, but some servers break the contract
-    @Json(name = "display_name") val displayName: String?,
+    val displayName: String?,
     // should never be null per API definition, but some servers break the contract
-    @Json(name = "created_at") val createdAt: Date?,
+    val createdAt: Date?,
     val note: String,
     val url: String,
     val avatar: String,
     // Pixelfed might omit `header`
     val header: String = "",
     val locked: Boolean = false,
-    @Json(name = "last_status_at") val lastStatusAt: Date? = null,
-    @Json(name = "followers_count") val followersCount: Int = 0,
-    @Json(name = "following_count") val followingCount: Int = 0,
-    @Json(name = "statuses_count") val statusesCount: Int = 0,
+    val lastStatusAt: Date? = null,
+    val followersCount: Int = 0,
+    val followingCount: Int = 0,
+    val statusesCount: Int = 0,
     val bot: Boolean = false,
     // nullable for backward compatibility
     val emojis: List<Emoji>? = emptyList(),
@@ -62,21 +59,19 @@ data class Account(
     fun isRemote(): Boolean = this.username != this.localUsername
 }
 
-@JsonClass(generateAdapter = true)
 data class Field(
     val name: String,
     val value: String,
-    @Json(name = "verified_at") val verifiedAt: Date?,
+    val verifiedAt: Date?,
 )
 
-@JsonClass(generateAdapter = true)
 data class StringField(
     val name: String,
     val value: String,
 )
 
 /** [Mastodon Entities: Role](https://docs.joinmastodon.org/entities/Role) */
-@JsonClass(generateAdapter = true)
+
 data class Role(
     /** Displayable name of the role */
     val name: String,

@@ -17,16 +17,12 @@
 
 package app.pachli.core.model
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
-
-@JsonClass(generateAdapter = true)
 data class StatusParams(
     val text: String,
     val sensitive: Boolean?,
     val visibility: Status.Visibility,
-    @Json(name = "spoiler_text") val spoilerText: String?,
-    @Json(name = "in_reply_to_id") val inReplyToId: String?,
+    val spoilerText: String?,
+    val inReplyToId: String?,
     val poll: NewPoll?,
     val language: String? = null,
 )
