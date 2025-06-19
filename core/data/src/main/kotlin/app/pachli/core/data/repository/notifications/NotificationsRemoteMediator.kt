@@ -238,7 +238,7 @@ class NotificationsRemoteMediator(
  */
 fun NotificationData.Companion.from(pachliAccountId: Long, notification: Notification) = NotificationData(
     notification = notification.asEntity(pachliAccountId),
-    account = notification.account.asEntity(pachliAccountId), // TimelineAccountEntity.from(notification.account, pachliAccountId),
+    account = notification.account.asEntity(pachliAccountId),
     status = notification.status?.let { status ->
         TimelineStatusWithAccount(
             status = status.asEntity(pachliAccountId),
