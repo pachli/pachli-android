@@ -44,6 +44,7 @@ import app.pachli.core.model.FilterAction
 import app.pachli.core.model.FilterContext
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
+import app.pachli.core.network.model.asModel
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import app.pachli.usecase.TimelineCases
@@ -228,11 +229,11 @@ class ViewThreadViewModel @Inject constructor(
             val contextResult = contextCall.await()
 
             contextResult.onSuccess {
-                val statusContext = it.body.asModel()
+                val statusContext = it.body
                 val ids = statusContext.ancestors.map { it.id } + statusContext.descendants.map { it.id }
                 val cachedViewData = repository.getStatusViewData(activeAccount.id, ids)
                 val cachedTranslations = repository.getStatusTranslations(activeAccount.id, ids)
-                val ancestors = statusContext.ancestors.map { status ->
+                val ancestors = statusContext.ancestors.asModel().map { status ->
                     val svd = cachedViewData[status.id]
                     StatusViewData.from(
                         pachliAccountId = account.id,
@@ -246,7 +247,7 @@ class ViewThreadViewModel @Inject constructor(
                         translation = cachedTranslations[status.id],
                     )
                 }.filterByFilterAction()
-                val descendants = statusContext.descendants.map { status ->
+                val descendants = statusContext.descendants.asModel().map { status ->
                     val svd = cachedViewData[status.id]
                     StatusViewData.from(
                         pachliAccountId = account.id,

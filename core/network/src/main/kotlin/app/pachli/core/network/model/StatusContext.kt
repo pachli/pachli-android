@@ -22,9 +22,4 @@ import com.squareup.moshi.JsonClass
 data class StatusContext(
     val ancestors: List<Status>,
     val descendants: List<Status>,
-) {
-    fun asModel() = app.pachli.core.model.StatusContext(
-        ancestors = ancestors.asModel(),
-        descendants = descendants.asModel(),
-    )
-}
+)
