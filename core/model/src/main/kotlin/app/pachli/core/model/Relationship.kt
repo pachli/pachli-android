@@ -34,10 +34,6 @@ data class Relationship(
     @Json(name = "showing_reblogs") val showingReblogs: Boolean,
     /**
      * Pleroma extension, same as 'notifying' on Mastodon.
-     *
-     * Some instances like qoto.org have a custom subscription feature where
-     * 'subscribing' is a json object, so we use the custom `@Guarded` annotation
-     * to ignore the field if it is not a boolean.
      */
     val subscribing: Boolean? = null,
     @Json(name = "domain_blocking") val blockingDomain: Boolean,

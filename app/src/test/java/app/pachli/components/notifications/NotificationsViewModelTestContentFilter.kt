@@ -25,7 +25,7 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
 /**
- * Verify that [ApplyFilter] is handled correctly on receipt:
+ * Verify that [InfallibleUiAction.ApplyFilter] is handled correctly on receipt:
  */
 @HiltAndroidTest
 class NotificationsViewModelTestContentFilter : NotificationsViewModelTestBase() {

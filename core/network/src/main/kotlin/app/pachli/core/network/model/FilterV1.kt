@@ -48,7 +48,7 @@ data class FilterV1(
      * [v1 Mastodon filter][FilterV1].
      *
      * There are some restrictions imposed by the v1 filter;
-     * - it can only have a single entry in the [ContentFilter.keywords] list
+     * - it can only have a single entry in the [app.pachli.core.model.ContentFilter.keywords] list
      * - the [app.pachli.core.model.ContentFilter.title] is identical to the [FilterV1.phrase].
      */
     fun asModel() = app.pachli.core.model.ContentFilter(
