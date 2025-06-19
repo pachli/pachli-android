@@ -19,6 +19,7 @@ package app.pachli.core.data.repository
 
 import app.pachli.core.common.PachliError
 import app.pachli.core.model.MastodonList
+import app.pachli.core.model.TimelineAccount
 import app.pachli.core.model.UserListRepliesPolicy
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import com.github.michaelbull.result.Result
@@ -134,7 +135,7 @@ interface ListsRepository {
     suspend fun getAccountsInList(
         pachliAccountId: Long,
         listId: String,
-    ): Result<List<app.pachli.core.model.TimelineAccount>, ListsError.GetAccounts>
+    ): Result<List<TimelineAccount>, ListsError.GetAccounts>
 
     /**
      * Adds one or more accounts to a list
