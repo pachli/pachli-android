@@ -495,7 +495,7 @@ class ComposeViewModel @AssistedInject constructor(
         pachliAccountId: Long,
     ) {
         if (!scheduledTootId.isNullOrEmpty()) {
-            api.deleteScheduledStatus(scheduledTootId!!)
+            api.deleteScheduledStatus(scheduledTootId)
         }
 
         val attachedMedia = media.value.map { item ->
@@ -649,7 +649,7 @@ class ComposeViewModel @AssistedInject constructor(
         }
 
         val poll = composeOptions?.poll
-        if (poll != null && composeOptions?.mediaAttachments.isNullOrEmpty()) {
+        if (poll != null && composeOptions.mediaAttachments.isNullOrEmpty()) {
             _poll.value = poll
         }
 

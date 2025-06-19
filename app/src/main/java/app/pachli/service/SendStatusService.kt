@@ -109,7 +109,7 @@ class SendStatusService : Service() {
                 .setColor(getColor(DR.color.notification_color))
                 .addAction(0, getString(android.R.string.cancel), cancelSendingIntent(sendingNotificationId))
 
-            if (statusesToSend.size == 0 || Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (statusesToSend.isEmpty() || Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 ServiceCompat.stopForeground(this, ServiceCompat.STOP_FOREGROUND_DETACH)
                 startForeground(sendingNotificationId, builder.build())
             } else {
@@ -232,7 +232,7 @@ class SendStatusService : Service() {
                 }
             } else {
                 mastodonApi.editStatus(
-                    statusToSend.statusId!!,
+                    statusToSend.statusId,
                     account.authHeader,
                     account.domain,
                     statusToSend.idempotencyKey,
@@ -255,7 +255,7 @@ class SendStatusService : Service() {
                 if (scheduled) {
                     eventHub.dispatch(StatusScheduledEvent)
                 } else if (!isNew) {
-                    eventHub.dispatch(StatusEditedEvent(statusToSend.statusId!!, sentStatus as Status))
+                    eventHub.dispatch(StatusEditedEvent(statusToSend.statusId, sentStatus as Status))
                 } else {
                     eventHub.dispatch(StatusComposedEvent(sentStatus as Status))
                 }

@@ -208,7 +208,7 @@ class PreviewCardView @JvmOverloads constructor(
             // https://github.com/mastodon/mastodon/issues/33139).
             !author?.name.isNullOrBlank() -> {
                 authorInfo.text = HtmlCompat.fromHtml(
-                    authorInfo.context.getString(R.string.preview_card_byline_name_only_fmt, author?.name),
+                    authorInfo.context.getString(R.string.preview_card_byline_name_only_fmt, author.name),
                     HtmlCompat.FROM_HTML_MODE_LEGACY,
                 )
                 authorInfo.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)

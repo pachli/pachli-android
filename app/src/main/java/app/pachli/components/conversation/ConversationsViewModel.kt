@@ -250,7 +250,7 @@ class ConversationsViewModel @AssistedInject constructor(
             api.deleteConversation(conversationId = viewData.id).onSuccess {
                 conversationsDao.delete(
                     id = viewData.id,
-                    accountId = accountManager.activeAccount!!.id,
+                    accountId = viewData.pachliAccountId,
                 )
             }
         }

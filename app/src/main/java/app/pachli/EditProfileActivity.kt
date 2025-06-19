@@ -165,12 +165,12 @@ class EditProfileActivity : BaseActivity() {
                     val me = profileRes.data
                     if (me != null) {
                         binding.displayNameEditText.setText(me.displayName)
-                        binding.noteEditText.setText(me.source?.note)
+                        binding.noteEditText.setText(me.source.note)
                         binding.lockedCheckBox.isChecked = me.locked
 
-                        accountFieldEditAdapter.setFields(me.source?.fields.orEmpty())
+                        accountFieldEditAdapter.setFields(me.source.fields)
                         binding.addFieldButton.isVisible =
-                            (me.source?.fields?.size ?: 0) < maxAccountFields
+                            me.source.fields.size < maxAccountFields
 
                         if (viewModel.avatarData.value == null) {
                             glide.load(me.avatar)

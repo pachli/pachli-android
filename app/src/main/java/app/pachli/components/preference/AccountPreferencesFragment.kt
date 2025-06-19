@@ -369,7 +369,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                             account.source.privacy?.asModel()
                                 ?: Status.Visibility.PUBLIC,
                         )
-                        accountManager.setDefaultMediaSensitivity(it.id, account.source?.sensitive ?: false)
+                        accountManager.setDefaultMediaSensitivity(it.id, account.source.sensitive ?: false)
                         accountManager.setDefaultPostLanguage(it.id, language.orEmpty())
                     }
                 }
