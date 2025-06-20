@@ -23,8 +23,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
-import app.pachli.core.database.model.DraftAttachment
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.model.DraftAttachment
 import app.pachli.view.MediaPreviewImageView
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.engine.DiskCacheStrategy

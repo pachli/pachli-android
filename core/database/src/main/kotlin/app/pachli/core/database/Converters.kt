@@ -18,14 +18,14 @@ package app.pachli.core.database
 
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
-import app.pachli.core.database.model.ConversationAccount
-import app.pachli.core.database.model.DraftAttachment
 import app.pachli.core.database.model.TimelineStatusEntity
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.Announcement
 import app.pachli.core.model.Attachment
 import app.pachli.core.model.Card
 import app.pachli.core.model.ContentFilter
+import app.pachli.core.model.ConversationAccount
+import app.pachli.core.model.DraftAttachment
 import app.pachli.core.model.Emoji
 import app.pachli.core.model.FilterResult
 import app.pachli.core.model.HashTag
@@ -315,5 +315,11 @@ class Converters @Inject constructor(
     fun timelineKindToJson(kind: TimelineStatusEntity.Kind): String = moshi.adapter<TimelineStatusEntity.Kind>().toJson(kind)
 
     @TypeConverter
-    fun jsonToTimelineKind(s: String?) = s?.let { moshi.adapter<TimelineStatusEntity.Kind>().fromJson(s) }
+    fun jsonToTimelineKind(s: String?) = s?.let { moshi.adapter<TimelineStatusEntity.Kind>().fromJson(it) }
+
+    @TypeConverter
+    fun draftAttachmentToJson(a: DraftAttachment): String = moshi.adapter<DraftAttachment>().toJson(a)
+
+    @TypeConverter
+    fun jsonToDraftAttachment(s: String?) = s?.let { moshi.adapter<DraftAttachment>().fromJson(it) }
 }

@@ -35,11 +35,13 @@ import app.pachli.core.database.Converters
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
+import app.pachli.core.model.VersionAdapter
 import app.pachli.core.network.json.BooleanIfNull
 import app.pachli.core.network.json.DefaultIfNull
 import app.pachli.core.network.json.Guarded
 import app.pachli.core.network.json.InstantJsonAdapter
 import app.pachli.core.network.json.LenientRfc3339DateJsonAdapter
+import app.pachli.core.network.json.UriAdapter
 import app.pachli.core.network.model.asModel
 import app.pachli.core.testing.failure
 import app.pachli.core.testing.fakes.fakeStatus
@@ -79,6 +81,8 @@ class NetworkTimelineRemoteMediatorTest {
     private val moshi: Moshi = Moshi.Builder()
         .add(Date::class.java, LenientRfc3339DateJsonAdapter())
         .add(Instant::class.java, InstantJsonAdapter())
+        .add(UriAdapter())
+        .add(VersionAdapter())
         .add(Guarded.Factory())
         .add(DefaultIfNull.Factory())
         .add(BooleanIfNull.Factory())

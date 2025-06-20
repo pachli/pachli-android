@@ -26,11 +26,8 @@ import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.Conversation
-import app.pachli.core.model.Emoji
+import app.pachli.core.model.ConversationAccount
 import app.pachli.core.model.FilterAction
-import app.pachli.core.model.TimelineAccount
-import com.squareup.moshi.JsonClass
-import java.time.Instant
 
 /**
  * Data to show a conversation.
@@ -146,32 +143,5 @@ data class ConversationEntity(
                 )
             }
         }
-    }
-}
-
-/**
- * Participants in a [ConversationData].
- */
-@JsonClass(generateAdapter = true)
-data class ConversationAccount(
-    val id: String,
-    val localUsername: String,
-    val username: String,
-    val displayName: String,
-    val avatar: String,
-    val emojis: List<Emoji>,
-    val createdAt: Instant?,
-) {
-
-    companion object {
-        fun from(timelineAccount: TimelineAccount) = ConversationAccount(
-            id = timelineAccount.id,
-            localUsername = timelineAccount.localUsername,
-            username = timelineAccount.username,
-            displayName = timelineAccount.name,
-            avatar = timelineAccount.avatar,
-            emojis = timelineAccount.emojis.orEmpty(),
-            createdAt = timelineAccount.createdAt,
-        )
     }
 }

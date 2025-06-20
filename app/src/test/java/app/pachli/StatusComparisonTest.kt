@@ -3,11 +3,13 @@ package app.pachli
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.model.TranslationState
+import app.pachli.core.model.VersionAdapter
 import app.pachli.core.network.json.BooleanIfNull
 import app.pachli.core.network.json.DefaultIfNull
 import app.pachli.core.network.json.Guarded
 import app.pachli.core.network.json.InstantJsonAdapter
 import app.pachli.core.network.json.LenientRfc3339DateJsonAdapter
+import app.pachli.core.network.json.UriAdapter
 import app.pachli.core.network.model.Status
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapter
@@ -23,6 +25,8 @@ class StatusComparisonTest {
     private val moshi = Moshi.Builder()
         .add(Date::class.java, LenientRfc3339DateJsonAdapter())
         .add(Instant::class.java, InstantJsonAdapter())
+        .add(UriAdapter())
+        .add(VersionAdapter())
         .add(Guarded.Factory())
         .add(DefaultIfNull.Factory())
         .add(BooleanIfNull.Factory())

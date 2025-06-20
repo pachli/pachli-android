@@ -21,9 +21,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.Parcelable
 import androidx.core.content.IntentCompat
-import app.pachli.core.database.model.DraftAttachment
 import app.pachli.core.model.Attachment
 import app.pachli.core.model.ContentFilter
+import app.pachli.core.model.DraftAttachment
 import app.pachli.core.model.Emoji
 import app.pachli.core.model.NewPoll
 import app.pachli.core.model.Notification

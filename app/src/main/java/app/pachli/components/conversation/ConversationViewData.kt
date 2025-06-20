@@ -20,9 +20,9 @@ package app.pachli.components.conversation
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.PachliAccount
-import app.pachli.core.database.model.ConversationAccount
 import app.pachli.core.database.model.ConversationData
 import app.pachli.core.model.AccountFilterDecision
+import app.pachli.core.model.ConversationAccount
 import app.pachli.core.model.FilterAction
 
 /**

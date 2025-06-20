@@ -17,22 +17,16 @@
 
 package app.pachli.core.database.model
 
-import android.net.Uri
-import android.os.Parcelable
-import androidx.core.net.toUri
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
-import app.pachli.core.model.Attachment
+import app.pachli.core.model.DraftAttachment
 import app.pachli.core.model.NewPoll
 import app.pachli.core.model.Status
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
 import java.util.Date
-import kotlinx.parcelize.Parcelize
 
 @Entity(
     foreignKeys = [
@@ -63,21 +57,3 @@ data class DraftEntity(
     val language: String?,
     val statusId: String?,
 )
-
-@Parcelize
-@JsonClass(generateAdapter = true)
-data class DraftAttachment(
-    @Json(name = "uriString") val uriString: String,
-    @Json(name = "description") val description: String?,
-    @Json(name = "focus") val focus: Attachment.Focus?,
-    @Json(name = "type") val type: Type,
-) : Parcelable {
-    val uri: Uri
-        get() = uriString.toUri()
-
-    enum class Type {
-        IMAGE,
-        VIDEO,
-        AUDIO,
-    }
-}
