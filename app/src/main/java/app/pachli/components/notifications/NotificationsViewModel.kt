@@ -624,7 +624,6 @@ class NotificationsViewModel @AssistedInject constructor(
         val activeFilters = filters.map { it.asEntity() }
         // TODO: This could be more efficient if the filters were passed to the
         // repository.notifications() call, and the repository did the filtering.
-        // (better,
         return repository.notifications(pachliAccountId)
             .map { pagingData ->
                 pagingData

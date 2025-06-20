@@ -33,15 +33,3 @@ data class ConversationAccount(
     val emojis: List<Emoji>,
     val createdAt: Instant?,
 )
-
-fun TimelineAccount.asConversationAccount() = ConversationAccount(
-    id = id,
-    localUsername = localUsername,
-    username = username,
-    displayName = name,
-    avatar = avatar,
-    emojis = emojis.orEmpty(),
-    createdAt = createdAt,
-)
-
-fun Iterable<TimelineAccount>.asConversationAccount() = map { it.asConversationAccount() }

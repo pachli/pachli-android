@@ -28,7 +28,7 @@ import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.Conversation
 import app.pachli.core.model.ConversationAccount
 import app.pachli.core.model.FilterAction
-import app.pachli.core.model.asConversationAccount
+import app.pachli.core.model.TimelineAccount
 
 /**
  * Data to show a conversation.
@@ -146,3 +146,15 @@ data class ConversationEntity(
         }
     }
 }
+
+fun TimelineAccount.asConversationAccount() = ConversationAccount(
+    id = id,
+    localUsername = localUsername,
+    username = username,
+    displayName = name,
+    avatar = avatar,
+    emojis = emojis.orEmpty(),
+    createdAt = createdAt,
+)
+
+fun Iterable<TimelineAccount>.asConversationAccount() = map { it.asConversationAccount() }
