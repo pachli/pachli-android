@@ -255,9 +255,18 @@ class SendStatusService : Service() {
                 if (scheduled) {
                     eventHub.dispatch(StatusScheduledEvent)
                 } else if (!isNew) {
-                    eventHub.dispatch(StatusEditedEvent(statusToSend.statusId, sentStatus as Status))
+                    eventHub.dispatch(
+                        StatusEditedEvent(
+                            statusToSend.statusId,
+                            (sentStatus as app.pachli.core.network.model.Status).asModel(),
+                        ),
+                    )
                 } else {
-                    eventHub.dispatch(StatusComposedEvent(sentStatus as Status))
+                    eventHub.dispatch(
+                        StatusComposedEvent(
+                            (sentStatus as app.pachli.core.network.model.Status).asModel(),
+                        ),
+                    )
                 }
 
                 notificationManager.cancel(statusId)
