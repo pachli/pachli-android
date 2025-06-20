@@ -222,8 +222,8 @@ internal class SuggestionViewHolder(
     }
 
     /**
-     * Binds the account's [name][app.pachli.core.network.model.Account.name] and
-     * [note][app.pachli.core.network.model.Account.note] respecting [animateEmojis].
+     * Binds the account's [name][app.pachli.core.model.Account.name] and
+     * [note][app.pachli.core.model.Account.note] respecting [animateEmojis].
      */
     fun bindAnimateEmojis(viewData: SuggestionViewData, animateEmojis: Boolean) = with(binding) {
         val account = viewData.suggestion.account

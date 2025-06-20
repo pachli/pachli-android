@@ -56,9 +56,6 @@ data class Status(
     val language: String?,
     val filtered: List<FilterResult>?,
 ) {
-    val actionableId: String
-        get() = reblog?.id ?: id
-
     val actionableStatus: Status
         get() = reblog ?: this
 

@@ -52,15 +52,6 @@ data class Account(
     val moved: Account? = null,
     val roles: List<Role>? = emptyList(),
 ) {
-    val name: String
-        get() = if (displayName.isNullOrEmpty()) {
-            localUsername
-        } else {
-            displayName
-        }
-
-    fun isRemote(): Boolean = this.username != this.localUsername
-
     fun asModel(): app.pachli.core.model.Account = app.pachli.core.model.Account(
         id = id,
         localUsername = localUsername,

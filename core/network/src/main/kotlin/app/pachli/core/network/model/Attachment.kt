@@ -119,22 +119,18 @@ data class Attachment(
         val width: Int?,
         val height: Int?,
         // Not always present, see https://github.com/mastodon/mastodon/issues/29125
-        @Json(name = "aspect")
-        val _aspect: Double?,
+        val aspect: Double?,
     ) {
-        val aspect: Double
-            get() {
-                if (_aspect != null) return _aspect
-                width ?: return 1.778
-                height ?: return 1.778
-
-                return (width / height).toDouble()
-            }
-
         fun asModel() = app.pachli.core.model.Attachment.Size(
             width = width,
             height = height,
-            aspect = aspect,
+            aspect = run {
+                if (aspect != null) return@run aspect
+                width ?: return@run 1.778
+                height ?: return@run 1.778
+
+                return@run (width / height).toDouble()
+            },
         )
     }
 }
