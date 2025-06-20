@@ -97,7 +97,6 @@ data class CredentialAccount(
         statusesCount = statusesCount,
         role = role?.asModel(),
         roles = roles?.asModel(),
-
     )
 }
 

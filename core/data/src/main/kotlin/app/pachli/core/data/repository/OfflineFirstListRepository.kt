@@ -59,10 +59,6 @@ internal class OfflineFirstListRepository @Inject constructor(
         it.asModel()
     }
 
-    fun x() = localDataSource.getAllLists().map {
-        it.groupBy { it.accountId }.mapValues { it.value.asModel() }
-    }
-
     override fun getListsFlow() = localDataSource.getAllLists().map {
         it.groupBy { it.accountId }.mapValues { it.value.asModel() }
     }

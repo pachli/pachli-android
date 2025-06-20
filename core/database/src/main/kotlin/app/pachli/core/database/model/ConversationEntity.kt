@@ -28,6 +28,7 @@ import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.Conversation
 import app.pachli.core.model.ConversationAccount
 import app.pachli.core.model.FilterAction
+import app.pachli.core.model.asConversationAccount
 
 /**
  * Data to show a conversation.
@@ -136,7 +137,7 @@ data class ConversationEntity(
                 ConversationEntity(
                     pachliAccountId = pachliAccountId,
                     id = conversation.id,
-                    accounts = conversation.accounts.map { ConversationAccount.from(it) },
+                    accounts = conversation.accounts.asConversationAccount(),
                     unread = conversation.unread,
                     lastStatusServerId = it.id,
                     isConversationStarter = isInitial,

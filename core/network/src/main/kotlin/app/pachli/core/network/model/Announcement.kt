@@ -65,7 +65,6 @@ data class Announcement(
         tags = tags.asModel(),
         emojis = emojis.asModel(),
         reactions = reactions.asModel(),
-
     )
 
     @JsonClass(generateAdapter = true)

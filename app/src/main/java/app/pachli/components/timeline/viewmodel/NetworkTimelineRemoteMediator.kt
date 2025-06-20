@@ -27,6 +27,7 @@ import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
 import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
+import app.pachli.core.network.model.Status as NetworkStatus
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiResponse
 import app.pachli.core.network.retrofit.apiresult.ApiResult
@@ -45,9 +46,7 @@ import timber.log.Timber
  * @param minId minId value to pass to Mastodon API.
  * @param limit limit value to pass to Mastodon API.
  */
-typealias FetchPage = suspend (maxId: String?, minId: String?, limit: Int) -> ApiResult<
-    List<app.pachli.core.network.model.Status>,
-    >
+typealias FetchPage = suspend (maxId: String?, minId: String?, limit: Int) -> ApiResult<List<NetworkStatus>>
 
 /** Remote mediator for accessing timelines that are not backed by the database. */
 @OptIn(ExperimentalPagingApi::class)
@@ -123,7 +122,7 @@ class NetworkTimelineRemoteMediator(
      * [timeline] supports position restoration then a page of statuses containing
      * [statusId] is returned.
      */
-    private suspend fun getInitialPage(statusId: String?, pageSize: Int): ApiResult<List<app.pachli.core.network.model.Status>> {
+    private suspend fun getInitialPage(statusId: String?, pageSize: Int): ApiResult<List<NetworkStatus>> {
         return when (timeline) {
             Timeline.Home -> getPageAround(statusId, pageSize) { maxId, minId, limit ->
                 api.homeTimeline(minId = minId, maxId = maxId, limit = limit)
@@ -152,7 +151,7 @@ class NetworkTimelineRemoteMediator(
         statusId: String?,
         pageSize: Int,
         fetchPage: FetchPage,
-    ): ApiResult<List<app.pachli.core.network.model.Status>> = coroutineScope {
+    ): ApiResult<List<NetworkStatus>> = coroutineScope {
         statusId ?: return@coroutineScope fetchPage(null, null, pageSize)
 
         val status = async { api.status(statusId = statusId) }
@@ -175,7 +174,7 @@ class NetworkTimelineRemoteMediator(
         return@coroutineScope Ok(ApiResponse(headers, statuses, 200))
     }
 
-    private suspend fun fetchStatusPageByKind(loadType: LoadType, key: String?, loadSize: Int): ApiResult<List<app.pachli.core.network.model.Status>> {
+    private suspend fun fetchStatusPageByKind(loadType: LoadType, key: String?, loadSize: Int): ApiResult<List<NetworkStatus>> {
         val (maxId, minId) = when (loadType) {
             // When refreshing fetch a page of statuses that are immediately *newer* than the key
             // This is so that the user's reading position is not lost.

@@ -72,7 +72,6 @@ data class Account(
         fields = fields?.asModel(),
         moved = moved?.asModel(),
         roles = roles?.asModel(),
-
     )
 }
 

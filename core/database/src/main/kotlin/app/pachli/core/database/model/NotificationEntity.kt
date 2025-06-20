@@ -306,7 +306,6 @@ data class NotificationRelationshipSeveranceEventEntity(
         followersCount = followersCount,
         followingCount = followingCount,
         createdAt = createdAt,
-
     )
     companion object
 }

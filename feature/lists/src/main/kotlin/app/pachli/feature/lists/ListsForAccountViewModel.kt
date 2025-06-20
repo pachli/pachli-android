@@ -44,7 +44,7 @@ sealed interface ListsWithMembership {
 }
 
 /**
- * A [app.pachli.core.model.MastodonList] with a property for whether [ListsForAccountViewModel.accountId] is a
+ * A [MastodonList] with a property for whether [ListsForAccountViewModel.accountId] is a
  * member of the list.
  *
  * @property list The Mastodon list

@@ -42,7 +42,7 @@ class ContentFilterModel(private val filterContext: FilterContext, v1ContentFilt
         }
     }
 
-    /** @return the [app.pachli.core.model.FilterAction] that should be applied to [status]. */
+    /** @return the [FilterAction] that should be applied to [status]. */
     fun filterActionFor(status: Status): FilterAction {
         pattern?.let { pat ->
             // Patterns are expensive and thread-safe, matchers are neither.

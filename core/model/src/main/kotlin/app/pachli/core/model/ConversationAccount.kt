@@ -32,17 +32,16 @@ data class ConversationAccount(
     val avatar: String,
     val emojis: List<Emoji>,
     val createdAt: Instant?,
-) {
+)
 
-    companion object {
-        fun from(timelineAccount: TimelineAccount) = ConversationAccount(
-            id = timelineAccount.id,
-            localUsername = timelineAccount.localUsername,
-            username = timelineAccount.username,
-            displayName = timelineAccount.name,
-            avatar = timelineAccount.avatar,
-            emojis = timelineAccount.emojis.orEmpty(),
-            createdAt = timelineAccount.createdAt,
-        )
-    }
-}
+fun TimelineAccount.asConversationAccount() = ConversationAccount(
+    id = id,
+    localUsername = localUsername,
+    username = username,
+    displayName = name,
+    avatar = avatar,
+    emojis = emojis.orEmpty(),
+    createdAt = createdAt,
+)
+
+fun Iterable<TimelineAccount>.asConversationAccount() = map { it.asConversationAccount() }
