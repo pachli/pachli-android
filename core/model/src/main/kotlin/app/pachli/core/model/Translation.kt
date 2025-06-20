@@ -77,14 +77,14 @@ data class TranslatedAttachment(
     val description: String?,
 )
 
-fun app.pachli.core.model.translation.TranslatedPoll.toNetworkModel() = TranslatedPoll(
+fun app.pachli.core.model.translation.TranslatedPoll.asNetworkModel() = TranslatedPoll(
     id = this.id,
-    options = this.options.map { it.toNetworkModel() },
+    options = this.options.map { it.asNetworkModel() },
 )
 
-fun app.pachli.core.model.translation.TranslatedPollOption.toNetworkModel() = TranslatedPollOption(this.title)
+fun app.pachli.core.model.translation.TranslatedPollOption.asNetworkModel() = TranslatedPollOption(this.title)
 
-fun app.pachli.core.model.translation.TranslatedAttachment.toNetworkModel() = TranslatedAttachment(
+fun app.pachli.core.model.translation.TranslatedAttachment.asNetworkModel() = TranslatedAttachment(
     id = this.id,
     description = this.description,
 )

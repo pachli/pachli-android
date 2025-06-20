@@ -23,7 +23,7 @@ import app.pachli.core.database.Converters
 import app.pachli.core.model.TranslatedAttachment
 import app.pachli.core.model.TranslatedPoll
 import app.pachli.core.model.Translation
-import app.pachli.core.model.toNetworkModel
+import app.pachli.core.model.asNetworkModel
 import app.pachli.core.model.translation.TranslatedStatus
 
 /**
@@ -88,7 +88,7 @@ fun TranslatedStatus.toEntity(pachliAccountId: Long, serverId: String) = Transla
     timelineUserId = pachliAccountId,
     content = content,
     spoilerText = spoilerText,
-    poll = poll?.toNetworkModel(),
-    attachments = attachments.map { it.toNetworkModel() },
+    poll = poll?.asNetworkModel(),
+    attachments = attachments.map { it.asNetworkModel() },
     provider = provider,
 )
