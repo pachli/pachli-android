@@ -51,14 +51,7 @@ data class CredentialAccount(
     val statusesCount: Int = 0,
     val role: Role? = null,
     val roles: List<Role>? = emptyList(),
-) {
-    val name: String
-        get() = if (displayName.isNullOrEmpty()) {
-            localUsername
-        } else {
-            displayName
-        }
-}
+)
 
 data class AccountSource(
     val privacy: Status.Visibility? = null,

@@ -28,8 +28,4 @@ data class DeletedStatus(
     val poll: Poll?,
     val createdAt: Date,
     val language: String?,
-) {
-    fun isEmpty(): Boolean {
-        return text == null && attachments == null
-    }
-}
+)
