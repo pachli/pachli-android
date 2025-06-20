@@ -18,10 +18,10 @@
 package app.pachli.core.data.repository
 
 import app.pachli.core.common.di.ApplicationScope
-import app.pachli.core.data.model.Suggestion
 import app.pachli.core.data.repository.SuggestionsError.DeleteSuggestionError
 import app.pachli.core.data.repository.SuggestionsError.FollowAccountError
 import app.pachli.core.data.repository.SuggestionsError.GetSuggestionsError
+import app.pachli.core.model.Suggestion
 import app.pachli.core.network.retrofit.MastodonApi
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.coroutines.binding.binding
@@ -50,7 +50,7 @@ class NetworkSuggestionsRepository @Inject constructor(
                             Duration.between(lastStatusAt.toInstant(), now) < LAST_STATUS_CUTOFF_DURATION
                         } == true
                     }
-                    .map { Suggestion.from(it) }
+                    .map { it.asModel() }
             }
             .mapError { GetSuggestionsError(it) }
             .bind()

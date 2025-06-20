@@ -38,6 +38,16 @@ enum class PreviewCardKind {
 
     @Json(name = "rich")
     RICH,
+
+    ;
+
+    fun asModel() = when (this) {
+        UNKNOWN -> app.pachli.core.model.PreviewCardKind.UNKNOWN
+        LINK -> app.pachli.core.model.PreviewCardKind.LINK
+        PHOTO -> app.pachli.core.model.PreviewCardKind.PHOTO
+        VIDEO -> app.pachli.core.model.PreviewCardKind.VIDEO
+        RICH -> app.pachli.core.model.PreviewCardKind.RICH
+    }
 }
 
 /**
@@ -74,14 +84,32 @@ data class PreviewCardAuthor(
     val name: String,
     val url: String,
     val account: TimelineAccount? = null,
-)
+) {
+    fun asModel() = app.pachli.core.model.PreviewCardAuthor(
+        name = name,
+        url = url,
+        account = account?.asModel(),
+    )
+}
+
+@JvmName("iterablePreviewCardAuthorAsModel")
+fun Iterable<PreviewCardAuthor>.asModel() = map { it.asModel() }
 
 @JsonClass(generateAdapter = true)
 data class LinkHistory(
     val day: String,
     val accounts: Int,
     val uses: Int,
-)
+) {
+    fun asModel() = app.pachli.core.model.LinkHistory(
+        day = day,
+        accounts = accounts,
+        uses = uses,
+    )
+}
+
+@JvmName("iterableLinkHistoryAsModel")
+fun Iterable<LinkHistory>.asModel() = map { it.asModel() }
 
 /** Represents a https://docs.joinmastodon.org/entities/PreviewCard/#trends-link */
 @JsonClass(generateAdapter = true)
@@ -102,4 +130,26 @@ data class TrendsLink(
     override val blurhash: String? = null,
     override val authors: List<PreviewCardAuthor>? = null,
     val history: List<LinkHistory>,
-) : PreviewCard
+) : PreviewCard {
+    fun asModel() = app.pachli.core.model.TrendsLink(
+        url = url,
+        title = title,
+        description = description,
+        kind = kind.asModel(),
+        authorName = authorName,
+        authorUrl = authorUrl,
+        providerName = providerName,
+        providerUrl = providerUrl,
+        html = html,
+        width = width,
+        height = height,
+        image = image,
+        embedUrl = embedUrl,
+        blurhash = blurhash,
+        authors = authors?.asModel(),
+        history = history.asModel(),
+    )
+}
+
+@JvmName("iterableTrendsLinkAsModel")
+fun Iterable<TrendsLink>.asModel() = map { it.asModel() }

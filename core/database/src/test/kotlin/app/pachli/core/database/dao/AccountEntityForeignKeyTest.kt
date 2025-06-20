@@ -32,17 +32,17 @@ import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.database.model.NotificationViewDataEntity
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.ServerEntity
-import app.pachli.core.database.model.StatusEntity
 import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.database.model.TranslationState
+import app.pachli.core.database.model.asEntity
+import app.pachli.core.model.Announcement
 import app.pachli.core.model.ContentFilterVersion
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.ServerKind
-import app.pachli.core.network.model.Announcement
-import app.pachli.core.network.model.Status
-import app.pachli.core.network.model.UserListRepliesPolicy
+import app.pachli.core.model.Status
+import app.pachli.core.model.UserListRepliesPolicy
 import app.pachli.core.testing.fakes.fakeStatus
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -207,7 +207,7 @@ class AccountEntityForeignKeyTest {
 
     @Test
     fun `deleting account deletes ConversationEntity`() = runTest {
-        val statusEntity = StatusEntity.from(fakeStatus(), pachliAccountId)
+        val statusEntity = fakeStatus().asModel().asEntity(pachliAccountId)
         statusDao.upsertStatuses(listOf(statusEntity))
 
         val conversation = ConversationEntity(

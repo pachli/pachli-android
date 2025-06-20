@@ -21,7 +21,7 @@ import android.util.AttributeSet
 import android.view.View
 import app.pachli.R
 import app.pachli.core.designsystem.R as DR
-import app.pachli.core.network.model.Status
+import app.pachli.core.model.Status
 import app.pachli.util.iconDrawable
 import com.google.android.material.button.MaterialButton
 

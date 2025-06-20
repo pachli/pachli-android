@@ -11,10 +11,11 @@ import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.ConversationData
 import app.pachli.core.database.model.ConversationEntity
 import app.pachli.core.database.model.StatusEntity
-import app.pachli.core.database.model.TimelineAccountEntity
+import app.pachli.core.database.model.asEntity
+import app.pachli.core.model.Status
+import app.pachli.core.model.TimelineAccount
 import app.pachli.core.network.model.HttpHeaderLink
-import app.pachli.core.network.model.Status
-import app.pachli.core.network.model.TimelineAccount
+import app.pachli.core.network.model.asModel
 import app.pachli.core.network.retrofit.MastodonApi
 import com.github.michaelbull.result.getOrElse
 import com.github.michaelbull.result.onFailure
@@ -48,7 +49,7 @@ class ConversationsRemoteMediator(
         val conversationsResponse = api.getConversations(maxId = nextKey, limit = state.config.pageSize)
             .getOrElse { return MediatorResult.Error(it.throwable) }
 
-        val conversations = conversationsResponse.body.filterNot { it.lastStatus == null }
+        val conversations = conversationsResponse.body.filterNot { it.lastStatus == null }.asModel()
 
         if (conversations.isEmpty()) {
             return MediatorResult.Success(endOfPaginationReached = loadType != LoadType.REFRESH)
@@ -83,7 +84,7 @@ class ConversationsRemoteMediator(
                 )
             }
 
-            timelineDao.upsertAccounts(accounts.map { TimelineAccountEntity.from(it, pachliAccountId) })
+            timelineDao.upsertAccounts(accounts.asEntity(pachliAccountId))
             statusDao.upsertStatuses(statuses.map { StatusEntity.from(it, pachliAccountId) })
             conversationsDao.upsert(conversationEntities)
         }
@@ -152,7 +153,7 @@ class ConversationsRemoteMediator(
             api.statuses(statusIdsToCheck).onSuccess {
                 it.body.forEach { parentStatus ->
                     val childStatusId = statusesToCheck[parentStatus.id]
-                    result[childStatusId!!] = parentStatus.visibility != Status.Visibility.DIRECT
+                    result[childStatusId!!] = parentStatus.visibility.asModel() != Status.Visibility.DIRECT
                 }
             }.onFailure {
                 Timber.e("Failed: $it")

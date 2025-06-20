@@ -41,7 +41,6 @@ import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.time.Instant
 import javax.inject.Inject
-import kotlin.collections.set
 import kotlin.math.min
 import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.currentCoroutineContext
@@ -90,7 +89,7 @@ class NotificationFetcher @Inject constructor(
 
                     // Create sorted list of new notifications
                     val notifications = fetchNewNotifications(entity)
-                        .filter { filterNotification(notificationManager, entity, it.type) }
+                        .filter { filterNotification(notificationManager, entity, it.type.asModel()) }
                         .filter {
                             val decision = filterNotificationByAccount(pachliAccount, NotificationData.from(pachliAccountId, it))
                             decision is AccountFilterDecision.None
@@ -130,7 +129,7 @@ class NotificationFetcher @Inject constructor(
                         val androidNotification = makeNotification(
                             context,
                             notificationManager,
-                            notification,
+                            notification.asModel(),
                             entity,
                             index == 0,
                         )

@@ -21,7 +21,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
-import app.pachli.core.network.model.Announcement
+import app.pachli.core.model.Announcement
 
 /**
  * Represents the announcements sent to an account.

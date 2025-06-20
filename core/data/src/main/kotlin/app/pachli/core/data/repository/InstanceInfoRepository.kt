@@ -24,13 +24,14 @@ import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.EmojisEntity
 import app.pachli.core.database.model.InstanceInfoEntity
 import app.pachli.core.database.model.asModel
+import app.pachli.core.model.Emoji
 import app.pachli.core.model.InstanceInfo
 import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_CHARACTER_LIMIT
 import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_MAX_ACCOUNT_FIELDS
 import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_MAX_MEDIA_DESCRIPTION_CHARS
-import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.InstanceV1
 import app.pachli.core.network.model.InstanceV2
+import app.pachli.core.network.model.asModel
 import app.pachli.core.network.retrofit.MastodonApi
 import com.github.michaelbull.result.map
 import com.github.michaelbull.result.mapBoth
@@ -117,8 +118,9 @@ class InstanceInfoRepository @Inject constructor(
     private suspend fun getEmojis(accountId: Long): List<Emoji> = withContext(Dispatchers.IO) {
         return@withContext api.getCustomEmojis().mapBoth(
             { emojiList ->
-                instanceDao.upsert(EmojisEntity(accountId, emojiList.body))
-                emojiList.body
+                val emojis = emojiList.body.asModel()
+                instanceDao.upsert(EmojisEntity(accountId, emojis))
+                emojis
             },
             { error ->
                 Timber.w(error.throwable, "failed to load custom emojis, falling back to cache")

@@ -18,10 +18,9 @@
 package app.pachli.core.data.repository.filtersRepository
 
 import app.cash.turbine.test
-import app.pachli.core.data.model.from
 import app.pachli.core.data.repository.ContentFilters
-import app.pachli.core.model.ContentFilter
 import app.pachli.core.model.ContentFilterVersion
+import app.pachli.core.network.model.asModel
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.test.advanceUntilIdle
@@ -48,7 +47,7 @@ class ContentFiltersRepositoryTestReload : V2Test() {
             // Confirm flow now contains the new filters.
             assertThat(awaitItem()).isEqualTo(
                 ContentFilters(
-                    contentFilters = networkFilters.map { ContentFilter.from(it) },
+                    contentFilters = networkFilters.asModel(),
                     version = ContentFilterVersion.V2,
                 ),
             )

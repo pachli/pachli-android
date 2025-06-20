@@ -22,8 +22,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.InstanceInfoRepository
-import app.pachli.core.network.model.Announcement
-import app.pachli.core.network.model.Emoji
+import app.pachli.core.model.Announcement
+import app.pachli.core.model.Emoji
+import app.pachli.core.network.model.asModel
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.util.Error
 import app.pachli.util.Loading
@@ -60,7 +61,7 @@ class AnnouncementsViewModel @Inject constructor(
             announcementsMutable.postValue(Loading())
             mastodonApi.listAnnouncements()
                 .onSuccess {
-                    announcementsMutable.postValue(Success(it.body))
+                    announcementsMutable.postValue(Success(it.body.asModel()))
                     it.body.filter { announcement -> !announcement.read }
                         .forEach { announcement ->
                             mastodonApi.dismissAnnouncement(announcement.id)

@@ -18,9 +18,9 @@
 package app.pachli.core.data.repository
 
 import app.pachli.core.common.PachliError
-import app.pachli.core.data.model.MastodonList
-import app.pachli.core.network.model.TimelineAccount
-import app.pachli.core.network.model.UserListRepliesPolicy
+import app.pachli.core.model.MastodonList
+import app.pachli.core.model.TimelineAccount
+import app.pachli.core.model.UserListRepliesPolicy
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import com.github.michaelbull.result.Result
 import java.text.Collator
@@ -58,8 +58,11 @@ interface ListsRepository {
     /** @return Known lists for [pachliAccountId]. */
     fun getLists(pachliAccountId: Long): Flow<List<MastodonList>>
 
-    /** @return All known lists for all accounts. */
-    fun getListsFlow(): Flow<List<MastodonList>>
+    /**
+     * @return All known lists for all accounts, as a map. Key is the account ID,
+     * value is the list of [MastodonList] for that account.
+     */
+    fun getListsFlow(): Flow<Map<Long, List<MastodonList>>>
 
     /**
      * Refresh lists for [pachliAccountId].
@@ -103,10 +106,14 @@ interface ListsRepository {
     /**
      * Deletes an existing list
      *
+     * @param pachliAccountId
      * @param list The list to delete
      * @return A successful result, or an error
      */
-    suspend fun deleteList(list: MastodonList): Result<Unit, ListsError.Delete>
+    suspend fun deleteList(
+        pachliAccountId: Long,
+        list: MastodonList,
+    ): Result<Unit, ListsError.Delete>
 
     /**
      * Fetches the lists with [accountId] as a member

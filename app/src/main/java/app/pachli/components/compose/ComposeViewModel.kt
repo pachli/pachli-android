@@ -43,13 +43,13 @@ import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.ServerRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.model.Attachment
+import app.pachli.core.model.NewPoll
 import app.pachli.core.model.ServerOperation
+import app.pachli.core.model.Status
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.ComposeKind
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InReplyTo
-import app.pachli.core.network.model.Attachment
-import app.pachli.core.network.model.NewPoll
-import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.preferences.ShowSelfUsername
@@ -146,7 +146,7 @@ class ComposeViewModel @AssistedInject constructor(
                     is InReplyTo.Id -> {
                         emit(Ok(Loadable.Loading))
                         api.status(i.statusId).mapEither(
-                            { Loadable.Loaded(InReplyTo.Status.from(it.body)) },
+                            { Loadable.Loaded(InReplyTo.Status.from(it.body.asModel())) },
                             { UiError.LoadInReplyToError(it) },
                         )
                     }
@@ -495,7 +495,7 @@ class ComposeViewModel @AssistedInject constructor(
         pachliAccountId: Long,
     ) {
         if (!scheduledTootId.isNullOrEmpty()) {
-            api.deleteScheduledStatus(scheduledTootId!!)
+            api.deleteScheduledStatus(scheduledTootId)
         }
 
         val attachedMedia = media.value.map { item ->
@@ -554,7 +554,7 @@ class ComposeViewModel @AssistedInject constructor(
         when (token[0]) {
             '@' -> {
                 return api.searchAccounts(query = token.substring(1), limit = 10).mapBoth(
-                    { it.body.map { AutocompleteResult.AccountResult(it) } },
+                    { it.body.map { AutocompleteResult.AccountResult(it.asModel()) } },
                     {
                         Timber.e(it.throwable, "Autocomplete search for %s failed.", token)
                         emptyList()
@@ -649,7 +649,7 @@ class ComposeViewModel @AssistedInject constructor(
         }
 
         val poll = composeOptions?.poll
-        if (poll != null && composeOptions?.mediaAttachments.isNullOrEmpty()) {
+        if (poll != null && composeOptions.mediaAttachments.isNullOrEmpty()) {
             _poll.value = poll
         }
 

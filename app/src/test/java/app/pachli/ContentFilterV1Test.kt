@@ -19,24 +19,22 @@ package app.pachli
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.components.filters.EditContentFilterViewModel.Companion.getSecondsForDurationIndex
-import app.pachli.core.data.model.from
-import app.pachli.core.model.ContentFilter
+import app.pachli.core.data.model.ContentFilterModel
 import app.pachli.core.model.FilterAction
-import app.pachli.core.model.FilterContext
-import app.pachli.core.network.model.Attachment
-import app.pachli.core.network.model.FilterContext as NetworkFilterContext
+import app.pachli.core.network.model.Attachment as NetworkAttachment
+import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.FilterV1
-import app.pachli.core.network.model.Poll
-import app.pachli.core.network.model.PollOption
-import app.pachli.core.network.model.Status
-import app.pachli.network.ContentFilterModel
+import app.pachli.core.network.model.Poll as NetworkPoll
+import app.pachli.core.network.model.PollOption as NetworkPollOption
+import app.pachli.core.network.model.Status as NetworkStatus
+import app.pachli.core.network.model.asModel
+import app.pachli.core.testing.fakes.fakeAccount
 import java.time.Instant
 import java.util.Date
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.kotlin.mock
 
 @RunWith(AndroidJUnit4::class)
 class ContentFilterV1Test {
@@ -49,7 +47,7 @@ class ContentFilterV1Test {
             FilterV1(
                 id = "123",
                 phrase = "badWord",
-                contexts = setOf(NetworkFilterContext.HOME),
+                contexts = setOf(FilterContext.HOME),
                 expiresAt = null,
                 irreversible = false,
                 wholeWord = false,
@@ -57,7 +55,7 @@ class ContentFilterV1Test {
             FilterV1(
                 id = "123",
                 phrase = "badWholeWord",
-                contexts = setOf(NetworkFilterContext.HOME, NetworkFilterContext.PUBLIC),
+                contexts = setOf(FilterContext.HOME, FilterContext.PUBLIC),
                 expiresAt = null,
                 irreversible = false,
                 wholeWord = true,
@@ -65,7 +63,7 @@ class ContentFilterV1Test {
             FilterV1(
                 id = "123",
                 phrase = "@twitter.com",
-                contexts = setOf(NetworkFilterContext.HOME),
+                contexts = setOf(FilterContext.HOME),
                 expiresAt = null,
                 irreversible = false,
                 wholeWord = true,
@@ -73,7 +71,7 @@ class ContentFilterV1Test {
             FilterV1(
                 id = "123",
                 phrase = "#hashtag",
-                contexts = setOf(NetworkFilterContext.HOME),
+                contexts = setOf(FilterContext.HOME),
                 expiresAt = null,
                 irreversible = false,
                 wholeWord = true,
@@ -81,7 +79,7 @@ class ContentFilterV1Test {
             FilterV1(
                 id = "123",
                 phrase = "expired",
-                contexts = setOf(NetworkFilterContext.HOME),
+                contexts = setOf(FilterContext.HOME),
                 expiresAt = Date.from(Instant.now().minusSeconds(10)),
                 irreversible = false,
                 wholeWord = true,
@@ -89,7 +87,7 @@ class ContentFilterV1Test {
             FilterV1(
                 id = "123",
                 phrase = "unexpired",
-                contexts = setOf(NetworkFilterContext.HOME),
+                contexts = setOf(FilterContext.HOME),
                 expiresAt = Date.from(Instant.now().plusSeconds(3600)),
                 irreversible = false,
                 wholeWord = true,
@@ -97,14 +95,14 @@ class ContentFilterV1Test {
             FilterV1(
                 id = "123",
                 phrase = "href",
-                contexts = setOf(NetworkFilterContext.HOME),
+                contexts = setOf(FilterContext.HOME),
                 expiresAt = null,
                 irreversible = false,
                 wholeWord = false,
             ),
-        ).map { ContentFilter.from(it) }
+        ).asModel()
 
-        contentFilterModel = ContentFilterModel(FilterContext.HOME, contentFilters)
+        contentFilterModel = ContentFilterModel(app.pachli.core.model.FilterContext.HOME, contentFilters)
     }
 
     @Test
@@ -112,7 +110,7 @@ class ContentFilterV1Test {
         assertEquals(
             FilterAction.NONE,
             contentFilterModel.filterActionFor(
-                mockStatus(content = "should not be filtered"),
+                mockStatus(content = "should not be filtered").asModel(),
             ),
         )
     }
@@ -122,7 +120,7 @@ class ContentFilterV1Test {
         assertEquals(
             FilterAction.HIDE,
             contentFilterModel.filterActionFor(
-                mockStatus(content = "one two badWord three"),
+                mockStatus(content = "one two badWord three").asModel(),
             ),
         )
     }
@@ -132,7 +130,7 @@ class ContentFilterV1Test {
         assertEquals(
             FilterAction.HIDE,
             contentFilterModel.filterActionFor(
-                mockStatus(content = "one two badWordPart three"),
+                mockStatus(content = "one two badWordPart three").asModel(),
             ),
         )
     }
@@ -142,7 +140,7 @@ class ContentFilterV1Test {
         assertEquals(
             FilterAction.HIDE,
             contentFilterModel.filterActionFor(
-                mockStatus(content = "one two badWholeWord three"),
+                mockStatus(content = "one two badWholeWord three").asModel(),
             ),
         )
     }
@@ -152,7 +150,7 @@ class ContentFilterV1Test {
         assertEquals(
             FilterAction.NONE,
             contentFilterModel.filterActionFor(
-                mockStatus(content = "one two badWholeWordTest three"),
+                mockStatus(content = "one two badWholeWordTest three").asModel(),
             ),
         )
     }
@@ -165,7 +163,7 @@ class ContentFilterV1Test {
                 mockStatus(
                     content = "should not be filtered",
                     spoilerText = "badWord should be filtered",
-                ),
+                ).asModel(),
             ),
         )
     }
@@ -179,7 +177,7 @@ class ContentFilterV1Test {
                     content = "should not be filtered",
                     spoilerText = "should not be filtered",
                     pollOptions = listOf("should not be filtered", "badWord"),
-                ),
+                ).asModel(),
             ),
         )
     }
@@ -193,7 +191,7 @@ class ContentFilterV1Test {
                     content = "should not be filtered",
                     spoilerText = "should not be filtered",
                     attachmentsDescriptions = listOf("should not be filtered", "badWord"),
-                ),
+                ).asModel(),
             ),
         )
     }
@@ -203,7 +201,7 @@ class ContentFilterV1Test {
         assertEquals(
             FilterAction.HIDE,
             contentFilterModel.filterActionFor(
-                mockStatus(content = "one two someone@twitter.com three"),
+                mockStatus(content = "one two someone@twitter.com three").asModel(),
             ),
         )
     }
@@ -213,7 +211,7 @@ class ContentFilterV1Test {
         assertEquals(
             FilterAction.HIDE,
             contentFilterModel.filterActionFor(
-                mockStatus(content = "#hashtag one two three"),
+                mockStatus(content = "#hashtag one two three").asModel(),
             ),
         )
     }
@@ -223,7 +221,7 @@ class ContentFilterV1Test {
         assertEquals(
             FilterAction.HIDE,
             contentFilterModel.filterActionFor(
-                mockStatus(content = "<p><a href=\"https://foo.bar/tags/hashtag\" class=\"mention hashtag\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">#<span>hashtag</span></a>one two three</p>"),
+                mockStatus(content = "<p><a href=\"https://foo.bar/tags/hashtag\" class=\"mention hashtag\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">#<span>hashtag</span></a>one two three</p>").asModel(),
             ),
         )
     }
@@ -233,7 +231,7 @@ class ContentFilterV1Test {
         assertEquals(
             FilterAction.NONE,
             contentFilterModel.filterActionFor(
-                mockStatus(content = "<p><a href=\"https://foo.bar/\">https://foo.bar/</a> one two three</p>"),
+                mockStatus(content = "<p><a href=\"https://foo.bar/\">https://foo.bar/</a> one two three</p>").asModel(),
             ),
         )
     }
@@ -243,7 +241,7 @@ class ContentFilterV1Test {
         assertEquals(
             FilterAction.NONE,
             contentFilterModel.filterActionFor(
-                mockStatus(content = "content matching expired filter should not be filtered"),
+                mockStatus(content = "content matching expired filter should not be filtered").asModel(),
             ),
         )
     }
@@ -253,7 +251,7 @@ class ContentFilterV1Test {
         assertEquals(
             FilterAction.HIDE,
             contentFilterModel.filterActionFor(
-                mockStatus(content = "content matching unexpired filter should be filtered"),
+                mockStatus(content = "content matching unexpired filter should be filtered").asModel(),
             ),
         )
     }
@@ -280,11 +278,11 @@ class ContentFilterV1Test {
             spoilerText: String = "",
             pollOptions: List<String>? = null,
             attachmentsDescriptions: List<String>? = null,
-        ): Status {
-            return Status(
+        ): NetworkStatus {
+            return NetworkStatus(
                 id = "123",
                 url = "https://mastodon.social/@Tusky/100571663297225812",
-                account = mock(),
+                account = fakeAccount(),
                 inReplyToId = null,
                 inReplyToAccountId = null,
                 reblog = null,
@@ -300,16 +298,16 @@ class ContentFilterV1Test {
                 bookmarked = false,
                 sensitive = false,
                 spoilerText = spoilerText,
-                visibility = Status.Visibility.PUBLIC,
+                visibility = NetworkStatus.Visibility.PUBLIC,
                 attachments = if (attachmentsDescriptions != null) {
                     ArrayList(
                         attachmentsDescriptions.map {
-                            Attachment(
+                            NetworkAttachment(
                                 id = "1234",
                                 url = "",
                                 previewUrl = null,
                                 meta = null,
-                                type = Attachment.Type.IMAGE,
+                                type = NetworkAttachment.Type.IMAGE,
                                 description = it,
                                 blurhash = null,
                             )
@@ -324,7 +322,7 @@ class ContentFilterV1Test {
                 pinned = false,
                 muted = false,
                 poll = if (pollOptions != null) {
-                    Poll(
+                    NetworkPoll(
                         id = "1234",
                         expiresAt = null,
                         expired = false,
@@ -332,7 +330,7 @@ class ContentFilterV1Test {
                         votesCount = 0,
                         votersCount = 0,
                         options = pollOptions.map {
-                            PollOption(it, 0)
+                            NetworkPollOption(it, 0)
                         },
                         voted = false,
                         ownVotes = null,

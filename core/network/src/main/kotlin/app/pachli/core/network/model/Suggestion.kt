@@ -43,6 +43,15 @@ enum class SuggestionSource {
 
     @Default
     UNKNOWN,
+
+    ;
+
+    fun asModel(): app.pachli.core.model.SuggestionSources = when (this) {
+        STAFF -> app.pachli.core.model.SuggestionSources.FEATURED
+        PAST_INTERACTIONS -> app.pachli.core.model.SuggestionSources.SIMILAR_TO_RECENTLY_FOLLOWED
+        GLOBAL -> app.pachli.core.model.SuggestionSources.MOST_FOLLOWED
+        UNKNOWN -> app.pachli.core.model.SuggestionSources.UNKNOWN
+    }
 }
 
 /**
@@ -73,7 +82,21 @@ enum class SuggestionSources {
 
     @Default
     UNKNOWN,
+
+    ;
+
+    fun asModel(): app.pachli.core.model.SuggestionSources = when (this) {
+        FEATURED -> app.pachli.core.model.SuggestionSources.FEATURED
+        MOST_FOLLOWED -> app.pachli.core.model.SuggestionSources.MOST_FOLLOWED
+        MOST_INTERACTIONS -> app.pachli.core.model.SuggestionSources.MOST_INTERACTIONS
+        SIMILAR_TO_RECENTLY_FOLLOWED -> app.pachli.core.model.SuggestionSources.SIMILAR_TO_RECENTLY_FOLLOWED
+        FRIENDS_OF_FRIENDS -> app.pachli.core.model.SuggestionSources.FRIENDS_OF_FRIENDS
+        UNKNOWN -> app.pachli.core.model.SuggestionSources.UNKNOWN
+    }
 }
+
+@JvmName("iterableSuggestionSourcesAsModel")
+fun Iterable<SuggestionSources>.asModel() = map { it.asModel() }
 
 /**
  * A suggested account to follow.
@@ -88,4 +111,9 @@ data class Suggestion(
     val source: SuggestionSource,
     val sources: List<SuggestionSources>? = null,
     val account: Account,
-)
+) {
+    fun asModel() = app.pachli.core.model.Suggestion(
+        sources = sources?.asModel() ?: listOf(source.asModel()),
+        account = account.asModel(),
+    )
+}

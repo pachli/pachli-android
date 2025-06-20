@@ -19,8 +19,8 @@ package app.pachli.core.database.model
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
-import app.pachli.core.network.model.MastoList
-import app.pachli.core.network.model.UserListRepliesPolicy
+import app.pachli.core.model.MastodonList
+import app.pachli.core.model.UserListRepliesPolicy
 
 /**
  * Represents a Mastodon list definition.
@@ -49,17 +49,22 @@ data class MastodonListEntity(
     val repliesPolicy: UserListRepliesPolicy,
     val exclusive: Boolean,
 ) {
-    companion object {
-        fun make(pachliAccountId: Long, networkList: MastoList) = MastodonListEntity(
-            pachliAccountId,
-            networkList.id,
-            networkList.title,
-            networkList.repliesPolicy,
-            networkList.exclusive ?: false,
-        )
-
-        fun make(pachliAccountId: Long, networkLists: List<MastoList>) = networkLists.map {
-            make(pachliAccountId, it)
-        }
-    }
+    fun asModel() = MastodonList(
+        listId = listId,
+        title = title,
+        repliesPolicy = repliesPolicy,
+        exclusive = exclusive,
+    )
 }
+
+fun Iterable<MastodonListEntity>.asModel() = map { it.asModel() }
+
+fun MastodonList.asEntity(pachliAccountId: Long) = MastodonListEntity(
+    accountId = pachliAccountId,
+    listId = listId,
+    title = title,
+    repliesPolicy = repliesPolicy,
+    exclusive = exclusive,
+)
+
+fun Iterable<MastodonList>.asEntity(pachliAccountId: Long) = map { it.asEntity(pachliAccountId) }

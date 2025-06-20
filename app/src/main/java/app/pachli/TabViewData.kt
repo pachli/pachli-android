@@ -28,9 +28,9 @@ import app.pachli.components.notifications.NotificationsFragment
 import app.pachli.components.timeline.TimelineFragment
 import app.pachli.components.trending.TrendingLinksFragment
 import app.pachli.components.trending.TrendingTagsFragment
+import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.ComposeActivityIntent
-import app.pachli.core.network.model.Status
 
 /**
  * Wrap a [Timeline] with additional information to display a tab with that

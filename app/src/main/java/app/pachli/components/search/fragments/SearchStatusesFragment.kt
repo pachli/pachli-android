@@ -42,6 +42,10 @@ import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.domain.DownloadUrlUseCase
+import app.pachli.core.model.Attachment
+import app.pachli.core.model.Poll
+import app.pachli.core.model.Status
+import app.pachli.core.model.Status.Mention
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
@@ -49,10 +53,6 @@ import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InReplyTo
 import app.pachli.core.navigation.EditContentFilterActivityIntent
 import app.pachli.core.navigation.ReportActivityIntent
 import app.pachli.core.navigation.ViewMediaActivityIntent
-import app.pachli.core.network.model.Attachment
-import app.pachli.core.network.model.Poll
-import app.pachli.core.network.model.Status
-import app.pachli.core.network.model.Status.Mention
 import app.pachli.core.ui.ClipboardUseCase
 import app.pachli.core.ui.SetMarkdownContent
 import app.pachli.core.ui.SetMastodonHtmlContent
@@ -426,15 +426,8 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                 .setMessage(R.string.dialog_redraft_post_warning)
                 .setPositiveButton(android.R.string.ok) { _, _ ->
                     lifecycleScope.launch {
-                        viewModel.deleteStatusAsync(statusViewData.id).await().onSuccess {
-                            val deletedStatus = it.body
+                        viewModel.deleteStatusAsync(statusViewData.id).await().onSuccess { redraftStatus ->
                             viewModel.removeItem(statusViewData)
-
-                            val redraftStatus = if (deletedStatus.isEmpty()) {
-                                statusViewData.status.toDeletedStatus()
-                            } else {
-                                deletedStatus
-                            }
 
                             val intent = ComposeActivityIntent(
                                 requireContext(),

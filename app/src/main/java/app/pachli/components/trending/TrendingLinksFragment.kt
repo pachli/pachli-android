@@ -47,10 +47,10 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.model.PreviewCard
 import app.pachli.core.model.ServerOperation
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.TimelineActivityIntent
-import app.pachli.core.network.model.PreviewCard
 import app.pachli.core.ui.ActionButtonScrollListener
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.databinding.FragmentTrendingLinksBinding

@@ -80,7 +80,7 @@ class TimelinePagingAdapter(
     ) {
         try {
             getItem(position)
-        } catch (e: IndexOutOfBoundsException) {
+        } catch (_: IndexOutOfBoundsException) {
             null
         }?.let {
             (viewHolder as StatusViewHolder<StatusViewData>).setupWithStatus(
@@ -99,7 +99,7 @@ class TimelinePagingAdapter(
         // case.
         val viewData = try {
             getItem(position) ?: return VIEW_TYPE_PLACEHOLDER
-        } catch (e: IndexOutOfBoundsException) {
+        } catch (_: IndexOutOfBoundsException) {
             return VIEW_TYPE_PLACEHOLDER
         }
 

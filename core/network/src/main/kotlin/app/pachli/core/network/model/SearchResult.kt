@@ -23,4 +23,10 @@ data class SearchResult(
     val accounts: List<TimelineAccount>,
     val statuses: List<Status>,
     val hashtags: List<HashTag>,
-)
+) {
+    fun asModel() = app.pachli.core.model.SearchResult(
+        accounts = accounts.asModel(),
+        statuses = statuses.asModel(),
+        hashtags = hashtags.asModel(),
+    )
+}

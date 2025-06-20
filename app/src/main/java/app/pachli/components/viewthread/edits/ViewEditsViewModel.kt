@@ -21,7 +21,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.components.viewthread.edits.PachliTagHandler.Companion.DELETED_TEXT_EL
 import app.pachli.components.viewthread.edits.PachliTagHandler.Companion.INSERTED_TEXT_EL
-import app.pachli.core.network.model.StatusEdit
+import app.pachli.core.model.StatusEdit
+import app.pachli.core.network.model.asModel
 import app.pachli.core.network.retrofit.MastodonApi
 import com.github.michaelbull.result.getOrElse
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -54,7 +55,7 @@ class ViewEditsViewModel @Inject constructor(private val api: MastodonApi) : Vie
     val uiState: StateFlow<EditsUiState> = _uiState.asStateFlow()
 
     /** The API call to fetch edit history returned less than two items */
-    object MissingEditsException : Exception()
+    data object MissingEditsException : Exception()
 
     fun loadEdits(statusId: String, force: Boolean = false, refreshing: Boolean = false) {
         if (!force && _uiState.value !is EditsUiState.Initial) return
@@ -69,7 +70,7 @@ class ViewEditsViewModel @Inject constructor(private val api: MastodonApi) : Vie
             val edits = api.statusEdits(statusId).getOrElse {
                 _uiState.value = EditsUiState.Error(it.throwable)
                 return@launch
-            }.body
+            }.body.asModel()
 
             // `edits` might have fewer than the minimum number of entries because of
             // https://github.com/mastodon/mastodon/issues/25398.

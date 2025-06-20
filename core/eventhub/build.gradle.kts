@@ -29,6 +29,5 @@ android {
 }
 
 dependencies {
-    api(projects.core.network)
-        ?.because("Exposes network types in events")
+    api(projects.core.model)
 }

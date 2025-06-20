@@ -23,7 +23,7 @@ import android.widget.LinearLayout
 import app.pachli.R
 import app.pachli.adapter.PreviewPollOptionsAdapter
 import app.pachli.core.designsystem.R as DR
-import app.pachli.core.network.model.NewPoll
+import app.pachli.core.model.NewPoll
 import app.pachli.databinding.ViewPollPreviewBinding
 
 class PollPreviewView @JvmOverloads constructor(

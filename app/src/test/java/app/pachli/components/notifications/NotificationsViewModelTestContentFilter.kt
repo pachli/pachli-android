@@ -18,14 +18,14 @@
 package app.pachli.components.notifications
 
 import app.cash.turbine.test
-import app.pachli.core.network.model.Notification
+import app.pachli.core.model.Notification
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
 /**
- * Verify that [ApplyFilter] is handled correctly on receipt:
+ * Verify that [InfallibleUiAction.ApplyFilter] is handled correctly on receipt:
  */
 @HiltAndroidTest
 class NotificationsViewModelTestContentFilter : NotificationsViewModelTestBase() {

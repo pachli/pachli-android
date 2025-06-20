@@ -19,8 +19,8 @@ package app.pachli.translation
 
 import app.pachli.core.common.PachliError
 import app.pachli.core.data.model.IStatusViewData
+import app.pachli.core.model.Status
 import app.pachli.core.model.translation.TranslatedStatus
-import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.mapEither

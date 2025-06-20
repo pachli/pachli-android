@@ -101,7 +101,7 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
         lifecycleScope.launch {
             viewModel.getStatus(draft.inReplyToId!!)
                 .onSuccess {
-                    val status = it.body
+                    val status = it.body.asModel()
                     val composeOptions = ComposeOptions(
                         draftId = draft.id,
                         content = draft.content,

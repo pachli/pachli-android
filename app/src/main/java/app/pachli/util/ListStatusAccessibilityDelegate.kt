@@ -11,7 +11,7 @@ import app.pachli.adapter.FilterableStatusViewHolder
 import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.core.activity.OpenUrlUseCase
 import app.pachli.core.data.model.IStatusViewData
-import app.pachli.core.network.model.Status.Companion.MAX_MEDIA_ATTACHMENTS
+import app.pachli.core.model.Status.Companion.MAX_MEDIA_ATTACHMENTS
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.accessibility.PachliRecyclerViewAccessibilityDelegate
 import app.pachli.interfaces.StatusActionListener

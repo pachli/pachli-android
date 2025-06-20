@@ -39,6 +39,8 @@ import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.ServerRepository
 import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.model.DeletedStatus
+import app.pachli.core.model.Poll
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_BY_DATE
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_FROM
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_AUDIO
@@ -53,14 +55,14 @@ import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IN_PU
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IS_REPLY
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IS_SENSITIVE
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_LANGUAGE
-import app.pachli.core.network.model.DeletedStatus
-import app.pachli.core.network.model.Poll
-import app.pachli.core.network.model.Status
+import app.pachli.core.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
-import app.pachli.core.network.retrofit.apiresult.ApiResult
+import app.pachli.core.network.retrofit.apiresult.ApiError
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.getInitialLanguages
 import app.pachli.util.getLocaleList
+import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.map
 import com.github.michaelbull.result.mapBoth
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
@@ -344,9 +346,9 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    fun deleteStatusAsync(id: String): Deferred<ApiResult<DeletedStatus>> {
+    fun deleteStatusAsync(id: String): Deferred<Result<DeletedStatus, ApiError>> {
         return viewModelScope.async {
-            timelineCases.delete(id)
+            timelineCases.delete(id).map { it.body.asModel() }
         }
     }
 
@@ -364,7 +366,7 @@ class SearchViewModel @Inject constructor(
         // be known by the server and there is no need to resolve them further.
         return mastodonApi.search(query = token, resolve = false, type = SearchType.Account.apiParameter, limit = 10)
             .mapBoth(
-                { it.body.accounts.map { ComposeAutoCompleteAdapter.AutocompleteResult.AccountResult(it) } },
+                { it.body.accounts.map { ComposeAutoCompleteAdapter.AutocompleteResult.AccountResult(it.asModel()) } },
                 {
                     Timber.e("Autocomplete search for %s failed: %s", token, it)
                     emptyList()

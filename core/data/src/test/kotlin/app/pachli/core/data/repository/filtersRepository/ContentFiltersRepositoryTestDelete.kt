@@ -18,10 +18,9 @@
 package app.pachli.core.data.repository.filtersRepository
 
 import app.cash.turbine.test
-import app.pachli.core.data.model.from
 import app.pachli.core.data.repository.ContentFilters
-import app.pachli.core.model.ContentFilter
 import app.pachli.core.model.ContentFilterVersion
+import app.pachli.core.network.model.asModel
 import app.pachli.core.testing.success
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -53,7 +52,7 @@ class ContentFiltersRepositoryTestV2Delete : V2Test() {
             // Confirm flow now contains the new filters.
             assertThat(awaitItem()).isEqualTo(
                 ContentFilters(
-                    contentFilters = networkFilters.map { ContentFilter.from(it) },
+                    contentFilters = networkFilters.asModel(),
                     version = ContentFilterVersion.V2,
                 ),
             )
@@ -91,7 +90,7 @@ class ContentFiltersRepositoryTestV1Delete : V1Test() {
             // Confirm flow now contains the new filters.
             assertThat(awaitItem()).isEqualTo(
                 ContentFilters(
-                    contentFilters = networkFiltersV1.map { ContentFilter.from(it) },
+                    contentFilters = networkFiltersV1.asModel(),
                     version = ContentFilterVersion.V1,
                 ),
             )

@@ -30,6 +30,7 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.common)
     implementation(libs.moshi)
     implementation(libs.moshi.adapters)
     ksp(libs.moshi.codegen)

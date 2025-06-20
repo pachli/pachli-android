@@ -34,12 +34,14 @@ import app.pachli.core.eventhub.MuteConversationEvent
 import app.pachli.core.eventhub.PinEvent
 import app.pachli.core.eventhub.PollVoteEvent
 import app.pachli.core.eventhub.ReblogEvent
-import app.pachli.core.network.model.Poll
-import app.pachli.core.network.model.Status
+import app.pachli.core.model.Poll
+import app.pachli.core.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.map
 import com.github.michaelbull.result.mapEither
+import com.github.michaelbull.result.mapError
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import javax.inject.Inject
@@ -102,7 +104,7 @@ class StatusRepository @Inject constructor(
             }
                 .onSuccess { eventHub.dispatch(BookmarkEvent(statusId, bookmarked)) }
                 .onFailure { statusDao.setBookmarked(pachliAccountId, statusId, !bookmarked) }
-                .mapEither({ it.body }, { StatusActionError.Bookmark(it) })
+                .mapEither({ it.body.asModel() }, { StatusActionError.Bookmark(it) })
         }
     }.await()
 
@@ -129,7 +131,7 @@ class StatusRepository @Inject constructor(
             }
                 .onSuccess { eventHub.dispatch(FavoriteEvent(statusId, favourited)) }
                 .onFailure { statusDao.setFavourited(pachliAccountId, statusId, !favourited) }
-                .mapEither({ it.body }, { StatusActionError.Favourite(it) })
+                .mapEither({ it.body.asModel() }, { StatusActionError.Favourite(it) })
         }
     }.await()
 
@@ -156,7 +158,7 @@ class StatusRepository @Inject constructor(
             }
                 .onSuccess { eventHub.dispatch(ReblogEvent(statusId, reblogged)) }
                 .onFailure { statusDao.setReblogged(pachliAccountId, statusId, !reblogged) }
-                .mapEither({ it.body }, { StatusActionError.Reblog(it) })
+                .mapEither({ it.body.asModel() }, { StatusActionError.Reblog(it) })
         }
     }.await()
 
@@ -182,7 +184,7 @@ class StatusRepository @Inject constructor(
         }
             .onSuccess { eventHub.dispatch(MuteConversationEvent(pachliAccountId, statusId, muted)) }
             .onFailure { statusDao.setMuted(pachliAccountId, statusId, !muted) }
-            .mapEither({ it.body }, { StatusActionError.Mute(it) })
+            .mapEither({ it.body.asModel() }, { StatusActionError.Mute(it) })
     }.await()
 
     /**
@@ -207,7 +209,7 @@ class StatusRepository @Inject constructor(
         }
             .onSuccess { eventHub.dispatch(PinEvent(statusId, pinned)) }
             .onFailure { statusDao.setPinned(pachliAccountId, statusId, !pinned) }
-            .mapEither({ it.body }, { StatusActionError.Pin(it) })
+            .mapEither({ it.body.asModel() }, { StatusActionError.Pin(it) })
     }.await()
 
     /**
@@ -233,12 +235,13 @@ class StatusRepository @Inject constructor(
             }
 
             mastodonApi.voteInPoll(pollId, choices)
+                .map { it.body.asModel() }
                 .onSuccess { poll ->
-                    statusDao.setPoll(pachliAccountId, statusId, poll.body)
-                    eventHub.dispatch(PollVoteEvent(statusId, poll.body))
+                    statusDao.setPoll(pachliAccountId, statusId, poll)
+                    eventHub.dispatch(PollVoteEvent(statusId, poll))
                 }
                 .onFailure { poll?.let { statusDao.setPoll(pachliAccountId, statusId, it) } }
-                .mapEither({ it.body }, { StatusActionError.VoteInPoll(it) })
+                .mapError { StatusActionError.VoteInPoll(it) }
         }
     }.await()
 

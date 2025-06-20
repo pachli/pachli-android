@@ -29,6 +29,7 @@ import app.pachli.core.network.extensions.getServerErrorMessage
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.testing.failure
+import app.pachli.core.testing.fakes.fakeAccount
 import app.pachli.core.testing.success
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.getError
@@ -46,7 +47,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.kotlin.doReturn
-import org.mockito.kotlin.mock
 import org.mockito.kotlin.reset
 import org.mockito.kotlin.stub
 import org.robolectric.annotation.Config
@@ -132,7 +132,7 @@ class StatusRepositoryTest {
         return Status(
             id = "123",
             url = "https://mastodon.social/@Tusky/100571663297225812",
-            account = mock(),
+            account = fakeAccount(),
             inReplyToId = null,
             inReplyToAccountId = null,
             reblog = null,

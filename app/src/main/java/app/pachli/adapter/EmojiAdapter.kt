@@ -20,7 +20,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.widget.TooltipCompat
 import androidx.recyclerview.widget.RecyclerView
-import app.pachli.core.network.model.Emoji
+import app.pachli.core.model.Emoji
 import app.pachli.core.ui.BindingHolder
 import app.pachli.databinding.ItemEmojiButtonBinding
 import com.bumptech.glide.RequestManager

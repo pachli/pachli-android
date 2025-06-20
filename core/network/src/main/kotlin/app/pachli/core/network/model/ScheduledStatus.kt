@@ -26,4 +26,13 @@ data class ScheduledStatus(
     @Json(name = "scheduled_at") val scheduledAt: Date,
     val params: StatusParams,
     @Json(name = "media_attachments") val mediaAttachments: List<Attachment>,
-)
+) {
+    fun asModel() = app.pachli.core.model.ScheduledStatus(
+        id = id,
+        scheduledAt = scheduledAt,
+        params = params.asModel(),
+        mediaAttachments = mediaAttachments.asModel(),
+    )
+}
+
+fun Iterable<ScheduledStatus>.asModel() = map { it.asModel() }

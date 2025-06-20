@@ -18,15 +18,14 @@
 package app.pachli.core.data.repository.filtersRepository
 
 import app.cash.turbine.test
-import app.pachli.core.data.model.from
 import app.pachli.core.data.repository.ContentFilterEdit
 import app.pachli.core.data.repository.ContentFilters
-import app.pachli.core.model.ContentFilter
 import app.pachli.core.model.ContentFilterVersion
 import app.pachli.core.model.FilterKeyword
 import app.pachli.core.network.model.FilterAction as NetworkFilterAction
 import app.pachli.core.network.model.FilterContext as NetworkFilterContext
 import app.pachli.core.network.model.FilterKeyword as NetworkFilterKeyword
+import app.pachli.core.network.model.asModel
 import app.pachli.core.testing.success
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -92,7 +91,7 @@ class ContentFiltersRepositoryTestUpdate : V2Test() {
             val contentFilters = awaitItem()
             assertThat(contentFilters).isEqualTo(
                 ContentFilters(
-                    contentFilters = networkFilters.map { ContentFilter.from(it) },
+                    contentFilters = networkFilters.asModel(),
                     version = ContentFilterVersion.V2,
                 ),
             )
@@ -155,7 +154,7 @@ class ContentFiltersRepositoryTestUpdate : V2Test() {
             val contentFilters = awaitItem()
             assertThat(contentFilters).isEqualTo(
                 ContentFilters(
-                    contentFilters = networkFilters.map { ContentFilter.from(it) },
+                    contentFilters = networkFilters.asModel(),
                     version = ContentFilterVersion.V2,
                 ),
             )

@@ -43,11 +43,11 @@ import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
-import app.pachli.core.data.model.MastodonList
 import app.pachli.core.data.repository.ListsRepository.Companion.compareByListTitle
+import app.pachli.core.model.MastodonList
+import app.pachli.core.model.UserListRepliesPolicy
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.navigation.pachliAccountId
-import app.pachli.core.network.model.UserListRepliesPolicy
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.core.ui.extensions.await
 import app.pachli.feature.lists.databinding.ActivityListsBinding
@@ -165,9 +165,7 @@ class ListsActivity : BaseActivity(), MenuProvider {
             }
 
             list?.let { list ->
-                list.exclusive?.let {
-                    binding.exclusiveCheckbox.isChecked = it
-                } ?: binding.exclusiveCheckbox.hide()
+                binding.exclusiveCheckbox.isChecked = list.exclusive
             }
 
             binding.repliesPolicyGroup.check(list?.repliesPolicy?.resourceId() ?: UserListRepliesPolicy.LIST.resourceId())
@@ -196,7 +194,7 @@ class ListsActivity : BaseActivity(), MenuProvider {
             .create()
             .await(R.string.action_delete_list, android.R.string.cancel)
 
-        if (result == AlertDialog.BUTTON_POSITIVE) viewModel.deleteList(list)
+        if (result == AlertDialog.BUTTON_POSITIVE) viewModel.deleteList(intent.pachliAccountId, list)
     }
 
     private fun bind(lists: List<MastodonList>) {

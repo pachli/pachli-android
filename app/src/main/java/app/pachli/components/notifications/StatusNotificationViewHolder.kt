@@ -35,7 +35,7 @@ import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.designsystem.R as DR
-import app.pachli.core.network.model.Emoji
+import app.pachli.core.model.Emoji
 import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.SetStatusContent
 import app.pachli.core.ui.emojify

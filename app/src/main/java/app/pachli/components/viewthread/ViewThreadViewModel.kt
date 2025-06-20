@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.components.timeline.CachedTimelineRepository
 import app.pachli.core.common.PachliError
+import app.pachli.core.data.model.ContentFilterModel
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.Loadable
@@ -41,11 +42,11 @@ import app.pachli.core.eventhub.StatusEditedEvent
 import app.pachli.core.model.ContentFilterVersion
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.FilterContext
-import app.pachli.core.network.model.Poll
-import app.pachli.core.network.model.Status
+import app.pachli.core.model.Poll
+import app.pachli.core.model.Status
+import app.pachli.core.network.model.asModel
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiError
-import app.pachli.network.ContentFilterModel
 import app.pachli.usecase.TimelineCases
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
@@ -187,7 +188,7 @@ class ViewThreadViewModel @Inject constructor(
                 val status = statusCall.await().getOrElse { error ->
                     _uiResult.value = Err(ThreadError.Api(error))
                     return@launch
-                }.body
+                }.body.asModel()
 
                 val statusViewData = StatusViewData.fromStatusAndUiState(account, status, isDetailed = true)
                 existingViewData?.let {
@@ -210,7 +211,7 @@ class ViewThreadViewModel @Inject constructor(
             // for the status. Ignore errors, the user still has a functioning UI if the fetch
             // failed.
             if (timelineStatusWithAccount != null) {
-                api.status(id).get()?.body?.let {
+                api.status(id).get()?.body?.asModel()?.let {
                     detailedStatus = StatusViewData.from(
                         pachliAccountId = account.id,
                         it,
@@ -232,7 +233,7 @@ class ViewThreadViewModel @Inject constructor(
                 val ids = statusContext.ancestors.map { it.id } + statusContext.descendants.map { it.id }
                 val cachedViewData = repository.getStatusViewData(activeAccount.id, ids)
                 val cachedTranslations = repository.getStatusTranslations(activeAccount.id, ids)
-                val ancestors = statusContext.ancestors.map { status ->
+                val ancestors = statusContext.ancestors.asModel().map { status ->
                     val svd = cachedViewData[status.id]
                     StatusViewData.from(
                         pachliAccountId = account.id,
@@ -246,7 +247,7 @@ class ViewThreadViewModel @Inject constructor(
                         translation = cachedTranslations[status.id],
                     )
                 }.filterByFilterAction()
-                val descendants = statusContext.descendants.map { status ->
+                val descendants = statusContext.descendants.asModel().map { status ->
                     val svd = cachedViewData[status.id]
                     StatusViewData.from(
                         pachliAccountId = account.id,

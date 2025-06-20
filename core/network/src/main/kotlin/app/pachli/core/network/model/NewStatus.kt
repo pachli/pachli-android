@@ -16,11 +16,9 @@
 
 package app.pachli.core.network.model
 
-import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import java.util.Date
-import kotlinx.parcelize.Parcelize
 
 @JsonClass(generateAdapter = true)
 data class NewStatus(
@@ -36,21 +34,53 @@ data class NewStatus(
     val language: String?,
 )
 
-@Parcelize
+fun app.pachli.core.model.NewStatus.asNetworkModel() = NewStatus(
+    status = status,
+    warningText = warningText,
+    inReplyToId = inReplyToId,
+    visibility = visibility,
+    sensitive = sensitive,
+    mediaIds = mediaIds,
+    mediaAttributes = mediaAttributes?.asNetworkModel(),
+    scheduledAt = scheduledAt,
+    poll = poll?.asNetworkModel(),
+    language = language,
+)
+
 @JsonClass(generateAdapter = true)
 data class NewPoll(
     val options: List<String>,
     @Json(name = "expires_in") val expiresIn: Int,
     val multiple: Boolean,
-) : Parcelable
+) {
+    fun asModel() = app.pachli.core.model.NewPoll(
+        options = options,
+        expiresIn = expiresIn,
+        multiple = multiple,
+    )
+}
+
+fun app.pachli.core.model.NewPoll.asNetworkModel() = NewPoll(
+    options = options,
+    expiresIn = expiresIn,
+    multiple = multiple,
+)
 
 // It would be nice if we could reuse MediaToSend,
 // but the server requires a different format for focus
-@Parcelize
 @JsonClass(generateAdapter = true)
 data class MediaAttribute(
     val id: String,
     val description: String?,
     val focus: String?,
     val thumbnail: String?,
-) : Parcelable
+)
+
+fun app.pachli.core.model.MediaAttribute.asNetworkModel() = MediaAttribute(
+    id = id,
+    description = description,
+    focus = focus,
+    thumbnail = thumbnail,
+)
+
+fun Iterable<app.pachli.core.model.MediaAttribute>.asNetworkModel() = map { it.asNetworkModel() }

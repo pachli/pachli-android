@@ -26,4 +26,14 @@ data class Conversation(
     // should never be null, but apparently its possible https://github.com/tuskyapp/Tusky/issues/1038
     @Json(name = "last_status") val lastStatus: Status?,
     val unread: Boolean,
-)
+) {
+    fun asModel() = app.pachli.core.model.Conversation(
+        id = id,
+        accounts = accounts.asModel(),
+        lastStatus = lastStatus?.asModel(),
+        unread = unread,
+    )
+}
+
+@JvmName("iterableConversationAsModel")
+fun Iterable<Conversation>.asModel() = map { it.asModel() }

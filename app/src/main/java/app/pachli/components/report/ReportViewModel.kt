@@ -32,8 +32,8 @@ import app.pachli.core.data.repository.get
 import app.pachli.core.eventhub.BlockEvent
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.MuteEvent
-import app.pachli.core.network.model.Relationship
-import app.pachli.core.network.model.Status
+import app.pachli.core.model.Relationship
+import app.pachli.core.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
@@ -100,7 +100,7 @@ class ReportViewModel @AssistedInject constructor(
         flow {
             emit(Ok(Loadable.Loading))
             emit(
-                mastodonApi.relationships(listOf(reportedAccountId)).map { it.body.first() }
+                mastodonApi.relationships(listOf(reportedAccountId)).map { it.body.first().asModel() }
                     .map { Loadable.Loaded(it) },
             )
         }
@@ -180,7 +180,7 @@ class ReportViewModel @AssistedInject constructor(
         .map { pagingData ->
                 /* TODO: refactor reports to use the isShowingContent / isExpanded / isCollapsed attributes from StatusViewData
                  instead of StatusViewState */
-            pagingData.map { status -> StatusViewData.from(pachliAccountId, status, false, false, false) }
+            pagingData.map { status -> StatusViewData.from(pachliAccountId, status.asModel(), false, false, false) }
         }
         .cachedIn(viewModelScope)
 

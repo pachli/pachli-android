@@ -27,13 +27,14 @@ import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.InstanceInfoRepository
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.ProfileEditedEvent
-import app.pachli.core.network.model.CredentialAccount
-import app.pachli.core.network.model.StringField
+import app.pachli.core.model.CredentialAccount
+import app.pachli.core.model.StringField
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.util.Error
 import app.pachli.util.Loading
 import app.pachli.util.Resource
 import app.pachli.util.Success
+import com.github.michaelbull.result.map
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -90,9 +91,10 @@ class EditProfileViewModel @Inject constructor(
             profileData.postValue(Loading())
 
             mastodonApi.accountVerifyCredentials()
+                .map { it.body.asModel() }
                 .onSuccess { profile ->
-                    apiProfileAccount = profile.body
-                    profileData.postValue(Success(profile.body))
+                    apiProfileAccount = profile
+                    profileData.postValue(Success(profile))
                 }
                 .onFailure { profileData.postValue(Error()) }
         }
@@ -150,7 +152,7 @@ class EditProfileViewModel @Inject constructor(
                 diff.field4?.first?.toRequestBody(MultipartBody.FORM),
                 diff.field4?.second?.toRequestBody(MultipartBody.FORM),
             ).onSuccess {
-                val newAccountData = it.body
+                val newAccountData = it.body.asModel()
                 accountManager.updateAccount(pachliAccountId, newAccountData)
                 saveData.postValue(Success())
                 eventHub.dispatch(ProfileEditedEvent(newAccountData))

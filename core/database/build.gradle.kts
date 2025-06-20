@@ -41,7 +41,6 @@ android {
 dependencies {
     implementation(projects.core.common)
     implementation(projects.core.model)
-    implementation(projects.core.network)
     implementation(projects.core.preferences)
 
     // Because of the use of @Json in DraftEntity
@@ -56,6 +55,8 @@ dependencies {
     implementation(libs.semver)?.because("Converters has to convert Version")
 
     testImplementation(projects.core.testing)
+    testImplementation(projects.core.network)
+        ?.because("Creates core.network.model.Status in tests")
 
     androidTestImplementation(libs.androidx.test.rules)
     androidTestImplementation(libs.hilt.android.testing)

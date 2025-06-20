@@ -41,11 +41,11 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.util.unsafeLazy
-import app.pachli.core.data.model.MastodonList
 import app.pachli.core.data.repository.ListsRepository
 import app.pachli.core.data.repository.ListsRepository.Companion.compareByListTitle
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.eventhub.EventHub
+import app.pachli.core.model.MastodonList
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.ListsActivityIntent
 import app.pachli.core.navigation.pachliAccountId

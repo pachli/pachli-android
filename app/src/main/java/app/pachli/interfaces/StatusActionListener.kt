@@ -19,8 +19,8 @@ package app.pachli.interfaces
 
 import android.view.View
 import app.pachli.core.data.model.IStatusViewData
-import app.pachli.core.network.model.Poll
-import app.pachli.core.network.model.Status
+import app.pachli.core.model.Poll
+import app.pachli.core.model.Status
 import app.pachli.core.ui.LinkListener
 
 interface StatusActionListener<T : IStatusViewData> : LinkListener {

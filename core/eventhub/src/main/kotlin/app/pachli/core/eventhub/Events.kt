@@ -1,8 +1,8 @@
 package app.pachli.core.eventhub
 
-import app.pachli.core.network.model.Account
-import app.pachli.core.network.model.Poll
-import app.pachli.core.network.model.Status
+import app.pachli.core.model.Account
+import app.pachli.core.model.Poll
+import app.pachli.core.model.Status
 
 data class FavoriteEvent(val statusId: String, val favourite: Boolean) : Event
 data class ReblogEvent(val statusId: String, val reblog: Boolean) : Event

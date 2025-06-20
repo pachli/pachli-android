@@ -28,8 +28,8 @@ import app.pachli.core.database.Converters
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.PachliAccount
 import app.pachli.core.model.FilterAction
+import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
-import app.pachli.core.network.model.Status
 import kotlinx.coroutines.flow.Flow
 
 @Dao

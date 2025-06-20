@@ -26,7 +26,7 @@ import android.text.Spanned
 import android.text.style.ReplacementSpan
 import android.view.View
 import androidx.core.graphics.withSave
-import app.pachli.core.network.model.Emoji
+import app.pachli.core.model.Emoji
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.Target

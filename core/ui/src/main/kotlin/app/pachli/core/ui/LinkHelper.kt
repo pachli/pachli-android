@@ -24,8 +24,8 @@ import android.widget.TextView
 import androidx.annotation.VisibleForTesting
 import androidx.core.net.toUri
 import androidx.core.text.method.LinkMovementMethodCompat
-import app.pachli.core.network.model.HashTag
-import app.pachli.core.network.model.Status.Mention
+import app.pachli.core.model.HashTag
+import app.pachli.core.model.Status.Mention
 import com.mikepenz.iconics.IconicsColor
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.IconicsSize

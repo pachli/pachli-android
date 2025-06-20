@@ -19,36 +19,16 @@ data class Poll(
     @BooleanIfNull(false) val voted: Boolean = false,
     @Json(name = "own_votes") val ownVotes: List<Int>?,
 ) {
-
-    /**
-     * @param choices Indices of the user's choices
-     * @return A copy of the poll with the vote counts for each choice
-     * updated to reflect the user's voting choices in [choices], and
-     * with [voted][Poll.voted] set to `true`.
-     */
-    fun votedCopy(choices: List<Int>): Poll {
-        val newOptions = options.mapIndexed { index, option ->
-            if (choices.contains(index)) {
-                option.copy(votesCount = option.votesCount + 1)
-            } else {
-                option
-            }
-        }
-
-        return copy(
-            options = newOptions,
-            votesCount = votesCount + choices.size,
-            votersCount = votersCount?.plus(1),
-            voted = true,
-        )
-    }
-
-    fun toNewPoll(creationDate: Date) = NewPoll(
-        options.map { it.title },
-        expiresAt?.let {
-            ((it.time - creationDate.time) / 1000).toInt() + 1
-        } ?: 3600,
-        multiple,
+    fun asModel() = app.pachli.core.model.Poll(
+        id = id,
+        expiresAt = expiresAt,
+        expired = expired,
+        multiple = multiple,
+        votesCount = votesCount,
+        votersCount = votersCount,
+        options = options.asModel(),
+        voted = voted,
+        ownVotes = ownVotes,
     )
 }
 
@@ -56,4 +36,11 @@ data class Poll(
 data class PollOption(
     val title: String,
     @Json(name = "votes_count") val votesCount: Int,
-)
+) {
+    fun asModel() = app.pachli.core.model.PollOption(
+        title = title,
+        votesCount = votesCount,
+    )
+}
+
+fun Iterable<PollOption>.asModel() = map { it.asModel() }

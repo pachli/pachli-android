@@ -19,7 +19,7 @@ package app.pachli.components.trending
 
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.core.data.model.StatusDisplayOptions
-import app.pachli.core.network.model.TrendsLink
+import app.pachli.core.model.TrendsLink
 import app.pachli.databinding.ItemTrendingLinkBinding
 import app.pachli.view.PreviewCardView
 import com.bumptech.glide.RequestManager

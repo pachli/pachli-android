@@ -73,5 +73,24 @@ data class RelationshipSeveranceEvent(
 
         @Default
         UNKNOWN,
+
+        ;
+
+        fun asModel(): app.pachli.core.model.RelationshipSeveranceEvent.Type = when (this) {
+            DOMAIN_BLOCK -> app.pachli.core.model.RelationshipSeveranceEvent.Type.DOMAIN_BLOCK
+            USER_DOMAIN_BLOCK -> app.pachli.core.model.RelationshipSeveranceEvent.Type.USER_DOMAIN_BLOCK
+            ACCOUNT_SUSPENSION -> app.pachli.core.model.RelationshipSeveranceEvent.Type.ACCOUNT_SUSPENSION
+            UNKNOWN -> app.pachli.core.model.RelationshipSeveranceEvent.Type.UNKNOWN
+        }
     }
+
+    fun asModel() = app.pachli.core.model.RelationshipSeveranceEvent(
+        id = id,
+        type = type.asModel(),
+        purged = purged,
+        targetName = targetName,
+        followersCount = followersCount,
+        followingCount = followingCount,
+        createdAt = createdAt,
+    )
 }

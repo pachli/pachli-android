@@ -37,7 +37,7 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.data.model.StatusDisplayOptions
-import app.pachli.core.network.model.Emoji
+import app.pachli.core.model.Emoji
 import app.pachli.databinding.StatusPollBinding
 import app.pachli.util.formatPollDuration
 import app.pachli.viewdata.PollViewData

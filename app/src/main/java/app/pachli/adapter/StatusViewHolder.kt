@@ -28,8 +28,8 @@ import app.pachli.core.common.util.SmartLengthInputFilter
 import app.pachli.core.common.util.formatNumber
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusDisplayOptions
+import app.pachli.core.model.Emoji
 import app.pachli.core.model.FilterAction
-import app.pachli.core.network.model.Emoji
 import app.pachli.core.ui.SetStatusContent
 import app.pachli.core.ui.emojify
 import app.pachli.databinding.ItemStatusBinding

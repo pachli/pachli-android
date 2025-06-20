@@ -48,7 +48,7 @@ import app.pachli.BuildConfig
 import app.pachli.R
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
-import app.pachli.core.network.model.Attachment
+import app.pachli.core.model.Attachment
 import app.pachli.databinding.FragmentViewVideoBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget

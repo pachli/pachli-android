@@ -53,11 +53,11 @@ import app.pachli.core.domain.notifications.NotificationConfig
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.AccountFilterReason
 import app.pachli.core.model.FilterAction
+import app.pachli.core.model.Notification
+import app.pachli.core.model.RelationshipSeveranceEvent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InReplyTo
 import app.pachli.core.navigation.IntentRouterActivityIntent
-import app.pachli.core.network.model.Notification
-import app.pachli.core.network.model.RelationshipSeveranceEvent
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.receiver.SendStatusBroadcastReceiver
 import app.pachli.viewdata.buildDescription
@@ -346,7 +346,7 @@ fun updateSummaryNotifications(
         // See https://github.com/tuskyapp/Tusky/pull/3626#discussion_r1192963664
         try {
             Thread.sleep(1000)
-        } catch (ignored: InterruptedException) {
+        } catch (_: InterruptedException) {
         }
     }
 }

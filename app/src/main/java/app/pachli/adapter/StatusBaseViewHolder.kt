@@ -26,12 +26,12 @@ import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.model.Attachment
+import app.pachli.core.model.Emoji
+import app.pachli.core.model.PreviewCardKind
+import app.pachli.core.model.Status
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.ViewMediaActivityIntent
-import app.pachli.core.network.model.Attachment
-import app.pachli.core.network.model.Emoji
-import app.pachli.core.network.model.PreviewCardKind
-import app.pachli.core.network.model.Status
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.preferences.CardViewMode
 import app.pachli.core.ui.SetStatusContent

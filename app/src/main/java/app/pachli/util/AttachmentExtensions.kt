@@ -19,7 +19,7 @@ package app.pachli.util
 
 import androidx.annotation.DrawableRes
 import app.pachli.R
-import app.pachli.core.network.model.Attachment
+import app.pachli.core.model.Attachment
 
 /** @return a drawable resource for an icon to indicate the attachment type */
 @DrawableRes

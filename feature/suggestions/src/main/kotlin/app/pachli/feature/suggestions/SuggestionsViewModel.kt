@@ -22,11 +22,11 @@ import androidx.lifecycle.viewModelScope
 import app.pachli.core.common.extensions.mapIfInstance
 import app.pachli.core.common.extensions.stateFlow
 import app.pachli.core.data.model.StatusDisplayOptions
-import app.pachli.core.data.model.Suggestion
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.data.repository.SuggestionsError.DeleteSuggestionError
 import app.pachli.core.data.repository.SuggestionsError.FollowAccountError
 import app.pachli.core.data.repository.SuggestionsRepository
+import app.pachli.core.model.Suggestion
 import app.pachli.core.ui.OperationCounter
 import app.pachli.feature.suggestions.UiAction.GetSuggestions
 import app.pachli.feature.suggestions.UiAction.SuggestionAction
@@ -211,28 +211,25 @@ internal class SuggestionsViewModel @Inject constructor(
     }
 
     /** Get fresh suggestions from the repository. */
-    private suspend fun getSuggestions(): Result<Suggestions.Loaded, GetSuggestionsError> =
-        operationCounter {
-            // Note: disabledSuggestions is *not* cleared here. Suppose the user has
-            // dismissed a suggestion and the network operation has not completed yet.
-            // They reload, and get a list of suggestions that includes the suggestion
-            // they have just dismissed. In that case the suggestion should still be
-            // disabled.
-            suggestionsRepository.getSuggestions().mapEither(
-                { Suggestions.Loaded(it.map { SuggestionViewData(suggestion = it) }) },
-                { GetSuggestionsError(it) },
-            )
-        }
+    private suspend fun getSuggestions(): Result<Suggestions.Loaded, GetSuggestionsError> = operationCounter {
+        // Note: disabledSuggestions is *not* cleared here. Suppose the user has
+        // dismissed a suggestion and the network operation has not completed yet.
+        // They reload, and get a list of suggestions that includes the suggestion
+        // they have just dismissed. In that case the suggestion should still be
+        // disabled.
+        suggestionsRepository.getSuggestions().mapEither(
+            { Suggestions.Loaded(it.map { SuggestionViewData(suggestion = it) }) },
+            { GetSuggestionsError(it) },
+        )
+    }
 
     /** Delete a suggestion from the repository. */
-    private suspend fun deleteSuggestion(suggestion: Suggestion): Result<Unit, DeleteSuggestionError> =
-        operationCounter {
-            suggestionsRepository.deleteSuggestion(suggestion.account.id)
-        }
+    private suspend fun deleteSuggestion(suggestion: Suggestion): Result<Unit, DeleteSuggestionError> = operationCounter {
+        suggestionsRepository.deleteSuggestion(suggestion.account.id)
+    }
 
     /** Accept the suggestion and follow the account. */
-    private suspend fun acceptSuggestion(suggestion: Suggestion): Result<Unit, FollowAccountError> =
-        operationCounter {
-            suggestionsRepository.followAccount(suggestion.account.id)
-        }
+    private suspend fun acceptSuggestion(suggestion: Suggestion): Result<Unit, FollowAccountError> = operationCounter {
+        suggestionsRepository.followAccount(suggestion.account.id)
+    }
 }

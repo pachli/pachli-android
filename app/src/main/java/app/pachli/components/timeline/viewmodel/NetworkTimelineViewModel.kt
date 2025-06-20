@@ -36,9 +36,9 @@ import app.pachli.core.eventhub.FavoriteEvent
 import app.pachli.core.eventhub.PinEvent
 import app.pachli.core.eventhub.ReblogEvent
 import app.pachli.core.model.FilterAction
+import app.pachli.core.model.Poll
+import app.pachli.core.model.Status
 import app.pachli.core.model.translation.TranslatedStatus
-import app.pachli.core.network.model.Poll
-import app.pachli.core.network.model.Status
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.translation.TranslatorError
 import app.pachli.usecase.TimelineCases

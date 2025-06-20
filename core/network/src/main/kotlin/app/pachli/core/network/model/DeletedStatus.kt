@@ -35,4 +35,16 @@ data class DeletedStatus(
     fun isEmpty(): Boolean {
         return text == null && attachments == null
     }
+
+    fun asModel() = app.pachli.core.model.DeletedStatus(
+        text = text,
+        inReplyToId = inReplyToId,
+        spoilerText = spoilerText,
+        visibility = visibility.asModel(),
+        sensitive = sensitive,
+        attachments = attachments?.asModel(),
+        poll = poll?.asModel(),
+        createdAt = createdAt,
+        language = language,
+    )
 }

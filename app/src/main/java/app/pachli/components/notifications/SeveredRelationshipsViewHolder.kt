@@ -22,10 +22,10 @@ import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.core.data.model.StatusDisplayOptions
-import app.pachli.core.network.model.RelationshipSeveranceEvent.Type.ACCOUNT_SUSPENSION
-import app.pachli.core.network.model.RelationshipSeveranceEvent.Type.DOMAIN_BLOCK
-import app.pachli.core.network.model.RelationshipSeveranceEvent.Type.UNKNOWN
-import app.pachli.core.network.model.RelationshipSeveranceEvent.Type.USER_DOMAIN_BLOCK
+import app.pachli.core.model.RelationshipSeveranceEvent.Type.ACCOUNT_SUSPENSION
+import app.pachli.core.model.RelationshipSeveranceEvent.Type.DOMAIN_BLOCK
+import app.pachli.core.model.RelationshipSeveranceEvent.Type.UNKNOWN
+import app.pachli.core.model.RelationshipSeveranceEvent.Type.USER_DOMAIN_BLOCK
 import app.pachli.databinding.ItemSeveredRelationshipsBinding
 import app.pachli.util.getRelativeTimeSpanString
 import app.pachli.viewdata.NotificationViewData

@@ -21,10 +21,10 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.core.common.string.unicodeWrap
-import app.pachli.core.data.model.MastodonList
 import app.pachli.core.data.repository.ListsError
 import app.pachli.core.data.repository.ListsRepository
-import app.pachli.core.network.model.UserListRepliesPolicy
+import app.pachli.core.model.MastodonList
+import app.pachli.core.model.UserListRepliesPolicy
 import app.pachli.core.ui.OperationCounter
 import com.github.michaelbull.result.onFailure
 import dagger.assisted.Assisted
@@ -87,9 +87,9 @@ internal class ListsViewModel @AssistedInject constructor(
         }
     }
 
-    fun deleteList(list: MastodonList) = viewModelScope.launch {
+    fun deleteList(pachliAccountId: Long, list: MastodonList) = viewModelScope.launch {
         operationCounter {
-            listsRepository.deleteList(list).onFailure { _errors.send(Error.Delete(list.title, it)) }
+            listsRepository.deleteList(pachliAccountId, list).onFailure { _errors.send(Error.Delete(list.title, it)) }
         }
     }
 

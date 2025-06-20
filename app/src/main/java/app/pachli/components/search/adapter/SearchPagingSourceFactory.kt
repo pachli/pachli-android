@@ -17,7 +17,7 @@
 package app.pachli.components.search.adapter
 
 import app.pachli.components.search.SearchType
-import app.pachli.core.network.model.SearchResult
+import app.pachli.core.model.SearchResult
 import app.pachli.core.network.retrofit.MastodonApi
 
 class SearchPagingSourceFactory<T : Any>(

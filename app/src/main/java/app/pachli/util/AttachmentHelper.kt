@@ -2,7 +2,7 @@ package app.pachli.util
 
 import android.content.Context
 import app.pachli.R
-import app.pachli.core.network.model.Attachment
+import app.pachli.core.model.Attachment
 import kotlin.math.roundToInt
 
 fun Attachment.getFormattedDescription(context: Context): CharSequence {
@@ -24,7 +24,7 @@ private fun formatDuration(durationInSeconds: Double): String {
     return "%d:%02d:%02d".format(hours, minutes, seconds)
 }
 
-fun List<Attachment>.aspectRatios(): List<Double> {
+fun Iterable<Attachment>.aspectRatios(): List<Double> {
     return map { attachment ->
         // clamp ratio between 2:1 & 1:2, defaulting to 16:9
         val (width, height, aspect) = (attachment.meta?.small ?: attachment.meta?.original) ?: return@map 1.7778

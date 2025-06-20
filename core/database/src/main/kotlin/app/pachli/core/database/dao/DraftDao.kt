@@ -21,10 +21,13 @@ import androidx.lifecycle.LiveData
 import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Query
+import androidx.room.TypeConverters
 import androidx.room.Upsert
+import app.pachli.core.database.Converters
 import app.pachli.core.database.model.DraftEntity
 
 @Dao
+@TypeConverters(Converters::class)
 interface DraftDao {
     @Upsert
     suspend fun upsert(draft: DraftEntity)

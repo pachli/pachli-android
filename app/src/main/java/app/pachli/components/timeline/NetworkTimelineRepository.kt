@@ -28,8 +28,8 @@ import app.pachli.components.timeline.viewmodel.NetworkTimelineRemoteMediator
 import app.pachli.components.timeline.viewmodel.PageCache
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
+import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
-import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.ui.getDomain
 import javax.inject.Inject

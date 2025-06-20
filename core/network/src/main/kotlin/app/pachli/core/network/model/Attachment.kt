@@ -17,15 +17,12 @@
 
 package app.pachli.core.network.model
 
-import android.os.Parcelable
 import app.pachli.core.network.json.Default
 import app.pachli.core.network.json.DefaultIfNull
 import app.pachli.core.network.json.HasDefault
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import kotlinx.parcelize.Parcelize
 
-@Parcelize
 @JsonClass(generateAdapter = true)
 data class Attachment(
     val id: String,
@@ -36,7 +33,7 @@ data class Attachment(
     val type: Type,
     val description: String?,
     val blurhash: String?,
-) : Parcelable {
+) {
 
     @HasDefault
     enum class Type {
@@ -55,12 +52,31 @@ data class Attachment(
         @Json(name = "unknown")
         @Default
         UNKNOWN,
+
+        ;
+
+        fun asModel() = when (this) {
+            IMAGE -> app.pachli.core.model.Attachment.Type.IMAGE
+            GIFV -> app.pachli.core.model.Attachment.Type.GIFV
+            VIDEO -> app.pachli.core.model.Attachment.Type.VIDEO
+            AUDIO -> app.pachli.core.model.Attachment.Type.AUDIO
+            UNKNOWN -> app.pachli.core.model.Attachment.Type.UNKNOWN
+        }
     }
+
+    fun asModel() = app.pachli.core.model.Attachment(
+        id = id,
+        url = url,
+        previewUrl = previewUrl,
+        meta = meta?.asModel(),
+        type = type.asModel(),
+        description = description,
+        blurhash = blurhash,
+    )
 
     /**
      * The meta data of an [Attachment].
      */
-    @Parcelize
     @JsonClass(generateAdapter = true)
     data class MetaData(
         // Fields in Focus may be null, see https://github.com/mastodon/mastodon/issues/29222
@@ -69,7 +85,14 @@ data class Attachment(
         val duration: Float?,
         val original: Size?,
         val small: Size?,
-    ) : Parcelable
+    ) {
+        fun asModel() = app.pachli.core.model.Attachment.MetaData(
+            focus = focus?.asModel(),
+            duration = duration,
+            original = original?.asModel(),
+            small = small?.asModel(),
+        )
+    }
 
     /**
      * The Focus entity, used to specify the focal point of an image.
@@ -77,43 +100,39 @@ data class Attachment(
      * See here for more details what the x and y mean:
      *   https://github.com/jonom/jquery-focuspoint#1-calculate-your-images-focus-point
      */
-    @Parcelize
     @JsonClass(generateAdapter = true)
     data class Focus(
         val x: Float = 0f,
         val y: Float = 0f,
-    ) : Parcelable {
-        fun toMastodonApiString(): String = "$x,$y"
+    ) {
+        fun asModel() = app.pachli.core.model.Attachment.Focus(
+            x = x,
+            y = y,
+        )
     }
 
     /**
      * The size of an image, used to specify the width/height.
      */
-    @Parcelize
     @JsonClass(generateAdapter = true)
     data class Size(
         val width: Int?,
         val height: Int?,
         // Not always present, see https://github.com/mastodon/mastodon/issues/29125
-        @Json(name = "aspect")
-        val _aspect: Double?,
-    ) : Parcelable {
-        val aspect: Double
-            get() {
-                if (_aspect != null) return _aspect
-                width ?: return 1.778
-                height ?: return 1.778
+        val aspect: Double?,
+    ) {
+        fun asModel() = app.pachli.core.model.Attachment.Size(
+            width = width,
+            height = height,
+            aspect = run {
+                if (aspect != null) return@run aspect
+                width ?: return@run 1.778
+                height ?: return@run 1.778
 
-                return (width / height).toDouble()
-            }
-    }
-
-    /**
-     * @return True if this attachment can be previewed. A previewable attachment
-     *     must be a known type and have a non-null width for the preview image.
-     */
-    fun isPreviewable(): Boolean {
-        if (type == Type.UNKNOWN) return false
-        return !(meta?.original?.width == null && meta?.small?.width == null)
+                return@run (width / height).toDouble()
+            },
+        )
     }
 }
+
+fun Iterable<Attachment>.asModel() = map { it.asModel() }

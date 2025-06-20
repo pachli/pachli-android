@@ -32,7 +32,7 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.common.util.formatNumber
-import app.pachli.core.data.model.Suggestion
+import app.pachli.core.model.Suggestion
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.emojify
@@ -222,8 +222,8 @@ internal class SuggestionViewHolder(
     }
 
     /**
-     * Binds the account's [name][app.pachli.core.network.model.Account.name] and
-     * [note][app.pachli.core.network.model.Account.note] respecting [animateEmojis].
+     * Binds the account's [name][app.pachli.core.model.Account.name] and
+     * [note][app.pachli.core.model.Account.note] respecting [animateEmojis].
      */
     fun bindAnimateEmojis(viewData: SuggestionViewData, animateEmojis: Boolean) = with(binding) {
         val account = viewData.suggestion.account

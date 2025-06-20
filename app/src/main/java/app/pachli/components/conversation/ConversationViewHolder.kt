@@ -26,7 +26,7 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.util.SmartLengthInputFilter
 import app.pachli.core.data.model.StatusDisplayOptions
-import app.pachli.core.database.model.ConversationAccount
+import app.pachli.core.model.ConversationAccount
 import app.pachli.core.ui.SetStatusContent
 import app.pachli.core.ui.loadAvatar
 import app.pachli.databinding.ItemConversationBinding

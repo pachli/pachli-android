@@ -20,7 +20,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import app.pachli.core.network.model.ScheduledStatus
+import app.pachli.core.model.ScheduledStatus
 import app.pachli.core.ui.BindingHolder
 import app.pachli.databinding.ItemScheduledStatusBinding
 import java.text.DateFormat

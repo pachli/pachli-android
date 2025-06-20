@@ -20,11 +20,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.model.FilterContext
-import app.pachli.core.network.model.TrendingTag
-import app.pachli.core.network.model.end
-import app.pachli.core.network.model.start
+import app.pachli.core.model.TrendingTag
+import app.pachli.core.model.end
+import app.pachli.core.model.start
+import app.pachli.core.network.model.asModel
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.viewdata.TrendingViewData
+import com.github.michaelbull.result.map
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -92,8 +94,8 @@ class TrendingTagsViewModel @Inject constructor(
         val contentFilters = contentFilters.replayCache.last()
 
         mastodonApi.trendingTags(limit = LIMIT_TRENDING_HASHTAGS)
-            .onSuccess {
-                val tagResponse = it.body
+            .map { it.body.asModel() }
+            .onSuccess { tagResponse ->
                 val firstTag = tagResponse.firstOrNull()
                 _uiState.value = if (firstTag == null) {
                     TrendingTagsUiState(emptyList(), LoadingState.LOADED)
