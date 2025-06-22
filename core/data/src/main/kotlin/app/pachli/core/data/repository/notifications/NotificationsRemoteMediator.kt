@@ -21,7 +21,6 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
-import app.pachli.core.data.repository.notifications.NotificationsRepository.Companion.RKE_TIMELINE_ID
 import app.pachli.core.database.dao.NotificationDao
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.StatusDao
@@ -36,6 +35,7 @@ import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
 import app.pachli.core.database.model.StatusEntity
 import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
+import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.RelationshipSeveranceEvent
@@ -62,6 +62,8 @@ class NotificationsRemoteMediator(
     private val notificationDao: NotificationDao,
     private val statusDao: StatusDao,
 ) : RemoteMediator<Int, NotificationData>() {
+    val remoteKeyTimelineId = Timeline.Notifications.remoteKeyTimelineId
+
     override suspend fun load(loadType: LoadType, state: PagingState<Int, NotificationData>): MediatorResult {
         return transactionProvider {
             val response = when (loadType) {
@@ -70,7 +72,7 @@ class NotificationsRemoteMediator(
                     // REFRESH key.
                     val notificationId = remoteKeyDao.remoteKeyForKind(
                         pachliAccountId,
-                        RKE_TIMELINE_ID,
+                        remoteKeyTimelineId,
                         RemoteKeyKind.REFRESH,
                     )?.key
                     getInitialPage(notificationId, state.config.pageSize)
@@ -79,7 +81,7 @@ class NotificationsRemoteMediator(
                 LoadType.PREPEND -> {
                     val rke = remoteKeyDao.remoteKeyForKind(
                         pachliAccountId,
-                        RKE_TIMELINE_ID,
+                        remoteKeyTimelineId,
                         RemoteKeyKind.PREV,
                     ) ?: return@transactionProvider MediatorResult.Success(endOfPaginationReached = true)
                     mastodonApi.notifications(minId = rke.key, limit = state.config.pageSize)
@@ -88,29 +90,24 @@ class NotificationsRemoteMediator(
                 LoadType.APPEND -> {
                     val rke = remoteKeyDao.remoteKeyForKind(
                         pachliAccountId,
-                        RKE_TIMELINE_ID,
+                        remoteKeyTimelineId,
                         RemoteKeyKind.NEXT,
                     ) ?: return@transactionProvider MediatorResult.Success(endOfPaginationReached = true)
                     mastodonApi.notifications(maxId = rke.key, limit = state.config.pageSize)
                 }
             }.getOrElse { return@transactionProvider MediatorResult.Error(it.throwable) }
 
-            val notifications = response.body
-            if (notifications.isEmpty()) {
-                return@transactionProvider MediatorResult.Success(endOfPaginationReached = loadType != LoadType.REFRESH)
-            }
-
             val links = Links.from(response.headers["link"])
 
             when (loadType) {
                 LoadType.REFRESH -> {
-                    remoteKeyDao.deletePrevNext(pachliAccountId, RKE_TIMELINE_ID)
+                    remoteKeyDao.deletePrevNext(pachliAccountId, remoteKeyTimelineId)
                     notificationDao.deleteAllNotificationsForAccount(pachliAccountId)
 
                     remoteKeyDao.upsert(
                         RemoteKeyEntity(
                             pachliAccountId,
-                            RKE_TIMELINE_ID,
+                            remoteKeyTimelineId,
                             RemoteKeyKind.NEXT,
                             links.next,
                         ),
@@ -119,7 +116,7 @@ class NotificationsRemoteMediator(
                     remoteKeyDao.upsert(
                         RemoteKeyEntity(
                             pachliAccountId,
-                            RKE_TIMELINE_ID,
+                            remoteKeyTimelineId,
                             RemoteKeyKind.PREV,
                             links.prev,
                         ),
@@ -130,7 +127,7 @@ class NotificationsRemoteMediator(
                     remoteKeyDao.upsert(
                         RemoteKeyEntity(
                             pachliAccountId,
-                            RKE_TIMELINE_ID,
+                            remoteKeyTimelineId,
                             RemoteKeyKind.PREV,
                             it,
                         ),
@@ -141,7 +138,7 @@ class NotificationsRemoteMediator(
                     remoteKeyDao.upsert(
                         RemoteKeyEntity(
                             pachliAccountId,
-                            RKE_TIMELINE_ID,
+                            remoteKeyTimelineId,
                             RemoteKeyKind.NEXT,
                             it,
                         ),
@@ -149,9 +146,16 @@ class NotificationsRemoteMediator(
                 }
             }
 
+            val notifications = response.body
             upsertNotifications(pachliAccountId, notifications)
 
-            MediatorResult.Success(endOfPaginationReached = false)
+            val endOfPagination = when (loadType) {
+                LoadType.REFRESH -> notifications.isEmpty() || (links.prev == null && links.next == null)
+                LoadType.PREPEND -> notifications.isEmpty() || links.prev == null
+                LoadType.APPEND -> notifications.isEmpty() || links.next == null
+            }
+
+            MediatorResult.Success(endOfPaginationReached = endOfPagination)
         }
     }
 

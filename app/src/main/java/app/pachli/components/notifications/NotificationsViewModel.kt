@@ -59,6 +59,7 @@ import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.mapEither
 import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -115,7 +116,7 @@ sealed interface UiAction
 /** Actions the user can trigger from the UI. These actions may fail. */
 sealed interface FallibleUiAction : UiAction {
     /** Clear all notifications */
-    data object ClearNotifications : FallibleUiAction
+    data class ClearNotifications(val pachliAccountId: Long) : FallibleUiAction
 }
 
 /**
@@ -211,6 +212,11 @@ sealed interface UiSuccess {
      * to load content at the new position.
      */
     data object LoadNewest : UiSuccess
+}
+
+sealed interface UiActionSuccess : UiSuccess {
+    /** Clearing remote notifications (and the local cache) succeeded. */
+    data object ClearNotifications : UiActionSuccess
 }
 
 /** The result of a successful action on a notification */
@@ -314,7 +320,7 @@ sealed interface UiError {
 
     data class ClearNotifications(
         override val error: PachliError,
-        override val action: FallibleUiAction.ClearNotifications = FallibleUiAction.ClearNotifications,
+        override val action: FallibleUiAction.ClearNotifications,
         override val message: Int = R.string.ui_error_clear_notifications,
     ) : UiError
 
@@ -375,7 +381,7 @@ sealed interface UiError {
             is FallibleStatusAction.Translate -> TranslateStatus(error, action)
             is NotificationAction.AcceptFollowRequest -> AcceptFollowRequest(error, action)
             is NotificationAction.RejectFollowRequest -> RejectFollowRequest(error, action)
-            FallibleUiAction.ClearNotifications -> ClearNotifications(error)
+            is FallibleUiAction.ClearNotifications -> ClearNotifications(error, action)
         }
     }
 }
@@ -435,7 +441,7 @@ class NotificationsViewModel @AssistedInject constructor(
 
         viewModelScope.launch {
             uiAction.filterIsInstance<InfallibleUiAction.LoadNewest>()
-                .collectLatest { onLoadNewest() }
+                .collectLatest { ::onLoadNewest }
         }
 
         viewModelScope.launch {
@@ -614,7 +620,8 @@ class NotificationsViewModel @AssistedInject constructor(
     }
 
     private suspend fun onClearNotifications(action: FallibleUiAction.ClearNotifications) {
-        repository.clearNotifications()
+        repository.clearNotifications(action.pachliAccountId)
+            .onSuccess { _uiResult.send(Ok(UiActionSuccess.ClearNotifications)) }
             .onFailure { _uiResult.send(Err(UiError.make(it, action))) }
     }
 
