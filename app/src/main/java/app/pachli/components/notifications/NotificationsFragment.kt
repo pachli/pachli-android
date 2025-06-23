@@ -340,6 +340,9 @@ class NotificationsFragment :
                     }
                     adapter.refresh()
                 }
+
+                is UiActionSuccess.ClearNotifications -> adapter.refresh()
+
                 else -> { /* nothing to do */ }
             }
         }
@@ -394,6 +397,12 @@ class NotificationsFragment :
         }
         menu.findItem(R.id.action_edit_notification_filter)?.apply {
             icon = makeIcon(requireContext(), GoogleMaterial.Icon.gmd_tune, IconicsSize.dp(20))
+        }
+    }
+
+    override fun onPrepareMenu(menu: Menu) {
+        menu.findItem(R.id.action_clear_notifications)?.apply {
+            isEnabled = adapter.itemCount != 0
         }
     }
 
@@ -596,7 +605,7 @@ class NotificationsFragment :
 
     private fun clearNotifications() {
         binding.swipeRefreshLayout.isRefreshing = false
-        viewModel.accept(FallibleUiAction.ClearNotifications)
+        viewModel.accept(FallibleUiAction.ClearNotifications(pachliAccountId))
     }
 
     private fun showFilterDialog() {

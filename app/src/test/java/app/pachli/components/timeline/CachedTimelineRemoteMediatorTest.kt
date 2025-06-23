@@ -190,7 +190,7 @@ class CachedTimelineRemoteMediatorTest {
         val result = runBlocking { remoteMediator.load(LoadType.REFRESH, state) }
 
         assertTrue(result is RemoteMediator.MediatorResult.Success)
-        assertEquals(false, (result as RemoteMediator.MediatorResult.Success).endOfPaginationReached)
+        assertEquals(true, (result as RemoteMediator.MediatorResult.Success).endOfPaginationReached)
 
         db.assertStatuses(
             listOf(
