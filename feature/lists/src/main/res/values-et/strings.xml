@@ -16,4 +16,9 @@
     <string name="action_remove_from_list">Kustuta konto loendist</string>
     <string name="action_add_to_list">Lisa konto loendisse</string>
     <string name="action_delete_list">Kustuta loend</string>
+    <string name="no_lists">Sul pole ühtegi loendit.</string>
+    <string name="failed_to_remove_from_list">Kasutajakonto loendist eemaldamine ei õnnestunud</string>
+    <string name="action_add_or_remove_from_list">Lisa loendisse või eemalda sealt</string>
+    <string name="hint_search_people_list">Otsi neid, keda sa jälgid</string>
+    <string name="failed_to_add_to_list">Kasutajakonto lisamine loendisse ei õnnestunud</string>
 </resources>
