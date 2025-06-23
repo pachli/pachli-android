@@ -72,4 +72,27 @@
         <item quantity="one">%1$s jälgija on eemaldatud.</item>
         <item quantity="other">%1$s jälgijat on eemaldatud.</item>
     </plurals>
+    <string name="post_content_warning_show_more">Näita rohkem</string>
+    <string name="post_content_warning_show_less">Näita vähem</string>
+    <string name="title_mutes">Summutatud kasutajad</string>
+    <string name="error_media_upload_sending">Üleslaadimine ei õnnestunud.</string>
+    <string name="hint_search">Otsi…</string>
+    <string name="error_media_download_permission">Vajalik on meediafailide salvestamise õigus.</string>
+    <string name="title_tab_public_trending_hashtags">Teemaviited</string>
+    <string name="title_tab_public_trending_links">Lingid</string>
+    <string name="title_tab_public_trending_statuses">Postitused</string>
+    <string name="title_posts_pinned">Esiletõstetud</string>
+    <string name="title_follows">Jälgimised</string>
+    <string name="title_followers">Jälgijad</string>
+    <string name="title_favourites">Lemmikud</string>
+    <string name="title_bookmarks">Järjehoidjad</string>
+    <string name="title_announcements">Teadaanded</string>
+    <string name="title_domain_mutes">Peidetud domeenid</string>
+    <string name="title_followed_hashtags">Jälgitavad teemaviited</string>
+    <string name="error_sender_account_gone">Viga postitamisel.</string>
+    <string name="error_media_upload_permission">Vajalik on meediafailide lugemise õigus.</string>
+    <string name="error_media_upload_opening">Selle faili avamine ei õnnestunud.</string>
+    <string name="error_media_upload_image_or_video">samale postitusele ei saa korraga lisada pilti ja videot.</string>
+    <string name="title_blocks">Blokeeritud kasutajad</string>
+    <string name="hint_description">Kirjeldus</string>
 </resources>
