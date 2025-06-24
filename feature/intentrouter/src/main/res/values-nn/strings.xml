@@ -1,7 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_set_active_account">Å prøve å logge inn mislykkast med den fylgjande feilen:\n\n%1$s</string>
-    <string name="error_refresh_account">Å gjenoppfriske kontoen mislykkast med den følgende feilen:\n\n%1$s\n\nDu kan fortsetja, men det kan hende at dine lister og filter kan vera ufullstendige.</string>
+    <string name="error_set_active_account">Å prøve å logge inn, mislukkast med den fylgjande feilen: %1$s</string>
+    <string name="error_refresh_account">Å gjenoppfriske kontoen mislukkast med den følgende feilen: %1$s\n\nDu kan fortsetja, men det kan hende at dine lister og filter kan vera ufullstendige.</string>
     <string name="action_relogin">Logg inn på nytt</string>
     <string name="action_share_as">Del som…</string>
+    <string name="title_choose_account_dialog">Vel konto</string>
+    <string name="title_error_dialog">Innlogging mislukkast</string>
+    <string name="error_login_failed_hint_multiple">Trykk på den same kontoen for å prøve igjen, eller ein annan konto for å logge inn med den kontoen.</string>
+    <string name="client_error_unauthorized_fmt">%1$s\n\nTrykk på «%2$s» for å prøve igjen.</string>
+    <string name="action_choose_another_account">Vel ein annan konto</string>
+    <string name="error_mime_type_fmt">Pachli vart opna for å dele innhald med type «%1$s», men Pachli behandlar ikkje den typen innhald.</string>
+    <string name="client_error_unauthorized_multiple_fmt">%1$s\n\nTrykk på «%2$s» for å prøve igjen, eller på «%3$s» for å velja ein annan konto.</string>
+    <string name="error_refresh_account_fmt">Å hente inn nokre kontodetaljar, mislukkast:\n\n%1$s\n\nTrykk på «%2$s» for å fortsetja, men nokre opplysingar kan vera feilaktive (t.d. filter og lister).\n\nTrykk på «%3$s» for å prøve igjen.\n\nTrykk på «%4$s» for å velja ein annan konto.</string>
+    <string name="error_login_failed_hint">Trykk på kontoen for å prøve igjen.</string>
+    <string name="title_error_mime_type">Ugjenkjend type</string>
 </resources>
