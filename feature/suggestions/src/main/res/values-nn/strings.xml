@@ -1,2 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="title_suggestions">Føreslegne kontoar</string>
+    <string name="sources_similar_to_recently_followed">Liknar på konotar du har fylgt nyleg</string>
+    <string name="sources_featured">Handvalde av moderatorane til instansen din</string>
+    <string name="sources_most_followed">Ein av dei som vert mest fylgt på serveren din</string>
+    <string name="sources_most_interactions">Får mykje oppmerksemd på serveren din</string>
+    <string name="sources_friends_of_friends">Populær blant dei som du fylgjer</string>
+    <string name="sources_unknown">(serveren gav ukjende kjelder)</string>
+    <string name="source_unknown">(server gav ugjenkjend kjelde)</string>
+    <string name="action_follow_account">Fylg</string>
+    <string name="action_dismiss_follow_suggestion">Avvis</string>
+    <string name="ui_error_delete_suggestion_fmt">Mislukkast i å avvise forslag til %1$s: %2$s</string>
+    <string name="ui_error_follow_account_fmt">Mislukkast i å fylgje %1$s: %2$s</string>
+    <string name="follower_count_fmt"><b>%1$s</b> fylgjarar</string>
+    <string name="follows_count_fmt">Fylgjer <b>%1$s</b></string>
+    <string name="statuses_count_fmt"><b>%1$s</b> innlegg</string>
+    <string name="statuses_count_per_week_fmt"><b>%1$s</b> innlegg (<b>%2$d</b> om veka)</string>
+    <string name="statuses_count_per_week_last_fmt"><b>%1$s</b> innlegg (<b>%2$d</b> om veka, forrige veke <b>%3$s</b>)</string>
+</resources>
