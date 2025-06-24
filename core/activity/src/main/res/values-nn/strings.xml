@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="post_lookup_error_format">Feil under oppslag av innlegg %s</string>
+    <string name="post_lookup_error_format">Feil under oppslag av %s</string>
     <string name="action_open_as">Opne som %s</string>
     <string name="performing_lookup_title">Utfører søkning…</string>
     <string name="send_error_report">Send feilrapport</string>
