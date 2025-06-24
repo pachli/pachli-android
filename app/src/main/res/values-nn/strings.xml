@@ -63,8 +63,8 @@
     <string name="notification_sign_up_format">%s registrerte seg</string>
     <string name="notification_subscription_format">%s skreiv akkurat</string>
     <plurals name="notification_severed_relationships_summary_followers_fmt">
-        <item quantity="one">%1$s fylgjar vart fjerna</item>
-        <item quantity="other">%1$s fylgjarar vart fjerna</item>
+        <item quantity="one">%1$s fylgjar vart fjerna.</item>
+        <item quantity="other">%1$s fylgjarar vart fjerna.</item>
     </plurals>
     <string name="notification_update_format">%s redigerte innlegget sitt</string>
     <string name="notification_report_format">Ny rapport på %s</string>
@@ -74,7 +74,8 @@
     <string name="notification_severed_relationships_unknown_body">Ukjend årsak</string>
     <string name="notification_header_report_format">%s rapporterte %s</string>
     <plurals name="notification_summary_report_format">
-        <item quantity="other">%1$s · %2$d innlegg lagt ved</item>
+        <item quantity="one">%1$s · %2$d innlegg lagt ved</item>
+        <item quantity="other">%1$s · %2$d innlegg lagte ved</item>
     </plurals>
     <string name="report_username_format">Rapporter @%s</string>
     <string name="report_comment_hint">Har du fleire kommentarar?</string>
@@ -142,7 +143,7 @@
     <string name="action_filter_search">Filtrer søk</string>
     <string name="action_access_drafts">Utkast</string>
     <string name="action_access_scheduled_posts">Planlagte innlegg</string>
-    <string name="action_toggle_visibility">Innleggssynleik</string>
+    <string name="action_toggle_visibility">Innleggssynlegheit</string>
     <string name="action_content_warning">Innhaldsåtvaring</string>
     <string name="action_emoji_keyboard">Emoji-tastatur</string>
     <string name="action_schedule_post">Planlegg innlegg</string>
@@ -164,8 +165,8 @@
     <string name="error_following_hashtags_unsupported">Denne instansen støttar ikkje fylging av emneknaggar.</string>
     <string name="notification_severed_relationships_user_domain_block_body">Du blokkerte instansen</string>
     <plurals name="notification_severed_relationships_summary_following_fmt">
-        <item quantity="one">%1$s konto du fylgjer vart fjerna</item>
-        <item quantity="other">%1$s kontoar du fylgjer vart fjerna</item>
+        <item quantity="one">%1$s konto du fylgjer, vart fjerna.</item>
+        <item quantity="other">%1$s kontoar du fylgjer, vart fjerna.</item>
     </plurals>
     <string name="action_compose">Skriv</string>
     <string name="action_post_failed_detail_plural">Opplasting av innlegga dine mislykkast og innlegga er vorte lagra som utkast.\n\nDette skjedde enten fordi serveren ikkje kunne verte nådd, eller fordi serveren har nekta å ta imot innlegget ditt.</string>
@@ -207,20 +208,20 @@
     <string name="confirmation_domain_unmuted">%s avskjult</string>
     <string name="hint_note">Biografi</string>
     <string name="pref_title_notification_filters">Varsle meg når</string>
-    <string name="pref_title_notification_filter_mentions">eg vert nemnd</string>
+    <string name="pref_title_notification_filter_mentions">Nemnd</string>
     <string name="pref_title_notification_alert_vibrate">Varsle med vibrasjon</string>
     <string name="pref_title_notification_alert_light">Varsle med ljos</string>
-    <string name="pref_title_notification_filter_follows">eg vert fylgd</string>
-    <string name="pref_title_notification_filter_reports">det finst ein ny rapport</string>
+    <string name="pref_title_notification_filter_follows">Fylgd</string>
+    <string name="pref_title_notification_filter_reports">Det finst ein ny rapport</string>
     <string name="pref_title_appearance_settings">Utsjånad</string>
-    <string name="pref_title_notification_filter_subscriptions">nokon eg fylgjer har skrive eit nytt innlegg</string>
-    <string name="pref_title_notification_filter_sign_ups">nokon registrerte seg</string>
-    <string name="pref_title_notification_filter_updates">eit innlegg eg har samhandla med vert redigert</string>
+    <string name="pref_title_notification_filter_subscriptions">Nokon eg er abonnert på, har skrive eit nytt innlegg</string>
+    <string name="pref_title_notification_filter_sign_ups">Nokon registrerte seg</string>
+    <string name="pref_title_notification_filter_updates">Eit innlegg eg har samhandla med, vert redigert</string>
     <string name="pref_title_app_theme">Apptema</string>
     <string name="pref_title_language">Språk</string>
     <string name="pref_summary_content_filters">Serveren din støttar ikkje filter</string>
     <string name="pref_title_browser_settings">Nettlesar</string>
-    <string name="pref_title_custom_tabs">Bruk tilpassa faner frå Chrome</string>
+    <string name="pref_title_custom_tabs">Opne lenkjer i tilpassa faner</string>
     <string name="pref_title_hide_follow_button">Døl skriv-knappen under skrolling</string>
     <string name="pref_title_font_family">Skrifttype</string>
     <string name="pref_title_show_media_preview">Last ned forhandssyningar av media</string>
@@ -316,11 +317,11 @@
     <string name="pref_title_notifications_enabled">Varsel</string>
     <string name="pref_title_notification_alerts">Varslingsmetodar</string>
     <string name="pref_title_notification_alert_sound">Varsle med ljod</string>
-    <string name="visibility_direct">Direkt: Syn bare for nemnde brukarar</string>
-    <string name="pref_title_notification_filter_follow_requests">nokon vil fylgje meg</string>
-    <string name="pref_title_notification_filter_reblogs">innlegga mine vert delte</string>
-    <string name="pref_title_notification_filter_favourites">innlegga mine vert favorittmerkte</string>
-    <string name="pref_title_notification_filter_poll">avstemmingar vert avslutta</string>
+    <string name="visibility_direct">Direkte: Syn kun for nemnde brukarar</string>
+    <string name="pref_title_notification_filter_follow_requests">Fylgjeførespurnad send</string>
+    <string name="pref_title_notification_filter_reblogs">Innlegga mine vert delte</string>
+    <string name="pref_title_notification_filter_favourites">Innlegga mine vert favorittmerkte</string>
+    <string name="pref_title_notification_filter_poll">Avstemmingar vert avslutta</string>
     <string name="pref_title_timelines">Tidslinjer</string>
     <string name="pref_title_timeline_filters">Filter</string>
     <string name="pref_title_content_filters">Innhaldsfilter</string>
@@ -592,7 +593,7 @@
     <string name="search_operator_from_ignore_me">Ikkje mine innlegg</string>
     <string name="search_operator_from_account_fmt">Kun %1$s</string>
     <string name="search_operator_from_ignore_account_fmt">Ikkje %1$s</string>
-    <string name="notification_unknown">Ukjent varseltype</string>
+    <string name="notification_unknown">Ukjend varseltype</string>
     <string name="announcement_date_updated">(Oppdatert: %1$s)</string>
     <string name="announcement_date">%1$s%2$s</string>
     <string name="saving_draft">Lagrar utkast…</string>
@@ -730,7 +731,7 @@
     <string name="search_operator_where_dialog_public_hint">Oppførte og søkjelege innlegg som serveren veit om</string>
     <string name="search_operator_where_public">Lista innlegg</string>
     <string name="search_operator_where_dialog_public">Lista innlegg</string>
-    <string name="upload_failed_msg_fmt">Pachli skal prøve å laste opp vedlegg når du sender innlegget. Dersom opplastinga mislykkast igjen, skal innlegget lagrast i utkasta dine.\n\nFeilen var: %1$s</string>
+    <string name="upload_failed_msg_fmt">Noko gjekk gale i å laste opp veddlegget. Pachli skal prøve å laste opp vedlegget når du sender innlegget. Dersom opplastinga mislykkast igjen, skal innlegget lagrast i utkasta dine.\n\nFeilen var: %1$s</string>
     <string name="pref_title_account_notification_filters">Varselfilter</string>
     <string name="pref_account_notification_filters_label_not_followed">…du ikkje fylgjer</string>
     <string name="pref_account_notification_filters_label_younger_30d">…vart oppretta på dei siste 30 dagane</string>
@@ -768,4 +769,34 @@
     <string name="ui_error_reload_reply_fmt">Kunne ikkje laste inn innlegg: %1$s</string>
     <string name="action_refresh_account">Last inn konto på nytt</string>
     <string name="account_filter_placeholder_type_conversation">Ein brukar @<b>%1$s</b> starta ei samtale</string>
+    <string name="export_preferences_ok_fmt">Innstillingar eksporterte til %1$s</string>
+    <string name="followed_hashtags_summary_fmt">%1$s frå %2$s (siste %3$s)</string>
+    <string name="error_import_preferences_fmt">Kunne ikkje importere innstillingar frå %1$s: %2$s</string>
+    <string name="pref_custom_tabs_true">Fortare; din føretrekte nettlesar i Pachli</string>
+    <plurals name="followed_hashtags_accounts_count_fmt">
+        <item quantity="one">%1$d konto</item>
+        <item quantity="other">%1$d kontoar</item>
+    </plurals>
+    <plurals name="followed_hashtags_days_count_fmt">
+        <item quantity="one">%1$d dag</item>
+        <item quantity="other">%1$d dagar</item>
+    </plurals>
+    <string name="error_export_preferences_fmt">Kunne ikkje eksportere innstillingane til %1$s: %2$s</string>
+    <string name="action_send_direct_content_description">Send direktemelding</string>
+    <string name="action_send_unlisted_content_description">Send ulista innlegg</string>
+    <string name="action_send_private_content_description">Send innlegg kun for fylgjarar</string>
+    <string name="action_send_public_content_description">Send offentleg innlegg</string>
+    <string name="pref_title_notification_filter_severed_relationships">Eit samband vert avbrote</string>
+    <string name="pref_custom_tabs_false">Saktare; brukar din føretrekte nettlesar</string>
+    <string name="notification_severed_relationships_user_domain_block_fmt">Du blokkerte <b>%1$s</b></string>
+    <string name="notification_severed_relationships_domain_block_fmt">Ein moderator av %1$s blokkerte <b>%2$s</b></string>
+    <string name="notification_severed_relationships_account_suspension_fmt">Ein moderator av %1$s suspenderte <b>%2$s</b></string>
+    <string name="notification_severed_relationships_unknown_fmt"><b>%1$s</b> er blokkert (ukjend orsak)</string>
+    <string name="title_report_category_fmt">Emne: %1$s</string>
+    <string name="title_report_comment">Kommentar frå rapporterar</string>
+    <string name="manage_accounts_name">Handsam kontoar</string>
+    <plurals name="followed_hashtags_posts_count_fmt">
+        <item quantity="one">%1$d innlegg</item>
+        <item quantity="other">%1$d innlegg</item>
+    </plurals>
 </resources>
