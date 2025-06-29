@@ -353,15 +353,39 @@ class IntentRouterActivityIntent(context: Context, pachliAccountId: Long) : Inte
  * @see [app.pachli.components.compose.ComposeActivity]
  */
 class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOptions: ComposeOptions? = null) : Intent() {
+    /**
+     * @param scheduledTootId Server ID of the scheduled status that should be updated when
+     * this status is sent. Null if this should be sent as a new status.
+     * @param draftId ID of the draft this status should be saved to if the user chooses to
+     * save and exit rather than post. 0 if a new draft should be created in this case.
+     * @param content
+     * @param mediaUrls
+     * @param mentionedUsernames
+     * @param visibility
+     * @param contentWarning
+     * @param inReplyTo Details of the status being replied to, if this a reply. Null if
+     * this is not a reply.
+     * @param mediaAttachments Existing media attachments on this status. Mutually exclusive
+     * with [draftAttachments].
+     * @param draftAttachments Draft media attachments on this status. Attached, but not
+     * uploaded. Mutually exclusive with [mediaAttachments].
+     * @param scheduledAt
+     * @param sensitive
+     * @param poll
+     * @param language Language the status is written in. Null to use the device's default
+     * language.
+     * @param statusId Server ID of the status that should be updated when this status is
+     * sent. Null if this should be sent as a new status.
+     * @param kind See [ComposeKind].
+     * @param initialCursorPosition
+     */
     @Parcelize
     data class ComposeOptions(
         val scheduledTootId: String? = null,
-        val draftId: Int? = null,
+        val draftId: Int = 0,
         val content: String? = null,
         val mediaUrls: List<String>? = null,
-        val mediaDescriptions: List<String>? = null,
         val mentionedUsernames: Set<String>? = null,
-        val replyVisibility: Status.Visibility? = null,
         val visibility: Status.Visibility? = null,
         val contentWarning: String? = null,
         val inReplyTo: InReplyTo? = null,
@@ -370,7 +394,6 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOpti
         val scheduledAt: Date? = null,
         val sensitive: Boolean? = null,
         val poll: NewPoll? = null,
-        val modifiedInitialState: Boolean? = null,
         val language: String? = null,
         val statusId: String? = null,
         val kind: ComposeKind? = null,
@@ -431,6 +454,7 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOpti
              */
             data class Status(
                 override val statusId: String,
+                val visibility: Status.Visibility,
                 val avatarUrl: String,
                 val isBot: Boolean,
                 val displayName: String,
@@ -442,6 +466,7 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOpti
                 companion object {
                     fun from(status: app.pachli.core.network.model.Status) = Status(
                         statusId = status.id,
+                        visibility = status.visibility,
                         avatarUrl = status.account.avatar,
                         isBot = status.account.bot,
                         displayName = status.account.name,
@@ -465,8 +490,8 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOpti
     companion object {
         private const val EXTRA_COMPOSE_OPTIONS = "app.pachli.EXTRA_COMPOSE_OPTIONS"
 
-        /** @return the [ComposeOptions] passed in this intent, or null */
-        fun getComposeOptions(intent: Intent) = IntentCompat.getParcelableExtra(intent, EXTRA_COMPOSE_OPTIONS, ComposeOptions::class.java)
+        /** @return the [ComposeOptions] passed in this intent, or default [ComposeOptions]. */
+        fun getComposeOptions(intent: Intent) = IntentCompat.getParcelableExtra(intent, EXTRA_COMPOSE_OPTIONS, ComposeOptions::class.java) ?: ComposeOptions()
     }
 }
 

@@ -58,6 +58,7 @@ private fun ensureLanguagesAreFirst(locales: MutableList<Locale>, languages: Lis
     }
 }
 
+// TODO: Doesn't need the full account, just the defaultPostLanguage
 fun getInitialLanguages(language: String? = null, activeAccount: AccountEntity? = null): List<String> {
     val selected = listOfNotNull(language, activeAccount?.defaultPostLanguage)
     val system = AppCompatDelegate.getApplicationLocales().toList() +

@@ -22,7 +22,7 @@ import android.widget.RadioGroup
 import app.pachli.R
 import app.pachli.core.network.model.Status
 
-class ComposeOptionsView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : RadioGroup(context, attrs) {
+class ComposeVisibilityView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : RadioGroup(context, attrs) {
 
     var listener: ComposeVisibilityListener? = null
 

@@ -34,6 +34,24 @@ import com.squareup.moshi.JsonClass
 import java.util.Date
 import kotlinx.parcelize.Parcelize
 
+/**
+ * @param accountId
+ * @param inReplyToId If this draft is a reply to an existing status then this is the ID of
+ * that status. Null otherwise.
+ * @param content
+ * @param contentWarning
+ * @param sensitive
+ * @param visibility
+ * @param attachments
+ * @param poll
+ * @param failedToSend
+ * @param failedToSendNew
+ * @param scheduledAt
+ * @param language Language the draft is written in. Null to use the device's default
+ * language.
+ * @param statusId If this draft is an edit of an existing status then this is the ID of
+ * that status. Null otherwise.
+ */
 @Entity(
     foreignKeys = [
         ForeignKey(
