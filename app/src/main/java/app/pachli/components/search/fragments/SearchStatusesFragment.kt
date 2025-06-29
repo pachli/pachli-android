@@ -50,6 +50,7 @@ import app.pachli.core.model.Attachment
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 import app.pachli.core.model.Status.Mention
+import app.pachli.core.model.AttachmentBlurDecision
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
@@ -128,8 +129,8 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
         return SearchStatusesAdapter(Glide.with(this), setStatusContent, statusDisplayOptions, this)
     }
 
-    override fun onContentHiddenChange(viewData: StatusViewData, isShowingContent: Boolean) {
-        viewModel.contentHiddenChange(viewData, isShowingContent)
+    override fun onAttachmentBlurDecisionChange(viewData: StatusViewData, newDecision: AttachmentBlurDecision) {
+        viewModel.attachmentBlurDecisionChange(viewData, newDecision)
     }
 
     override fun onReply(viewData: StatusViewData) {

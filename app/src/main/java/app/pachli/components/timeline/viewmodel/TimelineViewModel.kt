@@ -49,6 +49,7 @@ import app.pachli.core.eventhub.StatusComposedEvent
 import app.pachli.core.eventhub.StatusDeletedEvent
 import app.pachli.core.eventhub.StatusEditedEvent
 import app.pachli.core.eventhub.UnfollowEvent
+import app.pachli.core.model.AttachmentBlurDecision
 import app.pachli.core.model.ContentFilterVersion
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.FilterContext
@@ -564,6 +565,8 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
      * [isShowing] and invalidates the repository.
      */
     abstract fun onChangeContentShowing(isShowing: Boolean, statusViewData: StatusViewData)
+
+    abstract fun onChangeAttachmentBlurDecision(viewData: StatusViewData, newDecision: AttachmentBlurDecision)
 
     /**
      * Sets the collapsed state of [statusViewData] in [OfflineFirstStatusRepository] to [isCollapsed] and

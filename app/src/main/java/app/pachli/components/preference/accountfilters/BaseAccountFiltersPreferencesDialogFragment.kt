@@ -51,6 +51,7 @@ import kotlinx.coroutines.launch
 val FilterAction.titleStringResource: Int
     get() = when (this) {
         FilterAction.NONE -> R.string.filter_action_none
+        FilterAction.BLUR -> R.string.filter_action_blur
         FilterAction.WARN -> R.string.filter_action_warn
         FilterAction.HIDE -> R.string.filter_action_hide
     }
@@ -60,6 +61,7 @@ val FilterAction.titleStringResource: Int
 val FilterAction.descrStringResource: Int
     get() = when (this) {
         FilterAction.NONE -> R.string.filter_description_none
+        FilterAction.BLUR -> R.string.filter_description_blur
         FilterAction.WARN -> R.string.filter_description_warn
         FilterAction.HIDE -> R.string.filter_description_hide
     }

@@ -77,7 +77,7 @@ data class ConversationViewData(
                 pachliAccountId = pachliAccount.id,
                 conversationData.lastStatus,
                 isExpanded = defaultIsExpanded,
-                isShowingContent = defaultIsShowingContent,
+                showSensitiveMedia = defaultIsShowingContent,
                 isDetailed = false,
                 contentFilterAction = contentFilterAction,
             ),

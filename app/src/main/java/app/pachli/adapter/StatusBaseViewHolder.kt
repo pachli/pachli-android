@@ -27,6 +27,7 @@ import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.Attachment
+import app.pachli.core.model.AttachmentBlurDecision
 import app.pachli.core.model.Emoji
 import app.pachli.core.model.PreviewCardKind
 import app.pachli.core.model.Status
@@ -510,40 +511,76 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
             val attachment = attachments[i]
             val previewUrl = attachment.previewUrl
             val description = attachment.description
-            val showingMedia = viewData.isShowingContent
-            val hasDescription = !TextUtils.isEmpty(description)
+//            val showingMedia = viewData.isShowingContent
+            val hasDescription = description?.isNotBlank() == true
             if (hasDescription) {
                 imageView.contentDescription = description
             } else {
                 imageView.contentDescription = context.getString(R.string.action_view_media)
             }
+
+            val blurDecision = viewData.attachmentBlurDecision
+            val showContent = blurDecision.show()
+
             loadImage(
                 imageView,
-                if (showingMedia) previewUrl else null,
+                if (showContent) previewUrl else null,
                 attachment.meta?.focus,
                 if (useBlurhash) attachment.blurhash else null,
             )
             val type = attachment.type
-            if (showingMedia && type.isPlayable()) {
+            if (showContent && type.isPlayable()) {
                 imageView.foreground = AppCompatResources.getDrawable(context, R.drawable.play_indicator_overlay)
             } else {
                 imageView.foreground = null
             }
             setAttachmentClickListener(viewData, imageView, listener, i, attachment, true)
-            if (sensitive) {
-                sensitiveMediaWarning.setText(R.string.post_sensitive_media_title)
-            } else {
-                sensitiveMediaWarning.setText(R.string.post_media_hidden_title)
+
+            when (blurDecision) {
+                AttachmentBlurDecision.None -> {
+                    sensitiveMediaWarning.hide()
+                }
+
+                is AttachmentBlurDecision.Filter -> {
+                    sensitiveMediaWarning.show()
+                    sensitiveMediaWarning.setText("Filtered: ${blurDecision.filters.map { it.title }.joinToString(",")}")
+                }
+
+                is AttachmentBlurDecision.Sensitive -> {
+                    sensitiveMediaWarning.show()
+                    sensitiveMediaWarning.setText(R.string.post_sensitive_media_title)
+                }
+
+                is AttachmentBlurDecision.Override -> sensitiveMediaWarning.hide()
             }
-            sensitiveMediaWarning.visibility = if (showingMedia) View.GONE else View.VISIBLE
-            sensitiveMediaShow.visibility = if (showingMedia) View.VISIBLE else View.GONE
+//            if (blurFilter != null) {
+//            } else if (sensitive) {
+//            } else {
+//                sensitiveMediaWarning.setText(R.string.post_media_hidden_title)
+//            }
+            sensitiveMediaWarning.visibility = if (showContent) View.GONE else View.VISIBLE
+            sensitiveMediaShow.visibility = if (showContent) View.VISIBLE else View.GONE
             descriptionIndicator.visibility =
-                if (hasDescription && showingMedia) View.VISIBLE else View.GONE
+                if (hasDescription && showContent) View.VISIBLE else View.GONE
             sensitiveMediaShow.setOnClickListener { v: View ->
-                listener.onContentHiddenChange(viewData, false)
+                listener.onAttachmentBlurDecisionChange(
+                    viewData,
+                    AttachmentBlurDecision.Override(viewData.attachmentBlurDecision),
+                )
+//                listener.onContentHiddenChange(viewData, false)
+//                v.visibility = View.GONE
+//                sensitiveMediaWarning.visibility = View.VISIBLE
+//                descriptionIndicator.visibility = View.GONE
             }
             sensitiveMediaWarning.setOnClickListener { v: View ->
-                listener.onContentHiddenChange(viewData, true)
+                listener.onAttachmentBlurDecisionChange(
+                    viewData,
+                    AttachmentBlurDecision.Override(viewData.attachmentBlurDecision),
+                )
+//                listener.onContentHiddenChange(viewData, true)
+//                v.visibility = View.GONE
+//                sensitiveMediaShow.visibility = View.VISIBLE
+//                descriptionIndicator.visibility = if (hasDescription) View.VISIBLE else View.GONE
             }
         }
     }
@@ -594,7 +631,11 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
     ) {
         view.setOnClickListener { v: View? ->
             if (sensitiveMediaWarning.isVisible) {
-                listener.onContentHiddenChange(viewData, true)
+                listener.onAttachmentBlurDecisionChange(
+                    viewData,
+                    AttachmentBlurDecision.Override(viewData.attachmentBlurDecision),
+                )
+//                listener.onContentHiddenChange(viewData, true)
             } else {
                 listener.onViewMedia(viewData, index, if (animateTransition) v else null)
             }
@@ -757,7 +798,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
                     mediaLabel.visibility = View.GONE
                 }
             } else {
-                setMediaLabel(viewData, attachments, sensitive, listener, viewData.isShowingContent)
+                setMediaLabel(viewData, attachments, sensitive, listener, viewData.attachmentBlurDecision.show())
                 // Hide all unused views.
                 mediaPreview.visibility = View.GONE
                 hideSensitiveMediaWarning()

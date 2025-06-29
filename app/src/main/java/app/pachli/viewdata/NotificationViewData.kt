@@ -28,6 +28,7 @@ import app.pachli.core.database.model.TranslationState
 import app.pachli.core.database.model.asModel
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.AccountWarning
+import app.pachli.core.model.AttachmentBlurDecision
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.RelationshipSeveranceEvent
 import app.pachli.core.model.Status
@@ -98,7 +99,7 @@ data class NotificationViewData(
                     pachliAccountId = pachliAccountEntity.id,
                     it,
                     isExpanded = isExpanded,
-                    isShowingContent = isShowingContent,
+                    showSensitiveMedia = isShowingContent,
                     isDetailed = false,
                     contentFilterAction = contentFilterAction,
                 )
@@ -128,8 +129,8 @@ data class NotificationViewData(
         }
     override val isExpanded: Boolean
         get() = statusViewData?.isExpanded ?: throw IllegalStateException()
-    override val isShowingContent: Boolean
-        get() = statusViewData?.isShowingContent ?: throw IllegalStateException()
+    override val attachmentBlurDecision: AttachmentBlurDecision
+        get() = statusViewData?.attachmentBlurDecision ?: throw IllegalStateException()
     override val isCollapsible: Boolean
         get() = statusViewData?.isCollapsible ?: throw IllegalStateException()
     override val isCollapsed: Boolean

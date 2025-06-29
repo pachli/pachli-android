@@ -79,6 +79,7 @@ import app.pachli.core.eventhub.EventHub
 import app.pachli.core.model.Announcement
 import app.pachli.core.model.MastodonList
 import app.pachli.core.model.Notification
+import app.pachli.core.model.SealedType3
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.AboutActivityIntent
 import app.pachli.core.navigation.AccountActivityIntent
@@ -167,6 +168,8 @@ import com.mikepenz.materialdrawer.util.removeItemByPosition
 import com.mikepenz.materialdrawer.util.removeItems
 import com.mikepenz.materialdrawer.util.updateBadge
 import com.mikepenz.materialdrawer.widget.AccountHeaderView
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.adapter
 import dagger.hilt.android.AndroidEntryPoint
 import de.c1710.filemojicompat_ui.helpers.EMOJI_PREFERENCE
 import javax.inject.Inject
@@ -211,6 +214,9 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
     @Inject
     lateinit var updateShortCuts: UpdateShortCutsUseCase
 
+    @Inject
+    lateinit var moshi: Moshi
+
     private val viewModel: MainViewModel by viewModels()
 
     private val binding by viewBinding(ActivityMainBinding::inflate)
@@ -250,6 +256,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
     /** Mutex to protect modifications to the drawer's items. */
     private val drawerMutex = Mutex()
 
+    @OptIn(ExperimentalStdlibApi::class)
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -286,6 +293,18 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
         setContentView(binding.root)
 
         viewModel.accept(InfallibleUiAction.LoadPachliAccount(pachliAccountId))
+
+        // Crash
+//        val a = moshi.adapter<AttachmentBlurDecision>()
+//        val b = AttachmentBlurDecision.None
+//        val a = moshi.adapter<SealedTest>()
+//        val b = SealedTest.Bar(0)
+//        val a = moshi.adapter<AccountFilterDecision>()
+//        val b = AccountFilterDecision.Blur(AccountFilterReason.NOT_FOLLOWING)
+        val a = moshi.adapter<SealedType3>()
+        val b = SealedType3.StringType("foo")
+        val c = a.toJson(b)
+        Timber.d(c)
 
         var showNotificationTab = MainActivityIntent.getOpenNotificationTab(intent)
 

@@ -66,6 +66,10 @@ enum class FilterAction {
     @Json(name = "none")
     NONE,
 
+    /** Show text content, blur any attached media. */
+    @Json(name = "blur")
+    BLUR,
+
     /** Replace the item with a warning, allowing the user to click through. */
     @Json(name = "warn")
     WARN,

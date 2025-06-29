@@ -18,8 +18,12 @@
 package app.pachli.core.database.model
 
 import androidx.room.ColumnInfo
+import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
+import androidx.room.TypeConverters
+import app.pachli.core.database.Converters
+import app.pachli.core.model.AttachmentBlurDecision
 
 /**
  * The local view data for a status.
@@ -28,7 +32,7 @@ import androidx.room.Index
  * data is kept even if the status is deleted from the local cache (e.g., during a refresh
  * operation).
  */
-@androidx.room.Entity(
+@Entity(
     primaryKeys = ["serverId", "pachliAccountId"],
     foreignKeys = [
         ForeignKey(
@@ -41,6 +45,7 @@ import androidx.room.Index
     ],
     indices = [Index(value = ["pachliAccountId"])],
 )
+@TypeConverters(Converters::class)
 data class StatusViewDataEntity(
     val pachliAccountId: Long,
     val serverId: String,
@@ -53,6 +58,7 @@ data class StatusViewDataEntity(
     /** Show the translated version of the status (if it exists) */
     @ColumnInfo(defaultValue = "SHOW_ORIGINAL")
     val translationState: TranslationState,
+    val attachmentBlurDecision: AttachmentBlurDecision?,
 )
 
 enum class TranslationState {
@@ -112,4 +118,16 @@ data class StatusViewDataTranslationState(
     val pachliAccountId: Long,
     val serverId: String,
     val translationState: TranslationState,
+)
+
+/**
+ * Partial class for setting [StatusViewDataEntity.attachmentBlurDecision] to
+ * [attachmentBlurDecision].
+ *
+ * @see [app.pachli.core.database.dao.StatusDao.setAttachmentBlurDecision]
+ */
+data class StatusViewDataAttachmentBlurDecision(
+    val pachliAccountId: Long,
+    val serverId: String,
+    val attachmentBlurDecision: AttachmentBlurDecision,
 )

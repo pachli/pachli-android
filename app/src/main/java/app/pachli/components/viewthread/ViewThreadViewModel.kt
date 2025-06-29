@@ -38,6 +38,7 @@ import app.pachli.core.eventhub.ReblogEvent
 import app.pachli.core.eventhub.StatusComposedEvent
 import app.pachli.core.eventhub.StatusDeletedEvent
 import app.pachli.core.eventhub.StatusEditedEvent
+import app.pachli.core.model.AttachmentBlurDecision
 import app.pachli.core.model.ContentFilterVersion
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.FilterContext
@@ -157,7 +158,7 @@ class ViewThreadViewModel @Inject constructor(
                         pachliAccountId = account.id,
                         status = status.actionableStatus,
                         isExpanded = timelineStatusWithAccount.viewData?.expanded ?: account.alwaysOpenSpoiler,
-                        isShowingContent = timelineStatusWithAccount.viewData?.contentShowing ?: (account.alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
+                        showSensitiveMedia = timelineStatusWithAccount.viewData?.contentShowing ?: (account.alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
                         isCollapsed = timelineStatusWithAccount.viewData?.contentCollapsed ?: true,
                         isDetailed = true,
                         contentFilterAction = contentFilterModel?.filterActionFor(status.actionableStatus)
@@ -170,7 +171,7 @@ class ViewThreadViewModel @Inject constructor(
                         pachliAccountId = account.id,
                         timelineStatusWithAccount,
                         isExpanded = account.alwaysOpenSpoiler,
-                        isShowingContent = (account.alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
+                        showSensitiveMedia = (account.alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
                         isDetailed = true,
                         contentFilterAction = contentFilterModel?.filterActionFor(status.actionableStatus)
                             ?: FilterAction.NONE,
@@ -213,7 +214,7 @@ class ViewThreadViewModel @Inject constructor(
                     detailedStatus = StatusViewData.from(
                         pachliAccountId = account.id,
                         it,
-                        isShowingContent = detailedStatus.isShowingContent,
+                        showSensitiveMedia = detailedStatus.attachmentBlurDecision.show(),
                         isExpanded = detailedStatus.isExpanded,
                         isCollapsed = detailedStatus.isCollapsed,
                         isDetailed = true,
@@ -236,7 +237,7 @@ class ViewThreadViewModel @Inject constructor(
                     StatusViewData.from(
                         pachliAccountId = account.id,
                         status,
-                        isShowingContent = svd?.contentShowing ?: (account.alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
+                        showSensitiveMedia = svd?.contentShowing ?: (account.alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
                         isExpanded = svd?.expanded ?: account.alwaysOpenSpoiler,
                         isCollapsed = svd?.contentCollapsed ?: true,
                         isDetailed = false,
@@ -250,7 +251,7 @@ class ViewThreadViewModel @Inject constructor(
                     StatusViewData.from(
                         pachliAccountId = account.id,
                         status,
-                        isShowingContent = svd?.contentShowing ?: (account.alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
+                        showSensitiveMedia = svd?.contentShowing ?: (account.alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
                         isExpanded = svd?.expanded ?: account.alwaysOpenSpoiler,
                         isCollapsed = svd?.contentCollapsed ?: true,
                         isDetailed = false,
@@ -376,12 +377,12 @@ class ViewThreadViewModel @Inject constructor(
         }
     }
 
-    fun changeContentShowing(isShowing: Boolean, status: StatusViewData) {
-        updateStatusViewData(status.id) { viewData ->
-            viewData.copy(isShowingContent = isShowing)
+    fun changeAttachmentBlurDecision(statusViewData: StatusViewData, attachmentBlurDecision: AttachmentBlurDecision) {
+        updateStatusViewData(statusViewData.id) { viewData ->
+            viewData.copy(attachmentBlurDecision = attachmentBlurDecision)
         }
         viewModelScope.launch {
-            repository.setContentShowing(status.pachliAccountId, status.id, isShowing)
+            repository.setAttachmentBlurDecision(statusViewData.pachliAccountId, statusViewData.actionableId, attachmentBlurDecision)
         }
     }
 
@@ -591,7 +592,7 @@ class ViewThreadViewModel @Inject constructor(
         return from(
             pachliAccountId = account.id,
             status,
-            isShowingContent = oldStatus?.isShowingContent ?: (account.alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
+            showSensitiveMedia = oldStatus?.attachmentBlurDecision?.show() ?: (account.alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
             isExpanded = oldStatus?.isExpanded ?: account.alwaysOpenSpoiler,
             isCollapsed = oldStatus?.isCollapsed ?: !isDetailed,
             isDetailed = oldStatus?.isDetailed ?: isDetailed,

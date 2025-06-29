@@ -41,6 +41,7 @@ import app.pachli.core.data.repository.ServerRepository
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.model.DeletedStatus
 import app.pachli.core.model.Poll
+import app.pachli.core.model.AttachmentBlurDecision
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_BY_DATE
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_FROM
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_AUDIO
@@ -210,7 +211,7 @@ class SearchViewModel @Inject constructor(
             StatusViewData.from(
                 pachliAccountId = activeAccount!!.id,
                 status,
-                isShowingContent = alwaysShowSensitiveMedia || !status.actionableStatus.sensitive,
+                showSensitiveMedia = alwaysShowSensitiveMedia || !status.actionableStatus.sensitive,
                 isExpanded = alwaysOpenSpoiler,
                 isCollapsed = true,
             )
@@ -292,10 +293,6 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    fun contentHiddenChange(statusViewData: StatusViewData, isShowing: Boolean) {
-        updateStatusViewData(statusViewData.copy(isShowingContent = isShowing))
-    }
-
     fun collapsedChange(statusViewData: StatusViewData, collapsed: Boolean) {
         updateStatusViewData(statusViewData.copy(isCollapsed = collapsed))
     }
@@ -309,6 +306,13 @@ class SearchViewModel @Inject constructor(
                     updateStatus(statusViewData.status)
                     Timber.d("Failed to vote in poll: %s: %s", statusViewData.id, it)
                 }
+        }
+    }
+
+    fun attachmentBlurDecisionChange(statusViewData: StatusViewData, attachmentBlurDecision: AttachmentBlurDecision) {
+        updateStatusViewData(statusViewData.copy(attachmentBlurDecision = attachmentBlurDecision))
+        viewModelScope.launch {
+            statusRepository.setAttachmentBlurDecision(statusViewData.pachliAccountId, statusViewData.id, attachmentBlurDecision)
         }
     }
 

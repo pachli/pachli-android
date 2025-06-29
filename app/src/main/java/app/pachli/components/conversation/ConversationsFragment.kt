@@ -51,6 +51,7 @@ import app.pachli.core.eventhub.EventHub
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
+import app.pachli.core.model.AttachmentBlurDecision
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.EditContentFilterActivityIntent
@@ -394,8 +395,8 @@ class ConversationsFragment :
         viewModel.expandHiddenStatus(viewData.pachliAccountId, expanded, viewData.lastStatus.id)
     }
 
-    override fun onContentHiddenChange(viewData: ConversationViewData, isShowingContent: Boolean) {
-        viewModel.showContent(viewData.pachliAccountId, isShowingContent, viewData.lastStatus.id)
+    override fun onAttachmentBlurDecisionChange(viewData: ConversationViewData, newDecision: AttachmentBlurDecision) {
+        viewModel.changeAttachmentBlurDecision(viewData.pachliAccountId, viewData.lastStatus.id, newDecision)
     }
 
     override fun onContentCollapsedChange(viewData: ConversationViewData, isCollapsed: Boolean) {

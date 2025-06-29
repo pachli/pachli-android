@@ -40,6 +40,7 @@ import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.MuteConversationEvent
 import app.pachli.core.eventhub.MuteEvent
 import app.pachli.core.model.AccountFilterDecision
+import app.pachli.core.model.AttachmentBlurDecision
 import app.pachli.core.model.ContentFilterVersion
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.FilterContext
@@ -155,11 +156,11 @@ sealed interface InfallibleUiAction : UiAction {
         val isCollapsed: Boolean,
     ) : InfallibleUiAction
 
-    /** Set whether to show attached media. */
-    data class SetShowingContent(
+    /** Set whether attached media is blurred. */
+    data class SetAttachmentBlurDecision(
         val pachliAccountId: Long,
         val statusViewData: StatusViewData,
-        val isShowingContent: Boolean,
+        val attachmentBlurDecision: AttachmentBlurDecision,
     ) : InfallibleUiAction
 
     /** Set whether to show just the content warning, or the full content. */
@@ -448,8 +449,8 @@ class NotificationsViewModel @AssistedInject constructor(
         }
 
         viewModelScope.launch {
-            uiAction.filterIsInstance<InfallibleUiAction.SetShowingContent>()
-                .collectLatest(::onShowingContent)
+            uiAction.filterIsInstance<InfallibleUiAction.SetAttachmentBlurDecision>()
+                .collectLatest(::onAttachmentBlurDecision)
         }
 
         viewModelScope.launch {
@@ -674,9 +675,9 @@ class NotificationsViewModel @AssistedInject constructor(
         }
     }
 
-    private fun onShowingContent(action: InfallibleUiAction.SetShowingContent) {
+    private fun onAttachmentBlurDecision(action: InfallibleUiAction.SetAttachmentBlurDecision) {
         viewModelScope.launch {
-            repository.setContentShowing(action.pachliAccountId, action.statusViewData.actionableId, action.isShowingContent)
+            repository.setAttachmentBlurDecision(action.pachliAccountId, action.statusViewData.actionableId, action.attachmentBlurDecision)
         }
     }
 

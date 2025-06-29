@@ -22,6 +22,7 @@ import app.pachli.core.database.model.TimelineStatusEntity
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.Announcement
 import app.pachli.core.model.Attachment
+import app.pachli.core.model.AttachmentBlurDecision
 import app.pachli.core.model.Card
 import app.pachli.core.model.ContentFilter
 import app.pachli.core.model.ConversationAccount
@@ -329,4 +330,10 @@ class Converters @Inject constructor(
 
     @TypeConverter
     fun jsonToListRoles(s: String?) = s?.let { moshi.adapter<List<Role>>().fromJson(it) }
+
+    @TypeConverter
+    fun attachmentBlurDecisionToJson(attachmentBlurDecision: AttachmentBlurDecision): String = moshi.adapter<AttachmentBlurDecision>().toJson(attachmentBlurDecision)
+
+    @TypeConverter
+    fun jsonToAttachmentBlurDecision(s: String?) = s?.let { moshi.adapter<AttachmentBlurDecision>().fromJson(it) }
 }

@@ -100,7 +100,7 @@ import java.util.TimeZone
         TimelineStatusEntity::class,
         ConversationViewDataEntity::class,
     ],
-    version = 29,
+    version = 30,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
@@ -137,6 +137,8 @@ import java.util.TimeZone
         AutoMigration(from = 27, to = 28),
         // Saving TimelineAccount.roles to the database.
         AutoMigration(from = 28, to = 29),
+        // Record the attachment blur decision.
+        AutoMigration(from = 29, to = 30),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {

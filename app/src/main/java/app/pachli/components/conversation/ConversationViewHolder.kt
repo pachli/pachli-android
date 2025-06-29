@@ -78,7 +78,7 @@ class ConversationViewHolder internal constructor(
                     mediaLabel.visibility = View.GONE
                 }
             } else {
-                setMediaLabel(viewData, attachments, sensitive, listener, viewData.isShowingContent)
+                setMediaLabel(viewData, attachments, sensitive, listener, viewData.attachmentBlurDecision.show())
                 // Hide all unused views.
                 mediaPreview.visibility = View.GONE
                 hideSensitiveMediaWarning()

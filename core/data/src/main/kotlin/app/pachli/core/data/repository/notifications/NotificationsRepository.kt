@@ -176,6 +176,26 @@ class NotificationsRepository @Inject constructor(
         )
     }
 
+//    /**
+//     * Saves a copy of [statusViewData] with [StatusViewData.isCollapsed] set to
+//     * [isCollapsed].
+//     */
+//    fun setContentCollapsed(pachliAccountId: Long, statusViewData: StatusViewData, isCollapsed: Boolean) = externalScope.launch {
+//        statusRepository.setContentCollapsed(pachliAccountId, statusViewData.id, isCollapsed)
+//    }
+//
+//    fun setAttachmentBlurDecision(pachliAccountId: Long, statusId: String, accountBlurDecision: AttachmentBlurDecision) = externalScope.launch {
+//        statusRepository.setAttachmentBlurDecision(pachliAccountId, statusId, accountBlurDecision)
+//    }
+//
+//    /**
+//     * Saves a copy of [statusViewData] with [StatusViewData.isExpanded] set to
+//     * [isExpanded].
+//     */
+//    fun setExpanded(pachliAccountId: Long, statusViewData: StatusViewData, isExpanded: Boolean) = externalScope.launch {
+//        statusRepository.setExpanded(pachliAccountId, statusViewData.id, isExpanded)
+//    }
+
     companion object {
         private const val PAGE_SIZE = 30
     }

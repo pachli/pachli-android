@@ -21,7 +21,9 @@ import app.pachli.core.data.BuildConfig
 import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.database.model.TranslationState
+import app.pachli.core.model.AttachmentBlurDecision
 import app.pachli.core.model.FilterAction
+import app.pachli.core.model.MatchingFilter
 import app.pachli.core.model.Status
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.network.replaceCrashingCharacters
@@ -46,12 +48,6 @@ interface IStatusViewData {
      * Ignored if there is no content warning.
      */
     val isExpanded: Boolean
-
-    /**
-     * If the status contains attached media, specifies whether whether the media is shown
-     * (true), or not (false).
-     */
-    val isShowingContent: Boolean
 
     /**
      * Specifies whether the content of this status is long enough to be automatically
@@ -105,6 +101,9 @@ interface IStatusViewData {
 
     /** The current translation state */
     val translationState: TranslationState
+
+    /** Whether to blur attachments on this status, and why. */
+    val attachmentBlurDecision: AttachmentBlurDecision
 }
 
 /**
@@ -115,10 +114,10 @@ data class StatusViewData(
     override var status: Status,
     override var translation: TranslatedStatusEntity? = null,
     override val isExpanded: Boolean,
-    override val isShowingContent: Boolean,
     override val isCollapsed: Boolean,
     override var contentFilterAction: FilterAction = FilterAction.NONE,
     override val translationState: TranslationState,
+    override val attachmentBlurDecision: AttachmentBlurDecision,
 
     /**
      * Specifies whether this status should be shown with the "detailed" layout, meaning it is
@@ -191,7 +190,7 @@ data class StatusViewData(
         fun from(
             pachliAccountId: Long,
             status: Status,
-            isShowingContent: Boolean,
+            showSensitiveMedia: Boolean,
             isExpanded: Boolean,
             isCollapsed: Boolean,
             isDetailed: Boolean = false,
@@ -213,11 +212,11 @@ data class StatusViewData(
             return StatusViewData(
                 pachliAccountId = pachliAccountId,
                 status = status,
-                isShowingContent = isShowingContent,
                 isCollapsed = isCollapsed,
                 isExpanded = isExpanded,
                 isDetailed = isDetailed,
                 contentFilterAction = contentFilterAction,
+                attachmentBlurDecision = shouldBlurAttachment(status, showSensitiveMedia),
                 translationState = translationState,
                 translation = translation,
             )
@@ -228,7 +227,7 @@ data class StatusViewData(
          * @param timelineStatusWithAccount
          * @param isExpanded Default expansion behaviour for a status with a content
          * warning. Used if the status viewdata is null
-         * @param isShowingContent Default behaviour for a status with attached media.
+         * @param showSensitiveMedia Default behaviour for a status with attached media.
          * Used if the status viewdata is null.
          * @param isDetailed True if the status should be shown with the detailed
          * layout, false otherwise.
@@ -240,7 +239,7 @@ data class StatusViewData(
             pachliAccountId: Long,
             timelineStatusWithAccount: TimelineStatusWithAccount,
             isExpanded: Boolean,
-            isShowingContent: Boolean,
+            showSensitiveMedia: Boolean,
             isDetailed: Boolean = false,
             contentFilterAction: FilterAction,
             translationState: TranslationState = TranslationState.SHOW_ORIGINAL,
@@ -251,12 +250,28 @@ data class StatusViewData(
                 status = status,
                 translation = timelineStatusWithAccount.translatedStatus,
                 isExpanded = timelineStatusWithAccount.viewData?.expanded ?: isExpanded,
-                isShowingContent = timelineStatusWithAccount.viewData?.contentShowing ?: (isShowingContent || !status.actionableStatus.sensitive),
                 isCollapsed = timelineStatusWithAccount.viewData?.contentCollapsed ?: true,
                 isDetailed = isDetailed,
                 contentFilterAction = contentFilterAction,
+                attachmentBlurDecision = timelineStatusWithAccount.viewData?.attachmentBlurDecision ?: shouldBlurAttachment(status, showSensitiveMedia),
                 translationState = timelineStatusWithAccount.viewData?.translationState ?: translationState,
             )
         }
     }
+}
+
+fun shouldBlurAttachment(status: Status, alwaysShowSensitiveMedia: Boolean): AttachmentBlurDecision {
+    // Blur attachments if there is any matching filter.
+    status.filtered?.filter { it.filter.filterAction == FilterAction.BLUR }?.let {
+        return AttachmentBlurDecision.Filter(
+            it.map { MatchingFilter(filterId = it.filter.id, title = it.filter.title) },
+        )
+    }
+
+    // Blur attachments if the status is marked sensitive and the user always wants to
+    // see them.
+    if (alwaysShowSensitiveMedia || status.sensitive == false) return AttachmentBlurDecision.None
+
+    // Sensitive media, mark as such.
+    return AttachmentBlurDecision.Sensitive
 }

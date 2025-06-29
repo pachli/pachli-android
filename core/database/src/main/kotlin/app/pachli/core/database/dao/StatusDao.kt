@@ -24,6 +24,7 @@ import androidx.room.TypeConverters
 import androidx.room.Upsert
 import app.pachli.core.database.Converters
 import app.pachli.core.database.model.StatusEntity
+import app.pachli.core.database.model.StatusViewDataAttachmentBlurDecision
 import app.pachli.core.database.model.StatusViewDataContentCollapsed
 import app.pachli.core.database.model.StatusViewDataContentShowing
 import app.pachli.core.database.model.StatusViewDataEntity
@@ -205,4 +206,11 @@ WHERE
      */
     @Upsert(entity = StatusViewDataEntity::class)
     abstract suspend fun setTranslationState(partial: StatusViewDataTranslationState)
+
+    /**
+     * Upserts [partial], setting the [attachmentBlurDecision][StatusViewDataEntity.attachmentBlurDecision]
+     * property.
+     */
+    @Upsert(entity = StatusViewDataEntity::class)
+    abstract suspend fun setAttachmentBlurDecision(partial: StatusViewDataAttachmentBlurDecision)
 }

@@ -66,6 +66,7 @@ import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.model.TranslationState
+import app.pachli.core.model.AttachmentBlurDecision
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
@@ -629,8 +630,12 @@ class TimelineFragment :
         viewModel.onChangeExpanded(expanded, viewData)
     }
 
-    override fun onContentHiddenChange(viewData: StatusViewData, isShowingContent: Boolean) {
-        viewModel.onChangeContentShowing(isShowingContent, viewData)
+//    override fun onContentHiddenChange(viewData: StatusViewData, isShowingContent: Boolean) {
+//        viewModel.onChangeContentShowing(isShowingContent, viewData)
+//    }
+
+    override fun onAttachmentBlurDecisionChange(viewData: StatusViewData, newDecision: AttachmentBlurDecision) {
+        viewModel.onChangeAttachmentBlurDecision(viewData, newDecision)
     }
 
     override fun onShowReblogs(statusId: String) {

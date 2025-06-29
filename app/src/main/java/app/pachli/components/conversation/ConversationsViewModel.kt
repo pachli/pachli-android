@@ -27,6 +27,7 @@ import app.pachli.core.database.dao.ConversationsDao
 import app.pachli.core.database.model.ConversationData
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.AccountFilterReason
+import app.pachli.core.model.AttachmentBlurDecision
 import app.pachli.core.model.FilterAction
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.PrefKeys
@@ -235,6 +236,12 @@ class ConversationsViewModel @AssistedInject constructor(
     fun collapseLongStatus(pachliAccountId: Long, collapsed: Boolean, lastStatusId: String) {
         viewModelScope.launch {
             repository.setContentCollapsed(pachliAccountId, lastStatusId, collapsed)
+        }
+    }
+
+    fun changeAttachmentBlurDecision(pachliAccountId: Long, statusId: String, attachmentBlurDecision: AttachmentBlurDecision) {
+        viewModelScope.launch {
+            repository.setAttachmentBlurDecision(pachliAccountId, statusId, attachmentBlurDecision)
         }
     }
 

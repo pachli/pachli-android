@@ -43,6 +43,11 @@ sealed interface AccountFilterDecision {
     @DefaultObject
     data object None : AccountFilterDecision
 
+    /** The item matched a [reason] set to "blur". */
+    @TypeLabel("blur")
+    @JsonClass(generateAdapter = true)
+    data class Blur(val reason: AccountFilterReason) : AccountFilterDecision
+
     /** The item matched a [reason] set to "warn". */
     @TypeLabel("warn")
     @JsonClass(generateAdapter = true)
@@ -67,6 +72,7 @@ sealed interface AccountFilterDecision {
          */
         fun make(action: FilterAction, reason: AccountFilterReason) = when (action) {
             FilterAction.NONE -> None
+            FilterAction.BLUR -> Blur(reason)
             FilterAction.WARN -> Warn(reason)
             FilterAction.HIDE -> Hide(reason)
         }
