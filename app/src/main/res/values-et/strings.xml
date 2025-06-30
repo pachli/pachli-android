@@ -172,4 +172,25 @@
     <string name="action_continue_edit">Jätka muutmist</string>
     <string name="action_send">TUUT</string>
     <string name="action_send_public">TUUT!</string>
+    <string name="action_send_public_content_description">Postita avalikult</string>
+    <string name="action_send_unlisted_content_description">Postita ajajooneväliselt</string>
+    <string name="action_send_private_content_description">Postita vaid jälgijatele</string>
+    <string name="action_send_direct_content_description">Saada otsesõnum</string>
+    <string name="action_view_preferences">Eelistused</string>
+    <string name="action_view_account_preferences">Kasutajakonto eelistused</string>
+    <string name="action_view_favourites">Lemmikud</string>
+    <string name="action_view_bookmarks">Järjehoidjad</string>
+    <string name="action_view_mutes">Summutatud kasutajad</string>
+    <string name="action_view_blocks">Blokeeritud kasutajad</string>
+    <string name="action_view_domain_mutes">Peidetud domeenid</string>
+    <string name="action_view_follow_requests">Jälgimispäringud</string>
+    <string name="action_view_media">Meedia</string>
+    <string name="action_open_in_web">Ava veebibrauseris</string>
+    <string name="action_add_media">Lisa meediat</string>
+    <string name="action_add_poll">Lisa küsitlus</string>
+    <string name="action_photo_take">Pildista</string>
+    <string name="action_share">Jaga</string>
+    <string name="action_mute">Summuta</string>
+    <string name="action_unmute">Lõpeta summutamine</string>
+    <string name="notification_report_format">Uus teatis: %s</string>
 </resources>
