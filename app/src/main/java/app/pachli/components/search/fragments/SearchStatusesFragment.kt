@@ -198,8 +198,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
             requireContext(),
             status.pachliAccountId,
             ComposeOptions(
-                inReplyTo = InReplyTo.Status.from(status.actionable),
-                replyVisibility = actionableStatus.visibility,
+                inReplyTo = InReplyTo.Status.from(actionableStatus),
                 contentWarning = actionableStatus.spoilerText,
                 mentionedUsernames = mentionedUsernames,
                 language = actionableStatus.language,

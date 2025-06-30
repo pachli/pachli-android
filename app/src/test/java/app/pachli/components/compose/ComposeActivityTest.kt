@@ -59,7 +59,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
-import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -81,7 +80,6 @@ interface HiltTestApplication
 // implementation of ComposeActivity/ViewModel does not make it possible to
 // proceed with the test once the ViewModel has finished loading data and
 // the UI is set up.
-@Ignore("see comment")
 @HiltAndroidTest
 @Config(application = HiltTestApplication_Application::class)
 @RunWith(AndroidJUnit4::class)
@@ -232,21 +230,10 @@ class ComposeActivityTest {
         rule.scenario.onActivity {
             dispatcher.scheduler.advanceUntilIdle()
             insertSomeTextInContent(it)
-            clickUp(it)
-            assertFalse(it.isFinishing)
-            // We would like to check for dialog but Robolectric doesn't work with AppCompat v7 yet
-        }
-    }
-
-    @Test
-    fun whenModifiedInitialState_andCloseButtonPressed_notFinish() = runTest {
-        rule.launch(intent(ComposeOptions(modifiedInitialState = true)))
-        dispatcher.scheduler.advanceUntilIdle()
-        accountManager.getPachliAccountFlow(pachliAccountId).first()
-        rule.scenario.onActivity {
             dispatcher.scheduler.advanceUntilIdle()
             clickUp(it)
             assertFalse(it.isFinishing)
+            // We would like to check for dialog but Robolectric doesn't work with AppCompat v7 yet
         }
     }
 
@@ -268,17 +255,6 @@ class ComposeActivityTest {
         rule.scenario.onActivity {
             dispatcher.scheduler.advanceUntilIdle()
             insertSomeTextInContent(it)
-            clickBack(it)
-            assertFalse(it.isFinishing)
-        }
-    }
-
-    @Test
-    fun whenModifiedInitialState_andBackButtonPressed_notFinish() = runTest {
-        rule.launch(intent(ComposeOptions(modifiedInitialState = true)))
-        dispatcher.scheduler.advanceUntilIdle()
-        accountManager.getPachliAccountFlow(pachliAccountId).first()
-        rule.scenario.onActivity {
             dispatcher.scheduler.advanceUntilIdle()
             clickBack(it)
             assertFalse(it.isFinishing)
@@ -357,12 +333,16 @@ class ComposeActivityTest {
     @Test
     fun whenTextContainsNoUrl_everyCharacterIsCounted() = runTest {
         val content = "This is test content please ignore thx "
+        getInstanceCallback = { getInstanceWithCustomConfiguration() }
+        instanceInfoRepository.reload(accountManager.activeAccount)
+
         rule.launch()
         dispatcher.scheduler.advanceUntilIdle()
         accountManager.getPachliAccountFlow(pachliAccountId).first()
         rule.scenario.onActivity {
             dispatcher.scheduler.advanceUntilIdle()
             insertSomeTextInContent(it, content)
+            dispatcher.scheduler.advanceUntilIdle()
             assertEquals(content.length, it.viewModel.statusLength.value)
         }
     }
@@ -376,6 +356,7 @@ class ComposeActivityTest {
         rule.scenario.onActivity {
             dispatcher.scheduler.advanceUntilIdle()
             insertSomeTextInContent(it, content)
+            dispatcher.scheduler.advanceUntilIdle()
             assertEquals(6, it.viewModel.statusLength.value)
         }
     }
@@ -383,12 +364,15 @@ class ComposeActivityTest {
     @Test
     fun whenTextContainsConesecutiveEmoji_emojisAreCountedAsSeparateCharacters() = runTest {
         val content = "Test 😜😜"
+        getInstanceCallback = { getInstanceWithCustomConfiguration() }
+        instanceInfoRepository.reload(accountManager.activeAccount)
         rule.launch()
         dispatcher.scheduler.advanceUntilIdle()
         accountManager.getPachliAccountFlow(pachliAccountId).first()
         rule.scenario.onActivity {
             dispatcher.scheduler.advanceUntilIdle()
             insertSomeTextInContent(it, content)
+            dispatcher.scheduler.advanceUntilIdle()
             assertEquals(7, it.viewModel.statusLength.value)
         }
     }
@@ -402,6 +386,7 @@ class ComposeActivityTest {
         rule.scenario.onActivity {
             dispatcher.scheduler.advanceUntilIdle()
             insertSomeTextInContent(it, content)
+            dispatcher.scheduler.advanceUntilIdle()
             assertEquals(DEFAULT_CHARACTERS_RESERVED_PER_URL, it.viewModel.statusLength.value)
         }
     }
@@ -415,6 +400,7 @@ class ComposeActivityTest {
         rule.scenario.onActivity {
             dispatcher.scheduler.advanceUntilIdle()
             insertSomeTextInContent(it, content)
+            dispatcher.scheduler.advanceUntilIdle()
             assertEquals(21, it.viewModel.statusLength.value)
         }
     }
@@ -429,6 +415,7 @@ class ComposeActivityTest {
         rule.scenario.onActivity {
             dispatcher.scheduler.advanceUntilIdle()
             insertSomeTextInContent(it, additionalContent + url)
+            dispatcher.scheduler.advanceUntilIdle()
             assertEquals(
                 additionalContent.length + DEFAULT_CHARACTERS_RESERVED_PER_URL,
                 it.viewModel.statusLength.value,
@@ -441,12 +428,16 @@ class ComposeActivityTest {
         val shortUrl = "https://pachli.app"
         val url = "https://www.google.dk/search?biw=1920&bih=990&tbm=isch&sa=1&ei=bmDrWuOoKMv6kwWOkIaoDQ&q=indiana+jones+i+hate+snakes+animated&oq=indiana+jones+i+hate+snakes+animated&gs_l=psy-ab.3...54174.55443.0.55553.9.7.0.0.0.0.255.333.1j0j1.2.0....0...1c.1.64.psy-ab..7.0.0....0.40G-kcDkC6A#imgdii=PSp15hQjN1JqvM:&imgrc=H0hyE2JW5wrpBM%3A"
         val additionalContent = " Check out this @image #search result: "
+        getInstanceCallback = { getInstanceWithCustomConfiguration() }
+        instanceInfoRepository.reload(accountManager.activeAccount)
+
         rule.launch()
         dispatcher.scheduler.advanceUntilIdle()
         accountManager.getPachliAccountFlow(pachliAccountId).first()
         rule.scenario.onActivity {
             dispatcher.scheduler.advanceUntilIdle()
             insertSomeTextInContent(it, shortUrl + additionalContent + url)
+            dispatcher.scheduler.advanceUntilIdle()
             assertEquals(
                 additionalContent.length + (DEFAULT_CHARACTERS_RESERVED_PER_URL * 2),
                 it.viewModel.statusLength.value,
@@ -464,6 +455,7 @@ class ComposeActivityTest {
         rule.scenario.onActivity {
             dispatcher.scheduler.advanceUntilIdle()
             insertSomeTextInContent(it, url + additionalContent + url)
+            dispatcher.scheduler.advanceUntilIdle()
             assertEquals(
                 additionalContent.length + (DEFAULT_CHARACTERS_RESERVED_PER_URL * 2),
                 it.viewModel.statusLength.value,
@@ -485,6 +477,7 @@ class ComposeActivityTest {
         rule.scenario.onActivity {
             dispatcher.scheduler.advanceUntilIdle()
             insertSomeTextInContent(it, additionalContent + url)
+            dispatcher.scheduler.advanceUntilIdle()
             assertEquals(
                 additionalContent.length + customUrlLength,
                 it.viewModel.statusLength.value,
@@ -507,6 +500,7 @@ class ComposeActivityTest {
         rule.scenario.onActivity {
             dispatcher.scheduler.advanceUntilIdle()
             insertSomeTextInContent(it, shortUrl + additionalContent + url)
+            dispatcher.scheduler.advanceUntilIdle()
             assertEquals(
                 additionalContent.length + (customUrlLength * 2),
                 it.viewModel.statusLength.value,
@@ -528,6 +522,7 @@ class ComposeActivityTest {
         rule.scenario.onActivity {
             dispatcher.scheduler.advanceUntilIdle()
             insertSomeTextInContent(it, url + additionalContent + url)
+            dispatcher.scheduler.advanceUntilIdle()
             assertEquals(
                 additionalContent.length + (customUrlLength * 2),
                 it.viewModel.statusLength.value,
@@ -740,7 +735,10 @@ class ComposeActivityTest {
         accountManager.getPachliAccountFlow(pachliAccountId).first()
         rule.scenario.onActivity {
             dispatcher.scheduler.advanceUntilIdle()
-            assertEquals(Locale.getDefault().language, it.selectedLanguage)
+//            runBlocking {
+//                it.viewModel.language.first()
+            assertEquals(Locale.getDefault().language, it.viewModel.language.value)
+//            }
         }
     }
 
@@ -751,7 +749,7 @@ class ComposeActivityTest {
         accountManager.getPachliAccountFlow(pachliAccountId).first()
         rule.scenario.onActivity {
             dispatcher.scheduler.advanceUntilIdle()
-            assertEquals("no", it.selectedLanguage)
+            assertEquals("no", it.viewModel.language.value)
         }
     }
 
@@ -764,7 +762,7 @@ class ComposeActivityTest {
         accountManager.getPachliAccountFlow(pachliAccountId).first()
         rule.scenario.onActivity {
             dispatcher.scheduler.advanceUntilIdle()
-            assertEquals("yi", it.selectedLanguage)
+            assertEquals("yi", it.viewModel.language.value)
         }
     }
 
@@ -775,7 +773,7 @@ class ComposeActivityTest {
         accountManager.getPachliAccountFlow(pachliAccountId).first()
         rule.scenario.onActivity {
             dispatcher.scheduler.advanceUntilIdle()
-            assertEquals("zzz", it.selectedLanguage)
+            assertEquals("zzz", it.viewModel.language.value)
         }
     }
 

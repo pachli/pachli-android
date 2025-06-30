@@ -311,6 +311,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/compose_media_preview_margin"
                 app:layout_constraintTop_toBottomOf="@id/composeMediaPreviewBar"
+                app:layout_constraintStart_toStartOf="parent"
                 android:minWidth="@dimen/poll_preview_min_width"
                 android:visibility="gone"
                 tools:visibility="visible" />
@@ -377,7 +378,7 @@
         app:behavior_peekHeight="0dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior" />
 
-    <app.pachli.components.compose.view.ComposeOptionsView
+    <app.pachli.components.compose.view.ComposeVisibilityView
         android:id="@+id/composeOptionsBottomSheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

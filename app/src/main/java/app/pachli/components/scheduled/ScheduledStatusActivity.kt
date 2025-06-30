@@ -164,7 +164,6 @@ class ScheduledStatusActivity :
                 contentWarning = item.params.spoilerText,
                 mediaAttachments = item.mediaAttachments,
                 inReplyTo = item.params.inReplyToId?.let { InReplyTo.Id(it) },
-                visibility = item.params.visibility,
                 scheduledAt = item.scheduledAt,
                 sensitive = item.params.sensitive,
                 kind = ComposeOptions.ComposeKind.EDIT_SCHEDULED,

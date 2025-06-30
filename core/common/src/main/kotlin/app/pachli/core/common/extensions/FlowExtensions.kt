@@ -33,9 +33,12 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapLatest
+import kotlinx.coroutines.flow.runningFold
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -84,6 +87,32 @@ fun <T> Flow<T>.throttleFirst(
 }
 
 private val DEFAULT_THROTTLE_FIRST_TIMEOUT = 500.milliseconds
+
+/**
+ * Tracks the earliest and most recent emissions in a [Flow<T>] and returns
+ * them as a [Pair<T, T>].
+ *
+ * The [first][Pair.first] item in the [Pair] is the earliest value in the original flow,
+ * the [second][Pair.second] item is the latest value in the original flow.
+ */
+fun <T> Flow<T>.trackFirstLast() = runningFold(null as Pair<T, T>?) { acc, value -> (acc?.first ?: value) to value }
+    .filterNotNull()
+
+/**
+ * Returns a [Flow<Boolean>][Flow] that tracks the "dirty" state of the upstream
+ * flow.
+ *
+ * [predicate]'s arguments are the first emission in to the upstream flow (after
+ * collecting this flow), and the most recent emission in to the upstream flow.
+ * [predicate] should compare them and return either true (if they are meaningfully
+ * different) or false otherwise.
+ *
+ * This flow is distinct, so emissions from the upstream flow that do not change the
+ * dirty state do not generate a corresponding emission from this flow.
+ */
+inline fun <T> Flow<T>.dirtyIf(crossinline predicate: suspend (first: T, last: T) -> Boolean): Flow<Boolean> {
+    return trackFirstLast().map { predicate(it.first, it.second) }.distinctUntilChanged()
+}
 
 /*
  * Copyright 2022 Christophe Beyls
