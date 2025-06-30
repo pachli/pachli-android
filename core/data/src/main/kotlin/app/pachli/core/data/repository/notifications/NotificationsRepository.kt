@@ -41,6 +41,7 @@ import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.Notification
+import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.model.asModel
@@ -69,6 +70,8 @@ class NotificationsRepository @Inject constructor(
 ) {
     private var factory: InvalidatingPagingSourceFactory<Int, NotificationData>? = null
 
+    private val remoteKeyTimelineId = Timeline.Notifications.remoteKeyTimelineId
+
     /**
      * @return Notifications for [pachliAccountId].
      */
@@ -78,7 +81,7 @@ class NotificationsRepository @Inject constructor(
 
         // Room is row-keyed, not item-keyed. Find the user's REFRESH key, then find the
         // row of the notification with that ID, and use that as the Pager's initialKey.
-        val initialKey = remoteKeyDao.remoteKeyForKind(pachliAccountId, RKE_TIMELINE_ID, RemoteKeyKind.REFRESH)?.key
+        val initialKey = remoteKeyDao.remoteKeyForKind(pachliAccountId, remoteKeyTimelineId, RemoteKeyKind.REFRESH)?.key
         val row = initialKey?.let { notificationDao.getNotificationRowNumber(pachliAccountId, it) }
 
         return Pager(
@@ -113,7 +116,7 @@ class NotificationsRepository @Inject constructor(
     suspend fun saveRefreshKey(pachliAccountId: Long, key: String?) = externalScope.async {
         Timber.d("saveRefreshKey: $key")
         remoteKeyDao.upsert(
-            RemoteKeyEntity(pachliAccountId, RKE_TIMELINE_ID, RemoteKeyKind.REFRESH, key),
+            RemoteKeyEntity(pachliAccountId, remoteKeyTimelineId, RemoteKeyKind.REFRESH, key),
         )
     }.await()
 
@@ -123,15 +126,20 @@ class NotificationsRepository @Inject constructor(
      * should fetch the latest notifications.
      */
     suspend fun getRefreshKey(pachliAccountId: Long): String? = externalScope.async {
-        remoteKeyDao.getRefreshKey(pachliAccountId, RKE_TIMELINE_ID)
+        remoteKeyDao.getRefreshKey(pachliAccountId, remoteKeyTimelineId)
     }.await()
 
     /**
      * Clears (deletes) all notifications from the server. Invalidates the repository
      * if successful.
+     *
+     * @param pachliAccountId
      */
-    suspend fun clearNotifications() = externalScope.async {
-        return@async mastodonApi.clearNotifications().onSuccess { invalidate() }
+    suspend fun clearNotifications(pachliAccountId: Long) = externalScope.async {
+        return@async mastodonApi.clearNotifications().onSuccess {
+            remoteKeyDao.delete(pachliAccountId, remoteKeyTimelineId)
+            notificationDao.deleteAllNotificationsForAccount(pachliAccountId)
+        }
     }.await()
 
     /**
@@ -191,8 +199,6 @@ class NotificationsRepository @Inject constructor(
 
     companion object {
         private const val PAGE_SIZE = 30
-
-        internal const val RKE_TIMELINE_ID = "NOTIFICATIONS"
     }
 }
 

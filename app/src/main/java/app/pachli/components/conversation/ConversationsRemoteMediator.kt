@@ -51,10 +51,6 @@ class ConversationsRemoteMediator(
 
         val conversations = conversationsResponse.body.filterNot { it.lastStatus == null }.asModel()
 
-        if (conversations.isEmpty()) {
-            return MediatorResult.Success(endOfPaginationReached = loadType != LoadType.REFRESH)
-        }
-
         transactionProvider {
             if (loadType == LoadType.REFRESH) {
                 conversationsDao.deleteForAccount(pachliAccountId)

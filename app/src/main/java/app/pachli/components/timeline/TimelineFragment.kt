@@ -253,7 +253,7 @@ class TimelineFragment :
                             val snapshot = adapter.snapshot()
                             val index = snapshot.items.indexOfFirst { it.id == statusId }
                             val position = snapshot.placeholdersBefore + index
-                            Timber.d("Restoring position, index: $index, position: $position")
+                            Timber.d("Restoring last position, statusId: $statusId, index: $index, position: $position")
                             binding.recyclerView.post {
                                 getView() ?: return@post
                                 binding.recyclerView.scrollToPosition(position)

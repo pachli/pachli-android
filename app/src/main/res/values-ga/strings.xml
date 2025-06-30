@@ -248,7 +248,7 @@
     </plurals>
     <string name="failed_fetch_posts">Theip ar postálacha a ghabháil</string>
     <string name="report_description_1">Seolfar an tuarascáil chuig do mhodhnóir freastalaí. Féadfaidh tú míniú a thabhairt ar an bhfáth go bhfuil tú ag tuairisciú an chuntais seo thíos:</string>
-    <string name="add_account_description">Cuir Cuntas Mastodon nua leis</string>
+    <string name="add_account_description">Cuir cuntas Mastodon nua leis</string>
     <string name="compose_active_account_description">Postáil le cuntas %1$s</string>
     <string name="action_remove">Bain</string>
     <string name="lock_account_label">Cuntas glasála</string>
@@ -771,18 +771,18 @@
     <string name="search_operator_date_dialog_last_7_days">Le 7 lá anuas</string>
     <string name="search_operator_date_dialog_last_30_days">Le 30 lá anuas</string>
     <plurals name="notification_severed_relationships_summary_following_fmt">
-        <item quantity="one">Baineadh an cuntas %1$s a leanann tú</item>
-        <item quantity="two">Baineadh %1$s cuntas a leanann tú</item>
-        <item quantity="few">Baineadh %1$s cuntas a leanann tú</item>
-        <item quantity="many">Baineadh %1$s cuntas a leanann tú</item>
-        <item quantity="other">Baineadh %1$s cuntas a leanann tú</item>
+        <item quantity="one">Baineadh an cuntas %1$s a leanann tú.</item>
+        <item quantity="two">Baineadh %1$s cuntas a leanann tú.</item>
+        <item quantity="few">Baineadh %1$s cuntas a leanann tú.</item>
+        <item quantity="many">Baineadh %1$s cuntas a leanann tú.</item>
+        <item quantity="other">Baineadh %1$s cuntas a leanann tú.</item>
     </plurals>
     <plurals name="notification_severed_relationships_summary_followers_fmt">
-        <item quantity="one">%1$s leantóir bainte</item>
-        <item quantity="two">%1$s leantóirí bainte</item>
-        <item quantity="few">%1$s leantóirí bainte</item>
-        <item quantity="many">%1$s leantóirí bainte</item>
-        <item quantity="other">%1$s leantóirí bainte</item>
+        <item quantity="one">%1$s leantóir bainte.</item>
+        <item quantity="two">%1$s leantóirí bainte.</item>
+        <item quantity="few">%1$s leantóirí bainte.</item>
+        <item quantity="many">%1$s leantóirí bainte.</item>
+        <item quantity="other">%1$s leantóirí bainte.</item>
     </plurals>
     <string name="filter_description_none">Taispeáin mar is gnách</string>
     <string name="pref_title_account_notification_filters">Scagairí fógra</string>
@@ -848,4 +848,9 @@
     <string name="export_preferences_ok_fmt">Roghanna a easpórtáileadh chuig %1$s</string>
     <string name="error_export_preferences_fmt">Níorbh fhéidir roghanna a easpórtáil chuig %1$s: %2$s</string>
     <string name="error_import_preferences_fmt">Níorbh fhéidir roghanna a iompórtáil ó %1$s: %2$s</string>
+    <string name="notification_severed_relationships_user_domain_block_fmt">Chuir tú bac ar <b>%1$s</b></string>
+    <string name="notification_severed_relationships_domain_block_fmt">Chuir riarthóir %1$s bac ar <b>%2$s</b></string>
+    <string name="notification_severed_relationships_unknown_fmt">Tá <b>%1$s</b> blocáilte (cúis anaithnid)</string>
+    <string name="notification_severed_relationships_account_suspension_fmt">Chuir riarthóir %1$s bac ar <b>%2$s</b></string>
+    <string name="manage_accounts_name">Bainistigh cuntais</string>
 </resources>

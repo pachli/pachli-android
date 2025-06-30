@@ -98,19 +98,15 @@ class CachedTimelineRemoteMediator(
             val statuses = response.body
 
             Timber.d("%d - # statuses loaded", statuses.size)
-
-            // This request succeeded with no new data, and pagination ends (unless this is a
-            // REFRESH, which must always set endOfPaginationReached to false).
-            if (statuses.isEmpty()) {
-                return@transactionProvider MediatorResult.Success(endOfPaginationReached = loadType != LoadType.REFRESH)
+            if (statuses.isNotEmpty()) {
+                Timber.d("  %s..%s", statuses.first().id, statuses.last().id)
             }
-
-            Timber.d("  %s..%s", statuses.first().id, statuses.last().id)
 
             val links = Links.from(response.headers["link"])
 
             when (loadType) {
                 LoadType.REFRESH -> {
+                    remoteKeyDao.deletePrevNext(pachliAccountId, remoteKeyTimelineId)
                     timelineDao.deleteAllStatusesForAccountOnTimeline(
                         pachliAccountId,
                         TimelineStatusEntity.Kind.Home,
@@ -161,7 +157,13 @@ class CachedTimelineRemoteMediator(
             }
             insertStatuses(pachliAccountId, statuses)
 
-            MediatorResult.Success(endOfPaginationReached = false)
+            val endOfPagination = when (loadType) {
+                LoadType.REFRESH -> statuses.isEmpty() || (links.prev == null && links.next == null)
+                LoadType.PREPEND -> statuses.isEmpty() || links.prev == null
+                LoadType.APPEND -> statuses.isEmpty() || links.next == null
+            }
+
+            MediatorResult.Success(endOfPaginationReached = endOfPagination)
         }
     }
 
