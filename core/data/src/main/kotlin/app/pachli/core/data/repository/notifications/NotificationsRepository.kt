@@ -227,6 +227,7 @@ fun Notification.Type.asEntity() = when (this) {
     Notification.Type.UPDATE -> NotificationEntity.Type.UPDATE
     Notification.Type.REPORT -> NotificationEntity.Type.REPORT
     Notification.Type.SEVERED_RELATIONSHIPS -> NotificationEntity.Type.SEVERED_RELATIONSHIPS
+    Notification.Type.MODERATION_WARNING -> NotificationEntity.Type.MODERATION_WARNING
 }
 
 /**

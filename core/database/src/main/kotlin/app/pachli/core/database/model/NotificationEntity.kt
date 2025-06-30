@@ -179,6 +179,8 @@ data class NotificationEntity(
         /** Some of your follow relationships have been severed as a result of a moderation or block event */
         SEVERED_RELATIONSHIPS,
 
+        /** A moderator has taken action against your account or has sent you a warning. */
+        MODERATION_WARNING,
         ;
 
         companion object

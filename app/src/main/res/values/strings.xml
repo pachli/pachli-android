@@ -347,6 +347,8 @@
     <string name="notification_report_description">Notifications about moderation reports</string>
     <string name="notification_severed_relationships_name">Severed relationships</string>
     <string name="notification_severed_relationships_description">Notifications about severed relationships</string>
+    <string name="notification_moderation_warning_name">Moderation warnings</string>
+    <string name="notification_moderation_warning_description">Notifications about moderation warnings</string>
     <string name="notification_listenable_worker_name">Background activity</string>
     <string name="notification_listenable_worker_description">Notifications when Pachli is working in the background</string>
     <string name="notification_unknown_name">Unknown</string>

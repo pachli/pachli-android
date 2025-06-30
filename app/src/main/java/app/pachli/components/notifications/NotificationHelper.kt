@@ -648,6 +648,7 @@ fun filterNotification(
         Notification.Type.UPDATE -> account.notificationsUpdates
         Notification.Type.REPORT -> account.notificationsReports
         Notification.Type.SEVERED_RELATIONSHIPS -> account.notificationsSeveredRelationships
+        Notification.Type.MODERATION_WARNING -> account.notificationsModerationWarnings
         Notification.Type.UNKNOWN -> false
     }
 }
@@ -672,6 +673,8 @@ fun filterNotificationByAccount(accountWithFilters: PachliAccount, notificationD
         NotificationEntity.Type.REPORT -> return AccountFilterDecision.None
         // Moderation has resulted in severed relationships.
         NotificationEntity.Type.SEVERED_RELATIONSHIPS -> return AccountFilterDecision.None
+        // Moderators sent a warning.
+        NotificationEntity.Type.MODERATION_WARNING -> return AccountFilterDecision.None
         // We explicitly asked to be notified about this user.
         NotificationEntity.Type.STATUS -> return AccountFilterDecision.None
         // Admin signup notifications should not be filtered.

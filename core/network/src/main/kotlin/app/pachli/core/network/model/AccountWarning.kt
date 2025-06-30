@@ -1,0 +1,106 @@
+/*
+ * Copyright 2025 Pachli Association
+ *
+ * This file is a part of Pachli.
+ *
+ * This program is free software; you can redistribute it and/or modify it under the terms of the
+ * GNU General Public License as published by the Free Software Foundation; either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * Pachli is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+ * the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+ * Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with Pachli; if not,
+ * see <http://www.gnu.org/licenses>.
+ */
+
+package app.pachli.core.network.model
+
+import app.pachli.core.network.json.Default
+import app.pachli.core.network.json.HasDefault
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
+import java.time.Instant
+
+/**
+ * Moderation warning against a particular account.
+ *
+ * @property id Server ID for the account warning.
+ * @property action Action taken against the account.
+ * @property text Message from the moderator to the target account.
+ * @property statusIds List of status IDs that are relevant to the warning.
+ * When [action] is [Action.MARK_STATUSES_AS_SENSITIVE] or [Action.DELETE_STATUSES],
+ * those are the affected statuses.
+ * @property targetAccount Account against which a moderation decision has been taken.
+ * @property appeal
+ * @property createdAt When the event took place..
+ */
+@JsonClass(generateAdapter = true)
+data class AccountWarning(
+    val id: String,
+    val action: Action = Action.UNKNOWN,
+    val text: String,
+    @Json(name = "status_ids")
+    val statusIds: List<String>? = null,
+    @Json(name = "target_account")
+    val targetAccount: Account,
+    val appeal: Appeal? = null,
+    @Json(name = "created_at")
+    val createdAt: Instant,
+) {
+    @HasDefault
+    enum class Action {
+        /** No action was taken, this is a simple warning. */
+        @Json(name = "none")
+        NONE,
+
+        /** The account has been disabled. */
+        @Json(name = "disable")
+        DISABLE,
+
+        /** Specific posts from the target account have been marked as sensitive. */
+        @Json(name = "mark_statuses_as_sensitive")
+        MARK_STATUSES_AS_SENSITIVE,
+
+        /** Specific statuses from the target account have been deleted. */
+        @Json(name = "delete_statuses")
+        DELETE_STATUSES,
+
+        /** The target account has been limited. */
+        @Json(name = "silence")
+        SILENCE,
+
+        /** The target account has been suspended. */
+        @Json(name = "suspend")
+        SUSPEND,
+
+        /** Unknown action. */
+        @Default
+        UNKNOWN,
+    }
+
+    @JsonClass(generateAdapter = true)
+    data class Appeal(
+        val text: String,
+        val state: State = State.UNKNOWN,
+    ) {
+        @HasDefault
+        enum class State {
+            /** The appeal has been approved by a moderator. */
+            @Json(name = "approved")
+            APPROVED,
+
+            /** The appeal has been rejected by a moderator. */
+            @Json(name = "rejected")
+            REJECTED,
+
+            /** The appeal has been submitted, but neither approved nor rejected yet. */
+            @Json(name = "pending")
+            PENDING,
+
+            @Default
+            UNKNOWN,
+        }
+    }
+}

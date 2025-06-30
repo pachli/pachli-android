@@ -71,6 +71,10 @@ enum class NotificationViewKind {
 
     /** View details of the affected target, number of relationships affected, and the actor */
     SEVERED_RELATIONSHIPS,
+
+    /** View details of the moderation warning. */
+    MODERATION_WARNING,
+
     UNKNOWN,
     ;
 
@@ -93,6 +97,7 @@ enum class NotificationViewKind {
                 NotificationEntity.Type.FOLLOW_REQUEST -> FOLLOW_REQUEST
                 NotificationEntity.Type.REPORT -> REPORT
                 NotificationEntity.Type.SEVERED_RELATIONSHIPS -> SEVERED_RELATIONSHIPS
+                NotificationEntity.Type.MODERATION_WARNING -> MODERATION_WARNING
                 NotificationEntity.Type.UNKNOWN -> UNKNOWN
                 null -> UNKNOWN
             }
@@ -244,6 +249,11 @@ class NotificationsPagingAdapter(
             NotificationViewKind.SEVERED_RELATIONSHIPS -> {
                 SeveredRelationshipsViewHolder(
                     ItemSeveredRelationshipsBinding.inflate(inflater, parent, false),
+                )
+            }
+            NotificationViewKind.MODERATION_WARNING -> {
+                ModerationWarningViewHolder(
+                    ItemModerationWarningBinder.inflate(inflater, parent, false),
                 )
             }
             else -> {
