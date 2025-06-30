@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="pref_category_downloads">Allalaadimised</string>
+    <string name="pref_title_downloads">Allalaadimise asukoht</string>
+    <string name="download_location_downloads">Allalaadimiste kaust</string>
+</resources>
