@@ -1,0 +1,1 @@
+Täisfunktsionaalne Mastodoni ja muude sarnaste serverite klient Androidile.
