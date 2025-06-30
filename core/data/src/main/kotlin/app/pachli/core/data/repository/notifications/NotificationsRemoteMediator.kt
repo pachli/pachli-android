@@ -35,8 +35,8 @@ import app.pachli.core.database.model.StatusEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.database.model.asEntity
 import app.pachli.core.model.Status
-import app.pachli.core.model.TimelineAccount
 import app.pachli.core.model.Timeline
+import app.pachli.core.model.TimelineAccount
 import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.RelationshipSeveranceEvent
