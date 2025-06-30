@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="error_set_active_account">Sisselogimisel tekkis järgmine viga: %1$s</string>
+    <string name="action_relogin">Logi uuesti sisse</string>
+    <string name="action_share_as">Jaga kui…</string>
+    <string name="title_choose_account_dialog">Vali kasutajakonto</string>
+    <string name="title_error_dialog">Sisselogimine ei õnnestunud</string>
+    <string name="error_login_failed_hint">Uuesti proovimiseks klõpsi kasutajakontol.</string>
+</resources>
