@@ -237,4 +237,6 @@
     <string name="account_username_copied">Kasutajanimi on kopeeritud</string>
     <string name="confirmation_reported">Saadetud!</string>
     <string name="notification_severed_relationships_user_domain_block_body">Sina blokeerisid domeeni</string>
+    <string name="followed_hashtags_summary_fmt">%1$s - %2$s (viimased %3$s)</string>
+    <string name="action_filter_search">Filtreeri otsinguid</string>
 </resources>
