@@ -3,4 +3,20 @@
     <string name="pref_category_downloads">Allalaadimised</string>
     <string name="pref_title_downloads">Allalaadimise asukoht</string>
     <string name="download_location_downloads">Allalaadimiste kaust</string>
+    <string name="download_location_per_account">Kasutajakonto kohased kaustad allalaadimiste kaustas</string>
+    <string name="download_location_per_sender">Saatjakohased kaustad allalaadimiste kaustas</string>
+    <string name="app_theme_light">Hele kujundus</string>
+    <string name="app_theme_black">Süsimust kujundus</string>
+    <string name="app_theme_auto">Automaatne kujunduse valik päikeseloojangul</string>
+    <string name="app_theme_dark">Tume kujundus</string>
+    <string name="app_theme_system">Kasuta süsteemi kujundust</string>
+    <string name="pref_category_tabs">Vahekaardid</string>
+    <string name="pref_title_tab_tap">Tegevus vahekaardil klõpsides</string>
+    <string name="tab_tap_behaviour_jump_to_next_page">Hüppa järgmisele lehele</string>
+    <string name="tab_tap_behaviour_jump_to_newest">Hüppa uusima sisu juurde</string>
+    <string name="pref_main_nav_position_option_top">Ülemine äär</string>
+    <string name="pref_main_nav_position_option_bottom">Alumine äär</string>
+    <string name="pref_show_self_username_always">Alati</string>
+    <string name="pref_show_self_username_disambiguate">Kui mitu kasutajakontot on sisse logitud</string>
+    <string name="pref_show_self_username_never">Mitte kunagi</string>
 </resources>
