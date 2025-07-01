@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<issues format="6" by="lint 8.9.2" type="baseline" client="gradle" dependencies="true" name="AGP (8.9.2)" variant="all" version="8.9.2">
+<issues format="6" by="lint 8.10.1" type="baseline" client="gradle" dependencies="true" name="AGP (8.10.1)" variant="all" version="8.10.1">
 
     <issue
         id="MissingSuperCall"
@@ -24,6 +24,17 @@
         message="Invalid package reference in org.pageseeder.diffx:pso-diffx; not included in Android: `javax.xml.stream`. Referenced from `org.pageseeder.diffx.format.StrictXMLDiffOutput`.">
         <location
             file="../../../.gradle/caches/modules-2/files-2.1/org.pageseeder.diffx/pso-diffx/1.1.1/b655ebc87588a857a4f3d88cf98bcefa87a6105b/pso-diffx-1.1.1.jar"/>
+    </issue>
+
+    <issue
+        id="TrimLambda"
+        message="The lambda argument (`{ it &lt;= &apos; &apos; }`) is unnecessary"
+        errorLine1="            return s.trim { it &lt;= &apos; &apos; }"
+        errorLine2="                          ~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/app/pachli/feature/login/LoginActivity.kt"
+            line="385"
+            column="27"/>
     </issue>
 
     <issue
@@ -112,6 +123,139 @@
             file="src/main/res/values/styles.xml"
             line="143"
             column="43"/>
+    </issue>
+
+    <issue
+        id="Aligned16KB"
+        message="The native library `arm64-v8a/libanimation-decoder-gif.so` (from `com.github.penfeizhou.android.animation:gif:2.23.0`) is not 16 KB aligned">
+        <location
+            file="../../../../.gradle/caches/8.14/transforms/e7f66f196230b0ba2070793b94f1cb56/transformed/gif-2.23.0/jni/arm64-v8a/libanimation-decoder-gif.so"/>
+    </issue>
+
+    <issue
+        id="Aligned16KB"
+        message="The native library `arm64-v8a/libanimation-decoder-gif.so` (from `com.github.penfeizhou.android.animation:gif:2.23.0`) is not 16 KB aligned">
+        <location
+            file="../../../../.gradle/caches/8.14/transforms/e7f66f196230b0ba2070793b94f1cb56/transformed/gif-2.23.0/jni/arm64-v8a/libanimation-decoder-gif.so"/>
+    </issue>
+
+    <issue
+        id="Aligned16KB"
+        message="The native library `arm64-v8a/libanimation-decoder-gif.so` (from `com.github.penfeizhou.android.animation:gif:2.23.0`) is not 16 KB aligned">
+        <location
+            file="../../../../.gradle/caches/8.14/transforms/e7f66f196230b0ba2070793b94f1cb56/transformed/gif-2.23.0/jni/arm64-v8a/libanimation-decoder-gif.so"/>
+    </issue>
+
+    <issue
+        id="Aligned16KB"
+        message="The native library `arm64-v8a/libanimation-decoder-gif.so` (from `com.github.penfeizhou.android.animation:gif:2.23.0`) is not 16 KB aligned">
+        <location
+            file="../../../../.gradle/caches/8.14/transforms/e7f66f196230b0ba2070793b94f1cb56/transformed/gif-2.23.0/jni/arm64-v8a/libanimation-decoder-gif.so"/>
+    </issue>
+
+    <issue
+        id="Aligned16KB"
+        message="The native library `arm64-v8a/libanimation-decoder-gif.so` (from `com.github.penfeizhou.android.animation:gif:2.23.0`) is not 16 KB aligned">
+        <location
+            file="../../../../.gradle/caches/8.14/transforms/e7f66f196230b0ba2070793b94f1cb56/transformed/gif-2.23.0/jni/arm64-v8a/libanimation-decoder-gif.so"/>
+    </issue>
+
+    <issue
+        id="Aligned16KB"
+        message="The native library `arm64-v8a/libanimation-decoder-gif.so` (from `com.github.penfeizhou.android.animation:gif:2.23.0`) is not 16 KB aligned">
+        <location
+            file="../../../../.gradle/caches/8.14/transforms/e7f66f196230b0ba2070793b94f1cb56/transformed/gif-2.23.0/jni/arm64-v8a/libanimation-decoder-gif.so"/>
+    </issue>
+
+    <issue
+        id="Aligned16KB"
+        message="The native library `arm64-v8a/libanimation-decoder-gif.so` (from `com.github.penfeizhou.android.animation:gif:2.23.0`) is not 16 KB aligned">
+        <location
+            file="../../../../.gradle/caches/8.14/transforms/e7f66f196230b0ba2070793b94f1cb56/transformed/gif-2.23.0/jni/arm64-v8a/libanimation-decoder-gif.so"/>
+    </issue>
+
+    <issue
+        id="Aligned16KB"
+        message="The native library `arm64-v8a/libanimation-decoder-gif.so` (from `com.github.penfeizhou.android.animation:gif:2.23.0`) is not 16 KB aligned">
+        <location
+            file="../../../../.gradle/caches/8.14/transforms/e7f66f196230b0ba2070793b94f1cb56/transformed/gif-2.23.0/jni/arm64-v8a/libanimation-decoder-gif.so"/>
+    </issue>
+
+    <issue
+        id="Aligned16KB"
+        message="The native library `arm64-v8a/libanimation-decoder-gif.so` (from `com.github.penfeizhou.android.animation:gif:2.23.0`) is not 16 KB aligned">
+        <location
+            file="../../../../.gradle/caches/8.14/transforms/e7f66f196230b0ba2070793b94f1cb56/transformed/gif-2.23.0/jni/arm64-v8a/libanimation-decoder-gif.so"/>
+    </issue>
+
+    <issue
+        id="Aligned16KB"
+        message="The native library `arm64-v8a/libanimation-decoder-gif.so` (from `com.github.penfeizhou.android.animation:gif:2.23.0`) is not 16 KB aligned">
+        <location
+            file="../../../../.gradle/caches/8.14/transforms/e7f66f196230b0ba2070793b94f1cb56/transformed/gif-2.23.0/jni/arm64-v8a/libanimation-decoder-gif.so"/>
+    </issue>
+
+    <issue
+        id="Aligned16KB"
+        message="The native library `arm64-v8a/libanimation-decoder-gif.so` (from `com.github.penfeizhou.android.animation:gif:2.23.0`) is not 16 KB aligned">
+        <location
+            file="../../../../.gradle/caches/8.14/transforms/e7f66f196230b0ba2070793b94f1cb56/transformed/gif-2.23.0/jni/arm64-v8a/libanimation-decoder-gif.so"/>
+    </issue>
+
+    <issue
+        id="Aligned16KB"
+        message="The native library `arm64-v8a/libanimation-decoder-gif.so` (from `com.github.penfeizhou.android.animation:gif:2.23.0`) is not 16 KB aligned">
+        <location
+            file="../../../../.gradle/caches/8.14/transforms/e7f66f196230b0ba2070793b94f1cb56/transformed/gif-2.23.0/jni/arm64-v8a/libanimation-decoder-gif.so"/>
+    </issue>
+
+    <issue
+        id="Aligned16KB"
+        message="The native library `arm64-v8a/libanimation-decoder-gif.so` (from `com.github.penfeizhou.android.animation:gif:2.23.0`) is not 16 KB aligned">
+        <location
+            file="../../../../.gradle/caches/8.14/transforms/e7f66f196230b0ba2070793b94f1cb56/transformed/gif-2.23.0/jni/arm64-v8a/libanimation-decoder-gif.so"/>
+    </issue>
+
+    <issue
+        id="Aligned16KB"
+        message="The native library `arm64-v8a/libanimation-decoder-gif.so` (from `com.github.penfeizhou.android.animation:gif:2.23.0`) is not 16 KB aligned">
+        <location
+            file="../../../../.gradle/caches/8.14/transforms/e7f66f196230b0ba2070793b94f1cb56/transformed/gif-2.23.0/jni/arm64-v8a/libanimation-decoder-gif.so"/>
+    </issue>
+
+    <issue
+        id="Aligned16KB"
+        message="The native library `arm64-v8a/libanimation-decoder-gif.so` (from `com.github.penfeizhou.android.animation:gif:2.23.0`) is not 16 KB aligned">
+        <location
+            file="../../../../.gradle/caches/8.14/transforms/e7f66f196230b0ba2070793b94f1cb56/transformed/gif-2.23.0/jni/arm64-v8a/libanimation-decoder-gif.so"/>
+    </issue>
+
+    <issue
+        id="Aligned16KB"
+        message="The native library `arm64-v8a/libanimation-decoder-gif.so` (from `com.github.penfeizhou.android.animation:gif:2.23.0`) is not 16 KB aligned">
+        <location
+            file="../../../../.gradle/caches/8.14/transforms/e7f66f196230b0ba2070793b94f1cb56/transformed/gif-2.23.0/jni/arm64-v8a/libanimation-decoder-gif.so"/>
+    </issue>
+
+    <issue
+        id="Aligned16KB"
+        message="The native library `arm64-v8a/libanimation-decoder-gif.so` (from `com.github.penfeizhou.android.animation:gif:2.23.0`) is not 16 KB aligned">
+        <location
+            file="../../../.gradle/caches/8.14/transforms/e7f66f196230b0ba2070793b94f1cb56/transformed/gif-2.23.0/jni/arm64-v8a/libanimation-decoder-gif.so"/>
+    </issue>
+
+    <issue
+        id="Aligned16KB"
+        message="The native library `arm64-v8a/libanimation-decoder-gif.so` (from `com.github.penfeizhou.android.animation:gif:2.23.0`) is not 16 KB aligned">
+        <location
+            file="../../../.gradle/caches/8.14/transforms/e7f66f196230b0ba2070793b94f1cb56/transformed/gif-2.23.0/jni/arm64-v8a/libanimation-decoder-gif.so"/>
+    </issue>
+
+    <issue
+        id="Aligned16KB"
+        message="The native library `arm64-v8a/libanimation-decoder-gif.so` (from `com.github.penfeizhou.android.animation:gif:2.23.0`) is not 16 KB aligned">
+        <location
+            file="../../../.gradle/caches/8.14/transforms/e7f66f196230b0ba2070793b94f1cb56/transformed/gif-2.23.0/jni/arm64-v8a/libanimation-decoder-gif.so"/>
     </issue>
 
     <issue
