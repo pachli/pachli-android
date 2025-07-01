@@ -2,20 +2,6 @@
 <issues format="6" by="lint 8.10.1" type="baseline" client="gradle" dependencies="false" name="AGP (8.10.1)" variant="all" version="8.10.1">
 
     <issue
-        id="Aligned16KB"
-        message="The native library `arm64-v8a/libanimation-decoder-gif.so` (from `com.github.penfeizhou.android.animation:gif:2.23.0`) is not 16 KB aligned">
-        <location
-            file="$GRADLE_USER_HOME/caches/8.14/transforms/e7f66f196230b0ba2070793b94f1cb56/transformed/gif-2.23.0/jni/arm64-v8a/libanimation-decoder-gif.so"/>
-    </issue>
-
-    <issue
-        id="Aligned16KB"
-        message="The native library `arm64-v8a/libanimation-decoder-gif.so` (from `com.github.penfeizhou.android.animation:gif:2.23.0`) is not 16 KB aligned">
-        <location
-            file="$GRADLE_USER_HOME/caches/8.14/transforms/e7f66f196230b0ba2070793b94f1cb56/transformed/gif-2.23.0/jni/arm64-v8a/libanimation-decoder-gif.so"/>
-    </issue>
-
-    <issue
         id="Overdraw"
         message="Possible overdraw: Root element paints background `@color/account_selector` with a theme that also paints a background (inferred theme is `@android:style/Theme.Holo`)"
         errorLine1="    android:background=&quot;@color/account_selector&quot;"
