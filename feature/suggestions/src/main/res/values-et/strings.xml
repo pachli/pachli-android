@@ -1,2 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="title_suggestions">Kasutajakontode soovitused</string>
+    <string name="source_unknown">(serveri vastuses on tuvastamatu allikas)</string>
+    <string name="sources_featured">Valitud sinu koduserveri tiimi poolt</string>
+    <string name="sources_most_followed">Üks enimjälgitud kasutajaid sinu koduserveris</string>
+    <string name="sources_most_interactions">Kõige rohkem tähelepanu sinu koduserveri</string>
+    <string name="sources_similar_to_recently_followed">Sarnane sinu poolt hiljuti jälgitud kontodele</string>
+    <string name="sources_friends_of_friends">Populaarne nende hulgas, keda sa tunned</string>
+    <string name="sources_unknown">(serveri vastuses on tuvastamatud allikad)</string>
+    <string name="action_follow_account">Jälgi</string>
+    <string name="action_dismiss_follow_suggestion">Loobu</string>
+    <string name="ui_error_delete_suggestion_fmt">%1$s soovitusest loobumine ei õnnestunud: %2$s</string>
+    <string name="ui_error_follow_account_fmt">%1$s jälgimise alustamine ei õnnestunud: %2$s</string>
+    <string name="follower_count_fmt"><b>%1$s</b> jälgijat</string>
+    <string name="follows_count_fmt"><b>%1$s</b> jälgimas</string>
+    <string name="statuses_count_fmt"><b>%1$s</b> postitust</string>
+    <string name="statuses_count_per_week_fmt"><b>%1$s</b> postitust (<b>%2$d</b> nädalas)</string>
+    <string name="statuses_count_per_week_last_fmt"><b>%1$s</b> postitust (<b>%2$d</b> nädalas, viimati <b>%3$s</b>)</string>
+</resources>
