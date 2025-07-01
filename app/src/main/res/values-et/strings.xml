@@ -242,5 +242,9 @@
     <string name="confirmation_unblocked">Kasutaja blokeerimine on eemaldatud</string>
     <string name="hint_note">Elulugu</string>
     <string name="post_sent">Saadetud!</string>
-    <string name="post_sent_long">Vastuse saatmine õnnestus</string>
+    <string name="post_sent_long">Vastuse saatmine õnnestus.</string>
+    <string name="hint_compose">Mis on toimumas?</string>
+    <string name="hint_content_warning">Sisuhoiatus</string>
+    <string name="hint_display_name">Kuvatav nimi</string>
+    <string name="hint_media_description_missing">Meediafailil peaks olema kirjeldus</string>
 </resources>
