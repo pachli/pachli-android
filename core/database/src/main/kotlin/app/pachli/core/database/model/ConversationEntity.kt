@@ -25,12 +25,10 @@ import androidx.room.Index
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
 import app.pachli.core.model.AccountFilterDecision
+import app.pachli.core.model.Conversation
+import app.pachli.core.model.ConversationAccount
 import app.pachli.core.model.FilterAction
-import app.pachli.core.network.model.Conversation
-import app.pachli.core.network.model.Emoji
-import app.pachli.core.network.model.TimelineAccount
-import com.squareup.moshi.JsonClass
-import java.time.Instant
+import app.pachli.core.model.TimelineAccount
 
 /**
  * Data to show a conversation.
@@ -139,7 +137,7 @@ data class ConversationEntity(
                 ConversationEntity(
                     pachliAccountId = pachliAccountId,
                     id = conversation.id,
-                    accounts = conversation.accounts.map { ConversationAccount.from(it) },
+                    accounts = conversation.accounts.asConversationAccount(),
                     unread = conversation.unread,
                     lastStatusServerId = it.id,
                     isConversationStarter = isInitial,
@@ -149,29 +147,14 @@ data class ConversationEntity(
     }
 }
 
-/**
- * Participants in a [ConversationData].
- */
-@JsonClass(generateAdapter = true)
-data class ConversationAccount(
-    val id: String,
-    val localUsername: String,
-    val username: String,
-    val displayName: String,
-    val avatar: String,
-    val emojis: List<Emoji>,
-    val createdAt: Instant?,
-) {
+fun TimelineAccount.asConversationAccount() = ConversationAccount(
+    id = id,
+    localUsername = localUsername,
+    username = username,
+    displayName = name,
+    avatar = avatar,
+    emojis = emojis.orEmpty(),
+    createdAt = createdAt,
+)
 
-    companion object {
-        fun from(timelineAccount: TimelineAccount) = ConversationAccount(
-            id = timelineAccount.id,
-            localUsername = timelineAccount.localUsername,
-            username = timelineAccount.username,
-            displayName = timelineAccount.name,
-            avatar = timelineAccount.avatar,
-            emojis = timelineAccount.emojis.orEmpty(),
-            createdAt = timelineAccount.createdAt,
-        )
-    }
-}
+fun Iterable<TimelineAccount>.asConversationAccount() = map { it.asConversationAccount() }

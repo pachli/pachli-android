@@ -21,7 +21,6 @@ import android.database.sqlite.SQLiteException
 import app.pachli.core.common.PachliError
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.R
-import app.pachli.core.data.model.MastodonList
 import app.pachli.core.data.model.Server
 import app.pachli.core.data.repository.ServerRepository.Error.GetNodeInfo
 import app.pachli.core.data.repository.ServerRepository.Error.GetWellKnownNodeInfo
@@ -38,12 +37,14 @@ import app.pachli.core.database.model.EmojisEntity
 import app.pachli.core.database.model.FollowingAccountEntity
 import app.pachli.core.database.model.InstanceInfoEntity
 import app.pachli.core.database.model.ServerEntity
+import app.pachli.core.model.Account
 import app.pachli.core.model.FilterAction
+import app.pachli.core.model.MastodonList
 import app.pachli.core.model.NodeInfo
+import app.pachli.core.model.Status.Visibility
 import app.pachli.core.model.Timeline
-import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.HttpHeaderLink
-import app.pachli.core.network.model.Status
+import app.pachli.core.network.model.asModel
 import app.pachli.core.network.retrofit.InstanceSwitchAuthInterceptor
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.NodeInfoApi
@@ -226,8 +227,7 @@ class AccountManager @Inject constructor(
 
         externalScope.launch {
             listsRepository.getListsFlow().collect { lists ->
-                val listsById = lists.groupBy { it.accountId }
-                listsById.forEach { (pachliAccountId, group) ->
+                lists.forEach { (pachliAccountId, group) ->
                     newTabPreferences(pachliAccountId, group)?.let {
                         setTabPreferences(pachliAccountId, it)
                     }
@@ -379,10 +379,10 @@ class AccountManager @Inject constructor(
                     displayName = account.name,
                     profilePictureUrl = account.avatar,
                     profileHeaderPictureUrl = account.header,
-                    defaultPostPrivacy = account.source.privacy ?: Status.Visibility.PUBLIC,
+                    defaultPostPrivacy = account.source.privacy?.asModel() ?: Visibility.PUBLIC,
                     defaultPostLanguage = account.source.language.orEmpty(),
                     defaultMediaSensitivity = account.source.sensitive == true,
-                    emojis = account.emojis,
+                    emojis = account.emojis.asModel(),
                     locked = account.locked,
                     isBot = account.bot,
                 )
@@ -437,7 +437,14 @@ class AccountManager @Inject constructor(
         val deferEmojis = externalScope.async {
             mastodonApi.getCustomEmojis()
                 .mapError { RefreshAccountError.General(account, it) }
-                .onSuccess { instanceDao.upsert(EmojisEntity(accountId = account.id, emojiList = it.body)) }
+                .onSuccess {
+                    instanceDao.upsert(
+                        EmojisEntity(
+                            accountId = account.id,
+                            emojiList = it.body.asModel(),
+                        ),
+                    )
+                }
         }
 
         val deferAnnouncements = externalScope.async {
@@ -448,7 +455,7 @@ class AccountManager @Inject constructor(
                         AnnouncementEntity(
                             accountId = account.id,
                             announcementId = it.id,
-                            announcement = it,
+                            announcement = it.asModel(),
                         )
                     }
                 }
@@ -467,7 +474,7 @@ class AccountManager @Inject constructor(
                     val response = mastodonApi.accountFollowing(account.accountId, maxId)
                         .getOrElse { return@async Err(RefreshAccountError.General(account, it)) }
 
-                    addAll(response.body.map { FollowingAccountEntity.from(account.id, it) })
+                    addAll(response.body.map { FollowingAccountEntity.from(account.id, it.asModel()) })
                     val links = HttpHeaderLink.parse(response.headers["Link"])
                     val next = HttpHeaderLink.findByRelationType(links, "next")
                     maxId = next?.uri?.getQueryParameter("max_id")
@@ -693,7 +700,7 @@ class AccountManager @Inject constructor(
         )
     }
 
-    fun setDefaultPostPrivacy(accountId: Long, value: Status.Visibility) {
+    fun setDefaultPostPrivacy(accountId: Long, value: Visibility) {
         accountDao.setDefaultPostPrivacy(accountId, value)
     }
 

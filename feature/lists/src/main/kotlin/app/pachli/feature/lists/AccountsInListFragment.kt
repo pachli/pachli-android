@@ -40,7 +40,7 @@ import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.ListsError
 import app.pachli.core.designsystem.R as DR
-import app.pachli.core.network.model.TimelineAccount
+import app.pachli.core.model.TimelineAccount
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.ui.BindingHolder
@@ -282,7 +282,7 @@ class AccountsInListFragment : DialogFragment() {
             val holder = BindingHolder(binding)
 
             binding.checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
-                val (account, inAList) = getItem(holder.bindingAdapterPosition)
+                val (account, _) = getItem(holder.bindingAdapterPosition)
 
                 if (isChecked) {
                     onAddToList(account)

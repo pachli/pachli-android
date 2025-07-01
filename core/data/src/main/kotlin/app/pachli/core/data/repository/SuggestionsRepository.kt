@@ -18,10 +18,10 @@
 package app.pachli.core.data.repository
 
 import app.pachli.core.common.PachliError
-import app.pachli.core.data.model.Suggestion
 import app.pachli.core.data.repository.SuggestionsError.DeleteSuggestionError
 import app.pachli.core.data.repository.SuggestionsError.FollowAccountError
 import app.pachli.core.data.repository.SuggestionsError.GetSuggestionsError
+import app.pachli.core.model.Suggestion
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import com.github.michaelbull.result.Result
 

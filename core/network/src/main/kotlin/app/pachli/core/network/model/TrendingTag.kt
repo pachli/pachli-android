@@ -18,7 +18,6 @@
 package app.pachli.core.network.model
 
 import com.squareup.moshi.JsonClass
-import java.util.Date
 
 /**
  * Mastodon API Documentation: https://docs.joinmastodon.org/methods/trends/#tags
@@ -32,7 +31,15 @@ import java.util.Date
 data class TrendingTag(
     val name: String,
     val history: List<TrendingTagHistory>,
-)
+) {
+    fun asModel() = app.pachli.core.model.TrendingTag(
+        name = name,
+        history = history.asModel(),
+    )
+}
+
+@JvmName("iterableTrendingTagAsModel")
+fun Iterable<TrendingTag>.asModel() = map { it.asModel() }
 
 /**
  * Mastodon API Documentation: https://docs.joinmastodon.org/methods/trends/#tags
@@ -46,7 +53,13 @@ data class TrendingTagHistory(
     val day: String,
     val accounts: String,
     val uses: String,
-)
+) {
+    fun asModel() = app.pachli.core.model.TrendingTagHistory(
+        day = day,
+        accounts = accounts,
+        uses = uses,
+    )
+}
 
-fun TrendingTag.start() = Date(history.last().day.toLong() * 1000L)
-fun TrendingTag.end() = Date(history.first().day.toLong() * 1000L)
+@JvmName("iterableTrendingTagHistoryAsModel")
+fun Iterable<TrendingTagHistory>.asModel() = map { it.asModel() }

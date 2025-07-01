@@ -28,9 +28,9 @@ import app.pachli.core.common.util.shouldTrimStatus
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.designsystem.R as DR
-import app.pachli.core.network.model.Emoji
-import app.pachli.core.network.model.HashTag
-import app.pachli.core.network.model.Status
+import app.pachli.core.model.Emoji
+import app.pachli.core.model.HashTag
+import app.pachli.core.model.Status
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.SetStatusContent

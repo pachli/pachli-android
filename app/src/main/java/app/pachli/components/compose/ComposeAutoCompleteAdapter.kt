@@ -27,8 +27,8 @@ import app.pachli.R
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.util.formatNumber
 import app.pachli.core.designsystem.R as DR
-import app.pachli.core.network.model.Emoji
-import app.pachli.core.network.model.TimelineAccount
+import app.pachli.core.model.Emoji
+import app.pachli.core.model.TimelineAccount
 import app.pachli.core.ui.databinding.ItemAutocompleteAccountBinding
 import app.pachli.core.ui.emojify
 import app.pachli.core.ui.loadAvatar

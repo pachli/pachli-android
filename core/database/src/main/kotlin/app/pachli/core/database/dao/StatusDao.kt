@@ -29,7 +29,7 @@ import app.pachli.core.database.model.StatusViewDataContentShowing
 import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.StatusViewDataExpanded
 import app.pachli.core.database.model.StatusViewDataTranslationState
-import app.pachli.core.network.model.Poll
+import app.pachli.core.model.Poll
 
 /**
  * Operations on individual statuses, irrespective of the timeline they are

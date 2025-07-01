@@ -28,6 +28,7 @@ import app.pachli.R
 import app.pachli.components.timeline.TimelineRepository
 import app.pachli.core.common.PachliError
 import app.pachli.core.common.extensions.throttleFirst
+import app.pachli.core.data.model.ContentFilterModel
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.StatusActionError
@@ -50,14 +51,13 @@ import app.pachli.core.eventhub.UnfollowEvent
 import app.pachli.core.model.ContentFilterVersion
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.FilterContext
+import app.pachli.core.model.Poll
+import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
 import app.pachli.core.model.translation.TranslatedStatus
-import app.pachli.core.network.model.Poll
-import app.pachli.core.network.model.Status
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.preferences.TabTapBehaviour
-import app.pachli.network.ContentFilterModel
 import app.pachli.translation.TranslatorError
 import app.pachli.usecase.TimelineCases
 import com.github.michaelbull.result.Ok
@@ -684,12 +684,5 @@ abstract class TimelineViewModel<T : Any>(
         fun creationExtras(timeline: Timeline) = bundleOf(
             TIMELINE_TAG to timeline,
         )
-
-        fun filterContextMatchesKind(
-            timeline: Timeline,
-            filterContext: List<FilterContext>,
-        ): Boolean {
-            return filterContext.contains(FilterContext.from(timeline))
-        }
     }
 }

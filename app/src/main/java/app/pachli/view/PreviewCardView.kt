@@ -31,8 +31,8 @@ import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.common.util.formatNumber
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.designsystem.R as DR
-import app.pachli.core.network.model.PreviewCard
-import app.pachli.core.network.model.TrendsLink
+import app.pachli.core.model.PreviewCard
+import app.pachli.core.model.TrendsLink
 import app.pachli.core.ui.decodeBlurHash
 import app.pachli.core.ui.emojify
 import app.pachli.databinding.PreviewCardBinding
@@ -208,7 +208,7 @@ class PreviewCardView @JvmOverloads constructor(
             // https://github.com/mastodon/mastodon/issues/33139).
             !author?.name.isNullOrBlank() -> {
                 authorInfo.text = HtmlCompat.fromHtml(
-                    authorInfo.context.getString(R.string.preview_card_byline_name_only_fmt, author?.name),
+                    authorInfo.context.getString(R.string.preview_card_byline_name_only_fmt, author.name),
                     HtmlCompat.FROM_HTML_MODE_LEGACY,
                 )
                 authorInfo.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)

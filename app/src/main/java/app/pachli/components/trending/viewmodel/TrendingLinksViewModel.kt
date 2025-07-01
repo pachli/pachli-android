@@ -25,7 +25,7 @@ import app.pachli.core.common.extensions.stateFlow
 import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
-import app.pachli.core.network.model.TrendsLink
+import app.pachli.core.model.TrendsLink
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import com.github.michaelbull.result.mapBoth
@@ -79,7 +79,7 @@ class TrendingLinksViewModel @AssistedInject constructor(
                 emit(LoadState.Loading)
                 emit(
                     repository.getTrendingLinks().mapBoth(
-                        { response -> LoadState.Success(response.body) },
+                        { response -> LoadState.Success(response) },
                         { error -> LoadState.Error(error.throwable) },
                     ),
                 )

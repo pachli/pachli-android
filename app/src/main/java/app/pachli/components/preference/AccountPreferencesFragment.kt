@@ -43,6 +43,7 @@ import app.pachli.core.data.repository.canFilterV2
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_STATUSES_GET
+import app.pachli.core.model.Status
 import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.navigation.ContentFiltersActivityIntent
 import app.pachli.core.navigation.FollowedTagsActivityIntent
@@ -52,7 +53,6 @@ import app.pachli.core.navigation.LoginActivityIntent.LoginMode
 import app.pachli.core.navigation.PreferencesActivityIntent
 import app.pachli.core.navigation.PreferencesActivityIntent.PreferenceScreen
 import app.pachli.core.navigation.TabPreferenceActivityIntent
-import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.ui.makeIcon
@@ -366,10 +366,10 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                     accountManager.activeAccount?.let {
                         accountManager.setDefaultPostPrivacy(
                             it.id,
-                            account.source?.privacy
+                            account.source.privacy?.asModel()
                                 ?: Status.Visibility.PUBLIC,
                         )
-                        accountManager.setDefaultMediaSensitivity(it.id, account.source?.sensitive ?: false)
+                        accountManager.setDefaultMediaSensitivity(it.id, account.source.sensitive ?: false)
                         accountManager.setDefaultPostLanguage(it.id, language.orEmpty())
                     }
                 }

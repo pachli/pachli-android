@@ -40,7 +40,7 @@ import app.pachli.components.compose.MediaPreviewAdapter.MediaAction.REMOVE
 import app.pachli.components.compose.UploadState.Uploaded
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
-import app.pachli.core.network.model.Attachment
+import app.pachli.core.model.Attachment
 import app.pachli.databinding.ItemComposeMediaAttachmentBinding
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.engine.DiskCacheStrategy

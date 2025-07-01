@@ -293,5 +293,19 @@ data class NotificationRelationshipSeveranceEventEntity(
         UNKNOWN,
     }
 
+    fun asModel() = app.pachli.core.model.RelationshipSeveranceEvent(
+        id = serverId,
+        type = when (type) {
+            Type.DOMAIN_BLOCK -> app.pachli.core.model.RelationshipSeveranceEvent.Type.DOMAIN_BLOCK
+            Type.USER_DOMAIN_BLOCK -> app.pachli.core.model.RelationshipSeveranceEvent.Type.USER_DOMAIN_BLOCK
+            Type.ACCOUNT_SUSPENSION -> app.pachli.core.model.RelationshipSeveranceEvent.Type.ACCOUNT_SUSPENSION
+            Type.UNKNOWN -> app.pachli.core.model.RelationshipSeveranceEvent.Type.UNKNOWN
+        },
+        purged = purged,
+        targetName = targetName,
+        followersCount = followersCount,
+        followingCount = followingCount,
+        createdAt = createdAt,
+    )
     companion object
 }

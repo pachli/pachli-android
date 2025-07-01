@@ -51,7 +51,7 @@ class CachedTimelineViewModelTestStatusFilterAction : CachedTimelineViewModelTes
     private val status = mockStatus(pollOptions = listOf("Choice 1", "Choice 2", "Choice 3"))
     private val statusViewData = StatusViewData(
         pachliAccountId = 1L,
-        status = status,
+        status = status.asModel(),
         isExpanded = true,
         isShowingContent = false,
         isCollapsed = false,
@@ -69,7 +69,7 @@ class CachedTimelineViewModelTestStatusFilterAction : CachedTimelineViewModelTes
 
     /** Action to vote in a poll */
     private val voteInPollAction = FallibleStatusAction.VoteInPoll(
-        poll = status.poll!!,
+        poll = status.poll?.asModel()!!,
         choices = listOf(1, 0, 0),
         statusViewData,
     )

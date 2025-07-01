@@ -33,11 +33,11 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.StatusScheduledEvent
+import app.pachli.core.model.ScheduledStatus
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InReplyTo
 import app.pachli.core.navigation.pachliAccountId
-import app.pachli.core.network.model.ScheduledStatus
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.databinding.ActivityScheduledStatusBinding
 import com.google.android.material.color.MaterialColors

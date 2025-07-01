@@ -29,4 +29,14 @@ data class StatusParams(
     @Json(name = "in_reply_to_id") val inReplyToId: String?,
     val poll: NewPoll?,
     val language: String? = null,
-)
+) {
+    fun asModel() = app.pachli.core.model.StatusParams(
+        text = text,
+        sensitive = sensitive == true,
+        visibility = visibility.asModel(),
+        spoilerText = spoilerText,
+        inReplyToId = inReplyToId,
+        poll = poll?.asModel(),
+        language = language,
+    )
+}

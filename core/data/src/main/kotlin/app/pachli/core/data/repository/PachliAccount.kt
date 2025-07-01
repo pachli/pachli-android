@@ -17,15 +17,15 @@
 
 package app.pachli.core.data.repository
 
-import app.pachli.core.data.model.MastodonList
 import app.pachli.core.data.model.Server
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.FollowingAccountEntity
 import app.pachli.core.database.model.asModel
+import app.pachli.core.model.Announcement
+import app.pachli.core.model.Emoji
 import app.pachli.core.model.InstanceInfo
+import app.pachli.core.model.MastodonList
 import app.pachli.core.model.ServerKind
-import app.pachli.core.network.model.Announcement
-import app.pachli.core.network.model.Emoji
 import io.github.z4kn4fein.semver.Version
 
 /**
@@ -64,7 +64,7 @@ data class PachliAccount(
                 id = account.account.id,
                 entity = account.account,
                 instanceInfo = account.instanceInfo.asModel(),
-                lists = account.lists.orEmpty().map { MastodonList.from(it) },
+                lists = account.lists.orEmpty().map { it.asModel() },
                 emojis = account.emojis?.emojiList.orEmpty(),
                 server = account.server?.let { Server.from(it) } ?: Server(ServerKind.MASTODON, Version(4, 0, 0)),
                 contentFilters = account.contentFilters?.let { ContentFilters.from(it) } ?: ContentFilters.EMPTY,

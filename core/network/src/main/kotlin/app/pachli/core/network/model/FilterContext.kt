@@ -54,6 +54,14 @@ enum class FilterContext {
 
     ;
 
+    fun asModel() = when (this) {
+        HOME -> app.pachli.core.model.FilterContext.HOME
+        NOTIFICATIONS -> app.pachli.core.model.FilterContext.NOTIFICATIONS
+        PUBLIC -> app.pachli.core.model.FilterContext.PUBLIC
+        CONVERSATION -> app.pachli.core.model.FilterContext.CONVERSATIONS
+        ACCOUNT -> app.pachli.core.model.FilterContext.ACCOUNT
+    }
+
     companion object {
         fun from(filterContext: app.pachli.core.model.FilterContext) = when (filterContext) {
             app.pachli.core.model.FilterContext.HOME -> HOME
@@ -64,3 +72,5 @@ enum class FilterContext {
         }
     }
 }
+
+fun Iterable<FilterContext>.asModel() = map { it.asModel() }

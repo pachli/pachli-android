@@ -15,8 +15,8 @@ import app.pachli.adapter.isPlayable
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.data.model.StatusDisplayOptions
+import app.pachli.core.model.Attachment
 import app.pachli.core.navigation.AttachmentViewData
-import app.pachli.core.network.model.Attachment
 import app.pachli.core.ui.BindingHolder
 import app.pachli.core.ui.decodeBlurHash
 import app.pachli.databinding.ItemAccountMediaBinding

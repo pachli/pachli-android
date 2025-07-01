@@ -21,10 +21,10 @@ import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
 import app.pachli.R
-import app.pachli.core.network.model.Poll
-import app.pachli.core.network.model.PollOption
-import app.pachli.core.network.model.PollOptionEdit
-import app.pachli.core.network.model.TranslatedPoll
+import app.pachli.core.model.Poll
+import app.pachli.core.model.PollOption
+import app.pachli.core.model.PollOptionEdit
+import app.pachli.core.model.TranslatedPoll
 import app.pachli.view.VotePercentSpan
 import java.util.Date
 import kotlin.math.roundToInt

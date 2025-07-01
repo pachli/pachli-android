@@ -40,9 +40,9 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.model.Attachment
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.ViewMediaActivityIntent
-import app.pachli.core.network.model.Attachment
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.databinding.FragmentTimelineBinding
 import com.bumptech.glide.Glide

@@ -16,6 +16,8 @@
 
 package app.pachli.core.network.model
 
+import app.pachli.core.model.FilterAction.WARN
+import app.pachli.core.model.FilterKeyword
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import java.util.Date
@@ -40,4 +42,29 @@ data class FilterV1(
         val filter = other as FilterV1?
         return filter?.id.equals(id)
     }
+
+    /**
+     * Returns a [app.pachli.core.model.ContentFilter] from
+     * [v1 Mastodon filter][FilterV1].
+     *
+     * There are some restrictions imposed by the v1 filter;
+     * - it can only have a single entry in the [app.pachli.core.model.ContentFilter.keywords] list
+     * - the [app.pachli.core.model.ContentFilter.title] is identical to the [FilterV1.phrase].
+     */
+    fun asModel() = app.pachli.core.model.ContentFilter(
+        id = id,
+        title = phrase,
+        contexts = contexts.asModel().toSet(),
+        expiresAt = expiresAt,
+        filterAction = WARN,
+        keywords = listOf(
+            FilterKeyword(
+                id = "0",
+                keyword = phrase,
+                wholeWord = wholeWord,
+            ),
+        ),
+    )
 }
+
+fun Iterable<FilterV1>.asModel() = map { it.asModel() }

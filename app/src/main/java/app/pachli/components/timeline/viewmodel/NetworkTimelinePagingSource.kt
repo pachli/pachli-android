@@ -20,7 +20,7 @@ package app.pachli.components.timeline.viewmodel
 import androidx.paging.PagingSource
 import androidx.paging.PagingSource.LoadResult
 import androidx.paging.PagingState
-import app.pachli.core.network.model.Status
+import app.pachli.core.model.Status
 import javax.inject.Inject
 import timber.log.Timber
 

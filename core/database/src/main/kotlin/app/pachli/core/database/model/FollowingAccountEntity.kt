@@ -19,7 +19,7 @@ package app.pachli.core.database.model
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
-import app.pachli.core.network.model.TimelineAccount
+import app.pachli.core.model.TimelineAccount
 
 /**
  * An account the user is following.

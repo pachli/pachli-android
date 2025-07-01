@@ -17,7 +17,6 @@
 
 package app.pachli.core.network.model
 
-import app.pachli.core.common.util.unsafeLazy
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import java.time.Instant
@@ -74,10 +73,19 @@ data class TimelineAccount(
             displayName
         }
 
-    /** The domain of the account (excluding the '@'), empty string if local. */
-    val domain: String by unsafeLazy {
-        username.indexOf('@').takeIf { it != -1 }?.let { index ->
-            username.substring(index + 1)
-        } ?: ""
-    }
+    fun asModel() = app.pachli.core.model.TimelineAccount(
+        id = id,
+        localUsername = localUsername,
+        username = username,
+        displayName = displayName,
+        url = url,
+        avatar = avatar,
+        note = note,
+        bot = bot,
+        emojis = emojis?.map { it.asModel() },
+        createdAt = createdAt,
+        limited = limited,
+    )
 }
+
+fun Iterable<TimelineAccount>.asModel() = map { it.asModel() }

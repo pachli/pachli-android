@@ -38,6 +38,7 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.model.Relationship
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AccountListActivityIntent.Kind
 import app.pachli.core.navigation.AccountListActivityIntent.Kind.BLOCKS
@@ -49,8 +50,8 @@ import app.pachli.core.navigation.AccountListActivityIntent.Kind.MUTES
 import app.pachli.core.navigation.AccountListActivityIntent.Kind.REBLOGGED
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.network.model.HttpHeaderLink
-import app.pachli.core.network.model.Relationship
 import app.pachli.core.network.model.TimelineAccount
+import app.pachli.core.network.model.asModel
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiResult
 import app.pachli.core.preferences.SharedPreferencesRepository
@@ -347,9 +348,9 @@ class AccountListFragment :
         val fromId = next?.uri?.getQueryParameter("max_id")
 
         if (adapter.itemCount > 0) {
-            adapter.addItems(accounts)
+            adapter.addItems(accounts.asModel())
         } else {
-            adapter.update(accounts)
+            adapter.update(accounts.asModel())
         }
 
         if (adapter is MutesAdapter) {
@@ -371,7 +372,7 @@ class AccountListFragment :
     private fun fetchRelationships(ids: List<String>) {
         lifecycleScope.launch {
             api.relationships(ids)
-                .onSuccess { onFetchRelationshipsSuccess(it.body) }
+                .onSuccess { onFetchRelationshipsSuccess(it.body.asModel()) }
                 .onFailure { throwable ->
                     Timber.e("Fetch failure for relationships of accounts: %s: %s", ids, throwable)
                 }

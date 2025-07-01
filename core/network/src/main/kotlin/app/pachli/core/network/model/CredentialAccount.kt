@@ -68,6 +68,36 @@ data class CredentialAccount(
         } else {
             displayName
         }
+
+    fun asModel() = app.pachli.core.model.CredentialAccount(
+        id = id,
+        localUsername = localUsername,
+        username = username,
+        displayName = displayName,
+        note = note,
+        source = source.asModel(),
+        url = url,
+        avatar = avatar,
+        avatarStatic = avatarStatic,
+        header = header,
+        headerStatic = headerStatic,
+        locked = locked,
+        emojis = emojis.asModel(),
+        fields = fields.asModel(),
+        bot = bot,
+        discoverable = discoverable,
+        noIndex = noIndex,
+        moved = moved?.asModel(),
+        suspended = suspended,
+        limited = limited,
+        createdAt = createdAt,
+        lastStatusAt = lastStatusAt,
+        followersCount = followersCount,
+        followingCount = followingCount,
+        statusesCount = statusesCount,
+        role = role?.asModel(),
+        roles = roles?.asModel(),
+    )
 }
 
 @JsonClass(generateAdapter = true)
@@ -80,4 +110,14 @@ data class AccountSource(
     val language: String? = null,
     @DefaultIfNull
     @Json(name = "attribution_domains") val attributionDomains: List<String> = emptyList(),
-)
+) {
+
+    fun asModel() = app.pachli.core.model.AccountSource(
+        privacy = privacy?.asModel(),
+        sensitive = sensitive,
+        note = note,
+        fields = fields.asModel(),
+        language = language,
+        attributionDomains = attributionDomains,
+    )
+}

@@ -29,12 +29,13 @@ import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.StatusComposedEvent
 import app.pachli.core.eventhub.StatusEditedEvent
 import app.pachli.core.eventhub.StatusScheduledEvent
+import app.pachli.core.model.Attachment
+import app.pachli.core.model.MediaAttribute
+import app.pachli.core.model.NewPoll
+import app.pachli.core.model.NewStatus
+import app.pachli.core.model.Status
 import app.pachli.core.navigation.IntentRouterActivityIntent
-import app.pachli.core.network.model.Attachment
-import app.pachli.core.network.model.MediaAttribute
-import app.pachli.core.network.model.NewPoll
-import app.pachli.core.network.model.NewStatus
-import app.pachli.core.network.model.Status
+import app.pachli.core.network.model.asNetworkModel
 import app.pachli.core.network.retrofit.MastodonApi
 import com.github.michaelbull.result.getOrElse
 import com.github.michaelbull.result.onFailure
@@ -108,7 +109,7 @@ class SendStatusService : Service() {
                 .setColor(getColor(DR.color.notification_color))
                 .addAction(0, getString(android.R.string.cancel), cancelSendingIntent(sendingNotificationId))
 
-            if (statusesToSend.size == 0 || Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (statusesToSend.isEmpty() || Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 ServiceCompat.stopForeground(this, ServiceCompat.STOP_FOREGROUND_DETACH)
                 startForeground(sendingNotificationId, builder.build())
             } else {
@@ -219,23 +220,23 @@ class SendStatusService : Service() {
                         account.authHeader,
                         account.domain,
                         statusToSend.idempotencyKey,
-                        newStatus,
+                        newStatus.asNetworkModel(),
                     )
                 } else {
                     mastodonApi.createScheduledStatus(
                         account.authHeader,
                         account.domain,
                         statusToSend.idempotencyKey,
-                        newStatus,
+                        newStatus.asNetworkModel(),
                     )
                 }
             } else {
                 mastodonApi.editStatus(
-                    statusToSend.statusId!!,
+                    statusToSend.statusId,
                     account.authHeader,
                     account.domain,
                     statusToSend.idempotencyKey,
-                    newStatus,
+                    newStatus.asNetworkModel(),
                 )
             }
 
@@ -254,9 +255,18 @@ class SendStatusService : Service() {
                 if (scheduled) {
                     eventHub.dispatch(StatusScheduledEvent)
                 } else if (!isNew) {
-                    eventHub.dispatch(StatusEditedEvent(statusToSend.statusId!!, sentStatus as Status))
+                    eventHub.dispatch(
+                        StatusEditedEvent(
+                            statusToSend.statusId,
+                            (sentStatus as app.pachli.core.network.model.Status).asModel(),
+                        ),
+                    )
                 } else {
-                    eventHub.dispatch(StatusComposedEvent(sentStatus as Status))
+                    eventHub.dispatch(
+                        StatusComposedEvent(
+                            (sentStatus as app.pachli.core.network.model.Status).asModel(),
+                        ),
+                    )
                 }
 
                 notificationManager.cancel(statusId)
