@@ -49,8 +49,6 @@
     <string name="action_favourite">喜欢</string>
     <string name="action_unfavourite">取消喜欢</string>
     <string name="action_compose">发表嘟文</string>
-    <string name="action_logout">注销</string>
-    <string name="action_logout_confirm">你确定要退出登录 %1$s 吗？这会删除账户的所有本地数据，包括草稿和选项。</string>
     <string name="action_follow">关注</string>
     <string name="action_unfollow">取消关注</string>
     <string name="action_block">屏蔽</string>
@@ -96,7 +94,6 @@
     <string name="action_open_media_n">打开媒体文件 #%d</string>
     <string name="download_image">下载中 %1$s</string>
     <string name="action_copy_link">复制链接</string>
-    <string name="action_share_as">分享为 …</string>
     <string name="download_media">下载媒体文件</string>
     <string name="downloading_media">正在下载媒体文件</string>
     <string name="send_post_link_to">分享嘟文链接到…</string>
@@ -144,7 +141,7 @@
     <string name="pref_title_timelines">时间轴</string>
     <string name="pref_title_timeline_filters">过滤器</string>
     <string name="pref_title_browser_settings">浏览器</string>
-    <string name="pref_title_custom_tabs">使用 Chrome Custom Tabs</string>
+    <string name="pref_title_custom_tabs">在 Custom Tabs 中打开链接</string>
     <string name="pref_title_hide_follow_button">浏览时自动隐藏发嘟按钮</string>
     <string name="pref_title_language">界面语言</string>
     <string name="pref_title_post_filter">时间轴过滤</string>
@@ -188,7 +185,6 @@
         <item quantity="other">%d 个新互动</item>
     </plurals>
     <string name="description_account_locked">锁嘟用户</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <!-- note to translators:
          * you should think of “free” as in “free speech,” not as in “free beer”.
            We sometimes call it “libre software,” borrowing the French or Spanish word for “free” as in freedom,
@@ -221,13 +217,8 @@
     <string name="filter_dialog_remove_button">移除</string>
     <string name="filter_dialog_update_button">更新</string>
     <string name="filter_add_description">需要过滤的文字</string>
-    <string name="add_account_name">添加账号</string>
     <string name="add_account_description">添加新的 Mastodon 账号</string>
     <string name="compose_active_account_description">以 %1$s 身份发布嘟文</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="other">为视觉障碍用户描述内容（最多 %d 个字符）</item>
-    </plurals>
-    <string name="action_set_caption">设置图片标题</string>
     <string name="action_remove">移除</string>
     <string name="lock_account_label">保护你的账户（锁嘟）</string>
     <string name="lock_account_label_description">你需要手动审核所有关注请求</string>
@@ -338,7 +329,6 @@
     <string name="description_poll">使用以下选项创建投票：%1$s，%2$s，%3$s，%4$s；%5$s</string>
     <string name="select_list_title">选择列表</string>
     <string name="list">列表</string>
-    <string name="button_continue">继续</string>
     <string name="button_back">返回</string>
     <string name="report_sent_success">成功举报 @%s</string>
     <string name="hint_additional_info">附加留言</string>
@@ -457,7 +447,7 @@
     <string name="set_focus_description">轻按或拖动圆圈选择始终在缩略图中可见的焦点。</string>
     <string name="pref_title_show_self_username">在工具栏中显示用户名</string>
     <string name="delete_scheduled_post_warning">删除这条定时嘟文吗？</string>
-    <string name="compose_save_draft_loses_media">保存草稿？（恢复草稿时附件将被再次上传）</string>
+    <string name="compose_save_draft_loses_media">恢复草稿时附件将被再次上传。</string>
     <string name="failed_to_pin">固定失败</string>
     <string name="failed_to_unpin">取消固定失败</string>
     <string name="action_add_reaction">添加回应</string>
@@ -467,7 +457,9 @@
     <string name="notification_report_name">报告</string>
     <string name="action_unfollow_hashtag_format">取关 #%s 吗？</string>
     <string name="status_created_at_now">立即</string>
-    <string name="notification_summary_report_format">附上了 %s · %d 个嘟文</string>
+    <plurals name="notification_summary_report_format">
+        <item quantity="other">附上了 %1$s · %2$d 个嘟文</item>
+    </plurals>
     <string name="confirmation_hashtag_unfollowed">取关了 #%s</string>
     <string name="notification_report_description">审核报告的通知</string>
     <string name="report_category_violation">违反规则</string>
@@ -548,7 +540,6 @@
     <string name="label_filter_keywords">关键词或短语过滤</string>
     <string name="pref_title_show_stat_inline">在时间线中显示嘟文统计数字</string>
     <string name="help_empty_home">这是你的 <b>主时间线</b>。它展示你所关注账户最近发表的嘟文。 \n \n要探索账户， 你可以浏览其他时间线。比如，你的账户所在实例服务器的本地时间线 [iconics gmd_group]。你也可以按名称 [iconics gmd_search]进行搜索；比如，搜索Pachli 来寻找我们的 Mastodon 账户。</string>
-    <string name="post_media_image">图片</string>
     <string name="hint_description">描述</string>
     <string name="select_list_manage">管理列表</string>
     <string name="select_list_empty">你还没有列表</string>
@@ -565,4 +556,124 @@
     <string name="error_media_playback">播放失败了：%s</string>
     <string name="dialog_delete_filter_text">删除筛选器\'%1$s\'吗？</string>
     <string name="dialog_delete_filter_positive_action">删除</string>
+    <string name="title_tab_public_trending_hashtags">标签</string>
+    <string name="title_tab_public_trending_statuses">嘟文</string>
+    <string name="title_tab_public_trending_links">新闻</string>
+    <string name="search_operator_attachment_kind_audio_label">音频</string>
+    <string name="search_operator_date_dialog_today">今天</string>
+    <string name="search_operator_attachment_dialog_image_label">图像</string>
+    <string name="search_operator_attachment_dialog_video_label">视频</string>
+    <string name="search_operator_attachment_dialog_audio_label">音频</string>
+    <plurals name="followed_hashtags_posts_count_fmt">
+        <item quantity="other">%1$d 条嘟文</item>
+    </plurals>
+    <plurals name="followed_hashtags_accounts_count_fmt">
+        <item quantity="other">%1$d 个账号</item>
+    </plurals>
+    <plurals name="followed_hashtags_days_count_fmt">
+        <item quantity="other">%1$d 天</item>
+    </plurals>
+    <string name="notification_severed_relationships_unknown_body">未知原因</string>
+    <string name="label_image">图像</string>
+    <string name="action_suggestions">推荐账号</string>
+    <string name="pref_title_confirm_status_language">在发嘟前检查嘟文的语言设置</string>
+    <string name="pref_title_notification_method">通知方式</string>
+    <string name="pref_title_notification_battery_optimisation">电池优化</string>
+    <string name="pref_notification_method_mixed">部分账户使用 UnifiedPush，部分账户每 15 分钟推送一次。点击了解详细信息</string>
+    <string name="error_media_download">无法下载 %1$s: %2$s</string>
+    <string name="action_manage_tabs">管理标签页</string>
+    <string name="action_add_to_tab_success">添加“%1$s”到标签页</string>
+    <string name="compose_warn_language_dialog_fmt">该帖子的语言设置为 %1$s，但您可能使用 %2$s 编写了该帖子。</string>
+    <string name="error_prepare_media_io_fmt">%1$s</string>
+    <string name="action_open_byline_account">显示嘟文作者的个人资料</string>
+    <string name="action_open_link">打开链接</string>
+    <string name="error_export_preferences_fmt">无法将首选项导出到%1$s:%2$s</string>
+    <string name="title_public_trending_links">热门新闻</string>
+    <string name="pref_custom_tabs_false">较慢，使用默认浏览器</string>
+    <string name="error_prepare_media_unknown_file_size">无法确定文件大小</string>
+    <string name="error_pick_media_fmt">无法添加附件到嘟文：%1$s</string>
+    <string name="filter_action_none">显示</string>
+    <string name="translation_provider_fmt">%1$s</string>
+    <string name="pref_update_check_no_updates">没有可用的更新</string>
+    <string name="pref_labs_reverse_home_timeline_title">反转时间线顺序</string>
+    <string name="pref_labs_reverse_home_timeline_off_summary">嘟文从新到旧排序</string>
+    <string name="search_operator_language_checked_fmt">%1$s</string>
+    <string name="search_operator_language_dialog_all">任何语言</string>
+    <string name="translating">正在翻译……</string>
+    <string name="pref_title_show_self_boosts">显示自转发</string>
+    <string name="pref_title_show_self_boosts_description">转发自己的帖子的人</string>
+    <string name="action_send_public_content_description">发送公开嘟文</string>
+    <plurals name="notification_severed_relationships_summary_followers_fmt">
+        <item quantity="other">移除了 %1$s 个关注者</item>
+    </plurals>
+    <plurals name="notification_severed_relationships_summary_following_fmt">
+        <item quantity="other">移除了 %1$s 个关注的账号</item>
+    </plurals>
+    <string name="notification_unknown">未知的通知类型</string>
+    <string name="manage_lists">管理列表</string>
+    <string name="update_dialog_title">有更新可用</string>
+    <string name="pref_title_content_filters">内容过滤器</string>
+    <string name="pref_labs_warning">这些都是实验性的特征。不能保证它们能工作，或者将被包含在未来的版本中。使用风险自负。</string>
+    <string name="pref_custom_tabs_true">较快，在 Pachli 中使用默认浏览器</string>
+    <string name="pref_notification_battery_optimisation_ok">无需禁用电池优化。</string>
+    <string name="reaction_name_and_count">%1$s %2$d</string>
+    <string name="search_operator_date_dialog_custom_range">自定义范围</string>
+    <string name="search_operator_date_dialog_last_6_months">最近6个月</string>
+    <string name="title_public_trending">热门</string>
+    <string name="title_public_trending_statuses">热门嘟文</string>
+    <string name="confirmation_hashtag_unmuted">取消隐藏 #%s</string>
+    <string name="action_filter_search">过滤搜索</string>
+    <string name="confirmation_hashtag_muted">已隐藏 #%s</string>
+    <string name="action_send_unlisted_content_description">发送不公开嘟文</string>
+    <string name="action_send_private_content_description">发送仅关注者嘟文</string>
+    <string name="action_send_direct_content_description">发送私信</string>
+    <string name="action_translate_undo">取消翻译</string>
+    <string name="announcement_date">%1$s %2$s</string>
+    <string name="pref_title_update_notification_frequency">告诉我关于新的 Pachli 版本</string>
+    <string name="pref_notification_battery_optimisation_should_ignore">应禁用电池优化。点击打开。</string>
+    <string name="pref_notification_battery_optimisation_is_disabled">电池优化已禁用</string>
+    <string name="pref_title_change_unified_push_distributor">更改 Unified Push distributor</string>
+    <string name="action_add_to_tab">添加到标签页</string>
+    <string name="action_remove_tab">删除标签页</string>
+    <string name="server_repository_error">无法获取%1$s的服务器信息：%2$s</string>
+    <string name="search_operator_language_all">任何语言 ▾</string>
+    <string name="compose_warn_language_dialog_accept_and_dont_ask_fmt">按原样发布 (%1$s)，不再询问</string>
+    <string name="error_media_uploader_upload_not_found_fmt">未找到ID为 %1$s 的媒体上传</string>
+    <string name="search_operator_date_dialog_all">任何时间</string>
+    <string name="export_preferences_ok_fmt">首选项导出到%1$s</string>
+    <string name="error_import_preferences_fmt">无法从%1$s导入首选项：%2$s</string>
+    <string name="conversation_0_recipients">没有其他参与者</string>
+    <string name="compose_schedule_date_time_fmt">%1$s %2$s</string>
+    <string name="poll_show_votes">显示投票</string>
+    <string name="ui_error_translate_status_fmt">翻译失败: %1$s</string>
+    <string name="ui_error_reload_reply_fmt">无法加载嘟文：%1$s</string>
+    <string name="announcement_date_updated">(更新于: %1$s)</string>
+    <string name="update_dialog_neutral">此版本不再提醒</string>
+    <string name="action_translate">翻译</string>
+    <string name="pref_title_font_family">字体</string>
+    <string name="manage_accounts_name">管理账号</string>
+    <string name="dialog_save_profile_changes_message">是否要保存配置更改？</string>
+    <string name="pref_title_update_settings">软件更新</string>
+    <string name="update_dialog_negative">永不提醒</string>
+    <string name="pref_title_labs">实验室</string>
+    <string name="pref_labs_reverse_home_timeline_on_summary">嘟文从旧到新排序</string>
+    <string name="pref_notification_up_distributor_name_fmt">%1$s。点击以打开</string>
+    <string name="pref_notification_method_all_pull">每隔约 15 分钟获取一次。点击查看详情。</string>
+    <string name="pref_title_update_check_now">立即检查更新</string>
+    <string name="error_filter_missing_title">标题为必填项</string>
+    <string name="compose_warn_language_dialog_title">检查嘟文的语言</string>
+    <string name="compose_warn_language_dialog_change_language_fmt">将语言更改为 %1$s 并发布</string>
+    <string name="compose_warn_language_dialog_accept_language_fmt">按原样发布 (%1$s)</string>
+    <string name="error_prepare_media_file_is_too_large_fmt">文件大小为 %1$s，允许的最大值为 %2$s</string>
+    <string name="search_operator_attachment_all">媒体</string>
+    <string name="search_operator_attachment_no_media_label">无媒体</string>
+    <string name="search_operator_attachment_kind_image_label">图像</string>
+    <string name="search_operator_attachment_kind_video_label">视频</string>
+    <string name="search_operator_date_dialog_last_30_days">最近30天</string>
+    <string name="search_operator_date_dialog_last_7_days">最近7天</string>
+    <string name="pref_notification_method_all_push">所有账户都使用 UnifiedPush。点击查看详情。</string>
+    <string name="action_refresh_account">刷新账号</string>
+    <string name="error_prepare_media_unsupported_mime_type_fmt">服务器不支持文件类型：%1$s</string>
+    <string name="error_prepare_media_unknown_mime_type">文件类型未知</string>
+    <string name="load_newest_statuses">加载最新嘟文</string>
 </resources>

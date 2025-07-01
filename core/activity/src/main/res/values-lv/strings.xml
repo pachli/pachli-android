@@ -1,5 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_open_as">Atvērt kā %s</string>
-    <string name="performing_lookup_title">Meklē…</string>
+    <string name="performing_lookup_title">Veic uzmeklēšanu…</string>
+    <string name="send_error_report">Nosūtīt kļūdas ziņojumu</string>
+    <string name="post_lookup_error_format">Kļūda uzmeklējot %s</string>
 </resources>

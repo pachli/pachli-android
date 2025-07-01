@@ -22,13 +22,15 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.HiltTestApplication_Application
 import app.pachli.core.data.repository.OfflineFirstContentFiltersRepository
+import app.pachli.core.data.repository.PachliHiltApplication
 import app.pachli.core.data.source.ContentFiltersLocalDataSource
 import app.pachli.core.data.source.ContentFiltersRemoteDataSource
 import app.pachli.core.database.AppDatabase
 import app.pachli.core.database.dao.ContentFiltersDao
 import app.pachli.core.database.dao.InstanceDao
 import app.pachli.core.network.di.test.DEFAULT_INSTANCE_V2
-import app.pachli.core.network.model.Account
+import app.pachli.core.network.model.AccountSource
+import app.pachli.core.network.model.CredentialAccount
 import app.pachli.core.network.model.Filter
 import app.pachli.core.network.model.FilterAction
 import app.pachli.core.network.model.FilterContext
@@ -48,11 +50,9 @@ import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import java.time.Instant
-import java.util.Date
 import javax.inject.Inject
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
-import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.runner.RunWith
@@ -112,16 +112,17 @@ abstract class BaseContentFiltersRepositoryTest {
 
     protected var pachliAccountId = 0L
 
-    protected val account = Account(
+    protected val account = CredentialAccount(
         id = "1",
         localUsername = "username",
         username = "username@domain.example",
         displayName = "Display Name",
-        createdAt = Date.from(Instant.now()),
+        createdAt = Instant.now(),
         note = "",
         url = "",
         avatar = "",
         header = "",
+        source = AccountSource(),
     )
 }
 
@@ -180,11 +181,6 @@ abstract class V2Test : BaseContentFiltersRepositoryTest() {
             remoteDataSource,
             instanceDao,
         )
-    }
-
-    @After
-    fun tearDown() {
-        appDatabase.close()
     }
 }
 
@@ -247,11 +243,6 @@ abstract class V1Test : BaseContentFiltersRepositoryTest() {
             remoteDataSource,
             instanceDao,
         )
-    }
-
-    @After
-    fun tearDown() {
-        appDatabase.close()
     }
 }
 

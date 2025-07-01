@@ -13,4 +13,7 @@
     <string name="title_links_dialog">Iseɣwan</string>
     <string name="title_hashtags_dialog">Ihacṭagen</string>
     <string name="title_mentions_dialog">Tibdarin</string>
+    <string name="button_continue">Kemmel</string>
+    <string name="add_account_name">Rnu amiḍan</string>
+    <string name="action_logout">Ffeɣ</string>
 </resources>

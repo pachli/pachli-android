@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_429_rate_limit_fmt">sinu server piirab sinu päringute sagedust: %1$s</string>
+    <string name="error_404_not_found_fmt">sinu server ei toeta seda funktsionaalsust: %1$s</string>
+</resources>

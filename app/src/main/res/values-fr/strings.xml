@@ -49,8 +49,6 @@
     <string name="action_favourite">Favori</string>
     <string name="action_unfavourite">Supprimer le favori</string>
     <string name="action_compose">Écrire</string>
-    <string name="action_logout">Déconnexion</string>
-    <string name="action_logout_confirm">Êtes-vous certain·e· de vouloir déconnecter le compte %1$s ?</string>
     <string name="action_follow">Suivre</string>
     <string name="action_unfollow">Ne plus suivre</string>
     <string name="action_block">Bloquer</string>
@@ -95,7 +93,6 @@
     <string name="action_open_media_n">Ouvrir le média #%d</string>
     <string name="download_image">Téléchargement de %1$s</string>
     <string name="action_copy_link">Copier le lien</string>
-    <string name="action_share_as">Partager comme …</string>
     <string name="download_media">Télécharger le média</string>
     <string name="downloading_media">Téléchargement du média</string>
     <string name="send_post_link_to">Partager le lien du message avec…</string>
@@ -185,7 +182,6 @@
         <item quantity="other">%d nouvelles interactions</item>
     </plurals>
     <string name="description_account_locked">Compte verrouillé</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <!-- note to translators:
          * you should think of “free” as in “free speech,” not as in “free beer”.
            We sometimes call it “libre software,” borrowing the French or Spanish word for “free” as in freedom,
@@ -218,15 +214,8 @@
     <string name="filter_dialog_remove_button">Supprimer</string>
     <string name="filter_dialog_update_button">Mettre à jour</string>
     <string name="filter_add_description">Phrase à filtrer</string>
-    <string name="add_account_name">Ajouter un compte</string>
     <string name="add_account_description">Ajouter un nouveau compte Mastodon</string>
     <string name="compose_active_account_description">Publier en tant que %1$s</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="one">Décrire pour les malvoyants (%d caractère maximum)</item>
-        <item quantity="many"/>
-        <item quantity="other">Décrire pour les malvoyants (%d caractères maximum)</item>
-    </plurals>
-    <string name="action_set_caption">Mettre une légende</string>
     <string name="action_remove">Supprimer le média</string>
     <string name="lock_account_label">Verrouiller le compte</string>
     <string name="lock_account_label_description">Vous devez approuver manuellement les abonnements</string>
@@ -260,14 +249,14 @@
     <string name="unpin_action">Détacher</string>
     <string name="pin_action">Épingler</string>
     <plurals name="favs">
-        <item quantity="one">&lt;b>%1$s&lt;/b> Favori</item>
-        <item quantity="many">&lt;b>%1$s&lt;/b> de favoris</item>
-        <item quantity="other">&lt;b>%1$s&lt;/b> Favoris</item>
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Favori</item>
+        <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; de favoris</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Favoris</item>
     </plurals>
     <plurals name="reblogs">
-        <item quantity="one">&lt;b>%s&lt;/b> Partage</item>
-        <item quantity="many">&lt;b>%s&lt;/b> de partages</item>
-        <item quantity="other">&lt;b>%s&lt;/b> Partages</item>
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Partage</item>
+        <item quantity="many">&lt;b&gt;%s&lt;/b&gt; de partages</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; Partages</item>
     </plurals>
     <string name="title_reblogged_by">Partagé par</string>
     <string name="title_favourited_by">Mis en favoris par</string>
@@ -332,7 +321,6 @@
     <string name="action_mute_domain">Masquer %s</string>
     <string name="confirmation_domain_unmuted">%s n’est plus masqué·e</string>
     <string name="mute_domain_warning_dialog_ok">Masquer le domaine entier</string>
-    <string name="button_continue">Continuer</string>
     <string name="button_back">Retour</string>
     <string name="report_sent_success">\@%s signalé avec succès</string>
     <string name="hint_additional_info">Commentaires additionnels</string>
@@ -486,14 +474,15 @@
     <string name="pref_title_http_proxy_port_message">Le port doit être entre %d et %d</string>
     <string name="action_set_focus">Définir le point focal</string>
     <string name="hint_description">Description</string>
-    <string name="post_media_image">Image</string>
     <string name="action_post_failed">Le téléversement a échoué</string>
     <string name="action_post_failed_show_drafts">Afficher les brouillons</string>
     <string name="action_post_failed_do_nothing">Ignorer</string>
     <string name="post_media_alt">ALT</string>
     <string name="notification_report_format">Nouveau signalement sur %s</string>
     <string name="notification_header_report_format">%s a signalé %s</string>
-    <string name="notification_summary_report_format">%s · %d posts joints</string>
+    <plurals name="notification_summary_report_format">
+        <item quantity="other">%1$s · %2$d posts joints</item>
+    </plurals>
     <string name="notification_report_name">Signalements</string>
     <string name="set_focus_description">Appuyez ou faites glissez le cercle pour déplacer le point focal, qui sera toujours visible sur les vignettes.</string>
     <string name="notification_unknown_name">Inconnu</string>
@@ -577,12 +566,10 @@
     <string name="title_tab_public_trending_links">Liens</string>
     <string name="title_tab_public_trending_statuses">Publications</string>
     <string name="pref_ui_text_size">Taille du texte de IU</string>
-    <string name="dialog_delete_filter_text">Supprimer le filtre « %1$s » ?</string>
+    <string name="dialog_delete_filter_text">Supprimer le filtre « %1$s » ?</string>
     <string name="dialog_delete_filter_positive_action">Supprimer</string>
     <string name="pref_title_update_settings">Mises à jour logicielles</string>
     <string name="pref_title_update_notification_frequency">M\'informer des nouvelles versions de Pachli</string>
-    <string name="pref_update_notification_frequency_never">Jamais</string>
-    <string name="pref_update_notification_frequency_always">Toujours</string>
     <string name="update_dialog_title">Une mise à jour est disponible</string>
     <string name="update_dialog_neutral">Ne plus me rappeller pour cette version</string>
     <string name="translating">Traduction …</string>
@@ -598,7 +585,6 @@
     <string name="error_media_playback">La lecture a échoué : %s</string>
     <string name="dialog_save_profile_changes_message">Voulez-vous sauvegarder les changements apportés à votre profil ?</string>
     <string name="reaction_name_and_count">%1$s %2$d</string>
-    <string name="pref_update_notification_frequency_once_per_version">Une fois par version</string>
     <string name="notification_listenable_worker_name">Activité en arrière-plan</string>
     <string name="notification_notification_worker">Récupération des notifications …</string>
     <string name="notification_prune_cache">Maintenance du cache …</string>

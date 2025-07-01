@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_network">Vyskytla sa chyba v sieti! Prosím skontrolujte svoje pripojenie a skúste to znova!</string>
+    <string name="error_network">Vyskytla sa chyba v sieti. Prosím skontroluj svoje pripojenie a skús znova.</string>
     <string name="error_generic">Vyskytla sa chyba.</string>
     <string name="action_links">Odkazy</string>
     <string name="action_mentions">Zmienky</string>
@@ -8,4 +8,26 @@
     <string name="title_links_dialog">Odkazy</string>
     <string name="title_hashtags_dialog">Hashtagy</string>
     <string name="title_mentions_dialog">Zmienky</string>
+    <string name="button_done">Hotovo</string>
+    <string name="action_retry">Skúsiť znova</string>
+    <string name="message_empty">Tu nič nie je.</string>
+    <string name="action_view_profile">Profil</string>
+    <string name="action_more">Viac</string>
+    <string name="action_refresh">Obnoviť</string>
+    <string name="url_domain_notifier">" (🔗 %s)"</string>
+    <string name="item_copied">Text skopírovaný</string>
+    <string name="action_copy_item">Kopírovať položku</string>
+    <string name="button_continue">Pokračovať</string>
+    <string name="pref_notification_method_push">Push</string>
+    <string name="pref_notification_method_pull">Pull</string>
+    <string name="pref_notification_fetch_method_title">Spôsob upozornenia</string>
+    <string name="pref_notification_fetch_ok_timestamp_fmt">✔ Pred %1$s @ %2$s</string>
+    <string name="pref_notification_fetch_err_timestamp_fmt">✖ Pred %1$s @ %2$s</string>
+    <string name="pref_notification_fetch_server_rejected">%1$s zamietol registráciu push notifikácií</string>
+    <string name="pref_notification_fetch_needs_push">Účet nemá povolené push notifikácie. Skús sa odhlásiť a znova prihlásiť.</string>
+    <string name="title_logout_fmt">Odhlásiť %1$s</string>
+    <string name="action_logout_confirm">Týmto sa odstránia všetky lokálne údaje účtu %1$s vrátane konceptov a nastavení.\n\nTvoj účet na serveri týmto nebude zrušený.</string>
+    <string name="add_account_name">Pridať účet</string>
+    <string name="notification_details_last_fetch_label">Posledná žiadosť /api/v1/notifications</string>
+    <string name="action_logout">Odhlásiť sa</string>
 </resources>

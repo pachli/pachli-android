@@ -19,10 +19,10 @@ package app.pachli.feature.lists
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.pachli.core.data.model.MastodonList
 import app.pachli.core.data.repository.HasListId
 import app.pachli.core.data.repository.ListsError
 import app.pachli.core.data.repository.ListsRepository
+import app.pachli.core.model.MastodonList
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.mapEither
@@ -31,7 +31,6 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlin.collections.set
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

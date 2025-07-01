@@ -57,4 +57,22 @@ data class Card(
         val account = other as Card?
         return account?.url == this.url
     }
+
+    fun asModel() = app.pachli.core.model.Card(
+        url = url,
+        title = title,
+        description = description,
+        kind = kind.asModel(),
+        authorName = authorName,
+        authorUrl = authorUrl,
+        providerName = providerName,
+        providerUrl = providerUrl,
+        html = html,
+        width = width,
+        height = height,
+        image = image,
+        embedUrl = embedUrl,
+        blurhash = blurhash,
+        authors = authors?.asModel(),
+    )
 }

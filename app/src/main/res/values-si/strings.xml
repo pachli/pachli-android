@@ -47,7 +47,6 @@
     <string name="post_text_size_medium">මධ්‍යම</string>
     <string name="post_media_audio">ශ්‍රව්‍ය</string>
     <string name="abbreviated_days_ago">දව. %d</string>
-    <string name="action_logout">නික්මෙන්න</string>
     <string name="filter_edit_title">පෙරහන සංස්කරණය</string>
     <string name="notification_summary_medium">%1$s, %2$s, සහ %3$s</string>
     <string name="poll_info_format"><!-- 15 votes • 1 hour left -->%1$s • %2$s</string>
@@ -56,7 +55,6 @@
     <string name="post_sent_long">පිළිතුර සාර්ථකව යැවිණි.</string>
     <string name="title_public_federated">ඒකාබද්ධ</string>
     <string name="dialog_message_uploading_media">උඩුගත වෙමින්…</string>
-    <string name="add_account_name">ගිණුම එකතු කරන්න</string>
     <string name="label_header">ශීර්ෂය</string>
     <plurals name="poll_timespan_hours">
         <item quantity="one">පැය %d ක් ඉතිරිය</item>
@@ -122,7 +120,6 @@
         <item quantity="one">තත්. %d ක් ඉතිරිය</item>
         <item quantity="other">තත්. %d ක් ඉතිරිය</item>
     </plurals>
-    <string name="action_logout_confirm">ඔබට %1$s ගිණුමෙන් නික්මෙන්ට ඇවැසි බව විශ්වාසද\?</string>
     <string name="title_public_local">ස්ථානීය</string>
     <string name="action_view_favourites">ප්‍රියතමයන්</string>
     <string name="label_quick_reply">පිළිතුරු…</string>
@@ -134,7 +131,6 @@
     <string name="abbreviated_in_years">වර්. %d කින්</string>
     <string name="restart_emoji">මෙම වෙනස්කම් යෙදීමට ඔබ ටුස්කි නැවත ඇරඹිය යුතුය</string>
     <string name="action_edit">සංස්කරණය</string>
-    <string name="button_continue">ඉදිරියට</string>
     <string name="pref_title_post_filter">කාලරේඛාව පෙරීම</string>
     <string name="conversation_more_recipients">%1$s, %2$s සහ තවත් %3$d</string>
     <string name="pref_title_timelines">කාලරේඛා</string>
@@ -147,7 +143,6 @@
     <string name="action_undo">පෙරසේ</string>
     <string name="post_content_show_more">විහිදන්න</string>
     <string name="action_mute">නිහඬ කරන්න</string>
-    <string name="about_pachli_version">ටුස්කි %s</string>
     <string name="action_accept">පිළිගන්න</string>
     <string name="abbreviated_in_hours">පැ. %d කින්</string>
     <string name="create_poll_title">මතවිමසුම</string>
@@ -162,7 +157,6 @@
     <string name="pref_title_show_replies">පිළිතුරු පෙන්වන්න</string>
     <string name="notification_mention_descriptions">නව සැඳහුම් පිළිබඳව දැනුම්දීම්</string>
     <string name="action_search">සොයන්න</string>
-    <string name="action_share_as">ලෙස බෙදාගන්න …</string>
     <string name="title_home">මුල</string>
     <string name="abbreviated_minutes_ago">වි. %d</string>
     <string name="failed_search">සෙවීමට අසමත් විය</string>
@@ -206,8 +200,8 @@
     <string name="poll_ended_created">ඔබ සෑදූ මත විමසුම නිම වී ඇත</string>
     <string name="pref_title_bot_overlay">ස්වයංක්‍රමලේඛ සඳහා දර්ශකය පෙන්වන්න</string>
     <plurals name="favs">
-        <item quantity="one">ප්‍රියතමයන් &lt;b>%1$s&lt;/b></item>
-        <item quantity="other">ප්‍රියතමයන් &lt;b>%1$s&lt;/b></item>
+        <item quantity="one">ප්‍රියතමයන් &lt;b&gt;%1$s&lt;/b&gt;</item>
+        <item quantity="other">ප්‍රියතමයන් &lt;b&gt;%1$s&lt;/b&gt;</item>
     </plurals>
     <string name="action_favourite">ප්‍රියතම</string>
     <string name="filter_dialog_update_button">යාවත්කාල</string>

@@ -1,0 +1,20 @@
+Nokre nye funksjonar i denne oppdateringa er:
+
+- «Last inn meir» skal ikkje visast, fordi nye innlegg skal automatisk lastast inn mens du skrollar.
+- Trendande lenkjer og innlegg
+- Fleire enn 5 faner
+- Mange nye tilgjengelege skriftfamiliar
+- Ny mediaavspillar
+- Filter i varsela
+- Moglegheit til å angje at ei liste er «eksklusiv»
+- Legg til bokmerka dine i fanene dine
+
+Feil som er vortne fiksa:
+
+- Bildete skal ikkje «feste seg» mens du zoomar eller sveipar gjennom bilete.
+
+Nokre endringar til brukergrensesnittet er:
+
+- Ei visuell oppfriskning med eit heilt nytt fargeval
+- Vel temaet som skal brukast automatisk ved hjelp av systeminnstillingane dine.
+- «Fjern varsel» finst no i menyen

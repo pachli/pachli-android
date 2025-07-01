@@ -49,8 +49,6 @@
     <string name="action_favourite">পছন্দ</string>
     <string name="action_unfavourite">পছন্দ সরান</string>
     <string name="action_compose">রচনা</string>
-    <string name="action_logout">লগ আউট</string>
-    <string name="action_logout_confirm">আপনি কি অ্যাকাউন্ট %1$s থেকে লগ আউট করতে চান\?</string>
     <string name="action_follow">অনুসরণ কর</string>
     <string name="action_unfollow">অনুসরণ করা বন্ধ করুন</string>
     <string name="action_block">অবরুদ্ধ</string>
@@ -96,7 +94,6 @@
     <string name="action_open_media_n">মিডিয়া খুলুন #%d</string>
     <string name="download_image">%1$s ডাউনলোড হচ্ছে</string>
     <string name="action_copy_link">লিঙ্ক অনুলিপি করুন</string>
-    <string name="action_share_as">হিসাবে ভাগ করুন …</string>
     <string name="download_media">মিডিয়া ডাউনলোড করুন</string>
     <string name="downloading_media">মিডিয়া ডাউনলোড করা হচ্ছে</string>
     <string name="send_post_link_to">টুট URL ভাগ করুন …</string>
@@ -190,7 +187,6 @@
         <item quantity="other">%d নতুন মিথস্ক্রিয়া</item>
     </plurals>
     <string name="description_account_locked">লক অ্যাকাউন্ট</string>
-    <string name="about_pachli_version">টাস্কি %s</string>
     <!-- note to translators:
          * you should think of “free” as in “free speech,” not as in “free beer”.
            We sometimes call it “libre software,” borrowing the French or Spanish word for “free” as in freedom,
@@ -223,14 +219,8 @@
     <string name="filter_dialog_remove_button">সরাও</string>
     <string name="filter_dialog_update_button">আপডেট</string>
     <string name="filter_add_description">বাক্য ফিল্টার কর</string>
-    <string name="add_account_name">অ্যাকাউন্ট যোগ করুন</string>
     <string name="add_account_description">নতুন ম্যাস্টোডোন অ্যাকাউন্ট যোগ করুন</string>
     <string name="compose_active_account_description">অ্যাকাউন্ট %1$s থেকে পোস্ট করা হচ্ছে</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="other">দৃষ্টি প্রতিবন্ধী জন্য বর্ণনা করুন
-\n(%d অক্ষর সীমা)</item>
-    </plurals>
-    <string name="action_set_caption">ক্যাপশন সেট করুন</string>
     <string name="action_remove">সরান</string>
     <string name="lock_account_label">অ্যাকাউন্ট লক করুন</string>
     <string name="lock_account_label_description">অনুসারী অনুমোদন করার জন্য আপনাকে প্রয়োজন</string>
@@ -264,12 +254,12 @@
     <string name="unpin_action">আনপিন</string>
     <string name="pin_action">পিন</string>
     <plurals name="favs">
-        <item quantity="one">&lt;b>%1$s&lt;/b> প্রিয়</item>
-        <item quantity="other">&lt;b>%1$s&lt;/b> পছন্দসই</item>
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; প্রিয়</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; পছন্দসই</item>
     </plurals>
     <plurals name="reblogs">
-        <item quantity="one">&lt;b>%s&lt;/b> বুস্ট</item>
-        <item quantity="other">&lt;b>%s&lt;/b> বুস্ট</item>
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; বুস্ট</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; বুস্ট</item>
     </plurals>
     <string name="title_reblogged_by">দ্বারা সর্মথন</string>
     <string name="title_favourited_by">দ্বারা পছন্দ</string>
@@ -300,7 +290,6 @@
     <string name="poll_vote">ভোট</string>
     <string name="poll_ended_voted">আপনি ভোট দিয়েছেন যে নির্বাচন এ সেটি শেষ হয়েছে</string>
     <string name="poll_ended_created">আপনি তৈরি একটি নির্বাচন শেষ হয়েছে</string>
-    <string name="button_continue">চালিয়ে যাও</string>
     <string name="button_back">পিছাও</string>
     <string name="report_sent_success">%s এ সফলভাবে রিপোর্ট করা হয়েছে</string>
     <string name="hint_additional_info">অতিরিক্ত মন্তব্যগুলি</string>

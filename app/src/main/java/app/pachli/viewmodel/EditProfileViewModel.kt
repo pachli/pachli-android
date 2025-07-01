@@ -27,13 +27,14 @@ import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.InstanceInfoRepository
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.ProfileEditedEvent
-import app.pachli.core.network.model.Account
-import app.pachli.core.network.model.StringField
+import app.pachli.core.model.CredentialAccount
+import app.pachli.core.model.StringField
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.util.Error
 import app.pachli.util.Loading
 import app.pachli.util.Resource
 import app.pachli.util.Success
+import com.github.michaelbull.result.map
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -67,14 +68,14 @@ class EditProfileViewModel @Inject constructor(
     instanceInfoRepo: InstanceInfoRepository,
 ) : ViewModel() {
 
-    val profileData = MutableLiveData<Resource<Account>>()
+    val profileData = MutableLiveData<Resource<CredentialAccount>>()
     val avatarData = MutableLiveData<Uri>()
     val headerData = MutableLiveData<Uri>()
     val saveData = MutableLiveData<Resource<Nothing>>()
 
     val instanceData = instanceInfoRepo.instanceInfo
 
-    private var apiProfileAccount: Account? = null
+    private var apiProfileAccount: CredentialAccount? = null
 
     private val _isDirty = MutableStateFlow(false)
 
@@ -90,9 +91,10 @@ class EditProfileViewModel @Inject constructor(
             profileData.postValue(Loading())
 
             mastodonApi.accountVerifyCredentials()
+                .map { it.body.asModel() }
                 .onSuccess { profile ->
-                    apiProfileAccount = profile.body
-                    profileData.postValue(Success(profile.body))
+                    apiProfileAccount = profile
+                    profileData.postValue(Success(profile))
                 }
                 .onFailure { profileData.postValue(Error()) }
         }
@@ -150,7 +152,7 @@ class EditProfileViewModel @Inject constructor(
                 diff.field4?.first?.toRequestBody(MultipartBody.FORM),
                 diff.field4?.second?.toRequestBody(MultipartBody.FORM),
             ).onSuccess {
-                val newAccountData = it.body
+                val newAccountData = it.body.asModel()
                 accountManager.updateAccount(pachliAccountId, newAccountData)
                 saveData.postValue(Success())
                 eventHub.dispatch(ProfileEditedEvent(newAccountData))
@@ -163,14 +165,18 @@ class EditProfileViewModel @Inject constructor(
     // cache activity state for rotation change
     internal fun updateProfile(newProfileData: ProfileDataInUi) {
         if (profileData.value is Success) {
-            val newProfileSource = profileData.value?.data?.source?.copy(note = newProfileData.note, fields = newProfileData.fields)
-            val newProfile = profileData.value?.data?.copy(
-                displayName = newProfileData.displayName,
-                locked = newProfileData.locked,
-                source = newProfileSource,
-            )
+            profileData.value?.data?.let { data ->
+                val newProfile = data.copy(
+                    displayName = newProfileData.displayName,
+                    locked = newProfileData.locked,
+                    source = data.source.copy(
+                        note = newProfileData.note,
+                        fields = newProfileData.fields,
+                    ),
+                )
 
-            profileData.value = Success(newProfile)
+                profileData.value = Success(newProfile)
+            }
         }
     }
 
@@ -178,7 +184,7 @@ class EditProfileViewModel @Inject constructor(
         _isDirty.value = getProfileDiff(apiProfileAccount, newProfileData).hasChanges()
     }
 
-    private fun getProfileDiff(oldProfileAccount: Account?, newProfileData: ProfileDataInUi): DiffProfileData {
+    private fun getProfileDiff(oldProfileAccount: CredentialAccount?, newProfileData: ProfileDataInUi): DiffProfileData {
         val displayName = if (oldProfileAccount?.displayName == newProfileData.displayName) {
             null
         } else {

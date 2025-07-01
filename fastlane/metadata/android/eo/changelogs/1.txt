@@ -1,0 +1,20 @@
+Novaj ecoj inkludas:
+
+" Pli" ne pli, postaĵoŝarĝo kiam vi ruliĝas
+Tendaj ligiloj kaj postenoj
+Pli ol 5 klakoj
+Elekti de vico da alireblaj tiparoj
+Nova amaskomunikiloj
+Filtriloj en sciigoj
+Marko listigas kiel "ekskluzivan"
+Aldonu "libromarkojn" al klakoj
+
+Bug fiksas inkludas:
+
+Bildoj ne "glutas" kiam vi zoom aŭ swipe inter ili
+
+UX-ŝanĝoj inkludas:
+
+Vida refreŝigo, nova kolorskemo
+Determini la defaŭltan temon de viaj Android agordoj
+"Clear notifications" estas menuo

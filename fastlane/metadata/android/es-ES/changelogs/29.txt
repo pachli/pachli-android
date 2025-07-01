@@ -1,0 +1,20 @@
+Pachli 2.11.0
+
+Nuevo:
+
+- Traducciones en toda la app
+- Filtros de contenido en todos lados por defecto
+- Compatibilidad experimental con Markdown
+
+Arreglos:
+
+- La IU de reportes ya no se cuelga
+- Descripción del botón "Publicar"
+- Evitar colapsos varios
+- Filtros con el tipo de contenido correcto
+- Filtrar en conversaciones y mensajes directos
+- Editar descripciones de imágenes ya subidas
+
+Traducciones:
+
+- Eslovaco, español, finés, indonesio, irlandés, letón, noruego nynorsk, polaco

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_share_as">Condividi come …</string>
+    <string name="title_choose_account_dialog">Scegli account</string>
+    <string name="title_error_dialog">Accesso fallito</string>
+    <string name="error_login_failed_hint">Clicca l\'account per provare di nuovo.</string>
+    <string name="action_relogin">Ri-accedi</string>
+    <string name="client_error_unauthorized_multiple_fmt">%1$s\n\nClicca \"%2$s\" per provare di nuovo, o \"%3$s\" per scegliere un account diverso.</string>
+    <string name="client_error_unauthorized_fmt">%1$s\n\nClicca \"%2$s\" per provare di nuovo.</string>
+    <string name="error_login_failed_hint_multiple">Clicca lo stesso account per provare di nuovo, oppure un account diverso per accedere con quello.</string>
+    <string name="action_choose_another_account">Scegli un altro account</string>
+    <string name="title_error_mime_type">Tipo non riconosciuto</string>
+</resources>

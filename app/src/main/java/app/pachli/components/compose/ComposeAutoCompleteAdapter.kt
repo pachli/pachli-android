@@ -24,20 +24,21 @@ import android.widget.Filter
 import android.widget.Filterable
 import androidx.annotation.WorkerThread
 import app.pachli.R
-import app.pachli.core.activity.databinding.ItemAutocompleteAccountBinding
-import app.pachli.core.activity.emojify
-import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.util.formatNumber
 import app.pachli.core.designsystem.R as DR
-import app.pachli.core.network.model.Emoji
-import app.pachli.core.network.model.TimelineAccount
+import app.pachli.core.model.Emoji
+import app.pachli.core.model.TimelineAccount
+import app.pachli.core.ui.databinding.ItemAutocompleteAccountBinding
+import app.pachli.core.ui.emojify
+import app.pachli.core.ui.loadAvatar
 import app.pachli.databinding.ItemAutocompleteEmojiBinding
 import app.pachli.databinding.ItemAutocompleteHashtagBinding
-import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
 import kotlinx.coroutines.runBlocking
 
 class ComposeAutoCompleteAdapter(
+    private val glide: RequestManager,
     private val autocompletionProvider: AutocompletionProvider,
     private val animateAvatar: Boolean,
     private val animateEmojis: Boolean,
@@ -111,12 +112,17 @@ class ComposeAutoCompleteAdapter(
 
         when (val binding = view.tag) {
             is ItemAutocompleteAccountBinding -> {
-                val accountResult = getItem(position) as AutocompleteResult.AccountResult
-                val account = accountResult.account
+                val account = (getItem(position) as AutocompleteResult.AccountResult).account
                 binding.username.text = context.getString(DR.string.post_username_format, account.username)
-                binding.displayName.text = account.name.emojify(account.emojis, binding.displayName, animateEmojis)
+                binding.displayName.text = account.name.emojify(
+                    glide,
+                    account.emojis,
+                    binding.displayName,
+                    animateEmojis,
+                )
                 val avatarRadius = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_42dp)
                 loadAvatar(
+                    glide,
                     account.avatar,
                     binding.avatar,
                     avatarRadius,
@@ -130,12 +136,9 @@ class ComposeAutoCompleteAdapter(
                 binding.usage7d.text = formatNumber(result.usage7d.toLong(), 10000)
             }
             is ItemAutocompleteEmojiBinding -> {
-                val emojiResult = getItem(position) as AutocompleteResult.EmojiResult
-                val (shortcode, url) = emojiResult.emoji
-                binding.shortcode.text = context.getString(R.string.emoji_shortcode_format, shortcode)
-                Glide.with(binding.preview)
-                    .load(url)
-                    .into(binding.preview)
+                val emoji = (getItem(position) as AutocompleteResult.EmojiResult).emoji
+                binding.shortcode.text = context.getString(R.string.emoji_shortcode_format, emoji.shortcode)
+                glide.load(emoji.url).into(binding.preview)
             }
         }
         return view

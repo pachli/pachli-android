@@ -47,8 +47,6 @@
     <string name="action_unreblog">Odstrani spodbudo</string>
     <string name="action_favourite">Vzljubi</string>
     <string name="action_compose">Sestavi</string>
-    <string name="action_logout">Odjava</string>
-    <string name="action_logout_confirm">Ali ste prepričani, da se želite odjaviti iz računa %1$s\?</string>
     <string name="action_follow">Sledi</string>
     <string name="action_unfollow">Prenehaj slediti</string>
     <string name="action_block">Blokiraj</string>
@@ -92,7 +90,6 @@
     <string name="action_open_media_n">Odpri medij #%d</string>
     <string name="download_image">Prejemanje %1$s</string>
     <string name="action_copy_link">Kopiraj povezavo</string>
-    <string name="action_share_as">Deli kot …</string>
     <string name="download_media">Prenos medija</string>
     <string name="downloading_media">Prejemanje medija</string>
     <string name="send_post_link_to">Deli URL tuta z…</string>
@@ -174,7 +171,6 @@
         <item quantity="other">%d novih interakcij</item>
     </plurals>
     <string name="description_account_locked">Zaklenjen račun</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <string name="post_share_content">Deli vsebino tuta</string>
     <string name="post_share_link">Deli povezavo do tuta</string>
     <string name="post_media_images">Slike</string>
@@ -200,14 +196,8 @@
     <string name="filter_dialog_remove_button">Odstrani</string>
     <string name="filter_dialog_update_button">Posodobi</string>
     <string name="filter_add_description">Filtriraj frazo</string>
-    <string name="add_account_name">Dodaj račun</string>
     <string name="add_account_description">Dodaj nov Mastodon račun</string>
     <string name="compose_active_account_description">Objavljanje z računom %1$s</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="other">Opišite za slabovidne
-\n(omejitev znakov - %d)</item>
-    </plurals>
-    <string name="action_set_caption">Nastavi opis</string>
     <string name="action_remove">Odstrani</string>
     <string name="lock_account_label">Zakleni račun</string>
     <string name="lock_account_label_description">Zahtevana je ročna potrditev sledilcev</string>
@@ -320,7 +310,6 @@
     </plurals>
     <string name="pref_title_animate_gif_avatars">Animirane podobe GIF</string>
     <string name="description_poll">Anketa z izbiro: %1$s, %2$s, %3$s, %4$s; %5$s</string>
-    <string name="button_continue">Nadaljuj</string>
     <string name="button_back">Nazaj</string>
     <string name="report_sent_success">\@%s je uspešno prijavljen</string>
     <string name="hint_additional_info">Dodatni komentarji</string>
@@ -362,9 +351,9 @@
     <string name="hashtags">Ključniki</string>
     <string name="notification_follow_request_name">Zahteve za Sledenje</string>
     <plurals name="favs">
-        <item quantity="one">&lt;b>%1$s&lt;/b> Priljubljena</item>
-        <item quantity="two">&lt;b>%1$s&lt;/b> Priljubljeni</item>
-        <item quantity="few">&lt;b>%1$s&lt;/b> Priljubljene</item>
-        <item quantity="other">&lt;b>%1$s&lt;/b> Priljubljenih</item>
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Priljubljena</item>
+        <item quantity="two">&lt;b&gt;%1$s&lt;/b&gt; Priljubljeni</item>
+        <item quantity="few">&lt;b&gt;%1$s&lt;/b&gt; Priljubljene</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Priljubljenih</item>
     </plurals>
 </resources>

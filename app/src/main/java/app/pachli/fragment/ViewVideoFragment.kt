@@ -48,7 +48,7 @@ import app.pachli.BuildConfig
 import app.pachli.R
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
-import app.pachli.core.network.model.Attachment
+import app.pachli.core.model.Attachment
 import app.pachli.databinding.FragmentViewVideoBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
@@ -273,7 +273,7 @@ class ViewVideoFragment : ViewMediaFragment() {
     private fun releasePlayer() {
         player?.let {
             savedSeekPosition = it.currentPosition
-            it.release()
+            if (it.isCommandAvailable(Player.COMMAND_RELEASE)) it.release()
             player = null
             binding.videoView.player = null
         }
@@ -396,9 +396,9 @@ class ViewVideoFragment : ViewMediaFragment() {
             .setListener(
                 object : AnimatorListenerAdapter() {
                     override fun onAnimationEnd(animation: Animator) {
+                        animation.removeListener(this)
                         view ?: return
                         binding.mediaDescription.visible(isDescriptionVisible)
-                        animation.removeListener(this)
                     }
                 },
             )

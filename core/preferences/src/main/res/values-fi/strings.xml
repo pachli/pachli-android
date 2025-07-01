@@ -28,4 +28,8 @@
     <string name="pref_tab_contents_icon_only">Vain kuvake</string>
     <string name="pref_title_tab_contents">Valikon välilehtien sisältö</string>
     <string name="pref_tab_contents_icon_text_inline">Kuvake ja teksti sen vieressä</string>
+    <string name="pref_title_render_markdown">Tekijä Markdown</string>
+    <string name="pref_update_notification_frequency_never">Ei koskaan</string>
+    <string name="pref_update_notification_frequency_once_per_version">Kerran jokaisesta versiosta</string>
+    <string name="pref_update_notification_frequency_always">Aina</string>
 </resources>

@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_network">Radās tīkla kļūda! Lūdzu, pārbaudiet savienojumu un mēģiniet vēlreiz!</string>
-    <string name="error_generic">Notika kļūda.</string>
+    <string name="error_network">Atgadījās tīkla kļūda. Lūgums pārbaudīt savienojumu un mēģināt vēlreiz.</string>
+    <string name="error_generic">Atgadījās kļūda.</string>
     <string name="message_empty">Šeit nekā nav.</string>
     <string name="action_retry">Mēģināt vēlreiz</string>
     <string name="button_done">Gatavs</string>
     <string name="action_view_profile">Profils</string>
     <string name="action_more">Vairāk</string>
-    <string name="action_refresh">Atsvaizdināt</string>
+    <string name="action_refresh">Atsvaidzināt</string>
     <string name="url_domain_notifier">\u0020(🔗 %s)</string>
     <string name="action_links">Saites</string>
     <string name="action_mentions">Pieminējumi</string>
@@ -15,4 +15,19 @@
     <string name="title_links_dialog">Saites</string>
     <string name="title_hashtags_dialog">Tēmturi</string>
     <string name="title_mentions_dialog">Pieminējumi</string>
+    <string name="action_copy_item">Ievietot vienuma tekstu starpliktuvē</string>
+    <string name="item_copied">Teksts ievietots starpliktuvē</string>
+    <string name="button_continue">Turpināt</string>
+    <string name="pref_notification_method_push">Pašpiegāde</string>
+    <string name="pref_notification_method_pull">Atgādāšana</string>
+    <string name="pref_notification_fetch_method_title">Paziņojuma veids</string>
+    <string name="pref_notification_fetch_ok_timestamp_fmt">✔ Pirms %1$s @ %2$s</string>
+    <string name="pref_notification_fetch_err_timestamp_fmt">✖ pirms %1$s @ %2$s</string>
+    <string name="pref_notification_fetch_server_rejected">%1$s atteica pašpiegādes reģistrēšanos</string>
+    <string name="pref_notification_fetch_needs_push">Kontam nav \"push\" tvēruma. Atteikšanās un pieteikšanās vēlreiz var to novērst.</string>
+    <string name="title_logout_fmt">Atteikties %1$s</string>
+    <string name="action_logout_confirm">Tas izdzēsīs visus vietējos konta %1$s datus, tajā skaitā melnrakstus un iestatījumus.\n\nTas neizdzēsīs kontu serverī.</string>
+    <string name="add_account_name">Pievienot kontu</string>
+    <string name="notification_details_last_fetch_label">Pēdējais /api/v1/notifications pieprasījums</string>
+    <string name="action_logout">Atteikties</string>
 </resources>

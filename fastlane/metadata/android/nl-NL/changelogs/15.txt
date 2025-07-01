@@ -1,0 +1,5 @@
+Pachli 2.5.1
+
+Vertaling:
+
+- Ja. Alleen toegankelijke toegankelijke acties op de hoogte van een status

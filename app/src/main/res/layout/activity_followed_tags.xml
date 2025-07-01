@@ -15,10 +15,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"
-        tools:itemCount="5"
-        tools:listitem="@layout/item_followed_hashtag"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        />
+        tools:itemCount="5"
+        tools:listitem="@layout/item_followed_hashtag" />
 
     <app.pachli.core.ui.BackgroundMessageView
         android:id="@+id/followedTagsMessageView"
@@ -26,8 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:visibility="gone"
-        />
+        tools:visibility="gone" />
 
     <ProgressBar
         android:id="@+id/followedTagsProgressBar"
@@ -35,8 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:visibility="gone"
-        />
+        tools:visibility="gone" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

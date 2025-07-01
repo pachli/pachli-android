@@ -30,10 +30,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.R
-import app.pachli.core.activity.BottomSheetActivity
-import app.pachli.core.activity.emojify
+import app.pachli.core.activity.ViewUrlActivity
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
-import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
@@ -41,11 +39,13 @@ import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.TimelineActivityIntent
-import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.core.ui.LinkListener
+import app.pachli.core.ui.emojify
+import app.pachli.core.ui.loadAvatar
 import app.pachli.databinding.FragmentViewEditsBinding
+import com.bumptech.glide.Glide
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.mikepenz.iconics.IconicsDrawable
@@ -99,7 +99,7 @@ class ViewEditsFragment :
 
         val animateAvatars = sharedPreferencesRepository.animateAvatars
         val animateEmojis = sharedPreferencesRepository.animateEmojis
-        val useBlurhash = sharedPreferencesRepository.getBoolean(PrefKeys.USE_BLURHASH, true)
+        val useBlurhash = sharedPreferencesRepository.useBlurHash
         val avatarRadius: Int = requireContext().resources.getDimensionPixelSize(DR.dimen.avatar_radius_48dp)
 
         viewLifecycleOwner.lifecycleScope.launch {
@@ -137,8 +137,11 @@ class ViewEditsFragment :
                         binding.statusView.hide()
                         binding.initialProgressBar.hide()
 
+                        val glide = Glide.with(this@ViewEditsFragment)
+
                         binding.recyclerView.adapter = ViewEditsAdapter(
                             context = requireContext(),
+                            glide = glide,
                             edits = uiState.edits,
                             animateEmojis = animateEmojis,
                             useBlurhash = useBlurhash,
@@ -149,9 +152,14 @@ class ViewEditsFragment :
                         (binding.recyclerView.layoutManager as LinearLayoutManager).scrollToPosition(0)
 
                         val account = uiState.edits.first().account
-                        loadAvatar(account.avatar, binding.statusAvatar, avatarRadius, animateAvatars)
+                        loadAvatar(glide, account.avatar, binding.statusAvatar, avatarRadius, animateAvatars)
 
-                        binding.statusDisplayName.text = account.name.unicodeWrap().emojify(account.emojis, binding.statusDisplayName, animateEmojis)
+                        binding.statusDisplayName.text = account.name.unicodeWrap().emojify(
+                            glide,
+                            account.emojis,
+                            binding.statusDisplayName,
+                            animateEmojis,
+                        )
                         binding.statusUsername.text = account.username
                     }
                 }
@@ -192,23 +200,23 @@ class ViewEditsFragment :
     }
 
     override fun onViewAccount(id: String) {
-        bottomSheetActivity?.startActivityWithDefaultTransition(
+        startActivityWithDefaultTransition(
             AccountActivityIntent(requireContext(), pachliAccountId, id),
         )
     }
 
     override fun onViewTag(tag: String) {
-        bottomSheetActivity?.startActivityWithDefaultTransition(
+        startActivityWithDefaultTransition(
             TimelineActivityIntent.hashtag(requireContext(), pachliAccountId, tag),
         )
     }
 
     override fun onViewUrl(url: String) {
-        bottomSheetActivity?.viewUrl(pachliAccountId, url)
+        viewUrlActivity?.viewUrl(pachliAccountId, url)
     }
 
-    private val bottomSheetActivity
-        get() = (activity as? BottomSheetActivity)
+    private val viewUrlActivity
+        get() = (activity as? ViewUrlActivity)
 
     companion object {
         private const val ARG_PACHLI_ACCOUNT_ID = "app.pachli.ARG_PACHLI_ACCOUNT_ID"

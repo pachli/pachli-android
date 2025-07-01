@@ -40,8 +40,14 @@ enum class FilterAction {
 
     ;
 
+    fun asModel() = when (this) {
+        NONE -> FilterAction.NONE
+        WARN -> FilterAction.WARN
+        HIDE -> FilterAction.HIDE
+    }
+
     companion object {
-        fun from(filterAction: app.pachli.core.model.FilterAction) = when (filterAction) {
+        fun from(filterAction: FilterAction) = when (filterAction) {
             FilterAction.NONE -> NONE
             FilterAction.WARN -> WARN
             FilterAction.HIDE -> HIDE

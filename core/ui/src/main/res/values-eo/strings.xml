@@ -14,4 +14,8 @@
     <string name="title_links_dialog">Ligiloj</string>
     <string name="title_hashtags_dialog">Kradvortoj</string>
     <string name="title_mentions_dialog">Mencioj</string>
+    <string name="button_continue">Daŭrigi</string>
+    <string name="action_logout_confirm">Ĉu vi certas, ke vi volas elsaluti el la konto %1$s?</string>
+    <string name="add_account_name">Aldoni konton</string>
+    <string name="action_logout">Elsaluti</string>
 </resources>

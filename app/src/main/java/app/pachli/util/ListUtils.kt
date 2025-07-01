@@ -24,9 +24,15 @@ fun isEmpty(list: List<*>?): Boolean {
 }
 
 /**
- * @return a new ArrayList containing the elements without duplicates in the same order
+ * Copies elements to destination, removing duplicates and preserving original order.
  */
-fun <T> removeDuplicates(list: List<T>): ArrayList<T> {
-    val set = LinkedHashSet(list)
-    return ArrayList(set)
+fun <T, C : MutableCollection<in T>> Iterable<T>.removeDuplicatesTo(destination: C): C {
+    return filterTo(destination, HashSet<T>()::add)
+}
+
+/**
+ * Copies elements to a new list, removing duplicates and preserving original order
+ */
+fun <T> Iterable<T>.removeDuplicates(): List<T> {
+    return removeDuplicatesTo(ArrayList())
 }

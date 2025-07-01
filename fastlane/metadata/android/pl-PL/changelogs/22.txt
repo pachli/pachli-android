@@ -1,14 +1,13 @@
 Pachli 2.8.2
 
-Nowe cechy:
+Nowości
 
-- Allow użytkownik wybrał zachowanie, gdy tapping taba.
-- Addd opcja do pobrania mediów dla reżyserów.
-- Addd option to ratowanie przywiązań do folderów.
+- Pozwól na wybór zachowania przy dotknięciu karty
+- Dodanie możliwości poboru mediów do folderów wg wysyłających
+- Dodanie opcji zapisu załączników do folderów wg kont
 
-Fiksy
+Poprawki:
 
-- Show notification fetch error
-- Ocalenie pozycji czytania, jeśli nie jest już w pełni widoczne, nie jest w pełni widoczne.
-- Update Galician translation
-- Update Irish translations (ang.)
+- Pokazywanie błędów pobierania powiadomień zamiast JSON
+- Zapisanie miejsce czytania gdy żaden wpis nie jest w pełni widoczny
+- Aktualizacja tłumaczeń na galicyjski i irlandzki

@@ -1,0 +1,14 @@
+Pachli 2.8.0
+
+Nové funkcie:
+
+- Experimentálne nastavenie pre zobrazenie domácej časovej osi od najnovších príspevkov po najstaršie 
+- Vylepšená spoľahlivosť push a pull notifikácií 
+
+Opravy:
+
+- Zobraziť názov aplikácie, z ktorej bol príspevok odoslaný, ak chýba odkaz na ňu
+- Tolerancia k chýbajúcim poliam v príspevkoch na serveri
+- Správne zobrazenie hashtagov, zmienok a úvodných odstavcov v režime sprava do ľava
+- Filtre vyhľadávania používajú správne farby v tmavom a čiernom režime
+- Aktualizácia prekladov do fínštiny, galícijčiny, írčiny, nórčiny a španielčiny

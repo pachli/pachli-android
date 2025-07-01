@@ -15,4 +15,16 @@
     <string name="title_links_dialog">Lenker</string>
     <string name="title_hashtags_dialog">Stikkord</string>
     <string name="title_mentions_dialog">Nevnelser</string>
+    <string name="button_continue">Fortsett</string>
+    <string name="pref_notification_method_push">Push</string>
+    <string name="pref_notification_method_pull">Pull</string>
+    <string name="pref_notification_fetch_method_title">Varslingsmetode</string>
+    <string name="pref_notification_fetch_ok_timestamp_fmt">✔ For %1$s siden, kl. %2$s</string>
+    <string name="pref_notification_fetch_err_timestamp_fmt">✖ For %1$s siden, kl. %2$s</string>
+    <string name="pref_notification_fetch_server_rejected">%1$s nektet «push»-registrasjon</string>
+    <string name="pref_notification_fetch_needs_push">Konto har ikke «push»-tillatelse. Å logge ut og så inn igjen kan fikse dette.</string>
+    <string name="action_logout_confirm">Er du sikker på at du vil logge ut fra kontoen %1$s? Alle opplysninger, utkast, og innstillinger som er lagret på enheten, skal slettes for godt.</string>
+    <string name="add_account_name">Legg til konto</string>
+    <string name="notification_details_last_fetch_label">Siste forespørsel av /api/v1/notifications</string>
+    <string name="action_logout">Logg ut</string>
 </resources>

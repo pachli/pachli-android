@@ -26,6 +26,9 @@ import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.Rect
 import android.graphics.RectF
+import android.os.Build
+import android.text.Selection
+import android.text.Spannable
 import android.text.Spanned
 import android.text.style.ClickableSpan
 import android.text.style.URLSpan
@@ -39,13 +42,11 @@ import android.view.MotionEvent.ACTION_UP
 import android.view.ViewConfiguration
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat.startActivity
+import androidx.core.graphics.withSave
 import androidx.core.view.doOnLayout
 import app.pachli.core.designsystem.R as DR
 import java.lang.Float.max
 import java.lang.Float.min
-import kotlin.collections.component1
-import kotlin.collections.component2
-import kotlin.collections.set
 import kotlin.math.abs
 import timber.log.Timber
 
@@ -217,6 +218,28 @@ class ClickableSpanTextView @JvmOverloads constructor(
         }
     }
 
+    override fun dispatchTouchEvent(event: MotionEvent): Boolean {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O_MR1) return super.dispatchTouchEvent(event)
+
+        // Prevent crash on Android <= O_MR1. The selection state can be lost
+        // later, causing `selectionEnd` to return -1. Fix this by explicitly
+        // resetting the selection (if present) or resetting the text.
+        //
+        // See https://issuetracker.google.com/issues/37068143.
+        val start = selectionStart
+        val end = selectionEnd
+        val content = text as? Spannable
+
+        if (content != null && (start < 0 || end < 0)) {
+            Selection.setSelection(content, content.length)
+        } else if (start != end && event.actionMasked == ACTION_DOWN) {
+            text = null
+            text = content
+        }
+
+        return super.dispatchTouchEvent(event)
+    }
+
     /**
      * Handle some touch events.
      *
@@ -246,9 +269,17 @@ class ClickableSpanTextView @JvmOverloads constructor(
 
                 clickedSpan = span
                 val url = (span as URLSpan).url
-                val spanStart = (text as Spanned).getSpanStart(span)
-                val spanEnd = (text as Spanned).getSpanEnd(span)
-                val title = text.subSequence(spanStart + 1, spanEnd).toString()
+
+                // Get the text of the span, to possibly use as the title. Maybe null if
+                // getSpanStart or getSpanEnd return -1.
+                val title = let {
+                    val spanStart = (text as Spanned).getSpanStart(span)
+                    val spanEnd = (text as Spanned).getSpanEnd(span)
+
+                    if (spanStart == -1 || spanEnd == -1) return@let null
+
+                    text.subSequence(spanStart + 1, spanEnd).toString()
+                }
 
                 // Configure and launch the runnable that will act if this is a long-press.
                 // Opens the chooser with the link the user touched. If the text of the span
@@ -261,7 +292,7 @@ class ClickableSpanTextView @JvmOverloads constructor(
                         Intent().apply {
                             action = Intent.ACTION_SEND
                             putExtra(Intent.EXTRA_TEXT, url)
-                            if (title != url) putExtra(Intent.EXTRA_TITLE, title)
+                            if (title != null && title != url) putExtra(Intent.EXTRA_TITLE, title)
                             type = "text/plain"
                         },
                         null,
@@ -439,15 +470,15 @@ class ClickableSpanTextView @JvmOverloads constructor(
         // Paint span boundaries. Optimised out on release builds, or debug builds where
         // showSpanBoundaries is false.
         if (BuildConfig.DEBUG && showSpanBoundaries) {
-            canvas.save()
-            for (rect in delegateRects.keys) {
-                canvas.drawRect(rect, paddingDebugPaint)
-            }
+            canvas.withSave {
+                for (rect in delegateRects.keys) {
+                    drawRect(rect, paddingDebugPaint)
+                }
 
-            for (rect in spanRects.keys) {
-                canvas.drawRect(rect, spanDebugPaint)
+                for (rect in spanRects.keys) {
+                    drawRect(rect, spanDebugPaint)
+                }
             }
-            canvas.restore()
         }
     }
 

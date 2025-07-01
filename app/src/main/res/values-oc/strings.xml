@@ -43,8 +43,6 @@
     <string name="action_reblog">Partejar</string>
     <string name="action_favourite">Aimar</string>
     <string name="action_compose">Redactar</string>
-    <string name="action_logout">Tampar la session</string>
-    <string name="action_logout_confirm">Volètz vertadièrament vos desconnectar del compte %1$s ?</string>
     <string name="action_follow">Seguir</string>
     <string name="action_unfollow">Quitar de seguir</string>
     <string name="action_block">Blocar</string>
@@ -183,10 +181,8 @@
     <string name="follows_you">Vos sèc</string>
     <string name="pref_title_alway_show_sensitive_media">Mostrar lo contengut sensible (NSFW)</string>
     <string name="title_media">Mèdia</string>
-    <string name="add_account_name">Apondre un compte</string>
     <string name="add_account_description">Apondre un nòu compte Mastodon</string>
     <string name="compose_active_account_description">Publicar coma %1$s</string>
-    <string name="action_set_caption">Apondre una legenda</string>
     <string name="action_remove">Levar</string>
     <string name="lock_account_label">Clavar lo compte</string>
     <string name="lock_account_label_description">Demanda que validetz manualament los seguidors</string>
@@ -231,7 +227,6 @@
     <string name="action_open_reblogged_by">Mostrar los retuts</string>
     <string name="action_open_faved_by">Mostrar los favorits</string>
     <string name="action_open_media_n">Dobrir lo mèdia #%d</string>
-    <string name="action_share_as">Partejar coma…</string>
     <string name="download_media">Telecargar lo mèdia</string>
     <string name="downloading_media">Telecargament del mèdia</string>
     <string name="label_avatar">Avatar</string>
@@ -241,7 +236,6 @@
     <string name="pref_title_proxy_settings">Servidor mandatari</string>
     <string name="pref_default_media_sensitivity">Totjorn marcar los mèdias coma sensibles</string>
     <string name="pref_failed_to_sync">Fracàs de la sincronizacion dels paramètres</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <string name="abbreviated_days_ago">%dd</string>
     <string name="abbreviated_hours_ago">%dh</string>
     <string name="abbreviated_minutes_ago">%dm</string>
@@ -253,17 +247,13 @@
     <string name="filter_dialog_remove_button">Suprimir</string>
     <string name="filter_dialog_update_button">Actualizar</string>
     <string name="filter_add_description">Frasa de filtrar</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="one">Descriure lo contengut pels mal vesents (%d caractèr maximum)</item>
-        <item quantity="other">Descriure los contenguts pels mal vesents (%d caractèrs maximum)</item>
-    </plurals>
     <plurals name="favs">
-        <item quantity="one">&lt;b>%1$s&lt;/b> Favorit</item>
-        <item quantity="other">&lt;b>%1$s&lt;/b> Favorits</item>
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Favorit</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Favorits</item>
     </plurals>
     <plurals name="reblogs">
-        <item quantity="one">&lt;b>%s&lt;/b> Partatge</item>
-        <item quantity="other">&lt;b>%s&lt;/b> Partatges</item>
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Partatge</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; Partatges</item>
     </plurals>
     <string name="title_reblogged_by">Partejat per</string>
     <string name="title_favourited_by">Aimat per</string>
@@ -321,7 +311,6 @@
     <string name="compose_preview_image_description">Accions per l’imatge %s</string>
     <string name="pref_title_animate_gif_avatars">Activar l’animacion dels avatars</string>
     <string name="description_poll">Sondatge amb opcion : %1$s, %2$s, %3$s, %4$s; %5$s</string>
-    <string name="button_continue">Contunhar</string>
     <string name="button_back">Tornar</string>
     <string name="report_sent_success">\@%s corrèctament senhalat</string>
     <string name="hint_additional_info">Comentaris suplementaris</string>
@@ -483,7 +472,9 @@
     <string name="pref_title_http_proxy_port_message">Lo pòrt deu èsser entre %d e %d</string>
     <string name="error_muting_hashtag_format">Fracàs en silenciant #%s</string>
     <string name="error_unmuting_hashtag_format">Fracàs en quitant de silenciar #%s</string>
-    <string name="notification_summary_report_format">%s · %d publicacions juntadas</string>
+    <plurals name="notification_summary_report_format">
+        <item quantity="other">%1$s · %2$d publicacions juntadas</item>
+    </plurals>
     <string name="post_edited">%s modificat</string>
     <string name="description_post_edited">Modificada</string>
     <string name="error_status_source_load">Fracàs del cargament de l’estatut a partir del servidor.</string>
@@ -545,7 +536,6 @@
     <string name="filter_description_format">%s : %s</string>
     <string name="label_filter_keywords">Mots clau o frasas de filtrar</string>
     <string name="hint_description">Descripcion</string>
-    <string name="post_media_image">Imatge</string>
     <string name="select_list_empty">Avètz pas encara de lista</string>
     <string name="select_list_manage">Gerir las listas</string>
     <string name="ui_error_favourite_fmt">Fracàs de la mes en favorit : %1$s</string>

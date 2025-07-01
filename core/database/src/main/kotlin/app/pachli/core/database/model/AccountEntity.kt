@@ -23,10 +23,10 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
+import app.pachli.core.model.Emoji
 import app.pachli.core.model.FilterAction
+import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
-import app.pachli.core.network.model.Emoji
-import app.pachli.core.network.model.Status
 
 @Entity(
     indices = [
@@ -39,9 +39,20 @@ import app.pachli.core.network.model.Status
 @TypeConverters(Converters::class)
 data class AccountEntity(
     @field:PrimaryKey(autoGenerate = true) var id: Long,
+    /** The domain of the account's server (e.g., "mastodon.social") */
     val domain: String,
     val accessToken: String,
+    /**
+     * Client ID key, used for obtaining OAuth tokens.
+     *
+     * - [Mastodon.Application.clientId](https://docs.joinmastodon.org/entities/Application/#client_id)
+     */
     val clientId: String,
+    /**
+     * Client secret key, used for obtaining OAuth tokens.
+     *
+     * - [Mastodon.Application.clientSecret](https://docs.joinmastodon.org/entities/Application/#client_secret)
+     */
     val clientSecret: String,
     val isActive: Boolean,
     /** Account's remote (server) ID. */
@@ -114,8 +125,22 @@ data class AccountEntity(
     /** [FilterAction] for notifications from account limited by the server. */
     @ColumnInfo(defaultValue = "NONE")
     var notificationAccountFilterLimitedByServer: FilterAction = FilterAction.NONE,
-) {
 
+    /** [FilterAction] for conversations from accounts this account does not follow. */
+    @ColumnInfo(defaultValue = "NONE")
+    var conversationAccountFilterNotFollowed: FilterAction = FilterAction.NONE,
+
+    /** [FilterAction] for conversations from accounts younger than 30 days. */
+    @ColumnInfo(defaultValue = "NONE")
+    var conversationAccountFilterYounger30d: FilterAction = FilterAction.NONE,
+
+    /** [FilterAction] for conversations from account limited by the server. */
+    @ColumnInfo(defaultValue = "NONE")
+    var conversationAccountFilterLimitedByServer: FilterAction = FilterAction.NONE,
+
+    @ColumnInfo(defaultValue = "0")
+    val isBot: Boolean = false,
+) {
     val identifier: String
         get() = "$domain:$accountId"
 
@@ -127,8 +152,6 @@ data class AccountEntity(
     val unifiedPushInstance: String
         get() = id.toString()
 
-    fun isLoggedIn() = accessToken.isNotEmpty()
-
     /** Value of the "Authorization" header for this account ("Bearer $accessToken"). */
     val authHeader: String
         get() = "Bearer $accessToken"
@@ -137,6 +160,6 @@ data class AccountEntity(
 fun defaultTabs() = listOf(
     Timeline.Home,
     Timeline.Notifications,
-    Timeline.PublicLocal,
+    Timeline.TrendingStatuses,
     Timeline.Conversations,
 )

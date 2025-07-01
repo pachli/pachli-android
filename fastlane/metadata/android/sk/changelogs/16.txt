@@ -1,0 +1,16 @@
+Pachli 2.5.2
+
+Nové funkcie:
+
+- Podpora prekladu na serveroch Hometown/Glitch
+
+Opravy:
+
+- Opravené pády na stránke "skryté domény"
+- Zobrazenie zrozumiteľných chybových hlásení pre všetky chyby
+- Zahrnúť iba transitionKind v intendoch pre Pachli aktivity
+- Aplikácia ponúkne aktualizáciu len na verzie dostupné cez F-Droid 
+- Opätovne povolené akcie prístupnosti na všetkých časových osiach
+- Výzva po úprave profilu
+- Zobrazenie histórie úprav pre ankety
+- Aktualizácia prekladov do fínštiny, francúzštiny a španielčiny

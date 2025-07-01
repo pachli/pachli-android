@@ -20,13 +20,13 @@ package app.pachli.components.notifications
 import android.app.NotificationManager
 import android.content.Context
 import androidx.annotation.WorkerThread
-import app.pachli.core.activity.NotificationConfig
 import app.pachli.core.common.string.isLessThan
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.notifications.NotificationsRepository
 import app.pachli.core.data.repository.notifications.from
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.NotificationData
+import app.pachli.core.domain.notifications.NotificationConfig
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Marker
@@ -41,7 +41,6 @@ import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.time.Instant
 import javax.inject.Inject
-import kotlin.collections.set
 import kotlin.math.min
 import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.currentCoroutineContext
@@ -90,7 +89,7 @@ class NotificationFetcher @Inject constructor(
 
                     // Create sorted list of new notifications
                     val notifications = fetchNewNotifications(entity)
-                        .filter { filterNotification(notificationManager, entity, it.type) }
+                        .filter { filterNotification(notificationManager, entity, it.type.asModel()) }
                         .filter {
                             val decision = filterNotificationByAccount(pachliAccount, NotificationData.from(pachliAccountId, it))
                             decision is AccountFilterDecision.None
@@ -130,7 +129,7 @@ class NotificationFetcher @Inject constructor(
                         val androidNotification = makeNotification(
                             context,
                             notificationManager,
-                            notification,
+                            notification.asModel(),
                             entity,
                             index == 0,
                         )

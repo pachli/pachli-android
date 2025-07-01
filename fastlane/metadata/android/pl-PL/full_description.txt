@@ -1,0 +1,11 @@
+Pachli jest w pełni funkcjonalnym klientem Mastodona i podobnych serwerów.
+
+• Czytaj, odpowiadaj, filtruj, publikuj, dodawaj do polubionych i podbijaj wpisy
+• Tłumacz wpisy z innych języków
+• Twoja oś czasu jest przechowywana w lokalnej pamięci podręcznej, więc możesz czytać, będąc offline
+• Zapisuj szkice, by publikować je później
+• Twórz wpisy teraz, zaplanuj je do publikacji później
+• Czytaj i pisz z wielu kont
+• Wiele motywów
+• Skupiony na zapewnieniu wszelkiej funkcjonalności dostępnej dla osób ze szczególnymi potrzebami w zakresie dostępności
+• Otwarte oprogramowanie, https://github.com/pachli

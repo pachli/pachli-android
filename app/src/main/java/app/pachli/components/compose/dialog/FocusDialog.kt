@@ -25,7 +25,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
-import app.pachli.core.network.model.Attachment.Focus
+import app.pachli.core.model.Attachment.Focus
 import app.pachli.databinding.DialogFocusBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource

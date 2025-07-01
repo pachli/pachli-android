@@ -48,4 +48,21 @@ WHERE
         String,
         TranslatedStatusEntity,
         >
+
+    /**
+     * @return [TranslatedStatusEntity] for [serverId], null if none exists.
+     */
+    @Query(
+        """
+SELECT *
+FROM TranslatedStatusEntity
+WHERE
+    timelineUserId = :accountId
+    AND serverId = :serverId
+""",
+    )
+    suspend fun getTranslation(
+        accountId: Long,
+        serverId: String,
+    ): TranslatedStatusEntity?
 }

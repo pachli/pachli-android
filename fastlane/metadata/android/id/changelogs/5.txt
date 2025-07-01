@@ -1,0 +1,5 @@
+Pachli 1.2.2
+
+Fitur Baru:
+
+- Embed Kebijakan Privasi di Aplikasi

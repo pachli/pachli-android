@@ -18,5 +18,12 @@
     <string name="about_account_info">\@%s@%s
 \n版本: %s</string>
     <string name="license_description">Pachli 使用了以下开源项目的源码：</string>
-    <string name="action_refresh">刷新</string>
+    <string name="notification_details_title">详细信息</string>
+    <string name="notification_details_android_notifications_enabled">Android 通知是否启用？</string>
+    <string name="notification_details_push_notifications_with_unifiedpush">使用 UnifiedPush 推送通知</string>
+    <string name="notification_details_unifiedpush_available_help">UnifiedPush(ntfy.sh)不可用，将定期拉取通知。本节的其余部分解释了为什么不使用 UnifiedPush，但与当前如何拉取通知无关。</string>
+    <string name="notitication_log_filter_dialog_title">显示日志优先级</string>
+    <string name="notification_log_download_failed">下载失败： %1$s</string>
+    <string name="about_privacy_policy">隐私政策</string>
+    <string name="about_nivenly_foundation">Pachli是一个<a href="https://nivenly.org">Nivenly Foundation</a>项目。</string>
 </resources>

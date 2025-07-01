@@ -38,23 +38,26 @@ import app.pachli.R
 import app.pachli.components.trending.viewmodel.InfallibleUiAction
 import app.pachli.components.trending.viewmodel.LoadState
 import app.pachli.components.trending.viewmodel.TrendingLinksViewModel
+import app.pachli.core.activity.OpenUrlUseCase
 import app.pachli.core.activity.RefreshableFragment
 import app.pachli.core.activity.ReselectableFragment
-import app.pachli.core.activity.openLink
+import app.pachli.core.activity.extensions.TransitionKind
+import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.model.PreviewCard
 import app.pachli.core.model.ServerOperation
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.TimelineActivityIntent
-import app.pachli.core.network.model.PreviewCard
 import app.pachli.core.ui.ActionButtonScrollListener
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.databinding.FragmentTrendingLinksBinding
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.AppBarLayoutHost
 import app.pachli.view.PreviewCardView.Target
+import com.bumptech.glide.Glide
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.snackbar.Snackbar
 import com.mikepenz.iconics.IconicsDrawable
@@ -64,6 +67,7 @@ import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.withCreationCallback
 import io.github.z4kn4fein.semver.constraints.toConstraint
+import javax.inject.Inject
 import kotlin.properties.Delegates
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
@@ -78,6 +82,9 @@ class TrendingLinksFragment :
     ReselectableFragment,
     RefreshableFragment,
     MenuProvider {
+
+    @Inject
+    lateinit var openUrl: OpenUrlUseCase
 
     private val viewModel: TrendingLinksViewModel by viewModels(
         extrasProducer = {
@@ -126,6 +133,7 @@ class TrendingLinksFragment :
         }
 
         trendingLinksAdapter = TrendingLinksAdapter(
+            Glide.with(this),
             viewModel.statusDisplayOptions.value,
             false,
             ::onOpenLink,
@@ -268,10 +276,13 @@ class TrendingLinksFragment :
 
     private fun onOpenLink(card: PreviewCard, target: Target) {
         when (target) {
-            Target.CARD -> requireContext().openLink(card.url)
-            Target.IMAGE -> requireContext().openLink(card.url)
+            Target.CARD -> openUrl(card.url)
+            Target.IMAGE -> openUrl(card.url)
             Target.BYLINE -> card.authors?.firstOrNull()?.account?.id?.let {
-                startActivity(AccountActivityIntent(requireContext(), pachliAccountId, it))
+                startActivityWithTransition(
+                    AccountActivityIntent(requireContext(), pachliAccountId, it),
+                    TransitionKind.SLIDE_FROM_END,
+                )
             }
 
             Target.TIMELINE_LINK -> {
@@ -281,7 +292,7 @@ class TrendingLinksFragment :
                     card.url,
                     card.title,
                 )
-                startActivity(intent)
+                startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
             }
         }
     }

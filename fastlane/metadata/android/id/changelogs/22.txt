@@ -6,7 +6,7 @@ Fitur baru:
 - Tambahkan opsi untuk mengunduh media ke direktori per-sender
 - Tambahkan opsi untuk menyimpan lampiran ke folder per rekening
 
-Login
+Perbaikan:
 
 - Tampilkan kesalahan pengambilan pemberitahuan bukan JSON
 - Simpan posisi membaca jika tidak ada posting yang sepenuhnya terlihat

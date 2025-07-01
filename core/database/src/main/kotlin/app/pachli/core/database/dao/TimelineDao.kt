@@ -21,7 +21,6 @@ import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
-import androidx.room.MapColumn
 import androidx.room.OnConflictStrategy.Companion.REPLACE
 import androidx.room.Query
 import androidx.room.Transaction
@@ -29,7 +28,6 @@ import androidx.room.TypeConverters
 import androidx.room.Upsert
 import app.pachli.core.database.Converters
 import app.pachli.core.database.model.StatusEntity
-import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TimelineStatusEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
@@ -111,7 +109,7 @@ SELECT
     rb.limited AS 'rb_limited',
     rb.note AS 'rb_note',
     svd.serverId AS 'svd_serverId',
-    svd.timelineUserId AS 'svd_timelineUserId',
+    svd.pachliAccountId AS 'svd_pachliAccountId',
     svd.expanded AS 'svd_expanded',
     svd.contentShowing AS 'svd_contentShowing',
     svd.contentCollapsed AS 'svd_contentCollapsed',
@@ -131,7 +129,7 @@ LEFT JOIN TimelineAccountEntity AS a ON (s.timelineUserId = a.timelineUserId AND
 LEFT JOIN TimelineAccountEntity AS rb ON (s.timelineUserId = rb.timelineUserId AND s.reblogAccountId = rb.serverId)
 LEFT JOIN
     StatusViewDataEntity AS svd
-    ON (s.timelineUserId = svd.timelineUserId AND (s.serverId = svd.serverId OR s.reblogServerId = svd.serverId))
+    ON (s.timelineUserId = svd.pachliAccountId AND (s.serverId = svd.serverId OR s.reblogServerId = svd.serverId))
 LEFT JOIN
     TranslatedStatusEntity AS tr
     ON (s.timelineUserId = tr.timelineUserId AND (s.serverId = tr.serverId OR s.reblogServerId = tr.serverId))
@@ -246,7 +244,7 @@ SELECT
     rb.limited AS 'rb_limited',
     rb.note AS 'rb_note',
     svd.serverId AS 'svd_serverId',
-    svd.timelineUserId AS 'svd_timelineUserId',
+    svd.pachliAccountId AS 'svd_pachliAccountId',
     svd.expanded AS 'svd_expanded',
     svd.contentShowing AS 'svd_contentShowing',
     svd.contentCollapsed AS 'svd_contentCollapsed',
@@ -263,7 +261,7 @@ LEFT JOIN TimelineAccountEntity AS a ON (s.timelineUserId = a.timelineUserId AND
 LEFT JOIN TimelineAccountEntity AS rb ON (s.timelineUserId = rb.timelineUserId AND s.reblogAccountId = rb.serverId)
 LEFT JOIN
     StatusViewDataEntity AS svd
-    ON (s.timelineUserId = svd.timelineUserId AND (s.serverId = svd.serverId OR s.reblogServerId = svd.serverId))
+    ON (s.timelineUserId = svd.pachliAccountId AND (s.serverId = svd.serverId OR s.reblogServerId = svd.serverId))
 LEFT JOIN
     TranslatedStatusEntity AS t
     ON (s.timelineUserId = t.timelineUserId AND (s.serverId = t.serverId OR s.reblogServerId = t.serverId))
@@ -328,7 +326,7 @@ WHERE
         """
 DELETE
 FROM StatusViewDataEntity
-WHERE timelineUserId = :accountId
+WHERE pachliAccountId = :accountId
 """,
     )
     abstract suspend fun removeAllStatusViewData(accountId: Long)
@@ -371,6 +369,10 @@ WHERE timelineUserId = :accountId AND serverId NOT IN (
     UNION
     SELECT statusServerId
     FROM NotificationEntity
+    WHERE pachliAccountId = :accountId
+    UNION
+    SELECT lastStatusServerId
+    FROM ConversationEntity
     WHERE pachliAccountId = :accountId
 )
 """,
@@ -415,7 +417,7 @@ WHERE
 DELETE
 FROM StatusViewDataEntity
 WHERE
-    timelineUserId = :accountId
+    pachliAccountId = :accountId
     AND serverId NOT IN (
         SELECT statusId
         FROM TimelineStatusEntity
@@ -451,32 +453,6 @@ WHERE
 """,
     )
     abstract suspend fun cleanupTranslatedStatus(accountId: Long)
-
-    @Upsert
-    abstract suspend fun upsertStatusViewData(svd: StatusViewDataEntity)
-
-    /**
-     * @param accountId the accountId to query
-     * @param serverIds the IDs of the statuses to check
-     * @return Map between serverIds and any cached viewdata for those statuses
-     */
-    @Query(
-        """
-SELECT *
-FROM StatusViewDataEntity
-WHERE
-    timelineUserId = :accountId
-    AND serverId IN (:serverIds)
-""",
-    )
-    abstract suspend fun getStatusViewData(
-        accountId: Long,
-        serverIds: List<String>,
-    ): Map<
-        @MapColumn(columnName = "serverId")
-        String,
-        StatusViewDataEntity,
-        >
 
     @Query(
         """

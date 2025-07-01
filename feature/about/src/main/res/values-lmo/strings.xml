@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="about_title_activity">A proposet</string>
+    <string name="about_powered_by_pachli">Ufrì de Pachli</string>
+    <string name="about_privacy_policy">Pulitega de cunfidenzialità</string>
+    <string name="about_device_info_title">El vòster dispusitif</string>
+    <string name="about_account_info_title">El tò conto</string>
+    <string name="notification_details_title">Detali</string>
+</resources>

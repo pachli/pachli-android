@@ -1,0 +1,9 @@
+Pachli 2.9.2
+
+Nové funkcie:
+
+- Zobrazenie zoznamov zoradených podľa názvu
+- Aktualizácia podpory servera pre v1 filtre v Akkome
+- Odstránenie "dummy.placeholder" z chybových hlásení siete 
+- Zobrazenie chybovej správy v prípade chyby databázy počas prihlásenia
+- Aktualizácia prekladov do barmčiny, írčiny, nynorsk (nórskej), španielčiny, švédčiny a tamilčiny

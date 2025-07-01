@@ -26,6 +26,35 @@ All locally cached data for an account is deleted if you do any of the following
 
 You can not delete your Mastodon account using the application. Deleting your account must be done through your server's web interface.
 
+## Data backups
+
+Pachli participates in Android's backup system.
+
+### Data backup and restore with Google Drive
+
+Android *may* store an encrypted backup of Pachli data in your Google Drive.
+
+For this to happen all of the following conditions must be met:
+
+1. Your device must be running Android 9 or higher ([instructions on how to check your Android version](https://support.google.com/android/answer/7680439?sjid=2548273967416916128-EU)).
+2. You must be signed in to your device with a Google account.
+3. You must have enabled Google's [Android backup and restore](https://support.google.com/android/answer/2819582?hl=en) feature on your device (**Settings** > **System** > **Backup**).
+4. You must have enabled screen-unlock, with a pin, pattern, or password.
+
+If all these conditions are met then a copy of your Pachli data, including your account information and preferences are **encrypted** and periodically uploaded to your Google Drive, approximately once per day when:
+
+1. At least 24 hours have elapsed since the last backup.
+2. The device is idle.
+3. The device is connected to a Wi-Fi network (if you have not opted in to mobile-data backups).
+
+Data is restored whenever Pachli is installed.
+
+You can disable this functionality on your device at **Settings** > **System** > **Backup**.
+
+Your device backups in Google Drive can be viewed at https://drive.google.com/drive/backups.
+
+For more information on Android's backup and restore feature see [Backup or restore data on your Android device](https://support.google.com/android/answer/2819582?hl=en).
+
 ## Data sharing
 
 ### If you have installed Pachli from F-Droid or GitHub releases

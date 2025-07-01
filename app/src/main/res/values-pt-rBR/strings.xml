@@ -46,8 +46,6 @@
     <string name="action_favourite">Favoritar</string>
     <string name="action_unfavourite">Desfavoritar</string>
     <string name="action_compose">Compor</string>
-    <string name="action_logout">Sair</string>
-    <string name="action_logout_confirm">Tem certeza que deseja sair da conta %1$s? Isso excluirá todos os dados locais da conta, incluindo rascunhos e preferências.</string>
     <string name="action_follow">Seguir</string>
     <string name="action_unfollow">Deixar de seguir</string>
     <string name="action_block">Bloquear</string>
@@ -89,7 +87,6 @@
     <string name="action_open_faved_by">Mostrar favoritos</string>
     <string name="download_image">Baixando %1$s</string>
     <string name="action_copy_link">Copiar URL</string>
-    <string name="action_share_as">Compartilhar como…</string>
     <string name="send_post_link_to">Compartilhar URL do Toot em…</string>
     <string name="send_post_content_to">Compartilhar Toot em…</string>
     <string name="send_media_to">Compartilhar mídia via…</string>
@@ -174,7 +171,6 @@
         <item quantity="other">%d novas interações</item>
     </plurals>
     <string name="description_account_locked">Perfil trancado</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <!-- note to translators:
          * you should think of “free” as in “free speech,” not as in “free beer”.
            We sometimes call it “libre software,” borrowing the French or Spanish word for “free” as in freedom,
@@ -200,10 +196,8 @@
     <string name="follows_you">te segue</string>
     <string name="pref_title_alway_show_sensitive_media">Sempre mostrar mídia sensível</string>
     <string name="title_media">Mídia</string>
-    <string name="add_account_name">Adicionar conta</string>
     <string name="add_account_description">Adicionar nova conta Mastodon</string>
     <string name="compose_active_account_description">Postando como %1$s</string>
-    <string name="action_set_caption">Descrever</string>
     <string name="action_remove">Remover</string>
     <string name="lock_account_label">Trancar perfil</string>
     <string name="lock_account_label_description">Requer aprovação manual de seguidores</string>
@@ -260,11 +254,6 @@
     <string name="filter_dialog_remove_button">Excluir</string>
     <string name="filter_dialog_update_button">Atualizar</string>
     <string name="filter_add_description">Frase para filtrar</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="one">Descreva para pessoa com deficiência visual (até %d caracteres)</item>
-        <item quantity="many">Descreva para pessoas com deficiência visual (até %d caracteres)</item>
-        <item quantity="other">Descreva para pessoas com deficiência visual (até %d caracteres)</item>
-    </plurals>
     <string name="label_remote_account">As informações abaixo podem refletir incompletamente o perfil do usuário. Toque aqui para abrir o perfil completo no navegador.</string>
     <string name="unpin_action">Desafixar</string>
     <string name="pin_action">Fixar</string>
@@ -330,7 +319,6 @@
     </plurals>
     <string name="pref_title_animate_gif_avatars">Animar avatares com GIF</string>
     <string name="description_poll">Enquete com as opções: %1$s, %2$s, %3$s, %4$s; %5$s</string>
-    <string name="button_continue">Continuar</string>
     <string name="button_back">Voltar</string>
     <string name="report_sent_success">\@%s denunciado com sucesso</string>
     <string name="hint_additional_info">Comentários adicionais</string>
@@ -554,8 +542,6 @@
     <string name="ui_error_bookmark_fmt">Salvar Toot falhou: %1$s</string>
     <string name="notification_unknown_name">Desconhecido</string>
     <string name="total_usage">Uso total</string>
-    <string name="pref_update_notification_frequency_always">Sempre</string>
-    <string name="pref_update_notification_frequency_never">Nunca</string>
     <string name="filter_keyword_display_format">%s (palavra inteira)</string>
     <string name="filter_keyword_addition_title">Adicionar palavra-chave</string>
     <string name="label_filter_keywords">Palavras-chave ou frases para filtrar</string>
@@ -572,13 +558,13 @@
     <string name="announcement_date_updated">(Atualizado: %1$s)</string>
     <string name="title_tab_public_trending_statuses">Toots</string>
     <string name="help_empty_home">Esta é a tua <b>linha do tempo inicial</b>. Ela mostra as postagens recentes das contas que você segue. \n \nPara explorar contas, pode descobri-las em uma das outras linhas do tempo. Por exemplo, a linha do tempo local da tua instância [iconics gmd_group]. Ou pode pesquisá-las por nome [iconics gmd_search]; por exemplo, pesquise Pachli para encontrar nossa conta Mastodon.</string>
-    <string name="pref_update_notification_frequency_once_per_version">Uma vez por versão</string>
     <string name="notification_report_name">Denúncias</string>
     <string name="filter_description_hide">Ocultar completamente</string>
     <string name="filter_description_format">%s: %s</string>
-    <string name="notification_summary_report_format">%s · %d Toots anexados</string>
+    <plurals name="notification_summary_report_format">
+        <item quantity="other">%1$s · %2$d Toots anexados</item>
+    </plurals>
     <string name="send_account_link_to">Compartilhar URL da conta para…</string>
-    <string name="post_media_image">Imagem</string>
     <string name="filter_action_hide">Ocultar</string>
     <string name="label_filter_title">Nome</string>
     <string name="pref_title_font_family">Família da fonte</string>

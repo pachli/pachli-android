@@ -27,14 +27,15 @@ import androidx.paging.map
 import app.pachli.R
 import app.pachli.core.common.PachliError
 import app.pachli.core.common.extensions.throttleFirst
+import app.pachli.core.data.model.ContentFilterModel
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
+import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.data.repository.notifications.NotificationsRepository
-import app.pachli.core.data.repository.notifications.from
+import app.pachli.core.data.repository.notifications.asEntity
 import app.pachli.core.database.model.AccountEntity
-import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.eventhub.BlockEvent
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.MuteConversationEvent
@@ -43,12 +44,11 @@ import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.ContentFilterVersion
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.FilterContext
-import app.pachli.core.network.model.Notification
-import app.pachli.core.network.model.Poll
+import app.pachli.core.model.Notification
+import app.pachli.core.model.Poll
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.preferences.TabTapBehaviour
-import app.pachli.network.ContentFilterModel
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.deserialize
 import app.pachli.util.serialize
@@ -58,6 +58,7 @@ import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.mapEither
 import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -114,7 +115,7 @@ sealed interface UiAction
 /** Actions the user can trigger from the UI. These actions may fail. */
 sealed interface FallibleUiAction : UiAction {
     /** Clear all notifications */
-    data object ClearNotifications : FallibleUiAction
+    data class ClearNotifications(val pachliAccountId: Long) : FallibleUiAction
 }
 
 /**
@@ -212,6 +213,11 @@ sealed interface UiSuccess {
     data object LoadNewest : UiSuccess
 }
 
+sealed interface UiActionSuccess : UiSuccess {
+    /** Clearing remote notifications (and the local cache) succeeded. */
+    data object ClearNotifications : UiActionSuccess
+}
+
 /** The result of a successful action on a notification */
 sealed interface NotificationActionSuccess : UiSuccess {
     /** String resource with an error message to show the user */
@@ -242,45 +248,59 @@ sealed interface NotificationActionSuccess : UiSuccess {
     }
 }
 
+sealed interface StatusAction
+
+sealed interface InfallibleStatusAction : InfallibleUiAction, StatusAction {
+    val statusViewData: StatusViewData
+
+    data class TranslateUndo(override val statusViewData: StatusViewData) : InfallibleStatusAction
+}
+
 /** Actions the user can trigger on an individual status */
-sealed interface StatusAction : FallibleUiAction {
+sealed interface FallibleStatusAction : FallibleUiAction, StatusAction {
     val statusViewData: StatusViewData
 
     /** Set the bookmark state for a status */
-    data class Bookmark(val state: Boolean, override val statusViewData: StatusViewData) : StatusAction
+    data class Bookmark(val state: Boolean, override val statusViewData: StatusViewData) : FallibleStatusAction
 
     /** Set the favourite state for a status */
-    data class Favourite(val state: Boolean, override val statusViewData: StatusViewData) : StatusAction
+    data class Favourite(val state: Boolean, override val statusViewData: StatusViewData) : FallibleStatusAction
 
     /** Set the reblog state for a status */
-    data class Reblog(val state: Boolean, override val statusViewData: StatusViewData) : StatusAction
+    data class Reblog(val state: Boolean, override val statusViewData: StatusViewData) : FallibleStatusAction
 
     /** Vote in a poll */
     data class VoteInPoll(
         val poll: Poll,
         val choices: List<Int>,
         override val statusViewData: StatusViewData,
-    ) : StatusAction
+    ) : FallibleStatusAction
+
+    /** Translate a status */
+    data class Translate(override val statusViewData: StatusViewData) : FallibleStatusAction
 }
 
 /** Changes to a status' visible state after API calls */
 sealed interface StatusActionSuccess : UiSuccess {
-    val action: StatusAction
+    val action: FallibleStatusAction
 
-    data class Bookmark(override val action: StatusAction.Bookmark) : StatusActionSuccess
+    data class Bookmark(override val action: FallibleStatusAction.Bookmark) : StatusActionSuccess
 
-    data class Favourite(override val action: StatusAction.Favourite) : StatusActionSuccess
+    data class Favourite(override val action: FallibleStatusAction.Favourite) : StatusActionSuccess
 
-    data class Reblog(override val action: StatusAction.Reblog) : StatusActionSuccess
+    data class Reblog(override val action: FallibleStatusAction.Reblog) : StatusActionSuccess
 
-    data class VoteInPoll(override val action: StatusAction.VoteInPoll) : StatusActionSuccess
+    data class VoteInPoll(override val action: FallibleStatusAction.VoteInPoll) : StatusActionSuccess
+
+    data class Translate(override val action: FallibleStatusAction.Translate) : StatusActionSuccess
 
     companion object {
-        fun from(action: StatusAction) = when (action) {
-            is StatusAction.Bookmark -> Bookmark(action)
-            is StatusAction.Favourite -> Favourite(action)
-            is StatusAction.Reblog -> Reblog(action)
-            is StatusAction.VoteInPoll -> VoteInPoll(action)
+        fun from(action: FallibleStatusAction) = when (action) {
+            is FallibleStatusAction.Bookmark -> Bookmark(action)
+            is FallibleStatusAction.Favourite -> Favourite(action)
+            is FallibleStatusAction.Reblog -> Reblog(action)
+            is FallibleStatusAction.VoteInPoll -> VoteInPoll(action)
+            is FallibleStatusAction.Translate -> Translate(action)
         }
     }
 }
@@ -299,32 +319,38 @@ sealed interface UiError {
 
     data class ClearNotifications(
         override val error: PachliError,
-        override val action: FallibleUiAction.ClearNotifications = FallibleUiAction.ClearNotifications,
+        override val action: FallibleUiAction.ClearNotifications,
         override val message: Int = R.string.ui_error_clear_notifications,
     ) : UiError
 
     data class Bookmark(
         override val error: PachliError,
-        override val action: StatusAction.Bookmark,
+        override val action: FallibleStatusAction.Bookmark,
         override val message: Int = R.string.ui_error_bookmark_fmt,
     ) : UiError
 
     data class Favourite(
         override val error: PachliError,
-        override val action: StatusAction.Favourite,
+        override val action: FallibleStatusAction.Favourite,
         override val message: Int = R.string.ui_error_favourite_fmt,
     ) : UiError
 
     data class Reblog(
         override val error: PachliError,
-        override val action: StatusAction.Reblog,
+        override val action: FallibleStatusAction.Reblog,
         override val message: Int = R.string.ui_error_reblog_fmt,
     ) : UiError
 
     data class VoteInPoll(
         override val error: PachliError,
-        override val action: StatusAction.VoteInPoll,
+        override val action: FallibleStatusAction.VoteInPoll,
         override val message: Int = R.string.ui_error_vote_fmt,
+    ) : UiError
+
+    data class TranslateStatus(
+        override val error: PachliError,
+        override val action: FallibleStatusAction.Translate,
+        override val message: Int = R.string.ui_error_translate_status_fmt,
     ) : UiError
 
     data class AcceptFollowRequest(
@@ -347,13 +373,14 @@ sealed interface UiError {
 
     companion object {
         fun make(error: PachliError, action: FallibleUiAction) = when (action) {
-            is StatusAction.Bookmark -> Bookmark(error, action)
-            is StatusAction.Favourite -> Favourite(error, action)
-            is StatusAction.Reblog -> Reblog(error, action)
-            is StatusAction.VoteInPoll -> VoteInPoll(error, action)
+            is FallibleStatusAction.Bookmark -> Bookmark(error, action)
+            is FallibleStatusAction.Favourite -> Favourite(error, action)
+            is FallibleStatusAction.Reblog -> Reblog(error, action)
+            is FallibleStatusAction.VoteInPoll -> VoteInPoll(error, action)
+            is FallibleStatusAction.Translate -> TranslateStatus(error, action)
             is NotificationAction.AcceptFollowRequest -> AcceptFollowRequest(error, action)
             is NotificationAction.RejectFollowRequest -> RejectFollowRequest(error, action)
-            FallibleUiAction.ClearNotifications -> ClearNotifications(error)
+            is FallibleUiAction.ClearNotifications -> ClearNotifications(error, action)
         }
     }
 }
@@ -367,6 +394,7 @@ class NotificationsViewModel @AssistedInject constructor(
     private val eventHub: EventHub,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
+    private val statusRepository: StatusRepository,
     @Assisted val pachliAccountId: Long,
 ) : ViewModel() {
     private val accountFlow = accountManager.getPachliAccountFlow(pachliAccountId)
@@ -412,7 +440,7 @@ class NotificationsViewModel @AssistedInject constructor(
 
         viewModelScope.launch {
             uiAction.filterIsInstance<InfallibleUiAction.LoadNewest>()
-                .collectLatest { onLoadNewest() }
+                .collectLatest { ::onLoadNewest }
         }
 
         viewModelScope.launch {
@@ -474,37 +502,39 @@ class NotificationsViewModel @AssistedInject constructor(
 
         // Handle StatusAction.*
         viewModelScope.launch {
-            uiAction.filterIsInstance<StatusAction>()
+            uiAction.filterIsInstance<FallibleStatusAction>()
                 .throttleFirst() // avoid double-taps
                 .collect { action ->
                     val result = when (action) {
-                        is StatusAction.Bookmark -> repository.bookmark(
+                        is FallibleStatusAction.Bookmark -> statusRepository.bookmark(
                             pachliAccountId,
                             action.statusViewData.actionableId,
                             action.state,
                         )
 
-                        is StatusAction.Favourite -> repository.favourite(
+                        is FallibleStatusAction.Favourite -> statusRepository.favourite(
                             pachliAccountId,
                             action.statusViewData.actionableId,
                             action.state,
                         )
 
-                        is StatusAction.Reblog -> repository.reblog(
+                        is FallibleStatusAction.Reblog -> statusRepository.reblog(
                             pachliAccountId,
                             action.statusViewData.actionableId,
                             action.state,
                         )
 
-                        is StatusAction.VoteInPoll -> repository.voteInPoll(
+                        is FallibleStatusAction.VoteInPoll -> statusRepository.voteInPoll(
                             pachliAccountId,
                             action.statusViewData.actionableId,
                             action.poll.id,
                             action.choices,
                         )
+
+                        is FallibleStatusAction.Translate -> timelineCases.translate(action.statusViewData)
                     }.mapEither(
                         { StatusActionSuccess.from(action) },
-                        { UiError.make(it.error, action) },
+                        { UiError.make(it, action) },
                     )
                     _uiResult.send(result)
                 }
@@ -536,6 +566,13 @@ class NotificationsViewModel @AssistedInject constructor(
             }
         }
 
+        // Undo status translations
+        viewModelScope.launch {
+            uiAction.filterIsInstance<InfallibleStatusAction.TranslateUndo>().collectLatest {
+                timelineCases.translateUndo(it.statusViewData)
+            }
+        }
+
         pagingData = accountFlow
             .distinctUntilChanged { old, new ->
                 (old.entity.notificationsFilter == new.entity.notificationsFilter) &&
@@ -557,7 +594,7 @@ class NotificationsViewModel @AssistedInject constructor(
             combine(accountFlow.distinctUntilChangedBy { it.entity.notificationsFilter }, getUiPrefs()) { account, _ ->
                 UiState(
                     activeFilter = deserialize(account.entity.notificationsFilter),
-                    showFabWhileScrolling = !sharedPreferencesRepository.getBoolean(PrefKeys.FAB_HIDE, false),
+                    showFabWhileScrolling = !sharedPreferencesRepository.hideFabWhenScrolling,
                     tabTapBehaviour = sharedPreferencesRepository.tabTapBehaviour,
                 )
             }.stateIn(
@@ -582,7 +619,8 @@ class NotificationsViewModel @AssistedInject constructor(
     }
 
     private suspend fun onClearNotifications(action: FallibleUiAction.ClearNotifications) {
-        repository.clearNotifications()
+        repository.clearNotifications(action.pachliAccountId)
+            .onSuccess { _uiResult.send(Ok(UiActionSuccess.ClearNotifications)) }
             .onFailure { _uiResult.send(Err(UiError.make(it, action))) }
     }
 
@@ -590,7 +628,9 @@ class NotificationsViewModel @AssistedInject constructor(
         pachliAccount: PachliAccount,
         filters: Set<Notification.Type>,
     ): Flow<PagingData<NotificationViewData>> {
-        val activeFilters = filters.map { NotificationEntity.Type.from(it) }
+        val activeFilters = filters.map { it.asEntity() }
+        // TODO: This could be more efficient if the filters were passed to the
+        // repository.notifications() call, and the repository did the filtering.
         return repository.notifications(pachliAccountId)
             .map { pagingData ->
                 pagingData
@@ -626,14 +666,20 @@ class NotificationsViewModel @AssistedInject constructor(
         .filter { UiPrefs.prefKeys.contains(it) }
         .onStart { emit(null) }
 
-    private fun onContentCollapsed(action: InfallibleUiAction.SetContentCollapsed) =
+    private fun onContentCollapsed(action: InfallibleUiAction.SetContentCollapsed) {
         repository.setContentCollapsed(action.pachliAccountId, action.statusViewData, action.isCollapsed)
+        repository.invalidate()
+    }
 
-    private fun onShowingContent(action: InfallibleUiAction.SetShowingContent) =
+    private fun onShowingContent(action: InfallibleUiAction.SetShowingContent) {
         repository.setShowingContent(action.pachliAccountId, action.statusViewData, action.isShowingContent)
+        repository.invalidate()
+    }
 
-    private fun onExpanded(action: InfallibleUiAction.SetExpanded) =
+    private fun onExpanded(action: InfallibleUiAction.SetExpanded) {
         repository.setExpanded(action.pachliAccountId, action.statusViewData, action.isExpanded)
+        repository.invalidate()
+    }
 
     private fun onClearContentFilter(action: InfallibleUiAction.ClearContentFilter) {
         repository.clearContentFilter(action.pachliAccountId, action.notificationId)

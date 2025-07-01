@@ -19,13 +19,13 @@ package app.pachli.components.search.fragments
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Build
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.app.ActivityOptionsCompat
+import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
@@ -34,14 +34,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import app.pachli.R
 import app.pachli.components.search.adapter.SearchStatusesAdapter
 import app.pachli.core.activity.BaseActivity
+import app.pachli.core.activity.OpenUrlUseCase
 import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
-import app.pachli.core.activity.openLink
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.domain.DownloadUrlUseCase
+import app.pachli.core.model.Attachment
+import app.pachli.core.model.Poll
+import app.pachli.core.model.Status
+import app.pachli.core.model.Status.Mention
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
@@ -49,13 +53,12 @@ import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InReplyTo
 import app.pachli.core.navigation.EditContentFilterActivityIntent
 import app.pachli.core.navigation.ReportActivityIntent
 import app.pachli.core.navigation.ViewMediaActivityIntent
-import app.pachli.core.network.model.Attachment
-import app.pachli.core.network.model.Poll
-import app.pachli.core.network.model.Status
-import app.pachli.core.network.model.Status.Mention
 import app.pachli.core.ui.ClipboardUseCase
+import app.pachli.core.ui.SetMarkdownContent
+import app.pachli.core.ui.SetMastodonHtmlContent
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.view.showMuteAccountDialog
+import com.bumptech.glide.Glide
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import com.google.android.material.divider.MaterialDividerItemDecoration
@@ -77,17 +80,26 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
     @Inject
     lateinit var clipboard: ClipboardUseCase
 
+    @Inject
+    lateinit var openUrl: OpenUrlUseCase
+
     override val data: Flow<PagingData<StatusViewData>>
         get() = viewModel.statusesFlow
 
     override fun createAdapter(): PagingDataAdapter<StatusViewData, *> {
         val statusDisplayOptions = statusDisplayOptionsRepository.flow.value
 
+        val setStatusContent = if (statusDisplayOptions.renderMarkdown) {
+            SetMarkdownContent(requireContext())
+        } else {
+            SetMastodonHtmlContent
+        }
+
         binding.searchRecyclerView.addItemDecoration(
             MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL),
         )
         binding.searchRecyclerView.layoutManager = LinearLayoutManager(binding.searchRecyclerView.context)
-        return SearchStatusesAdapter(statusDisplayOptions, this)
+        return SearchStatusesAdapter(Glide.with(this), setStatusContent, statusDisplayOptions, this)
     }
 
     override fun onContentHiddenChange(viewData: StatusViewData, isShowingContent: Boolean) {
@@ -130,24 +142,22 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                         view,
                         url,
                     )
-                    startActivity(intent, options.toBundle())
+                    startActivityWithDefaultTransition(intent, options.toBundle())
                 } else {
-                    startActivity(intent)
+                    startActivityWithDefaultTransition(intent)
                 }
             }
-            Attachment.Type.UNKNOWN -> {
-                context?.openLink(actionable.attachments[attachmentIndex].url)
-            }
+            Attachment.Type.UNKNOWN -> openUrl(actionable.attachments[attachmentIndex].url)
         }
     }
 
     override fun onViewThread(status: Status) {
         val actionableStatus = status.actionableStatus
-        bottomSheetActivity?.viewThread(pachliAccountId, actionableStatus.id, actionableStatus.url)
+        viewUrlActivity?.viewThread(pachliAccountId, actionableStatus.id, actionableStatus.url)
     }
 
     override fun onOpenReblog(status: Status) {
-        bottomSheetActivity?.viewAccount(pachliAccountId, status.account.id)
+        viewUrlActivity?.viewAccount(pachliAccountId, status.account.id)
     }
 
     override fun onExpandedChange(viewData: StatusViewData, expanded: Boolean) {
@@ -169,7 +179,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
     }
 
     override fun onEditFilterById(pachliAccountId: Long, filterId: String) {
-        requireActivity().startActivityWithTransition(
+        startActivityWithTransition(
             EditContentFilterActivityIntent.edit(requireContext(), pachliAccountId, filterId),
             TransitionKind.SLIDE_FROM_END,
         )
@@ -196,7 +206,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                 kind = ComposeOptions.ComposeKind.NEW,
             ),
         )
-        bottomSheetActivity?.startActivityWithDefaultTransition(intent)
+        startActivityWithDefaultTransition(intent)
     }
 
     private fun more(statusViewData: StatusViewData, view: View) {
@@ -235,7 +245,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
         }
 
         val openAsItem = popup.menu.findItem(R.id.status_open_as)
-        val openAsText = bottomSheetActivity?.openAsText
+        val openAsText = viewUrlActivity?.openAsText
         if (openAsText == null) {
             openAsItem.isVisible = false
         } else {
@@ -269,7 +279,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                         statusToShare.content
                     sendIntent.putExtra(Intent.EXTRA_TEXT, stringToShare)
                     sendIntent.type = "text/plain"
-                    startActivity(Intent.createChooser(sendIntent, resources.getText(R.string.send_post_content_to)))
+                    startActivityWithDefaultTransition(Intent.createChooser(sendIntent, resources.getText(R.string.send_post_content_to)))
                     return@setOnMenuItemClickListener true
                 }
                 R.id.post_share_link -> {
@@ -277,7 +287,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                     sendIntent.action = Intent.ACTION_SEND
                     sendIntent.putExtra(Intent.EXTRA_TEXT, statusUrl)
                     sendIntent.type = "text/plain"
-                    startActivity(Intent.createChooser(sendIntent, resources.getText(R.string.send_post_link_to)))
+                    startActivityWithDefaultTransition(Intent.createChooser(sendIntent, resources.getText(R.string.send_post_link_to)))
                     return@setOnMenuItemClickListener true
                 }
                 R.id.status_copy_link -> {
@@ -329,7 +339,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                     return@setOnMenuItemClickListener true
                 }
                 R.id.pin -> {
-                    viewModel.pinAccount(status, !status.isPinned())
+                    viewModel.pinStatus(statusViewData, !status.isPinned())
                     return@setOnMenuItemClickListener true
                 }
             }
@@ -357,13 +367,15 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
 
     private fun accountIsInMentions(account: AccountEntity?, mentions: List<Mention>): Boolean {
         return mentions.firstOrNull {
-            account?.username == it.username && account.domain == Uri.parse(it.url)?.host
+            account?.username == it.username && account.domain == it.url.toUri().host
         } != null
     }
 
     private fun showOpenAsDialog(statusUrl: String, dialogTitle: CharSequence?) {
-        bottomSheetActivity?.showAccountChooserDialog(dialogTitle, false) { account ->
-            bottomSheetActivity?.openAsAccount(statusUrl, account)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewUrlActivity?.chooseAccount(dialogTitle, false)?.let { account ->
+                viewUrlActivity?.openAsAccount(statusUrl, account)
+            }
         }
     }
 
@@ -390,7 +402,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
     }
 
     private fun openReportPage(accountId: String, accountUsername: String, statusId: String) {
-        startActivity(ReportActivityIntent(requireContext(), this.pachliAccountId, accountId, accountUsername, statusId))
+        startActivityWithDefaultTransition(ReportActivityIntent(requireContext(), this.pachliAccountId, accountId, accountUsername, statusId))
     }
 
     // TODO: Identical to the same function in SFragment.kt
@@ -414,15 +426,8 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                 .setMessage(R.string.dialog_redraft_post_warning)
                 .setPositiveButton(android.R.string.ok) { _, _ ->
                     lifecycleScope.launch {
-                        viewModel.deleteStatusAsync(statusViewData.id).await().onSuccess {
-                            val deletedStatus = it.body
+                        viewModel.deleteStatusAsync(statusViewData.id).await().onSuccess { redraftStatus ->
                             viewModel.removeItem(statusViewData)
-
-                            val redraftStatus = if (deletedStatus.isEmpty()) {
-                                statusViewData.status.toDeletedStatus()
-                            } else {
-                                deletedStatus
-                            }
 
                             val intent = ComposeActivityIntent(
                                 requireContext(),
@@ -439,7 +444,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                                     kind = ComposeOptions.ComposeKind.NEW,
                                 ),
                             )
-                            startActivity(intent)
+                            startActivityWithDefaultTransition(intent)
                         }.onFailure { error ->
                             Timber.w("error deleting status: %s", error)
                             Toast.makeText(context, app.pachli.core.ui.R.string.error_generic, Toast.LENGTH_SHORT).show()
@@ -467,7 +472,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                     poll = status.poll?.toNewPoll(status.createdAt),
                     kind = ComposeOptions.ComposeKind.EDIT_POSTED,
                 )
-                startActivity(ComposeActivityIntent(requireContext(), pachliAccountId, composeOptions))
+                startActivityWithDefaultTransition(ComposeActivityIntent(requireContext(), pachliAccountId, composeOptions))
             }.onFailure {
                 Snackbar.make(
                     requireView(),

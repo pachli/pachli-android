@@ -1,0 +1,16 @@
+Pachli 2.4.0
+
+Nowości:
+
+- Powiadamianie o przerwanych relacjach
+- Pokazywanie wyników ankiety przed głosowaniem, ustawianie polityki odpowiedzi dla list
+- Pokazywanie „Powiadomień”, „Obserwowanych hasztagów” i list w nawigacji po lewej
+- Auto-ukrywanie paska narzędzi przeglądarki obrazów
+
+Poprawki:
+
+- Poprawione wyciąganie URL w czasie tworzenia wpisów
+- Aktualizacja kart gdy zmianie nazwy lub usunięciu list
+- Dokańczanie wylogowania z konta
+- Pełne pobieranie plików przed ich udostępnianiem
+- Aktualizacje tłumaczeń na fiński, kabylski i hiszpański

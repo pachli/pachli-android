@@ -25,7 +25,7 @@ import android.widget.Toast
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
-import app.pachli.core.activity.BottomSheetActivity
+import app.pachli.core.activity.ViewUrlActivity
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.ContentFilterEdit
@@ -61,7 +61,7 @@ import timber.log.Timber
  * Show a single timeline.
  */
 @AndroidEntryPoint
-class TimelineActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonActivity, MenuProvider {
+class TimelineActivity : ViewUrlActivity(), AppBarLayoutHost, ActionButtonActivity, MenuProvider {
     @Inject
     lateinit var eventHub: EventHub
 
@@ -159,7 +159,7 @@ class TimelineActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonAc
         // addable to a tab)
         val currentTabs = accountManager.activeAccount?.tabPreferences.orEmpty()
         val hideMenu = timeline is Timeline.Link || currentTabs.contains(timeline)
-        menu.findItem(R.id.action_add_to_tab)?.setVisible(!hideMenu)
+        menu.findItem(R.id.action_add_to_tab)?.isVisible = !hideMenu
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
@@ -167,7 +167,7 @@ class TimelineActivity : BottomSheetActivity(), AppBarLayoutHost, ActionButtonAc
             R.id.action_add_to_tab -> {
                 addToTab()
                 Toast.makeText(this, getString(R.string.action_add_to_tab_success, supportActionBar?.title), Toast.LENGTH_LONG).show()
-                menuItem.setVisible(false)
+                menuItem.isVisible = false
                 true
             }
             R.id.action_follow_hashtag -> {

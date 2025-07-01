@@ -43,13 +43,13 @@ import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.ServerRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.model.Attachment
+import app.pachli.core.model.NewPoll
 import app.pachli.core.model.ServerOperation
+import app.pachli.core.model.Status
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.ComposeKind
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InReplyTo
-import app.pachli.core.network.model.Attachment
-import app.pachli.core.network.model.NewPoll
-import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.preferences.ShowSelfUsername
@@ -60,14 +60,11 @@ import app.pachli.service.StatusToSend
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
-import com.github.michaelbull.result.andThen
 import com.github.michaelbull.result.get
 import com.github.michaelbull.result.getOrElse
 import com.github.michaelbull.result.mapBoth
 import com.github.michaelbull.result.mapEither
 import com.github.michaelbull.result.mapError
-import com.github.michaelbull.result.onFailure
-import com.github.michaelbull.result.onSuccess
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -147,9 +144,9 @@ class ComposeViewModel @AssistedInject constructor(
             flow {
                 when (val i = composeOptions?.inReplyTo) {
                     is InReplyTo.Id -> {
-                        emit(Ok(Loadable.Loading<InReplyTo.Status>()))
+                        emit(Ok(Loadable.Loading))
                         api.status(i.statusId).mapEither(
-                            { Loadable.Loaded(InReplyTo.Status.from(it.body)) },
+                            { Loadable.Loaded(InReplyTo.Status.from(it.body.asModel())) },
                             { UiError.LoadInReplyToError(it) },
                         )
                     }
@@ -212,8 +209,8 @@ class ComposeViewModel @AssistedInject constructor(
 
     private val _media: MutableStateFlow<List<QueuedMedia>> = MutableStateFlow(emptyList())
     val media = _media.asStateFlow()
-    private val _closeConfirmation = MutableStateFlow(ConfirmationKind.NONE)
-    val closeConfirmation = _closeConfirmation.asStateFlow()
+    private val _closeConfirmationKind = MutableStateFlow(ConfirmationKind.NONE)
+    val closeConfirmationKind = _closeConfirmationKind.asStateFlow()
     private val _statusLength = MutableStateFlow(0)
     val statusLength = _statusLength.asStateFlow()
 
@@ -283,7 +280,7 @@ class ComposeViewModel @AssistedInject constructor(
         }
     }
 
-    suspend fun addMediaToQueue(
+    fun addMediaToQueue(
         type: QueuedMedia.Type,
         uri: Uri,
         mediaSize: Long,
@@ -392,7 +389,7 @@ class ComposeViewModel @AssistedInject constructor(
     }
 
     private fun updateCloseConfirmation() {
-        _closeConfirmation.value = if (isDirty()) {
+        _closeConfirmationKind.value = if (isDirty()) {
             when (composeKind) {
                 ComposeKind.NEW -> if (isEmpty(content, effectiveContentWarning)) {
                     ConfirmationKind.NONE
@@ -498,7 +495,7 @@ class ComposeViewModel @AssistedInject constructor(
         pachliAccountId: Long,
     ) {
         if (!scheduledTootId.isNullOrEmpty()) {
-            api.deleteScheduledStatus(scheduledTootId!!)
+            api.deleteScheduledStatus(scheduledTootId)
         }
 
         val attachedMedia = media.value.map { item ->
@@ -546,40 +543,7 @@ class ComposeViewModel @AssistedInject constructor(
     }
 
     fun updateDescription(localId: Int, serverId: String?, description: String) {
-        // If the image hasn't been uploaded then update the state locally.
-        if (serverId == null) {
-            updateMediaItem(localId) { mediaItem -> mediaItem.copy(description = description) }
-            return
-        }
-
-        // Update the remote description and report any errors. Update the local description
-        // if there are errors so the user still has the text and can try and correct it.
-        viewModelScope.launch {
-            api.updateMedia(serverId, description = description)
-                .andThen { api.getMedia(serverId) }
-                .onSuccess { response ->
-                    val state = if (response.code == 200) {
-                        Uploaded.Processed(serverId)
-                    } else {
-                        Uploaded.Processing(serverId)
-                    }
-                    updateMediaItem(localId) {
-                        it.copy(
-                            description = description,
-                            uploadState = Ok(state),
-                        )
-                    }
-                }
-                .mapError { MediaUploaderError.UpdateMediaError(serverId, it) }
-                .onFailure { error ->
-                    updateMediaItem(localId) {
-                        it.copy(
-                            description = description,
-                            uploadState = Err(error),
-                        )
-                    }
-                }
-        }
+        updateMediaItem(localId) { it.copy(description = description) }
     }
 
     fun updateFocus(localId: Int, focus: Attachment.Focus) {
@@ -590,7 +554,7 @@ class ComposeViewModel @AssistedInject constructor(
         when (token[0]) {
             '@' -> {
                 return api.searchAccounts(query = token.substring(1), limit = 10).mapBoth(
-                    { it.body.map { AutocompleteResult.AccountResult(it) } },
+                    { it.body.map { AutocompleteResult.AccountResult(it.asModel()) } },
                     {
                         Timber.e(it.throwable, "Autocomplete search for %s failed.", token)
                         emptyList()
@@ -685,7 +649,7 @@ class ComposeViewModel @AssistedInject constructor(
         }
 
         val poll = composeOptions?.poll
-        if (poll != null && composeOptions?.mediaAttachments.isNullOrEmpty()) {
+        if (poll != null && composeOptions.mediaAttachments.isNullOrEmpty()) {
             _poll.value = poll
         }
 

@@ -28,4 +28,8 @@
     <string name="pref_tab_contents_icon_text_below">Ícone com texto abaixo</string>
     <string name="pref_tab_contents_icon_only">Somente ícone</string>
     <string name="pref_tab_contents_text_only">Somente texto</string>
+    <string name="pref_title_render_markdown">Render Markdown</string>
+    <string name="pref_update_notification_frequency_never">Nunca</string>
+    <string name="pref_update_notification_frequency_once_per_version">Uma vez por versão</string>
+    <string name="pref_update_notification_frequency_always">Sempre</string>
 </resources>

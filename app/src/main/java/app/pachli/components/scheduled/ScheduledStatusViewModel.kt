@@ -22,7 +22,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import app.pachli.core.eventhub.EventHub
-import app.pachli.core.network.model.ScheduledStatus
+import app.pachli.core.model.ScheduledStatus
 import app.pachli.core.network.retrofit.MastodonApi
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess

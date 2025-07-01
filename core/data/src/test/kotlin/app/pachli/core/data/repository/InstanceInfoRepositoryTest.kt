@@ -17,12 +17,12 @@
 
 package app.pachli.core.data.repository
 
-import android.app.Application
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.cash.turbine.test
-import app.pachli.core.data.model.InstanceInfo.Companion.DEFAULT_CHARACTER_LIMIT
 import app.pachli.core.database.AppDatabase
-import app.pachli.core.network.model.Account
+import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_CHARACTER_LIMIT
+import app.pachli.core.network.model.AccountSource
+import app.pachli.core.network.model.CredentialAccount
 import app.pachli.core.network.model.InstanceConfiguration
 import app.pachli.core.network.model.InstanceV1
 import app.pachli.core.network.model.nodeinfo.UnvalidatedJrd
@@ -34,16 +34,13 @@ import app.pachli.core.testing.rules.MainCoroutineRule
 import app.pachli.core.testing.success
 import com.github.michaelbull.result.andThen
 import com.github.michaelbull.result.onSuccess
-import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import java.time.Instant
-import java.util.Date
 import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
-import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
@@ -56,11 +53,6 @@ import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.reset
 import org.mockito.kotlin.stub
 import org.robolectric.annotation.Config
-
-open class PachliHiltApplication : Application()
-
-@CustomTestApplication(PachliHiltApplication::class)
-interface HiltTestApplication
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltAndroidTest
@@ -96,16 +88,17 @@ class InstanceInfoRepositoryTest {
      */
     private var instanceResponseCallback: (() -> InstanceV1) = { getInstanceWithCustomConfiguration() }
 
-    private val account = Account(
+    private val account = CredentialAccount(
         id = "1",
         localUsername = "username",
         username = "username@domain.example",
         displayName = "Display Name",
-        createdAt = Date.from(Instant.now()),
+        createdAt = Instant.now(),
         note = "",
         url = "",
         avatar = "",
         header = "",
+        source = AccountSource(),
     )
 
     @Before
@@ -153,11 +146,6 @@ class InstanceInfoRepositoryTest {
         )
             .andThen { accountManager.setActiveAccount(it) }
             .onSuccess { accountManager.refresh(it) }
-    }
-
-    @After
-    fun tearDown() {
-        appDatabase.close()
     }
 
     @Test
@@ -221,7 +209,7 @@ class InstanceInfoRepositoryTest {
 
     private fun getInstanceWithCustomConfiguration(maximumLegacyTootCharacters: Int? = null, configuration: InstanceConfiguration = InstanceConfiguration()): InstanceV1 {
         return InstanceV1(
-            uri = "https://example.token",
+            uri = "example.token",
             version = "2.6.3",
             maxTootChars = maximumLegacyTootCharacters,
             pollConfiguration = null,

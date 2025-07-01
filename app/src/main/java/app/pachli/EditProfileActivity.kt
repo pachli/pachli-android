@@ -38,8 +38,8 @@ import app.pachli.adapter.AccountFieldEditAdapter
 import app.pachli.core.activity.BaseActivity
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
-import app.pachli.core.data.model.InstanceInfo.Companion.DEFAULT_MAX_ACCOUNT_FIELDS
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_MAX_ACCOUNT_FIELDS
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.ui.extensions.await
 import app.pachli.core.ui.extensions.getErrorString
@@ -49,13 +49,14 @@ import app.pachli.util.Loading
 import app.pachli.util.Success
 import app.pachli.viewmodel.EditProfileViewModel
 import app.pachli.viewmodel.ProfileDataInUi
-import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.FitCenter
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.canhub.cropper.CropImage
 import com.canhub.cropper.CropImageContract
-import com.canhub.cropper.options
+import com.canhub.cropper.CropImageContractOptions
+import com.canhub.cropper.CropImageOptions
+import com.canhub.cropper.CropImageView
 import com.google.android.material.snackbar.Snackbar
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
@@ -164,16 +165,15 @@ class EditProfileActivity : BaseActivity() {
                     val me = profileRes.data
                     if (me != null) {
                         binding.displayNameEditText.setText(me.displayName)
-                        binding.noteEditText.setText(me.source?.note)
+                        binding.noteEditText.setText(me.source.note)
                         binding.lockedCheckBox.isChecked = me.locked
 
-                        accountFieldEditAdapter.setFields(me.source?.fields.orEmpty())
+                        accountFieldEditAdapter.setFields(me.source.fields)
                         binding.addFieldButton.isVisible =
-                            (me.source?.fields?.size ?: 0) < maxAccountFields
+                            me.source.fields.size < maxAccountFields
 
                         if (viewModel.avatarData.value == null) {
-                            Glide.with(this)
-                                .load(me.avatar)
+                            glide.load(me.avatar)
                                 .placeholder(DR.drawable.avatar_default)
                                 .transform(
                                     FitCenter(),
@@ -183,8 +183,7 @@ class EditProfileActivity : BaseActivity() {
                         }
 
                         if (viewModel.headerData.value == null) {
-                            Glide.with(this)
-                                .load(me.header)
+                            glide.load(me.header)
                                 .into(binding.headerPreview)
                         }
                     }
@@ -264,18 +263,17 @@ class EditProfileActivity : BaseActivity() {
         ) { imageUri ->
 
             // skipping all caches so we can always reuse the same uri
-            val glide = Glide.with(imageView)
-                .load(imageUri)
+            val request = glide.load(imageUri)
                 .skipMemoryCache(true)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
 
             if (roundedCorners) {
-                glide.transform(
+                request.transform(
                     FitCenter(),
                     RoundedCorners(resources.getDimensionPixelSize(DR.dimen.avatar_radius_80dp)),
                 ).into(imageView)
             } else {
-                glide.into(imageView)
+                request.into(imageView)
             }
 
             imageView.show()
@@ -289,24 +287,40 @@ class EditProfileActivity : BaseActivity() {
         when (pickType) {
             PickType.AVATAR -> {
                 cropImage.launch(
-                    options {
-                        setRequestedSize(AVATAR_SIZE, AVATAR_SIZE)
-                        setAspectRatio(AVATAR_SIZE, AVATAR_SIZE)
-                        setImageSource(includeGallery = true, includeCamera = false)
-                        setOutputUri(viewModel.getAvatarUri())
-                        setOutputCompressFormat(Bitmap.CompressFormat.PNG)
-                    },
+                    CropImageContractOptions(
+                        uri = null,
+                        cropImageOptions = CropImageOptions(
+                            customOutputUri = viewModel.getAvatarUri(),
+                            imageSourceIncludeCamera = false,
+                            imageSourceIncludeGallery = true,
+                            aspectRatioX = AVATAR_SIZE,
+                            aspectRatioY = AVATAR_SIZE,
+                            fixAspectRatio = true,
+                            outputRequestWidth = AVATAR_SIZE,
+                            outputRequestHeight = AVATAR_SIZE,
+                            outputRequestSizeOptions = CropImageView.RequestSizeOptions.RESIZE_INSIDE,
+                            outputCompressFormat = Bitmap.CompressFormat.PNG,
+                        ),
+                    ),
                 )
             }
             PickType.HEADER -> {
                 cropImage.launch(
-                    options {
-                        setRequestedSize(HEADER_WIDTH, HEADER_HEIGHT)
-                        setAspectRatio(HEADER_WIDTH, HEADER_HEIGHT)
-                        setImageSource(includeGallery = true, includeCamera = false)
-                        setOutputUri(viewModel.getHeaderUri())
-                        setOutputCompressFormat(Bitmap.CompressFormat.PNG)
-                    },
+                    CropImageContractOptions(
+                        uri = null,
+                        cropImageOptions = CropImageOptions(
+                            customOutputUri = viewModel.getHeaderUri(),
+                            imageSourceIncludeCamera = false,
+                            imageSourceIncludeGallery = true,
+                            aspectRatioX = HEADER_WIDTH,
+                            aspectRatioY = HEADER_HEIGHT,
+                            fixAspectRatio = true,
+                            outputRequestWidth = HEADER_WIDTH,
+                            outputRequestHeight = HEADER_HEIGHT,
+                            outputRequestSizeOptions = CropImageView.RequestSizeOptions.RESIZE_INSIDE,
+                            outputCompressFormat = Bitmap.CompressFormat.PNG,
+                        ),
+                    ),
                 )
             }
         }

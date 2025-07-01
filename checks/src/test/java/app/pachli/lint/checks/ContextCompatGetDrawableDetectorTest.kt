@@ -41,7 +41,6 @@ class ContextCompatGetDrawableDetectorTest : LintDetectorTest() {
 
                 fun foo() = ContextCompat.getDrawable(Context(), 0)
             """,
-
             ).indented(),
         ).allowMissingSdk().testModes(TestMode.DEFAULT).run().expect(
             """src/test/pkg/test.kt:6: Warning: Use AppCompatResources.getDrawable [ContextCompatGetDrawableDetector]

@@ -15,4 +15,8 @@
     <string name="title_links_dialog">Links</string>
     <string name="title_hashtags_dialog">Hashtags</string>
     <string name="title_mentions_dialog">Erwähnungen</string>
+    <string name="button_continue">Weiter</string>
+    <string name="action_logout_confirm">Möchtest du %1$s wirklich abmelden? Dadurch werden alle lokalen Daten des Profils, wie Entwürfe und Einstellungen, gelöscht.</string>
+    <string name="add_account_name">Konto hinzufügen</string>
+    <string name="action_logout">Abmelden</string>
 </resources>

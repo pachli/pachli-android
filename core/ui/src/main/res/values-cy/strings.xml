@@ -15,4 +15,8 @@
     <string name="title_links_dialog">Dolenni</string>
     <string name="title_hashtags_dialog">Hashnodau</string>
     <string name="title_mentions_dialog">Crybwylliadau</string>
+    <string name="button_continue">Parhau</string>
+    <string name="action_logout_confirm">Ydych chi\'n siŵr eich bod am allgofnodi o\'r cyfrif %1$s? Bydd hyn yn dileu\'r holl ddata lleol, gan gynnwys drafftiau a chyfeiriadau.</string>
+    <string name="add_account_name">Ychwanegu Cyfrif</string>
+    <string name="action_logout">Allgofnodi</string>
 </resources>

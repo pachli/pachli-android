@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_notifications">Teavitused</string>
+    <string name="error_compose_character_limit">Postitus on liiga pikk!</string>
+    <string name="error_empty">See väli ei saa jääda tühjaks.</string>
+    <string name="title_public_local">Sinu server</string>
+    <string name="error_image_edit_failed">Pildi muutmine ei õnnestunud.</string>
+    <string name="error_no_web_browser_found">Ei leidnud toimivat veebibrauserit.</string>
+    <string name="title_home">Avaleht</string>
+    <string name="error_media_upload_type">Seda failitüüpi ei saa üles laadida.</string>
+    <plurals name="followed_hashtags_posts_count_fmt">
+        <item quantity="one">%1$d postitus</item>
+        <item quantity="other">%1$d postitust</item>
+    </plurals>
+    <plurals name="followed_hashtags_accounts_count_fmt">
+        <item quantity="one">%1$d kasutajakonto</item>
+        <item quantity="other">%1$d kasutajakontot</item>
+    </plurals>
+    <plurals name="followed_hashtags_days_count_fmt">
+        <item quantity="one">%1$d päev</item>
+        <item quantity="other">%1$d päeva</item>
+    </plurals>
+    <plurals name="poll_timespan_days">
+        <item quantity="one">Jäänud on %d päev</item>
+        <item quantity="other">Jäänud on %d päeva</item>
+    </plurals>
+    <plurals name="poll_timespan_hours">
+        <item quantity="one">Jäänud on %d tund</item>
+        <item quantity="other">Jäänud on %d tundi</item>
+    </plurals>
+    <plurals name="poll_timespan_minutes">
+        <item quantity="one">Jäänud on %d minut</item>
+        <item quantity="other">Jäänud on %d minutit</item>
+    </plurals>
+    <plurals name="poll_timespan_seconds">
+        <item quantity="one">Jäänud on %d sekund</item>
+        <item quantity="other">Jäänud on %d sekundit</item>
+    </plurals>
+    <plurals name="notification_severed_relationships_summary_following_fmt">
+        <item quantity="one">%1$s sinu jälgitud kasutajakonto on eemaldatud.</item>
+        <item quantity="other">%1$s sinu jälgitud kasutajakontot on eemaldatud.</item>
+    </plurals>
+    <plurals name="poll_info_votes">
+        <item quantity="one">%s hääl</item>
+        <item quantity="other">%s häält</item>
+    </plurals>
+    <plurals name="notification_title_summary">
+        <item quantity="one">%d uus vastasmõju</item>
+        <item quantity="other">%d uut vastasmõju</item>
+    </plurals>
+    <plurals name="favs">
+        <item quantity="one"><b>%1$s</b> lemmik</item>
+        <item quantity="other"><b>%1$s</b> lemmikut</item>
+    </plurals>
+    <plurals name="reblogs">
+        <item quantity="one"><b>%s</b> hooandmine</item>
+        <item quantity="other"><b>%s</b> hooandmist</item>
+    </plurals>
+    <plurals name="poll_info_people">
+        <item quantity="one">%s isik</item>
+        <item quantity="other">%s isikut</item>
+    </plurals>
+    <plurals name="error_upload_max_media_reached">
+        <item quantity="one">Sa ei saa üles laadida enam kui %1$d meediamanuse.</item>
+        <item quantity="other">Sa ei saa üles laadida enam kui %1$d meediamanust.</item>
+    </plurals>
+    <plurals name="notification_summary_report_format">
+        <item quantity="one">%1$s · %2$d postituse manus on lisatud</item>
+        <item quantity="other">%1$s · %2$d postituse manust on lisatud</item>
+    </plurals>
+    <plurals name="notification_severed_relationships_summary_followers_fmt">
+        <item quantity="one">%1$s jälgija on eemaldatud.</item>
+        <item quantity="other">%1$s jälgijat on eemaldatud.</item>
+    </plurals>
+    <string name="post_content_warning_show_more">Näita rohkem</string>
+    <string name="post_content_warning_show_less">Näita vähem</string>
+    <string name="title_mutes">Summutatud kasutajad</string>
+    <string name="error_media_upload_sending">Üleslaadimine ei õnnestunud.</string>
+    <string name="hint_search">Otsi…</string>
+    <string name="error_media_download_permission">Vajalik on meediafailide salvestamise õigus.</string>
+    <string name="title_tab_public_trending_hashtags">Teemaviited</string>
+    <string name="title_tab_public_trending_links">Lingid</string>
+    <string name="title_tab_public_trending_statuses">Postitused</string>
+    <string name="title_posts_pinned">Esiletõstetud</string>
+    <string name="title_follows">Jälgimised</string>
+    <string name="title_followers">Jälgijad</string>
+    <string name="title_favourites">Lemmikud</string>
+    <string name="title_bookmarks">Järjehoidjad</string>
+    <string name="title_announcements">Teadaanded</string>
+    <string name="title_domain_mutes">Peidetud domeenid</string>
+    <string name="title_followed_hashtags">Jälgitavad teemaviited</string>
+    <string name="error_sender_account_gone">Viga postitamisel.</string>
+    <string name="error_media_upload_permission">Vajalik on meediafailide lugemise õigus.</string>
+    <string name="error_media_upload_opening">Selle faili avamine ei õnnestunud.</string>
+    <string name="error_media_upload_image_or_video">samale postitusele ei saa korraga lisada pilti ja videot.</string>
+    <string name="title_blocks">Blokeeritud kasutajad</string>
+    <string name="hint_description">Kirjeldus</string>
+    <string name="title_public_trending">Hetkel populaarne</string>
+    <string name="title_public_trending_hashtags">Populaarsust koguvad teemaviited</string>
+    <string name="title_public_trending_links">Populaarsust koguvad lingid</string>
+    <string name="title_public_trending_statuses">Populaarsust koguvad postitused</string>
+    <string name="title_public_federated">Födiversumis</string>
+    <string name="title_direct_messages">Otsevestlused</string>
+    <string name="title_tab_preferences">Vahekaardid</string>
+    <string name="title_view_thread">Jutulõng</string>
+    <string name="title_posts">Postitused</string>
+    <string name="title_posts_with_replies">Vastustega</string>
+    <string name="title_migration_relogin">Tõuketeavituste kasutamiseks logi uuesti sisse</string>
+    <string name="title_follow_requests">Jälgimispäringud</string>
+    <string name="title_edit_profile">Muuda oma profiili</string>
+    <string name="title_drafts">Kavandid</string>
+    <string name="title_scheduled_posts">Ajastatud postitused</string>
+    <string name="post_content_show_more">Laienda vaadet</string>
+    <string name="post_content_show_less">Ahenda vaadet</string>
+    <string name="post_edited">Muudetud %s</string>
+    <string name="footer_empty">Siin ei leidu midagi. Andmete uuendamiseks viipa ülevalt alla!</string>
+    <string name="notification_reblog_format">%s lisas sinu postitusele hoogu</string>
+    <string name="notification_favourite_format">%s märkis sinu postituse lemmikuks</string>
+    <string name="notification_follow_format">%s hakkas sind jälgima</string>
+    <string name="notification_follow_request_format">%s soovib võimalust sind jälgida</string>
+    <string name="notification_sign_up_format">%s registreerus</string>
+    <string name="notification_subscription_format">%s just postitas midagi</string>
+    <string name="notification_update_format">%s muutis oma postitust</string>
+    <string name="error_following_hashtag_format">Viga #%s teemaviite jälgimisel</string>
+    <string name="error_unfollowing_hashtag_format">Viga #%s teemaviite jälgimise lõpetamisel</string>
+    <string name="error_following_hashtags_unsupported">See koduserver ei võimalda teemaviidete jälgimist.</string>
+    <string name="error_muting_hashtag_format">Viga #%s teemaviite summutamisel</string>
+    <string name="error_unmuting_hashtag_format">Viga #%s teemaviite summutamise lõpetamisel</string>
+    <string name="error_status_source_load">Olekuandmete laadimine serverist ei õnnestunud.</string>
+    <string name="title_edits">Muudatused</string>
+    <string name="dialog_follow_hashtag_title">Jälgi teemaviidet</string>
+    <string name="dialog_follow_hashtag_hint">#teemaviide</string>
+    <string name="post_boosted_format">%s lisas hoogu</string>
+    <string name="post_sensitive_media_title">Delikaatne sisu</string>
+    <string name="post_media_hidden_title">Meedia on peidetud</string>
+    <string name="post_media_alt">ALT</string>
+    <string name="post_sensitive_media_directions">Vaatamiseks klõpsi</string>
+    <string name="notification_unknown">Tundmatu teavituse tüüp</string>
+    <string name="notification_header_report_format">%s saatis teatise: %s</string>
+    <string name="report_username_format">Saada teatis: @%s</string>
+    <string name="report_comment_hint">On sul täiendavaid kommentaare?</string>
+    <string name="action_quick_reply">Kiirvastus</string>
+    <string name="action_reply">Vasta</string>
+    <string name="action_reblog">Lisa hoogu</string>
+    <string name="action_unreblog">Eemalda hooandmine</string>
+    <string name="action_favourite">Lisa lemmikuks</string>
+    <string name="action_unfavourite">Eemalda lemmikute hulgast</string>
+    <string name="action_bookmark">Lisa järjehoidjaks</string>
+    <string name="action_unbookmark">Eemalda järjehoidja</string>
+    <string name="action_compose">Koosta postitus</string>
+    <string name="action_post_failed">Üleslaadimine ei õnnestunud</string>
+    <string name="action_post_failed_detail">Sinu postituse üleslaadimine ei õnnestunud ja ta on nüüd salvestatud kavandina.\n\nServer kas polnud leitav või ta keeldus sellest postitusest.</string>
+    <string name="action_post_failed_detail_plural">Sinu postituste üleslaadimine ei õnnestunud ja nad on nüüd salvestatud kavanditena.\n\nServer kas polnud leitav või ta keeldus nendest postitustest.</string>
+    <string name="action_post_failed_show_drafts">Näita kavandeid</string>
+    <string name="action_post_failed_do_nothing">Loobu</string>
+    <string name="action_follow">Jälgi</string>
+    <string name="action_unfollow">Lõpeta jälgimine</string>
+    <string name="action_block">Blokeeri</string>
+    <string name="action_unblock">Lõpeta blokeerimine</string>
+    <string name="action_share_account_link">Jaga kasutajakonto linki</string>
+    <string name="action_share_account_username">Jaga konto kasutajanime</string>
+    <string name="action_hide_reblogs">Peida hoo lisamised</string>
+    <string name="action_show_reblogs">Näita hoo lisamisi</string>
+    <string name="pref_title_show_self_boosts">Näita omaenda hoo lisamisi</string>
+    <string name="pref_title_show_self_boosts_description">Juhtumid, kus autor korduspostitas oma sisu</string>
+    <string name="action_report">Teata</string>
+    <string name="action_edit">Muuda</string>
+    <string name="action_delete">Kustuta</string>
+    <string name="action_delete_conversation">Kustuta vestlus</string>
+    <string name="action_delete_and_redraft">Kustuta ja koosta uuesti</string>
+    <string name="action_discard">Loobu muudatusest</string>
+    <string name="action_continue_edit">Jätka muutmist</string>
+    <string name="action_send">TUUT</string>
+    <string name="action_send_public">TUUT!</string>
+</resources>

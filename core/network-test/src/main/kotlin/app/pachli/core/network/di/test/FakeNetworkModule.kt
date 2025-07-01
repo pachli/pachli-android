@@ -19,9 +19,12 @@ package app.pachli.core.network.di.test
 
 import app.pachli.core.model.VersionAdapter
 import app.pachli.core.network.di.NetworkModule
+import app.pachli.core.network.json.BooleanIfNull
+import app.pachli.core.network.json.DefaultIfNull
 import app.pachli.core.network.json.Guarded
 import app.pachli.core.network.json.InstantJsonAdapter
 import app.pachli.core.network.json.LenientRfc3339DateJsonAdapter
+import app.pachli.core.network.json.UriAdapter
 import app.pachli.core.network.model.MediaUploadApi
 import com.squareup.moshi.Moshi
 import dagger.Module
@@ -46,7 +49,11 @@ object FakeNetworkModule {
         .add(VersionAdapter())
         .add(Date::class.java, LenientRfc3339DateJsonAdapter())
         .add(Instant::class.java, InstantJsonAdapter())
+        .add(UriAdapter())
+        .add(VersionAdapter())
         .add(Guarded.Factory())
+        .add(DefaultIfNull.Factory())
+        .add(BooleanIfNull.Factory())
         .build()
 
     @Provides

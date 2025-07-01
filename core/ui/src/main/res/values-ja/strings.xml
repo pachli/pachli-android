@@ -15,4 +15,8 @@
     <string name="title_links_dialog">リンク</string>
     <string name="title_hashtags_dialog">ハッシュタグ</string>
     <string name="title_mentions_dialog">返信</string>
+    <string name="button_continue">続ける</string>
+    <string name="action_logout_confirm">アカウント %1$s からログアウトしてもよろしいですか？ログアウトすると、下書きや詳細設定を含めて、ローカルに保存されているアカウントの全てのデータが削除されます。</string>
+    <string name="add_account_name">アカウントを追加</string>
+    <string name="action_logout">ログアウト</string>
 </resources>

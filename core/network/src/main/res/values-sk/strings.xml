@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="error_429_rate_limit_fmt">tvoj server obmedzuje počet požiadaviek: %1$s</string>
+    <string name="error_json_data_fmt">tvoj server vrátil neplatnú odpoveď: %1$s</string>
+    <string name="error_network_fmt">Vyskytla sa chyba siete: %s</string>
+    <string name="error_missing_content_type_fmt">tvoj server je nesprávne nakonfigurovaný, odpoveď neobsahuje informáciu o type obsahu: %1$s</string>
+    <string name="error_wrong_content_type_fmt">tvoj server je nesprávne nakonfigurovaný a vrátil \'%2$s\' s nesprávnym typom obsahu: \'%1$s\'</string>
+    <string name="node_info_error_no_software_version">verzia softvéru chýba, je prázdna alebo nevyplnená</string>
+    <string name="node_info_error_no_software">neobsahoval blok so softvérovými informáciami</string>
+    <string name="node_info_error_no_software_name">názov softvéru chýba, je prázdny alebo nevyplnený</string>
+    <string name="server_error_unparseable_version">nepodarilo sa analyzovať \"%1$s\" ako verziu: %2$s</string>
+    <string name="error_generic_fmt">%1$s</string>
+    <string name="error_404_not_found_fmt">tvoj server nepodporuje túto funkciu: %1$s</string>
+</resources>

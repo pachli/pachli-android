@@ -1,0 +1,5 @@
+Pachli 1.2.1
+
+Nové: funkcie
+
+-  Odkaz na zásady ochrany osobných údajov v sekcii "O aplikácii"

@@ -9,4 +9,8 @@
     <string name="action_mentions">සඳැහුම්</string>
     <string name="title_links_dialog">සබැඳි</string>
     <string name="title_mentions_dialog">සඳැහුම්</string>
+    <string name="button_continue">ඉදිරියට</string>
+    <string name="action_logout_confirm">ඔබට %1$s ගිණුමෙන් නික්මෙන්ට ඇවැසි බව විශ්වාසද?</string>
+    <string name="add_account_name">ගිණුම එකතු කරන්න</string>
+    <string name="action_logout">නික්මෙන්න</string>
 </resources>

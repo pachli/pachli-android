@@ -2,7 +2,6 @@
 <resources>
     <string name="title_favourites">Ismenyifen</string>
     <string name="title_drafts">Irewwayen</string>
-    <string name="action_logout">Ffeɣ</string>
     <string name="action_view_preferences">Iɣewwaṛen</string>
     <string name="action_view_account_preferences">Iɣewwaṛen n umiḍan</string>
     <string name="action_edit_profile">Ẓreg amaɣnu</string>
@@ -34,8 +33,8 @@
     <string name="action_open_faved_by">Sken-d ismenyifen</string>
     <string name="notification_favourite_name">Ismenyifen</string>
     <plurals name="favs">
-        <item quantity="one">&lt;b>%1$s&lt;/b> n usmenyaf</item>
-        <item quantity="other">&lt;b>%1$s&lt;/b> n ismenyifen</item>
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; n usmenyaf</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; n ismenyifen</item>
     </plurals>
     <string name="no_drafts">Ur tesɛiḍ ara irewwayen.</string>
     <string name="title_notifications">Tilɣa</string>
@@ -50,7 +49,6 @@
     <string name="action_emoji_keyboard">Anasiw n imujiyen</string>
     <string name="action_add_tab">Rnu iccer</string>
     <string name="action_copy_link">Nɣel aseɣwen</string>
-    <string name="action_share_as">Bḍu amzun d…</string>
     <string name="send_post_link_to">Bḍu aseɣwen n tijewwiq s…</string>
     <string name="send_post_content_to">Bḍu tijewwiqt d…</string>
     <string name="hint_compose">d-acu i gellan d amaynut\?</string>
@@ -67,13 +65,11 @@
     <string name="notification_summary_large">%1$s, %2$s, %3$s d %4$d nniḍen</string>
     <string name="notification_summary_medium">%1$s, %2$s, akked %3$s</string>
     <string name="notification_summary_small">%1$s akked %2$s</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <string name="post_media_images">Tugniwin</string>
     <string name="post_media_video">Tibidyutin</string>
     <string name="follows_you">Yeṭṭafar-ik·ikem-id</string>
     <string name="filter_dialog_remove_button">Kkes</string>
     <string name="filter_dialog_update_button">Lqem</string>
-    <string name="add_account_name">Rnu amiḍan</string>
     <string name="add_account_description">Rnu yiwen umiḍan amaynut n Maṣṭudun</string>
     <string name="action_compose_shortcut">Aru</string>
     <string name="error_no_custom_emojis">Tummant-ik·im %s ur tesɛi ara imujiyen udmawanen</string>
@@ -160,7 +156,6 @@
         <item quantity="one">%d n tasdidt id yugran</item>
         <item quantity="other">%d n tisdidin id yugran</item>
     </plurals>
-    <string name="button_continue">Kemmel</string>
     <string name="button_back">Uɣal</string>
     <string name="failed_report">Tella-d tuccḍa deg cetki</string>
     <string name="failed_search">Tucḍa n unadi</string>
@@ -267,7 +262,6 @@
     <string name="pref_summary_http_proxy_invalid">&lt;armeɣtu&gt;</string>
     <string name="notification_unknown_name">Arussin</string>
     <string name="filter_apply">Snes</string>
-    <string name="pref_update_notification_frequency_never">Werǧin</string>
     <string name="post_media_alt">ALT</string>
     <string name="action_post_failed_do_nothing">Zgel</string>
     <string name="pref_summary_http_proxy_disabled">Yensa</string>
@@ -277,7 +271,8 @@
     <string name="report_category_other">Wayeḍ</string>
     <string name="search_operator_attachment_dialog_video_label">Tavidyutt</string>
     <string name="search_operator_language_checked_fmt">%1$s</string>
-    <string name="post_media_image">Tugna</string>
     <string name="label_filter_title">Azwel</string>
     <string name="action_add">Rnu</string>
+    <string name="title_public_federated">Asdukklan</string>
+    <string name="post_privacy_public">Azayez</string>
 </resources>

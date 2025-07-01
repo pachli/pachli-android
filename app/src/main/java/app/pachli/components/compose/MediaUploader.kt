@@ -33,7 +33,7 @@ import app.pachli.components.compose.UploadState.Uploaded
 import app.pachli.core.common.PachliError
 import app.pachli.core.common.string.randomAlphanumericString
 import app.pachli.core.common.util.formatNumber
-import app.pachli.core.data.model.InstanceInfo
+import app.pachli.core.model.InstanceInfo
 import app.pachli.core.network.model.MediaUploadApi
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import app.pachli.util.MEDIA_SIZE_UNKNOWN
@@ -45,6 +45,7 @@ import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.get
 import com.github.michaelbull.result.mapEither
+import com.github.michaelbull.result.runCatching
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File
 import java.io.IOException
@@ -194,21 +195,21 @@ sealed interface UploadState {
          *
          * @property serverId Server-side identifier for this media item
          */
-        data class Processing(override val serverId: String) : UploadState.Uploaded
+        data class Processing(override val serverId: String) : Uploaded
 
         /**
          * Upload has completed, and the server has processed the media.
          *
          * @property serverId Server-side identifier for this media item
          */
-        data class Processed(override val serverId: String) : UploadState.Uploaded
+        data class Processed(override val serverId: String) : Uploaded
 
         /**
          * Post has been published, editing is impossible.
          *
          * @property serverId Server-side identifier for this media item
          */
-        data class Published(override val serverId: String) : UploadState.Uploaded
+        data class Published(override val serverId: String) : Uploaded
     }
 }
 
@@ -384,7 +385,7 @@ class MediaUploader @Inject constructor(
 
     private val contentResolver = context.contentResolver
 
-    private suspend fun upload(media: QueuedMedia): Flow<Result<UploadState, MediaUploaderError.UploadMediaError>> {
+    private fun upload(media: QueuedMedia): Flow<Result<UploadState, MediaUploaderError.UploadMediaError>> {
         return callbackFlow {
             var mimeType = contentResolver.getType(media.uri)
 
@@ -396,8 +397,12 @@ class MediaUploader @Inject constructor(
                     it.startsWith("video/", ignoreCase = true)
                 ) {
                     val retriever = MediaMetadataRetriever()
-                    retriever.setDataSource(context, media.uri)
-                    mimeType = retriever.extractMetadata(METADATA_KEY_MIMETYPE)
+                    // setDataSource may throw. If it does there's nothing to be done,
+                    // leave the sniffed mimeType as null.
+                    mimeType = runCatching {
+                        retriever.setDataSource(context, media.uri)
+                        retriever.extractMetadata(METADATA_KEY_MIMETYPE)
+                    }.get()
                 }
             }
             val map = MimeTypeMap.getSingleton()

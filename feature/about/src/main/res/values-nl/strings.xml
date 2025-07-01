@@ -33,7 +33,6 @@
     <string name="notification_details_ntfy_exempt_help">NTFY is niet uitgezonderd van batterij optimalisaties. Android kan notificaties vertragen wanneer het scherm uitgeschakeld is.</string>
     <string name="notification_details_pachli_exempt_help">Pachli is niet uitgezonderd van batterij optimalisatie. Android kan notificaties vertragen wanneer het scherm uitgeschakeld is.</string>
     <string name="notification_details_workers_help">Dit is de lijst van periodiek werk voor nieuwe notificaties. Er zou één moeten zijn, met de staat RUNNING of ENQUEUED, en zij zou geplanned moeten zijn om binnen 15 minuten uit te voeren.</string>
-    <string name="notification_details_last_fetch_label">Laatste /api/v1/notifications verzoek</string>
     <string name="notification_details_last_fetch_help">Ongeacht de notificatie methode, toont dit, per account, wanneer het laatste fetch verzoek gebeurde, of het een succes was, en het fout bericht indien dit niet het geval was.</string>
     <string name="notification_details_usage_event">Energie beheer restricties</string>
     <string name="notification_details_ago">%1$s geleden @ %2$s</string>
@@ -59,7 +58,6 @@
     <string name="notification_log_method_pusherror">UnifiedPush is ingeschakeld maar had een fout: %1$s</string>
     <string name="notification_log_download_failed">Download mislukt: %1$s</string>
     <string name="notitication_log_filter_dialog_title">Toon log prioriteiten</string>
-    <string name="action_refresh">Ververs</string>
     <string name="notification_details_notifications_enabled_help">Notificaties zijn niet ingeschakeld voor je accounts. Wijzig dit in Account Voorkeuren &gt; Notificaties. Totdan zijn alle notificaties uitgeschakeld.</string>
     <string name="notification_details_unifiedpush_available_help">UnifiedPush (ntfy.sh) is niet beschikbaar, notificaties worden periodiek opgehaald. De rest van deze sectie verklaard waarom UnifiedPush niet wordt gebruikt, maar is niet relevant voor hoe notificaties worden opgehaald.</string>
     <string name="notification_details_accounts_unified_push_subscription">Alle accounts zijn geabonneerd?</string>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hint_list_name">Loendi nimi</string>
+    <string name="list_exclusive_label">Peida kodulehe ajajoonelt</string>
+    <string name="replies_policy_title">Näita vastuseid kasutajatele:</string>
+    <string name="replies_policy_name_followed">Iga jälgitav kasutaja</string>
+    <string name="replies_policy_name_list">Loendi liikmed</string>
+    <string name="replies_policy_name_none">Mitte keegi</string>
+    <string name="title_lists">Loendid</string>
+    <string name="error_create_list_fmt">„%1$s“ loendi loomine ei õnnestunud: %2$s</string>
+    <string name="error_delete_list_fmt">„%1$s“ loendi kustutamine ei õnnestunud: %2$s</string>
+    <string name="error_rename_list_fmt">„%1$s“ loendi uuendamine ei õnnestunud: %2$s</string>
+    <string name="action_rename_list">Uuenda loendit</string>
+    <string name="action_create_list">Koosta loend</string>
+    <string name="dialog_delete_list_warning">Kas kustutan „%s“ loendi?</string>
+    <string name="action_remove_from_list">Kustuta konto loendist</string>
+    <string name="action_add_to_list">Lisa konto loendisse</string>
+    <string name="action_delete_list">Kustuta loend</string>
+    <string name="no_lists">Sul pole ühtegi loendit.</string>
+    <string name="failed_to_remove_from_list">Kasutajakonto loendist eemaldamine ei õnnestunud</string>
+    <string name="action_add_or_remove_from_list">Lisa loendisse või eemalda sealt</string>
+    <string name="hint_search_people_list">Otsi neid, keda sa jälgid</string>
+    <string name="failed_to_add_to_list">Kasutajakonto lisamine loendisse ei õnnestunud</string>
+</resources>

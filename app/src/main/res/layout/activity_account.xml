@@ -247,7 +247,8 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
                         android:textColor="?colorOnPrimaryContainer"
-                        tools:text="April, 1971"
+                        android:textIsSelectable="true"
+                        tools:text="April 1971"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/accountFieldList"
@@ -465,8 +466,6 @@
             android:layout_margin="16dp"
             android:contentDescription="@string/action_mention"
             app:srcCompat="@drawable/ic_create_24dp" />
-
-        <include layout="@layout/item_status_bottom_sheet" />
 
         <ImageView
             android:id="@+id/accountAvatarImageView"

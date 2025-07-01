@@ -1,0 +1,20 @@
+Pachli 2.10.0
+
+Nuevo:
+
+- Fuente Atkinson Hyperlegible Next
+- Filtros de conversación
+- Mostrar la publicación a la cual respondemos
+
+Arreglos:
+
+- Menú "Recargar" duplicado
+- Resaltar etiquetas al ver ediciones
+- Impedir colapsos varios
+- Quitar "dummy.placeholder" de los errores
+- Ordenar listas alfabéticamente
+- Barra de tamaño de interfaz
+
+Traducciones:
+
+- Alemán, birmano, cabilio, eslovaco, español, indonesio, irlandés, lituano, noruego nynorsk, polaco, sueco, tamil

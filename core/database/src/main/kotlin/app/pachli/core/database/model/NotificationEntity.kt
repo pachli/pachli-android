@@ -17,9 +17,11 @@
 
 package app.pachli.core.database.model
 
+import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
 import app.pachli.core.model.AccountFilterDecision
@@ -31,7 +33,8 @@ import java.time.Instant
  *
  * Collates data from the different notification tables into a single type.
  *
- * @param notification The notification. * @param account Account that sent the notification.
+ * @param notification The notification.
+ * @param account Account that sent the notification.
  * @param status (optional) Status associated with the notification.
  * @param viewData (optional) Local view data for the notification.
  */
@@ -83,7 +86,6 @@ data class NotificationViewDataEntity(
 /**
  * Partial entity to update [NotificationViewDataEntity.contentFilterAction].
  */
-@Entity
 data class FilterActionUpdate(
     val pachliAccountId: Long,
     val serverId: String,
@@ -93,8 +95,7 @@ data class FilterActionUpdate(
 /**
  * Partial entity to update [NotificationViewDataEntity.accountFilterDecision].
  */
-@Entity
-data class AccountFilterDecisionUpdate(
+data class NotificationAccountFilterDecisionUpdate(
     val pachliAccountId: Long,
     val serverId: String,
     val accountFilterDecision: AccountFilterDecision?,
@@ -130,6 +131,7 @@ data class AccountFilterDecisionUpdate(
             ),
         ]
         ),
+    indices = [Index(value = ["accountServerId", "pachliAccountId"])],
 )
 @TypeConverters(Converters::class)
 data class NotificationEntity(
@@ -278,6 +280,8 @@ data class NotificationRelationshipSeveranceEventEntity(
     val eventId: String,
     val type: Type,
     val purged: Boolean,
+    @ColumnInfo(defaultValue = "")
+    val targetName: String,
     val followersCount: Int,
     val followingCount: Int,
     val createdAt: Instant,
@@ -289,5 +293,19 @@ data class NotificationRelationshipSeveranceEventEntity(
         UNKNOWN,
     }
 
+    fun asModel() = app.pachli.core.model.RelationshipSeveranceEvent(
+        id = serverId,
+        type = when (type) {
+            Type.DOMAIN_BLOCK -> app.pachli.core.model.RelationshipSeveranceEvent.Type.DOMAIN_BLOCK
+            Type.USER_DOMAIN_BLOCK -> app.pachli.core.model.RelationshipSeveranceEvent.Type.USER_DOMAIN_BLOCK
+            Type.ACCOUNT_SUSPENSION -> app.pachli.core.model.RelationshipSeveranceEvent.Type.ACCOUNT_SUSPENSION
+            Type.UNKNOWN -> app.pachli.core.model.RelationshipSeveranceEvent.Type.UNKNOWN
+        },
+        purged = purged,
+        targetName = targetName,
+        followersCount = followersCount,
+        followingCount = followingCount,
+        createdAt = createdAt,
+    )
     companion object
 }

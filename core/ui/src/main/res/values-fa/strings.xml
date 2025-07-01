@@ -15,4 +15,8 @@
     <string name="title_links_dialog">پیوندها</string>
     <string name="title_hashtags_dialog">برچسب‌ها</string>
     <string name="title_mentions_dialog">اشاره‌ها</string>
+    <string name="button_continue">ادامه</string>
+    <string name="action_logout_confirm">%1$s مطمئنید که می‌خواهید از خارج شوید؟ این کار تمامی داده‌های محلی از جمله پیش‌نویس‌ها و ترجیحات را حذف خواهد کرد.</string>
+    <string name="add_account_name">افزودن حساب</string>
+    <string name="action_logout">خروج</string>
 </resources>

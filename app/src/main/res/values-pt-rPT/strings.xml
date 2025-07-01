@@ -76,8 +76,6 @@
     <string name="action_bookmark">Guardar</string>
     <string name="action_unbookmark">Remover dos itens guardados</string>
     <string name="action_compose">Escrever</string>
-    <string name="action_logout">Sair</string>
-    <string name="action_logout_confirm">Tem a certeza que deseja sair da conta %1$s\?</string>
     <string name="action_follow">Seguir</string>
     <string name="action_unfollow">Deixar de seguir</string>
     <string name="action_block">Bloquear</string>
@@ -130,7 +128,6 @@
     <string name="action_open_media_n">Abrir conteúdo multimédia #%d</string>
     <string name="download_image">A descarregar %1$s</string>
     <string name="action_copy_link">Copiar a hiperligação</string>
-    <string name="action_share_as">Partilhar como…</string>
     <string name="download_media">Descarregar conteúdo multimédia</string>
     <string name="downloading_media">A descarregar conteúdo multimédia</string>
     <string name="send_post_link_to">Partilhar hiperligação do toot via…</string>
@@ -239,7 +236,6 @@
     <string name="notification_summary_large">%1$s, %2$s, %3$s e %4$d outros</string>
     <string name="notification_summary_medium">%1$s, %2$s e %3$s</string>
     <string name="description_account_locked">Perfil Privado</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <string name="filter_dialog_update_button">Atualizar</string>
     <string name="post_share_content">Partilhar conteúdo do toot</string>
     <string name="post_share_link">Partilhar hiperligação do toot</string>
@@ -270,18 +266,8 @@
     <string name="filter_dialog_remove_button">Remover</string>
     <string name="filter_dialog_whole_word_description">Se a palavra ou frase for alfanumérica, só será aplicado se corresponder à palavra completa</string>
     <string name="filter_add_description">Frase para filtrar</string>
-    <string name="add_account_name">Adicionar Conta</string>
     <string name="add_account_description">Adicionar nova Conta Mastodon</string>
     <string name="compose_active_account_description">Publicar com a conta %1$s</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="one">Descrição para deficientes visuais
-\n(até %d letra)</item>
-        <item quantity="many">Descrição para deficientes visuais
-\n(até %d caracteres)</item>
-        <item quantity="other">Descrição para deficientes visuais
-\n(até %d caracteres)</item>
-    </plurals>
-    <string name="action_set_caption">Escrever descrição</string>
     <string name="action_remove">Remover</string>
     <string name="lock_account_label">Bloquear perfil</string>
     <string name="send_post_notification_title">A enviar o toot…</string>
@@ -311,14 +297,14 @@
     <string name="label_remote_account">As informações abaixo podem refletir, de forma incompleta, o perfil do utilizador. Toque aqui para abrir o perfil completo no navegador.</string>
     <string name="pin_action">Fixar</string>
     <plurals name="favs">
-        <item quantity="one">&lt;b>%1$s&lt;/b> Favorito</item>
-        <item quantity="many">&lt;b>%1$s&lt;/b> Favoritos</item>
-        <item quantity="other">&lt;b>%1$s&lt;/b> Favoritos</item>
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Favorito</item>
+        <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; Favoritos</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Favoritos</item>
     </plurals>
     <plurals name="reblogs">
-        <item quantity="one">&lt;b>%s&lt;/b> Boost</item>
-        <item quantity="many">&lt;b>%s&lt;/b> Boosts</item>
-        <item quantity="other">&lt;b>%s&lt;/b> Boosts</item>
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Boost</item>
+        <item quantity="many">&lt;b&gt;%s&lt;/b&gt; Boosts</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; Boosts</item>
     </plurals>
     <string name="title_reblogged_by">Boost dado por</string>
     <string name="title_favourited_by">Adicionado aos favoritos por</string>
@@ -383,7 +369,6 @@
         <item quantity="many">%d segundos restantes</item>
         <item quantity="other">%d segundos restantes</item>
     </plurals>
-    <string name="button_continue">Continuar</string>
     <string name="button_back">Retroceder</string>
     <string name="report_sent_success">\@%s denunciado com sucesso</string>
     <string name="hint_additional_info">Comentários adicionais</string>

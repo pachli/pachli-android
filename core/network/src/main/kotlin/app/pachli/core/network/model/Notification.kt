@@ -91,27 +91,27 @@ data class Notification(
         ;
 
         companion object {
-            @JvmStatic
-            fun byString(s: String) = entries.firstOrNull { s == it.presentation } ?: UNKNOWN
-
             /** Notification types for UI display (omits UNKNOWN) */
-            val visibleTypes = listOf(
-                MENTION,
-                REBLOG,
-                FAVOURITE,
-                FOLLOW,
-                FOLLOW_REQUEST,
-                POLL,
-                STATUS,
-                SIGN_UP,
-                UPDATE,
-                REPORT,
-                SEVERED_RELATIONSHIPS,
-            )
+            val visibleTypes = Type.entries.filter { it != UNKNOWN }
         }
 
         override fun toString(): String {
             return presentation
+        }
+
+        fun asModel(): app.pachli.core.model.Notification.Type = when (this) {
+            UNKNOWN -> app.pachli.core.model.Notification.Type.UNKNOWN
+            MENTION -> app.pachli.core.model.Notification.Type.MENTION
+            REBLOG -> app.pachli.core.model.Notification.Type.REBLOG
+            FAVOURITE -> app.pachli.core.model.Notification.Type.FAVOURITE
+            FOLLOW -> app.pachli.core.model.Notification.Type.FOLLOW
+            FOLLOW_REQUEST -> app.pachli.core.model.Notification.Type.FOLLOW_REQUEST
+            POLL -> app.pachli.core.model.Notification.Type.POLL
+            STATUS -> app.pachli.core.model.Notification.Type.STATUS
+            SIGN_UP -> app.pachli.core.model.Notification.Type.SIGN_UP
+            UPDATE -> app.pachli.core.model.Notification.Type.UPDATE
+            REPORT -> app.pachli.core.model.Notification.Type.REPORT
+            SEVERED_RELATIONSHIPS -> app.pachli.core.model.Notification.Type.SEVERED_RELATIONSHIPS
         }
     }
 
@@ -127,15 +127,13 @@ data class Notification(
         return notification?.id == this.id
     }
 
-    // for Pleroma compatibility that uses Mention type
-    fun rewriteToStatusTypeIfNeeded(accountId: String): Notification {
-        if (type == Type.MENTION && status != null) {
-            return if (status.mentions.any { it.id == accountId }) {
-                this
-            } else {
-                copy(type = Type.STATUS)
-            }
-        }
-        return this
-    }
+    fun asModel() = app.pachli.core.model.Notification(
+        type = type.asModel(),
+        id = id,
+        createdAt = createdAt,
+        account = account.asModel(),
+        status = status?.asModel(),
+        report = report?.asModel(),
+        relationshipSeveranceEvent = relationshipSeveranceEvent?.asModel(),
+    )
 }

@@ -44,7 +44,6 @@
     <string name="action_reblog">تقویت</string>
     <string name="action_favourite">برگزیدن</string>
     <string name="action_compose">ایجاد</string>
-    <string name="action_logout">خروج</string>
     <string name="action_follow">پیگیری</string>
     <string name="action_unfollow">ناپیگیری</string>
     <string name="action_block">انسداد</string>
@@ -164,8 +163,8 @@
     <string name="notification_summary_medium">%1$s، %2$s و %3$s</string>
     <string name="notification_summary_small">%1$s و %2$s</string>
     <plurals name="notification_title_summary">
-        <item quantity="one">برهم‌کنشی جدید</item>
-        <item quantity="other">%d برهم‌کنش جدید</item>
+        <item quantity="one">%1$d برهم‌کنش جدید</item>
+        <item quantity="other">%1$d برهم‌کنش جدید</item>
     </plurals>
     <string name="description_account_locked">حساب قفل‌شده</string>
     <!-- note to translators:
@@ -188,14 +187,8 @@
     <string name="follows_you">پیگیرتان است</string>
     <string name="pref_title_alway_show_sensitive_media">نمایش همیشگی محتوای حساس</string>
     <string name="title_media">رسانه</string>
-    <string name="add_account_name">افزودن حساب</string>
     <string name="add_account_description">افزودن حساب ماستودون جدید</string>
     <string name="compose_active_account_description">%1$s فرستادن از طرف</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="one">توصیف محتوا برای کم‌بینایان (کران ۱ نویسه)</item>
-        <item quantity="other">توصیف محتوا برای کم‌بینایان (کران %d نویسه)</item>
-    </plurals>
-    <string name="action_set_caption">تنظیم عنوان</string>
     <string name="action_remove">برداشتن</string>
     <string name="lock_account_label">قفل حساب</string>
     <string name="lock_account_label_description">لازم است پی‌گیران را دستی تأیید کنید</string>
@@ -243,7 +236,6 @@
     <string name="action_open_reblogged_by">نمایش تقویت‌ها</string>
     <string name="action_open_faved_by">نمایش برگزیده‌ها</string>
     <string name="action_open_media_n">گشودن رسانه #%d</string>
-    <string name="action_share_as">هم‌رسانی به عنوان …</string>
     <string name="download_media">بارگیری رسانه</string>
     <string name="downloading_media">در حال بارگیری رسانه</string>
     <string name="confirmation_domain_unmuted">%s نانهفته</string>
@@ -256,7 +248,6 @@
     <string name="pref_title_animate_gif_avatars">پویانمایی آواتارهای جیف</string>
     <string name="notification_poll_name">نظرسنجی‌ها</string>
     <string name="notification_poll_description">آگاهی‌ها دربارهٔ نظرسنجی‌های پایان‌یافته</string>
-    <string name="about_pachli_version">تاسکی %s</string>
     <string name="abbreviated_years_ago">%d سال</string>
     <string name="abbreviated_days_ago">%d روز</string>
     <string name="abbreviated_hours_ago">%d ساعت</string>
@@ -317,7 +308,6 @@
         <item quantity="one">%d دقیقه مانده</item>
         <item quantity="other">%d دقیقه مانده</item>
     </plurals>
-    <string name="button_continue">ادامه</string>
     <string name="button_back">بازگشت</string>
     <string name="report_sent_success">‫@%s با موفّقیت گزارش شد</string>
     <string name="hint_additional_info">نظرهای اضافی</string>
@@ -433,7 +423,6 @@
     <string name="pachli_compose_post_quicksetting_label">ایجاد فرسته</string>
     <string name="notification_update_description">آگاهی‌ها هنگام ویرایش فرسته‌هایی که با آن‌ها تعامل داشته‌اید</string>
     <string name="action_unbookmark">برداشن نشانک</string>
-    <string name="action_logout_confirm">%1$s مطمئنید که می‌خواهید از  خارج شوید؟ این کار تمامی داده‌های محلی از جمله پیش‌نویس‌ها و ترجیحات را حذف خواهد کرد.</string>
     <string name="duration_14_days">۱۴ روز</string>
     <string name="duration_30_days">۳۰ روز</string>
     <string name="duration_60_days">۶۰ روز</string>
@@ -466,7 +455,9 @@
     <string name="compose_save_draft_loses_media">ذخیرهٔ پیش‌نویس؟ (پیوست‌ها هنگام بازگردانی پیش‌نویس، دوباره بارگذاری خواهند شد)</string>
     <string name="notification_report_format">گزارش جدید روی %s</string>
     <string name="notification_header_report_format">%s، %s را گزارش داد</string>
-    <string name="notification_summary_report_format">%s · %d فرسته پیوسته</string>
+    <plurals name="notification_summary_report_format">
+        <item quantity="other">%1$s · %2$d فرسته پیوسته</item>
+    </plurals>
     <string name="error_following_hashtags_unsupported">این نمونه از پی‌گیری برچسب‌ها پشتیبانی نمی‌کند.</string>
     <string name="title_followed_hashtags">برچسب‌های دنبالی</string>
     <string name="confirmation_hashtag_unfollowed">پی‌گیری #%s لغو شد</string>
@@ -552,7 +543,6 @@
     <string name="pref_title_show_stat_inline">نمایش آمار فرسته‌ها در خط زمانی</string>
     <string name="help_empty_home">این <b>خط زمانی خانگیتان</b> است. فرسته‌های جدید را از حساب‌هایی که پی‌می‌گیرید نشان می‌دهد. \n \nبرای کاوش حساب‌ها می‌توانید آن‌ها را در دیگر خط‌های زمانی (برای نمونه خط زمانی محلّی نمونه‌تان [iconics gmd_group]) یافته یا با نام (برای نمونه Pachli برای حساب ماستودونمان) بجوییدشان [iconics gmd_search].</string>
     <string name="hint_description">شرح</string>
-    <string name="post_media_image">تصویر</string>
     <string name="select_list_empty">هنوز هیچ سیاهه‌ای ندارید</string>
     <string name="select_list_manage">مدیریت سیاهه‌ها</string>
     <string name="load_newest_notifications">بار کردن جدیدترین آگاهی‌ها</string>

@@ -22,17 +22,20 @@ import androidx.core.text.HtmlCompat
 import app.pachli.R
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusDisplayOptions
+import app.pachli.core.model.ContentFilter
 import app.pachli.core.model.FilterAction
-import app.pachli.core.network.model.Filter
-import app.pachli.core.network.model.FilterAction as NetworkFilterAction
+import app.pachli.core.ui.SetStatusContent
 import app.pachli.databinding.ItemStatusWrapperBinding
 import app.pachli.interfaces.StatusActionListener
+import com.bumptech.glide.RequestManager
 
 open class FilterableStatusViewHolder<T : IStatusViewData>(
     private val binding: ItemStatusWrapperBinding,
-) : StatusViewHolder<T>(binding.statusContainer, binding.root) {
+    glide: RequestManager,
+    setStatusContent: SetStatusContent,
+) : StatusViewHolder<T>(binding.statusContainer, glide, setStatusContent, binding.root) {
     /** The filter that matched the status, null if the status is not being filtered. */
-    var matchedFilter: Filter? = null
+    var matchedFilter: ContentFilter? = null
 
     override fun setupWithStatus(
         viewData: T,
@@ -54,7 +57,7 @@ open class FilterableStatusViewHolder<T : IStatusViewData>(
             return
         }
 
-        viewData.actionable.filtered?.find { it.filter.filterAction === NetworkFilterAction.WARN }?.let { result ->
+        viewData.actionable.filtered?.find { it.filter.filterAction === FilterAction.WARN }?.let { result ->
             this.matchedFilter = result.filter
             setPlaceholderVisibility(true)
 

@@ -20,8 +20,9 @@ package app.pachli.components.timeline.viewmodel
 import androidx.annotation.VisibleForTesting
 import androidx.paging.LoadType
 import app.pachli.BuildConfig
+import app.pachli.core.model.Status
 import app.pachli.core.network.model.Links
-import app.pachli.core.network.model.Status
+import app.pachli.core.network.model.asModel
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import app.pachli.core.network.retrofit.apiresult.ApiResult
 import com.github.michaelbull.result.Result
@@ -47,13 +48,13 @@ data class Page(
     override fun toString() = "size: ${"%2d".format(data.size)}, range: ${data.firstOrNull()?.id}..${data.lastOrNull()?.id}, prevKey: $prevKey, nextKey: $nextKey"
 
     companion object {
-        fun tryFrom(response: ApiResult<List<Status>>): Result<Page, ApiError> = response.map {
+        fun tryFrom(response: ApiResult<List<app.pachli.core.network.model.Status>>): Result<Page, ApiError> = response.map {
             val links = Links.from(it.headers["link"])
             Timber.d("  link: %s", links)
             Timber.d("  %d - # statuses loaded", it.body.size)
 
             Page(
-                data = it.body.toMutableList(),
+                data = it.body.asModel().toMutableList(),
                 nextKey = links.next,
                 prevKey = links.prev,
             )

@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="update_dialog_message">Atvērt F-Droid, lai apskatītu informāciju?</string>
+    <string name="update_dialog_positive">Atvērt F-Droid</string>
+</resources>

@@ -17,13 +17,16 @@
 
 package app.pachli.components.trending
 
+import app.pachli.core.network.model.asModel
 import app.pachli.core.network.retrofit.MastodonApi
+import com.github.michaelbull.result.map
 import javax.inject.Inject
 
 class TrendingLinksRepository @Inject constructor(
     private val api: MastodonApi,
 ) {
     suspend fun getTrendingLinks() = api.trendingLinks(limit = LIMIT_TRENDING_LINKS)
+        .map { it.body.asModel() }
 
     companion object {
         /**

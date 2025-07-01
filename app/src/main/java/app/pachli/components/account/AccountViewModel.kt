@@ -10,8 +10,9 @@ import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.MuteEvent
 import app.pachli.core.eventhub.ProfileEditedEvent
 import app.pachli.core.eventhub.UnfollowEvent
-import app.pachli.core.network.model.Account
-import app.pachli.core.network.model.Relationship
+import app.pachli.core.model.Account
+import app.pachli.core.model.Relationship
+import app.pachli.core.network.model.asModel
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.ui.getDomain
 import app.pachli.util.Error
@@ -76,7 +77,7 @@ class AccountViewModel @AssistedInject constructor(
             viewModelScope.launch {
                 mastodonApi.account(accountId)
                     .onSuccess { result ->
-                        val account = result.body
+                        val account = result.body.asModel()
                         domain = getDomain(account.url)
                         accountData.postValue(Success(account))
                         isDataLoading = false
@@ -101,7 +102,7 @@ class AccountViewModel @AssistedInject constructor(
             viewModelScope.launch {
                 mastodonApi.relationships(listOf(accountId))
                     .onSuccess {
-                        val relationships = it.body
+                        val relationships = it.body.asModel()
                         relationshipData.postValue(if (relationships.isNotEmpty()) Success(relationships[0]) else Error())
                     }
                     .onFailure {
@@ -153,7 +154,7 @@ class AccountViewModel @AssistedInject constructor(
         viewModelScope.launch {
             mastodonApi.blockDomain(instance)
                 .onSuccess {
-                    eventHub.dispatch(DomainMuteEvent(instance))
+                    eventHub.dispatch(DomainMuteEvent(pachliAccountId, instance))
                     val relation = relationshipData.value?.data
                     if (relation != null) {
                         relationshipData.postValue(Success(relation.copy(blockingDomain = true)))
@@ -271,16 +272,17 @@ class AccountViewModel @AssistedInject constructor(
 
         relationshipCall
             .onSuccess { response ->
-                relationshipData.postValue(Success(response.body))
+                relationshipData.postValue(Success(response.body.asModel()))
 
                 when (relationshipAction) {
                     RelationShipAction.FOLLOW -> accountManager.followAccount(pachliAccountId, accountId)
                     RelationShipAction.UNFOLLOW -> {
                         accountManager.unfollowAccount(pachliAccountId, accountId)
-                        eventHub.dispatch(UnfollowEvent(accountId))
+                        eventHub.dispatch(UnfollowEvent(pachliAccountId, accountId))
                     }
-                    RelationShipAction.BLOCK -> eventHub.dispatch(BlockEvent(accountId))
-                    RelationShipAction.MUTE -> eventHub.dispatch(MuteEvent(accountId))
+
+                    RelationShipAction.BLOCK -> eventHub.dispatch(BlockEvent(pachliAccountId, accountId))
+                    RelationShipAction.MUTE -> eventHub.dispatch(MuteEvent(pachliAccountId, accountId))
                     else -> { }
                 }
             }

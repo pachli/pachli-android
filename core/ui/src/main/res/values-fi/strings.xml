@@ -17,4 +17,16 @@
     <string name="item_copied">Teksti kopioitu</string>
     <string name="action_copy_item">Kopioi kohde</string>
     <string name="title_mentions_dialog">Maininnat</string>
+    <string name="button_continue">Jatka</string>
+    <string name="pref_notification_method_push">Puskuilmoitus</string>
+    <string name="pref_notification_method_pull">Ilmoitusten haku</string>
+    <string name="pref_notification_fetch_method_title">Ilmoitustapa</string>
+    <string name="pref_notification_fetch_ok_timestamp_fmt">✔%1$s sitten @ %2$s</string>
+    <string name="pref_notification_fetch_err_timestamp_fmt">✖ %1$s sitten @ %2$s</string>
+    <string name="pref_notification_fetch_server_rejected">%1$s ei hyväksynyt puskuilmoitusten rekisteröintiä</string>
+    <string name="pref_notification_fetch_needs_push">Tililtä puuttuu puskuilmoitusten valtuutus (scope). Ulos ja takaisin kirjautuminen voi ratkaista ongelman.</string>
+    <string name="title_logout_fmt">Kirjaudu ulos %1$s</string>
+    <string name="action_logout_confirm">Tämä poistaa kaiken laittellesi tallennetun tiedon tilistä %1$s, mukaanlukien luonnokset ja asetukset.\n\nTämä ei poista tiliäsi palvelimelta.</string>
+    <string name="add_account_name">Lisää tili</string>
+    <string name="action_logout">Kirjaudu ulos</string>
 </resources>

@@ -1,0 +1,17 @@
+Pachli 2.2.0
+
+Nowości:
+
+- Wyłączanie filtrów, gdy nie są wspierane przez serwer
+
+Poprawki:
+
+- Upewnienie, że akcje są wykonywane na właściwym statusie
+- Bez wycieku w MainActivity w DrawerImageLoader
+- Pokazywanie właściwych wartości dla popularnych tagów na końcu linii wykresów
+- Aktualizacja szwedzkiego tłumaczenia
+- Aktualizacja indonezyjskiego tłumaczenia
+- Aktualizacja holenderskiego tłumaczenia
+- Aktualizacja portugalskiego tłumaczenia
+- Aktualizacja fińskiego tłumaczenia
+- Aktualizacja arabskiego tłumaczenia

@@ -21,7 +21,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.core.data.repository.ListsError
 import app.pachli.core.data.repository.ListsRepository
-import app.pachli.core.network.model.TimelineAccount
+import app.pachli.core.model.TimelineAccount
+import app.pachli.core.network.model.asModel
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import com.github.michaelbull.result.Ok
@@ -121,7 +122,7 @@ class AccountsInListViewModel @AssistedInject constructor(
             query.isBlank() -> _searchResults.value = Ok(SearchResults.Loaded(emptyList()))
             else -> viewModelScope.launch {
                 _searchResults.value = api.searchAccounts(query, null, 10, true)
-                    .map { SearchResults.Loaded(it.body) }
+                    .map { SearchResults.Loaded(it.body.asModel()) }
             }
         }
     }

@@ -31,7 +31,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.media3.common.util.UnstableApi
 import app.pachli.ViewMediaActivity
 import app.pachli.ViewMediaViewModel
-import app.pachli.core.network.model.Attachment
+import app.pachli.core.model.Attachment
 import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Job

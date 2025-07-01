@@ -13,4 +13,8 @@
     <string name="title_links_dialog">Povezave</string>
     <string name="title_hashtags_dialog">Ključniki</string>
     <string name="title_mentions_dialog">Omembe</string>
+    <string name="button_continue">Nadaljuj</string>
+    <string name="action_logout_confirm">Ali ste prepričani, da se želite odjaviti iz računa %1$s?</string>
+    <string name="add_account_name">Dodaj račun</string>
+    <string name="action_logout">Odjava</string>
 </resources>

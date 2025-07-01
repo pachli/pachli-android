@@ -19,10 +19,10 @@ package app.pachli.feature.suggestions
 
 import androidx.annotation.StringRes
 import app.pachli.core.common.PachliError
-import app.pachli.core.data.model.Suggestion
 import app.pachli.core.data.repository.SuggestionsError
 import app.pachli.core.data.repository.SuggestionsError.DeleteSuggestionError
 import app.pachli.core.data.repository.SuggestionsError.FollowAccountError
+import app.pachli.core.model.Suggestion
 import app.pachli.feature.suggestions.UiAction.SuggestionAction
 
 /** Actions the user can take from the UI. */

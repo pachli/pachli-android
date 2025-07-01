@@ -24,14 +24,14 @@ import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
-import app.pachli.core.network.model.Attachment
-import app.pachli.core.network.model.Card
-import app.pachli.core.network.model.Emoji
-import app.pachli.core.network.model.FilterResult
-import app.pachli.core.network.model.HashTag
-import app.pachli.core.network.model.Poll
-import app.pachli.core.network.model.Status
-import app.pachli.core.network.model.TimelineAccount
+import app.pachli.core.model.Attachment
+import app.pachli.core.model.Card
+import app.pachli.core.model.Emoji
+import app.pachli.core.model.FilterResult
+import app.pachli.core.model.HashTag
+import app.pachli.core.model.Poll
+import app.pachli.core.model.Status
+import app.pachli.core.model.TimelineAccount
 import java.time.Instant
 import java.util.Date
 
@@ -51,6 +51,13 @@ import java.util.Date
     foreignKeys = (
         [
             ForeignKey(
+                entity = AccountEntity::class,
+                parentColumns = ["id"],
+                childColumns = ["timelineUserId"],
+                onDelete = ForeignKey.CASCADE,
+                deferred = true,
+            ),
+            ForeignKey(
                 entity = TimelineAccountEntity::class,
                 parentColumns = ["serverId", "timelineUserId"],
                 childColumns = ["authorServerId", "timelineUserId"],
@@ -59,7 +66,7 @@ import java.util.Date
         ]
         ),
     // Avoiding rescanning status table when accounts table changes. Recommended by Room(c).
-    indices = [Index("authorServerId", "timelineUserId")],
+    indices = [Index("authorServerId", "timelineUserId"), Index("timelineUserId")],
 )
 @TypeConverters(Converters::class)
 data class StatusEntity(
@@ -134,6 +141,40 @@ data class StatusEntity(
         )
     }
 }
+
+fun Status.asEntity(pachliAccountId: Long) = StatusEntity(
+    serverId = id,
+    url = actionableStatus.url,
+    timelineUserId = pachliAccountId,
+    authorServerId = actionableStatus.account.id,
+    inReplyToId = actionableStatus.inReplyToId,
+    inReplyToAccountId = actionableStatus.inReplyToAccountId,
+    content = actionableStatus.content,
+    createdAt = actionableStatus.createdAt.time,
+    editedAt = actionableStatus.editedAt?.time,
+    emojis = actionableStatus.emojis,
+    reblogsCount = actionableStatus.reblogsCount,
+    favouritesCount = actionableStatus.favouritesCount,
+    reblogged = actionableStatus.reblogged,
+    favourited = actionableStatus.favourited,
+    bookmarked = actionableStatus.bookmarked,
+    sensitive = actionableStatus.sensitive,
+    spoilerText = actionableStatus.spoilerText,
+    visibility = actionableStatus.visibility,
+    attachments = actionableStatus.attachments,
+    mentions = actionableStatus.mentions,
+    tags = actionableStatus.tags,
+    application = actionableStatus.application,
+    reblogServerId = reblog?.id,
+    reblogAccountId = reblog?.let { account.id },
+    poll = actionableStatus.poll,
+    muted = actionableStatus.muted,
+    pinned = actionableStatus.pinned == true,
+    card = actionableStatus.card,
+    repliesCount = actionableStatus.repliesCount,
+    language = actionableStatus.language,
+    filtered = actionableStatus.filtered,
+)
 
 /**
  * An account associated with a status on a timeline or similar (e.g., an
@@ -216,49 +257,35 @@ data class TimelineAccountEntity(
     }
 }
 
-enum class TranslationState {
-    /** Show the original, untranslated status */
-    SHOW_ORIGINAL,
-
-    /** Show the original, untranslated status, but translation is happening */
-    TRANSLATING,
-
-    /** Show the translated status */
-    SHOW_TRANSLATION,
-}
-
-/**
- * The local view data for a status.
- *
- * There is *no* foreignkey relationship between this and [StatusEntity], as the view
- * data is kept even if the status is deleted from the local cache (e.g., during a refresh
- * operation).
- */
-@Entity(
-    primaryKeys = ["serverId", "timelineUserId"],
-    foreignKeys = [
-        ForeignKey(
-            entity = AccountEntity::class,
-            parentColumns = arrayOf("id"),
-            childColumns = arrayOf("timelineUserId"),
-            onDelete = ForeignKey.CASCADE,
-            deferred = true,
-        ),
-    ],
-    indices = [Index(value = ["timelineUserId"])],
+fun TimelineAccount.asEntity(pachliAccountId: Long) = TimelineAccountEntity(
+    serverId = id,
+    timelineUserId = pachliAccountId,
+    localUsername = localUsername,
+    username = username,
+    displayName = name,
+    note = note,
+    url = url,
+    avatar = avatar,
+    emojis = emojis.orEmpty(),
+    bot = bot,
+    createdAt = createdAt,
+    limited = limited,
 )
-data class StatusViewDataEntity(
-    val serverId: String,
-    val timelineUserId: Long,
-    /** Corresponds to [app.pachli.viewdata.IStatusViewData.isExpanded] */
-    val expanded: Boolean,
-    /** Corresponds to [app.pachli.viewdata.IStatusViewData.isShowingContent] */
-    val contentShowing: Boolean,
-    /** Corresponds to [app.pachli.viewdata.IStatusViewData.isCollapsed] */
-    val contentCollapsed: Boolean,
-    /** Show the translated version of the status (if it exists) */
-    @ColumnInfo(defaultValue = "SHOW_ORIGINAL")
-    val translationState: TranslationState,
+
+fun Iterable<TimelineAccount>.asEntity(pachliAccountId: Long) = map { it.asEntity(pachliAccountId) }
+
+fun TimelineAccountEntity.asModel() = TimelineAccount(
+    id = serverId,
+    localUsername = localUsername,
+    username = username,
+    displayName = displayName,
+    url = url,
+    avatar = avatar,
+    note = note,
+    bot = bot,
+    emojis = emojis,
+    createdAt = createdAt,
+    limited = limited,
 )
 
 data class TimelineStatusWithAccount(

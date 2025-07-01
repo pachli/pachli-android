@@ -1,0 +1,5 @@
+Pachli 2.5.1
+
+Labojumi:
+
+- Piekļūstamības darbības iespējotas tikai paziņojumiem, kas ir pievienoti stāvoklim

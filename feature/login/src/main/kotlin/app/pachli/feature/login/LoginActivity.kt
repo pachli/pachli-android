@@ -17,7 +17,6 @@
 
 package app.pachli.feature.login
 
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -27,22 +26,22 @@ import android.view.View
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.edit
 import androidx.core.net.toUri
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import app.pachli.core.activity.BaseActivity
+import app.pachli.core.activity.OpenUrlUseCase
 import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.setCloseTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
-import app.pachli.core.activity.openLinkInCustomTab
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.navigation.IntentRouterActivityIntent
 import app.pachli.core.navigation.LoginActivityIntent
-import app.pachli.core.navigation.MainActivityIntent
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.getNonNullString
 import app.pachli.feature.login.databinding.ActivityLoginBinding
-import com.bumptech.glide.Glide
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
@@ -63,6 +62,9 @@ class LoginActivity : BaseActivity() {
     @Inject
     lateinit var mastodonApi: MastodonApi
 
+    @Inject
+    lateinit var openUrl: OpenUrlUseCase
+
     private val viewModel: LoginViewModel by viewModels()
 
     private val binding by viewBinding(ActivityLoginBinding::inflate)
@@ -78,10 +80,11 @@ class LoginActivity : BaseActivity() {
 
     private val doWebViewAuth = registerForActivityResult(OauthLogin()) { result ->
         when (result) {
-            is LoginResult.Ok -> lifecycleScope.launch {
+            is LoginResult.Code -> lifecycleScope.launch {
                 fetchOauthToken(result.code)
             }
-            is LoginResult.Err -> displayError(result.errorMessage)
+
+            is LoginResult.Error -> displayError(result.errorMessage)
             is LoginResult.Cancel -> setLoading(false)
         }
     }
@@ -108,15 +111,14 @@ class LoginActivity : BaseActivity() {
         }
 
         if (BuildConfig.CUSTOM_LOGO_URL.isNotBlank()) {
-            Glide.with(binding.loginLogo)
-                .load(BuildConfig.CUSTOM_LOGO_URL)
+            glide.load(BuildConfig.CUSTOM_LOGO_URL)
                 .placeholder(null)
                 .into(binding.loginLogo)
         }
 
         preferences = getSharedPreferences(
             getString(R.string.preferences_file_key),
-            Context.MODE_PRIVATE,
+            MODE_PRIVATE,
         )
 
         binding.loginButton.setOnClickListener { onLoginClick(true) }
@@ -161,7 +163,7 @@ class LoginActivity : BaseActivity() {
         uiResult.onSuccess { uiSuccess ->
             when (uiSuccess) {
                 is UiSuccess.VerifyAndAddAccount -> {
-                    val intent = MainActivityIntent(this, uiSuccess.accountId)
+                    val intent = IntentRouterActivityIntent.startMainActivity(this, uiSuccess.accountId)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivityWithTransition(intent, TransitionKind.EXPLODE)
                     finishAffinity()
@@ -171,9 +173,7 @@ class LoginActivity : BaseActivity() {
         }
     }
 
-    override fun requiresLogin(): Boolean {
-        return false
-    }
+    override fun requiresLogin() = false
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menu?.add(R.string.action_browser_login)?.apply {
@@ -226,11 +226,11 @@ class LoginActivity : BaseActivity() {
                 // and we will need to pick up the process where we left off.
                 // Alternatively we could pass it all as part of the intent and receive it back
                 // but it is a bit of a workaround.
-                preferences.edit()
-                    .putString(DOMAIN, domain)
-                    .putString(CLIENT_ID, credentials.clientId)
-                    .putString(CLIENT_SECRET, credentials.clientSecret)
-                    .apply()
+                preferences.edit {
+                    putString(DOMAIN, domain)
+                        .putString(CLIENT_ID, credentials.clientId)
+                        .putString(CLIENT_SECRET, credentials.clientSecret)
+                }
 
                 redirectUserToAuthorizeAndLogin(domain, credentials.clientId, openInWebView)
             }.onFailure { e ->
@@ -265,7 +265,7 @@ class LoginActivity : BaseActivity() {
         if (openInWebView) {
             doWebViewAuth.launch(LoginData(domain, uri, oauthRedirectUri.toUri()))
         } else {
-            openLinkInCustomTab(uri, this)
+            openUrl(uri, useCustomTab = true)
         }
     }
 

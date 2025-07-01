@@ -2,4 +2,4 @@ Pachli 2.5.1
 
 Opravy:
 
-- Iba povoliť dostupné akcie na oznámenia pripojené k stavu
+- Povoliť iba dostupné akcie na upozornenie pripojené k stavu

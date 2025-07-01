@@ -23,6 +23,7 @@ import app.pachli.core.network.model.Announcement
 import app.pachli.core.network.model.AppCredentials
 import app.pachli.core.network.model.Attachment
 import app.pachli.core.network.model.Conversation
+import app.pachli.core.network.model.CredentialAccount
 import app.pachli.core.network.model.DeletedStatus
 import app.pachli.core.network.model.Emoji
 import app.pachli.core.network.model.Filter
@@ -64,6 +65,7 @@ import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.HTTP
 import retrofit2.http.Header
+import retrofit2.http.Headers
 import retrofit2.http.Multipart
 import retrofit2.http.PATCH
 import retrofit2.http.POST
@@ -236,6 +238,11 @@ interface MastodonApi {
         @Path("id") statusId: String,
     ): ApiResult<Status>
 
+    @GET("api/v1/statuses")
+    suspend fun statuses(
+        @Query("id[]") ids: List<String>,
+    ): ApiResult<List<Status>>
+
     @PUT("api/v1/statuses/{id}")
     suspend fun editStatus(
         @Path("id") statusId: String,
@@ -347,7 +354,7 @@ interface MastodonApi {
     suspend fun accountVerifyCredentials(
         @Header(DOMAIN_HEADER) domain: String? = null,
         @Header("Authorization") auth: String? = null,
-    ): ApiResult<Account>
+    ): ApiResult<CredentialAccount>
 
     @FormUrlEncoded
     @PATCH("api/v1/accounts/update_credentials")
@@ -355,7 +362,7 @@ interface MastodonApi {
         @Field("source[privacy]") privacy: String?,
         @Field("source[sensitive]") sensitive: Boolean?,
         @Field("source[language]") language: String?,
-    ): ApiResult<Account>
+    ): ApiResult<CredentialAccount>
 
     @Multipart
     @PATCH("api/v1/accounts/update_credentials")
@@ -559,6 +566,8 @@ interface MastodonApi {
     @FormUrlEncoded
     @POST("oauth/revoke")
     suspend fun revokeOAuthToken(
+        @Header("Authorization") auth: String,
+        @Header(DOMAIN_HEADER) domain: String,
         @Field("client_id") clientId: String,
         @Field("client_secret") clientSecret: String,
         @Field("token") token: String,
@@ -624,7 +633,7 @@ interface MastodonApi {
     @DELETE("/api/v1/conversations/{id}")
     suspend fun deleteConversation(
         @Path("id") conversationId: String,
-    )
+    ): ApiResult<Unit>
 
     @FormUrlEncoded
     @POST("api/v1/filters")
@@ -656,6 +665,7 @@ interface MastodonApi {
         @Path("id") id: String,
     ): ApiResult<Unit>
 
+    @Headers("Content-Type: application/x-www-form-urlencoded")
     @POST("api/v2/filters")
     suspend fun createFilter(@Body newContentFilter: NewContentFilter): ApiResult<Filter>
 

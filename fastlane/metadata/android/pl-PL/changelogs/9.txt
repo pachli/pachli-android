@@ -1,17 +1,17 @@
 Pachli 2.1.0
 
-Nowe cechy:
+Nowości:
 
-- Show role na profilach
-Show komponuje przycisk podczas oglądania list.
-- Show komponuje przycisk, gdy ogląda listę książek.
+- Pokazywanie roli na profilach
+- Pokazywanie przycisku tworzenia wpisu przy wyświetlaniu list
+- Pokazywanie przycisku tworzenia wpisu przy wyświetlaniu zakładek
 
-Fiksy
+Poprawki:
 
-- Show przetłumaczył treści w wątkach.
-- Kalkulacja długości postów i pollów z emojis prawidłowo.
-- katastrofa wstępna
-Jeśli karta przedpremierowa nie ma autora.
-Jeśli błędy występują w linii czasowej bez FAB.
-Profil na profilu jeśli rachunek ma puste pole 'createdAt'.
-- tłumaczenie aktualne
+- Pokazywanie przetłumaczonych treści w wątkach
+- Poprawne obliczanie długości wpisów i ankiet z emoji
+- Zapobieganie awariom
+  - gdy karta podglądu nie ma osoby autorskiej
+  - gdy błąd występuje na osi czasu bez FAB
+  - w profilach, gdy konto ma puste pole `createdAt`
+- Aktualizacja tłumaczeń

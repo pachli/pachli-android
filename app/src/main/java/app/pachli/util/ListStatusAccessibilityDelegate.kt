@@ -9,9 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.adapter.FilterableStatusViewHolder
 import app.pachli.adapter.StatusBaseViewHolder
-import app.pachli.core.activity.openLink
+import app.pachli.core.activity.OpenUrlUseCase
 import app.pachli.core.data.model.IStatusViewData
-import app.pachli.core.network.model.Status.Companion.MAX_MEDIA_ATTACHMENTS
+import app.pachli.core.model.Status.Companion.MAX_MEDIA_ATTACHMENTS
+import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.accessibility.PachliRecyclerViewAccessibilityDelegate
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.viewdata.NotificationViewData
@@ -26,6 +27,7 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
     private val pachliAccountId: Long,
     private val recyclerView: RecyclerView,
     private val statusActionListener: StatusActionListener<T>,
+    private val openUrl: OpenUrlUseCase,
     private val statusProvider: StatusProvider<T>,
 ) : PachliRecyclerViewAccessibilityDelegate(recyclerView) {
     override fun getItemDelegate(): AccessibilityDelegateCompat = itemDelegate
@@ -54,13 +56,13 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
                 if (status.statusViewData == null) return
             }
 
-            if (status.spoilerText.isNotEmpty()) {
+            val actionable = status.actionable
+            if (actionable.spoilerText.isNotEmpty()) {
                 info.addAction(if (status.isExpanded) collapseCwAction else expandCwAction)
             }
 
             info.addAction(replyAction)
 
-            val actionable = status.actionable
             if (actionable.rebloggingAllowed()) {
                 info.addAction(if (actionable.reblogged) unreblogAction else reblogAction)
             }
@@ -83,13 +85,15 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
                 )
             }
 
+            val parsedContent = status.content.parseAsMastodonHtml()
+
             info.addAction(openProfileAction)
-            if (status.content.getLinks().any()) info.addAction(linksAction)
+            if (parsedContent.getLinks().any()) info.addAction(linksAction)
 
             val mentions = actionable.mentions
             if (mentions.isNotEmpty()) info.addAction(mentionsAction)
 
-            if (status.content.getHashtags().any()) info.addAction(hashtagsAction)
+            if (parsedContent.getHashtags().any()) info.addAction(hashtagsAction)
             if (!status.status.reblog?.account?.username.isNullOrEmpty()) {
                 info.addAction(openRebloggerAction)
             }
@@ -157,11 +161,11 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
                 }
 
                 app.pachli.core.ui.R.id.action_links -> {
-                    val links = status.content.getLinks()
+                    val links = status.content.parseAsMastodonHtml().getLinks()
                     showA11yDialogWithCopyButton(
                         app.pachli.core.ui.R.string.title_links_dialog,
                         links.map { it.url },
-                    ) { context.openLink(links[it].url) }
+                    ) { openUrl(links[it].url) }
                 }
 
                 app.pachli.core.ui.R.id.action_mentions -> {
@@ -173,7 +177,7 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
                 }
 
                 app.pachli.core.ui.R.id.action_hashtags -> {
-                    val hashtags = status.content.getHashtags()
+                    val hashtags = status.content.parseAsMastodonHtml().getHashtags()
                     showA11yDialogWithCopyButton(
                         app.pachli.core.ui.R.string.title_hashtags_dialog,
                         hashtags.map { "#$it" },
@@ -212,10 +216,6 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
                 else -> return super.performAccessibilityAction(host, action, args)
             }
             return true
-        }
-
-        private fun getStatus(childView: View): T {
-            return statusProvider.getStatus(recyclerView.getChildAdapterPosition(childView))!!
         }
     }
 

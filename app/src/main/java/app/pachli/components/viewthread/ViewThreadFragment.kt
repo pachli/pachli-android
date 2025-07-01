@@ -28,6 +28,7 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
@@ -36,29 +37,35 @@ import app.pachli.components.viewthread.edits.ViewEditsFragment
 import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
-import app.pachli.core.activity.openLink
+import app.pachli.core.common.PachliError
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.data.model.StatusViewData
+import app.pachli.core.database.model.TranslationState
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.model.Poll
+import app.pachli.core.model.Status
 import app.pachli.core.navigation.AccountListActivityIntent
-import app.pachli.core.navigation.AttachmentViewData.Companion.list
+import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.EditContentFilterActivityIntent
-import app.pachli.core.network.model.Poll
-import app.pachli.core.network.model.Status
-import app.pachli.core.ui.extensions.getErrorString
+import app.pachli.core.ui.SetMarkdownContent
+import app.pachli.core.ui.SetMastodonHtmlContent
 import app.pachli.databinding.FragmentViewThreadBinding
 import app.pachli.fragment.SFragment
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.ListStatusAccessibilityDelegate
+import com.bumptech.glide.Glide
+import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.properties.Delegates
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @AndroidEntryPoint
 class ViewThreadFragment :
@@ -72,7 +79,7 @@ class ViewThreadFragment :
     private val binding by viewBinding(FragmentViewThreadBinding::bind)
 
     private lateinit var adapter: ThreadAdapter
-    private lateinit var thisThreadsStatusId: String
+    private val thisThreadsStatusId by lazy { requireArguments().getString(ARG_ID)!! }
 
     override var pachliAccountId by Delegates.notNull<Long>()
 
@@ -89,11 +96,14 @@ class ViewThreadFragment :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         pachliAccountId = requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID)
-        thisThreadsStatusId = requireArguments().getString(ARG_ID)!!
 
-        lifecycleScope.launch {
-            adapter = ThreadAdapter(viewModel.statusDisplayOptions.value, this@ViewThreadFragment)
+        val setStatusContent = if (viewModel.statusDisplayOptions.value.renderMarkdown) {
+            SetMarkdownContent(requireContext())
+        } else {
+            SetMastodonHtmlContent
         }
+
+        adapter = ThreadAdapter(Glide.with(this), viewModel.statusDisplayOptions.value, this, setStatusContent, openUrl)
     }
 
     override fun onCreateView(
@@ -118,6 +128,7 @@ class ViewThreadFragment :
                 pachliAccountId,
                 binding.recyclerView,
                 this,
+                openUrl,
             ) { index -> adapter.currentList.getOrNull(index) },
         )
         binding.recyclerView.addItemDecoration(
@@ -130,98 +141,114 @@ class ViewThreadFragment :
         (binding.recyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.uiState.collect { uiState ->
-                when (uiState) {
-                    is ThreadUiState.Loading -> {
-                        revealButtonState = RevealButtonState.NO_BUTTON
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                launch { viewModel.uiResult.collect(::bindUiResult) }
 
-                        binding.recyclerView.hide()
-                        binding.statusView.hide()
-
-                        binding.initialProgressBar.show()
-                    }
-                    is ThreadUiState.LoadingThread -> {
-                        if (uiState.statusViewDatum == null) {
-                            // no detailed statuses available, e.g. because author is blocked
-                            activity?.finish()
-                            return@collect
-                        }
-
-                        binding.initialProgressBar.hide()
-                        binding.threadProgressBar.show()
-
-                        if (viewModel.isInitialLoad) {
-                            adapter.submitList(listOf(uiState.statusViewDatum))
-
-                            // else this "submit one and then all on success below" will always center on the one
-                        }
-
-                        revealButtonState = uiState.revealButton
-                        binding.swipeRefreshLayout.isRefreshing = false
-
-                        binding.recyclerView.show()
-                        binding.statusView.hide()
-                    }
-                    is ThreadUiState.Error -> {
-                        Timber.w(uiState.throwable, "failed to load status")
-                        binding.initialProgressBar.hide()
-                        binding.threadProgressBar.hide()
-
-                        revealButtonState = RevealButtonState.NO_BUTTON
-                        binding.swipeRefreshLayout.isRefreshing = false
-
-                        binding.recyclerView.hide()
-                        binding.statusView.show()
-
-                        binding.statusView.setup(uiState.throwable) { viewModel.retry(thisThreadsStatusId) }
-                    }
-                    is ThreadUiState.Success -> {
-                        if (uiState.statusViewData.none { viewData -> viewData.isDetailed }) {
-                            // no detailed statuses available, e.g. because author is blocked
-                            activity?.finish()
-                            return@collect
-                        }
-
-                        binding.threadProgressBar.hide()
-
-                        adapter.submitList(uiState.statusViewData) {
-                            if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED) && viewModel.isInitialLoad) {
-                                viewModel.isInitialLoad = false
-
-                                // Ensure the top of the status is visible
-                                (binding.recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(
-                                    uiState.detailedStatusPosition,
-                                    0,
-                                )
-                            }
-                        }
-
-                        revealButtonState = uiState.revealButton
-                        binding.swipeRefreshLayout.isRefreshing = false
-
-                        binding.recyclerView.show()
-                        binding.statusView.hide()
-                    }
-                    is ThreadUiState.Refreshing -> {
-                        binding.threadProgressBar.hide()
-                    }
-                }
-            }
-        }
-
-        lifecycleScope.launch {
-            viewModel.errors.collect { throwable ->
-                Timber.w(throwable, "failed to load status context")
-                val msg = throwable.getErrorString(view.context)
-                Snackbar.make(binding.root, msg, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(app.pachli.core.ui.R.string.action_retry) {
-                        viewModel.retry(thisThreadsStatusId)
-                    }
-                    .show()
+                launch { viewModel.errors.collectLatest(::bindError) }
             }
         }
 
         viewModel.loadThread(thisThreadsStatusId)
+    }
+
+    private fun bindUiResult(uiState: Result<ThreadUiState, ThreadError>) {
+        uiState.onFailure { error ->
+            binding.initialProgressBar.hide()
+            binding.threadProgressBar.hide()
+
+            revealButtonState = RevealButtonState.NO_BUTTON
+            binding.swipeRefreshLayout.isRefreshing = false
+
+            binding.recyclerView.hide()
+            binding.statusView.show()
+
+            binding.statusView.setup(error) { viewModel.retry(thisThreadsStatusId) }
+        }
+
+        uiState.onSuccess { uiState ->
+            when (uiState) {
+                is ThreadUiState.Loading -> {
+                    revealButtonState = RevealButtonState.NO_BUTTON
+
+                    binding.recyclerView.hide()
+                    binding.statusView.hide()
+
+                    binding.initialProgressBar.show()
+                }
+
+                is ThreadUiState.LoadingThread -> {
+                    if (uiState.statusViewDatum == null) {
+                        // no detailed statuses available, e.g. because author is blocked
+                        activity?.finish()
+                        return
+                    }
+
+                    binding.initialProgressBar.hide()
+                    binding.threadProgressBar.show()
+
+                    if (viewModel.isInitialLoad) {
+                        adapter.submitList(listOf(uiState.statusViewDatum))
+
+                        // else this "submit one and then all on success below" will always center on the one
+                    }
+
+                    revealButtonState = uiState.revealButton
+                    binding.swipeRefreshLayout.isRefreshing = false
+
+                    binding.recyclerView.show()
+                    binding.statusView.hide()
+                }
+
+                is ThreadUiState.Loaded -> {
+                    if (uiState.statusViewData.none { viewData -> viewData.isDetailed }) {
+                        // no detailed statuses available, e.g. because author is blocked
+                        activity?.finish()
+                        return
+                    }
+
+                    binding.threadProgressBar.hide()
+
+                    adapter.submitList(uiState.statusViewData) {
+                        if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED) && viewModel.isInitialLoad) {
+                            viewModel.isInitialLoad = false
+
+                            // Ensure the top of the status is visible
+                            (binding.recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(
+                                uiState.detailedStatusPosition,
+                                0,
+                            )
+                        }
+                    }
+
+                    revealButtonState = uiState.revealButton
+                    binding.swipeRefreshLayout.isRefreshing = false
+
+                    binding.recyclerView.show()
+                    binding.statusView.hide()
+                }
+
+                is ThreadUiState.Refreshing -> {
+                    binding.threadProgressBar.hide()
+                }
+            }
+        }
+    }
+
+    private fun bindError(error: PachliError) {
+        try {
+            val context = view?.context ?: return
+            val msg = error.fmt(context)
+            Snackbar.make(binding.root, msg, Snackbar.LENGTH_INDEFINITE)
+                .setAction(app.pachli.core.ui.R.string.action_retry) {
+                    viewModel.retry(thisThreadsStatusId)
+                }
+                .show()
+        } catch (_: IllegalArgumentException) {
+            // On rare occasions this code is running before the fragment's
+            // view is connected to the parent. This causes Snackbar.make()
+            // to crash.  See https://issuetracker.google.com/issues/228215869.
+            // For now, swallow the exception.
+        }
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -243,7 +270,7 @@ class ViewThreadFragment :
                 true
             }
             R.id.action_open_in_web -> {
-                context?.openLink(requireArguments().getString(ARG_URL)!!)
+                openUrl(requireArguments().getString(ARG_URL)!!)
                 true
             }
             R.id.action_refresh -> {
@@ -294,12 +321,18 @@ class ViewThreadFragment :
     }
 
     override fun onViewMedia(viewData: StatusViewData, attachmentIndex: Int, view: View?) {
-        super.viewMedia(
-            viewData.username,
-            attachmentIndex,
-            list(viewData.actionable, viewModel.statusDisplayOptions.value.showSensitiveMedia),
-            view,
-        )
+        // Pass the translated media descriptions through (if appropriate)
+        val actionable = if (viewData.translationState == TranslationState.SHOW_TRANSLATION) {
+            viewData.actionable.copy(
+                attachments = viewData.translation?.attachments?.zip(viewData.actionable.attachments) { t, a ->
+                    a.copy(description = t.description)
+                } ?: viewData.actionable.attachments,
+            )
+        } else {
+            viewData.actionable
+        }
+
+        super.viewMedia(actionable.account.username, attachmentIndex, AttachmentViewData.list(actionable), view)
     }
 
     override fun onViewThread(status: Status) {
@@ -316,7 +349,7 @@ class ViewThreadFragment :
             // already viewing the status with this url
             // probably just a preview federated and the user is clicking again to view more -> open the browser
             // this can happen with some friendica statuses
-            requireContext().openLink(url)
+            openUrl(url)
             return
         }
         super.onViewUrl(url)
@@ -327,7 +360,7 @@ class ViewThreadFragment :
     }
 
     override fun onEditFilterById(pachliAccountId: Long, filterId: String) {
-        requireActivity().startActivityWithTransition(
+        startActivityWithTransition(
             EditContentFilterActivityIntent.edit(requireContext(), pachliAccountId, filterId),
             TransitionKind.SLIDE_FROM_END,
         )
@@ -343,12 +376,12 @@ class ViewThreadFragment :
 
     override fun onShowReblogs(statusId: String) {
         val intent = AccountListActivityIntent(requireContext(), pachliAccountId, AccountListActivityIntent.Kind.REBLOGGED, statusId)
-        activity?.startActivityWithDefaultTransition(intent)
+        startActivityWithDefaultTransition(intent)
     }
 
     override fun onShowFavs(statusId: String) {
         val intent = AccountListActivityIntent(requireContext(), pachliAccountId, AccountListActivityIntent.Kind.FAVOURITED, statusId)
-        activity?.startActivityWithDefaultTransition(intent)
+        startActivityWithDefaultTransition(intent)
     }
 
     override fun onContentCollapsedChange(viewData: StatusViewData, isCollapsed: Boolean) {

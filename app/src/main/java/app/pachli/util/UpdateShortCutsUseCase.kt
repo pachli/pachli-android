@@ -17,17 +17,17 @@
 package app.pachli.util
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.text.TextUtils
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.app.Person
 import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.content.pm.ShortcutManagerCompat
+import androidx.core.graphics.createBitmap
 import androidx.core.graphics.drawable.IconCompat
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.R as DR
-import app.pachli.core.navigation.MainActivityIntent
+import app.pachli.core.navigation.IntentRouterActivityIntent
 import com.bumptech.glide.Glide
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.util.concurrent.ExecutionException
@@ -42,7 +42,7 @@ class UpdateShortCutsUseCase @Inject constructor(
      * Updates shortcuts to reflect [accounts].
      *
      * The first [N][ShortcutManagerCompat.getMaxShortcutCountPerActivity] accounts
-     * are converted to shortcuts which launch [app.pachli.MainActivity]. The
+     * are converted to shortcuts which launch [app.pachli.feature.intentrouter.IntentRouterActivity]. The
      * active account is always included.
      */
     suspend operator fun invoke(accounts: List<AccountEntity>) = withContext(Dispatchers.IO) {
@@ -74,7 +74,7 @@ class UpdateShortCutsUseCase @Inject constructor(
                 } ?: return@mapNotNull null
 
                 // inset the loaded bitmap inside a 108dp transparent canvas so it looks good as adaptive icon
-                val outBmp = Bitmap.createBitmap(outerSize, outerSize, Bitmap.Config.ARGB_8888)
+                val outBmp = createBitmap(outerSize, outerSize)
 
                 val canvas = Canvas(outBmp)
                 val border = (outerSize - innerSize) / 2
@@ -90,8 +90,7 @@ class UpdateShortCutsUseCase @Inject constructor(
                     .build()
 
                 // This intent will be sent when the user clicks on one of the launcher shortcuts.
-                // Intent from share sheet will be different
-                val intent = MainActivityIntent.fromShortcut(context, account.id)
+                val intent = IntentRouterActivityIntent.fromShortcut(context, account.id)
 
                 ShortcutInfoCompat.Builder(context, account.id.toString())
                     .setIntent(intent)

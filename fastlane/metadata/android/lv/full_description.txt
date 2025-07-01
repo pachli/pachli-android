@@ -1,0 +1,11 @@
+Pachli ir pilnīgs Mastodon un līdzīgu serveru klients.
+
+• Ierakstu lasīšana, atbildēšana uz tiem, atlasīšana, iesūtīšana, pievienošana izlasē un pastiprināšana
+• Ierakstu tulkošana no citām valodām
+• Laika josla tiek kešota ierīcē, tāpēc to var lasīt arī bezsaistē
+• Ierakstu saglabāšana melnrakstos, lai tos vēlāk pabeigtu
+• Ierakstu rakstīšana ar iespēju tos nosūtīt vēlāk
+• Lasīšana un ierakstu iesūtīšana no vairākiem kontiem
+• Vairāki izskati
+• Ir vērsta uzmanība uz to, lai nodrošinātu, ka visas iespējas ir pieejamas cilvēkiem ar piekļūstamības vajadzībām
+• Atvērtā pirmkoda, https://github.com/pachli

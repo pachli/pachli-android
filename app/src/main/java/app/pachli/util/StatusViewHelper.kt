@@ -17,33 +17,36 @@
 package app.pachli.util
 
 import android.content.Context
-import android.graphics.drawable.ColorDrawable
 import android.text.InputFilter
 import android.text.TextUtils
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.graphics.drawable.toDrawable
 import app.pachli.R
-import app.pachli.core.activity.decodeBlurHash
-import app.pachli.core.activity.emojify
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.common.util.SmartLengthInputFilter
 import app.pachli.core.data.model.StatusDisplayOptions
-import app.pachli.core.network.model.Attachment
-import app.pachli.core.network.model.Emoji
-import app.pachli.core.network.model.Status
+import app.pachli.core.model.Attachment
+import app.pachli.core.model.Emoji
+import app.pachli.core.model.Status
+import app.pachli.core.ui.decodeBlurHash
+import app.pachli.core.ui.emojify
 import app.pachli.view.MediaPreviewImageView
 import app.pachli.viewdata.PollViewData
 import app.pachli.viewdata.buildDescription
 import app.pachli.viewdata.calculatePercent
-import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
 import com.google.android.material.color.MaterialColors
 import java.text.NumberFormat
 import kotlin.math.min
 
-class StatusViewHelper(private val itemView: View) {
+class StatusViewHelper(
+    private val glide: RequestManager,
+    private val itemView: View,
+) {
     private val absoluteTimeFormatter = AbsoluteTimeFormatter()
 
     interface MediaPreviewListener {
@@ -92,7 +95,7 @@ class StatusViewHelper(private val itemView: View) {
             return
         }
 
-        val mediaPreviewUnloaded = ColorDrawable(MaterialColors.getColor(itemView, android.R.attr.colorBackground))
+        val mediaPreviewUnloaded = MaterialColors.getColor(itemView, android.R.attr.colorBackground).toDrawable()
 
         val n = min(attachments.size, Status.MAX_MEDIA_ATTACHMENTS)
 
@@ -110,8 +113,7 @@ class StatusViewHelper(private val itemView: View) {
             mediaPreviews[i].visibility = View.VISIBLE
 
             if (TextUtils.isEmpty(previewUrl)) {
-                Glide.with(mediaPreviews[i])
-                    .load(mediaPreviewUnloaded)
+                glide.load(mediaPreviewUnloaded)
                     .centerInside()
                     .into(mediaPreviews[i])
             } else {
@@ -124,8 +126,7 @@ class StatusViewHelper(private val itemView: View) {
                     if (focus != null) { // If there is a focal point for this attachment:
                         mediaPreviews[i].setFocalPoint(focus)
 
-                        Glide.with(mediaPreviews[i])
-                            .load(previewUrl)
+                        glide.load(previewUrl)
                             .placeholder(placeholder)
                             .centerInside()
                             .addListener(mediaPreviews[i])
@@ -133,8 +134,7 @@ class StatusViewHelper(private val itemView: View) {
                     } else {
                         mediaPreviews[i].removeFocalPoint()
 
-                        Glide.with(mediaPreviews[i])
-                            .load(previewUrl)
+                        glide.load(previewUrl)
                             .placeholder(placeholder)
                             .centerInside()
                             .into(mediaPreviews[i])
@@ -143,8 +143,10 @@ class StatusViewHelper(private val itemView: View) {
                     mediaPreviews[i].removeFocalPoint()
                     if (statusDisplayOptions.useBlurhash && attachment.blurhash != null) {
                         val blurhashBitmap = decodeBlurHash(context, attachment.blurhash!!)
+                        glide.clear(mediaPreviews[i])
                         mediaPreviews[i].setImageDrawable(blurhashBitmap)
                     } else {
+                        glide.clear(mediaPreviews[i])
                         mediaPreviews[i].setImageDrawable(mediaPreviewUnloaded)
                     }
                 }
@@ -327,7 +329,7 @@ class StatusViewHelper(private val itemView: View) {
                 val percent = calculatePercent(options[i].votesCount, poll.votersCount, poll.votesCount)
 
                 val pollOptionText = buildDescription(options[i].title, percent, options[i].voted, pollResults[i].context)
-                pollResults[i].text = pollOptionText.emojify(emojis, pollResults[i], animateEmojis)
+                pollResults[i].text = pollOptionText.emojify(glide, emojis, pollResults[i], animateEmojis)
                 pollResults[i].visibility = View.VISIBLE
 
                 val level = percent * 100

@@ -28,4 +28,8 @@
     <string name="pref_title_tab_contents">Innhold av hovednavigasjonsfaner</string>
     <string name="pref_tab_contents_icon_text_inline">Ikon med tekst like ved</string>
     <string name="pref_tab_contents_icon_text_below">Ikon med tekst nedenfor</string>
+    <string name="pref_title_render_markdown">Vis opptegnet Markdown-tekst</string>
+    <string name="pref_update_notification_frequency_never">Aldri</string>
+    <string name="pref_update_notification_frequency_once_per_version">Én gang om versjon</string>
+    <string name="pref_update_notification_frequency_always">Alltid</string>
 </resources>

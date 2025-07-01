@@ -17,168 +17,144 @@
 
 package app.pachli.core.database.model
 
+import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
-import app.pachli.core.network.model.Attachment
-import app.pachli.core.network.model.Conversation
-import app.pachli.core.network.model.Emoji
-import app.pachli.core.network.model.HashTag
-import app.pachli.core.network.model.Poll
-import app.pachli.core.network.model.Status
-import app.pachli.core.network.model.TimelineAccount
-import com.squareup.moshi.JsonClass
-import java.time.Instant
-import java.util.Date
+import app.pachli.core.model.AccountFilterDecision
+import app.pachli.core.model.Conversation
+import app.pachli.core.model.ConversationAccount
+import app.pachli.core.model.FilterAction
+import app.pachli.core.model.TimelineAccount
 
+/**
+ * Data to show a conversation.
+ *
+ * The result of joining [ConversationEntity] with the last status and
+ * any other necessary data.
+ */
+@TypeConverters(Converters::class)
+data class ConversationData(
+    val pachliAccountId: Long,
+    val id: String,
+    val accounts: List<ConversationAccount>,
+    val unread: Boolean,
+    @Embedded(prefix = "s_")
+    val lastStatus: TimelineStatusWithAccount,
+    val isConversationStarter: Boolean,
+    @Embedded(prefix = "cvd_") val viewData: ConversationViewDataEntity?,
+)
+
+/**
+ * View data for a conversation, distinct from the viewdata for any
+ * statuses in the conversation.
+ */
 @Entity(
-    primaryKeys = ["id", "accountId"],
+    primaryKeys = ["pachliAccountId", "serverId"],
+    foreignKeys = (
+        [
+            ForeignKey(
+                entity = AccountEntity::class,
+                parentColumns = ["id"],
+                childColumns = ["pachliAccountId"],
+                onDelete = ForeignKey.CASCADE,
+                deferred = true,
+            ),
+        ]
+        ),
+)
+@TypeConverters(Converters::class)
+data class ConversationViewDataEntity(
+    val pachliAccountId: Long,
+    val serverId: String,
+    val contentFilterAction: FilterAction? = null,
+    val accountFilterDecision: AccountFilterDecision? = null,
+)
+
+/**
+ * Partial entity to update [ConversationViewDataEntity.contentFilterAction].
+ */
+data class ConversationContentFilterActionUpdate(
+    val pachliAccountId: Long,
+    val serverId: String,
+    val contentFilterAction: FilterAction,
+)
+
+/**
+ * Partial entity to update [ConversationViewDataEntity.accountFilterDecision].
+ */
+data class ConversationAccountFilterDecisionUpdate(
+    val pachliAccountId: Long,
+    val serverId: String,
+    val accountFilterDecision: AccountFilterDecision?,
+)
+
+/**
+ * Represents a [Conversation].
+ *
+ * @param pachliAccountId
+ * @param id Conversation ID.
+ * @param accounts List of [ConversationAccount] in the conversation.
+ * @param unread True if the conversation is currently marked unread.
+ * @param lastStatusServerId Server ID of the most recent status in the conversation.
+ * @param isConversationStarter True if the status in [lastStatusServerId] is part
+ * of the chain of statuses that started the conversation.
+ */
+@Entity(
+    primaryKeys = ["id", "pachliAccountId"],
     foreignKeys = [
         ForeignKey(
             entity = AccountEntity::class,
-            parentColumns = arrayOf("id"),
-            childColumns = arrayOf("accountId"),
+            parentColumns = ["id"],
+            childColumns = ["pachliAccountId"],
             onDelete = ForeignKey.CASCADE,
             deferred = true,
         ),
     ],
-    indices = [Index(value = ["accountId"])],
+    indices = [Index(value = ["pachliAccountId"])],
 )
 @TypeConverters(Converters::class)
 data class ConversationEntity(
-    val accountId: Long,
+    val pachliAccountId: Long,
     val id: String,
-    val order: Int,
-    val accounts: List<ConversationAccountEntity>,
+    val accounts: List<ConversationAccount>,
     val unread: Boolean,
-    @Embedded(prefix = "s_") val lastStatus: ConversationStatusEntity,
+    @ColumnInfo(defaultValue = "")
+    val lastStatusServerId: String,
+    @ColumnInfo(defaultValue = "1")
+    val isConversationStarter: Boolean,
 ) {
     companion object {
         fun from(
             conversation: Conversation,
-            /** Pachli account ID (timelineUserId in other entities) */
-            accountId: Long,
-            order: Int,
-            expanded: Boolean,
-            contentShowing: Boolean,
-            contentCollapsed: Boolean,
-        ) = ConversationEntity(
-            accountId = accountId,
-            id = conversation.id,
-            order = order,
-            accounts = conversation.accounts.map { ConversationAccountEntity.from(it) },
-            unread = conversation.unread,
-            lastStatus = ConversationStatusEntity.from(
-                conversation.lastStatus!!,
-                expanded = expanded,
-                contentShowing = contentShowing,
-                contentCollapsed = contentCollapsed,
-            ),
-        )
+            pachliAccountId: Long,
+            isInitial: Boolean,
+        ): ConversationEntity? {
+            return conversation.lastStatus?.let {
+                ConversationEntity(
+                    pachliAccountId = pachliAccountId,
+                    id = conversation.id,
+                    accounts = conversation.accounts.asConversationAccount(),
+                    unread = conversation.unread,
+                    lastStatusServerId = it.id,
+                    isConversationStarter = isInitial,
+                )
+            }
+        }
     }
 }
 
-// TODO: Not an entity, should remove the suffix.
-@JsonClass(generateAdapter = true)
-data class ConversationAccountEntity(
-    val id: String,
-    val localUsername: String,
-    val username: String,
-    val displayName: String,
-    val avatar: String,
-    val emojis: List<Emoji>,
-    val createdAt: Instant?,
-) {
-    fun toAccount(): TimelineAccount {
-        return TimelineAccount(
-            id = id,
-            localUsername = localUsername,
-            username = username,
-            displayName = displayName,
-            note = "",
-            url = "",
-            avatar = avatar,
-            emojis = emojis,
-            createdAt = createdAt,
-        )
-    }
+fun TimelineAccount.asConversationAccount() = ConversationAccount(
+    id = id,
+    localUsername = localUsername,
+    username = username,
+    displayName = name,
+    avatar = avatar,
+    emojis = emojis.orEmpty(),
+    createdAt = createdAt,
+)
 
-    companion object {
-        fun from(timelineAccount: TimelineAccount) = ConversationAccountEntity(
-            id = timelineAccount.id,
-            localUsername = timelineAccount.localUsername,
-            username = timelineAccount.username,
-            displayName = timelineAccount.name,
-            avatar = timelineAccount.avatar,
-            emojis = timelineAccount.emojis.orEmpty(),
-            createdAt = timelineAccount.createdAt,
-        )
-    }
-}
-
-// TODO: Not an entity, should remove the "Entity" suffix.
-@TypeConverters(Converters::class)
-data class ConversationStatusEntity(
-    val id: String,
-    val url: String?,
-    val inReplyToId: String?,
-    val inReplyToAccountId: String?,
-    val account: ConversationAccountEntity,
-    val content: String,
-    val createdAt: Date,
-    val editedAt: Date?,
-    val emojis: List<Emoji>,
-    val favouritesCount: Int,
-    val repliesCount: Int,
-    val favourited: Boolean,
-    val bookmarked: Boolean,
-    val sensitive: Boolean,
-    val spoilerText: String,
-    val attachments: List<Attachment>,
-    val mentions: List<Status.Mention>,
-    val tags: List<HashTag>?,
-    val showingHiddenContent: Boolean,
-    val expanded: Boolean,
-    val collapsed: Boolean,
-    val muted: Boolean,
-    val poll: Poll?,
-    val language: String?,
-) {
-
-    companion object {
-        fun from(
-            status: Status,
-            expanded: Boolean,
-            contentShowing: Boolean,
-            contentCollapsed: Boolean,
-        ) = ConversationStatusEntity(
-            id = status.id,
-            url = status.url,
-            inReplyToId = status.inReplyToId,
-            inReplyToAccountId = status.inReplyToAccountId,
-            account = ConversationAccountEntity.from(status.account),
-            content = status.content,
-            createdAt = status.createdAt,
-            editedAt = status.editedAt,
-            emojis = status.emojis,
-            favouritesCount = status.favouritesCount,
-            repliesCount = status.repliesCount,
-            favourited = status.favourited,
-            bookmarked = status.bookmarked,
-            sensitive = status.sensitive,
-            spoilerText = status.spoilerText,
-            attachments = status.attachments,
-            mentions = status.mentions,
-            tags = status.tags,
-            showingHiddenContent = contentShowing,
-            expanded = expanded,
-            collapsed = contentCollapsed,
-            muted = status.muted ?: false,
-            poll = status.poll,
-            language = status.language,
-        )
-    }
-}
+fun Iterable<TimelineAccount>.asConversationAccount() = map { it.asConversationAccount() }

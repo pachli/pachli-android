@@ -13,4 +13,8 @@
     <string name="title_links_dialog">링크</string>
     <string name="title_hashtags_dialog">해시태그</string>
     <string name="title_mentions_dialog">멘션</string>
+    <string name="button_continue">다음</string>
+    <string name="action_logout_confirm">정말로 %1$s에서 로그아웃하시겠습니까?</string>
+    <string name="add_account_name">계정 추가</string>
+    <string name="action_logout">로그아웃</string>
 </resources>

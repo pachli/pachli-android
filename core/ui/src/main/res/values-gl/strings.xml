@@ -15,4 +15,16 @@
     <string name="title_links_dialog">Ligazóns</string>
     <string name="title_hashtags_dialog">Cancelos</string>
     <string name="title_mentions_dialog">Mencións</string>
+    <string name="button_continue">Continuar</string>
+    <string name="pref_notification_method_push">Push</string>
+    <string name="pref_notification_method_pull">Pull</string>
+    <string name="pref_notification_fetch_method_title">Método de notificación</string>
+    <string name="pref_notification_fetch_ok_timestamp_fmt">✔ hai %1$s @ %2$s</string>
+    <string name="pref_notification_fetch_err_timestamp_fmt">✖ hai %1$s @ %2$s</string>
+    <string name="pref_notification_fetch_server_rejected">%1$s rexeitou o rexistro push</string>
+    <string name="pref_notification_fetch_needs_push">A conta non ten o método «push». Pechar a sesión e volver acceder podería arranxalo.</string>
+    <string name="action_logout_confirm">Tes a certeza de querer pechar a sesión %1$s? Isto eliminará todos os datos locais da conta, incluíndo borradores e preferencias.</string>
+    <string name="add_account_name">Engadir conta</string>
+    <string name="notification_details_last_fetch_label">Última solicitude /api/v1/notifications</string>
+    <string name="action_logout">Pechar sesión</string>
 </resources>

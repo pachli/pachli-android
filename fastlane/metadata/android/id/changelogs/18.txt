@@ -1,0 +1,18 @@
+Pachli 2.7.0
+
+Fitur-fitur baru:
+
+-  UI operator pencarian baru
+- Memperingatkan jika bahasa postingan salah
+- Menampilkan garis bawah penulis
+- Mengedit filter pencocokan dari timeline
+- Menampilkan tagar pelengkapan otomatis dengan jumlah penggunaan
+
+Perbaikan:
+
+-  Memastikan nama tag yang sedang tren terlihat
+- Mengaktifkan pemfilteran server di GoToSocial 0.16+
+- Jangan tampilkan keyboard setelah hasil pencarian
+- Mengoreksi penghitungan panjang postingan
+- Mengoreksi tanda baca deskripsi konten
+- Memperbarui terjemahan bahasa Mandarin, Finlandia, Irlandia, Spanyol, Norwegia

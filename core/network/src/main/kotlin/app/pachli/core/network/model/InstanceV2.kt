@@ -17,7 +17,19 @@
 
 package app.pachli.core.network.model
 
-import app.pachli.core.common.extensions.MiB
+import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_CHARACTERS_RESERVED_PER_URL
+import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_CHARACTER_LIMIT
+import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_IMAGE_MATRIX_LIMIT
+import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_IMAGE_SIZE_LIMIT
+import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_MAX_MEDIA_ATTACHMENTS
+import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_MAX_MEDIA_DESCRIPTION_CHARS
+import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_MAX_OPTION_COUNT
+import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_MAX_OPTION_LENGTH
+import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_MAX_POLL_DURATION
+import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_MIN_POLL_DURATION
+import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_VIDEO_FRAME_RATE_LIMIT
+import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_VIDEO_MATRIX_LIMIX
+import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_VIDEO_SIZE_LIMIT
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -149,15 +161,15 @@ data class InstanceV2Accounts(
 @JsonClass(generateAdapter = true)
 data class InstanceV2Statuses(
     /** The maximum number of allowed characters per status. */
-    @Json(name = "max_characters") val maxCharacters: Int = 500,
+    @Json(name = "max_characters") val maxCharacters: Int = DEFAULT_CHARACTER_LIMIT,
 
     // Missing in some Friendica servers until https://github.com/friendica/friendica/pull/13664
     /** The maximum number of media attachments that can be added to a status. */
-    @Json(name = "max_media_attachments") val maxMediaAttachments: Int = 4,
+    @Json(name = "max_media_attachments") val maxMediaAttachments: Int = DEFAULT_MAX_MEDIA_ATTACHMENTS,
 
     // Missing in some Pleroma servers, https://git.pleroma.social/pleroma/pleroma/-/issues/3250
     /** Each URL in a status will be assumed to be exactly this many characters. */
-    @Json(name = "characters_reserved_per_url") val charactersReservedPerUrl: Int = 23,
+    @Json(name = "characters_reserved_per_url") val charactersReservedPerUrl: Int = DEFAULT_CHARACTERS_RESERVED_PER_URL,
 )
 
 @JsonClass(generateAdapter = true)
@@ -166,35 +178,38 @@ data class MediaAttachments(
     @Json(name = "supported_mime_types") val supportedMimeTypes: List<String> = emptyList(),
 
     /** The maximum size of any uploaded image, in bytes. */
-    @Json(name = "image_size_limit") val imageSizeLimit: Long = 10L.MiB,
+    @Json(name = "image_size_limit") val imageSizeLimit: Long = DEFAULT_IMAGE_SIZE_LIMIT,
 
     /** The maximum number of pixels (width x height) for image uploads. */
-    @Json(name = "image_matrix_limit") val imageMatrixLimit: Int = 4096 * 4096,
+    @Json(name = "image_matrix_limit") val imageMatrixLimit: Int = DEFAULT_IMAGE_MATRIX_LIMIT,
 
     /** The maximum size of any uploaded video, in bytes. */
-    @Json(name = "video_size_limit") val videoSizeLimit: Long = 40L.MiB,
+    @Json(name = "video_size_limit") val videoSizeLimit: Long = DEFAULT_VIDEO_SIZE_LIMIT,
 
     /** The maximum frame rate for any uploaded video. */
-    @Json(name = "video_frame_rate_limit") val videoFrameRateLimit: Int = 30,
+    @Json(name = "video_frame_rate_limit") val videoFrameRateLimit: Int = DEFAULT_VIDEO_FRAME_RATE_LIMIT,
 
     /** The maximum number of pixels (width times height) for video uploads. */
-    @Json(name = "video_matrix_limit") val videoMatrixLimit: Int = 4096 * 4096,
+    @Json(name = "video_matrix_limit") val videoMatrixLimit: Int = DEFAULT_VIDEO_MATRIX_LIMIX,
+
+    /** Maximum number of characters in a media description. */
+    @Json(name = "description_limit") val descriptionLimit: Int = DEFAULT_MAX_MEDIA_DESCRIPTION_CHARS,
 )
 
 @JsonClass(generateAdapter = true)
 data class InstanceV2Polls(
     // Some Pleroma servers omit this
     /** Each poll is allowed to have up to this many options. */
-    @Json(name = "max_options") val maxOptions: Int = 4,
+    @Json(name = "max_options") val maxOptions: Int = DEFAULT_MAX_OPTION_COUNT,
 
     /** Each poll option is allowed to have this many characters. */
-    @Json(name = "max_characters_per_option") val maxCharactersPerOption: Int = 50,
+    @Json(name = "max_characters_per_option") val maxCharactersPerOption: Int = DEFAULT_MAX_OPTION_LENGTH,
 
     /** The shortest allowed poll duration, in seconds. */
-    @Json(name = "min_expiration") val minExpiration: Int = 300,
+    @Json(name = "min_expiration") val minExpiration: Int = DEFAULT_MIN_POLL_DURATION,
 
     /** The longest allowed poll duration, in seconds. */
-    @Json(name = "max_expiration") val maxExpiration: Long = 604800,
+    @Json(name = "max_expiration") val maxExpiration: Long = DEFAULT_MAX_POLL_DURATION,
 )
 
 @JsonClass(generateAdapter = true)

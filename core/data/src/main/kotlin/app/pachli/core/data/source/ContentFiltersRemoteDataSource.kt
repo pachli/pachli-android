@@ -18,7 +18,6 @@
 package app.pachli.core.data.source
 
 import app.pachli.core.data.model.Server
-import app.pachli.core.data.model.from
 import app.pachli.core.data.repository.ContentFilterEdit
 import app.pachli.core.data.repository.ContentFilters
 import app.pachli.core.data.repository.ContentFiltersError
@@ -34,6 +33,7 @@ import app.pachli.core.model.ContentFilterVersion
 import app.pachli.core.model.NewContentFilter
 import app.pachli.core.network.model.FilterAction
 import app.pachli.core.network.model.FilterContext
+import app.pachli.core.network.model.asModel
 import app.pachli.core.network.retrofit.MastodonApi
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
@@ -51,13 +51,13 @@ class ContentFiltersRemoteDataSource @Inject constructor(
     suspend fun getContentFilters(pachliAccountId: Long, server: Server) = when {
         server.canFilterV2() -> mastodonApi.getContentFilters().map {
             ContentFilters(
-                contentFilters = it.body.map { ContentFilter.from(it) },
+                contentFilters = it.body.asModel(),
                 version = ContentFilterVersion.V2,
             )
         }
         server.canFilterV1() -> mastodonApi.getContentFiltersV1().map {
             ContentFilters(
-                contentFilters = it.body.map { ContentFilter.from(it) },
+                contentFilters = it.body.map { it.asModel() },
                 version = ContentFilterVersion.V1,
             )
         }
@@ -78,7 +78,7 @@ class ContentFiltersRemoteDataSource @Inject constructor(
 
         when {
             server.canFilterV2() -> {
-                mastodonApi.createFilter(filter).map { ContentFilter.from(it.body) }
+                mastodonApi.createFilter(filter).map { it.body.asModel() }
             }
 
             server.canFilterV1() -> {
@@ -92,7 +92,7 @@ class ContentFiltersRemoteDataSource @Inject constructor(
                         wholeWord = it.wholeWord,
                         expiresInSeconds = expiresInSeconds,
                     )
-                }.map { ContentFilter.from(it.last().body) }
+                }.map { it.last().body.asModel() }
             }
 
             else -> Err(ServerDoesNotFilter)
@@ -169,7 +169,7 @@ class ContentFiltersRemoteDataSource @Inject constructor(
                     .andThen {
                         mastodonApi.getFilter(originalContentFilter.id)
                     }
-                    .map { ContentFilter.from(it.body) }
+                    .map { it.body.asModel() }
             }
             server.canFilterV1() -> {
                 val networkContexts = contentFilterEdit.contexts?.map {
@@ -186,7 +186,7 @@ class ContentFiltersRemoteDataSource @Inject constructor(
                     contexts = networkContexts,
                     irreversible = false,
                     expiresInSeconds = expiresInSeconds,
-                ).map { ContentFilter.from(it.body) }
+                ).map { it.body.asModel() }
             }
             else -> {
                 Err(ServerDoesNotFilter)

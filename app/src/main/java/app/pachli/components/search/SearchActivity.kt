@@ -18,7 +18,6 @@ package app.pachli.components.search
 
 import android.annotation.SuppressLint
 import android.app.SearchManager
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -68,7 +67,7 @@ import app.pachli.components.search.SearchOperatorViewData.IsSensitiveOperatorVi
 import app.pachli.components.search.SearchOperatorViewData.LanguageOperatorViewData
 import app.pachli.components.search.SearchOperatorViewData.WhereOperatorViewData
 import app.pachli.components.search.adapter.SearchPagerAdapter
-import app.pachli.core.activity.BottomSheetActivity
+import app.pachli.core.activity.ViewUrlActivity
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.toggleVisibility
@@ -121,7 +120,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SearchActivity :
-    BottomSheetActivity(),
+    ViewUrlActivity(),
     MenuProvider,
     SearchView.OnQueryTextListener,
     ComposeAutoCompleteAdapter.AutocompletionProvider {
@@ -537,6 +536,7 @@ class SearchActivity :
 
                 dialogBinding.account.setAdapter(
                     ComposeAutoCompleteAdapter(
+                        glide,
                         this@SearchActivity,
                         animateAvatar = false,
                         animateEmojis = false,
@@ -976,7 +976,7 @@ class SearchActivity :
         menu.findItem(R.id.action_filter_search)?.apply {
             isVisible = showFilterIcon
         }
-        return super<BottomSheetActivity>.onPrepareMenu(menu)
+        return super<ViewUrlActivity>.onPrepareMenu(menu)
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
@@ -1011,7 +1011,7 @@ class SearchActivity :
 
     private fun bindSearchView() {
         searchView.setIconifiedByDefault(false)
-        searchView.setSearchableInfo((getSystemService(Context.SEARCH_SERVICE) as? SearchManager)?.getSearchableInfo(componentName))
+        searchView.setSearchableInfo((getSystemService(SEARCH_SERVICE) as? SearchManager)?.getSearchableInfo(componentName))
 
         setSearchViewWidth(showFilterIcon)
 

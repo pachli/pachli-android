@@ -39,7 +39,6 @@
     <string name="about_account_info">\@%s@%s
 \nLeagan: %s</string>
     <string name="about_nivenly_foundation">Is tionscadal <a href="https://nivenly.org">Fondúireacht Nivenly</a> é Pachli.</string>
-    <string name="action_refresh">Athnuaigh</string>
     <string name="about_copied">Leagan cóipeáilte agus faisnéis gléas</string>
     <string name="notification_log_filter_content_description">Scag logs de réir clib</string>
     <string name="notification_details_title">Sonraí</string>
@@ -57,7 +56,6 @@
     <string name="notification_details_workers_help">Is é seo an liosta oibrithe a fhaigheann fógraí nua. Ba chóir go mbeadh ceann amháin ann, ba chóir go mbeadh an stát RUNNING or ENQUEUED, agus ba chóir go mbeadh sé sceidealta a rith i níos lú ná 15 nóiméad ó anois.</string>
     <string name="notification_details_standby_bucket_restricted">Srianta. Uair sa lá</string>
     <string name="notification_log_filter">Scagaire</string>
-    <string name="notification_details_last_fetch_label">Iarratas deiridh /api/v1/fógraí</string>
     <string name="notification_details_last_fetch_help">Beag beann ar an modh fógartha, taispeánann sé seo, in aghaidh an chuntais, cathain a tharla an ghabháil dheireanach, cé acu ar éirigh leis, agus an teachtaireacht earráide mura raibh.</string>
     <string name="notification_details_usage_event_label">Is féidir le Android teorainn a chur le cad is féidir le haipeanna a dhéanamh sa chúlra. Is é an liosta seo ná mar a cuireadh srian le Pachli le trí lá anuas, is nua ar dtús.</string>
     <string name="notification_details_standby_bucket_active">Gníomhach. Poist chúlra gan srian</string>

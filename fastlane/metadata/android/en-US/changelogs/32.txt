@@ -1,0 +1,17 @@
+Pachli 2.14.0
+
+New features:
+
+- Restore the user's position in lists
+- Speed up account switch if the user has no account filters
+- Provide an "Account Management" UI
+
+Fixes:
+
+- Delete cached notifications when deleting server notifications
+- Don't crash when receiving severed relationship notifications
+- Don't crash when cancelling image loads
+
+Translations:
+
+- Chinese, Estonian, Finnish, Indonesian, Irish, Italian, Latvian, Norwegian Nynorsk, Polish, Russian, Slovak, Tamil

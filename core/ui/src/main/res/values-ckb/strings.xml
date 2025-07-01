@@ -13,4 +13,8 @@
     <string name="title_links_dialog">بەستەرەکان</string>
     <string name="title_hashtags_dialog">هاشتاگی</string>
     <string name="title_mentions_dialog">ئاماژەکان</string>
+    <string name="button_continue">بەردەوام بە</string>
+    <string name="action_logout_confirm">ئایا دڵنیایت لەوەی دەتەوێت بچیتەدەرەوە لە هەژماری %1$s؟</string>
+    <string name="add_account_name">زیادکردنی ئەژمێر</string>
+    <string name="action_logout">چوونەدەرەوە</string>
 </resources>

@@ -1,0 +1,20 @@
+Pachli 2.11.0
+
+Nowości:
+
+- Wsparcie dla tłumaczenia w całej aplikacji
+- Filtry treści domyślnie dotyczą wszystkich kontekstów 
+- Eksperymentalne wsparcie Markdown
+
+Poprawki:
+
+- Zatrzymanie zawieszania się interfejsu raportowania
+- Ustawienie opisu przycisku "Wyślij"
+- Zapobieganie różnym awariom
+- Tworzenie filtrów z właściwym typem zawartości
+- Poprawie filtrowanie w wątkach i wiadomościach prywatnych
+- Wsparcie edycji podpisów przesłanych obrazków
+
+Tłumaczenia:
+
+- Na fiński, indonezyjski, irlandzki, łotewski, norwerski nynorsk, polski, słowacki, hiszpański

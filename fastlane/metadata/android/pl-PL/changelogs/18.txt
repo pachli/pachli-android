@@ -1,0 +1,18 @@
+Pachli 2.7.0
+
+Nowości:
+
+- Nowe UI wyszukiwania
+- Ostrzeganie przed niewłaściwym językiem wpisu
+- Pokazywanie podpisów osób autorskich
+- Edycja pasującego filtru z osi czasu
+- Pokazywanie uzupełnianych hasztagów z ilością użyć
+
+Poprawki:
+
+- Widoczność nazwy popularnego tagu
+- Włączone filtry na serwerach GoToSocial 0.16+
+- Nie pokazuj klawiatury po wynikach wyszukiwania
+- Poprawne obliczanie długości wpisu
+- Poprawna interpunkcja opisu treści
+- Aktualizacje tłumaczeń na chiński, fiński, irlandzki, hiszpański i norweski

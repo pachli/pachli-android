@@ -1,0 +1,15 @@
+Pachli 2.3.0
+
+Fitur Baru:
+
+- Tampilkan media yg tidak dikupas di halaman media akun 
+- Izinkan pengguna untuk cek pembaruan 
+- Tampilkan pratinjau untuk lampiran audio yg dapat dimainkan 
+- Tampilkan informasi pemberitahuan pengambilan
+
+Perbaikan:
+
+- Simpan layar saat media sedang diputar 
+- Meningkatkan keterbacaan label statistik
+- Tampilkan akun/garis waktu yg benar saat menyusun dari pemberitahuan 
+- Perbarui terjemahan bahasa Arab, Belanda, Finlandia, Prancis, Indonesia, Spanyol, dan Swedia

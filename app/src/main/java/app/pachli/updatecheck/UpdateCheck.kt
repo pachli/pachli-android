@@ -20,7 +20,6 @@ package app.pachli.updatecheck
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.edit
 import androidx.preference.Preference
 import app.pachli.BuildConfig
 import app.pachli.R
@@ -28,6 +27,7 @@ import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
+import app.pachli.core.preferences.UpdateNotificationFrequency
 import app.pachli.core.ui.extensions.await
 import app.pachli.updatecheck.UpdateCheckResult.AT_LATEST
 import app.pachli.updatecheck.UpdateCheckResult.DIALOG_SHOWN
@@ -40,31 +40,6 @@ import javax.inject.Singleton
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.toJavaDuration
 import timber.log.Timber
-
-enum class UpdateNotificationFrequency {
-    /** Never prompt the user to update */
-    NEVER,
-
-    /** Prompt the user to update once per version */
-    ONCE_PER_VERSION,
-
-    /** Always prompt the user to update */
-    ALWAYS,
-
-    ;
-
-    companion object {
-        fun from(s: String?): UpdateNotificationFrequency {
-            s ?: return ALWAYS
-
-            return try {
-                valueOf(s.uppercase())
-            } catch (_: IllegalArgumentException) {
-                ALWAYS
-            }
-        }
-    }
-}
 
 enum class UpdateCheckResult {
     /** Skipped update check because user configured frequency is "never" */
@@ -113,36 +88,28 @@ abstract class UpdateCheckBase(
      * @return The result of performing the update check
      */
     suspend fun checkForUpdate(context: Context, force: Boolean = false): UpdateCheckResult {
-        val frequency = UpdateNotificationFrequency.from(
-            sharedPreferencesRepository.getString(PrefKeys.UPDATE_NOTIFICATION_FREQUENCY, null),
-        )
+        val frequency = sharedPreferencesRepository.updateNotificationFrequency
 
         if (!force && frequency == UpdateNotificationFrequency.NEVER) return SKIPPED_BECAUSE_NEVER
 
         val now = System.currentTimeMillis()
 
         if (!force) {
-            val lastCheck = sharedPreferencesRepository.getLong(
-                PrefKeys.UPDATE_NOTIFICATION_LAST_NOTIFICATION_MS,
-                0,
-            )
+            val lastCheck = sharedPreferencesRepository.updateNotificationLastNotificationMs
 
             if (now - lastCheck < MINIMUM_DURATION_BETWEEN_CHECKS.inWholeMilliseconds) {
                 return SKIPPED_BECAUSE_TOO_SOON
             }
         }
 
-        sharedPreferencesRepository.edit {
-            putLong(PrefKeys.UPDATE_NOTIFICATION_LAST_NOTIFICATION_MS, now)
-        }
+        sharedPreferencesRepository.updateNotificationLastNotificationMs = now
 
         val latestVersionCode = remoteFetchLatestVersionCode() ?: BuildConfig.VERSION_CODE
 
         if (latestVersionCode <= BuildConfig.VERSION_CODE) return AT_LATEST
 
         if (frequency == UpdateNotificationFrequency.ONCE_PER_VERSION) {
-            val ignoredVersion =
-                sharedPreferencesRepository.getInt(PrefKeys.UPDATE_NOTIFICATION_VERSIONCODE, -1)
+            val ignoredVersion = sharedPreferencesRepository.updateNotificationVersionCode
             if (latestVersionCode == ignoredVersion && !force) {
                 Timber.d("Ignoring update to %d", latestVersionCode)
                 return IGNORED
@@ -156,20 +123,11 @@ abstract class UpdateCheckBase(
             }
 
             AlertDialog.BUTTON_NEUTRAL -> {
-                with(sharedPreferencesRepository.edit()) {
-                    putInt(PrefKeys.UPDATE_NOTIFICATION_VERSIONCODE, latestVersionCode)
-                    apply()
-                }
+                sharedPreferencesRepository.updateNotificationVersionCode = latestVersionCode
             }
 
             AlertDialog.BUTTON_NEGATIVE -> {
-                with(sharedPreferencesRepository.edit()) {
-                    putString(
-                        PrefKeys.UPDATE_NOTIFICATION_FREQUENCY,
-                        app.pachli.updatecheck.UpdateNotificationFrequency.NEVER.name,
-                    )
-                    apply()
-                }
+                sharedPreferencesRepository.updateNotificationFrequency = UpdateNotificationFrequency.NEVER
             }
         }
 
@@ -189,9 +147,7 @@ abstract class UpdateCheckBase(
         )
 
     override fun provideSummary(preference: Preference): CharSequence? {
-        val frequency = UpdateNotificationFrequency.from(
-            sharedPreferencesRepository.getString(PrefKeys.UPDATE_NOTIFICATION_FREQUENCY, null),
-        )
+        val frequency = sharedPreferencesRepository.updateNotificationFrequency
 
         if (frequency == UpdateNotificationFrequency.NEVER) return null
 

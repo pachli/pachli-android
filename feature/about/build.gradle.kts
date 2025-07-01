@@ -15,12 +15,12 @@
  * see <http://www.gnu.org/licenses>.
  */
 
+import com.android.build.gradle.internal.tasks.factory.dependsOn
+
 plugins {
     alias(libs.plugins.pachli.android.library)
     alias(libs.plugins.pachli.android.hilt)
     alias(libs.plugins.aboutlibraries)
-
-    id("app.pachli.plugins.markdown2resource")
 }
 
 android {
@@ -37,30 +37,41 @@ aboutLibraries {
     includePlatform = false
     duplicationMode = com.mikepenz.aboutlibraries.plugin.DuplicateMode.MERGE
     prettyPrint = true
-    // The "generated" field contains a timestamp, which breaks reproducible builds.
-    excludeFields = arrayOf("generated")
 }
 
-markdown2resource {
-    files.add(layout.projectDirectory.file("../../PRIVACY.md"))
-}
+val privacyPolicySpec = copySpec { from("../../PRIVACY.md") }
+
+val copyPrivacyPolicy =
+    tasks.register<Copy>("copyPrivacyPolicy") {
+        into("src/main/assets")
+        with(privacyPolicySpec)
+    }
+
+afterEvaluate { tasks.named("preBuild").dependsOn(copyPrivacyPolicy) }
+
+tasks.clean { delete("src/main/assets/PRIVACY.md") }
 
 dependencies {
     implementation(projects.core.activity)
     implementation(projects.core.common)
     implementation(projects.core.data)
     implementation(projects.core.designsystem)
+    implementation(projects.core.domain)
+    implementation(projects.core.model)
     implementation(projects.core.navigation)
     implementation(projects.core.ui)
 
     // TODO: These three dependencies are required by BottomSheetActivity,
     // make this part of the projects.core.activity API?
     implementation(projects.core.network)
-    implementation(projects.core.preferences)
     implementation(libs.bundles.androidx)
 
     implementation(libs.bundles.aboutlibraries)
 
     // For FixedSizeDrawable
     implementation(libs.glide.core)
+
+    // Markdown support for the privacy policy
+    implementation(libs.markwon)
+    implementation(libs.markwon.tables)
 }

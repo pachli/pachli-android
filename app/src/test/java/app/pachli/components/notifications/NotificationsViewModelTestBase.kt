@@ -23,11 +23,13 @@ import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.AccountPreferenceDataStore
 import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
+import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.data.repository.notifications.NotificationsRepository
 import app.pachli.core.database.dao.AccountDao
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.network.di.test.DEFAULT_INSTANCE_V2
-import app.pachli.core.network.model.Account
+import app.pachli.core.network.model.AccountSource
+import app.pachli.core.network.model.CredentialAccount
 import app.pachli.core.network.model.nodeinfo.UnvalidatedJrd
 import app.pachli.core.network.model.nodeinfo.UnvalidatedNodeInfo
 import app.pachli.core.network.retrofit.MastodonApi
@@ -45,7 +47,6 @@ import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import java.time.Instant
-import java.util.Date
 import javax.inject.Inject
 import kotlin.properties.Delegates
 import kotlinx.coroutines.test.TestScope
@@ -95,6 +96,9 @@ abstract class NotificationsViewModelTestBase {
     lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
 
     @Inject
+    lateinit var statusRepository: StatusRepository
+
+    @Inject
     lateinit var accountDao: AccountDao
 
     protected val notificationsRepository: NotificationsRepository = mock()
@@ -105,16 +109,17 @@ abstract class NotificationsViewModelTestBase {
 
     private lateinit var accountPreferenceDataStore: AccountPreferenceDataStore
 
-    private val account = Account(
+    private val account = CredentialAccount(
         id = "1",
         localUsername = "username",
         username = "username@domain.example",
         displayName = "Display Name",
-        createdAt = Date.from(Instant.now()),
+        createdAt = Instant.now(),
         note = "",
         url = "",
         avatar = "",
         header = "",
+        source = AccountSource(),
     )
 
     protected var pachliAccountId by Delegates.notNull<Long>()
@@ -181,6 +186,7 @@ abstract class NotificationsViewModelTestBase {
             eventHub,
             statusDisplayOptionsRepository,
             sharedPreferencesRepository,
+            statusRepository,
             pachliAccountId,
         )
     }

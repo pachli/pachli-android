@@ -46,10 +46,10 @@ import app.pachli.BuildConfig
 import app.pachli.R
 import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.components.timeline.viewmodel.CachedTimelineViewModel
+import app.pachli.components.timeline.viewmodel.FallibleStatusAction
+import app.pachli.components.timeline.viewmodel.InfallibleStatusAction
 import app.pachli.components.timeline.viewmodel.InfallibleUiAction
 import app.pachli.components.timeline.viewmodel.NetworkTimelineViewModel
-import app.pachli.components.timeline.viewmodel.StatusAction
-import app.pachli.components.timeline.viewmodel.StatusActionSuccess
 import app.pachli.components.timeline.viewmodel.TimelineViewModel
 import app.pachli.components.timeline.viewmodel.UiError
 import app.pachli.components.timeline.viewmodel.UiSuccess
@@ -61,17 +61,20 @@ import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.model.TranslationState
+import app.pachli.core.model.Poll
+import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.EditContentFilterActivityIntent
-import app.pachli.core.network.model.Poll
-import app.pachli.core.network.model.Status
 import app.pachli.core.preferences.TabTapBehaviour
 import app.pachli.core.ui.ActionButtonScrollListener
 import app.pachli.core.ui.BackgroundMessage
+import app.pachli.core.ui.SetMarkdownContent
+import app.pachli.core.ui.SetMastodonHtmlContent
 import app.pachli.databinding.FragmentTimelineBinding
 import app.pachli.fragment.SFragment
 import app.pachli.interfaces.ActionButtonActivity
@@ -79,6 +82,7 @@ import app.pachli.interfaces.AppBarLayoutHost
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.ListStatusAccessibilityDelegate
 import at.connyduck.sparkbutton.helpers.Utils
+import com.bumptech.glide.Glide
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
@@ -90,14 +94,14 @@ import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.properties.Delegates
 import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.distinctUntilChangedBy
-import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.take
@@ -143,7 +147,7 @@ class TimelineFragment :
 
     private val binding by viewBinding(FragmentTimelineBinding::bind)
 
-    private lateinit var timeline: Timeline
+    private val timeline: Timeline by unsafeLazy { requireArguments().getParcelable(ARG_KIND)!! }
 
     private lateinit var adapter: TimelinePagingAdapter
 
@@ -157,9 +161,9 @@ class TimelineFragment :
     // the snackbar when the fragment is paused.
     private var snackbar: Snackbar? = null
 
-    private var isSwipeToRefreshEnabled = true
+    private val isSwipeToRefreshEnabled by unsafeLazy { requireArguments().getBoolean(ARG_ENABLE_SWIPE_TO_REFRESH, true) }
 
-    override var pachliAccountId by Delegates.notNull<Long>()
+    override val pachliAccountId by unsafeLazy { requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID) }
 
     /**
      * Collect this flow to notify the adapter that the timestamps of the visible items have
@@ -177,15 +181,7 @@ class TimelineFragment :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val arguments = requireArguments()
-
-        pachliAccountId = arguments.getLong(ARG_PACHLI_ACCOUNT_ID)
-
-        timeline = arguments.getParcelable(ARG_KIND)!!
-
-        isSwipeToRefreshEnabled = arguments.getBoolean(ARG_ENABLE_SWIPE_TO_REFRESH, true)
-
-        adapter = TimelinePagingAdapter(this, viewModel.statusDisplayOptions.value)
+        viewModel.accept(InfallibleUiAction.LoadPachliAccount(pachliAccountId))
     }
 
     override fun onCreateView(
@@ -199,6 +195,14 @@ class TimelineFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
+        val setStatusContent = if (viewModel.statusDisplayOptions.value.renderMarkdown) {
+            SetMarkdownContent(requireContext())
+        } else {
+            SetMastodonHtmlContent
+        }
+
+        adapter = TimelinePagingAdapter(Glide.with(this), setStatusContent, this, viewModel.statusDisplayOptions.value)
 
         layoutManager = LinearLayoutManager(context)
 
@@ -223,20 +227,38 @@ class TimelineFragment :
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
-                    // Wait for the very first page load, then scroll recyclerview
-                    // to the refresh key.
-                    (viewModel as? CachedTimelineViewModel)?.let { vm ->
-                        vm.initialRefreshKey.combine(adapter.onPagesUpdatedFlow) { key, _ -> key }
-                            .take(1)
-                            .filterNotNull()
-                            .collect { key ->
-                                val snapshot = adapter.snapshot()
-                                val index = snapshot.items.indexOfFirst { it.id == key }
-                                binding.recyclerView.scrollToPosition(
-                                    snapshot.placeholdersBefore + index,
-                                )
+                    // Wait for the initial refresh key and the first page load. If
+                    // the initial refresh key is null then schedule a jump to the top
+                    // after all pages have been loaded. Otherwise restore the user's
+                    // reading position after the first page load so any remaining page
+                    // loads keep it in focus.
+                    viewModel.initialRefreshStatusId.combine(adapter.onPagesUpdatedFlow.conflate()) { statusId, _ -> statusId }
+                        .filter { adapter.snapshot().isNotEmpty() }
+                        .take(1)
+                        .collect { statusId ->
+                            // User's reading position is either not restored, or it is and it was
+                            // explicitly nulled. Jump to the top of the timeline when all
+                            // prepends have finished.
+                            if (statusId == null) {
+                                adapter.postPrepend {
+                                    binding.recyclerView.post {
+                                        getView() ?: return@post
+                                        binding.recyclerView.scrollToPosition(0)
+                                    }
+                                }
+                                return@collect
                             }
-                    }
+
+                            // Restore the user's reading position now.
+                            val snapshot = adapter.snapshot()
+                            val index = snapshot.items.indexOfFirst { it.id == statusId }
+                            val position = snapshot.placeholdersBefore + index
+                            Timber.d("Restoring last position, statusId: $statusId, index: $index, position: $position")
+                            binding.recyclerView.post {
+                                getView() ?: return@post
+                                binding.recyclerView.scrollToPosition(position)
+                            }
+                        }
                 }
 
                 launch { viewModel.statuses.collectLatest { adapter.submitData(it) } }
@@ -308,7 +330,7 @@ class TimelineFragment :
             // that the action succeeded. Since it hasn't, re-bind the view
             // to show the correct data.
             uiError.action?.let { action ->
-                if (action !is StatusAction) return@let
+                if (action !is FallibleStatusAction) return@let
 
                 adapter.snapshot()
                     .indexOfFirst { it?.id == action.statusViewData.id }
@@ -318,39 +340,6 @@ class TimelineFragment :
         }
 
         uiResult.onSuccess {
-            // Update adapter data when status actions are successful, and re-bind to update
-            // the UI.
-            // TODO: No - this should be handled by the ViewModel updating the data
-            // and invalidating the paging source
-            if (it is StatusActionSuccess) {
-                val indexedViewData = adapter.snapshot()
-                    .withIndex()
-                    .firstOrNull { indexed ->
-                        indexed.value?.id == it.action.statusViewData.id
-                    } ?: return
-
-                val statusViewData = indexedViewData.value ?: return
-
-                val status = when (it) {
-                    is StatusActionSuccess.Bookmark ->
-                        statusViewData.status.copy(bookmarked = it.action.state)
-
-                    is StatusActionSuccess.Favourite ->
-                        statusViewData.status.copy(favourited = it.action.state)
-
-                    is StatusActionSuccess.Reblog ->
-                        statusViewData.status.copy(reblogged = it.action.state)
-
-                    is StatusActionSuccess.VoteInPoll ->
-                        statusViewData.status.copy(
-                            poll = it.action.poll.votedCopy(it.action.choices),
-                        )
-
-                    is StatusActionSuccess.Translate -> statusViewData.status
-                }
-                (indexedViewData.value as StatusViewData).status = status
-            }
-
             // Refresh adapter on mutes and blocks
             when (it) {
                 is UiSuccess.Block, is UiSuccess.Mute, is UiSuccess.MuteConversation,
@@ -449,7 +438,7 @@ class TimelineFragment :
             }
             R.id.action_load_newest -> {
                 Timber.d("Reload because user chose load newest menu item")
-                viewModel.accept(InfallibleUiAction.LoadNewest)
+                viewModel.accept(InfallibleUiAction.LoadNewest(pachliAccountId))
                 true
             }
             else -> false
@@ -496,7 +485,7 @@ class TimelineFragment :
 
     private fun setupRecyclerView() {
         binding.recyclerView.setAccessibilityDelegateCompat(
-            ListStatusAccessibilityDelegate(pachliAccountId, binding.recyclerView, this) { pos ->
+            ListStatusAccessibilityDelegate(pachliAccountId, binding.recyclerView, this, openUrl) { pos ->
                 if (pos in 0 until adapter.itemCount) {
                     adapter.peek(pos)
                 } else {
@@ -562,19 +551,19 @@ class TimelineFragment :
     }
 
     override fun onReblog(viewData: StatusViewData, reblog: Boolean) {
-        viewModel.accept(StatusAction.Reblog(reblog, viewData))
+        viewModel.accept(FallibleStatusAction.Reblog(reblog, viewData))
     }
 
     override fun onFavourite(viewData: StatusViewData, favourite: Boolean) {
-        viewModel.accept(StatusAction.Favourite(favourite, viewData))
+        viewModel.accept(FallibleStatusAction.Favourite(favourite, viewData))
     }
 
     override fun onBookmark(viewData: StatusViewData, bookmark: Boolean) {
-        viewModel.accept(StatusAction.Bookmark(bookmark, viewData))
+        viewModel.accept(FallibleStatusAction.Bookmark(bookmark, viewData))
     }
 
     override fun onVoteInPoll(viewData: StatusViewData, poll: Poll, choices: List<Int>) {
-        viewModel.accept(StatusAction.VoteInPoll(poll, choices, viewData))
+        viewModel.accept(FallibleStatusAction.VoteInPoll(poll, choices, viewData))
     }
 
     override fun clearContentFilter(viewData: StatusViewData) {
@@ -582,7 +571,7 @@ class TimelineFragment :
     }
 
     override fun onEditFilterById(pachliAccountId: Long, filterId: String) {
-        requireActivity().startActivityWithTransition(
+        startActivityWithTransition(
             EditContentFilterActivityIntent.edit(requireContext(), pachliAccountId, filterId),
             TransitionKind.SLIDE_FROM_END,
         )
@@ -597,36 +586,35 @@ class TimelineFragment :
     }
 
     override fun onExpandedChange(viewData: StatusViewData, expanded: Boolean) {
-        viewModel.changeExpanded(expanded, viewData)
+        viewModel.onChangeExpanded(expanded, viewData)
     }
 
     override fun onContentHiddenChange(viewData: StatusViewData, isShowingContent: Boolean) {
-        viewModel.changeContentShowing(isShowingContent, viewData)
+        viewModel.onChangeContentShowing(isShowingContent, viewData)
     }
 
     override fun onShowReblogs(statusId: String) {
         val intent = AccountListActivityIntent(requireContext(), pachliAccountId, AccountListActivityIntent.Kind.REBLOGGED, statusId)
-        activity?.startActivityWithDefaultTransition(intent)
+        startActivityWithDefaultTransition(intent)
     }
 
     override fun onShowFavs(statusId: String) {
         val intent = AccountListActivityIntent(requireContext(), pachliAccountId, AccountListActivityIntent.Kind.FAVOURITED, statusId)
-        activity?.startActivityWithDefaultTransition(intent)
+        startActivityWithDefaultTransition(intent)
     }
 
     override fun onContentCollapsedChange(viewData: StatusViewData, isCollapsed: Boolean) {
-        viewModel.changeContentCollapsed(isCollapsed, viewData)
+        viewModel.onContentCollapsed(isCollapsed, viewData)
     }
 
-    // Can only translate the home timeline at the moment
-    override fun canTranslate() = timeline == Timeline.Home
+    override fun canTranslate() = true
 
     override fun onTranslate(statusViewData: StatusViewData) {
-        viewModel.accept(StatusAction.Translate(statusViewData))
+        viewModel.accept(FallibleStatusAction.Translate(statusViewData))
     }
 
     override fun onTranslateUndo(statusViewData: StatusViewData) {
-        viewModel.accept(InfallibleUiAction.TranslateUndo(statusViewData))
+        viewModel.accept(InfallibleStatusAction.TranslateUndo(statusViewData))
     }
 
     override fun onViewMedia(viewData: StatusViewData, attachmentIndex: Int, view: View?) {
@@ -649,23 +637,15 @@ class TimelineFragment :
     }
 
     override fun onViewTag(tag: String) {
-        val timelineKind = viewModel.timeline
-
         // If already viewing a tag page, then ignore any request to view that tag again.
-        if ((timelineKind as? Timeline.Hashtags)?.tags?.contains(tag) == true) {
-            return
-        }
+        if ((timeline as? Timeline.Hashtags)?.tags?.contains(tag) == true) return
 
         super.viewTag(tag)
     }
 
     override fun onViewAccount(id: String) {
-        val timelineKind = viewModel.timeline
-
         // Ignore request to view the account page we're currently viewing
-        if (timelineKind is Timeline.User && timelineKind.id == id) {
-            return
-        }
+        (timeline as? Timeline.User)?.let { if (it.id == id) return }
 
         super.viewAccount(id)
     }
@@ -741,7 +721,7 @@ class TimelineFragment :
                     saveVisibleId()
                 }
 
-                TabTapBehaviour.JUMP_TO_NEWEST -> viewModel.accept(InfallibleUiAction.LoadNewest)
+                TabTapBehaviour.JUMP_TO_NEWEST -> viewModel.accept(InfallibleUiAction.LoadNewest(pachliAccountId))
             }
         }
     }

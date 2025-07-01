@@ -28,8 +28,8 @@ import app.pachli.core.database.Converters
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.PachliAccount
 import app.pachli.core.model.FilterAction
+import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
-import app.pachli.core.network.model.Status
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -309,6 +309,17 @@ WHERE id = :accountId
         """
 UPDATE AccountEntity
 SET
+    notificationsMentioned = :value
+WHERE id = :accountId
+""",
+    )
+    fun setNotificationsMentioned(accountId: Long, value: Boolean)
+
+    // TODO: Should be suspend
+    @Query(
+        """
+UPDATE AccountEntity
+SET
     notificationsFollowed = :value
 WHERE id = :accountId
 """,
@@ -408,6 +419,17 @@ WHERE id = :accountId
         """
 UPDATE AccountEntity
 SET
+    notificationsSeveredRelationships = :value
+WHERE id = :accountId
+""",
+    )
+    fun setNotificationsSeveredRelationships(accountId: Long, value: Boolean)
+
+    // TODO: Should be suspend
+    @Query(
+        """
+UPDATE AccountEntity
+SET
     notificationSound = :value
 WHERE id = :accountId
 """,
@@ -465,4 +487,34 @@ WHERE id = :accountId
 """,
     )
     suspend fun setNotificationAccountFilterLimitedByServer(accountId: Long, value: FilterAction)
+
+    @Query(
+        """
+UPDATE AccountEntity
+SET
+    conversationAccountFilterNotFollowed = :value
+WHERE id = :accountId
+""",
+    )
+    suspend fun setConversationAccountFilterNotFollowed(accountId: Long, value: FilterAction)
+
+    @Query(
+        """
+UPDATE AccountEntity
+SET
+    conversationAccountFilterYounger30d = :value
+WHERE id = :accountId
+""",
+    )
+    suspend fun setConversationAccountFilterYounger30d(accountId: Long, value: FilterAction)
+
+    @Query(
+        """
+UPDATE AccountEntity
+SET
+    conversationAccountFilterLimitedByServer = :value
+WHERE id = :accountId
+""",
+    )
+    suspend fun setConversationAccountFilterLimitedByServer(accountId: Long, value: FilterAction)
 }

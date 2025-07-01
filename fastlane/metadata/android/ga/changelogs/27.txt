@@ -1,0 +1,20 @@
+Pachli 2.10.0
+
+Gnéithe nua:
+
+- Cuir cló Atkinson Hyperlegible Next leis
+- Ábhar comhrá agus scagairí cuntais
+- Taispeáin an postáil atá á fhreagairt
+
+Ceartúcháin:
+
+- Deisigh dúblach "Athnuaigh" roghchlár
+- Aibhsigh clibeanna
+- Cosc a chur ar thuairteanna éagsúla
+- Bain "dummy.placeholder" ó earráidí
+- Sórtáil liostaí
+- Deisigh tuairteála le UI
+
+Aistriúcháin:
+
+- Burmais, Gearmáinis, Indinéisis, Gaeilge, Kabyle, Liotuáinis, Ioruais Nynorsk, Polainnis, Slóvaicis, Spáinnis, Sualainnis, Tamailis

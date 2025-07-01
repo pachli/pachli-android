@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dialog_whats_an_instance">Sisesta siia oma koduserveri aadress, selleks võib olla mastodon.social, icosahedron.website, social.tchncs.de või <a href="https://instances.social">mõni neist!</a> \n\nKoduserver haldab sinu andmeid, kuid suhelda saad kõikide teiste serverite kasutajatega nii nagu nad oleksid sinu serveris. Sama käib ka jälgimise kohta.\n\nLisateavet leiad: <a href="https://joinmastodon.org">joinmastodon.org</a>.</string>
+    <string name="action_close">Sulge</string>
+    <string name="action_browser_login">Logi sisse veebibrauserist</string>
+    <string name="error_invalid_domain">Sisestasid vigase domeeni</string>
+    <string name="error_failed_app_registration_fmt">Autentimine selles serveris ei õnnestunud: %1$s</string>
+</resources>

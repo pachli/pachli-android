@@ -37,16 +37,20 @@ import app.pachli.components.report.ReportViewModel
 import app.pachli.components.report.Screen
 import app.pachli.components.report.adapter.AdapterHandler
 import app.pachli.components.report.adapter.StatusesAdapter
+import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.model.Attachment
+import app.pachli.core.model.Status
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.navigation.ViewMediaActivityIntent
-import app.pachli.core.network.model.Attachment
-import app.pachli.core.network.model.Status
+import app.pachli.core.ui.SetMarkdownContent
+import app.pachli.core.ui.SetMastodonHtmlContent
 import app.pachli.databinding.FragmentReportStatusesBinding
+import com.bumptech.glide.Glide
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
@@ -60,6 +64,10 @@ import kotlin.properties.Delegates
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+/**
+ * Show a list of statuses from the account the user is reporting. Allow
+ * the user to choose one or more of these to include in the report.
+ */
 @AndroidEntryPoint
 class ReportStatusesFragment :
     Fragment(R.layout.fragment_report_statuses),
@@ -83,6 +91,20 @@ class ReportStatusesFragment :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         pachliAccountId = requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID)
+
+        val setStatusContent = if (viewModel.statusDisplayOptions.value.renderMarkdown) {
+            SetMarkdownContent(requireContext())
+        } else {
+            SetMastodonHtmlContent
+        }
+
+        adapter = StatusesAdapter(
+            Glide.with(this),
+            setStatusContent,
+            viewModel.statusDisplayOptions.value,
+            viewModel.statusViewState,
+            this@ReportStatusesFragment,
+        )
     }
 
     override fun showMedia(v: View?, status: Status?, idx: Int) {
@@ -101,9 +123,9 @@ class ReportStatusesFragment :
                         val url = actionable.attachments[idx].url
                         ViewCompat.setTransitionName(v, url)
                         val options = ActivityOptionsCompat.makeSceneTransitionAnimation(requireActivity(), v, url)
-                        startActivity(intent, options.toBundle())
+                        startActivityWithDefaultTransition(intent, options.toBundle())
                     } else {
-                        startActivity(intent)
+                        startActivityWithDefaultTransition(intent)
                     }
                 }
                 Attachment.Type.UNKNOWN -> {
@@ -152,15 +174,7 @@ class ReportStatusesFragment :
     }
 
     private fun initStatusesView() {
-        lifecycleScope.launch {
-            val statusDisplayOptions = viewModel.statusDisplayOptions.value
-
-            adapter = StatusesAdapter(
-                statusDisplayOptions,
-                viewModel.statusViewState,
-                this@ReportStatusesFragment,
-            )
-
+        viewLifecycleOwner.lifecycleScope.launch {
             binding.recyclerView.addItemDecoration(
                 MaterialDividerItemDecoration(
                     requireContext(),
@@ -207,7 +221,7 @@ class ReportStatusesFragment :
 
     private fun handleClicks() {
         binding.buttonCancel.setOnClickListener {
-            viewModel.navigateTo(Screen.Back)
+            viewModel.navigateBack()
         }
 
         binding.buttonContinue.setOnClickListener {
@@ -223,11 +237,11 @@ class ReportStatusesFragment :
         return viewModel.isStatusChecked(id)
     }
 
-    override fun onViewAccount(id: String) = startActivity(
+    override fun onViewAccount(id: String) = startActivityWithDefaultTransition(
         AccountActivityIntent(requireContext(), pachliAccountId, id),
     )
 
-    override fun onViewTag(tag: String) = startActivity(
+    override fun onViewTag(tag: String) = startActivityWithDefaultTransition(
         TimelineActivityIntent.hashtag(requireContext(), pachliAccountId, tag),
     )
 

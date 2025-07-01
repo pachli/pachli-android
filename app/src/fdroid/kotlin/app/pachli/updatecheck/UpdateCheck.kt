@@ -18,7 +18,7 @@
 package app.pachli.updatecheck
 
 import android.content.Intent
-import android.net.Uri
+import androidx.core.net.toUri
 import app.pachli.BuildConfig
 import app.pachli.core.preferences.SharedPreferencesRepository
 import com.github.michaelbull.result.get
@@ -31,7 +31,7 @@ class UpdateCheck @Inject constructor(
     private val fdroidService: FdroidService,
 ) : UpdateCheckBase(sharedPreferencesRepository) {
     override val updateIntent = Intent(Intent.ACTION_VIEW).apply {
-        data = Uri.parse("market://details?id=${BuildConfig.APPLICATION_ID}")
+        data = "market://details?id=${BuildConfig.APPLICATION_ID}".toUri()
     }
 
     override suspend fun remoteFetchLatestVersionCode(): Int? {

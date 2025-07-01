@@ -43,21 +43,21 @@ import androidx.work.WorkRequest
 import app.pachli.BuildConfig
 import app.pachli.MainActivity
 import app.pachli.R
-import app.pachli.core.activity.NotificationConfig
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.NotificationData
 import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.domain.notifications.NotificationConfig
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.AccountFilterReason
 import app.pachli.core.model.FilterAction
+import app.pachli.core.model.Notification
+import app.pachli.core.model.RelationshipSeveranceEvent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InReplyTo
-import app.pachli.core.navigation.MainActivityIntent
-import app.pachli.core.network.model.Notification
-import app.pachli.core.network.model.RelationshipSeveranceEvent
+import app.pachli.core.navigation.IntentRouterActivityIntent
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.receiver.SendStatusBroadcastReceiver
 import app.pachli.viewdata.buildDescription
@@ -299,9 +299,9 @@ fun updateSummaryNotifications(
 
         // All notifications in this group have the same type, so get it from the first.
         val notificationType = members[0].notification.extras.getEnum<Notification.Type>(EXTRA_NOTIFICATION_TYPE)
-        val summaryResultIntent = MainActivityIntent.fromNotification(
+        val summaryResultIntent = IntentRouterActivityIntent.fromNotification(
             context,
-            accountId.toLong(),
+            account.id,
             -1,
             null,
             type = notificationType,
@@ -346,7 +346,7 @@ fun updateSummaryNotifications(
         // See https://github.com/tuskyapp/Tusky/pull/3626#discussion_r1192963664
         try {
             Thread.sleep(1000)
-        } catch (ignored: InterruptedException) {
+        } catch (_: InterruptedException) {
         }
     }
 }
@@ -357,7 +357,7 @@ private fun newAndroidNotification(
     body: Notification,
     account: AccountEntity,
 ): NotificationCompat.Builder {
-    val eventResultIntent = MainActivityIntent.fromNotification(
+    val eventResultIntent = IntentRouterActivityIntent.fromNotification(
         context,
         account.id,
         notificationId,
@@ -391,7 +391,11 @@ private fun getStatusReplyIntent(
 ): PendingIntent {
     val status = body.status!!
     val inReplyToId = status.id
-    val (_, _, account1, _, _, _, _, _, _, _, _, _, _, _, _, _, _, contentWarning, replyVisibility, _, mentions) = status.actionableStatus
+    val account1 = status.actionableStatus.account
+    val contentWarning = status.actionableStatus.spoilerText
+    val replyVisibility = status.actionableStatus.visibility
+    val mentions = status.actionableStatus.mentions
+
     var mentionedUsernames: MutableList<String?> = ArrayList()
     mentionedUsernames.add(account1.username)
     for ((_, _, username) in mentions) {
@@ -426,7 +430,12 @@ private fun getStatusComposeIntent(
     account: AccountEntity,
 ): PendingIntent {
     val status = body.status!!
-    val (_, _, account1, _, _, _, _, _, _, _, _, _, _, _, _, _, _, contentWarning, replyVisibility, _, mentions, _, _, _, _, _, _, language) = status.actionableStatus
+    val account1 = status.actionableStatus.account
+    val contentWarning = status.actionableStatus.spoilerText
+    val replyVisibility = status.actionableStatus.visibility
+    val mentions = status.actionableStatus.mentions
+    val language = status.actionableStatus.language
+
     val mentionedUsernames: MutableSet<String> = LinkedHashSet()
     mentionedUsernames.add(account1.username)
     for ((_, _, mentionedUsername) in mentions) {
@@ -443,7 +452,7 @@ private fun getStatusComposeIntent(
         language = language,
         kind = ComposeOptions.ComposeKind.NEW,
     )
-    val composeIntent = MainActivityIntent.fromNotificationCompose(
+    val composeIntent = IntentRouterActivityIntent.fromNotificationCompose(
         context,
         account.id,
         composeOptions,
@@ -564,14 +573,6 @@ fun createNotificationChannelsForAccount(account: AccountEntity, context: Contex
     }
 }
 
-fun deleteNotificationChannelsForAccount(account: AccountEntity, context: Context) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        val notificationManager =
-            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.deleteNotificationChannelGroup(account.identifier)
-    }
-}
-
 fun enablePullNotifications(context: Context) {
     Timber.i("Enabling pull notifications for all accounts")
     val workManager = WorkManager.getInstance(context)
@@ -655,7 +656,8 @@ fun filterNotification(
  * Returns the [AccountFilterDecision] for [notificationData] based on the notification
  * filters in [accountWithFilters].
  *
- * @return The most severe [AccountFilterDecision], in order [Hide], [Warn], or [None].
+ * @return The most severe [AccountFilterDecision], in order [Hide][AccountFilterDecision.Hide],
+ * [Warn][AccountFilterDecision.Warn], or [None][AccountFilterDecision.None].
  */
 fun filterNotificationByAccount(accountWithFilters: PachliAccount, notificationData: NotificationData): AccountFilterDecision {
     val notification = notificationData.notification
@@ -723,7 +725,9 @@ fun filterNotificationByAccount(accountWithFilters: PachliAccount, notificationD
         }
     }
 
-    return decisions.firstOrNull { it is AccountFilterDecision.Hide } ?: decisions.firstOrNull { it is AccountFilterDecision.Warn } ?: AccountFilterDecision.None
+    return decisions.firstOrNull { it is AccountFilterDecision.Hide }
+        ?: decisions.firstOrNull { it is AccountFilterDecision.Warn }
+        ?: AccountFilterDecision.None
 }
 
 private fun getChannelId(account: AccountEntity, notification: Notification): String? {
@@ -940,12 +944,10 @@ fun pendingIntentFlags(mutable: Boolean): Int {
  *
  * @throws IllegalStateException if the value at [key] is not valid for the enum [T].
  */
-inline fun <reified T : Enum<T>> Bundle.getEnum(key: String) =
-    getInt(key, -1).let { if (it >= 0) enumValues<T>()[it] else throw IllegalStateException("unrecognised enum ordinal: $it") }
+inline fun <reified T : Enum<T>> Bundle.getEnum(key: String) = getInt(key, -1).let { if (it >= 0) enumValues<T>()[it] else throw IllegalStateException("unrecognised enum ordinal: $it") }
 
 /**
  * Inserts an enum [value] into the mapping of this [Bundle], replacing any
  * existing value for the given [key].
  */
-fun <T : Enum<T>> Bundle.putEnum(key: String, value: T?) =
-    putInt(key, value?.ordinal ?: -1)
+fun <T : Enum<T>> Bundle.putEnum(key: String, value: T?) = putInt(key, value?.ordinal ?: -1)

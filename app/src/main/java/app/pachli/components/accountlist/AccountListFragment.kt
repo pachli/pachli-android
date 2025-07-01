@@ -31,13 +31,14 @@ import app.pachli.components.accountlist.adapter.FollowAdapter
 import app.pachli.components.accountlist.adapter.FollowRequestsAdapter
 import app.pachli.components.accountlist.adapter.FollowRequestsHeaderAdapter
 import app.pachli.components.accountlist.adapter.MutesAdapter
-import app.pachli.core.activity.BottomSheetActivity
-import app.pachli.core.activity.PostLookupFallbackBehavior
+import app.pachli.core.activity.ViewUrlActivity
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.model.Relationship
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AccountListActivityIntent.Kind
 import app.pachli.core.navigation.AccountListActivityIntent.Kind.BLOCKS
@@ -49,11 +50,10 @@ import app.pachli.core.navigation.AccountListActivityIntent.Kind.MUTES
 import app.pachli.core.navigation.AccountListActivityIntent.Kind.REBLOGGED
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.network.model.HttpHeaderLink
-import app.pachli.core.network.model.Relationship
 import app.pachli.core.network.model.TimelineAccount
+import app.pachli.core.network.model.asModel
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiResult
-import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.core.ui.LinkListener
@@ -61,6 +61,7 @@ import app.pachli.databinding.FragmentAccountListBinding
 import app.pachli.interfaces.AccountActionListener
 import app.pachli.interfaces.AppBarLayoutHost
 import app.pachli.view.EndlessOnScrollListener
+import com.bumptech.glide.Glide
 import com.github.michaelbull.result.getOrElse
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
@@ -100,6 +101,8 @@ class AccountListFragment :
 
     private var pachliAccountId by Delegates.notNull<Long>()
 
+    private val glide by unsafeLazy { Glide.with(this) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         pachliAccountId = requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID)
@@ -121,23 +124,24 @@ class AccountListFragment :
 
         val animateAvatar = sharedPreferencesRepository.animateAvatars
         val animateEmojis = sharedPreferencesRepository.animateEmojis
-        val showBotOverlay = sharedPreferencesRepository.getBoolean(PrefKeys.SHOW_BOT_OVERLAY, true)
+        val showBotOverlay = sharedPreferencesRepository.showBotOverlay
 
         val activeAccount = accountManager.activeAccount!!
 
         adapter = when (kind) {
-            BLOCKS -> BlocksAdapter(this, animateAvatar, animateEmojis, showBotOverlay)
-            MUTES -> MutesAdapter(this, animateAvatar, animateEmojis, showBotOverlay)
+            BLOCKS -> BlocksAdapter(glide, this, animateAvatar, animateEmojis, showBotOverlay)
+            MUTES -> MutesAdapter(glide, this, animateAvatar, animateEmojis, showBotOverlay)
             FOLLOW_REQUESTS -> {
                 val headerAdapter = FollowRequestsHeaderAdapter(
                     instanceName = activeAccount.domain,
                     accountLocked = activeAccount.locked,
                 )
-                val followRequestsAdapter = FollowRequestsAdapter(this, this, animateAvatar, animateEmojis, showBotOverlay)
+                val followRequestsAdapter = FollowRequestsAdapter(glide, this, this, animateAvatar, animateEmojis, showBotOverlay)
                 binding.recyclerView.adapter = ConcatAdapter(headerAdapter, followRequestsAdapter)
                 followRequestsAdapter
             }
-            else -> FollowAdapter(this, animateAvatar, animateEmojis, showBotOverlay)
+
+            else -> FollowAdapter(glide, this, animateAvatar, animateEmojis, showBotOverlay)
         }
         if (binding.recyclerView.adapter == null) {
             binding.recyclerView.adapter = adapter
@@ -163,33 +167,30 @@ class AccountListFragment :
     }
 
     override fun onViewTag(tag: String) {
-        activity?.startActivityWithDefaultTransition(
+        startActivityWithDefaultTransition(
             TimelineActivityIntent.hashtag(requireContext(), pachliAccountId, tag),
         )
     }
 
     override fun onViewAccount(id: String) {
-        activity?.startActivityWithDefaultTransition(
+        startActivityWithDefaultTransition(
             AccountActivityIntent(requireContext(), pachliAccountId, id),
         )
     }
 
     override fun onViewUrl(url: String) {
-        (activity as? BottomSheetActivity)?.viewUrl(pachliAccountId, url, PostLookupFallbackBehavior.OPEN_IN_BROWSER)
+        (activity as? ViewUrlActivity)?.viewUrl(pachliAccountId, url)
     }
 
     override fun onMute(mute: Boolean, id: String, position: Int, notifications: Boolean) {
         viewLifecycleOwner.lifecycleScope.launch {
-            try {
-                if (!mute) {
-                    api.unmuteAccount(id)
-                } else {
-                    api.muteAccount(id, notifications)
-                }
-                onMuteSuccess(mute, id, position, notifications)
-            } catch (_: Throwable) {
-                onMuteFailure(mute, id, notifications)
+            if (!mute) {
+                api.unmuteAccount(id)
+            } else {
+                api.muteAccount(id, notifications)
             }
+                .onSuccess { onMuteSuccess(mute, id, position, notifications) }
+                .onFailure { onMuteFailure(mute, id, notifications) }
         }
     }
 
@@ -347,9 +348,9 @@ class AccountListFragment :
         val fromId = next?.uri?.getQueryParameter("max_id")
 
         if (adapter.itemCount > 0) {
-            adapter.addItems(accounts)
+            adapter.addItems(accounts.asModel())
         } else {
-            adapter.update(accounts)
+            adapter.update(accounts.asModel())
         }
 
         if (adapter is MutesAdapter) {
@@ -371,7 +372,7 @@ class AccountListFragment :
     private fun fetchRelationships(ids: List<String>) {
         lifecycleScope.launch {
             api.relationships(ids)
-                .onSuccess { onFetchRelationshipsSuccess(it.body) }
+                .onSuccess { onFetchRelationshipsSuccess(it.body.asModel()) }
                 .onFailure { throwable ->
                     Timber.e("Fetch failure for relationships of accounts: %s: %s", ids, throwable)
                 }

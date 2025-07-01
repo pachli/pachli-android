@@ -1,0 +1,15 @@
+Pachli 1.4.0
+
+Nové funkcie:
+
+- Pravidelne kontrolovať aktualizácie a upozorniť používateľa.
+
+Opravy:
+
+- Zmeny nastavení sa prejavia okamžite
+- Rešpektovanie nastavenia skrytia FAB_HIDE na časových osiach
+- Zobrazenie systémových ovládacích prvkov aj na starších zariadeniach
+- Odstránenie indikátora priebehu zo stavových časových osí
+- Obnovenie pomeru strán obrázka po skončení ťahania
+- Prevencia možného pádu aplikácie pri pomalom načítavaní filtrov
+- Aktualizácia prekladu do taliančiny

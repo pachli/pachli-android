@@ -37,7 +37,7 @@ data class StatusDisplayOptions(
     @get:JvmName("confirmFavourites")
     val confirmFavourites: Boolean = false,
     @get:JvmName("hideStats")
-    val hideStats: Boolean = false,
+    val hideStatsInDetailedView: Boolean = false,
     @get:JvmName("animateEmojis")
     val animateEmojis: Boolean = false,
     @get:JvmName("showStatsInline")
@@ -48,4 +48,5 @@ data class StatusDisplayOptions(
     val openSpoiler: Boolean = false,
     @get:JvmName("canTranslate")
     val canTranslate: Boolean = false,
+    val renderMarkdown: Boolean = false,
 )

@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="TextSizeSmallest">
         <item name="status_text_small">10sp</item>
@@ -30,8 +30,8 @@
         <item name="status_text_large">22sp</item>
     </style>
 
-    <style name="FontAtkinsonHyperlegible">
-        <item name="android:fontFamily">@font/atkinson_hyperlegible</item>
+    <style name="FontAtkinsonHyperlegibleNext">
+        <item name="android:fontFamily">@font/atkinson_hyperlegible_next</item>
     </style>
 
     <style name="FontComicNeue">
@@ -58,6 +58,7 @@
 
     <style name="SplashTheme" parent="Theme.SplashScreen">
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash</item>
+        <item name="android:windowSplashScreenBehavior" tools:targetApi="33">icon_preferred</item>
     </style>
 
     <style name="Theme.Pachli" parent="Base.Theme.Pachli">

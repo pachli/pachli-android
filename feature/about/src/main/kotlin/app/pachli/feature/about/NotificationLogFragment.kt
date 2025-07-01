@@ -50,7 +50,9 @@ import app.pachli.core.activity.RefreshableFragment
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.database.dao.LogEntryDao
 import app.pachli.core.database.model.LogEntryEntity
+import app.pachli.core.ui.extensions.asDdHhMmSs
 import app.pachli.core.ui.extensions.await
+import app.pachli.core.ui.extensions.instantFormatter
 import app.pachli.feature.about.databinding.FragmentNotificationLogBinding
 import app.pachli.feature.about.databinding.ItemLogEntryBinding
 import com.google.android.material.snackbar.Snackbar
@@ -71,7 +73,7 @@ import timber.log.Timber
 
 /**
  * Fragment that shows logs from [LogEntryDao], and can download them as a text
- * report with additional information from [app.pachli.core.activity.NotificationConfig].
+ * report with additional information from [app.pachli.core.domain.notifications.NotificationConfig].
  */
 @AndroidEntryPoint
 class NotificationLogFragment :
@@ -426,11 +428,9 @@ class LogEntryAdapter : ListAdapter<LogEntryEntity, LogEntryAdapter.ViewHolder>(
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        ViewHolder(ItemLogEntryBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(ItemLogEntryBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) =
-        holder.bind(getItem(position))
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(getItem(position))
 
     companion object {
         val tagSpan = ForegroundColorSpan(Color.GRAY)

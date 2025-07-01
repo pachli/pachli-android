@@ -40,8 +40,6 @@
     <string name="action_reblog">மேலேற்று</string>
     <string name="action_favourite">பிடித்தவை</string>
     <string name="action_compose">எழுது</string>
-    <string name="action_logout">வெளியேறு</string>
-    <string name="action_logout_confirm">நீங்கள் %1$s கணக்கிலிருந்து வெளியேற விரும்புகிறீர்களா? இது வரைவுகள் மற்றும் விருப்பத்தேர்வுகள் உட்பட கணக்கின் அனைத்து உள்ளூர் தரவையும் நீக்கும்.</string>
     <string name="action_follow">பின்பற்று</string>
     <string name="action_unfollow">பின்பற்றாதே</string>
     <string name="action_block">தடை</string>
@@ -152,7 +150,6 @@
         <item quantity="other">%d புதிய இடைவினைகள்</item>
     </plurals>
     <string name="description_account_locked">கணக்கு மூடப்பட்டது</string>
-    <string name="about_pachli_version">Pachli(டஸ்கி) %s</string>
     <!-- note to translators:
          * you should think of “free” as in “free speech,” not as in “free beer”.
            We sometimes call it “libre software,” borrowing the French or Spanish word for “free” as in freedom,
@@ -178,10 +175,8 @@
     <string name="follows_you">நீங்கள் பின் தொடரபடுகிறீர்கள்</string>
     <string name="pref_title_alway_show_sensitive_media">எல்லா nsfw(உணர்ச்சிகரமான) உள்ளடக்கத்தையும் எப்போதும் காண்பி</string>
     <string name="title_media">ஊடகம்</string>
-    <string name="add_account_name">கணக்கை சேர்க்க</string>
     <string name="add_account_description">புதிய Mastodon கணக்கைச் சேர்க்க</string>
     <string name="compose_active_account_description">%1$s கணக்குடன் பதிவிட</string>
-    <string name="action_set_caption">தலைப்பை அமை</string>
     <string name="action_remove">நீக்கு</string>
     <string name="lock_account_label">கணக்கை முடக்கு</string>
     <string name="lock_account_label_description">நீங்களாக பின்பற்றுபவர்களை அங்கீகரிக்க</string>
@@ -285,10 +280,6 @@
     <string name="notification_listenable_worker_name">பின்னணி செயல்பாடு</string>
     <string name="notification_listenable_worker_description">பச்ச்லி பின்னணியில் வேலை செய்யும் போது அறிவிப்புகள்</string>
     <string name="notification_unknown_name">தெரியவில்லை</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="one">பார்வையற்றோருக்கான உள்ளடக்கத்தை விவரிக்கவும் (%d எழுத்து வரம்பு)</item>
-        <item quantity="other">பார்வையற்றோருக்கான உள்ளடக்கங்களை விவரிக்கவும் (%d எழுத்து வரம்பு)</item>
-    </plurals>
     <string name="notification_notification_worker">அறிவிப்புகளைப் பெறுதல்…</string>
     <string name="post_media_attachments">இணைப்புகள்</string>
     <string name="status_count_one_plus">1+</string>
@@ -314,7 +305,6 @@
         <item quantity="one">%d இரண்டாவது இடது</item>
         <item quantity="other">%d விநாடிகள் எஞ்சியுள்ளன</item>
     </plurals>
-    <string name="button_continue">தொடரவும்</string>
     <string name="button_back">பின்</string>
     <string name="hint_additional_info">கூடுதல் கருத்துகள்</string>
     <string name="report_description_1">அறிக்கை உங்கள் சேவையக மதிப்பீட்டாளருக்கு அனுப்பப்படும். இந்த கணக்கை நீங்கள் ஏன் கீழே புகாரளிக்கிறீர்கள் என்பதற்கான விளக்கத்தை நீங்கள் வழங்கலாம்:</string>
@@ -328,7 +318,9 @@
     <string name="dialog_follow_hashtag_title">ஏச்டேக்கைப் பின்தொடரவும்</string>
     <string name="notification_update_format">%s தங்கள் இடுகையைத் திருத்தியுள்ளன</string>
     <string name="notification_header_report_format">%s %s</string>
-    <string name="notification_summary_report_format">%s · %d பதிவுகள் இணைக்கப்பட்டுள்ளன</string>
+    <plurals name="notification_summary_report_format">
+        <item quantity="other">%1$s · %2$d பதிவுகள் இணைக்கப்பட்டுள்ளன</item>
+    </plurals>
     <string name="action_post_failed_detail_plural">உங்கள் பதிவுகள் பதிவேற்றத் தவறிவிட்டன, மேலும் அவை வரைவுகளுக்கு சேமிக்கப்பட்டுள்ளன.\n\n சேவையகத்தைத் தொடர்பு கொள்ள முடியவில்லை, அல்லது அது இடுகைகளை நிராகரித்தது.</string>
     <string name="action_post_failed_do_nothing">தள்ளுபடி</string>
     <string name="action_send">டூட்</string>
@@ -345,10 +337,7 @@
     <string name="dialog_delete_conversation_warning">இந்த உரையாடலை நீக்கவா?</string>
     <string name="pref_notification_method_mixed">சில கணக்குகள் ஒருங்கிணைந்த புசைப் பயன்படுத்துகின்றன, சில ஒவ்வொரு 15 நிமிடங்களுக்கும் இழுக்கின்றன. விவரங்களுக்கு தட்டவும்</string>
     <string name="pref_notification_battery_optimisation_is_disabled">பேட்டரி தேர்வுமுறை முடக்கப்பட்டுள்ளது</string>
-    <string name="pref_notification_method_pull">இழுக்கவும்</string>
-    <string name="pref_notification_fetch_method_title">அறிவிப்பு முறை</string>
     <string name="pref_notification_method_all_push">அனைத்து கணக்குகளும் ஒருங்கிணைந்த புசைப் பயன்படுத்துகின்றன. விவரங்களுக்கு தட்டவும்.</string>
-    <string name="pref_notification_fetch_ok_timestamp_fmt">✔ %1$s முன்பு @ %2$s</string>
     <string name="pref_title_change_unified_push_distributor">ஒருங்கிணைந்த புச் விநியோகச்தரை மாற்றவும்</string>
     <string name="pref_title_update_check_now">புதுப்பிப்புக்கு இப்போது சரிபார்க்கவும்</string>
     <string name="compose_warn_language_dialog_title">போச்டின் மொழியை சரிபார்க்கவும்</string>
@@ -404,7 +393,6 @@
     <string name="search_operator_where_dialog_library">உங்கள் நூலகம்</string>
     <string name="search_operator_where_dialog_library_hint">உங்கள் சொந்த இடுகைகள், ஊக்கங்கள், பிடித்தவை, புக்மார்க்குகள் மற்றும் இடுகைகள்</string>
     <string name="upload_failed_msg_fmt">நீங்கள் இடுகையை அனுப்பும்போது பதிவேற்றம் மீண்டும் செய்யப்படும். அது மீண்டும் தோல்வியுற்றால், உங்கள் வரைவுகளில் இடுகை சேமிக்கப்படும்.\n\n பிழை: %1$s</string>
-    <string name="action_relogin">மறு உள்நுழைவு</string>
     <string name="pref_account_notification_filters_label_limited_by_server">… உங்கள் மதிப்பீட்டாளர்களால் வரையறுக்கப்பட்டுள்ளது</string>
     <string name="account_filter_placeholder_type_favourite_fmt">ஒரு பயனர் @<b>%1s </b> உங்கள் இடுகைக்கு பிடித்தது</string>
     <string name="account_filter_placeholder_label_domain">ஒரு பயனரிடமிருந்து @<b>%1s </b></string>
@@ -465,9 +453,7 @@
     <string name="label_filter_keywords">வடிகட்ட முக்கிய வார்த்தைகள் அல்லது சொற்றொடர்கள்</string>
     <string name="action_add">கூட்டு</string>
     <string name="pref_title_notification_up_distributor">ஒருங்கிணைந்த புச் விநியோகச்தர்</string>
-    <string name="pref_notification_fetch_err_timestamp_fmt">✖ %1$s முன்பு @ %2$s</string>
-    <string name="pref_notification_fetch_server_rejected">%1$s நிராகரிக்கப்பட்ட புச் பதிவு</string>
-    <string name="error_media_download">%1$s ஐ பதிவிறக்கம் செய்ய முடியவில்லை: %2$d %3$s</string>
+    <string name="error_media_download">%1$s ஐ பதிவிறக்கம் செய்ய முடியவில்லை: %2$s</string>
     <string name="action_manage_tabs">தாவல்களை நிர்வகிக்கவும்</string>
     <string name="error_prepare_media_io_fmt">%1$s</string>
     <string name="search_operator_date_all">தேதிகள்</string>
@@ -501,15 +487,12 @@
     <string name="ui_error_translate_status_fmt">மொழிபெயர்ப்பு தோல்வியுற்றது: %1$s</string>
     <string name="ui_error_filter_v1_load_fmt">ஏற்றுதல் வடிப்பான்கள் தோல்வியடைந்தன: %1$s</string>
     <string name="pref_title_update_notification_frequency">புதிய பச்ச்லி பதிப்புகள் பற்றி சொல்லுங்கள்</string>
-    <string name="pref_update_notification_frequency_once_per_version">ஒரு பதிப்பிற்கு ஒரு முறை</string>
-    <string name="pref_update_notification_frequency_always">எப்போதும்</string>
     <string name="search_operator_attachment_no_media_label">நடுத்தர அல்ல</string>
     <string name="search_operator_from_ignore_me">எனது பதிவுகள் அல்ல</string>
     <string name="report_remote_instance">%s க்கு முன்னோக்கி</string>
     <string name="account_date_joined">%1$s இல் இணைந்தது</string>
     <string name="ui_error_favourite_fmt">பிடித்த இடுகை தோல்வியுற்றது: %1$s</string>
     <string name="pref_title_confirm_status_language">இடுகையிடுவதற்கு முன் போச்டின் மொழி அமைப்பைச் சரிபார்க்கவும்</string>
-    <string name="pref_notification_fetch_needs_push">கணக்கில் \"தள்ளு\" நோக்கம் இல்லை. வெளியேறி மீண்டும் உள்நுழைந்தால் இதைச் சரிசெய்யலாம்.</string>
     <string name="error_filter_missing_context">குறைந்தது ஒரு வடிகட்டி சூழல் தேவை</string>
     <string name="error_filter_missing_title">தலைப்பு தேவை</string>
     <string name="compose_warn_language_dialog_accept_and_dont_ask_fmt">இடுகையிடவும் (%1$s) மற்றும் மீண்டும் கேட்க வேண்டாம்</string>
@@ -532,7 +515,6 @@
     <string name="action_access_scheduled_posts">திட்டமிடப்பட்ட இடுகைகள்</string>
     <string name="action_open_reblogger">திறந்த பூச்ட் ஆசிரியர்</string>
     <string name="action_open_faved_by">பிடித்தவைகளைக் காட்டு</string>
-    <string name="action_share_as">பகிர்ந்து கொள்ளுங்கள்…</string>
     <string name="confirmation_domain_unmuted">%s</string>
     <string name="dialog_message_cancel_follow_request">பின்தொடர்தல் கோரிக்கையை ரத்து செய்யவா?</string>
     <string name="filter_expiration_format">%s (%s)</string>
@@ -561,9 +543,6 @@
     <string name="search_operator_language_dialog_title">எழுதப்பட்ட இடுகைகளுக்கு வரம்பு…</string>
     <string name="search_operator_sensitive_dialog_no_sensitive">முக்கியமான உள்ளடக்கத்தை விலக்கு</string>
     <string name="search_operator_where_all">அனைத்து இடுகைகளும்</string>
-    <string name="upload_failed_modify_attachment">இணைப்பை மாற்றவும்</string>
-    <string name="main_viewmodel_error_set_active_account">உள்நுழைய முயற்சிப்பது பின்வரும் பிழையுடன் தோல்வியுற்றது:\n\n %1$s</string>
-    <string name="main_viewmodel_error_refresh_account">புத்துணர்ச்சியூட்டும் கணக்கு பின்வரும் பிழையுடன் தோல்வியடைந்தது:\n\n %1$s\n\n நீங்கள் தொடரலாம், ஆனால் உங்கள் பட்டியல்கள் மற்றும் வடிப்பான்கள் முழுமையடையாது.</string>
     <string name="notification_unknown">அறியப்படாத அறிவிப்பு வகை</string>
     <string name="pref_title_show_self_boosts">தன்வய பூச்ட்களைக் காட்டு</string>
     <string name="action_delete_and_redraft">நீக்கு மற்றும் மீண்டும் வரைவு</string>
@@ -657,7 +636,6 @@
     <string name="send_account_link_to">கணக்கு முகவரி ஐப் பகிரவும்…</string>
     <string name="send_account_username_to">கணக்கு பயனர்பெயரைப் பகிரவும்…</string>
     <string name="confirmation_hashtag_muted">#%s மறைக்கப்பட்டுள்ளன</string>
-    <string name="post_media_image">படம்</string>
     <string name="failed_to_pin">பின் தவறிவிட்டது</string>
     <string name="error_filter_missing_keyword">குறைந்தது ஒரு முக்கிய சொல் அல்லது சொற்றொடர் தேவை</string>
     <string name="conversation_0_recipients">வேறு பங்கேற்பாளர்கள் இல்லை</string>
@@ -674,7 +652,6 @@
     <string name="search_operator_sensitive_dialog_title">முக்கியமான உள்ளடக்கத்துடன் இடுகைகள்</string>
     <string name="search_operator_sensitive_dialog_all">அனைத்து இடுகைகளும்</string>
     <string name="pref_notification_battery_optimisation_ok">பேட்டரி தேர்வுமுறை முடக்கப்பட வேண்டிய அவசியமில்லை.</string>
-    <string name="pref_notification_method_push">புச்</string>
     <string name="search_operator_attachment_has_media_except_1_label_fmt">%1$s தவிர வேறு எந்த</string>
     <string name="search_operator_attachment_has_media_except_2_label_fmt">%1$s தவிர, %2$s</string>
     <string name="search_operator_attachment_has_media_except_3_label_fmt">%1$s, %2$s, %3$s தவிர வேறு எதுவும் இல்லை</string>
@@ -758,7 +735,6 @@
     <string name="search_operator_attachment_specific_media_include_2_fmt">%1$s உடன், %2$s</string>
     <string name="search_operator_attachment_specific_media_exclude_2_fmt">இல்லை %1$s, %2$s</string>
     <string name="dialog_save_profile_changes_message">உங்கள் சுயவிவர மாற்றங்களைச் சேமிக்க விரும்புகிறீர்களா?</string>
-    <string name="pref_update_notification_frequency_never">ஒருபோதும்</string>
     <string name="update_dialog_neutral">இந்த பதிப்பிற்கு எனக்கு நினைவூட்ட வேண்டாம்</string>
     <string name="pref_labs_warning">இவை சோதனை நற்பொருத்தங்கள். அவர்கள் வேலை செய்யும் எந்த உத்தரவாதமும் இல்லை, அல்லது எதிர்கால பதிப்புகளில் சேர்க்கப்படும். உங்கள் சொந்த ஆபத்தில் பயன்படுத்தவும்.</string>
     <string name="pref_labs_reverse_home_timeline_title">தலைகீழ் காலவரிசை ஒழுங்கு</string>

@@ -25,8 +25,8 @@ import androidx.room.Transaction
 import androidx.room.TypeConverters
 import androidx.room.Upsert
 import app.pachli.core.database.Converters
-import app.pachli.core.database.model.AccountFilterDecisionUpdate
 import app.pachli.core.database.model.FilterActionUpdate
+import app.pachli.core.database.model.NotificationAccountFilterDecisionUpdate
 import app.pachli.core.database.model.NotificationData
 import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.database.model.NotificationRelationshipSeveranceEventEntity
@@ -126,7 +126,7 @@ SELECT
 
     -- Status view data
     svd.serverId AS 's_svd_serverId',
-    svd.timelineUserId AS 's_svd_timelineUserId',
+    svd.pachliAccountId AS 's_svd_pachliAccountId',
     svd.expanded AS 's_svd_expanded',
     svd.contentShowing AS 's_svd_contentShowing',
     svd.contentCollapsed AS 's_svd_contentCollapsed',
@@ -150,6 +150,7 @@ SELECT
     -- NotificationReportEntity
     report.pachliAccountId AS 'report_pachliAccountId',
     report.serverId AS 'report_serverId',
+    report.reportId AS 'report_reportId',
     report.actionTaken AS 'report_actionTaken',
     report.actionTakenAt AS 'report_actionTakenAt',
     report.category AS 'report_category',
@@ -157,7 +158,7 @@ SELECT
     report.forwarded AS 'report_forwarded',
     report.createdAt AS 'report_createdAt',
     report.statusIds AS 'report_statusIds',
-    report.ruleIds AS 'report_rulesIds',
+    report.ruleIds AS 'report_ruleIds',
     report.target_serverId AS 'report_target_serverId',
     report.target_timelineUserId AS 'report_target_timelineUserId',
     report.target_localUsername AS 'report_target_localUsername',
@@ -177,6 +178,7 @@ SELECT
     rse.eventId AS 'rse_eventId',
     rse.type AS 'rse_type',
     rse.purged AS 'rse_purged',
+    rse.targetName AS 'rse_targetName',
     rse.followersCount AS 'rse_followersCount',
     rse.followingCount AS 'rse_followingCount',
     rse.createdAt AS 'rse_createdAt'
@@ -188,7 +190,7 @@ LEFT JOIN TimelineAccountEntity AS sa ON (n.pachliAccountId = sa.timelineUserId 
 LEFT JOIN TimelineAccountEntity AS rb ON (n.pachliAccountId = rb.timelineUserId AND s.reblogAccountId = rb.serverId)
 LEFT JOIN
     StatusViewDataEntity AS svd
-    ON (n.pachliAccountId = svd.timelineUserId AND (s.serverId = svd.serverId OR s.reblogServerId = svd.serverId))
+    ON (n.pachliAccountId = svd.pachliAccountId AND (s.serverId = svd.serverId OR s.reblogServerId = svd.serverId))
 LEFT JOIN
     TranslatedStatusEntity AS t
     ON (n.pachliAccountId = t.timelineUserId AND (s.serverId = t.serverId OR s.reblogServerId = t.serverId))
@@ -255,7 +257,7 @@ WHERE pachliAccountId = :pachliAccountId
     suspend fun upsert(filterActionUpdate: FilterActionUpdate)
 
     @Upsert(entity = NotificationViewDataEntity::class)
-    suspend fun upsert(accountFilterDecisionUpdate: AccountFilterDecisionUpdate)
+    suspend fun upsert(notificationAccountFilterDecisionUpdate: NotificationAccountFilterDecisionUpdate)
 
     @Deprecated("Only present for use in tests")
     @Query(

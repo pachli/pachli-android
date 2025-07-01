@@ -21,9 +21,7 @@ import android.database.sqlite.SQLiteException
 import app.pachli.core.common.PachliError
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.R
-import app.pachli.core.data.model.MastodonList
 import app.pachli.core.data.model.Server
-import app.pachli.core.data.repository.LogoutError.NoActiveAccount
 import app.pachli.core.data.repository.ServerRepository.Error.GetNodeInfo
 import app.pachli.core.data.repository.ServerRepository.Error.GetWellKnownNodeInfo
 import app.pachli.core.data.repository.ServerRepository.Error.UnsupportedSchema
@@ -39,12 +37,14 @@ import app.pachli.core.database.model.EmojisEntity
 import app.pachli.core.database.model.FollowingAccountEntity
 import app.pachli.core.database.model.InstanceInfoEntity
 import app.pachli.core.database.model.ServerEntity
+import app.pachli.core.model.Account
 import app.pachli.core.model.FilterAction
+import app.pachli.core.model.MastodonList
 import app.pachli.core.model.NodeInfo
+import app.pachli.core.model.Status.Visibility
 import app.pachli.core.model.Timeline
-import app.pachli.core.network.model.Account
 import app.pachli.core.network.model.HttpHeaderLink
-import app.pachli.core.network.model.Status
+import app.pachli.core.network.model.asModel
 import app.pachli.core.network.retrofit.InstanceSwitchAuthInterceptor
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.NodeInfoApi
@@ -84,24 +84,12 @@ import timber.log.Timber
 /** Errors that can occur when setting the active account. */
 sealed interface SetActiveAccountError : PachliError {
     /**
-     * Suggested account to fallback to on failure.
-     *
-     * The caller may want to present this as an option to the user if logging
-     * in fails.
-     *
-     * May be null if there was no previous active account.
-     */
-    val fallbackAccount: AccountEntity?
-
-    /**
      * The requested account could not be found in the local database. Should
      * never happen.
      *
-     * @param fallbackAccount See [SetActiveAccountError.fallbackAccount]
      * @param accountId ID of the account that could not be found.
      */
     data class AccountDoesNotExist(
-        override val fallbackAccount: AccountEntity?,
         val accountId: Long,
     ) : SetActiveAccountError {
         override val resourceId = R.string.account_manager_error_account_does_not_exist
@@ -112,11 +100,9 @@ sealed interface SetActiveAccountError : PachliError {
     /**
      * An API error occurred while logging in.
      *
-     * @param fallbackAccount See [SetActiveAccountError.fallbackAccount]
      * @param wantedAccount The account entity that could not be made active.
      */
     data class Api(
-        override val fallbackAccount: AccountEntity?,
         val wantedAccount: AccountEntity,
         val apiError: ApiError,
     ) : SetActiveAccountError, PachliError by apiError
@@ -124,12 +110,10 @@ sealed interface SetActiveAccountError : PachliError {
     /**
      * A DAO exception occurred while logging in.
      *
-     * @param fallbackAccount See [SetActiveAccountError.fallbackAccount]
      * @param wantedAccount The account entity that could not be made active
      * (if known)
      */
     data class Dao(
-        override val fallbackAccount: AccountEntity?,
         val wantedAccount: AccountEntity?,
         val sqlException: SQLiteException,
     ) : SetActiveAccountError {
@@ -141,12 +125,10 @@ sealed interface SetActiveAccountError : PachliError {
     /**
      * Catch-all for unexpected exceptions when logging in.
      *
-     * @param fallbackAccount See [SetActiveAccountError.fallbackAccount]
      * @param wantedAccount The account entity that could not be made active.
      * @param throwable Throwable that caused the error
      */
     data class Unexpected(
-        override val fallbackAccount: AccountEntity?,
         val wantedAccount: AccountEntity,
         val throwable: Throwable,
     ) : SetActiveAccountError {
@@ -157,8 +139,12 @@ sealed interface SetActiveAccountError : PachliError {
 }
 
 sealed interface RefreshAccountError : PachliError {
-    @JvmInline
-    value class General(private val pachliError: PachliError) : RefreshAccountError, PachliError by pachliError
+    val wantedAccount: AccountEntity
+
+    data class General(override val wantedAccount: AccountEntity, override val cause: PachliError) : RefreshAccountError {
+        override val resourceId = app.pachli.core.network.R.string.error_generic_fmt
+        override val formatArgs: Array<String>? = null
+    }
 }
 
 /** Errors that can occur logging out. */
@@ -196,17 +182,12 @@ class AccountManager @Inject constructor(
         accountDao.getActiveAccountFlow()
             .distinctUntilChanged()
             .map { Loadable.Loaded(it) }
-            .stateIn(externalScope, SharingStarted.Eagerly, Loadable.Loading())
+            .stateIn(externalScope, SharingStarted.Eagerly, Loadable.Loading)
 
     /** The active account, or null if there is no active account. */
     @Deprecated("Caller should use getPachliAccountFlow with a specific account ID")
     val activeAccount: AccountEntity?
-        get() {
-            return when (val loadable = activeAccountFlow.value) {
-                is Loadable.Loading -> null
-                is Loadable.Loaded -> loadable.data
-            }
-        }
+        get() = activeAccountFlow.value.get()
 
     /** All logged in accounts. */
     val accountsFlow = accountDao.loadAllFlow().stateIn(externalScope, SharingStarted.Eagerly, emptyList())
@@ -246,8 +227,7 @@ class AccountManager @Inject constructor(
 
         externalScope.launch {
             listsRepository.getListsFlow().collect { lists ->
-                val listsById = lists.groupBy { it.accountId }
-                listsById.forEach { (pachliAccountId, group) ->
+                lists.forEach { (pachliAccountId, group) ->
                     newTabPreferences(pachliAccountId, group)?.let {
                         setTabPreferences(pachliAccountId, it)
                     }
@@ -257,6 +237,10 @@ class AccountManager @Inject constructor(
     }
 
     fun getPachliAccountFlow(pachliAccountId: Long): Flow<PachliAccount?> {
+        // TODO: Nothing should be calling this with -1L, as IDs should be
+        // resolved to a valid ID in `IntentRouterActivity`. Verify this, then
+        // remove this check (or replace it with a debug assert to ensure -1L
+        // is not passed.
         val accountFlow = if (pachliAccountId == -1L) {
             accountDao.getActiveAccountId().flatMapLatest {
                 accountDao.getPachliAccountFlow(it)
@@ -325,6 +309,7 @@ class AccountManager @Inject constructor(
                 oauthScopes = oauthScopes,
                 isActive = true,
                 accountId = networkAccount.id,
+                isBot = networkAccount.bot,
             )
 
             Timber.d("addAccount: upsert account id: %d, isActive: %s", newAccount.id, newAccount.isActive)
@@ -337,31 +322,7 @@ class AccountManager @Inject constructor(
         setPushNotificationData(accountId, "", "", "", "", "")
     }
 
-    /**
-     * Deletes all data for the active account, sets the next active account, and
-     * returns the active account.
-     *
-     * @return The new active account, or null if there are no more accounts (the
-     * user logged out of the last account).
-     */
-    suspend fun logActiveAccountOut(): Result<AccountEntity?, LogoutError> {
-        return transactionProvider {
-            val activeAccount = accountDao.getActiveAccount() ?: return@transactionProvider Err(NoActiveAccount)
-            Timber.d("logout: Logging out %d", activeAccount.id)
-
-            accountDao.delete(activeAccount)
-
-            val accounts = accountDao.loadAll()
-
-            val newActiveAccount = accounts.firstOrNull() ?: return@transactionProvider Ok(null)
-
-            // Have to set the active account here. If you don't there's a brief
-            // period where there's no active account, and BaseActivity.redirectIfNotLoggedIn
-            // sends the user to the log in screen.
-            return@transactionProvider setActiveAccount(newActiveAccount.id)
-                .mapError { LogoutError.SetActiveAccount(it) }
-        }
-    }
+    suspend fun deleteAccount(account: AccountEntity) = accountDao.delete(account)
 
     /**
      * Changes the active account.
@@ -375,15 +336,12 @@ class AccountManager @Inject constructor(
         /** Wrapper to pass an API error out of the transaction. */
         data class ApiErrorException(val apiError: ApiError) : Exception()
 
-        /** Account to fallback to if switching fails. */
-        var fallbackAccount: AccountEntity? = null
-
         /** Account we're trying to switch to. */
         var accountEntity: AccountEntity? = null
 
         return try {
             transactionProvider {
-                Timber.d("setActiveAcccount(%d)", accountId)
+                Timber.d("setActiveAccount(%d)", accountId)
 
                 // Handle "-1" as the accountId.
                 val previousActiveAccount = accountDao.getActiveAccount()
@@ -393,19 +351,9 @@ class AccountManager @Inject constructor(
                     accountDao.getAccountById(accountId)
                 }
 
-                // Fall back to either the previous account (if known), or the first account
-                // that isn't this one.
-                fallbackAccount = previousActiveAccount
-                    ?: accountDao.loadAll().firstOrNull { it.id != accountId }
-
                 if (newActiveAccount == null) {
                     Timber.d("Account %d not in database", accountId)
-                    return@transactionProvider Err(
-                        SetActiveAccountError.AccountDoesNotExist(
-                            fallbackAccount,
-                            accountId,
-                        ),
-                    )
+                    return@transactionProvider Err(SetActiveAccountError.AccountDoesNotExist(accountId))
                 }
 
                 accountEntity = newActiveAccount
@@ -431,11 +379,12 @@ class AccountManager @Inject constructor(
                     displayName = account.name,
                     profilePictureUrl = account.avatar,
                     profileHeaderPictureUrl = account.header,
-                    defaultPostPrivacy = account.source?.privacy ?: Status.Visibility.PUBLIC,
-                    defaultPostLanguage = account.source?.language.orEmpty(),
-                    defaultMediaSensitivity = account.source?.sensitive ?: false,
-                    emojis = account.emojis.orEmpty(),
+                    defaultPostPrivacy = account.source.privacy?.asModel() ?: Visibility.PUBLIC,
+                    defaultPostLanguage = account.source.language.orEmpty(),
+                    defaultMediaSensitivity = account.source.sensitive == true,
+                    emojis = account.emojis.asModel(),
                     locked = account.locked,
+                    isBot = account.bot,
                 )
 
                 Timber.d("setActiveAccount: saving id: %d, isActive: %s", finalAccount.id, finalAccount.isActive)
@@ -452,13 +401,18 @@ class AccountManager @Inject constructor(
                 return@transactionProvider Ok(finalAccount)
             }
         } catch (e: ApiErrorException) {
-            Err(SetActiveAccountError.Api(fallbackAccount, accountEntity!!, e.apiError))
+            Err(SetActiveAccountError.Api(accountEntity!!, e.apiError))
         } catch (e: SQLiteException) {
-            Err(SetActiveAccountError.Dao(fallbackAccount, accountEntity, e))
+            Err(SetActiveAccountError.Dao(accountEntity, e))
         } catch (e: Throwable) {
             currentCoroutineContext().ensureActive()
-            Err(SetActiveAccountError.Unexpected(fallbackAccount, accountEntity!!, e))
+            Err(SetActiveAccountError.Unexpected(accountEntity!!, e))
         }
+    }
+
+    suspend fun refresh(pachliAccountId: Long): Result<Unit, RefreshAccountError> {
+        // TODO: Ok(unit) not OK here, should handle the case where getAccountById fails
+        return getAccountById(pachliAccountId)?.let { return@let refresh(it) } ?: Ok(Unit)
     }
 
     /**
@@ -471,30 +425,37 @@ class AccountManager @Inject constructor(
         // Kick off network fetches that can happen in parallel because they do not
         // depend on one another.
         val deferNodeInfo = externalScope.async {
-            fetchNodeInfo().mapError { RefreshAccountError.General(it) }
+            fetchNodeInfo().mapError { RefreshAccountError.General(account, it) }
         }
 
         val deferInstanceInfo = externalScope.async {
             fetchInstanceInfo(account.domain)
-                .mapError { RefreshAccountError.General(it) }
+                .mapError { RefreshAccountError.General(account, it) }
                 .onSuccess { instanceDao.upsert(it) }
         }
 
         val deferEmojis = externalScope.async {
             mastodonApi.getCustomEmojis()
-                .mapError { RefreshAccountError.General(it) }
-                .onSuccess { instanceDao.upsert(EmojisEntity(accountId = account.id, emojiList = it.body)) }
+                .mapError { RefreshAccountError.General(account, it) }
+                .onSuccess {
+                    instanceDao.upsert(
+                        EmojisEntity(
+                            accountId = account.id,
+                            emojiList = it.body.asModel(),
+                        ),
+                    )
+                }
         }
 
         val deferAnnouncements = externalScope.async {
             mastodonApi.listAnnouncements(false)
-                .mapError { RefreshAccountError.General(it) }
+                .mapError { RefreshAccountError.General(account, it) }
                 .map {
                     it.body.map {
                         AnnouncementEntity(
                             accountId = account.id,
                             announcementId = it.id,
-                            announcement = it,
+                            announcement = it.asModel(),
                         )
                     }
                 }
@@ -511,9 +472,9 @@ class AccountManager @Inject constructor(
             val following = buildList {
                 do {
                     val response = mastodonApi.accountFollowing(account.accountId, maxId)
-                        .getOrElse { return@async Err(it) }
+                        .getOrElse { return@async Err(RefreshAccountError.General(account, it)) }
 
-                    addAll(response.body.map { FollowingAccountEntity.from(account.id, it) })
+                    addAll(response.body.map { FollowingAccountEntity.from(account.id, it.asModel()) })
                     val links = HttpHeaderLink.parse(response.headers["Link"])
                     val next = HttpHeaderLink.findByRelationType(links, "next")
                     maxId = next?.uri?.getQueryParameter("max_id")
@@ -536,7 +497,7 @@ class AccountManager @Inject constructor(
         // Can't use ServerRespository here because it depends on AccountManager.
         // TODO: Break that dependency, re-write ServerRepository to be offline-first.
         Server.from(nodeInfo.software, instanceInfo)
-            .mapError { RefreshAccountError.General(it) }
+            .mapError { RefreshAccountError.General(account, it) }
             .onSuccess {
                 instanceDao.upsert(
                     ServerEntity(
@@ -553,20 +514,31 @@ class AccountManager @Inject constructor(
             .orElse {
                 when (it) {
                     ContentFiltersError.ServerDoesNotFilter -> Ok(Unit)
-                    else -> Err(RefreshAccountError.General(it))
+                    else -> Err(RefreshAccountError.General(account, it))
                 }
             }.bind()
 
         deferEmojis.await().bind()
 
         externalScope.async { listsRepository.refresh(account.id) }.await()
-            .mapError { RefreshAccountError.General(it) }.bind()
+            .mapError { RefreshAccountError.General(account, it) }.bind()
 
         // Ignore errors when fetching announcements, they're non-fatal.
         // TODO: Add a capability for announcements.
         deferAnnouncements.await().orElse { Ok(emptyList()) }.bind()
 
-        deferFollowing.await()
+        // Fetching the user's list of followed accounts may take some time if they
+        // follow a lot of accounts. This information is only used when filtering
+        // notifications and conversations, and only if the user has set the
+        // relevant options.
+        //
+        // If the options are set then wait for the API calls to complete. Otherwise
+        // this can happen in the background.
+        if (account.notificationAccountFilterNotFollowed != FilterAction.NONE ||
+            account.conversationAccountFilterNotFollowed != FilterAction.NONE
+        ) {
+            deferFollowing.await().bind()
+        }
     }
 
     /**
@@ -672,10 +644,8 @@ class AccountManager @Inject constructor(
     private suspend fun fetchInstanceInfo(domain: String): Result<InstanceInfoEntity, ApiError> {
         // TODO: InstanceInfoEntity needs to gain support for recording translation
         return mastodonApi.getInstanceV2()
-            .map { InstanceInfoEntity.make(domain, it.body) }
-            .orElse {
-                mastodonApi.getInstanceV1().map { InstanceInfoEntity.make(domain, it.body) }
-            }
+            .map { it.body.asEntity(domain) }
+            .orElse { mastodonApi.getInstanceV1().map { it.body.asEntity(domain) } }
     }
 
     /**
@@ -730,7 +700,7 @@ class AccountManager @Inject constructor(
         )
     }
 
-    fun setDefaultPostPrivacy(accountId: Long, value: Status.Visibility) {
+    fun setDefaultPostPrivacy(accountId: Long, value: Visibility) {
         accountDao.setDefaultPostPrivacy(accountId, value)
     }
 
@@ -744,6 +714,10 @@ class AccountManager @Inject constructor(
 
     fun setNotificationsEnabled(accountId: Long, value: Boolean) {
         accountDao.setNotificationsEnabled(accountId, value)
+    }
+
+    fun setNotificationsMentioned(accountId: Long, value: Boolean) {
+        accountDao.setNotificationsMentioned(accountId, value)
     }
 
     fun setNotificationsFollowed(accountId: Long, value: Boolean) {
@@ -782,6 +756,10 @@ class AccountManager @Inject constructor(
         accountDao.setNotificationsReports(accountId, value)
     }
 
+    fun setNotificationsSeveredRelationships(accountId: Long, value: Boolean) {
+        accountDao.setNotificationsSeveredRelationships(accountId, value)
+    }
+
     fun setNotificationSound(accountId: Long, value: Boolean) {
         accountDao.setNotificationSound(accountId, value)
     }
@@ -792,6 +770,18 @@ class AccountManager @Inject constructor(
 
     fun setNotificationLight(accountId: Long, value: Boolean) {
         accountDao.setNotificationLight(accountId, value)
+    }
+
+    suspend fun setConversationAccountFilterNotFollowed(accountId: Long, action: FilterAction) {
+        accountDao.setConversationAccountFilterNotFollowed(accountId, action)
+    }
+
+    suspend fun setConversationAccountFilterYounger30d(accountId: Long, action: FilterAction) {
+        accountDao.setConversationAccountFilterYounger30d(accountId, action)
+    }
+
+    suspend fun setConversationAccountFilterLimitedByServer(accountId: Long, action: FilterAction) {
+        accountDao.setConversationAccountFilterLimitedByServer(accountId, action)
     }
 
     suspend fun setNotificationAccountFilterNotFollowed(accountId: Long, action: FilterAction) {
@@ -818,5 +808,38 @@ class AccountManager @Inject constructor(
 
     suspend fun unfollowAccount(pachliAccountId: Long, serverId: String) {
         followingAccountDao.delete(FollowingAccountEntity(pachliAccountId, serverId))
+    }
+
+    // Note: Can't use a Room partial update here because RedactedAccount doesn't
+    // contain an ID. And you can't pass an object to a Room query and then
+    // reference the object properties in the query.
+    suspend fun updateFromRedactedAccount(pachliAccountId: Long, redactedAccount: RedactedAccount) = transactionProvider {
+        setNotificationsEnabled(pachliAccountId, redactedAccount.notificationsEnabled)
+        setNotificationsMentioned(pachliAccountId, redactedAccount.notificationsMentioned)
+        setNotificationsFollowed(pachliAccountId, redactedAccount.notificationsFollowed)
+        setNotificationsFollowRequested(pachliAccountId, redactedAccount.notificationsFollowRequested)
+        setNotificationsReblogged(pachliAccountId, redactedAccount.notificationsReblogged)
+        setNotificationsFavorited(pachliAccountId, redactedAccount.notificationsFavorited)
+        setNotificationsPolls(pachliAccountId, redactedAccount.notificationsPolls)
+        setNotificationsSubscriptions(pachliAccountId, redactedAccount.notificationsSubscriptions)
+        setNotificationsSignUps(pachliAccountId, redactedAccount.notificationsSignUps)
+        setNotificationsUpdates(pachliAccountId, redactedAccount.notificationsUpdates)
+        setNotificationsReports(pachliAccountId, redactedAccount.notificationsReports)
+        setNotificationsSeveredRelationships(pachliAccountId, redactedAccount.notificationsSeveredRelationships)
+        setNotificationSound(pachliAccountId, redactedAccount.notificationSound)
+        setNotificationVibration(pachliAccountId, redactedAccount.notificationVibration)
+        setNotificationLight(pachliAccountId, redactedAccount.notificationLight)
+        setAlwaysShowSensitiveMedia(pachliAccountId, redactedAccount.alwaysShowSensitiveMedia)
+        setAlwaysOpenSpoiler(pachliAccountId, redactedAccount.alwaysOpenSpoiler)
+        setMediaPreviewEnabled(pachliAccountId, redactedAccount.mediaPreviewEnabled)
+        setNotificationMarkerId(pachliAccountId, redactedAccount.notificationMarkerId)
+        setTabPreferences(pachliAccountId, redactedAccount.tabPreferences)
+        setNotificationsFilter(pachliAccountId, redactedAccount.notificationsFilter)
+        setNotificationAccountFilterNotFollowed(pachliAccountId, redactedAccount.notificationAccountFilterNotFollowed)
+        setNotificationAccountFilterYounger30d(pachliAccountId, redactedAccount.notificationAccountFilterYounger30d)
+        setNotificationAccountFilterLimitedByServer(pachliAccountId, redactedAccount.notificationAccountFilterYounger30d)
+        setConversationAccountFilterNotFollowed(pachliAccountId, redactedAccount.conversationAccountFilterNotFollowed)
+        setConversationAccountFilterYounger30d(pachliAccountId, redactedAccount.conversationAccountFilterYounger30d)
+        setConversationAccountFilterLimitedByServer(pachliAccountId, redactedAccount.conversationAccountFilterLimitedByServer)
     }
 }

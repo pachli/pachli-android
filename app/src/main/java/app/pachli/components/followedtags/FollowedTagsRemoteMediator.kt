@@ -9,27 +9,20 @@ import app.pachli.core.network.model.HttpHeaderLink
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiResult
 import com.github.michaelbull.result.getOrElse
-import kotlinx.coroutines.currentCoroutineContext
-import kotlinx.coroutines.ensureActive
 
 @OptIn(ExperimentalPagingApi::class)
 class FollowedTagsRemoteMediator(
     private val api: MastodonApi,
     private val viewModel: FollowedTagsViewModel,
-) : RemoteMediator<String, String>() {
+) : RemoteMediator<String, HashTag>() {
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<String, String>,
+        state: PagingState<String, HashTag>,
     ): MediatorResult {
-        return try {
-            val response = request(loadType)
-                ?: return MediatorResult.Success(endOfPaginationReached = true)
+        val response = request(loadType)
+            ?: return MediatorResult.Success(endOfPaginationReached = true)
 
-            return applyResponse(response)
-        } catch (e: Exception) {
-            currentCoroutineContext().ensureActive()
-            MediatorResult.Error(e)
-        }
+        return applyResponse(response)
     }
 
     private suspend fun request(loadType: LoadType): ApiResult<List<HashTag>>? {

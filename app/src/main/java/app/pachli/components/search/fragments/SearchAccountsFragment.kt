@@ -21,9 +21,9 @@ import android.view.View
 import androidx.paging.PagingData
 import androidx.paging.PagingDataAdapter
 import app.pachli.components.search.adapter.SearchAccountsAdapter
-import app.pachli.core.network.model.TimelineAccount
-import app.pachli.core.preferences.PrefKeys
+import app.pachli.core.model.TimelineAccount
 import app.pachli.core.preferences.SharedPreferencesRepository
+import com.bumptech.glide.Glide
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -43,10 +43,11 @@ class SearchAccountsFragment : SearchFragment<TimelineAccount>() {
 
     override fun createAdapter(): PagingDataAdapter<TimelineAccount, *> {
         return SearchAccountsAdapter(
+            Glide.with(this),
             this,
             sharedPreferencesRepository.animateAvatars,
             sharedPreferencesRepository.animateEmojis,
-            sharedPreferencesRepository.getBoolean(PrefKeys.SHOW_BOT_OVERLAY, true),
+            sharedPreferencesRepository.showBotOverlay,
         )
     }
 

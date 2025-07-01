@@ -26,9 +26,10 @@ import app.pachli.components.timeline.TimelineRepository.Companion.PAGE_SIZE
 import app.pachli.components.timeline.viewmodel.NetworkTimelinePagingSource
 import app.pachli.components.timeline.viewmodel.NetworkTimelineRemoteMediator
 import app.pachli.components.timeline.viewmodel.PageCache
-import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.dao.RemoteKeyDao
+import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
+import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
-import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.ui.getDomain
 import javax.inject.Inject
@@ -70,6 +71,7 @@ import timber.log.Timber
 /** Timeline repository where the timeline information is backed by an in-memory cache. */
 class NetworkTimelineRepository @Inject constructor(
     private val mastodonApi: MastodonApi,
+    private val remoteKeyDao: RemoteKeyDao,
 ) : TimelineRepository<Status> {
     private val pageCache = PageCache()
 
@@ -78,23 +80,29 @@ class NetworkTimelineRepository @Inject constructor(
     /** @return flow of Mastodon [Status]. */
     @OptIn(ExperimentalPagingApi::class)
     override suspend fun getStatusStream(
-        account: AccountEntity,
+        pachliAccountId: Long,
         kind: Timeline,
     ): Flow<PagingData<Status>> {
         Timber.d("getStatusStream()")
+
+        val initialKey = kind.remoteKeyTimelineId?.let { refreshKeyPrimaryKey ->
+            remoteKeyDao.remoteKeyForKind(pachliAccountId, refreshKeyPrimaryKey, RemoteKeyKind.REFRESH)
+        }?.key
 
         factory = InvalidatingPagingSourceFactory {
             NetworkTimelinePagingSource(pageCache)
         }
 
         return Pager(
+            initialKey = initialKey,
             config = PagingConfig(pageSize = PAGE_SIZE),
             remoteMediator = NetworkTimelineRemoteMediator(
                 mastodonApi,
-                account,
+                pachliAccountId,
                 factory!!,
                 pageCache,
                 kind,
+                remoteKeyDao,
             ),
             pagingSourceFactory = factory!!,
         ).flow
@@ -157,6 +165,7 @@ class NetworkTimelineRepository @Inject constructor(
                 }
             }
         }
+        invalidate()
     }
 
     fun reload() {

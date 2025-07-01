@@ -21,7 +21,7 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import app.pachli.R
-import app.pachli.core.network.model.HashTag
+import app.pachli.core.model.HashTag
 import app.pachli.core.ui.BindingHolder
 import app.pachli.core.ui.LinkListener
 import app.pachli.databinding.ItemHashtagBinding
@@ -35,19 +35,31 @@ class SearchHashtagsAdapter(private val linkListener: LinkListener) :
     }
 
     override fun onBindViewHolder(holder: BindingHolder<ItemHashtagBinding>, position: Int) {
-        getItem(position)?.let { (name) ->
-            holder.binding.root.text = holder.binding.root.context.getString(R.string.title_tag, name)
-            holder.binding.root.setOnClickListener { linkListener.onViewTag(name) }
+        getItem(position)?.let { tag ->
+            with(holder.binding) {
+                text1.text = root.context.getString(R.string.title_tag, tag.name)
+
+                val usage = tag.history.sumOf { it.uses }
+                val accounts = tag.history.sumOf { it.accounts }
+                val days = tag.history.size
+
+                tagStats.text = root.resources.getString(
+                    R.string.followed_hashtags_summary_fmt,
+                    root.resources.getQuantityString(R.plurals.followed_hashtags_posts_count_fmt, usage, usage),
+                    root.resources.getQuantityString(R.plurals.followed_hashtags_accounts_count_fmt, accounts, accounts),
+                    root.resources.getQuantityString(R.plurals.followed_hashtags_days_count_fmt, days, days),
+                )
+
+                root.setOnClickListener { linkListener.onViewTag(tag.name) }
+            }
         }
     }
 
     companion object {
         val HASHTAG_COMPARATOR = object : DiffUtil.ItemCallback<HashTag>() {
-            override fun areContentsTheSame(oldItem: HashTag, newItem: HashTag): Boolean =
-                oldItem.name == newItem.name
+            override fun areContentsTheSame(oldItem: HashTag, newItem: HashTag): Boolean = oldItem.name == newItem.name
 
-            override fun areItemsTheSame(oldItem: HashTag, newItem: HashTag): Boolean =
-                oldItem.name == newItem.name
+            override fun areItemsTheSame(oldItem: HashTag, newItem: HashTag): Boolean = oldItem.name == newItem.name
         }
     }
 }

@@ -12,4 +12,8 @@
     <string name="title_links_dialog">लिंक</string>
     <string name="title_hashtags_dialog">हैशटैग</string>
     <string name="title_mentions_dialog">ज़िक्र</string>
+    <string name="button_continue">जारी रखें</string>
+    <string name="action_logout_confirm">क्या आप %1$s खाते से लॉग आउट करना चाहते हैं?</string>
+    <string name="add_account_name">खाता जोड़ो</string>
+    <string name="action_logout">लॉग आउट</string>
 </resources>

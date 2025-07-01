@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="acra_dialog_title">Raport o błędzie %1$s</string>
+    <string name="acra_dialog_text">Kliknij OK, by przygotować email do twórców ze szczegółami</string>
+    <string name="acra_email_body">Te dane zostaną przesłane twórcom.\n\n Proszę, upewnij się, że nie zawierają niczego, czego nie chcesz udostępnić i opisz co robiłeś_aś w czasie, gdy wystąpiła awaria.\n\n ----\n Twój opis poniżej:\n\n ----</string>
+</resources>

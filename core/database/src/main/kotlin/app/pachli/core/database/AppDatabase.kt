@@ -49,6 +49,7 @@ import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.AnnouncementEntity
 import app.pachli.core.database.model.ContentFiltersEntity
 import app.pachli.core.database.model.ConversationEntity
+import app.pachli.core.database.model.ConversationViewDataEntity
 import app.pachli.core.database.model.DraftEntity
 import app.pachli.core.database.model.EmojisEntity
 import app.pachli.core.database.model.FollowingAccountEntity
@@ -95,8 +96,9 @@ import java.util.TimeZone
         NotificationViewDataEntity::class,
         NotificationRelationshipSeveranceEventEntity::class,
         TimelineStatusEntity::class,
+        ConversationViewDataEntity::class,
     ],
-    version = 16,
+    version = 25,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
@@ -107,12 +109,24 @@ import java.util.TimeZone
         AutoMigration(from = 7, to = 8, spec = AppDatabase.MIGRATE_7_8::class),
         // 8 -> 9 is a custom migration
         AutoMigration(from = 9, to = 10),
-        AutoMigration(from = 10, to = 11),
+        // 10 -> 11 is a custom migration
         AutoMigration(from = 11, to = 12, spec = AppDatabase.MIGRATE_11_12::class),
         // 12 -> 13 is a custom migration
         AutoMigration(from = 13, to = 14, spec = AppDatabase.MIGRATE_13_14::class),
         AutoMigration(from = 14, to = 15, spec = AppDatabase.MIGRATE_14_15::class),
         AutoMigration(from = 15, to = 16),
+        AutoMigration(from = 16, to = 17),
+        AutoMigration(from = 17, to = 18, spec = AppDatabase.MIGRATE_17_18::class),
+        // 18 -> 19 is a custom migration
+        AutoMigration(from = 19, to = 20, spec = AppDatabase.MIGRATE_19_20::class),
+        AutoMigration(from = 20, to = 21),
+        AutoMigration(from = 21, to = 22),
+        // Removed nullability from some InstanceInfoEntity properties.
+        // 22 -> 23 is a custom migration.
+        // Added InstanceInfoEntity.maxMediaDescriptionChars.
+        AutoMigration(from = 23, to = 24),
+        // Added "isBot" to AccountEntity
+        AutoMigration(from = 24, to = 25),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -196,6 +210,48 @@ abstract class AppDatabase : RoomDatabase() {
 
     @RenameTable("TimelineStatusEntity", "StatusEntity")
     class MIGRATE_14_15 : AutoMigrationSpec
+
+    @RenameColumn("StatusViewDataEntity", "timelineUserId", "pachliAccountId")
+    class MIGRATE_17_18 : AutoMigrationSpec
+
+    // Rename for consistency with other code.
+    @RenameColumn("ConversationEntity", "accountId", "pachliAccountId")
+    // Conversations are now ordered by date of most recent status.
+    @DeleteColumn("ConversationEntity", "order")
+    // Removing the embedded status from ConversationStatusEntity, and joining
+    // on StatusEntity.
+    @DeleteColumn("ConversationEntity", "s_id")
+    @DeleteColumn("ConversationEntity", "s_url")
+    @DeleteColumn("ConversationEntity", "s_inReplyToId")
+    @DeleteColumn("ConversationEntity", "s_inReplyToAccountId")
+    @DeleteColumn("ConversationEntity", "s_account")
+    @DeleteColumn("ConversationEntity", "s_content")
+    @DeleteColumn("ConversationEntity", "s_createdAt")
+    @DeleteColumn("ConversationEntity", "s_editedAt")
+    @DeleteColumn("ConversationEntity", "s_emojis")
+    @DeleteColumn("ConversationEntity", "s_favouritesCount")
+    @DeleteColumn("ConversationEntity", "s_repliesCount")
+    @DeleteColumn("ConversationEntity", "s_favourited")
+    @DeleteColumn("ConversationEntity", "s_bookmarked")
+    @DeleteColumn("ConversationEntity", "s_sensitive")
+    @DeleteColumn("ConversationEntity", "s_spoilerText")
+    @DeleteColumn("ConversationEntity", "s_attachments")
+    @DeleteColumn("ConversationEntity", "s_mentions")
+    @DeleteColumn("ConversationEntity", "s_tags")
+    @DeleteColumn("ConversationEntity", "s_showingHiddenContent")
+    @DeleteColumn("ConversationEntity", "s_expanded")
+    @DeleteColumn("ConversationEntity", "s_collapsed")
+    @DeleteColumn("ConversationEntity", "s_muted")
+    @DeleteColumn("ConversationEntity", "s_poll")
+    @DeleteColumn("ConversationEntity", "s_language")
+    @DeleteColumn("ConversationEntity", "s_showingHiddenContent")
+    @DeleteColumn("ConversationEntity", "s_collapsed")
+    @DeleteColumn("ConversationEntity", "s_expanded")
+    class MIGRATE_19_20 : AutoMigrationSpec {
+        override fun onPostMigrate(db: SupportSQLiteDatabase) {
+            super.onPostMigrate(db)
+        }
+    }
 }
 
 val MIGRATE_8_9 = object : Migration(8, 9) {
@@ -269,6 +325,67 @@ val MIGRATE_8_9 = object : Migration(8, 9) {
 }
 
 /**
+ * Clears references to deleted accounts.
+ *
+ * The migration from 10 -> 11 adds FK relationships to the AccountEntity table. Because of
+ * earlier bugs the child tables in those relationships may contain orphaned rows that
+ * reference accounts that have been logged out and deleted from AccountEntity. Trying to
+ * create those FK relationships will fail because of that.
+ *
+ * Remove any rows from those tables that reference an ID that is not in AccountEntity. This
+ * won't delete any live user data because it was supposed to be deleted when the user
+ * logged out.
+ */
+val MIGRATE_10_11 = object : Migration(10, 11) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        // Delete the data that would break the FK relationship.
+        db.execSQL("DELETE FROM DraftEntity WHERE accountId NOT IN (SELECT id FROM AccountEntity)")
+        db.execSQL("DELETE FROM TimelineAccountEntity WHERE timelineUserId NOT IN (SELECT id FROM AccountEntity)")
+        db.execSQL("DELETE FROM ConversationEntity WHERE accountId NOT IN (SELECT id FROM AccountEntity)")
+        db.execSQL("DELETE FROM RemoteKeyEntity WHERE accountId NOT IN (SELECT id FROM AccountEntity)")
+        db.execSQL("DELETE FROM StatusViewDataEntity WHERE timelineUserId NOT IN (SELECT id FROM AccountEntity)")
+        db.execSQL("DELETE FROM FollowingAccountEntity WHERE pachliAccountId NOT IN (SELECT id FROM AccountEntity)")
+
+        // Create tables with the new relationships and copy data over.
+        db.execSQL("CREATE TABLE IF NOT EXISTS `_new_DraftEntity` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `accountId` INTEGER NOT NULL, `inReplyToId` TEXT, `content` TEXT, `contentWarning` TEXT, `sensitive` INTEGER NOT NULL, `visibility` INTEGER NOT NULL, `attachments` TEXT NOT NULL, `poll` TEXT, `failedToSend` INTEGER NOT NULL, `failedToSendNew` INTEGER NOT NULL, `scheduledAt` INTEGER, `language` TEXT, `statusId` TEXT, FOREIGN KEY(`accountId`) REFERENCES `AccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)")
+        db.execSQL("INSERT INTO `_new_DraftEntity` (`id`,`accountId`,`inReplyToId`,`content`,`contentWarning`,`sensitive`,`visibility`,`attachments`,`poll`,`failedToSend`,`failedToSendNew`,`scheduledAt`,`language`,`statusId`) SELECT `id`,`accountId`,`inReplyToId`,`content`,`contentWarning`,`sensitive`,`visibility`,`attachments`,`poll`,`failedToSend`,`failedToSendNew`,`scheduledAt`,`language`,`statusId` FROM `DraftEntity`")
+        db.execSQL("DROP TABLE `DraftEntity`")
+        db.execSQL("ALTER TABLE `_new_DraftEntity` RENAME TO `DraftEntity`")
+        db.execSQL("CREATE INDEX IF NOT EXISTS `index_DraftEntity_accountId` ON `DraftEntity` (`accountId`)")
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS `_new_TimelineAccountEntity` (`serverId` TEXT NOT NULL, `timelineUserId` INTEGER NOT NULL, `localUsername` TEXT NOT NULL, `username` TEXT NOT NULL, `displayName` TEXT NOT NULL, `url` TEXT NOT NULL, `avatar` TEXT NOT NULL, `emojis` TEXT NOT NULL, `bot` INTEGER NOT NULL, `createdAt` INTEGER, PRIMARY KEY(`serverId`, `timelineUserId`), FOREIGN KEY(`timelineUserId`) REFERENCES `AccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)")
+        db.execSQL("INSERT INTO `_new_TimelineAccountEntity` (`serverId`,`timelineUserId`,`localUsername`,`username`,`displayName`,`url`,`avatar`,`emojis`,`bot`,`createdAt`) SELECT `serverId`,`timelineUserId`,`localUsername`,`username`,`displayName`,`url`,`avatar`,`emojis`,`bot`,`createdAt` FROM `TimelineAccountEntity`")
+        db.execSQL("DROP TABLE `TimelineAccountEntity`")
+        db.execSQL("ALTER TABLE `_new_TimelineAccountEntity` RENAME TO `TimelineAccountEntity`")
+        db.execSQL("CREATE INDEX IF NOT EXISTS `index_TimelineAccountEntity_timelineUserId` ON `TimelineAccountEntity` (`timelineUserId`)")
+
+        db.execSQL(
+            "CREATE TABLE IF NOT EXISTS `_new_ConversationEntity` (`accountId` INTEGER NOT NULL, `id` TEXT NOT NULL, `order` INTEGER NOT NULL, `accounts` TEXT NOT NULL, `unread` INTEGER NOT NULL, `s_id` TEXT NOT NULL, `s_url` TEXT, `s_inReplyToId` TEXT, `s_inReplyToAccountId` TEXT, `s_account` TEXT NOT NULL, `s_content` TEXT NOT NULL, `s_createdAt` INTEGER NOT NULL, `s_editedAt` INTEGER, `s_emojis` TEXT NOT NULL, `s_favouritesCount` INTEGER NOT NULL, `s_repliesCount` INTEGER NOT NULL, `s_favourited` INTEGER NOT NULL, `s_bookmarked` INTEGER NOT NULL, `s_sensitive` INTEGER NOT NULL, `s_spoilerText` TEXT NOT NULL, `s_attachments` TEXT NOT NULL, `s_mentions` TEXT NOT NULL, `s_tags` TEXT, `s_showingHiddenContent` INTEGER NOT NULL, `s_expanded` INTEGER NOT NULL, `s_collapsed` INTEGER NOT NULL, `s_muted` INTEGER NOT NULL, `s_poll` TEXT, `s_language` TEXT, PRIMARY KEY(`id`, `accountId`), FOREIGN KEY(`accountId`) REFERENCES `AccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
+        )
+        db.execSQL("INSERT INTO `_new_ConversationEntity` (`accountId`,`id`,`order`,`accounts`,`unread`,`s_id`,`s_url`,`s_inReplyToId`,`s_inReplyToAccountId`,`s_account`,`s_content`,`s_createdAt`,`s_editedAt`,`s_emojis`,`s_favouritesCount`,`s_repliesCount`,`s_favourited`,`s_bookmarked`,`s_sensitive`,`s_spoilerText`,`s_attachments`,`s_mentions`,`s_tags`,`s_showingHiddenContent`,`s_expanded`,`s_collapsed`,`s_muted`,`s_poll`,`s_language`) SELECT `accountId`,`id`,`order`,`accounts`,`unread`,`s_id`,`s_url`,`s_inReplyToId`,`s_inReplyToAccountId`,`s_account`,`s_content`,`s_createdAt`,`s_editedAt`,`s_emojis`,`s_favouritesCount`,`s_repliesCount`,`s_favourited`,`s_bookmarked`,`s_sensitive`,`s_spoilerText`,`s_attachments`,`s_mentions`,`s_tags`,`s_showingHiddenContent`,`s_expanded`,`s_collapsed`,`s_muted`,`s_poll`,`s_language` FROM `ConversationEntity`")
+        db.execSQL("DROP TABLE `ConversationEntity`")
+        db.execSQL("ALTER TABLE `_new_ConversationEntity` RENAME TO `ConversationEntity`")
+        db.execSQL("CREATE INDEX IF NOT EXISTS `index_ConversationEntity_accountId` ON `ConversationEntity` (`accountId`)")
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS `_new_RemoteKeyEntity` (`accountId` INTEGER NOT NULL, `timelineId` TEXT NOT NULL, `kind` TEXT NOT NULL, `key` TEXT, PRIMARY KEY(`accountId`, `timelineId`, `kind`), FOREIGN KEY(`accountId`) REFERENCES `AccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)")
+        db.execSQL("INSERT INTO `_new_RemoteKeyEntity` (`accountId`,`timelineId`,`kind`,`key`) SELECT `accountId`,`timelineId`,`kind`,`key` FROM `RemoteKeyEntity`")
+        db.execSQL("DROP TABLE `RemoteKeyEntity`")
+        db.execSQL("ALTER TABLE `_new_RemoteKeyEntity` RENAME TO `RemoteKeyEntity`")
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS `_new_StatusViewDataEntity` (`serverId` TEXT NOT NULL, `timelineUserId` INTEGER NOT NULL, `expanded` INTEGER NOT NULL, `contentShowing` INTEGER NOT NULL, `contentCollapsed` INTEGER NOT NULL, `translationState` TEXT NOT NULL DEFAULT 'SHOW_ORIGINAL', PRIMARY KEY(`serverId`, `timelineUserId`), FOREIGN KEY(`timelineUserId`) REFERENCES `AccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)")
+        db.execSQL("INSERT INTO `_new_StatusViewDataEntity` (`serverId`,`timelineUserId`,`expanded`,`contentShowing`,`contentCollapsed`,`translationState`) SELECT `serverId`,`timelineUserId`,`expanded`,`contentShowing`,`contentCollapsed`,`translationState` FROM `StatusViewDataEntity`")
+        db.execSQL("DROP TABLE `StatusViewDataEntity`")
+        db.execSQL("ALTER TABLE `_new_StatusViewDataEntity` RENAME TO `StatusViewDataEntity`")
+        db.execSQL("CREATE INDEX IF NOT EXISTS `index_StatusViewDataEntity_timelineUserId` ON `StatusViewDataEntity` (`timelineUserId`)")
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS `_new_FollowingAccountEntity` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, PRIMARY KEY(`pachliAccountId`, `serverId`), FOREIGN KEY(`pachliAccountId`) REFERENCES `AccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)")
+        db.execSQL("INSERT INTO `_new_FollowingAccountEntity` (`pachliAccountId`,`serverId`) SELECT `pachliAccountId`,`serverId` FROM `FollowingAccountEntity`")
+        db.execSQL("DROP TABLE `FollowingAccountEntity`")
+        db.execSQL("ALTER TABLE `_new_FollowingAccountEntity` RENAME TO `FollowingAccountEntity`")
+    }
+}
+
+/**
  * Adds the FK constraint between NotificationEntity and TimelineAccountEntity.
  *
  * The relevant TimelineAccountEntity rows may not exist in the database, so
@@ -280,5 +397,37 @@ val MIGRATE_12_13 = object : Migration(12, 13) {
         db.execSQL("CREATE TABLE IF NOT EXISTS `_new_NotificationEntity` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `type` TEXT NOT NULL, `createdAt` INTEGER NOT NULL, `accountServerId` TEXT NOT NULL, `statusServerId` TEXT, PRIMARY KEY(`pachliAccountId`, `serverId`), FOREIGN KEY(`pachliAccountId`) REFERENCES `AccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED, FOREIGN KEY(`accountServerId`, `pachliAccountId`) REFERENCES `TimelineAccountEntity`(`serverId`, `timelineUserId`) ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE INITIALLY DEFERRED)")
         db.execSQL("DROP TABLE `NotificationEntity`")
         db.execSQL("ALTER TABLE `_new_NotificationEntity` RENAME TO `NotificationEntity`")
+    }
+}
+
+/**
+ * Removes any StatusEntity that reference a non-existent [AccountEntity.id] in
+ * [StatusEntity.timelineUserId].
+ *
+ * Version 20 introduces that as an FK constraint, this ensures that any statuses
+ * in the cache that break that constraint are removed.
+ */
+val MIGRATE_18_19 = object : Migration(18, 19) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL(
+            """
+DELETE
+FROM StatusEntity
+WHERE timelineUserId NOT IN (SELECT id FROM AccountEntity)
+            """.trimIndent(),
+        )
+    }
+}
+
+/**
+ * Removes nullability from some fields in InstanceInfoEntity. This is a cache,
+ * so don't copy existing data (which may be null instead of containing defaults),
+ * as the data will be refreshed when the user logs in.
+ */
+val MIGRATE_22_23 = object : Migration(22, 23) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL("CREATE TABLE IF NOT EXISTS `_new_InstanceInfoEntity` (`instance` TEXT NOT NULL, `maxPostCharacters` INTEGER NOT NULL, `maxPollOptions` INTEGER NOT NULL, `maxPollOptionLength` INTEGER NOT NULL, `minPollDuration` INTEGER NOT NULL, `maxPollDuration` INTEGER NOT NULL, `charactersReservedPerUrl` INTEGER NOT NULL, `version` TEXT NOT NULL, `videoSizeLimit` INTEGER NOT NULL, `imageSizeLimit` INTEGER NOT NULL, `imageMatrixLimit` INTEGER NOT NULL, `maxMediaAttachments` INTEGER NOT NULL, `maxFields` INTEGER NOT NULL, `maxFieldNameLength` INTEGER, `maxFieldValueLength` INTEGER, `enabledTranslation` INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(`instance`))")
+        db.execSQL("DROP TABLE `InstanceInfoEntity`")
+        db.execSQL("ALTER TABLE `_new_InstanceInfoEntity` RENAME TO `InstanceInfoEntity`")
     }
 }

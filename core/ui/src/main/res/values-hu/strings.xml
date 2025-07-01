@@ -15,4 +15,8 @@
     <string name="title_links_dialog">Linkek</string>
     <string name="title_hashtags_dialog">Hashtagek</string>
     <string name="title_mentions_dialog">Említések</string>
+    <string name="button_continue">Folytatás</string>
+    <string name="action_logout_confirm">Biztosan ki szeretnél jelentkezni a következőből: %1$s?</string>
+    <string name="add_account_name">Fiók hozzáadása</string>
+    <string name="action_logout">Kijelentkezés</string>
 </resources>

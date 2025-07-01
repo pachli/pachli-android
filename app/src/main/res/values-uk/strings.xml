@@ -26,7 +26,6 @@
     <string name="action_edit_profile">Редагувати профіль</string>
     <string name="action_view_account_preferences">Налаштування облікового запису</string>
     <string name="action_view_preferences">Налаштування</string>
-    <string name="action_logout">Вийти</string>
     <string name="title_drafts">Чернетки</string>
     <string name="title_favourites">Вподобане</string>
     <string name="search_no_results">Немає результатів</string>
@@ -35,7 +34,6 @@
     <string name="hint_compose">Що відбувається\?</string>
     <string name="post_sent">Надіслано!</string>
     <string name="confirmation_reported">Надіслано!</string>
-    <string name="action_share_as">Поділитися як …</string>
     <string name="action_copy_link">Копіювати посилання</string>
     <string name="download_image">Завантаження %1$s</string>
     <string name="action_open_faved_by">Показати, хто вподобав</string>
@@ -68,7 +66,6 @@
     <string name="action_block">Заблокувати</string>
     <string name="action_unfollow">Відписатися</string>
     <string name="action_follow">Підписатися</string>
-    <string name="action_logout_confirm">Ви впевнені, що хочете вийти %1$s\? Це призведе до видалення всіх локальних даних облікового запису, включно з чернетками та вподобаннями.</string>
     <string name="action_compose">Написати</string>
     <string name="action_unfavourite">Не подобається</string>
     <string name="action_bookmark">Додати в закладки</string>
@@ -135,10 +132,10 @@
     <string name="description_post_favourited">Уподобано</string>
     <string name="title_favourited_by">Вподобали</string>
     <plurals name="favs">
-        <item quantity="one">&lt;b>%1$s&lt;/b> вподобання</item>
-        <item quantity="few">&lt;b>%1$s&lt;/b> вподобання</item>
-        <item quantity="many">&lt;b>%1$s&lt;/b> вподобань</item>
-        <item quantity="other">&lt;b>%1$s&lt;/b> вподобань</item>
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; вподобання</item>
+        <item quantity="few">&lt;b&gt;%1$s&lt;/b&gt; вподобання</item>
+        <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; вподобань</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; вподобань</item>
     </plurals>
     <string name="notification_favourite_description">Сповіщати про вподобання кимось дописів</string>
     <string name="pref_title_notification_filter_favourites">мої дописи вподобано</string>
@@ -152,13 +149,6 @@
     <string name="error_no_custom_emojis">Ваш сервер %s не має власних емодзі</string>
     <string name="compose_save_draft">Зберегти чернетку\?</string>
     <string name="lock_account_label_description">Вимагає затвердження підписників власноруч</string>
-    <string name="action_set_caption">Додати підпис</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="one">Опис матеріалів для людей з вадами зору (обмеження %d символ)</item>
-        <item quantity="few">Опис матеріалів для людей з вадами зору (обмеження %d символи)</item>
-        <item quantity="many">Опис матеріалів для людей з вадами зору (обмеження %d символів)</item>
-        <item quantity="other">Опис матеріалів для людей з вадами зору (обмеження %d символів)</item>
-    </plurals>
     <string name="action_unsubscribe_account">Відписатися</string>
     <string name="action_subscribe_account">Підписатися</string>
     <string name="account_note_saved">Збережено!</string>
@@ -180,7 +170,6 @@
     <string name="hint_additional_info">Додаткові коментарі</string>
     <string name="report_sent_success">Звіт @%s надіслано</string>
     <string name="button_back">Назад</string>
-    <string name="button_continue">Продовжити</string>
     <plurals name="poll_timespan_seconds">
         <item quantity="one">Залишилася %d секунда</item>
         <item quantity="few">Залишилося %d секунди</item>
@@ -241,7 +230,6 @@
     <string name="send_post_notification_title">Надсилання допису…</string>
     <string name="compose_active_account_description">Публікування як %1$s</string>
     <string name="add_account_description">Додати новий обліковий запис Mastodon</string>
-    <string name="add_account_name">Додати обліковий запис</string>
     <string name="filter_add_description">Фільтрувати фразу</string>
     <string name="filter_dialog_whole_word_description">Коли ключове слово або фраза є лише буквено-цифровими, вони застосовуватимуться лише, якщо вони збігатимуться з цілим словом</string>
     <string name="filter_dialog_whole_word">Ціле слово</string>
@@ -273,7 +261,6 @@
     <string name="post_media_images">Зображення</string>
     <string name="post_share_link">Поділитися посиланням на допис</string>
     <string name="post_share_content">Поділитися вмістом допису</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <string name="description_account_locked">Заблокований обліковий запис</string>
     <plurals name="notification_title_summary">
         <item quantity="one">%d нова взаємодія</item>
@@ -424,10 +411,10 @@
     <string name="description_post_bookmarked">Додано до закладок</string>
     <string name="description_post_reblogged">Поширено</string>
     <plurals name="reblogs">
-        <item quantity="one">&lt;b>%s&lt;/b> поширення</item>
-        <item quantity="few">&lt;b>%s&lt;/b> поширення</item>
-        <item quantity="many">&lt;b>%s&lt;/b> поширень</item>
-        <item quantity="other">&lt;b>%s&lt;/b> поширень</item>
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; поширення</item>
+        <item quantity="few">&lt;b&gt;%s&lt;/b&gt; поширення</item>
+        <item quantity="many">&lt;b&gt;%s&lt;/b&gt; поширень</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; поширень</item>
     </plurals>
     <string name="pin_action">Прикріпити</string>
     <string name="unpin_action">Відкріпити</string>
@@ -484,7 +471,6 @@
     <string name="action_unfollow_hashtag_format">Не слідкувати за #%s\?</string>
     <string name="status_created_at_now">зараз</string>
     <string name="notification_header_report_format">%s скаржиться %s</string>
-    <string name="notification_summary_report_format">%s · %d прикріплених дописів</string>
     <string name="confirmation_hashtag_unfollowed">#%s не відстежується</string>
     <string name="pref_title_notification_filter_reports">з\'явилася нова скарга</string>
     <string name="notification_report_name">Скарги</string>
@@ -567,7 +553,6 @@
     <string name="pref_title_show_stat_inline">Показувати статистику допису у стрічці</string>
     <string name="help_empty_home">Це ваша <b>головна стрічка</b>. Вона показує останні дописи облікових записів, за якими ви стежите. \n \nЩоб переглянути облікові записи, ви можете знайти їх в одній з інших стрічок. Наприклад, на локальній стрічці вашого сервера [iconics gmd_group]. Або ви можете шукати їх за іменами [iconics gmd_search]; наприклад, шукайте Pachli, щоб знайти наш обліковий запис Mastodon.</string>
     <string name="hint_description">Опис</string>
-    <string name="post_media_image">Зображення</string>
     <string name="select_list_empty">У вас ще немає списків</string>
     <string name="select_list_manage">Керувати списками</string>
     <string name="pref_ui_text_size">Розмір шрифту інтерфейсу</string>
@@ -580,4 +565,10 @@
     <string name="error_missing_edits">Ваш сервер знає, що цей допис було змінено, але не має копії редагувань, тому вони не можуть бути вам показані.
 \n
 \nЦе <a href="https://github.com/mastodon/mastodon/issues/25398">помилка #25398 у Mastodon</a>.</string>
+    <plurals name="notification_summary_report_format">
+        <item quantity="one">%1$s · %2$d прикріплених дописів</item>
+        <item quantity="few">%1$s · %2$d прикріплених дописів</item>
+        <item quantity="many">%1$s · %2$d прикріплених дописів</item>
+        <item quantity="other">%1$s · %2$d прикріплених дописів</item>
+    </plurals>
 </resources>

@@ -45,24 +45,24 @@ class NotificationsViewModelTestClearNotifications : NotificationsViewModelTestB
         mastodonApi.stub { onBlocking { clearNotifications() } doReturn success(Unit) }
 
         // When
-        viewModel.accept(FallibleUiAction.ClearNotifications)
+        viewModel.accept(FallibleUiAction.ClearNotifications(pachliAccountId))
 
         // Then
-        verify(notificationsRepository).clearNotifications()
+        verify(notificationsRepository).clearNotifications(pachliAccountId)
     }
 
     @Test
     fun `clearing notifications fails && emits UiError`() = runTest {
         // Given
-        notificationsRepository.stub { onBlocking { clearNotifications() } doReturn failure() }
+        notificationsRepository.stub { onBlocking { clearNotifications(pachliAccountId) } doReturn failure() }
 
         viewModel.uiResult.test {
             // When
-            viewModel.accept(FallibleUiAction.ClearNotifications)
+            viewModel.accept(FallibleUiAction.ClearNotifications(pachliAccountId))
 
             // Then
             val item = awaitItem().getError() as? UiError.ClearNotifications
-            assertThat(item?.action).isEqualTo(FallibleUiAction.ClearNotifications)
+            assertThat(item?.action).isEqualTo(FallibleUiAction.ClearNotifications(pachliAccountId))
         }
     }
 }

@@ -41,13 +41,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.work.WorkInfo
-import app.pachli.core.activity.NotificationConfig
 import app.pachli.core.activity.RefreshableFragment
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.domain.notifications.NotificationConfig
+import app.pachli.core.ui.extensions.asDdHhMmSs
+import app.pachli.core.ui.extensions.instantFormatter
 import app.pachli.feature.about.databinding.FragmentNotificationDetailsBinding
 import app.pachli.feature.about.databinding.ItemUsageEventBinding
 import app.pachli.feature.about.databinding.ItemWorkInfoBinding
@@ -58,7 +60,7 @@ import javax.inject.Inject
 import kotlinx.coroutines.launch
 
 /**
- * Fragment that shows details from [NotificationConfig].
+ * Fragment that shows details from [app.pachli.core.domain.notifications.NotificationConfig].
  */
 @AndroidEntryPoint
 class NotificationDetailsFragment :
@@ -209,11 +211,9 @@ class WorkInfoAdapter : ListAdapter<WorkInfo, WorkInfoAdapter.ViewHolder>(diffCa
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        ViewHolder(ItemWorkInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(ItemWorkInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) =
-        holder.bind(getItem(position))
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(getItem(position))
 
     companion object {
         val diffCallback = object : DiffUtil.ItemCallback<WorkInfo>() {
@@ -255,8 +255,7 @@ class UsageEventAdapter : ListAdapter<UsageEvents.Event, UsageEventAdapter.ViewH
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        ViewHolder(ItemUsageEventBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(ItemUsageEventBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position))

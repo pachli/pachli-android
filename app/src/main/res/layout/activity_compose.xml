@@ -58,18 +58,6 @@
             android:textSize="?attr/status_text_large"
             android:textStyle="bold" />
 
-        <ImageButton
-            android:id="@+id/descriptionMissingWarningButton"
-            style="@style/AppImageButton"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:contentDescription="@string/hint_media_description_missing"
-            android:padding="8dp"
-            app:srcCompat="@drawable/ic_missing_description_24dp"
-            app:tint="@color/tusky_orange_light"
-            app:tooltipText="@string/hint_media_description_missing"
-            android:visibility="invisible" />
     </com.google.android.material.appbar.MaterialToolbar>
 
     <androidx.core.widget.NestedScrollView
@@ -319,8 +307,9 @@
 
             <app.pachli.components.compose.view.PollPreviewView
                 android:id="@+id/pollPreview"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/compose_media_preview_margin"
                 app:layout_constraintTop_toBottomOf="@id/composeMediaPreviewBar"
                 android:minWidth="@dimen/poll_preview_min_width"
                 android:visibility="gone"
@@ -354,7 +343,7 @@
             android:textColor="?android:textColorTertiary" />
 
         <TextView
-            android:id="@+id/actionPhotoPick"
+            android:id="@+id/action_add_media"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -431,7 +420,7 @@
         android:paddingBottom="4dp">
 
         <ImageButton
-            android:id="@+id/composeAddMediaButton"
+            android:id="@+id/compose_add_attachment_button"
             style="@style/AppImageButton"
             android:layout_width="36dp"
             android:layout_height="36dp"
@@ -442,7 +431,7 @@
             app:tooltipText="@string/action_add_media" />
 
         <ImageButton
-            android:id="@+id/composeToggleVisibilityButton"
+            android:id="@+id/compose_change_visibility_button"
             style="@style/AppImageButton"
             android:layout_width="36dp"
             android:layout_height="36dp"
@@ -454,7 +443,7 @@
             tools:src="@drawable/ic_public_24dp" />
 
         <ImageButton
-            android:id="@+id/composeHideMediaButton"
+            android:id="@+id/compose_mark_sensitive_button"
             style="@style/AppImageButton"
             android:layout_width="36dp"
             android:layout_height="36dp"

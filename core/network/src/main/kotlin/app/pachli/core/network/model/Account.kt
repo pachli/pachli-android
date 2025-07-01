@@ -44,7 +44,6 @@ data class Account(
     @Json(name = "followers_count") val followersCount: Int = 0,
     @Json(name = "following_count") val followingCount: Int = 0,
     @Json(name = "statuses_count") val statusesCount: Int = 0,
-    val source: AccountSource? = null,
     val bot: Boolean = false,
     // nullable for backward compatibility
     val emojis: List<Emoji>? = emptyList(),
@@ -53,38 +52,58 @@ data class Account(
     val moved: Account? = null,
     val roles: List<Role>? = emptyList(),
 ) {
-
-    val name: String
-        get() = if (displayName.isNullOrEmpty()) {
-            localUsername
-        } else {
-            displayName
-        }
-
-    fun isRemote(): Boolean = this.username != this.localUsername
+    fun asModel(): app.pachli.core.model.Account = app.pachli.core.model.Account(
+        id = id,
+        localUsername = localUsername,
+        username = username,
+        displayName = displayName,
+        createdAt = createdAt,
+        note = note,
+        url = url,
+        avatar = avatar,
+        header = header,
+        locked = locked,
+        lastStatusAt = lastStatusAt,
+        followersCount = followersCount,
+        followingCount = followingCount,
+        statusesCount = statusesCount,
+        bot = bot,
+        emojis = emojis?.asModel(),
+        fields = fields?.asModel(),
+        moved = moved?.asModel(),
+        roles = roles?.asModel(),
+    )
 }
-
-@JsonClass(generateAdapter = true)
-data class AccountSource(
-    val privacy: Status.Visibility?,
-    val sensitive: Boolean?,
-    val note: String?,
-    val fields: List<StringField>?,
-    val language: String?,
-)
 
 @JsonClass(generateAdapter = true)
 data class Field(
     val name: String,
     val value: String,
     @Json(name = "verified_at") val verifiedAt: Date?,
-)
+) {
+    fun asModel() = app.pachli.core.model.Field(
+        name = name,
+        value = value,
+        verifiedAt = verifiedAt,
+    )
+}
+
+@JvmName("iterableFieldAsModel")
+fun Iterable<Field>.asModel() = map { it.asModel() }
 
 @JsonClass(generateAdapter = true)
 data class StringField(
     val name: String,
     val value: String,
-)
+) {
+    fun asModel() = app.pachli.core.model.StringField(
+        name = name,
+        value = value,
+    )
+}
+
+@JvmName("iterableStringFieldAsModel")
+fun Iterable<StringField>.asModel() = map { it.asModel() }
 
 /** [Mastodon Entities: Role](https://docs.joinmastodon.org/entities/Role) */
 @JsonClass(generateAdapter = true)
@@ -99,4 +118,13 @@ data class Role(
     // See https://github.com/mastodon/mastodon/issues/28327
     /** True if the badge should be displayed on the account profile */
     val highlighted: Boolean = true,
-)
+) {
+    fun asModel() = app.pachli.core.model.Role(
+        name = name,
+        color = color,
+        highlighted = highlighted,
+    )
+}
+
+@JvmName("iterableRoleAsModel")
+fun Iterable<Role>.asModel() = map { it.asModel() }

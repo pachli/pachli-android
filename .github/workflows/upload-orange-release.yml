@@ -1,0 +1,109 @@
+name: Upload orangeRelease
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+            fetch-depth: 0
+
+      - uses: ./.github/actions/setup-build-env
+        with:
+          gradle-cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+
+      - name: Test
+        run: ./gradlew app:testOrangeGoogleReleaseUnitTest --stacktrace
+
+      - name: Build APK for Google
+        run: ./gradlew assembleOrangeGoogleRelease --stacktrace
+
+      - name: Build APK for Github
+        run: ./gradlew assembleOrangeGithubRelease --stacktrace
+
+      - name: Build AAB for Google
+        run: ./gradlew :app:bundleOrangeGoogleRelease --stacktrace
+
+      - uses: r0adkll/sign-android-release@dbeba6b98a60b0fd540c02443c7f428cdedf0e7f # v1.0.4
+        name: Sign app Google APK
+        id: sign_app_google_apk
+        with:
+          releaseDirectory: app/build/outputs/apk/orangeGoogle/release
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          alias: ${{ secrets.SIGNING_KEY_ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+        env:
+          BUILD_TOOLS_VERSION: "34.0.0"
+
+      - uses: r0adkll/sign-android-release@dbeba6b98a60b0fd540c02443c7f428cdedf0e7f # v1.0.4
+        name: Sign app Github APK
+        id: sign_app_github_apk
+        with:
+          releaseDirectory: app/build/outputs/apk/orangeGithub/release
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          alias: ${{ secrets.SIGNING_KEY_ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+        env:
+          BUILD_TOOLS_VERSION: "34.0.0"
+
+      - uses: r0adkll/sign-android-release@dbeba6b98a60b0fd540c02443c7f428cdedf0e7f # v1.0.4
+        name: Sign app AAB
+        id: sign_app_aab
+        with:
+          releaseDirectory: app/build/outputs/bundle/orangeGoogleRelease
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          alias: ${{ secrets.SIGNING_KEY_ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+        env:
+          BUILD_TOOLS_VERSION: "34.0.0"
+
+      - name: Upload Google APK Release Asset
+        id: upload-release-asset-apk
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: app-release.apk
+          path: ${{steps.sign_app_google_apk.outputs.signedReleaseFile}}
+          compression-level: 0
+
+      - name: Generate whatsnew
+        id: generate-whatsnew
+        run: |
+          mkdir -p googleplay/whatsnew
+          commitid=$(curl -s https://api.github.com/repos/pachli/pachli-android-current/releases/latest | jq -r '.tag_name | split("-") | .[2]')
+          git log --pretty=format:"- %s" "${commitid}"..HEAD | awk '!x[$0]++' > googleplay/whatsnew/whatsnew-en-US
+          whatsnew_size=$(wc -c < googleplay/whatsnew/whatsnew-en-US)
+          if [ "$whatsnew_size" -gt "500" ]; then
+                  git log --pretty=format:"- %s" "${commitid}"..HEAD | awk '!x[$0]++' | awk '{i += (length() + 1); if (i <= 465) print $ALL}' > googleplay/whatsnew/whatsnew-en-US
+                  echo "... and more" >> googleplay/whatsnew/whatsnew-en-US
+          fi
+
+      - name: Upload AAB to Google Play
+        id: upload-release-asset-aab
+        uses: r0adkll/upload-google-play@935ef9c68bb393a8e6116b1575626a7f5be3a7fb # v1.1.3
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_KEY }}
+          packageName: app.pachli.current
+          releaseFiles: ${{steps.sign_app_aab.outputs.signedReleaseFile}}
+          track: production
+          whatsNewDirectory: googleplay/whatsnew
+          status: completed
+          mappingFile: app/build/outputs/mapping/orangeGoogleRelease/mapping.txt
+
+      - name: Create release in pachli-android-current
+        uses: ncipollo/release-action@440c8c1cb0ed28b9f43e4d1d670870f059653174 # v1
+        with:
+          token: ${{ secrets.PACHLI_ANDROID_CURRENT_CONTENTS_PAT }}
+          artifactErrorsFailBuild: false
+          artifacts: ${{steps.sign_app_github_apk.outputs.signedReleaseFile}}
+          bodyFile: googleplay/whatsnew/whatsnew-en-US
+          repo: pachli-android-current
+          tag: pachli-current-${{ github.sha }}
+          makeLatest: true

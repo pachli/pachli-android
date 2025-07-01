@@ -24,31 +24,21 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import app.pachli.components.timeline.TimelineRepository.Companion.PAGE_SIZE
 import app.pachli.components.timeline.viewmodel.CachedTimelineRemoteMediator
-import app.pachli.components.timeline.viewmodel.CachedTimelineRemoteMediator.Companion.RKE_TIMELINE_ID
 import app.pachli.core.common.di.ApplicationScope
-import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.dao.TranslatedStatusDao
 import app.pachli.core.database.di.TransactionProvider
-import app.pachli.core.database.model.AccountEntity
-import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
 import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.database.model.TranslatedStatusEntity
-import app.pachli.core.database.model.TranslationState
 import app.pachli.core.model.Timeline
-import app.pachli.core.network.model.Translation
 import app.pachli.core.network.retrofit.MastodonApi
-import app.pachli.core.network.retrofit.apiresult.ApiResult
-import com.github.michaelbull.result.onFailure
-import com.github.michaelbull.result.onSuccess
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -76,27 +66,28 @@ class CachedTimelineRepository @Inject constructor(
     /** @return flow of Mastodon [TimelineStatusWithAccount. */
     @OptIn(ExperimentalPagingApi::class)
     override suspend fun getStatusStream(
-        account: AccountEntity,
-        kind: Timeline,
+        pachliAccountId: Long,
+        timeline: Timeline,
     ): Flow<PagingData<TimelineStatusWithAccount>> {
-        Timber.d("getStatusStream, account is %s", account.fullName)
+        factory = InvalidatingPagingSourceFactory { timelineDao.getStatuses(pachliAccountId) }
 
-        factory = InvalidatingPagingSourceFactory { timelineDao.getStatuses(account.id) }
+        val initialKey = timeline.remoteKeyTimelineId?.let { timelineId ->
+            remoteKeyDao.remoteKeyForKind(pachliAccountId, timelineId, RemoteKeyKind.REFRESH)?.key
+        }
 
-        val initialKey = remoteKeyDao.remoteKeyForKind(account.id, RKE_TIMELINE_ID, RemoteKeyKind.REFRESH)?.key
-        val row = initialKey?.let { timelineDao.getStatusRowNumber(account.id, it) }
+        val row = initialKey?.let { timelineDao.getStatusRowNumber(pachliAccountId, it) }
 
         Timber.d("initialKey: %s is row: %d", initialKey, row)
 
         return Pager(
-            initialKey = row?.let { (row - ((PAGE_SIZE * 3) / 2)).coerceAtLeast(0) },
+            initialKey = row,
             config = PagingConfig(
                 pageSize = PAGE_SIZE,
                 enablePlaceholders = true,
             ),
             remoteMediator = CachedTimelineRemoteMediator(
                 mastodonApi,
-                account.id,
+                pachliAccountId,
                 transactionProvider,
                 timelineDao,
                 remoteKeyDao,
@@ -117,24 +108,11 @@ class CachedTimelineRepository @Inject constructor(
         factory?.invalidate()
     }
 
-    suspend fun saveStatusViewData(statusViewData: StatusViewData) = externalScope.launch {
-        timelineDao.upsertStatusViewData(
-            StatusViewDataEntity(
-                serverId = statusViewData.actionableId,
-                timelineUserId = statusViewData.pachliAccountId,
-                expanded = statusViewData.isExpanded,
-                contentShowing = statusViewData.isShowingContent,
-                contentCollapsed = statusViewData.isCollapsed,
-                translationState = statusViewData.translationState,
-            ),
-        )
-    }.join()
-
     /**
      * @return Map between statusIDs and any viewdata for them cached in the repository.
      */
     suspend fun getStatusViewData(pachliAccountId: Long, statusId: List<String>): Map<String, StatusViewDataEntity> {
-        return timelineDao.getStatusViewData(pachliAccountId, statusId)
+        return statusDao.getStatusViewData(pachliAccountId, statusId)
     }
 
     /**
@@ -158,59 +136,4 @@ class CachedTimelineRepository @Inject constructor(
     suspend fun clearStatusWarning(pachliAccountId: Long, statusId: String) = externalScope.launch {
         statusDao.clearWarning(pachliAccountId, statusId)
     }.join()
-
-    suspend fun translate(statusViewData: StatusViewData): ApiResult<Translation> {
-        saveStatusViewData(statusViewData.copy(translationState = TranslationState.TRANSLATING))
-        val translation = mastodonApi.translate(statusViewData.actionableId)
-        translation.onSuccess {
-            val body = it.body
-            translatedStatusDao.upsert(
-                TranslatedStatusEntity(
-                    serverId = statusViewData.actionableId,
-                    timelineUserId = statusViewData.pachliAccountId,
-                    // TODO: Should this embed the network type instead of copying data
-                    // from one type to another?
-                    content = body.content,
-                    spoilerText = body.spoilerText,
-                    poll = body.poll,
-                    attachments = body.attachments,
-                    provider = body.provider,
-                ),
-            )
-            saveStatusViewData(statusViewData.copy(translationState = TranslationState.SHOW_TRANSLATION))
-        }.onFailure {
-            // Reset the translation state
-            saveStatusViewData(statusViewData)
-        }
-
-        return translation
-    }
-
-    suspend fun translateUndo(statusViewData: StatusViewData) {
-        saveStatusViewData(statusViewData.copy(translationState = TranslationState.SHOW_ORIGINAL))
-    }
-
-    /**
-     * Saves the ID of the status that future refreshes will try and restore
-     * from.
-     *
-     * @param pachliAccountId
-     * @param key Status ID to restore from. Null indicates the refresh should
-     * refresh the newest statuses.
-     */
-    suspend fun saveRefreshKey(pachliAccountId: Long, key: String?) = externalScope.async {
-        Timber.d("saveRefreshKey: $key")
-        remoteKeyDao.upsert(
-            RemoteKeyEntity(pachliAccountId, RKE_TIMELINE_ID, RemoteKeyKind.REFRESH, key),
-        )
-    }.await()
-
-    /**
-     * @param pachliAccountId
-     * @return The most recent saved refresh key. Null if not set, or the refresh
-     * should fetch the latest statuses.
-     */
-    suspend fun getRefreshKey(pachliAccountId: Long): String? = externalScope.async {
-        remoteKeyDao.getRefreshKey(pachliAccountId, RKE_TIMELINE_ID)
-    }.await()
 }

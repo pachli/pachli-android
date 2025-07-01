@@ -1,0 +1,11 @@
+Pachli 2.10.1
+
+Fixes:
+
+- A chinntiú go bhfuil na teangacha go léir inroghnaithe trí shocruithe córais
+- Bain sonraí cuntais d'aois sula gcruthaítear srianta FK
+- A chinntiú go n-oibríonn "Show Anyway" i ngach amlínte
+
+Aistriúcháin:
+
+- Fionlainnis, Indinéisis, Gaeilge, Polainnis

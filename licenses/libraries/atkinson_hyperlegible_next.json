@@ -1,0 +1,17 @@
+{
+    "uniqueId": "org.brailleinstitute:atkinson_hyperlegible_next",
+    "developers": [
+        {
+            "name": "Braille Institute",
+            "organisationUrl": "https://brailleinstitute.org"
+        }
+    ],
+    "artifactVersion": "2.001;Glyphs 3.2.3 (3260)",
+    "description": "Atkinson Hyperlegible Next font is named after Braille Institute founder, J. Robert Atkinson.  What makes it different from traditional typography design is that it focuses on letterform distinction to increase character recognition, ultimately improving readability.",
+    "name": "Atkinson Hyperlegible Next font",
+    "tag": "font",
+    "licenses": [
+      "sil_ofl_1_1"
+    ],
+    "website": "https://brailleinstitute.org/freefont"
+}

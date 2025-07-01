@@ -20,12 +20,9 @@ package app.pachli.components.notifications
 import app.cash.turbine.test
 import app.pachli.ContentFilterV1Test.Companion.mockStatus
 import app.pachli.core.data.model.StatusViewData
-import app.pachli.core.data.repository.notifications.StatusActionError
 import app.pachli.core.database.model.TranslationState
-import app.pachli.core.network.retrofit.apiresult.ApiResult
 import app.pachli.core.testing.failure
-import com.github.michaelbull.result.Err
-import com.github.michaelbull.result.Ok
+import app.pachli.core.testing.success
 import com.github.michaelbull.result.get
 import com.github.michaelbull.result.getError
 import com.google.common.truth.Truth.assertThat
@@ -37,7 +34,7 @@ import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.stub
 
 /**
- * Verify that [StatusAction] are handled correctly on receipt:
+ * Verify that [FallibleStatusAction] are handled correctly on receipt:
  *
  * - Is the correct [UiSuccess] or [UiError] value emitted?
  * - Is the correct [TimelineCases] function called, with the correct arguments?
@@ -49,28 +46,25 @@ class NotificationsViewModelTestStatusFilterAction : NotificationsViewModelTestB
     private val status = mockStatus(pollOptions = listOf("Choice 1", "Choice 2", "Choice 3"))
     private val statusViewData = StatusViewData(
         pachliAccountId = 1L,
-        status = status,
+        status = status.asModel(),
         isExpanded = true,
         isShowingContent = false,
         isCollapsed = false,
         translationState = TranslationState.SHOW_ORIGINAL,
     )
 
-    /** Empty error response, for API calls that return one */
-    private var emptyError = failure<ApiResult<Unit>>().getError()!!
-
     /** Action to bookmark a status */
-    private val bookmarkAction = StatusAction.Bookmark(true, statusViewData)
+    private val bookmarkAction = FallibleStatusAction.Bookmark(true, statusViewData)
 
     /** Action to favourite a status */
-    private val favouriteAction = StatusAction.Favourite(true, statusViewData)
+    private val favouriteAction = FallibleStatusAction.Favourite(true, statusViewData)
 
     /** Action to reblog a status */
-    private val reblogAction = StatusAction.Reblog(true, statusViewData)
+    private val reblogAction = FallibleStatusAction.Reblog(true, statusViewData)
 
     /** Action to vote in a poll */
-    private val voteInPollAction = StatusAction.VoteInPoll(
-        poll = status.poll!!,
+    private val voteInPollAction = FallibleStatusAction.VoteInPoll(
+        poll = status.asModel().poll!!,
         choices = listOf(1, 0, 0),
         statusViewData,
     )
@@ -78,7 +72,8 @@ class NotificationsViewModelTestStatusFilterAction : NotificationsViewModelTestB
     @Test
     fun `bookmark succeeds && emits UiSuccess`() = runTest {
         // Given
-        notificationsRepository.stub { onBlocking { bookmark(any(), any(), any()) } doReturn Ok(Unit) }
+        mastodonApi.stub { onBlocking { bookmarkStatus(any()) } doReturn success(status) }
+
         viewModel.uiResult.test {
             // When
             viewModel.accept(bookmarkAction)
@@ -92,11 +87,7 @@ class NotificationsViewModelTestStatusFilterAction : NotificationsViewModelTestB
     @Test
     fun `bookmark fails && emits UiError`() = runTest {
         // Given
-        notificationsRepository.stub {
-            onBlocking { bookmark(any(), any(), any()) } doReturn Err(
-                StatusActionError.Bookmark(emptyError),
-            )
-        }
+        mastodonApi.stub { onBlocking { bookmarkStatus(any()) } doReturn failure() }
 
         viewModel.uiResult.test {
             // When
@@ -111,7 +102,7 @@ class NotificationsViewModelTestStatusFilterAction : NotificationsViewModelTestB
     @Test
     fun `favourite succeeds && emits UiSuccess`() = runTest {
         // Given
-        notificationsRepository.stub { onBlocking { favourite(any(), any(), any()) } doReturn Ok(Unit) }
+        mastodonApi.stub { onBlocking { favouriteStatus(any()) } doReturn success(status) }
 
         viewModel.uiResult.test {
             // When
@@ -126,11 +117,7 @@ class NotificationsViewModelTestStatusFilterAction : NotificationsViewModelTestB
     @Test
     fun `favourite fails && emits UiError`() = runTest {
         // Given
-        notificationsRepository.stub {
-            onBlocking { favourite(any(), any(), any()) } doReturn Err(
-                StatusActionError.Favourite(emptyError),
-            )
-        }
+        mastodonApi.stub { onBlocking { favouriteStatus(any()) } doReturn failure() }
 
         viewModel.uiResult.test {
             // When
@@ -145,7 +132,7 @@ class NotificationsViewModelTestStatusFilterAction : NotificationsViewModelTestB
     @Test
     fun `reblog succeeds && emits UiSuccess`() = runTest {
         // Given
-        notificationsRepository.stub { onBlocking { reblog(any(), any(), any()) } doReturn Ok(Unit) }
+        mastodonApi.stub { onBlocking { reblogStatus(any()) } doReturn success(status) }
 
         viewModel.uiResult.test {
             // When
@@ -160,11 +147,7 @@ class NotificationsViewModelTestStatusFilterAction : NotificationsViewModelTestB
     @Test
     fun `reblog fails && emits UiError`() = runTest {
         // Given
-        notificationsRepository.stub {
-            onBlocking { reblog(any(), any(), any()) } doReturn Err(
-                StatusActionError.Reblog(emptyError),
-            )
-        }
+        mastodonApi.stub { onBlocking { reblogStatus(any()) } doReturn failure() }
 
         viewModel.uiResult.test {
             // When
@@ -179,7 +162,7 @@ class NotificationsViewModelTestStatusFilterAction : NotificationsViewModelTestB
     @Test
     fun `voteinpoll succeeds && emits UiSuccess`() = runTest {
         // Given
-        notificationsRepository.stub { onBlocking { voteInPoll(any(), any(), any(), any()) } doReturn Ok(Unit) }
+        mastodonApi.stub { onBlocking { voteInPoll(any(), any()) } doReturn success(status.poll!!) }
 
         viewModel.uiResult.test {
             // When
@@ -194,11 +177,7 @@ class NotificationsViewModelTestStatusFilterAction : NotificationsViewModelTestB
     @Test
     fun `voteinpoll fails && emits UiError`() = runTest {
         // Given
-        notificationsRepository.stub {
-            onBlocking { voteInPoll(any(), any(), any(), any()) } doReturn Err(
-                StatusActionError.VoteInPoll(emptyError),
-            )
-        }
+        mastodonApi.stub { onBlocking { voteInPoll(any(), any()) } doReturn failure() }
 
         viewModel.uiResult.test {
             // When

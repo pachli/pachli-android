@@ -61,7 +61,6 @@
     <string name="notification_update_format">%s адрэдагаваў(-ла) свой допіс</string>
     <string name="notification_report_format">Новая скарга на %s</string>
     <string name="notification_header_report_format">%s скардзіцца на %s</string>
-    <string name="notification_summary_report_format">%s · %d допісаў дададзена</string>
     <string name="report_username_format">Паскардзіцца на @%s</string>
     <string name="action_quick_reply">Хуткі адказ</string>
     <string name="action_reply">Адказаць</string>
@@ -84,7 +83,6 @@
     <string name="action_open_media_n">Адкрыць медыя #%d</string>
     <string name="action_add_reaction">дадаць рэакцыю</string>
     <string name="download_image">Спампоўка %1$s</string>
-    <string name="action_share_as">Абагуліць як…</string>
     <string name="download_media">Спампаваць медыя</string>
     <string name="downloading_media">Медыя пампуецца</string>
     <string name="send_post_content_to">Падзяліцца допісам з…</string>
@@ -153,8 +151,6 @@
     <string name="description_account_locked">Заблакаваны ўліковы запіс</string>
     <string name="action_unbookmark">Выдаліць з закладак</string>
     <string name="action_compose">Напісаць</string>
-    <string name="action_logout">Выхад</string>
-    <string name="action_logout_confirm">Вы ўпэўнены, што жадаеце выйсці з уліковага запісу %1$s\?</string>
     <string name="action_follow">Падпісацца</string>
     <string name="action_unfollow">Адпісацца</string>
     <string name="action_block">Заблакаваць</string>
@@ -260,7 +256,6 @@
     <string name="notification_summary_medium">%1$s, %2$s ды %3$s</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s ды %4$d іншых</string>
     <string name="notification_summary_small">%1$s ды %2$s</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <string name="post_share_content">Падзяліцца зместам допісу</string>
     <string name="post_share_link">Падзяліцца спасылкай на допіс</string>
     <string name="post_media_images">Выявы</string>
@@ -294,12 +289,6 @@
     <string name="filter_dialog_whole_word_description">Калі ключавое слова ці фраза складаецца толькі з літар і лічбаў, то будзе ўлічвацца толькі ўсё слова</string>
     <string name="title_edits">Рэдагаванні</string>
     <string name="filter_expiration_format">%s (%s)</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="one">Апісанне змесціва для людзей з дэфектам зроку (ліміт у %d сімвал)</item>
-        <item quantity="few">Апісанне змесціва для людзей з дэфектам зроку (ліміт у %d сімвалы)</item>
-        <item quantity="many">Апісанне змесціва для людзей з дэфектам зроку (ліміт у %d сімвалаў)</item>
-        <item quantity="other">Апісанне змесціва для людзей з дэфектам зроку (ліміт у %d сімвалаў)</item>
-    </plurals>
     <string name="compose_save_draft_loses_media">Захаваць чарнавік? (Далучэнні будуць запампаваныя зноў, калі Вы аднавіце чарнавік.)</string>
     <string name="download_failed">Не атрымалася спампаваць</string>
     <string name="unreblog_private">Скасаваць пашырэнне</string>
@@ -310,19 +299,17 @@
     <string name="conversation_more_recipients">%1$s, %2$s і яшчэ %3$d</string>
     <string name="action_discard">Скасаваць змены</string>
     <string name="action_continue_edit">Працягнуць рэдагаванне</string>
-    <string name="add_account_name">Дадаць уліковы запіс</string>
     <string name="compose_active_account_description">Публікаваць як %1$s</string>
     <string name="set_focus_description">Націсніце або перацягніце кола каб абраць пункт фокусу, які будзе заўсёды бачны на паменшаных выявах.</string>
-    <string name="action_set_caption">Задаць подпіс</string>
     <string name="action_set_focus">Задаць пункт фокуса</string>
     <string name="action_edit_image">Рэдагаваць выяву</string>
     <string name="send_post_notification_channel_name">Дасыланне допісаў</string>
     <string name="later">Пазней</string>
     <plurals name="favs">
-        <item quantity="one">&lt;b>%1$s&lt;/b> абраны</item>
-        <item quantity="few">&lt;b>%1$s&lt;/b> абраныя</item>
-        <item quantity="many">&lt;b>%1$s&lt;/b> абраных</item>
-        <item quantity="other">&lt;b>%1$s&lt;/b> абраных</item>
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; абраны</item>
+        <item quantity="few">&lt;b&gt;%1$s&lt;/b&gt; абраныя</item>
+        <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; абраных</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; абраных</item>
     </plurals>
     <string name="title_reblogged_by">Пашырылі</string>
     <string name="profile_metadata_label">Метазвесткі профілю</string>
@@ -348,10 +335,10 @@
     <string name="pref_title_absolute_time">Паказваць абсалютны час</string>
     <string name="label_remote_account">Інфармацыя ніжэй можа не паказваць поўны профіль карыстальніка. Націсніце, каб адкрыць поўны профіль у браўзеры.</string>
     <plurals name="reblogs">
-        <item quantity="one">&lt;b>%s&lt;/b> пашыраны</item>
-        <item quantity="few">&lt;b>%s&lt;/b> пашырана</item>
-        <item quantity="many">&lt;b>%s&lt;/b> пашыраных</item>
-        <item quantity="other">&lt;b>%s&lt;/b> пашыраных</item>
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; пашыраны</item>
+        <item quantity="few">&lt;b&gt;%s&lt;/b&gt; пашырана</item>
+        <item quantity="many">&lt;b&gt;%s&lt;/b&gt; пашыраных</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; пашыраных</item>
     </plurals>
     <string name="unsaved_changes">У Вас засталіся незахаваныя змены.</string>
     <string name="expand_collapse_all_posts">Разгарнуць/згарнуць допісы</string>
@@ -396,7 +383,6 @@
     <string name="create_poll_title">Апытанне</string>
     <string name="duration_1_day">1 дзень</string>
     <string name="duration_3_days">3 дні</string>
-    <string name="button_continue">Працягнуць</string>
     <plurals name="poll_timespan_minutes">
         <item quantity="one">Засталася %d хвіліна</item>
         <item quantity="few">Засталося %d хвіліны</item>
@@ -538,7 +524,6 @@
     <string name="title_public_trending_hashtags">Папулярныя хэштэгі</string>
     <string name="description_browser_login">Можа падтрымліваць дадатковыя метады праверкі сапраўднасці, але для гэтага патрэбны адпаведны браузер.</string>
     <string name="hint_description">Апісанне</string>
-    <string name="post_media_image">Відарыс</string>
     <string name="select_list_empty">Яшчэ няма спісаў</string>
     <string name="select_list_manage">Кіраванне спісамі</string>
     <string name="total_usage">Усяго выкарыстана</string>
@@ -562,4 +547,10 @@
     <string name="filter_keyword_display_format">%s (цэлае слова)</string>
     <string name="filter_keyword_addition_title">Дадаць ключавое слова</string>
     <string name="filter_edit_keyword_title">Змяніць ключавое слова</string>
+    <plurals name="notification_summary_report_format">
+        <item quantity="one">%1$s · %2$d допісаў дададзена</item>
+        <item quantity="few">%1$s · %2$d допісаў дададзена</item>
+        <item quantity="many">%1$s · %2$d допісаў дададзена</item>
+        <item quantity="other">%1$s · %2$d допісаў дададзена</item>
+    </plurals>
 </resources>

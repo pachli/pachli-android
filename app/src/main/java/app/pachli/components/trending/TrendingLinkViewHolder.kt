@@ -19,12 +19,14 @@ package app.pachli.components.trending
 
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.core.data.model.StatusDisplayOptions
-import app.pachli.core.network.model.TrendsLink
+import app.pachli.core.model.TrendsLink
 import app.pachli.databinding.ItemTrendingLinkBinding
 import app.pachli.view.PreviewCardView
+import com.bumptech.glide.RequestManager
 
 class TrendingLinkViewHolder(
     private val binding: ItemTrendingLinkBinding,
+    private val glide: RequestManager,
     private val onClick: PreviewCardView.OnClickListener,
 ) : RecyclerView.ViewHolder(binding.root) {
     internal lateinit var link: TrendsLink
@@ -38,6 +40,6 @@ class TrendingLinkViewHolder(
     fun bind(link: TrendsLink, statusDisplayOptions: StatusDisplayOptions, showTimelineLink: Boolean) {
         this.link = link
 
-        binding.statusCardView.bind(link, sensitive = false, statusDisplayOptions, showTimelineLink, onClick)
+        binding.statusCardView.bind(glide, link, sensitive = false, statusDisplayOptions, showTimelineLink, onClick)
     }
 }

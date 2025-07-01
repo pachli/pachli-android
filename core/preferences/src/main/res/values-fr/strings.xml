@@ -28,4 +28,8 @@
     <string name="pref_tab_alignment_end">Fin de la direction du texte</string>
     <string name="pref_tab_contents_text_only">Texte seulement</string>
     <string name="pref_tab_contents_icon_only">Icône seule</string>
+    <string name="pref_title_render_markdown">Render Markdown</string>
+    <string name="pref_update_notification_frequency_never">Jamais</string>
+    <string name="pref_update_notification_frequency_once_per_version">Une fois par version</string>
+    <string name="pref_update_notification_frequency_always">Toujours</string>
 </resources>

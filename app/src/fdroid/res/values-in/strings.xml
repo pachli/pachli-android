@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="update_dialog_message">Buka di F-Droid untuk melihat detailnya?</string>
+    <string name="update_dialog_positive">Buka di F-Droid</string>
+</resources>

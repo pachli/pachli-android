@@ -18,21 +18,38 @@ package app.pachli.components.report
 
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import app.pachli.R
 import app.pachli.components.report.adapter.ReportPagerAdapter
-import app.pachli.core.activity.BottomSheetActivity
+import app.pachli.core.activity.ViewUrlActivity
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.navigation.ReportActivityIntent
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.databinding.ActivityReportBinding
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.withCreationCallback
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 /**
  * Report a status or user.
  */
 @AndroidEntryPoint
-class ReportActivity : BottomSheetActivity() {
-    private val viewModel: ReportViewModel by viewModels()
+class ReportActivity : ViewUrlActivity() {
+    private val viewModel: ReportViewModel by viewModels(
+        extrasProducer = {
+            defaultViewModelCreationExtras.withCreationCallback<ReportViewModel.Factory> {
+                it.create(
+                    intent.pachliAccountId,
+                    ReportActivityIntent.getAccountId(intent),
+                    ReportActivityIntent.getAccountUserName(intent),
+                    ReportActivityIntent.getStatusId(intent),
+                )
+            }
+        },
+    )
 
     private val binding by viewBinding(ActivityReportBinding::inflate)
 
@@ -44,24 +61,19 @@ class ReportActivity : BottomSheetActivity() {
             throw IllegalStateException("accountId ($accountId) or accountUserName ($accountUserName) is blank")
         }
 
-        viewModel.init(accountId, accountUserName, ReportActivityIntent.getStatusId(intent))
-
         setContentView(binding.root)
 
         setSupportActionBar(binding.includedToolbar.toolbar)
 
         supportActionBar?.apply {
-            title = getString(R.string.report_username_format, viewModel.accountUserName)
+            title = getString(R.string.report_username_format, viewModel.reportedAccountUsername)
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowHomeEnabled(true)
             setHomeAsUpIndicator(app.pachli.core.ui.R.drawable.ic_close_24dp)
         }
 
         initViewPager()
-        if (savedInstanceState == null) {
-            viewModel.navigateTo(Screen.Statuses)
-        }
-        subscribeObservables()
+        bind()
     }
 
     private fun initViewPager() {
@@ -74,33 +86,30 @@ class ReportActivity : BottomSheetActivity() {
         binding.wizard.adapter = ReportPagerAdapter(this, intent.pachliAccountId)
     }
 
-    private fun subscribeObservables() {
-        viewModel.navigation.observe(this) { screen ->
-            if (screen != null) {
-                viewModel.navigated()
-                when (screen) {
-                    Screen.Statuses -> showStatusesPage()
-                    Screen.Note -> showNotesPage()
-                    Screen.Done -> showDonePage()
-                    Screen.Back -> showPreviousScreen()
-                    Screen.Finish -> closeScreen()
-                }
-            }
-        }
+    private fun bind() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                launch { viewModel.navigation.collectLatest(::bindNavigation) }
 
-        viewModel.checkUrl.observe(this) {
-            if (!it.isNullOrBlank()) {
-                viewModel.urlChecked()
-                viewUrl(intent.pachliAccountId, it)
+                launch { viewModel.checkUrl.collect(::bindCheckUrl) }
             }
         }
     }
 
-    private fun showPreviousScreen() {
-        when (binding.wizard.currentItem) {
-            0 -> closeScreen()
-            1 -> showStatusesPage()
+    private fun bindNavigation(screen: Screen) {
+        when (screen) {
+            Screen.Statuses -> showStatusesPage()
+            Screen.Note -> showNotesPage()
+            Screen.Done -> showDonePage()
+            Screen.Finish -> closeScreen()
         }
+    }
+
+    private fun bindCheckUrl(url: String?) {
+        if (url.isNullOrBlank()) return
+
+        viewModel.urlChecked()
+        viewUrl(intent.pachliAccountId, url)
     }
 
     private fun showDonePage() {

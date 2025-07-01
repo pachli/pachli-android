@@ -1,0 +1,20 @@
+Pachli 2.11.0
+
+Nové funkcie:
+
+- Podpora prekladu v celej aplikácii
+- Predvolené filtre obsahu pre všetky kontexty
+- Experimentálna podpora Markdown
+
+Opravy:
+
+- Zamedzenie zamŕzania rozhrania reportov
+- Popis pre tlačidlo "Toot"
+- Prevencia rôznych pádov aplikácie
+- Vytváranie filtrov so správnym typom obsahu
+- Oprava filtrovanie vo vláknach a súkromných správach
+- Podpora úprav popisov nahratých obrázkov
+
+Preklady:
+
+- Aktualizácia prekladov do fínčiny, indonézčiny, írčiny, lotyštiny, nynorsk nórštiny, poľštiny, slovenčiny a španielčiny

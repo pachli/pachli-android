@@ -49,8 +49,6 @@
     <string name="action_favourite">Oblíbit</string>
     <string name="action_unfavourite">Odstranit oblíbení</string>
     <string name="action_compose">Napsat</string>
-    <string name="action_logout">Odhlásit se</string>
-    <string name="action_logout_confirm">Jste si jistý/á, že se chcete odhlásit z účtu %1$s?</string>
     <string name="action_follow">Sledovat</string>
     <string name="action_unfollow">Přestat sledovat</string>
     <string name="action_block">Blokovat</string>
@@ -95,7 +93,6 @@
     <string name="action_open_media_n">Otevřít médium #%d</string>
     <string name="download_image">Stahuji %1$s</string>
     <string name="action_copy_link">Zkopírovat odkaz</string>
-    <string name="action_share_as">Sdílet jako…</string>
     <string name="download_media">Stáhnout média</string>
     <string name="downloading_media">Stahuji média</string>
     <string name="send_post_link_to">Sdílet URL příspěvku na…</string>
@@ -185,7 +182,6 @@
         <item quantity="other">%d nových interakcí</item>
     </plurals>
     <string name="description_account_locked">Uzamčený účet</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <!-- note to translators:
          * you should think of “free” as in “free speech,” not as in “free beer”.
            We sometimes call it “libre software,” borrowing the French or Spanish word for “free” as in freedom,
@@ -218,18 +214,8 @@
     <string name="filter_dialog_remove_button">Odstranit</string>
     <string name="filter_dialog_update_button">Aktualizovat</string>
     <string name="filter_add_description">Fráze k filtrování</string>
-    <string name="add_account_name">Přidat účet</string>
     <string name="add_account_description">Přidat nový účet Mastodon</string>
     <string name="compose_active_account_description">Píšete jako %1$s</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="one">Popis pro zrakově postižené
-\n(limit %d znak)</item>
-        <item quantity="few">Popis pro zrakově postižené
-\n(limit %d znaky)</item>
-        <item quantity="other">Popis pro zrakově postižené
-\n(limit %d znaků)</item>
-    </plurals>
-    <string name="action_set_caption">Nastavit popisek</string>
     <string name="action_remove">Odstranit</string>
     <string name="lock_account_label">Uzamknout účet</string>
     <string name="lock_account_label_description">Vyžaduje, abyste ručně schvaloval/a sledující</string>
@@ -263,14 +249,14 @@
     <string name="unpin_action">Odepnout</string>
     <string name="pin_action">Připnout</string>
     <plurals name="favs">
-        <item quantity="one">&lt;b>%1$s&lt;/b> oblíbení</item>
-        <item quantity="few">&lt;b>%1$s&lt;/b> oblíbení</item>
-        <item quantity="other">&lt;b>%1$s&lt;/b> oblíbení</item>
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; oblíbení</item>
+        <item quantity="few">&lt;b&gt;%1$s&lt;/b&gt; oblíbení</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; oblíbení</item>
     </plurals>
     <plurals name="reblogs">
-        <item quantity="one">&lt;b>%s&lt;/b> boost</item>
-        <item quantity="few">&lt;b>%s&lt;/b> boosty</item>
-        <item quantity="other">&lt;b>%s&lt;/b> boostů</item>
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; boost</item>
+        <item quantity="few">&lt;b&gt;%s&lt;/b&gt; boosty</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; boostů</item>
     </plurals>
     <string name="title_reblogged_by">Boostnuto uživatelem</string>
     <string name="title_favourited_by">Oblíbeno uživatelem</string>
@@ -334,7 +320,6 @@
     <string name="confirmation_domain_unmuted">Skrytí domény %s bylo zrušeno</string>
     <string name="mute_domain_warning">Jste si jistý/á, že chcete zablokovat vše z domény %s\? Z této domény neuvidíte obsah v žádné veřejné časové ose ani v oznámeních. Vaši sledující z této domény budou odstraněni.</string>
     <string name="mute_domain_warning_dialog_ok">Skrýt celou doménu</string>
-    <string name="button_continue">Pokračovat</string>
     <string name="button_back">Zpět</string>
     <string name="report_sent_success">\@%s byla/a úspěšně nahlášen/a</string>
     <string name="hint_additional_info">Další komentáře</string>

@@ -23,11 +23,11 @@ import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import app.pachli.BuildConfig
 import app.pachli.core.database.dao.DraftDao
-import app.pachli.core.database.model.DraftAttachment
 import app.pachli.core.database.model.DraftEntity
-import app.pachli.core.network.model.Attachment
-import app.pachli.core.network.model.NewPoll
-import app.pachli.core.network.model.Status
+import app.pachli.core.model.Attachment
+import app.pachli.core.model.DraftAttachment
+import app.pachli.core.model.NewPoll
+import app.pachli.core.model.Status
 import app.pachli.util.copyToFile
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File
@@ -104,7 +104,7 @@ class DraftHelper @Inject constructor(
         for (i in mediaUris.indices) {
             attachments.add(
                 DraftAttachment(
-                    uriString = uris[i].toString(),
+                    uri = uris[i],
                     description = mediaDescriptions[i],
                     focus = mediaFocus[i],
                     type = types[i],
@@ -129,7 +129,7 @@ class DraftHelper @Inject constructor(
             statusId = statusId,
         )
 
-        draftDao.insertOrReplace(draft)
+        draftDao.upsert(draft)
         Timber.d("saved draft to db")
     }
 
@@ -147,7 +147,7 @@ class DraftHelper @Inject constructor(
     suspend fun deleteAttachments(draft: DraftEntity) = withContext(Dispatchers.IO) {
         draft.attachments.forEach { attachment ->
             if (context.contentResolver.delete(attachment.uri, null, null) == 0) {
-                Timber.e("Did not delete file %s", attachment.uriString)
+                Timber.e("Did not delete file %s", attachment.uri)
             }
         }
     }

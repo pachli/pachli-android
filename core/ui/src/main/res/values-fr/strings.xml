@@ -15,4 +15,8 @@
     <string name="title_links_dialog">Liens</string>
     <string name="title_hashtags_dialog">Hashtags</string>
     <string name="title_mentions_dialog">Mentions</string>
+    <string name="button_continue">Continuer</string>
+    <string name="action_logout_confirm">Êtes-vous certain·e· de vouloir déconnecter le compte %1$s ?</string>
+    <string name="add_account_name">Ajouter un compte</string>
+    <string name="action_logout">Déconnexion</string>
 </resources>

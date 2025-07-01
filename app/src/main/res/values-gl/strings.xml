@@ -47,8 +47,6 @@
     <string name="action_block">Bloquear</string>
     <string name="action_unfollow">Deixar de seguir</string>
     <string name="action_follow">Seguir</string>
-    <string name="action_logout_confirm">Tes a certeza de querer pechar a sesión %1$s\? Isto eliminará todos os datos locais da conta, incluíndo borradores e preferencias.</string>
-    <string name="action_logout">Pechar sesión</string>
     <string name="action_compose">Redactar</string>
     <string name="action_unfavourite">Eliminar favorito</string>
     <string name="action_bookmark">Marcar</string>
@@ -123,7 +121,6 @@
     <string name="hint_additional_info">Comentarios adicionais</string>
     <string name="report_sent_success">Denuncia feita sobre @%s</string>
     <string name="button_back">Atrás</string>
-    <string name="button_continue">Continuar</string>
     <plurals name="poll_timespan_seconds">
         <item quantity="one">queda %d segundo</item>
         <item quantity="other">quedan %d segundos</item>
@@ -221,14 +218,8 @@
     <string name="lock_account_label_description">Require que aprobes manualmente as seguidoras</string>
     <string name="lock_account_label">Bloquear conta</string>
     <string name="action_remove">Eliminar</string>
-    <string name="action_set_caption">Escribir descrición</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="one">Describe para persoas con deficiencias visuais (límite %d caracter)</item>
-        <item quantity="other">Describe para persoas con deficiencias visuais (%d caracteres como máximo)</item>
-    </plurals>
     <string name="compose_active_account_description">Publicar como %1$s</string>
     <string name="add_account_description">Engadir unha nova conta Mastodon</string>
-    <string name="add_account_name">Engadir conta</string>
     <string name="filter_add_description">Frase a filtrar</string>
     <string name="filter_dialog_whole_word_description">Cando a palabra ou frase é só alfanumérica, só se aplicará se concorda a palabra completa</string>
     <string name="filter_dialog_whole_word">Palabra completa</string>
@@ -259,7 +250,6 @@
     <string name="post_media_images">Imaxes</string>
     <string name="post_share_link">Compartir ligazón ao toot</string>
     <string name="post_share_content">Compartir contido do toot</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <string name="description_account_locked">Conta bloqueada</string>
     <plurals name="notification_title_summary">
         <item quantity="one">%d nova interacción</item>
@@ -407,7 +397,6 @@
     <string name="send_post_link_to">Compartir URL do toot a…</string>
     <string name="downloading_media">Descargando multimedia</string>
     <string name="download_media">Descargar multimedia</string>
-    <string name="action_share_as">Compartir como …</string>
     <string name="action_copy_link">Copiar ligazón</string>
     <string name="download_image">Descargando %1$s</string>
     <string name="action_open_media_n">Abrir multimedia #%d</string>
@@ -470,7 +459,9 @@
     <string name="status_created_at_now">agora</string>
     <string name="notification_report_format">Nova denuncia en %s</string>
     <string name="notification_header_report_format">%s denunciou a %s</string>
-    <string name="notification_summary_report_format">%s · %d publicacións fixadas</string>
+    <plurals name="notification_summary_report_format">
+        <item quantity="other">%1$s · %2$d publicacións fixadas</item>
+    </plurals>
     <string name="confirmation_hashtag_unfollowed">Xa non segues a #%s</string>
     <string name="pref_title_notification_filter_reports">hai unha nova denuncia</string>
     <string name="hint_media_description_missing">O multimedia debería ter unha descrición.</string>
@@ -516,7 +507,6 @@
     <string name="dialog_follow_hashtag_hint">#cancelo</string>
     <string name="hint_description">Descrición</string>
     <string name="help_empty_home">Esta é a túa <b>cronoloxía de inicio</b>. Mostra as publicacións recentes das contas que segues. \n \nPara atopar contas podes mirar nalgunha das outras cronoloxías. Por exemplo, na cronoloxía local da túa instancia [iconics gmd_group]. Ou buscalas polo seu nome [iconics gmd_search]; por exemplo busca Pachli para atopar a nosa conta en Mastodon.</string>
-    <string name="post_media_image">Imaxe</string>
     <string name="hint_filter_title">O meu filtro</string>
     <string name="notification_unknown_name">Descoñecido</string>
     <string name="socket_timeout_exception">Estamos tardando demasiado en conectar co servidor</string>
@@ -596,15 +586,12 @@
     <string name="reaction_name_and_count">%1$s %2$d</string>
     <string name="pref_title_update_notification_frequency">Avísame cando haxa novas versións de Pachli</string>
     <string name="error_media_playback">Fallou a reprodución: %s</string>
-    <string name="pref_update_notification_frequency_once_per_version">Unha vez por versión</string>
-    <string name="pref_update_notification_frequency_always">Sempre</string>
     <string name="update_dialog_title">Hai unha actualización dispoñible</string>
     <string name="translation_provider_fmt">%1$s</string>
     <string name="update_dialog_neutral">Non avisarme para esta versión</string>
     <string name="translating">Traducindo…</string>
     <string name="announcement_date">%1$s %2$s</string>
     <string name="load_newest_statuses">Cargar as publicacións máis recentes</string>
-    <string name="pref_update_notification_frequency_never">Nunca</string>
     <string name="pref_title_labs">Experimental</string>
     <string name="pref_labs_warning">Estas son características experimentais. Non hai garantía de que funcionen nin de que vaian incluír en versións futuras. Usa baixo a túa responsabilidade.</string>
     <string name="pref_labs_reverse_home_timeline_title">Orde inversa da cronoloxía</string>
@@ -679,7 +666,7 @@
     <string name="search_operator_where_dialog_library">A túa biblioteca</string>
     <string name="search_operator_where_dialog_public">Publicacións públicas</string>
     <string name="search_operator_where_dialog_public_hint">Públicas, publicacións ás que pode acceder calquera servidor</string>
-    <string name="error_media_download">Non se descargou %1$s: %2$d %3$s</string>
+    <string name="error_media_download">Non se descargou %1$s: %2$s</string>
     <string name="action_remove_tab">Retirar pestana</string>
     <string name="pref_update_next_scheduled_check">Próxima comprobación: %1$s</string>
     <string name="action_open_byline_account">Ver o perfil da autora do artigo</string>
@@ -737,7 +724,6 @@
     <string name="search_operator_replies_replies_only">Só con respostas</string>
     <string name="search_operator_replies_no_replies">Excluír respostas</string>
     <string name="search_operator_replies_dialog_title">Incluír respostas?</string>
-    <string name="pref_notification_fetch_server_rejected">%1$s rexeitou o rexistro push</string>
     <string name="pref_title_change_unified_push_distributor">Cambiar de distribuidora UnifiedPush</string>
     <string name="pref_change_unified_push_distributor_msg">Isto limpará a elección de distribuidor UnifiedPush e reiniciará Pachli.
 \n
@@ -753,10 +739,4 @@
     <string name="pref_notification_battery_optimisation_is_disabled">A optimización da batería está desactivada</string>
     <string name="pref_notification_battery_optimisation_should_ignore">Deberías desactivar a optimización da batería. Toca para abrir.</string>
     <string name="pref_notification_battery_optimisation_ok">Non é preciso desactivar a optimización da batería.</string>
-    <string name="pref_notification_method_pull">Pull</string>
-    <string name="pref_notification_fetch_method_title">Método de notificación</string>
-    <string name="pref_notification_method_push">Push</string>
-    <string name="pref_notification_fetch_ok_timestamp_fmt">✔ hai %1$s @ %2$s</string>
-    <string name="pref_notification_fetch_err_timestamp_fmt">✖ hai %1$s @ %2$s</string>
-    <string name="pref_notification_fetch_needs_push">A conta non ten o método «push». Pechar a sesión e volver acceder podería arranxalo.</string>
 </resources>

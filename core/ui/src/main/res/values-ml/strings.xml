@@ -10,4 +10,8 @@
     <string name="action_mentions">സൂചനകൾ</string>
     <string name="title_links_dialog">ലിങ്കുകൾ</string>
     <string name="title_mentions_dialog">സൂചനകൾ</string>
+    <string name="button_continue">തുടരുക</string>
+    <string name="action_logout_confirm">ഈ അക്കൗണ്ടിൽ നിന്നും പുറത്തു പോകാൻ ഉറപ്പിച്ചോ %1$s?</string>
+    <string name="add_account_name">അക്കൗണ്ട് ചേർക്കുക</string>
+    <string name="action_logout">പുറത്തിറങ്ങുക</string>
 </resources>

@@ -16,13 +16,11 @@
 
 package app.pachli.components.report.adapter
 
-import android.text.Spanned
 import android.text.TextUtils
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.components.report.model.StatusViewState
-import app.pachli.core.activity.emojify
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.util.AbsoluteTimeFormatter
@@ -30,22 +28,27 @@ import app.pachli.core.common.util.shouldTrimStatus
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.designsystem.R as DR
-import app.pachli.core.network.model.Emoji
-import app.pachli.core.network.model.HashTag
-import app.pachli.core.network.model.Status
+import app.pachli.core.model.Emoji
+import app.pachli.core.model.HashTag
+import app.pachli.core.model.Status
+import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.LinkListener
+import app.pachli.core.ui.SetStatusContent
+import app.pachli.core.ui.emojify
 import app.pachli.core.ui.setClickableMentions
-import app.pachli.core.ui.setClickableText
 import app.pachli.databinding.ItemReportStatusBinding
 import app.pachli.util.StatusViewHelper
 import app.pachli.util.StatusViewHelper.Companion.COLLAPSE_INPUT_FILTER
 import app.pachli.util.StatusViewHelper.Companion.NO_INPUT_FILTER
 import app.pachli.util.getRelativeTimeSpanString
 import app.pachli.viewdata.PollViewData
+import com.bumptech.glide.RequestManager
 import java.util.Date
 
 open class StatusViewHolder(
     private val binding: ItemReportStatusBinding,
+    private val glide: RequestManager,
+    private val setStatusContent: SetStatusContent,
     private val statusDisplayOptions: StatusDisplayOptions,
     private val viewState: StatusViewState,
     private val adapterHandler: AdapterHandler,
@@ -53,7 +56,7 @@ open class StatusViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     private val mediaViewHeight = itemView.context.resources.getDimensionPixelSize(DR.dimen.status_media_preview_height)
-    private val statusViewHelper = StatusViewHelper(itemView)
+    private val statusViewHelper = StatusViewHelper(glide, itemView)
     private val absoluteTimeFormatter = AbsoluteTimeFormatter()
 
     private val previewListener = object : StatusViewHelper.MediaPreviewListener {
@@ -105,7 +108,7 @@ open class StatusViewHolder(
     private fun updateTextView() {
         viewdata()?.let { viewdata ->
             setupCollapsedState(
-                shouldTrimStatus(viewdata.content),
+                shouldTrimStatus(viewdata.content.parseAsMastodonHtml()),
                 viewState.isCollapsed(viewdata.id, true),
                 viewState.isContentShow(viewdata.id, viewdata.status.sensitive),
                 viewdata.spoilerText,
@@ -116,7 +119,7 @@ open class StatusViewHolder(
                 binding.statusContentWarningButton.hide()
                 binding.statusContentWarningDescription.hide()
             } else {
-                val emojiSpoiler = viewdata.spoilerText.emojify(viewdata.status.emojis, binding.statusContentWarningDescription, statusDisplayOptions.animateEmojis)
+                val emojiSpoiler = viewdata.spoilerText.emojify(glide, viewdata.status.emojis, binding.statusContentWarningDescription, statusDisplayOptions.animateEmojis)
                 binding.statusContentWarningDescription.text = emojiSpoiler
                 binding.statusContentWarningDescription.show()
                 binding.statusContentWarningButton.show()
@@ -145,15 +148,14 @@ open class StatusViewHolder(
 
     private fun setTextVisible(
         expanded: Boolean,
-        content: Spanned,
+        content: CharSequence,
         mentions: List<Status.Mention>,
         tags: List<HashTag>?,
         emojis: List<Emoji>,
         listener: LinkListener,
     ) {
         if (expanded) {
-            val emojifiedText = content.emojify(emojis, binding.statusContent, statusDisplayOptions.animateEmojis)
-            setClickableText(binding.statusContent, emojifiedText, mentions, tags, listener)
+            setStatusContent(glide, binding.statusContent, content, statusDisplayOptions, emojis, mentions, tags, listener)
         } else {
             setClickableMentions(binding.statusContent, mentions, listener)
         }

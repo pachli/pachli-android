@@ -47,7 +47,7 @@ dependencies {
     implementation(libs.semver)
 
     implementation(libs.moshi)
-        ?.because("Notifications serialise using JSON")
+        ?.because("Notifications serialise as JSON")
 
     testImplementation(projects.core.networkTest)
     testImplementation(libs.bundles.mockito)
@@ -55,6 +55,4 @@ dependencies {
     testImplementation(libs.moshi)
     testImplementation(libs.moshi.adapters)
     ksp(libs.moshi.codegen)
-
-    testImplementation(projects.core.networkTest)
 }

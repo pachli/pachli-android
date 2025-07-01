@@ -21,7 +21,7 @@ import android.util.AttributeSet
 import android.view.View
 import app.pachli.R
 import app.pachli.core.designsystem.R as DR
-import app.pachli.core.network.model.Status
+import app.pachli.core.model.Status
 import app.pachli.util.iconDrawable
 import com.google.android.material.button.MaterialButton
 
@@ -57,5 +57,13 @@ class TootButton
                 Status.Visibility.DIRECT -> setText(R.string.action_send)
             }
         }
+
+        when (visibility) {
+            Status.Visibility.UNKNOWN -> null
+            Status.Visibility.PUBLIC -> R.string.action_send_public_content_description
+            Status.Visibility.UNLISTED -> R.string.action_send_unlisted_content_description
+            Status.Visibility.PRIVATE -> R.string.action_send_private_content_description
+            Status.Visibility.DIRECT -> R.string.action_send_direct_content_description
+        }?.let { contentDescription = context.getString(it) }
     }
 }

@@ -6,32 +6,42 @@ import android.text.Spanned
 import android.text.method.LinkMovementMethod
 import android.text.style.DynamicDrawableSpan
 import android.text.style.ImageSpan
-import android.view.View
+import androidx.core.view.isGone
 import app.pachli.R
+import app.pachli.core.activity.OpenUrlUseCase
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.preferences.CardViewMode
 import app.pachli.core.ui.NoUnderlineURLSpan
+import app.pachli.core.ui.SetStatusContent
 import app.pachli.core.ui.createClickableText
 import app.pachli.databinding.ItemStatusDetailedBinding
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.description
 import app.pachli.util.icon
+import com.bumptech.glide.RequestManager
 import java.text.DateFormat
 import java.util.Locale
 
 class StatusDetailedViewHolder(
     private val binding: ItemStatusDetailedBinding,
-) : StatusBaseViewHolder<StatusViewData>(binding.root) {
+    glide: RequestManager,
+    setStatusContent: SetStatusContent,
+    private val openUrl: OpenUrlUseCase,
+) : StatusBaseViewHolder<StatusViewData>(binding.root, glide, setStatusContent) {
 
     override fun setMetaData(
         viewData: StatusViewData,
         statusDisplayOptions: StatusDisplayOptions,
         listener: StatusActionListener<StatusViewData>,
     ) {
-        val (_, _, _, _, _, _, _, createdAt, editedAt, _, _, _, _, _, _, _, _, _, visibility, _, _, _, app) = viewData.actionable
+        val createdAt = viewData.actionable.createdAt
+        val editedAt = viewData.actionable.editedAt
+        val visibility = viewData.actionable.visibility
+        val app = viewData.actionable.application
+
         val visibilityIcon = visibility.icon(metaInfo)
         val visibilityString = visibility.description(context)
         val sb = SpannableStringBuilder(visibilityString)
@@ -56,18 +66,14 @@ class StatusDetailedViewHolder(
             val spanEnd = spanStart + editedAtString.length
             sb.append(editedAtString)
             viewData.status.editedAt?.also {
-                val editedClickSpan: NoUnderlineURLSpan = object : NoUnderlineURLSpan("") {
-                    override fun onClick(view: View) {
-                        listener.onShowEdits(viewData.actionableId)
-                    }
-                }
+                val editedClickSpan = NoUnderlineURLSpan(viewData.actionableId, listener::onShowEdits)
                 sb.setSpan(editedClickSpan, spanStart, spanEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
             }
         }
 
         app?.also { (name, website) ->
             sb.append(metadataJoiner)
-            website?.also { sb.append(createClickableText(name, it)) } ?: sb.append(name)
+            website?.also { sb.append(createClickableText(name, it, openUrl::invoke)) } ?: sb.append(name)
         }
 
         metaInfo.movementMethod = LinkMovementMethod.getInstance()
@@ -92,7 +98,7 @@ class StatusDetailedViewHolder(
         } else {
             binding.statusFavourites.hide()
         }
-        if (binding.statusReblogs.visibility == View.GONE && binding.statusFavourites.visibility == View.GONE) {
+        if (binding.statusReblogs.isGone && binding.statusFavourites.isGone) {
             binding.statusInfoDivider.hide()
         } else {
             binding.statusInfoDivider.show()
@@ -123,8 +129,9 @@ class StatusDetailedViewHolder(
             listener,
         ) // Always show card for detailed status
         if (payloads == null) {
-            val (_, _, _, _, _, _, _, _, _, _, reblogsCount, favouritesCount) = uncollapsedViewdata.actionable
-            if (!statusDisplayOptions.hideStats) {
+            val reblogsCount = uncollapsedViewdata.actionable.reblogsCount
+            val favouritesCount = uncollapsedViewdata.actionable.favouritesCount
+            if (!statusDisplayOptions.hideStatsInDetailedView) {
                 setReblogAndFavCount(viewData, reblogsCount, favouritesCount, listener)
             } else {
                 hideQuantitativeStats()

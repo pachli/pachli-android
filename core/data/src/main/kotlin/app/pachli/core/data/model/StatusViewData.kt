@@ -16,16 +16,13 @@
 package app.pachli.core.data.model
 
 import android.os.Build
-import android.text.Spanned
-import android.text.SpannedString
 import app.pachli.core.common.util.shouldTrimStatus
 import app.pachli.core.data.BuildConfig
-import app.pachli.core.database.model.ConversationStatusEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.model.FilterAction
-import app.pachli.core.network.model.Status
+import app.pachli.core.model.Status
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.network.replaceCrashingCharacters
 
@@ -79,7 +76,7 @@ interface IStatusViewData {
      * The content to show for this status. May be the original content, or
      * translated, depending on `translationState`.
      */
-    val content: Spanned
+    val content: CharSequence
 
     /** The underlying network status */
     val status: Status
@@ -103,11 +100,6 @@ interface IStatusViewData {
 
     val rebloggingStatus: Status?
 
-    // TODO: This means that null checks are required elsewhere in the code to deal with
-    // the possibility that this might not be NONE, but that status.filtered is null or
-    // empty (e.g., StatusBaseViewHolder.setupFilterPlaceholder()). It would be better
-    // if the Filter.Action class subtypes carried the FilterResult information with them,
-    // and it's impossible to construct them with an empty list.
     /** The [FilterAction] to apply, based on the status' content. */
     var contentFilterAction: FilterAction
 
@@ -139,12 +131,12 @@ data class StatusViewData(
 
     override val isCollapsible: Boolean
 
-    private val _content: Spanned
+    private val _content: CharSequence
 
     @Suppress("ktlint:standard:property-naming")
-    private val _translatedContent: Spanned
+    private val _translatedContent: CharSequence
 
-    override val content: Spanned
+    override val content: CharSequence
         get() = if (translationState == TranslationState.SHOW_TRANSLATION) _translatedContent else _content
 
     private val _spoilerText: String
@@ -176,25 +168,23 @@ data class StatusViewData(
     init {
         if (Build.VERSION.SDK_INT == 23) {
             // https://github.com/tuskyapp/Tusky/issues/563
-            this._content = replaceCrashingCharacters(status.actionableStatus.content.parseAsMastodonHtml())
+            this._content = replaceCrashingCharacters(status.actionableStatus.content) ?: ""
             this._spoilerText =
                 replaceCrashingCharacters(status.actionableStatus.spoilerText).toString()
             this.username =
                 replaceCrashingCharacters(status.actionableStatus.account.username).toString()
-            this._translatedContent = translation?.content?.let {
-                replaceCrashingCharacters(it.parseAsMastodonHtml())
-            } ?: SpannedString("")
+            this._translatedContent = (translation?.content?.let { replaceCrashingCharacters(it) } ?: "")
             this._translatedSpoilerText = translation?.spoilerText?.let {
                 replaceCrashingCharacters(it).toString()
             } ?: ""
         } else {
-            this._content = status.actionableStatus.content.parseAsMastodonHtml()
-            this._translatedContent = translation?.content?.parseAsMastodonHtml() ?: SpannedString("")
+            this._content = status.actionableStatus.content
+            this._translatedContent = translation?.content ?: ""
             this._spoilerText = status.actionableStatus.spoilerText
             this._translatedSpoilerText = translation?.spoilerText ?: ""
             this.username = status.actionableStatus.account.username
         }
-        this.isCollapsible = shouldTrimStatus(this.content)
+        this.isCollapsible = shouldTrimStatus(this.content.parseAsMastodonHtml())
     }
 
     companion object {
@@ -232,46 +222,6 @@ data class StatusViewData(
                 translation = translation,
             )
         }
-
-        fun from(pachliAccountId: Long, conversationStatusEntity: ConversationStatusEntity) = StatusViewData(
-            pachliAccountId = pachliAccountId,
-            status = Status(
-                id = conversationStatusEntity.id,
-                url = conversationStatusEntity.url,
-                account = conversationStatusEntity.account.toAccount(),
-                inReplyToId = conversationStatusEntity.inReplyToId,
-                inReplyToAccountId = conversationStatusEntity.inReplyToAccountId,
-                content = conversationStatusEntity.content,
-                reblog = null,
-                createdAt = conversationStatusEntity.createdAt,
-                editedAt = conversationStatusEntity.editedAt,
-                emojis = conversationStatusEntity.emojis,
-                reblogsCount = 0,
-                favouritesCount = conversationStatusEntity.favouritesCount,
-                repliesCount = conversationStatusEntity.repliesCount,
-                reblogged = false,
-                favourited = conversationStatusEntity.favourited,
-                bookmarked = conversationStatusEntity.bookmarked,
-                sensitive = conversationStatusEntity.sensitive,
-                spoilerText = conversationStatusEntity.spoilerText,
-                visibility = Status.Visibility.DIRECT,
-                attachments = conversationStatusEntity.attachments,
-                mentions = conversationStatusEntity.mentions,
-                tags = conversationStatusEntity.tags,
-                application = null,
-                pinned = false,
-                muted = conversationStatusEntity.muted,
-                poll = conversationStatusEntity.poll,
-                card = null,
-                language = conversationStatusEntity.language,
-                filtered = null,
-            ),
-            isExpanded = conversationStatusEntity.expanded,
-            isShowingContent = conversationStatusEntity.showingHiddenContent,
-            isCollapsed = conversationStatusEntity.collapsed,
-            // TODO: Include translationState in conversationStatusEntity
-            translationState = TranslationState.SHOW_ORIGINAL,
-        )
 
         /**
          *

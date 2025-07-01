@@ -49,8 +49,6 @@
     <string name="action_favourite">Нравится</string>
     <string name="action_unfavourite">Убрать из избранного</string>
     <string name="action_compose">Сочинить</string>
-    <string name="action_logout">Выйти</string>
-    <string name="action_logout_confirm">Вы действительно хотите выйти из учётной записи %1$s?</string>
     <string name="action_follow">Подписаться</string>
     <string name="action_unfollow">Отписаться</string>
     <string name="action_block">Заблокировать</string>
@@ -96,7 +94,6 @@
     <string name="action_open_media_n">Открыть медиафайл #%d</string>
     <string name="download_image">Загрузка %1$s</string>
     <string name="action_copy_link">Копировать ссылку</string>
-    <string name="action_share_as">Поделиться как…</string>
     <string name="download_media">Скачать медиафайл</string>
     <string name="downloading_media">Скачивание медиафайла</string>
     <string name="send_post_link_to">Поделиться ссылкой на гудок…</string>
@@ -190,7 +187,6 @@
         <item quantity="other">Новых событий: %d</item>
     </plurals>
     <string name="description_account_locked">Закрытый аккаунт</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <!-- note to translators: the url can be changed to link to the localized version of the license -->
     <string name="post_share_content">Поделиться содержанием гудка</string>
     <string name="post_share_link">Поделиться ссылкой на гудок</string>
@@ -243,10 +239,8 @@
     <string name="filter_dialog_remove_button">Удалить</string>
     <string name="filter_dialog_update_button">Обновить</string>
     <string name="filter_add_description">Слова на фильтр</string>
-    <string name="add_account_name">Добавить аккаунт</string>
     <string name="add_account_description">Добавить новый акканут Mastodon</string>
     <string name="compose_active_account_description">Отправка от имени %1$s</string>
-    <string name="action_set_caption">Добавить примечание</string>
     <string name="action_remove">Удалить</string>
     <string name="lock_account_label">Закрыть аккаунт</string>
     <string name="lock_account_label_description">Вам придётся вручную подтверждать подписчиков</string>
@@ -280,10 +274,10 @@
     <string name="unpin_action">Открепить</string>
     <string name="pin_action">Закрепить</string>
     <plurals name="favs">
-        <item quantity="one">&lt;b>%1$s&lt;/b> Понравился</item>
-        <item quantity="few">&lt;b>%1$s&lt;/b> Понравилось</item>
-        <item quantity="many">&lt;b>%1$s&lt;/b> Понравилось</item>
-        <item quantity="other">&lt;b>%1$s&lt;/b> Понравилось</item>
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Понравился</item>
+        <item quantity="few">&lt;b&gt;%1$s&lt;/b&gt; Понравилось</item>
+        <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; Понравилось</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Понравилось</item>
     </plurals>
     <plurals name="reblogs">
         <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Продвинул(а)</item>
@@ -331,7 +325,6 @@
     <string name="poll_vote">Голосовать</string>
     <string name="poll_ended_voted">Опрос, в котором вы приняли участие, завершился</string>
     <string name="poll_ended_created">Созданный вами опрос завершился</string>
-    <string name="button_continue">Продолжить</string>
     <string name="button_back">Назад</string>
     <string name="hint_additional_info">Дополнительные комментарии</string>
     <string name="title_domain_mutes">Скрытые домены</string>

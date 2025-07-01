@@ -53,8 +53,6 @@
     <string name="action_favourite">Aggiungi ai post apprezzati</string>
     <string name="action_unfavourite">Rimuovi apprezzamento</string>
     <string name="action_compose">Componi</string>
-    <string name="action_logout">Disconnettiti</string>
-    <string name="action_logout_confirm">Sei sicuro di volerti disconnettere dall\'account %1$s?</string>
     <string name="action_follow">Segui</string>
     <string name="action_unfollow">Smetti di seguire</string>
     <string name="action_block">Blocca</string>
@@ -101,7 +99,6 @@
     <string name="action_open_media_n">Apri media #%d</string>
     <string name="download_image">Scaricando %1$s</string>
     <string name="action_copy_link">Copia collegamento</string>
-    <string name="action_share_as">Condividi come …</string>
     <string name="send_post_link_to">Condividi URL del messaggio su…</string>
     <string name="send_post_content_to">Condividi messaggio su…</string>
     <string name="send_media_to">Condividi media su…</string>
@@ -139,10 +136,10 @@
     <string name="pref_title_notification_alert_vibrate">Notifica con vibrazione</string>
     <string name="pref_title_notification_alert_light">Notifica luminosa</string>
     <string name="pref_title_notification_filters">Notificami quando</string>
-    <string name="pref_title_notification_filter_mentions">vengo menzionato</string>
-    <string name="pref_title_notification_filter_follows">vengo seguito</string>
-    <string name="pref_title_notification_filter_reblogs">i miei messaggi vengono condivisi</string>
-    <string name="pref_title_notification_filter_favourites">i miei messaggi vengono messi negli apprezzamenti</string>
+    <string name="pref_title_notification_filter_mentions">Vengo menzionato</string>
+    <string name="pref_title_notification_filter_follows">Vengo seguito</string>
+    <string name="pref_title_notification_filter_reblogs">I miei messaggi vengono condivisi</string>
+    <string name="pref_title_notification_filter_favourites">I miei messaggi vengono messi negli apprezzamenti</string>
     <string name="pref_title_appearance_settings">Aspetto</string>
     <string name="pref_title_app_theme">Tema dell\'app</string>
     <string name="pref_title_timelines">Timeline</string>
@@ -198,7 +195,6 @@
     <string name="notification_notification_worker">Recupero notifiche…</string>
     <string name="notification_prune_cache">Pulizia cache…</string>
     <string name="description_account_locked">Account bloccato</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <!-- note to translators:
          * you should think of “free” as in “free speech,” not as in “free beer”.
            We sometimes call it “libre software,” borrowing the French or Spanish word for “free” as in freedom,
@@ -231,18 +227,8 @@
     <string name="filter_dialog_remove_button">Rimuovi</string>
     <string name="filter_dialog_update_button">Aggiorna</string>
     <string name="filter_add_description">Frase da filtrare</string>
-    <string name="add_account_name">Aggiungi account</string>
     <string name="add_account_description">Aggiungi un nuovo Account Mastodon</string>
     <string name="compose_active_account_description">Pubblicando come %1$s</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="one">Descrivi il contenuto per gli ipovedenti
-\n(limite di %d caratteri)</item>
-        <item quantity="many">Descrivi i contenuti per gli ipovedenti
-\n(limite di %d caratteri)</item>
-        <item quantity="other">Descrivi i contenuti per gli ipovedenti
-\n(limite di %d caratteri)</item>
-    </plurals>
-    <string name="action_set_caption">Inserisci descrizione</string>
     <string name="action_remove">Rimuovi</string>
     <string name="lock_account_label">Blocca account</string>
     <string name="lock_account_label_description">Richiede una tua approvazione manuale per seguirti</string>
@@ -276,14 +262,14 @@
     <string name="unpin_action">Non fissare in cima</string>
     <string name="pin_action">Fissa</string>
     <plurals name="favs">
-        <item quantity="one">&lt;b>%1$s&lt;/b> Preferito</item>
-        <item quantity="many">&lt;b>%1$s&lt;/b> Preferiti</item>
-        <item quantity="other">&lt;b>%1$s&lt;/b> Preferiti</item>
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Preferito</item>
+        <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; Preferiti</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Preferiti</item>
     </plurals>
     <plurals name="reblogs">
-        <item quantity="one">&lt;b>%s&lt;/b> ricondivisione</item>
-        <item quantity="many">&lt;b>%s&lt;/b> ricondivisioni</item>
-        <item quantity="other">&lt;b>%s&lt;/b> ricondivisioni</item>
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; ricondivisione</item>
+        <item quantity="many">&lt;b&gt;%s&lt;/b&gt; ricondivisioni</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; ricondivisioni</item>
     </plurals>
     <string name="title_reblogged_by">Condiviso da</string>
     <string name="title_favourited_by">Aggiunto ai post apprezzati da</string>
@@ -364,7 +350,6 @@
         <item quantity="many">%d secondi rimasti</item>
         <item quantity="other">%d secondi rimasti</item>
     </plurals>
-    <string name="button_continue">Continua</string>
     <string name="button_back">Indietro</string>
     <string name="report_sent_success">Segnalato @%s con successo</string>
     <string name="hint_additional_info">Altri commenti</string>
@@ -422,15 +407,15 @@
     <string name="pref_title_gradient_for_media">Mostra gradienti colorati per i media nascosti</string>
     <string name="dialog_mute_hide_notifications">Nascondi notifiche</string>
     <string name="title_announcements">Annunci</string>
-    <string name="pref_title_notification_filter_follow_requests">mi viene richiesto di seguirmi</string>
+    <string name="pref_title_notification_filter_follow_requests">Mi viene richiesto di seguirmi</string>
     <string name="wellbeing_hide_stats_profile">Nascondi le statistiche sui profili</string>
     <string name="wellbeing_hide_stats_posts">Nascondi le statistiche sui post</string>
     <string name="review_notifications">Rivedi le notifiche</string>
     <string name="pref_title_wellbeing_mode">Benessere</string>
     <string name="notification_subscription_description">Notifiche di nuovi messaggi di qualcuno a cui sei iscritto</string>
     <string name="notification_subscription_name">Nuovi messaggi</string>
-    <string name="pref_title_notification_filter_poll">dei sondaggi si sono conclusi</string>
-    <string name="pref_title_notification_filter_subscriptions">qualcuno che seguo ha pubblicato un nuovo messaggio</string>
+    <string name="pref_title_notification_filter_poll">Dei sondaggi si sono conclusi</string>
+    <string name="pref_title_notification_filter_subscriptions">Qualcuno che seguo ha pubblicato un nuovo messaggio</string>
     <string name="notification_subscription_format">%s ha appena pubblicato</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="one">Non puoi caricare più di %1$d allegato multimediale.</item>
@@ -467,9 +452,9 @@
     <string name="duration_365_days">365 giorni</string>
     <string name="follow_requests_info">Anche se il tuo account non è bloccato, lo staff di %1$s ha pensato che potresti voler verificare le richieste di seguirti da parte di questi utenti manualmente.</string>
     <string name="notification_sign_up_format">%s si è registrato</string>
-    <string name="pref_title_notification_filter_sign_ups">qualcuno si è registrato</string>
+    <string name="pref_title_notification_filter_sign_ups">Qualcuno si è registrato</string>
     <string name="notification_update_format">%s ha modificato il suo messaggio</string>
-    <string name="pref_title_notification_filter_updates">un messaggio con cui ho interagito è stato modificato</string>
+    <string name="pref_title_notification_filter_updates">Un messaggio con cui ho interagito è stato modificato</string>
     <string name="pachli_compose_post_quicksetting_label">Componi messaggio</string>
     <string name="notification_sign_up_name">Registrazioni</string>
     <string name="notification_sign_up_description">Notifiche di quando qualcuno si è registrato</string>
@@ -503,7 +488,7 @@
     <string name="report_category_violation">Violazione di una regola</string>
     <string name="status_created_at_now">adesso</string>
     <string name="post_media_alt">ALT</string>
-    <string name="pref_title_notification_filter_reports">c\'è una nuova segnalazione</string>
+    <string name="pref_title_notification_filter_reports">C\'è una nuova segnalazione</string>
     <string name="notification_report_name">Segnalazioni</string>
     <string name="error_muting_hashtag_format">Errore nel silenziamento di #%s</string>
     <string name="error_unmuting_hashtag_format">Errore nella rimozione del silenziamento di #%s</string>
@@ -514,7 +499,11 @@
     <string name="action_continue_edit">Continua a modificare</string>
     <string name="notification_report_format">Nuova segnalazione su %s</string>
     <string name="notification_header_report_format">%s ha segnalato %s</string>
-    <string name="notification_summary_report_format">%s · %d post allegati</string>
+    <plurals name="notification_summary_report_format">
+        <item quantity="one">%1$s · %2$d post allegato</item>
+        <item quantity="many">%1$s · %2$d di post allegati</item>
+        <item quantity="other">%1$s · %2$d post allegati</item>
+    </plurals>
     <string name="action_add_reaction">aggiungi reazione</string>
     <string name="unsaved_changes">Hai delle modifiche non salvate.</string>
     <string name="confirmation_hashtag_unfollowed">Non segui più #%s</string>
@@ -554,7 +543,6 @@
     <string name="help_empty_home">Questa è la tua <b>Timeline principale</b>. Mostra i post più recenti degli account che segui. \n \nPer esplorare gli account puoi scoprirli in una delle altre timeline. Per esempio la timeline locale della tua istanza [iconica gmd_group]. O puoi cercarli per nome [iconica gmd_search]; per esempio cerca “Pachli” per trovare il nostro account Mastodon.</string>
     <string name="hint_description">Descrizione</string>
     <string name="notification_unknown_name">Sconosciuto</string>
-    <string name="post_media_image">Immagine</string>
     <string name="label_filter_title">Titolo</string>
     <string name="filter_action_warn">Avvisa</string>
     <string name="filter_action_hide">Nascondi</string>
@@ -602,9 +590,60 @@
     <string name="title_tab_public_trending_links">Collegamenti</string>
     <string name="update_dialog_neutral">Non ricordarmelo per questa versione</string>
     <string name="pref_title_update_settings">Aggiornamenti Software</string>
-    <string name="pref_update_notification_frequency_always">Sempre</string>
-    <string name="pref_update_notification_frequency_never">Mai</string>
     <string name="title_tab_public_trending_statuses">Post</string>
-    <string name="pref_update_notification_frequency_once_per_version">Una volta per versione</string>
     <string name="update_dialog_title">Un aggiornamento è disponibile</string>
+    <string name="notification_severed_relationships_unknown_body">Motivo ignoto</string>
+    <string name="notification_severed_relationships_format">Relazione con <b>%1$s</b> troncata</string>
+    <string name="notification_severed_relationships_domain_block_body">Un moderatore ha sospeso il dominio</string>
+    <string name="account_filter_placeholder_type_follow_request_fmt">Richiesta di seguace da un utente @<b>%1s</b></string>
+    <string name="account_filter_placeholder_type_follow_fmt">Un utente @<b>%1s</b> ha iniziato a seguirti</string>
+    <string name="account_filter_placeholder_label_younger_30d">Filtrato perché: <b>creato negli ultimi 30 giorni</b></string>
+    <string name="account_filter_placeholder_label_domain">Da un utente @<b>%1s</b></string>
+    <string name="account_filter_placeholder_label_not_following">Filtrato perché: <b>non li segui</b></string>
+    <string name="notification_severed_relationships_user_domain_block_body">Hai bloccato il dominio</string>
+    <string name="notification_severed_relationships_account_suspension_body">Un moderatore ha sospeso l\'account</string>
+    <string name="notification_severed_relationships_user_domain_block_fmt">Hai bloccato <b>%1$s</b></string>
+    <string name="notification_severed_relationships_account_suspension_fmt">Un amministratore di %1$s ha bloccato <b>%2$s</b></string>
+    <plurals name="followed_hashtags_accounts_count_fmt">
+        <item quantity="one">%1$d account</item>
+        <item quantity="many">%1$d account</item>
+        <item quantity="other">%1$d account</item>
+    </plurals>
+    <string name="account_filter_placeholder_type_reblog_fmt">Un utente @<b>%1s</b> ha ricondiviso il tuo post</string>
+    <plurals name="followed_hashtags_posts_count_fmt">
+        <item quantity="one">%1$d post</item>
+        <item quantity="many">%1$d post</item>
+        <item quantity="other">%1$d post</item>
+    </plurals>
+    <string name="account_filter_placeholder_label_limited_by_server">Filtrato perché: <b>limitato dai tuoi moderatori</b></string>
+    <string name="notification_unknown">Tipologia di notifica sconosciuta</string>
+    <string name="action_filter_search">Filtra ricerca</string>
+    <string name="action_translate_undo">Non tradurre</string>
+    <plurals name="notification_severed_relationships_summary_following_fmt">
+        <item quantity="one">%1$s account seguito rimosso.</item>
+        <item quantity="many">%1$s di account seguiti rimossi.</item>
+        <item quantity="other">%1$s account seguiti rimossi.</item>
+    </plurals>
+    <string name="action_send_public_content_description">Invia post pubblico</string>
+    <string name="action_send_direct_content_description">Invia messaggio diretto</string>
+    <string name="action_send_private_content_description">Invia post solo ai seguaci</string>
+    <string name="action_send_unlisted_content_description">Invia post non elencato</string>
+    <string name="action_suggestions">Account suggeriti</string>
+    <string name="account_filter_placeholder_type_conversation">Un utente @<b>%1$s</b> ha iniziato una conversazione</string>
+    <plurals name="followed_hashtags_days_count_fmt">
+        <item quantity="one">%1$d giorno</item>
+        <item quantity="many">%1$d giorni</item>
+        <item quantity="other">%1$d giorni</item>
+    </plurals>
+    <plurals name="notification_severed_relationships_summary_followers_fmt">
+        <item quantity="one">%1$s seguace rimosso.</item>
+        <item quantity="many">%1$s di seguaci rimossi.</item>
+        <item quantity="other">%1$s seguaci rimossi.</item>
+    </plurals>
+    <string name="notification_severed_relationships_domain_block_fmt">Un amministratore di %1$s ha bloccato <b>%2$s</b></string>
+    <string name="notification_severed_relationships_unknown_fmt"><b>%1$s</b> è bloccato (motivo ignoto)</string>
+    <string name="action_translate">Traduci</string>
+    <string name="action_refresh_account">Aggiorna account</string>
+    <string name="pref_title_notification_filter_severed_relationships">Una relazione fra i seguaci/seguiti è stata troncata</string>
+    <string name="account_filter_placeholder_type_mention_fmt">Un utente @<b>%1s</b> ti ha menzionato</string>
 </resources>

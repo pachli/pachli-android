@@ -1,0 +1,20 @@
+Pachli 2.11.0
+
+Jaunas iespējas:
+
+- tulkojumu nodrošināšana viscaur lietotnē;
+- satura atlasītāji pēc noklusējuma visos kontekstos;
+- izmēģinājuma Markdown atbalsts.
+
+Labojumi:
+
+- apturēta ziņošanas UI uzkāršanās;
+- iestatīts apraksts pogai "Toot";
+- novērstas dažādas avārijas;
+- atlasītāju izveidošana ar pareizu content-type;
+- pareiza atlasīšana pavedienos un privātās ziņās;
+- nodrošināta augšupielādēto attēlu uzrakstu labošana.
+
+Tulkojumi:
+
+- somu, indonēziešu, īru, latviešu, jaunnorvēģu, poļu, slovāku, spāņu.

@@ -44,8 +44,6 @@
     <string name="action_reblog">Bultzatu</string>
     <string name="action_favourite">Gogokoa</string>
     <string name="action_compose">Idatzi</string>
-    <string name="action_logout">Saioa itxi</string>
-    <string name="action_logout_confirm">Ziur zaude %1$s saioa itxi nahi duzula?</string>
     <string name="action_follow">Jarraitu</string>
     <string name="action_unfollow">Jarraitzeari utzi</string>
     <string name="action_block">Blokeatu</string>
@@ -191,13 +189,8 @@
     <string name="follows_you">Jarraitzen zaitu</string>
     <string name="pref_title_alway_show_sensitive_media">Eduki mingarria erakutsi</string>
     <string name="title_media">Multimedia</string>
-    <string name="add_account_name">Gehitu kontua</string>
     <string name="add_account_description">Mastodon kontua gehitu</string>
     <string name="compose_active_account_description">%1$s kontuarekin tut egiten</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="other">Ikusmen urritasuna dutenentzat deskribapena\n(%d karaktereko muga)</item>
-    </plurals>
-    <string name="action_set_caption">Deskribapena erantsi</string>
     <string name="action_remove">Ezabatu</string>
     <string name="lock_account_label">Kontua babestu</string>
     <string name="lock_account_label_description">Jarraitzaileak eskuz onartu beharko dituzu</string>
@@ -249,7 +242,6 @@
     <string name="action_open_reblogged_by">Bultzadak erakutsi</string>
     <string name="action_open_faved_by">Gogokoak erakutsi</string>
     <string name="action_open_media_n">Ireki media #%d</string>
-    <string name="action_share_as">… bezala partekatu</string>
     <string name="download_media">Media jaisten</string>
     <string name="downloading_media">Media jaisten</string>
     <string name="confirmation_domain_unmuted">%s ez dago ezkutatua</string>
@@ -263,7 +255,6 @@
     <string name="pref_title_animate_gif_avatars">GIF abatarrak animatu</string>
     <string name="notification_poll_name">Galdeketak</string>
     <string name="notification_poll_description">Bukatutako galdeketen jakinarazpenak</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <string name="abbreviated_hours_ago">%dh</string>
     <string name="abbreviated_minutes_ago">%dm</string>
     <string name="abbreviated_seconds_ago">%ds</string>
@@ -277,12 +268,12 @@
     <string name="filter_dialog_whole_word_description">Gako-hitza edo esaldia alfanumerikoa denean bakarrik, hitz osoarekin bat datorrenean bakarrik aplikatuko da</string>
     <string name="filter_add_description">Iragazteko esaldia</string>
     <plurals name="favs">
-        <item quantity="one">Gogoko &lt;b>%1$s&lt;/b></item>
-        <item quantity="other">&lt;b>%1$s&lt;/b> Gogoko</item>
+        <item quantity="one">Gogoko &lt;b&gt;%1$s&lt;/b&gt;</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Gogoko</item>
     </plurals>
     <plurals name="reblogs">
-        <item quantity="one">Bultzada &lt;b>%s&lt;/b></item>
-        <item quantity="other">&lt;b>%s&lt;/b> Bultzada</item>
+        <item quantity="one">Bultzada &lt;b&gt;%s&lt;/b&gt;</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; Bultzada</item>
     </plurals>
     <string name="title_reblogged_by">Bultzatuta</string>
     <string name="title_favourited_by">Gogokoa</string>
@@ -329,7 +320,6 @@
         <item quantity="one">Segundu %d geratzen da</item>
         <item quantity="other">%d segundu geratzen da</item>
     </plurals>
-    <string name="button_continue">Jarraitu</string>
     <string name="button_back">Itzuli</string>
     <string name="report_sent_success">\@%s jakinarazi duzu arrakastaz</string>
     <string name="hint_additional_info">Iruzkin gehigarriak</string>
@@ -438,7 +428,9 @@
     <string name="title_edits">Aldaketak</string>
     <string name="notification_report_format">Salaketa berria %s-(r)i</string>
     <string name="notification_header_report_format">%s-(e)k %s salatu du</string>
-    <string name="notification_summary_report_format">%s · %d tutak finkatuak</string>
+    <plurals name="notification_summary_report_format">
+        <item quantity="other">%1$s · %2$d tutak finkatuak</item>
+    </plurals>
     <string name="title_followed_hashtags">Jarraitutako traolak</string>
     <string name="notification_update_format">%s-(e)k bere tuta editatu du</string>
     <string name="title_migration_relogin">Berriro saioa hasi push motako jakinarazpenak gaitzeko</string>

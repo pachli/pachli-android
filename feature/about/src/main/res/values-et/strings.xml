@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="about_title_activity">Rakenduse teave</string>
+    <string name="about_account_info_title">Sinu kasutajakonto</string>
+    <string name="about_copied">Versiooni number ja seadme teave on kopeeritud</string>
+    <string name="about_copy">Kopeeri versiooni number ja seadme teave</string>
+    <string name="about_device_info_title">Sinu seade</string>
+    <string name="about_device_info">%s %s\nAndroidi versioon: %s\nSDK versioon: %d</string>
+    <string name="about_powered_by_pachli">See on Pachli</string>
+    <string name="about_pachli_license">Pachli on vaba ja avatud lähtekoodiga tarkvara, mis on avaldatud GNU Üldine Avalik Litsents versiooni 3 alusel. Litsentsi leidad siit: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
+    <string name="about_project_site">Projekti veebisait: https://pachli.app</string>
+    <string name="about_bug_feature_request_site">Veateated ja ettepanekud:\nhttps://github.com/pachli/pachli-android/issues</string>
+    <string name="about_privacy_policy">Andmekaitse- ja privaatsusreeglid</string>
+    <string name="about_pachli_account">Pachli profiil</string>
+    <string name="title_licenses">Litsentsid</string>
+    <string name="about_account_info">\@%s@%s\nVersioon: %s</string>
+    <string name="license_description">Pachli rakenduses leidub järgnevate avatud lähtekoodiga projektide teeke ning koodi:</string>
+    <string name="notification_details_title">Üksikasjad</string>
+    <string name="notification_details_android_notifications_enabled">Kas Androidi teavitused on kasutusel?</string>
+</resources>

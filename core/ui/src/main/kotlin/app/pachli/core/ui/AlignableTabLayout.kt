@@ -19,7 +19,6 @@ package app.pachli.core.ui
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.text.TextUtilsCompat
 import androidx.core.view.children
@@ -99,7 +98,7 @@ class AlignableTabLayout @JvmOverloads constructor(
                 if (totalWidth < measuredWidth) {
                     super.onMeasure(widthMeasureSpec, heightMeasureSpec)
 
-                    val isLeftToRight = TextUtilsCompat.getLayoutDirectionFromLocale(Locale.getDefault()) == View.LAYOUT_DIRECTION_LTR
+                    val isLeftToRight = TextUtilsCompat.getLayoutDirectionFromLocale(Locale.getDefault()) == LAYOUT_DIRECTION_LTR
 
                     val padding = measuredWidth - totalWidth
                     if (isLeftToRight) {

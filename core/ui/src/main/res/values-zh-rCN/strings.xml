@@ -15,4 +15,8 @@
     <string name="title_links_dialog">链接</string>
     <string name="title_hashtags_dialog">话题</string>
     <string name="title_mentions_dialog">提及</string>
+    <string name="button_continue">继续</string>
+    <string name="action_logout_confirm">你确定要退出登录 %1$s 吗？这会删除账户的所有本地数据，包括草稿和选项。</string>
+    <string name="add_account_name">添加账号</string>
+    <string name="action_logout">注销</string>
 </resources>

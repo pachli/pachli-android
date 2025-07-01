@@ -27,6 +27,7 @@ import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.ui.ActionButtonScrollListener
 import app.pachli.databinding.ActivityFollowedTagsBinding
 import app.pachli.interfaces.HashtagActionListener
+import com.bumptech.glide.Glide
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import com.google.android.material.divider.MaterialDividerItemDecoration
@@ -99,7 +100,7 @@ class FollowedTagsActivity :
     }
 
     private fun setupAdapter(): FollowedTagsAdapter {
-        return FollowedTagsAdapter(this, viewModel).apply {
+        return FollowedTagsAdapter(this).apply {
             addLoadStateListener { loadState ->
                 binding.followedTagsProgressBar.visible(loadState.refresh == LoadState.Loading && itemCount == 0)
 
@@ -117,14 +118,13 @@ class FollowedTagsActivity :
         }
     }
 
-    private fun follow(tagName: String, position: Int = -1) {
+    /**
+     * @param tagName Name of the tag, without the leading `#`.
+     */
+    private fun follow(tagName: String) {
         lifecycleScope.launch {
             api.followTag(tagName).onSuccess {
-                if (position == -1) {
-                    viewModel.tags.add(it.body)
-                } else {
-                    viewModel.tags.add(position, it.body)
-                }
+                viewModel.tags.add(it.body)
                 viewModel.currentSource?.invalidate()
             }.onFailure {
                 Snackbar.make(
@@ -138,10 +138,13 @@ class FollowedTagsActivity :
         }
     }
 
-    override fun unfollow(tagName: String, position: Int) {
+    /**
+     * @param tagName Name of the tag, without the leading `#`.
+     */
+    override fun unfollow(tagName: String) {
         lifecycleScope.launch {
             api.unfollowTag(tagName).onSuccess {
-                viewModel.tags.removeAt(position)
+                viewModel.tags.removeIf { it.name == tagName }
                 Snackbar.make(
                     this@FollowedTagsActivity,
                     binding.followedTagsView,
@@ -149,7 +152,7 @@ class FollowedTagsActivity :
                     Snackbar.LENGTH_LONG,
                 )
                     .setAction(R.string.action_undo) {
-                        follow(tagName, position)
+                        follow(tagName)
                     }
                     .show()
                 viewModel.currentSource?.invalidate()
@@ -182,6 +185,7 @@ class FollowedTagsActivity :
             val autoCompleteTextView = layout.findViewById<AutoCompleteTextView>(R.id.hashtag)!!
             autoCompleteTextView.setAdapter(
                 ComposeAutoCompleteAdapter(
+                    Glide.with(this),
                     requireActivity() as FollowedTagsActivity,
                     animateAvatar = false,
                     animateEmojis = false,

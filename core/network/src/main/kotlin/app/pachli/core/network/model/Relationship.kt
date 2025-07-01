@@ -26,7 +26,9 @@ data class Relationship(
     val id: String,
     val following: Boolean,
     @Json(name = "followed_by") val followedBy: Boolean,
+    /** True if this account is blocked. */
     val blocking: Boolean,
+    /** True if this account is muted. */
     val muting: Boolean,
     @Json(name = "muting_notifications") val mutingNotifications: Boolean,
     val requested: Boolean,
@@ -45,4 +47,21 @@ data class Relationship(
     val note: String?,
     // since 3.3.0rc
     val notifying: Boolean?,
-)
+) {
+    fun asModel() = app.pachli.core.model.Relationship(
+        id = id,
+        following = following,
+        followedBy = followedBy,
+        blocking = blocking,
+        muting = muting,
+        mutingNotifications = mutingNotifications,
+        requested = requested,
+        showingReblogs = showingReblogs,
+        subscribing = subscribing,
+        blockingDomain = blockingDomain,
+        note = note,
+        notifying = notifying,
+    )
+}
+
+fun Iterable<Relationship>.asModel() = map { it.asModel() }

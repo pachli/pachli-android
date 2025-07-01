@@ -35,7 +35,6 @@
     <string name="notification_details_pachli_exempt">Pachli is exempt from battery optimization?</string>
     <string name="notification_details_pachli_exempt_help">Pachli is not exempt from battery optimizations. Android may be delaying notifications whenever the screen is off.</string>
     <string name="notification_details_workers_help">This is the list of workers that fetch new notifications. There should be one, the state should be RUNNING or ENQUEUED, and it should be scheduled to run in less than 15 minutes from now.</string>
-    <string name="notification_details_last_fetch_label">Last /api/v1/notifications request</string>
     <string name="notification_details_last_fetch_help">Irrespective of the notification method, this shows, per-account, when the last fetch occurred, whether it was successful, and the error message if it wasn\'t.</string>
     <string name="notification_details_usage_event">Power management restrictions</string>
     <string name="notification_details_usage_event_label">Android can limit what apps can do in the background. This list is how Pachli has been restricted over the last three days, newest first.</string>
@@ -63,6 +62,5 @@
     <string name="notification_log_method_pusherror">UnifiedPush is enabled but had an error: %1$s</string>
     <string name="notification_log_download_failed">Download failed: %1$s</string>
     <string name="notitication_log_filter_dialog_title">Show log priorities</string>
-    <string name="action_refresh">Refresh</string>
     <string name="about_nivenly_foundation">Pachli is a <a href="https://nivenly.org">Nivenly Foundation</a> project.</string>
 </resources>

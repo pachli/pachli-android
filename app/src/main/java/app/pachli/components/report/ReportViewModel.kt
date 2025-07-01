@@ -16,8 +16,6 @@
 
 package app.pachli.components.report
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
@@ -26,204 +24,261 @@ import androidx.paging.cachedIn
 import androidx.paging.map
 import app.pachli.components.report.adapter.StatusesPagingSource
 import app.pachli.components.report.model.StatusViewState
+import app.pachli.core.common.PachliError
 import app.pachli.core.data.model.StatusViewData
-import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
-import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.data.repository.get
 import app.pachli.core.eventhub.BlockEvent
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.MuteEvent
-import app.pachli.core.network.model.Relationship
-import app.pachli.core.network.model.Status
+import app.pachli.core.model.Relationship
+import app.pachli.core.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
-import app.pachli.util.Error
-import app.pachli.util.Loading
-import app.pachli.util.Resource
-import app.pachli.util.Success
+import com.github.michaelbull.result.Err
+import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.get
+import com.github.michaelbull.result.map
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
-import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.mapNotNull
+import kotlinx.coroutines.flow.merge
+import kotlinx.coroutines.flow.shareIn
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-@HiltViewModel
-class ReportViewModel @Inject constructor(
-    private val accountManager: AccountManager,
+sealed interface AccountType {
+    /** Account is on the same server as the user. */
+    data object Local : AccountType
+
+    /**
+     * Account is on a different server to the user.
+     *
+     * @param server The name of the user's server (everything after the
+     * '@' in their username).
+     */
+    data class Remote(val server: String) : AccountType
+}
+
+@HiltViewModel(assistedFactory = ReportViewModel.Factory::class)
+class ReportViewModel @AssistedInject constructor(
+    @Assisted private val pachliAccountId: Long,
+    @Assisted("reportedAccountId") private val reportedAccountId: String,
+    @Assisted("reportedAccountUsername") val reportedAccountUsername: String,
+    @Assisted("reportedStatusId") private val reportedStatusId: String?,
     private val mastodonApi: MastodonApi,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     private val eventHub: EventHub,
 ) : ViewModel() {
 
-    private val navigationMutable = MutableLiveData<Screen?>()
-    val navigation: LiveData<Screen?> = navigationMutable
+    private val _navigation = MutableStateFlow(Screen.Statuses)
 
-    private val muteStateMutable = MutableLiveData<Resource<Boolean>>()
-    val muteState: LiveData<Resource<Boolean>> = muteStateMutable
+    /** The [Screen] to show to the user. */
+    val navigation: StateFlow<Screen> = _navigation.asStateFlow()
 
-    private val blockStateMutable = MutableLiveData<Resource<Boolean>>()
-    val blockState: LiveData<Resource<Boolean>> = blockStateMutable
+    /** Emit in to this flow to reload the relationship data. */
+    private val reloadRelationship = MutableSharedFlow<Unit>(replay = 1).apply {
+        tryEmit(Unit)
+    }
 
-    private val reportingStateMutable = MutableLiveData<Resource<Boolean>>()
-    var reportingState: LiveData<Resource<Boolean>> = reportingStateMutable
-
-    private val checkUrlMutable = MutableLiveData<String?>()
-    val checkUrl: LiveData<String?> = checkUrlMutable
-
-    private val accountIdFlow = MutableSharedFlow<String>(
+    /** Flow of the relationship between the user's account and the reported account. */
+    private val relationship = reloadRelationship.flatMapLatest {
+        flow {
+            emit(Ok(Loadable.Loading))
+            emit(
+                mastodonApi.relationships(listOf(reportedAccountId)).map { it.body.first().asModel() }
+                    .map { Loadable.Loaded(it) },
+            )
+        }
+    }.shareIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000),
         replay = 1,
-        onBufferOverflow = BufferOverflow.DROP_OLDEST,
     )
+
+    private val _muting = MutableSharedFlow<Result<Loadable<Boolean>, PachliError>>()
+
+    /**
+     * Flow of the most recent mute/unmute relationship state.
+     *
+     * Initially determined by the data in [relationship], is updated when either
+     * [relationship] or [_muting] emit a new value.
+     */
+    val muting = merge(
+        relationship.map { relationship ->
+            when (relationship) {
+                is Err<PachliError> -> relationship
+                is Ok<Loadable<Relationship>> -> relationship.map {
+                    when (it) {
+                        is Loadable.Loaded<Relationship> -> Loadable.Loaded(it.data.muting)
+                        Loadable.Loading -> Loadable.Loading
+                    }
+                }
+            }
+        },
+        _muting,
+    ).stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000),
+        Ok(Loadable.Loading),
+    )
+
+    private val _blocking = MutableSharedFlow<Result<Loadable<Boolean>, PachliError>>()
+
+    /**
+     * Flow of the most recent blocked/unblocked relationship state.
+     *
+     * Initially determined by the data in [relationship], is updated when either
+     * [relationship] or [_blocking] emit a new value.
+     */
+    val blocking = merge(
+        relationship.map { relationship ->
+            when (relationship) {
+                is Err<PachliError> -> relationship
+                is Ok<Loadable<Relationship>> -> relationship.map {
+                    when (it) {
+                        is Loadable.Loaded<Relationship> -> Loadable.Loaded(it.data.blocking)
+                        Loadable.Loading -> Loadable.Loading
+                    }
+                }
+            }
+        },
+        _blocking,
+    ).stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000),
+        Ok(Loadable.Loading),
+    )
+
+    private val _reportingState = MutableSharedFlow<Result<Loadable<Unit>, PachliError>>()
+    var reportingState: SharedFlow<Result<Loadable<Unit>, PachliError>> = _reportingState
+
+    private val _checkUrl = MutableStateFlow<String?>(null)
+    val checkUrl: StateFlow<String?> = _checkUrl.asStateFlow()
 
     val statusDisplayOptions = statusDisplayOptionsRepository.flow
 
-    val activeAccountFlow = accountManager.accountsFlow
-        .filterIsInstance<Loadable.Loaded<AccountEntity?>>()
-        .mapNotNull { it.data }
-
-    val statusesFlow = activeAccountFlow.combine(accountIdFlow) { activeAccount, reportedAccountId ->
-        Pair(activeAccount, reportedAccountId)
-    }.flatMapLatest { (activeAccount, reportedAccountId) ->
-        Pager(
-            initialKey = statusId,
-            config = PagingConfig(pageSize = 20, initialLoadSize = 20),
-            pagingSourceFactory = { StatusesPagingSource(reportedAccountId, mastodonApi) },
-        ).flow
-            .map { pagingData ->
+    val statusesFlow = Pager(
+        initialKey = this.reportedStatusId,
+        config = PagingConfig(pageSize = 20, initialLoadSize = 20),
+        pagingSourceFactory = { StatusesPagingSource(reportedAccountId, mastodonApi) },
+    ).flow
+        .map { pagingData ->
                 /* TODO: refactor reports to use the isShowingContent / isExpanded / isCollapsed attributes from StatusViewData
                  instead of StatusViewState */
-                pagingData.map { status -> StatusViewData.from(activeAccount.id, status, false, false, false) }
-            }
-    }.cachedIn(viewModelScope)
+            pagingData.map { status -> StatusViewData.from(pachliAccountId, status.asModel(), false, false, false) }
+        }
+        .cachedIn(viewModelScope)
 
-    private val selectedIds = HashSet<String>()
+    /** IDs of statuses the user is reporting. */
+    private val selectedIds = HashSet<String>().apply { reportedStatusId?.let { add(it) } }
     val statusViewState = StatusViewState()
 
+    /** Text of the comment to include with the report. */
     var reportNote: String = ""
+
+    /** True if the report should be forwarded to the remote server.*/
     var isRemoteNotify = false
 
-    private var statusId: String? = null
-    lateinit var accountUserName: String
-    lateinit var accountId: String
-    var isRemoteAccount: Boolean = false
-    var remoteServer: String? = null
-
-    fun init(accountId: String, userName: String, statusId: String?) {
-        this.accountId = accountId
-        this.accountUserName = userName
-        this.statusId = statusId
-        statusId?.let {
-            selectedIds.add(it)
-        }
-
-        isRemoteAccount = userName.contains('@')
-        if (isRemoteAccount) {
-            remoteServer = userName.substring(userName.indexOf('@') + 1)
-        }
-
-        obtainRelationship()
-
-        viewModelScope.launch {
-            accountIdFlow.emit(accountId)
-        }
+    val reportedAccountType = if (reportedAccountUsername.contains('@')) {
+        AccountType.Remote(reportedAccountUsername.substring(reportedAccountUsername.indexOf('@') + 1))
+    } else {
+        AccountType.Local
     }
 
     fun navigateTo(screen: Screen) {
-        navigationMutable.value = screen
+        _navigation.value = screen
     }
 
-    fun navigated() {
-        navigationMutable.value = null
-    }
-
-    private fun obtainRelationship() {
-        val ids = listOf(accountId)
-        muteStateMutable.value = Loading()
-        blockStateMutable.value = Loading()
-        viewModelScope.launch {
-            mastodonApi.relationships(ids)
-                .onSuccess { updateRelationship(it.body.firstOrNull()) }
-                .onFailure { updateRelationship(null) }
+    fun navigateBack() {
+        _navigation.update { current ->
+            return@update when (current) {
+                Screen.Statuses -> Screen.Finish
+                Screen.Note -> Screen.Statuses
+                Screen.Done -> Screen.Done
+                Screen.Finish -> Screen.Done
+            }
         }
     }
 
-    private fun updateRelationship(relationship: Relationship?) {
-        if (relationship != null) {
-            muteStateMutable.value = Success(relationship.muting)
-            blockStateMutable.value = Success(relationship.blocking)
-        } else {
-            muteStateMutable.value = Error(false)
-            blockStateMutable.value = Error(false)
-        }
+    fun reloadRelationship() {
+        viewModelScope.launch { reloadRelationship.emit(Unit) }
     }
 
     fun toggleMute() {
-        val alreadyMuted = muteStateMutable.value?.data == true
+        val alreadyMuted = muting.value.get()?.get() == true
+
         viewModelScope.launch {
             if (alreadyMuted) {
-                mastodonApi.unmuteAccount(accountId)
+                mastodonApi.unmuteAccount(this@ReportViewModel.reportedAccountId)
             } else {
-                mastodonApi.muteAccount(accountId)
+                mastodonApi.muteAccount(this@ReportViewModel.reportedAccountId)
             }
+                .map { it.body.muting }
                 .onSuccess {
-                    val relationship = it.body
-                    val muting = relationship.muting
-                    muteStateMutable.value = Success(muting)
-                    if (muting) {
-                        eventHub.dispatch(MuteEvent(accountId))
+                    _muting.emit(Ok(Loadable.Loaded(it)))
+                    if (it) {
+                        eventHub.dispatch(MuteEvent(pachliAccountId, this@ReportViewModel.reportedAccountId))
                     }
                 }
-                .onFailure { muteStateMutable.value = Error(false, it.throwable.message) }
+                .onFailure { _muting.emit(Err(it)) }
         }
-
-        muteStateMutable.value = Loading()
     }
 
     fun toggleBlock() {
-        val alreadyBlocked = blockStateMutable.value?.data == true
+        val alreadyBlocked = blocking.value.get()?.get() == true
+
         viewModelScope.launch {
             if (alreadyBlocked) {
-                mastodonApi.unblockAccount(accountId)
+                mastodonApi.unblockAccount(this@ReportViewModel.reportedAccountId)
             } else {
-                mastodonApi.blockAccount(accountId)
+                mastodonApi.blockAccount(this@ReportViewModel.reportedAccountId)
             }
+                .map { it.body.blocking }
                 .onSuccess {
-                    val relationship = it.body
-                    val blocking = relationship.blocking
-                    blockStateMutable.value = Success(blocking)
-                    if (blocking) {
-                        eventHub.dispatch(BlockEvent(accountId))
+                    _blocking.emit(Ok(Loadable.Loaded(it)))
+                    if (it) {
+                        eventHub.dispatch(BlockEvent(pachliAccountId, this@ReportViewModel.reportedAccountId))
                     }
                 }
-                .onFailure {
-                    blockStateMutable.value = Error(false, it.throwable.message)
-                }
+                .onFailure { _blocking.emit(Err(it)) }
         }
-        blockStateMutable.value = Loading()
     }
 
     fun doReport() {
-        reportingStateMutable.value = Loading()
         viewModelScope.launch {
-            mastodonApi.report(accountId, selectedIds.toList(), reportNote, if (isRemoteAccount) isRemoteNotify else null)
-                .onSuccess { reportingStateMutable.value = Success(true) }
-                .onFailure { error -> reportingStateMutable.value = Error(cause = error.throwable) }
+            _reportingState.emit(Ok(Loadable.Loading))
+            mastodonApi.report(
+                this@ReportViewModel.reportedAccountId,
+                selectedIds.toList(),
+                reportNote,
+                if (reportedAccountType is AccountType.Remote) isRemoteNotify else null,
+            )
+                .onSuccess { _reportingState.emit(Ok(Loadable.Loaded(Unit))) }
+                .onFailure { _reportingState.emit(Err(it)) }
         }
     }
 
     fun checkClickedUrl(url: String?) {
-        checkUrlMutable.value = url
+        _checkUrl.value = url
     }
 
     fun urlChecked() {
-        checkUrlMutable.value = null
+        _checkUrl.value = null
     }
 
     fun setStatusChecked(status: Status, checked: Boolean) {
@@ -236,5 +291,16 @@ class ReportViewModel @Inject constructor(
 
     fun isStatusChecked(id: String): Boolean {
         return selectedIds.contains(id)
+    }
+
+    @AssistedFactory
+    interface Factory {
+        /** Creates [ReportViewModel] with [pachliAccountId] as the active account. */
+        fun create(
+            pachliAccountId: Long,
+            @Assisted("reportedAccountId") reportedAccountId: String,
+            @Assisted("reportedAccountUsername") reportedAccountUsername: String,
+            @Assisted("reportedStatusId") reportedStatusId: String?,
+        ): ReportViewModel
     }
 }

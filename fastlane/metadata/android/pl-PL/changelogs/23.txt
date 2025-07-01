@@ -1,0 +1,17 @@
+Pachli 2.8.3
+
+Nowości:
+
+- Pokazywanie arkusza udostępniania dla przytrzymanych odnośników itp.
+- Pokazywanie przycisku „kopiuj” dla odnośników itp. w dialogach dostępności
+- Dodanie opcji dostępności dla kart
+- Pokazywanie czasu publikacji zaplanowanego wpisu
+- Pokazywanie „Nie pytaj więcej” przy potwierdzaniu języku wpisu
+
+Poprawki:
+
+- Wyłączone wsparcie planowanych wpisów na GoToSocial
+- Pokazywanie ankiety przy edycji zaplanowanych wpisów
+- Zapobieganie awarii jeżeli rozmowa nie ma osób uczestniczących
+
+- Aktualizacja tłumaczeń na birmański, fiński, litewski, hiszpański i ukraiński

@@ -17,23 +17,29 @@
 
 package app.pachli.components.notifications
 
+import android.graphics.Typeface
+import android.text.SpannableStringBuilder
+import android.text.Spanned
+import android.text.style.StyleSpan
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
-import app.pachli.core.activity.emojify
-import app.pachli.core.activity.loadAvatar
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.designsystem.R as DR
-import app.pachli.core.network.model.TimelineAccount
+import app.pachli.core.model.TimelineAccount
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.LinkListener
+import app.pachli.core.ui.emojify
+import app.pachli.core.ui.loadAvatar
 import app.pachli.core.ui.setClickableText
 import app.pachli.databinding.ItemFollowBinding
 import app.pachli.viewdata.NotificationViewData
+import com.bumptech.glide.RequestManager
 
 class FollowViewHolder(
     private val binding: ItemFollowBinding,
+    private val glide: RequestManager,
     private val notificationActionListener: NotificationActionListener,
     private val linkListener: LinkListener,
 ) : NotificationsPagingAdapter.ViewHolder, RecyclerView.ViewHolder(binding.root) {
@@ -75,9 +81,17 @@ class FollowViewHolder(
                 },
             )
         val wrappedDisplayName = account.name.unicodeWrap()
-        val wholeMessage = String.format(format, wrappedDisplayName)
+        val wholeMessage = SpannableStringBuilder(String.format(format, wrappedDisplayName))
+        val displayNameIndex = format.indexOf("%s")
+        wholeMessage.setSpan(
+            StyleSpan(Typeface.BOLD),
+            displayNameIndex,
+            displayNameIndex + wrappedDisplayName.length,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE,
+        )
         val emojifiedMessage =
             wholeMessage.emojify(
+                glide,
                 account.emojis,
                 binding.notificationText,
                 animateEmojis,
@@ -85,13 +99,8 @@ class FollowViewHolder(
         binding.notificationText.text = emojifiedMessage
         val username = context.getString(DR.string.post_username_format, account.username)
         binding.notificationUsername.text = username
-        val emojifiedDisplayName = wrappedDisplayName.emojify(
-            account.emojis,
-            binding.notificationUsername,
-            animateEmojis,
-        )
-        binding.notificationDisplayName.text = emojifiedDisplayName
         loadAvatar(
+            glide,
             account.avatar,
             binding.notificationAvatar,
             avatarRadius42dp,
@@ -99,6 +108,7 @@ class FollowViewHolder(
         )
 
         val emojifiedNote = account.note.parseAsMastodonHtml().emojify(
+            glide,
             account.emojis,
             binding.notificationAccountNote,
             animateEmojis,

@@ -21,23 +21,22 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.text.HtmlCompat
 import app.pachli.R
-import app.pachli.core.activity.decodeBlurHash
-import app.pachli.core.activity.emojify
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.common.util.formatNumber
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.designsystem.R as DR
-import app.pachli.core.network.model.PreviewCard
-import app.pachli.core.network.model.TrendsLink
+import app.pachli.core.model.PreviewCard
+import app.pachli.core.model.TrendsLink
+import app.pachli.core.ui.decodeBlurHash
+import app.pachli.core.ui.emojify
 import app.pachli.databinding.PreviewCardBinding
-import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -124,6 +123,7 @@ class PreviewCardView @JvmOverloads constructor(
      * @param listener
      */
     fun bind(
+        glide: RequestManager,
         card: PreviewCard,
         sensitive: Boolean,
         statusDisplayOptions: StatusDisplayOptions,
@@ -162,8 +162,7 @@ class PreviewCardView @JvmOverloads constructor(
                 setStartEndLayout()
             }.build()
 
-            val builder = Glide.with(cardImage.context)
-                .load(card.image)
+            val builder = glide.load(card.image)
                 .dontTransform()
             if (statusDisplayOptions.useBlurhash && !card.blurhash.isNullOrBlank()) {
                 builder
@@ -176,11 +175,11 @@ class PreviewCardView @JvmOverloads constructor(
             cardImage.show()
             cardImage.shapeAppearanceModel = setStartEndLayout().build()
 
-            Glide.with(cardImage.context)
-                .load(decodeBlurHash(cardImage.context, card.blurhash!!))
+            glide.load(decodeBlurHash(cardImage.context, card.blurhash!!))
                 .dontTransform()
                 .into(cardImage)
         } else {
+            glide.clear(cardImage)
             cardImage.hide()
         }
 
@@ -192,13 +191,13 @@ class PreviewCardView @JvmOverloads constructor(
         when {
             // Author has an account, link to that, with their avatar.
             author?.account != null -> {
-                val name = author.account?.name.unicodeWrap().emojify(author.account?.emojis, authorInfo, false)
+                val name = author.account?.name.unicodeWrap().emojify(glide, author.account?.emojis, authorInfo, false)
                 authorInfo.text = HtmlCompat.fromHtml(
                     authorInfo.context.getString(R.string.preview_card_byline_fediverse_account_fmt, name),
                     HtmlCompat.FROM_HTML_MODE_LEGACY,
                 )
 
-                Glide.with(authorInfo.context).load(author.account?.avatar).transform(bylineAvatarTransformation)
+                glide.load(author.account?.avatar).transform(bylineAvatarTransformation)
                     .placeholder(DR.drawable.avatar_default).into(bylineAvatarTarget)
                 authorInfo.show()
                 showBylineDivider = true
@@ -209,7 +208,7 @@ class PreviewCardView @JvmOverloads constructor(
             // https://github.com/mastodon/mastodon/issues/33139).
             !author?.name.isNullOrBlank() -> {
                 authorInfo.text = HtmlCompat.fromHtml(
-                    authorInfo.context.getString(R.string.preview_card_byline_name_only_fmt, author?.name),
+                    authorInfo.context.getString(R.string.preview_card_byline_name_only_fmt, author.name),
                     HtmlCompat.FROM_HTML_MODE_LEGACY,
                 )
                 authorInfo.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null)
@@ -247,7 +246,7 @@ class PreviewCardView @JvmOverloads constructor(
         // Move image to top.
         val lpCardImage = cardImage.layoutParams as ConstraintLayout.LayoutParams
         lpCardImage.height = cardImage.resources.getDimensionPixelSize(DR.dimen.card_image_vertical_height)
-        lpCardImage.width = ViewGroup.LayoutParams.MATCH_PARENT
+        lpCardImage.width = LayoutParams.MATCH_PARENT
         lpCardImage.bottomToBottom = ConstraintLayout.LayoutParams.UNSET
         cardImage.layoutParams = lpCardImage
 

@@ -17,20 +17,20 @@
 
 package app.pachli.viewdata
 
-import android.text.Spanned
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.NotificationData
 import app.pachli.core.database.model.NotificationEntity
+import app.pachli.core.database.model.NotificationReportEntity
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.database.model.TranslationState
+import app.pachli.core.database.model.asModel
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
-import app.pachli.core.network.model.RelationshipSeveranceEvent
-import app.pachli.core.network.model.Report
-import app.pachli.core.network.model.Status
-import app.pachli.core.network.model.TimelineAccount
+import app.pachli.core.model.RelationshipSeveranceEvent
+import app.pachli.core.model.Status
+import app.pachli.core.model.TimelineAccount
 
 /**
  * Data necessary to show a single notification.
@@ -61,7 +61,7 @@ data class NotificationViewData(
     val id: String,
     val account: TimelineAccount,
     var statusViewData: StatusViewData?,
-    val report: Report?,
+    val report: NotificationReportEntity?,
     val relationshipSeveranceEvent: RelationshipSeveranceEvent?,
     val isAboutSelf: Boolean,
     val accountFilterDecision: AccountFilterDecision,
@@ -90,7 +90,7 @@ data class NotificationViewData(
             localDomain = pachliAccountEntity.domain,
             type = data.notification.type,
             id = data.notification.serverId,
-            account = data.account.toTimelineAccount(),
+            account = data.account.asModel(),
             statusViewData = data.status?.let {
                 StatusViewData.from(
                     pachliAccountId = pachliAccountEntity.id,
@@ -101,8 +101,8 @@ data class NotificationViewData(
                     contentFilterAction = contentFilterAction,
                 )
             },
-            report = null,
-            relationshipSeveranceEvent = null,
+            report = data.report,
+            relationshipSeveranceEvent = data.relationshipSeveranceEvent?.asModel(),
             isAboutSelf = isAboutSelf,
             accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
         )
@@ -133,7 +133,7 @@ data class NotificationViewData(
         get() = statusViewData?.isCollapsed ?: throw IllegalStateException()
     override val spoilerText: String
         get() = statusViewData?.spoilerText ?: throw IllegalStateException()
-    override val content: Spanned
+    override val content: CharSequence
         get() = statusViewData?.content ?: throw IllegalStateException()
     override val status: Status
         get() = statusViewData?.status ?: throw IllegalStateException()

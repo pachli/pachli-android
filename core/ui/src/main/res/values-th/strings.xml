@@ -13,4 +13,8 @@
     <string name="title_links_dialog">ลิงก์</string>
     <string name="title_hashtags_dialog">แฮชแท็ก</string>
     <string name="title_mentions_dialog">โต้ตอบ</string>
+    <string name="button_continue">ต่อไป</string>
+    <string name="action_logout_confirm">คุณต้องการออกจากระบบของบัญชี %1$s หรือไม่?</string>
+    <string name="add_account_name">เพิ่มบัญชี</string>
+    <string name="action_logout">ออกจากระบบ</string>
 </resources>

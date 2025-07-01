@@ -88,7 +88,7 @@ class EditContentFilterActivity : BaseActivity() {
                 filterContextHome to FilterContext.HOME,
                 filterContextNotifications to FilterContext.NOTIFICATIONS,
                 filterContextPublic to FilterContext.PUBLIC,
-                filterContextThread to FilterContext.THREAD,
+                filterContextThread to FilterContext.CONVERSATIONS,
                 filterContextAccount to FilterContext.ACCOUNT,
             )
         }

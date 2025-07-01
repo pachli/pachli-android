@@ -20,13 +20,15 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
-import com.github.michaelbull.result.get
-import kotlinx.coroutines.Dispatchers
+import app.pachli.core.network.retrofit.apiresult.ApiResult
+import com.github.michaelbull.result.Err
+import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.map
+import com.github.michaelbull.result.mapBoth
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import kotlinx.coroutines.async
-import kotlinx.coroutines.currentCoroutineContext
-import kotlinx.coroutines.ensureActive
-import kotlinx.coroutines.withContext
-import timber.log.Timber
+import kotlinx.coroutines.coroutineScope
 
 class StatusesPagingSource(
     private val accountId: String,
@@ -41,48 +43,45 @@ class StatusesPagingSource(
 
     override suspend fun load(params: LoadParams<String>): LoadResult<String, Status> {
         val key = params.key
-        try {
-            val result = if (params is LoadParams.Refresh && key != null) {
-                withContext(Dispatchers.IO) {
-                    val initialStatus = async { getSingleStatus(key) }
-                    val additionalStatuses = async { getStatusList(maxId = key, limit = params.loadSize - 1) }
-                    buildList {
-                        initialStatus.await()?.let { this.add(it) }
-                        additionalStatuses.await()?.let { this.addAll(it) }
-                    }
+        return if (params is LoadParams.Refresh && key != null) {
+            coroutineScope {
+                val initialStatus = async { getSingleStatus(key) }
+                val additionalStatuses = async { getStatusList(maxId = key, limit = params.loadSize - 1) }
+                val list = buildList {
+                    initialStatus.await()
+                        .onSuccess { this.add(it.body) }
+                        .onFailure { return@coroutineScope Err(it) }
+                    additionalStatuses.await()
+                        .onSuccess { this.addAll(it.body) }
+                        .onFailure { return@coroutineScope Err(it) }
                 }
-            } else {
-                val maxId = if (params is LoadParams.Refresh || params is LoadParams.Append) {
-                    params.key
-                } else {
-                    null
-                }
-
-                val minId = if (params is LoadParams.Prepend) {
-                    params.key
-                } else {
-                    null
-                }
-
-                getStatusList(minId = minId, maxId = maxId, limit = params.loadSize) ?: emptyList()
+                return@coroutineScope Ok(list)
             }
-            return LoadResult.Page(
-                data = result,
-                prevKey = result.firstOrNull()?.id,
-                nextKey = result.lastOrNull()?.id,
-            )
-        } catch (e: Exception) {
-            currentCoroutineContext().ensureActive()
-            Timber.w(e, "failed to load statuses")
-            return LoadResult.Error(e)
-        }
+        } else {
+            val maxId = if (params is LoadParams.Refresh || params is LoadParams.Append) {
+                params.key
+            } else {
+                null
+            }
+
+            val minId = if (params is LoadParams.Prepend) {
+                params.key
+            } else {
+                null
+            }
+
+            getStatusList(minId = minId, maxId = maxId, limit = params.loadSize).map { it.body }
+        }.mapBoth(
+            { LoadResult.Page(data = it, prevKey = it.firstOrNull()?.id, nextKey = it.lastOrNull()?.id) },
+            { LoadResult.Error(it.throwable) },
+        )
     }
 
-    private suspend fun getSingleStatus(statusId: String): Status? {
-        return mastodonApi.status(statusId).get()?.body
+    private suspend fun getSingleStatus(statusId: String): ApiResult<Status> {
+        return mastodonApi.status(statusId)
     }
 
-    private suspend fun getStatusList(minId: String? = null, maxId: String? = null, limit: Int): List<Status>? {
+    private suspend fun getStatusList(minId: String? = null, maxId: String? = null, limit: Int): ApiResult<List<Status>> {
         return mastodonApi.accountStatuses(
             accountId = accountId,
             maxId = maxId,
@@ -90,6 +89,6 @@ class StatusesPagingSource(
             minId = minId,
             limit = limit,
             excludeReblogs = true,
-        ).get()?.body
+        )
     }
 }

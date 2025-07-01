@@ -1,0 +1,11 @@
+Pachli 2.10.1
+
+Poprawki:
+
+- Wszystkie języki są wybieralne w ustawieniach systemowych.
+- Usuwanie starych danych konta po wylogowaniu.
+- Przycisk „Pokaż mimo tego” działa na wszystkich osiach czasu.
+
+Tłumaczenia:
+
+- Fiński, indonezyjski, irlandzki, polski

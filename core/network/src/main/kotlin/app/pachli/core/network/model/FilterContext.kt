@@ -17,7 +17,6 @@
 
 package app.pachli.core.network.model
 
-import app.pachli.core.model.Timeline
 import app.pachli.core.network.json.Default
 import app.pachli.core.network.json.HasDefault
 import com.squareup.moshi.Json
@@ -32,58 +31,46 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = false)
 @HasDefault
 enum class FilterContext {
-    /** Filter applies to home timeline and lists */
+    /** Filter applies to home timeline and lists. */
     @Json(name = "home")
     HOME,
 
-    /** Filter applies to notifications */
+    /** Filter applies to notifications. */
     @Json(name = "notifications")
     NOTIFICATIONS,
 
-    /** Filter applies to public timelines */
+    /** Filter applies to public timelines. */
     @Default
     @Json(name = "public")
     PUBLIC,
 
-    /** Filter applies to expanded thread */
+    /** Filter applies to conversations (threads, **not** private messages). */
     @Json(name = "thread")
-    THREAD,
+    CONVERSATION,
 
-    /** Filter applies when viewing a profile */
+    /** Filter applies when viewing a profile. */
     @Json(name = "account")
     ACCOUNT,
 
     ;
 
-    companion object {
-        /**
-         * @return The filter context for [timeline], or null if filters are not applied
-         *     to this timeline.
-         */
-        @Deprecated("Use app.pachli.core.model.FilterContext instead")
-        fun from(timeline: Timeline): FilterContext? = when (timeline) {
-            is Timeline.Home, is Timeline.UserList -> HOME
-            is Timeline.User -> ACCOUNT
-            Timeline.Notifications -> NOTIFICATIONS
-            Timeline.Bookmarks,
-            Timeline.Favourites,
-            Timeline.PublicFederated,
-            Timeline.PublicLocal,
-            is Timeline.Hashtags,
-            Timeline.TrendingStatuses,
-            Timeline.TrendingHashtags,
-            Timeline.TrendingLinks,
-            is Timeline.Link,
-            -> PUBLIC
-            Timeline.Conversations -> null
-        }
+    fun asModel() = when (this) {
+        HOME -> app.pachli.core.model.FilterContext.HOME
+        NOTIFICATIONS -> app.pachli.core.model.FilterContext.NOTIFICATIONS
+        PUBLIC -> app.pachli.core.model.FilterContext.PUBLIC
+        CONVERSATION -> app.pachli.core.model.FilterContext.CONVERSATIONS
+        ACCOUNT -> app.pachli.core.model.FilterContext.ACCOUNT
+    }
 
+    companion object {
         fun from(filterContext: app.pachli.core.model.FilterContext) = when (filterContext) {
             app.pachli.core.model.FilterContext.HOME -> HOME
             app.pachli.core.model.FilterContext.NOTIFICATIONS -> NOTIFICATIONS
             app.pachli.core.model.FilterContext.PUBLIC -> PUBLIC
-            app.pachli.core.model.FilterContext.THREAD -> THREAD
+            app.pachli.core.model.FilterContext.CONVERSATIONS -> CONVERSATION
             app.pachli.core.model.FilterContext.ACCOUNT -> ACCOUNT
         }
     }
 }
+
+fun Iterable<FilterContext>.asModel() = map { it.asModel() }

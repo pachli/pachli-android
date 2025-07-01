@@ -17,14 +17,15 @@
 
 package app.pachli.core.data.repository
 
-import app.pachli.core.data.model.InstanceInfo
-import app.pachli.core.data.model.MastodonList
 import app.pachli.core.data.model.Server
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.FollowingAccountEntity
+import app.pachli.core.database.model.asModel
+import app.pachli.core.model.Announcement
+import app.pachli.core.model.Emoji
+import app.pachli.core.model.InstanceInfo
+import app.pachli.core.model.MastodonList
 import app.pachli.core.model.ServerKind
-import app.pachli.core.network.model.Announcement
-import app.pachli.core.network.model.Emoji
 import io.github.z4kn4fein.semver.Version
 
 /**
@@ -38,7 +39,7 @@ import io.github.z4kn4fein.semver.Version
  * @param server Details about the account's server.
  * @param contentFilters Account's content filters.
  * @param announcements Announcements from the account's server.
- * @param following Accounts this account is following
+ * @param following Accounts this account is following.
  */
 // TODO: Still not sure if it's better to have one class that contains everything,
 // or provide dedicated functions that return specific flows for the different
@@ -62,8 +63,8 @@ data class PachliAccount(
             return PachliAccount(
                 id = account.account.id,
                 entity = account.account,
-                instanceInfo = account.instanceInfo?.let { InstanceInfo.from(it) } ?: InstanceInfo(),
-                lists = account.lists.orEmpty().map { MastodonList.from(it) },
+                instanceInfo = account.instanceInfo.asModel(),
+                lists = account.lists.orEmpty().map { it.asModel() },
                 emojis = account.emojis?.emojiList.orEmpty(),
                 server = account.server?.let { Server.from(it) } ?: Server(ServerKind.MASTODON, Version(4, 0, 0)),
                 contentFilters = account.contentFilters?.let { ContentFilters.from(it) } ?: ContentFilters.EMPTY,

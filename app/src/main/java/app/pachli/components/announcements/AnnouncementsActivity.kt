@@ -28,7 +28,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import app.pachli.R
 import app.pachli.adapter.EmojiAdapter
 import app.pachli.adapter.OnEmojiSelectedListener
-import app.pachli.core.activity.BottomSheetActivity
+import app.pachli.core.activity.ViewUrlActivity
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
@@ -36,7 +36,6 @@ import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.navigation.pachliAccountId
-import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.databinding.ActivityAnnouncementsBinding
 import app.pachli.util.Error
@@ -53,7 +52,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AnnouncementsActivity :
-    BottomSheetActivity(),
+    ViewUrlActivity(),
     AnnouncementActionListener,
     OnEmojiSelectedListener,
     MenuProvider {
@@ -98,11 +97,11 @@ class AnnouncementsActivity :
             MaterialDividerItemDecoration(this, MaterialDividerItemDecoration.VERTICAL),
         )
 
-        val wellbeingEnabled = sharedPreferencesRepository.getBoolean(PrefKeys.WELLBEING_HIDE_STATS_POSTS, false)
+        val hideStatsInDetailedPosts = sharedPreferencesRepository.hideStatsInDetailedView
         val animateEmojis = sharedPreferencesRepository.animateEmojis
-        val useAbsoluteTime = sharedPreferencesRepository.getBoolean(PrefKeys.ABSOLUTE_TIME_VIEW, false)
+        val useAbsoluteTime = sharedPreferencesRepository.useAbsoluteTime
 
-        adapter = AnnouncementAdapter(emptyList(), this, wellbeingEnabled, animateEmojis, useAbsoluteTime)
+        adapter = AnnouncementAdapter(glide, emptyList(), this, hideStatsInDetailedPosts, animateEmojis, useAbsoluteTime)
 
         binding.announcementsList.adapter = adapter
 
@@ -134,7 +133,7 @@ class AnnouncementsActivity :
         }
 
         viewModel.emojis.observe(this) {
-            picker.adapter = EmojiAdapter(it, this, animateEmojis)
+            picker.adapter = EmojiAdapter(glide, it, this, animateEmojis)
         }
 
         viewModel.load()

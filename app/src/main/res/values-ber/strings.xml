@@ -9,11 +9,9 @@
     <string name="action_reset_schedule">ⵡⴻⵏⵏⴻⵣ ⵝⵉⴽⴻⵍⵜ ⵏⵏⵉⴸⴻⵏ</string>
     <string name="action_search">ⵏⴰⴸⵉ</string>
     <string name="action_edit_profile">ⵣⵔⴻⴳ ⴰⵎⴰⵖⵏⵓ</string>
-    <string name="action_logout">ⴼⴼⴻⵖ</string>
     <string name="title_drafts">ⵉⵔⴻⵡⵡⴰⵢⴻⵏ</string>
     <string name="title_favourites">ⵉⵙⵎⴻⵏⵢⵉⴼⴻⵏ</string>
     <string name="button_back">ⵓⵖⴰⵍ</string>
-    <string name="button_continue">ⴽⴻⵎⵎⴻⵍ</string>
     <string name="filter_dialog_update_button">ⵍⵇⴻⵎ</string>
     <string name="filter_dialog_remove_button">ⴽⴽⴻⵙ</string>
     <string name="action_send_public">ⵊⴻⵡⵡⴻⵇ!</string>
@@ -24,7 +22,6 @@
     <string name="title_blocks">ⵉⵎⵙⴻⵇⴷⴰⵛⴻⵏ ⵜⵙⵡⴰⵃⵍⴻⵎ</string>
     <string name="pref_title_post_tabs">ⵉⵛⵛⴰⵔⴻⵏ</string>
     <string name="add_account_description">ⵔⵏⵓ ⵢⵉⵡⴻⵏ ⵏ ⵓⵎⵉⴹⴰⵏ ⴰⵎⴰⵢⵏⵓⵝ ⵏ ⵎⴰⵚⵟⵓⴷⵓⵏ</string>
-    <string name="add_account_name">ⵔⵏⵓ ⴰⵎⵉⴹⴰⵏ</string>
     <string name="hint_compose">ⴸⴰⵛⵓ ⵉⴳⴻⵍⵍⴰⵏ ⴸ ⴰⵎⴰⵢⵏⵓⵝ\?</string>
     <string name="action_schedule_post">ⵙⵖⵉⵡⴻⵙ ⵝⵉⵊⴻⵡⵡⵉⵇⵝⴰ</string>
     <string name="action_access_scheduled_posts">ⵝⵉⵊⴻⵡⵡⵉⵇⵉⵏ ⵢⴻⵜⵜⵖⴰⵙⵖⴰⵡⵙⴻⵏ</string>

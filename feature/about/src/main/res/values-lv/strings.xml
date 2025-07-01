@@ -1,13 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="about_title_activity">Par</string>
-    <string name="about_powered_by_pachli">Darbību nodrošina Pachli</string>
+    <string name="about_powered_by_pachli">Darbina Pachli</string>
     <string name="about_pachli_license">Pachli ir bezmaksas un atvērtā pirmkoda programmatūra. Tā ir licencēta saskaņā ar GNU vispārējās publiskās licences 3. versiju. Licenci var apskatīt šeit: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
-    <string name="about_project_site">Projekta vietne:
-\n https://pachli.app</string>
-    <string name="about_bug_feature_request_site">Kļūdu ziņojumi un jaunas funkcionalitātes pieprasījumi:
-\nhttps://github.com/pachli/pachli-android/issues</string>
+    <string name="about_project_site">Projekta tīmekļvietne: https://pachli.app</string>
+    <string name="about_bug_feature_request_site">Kļūdu ziņojumi un jaunu iespēju pieprasījumi: \nhttps://github.com/pachli/pachli-android/issues</string>
     <string name="about_pachli_account">Pachli profils</string>
     <string name="title_licenses">Licences</string>
     <string name="license_description">Pachli satur kodu un sastāvdaļas no šādiem atvērtā pirmkoda projektiem:</string>
+    <string name="notification_details_android_notifications_enabled">Ir iespējoti Android paziņojumi?</string>
+    <string name="about_device_info_title">Tava ierīce</string>
+    <string name="about_account_info_title">Tavs konts</string>
+    <string name="about_copied">Starpliktuvē ievietota informācija par versiju un ierīci</string>
+    <string name="about_copy">Ievietot starpliktuvē informāciju par versiju un ierīci</string>
+    <string name="about_device_info">%s %s\nAndroid versija: %s\nSDK līmenis: %d</string>
+    <string name="about_account_info">\@%s@%s\nVersija: %s</string>
+    <string name="notification_details_title">Informācija</string>
+    <string name="notification_details_notifications_enabled_help"><![CDATA[Paziņojumi nav iespējoti nevienam kontam. To var nomainīt Konta iestatījumi > Paziņojumi. Līdz tam visi paziņojumi būs atspējoti.]]></string>
+    <string name="notification_details_push_notifications_with_unifiedpush">Pašpiegādes paziņojumi ar UnifiedPush</string>
+    <string name="notification_details_unifiedpush_available">Ir pieejams UnifedPush?</string>
+    <string name="notification_details_any_account_needs_migration">Vai visiem kontiem ir OAuth tvērums \"push\"?</string>
+    <string name="notification_details_accounts_unified_push_url">Vai visiem kontiem ir UnifiedPush URL?</string>
+    <string name="notification_details_accounts_unified_push_url_help">Vienam vai vairākiem kontiem nav norādīts UnifiedPush URL, pašpiegādes paziņojumi šim kontam ir atspējoti.</string>
+    <string name="notification_details_accounts_unified_push_subscription">Vai visi konti ir abonēti?</string>
+    <string name="notification_details_accounts_unified_push_subscription_help">Vienam vai vairākiem kontiem neizdevās atjaunināt savu UnifiedPush abonementu, paziņojumi netiks saņemti.</string>
+    <string name="notification_details_ntfy_exempt">Vai izslēgta akumulatora optimizēšana lietotnei ntfy?</string>
+    <string name="about_privacy_policy">Privātuma pamatnostādnes</string>
+    <string name="notification_details_unifiedpush_available_help">UnifiedPush (ntfy.sh) nav pieejams, paziņojumi tiks iegūti laiku pa laikam. Atlikušajā sadaļā ir izskaidrots, kādēļ UnifiedPush netiek izmantots, bet tas neattiecas uz to, kā šobrīd tiek iegūti paziņojumi.</string>
+    <string name="notification_details_any_account_needs_migration_help">Vienam vai vairākiem kontiem nav OAuth tvēruma \"push\", pašpiegādes paziņojumi ir atspējoti.</string>
+    <string name="notification_details_ntfy_exempt_help">Lietotnei ntfy nav izslēgta akumulatora optimizēšana. Android var aizkavēt paziņojumus, kad ekrāns ir izslēgts.</string>
+    <string name="notification_details_pull_section">Iegūt paziņojumus ar strādņiem, kas darbojas ik pēc noteikta laika</string>
+    <string name="notification_details_pachli_exempt">Vai lietotnei Pachli ir izslēgta akumulatora optimizēšana?</string>
+    <string name="notification_details_pachli_exempt_help">Lietotnei Pachli nav izslēgta akumulatora optimizēšana. Android var aizkavēt paziņojumus, kad ekrāns ir izslēgts.</string>
+    <string name="notification_details_usage_event">Jaudas pārvaldības ierobežojumi</string>
+    <string name="notification_details_ago">pirms %1$s @ %2$s</string>
+    <string name="notification_details_standby_bucket_exempted">Izslēgta</string>
+    <string name="notification_details_standby_bucket_active">Ieslēgts. Neierobežoti fona darbi</string>
+    <string name="notification_details_standby_bucket_working_set">Darbošanās iestatīta. Ierobežota līdz 10 minūtēm katrās 2 stundās</string>
+    <string name="notification_details_standby_bucket_frequent">Bieži. Ierobežots līdz 10 minūtēm katrās 2 stundās</string>
+    <string name="notification_details_standby_bucket_rare">Reti. Ierobežots līdz 10 minūtēm katrās 24 stundās</string>
+    <string name="notification_details_standby_bucket_restricted">Ierobežots. Reizi dienā</string>
+    <string name="notification_details_standby_bucket_never">Nekad</string>
+    <string name="notification_details_standby_bucket_unknown">Nezināms</string>
+    <string name="notification_log_title">Žurnāls</string>
+    <string name="notification_log_filter_content_description">Atlasīt žurnālus pēc birkas</string>
+    <string name="notification_log_filter">Atlasīt</string>
+    <string name="notification_log_download_content_description">Lejupielādēt žurnālus</string>
+    <string name="notification_log_download">Lejupielādēt</string>
+    <string name="notification_log_sort">Kārtot pēc jaunākā</string>
+    <string name="notification_log_previous_attempts">Iepriekšējie mēģinājumi: %1$d</string>
+    <string name="notification_log_scheduled_in">Ieplānots %1$s @ %2$s</string>
+    <string name="notification_log_method_push">Paziņojumi tiek piegādāti ar UnifiedPush, un tiem vajadzētu būt tūlītējiem</string>
+    <string name="notification_log_method_pull">Paziņojumi tiek iegūtu laiku pa laikam, apmēram reizi 15 minūtēs</string>
+    <string name="notification_log_method_unknown">Paziņojumu piegādes mehānisms nav noteikts</string>
+    <string name="notification_log_method_pusherror">UnifiedPush ir iespējots, bet bija kļūda: %1$s</string>
+    <string name="notification_log_download_failed">Lejupielāde neizdevās: %1$s</string>
+    <string name="notitication_log_filter_dialog_title">Rādīt žurnālu svarīgumu</string>
+    <string name="notification_details_workers_help">Šīs ir strādņu, kas iegūst jaunus paziņojumus, saraksts. Tajā vajadzētu būt vienam, stāvoklim vajadzētu būt RUNNING vai ENQUEUED, un tam vajadzētu būt paredzēts darboties tuvāko 15 minūšu laikā.</string>
+    <string name="notification_details_last_fetch_help">Neatkarīgi no paziņojumu piegādes veida, šis katram kontam rāda, kad notika pēdējā iegūšana, vai tā bija sekmīga un kļūdas ziņojumu, ja pieprasījums neizdevās.</string>
+    <string name="notification_details_usage_event_label">Android var ierobežot, ko lietotnes var darīt fonā. Šajā sarakstā ir uzskaitīts, kā Pachli tika ierobežota pēdējo trīs dienu laikā, sākot ar visjaunāko.</string>
+    <string name="about_nivenly_foundation">Pachli ir <a href="https://nivenly.org">Nivenly Foundation</a> projekts.</string>
 </resources>

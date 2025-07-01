@@ -12,21 +12,22 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import app.pachli.R
 import app.pachli.adapter.isPlayable
-import app.pachli.core.activity.decodeBlurHash
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.data.model.StatusDisplayOptions
+import app.pachli.core.model.Attachment
 import app.pachli.core.navigation.AttachmentViewData
-import app.pachli.core.network.model.Attachment
 import app.pachli.core.ui.BindingHolder
+import app.pachli.core.ui.decodeBlurHash
 import app.pachli.databinding.ItemAccountMediaBinding
 import app.pachli.util.getFormattedDescription
 import app.pachli.util.iconResource
-import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
 import com.google.android.material.color.MaterialColors
 
 class AccountMediaGridAdapter(
     context: Context,
+    private val glide: RequestManager,
     statusDisplayOptions: StatusDisplayOptions,
     private val onAttachmentClickListener: (AttachmentViewData, View) -> Unit,
 ) : PagingDataAdapter<AttachmentViewData, BindingHolder<ItemAccountMediaBinding>>(
@@ -69,8 +70,7 @@ class AccountMediaGridAdapter(
 
                 val (placeholder, width, height) = item.attachment.placeholder(context, preview)
 
-                Glide.with(preview)
-                    .load(placeholder)
+                glide.load(placeholder)
                     .override(width, height)
                     .centerInside()
                     .into(preview)
@@ -83,10 +83,9 @@ class AccountMediaGridAdapter(
                 overlay.setBackgroundResource(0)
                 overlay.visible(item.attachment.type.isPlayable())
 
-                val (placeholder, _, _) = item.attachment.placeholder(context, preview)
+                val placeholder = item.attachment.placeholder(context, preview).first
 
-                Glide.with(preview)
-                    .asBitmap()
+                glide.asBitmap()
                     .load(item.attachment.previewUrl)
                     .placeholder(placeholder)
                     .into(preview)
@@ -99,8 +98,7 @@ class AccountMediaGridAdapter(
                 overlay.setBackgroundResource(0)
                 overlay.visible(item.attachment.type.isPlayable())
 
-                Glide.with(preview)
-                    .load(item.attachment.iconResource())
+                glide.load(item.attachment.iconResource())
                     .into(preview)
 
                 preview.contentDescription = item.attachment.getFormattedDescription(context)

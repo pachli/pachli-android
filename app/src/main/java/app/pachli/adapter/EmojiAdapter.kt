@@ -20,13 +20,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.widget.TooltipCompat
 import androidx.recyclerview.widget.RecyclerView
-import app.pachli.core.network.model.Emoji
+import app.pachli.core.model.Emoji
 import app.pachli.core.ui.BindingHolder
 import app.pachli.databinding.ItemEmojiButtonBinding
-import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
 import java.util.Locale
 
 class EmojiAdapter(
+    private val glide: RequestManager,
     emojiList: List<Emoji>,
     private val onEmojiSelectedListener: OnEmojiSelectedListener,
     private val animate: Boolean,
@@ -47,12 +48,10 @@ class EmojiAdapter(
         val emojiImageView = holder.binding.root
 
         if (animate) {
-            Glide.with(emojiImageView)
-                .load(emoji.url)
+            glide.load(emoji.url)
                 .into(emojiImageView)
         } else {
-            Glide.with(emojiImageView)
-                .asBitmap()
+            glide.asBitmap()
                 .load(emoji.url)
                 .into(emojiImageView)
         }

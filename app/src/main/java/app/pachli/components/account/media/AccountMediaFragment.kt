@@ -33,23 +33,26 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager.VERTICAL
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.R
+import app.pachli.core.activity.OpenUrlUseCase
 import app.pachli.core.activity.RefreshableFragment
-import app.pachli.core.activity.openLink
+import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.model.Attachment
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.ViewMediaActivityIntent
-import app.pachli.core.network.model.Attachment
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.databinding.FragmentTimelineBinding
+import com.bumptech.glide.Glide
 import com.google.android.material.color.MaterialColors
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kotlin.properties.Delegates
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -63,6 +66,9 @@ class AccountMediaFragment :
     OnRefreshListener,
     RefreshableFragment,
     MenuProvider {
+
+    @Inject
+    lateinit var openUrl: OpenUrlUseCase
 
     private val binding by viewBinding(FragmentTimelineBinding::bind)
 
@@ -83,6 +89,7 @@ class AccountMediaFragment :
 
         adapter = AccountMediaGridAdapter(
             context = view.context,
+            glide = Glide.with(this),
             statusDisplayOptions = viewModel.statusDisplayOptions.value,
             onAttachmentClickListener = ::onAttachmentClick,
         )
@@ -174,14 +181,12 @@ class AccountMediaFragment :
                     val url = selected.attachment.url
                     ViewCompat.setTransitionName(view, url)
                     val options = ActivityOptionsCompat.makeSceneTransitionAnimation(requireActivity(), view, url)
-                    startActivity(intent, options.toBundle())
+                    startActivityWithDefaultTransition(intent, options.toBundle())
                 } else {
-                    startActivity(intent)
+                    startActivityWithDefaultTransition(intent)
                 }
             }
-            Attachment.Type.UNKNOWN -> {
-                context?.openLink(selected.attachment.url)
-            }
+            Attachment.Type.UNKNOWN -> openUrl(selected.attachment.url)
         }
     }
 

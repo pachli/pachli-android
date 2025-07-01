@@ -30,7 +30,8 @@ import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
-import app.pachli.core.network.model.Status
+import app.pachli.core.model.Status
+import app.pachli.core.ui.SetStatusContent
 import app.pachli.databinding.ItemFollowBinding
 import app.pachli.databinding.ItemFollowRequestBinding
 import app.pachli.databinding.ItemNotificationFilteredBinding
@@ -43,6 +44,7 @@ import app.pachli.databinding.ItemUnknownNotificationBinding
 import app.pachli.interfaces.AccountActionListener
 import app.pachli.interfaces.StatusActionListener
 import app.pachli.viewdata.NotificationViewData
+import com.bumptech.glide.RequestManager
 
 /** How to present the notification in the UI */
 enum class NotificationViewKind {
@@ -144,7 +146,9 @@ interface NotificationActionListener {
  * @param statusDisplayOptions
  */
 class NotificationsPagingAdapter(
+    private val glide: RequestManager,
     diffCallback: DiffUtil.ItemCallback<NotificationViewData>,
+    private val setStatusContent: SetStatusContent,
     private val statusActionListener: StatusActionListener<NotificationViewData>,
     private val notificationActionListener: NotificationActionListener,
     private val accountActionListener: AccountActionListener,
@@ -153,9 +157,9 @@ class NotificationsPagingAdapter(
 
     private val absoluteTimeFormatter = AbsoluteTimeFormatter()
 
-    /** View holders in this adapter must implement this interface */
+    /** View holders in this adapter must implement this interface. */
     interface ViewHolder {
-        /** Bind the data from the notification and payloads to the view */
+        /** Bind the data from the notification and payloads to the view. */
         fun bind(
             viewData: NotificationViewData,
             payloads: List<*>?,
@@ -183,12 +187,16 @@ class NotificationsPagingAdapter(
             NotificationViewKind.STATUS -> {
                 StatusViewHolder(
                     ItemStatusBinding.inflate(inflater, parent, false),
+                    glide,
+                    setStatusContent,
                     statusActionListener,
                 )
             }
             NotificationViewKind.STATUS_FILTERED -> {
                 FilterableStatusViewHolder(
                     ItemStatusWrapperBinding.inflate(inflater, parent, false),
+                    glide,
+                    setStatusContent,
                     statusActionListener,
                 )
             }
@@ -202,6 +210,8 @@ class NotificationsPagingAdapter(
             NotificationViewKind.NOTIFICATION -> {
                 StatusNotificationViewHolder(
                     ItemStatusNotificationBinding.inflate(inflater, parent, false),
+                    glide,
+                    setStatusContent,
                     statusActionListener,
                     notificationActionListener,
                     absoluteTimeFormatter,
@@ -210,6 +220,7 @@ class NotificationsPagingAdapter(
             NotificationViewKind.FOLLOW -> {
                 FollowViewHolder(
                     ItemFollowBinding.inflate(inflater, parent, false),
+                    glide,
                     notificationActionListener,
                     statusActionListener,
                 )
@@ -217,6 +228,7 @@ class NotificationsPagingAdapter(
             NotificationViewKind.FOLLOW_REQUEST -> {
                 FollowRequestViewHolder(
                     ItemFollowRequestBinding.inflate(inflater, parent, false),
+                    glide,
                     accountActionListener,
                     statusActionListener,
                     showHeader = true,
@@ -225,6 +237,7 @@ class NotificationsPagingAdapter(
             NotificationViewKind.REPORT -> {
                 ReportNotificationViewHolder(
                     ItemReportNotificationBinding.inflate(inflater, parent, false),
+                    glide,
                     notificationActionListener,
                 )
             }

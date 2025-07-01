@@ -1,0 +1,15 @@
+Pachli 1.4.0
+
+Nowości:
+
+- Sprawdzanie dostępności aktualizacji i powiadamianie o nich
+
+Poprawki:
+
+- Natychmiastowe pokazywanie zmian preferencji
+- Stosowanie preferencji ukrywania pływającego przycisku akcji na osiach czasu
+- Upewnienie się, że kontrolki systemowe są widoczne na starszych urządzeniach
+- Usunięcie pasku postępu z osi czasu
+- Przywrócenie proporcji obrazu po zakończeniu przeciągania
+- Zapobieganie potencjalnej awarii przy wolno wczytujących się filtrach
+- Aktualizacja tłumaczenia na włoski

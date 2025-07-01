@@ -49,8 +49,6 @@
     <string name="action_favourite">喜欢</string>
     <string name="action_unfavourite">取消喜欢</string>
     <string name="action_compose">新嘟文</string>
-    <string name="action_logout">退出登录</string>
-    <string name="action_logout_confirm">确定要退出账号 %1$s 吗？</string>
     <string name="action_follow">关注</string>
     <string name="action_unfollow">取消关注</string>
     <string name="action_block">屏蔽</string>
@@ -96,7 +94,6 @@
     <string name="action_open_media_n">打开媒体文件 #%d</string>
     <string name="download_image">正在下载 %1$s…</string>
     <string name="action_copy_link">复制链接</string>
-    <string name="action_share_as">分享为 …</string>
     <string name="download_media">下载媒体文件</string>
     <string name="downloading_media">正在下载媒体文件</string>
     <string name="send_post_link_to">分享链接到…</string>
@@ -188,7 +185,6 @@
         <item quantity="other">%d 个新互动</item>
     </plurals>
     <string name="description_account_locked">锁嘟用户</string>
-    <string name="about_pachli_version">Pachli %s</string>
     <!-- note to translators:
          * you should think of “free” as in “free speech,” not as in “free beer”.
            We sometimes call it “libre software,” borrowing the French or Spanish word for “free” as in freedom,
@@ -221,13 +217,8 @@
     <string name="filter_dialog_remove_button">移除</string>
     <string name="filter_dialog_update_button">更新</string>
     <string name="filter_add_description">需要过滤的文字</string>
-    <string name="add_account_name">添加账号</string>
     <string name="add_account_description">添加新的 Mastodon 账号</string>
     <string name="compose_active_account_description">以 %1$s 发布嘟文</string>
-    <plurals name="hint_describe_for_visually_impaired">
-        <item quantity="other">为视觉障碍用户提供的描述\n(限制 %d 字)</item>
-    </plurals>
-    <string name="action_set_caption">设置图片标题</string>
     <string name="action_remove">移除</string>
     <string name="lock_account_label">保护你的帐户（锁嘟）</string>
     <string name="lock_account_label_description">你需要手动审核所有关注请求</string>
@@ -262,7 +253,7 @@
     <string name="unpin_action">取消置顶</string>
     <string name="pin_action">置顶</string>
     <plurals name="favs">
-        <item quantity="other">&lt;b>%1$s&lt;/b> 次喜欢</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; 次喜欢</item>
     </plurals>
     <plurals name="reblogs">
         <item quantity="other">&lt;b&gt;%s&lt;/b&gt; 次转嘟</item>

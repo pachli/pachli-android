@@ -1,0 +1,12 @@
+Pachli 1.2
+
+Nowości:
+
+- Pionowe paski przewijania na przewijalnych listach
+
+Poprawki:
+
+- Odtwarzanie miejsca czytania w każdym przypadku
+- Włącz/wyłącz przycisk głosowania gdy można głosować lub nie
+- Używanie właściwego koloru dla paska statusu
+- Poprawa widoczności tekstu opcji ankiety

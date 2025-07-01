@@ -1,0 +1,7 @@
+Pachli 2.8.1
+
+Opravy:
+
+- Zabránenie pádu aplikácie pri odosielaní príspevku počas nahrávania médií
+- Obnovené prechody videa na androidx.media3 verziách 1.4.0 a 1.4.1 
+- Zabránené prekrývaniu textu náhľadovej karty s obrázkami

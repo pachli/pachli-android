@@ -28,4 +28,8 @@
     <string name="pref_tab_alignment_end">Slut på text riktning</string>
     <string name="pref_tab_contents_icon_only">Endast ikon</string>
     <string name="pref_tab_contents_text_only">Endast text</string>
+    <string name="pref_title_render_markdown">Gör Markdown</string>
+    <string name="pref_update_notification_frequency_never">Aldrig</string>
+    <string name="pref_update_notification_frequency_once_per_version">En gång per version</string>
+    <string name="pref_update_notification_frequency_always">Alltid</string>
 </resources>

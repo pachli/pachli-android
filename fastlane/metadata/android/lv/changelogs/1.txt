@@ -1,0 +1,20 @@
+Jaunas iespējas:
+
+- Vairs nav "Ielādēt vairāk", ieraksti tiek ielādēti ritinot
+- Izplatītas saites un ieraksti
+- Vairāk kā 5 cilnes
+- Izvēle no pieejamu fontu klāsta
+- Jauns atskaņotājs
+- Atlase paziņojumos
+- Sarakstu atzīmēšana kā "sevišķs"
+- "Grāmatzīmju" pievienošana cilnēm
+
+Nepilnību labojumi:
+
+- Attēli "nepielīp", kad tos pietuvina vai pārmetas starp tiem
+
+UX izmaiņas:
+
+- Izskata atsvaidzināšana, jauna krāsu palete
+- Noklusējuma izskats tiek noteikts no Android iestatījumiem
+- "Notīrīt paziņojumus" ir izvēlnes vienums

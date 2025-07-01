@@ -1,15 +1,15 @@
-Pachli 2.9.0.
+Pachli 2.9.0
 
-Nowe cechy:
+Nowości:
 
-Move tab dopasowania i treści z laboratorium
-Initial support for filtrowanie notyfikacji poprzez wysyłanie informacji.
-- Wsparcie Pleromy nie ma żadnych ośrodków czasowych.
-- Show extra a11y action for trending links.
+- Przeniesienie ustawień kart z laboratorium
+- Wstepne wspacie filtrowania powiadomień wg kont nadawcy
+- Wspacie dla Pleromy zwracającej daty bez strefy czasowej
+- Pokazuj dodatkowe akcje a11y dla popularnych odnośników i proponowanych kont
 
-Fiksy
+Poprawki:
 
-W dialogach z 11-tymczasowym obrazem są klikalne.
-– Don't stracił obrazy/przypisy po tym, jak nie powiódł się.
-Assorted crash.
-Update fiński, irlandzki, norweski (Bokmål, Nynorsk) i hiszpańskie tłumaczenia
+- Klikalne elementy w dialogach a11y
+- Nie trać obrazów / podpisów po nieudanym wgrywaniu
+- Naprawione różne awarie
+- Aktualizacja tłumaczeń na fiński, irlandzki, norweski (bokmål i nynorsk) i hiszpański

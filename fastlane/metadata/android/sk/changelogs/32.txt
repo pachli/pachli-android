@@ -1,0 +1,17 @@
+Pachli 2.14.0
+
+Nové funkcie:
+
+- Obnov pozíciu používateľa v zoznamoch
+- Zrýchlenie prepínanie účtov, ak používateľ nemá žiadne filtre účtov
+- Rozhranie pre "Správu účtov"
+
+Opravy:
+
+- Vymazať uložené notifikácie pri mazaní notifikácií zo servera
+- Zabránenie pádu pri prijatí notifikácií o zrušení sledovania/vzťahu
+- Zabránenie pádu pri zrušení načítania obrázkov
+
+Preklady:
+
+- Čínština, estónčina, fínčina, indonézština, írčina, taliančina, lotyština, nynorsk nórčina, poľština, ruština, slovenčina, tamilčina

@@ -1,0 +1,20 @@
+Pachli 2.10.0
+
+Novaj ecoj:
+
+Aldonu Atkinson Hyperlegible Next tiparon
+Konversacio enhavo kaj konto filtriloj
+Montri la poŝton, kiu respondis al
+
+Fiksoj:
+
+Fix duplikat "Refresh" menuoj
+Highlight etikedoj dum rigardado de poŝto redaktas
+Malhelpu ordigitajn kraŝojn
+Forigu "dummy.placeholder" de eraroj
+Sort listigas per titolo
+Fix kraŝo kun UI-granda glitilo
+
+Tradukoj:
+
+Birma, germana, indonezia, irlanda, Kabyle, litovo, norvega Nynorsk, la pola, la slovaka, la hispana, la sveda, la tamila

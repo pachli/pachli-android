@@ -1,0 +1,20 @@
+Pachli 2.10.0
+
+新特点:
+
+- Add Atkinson Rylegible Next font
+- 变更内容和账户过滤器
+- 显示正在答复的职位
+
+ixes:
+
+- “Refresh”菜单
+- 观察哨点时的主角
+- 防止失事
+- 从错误中删除“dummy.placeholder”
+- 姓名
+- 轮胎碎裂
+
+翻译:
+
+- Burmese, German, Indonesia, Ireland, Kabyle, 立陶宛, Norwegian Nynorsk, Poland, Slovakia, Spanish, Sweden
