@@ -78,7 +78,7 @@ class FollowRequestViewHolder(
         val emojifiedName: CharSequence = wrappedName.emojify(
             glide,
             account.emojis,
-            itemView,
+            binding.displayNameTextView,
             animateEmojis,
         )
         binding.displayNameTextView.text = emojifiedName
@@ -94,7 +94,7 @@ class FollowRequestViewHolder(
                     wrappedName.length,
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE,
                 )
-            }.emojify(glide, account.emojis, itemView, animateEmojis)
+            }.emojify(glide, account.emojis, binding.notificationTextView, animateEmojis)
         }
         binding.notificationTextView.visible(showHeader)
         val formattedUsername = itemView.context.getString(DR.string.post_username_format, account.username)

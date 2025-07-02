@@ -16,8 +16,9 @@
 
 package app.pachli.components.announcements
 
+import android.graphics.drawable.Drawable
 import android.os.Build
-import android.text.SpannableStringBuilder
+import android.text.SpannableString
 import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
@@ -32,14 +33,16 @@ import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.BindingHolder
 import app.pachli.core.ui.EmojiSpan
 import app.pachli.core.ui.LinkListener
+import app.pachli.core.ui.clearEmojiTargets
 import app.pachli.core.ui.emojify
 import app.pachli.core.ui.setClickableText
+import app.pachli.core.ui.setEmojiTargets
 import app.pachli.databinding.ItemAnnouncementBinding
 import app.pachli.util.equalByMinute
 import app.pachli.util.getRelativeTimeSpanString
 import com.bumptech.glide.RequestManager
+import com.bumptech.glide.request.target.Target
 import com.google.android.material.chip.Chip
-import java.lang.ref.WeakReference
 
 interface AnnouncementActionListener : LinkListener {
     fun openReactionPicker(announcementId: String, target: View)
@@ -107,6 +110,9 @@ class AnnouncementAdapter(
         // hide button if announcement badge limit is already reached
         addReactionChip.visible(item.reactions.size < 8)
 
+        chips.clearEmojiTargets()
+        val targets = ArrayList<Target<Drawable>>(item.reactions.size)
+
         item.reactions.forEachIndexed { i, reaction ->
             (
                 chips.getChildAt(i)?.takeUnless { it.id == R.id.addReactionChip } as Chip?
@@ -123,12 +129,13 @@ class AnnouncementAdapter(
                     } else {
                         // we set the EmojiSpan on a space, because otherwise the Chip won't have the right size
                         // https://github.com/tuskyapp/Tusky/issues/2308
-                        val spanBuilder = SpannableStringBuilder("  ${reaction.count}")
-                        val span = EmojiSpan(WeakReference(this))
+                        val spannable = SpannableString("  ${reaction.count}")
+                        val span = EmojiSpan(this)
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                             span.contentDescription = reaction.name
                         }
-                        spanBuilder.setSpan(span, 0, 1, 0)
+                        val target = span.createGlideTarget(this, animateEmojis)
+                        spannable.setSpan(span, 0, 1, 0)
                         glide.asDrawable()
                             .load(
                                 if (animateEmojis) {
@@ -137,8 +144,9 @@ class AnnouncementAdapter(
                                     reaction.staticUrl
                                 },
                             )
-                            .into(span.getTarget(animateEmojis))
-                        this.text = spanBuilder
+                            .into(target)
+                        targets.add(target)
+                        this.text = spannable
                     }
 
                     isChecked = reaction.me
@@ -157,9 +165,16 @@ class AnnouncementAdapter(
             chips.removeViewAt(item.reactions.size)
         }
 
+        // Store Glide targets for later cancellation
+        chips.setEmojiTargets(targets)
+
         addReactionChip.setOnClickListener {
             listener.openReactionPicker(item.id, it)
         }
+    }
+
+    override fun onViewRecycled(holder: BindingHolder<ItemAnnouncementBinding>) {
+        holder.binding.chipGroup.clearEmojiTargets()
     }
 
     override fun getItemCount() = items.size
