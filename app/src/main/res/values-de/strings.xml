@@ -805,5 +805,10 @@
     <string name="pref_account_notification_filters_label_limited_by_server">... die von deinen Moderatoren eingeschränkt wurden</string>
     <string name="pref_title_account_conversation_filters">Gesprächsfilter</string>
     <string name="pref_summary_account_conversation_filters">Dein Server unterstützt keine Gesprächsfilter</string>
-    <string name="pref_account_conversation_filters_subtitle">Was soll mit Gesprächen passieren, die von Konten gestartet wurden, die…</string>
+    <string name="pref_account_conversation_filters_subtitle">Was soll mit Gesprächen passieren, die von Konten gestartet wurden,…</string>
+    <string name="pref_account_conversation_filters_label_not_followed">... denen du nicht folgst</string>
+    <string name="pref_account_conversation_filters_label_younger_30d">... die in den letzten 30 Tagen erstellt wurden</string>
+    <string name="pref_account_conversation_filters_label_limited_by_server">... die von deinen Moderatoren eingeschränkt wurden</string>
+    <string name="account_filter_placeholder_type_favourite_fmt">Ein Nutzer @<b>%1s</b> hat deinen Beitrag favorisiert</string>
+    <string name="account_filter_placeholder_type_follow_fmt">Ein Nutzer @<b>%1s</b> folgt dir</string>
 </resources>
