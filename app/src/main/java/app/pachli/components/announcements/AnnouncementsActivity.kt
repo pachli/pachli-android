@@ -27,7 +27,6 @@ import androidx.core.view.MenuProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.pachli.R
 import app.pachli.adapter.EmojiAdapter
-import app.pachli.adapter.OnEmojiSelectedListener
 import app.pachli.core.activity.ViewUrlActivity
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.common.extensions.hide
@@ -54,7 +53,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class AnnouncementsActivity :
     ViewUrlActivity(),
     AnnouncementActionListener,
-    OnEmojiSelectedListener,
     MenuProvider {
 
     private val viewModel: AnnouncementsViewModel by viewModels()
@@ -133,7 +131,15 @@ class AnnouncementsActivity :
         }
 
         viewModel.emojis.observe(this) {
-            picker.adapter = EmojiAdapter(glide, it, this, animateEmojis)
+            picker.adapter = EmojiAdapter(
+                glide,
+                it,
+                animateEmojis,
+                getString(R.string.label_emoji_no_category),
+            ) {
+                viewModel.addReaction(currentAnnouncementId!!, it)
+                pickerDialog.dismiss()
+            }
         }
 
         viewModel.load()
@@ -171,11 +177,6 @@ class AnnouncementsActivity :
     override fun openReactionPicker(announcementId: String, target: View) {
         currentAnnouncementId = announcementId
         pickerDialog.showAsDropDown(target)
-    }
-
-    override fun onEmojiSelected(shortcode: String) {
-        viewModel.addReaction(currentAnnouncementId!!, shortcode)
-        pickerDialog.dismiss()
     }
 
     override fun addReaction(announcementId: String, name: String) {

@@ -25,12 +25,14 @@ data class Emoji(
     val url: String,
     @Json(name = "static_url") val staticUrl: String,
     @Json(name = "visible_in_picker") val visibleInPicker: Boolean?,
+    val category: String? = null,
 ) {
     fun asModel() = app.pachli.core.model.Emoji(
         shortcode = shortcode,
         url = url,
         staticUrl = staticUrl,
         visibleInPicker = visibleInPicker,
+        category = category,
     )
 }
 
