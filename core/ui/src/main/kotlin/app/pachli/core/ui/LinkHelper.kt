@@ -32,7 +32,6 @@ import com.mikepenz.iconics.IconicsSize
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.color
 import com.mikepenz.iconics.utils.size
-import java.lang.ref.WeakReference
 
 interface LinkListener {
     fun onViewTag(tag: String)
@@ -112,23 +111,18 @@ internal fun markupHiddenUrls(textView: TextView, content: CharSequence): Spanna
 
         for (span in obscuredLinkSpans) {
             val end = spannableContent.getSpanEnd(span)
-            val replacementText = context.getString(R.string.url_domain_notifier, getDomain(span.url))
-            spannableContent.insert(end, replacementText)
-        }
-
-        var iconIndex = -1
-        while (true) {
-            iconIndex = spannableContent.indexOf("🔗", iconIndex + 1)
-            if (iconIndex == -1) break
+            val additionalText = context.getString(R.string.url_domain_notifier, getDomain(span.url))
+            spannableContent.insert(end, additionalText)
 
             // ImageSpan has bugs when trying to align the drawable with text, so use
             // EmojiSpan which centre-aligns it correctly. EmojiSpan default is to scale
             // the drawable to fill the text height, set scaleFactor to get a more
             // reasonable size.
-            val linkSpan = EmojiSpan(WeakReference(textView)).apply {
+            val linkSpan = EmojiSpan(textView).apply {
                 imageDrawable = iconLinkDrawable
                 scaleFactor = 0.7f
             }
+            val iconIndex = end + 2
             spannableContent.setSpan(linkSpan, iconIndex, iconIndex + iconLength, 0)
         }
     }
@@ -151,9 +145,6 @@ internal fun setClickableText(
     val end = getSpanEnd(span)
     val flags = getSpanFlags(span)
 
-    // Clear the existing span.
-    removeSpan(span)
-
     // Determine the new span from the text content.
     val text = subSequence(start, end)
     val newSpan = when (text[0]) {
@@ -162,22 +153,19 @@ internal fun setClickableText(
         else -> null
     } ?: NoUnderlineURLSpan(span.url, listener::onViewUrl)
 
-    // Wrap the text so that "@foo" or "#foo" is rendered that way in RTL text, and
-    // not "foo@" or "foo#".
+    // Replace the previous span with the more appropriate span.
+    removeSpan(span)
+    setSpan(newSpan, start, end, flags)
+
+    // Insert Unicode directional isolates at the end and start of the span so that
+    // "@foo" or "#foo" is rendered that way in RTL text, and not "foo@" or "foo#".
     //
     // Can't use CharSequence.unicodeWrap() here as that returns a String, which will
     // remove any spans (e.g., those inserted when viewing edits to a status) that
     // indicate where the added/removed text is, meaning that added/removed hashtags,
     // mentions, etc, wouldn't be highlighted in the diff view.
-    val wrappedText = SpannableStringBuilder(text)
-    wrappedText.insert(0, "\u2068")
-    wrappedText.append("\u2069")
-
-    // Set the correct span on the wrapped text.
-    wrappedText.setSpan(newSpan, 0, wrappedText.length, flags)
-
-    // Replace the previous text with the wrapped and spanned text.
-    replace(start, end, wrappedText)
+    insert(end, "\u2069")
+    insert(start, "\u2068")
 }
 
 @VisibleForTesting

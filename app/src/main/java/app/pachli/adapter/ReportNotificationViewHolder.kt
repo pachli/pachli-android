@@ -18,6 +18,7 @@
 package app.pachli.adapter
 
 import android.content.Context
+import android.text.TextUtils
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
@@ -30,8 +31,8 @@ import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.database.model.NotificationReportEntity
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.TimelineAccount
-import app.pachli.core.ui.emojify
 import app.pachli.core.ui.loadAvatar
+import app.pachli.core.ui.updateEmojiTargets
 import app.pachli.databinding.ItemReportNotificationBinding
 import app.pachli.util.getRelativeTimeSpanString
 import app.pachli.viewdata.NotificationViewData
@@ -73,26 +74,20 @@ class ReportNotificationViewHolder(
         animateAvatar: Boolean,
         animateEmojis: Boolean,
     ) {
-        val reporterName = reporter.name.unicodeWrap().emojify(
-            glide,
-            reporter.emojis,
-            binding.root,
-            animateEmojis,
-        )
-        val reporteeName = report.targetAccount.toTimelineAccount().name.unicodeWrap().emojify(
-            glide,
-            report.targetAccount.emojis,
-            itemView,
-            animateEmojis,
-        )
+        binding.notificationTopText.updateEmojiTargets {
+            val reporterName = reporter.name.unicodeWrap().emojify(glide, reporter.emojis, animateEmojis)
+            val reporteeName = report.targetAccount.displayName.unicodeWrap().emojify(glide, report.targetAccount.emojis, animateEmojis)
+
+            // Context.getString() returns a String and doesn't support Spannable.
+            // Convert the placeholders to the format used by TextUtils.expandTemplate which does.
+            val topText =
+                view.context.getString(R.string.notification_header_report_format, "^1", "^2")
+            view.text = TextUtils.expandTemplate(topText, reporterName, reporteeName)
+        }
+
         val icon = AppCompatResources.getDrawable(binding.root.context, R.drawable.ic_flag_24dp)
 
         binding.notificationTopText.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null)
-        binding.notificationTopText.text = itemView.context.getString(
-            R.string.notification_header_report_format,
-            reporterName,
-            reporteeName,
-        )
         binding.notificationSummary.text = itemView.context.resources.getQuantityString(
             R.plurals.notification_summary_report_format,
             report.statusIds?.size ?: 0,

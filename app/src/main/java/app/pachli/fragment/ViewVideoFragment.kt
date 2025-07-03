@@ -44,6 +44,7 @@ import androidx.media3.datasource.okhttp.OkHttpDataSource
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
 import androidx.media3.exoplayer.util.EventLogger
+import androidx.media3.ui.PlayerView
 import app.pachli.BuildConfig
 import app.pachli.R
 import app.pachli.core.common.extensions.viewBinding
@@ -51,7 +52,7 @@ import app.pachli.core.common.extensions.visible
 import app.pachli.core.model.Attachment
 import app.pachli.databinding.FragmentViewVideoBinding
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.target.CustomViewTarget
 import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -329,18 +330,21 @@ class ViewVideoFragment : ViewMediaFragment() {
         if (isAudio) {
             attachment.previewUrl?.let { url ->
                 Glide.with(this).load(url).into(
-                    object : CustomTarget<Drawable>() {
+                    object : CustomViewTarget<PlayerView, Drawable>(binding.videoView) {
+                        override fun onLoadFailed(p0: Drawable?) {
+                            /* Do nothing. */
+                        }
+
                         override fun onResourceReady(
                             resource: Drawable,
                             transition: Transition<in Drawable>?,
                         ) {
                             view ?: return
-                            binding.videoView.defaultArtwork = resource
+                            view.defaultArtwork = resource
                         }
 
-                        override fun onLoadCleared(placeholder: Drawable?) {
-                            view ?: return
-                            binding.videoView.defaultArtwork = null
+                        override fun onResourceCleared(p0: Drawable?) {
+                            view.defaultArtwork = null
                         }
                     },
                 )
