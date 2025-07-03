@@ -363,10 +363,11 @@
             android:textColor="?android:textColorTertiary" />
     </LinearLayout>
 
-    <app.pachli.view.EmojiPicker
-        android:id="@+id/emojiView"
+    <LinearLayout
+        android:id="@+id/emojiPickerBottomSheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:background="?attr/colorSurface"
         android:elevation="12dp"
         android:paddingStart="16dp"
@@ -375,7 +376,29 @@
         android:paddingBottom="60dp"
         app:behavior_hideable="true"
         app:behavior_peekHeight="0dp"
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior" />
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <app.pachli.view.EmojiPicker
+            android:id="@+id/emojiView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:scrollbars="vertical" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/emojiFilter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_search_emojis"
+            style="@style/AppTextInput"
+            app:endIconMode="clear_text"
+            app:endIconContentDescription="@string/clear_text_end_icon_content_description">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
 
     <app.pachli.components.compose.view.ComposeOptionsView
         android:id="@+id/composeOptionsBottomSheet"

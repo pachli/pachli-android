@@ -66,7 +66,6 @@ import app.pachli.BuildConfig
 import app.pachli.R
 import app.pachli.adapter.EmojiAdapter
 import app.pachli.adapter.LocaleAdapter
-import app.pachli.adapter.OnEmojiSelectedListener
 import app.pachli.components.compose.ComposeViewModel.ConfirmationKind
 import app.pachli.components.compose.dialog.makeFocusDialog
 import app.pachli.components.compose.dialog.showAddPollDialog
@@ -146,8 +145,6 @@ class ComposeActivity :
     BaseActivity(),
     ComposeVisibilityListener,
     ComposeAutoCompleteAdapter.AutocompletionProvider,
-    OnEmojiSelectedListener,
-
     OnReceiveContentListener,
     ComposeScheduleView.OnTimeSetListener {
 
@@ -670,7 +667,7 @@ class ComposeActivity :
         visibilityBehavior = BottomSheetBehavior.from(binding.composeOptionsBottomSheet)
         addAttachmentBehavior = BottomSheetBehavior.from(binding.addMediaBottomSheet)
         scheduleBehavior = BottomSheetBehavior.from(binding.composeScheduleView)
-        emojiBehavior = BottomSheetBehavior.from(binding.emojiView)
+        emojiBehavior = BottomSheetBehavior.from(binding.emojiPickerBottomSheet)
 
         val bottomSheetCallback = object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
@@ -1554,13 +1551,16 @@ class ComposeActivity :
         return viewModel.searchAutocompleteSuggestions(token)
     }
 
-    override fun onEmojiSelected(shortcode: String) {
-        replaceTextAtCaret(":$shortcode: ")
-    }
-
     private fun bindEmojiList(emojiList: List<Emoji>) {
         val animateEmojis = sharedPreferencesRepository.animateEmojis
-        binding.emojiView.adapter = EmojiAdapter(glide, emojiList, this@ComposeActivity, animateEmojis)
+        val emojiAdapter = EmojiAdapter(
+            glide,
+            emojiList,
+            animateEmojis,
+            getString(R.string.label_emoji_no_category),
+        ) { replaceTextAtCaret(":$it: ") }
+        binding.emojiView.adapter = emojiAdapter
+        binding.emojiFilter.editText?.doAfterTextChanged { emojiAdapter.filter.filter(it) }
         enableButton(binding.composeEmojiButton, true, emojiList.isNotEmpty())
     }
 

@@ -235,6 +235,7 @@
     <string name="hint_display_name">Display name</string>
     <string name="hint_note">Bio</string>
     <string name="hint_search">Search…</string>
+    <string name="hint_search_emojis">Search emojis…</string>
     <string name="hint_description">Description</string>
     <string name="hint_media_description_missing">Media should have a description.</string>
     <string name="search_no_results">No results</string>
@@ -426,6 +427,7 @@
     <string name="action_compose_shortcut">Compose</string>
     <string name="error_no_custom_emojis">Your instance %s does not have any custom emojis</string>
     <string name="emoji_style">Emoji style</string>
+    <string name="label_emoji_no_category">No category</string>
     <string name="system_default">System default</string>
     <string name="download_fonts">You\'ll need to download these emoji sets first</string>
     <string name="expand_collapse_all_posts">Expand/Collapse all posts</string>
