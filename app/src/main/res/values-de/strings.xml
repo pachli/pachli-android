@@ -460,6 +460,7 @@
     <string name="action_set_focus">Fokuspunkt setzen</string>
     <string name="action_add_reaction">Reaktion hinzufügen</string>
     <plurals name="notification_summary_report_format">
+        <item quantity="one">%1$s · %2$d Beitrag angehängt</item>
         <item quantity="other">%1$s · %2$d Beiträge angehängt</item>
     </plurals>
     <string name="notification_header_report_format">%s hat %s gemeldet</string>
@@ -587,4 +588,50 @@
     <string name="announcement_date">%1$s %2$s</string>
     <string name="announcement_date_updated">(Aktualisiert: %1$s)</string>
     <string name="notification_severed_relationships_user_domain_block_body">Du hast die Domain blockiert</string>
+    <plurals name="followed_hashtags_accounts_count_fmt">
+        <item quantity="one">Konto</item>
+        <item quantity="other">Konten</item>
+    </plurals>
+    <plurals name="followed_hashtags_days_count_fmt">
+        <item quantity="one">Tag</item>
+        <item quantity="other">Tage</item>
+    </plurals>
+    <string name="followed_hashtags_summary_fmt">%1$s von %2$s (letzte %3$s)</string>
+    <string name="notification_severed_relationships_format">Verbindung zu <b>%1$s</b> getrennt</string>
+    <string name="notification_severed_relationships_domain_block_body">Ein Moderator hat die Domain gesperrt</string>
+    <string name="notification_severed_relationships_account_suspension_body">Ein Moderator hat das Konto gesperrt</string>
+    <string name="notification_severed_relationships_unknown_body">Unbekannter Grund</string>
+    <string name="notification_severed_relationships_domain_block_fmt">Ein Admin von %1$s hat <b>%2$s</b> blockiert</string>
+    <string name="notification_severed_relationships_user_domain_block_fmt">Du hast <b>%1$s</b> blockiert</string>
+    <string name="notification_severed_relationships_account_suspension_fmt">Ein Admin von %1$s hat <b>%2$s</b> blockiert</string>
+    <string name="notification_severed_relationships_unknown_fmt"><b>%1$s</b> ist blockiert (unbekannter Grund)</string>
+    <string name="account_filter_placeholder_type_conversation">Ein*e Benutzer*in @<b>%1$s</b> hat eine Unterhaltung gestartet</string>
+    <string name="ui_error_reload_reply_fmt">Konnte Beitrag nicht laden: %1$s</string>
+    <string name="export_preferences_ok_fmt">Einstellungen exportiert nach %1$s</string>
+    <string name="error_export_preferences_fmt">Konnte Einstellungen nicht nach %1$s exportieren: %2$s</string>
+    <string name="error_import_preferences_fmt">Konnte Einstellungen nicht von %1$s importieren: %2$s</string>
+    <plurals name="followed_hashtags_posts_count_fmt">
+        <item quantity="one">%1$d Beitrag</item>
+        <item quantity="other">%1$d Beiträge</item>
+    </plurals>
+    <plurals name="notification_severed_relationships_summary_followers_fmt">
+        <item quantity="one">%1$s Follower entfernt.</item>
+        <item quantity="other">%1$s Follower entfernt.</item>
+    </plurals>
+    <plurals name="notification_severed_relationships_summary_following_fmt">
+        <item quantity="one">%1$s Konto dem du folgst wurde entfernt.</item>
+        <item quantity="other">%1$s Konten denen du folgst wurden entfernt.</item>
+    </plurals>
+    <string name="notification_unknown">Unbekannter Benachrichtigungstyp</string>
+    <string name="action_send_public_content_description">Öffentlichen Beitrag senden</string>
+    <string name="action_send_unlisted_content_description">Nicht-gelisteten Beitrag senden</string>
+    <string name="action_send_private_content_description">Nur-Follower Beitrag senden</string>
+    <string name="action_send_direct_content_description">Direktnachricht senden</string>
+    <string name="action_filter_search">Suche filtern</string>
+    <string name="action_suggestions">Vorgeschlagene Konten</string>
+    <string name="action_refresh_account">Konto aktualisieren</string>
+    <string name="pref_title_notification_filter_severed_relationships">Eine Followerbeziehung wurde getrennt</string>
+    <string name="pref_title_content_filters">Inhaltsfilter</string>
+    <string name="pref_summary_content_filters">Dein Server unterstützt keine Inhaltsfilter</string>
+    <string name="pref_custom_tabs_true">Schneller, dein bevorzugter Browser in Pachli</string>
 </resources>
