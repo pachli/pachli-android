@@ -354,5 +354,20 @@
     <string name="pref_title_notification_method">Teavituste meetod</string>
     <string name="pref_notification_method_all_pull">Laadimine kord iga 15 minuti järel. Klõpsi üksikasjade vaatamiseks.</string>
     <string name="pref_notification_method_all_push">Kõik kontod kasutavad UnifiedPushi. Klõpsi üksikasjade vaatamiseks.</string>
-    <string name="pref_notification_method_mixed">Mõned kontod kasutavad UnifiedPushi, teised teevad päringuid iga 15 minuti järel. Klõpsi üksikasjade vaatamiseks.</string>
+    <string name="pref_notification_method_mixed">Mõned kontod kasutavad UnifiedPushi, teised teevad päringuid iga 15 minuti järel. Klõpsi üksikasjade vaatamiseks</string>
+    <string name="pref_title_notification_battery_optimisation">Akukasutuse optimeerimine</string>
+    <string name="pref_notification_battery_optimisation_should_ignore">Akukasutuse optimeerimine peaks olema lülitatud välja. Avamiseks klõpsi.</string>
+    <string name="pref_notification_battery_optimisation_is_disabled">Akukasutuse optimeerimine pole kasutusel</string>
+    <string name="pref_notification_battery_optimisation_ok">Akukasutuse optimeerimist pole vaja lülitada välja.</string>
+    <string name="pref_title_change_unified_push_distributor">Muuda UnifiedPushi levitajat</string>
+    <string name="pref_change_unified_push_distributor_msg">Järgnevaga eemaldatakse valikute hulgast senine levitaja UnifiedPushi ja käivitatakse Pachli uuesti.\n\nKui mitu nutiseadmes on olemas UnifiedPushi levitajat, siis järgmisel korral pead valima neist ühe.</string>
+    <string name="server_repository_error">%1$s tarkvarahoidla serveri teavet ei õnnestunud laadida: %2$s</string>
+    <string name="pref_title_update_check_now">Kontrolli uuendusi kohe</string>
+    <string name="pref_update_check_no_updates">Uuendusi pole saadaval</string>
+    <string name="pref_update_next_scheduled_check">Järgmine ajastatud kontroll: %1$s</string>
+    <string name="error_media_download">%1$s allalaadimine ei õnnestunud: %2$s</string>
+    <string name="action_add_to_tab">Lisa vahekaardiks</string>
+    <string name="action_add_to_tab_success">„%1$s“ on lisatud vahekaartide sekka</string>
+    <string name="action_remove_tab">Eemalda vahekaart</string>
+    <string name="action_manage_tabs">Halda vahekaarte</string>
 </resources>
