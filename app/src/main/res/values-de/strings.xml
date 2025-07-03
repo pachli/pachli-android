@@ -138,7 +138,7 @@
     <string name="pref_title_timelines">Timelines</string>
     <string name="pref_title_timeline_filters">Filter</string>
     <string name="pref_title_browser_settings">Browser</string>
-    <string name="pref_title_custom_tabs">Links in der App öffnen (Chrome Custom Tabs)</string>
+    <string name="pref_title_custom_tabs">Links in der App öffnen (Custom Tabs)</string>
     <string name="pref_title_hide_follow_button">»Verfassen«-Schaltfläche beim Scrollen ausblenden</string>
     <string name="pref_title_language">Sprache</string>
     <string name="pref_title_post_filter">Timeline-Filter</string>
@@ -201,7 +201,7 @@
     <string name="filter_edit_title">Filter bearbeiten</string>
     <string name="filter_dialog_remove_button">Entfernen</string>
     <string name="filter_dialog_update_button">Aktualisieren</string>
-    <string name="add_account_description">Neues Mastodon-Konto hinzufügen</string>
+    <string name="add_account_description">Neues Mastodonkonto hinzufügen</string>
     <string name="compose_active_account_description">Veröffentlichen als %1$s</string>
     <string name="action_remove">Entfernen</string>
     <string name="lock_account_label">Geschütztes Profil</string>
@@ -349,7 +349,7 @@
     <string name="no_scheduled_posts">Du hast keine geplanten Beiträge.</string>
     <string name="warning_scheduling_interval">Das Datum des geplanten Beitrags muss mindestens 5 Minuten in der Zukunft liegen.</string>
     <string name="notification_follow_request_description">Benachrichtigungen über neue Folgeanfragen</string>
-    <string name="pref_title_notification_filter_follow_requests">neue Folgeanfrage</string>
+    <string name="pref_title_notification_filter_follow_requests">Neue Folgeanfrage</string>
     <string name="notification_follow_request_name">Folgeanfragen</string>
     <string name="dialog_mute_warning">\@%s stummschalten\?</string>
     <string name="dialog_block_warning">\@%s blockieren\?</string>
@@ -450,7 +450,7 @@
     <string name="error_unfollowing_hashtag_format">Fehler beim Entfolgen von #%s</string>
     <string name="delete_scheduled_post_warning">Diesen geplanten Beitrag löschen\?</string>
     <string name="set_focus_description">Tippe oder ziehe den Kreis auf die Stelle, die in Vorschaubildern immer sichtbar sein soll.</string>
-    <string name="compose_save_draft_loses_media">Entwurf speichern? (Anhänge werden erneut hochgeladen, sobald du den Entwurf wiederherstellst.)</string>
+    <string name="compose_save_draft_loses_media">Anhänge werden erneut hochgeladen, sobald du den Entwurf wiederherstellst.</string>
     <string name="duration_no_change">(Keine Änderung)</string>
     <string name="pref_title_show_self_username">Profilname in der Hauptnavigation anzeigen</string>
     <string name="failed_to_pin">Anheften fehlgeschlagen</string>
@@ -630,7 +630,7 @@
     <string name="action_filter_search">Suche filtern</string>
     <string name="action_suggestions">Vorgeschlagene Konten</string>
     <string name="action_refresh_account">Konto aktualisieren</string>
-    <string name="pref_title_notification_filter_severed_relationships">Eine Followerbeziehung wurde getrennt</string>
+    <string name="pref_title_notification_filter_severed_relationships">Eine Followerbeziehung getrennt wurde</string>
     <string name="pref_title_content_filters">Inhaltsfilter</string>
     <string name="pref_summary_content_filters">Dein Server unterstützt keine Inhaltsfilter</string>
     <string name="pref_custom_tabs_true">Schneller, dein bevorzugter Browser innerhalb von Pachli</string>
@@ -810,5 +810,12 @@
     <string name="pref_account_conversation_filters_label_younger_30d">... die in den letzten 30 Tagen erstellt wurden</string>
     <string name="pref_account_conversation_filters_label_limited_by_server">... die von deinen Moderatoren eingeschränkt wurden</string>
     <string name="account_filter_placeholder_type_favourite_fmt">Ein Nutzer @<b>%1s</b> hat deinen Beitrag favorisiert</string>
-    <string name="account_filter_placeholder_type_follow_fmt">Ein Nutzer @<b>%1s</b> folgt dir</string>
+    <string name="account_filter_placeholder_type_follow_fmt">Ein*e Nutzer*in @<b>%1s</b> folgt dir</string>
+    <string name="account_filter_placeholder_type_follow_request_fmt">Folgeanfrage von Benutzer*in @<b>%1s</b></string>
+    <string name="account_filter_placeholder_type_mention_fmt">Ein*e Nutzer*in @<b>%1s</b> hat dich erwähnt</string>
+    <string name="account_filter_placeholder_type_reblog_fmt">Ein*e Nutzer*in @<b>%1s</b> hat deinen Beitrag geboostet</string>
+    <string name="account_filter_placeholder_label_domain">Von einem/einer Nutzer*in @<b>%1s</b></string>
+    <string name="account_filter_placeholder_label_not_following">Gefiltert weil: <b>nicht von dir gefolgt</b></string>
+    <string name="account_filter_placeholder_label_younger_30d">Gefiltert weil: <b>in den letzten 30 Tagen erstellt</b></string>
+    <string name="account_filter_placeholder_label_limited_by_server">Gefiltert weil: <b>von deinen Moderator*innen eingeschränkt</b></string>
 </resources>
