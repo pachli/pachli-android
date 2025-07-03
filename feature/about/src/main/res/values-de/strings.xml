@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="about_title_activity">Über</string>
     <string name="about_device_info_title">Dein Gerät</string>
@@ -19,4 +19,8 @@
     <string name="about_account_info">\@%s@%s
 \nVersion: %s</string>
     <string name="license_description">Pachli enthält Code und Inhalte von den folgenden Open-Source-Projekten:</string>
+    <string name="notification_details_title">Details</string>
+    <string name="notification_details_android_notifications_enabled">Sind Android Benachrichtigungen aktiviert?</string>
+    <string name="notification_details_push_notifications_with_unifiedpush">Pushbenachrichtigungen mitUnifiedPush</string>
+    <string name="notification_details_unifiedpush_available">Ist UnifiedPush verfügbar?</string>
 </resources>
