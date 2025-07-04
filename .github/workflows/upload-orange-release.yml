@@ -98,7 +98,7 @@ jobs:
           mappingFile: app/build/outputs/mapping/orangeGoogleRelease/mapping.txt
 
       - name: Create release in pachli-android-current
-        uses: ncipollo/release-action@440c8c1cb0ed28b9f43e4d1d670870f059653174 # v1
+        uses: ncipollo/release-action@bcfe5470707e8832e12347755757cec0eb3c22af # v1
         with:
           token: ${{ secrets.PACHLI_ANDROID_CURRENT_CONTENTS_PAT }}
           artifactErrorsFailBuild: false
