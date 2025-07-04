@@ -27,6 +27,13 @@
     <string name="pref_update_notification_frequency_never">Mitte kunagi</string>
     <string name="pref_update_notification_frequency_once_per_version">Üks kord versiooni kohta</string>
     <string name="pref_update_notification_frequency_always">Alati</string>
-    <string name="pref_title_export_settings">Eksportimise seadistused</string>
+    <string name="pref_title_export_settings">Ekspordi seadistused</string>
     <string name="pref_summary_export_settings">Klõpsi ja salvesta rakenduse ning kasutajakonto seadistused kohalikus seadmes asuvasse faili</string>
+    <string name="pref_title_import_settings">Impordi seadistused</string>
+    <string name="pref_summary_import_settings">Klõpsi ja taasta failist seadistused, mille oled loonud „Ekspordi seadistused“ valikust</string>
+    <string name="pref_title_tab_alignment">Joonda põhimenüü</string>
+    <string name="pref_tab_alignment_start">Teksti alguse poole</string>
+    <string name="pref_tab_alignment_justify_if_possible">Kogu teksti laiusesse</string>
+    <string name="pref_tab_alignment_end">Teksti lõpu poole</string>
+    <string name="pref_title_render_markdown">Markdowni renderdamine</string>
 </resources>
