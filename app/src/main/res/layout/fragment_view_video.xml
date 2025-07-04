@@ -33,6 +33,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:use_controller="true"
+        app:controller_layout_id="@layout/pachli_exo_player_control_view"
         app:show_previous_button="false"
         app:show_next_button="false"
         app:show_buffering="always" />
