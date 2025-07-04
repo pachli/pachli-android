@@ -5,4 +5,8 @@
     <string name="action_browser_login">Logi sisse veebibrauserist</string>
     <string name="error_invalid_domain">Sisestasid vigase domeeni</string>
     <string name="error_failed_app_registration_fmt">Autentimine selles serveris ei õnnestunud: %1$s</string>
+    <string name="error_loading_account_details_fmt">Kasutajakonto üksikasjade laadimine ei õnnestunud: %1$s</string>
+    <string name="hint_domain">Mis serverit kasutaksid?</string>
+    <string name="action_login">Logi sisse Mastodoniga</string>
+    <string name="link_whats_an_instance">Mis on koduserver?</string>
 </resources>
