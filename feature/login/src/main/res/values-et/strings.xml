@@ -4,9 +4,17 @@
     <string name="action_close">Sulge</string>
     <string name="action_browser_login">Logi sisse veebibrauserist</string>
     <string name="error_invalid_domain">Sisestasid vigase domeeni</string>
-    <string name="error_failed_app_registration_fmt">Autentimine selles serveris ei õnnestunud: %1$s</string>
+    <string name="error_failed_app_registration_fmt">Tuvastamine selles koduserveris ei õnnestunud: %1$s</string>
     <string name="error_loading_account_details_fmt">Kasutajakonto üksikasjade laadimine ei õnnestunud: %1$s</string>
-    <string name="hint_domain">Mis serverit kasutaksid?</string>
+    <string name="hint_domain">Mis koduserverit kasutaksid?</string>
     <string name="action_login">Logi sisse Mastodoniga</string>
     <string name="link_whats_an_instance">Mis on koduserver?</string>
+    <string name="login_connection">Ühendan…</string>
+    <string name="title_login">Sisselogimine</string>
+    <string name="error_could_not_load_login_page">Sisselogimislehe laadimine ei õnnestunud.</string>
+    <string name="instance_rule_info">Sisselogimisel nõustud %s koduserveri reeglitega.</string>
+    <string name="instance_rule_title">Koduserveri reeglid: %s</string>
+    <string name="error_authorization_unknown">Loa andmisel tekkis määratlemata viga. Kui viga kestab, siis proovi vastavast menüüvalikust sisse logida veebibrauseriga.</string>
+    <string name="error_authorization_denied">Server keeldus loa andmisest. Kui oled kindel, et salasõna ja kasutajanimi olud õiged, siis proovi vastavast menüüvalikust sisse logida veebibrauseriga.</string>
+    <string name="error_retrieving_oauth_token_fmt">Sisselogimise tunnusloa laadimine ei õnnestunud. Kui viga kestab, siis proovi vastavast menüüvalikust sisse logida veebibrauseriga: %1$s</string>
 </resources>
