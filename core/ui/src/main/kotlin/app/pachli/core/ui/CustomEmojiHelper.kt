@@ -22,6 +22,7 @@ import android.graphics.Paint
 import android.graphics.drawable.Animatable
 import android.graphics.drawable.Drawable
 import android.text.style.ReplacementSpan
+import android.util.Size
 import android.view.View
 import android.widget.TextView
 import androidx.core.graphics.withSave
@@ -100,24 +101,25 @@ fun View.setEmojiTargets(targets: List<Target<Drawable>>) {
 }
 
 class EmojiSpan(view: View) : ReplacementSpan() {
-    private val emojiSize: Int = if (view is TextView) {
-        view.paint.textSize
+    private val emojiSize = if (view is TextView) {
+        getScaledSize(view.paint)
     } else {
         // sometimes it is not possible to determine the TextView the emoji will be shown in,
         // e.g. because it is passed to a library, so we fallback to a size that should be large
         // enough in most cases
-        view.context.resources.getDimension(R.dimen.fallback_emoji_size)
-    }.times(1.2).toInt()
+        val defaultDimen = view.context.resources.getDimension(R.dimen.fallback_emoji_size).toInt()
+        Size(defaultDimen, defaultDimen)
+    }
 
     var imageDrawable: Drawable? = null
 
-    /** Scale the emoji up/down from the calculated size */
+    /** Scale the emoji up/down from the calculated size. */
     var scaleFactor = 1.0f
 
     override fun getSize(paint: Paint, text: CharSequence, start: Int, end: Int, fm: Paint.FontMetricsInt?): Int {
         if (fm != null) {
             // Update FontMetricsInt, otherwise span does not get drawn when
-            // it covers the whole text
+            // it covers the whole text.
             val metrics = paint.fontMetricsInt
             fm.top = metrics.top
             fm.ascent = metrics.ascent
@@ -125,36 +127,34 @@ class EmojiSpan(view: View) : ReplacementSpan() {
             fm.bottom = metrics.bottom
         }
 
-        return (emojiSize * scaleFactor).toInt()
+        return getScaledSize(paint).width
+    }
+
+    /**
+     * @return The size of the emoji drawable, scaled to fit within the
+     * [textSize][Paint.getTextSize] (height) of [paint], including [scaleFactor].
+     */
+    fun getScaledSize(paint: Paint): Size {
+        return imageDrawable?.let { drawable ->
+            val maxHeight = paint.textSize * 1.2
+            val drawableWidth = drawable.intrinsicWidth
+            val drawableHeight = drawable.intrinsicHeight
+            val ratio = maxHeight / drawableHeight
+            val scaledWidth = drawableWidth * ratio * scaleFactor
+            val scaledHeight = drawableHeight * ratio * scaleFactor
+            Size(scaledWidth.toInt(), scaledHeight.toInt())
+        } ?: Size(0, 0)
     }
 
     override fun draw(canvas: Canvas, text: CharSequence, start: Int, end: Int, x: Float, top: Int, y: Int, bottom: Int, paint: Paint) {
         imageDrawable?.let { drawable ->
             canvas.withSave {
-                // Start with a width relative to the text size
-                var emojiWidth = paint.textSize * 1.1
-
-                // Calculate the height, keeping the aspect ratio correct
-                val drawableWidth = drawable.intrinsicWidth
-                val drawableHeight = drawable.intrinsicHeight
-                var emojiHeight = emojiWidth / drawableWidth * drawableHeight
-
-                // How much vertical space there is draw the emoji
-                val drawableSpace = (bottom - top).toDouble()
-
-                // Un case the calculated height is bigger than the available space,
-                // scale the emoji down, preserving aspect ratio
-                if (emojiHeight > drawableSpace) {
-                    emojiWidth *= drawableSpace / emojiHeight
-                    emojiHeight = drawableSpace
-                }
-                emojiHeight *= scaleFactor
-                emojiWidth *= scaleFactor
-
-                drawable.setBounds(0, 0, emojiWidth.toInt(), emojiHeight.toInt())
+                val size = getScaledSize(paint)
+                drawable.setBounds(0, 0, size.width, size.height)
 
                 // Vertically center the emoji in the line
-                val transY = top + (drawableSpace / 2 - emojiHeight / 2)
+                val drawableSpace = (bottom - top).toDouble()
+                val transY = top + (drawableSpace / 2 - size.height / 2)
 
                 translate(x, transY.toFloat())
                 drawable.draw(this)
@@ -163,7 +163,7 @@ class EmojiSpan(view: View) : ReplacementSpan() {
     }
 
     fun createGlideTarget(view: View, animate: Boolean): Target<Drawable> {
-        return object : CustomTarget<Drawable>(emojiSize, emojiSize) {
+        return object : CustomTarget<Drawable>(emojiSize.width, emojiSize.height) {
             override fun onStart() {
                 (imageDrawable as? Animatable)?.start()
             }
