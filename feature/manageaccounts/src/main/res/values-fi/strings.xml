@@ -1,3 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="title_manage_accounts">Hallinnoi tilejä</string>
+    <string name="label_active_account">Aktiivinen tili</string>
+    <string name="action_switch_account">Vaihda</string>
+    <string name="pachli_account_content_description_fmt">%1$s, aktiivinen tili</string>
+    <string name="action_logout_account_fmt">Kirjaudu ulos tililtä %1$s</string>
+    <string name="action_switch_account_fmt">Vaihda tiliin %1$s</string>
 </resources>
