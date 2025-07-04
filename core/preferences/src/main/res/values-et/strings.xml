@@ -19,4 +19,14 @@
     <string name="pref_show_self_username_always">Alati</string>
     <string name="pref_show_self_username_disambiguate">Kui mitu kasutajakontot on sisse logitud</string>
     <string name="pref_show_self_username_never">Mitte kunagi</string>
+    <string name="pref_title_tab_contents">Põhiliste vahekaartide sisu</string>
+    <string name="pref_tab_contents_icon_only">Vaid ikoon</string>
+    <string name="pref_tab_contents_text_only">Vaid tekst</string>
+    <string name="pref_tab_contents_icon_text_inline">Tekst ikooni kõrval</string>
+    <string name="pref_tab_contents_icon_text_below">Tekst ikooni all</string>
+    <string name="pref_update_notification_frequency_never">Mitte kunagi</string>
+    <string name="pref_update_notification_frequency_once_per_version">Üks kord versiooni kohta</string>
+    <string name="pref_update_notification_frequency_always">Alati</string>
+    <string name="pref_title_export_settings">Eksportimise seadistused</string>
+    <string name="pref_summary_export_settings">Klõpsi ja salvesta rakenduse ning kasutajakonto seadistused kohalikus seadmes asuvasse faili</string>
 </resources>
