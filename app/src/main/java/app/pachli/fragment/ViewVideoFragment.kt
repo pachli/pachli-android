@@ -25,13 +25,10 @@ import android.os.Build
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.view.GestureDetector
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.LinearLayout
 import androidx.annotation.OptIn
 import androidx.core.view.ViewCompat
 import androidx.lifecycle.lifecycleScope
@@ -105,17 +102,7 @@ class ViewVideoFragment : ViewMediaFragment() {
     @SuppressLint("PrivateResource", "MissingInflatedId")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         toolbar = mediaActivity.toolbar
-        val rootView = inflater.inflate(R.layout.fragment_view_video, container, false)
-
-        // Move the controls to the bottom of the screen, with enough bottom margin to clear the seekbar
-        val controls = rootView.findViewById<LinearLayout>(androidx.media3.ui.R.id.exo_center_controls)
-        val layoutParams = controls.layoutParams as FrameLayout.LayoutParams
-        layoutParams.gravity = Gravity.CENTER_HORIZONTAL or Gravity.BOTTOM
-        layoutParams.bottomMargin = rootView.context.resources.getDimension(androidx.media3.ui.R.dimen.exo_styled_bottom_bar_height)
-            .toInt()
-        controls.layoutParams = layoutParams
-
-        return rootView
+        return inflater.inflate(R.layout.fragment_view_video, container, false)
     }
 
     @SuppressLint("ClickableViewAccessibility")
