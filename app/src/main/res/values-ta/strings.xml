@@ -696,8 +696,8 @@
     <string name="dialog_delete_post_warning">இந்த இடுகையை நீக்கவா?</string>
     <string name="dialog_block_warning">தொகுதி @%s?</string>
     <plurals name="notification_severed_relationships_summary_following_fmt">
-        <item quantity="one">%1$s account you follow removed.</item>
-        <item quantity="other">%1$s accounts you follow removed.</item>
+        <item quantity="one">நீங்கள் பின்பற்றிய %1$s கணக்கு அகற்றப்பட்டது.</item>
+        <item quantity="other">நீங்கள் பின்பற்றிய %1$s கணக்குகள் அகற்றப்பட்டன.</item>
     </plurals>
     <string name="ui_success_accepted_follow_request">ஏற்றுக்கொள்ளப்பட்ட கோரிக்கையைப் பின்தொடரவும்</string>
     <string name="hint_filter_title">எனது வடிகட்டி</string>
@@ -772,7 +772,7 @@
     </plurals>
     <plurals name="followed_hashtags_accounts_count_fmt">
         <item quantity="one">%1$d கணக்கு</item>
-        <item quantity="other">%1$d accounts</item>
+        <item quantity="other">%1$d கணக்குகள்</item>
     </plurals>
     <plurals name="followed_hashtags_days_count_fmt">
         <item quantity="one">%1$d நாள்</item>
@@ -780,7 +780,7 @@
     </plurals>
     <string name="followed_hashtags_summary_fmt">%2$s இலிருந்து %1$s (கடைசி %3$s)</string>
     <string name="notification_severed_relationships_domain_block_fmt">%1$s இன் நிர்வாகி <b> %2$s </b></string>
-    <string name="notification_severed_relationships_user_domain_block_fmt">You blocked <b>%1$s</b></string>
+    <string name="notification_severed_relationships_user_domain_block_fmt"><b>%1$s</b>ஐ நீங்கள் தடுத்தீர்கள்</string>
     <string name="notification_severed_relationships_account_suspension_fmt">%1$s இன் நிர்வாகி <b> %2$s </b></string>
     <string name="notification_severed_relationships_unknown_fmt"><b>%1$s </b> தடுக்கப்பட்டுள்ளது (அறியப்படாத காரணம்)</string>
     <string name="action_send_public_content_description">பொது பதவியை அனுப்பவும்</string>
