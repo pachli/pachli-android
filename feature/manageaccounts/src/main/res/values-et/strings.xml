@@ -1,3 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="title_manage_accounts">Kasutajakontode haldus</string>
+    <string name="label_active_account">Aktiivne kasutajakonto</string>
+    <string name="action_switch_account">Vaheta</string>
+    <string name="pachli_account_content_description_fmt">%1$s, aktiivne kasutajakonto</string>
+    <string name="action_logout_account_fmt">Logi %1$s kontolt välja</string>
+    <string name="action_switch_account_fmt">Vaheta %1$s kontole</string>
 </resources>
