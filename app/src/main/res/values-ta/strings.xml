@@ -108,14 +108,14 @@
     <string name="pref_title_notification_alert_vibrate">அதிர்வுடன் தெரிவிக்கவும்</string>
     <string name="pref_title_notification_alert_light">ஒளியுடன் தெரிவிக்கவும்</string>
     <string name="pref_title_notification_filters">எனக்கு தெரிவி எப்போதெனில்</string>
-    <string name="pref_title_notification_filter_mentions">என்னை குறிபிடும்போது</string>
-    <string name="pref_title_notification_filter_follows">என்னை பின்பற்றினால்</string>
-    <string name="pref_title_notification_filter_reblogs">என் பதிவுகள் அதிகரிக்கப்பட்டால்</string>
-    <string name="pref_title_notification_filter_favourites">என் பதிவுகள் பிடித்தவையானால்</string>
+    <string name="pref_title_notification_filter_mentions">குறிப்பிடப்பட்டுள்ளது</string>
+    <string name="pref_title_notification_filter_follows">தொடர்ந்து</string>
+    <string name="pref_title_notification_filter_reblogs">எனது பதிவுகள் உயர்த்தப்பட்டுள்ளன</string>
+    <string name="pref_title_notification_filter_favourites">எனது பதிவுகள் பிடித்தவை</string>
     <string name="pref_title_appearance_settings">தோற்றம்</string>
     <string name="pref_title_app_theme">செயலியின் தீம்</string>
     <string name="pref_title_browser_settings">உலாவி</string>
-    <string name="pref_title_custom_tabs">Chrome தனிப்பயன் கீற்றை பயன்படுத்து</string>
+    <string name="pref_title_custom_tabs">தனிப்பயன் தாவல்களில் இணைப்புகளைத் திறக்கவும்</string>
     <string name="pref_title_hide_follow_button">உருளலின் போது எழுது பொத்தானை மறை</string>
     <string name="pref_title_post_filter">காலவரிசை வடிகட்டல்</string>
     <string name="pref_title_post_tabs">கீற்றுகள்</string>
@@ -175,7 +175,7 @@
     <string name="follows_you">நீங்கள் பின் தொடரபடுகிறீர்கள்</string>
     <string name="pref_title_alway_show_sensitive_media">எல்லா nsfw(உணர்ச்சிகரமான) உள்ளடக்கத்தையும் எப்போதும் காண்பி</string>
     <string name="title_media">ஊடகம்</string>
-    <string name="add_account_description">புதிய Mastodon கணக்கைச் சேர்க்க</string>
+    <string name="add_account_description">புதிய மாச்டோடன் கணக்கைச் சேர்க்கவும்</string>
     <string name="compose_active_account_description">%1$s கணக்குடன் பதிவிட</string>
     <string name="action_remove">நீக்கு</string>
     <string name="lock_account_label">கணக்கை முடக்கு</string>
@@ -246,7 +246,7 @@
     <string name="notification_sign_up_name">பதிவுபெறும்</string>
     <string name="notification_report_description">மிதமான அறிக்கைகள் பற்றிய அறிவிப்புகள்</string>
     <string name="notification_prune_cache">கேச் பராமரிப்பு…</string>
-    <string name="pref_title_thread_filter_keywords">நூல்கள்</string>
+    <string name="pref_title_thread_filter_keywords">உரையாடல்கள்</string>
     <string name="pref_title_account_filter_keywords">சுயவிவரங்கள்</string>
     <string name="filter_dialog_update_button">புதுப்பிப்பு</string>
     <string name="title_favourited_by">விரும்பியவர்</string>
@@ -319,6 +319,7 @@
     <string name="notification_update_format">%s தங்கள் இடுகையைத் திருத்தியுள்ளன</string>
     <string name="notification_header_report_format">%s %s</string>
     <plurals name="notification_summary_report_format">
+        <item quantity="one">%1$s · %2$d இடுகை இணைக்கப்பட்டுள்ளது</item>
         <item quantity="other">%1$s · %2$d பதிவுகள் இணைக்கப்பட்டுள்ளன</item>
     </plurals>
     <string name="action_post_failed_detail_plural">உங்கள் பதிவுகள் பதிவேற்றத் தவறிவிட்டன, மேலும் அவை வரைவுகளுக்கு சேமிக்கப்பட்டுள்ளன.\n\n சேவையகத்தைத் தொடர்பு கொள்ள முடியவில்லை, அல்லது அது இடுகைகளை நிராகரித்தது.</string>
@@ -392,7 +393,7 @@
     <string name="search_operator_where_dialog_all_hint">உங்கள் நூலகம் மற்றும் பொது இடுகைகளில் இடுகைகள்</string>
     <string name="search_operator_where_dialog_library">உங்கள் நூலகம்</string>
     <string name="search_operator_where_dialog_library_hint">உங்கள் சொந்த இடுகைகள், ஊக்கங்கள், பிடித்தவை, புக்மார்க்குகள் மற்றும் இடுகைகள்</string>
-    <string name="upload_failed_msg_fmt">நீங்கள் இடுகையை அனுப்பும்போது பதிவேற்றம் மீண்டும் செய்யப்படும். அது மீண்டும் தோல்வியுற்றால், உங்கள் வரைவுகளில் இடுகை சேமிக்கப்படும்.\n\n பிழை: %1$s</string>
+    <string name="upload_failed_msg_fmt">பதிவேற்றும் இணைப்பு தோல்வியடைந்தது. நீங்கள் இடுகையை அனுப்பும்போது பதிவேற்றம் மீண்டும் செய்யப்படும். அது மீண்டும் தோல்வியுற்றால், உங்கள் வரைவுகளில் இடுகை சேமிக்கப்படும். \n\nபிழை: %1$s</string>
     <string name="pref_account_notification_filters_label_limited_by_server">… உங்கள் மதிப்பீட்டாளர்களால் வரையறுக்கப்பட்டுள்ளது</string>
     <string name="account_filter_placeholder_type_favourite_fmt">ஒரு பயனர் @<b>%1s </b> உங்கள் இடுகைக்கு பிடித்தது</string>
     <string name="account_filter_placeholder_label_domain">ஒரு பயனரிடமிருந்து @<b>%1s </b></string>
@@ -601,8 +602,8 @@
     <string name="search_operator_from_dialog_ignore_me">என்னுடையது தவிர அனைத்து இடுகைகளும்</string>
     <string name="search_operator_replies_dialog_no_replies">பதில்கள் இல்லாமல்</string>
     <plurals name="notification_severed_relationships_summary_followers_fmt">
-        <item quantity="one">%1$s பின்தொடர்பவர் அகற்றப்பட்டார்</item>
-        <item quantity="other">%1$s பின்தொடர்பவர்கள் அகற்றப்பட்டனர்</item>
+        <item quantity="one">%1$s பின்தொடர்பவர் அகற்றப்பட்டார்.</item>
+        <item quantity="other">%1$s பின்தொடர்பவர்கள் அகற்றப்பட்டனர்.</item>
     </plurals>
     <string name="action_filter_search">தேடலை வடிகட்டவும்</string>
     <string name="action_translate">மொழிபெயர்த்திடு</string>
@@ -695,8 +696,8 @@
     <string name="dialog_delete_post_warning">இந்த இடுகையை நீக்கவா?</string>
     <string name="dialog_block_warning">தொகுதி @%s?</string>
     <plurals name="notification_severed_relationships_summary_following_fmt">
-        <item quantity="one">நீங்கள் பின்பற்றிய %1$s கணக்கு அகற்றப்பட்டது</item>
-        <item quantity="other">நீங்கள் பின்பற்றிய %1$s கணக்குகள் அகற்றப்பட்டன</item>
+        <item quantity="one">%1$s account you follow removed.</item>
+        <item quantity="other">%1$s accounts you follow removed.</item>
     </plurals>
     <string name="ui_success_accepted_follow_request">ஏற்றுக்கொள்ளப்பட்ட கோரிக்கையைப் பின்தொடரவும்</string>
     <string name="hint_filter_title">எனது வடிகட்டி</string>
@@ -765,4 +766,46 @@
     <string name="filter_description_warn">ஒரு எச்சரிக்கையுடன் மறைக்கவும்</string>
     <string name="filter_keyword_display_format">%s (முழு சொல்)</string>
     <string name="help_empty_home">இது உங்கள் <b> வீட்டு காலவரிசை </b>. நீங்கள் பின்பற்றும் கணக்குகளின் அண்மைக் கால இடுகைகளை இது காட்டுகிறது.\n\n கணக்குகளை ஆராய நீங்கள் மற்ற காலக்கெடுவில் ஒன்றைக் கண்டறியலாம். எடுத்துக்காட்டாக, உங்கள் நிகழ்வின் உள்ளக காலவரிசை [ஐகானிக்ச் GMD_GROUP]. அல்லது நீங்கள் அவற்றை பெயரால் தேடலாம் [ஐகானிக்ச் gmd_search]; எடுத்துக்காட்டாக, எங்கள் மாச்டோடன் கணக்கைக் கண்டுபிடிக்க பச்லியைத் தேடுங்கள்.</string>
+    <plurals name="followed_hashtags_posts_count_fmt">
+        <item quantity="one">%1$d post</item>
+        <item quantity="other">%1$d posts</item>
+    </plurals>
+    <plurals name="followed_hashtags_accounts_count_fmt">
+        <item quantity="one">%1$d கணக்கு</item>
+        <item quantity="other">%1$d accounts</item>
+    </plurals>
+    <plurals name="followed_hashtags_days_count_fmt">
+        <item quantity="one">%1$d நாள்</item>
+        <item quantity="other">%1$d நாட்கள்</item>
+    </plurals>
+    <string name="followed_hashtags_summary_fmt">%2$s இலிருந்து %1$s (கடைசி %3$s)</string>
+    <string name="notification_severed_relationships_domain_block_fmt">%1$s இன் நிர்வாகி <b> %2$s </b></string>
+    <string name="notification_severed_relationships_user_domain_block_fmt">You blocked <b>%1$s</b></string>
+    <string name="notification_severed_relationships_account_suspension_fmt">%1$s இன் நிர்வாகி <b> %2$s </b></string>
+    <string name="notification_severed_relationships_unknown_fmt"><b>%1$s </b> தடுக்கப்பட்டுள்ளது (அறியப்படாத காரணம்)</string>
+    <string name="action_send_public_content_description">பொது பதவியை அனுப்பவும்</string>
+    <string name="action_send_unlisted_content_description">பட்டியலிடப்படாத இடுகையை அனுப்பவும்</string>
+    <string name="action_send_private_content_description">பின்தொடர்பவர்களுக்கு மட்டுமே இடுகையை அனுப்பவும்</string>
+    <string name="action_send_direct_content_description">நேரடி செய்தியை அனுப்பவும்</string>
+    <string name="action_refresh_account">கணக்கைப் புதுப்பிக்கவும்</string>
+    <string name="hint_search_emojis">ஈமோசிகளைத் தேடுங்கள்…</string>
+    <string name="pref_title_notification_filter_severed_relationships">பின்தொடர்/பின்வரும் உறவு துண்டிக்கப்படுகிறது</string>
+    <string name="pref_custom_tabs_true">வேகமாக, பச்லியில் நீங்கள் விரும்பும் உலாவி</string>
+    <string name="pref_custom_tabs_false">மெதுவாக, உங்களுக்கு விருப்பமான உலாவியைப் பயன்படுத்துகிறது</string>
+    <string name="pref_title_public_filter_home_and_lists">வீடு மற்றும் பட்டியல்கள்</string>
+    <string name="manage_accounts_name">கணக்குகளை நிர்வகிக்கவும்</string>
+    <string name="label_emoji_no_category">வகை இல்லை</string>
+    <string name="title_report_category_fmt">வகை: %1$s</string>
+    <string name="title_report_comment">நிருபரிடமிருந்து கருத்து</string>
+    <string name="pref_title_account_conversation_filters">உரையாடல் வடிப்பான்கள்</string>
+    <string name="pref_summary_account_conversation_filters">உங்கள் சேவையகம் உரையாடல் வடிப்பான்களை ஆதரிக்காது</string>
+    <string name="pref_account_conversation_filters_subtitle">கணக்குகளால் தொடங்கப்பட்ட உரையாடல்களுக்கு என்ன நடக்க வேண்டும்…</string>
+    <string name="pref_account_conversation_filters_label_not_followed">… நீங்கள் பின்பற்றவில்லை</string>
+    <string name="pref_account_conversation_filters_label_younger_30d">… கடந்த 30 நாட்களில் உருவாக்கப்பட்டது</string>
+    <string name="pref_account_conversation_filters_label_limited_by_server">… உங்கள் மதிப்பீட்டாளர்களால் வரையறுக்கப்பட்டுள்ளது</string>
+    <string name="account_filter_placeholder_type_conversation">ஒரு பயனர் @<b>%1$s </b> உரையாடலைத் தொடங்கினார்</string>
+    <string name="ui_error_reload_reply_fmt">இடுகையை ஏற்ற முடியவில்லை: %1$s</string>
+    <string name="export_preferences_ok_fmt">விருப்பத்தேர்வுகள் %1$s க்கு ஏற்றுமதி செய்யப்படுகின்றன</string>
+    <string name="error_export_preferences_fmt">விருப்பங்களை %1$s க்கு ஏற்றுமதி செய்ய முடியவில்லை: %2$s</string>
+    <string name="error_import_preferences_fmt">%1$s இலிருந்து விருப்பங்களை இறக்குமதி செய்ய முடியவில்லை: %2$s</string>
 </resources>
