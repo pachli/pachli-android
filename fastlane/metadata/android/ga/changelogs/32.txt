@@ -1,0 +1,17 @@
+Pachli 2.14.0
+
+Gnéithe nua:
+
+- Athraigh suíomh an úsáideora i liostaí
+- Luasghéarú a dhéanamh ar athrú cuntais mura bhfuil aon scagairí cuntais ag an úsáideoir
+- Comhéadan úsáideora "Bainistíocht Chuntais" a sholáthar
+
+Socruithe:
+
+- Scrios fógraí taisceáilte agus fógraí freastalaí á scriosadh
+- Ná tuairteáil agus fógraí caidrimh scoilte á bhfáil
+- Ná tuairteáil agus lódálacha íomhánna á gcealú
+
+Aistriúcháin:
+
+- Sínis, Eastóinis, Fionlainnis, Indinéisis, Gaeilge, Iodáilis, Laitvis, Ioruais Nua-Niorsk, Polainnis, Rúisis, Slóvaicis, Tamailis
