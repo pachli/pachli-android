@@ -2,5 +2,6 @@
 <resources>
     <string name="performing_lookup_title">சேயல்பாட்டு தேடல்…</string>
     <string name="post_lookup_error_format">%s பார்க்கும் பிழை</string>
-    <string name="action_open_as">%s என திற</string>
+    <string name="action_open_as">%s எனத் திற</string>
+    <string name="send_error_report">பிழை அறிக்கையை அனுப்பவும்</string>
 </resources>
