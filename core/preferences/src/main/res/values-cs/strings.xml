@@ -29,4 +29,10 @@
     <string name="pref_tab_contents_icon_only">Jen ikony</string>
     <string name="pref_tab_contents_text_only">Jen text</string>
     <string name="pref_title_render_markdown">Render Markdown</string>
+    <string name="pref_update_notification_frequency_never">Nikdy</string>
+    <string name="pref_update_notification_frequency_always">Vždy</string>
+    <string name="pref_title_export_settings">Exportovat nastavení</string>
+    <string name="pref_title_import_settings">Importovat nastavení</string>
+    <string name="pref_default_audio_playback_option_unmuted">Zesílen.</string>
+    <string name="pref_default_audio_playback_option_muted">Ztlumeno</string>
 </resources>
