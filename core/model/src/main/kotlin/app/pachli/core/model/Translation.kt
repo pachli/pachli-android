@@ -17,7 +17,6 @@
 
 package app.pachli.core.model
 
-import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 /** https://docs.joinmastodon.org/entities/Translation/ */
@@ -30,14 +29,14 @@ data class Translation(
      * The language of the source text, as auto-detected by the machine translation
      * (ISO 639 language code)
      */
-    @Json(name = "detected_source_language") val detectedSourceLanguage: String,
+    val detectedSourceLanguage: String,
 
     // Not documented, see https://github.com/mastodon/documentation/issues/1248
     /**
      * The translated spoiler text of the status (text), if it exists, equivalent to
      * [Status.spoilerText]
      */
-    @Json(name = "spoiler_text") val spoilerText: String,
+    val spoilerText: String,
 
     // Not documented, see https://github.com/mastodon/documentation/issues/1248
     /** The translated poll (if it exists) */
@@ -48,7 +47,7 @@ data class Translation(
      * Translated descriptions for media attachments, if any were attached. Other metadata has
      * to be determined from the original attachment.
      */
-    @Json(name = "media_attachments") val attachments: List<TranslatedAttachment>,
+    val attachments: List<TranslatedAttachment>,
 
     /** The service that provided the machine translation */
     val provider: String,
