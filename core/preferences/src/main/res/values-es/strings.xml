@@ -36,4 +36,6 @@
     <string name="pref_title_export_settings">Exportar preferencias</string>
     <string name="pref_title_import_settings">Importar preferencias</string>
     <string name="pref_summary_import_settings">Toca para restaurar las preferencias desde un archivo creado usando \"Exportar preferencias\"</string>
+    <string name="pref_default_audio_playback_option_unmuted">Con voz.</string>
+    <string name="pref_default_audio_playback_option_muted">Silenciada</string>
 </resources>
