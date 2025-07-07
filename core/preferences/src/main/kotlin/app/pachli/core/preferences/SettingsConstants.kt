@@ -46,6 +46,7 @@ object PrefKeys {
     const val FONT_FAMILY = "fontFamily"
     const val STATUS_TEXT_SIZE = "statusTextSize"
     const val MAIN_NAV_POSITION = "mainNavPosition"
+    const val DEFAULT_AUDIO_PLAYBACK = "defaultAudioPlayback"
     const val HIDE_TOP_TOOLBAR = "hideTopToolbar"
     const val ABSOLUTE_TIME_VIEW = "absoluteTimeView"
     const val SHOW_BOT_OVERLAY = "showBotOverlay"

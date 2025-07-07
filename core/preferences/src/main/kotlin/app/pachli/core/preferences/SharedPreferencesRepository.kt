@@ -136,6 +136,10 @@ class SharedPreferencesRepository @Inject constructor(
     val mainNavigationPosition: MainNavigationPosition
         get() = getEnum(PrefKeys.MAIN_NAV_POSITION, MainNavigationPosition.TOP)
 
+    /** Default audio playback option. */
+    val defaultAudioPlayback: DefaultAudioPlayback
+        get() = getEnum(PrefKeys.DEFAULT_AUDIO_PLAYBACK, DefaultAudioPlayback.UNMUTED)
+
     /** True to parse content as Markdown. */
     val renderMarkdown: Boolean
         get() = getBoolean(PrefKeys.LAB_RENDER_MARKDOWN, false)
