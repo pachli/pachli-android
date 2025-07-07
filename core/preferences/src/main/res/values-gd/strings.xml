@@ -12,4 +12,9 @@
     <string name="pref_show_self_username_always">An-còmhnaidh</string>
     <string name="pref_show_self_username_disambiguate">Nuair a bhios iomadh cunntas air an clàradh a-steach</string>
     <string name="pref_show_self_username_never">Chan ann idir</string>
+    <string name="pref_update_notification_frequency_never">Chan ann idir</string>
+    <string name="pref_update_notification_frequency_always">An-còmhnaidh</string>
+    <string name="pref_title_export_settings">Às-phortaich na roghainnean</string>
+    <string name="pref_title_import_settings">Ion-phortaich na roghainnean</string>
+    <string name="pref_default_audio_playback_option_unmuted">Dì-mhùch</string>
 </resources>
