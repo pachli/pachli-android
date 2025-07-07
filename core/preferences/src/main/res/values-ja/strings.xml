@@ -31,4 +31,8 @@
     <string name="pref_update_notification_frequency_never">しない</string>
     <string name="pref_update_notification_frequency_once_per_version">バージョンにつき１回</string>
     <string name="pref_update_notification_frequency_always">常に</string>
+    <string name="pref_title_export_settings">設定のエクスポート</string>
+    <string name="pref_title_import_settings">設定のインポート</string>
+    <string name="pref_default_audio_playback_option_unmuted">発言禁止を解除しました。</string>
+    <string name="pref_default_audio_playback_option_muted">ミュート</string>
 </resources>
