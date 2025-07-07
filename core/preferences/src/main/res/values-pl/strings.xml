@@ -36,4 +36,6 @@
     <string name="pref_summary_import_settings">Stuknij, by odtworzyć ustawienia z pliku stworzonego przez „Eksport ustawień”</string>
     <string name="pref_summary_export_settings">Stuknij, by zapisać ustawienia aplikacji i kont do lokalnego pliku</string>
     <string name="pref_title_export_settings">Eksport ustawień</string>
+    <string name="pref_default_audio_playback_option_unmuted">Wyłączono wyciszenie mikrofonu.</string>
+    <string name="pref_default_audio_playback_option_muted">Wyciszony</string>
 </resources>
