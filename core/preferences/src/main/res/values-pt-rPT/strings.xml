@@ -29,4 +29,10 @@
     <string name="pref_tab_contents_icon_only">Apenas ícone</string>
     <string name="pref_tab_contents_text_only">Só texto</string>
     <string name="pref_title_render_markdown">Render Markdown</string>
+    <string name="pref_update_notification_frequency_never">Nunca</string>
+    <string name="pref_update_notification_frequency_always">Sempre</string>
+    <string name="pref_title_export_settings">Exportar configurações</string>
+    <string name="pref_title_import_settings">Importar Configurações</string>
+    <string name="pref_default_audio_playback_option_unmuted">Microfone reativado.</string>
+    <string name="pref_default_audio_playback_option_muted">Silenciado</string>
 </resources>
