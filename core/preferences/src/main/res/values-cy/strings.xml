@@ -13,4 +13,7 @@
     <string name="pref_show_self_username_disambiguate">Pan fydd cyfrifon lluosog wedi\'u mewngofnodi</string>
     <string name="pref_show_self_username_never">Byth</string>
     <string name="pref_tab_contents_icon_only">Eicon yn unig</string>
+    <string name="pref_update_notification_frequency_never">Byth</string>
+    <string name="pref_update_notification_frequency_always">Bob tro</string>
+    <string name="pref_default_audio_playback_option_unmuted">Dad-dewi</string>
 </resources>
