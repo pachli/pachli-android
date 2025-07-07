@@ -29,4 +29,8 @@
     <string name="pref_tab_alignment_start">पाठ दिशा शुरू</string>
     <string name="pref_tab_contents_icon_only">केवल आइकन</string>
     <string name="pref_title_render_markdown">रेंडर मार्कडाउन</string>
+    <string name="pref_update_notification_frequency_never">कभी नहीं</string>
+    <string name="pref_update_notification_frequency_always">हमेशा</string>
+    <string name="pref_default_audio_playback_option_unmuted">अनम्यूट</string>
+    <string name="pref_default_audio_playback_option_muted">मौन</string>
 </resources>
