@@ -19,8 +19,12 @@ package app.pachli.fragment
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.annotation.SuppressLint
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.drawable.Drawable
+import android.media.AudioManager.ACTION_AUDIO_BECOMING_NOISY
 import android.os.Build
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
@@ -55,6 +59,7 @@ import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.model.Attachment
 import app.pachli.databinding.FragmentViewVideoBinding
+import app.pachli.fragment.ViewVideoFragment.AudioBecomingNoisyReceiver.player
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomViewTarget
 import com.bumptech.glide.request.transition.Transition
@@ -111,6 +116,9 @@ class ViewVideoFragment : ViewMediaFragment() {
 
     /** Drawable for the "unmute" icon. */
     private val drawableUnmute by unsafeLazy { AppCompatResources.getDrawable(requireContext(), R.drawable.ic_unmute_24dp) }
+
+    /** Intent filter for [ACTION_AUDIO_BECOMING_NOISY]. */
+    private val noisyAudioIntentFilter = IntentFilter(ACTION_AUDIO_BECOMING_NOISY)
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -305,6 +313,9 @@ class ViewVideoFragment : ViewMediaFragment() {
     }
 
     private fun releasePlayer() {
+        requireActivity().unregisterReceiver(AudioBecomingNoisyReceiver)
+        AudioBecomingNoisyReceiver.player = null
+
         player?.let {
             savedSeekPosition = it.currentPosition
             if (it.isCommandAvailable(Player.COMMAND_RELEASE)) it.release()
@@ -355,6 +366,9 @@ class ViewVideoFragment : ViewMediaFragment() {
                 seekTo(savedSeekPosition)
                 if (this@ViewVideoFragment.audioPlaybackState is AudioPlaybackState.Muted) volume = 0f
                 prepare()
+
+                AudioBecomingNoisyReceiver.player = this
+                requireActivity().registerReceiver(AudioBecomingNoisyReceiver, noisyAudioIntentFilter)
                 player = this
             }
 
@@ -468,6 +482,19 @@ class ViewVideoFragment : ViewMediaFragment() {
                     contentDescription = getString(R.string.action_mute)
                 }
             }
+        }
+    }
+
+    /**
+     * Pauses player on receipt of [ACTION_AUDIO_BECOMING_NOISY].
+     *
+     * @property player Player to pause, may be null if player is not
+     * configured.
+     */
+    private object AudioBecomingNoisyReceiver : BroadcastReceiver() {
+        var player: Player? = null
+        override fun onReceive(context: Context, intent: Intent) {
+            if (intent.action == ACTION_AUDIO_BECOMING_NOISY) player?.pause()
         }
     }
 
