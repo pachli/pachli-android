@@ -446,7 +446,7 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOpti
                         isBot = status.account.bot,
                         displayName = status.account.name,
                         username = status.account.localUsername,
-                        emojis = status.emojis,
+                        emojis = status.emojis + status.account.emojis.orEmpty(),
                         contentWarning = status.spoilerText,
                         content = status.content.parseAsMastodonHtml().toString(),
                     )
