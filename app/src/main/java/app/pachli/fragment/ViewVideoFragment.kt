@@ -142,6 +142,7 @@ class ViewVideoFragment : ViewMediaFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.videoView.controllerShowTimeoutMs = CONTROLS_TIMEOUT.inWholeMilliseconds.toInt()
+        binding.videoView.setShowSubtitleButton(true)
 
         isAudio = attachment.type == Attachment.Type.AUDIO
 
