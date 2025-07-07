@@ -13,4 +13,10 @@
     <string name="pref_show_self_username_always">Luôn luôn</string>
     <string name="pref_show_self_username_disambiguate">Khi đăng nhập nhiều tài khoản</string>
     <string name="pref_show_self_username_never">Không hiện</string>
+    <string name="pref_update_notification_frequency_never">Không bao giờ</string>
+    <string name="pref_update_notification_frequency_always">Luôn luôn</string>
+    <string name="pref_title_export_settings">Xuất thiết lập</string>
+    <string name="pref_title_import_settings">Nhập thiết lập</string>
+    <string name="pref_default_audio_playback_option_unmuted">Bỏ ẩn</string>
+    <string name="pref_default_audio_playback_option_muted">Đã tắt tiếng</string>
 </resources>
