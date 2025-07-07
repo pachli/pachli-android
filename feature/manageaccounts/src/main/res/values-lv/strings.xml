@@ -1,3 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="title_manage_accounts">Pārvaldīt kontus</string>
+    <string name="label_active_account">Aktīvs konts</string>
+    <string name="action_switch_account">Pārslēgties</string>
+    <string name="pachli_account_content_description_fmt">%1$s, aktīvs konts</string>
+    <string name="action_logout_account_fmt">Atteikties no %1$s</string>
+    <string name="action_switch_account_fmt">Pārslēgties uz %1$s</string>
 </resources>
