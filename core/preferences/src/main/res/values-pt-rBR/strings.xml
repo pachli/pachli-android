@@ -32,4 +32,8 @@
     <string name="pref_update_notification_frequency_never">Nunca</string>
     <string name="pref_update_notification_frequency_once_per_version">Uma vez por versão</string>
     <string name="pref_update_notification_frequency_always">Sempre</string>
+    <string name="pref_title_export_settings">Configurações de especialistas</string>
+    <string name="pref_title_import_settings">Importe as configurações</string>
+    <string name="pref_default_audio_playback_option_unmuted">Dessilenciado.</string>
+    <string name="pref_default_audio_playback_option_muted">Mudo</string>
 </resources>
