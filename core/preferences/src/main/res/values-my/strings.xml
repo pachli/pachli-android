@@ -8,4 +8,7 @@
     <string name="pref_main_nav_position_option_top">အပေါ်ဘက်</string>
     <string name="pref_show_self_username_always">အမြဲတမ်း</string>
     <string name="pref_show_self_username_never">Never</string>
+    <string name="pref_update_notification_frequency_never">Never</string>
+    <string name="pref_update_notification_frequency_always">အမြဲတမ်း</string>
+    <string name="pref_default_audio_playback_option_unmuted">မကန့်သတ်တော့</string>
 </resources>
