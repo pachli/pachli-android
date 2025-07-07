@@ -36,4 +36,5 @@
     <string name="pref_summary_export_settings">Trykk for å lagre app- og kontoinnstillingar til ei fil</string>
     <string name="pref_summary_import_settings">Trykk for å gjenopprette innstillinger frå ei fil skapa av «Eksporter innstillingar»</string>
     <string name="pref_title_import_settings">Importer innstillingar</string>
+    <string name="pref_default_audio_playback_option_unmuted">Fjern demping</string>
 </resources>
