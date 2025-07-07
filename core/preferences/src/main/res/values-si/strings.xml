@@ -9,4 +9,8 @@
     <string name="pref_main_nav_position_option_bottom">පතුල</string>
     <string name="pref_show_self_username_always">සැමවිටම</string>
     <string name="pref_show_self_username_never">කිසිදා නැත</string>
+    <string name="pref_update_notification_frequency_never">කිසිදා නැත</string>
+    <string name="pref_update_notification_frequency_always">සැමවිට</string>
+    <string name="pref_default_audio_playback_option_unmuted">නිහඬ බව නැති කරන්න</string>
+    <string name="pref_default_audio_playback_option_muted">නිහඬ</string>
 </resources>
