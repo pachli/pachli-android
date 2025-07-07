@@ -32,4 +32,8 @@
     <string name="pref_update_notification_frequency_never">Aldri</string>
     <string name="pref_update_notification_frequency_once_per_version">Én gang om versjon</string>
     <string name="pref_update_notification_frequency_always">Alltid</string>
+    <string name="pref_title_export_settings">Eksporter innstillinger</string>
+    <string name="pref_title_import_settings">Importer innstillinger</string>
+    <string name="pref_default_audio_playback_option_unmuted">Stumhet opphevet.</string>
+    <string name="pref_default_audio_playback_option_muted">Forstummet</string>
 </resources>
