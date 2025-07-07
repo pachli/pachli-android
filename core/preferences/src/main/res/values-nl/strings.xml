@@ -30,4 +30,9 @@
     <string name="pref_update_notification_frequency_never">Nooit</string>
     <string name="pref_update_notification_frequency_once_per_version">Eenmaal per versie</string>
     <string name="pref_update_notification_frequency_always">Altijd</string>
+    <string name="pref_tab_alignment_justify_if_possible">Vertaling:</string>
+    <string name="pref_title_export_settings">Exporteer instellingen</string>
+    <string name="pref_title_import_settings">Importeer instellingen</string>
+    <string name="pref_default_audio_playback_option_unmuted">Dempen opgeheven.</string>
+    <string name="pref_default_audio_playback_option_muted">Gedempt</string>
 </resources>
