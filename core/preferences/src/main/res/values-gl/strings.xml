@@ -20,4 +20,8 @@
     <string name="pref_update_notification_frequency_never">Nunca</string>
     <string name="pref_update_notification_frequency_once_per_version">Unha vez por versión</string>
     <string name="pref_update_notification_frequency_always">Sempre</string>
+    <string name="pref_title_export_settings">Exportar axustes</string>
+    <string name="pref_title_import_settings">Importar axustes</string>
+    <string name="pref_default_audio_playback_option_unmuted">Desacalar</string>
+    <string name="pref_default_audio_playback_option_muted">Silenciado</string>
 </resources>
