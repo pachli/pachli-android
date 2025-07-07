@@ -98,7 +98,7 @@ import java.util.TimeZone
         TimelineStatusEntity::class,
         ConversationViewDataEntity::class,
     ],
-    version = 26,
+    version = 27,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
@@ -130,6 +130,7 @@ import java.util.TimeZone
         // Migrated from core.network.model to core.model types, some embedded
         // JSON needs to be removed or updated.
         AutoMigration(from = 25, to = 26, spec = AppDatabase.MIGRATE_25_26::class),
+        AutoMigration(from = 26, to = 27, spec = AppDatabase.MIGRATE_26_27::class),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -269,6 +270,20 @@ abstract class AppDatabase : RoomDatabase() {
             db.execSQL("DELETE FROM EmojisEntity")
             db.execSQL("DELETE FROM StatusEntity")
             db.execSQL("DELETE FROM TimelineAccountEntity")
+        }
+    }
+
+    /**
+     * Additional table updates.
+     *
+     * - InstanceInfoEntity references Emojis and is a cache.
+     * - The user's account info might have custom emojis, clear it, it will
+     *   be recreated on login.
+     */
+    class MIGRATE_26_27 : AutoMigrationSpec {
+        override fun onPostMigrate(db: SupportSQLiteDatabase) {
+            db.execSQL("DELETE FROM InstanceInfoEntity")
+            db.execSQL("UPDATE AccountEntity SET emojis = '[]'")
         }
     }
 }
