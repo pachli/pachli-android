@@ -815,4 +815,7 @@
     <string name="manage_accounts_name">Spravovať účty</string>
     <string name="notification_severed_relationships_user_domain_block_fmt">Zablokoval(a) si <b>%1$s</b></string>
     <string name="notification_severed_relationships_unknown_fmt"><b>%1$s</b> je zablokovaný (neznámy dôvod)</string>
+    <string name="hint_search_emojis">Hľadať emoji…</string>
+    <string name="pref_default_audio_playback">Predvolené prehrávanie zvuku</string>
+    <string name="label_emoji_no_category">Žiadna kategória</string>
 </resources>
