@@ -13,4 +13,10 @@
     <string name="pref_show_self_username_always">Beti</string>
     <string name="pref_show_self_username_never">Inoiz ez</string>
     <string name="pref_tab_contents_icon_only">Ikonoa bakarrik</string>
+    <string name="pref_update_notification_frequency_never">Inoiz ez du</string>
+    <string name="pref_update_notification_frequency_always">Beti</string>
+    <string name="pref_title_export_settings">Esportatu ezarpenak</string>
+    <string name="pref_title_import_settings">Inportatu ezarpenak</string>
+    <string name="pref_default_audio_playback_option_unmuted">Isiltasuna kendua.</string>
+    <string name="pref_default_audio_playback_option_muted">Isilduta</string>
 </resources>
