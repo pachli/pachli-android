@@ -1,0 +1,17 @@
+Pachli 2.14.0
+
+Jaunas iespējas:
+
+- atjauno lietotāja atrašanās vietu sarakstos;
+- paātrināta kontu pārlsēgšana, ja lietotājam nav kontu atlasītāji;
+- nodrošināta kontu pārvaldības saskarne.
+
+Labojumi:
+
+- kešoto paziņojumu izdzēšana, kad izdzēš servera paziņojumus;
+- novērsta avārija pēc pārtrauktu saikņu paziņojumu saņemšanas;
+- novērsta avārija pēc attēlu ielādēšanas atcelšanas.
+
+Tulkojumi:
+
+- ķīniešu, igauņu, somu, indonēziešu, īru, itāļu, latviešu, jaunnorvēģu, poļu, krievu, slovāku, tamilu.
