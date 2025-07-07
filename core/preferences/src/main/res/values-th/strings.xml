@@ -28,4 +28,10 @@
     <string name="pref_tab_contents_icon_text_below">ไอคอนที่มีข้อความด้านล่าง</string>
     <string name="pref_tab_contents_icon_only">ไอคอนเท่านั้น</string>
     <string name="pref_tab_contents_text_only">ข้อความเท่านั้น</string>
+    <string name="pref_update_notification_frequency_never">ไม่เคย</string>
+    <string name="pref_update_notification_frequency_always">เสมอ</string>
+    <string name="pref_title_export_settings">ส่งออกการตั้งค่าของแอป</string>
+    <string name="pref_title_import_settings">นำเข้าการตั้งค่า</string>
+    <string name="pref_default_audio_playback_option_unmuted">เปิดเสียง</string>
+    <string name="pref_default_audio_playback_option_muted">ปิดเสียงอยู่</string>
 </resources>
