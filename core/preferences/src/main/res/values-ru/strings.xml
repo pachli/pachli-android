@@ -28,4 +28,11 @@
     <string name="pref_tab_alignment_justify_if_possible">Расширение до полной ширины</string>
     <string name="pref_tab_contents_icon_only">Только значок</string>
     <string name="pref_tab_contents_text_only">Только текст</string>
+    <string name="pref_title_render_markdown">Отображает текст с разметкой markdown</string>
+    <string name="pref_update_notification_frequency_never">Никогда</string>
+    <string name="pref_update_notification_frequency_always">Всегда</string>
+    <string name="pref_title_export_settings">Экспорт настроек</string>
+    <string name="pref_title_import_settings">Импорт настроек</string>
+    <string name="pref_default_audio_playback_option_unmuted">Микрофон включен.</string>
+    <string name="pref_default_audio_playback_option_muted">Без звука</string>
 </resources>
