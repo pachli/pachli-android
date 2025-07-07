@@ -28,4 +28,10 @@
     <string name="tab_tap_behaviour_jump_to_next_page">Pereiti į sekantį puslapį</string>
     <string name="tab_tap_behaviour_jump_to_newest">Pereiti prie naujausio turinio</string>
     <string name="pref_show_self_username_disambiguate">Kai prisijungę kelios paskyros</string>
+    <string name="pref_update_notification_frequency_never">Niekada</string>
+    <string name="pref_update_notification_frequency_always">Visada</string>
+    <string name="pref_title_export_settings">Eksperto nustatymai</string>
+    <string name="pref_title_import_settings">Importuoti nustatymus</string>
+    <string name="pref_default_audio_playback_option_unmuted">Įjungti garsą</string>
+    <string name="pref_default_audio_playback_option_muted">Nutildyta</string>
 </resources>
