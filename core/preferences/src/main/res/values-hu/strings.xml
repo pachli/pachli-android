@@ -29,4 +29,10 @@
     <string name="pref_tab_contents_icon_only">Csak ikon</string>
     <string name="pref_tab_contents_text_only">Csak szöveg</string>
     <string name="pref_title_render_markdown">Render Markdown</string>
+    <string name="pref_update_notification_frequency_never">Soha</string>
+    <string name="pref_update_notification_frequency_always">Mindig</string>
+    <string name="pref_title_export_settings">Haladó beállítások</string>
+    <string name="pref_title_import_settings">Beállítások importálása</string>
+    <string name="pref_default_audio_playback_option_unmuted">Némítás visszavonva.</string>
+    <string name="pref_default_audio_playback_option_muted">Némítva</string>
 </resources>
