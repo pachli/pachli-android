@@ -11,4 +11,7 @@
     <string name="pref_main_nav_position_option_bottom">Ûnder</string>
     <string name="pref_show_self_username_always">Altyd</string>
     <string name="pref_show_self_username_never">Nea</string>
+    <string name="pref_update_notification_frequency_never">Nea</string>
+    <string name="pref_update_notification_frequency_always">Altyd</string>
+    <string name="pref_default_audio_playback_option_unmuted">Net mear negearre</string>
 </resources>
