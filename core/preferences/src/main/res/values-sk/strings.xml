@@ -36,4 +36,6 @@
     <string name="pref_summary_import_settings">Klepnutím obnovíš nastavenia zo súboru vytvoreného pomocou funkcie „Exportovať nastavenia“</string>
     <string name="pref_title_export_settings">Exportovať nastavenia</string>
     <string name="pref_title_import_settings">Importovať nastavenia</string>
+    <string name="pref_default_audio_playback_option_unmuted">Zrušiť stíšenie</string>
+    <string name="pref_default_audio_playback_option_muted">Vypnutý mikrofón</string>
 </resources>
