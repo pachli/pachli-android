@@ -29,12 +29,17 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import androidx.annotation.OptIn
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.ViewCompat
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.media3.common.MediaItem
 import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
+import androidx.media3.common.util.RepeatModeUtil
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.datasource.DefaultDataSource
 import androidx.media3.datasource.okhttp.OkHttpDataSource
@@ -42,10 +47,12 @@ import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
 import androidx.media3.exoplayer.util.EventLogger
 import androidx.media3.ui.PlayerView
+import app.pachli.AudioPlaybackState
 import app.pachli.BuildConfig
 import app.pachli.R
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
+import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.model.Attachment
 import app.pachli.databinding.FragmentViewVideoBinding
 import com.bumptech.glide.Glide
@@ -92,6 +99,19 @@ class ViewVideoFragment : ViewMediaFragment() {
     @Volatile
     private var startedTransition = false
 
+    /** The current [AudioPlaybackState]. */
+    private val audioPlaybackState: AudioPlaybackState
+        get() = viewModel.audioPlaybackState.value
+
+    /** Button to toggle the [audioPlaybackState] state.*/
+    private lateinit var toggleMuteButton: ImageButton
+
+    /** Drawable for the "mute" icon. */
+    private val drawableMute by unsafeLazy { AppCompatResources.getDrawable(requireContext(), R.drawable.ic_mute_24dp) }
+
+    /** Drawable for the "unmute" icon. */
+    private val drawableUnmute by unsafeLazy { AppCompatResources.getDrawable(requireContext(), R.drawable.ic_unmute_24dp) }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
@@ -102,7 +122,11 @@ class ViewVideoFragment : ViewMediaFragment() {
     @SuppressLint("PrivateResource", "MissingInflatedId")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         toolbar = mediaActivity.toolbar
-        return inflater.inflate(R.layout.fragment_view_video, container, false)
+        val layout = inflater.inflate(R.layout.fragment_view_video, container, false)
+
+        toggleMuteButton = layout.findViewById<ImageButton>(R.id.pachli_exo_mute_toggle)
+
+        return layout
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -112,6 +136,10 @@ class ViewVideoFragment : ViewMediaFragment() {
         binding.videoView.controllerShowTimeoutMs = CONTROLS_TIMEOUT.inWholeMilliseconds.toInt()
 
         isAudio = attachment.type == Attachment.Type.AUDIO
+
+        toggleMuteButton.setOnClickListener {
+            player?.let { viewModel.setAudioPlaybackState(audioPlaybackState.toggle(it.volume)) }
+        }
 
         /** Handle single taps, flings, and dragging */
         val touchListener = object : View.OnTouchListener {
@@ -206,6 +234,8 @@ class ViewVideoFragment : ViewMediaFragment() {
                             viewLifecycleOwner.lifecycleScope.launch {
                                 it.await()
                                 player?.play()
+                                binding.videoView.showController()
+                                binding.videoView.controllerAutoShow = true
                             }
                         }
                     }
@@ -235,6 +265,20 @@ class ViewVideoFragment : ViewMediaFragment() {
             }
         }
 
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    viewModel.audioPlaybackState.collect { playbackState ->
+                        when (playbackState) {
+                            is AudioPlaybackState.Muted -> player?.volume = 0f
+                            is AudioPlaybackState.Unmuted -> player?.volume = playbackState.volume
+                        }
+                        setToggleMuteButtonContent(toggleMuteButton, playbackState)
+                    }
+                }
+            }
+        }
+
         savedSeekPosition = savedInstanceState?.getLong(SEEK_POSITION) ?: 0
     }
 
@@ -248,6 +292,8 @@ class ViewVideoFragment : ViewMediaFragment() {
 
     override fun onResume() {
         super.onResume()
+
+        setToggleMuteButtonContent(toggleMuteButton, audioPlaybackState)
 
         if (Build.VERSION.SDK_INT <= 23 || player == null) {
             initializePlayer()
@@ -307,6 +353,7 @@ class ViewVideoFragment : ViewMediaFragment() {
                 // any transitions have completed.
                 playWhenReady = false
                 seekTo(savedSeekPosition)
+                if (this@ViewVideoFragment.audioPlaybackState is AudioPlaybackState.Muted) volume = 0f
                 prepare()
                 player = this
             }
@@ -400,7 +447,31 @@ class ViewVideoFragment : ViewMediaFragment() {
         return (player?.isPlaying == true) && !isAudio
     }
 
+    /**
+     * Sets the content ([drawable][ImageButton.drawable] and
+     * [contentDescription][ImageButton.contentDescription]) of [button]
+     * based on [currentAudioPlaybackState].
+     *
+     * Note: the icons show the button's **current state**, not the state
+     * to change to if the button is clicked.
+     */
+    private fun setToggleMuteButtonContent(button: ImageButton, currentAudioPlaybackState: AudioPlaybackState) {
+        with(button) {
+            when (currentAudioPlaybackState) {
+                is AudioPlaybackState.Muted -> {
+                    setImageDrawable(drawableMute)
+                    contentDescription = getString(R.string.action_unmute)
+                }
+
+                is AudioPlaybackState.Unmuted -> {
+                    setImageDrawable(drawableUnmute)
+                    contentDescription = getString(R.string.action_mute)
+                }
+            }
+        }
+    }
+
     companion object {
-        private const val SEEK_POSITION = "seekPosition"
+        private const val SEEK_POSITION = "app.pachli.KEY_SEEK_POSITION"
     }
 }

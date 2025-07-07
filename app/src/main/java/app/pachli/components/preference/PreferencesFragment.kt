@@ -53,6 +53,7 @@ import app.pachli.core.domain.notifications.NotificationConfig
 import app.pachli.core.domain.notifications.hasPushScope
 import app.pachli.core.domain.notifications.notificationMethod
 import app.pachli.core.preferences.AppTheme
+import app.pachli.core.preferences.DefaultAudioPlayback
 import app.pachli.core.preferences.DownloadLocation
 import app.pachli.core.preferences.MainNavigationPosition
 import app.pachli.core.preferences.PrefKeys
@@ -293,6 +294,12 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                     key = PrefKeys.CONFIRM_STATUS_LANGUAGE
                     setTitle(R.string.pref_title_confirm_status_language)
                     isSingleLineTitle = false
+                }
+
+                enumListPreference<DefaultAudioPlayback> {
+                    setDefaultValue(DefaultAudioPlayback.UNMUTED)
+                    setTitle(R.string.pref_default_audio_playback)
+                    key = PrefKeys.DEFAULT_AUDIO_PLAYBACK
                 }
             }
 

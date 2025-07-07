@@ -13,7 +13,29 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+<!--
+Copied from https://github.com/androidx/media/blob/8060342/libraries/ui/src/main/res/layout/exo_player_control_view.xml
+to make local changes.
+
+Local changes:
+
+- Add a button to toggle mute state.
+- Import resources (with a `pachli_` prefix) instead of using private media3
+  resources.
+
+See res/values/exoplayer_resources.xml for the copied resources (colors, dimensions).
+
+Some lint errors are ignored:
+
+- RequiredSize, the size is part of the style.
+- Some textviews are deliberately not selectable.
+- ContentDescription on ImageViews that have a content description in the style.
+-->
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="RequiredSize">
 
     <!-- 0dp dimensions are used to prevent this view from influencing the size of
          the parent view if it uses "wrap_content". It is expanded to occupy the
@@ -23,34 +45,36 @@
     <View android:id="@id/exo_controls_background"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/exo_black_opacity_60"/>
+        android:background="@color/pachli_exo_black_opacity_60" />
 
     <FrameLayout android:id="@id/exo_bottom_bar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/exo_styled_bottom_bar_height"
-        android:layout_marginTop="@dimen/exo_styled_bottom_bar_margin_top"
+        android:layout_height="@dimen/pachli_exo_styled_bottom_bar_height"
+        android:layout_marginTop="@dimen/pachli_exo_styled_bottom_bar_margin_top"
         android:layout_gravity="bottom"
-        android:background="@color/exo_bottom_bar_background"
+        android:background="@color/pachli_exo_bottom_bar_background"
         android:layoutDirection="ltr">
 
         <LinearLayout android:id="@id/exo_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/exo_styled_bottom_bar_time_padding"
-            android:paddingEnd="@dimen/exo_styled_bottom_bar_time_padding"
-            android:paddingLeft="@dimen/exo_styled_bottom_bar_time_padding"
-            android:paddingRight="@dimen/exo_styled_bottom_bar_time_padding"
+            android:paddingStart="@dimen/pachli_exo_styled_bottom_bar_time_padding"
+            android:paddingEnd="@dimen/pachli_exo_styled_bottom_bar_time_padding"
+            android:paddingLeft="@dimen/pachli_exo_styled_bottom_bar_time_padding"
+            android:paddingRight="@dimen/pachli_exo_styled_bottom_bar_time_padding"
             android:layout_gravity="center_vertical|start"
             android:layoutDirection="ltr">
 
             <TextView android:id="@id/exo_position"
-                style="@style/ExoStyledControls.TimeText.Position"/>
+                style="@style/ExoStyledControls.TimeText.Position"
+                android:textIsSelectable="false" />
 
             <TextView
                 style="@style/ExoStyledControls.TimeText.Separator"/>
 
             <TextView android:id="@id/exo_duration"
-                style="@style/ExoStyledControls.TimeText.Duration"/>
+                style="@style/ExoStyledControls.TimeText.Duration"
+                android:textIsSelectable="false" />
 
         </LinearLayout>
 
@@ -61,25 +85,39 @@
             android:layoutDirection="ltr">
 
             <ImageButton android:id="@id/exo_vr"
-                style="@style/ExoStyledControls.Button.Bottom.VR"/>
+                style="@style/ExoStyledControls.Button.Bottom.VR"
+                tools:ignore="ContentDescription" />
 
             <ImageButton android:id="@id/exo_shuffle"
-                style="@style/ExoStyledControls.Button.Bottom.Shuffle"/>
+                style="@style/ExoStyledControls.Button.Bottom.Shuffle"
+                tools:ignore="ContentDescription" />
 
             <ImageButton android:id="@id/exo_repeat_toggle"
-                style="@style/ExoStyledControls.Button.Bottom.RepeatToggle"/>
+                style="@style/ExoStyledControls.Button.Bottom.RepeatToggle"
+                tools:ignore="ContentDescription" />
 
             <ImageButton android:id="@id/exo_subtitle"
-                style="@style/ExoStyledControls.Button.Bottom.CC"/>
+                style="@style/ExoStyledControls.Button.Bottom.CC"
+                tools:ignore="ContentDescription" />
+
+            <ImageButton
+                android:id="@+id/pachli_exo_mute_toggle"
+                style="@style/ExoStyledControls.Button.Bottom"
+                android:src="@drawable/ic_mute_24dp"
+                android:contentDescription="@string/action_mute"
+                app:tint="@color/white" />
 
             <ImageButton android:id="@id/exo_settings"
-                style="@style/ExoStyledControls.Button.Bottom.Settings"/>
+                style="@style/ExoStyledControls.Button.Bottom.Settings"
+                tools:ignore="ContentDescription" />
 
             <ImageButton android:id="@id/exo_fullscreen"
-                style="@style/ExoStyledControls.Button.Bottom.FullScreen"/>
+                style="@style/ExoStyledControls.Button.Bottom.FullScreen"
+                tools:ignore="ContentDescription" />
 
             <ImageButton android:id="@id/exo_overflow_show"
-                style="@style/ExoStyledControls.Button.Bottom.OverflowShow"/>
+                style="@style/ExoStyledControls.Button.Bottom.OverflowShow"
+                tools:ignore="ContentDescription" />
 
         </LinearLayout>
 
@@ -95,7 +133,8 @@
                 android:layoutDirection="ltr">
 
                 <ImageButton android:id="@id/exo_overflow_hide"
-                    style="@style/ExoStyledControls.Button.Bottom.OverflowHide"/>
+                    style="@style/ExoStyledControls.Button.Bottom.OverflowHide"
+                    tools:ignore="ContentDescription" />
 
             </LinearLayout>
 
@@ -105,21 +144,22 @@
 
     <View android:id="@id/exo_progress_placeholder"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/exo_styled_progress_layout_height"
+        android:layout_height="@dimen/pachli_exo_styled_progress_layout_height"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="@dimen/exo_styled_progress_margin_bottom"/>
+        android:layout_marginBottom="@dimen/pachli_exo_styled_progress_margin_bottom" />
 
     <LinearLayout android:id="@id/exo_minimal_controls"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginBottom="@dimen/exo_styled_minimal_controls_margin_bottom"
+        android:layout_marginBottom="@dimen/pachli_exo_styled_minimal_controls_margin_bottom"
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:layoutDirection="ltr">
 
         <ImageButton android:id="@id/exo_minimal_fullscreen"
-            style="@style/ExoStyledControls.Button.Bottom.FullScreen"/>
+            style="@style/ExoStyledControls.Button.Bottom.FullScreen"
+            tools:ignore="ContentDescription" />
 
     </LinearLayout>
 
@@ -128,24 +168,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="@dimen/exo_styled_bottom_bar_height"
+        android:layout_marginBottom="@dimen/pachli_exo_styled_bottom_bar_height"
         android:background="@android:color/transparent"
-        android:padding="@dimen/exo_styled_controls_padding"
+        android:padding="@dimen/pachli_exo_styled_controls_padding"
         android:clipToPadding="false"
         android:layoutDirection="ltr">
 
         <ImageButton android:id="@id/exo_prev"
-            style="@style/ExoStyledControls.Button.Center.Previous"/>
+            style="@style/ExoStyledControls.Button.Center.Previous"
+            tools:ignore="ContentDescription" />
 
-        <include layout="@layout/exo_player_control_rewind_button" />
+        <include
+            layout="@layout/pachli_exo_player_control_rewind_button"
+            tools:ignore="ContentDescription" />
 
         <ImageButton android:id="@id/exo_play_pause"
-            style="@style/ExoStyledControls.Button.Center.PlayPause"/>
+            style="@style/ExoStyledControls.Button.Center.PlayPause"
+            tools:ignore="ContentDescription" />
 
-        <include layout="@layout/exo_player_control_ffwd_button" />
+        <include layout="@layout/pachli_exo_player_control_ffwd_button" />
 
         <ImageButton android:id="@id/exo_next"
-            style="@style/ExoStyledControls.Button.Center.Next"/>
+            style="@style/ExoStyledControls.Button.Center.Next"
+            tools:ignore="ContentDescription" />
 
     </LinearLayout>
 

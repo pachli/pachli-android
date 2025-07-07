@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright 2025 Pachli Association
+  ~
+  ~ This file is a part of Pachli.
+  ~
+  ~ This program is free software; you can redistribute it and/or modify it under the terms of the
+  ~ GNU General Public License as published by the Free Software Foundation; either version 3 of the
+  ~ License, or (at your option) any later version.
+  ~
+  ~ Pachli is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+  ~ the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+  ~ Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License along with Pachli; if not,
+  ~ see <http://www.gnu.org/licenses>.
+  -->
+
+<!--
+Resources used by layout/pachli_exo_player_control_view.xml. The layout was
+copied into Pachli and modified. The original layout uses resources marked
+private. These are copies of those resources with a `pachli_` prefix.
+
+This file contains all resources for that file, instead of one file per
+resource type.
+-->
+<resources>
+    <color name="pachli_exo_black_opacity_60">#98000000</color>
+    <color name="pachli_exo_bottom_bar_background">#b0000000</color>
+
+    <dimen name="pachli_exo_styled_progress_layout_height">48dp</dimen>
+    <dimen name="pachli_exo_styled_progress_margin_bottom">52dp</dimen>
+    <dimen name="pachli_exo_styled_bottom_bar_height">60dp</dimen>
+    <dimen name="pachli_exo_styled_bottom_bar_time_padding">10dp</dimen>
+    <dimen name="pachli_exo_styled_bottom_bar_margin_top">10dp</dimen>
+    <dimen name="pachli_exo_styled_controls_padding">0dp</dimen>
+    <dimen name="pachli_exo_styled_minimal_controls_margin_bottom">4dp</dimen>
+</resources>
