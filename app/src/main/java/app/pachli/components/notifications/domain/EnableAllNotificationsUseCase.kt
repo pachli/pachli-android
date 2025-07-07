@@ -26,13 +26,17 @@ import app.pachli.core.domain.notifications.DisablePushNotificationsForAccountUs
 import app.pachli.core.domain.notifications.NotificationConfig
 import app.pachli.core.domain.notifications.hasPushScope
 import app.pachli.core.preferences.SharedPreferencesRepository
-import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.android.qualifiers.ActivityContext
+import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
 import org.unifiedpush.android.connector.UnifiedPush
 import timber.log.Timber
 
+// The context is used to launch dialogs (see chooseUnifiedPushDistributor) so should
+// be a context with an activity so the correct resources are found.
+@ActivityScoped
 class EnableAllNotificationsUseCase @Inject constructor(
-    @ApplicationContext private val context: Context,
+    @ActivityContext private val context: Context,
     private val accountManager: AccountManager,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
     private val disablePushNotificationsForAccount: DisablePushNotificationsForAccountUseCase,
