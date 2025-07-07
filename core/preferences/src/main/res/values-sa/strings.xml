@@ -13,4 +13,7 @@
     <string name="pref_show_self_username_always">सर्वदा</string>
     <string name="pref_show_self_username_never">न कदापि</string>
     <string name="pref_tab_contents_icon_only">प्रतीकः एव</string>
+    <string name="pref_update_notification_frequency_never">कदापि न</string>
+    <string name="pref_update_notification_frequency_always">सर्वदा</string>
+    <string name="pref_default_audio_playback_option_unmuted">सशब्दम्</string>
 </resources>
