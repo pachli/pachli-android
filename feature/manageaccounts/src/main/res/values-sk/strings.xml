@@ -1,3 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="title_manage_accounts">Spravovať účty</string>
+    <string name="label_active_account">Aktívny účet</string>
+    <string name="action_switch_account">Prepnúť</string>
+    <string name="pachli_account_content_description_fmt">%1$s, aktívny účet</string>
+    <string name="action_logout_account_fmt">Odhlásiť %1$s</string>
+    <string name="action_switch_account_fmt">Prepnúť na %1$s</string>
 </resources>
