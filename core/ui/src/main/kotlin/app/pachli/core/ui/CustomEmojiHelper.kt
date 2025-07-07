@@ -101,13 +101,14 @@ fun View.setEmojiTargets(targets: List<Target<Drawable>>) {
 }
 
 class EmojiSpan(view: View) : ReplacementSpan() {
+    private val defaultDimen = view.context.resources.getDimension(R.dimen.fallback_emoji_size).toInt()
+
     private val emojiSize = if (view is TextView) {
         getScaledSize(view.paint)
     } else {
         // sometimes it is not possible to determine the TextView the emoji will be shown in,
         // e.g. because it is passed to a library, so we fallback to a size that should be large
         // enough in most cases
-        val defaultDimen = view.context.resources.getDimension(R.dimen.fallback_emoji_size).toInt()
         Size(defaultDimen, defaultDimen)
     }
 
@@ -143,7 +144,7 @@ class EmojiSpan(view: View) : ReplacementSpan() {
             val scaledWidth = drawableWidth * ratio * scaleFactor
             val scaledHeight = drawableHeight * ratio * scaleFactor
             Size(scaledWidth.toInt(), scaledHeight.toInt())
-        } ?: Size(0, 0)
+        } ?: Size(defaultDimen, defaultDimen)
     }
 
     override fun draw(canvas: Canvas, text: CharSequence, start: Int, end: Int, x: Float, top: Int, y: Int, bottom: Int, paint: Paint) {
