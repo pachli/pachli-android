@@ -29,4 +29,10 @@
     <string name="pref_tab_alignment_end">Metin yönünün sonu</string>
     <string name="pref_title_tab_contents">Ana navigasyon sekmelerinin içeriği</string>
     <string name="pref_title_render_markdown">Render Markdown</string>
+    <string name="pref_update_notification_frequency_never">Asla</string>
+    <string name="pref_update_notification_frequency_always">Her zaman</string>
+    <string name="pref_title_export_settings">Ayarları dışa aktar</string>
+    <string name="pref_title_import_settings">Ayarları içe aktar</string>
+    <string name="pref_default_audio_playback_option_unmuted">Susturulma kaldırıldı.</string>
+    <string name="pref_default_audio_playback_option_muted">Sessiz</string>
 </resources>
