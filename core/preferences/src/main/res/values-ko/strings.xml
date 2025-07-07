@@ -28,4 +28,10 @@
     <string name="pref_tab_contents_icon_text_below">아래 텍스트로 아이콘</string>
     <string name="pref_tab_contents_icon_only">아이콘만</string>
     <string name="pref_tab_contents_text_only">텍스트만</string>
+    <string name="pref_update_notification_frequency_never">절대</string>
+    <string name="pref_update_notification_frequency_always">항상</string>
+    <string name="pref_title_export_settings">전문가 설정</string>
+    <string name="pref_title_import_settings">설정 가져오기</string>
+    <string name="pref_default_audio_playback_option_unmuted">발언 금지를 해제했습니다.</string>
+    <string name="pref_default_audio_playback_option_muted">음소거</string>
 </resources>
