@@ -29,4 +29,7 @@
     <string name="pref_tab_contents_icon_text_inline">背 景</string>
     <string name="pref_tab_contents_icon_text_below">内容提要</string>
     <string name="pref_title_render_markdown">性别标记</string>
+    <string name="pref_update_notification_frequency_never">永远</string>
+    <string name="pref_update_notification_frequency_always">航道</string>
+    <string name="pref_default_audio_playback_option_unmuted">取消隐藏</string>
 </resources>
