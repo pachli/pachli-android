@@ -76,7 +76,7 @@ fun activeAccountNeedsPushScope(accountManager: AccountManager) = accountManager
  * Otherwise, show the user list of distributors and allows them to choose one. Returns
  * their choice, unless they cancelled the dialog, in which case return null.
  *
- * @param context
+ * @param context This must by an Activity context so it can be used to show a dialog.
  * @param usePreviousDistributor
  */
 suspend fun chooseUnifiedPushDistributor(context: Context, usePreviousDistributor: Boolean = true): String? {
