@@ -36,4 +36,6 @@
     <string name="pref_summary_export_settings">点击以将应用和帐户设置保存到本地文件</string>
     <string name="pref_title_import_settings">导入设置</string>
     <string name="pref_summary_import_settings">点击以从使用“导出设置”创建的文件中恢复设置</string>
+    <string name="pref_default_audio_playback_option_unmuted">开启麦克风。</string>
+    <string name="pref_default_audio_playback_option_muted">静音</string>
 </resources>
