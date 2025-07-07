@@ -17,7 +17,6 @@
 
 package app.pachli.core.model
 
-import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
@@ -25,13 +24,13 @@ data class Card(
     override val url: String,
     override val title: String,
     override val description: String,
-    @Json(name = "type") override val kind: PreviewCardKind,
+    override val kind: PreviewCardKind,
     // Missing from Pleroma, https://git.pleroma.social/pleroma/pleroma/-/issues/3238
-    @Json(name = "author_name") override val authorName: String = "",
+    override val authorName: String = "",
     // Missing from Pleroma, https://git.pleroma.social/pleroma/pleroma/-/issues/3238
-    @Json(name = "author_url") override val authorUrl: String = "",
-    @Json(name = "provider_name") override val providerName: String,
-    @Json(name = "provider_url") override val providerUrl: String,
+    override val authorUrl: String = "",
+    override val providerName: String,
+    override val providerUrl: String,
     // Missing from Friendica, https://github.com/friendica/friendica/issues/13887
     // Missing from Pleroma, https://git.pleroma.social/pleroma/pleroma/-/issues/3238
     override val html: String = "",
@@ -42,7 +41,7 @@ data class Card(
     override val image: String? = null,
     // Missing from Friendica, https://github.com/friendica/friendica/issues/13887
     // Missing from Pleroma, https://git.pleroma.social/pleroma/pleroma/-/issues/3238
-    @Json(name = "embed_url") override val embedUrl: String = "",
+    override val embedUrl: String = "",
     // Missing from Pleroma, https://git.pleroma.social/pleroma/pleroma/-/issues/3238
     override val blurhash: String? = null,
     override val authors: List<PreviewCardAuthor>? = null,

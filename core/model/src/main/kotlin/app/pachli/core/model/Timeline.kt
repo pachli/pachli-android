@@ -18,7 +18,6 @@
 package app.pachli.core.model
 
 import android.os.Parcelable
-import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import dev.zacsweers.moshix.sealed.annotations.NestedSealed
 import dev.zacsweers.moshix.sealed.annotations.TypeLabel
@@ -105,9 +104,7 @@ sealed class Timeline : Parcelable {
     @TypeLabel("list")
     @JsonClass(generateAdapter = true)
     data class UserList(
-        @Json(name = "listId")
         val listId: String,
-        @Json(name = "title")
         val title: String,
     ) : Timeline() {
         @IgnoredOnParcel

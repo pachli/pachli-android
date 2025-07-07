@@ -18,7 +18,6 @@
 package app.pachli.core.model
 
 import app.pachli.core.common.extensions.getOrElse
-import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import java.util.Date
 
@@ -122,9 +121,9 @@ data class Status(
         val id: String,
         val url: String,
         /** If this is remote then "[localUsername]@server", otherwise [localUsername]. */
-        @Json(name = "acct") val username: String,
+        val username: String,
         /** The username, without the server part or leading "@". */
-        @Json(name = "username") val localUsername: String,
+        val localUsername: String,
     )
 
     @JsonClass(generateAdapter = true)

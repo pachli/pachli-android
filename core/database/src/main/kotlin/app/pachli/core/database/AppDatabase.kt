@@ -98,7 +98,7 @@ import java.util.TimeZone
         TimelineStatusEntity::class,
         ConversationViewDataEntity::class,
     ],
-    version = 25,
+    version = 26,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
@@ -127,6 +127,9 @@ import java.util.TimeZone
         AutoMigration(from = 23, to = 24),
         // Added "isBot" to AccountEntity
         AutoMigration(from = 24, to = 25),
+        // Migrated from core.network.model to core.model types, some embedded
+        // JSON needs to be removed or updated.
+        AutoMigration(from = 25, to = 26, spec = AppDatabase.MIGRATE_25_26::class),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -250,6 +253,22 @@ abstract class AppDatabase : RoomDatabase() {
     class MIGRATE_19_20 : AutoMigrationSpec {
         override fun onPostMigrate(db: SupportSQLiteDatabase) {
             super.onPostMigrate(db)
+        }
+    }
+
+    /**
+     * Deletes content from tables that may have cached an obsolete JSON
+     * serialisation format, as part of the transition from core.network.model
+     * to core.model.
+     */
+    class MIGRATE_25_26 : AutoMigrationSpec {
+        override fun onPostMigrate(db: SupportSQLiteDatabase) {
+            db.execSQL("DELETE FROM AnnouncementEntity")
+            db.execSQL("DELETE FROM ContentFiltersEntity")
+            db.execSQL("DELETE FROM ConversationViewDataEntity")
+            db.execSQL("DELETE FROM EmojisEntity")
+            db.execSQL("DELETE FROM StatusEntity")
+            db.execSQL("DELETE FROM TimelineAccountEntity")
         }
     }
 }

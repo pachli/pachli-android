@@ -16,7 +16,6 @@
 
 package app.pachli.core.model
 
-import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import java.util.Date
 
@@ -24,11 +23,11 @@ import java.util.Date
 data class Announcement(
     val id: String,
     val content: String,
-    @Json(name = "starts_at") val startsAt: Date? = null,
-    @Json(name = "ends_at") val endsAt: Date? = null,
-    @Json(name = "all_day") val allDay: Boolean,
-    @Json(name = "published_at") val publishedAt: Date,
-    @Json(name = "updated_at") val updatedAt: Date,
+    val startsAt: Date? = null,
+    val endsAt: Date? = null,
+    val allDay: Boolean,
+    val publishedAt: Date,
+    val updatedAt: Date,
     val read: Boolean,
     val mentions: List<Status.Mention>,
     val statuses: List<AnnouncementStatus>,
@@ -55,7 +54,7 @@ data class Announcement(
         val count: Int,
         val me: Boolean,
         val url: String?,
-        @Json(name = "static_url") val staticUrl: String?,
+        val staticUrl: String?,
     )
 
     @JsonClass(generateAdapter = true)

@@ -18,7 +18,6 @@
 package app.pachli.core.model
 
 import app.pachli.core.common.util.unsafeLazy
-import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import java.time.Instant
 
@@ -30,17 +29,17 @@ import java.time.Instant
 data class TimelineAccount(
     val id: String,
     /** The username of the account, without the domain */
-    @Json(name = "username") val localUsername: String,
+    val localUsername: String,
 
     /**
      * The webfinger account URI. Equal to [localUsername] for local users, or
      * [localUsername]@domain for remote users.
      */
-    @Json(name = "acct") val username: String,
+    val username: String,
 
     // should never be null per Api definition, but some servers break the contract
     @Deprecated("prefer the `name` property, which is not-null and not-empty")
-    @Json(name = "display_name") val displayName: String?,
+    val displayName: String?,
     val url: String,
     val avatar: String,
     val note: String,
@@ -54,7 +53,7 @@ data class TimelineAccount(
      *
      * May not be the exact time, the server may clamp it e.g., to midnight.
      */
-    @Json(name = "created_at") val createdAt: Instant?,
+    val createdAt: Instant?,
 
     /**
      * If true, indicates that the account should be hidden behind a warning screen.

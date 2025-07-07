@@ -17,20 +17,15 @@
 
 package app.pachli.core.model
 
-import com.squareup.moshi.Json
-
 /** https://docs.joinmastodon.org/entities/List/#replies_policy */
 enum class UserListRepliesPolicy {
     /** Show replies to any followed user */
-    @Json(name = "followed")
     FOLLOWED,
 
     /** Show replies to members of the list */
-    @Json(name = "list")
     LIST,
 
     /** Show replies to no one */
-    @Json(name = "none")
     NONE,
 
     ;

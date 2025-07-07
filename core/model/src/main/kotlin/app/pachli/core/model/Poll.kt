@@ -17,23 +17,22 @@
 
 package app.pachli.core.model
 
-import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import java.util.Date
 
 @JsonClass(generateAdapter = true)
 data class Poll(
     val id: String,
-    @Json(name = "expires_at") val expiresAt: Date?,
+    val expiresAt: Date?,
     val expired: Boolean,
     val multiple: Boolean,
-    @Json(name = "votes_count") val votesCount: Int,
-    @Json(name = "voters_count") val votersCount: Int?,
+    val votesCount: Int,
+    val votersCount: Int?,
     val options: List<PollOption>,
     // Friendica can incorrectly return null for `voted`. Default to false.
     // https://github.com/friendica/friendica/issues/13922
     val voted: Boolean = false,
-    @Json(name = "own_votes") val ownVotes: List<Int>?,
+    val ownVotes: List<Int>?,
 ) {
 
     /**
@@ -71,5 +70,5 @@ data class Poll(
 @JsonClass(generateAdapter = true)
 data class PollOption(
     val title: String,
-    @Json(name = "votes_count") val votesCount: Int,
+    val votesCount: Int,
 )
