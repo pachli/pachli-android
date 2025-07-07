@@ -15,4 +15,10 @@
     <string name="pref_tab_contents_icon_only">Само икона</string>
     <string name="pref_tab_contents_text_only">Само текст</string>
     <string name="download_location_downloads">Папка за изтегляния</string>
+    <string name="pref_update_notification_frequency_never">Никога</string>
+    <string name="pref_update_notification_frequency_always">Винаги</string>
+    <string name="pref_title_export_settings">Изнасяне на настройки</string>
+    <string name="pref_title_import_settings">Внасяне на настройки</string>
+    <string name="pref_default_audio_playback_option_unmuted">Раззаглушаване</string>
+    <string name="pref_default_audio_playback_option_muted">Изключен микрофон</string>
 </resources>
