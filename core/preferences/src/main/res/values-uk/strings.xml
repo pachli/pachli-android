@@ -28,4 +28,11 @@
     <string name="pref_tab_contents_icon_text_below">Ікона з текстом нижче</string>
     <string name="pref_tab_contents_icon_only">Лише іконка</string>
     <string name="pref_tab_contents_text_only">Лише текст</string>
+    <string name="pref_title_render_markdown">Показ тексту з розміткою markdown</string>
+    <string name="pref_update_notification_frequency_never">Ніколи</string>
+    <string name="pref_update_notification_frequency_always">Завжди</string>
+    <string name="pref_title_export_settings">Експорт налаштувань</string>
+    <string name="pref_title_import_settings">Імпорт налаштувань</string>
+    <string name="pref_default_audio_playback_option_unmuted">Вимкнено звук.</string>
+    <string name="pref_default_audio_playback_option_muted">Без звуку</string>
 </resources>
