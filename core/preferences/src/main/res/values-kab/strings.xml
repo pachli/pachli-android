@@ -11,4 +11,9 @@
     <string name="pref_show_self_username_never">Werǧin</string>
     <string name="pref_show_self_username_always">Yalas</string>
     <string name="pref_update_notification_frequency_never">Werǧin</string>
+    <string name="pref_update_notification_frequency_always">Yal tikelt</string>
+    <string name="pref_title_export_settings">Sifeḍ iɣewwaṛen</string>
+    <string name="pref_title_import_settings">Iɣewwaṛen n uketer</string>
+    <string name="pref_default_audio_playback_option_unmuted">Ur sgugum ara</string>
+    <string name="pref_default_audio_playback_option_muted">Kkes imesli</string>
 </resources>
