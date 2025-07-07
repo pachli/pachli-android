@@ -13,4 +13,8 @@
     <string name="pref_show_self_username_always">Заўсёды</string>
     <string name="pref_show_self_username_disambiguate">Калі вы ўвайшлі ў некалькі ўліковых запісаў</string>
     <string name="pref_show_self_username_never">Ніколі</string>
+    <string name="pref_update_notification_frequency_never">Ніколі</string>
+    <string name="pref_update_notification_frequency_always">Заўсёды</string>
+    <string name="pref_default_audio_playback_option_unmuted">Ўключыць гук</string>
+    <string name="pref_default_audio_playback_option_muted">Без гуку</string>
 </resources>
