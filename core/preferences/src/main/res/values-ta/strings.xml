@@ -15,4 +15,8 @@
     <string name="pref_update_notification_frequency_never">ஒருபோதும்</string>
     <string name="pref_update_notification_frequency_once_per_version">ஒரு பதிப்பிற்கு ஒரு முறை</string>
     <string name="pref_update_notification_frequency_always">எப்போதும்</string>
+    <string name="pref_title_export_settings">ஏற்றுமதி அமைப்புகள்</string>
+    <string name="pref_title_import_settings">அமைப்புகளை இறக்குமதி செய்யுங்கள்</string>
+    <string name="pref_default_audio_playback_option_unmuted">ஒலிஇயக்கப்பட்டது.</string>
+    <string name="pref_default_audio_playback_option_muted">முடக்கிய</string>
 </resources>
