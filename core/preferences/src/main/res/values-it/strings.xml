@@ -32,4 +32,8 @@
     <string name="pref_update_notification_frequency_never">Mai</string>
     <string name="pref_update_notification_frequency_once_per_version">Una volta per versione</string>
     <string name="pref_update_notification_frequency_always">Sempre</string>
+    <string name="pref_title_export_settings">Esporta impostazioni</string>
+    <string name="pref_title_import_settings">Importa impostazioni</string>
+    <string name="pref_default_audio_playback_option_unmuted">Hai riattivato il tuo microfono.</string>
+    <string name="pref_default_audio_playback_option_muted">Muto</string>
 </resources>
