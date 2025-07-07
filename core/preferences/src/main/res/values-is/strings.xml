@@ -14,4 +14,8 @@
     <string name="pref_show_self_username_never">Aldrei</string>
     <string name="pref_tab_contents_text_only">Eingöngu texta</string>
     <string name="pref_title_render_markdown">Myndgerir markdown-texta</string>
+    <string name="pref_update_notification_frequency_never">Aldrei</string>
+    <string name="pref_update_notification_frequency_always">Alltaf</string>
+    <string name="pref_default_audio_playback_option_unmuted">Ekki þagga</string>
+    <string name="pref_default_audio_playback_option_muted">Þaggað</string>
 </resources>
