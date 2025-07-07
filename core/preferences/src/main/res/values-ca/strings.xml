@@ -29,4 +29,10 @@
     <string name="pref_tab_contents_icon_only">Només la icona</string>
     <string name="pref_tab_contents_text_only">Només text</string>
     <string name="pref_title_render_markdown">Render Markdown</string>
+    <string name="pref_update_notification_frequency_never">Mai</string>
+    <string name="pref_update_notification_frequency_always">Sempre</string>
+    <string name="pref_title_export_settings">Configuració d\'exportació</string>
+    <string name="pref_title_import_settings">Configuració d\'importació</string>
+    <string name="pref_default_audio_playback_option_unmuted">No està mut.</string>
+    <string name="pref_default_audio_playback_option_muted">Silenciat</string>
 </resources>
