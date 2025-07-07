@@ -7,4 +7,7 @@
     <string name="pref_main_nav_position_option_top">ଶ୍ରେଷ୍ଠ</string>
     <string name="pref_show_self_username_always">ସର୍ବଦା</string>
     <string name="pref_show_self_username_never">କେବେନୁହେଁ</string>
+    <string name="pref_update_notification_frequency_never">କେବେନୁହେଁ</string>
+    <string name="pref_update_notification_frequency_always">ସର୍ବଦା</string>
+    <string name="pref_default_audio_playback_option_unmuted">ଅନ୍ମୁଟ୍ କରନ୍ତୁ</string>
 </resources>
