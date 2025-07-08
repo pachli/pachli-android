@@ -19,4 +19,6 @@
     <string name="action_logout_confirm">Möchtest du %1$s wirklich abmelden? Dadurch werden alle lokalen Daten des Profils, wie Entwürfe und Einstellungen, gelöscht.</string>
     <string name="add_account_name">Konto hinzufügen</string>
     <string name="action_logout">Abmelden</string>
+    <string name="hint_search_emojis">Emojis suchen…</string>
+    <string name="label_emoji_no_category">Keine Kategorie</string>
 </resources>

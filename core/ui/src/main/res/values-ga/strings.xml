@@ -30,4 +30,6 @@
     <string name="add_account_name">Cuir Cuntas leis</string>
     <string name="notification_details_last_fetch_label">Iarratas deiridh /api/v1/fógraí</string>
     <string name="action_logout">Logáil Amach</string>
+    <string name="hint_search_emojis">Cuardaigh emojis…</string>
+    <string name="label_emoji_no_category">Gan catagóir</string>
 </resources>

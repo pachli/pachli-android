@@ -29,4 +29,6 @@
     <string name="action_logout_confirm">Tämä poistaa kaiken laittellesi tallennetun tiedon tilistä %1$s, mukaanlukien luonnokset ja asetukset.\n\nTämä ei poista tiliäsi palvelimelta.</string>
     <string name="add_account_name">Lisää tili</string>
     <string name="action_logout">Kirjaudu ulos</string>
+    <string name="hint_search_emojis">Etsi hymiöitä…</string>
+    <string name="label_emoji_no_category">Ei kategoriaa</string>
 </resources>

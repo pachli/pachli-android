@@ -26,6 +26,7 @@ import app.pachli.core.model.Announcement
 import app.pachli.core.model.Emoji
 import app.pachli.core.network.model.asModel
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.util.Error
 import app.pachli.util.Loading
 import app.pachli.util.Resource
@@ -42,19 +43,17 @@ class AnnouncementsViewModel @Inject constructor(
     private val accountManager: AccountManager,
     private val instanceInfoRepo: InstanceInfoRepository,
     private val mastodonApi: MastodonApi,
+    private val sharedPreferencesRepository: SharedPreferencesRepository,
 ) : ViewModel() {
 
     private val announcementsMutable = MutableLiveData<Resource<List<Announcement>>>()
     val announcements: LiveData<Resource<List<Announcement>>> = announcementsMutable
 
-    private val emojisMutable = MutableLiveData<List<Emoji>>()
-    val emojis: LiveData<List<Emoji>> = emojisMutable
+    val emojis: List<Emoji>
+        get() = instanceInfoRepo.emojis.value
 
-    init {
-        viewModelScope.launch {
-            emojisMutable.postValue(instanceInfoRepo.emojis.value)
-        }
-    }
+    val animateEmojis: Boolean
+        get() = sharedPreferencesRepository.animateEmojis
 
     fun load() {
         viewModelScope.launch {
@@ -100,7 +99,7 @@ class AnnouncementsViewModel @Inject constructor(
                                         } else {
                                             listOf(
                                                 *announcement.reactions.toTypedArray(),
-                                                emojis.value!!.find { emoji -> emoji.shortcode == name }!!.run {
+                                                emojis.find { emoji -> emoji.shortcode == name }!!.run {
                                                     Announcement.Reaction(
                                                         name,
                                                         1,

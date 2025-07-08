@@ -15,7 +15,7 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.adapter
+package app.pachli.core.ui.emoji
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -25,27 +25,27 @@ import androidx.appcompat.widget.TooltipCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import app.pachli.adapter.EmojiListItem.CategoryItem
-import app.pachli.adapter.EmojiListItem.EmojiItem
 import app.pachli.core.model.Emoji
-import app.pachli.databinding.ItemEmojiButtonBinding
-import app.pachli.databinding.ItemEmojiCategoryBinding
+import app.pachli.core.ui.R
+import app.pachli.core.ui.databinding.ItemEmojiButtonBinding
+import app.pachli.core.ui.databinding.ItemEmojiCategoryBinding
 import com.bumptech.glide.RequestManager
 import java.util.Locale
+import timber.log.Timber
 
 /**
  * Listener for clicks on emojis.
  *
- * @param shortcode Shortcode of the clicked emoji.
+ * @param emoji The clicked [Emoji]
  */
-typealias EmojiClickListener = (shortcode: String) -> Unit
+typealias EmojiClickListener = (emoji: Emoji) -> Unit
 
 /**
  * Items that can be be displayed in the list of emojis.
  *
  * @property id Unique identifier for this item.
  */
-sealed interface EmojiListItem {
+internal sealed interface EmojiListItem {
     val id: String
 
     /**
@@ -54,7 +54,7 @@ sealed interface EmojiListItem {
      * The emoji's [shortcode] is used as the [id]
      */
     @JvmInline
-    value class EmojiItem(private val emoji: Emoji) : EmojiListItem {
+    value class EmojiItem(val emoji: Emoji) : EmojiListItem {
         override val id: String
             get() = emoji.shortcode
 
@@ -96,29 +96,50 @@ private interface EmojiViewHolder<T : EmojiListItem> {
  * is null.
  * @property onClick
  */
-class EmojiAdapter(
+internal class EmojiAdapter(
     private val glide: RequestManager,
-    initialEmojis: List<Emoji>,
-    private val animate: Boolean,
     private val labelNoCategory: String,
-    private val onClick: EmojiClickListener,
 ) : ListAdapter<EmojiListItem, RecyclerView.ViewHolder>(diffCallback), Filterable {
+    /**
+     * List of [Emoji] to display. Uncategorised.
+     *
+     * Changing this will regenerate the categories and update the displayed data.
+     */
+    internal var emojis: List<Emoji> = emptyList()
+        set(value) {
+            field = value
+            emojiItems = categoriseEmojis()
+            submitList(emojiItems)
+        }
+
+    /** True if emojis should be animated. */
+    internal var animate: Boolean = false
+        set(value) {
+            field = value
+            notifyItemRangeChanged(0, itemCount)
+        }
+
+    /** Listener for clicks on [EmojiListItem.EmojiItem]. */
+    internal var onClick: EmojiClickListener? = null
+
+    /** Emojis, grouped within the list by category. The list is flat. */
+    private var emojiItems: List<EmojiListItem> = categoriseEmojis()
 
     /**
-     * Converts initialEmojis (a list of emojis with no categories) to a list
-     * with a mix of [CategoryItem] and [EmojiItem]. This is the unfiltered list,
-     * used whenever there is no filter constraint.
+     * Converts [emojis] (a list of emojis with no categories) to a list
+     * with a mix of [EmojiListItem.CategoryItem] and [EmojiListItem.EmojiItem]. This
+     * is the unfiltered list, used whenever there is no filter constraint.
      *
      * The list is sorted by category name, and within each category by emoji
      * shortcode.
      */
-    private val emojiItems: List<EmojiListItem> = initialEmojis.filter { emoji -> emoji.visibleInPicker == null || emoji.visibleInPicker!! }
-        .map { EmojiItem(it) }
+    private fun categoriseEmojis() = emojis.filter { emoji -> emoji.visibleInPicker == null || emoji.visibleInPicker!! }
+        .map { EmojiListItem.EmojiItem(it) }
         .groupBy { it.category ?: labelNoCategory }
         .toSortedMap { k1, k2 -> k1.compareTo(k2, ignoreCase = true) }
         .flatMap {
             buildList {
-                add(CategoryItem(it.key))
+                add(EmojiListItem.CategoryItem(it.key))
                 addAll(it.value.sortedBy { it.shortcode.lowercase(Locale.ROOT) })
             }
         }
@@ -137,8 +158,8 @@ class EmojiAdapter(
             // Filter in two passes. This first pass removes any items with a
             // shortcode or category that don't match. All headings are retained.
             val filteredEmojis = emojiItems.filter {
-                it is CategoryItem ||
-                    it is EmojiItem &&
+                it is EmojiListItem.CategoryItem ||
+                    it is EmojiListItem.EmojiItem &&
                     (
                         it.shortcode.contains(query, ignoreCase = true) ||
                             (it.category ?: labelNoCategory).contains(query, ignoreCase = true) == true
@@ -154,16 +175,18 @@ class EmojiAdapter(
                     } else {
                         // Previous item was a category heading, and this is an item
                         // in the category -- add the heading.
-                        if (prevItem is CategoryItem && it is EmojiItem) add(prevItem)
+                        if (prevItem is EmojiListItem.CategoryItem && it is EmojiListItem.EmojiItem) add(prevItem)
 
                         // This is an emoji. Irrespective of the previous item, add it.
-                        if (it is EmojiItem) add(it)
+                        if (it is EmojiListItem.EmojiItem) add(it)
                         prevItem = it
                     }
                 }
                 // Reached the end of the list. If the final item was an emoji then add it.
-                if (prevItem is EmojiItem) add(prevItem)
+                if (prevItem is EmojiListItem.EmojiItem) add(prevItem)
             }
+
+            Timber.d("Filtered emoji to $final")
 
             return FilterResults().apply { values = final }
         }
@@ -174,24 +197,22 @@ class EmojiAdapter(
         }
     }
 
-    init {
-        submitList(emojiItems)
-    }
-
     override fun getFilter() = filter
 
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position)) {
-            is CategoryItem -> app.pachli.R.layout.item_emoji_category
-            is EmojiItem -> app.pachli.R.layout.item_emoji_button
+            is EmojiListItem.CategoryItem -> R.layout.item_emoji_category
+            is EmojiListItem.EmojiItem -> R.layout.item_emoji_button
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return when (viewType) {
-            app.pachli.R.layout.item_emoji_category -> EmojiCategoryViewHolder(ItemEmojiCategoryBinding.inflate(inflater, parent, false))
-            app.pachli.R.layout.item_emoji_button -> EmojiItemViewHolder(glide, ItemEmojiButtonBinding.inflate(inflater, parent, false), animate, onClick)
+            R.layout.item_emoji_category -> EmojiCategoryViewHolder(ItemEmojiCategoryBinding.inflate(inflater, parent, false))
+            R.layout.item_emoji_button -> EmojiItemViewHolder(glide, ItemEmojiButtonBinding.inflate(inflater, parent, false), animate) { emoji ->
+                onClick?.invoke(emoji)
+            }
             else -> throw IllegalStateException("incorrect viewType: $viewType")
         }
     }
@@ -200,14 +221,14 @@ class EmojiAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         getItem(position)?.let {
             when (it) {
-                is CategoryItem -> (holder as EmojiViewHolder<CategoryItem>).bind(it)
-                is EmojiItem -> (holder as EmojiViewHolder<EmojiItem>).bind(it)
+                is EmojiListItem.CategoryItem -> (holder as EmojiViewHolder<EmojiListItem.CategoryItem>).bind(it)
+                is EmojiListItem.EmojiItem -> (holder as EmojiViewHolder<EmojiListItem.EmojiItem>).bind(it)
             }
         }
     }
 
     companion object {
-        val diffCallback = object : DiffUtil.ItemCallback<EmojiListItem>() {
+        private val diffCallback = object : DiffUtil.ItemCallback<EmojiListItem>() {
             override fun areItemsTheSame(oldItem: EmojiListItem, newItem: EmojiListItem) = oldItem == newItem
 
             override fun areContentsTheSame(oldItem: EmojiListItem, newItem: EmojiListItem) = oldItem.id == newItem.id
@@ -216,7 +237,7 @@ class EmojiAdapter(
 }
 
 /**
- * Viewholder for an [EmojiItem].
+ * Viewholder for an [EmojiListItem.EmojiItem].
  *
  * Loads the emoji with [glide], animated according to [animate].
  *
@@ -229,20 +250,22 @@ class EmojiAdapter(
  * @property animate
  * @property onClick
  */
-class EmojiItemViewHolder(
+internal class EmojiItemViewHolder(
     val glide: RequestManager,
     val binding: ItemEmojiButtonBinding,
     val animate: Boolean,
-    val onClick: EmojiClickListener,
-) : EmojiViewHolder<EmojiItem>, RecyclerView.ViewHolder(binding.root) {
+    val onClick: EmojiClickListener?,
+) : EmojiViewHolder<EmojiListItem.EmojiItem>, RecyclerView.ViewHolder(binding.root) {
     // Inline classes can't be marked lateinit, so this must be nullable
-    var emoji: EmojiItem? = null
+    internal var emoji: EmojiListItem.EmojiItem? = null
 
     init {
-        binding.root.setOnClickListener { emoji?.let { onClick(it.shortcode) } }
+        onClick?.let {
+            binding.root.setOnClickListener { emoji?.let { onClick(it.emoji) } }
+        }
     }
 
-    override fun bind(viewData: EmojiItem) {
+    override fun bind(viewData: EmojiListItem.EmojiItem) {
         with(binding.root) {
             emoji = viewData
 
@@ -259,12 +282,12 @@ class EmojiItemViewHolder(
 }
 
 /**
- * Viewholder for a [CategoryItem].
+ * Viewholder for a [EmojiListItem.CategoryItem].
  *
  * Displays the category text.
  */
-class EmojiCategoryViewHolder(val binding: ItemEmojiCategoryBinding) : EmojiViewHolder<CategoryItem>, RecyclerView.ViewHolder(binding.root) {
-    override fun bind(viewData: CategoryItem) {
+internal class EmojiCategoryViewHolder(val binding: ItemEmojiCategoryBinding) : EmojiViewHolder<EmojiListItem.CategoryItem>, RecyclerView.ViewHolder(binding.root) {
+    override fun bind(viewData: EmojiListItem.CategoryItem) {
         binding.text1.text = viewData.title
     }
 }

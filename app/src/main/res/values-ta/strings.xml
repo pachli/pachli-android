@@ -788,13 +788,11 @@
     <string name="action_send_private_content_description">பின்தொடர்பவர்களுக்கு மட்டுமே இடுகையை அனுப்பவும்</string>
     <string name="action_send_direct_content_description">நேரடி செய்தியை அனுப்பவும்</string>
     <string name="action_refresh_account">கணக்கைப் புதுப்பிக்கவும்</string>
-    <string name="hint_search_emojis">ஈமோசிகளைத் தேடுங்கள்…</string>
     <string name="pref_title_notification_filter_severed_relationships">பின்தொடர்/பின்வரும் உறவு துண்டிக்கப்படுகிறது</string>
     <string name="pref_custom_tabs_true">வேகமாக, பச்லியில் நீங்கள் விரும்பும் உலாவி</string>
     <string name="pref_custom_tabs_false">மெதுவாக, உங்களுக்கு விருப்பமான உலாவியைப் பயன்படுத்துகிறது</string>
     <string name="pref_title_public_filter_home_and_lists">வீடு மற்றும் பட்டியல்கள்</string>
     <string name="manage_accounts_name">கணக்குகளை நிர்வகிக்கவும்</string>
-    <string name="label_emoji_no_category">வகை இல்லை</string>
     <string name="title_report_category_fmt">வகை: %1$s</string>
     <string name="title_report_comment">நிருபரிடமிருந்து கருத்து</string>
     <string name="pref_title_account_conversation_filters">உரையாடல் வடிப்பான்கள்</string>

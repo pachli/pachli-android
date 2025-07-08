@@ -21,26 +21,24 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.widget.PopupWindow
 import androidx.activity.viewModels
 import androidx.core.view.MenuProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.pachli.R
-import app.pachli.adapter.EmojiAdapter
 import app.pachli.core.activity.ViewUrlActivity
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
-import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.ui.BackgroundMessage
+import app.pachli.core.ui.emoji.ChooseEmojiDialogFragment
 import app.pachli.databinding.ActivityAnnouncementsBinding
 import app.pachli.util.Error
 import app.pachli.util.Loading
 import app.pachli.util.Success
-import app.pachli.view.EmojiPicker
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.mikepenz.iconics.IconicsDrawable
@@ -48,6 +46,7 @@ import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class AnnouncementsActivity :
@@ -61,17 +60,6 @@ class AnnouncementsActivity :
 
     private lateinit var adapter: AnnouncementAdapter
 
-    private val picker by unsafeLazy { EmojiPicker(this) }
-    private val pickerDialog by unsafeLazy {
-        PopupWindow(this)
-            .apply {
-                contentView = picker
-                isFocusable = true
-                setOnDismissListener {
-                    currentAnnouncementId = null
-                }
-            }
-    }
     private var currentAnnouncementId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -130,18 +118,6 @@ class AnnouncementsActivity :
             }
         }
 
-        viewModel.emojis.observe(this) {
-            picker.adapter = EmojiAdapter(
-                glide,
-                it,
-                animateEmojis,
-                getString(R.string.label_emoji_no_category),
-            ) {
-                viewModel.addReaction(currentAnnouncementId!!, it)
-                pickerDialog.dismiss()
-            }
-        }
-
         viewModel.load()
         binding.progressBar.show()
     }
@@ -176,7 +152,14 @@ class AnnouncementsActivity :
 
     override fun openReactionPicker(announcementId: String, target: View) {
         currentAnnouncementId = announcementId
-        pickerDialog.showAsDropDown(target)
+        lifecycleScope.launch {
+            ChooseEmojiDialogFragment.newInstance(
+                viewModel.emojis,
+                viewModel.animateEmojis,
+            ).await(supportFragmentManager)?.let {
+                viewModel.addReaction(announcementId, it.shortcode)
+            }
+        }
     }
 
     override fun addReaction(announcementId: String, name: String) {

@@ -30,4 +30,6 @@
     <string name="add_account_name">Add account</string>
     <string name="notification_details_last_fetch_label">Last /api/v1/notifications request</string>
     <string name="action_logout">Log out</string>
+    <string name="hint_search_emojis">Search emojis…</string>
+    <string name="label_emoji_no_category">No category</string>
 </resources>

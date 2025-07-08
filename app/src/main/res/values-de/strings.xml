@@ -818,6 +818,4 @@
     <string name="account_filter_placeholder_label_not_following">Gefiltert weil: <b>nicht von dir gefolgt</b></string>
     <string name="account_filter_placeholder_label_younger_30d">Gefiltert weil: <b>in den letzten 30 Tagen erstellt</b></string>
     <string name="account_filter_placeholder_label_limited_by_server">Gefiltert weil: <b>von deinen Moderator*innen eingeschränkt</b></string>
-    <string name="hint_search_emojis">Emojis suchen…</string>
-    <string name="label_emoji_no_category">Keine Kategorie</string>
 </resources>

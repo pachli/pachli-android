@@ -30,4 +30,6 @@
     <string name="add_account_name">Pridať účet</string>
     <string name="notification_details_last_fetch_label">Posledná žiadosť /api/v1/notifications</string>
     <string name="action_logout">Odhlásiť sa</string>
+    <string name="hint_search_emojis">Hľadať emoji…</string>
+    <string name="label_emoji_no_category">Žiadna kategória</string>
 </resources>
