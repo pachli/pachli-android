@@ -64,7 +64,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionManager
 import app.pachli.BuildConfig
 import app.pachli.R
-import app.pachli.adapter.EmojiAdapter
 import app.pachli.adapter.LocaleAdapter
 import app.pachli.components.compose.ComposeViewModel.ConfirmationKind
 import app.pachli.components.compose.dialog.makeFocusDialog
@@ -938,7 +937,7 @@ class ComposeActivity :
     private fun enableButtons(enable: Boolean, editing: Boolean) {
         binding.composeAddAttachmentButton.isClickable = enable
         binding.composeChangeVisibilityButton.isClickable = enable && !editing
-        binding.composeEmojiButton.isClickable = enable
+        binding.composeEmojiButton.isClickable = enable && viewModel.emojis.value.isNotEmpty()
         binding.composeMarkSensitiveButton.isClickable = enable
         binding.composeScheduleButton.isClickable = enable && !editing
         binding.composeTootButton.isEnabled = enable
@@ -1010,21 +1009,13 @@ class ComposeActivity :
      * Shows/hides the bottom sheet displaying an emoji grid to choose from.
      */
     private fun onEmojiClick() {
-        binding.emojiView.adapter?.let {
-            if (it.itemCount == 0) {
-                val errorMessage = getString(R.string.error_no_custom_emojis, accountManager.activeAccount!!.domain)
-                displayTransientMessage(errorMessage)
-                return
-            }
-
-            if (emojiBehavior.state == BottomSheetBehavior.STATE_HIDDEN || emojiBehavior.state == BottomSheetBehavior.STATE_COLLAPSED) {
-                emojiBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-                visibilityBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-                addAttachmentBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-                scheduleBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
-            } else {
-                emojiBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
-            }
+        if (emojiBehavior.state == BottomSheetBehavior.STATE_HIDDEN || emojiBehavior.state == BottomSheetBehavior.STATE_COLLAPSED) {
+            emojiBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+            visibilityBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+            addAttachmentBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+            scheduleBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
+        } else {
+            emojiBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
         }
     }
 
@@ -1552,16 +1543,11 @@ class ComposeActivity :
     }
 
     private fun bindEmojiList(emojiList: List<Emoji>) {
-        val animateEmojis = sharedPreferencesRepository.animateEmojis
-        val emojiAdapter = EmojiAdapter(
-            glide,
-            emojiList,
-            animateEmojis,
-            getString(R.string.label_emoji_no_category),
-        ) { replaceTextAtCaret(":$it: ") }
-        binding.emojiView.adapter = emojiAdapter
-        binding.emojiFilter.editText?.doAfterTextChanged { emojiAdapter.filter.filter(it) }
-        enableButton(binding.composeEmojiButton, true, emojiList.isNotEmpty())
+        binding.emojiPickerBottomSheet.animate = sharedPreferencesRepository.animateEmojis
+        binding.emojiPickerBottomSheet.clickListener = { replaceTextAtCaret(":${it.shortcode}: ") }
+        binding.emojiPickerBottomSheet.emojis = emojiList
+
+        enableButton(binding.composeEmojiButton, emojiList.isNotEmpty(), emojiList.isNotEmpty())
     }
 
     /**

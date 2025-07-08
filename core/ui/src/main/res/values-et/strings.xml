@@ -30,4 +30,5 @@
     <string name="action_logout_confirm">Järgnevaga kustuvad kõik %1$s kohalikud andmed, sh kavandid ja eelistused.\n\nSellega ei kustu konto sinu koduserverist.</string>
     <string name="notification_details_last_fetch_label">Viimane päring /api/v1/notifications otspunkti</string>
     <string name="action_logout">Logi välja</string>
+    <string name="hint_search_emojis">Otsi emojisid…</string>
 </resources>

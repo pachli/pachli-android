@@ -383,7 +383,6 @@
     <string name="confirmation_hashtag_muted">#%s on nüüdsest peidetud</string>
     <string name="confirmation_hashtag_unmuted">#%s on jälle nähtav</string>
     <string name="confirmation_hashtag_unfollowed">#%s teemaviite jälgimine on lõppenud</string>
-    <string name="hint_search_emojis">Otsi emojisid…</string>
     <string name="pref_title_appearance_settings">Välimus</string>
     <string name="pref_title_app_theme">Rakenduse kujundus</string>
     <string name="pref_title_timelines">Ajajooned</string>

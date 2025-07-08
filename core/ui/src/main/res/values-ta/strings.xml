@@ -16,4 +16,6 @@
     <string name="action_logout_confirm">நீங்கள் %1$s கணக்கிலிருந்து வெளியேற விரும்புகிறீர்களா? இது வரைவுகள் மற்றும் விருப்பத்தேர்வுகள் உட்பட கணக்கின் அனைத்து உள்ளூர் தரவையும் நீக்கும்.</string>
     <string name="add_account_name">கணக்கை சேர்க்க</string>
     <string name="action_logout">வெளியேறு</string>
+    <string name="hint_search_emojis">ஈமோசிகளைத் தேடுங்கள்…</string>
+    <string name="label_emoji_no_category">வகை இல்லை</string>
 </resources>

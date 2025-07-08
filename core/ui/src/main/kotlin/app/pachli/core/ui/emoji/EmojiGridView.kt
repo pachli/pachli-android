@@ -15,15 +15,24 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.view
+package app.pachli.core.ui.emoji
 
 import android.content.Context
 import android.util.AttributeSet
+import androidx.core.util.TypedValueCompat.dpToPx
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import at.connyduck.sparkbutton.helpers.Utils
+import app.pachli.core.ui.R
 
-class EmojiPicker @JvmOverloads constructor(
+/**
+ * Displays a grid of emojis in a [RecyclerView] using [GridLayoutManager].
+ *
+ * Each emoji is displayed in 48dp x 48dp span in the grid. Category headings
+ * span the full width of the grid.
+ *
+ * The [adapter] must be an [EmojiAdapter].
+ */
+internal class EmojiGridView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
 ) : RecyclerView(context, attrs) {
@@ -31,10 +40,10 @@ class EmojiPicker @JvmOverloads constructor(
      * Layout manager for the grid. Initial span count is 1, the actual span count is
      * determined in [onMeasure].
      */
-    val gridLayoutManager = GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false)
+    private val gridLayoutManager = GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false)
 
     /** Width of an [app.pachli.databinding.ItemEmojiButtonBinding] in pixels. */
-    val pxSpanWidth = Utils.dpToPx(context, 48)
+    private val pxSpanWidth = dpToPx(48f, context.resources.displayMetrics)
 
     /**
      * Determines the size of each span based on the item's view type.
@@ -42,10 +51,10 @@ class EmojiPicker @JvmOverloads constructor(
      * [Headers][app.pachli.databinding.ItemEmojiHeaderBinding] take the full
      * width of the layout, everything else uses one span.
      */
-    val spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+    private val spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
         override fun getSpanSize(position: Int): Int {
             return when (adapter?.getItemViewType(position)) {
-                app.pachli.R.layout.item_emoji_category -> gridLayoutManager.spanCount
+                R.layout.item_emoji_category -> gridLayoutManager.spanCount
                 else -> 1
             }
         }
