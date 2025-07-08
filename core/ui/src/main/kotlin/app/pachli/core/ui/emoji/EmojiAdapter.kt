@@ -149,11 +149,9 @@ internal class EmojiAdapter(
      * after filtering are also removed.
      */
     private val filter = object : Filter() {
-        private val unfilteredItems = FilterResults().apply { values = emojiItems }
-
         override fun performFiltering(constraint: CharSequence?): FilterResults? {
             val query = constraint?.trim()
-            if (query.isNullOrBlank()) return unfilteredItems
+            if (query.isNullOrBlank()) return FilterResults().apply { values = emojiItems }
 
             // Filter in two passes. This first pass removes any items with a
             // shortcode or category that don't match. All headings are retained.

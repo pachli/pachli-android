@@ -67,7 +67,6 @@ internal class EmojiGridView @JvmOverloads constructor(
         clipToPadding = false
         gridLayoutManager.spanSizeLookup = spanSizeLookup
         layoutManager = gridLayoutManager
-        isNestedScrollingEnabled = true
     }
 
     /**
