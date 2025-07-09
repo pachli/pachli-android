@@ -17,6 +17,25 @@
     <string name="pref_update_notification_frequency_always">எப்போதும்</string>
     <string name="pref_title_export_settings">ஏற்றுமதி அமைப்புகள்</string>
     <string name="pref_title_import_settings">அமைப்புகளை இறக்குமதி செய்யுங்கள்</string>
-    <string name="pref_default_audio_playback_option_unmuted">ஒலிஇயக்கப்பட்டது.</string>
+    <string name="pref_default_audio_playback_option_unmuted">ஒலிஇயக்கப்பட்டது</string>
     <string name="pref_default_audio_playback_option_muted">முடக்கிய</string>
+    <string name="download_location_per_account">பதிவிறக்கங்கள் கோப்புறையில், கணக்கீட்டு கோப்புறைகள்</string>
+    <string name="download_location_per_sender">பதிவிறக்கங்கள் கோப்புறையில், ஒவ்வொரு செண்டர் கோப்புறைகளும்</string>
+    <string name="app_theme_system">கணினி வடிவமைப்பைப் பயன்படுத்தவும்</string>
+    <string name="pref_title_tab_tap">தாவலைத் தட்டும்போது செயல்</string>
+    <string name="tab_tap_behaviour_jump_to_next_page">அடுத்த பக்கத்திற்கு செல்லவும்</string>
+    <string name="tab_tap_behaviour_jump_to_newest">புதிய உள்ளடக்கத்திற்கு செல்லவும்</string>
+    <string name="pref_show_self_username_disambiguate">பல கணக்குகள் உள்நுழையும்போது</string>
+    <string name="pref_title_tab_alignment">முதன்மையான வழிசெலுத்தல் தாவல்களை சீரமைக்கவும்</string>
+    <string name="pref_tab_alignment_start">உரை திசையின் தொடக்க</string>
+    <string name="pref_tab_alignment_justify_if_possible">முழு அகலத்திற்கு விரிவாக்குங்கள்</string>
+    <string name="pref_tab_alignment_end">உரை திசையின் முடிவு</string>
+    <string name="pref_title_tab_contents">முதன்மையான வழிசெலுத்தல் தாவல்களின் உள்ளடக்கம்</string>
+    <string name="pref_tab_contents_icon_only">படவுரு மட்டும்</string>
+    <string name="pref_tab_contents_text_only">உரை மட்டும்</string>
+    <string name="pref_tab_contents_icon_text_inline">அருகிலுள்ள உரையுடன் படவுரு</string>
+    <string name="pref_tab_contents_icon_text_below">கீழே உள்ள உரையுடன் படவுரு</string>
+    <string name="pref_title_render_markdown">மார்க் பேரூர் வழங்கவும்</string>
+    <string name="pref_summary_export_settings">பயன்பாடு மற்றும் கணக்கு அமைப்புகளை உள்ளக கோப்பில் சேமிக்க தட்டவும்</string>
+    <string name="pref_summary_import_settings">\"ஏற்றுமதி அமைப்புகள்\" பயன்படுத்தி உருவாக்கப்பட்ட கோப்பிலிருந்து அமைப்புகளை மீட்டெடுக்க தட்டவும்</string>
 </resources>
