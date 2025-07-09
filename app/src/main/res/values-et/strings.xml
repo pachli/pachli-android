@@ -400,5 +400,12 @@
     <string name="dialog_mute_hide_notifications">Peida teavitused</string>
     <string name="visibility_public">Avalik: postitus läheb avalikele ajajoontele</string>
     <string name="visibility_unlisted">Ajajooneväline: postitust ei kuvata avalikel ajajoontel</string>
-    <string name="visibility_private">Vaid jälgijatle: postitust näevad ainult jälgijad</string>
+    <string name="visibility_private">Vaid jälgijatele: postitust näevad ainult jälgijad</string>
+    <string name="visibility_direct">Otsesõnum: postitust näevad ainult mainitud kasutajad</string>
+    <string name="pref_title_edit_notification_settings">Teavitused</string>
+    <string name="pref_title_notifications_enabled">Teavitused</string>
+    <string name="pref_title_notification_alerts">Hoiatused</string>
+    <string name="pref_title_notification_alert_sound">Anna märku heliga</string>
+    <string name="pref_title_notification_alert_vibrate">Anna märku värinaga</string>
+    <string name="pref_title_notification_alert_light">Anna märku valgusega</string>
 </resources>
