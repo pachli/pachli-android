@@ -393,4 +393,12 @@
     <string name="pref_title_custom_tabs">Ava lingid eraldi kaartidel</string>
     <string name="pref_custom_tabs_true">Kiirem, sirvimine toimib Pachlis</string>
     <string name="pref_custom_tabs_false">Aeglasem, sirvimine toimib veebibrauseris</string>
+    <string name="mute_domain_warning">Kas sa soovid kogu suhtluse %s domeeniga blokeerida? Ühelgi avalikul ajajoonel ega sinu teavitustes ei saa selle domeeni sisu olema nähtav. Jälgijad, kes kasutavad selle domeeni kontot, eemaldatakse.</string>
+    <string name="mute_domain_warning_dialog_ok">Peida kogu domeen</string>
+    <string name="dialog_block_warning">Kas blokeerime @%s kasutaja?</string>
+    <string name="dialog_mute_warning">Kas summutame @%s kasutaja?</string>
+    <string name="dialog_mute_hide_notifications">Peida teavitused</string>
+    <string name="visibility_public">Avalik: postitus läheb avalikele ajajoontele</string>
+    <string name="visibility_unlisted">Ajajooneväline: postitust ei kuvata avalikel ajajoontel</string>
+    <string name="visibility_private">Vaid jälgijatle: postitust näevad ainult jälgijad</string>
 </resources>
