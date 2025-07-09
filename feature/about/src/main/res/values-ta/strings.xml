@@ -1,13 +1,65 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="about_title_activity">பற்றி</string>
     <string name="about_pachli_license">Pachli ஒரு கட்டற்ற மற்றும் திறந்த மூல மென்பொருள். இதன் உரிமம் GNU General Public License(பொது உரிமம்) பதிப்பு 3 -ன் கீழ் உள்ளது. நீங்கள் உரிமம் பற்றி காண: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
-    <string name="about_project_site">        	திட்டத்தின் வலைத்தளம்:\n
-        https://pachli.app
-    </string>
+    <string name="about_project_site">திட்டத்தின் வலைத்தளம்: https://pachli.app</string>
     <string name="about_bug_feature_request_site">        	பிழை அறிக்கைகள் &amp; அம்ச கோரிக்கைகள்:\n
         https://github.com/pachli/pachli-android/issues
     </string>
     <string name="about_pachli_account">Pachli-ன் கணக்கு</string>
     <string name="license_description">Pachli கொண்டுள்ள நிரல்  மற்றும் துணுக்குகள் பின்வரும் திறந்த மூல திட்டங்கள்:</string>
+    <string name="about_device_info_title">உங்கள் சாதனம்</string>
+    <string name="about_account_info_title">உங்கள் கணக்கு</string>
+    <string name="about_copied">நகலெடுக்கப்பட்ட பதிப்பு மற்றும் சாதன செய்தி</string>
+    <string name="about_copy">பதிப்பு மற்றும் சாதன தகவல்களை நகலெடுக்கவும்</string>
+    <string name="about_powered_by_pachli">பச்லியால் இயக்கப்படுகிறது</string>
+    <string name="about_privacy_policy">தனியுரிமைக் கொள்கை</string>
+    <string name="title_licenses">உரிமங்கள்</string>
+    <string name="about_device_info">%s %s \nAndroid பதிப்பு: %s \nஎச்.டி.கே நிலை: %d</string>
+    <string name="about_account_info">\@%s@%s \nபதிப்பு: %s</string>
+    <string name="notification_details_title">விவரங்கள்</string>
+    <string name="notification_details_android_notifications_enabled">ஆண்ட்ராய்டு அறிவிப்புகள் இயக்கப்பட்டதா?</string>
+    <string name="notification_details_notifications_enabled_help">&lt;! [CDATA [உங்கள் எந்தவொரு கணக்குக்கும் அறிவிப்புகள் இயக்கப்படவில்லை. கணக்கு விருப்பத்தேர்வுகள்&gt; அறிவிப்புகளில் இதை மாற்றவும். அதுவரை அனைத்து அறிவிப்புகளும் முடக்கப்பட்டுள்ளன.]]</string>
+    <string name="notification_details_push_notifications_with_unifiedpush">ஒருங்கிணைந்த புசுடன் அறிவிப்புகளை அழுத்தவும்</string>
+    <string name="notification_details_unifiedpush_available">யுனிஃபைட் புச் கிடைக்குமா?</string>
+    <string name="notification_details_unifiedpush_available_help">UNIFIDEPUSH (ntfy.sh) கிடைக்கவில்லை, அறிவிப்புகள் அவ்வப்போது இழுக்கப்படும். இந்த பிரிவின் மீதமுள்ளவை ஏன் யுனிஃபைட் புச் பயன்படுத்தப்படவில்லை என்பதை விளக்குகிறது, ஆனால் தற்போது அறிவிப்புகள் எவ்வாறு இழுக்கப்படுகின்றன என்பதற்கு பொருந்தாது.</string>
+    <string name="notification_details_any_account_needs_migration">எல்லா கணக்குகளிலும் \'புச்\' oauth நோக்கம் உள்ளதா?</string>
+    <string name="notification_details_any_account_needs_migration_help">ஒன்று அல்லது அதற்கு மேற்பட்ட கணக்குகளில் \'புச்\' OAUTH நோக்கம் இல்லை, புச் அறிவிப்புகள் முடக்கப்பட்டுள்ளன.</string>
+    <string name="notification_details_accounts_unified_push_url">எல்லா கணக்குகளிலும் ஒருங்கிணைந்த புச் முகவரி உள்ளதா?</string>
+    <string name="notification_details_accounts_unified_push_url_help">ஒன்று அல்லது அதற்கு மேற்பட்ட கணக்குகள் ஒருங்கிணைந்த புச் முகவரி உடன் கட்டமைக்கப்படவில்லை, இந்த கணக்கிற்கான புச் அறிவிப்புகள் முடக்கப்பட்டுள்ளன.</string>
+    <string name="notification_details_accounts_unified_push_subscription">அனைத்து கணக்குகளும் சந்தா செலுத்தப்பட்டதா?</string>
+    <string name="notification_details_accounts_unified_push_subscription_help">ஒன்று அல்லது அதற்கு மேற்பட்ட கணக்குகள் அதன் ஒருங்கிணைந்த புச் சந்தாவை புதுப்பிக்கத் தவறிவிட்டன, மேலும் அறிவிப்புகளைப் பெறாது.</string>
+    <string name="notification_details_ntfy_exempt">NTFY பேட்டரி தேர்வுமுறையிலிருந்து விலக்கு அளிக்கப்படுகிறதா?</string>
+    <string name="notification_details_ntfy_exempt_help">NTFY பேட்டரி மேம்படுத்தல்களிலிருந்து விலக்கு அளிக்கப்படவில்லை. திரை முடக்கும்போதெல்லாம் ஆண்ட்ராய்டு அறிவிப்புகளை தாமதப்படுத்தலாம்.</string>
+    <string name="notification_details_pull_section">அவ்வப்போது தொழிலாளர்களுடன் அறிவிப்புகளை இழுக்கவும்</string>
+    <string name="notification_details_pachli_exempt">பேட்டரி உகப்பாக்கத்திலிருந்து பச்ச்லி விலக்கு அளிக்கப்படுகிறாரா?</string>
+    <string name="notification_details_pachli_exempt_help">பேட்டரி மேம்படுத்தல்களிலிருந்து பச்லி விலக்கு அளிக்கப்படவில்லை. திரை முடக்கும்போதெல்லாம் ஆண்ட்ராய்டு அறிவிப்புகளை தாமதப்படுத்தலாம்.</string>
+    <string name="notification_details_workers_help">புதிய அறிவிப்புகளைப் பெறும் தொழிலாளர்களின் பட்டியல் இது. ஒன்று இருக்க வேண்டும், அரசு இயங்க வேண்டும் அல்லது ஈன்யூட் செய்யப்பட வேண்டும், மேலும் இது இப்போது 15 நிமிடங்களுக்குள் இயங்க திட்டமிடப்பட வேண்டும்.</string>
+    <string name="notification_details_last_fetch_help">அறிவிப்பு முறையைப் பொருட்படுத்தாமல், இது ஒன்றுக்கு கணக்கிடுகிறது, கடைசியாக பெறப்பட்டபோது, அது வெற்றிகரமாக இருந்ததா, அது இல்லையென்றால் பிழை செய்தி.</string>
+    <string name="notification_details_usage_event">ஆற்றல் மேலாண்மை கட்டுப்பாடுகள்</string>
+    <string name="notification_details_usage_event_label">பயன்பாடுகள் பின்னணியில் என்ன செய்ய முடியும் என்பதை ஆண்ட்ராய்டு கட்டுப்படுத்தலாம். இந்த பட்டியல் கடந்த மூன்று நாட்களில் பச்லி எவ்வாறு தடைசெய்யப்பட்டுள்ளது, புதியது.</string>
+    <string name="notification_details_ago">%1$s ago @ %2$s</string>
+    <string name="notification_details_standby_bucket_exempted">விலக்கு</string>
+    <string name="notification_details_standby_bucket_active">செயலில். கட்டுப்பாடற்ற பின்னணி வேலைகள்</string>
+    <string name="notification_details_standby_bucket_working_set">வேலை தொகுப்பு. ஒவ்வொரு 2 மணி நேரத்திற்கும் 10 நிமிடங்களுக்கு மட்டுமே</string>
+    <string name="notification_details_standby_bucket_frequent">அடிக்கடி. ஒவ்வொரு 2 மணி நேரத்திற்கும் 10 நிமிடங்களுக்கு மட்டுமே</string>
+    <string name="notification_details_standby_bucket_rare">அரிய. ஒவ்வொரு 24 மணி நேரத்திற்கும் 10 நிமிடங்களுக்கு மட்டுமே</string>
+    <string name="notification_details_standby_bucket_restricted">தடைசெய்யப்பட்டது. ஒரு நாளைக்கு ஒரு முறை</string>
+    <string name="notification_details_standby_bucket_never">ஒருபோதும்</string>
+    <string name="notification_details_standby_bucket_unknown">தெரியவில்லை</string>
+    <string name="notification_log_title">பதிவு</string>
+    <string name="notification_log_filter_content_description">குறிச்சொல் மூலம் பதிவுகளை வடிகட்டவும்</string>
+    <string name="notification_log_filter">வடிப்பி</string>
+    <string name="notification_log_download_content_description">பதிவுகள் பதிவிறக்கவும்</string>
+    <string name="notification_log_download">பதிவிறக்கம்</string>
+    <string name="notification_log_sort">முதலில் புதியதை வரிசைப்படுத்துங்கள்</string>
+    <string name="notification_log_previous_attempts">முந்தைய முயற்சிகள்: %1$d</string>
+    <string name="notification_log_scheduled_in">%1$s @ %2$s இல் திட்டமிடப்பட்டுள்ளது</string>
+    <string name="notification_log_method_push">யுனிஃபைட் புசைப் பயன்படுத்தி அறிவிப்புகள் தள்ளப்படுகின்றன, உடனடியாக இருக்க வேண்டும்</string>
+    <string name="notification_log_method_pull">அறிவிப்புகள் அவ்வப்போது, ஏறக்குறைய ஒவ்வொரு 15 நிமிடங்களுக்கும் இழுக்கப்படுகின்றன</string>
+    <string name="notification_log_method_unknown">அறிவிப்பு வழிமுறை தீர்மானிக்கப்படவில்லை</string>
+    <string name="notification_log_method_pusherror">UNIFIDEPUSH இயக்கப்பட்டது ஆனால் பிழை இருந்தது: %1$s</string>
+    <string name="notification_log_download_failed">பதிவிறக்கம் தோல்வியுற்றது: %1$s</string>
+    <string name="notitication_log_filter_dialog_title">பதிவு முன்னுரிமைகளைக் காட்டு</string>
+    <string name="about_nivenly_foundation">பச்ச்லி ஒரு <a href="https://nivenly.org"> நிவேனி அறக்கட்டளை </a> திட்டமாகும்.</string>
 </resources>
