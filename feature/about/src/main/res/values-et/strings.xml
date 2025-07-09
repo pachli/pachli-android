@@ -17,4 +17,7 @@
     <string name="license_description">Pachli rakenduses leidub järgnevate avatud lähtekoodiga projektide teeke ning koodi:</string>
     <string name="notification_details_title">Üksikasjad</string>
     <string name="notification_details_android_notifications_enabled">Kas Androidi teavitused on kasutusel?</string>
+    <string name="notification_details_notifications_enabled_help"><![CDATA[Teavitused pole ühelgi sinu kontol kasutusel. Seda saad muuta kasutajakonto eelistuste valikust Teavitused. Seni teavitused ei toimi.]]></string>
+    <string name="notification_details_push_notifications_with_unifiedpush">UnifiedPushi tõuketeavitused</string>
+    <string name="notification_details_unifiedpush_available">Kas UnifiedPush on saadaval?</string>
 </resources>
