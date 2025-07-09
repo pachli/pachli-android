@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_network">பிணைய பிழை ஏற்பட்டது! உங்கள் இணைப்பைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்!</string>
+    <string name="error_network">பிணையப் பிழை ஏற்பட்டது. உங்கள் இணைப்பைச் சரிபார்த்து மீண்டும் முயற்சி.</string>
     <string name="error_generic">பிழை ஏற்பட்டது.</string>
     <string name="action_retry">மீண்டும் முயற்சி</string>
     <string name="action_view_profile">சுயவிவரம்</string>
@@ -18,4 +18,18 @@
     <string name="action_logout">வெளியேறு</string>
     <string name="hint_search_emojis">ஈமோசிகளைத் தேடுங்கள்…</string>
     <string name="label_emoji_no_category">வகை இல்லை</string>
+    <string name="message_empty">இங்கே எதுவும் இல்லை.</string>
+    <string name="button_done">முடிந்தது</string>
+    <string name="action_refresh">புதுப்பிப்பு</string>
+    <string name="url_domain_notifier">" (🔗 %s)"</string>
+    <string name="action_links">இணைப்புகள்</string>
+    <string name="action_mentions">குறிப்பிடுகிறது</string>
+    <string name="action_hashtags">ஏச்டேக்குகள்</string>
+    <string name="title_links_dialog">இணைப்புகள்</string>
+    <string name="title_hashtags_dialog">ஏச்டேக்குகள்</string>
+    <string name="item_copied">உரை நகலெடுக்கப்பட்டது</string>
+    <string name="action_copy_item">உருப்படியை நகலெடுக்கவும்</string>
+    <string name="title_mentions_dialog">குறிப்பிடுகிறது</string>
+    <string name="title_logout_fmt">வெளியேறு %1$s</string>
+    <string name="notification_details_last_fetch_label">கடைசி/ஏபிஐ/வி 1/அறிவிப்புகள் கோரிக்கை</string>
 </resources>
