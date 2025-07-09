@@ -31,4 +31,5 @@
     <string name="notification_details_last_fetch_label">Viimane päring /api/v1/notifications otspunkti</string>
     <string name="action_logout">Logi välja</string>
     <string name="hint_search_emojis">Otsi emojisid…</string>
+    <string name="label_emoji_no_category">Kategooria puudub</string>
 </resources>
