@@ -2,7 +2,16 @@
 
 Gradle [dependency verification]((https://docs.gradle.org/current/userguide/dependency_verification.html)) is enabled to verify SHA-256 checksums and PGP keys when dependencies are updated.
 
-> Note: Currently only checksums are verified. Some PGP keys are stored, but triggers verification issues and problems with Renovate.
+> Note: Depedency verification is currently disabled. The mechanisms for generating verification metadata are flaky and non-deterministic, and I've wasted too much time tracking down build failures caused by Gradle bugs.
+>
+> Related bugs:
+> - https://github.com/gradle/gradle/issues/19228
+> - https://github.com/gradle/gradle/issues/32354
+> - https://github.com/gradle/gradle/issues/20194
+> - https://github.com/gradle/gradle/issues/26202
+> - https://github.com/gradle/gradle/issues/21272
+
+> Note: (obsolete, see above) Currently only checksums are verified. Some PGP keys are stored, but triggers verification issues and problems with Renovate.
 >
 > Renovate discussion: https://github.com/renovatebot/renovate/discussions/36208
 
