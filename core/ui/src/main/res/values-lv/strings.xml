@@ -30,4 +30,6 @@
     <string name="add_account_name">Pievienot kontu</string>
     <string name="notification_details_last_fetch_label">Pēdējais /api/v1/notifications pieprasījums</string>
     <string name="action_logout">Atteikties</string>
+    <string name="hint_search_emojis">Meklēt emocijzīmes…</string>
+    <string name="label_emoji_no_category">Bez kategorijas</string>
 </resources>
