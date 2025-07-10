@@ -1,0 +1,17 @@
+Pachli 2.1.0
+
+Mida on uut:
+
+- Näitame profiilides rolle
+- Loendite vaatesse lisandus sõnumi koostamise nupp 
+- Järjehoidjate loendisse lisandus sõnumi koostamise nupp
+
+Veaparandused:
+
+- Tõlgitud sisu jutulõngades
+- Postituste pikkuse koos või ilma emojideta arvutame nüüd korrektselt
+- Väldime rakenduse kokkujooksmist
+  - Kui eelvaate kaardil pole autorit
+  - Kui ilma FAB-ita ajajoonel tekib viga
+  - Profiilis, kui `createdAt` väli on tühiväärtusega
+- Tõlgete uuendus
