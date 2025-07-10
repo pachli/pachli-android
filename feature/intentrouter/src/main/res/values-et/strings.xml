@@ -6,4 +6,12 @@
     <string name="title_choose_account_dialog">Vali kasutajakonto</string>
     <string name="title_error_dialog">Sisselogimine ei õnnestunud</string>
     <string name="error_login_failed_hint">Uuesti proovimiseks klõpsi kasutajakontol.</string>
+    <string name="error_refresh_account">Kasutajakonto andmete uuendamine ei õnnestunud, veateade: %1$s\n\nSa võid jätkata, aga sinu loendid ja filtrid võivad olla puudulikud.</string>
+    <string name="error_login_failed_hint_multiple">Uuesti proovimiseks klõpsi sama kasutajakontot või logi sisse mõne muu kontoga.</string>
+    <string name="client_error_unauthorized_multiple_fmt">%1$s\n\nUuesti proovimiseks klõpsi „%2$s“ või muu kasutajakonto valimiseks klõpsi „%3$s“.</string>
+    <string name="client_error_unauthorized_fmt">%1$s\n\nUuesti proovimiseks klõpsi „%2$s“.</string>
+    <string name="error_refresh_account_fmt">Kasutajakonto mõnede üksikasjade laadimine ei õnnestunud:\n\n%1$s\n\nJätkamiseks klõpsi „%2$s“, osa teavet võib olla puudulik (nt. filtrid ja loendid).\n\nUuesti proovimiseks klõpsi „%3$s“.\n\nMuu kasutajakonto valimiseks klõpsi „%4$s“.</string>
+    <string name="action_choose_another_account">Vali muu kasutajakonto</string>
+    <string name="title_error_mime_type">Tundmatu andmetüüp</string>
+    <string name="error_mime_type_fmt">Sa avasid Pachli „%1$s“ andmetüübi käitlemiseks, aga Pachli ei tea, mida sellega ette võtta.</string>
 </resources>
