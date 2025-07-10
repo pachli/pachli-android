@@ -515,6 +515,24 @@
     <string name="pref_title_alway_show_sensitive_media">Alati näita delikaatset sisu</string>
     <string name="pref_title_alway_open_spoiler">Näita sisuhoiatusega postitusi alati täisvaates</string>
     <string name="title_media">Meedia</string>
-    <string name="compose_save_draft_loses_media">Kavandi taastamisel laaditakse manused uuesti üles</string>
+    <string name="compose_save_draft_loses_media">Kavandi taastamisel laaditakse manused uuesti üles.</string>
     <string name="error_media_playback">Taasesitus ei õnnestunud: %s</string>
+    <string name="pref_title_public_filter_home_and_lists">Avaleht ja loendid</string>
+    <string name="pref_title_public_filter_keywords">Avalikud ajajooned</string>
+    <string name="pref_title_thread_filter_keywords">Vestlused</string>
+    <string name="pref_title_account_filter_keywords">Profiilid</string>
+    <string name="filter_addition_title">Lisa filter</string>
+    <string name="filter_edit_title">Muuda filtrit</string>
+    <string name="filter_dialog_remove_button">Eemalda</string>
+    <string name="filter_dialog_update_button">Uuenda</string>
+    <string name="filter_dialog_whole_word">Terve sõna</string>
+    <string name="filter_dialog_whole_word_description">Kui otsingusõna või -fraas koosneb vaid tähtedest ja numbritest, siis teda kasutatakse vaid terve sõna vastendamisel</string>
+    <string name="filter_add_description">Filtreeritav fraas</string>
+    <string name="filter_expiration_format">%s (%s)</string>
+    <string name="add_account_description">Lisa uus Mastodoni kasutajakonto</string>
+    <string name="manage_accounts_name">Halda kasutajakontosid</string>
+    <string name="manage_lists">Halda loendeid</string>
+    <string name="compose_active_account_description">Postitan kui %1$s</string>
+    <string name="ui_error_reload_reply_fmt">Postituse laadimine ei õnnestunud: %1$s</string>
+    <string name="export_preferences_ok_fmt">Eelistused on eksporditud: %1$s</string>
 </resources>
