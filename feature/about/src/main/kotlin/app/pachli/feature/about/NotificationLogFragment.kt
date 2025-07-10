@@ -50,6 +50,8 @@ import app.pachli.core.activity.RefreshableFragment
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.database.dao.LogEntryDao
 import app.pachli.core.database.model.LogEntryEntity
+import app.pachli.core.ui.extensions.InsetType
+import app.pachli.core.ui.extensions.applyWindowInsets
 import app.pachli.core.ui.extensions.asDdHhMmSs
 import app.pachli.core.ui.extensions.await
 import app.pachli.core.ui.extensions.instantFormatter
@@ -105,6 +107,8 @@ class NotificationLogFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.recyclerView.applyWindowInsets(bottom = InsetType.MARGIN)
 
         layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = adapter
