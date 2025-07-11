@@ -48,6 +48,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.GravityCompat
 import androidx.core.view.MenuProvider
+import androidx.core.view.ViewGroupCompat
 import androidx.core.view.forEach
 import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout.DrawerListener
@@ -106,7 +107,10 @@ import app.pachli.core.preferences.MainNavigationPosition
 import app.pachli.core.preferences.TabAlignment
 import app.pachli.core.preferences.TabContents
 import app.pachli.core.ui.AlignableTabLayoutAlignment
+import app.pachli.core.ui.appbar.FadeChildScrollEffect
 import app.pachli.core.ui.emojify
+import app.pachli.core.ui.extensions.addScrollEffect
+import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.core.ui.extensions.await
 import app.pachli.core.ui.extensions.reduceSwipeSensitivity
 import app.pachli.core.ui.makeIcon
@@ -246,6 +250,12 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        ViewGroupCompat.installCompatInsetsDispatch(binding.root)
+        binding.appBar.applyDefaultWindowInsets()
+        binding.viewPager.applyDefaultWindowInsets()
+        actionButton.applyDefaultWindowInsets()
+        binding.mainToolbar.addScrollEffect(FadeChildScrollEffect)
+
         setContentView(binding.root)
 
         viewModel.accept(InfallibleUiAction.LoadPachliAccount(pachliAccountId))

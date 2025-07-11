@@ -48,8 +48,7 @@ import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.domain.notifications.NotificationConfig
-import app.pachli.core.ui.extensions.InsetType
-import app.pachli.core.ui.extensions.applyWindowInsets
+import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.core.ui.extensions.asDdHhMmSs
 import app.pachli.core.ui.extensions.instantFormatter
 import app.pachli.feature.about.databinding.FragmentNotificationDetailsBinding
@@ -82,8 +81,7 @@ class NotificationDetailsFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.usageEventRecyclerView.applyWindowInsets(bottom = InsetType.MARGIN)
+        binding.usageEventRecyclerView.applyDefaultWindowInsets()
 
         binding.workInfoRecyclerView.adapter = workInfoAdapter
         binding.workInfoRecyclerView.layoutManager = LinearLayoutManager(requireContext())

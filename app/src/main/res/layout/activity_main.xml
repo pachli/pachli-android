@@ -16,7 +16,6 @@
             android:id="@+id/appBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fitsSystemWindows="true"
             app:liftOnScroll="true"
             app:liftOnScrollTargetViewId="@id/viewPager">
 

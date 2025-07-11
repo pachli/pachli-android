@@ -23,7 +23,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.MenuProvider
 import androidx.core.view.ViewGroupCompat
-import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -31,12 +30,11 @@ import app.pachli.core.activity.ViewUrlActivity
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.ui.appbar.FadeChildScrollEffect
-import app.pachli.core.ui.extensions.InsetType
-import app.pachli.core.ui.extensions.applyWindowInsets
+import app.pachli.core.ui.extensions.addScrollEffect
+import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.core.ui.extensions.reduceSwipeSensitivity
 import app.pachli.feature.about.databinding.ActivityAboutBinding
 import com.bumptech.glide.request.target.FixedSizeDrawable
-import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mikepenz.aboutlibraries.LibsBuilder
@@ -56,16 +54,9 @@ class AboutActivity : ViewUrlActivity(), MenuProvider {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         ViewGroupCompat.installCompatInsetsDispatch(binding.root)
-
-        binding.appBar.applyWindowInsets(
-            InsetType.MARGIN,
-            InsetType.PADDING,
-            InsetType.MARGIN,
-        )
-
-        binding.toolbar.updateLayoutParams<AppBarLayout.LayoutParams> {
-            scrollEffect = FadeChildScrollEffect
-        }
+        binding.appBar.applyDefaultWindowInsets()
+        binding.pager.applyDefaultWindowInsets()
+        binding.toolbar.addScrollEffect(FadeChildScrollEffect)
 
         setContentView(binding.root)
 
