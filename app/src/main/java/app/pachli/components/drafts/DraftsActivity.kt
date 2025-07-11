@@ -19,11 +19,14 @@ package app.pachli.components.drafts
 import android.content.Context
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.core.view.ViewGroupCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.pachli.R
 import app.pachli.core.activity.BaseActivity
+import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.database.model.DraftEntity
 import app.pachli.core.navigation.ComposeActivityIntent
@@ -31,6 +34,9 @@ import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.network.retrofit.apiresult.ClientError
 import app.pachli.core.ui.BackgroundMessage
+import app.pachli.core.ui.appbar.FadeChildScrollEffect
+import app.pachli.core.ui.extensions.addScrollEffect
+import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.databinding.ActivityDraftsBinding
 import app.pachli.db.DraftsAlert
 import com.github.michaelbull.result.onFailure
@@ -51,12 +57,16 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
 
     private val viewModel: DraftsViewModel by viewModels()
 
-    private lateinit var binding: ActivityDraftsBinding
+    private val binding by viewBinding(ActivityDraftsBinding::inflate)
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
+        ViewGroupCompat.installCompatInsetsDispatch(binding.root)
+        binding.includedToolbar.appbar.applyDefaultWindowInsets()
+        binding.includedToolbar.toolbar.addScrollEffect(FadeChildScrollEffect)
+        binding.draftsRecyclerView.applyDefaultWindowInsets()
 
-        binding = ActivityDraftsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setSupportActionBar(binding.includedToolbar.toolbar)
