@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="node_info_error_no_software">மென்பொருள் தொகுதி இல்லை</string>
+    <string name="node_info_error_no_software_name">மென்பொருள் பெயர் காணவில்லை, காலியாக உள்ளது அல்லது காலியாக உள்ளது</string>
+    <string name="node_info_error_no_software_version">மென்பொருள் பதிப்பு காணவில்லை, காலியாக உள்ளது அல்லது காலியாக உள்ளது</string>
+    <string name="server_error_unparseable_version">ஒரு பதிப்பாக \" %1$s\" ஐ அலச முடியவில்லை: %2$s</string>
+    <string name="error_generic_fmt">%1$s</string>
+    <string name="error_404_not_found_fmt">உங்கள் சேவையகம் இந்த அம்சத்தை ஆதரிக்கவில்லை: %1$s</string>
+    <string name="error_429_rate_limit_fmt">உங்கள் சேவையகம் உங்கள் கோரிக்கைகளை விகிதத்தைக் கட்டுப்படுத்துகிறது: %1$s</string>
+    <string name="error_json_data_fmt">உங்கள் சேவையகம் தவறான பதிலை அளித்தது: %1$s</string>
+    <string name="error_network_fmt">A பிணையம் பிழை occurred: %s</string>
+    <string name="error_missing_content_type_fmt">உங்கள் சேவையகம் தவறாக கட்டமைக்கப்பட்டுள்ளது, பதிலுக்கு உள்ளடக்க வகை இல்லை: %1$s</string>
+    <string name="error_wrong_content_type_fmt">உங்கள் சேவையகம் தவறாக கட்டமைக்கப்பட்டு, தவறான உள்ளடக்க வகை, \'%1$s\' உடன் \'%2$s\' திரும்பியது</string>
+</resources>

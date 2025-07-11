@@ -837,4 +837,5 @@
     <string name="notification_severed_relationships_user_domain_block_fmt">Zablokowano <b>%1$s</b></string>
     <string name="notification_severed_relationships_account_suspension_fmt">Administracja %1$s zablokowała <b>%2$s</b></string>
     <string name="notification_severed_relationships_unknown_fmt"><b>%1$s</b> jest zablokowane (z nieznanego powodu)</string>
+    <string name="pref_default_audio_playback">Domyślne odtwarzanie audio</string>
 </resources>
