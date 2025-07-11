@@ -27,17 +27,13 @@
         android:id="@+id/appBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
         android:elevation="@dimen/actionbar_elevation"
-        app:liftOnScroll="true"
-        app:liftOnScrollTargetViewId="@id/fragment_container"
         app:elevationOverlayEnabled="false">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:contentInsetStartWithNavigation="0dp"
+            android:layout_height="?attr/actionBarSize"
             app:layout_scrollFlags="scroll|enterAlways" />
     </com.google.android.material.appbar.AppBarLayout>
 

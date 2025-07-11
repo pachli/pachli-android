@@ -28,7 +28,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="@dimen/actionbar_elevation"
-        android:fitsSystemWindows="true"
         app:elevationOverlayEnabled="false">
 
         <com.google.android.material.appbar.MaterialToolbar

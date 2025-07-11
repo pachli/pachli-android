@@ -39,6 +39,7 @@ import android.view.MenuItem.SHOW_AS_ACTION_NEVER
 import android.view.View
 import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.content.res.AppCompatResources
@@ -249,6 +250,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
 
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         ViewGroupCompat.installCompatInsetsDispatch(binding.root)
         binding.appBar.applyDefaultWindowInsets()

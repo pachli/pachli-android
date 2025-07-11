@@ -180,9 +180,10 @@ fun ViewPager2.applyDefaultWindowInsets() = applyWindowInsets(
 )
 
 /**
- * Applies window insets to [RecyclerView], adding extra margin on
+ * Applies window insets to [RecyclerView], adding extra padding on
  * bottom edge.
  */
-fun RecyclerView.applyDefaultWindowInsets() = applyWindowInsets(
-    bottom = InsetType.MARGIN,
-)
+fun RecyclerView.applyDefaultWindowInsets() {
+    applyWindowInsets(bottom = InsetType.PADDING)
+    clipToPadding = false
+}
