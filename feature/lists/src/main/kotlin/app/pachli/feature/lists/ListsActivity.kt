@@ -29,9 +29,11 @@ import android.view.WindowManager
 import android.widget.ImageButton
 import android.widget.PopupMenu
 import android.widget.TextView
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.MenuProvider
+import androidx.core.view.ViewGroupCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DiffUtil
@@ -49,6 +51,9 @@ import app.pachli.core.model.UserListRepliesPolicy
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.ui.BackgroundMessage
+import app.pachli.core.ui.appbar.FadeChildScrollEffect
+import app.pachli.core.ui.extensions.addScrollEffect
+import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.core.ui.extensions.await
 import app.pachli.feature.lists.databinding.ActivityListsBinding
 import app.pachli.feature.lists.databinding.DialogListBinding
@@ -82,7 +87,13 @@ class ListsActivity : BaseActivity(), MenuProvider {
     private val adapter = ListsAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
+        ViewGroupCompat.installCompatInsetsDispatch(binding.root)
+        binding.includedToolbar.appbar.applyDefaultWindowInsets()
+        binding.includedToolbar.toolbar.addScrollEffect(FadeChildScrollEffect)
+        binding.listsRecycler.applyDefaultWindowInsets()
+        binding.addListButton.applyDefaultWindowInsets()
 
         setContentView(binding.root)
 
