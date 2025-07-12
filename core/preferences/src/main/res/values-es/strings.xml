@@ -22,13 +22,13 @@
     <string name="pref_tab_contents_text_only">Solo texto</string>
     <string name="pref_tab_contents_icon_only">Solo icono</string>
     <string name="pref_tab_contents_icon_text_inline">Icono con texto al lado</string>
-    <string name="pref_tab_contents_icon_text_below">Icono con texto abajo</string>
-    <string name="pref_title_tab_alignment">Ajuste de las pestañas principales de navegación</string>
-    <string name="pref_tab_alignment_start">Inicio de la dirección de texto</string>
+    <string name="pref_tab_contents_icon_text_below">Icono con texto debajo</string>
+    <string name="pref_title_tab_alignment">Alinear las pestañas principales de navegación</string>
+    <string name="pref_tab_alignment_start">Inicio de la dirección de escritura</string>
     <string name="pref_tab_alignment_justify_if_possible">Ampliar a ancho completo</string>
-    <string name="pref_tab_alignment_end">Fin de la dirección de texto</string>
-    <string name="pref_title_tab_contents">Contenido de las principales pestañas de navegación</string>
-    <string name="pref_title_render_markdown">Render Markdown</string>
+    <string name="pref_tab_alignment_end">Fin de la dirección de escritura</string>
+    <string name="pref_title_tab_contents">Contenido de las pestañas principales de navegación</string>
+    <string name="pref_title_render_markdown">Mostrar Markdown</string>
     <string name="pref_update_notification_frequency_never">Nunca</string>
     <string name="pref_update_notification_frequency_once_per_version">Una vez por versión</string>
     <string name="pref_update_notification_frequency_always">Siempre</string>
@@ -36,6 +36,6 @@
     <string name="pref_title_export_settings">Exportar preferencias</string>
     <string name="pref_title_import_settings">Importar preferencias</string>
     <string name="pref_summary_import_settings">Toca para restaurar las preferencias desde un archivo creado usando \"Exportar preferencias\"</string>
-    <string name="pref_default_audio_playback_option_unmuted">Con voz.</string>
-    <string name="pref_default_audio_playback_option_muted">Silenciada</string>
+    <string name="pref_default_audio_playback_option_unmuted">No silenciado</string>
+    <string name="pref_default_audio_playback_option_muted">Silenciado</string>
 </resources>
