@@ -17,7 +17,7 @@
     <string name="no_lists">No tienes ninguna lista.</string>
     <string name="hint_search_people_list">Buscar personas que sigues</string>
     <string name="action_add_or_remove_from_list">Añadir o quitar de la lista</string>
-    <string name="replies_policy_title">Mostrar respuestas de:</string>
+    <string name="replies_policy_title">Mostrar respuestas a:</string>
     <string name="replies_policy_name_followed">Cualquier usuario seguido</string>
     <string name="replies_policy_name_list">Miembros de la lista</string>
     <string name="replies_policy_name_none">Nadie</string>
