@@ -1,0 +1,18 @@
+Pachli 2.13.0
+
+Nuevo:
+
+- Analizar Instants de servidores que no incluyen huso horario
+- En Tendencia en lugar de Cronología Local por defecto
+- Descripciones de medios más prominentes al redactar
+
+Arreglos:
+
+- Mejora de color de botones al redactar
+- Mostrar previsualizaciones de encuestas correctamente
+- No colapsar si ComposeActivity es destruido mientras se toma una foto
+- Alinear el botón "Votar"
+
+Traducciones
+
+- Cabilio, chino, eslovaco, español, finés, irlandés, italiano, letón, polaco
