@@ -197,7 +197,7 @@
     <string name="follows_you">Te sigue</string>
     <string name="pref_title_alway_show_sensitive_media">Mostrar contenido sensible</string>
     <string name="title_media">Multimedia</string>
-    <string name="add_account_description">Añadir cuenta de Mastodon</string>
+    <string name="add_account_description">Añadir nueva Cuenta de Mastodon</string>
     <string name="compose_active_account_description">Publicar como %1$s</string>
     <string name="action_remove">Eliminar</string>
     <string name="lock_account_label">Proteger cuenta</string>
@@ -209,7 +209,7 @@
     <string name="send_post_notification_cancel_title">Envío cancelado</string>
     <string name="send_post_notification_saved_content">Una copia de la publicación se ha guardado en Borradores</string>
     <string name="action_compose_shortcut">Redactar</string>
-    <string name="error_no_custom_emojis">Su instancia %s no ofrece emojis personalizados</string>
+    <string name="error_no_custom_emojis">Tu instancia %s no ofrece emojis personalizados</string>
     <string name="emoji_style">Estilo de los emojis</string>
     <string name="system_default">Sistema</string>
     <string name="download_fonts">Tendrás que descargarlos primero</string>
@@ -758,14 +758,14 @@
     <string name="compose_warn_language_dialog_accept_and_dont_ask_fmt">Publicar como está (%1$s) y no volver a preguntar</string>
     <string name="upload_failed_msg_fmt">Fallo al subir adjunto. Se intentará subir nuevamente cuando envíes la publicación. Si vuelve a fallar, la publicación se guardará en tus borradores.\n\nEl error fue: %1$s</string>
     <plurals name="notification_severed_relationships_summary_followers_fmt">
-        <item quantity="one">%1$s seguidor eliminado</item>
-        <item quantity="many">%1$s seguidores eliminados</item>
-        <item quantity="other">%1$s seguidores eliminados</item>
+        <item quantity="one">%1$s seguidor eliminado.</item>
+        <item quantity="many">%1$s seguidores eliminados.</item>
+        <item quantity="other">%1$s seguidores eliminados.</item>
     </plurals>
     <plurals name="notification_severed_relationships_summary_following_fmt">
-        <item quantity="one">Se eliminó %1$s cuenta que seguías</item>
-        <item quantity="many">Se eliminaron %1$s cuentas que seguías</item>
-        <item quantity="other">Se eliminaron %1$s cuentas que seguías</item>
+        <item quantity="one">Se eliminó %1$s cuenta que seguías.</item>
+        <item quantity="many">Se eliminaron %1$s cuentas que seguías.</item>
+        <item quantity="other">Se eliminaron %1$s cuentas que seguías.</item>
     </plurals>
     <string name="filter_action_none">Mostrar</string>
     <string name="filter_description_none">Mostrar normalmente</string>
@@ -825,4 +825,10 @@
     <string name="error_import_preferences_fmt">No se pudieron exportar las preferencias desde %1$s: %2$s</string>
     <string name="export_preferences_ok_fmt">Preferencias exportadas a %1$s</string>
     <string name="error_export_preferences_fmt">No se pudieron exportar las preferencias a %1$s: %2$s</string>
+    <string name="notification_severed_relationships_domain_block_fmt">Un administrador de %1$s bloqueó a <b>%2$s</b></string>
+    <string name="notification_severed_relationships_user_domain_block_fmt">Bloqueaste a <b>%1$s</b></string>
+    <string name="notification_severed_relationships_account_suspension_fmt">Un administrador de %1$s bloqueó a <b>%2$s</b></string>
+    <string name="notification_severed_relationships_unknown_fmt"><b>%1$s</b> se encuentra bloqueado (razón desconocida)</string>
+    <string name="manage_accounts_name">Gestionar cuentas</string>
+    <string name="pref_default_audio_playback">Reproducción de audio por defecto</string>
 </resources>
