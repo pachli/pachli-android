@@ -40,6 +40,7 @@ import android.widget.ImageButton
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.annotation.ColorInt
@@ -55,6 +56,7 @@ import androidx.core.content.res.use
 import androidx.core.os.BundleCompat
 import androidx.core.view.ContentInfoCompat
 import androidx.core.view.OnReceiveContentListener
+import androidx.core.view.ViewGroupCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
@@ -92,6 +94,8 @@ import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InitialCu
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.preferences.AppTheme
 import app.pachli.core.ui.emojify
+import app.pachli.core.ui.extensions.InsetType
+import app.pachli.core.ui.extensions.applyWindowInsets
 import app.pachli.core.ui.extensions.await
 import app.pachli.core.ui.loadAvatar
 import app.pachli.core.ui.makeIcon
@@ -256,7 +260,28 @@ class ComposeActivity :
     }
 
     public override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
+        ViewGroupCompat.installCompatInsetsDispatch(binding.root)
+        binding.toolbar.applyWindowInsets(
+            left = InsetType.MARGIN,
+            top = InsetType.PADDING,
+            right = InsetType.MARGIN,
+        )
+        binding.composeMainScrollView.applyWindowInsets(
+            top = InsetType.MARGIN,
+            bottom = InsetType.MARGIN,
+            withIme = true,
+        )
+        binding.composeBottomBar.applyWindowInsets(
+            left = InsetType.MARGIN,
+            bottom = InsetType.PADDING,
+            right = InsetType.MARGIN,
+            withIme = true,
+        )
+        binding.emojiPickerBottomSheet.applyWindowInsets(
+            top = InsetType.MARGIN,
+        )
 
         if (sharedPreferencesRepository.appTheme == AppTheme.BLACK) {
             setTheme(DR.style.AppDialogActivityBlackTheme)

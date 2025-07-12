@@ -21,7 +21,9 @@ import android.graphics.Rect
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.OnApplyWindowInsetsListener
 import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsAnimationCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
 import androidx.recyclerview.widget.RecyclerView
@@ -43,8 +45,17 @@ enum class InsetType {
 }
 
 /**
- * Listens for window insets (system bars and displayCutout) and applies the
- * discovered insets to the left, top, right, and bottom edges of the view.
+ * Listener for [WindowInsetsCompat].
+ *
+ * @see View.applyWindowInsets
+ * @see WindowInsetsAnimationCallback
+ */
+typealias InsetsListener = (WindowInsetsCompat) -> Unit
+
+/**
+ * Listens for window insets (system bars and displayCutout, IME if [withIme] is
+ * true) and applies the discovered insets to the left, top, right, and bottom
+ * edges of the view.
  *
  * The parameters control how each inset is applied. If null the inset is not
  * applied to the that edge. Otherwise the inset is applied by either extending
@@ -60,6 +71,9 @@ enum class InsetType {
  * @param right
  * @param bottom
  * @param consume True if the insets should be consumed.
+ * @param withIme True if the IME's insets should also be applied. If true
+ * the view will also animate into the new position as the IME animates
+ * into position.
  */
 fun View.applyWindowInsets(
     left: InsetType? = null,
@@ -67,32 +81,32 @@ fun View.applyWindowInsets(
     right: InsetType? = null,
     bottom: InsetType? = null,
     consume: Boolean = this !is ViewPager2,
+    withIme: Boolean = false,
 ) {
+    // Store the view's initial margin and padding for use in the listener.
     val lp = layoutParams as? ViewGroup.MarginLayoutParams
-
     val initialMargins = Rect(
         lp?.leftMargin ?: 0,
         lp?.topMargin ?: 0,
         lp?.rightMargin ?: 0,
         lp?.bottomMargin ?: 0,
     )
-
     val initialPadding = Rect(paddingLeft, paddingTop, paddingRight, paddingBottom)
 
-    val rect = Rect()
+    // Listen for new insets and apply them by adding to the view's initial margin
+    // or padding, optionally consuming them.
+    val insetsListener: InsetsListener = { windowInsets ->
+        var typeMask = WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
+        if (withIme) typeMask = typeMask or WindowInsetsCompat.Type.ime()
+        val systemInsets = windowInsets.getInsets(typeMask)
 
-    ViewCompat.setOnApplyWindowInsetsListener(this) { v, windowInsets ->
-        val systemInsets = windowInsets.getInsets(
-            WindowInsetsCompat.Type.systemBars() or
-                WindowInsetsCompat.Type.displayCutout(),
-        )
-
+        val rect = Rect()
         rect.left = if (left == InsetType.PADDING) systemInsets.left else 0
         rect.top = if (top == InsetType.PADDING) systemInsets.top else 0
         rect.right = if (right == InsetType.PADDING) systemInsets.right else 0
         rect.bottom = if (bottom == InsetType.PADDING) systemInsets.bottom else 0
 
-        v.setPadding(
+        this@applyWindowInsets.setPadding(
             initialPadding.left + rect.left,
             initialPadding.top + rect.top,
             initialPadding.right + rect.right,
@@ -110,9 +124,11 @@ fun View.applyWindowInsets(
             rightMargin = initialMargins.right + rect.right
             bottomMargin = initialMargins.bottom + rect.bottom
         }
-
-        return@setOnApplyWindowInsetsListener if (consume) WindowInsetsCompat.CONSUMED else windowInsets
     }
+
+    val callback = WindowInsetsAnimationCallback(consume, insetsListener)
+    ViewCompat.setOnApplyWindowInsetsListener(this, callback)
+    ViewCompat.setWindowInsetsAnimationCallback(this, callback)
 
     // Work around https://issuetracker.google.com/issues/145617093, insets may be
     // dispatched before ViewPager2 has added pages to the view hierarchy so the
@@ -186,4 +202,61 @@ fun ViewPager2.applyDefaultWindowInsets() = applyWindowInsets(
 fun RecyclerView.applyDefaultWindowInsets() {
     applyWindowInsets(bottom = InsetType.PADDING)
     clipToPadding = false
+}
+
+/**
+ * Callback that applies insets whether they are from
+ * [ViewCompat.setOnApplyWindowInsetsListener] or
+ * [ViewCompat.setWindowInsetsAnimationCallback].
+ */
+private class WindowInsetsAnimationCallback(
+    private val consume: Boolean,
+    private val listener: InsetsListener,
+) : WindowInsetsAnimationCompat.Callback(DISPATCH_MODE_STOP),
+    OnApplyWindowInsetsListener {
+    /** Insets to apply (if any) when the animation completes. */
+    private var deferredInsets: WindowInsetsCompat? = null
+
+    /** True if animation is in progress. */
+    private var isAnimating = false
+
+    override fun onPrepare(animation: WindowInsetsAnimationCompat) {
+        isAnimating = true
+    }
+
+    override fun onApplyWindowInsets(
+        view: View,
+        insets: WindowInsetsCompat,
+    ): WindowInsetsCompat {
+        if (isAnimating) {
+            // If animating then this is called after [onPrepare] with the
+            // end state insets. These insets can't be used now, but save
+            // them for use in [onEnd].
+            deferredInsets = insets
+        } else {
+            // Otherwise, clear and call the listener directly.
+            deferredInsets = null
+            listener(insets)
+        }
+        return if (consume) WindowInsetsCompat.CONSUMED else insets
+    }
+
+    override fun onProgress(
+        insets: WindowInsetsCompat,
+        runningAnimations: List<WindowInsetsAnimationCompat>,
+    ): WindowInsetsCompat {
+        listener(insets)
+        return if (consume) WindowInsetsCompat.CONSUMED else insets
+    }
+
+    override fun onEnd(animation: WindowInsetsAnimationCompat) {
+        // Animation has finished. If deferredInsets exist (because onApplyWindowInsets
+        // was called while animating) then call the listener now to apply the final
+        // insets.
+        deferredInsets?.let { insets ->
+            listener(insets)
+            deferredInsets = null
+        }
+        isAnimating = false
+    }
 }
