@@ -23,7 +23,9 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.enableEdgeToEdge
 import androidx.core.view.MenuProvider
+import androidx.core.view.ViewGroupCompat
 import androidx.lifecycle.lifecycleScope
 import app.pachli.R
 import app.pachli.TabViewData
@@ -33,6 +35,9 @@ import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.pachliAccountId
+import app.pachli.core.ui.appbar.FadeChildScrollEffect
+import app.pachli.core.ui.extensions.addScrollEffect
+import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.core.ui.extensions.reduceSwipeSensitivity
 import app.pachli.databinding.ActivityTrendingBinding
 import app.pachli.interfaces.AppBarLayoutHost
@@ -65,7 +70,13 @@ class TrendingActivity : ViewUrlActivity(), AppBarLayoutHost, MenuProvider {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
+        ViewGroupCompat.installCompatInsetsDispatch(binding.root)
+        binding.appBar.applyDefaultWindowInsets()
+        binding.toolbar.addScrollEffect(FadeChildScrollEffect)
+        binding.pager.applyDefaultWindowInsets()
+
         setContentView(binding.root)
         addMenuProvider(this)
 
