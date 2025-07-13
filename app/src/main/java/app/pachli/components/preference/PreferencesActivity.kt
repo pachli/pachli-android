@@ -19,6 +19,8 @@ package app.pachli.components.preference
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.enableEdgeToEdge
+import androidx.core.view.ViewGroupCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
@@ -29,6 +31,7 @@ import app.pachli.R
 import app.pachli.core.activity.BaseActivity
 import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
+import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.navigation.IntentRouterActivityIntent
 import app.pachli.core.navigation.PreferencesActivityIntent
@@ -36,6 +39,9 @@ import app.pachli.core.navigation.PreferencesActivityIntent.PreferenceScreen
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.PrefKeys.APP_THEME
+import app.pachli.core.ui.appbar.FadeChildScrollEffect
+import app.pachli.core.ui.extensions.addScrollEffect
+import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.databinding.ActivityPreferencesBinding
 import app.pachli.util.setAppNightMode
 import dagger.hilt.android.AndroidEntryPoint
@@ -55,6 +61,8 @@ class PreferencesActivity :
     @Inject
     lateinit var eventHub: EventHub
 
+    private val binding by viewBinding(ActivityPreferencesBinding::inflate)
+
     private val restartActivitiesOnBackPressedCallback = object : OnBackPressedCallback(false) {
         override fun handleOnBackPressed() {
             /* Switching themes won't actually change the theme of activities on the back stack.
@@ -68,9 +76,12 @@ class PreferencesActivity :
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
+        ViewGroupCompat.installCompatInsetsDispatch(binding.root)
+        binding.includedToolbar.appbar.applyDefaultWindowInsets()
+        binding.includedToolbar.toolbar.addScrollEffect(FadeChildScrollEffect)
 
-        val binding = ActivityPreferencesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setSupportActionBar(binding.includedToolbar.toolbar)

@@ -63,6 +63,7 @@ import app.pachli.core.preferences.TabAlignment
 import app.pachli.core.preferences.TabContents
 import app.pachli.core.preferences.TabTapBehaviour
 import app.pachli.core.preferences.UpdateNotificationFrequency
+import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.core.ui.extensions.asDdHhMmSs
 import app.pachli.core.ui.extensions.await
 import app.pachli.core.ui.extensions.instantFormatter
@@ -552,6 +553,11 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                 }
             }
         }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        listView.applyDefaultWindowInsets()
     }
 
     private fun makeIcon(icon: GoogleMaterial.Icon): IconicsDrawable {
