@@ -41,6 +41,7 @@ import app.pachli.core.navigation.IntentRouterActivityIntent
 import app.pachli.core.navigation.LoginActivityIntent
 import app.pachli.core.navigation.LoginActivityIntent.LoginMode
 import app.pachli.core.ui.AlertSuspendDialogFragment
+import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.feature.manageaccounts.databinding.FragmentManageAccountsBinding
 import com.bumptech.glide.Glide
 import com.google.android.material.divider.MaterialDividerItemDecoration
@@ -88,6 +89,7 @@ class ManageAccountsFragment :
         )
 
         with(binding.recyclerView) {
+            applyDefaultWindowInsets()
             layoutManager = LinearLayoutManager(context)
             adapter = pachliAccountAdapter
             addItemDecoration(MaterialDividerItemDecoration(context, MaterialDividerItemDecoration.VERTICAL))
