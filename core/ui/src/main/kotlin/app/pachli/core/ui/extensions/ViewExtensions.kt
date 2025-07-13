@@ -172,9 +172,9 @@ fun Toolbar.addScrollEffect(scrollEffect: AppBarLayout.ChildScrollEffect) {
  * and right edges, and extra padding to the top edge.
  */
 fun AppBarLayout.applyDefaultWindowInsets() = applyWindowInsets(
-    left = InsetType.MARGIN,
+    left = InsetType.PADDING,
     top = InsetType.PADDING,
-    right = InsetType.MARGIN,
+    right = InsetType.PADDING,
 )
 
 /**
@@ -200,7 +200,11 @@ fun ViewPager2.applyDefaultWindowInsets() = applyWindowInsets(
  * bottom edge.
  */
 fun RecyclerView.applyDefaultWindowInsets() {
-    applyWindowInsets(bottom = InsetType.PADDING)
+    applyWindowInsets(
+        left = InsetType.PADDING,
+        right = InsetType.PADDING,
+        bottom = InsetType.PADDING,
+    )
     clipToPadding = false
 }
 
