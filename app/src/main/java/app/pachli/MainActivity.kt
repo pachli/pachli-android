@@ -110,8 +110,10 @@ import app.pachli.core.preferences.TabContents
 import app.pachli.core.ui.AlignableTabLayoutAlignment
 import app.pachli.core.ui.appbar.FadeChildScrollEffect
 import app.pachli.core.ui.emojify
+import app.pachli.core.ui.extensions.InsetType
 import app.pachli.core.ui.extensions.addScrollEffect
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
+import app.pachli.core.ui.extensions.applyWindowInsets
 import app.pachli.core.ui.extensions.await
 import app.pachli.core.ui.extensions.reduceSwipeSensitivity
 import app.pachli.core.ui.makeIcon
@@ -253,10 +255,27 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         ViewGroupCompat.installCompatInsetsDispatch(binding.root)
+
+        // If the navigation bar is at the bottom then the pager needs additional
+        // padding to clear it. Do this before applying edge to edge insets, so
+        // the new padding is added to the insets.
+        if (sharedPreferencesRepository.mainNavigationPosition == MainNavigationPosition.BOTTOM) {
+            with(binding.viewPager) {
+                val actionBarSize = getDimension(this@MainActivity, androidx.appcompat.R.attr.actionBarSize)
+                setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom + actionBarSize)
+            }
+        }
+
         binding.appBar.applyDefaultWindowInsets()
         binding.viewPager.applyDefaultWindowInsets()
         actionButton.applyDefaultWindowInsets()
         binding.mainToolbar.addScrollEffect(FadeChildScrollEffect)
+        binding.topNav.addScrollEffect(FadeChildScrollEffect)
+        binding.bottomNav.applyWindowInsets(
+            left = InsetType.PADDING,
+            right = InsetType.PADDING,
+            bottom = InsetType.PADDING,
+        )
 
         setContentView(binding.root)
 

@@ -64,6 +64,7 @@ import app.pachli.core.ui.ActionButtonScrollListener
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.core.ui.SetMarkdownContent
 import app.pachli.core.ui.SetMastodonHtmlContent
+import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.core.ui.makeIcon
 import app.pachli.databinding.FragmentTimelineNotificationsBinding
 import app.pachli.fragment.SFragment
@@ -181,6 +182,7 @@ class NotificationsFragment :
         binding.swipeRefreshLayout.setColorSchemeColors(MaterialColors.getColor(binding.root, androidx.appcompat.R.attr.colorPrimary))
 
         // Setup the RecyclerView.
+        binding.recyclerView.applyDefaultWindowInsets()
         binding.recyclerView.setHasFixedSize(true)
         layoutManager = LinearLayoutManager(context)
         binding.recyclerView.layoutManager = layoutManager
