@@ -68,7 +68,7 @@ class TimelineActivity : ViewUrlActivity(), AppBarLayoutHost, ActionButtonActivi
     @Inject
     lateinit var contentFiltersRepository: ContentFiltersRepository
 
-    private val binding: ActivityTimelineBinding by viewBinding(ActivityTimelineBinding::inflate)
+    private val binding by viewBinding(ActivityTimelineBinding::inflate)
     private lateinit var timeline: Timeline
 
     override val appBarLayout: AppBarLayout

@@ -10,8 +10,10 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.ViewGroupCompat
 import androidx.core.view.isVisible
 import androidx.core.view.size
 import androidx.core.widget.doAfterTextChanged
@@ -27,6 +29,11 @@ import app.pachli.core.model.FilterContext
 import app.pachli.core.model.FilterKeyword
 import app.pachli.core.navigation.EditContentFilterActivityIntent
 import app.pachli.core.navigation.pachliAccountId
+import app.pachli.core.ui.appbar.FadeChildScrollEffect
+import app.pachli.core.ui.extensions.InsetType
+import app.pachli.core.ui.extensions.addScrollEffect
+import app.pachli.core.ui.extensions.applyDefaultWindowInsets
+import app.pachli.core.ui.extensions.applyWindowInsets
 import app.pachli.core.ui.extensions.await
 import app.pachli.databinding.ActivityEditContentFilterBinding
 import app.pachli.databinding.DialogFilterBinding
@@ -80,7 +87,17 @@ class EditContentFilterActivity : BaseActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
+        ViewGroupCompat.installCompatInsetsDispatch(binding.root)
+        binding.includedToolbar.appbar.applyDefaultWindowInsets()
+        binding.includedToolbar.toolbar.addScrollEffect(FadeChildScrollEffect)
+        binding.content.applyWindowInsets(
+            left = InsetType.PADDING,
+            right = InsetType.PADDING,
+            bottom = InsetType.PADDING,
+        )
+
         onBackPressedDispatcher.addCallback(onBackPressedCallback)
 
         binding.apply {

@@ -25,8 +25,10 @@ import android.widget.ArrayAdapter
 import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatEditText
+import androidx.core.view.ViewGroupCompat
 import androidx.core.view.updatePadding
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
@@ -49,6 +51,9 @@ import app.pachli.core.model.MastodonList
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.ListsActivityIntent
 import app.pachli.core.navigation.pachliAccountId
+import app.pachli.core.ui.appbar.FadeChildScrollEffect
+import app.pachli.core.ui.extensions.addScrollEffect
+import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.databinding.ActivityTabPreferenceBinding
 import app.pachli.databinding.DialogSelectListBinding
 import at.connyduck.sparkbutton.helpers.Utils
@@ -95,7 +100,13 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
+        ViewGroupCompat.installCompatInsetsDispatch(binding.root)
+        binding.includedToolbar.appbar.applyDefaultWindowInsets()
+        binding.includedToolbar.toolbar.addScrollEffect(FadeChildScrollEffect)
+        binding.currentTabsRecyclerView.applyDefaultWindowInsets()
+        binding.actionButton.applyDefaultWindowInsets()
 
         setContentView(binding.root)
 

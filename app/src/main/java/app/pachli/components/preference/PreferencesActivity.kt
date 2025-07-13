@@ -100,7 +100,6 @@ class PreferencesActivity :
                     PreferenceScreen.GENERAL -> PreferencesFragment.newInstance()
                     PreferenceScreen.ACCOUNT -> AccountPreferencesFragment.newInstance(intent.pachliAccountId)
                     PreferenceScreen.NOTIFICATION -> NotificationPreferencesFragment.newInstance()
-                    else -> throw IllegalArgumentException("preferenceType not known")
                 }
 
             supportFragmentManager.commit {

@@ -138,7 +138,7 @@ class AccountActivity :
         },
     )
 
-    private val binding: ActivityAccountBinding by viewBinding(ActivityAccountBinding::inflate)
+    private val binding by viewBinding(ActivityAccountBinding::inflate)
 
     override val actionButton: FloatingActionButton?
         get() {

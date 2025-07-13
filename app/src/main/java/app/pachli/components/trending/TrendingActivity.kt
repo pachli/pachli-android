@@ -51,7 +51,7 @@ class TrendingActivity : ViewUrlActivity(), AppBarLayoutHost, MenuProvider {
     @Inject
     lateinit var eventHub: EventHub
 
-    private val binding: ActivityTrendingBinding by viewBinding(ActivityTrendingBinding::inflate)
+    private val binding by viewBinding(ActivityTrendingBinding::inflate)
 
     override val appBarLayout: AppBarLayout
         get() = binding.appBar

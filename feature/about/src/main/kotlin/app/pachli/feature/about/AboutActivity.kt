@@ -42,7 +42,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AboutActivity : ViewUrlActivity(), MenuProvider {
-    private val binding: ActivityAboutBinding by viewBinding(ActivityAboutBinding::inflate)
+    private val binding by viewBinding(ActivityAboutBinding::inflate)
 
     private val onBackPressedCallback = object : OnBackPressedCallback(false) {
         override fun handleOnBackPressed() {

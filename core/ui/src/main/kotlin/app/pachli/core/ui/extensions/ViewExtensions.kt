@@ -197,7 +197,7 @@ fun ViewPager2.applyDefaultWindowInsets() = applyWindowInsets(
 
 /**
  * Applies window insets to [RecyclerView], adding extra padding on
- * bottom edge.
+ * left, right, and bottom edges.
  */
 fun RecyclerView.applyDefaultWindowInsets() {
     applyWindowInsets(

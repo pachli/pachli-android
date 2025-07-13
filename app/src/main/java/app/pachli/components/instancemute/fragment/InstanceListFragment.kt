@@ -15,6 +15,7 @@ import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.network.model.HttpHeaderLink
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.ui.BackgroundMessage
+import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.databinding.FragmentInstanceListBinding
 import app.pachli.view.EndlessOnScrollListener
 import com.github.michaelbull.result.onFailure
@@ -29,7 +30,6 @@ import timber.log.Timber
 @AndroidEntryPoint
 class InstanceListFragment :
     Fragment(R.layout.fragment_instance_list),
-
     InstanceActionListener {
 
     @Inject
@@ -45,14 +45,17 @@ class InstanceListFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.recyclerView.setHasFixedSize(true)
-        binding.recyclerView.addItemDecoration(
-            MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL),
-        )
-        binding.recyclerView.adapter = adapter
-
         val layoutManager = LinearLayoutManager(view.context)
-        binding.recyclerView.layoutManager = layoutManager
+
+        with(binding.recyclerView) {
+            applyDefaultWindowInsets()
+            setHasFixedSize(true)
+            addItemDecoration(
+                MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL),
+            )
+            adapter = this@InstanceListFragment.adapter
+            this.layoutManager = layoutManager
+        }
 
         scrollListener = object : EndlessOnScrollListener(layoutManager) {
             override fun onLoadMore(totalItemsCount: Int, view: RecyclerView) {
