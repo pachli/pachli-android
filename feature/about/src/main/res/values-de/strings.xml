@@ -23,4 +23,9 @@
     <string name="notification_details_android_notifications_enabled">Sind Android Benachrichtigungen aktiviert?</string>
     <string name="notification_details_push_notifications_with_unifiedpush">Pushbenachrichtigungen mitUnifiedPush</string>
     <string name="notification_details_unifiedpush_available">Ist UnifiedPush verfügbar?</string>
+    <string name="notification_details_notifications_enabled_help"><![CDATA[Benachrichtigungen sind für keines deiner Konten aktiviert. Ändere das in Kontoeinstellungen > Benachrichtigungen. Bis dahin sind alle Benachrichtigungen deaktiviert.]]></string>
+    <string name="notification_details_unifiedpush_available_help">UnifiedPush (ntfy.sh) ist nicht verfügbar, Benachrichtigungen werden periodisch abgerufen. Der Rest dieses Abschnitts erklärt, warum UnifiedPush nicht verwendet wird, ist aber nicht relevant dafür, wie Benachrichtigungen aktuell abgerufen werden.</string>
+    <string name="notification_details_any_account_needs_migration">Haben alle Konten „Push“-OAuth-Rechte?</string>
+    <string name="notification_details_any_account_needs_migration_help">Ein oder mehrere Konten haben keine „Push“-OAuth-Rechte; Push-Benachrichtigungen sind deaktiviert.</string>
+    <string name="notification_details_accounts_unified_push_url">Haben alle Konten eine UnifiedPush-URL?</string>
 </resources>
