@@ -2,7 +2,7 @@
 <resources>
     <string name="about_title_activity">Über</string>
     <string name="about_device_info_title">Dein Gerät</string>
-    <string name="about_account_info_title">Dein Konto</string>
+    <string name="about_account_info_title">Dein Profil</string>
     <string name="about_copied">Version und Geräteinformationen kopiert</string>
     <string name="about_copy">Version und Geräteinformationen kopieren</string>
     <string name="about_powered_by_pachli">Unterstützt von Pachli</string>
@@ -21,7 +21,7 @@
     <string name="license_description">Pachli enthält Code und Inhalte von den folgenden Open-Source-Projekten:</string>
     <string name="notification_details_title">Details</string>
     <string name="notification_details_android_notifications_enabled">Sind Android Benachrichtigungen aktiviert?</string>
-    <string name="notification_details_push_notifications_with_unifiedpush">Pushbenachrichtigungen mitUnifiedPush</string>
+    <string name="notification_details_push_notifications_with_unifiedpush">Push-Benachrichtigungen mit UnifiedPush</string>
     <string name="notification_details_unifiedpush_available">Ist UnifiedPush verfügbar?</string>
     <string name="notification_details_notifications_enabled_help"><![CDATA[Benachrichtigungen sind für keines deiner Konten aktiviert. Ändere das in Kontoeinstellungen > Benachrichtigungen. Bis dahin sind alle Benachrichtigungen deaktiviert.]]></string>
     <string name="notification_details_unifiedpush_available_help">UnifiedPush (ntfy.sh) ist nicht verfügbar, Benachrichtigungen werden periodisch abgerufen. Der Rest dieses Abschnitts erklärt, warum UnifiedPush nicht verwendet wird, ist aber nicht relevant dafür, wie Benachrichtigungen aktuell abgerufen werden.</string>
@@ -63,5 +63,5 @@
     <string name="notification_log_method_pusherror">UnifiedPush ist aktiviert, hatte aber einen Fehler: %1$s</string>
     <string name="notification_log_download_failed">Download fehlgeschlagen: %1$s</string>
     <string name="notitication_log_filter_dialog_title">Log-Prioritäten anzeigen</string>
-    <string name="about_nivenly_foundation">Pachli ist ein Projekt der \u0020<a href="https://nivenly.org">Nivenly Foundation</a>.</string>
+    <string name="about_nivenly_foundation">Pachli ist ein Projekt der <a href="https://nivenly.org">Nivenly Foundation</a>.</string>
 </resources>
