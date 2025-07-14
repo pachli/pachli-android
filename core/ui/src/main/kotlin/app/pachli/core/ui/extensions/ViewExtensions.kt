@@ -113,16 +113,21 @@ fun View.applyWindowInsets(
             initialPadding.bottom + rect.bottom,
         )
 
-        updateLayoutParams<ViewGroup.MarginLayoutParams> {
-            rect.left = if (left == InsetType.MARGIN) systemInsets.left else 0
-            rect.top = if (top == InsetType.MARGIN) systemInsets.top else 0
-            rect.right = if (right == InsetType.MARGIN) systemInsets.right else 0
-            rect.bottom = if (bottom == InsetType.MARGIN) systemInsets.bottom else 0
+        // A view might not be in a group that supports margins (e.g., a
+        // RecyclerView in a SwipeRefreshLayout has no margins), so only
+        // apply margins if the layout params are appropriate.
+        if (layoutParams as? ViewGroup.MarginLayoutParams != null) {
+            updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                rect.left = if (left == InsetType.MARGIN) systemInsets.left else 0
+                rect.top = if (top == InsetType.MARGIN) systemInsets.top else 0
+                rect.right = if (right == InsetType.MARGIN) systemInsets.right else 0
+                rect.bottom = if (bottom == InsetType.MARGIN) systemInsets.bottom else 0
 
-            leftMargin = initialMargins.left + rect.left
-            topMargin = initialMargins.top + rect.top
-            rightMargin = initialMargins.right + rect.right
-            bottomMargin = initialMargins.bottom + rect.bottom
+                leftMargin = initialMargins.left + rect.left
+                topMargin = initialMargins.top + rect.top
+                rightMargin = initialMargins.right + rect.right
+                bottomMargin = initialMargins.bottom + rect.bottom
+            }
         }
     }
 
