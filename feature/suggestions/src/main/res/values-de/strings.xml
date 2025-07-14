@@ -1,2 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="title_suggestions">Vorgeschlagene Konten</string>
+    <string name="source_unknown">(Server hat unbekannte Quelle zurückgegeben)</string>
+    <string name="sources_featured">Handverlesen von deinem Server-Team</string>
+    <string name="sources_most_followed">Eines des meistgefolgten auf deinem Server</string>
+    <string name="sources_most_interactions">Bekommt eine Menge Aufmerksamkeit auf deinem Server</string>
+    <string name="sources_similar_to_recently_followed">Ähnlich wie Konten, denen du kürzlich gefolgt bist</string>
+    <string name="sources_friends_of_friends">Beliebt bei Leuten, denen du folgst</string>
+    <string name="sources_unknown">(Server hat unbekannte Quellen zurückgegeben)</string>
+    <string name="action_follow_account">Folgen</string>
+    <string name="action_dismiss_follow_suggestion">Verwerfen</string>
+    <string name="ui_error_delete_suggestion_fmt">Fehler beim Verwerfen des Vorschlags für %1$s : %2$s</string>
+    <string name="ui_error_follow_account_fmt">Fehler beim Folgen von %1$s: %2$s</string>
+    <string name="follower_count_fmt"><b>%1$s</b> Follower</string>
+    <string name="follows_count_fmt"><b>%1$s</b> folgen</string>
+    <string name="statuses_count_fmt"><b>%1$s</b> Beiträge</string>
+    <string name="statuses_count_per_week_fmt"><b>%1$s</b> Beiträge (<b>%2$d</b> pro Woche)</string>
+    <string name="statuses_count_per_week_last_fmt"><b>%1$s</b> Beiträge (<b>%2$d</b> pro Woche, letzter am <b>%3$s</b>)</string>
+</resources>
