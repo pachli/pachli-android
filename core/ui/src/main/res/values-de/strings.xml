@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_network">Ein Netzwerkfehler ist aufgetreten. Bitte überprüfe deine Internetverbindung und versuche es erneut.</string>
     <string name="error_generic">Ein Fehler ist aufgetreten.</string>
@@ -21,4 +21,8 @@
     <string name="action_logout">Abmelden</string>
     <string name="hint_search_emojis">Emojis suchen…</string>
     <string name="label_emoji_no_category">Keine Kategorie</string>
+    <string name="item_copied">Text kopiert</string>
+    <string name="action_copy_item">Element kopieren</string>
+    <string name="pref_notification_fetch_method_title">Benachrichtigungsmethode</string>
+    <string name="pref_notification_fetch_ok_timestamp_fmt">"✔  Vor %1$s @ %2$s"</string>
 </resources>
