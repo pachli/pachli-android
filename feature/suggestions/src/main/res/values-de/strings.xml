@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="title_suggestions">Vorgeschlagene Konten</string>
+    <string name="title_suggestions">Vorgeschlagene Profile</string>
     <string name="source_unknown">(Server hat unbekannte Quelle zurückgegeben)</string>
     <string name="sources_featured">Handverlesen von deinem Server-Team</string>
     <string name="sources_most_followed">Eines des meistgefolgten auf deinem Server</string>
     <string name="sources_most_interactions">Bekommt eine Menge Aufmerksamkeit auf deinem Server</string>
-    <string name="sources_similar_to_recently_followed">Ähnlich wie Konten, denen du kürzlich gefolgt bist</string>
+    <string name="sources_similar_to_recently_followed">Ähnlich wie Profile, denen du kürzlich gefolgt bist</string>
     <string name="sources_friends_of_friends">Beliebt bei Leuten, denen du folgst</string>
     <string name="sources_unknown">(Server hat unbekannte Quellen zurückgegeben)</string>
     <string name="action_follow_account">Folgen</string>
