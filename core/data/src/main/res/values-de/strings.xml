@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_filter_server_does_not_filter">Der Server unterstützt keine Filter</string>
-    <string name="account_manager_error_account_does_not_exist">Das Konto ist in der lokalen Datenbank nicht vorhanden. Das sollte niemals vorkommen. Wenn du diesen Hinweis bekommst, melde das bitte an team@pachli.app.</string>
-    <string name="account_manager_error_no_active_account">Es ist kein Konto als aktiv markiert</string>
+    <string name="account_manager_error_account_does_not_exist">Das Profil ist in der lokalen Datenbank nicht vorhanden. Das sollte niemals vorkommen. Wenn du diesen Hinweis bekommst, melde das bitte an team@pachli.app.</string>
+    <string name="account_manager_error_no_active_account">Es ist kein Profil als aktiv markiert</string>
     <string name="account_manager_error_dao">Datenbankfehler, bitte an team@pachli.app melden: %1$s</string>
     <string name="account_manager_error_unexpected">Unerwarteter Fehler: %1$s</string>
     <string name="error_preference_importer_null_on_import">Dateimport gab null zurück</string>
