@@ -2,16 +2,16 @@
 <resources>
     <string name="action_share_as">Teilen als …</string>
     <string name="error_set_active_account">Anmeldeversuch mit folgender Fehlermeldung gescheitert: %1$s</string>
-    <string name="error_refresh_account">Kontoaktualisierung mit folgender Fehlermeldung gescheitert: %1$s\n\nDu kannst fortfahren, aber deine Listen und Filter könnten unvollständig sein.</string>
+    <string name="error_refresh_account">Profilaktualisierung mit folgender Fehlermeldung gescheitert: %1$s\n\nDu kannst fortfahren, aber deine Listen und Filter könnten unvollständig sein.</string>
     <string name="action_relogin">Erneute Anmeldung</string>
-    <string name="title_choose_account_dialog">Konto auswählen</string>
+    <string name="title_choose_account_dialog">Profil auswählen</string>
     <string name="title_error_dialog">Anmeldung fehlgeschlagen</string>
-    <string name="error_login_failed_hint">Tippe das Konto an, um es erneut zu versuchen.</string>
-    <string name="error_login_failed_hint_multiple">Tippe auf das gleiche Konto, um es erneut zu versuchen, oder auf ein anderes Konto, um dich mit diesem anzumelden.</string>
-    <string name="client_error_unauthorized_multiple_fmt">%1$s\n\nTippe auf „%2$s“, um es erneut zu versuchen, oder auf „%3$s“, um ein anderes Konto zu wählen.</string>
+    <string name="error_login_failed_hint">Tippe das Profil an, um es erneut zu versuchen.</string>
+    <string name="error_login_failed_hint_multiple">Tippe auf das gleiche Profil, um es erneut zu versuchen, oder auf ein anderes Profil, um dich mit diesem anzumelden.</string>
+    <string name="client_error_unauthorized_multiple_fmt">%1$s\n\nTippe auf „%2$s“, um es erneut zu versuchen, oder auf „%3$s“, um ein anderes Profil zu wählen.</string>
     <string name="client_error_unauthorized_fmt">%1$s\n\nTippe auf „%2$s“, um es erneut zu versuchen.</string>
-    <string name="error_refresh_account_fmt">Das Abfragen einiger Kontodetails ist fehlgeschlagen:\n\n%1$s\n\nTippe auf „%2$s“ um fortzufahren, einige Informationen könnten aber inkorrekt sein (z. B. Filter und Listen).\n\nTippe auf „%3$s“, um es erneut zu versuchen.\n\nTippe auf „%4$s“, um ein anderes Konto auszuwählen.</string>
-    <string name="action_choose_another_account">Ein anderes Konto auswählen</string>
+    <string name="error_refresh_account_fmt">Das Abfragen einiger Profildetails ist fehlgeschlagen:\n\n%1$s\n\nTippe auf „%2$s“ um fortzufahren, einige Informationen könnten aber inkorrekt sein (z. B. Filter und Listen).\n\nTippe auf „%3$s“, um es erneut zu versuchen.\n\nTippe auf „%4$s“, um ein anderes Profil auszuwählen.</string>
+    <string name="action_choose_another_account">Ein anderes Profil auswählen</string>
     <string name="title_error_mime_type">Unbekannter Typ</string>
     <string name="error_mime_type_fmt">Pachli wurde geöffnet, um Inhalte vom Typ „%1$s“ zu teilen, aber Pachli kann diesen Typ nicht verarbeiten.</string>
 </resources>
