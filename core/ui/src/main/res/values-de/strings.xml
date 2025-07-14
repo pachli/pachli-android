@@ -16,7 +16,7 @@
     <string name="title_hashtags_dialog">Hashtags</string>
     <string name="title_mentions_dialog">Erwähnungen</string>
     <string name="button_continue">Weiter</string>
-    <string name="action_logout_confirm">Dies löscht alle lokalen Daten des Kontos %1$s inklusive Entwürfen und Einstellungen.</string>
+    <string name="action_logout_confirm">Dies löscht alle lokalen Daten des Kontos %1$s inklusive Entwürfen und Einstellungen.\n\nDie löscht nicht dein Konto auf dem Server.</string>
     <string name="add_account_name">Konto hinzufügen</string>
     <string name="action_logout">Abmelden</string>
     <string name="hint_search_emojis">Emojis suchen…</string>
