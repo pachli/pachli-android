@@ -16,7 +16,7 @@
     <string name="title_hashtags_dialog">Hashtags</string>
     <string name="title_mentions_dialog">Erwähnungen</string>
     <string name="button_continue">Weiter</string>
-    <string name="action_logout_confirm">Möchtest du %1$s wirklich abmelden? Dadurch werden alle lokalen Daten des Profils, wie Entwürfe und Einstellungen, gelöscht.</string>
+    <string name="action_logout_confirm">Dies löscht alle lokalen Daten des Kontos %1$s inklusive Entwürfen und Einstellungen.</string>
     <string name="add_account_name">Konto hinzufügen</string>
     <string name="action_logout">Abmelden</string>
     <string name="hint_search_emojis">Emojis suchen…</string>
@@ -24,5 +24,12 @@
     <string name="item_copied">Text kopiert</string>
     <string name="action_copy_item">Element kopieren</string>
     <string name="pref_notification_fetch_method_title">Benachrichtigungsmethode</string>
-    <string name="pref_notification_fetch_ok_timestamp_fmt">"✔  Vor %1$s @ %2$s"</string>
+    <string name="pref_notification_fetch_ok_timestamp_fmt">✔ Vor %1$s @ %2$s</string>
+    <string name="pref_notification_fetch_err_timestamp_fmt">✖ Vor %1$s @ %2$s</string>
+    <string name="pref_notification_fetch_server_rejected">%1$s hat Push-Registrierung abgelehnt</string>
+    <string name="pref_notification_fetch_needs_push">Konto hat keine „Push“-Rechte. Ab- und wieder Anmelden könnte dies beheben.</string>
+    <string name="title_logout_fmt">%1$s ausloggen</string>
+    <string name="pref_notification_method_push">Push</string>
+    <string name="pref_notification_method_pull">Pull</string>
+    <string name="notification_details_last_fetch_label">Letzte /api/v1/notifications-Abfrage</string>
 </resources>
