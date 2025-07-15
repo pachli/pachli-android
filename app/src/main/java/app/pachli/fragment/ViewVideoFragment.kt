@@ -246,9 +246,15 @@ class ViewVideoFragment : ViewMediaFragment() {
                         transitionComplete?.let {
                             viewLifecycleOwner.lifecycleScope.launch {
                                 it.await()
+                                // Work-around visual glitch by only setting useController here instead
+                                // of in the layout.  Otherwise a "blank" controller (just playback
+                                // buttons) is displayed while media is loading / preparing, and is then
+                                // replaced with the final controller.
+                                binding.videoView.useController = true
                                 player?.play()
+                                // Show controller *after* playback starts, otherwise the show timeout
+                                // is ignored.
                                 binding.videoView.showController()
-                                binding.videoView.controllerAutoShow = true
                             }
                         }
                     }
