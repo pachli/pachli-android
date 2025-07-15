@@ -34,4 +34,6 @@ resource type.
     <dimen name="pachli_exo_styled_bottom_bar_margin_top">10dp</dimen>
     <dimen name="pachli_exo_styled_controls_padding">0dp</dimen>
     <dimen name="pachli_exo_styled_minimal_controls_margin_bottom">4dp</dimen>
+    <!-- pachli_exo_styled_bottom_bar_height + 24dp -->
+    <dimen name="pachli_exo_styled_center_controls_margin_bottom">84dp</dimen>
 </resources>
