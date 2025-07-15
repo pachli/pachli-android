@@ -28,7 +28,6 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.ViewCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -59,18 +58,25 @@ class ViewImageFragment : ViewMediaFragment() {
     @Volatile
     private var startedTransition = false
 
-    private var scheduleToolbarHide = false
+    private var scheduleAppBarHide = false
+
+    private lateinit var captionBehavior: BottomSheetBehavior<*>
 
     override fun setupMediaView(showingDescription: Boolean) {
         ViewCompat.setTransitionName(binding.photoView, attachment.url)
-        binding.mediaDescription.text = attachment.description
-        binding.captionSheet.visible(showingDescription)
+
+        if (showingDescription) {
+            binding.mediaDescription.text = attachment.description
+            captionBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+        } else {
+            captionBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+        }
 
         startedTransition = false
         loadImageFromNetwork(attachment.url, attachment.previewUrl, binding.photoView)
 
-        // Only schedule hiding the toolbar once
-        scheduleToolbarHide = viewModel.isToolbarVisible
+        // Only schedule hiding the appbar once
+        scheduleAppBarHide = viewModel.isAppBarVisible
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -191,8 +197,8 @@ class ViewImageFragment : ViewMediaFragment() {
         )
 
         // Cancel hiding the toolbar whenever interacting with the captionSheet
-        val captionSheetParams = (binding.captionSheet.layoutParams as CoordinatorLayout.LayoutParams)
-        (captionSheetParams.behavior as BottomSheetBehavior).addBottomSheetCallback(
+        captionBehavior = BottomSheetBehavior.from(binding.captionSheet)
+        captionBehavior.addBottomSheetCallback(
             object : BottomSheetCallback() {
                 override fun onStateChanged(bottomSheet: View, newState: Int) = cancelToolbarHide()
                 override fun onSlide(bottomSheet: View, slideOffset: Float) = cancelToolbarHide()
@@ -230,8 +236,8 @@ class ViewImageFragment : ViewMediaFragment() {
     }
 
     override fun shouldScheduleToolbarHide(): Boolean {
-        return if (scheduleToolbarHide) {
-            scheduleToolbarHide = false
+        return if (scheduleAppBarHide) {
+            scheduleAppBarHide = false
             true
         } else {
             false
@@ -266,9 +272,11 @@ class ViewImageFragment : ViewMediaFragment() {
             // Request image from the network on fail load image from cache
             .error(
                 glide.load(url)
+                    .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
                     .centerInside()
                     .addListener(ImageRequestListener(false, isThumbnailRequest = false)),
             )
+            .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
             .centerInside()
             .addListener(ImageRequestListener(true, isThumbnailRequest = false))
             .into(photoView)

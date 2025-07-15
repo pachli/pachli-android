@@ -71,6 +71,9 @@ typealias InsetsListener = (WindowInsetsCompat) -> Unit
  * @param right
  * @param bottom
  * @param consume True if the insets should be consumed.
+ * @param typeMask Default types of insets to dodge. If not specified then
+ * [WindowInsetsCompat.Type.systemBars] and [WindowInsetsCompat.Type.displayCutout]
+ * are dodged.
  * @param withIme True if the IME's insets should also be applied. If true
  * the view will also animate into the new position as the IME animates
  * into position.
@@ -81,6 +84,7 @@ fun View.applyWindowInsets(
     right: InsetType? = null,
     bottom: InsetType? = null,
     consume: Boolean = this !is ViewPager2,
+    typeMask: Int = WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout(),
     withIme: Boolean = false,
 ) {
     // Store the view's initial margin and padding for use in the listener.
@@ -96,9 +100,8 @@ fun View.applyWindowInsets(
     // Listen for new insets and apply them by adding to the view's initial margin
     // or padding, optionally consuming them.
     val insetsListener: InsetsListener = { windowInsets ->
-        var typeMask = WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
-        if (withIme) typeMask = typeMask or WindowInsetsCompat.Type.ime()
-        val systemInsets = windowInsets.getInsets(typeMask)
+        val mask = if (withIme) typeMask or WindowInsetsCompat.Type.ime() else typeMask
+        val systemInsets = windowInsets.getInsets(mask)
 
         val rect = Rect()
         rect.left = if (left == InsetType.PADDING) systemInsets.left else 0

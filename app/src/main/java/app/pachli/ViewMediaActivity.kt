@@ -22,7 +22,6 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.app.DownloadManager
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.transition.Transition
@@ -32,9 +31,14 @@ import android.view.MenuItem
 import android.view.View
 import android.webkit.MimeTypeMap
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.core.app.ShareCompat
 import androidx.core.content.FileProvider
+import androidx.core.view.ViewGroupCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
+import androidx.core.view.WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -52,6 +56,8 @@ import app.pachli.core.navigation.ViewThreadActivityIntent
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import app.pachli.core.ui.ClipboardUseCase
+import app.pachli.core.ui.extensions.InsetType
+import app.pachli.core.ui.extensions.applyWindowInsets
 import app.pachli.databinding.ActivityViewMediaBinding
 import app.pachli.fragment.MediaActionsListener
 import app.pachli.pager.ImagePagerAdapter
@@ -107,7 +113,24 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
     private var respondToPrepareMenu = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
+        ViewGroupCompat.installCompatInsetsDispatch(binding.root)
+        // Enter immersive mode.
+        WindowInsetsControllerCompat(window, window.decorView).apply {
+            systemBarsBehavior = BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+            hide(WindowInsetsCompat.Type.systemBars())
+        }
+
+        // Immersive mode, so only need to dodge the display cutout.
+        binding.appBar.applyWindowInsets(
+            left = InsetType.PADDING,
+            top = InsetType.PADDING,
+            right = InsetType.PADDING,
+            bottom = InsetType.PADDING,
+            typeMask = WindowInsetsCompat.Type.displayCutout(),
+        )
+
         setContentView(binding.root)
         addMenuProvider(this)
 
@@ -162,9 +185,6 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
             true
         }
 
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LOW_PROFILE
-
-        window.statusBarColor = Color.BLACK
         window.sharedElementEnterTransition.addListener(
             object : NoopTransitionListener {
                 override fun onTransitionEnd(transition: Transition) {
@@ -206,22 +226,22 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
     }
 
     override fun onMediaTap() {
-        val isToolbarVisible = viewModel.toggleToolbarVisibility()
+        val isAppBarVisible = viewModel.toggleAppBarVisibility()
 
-        val visibility = if (isToolbarVisible) View.VISIBLE else View.INVISIBLE
-        val alpha = if (isToolbarVisible) 1.0f else 0.0f
-        if (isToolbarVisible) {
+        val visibility = if (isAppBarVisible) View.VISIBLE else View.INVISIBLE
+        val alpha = if (isAppBarVisible) 1.0f else 0.0f
+        if (isAppBarVisible) {
             // If to be visible, need to make visible immediately and animate alpha
-            binding.toolbar.alpha = 0.0f
-            binding.toolbar.visibility = View.VISIBLE
+            binding.appBar.alpha = 0.0f
+            binding.appBar.visibility = View.VISIBLE
         }
 
-        binding.toolbar.animate().alpha(alpha)
+        binding.appBar.animate().alpha(alpha)
             .setListener(
                 object : AnimatorListenerAdapter() {
                     override fun onAnimationEnd(animation: Animator) {
                         animation.removeListener(this)
-                        binding.toolbar.visibility = visibility
+                        binding.appBar.visibility = visibility
                     }
                 },
             )
