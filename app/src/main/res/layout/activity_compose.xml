@@ -73,8 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="14dp"
-            android:layout_marginEnd="8dp"
-            >
+            android:layout_marginEnd="8dp">
 
             <com.google.android.material.progressindicator.LinearProgressIndicator
                 android:id="@+id/replyProgressIndicator"
@@ -340,6 +339,7 @@
             android:minHeight="48dp"
             android:drawablePadding="8dp"
             android:text="@string/action_photo_take"
+            app:drawableTint="@color/compound_button_color"
             android:textColor="?android:textColorTertiary" />
 
         <TextView
@@ -349,6 +349,7 @@
             android:gravity="center_vertical"
             android:minHeight="48dp"
             android:drawablePadding="8dp"
+            app:drawableTint="@color/compound_button_color"
             android:text="@string/action_add_media"
             android:textColor="?android:textColorTertiary" />
 
@@ -359,6 +360,7 @@
             android:gravity="center_vertical"
             android:minHeight="48dp"
             android:drawablePadding="8dp"
+            app:drawableTint="@color/compound_button_color"
             android:text="@string/action_add_poll"
             android:textColor="?android:textColorTertiary" />
     </LinearLayout>
@@ -387,7 +389,7 @@
         android:paddingStart="24dp"
         android:paddingTop="12dp"
         android:paddingEnd="24dp"
-        android:paddingBottom="60dp"
+        android:paddingBottom="52dp"
         app:behavior_hideable="true"
         app:behavior_peekHeight="0dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior" />
