@@ -604,4 +604,10 @@
     <string name="total_usage">Kasutus kokku</string>
     <string name="total_accounts">Kokku kasutajakontosid</string>
     <string name="socket_timeout_exception">Ühenduse loomiseks sinu serveriga kuluks liiga palju aega</string>
+    <string name="pref_title_hide_top_toolbar">Peida ülemise tööriistariba pealkiri</string>
+    <string name="pref_title_wellbeing_mode">Heaolu</string>
+    <string name="account_note_hint">Sinu isiklik märge selle kasutajakonto kohta</string>
+    <string name="account_note_saved">Salvestatud!</string>
+    <string name="ui_error_bookmark_fmt">Järjehoidja lisamine postitusele ei õnnestunud: %1$s</string>
+    <string name="ui_error_clear_notifications">Teavituste eemaldamine ei õnnestunud: %1$s</string>
 </resources>
