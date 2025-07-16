@@ -43,9 +43,7 @@ import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_MAX_ACCOUNT_FIELDS
 import app.pachli.core.navigation.pachliAccountId
-import app.pachli.core.ui.appbar.FadeChildScrollEffect
 import app.pachli.core.ui.extensions.InsetType
-import app.pachli.core.ui.extensions.addScrollEffect
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.core.ui.extensions.applyWindowInsets
 import app.pachli.core.ui.extensions.await
@@ -133,11 +131,11 @@ class EditProfileActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         ViewGroupCompat.installCompatInsetsDispatch(binding.root)
         binding.includedToolbar.appbar.applyDefaultWindowInsets()
-        binding.includedToolbar.toolbar.addScrollEffect(FadeChildScrollEffect)
         binding.scrollView.applyWindowInsets(
             left = InsetType.PADDING,
             right = InsetType.PADDING,
             bottom = InsetType.PADDING,
+            withIme = true,
         )
 
         setContentView(binding.root)
