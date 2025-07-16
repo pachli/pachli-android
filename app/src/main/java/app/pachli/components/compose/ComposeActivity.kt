@@ -269,18 +269,34 @@ class ComposeActivity :
             right = InsetType.MARGIN,
         )
         binding.composeMainScrollView.applyWindowInsets(
+            left = InsetType.MARGIN,
             top = InsetType.MARGIN,
+            right = InsetType.MARGIN,
             bottom = InsetType.MARGIN,
             withIme = true,
         )
         binding.composeBottomBar.applyWindowInsets(
-            left = InsetType.MARGIN,
+            left = InsetType.PADDING,
             bottom = InsetType.PADDING,
-            right = InsetType.MARGIN,
+            right = InsetType.PADDING,
             withIme = true,
         )
+        binding.addMediaBottomSheet.applyWindowInsets(
+            left = InsetType.PADDING,
+            right = InsetType.PADDING,
+        )
+        binding.composeOptionsBottomSheet.applyWindowInsets(
+            left = InsetType.PADDING,
+            right = InsetType.PADDING,
+        )
+        binding.composeScheduleView.applyWindowInsets(
+            left = InsetType.PADDING,
+            right = InsetType.PADDING,
+        )
         binding.emojiPickerBottomSheet.applyWindowInsets(
+            left = InsetType.PADDING,
             top = InsetType.MARGIN,
+            right = InsetType.PADDING,
         )
 
         if (sharedPreferencesRepository.appTheme == AppTheme.BLACK) {

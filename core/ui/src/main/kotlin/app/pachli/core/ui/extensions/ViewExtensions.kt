@@ -21,6 +21,7 @@ import android.graphics.Rect
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
+import androidx.core.graphics.Insets
 import androidx.core.view.OnApplyWindowInsetsListener
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsAnimationCompat
@@ -50,7 +51,7 @@ enum class InsetType {
  * @see View.applyWindowInsets
  * @see WindowInsetsAnimationCallback
  */
-typealias InsetsListener = (WindowInsetsCompat) -> Unit
+typealias InsetsListener = (WindowInsetsCompat) -> WindowInsetsCompat
 
 /**
  * Listens for window insets (system bars and displayCutout, IME if [withIme] is
@@ -76,7 +77,8 @@ typealias InsetsListener = (WindowInsetsCompat) -> Unit
  * are dodged.
  * @param withIme True if the IME's insets should also be applied. If true
  * the view will also animate into the new position as the IME animates
- * into position.
+ * into position. Use this instead of adding [WindowInsetsCompat.Type.ime] to
+ * [typeMask].
  */
 fun View.applyWindowInsets(
     left: InsetType? = null,
@@ -100,8 +102,8 @@ fun View.applyWindowInsets(
     // Listen for new insets and apply them by adding to the view's initial margin
     // or padding, optionally consuming them.
     val insetsListener: InsetsListener = { windowInsets ->
-        val mask = if (withIme) typeMask or WindowInsetsCompat.Type.ime() else typeMask
-        val systemInsets = windowInsets.getInsets(mask)
+        val finalMask = if (withIme) typeMask or WindowInsetsCompat.Type.ime() else typeMask
+        val systemInsets = windowInsets.getInsets(finalMask)
 
         val rect = Rect()
         rect.left = if (left == InsetType.PADDING) systemInsets.left else 0
@@ -132,6 +134,28 @@ fun View.applyWindowInsets(
                 bottomMargin = initialMargins.bottom + rect.bottom
             }
         }
+
+        if (consume) {
+            WindowInsetsCompat.CONSUMED
+        } else {
+            // Calculate the insets that were consumed by this view
+            val builder = WindowInsetsCompat.Builder(windowInsets)
+
+            // An inset was consumed if it was used for either padding or
+            // margin, and the new inset is 0. Otherwise use the original
+            // inset.
+            builder.setInsets(
+                finalMask,
+                Insets.of(
+                    left?.let { 0 } ?: systemInsets.left,
+                    top?.let { 0 } ?: systemInsets.top,
+                    right?.let { 0 } ?: systemInsets.right,
+                    bottom?.let { 0 } ?: systemInsets.bottom,
+                ),
+            )
+            val consumedInsets = builder.build()
+            consumedInsets
+        }
     }
 
     val callback = WindowInsetsAnimationCallback(consume, insetsListener)
@@ -153,7 +177,7 @@ fun View.applyWindowInsets(
  *
  * See [issuetracker/145617093](https://issuetracker.google.com/issues/145617093)
  */
-private fun View.requestApplyInsetsWhenAttached() {
+fun View.requestApplyInsetsWhenAttached() {
     if (isAttachedToWindow) {
         requestApplyInsets()
     } else {
@@ -240,25 +264,26 @@ private class WindowInsetsAnimationCallback(
         view: View,
         insets: WindowInsetsCompat,
     ): WindowInsetsCompat {
-        if (isAnimating) {
+        val newInsets = if (isAnimating) {
             // If animating then this is called after [onPrepare] with the
             // end state insets. These insets can't be used now, but save
             // them for use in [onEnd].
             deferredInsets = insets
+            insets
         } else {
             // Otherwise, clear and call the listener directly.
             deferredInsets = null
             listener(insets)
         }
-        return if (consume) WindowInsetsCompat.CONSUMED else insets
+        return if (consume) WindowInsetsCompat.CONSUMED else newInsets
     }
 
     override fun onProgress(
         insets: WindowInsetsCompat,
         runningAnimations: List<WindowInsetsAnimationCompat>,
     ): WindowInsetsCompat {
-        listener(insets)
-        return if (consume) WindowInsetsCompat.CONSUMED else insets
+        val newInsets = listener(insets)
+        return if (consume) WindowInsetsCompat.CONSUMED else newInsets
     }
 
     override fun onEnd(animation: WindowInsetsAnimationCompat) {

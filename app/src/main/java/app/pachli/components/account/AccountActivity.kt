@@ -47,8 +47,6 @@ import androidx.core.graphics.toColorInt
 import androidx.core.view.MenuProvider
 import androidx.core.view.ViewCompat
 import androidx.core.view.ViewGroupCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsCompat.Type.systemBars
 import androidx.core.view.children
 import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
@@ -83,7 +81,9 @@ import app.pachli.core.preferences.AppTheme
 import app.pachli.core.ui.ClipboardUseCase
 import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.emojify
+import app.pachli.core.ui.extensions.InsetType
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
+import app.pachli.core.ui.extensions.applyWindowInsets
 import app.pachli.core.ui.extensions.reduceSwipeSensitivity
 import app.pachli.core.ui.getDomain
 import app.pachli.core.ui.loadAvatar
@@ -205,8 +205,28 @@ class AccountActivity :
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         ViewGroupCompat.installCompatInsetsDispatch(binding.root)
+        // Apply left/right insets to the main layout, but don't consume, so children
+        // can set the top/bottom.
+        binding.accountCoordinatorLayout.applyWindowInsets(
+            left = InsetType.PADDING,
+            right = InsetType.PADDING,
+            consume = false,
+        )
+        // CollapsingToolbarLayout consumes all insets without passing them on to
+        // children, which means accountToolbar never sees them. Override that behaviour
+        // with a custom inset listener that does nothing but does not consume them.
+        binding.collapsingToolbar.applyWindowInsets(consume = false)
+        binding.accountToolbar.applyWindowInsets(top = InsetType.PADDING)
         binding.accountFragmentViewPager.applyDefaultWindowInsets()
         binding.accountFloatingActionButton.applyDefaultWindowInsets()
+
+        // Normal swipe spinner startOffset is negative so it slides down from the view
+        // above it. This puts it above the systembar and it finishes too high up the
+        // screen. Move it down so it starts at the top edge, scale it so it appears to
+        // grow instead of appearing out of thin air, and keep the final resting place at
+        // the same relative offset to the start.
+        val absoluteOffset = binding.swipeRefreshLayout.progressViewEndOffset - binding.swipeRefreshLayout.progressViewStartOffset
+        binding.swipeRefreshLayout.setProgressViewOffset(true, 0, absoluteOffset)
 
         loadResources()
         setContentView(binding.root)
@@ -217,7 +237,6 @@ class AccountActivity :
 
         hideFab = sharedPreferencesRepository.hideFabWhenScrolling
 
-        handleWindowInsets()
         setupToolbar()
         setupTabs()
         setupAccountViews()
@@ -329,27 +348,6 @@ class AccountActivity :
                 }
             },
         )
-    }
-
-    private fun handleWindowInsets() {
-        ViewCompat.setOnApplyWindowInsetsListener(binding.accountCoordinatorLayout) { _, insets ->
-            val top = insets.getInsets(systemBars()).top
-            val right = insets.getInsets(systemBars()).right
-            val bottom = insets.getInsets(systemBars()).bottom
-            val left = insets.getInsets(systemBars()).left
-            binding.accountCoordinatorLayout.updatePadding(right = right, bottom = bottom, left = left)
-            binding.accountToolbar.updatePadding(left = left, top = top, bottom = bottom, right = right)
-
-            // Normal swipe spinner startOffset is negative so it slides down from the view
-            // above it. This puts it above the systembar and it finishes too high up the
-            // screen. Move it down so it starts at the top edge, scale it so it appears to
-            // grow instead of appearing out of thin air, and keep the final resting place at
-            // the same relative offset to the start.
-            val absoluteOffset = binding.swipeRefreshLayout.progressViewEndOffset - binding.swipeRefreshLayout.progressViewStartOffset
-            binding.swipeRefreshLayout.setProgressViewOffset(true, 0, absoluteOffset)
-
-            WindowInsetsCompat.CONSUMED
-        }
     }
 
     /**
