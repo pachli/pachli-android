@@ -103,13 +103,13 @@ fun View.applyWindowInsets(
     // or padding, optionally consuming them.
     val insetsListener: InsetsListener = { windowInsets ->
         val finalMask = if (withIme) typeMask or WindowInsetsCompat.Type.ime() else typeMask
-        val systemInsets = windowInsets.getInsets(finalMask)
+        val insets = windowInsets.getInsets(finalMask)
 
         val rect = Rect()
-        rect.left = if (left == InsetType.PADDING) systemInsets.left else 0
-        rect.top = if (top == InsetType.PADDING) systemInsets.top else 0
-        rect.right = if (right == InsetType.PADDING) systemInsets.right else 0
-        rect.bottom = if (bottom == InsetType.PADDING) systemInsets.bottom else 0
+        rect.left = if (left == InsetType.PADDING) insets.left else 0
+        rect.top = if (top == InsetType.PADDING) insets.top else 0
+        rect.right = if (right == InsetType.PADDING) insets.right else 0
+        rect.bottom = if (bottom == InsetType.PADDING) insets.bottom else 0
 
         this@applyWindowInsets.setPadding(
             initialPadding.left + rect.left,
@@ -123,10 +123,10 @@ fun View.applyWindowInsets(
         // apply margins if the layout params are appropriate.
         if (layoutParams as? ViewGroup.MarginLayoutParams != null) {
             updateLayoutParams<ViewGroup.MarginLayoutParams> {
-                rect.left = if (left == InsetType.MARGIN) systemInsets.left else 0
-                rect.top = if (top == InsetType.MARGIN) systemInsets.top else 0
-                rect.right = if (right == InsetType.MARGIN) systemInsets.right else 0
-                rect.bottom = if (bottom == InsetType.MARGIN) systemInsets.bottom else 0
+                rect.left = if (left == InsetType.MARGIN) insets.left else 0
+                rect.top = if (top == InsetType.MARGIN) insets.top else 0
+                rect.right = if (right == InsetType.MARGIN) insets.right else 0
+                rect.bottom = if (bottom == InsetType.MARGIN) insets.bottom else 0
 
                 leftMargin = initialMargins.left + rect.left
                 topMargin = initialMargins.top + rect.top
@@ -147,10 +147,10 @@ fun View.applyWindowInsets(
             builder.setInsets(
                 finalMask,
                 Insets.of(
-                    left?.let { 0 } ?: systemInsets.left,
-                    top?.let { 0 } ?: systemInsets.top,
-                    right?.let { 0 } ?: systemInsets.right,
-                    bottom?.let { 0 } ?: systemInsets.bottom,
+                    left?.let { 0 } ?: insets.left,
+                    top?.let { 0 } ?: insets.top,
+                    right?.let { 0 } ?: insets.right,
+                    bottom?.let { 0 } ?: insets.bottom,
                 ),
             )
             val consumedInsets = builder.build()
