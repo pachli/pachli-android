@@ -609,5 +609,12 @@
     <string name="account_note_hint">Sinu isiklik märge selle kasutajakonto kohta</string>
     <string name="account_note_saved">Salvestatud!</string>
     <string name="ui_error_bookmark_fmt">Järjehoidja lisamine postitusele ei õnnestunud: %1$s</string>
-    <string name="ui_error_clear_notifications">Teavituste eemaldamine ei õnnestunud: %1$s</string>
+    <string name="ui_error_clear_notifications">Teavituste eemaldamine ei õnnestunud: %s</string>
+    <string name="ui_error_favourite_fmt">Postituse lemmikuks märkimine ei õnnestunud: %1$s</string>
+    <string name="ui_error_reblog_fmt">Postitusele hooandmine ei õnnestunud: %1$s</string>
+    <string name="ui_error_vote_fmt">Postitused hääletamine ei õnnestunud: %1$s</string>
+    <string name="ui_error_translate_status_fmt">Tõlkimine ei õnnestunud: %1$s</string>
+    <string name="ui_error_accept_follow_request">Jälgimisega nõustumine ei õnnestunud: %s</string>
+    <string name="ui_error_reject_follow_request">Jälgimisest keeldumine ei õnnestunud: %s</string>
+    <string name="ui_error_filter_v1_load_fmt">Filtrite laadimine ei õnnestunud: %s</string>
 </resources>
