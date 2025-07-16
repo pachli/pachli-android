@@ -177,7 +177,7 @@ fun View.applyWindowInsets(
  *
  * See [issuetracker/145617093](https://issuetracker.google.com/issues/145617093)
  */
-fun View.requestApplyInsetsWhenAttached() {
+private fun View.requestApplyInsetsWhenAttached() {
     if (isAttachedToWindow) {
         requestApplyInsets()
     } else {
@@ -186,7 +186,7 @@ fun View.requestApplyInsetsWhenAttached() {
 }
 
 /** Listener that applies insets after the view is attached to the window. */
-object ApplyInsetsOnViewAttachedToWindow : View.OnAttachStateChangeListener {
+private object ApplyInsetsOnViewAttachedToWindow : View.OnAttachStateChangeListener {
     override fun onViewAttachedToWindow(v: View) {
         v.removeOnAttachStateChangeListener(this)
         v.requestApplyInsets()
