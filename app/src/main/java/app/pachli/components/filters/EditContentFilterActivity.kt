@@ -96,6 +96,7 @@ class EditContentFilterActivity : BaseActivity() {
             left = InsetType.PADDING,
             right = InsetType.PADDING,
             bottom = InsetType.PADDING,
+            withIme = true,
         )
 
         onBackPressedDispatcher.addCallback(onBackPressedCallback)
