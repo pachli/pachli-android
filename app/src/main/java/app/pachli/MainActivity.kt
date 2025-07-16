@@ -255,6 +255,12 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         ViewGroupCompat.installCompatInsetsDispatch(binding.root)
+        binding.mainDrawer.applyWindowInsets(
+            left = InsetType.PADDING,
+            top = InsetType.PADDING,
+            right = InsetType.PADDING,
+            bottom = InsetType.PADDING,
+        )
 
         // If the navigation bar is at the bottom then the pager needs additional
         // padding to clear it. Do this before applying edge to edge insets, so
