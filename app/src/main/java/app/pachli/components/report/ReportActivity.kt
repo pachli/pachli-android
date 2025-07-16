@@ -17,7 +17,9 @@
 package app.pachli.components.report
 
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.core.view.ViewGroupCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -27,6 +29,9 @@ import app.pachli.core.activity.ViewUrlActivity
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.navigation.ReportActivityIntent
 import app.pachli.core.navigation.pachliAccountId
+import app.pachli.core.ui.extensions.InsetType
+import app.pachli.core.ui.extensions.applyDefaultWindowInsets
+import app.pachli.core.ui.extensions.applyWindowInsets
 import app.pachli.databinding.ActivityReportBinding
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.withCreationCallback
@@ -54,7 +59,16 @@ class ReportActivity : ViewUrlActivity() {
     private val binding by viewBinding(ActivityReportBinding::inflate)
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
+        ViewGroupCompat.installCompatInsetsDispatch(binding.root)
+        binding.includedToolbar.appbar.applyDefaultWindowInsets()
+        binding.wizard.applyWindowInsets(
+            left = InsetType.MARGIN,
+            right = InsetType.MARGIN,
+            bottom = InsetType.PADDING,
+        )
+
         val accountId = ReportActivityIntent.getAccountId(intent)
         val accountUserName = ReportActivityIntent.getAccountUserName(intent)
         if (accountId.isBlank() || accountUserName.isBlank()) {
