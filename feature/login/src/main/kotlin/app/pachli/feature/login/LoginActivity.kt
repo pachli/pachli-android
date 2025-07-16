@@ -24,10 +24,12 @@ import android.text.method.LinkMovementMethod
 import android.view.Menu
 import android.view.View
 import android.widget.TextView
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.edit
 import androidx.core.net.toUri
+import androidx.core.view.ViewGroupCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -41,6 +43,9 @@ import app.pachli.core.navigation.IntentRouterActivityIntent
 import app.pachli.core.navigation.LoginActivityIntent
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.getNonNullString
+import app.pachli.core.ui.extensions.InsetType
+import app.pachli.core.ui.extensions.applyDefaultWindowInsets
+import app.pachli.core.ui.extensions.applyWindowInsets
 import app.pachli.feature.login.databinding.ActivityLoginBinding
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.onFailure
@@ -90,7 +95,16 @@ class LoginActivity : BaseActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
+        ViewGroupCompat.installCompatInsetsDispatch(binding.root)
+        binding.appBar.applyDefaultWindowInsets()
+        binding.scrollView.applyWindowInsets(
+            left = InsetType.PADDING,
+            right = InsetType.PADDING,
+            bottom = InsetType.MARGIN,
+            withIme = true,
+        )
 
         setContentView(binding.root)
 
