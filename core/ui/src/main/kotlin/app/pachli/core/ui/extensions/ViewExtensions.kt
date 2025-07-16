@@ -158,7 +158,7 @@ fun View.applyWindowInsets(
         }
     }
 
-    val callback = WindowInsetsAnimationCallback(consume, insetsListener)
+    val callback = WindowInsetsAnimationCallback(insetsListener)
     ViewCompat.setOnApplyWindowInsetsListener(this, callback)
     ViewCompat.setWindowInsetsAnimationCallback(this, callback)
 
@@ -246,7 +246,6 @@ fun RecyclerView.applyDefaultWindowInsets() {
  * [ViewCompat.setWindowInsetsAnimationCallback].
  */
 private class WindowInsetsAnimationCallback(
-    private val consume: Boolean,
     private val listener: InsetsListener,
 ) : WindowInsetsAnimationCompat.Callback(DISPATCH_MODE_STOP),
     OnApplyWindowInsetsListener {
@@ -264,7 +263,7 @@ private class WindowInsetsAnimationCallback(
         view: View,
         insets: WindowInsetsCompat,
     ): WindowInsetsCompat {
-        val newInsets = if (isAnimating) {
+        return if (isAnimating) {
             // If animating then this is called after [onPrepare] with the
             // end state insets. These insets can't be used now, but save
             // them for use in [onEnd].
@@ -275,15 +274,13 @@ private class WindowInsetsAnimationCallback(
             deferredInsets = null
             listener(insets)
         }
-        return if (consume) WindowInsetsCompat.CONSUMED else newInsets
     }
 
     override fun onProgress(
         insets: WindowInsetsCompat,
         runningAnimations: List<WindowInsetsAnimationCompat>,
     ): WindowInsetsCompat {
-        val newInsets = listener(insets)
-        return if (consume) WindowInsetsCompat.CONSUMED else newInsets
+        return listener(insets)
     }
 
     override fun onEnd(animation: WindowInsetsAnimationCompat) {
