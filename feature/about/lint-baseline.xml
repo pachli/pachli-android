@@ -8,7 +8,7 @@
         errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/kotlin/app/pachli/feature/about/NotificationLogFragment.kt"
-            line="206"
+            line="208"
             column="21"/>
     </issue>
 

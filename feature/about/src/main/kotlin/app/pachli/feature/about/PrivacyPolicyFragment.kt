@@ -21,6 +21,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.ui.extensions.InsetType
+import app.pachli.core.ui.extensions.applyWindowInsets
 import app.pachli.feature.about.databinding.FragmentPrivacyPolicyBinding
 import dagger.hilt.android.AndroidEntryPoint
 import io.noties.markwon.Markwon
@@ -33,6 +35,8 @@ class PrivacyPolicyFragment : Fragment(R.layout.fragment_privacy_policy) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.policy.applyWindowInsets(bottom = InsetType.MARGIN)
+
         val context = requireContext()
 
         val markwon = Markwon.builder(context)

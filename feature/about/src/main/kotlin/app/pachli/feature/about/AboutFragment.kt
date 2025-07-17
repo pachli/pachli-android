@@ -37,6 +37,8 @@ import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.versionName
 import app.pachli.core.ui.ClipboardUseCase
 import app.pachli.core.ui.NoUnderlineURLSpan
+import app.pachli.core.ui.extensions.InsetType
+import app.pachli.core.ui.extensions.applyWindowInsets
 import app.pachli.feature.about.databinding.FragmentAboutBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -55,6 +57,8 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
     private val binding by viewBinding(FragmentAboutBinding::bind)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.root.applyWindowInsets(bottom = InsetType.PADDING)
+
         val version = getString(
             R.string.about_app_version,
             getString(

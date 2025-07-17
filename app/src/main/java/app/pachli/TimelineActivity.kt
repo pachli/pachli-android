@@ -22,7 +22,9 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.core.view.MenuProvider
+import androidx.core.view.ViewGroupCompat
 import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
 import app.pachli.core.activity.ViewUrlActivity
@@ -41,6 +43,9 @@ import app.pachli.core.model.NewContentFilterKeyword
 import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.navigation.pachliAccountId
+import app.pachli.core.ui.appbar.FadeChildScrollEffect
+import app.pachli.core.ui.extensions.addScrollEffect
+import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.databinding.ActivityTimelineBinding
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.AppBarLayoutHost
@@ -68,7 +73,7 @@ class TimelineActivity : ViewUrlActivity(), AppBarLayoutHost, ActionButtonActivi
     @Inject
     lateinit var contentFiltersRepository: ContentFiltersRepository
 
-    private val binding: ActivityTimelineBinding by viewBinding(ActivityTimelineBinding::inflate)
+    private val binding by viewBinding(ActivityTimelineBinding::inflate)
     private lateinit var timeline: Timeline
 
     override val appBarLayout: AppBarLayout
@@ -90,8 +95,13 @@ class TimelineActivity : ViewUrlActivity(), AppBarLayoutHost, ActionButtonActivi
     private var mutedContentFilter: ContentFilter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Timber.d("onCreate")
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
+        ViewGroupCompat.installCompatInsetsDispatch(binding.root)
+        binding.includedToolbar.appbar.applyDefaultWindowInsets()
+        binding.includedToolbar.toolbar.addScrollEffect(FadeChildScrollEffect)
+        binding.composeButton.applyDefaultWindowInsets()
+
         setContentView(binding.root)
 
         setSupportActionBar(binding.includedToolbar.toolbar)

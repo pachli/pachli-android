@@ -53,6 +53,7 @@ import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.ui.ActionButtonScrollListener
 import app.pachli.core.ui.BackgroundMessage
+import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.databinding.FragmentTrendingLinksBinding
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.AppBarLayoutHost
@@ -228,6 +229,7 @@ class TrendingLinksFragment :
 
     private fun setupRecyclerView() {
         with(binding.recyclerView) {
+            applyDefaultWindowInsets()
             layoutManager = getLayoutManager(requireContext().resources.getInteger(DR.integer.trending_column_count))
             setHasFixedSize(true)
             (itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false

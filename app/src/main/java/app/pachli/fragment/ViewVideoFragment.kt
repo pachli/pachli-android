@@ -37,6 +37,7 @@ import android.widget.ImageButton
 import androidx.annotation.OptIn
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -58,6 +59,8 @@ import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.model.Attachment
+import app.pachli.core.ui.extensions.InsetType
+import app.pachli.core.ui.extensions.applyWindowInsets
 import app.pachli.databinding.FragmentViewVideoBinding
 import app.pachli.fragment.ViewVideoFragment.AudioBecomingNoisyReceiver.player
 import com.bumptech.glide.Glide
@@ -132,7 +135,7 @@ class ViewVideoFragment : ViewMediaFragment() {
         toolbar = mediaActivity.toolbar
         val layout = inflater.inflate(R.layout.fragment_view_video, container, false)
 
-        toggleMuteButton = layout.findViewById<ImageButton>(R.id.pachli_exo_mute_toggle)
+        toggleMuteButton = layout.findViewById(R.id.pachli_exo_mute_toggle)
 
         return layout
     }
@@ -140,6 +143,21 @@ class ViewVideoFragment : ViewMediaFragment() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // Activity has enabled immersive mode, so just dodge the display cutout.
+        binding.mediaDescription.applyWindowInsets(
+            left = InsetType.MARGIN,
+            top = InsetType.MARGIN,
+            right = InsetType.MARGIN,
+            bottom = InsetType.MARGIN,
+            typeMask = WindowInsetsCompat.Type.displayCutout(),
+        )
+        binding.videoView.applyWindowInsets(
+            left = InsetType.PADDING,
+            top = InsetType.PADDING,
+            right = InsetType.PADDING,
+            bottom = InsetType.PADDING,
+            typeMask = WindowInsetsCompat.Type.displayCutout(),
+        )
 
         binding.videoView.controllerShowTimeoutMs = CONTROLS_TIMEOUT.inWholeMilliseconds.toInt()
         binding.videoView.setShowSubtitleButton(true)
@@ -316,7 +334,7 @@ class ViewVideoFragment : ViewMediaFragment() {
 
         if (Build.VERSION.SDK_INT <= 23 || player == null) {
             initializePlayer()
-            if (viewModel.isToolbarVisible && !isAudio) {
+            if (viewModel.isAppBarVisible && !isAudio) {
                 hideToolbarAfterDelay()
             }
             binding.videoView.onResume()

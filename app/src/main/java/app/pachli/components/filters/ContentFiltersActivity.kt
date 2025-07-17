@@ -2,7 +2,9 @@ package app.pachli.components.filters
 
 import android.content.DialogInterface.BUTTON_POSITIVE
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.core.view.ViewGroupCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -17,6 +19,9 @@ import app.pachli.core.model.ContentFilter
 import app.pachli.core.navigation.EditContentFilterActivityIntent
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.ui.BackgroundMessage
+import app.pachli.core.ui.appbar.FadeChildScrollEffect
+import app.pachli.core.ui.extensions.addScrollEffect
+import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.databinding.ActivityContentFiltersBinding
 import com.google.android.material.color.MaterialColors
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,7 +44,13 @@ class ContentFiltersActivity : BaseActivity(), ContentFiltersListener {
     private val adapter = ContentFiltersAdapter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
+        ViewGroupCompat.installCompatInsetsDispatch(binding.root)
+        binding.includedToolbar.appbar.applyDefaultWindowInsets()
+        binding.includedToolbar.toolbar.addScrollEffect(FadeChildScrollEffect)
+        binding.filtersList.applyDefaultWindowInsets()
+        binding.addFilterButton.applyDefaultWindowInsets()
 
         setContentView(binding.root)
         setSupportActionBar(binding.includedToolbar.toolbar)

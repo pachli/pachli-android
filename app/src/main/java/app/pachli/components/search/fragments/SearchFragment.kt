@@ -26,6 +26,7 @@ import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.ui.LinkListener
+import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.databinding.FragmentSearchBinding
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.snackbar.Snackbar
@@ -69,6 +70,7 @@ abstract class SearchFragment<T : Any> :
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.searchRecyclerView.applyDefaultWindowInsets()
         initAdapter()
         setupSwipeRefreshLayout()
         requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)

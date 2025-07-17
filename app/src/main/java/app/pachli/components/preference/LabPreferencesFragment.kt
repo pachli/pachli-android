@@ -32,6 +32,9 @@ import app.pachli.R
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.data.repository.ExportedPreferencesRepository
 import app.pachli.core.preferences.PrefKeys
+import app.pachli.core.ui.extensions.InsetType
+import app.pachli.core.ui.extensions.applyDefaultWindowInsets
+import app.pachli.core.ui.extensions.applyWindowInsets
 import app.pachli.databinding.FragmentLabPreferencesBinding
 import app.pachli.settings.makePreferenceScreen
 import app.pachli.settings.preference
@@ -112,9 +115,16 @@ class LabPreferencesFragment : PreferenceFragmentCompat() {
 
         // Construct the final view by taking the custom layout and appending the default view
         // to the end.
-        return FragmentLabPreferencesBinding.inflate(inflater, container, false).root.apply {
+        val finalView = FragmentLabPreferencesBinding.inflate(inflater, container, false).root.apply {
             addView(defaultView)
         }
+
+        finalView.applyWindowInsets(
+            left = InsetType.PADDING,
+            right = InsetType.PADDING,
+        )
+
+        return finalView
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -162,6 +172,11 @@ class LabPreferencesFragment : PreferenceFragmentCompat() {
                 }
             }
         }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        listView.applyDefaultWindowInsets()
     }
 
     override fun onResume() {

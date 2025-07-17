@@ -22,7 +22,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import androidx.fragment.app.DialogFragment
+import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DiffUtil
@@ -53,7 +53,7 @@ import kotlinx.coroutines.launch
  * account from each list.
  */
 @AndroidEntryPoint
-class ListsForAccountFragment : DialogFragment() {
+class ListsForAccountFragment : AppCompatDialogFragment() {
     private val viewModel: ListsForAccountViewModel by viewModels(
         extrasProducer = {
             defaultViewModelCreationExtras.withCreationCallback<ListsForAccountViewModel.Factory> { factory ->

@@ -35,8 +35,7 @@
         android:layout_marginTop="70dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintRight_toRightOf="parent">
 
         <LinearLayout
             android:id="@+id/captionSheet"
@@ -44,17 +43,12 @@
             android:layout_height="wrap_content"
             android:background="@drawable/description_bg_expanded"
             android:orientation="vertical"
-            app:behavior_peekHeight="90dp"
+            app:behavior_fitToContents="false"
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
-            <View
-                android:layout_width="24dp"
-                android:layout_height="3dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/ic_drag_indicator_horiz_24dp"
-                android:importantForAccessibility="no" />
+            <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
@@ -66,9 +60,9 @@
                     android:layout_height="wrap_content"
                     android:hyphenationFrequency="full"
                     android:lineSpacingMultiplier="1.1"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp"
-                    android:paddingBottom="8dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="48dp"
                     android:textColor="?android:textColorPrimary"
                     android:textIsSelectable="true"
                     android:textSize="?attr/status_text_medium"

@@ -19,7 +19,7 @@
         errorLine2="                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/kotlin/app/pachli/feature/lists/ListsActivity.kt"
-            line="123"
+            line="134"
             column="30"/>
     </issue>
 
@@ -30,7 +30,7 @@
         errorLine2="                                                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/kotlin/app/pachli/feature/lists/ListsActivity.kt"
-            line="123"
+            line="134"
             column="68"/>
     </issue>
 
@@ -41,7 +41,7 @@
         errorLine2="                               ^">
         <location
             file="src/main/kotlin/app/pachli/feature/lists/ListsActivity.kt"
-            line="270"
+            line="281"
             column="32"/>
     </issue>
 

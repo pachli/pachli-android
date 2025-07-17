@@ -22,8 +22,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.appcompat.widget.SearchView
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -71,7 +71,7 @@ private typealias AccountInfo = Pair<TimelineAccount, Boolean>
  * accounts and search for followed accounts to add them to the list.
  */
 @AndroidEntryPoint
-class AccountsInListFragment : DialogFragment() {
+class AccountsInListFragment : AppCompatDialogFragment() {
     private val viewModel: AccountsInListViewModel by viewModels(
         extrasProducer = {
             defaultViewModelCreationExtras.withCreationCallback<AccountsInListViewModel.Factory> { factory ->

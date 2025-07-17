@@ -159,10 +159,6 @@ class IntentRouterActivity : BaseActivity() {
         val payload = IntentRouterActivityIntent.payload(intent)
             ?: Payload.MainActivity.start()
 
-        // Determine nextAccount
-        // If nextAccount == null, delete account; start Login process
-        // else; Mark nextAccount as active; delete previous account
-
         when (payload) {
             is Payload.Logout -> routeLogout(accounts, pachliAccountId)
             is Payload.QuickTile -> routeQuickTile(accounts)

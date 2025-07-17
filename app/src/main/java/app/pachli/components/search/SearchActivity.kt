@@ -23,11 +23,14 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.annotation.OptIn
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuProvider
+import androidx.core.view.ViewGroupCompat
+import androidx.core.view.updateLayoutParams
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -89,6 +92,9 @@ import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IS_RE
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IS_SENSITIVE
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_LANGUAGE
 import app.pachli.core.navigation.pachliAccountId
+import app.pachli.core.ui.appbar.FadeChildScrollEffect
+import app.pachli.core.ui.extensions.addScrollEffect
+import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.core.ui.extensions.await
 import app.pachli.core.ui.extensions.awaitSingleChoiceItem
 import app.pachli.core.ui.extensions.reduceSwipeSensitivity
@@ -99,6 +105,7 @@ import app.pachli.databinding.SearchOperatorDateDialogBinding
 import app.pachli.databinding.SearchOperatorFromDialogBinding
 import app.pachli.databinding.SearchOperatorWhereLocationDialogBinding
 import com.github.michaelbull.result.get
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.badge.BadgeUtils
 import com.google.android.material.badge.ExperimentalBadgeUtils
@@ -134,7 +141,22 @@ class SearchActivity :
         get() = viewModel.availableOperators.value.isNotEmpty()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
+        ViewGroupCompat.installCompatInsetsDispatch(binding.root)
+        binding.appBar.applyDefaultWindowInsets()
+        binding.toolbar.addScrollEffect(FadeChildScrollEffect)
+        binding.chipsFilterWrapper.updateLayoutParams<AppBarLayout.LayoutParams> {
+            this.scrollEffect = FadeChildScrollEffect
+        }
+        binding.chipsFilter2Wrapper.updateLayoutParams<AppBarLayout.LayoutParams> {
+            this.scrollEffect = FadeChildScrollEffect
+        }
+        binding.chipsFilter3Wrapper.updateLayoutParams<AppBarLayout.LayoutParams> {
+            this.scrollEffect = FadeChildScrollEffect
+        }
+        binding.pages.applyDefaultWindowInsets()
+
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
         supportActionBar?.apply {

@@ -7,6 +7,7 @@
     tools:context="app.pachli.components.search.SearchActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:liftOnScroll="true"
@@ -22,6 +23,7 @@
             app:navigationIcon="?attr/homeAsUpIndicator" />
 
         <HorizontalScrollView
+            android:id="@+id/chipsFilterWrapper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll|snap|enterAlways"
@@ -71,6 +73,7 @@
         </HorizontalScrollView>
 
         <HorizontalScrollView
+            android:id="@+id/chipsFilter2Wrapper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll|snap|enterAlways"
@@ -123,6 +126,7 @@
         </HorizontalScrollView>
 
         <HorizontalScrollView
+            android:id="@+id/chipsFilter3Wrapper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll|snap|enterAlways"

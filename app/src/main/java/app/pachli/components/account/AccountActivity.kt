@@ -32,7 +32,9 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
@@ -44,9 +46,8 @@ import androidx.core.graphics.ColorUtils
 import androidx.core.graphics.toColorInt
 import androidx.core.view.MenuProvider
 import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsCompat.Type.systemBars
+import androidx.core.view.ViewGroupCompat
+import androidx.core.view.children
 import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.lifecycleScope
@@ -80,6 +81,9 @@ import app.pachli.core.preferences.AppTheme
 import app.pachli.core.ui.ClipboardUseCase
 import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.emojify
+import app.pachli.core.ui.extensions.InsetType
+import app.pachli.core.ui.extensions.applyDefaultWindowInsets
+import app.pachli.core.ui.extensions.applyWindowInsets
 import app.pachli.core.ui.extensions.reduceSwipeSensitivity
 import app.pachli.core.ui.getDomain
 import app.pachli.core.ui.loadAvatar
@@ -138,7 +142,7 @@ class AccountActivity :
         },
     )
 
-    private val binding: ActivityAccountBinding by viewBinding(ActivityAccountBinding::inflate)
+    private val binding by viewBinding(ActivityAccountBinding::inflate)
 
     override val actionButton: FloatingActionButton?
         get() {
@@ -198,9 +202,33 @@ class AccountActivity :
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
+        ViewGroupCompat.installCompatInsetsDispatch(binding.root)
+        // Apply left/right insets to the main layout, but don't consume, so children
+        // can set the top/bottom.
+        binding.accountCoordinatorLayout.applyWindowInsets(
+            left = InsetType.PADDING,
+            right = InsetType.PADDING,
+            consume = false,
+        )
+        // CollapsingToolbarLayout consumes all insets without passing them on to
+        // children, which means accountToolbar never sees them. Override that behaviour
+        // with a custom inset listener that does nothing but does not consume them.
+        binding.collapsingToolbar.applyWindowInsets(consume = false)
+        binding.accountToolbar.applyWindowInsets(top = InsetType.PADDING)
+        binding.accountFragmentViewPager.applyDefaultWindowInsets()
+        binding.accountFloatingActionButton.applyDefaultWindowInsets()
+
+        // Normal swipe spinner startOffset is negative so it slides down from the view
+        // above it. This puts it above the systembar and it finishes too high up the
+        // screen. Move it down so it starts at the top edge, scale it so it appears to
+        // grow instead of appearing out of thin air, and keep the final resting place at
+        // the same relative offset to the start.
+        val absoluteOffset = binding.swipeRefreshLayout.progressViewEndOffset - binding.swipeRefreshLayout.progressViewStartOffset
+        binding.swipeRefreshLayout.setProgressViewOffset(true, 0, absoluteOffset)
+
         loadResources()
-        makeNotificationBarTransparent()
         setContentView(binding.root)
         addMenuProvider(this)
 
@@ -209,7 +237,6 @@ class AccountActivity :
 
         hideFab = sharedPreferencesRepository.hideFabWhenScrolling
 
-        handleWindowInsets()
         setupToolbar()
         setupTabs()
         setupAccountViews()
@@ -323,31 +350,12 @@ class AccountActivity :
         )
     }
 
-    private fun handleWindowInsets() {
-        ViewCompat.setOnApplyWindowInsetsListener(binding.accountCoordinatorLayout) { _, insets ->
-            val top = insets.getInsets(systemBars()).top
-            val toolbarParams = binding.accountToolbar.layoutParams as ViewGroup.MarginLayoutParams
-            toolbarParams.topMargin = top
-
-            val right = insets.getInsets(systemBars()).right
-            val bottom = insets.getInsets(systemBars()).bottom
-            val left = insets.getInsets(systemBars()).left
-            binding.accountCoordinatorLayout.updatePadding(right = right, bottom = bottom, left = left)
-
-            // Normal swipe spinner startOffset is negative so it slides down from the view
-            // above it. This puts it above the systembar and it finishes too high up the
-            // screen. Move it down so it starts at the top edge, scale it so it appears to
-            // grow instead of appearing out of thin air, and keep the final resting place at
-            // the same relative offset to the start.
-            val absoluteOffset = binding.swipeRefreshLayout.progressViewEndOffset - binding.swipeRefreshLayout.progressViewStartOffset
-            binding.swipeRefreshLayout.setProgressViewOffset(true, 0, absoluteOffset)
-
-            WindowInsetsCompat.CONSUMED
-        }
-    }
-
+    /**
+     * Sets the initial state of the toolbar, and adds an
+     * [AppBarLayout.OnOffsetChangedListener] to adjust the views as the user
+     * scrolls.
+     */
     private fun setupToolbar() {
-        // Setup the toolbar.
         setSupportActionBar(binding.accountToolbar)
         supportActionBar?.run {
             setDisplayHomeAsUpEnabled(true)
@@ -357,9 +365,28 @@ class AccountActivity :
 
         val appBarElevation = resources.getDimension(DR.dimen.actionbar_elevation)
 
+        /** The background for the toolbar when fully shown. */
         val toolbarBackground = MaterialShapeDrawable.createWithElevationOverlay(this, appBarElevation)
-        toolbarBackground.fillColor = ColorStateList.valueOf(Color.TRANSPARENT)
-        binding.accountToolbar.background = toolbarBackground
+
+        // Toolbar starts out transparent, and becomes more opaque as the user scrolls.
+        binding.accountToolbar.setBackgroundColor(Color.TRANSPARENT)
+
+        // The text on the toolbar starts transparent and becomes more opaque as the
+        // user scrolls.
+        //
+        // This is more difficult than it should be -- MaterialToolbar and parent classes
+        // don't expose the TextViews that contain the title and subtitle, and creates
+        // them on demand. So first set a title and subtitle to create the views, then
+        // find them in the MaterialToolbar's child views.
+        supportActionBar?.setDisplayShowTitleEnabled(true)
+        val (tvTitle, tvSubtitle) = with(binding.accountToolbar) {
+            title = " " // Must be non-empty, otherwise the toolbar ignores the value
+            subtitle = " " // Must be non-empty, otherwise the toolbar ignores the value
+            val textViews = children.filter { it is TextView }.toList()
+            Pair(textViews.getOrNull(0), textViews.getOrNull(1))
+        }
+        tvTitle?.alpha = 0f
+        tvSubtitle?.alpha = 0f
 
         // Provide a non-transparent background to the navigation and overflow icons to ensure
         // they remain visible over whatever the profile background image might be.
@@ -380,64 +407,60 @@ class AccountActivity :
 
         binding.accountHeaderInfoContainer.background = MaterialShapeDrawable.createWithElevationOverlay(this, appBarElevation)
 
-        val avatarBackground = MaterialShapeDrawable.createWithElevationOverlay(this, appBarElevation).apply {
+        binding.accountAvatarImageView.background = MaterialShapeDrawable.createWithElevationOverlay(this, appBarElevation).apply {
             fillColor = ColorStateList.valueOf(toolbarColor)
             elevation = appBarElevation
             shapeAppearanceModel = ShapeAppearanceModel.builder()
                 .setAllCornerSizes(resources.getDimension(DR.dimen.account_avatar_background_radius))
                 .build()
         }
-        binding.accountAvatarImageView.background = avatarBackground
 
-        // Add a listener to change the toolbar icon color when it enters/exits its collapsed state.
-        binding.accountAppBarLayout.addOnOffsetChangedListener(
-            object : AppBarLayout.OnOffsetChangedListener {
+        // Adjust the appbar views as the user scrolls.
+        binding.accountAppBarLayout.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
+            if (verticalOffset == oldOffset) return@addOnOffsetChangedListener
 
-                override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {
-                    if (verticalOffset == oldOffset) {
-                        return
-                    }
-                    oldOffset = verticalOffset
+            // Hide the FAB on scrolling down, show again on scroll up.
+            actionButton?.let {
+                if (hideFab && verticalOffset > oldOffset) it.show()
+                if (hideFab && verticalOffset < oldOffset) it.hide()
+            }
 
-                    if (titleVisibleHeight + verticalOffset < 0) {
-                        supportActionBar?.setDisplayShowTitleEnabled(true)
-                    } else {
-                        supportActionBar?.setDisplayShowTitleEnabled(false)
-                    }
+            oldOffset = verticalOffset
 
-                    if (hideFab && !blocking) {
-                        if (verticalOffset > oldOffset) {
-                            binding.accountFloatingActionButton.show()
-                        }
-                        if (verticalOffset < oldOffset) {
-                            binding.accountFloatingActionButton.hide()
-                        }
-                    }
+            val pctScroll = (abs(verticalOffset) / titleVisibleHeight.toFloat()).coerceAtMost(1f)
 
-                    val scaledAvatarSize = (avatarSize + verticalOffset) / avatarSize
+            // Adjust the toolbar title and subtitle, making them more visible relative
+            // to how the user scrolls.
+            tvTitle?.alpha = pctScroll
+            tvSubtitle?.alpha = pctScroll
 
-                    binding.accountAvatarImageView.scaleX = scaledAvatarSize
-                    binding.accountAvatarImageView.scaleY = scaledAvatarSize
+            // Adjust the avatar image.
+            // - Scale proportionate to how far the user scrolls.
+            // - Fade proportionate to how far the user scrolls.
+            // - Only allow clicks if fully visible.
+            binding.accountAvatarImageView.scaleX = 1 - pctScroll
+            binding.accountAvatarImageView.scaleY = 1 - pctScroll
+            binding.accountAvatarImageView.alpha = 1 - pctScroll
+            binding.accountAvatarImageView.isClickable = verticalOffset == 0
 
-                    binding.accountAvatarImageView.visible(scaledAvatarSize > 0)
+            // Fade the account display name and username proportionate to how far
+            // the user scrolls.
+            binding.accountDisplayNameTextView.alpha = 1 - pctScroll
+            binding.accountUsernameTextView.alpha = 1 - pctScroll
 
-                    val transparencyPercent = (abs(verticalOffset) / titleVisibleHeight.toFloat()).coerceAtMost(1f)
+            // Determine the toolbar colour; starts transparent, and becomes more
+            // visible proportionate to how far the user scrolls.
+            binding.accountToolbar.setBackgroundColor(
+                argbEvaluator.evaluate(
+                    pctScroll,
+                    Color.TRANSPARENT,
+                    toolbarBackground.resolvedTintColor,
+                ) as Int,
+            )
 
-                    window.statusBarColor = argbEvaluator.evaluate(transparencyPercent, statusBarColorTransparent, statusBarColorOpaque) as Int
-
-                    val evaluatedToolbarColor = argbEvaluator.evaluate(transparencyPercent, Color.TRANSPARENT, toolbarColor) as Int
-
-                    toolbarBackground.fillColor = ColorStateList.valueOf(evaluatedToolbarColor)
-
-                    binding.swipeRefreshLayout.isEnabled = verticalOffset == 0
-                }
-            },
-        )
-    }
-
-    private fun makeNotificationBarTransparent() {
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-        window.statusBarColor = statusBarColorTransparent
+            // Only allow swipe-to-refresh if fully visible.
+            binding.swipeRefreshLayout.isEnabled = verticalOffset == 0
+        }
     }
 
     /**
