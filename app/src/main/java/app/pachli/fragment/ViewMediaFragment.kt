@@ -149,6 +149,13 @@ abstract class ViewMediaFragment : Fragment() {
     }
 
     /**
+     * Called when audio has become noisy (e.g., the user has removed headphones).
+     *
+     * If the fragment is playing media it should be paused.
+     */
+    open fun onAudioBecomingNoisy() = Unit
+
+    /**
      * Called by the fragment adapter to notify the fragment that the shared
      * element transition has been completed.
      */

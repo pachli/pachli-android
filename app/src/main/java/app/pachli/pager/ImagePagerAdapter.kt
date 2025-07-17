@@ -36,6 +36,10 @@ class ImagePagerAdapter(
         }
     }
 
+    override fun onAudioBecomingNoisy() {
+        fragments.forEach { it?.get()?.onAudioBecomingNoisy() }
+    }
+
     /**
      * Called by the hosting activity to notify the adapter that the shared element
      * transition to the first displayed item in the adapter has completed.
