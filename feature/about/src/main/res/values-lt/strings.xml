@@ -10,7 +10,7 @@
     <string name="notification_details_push_notifications_with_unifiedpush">Tiesioginiai pranešimai su „UnifiedPush“</string>
     <string name="about_copied">Nukopijuota versija ir įrenginio informacija</string>
     <string name="about_powered_by_pachli">Veikiama su „Pachli“</string>
-    <string name="about_pachli_license">„Pachli“ – tai nemokama atvirojo kodo programinė įranga. Ji licencijuojama pagal GNU General Public License 3 versiją. Licenciją galite peržiūrėti čia: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
+    <string name="about_pachli_license">„Pachli“ – tai nemokama atvirojo kodo programinė įranga. Ji licencijuojama pagal „GNU General Public License“ 3 versiją. Licenciją galite peržiūrėti čia: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
     <string name="about_project_site">Projekto svetainė: https://pachli.app</string>
     <string name="about_bug_feature_request_site">Riktų ataskaitos ir funkcijų prašymai:\nhttps://github.com/pachli/pachli-android/issues</string>
     <string name="about_privacy_policy">Privatumo politika</string>
@@ -18,7 +18,25 @@
     <string name="about_device_info">%s %s\n„Android“ versija: %s\nSDK lygis: %d</string>
     <string name="license_description">„Pachli“ turi kodus ir išteklius iš šių atvirojo kodo projektų:</string>
     <string name="notification_details_title">Išsami informacija</string>
-    <string name="notification_details_notifications_enabled_help">Pranešimai neįjungti nė vienoje jūsų paskyroje. Pakeiskite tai per Paskyros nuostatos &gt; Pranešimai. Iki tol visi pranešimai yra išjungti.</string>
+    <string name="notification_details_notifications_enabled_help"><![CDATA[Pranešimai neįjungti nė vienoje jūsų paskyroje. Pakeiskite tai Paskyros nuostatuose > Pranešimai. Iki tol visi pranešimai yra išjungti.]]></string>
     <string name="notification_details_unifiedpush_available">„UnifiedPush“ pasiekiama?</string>
     <string name="notitication_log_filter_dialog_title">Rodyti žurnalo prioritetus</string>
+    <string name="notification_details_unifiedpush_available_help">„UnifiedPush“ (ntfy.sh) nėra pasiekiama, pranešimai bus periodiškai gaunami. Likusi šio skyrius dalis paaiškina, kodėl „UnifiedPush“ nenaudojama, bet tai nesusiję su tuo, kaip šiuo metu pranešimai gaunami.</string>
+    <string name="about_nivenly_foundation">Pachli – <a href="https://nivenly.org">„Nivenly“ fondo</a> projektas.</string>
+    <string name="notification_log_download_failed">Atsisiuntimas nepavyko: %1$s.</string>
+    <string name="notification_details_any_account_needs_migration">Visos paskyros turi „push“ „OAuth“ aprėptį?</string>
+    <string name="notification_details_any_account_needs_migration_help">Viena ar daugiau paskyrų neturi „push“ „OAuth“ aprėpties. Tiesioginiai pranešimai yra išjungti.</string>
+    <string name="notification_details_accounts_unified_push_url">Visos paskyros turi „UnifiedPush“ URL?</string>
+    <string name="notification_details_accounts_unified_push_url_help">Viena ar daugiau paskyrų nėra sukonfigūruotos su „UnifiedPush“ URL. Tiesioginiai pranešimai šiai paskyrai yra išjungti.</string>
+    <string name="notification_details_accounts_unified_push_subscription">Visos paskyros užprenumeruotos?</string>
+    <string name="notification_details_accounts_unified_push_subscription_help">Viena ar daugiau paskyrų nepavyko atnaujinti „UnifiedPush“ prenumeratos ir negaus pranešimų.</string>
+    <string name="notification_details_ntfy_exempt">„NTFY“ išimtis iš akumuliatoriaus optimizavimo?</string>
+    <string name="notification_details_ntfy_exempt_help">„NTFY“ nėra išimtis iš akumuliatoriaus optimizavimo. „Android“ gali vėluoti pranešimus, kai ekranas yra išjungtas.</string>
+    <string name="notification_details_pull_section">Gaunami pranešimai su periodinines darbykles</string>
+    <string name="notification_details_standby_bucket_exempted">Išimta</string>
+    <string name="notification_log_title">Žurnalas</string>
+    <string name="notification_log_filter_content_description">Filtruoti žurnalus pagal žymę</string>
+    <string name="notification_log_filter">Filtras</string>
+    <string name="notification_log_download_content_description">Atsisiųsti žurnalus</string>
+    <string name="notification_log_scheduled_in">Suplanuota %1$s, %2$s</string>
 </resources>
