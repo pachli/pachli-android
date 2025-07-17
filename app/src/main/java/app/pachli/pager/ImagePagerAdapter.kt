@@ -37,6 +37,16 @@ class ImagePagerAdapter(
         }
     }
 
+    override fun onBindViewHolder(holder: FragmentViewHolder, position: Int, payloads: List<Any?>) {
+        super.onBindViewHolder(holder, position, payloads)
+
+        // We might be binding a new fragment after the transition completed. If so,
+        // make sure to call the fragment's `onTransitionEnd` so it can start
+        // immediately. Otherwise the fragment hangs waiting for the transition
+        // to complete.
+        if (transitionComplete) fragments.getOrNull(position)?.get()?.onTransitionEnd()
+    }
+
     override fun onViewDetachedFromWindow(holder: FragmentViewHolder) {
         super.onViewDetachedFromWindow(holder)
         // Inform the fragment it is no longer visible so it can take appropriate
