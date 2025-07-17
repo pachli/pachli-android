@@ -149,6 +149,14 @@ abstract class ViewMediaFragment : Fragment() {
     }
 
     /**
+     * Called when the fragment has been detached by the viewpager and is not visible.
+     *
+     * This is an opportunity to e.g., pause video playback, or possibly unload
+     * large resources.
+     */
+    open fun onDetachedFromWindow() = Unit
+
+    /**
      * Called when audio has become noisy (e.g., the user has removed headphones).
      *
      * If the fragment is playing media it should be paused.

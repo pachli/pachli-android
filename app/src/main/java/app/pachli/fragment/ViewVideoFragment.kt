@@ -342,6 +342,10 @@ class ViewVideoFragment : ViewMediaFragment() {
         }
     }
 
+    override fun onDetachedFromWindow() {
+        player?.pause()
+    }
+
     override fun onAudioBecomingNoisy() {
         player?.pause()
     }
