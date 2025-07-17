@@ -21,7 +21,12 @@ import android.Manifest
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.app.DownloadManager
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
+import android.media.AudioManager.ACTION_AUDIO_BECOMING_NOISY
 import android.os.Build
 import android.os.Bundle
 import android.transition.Transition
@@ -40,6 +45,8 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
@@ -193,6 +200,8 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
                 }
             },
         )
+
+        AudioBecomingNoisyReceiver(this) { adapter.onAudioBecomingNoisy() }
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -357,10 +366,54 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
                 .startChooser()
         }
     }
+
+    companion object {
+        /**
+         * Call [callback] on receipt of [ACTION_AUDIO_BECOMING_NOISY].
+         *
+         * Tracks the lifecycle of [context] and registers a [BroadcastReceiver] when
+         * [context] resumes and unregisters it when [context] pauses. The receiver
+         * listens for [ACTION_AUDIO_BECOMING_NOISY] and invokes [callback].
+         *
+         * @property context Activity context to use when registering the receiver
+         * and observing lifecycle events.
+         * @property callback Callback to invoke.
+         */
+        class AudioBecomingNoisyReceiver<T>(
+            private val context: T,
+            private val callback: () -> Unit,
+        ) : BroadcastReceiver(), DefaultLifecycleObserver where T : Context, T : LifecycleOwner {
+            /** Intent filter for [ACTION_AUDIO_BECOMING_NOISY]. */
+            private val noisyAudioIntentFilter = IntentFilter(ACTION_AUDIO_BECOMING_NOISY)
+
+            init {
+                context.lifecycle.addObserver(this)
+            }
+
+            override fun onResume(owner: LifecycleOwner) {
+                context.registerReceiver(this, noisyAudioIntentFilter)
+            }
+
+            override fun onPause(owner: LifecycleOwner) {
+                context.unregisterReceiver(this)
+            }
+
+            override fun onReceive(context: Context, intent: Intent) {
+                if (intent.action == ACTION_AUDIO_BECOMING_NOISY) callback.invoke()
+            }
+        }
+    }
 }
 
 abstract class ViewMediaAdapter(activity: FragmentActivity) : FragmentStateAdapter(activity) {
     abstract fun onTransitionEnd(position: Int)
+
+    /**
+     * Call this when audio has become noisy (e.g., the user has removed headphones).
+     *
+     * The adapter should forward the call to each fragment to handle.
+     */
+    open fun onAudioBecomingNoisy() = Unit
 }
 
 interface NoopTransitionListener : Transition.TransitionListener {
