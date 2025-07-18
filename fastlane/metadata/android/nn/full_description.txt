@@ -1,11 +1,11 @@
 Pachli er ein fullfunksjonert klient for Mastodon og liknande serverar.
 
-• Les, svar, filtrer, tut, favorittmerk, og del innlegg
-• Omset innlegg frå andre språk
-• Les innlegg medan eininga er kopla frå internett (tidslinjene er lagra på eininga)
-• Drøft innlegg no og fullfør dei seinare
-• Skriv innlegg no og planlegg sending
-• Les og skriv frå fleire kontoar
-• Mange brukargrensesnittstema
-• Oppteken av at alle funksjonar kan brukast av funksjonshemma menneske
-• Har open kjeldekode, https://github.com/pachli
+- Les, svar, filtrer, tut, favorittmerk, og del innlegg
+- Omset innlegg frå andre språk
+- Les innlegg medan eininga er kopla frå internett (tidslinjene er lagra på eininga)
+- Drøft innlegg no og fullfør dei seinare
+- Skriv innlegg no og planlegg sending
+- Les og skriv frå fleire kontoar
+- Mange brukargrensesnittstema
+- Oppteken av at alle funksjonar kan brukast av funksjonshemma menneske
+- Har open kjeldekode, https://github.com/pachli
