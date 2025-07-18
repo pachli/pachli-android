@@ -344,6 +344,9 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
         // https://github.com/tuskyapp/Tusky/issues/3251 for details.
         tabAdapter = MainPagerAdapter(emptyList(), this)
         binding.viewPager.adapter = tabAdapter
+        // Work around https://issuetracker.google.com/issues/432664597, where the recyclerview
+        // might appear to be empty.
+        binding.viewPager.offscreenPageLimit = 2
 
         // Process different parts of the account flow depending on what's changed
         val account = viewModel.pachliAccountFlow.filterNotNull()
