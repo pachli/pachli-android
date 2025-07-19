@@ -815,7 +815,5 @@
     <string name="notification_severed_relationships_user_domain_block_fmt">Tu liedzi <b>%1$s</b></string>
     <string name="notification_severed_relationships_account_suspension_fmt">%1$s pārvaldītājs liedza <b>%2$s</b></string>
     <string name="notification_severed_relationships_unknown_fmt"><b>%1$s</b> ir liegts (nezināms iemesls)</string>
-    <string name="hint_search_emojis">Meklēt emocijzīmes…</string>
     <string name="pref_default_audio_playback">Noklusējuma skaņas atskaņošana</string>
-    <string name="label_emoji_no_category">Bez kategorijas</string>
 </resources>
