@@ -428,12 +428,18 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <!-- top margin equal to statusbar size will be set programmatically -->
+                <!--
+                     Set paddingBottom to work around a bug where the height is not
+                     set correctly by CollapsingToolbarLayout after enabling edge
+                     to edge. Otherwise the bottom of the toolbar subtitle runs into
+                     the bottom edge of the toolbar.
+
+                     See https://github.com/material-components/material-components-android/issues/3661 -->
                 <com.google.android.material.appbar.MaterialToolbar
                     android:id="@+id/accountToolbar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="top"
+                    android:paddingBottom="8dp"
                     android:background="@android:color/transparent"
                     app:contentInsetStartWithNavigation="0dp"
                     app:layout_collapseMode="pin"
