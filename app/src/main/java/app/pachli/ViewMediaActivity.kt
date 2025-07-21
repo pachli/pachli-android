@@ -283,11 +283,13 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
     private fun downloadMedia() {
         val url = imageUrl ?: attachmentViewData!![binding.viewPager.currentItem].attachment.url
         Toast.makeText(applicationContext, resources.getString(R.string.download_image, url), Toast.LENGTH_SHORT).show()
-        downloadUrlUseCase(
-            url,
-            accountManager.activeAccount!!.fullName,
-            owningUsername,
-        )
+        lifecycleScope.launch {
+            downloadUrlUseCase(
+                url,
+                accountManager.activeAccount!!.fullName,
+                owningUsername,
+            )
+        }
     }
 
     private fun requestDownloadMedia() {

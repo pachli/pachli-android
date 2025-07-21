@@ -133,10 +133,12 @@ import java.util.Locale
 import javax.inject.Inject
 import kotlin.math.max
 import kotlin.math.min
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 /**
@@ -214,9 +216,9 @@ class ComposeActivity :
         val uriNew = result.uriContent
         if (result.isSuccessful && uriNew != null) {
             viewModel.cropImageItemOld?.let { itemOld ->
-                val size = getMediaSize(contentResolver, uriNew)
-
                 lifecycleScope.launch {
+                    val size = getMediaSize(contentResolver, uriNew)
+
                     viewModel.addMediaToQueue(
                         itemOld.type,
                         uriNew,
@@ -352,7 +354,7 @@ class ComposeActivity :
                             viewModel.updateFocus(item.localId, newFocus)
                         }
                     },
-                    onEditImage = this@ComposeActivity::editImageInQueue,
+                    onEditImage = { lifecycleScope.launch { editImageInQueue(it) } },
                     onRemoveMedia = this@ComposeActivity::removeMediaFromQueue,
                 )
 
@@ -746,7 +748,7 @@ class ComposeActivity :
 
         binding.actionPhotoTake.visible(Intent(MediaStore.ACTION_IMAGE_CAPTURE).resolveActivity(packageManager) != null)
 
-        binding.actionPhotoTake.setOnClickListener { initiateCameraApp() }
+        binding.actionPhotoTake.setOnClickListener { lifecycleScope.launch { initiateCameraApp() } }
         binding.actionAddMedia.setOnClickListener { onAddMediaClick() }
         binding.addPollTextActionTextView.setOnClickListener { onAddPollClick() }
 
@@ -1327,19 +1329,19 @@ class ComposeActivity :
         }
     }
 
-    private fun initiateCameraApp() {
+    private suspend fun initiateCameraApp() = withContext(Dispatchers.IO) {
         addAttachmentBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
 
         val photoFile: File = try {
-            createNewImageFile(this)
+            createNewImageFile(this@ComposeActivity)
         } catch (_: IOException) {
             displayTransientMessage(R.string.error_media_upload_opening)
-            return
+            return@withContext
         }
 
         // Continue only if the File was successfully created
         photoUploadUri = FileProvider.getUriForFile(
-            this,
+            this@ComposeActivity,
             BuildConfig.APPLICATION_ID + ".fileprovider",
             photoFile,
         )?.also {
@@ -1367,7 +1369,7 @@ class ComposeActivity :
         }
     }
 
-    private fun editImageInQueue(item: QueuedMedia) {
+    private suspend fun editImageInQueue(item: QueuedMedia) {
         // If input image is lossless, output image should be lossless.
         // Currently the only supported lossless format is png.
         val mimeType: String? = contentResolver.getType(item.uri)

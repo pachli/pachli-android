@@ -382,7 +382,9 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
     private fun downloadAllMedia(status: Status) {
         Toast.makeText(context, R.string.downloading_media, Toast.LENGTH_SHORT).show()
         for ((_, url) in status.attachments) {
-            downloadUrlUseCase(url, viewModel.activeAccount!!.fullName, status.actionableStatus.account.username)
+            lifecycleScope.launch {
+                downloadUrlUseCase(url, viewModel.activeAccount!!.fullName, status.actionableStatus.account.username)
+            }
         }
     }
 
