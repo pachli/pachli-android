@@ -64,6 +64,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.shareIn
+import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okio.buffer
@@ -218,12 +219,12 @@ data class UploadData(
     val scope: CoroutineScope,
 )
 
-fun createNewImageFile(context: Context, suffix: String = ".jpg"): File {
+suspend fun createNewImageFile(context: Context, suffix: String = ".jpg"): File = withContext(Dispatchers.IO) {
     // Create an image file name
     val randomId = randomAlphanumericString(12)
     val imageFileName = "Pachli_${randomId}_"
     val storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-    return File.createTempFile(
+    return@withContext File.createTempFile(
         imageFileName,
         suffix,
         storageDir,
@@ -264,7 +265,7 @@ class MediaUploader @Inject constructor(
      * The Flow is hot, in order to cancel upload or clear resources call [cancelUploadScope].
      */
     @OptIn(ExperimentalCoroutinesApi::class)
-    fun uploadMedia(media: QueuedMedia, instanceInfo: InstanceInfo): Flow<Result<UploadState, MediaUploaderError>> {
+    suspend fun uploadMedia(media: QueuedMedia, instanceInfo: InstanceInfo): Flow<Result<UploadState, MediaUploaderError>> {
         val uploadScope = CoroutineScope(Dispatchers.IO)
         val uploadFlow: Flow<Result<UploadState, MediaUploaderError>> = flow {
             if (shouldResizeMedia(media, instanceInfo)) {
@@ -297,7 +298,7 @@ class MediaUploader @Inject constructor(
      * @param inUri [ContentResolver] URI for the file to prepare
      * @param instanceInfo server's configuration, for maximum file size limits
      */
-    fun prepareMedia(inUri: Uri, instanceInfo: InstanceInfo): Result<PreparedMedia, PrepareMediaError> {
+    suspend fun prepareMedia(inUri: Uri, instanceInfo: InstanceInfo): Result<PreparedMedia, PrepareMediaError> = withContext(Dispatchers.IO) {
         var mediaSize = MEDIA_SIZE_UNKNOWN
         var uri = inUri
         val mimeType: String?
@@ -326,7 +327,7 @@ class MediaUploader @Inject constructor(
                     }
                 }
                 ContentResolver.SCHEME_FILE -> {
-                    val path = uri.path ?: return Err(PrepareMediaError.ContentResolverMissingPathError(uri))
+                    val path = uri.path ?: return@withContext Err(PrepareMediaError.ContentResolverMissingPathError(uri))
                     val inputFile = File(path)
                     val suffix = inputFile.name.substringAfterLast('.', "tmp")
                     mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(suffix)
@@ -344,22 +345,22 @@ class MediaUploader @Inject constructor(
                 }
                 else -> {
                     Timber.w("Unknown uri scheme %s", uri)
-                    return Err(PrepareMediaError.ContentResolverUnsupportedSchemeError(uri))
+                    return@withContext Err(PrepareMediaError.ContentResolverUnsupportedSchemeError(uri))
                 }
             }
         } catch (e: IOException) {
             Timber.w(e)
-            return Err(PrepareMediaError.IoError(e))
+            return@withContext Err(PrepareMediaError.IoError(e))
         }
 
         if (mediaSize == MEDIA_SIZE_UNKNOWN) {
             Timber.w("Could not determine file size of upload")
-            return Err(PrepareMediaError.UnknownFileSizeError)
+            return@withContext Err(PrepareMediaError.UnknownFileSizeError)
         }
 
-        mimeType ?: return Err(PrepareMediaError.UnknownMimeTypeError)
+        mimeType ?: return@withContext Err(PrepareMediaError.UnknownMimeTypeError)
 
-        return when (mimeType.substring(0, mimeType.indexOf('/'))) {
+        return@withContext when (mimeType.substring(0, mimeType.indexOf('/'))) {
             "video" -> {
                 if (mediaSize > instanceInfo.videoSizeLimit) {
                     Err(PrepareMediaError.FileIsTooLargeError(mediaSize, instanceInfo.videoSizeLimit))
@@ -367,9 +368,11 @@ class MediaUploader @Inject constructor(
                     Ok(PreparedMedia(QueuedMedia.Type.VIDEO, uri, mediaSize))
                 }
             }
+
             "image" -> {
                 Ok(PreparedMedia(QueuedMedia.Type.IMAGE, uri, mediaSize))
             }
+
             "audio" -> {
                 if (mediaSize > instanceInfo.videoSizeLimit) {
                     Err(PrepareMediaError.FileIsTooLargeError(mediaSize, instanceInfo.videoSizeLimit))
@@ -377,6 +380,7 @@ class MediaUploader @Inject constructor(
                     Ok(PreparedMedia(QueuedMedia.Type.AUDIO, uri, mediaSize))
                 }
             }
+
             else -> {
                 Err(PrepareMediaError.UnsupportedMimeTypeError(mimeType))
             }
@@ -463,10 +467,10 @@ class MediaUploader @Inject constructor(
         }
     }
 
-    private fun downsize(media: QueuedMedia, instanceInfo: InstanceInfo): QueuedMedia {
+    private suspend fun downsize(media: QueuedMedia, instanceInfo: InstanceInfo): QueuedMedia = withContext(Dispatchers.IO) {
         val file = createNewImageFile(context)
         downsizeImage(media.uri, instanceInfo.imageSizeLimit, contentResolver, file)
-        return media.copy(uri = file.toUri(), mediaSize = file.length())
+        return@withContext media.copy(uri = file.toUri(), mediaSize = file.length())
     }
 
     private fun shouldResizeMedia(media: QueuedMedia, instanceInfo: InstanceInfo): Boolean {

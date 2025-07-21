@@ -556,11 +556,13 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
         Toast.makeText(context, R.string.downloading_media, Toast.LENGTH_SHORT).show()
 
         status.attachments.forEach {
-            downloadUrlUseCase(
-                it.url,
-                accountManager.activeAccount!!.fullName,
-                status.actionableStatus.account.username,
-            )
+            lifecycleScope.launch {
+                downloadUrlUseCase(
+                    it.url,
+                    accountManager.activeAccount!!.fullName,
+                    status.actionableStatus.account.username,
+                )
+            }
         }
     }
 

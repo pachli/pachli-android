@@ -28,6 +28,8 @@ import java.io.FileNotFoundException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 /**
  * Helper methods for obtaining and resizing media files
@@ -42,15 +44,15 @@ const val MEDIA_SIZE_UNKNOWN = -1L
  *
  * @return the size of the media in bytes or {@link MediaUtils#MEDIA_SIZE_UNKNOWN}
  */
-fun getMediaSize(contentResolver: ContentResolver, uri: Uri?): Long {
-    uri ?: return MEDIA_SIZE_UNKNOWN
+suspend fun getMediaSize(contentResolver: ContentResolver, uri: Uri?): Long = withContext(Dispatchers.IO) {
+    uri ?: return@withContext MEDIA_SIZE_UNKNOWN
 
     var mediaSize = MEDIA_SIZE_UNKNOWN
     val cursor: Cursor?
     try {
         cursor = contentResolver.query(uri, null, null, null, null)
     } catch (e: SecurityException) {
-        return MEDIA_SIZE_UNKNOWN
+        return@withContext MEDIA_SIZE_UNKNOWN
     }
     if (cursor != null) {
         val sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE)
@@ -58,7 +60,7 @@ fun getMediaSize(contentResolver: ContentResolver, uri: Uri?): Long {
         mediaSize = cursor.getLong(sizeIndex)
         cursor.close()
     }
-    return mediaSize
+    return@withContext mediaSize
 }
 
 @Throws(FileNotFoundException::class)

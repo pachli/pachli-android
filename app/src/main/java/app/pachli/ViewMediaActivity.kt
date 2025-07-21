@@ -92,14 +92,14 @@ import okio.buffer
 import okio.sink
 import timber.log.Timber
 
-/** Errors that can occur downloading a URL. */
-sealed interface DownloadUrlError : PachliError {
+/** Errors that can occur downloading a URL to share. */
+sealed interface DownloadUrlToShareError : PachliError {
     /** ApiError occurred downloading the media. */
     @JvmInline
-    value class Api(private val error: ApiError) : DownloadUrlError, PachliError by error
+    value class Api(private val error: ApiError) : DownloadUrlToShareError, PachliError by error
 
     /** Call to getExternalFilesDir failed / returned null. */
-    data object GetExternalFilesDirError : DownloadUrlError {
+    data object GetExternalFilesDirError : DownloadUrlToShareError {
         override val resourceId = R.string.error_share_media
         override val formatArgs = null
         override val cause = null
@@ -283,11 +283,13 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
     private fun downloadMedia() {
         val url = imageUrl ?: attachmentViewData!![binding.viewPager.currentItem].attachment.url
         Toast.makeText(applicationContext, resources.getString(R.string.download_image, url), Toast.LENGTH_SHORT).show()
-        downloadUrlUseCase(
-            url,
-            accountManager.activeAccount!!.fullName,
-            owningUsername,
-        )
+        lifecycleScope.launch {
+            downloadUrlUseCase(
+                url,
+                accountManager.activeAccount!!.fullName,
+                owningUsername,
+            )
+        }
     }
 
     private fun requestDownloadMedia() {
@@ -368,13 +370,13 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
      *
      * @return If successful, a [Pair] where the first item is the file's MIME type
      * and the second item is the [File] the [url] was downloaded to. Otherwise, the
-     * [DownloadUrlError] that occurred downloading the file.
+     * [DownloadUrlToShareError] that occurred downloading the file.
      */
-    private suspend fun downloadUrlToTempFile(url: String): Result<Pair<String?, File>, DownloadUrlError> = withContext(Dispatchers.IO) {
+    private suspend fun downloadUrlToTempFile(url: String): Result<Pair<String?, File>, DownloadUrlToShareError> = withContext(Dispatchers.IO) {
         val directory = applicationContext.getExternalFilesDir(null)
         if (directory == null || !(directory.exists())) {
             Timber.e("Error obtaining directory to save temporary media.")
-            return@withContext Err(DownloadUrlError.GetExternalFilesDirError)
+            return@withContext Err(DownloadUrlToShareError.GetExternalFilesDirError)
         }
 
         val mimeTypeMap = MimeTypeMap.getSingleton()
@@ -395,7 +397,7 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
                 }
             }
             .map { Pair(mimeType, file) }
-            .mapError { DownloadUrlError.Api(ApiError.from(call.request(), it)) }
+            .mapError { DownloadUrlToShareError.Api(ApiError.from(call.request(), it)) }
     }
 
     companion object {

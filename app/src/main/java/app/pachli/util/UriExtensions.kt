@@ -21,6 +21,8 @@ import android.content.ContentResolver
 import android.net.Uri
 import java.io.File
 import java.io.IOException
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import okio.Buffer
@@ -30,14 +32,14 @@ import okio.buffer
 import okio.sink
 import okio.source
 
-fun Uri.copyToFile(contentResolver: ContentResolver, file: File): Boolean {
-    return try {
-        val inputStream = contentResolver.openInputStream(this) ?: return false
+suspend fun Uri.copyToFile(contentResolver: ContentResolver, file: File): Boolean = withContext(Dispatchers.IO) {
+    return@withContext try {
+        val inputStream = contentResolver.openInputStream(this@copyToFile) ?: return@withContext false
         inputStream.source().buffer().use { source ->
             file.sink().buffer().use { it.writeAll(source) }
         }
         true
-    } catch (e: IOException) {
+    } catch (_: IOException) {
         false
     }
 }
@@ -49,13 +51,13 @@ fun interface UploadCallback {
     fun onProgressUpdate(percentage: Int)
 }
 
-fun Uri.asRequestBody(
+suspend fun Uri.asRequestBody(
     contentResolver: ContentResolver,
     contentType: MediaType? = null,
     contentLength: Long = -1L,
     uploadListener: UploadCallback? = null,
-): RequestBody {
-    return object : RequestBody() {
+): RequestBody = withContext(Dispatchers.IO) {
+    return@withContext object : RequestBody() {
         override fun contentType(): MediaType? = contentType
 
         override fun contentLength(): Long = contentLength
