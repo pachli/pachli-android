@@ -53,6 +53,7 @@ import androidx.viewpager2.widget.ViewPager2
 import app.pachli.BuildConfig.APPLICATION_ID
 import app.pachli.core.activity.BaseActivity
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
+import app.pachli.core.common.PachliError
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
@@ -70,7 +71,10 @@ import app.pachli.fragment.MediaActionsListener
 import app.pachli.pager.ImagePagerAdapter
 import app.pachli.pager.SingleImagePagerAdapter
 import app.pachli.util.getTemporaryMediaFilename
+import com.github.michaelbull.result.Err
+import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.coroutines.runSuspendCatching
+import com.github.michaelbull.result.map
 import com.github.michaelbull.result.mapError
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
@@ -80,13 +84,27 @@ import java.io.File
 import java.util.Locale
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okio.buffer
 import okio.sink
 import timber.log.Timber
+
+/** Errors that can occur downloading a URL to share. */
+sealed interface DownloadUrlToShareError : PachliError {
+    /** ApiError occurred downloading the media. */
+    @JvmInline
+    value class Api(private val error: ApiError) : DownloadUrlToShareError, PachliError by error
+
+    /** Call to getExternalFilesDir failed / returned null. */
+    data object GetExternalFilesDirError : DownloadUrlToShareError {
+        override val resourceId = R.string.error_share_media
+        override val formatArgs = null
+        override val cause = null
+    }
+}
 
 /**
  * Show one or more media items (pictures, video, audio, etc).
@@ -185,7 +203,7 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
             when (item.itemId) {
                 R.id.action_download -> requestDownloadMedia()
                 R.id.action_open_status -> onOpenStatus()
-                R.id.action_share_media -> shareMedia()
+                R.id.action_share_media -> lifecycleScope.launch { shareMedia() }
                 R.id.action_copy_media_link -> copyLink()
             }
             viewModel.onToolbarMenuInteraction()
@@ -298,61 +316,35 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
         clipboard.copyTextTo(url)
     }
 
-    private fun shareMedia() {
-        val directory = applicationContext.getExternalFilesDir(null)
-        if (directory == null || !(directory.exists())) {
-            Timber.e("Error obtaining directory to save temporary media.")
-            return
-        }
-
-        if (imageUrl != null) {
-            shareMediaFile(directory, imageUrl!!)
-        } else {
-            val attachment = attachmentViewData!![binding.viewPager.currentItem].attachment
-            shareMediaFile(directory, attachment.url)
-        }
-    }
-
     /**
-     * Share media by downloading it to a temporary file and then sharing that
-     * file.
+     * Shares the current media file.
      *
-     * [DownloadManager] is not used for this as it is not guaranteed to start
-     * downloading the file expediently, and the user may wait a long time.
+     * Downloads the media to a local temporary file, tnen sends a Share [Intent] to
+     * allow the user to choose which app to share the media file with.
      */
-    private fun shareMediaFile(directory: File, url: String) {
+    private suspend fun shareMedia() {
         isDownloading = true
         binding.progressBarShare.show()
         invalidateOptionsMenu()
 
-        val mimeTypeMap = MimeTypeMap.getSingleton()
-        val extension = MimeTypeMap.getFileExtensionFromUrl(url)
-        val mimeType = mimeTypeMap.getMimeTypeFromExtension(extension)
-        val filename = getTemporaryMediaFilename(extension)
-        val file = File(directory, filename)
+        val url: String = imageUrl ?: attachmentViewData!![binding.viewPager.currentItem].attachment.url
 
-        lifecycleScope.launch {
-            val request = Request.Builder().url(url).build()
-            val call = okHttpClient.newCall(request)
-            val response = async(Dispatchers.IO) { runSuspendCatching { call.execute() } }.await()
-                .onSuccess {
-                    it.body?.let { body -> file.sink().buffer().use { it.writeAll(body.source()) } }
-                    it.close()
-                }.mapError { ApiError.from(call.request(), it) }
+        val response = downloadUrlToTempFile(url)
 
-            isDownloading = false
-            binding.progressBarShare.hide()
-            invalidateOptionsMenu()
+        isDownloading = false
+        binding.progressBarShare.hide()
+        invalidateOptionsMenu()
 
-            response.onFailure {
-                Snackbar.make(
-                    binding.root,
-                    getString(R.string.error_media_download, url, it.fmt(this@ViewMediaActivity)),
-                    Snackbar.LENGTH_INDEFINITE,
-                ).show()
-                return@launch
-            }
+        response.onFailure {
+            Snackbar.make(
+                binding.root,
+                getString(R.string.error_media_download, url, it.fmt(this@ViewMediaActivity)),
+                Snackbar.LENGTH_INDEFINITE,
+            ).show()
+            return
+        }
 
+        response.onSuccess { (mimeType, file) ->
             ShareCompat.IntentBuilder(this@ViewMediaActivity)
                 .setType(mimeType)
                 .addStream(
@@ -365,6 +357,45 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
                 .setChooserTitle(R.string.send_media_to)
                 .startChooser()
         }
+    }
+
+    /**
+     * Creates a temporary file in [getExternalFilesDir] and downloads [url] to that
+     * file.
+     *
+     * [DownloadManager] is not used for this as it is not guaranteed to start
+     * downloading the file expediently, and the user may wait a long time.
+     *
+     * @return If successful, a [Pair] where the first item is the file's MIME type
+     * and the second item is the [File] the [url] was downloaded to. Otherwise, the
+     * [DownloadUrlToShareError] that occurred downloading the file.
+     */
+    private suspend fun downloadUrlToTempFile(url: String): Result<Pair<String?, File>, DownloadUrlToShareError> = withContext(Dispatchers.IO) {
+        val directory = applicationContext.getExternalFilesDir(null)
+        if (directory == null || !(directory.exists())) {
+            Timber.e("Error obtaining directory to save temporary media.")
+            return@withContext Err(DownloadUrlToShareError.GetExternalFilesDirError)
+        }
+
+        val mimeTypeMap = MimeTypeMap.getSingleton()
+        val extension = MimeTypeMap.getFileExtensionFromUrl(url)
+        val mimeType = mimeTypeMap.getMimeTypeFromExtension(extension)
+        val filename = getTemporaryMediaFilename(extension)
+        val file = File(directory, filename)
+
+        val request = Request.Builder().url(url).build()
+        val call = okHttpClient.newCall(request)
+
+        return@withContext runSuspendCatching { call.execute() }
+            .onSuccess { response ->
+                response.body?.use { body ->
+                    file.sink().buffer().use {
+                        it.writeAll(body.source())
+                    }
+                }
+            }
+            .map { Pair(mimeType, file) }
+            .mapError { DownloadUrlToShareError.Api(ApiError.from(call.request(), it)) }
     }
 
     companion object {

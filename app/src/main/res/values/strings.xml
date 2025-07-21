@@ -897,4 +897,6 @@
     <string name="export_preferences_ok_fmt">Preferences exported to %1$s</string>
     <string name="error_export_preferences_fmt">Could not export preferences to %1$s: %2$s</string>
     <string name="error_import_preferences_fmt">Could not import preferences from %1$s: %2$s</string>
+
+    <string name="error_share_media">no directory to save temporary media exists</string>
 </resources>
