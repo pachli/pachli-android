@@ -1,3 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="title_manage_accounts">Handsam kontoar</string>
+    <string name="label_active_account">Aktiv konto</string>
+    <string name="action_switch_account">Bytt</string>
+    <string name="pachli_account_content_description_fmt">%1$s, aktiv konto</string>
+    <string name="action_logout_account_fmt">Logg ut %1$s</string>
+    <string name="action_switch_account_fmt">Bytt til %1$s</string>
 </resources>
