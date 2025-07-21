@@ -177,9 +177,9 @@
     <string name="search_no_results">Ingen treff</string>
     <string name="label_avatar">Profilbilete</string>
     <string name="send_post_link_to">Del innleggs-URL til…</string>
-    <string name="hint_description">Beskriving</string>
+    <string name="hint_description">Skildring</string>
     <string name="send_account_username_to">Del kontobrukarnamn til…</string>
-    <string name="hint_media_description_missing">Media bør ha beskrivingar.</string>
+    <string name="hint_media_description_missing">Media bør ha skildringar.</string>
     <string name="label_image">Bilete</string>
     <string name="send_media_to">Del media til…</string>
     <string name="label_quick_reply">Svar…</string>
@@ -465,7 +465,7 @@
     <string name="no_scheduled_posts">Du har ingen planlagte innlegg.</string>
     <string name="conversation_2_recipients">%1$s og %2$s</string>
     <string name="description_post_cw">Innhaldsåtvaring: %s</string>
-    <string name="description_post_media_no_description_placeholder">Inga beskriving</string>
+    <string name="description_post_media_no_description_placeholder">Inga skildring</string>
     <string name="description_post_edited">Redigert</string>
     <string name="description_post_reblogged">Delt</string>
     <string name="description_post_favourited">Favorittmarka</string>
