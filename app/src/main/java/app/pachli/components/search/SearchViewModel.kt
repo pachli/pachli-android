@@ -330,7 +330,7 @@ class SearchViewModel @Inject constructor(
 
     fun muteAccount(accountId: String, notifications: Boolean, duration: Int?) {
         viewModelScope.launch {
-            timelineCases.mute(activeAccount!!.id, accountId, notifications, duration)
+            timelineCases.muteAccount(activeAccount!!.id, accountId, notifications, duration)
         }
     }
 
@@ -342,7 +342,7 @@ class SearchViewModel @Inject constructor(
 
     fun blockAccount(accountId: String) {
         viewModelScope.launch {
-            timelineCases.block(activeAccount!!.id, accountId)
+            timelineCases.blockAccount(activeAccount!!.id, accountId)
         }
     }
 

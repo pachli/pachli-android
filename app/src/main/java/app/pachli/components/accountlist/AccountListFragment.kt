@@ -61,6 +61,7 @@ import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.databinding.FragmentAccountListBinding
 import app.pachli.interfaces.AccountActionListener
 import app.pachli.interfaces.AppBarLayoutHost
+import app.pachli.usecase.TimelineCases
 import app.pachli.view.EndlessOnScrollListener
 import com.bumptech.glide.Glide
 import com.github.michaelbull.result.getOrElse
@@ -89,6 +90,9 @@ class AccountListFragment :
 
     @Inject
     lateinit var sharedPreferencesRepository: SharedPreferencesRepository
+
+    @Inject
+    lateinit var timelineCases: TimelineCases
 
     private val binding by viewBinding(FragmentAccountListBinding::bind)
 
@@ -189,9 +193,9 @@ class AccountListFragment :
     override fun onMute(mute: Boolean, id: String, position: Int, notifications: Boolean) {
         viewLifecycleOwner.lifecycleScope.launch {
             if (!mute) {
-                api.unmuteAccount(id)
+                timelineCases.unmuteAccount(pachliAccountId, id)
             } else {
-                api.muteAccount(id, notifications)
+                timelineCases.muteAccount(pachliAccountId, id, notifications)
             }
                 .onSuccess { onMuteSuccess(mute, id, position, notifications) }
                 .onFailure { onMuteFailure(mute, id, notifications) }
@@ -232,9 +236,9 @@ class AccountListFragment :
     override fun onBlock(block: Boolean, id: String, position: Int) {
         viewLifecycleOwner.lifecycleScope.launch {
             if (block) {
-                api.blockAccount(id)
+                timelineCases.blockAccount(pachliAccountId, id)
             } else {
-                api.unblockAccount(id)
+                timelineCases.unblockAccount(pachliAccountId, id)
             }
                 .onSuccess { onBlockSuccess(block, id, position) }
                 .onFailure { onBlockFailure(block, id, it.throwable) }

@@ -19,9 +19,9 @@ package app.pachli.core.database.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
-import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.TypeConverters
+import androidx.room.Upsert
 import app.pachli.core.database.Converters
 import app.pachli.core.database.model.FollowingAccountEntity
 
@@ -37,11 +37,11 @@ WHERE pachliAccountId = :accountId
     )
     suspend fun deleteAllForAccount(accountId: Long)
 
-    @Insert
-    suspend fun insert(accounts: List<FollowingAccountEntity>)
+    @Upsert
+    suspend fun upsert(accounts: List<FollowingAccountEntity>)
 
-    @Insert
-    suspend fun insert(account: FollowingAccountEntity)
+    @Upsert
+    suspend fun upsert(account: FollowingAccountEntity)
 
     @Delete
     suspend fun delete(account: FollowingAccountEntity)

@@ -392,7 +392,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
     private fun onMute(accountId: String, accountUsername: String) {
         showMuteAccountDialog(this.requireActivity(), accountUsername) { notifications: Boolean?, duration: Int? ->
             lifecycleScope.launch {
-                timelineCases.mute(pachliAccountId, accountId, notifications == true, duration)
+                timelineCases.muteAccount(pachliAccountId, accountId, notifications == true, duration)
             }
         }
     }
@@ -402,7 +402,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
             .setMessage(getString(R.string.dialog_block_warning, accountUsername))
             .setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
                 lifecycleScope.launch {
-                    timelineCases.block(pachliAccountId, accountId)
+                    timelineCases.blockAccount(pachliAccountId, accountId)
                 }
             }
             .setNegativeButton(android.R.string.cancel, null)
