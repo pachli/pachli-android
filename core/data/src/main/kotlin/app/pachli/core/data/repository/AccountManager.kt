@@ -483,7 +483,7 @@ class AccountManager @Inject constructor(
 
             transactionProvider {
                 followingAccountDao.deleteAllForAccount(account.id)
-                followingAccountDao.insert(following)
+                followingAccountDao.upsert(following)
             }
 
             return@async Ok(following)
@@ -803,7 +803,7 @@ class AccountManager @Inject constructor(
 
     // -- Following
     suspend fun followAccount(pachliAccountId: Long, serverId: String) {
-        followingAccountDao.insert(FollowingAccountEntity(pachliAccountId, serverId))
+        followingAccountDao.upsert(FollowingAccountEntity(pachliAccountId, serverId))
     }
 
     suspend fun unfollowAccount(pachliAccountId: Long, serverId: String) {

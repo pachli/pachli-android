@@ -285,7 +285,7 @@ class AccountEntityForeignKeyTest {
             pachliAccountId = pachliAccountId,
             serverId = "2",
         )
-        followingAccountDao.insert(followingAccount)
+        followingAccountDao.upsert(followingAccount)
 
         // Check everything is as expected.
         assertThat(followingAccountDao.loadAllForAccount(pachliAccountId)).containsExactly(followingAccount)

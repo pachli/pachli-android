@@ -29,12 +29,11 @@ import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.data.repository.get
-import app.pachli.core.eventhub.BlockEvent
 import app.pachli.core.eventhub.EventHub
-import app.pachli.core.eventhub.MuteEvent
 import app.pachli.core.model.Relationship
 import app.pachli.core.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.usecase.TimelineCases
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
@@ -83,6 +82,7 @@ class ReportViewModel @AssistedInject constructor(
     private val mastodonApi: MastodonApi,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     private val eventHub: EventHub,
+    private val timelineCases: TimelineCases,
 ) : ViewModel() {
 
     private val _navigation = MutableStateFlow(Screen.Statuses)
@@ -224,17 +224,12 @@ class ReportViewModel @AssistedInject constructor(
 
         viewModelScope.launch {
             if (alreadyMuted) {
-                mastodonApi.unmuteAccount(this@ReportViewModel.reportedAccountId)
+                timelineCases.unmuteAccount(pachliAccountId, this@ReportViewModel.reportedAccountId)
             } else {
-                mastodonApi.muteAccount(this@ReportViewModel.reportedAccountId)
+                timelineCases.muteAccount(pachliAccountId, this@ReportViewModel.reportedAccountId)
             }
                 .map { it.body.muting }
-                .onSuccess {
-                    _muting.emit(Ok(Loadable.Loaded(it)))
-                    if (it) {
-                        eventHub.dispatch(MuteEvent(pachliAccountId, this@ReportViewModel.reportedAccountId))
-                    }
-                }
+                .onSuccess { _muting.emit(Ok(Loadable.Loaded(it))) }
                 .onFailure { _muting.emit(Err(it)) }
         }
     }
@@ -244,17 +239,12 @@ class ReportViewModel @AssistedInject constructor(
 
         viewModelScope.launch {
             if (alreadyBlocked) {
-                mastodonApi.unblockAccount(this@ReportViewModel.reportedAccountId)
+                timelineCases.unblockAccount(pachliAccountId, this@ReportViewModel.reportedAccountId)
             } else {
-                mastodonApi.blockAccount(this@ReportViewModel.reportedAccountId)
+                timelineCases.blockAccount(pachliAccountId, this@ReportViewModel.reportedAccountId)
             }
                 .map { it.body.blocking }
-                .onSuccess {
-                    _blocking.emit(Ok(Loadable.Loaded(it)))
-                    if (it) {
-                        eventHub.dispatch(BlockEvent(pachliAccountId, this@ReportViewModel.reportedAccountId))
-                    }
-                }
+                .onSuccess { _blocking.emit(Ok(Loadable.Loaded(it))) }
                 .onFailure { _blocking.emit(Err(it)) }
         }
     }
