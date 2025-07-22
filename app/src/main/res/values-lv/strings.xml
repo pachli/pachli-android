@@ -816,4 +816,5 @@
     <string name="notification_severed_relationships_account_suspension_fmt">%1$s pārvaldītājs liedza <b>%2$s</b></string>
     <string name="notification_severed_relationships_unknown_fmt"><b>%1$s</b> ir liegts (nezināms iemesls)</string>
     <string name="pref_default_audio_playback">Noklusējuma skaņas atskaņošana</string>
+    <string name="error_share_media">nav mapes, kurā saglabāt pagaidu informācijas nesējus</string>
 </resources>
