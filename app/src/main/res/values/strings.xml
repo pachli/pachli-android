@@ -117,6 +117,14 @@
         <item quantity="one">%1$s account you follow removed.</item>
         <item quantity="other">%1$s accounts you follow removed.</item>
     </plurals>
+    <string name="notification_moderation_warning_title">A message from your moderators</string>
+    <string name="notification_moderation_warning_body_none_fmt">You have received a moderation warning: %1$s</string>
+    <string name="notification_moderation_warning_body_disable_fmt">Your account has been disabled: %1$s</string>
+    <string name="notification_moderation_warning_body_mark_statuses_as_sensitive_fmt">Some of your posts have been marked sensitive: %1$s</string>
+    <string name="notification_moderation_warning_body_delete_statuses_fmt">Some of your posts have been deleted: %1$s</string>
+    <string name="notification_moderation_warning_body_silence_fmt">Your account has been limited: %1$s</string>
+    <string name="notification_moderation_warning_body_suspend_fmt">Your account has been suspended: %1$s</string>
+    <string name="notification_moderation_warning_body_unknown_fmt">You have received a moderation warning: %1$s</string>
     <string name="notification_unknown">Unknown notification type</string>
     <string name="notification_header_report_format">%s reported %s</string>
     <plurals name="notification_summary_report_format">

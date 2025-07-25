@@ -29,11 +29,6 @@ import java.time.Instant
  * @property id Server ID for the account warning.
  * @property action Action taken against the account.
  * @property text Message from the moderator to the target account.
- * @property statusIds List of status IDs that are relevant to the warning.
- * When [action] is [Action.MARK_STATUSES_AS_SENSITIVE] or [Action.DELETE_STATUSES],
- * those are the affected statuses.
- * @property targetAccount Account against which a moderation decision has been taken.
- * @property appeal
  * @property createdAt When the event took place..
  */
 @JsonClass(generateAdapter = true)
@@ -41,11 +36,6 @@ data class AccountWarning(
     val id: String,
     val action: Action = Action.UNKNOWN,
     val text: String,
-    @Json(name = "status_ids")
-    val statusIds: List<String>? = null,
-    @Json(name = "target_account")
-    val targetAccount: Account,
-    val appeal: Appeal? = null,
     @Json(name = "created_at")
     val createdAt: Instant,
 ) {
@@ -78,6 +68,18 @@ data class AccountWarning(
         /** Unknown action. */
         @Default
         UNKNOWN,
+
+        ;
+
+        fun asModel() = when (this) {
+            NONE -> app.pachli.core.model.AccountWarning.Action.NONE
+            DISABLE -> app.pachli.core.model.AccountWarning.Action.DISABLE
+            MARK_STATUSES_AS_SENSITIVE -> app.pachli.core.model.AccountWarning.Action.MARK_STATUSES_AS_SENSITIVE
+            DELETE_STATUSES -> app.pachli.core.model.AccountWarning.Action.DELETE_STATUSES
+            SILENCE -> app.pachli.core.model.AccountWarning.Action.SILENCE
+            SUSPEND -> app.pachli.core.model.AccountWarning.Action.SUSPEND
+            UNKNOWN -> app.pachli.core.model.AccountWarning.Action.UNKNOWN
+        }
     }
 
     @JsonClass(generateAdapter = true)
@@ -101,6 +103,27 @@ data class AccountWarning(
 
             @Default
             UNKNOWN,
+
+            ;
+
+            fun asModel() = when (this) {
+                APPROVED -> app.pachli.core.model.AccountWarning.Appeal.State.APPROVED
+                REJECTED -> app.pachli.core.model.AccountWarning.Appeal.State.REJECTED
+                PENDING -> app.pachli.core.model.AccountWarning.Appeal.State.PENDING
+                UNKNOWN -> app.pachli.core.model.AccountWarning.Appeal.State.UNKNOWN
+            }
         }
+
+        fun asModel() = app.pachli.core.model.AccountWarning.Appeal(
+            text = text,
+            state = state.asModel(),
+        )
     }
+
+    fun asModel() = app.pachli.core.model.AccountWarning(
+        id = id,
+        action = action.asModel(),
+        text = text,
+        createdAt = createdAt,
+    )
 }

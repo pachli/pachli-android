@@ -27,6 +27,7 @@ import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.database.model.asModel
 import app.pachli.core.model.AccountFilterDecision
+import app.pachli.core.model.AccountWarning
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.RelationshipSeveranceEvent
 import app.pachli.core.model.Status
@@ -65,6 +66,7 @@ data class NotificationViewData(
     val relationshipSeveranceEvent: RelationshipSeveranceEvent?,
     val isAboutSelf: Boolean,
     val accountFilterDecision: AccountFilterDecision,
+    val accountWarning: AccountWarning?,
 ) : IStatusViewData {
     companion object {
         /**
@@ -105,6 +107,7 @@ data class NotificationViewData(
             relationshipSeveranceEvent = data.relationshipSeveranceEvent?.asModel(),
             isAboutSelf = isAboutSelf,
             accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
+            accountWarning = data.accountWarning?.asModel(),
         )
     }
 

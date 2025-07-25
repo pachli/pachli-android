@@ -118,6 +118,7 @@ data class Notification(
             UPDATE -> app.pachli.core.model.Notification.Type.UPDATE
             REPORT -> app.pachli.core.model.Notification.Type.REPORT
             SEVERED_RELATIONSHIPS -> app.pachli.core.model.Notification.Type.SEVERED_RELATIONSHIPS
+            MODERATION_WARNING -> app.pachli.core.model.Notification.Type.MODERATION_WARNING
         }
     }
 

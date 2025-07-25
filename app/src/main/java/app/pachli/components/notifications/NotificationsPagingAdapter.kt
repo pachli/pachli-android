@@ -34,6 +34,7 @@ import app.pachli.core.model.Status
 import app.pachli.core.ui.SetStatusContent
 import app.pachli.databinding.ItemFollowBinding
 import app.pachli.databinding.ItemFollowRequestBinding
+import app.pachli.databinding.ItemModerationWarningBinding
 import app.pachli.databinding.ItemNotificationFilteredBinding
 import app.pachli.databinding.ItemReportNotificationBinding
 import app.pachli.databinding.ItemSeveredRelationshipsBinding
@@ -253,7 +254,7 @@ class NotificationsPagingAdapter(
             }
             NotificationViewKind.MODERATION_WARNING -> {
                 ModerationWarningViewHolder(
-                    ItemModerationWarningBinder.inflate(inflater, parent, false),
+                    ItemModerationWarningBinding.inflate(inflater, parent, false),
                 )
             }
             else -> {

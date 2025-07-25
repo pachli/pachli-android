@@ -45,6 +45,7 @@ data class NotificationData(
     @Embedded(prefix = "nvd_") val viewData: NotificationViewDataEntity?,
     @Embedded(prefix = "report_") val report: NotificationReportEntity?,
     @Embedded(prefix = "rse_") val relationshipSeveranceEvent: NotificationRelationshipSeveranceEventEntity?,
+    @Embedded(prefix = "warn_") val accountWarning: NotificationAccountWarningEntity?,
 ) {
     companion object
 }
@@ -309,5 +310,59 @@ data class NotificationRelationshipSeveranceEventEntity(
         followingCount = followingCount,
         createdAt = createdAt,
     )
+    companion object
+}
+
+@Entity(
+    primaryKeys = ["pachliAccountId", "serverId", "accountWarningId"],
+    foreignKeys = (
+        [
+            ForeignKey(
+                entity = NotificationEntity::class,
+                parentColumns = ["pachliAccountId", "serverId"],
+                childColumns = ["pachliAccountId", "serverId"],
+                onDelete = ForeignKey.CASCADE,
+                deferred = true,
+            ),
+        ]
+        ),
+)
+@TypeConverters(Converters::class)
+data class NotificationAccountWarningEntity(
+    val pachliAccountId: Long,
+    val serverId: String,
+    val accountWarningId: String,
+    val text: String,
+    val action: Action,
+    val createdAt: Instant,
+) {
+    enum class Action {
+        NONE,
+        DISABLE,
+        MARK_STATUSES_AS_SENSITIVE,
+        DELETE_STATUSES,
+        SILENCE,
+        SUSPEND,
+        UNKNOWN,
+        ;
+
+        fun asModel() = when (this) {
+            NONE -> app.pachli.core.model.AccountWarning.Action.NONE
+            DISABLE -> app.pachli.core.model.AccountWarning.Action.DISABLE
+            MARK_STATUSES_AS_SENSITIVE -> app.pachli.core.model.AccountWarning.Action.MARK_STATUSES_AS_SENSITIVE
+            DELETE_STATUSES -> app.pachli.core.model.AccountWarning.Action.DELETE_STATUSES
+            SILENCE -> app.pachli.core.model.AccountWarning.Action.SILENCE
+            SUSPEND -> app.pachli.core.model.AccountWarning.Action.SUSPEND
+            UNKNOWN -> app.pachli.core.model.AccountWarning.Action.UNKNOWN
+        }
+    }
+
+    fun asModel() = app.pachli.core.model.AccountWarning(
+        id = accountWarningId,
+        action = action.asModel(),
+        text = text,
+        createdAt = createdAt,
+    )
+
     companion object
 }

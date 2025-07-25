@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2024 Pachli Association
+  ~
+  ~ This file is a part of Pachli.
+  ~
+  ~ This program is free software; you can redistribute it and/or modify it under the terms of the
+  ~ GNU General Public License as published by the Free Software Foundation; either version 3 of the
+  ~ License, or (at your option) any later version.
+  ~
+  ~ Pachli is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+  ~ the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+  ~ Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License along with Pachli; if not,
+  ~ see <http://www.gnu.org/licenses>.
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/notification_report"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="?listPreferredItemHeight"
+    android:orientation="vertical"
+    android:paddingLeft="14dp"
+    android:paddingRight="14dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        app:layout_constraintEnd_toStartOf="@id/notification_top_text"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_flag_24dp"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/notification_top_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="top"
+        android:textColor="?android:textColorSecondary"
+        android:textSize="?attr/status_text_medium"
+        android:text="@string/notification_moderation_warning_title"
+        app:layout_constrainedWidth="false"
+        app:layout_constraintEnd_toStartOf="@id/datetime"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/icon"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SelectableText" />
+
+    <TextView
+        android:id="@+id/datetime"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/notification_top_text"
+        app:layout_constraintTop_toTopOf="@+id/notification_top_text"
+        tools:ignore="SelectableText"
+        tools:text="14h" />
+
+    <TextView
+        android:id="@+id/notification_body"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hyphenationFrequency="full"
+        android:importantForAccessibility="no"
+        android:lineSpacingMultiplier="1.1"
+        android:textColor="?android:textColorTertiary"
+        android:textSize="?attr/status_text_medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/notification_top_text"
+        app:layout_constraintTop_toBottomOf="@+id/notification_top_text"
+        tools:ignore="SelectableText"
+        tools:text="2 followers" />
+
+<!--    <TextView-->
+<!--        android:id="@+id/notification_following_count"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:hyphenationFrequency="full"-->
+<!--        android:importantForAccessibility="no"-->
+<!--        android:lineSpacingMultiplier="1.1"-->
+<!--        android:textColor="?android:textColorTertiary"-->
+<!--        android:textSize="?attr/status_text_medium"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/notification_top_text"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/notification_body"-->
+<!--        tools:ignore="SelectableText"-->
+<!--        tools:text="2 following" />-->
+</androidx.constraintlayout.widget.ConstraintLayout>
