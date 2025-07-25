@@ -81,11 +81,4 @@ data class AccountWarning(
             UNKNOWN -> app.pachli.core.model.AccountWarning.Action.UNKNOWN
         }
     }
-
-    fun asModel() = app.pachli.core.model.AccountWarning(
-        id = id,
-        action = action.asModel(),
-        text = text,
-        createdAt = createdAt,
-    )
 }
