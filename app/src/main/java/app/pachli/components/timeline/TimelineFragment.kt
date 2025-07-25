@@ -126,7 +126,7 @@ class TimelineFragment :
     //
     // If the navigation library was being used this would happen automatically, so this
     // workaround can be removed when that change happens.
-    private val viewModel: TimelineViewModel<out Any> by lazy {
+    private val viewModel: TimelineViewModel<out Any, out TimelineRepository<out Any>> by lazy {
         if (timeline == Timeline.Home) {
             viewModels<CachedTimelineViewModel>(
                 extrasProducer = {

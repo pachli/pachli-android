@@ -60,14 +60,14 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class NetworkTimelineViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val repository: NetworkTimelineRepository,
+    repository: NetworkTimelineRepository,
     timelineCases: TimelineCases,
     eventHub: EventHub,
     accountManager: AccountManager,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     sharedPreferencesRepository: SharedPreferencesRepository,
     statusRepository: StatusRepository,
-) : TimelineViewModel<Status>(
+) : TimelineViewModel<Status, NetworkTimelineRepository>(
     savedStateHandle,
     timelineCases,
     eventHub,
