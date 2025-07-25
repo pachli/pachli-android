@@ -51,14 +51,14 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class CachedTimelineViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val repository: CachedTimelineRepository,
+    repository: CachedTimelineRepository,
     timelineCases: TimelineCases,
     eventHub: EventHub,
     accountManager: AccountManager,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     sharedPreferencesRepository: SharedPreferencesRepository,
     statusRepository: StatusRepository,
-) : TimelineViewModel<TimelineStatusWithAccount>(
+) : TimelineViewModel<TimelineStatusWithAccount, CachedTimelineRepository>(
     savedStateHandle,
     timelineCases,
     eventHub,
