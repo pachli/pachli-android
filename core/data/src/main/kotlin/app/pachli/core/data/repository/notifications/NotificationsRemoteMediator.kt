@@ -53,6 +53,9 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import okhttp3.Headers
 
+/**
+ * @property excludeTypes 0 or more [Notification.Type] that should not be fetched.
+ */
 @OptIn(ExperimentalPagingApi::class)
 class NotificationsRemoteMediator(
     private val pachliAccountId: Long,
@@ -62,6 +65,7 @@ class NotificationsRemoteMediator(
     private val remoteKeyDao: RemoteKeyDao,
     private val notificationDao: NotificationDao,
     private val statusDao: StatusDao,
+    private val excludeTypes: Iterable<Notification.Type>,
 ) : RemoteMediator<Int, NotificationData>() {
     private val remoteKeyTimelineId = Timeline.Notifications.remoteKeyTimelineId
 
@@ -85,7 +89,7 @@ class NotificationsRemoteMediator(
                         remoteKeyTimelineId,
                         RemoteKeyKind.PREV,
                     ) ?: return@transactionProvider MediatorResult.Success(endOfPaginationReached = true)
-                    mastodonApi.notifications(minId = rke.key, limit = state.config.pageSize)
+                    mastodonApi.notifications(minId = rke.key, limit = state.config.pageSize, excludes = excludeTypes)
                 }
 
                 LoadType.APPEND -> {
@@ -94,7 +98,7 @@ class NotificationsRemoteMediator(
                         remoteKeyTimelineId,
                         RemoteKeyKind.NEXT,
                     ) ?: return@transactionProvider MediatorResult.Success(endOfPaginationReached = true)
-                    mastodonApi.notifications(maxId = rke.key, limit = state.config.pageSize)
+                    mastodonApi.notifications(maxId = rke.key, limit = state.config.pageSize, excludes = excludeTypes)
                 }
             }.getOrElse { return@transactionProvider MediatorResult.Error(it.throwable) }
 
@@ -165,15 +169,17 @@ class NotificationsRemoteMediator(
      * [notificationId], or the most recent notifications if [notificationId] is null.
      */
     private suspend fun getInitialPage(notificationId: String?, pageSize: Int): ApiResult<List<Notification>> = coroutineScope {
-        notificationId ?: return@coroutineScope mastodonApi.notifications(limit = pageSize)
+        notificationId ?: return@coroutineScope mastodonApi.notifications(limit = pageSize, excludes = excludeTypes)
 
         val notification = async { mastodonApi.notification(id = notificationId) }
-        val prevPage = async { mastodonApi.notifications(minId = notificationId, limit = pageSize * 3) }
-        val nextPage = async { mastodonApi.notifications(maxId = notificationId, limit = pageSize * 3) }
+        val prevPage = async { mastodonApi.notifications(minId = notificationId, limit = pageSize * 3, excludes = excludeTypes) }
+        val nextPage = async { mastodonApi.notifications(maxId = notificationId, limit = pageSize * 3, excludes = excludeTypes) }
 
         val notifications = buildList {
             prevPage.await().get()?.let { this.addAll(it.body) }
-            notification.await().get()?.let { this.add(it.body) }
+            notification.await().get()?.let {
+                if (!excludeTypes.contains(it.body.type)) this.add(it.body)
+            }
             nextPage.await().get()?.let { this.addAll(it.body) }
         }
 
