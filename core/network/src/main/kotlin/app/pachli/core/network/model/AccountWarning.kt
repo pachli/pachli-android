@@ -68,24 +68,5 @@ data class AccountWarning(
         /** Unknown action. */
         @Default
         UNKNOWN,
-
-        ;
-
-        fun asModel() = when (this) {
-            NONE -> app.pachli.core.model.AccountWarning.Action.NONE
-            DISABLE -> app.pachli.core.model.AccountWarning.Action.DISABLE
-            MARK_STATUSES_AS_SENSITIVE -> app.pachli.core.model.AccountWarning.Action.MARK_STATUSES_AS_SENSITIVE
-            DELETE_STATUSES -> app.pachli.core.model.AccountWarning.Action.DELETE_STATUSES
-            SILENCE -> app.pachli.core.model.AccountWarning.Action.SILENCE
-            SUSPEND -> app.pachli.core.model.AccountWarning.Action.SUSPEND
-            UNKNOWN -> app.pachli.core.model.AccountWarning.Action.UNKNOWN
-        }
     }
-
-    fun asModel() = app.pachli.core.model.AccountWarning(
-        id = id,
-        action = action.asModel(),
-        text = text,
-        createdAt = createdAt,
-    )
 }

@@ -144,3 +144,21 @@ data class Notification(
         relationshipSeveranceEvent = relationshipSeveranceEvent?.asModel(),
     )
 }
+
+fun app.pachli.core.model.Notification.Type.asNetworkModel() = when (this) {
+    app.pachli.core.model.Notification.Type.UNKNOWN -> Notification.Type.UNKNOWN
+    app.pachli.core.model.Notification.Type.MENTION -> Notification.Type.MENTION
+    app.pachli.core.model.Notification.Type.REBLOG -> Notification.Type.REBLOG
+    app.pachli.core.model.Notification.Type.FAVOURITE -> Notification.Type.FAVOURITE
+    app.pachli.core.model.Notification.Type.FOLLOW -> Notification.Type.FOLLOW
+    app.pachli.core.model.Notification.Type.FOLLOW_REQUEST -> Notification.Type.FOLLOW_REQUEST
+    app.pachli.core.model.Notification.Type.POLL -> Notification.Type.POLL
+    app.pachli.core.model.Notification.Type.STATUS -> Notification.Type.STATUS
+    app.pachli.core.model.Notification.Type.SIGN_UP -> Notification.Type.SIGN_UP
+    app.pachli.core.model.Notification.Type.UPDATE -> Notification.Type.UPDATE
+    app.pachli.core.model.Notification.Type.REPORT -> Notification.Type.REPORT
+    app.pachli.core.model.Notification.Type.SEVERED_RELATIONSHIPS -> Notification.Type.SEVERED_RELATIONSHIPS
+    app.pachli.core.model.Notification.Type.MODERATION_WARNING -> Notification.Type.MODERATION_WARNING
+}
+
+fun Iterable<app.pachli.core.model.Notification.Type>.asNetworkModel() = map { it.asNetworkModel() }
