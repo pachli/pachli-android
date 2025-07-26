@@ -430,6 +430,17 @@ WHERE id = :accountId
         """
 UPDATE AccountEntity
 SET
+    notificationsModerationWarnings = :value
+WHERE id = :accountId
+        """,
+    )
+    fun setNotificationsModerationWarnings(accountId: Long, value: Boolean)
+
+    // TODO: Should be suspend
+    @Query(
+        """
+UPDATE AccountEntity
+SET
     notificationSound = :value
 WHERE id = :accountId
 """,

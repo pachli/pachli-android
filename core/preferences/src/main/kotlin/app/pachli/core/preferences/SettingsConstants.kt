@@ -145,6 +145,9 @@ object PrefKeys {
     // Account preferences
     const val NOTIFICATION_FILTER_SEVERED_RELATIONSHIPS = "notificationFilterSeveredRelationships"
 
+    // Account preferences
+    const val NOTIFICATION_FILTER_MODERATION_WARNING = "notificationFilterModerationWarning"
+
     const val TAB_FILTER_HOME_REPLIES = "tabFilterHomeReplies_v2" // This was changed once to reset an unintentionally set default.
     const val TAB_FILTER_HOME_BOOSTS = "tabFilterHomeBoosts"
     const val TAB_SHOW_HOME_SELF_BOOSTS = "tabShowHomeSelfBoosts"

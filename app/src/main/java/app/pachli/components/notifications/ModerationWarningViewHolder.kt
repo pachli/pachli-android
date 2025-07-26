@@ -41,6 +41,5 @@ class ModerationWarningViewHolder(
             AccountWarning.Action.UNKNOWN -> R.string.notification_moderation_warning_body_unknown_fmt
         }
         binding.notificationBody.text = context.getString(stringRes, warning.text)
-//        return context.getString(stringRes, notification.accountWarning!!.text)
     }
 }

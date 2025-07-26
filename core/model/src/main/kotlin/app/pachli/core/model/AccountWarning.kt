@@ -48,22 +48,4 @@ data class AccountWarning(
         SUSPEND,
         UNKNOWN,
     }
-
-    data class Appeal(
-        val text: String,
-        val state: State = State.UNKNOWN,
-    ) {
-        enum class State {
-            /** The appeal has been approved by a moderator. */
-            APPROVED,
-
-            /** The appeal has been rejected by a moderator. */
-            REJECTED,
-
-            /** The appeal has been submitted, but neither approved nor rejected yet. */
-            PENDING,
-
-            UNKNOWN,
-        }
-    }
 }

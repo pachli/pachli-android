@@ -760,6 +760,10 @@ class AccountManager @Inject constructor(
         accountDao.setNotificationsSeveredRelationships(accountId, value)
     }
 
+    fun setNotificationsModerationWarnings(accountId: Long, value: Boolean) {
+        accountDao.setNotificationsModerationWarnings(accountId, value)
+    }
+
     fun setNotificationSound(accountId: Long, value: Boolean) {
         accountDao.setNotificationSound(accountId, value)
     }

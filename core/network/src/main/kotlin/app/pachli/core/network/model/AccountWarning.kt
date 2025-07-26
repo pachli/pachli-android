@@ -82,44 +82,6 @@ data class AccountWarning(
         }
     }
 
-    @JsonClass(generateAdapter = true)
-    data class Appeal(
-        val text: String,
-        val state: State = State.UNKNOWN,
-    ) {
-        @HasDefault
-        enum class State {
-            /** The appeal has been approved by a moderator. */
-            @Json(name = "approved")
-            APPROVED,
-
-            /** The appeal has been rejected by a moderator. */
-            @Json(name = "rejected")
-            REJECTED,
-
-            /** The appeal has been submitted, but neither approved nor rejected yet. */
-            @Json(name = "pending")
-            PENDING,
-
-            @Default
-            UNKNOWN,
-
-            ;
-
-            fun asModel() = when (this) {
-                APPROVED -> app.pachli.core.model.AccountWarning.Appeal.State.APPROVED
-                REJECTED -> app.pachli.core.model.AccountWarning.Appeal.State.REJECTED
-                PENDING -> app.pachli.core.model.AccountWarning.Appeal.State.PENDING
-                UNKNOWN -> app.pachli.core.model.AccountWarning.Appeal.State.UNKNOWN
-            }
-        }
-
-        fun asModel() = app.pachli.core.model.AccountWarning.Appeal(
-            text = text,
-            state = state.asModel(),
-        )
-    }
-
     fun asModel() = app.pachli.core.model.AccountWarning(
         id = id,
         action = action.asModel(),

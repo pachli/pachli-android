@@ -195,6 +195,18 @@ class NotificationPreferencesFragment : PreferenceFragmentCompat() {
                         true
                     }
                 }
+
+                switchPreference {
+                    setTitle(R.string.pref_title_notification_filter_moderation_warning)
+                    key = PrefKeys.NOTIFICATION_FILTER_MODERATION_WARNING
+                    isIconSpaceReserved = false
+                    isChecked = activeAccount.notificationsModerationWarnings
+                    isSingleLineTitle = false
+                    setOnPreferenceChangeListener { _, newValue ->
+                        accountManager.setNotificationsModerationWarnings(activeAccount.id, newValue as Boolean)
+                        true
+                    }
+                }
             }
 
             preferenceCategory(R.string.pref_title_notification_alerts) { category ->

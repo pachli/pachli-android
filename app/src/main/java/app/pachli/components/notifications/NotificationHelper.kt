@@ -103,7 +103,7 @@ private const val CHANNEL_SIGN_UP = "CHANNEL_SIGN_UP"
 private const val CHANNEL_UPDATES = "CHANNEL_UPDATES"
 private const val CHANNEL_REPORT = "CHANNEL_REPORT"
 private const val CHANNEL_SEVERED_RELATIONSHIPS = "CHANNEL_SEVERED_RELATIONSHIPS"
-private const val CHANNEL_MODERATION_WARNING = "CHANNEL_MODERATION_WARNING"
+private const val CHANNEL_MODERATION_WARNINGS = "CHANNEL_MODERATION_WARNING"
 private const val CHANNEL_BACKGROUND_TASKS = "CHANNEL_BACKGROUND_TASKS"
 
 /** WorkManager Tag */
@@ -527,6 +527,7 @@ fun createNotificationChannelsForAccount(account: AccountEntity, context: Contex
             CHANNEL_UPDATES + account.identifier,
             CHANNEL_REPORT + account.identifier,
             CHANNEL_SEVERED_RELATIONSHIPS + account.identifier,
+            CHANNEL_MODERATION_WARNINGS + account.identifier,
         )
         val channelNames = intArrayOf(
             R.string.notification_mention_name,
@@ -540,6 +541,7 @@ fun createNotificationChannelsForAccount(account: AccountEntity, context: Contex
             R.string.notification_update_name,
             R.string.notification_report_name,
             R.string.notification_severed_relationships_name,
+            R.string.notification_moderation_warnings_name,
         )
         val channelDescriptions = intArrayOf(
             R.string.notification_mention_descriptions,
@@ -553,6 +555,7 @@ fun createNotificationChannelsForAccount(account: AccountEntity, context: Contex
             R.string.notification_update_description,
             R.string.notification_report_description,
             R.string.notification_severed_relationships_description,
+            R.string.notification_moderation_warnings_description,
         )
         val channels: MutableList<NotificationChannel> = ArrayList(6)
         val channelGroup = NotificationChannelGroup(account.identifier, account.fullName)
@@ -752,7 +755,7 @@ private fun getChannelId(account: AccountEntity, type: Notification.Type): Strin
         Notification.Type.UPDATE -> CHANNEL_UPDATES + account.identifier
         Notification.Type.REPORT -> CHANNEL_REPORT + account.identifier
         Notification.Type.SEVERED_RELATIONSHIPS -> CHANNEL_SEVERED_RELATIONSHIPS + account.identifier
-        Notification.Type.MODERATION_WARNING -> CHANNEL_MODERATION_WARNING + account.identifier
+        Notification.Type.MODERATION_WARNING -> CHANNEL_MODERATION_WARNINGS + account.identifier
         Notification.Type.UNKNOWN -> null
     }
 }

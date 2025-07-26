@@ -285,6 +285,7 @@
     <string name="pref_title_notification_filter_updates">A post I\'ve interacted with is edited</string>
     <string name="pref_title_notification_filter_reports">There\'s a new report</string>
     <string name="pref_title_notification_filter_severed_relationships">A follow/following relationship is severed</string>
+    <string name="pref_title_notification_filter_moderation_warning">A moderator sends a message</string>
     <string name="pref_title_appearance_settings">Appearance</string>
     <string name="pref_title_app_theme">App theme</string>
     <string name="pref_title_timelines">Timelines</string>
@@ -355,8 +356,8 @@
     <string name="notification_report_description">Notifications about moderation reports</string>
     <string name="notification_severed_relationships_name">Severed relationships</string>
     <string name="notification_severed_relationships_description">Notifications about severed relationships</string>
-    <string name="notification_moderation_warning_name">Moderation warnings</string>
-    <string name="notification_moderation_warning_description">Notifications about moderation warnings</string>
+    <string name="notification_moderation_warnings_name">Moderation warnings</string>
+    <string name="notification_moderation_warnings_description">Notifications about moderation warnings</string>
     <string name="notification_listenable_worker_name">Background activity</string>
     <string name="notification_listenable_worker_description">Notifications when Pachli is working in the background</string>
     <string name="notification_unknown_name">Unknown</string>
