@@ -52,6 +52,7 @@ import app.pachli.core.designsystem.R as DR
 import app.pachli.core.domain.notifications.NotificationConfig
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.AccountFilterReason
+import app.pachli.core.model.AccountWarning
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.Notification
 import app.pachli.core.model.RelationshipSeveranceEvent
@@ -102,6 +103,7 @@ private const val CHANNEL_SIGN_UP = "CHANNEL_SIGN_UP"
 private const val CHANNEL_UPDATES = "CHANNEL_UPDATES"
 private const val CHANNEL_REPORT = "CHANNEL_REPORT"
 private const val CHANNEL_SEVERED_RELATIONSHIPS = "CHANNEL_SEVERED_RELATIONSHIPS"
+private const val CHANNEL_MODERATION_WARNINGS = "CHANNEL_MODERATION_WARNING"
 private const val CHANNEL_BACKGROUND_TASKS = "CHANNEL_BACKGROUND_TASKS"
 
 /** WorkManager Tag */
@@ -525,6 +527,7 @@ fun createNotificationChannelsForAccount(account: AccountEntity, context: Contex
             CHANNEL_UPDATES + account.identifier,
             CHANNEL_REPORT + account.identifier,
             CHANNEL_SEVERED_RELATIONSHIPS + account.identifier,
+            CHANNEL_MODERATION_WARNINGS + account.identifier,
         )
         val channelNames = intArrayOf(
             R.string.notification_mention_name,
@@ -538,6 +541,7 @@ fun createNotificationChannelsForAccount(account: AccountEntity, context: Contex
             R.string.notification_update_name,
             R.string.notification_report_name,
             R.string.notification_severed_relationships_name,
+            R.string.notification_moderation_warnings_name,
         )
         val channelDescriptions = intArrayOf(
             R.string.notification_mention_descriptions,
@@ -551,6 +555,7 @@ fun createNotificationChannelsForAccount(account: AccountEntity, context: Contex
             R.string.notification_update_description,
             R.string.notification_report_description,
             R.string.notification_severed_relationships_description,
+            R.string.notification_moderation_warnings_description,
         )
         val channels: MutableList<NotificationChannel> = ArrayList(6)
         val channelGroup = NotificationChannelGroup(account.identifier, account.fullName)
@@ -648,6 +653,7 @@ fun filterNotification(
         Notification.Type.UPDATE -> account.notificationsUpdates
         Notification.Type.REPORT -> account.notificationsReports
         Notification.Type.SEVERED_RELATIONSHIPS -> account.notificationsSeveredRelationships
+        Notification.Type.MODERATION_WARNING -> account.notificationsModerationWarnings
         Notification.Type.UNKNOWN -> false
     }
 }
@@ -672,6 +678,8 @@ fun filterNotificationByAccount(accountWithFilters: PachliAccount, notificationD
         NotificationEntity.Type.REPORT -> return AccountFilterDecision.None
         // Moderation has resulted in severed relationships.
         NotificationEntity.Type.SEVERED_RELATIONSHIPS -> return AccountFilterDecision.None
+        // Moderators sent a warning.
+        NotificationEntity.Type.MODERATION_WARNING -> return AccountFilterDecision.None
         // We explicitly asked to be notified about this user.
         NotificationEntity.Type.STATUS -> return AccountFilterDecision.None
         // Admin signup notifications should not be filtered.
@@ -747,6 +755,7 @@ private fun getChannelId(account: AccountEntity, type: Notification.Type): Strin
         Notification.Type.UPDATE -> CHANNEL_UPDATES + account.identifier
         Notification.Type.REPORT -> CHANNEL_REPORT + account.identifier
         Notification.Type.SEVERED_RELATIONSHIPS -> CHANNEL_SEVERED_RELATIONSHIPS + account.identifier
+        Notification.Type.MODERATION_WARNING -> CHANNEL_MODERATION_WARNINGS + account.identifier
         Notification.Type.UNKNOWN -> null
     }
 }
@@ -860,6 +869,10 @@ private fun titleForType(
             )
         }
 
+        Notification.Type.MODERATION_WARNING -> {
+            context.getString(R.string.notification_moderation_warning_title)
+        }
+
         Notification.Type.UNKNOWN -> null
     }
 }
@@ -924,6 +937,18 @@ private fun bodyForType(
                 RelationshipSeveranceEvent.Type.UNKNOWN -> R.string.notification_severed_relationships_unknown_body
             }
             return context.getString(resourceId)
+        }
+        Notification.Type.MODERATION_WARNING -> {
+            val stringRes = when (notification.accountWarning!!.action) {
+                AccountWarning.Action.NONE -> R.string.notification_moderation_warning_body_none_fmt
+                AccountWarning.Action.DISABLE -> R.string.notification_moderation_warning_body_disable_fmt
+                AccountWarning.Action.MARK_STATUSES_AS_SENSITIVE -> R.string.notification_moderation_warning_body_mark_statuses_as_sensitive_fmt
+                AccountWarning.Action.DELETE_STATUSES -> R.string.notification_moderation_warning_body_delete_statuses_fmt
+                AccountWarning.Action.SILENCE -> R.string.notification_moderation_warning_body_silence_fmt
+                AccountWarning.Action.SUSPEND -> R.string.notification_moderation_warning_body_suspend_fmt
+                AccountWarning.Action.UNKNOWN -> R.string.notification_moderation_warning_body_unknown_fmt
+            }
+            return context.getString(stringRes, notification.accountWarning!!.text)
         }
 
         Notification.Type.UNKNOWN -> return null

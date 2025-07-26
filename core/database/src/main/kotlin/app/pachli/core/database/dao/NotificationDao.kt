@@ -27,6 +27,7 @@ import androidx.room.Upsert
 import app.pachli.core.database.Converters
 import app.pachli.core.database.model.FilterActionUpdate
 import app.pachli.core.database.model.NotificationAccountFilterDecisionUpdate
+import app.pachli.core.database.model.NotificationAccountWarningEntity
 import app.pachli.core.database.model.NotificationData
 import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.database.model.NotificationRelationshipSeveranceEventEntity
@@ -40,8 +41,7 @@ interface NotificationDao {
     @Query(
         """
 SELECT
-
--- Basic notification info
+    -- Basic notification info
     n.pachliAccountId,
     n.serverId,
     n.type,
@@ -181,7 +181,15 @@ SELECT
     rse.targetName AS 'rse_targetName',
     rse.followersCount AS 'rse_followersCount',
     rse.followingCount AS 'rse_followingCount',
-    rse.createdAt AS 'rse_createdAt'
+    rse.createdAt AS 'rse_createdAt',
+
+    -- AccountWarning
+    warn.pachliAccountId as 'warn_pachliAccountId',
+    warn.serverId AS 'warn_serverId',
+    warn.accountWarningId AS 'warn_accountWarningId',
+    warn.text AS 'warn_text',
+    warn.action AS 'warn_action',
+    warn.createdAt AS 'warn_createdAt'
 
 FROM NotificationEntity AS n
 LEFT JOIN TimelineAccountEntity AS a ON (n.pachliAccountId = a.timelineUserId AND n.accountServerId = a.serverId)
@@ -201,6 +209,9 @@ LEFT JOIN
 LEFT JOIN
     NotificationRelationshipSeveranceEventEntity AS rse
     ON (n.pachliAccountId = rse.pachliAccountId AND n.serverId = rse.serverId)
+LEFT JOIN
+    NotificationAccountWarningEntity AS warn
+    ON (n.pachliAccountId = warn.pachliAccountId AND n.serverId = warn.serverId)
 WHERE n.pachliAccountId = :pachliAccountId
 ORDER BY LENGTH(n.serverId) DESC, n.serverId DESC
 """,
@@ -252,6 +263,9 @@ WHERE pachliAccountId = :pachliAccountId
 
     @Upsert
     fun upsertEvents(events: Collection<NotificationRelationshipSeveranceEventEntity>)
+
+    @Upsert
+    fun upsertAccountWarnings(accountWarnings: Collection<NotificationAccountWarningEntity>)
 
     @Upsert(entity = NotificationViewDataEntity::class)
     suspend fun upsert(filterActionUpdate: FilterActionUpdate)

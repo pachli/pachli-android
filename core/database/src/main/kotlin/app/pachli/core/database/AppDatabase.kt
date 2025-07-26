@@ -56,6 +56,7 @@ import app.pachli.core.database.model.FollowingAccountEntity
 import app.pachli.core.database.model.InstanceInfoEntity
 import app.pachli.core.database.model.LogEntryEntity
 import app.pachli.core.database.model.MastodonListEntity
+import app.pachli.core.database.model.NotificationAccountWarningEntity
 import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.database.model.NotificationRelationshipSeveranceEventEntity
 import app.pachli.core.database.model.NotificationReportEntity
@@ -95,10 +96,11 @@ import java.util.TimeZone
         NotificationReportEntity::class,
         NotificationViewDataEntity::class,
         NotificationRelationshipSeveranceEventEntity::class,
+        NotificationAccountWarningEntity::class,
         TimelineStatusEntity::class,
         ConversationViewDataEntity::class,
     ],
-    version = 27,
+    version = 28,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
@@ -131,6 +133,8 @@ import java.util.TimeZone
         // JSON needs to be removed or updated.
         AutoMigration(from = 25, to = 26, spec = AppDatabase.MIGRATE_25_26::class),
         AutoMigration(from = 26, to = 27, spec = AppDatabase.MIGRATE_26_27::class),
+        // Added NotificationAccountWarningEntity.
+        AutoMigration(from = 27, to = 28, spec = AppDatabase.MIGRATE_26_27::class),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {

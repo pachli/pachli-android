@@ -30,10 +30,10 @@ data class Notification(
     val status: Status?,
     val report: Report?,
     val relationshipSeveranceEvent: RelationshipSeveranceEvent? = null,
+    val accountWarning: AccountWarning? = null,
 ) {
 
     /** From https://docs.joinmastodon.org/entities/Notification/#type */
-
     enum class Type(val presentation: String) {
         UNKNOWN("unknown"),
 
@@ -69,6 +69,9 @@ data class Notification(
 
         /** Some of your follow relationships have been severed as a result of a moderation or block event */
         SEVERED_RELATIONSHIPS("severed_relationships"),
+
+        /** A moderator has taken action against your account or has sent you a warning. */
+        MODERATION_WARNING("moderation_warning"),
         ;
 
         companion object {

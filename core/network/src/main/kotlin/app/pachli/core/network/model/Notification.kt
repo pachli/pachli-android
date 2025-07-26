@@ -35,6 +35,8 @@ data class Notification(
     val report: Report?,
     @Json(name = "event")
     val relationshipSeveranceEvent: RelationshipSeveranceEvent? = null,
+    @Json(name = "moderation_warning")
+    val accountWarning: AccountWarning? = null,
 ) {
 
     /** From https://docs.joinmastodon.org/entities/Notification/#type */
@@ -88,6 +90,10 @@ data class Notification(
         /** Some of your follow relationships have been severed as a result of a moderation or block event */
         @Json(name = "severed_relationships")
         SEVERED_RELATIONSHIPS("severed_relationships"),
+
+        /** A moderator has taken action against your account or has sent you a warning. */
+        @Json(name = "moderation_warning")
+        MODERATION_WARNING("moderation_warning"),
         ;
 
         companion object {
@@ -112,6 +118,7 @@ data class Notification(
             UPDATE -> app.pachli.core.model.Notification.Type.UPDATE
             REPORT -> app.pachli.core.model.Notification.Type.REPORT
             SEVERED_RELATIONSHIPS -> app.pachli.core.model.Notification.Type.SEVERED_RELATIONSHIPS
+            MODERATION_WARNING -> app.pachli.core.model.Notification.Type.MODERATION_WARNING
         }
     }
 
