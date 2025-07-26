@@ -63,7 +63,7 @@
         errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/kotlin/app/pachli/core/data/repository/notifications/NotificationsRemoteMediator.kt"
-            line="173"
+            line="179"
             column="43"/>
     </issue>
 
@@ -74,7 +74,7 @@
         errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/kotlin/app/pachli/core/data/repository/notifications/NotificationsRemoteMediator.kt"
-            line="175"
+            line="183"
             column="43"/>
     </issue>
 
