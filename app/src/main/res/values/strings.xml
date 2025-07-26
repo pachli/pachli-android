@@ -125,6 +125,7 @@
     <string name="notification_moderation_warning_body_silence_fmt">Your account has been limited: %1$s</string>
     <string name="notification_moderation_warning_body_suspend_fmt">Your account has been suspended: %1$s</string>
     <string name="notification_moderation_warning_body_unknown_fmt">You have received a moderation warning: %1$s</string>
+    <string name="notification_moderation_warning_tap_for_more">Tap to see more details on your server.</string>
     <string name="notification_unknown">Unknown notification type</string>
     <string name="notification_header_report_format">%s reported %s</string>
     <plurals name="notification_summary_report_format">

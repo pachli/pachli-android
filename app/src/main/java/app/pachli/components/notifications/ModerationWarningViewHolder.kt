@@ -17,6 +17,8 @@
 
 package app.pachli.components.notifications
 
+import android.content.Intent
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.core.data.model.StatusDisplayOptions
@@ -27,7 +29,19 @@ import app.pachli.viewdata.NotificationViewData
 class ModerationWarningViewHolder(
     private val binding: ItemModerationWarningBinding,
 ) : NotificationsPagingAdapter.ViewHolder, RecyclerView.ViewHolder(binding.root) {
+    var viewData: NotificationViewData? = null
+
+    init {
+        binding.root.setOnClickListener {
+            viewData?.let {
+                val intent = Intent(Intent.ACTION_VIEW, "https://${it.localDomain}/disputes/strikes/${it.accountWarning!!.id}".toUri())
+                binding.root.context.startActivity(intent)
+            }
+        }
+    }
+
     override fun bind(viewData: NotificationViewData, payloads: List<*>?, statusDisplayOptions: StatusDisplayOptions) {
+        this.viewData = viewData
         val context = itemView.context
         val warning = viewData.accountWarning!!
 
