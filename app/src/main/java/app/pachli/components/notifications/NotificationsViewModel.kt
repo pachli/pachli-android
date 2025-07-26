@@ -34,7 +34,6 @@ import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.data.repository.notifications.NotificationsRepository
-import app.pachli.core.data.repository.notifications.asEntity
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.eventhub.BlockEvent
 import app.pachli.core.eventhub.EventHub
@@ -586,7 +585,7 @@ class NotificationsViewModel @AssistedInject constructor(
             .flatMapLatest { account ->
                 getNotifications(
                     account,
-                    filters = deserialize(account.entity.notificationsFilter),
+                    excludeTypes = deserialize(account.entity.notificationsFilter),
                 )
             }.cachedIn(viewModelScope)
 
@@ -624,17 +623,20 @@ class NotificationsViewModel @AssistedInject constructor(
             .onFailure { _uiResult.send(Err(UiError.make(it, action))) }
     }
 
+    /**
+     * Gets notifications for [pachliAccount], excluding types of notifications in
+     * [excludeTypes], and applies content and account filters.
+     *
+     * @param pachliAccount
+     * @param excludeTypes 0 or more [Notification.Type] to exclude from the results.
+     */
     private suspend fun getNotifications(
         pachliAccount: PachliAccount,
-        filters: Set<Notification.Type>,
+        excludeTypes: Set<Notification.Type>,
     ): Flow<PagingData<NotificationViewData>> {
-        val activeFilters = filters.map { it.asEntity() }
-        // TODO: This could be more efficient if the filters were passed to the
-        // repository.notifications() call, and the repository did the filtering.
-        return repository.notifications(pachliAccountId)
+        return repository.notifications(pachliAccountId, excludeTypes)
             .map { pagingData ->
                 pagingData
-                    .filter { !activeFilters.contains(it.notification.type) }
                     .map { notification ->
                         val contentFilterAction =
                             notification.viewData?.contentFilterAction

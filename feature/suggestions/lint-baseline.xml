@@ -34,4 +34,15 @@
             column="46"/>
     </issue>
 
+    <issue
+        id="Typos"
+        message="&quot;Eines des&quot; is a common misspelling; did you mean &quot;Eines der&quot;?"
+        errorLine1="    &lt;string name=&quot;sources_most_followed&quot;>Eines des meistgefolgten auf deinem Server&lt;/string>"
+        errorLine2="                                         ^">
+        <location
+            file="src/main/res/values-de/strings.xml"
+            line="6"
+            column="42"/>
+    </issue>
+
 </issues>
