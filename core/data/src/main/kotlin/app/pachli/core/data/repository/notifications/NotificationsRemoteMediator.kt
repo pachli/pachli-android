@@ -61,7 +61,7 @@ class NotificationsRemoteMediator(
     private val notificationDao: NotificationDao,
     private val statusDao: StatusDao,
 ) : RemoteMediator<Int, NotificationData>() {
-    val remoteKeyTimelineId = Timeline.Notifications.remoteKeyTimelineId
+    private val remoteKeyTimelineId = Timeline.Notifications.remoteKeyTimelineId
 
     override suspend fun load(loadType: LoadType, state: PagingState<Int, NotificationData>): MediatorResult {
         return transactionProvider {

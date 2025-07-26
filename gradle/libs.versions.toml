@@ -27,7 +27,7 @@ androidx-transition = "1.6.0"
 androidx-viewpager2 = "1.1.0"
 androidx-webkit = "1.12.1"
 androidx-work = "2.10.0"
-androidx-room = "2.7.1"
+androidx-room = "2.7.2"
 app-update = "2.1.0"
 apollographql = "3.8.5"
 auto-service = "1.1.1"
@@ -72,6 +72,7 @@ retrofit = "2.11.0"
 robolectric = "4.15.1"
 semver = "3.0.0"
 sparkbutton = "4.2.0"
+sqlite-bundled = "2.5.2"
 timber = "5.0.1"
 touchimageview = "3.7.1"
 truth = "1.4.4"
@@ -248,6 +249,7 @@ logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 ksp-gradlePlugin = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
+androidx-sqlite-bundled = { group = "androidx.sqlite", name = "sqlite-bundled", version.ref = "sqlite-bundled" }
 
 [bundles]
 aboutlibraries = ["aboutlibraries-core", "aboutlibraries-legacy-ui"]
@@ -269,5 +271,5 @@ material-drawer = ["material-drawer-core", "material-drawer-iconics"]
 mockito = ["mockito-kotlin", "mockito-inline"]
 okhttp = ["okhttp-core", "okhttp-logging-interceptor", "okhttp-tls"]
 retrofit = ["retrofit-core", "retrofit-converter-moshi"]
-room = ["androidx-room-ktx", "androidx-room-paging"]
+room = ["androidx-room-ktx", "androidx-room-paging", "androidx-sqlite-bundled"]
 xmldiff = ["diffx", "xmlwriter"]
