@@ -816,4 +816,17 @@
     <string name="notification_severed_relationships_user_domain_block_fmt">Zablokoval(a) si <b>%1$s</b></string>
     <string name="notification_severed_relationships_unknown_fmt"><b>%1$s</b> je zablokovaný (neznámy dôvod)</string>
     <string name="pref_default_audio_playback">Predvolené prehrávanie zvuku</string>
+    <string name="notification_moderation_warning_title">Správa od tvojich moderátorov</string>
+    <string name="notification_moderation_warning_body_none_fmt">Dostal(a) si upozornenie od moderátora: %1$s</string>
+    <string name="notification_moderation_warning_body_disable_fmt">Tvoj účet bol deaktivovaný: %1$s</string>
+    <string name="notification_moderation_warning_body_mark_statuses_as_sensitive_fmt">Niektoré z tvojich príspevkov boli označené ako citlivé: %1$s</string>
+    <string name="notification_moderation_warning_body_delete_statuses_fmt">Niektoré z tvojich príspevkov boli zmazané: %1$s</string>
+    <string name="notification_moderation_warning_body_silence_fmt">Tvoj účet bol obmedzený: %1$s</string>
+    <string name="notification_moderation_warning_body_suspend_fmt">Tvoj účet bol pozastavený: %1$s</string>
+    <string name="notification_moderation_warning_body_unknown_fmt">Dostal(a) si upozornenie moderovania: %1$s</string>
+    <string name="notification_moderation_warning_tap_for_more">Klepnutím zobrazíš ďalšie podrobnosti na tvojom serveri.</string>
+    <string name="pref_title_notification_filter_moderation_warning">Moderátor posiela správu</string>
+    <string name="notification_moderation_warnings_name">Upozornenia moderácie</string>
+    <string name="notification_moderation_warnings_description">Upozornenia o moderátorských varovaniach</string>
+    <string name="error_share_media">neexistuje žiadny adresár na uloženie dočasných médií</string>
 </resources>
