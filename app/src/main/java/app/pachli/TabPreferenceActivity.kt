@@ -52,8 +52,10 @@ import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.ListsActivityIntent
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.ui.appbar.FadeChildScrollEffect
+import app.pachli.core.ui.extensions.InsetType
 import app.pachli.core.ui.extensions.addScrollEffect
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
+import app.pachli.core.ui.extensions.applyWindowInsets
 import app.pachli.databinding.ActivityTabPreferenceBinding
 import app.pachli.databinding.DialogSelectListBinding
 import at.connyduck.sparkbutton.helpers.Utils
@@ -107,6 +109,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
         binding.includedToolbar.toolbar.addScrollEffect(FadeChildScrollEffect)
         binding.currentTabsRecyclerView.applyDefaultWindowInsets()
         binding.actionButton.applyDefaultWindowInsets()
+        binding.sheet.applyWindowInsets(right = InsetType.MARGIN, bottom = InsetType.MARGIN)
 
         setContentView(binding.root)
 
