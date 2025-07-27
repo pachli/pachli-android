@@ -19,14 +19,10 @@ package app.pachli.components.account
 import android.animation.ArgbEvaluator
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.content.res.Configuration
 import android.graphics.Color
-import android.graphics.Typeface
 import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
-import android.text.SpannableStringBuilder
 import android.text.TextWatcher
-import android.text.style.StyleSpan
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -42,13 +38,10 @@ import androidx.annotation.Px
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.app.ActivityOptionsCompat
-import androidx.core.graphics.ColorUtils
-import androidx.core.graphics.toColorInt
 import androidx.core.view.MenuProvider
 import androidx.core.view.ViewCompat
 import androidx.core.view.ViewGroupCompat
 import androidx.core.view.children
-import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -77,9 +70,9 @@ import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.navigation.ViewMediaActivityIntent
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.network.parseAsMastodonHtml
-import app.pachli.core.preferences.AppTheme
 import app.pachli.core.ui.ClipboardUseCase
 import app.pachli.core.ui.LinkListener
+import app.pachli.core.ui.RoleChip
 import app.pachli.core.ui.emojify
 import app.pachli.core.ui.extensions.InsetType
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
@@ -97,7 +90,6 @@ import app.pachli.util.Loading
 import app.pachli.util.Success
 import app.pachli.view.showMuteAccountDialog
 import com.google.android.material.appbar.AppBarLayout
-import com.google.android.material.chip.Chip
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.shape.MaterialShapeDrawable
@@ -443,10 +435,12 @@ class AccountActivity :
             binding.accountAvatarImageView.alpha = 1 - pctScroll
             binding.accountAvatarImageView.isClickable = verticalOffset == 0
 
-            // Fade the account display name and username proportionate to how far
-            // the user scrolls.
+            // Fade the account info proportionate to how far the user scrolls.
             binding.accountDisplayNameTextView.alpha = 1 - pctScroll
             binding.accountUsernameTextView.alpha = 1 - pctScroll
+            binding.accountLockedImageView.alpha = 1 - pctScroll
+            binding.accountFollowsYouChip.alpha = 1 - pctScroll
+            binding.accountBadgeContainer.alpha = 1 - pctScroll
 
             // Determine the toolbar colour; starts transparent, and becomes more
             // visible proportionate to how far the user scrolls.
@@ -568,7 +562,7 @@ class AccountActivity :
                     )
                     binding.accountDateJoined.show()
                 } ?: binding.accountDateJoined.hide()
-            } catch (e: ParseException) {
+            } catch (_: ParseException) {
                 binding.accountDateJoined.hide()
             }
         }
@@ -815,24 +809,10 @@ class AccountActivity :
     private fun updateBadges() {
         binding.accountBadgeContainer.removeAllViews()
 
-        val isLight = when (sharedPreferencesRepository.appTheme) {
-            AppTheme.DAY -> true
-            AppTheme.NIGHT, AppTheme.BLACK -> false
-            AppTheme.AUTO, AppTheme.AUTO_SYSTEM -> {
-                (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_NO
-            }
-        }
-
         if (loadedAccount?.bot == true) {
-            val badgeView = getBadge(
-                MaterialColors.getColor(
-                    binding.accountBadgeContainer,
-                    com.google.android.material.R.attr.colorSurfaceVariant,
-                ),
-                R.drawable.ic_bot_24dp,
-                getString(DR.string.profile_badge_bot_text),
-                isLight,
-            )
+            val badgeView = getBadge(R.drawable.ic_bot_24dp).apply {
+                text = getString(DR.string.profile_badge_bot_text)
+            }
             binding.accountBadgeContainer.addView(badgeView)
         }
 
@@ -840,16 +820,11 @@ class AccountActivity :
         // roles with a true `highlighted` property, but the web UI doesn't do that,
         // so follow suit for the moment, https://github.com/mastodon/mastodon/issues/28327
         loadedAccount?.roles?.forEach { role ->
-            val badgeColor = if (role.color.isNotBlank()) {
-                role.color.toColorInt()
-            } else {
-                MaterialColors.getColor(binding.accountBadgeContainer, android.R.attr.colorPrimary)
+            val badgeView = getBadge(app.pachli.core.ui.R.drawable.profile_role_badge).apply {
+                this.role = role.name
+                this.domain = viewModel.domain
             }
 
-            val sb = SpannableStringBuilder("${role.name} ${viewModel.domain}")
-            sb.setSpan(StyleSpan(Typeface.BOLD), 0, role.name.length, 0)
-
-            val badgeView = getBadge(badgeColor, R.drawable.profile_role_badge, sb, isLight)
             binding.accountBadgeContainer.addView(badgeView)
         }
     }
@@ -1103,51 +1078,13 @@ class AccountActivity :
         }
     }
 
-    private fun getBadge(
-        @ColorInt baseColor: Int,
-        @DrawableRes icon: Int,
-        text: CharSequence,
-        isLight: Boolean,
-    ): Chip {
-        val badge = Chip(this)
-
-        // Text colour is black or white with ~ 70% opacity
-        // Experiments with the Palette library to extract the colour and pick an
-        // appropriate text colour showed that although the resulting colour could
-        // have marginally more contrast you could get a dark text colour when the
-        // other text colours were light, and vice-versa, making the badge text
-        // appear to be more prominent/important in the information hierarchy.
-        val textColor = if (isLight) Color.argb(178, 0, 0, 0) else Color.argb(178, 255, 255, 255)
-
-        // Badge background colour with 50% transparency so it blends in with the theme background
-        val backgroundColor = Color.argb(128, Color.red(baseColor), Color.green(baseColor), Color.blue(baseColor))
-
-        // Outline colour blends the two
-        val outlineColor = ColorUtils.blendARGB(textColor, baseColor, 0.7f)
-
-        // Configure the badge
-        badge.text = text
-        badge.setTextColor(textColor)
-        badge.chipStrokeWidth = resources.getDimension(DR.dimen.profile_badge_stroke_width)
-        badge.chipStrokeColor = ColorStateList.valueOf(outlineColor)
-        badge.setChipIconResource(icon)
-        badge.isChipIconVisible = true
-        badge.chipIconSize = resources.getDimension(DR.dimen.profile_badge_icon_size)
-        badge.chipIconTint = ColorStateList.valueOf(textColor)
-        badge.chipBackgroundColor = ColorStateList.valueOf(backgroundColor)
-
-        // Badge isn't clickable, so disable all related behavior
-        badge.isClickable = false
-        badge.isFocusable = false
-        badge.setEnsureMinTouchTargetSize(false)
-
-        // Reset some chip defaults so it looks better for our badge usecase
-        badge.iconStartPadding = resources.getDimension(DR.dimen.profile_badge_icon_start_padding)
-        badge.iconEndPadding = resources.getDimension(DR.dimen.profile_badge_icon_end_padding)
-        badge.minHeight = resources.getDimensionPixelSize(DR.dimen.profile_badge_min_height)
-        badge.chipMinHeight = resources.getDimension(DR.dimen.profile_badge_min_height)
-        badge.updatePadding(top = 0, bottom = 0)
-        return badge
+    private fun getBadge(@DrawableRes icon: Int): RoleChip {
+        return RoleChip(this).apply {
+            setChipIconResource(icon)
+            setBackgroundResource(R.drawable.profile_badge_background)
+            chipStrokeColor = ColorStateList.valueOf(MaterialColors.getColor(this, android.R.attr.textColorTertiary))
+            chipBackgroundColor = ColorStateList.valueOf(0)
+        }
     }
 
     companion object {

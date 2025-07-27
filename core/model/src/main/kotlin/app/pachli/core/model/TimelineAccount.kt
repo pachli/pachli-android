@@ -59,6 +59,9 @@ data class TimelineAccount(
      * If true, indicates that the account should be hidden behind a warning screen.
      */
     val limited: Boolean = false,
+
+    /** Roles associated with this account on this server.*/
+    val roles: List<Role>,
 ) {
 
     /**

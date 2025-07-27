@@ -100,7 +100,7 @@ import java.util.TimeZone
         TimelineStatusEntity::class,
         ConversationViewDataEntity::class,
     ],
-    version = 28,
+    version = 29,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
@@ -134,7 +134,9 @@ import java.util.TimeZone
         AutoMigration(from = 25, to = 26, spec = AppDatabase.MIGRATE_25_26::class),
         AutoMigration(from = 26, to = 27, spec = AppDatabase.MIGRATE_26_27::class),
         // Added NotificationAccountWarningEntity.
-        AutoMigration(from = 27, to = 28, spec = AppDatabase.MIGRATE_26_27::class),
+        AutoMigration(from = 27, to = 28),
+        // Saving TimelineAccount.roles to the database.
+        AutoMigration(from = 28, to = 29),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {
