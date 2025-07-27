@@ -1,3 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="title_manage_accounts">Tvarkyti paskyras</string>
+    <string name="label_active_account">Aktyvi paskyra</string>
+    <string name="action_switch_account">Perjungti</string>
+    <string name="pachli_account_content_description_fmt">%1$s, aktyvi paskyra</string>
+    <string name="action_logout_account_fmt">Atsijungti %1$s</string>
+    <string name="action_switch_account_fmt">Perjungti į %1$s</string>
 </resources>
