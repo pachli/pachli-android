@@ -91,6 +91,7 @@ class NotificationEntityForeignKeyTest {
         createdAt = Instant.now(),
         limited = false,
         note = "",
+        roles = null,
     )
 
     @Before
@@ -142,6 +143,7 @@ class NotificationEntityForeignKeyTest {
                 createdAt = Instant.now().truncatedTo(ChronoUnit.MILLIS),
                 limited = false,
                 note = "",
+                roles = null,
             ),
         )
         notificationDao.upsertReports(listOf(notificationReport))

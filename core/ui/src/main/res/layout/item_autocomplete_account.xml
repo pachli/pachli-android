@@ -30,6 +30,17 @@
         app:layout_constraintBottom_toBottomOf="@id/avatar"
         app:layout_constraintEnd_toEndOf="@id/avatar" />
 
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/roleChipGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingBottom="4dp"
+        app:chipSpacingVertical="4dp"
+        app:layout_constraintStart_toStartOf="@id/displayName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/avatar" />
+
     <TextView
         android:id="@+id/displayName"
         android:layout_width="0dp"
@@ -40,10 +51,9 @@
         android:textColor="?android:textColorPrimary"
         android:textSize="?attr/status_text_large"
         android:textStyle="normal|bold"
-        app:layout_constraintBottom_toTopOf="@id/username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/avatar"
-        app:layout_constraintTop_toTopOf="@id/avatar"
+        app:layout_constraintTop_toBottomOf="@id/roleChipGroup"
         app:layout_constraintVertical_chainStyle="packed"
         tools:ignore="SelectableText"
         tools:text="Display name" />
@@ -57,7 +67,6 @@
         android:maxLines="1"
         android:textColor="?android:textColorSecondary"
         android:textSize="?attr/status_text_medium"
-        app:layout_constraintBottom_toBottomOf="@id/avatar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/avatar"
         app:layout_constraintTop_toBottomOf="@id/displayName"

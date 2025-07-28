@@ -16,6 +16,7 @@
 
 package app.pachli.core.model
 
+import com.squareup.moshi.JsonClass
 import java.util.Date
 
 data class Account(
@@ -47,7 +48,11 @@ data class Account(
     // nullable for backward compatibility
     val fields: List<Field>? = emptyList(),
     val moved: Account? = null,
-    val roles: List<Role>? = emptyList(),
+    /**
+     * Roles associated with this account on this server. Undocumented, see
+     * https://github.com/mastodon/documentation/issues/1483.
+     */
+    val roles: List<Role>?,
 ) {
     val name: String
         get() = if (displayName.isNullOrEmpty()) {
@@ -71,7 +76,7 @@ data class StringField(
 )
 
 /** [Mastodon Entities: Role](https://docs.joinmastodon.org/entities/Role) */
-
+@JsonClass(generateAdapter = true)
 data class Role(
     /** Displayable name of the role */
     val name: String,

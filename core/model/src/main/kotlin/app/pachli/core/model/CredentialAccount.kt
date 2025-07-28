@@ -49,7 +49,7 @@ data class CredentialAccount(
     val followersCount: Int = 0,
     val followingCount: Int = 0,
     val statusesCount: Int = 0,
-    val role: Role? = null,
+    val role: CredentialedRole? = null,
     val roles: List<Role>? = emptyList(),
 )
 
@@ -60,4 +60,11 @@ data class AccountSource(
     val fields: List<StringField> = emptyList(),
     val language: String? = null,
     val attributionDomains: List<String> = emptyList(),
+)
+
+data class CredentialedRole(
+    val name: String,
+    val color: String,
+    val permissions: String,
+    val highlighted: Boolean,
 )

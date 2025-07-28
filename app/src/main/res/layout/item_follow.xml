@@ -39,18 +39,27 @@
         app:layout_constraintTop_toBottomOf="@+id/notification_text"
         tools:src="@drawable/avatar_default" />
 
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/roleChipGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingBottom="4dp"
+        app:chipSpacingVertical="4dp"
+        app:layout_constraintStart_toStartOf="@id/notification_username"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/notification_avatar" />
+
     <TextView
         android:id="@+id/notification_username"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
-        android:layout_marginTop="6dp"
         android:ellipsize="end"
         android:maxLines="1"
         android:textSize="?attr/status_text_medium"
         app:layout_constraintStart_toEndOf="@id/notification_avatar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/notification_text"
+        app:layout_constraintTop_toBottomOf="@+id/roleChipGroup"
         tools:text="\@testuser" />
 
     <app.pachli.core.ui.ClickableSpanTextView

@@ -130,6 +130,7 @@ class AccountEntityForeignKeyTest {
         createdAt = Instant.now(),
         limited = false,
         note = "",
+        roles = null,
     )
 
     @Before
@@ -443,6 +444,7 @@ class AccountEntityForeignKeyTest {
             createdAt = Instant.now().truncatedTo(ChronoUnit.MILLIS),
             limited = false,
             note = "",
+            roles = null,
         )
         timelineDao.insertAccount(timelineAccount)
 
