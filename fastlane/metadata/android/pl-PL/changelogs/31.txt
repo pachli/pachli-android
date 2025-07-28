@@ -1,0 +1,17 @@
+Pachli 2.13.0
+ 
+Nowości:
+- Parsowanie wiadomości z serwerów bez strefy czasowej
+- Popularne zamiast Lokalnych w domyślnych kartach
+- Większa ważność opisów mediów przy tworzeniu wpisu
+ 
+Poprawki:
+ 
+- Lepsze kolory przycisków w edytorze
+- Wyświetlanie podglądu ankiet
+- Zapobieganie awarii gdy ComposeActivity jest usunięte podczas robienia zdjęcia
+- Poprawione położenie przycisku "Głosuj"
+ 
+Tłumaczenia: 
+ 
+- Chiński, fiński, irlandzki, włoski, kabylski, łotewski, polski, słowacki, hiszpański
