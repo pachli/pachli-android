@@ -829,4 +829,9 @@
     <string name="notification_moderation_warnings_name">Upozornenia moderácie</string>
     <string name="notification_moderation_warnings_description">Upozornenia o moderátorských varovaniach</string>
     <string name="error_share_media">neexistuje žiadny adresár na uloženie dočasných médií</string>
+    <plurals name="description_post_roles">
+        <item quantity="one">s rolou:</item>
+        <item quantity="few">s rolami:</item>
+        <item quantity="other">s rolami:</item>
+    </plurals>
 </resources>
