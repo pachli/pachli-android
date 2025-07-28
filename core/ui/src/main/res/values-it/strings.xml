@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_network">Si è verificato un errore di rete. Per favore controlla la tua connessione e riprova.</string>
     <string name="error_generic">Si è verificato un errore.</string>
@@ -19,4 +19,9 @@
     <string name="action_logout_confirm">Sei sicuro di volerti disconnettere dall\'account %1$s?</string>
     <string name="add_account_name">Aggiungi account</string>
     <string name="action_logout">Disconnettiti</string>
+    <string name="item_copied">Testo copiato</string>
+    <string name="action_copy_item">Copia elemento</string>
+    <string name="pref_notification_fetch_method_title">Metodo di notifica</string>
+    <string name="hint_search_emojis">Cerca emoji…</string>
+    <string name="label_emoji_no_category">Nessuna categoria</string>
 </resources>
