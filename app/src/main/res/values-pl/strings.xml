@@ -838,4 +838,23 @@
     <string name="notification_severed_relationships_account_suspension_fmt">Administracja %1$s zablokowała <b>%2$s</b></string>
     <string name="notification_severed_relationships_unknown_fmt"><b>%1$s</b> jest zablokowane (z nieznanego powodu)</string>
     <string name="pref_default_audio_playback">Domyślne odtwarzanie audio</string>
+    <string name="notification_moderation_warning_title">Wiadomość od moderacji</string>
+    <string name="notification_moderation_warning_body_none_fmt">Otrzymano ostrzeżenie od moderacji: %1$s</string>
+    <string name="notification_moderation_warning_body_disable_fmt">Twoje konto zostało wyłączone: %1$s</string>
+    <string name="notification_moderation_warning_body_mark_statuses_as_sensitive_fmt">Niektóre z twoich wpisów oznaczono jako drażliwe: %1$s</string>
+    <string name="notification_moderation_warning_body_delete_statuses_fmt">Niektóre z twoich wpisów zostały usunięte: %1$s</string>
+    <string name="notification_moderation_warning_body_silence_fmt">Na twoje konto nałożono ograniczenia: %1$s</string>
+    <string name="notification_moderation_warning_body_suspend_fmt">Twoje konto zostało zawieszone: %1$s</string>
+    <string name="notification_moderation_warning_body_unknown_fmt">Otrzymano ostrzeżenie od moderacji: %1$s</string>
+    <string name="notification_moderation_warning_tap_for_more">Dotknij, by zobaczyć więcej szczegółów na twoim serwerze.</string>
+    <string name="pref_title_notification_filter_moderation_warning">Moderacja przysłała wiadomość</string>
+    <string name="notification_moderation_warnings_name">Ostrzeżenie moderacji</string>
+    <string name="notification_moderation_warnings_description">Powiadomienia o ostrzeżeniach moderacji</string>
+    <plurals name="description_post_roles">
+        <item quantity="one">z rolą:</item>
+        <item quantity="few">z rolami:</item>
+        <item quantity="many">z rolami:</item>
+        <item quantity="other">z rolami:</item>
+    </plurals>
+    <string name="error_share_media">brak katalogu do zapisu mediów tymczasowych</string>
 </resources>
