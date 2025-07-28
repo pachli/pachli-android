@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_network">Произошла ошибка сети! Пожалуйста, проверьте интернет-соединение и попробуйте снова!</string>
+    <string name="error_network">Произошла ошибка сети! Пожалуйста, проверьте интернет-соединение и попробуйте снова.</string>
     <string name="error_generic">Произошла ошибка.</string>
     <string name="message_empty">Ничего нет.</string>
     <string name="action_retry">Повторить</string>
@@ -14,7 +14,7 @@
     <string name="title_hashtags_dialog">Хэштеги</string>
     <string name="title_mentions_dialog">Упоминания</string>
     <string name="button_continue">Продолжить</string>
-    <string name="action_logout_confirm">Вы действительно хотите выйти из учётной записи %1$s?</string>
+    <string name="action_logout_confirm">Это удалить все локальные данные из учётной записи %1$s, включая черновики и настройки.\n\nЭто не удалит вашу учётную запись на сервере.</string>
     <string name="add_account_name">Добавить аккаунт</string>
     <string name="action_logout">Выйти</string>
 </resources>
