@@ -478,6 +478,10 @@
     <string name="description_post_media">
         Media: %s
     </string>
+    <plurals name="description_post_roles">
+        <item quantity="one">with role: </item>
+        <item quantity="other">with roles: </item>
+    </plurals>
     <string name="description_post_cw">
         Content warning: %s
     </string>

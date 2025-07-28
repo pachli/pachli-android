@@ -43,7 +43,8 @@
         app:chipSpacingVertical="4dp"
         app:layout_constraintStart_toStartOf="@id/status_display_name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/status_avatar" />
+        app:layout_constraintTop_toTopOf="@id/status_avatar"
+        android:importantForAccessibility="no" />
 
     <TextView
         android:id="@+id/status_display_name"
