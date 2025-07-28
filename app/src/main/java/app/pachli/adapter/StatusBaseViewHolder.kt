@@ -798,7 +798,8 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
         // The full string will look like (content in parentheses is optional),
         //
         // account.name
-        // (; contentWarning)
+        // (; "Roles: " account.roles)
+        // (. contentWarning)
         // ; (content)
         // (, poll)
         // , relativeDate
@@ -812,6 +813,19 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
         // (, "n Boost")
         val description = StringBuilder().apply {
             append(account.name)
+
+            if (account.roles.isNotEmpty()) {
+                append("; ")
+                append(
+                    context.resources.getQuantityString(
+                        R.plurals.description_post_roles,
+                        account.roles.size,
+                    ),
+                )
+                append(account.roles.joinToString(", ") { it.name })
+            }
+
+            append(".")
 
             getContentWarningDescription(context, viewData)?.let { append("; ", it) }
 
