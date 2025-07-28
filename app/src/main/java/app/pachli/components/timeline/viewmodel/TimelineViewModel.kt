@@ -303,12 +303,12 @@ sealed interface UiError {
     }
 }
 
-abstract class TimelineViewModel<T : Any>(
+abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
     savedStateHandle: SavedStateHandle,
     protected val timelineCases: TimelineCases,
     private val eventHub: EventHub,
     protected val accountManager: AccountManager,
-    private val repository: TimelineRepository<T>,
+    protected val repository: R,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
     protected val statusRepository: StatusRepository,

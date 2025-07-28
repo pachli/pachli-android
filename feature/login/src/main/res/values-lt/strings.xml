@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="action_close">Uždaryti</string>
+    <string name="action_close">Užverti</string>
     <string name="action_browser_login">Prisijungti su naršykle</string>
+    <string name="dialog_whats_an_instance">Čia galima įvesti bet kuriuos serverio adresą ar domeną, pavyzdžiui, mastodon.social, icosahedron.website, social.tchncs.de ir <a href="https://instances.social">daugiau</a>! \n\nServeris – tai viena vieta, kurioje yra talpinama jūsų paskyra, bet galite lengvai bendrauti ir sekti žmones kituose serveriuose, tarsi būtumėte toje pačioje svetainėje. \n\nDaugiau informacijos galima rasti adresu <a href="https://joinmastodon.org">joinmastodon.org</a>.</string>
+    <string name="error_invalid_domain">Įvestas netinkamas domenas.</string>
+    <string name="error_failed_app_registration_fmt">Nepavyko nustatyti tapatybės su šiuo serveriu: %1$s.</string>
+    <string name="error_authorization_unknown">Įvyko neidentifikuota leidimo klaida. Jei tai tęsiasi, pabandykite prisijungti naršyklėje iš meniu.</string>
+    <string name="error_authorization_denied">Leidimas buvo atmestas. Jei esate tikri, kad nurodėte teisingus kredencialus, pabandykite prisijungti naršyklėje iš meniu.</string>
+    <string name="error_retrieving_oauth_token_fmt">Nepavyko gauti prisijungimo rakto. Jei tai tęsiasi, pabandykite prisijungti naršyklėje iš meniu: %1$s.</string>
+    <string name="error_loading_account_details_fmt">Nepavyko įkelti paskyros informacijos: %1$s.</string>
+    <string name="hint_domain">Kurį serverį?</string>
+    <string name="action_login">Prisijungti su „Pachli“</string>
+    <string name="link_whats_an_instance">Kas yra serveris?</string>
+    <string name="login_connection">Prisijungiama…</string>
+    <string name="title_login">Prisijungimas</string>
+    <string name="error_could_not_load_login_page">Nepavyko įkelti prisijungimo puslapio.</string>
+    <string name="instance_rule_info">Prisijungiant, sutinkate su %s taisyklėmis.</string>
+    <string name="instance_rule_title">%s taisyklės</string>
 </resources>

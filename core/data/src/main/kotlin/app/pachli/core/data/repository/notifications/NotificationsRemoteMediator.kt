@@ -26,6 +26,7 @@ import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.di.TransactionProvider
+import app.pachli.core.database.model.NotificationAccountWarningEntity
 import app.pachli.core.database.model.NotificationData
 import app.pachli.core.database.model.NotificationRelationshipSeveranceEventEntity
 import app.pachli.core.database.model.NotificationReportEntity
@@ -37,6 +38,7 @@ import app.pachli.core.database.model.asEntity
 import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
 import app.pachli.core.model.TimelineAccount
+import app.pachli.core.network.model.AccountWarning
 import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Notification
 import app.pachli.core.network.model.RelationshipSeveranceEvent
@@ -51,6 +53,9 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import okhttp3.Headers
 
+/**
+ * @property excludeTypes 0 or more [Notification.Type] that should not be fetched.
+ */
 @OptIn(ExperimentalPagingApi::class)
 class NotificationsRemoteMediator(
     private val pachliAccountId: Long,
@@ -60,8 +65,9 @@ class NotificationsRemoteMediator(
     private val remoteKeyDao: RemoteKeyDao,
     private val notificationDao: NotificationDao,
     private val statusDao: StatusDao,
+    private val excludeTypes: Iterable<Notification.Type>,
 ) : RemoteMediator<Int, NotificationData>() {
-    val remoteKeyTimelineId = Timeline.Notifications.remoteKeyTimelineId
+    private val remoteKeyTimelineId = Timeline.Notifications.remoteKeyTimelineId
 
     override suspend fun load(loadType: LoadType, state: PagingState<Int, NotificationData>): MediatorResult {
         return transactionProvider {
@@ -83,7 +89,7 @@ class NotificationsRemoteMediator(
                         remoteKeyTimelineId,
                         RemoteKeyKind.PREV,
                     ) ?: return@transactionProvider MediatorResult.Success(endOfPaginationReached = true)
-                    mastodonApi.notifications(minId = rke.key, limit = state.config.pageSize)
+                    mastodonApi.notifications(minId = rke.key, limit = state.config.pageSize, excludes = excludeTypes)
                 }
 
                 LoadType.APPEND -> {
@@ -92,7 +98,7 @@ class NotificationsRemoteMediator(
                         remoteKeyTimelineId,
                         RemoteKeyKind.NEXT,
                     ) ?: return@transactionProvider MediatorResult.Success(endOfPaginationReached = true)
-                    mastodonApi.notifications(maxId = rke.key, limit = state.config.pageSize)
+                    mastodonApi.notifications(maxId = rke.key, limit = state.config.pageSize, excludes = excludeTypes)
                 }
             }.getOrElse { return@transactionProvider MediatorResult.Error(it.throwable) }
 
@@ -163,15 +169,17 @@ class NotificationsRemoteMediator(
      * [notificationId], or the most recent notifications if [notificationId] is null.
      */
     private suspend fun getInitialPage(notificationId: String?, pageSize: Int): ApiResult<List<Notification>> = coroutineScope {
-        notificationId ?: return@coroutineScope mastodonApi.notifications(limit = pageSize)
+        notificationId ?: return@coroutineScope mastodonApi.notifications(limit = pageSize, excludes = excludeTypes)
 
         val notification = async { mastodonApi.notification(id = notificationId) }
-        val prevPage = async { mastodonApi.notifications(minId = notificationId, limit = pageSize * 3) }
-        val nextPage = async { mastodonApi.notifications(maxId = notificationId, limit = pageSize * 3) }
+        val prevPage = async { mastodonApi.notifications(minId = notificationId, limit = pageSize * 3, excludes = excludeTypes) }
+        val nextPage = async { mastodonApi.notifications(maxId = notificationId, limit = pageSize * 3, excludes = excludeTypes) }
 
         val notifications = buildList {
             prevPage.await().get()?.let { this.addAll(it.body) }
-            notification.await().get()?.let { this.add(it.body) }
+            notification.await().get()?.let {
+                if (!excludeTypes.contains(it.body.type)) this.add(it.body)
+            }
             nextPage.await().get()?.let { this.addAll(it.body) }
         }
 
@@ -203,10 +211,13 @@ class NotificationsRemoteMediator(
         val statuses = mutableSetOf<Status>()
 
         /** Unique reports referenced in this batch of notifications. */
-        val reports = mutableSetOf<Notification>()
+        val reports = mutableSetOf<NotificationReportEntity>()
 
         /** Unique relationship severance events referenced in this batch of notifications. */
-        val severanceEvents = mutableSetOf<Notification>()
+        val severanceEvents = mutableSetOf<NotificationRelationshipSeveranceEventEntity>()
+
+        /** Unique account warnings referenced in this batch of notifications. */
+        val accountWarnings = mutableSetOf<NotificationAccountWarningEntity>()
 
         // Collect the different items from this batch of notifications.
         notifications.forEach { notification ->
@@ -218,19 +229,17 @@ class NotificationsRemoteMediator(
                 statuses.add(status)
             }
 
-            notification.report?.let { reports.add(notification) }
-            notification.relationshipSeveranceEvent?.let { severanceEvents.add(notification) }
+            notification.report?.let { reports.add(it.asEntity(pachliAccountId, notification.id)) }
+            notification.relationshipSeveranceEvent?.let { severanceEvents.add(it.asEntity(pachliAccountId, notification.id)) }
+            notification.accountWarning?.let { accountWarnings.add(it.asEntity(pachliAccountId, notification.id)) }
         }
 
         // Bulk upsert the discovered items.
         timelineDao.upsertAccounts(accounts.asEntity(pachliAccountId))
         statusDao.upsertStatuses(statuses.map { StatusEntity.from(it, pachliAccountId) })
-        notificationDao.upsertReports(reports.mapNotNull { NotificationReportEntity.from(pachliAccountId, it) })
-        notificationDao.upsertEvents(
-            severanceEvents.mapNotNull {
-                NotificationRelationshipSeveranceEventEntity.from(pachliAccountId, it)
-            },
-        )
+        notificationDao.upsertReports(reports)
+        notificationDao.upsertEvents(severanceEvents)
+        notificationDao.upsertAccountWarnings(accountWarnings)
         notificationDao.upsertNotifications(
             notifications.map { it.asEntity(pachliAccountId) },
         )
@@ -250,63 +259,77 @@ fun NotificationData.Companion.from(pachliAccountId: Long, notification: Notific
         )
     },
     viewData = null,
-    report = NotificationReportEntity.from(pachliAccountId, notification),
-    relationshipSeveranceEvent = NotificationRelationshipSeveranceEventEntity.from(pachliAccountId, notification),
+    report = notification.report?.asEntity(pachliAccountId, notification.id),
+    relationshipSeveranceEvent = notification.relationshipSeveranceEvent?.asEntity(pachliAccountId, notification.id),
+    accountWarning = notification.accountWarning?.asEntity(pachliAccountId, notification.id),
 )
 
 /**
  * @return A [NotificationReportEntity] from a network [Notification] for [pachliAccountId].
  */
-fun NotificationReportEntity.Companion.from(
+fun Report.asEntity(
     pachliAccountId: Long,
-    notification: Notification,
-): NotificationReportEntity? {
-    val report = notification.report ?: return null
-
-    return NotificationReportEntity(
-        pachliAccountId = pachliAccountId,
-        serverId = notification.id,
-        reportId = report.id,
-        actionTaken = report.actionTaken,
-        actionTakenAt = report.actionTakenAt,
-        category = when (report.category) {
-            Report.Category.SPAM -> NotificationReportEntity.Category.SPAM
-            Report.Category.VIOLATION -> NotificationReportEntity.Category.VIOLATION
-            Report.Category.OTHER -> NotificationReportEntity.Category.OTHER
-        },
-        comment = report.comment,
-        forwarded = report.forwarded,
-        createdAt = report.createdAt,
-        statusIds = report.statusIds,
-        ruleIds = report.ruleIds,
-        targetAccount = report.targetAccount.asEntity(pachliAccountId),
-    )
-}
+    notificationId: String,
+) = NotificationReportEntity(
+    pachliAccountId = pachliAccountId,
+    serverId = notificationId,
+    reportId = id,
+    actionTaken = actionTaken,
+    actionTakenAt = actionTakenAt,
+    category = when (category) {
+        Report.Category.SPAM -> NotificationReportEntity.Category.SPAM
+        Report.Category.VIOLATION -> NotificationReportEntity.Category.VIOLATION
+        Report.Category.OTHER -> NotificationReportEntity.Category.OTHER
+    },
+    comment = comment,
+    forwarded = forwarded,
+    createdAt = createdAt,
+    statusIds = statusIds,
+    ruleIds = ruleIds,
+    targetAccount = targetAccount.asEntity(pachliAccountId),
+)
 
 /**
  * @return A [NotificationRelationshipSeveranceEventEntity] from a network [Notification]
  * for [pachliAccountId].
  */
-fun NotificationRelationshipSeveranceEventEntity.Companion.from(
+fun RelationshipSeveranceEvent.asEntity(
     pachliAccountId: Long,
-    notification: Notification,
-): NotificationRelationshipSeveranceEventEntity? {
-    val rse = notification.relationshipSeveranceEvent ?: return null
+    notificationId: String,
+): NotificationRelationshipSeveranceEventEntity = NotificationRelationshipSeveranceEventEntity(
+    pachliAccountId = pachliAccountId,
+    serverId = notificationId,
+    eventId = id,
+    type = when (type) {
+        RelationshipSeveranceEvent.Type.DOMAIN_BLOCK -> NotificationRelationshipSeveranceEventEntity.Type.DOMAIN_BLOCK
+        RelationshipSeveranceEvent.Type.USER_DOMAIN_BLOCK -> NotificationRelationshipSeveranceEventEntity.Type.USER_DOMAIN_BLOCK
+        RelationshipSeveranceEvent.Type.ACCOUNT_SUSPENSION -> NotificationRelationshipSeveranceEventEntity.Type.ACCOUNT_SUSPENSION
+        RelationshipSeveranceEvent.Type.UNKNOWN -> NotificationRelationshipSeveranceEventEntity.Type.UNKNOWN
+    },
+    purged = purged,
+    targetName = targetName,
+    followersCount = followersCount,
+    followingCount = followingCount,
+    createdAt = createdAt,
+)
 
-    return NotificationRelationshipSeveranceEventEntity(
-        pachliAccountId = pachliAccountId,
-        serverId = notification.id,
-        eventId = rse.id,
-        type = when (rse.type) {
-            RelationshipSeveranceEvent.Type.DOMAIN_BLOCK -> NotificationRelationshipSeveranceEventEntity.Type.DOMAIN_BLOCK
-            RelationshipSeveranceEvent.Type.USER_DOMAIN_BLOCK -> NotificationRelationshipSeveranceEventEntity.Type.USER_DOMAIN_BLOCK
-            RelationshipSeveranceEvent.Type.ACCOUNT_SUSPENSION -> NotificationRelationshipSeveranceEventEntity.Type.ACCOUNT_SUSPENSION
-            RelationshipSeveranceEvent.Type.UNKNOWN -> NotificationRelationshipSeveranceEventEntity.Type.UNKNOWN
-        },
-        purged = rse.purged,
-        targetName = rse.targetName,
-        followersCount = rse.followersCount,
-        followingCount = rse.followingCount,
-        createdAt = rse.createdAt,
-    )
-}
+/**
+ * @return A [NotificationAccountWarningEntity] from a network [Notification]
+ * for [pachliAccountId].
+ */
+fun AccountWarning.asEntity(pachliAccountId: Long, notificationId: String) = NotificationAccountWarningEntity(
+    pachliAccountId = pachliAccountId,
+    serverId = notificationId,
+    accountWarningId = id,
+    text = text,
+    action = when (action) {
+        AccountWarning.Action.NONE -> NotificationAccountWarningEntity.Action.NONE
+        AccountWarning.Action.DISABLE -> NotificationAccountWarningEntity.Action.DISABLE
+        AccountWarning.Action.MARK_STATUSES_AS_SENSITIVE -> NotificationAccountWarningEntity.Action.MARK_STATUSES_AS_SENSITIVE
+        AccountWarning.Action.DELETE_STATUSES -> NotificationAccountWarningEntity.Action.DELETE_STATUSES
+        AccountWarning.Action.SILENCE -> NotificationAccountWarningEntity.Action.SILENCE
+        AccountWarning.Action.SUSPEND -> NotificationAccountWarningEntity.Action.SUSPEND
+        AccountWarning.Action.UNKNOWN -> NotificationAccountWarningEntity.Action.UNKNOWN
+    },
+    createdAt = createdAt,
+)

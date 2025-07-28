@@ -4,21 +4,20 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.core.data.repository.AccountManager
-import app.pachli.core.eventhub.BlockEvent
 import app.pachli.core.eventhub.DomainMuteEvent
 import app.pachli.core.eventhub.EventHub
-import app.pachli.core.eventhub.MuteEvent
 import app.pachli.core.eventhub.ProfileEditedEvent
-import app.pachli.core.eventhub.UnfollowEvent
 import app.pachli.core.model.Account
 import app.pachli.core.model.Relationship
 import app.pachli.core.network.model.asModel
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.ui.getDomain
+import app.pachli.usecase.TimelineCases
 import app.pachli.util.Error
 import app.pachli.util.Loading
 import app.pachli.util.Resource
 import app.pachli.util.Success
+import com.github.michaelbull.result.map
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import dagger.assisted.Assisted
@@ -36,6 +35,7 @@ class AccountViewModel @AssistedInject constructor(
     private val mastodonApi: MastodonApi,
     private val eventHub: EventHub,
     private val accountManager: AccountManager,
+    private val timelineCases: TimelineCases,
 ) : ViewModel() {
 
     val accountData = MutableLiveData<Resource<Account>>()
@@ -238,54 +238,41 @@ class AccountViewModel @AssistedInject constructor(
             relationshipData.postValue(Loading(newRelation))
         }
 
-        val relationshipCall = when (relationshipAction) {
-            RelationShipAction.FOLLOW -> mastodonApi.followAccount(
+        val response = when (relationshipAction) {
+            RelationShipAction.FOLLOW -> timelineCases.followAccount(pachliAccountId, accountId, showReblogs = true)
+            RelationShipAction.UNFOLLOW -> timelineCases.unfollowAccount(pachliAccountId, accountId)
+            RelationShipAction.BLOCK -> timelineCases.blockAccount(pachliAccountId, accountId)
+            RelationShipAction.UNBLOCK -> timelineCases.unblockAccount(pachliAccountId, accountId)
+            RelationShipAction.MUTE -> timelineCases.muteAccount(
+                pachliAccountId,
                 accountId,
-                showReblogs = true,
-            )
-            RelationShipAction.UNFOLLOW -> mastodonApi.unfollowAccount(accountId)
-            RelationShipAction.BLOCK -> mastodonApi.blockAccount(accountId)
-            RelationShipAction.UNBLOCK -> mastodonApi.unblockAccount(accountId)
-            RelationShipAction.MUTE -> mastodonApi.muteAccount(
-                accountId,
-                parameter ?: true,
+                notifications = parameter ?: true,
                 duration,
             )
-            RelationShipAction.UNMUTE -> mastodonApi.unmuteAccount(accountId)
+
+            RelationShipAction.UNMUTE -> timelineCases.unmuteAccount(pachliAccountId, accountId)
             RelationShipAction.SUBSCRIBE -> {
                 if (isMastodon) {
-                    mastodonApi.followAccount(accountId, notify = true)
+                    timelineCases.followAccount(pachliAccountId, accountId, notify = true)
                 } else {
-                    mastodonApi.subscribeAccount(accountId)
+                    timelineCases.subscribeAccount(pachliAccountId, accountId)
                 }
             }
             RelationShipAction.UNSUBSCRIBE -> {
                 if (isMastodon) {
-                    mastodonApi.followAccount(accountId, notify = false)
+                    timelineCases.followAccount(pachliAccountId, accountId, notify = false)
                 } else {
-                    mastodonApi.unsubscribeAccount(accountId)
+                    timelineCases.unsubscribeAccount(pachliAccountId, accountId)
                 }
             }
-            RelationShipAction.SHOW_REBLOGS -> mastodonApi.followAccount(accountId, showReblogs = true)
-            RelationShipAction.HIDE_REBLOGS -> mastodonApi.followAccount(accountId, showReblogs = false)
+
+            RelationShipAction.SHOW_REBLOGS -> timelineCases.followAccount(pachliAccountId, accountId, showReblogs = true)
+            RelationShipAction.HIDE_REBLOGS -> timelineCases.followAccount(pachliAccountId, accountId, showReblogs = false)
         }
 
-        relationshipCall
-            .onSuccess { response ->
-                relationshipData.postValue(Success(response.body.asModel()))
-
-                when (relationshipAction) {
-                    RelationShipAction.FOLLOW -> accountManager.followAccount(pachliAccountId, accountId)
-                    RelationShipAction.UNFOLLOW -> {
-                        accountManager.unfollowAccount(pachliAccountId, accountId)
-                        eventHub.dispatch(UnfollowEvent(pachliAccountId, accountId))
-                    }
-
-                    RelationShipAction.BLOCK -> eventHub.dispatch(BlockEvent(pachliAccountId, accountId))
-                    RelationShipAction.MUTE -> eventHub.dispatch(MuteEvent(pachliAccountId, accountId))
-                    else -> { }
-                }
-            }
+        response
+            .map { it.body.asModel() }
+            .onSuccess { relationshipData.postValue(Success(it)) }
             .onFailure { e ->
                 Timber.w("failed loading relationship: %s", e)
                 relationshipData.postValue(Error(relation, cause = e.throwable))

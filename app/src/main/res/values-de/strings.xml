@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_empty">Das darf nicht leer sein.</string>
+    <string name="error_empty">Dies darf nicht leer sein.</string>
     <string name="error_no_web_browser_found">Kein Webbrowser gefunden.</string>
     <string name="error_compose_character_limit">Der Beitrag ist zu lang!</string>
     <string name="error_media_upload_type">Dieser Dateityp kann nicht hochgeladen werden.</string>
@@ -129,8 +129,8 @@
     <string name="pref_title_notification_alert_vibrate">Mit Vibration benachrichtigen</string>
     <string name="pref_title_notification_alert_light">Mit Licht benachrichtigen</string>
     <string name="pref_title_notification_filters">Mich benachrichtigen, wenn</string>
-    <string name="pref_title_notification_filter_mentions">ich erwähnt werde</string>
-    <string name="pref_title_notification_filter_follows">mir jemand folgt</string>
+    <string name="pref_title_notification_filter_mentions">Erwähnt</string>
+    <string name="pref_title_notification_filter_follows">Gefolgt</string>
     <string name="pref_title_notification_filter_reblogs">meine Beiträge geteilt werden</string>
     <string name="pref_title_notification_filter_favourites">meine Beiträge favorisiert werden</string>
     <string name="pref_title_appearance_settings">Erscheinungsbild</string>
@@ -196,7 +196,7 @@
     <string name="follows_you">Folgt dir</string>
     <string name="pref_title_alway_show_sensitive_media">Mediendateien mit Inhaltswarnung immer anzeigen</string>
     <string name="title_media">Medien</string>
-    <string name="pref_title_thread_filter_keywords">Themen</string>
+    <string name="pref_title_thread_filter_keywords">Unterhaltungen</string>
     <string name="filter_addition_title">Filter hinzufügen</string>
     <string name="filter_edit_title">Filter bearbeiten</string>
     <string name="filter_dialog_remove_button">Entfernen</string>
@@ -513,7 +513,7 @@
     <string name="title_public_trending_hashtags">Angesagte Hashtags</string>
     <string name="accessibility_talking_about_tag">%1$d Leute schreiben über den Hashtag %2$s</string>
     <string name="total_usage">Insg. verwendet</string>
-    <string name="total_accounts">Konten insg.</string>
+    <string name="total_accounts">Konten gesamt</string>
     <string name="dialog_follow_hashtag_title">Hashtag folgen</string>
     <string name="dialog_follow_hashtag_hint">#Hashtag</string>
     <string name="socket_timeout_exception">Kontaktaufnahme mit dem Server dauerte zu lange</string>
@@ -589,12 +589,12 @@
     <string name="announcement_date_updated">(Aktualisiert: %1$s)</string>
     <string name="notification_severed_relationships_user_domain_block_body">Du hast die Domain blockiert</string>
     <plurals name="followed_hashtags_accounts_count_fmt">
-        <item quantity="one">Konto</item>
-        <item quantity="other">Konten</item>
+        <item quantity="one">%1$d Konto</item>
+        <item quantity="other">%1$d Konten</item>
     </plurals>
     <plurals name="followed_hashtags_days_count_fmt">
-        <item quantity="one">Tag</item>
-        <item quantity="other">Tage</item>
+        <item quantity="one">%1$d Tag</item>
+        <item quantity="other">%1$d Tage</item>
     </plurals>
     <string name="followed_hashtags_summary_fmt">%1$s von %2$s (letzte %3$s)</string>
     <string name="notification_severed_relationships_format">Verbindung zu <b>%1$s</b> getrennt</string>
@@ -818,4 +818,18 @@
     <string name="account_filter_placeholder_label_not_following">Gefiltert weil: <b>nicht von dir gefolgt</b></string>
     <string name="account_filter_placeholder_label_younger_30d">Gefiltert weil: <b>in den letzten 30 Tagen erstellt</b></string>
     <string name="account_filter_placeholder_label_limited_by_server">Gefiltert weil: <b>von deinen Moderator*innen eingeschränkt</b></string>
+    <string name="pref_default_audio_playback">Standard-Audiowiedergabe</string>
+    <string name="notification_moderation_warnings_description">Benachrichtigungen zu Moderationswarnungen</string>
+    <string name="notification_moderation_warnings_name">Moderationswarnungen</string>
+    <string name="pref_title_notification_filter_moderation_warning">Ein Moderator sendet eine Nachricht</string>
+    <string name="notification_moderation_warning_tap_for_more">Antippen, um mehr Details auf deinem Server zu sehen.</string>
+    <string name="notification_moderation_warning_body_unknown_fmt">Du hast eine Moderationswarnung erhalten: %1$s</string>
+    <string name="notification_moderation_warning_body_suspend_fmt">Dein Profil wurde suspendiert: %1$s</string>
+    <string name="notification_moderation_warning_body_silence_fmt">Dein Profil wurde eingeschränkt: %1$s</string>
+    <string name="notification_moderation_warning_body_delete_statuses_fmt">Einige deiner Beiträge wurden gelöscht: %1$s</string>
+    <string name="notification_moderation_warning_body_mark_statuses_as_sensitive_fmt">Einige deiner Beiträge wurden mit Inhaltswarnung markiert: %1$s</string>
+    <string name="notification_moderation_warning_body_disable_fmt">Dein Profil wurde deaktiviert: %1$s</string>
+    <string name="notification_moderation_warning_body_none_fmt">Du hast eine Moderationswarnung erhalten: %1$s</string>
+    <string name="notification_moderation_warning_title">Eine Nachricht von deinen Moderatoren</string>
+    <string name="error_share_media">es existiert kein Ordner zum Speichern temporärer Medien</string>
 </resources>

@@ -1,4 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<issues format="6" by="lint 8.7.0" type="baseline" client="gradle" dependencies="false" name="AGP (8.7.0)" variant="all" version="8.7.0">
+<issues format="6" by="lint 8.11.0" type="baseline" client="gradle" dependencies="false" name="AGP (8.11.0)" variant="all" version="8.11.0">
+
+    <issue
+        id="MemberExtensionConflict"
+        message="`addAll` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
+        errorLine1="                    addAll(response.body.map { FollowingAccountEntity.from(account.id, it.asModel()) })"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/app/pachli/core/data/repository/AccountManager.kt"
+            line="477"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="MemberExtensionConflict"
+        message="`contains` is defined both as a member in class `kotlin.collections.List` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
+        errorLine1="            if (SCHEMAS.contains(link.rel)) {"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/app/pachli/core/data/repository/AccountManager.kt"
+            line="625"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="MemberExtensionConflict"
+        message="`contains` is defined both as a member in class `kotlin.collections.Set` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
+        errorLine1="            makeFilter(list.filter { it.contexts.contains(filterContext) })"
+        errorLine2="                                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/app/pachli/core/data/model/ContentFilterModel.kt"
+            line="41"
+            column="38"/>
+    </issue>
+
+    <issue
+        id="MemberExtensionConflict"
+        message="`contains` is defined both as a member in class `kotlin.collections.Set` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
+        errorLine1="            result.filter.contexts.contains(filterContext)"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/app/pachli/core/data/model/ContentFilterModel.kt"
+            line="70"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MemberExtensionConflict"
+        message="`contains` is defined both as a member in class `kotlin.collections.Set` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
+        errorLine1="            result.filter.contexts.contains(filterContext)"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/app/pachli/core/data/model/ContentFilterModel.kt"
+            line="105"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="MemberExtensionConflict"
+        message="`addAll` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
+        errorLine1="            prevPage.await().get()?.let { this.addAll(it.body) }"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/app/pachli/core/data/repository/notifications/NotificationsRemoteMediator.kt"
+            line="179"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="MemberExtensionConflict"
+        message="`addAll` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
+        errorLine1="            nextPage.await().get()?.let { this.addAll(it.body) }"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/app/pachli/core/data/repository/notifications/NotificationsRemoteMediator.kt"
+            line="183"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="MemberExtensionConflict"
+        message="`contains` is defined both as a member in class `kotlin.collections.List` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
+        errorLine1="            if (SCHEMAS.contains(link.rel)) {"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/app/pachli/core/data/repository/ServerRepository.kt"
+            line="97"
+            column="17"/>
+    </issue>
 
 </issues>

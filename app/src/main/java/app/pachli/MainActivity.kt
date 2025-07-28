@@ -39,6 +39,7 @@ import android.view.MenuItem.SHOW_AS_ACTION_NEVER
 import android.view.View
 import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.content.res.AppCompatResources
@@ -48,6 +49,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.GravityCompat
 import androidx.core.view.MenuProvider
+import androidx.core.view.ViewGroupCompat
 import androidx.core.view.forEach
 import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout.DrawerListener
@@ -106,7 +108,12 @@ import app.pachli.core.preferences.MainNavigationPosition
 import app.pachli.core.preferences.TabAlignment
 import app.pachli.core.preferences.TabContents
 import app.pachli.core.ui.AlignableTabLayoutAlignment
+import app.pachli.core.ui.appbar.FadeChildScrollEffect
 import app.pachli.core.ui.emojify
+import app.pachli.core.ui.extensions.InsetType
+import app.pachli.core.ui.extensions.addScrollEffect
+import app.pachli.core.ui.extensions.applyDefaultWindowInsets
+import app.pachli.core.ui.extensions.applyWindowInsets
 import app.pachli.core.ui.extensions.await
 import app.pachli.core.ui.extensions.reduceSwipeSensitivity
 import app.pachli.core.ui.makeIcon
@@ -245,7 +252,37 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
 
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
+        ViewGroupCompat.installCompatInsetsDispatch(binding.root)
+        binding.mainDrawer.applyWindowInsets(
+            left = InsetType.PADDING,
+            top = InsetType.PADDING,
+            right = InsetType.PADDING,
+            bottom = InsetType.PADDING,
+        )
+
+        // If the navigation bar is at the bottom then the pager needs additional
+        // padding to clear it. Do this before applying edge to edge insets, so
+        // the new padding is added to the insets.
+        if (sharedPreferencesRepository.mainNavigationPosition == MainNavigationPosition.BOTTOM) {
+            with(binding.viewPager) {
+                val actionBarSize = getDimension(this@MainActivity, androidx.appcompat.R.attr.actionBarSize)
+                setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom + actionBarSize)
+            }
+        }
+
+        binding.appBar.applyDefaultWindowInsets()
+        binding.viewPager.applyDefaultWindowInsets()
+        actionButton.applyDefaultWindowInsets()
+        binding.mainToolbar.addScrollEffect(FadeChildScrollEffect)
+        binding.topNav.addScrollEffect(FadeChildScrollEffect)
+        binding.bottomNav.applyWindowInsets(
+            left = InsetType.PADDING,
+            right = InsetType.PADDING,
+            bottom = InsetType.PADDING,
+        )
+
         setContentView(binding.root)
 
         viewModel.accept(InfallibleUiAction.LoadPachliAccount(pachliAccountId))
@@ -307,6 +344,9 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
         // https://github.com/tuskyapp/Tusky/issues/3251 for details.
         tabAdapter = MainPagerAdapter(emptyList(), this)
         binding.viewPager.adapter = tabAdapter
+        // Work around https://issuetracker.google.com/issues/432664597, where the recyclerview
+        // might appear to be empty.
+        binding.viewPager.offscreenPageLimit = 2
 
         // Process different parts of the account flow depending on what's changed
         val account = viewModel.pachliAccountFlow.filterNotNull()

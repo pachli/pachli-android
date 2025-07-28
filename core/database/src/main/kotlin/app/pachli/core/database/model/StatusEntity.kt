@@ -30,6 +30,7 @@ import app.pachli.core.model.Emoji
 import app.pachli.core.model.FilterResult
 import app.pachli.core.model.HashTag
 import app.pachli.core.model.Poll
+import app.pachli.core.model.Role
 import app.pachli.core.model.Status
 import app.pachli.core.model.TimelineAccount
 import java.time.Instant
@@ -222,6 +223,8 @@ data class TimelineAccountEntity(
     val limited: Boolean = false,
     @ColumnInfo(defaultValue = "")
     val note: String,
+    @ColumnInfo(defaultValue = "")
+    val roles: List<Role>?,
 ) {
     fun toTimelineAccount(): TimelineAccount {
         return TimelineAccount(
@@ -236,6 +239,7 @@ data class TimelineAccountEntity(
             emojis = emojis,
             createdAt = createdAt,
             limited = limited,
+            roles = roles.orEmpty(),
         )
     }
 
@@ -253,6 +257,7 @@ data class TimelineAccountEntity(
             bot = timelineAccount.bot,
             createdAt = timelineAccount.createdAt,
             limited = timelineAccount.limited,
+            roles = timelineAccount.roles,
         )
     }
 }
@@ -270,6 +275,7 @@ fun TimelineAccount.asEntity(pachliAccountId: Long) = TimelineAccountEntity(
     bot = bot,
     createdAt = createdAt,
     limited = limited,
+    roles = roles,
 )
 
 fun Iterable<TimelineAccount>.asEntity(pachliAccountId: Long) = map { it.asEntity(pachliAccountId) }
@@ -286,6 +292,7 @@ fun TimelineAccountEntity.asModel() = TimelineAccount(
     emojis = emojis,
     createdAt = createdAt,
     limited = limited,
+    roles = roles.orEmpty(),
 )
 
 data class TimelineStatusWithAccount(

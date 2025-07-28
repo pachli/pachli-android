@@ -79,7 +79,7 @@
          slightly tighter layout while ensuring that minimum touch sizes are
          maintained.
 
-         Lint can't determine that these are resources are used, so flags a
+         Lint can't determine that these resources are used, so flags a
          false warning which needs to be ignored. -->
     <dimen tools:ignore="UnusedResources" name="material_drawer_item_primary">48dp</dimen>
     <dimen tools:ignore="UnusedResources" name="material_drawer_item_primary_icon">52dp</dimen>

@@ -34,11 +34,13 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebStorage
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.IntentCompat
 import androidx.core.net.toUri
+import androidx.core.view.ViewGroupCompat
 import androidx.lifecycle.lifecycleScope
 import app.pachli.core.activity.BaseActivity
 import app.pachli.core.common.extensions.hide
@@ -47,6 +49,9 @@ import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.util.versionName
 import app.pachli.core.navigation.LoginWebViewActivityIntent
 import app.pachli.core.network.util.localTrustManager
+import app.pachli.core.ui.extensions.InsetType
+import app.pachli.core.ui.extensions.applyDefaultWindowInsets
+import app.pachli.core.ui.extensions.applyWindowInsets
 import app.pachli.feature.login.databinding.ActivityLoginWebviewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import java.security.cert.X509Certificate
@@ -121,11 +126,18 @@ class LoginWebViewActivity : BaseActivity() {
     private val viewModel: LoginWebViewViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
+        ViewGroupCompat.installCompatInsetsDispatch(binding.root)
+        binding.appBar.applyDefaultWindowInsets()
+        binding.webviewWrapper.applyWindowInsets(
+            left = InsetType.PADDING,
+            right = InsetType.PADDING,
+            bottom = InsetType.PADDING,
+            withIme = true,
+        )
 
-        if (BuildConfig.DEBUG) {
-            WebView.setWebContentsDebuggingEnabled(true)
-        }
+        WebView.setWebContentsDebuggingEnabled(BuildConfig.DEBUG)
 
         val data = OauthLogin.parseData(intent)
 

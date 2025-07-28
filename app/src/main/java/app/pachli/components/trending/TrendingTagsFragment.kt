@@ -46,6 +46,7 @@ import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.ui.BackgroundMessage
+import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.databinding.FragmentTrendingTagsBinding
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.AppBarLayoutHost
@@ -146,6 +147,7 @@ class TrendingTagsFragment :
         val columnCount =
             requireContext().resources.getInteger(DR.integer.trending_column_count)
         setupLayoutManager(columnCount)
+        binding.recyclerView.applyDefaultWindowInsets()
 
         binding.recyclerView.setHasFixedSize(true)
 

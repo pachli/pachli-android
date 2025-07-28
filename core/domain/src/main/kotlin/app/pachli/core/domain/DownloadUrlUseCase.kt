@@ -29,6 +29,8 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 /**
  * Downloads a URL respecting the user's preferences.
@@ -53,9 +55,9 @@ class DownloadUrlUseCase @Inject constructor(
      * @param sender Username of the account supplying the URL. May or may not
      * start with an "@", one is prepended to the download directory if missing.
      */
-    operator fun invoke(url: String, recipient: String, sender: String) {
+    suspend operator fun invoke(url: String, recipient: String, sender: String): Unit = withContext(Dispatchers.IO) {
         val uri = url.toUri()
-        val filename = uri.lastPathSegment ?: return
+        val filename = uri.lastPathSegment ?: return@withContext
         val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
         val request = DownloadManager.Request(uri)
 

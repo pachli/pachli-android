@@ -57,9 +57,11 @@ import app.pachli.core.network.retrofit.apiresult.ApiResult
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.core.ui.LinkListener
+import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.databinding.FragmentAccountListBinding
 import app.pachli.interfaces.AccountActionListener
 import app.pachli.interfaces.AppBarLayoutHost
+import app.pachli.usecase.TimelineCases
 import app.pachli.view.EndlessOnScrollListener
 import com.bumptech.glide.Glide
 import com.github.michaelbull.result.getOrElse
@@ -89,6 +91,9 @@ class AccountListFragment :
     @Inject
     lateinit var sharedPreferencesRepository: SharedPreferencesRepository
 
+    @Inject
+    lateinit var timelineCases: TimelineCases
+
     private val binding by viewBinding(FragmentAccountListBinding::bind)
 
     private lateinit var kind: Kind
@@ -111,13 +116,16 @@ class AccountListFragment :
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.recyclerView.setHasFixedSize(true)
         val layoutManager = LinearLayoutManager(view.context)
-        binding.recyclerView.layoutManager = layoutManager
-        (binding.recyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
-        binding.recyclerView.addItemDecoration(
-            MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL),
-        )
+        with(binding.recyclerView) {
+            applyDefaultWindowInsets()
+            setHasFixedSize(true)
+            this.layoutManager = layoutManager
+            (itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+            addItemDecoration(
+                MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL),
+            )
+        }
 
         binding.swipeRefreshLayout.setOnRefreshListener { fetchAccounts() }
         binding.swipeRefreshLayout.setColorSchemeColors(MaterialColors.getColor(binding.root, androidx.appcompat.R.attr.colorPrimary))
@@ -185,9 +193,9 @@ class AccountListFragment :
     override fun onMute(mute: Boolean, id: String, position: Int, notifications: Boolean) {
         viewLifecycleOwner.lifecycleScope.launch {
             if (!mute) {
-                api.unmuteAccount(id)
+                timelineCases.unmuteAccount(pachliAccountId, id)
             } else {
-                api.muteAccount(id, notifications)
+                timelineCases.muteAccount(pachliAccountId, id, notifications)
             }
                 .onSuccess { onMuteSuccess(mute, id, position, notifications) }
                 .onFailure { onMuteFailure(mute, id, notifications) }
@@ -228,9 +236,9 @@ class AccountListFragment :
     override fun onBlock(block: Boolean, id: String, position: Int) {
         viewLifecycleOwner.lifecycleScope.launch {
             if (block) {
-                api.blockAccount(id)
+                timelineCases.blockAccount(pachliAccountId, id)
             } else {
-                api.unblockAccount(id)
+                timelineCases.unblockAccount(pachliAccountId, id)
             }
                 .onSuccess { onBlockSuccess(block, id, position) }
                 .onFailure { onBlockFailure(block, id, it.throwable) }

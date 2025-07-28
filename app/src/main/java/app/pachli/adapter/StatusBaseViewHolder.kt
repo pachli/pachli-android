@@ -37,6 +37,7 @@ import app.pachli.core.preferences.CardViewMode
 import app.pachli.core.ui.SetStatusContent
 import app.pachli.core.ui.decodeBlurHash
 import app.pachli.core.ui.emojify
+import app.pachli.core.ui.extensions.setRoles
 import app.pachli.core.ui.loadAvatar
 import app.pachli.core.ui.makeIcon
 import app.pachli.core.ui.setClickableMentions
@@ -57,6 +58,7 @@ import at.connyduck.sparkbutton.SparkButton
 import at.connyduck.sparkbutton.helpers.Utils
 import com.bumptech.glide.RequestManager
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.chip.ChipGroup
 import com.google.android.material.color.MaterialColors
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import java.text.NumberFormat
@@ -74,6 +76,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
     protected val context: Context = itemView.context
     private val displayName: TextView = itemView.findViewById(R.id.status_display_name)
     private val username: TextView = itemView.findViewById(R.id.status_username)
+    private val roleChipGroup: ChipGroup = itemView.findViewById(R.id.roleChipGroup)
     private val replyButton: ImageButton = itemView.findViewById(R.id.status_reply)
     private val replyCountLabel: TextView? = itemView.findViewById(R.id.status_replies)
     private val reblogButton: SparkButton? = itemView.findViewById(R.id.status_inset)
@@ -347,6 +350,16 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
             )
         }
         metaInfo.text = timestampText
+    }
+
+    /**
+     * Shows/hides the chips for any roles the account that posted the actionable
+     * status has.
+     *
+     * @param viewData
+     */
+    private fun setRoleChips(viewData: T) {
+        roleChipGroup.setRoles(viewData.actionable.account.roles)
     }
 
     private fun getCreatedAtDescription(
@@ -689,6 +702,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
             setDisplayName(actionable.account.name, actionable.account.emojis, statusDisplayOptions)
             setUsername(actionable.account.username)
             setMetaData(viewData, statusDisplayOptions, listener)
+            setRoleChips(viewData)
             setIsReply(actionable.inReplyToId != null)
             setReplyCount(actionable.repliesCount, statusDisplayOptions.showStatsInline)
             setAvatar(
@@ -784,7 +798,8 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
         // The full string will look like (content in parentheses is optional),
         //
         // account.name
-        // (; contentWarning)
+        // (; "Roles: " account.roles)
+        // (. contentWarning)
         // ; (content)
         // (, poll)
         // , relativeDate
@@ -798,6 +813,19 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
         // (, "n Boost")
         val description = StringBuilder().apply {
             append(account.name)
+
+            if (account.roles.isNotEmpty()) {
+                append("; ")
+                append(
+                    context.resources.getQuantityString(
+                        R.plurals.description_post_roles,
+                        account.roles.size,
+                    ),
+                )
+                append(account.roles.joinToString(", ") { it.name })
+            }
+
+            append(".")
 
             getContentWarningDescription(context, viewData)?.let { append("; ", it) }
 

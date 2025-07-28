@@ -27,8 +27,8 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.appcompat.widget.AppCompatSpinner
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -148,7 +148,7 @@ abstract class BaseAccountFiltersPreferencesDialogFragment(
     @StringRes private val labelNotFollowed: Int,
     @StringRes private val labelYounger30d: Int,
     @StringRes private val labelLimitedByServer: Int,
-) : DialogFragment(R.layout.pref_account_filters) {
+) : AppCompatDialogFragment(R.layout.pref_account_filters) {
     private val viewModel: AccountFiltersPreferenceViewModel by viewModels(
         extrasProducer = {
             defaultViewModelCreationExtras.withCreationCallback<AccountFiltersPreferenceViewModel.Factory> { factory ->

@@ -853,4 +853,18 @@
     <string name="notification_severed_relationships_unknown_fmt">Tá <b>%1$s</b> blocáilte (cúis anaithnid)</string>
     <string name="notification_severed_relationships_account_suspension_fmt">Chuir riarthóir %1$s bac ar <b>%2$s</b></string>
     <string name="manage_accounts_name">Bainistigh cuntais</string>
+    <string name="pref_default_audio_playback">Athsheinm fuaime réamhshocraithe</string>
+    <string name="error_share_media">níl aon eolaire ann chun meáin shealadacha a shábháil</string>
+    <string name="notification_moderation_warning_title">Teachtaireacht ó do mhodhnóirí</string>
+    <string name="notification_moderation_warning_body_none_fmt">Tá rabhadh modhnóireachta faighte agat: %1$s</string>
+    <string name="notification_moderation_warning_body_disable_fmt">Tá do chuntas díchumasaithe: %1$s</string>
+    <string name="notification_moderation_warning_body_mark_statuses_as_sensitive_fmt">Tá cuid de do phoist marcáilte mar íogair: %1$s</string>
+    <string name="notification_moderation_warning_body_delete_statuses_fmt">Scriosadh cuid de do phoist: %1$s</string>
+    <string name="notification_moderation_warning_body_silence_fmt">Tá teorainn curtha le do chuntas: %1$s</string>
+    <string name="notification_moderation_warning_body_suspend_fmt">Tá do chuntas curtha ar fionraí: %1$s</string>
+    <string name="notification_moderation_warning_body_unknown_fmt">Tá rabhadh modhnóireachta faighte agat: %1$s</string>
+    <string name="notification_moderation_warning_tap_for_more">Tapáil chun tuilleadh sonraí a fheiceáil faoi do fhreastalaí.</string>
+    <string name="pref_title_notification_filter_moderation_warning">Seolann modhnóir teachtaireacht</string>
+    <string name="notification_moderation_warnings_name">Rabhaidh mhodhnóireachta</string>
+    <string name="notification_moderation_warnings_description">Fógraí faoi rabhaidh modhnóireachta</string>
 </resources>

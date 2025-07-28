@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="error_set_active_account">Bandymas prisijungti nepavyko dėl šios klaidos: %1$s.</string>
+    <string name="error_refresh_account">Atnaujinti paskyrą nepavyko dėl šios klaidos: %1$s.\n\nGalite tęsti, bet jūsų sąrašai ir filtrai gali būti nepilni.</string>
+    <string name="action_relogin">Persijungti</string>
+    <string name="action_share_as">Bendrinti kaip…</string>
+    <string name="title_choose_account_dialog">Pasirinkite paskyrą</string>
+    <string name="title_error_dialog">Prisijungti nepavyko</string>
+    <string name="error_login_failed_hint">Palieskite paskyrą, kad bandytumėte dar kartą.</string>
+    <string name="error_login_failed_hint_multiple">Palieskite tą pačią paskyrą, kad bandytumėte dar kartą, arba kitą paskyrą, kad prisijungtumėte su ta paskyra.</string>
+</resources>

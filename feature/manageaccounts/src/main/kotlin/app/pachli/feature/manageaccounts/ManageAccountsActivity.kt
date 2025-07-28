@@ -18,9 +18,14 @@
 package app.pachli.feature.manageaccounts
 
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
+import androidx.core.view.ViewGroupCompat
 import androidx.fragment.app.commit
 import app.pachli.core.activity.BaseActivity
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.ui.appbar.FadeChildScrollEffect
+import app.pachli.core.ui.extensions.addScrollEffect
+import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.feature.manageaccounts.databinding.ActivityManageAccountsBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -31,7 +36,12 @@ class ManageAccountsActivity : BaseActivity() {
     private val binding by viewBinding(ActivityManageAccountsBinding::inflate)
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
+        ViewGroupCompat.installCompatInsetsDispatch(binding.root)
+        binding.appBar.applyDefaultWindowInsets()
+        binding.toolbar.addScrollEffect(FadeChildScrollEffect)
+
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)

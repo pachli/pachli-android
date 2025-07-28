@@ -1,0 +1,5 @@
+Pachli 2.1.1
+
+Parandused:
+
+- Kui populaarsust koguvate teemade vahekaart on lisatud, siis väldime rakenduse kokkujooksmist

@@ -130,6 +130,7 @@ class AccountEntityForeignKeyTest {
         createdAt = Instant.now(),
         limited = false,
         note = "",
+        roles = null,
     )
 
     @Before
@@ -285,7 +286,7 @@ class AccountEntityForeignKeyTest {
             pachliAccountId = pachliAccountId,
             serverId = "2",
         )
-        followingAccountDao.insert(followingAccount)
+        followingAccountDao.upsert(followingAccount)
 
         // Check everything is as expected.
         assertThat(followingAccountDao.loadAllForAccount(pachliAccountId)).containsExactly(followingAccount)
@@ -443,6 +444,7 @@ class AccountEntityForeignKeyTest {
             createdAt = Instant.now().truncatedTo(ChronoUnit.MILLIS),
             limited = false,
             note = "",
+            roles = null,
         )
         timelineDao.insertAccount(timelineAccount)
 

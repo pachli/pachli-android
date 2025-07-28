@@ -88,7 +88,7 @@
     <string name="action_copy_link">Copiar el enlace</string>
     <string name="send_post_link_to">Compartir URL…</string>
     <string name="send_post_content_to">Compartir contenido…</string>
-    <string name="send_media_to">Compartir medios con…</string>
+    <string name="send_media_to">Compartir multimedia con…</string>
     <string name="confirmation_reported">¡Enviado!</string>
     <string name="confirmation_unblocked">El usuario ya no está bloqueado</string>
     <string name="confirmation_unmuted">El usuario ya no está silenciado</string>
@@ -141,7 +141,7 @@
     <string name="pref_title_http_proxy_server">Servidor del proxy HTTP</string>
     <string name="pref_title_http_proxy_port">Puerto del proxy HTTP</string>
     <string name="pref_default_post_privacy">Visibilidad por defecto</string>
-    <string name="pref_default_media_sensitivity">Marcar siempre medios como sensibles</string>
+    <string name="pref_default_media_sensitivity">Marcar siempre la multimedia como sensible</string>
     <string name="pref_publishing">Publicaciones (sincronizada con servidor)</string>
     <string name="pref_failed_to_sync">Error al sincronizar los ajustes</string>
     <string name="post_privacy_public">Público</string>
@@ -197,7 +197,7 @@
     <string name="follows_you">Te sigue</string>
     <string name="pref_title_alway_show_sensitive_media">Mostrar contenido sensible</string>
     <string name="title_media">Multimedia</string>
-    <string name="add_account_description">Añadir cuenta de Mastodon</string>
+    <string name="add_account_description">Añadir nueva Cuenta de Mastodon</string>
     <string name="compose_active_account_description">Publicar como %1$s</string>
     <string name="action_remove">Eliminar</string>
     <string name="lock_account_label">Proteger cuenta</string>
@@ -209,7 +209,7 @@
     <string name="send_post_notification_cancel_title">Envío cancelado</string>
     <string name="send_post_notification_saved_content">Una copia de la publicación se ha guardado en Borradores</string>
     <string name="action_compose_shortcut">Redactar</string>
-    <string name="error_no_custom_emojis">Su instancia %s no ofrece emojis personalizados</string>
+    <string name="error_no_custom_emojis">Tu instancia %s no ofrece emojis personalizados</string>
     <string name="emoji_style">Estilo de los emojis</string>
     <string name="system_default">Sistema</string>
     <string name="download_fonts">Tendrás que descargarlos primero</string>
@@ -384,7 +384,7 @@
     <string name="add_hashtag_title">Añadir etiqueta</string>
     <string name="notification_follow_request_format">%s solicita seguirte</string>
     <string name="pref_main_nav_position">Posición de navegación principal</string>
-    <string name="pref_title_gradient_for_media">Mostrar difuminados coloridos para los medios ocultos</string>
+    <string name="pref_title_gradient_for_media">Mostrar difuminados coloridos para la multimedia oculta</string>
     <string name="action_unmute_domain">Dejar de silenciar a %s</string>
     <string name="action_unmute_desc">Dejar de silenciar a %s</string>
     <string name="dialog_mute_hide_notifications">Ocultar notificaciones</string>
@@ -618,7 +618,7 @@
     <string name="compose_schedule_date_time_fmt">%1$s %2$s</string>
     <string name="compose_warn_language_dialog_change_language_fmt">Cambiar el idioma a %1$s y publicar</string>
     <string name="compose_warn_language_dialog_accept_language_fmt">Publicar tal cual (%1$s)</string>
-    <string name="error_media_uploader_upload_not_found_fmt">no se encontró la subida de medios con ID de %1$s</string>
+    <string name="error_media_uploader_upload_not_found_fmt">no se encontró la subida de multimedia con ID %1$s</string>
     <string name="error_prepare_media_unknown_file_size">no se pudo determinar el tamaño del archivo</string>
     <string name="error_prepare_media_unknown_mime_type">se desconoce el tipo de archivo</string>
     <string name="preview_card_byline_fediverse_account_fmt">Por &lt;b&gt;%1$s&lt;/b&gt;. Ver más publicaciones</string>
@@ -644,7 +644,7 @@
     <string name="search_operator_attachment_has_media_label">Por lo menos un adjunto</string>
     <string name="error_save_filter_failed_fmt">Fallo al guardar el filtro: %1$s</string>
     <string name="error_delete_filter_failed_fmt">Fallo al borrar el filtro: %1$s</string>
-    <string name="search_operator_attachment_dialog_title">¿Limitar a publicaciones con medios?</string>
+    <string name="search_operator_attachment_dialog_title">¿Limitar a publicaciones con multimedia?</string>
     <string name="search_operator_attachment_has_media_except_1_label_fmt">Cualesquiera excepto %1$s</string>
     <string name="search_operator_attachment_has_media_except_2_label_fmt">Cualesquiera excepto %1$s, %2$s</string>
     <string name="search_operator_attachment_has_media_except_3_label_fmt">Cualesquiera excepto %1$s, %2$s, %3$s</string>
@@ -655,7 +655,7 @@
     <string name="search_operator_attachment_specific_media_exclude_2_fmt">Sin %1$s, %2$s</string>
     <string name="search_operator_attachment_dialog_image_label">Imágenes</string>
     <string name="search_operator_attachment_dialog_video_label">Vídeo</string>
-    <string name="search_operator_attachment_no_media_label">Sin medios</string>
+    <string name="search_operator_attachment_no_media_label">Sin multimedia</string>
     <string name="search_operator_attachment_kind_image_label">imágenes</string>
     <string name="search_operator_from_me">Sólo mis publicaciones</string>
     <string name="search_operator_attachment_at_least_one">Al menos uno</string>
@@ -691,7 +691,7 @@
     <string name="search_operator_where_library">Tu biblioteca</string>
     <string name="search_operator_where_dialog_public_hint">Públicas; publicaciones que se pueden buscar y que tu servidor conoce</string>
     <string name="search_operator_attachment_dialog_audio_label">Sonido</string>
-    <string name="search_operator_attachment_all">Medios ▾</string>
+    <string name="search_operator_attachment_all">Multimedia ▾</string>
     <string name="search_operator_from_dialog_all">Todas las cuentas</string>
     <string name="search_operator_from_dialog_me">Sólo mis publicaciones</string>
     <string name="search_operator_from_dialog_ignore_me">Todas las publicaciones excepto las mías</string>
@@ -758,14 +758,14 @@
     <string name="compose_warn_language_dialog_accept_and_dont_ask_fmt">Publicar como está (%1$s) y no volver a preguntar</string>
     <string name="upload_failed_msg_fmt">Fallo al subir adjunto. Se intentará subir nuevamente cuando envíes la publicación. Si vuelve a fallar, la publicación se guardará en tus borradores.\n\nEl error fue: %1$s</string>
     <plurals name="notification_severed_relationships_summary_followers_fmt">
-        <item quantity="one">%1$s seguidor eliminado</item>
-        <item quantity="many">%1$s seguidores eliminados</item>
-        <item quantity="other">%1$s seguidores eliminados</item>
+        <item quantity="one">%1$s seguidor eliminado.</item>
+        <item quantity="many">%1$s seguidores eliminados.</item>
+        <item quantity="other">%1$s seguidores eliminados.</item>
     </plurals>
     <plurals name="notification_severed_relationships_summary_following_fmt">
-        <item quantity="one">Se eliminó %1$s cuenta que seguías</item>
-        <item quantity="many">Se eliminaron %1$s cuentas que seguías</item>
-        <item quantity="other">Se eliminaron %1$s cuentas que seguías</item>
+        <item quantity="one">Se eliminó %1$s cuenta que seguías.</item>
+        <item quantity="many">Se eliminaron %1$s cuentas que seguías.</item>
+        <item quantity="other">Se eliminaron %1$s cuentas que seguías.</item>
     </plurals>
     <string name="filter_action_none">Mostrar</string>
     <string name="filter_description_none">Mostrar normalmente</string>
@@ -825,4 +825,23 @@
     <string name="error_import_preferences_fmt">No se pudieron exportar las preferencias desde %1$s: %2$s</string>
     <string name="export_preferences_ok_fmt">Preferencias exportadas a %1$s</string>
     <string name="error_export_preferences_fmt">No se pudieron exportar las preferencias a %1$s: %2$s</string>
+    <string name="notification_severed_relationships_domain_block_fmt">Un administrador de %1$s bloqueó a <b>%2$s</b></string>
+    <string name="notification_severed_relationships_user_domain_block_fmt">Bloqueaste a <b>%1$s</b></string>
+    <string name="notification_severed_relationships_account_suspension_fmt">Un administrador de %1$s bloqueó a <b>%2$s</b></string>
+    <string name="notification_severed_relationships_unknown_fmt"><b>%1$s</b> se encuentra bloqueado (razón desconocida)</string>
+    <string name="manage_accounts_name">Gestionar cuentas</string>
+    <string name="pref_default_audio_playback">Reproducción de audio por defecto</string>
+    <string name="notification_moderation_warning_title">Mensaje de tus moderadores</string>
+    <string name="notification_moderation_warning_body_none_fmt">Has recibido una advertencia de moderación: %1$s</string>
+    <string name="notification_moderation_warning_body_disable_fmt">Tu cuenta ha sido deshabilitada: %1$s</string>
+    <string name="notification_moderation_warning_body_mark_statuses_as_sensitive_fmt">Algunas de tus publicaciones han sido marcadas como sensibles: %1$s</string>
+    <string name="notification_moderation_warning_body_delete_statuses_fmt">Algunas de tus publicaciones han sido eliminadas: %1$s</string>
+    <string name="notification_moderation_warning_body_silence_fmt">Tu cuenta ha sido limitada: %1$s</string>
+    <string name="notification_moderation_warning_body_suspend_fmt">Tu cuenta ha sido suspendida: %1$s</string>
+    <string name="notification_moderation_warning_body_unknown_fmt">Has recibido una advertencia de moderación: %1$s</string>
+    <string name="notification_moderation_warning_tap_for_more">Toca para ver más detalles en tu servidor.</string>
+    <string name="pref_title_notification_filter_moderation_warning">Un moderador envía un mensaje</string>
+    <string name="notification_moderation_warnings_name">Advertencias de moderación</string>
+    <string name="notification_moderation_warnings_description">Notificaciones sobre advertencias de moderación</string>
+    <string name="error_share_media">no existe ningún directorio para guardar la multimedia temporalmente</string>
 </resources>

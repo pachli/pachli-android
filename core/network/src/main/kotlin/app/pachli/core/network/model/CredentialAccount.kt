@@ -59,7 +59,7 @@ data class CredentialAccount(
     @Json(name = "followers_count") val followersCount: Int = 0,
     @Json(name = "following_count") val followingCount: Int = 0,
     @Json(name = "statuses_count") val statusesCount: Int = 0,
-    val role: Role? = null,
+    val role: CredentialedRole? = null,
     val roles: List<Role>? = emptyList(),
 ) {
     val name: String
@@ -119,5 +119,21 @@ data class AccountSource(
         fields = fields.asModel(),
         language = language,
         attributionDomains = attributionDomains,
+    )
+}
+
+@JsonClass(generateAdapter = true)
+data class CredentialedRole(
+    val id: String,
+    val name: String,
+    val color: String,
+    val permissions: String,
+    val highlighted: Boolean,
+) {
+    fun asModel() = app.pachli.core.model.CredentialedRole(
+        name = name,
+        color = color,
+        permissions = permissions,
+        highlighted = highlighted,
     )
 }

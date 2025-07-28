@@ -55,12 +55,22 @@
         tools:src="#000"
         tools:visibility="visible" />
 
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/roleChipGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingBottom="4dp"
+        app:chipSpacingVertical="4dp"
+        app:layout_constraintStart_toStartOf="@id/status_display_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/status_avatar"
+        android:importantForAccessibility="no" />
+
     <TextView
         android:id="@+id/status_display_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
-        android:layout_marginTop="10dp"
         android:ellipsize="end"
         android:importantForAccessibility="no"
         android:maxLines="1"
@@ -71,7 +81,7 @@
         app:layout_constraintEnd_toStartOf="@id/status_meta_info"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toEndOf="@id/status_avatar"
-        app:layout_constraintTop_toBottomOf="@id/status_info"
+        app:layout_constraintTop_toBottomOf="@id/roleChipGroup"
         tools:text="Ente r the void you foooooo" />
 
     <TextView

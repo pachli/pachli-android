@@ -22,8 +22,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.appcompat.widget.SearchView
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -45,6 +45,7 @@ import app.pachli.core.network.retrofit.apiresult.ApiError
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.ui.BindingHolder
 import app.pachli.core.ui.emojify
+import app.pachli.core.ui.extensions.setRoles
 import app.pachli.core.ui.loadAvatar
 import app.pachli.feature.lists.databinding.FragmentAccountsInListBinding
 import app.pachli.feature.lists.databinding.ItemAccountInListBinding
@@ -71,7 +72,7 @@ private typealias AccountInfo = Pair<TimelineAccount, Boolean>
  * accounts and search for followed accounts to add them to the list.
  */
 @AndroidEntryPoint
-class AccountsInListFragment : DialogFragment() {
+class AccountsInListFragment : AppCompatDialogFragment() {
     private val viewModel: AccountsInListViewModel by viewModels(
         extrasProducer = {
             defaultViewModelCreationExtras.withCreationCallback<AccountsInListViewModel.Factory> { factory ->
@@ -261,6 +262,8 @@ class AccountsInListFragment : DialogFragment() {
             holder.binding.avatarBadge.visible(account.bot)
             holder.binding.checkBox.isChecked = true
             loadAvatar(glide, account.avatar, holder.binding.avatar, radius, animateAvatar)
+
+            holder.binding.roleChipGroup.setRoles(account.roles)
         }
     }
 
@@ -302,6 +305,8 @@ class AccountsInListFragment : DialogFragment() {
             holder.binding.username.text = binding.root.context.getString(DR.string.post_username_format, account.username)
             loadAvatar(glide, account.avatar, holder.binding.avatar, radius, animateAvatar)
             holder.binding.avatarBadge.visible(account.bot)
+
+            holder.binding.roleChipGroup.setRoles(account.roles)
 
             with(holder.binding.checkBox) {
                 contentDescription = getString(

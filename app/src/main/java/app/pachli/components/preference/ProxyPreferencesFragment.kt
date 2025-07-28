@@ -17,6 +17,7 @@
 package app.pachli.components.preference
 
 import android.os.Bundle
+import android.view.View
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import app.pachli.R
@@ -25,6 +26,7 @@ import app.pachli.core.preferences.ProxyConfiguration
 import app.pachli.core.preferences.ProxyConfiguration.Companion.MAX_PROXY_PORT
 import app.pachli.core.preferences.ProxyConfiguration.Companion.MIN_PROXY_PORT
 import app.pachli.core.preferences.SharedPreferencesRepository
+import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.settings.makePreferenceScreen
 import app.pachli.settings.preferenceCategory
 import app.pachli.settings.switchPreference
@@ -70,6 +72,11 @@ class ProxyPreferencesFragment : PreferenceFragmentCompat() {
                 }
             }
         }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        listView.applyDefaultWindowInsets()
     }
 
     override fun onResume() {

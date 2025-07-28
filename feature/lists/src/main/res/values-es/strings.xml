@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hint_list_name">Nombre de la lista</string>
-    <string name="list_exclusive_label">Oculta de la cronología de inicio</string>
+    <string name="list_exclusive_label">Ocultar en la cronología de inicio</string>
     <string name="title_lists">Listas</string>
     <string name="error_create_list_fmt">No se pudo crear la lista \"%1$s\": %2$s</string>
     <string name="error_delete_list_fmt">No se pudo eliminar la lista \"%1$s\": %2$s</string>

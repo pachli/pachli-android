@@ -31,6 +31,7 @@ import app.pachli.core.model.FilterResult
 import app.pachli.core.model.HashTag
 import app.pachli.core.model.NewPoll
 import app.pachli.core.model.Poll
+import app.pachli.core.model.Role
 import app.pachli.core.model.ServerOperation
 import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
@@ -322,4 +323,10 @@ class Converters @Inject constructor(
 
     @TypeConverter
     fun jsonToDraftAttachment(s: String?) = s?.let { moshi.adapter<DraftAttachment>().fromJson(it) }
+
+    @TypeConverter
+    fun listRoleToJson(roles: List<Role>): String = moshi.adapter<List<Role>>().toJson(roles)
+
+    @TypeConverter
+    fun jsonToListRoles(s: String?) = s?.let { moshi.adapter<List<Role>>().fromJson(it) }
 }

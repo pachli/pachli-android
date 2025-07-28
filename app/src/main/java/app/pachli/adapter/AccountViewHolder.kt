@@ -23,6 +23,7 @@ import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.TimelineAccount
 import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.emojify
+import app.pachli.core.ui.extensions.setRoles
 import app.pachli.core.ui.loadAvatar
 import app.pachli.databinding.ItemAccountBinding
 import app.pachli.interfaces.AccountActionListener
@@ -60,6 +61,8 @@ class AccountViewHolder(
         loadAvatar(glide, account.avatar, binding.accountAvatar, avatarRadius, animateAvatar)
 
         binding.accountBotBadge.visible(showBotOverlay && account.bot)
+
+        binding.roleChipGroup.setRoles(account.roles)
     }
 
     fun setupActionListener(listener: AccountActionListener) {

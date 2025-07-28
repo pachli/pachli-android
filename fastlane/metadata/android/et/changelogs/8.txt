@@ -1,0 +1,15 @@
+Pachli 2.0.0
+
+Mida on uut:
+
+- Tõlgete olekud puhverdatud ajajoontel 
+- Lemmikute ja teemaviidete vaatamisel kuvame sõnumi koostamise nuppu
+- Suurendasime linkide eelvaates kuvatavat teavet
+- Hoiatame kasutajat Androidi animatsioonive osas
+
+Veaparandused:
+
+- Ajajoone vigade puhul väldime ClassCastException'i teket
+- Kujunduste värvide uuendused
+- Tagame, et uuendustega seotud andmeklassid jäävad alles
+- Saksa, itaalia ja jaapani keelte tõlgete uuendused

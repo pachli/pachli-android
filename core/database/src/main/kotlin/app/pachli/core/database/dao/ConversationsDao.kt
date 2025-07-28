@@ -113,6 +113,7 @@ SELECT
     sa.createdAt AS 's_a_createdAt',
     sa.limited AS 's_a_limited',
     sa.note AS 's_a_note',
+    sa.roles AS 's_a_roles',
 
     -- The status's reblog account (if any)
     rb.serverId AS 's_rb_serverId',
@@ -127,6 +128,7 @@ SELECT
     rb.createdAt AS 's_rb_createdAt',
     rb.limited AS 's_rb_limited',
     rb.note AS 's_rb_note',
+    rb.roles AS 's_rb_roles',
 
     -- Status view data
     svd.serverId AS 's_svd_serverId',

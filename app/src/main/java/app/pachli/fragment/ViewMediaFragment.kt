@@ -19,7 +19,6 @@ package app.pachli.fragment
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.View
 import androidx.annotation.CallSuper
 import androidx.annotation.OptIn
@@ -144,10 +143,25 @@ abstract class ViewMediaFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                viewModel.toolbarVisibility.collect(::onToolbarVisibilityChange)
+                viewModel.appBarVisibility.collect(::onToolbarVisibilityChange)
             }
         }
     }
+
+    /**
+     * Called when the fragment has been detached by the viewpager and is not visible.
+     *
+     * This is an opportunity to e.g., pause video playback, or possibly unload
+     * large resources.
+     */
+    open fun onDetachedFromWindow() = Unit
+
+    /**
+     * Called when audio has become noisy (e.g., the user has removed headphones).
+     *
+     * If the fragment is playing media it should be paused.
+     */
+    open fun onAudioBecomingNoisy() = Unit
 
     /**
      * Called by the fragment adapter to notify the fragment that the shared
@@ -163,9 +177,9 @@ abstract class ViewMediaFragment : Fragment() {
     }
 
     private fun finalizeViewSetup() {
-        showingDescription = !TextUtils.isEmpty(attachment.description)
+        showingDescription = attachment.description?.isNotBlank() == true
         isDescriptionVisible = showingDescription
-        setupMediaView(showingDescription && viewModel.isToolbarVisible)
+        setupMediaView(showingDescription && viewModel.isAppBarVisible)
     }
 
     override fun onPause() {

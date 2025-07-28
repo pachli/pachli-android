@@ -17,12 +17,17 @@
 package app.pachli.components.viewthread
 
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
+import androidx.core.view.ViewGroupCompat
 import androidx.fragment.app.commit
 import app.pachli.R
 import app.pachli.core.activity.ViewUrlActivity
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.navigation.ViewThreadActivityIntent
 import app.pachli.core.navigation.pachliAccountId
+import app.pachli.core.ui.appbar.FadeChildScrollEffect
+import app.pachli.core.ui.extensions.addScrollEffect
+import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.databinding.ActivityViewThreadBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -34,7 +39,12 @@ class ViewThreadActivity : ViewUrlActivity() {
     private val binding by viewBinding(ActivityViewThreadBinding::inflate)
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
+        ViewGroupCompat.installCompatInsetsDispatch(binding.root)
+        binding.appBar.applyDefaultWindowInsets()
+        binding.toolbar.addScrollEffect(FadeChildScrollEffect)
+
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
         supportActionBar?.run {

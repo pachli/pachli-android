@@ -21,8 +21,12 @@ import android.Manifest
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.app.DownloadManager
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
-import android.graphics.Color
+import android.media.AudioManager.ACTION_AUDIO_BECOMING_NOISY
 import android.os.Build
 import android.os.Bundle
 import android.transition.Transition
@@ -32,16 +36,24 @@ import android.view.MenuItem
 import android.view.View
 import android.webkit.MimeTypeMap
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.core.app.ShareCompat
 import androidx.core.content.FileProvider
+import androidx.core.view.ViewGroupCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
+import androidx.core.view.WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import app.pachli.BuildConfig.APPLICATION_ID
 import app.pachli.core.activity.BaseActivity
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
+import app.pachli.core.common.PachliError
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
@@ -52,12 +64,17 @@ import app.pachli.core.navigation.ViewThreadActivityIntent
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import app.pachli.core.ui.ClipboardUseCase
+import app.pachli.core.ui.extensions.InsetType
+import app.pachli.core.ui.extensions.applyWindowInsets
 import app.pachli.databinding.ActivityViewMediaBinding
 import app.pachli.fragment.MediaActionsListener
 import app.pachli.pager.ImagePagerAdapter
 import app.pachli.pager.SingleImagePagerAdapter
 import app.pachli.util.getTemporaryMediaFilename
+import com.github.michaelbull.result.Err
+import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.coroutines.runSuspendCatching
+import com.github.michaelbull.result.map
 import com.github.michaelbull.result.mapError
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
@@ -67,13 +84,27 @@ import java.io.File
 import java.util.Locale
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okio.buffer
 import okio.sink
 import timber.log.Timber
+
+/** Errors that can occur downloading a URL to share. */
+sealed interface DownloadUrlToShareError : PachliError {
+    /** ApiError occurred downloading the media. */
+    @JvmInline
+    value class Api(private val error: ApiError) : DownloadUrlToShareError, PachliError by error
+
+    /** Call to getExternalFilesDir failed / returned null. */
+    data object GetExternalFilesDirError : DownloadUrlToShareError {
+        override val resourceId = R.string.error_share_media
+        override val formatArgs = null
+        override val cause = null
+    }
+}
 
 /**
  * Show one or more media items (pictures, video, audio, etc).
@@ -107,7 +138,24 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
     private var respondToPrepareMenu = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
+        ViewGroupCompat.installCompatInsetsDispatch(binding.root)
+        // Enter immersive mode.
+        WindowInsetsControllerCompat(window, window.decorView).apply {
+            systemBarsBehavior = BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+            hide(WindowInsetsCompat.Type.systemBars())
+        }
+
+        // Immersive mode, so only need to dodge the display cutout.
+        binding.appBar.applyWindowInsets(
+            left = InsetType.PADDING,
+            top = InsetType.PADDING,
+            right = InsetType.PADDING,
+            bottom = InsetType.PADDING,
+            typeMask = WindowInsetsCompat.Type.displayCutout(),
+        )
+
         setContentView(binding.root)
         addMenuProvider(this)
 
@@ -155,16 +203,13 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
             when (item.itemId) {
                 R.id.action_download -> requestDownloadMedia()
                 R.id.action_open_status -> onOpenStatus()
-                R.id.action_share_media -> shareMedia()
+                R.id.action_share_media -> lifecycleScope.launch { shareMedia() }
                 R.id.action_copy_media_link -> copyLink()
             }
             viewModel.onToolbarMenuInteraction()
             true
         }
 
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LOW_PROFILE
-
-        window.statusBarColor = Color.BLACK
         window.sharedElementEnterTransition.addListener(
             object : NoopTransitionListener {
                 override fun onTransitionEnd(transition: Transition) {
@@ -173,6 +218,8 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
                 }
             },
         )
+
+        AudioBecomingNoisyReceiver(this) { adapter.onAudioBecomingNoisy() }
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -206,22 +253,22 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
     }
 
     override fun onMediaTap() {
-        val isToolbarVisible = viewModel.toggleToolbarVisibility()
+        val isAppBarVisible = viewModel.toggleAppBarVisibility()
 
-        val visibility = if (isToolbarVisible) View.VISIBLE else View.INVISIBLE
-        val alpha = if (isToolbarVisible) 1.0f else 0.0f
-        if (isToolbarVisible) {
+        val visibility = if (isAppBarVisible) View.VISIBLE else View.INVISIBLE
+        val alpha = if (isAppBarVisible) 1.0f else 0.0f
+        if (isAppBarVisible) {
             // If to be visible, need to make visible immediately and animate alpha
-            binding.toolbar.alpha = 0.0f
-            binding.toolbar.visibility = View.VISIBLE
+            binding.appBar.alpha = 0.0f
+            binding.appBar.visibility = View.VISIBLE
         }
 
-        binding.toolbar.animate().alpha(alpha)
+        binding.appBar.animate().alpha(alpha)
             .setListener(
                 object : AnimatorListenerAdapter() {
                     override fun onAnimationEnd(animation: Animator) {
                         animation.removeListener(this)
-                        binding.toolbar.visibility = visibility
+                        binding.appBar.visibility = visibility
                     }
                 },
             )
@@ -236,11 +283,13 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
     private fun downloadMedia() {
         val url = imageUrl ?: attachmentViewData!![binding.viewPager.currentItem].attachment.url
         Toast.makeText(applicationContext, resources.getString(R.string.download_image, url), Toast.LENGTH_SHORT).show()
-        downloadUrlUseCase(
-            url,
-            accountManager.activeAccount!!.fullName,
-            owningUsername,
-        )
+        lifecycleScope.launch {
+            downloadUrlUseCase(
+                url,
+                accountManager.activeAccount!!.fullName,
+                owningUsername,
+            )
+        }
     }
 
     private fun requestDownloadMedia() {
@@ -269,61 +318,35 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
         clipboard.copyTextTo(url)
     }
 
-    private fun shareMedia() {
-        val directory = applicationContext.getExternalFilesDir(null)
-        if (directory == null || !(directory.exists())) {
-            Timber.e("Error obtaining directory to save temporary media.")
-            return
-        }
-
-        if (imageUrl != null) {
-            shareMediaFile(directory, imageUrl!!)
-        } else {
-            val attachment = attachmentViewData!![binding.viewPager.currentItem].attachment
-            shareMediaFile(directory, attachment.url)
-        }
-    }
-
     /**
-     * Share media by downloading it to a temporary file and then sharing that
-     * file.
+     * Shares the current media file.
      *
-     * [DownloadManager] is not used for this as it is not guaranteed to start
-     * downloading the file expediently, and the user may wait a long time.
+     * Downloads the media to a local temporary file, tnen sends a Share [Intent] to
+     * allow the user to choose which app to share the media file with.
      */
-    private fun shareMediaFile(directory: File, url: String) {
+    private suspend fun shareMedia() {
         isDownloading = true
         binding.progressBarShare.show()
         invalidateOptionsMenu()
 
-        val mimeTypeMap = MimeTypeMap.getSingleton()
-        val extension = MimeTypeMap.getFileExtensionFromUrl(url)
-        val mimeType = mimeTypeMap.getMimeTypeFromExtension(extension)
-        val filename = getTemporaryMediaFilename(extension)
-        val file = File(directory, filename)
+        val url: String = imageUrl ?: attachmentViewData!![binding.viewPager.currentItem].attachment.url
 
-        lifecycleScope.launch {
-            val request = Request.Builder().url(url).build()
-            val call = okHttpClient.newCall(request)
-            val response = async(Dispatchers.IO) { runSuspendCatching { call.execute() } }.await()
-                .onSuccess {
-                    it.body?.let { body -> file.sink().buffer().use { it.writeAll(body.source()) } }
-                    it.close()
-                }.mapError { ApiError.from(call.request(), it) }
+        val response = downloadUrlToTempFile(url)
 
-            isDownloading = false
-            binding.progressBarShare.hide()
-            invalidateOptionsMenu()
+        isDownloading = false
+        binding.progressBarShare.hide()
+        invalidateOptionsMenu()
 
-            response.onFailure {
-                Snackbar.make(
-                    binding.root,
-                    getString(R.string.error_media_download, url, it.fmt(this@ViewMediaActivity)),
-                    Snackbar.LENGTH_INDEFINITE,
-                ).show()
-                return@launch
-            }
+        response.onFailure {
+            Snackbar.make(
+                binding.root,
+                getString(R.string.error_media_download, url, it.fmt(this@ViewMediaActivity)),
+                Snackbar.LENGTH_INDEFINITE,
+            ).show()
+            return
+        }
 
+        response.onSuccess { (mimeType, file) ->
             ShareCompat.IntentBuilder(this@ViewMediaActivity)
                 .setType(mimeType)
                 .addStream(
@@ -337,10 +360,93 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
                 .startChooser()
         }
     }
+
+    /**
+     * Creates a temporary file in [getExternalFilesDir] and downloads [url] to that
+     * file.
+     *
+     * [DownloadManager] is not used for this as it is not guaranteed to start
+     * downloading the file expediently, and the user may wait a long time.
+     *
+     * @return If successful, a [Pair] where the first item is the file's MIME type
+     * and the second item is the [File] the [url] was downloaded to. Otherwise, the
+     * [DownloadUrlToShareError] that occurred downloading the file.
+     */
+    private suspend fun downloadUrlToTempFile(url: String): Result<Pair<String?, File>, DownloadUrlToShareError> = withContext(Dispatchers.IO) {
+        val directory = applicationContext.getExternalFilesDir(null)
+        if (directory == null || !(directory.exists())) {
+            Timber.e("Error obtaining directory to save temporary media.")
+            return@withContext Err(DownloadUrlToShareError.GetExternalFilesDirError)
+        }
+
+        val mimeTypeMap = MimeTypeMap.getSingleton()
+        val extension = MimeTypeMap.getFileExtensionFromUrl(url)
+        val mimeType = mimeTypeMap.getMimeTypeFromExtension(extension)
+        val filename = getTemporaryMediaFilename(extension)
+        val file = File(directory, filename)
+
+        val request = Request.Builder().url(url).build()
+        val call = okHttpClient.newCall(request)
+
+        return@withContext runSuspendCatching { call.execute() }
+            .onSuccess { response ->
+                response.body?.use { body ->
+                    file.sink().buffer().use {
+                        it.writeAll(body.source())
+                    }
+                }
+            }
+            .map { Pair(mimeType, file) }
+            .mapError { DownloadUrlToShareError.Api(ApiError.from(call.request(), it)) }
+    }
+
+    companion object {
+        /**
+         * Call [callback] on receipt of [ACTION_AUDIO_BECOMING_NOISY].
+         *
+         * Tracks the lifecycle of [context] and registers a [BroadcastReceiver] when
+         * [context] resumes and unregisters it when [context] pauses. The receiver
+         * listens for [ACTION_AUDIO_BECOMING_NOISY] and invokes [callback].
+         *
+         * @property context Activity context to use when registering the receiver
+         * and observing lifecycle events.
+         * @property callback Callback to invoke.
+         */
+        class AudioBecomingNoisyReceiver<T>(
+            private val context: T,
+            private val callback: () -> Unit,
+        ) : BroadcastReceiver(), DefaultLifecycleObserver where T : Context, T : LifecycleOwner {
+            /** Intent filter for [ACTION_AUDIO_BECOMING_NOISY]. */
+            private val noisyAudioIntentFilter = IntentFilter(ACTION_AUDIO_BECOMING_NOISY)
+
+            init {
+                context.lifecycle.addObserver(this)
+            }
+
+            override fun onResume(owner: LifecycleOwner) {
+                context.registerReceiver(this, noisyAudioIntentFilter)
+            }
+
+            override fun onPause(owner: LifecycleOwner) {
+                context.unregisterReceiver(this)
+            }
+
+            override fun onReceive(context: Context, intent: Intent) {
+                if (intent.action == ACTION_AUDIO_BECOMING_NOISY) callback.invoke()
+            }
+        }
+    }
 }
 
 abstract class ViewMediaAdapter(activity: FragmentActivity) : FragmentStateAdapter(activity) {
     abstract fun onTransitionEnd(position: Int)
+
+    /**
+     * Call this when audio has become noisy (e.g., the user has removed headphones).
+     *
+     * The adapter should forward the call to each fragment to handle.
+     */
+    open fun onAudioBecomingNoisy() = Unit
 }
 
 interface NoopTransitionListener : Transition.TransitionListener {

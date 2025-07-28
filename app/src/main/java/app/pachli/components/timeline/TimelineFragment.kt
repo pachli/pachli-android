@@ -75,6 +75,7 @@ import app.pachli.core.ui.ActionButtonScrollListener
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.core.ui.SetMarkdownContent
 import app.pachli.core.ui.SetMastodonHtmlContent
+import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.databinding.FragmentTimelineBinding
 import app.pachli.fragment.SFragment
 import app.pachli.interfaces.ActionButtonActivity
@@ -125,7 +126,7 @@ class TimelineFragment :
     //
     // If the navigation library was being used this would happen automatically, so this
     // workaround can be removed when that change happens.
-    private val viewModel: TimelineViewModel<out Any> by lazy {
+    private val viewModel: TimelineViewModel<out Any, out TimelineRepository<out Any>> by lazy {
         if (timeline == Timeline.Home) {
             viewModels<CachedTimelineViewModel>(
                 extrasProducer = {
@@ -484,6 +485,7 @@ class TimelineFragment :
     }
 
     private fun setupRecyclerView() {
+        binding.recyclerView.applyDefaultWindowInsets()
         binding.recyclerView.setAccessibilityDelegateCompat(
             ListStatusAccessibilityDelegate(pachliAccountId, binding.recyclerView, this, openUrl) { pos ->
                 if (pos in 0 until adapter.itemCount) {

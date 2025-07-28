@@ -19,12 +19,8 @@ package app.pachli.fragment
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.annotation.SuppressLint
-import android.content.BroadcastReceiver
 import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
 import android.graphics.drawable.Drawable
-import android.media.AudioManager.ACTION_AUDIO_BECOMING_NOISY
 import android.os.Build
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
@@ -37,6 +33,7 @@ import android.widget.ImageButton
 import androidx.annotation.OptIn
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -58,8 +55,9 @@ import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.model.Attachment
+import app.pachli.core.ui.extensions.InsetType
+import app.pachli.core.ui.extensions.applyWindowInsets
 import app.pachli.databinding.FragmentViewVideoBinding
-import app.pachli.fragment.ViewVideoFragment.AudioBecomingNoisyReceiver.player
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomViewTarget
 import com.bumptech.glide.request.transition.Transition
@@ -117,9 +115,6 @@ class ViewVideoFragment : ViewMediaFragment() {
     /** Drawable for the "unmute" icon. */
     private val drawableUnmute by unsafeLazy { AppCompatResources.getDrawable(requireContext(), R.drawable.ic_unmute_24dp) }
 
-    /** Intent filter for [ACTION_AUDIO_BECOMING_NOISY]. */
-    private val noisyAudioIntentFilter = IntentFilter(ACTION_AUDIO_BECOMING_NOISY)
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
@@ -132,7 +127,7 @@ class ViewVideoFragment : ViewMediaFragment() {
         toolbar = mediaActivity.toolbar
         val layout = inflater.inflate(R.layout.fragment_view_video, container, false)
 
-        toggleMuteButton = layout.findViewById<ImageButton>(R.id.pachli_exo_mute_toggle)
+        toggleMuteButton = layout.findViewById(R.id.pachli_exo_mute_toggle)
 
         return layout
     }
@@ -140,6 +135,21 @@ class ViewVideoFragment : ViewMediaFragment() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // Activity has enabled immersive mode, so just dodge the display cutout.
+        binding.mediaDescription.applyWindowInsets(
+            left = InsetType.MARGIN,
+            top = InsetType.MARGIN,
+            right = InsetType.MARGIN,
+            bottom = InsetType.MARGIN,
+            typeMask = WindowInsetsCompat.Type.displayCutout(),
+        )
+        binding.videoView.applyWindowInsets(
+            left = InsetType.PADDING,
+            top = InsetType.PADDING,
+            right = InsetType.PADDING,
+            bottom = InsetType.PADDING,
+            typeMask = WindowInsetsCompat.Type.displayCutout(),
+        )
 
         binding.videoView.controllerShowTimeoutMs = CONTROLS_TIMEOUT.inWholeMilliseconds.toInt()
         binding.videoView.setShowSubtitleButton(true)
@@ -246,9 +256,15 @@ class ViewVideoFragment : ViewMediaFragment() {
                         transitionComplete?.let {
                             viewLifecycleOwner.lifecycleScope.launch {
                                 it.await()
+                                // Work-around visual glitch by only setting useController here instead
+                                // of in the layout.  Otherwise a "blank" controller (just playback
+                                // buttons) is displayed while media is loading / preparing, and is then
+                                // replaced with the final controller.
+                                binding.videoView.useController = true
                                 player?.play()
+                                // Show controller *after* playback starts, otherwise the show timeout
+                                // is ignored.
                                 binding.videoView.showController()
-                                binding.videoView.controllerAutoShow = true
                             }
                         }
                     }
@@ -310,7 +326,7 @@ class ViewVideoFragment : ViewMediaFragment() {
 
         if (Build.VERSION.SDK_INT <= 23 || player == null) {
             initializePlayer()
-            if (viewModel.isToolbarVisible && !isAudio) {
+            if (viewModel.isAppBarVisible && !isAudio) {
                 hideToolbarAfterDelay()
             }
             binding.videoView.onResume()
@@ -318,15 +334,20 @@ class ViewVideoFragment : ViewMediaFragment() {
     }
 
     private fun releasePlayer() {
-        requireActivity().unregisterReceiver(AudioBecomingNoisyReceiver)
-        AudioBecomingNoisyReceiver.player = null
-
         player?.let {
             savedSeekPosition = it.currentPosition
             if (it.isCommandAvailable(Player.COMMAND_RELEASE)) it.release()
             player = null
             binding.videoView.player = null
         }
+    }
+
+    override fun onDetachedFromWindow() {
+        player?.pause()
+    }
+
+    override fun onAudioBecomingNoisy() {
+        player?.pause()
     }
 
     override fun onPause() {
@@ -371,9 +392,6 @@ class ViewVideoFragment : ViewMediaFragment() {
                 seekTo(savedSeekPosition)
                 if (this@ViewVideoFragment.audioPlaybackState is AudioPlaybackState.Muted) volume = 0f
                 prepare()
-
-                AudioBecomingNoisyReceiver.player = this
-                requireActivity().registerReceiver(AudioBecomingNoisyReceiver, noisyAudioIntentFilter)
                 player = this
             }
 
@@ -487,19 +505,6 @@ class ViewVideoFragment : ViewMediaFragment() {
                     contentDescription = getString(R.string.action_mute)
                 }
             }
-        }
-    }
-
-    /**
-     * Pauses player on receipt of [ACTION_AUDIO_BECOMING_NOISY].
-     *
-     * @property player Player to pause, may be null if player is not
-     * configured.
-     */
-    private object AudioBecomingNoisyReceiver : BroadcastReceiver() {
-        var player: Player? = null
-        override fun onReceive(context: Context, intent: Intent) {
-            if (intent.action == ACTION_AUDIO_BECOMING_NOISY) player?.pause()
         }
     }
 

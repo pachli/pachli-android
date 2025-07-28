@@ -1,5 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<issues format="6" by="lint 8.10.1" type="baseline" client="gradle" dependencies="false" name="AGP (8.10.1)" variant="all" version="8.10.1">
+<issues format="6" by="lint 8.11.0" type="baseline" client="gradle" dependencies="false" name="AGP (8.11.0)" variant="all" version="8.11.0">
+
+    <issue
+        id="MemberExtensionConflict"
+        message="`contains` is defined both as a member in class `kotlin.collections.Set` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
+        errorLine1="                        account to accountsInList.contains(account)"
+        errorLine2="                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/app/pachli/feature/lists/AccountsInListFragment.kt"
+            line="198"
+            column="36"/>
+    </issue>
+
+    <issue
+        id="MemberExtensionConflict"
+        message="`hide` is defined both as a member in class `com.google.android.material.progressindicator.BaseProgressIndicator` and an extension in package `app.pachli.core.common.extensions`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
+        errorLine1="                if (it == 0) binding.progressIndicator.hide() else binding.progressIndicator.show()"
+        errorLine2="                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/app/pachli/feature/lists/ListsActivity.kt"
+            line="134"
+            column="30"/>
+    </issue>
+
+    <issue
+        id="MemberExtensionConflict"
+        message="`show` is defined both as a member in class `com.google.android.material.progressindicator.BaseProgressIndicator` and an extension in package `app.pachli.core.common.extensions`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
+        errorLine1="                if (it == 0) binding.progressIndicator.hide() else binding.progressIndicator.show()"
+        errorLine2="                                                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/app/pachli/feature/lists/ListsActivity.kt"
+            line="134"
+            column="68"/>
+    </issue>
+
+    <issue
+        id="MemberExtensionConflict"
+        message="`apply` is defined both as a member in class `com.mikepenz.iconics.IconicsDrawable` and an extension in package `kotlin`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
+        errorLine1="                    val icon = IconicsDrawable(context, GoogleMaterial.Icon.gmd_list).apply {"
+        errorLine2="                               ^">
+        <location
+            file="src/main/kotlin/app/pachli/feature/lists/ListsActivity.kt"
+            line="281"
+            column="32"/>
+    </issue>
 
     <issue
         id="SelectableText"

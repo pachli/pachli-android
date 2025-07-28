@@ -17,9 +17,11 @@
 package app.pachli.components.preference
 
 import android.os.Bundle
+import android.view.View
 import androidx.preference.PreferenceFragmentCompat
 import app.pachli.R
 import app.pachli.core.preferences.PrefKeys
+import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.settings.makePreferenceScreen
 import app.pachli.settings.preferenceCategory
 import app.pachli.settings.switchPreference
@@ -53,6 +55,11 @@ class TabFilterPreferencesFragment : PreferenceFragmentCompat() {
                 }
             }
         }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        listView.applyDefaultWindowInsets()
     }
 
     override fun onResume() {

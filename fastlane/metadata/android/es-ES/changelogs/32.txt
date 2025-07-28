@@ -1,0 +1,17 @@
+Pachli 2.14.0
+
+Nuevo:
+
+- Restaurar posición de lectura en listas
+- Acelerar el cambio de cuentas si el usuario no usa filtros de cuentas
+- Proveer interfaz para "Gestionar Cuentas"
+
+Arreglos:
+
+- Eliminar notificaciones de la caché al eliminarlas del servidor
+- No colapsar al recibir notificaciones acerca de relaciones rotas
+- No colapsar al cancelar carga de imágenes
+
+Traducciones
+
+- Chino, eslovaco, estonio, finés, indonesio, irlandés, italiano, letón, noruego nynorsk, polaco, ruso, tamil

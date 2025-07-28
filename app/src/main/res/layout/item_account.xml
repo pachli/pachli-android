@@ -4,10 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/account_container"
     android:layout_width="match_parent"
-    android:layout_height="72dp"
+    android:layout_height="wrap_content"
+    android:minHeight="?listPreferredItemHeight"
     android:background="?attr/selectableItemBackground"
     android:paddingStart="16dp"
-    android:paddingEnd="16dp">
+    android:paddingTop="8dp"
+    android:paddingEnd="16dp"
+    android:paddingBottom="8dp">
 
     <ImageView
         android:id="@+id/account_avatar"
@@ -16,7 +19,6 @@
         android:layout_marginEnd="24dp"
         android:contentDescription="@string/action_view_profile"
         android:foregroundGravity="center_vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@drawable/avatar_default" />
@@ -34,6 +36,16 @@
         tools:src="#000"
         tools:visibility="visible" />
 
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/roleChipGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingBottom="4dp"
+        app:chipSpacingVertical="4dp"
+        app:layout_constraintStart_toStartOf="@id/account_display_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/account_avatar" />
+
     <TextView
         android:id="@+id/account_display_name"
         android:layout_width="0dp"
@@ -43,11 +55,9 @@
         android:maxLines="1"
         android:textSize="?attr/status_text_large"
         android:textStyle="normal|bold"
-        app:layout_constraintBottom_toTopOf="@id/account_username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/account_avatar"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintTop_toBottomOf="@id/roleChipGroup"
         tools:text="Display name" />
 
     <TextView
@@ -58,7 +68,6 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:textSize="?attr/status_text_medium"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/account_avatar"
         app:layout_constraintTop_toBottomOf="@id/account_display_name"

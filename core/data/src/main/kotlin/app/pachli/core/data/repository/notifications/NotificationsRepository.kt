@@ -45,6 +45,7 @@ import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.model.asModel
+import app.pachli.core.network.model.asNetworkModel
 import app.pachli.core.network.retrofit.MastodonApi
 import com.github.michaelbull.result.onSuccess
 import javax.inject.Inject
@@ -73,10 +74,11 @@ class NotificationsRepository @Inject constructor(
     private val remoteKeyTimelineId = Timeline.Notifications.remoteKeyTimelineId
 
     /**
+     * @param excludeTypes Types to filter from the results.
      * @return Notifications for [pachliAccountId].
      */
     @OptIn(ExperimentalPagingApi::class)
-    suspend fun notifications(pachliAccountId: Long): Flow<PagingData<NotificationData>> {
+    suspend fun notifications(pachliAccountId: Long, excludeTypes: Set<Notification.Type>): Flow<PagingData<NotificationData>> {
         factory = InvalidatingPagingSourceFactory { notificationDao.pagingSource(pachliAccountId) }
 
         // Room is row-keyed, not item-keyed. Find the user's REFRESH key, then find the
@@ -98,6 +100,7 @@ class NotificationsRepository @Inject constructor(
                 remoteKeyDao,
                 notificationDao,
                 statusDao,
+                excludeTypes.asNetworkModel(),
             ),
             pagingSourceFactory = factory!!,
         ).flow
@@ -227,6 +230,7 @@ fun Notification.Type.asEntity() = when (this) {
     Notification.Type.UPDATE -> NotificationEntity.Type.UPDATE
     Notification.Type.REPORT -> NotificationEntity.Type.REPORT
     Notification.Type.SEVERED_RELATIONSHIPS -> NotificationEntity.Type.SEVERED_RELATIONSHIPS
+    Notification.Type.MODERATION_WARNING -> NotificationEntity.Type.MODERATION_WARNING
 }
 
 /**
@@ -245,6 +249,7 @@ fun TimelineAccount.asEntity(pachliAccountId: Long) = TimelineAccountEntity(
     bot = bot,
     createdAt = createdAt,
     limited = limited,
+    roles = roles.orEmpty().asModel(),
 )
 
 /**

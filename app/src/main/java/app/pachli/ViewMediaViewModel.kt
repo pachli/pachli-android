@@ -55,12 +55,12 @@ internal sealed interface AudioPlaybackState {
 
 @HiltViewModel
 class ViewMediaViewModel @Inject constructor(
-    private val sharedPreferencesRepository: SharedPreferencesRepository,
+    sharedPreferencesRepository: SharedPreferencesRepository,
 ) : ViewModel() {
-    private val _toolbarVisibility = MutableStateFlow(true)
+    private val _appBarVisibility = MutableStateFlow(true)
 
     /** Emits Toolbar visibility changes */
-    val toolbarVisibility: StateFlow<Boolean> get() = _toolbarVisibility.asStateFlow()
+    val appBarVisibility: StateFlow<Boolean> get() = _appBarVisibility.asStateFlow()
 
     private val _toolbarMenuInteraction = MutableSharedFlow<Unit>(
         extraBufferCapacity = 1,
@@ -74,15 +74,15 @@ class ViewMediaViewModel @Inject constructor(
     val toolbarMenuInteraction: SharedFlow<Unit> get() = _toolbarMenuInteraction.asSharedFlow()
 
     /** Convenience getter for the current Toolbar visibility */
-    val isToolbarVisible: Boolean
-        get() = toolbarVisibility.value
+    val isAppBarVisible: Boolean
+        get() = appBarVisibility.value
 
     /**
      * Toggle the current state of the toolbar's visibility.
      *
      * @return The new visibility
      */
-    fun toggleToolbarVisibility() = _toolbarVisibility.updateAndGet { !it }
+    fun toggleAppBarVisibility() = _appBarVisibility.updateAndGet { !it }
 
     fun onToolbarMenuInteraction() {
         _toolbarMenuInteraction.tryEmit(Unit)

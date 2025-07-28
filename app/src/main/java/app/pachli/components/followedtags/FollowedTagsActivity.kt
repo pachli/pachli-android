@@ -4,8 +4,10 @@ import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
 import android.widget.AutoCompleteTextView
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.ViewGroupCompat
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -25,6 +27,9 @@ import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.ui.ActionButtonScrollListener
+import app.pachli.core.ui.appbar.FadeChildScrollEffect
+import app.pachli.core.ui.extensions.addScrollEffect
+import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.databinding.ActivityFollowedTagsBinding
 import app.pachli.interfaces.HashtagActionListener
 import com.bumptech.glide.Glide
@@ -50,7 +55,12 @@ class FollowedTagsActivity :
     private val viewModel: FollowedTagsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
+        ViewGroupCompat.installCompatInsetsDispatch(binding.root)
+        binding.includedToolbar.appbar.applyDefaultWindowInsets()
+        binding.includedToolbar.toolbar.addScrollEffect(FadeChildScrollEffect)
+        binding.fab.applyDefaultWindowInsets()
 
         setContentView(binding.root)
         setSupportActionBar(binding.includedToolbar.toolbar)
@@ -90,6 +100,7 @@ class FollowedTagsActivity :
     }
 
     private fun setupRecyclerView(adapter: FollowedTagsAdapter) {
+        binding.followedTagsView.applyDefaultWindowInsets()
         binding.followedTagsView.adapter = adapter
         binding.followedTagsView.setHasFixedSize(true)
         binding.followedTagsView.layoutManager = LinearLayoutManager(this)

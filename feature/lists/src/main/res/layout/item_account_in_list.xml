@@ -31,11 +31,9 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_centerVertical="false"
-        android:layout_marginTop="10dp"
         android:contentDescription="@string/action_view_profile"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         tools:src="@drawable/avatar_default" />
 
     <ImageView
@@ -46,6 +44,16 @@
         android:src="@drawable/bot_badge"
         app:layout_constraintBottom_toBottomOf="@id/avatar"
         app:layout_constraintEnd_toEndOf="@id/avatar" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/roleChipGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingBottom="4dp"
+        app:chipSpacingVertical="4dp"
+        app:layout_constraintStart_toStartOf="@id/displayName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/avatar" />
 
     <TextView
         android:id="@+id/displayName"
@@ -60,7 +68,7 @@
         app:layout_constraintBottom_toTopOf="@id/username"
         app:layout_constraintEnd_toStartOf="@+id/checkBox"
         app:layout_constraintStart_toEndOf="@+id/avatar"
-        app:layout_constraintTop_toTopOf="@id/avatar"
+        app:layout_constraintTop_toBottomOf="@id/roleChipGroup"
         app:layout_constraintVertical_chainStyle="packed"
         tools:text="Display name" />
 

@@ -44,6 +44,7 @@ import app.pachli.core.model.Attachment
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.ViewMediaActivityIntent
 import app.pachli.core.ui.BackgroundMessage
+import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.databinding.FragmentTimelineBinding
 import com.bumptech.glide.Glide
 import com.google.android.material.color.MaterialColors
@@ -85,6 +86,7 @@ class AccountMediaFragment :
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.recyclerView.applyDefaultWindowInsets()
         requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
         adapter = AccountMediaGridAdapter(

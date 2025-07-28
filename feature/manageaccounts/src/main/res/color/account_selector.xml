@@ -17,5 +17,5 @@
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_activated="true" android:color="?attr/colorSecondaryContainer"/>
-    <item android:color="?attr/colorSurface"/>
+    <item android:color="@android:color/transparent" />
 </selector>
