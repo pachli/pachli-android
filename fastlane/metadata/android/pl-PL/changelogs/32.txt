@@ -1,0 +1,17 @@
+Pachli 2.14.0 
+ 
+Nowości: 
+ 
+- Odtwarzanie położenia użytkownika na listach 
+- Przyśpieszenie przełączania kont, gdy użytkownik nie ma filtrów 
+- Dodane UI zarządzania kontami 
+ 
+Poprawki: 
+ 
+- Usuwanie skeszowanych powiadomień przy usuwaniu powiadomień serwera 
+- Bez awarii przy otrzymywaniu powiadomienia o przerwanej relacji 
+- Bez awarii przy anulowaniu wczytywania obrazu 
+ 
+Tłumaczenia: 
+ 
+- Chiński, estoński, fiński, indonezyjski, irlandzki, włoski, łotewski, norweski nynorsk, polski, rosyjski, słowacki, tamilski
