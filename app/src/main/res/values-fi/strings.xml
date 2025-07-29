@@ -813,4 +813,22 @@
     <string name="notification_severed_relationships_user_domain_block_fmt">Estit tilin <b>%1$s</b></string>
     <string name="notification_severed_relationships_account_suspension_fmt">Palvelun %1$s ylläpitäjä esti tilin <b>%2$s</b></string>
     <string name="notification_severed_relationships_unknown_fmt"><b>%1$s</b> on estetty (syy tuntematon)</string>
+    <string name="notification_moderation_warning_title">Viesti moderaattoreilta</string>
+    <string name="notification_moderation_warning_body_none_fmt">Olet saanut moderointivaroituksen: %1$s</string>
+    <string name="notification_moderation_warning_body_disable_fmt">Tilisi on poistettu käytöstä: %1$s</string>
+    <string name="notification_moderation_warning_body_mark_statuses_as_sensitive_fmt">Joitakin julkaisuistasi on merkitty arkaluonteisiksi: %1$s</string>
+    <string name="notification_moderation_warning_body_delete_statuses_fmt">Joitakin julkaisujasi on poistettu: %1$s</string>
+    <string name="notification_moderation_warning_body_silence_fmt">Tilisi on rajoitettu: %1$s</string>
+    <string name="notification_moderation_warning_body_suspend_fmt">Tilisi käyttö on keskeytetty: %1$s</string>
+    <string name="notification_moderation_warning_body_unknown_fmt">Olet saanut moderointivaroituksen: %1$s</string>
+    <string name="notification_moderation_warning_tap_for_more">Klikkaa saadaksesi lisää tietoa palvelimeltasi.</string>
+    <string name="pref_title_notification_filter_moderation_warning">Moderaattori lähettää viestin</string>
+    <string name="pref_default_audio_playback">Äänen oletusarvoinen toisto</string>
+    <string name="notification_moderation_warnings_name">Moderointivaroitukset</string>
+    <string name="notification_moderation_warnings_description">Ilmoitukset moderointivaroituksista</string>
+    <plurals name="description_post_roles">
+        <item quantity="one">roolissa:</item>
+        <item quantity="other">rooleissa:</item>
+    </plurals>
+    <string name="error_share_media">hakemisto väliaikaisen median tallentamiseen puuttuu</string>
 </resources>
