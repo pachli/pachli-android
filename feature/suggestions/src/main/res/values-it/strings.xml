@@ -11,4 +11,5 @@
     <string name="follower_count_fmt"><b>%1$s</b> seguaci</string>
     <string name="follows_count_fmt"><b>%1$s</b> seguiti</string>
     <string name="statuses_count_fmt"><b>%1$s</b> post</string>
+    <string name="ui_error_follow_account_fmt">La richiesta di seguire %1$s è fallita: %2$s</string>
 </resources>
