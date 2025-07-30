@@ -24,4 +24,7 @@
     <string name="pref_notification_fetch_method_title">Metodo di notifica</string>
     <string name="hint_search_emojis">Cerca emoji…</string>
     <string name="label_emoji_no_category">Nessuna categoria</string>
+    <string name="pref_notification_method_push">Push</string>
+    <string name="pref_notification_fetch_ok_timestamp_fmt">✔ %1$s fa @ %2$s</string>
+    <string name="pref_notification_fetch_err_timestamp_fmt">✖ %1$s fa @ %2$s</string>
 </resources>
