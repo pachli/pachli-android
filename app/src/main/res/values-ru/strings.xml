@@ -858,7 +858,7 @@
     </plurals>
     <string name="action_post_failed_detail">Ваша публикация не была закачана и сохранена в черновиках.\n\nЛибо сервер недоступен, либо он отклонил публикацию.</string>
     <plurals name="description_post_roles">
-        <item quantity="one">с ролью:</item>
+        <item quantity="one" tools:ignore="ImpliedQuantity">с ролью:</item>
         <item quantity="few">с ролями:</item>
         <item quantity="many">с ролями:</item>
         <item quantity="other">с ролями:</item>
