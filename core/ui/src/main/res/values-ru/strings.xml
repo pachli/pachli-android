@@ -17,4 +17,19 @@
     <string name="action_logout_confirm">Это удалить все локальные данные из учётной записи %1$s, включая черновики и настройки.\n\nЭто не удалит вашу учётную запись на сервере.</string>
     <string name="add_account_name">Добавить аккаунт</string>
     <string name="action_logout">Выйти</string>
+    <string name="action_refresh">Обновить</string>
+    <string name="url_domain_notifier">" (🔗 %s)"</string>
+    <string name="item_copied">Текст скопирован</string>
+    <string name="action_copy_item">Копировать элемент</string>
+    <string name="pref_notification_method_push">Отправлять (Push)</string>
+    <string name="pref_notification_method_pull">Получать (Pull)</string>
+    <string name="pref_notification_fetch_method_title">Способ уведомления</string>
+    <string name="pref_notification_fetch_ok_timestamp_fmt">✔ %1$s назад @ %2$s</string>
+    <string name="pref_notification_fetch_err_timestamp_fmt">✖ %1$s назад @ %2$s</string>
+    <string name="pref_notification_fetch_server_rejected">%1$s отклонил регистрацию push-уведомлений</string>
+    <string name="pref_notification_fetch_needs_push">Профиль не имеет области действия «push». Выход и повторный вход могут исправить это.</string>
+    <string name="title_logout_fmt">Выход %1$s</string>
+    <string name="notification_details_last_fetch_label">Последний запрос /api/v1/notifications</string>
+    <string name="hint_search_emojis">Поиск эмодзи…</string>
+    <string name="label_emoji_no_category">Без категории</string>
 </resources>
