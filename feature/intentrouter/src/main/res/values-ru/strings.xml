@@ -1,4 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_share_as">Поделиться как…</string>
+    <string name="error_set_active_account">Попытка входа в систему не удалась из-за следующей ошибки: %1$s</string>
+    <string name="error_refresh_account">Обновление профиля не удалось из-за следующей ошибки: %1$s\n\nВы можете продолжить, но ваши списки и фильтры могут быть неполными.</string>
+    <string name="action_relogin">Повторный вход</string>
+    <string name="title_choose_account_dialog">Выберите учётную запись</string>
+    <string name="title_error_dialog">Вход не удался</string>
+    <string name="error_login_failed_hint">Нажмите на профиль, чтобы повторить попытку.</string>
+    <string name="error_login_failed_hint_multiple">Нажмите на тот же профиль, чтобы повторить попытку, или на другой профиль, чтобы войти с его помощью.</string>
+    <string name="client_error_unauthorized_multiple_fmt">%1$s\n\nНажмите «%2$s», чтобы повторить попытку, или «%3$s», чтобы выбрать другой профиль.</string>
+    <string name="client_error_unauthorized_fmt">%1$s\n\nНажмите «%2$s», чтобы повторить попытку.</string>
+    <string name="error_refresh_account_fmt">Не удалось получить некоторые данные профиля:\n\n%1$s\n\nНажмите «%2$s», чтобы продолжить, но некоторая информация может быть неверна (например, фильтры и списки).\n\nНажмите «%3$s», чтобы повторить попытку.\n\nНажмите «%4$s», чтобы выбрать другой профиль.</string>
+    <string name="action_choose_another_account">Выбрать другой профиль</string>
+    <string name="title_error_mime_type">Нераспознанный тип</string>
+    <string name="error_mime_type_fmt">Pachli был открыт чтобы поделиться содержимым типа «%1$s», но Pachli не поддерживает его.</string>
 </resources>

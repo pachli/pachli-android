@@ -1,3 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="title_manage_accounts">Управление профилями</string>
+    <string name="label_active_account">Текущий профиль</string>
+    <string name="action_switch_account">Сменить</string>
+    <string name="pachli_account_content_description_fmt">%1$s, текущий профиль</string>
+    <string name="action_logout_account_fmt">Выйти из %1$s</string>
+    <string name="action_switch_account_fmt">Сменить на %1$s</string>
 </resources>

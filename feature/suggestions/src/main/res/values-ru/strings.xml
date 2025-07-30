@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_follow_account">Подписаться</string>
+    <string name="title_suggestions">Предлагаемые профили</string>
+    <string name="source_unknown">(сервер вернул нераспознанный источник)</string>
+    <string name="sources_featured">Выбрано командой вашего сервера</string>
+    <string name="sources_most_followed">Один из самых популярных профилей на вашем сервере</string>
+    <string name="sources_most_interactions">Привлекает много внимания на вашем сервере</string>
+    <string name="sources_similar_to_recently_followed">Похож на профили, на которые вы недавно подписались</string>
+    <string name="sources_friends_of_friends">Популярен среди людей, на которых вы подписаны</string>
+    <string name="sources_unknown">(сервер вернул нераспознанный источник)</string>
+    <string name="action_dismiss_follow_suggestion">Отклонить</string>
+    <string name="ui_error_delete_suggestion_fmt">Не удалось отклонить предложение для %1$s: ошибка %2$s</string>
+    <string name="ui_error_follow_account_fmt">Не удалось подписаться на %1$s: ошибка %2$s</string>
+    <string name="follower_count_fmt"><b>%1$s</b> подписчиков</string>
+    <string name="follows_count_fmt"><b>%1$s</b> подписок</string>
+    <string name="statuses_count_fmt"><b>%1$s</b> записей</string>
+    <string name="statuses_count_per_week_fmt"><b>%1$s</b> записей (<b>%2$d</b> в неделю)</string>
+    <string name="statuses_count_per_week_last_fmt"><b>%1$s</b> записей (<b>%2$d</b> в неделю, последние <b>%3$s</b>)</string>
 </resources>

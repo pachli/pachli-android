@@ -5,4 +5,10 @@
     <string name="error_generic_fmt">Произошла ошибка: %1$s</string>
     <string name="node_info_error_no_software_name">название ПО отсутствует или пустое</string>
     <string name="node_info_error_no_software">не содержит блока информации о ПО</string>
+    <string name="error_404_not_found_fmt">ваш сервер не поддерживает эту функцию: %1$s</string>
+    <string name="error_429_rate_limit_fmt">ваш сервер ограничивает частоту ваших запросов: %1$s</string>
+    <string name="error_json_data_fmt">Ваш сервер вернул неверный ответ: %1$s</string>
+    <string name="error_network_fmt">Произошла сетевая ошибка: %s</string>
+    <string name="error_missing_content_type_fmt">Ваш сервер неправильно настроен, ответ не имеет content-type: %1$s</string>
+    <string name="error_wrong_content_type_fmt">Ваш сервер неправильно настроен и вернул \'%2$s\' с неправильным типом контента, \'%1$s\'</string>
 </resources>
