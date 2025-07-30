@@ -3,4 +3,7 @@
     <string name="title_manage_accounts">Gestisci account</string>
     <string name="label_active_account">Account attivo</string>
     <string name="pachli_account_content_description_fmt">%1$s, account attivi</string>
+    <string name="action_switch_account">Cambia</string>
+    <string name="action_logout_account_fmt">Esci %1$s</string>
+    <string name="action_switch_account_fmt">Cambia a %1$s</string>
 </resources>
