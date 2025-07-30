@@ -36,6 +36,8 @@ import app.pachli.R
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
+import app.pachli.core.ui.extensions.InsetType
+import app.pachli.core.ui.extensions.applyWindowInsets
 import app.pachli.databinding.FragmentViewImageBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -86,6 +88,12 @@ class ViewImageFragment : ViewMediaFragment() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.photoView.applyWindowInsets(
+            InsetType.PADDING,
+            InsetType.PADDING,
+            InsetType.PADDING,
+            InsetType.PADDING,
+        )
 
         val singleTapDetector = GestureDetector(
             requireContext(),
