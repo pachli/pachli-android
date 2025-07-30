@@ -1,5 +1,12 @@
 # Pachli changelog
 
+## v2.15.1
+
+### Significant bug fixes
+
+- Don't crash on older devices loading role chip resources (#[1697](https://github.com/pachli/pachli-android/pull/1697), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show large/zoomed images with padding to avoid insets (#[1695](https://github.com/pachli/pachli-android/pull/1695), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
 ## v2.15.0
 
 ### New features and other improvements
