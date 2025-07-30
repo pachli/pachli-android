@@ -867,4 +867,11 @@
     <string name="pref_title_notification_filter_moderation_warning">Seolann modhnóir teachtaireacht</string>
     <string name="notification_moderation_warnings_name">Rabhaidh mhodhnóireachta</string>
     <string name="notification_moderation_warnings_description">Fógraí faoi rabhaidh modhnóireachta</string>
+    <plurals name="description_post_roles">
+        <item quantity="one">le ról:</item>
+        <item quantity="two">le róil:</item>
+        <item quantity="few">le róil:</item>
+        <item quantity="many">le róil:</item>
+        <item quantity="other">le róil:</item>
+    </plurals>
 </resources>
