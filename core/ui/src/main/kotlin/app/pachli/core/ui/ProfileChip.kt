@@ -20,6 +20,7 @@ package app.pachli.core.ui
 import android.content.Context
 import android.util.AttributeSet
 import android.util.TypedValue
+import androidx.core.content.res.use
 import androidx.core.view.updatePadding
 import app.pachli.core.designsystem.R as DR
 import com.google.android.material.R
