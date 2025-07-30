@@ -1,5 +1,57 @@
 # Pachli changelog
 
+## v2.15.0
+
+### New features and other improvements
+
+- Show role badges in timelines and account lists (#[1687](https://github.com/pachli/pachli-android/pull/1687), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show moderation warning notifications (#[1672](https://github.com/pachli/pachli-android/pull/1672), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Pause video playback when swiping through media (#[1653](https://github.com/pachli/pachli-android/pull/1653), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Implement edge-to-edge support (#[1650](https://github.com/pachli/pachli-android/pull/1650), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Use the new emoji picker for emoji reactions on announcements (#[1634](https://github.com/pachli/pachli-android/pull/1634), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Allow user to toggle video/audio playback "repeat" mode ([Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Allow user to display video subtitles, if present ([Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Pause video/audio player if headphones are disabled ([Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Add button to mute/unmute video/audio playback, with default preference ([Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show emojis grouped by category, and searchable (#[1624](https://github.com/pachli/pachli-android/pull/1624), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Significant bug fixes
+
+- Prevent crash when replying from notifications (#[1692](https://github.com/pachli/pachli-android/pull/1692), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Include account roles when reading statuses with Talkback etc (#[1689](https://github.com/pachli/pachli-android/pull/1689), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show the account's username (includes domain) when replying (#[1688](https://github.com/pachli/pachli-android/pull/1688), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Apply edge-to-edge margin insets to the "Add tab" popup sheet (#[1685](https://github.com/pachli/pachli-android/pull/1685), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Reduce network calls when filtering notifications (#[1684](https://github.com/pachli/pachli-android/pull/1684), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Prevent NPE where TimelineViewModel.repository might be null (#[1671](https://github.com/pachli/pachli-android/pull/1671), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Don't crash with network activity on the main thread sharing media (#[1660](https://github.com/pachli/pachli-android/pull/1660), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Prevent empty lists when tapping on tabs (#[1656](https://github.com/pachli/pachli-android/pull/1656), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Prevent visual "stutter" when first showing playback controls (#[1647](https://github.com/pachli/pachli-android/pull/1647), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show additional space between video playback controls and progress bar (#[1648](https://github.com/pachli/pachli-android/pull/1648), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Don't crash when managing accounts on older API devices (#[1646](https://github.com/pachli/pachli-android/pull/1646), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Use correct icon color/spacing for the add media buttons when composing (#[1645](https://github.com/pachli/pachli-android/pull/1645), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Don't crash if emoji drawable is null (#[1631](https://github.com/pachli/pachli-android/pull/1631), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Don't crash when showing dialog to choose a push provider (#[1630](https://github.com/pachli/pachli-android/pull/1630), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Correctly display emoji with landscape dimensions (#[1626](https://github.com/pachli/pachli-android/pull/1626), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show an account's emoji's when replying (#[1629](https://github.com/pachli/pachli-android/pull/1629), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show emojis in descriptions of "obscured" links (#[1620](https://github.com/pachli/pachli-android/pull/1620), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Translations
+
+- Update Estonian translations ([Priit Jõerüüt](https://github.com/pachli/pachli-android/commits?author=jrthwlate@users.noreply.hosted.weblate.org))
+- Update Finnish translations ([Kalle Kniivilä](https://github.com/pachli/pachli-android/commits?author=kalle.kniivila@gmail.com))
+- Update German translations ([Thomas Cloer](https://github.com/pachli/pachli-android/commits?author=tcloer@mac.com))
+- Update German translations ([RealZero](https://github.com/pachli/pachli-android/commits?author=realzero@protonmail.com))
+- Update Irish translations ([Aindriú Mac Giolla Eoin](https://github.com/pachli/pachli-android/commits?author=aindriu80@gmail.com))
+- Update Italian translations ([Dizro](https://github.com/pachli/pachli-android/commits?author=weblate.delirium794@passmail.net))
+- Update Latvian translations ([Edgars Andersons](https://github.com/pachli/pachli-android/commits?author=Edgars+Weblate@gaitenis.id.lv))
+- Update Lithuanian translations ([Vaclovas Intas](https://github.com/pachli/pachli-android/commits?author=Gateway_31@protonmail.com))
+- Update Norwegian Nynorsk translations ([sunniva](https://github.com/pachli/pachli-android/commits?author=sunniva@users.noreply.hosted.weblate.org))
+- Update Polish translations ([Łukasz Horodecki](https://github.com/pachli/pachli-android/commits?author=dakilla@gmail.com))
+- Update Russian translations ([Yurt Page](https://github.com/pachli/pachli-android/commits?author=yurtpage@gmail.com))
+- Update Slovak translations ([Russssty](https://github.com/pachli/pachli-android/commits?author=russssty@users.noreply.hosted.weblate.org))
+- Update Spanish translations ([Juan M Sevilla](https://github.com/pachli/pachli-android/commits?author=jumase@disroot.org))
+- Update Tamil translations ([தமிழ்நேரம்](https://github.com/pachli/pachli-android/commits?author=anishprabu.t@gmail.com))
+
 ## v2.14.0
 
 ### New features and other improvements
