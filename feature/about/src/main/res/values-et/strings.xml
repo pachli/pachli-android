@@ -7,7 +7,7 @@
     <string name="about_device_info_title">Sinu seade</string>
     <string name="about_device_info">%s %s\nAndroidi versioon: %s\nSDK versioon: %d</string>
     <string name="about_powered_by_pachli">See on Pachli</string>
-    <string name="about_pachli_license">Pachli on vaba ja avatud lähtekoodiga tarkvara, mis on avaldatud GNU Üldine Avalik Litsents versiooni 3 alusel. Litsentsi leidad siit: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
+    <string name="about_pachli_license">Pachli on vaba ja avatud lähtekoodiga tarkvara, mis on avaldatud GNU Üldise Avaliku Litsentsi versiooni 3 alusel. Litsentsi leidad siit: https://www.gnu.org/licenses/gpl-3.0.en.html</string>
     <string name="about_project_site">Projekti veebisait: https://pachli.app</string>
     <string name="about_bug_feature_request_site">Veateated ja ettepanekud:\nhttps://github.com/pachli/pachli-android/issues</string>
     <string name="about_privacy_policy">Andmekaitse- ja privaatsusreeglid</string>
@@ -20,4 +20,17 @@
     <string name="notification_details_notifications_enabled_help"><![CDATA[Teavitused pole ühelgi sinu kontol kasutusel. Seda saad muuta kasutajakonto eelistuste valikust Teavitused. Seni teavitused ei toimi.]]></string>
     <string name="notification_details_push_notifications_with_unifiedpush">UnifiedPushi tõuketeavitused</string>
     <string name="notification_details_unifiedpush_available">Kas UnifiedPush on saadaval?</string>
+    <string name="notification_details_unifiedpush_available_help">UnifiedPush (ntfy.sh) pole saadaval, teavitusi laaditakse mingu aja tagant. Järgnev teave selgitab, mis UnifiedPush pole kasutusel ega mitte seda kuidas teavitusi hetkel laaditakse.</string>
+    <string name="notification_log_download_content_description">Laadi logid alla</string>
+    <string name="notification_log_download">Laadi alla</string>
+    <string name="notification_log_sort">Järjesta uuemad eespool</string>
+    <string name="notification_log_previous_attempts">Varasemad katsed: %1$d</string>
+    <string name="notification_log_scheduled_in">Ajastatud: %1$s @ %2$s</string>
+    <string name="notification_log_method_push">Kasutusel on UnifiedPushi tõuketeavitused ning see peaks toimime ühe hetkega</string>
+    <string name="notification_log_method_pull">Teavituste olemasolu kontrollitakse päringuga umbes iga 15 minuti järel</string>
+    <string name="notification_log_method_unknown">Teavituste toimimise mehhanism on kindlakstegemata</string>
+    <string name="notification_log_method_pusherror">UnifiedPush on kasutusel, kuid tekkis viga: %1$s</string>
+    <string name="notification_log_download_failed">Allalaadimine ei õnnestunud: %1$s</string>
+    <string name="notitication_log_filter_dialog_title">Näita logimise prioriteeti</string>
+    <string name="about_nivenly_foundation">Pachli projekti juhib <a href="https://nivenly.org">Nivenly Foundation</a>.</string>
 </resources>
