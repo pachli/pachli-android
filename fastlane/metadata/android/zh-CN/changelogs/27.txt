@@ -1,20 +1,20 @@
 Pachli 2.10.0
 
-新特点:
+新功能：
 
-- Add Atkinson Rylegible Next font
-- 变更内容和账户过滤器
-- 显示正在答复的职位
+- 添加 Atkinson Hyperlegible Next 字体
+- 对话内容和账户过滤器
+- 显示正在回复的帖子
 
-ixes:
+修复：
 
-- “Refresh”菜单
-- 观察哨点时的主角
-- 防止失事
-- 从错误中删除“dummy.placeholder”
-- 姓名
-- 轮胎碎裂
+- 修复重复的“刷新”菜单
+- 在查看帖子编辑时突出显示标签
+- 防止各种崩溃
+- 从错误中移除“dummy.placeholder”
+- 按标题排序列表
+- 修复 UI 大小滑块的崩溃
 
-翻译:
+翻译：
 
-- Burmese, German, Indonesia, Ireland, Kabyle, 立陶宛, Norwegian Nynorsk, Poland, Slovakia, Spanish, Sweden
+- 缅甸语，德语，印尼语，爱尔兰语，卡比尔语，立陶宛语，挪威新挪威语，波兰语，斯洛伐克语，西班牙语，瑞典语，泰米尔语
