@@ -24,7 +24,7 @@
     <string name="pref_tab_alignment_justify_if_possible">扩展至最大宽度</string>
     <string name="pref_tab_alignment_end">文本结束方向</string>
     <string name="pref_title_tab_contents">主导航栏的内容</string>
-    <string name="pref_tab_contents_icon_text_inline">文字在图标旁边</string>
+    <string name="pref_tab_contents_icon_text_inline">文字在图标右侧</string>
     <string name="pref_tab_contents_icon_text_below">文字在图标下方</string>
     <string name="pref_tab_contents_icon_only">仅图标</string>
     <string name="pref_tab_contents_text_only">纯文本</string>
@@ -36,6 +36,6 @@
     <string name="pref_summary_export_settings">点击以将应用和帐户设置保存到本地文件</string>
     <string name="pref_title_import_settings">导入设置</string>
     <string name="pref_summary_import_settings">点击以从使用“导出设置”创建的文件中恢复设置</string>
-    <string name="pref_default_audio_playback_option_unmuted">开启麦克风。</string>
+    <string name="pref_default_audio_playback_option_unmuted">解除静音</string>
     <string name="pref_default_audio_playback_option_muted">静音</string>
 </resources>
