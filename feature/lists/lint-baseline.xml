@@ -1,16 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<issues format="6" by="lint 8.11.0" type="baseline" client="gradle" dependencies="false" name="AGP (8.11.0)" variant="all" version="8.11.0">
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.Set` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="                        account to accountsInList.contains(account)"
-        errorLine2="                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/app/pachli/feature/lists/AccountsInListFragment.kt"
-            line="198"
-            column="36"/>
-    </issue>
+<issues format="6" by="lint 8.12.0" type="baseline" client="gradle" dependencies="false" name="AGP (8.12.0)" variant="all" version="8.12.0">
 
     <issue
         id="MemberExtensionConflict"
@@ -35,24 +24,13 @@
     </issue>
 
     <issue
-        id="MemberExtensionConflict"
-        message="`apply` is defined both as a member in class `com.mikepenz.iconics.IconicsDrawable` and an extension in package `kotlin`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="                    val icon = IconicsDrawable(context, GoogleMaterial.Icon.gmd_list).apply {"
-        errorLine2="                               ^">
-        <location
-            file="src/main/kotlin/app/pachli/feature/lists/ListsActivity.kt"
-            line="281"
-            column="32"/>
-    </issue>
-
-    <issue
         id="SelectableText"
         message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
         errorLine1="    &lt;TextView"
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_account_in_list.xml"
-            line="50"
+            line="58"
             column="6"/>
     </issue>
 
@@ -63,7 +41,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_account_in_list.xml"
-            line="67"
+            line="75"
             column="6"/>
     </issue>
 

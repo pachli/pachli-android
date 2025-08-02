@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<issues format="6" by="lint 8.11.0" type="baseline" client="gradle" dependencies="true" name="AGP (8.11.0)" variant="all" version="8.11.0">
+<issues format="6" by="lint 8.12.0" type="baseline" client="gradle" dependencies="true" name="AGP (8.12.0)" variant="all" version="8.12.0">
 
     <issue
         id="MissingSuperCall"
@@ -88,7 +88,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="272"
+            line="264"
             column="9"/>
     </issue>
 
@@ -99,7 +99,7 @@
         errorLine2="                                                           ~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="424"
+            line="416"
             column="60"/>
     </issue>
 
@@ -110,7 +110,7 @@
         errorLine2="                                                           ~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="425"
+            line="417"
             column="60"/>
     </issue>
 
@@ -121,7 +121,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="800"
+            line="794"
             column="17"/>
     </issue>
 
@@ -132,7 +132,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="803"
+            line="797"
             column="17"/>
     </issue>
 
@@ -143,184 +143,8 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="808"
+            line="802"
             column="13"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`apply` is defined both as a member in class `com.mikepenz.iconics.IconicsDrawable` and an extension in package `kotlin`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            icon = IconicsDrawable(this@AccountActivity, GoogleMaterial.Icon.gmd_search).apply {"
-        errorLine2="                   ^">
-        <location
-            file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="926"
-            column="20"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`apply` is defined both as a member in class `com.mikepenz.iconics.IconicsDrawable` and an extension in package `kotlin`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            icon = IconicsDrawable(this@AccountActivity, GoogleMaterial.Icon.gmd_search).apply {"
-        errorLine2="                   ^">
-        <location
-            file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="926"
-            column="20"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`addAll` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            accountList.addAll(newAccounts)"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/accountlist/adapter/AccountAdapter.kt"
-            line="88"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`addAll` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="                    addAll(response.body.map { FollowingAccountEntity.from(account.id, it.asModel()) })"
-        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/app/pachli/core/data/repository/AccountManager.kt"
-            line="477"
-            column="21"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.List` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            if (SCHEMAS.contains(link.rel)) {"
-        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/app/pachli/core/data/repository/AccountManager.kt"
-            line="625"
-            column="17"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`apply` is defined both as a member in class `com.mikepenz.iconics.IconicsDrawable` and an extension in package `kotlin`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            icon = IconicsDrawable(requireContext(), GoogleMaterial.Icon.gmd_refresh).apply {"
-        errorLine2="                   ^">
-        <location
-            file="src/main/java/app/pachli/components/account/media/AccountMediaFragment.kt"
-            line="148"
-            column="20"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`apply` is defined both as a member in class `com.mikepenz.iconics.IconicsDrawable` and an extension in package `kotlin`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            icon = IconicsDrawable(requireContext(), GoogleMaterial.Icon.gmd_refresh).apply {"
-        errorLine2="                   ^">
-        <location
-            file="src/main/java/app/pachli/components/account/media/AccountMediaFragment.kt"
-            line="148"
-            column="20"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`indexOf` is defined both as a member in class `kotlin.collections.List` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        val currentIndex = attachmentsFromSameStatus.indexOf(selected)"
-        errorLine2="                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/account/media/AccountMediaFragment.kt"
-            line="173"
-            column="28"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`addAll` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        viewModel.attachmentData.addAll(attachments)"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/account/media/AccountMediaRemoteMediator.kt"
-            line="66"
-            column="9"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.Set` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="                        account to accountsInList.contains(account)"
-        errorLine2="                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/app/pachli/feature/lists/AccountsInListFragment.kt"
-            line="198"
-            column="36"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        return !(options.contains(&quot;&quot;) || options.distinct().size != options.size)"
-        errorLine2="                 ~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/compose/dialog/AddPollOptionsAdapter.kt"
-            line="79"
-            column="18"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`apply` is defined both as a member in class `com.mikepenz.iconics.IconicsDrawable` and an extension in package `kotlin`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            icon = IconicsDrawable(this@AnnouncementsActivity, GoogleMaterial.Icon.gmd_search).apply {"
-        errorLine2="                   ^">
-        <location
-            file="src/main/java/app/pachli/components/announcements/AnnouncementsActivity.kt"
-            line="140"
-            column="20"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`apply` is defined both as a member in class `com.mikepenz.iconics.IconicsDrawable` and an extension in package `kotlin`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            icon = IconicsDrawable(this@AnnouncementsActivity, GoogleMaterial.Icon.gmd_search).apply {"
-        errorLine2="                   ^">
-        <location
-            file="src/main/java/app/pachli/components/announcements/AnnouncementsActivity.kt"
-            line="140"
-            column="20"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`remove` is defined both as a member in class `java.util.HashMap` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        val requester = requesters.remove(requestCode)"
-        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/app/pachli/core/activity/BaseActivity.kt"
-            line="289"
-            column="25"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`addAll` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            prevPage.await().get()?.let { this.addAll(it.body) }"
-        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/timeline/viewmodel/CachedTimelineRemoteMediator.kt"
-            line="182"
-            column="43"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`addAll` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            nextPage.await().get()?.let { this.addAll(it.body) }"
-        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/timeline/viewmodel/CachedTimelineRemoteMediator.kt"
-            line="184"
-            column="43"/>
     </issue>
 
     <issue
@@ -358,50 +182,6 @@
 
     <issue
         id="MemberExtensionConflict"
-        message="`indexOf` is defined both as a member in class `kotlin.collections.List` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            locales.indexOf(detectedLocale).takeIf { it != -1 }?.let {"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/compose/ComposeActivity.kt"
-            line="1264"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.Set` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            makeFilter(list.filter { it.contexts.contains(filterContext) })"
-        errorLine2="                                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/app/pachli/core/data/model/ContentFilterModel.kt"
-            line="41"
-            column="38"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.Set` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            result.filter.contexts.contains(filterContext)"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/app/pachli/core/data/model/ContentFilterModel.kt"
-            line="70"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.Set` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            result.filter.contexts.contains(filterContext)"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/app/pachli/core/data/model/ContentFilterModel.kt"
-            line="105"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
         message="`hide` is defined both as a member in class `com.google.android.material.progressindicator.BaseProgressIndicator` and an extension in package `app.pachli.core.common.extensions`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
         errorLine1="                if (it == 0) binding.progressIndicator.hide() else binding.progressIndicator.show()"
         errorLine2="                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
@@ -435,259 +215,6 @@
 
     <issue
         id="MemberExtensionConflict"
-        message="`apply` is defined both as a member in class `com.mikepenz.iconics.IconicsDrawable` and an extension in package `kotlin`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            icon = IconicsDrawable(requireContext(), GoogleMaterial.Icon.gmd_refresh).apply {"
-        errorLine2="                   ^">
-        <location
-            file="src/main/java/app/pachli/components/conversation/ConversationsFragment.kt"
-            line="301"
-            column="20"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`apply` is defined both as a member in class `com.mikepenz.iconics.IconicsDrawable` and an extension in package `kotlin`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            icon = IconicsDrawable(requireContext(), GoogleMaterial.Icon.gmd_refresh).apply {"
-        errorLine2="                   ^">
-        <location
-            file="src/main/java/app/pachli/components/conversation/ConversationsFragment.kt"
-            line="301"
-            column="20"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`addAll` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        instances.addAll(newInstances)"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/instancemute/adapter/DomainMutesAdapter.kt"
-            line="41"
-            column="9"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`remove` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            deletedDrafts.remove(draft)"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/drafts/DraftsViewModel.kt"
-            line="60"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.Set` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="                        binding.filterTitleWrapper.error = if (errors.contains(ContentFilterValidationError.NO_TITLE)) {"
-        errorLine2="                                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/filters/EditContentFilterActivity.kt"
-            line="183"
-            column="64"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.Set` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="                        binding.filterTitleWrapper.error = if (errors.contains(ContentFilterValidationError.NO_TITLE)) {"
-        errorLine2="                                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/filters/EditContentFilterActivity.kt"
-            line="183"
-            column="64"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.Set` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="                        binding.keywordChipsError.isVisible = errors.contains(ContentFilterValidationError.NO_KEYWORDS)"
-        errorLine2="                                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/filters/EditContentFilterActivity.kt"
-            line="189"
-            column="63"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.Set` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="                        binding.filterContextError.isVisible = errors.contains(ContentFilterValidationError.NO_CONTEXT)"
-        errorLine2="                                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/filters/EditContentFilterActivity.kt"
-            line="190"
-            column="64"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.Set` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="                key.isChecked = filterViewData.contexts.contains(value)"
-        errorLine2="                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/filters/EditContentFilterActivity.kt"
-            line="265"
-            column="33"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.Set` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="                key.isChecked = filterViewData.contexts.contains(value)"
-        errorLine2="                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/filters/EditContentFilterActivity.kt"
-            line="265"
-            column="33"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.Set` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            if (filter.contexts.contains(filterContext)) return@launch"
-        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/filters/EditContentFilterViewModel.kt"
-            line="335"
-            column="17"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.Set` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            if (!filter.contexts.contains(filterContext)) return@launch"
-        errorLine2="                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/filters/EditContentFilterViewModel.kt"
-            line="344"
-            column="18"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`apply` is defined both as a member in class `com.mikepenz.iconics.IconicsDrawable` and an extension in package `kotlin`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        val plusDrawable = IconicsDrawable(this, GoogleMaterial.Icon.gmd_add).apply {"
-        errorLine2="                           ^">
-        <location
-            file="src/main/java/app/pachli/EditProfileActivity.kt"
-            line="156"
-            column="28"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`addAll` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="                addAll(it.value.sortedBy { it.shortcode.lowercase(Locale.ROOT) })"
-        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/app/pachli/core/ui/emoji/EmojiAdapter.kt"
-            line="143"
-            column="17"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`addAll` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        addAll(extractURLsWithIndices(text))"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/com/twitter/twittertext/Extractor.kt"
-            line="66"
-            column="9"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`addAll` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        addAll(extractHashtagsWithIndices(text, false))"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/com/twitter/twittertext/Extractor.kt"
-            line="67"
-            column="9"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`addAll` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        addAll(extractMentionsOrListsWithIndices(text))"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/com/twitter/twittertext/Extractor.kt"
-            line="68"
-            column="9"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`addAll` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="                extracted.addAll(urls)"
-        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/com/twitter/twittertext/Extractor.kt"
-            line="206"
-            column="17"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`addAll` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        viewModel.tags.addAll(tags)"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/followedtags/FollowedTagsRemoteMediator.kt"
-            line="48"
-            column="9"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`apply` is defined both as a member in class `com.mikepenz.iconics.IconicsDrawable` and an extension in package `kotlin`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="    return IconicsDrawable(context, icon).apply {"
-        errorLine2="           ^">
-        <location
-            file="src/main/kotlin/app/pachli/core/ui/IconUtils.kt"
-            line="31"
-            column="12"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`apply` is defined both as a member in class `com.mikepenz.iconics.IconicsDrawable` and an extension in package `kotlin`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="    return IconicsDrawable(context, icon).apply {"
-        errorLine2="           ^">
-        <location
-            file="src/main/kotlin/app/pachli/core/ui/IconUtils.kt"
-            line="38"
-            column="12"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`addAll` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="                transforms?.let { this.addAll(it) }"
-        errorLine2="                                  ~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/app/pachli/core/ui/ImageLoadingHelper.kt"
-            line="50"
-            column="35"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`apply` is defined both as a member in class `com.mikepenz.iconics.IconicsDrawable` and an extension in package `kotlin`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        val iconLinkDrawable = IconicsDrawable(context, GoogleMaterial.Icon.gmd_open_in_new).apply {"
-        errorLine2="                               ^">
-        <location
-            file="src/main/kotlin/app/pachli/core/ui/LinkHelper.kt"
-            line="106"
-            column="32"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
         message="`hide` is defined both as a member in class `com.google.android.material.progressindicator.BaseProgressIndicator` and an extension in package `app.pachli.core.common.extensions`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
         errorLine1="                if (it == 0) binding.progressIndicator.hide() else binding.progressIndicator.show()"
         errorLine2="                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
@@ -706,39 +233,6 @@
             file="src/main/kotlin/app/pachli/feature/lists/ListsActivity.kt"
             line="134"
             column="68"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`apply` is defined both as a member in class `com.mikepenz.iconics.IconicsDrawable` and an extension in package `kotlin`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="                    val icon = IconicsDrawable(context, GoogleMaterial.Icon.gmd_list).apply {"
-        errorLine2="                               ^">
-        <location
-            file="src/main/kotlin/app/pachli/feature/lists/ListsActivity.kt"
-            line="281"
-            column="32"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`apply` is defined both as a member in class `com.mikepenz.materialdrawer.widget.AccountHeaderView` and an extension in package `kotlin`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        header = AccountHeaderView(this).apply {"
-        errorLine2="                 ^">
-        <location
-            file="src/main/java/app/pachli/MainActivity.kt"
-            line="550"
-            column="18"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`apply` is defined both as a member in class `com.mikepenz.materialdrawer.widget.MaterialDrawerSliderView` and an extension in package `kotlin`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        binding.mainDrawer.apply {"
-        errorLine2="        ^">
-        <location
-            file="src/main/java/app/pachli/MainActivity.kt"
-            line="737"
-            column="9"/>
     </issue>
 
     <issue
@@ -772,292 +266,6 @@
             file="src/main/java/app/pachli/MainActivity.kt"
             line="1168"
             column="17"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`remove` is defined both as a member in class `kotlin.collections.MutableMap` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            uploads.remove(localId)?.scope?.cancel()"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/compose/MediaUploader.kt"
-            line="290"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`pachliAccountId` is defined both as a member in class `&lt;unknown>` and an extension in package `app.pachli.core.navigation`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        this.pachliAccountId = pachliAccountId"
-        errorLine2="                               ~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/app/pachli/core/navigation/Navigation.kt"
-            line="73"
-            column="32"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`pachliAccountId` is defined both as a member in class `&lt;unknown>` and an extension in package `app.pachli.core.navigation`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        this.pachliAccountId = pachliAccountId"
-        errorLine2="                               ~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/app/pachli/core/navigation/Navigation.kt"
-            line="119"
-            column="32"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`pachliAccountId` is defined both as a member in class `&lt;unknown>` and an extension in package `app.pachli.core.navigation`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        this.pachliAccountId = pachliAccountId"
-        errorLine2="                               ~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/app/pachli/core/navigation/Navigation.kt"
-            line="139"
-            column="32"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`pachliAccountId` is defined both as a member in class `&lt;unknown>` and an extension in package `app.pachli.core.navigation`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        this.pachliAccountId = pachliAccountId"
-        errorLine2="                               ~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/app/pachli/core/navigation/Navigation.kt"
-            line="460"
-            column="32"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`pachliAccountId` is defined both as a member in class `&lt;unknown>` and an extension in package `app.pachli.core.navigation`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        this.pachliAccountId = pachliAccountId"
-        errorLine2="                               ~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/app/pachli/core/navigation/Navigation.kt"
-            line="483"
-            column="32"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`pachliAccountId` is defined both as a member in class `&lt;unknown>` and an extension in package `app.pachli.core.navigation`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        this.pachliAccountId = pachliAccountId"
-        errorLine2="                               ~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/app/pachli/core/navigation/Navigation.kt"
-            line="563"
-            column="32"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`pachliAccountId` is defined both as a member in class `&lt;unknown>` and an extension in package `app.pachli.core.navigation`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        this.pachliAccountId = pachliAccountId"
-        errorLine2="                               ~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/app/pachli/core/navigation/Navigation.kt"
-            line="639"
-            column="32"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`pachliAccountId` is defined both as a member in class `&lt;unknown>` and an extension in package `app.pachli.core.navigation`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        this.pachliAccountId = pachliAccountId"
-        errorLine2="                               ~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/app/pachli/core/navigation/Navigation.kt"
-            line="661"
-            column="32"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`pachliAccountId` is defined both as a member in class `&lt;unknown>` and an extension in package `app.pachli.core.navigation`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        this.pachliAccountId = pachliAccountId"
-        errorLine2="                               ~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/app/pachli/core/navigation/Navigation.kt"
-            line="690"
-            column="32"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`pachliAccountId` is defined both as a member in class `&lt;unknown>` and an extension in package `app.pachli.core.navigation`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        this.pachliAccountId = pachliAccountId"
-        errorLine2="                               ~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/app/pachli/core/navigation/Navigation.kt"
-            line="879"
-            column="32"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`pachliAccountId` is defined both as a member in class `&lt;unknown>` and an extension in package `app.pachli.core.navigation`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        this.pachliAccountId = pachliAccountId"
-        errorLine2="                               ~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/app/pachli/core/navigation/Navigation.kt"
-            line="886"
-            column="32"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`pachliAccountId` is defined both as a member in class `&lt;unknown>` and an extension in package `app.pachli.core.navigation`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        this.pachliAccountId = pachliAccountId"
-        errorLine2="                               ~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/app/pachli/core/navigation/Navigation.kt"
-            line="893"
-            column="32"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`pachliAccountId` is defined both as a member in class `&lt;unknown>` and an extension in package `app.pachli.core.navigation`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        this.pachliAccountId = pachliAccountId"
-        errorLine2="                               ~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/app/pachli/core/navigation/Navigation.kt"
-            line="900"
-            column="32"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`pachliAccountId` is defined both as a member in class `&lt;unknown>` and an extension in package `app.pachli.core.navigation`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        this.pachliAccountId = pachliAccountId"
-        errorLine2="                               ~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/app/pachli/core/navigation/Navigation.kt"
-            line="907"
-            column="32"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`pachliAccountId` is defined both as a member in class `&lt;unknown>` and an extension in package `app.pachli.core.navigation`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        this.pachliAccountId = pachliAccountId"
-        errorLine2="                               ~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/app/pachli/core/navigation/Navigation.kt"
-            line="920"
-            column="32"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`pachliAccountId` is defined both as a member in class `&lt;unknown>` and an extension in package `app.pachli.core.navigation`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        this.pachliAccountId = pachliAccountId"
-        errorLine2="                               ~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/app/pachli/core/navigation/Navigation.kt"
-            line="939"
-            column="32"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`pachliAccountId` is defined both as a member in class `&lt;unknown>` and an extension in package `app.pachli.core.navigation`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        this.pachliAccountId = pachliAccountId"
-        errorLine2="                               ~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/app/pachli/core/navigation/Navigation.kt"
-            line="946"
-            column="32"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`pachliAccountId` is defined both as a member in class `&lt;unknown>` and an extension in package `app.pachli.core.navigation`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        this.pachliAccountId = pachliAccountId"
-        errorLine2="                               ~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/app/pachli/core/navigation/Navigation.kt"
-            line="953"
-            column="32"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`pachliAccountId` is defined both as a member in class `&lt;unknown>` and an extension in package `app.pachli.core.navigation`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        this.pachliAccountId = pachliAccountId"
-        errorLine2="                               ~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/app/pachli/core/navigation/Navigation.kt"
-            line="960"
-            column="32"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`addAll` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            prevPage.await().get()?.let { this.addAll(it.body) }"
-        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/timeline/viewmodel/NetworkTimelineRemoteMediator.kt"
-            line="162"
-            column="43"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`addAll` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            nextPage.await().get()?.let { this.addAll(it.body) }"
-        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/timeline/viewmodel/NetworkTimelineRemoteMediator.kt"
-            line="164"
-            column="43"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`addAll` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="                addAll(accountManager.pachliAccountsFlow.take(1).first())"
-        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/notifications/NotificationFetcher.kt"
-            line="73"
-            column="17"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`removeAll` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="    mentionedUsernames.removeAll(setOf(account.username))"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/notifications/NotificationHelper.kt"
-            line="406"
-            column="5"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.List` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="                            poll.ownVotes != null &amp;&amp; poll.ownVotes!!.contains(i),"
-        errorLine2="                                                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/notifications/NotificationHelper.kt"
-            line="914"
-            column="54"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`remove` is defined both as a member in class `kotlin.collections.MutableSet` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="                    priorities.remove(priority)"
-        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/app/pachli/feature/about/NotificationLogFragment.kt"
-            line="208"
-            column="21"/>
     </issue>
 
     <issue
@@ -1106,375 +314,12 @@
 
     <issue
         id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.Set` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            !activeFilter.contains(it)"
-        errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/notifications/NotificationsFragment.kt"
-            line="718"
-            column="14"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`addAll` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            prevPage.await().get()?.let { this.addAll(it.body) }"
-        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/app/pachli/core/data/repository/notifications/NotificationsRemoteMediator.kt"
-            line="179"
-            column="43"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`addAll` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            nextPage.await().get()?.let { this.addAll(it.body) }"
-        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/app/pachli/core/data/repository/notifications/NotificationsRemoteMediator.kt"
-            line="183"
-            column="43"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`containsKey` is defined both as a member in class `kotlin.collections.MutableMap` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="                if (idToPage.containsKey(status.id)) {"
-        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/timeline/viewmodel/PageCache.kt"
-            line="175"
-            column="21"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.List` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            if (choices.contains(index)) {"
-        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/app/pachli/core/model/Poll.kt"
-            line="46"
-            column="17"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.List` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            options = poll.options.mapIndexed { index, option -> PollOptionViewData.from(option, poll.ownVotes?.contains(index) == true) },"
-        errorLine2="                                                                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/viewdata/PollViewData.kt"
-            line="58"
-            column="98"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`apply` is defined both as a member in class `com.mikepenz.iconics.IconicsDrawable` and an extension in package `kotlin`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="    private val uploadErrorDrawable = makeIcon(context, GoogleMaterial.Icon.gmd_error, 48).apply {"
-        errorLine2="                                      ^">
-        <location
-            file="src/main/java/app/pachli/components/compose/view/ProgressImageView.kt"
-            line="61"
-            column="39"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.ranges.IntRange` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            is Int -> PROXY_RANGE.contains(value)"
-        errorLine2="                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/app/pachli/core/preferences/ProxyConfiguration.kt"
-            line="41"
-            column="23"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`apply` is defined both as a member in class `com.mikepenz.iconics.IconicsDrawable` and an extension in package `kotlin`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            icon = IconicsDrawable(requireContext(), GoogleMaterial.Icon.gmd_refresh).apply {"
-        errorLine2="                   ^">
-        <location
-            file="src/main/java/app/pachli/components/report/fragments/ReportStatusesFragment.kt"
-            line="147"
-            column="20"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`apply` is defined both as a member in class `com.mikepenz.iconics.IconicsDrawable` and an extension in package `kotlin`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            icon = IconicsDrawable(requireContext(), GoogleMaterial.Icon.gmd_refresh).apply {"
-        errorLine2="                   ^">
-        <location
-            file="src/main/java/app/pachli/components/report/fragments/ReportStatusesFragment.kt"
-            line="147"
-            column="20"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`remove` is defined both as a member in class `java.util.HashSet` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            selectedIds.remove(status.id)"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/report/ReportViewModel.kt"
-            line="278"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `java.util.HashSet` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        return selectedIds.contains(id)"
-        errorLine2="               ~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/report/ReportViewModel.kt"
-            line="283"
-            column="16"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`remove` is defined both as a member in class `java.util.LinkedHashSet` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        ).apply { remove(loggedInUsername) }"
-        errorLine2="                  ~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/fragment/SFragment.kt"
-            line="189"
-            column="19"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`apply` is defined both as a member in class `com.mikepenz.iconics.IconicsDrawable` and an extension in package `kotlin`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            icon = IconicsDrawable(this@ScheduledStatusActivity, GoogleMaterial.Icon.gmd_search).apply {"
-        errorLine2="                   ^">
-        <location
-            file="src/main/java/app/pachli/components/scheduled/ScheduledStatusActivity.kt"
-            line="144"
-            column="20"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`apply` is defined both as a member in class `com.mikepenz.iconics.IconicsDrawable` and an extension in package `kotlin`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            icon = IconicsDrawable(this@ScheduledStatusActivity, GoogleMaterial.Icon.gmd_search).apply {"
-        errorLine2="                   ^">
-        <location
-            file="src/main/java/app/pachli/components/scheduled/ScheduledStatusActivity.kt"
-            line="144"
-            column="20"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`remove` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        scheduledTootsCache.remove(status)"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/scheduled/ScheduledStatusPagingSource.kt"
-            line="41"
-            column="9"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="                        if (checkedIds.contains(R.id.chip_has_image) ||"
-        errorLine2="                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/search/SearchActivity.kt"
-            line="330"
-            column="29"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="                            (checkedIds.contains(R.id.chip_no_image) &amp;&amp; chipgroupMedia.checkedChipId == R.id.chip_no_media)"
-        errorLine2="                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/search/SearchActivity.kt"
-            line="331"
-            column="30"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="                        if (checkedIds.contains(R.id.chip_has_video) ||"
-        errorLine2="                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/search/SearchActivity.kt"
-            line="337"
-            column="29"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="                            (checkedIds.contains(R.id.chip_no_video) &amp;&amp; chipgroupMedia.checkedChipId == R.id.chip_no_media)"
-        errorLine2="                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/search/SearchActivity.kt"
-            line="338"
-            column="30"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="                        if (checkedIds.contains(R.id.chip_has_audio) ||"
-        errorLine2="                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/search/SearchActivity.kt"
-            line="344"
-            column="29"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="                            (checkedIds.contains(R.id.chip_no_audio) &amp;&amp; chipgroupMedia.checkedChipId == R.id.chip_no_media)"
-        errorLine2="                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/search/SearchActivity.kt"
-            line="345"
-            column="30"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`indexOf` is defined both as a member in class `kotlin.collections.List` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="                val index = locales.indexOf(choice)"
-        errorLine2="                            ~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/search/SearchActivity.kt"
-            line="667"
-            column="29"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`apply` is defined both as a member in class `com.mikepenz.iconics.IconicsDrawable` and an extension in package `kotlin`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            icon = IconicsDrawable(requireContext(), GoogleMaterial.Icon.gmd_refresh).apply {"
-        errorLine2="                   ^">
-        <location
-            file="src/main/java/app/pachli/components/search/fragments/SearchFragment.kt"
-            line="120"
-            column="20"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`apply` is defined both as a member in class `com.mikepenz.iconics.IconicsDrawable` and an extension in package `kotlin`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            icon = IconicsDrawable(requireContext(), GoogleMaterial.Icon.gmd_refresh).apply {"
-        errorLine2="                   ^">
-        <location
-            file="src/main/java/app/pachli/components/search/fragments/SearchFragment.kt"
-            line="120"
-            column="20"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`addAll` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            loadedStatuses.addAll(this)"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/search/SearchViewModel.kt"
-            line="218"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`remove` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="                    if (loadedStatuses.remove(statusViewData)) {"
-        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/search/SearchViewModel.kt"
-            line="268"
-            column="25"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`remove` is defined both as a member in class `java.util.concurrent.ConcurrentHashMap` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            statusesToSend.remove(statusId)"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/service/SendStatusService.kt"
-            line="138"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`remove` is defined both as a member in class `java.util.concurrent.ConcurrentHashMap` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="                statusesToSend.remove(statusId)"
-        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/service/SendStatusService.kt"
-            line="245"
-            column="17"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`remove` is defined both as a member in class `java.util.concurrent.ConcurrentHashMap` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        val failedStatus = statusesToSend.remove(statusId)"
-        errorLine2="                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/service/SendStatusService.kt"
-            line="325"
-            column="28"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`remove` is defined both as a member in class `java.util.concurrent.ConcurrentHashMap` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        val statusToCancel = statusesToSend.remove(statusId)"
-        errorLine2="                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/service/SendStatusService.kt"
-            line="347"
-            column="30"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`remove` is defined both as a member in class `java.util.concurrent.ConcurrentHashMap` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            val sendJob = sendJobs.remove(statusId)"
-        errorLine2="                          ~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/service/SendStatusService.kt"
-            line="351"
-            column="27"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.List` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            if (SCHEMAS.contains(link.rel)) {"
-        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/app/pachli/core/data/repository/ServerRepository.kt"
-            line="97"
-            column="17"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
         message="`hide` is defined both as a member in class `app.pachli.view.PollView` and an extension in package `app.pachli.core.common.extensions`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
         errorLine1="            } ?: pollView.hide()"
         errorLine2="                 ~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/adapter/StatusBaseViewHolder.kt"
-            line="273"
+            line="276"
             column="18"/>
     </issue>
 
@@ -1485,19 +330,8 @@
         errorLine2="            ~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/adapter/StatusBaseViewHolder.kt"
-            line="275"
+            line="278"
             column="13"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`addAll` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="                        .onSuccess { this.addAll(it.body) }"
-        errorLine2="                                     ~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/report/adapter/StatusesPagingSource.kt"
-            line="55"
-            column="38"/>
     </issue>
 
     <issue
@@ -1524,156 +358,13 @@
 
     <issue
         id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.Set` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="                        it.copy(isEnabled = !disabled.contains(it.suggestion.account.id))"
-        errorLine2="                                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/kotlin/app/pachli/feature/suggestions/SuggestionsViewModel.kt"
-            line="144"
-            column="46"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
         message="`show` is defined both as a member in class `com.google.android.material.progressindicator.BaseProgressIndicator` and an extension in package `app.pachli.core.common.extensions`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
         errorLine1="        selectListBinding.progressBar.show()"
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/TabPreferenceActivity.kt"
-            line="319"
+            line="322"
             column="9"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        if (!currentTabs.contains(homeTab)) {"
-        errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/TabPreferenceActivity.kt"
-            line="353"
-            column="14"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        if (!currentTabs.contains(notificationTab)) {"
-        errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/TabPreferenceActivity.kt"
-            line="357"
-            column="14"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        if (!currentTabs.contains(localTab)) {"
-        errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/TabPreferenceActivity.kt"
-            line="361"
-            column="14"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        if (!currentTabs.contains(federatedTab)) {"
-        errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/TabPreferenceActivity.kt"
-            line="365"
-            column="14"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        if (!currentTabs.contains(directMessagesTab)) {"
-        errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/TabPreferenceActivity.kt"
-            line="369"
-            column="14"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        if (!currentTabs.contains(bookmarksTab)) {"
-        errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/TabPreferenceActivity.kt"
-            line="373"
-            column="14"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        if (!currentTabs.contains(favouritesTab)) {"
-        errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/TabPreferenceActivity.kt"
-            line="377"
-            column="14"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        if (!currentTabs.contains(trendingTagsTab)) {"
-        errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/TabPreferenceActivity.kt"
-            line="381"
-            column="14"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        if (!currentTabs.contains(trendingLinksTab)) {"
-        errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/TabPreferenceActivity.kt"
-            line="385"
-            column="14"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.MutableList` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        if (!currentTabs.contains(trendingStatusesTab)) {"
-        errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/TabPreferenceActivity.kt"
-            line="389"
-            column="14"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.List` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        val hideMenu = timeline is Timeline.Link || currentTabs.contains(timeline)"
-        errorLine2="                                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/TimelineActivity.kt"
-            line="171"
-            column="53"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.Set` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="                            filter.contexts.contains(FilterContext.HOME) &amp;&amp;"
-        errorLine2="                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/TimelineActivity.kt"
-            line="262"
-            column="29"/>
     </issue>
 
     <issue
@@ -1722,50 +413,6 @@
 
     <issue
         id="MemberExtensionConflict"
-        message="`apply` is defined both as a member in class `com.mikepenz.iconics.IconicsDrawable` and an extension in package `kotlin`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="                icon = IconicsDrawable(requireContext(), GoogleMaterial.Icon.gmd_refresh).apply {"
-        errorLine2="                       ^">
-        <location
-            file="src/main/java/app/pachli/components/timeline/TimelineFragment.kt"
-            line="420"
-            column="24"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`apply` is defined both as a member in class `com.mikepenz.iconics.IconicsDrawable` and an extension in package `kotlin`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="                icon = IconicsDrawable(requireContext(), GoogleMaterial.Icon.gmd_refresh).apply {"
-        errorLine2="                       ^">
-        <location
-            file="src/main/java/app/pachli/components/timeline/TimelineFragment.kt"
-            line="420"
-            column="24"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.List` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        if ((timeline as? Timeline.Hashtags)?.tags?.contains(tag) == true) return"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/timeline/TimelineFragment.kt"
-            line="643"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.List` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="        val hideMenu = currentTabs.contains(timeline)"
-        errorLine2="                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/trending/TrendingActivity.kt"
-            line="139"
-            column="24"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
         message="`show` is defined both as a member in class `com.google.android.material.floatingactionbutton.FloatingActionButton` and an extension in package `app.pachli.core.common.extensions`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
         errorLine1="            actionButton.show()"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~">
@@ -1773,28 +420,6 @@
             file="src/main/java/app/pachli/components/trending/TrendingLinksFragment.kt"
             line="122"
             column="13"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`apply` is defined both as a member in class `com.mikepenz.iconics.IconicsDrawable` and an extension in package `kotlin`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            icon = IconicsDrawable(requireContext(), GoogleMaterial.Icon.gmd_refresh).apply {"
-        errorLine2="                   ^">
-        <location
-            file="src/main/java/app/pachli/components/trending/TrendingLinksFragment.kt"
-            line="246"
-            column="20"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`apply` is defined both as a member in class `com.mikepenz.iconics.IconicsDrawable` and an extension in package `kotlin`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            icon = IconicsDrawable(requireContext(), GoogleMaterial.Icon.gmd_refresh).apply {"
-        errorLine2="                   ^">
-        <location
-            file="src/main/java/app/pachli/components/trending/TrendingLinksFragment.kt"
-            line="246"
-            column="20"/>
     </issue>
 
     <issue
@@ -1810,28 +435,6 @@
 
     <issue
         id="MemberExtensionConflict"
-        message="`apply` is defined both as a member in class `com.mikepenz.iconics.IconicsDrawable` and an extension in package `kotlin`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            icon = IconicsDrawable(requireContext(), GoogleMaterial.Icon.gmd_refresh).apply {"
-        errorLine2="                   ^">
-        <location
-            file="src/main/java/app/pachli/components/trending/TrendingTagsFragment.kt"
-            line="161"
-            column="20"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`apply` is defined both as a member in class `com.mikepenz.iconics.IconicsDrawable` and an extension in package `kotlin`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            icon = IconicsDrawable(requireContext(), GoogleMaterial.Icon.gmd_refresh).apply {"
-        errorLine2="                   ^">
-        <location
-            file="src/main/java/app/pachli/components/trending/TrendingTagsFragment.kt"
-            line="161"
-            column="20"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
         message="`hide` is defined both as a member in class `com.google.android.material.floatingactionbutton.FloatingActionButton` and an extension in package `app.pachli.core.common.extensions`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
         errorLine1="            composeButton?.hide()"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~">
@@ -1839,39 +442,6 @@
             file="src/main/java/app/pachli/components/trending/TrendingTagsFragment.kt"
             line="273"
             column="13"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`contains` is defined both as a member in class `kotlin.collections.Set` and an extension in package `kotlin.collections`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="                        filter.contexts.contains(FilterContext.HOME)"
-        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/app/pachli/components/trending/viewmodel/TrendingTagsViewModel.kt"
-            line="104"
-            column="25"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`apply` is defined both as a member in class `com.mikepenz.iconics.IconicsDrawable` and an extension in package `kotlin`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            icon = IconicsDrawable(requireContext(), GoogleMaterial.Icon.gmd_refresh).apply {"
-        errorLine2="                   ^">
-        <location
-            file="src/main/java/app/pachli/components/viewthread/edits/ViewEditsFragment.kt"
-            line="179"
-            column="20"/>
-    </issue>
-
-    <issue
-        id="MemberExtensionConflict"
-        message="`apply` is defined both as a member in class `com.mikepenz.iconics.IconicsDrawable` and an extension in package `kotlin`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
-        errorLine1="            icon = IconicsDrawable(requireContext(), GoogleMaterial.Icon.gmd_refresh).apply {"
-        errorLine2="                   ^">
-        <location
-            file="src/main/java/app/pachli/components/viewthread/edits/ViewEditsFragment.kt"
-            line="179"
-            column="20"/>
     </issue>
 
     <issue
@@ -2025,7 +595,7 @@
         id="Typos"
         message="&quot;Eines des&quot; is a common misspelling; did you mean &quot;Eines der&quot;?"
         errorLine1="    &lt;string name=&quot;sources_most_followed&quot;>Eines des meistgefolgten auf deinem Server&lt;/string>"
-        errorLine2="                                         ^">
+        errorLine2="                                         ~~~~~~~~~">
         <location
             file="src/main/res/values-de/strings.xml"
             line="6"
@@ -2036,7 +606,7 @@
         id="Typos"
         message="&quot;media&quot; is a common misspelling; did you mean &quot;medier&quot;?"
         errorLine1="    &lt;string name=&quot;error_media_upload_permission&quot;>Pachli trenger tillatelse for å lese media.&lt;/string>"
-        errorLine2="                                                                                      ^">
+        errorLine2="                                                                                      ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
             line="8"
@@ -2047,7 +617,7 @@
         id="Typos"
         message="&quot;media&quot; is a common misspelling; did you mean &quot;medier&quot;?"
         errorLine1="    &lt;string name=&quot;error_media_download_permission&quot;>Pachli trenger tillatelse for å lagre media.&lt;/string>"
-        errorLine2="                                                                                         ^">
+        errorLine2="                                                                                         ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
             line="9"
@@ -2058,7 +628,7 @@
         id="Typos"
         message="&quot;Media&quot; is a common misspelling; did you mean &quot;Medier&quot;?"
         errorLine1="    &lt;string name=&quot;post_media_hidden_title&quot;>Media skjult&lt;/string>"
-        errorLine2="                                           ^">
+        errorLine2="                                           ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
             line="33"
@@ -2069,7 +639,7 @@
         id="Typos"
         message="&quot;birşey&quot; is a common misspelling; did you mean &quot;bir şey&quot;?"
         errorLine1="    &lt;string name=&quot;footer_empty&quot;>Burada henüz hiç birşey yok. Yenilemek için aşağıya çekin!&lt;/string>"
-        errorLine2="                                                 ^">
+        errorLine2="                                                 ~~~~~~">
         <location
             file="src/main/res/values-tr/strings.xml"
             line="39"
@@ -2080,7 +650,7 @@
         id="Typos"
         message="&quot;hiç birşey&quot; is a common misspelling; did you mean &quot;hiçbir şey&quot;?"
         errorLine1="    &lt;string name=&quot;footer_empty&quot;>Burada henüz hiç birşey yok. Yenilemek için aşağıya çekin!&lt;/string>"
-        errorLine2="                                             ^">
+        errorLine2="                                             ~~~~~~~~~~">
         <location
             file="src/main/res/values-tr/strings.xml"
             line="39"
@@ -2091,7 +661,7 @@
         id="Typos"
         message="&quot;Media&quot; is a common misspelling; did you mean &quot;Medier&quot;?"
         errorLine1="    &lt;string name=&quot;action_view_media&quot;>Media&lt;/string>"
-        errorLine2="                                     ^">
+        errorLine2="                                     ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
             line="68"
@@ -2102,7 +672,7 @@
         id="Typos"
         message="&quot;media&quot; is a common misspelling; did you mean &quot;medier&quot;?"
         errorLine1="    &lt;string name=&quot;action_add_media&quot;>Legg til media&lt;/string>"
-        errorLine2="                                             ^">
+        errorLine2="                                             ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
             line="70"
@@ -2113,7 +683,7 @@
         id="Typos"
         message="&quot;media&quot; is a common misspelling; did you mean &quot;medier&quot;?"
         errorLine1="    &lt;string name=&quot;action_hide_media&quot;>Skjul media&lt;/string>"
-        errorLine2="                                           ^">
+        errorLine2="                                           ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
             line="76"
@@ -2124,7 +694,7 @@
         id="Typos"
         message="&quot;media&quot; is a common misspelling; did you mean &quot;medier&quot;?"
         errorLine1="    &lt;string name=&quot;action_open_media_n&quot;>Åpne media #%d&lt;/string>"
-        errorLine2="                                            ^">
+        errorLine2="                                            ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
             line="93"
@@ -2135,7 +705,7 @@
         id="Typos"
         message="&quot;media&quot; is a common misspelling; did you mean &quot;medier&quot;?"
         errorLine1="    &lt;string name=&quot;download_media&quot;>Last ned media&lt;/string>"
-        errorLine2="                                           ^">
+        errorLine2="                                           ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
             line="96"
@@ -2146,7 +716,7 @@
         id="Typos"
         message="&quot;media&quot; is a common misspelling; did you mean &quot;medier&quot;?"
         errorLine1="    &lt;string name=&quot;downloading_media&quot;>Laster ned media&lt;/string>"
-        errorLine2="                                                ^">
+        errorLine2="                                                ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
             line="97"
@@ -2157,7 +727,7 @@
         id="Typos"
         message="&quot;media&quot; is a common misspelling; did you mean &quot;medier&quot;?"
         errorLine1="    &lt;string name=&quot;send_media_to&quot;>Del media til…&lt;/string>"
-        errorLine2="                                     ^">
+        errorLine2="                                     ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
             line="100"
@@ -2168,7 +738,7 @@
         id="Typos"
         message="&quot;media&quot; is a common misspelling; did you mean &quot;medier&quot;?"
         errorLine1="    &lt;string name=&quot;dialog_title_finishing_media_upload&quot;>Opplasting av media er ferdig&lt;/string>"
-        errorLine2="                                                                     ^">
+        errorLine2="                                                                     ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
             line="115"
@@ -2179,7 +749,7 @@
         id="Typos"
         message="&quot;media&quot; is a common misspelling; did you mean &quot;medier&quot;?"
         errorLine1="    &lt;string name=&quot;pref_title_show_media_preview&quot;>Last ned forhåndsvisning av media&lt;/string>"
-        errorLine2="                                                                             ^">
+        errorLine2="                                                                             ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
             line="148"
@@ -2190,7 +760,7 @@
         id="Typos"
         message="&quot;media&quot; is a common misspelling; did you mean &quot;medier&quot;?"
         errorLine1="    &lt;string name=&quot;pref_default_media_sensitivity&quot;>Marker alltid media som sensitivt&lt;/string>"
-        errorLine2="                                                                ^">
+        errorLine2="                                                                ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
             line="154"
@@ -2201,7 +771,7 @@
         id="Typos"
         message="&quot;Media&quot; is a common misspelling; did you mean &quot;Medier&quot;?"
         errorLine1="    &lt;string name=&quot;title_media&quot;>Media&lt;/string>"
-        errorLine2="                               ^">
+        errorLine2="                               ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
             line="189"
@@ -2212,7 +782,7 @@
         id="Typos"
         message="&quot;Media&quot; is a common misspelling; did you mean &quot;Medier&quot;?"
         errorLine1="    &lt;string name=&quot;description_post_media&quot;>Media: %s&lt;/string>"
-        errorLine2="                                          ^">
+        errorLine2="                                          ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
             line="248"
@@ -2223,7 +793,7 @@
         id="Typos"
         message="&quot;media&quot; is a common misspelling; did you mean &quot;medier&quot;?"
         errorLine1="    &lt;string name=&quot;pref_title_gradient_for_media&quot;>Vis fargerike gradienter for skjult media&lt;/string>"
-        errorLine2="                                                                                     ^">
+        errorLine2="                                                                                     ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
             line="370"
@@ -2234,7 +804,7 @@
         id="Typos"
         message="&quot;Media&quot; is a common misspelling; did you mean &quot;Medier&quot;?"
         errorLine1="    &lt;string name=&quot;hint_media_description_missing&quot;>Media bør ha en beskrivelse.&lt;/string>"
-        errorLine2="                                                  ^">
+        errorLine2="                                                  ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
             line="488"
@@ -2245,7 +815,7 @@
         id="Typos"
         message="Repeated word &quot;til&quot; in message: possible typo"
         errorLine1="    &lt;string name=&quot;action_add_to_tab&quot;>Legg til til fane&lt;/string>"
-        errorLine2="                                          ^">
+        errorLine2="                                          ~~~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
             line="603"
@@ -2256,7 +826,7 @@
         id="Typos"
         message="&quot;Media&quot; is a common misspelling; did you mean &quot;Medier&quot;?"
         errorLine1="    &lt;string name=&quot;search_operator_attachment_all&quot;>Media ▾&lt;/string>"
-        errorLine2="                                                  ^">
+        errorLine2="                                                  ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
             line="688"
@@ -2267,7 +837,7 @@
         id="Typos"
         message="&quot;media&quot; is a common misspelling; did you mean &quot;medier&quot;?"
         errorLine1="    &lt;string name=&quot;search_operator_attachment_no_media_label&quot;>Ingen media&lt;/string>"
-        errorLine2="                                                                   ^">
+        errorLine2="                                                                   ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
             line="712"
@@ -2292,7 +862,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="650"
+            line="654"
             column="5"/>
     </issue>
 
@@ -2314,7 +884,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/account/AccountActivity.kt"
-            line="542"
+            line="536"
             column="9"/>
     </issue>
 
@@ -2468,7 +1038,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/item_account.xml"
-            line="8"
+            line="9"
             column="5"/>
     </issue>
 
@@ -5185,7 +3755,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="515"
+            line="519"
             column="13"/>
     </issue>
 
@@ -5196,7 +3766,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="516"
+            line="520"
             column="13"/>
     </issue>
 
@@ -5207,7 +3777,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="526"
+            line="530"
             column="13"/>
     </issue>
 
@@ -5218,7 +3788,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="527"
+            line="531"
             column="13"/>
     </issue>
 
@@ -5229,7 +3799,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="528"
+            line="532"
             column="13"/>
     </issue>
 
@@ -5240,7 +3810,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="531"
+            line="535"
             column="13"/>
     </issue>
 
@@ -5251,7 +3821,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="568"
+            line="572"
             column="13"/>
     </issue>
 
@@ -5262,7 +3832,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="610"
+            line="614"
             column="13"/>
     </issue>
 
@@ -5273,7 +3843,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="616"
+            line="620"
             column="13"/>
     </issue>
 
@@ -5284,7 +3854,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="642"
+            line="646"
             column="13"/>
     </issue>
 
@@ -5295,7 +3865,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="668"
+            line="672"
             column="13"/>
     </issue>
 
@@ -5489,7 +4059,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_account.xml"
-            line="37"
+            line="49"
             column="6"/>
     </issue>
 
@@ -5500,7 +4070,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_account.xml"
-            line="53"
+            line="63"
             column="6"/>
     </issue>
 
@@ -5522,7 +4092,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_account_in_list.xml"
-            line="50"
+            line="58"
             column="6"/>
     </issue>
 
@@ -5533,7 +4103,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_account_in_list.xml"
-            line="67"
+            line="75"
             column="6"/>
     </issue>
 
@@ -5599,7 +4169,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_conversation.xml"
-            line="81"
+            line="91"
             column="6"/>
     </issue>
 
@@ -5610,7 +4180,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_conversation.xml"
-            line="99"
+            line="108"
             column="6"/>
     </issue>
 
@@ -5621,7 +4191,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_conversation.xml"
-            line="111"
+            line="120"
             column="6"/>
     </issue>
 
@@ -5665,7 +4235,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_follow.xml"
-            line="42"
+            line="52"
             column="6"/>
     </issue>
 
@@ -5687,7 +4257,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_follow_request.xml"
-            line="49"
+            line="59"
             column="6"/>
     </issue>
 
@@ -5698,7 +4268,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_follow_request.xml"
-            line="65"
+            line="74"
             column="6"/>
     </issue>
 
@@ -5951,7 +4521,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_status.xml"
-            line="58"
+            line="69"
             column="6"/>
     </issue>
 
@@ -5962,7 +4532,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_status.xml"
-            line="77"
+            line="87"
             column="6"/>
     </issue>
 
@@ -5973,7 +4543,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_status.xml"
-            line="90"
+            line="100"
             column="6"/>
     </issue>
 
@@ -5984,7 +4554,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_status.xml"
-            line="246"
+            line="256"
             column="6"/>
     </issue>
 
@@ -5995,7 +4565,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_status.xml"
-            line="274"
+            line="284"
             column="6"/>
     </issue>
 
@@ -6006,7 +4576,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_status.xml"
-            line="302"
+            line="312"
             column="6"/>
     </issue>
 
@@ -6017,7 +4587,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_status_detailed.xml"
-            line="38"
+            line="49"
             column="6"/>
     </issue>
 
@@ -6028,7 +4598,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_status_detailed.xml"
-            line="61"
+            line="69"
             column="6"/>
     </issue>
 
@@ -6039,18 +4609,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_status_detailed.xml"
-            line="194"
-            column="6"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="    &lt;TextView"
-        errorLine2="     ~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_status_detailed.xml"
-            line="223"
+            line="208"
             column="6"/>
     </issue>
 
@@ -6062,6 +4621,17 @@
         <location
             file="src/main/res/layout/item_status_detailed.xml"
             line="237"
+            column="6"/>
+    </issue>
+
+    <issue
+        id="SelectableText"
+        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
+        errorLine1="    &lt;TextView"
+        errorLine2="     ~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_status_detailed.xml"
+            line="251"
             column="6"/>
     </issue>
 
@@ -6281,7 +4851,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/item_status.xml"
-            line="236"
+            line="246"
             column="9"/>
     </issue>
 
@@ -6446,7 +5016,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/item_conversation.xml"
-            line="89"
+            line="98"
             column="9"/>
     </issue>
 
@@ -6490,7 +5060,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/item_status.xml"
-            line="67"
+            line="77"
             column="9"/>
     </issue>
 
