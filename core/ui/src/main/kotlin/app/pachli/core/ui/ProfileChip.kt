@@ -50,8 +50,8 @@ open class ProfileChip @JvmOverloads constructor(
 ) : Chip(context, attrs, defStyleAttr) {
     init {
         isChipIconVisible = true
-        setChipStrokeWidthResource(app.pachli.core.designsystem.R.dimen.profile_badge_stroke_width)
-        setChipIconSizeResource(app.pachli.core.designsystem.R.dimen.profile_badge_icon_size)
+        setChipStrokeWidthResource(DR.dimen.profile_badge_stroke_width)
+        setChipIconSizeResource(DR.dimen.profile_badge_icon_size)
 
         val textSize = context.obtainStyledAttributes(null, intArrayOf(DR.attr.status_text_small)).use {
             it.getDimension(0, -1f)
@@ -64,10 +64,10 @@ open class ProfileChip @JvmOverloads constructor(
         setEnsureMinTouchTargetSize(false)
 
         // Reset some defaults
-        setIconStartPaddingResource(app.pachli.core.designsystem.R.dimen.profile_badge_icon_start_padding)
-        setIconEndPaddingResource(app.pachli.core.designsystem.R.dimen.profile_badge_icon_end_padding)
-        setChipMinHeightResource(app.pachli.core.designsystem.R.dimen.profile_badge_min_height)
-        minHeight = resources.getDimensionPixelSize(app.pachli.core.designsystem.R.dimen.profile_badge_min_height)
+        setIconStartPaddingResource(DR.dimen.profile_badge_icon_start_padding)
+        setIconEndPaddingResource(DR.dimen.profile_badge_icon_end_padding)
+        setChipMinHeightResource(DR.dimen.profile_badge_min_height)
+        minHeight = resources.getDimensionPixelSize(DR.dimen.profile_badge_min_height)
         updatePadding(top = 0, bottom = 0)
     }
 }
