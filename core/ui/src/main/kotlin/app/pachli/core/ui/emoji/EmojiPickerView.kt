@@ -17,6 +17,7 @@
 
 package app.pachli.core.ui.emoji
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -47,6 +48,8 @@ class EmojiPickerView @JvmOverloads constructor(
     /** Text string to use as the label for when [Emoji.category] is null. */
     private val labelNoCategory = context.getString(R.string.label_emoji_no_category)
 
+    // Using Glide.with like this in a View subclass is OK.
+    @SuppressLint("GlideWithViewDetector")
     private val adapter = EmojiAdapter(Glide.with(this), labelNoCategory)
 
     var emojis: List<Emoji> = emptyList()

@@ -74,7 +74,7 @@ class ReportNotificationViewHolder(
         animateAvatar: Boolean,
         animateEmojis: Boolean,
     ) {
-        binding.notificationTopText.updateEmojiTargets {
+        binding.notificationTopText.updateEmojiTargets(glide) {
             val reporterName = reporter.name.unicodeWrap().emojify(glide, reporter.emojis, animateEmojis)
             val reporteeName = report.targetAccount.displayName.unicodeWrap().emojify(glide, report.targetAccount.emojis, animateEmojis)
 
