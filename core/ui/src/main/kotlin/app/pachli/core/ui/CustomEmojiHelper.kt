@@ -28,7 +28,6 @@ import android.widget.TextView
 import androidx.core.graphics.withSave
 import androidx.core.text.toSpannable
 import app.pachli.core.model.Emoji
-import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.Target
@@ -42,7 +41,7 @@ import com.bumptech.glide.request.transition.Transition
  * @return the text with the shortcodes replaced by EmojiSpans
  */
 fun CharSequence.emojify(glide: RequestManager, emojis: List<Emoji>?, view: View, animate: Boolean): CharSequence {
-    return view.updateEmojiTargets {
+    return view.updateEmojiTargets(glide) {
         emojify(glide, emojis, animate)
     }
 }
@@ -78,8 +77,8 @@ class EmojiTargetScope<T : View>(val view: T) {
     }
 }
 
-inline fun <T : View, R> T.updateEmojiTargets(body: EmojiTargetScope<T>.() -> R): R {
-    clearEmojiTargets()
+inline fun <T : View, R> T.updateEmojiTargets(glide: RequestManager, body: EmojiTargetScope<T>.() -> R): R {
+    clearEmojiTargets(glide)
     val scope = EmojiTargetScope(this)
     val result = body(scope)
     setEmojiTargets(scope.targets)
@@ -87,11 +86,10 @@ inline fun <T : View, R> T.updateEmojiTargets(body: EmojiTargetScope<T>.() -> R)
 }
 
 @Suppress("UNCHECKED_CAST")
-fun View.clearEmojiTargets() {
+fun View.clearEmojiTargets(glide: RequestManager) {
     getTag(R.id.custom_emoji_targets_tag)?.let { tag ->
         val targets = tag as List<Target<Drawable>>
-        val requestManager = Glide.with(this)
-        targets.forEach { requestManager.clear(it) }
+        targets.forEach { glide.clear(it) }
         setTag(R.id.custom_emoji_targets_tag, null)
     }
 }

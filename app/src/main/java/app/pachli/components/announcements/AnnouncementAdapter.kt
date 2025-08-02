@@ -110,7 +110,7 @@ class AnnouncementAdapter(
         // hide button if announcement badge limit is already reached
         addReactionChip.visible(item.reactions.size < 8)
 
-        chips.clearEmojiTargets()
+        chips.clearEmojiTargets(glide)
         val targets = ArrayList<Target<Drawable>>(item.reactions.size)
 
         item.reactions.forEachIndexed { i, reaction ->
@@ -174,7 +174,7 @@ class AnnouncementAdapter(
     }
 
     override fun onViewRecycled(holder: BindingHolder<ItemAnnouncementBinding>) {
-        holder.binding.chipGroup.clearEmojiTargets()
+        holder.binding.chipGroup.clearEmojiTargets(glide)
     }
 
     override fun getItemCount() = items.size
