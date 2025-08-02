@@ -1,11 +1,11 @@
 Pachli on täisfunktsionaalne Mastodoni ja muude sarnaste serverite klient.
 
-• Kõik tegevused postitustega - lugemine, vastamine, filtreerimine, koostamine, lemmikuks märkimine ja korduspostitamine ehk hooandmine
-• Postituste tõlge muudest keeltest
-• Sinu ajajoon puhverdatakse kohalikku nutiseadmesse ja saad seda lugeda võrguühendust kasutamata
-• Koosta postituste kavandeid ja lõpeta neid hiljem
-• Koosta postitusi ning ajasta nende saatmine hilisemaks
-• Loe ja postita kasutades erinevaid kasutajakontosid
-• Mitmed kujundused
-• Fookuses on, et hõlbustus ja ligipääsetavus on tagatud kõigile
-• Avatud lähtekoodiga: https://github.com/pachli
+- Kõik tegevused postitustega - lugemine, vastamine, filtreerimine, koostamine, lemmikuks märkimine ja korduspostitamine ehk hooandmine
+- Postituste tõlge muudest keeltest
+- Sinu ajajoon puhverdatakse kohalikku nutiseadmesse ja saad seda lugeda võrguühendust kasutamata
+- Koosta postituste kavandeid ja lõpeta neid hiljem
+- Koosta postitusi ning ajasta nende saatmine hilisemaks
+- Loe ja postita kasutades erinevaid kasutajakontosid
+- Mitmed kujundused
+- Fookuses on, et hõlbustus ja ligipääsetavus on tagatud kõigile
+- Avatud lähtekoodiga: https://github.com/pachli

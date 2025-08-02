@@ -6,4 +6,6 @@
     <string name="node_info_error_no_software">non contiene un blocco di software</string>
     <string name="error_json_data_fmt">IL tuo server ha riportato una risposta non valida: %1$s</string>
     <string name="node_info_error_no_software_name">il nome del software è vuoto, o assente</string>
+    <string name="node_info_error_no_software_version">la versione del software è mancante, vuota o non scritta</string>
+    <string name="error_missing_content_type_fmt">il tuo server non è configurato bene, la risposta non ha nessun tipo di contenuto: %1$s</string>
 </resources>
