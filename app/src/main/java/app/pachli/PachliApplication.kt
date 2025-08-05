@@ -90,6 +90,8 @@ class PachliApplication : Application() {
         }
         Timber.plant(logEntryTree)
 
+        initGooglePlayServices()
+
         // Migrate shared preference keys and defaults from version to version.
         val oldVersion = sharedPreferencesRepository.getInt(PrefKeys.SCHEMA_VERSION, NEW_INSTALL_SCHEMA_VERSION)
         if (oldVersion != SCHEMA_VERSION) {
