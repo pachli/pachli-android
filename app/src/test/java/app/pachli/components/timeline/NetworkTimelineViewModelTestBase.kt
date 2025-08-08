@@ -23,8 +23,8 @@ import app.pachli.components.timeline.viewmodel.NetworkTimelineViewModel
 import app.pachli.components.timeline.viewmodel.TimelineViewModel
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.ContentFiltersRepository
+import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
-import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TranslatedStatusDao
 import app.pachli.core.eventhub.EventHub
@@ -92,7 +92,7 @@ abstract class NetworkTimelineViewModelTestBase {
     lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
 
     @Inject
-    lateinit var statusRepository: StatusRepository
+    lateinit var statusRepository: OfflineFirstStatusRepository
 
     @Inject
     lateinit var statusDao: StatusDao
@@ -169,7 +169,6 @@ abstract class NetworkTimelineViewModelTestBase {
             accountManager,
             statusDisplayOptionsRepository,
             sharedPreferencesRepository,
-            statusRepository,
         )
     }
 }

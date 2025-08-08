@@ -19,6 +19,7 @@ package app.pachli.components.timeline
 
 import androidx.paging.PagingData
 import androidx.paging.PagingSource
+import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.model.Timeline
 import kotlinx.coroutines.flow.Flow
 
@@ -26,7 +27,7 @@ import kotlinx.coroutines.flow.Flow
  * Common interface for a repository that provides a [PagingData] timeline of items
  * of type [T].
  */
-interface TimelineRepository<T : Any> {
+interface TimelineRepository<T : Any> : StatusRepository {
     /** @return Flow of [T] for [pachliAccountId] and [kind]. */
     suspend fun getStatusStream(pachliAccountId: Long, kind: Timeline): Flow<PagingData<T>>
 

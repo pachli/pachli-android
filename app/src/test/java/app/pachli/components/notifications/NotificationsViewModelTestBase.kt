@@ -22,8 +22,8 @@ import app.pachli.PachliApplication
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.AccountPreferenceDataStore
 import app.pachli.core.data.repository.ContentFiltersRepository
+import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
-import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.data.repository.notifications.NotificationsRepository
 import app.pachli.core.database.dao.AccountDao
 import app.pachli.core.eventhub.EventHub
@@ -96,7 +96,7 @@ abstract class NotificationsViewModelTestBase {
     lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
 
     @Inject
-    lateinit var statusRepository: StatusRepository
+    lateinit var statusRepository: OfflineFirstStatusRepository
 
     @Inject
     lateinit var accountDao: AccountDao

@@ -26,6 +26,8 @@ import app.pachli.components.timeline.TimelineRepository.Companion.PAGE_SIZE
 import app.pachli.components.timeline.viewmodel.NetworkTimelinePagingSource
 import app.pachli.components.timeline.viewmodel.NetworkTimelineRemoteMediator
 import app.pachli.components.timeline.viewmodel.PageCache
+import app.pachli.core.data.repository.OfflineFirstStatusRepository
+import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
 import app.pachli.core.model.Status
@@ -72,7 +74,8 @@ import timber.log.Timber
 class NetworkTimelineRepository @Inject constructor(
     private val mastodonApi: MastodonApi,
     private val remoteKeyDao: RemoteKeyDao,
-) : TimelineRepository<Status> {
+    private val statusRepository: OfflineFirstStatusRepository,
+) : TimelineRepository<Status>, StatusRepository by statusRepository {
     private val pageCache = PageCache()
 
     private var factory: InvalidatingPagingSourceFactory<String, Status>? = null

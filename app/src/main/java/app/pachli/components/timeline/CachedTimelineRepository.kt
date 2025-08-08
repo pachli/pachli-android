@@ -25,6 +25,8 @@ import androidx.paging.PagingData
 import app.pachli.components.timeline.TimelineRepository.Companion.PAGE_SIZE
 import app.pachli.components.timeline.viewmodel.CachedTimelineRemoteMediator
 import app.pachli.core.common.di.ApplicationScope
+import app.pachli.core.data.repository.OfflineFirstStatusRepository
+import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TimelineDao
@@ -60,7 +62,8 @@ class CachedTimelineRepository @Inject constructor(
     private val translatedStatusDao: TranslatedStatusDao,
     private val statusDao: StatusDao,
     @ApplicationScope private val externalScope: CoroutineScope,
-) : TimelineRepository<TimelineStatusWithAccount> {
+    statusRepository: OfflineFirstStatusRepository,
+) : TimelineRepository<TimelineStatusWithAccount>, StatusRepository by statusRepository {
     private var factory: InvalidatingPagingSourceFactory<Int, TimelineStatusWithAccount>? = null
 
     /** @return flow of Mastodon [TimelineStatusWithAccount. */

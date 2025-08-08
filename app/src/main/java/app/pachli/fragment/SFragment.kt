@@ -44,8 +44,8 @@ import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.ServerRepository
-import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.domain.DownloadUrlUseCase
@@ -86,7 +86,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
     lateinit var accountManager: AccountManager
 
     @Inject
-    lateinit var statusRepository: StatusRepository
+    lateinit var statusRepository: OfflineFirstStatusRepository
 
     @Inject
     lateinit var timelineCases: TimelineCases

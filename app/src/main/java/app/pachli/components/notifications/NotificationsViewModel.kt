@@ -30,9 +30,9 @@ import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.data.model.ContentFilterModel
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
-import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.data.repository.notifications.NotificationsRepository
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.eventhub.BlockEvent
@@ -393,7 +393,7 @@ class NotificationsViewModel @AssistedInject constructor(
     private val eventHub: EventHub,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
-    private val statusRepository: StatusRepository,
+    private val statusRepository: OfflineFirstStatusRepository,
     @Assisted val pachliAccountId: Long,
 ) : ViewModel() {
     private val accountFlow = accountManager.getPachliAccountFlow(pachliAccountId)
@@ -669,18 +669,21 @@ class NotificationsViewModel @AssistedInject constructor(
         .onStart { emit(null) }
 
     private fun onContentCollapsed(action: InfallibleUiAction.SetContentCollapsed) {
-        repository.setContentCollapsed(action.pachliAccountId, action.statusViewData, action.isCollapsed)
-        repository.invalidate()
+        viewModelScope.launch {
+            repository.setContentCollapsed(action.pachliAccountId, action.statusViewData.actionableId, action.isCollapsed)
+        }
     }
 
     private fun onShowingContent(action: InfallibleUiAction.SetShowingContent) {
-        repository.setShowingContent(action.pachliAccountId, action.statusViewData, action.isShowingContent)
-        repository.invalidate()
+        viewModelScope.launch {
+            repository.setContentShowing(action.pachliAccountId, action.statusViewData.actionableId, action.isShowingContent)
+        }
     }
 
     private fun onExpanded(action: InfallibleUiAction.SetExpanded) {
-        repository.setExpanded(action.pachliAccountId, action.statusViewData, action.isExpanded)
-        repository.invalidate()
+        viewModelScope.launch {
+            repository.setExpanded(action.pachliAccountId, action.statusViewData.actionableId, action.isExpanded)
+        }
     }
 
     private fun onClearContentFilter(action: InfallibleUiAction.ClearContentFilter) {

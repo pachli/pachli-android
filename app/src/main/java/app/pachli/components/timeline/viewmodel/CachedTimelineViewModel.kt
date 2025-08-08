@@ -26,7 +26,6 @@ import app.pachli.components.timeline.CachedTimelineRepository
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
-import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.eventhub.BookmarkEvent
 import app.pachli.core.eventhub.EventHub
@@ -57,7 +56,6 @@ class CachedTimelineViewModel @Inject constructor(
     accountManager: AccountManager,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     sharedPreferencesRepository: SharedPreferencesRepository,
-    statusRepository: StatusRepository,
 ) : TimelineViewModel<TimelineStatusWithAccount, CachedTimelineRepository>(
     savedStateHandle,
     timelineCases,
@@ -66,7 +64,6 @@ class CachedTimelineViewModel @Inject constructor(
     repository,
     statusDisplayOptionsRepository,
     sharedPreferencesRepository,
-    statusRepository,
 ) {
     override val statuses = pachliAccountFlow.distinctUntilChangedBy { it.id }.flatMapLatest { pachliAccount ->
         repository.getStatusStream(pachliAccount.id, timeline).map { pagingData ->
@@ -122,44 +119,41 @@ class CachedTimelineViewModel @Inject constructor(
 
     override fun onChangeExpanded(isExpanded: Boolean, statusViewData: StatusViewData) {
         viewModelScope.launch {
-            statusRepository.setExpanded(statusViewData.pachliAccountId, statusViewData.id, isExpanded)
-            repository.invalidate(statusViewData.pachliAccountId)
+            repository.setExpanded(statusViewData.pachliAccountId, statusViewData.id, isExpanded)
         }
     }
 
     override fun onChangeContentShowing(isShowing: Boolean, statusViewData: StatusViewData) {
         viewModelScope.launch {
-            statusRepository.setContentShowing(statusViewData.pachliAccountId, statusViewData.id, isShowing)
-            repository.invalidate(statusViewData.pachliAccountId)
+            repository.setContentShowing(statusViewData.pachliAccountId, statusViewData.id, isShowing)
         }
     }
 
     override fun onContentCollapsed(isCollapsed: Boolean, statusViewData: StatusViewData) {
         viewModelScope.launch {
-            statusRepository.setContentCollapsed(statusViewData.pachliAccountId, statusViewData.id, isCollapsed)
-            repository.invalidate(statusViewData.pachliAccountId)
+            repository.setContentCollapsed(statusViewData.pachliAccountId, statusViewData.id, isCollapsed)
         }
     }
 
-    override suspend fun onBookmark(action: FallibleStatusAction.Bookmark) = statusRepository.bookmark(
+    override suspend fun onBookmark(action: FallibleStatusAction.Bookmark) = repository.bookmark(
         action.statusViewData.pachliAccountId,
         action.statusViewData.actionableId,
         action.state,
     )
 
-    override suspend fun onFavourite(action: FallibleStatusAction.Favourite) = statusRepository.favourite(
+    override suspend fun onFavourite(action: FallibleStatusAction.Favourite) = repository.favourite(
         action.statusViewData.pachliAccountId,
         action.statusViewData.actionableId,
         action.state,
     )
 
-    override suspend fun onReblog(action: FallibleStatusAction.Reblog) = statusRepository.reblog(
+    override suspend fun onReblog(action: FallibleStatusAction.Reblog) = repository.reblog(
         action.statusViewData.pachliAccountId,
         action.statusViewData.actionableId,
         action.state,
     )
 
-    override suspend fun onVoteInPoll(action: FallibleStatusAction.VoteInPoll) = statusRepository.voteInPoll(
+    override suspend fun onVoteInPoll(action: FallibleStatusAction.VoteInPoll) = repository.voteInPoll(
         action.statusViewData.pachliAccountId,
         action.statusViewData.actionableId,
         action.poll.id,

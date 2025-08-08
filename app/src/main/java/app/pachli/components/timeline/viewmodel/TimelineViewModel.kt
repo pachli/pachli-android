@@ -311,7 +311,6 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
     protected val repository: R,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
-    protected val statusRepository: StatusRepository,
 ) : ViewModel() {
     /**
      * The account to load statuses for. Receiving [InfallibleUiAction.LoadPachliAccount]
