@@ -31,9 +31,9 @@ import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.data.model.ContentFilterModel
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.StatusActionError
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
-import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.eventhub.BlockEvent
 import app.pachli.core.eventhub.BookmarkEvent
 import app.pachli.core.eventhub.DomainMuteEvent
@@ -448,14 +448,14 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
                 ),
             )
 
-        // Save the visible status ID (if it's the home timeline)
+        // Save the visible status ID.
         timeline.remoteKeyTimelineId?.let { refreshKeyPrimaryKey ->
             viewModelScope.launch {
                 uiAction
                     .filterIsInstance<InfallibleUiAction.SaveVisibleId>()
                     .distinctUntilChanged()
                     .collectLatest { action ->
-                        Timber.d("setLastVisibleHomeTimelineStatusId: %d, %s", action.pachliAccountId, action.visibleId)
+                        Timber.d("timeline: $timeline, saveRefreshStatusId: %d, %s, %s", action.pachliAccountId, refreshKeyPrimaryKey, action.visibleId)
                         timelineCases.saveRefreshStatusId(action.pachliAccountId, refreshKeyPrimaryKey, action.visibleId)
                     }
             }
@@ -467,6 +467,7 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
                 .filterIsInstance<InfallibleUiAction.LoadNewest>()
                 .collectLatest { action ->
                     timeline.remoteKeyTimelineId?.let { refreshKeyPrimaryKey ->
+                        Timber.d("timeline: $timeline, saveRefreshStatusId: %d, %s, %s", action.pachliAccountId, refreshKeyPrimaryKey, null)
                         timelineCases.saveRefreshStatusId(action.pachliAccountId, refreshKeyPrimaryKey, null)
                     }
                     Timber.d("Reload because InfallibleUiAction.LoadNewest")
@@ -552,19 +553,19 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
     abstract suspend fun onUndoTranslate(action: InfallibleStatusAction.TranslateUndo)
 
     /**
-     * Sets the expanded state of [statusViewData] in [StatusRepository] to [isExpanded] and
+     * Sets the expanded state of [statusViewData] in [OfflineFirstStatusRepository] to [isExpanded] and
      * invalidates the repository.
      */
     abstract fun onChangeExpanded(isExpanded: Boolean, statusViewData: StatusViewData)
 
     /**
-     * Sets the content-showing state of [statusViewData] in [StatusRepository] to
+     * Sets the content-showing state of [statusViewData] in [OfflineFirstStatusRepository] to
      * [isShowing] and invalidates the repository.
      */
     abstract fun onChangeContentShowing(isShowing: Boolean, statusViewData: StatusViewData)
 
     /**
-     * Sets the collapsed state of [statusViewData] in [StatusRepository] to [isCollapsed] and
+     * Sets the collapsed state of [statusViewData] in [OfflineFirstStatusRepository] to [isCollapsed] and
      * invalidates the repository.
      */
     abstract fun onContentCollapsed(isCollapsed: Boolean, statusViewData: StatusViewData)
@@ -657,7 +658,7 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
                 }
             }
             is MuteEvent -> {
-                if (timeline !is Timeline.User) {
+                if (timeline !is Timeline.User && timeline !is Timeline.Bookmarks && timeline !is Timeline.Favourites) {
                     removeAllByAccountId(event.pachliAccountId, event.accountId)
                 }
             }

@@ -97,8 +97,10 @@ class CachedTimelineViewModel @Inject constructor(
         }
     }
 
-    override fun removeStatusWithId(id: String) {
-        // handled by CacheUpdater
+    override fun removeStatusWithId(statusId: String) {
+        viewModelScope.launch {
+            repository.removeStatusWithId(statusId)
+        }
     }
 
     override fun handleReblogEvent(reblogEvent: ReblogEvent) {

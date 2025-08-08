@@ -28,8 +28,8 @@ import kotlinx.coroutines.flow.Flow
  * of type [T].
  */
 interface TimelineRepository<T : Any> : StatusRepository {
-    /** @return Flow of [T] for [pachliAccountId] and [kind]. */
-    suspend fun getStatusStream(pachliAccountId: Long, kind: Timeline): Flow<PagingData<T>>
+    /** @return Flow of [T] for [pachliAccountId] and [timeline]. */
+    suspend fun getStatusStream(pachliAccountId: Long, timeline: Timeline): Flow<PagingData<T>>
 
     /** Invalidate the active paging source for [pachliAccountId], see [PagingSource.invalidate] */
     suspend fun invalidate(pachliAccountId: Long)

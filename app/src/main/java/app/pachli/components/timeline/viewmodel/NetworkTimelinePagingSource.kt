@@ -22,6 +22,7 @@ import androidx.paging.PagingSource.LoadResult
 import androidx.paging.PagingState
 import app.pachli.core.model.Status
 import javax.inject.Inject
+import kotlinx.coroutines.sync.withLock
 import timber.log.Timber
 
 private val INVALID = LoadResult.Invalid<String, Status>()
@@ -37,55 +38,48 @@ class NetworkTimelinePagingSource @Inject constructor(
 
     override suspend fun load(params: LoadParams<String>): LoadResult<String, Status> {
         Timber.d("- load(), type = %s, key = %s", params.javaClass.simpleName, params.key)
-        pageCache.debug()
+        return pageCache.withLock {
+            pageCache.debug()
 
-        val page = synchronized(pageCache) {
-            if (pageCache.isEmpty()) return@synchronized null
+            val page = run {
+                if (pageCache.isEmpty()) return@run null
 
-            when (params) {
-                is LoadParams.Refresh -> {
-                    pageCache.getPageById(params.key) ?: pageCache.firstPage
-                }
-                is LoadParams.Append -> {
-                    pageCache.getNextPage(params.key)
-                }
-                is LoadParams.Prepend -> {
-                    pageCache.getPrevPage(params.key)
+                return@run when (params) {
+                    is LoadParams.Refresh -> {
+                        pageCache.getPageById(params.key) ?: pageCache.firstPage
+                    }
+
+                    is LoadParams.Append -> {
+                        pageCache.getNextPage(params.key)
+                    }
+
+                    is LoadParams.Prepend -> {
+                        pageCache.getPrevPage(params.key)
+                    }
                 }
             }
+
+            if (page == null) {
+                Timber.d("  Returning empty page for %s", params.javaClass.simpleName)
+            } else {
+                Timber.d("  Returning full page for %s", params.javaClass.simpleName)
+                Timber.d("     %s", page)
+            }
+
+            // Bail if this paging source has already been invalidated. If you do not do this there
+            // is a lot of spurious animation, especially during the initial load, as multiple pages
+            // are loaded and the paging source is repeatedly invalidated.
+            if (invalid) {
+                Timber.d("Invalidated, returning LoadResult.Invalid for %s", params.javaClass.simpleName)
+                return INVALID
+            }
+
+            LoadResult.Page(
+                page?.data.orEmpty(),
+                nextKey = page?.nextKey,
+                prevKey = page?.prevKey,
+            )
         }
-
-        if (page == null) {
-            Timber.d("  Returning empty page for %s", params.javaClass.simpleName)
-        } else {
-            Timber.d("  Returning full page for %s", params.javaClass.simpleName)
-            Timber.d("     %s", page)
-        }
-
-        // Bail if this paging source has already been invalidated. If you do not do this there
-        // is a lot of spurious animation, especially during the initial load, as multiple pages
-        // are loaded and the paging source is repeatedly invalidated.
-        if (invalid) {
-            Timber.d("Invalidated, returning LoadResult.Invalid for %s", params.javaClass.simpleName)
-            return INVALID
-        }
-
-        // Set itemsBefore and itemsAfter values to include in the returned Page.
-        // If you do not do this (and this is not documented anywhere) then the anchorPosition
-        // in the PagingState (used in getRefreshKey) is bogus, and refreshing the list can
-        // result in large jumps in the user's position.
-        //
-        // The items are calculated relative to the local cache, not the remote data source.
-        val itemsBefore = pageCache.itemsBefore(page?.prevKey)
-        val itemsAfter = pageCache.itemsAfter(page?.nextKey)
-
-        return LoadResult.Page(
-            page?.data ?: emptyList(),
-            nextKey = page?.nextKey,
-            prevKey = page?.prevKey,
-            itemsAfter = itemsAfter,
-            itemsBefore = itemsBefore,
-        )
     }
 
     override fun getRefreshKey(state: PagingState<String, Status>): String? {

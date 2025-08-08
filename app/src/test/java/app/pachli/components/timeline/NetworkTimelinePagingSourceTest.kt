@@ -17,7 +17,6 @@
 
 package app.pachli.components.timeline
 
-import androidx.paging.LoadType
 import androidx.paging.PagingSource
 import androidx.paging.PagingSource.LoadResult
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -28,6 +27,7 @@ import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.asModel
 import app.pachli.core.testing.fakes.fakeStatus
 import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -51,8 +51,6 @@ class NetworkTimelinePagingSourceTest {
                     data = emptyList<Status>(),
                     prevKey = null,
                     nextKey = null,
-                    itemsBefore = 0,
-                    itemsAfter = 0,
                 ),
             )
     }
@@ -61,9 +59,11 @@ class NetworkTimelinePagingSourceTest {
     fun `load() for an item in a page returns the page containing that item and next, prev keys`() = runTest {
         // Given
         val pages = PageCache().apply {
-            add(Page(data = listOf(fakeStatus(id = "3")).asModel().toMutableList(), nextKey = "1", prevKey = "4"), LoadType.REFRESH)
-            add(Page(data = listOf(fakeStatus(id = "1"), fakeStatus(id = "2")).asModel().toMutableList(), nextKey = "0", prevKey = "3"), LoadType.APPEND)
-            add(Page(data = listOf(fakeStatus(id = "0")).asModel().toMutableList(), prevKey = "1"), LoadType.APPEND)
+            withLock {
+                add(Page(data = listOf(fakeStatus(id = "3")).asModel().toMutableList(), nextKey = "1", prevKey = "4"))
+                append(Page(data = listOf(fakeStatus(id = "1"), fakeStatus(id = "2")).asModel().toMutableList(), nextKey = "0", prevKey = "3"))
+                append(Page(data = listOf(fakeStatus(id = "0")).asModel().toMutableList(), prevKey = "1"))
+            }
         }
         val pagingSource = NetworkTimelinePagingSource(pages)
 
@@ -78,8 +78,6 @@ class NetworkTimelinePagingSourceTest {
                     data = listOf(fakeStatus(id = "1"), fakeStatus(id = "2")).asModel(),
                     prevKey = "3",
                     nextKey = "0",
-                    itemsBefore = 1,
-                    itemsAfter = 1,
                 ),
             )
     }
@@ -88,9 +86,11 @@ class NetworkTimelinePagingSourceTest {
     fun `append returns the page after`() = runTest {
         // Given
         val pages = PageCache().apply {
-            add(Page(data = listOf(fakeStatus(id = "2")).asModel().toMutableList(), nextKey = "1"), LoadType.REFRESH)
-            add(Page(data = listOf(fakeStatus(id = "1")).asModel().toMutableList(), nextKey = "0", prevKey = "2"), LoadType.APPEND)
-            add(Page(data = listOf(fakeStatus(id = "0")).asModel().toMutableList(), prevKey = "1"), LoadType.APPEND)
+            withLock {
+                add(Page(data = listOf(fakeStatus(id = "2")).asModel().toMutableList(), nextKey = "1"))
+                append(Page(data = listOf(fakeStatus(id = "1")).asModel().toMutableList(), nextKey = "0", prevKey = "2"))
+                append(Page(data = listOf(fakeStatus(id = "0")).asModel().toMutableList(), prevKey = "1"))
+            }
         }
         val pagingSource = NetworkTimelinePagingSource(pages)
 
@@ -105,8 +105,6 @@ class NetworkTimelinePagingSourceTest {
                     data = listOf(fakeStatus(id = "1")).asModel(),
                     prevKey = "2",
                     nextKey = "0",
-                    itemsBefore = 1,
-                    itemsAfter = 1,
                 ),
             )
     }
@@ -115,9 +113,11 @@ class NetworkTimelinePagingSourceTest {
     fun `prepend returns the page before`() = runTest {
         // Given
         val pages = PageCache().apply {
-            add(Page(data = listOf(fakeStatus(id = "2")).asModel().toMutableList(), nextKey = "1"), LoadType.REFRESH)
-            add(Page(data = listOf(fakeStatus(id = "1")).asModel().toMutableList(), nextKey = "0", prevKey = "2"), LoadType.APPEND)
-            add(Page(data = listOf(fakeStatus(id = "0")).asModel().toMutableList(), prevKey = "1"), LoadType.APPEND)
+            withLock {
+                add(Page(data = listOf(fakeStatus(id = "2")).asModel().toMutableList(), nextKey = "1"))
+                append(Page(data = listOf(fakeStatus(id = "1")).asModel().toMutableList(), nextKey = "0", prevKey = "2"))
+                append(Page(data = listOf(fakeStatus(id = "0")).asModel().toMutableList(), prevKey = "1"))
+            }
         }
         val pagingSource = NetworkTimelinePagingSource(pages)
 
@@ -132,8 +132,6 @@ class NetworkTimelinePagingSourceTest {
                     data = listOf(fakeStatus(id = "1")).asModel(),
                     prevKey = "2",
                     nextKey = "0",
-                    itemsBefore = 1,
-                    itemsAfter = 1,
                 ),
             )
     }
@@ -142,9 +140,11 @@ class NetworkTimelinePagingSourceTest {
     fun `Refresh with null key returns the latest page`() = runTest {
         // Given
         val pages = PageCache().apply {
-            add(Page(data = listOf(fakeStatus(id = "2")).asModel().toMutableList(), nextKey = "1"), LoadType.REFRESH)
-            add(Page(data = listOf(fakeStatus(id = "1")).asModel().toMutableList(), nextKey = "0", prevKey = "2"), LoadType.APPEND)
-            add(Page(data = listOf(fakeStatus(id = "0")).asModel().toMutableList(), prevKey = "1"), LoadType.APPEND)
+            withLock {
+                add(Page(data = listOf(fakeStatus(id = "2")).asModel().toMutableList(), nextKey = "1"))
+                append(Page(data = listOf(fakeStatus(id = "1")).asModel().toMutableList(), nextKey = "0", prevKey = "2"))
+                append(Page(data = listOf(fakeStatus(id = "0")).asModel().toMutableList(), prevKey = "1"))
+            }
         }
         val pagingSource = NetworkTimelinePagingSource(pages)
 
@@ -159,8 +159,6 @@ class NetworkTimelinePagingSourceTest {
                     data = listOf(fakeStatus(id = "2")).asModel(),
                     prevKey = null,
                     nextKey = "1",
-                    itemsBefore = 0,
-                    itemsAfter = 2,
                 ),
             )
     }
@@ -169,8 +167,10 @@ class NetworkTimelinePagingSourceTest {
     fun `Append with a too-old key returns empty list`() = runTest {
         // Given
         val pages = PageCache().apply {
-            add(Page(data = listOf(fakeStatus(id = "20")).asModel().toMutableList(), nextKey = "10"), LoadType.REFRESH)
-            add(Page(data = listOf(fakeStatus(id = "10")).asModel().toMutableList(), prevKey = "20"), LoadType.APPEND)
+            withLock {
+                add(Page(data = listOf(fakeStatus(id = "20")).asModel().toMutableList(), nextKey = "10"))
+                append(Page(data = listOf(fakeStatus(id = "10")).asModel().toMutableList(), prevKey = "20"))
+            }
         }
         val pagingSource = NetworkTimelinePagingSource(pages)
 
@@ -186,8 +186,6 @@ class NetworkTimelinePagingSourceTest {
                     data = emptyList(),
                     prevKey = null,
                     nextKey = null,
-                    itemsBefore = 0,
-                    itemsAfter = 0,
                 ),
             )
     }
@@ -196,8 +194,10 @@ class NetworkTimelinePagingSourceTest {
     fun `Prepend with a too-new key returns empty list`() = runTest {
         // Given
         val pages = PageCache().apply {
-            add(Page(data = listOf(fakeStatus(id = "20")).asModel().toMutableList(), nextKey = "10"), LoadType.REFRESH)
-            add(Page(data = listOf(fakeStatus(id = "10")).asModel().toMutableList(), prevKey = "20"), LoadType.APPEND)
+            withLock {
+                add(Page(data = listOf(fakeStatus(id = "20")).asModel().toMutableList(), nextKey = "10"))
+                append(Page(data = listOf(fakeStatus(id = "10")).asModel().toMutableList(), prevKey = "20"))
+            }
         }
         val pagingSource = NetworkTimelinePagingSource(pages)
 
@@ -213,8 +213,6 @@ class NetworkTimelinePagingSourceTest {
                     data = emptyList(),
                     prevKey = null,
                     nextKey = null,
-                    itemsBefore = 0,
-                    itemsAfter = 0,
                 ),
             )
     }
