@@ -90,14 +90,17 @@ private fun Project.configureKotlin() {
             // Override by setting warningsAsErrors=true in your ~/.gradle/gradle.properties
             val warningsAsErrors: String? by project
             allWarningsAsErrors = warningsAsErrors.toBoolean()
-            freeCompilerArgs.addAll(
-                "-opt-in=kotlin.RequiresOptIn",
+            optIn.addAll(
+                "kotlin.RequiresOptIn",
                 // Enable experimental coroutines APIs, including Flow
-                "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-                "-opt-in=kotlinx.coroutines.FlowPreview",
+                "kotlinx.coroutines.ExperimentalCoroutinesApi",
+                "kotlinx.coroutines.FlowPreview",
+            )
+            freeCompilerArgs.addAll(
                 // https://kotlinlang.org/docs/whatsnew1520.html#support-for-jspecify-nullness-annotations
                 "-Xtype-enhancement-improvements-strict-mode",
                 "-Xjspecify-annotations=strict",
+                "-Xannotation-default-target=param-property",
             )
         }
     }

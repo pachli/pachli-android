@@ -27,7 +27,8 @@ subprojects {
 
     tasks.named<KotlinCompilationTask<*>>("compileKotlin").configure {
         compilerOptions {
-            freeCompilerArgs.add("-opt-in=kotlin.RequiresOptIn")
+            optIn.addAll("kotlin.RequiresOptIn")
+            freeCompilerArgs.addAll("-Xannotation-default-target=param-property")
         }
     }
 
