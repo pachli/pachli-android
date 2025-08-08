@@ -90,3 +90,10 @@ data class Attachment(
         return !(meta?.original?.width == null && meta?.small?.width == null)
     }
 }
+
+/**
+ * @return True if all [Attachment] are previewable.
+ *
+ * @see Attachment.isPreviewable
+ */
+fun Iterable<Attachment>.arePreviewable() = all { it.isPreviewable() }
