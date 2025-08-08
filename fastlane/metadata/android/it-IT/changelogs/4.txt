@@ -1,0 +1,5 @@
+Pachli 1.2.1
+
+Nuove funzionalità:
+
+-  Collegamento alla politica sulla riservatezza da "Info su"
