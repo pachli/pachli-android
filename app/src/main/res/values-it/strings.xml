@@ -7,7 +7,7 @@
     <string name="error_media_upload_opening">Non è stato possibile aprire quel file.</string>
     <string name="error_media_upload_permission">È richiesto il permesso di leggere file.</string>
     <string name="error_media_download_permission">È richiesto il permesso di salvare file.</string>
-    <string name="error_media_upload_image_or_video">Non è possibile allegare nello stesso messaggio immagini e video.</string>
+    <string name="error_media_upload_image_or_video">non è possibile allegare nello stesso messaggio immagini e video.</string>
     <string name="error_media_upload_sending">Il caricamento è fallito.</string>
     <string name="error_sender_account_gone">Errore nell\'invio del messaggio.</string>
     <string name="title_home">Home</string>
