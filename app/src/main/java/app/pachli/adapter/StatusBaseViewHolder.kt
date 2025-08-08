@@ -30,6 +30,7 @@ import app.pachli.core.model.Attachment
 import app.pachli.core.model.Emoji
 import app.pachli.core.model.PreviewCardKind
 import app.pachli.core.model.Status
+import app.pachli.core.model.arePreviewable
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.ViewMediaActivityIntent
 import app.pachli.core.network.parseAsMastodonHtml
@@ -722,7 +723,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
                 actionable.attachments
             }
             val sensitive = actionable.sensitive
-            if (statusDisplayOptions.mediaPreviewEnabled && hasPreviewableAttachment(attachments)) {
+            if (statusDisplayOptions.mediaPreviewEnabled && attachments.arePreviewable()) {
                 setMediaPreviews(
                     viewData,
                     attachments,
@@ -952,16 +953,6 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
     }
 
     companion object {
-        /**
-         * @return True if all [attachments] are previewable.
-         *
-         * @see Attachment.isPreviewable
-         */
-        @JvmStatic
-        protected fun hasPreviewableAttachment(attachments: List<Attachment>): Boolean {
-            return attachments.all { it.isPreviewable() }
-        }
-
         /** @return "{account.username} boosted", for use in a content description. */
         private fun getReblogDescription(context: Context, status: IStatusViewData): String? {
             return status.rebloggingStatus?.let {

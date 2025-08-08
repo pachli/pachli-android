@@ -27,6 +27,7 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.util.SmartLengthInputFilter
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.model.ConversationAccount
+import app.pachli.core.model.arePreviewable
 import app.pachli.core.ui.SetStatusContent
 import app.pachli.core.ui.loadAvatar
 import app.pachli.databinding.ItemConversationBinding
@@ -61,7 +62,7 @@ class ConversationViewHolder internal constructor(
             setIsReply(inReplyToId != null)
             setFavourited(favourited)
             setBookmarked(bookmarked)
-            if (statusDisplayOptions.mediaPreviewEnabled && hasPreviewableAttachment(attachments)) {
+            if (statusDisplayOptions.mediaPreviewEnabled && attachments.arePreviewable()) {
                 setMediaPreviews(
                     viewData,
                     attachments,
