@@ -67,7 +67,6 @@ class ConversationViewHolder internal constructor(
                     attachments,
                     sensitive,
                     listener,
-                    viewData.isShowingContent,
                     statusDisplayOptions.useBlurhash,
                 )
                 if (attachments.isEmpty()) {

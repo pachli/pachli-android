@@ -483,7 +483,6 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
         attachments: List<Attachment>,
         sensitive: Boolean,
         listener: StatusActionListener<T>,
-        showingContent: Boolean,
         useBlurhash: Boolean,
     ) {
         mediaPreview.visibility = View.VISIBLE
@@ -492,6 +491,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
             val attachment = attachments[i]
             val previewUrl = attachment.previewUrl
             val description = attachment.description
+            val showingMedia = viewData.isShowingContent
             val hasDescription = !TextUtils.isEmpty(description)
             if (hasDescription) {
                 imageView.contentDescription = description
@@ -500,12 +500,12 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
             }
             loadImage(
                 imageView,
-                if (showingContent) previewUrl else null,
+                if (showingMedia) previewUrl else null,
                 attachment.meta?.focus,
                 if (useBlurhash) attachment.blurhash else null,
             )
             val type = attachment.type
-            if (showingContent && type.isPlayable()) {
+            if (showingMedia && type.isPlayable()) {
                 imageView.foreground = AppCompatResources.getDrawable(context, R.drawable.play_indicator_overlay)
             } else {
                 imageView.foreground = null
@@ -516,10 +516,10 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
             } else {
                 sensitiveMediaWarning.setText(R.string.post_media_hidden_title)
             }
-            sensitiveMediaWarning.visibility = if (showingContent) View.GONE else View.VISIBLE
-            sensitiveMediaShow.visibility = if (showingContent) View.VISIBLE else View.GONE
+            sensitiveMediaWarning.visibility = if (showingMedia) View.GONE else View.VISIBLE
+            sensitiveMediaShow.visibility = if (showingMedia) View.VISIBLE else View.GONE
             descriptionIndicator.visibility =
-                if (hasDescription && showingContent) View.VISIBLE else View.GONE
+                if (hasDescription && showingMedia) View.VISIBLE else View.GONE
             sensitiveMediaShow.setOnClickListener { v: View ->
                 listener.onContentHiddenChange(viewData, false)
                 v.visibility = View.GONE
@@ -728,7 +728,6 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
                     attachments,
                     sensitive,
                     listener,
-                    viewData.isShowingContent,
                     statusDisplayOptions.useBlurhash,
                 )
                 if (attachments.isEmpty()) {
