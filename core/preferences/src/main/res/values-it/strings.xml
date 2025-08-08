@@ -36,4 +36,6 @@
     <string name="pref_title_import_settings">Importa impostazioni</string>
     <string name="pref_default_audio_playback_option_unmuted">Hai riattivato il tuo microfono.</string>
     <string name="pref_default_audio_playback_option_muted">Muto</string>
+    <string name="pref_summary_export_settings">Tocca per salvare le impostazioni dell’app e dell’account su un file locale</string>
+    <string name="pref_summary_import_settings">Tocca per reimpostare le impostazioni da un file creato usando “Esporta impostazioni”</string>
 </resources>
