@@ -10,4 +10,6 @@
     <string name="error_login_failed_hint_multiple">Clicca lo stesso account per provare di nuovo, oppure un account diverso per accedere con quello.</string>
     <string name="action_choose_another_account">Scegli un altro account</string>
     <string name="title_error_mime_type">Tipo non riconosciuto</string>
+    <string name="error_set_active_account">Tentativo di accesso fallito con il seguente errore: %1$s</string>
+    <string name="error_refresh_account">L’aggiornamento dell’account è fallito con il seguente errore: %1$s\n\nPuoi continuare, ma le tue liste e i filtri potrebbero essere incompleti.</string>
 </resources>
