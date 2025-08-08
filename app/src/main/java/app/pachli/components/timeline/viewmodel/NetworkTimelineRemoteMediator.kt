@@ -24,6 +24,7 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import app.pachli.BuildConfig
 import app.pachli.core.database.dao.RemoteKeyDao
+import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
 import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
@@ -36,6 +37,7 @@ import com.github.michaelbull.result.get
 import com.github.michaelbull.result.getOrElse
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.sync.withLock
 import okhttp3.Headers
 import timber.log.Timber
 
@@ -59,56 +61,104 @@ class NetworkTimelineRemoteMediator(
     private val remoteKeyDao: RemoteKeyDao,
 ) : RemoteMediator<String, Status>() {
     override suspend fun load(loadType: LoadType, state: PagingState<String, Status>): MediatorResult {
-        val page = when (loadType) {
-            LoadType.REFRESH -> {
-                // Find the closest page to the current position
-                val itemKey = timeline.remoteKeyTimelineId?.let { refreshKeyPrimaryKey ->
-                    remoteKeyDao.remoteKeyForKind(pachliAccountId, refreshKeyPrimaryKey, RemoteKeyKind.REFRESH)?.key
-                } ?: state.anchorPosition?.let { state.closestItemToPosition(it) }?.id?.let { ik ->
-                    // Find the page that contains the item, so the remote key can be determined
-                    val pageContainingItem = pageCache.getPageById(ik)
+        Timber.d("timeline: $timeline, load(), type: $loadType")
 
-                    // Double check the item appears in the page
-                    if (BuildConfig.DEBUG) {
-                        pageContainingItem ?: throw java.lang.IllegalStateException("page with $ik not found")
-                        pageContainingItem.data.find { it.id == ik }
-                            ?: throw java.lang.IllegalStateException("$ik not found in returned page, might be Mastodon bug https://github.com/mastodon/mastodon/issues/30172")
+        return pageCache.withLock {
+            val remoteKeyTimelineId = timeline.remoteKeyTimelineId
+
+            val page = when (loadType) {
+                LoadType.REFRESH -> {
+                    // Find the itemkey. This may be legitimately null if there is no key,
+                    // or the user is performing a "Load newest" operation.
+                    val itemKey = if (remoteKeyTimelineId != null) {
+                        remoteKeyDao.remoteKeyForKind(pachliAccountId, remoteKeyTimelineId, RemoteKeyKind.REFRESH)?.key
+                    } else {
+                        state.anchorPosition?.let { state.closestItemToPosition(it) }?.id?.let { ik ->
+                            // Find the page that contains the item, so the remote key can be determined
+                            val pageContainingItem = pageCache.getPageById(ik)
+
+                            // Double check the item appears in the page
+                            if (BuildConfig.DEBUG) {
+                                pageContainingItem ?: throw java.lang.IllegalStateException("page with $ik not found")
+                                pageContainingItem.data.find { it.id == ik }
+                                    ?: throw java.lang.IllegalStateException("$ik not found in returned page, might be Mastodon bug https://github.com/mastodon/mastodon/issues/30172")
+                            }
+
+                            // The desired key is the prevKey of the page immediately before this one
+                            pageCache.getPrevPage(pageContainingItem?.prevKey)?.prevKey
+                        }
                     }
-
-                    // The desired key is the prevKey of the page immediately before this one
-                    pageCache.getPrevPage(pageContainingItem?.prevKey)?.prevKey
+                    Timber.d("timeline: $timeline, itemKey: $itemKey")
+                    Page.tryFrom(getInitialPage(itemKey, state.config.initialLoadSize))
                 }
-                Page.tryFrom(getInitialPage(itemKey, state.config.initialLoadSize))
-            }
-            LoadType.APPEND -> {
-                val key = pageCache.lastPage?.nextKey ?: return MediatorResult.Success(endOfPaginationReached = true)
-                Page.tryFrom(fetchStatusPageByKind(loadType, key, state.config.pageSize))
-            }
-            LoadType.PREPEND -> {
-                val key = pageCache.firstPage?.prevKey ?: return MediatorResult.Success(endOfPaginationReached = true)
-                Page.tryFrom(fetchStatusPageByKind(loadType, key, state.config.pageSize))
-            }
-        }.getOrElse { return MediatorResult.Error(it.throwable) }
 
-        Timber.d("- load(), type = %s", loadType)
+                LoadType.APPEND -> {
+                    val key = pageCache.lastPage?.nextKey ?: return MediatorResult.Success(endOfPaginationReached = true)
+                    Page.tryFrom(fetchStatusPageByKind(loadType, key, state.config.pageSize))
+                }
 
-        val endOfPaginationReached = page.data.isEmpty()
-        if (!endOfPaginationReached) {
-            synchronized(pageCache) {
-                pageCache.add(page, loadType)
-                Timber.d(
-                    "  Page %s complete for %s, now got %d pages",
-                    loadType,
-                    timeline,
-                    pageCache.size,
-                )
-                pageCache.debug()
+                LoadType.PREPEND -> {
+                    val key = pageCache.firstPage?.prevKey ?: return MediatorResult.Success(endOfPaginationReached = true)
+                    Page.tryFrom(fetchStatusPageByKind(loadType, key, state.config.pageSize))
+                }
+            }.getOrElse { return MediatorResult.Error(it.throwable) }
+
+            Timber.d("- $timeline, load(), type = %s, items: %d", loadType, page.data.size)
+            Timber.d("  $timeline, first id: ${page.data.firstOrNull()?.id}")
+            Timber.d("  $timeline, last  id: ${page.data.lastOrNull()?.id}")
+
+            val endOfPaginationReached = when (loadType) {
+                LoadType.REFRESH -> page.data.isEmpty() || (page.prevKey == null && page.nextKey == null)
+                LoadType.PREPEND -> page.data.isEmpty() || page.prevKey == null
+                LoadType.APPEND -> page.data.isEmpty() || page.nextKey == null
             }
+
+            when (loadType) {
+                LoadType.REFRESH -> {
+                    remoteKeyTimelineId?.let { timelineId ->
+                        remoteKeyDao.deletePrevNext(pachliAccountId, timelineId)
+                        remoteKeyDao.upsert(
+                            RemoteKeyEntity(pachliAccountId, timelineId, RemoteKeyKind.NEXT, page.nextKey),
+                        )
+                        remoteKeyDao.upsert(
+                            RemoteKeyEntity(pachliAccountId, timelineId, RemoteKeyKind.PREV, page.prevKey),
+                        )
+                    }
+                    pageCache.clear()
+                    if (page.data.isNotEmpty()) pageCache.add(page)
+                }
+
+                LoadType.PREPEND -> {
+                    if (remoteKeyTimelineId != null && page.prevKey != null) {
+                        remoteKeyDao.upsert(
+                            RemoteKeyEntity(pachliAccountId, remoteKeyTimelineId, RemoteKeyKind.PREV, page.prevKey),
+                        )
+                    }
+                    if (page.data.isNotEmpty()) pageCache.prepend(page)
+                }
+
+                LoadType.APPEND -> {
+                    if (remoteKeyTimelineId != null && page.nextKey != null) {
+                        remoteKeyDao.upsert(
+                            RemoteKeyEntity(pachliAccountId, remoteKeyTimelineId, RemoteKeyKind.NEXT, page.nextKey),
+                        )
+                    }
+                    if (page.data.isNotEmpty()) pageCache.append(page)
+                }
+            }
+            Timber.d(
+                "  Page %s complete for %s, now got %d pages",
+                loadType,
+                timeline,
+                pageCache.size,
+            )
+            pageCache.debug()
+
             Timber.d("  Invalidating paging source")
             factory.invalidate()
-        }
 
-        return MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
+            MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
+        }
     }
 
     /**
@@ -126,6 +176,14 @@ class NetworkTimelineRemoteMediator(
         return when (timeline) {
             Timeline.Home -> getPageAround(statusId, pageSize) { maxId, minId, limit ->
                 api.homeTimeline(minId = minId, maxId = maxId, limit = limit)
+            }
+
+            Timeline.PublicLocal -> getPageAround(statusId, pageSize) { maxId, minId, limit ->
+                api.publicTimeline(local = true, minId = minId, maxId = maxId, limit = limit)
+            }
+
+            Timeline.PublicFederated -> getPageAround(statusId, pageSize) { maxId, minId, limit ->
+                api.publicTimeline(local = false, minId = minId, maxId = maxId, limit = limit)
             }
 
             is Timeline.UserList -> getPageAround(statusId, pageSize) { maxId, minId, limit ->
@@ -152,6 +210,7 @@ class NetworkTimelineRemoteMediator(
         pageSize: Int,
         fetchPage: FetchPage,
     ): ApiResult<List<NetworkStatus>> = coroutineScope {
+        Timber.d("timeline: $timeline, getPageAround, statusId: $statusId")
         statusId ?: return@coroutineScope fetchPage(null, null, pageSize)
 
         val status = async { api.status(statusId = statusId) }
@@ -171,6 +230,8 @@ class NetworkTimelineRemoteMediator(
             .add("link: </?max_id=$maxId>; rel=\"next\", </?min_id=$minId>; rel=\"prev\"")
             .build()
 
+        Timber.d("timeline: $timeline, getPageAround, first id: ${statuses.firstOrNull()?.id}")
+        Timber.d("timeline: $timeline, getPageAround, last  id: ${statuses.lastOrNull()?.id}")
         return@coroutineScope Ok(ApiResponse(headers, statuses, 200))
     }
 
@@ -185,6 +246,7 @@ class NetworkTimelineRemoteMediator(
             LoadType.PREPEND -> Pair(null, key)
         }
 
+        Timber.d("timeline: $timeline, fetchStatusPageByKind: loadType: $loadType, maxId: $maxId, minId: $minId")
         return when (timeline) {
             Timeline.Bookmarks -> api.bookmarks(maxId = maxId, minId = minId, limit = loadSize)
             Timeline.Favourites -> api.favourites(maxId = maxId, minId = minId, limit = loadSize)

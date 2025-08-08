@@ -22,6 +22,7 @@ import androidx.paging.InvalidatingPagingSourceFactory
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import androidx.paging.filter
 import app.pachli.components.timeline.TimelineRepository.Companion.PAGE_SIZE
 import app.pachli.components.timeline.viewmodel.CachedTimelineRemoteMediator
 import app.pachli.core.common.di.ApplicationScope
@@ -38,10 +39,12 @@ import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.retrofit.MastodonApi
+import app.pachli.core.ui.getDomain
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -66,6 +69,33 @@ class CachedTimelineRepository @Inject constructor(
 ) : TimelineRepository<TimelineStatusWithAccount>, StatusRepository by statusRepository {
     private var factory: InvalidatingPagingSourceFactory<Int, TimelineStatusWithAccount>? = null
 
+    /**
+     * Domains that should be (temporarily) removed from the timeline because the user
+     * has blocked them.
+     *
+     * The server performs the block asynchronously, this is used to perform post-load
+     * filtering on the statuses to apply the block locally as a stop-gap.
+     */
+    private val hiddenDomains = mutableSetOf<String>()
+
+    /**
+     * Status IDs that should be (temporarily) removed from the timeline because the user
+     * has blocked them.
+     *
+     * The server performs the block asynchronously, this is used to perform post-load
+     * filtering on the statuses to apply the block locally as a stop-gap.
+     */
+    private val hiddenStatuses = mutableSetOf<String>()
+
+    /**
+     * Account IDs that should be (temporarily) removed from the timeline because the user
+     * has blocked them.
+     *
+     * The server performs the block asynchronously, this is used to perform post-load
+     * filtering on the statuses to apply the block locally as a stop-gap.
+     */
+    private val hiddenAccounts = mutableSetOf<String>()
+
     /** @return flow of Mastodon [TimelineStatusWithAccount. */
     @OptIn(ExperimentalPagingApi::class)
     override suspend fun getStatusStream(
@@ -82,6 +112,10 @@ class CachedTimelineRepository @Inject constructor(
 
         Timber.d("initialKey: %s is row: %d", initialKey, row)
 
+        hiddenDomains.clear()
+        hiddenStatuses.clear()
+        hiddenAccounts.clear()
+
         return Pager(
             initialKey = row,
             config = PagingConfig(
@@ -97,7 +131,16 @@ class CachedTimelineRepository @Inject constructor(
                 statusDao,
             ),
             pagingSourceFactory = factory!!,
-        ).flow
+        ).flow.map { pagingData ->
+            pagingData.filter { status ->
+                !hiddenStatuses.contains(status.status.serverId) &&
+                    !hiddenStatuses.contains(status.status.reblogServerId) &&
+                    !hiddenAccounts.contains(status.status.authorServerId) &&
+                    !hiddenAccounts.contains(status.status.reblogAccountId) &&
+                    !hiddenDomains.contains(getDomain(status.account.url)) &&
+                    !hiddenDomains.contains(getDomain(status.reblogAccount?.url))
+            }
+        }
     }
 
     /** Invalidate the active paging source, see [androidx.paging.PagingSource.invalidate] */
@@ -127,13 +170,20 @@ class CachedTimelineRepository @Inject constructor(
 
     /** Remove all statuses authored/boosted by the given account, for the active account */
     suspend fun removeAllByAccountId(pachliAccountId: Long, accountId: String) = externalScope.launch {
+        hiddenAccounts.add(accountId)
         timelineDao.removeAllByUser(pachliAccountId, accountId)
     }.join()
 
     /** Remove all statuses from the given instance, for the active account */
     suspend fun removeAllByInstance(pachliAccountId: Long, instance: String) = externalScope.launch {
+        hiddenDomains.add(instance)
         timelineDao.deleteAllFromInstance(pachliAccountId, instance)
     }.join()
+
+    fun removeStatusWithId(statusId: String) {
+        hiddenStatuses.add(statusId)
+        factory?.invalidate()
+    }
 
     /** Clear the warning (remove the "filtered" setting) for the given status, for the active account */
     suspend fun clearStatusWarning(pachliAccountId: Long, statusId: String) = externalScope.launch {

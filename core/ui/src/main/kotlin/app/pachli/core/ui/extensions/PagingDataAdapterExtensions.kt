@@ -19,6 +19,7 @@ import androidx.paging.LoadState
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.runningFold
 import kotlinx.coroutines.flow.take
 
@@ -33,8 +34,11 @@ suspend fun <T : Any, VH : RecyclerView.ViewHolder> PagingDataAdapter<T, VH>.pos
 ) {
     val initial: Pair<LoadState?, LoadState?> = Pair(null, null)
     loadStateFlow
-        .runningFold(initial) { prev, next -> prev.second to next.prepend }
-        .filter { it.first is LoadState.Loading && it.second is LoadState.NotLoading }
-        .take(1)
+        .map { it.prepend }
+        .runningFold(initial) { prev, next -> prev.second to next }
+        .filter {
+            (it.first is LoadState.Loading && it.second is LoadState.NotLoading) ||
+                (it.second is LoadState.NotLoading && it.second!!.endOfPaginationReached)
+        }.take(1)
         .collect { action() }
 }

@@ -22,6 +22,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import app.pachli.core.database.AppDatabase
 import app.pachli.core.database.Converters
 import app.pachli.core.database.di.DatabaseModule
+import app.pachli.core.database.di.InvalidationTracker
 import app.pachli.core.database.di.TransactionProvider
 import com.squareup.moshi.Moshi
 import dagger.Module
@@ -49,6 +50,10 @@ object FakeDatabaseModule {
     @Provides
     @Singleton
     fun provideTransactionProvider(appDatabase: AppDatabase) = TransactionProvider(appDatabase)
+
+    @Provides
+    @Singleton
+    fun provideInvalidationTracker(appDatabase: AppDatabase) = InvalidationTracker(appDatabase)
 
     @Provides
     fun provideAccountDao(appDatabase: AppDatabase) = appDatabase.accountDao()

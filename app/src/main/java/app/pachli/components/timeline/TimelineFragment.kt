@@ -37,6 +37,8 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.viewmodel.MutableCreationExtras
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
+import androidx.paging.LoadStateAdapter
+import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
@@ -100,10 +102,10 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
@@ -226,43 +228,72 @@ class TimelineFragment :
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            // Position restoration happens at CREATED so it runs once at the Fragment
+            // start, not every time the Fragment resumes / becomes visible.
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.CREATED) {
                 launch {
-                    // Wait for the initial refresh key and the first page load. If
-                    // the initial refresh key is null then schedule a jump to the top
-                    // after all pages have been loaded. Otherwise restore the user's
-                    // reading position after the first page load so any remaining page
-                    // loads keep it in focus.
-                    viewModel.initialRefreshStatusId.combine(adapter.onPagesUpdatedFlow.conflate()) { statusId, _ -> statusId }
-                        .filter { adapter.snapshot().isNotEmpty() }
-                        .take(1)
-                        .collect { statusId ->
-                            // User's reading position is either not restored, or it is and it was
-                            // explicitly nulled. Jump to the top of the timeline when all
-                            // prepends have finished.
-                            if (statusId == null) {
-                                adapter.postPrepend {
-                                    binding.recyclerView.post {
-                                        getView() ?: return@post
-                                        binding.recyclerView.scrollToPosition(0)
-                                    }
-                                }
-                                return@collect
-                            }
+                    if (timeline.remoteKeyTimelineId == null) {
+                        // Reading position is not restored. Jump to the top of the list
+                        // when prepending completes.
+                        adapter.postPrepend {
+                            Timber.d("timeline: $timeline, scrolling to 0 because null remoteKeyTimelineId")
+                            binding.recyclerView.scrollToPosition(0)
+                        }
+                    } else {
+                        // Reading position is restored. Can't use loadStateFlow here as it
+                        // generally updates too late -- by the time the refresh is emitted
+                        // the prepend might have started and the UI is already updated. This
+                        // results in jerky scrolling around the list as the position is
+                        // restored.
+                        //
+                        // However, onPagesUpdateFlow appears to update sooner, so the position
+                        // of the list can be set before it is first displayed, and the UI
+                        // updates smoothly.
+                        viewModel.initialRefreshStatusId.combine(adapter.onPagesUpdatedFlow) { statusId, _ -> Pair(statusId, adapter.snapshot()) }
+                            // Logging shows that some initial updated pages may be empty or may not
+                            // contain the ID we expect (no idea how that can happen). Filter those
+                            // out.
+                            .onEach { (statusId, _) -> Timber.d("timeline: $timeline, Checking contains $statusId") }
+                            .map { (statusId, snapshot) -> Triple(statusId, snapshot, snapshot.indexOfFirst { it?.id == statusId }) }
+                            .filter { (_, _, index) -> index != -1 }
+                            // Only going to restore the position manually once over the lifetime of this
+                            // fragment. Other position restoration is handled by the RecyclerView.
+                            .take(1)
+                            .collect { (statusId, snapshot, index) ->
+                                Timber.d("timeline: $timeline, snapshot.size: ${snapshot.size}")
+                                Timber.d("timeline: $timeline, snapshot.items.size: ${snapshot.items.size}")
+                                Timber.d("timeline: $timeline, snapshot.items.first id: ${snapshot.items.firstOrNull()?.id}")
+                                Timber.d("timeline: $timeline, snapshot.items.last  id: ${snapshot.items.lastOrNull()?.id}")
+                                Timber.d("timeline: $timeline, placeholdersBefore: ${snapshot.placeholdersBefore}")
 
-                            // Restore the user's reading position now.
-                            val snapshot = adapter.snapshot()
-                            val index = snapshot.items.indexOfFirst { it.id == statusId }
-                            val position = snapshot.placeholdersBefore + index
-                            Timber.d("Restoring last position, statusId: $statusId, index: $index, position: $position")
-                            binding.recyclerView.post {
-                                getView() ?: return@post
+                                // If the recyclerview is using a ConcatAdapter to display a progress spinner while
+                                // loads are happening, and a load is happening, then we need to offset the found
+                                // position by 1 to account for it, otherwise the position is restored one item
+                                // too early.
+                                val offset = if (((binding.recyclerView.adapter as? ConcatAdapter)?.adapters?.firstOrNull() as? LoadStateAdapter)?.loadState is LoadState.NotLoading) {
+                                    0
+                                } else {
+                                    1
+                                }
+                                Timber.d("timeline: $timeline, offset: $offset")
+
+                                val position = index + offset
+                                Timber.d("timeline: $timeline, flow: Restoring last position, statusId: $statusId, index: $index, position: $position")
+                                Timber.d("timeline: $timeline, scrolling to $position because restoring position")
                                 binding.recyclerView.scrollToPosition(position)
                             }
-                        }
+                    }
                 }
+            }
+        }
 
-                launch { viewModel.statuses.collectLatest { adapter.submitData(it) } }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    viewModel.statuses.collect {
+                        adapter.submitData(it)
+                    }
+                }
 
                 launch { viewModel.uiResult.collect(::bindUiResult) }
 
@@ -355,6 +386,7 @@ class TimelineFragment :
                         adapter.postPrepend {
                             binding.recyclerView.post {
                                 view ?: return@post
+                                Timber.d("timeline: $timeline, scrolling to 0 because LoadNewest completed")
                                 binding.recyclerView.scrollToPosition(0)
                             }
                         }
@@ -446,6 +478,18 @@ class TimelineFragment :
         }
     }
 
+    /**
+     * Returns the top-most status on the screen that starts on the screen.
+     *
+     * If one or more statuses are fully visible then this is the first fully
+     * visible status.
+     *
+     * Otherwise the screen is showing two statuses where the first status
+     * starts off the top of the screen and the second status runs off the
+     * bottom of the screen. In this case return the the second status.
+     *
+     * May return null if no statuses are showing.
+     */
     private fun getFirstVisibleStatus() = (
         layoutManager.findFirstCompletelyVisibleItemPosition()
             .takeIf { it != RecyclerView.NO_POSITION }
@@ -456,19 +500,12 @@ class TimelineFragment :
     /**
      * Saves the ID of the first visible status as the reading position.
      *
-     * If null then the ID of the best status is used.
+     * Does nothing if [timeline.remoteKeyTimelineId][Timeline.remoteKeyTimelineId] is null.
      *
-     * The best status is the first completely visible status, if available. We assume the user
-     * has read this far, or will recognise it on return.
-     *
-     * However, there may not be a completely visible status. E.g., the user is viewing one
-     * status that is longer the the height of the screen, or the user is at the midpoint of
-     * two statuses that are each longer than half the height of the screen.
-     *
-     * In this case the best status is the last partially visible status, as we can assume the
-     * user has read this far.
+     * @see [getFirstVisibleStatus]
      */
     fun saveVisibleId() {
+        if (timeline.remoteKeyTimelineId == null) return
         val id = getFirstVisibleStatus()?.id
         if (BuildConfig.DEBUG && id == null) {
             Toast.makeText(requireActivity(), "Could not find ID of item to save", LENGTH_LONG).show()
@@ -536,6 +573,7 @@ class TimelineFragment :
             adapter.postPrepend {
                 binding.recyclerView.post {
                     view ?: return@post
+                    Timber.d("scrolling up by -30px because peeking after refresh")
                     binding.recyclerView.smoothScrollBy(
                         0,
                         Utils.dpToPx(requireContext(), -30),
@@ -718,6 +756,7 @@ class TimelineFragment :
         if (isAdded) {
             when (viewModel.uiState.value.tabTapBehaviour) {
                 TabTapBehaviour.JUMP_TO_NEXT_PAGE -> {
+                    Timber.d("timeline: $timeline, scroll to 0 because onReselect")
                     binding.recyclerView.scrollToPosition(0)
                     binding.recyclerView.stopScroll()
                     saveVisibleId()

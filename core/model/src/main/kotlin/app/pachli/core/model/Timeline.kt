@@ -58,11 +58,17 @@ sealed class Timeline : Parcelable {
 
     /** Federated timeline */
     @TypeLabel("federated")
-    data object PublicFederated : Timeline()
+    data object PublicFederated : Timeline() {
+        @IgnoredOnParcel
+        override val remoteKeyTimelineId: String = "FEDERATED"
+    }
 
     /** Local timeline of the user's server */
     @TypeLabel("local")
-    data object PublicLocal : Timeline()
+    data object PublicLocal : Timeline() {
+        @IgnoredOnParcel
+        override val remoteKeyTimelineId: String = "LOCAL"
+    }
 
     // TODO: LOCAL_REMOTE
 

@@ -523,15 +523,9 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
                 if (hasDescription && showingMedia) View.VISIBLE else View.GONE
             sensitiveMediaShow.setOnClickListener { v: View ->
                 listener.onContentHiddenChange(viewData, false)
-                v.visibility = View.GONE
-                sensitiveMediaWarning.visibility = View.VISIBLE
-                descriptionIndicator.visibility = View.GONE
             }
             sensitiveMediaWarning.setOnClickListener { v: View ->
                 listener.onContentHiddenChange(viewData, true)
-                v.visibility = View.GONE
-                sensitiveMediaShow.visibility = View.VISIBLE
-                descriptionIndicator.visibility = if (hasDescription) View.VISIBLE else View.GONE
             }
         }
     }

@@ -22,6 +22,8 @@ import androidx.paging.InvalidatingPagingSourceFactory
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import androidx.paging.filter
+import androidx.paging.map
 import app.pachli.components.timeline.TimelineRepository.Companion.PAGE_SIZE
 import app.pachli.components.timeline.viewmodel.NetworkTimelinePagingSource
 import app.pachli.components.timeline.viewmodel.NetworkTimelineRemoteMediator
@@ -29,13 +31,21 @@ import app.pachli.components.timeline.viewmodel.PageCache
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.database.dao.RemoteKeyDao
+import app.pachli.core.database.di.InvalidationTracker
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
+import app.pachli.core.database.model.TimelineStatusWithAccount
+import app.pachli.core.database.model.asEntity
 import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.ui.getDomain
 import javax.inject.Inject
+import kotlin.coroutines.coroutineContext
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.withLock
 import timber.log.Timber
 
 // Things that make this more difficult than it should be:
@@ -72,29 +82,74 @@ import timber.log.Timber
 
 /** Timeline repository where the timeline information is backed by an in-memory cache. */
 class NetworkTimelineRepository @Inject constructor(
+    private val invalidationTracker: InvalidationTracker,
     private val mastodonApi: MastodonApi,
     private val remoteKeyDao: RemoteKeyDao,
     private val statusRepository: OfflineFirstStatusRepository,
-) : TimelineRepository<Status>, StatusRepository by statusRepository {
+) : TimelineRepository<TimelineStatusWithAccount>, StatusRepository by statusRepository {
     private val pageCache = PageCache()
 
     private var factory: InvalidatingPagingSourceFactory<String, Status>? = null
 
-    /** @return flow of Mastodon [Status]. */
+    /**
+     * Domains that should be (temporarily) removed from the timeline because the user
+     * has blocked them.
+     *
+     * The server performs the block asynchronously, this is used to perform post-load
+     * filtering on the statuses to apply the block locally as a stop-gap.
+     */
+    private val hiddenDomains = mutableSetOf<String>()
+
+    /**
+     * Status IDs that should be (temporarily) removed from the timeline because the user
+     * has blocked them.
+     *
+     * The server performs the block asynchronously, this is used to perform post-load
+     * filtering on the statuses to apply the block locally as a stop-gap.
+     */
+    private val hiddenStatuses = mutableSetOf<String>()
+
+    /**
+     * Account IDs that should be (temporarily) removed from the timeline because the user
+     * has blocked them.
+     *
+     * The server performs the block asynchronously, this is used to perform post-load
+     * filtering on the statuses to apply the block locally as a stop-gap.
+     */
+    private val hiddenAccounts = mutableSetOf<String>()
+
+    /** @return flow of Mastodon [TimelineStatusWithAccount]. */
     @OptIn(ExperimentalPagingApi::class)
     override suspend fun getStatusStream(
         pachliAccountId: Long,
-        kind: Timeline,
-    ): Flow<PagingData<Status>> {
-        Timber.d("getStatusStream()")
+        timeline: Timeline,
+    ): Flow<PagingData<TimelineStatusWithAccount>> {
+        Timber.d("timeline: $timeline, getStatusStream()")
 
-        val initialKey = kind.remoteKeyTimelineId?.let { refreshKeyPrimaryKey ->
+        val initialKey = timeline.remoteKeyTimelineId?.let { refreshKeyPrimaryKey ->
             remoteKeyDao.remoteKeyForKind(pachliAccountId, refreshKeyPrimaryKey, RemoteKeyKind.REFRESH)
         }?.key
 
+        Timber.d("timeline: $timeline, initialKey: $initialKey")
         factory = InvalidatingPagingSourceFactory {
             NetworkTimelinePagingSource(pageCache)
         }
+
+        // Track changes to tables that might be changed by user actions. Changes to
+        // these tables have to invalidate the paging source so the `map` that runs
+        // on the `Pager.flow` below can re-run and reflect the changes in the data.
+        // This shouldn't outlive the viewmodel scope that called `getStatusStream()`.
+        CoroutineScope(coroutineContext).launch {
+            invalidationTracker.createFlow("StatusViewDataEntity", emitInitialState = false)
+                .collect {
+                    Timber.d("timeline: $timeline, tables changed: $it")
+                    factory?.invalidate()
+                }
+        }
+
+        hiddenDomains.clear()
+        hiddenStatuses.clear()
+        hiddenAccounts.clear()
 
         return Pager(
             initialKey = initialKey,
@@ -104,77 +159,68 @@ class NetworkTimelineRepository @Inject constructor(
                 pachliAccountId,
                 factory!!,
                 pageCache,
-                kind,
+                timeline,
                 remoteKeyDao,
             ),
             pagingSourceFactory = factory!!,
         ).flow
+            .map { pagingData ->
+                pagingData.filter { status ->
+                    !hiddenStatuses.contains(status.actionableId) &&
+                        !hiddenStatuses.contains(status.reblog?.id) &&
+                        !hiddenAccounts.contains(status.actionableStatus.account.id) &&
+                        !hiddenAccounts.contains(status.account.id) &&
+                        !hiddenDomains.contains(getDomain(status.actionableStatus.account.url)) &&
+                        !hiddenDomains.contains(getDomain(status.account.url))
+                }.map { status ->
+                    val statusViewData = statusRepository.getStatusViewData(pachliAccountId, status.actionableId)
+                    val translations = statusRepository.getTranslation(pachliAccountId, status.actionableId)
+                    TimelineStatusWithAccount(
+                        status = status.reblog?.asEntity(pachliAccountId) ?: status.asEntity(pachliAccountId),
+                        account = status.reblog?.account?.asEntity(pachliAccountId) ?: status.account.asEntity(pachliAccountId),
+                        reblogAccount = status.reblog?.let { status.account.asEntity(pachliAccountId) },
+                        viewData = statusViewData,
+                        translatedStatus = translations,
+                    )
+                }
+            }
     }
 
     override suspend fun invalidate(pachliAccountId: Long) = factory?.invalidate() ?: Unit
 
     fun invalidate() = factory?.invalidate()
 
+    // Can't update the local cache here, as there's no guarantee the server has
+    // propogated the removal to all timelines, so reloading (via invalidate())
+    // risks loading a timeline where the account hasn't yet been removed.
     fun removeAllByAccountId(accountId: String) {
-        synchronized(pageCache) {
-            for (page in pageCache.values) {
-                page.data.removeAll { status ->
-                    status.account.id == accountId || status.actionableStatus.account.id == accountId
-                }
-            }
-        }
+        hiddenAccounts.add(accountId)
         invalidate()
     }
 
+    // Can't update the local cache here, as there's no guarantee the server has
+    // propogated the removal to all timelines, so reloading (via invalidate())
+    // risks loading a timeline where the domain hasn't yet been removed.
     fun removeAllByInstance(instance: String) {
-        synchronized(pageCache) {
-            for (page in pageCache.values) {
-                page.data.removeAll { status -> getDomain(status.account.url) == instance }
-            }
-        }
+        hiddenDomains.add(instance)
         invalidate()
     }
 
+    // Can't update the local cache here, as there's no guarantee the server has
+    // propogated the removal to all timelines, so reloading (via invalidate())
+    // risks loading a timeline where the status hasn't yet been removed.
     fun removeStatusWithId(statusId: String) {
-        synchronized(pageCache) {
-            pageCache.getPageById(statusId)?.data?.removeAll { status ->
-                status.id == statusId || status.reblog?.id == statusId
-            }
-        }
+        hiddenStatuses.add(statusId)
         invalidate()
     }
 
-    fun updateStatusById(statusId: String, updater: (Status) -> Status) {
-        synchronized(pageCache) {
-            pageCache.getPageById(statusId)?.let { page ->
-                val index = page.data.indexOfFirst { it.id == statusId }
-                if (index != -1) {
-                    page.data[index] = updater(page.data[index])
-                }
-            }
-        }
+    suspend fun updateStatusById(statusId: String, updater: (Status) -> Status) {
+        pageCache.withLock { pageCache.updateStatusById(statusId, updater) }
         invalidate()
     }
 
-    fun updateActionableStatusById(statusId: String, updater: (Status) -> Status) {
-        synchronized(pageCache) {
-            pageCache.getPageById(statusId)?.let { page ->
-                val index = page.data.indexOfFirst { it.id == statusId }
-                if (index != -1) {
-                    val status = page.data[index]
-                    page.data[index] = status.reblog?.let {
-                        status.copy(reblog = it)
-                    } ?: updater(status)
-                }
-            }
-        }
-        invalidate()
-    }
-
-    fun reload() {
-        synchronized(pageCache) {
-            pageCache.clear()
-        }
+    suspend fun updateActionableStatusById(statusId: String, updater: (Status) -> Status) {
+        pageCache.withLock { pageCache.updateActionableStatusById(statusId, updater) }
         invalidate()
     }
 }

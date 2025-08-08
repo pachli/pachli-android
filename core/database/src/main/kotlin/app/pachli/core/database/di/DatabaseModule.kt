@@ -33,6 +33,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
+import kotlinx.coroutines.flow.Flow
 
 @InstallIn(SingletonComponent::class)
 @Module
@@ -57,6 +58,10 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun provideTransactionProvider(appDatabase: AppDatabase) = TransactionProvider(appDatabase)
+
+    @Provides
+    @Singleton
+    fun provideInvalidationTracker(appDatabase: AppDatabase) = InvalidationTracker(appDatabase)
 
     @Provides
     fun provideAccountDao(appDatabase: AppDatabase) = appDatabase.accountDao()
@@ -127,4 +132,22 @@ class TransactionProvider(private val appDatabase: AppDatabase) {
 
     /** @return True if the current thread is in a transaction. */
     fun inTransaction() = appDatabase.inTransaction()
+}
+
+/**
+ * Provides [createFlow] that calls through to the [createFlow][androidx.room.InvalidationTracker.createFlow]
+ * function on the injected [AppDatabase].
+ *
+ * This allows classes to use the invalidation tracker without needing to inject
+ * the full [AppDatabase].
+ */
+class InvalidationTracker(private val appDatabase: AppDatabase) {
+    /** @see [androidx.room.InvalidationTracker.createFlow] */
+    fun createFlow(
+        vararg tables: String,
+        emitInitialState: Boolean,
+    ): Flow<Set<String>> = appDatabase.invalidationTracker.createFlow(
+        *tables,
+        emitInitialState = emitInitialState,
+    )
 }
