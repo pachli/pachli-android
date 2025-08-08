@@ -18,35 +18,13 @@
 package app.pachli.core.data.repository
 
 import app.pachli.core.common.PachliError
-import app.pachli.core.common.di.ApplicationScope
-import app.pachli.core.database.dao.StatusDao
-import app.pachli.core.database.dao.TranslatedStatusDao
-import app.pachli.core.database.di.TransactionProvider
-import app.pachli.core.database.model.StatusViewDataContentCollapsed
-import app.pachli.core.database.model.StatusViewDataContentShowing
-import app.pachli.core.database.model.StatusViewDataExpanded
-import app.pachli.core.database.model.StatusViewDataTranslationState
+import app.pachli.core.database.model.StatusViewDataEntity
+import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.database.model.TranslationState
-import app.pachli.core.eventhub.BookmarkEvent
-import app.pachli.core.eventhub.EventHub
-import app.pachli.core.eventhub.FavoriteEvent
-import app.pachli.core.eventhub.MuteConversationEvent
-import app.pachli.core.eventhub.PinEvent
-import app.pachli.core.eventhub.PollVoteEvent
-import app.pachli.core.eventhub.ReblogEvent
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
-import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiError
 import com.github.michaelbull.result.Result
-import com.github.michaelbull.result.map
-import com.github.michaelbull.result.mapEither
-import com.github.michaelbull.result.mapError
-import com.github.michaelbull.result.onFailure
-import com.github.michaelbull.result.onSuccess
-import javax.inject.Inject
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.async
 
 /**
  * Errors that can occur acting on a status.
@@ -73,18 +51,14 @@ sealed class StatusActionError(open val error: ApiError) : PachliError by error 
     data class VoteInPoll(override val error: ApiError) : StatusActionError(error)
 }
 
-class StatusRepository @Inject constructor(
-    @ApplicationScope private val externalScope: CoroutineScope,
-    private val mastodonApi: MastodonApi,
-    private val transactionProvider: TransactionProvider,
-    private val statusDao: StatusDao,
-    private val translatedStatusDao: TranslatedStatusDao,
-    private val eventHub: EventHub,
-) {
+/**
+ * Interface for repositories that provide actions on statuses.
+ */
+interface StatusRepository {
     /**
      * Sets the bookmarked state of [statusId] to [bookmarked].
      *
-     * Sends [BookmarkEvent] if successful.
+     * Sends [app.pachli.core.eventhub.BookmarkEvent] if successful.
      *
      * @param pachliAccountId
      * @param statusId ID of the status to affect.
@@ -94,24 +68,12 @@ class StatusRepository @Inject constructor(
         pachliAccountId: Long,
         statusId: String,
         bookmarked: Boolean,
-    ): Result<Status, StatusActionError.Bookmark> = externalScope.async {
-        transactionProvider {
-            statusDao.setBookmarked(pachliAccountId, statusId, bookmarked)
-            if (bookmarked) {
-                mastodonApi.bookmarkStatus(statusId)
-            } else {
-                mastodonApi.unbookmarkStatus(statusId)
-            }
-                .onSuccess { eventHub.dispatch(BookmarkEvent(statusId, bookmarked)) }
-                .onFailure { statusDao.setBookmarked(pachliAccountId, statusId, !bookmarked) }
-                .mapEither({ it.body.asModel() }, { StatusActionError.Bookmark(it) })
-        }
-    }.await()
+    ): Result<Status, StatusActionError.Bookmark>
 
     /**
      * Sets the favourite state of [statusId] to [favourited].
      *
-     * Sends [FavoriteEvent] if successful.
+     * Sends [app.pachli.core.eventhub.FavoriteEvent] if successful.
      *
      * @param pachliAccountId
      * @param statusId ID of the status to affect.
@@ -121,24 +83,12 @@ class StatusRepository @Inject constructor(
         pachliAccountId: Long,
         statusId: String,
         favourited: Boolean,
-    ): Result<Status, StatusActionError.Favourite> = externalScope.async {
-        transactionProvider {
-            statusDao.setFavourited(pachliAccountId, statusId, favourited)
-            if (favourited) {
-                mastodonApi.favouriteStatus(statusId)
-            } else {
-                mastodonApi.unfavouriteStatus(statusId)
-            }
-                .onSuccess { eventHub.dispatch(FavoriteEvent(statusId, favourited)) }
-                .onFailure { statusDao.setFavourited(pachliAccountId, statusId, !favourited) }
-                .mapEither({ it.body.asModel() }, { StatusActionError.Favourite(it) })
-        }
-    }.await()
+    ): Result<Status, StatusActionError.Favourite>
 
     /**
      * Sets the reblog state of [statusId] to [reblogged].
      *
-     * Sends [ReblogEvent] if successful.
+     * Sends [app.pachli.core.eventhub.ReblogEvent] if successful.
      *
      * @param pachliAccountId
      * @param statusId ID of the status to affect.
@@ -148,19 +98,7 @@ class StatusRepository @Inject constructor(
         pachliAccountId: Long,
         statusId: String,
         reblogged: Boolean,
-    ): Result<Status, StatusActionError.Reblog> = externalScope.async {
-        transactionProvider {
-            statusDao.setReblogged(pachliAccountId, statusId, reblogged)
-            if (reblogged) {
-                mastodonApi.reblogStatus(statusId)
-            } else {
-                mastodonApi.unreblogStatus(statusId)
-            }
-                .onSuccess { eventHub.dispatch(ReblogEvent(statusId, reblogged)) }
-                .onFailure { statusDao.setReblogged(pachliAccountId, statusId, !reblogged) }
-                .mapEither({ it.body.asModel() }, { StatusActionError.Reblog(it) })
-        }
-    }.await()
+    ): Result<Status, StatusActionError.Reblog>
 
     /**
      * Sets the muted state of [statusId] to [muted].
@@ -175,22 +113,12 @@ class StatusRepository @Inject constructor(
         pachliAccountId: Long,
         statusId: String,
         muted: Boolean,
-    ): Result<Status, StatusActionError.Mute> = externalScope.async {
-        statusDao.setMuted(pachliAccountId, statusId, muted)
-        return@async if (muted) {
-            mastodonApi.muteConversation(statusId)
-        } else {
-            mastodonApi.unmuteConversation(statusId)
-        }
-            .onSuccess { eventHub.dispatch(MuteConversationEvent(pachliAccountId, statusId, muted)) }
-            .onFailure { statusDao.setMuted(pachliAccountId, statusId, !muted) }
-            .mapEither({ it.body.asModel() }, { StatusActionError.Mute(it) })
-    }.await()
+    ): Result<Status, StatusActionError.Mute>
 
     /**
      * Sets the pinned state of [statusId] to [pinned].
      *
-     * Sends [PinEvent] if successful.
+     * Sends [app.pachli.core.eventhub.PinEvent] if successful.
      *
      * @param pachliAccountId
      * @param statusId ID of the status to affect.
@@ -200,22 +128,12 @@ class StatusRepository @Inject constructor(
         pachliAccountId: Long,
         statusId: String,
         pinned: Boolean,
-    ): Result<Status, StatusActionError.Pin> = externalScope.async {
-        statusDao.setPinned(pachliAccountId, statusId, pinned)
-        return@async if (pinned) {
-            mastodonApi.pinStatus(statusId)
-        } else {
-            mastodonApi.unpinStatus(statusId)
-        }
-            .onSuccess { eventHub.dispatch(PinEvent(statusId, pinned)) }
-            .onFailure { statusDao.setPinned(pachliAccountId, statusId, !pinned) }
-            .mapEither({ it.body.asModel() }, { StatusActionError.Pin(it) })
-    }.await()
+    ): Result<Status, StatusActionError.Pin>
 
     /**
      * Votes [choices] in [pollId] in [statusId],
      *
-     * Sends [PollVoteEvent] if successful.
+     * Sends [app.pachli.core.eventhub.PollVoteEvent] if successful.
      *
      * @param pachliAccountId
      * @param statusId ID of the status to affect.
@@ -227,77 +145,35 @@ class StatusRepository @Inject constructor(
         statusId: String,
         pollId: String,
         choices: List<Int>,
-    ): Result<Poll, StatusActionError.VoteInPoll> = externalScope.async {
-        transactionProvider {
-            val poll = statusDao.getStatus(pachliAccountId, statusId)?.poll
-            poll?.let {
-                statusDao.setPoll(pachliAccountId, statusId, poll.votedCopy(choices))
-            }
-
-            mastodonApi.voteInPoll(pollId, choices)
-                .map { it.body.asModel() }
-                .onSuccess { poll ->
-                    statusDao.setPoll(pachliAccountId, statusId, poll)
-                    eventHub.dispatch(PollVoteEvent(statusId, poll))
-                }
-                .onFailure { poll?.let { statusDao.setPoll(pachliAccountId, statusId, it) } }
-                .mapError { StatusActionError.VoteInPoll(it) }
-        }
-    }.await()
+    ): Result<Poll, StatusActionError.VoteInPoll>
 
     /**
      * Sets the expanded state of [statusId] to [expanded].
      */
-    suspend fun setExpanded(pachliAccountId: Long, statusId: String, expanded: Boolean) {
-        statusDao.setExpanded(
-            StatusViewDataExpanded(
-                pachliAccountId = pachliAccountId,
-                serverId = statusId,
-                expanded = expanded,
-            ),
-        )
-    }
+    suspend fun setExpanded(pachliAccountId: Long, statusId: String, expanded: Boolean)
 
     /**
      * Sets the showing state of [statusId] to [contentShowing].
      */
-    suspend fun setContentShowing(pachliAccountId: Long, statusId: String, contentShowing: Boolean) {
-        statusDao.setContentShowing(
-            StatusViewDataContentShowing(
-                pachliAccountId = pachliAccountId,
-                serverId = statusId,
-                contentShowing = contentShowing,
-            ),
-        )
-    }
+    suspend fun setContentShowing(pachliAccountId: Long, statusId: String, contentShowing: Boolean)
 
     /**
      * Sets the content-collapsed state of [statusId] to [contentCollapsed].
      */
-    suspend fun setContentCollapsed(pachliAccountId: Long, statusId: String, contentCollapsed: Boolean) {
-        statusDao.setContentCollapsed(
-            StatusViewDataContentCollapsed(
-                pachliAccountId = pachliAccountId,
-                serverId = statusId,
-                contentCollapsed = contentCollapsed,
-            ),
-        )
-    }
+    suspend fun setContentCollapsed(pachliAccountId: Long, statusId: String, contentCollapsed: Boolean)
 
     /**
      * Sets the translation state of [statusId] to [translationState].
      */
-    suspend fun setTranslationState(pachliAccountId: Long, statusId: String, translationState: TranslationState) {
-        statusDao.setTranslationState(
-            StatusViewDataTranslationState(
-                pachliAccountId = pachliAccountId,
-                serverId = statusId,
-                translationState = translationState,
-            ),
-        )
-    }
+    suspend fun setTranslationState(pachliAccountId: Long, statusId: String, translationState: TranslationState)
 
-    suspend fun getStatusViewData(pachliAccountId: Long, statusId: String) = statusDao.getStatusViewData(pachliAccountId, statusId)
+    /**
+     * @return Cached view data (null if not present) for [statusId].
+     */
+    suspend fun getStatusViewData(pachliAccountId: Long, statusId: String): StatusViewDataEntity?
 
-    suspend fun getTranslation(pachliAccountId: Long, statusId: String) = translatedStatusDao.getTranslation(pachliAccountId, statusId)
+    /**
+     * @return Translation (null if not present) for [statusId].
+     */
+    suspend fun getTranslation(pachliAccountId: Long, statusId: String): TranslatedStatusEntity?
 }

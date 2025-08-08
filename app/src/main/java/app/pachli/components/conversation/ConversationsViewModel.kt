@@ -23,7 +23,6 @@ import androidx.paging.filter
 import androidx.paging.map
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.PachliAccount
-import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.database.dao.ConversationsDao
 import app.pachli.core.database.model.ConversationData
 import app.pachli.core.model.AccountFilterDecision
@@ -54,10 +53,9 @@ import kotlinx.coroutines.launch
 class ConversationsViewModel @AssistedInject constructor(
     private val repository: ConversationsRepository,
     private val conversationsDao: ConversationsDao,
-    private val accountManager: AccountManager,
+    accountManager: AccountManager,
     private val api: MastodonApi,
     sharedPreferencesRepository: SharedPreferencesRepository,
-    private val statusRepository: StatusRepository,
     @Assisted val pachliAccountId: Long,
 ) : ViewModel() {
     private val accountFlow = accountManager.getPachliAccountFlow(pachliAccountId)
@@ -196,7 +194,7 @@ class ConversationsViewModel @AssistedInject constructor(
      */
     fun favourite(favourite: Boolean, lastStatusId: String) {
         viewModelScope.launch {
-            statusRepository.favourite(pachliAccountId, lastStatusId, favourite)
+            repository.favourite(pachliAccountId, lastStatusId, favourite)
         }
     }
 
@@ -205,7 +203,7 @@ class ConversationsViewModel @AssistedInject constructor(
      */
     fun bookmark(bookmark: Boolean, lastStatusId: String) {
         viewModelScope.launch {
-            statusRepository.bookmark(pachliAccountId, lastStatusId, bookmark)
+            repository.bookmark(pachliAccountId, lastStatusId, bookmark)
         }
     }
 
@@ -214,7 +212,7 @@ class ConversationsViewModel @AssistedInject constructor(
      */
     fun muteConversation(muted: Boolean, lastStatusId: String) {
         viewModelScope.launch {
-            statusRepository.mute(pachliAccountId, lastStatusId, muted)
+            repository.mute(pachliAccountId, lastStatusId, muted)
         }
     }
 
@@ -223,25 +221,25 @@ class ConversationsViewModel @AssistedInject constructor(
      */
     fun voteInPoll(choices: List<Int>, lastStatusId: String, pollId: String) {
         viewModelScope.launch {
-            statusRepository.voteInPoll(pachliAccountId, lastStatusId, pollId, choices)
+            repository.voteInPoll(pachliAccountId, lastStatusId, pollId, choices)
         }
     }
 
     fun expandHiddenStatus(pachliAccountId: Long, expanded: Boolean, lastStatusId: String) {
         viewModelScope.launch {
-            statusRepository.setExpanded(pachliAccountId, lastStatusId, expanded)
+            repository.setExpanded(pachliAccountId, lastStatusId, expanded)
         }
     }
 
     fun collapseLongStatus(pachliAccountId: Long, collapsed: Boolean, lastStatusId: String) {
         viewModelScope.launch {
-            statusRepository.setContentCollapsed(pachliAccountId, lastStatusId, collapsed)
+            repository.setContentCollapsed(pachliAccountId, lastStatusId, collapsed)
         }
     }
 
     fun showContent(pachliAccountId: Long, showingHiddenContent: Boolean, lastStatusId: String) {
         viewModelScope.launch {
-            statusRepository.setContentShowing(pachliAccountId, lastStatusId, showingHiddenContent)
+            repository.setContentShowing(pachliAccountId, lastStatusId, showingHiddenContent)
         }
     }
 

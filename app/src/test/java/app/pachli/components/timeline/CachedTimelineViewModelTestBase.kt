@@ -24,8 +24,8 @@ import app.pachli.components.timeline.viewmodel.CachedTimelineViewModel
 import app.pachli.components.timeline.viewmodel.TimelineViewModel
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.ContentFiltersRepository
+import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
-import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.di.test.DEFAULT_INSTANCE_V2
@@ -97,7 +97,7 @@ abstract class CachedTimelineViewModelTestBase {
     lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
 
     @Inject
-    lateinit var statusRepository: StatusRepository
+    lateinit var statusRepository: OfflineFirstStatusRepository
 
     @Inject
     lateinit var moshi: Moshi
@@ -173,7 +173,6 @@ abstract class CachedTimelineViewModelTestBase {
             accountManager,
             statusDisplayOptionsRepository,
             sharedPreferencesRepository,
-            statusRepository,
         )
     }
 }

@@ -77,7 +77,7 @@ class StatusRepositoryTest {
     @Inject
     lateinit var eventHub: EventHub
 
-    private lateinit var statusRepository: StatusRepository
+    private lateinit var statusRepository: OfflineFirstStatusRepository
 
     private val statusId = "1234"
 
@@ -86,7 +86,7 @@ class StatusRepositoryTest {
         hilt.inject()
         reset(mastodonApi)
 
-        statusRepository = StatusRepository(
+        statusRepository = OfflineFirstStatusRepository(
             externalScope,
             mastodonApi,
             transactionProvider,

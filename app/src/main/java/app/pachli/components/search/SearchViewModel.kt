@@ -36,8 +36,8 @@ import app.pachli.components.search.adapter.SearchPagingSourceFactory
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.Loadable
+import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.ServerRepository
-import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.model.DeletedStatus
 import app.pachli.core.model.Poll
@@ -86,7 +86,7 @@ class SearchViewModel @Inject constructor(
     private val mastodonApi: MastodonApi,
     private val timelineCases: TimelineCases,
     private val accountManager: AccountManager,
-    private val statusRepository: StatusRepository,
+    private val statusRepository: OfflineFirstStatusRepository,
     serverRepository: ServerRepository,
 ) : ViewModel() {
 

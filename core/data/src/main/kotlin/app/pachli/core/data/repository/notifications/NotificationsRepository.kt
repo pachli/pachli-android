@@ -23,7 +23,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import app.pachli.core.common.di.ApplicationScope
-import app.pachli.core.data.model.StatusViewData
+import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.database.dao.NotificationDao
 import app.pachli.core.database.dao.RemoteKeyDao
@@ -67,8 +67,8 @@ class NotificationsRepository @Inject constructor(
     private val notificationDao: NotificationDao,
     private val remoteKeyDao: RemoteKeyDao,
     private val statusDao: StatusDao,
-    private val statusRepository: StatusRepository,
-) {
+    statusRepository: OfflineFirstStatusRepository,
+) : StatusRepository by statusRepository {
     private var factory: InvalidatingPagingSourceFactory<Int, NotificationData>? = null
 
     private val remoteKeyTimelineId = Timeline.Notifications.remoteKeyTimelineId
@@ -174,30 +174,6 @@ class NotificationsRepository @Inject constructor(
                 accountFilterDecision,
             ),
         )
-    }
-
-    /**
-     * Saves a copy of [statusViewData] with [StatusViewData.isCollapsed] set to
-     * [isCollapsed].
-     */
-    fun setContentCollapsed(pachliAccountId: Long, statusViewData: StatusViewData, isCollapsed: Boolean) = externalScope.launch {
-        statusRepository.setContentCollapsed(pachliAccountId, statusViewData.id, isCollapsed)
-    }
-
-    /**
-     * Saves a copy of [statusViewData] with [StatusViewData.isShowingContent] set to
-     * [isShowingContent].
-     */
-    fun setShowingContent(pachliAccountId: Long, statusViewData: StatusViewData, isShowingContent: Boolean) = externalScope.launch {
-        statusRepository.setContentShowing(pachliAccountId, statusViewData.id, isShowingContent)
-    }
-
-    /**
-     * Saves a copy of [statusViewData] with [StatusViewData.isExpanded] set to
-     * [isExpanded].
-     */
-    fun setExpanded(pachliAccountId: Long, statusViewData: StatusViewData, isExpanded: Boolean) = externalScope.launch {
-        statusRepository.setExpanded(pachliAccountId, statusViewData.id, isExpanded)
     }
 
     companion object {

@@ -6,8 +6,8 @@ import app.pachli.PachliApplication
 import app.pachli.components.compose.HiltTestApplication_Application
 import app.pachli.components.timeline.CachedTimelineRepository
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
-import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.eventhub.BookmarkEvent
 import app.pachli.core.eventhub.EventHub
@@ -92,7 +92,7 @@ class ViewThreadViewModelTest {
     lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
 
     @Inject
-    lateinit var statusRepository: StatusRepository
+    lateinit var statusRepository: OfflineFirstStatusRepository
 
     private lateinit var viewModel: ViewThreadViewModel
 
@@ -154,7 +154,7 @@ class ViewThreadViewModelTest {
             .onSuccess { accountManager.refresh(it) }
 
         val cachedTimelineRepository: CachedTimelineRepository = mock {
-            onBlocking { getStatusViewData(anyLong(), any()) } doReturn emptyMap()
+            onBlocking { getStatusViewData(anyLong(), any<List<String>>()) } doReturn emptyMap()
             onBlocking { getStatusTranslations(anyLong(), any()) } doReturn emptyMap()
         }
 
@@ -165,7 +165,6 @@ class ViewThreadViewModelTest {
             timelineDao,
             cachedTimelineRepository,
             statusDisplayOptionsRepository,
-            statusRepository,
             timelineCases,
         )
     }

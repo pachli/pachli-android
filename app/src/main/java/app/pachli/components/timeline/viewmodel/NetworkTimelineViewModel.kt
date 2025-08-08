@@ -27,7 +27,6 @@ import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.StatusActionError
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
-import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.database.model.toEntity
 import app.pachli.core.eventhub.BookmarkEvent
@@ -66,7 +65,6 @@ class NetworkTimelineViewModel @Inject constructor(
     accountManager: AccountManager,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     sharedPreferencesRepository: SharedPreferencesRepository,
-    statusRepository: StatusRepository,
 ) : TimelineViewModel<Status, NetworkTimelineRepository>(
     savedStateHandle,
     timelineCases,
@@ -75,7 +73,6 @@ class NetworkTimelineViewModel @Inject constructor(
     repository,
     statusDisplayOptionsRepository,
     sharedPreferencesRepository,
-    statusRepository,
 ) {
     private val modifiedViewData = mutableMapOf<String, StatusViewData>()
 
@@ -83,8 +80,8 @@ class NetworkTimelineViewModel @Inject constructor(
         repository.getStatusStream(pachliAccountId, kind = timeline)
             .map { pagingData ->
                 pagingData.map {
-                    val existingViewData = statusRepository.getStatusViewData(pachliAccountId, it.actionableId)
-                    val existingTranslation = statusRepository.getTranslation(pachliAccountId, it.actionableId)
+                    val existingViewData = repository.getStatusViewData(pachliAccountId, it.actionableId)
+                    val existingTranslation = repository.getTranslation(pachliAccountId, it.actionableId)
 
                     modifiedViewData[it.actionableId] ?: StatusViewData.from(
                         pachliAccountId = pachliAccountId,
@@ -160,7 +157,7 @@ class NetworkTimelineViewModel @Inject constructor(
 
     override fun onChangeExpanded(isExpanded: Boolean, statusViewData: StatusViewData) {
         viewModelScope.launch {
-            statusRepository.setExpanded(statusViewData.pachliAccountId, statusViewData.actionableId, isExpanded)
+            repository.setExpanded(statusViewData.pachliAccountId, statusViewData.actionableId, isExpanded)
             modifiedViewData[statusViewData.actionableId] = statusViewData.copy(isExpanded = isExpanded)
             repository.invalidate()
         }
@@ -168,7 +165,7 @@ class NetworkTimelineViewModel @Inject constructor(
 
     override fun onChangeContentShowing(isShowing: Boolean, statusViewData: StatusViewData) {
         viewModelScope.launch {
-            statusRepository.setContentShowing(statusViewData.pachliAccountId, statusViewData.actionableId, isShowing)
+            repository.setContentShowing(statusViewData.pachliAccountId, statusViewData.actionableId, isShowing)
             modifiedViewData[statusViewData.id] = statusViewData.copy(isShowingContent = isShowing)
             repository.invalidate()
         }
@@ -176,7 +173,7 @@ class NetworkTimelineViewModel @Inject constructor(
 
     override fun onContentCollapsed(isCollapsed: Boolean, statusViewData: StatusViewData) {
         viewModelScope.launch {
-            statusRepository.setContentCollapsed(statusViewData.pachliAccountId, statusViewData.actionableId, isCollapsed)
+            repository.setContentCollapsed(statusViewData.pachliAccountId, statusViewData.actionableId, isCollapsed)
             modifiedViewData[statusViewData.actionableId] = statusViewData.copy(isCollapsed = isCollapsed)
             repository.invalidate()
         }
@@ -187,7 +184,7 @@ class NetworkTimelineViewModel @Inject constructor(
             it.copy(bookmarked = action.state)
         }
 
-        return statusRepository.bookmark(
+        return repository.bookmark(
             action.statusViewData.pachliAccountId,
             action.statusViewData.actionableId,
             action.state,
@@ -203,7 +200,7 @@ class NetworkTimelineViewModel @Inject constructor(
             it.copy(favourited = action.state)
         }
 
-        return statusRepository.favourite(
+        return repository.favourite(
             action.statusViewData.pachliAccountId,
             action.statusViewData.actionableId,
             action.state,
@@ -219,7 +216,7 @@ class NetworkTimelineViewModel @Inject constructor(
             it.copy(reblogged = action.state)
         }
 
-        return statusRepository.reblog(
+        return repository.reblog(
             action.statusViewData.pachliAccountId,
             action.statusViewData.actionableId,
             action.state,
@@ -235,7 +232,7 @@ class NetworkTimelineViewModel @Inject constructor(
             it.copy(poll = action.poll.votedCopy(action.choices))
         }
 
-        return statusRepository.voteInPoll(
+        return repository.voteInPoll(
             action.statusViewData.pachliAccountId,
             action.statusViewData.actionableId,
             action.poll.id,
