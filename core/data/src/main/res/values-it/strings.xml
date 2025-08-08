@@ -10,4 +10,5 @@
     <string name="error_preference_importer_wrong_version_fmt">il file è una versione sconosciuta: %1$s</string>
     <string name="account_manager_error_dao">Errore del database, si prega di segnalarlo a team@pachli.app: %1$s</string>
     <string name="server_repository_error_get_instance_info">raccolta/api/v1/istanza fallita: %1$s</string>
+    <string name="server_repository_error_get_node_info">la cattura del nodeinfo %1$s è fallita: %2$s</string>
 </resources>
