@@ -37,12 +37,12 @@
     <string name="title_domain_mutes">Skjulte domene</string>
     <string name="title_migration_relogin">Logg inn på nytt for å slå på pushvarsel</string>
     <string name="title_follow_requests">Fylgjeførespurnadar</string>
-    <string name="title_edit_profile">Rediger profilen din</string>
+    <string name="title_edit_profile">Brigd profilen din</string>
     <string name="title_drafts">Utkast</string>
     <string name="title_scheduled_posts">Planlagte innlegg</string>
     <string name="title_announcements">Kunngjeringar</string>
     <string name="title_followed_hashtags">Fylgde emneknaggar</string>
-    <string name="title_edits">Redigeringar</string>
+    <string name="title_edits">Brigdingar</string>
     <string name="dialog_follow_hashtag_title">Fylg emneknagg</string>
     <string name="dialog_follow_hashtag_hint">#emneknagg</string>
     <string name="post_boosted_format">%s delte</string>
@@ -54,7 +54,7 @@
     <string name="post_content_warning_show_less">Syn mindre</string>
     <string name="post_content_show_more">Utvid</string>
     <string name="post_content_show_less">Døl</string>
-    <string name="post_edited">Redigerte %s</string>
+    <string name="post_edited">Brigda %s</string>
     <string name="footer_empty">Ingenting her. Dra ned for å oppdatere!</string>
     <string name="notification_reblog_format">%s delte innlegget ditt</string>
     <string name="notification_favourite_format">%s favorittmerkte innlegget ditt</string>
@@ -66,7 +66,7 @@
         <item quantity="one">%1$s fylgjar vart fjerna.</item>
         <item quantity="other">%1$s fylgjarar vart fjerna.</item>
     </plurals>
-    <string name="notification_update_format">%s redigerte innlegget sitt</string>
+    <string name="notification_update_format">%s brigda innlegget sitt</string>
     <string name="notification_report_format">Ny rapport på %s</string>
     <string name="notification_severed_relationships_format">Braut forholdet med &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="notification_severed_relationships_domain_block_body">Ein moderator suspenderte instansen</string>
@@ -101,12 +101,12 @@
     <string name="pref_title_show_self_boosts">Syn sjølvdelingar</string>
     <string name="pref_title_show_self_boosts_description">Ei sjølvdeling er eit innlegg delt av forfatteren dets.</string>
     <string name="action_report">Rapporter</string>
-    <string name="action_edit">Rediger</string>
+    <string name="action_edit">Brigd</string>
     <string name="action_delete">Slett</string>
     <string name="action_delete_conversation">Slett samtale</string>
     <string name="action_delete_and_redraft">Slett og skriv på nytt</string>
     <string name="action_discard">Forkast endringar</string>
-    <string name="action_continue_edit">Fortsett å redigere</string>
+    <string name="action_continue_edit">Hald fram med å brigde</string>
     <string name="action_send">TUT</string>
     <string name="action_send_public">TUT!</string>
     <string name="action_view_preferences">Innstillingar</string>
@@ -134,8 +134,8 @@
     <string name="action_hide_media">Døl media</string>
     <string name="action_open_drawer">Opne skuff</string>
     <string name="action_save">Lagre</string>
-    <string name="action_edit_profile">Rediger profil</string>
-    <string name="action_edit_own_profile">Rediger</string>
+    <string name="action_edit_profile">Brigd profil</string>
+    <string name="action_edit_own_profile">Brigd</string>
     <string name="action_undo">Angre</string>
     <string name="action_accept">Godtak</string>
     <string name="action_reject">Avvis</string>
@@ -158,7 +158,7 @@
     <string name="action_translate_undo">Angre omsetjing</string>
     <string name="action_open_media_n">Opne %d. vedlegg</string>
     <string name="error_compose_character_limit">Innlegget er for langt!</string>
-    <string name="error_image_edit_failed">Biletet kunne ikkje redigerast.</string>
+    <string name="error_image_edit_failed">Biletet kunne ikkje brigdast.</string>
     <string name="error_media_upload_permission">Pachli treng løyve for å lesa media.</string>
     <string name="error_media_upload_type">Den filtypen kan ikkje lastast opp.</string>
     <string name="error_media_upload_opening">Den filen kunne ikkje verte opna.</string>
@@ -199,7 +199,7 @@
         <item quantity="one">%d ny interaksjon</item>
         <item quantity="other">%d nye interaksjonar</item>
     </plurals>
-    <string name="filter_edit_title">Rediger filter</string>
+    <string name="filter_edit_title">Brigd filter</string>
     <string name="pref_title_public_filter_keywords">Offentlege tidslinjer</string>
     <string name="pref_title_thread_filter_keywords">Samtaler</string>
     <string name="filter_addition_title">Legg til filter</string>
@@ -216,7 +216,7 @@
     <string name="pref_title_appearance_settings">Utsjånad</string>
     <string name="pref_title_notification_filter_subscriptions">Nokon eg er abonnert på, har skrive eit nytt innlegg</string>
     <string name="pref_title_notification_filter_sign_ups">Nokon registrerte seg</string>
-    <string name="pref_title_notification_filter_updates">Eit innlegg eg har samhandla med, vert redigert</string>
+    <string name="pref_title_notification_filter_updates">Eit innlegg eg har samhandla med, vert brigda</string>
     <string name="pref_title_app_theme">Apptema</string>
     <string name="pref_title_language">Språk</string>
     <string name="pref_summary_content_filters">Serveren din støttar ikkje filter</string>
@@ -254,14 +254,14 @@
     <string name="filter_add_description">Filtreringsfrase</string>
     <string name="add_account_description">Legg til ny Mastodon-konto</string>
     <string name="manage_lists">Handsam lister</string>
-    <string name="filter_dialog_whole_word_description">Dersom nøkkelordet eller -frasen er kun alfanumerisk, skal det kun verte bruka dersom det stemmer overens med heile ordet</string>
+    <string name="filter_dialog_whole_word_description">Dersom lykelordet eller -frasen er kun alfanumerisk, skal det/han kun verte bruka dersom det/han stemmer overeins med heile ordet</string>
     <string name="filter_expiration_format">%s (%s)</string>
     <string name="action_remove">Fjern</string>
     <string name="lock_account_label">Lås konto</string>
     <string name="lock_account_label_description">Krev at du godtar nye fylgjarar for hand</string>
     <string name="set_focus_description">Trykk eller drag sirkelen for å velja fokuspunktet som vil alltid verte synt i miniatyrbilete.</string>
     <string name="action_set_focus">Angje fokuspunkt</string>
-    <string name="action_edit_image">Rediger bilete</string>
+    <string name="action_edit_image">Brigd bilete</string>
     <string name="unsaved_changes">Du har ulagra endringar.</string>
     <string name="send_post_notification_title">Sender innlegg…</string>
     <string name="send_post_notification_error_title">Kunne ikkje sende innlegg</string>
@@ -365,8 +365,8 @@
     <string name="notification_subscription_name">Nye innlegg</string>
     <string name="notification_subscription_description">Varsel når noen eg fylgjer med varsel legg ut eit nytt innlegg</string>
     <string name="notification_sign_up_name">Registreringar</string>
-    <string name="notification_update_name">Innleggsredigeringar</string>
-    <string name="notification_update_description">Varsel når innlegg du har samhandla med vert redigerte</string>
+    <string name="notification_update_name">Innleggsbrigdingar</string>
+    <string name="notification_update_description">Varsel når innlegg du har samhandla med vert brigda</string>
     <string name="notification_report_name">Rapportar</string>
     <string name="notification_report_description">Varsel om modereringsrapportar</string>
     <string name="notification_severed_relationships_name">Brotne forhold</string>
@@ -466,7 +466,7 @@
     <string name="conversation_2_recipients">%1$s og %2$s</string>
     <string name="description_post_cw">Innhaldsåtvaring: %s</string>
     <string name="description_post_media_no_description_placeholder">Inga skildring</string>
-    <string name="description_post_edited">Redigert</string>
+    <string name="description_post_edited">Brigda</string>
     <string name="description_post_reblogged">Delt</string>
     <string name="description_post_favourited">Favorittmarka</string>
     <string name="description_post_bookmarked">Bokmerkt</string>
@@ -520,7 +520,7 @@
     <string name="add_poll_choice">Legg til val</string>
     <string name="poll_allow_multiple_choices">Tillat veljing av fleire val</string>
     <string name="poll_new_choice_hint">Val %d</string>
-    <string name="edit_poll">Rediger</string>
+    <string name="edit_poll">Brigd</string>
     <string name="no_announcements">Det finst ingen kunngjeringar.</string>
     <string name="warning_scheduling_interval">Mastodon har eit minimalt planleggingsinterval på 5 minutt.</string>
     <string name="pref_title_show_cards_in_timelines">Syn forhandsvisningar av lenkjer i tidslinjer</string>
@@ -535,13 +535,13 @@
     <string name="filter_action_none">Syn</string>
     <string name="filter_description_warn">Skjul med ei åtvaring</string>
     <string name="label_filter_action">Filterhandling</string>
-    <string name="label_filter_keywords">Nøkkelord eller frasar som skal filtrerast</string>
+    <string name="label_filter_keywords">Lykelord eller -frasar som skal filtrerast</string>
     <string name="filter_description_hide">Skjul heilt</string>
     <string name="filter_description_none">Syn som vanleg</string>
     <string name="filter_description_format">%s: %s</string>
     <string name="filter_keyword_display_format">%s (heilt ord)</string>
-    <string name="filter_keyword_addition_title">Legg til nøkkelord</string>
-    <string name="filter_edit_keyword_title">Rediger nøkkelord</string>
+    <string name="filter_keyword_addition_title">Legg til lykelord</string>
+    <string name="filter_edit_keyword_title">Brigd lykelord</string>
     <string name="load_newest_notifications">Last inn dei nyaste varsla</string>
     <string name="load_newest_statuses">Last inn dei nyaste innlegga</string>
     <string name="pref_title_update_settings">Programvareoppdateringar</string>
@@ -601,7 +601,7 @@
     <string name="language_display_name_format">%s (%s)</string>
     <string name="action_unfollow_hashtag_format">Avfylg #%s?</string>
     <string name="mute_notifications_switch">Demp varsel</string>
-    <string name="error_missing_edits">Serveren din veit at dette innlegget vart redigert, men han har ingen kopi av endringene, så kan dei ikkje synast for deg.\n\nDette er <a href="https://github.com/mastodon/mastodon/issues/25398">Mastodon-problem #25398</a>.</string>
+    <string name="error_missing_edits">Serveren din veit at dette innlegget vart brigda, men han har ingen kopi av brigdingane, så kan dei ikkje synast for deg.\n\nDette er <a href="https://github.com/mastodon/mastodon/issues/25398">Mastodon-problem #25398</a>.</string>
     <string name="a11y_label_loading_thread">Lastar inn tråd</string>
     <string name="accessibility_talking_about_tag">%1$d folk snakkar om emneknaggen %2$s</string>
     <string name="total_usage">Total bruk</string>
@@ -621,7 +621,7 @@
     <string name="pref_change_unified_push_distributor_msg">Dette fjernar valet av Unified Push-distributøren og startar Pachli på nytt. \n \nDersom fleire distributørar er installert, vil du verte spurd om å velge éin.</string>
     <string name="action_remove_tab">Fjern fane</string>
     <string name="action_manage_tabs">Handsam faner</string>
-    <string name="error_filter_missing_keyword">Minst eitt nøkkelord eller éin nøkkelfrase krevst</string>
+    <string name="error_filter_missing_keyword">Minst eitt lykelord eller éin lykelfrase krevst</string>
     <string name="error_filter_missing_context">Minst eitt filtersamanheng krevst</string>
     <string name="error_prepare_media_io_fmt">%1$s</string>
     <string name="error_prepare_media_file_is_too_large_fmt">filstorleik er %1$s, høgaste storleik tillaten er %2$s</string>
@@ -645,7 +645,7 @@
     <string name="report_category_spam">Spam</string>
     <string name="ui_error_clear_notifications">Mislykkast i å slette varsel: %s</string>
     <string name="account_date_joined">Vart med %1$s</string>
-    <string name="status_edit_info">Redigert: %1$s</string>
+    <string name="status_edit_info">Brigda: %1$s</string>
     <string name="status_created_info">Laga: %1$s</string>
     <string name="pref_notification_battery_optimisation_ok">Batterioptimisering treng ikkje å vera slegen av.</string>
     <string name="dialog_delete_filter_positive_action">Slett</string>
@@ -798,4 +798,6 @@
         <item quantity="one">%1$d innlegg</item>
         <item quantity="other">%1$d innlegg</item>
     </plurals>
+    <string name="notification_moderation_warning_title">Ei melding frå moderatorane dine</string>
+    <string name="notification_moderation_warning_body_none_fmt">Du har motteke ei moderasjonsåtvaring: %1$s</string>
 </resources>
