@@ -33,4 +33,14 @@
     <string name="notification_log_download_failed">Allalaadimine ei õnnestunud: %1$s</string>
     <string name="notitication_log_filter_dialog_title">Näita logimise prioriteeti</string>
     <string name="about_nivenly_foundation">Pachli projekti juhib <a href="https://nivenly.org">Nivenly Foundation</a>.</string>
+    <string name="notification_log_filter_content_description">Filtreeri logisid sildi alusel</string>
+    <string name="notification_log_filter">Filtreeri</string>
+    <string name="notification_log_title">Logi</string>
+    <string name="notification_details_standby_bucket_restricted">Piiratud. Üks kord päevas</string>
+    <string name="notification_details_standby_bucket_never">Mitte kunagi</string>
+    <string name="notification_details_standby_bucket_rare">Harva. Piiratud 10 minutiga iga 24 tunni jooksul</string>
+    <string name="notification_details_standby_bucket_frequent">Sageli. Piiratud 10 minutiga iga 2 tunni jooksul</string>
+    <string name="notification_details_standby_bucket_active">Aktiivne. Piiranguteta taustaprotsess</string>
+    <string name="notification_details_standby_bucket_working_set">Töökomplekt. Piiratud 10 minutiga iga 2 tunni jooksul</string>
+    <string name="notification_details_standby_bucket_unknown">Teadmata</string>
 </resources>
