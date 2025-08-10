@@ -600,8 +600,8 @@
     <string name="error_missing_edits">Server teab, et postitus on muudetud, kuid tal pole varasemate postituste koopiaid ning seega ei saa neid sulle näidata.\n\nSee on kirjas ka <a href="https://github.com/mastodon/mastodon/issues/25398">Mastodoni veahalduses #25398</a>.</string>
     <string name="a11y_label_loading_thread">Jutulõng on laadimisel</string>
     <string name="accessibility_talking_about_tag">%1$d huvilist räägivad %2$s teemaviitest</string>
-    <string name="total_usage">Kasutus kokku</string>
-    <string name="total_accounts">Kokku kasutajakontosid</string>
+    <string name="total_usage">kasutuskorda</string>
+    <string name="total_accounts">kasutajakontot</string>
     <string name="socket_timeout_exception">Ühenduse loomiseks sinu serveriga kuluks liiga palju aega</string>
     <string name="pref_title_hide_top_toolbar">Peida ülemise tööriistariba pealkiri</string>
     <string name="pref_title_wellbeing_mode">Heaolu</string>
