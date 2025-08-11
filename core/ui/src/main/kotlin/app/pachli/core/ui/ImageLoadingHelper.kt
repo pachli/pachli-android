@@ -47,9 +47,9 @@ fun loadAvatar(
     } else {
         val multiTransformation = MultiTransformation(
             buildList {
-                transforms?.let { this.addAll(it) }
                 add(centerCropTransformation)
                 add(RoundedCorners(radius))
+                transforms?.let { this.addAll(it) }
             },
         )
 

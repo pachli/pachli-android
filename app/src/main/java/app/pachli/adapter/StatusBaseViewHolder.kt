@@ -314,7 +314,6 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
                 avatarInset,
                 avatarRadius24dp,
                 statusDisplayOptions.animateAvatars,
-                null,
             )
             avatarRadius = avatarRadius36dp
         }
