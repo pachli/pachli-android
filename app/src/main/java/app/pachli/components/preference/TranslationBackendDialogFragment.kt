@@ -45,7 +45,6 @@ import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-import kotlin.properties.Delegates
 
 @AndroidEntryPoint
 class TranslationBackendDialogFragment : ListPreferenceDialogFragmentCompat() {
@@ -57,7 +56,6 @@ class TranslationBackendDialogFragment : ListPreferenceDialogFragmentCompat() {
 
     private var clickedDialogEntryIndex = 0
 
-    private var itemLayout by Delegates.notNull<Int>()
     private val entries by lazy { (preference as EnumListPreference<TranslationBackend>).entries }
     private val entryValues by lazy { (preference as EnumListPreference<TranslationBackend>).entryValues }
 
@@ -80,8 +78,6 @@ class TranslationBackendDialogFragment : ListPreferenceDialogFragmentCompat() {
         } else {
             clickedDialogEntryIndex = savedInstanceState.getInt(SAVE_STATE_INDEX, 0)
         }
-
-        itemLayout = R.layout.two_line_list_item_checked
     }
 
     /**
@@ -137,7 +133,7 @@ class TranslationBackendDialogFragment : ListPreferenceDialogFragmentCompat() {
 
         val context = requireContext()
 
-        val adapter = object : ArrayAdapter<CharSequence>(context, itemLayout, android.R.id.text1, entries) {
+        val adapter = object : ArrayAdapter<CharSequence>(context, R.layout.two_line_list_item_checked, android.R.id.text1, entries) {
             override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
                 val view = super.getView(position, convertView, parent)
                 val text1 = view.findViewById<CheckedTextView>(android.R.id.text1)

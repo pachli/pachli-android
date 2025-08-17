@@ -72,14 +72,17 @@ data class ModelStats(
 ) {
     companion object {
         /**
-         * @return A [ModelStats] initialised for [language] with translation
+         * @return A [ModelStats] initialised for [languageTags] with translation
          * files in a subdirectory of [root].
          */
-        suspend fun from(root: Path, language: String) = withContext(Dispatchers.IO) {
+        suspend fun from(root: Path, vararg languageTags: String?) = withContext(Dispatchers.IO) {
             // MlKit seems to have two naming schemes for language model directories. Either,
             // "en_$language" or "$language_en". Both need to be checked and the file sizes
             // summed.
-            val sizeOnDisk = listOf(root / "${language}_en", root / "en_$language").sumOf { path ->
+            //
+            // See the comment at the calling location for why multiple language tags
+            // are passed in.
+            val sizeOnDisk = languageTags.filterNotNull().distinct().map { listOf(root / "${it}_en", root / "en_$it") }.flatten().sumOf { path ->
                 path.walk().map { it.fileSize() }.sum()
             }
 
@@ -154,7 +157,24 @@ class TranslationModelManagerViewModel @Inject constructor(
         states.update {
             models.associateWith {
                 if (remoteModelManager.isModelDownloaded(it).await() == true) {
-                    Ok(Loadable.Loaded(ModelStats.from(downloadedModelsPath, it.language)))
+                    // Pass both the model's language and the locale's language when looking
+                    // up stats, as MlKit is inconsistent about which one it uses.
+                    //
+                    // For example, Hebrew, which has:
+                    //
+                    // - model tag = "he"
+                    // - locale tag = "iw"
+                    //
+                    // uses the locale tag ("iw") in the directory name. But Indonesian, which
+                    // has
+                    //
+                    // - model tag = "id"
+                    // - locale tag = "in"
+                    //
+                    // uses the model tag ("id") in the directory name.
+                    Timber.d("mod: ${it.language} ${localeMap[it.language]?.language}")
+                    val language = localeMap[it.language]?.language ?: it.language
+                    Ok(Loadable.Loaded(ModelStats.from(downloadedModelsPath, it.language, localeMap[it.language]?.language)))
                 } else {
                     Ok(null)
                 }

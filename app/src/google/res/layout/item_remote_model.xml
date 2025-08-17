@@ -33,7 +33,8 @@
         android:textAppearance="?android:attr/textAppearanceListItemSmall"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/progress" />
+        app:layout_constraintEnd_toStartOf="@id/progress"
+        tools:ignore="SelectableText" />
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progress"
@@ -64,6 +65,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text1"
-        tools:text="An error occurred" />
+        tools:text="An error occurred"
+        tools:ignore="SelectableText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

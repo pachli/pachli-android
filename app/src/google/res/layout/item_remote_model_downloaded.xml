@@ -34,7 +34,8 @@
         app:layout_constraintEnd_toStartOf="@id/actionButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/actionButton"
-        tools:text="Albanian"/>
+        tools:text="Albanian"
+        tools:ignore="SelectableText" />
 
     <ImageButton
         android:id="@+id/actionButton"
@@ -57,5 +58,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/text1"
         app:layout_constraintTop_toBottomOf="@id/text1"
-        tools:text="40MB"/>
+        tools:text="40MB"
+        tools:ignore="SelectableText" />
 </androidx.constraintlayout.widget.ConstraintLayout>

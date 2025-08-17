@@ -40,6 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
+        android:lineSpacingMultiplier="1.1"
         android:textColor="?attr/textColorAlertDialogListItem"
         android:gravity="center_vertical"
         android:paddingStart="52dp"

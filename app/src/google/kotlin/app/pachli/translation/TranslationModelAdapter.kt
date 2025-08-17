@@ -136,7 +136,8 @@ internal class DownloadedTranslationModelViewHolder(
             if (state.data.sizeOnDisk == 0L) {
                 binding.text2.hide()
             } else {
-                binding.text2.text = "${formatNumber(state.data.sizeOnDisk)}B"
+                val sizeOnDisk = "${formatNumber(state.data.sizeOnDisk)}M"
+                binding.text2.text = sizeOnDisk
                 binding.text2.show()
             }
         }
