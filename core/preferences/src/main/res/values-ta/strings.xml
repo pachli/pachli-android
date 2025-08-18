@@ -38,4 +38,5 @@
     <string name="pref_title_render_markdown">மார்க் பேரூர் வழங்கவும்</string>
     <string name="pref_summary_export_settings">பயன்பாடு மற்றும் கணக்கு அமைப்புகளை உள்ளக கோப்பில் சேமிக்க தட்டவும்</string>
     <string name="pref_summary_import_settings">\"ஏற்றுமதி அமைப்புகள்\" பயன்படுத்தி உருவாக்கப்பட்ட கோப்பிலிருந்து அமைப்புகளை மீட்டெடுக்க தட்டவும்</string>
+    <string name="pref_title_translation">மொழிபெயர்ப்பு</string>
 </resources>
