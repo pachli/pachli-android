@@ -271,7 +271,7 @@ abstract class BaseActivity : AppCompatActivity(), MenuProvider {
             return when (accounts.size) {
                 0, 1 -> null
                 2 -> getString(R.string.action_open_as, accounts.last().fullName)
-                else -> getString(R.string.action_open_as, "…")
+                else -> getString(R.string.action_open_as_ellipsis)
             }
         }
 
