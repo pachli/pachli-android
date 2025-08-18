@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="error_empty">Šis nevar būt tukšs.</string>
     <string name="error_no_web_browser_found">Nevarēja atrast tīmekļa pārlūku, ko izmantot.</string>
     <string name="error_compose_character_limit">Ieraksts ir pārāk garš!</string>
@@ -828,7 +828,7 @@
     <string name="pref_title_notification_filter_moderation_warning">Satura pārraudzītājs nosūta ziņojumu</string>
     <string name="notification_moderation_warnings_name">Satura pārraudzības brīdinājumi</string>
     <string name="notification_moderation_warnings_description">Paziņojumi par satura pārraudzības brīdinājumiem</string>
-    <plurals name="description_post_roles">
+    <plurals name="description_post_roles" tools:ignore="ImpliedQuantity">
         <item quantity="zero">ar lomām:</item>
         <item quantity="one">ar lomu:</item>
         <item quantity="other">ar lomām:</item>
