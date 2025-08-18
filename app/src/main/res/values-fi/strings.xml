@@ -830,4 +830,9 @@
         <item quantity="other">rooleissa:</item>
     </plurals>
     <string name="error_share_media">hakemisto väliaikaisen median tallentamiseen puuttuu</string>
+    <string name="translator_error_server_does_not_translate">palvelin ei tue kääntämistä</string>
+    <string name="translator_error_no_language_detected">alkukieltä ei voitu tunnistaa</string>
+    <string name="translator_error_unsupported_source_language_fmt">kielestä %1$s ei voida kääntää</string>
+    <string name="translator_error_unsupported_target_language_fmt">kielelle %1$s ei voida kääntää</string>
+    <string name="translator_error_download_required_fmt">kielelle %1$s kääntäminen vaatii kielipaketin lataamista, Wi-Fi-yhteys puuttuu</string>
 </resources>
