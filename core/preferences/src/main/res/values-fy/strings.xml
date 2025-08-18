@@ -14,4 +14,5 @@
     <string name="pref_update_notification_frequency_never">Nea</string>
     <string name="pref_update_notification_frequency_always">Altyd</string>
     <string name="pref_default_audio_playback_option_unmuted">Net mear negearre</string>
+    <string name="pref_title_translation">Oersetting</string>
 </resources>
