@@ -33,4 +33,5 @@
     <string name="pref_update_notification_frequency_always">总是</string>
     <string name="pref_default_audio_playback_option_unmuted">重開麥克風。</string>
     <string name="pref_default_audio_playback_option_muted">已關閉麥克風。</string>
+    <string name="pref_title_translation">翻译</string>
 </resources>
