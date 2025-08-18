@@ -12,4 +12,5 @@
     <string name="pref_update_notification_frequency_never">ഒരിക്കലും സംഭവിക്കില്ല</string>
     <string name="pref_update_notification_frequency_always">എല്ലായിപ്പോഴും</string>
     <string name="pref_default_audio_playback_option_unmuted">Unmute</string>
+    <string name="pref_title_translation">വിവർത്തനം</string>
 </resources>
