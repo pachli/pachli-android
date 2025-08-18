@@ -36,4 +36,5 @@
     <string name="pref_title_import_settings">Tuo asetukset</string>
     <string name="pref_default_audio_playback_option_unmuted">Mykistys poistettu.</string>
     <string name="pref_default_audio_playback_option_muted">Mykistetty</string>
+    <string name="pref_title_translation">Käännös</string>
 </resources>
