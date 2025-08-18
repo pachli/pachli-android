@@ -380,14 +380,14 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
     open fun canTranslate() = false
 
     /**
-     * Translate [statusViewData].
+     * Translate [viewData].
      */
-    open fun onTranslate(statusViewData: T) {}
+    open fun onTranslate(viewData: T) {}
 
     /**
-     * Undo the translation of [statusViewData].
+     * Undo the translation of [viewData].
      */
-    open fun onTranslateUndo(statusViewData: T) {}
+    open fun onTranslateUndo(viewData: T) {}
 
     private fun onMute(accountId: String, accountUsername: String) {
         showMuteAccountDialog(this.requireActivity(), accountUsername) { notifications: Boolean?, duration: Int? ->
