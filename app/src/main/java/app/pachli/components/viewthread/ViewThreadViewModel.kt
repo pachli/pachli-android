@@ -142,7 +142,7 @@ class ViewThreadViewModel @Inject constructor(
 
             Timber.d("Finding status with: %s", id)
             val contextCall = async { api.statusContext(id) }
-            val timelineStatusWithAccount = timelineDao.getStatus(id)
+            val timelineStatusWithAccount = timelineDao.getStatus(account.id, id)
 
             var detailedStatus = if (timelineStatusWithAccount != null) {
                 Timber.d("Loaded status from local timeline")
