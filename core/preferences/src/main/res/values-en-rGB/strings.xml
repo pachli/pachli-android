@@ -17,4 +17,5 @@
     <string name="pref_title_export_settings">Export settings</string>
     <string name="pref_default_audio_playback_option_unmuted">Turn Volume On</string>
     <string name="pref_default_audio_playback_option_muted">Muted</string>
+    <string name="pref_title_translation">Translation</string>
 </resources>
