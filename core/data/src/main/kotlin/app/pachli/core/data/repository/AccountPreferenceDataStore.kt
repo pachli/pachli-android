@@ -21,16 +21,21 @@ import androidx.preference.PreferenceDataStore
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.preferences.PrefKeys
 import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 
+@Singleton
 class AccountPreferenceDataStore @Inject constructor(
     private val accountManager: AccountManager,
     @ApplicationScope private val externalScope: CoroutineScope,
 ) : PreferenceDataStore() {
+    private val _changes = MutableSharedFlow<Pair<String, Boolean>>(replay = 1)
+
     /** Flow of key/values that have been updated in the preferences */
-    val changes = MutableSharedFlow<Pair<String, Boolean>>()
+    val changes = _changes.asSharedFlow()
 
     override fun getBoolean(key: String, defValue: Boolean): Boolean {
         val account = accountManager.activeAccount ?: return defValue
@@ -53,7 +58,7 @@ class AccountPreferenceDataStore @Inject constructor(
                 PrefKeys.MEDIA_PREVIEW_ENABLED -> accountManager.setMediaPreviewEnabled(account.id, value)
             }
 
-            changes.emit(Pair(key, value))
+            _changes.emit(Pair(key, value))
         }
     }
 }

@@ -25,8 +25,6 @@ import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE
 import app.pachli.core.preferences.CardViewMode
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
-import com.github.michaelbull.result.onFailure
-import com.github.michaelbull.result.onSuccess
 import io.github.z4kn4fein.semver.constraints.toConstraint
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -48,7 +46,6 @@ import timber.log.Timber
 @Singleton
 class StatusDisplayOptionsRepository @Inject constructor(
     private val sharedPreferencesRepository: SharedPreferencesRepository,
-    private val serverRepository: ServerRepository,
     private val accountManager: AccountManager,
     private val accountPreferenceDataStore: AccountPreferenceDataStore,
     @ApplicationScope private val externalScope: CoroutineScope,
@@ -128,9 +125,7 @@ class StatusDisplayOptionsRepository @Inject constructor(
                         PrefKeys.LAB_RENDER_MARKDOWN -> prev.copy(
                             renderMarkdown = sharedPreferencesRepository.renderMarkdown,
                         )
-                        else -> {
-                            prev
-                        }
+                        else -> prev
                     }
                 }
             }
@@ -155,20 +150,6 @@ class StatusDisplayOptionsRepository @Inject constructor(
                         }
                     }
                 }
-            }
-        }
-
-        externalScope.launch {
-            serverRepository.flow.collect { result ->
-                Timber.d("Updating because server capabilities changed")
-                result.onSuccess { server ->
-                    _flow.update {
-                        it.copy(
-                            canTranslate = server.can(ORG_JOINMASTODON_STATUSES_TRANSLATE, ">=1.0".toConstraint()),
-                        )
-                    }
-                }
-                result.onFailure { _flow.update { it.copy(canTranslate = false) } }
             }
         }
     }

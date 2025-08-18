@@ -28,6 +28,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -43,12 +44,14 @@ class SharedPreferencesRepository @Inject constructor(
     private val sharedPreferences: SharedPreferences,
     @ApplicationScope private val externalScope: CoroutineScope,
 ) : SharedPreferences by sharedPreferences {
+    private val _changes = MutableSharedFlow<String?>()
+
     /**
      *  Flow of keys that have been updated/deleted in the preferences.
      *
      *  Null means that preferences were cleared.
      */
-    val changes = MutableSharedFlow<String?>()
+    val changes = _changes.asSharedFlow()
 
     /** Application theme. */
     val appTheme: AppTheme
@@ -282,7 +285,7 @@ class SharedPreferencesRepository @Inject constructor(
     @Keep
     private val listener =
         SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
-            externalScope.launch { changes.emit(key) }
+            externalScope.launch { _changes.emit(key) }
         }
 
     fun upgradeSharedPreferences(oldVersion: Int, newVersion: Int) {
