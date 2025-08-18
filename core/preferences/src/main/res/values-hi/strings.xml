@@ -33,4 +33,5 @@
     <string name="pref_update_notification_frequency_always">हमेशा</string>
     <string name="pref_default_audio_playback_option_unmuted">अनम्यूट</string>
     <string name="pref_default_audio_playback_option_muted">मौन</string>
+    <string name="pref_title_translation">अनुवाद</string>
 </resources>

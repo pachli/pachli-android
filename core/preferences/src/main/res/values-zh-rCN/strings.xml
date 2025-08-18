@@ -38,4 +38,5 @@
     <string name="pref_summary_import_settings">点击以从使用“导出设置”创建的文件中恢复设置</string>
     <string name="pref_default_audio_playback_option_unmuted">解除静音</string>
     <string name="pref_default_audio_playback_option_muted">静音</string>
+    <string name="pref_title_translation">翻译</string>
 </resources>

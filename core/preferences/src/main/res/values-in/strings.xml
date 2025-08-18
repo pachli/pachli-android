@@ -34,4 +34,5 @@
     <string name="pref_title_import_settings">Impor Pengaturan</string>
     <string name="pref_default_audio_playback_option_unmuted">Mikrofon berhasil dinyalakan.</string>
     <string name="pref_default_audio_playback_option_muted">Bisu</string>
+    <string name="pref_title_translation">Terjemahan</string>
 </resources>

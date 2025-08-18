@@ -38,4 +38,5 @@
     <string name="pref_default_audio_playback_option_muted">Stummgeschaltet</string>
     <string name="pref_summary_export_settings">Antippen, um App- und Profileinstellungen in eine lokale Datei zu speichern</string>
     <string name="pref_summary_import_settings">Antippen, um Einstellungen aus einer via „Einstellungen exportieren“ erzeugten Datei wiederherzustellen</string>
+    <string name="pref_title_translation">Übersetzung</string>
 </resources>

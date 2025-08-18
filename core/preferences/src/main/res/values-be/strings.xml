@@ -17,4 +17,5 @@
     <string name="pref_update_notification_frequency_always">Заўсёды</string>
     <string name="pref_default_audio_playback_option_unmuted">Ўключыць гук</string>
     <string name="pref_default_audio_playback_option_muted">Без гуку</string>
+    <string name="pref_title_translation">Пераклад</string>
 </resources>

@@ -35,4 +35,5 @@
     <string name="pref_title_import_settings">Configuració d\'importació</string>
     <string name="pref_default_audio_playback_option_unmuted">No està mut.</string>
     <string name="pref_default_audio_playback_option_muted">Silenciat</string>
+    <string name="pref_title_translation">Traducció</string>
 </resources>

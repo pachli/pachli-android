@@ -35,4 +35,5 @@
     <string name="pref_title_import_settings">ייבוא הגדרות יישום</string>
     <string name="pref_default_audio_playback_option_unmuted">השתקה בוטלה.</string>
     <string name="pref_default_audio_playback_option_muted">מושתק</string>
+    <string name="pref_title_translation">תִרגוּם</string>
 </resources>

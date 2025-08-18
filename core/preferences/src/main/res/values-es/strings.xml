@@ -38,4 +38,5 @@
     <string name="pref_summary_import_settings">Toca para restaurar las preferencias desde un archivo creado usando \"Exportar preferencias\"</string>
     <string name="pref_default_audio_playback_option_unmuted">No silenciado</string>
     <string name="pref_default_audio_playback_option_muted">Silenciado</string>
+    <string name="pref_title_translation">Traducción</string>
 </resources>

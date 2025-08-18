@@ -13,4 +13,5 @@
     <string name="pref_update_notification_frequency_always">සැමවිට</string>
     <string name="pref_default_audio_playback_option_unmuted">නිහඬ බව නැති කරන්න</string>
     <string name="pref_default_audio_playback_option_muted">නිහඬ</string>
+    <string name="pref_title_translation">Translation</string>
 </resources>

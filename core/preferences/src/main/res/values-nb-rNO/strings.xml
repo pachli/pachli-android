@@ -36,4 +36,5 @@
     <string name="pref_title_import_settings">Importer innstillinger</string>
     <string name="pref_default_audio_playback_option_unmuted">Stumhet opphevet.</string>
     <string name="pref_default_audio_playback_option_muted">Forstummet</string>
+    <string name="pref_title_translation">Oversettelse</string>
 </resources>

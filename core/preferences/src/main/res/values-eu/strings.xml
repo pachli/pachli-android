@@ -19,4 +19,5 @@
     <string name="pref_title_import_settings">Inportatu ezarpenak</string>
     <string name="pref_default_audio_playback_option_unmuted">Isiltasuna kendua.</string>
     <string name="pref_default_audio_playback_option_muted">Isilduta</string>
+    <string name="pref_title_translation">Itzulpena</string>
 </resources>
