@@ -4,4 +4,5 @@
     <string name="performing_lookup_title">Otsin…</string>
     <string name="send_error_report">Saada veateade</string>
     <string name="post_lookup_error_format">Viga otsimisel: %s</string>
+    <string name="action_open_as_ellipsis">Ava kui…</string>
 </resources>
