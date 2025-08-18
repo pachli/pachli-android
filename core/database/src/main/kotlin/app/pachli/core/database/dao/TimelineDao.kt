@@ -268,13 +268,13 @@ LEFT JOIN
     TranslatedStatusEntity AS t
     ON (s.timelineUserId = t.timelineUserId AND (s.serverId = t.serverId OR s.reblogServerId = t.serverId))
 WHERE
-    (s.serverId = :statusId OR s.reblogServerId = :statusId)
+    s.timelineUserId == :pachliAccountId
+    AND (s.serverId = :statusId OR s.reblogServerId = :statusId)
     AND s.authorServerId IS NOT NULL
 """,
     )
-    // TODO: Probably doesn't need to use TimelineStatus. Does need a
-    // pachliAccountId
-    abstract suspend fun getStatus(statusId: String): TimelineStatusWithAccount?
+    // TODO: Probably doesn't need to use TimelineStatus.
+    abstract suspend fun getStatus(pachliAccountId: Long, statusId: String): TimelineStatusWithAccount?
 
     @Query(
         """
