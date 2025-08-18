@@ -113,11 +113,11 @@ class FontFamilyDialogFragment : ListPreferenceDialogFragmentCompat() {
         const val SAVE_STATE_ENTRY_VALUES = "FontFamilyDialogFragment.entryValues"
 
         fun newInstance(key: String): FontFamilyDialogFragment {
-            val fragment = FontFamilyDialogFragment()
-            val b = Bundle(1)
-            b.putString(ARG_KEY, key)
-            fragment.arguments = b
-            return fragment
+            return FontFamilyDialogFragment().apply {
+                arguments = Bundle(1).apply {
+                    putString(ARG_KEY, key)
+                }
+            }
         }
     }
 }
