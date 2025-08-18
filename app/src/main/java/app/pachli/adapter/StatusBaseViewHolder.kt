@@ -146,8 +146,15 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
         statusDisplayOptions: StatusDisplayOptions,
         listener: StatusActionListener<T>,
     ) {
-        val spoilerText = viewData.actionable.spoilerText
-        val sensitive = !TextUtils.isEmpty(spoilerText)
+        val spoilerText = when (viewData.translationState) {
+            TranslationState.SHOW_ORIGINAL -> viewData.actionable.spoilerText
+            TranslationState.TRANSLATING -> viewData.actionable.spoilerText
+            TranslationState.SHOW_TRANSLATION -> viewData.translation?.spoilerText.orEmpty()
+        }
+
+        // Determine sensitive state from the original spoiler text, not the translated
+        // text, in case the translation erroneously returns empty spoiler text.
+        val sensitive = !TextUtils.isEmpty(viewData.actionable.spoilerText)
         val expanded = viewData.isExpanded
         if (sensitive) {
             val emojiSpoiler = spoilerText.emojify(

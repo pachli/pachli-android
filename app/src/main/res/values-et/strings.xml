@@ -361,7 +361,6 @@
     <string name="pref_notification_battery_optimisation_ok">Akukasutuse optimeerimist pole vaja lülitada välja.</string>
     <string name="pref_title_change_unified_push_distributor">Muuda UnifiedPushi levitajat</string>
     <string name="pref_change_unified_push_distributor_msg">Järgnevaga eemaldatakse valikute hulgast senine levitaja UnifiedPushi ja käivitatakse Pachli uuesti.\n\nKui mitu nutiseadmes on olemas UnifiedPushi levitajat, siis järgmisel korral pead valima neist ühe.</string>
-    <string name="server_repository_error">%1$s tarkvarahoidla serveri teavet ei õnnestunud laadida: %2$s</string>
     <string name="pref_title_update_check_now">Kontrolli uuendusi kohe</string>
     <string name="pref_update_check_no_updates">Uuendusi pole saadaval</string>
     <string name="pref_update_next_scheduled_check">Järgmine ajastatud kontroll: %1$s</string>

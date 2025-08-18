@@ -65,9 +65,10 @@ For more information on Android's backup and restore feature see [Backup or rest
 
 Pachli uses Google's [ML Kit](https://developers.google.com/ml-kit) to provide features that:
 
-- Warn you if the language you have selected when editing a post appears to be different from the language you used
+- Warn you if the language you have selected when editing a post appears to be different from the language you used.
+- Allow you to translate messages without requiring your server to support translation.
 
-When Pachli does this all of the data you have provided (e.g., the content you are posting) is processed on your device, and **ML Kit does not send that data to Google servers**.
+When Pachli does this all of the data you have provided (e.g., the content you are posting or translating) is processed on your device, and **ML Kit does not send that data to Google servers**.
 
 The ML Kit APIs may contact Google servers from time to time in order to receive things like bug fixes, updated models and hardware accelerator compatibility information. The ML Kit APIs also send metrics about the performance and utilization of the APIs in your app to Google. Google uses this metrics data to measure performance, debug, maintain and improve the APIs, and detect misuse or abuse, as further described in Google's [Privacy Policy](https://policies.google.com/privacy).
 

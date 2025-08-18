@@ -511,8 +511,6 @@ class NotificationsFragment :
         super.more(view, viewData)
     }
 
-    override fun canTranslate() = true
-
     override fun onTranslate(viewData: NotificationViewData) {
         viewData.statusViewData?.let {
             viewModel.accept(FallibleStatusAction.Translate(it))

@@ -635,7 +635,6 @@
     <string name="pref_title_change_unified_push_distributor">更改 Unified Push distributor</string>
     <string name="action_add_to_tab">添加到标签页</string>
     <string name="action_remove_tab">删除标签页</string>
-    <string name="server_repository_error">无法获取%1$s的服务器信息：%2$s</string>
     <string name="search_operator_language_all">任何语言 ▾</string>
     <string name="compose_warn_language_dialog_accept_and_dont_ask_fmt">按原样发布 (%1$s)，不再询问</string>
     <string name="error_media_uploader_upload_not_found_fmt">未找到ID为 %1$s 的媒体上传</string>

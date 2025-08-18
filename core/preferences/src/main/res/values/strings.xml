@@ -61,4 +61,14 @@
 
     <string name="pref_default_audio_playback_option_unmuted">Unmuted</string>
     <string name="pref_default_audio_playback_option_muted">Muted</string>
+
+    <string name="pref_title_translation">Translation</string>
+    <string name="pref_translation_backend">How to translate</string>
+    <string name="pref_translation_backend_option_server_only">Server only</string>
+    <string name="pref_translation_backend_option_server_only_help">Translates posts using your server. Will not work if your server does not support translation, or the post\'s language is incorrect.</string>
+    <string name="pref_translation_backend_option_server_first">Server first</string>
+    <string name="pref_translation_backend_option_server_first_help">Translates posts using your server. If that fails then translates on your device using Google Translate.</string>
+    <string name="pref_translation_backend_option_local_only">On-device only</string>
+    <string name="pref_translation_backend_option_local_only_help">Translates posts on your device using Google Translate.</string>
+    <string name="pref_translation_backend_requires_play_label">Install from Google Play for on-device translation support</string>
 </resources>

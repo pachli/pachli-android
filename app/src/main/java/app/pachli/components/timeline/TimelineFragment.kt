@@ -647,8 +647,6 @@ class TimelineFragment :
         viewModel.onContentCollapsed(isCollapsed, viewData)
     }
 
-    override fun canTranslate() = true
-
     override fun onTranslate(viewData: StatusViewData) {
         viewModel.accept(FallibleStatusAction.Translate(viewData))
     }

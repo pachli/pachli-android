@@ -17,12 +17,17 @@
 
 package app.pachli.di
 
+import android.content.Context
+import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.network.retrofit.MastodonApi
-import app.pachli.translation.ServerTranslationService
+import app.pachli.core.preferences.SharedPreferencesRepository
+import app.pachli.languageidentification.LanguageIdentifier
+import app.pachli.translation.MlKitTranslationService
 import app.pachli.translation.TranslationService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -31,5 +36,11 @@ import javax.inject.Singleton
 object TranslationServiceModule {
     @Provides
     @Singleton
-    fun providesTranslationService(mastodonApi: MastodonApi): TranslationService = ServerTranslationService(mastodonApi)
+    fun providesTranslationService(
+        @ApplicationContext context: Context,
+        sharedPreferencesRepository: SharedPreferencesRepository,
+        languageIdentifierFactory: LanguageIdentifier.Factory,
+        mastodonApi: MastodonApi,
+        statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
+    ): TranslationService = MlKitTranslationService(context, sharedPreferencesRepository, languageIdentifierFactory, mastodonApi, statusDisplayOptionsRepository)
 }

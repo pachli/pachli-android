@@ -619,7 +619,6 @@
     <string name="pref_title_notification_battery_optimisation">Batterioptimisering</string>
     <string name="pref_notification_battery_optimisation_is_disabled">Batterioptimisering er slegen av</string>
     <string name="pref_change_unified_push_distributor_msg">Dette fjernar valet av Unified Push-distributøren og startar Pachli på nytt. \n \nDersom fleire distributørar er installert, vil du verte spurd om å velge éin.</string>
-    <string name="server_repository_error">Kunne ikkje hente inn serveropplysningar for %1$s: %2$s</string>
     <string name="action_remove_tab">Fjern fane</string>
     <string name="action_manage_tabs">Handsam faner</string>
     <string name="error_filter_missing_keyword">Minst eitt nøkkelord eller éin nøkkelfrase krevst</string>

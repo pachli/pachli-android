@@ -24,7 +24,6 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.widget.PopupMenu
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -358,9 +357,6 @@ class ConversationsFragment :
         adapter.refresh()
     }
 
-    // Can't translate conversations because of Mastodon privacy settings.
-    override fun canTranslate() = false
-
     override fun onReblog(viewData: ConversationViewData, reblog: Boolean) {
         // its impossible to reblog private messages
     }
@@ -374,26 +370,7 @@ class ConversationsFragment :
     }
 
     override fun onMore(view: View, viewData: ConversationViewData) {
-        val status = viewData.lastStatus.status
-
-        val popup = PopupMenu(requireContext(), view)
-        popup.inflate(R.menu.conversation_more)
-
-        if (status.muted == true) {
-            popup.menu.removeItem(R.id.status_mute_conversation)
-        } else {
-            popup.menu.removeItem(R.id.status_unmute_conversation)
-        }
-
-        popup.setOnMenuItemClickListener { item ->
-            when (item.itemId) {
-                R.id.status_mute_conversation -> viewModel.muteConversation(true, viewData.lastStatus.id)
-                R.id.status_unmute_conversation -> viewModel.muteConversation(false, viewData.lastStatus.id)
-                R.id.conversation_delete -> deleteConversation(viewData)
-            }
-            true
-        }
-        popup.show()
+        super.more(view, viewData)
     }
 
     override fun onViewMedia(viewData: ConversationViewData, attachmentIndex: Int, view: View?) {
@@ -470,7 +447,7 @@ class ConversationsFragment :
         }
     }
 
-    private fun deleteConversation(conversation: ConversationViewData) {
+    override fun onConversationDelete(conversation: ConversationViewData) {
         AlertDialog.Builder(requireContext())
             .setMessage(R.string.dialog_delete_conversation_warning)
             .setNegativeButton(android.R.string.cancel, null)
@@ -478,6 +455,14 @@ class ConversationsFragment :
                 viewModel.remove(conversation)
             }
             .show()
+    }
+
+    override fun onTranslate(viewData: ConversationViewData) {
+        viewModel.translate(viewData)
+    }
+
+    override fun onTranslateUndo(viewData: ConversationViewData) {
+        viewModel.translateUndo(viewData)
     }
 
     private fun onPreferenceChanged(key: String) {
