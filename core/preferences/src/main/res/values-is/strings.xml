@@ -18,4 +18,5 @@
     <string name="pref_update_notification_frequency_always">Alltaf</string>
     <string name="pref_default_audio_playback_option_unmuted">Ekki þagga</string>
     <string name="pref_default_audio_playback_option_muted">Þaggað</string>
+    <string name="pref_title_translation">Þýðing</string>
 </resources>
