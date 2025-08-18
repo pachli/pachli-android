@@ -865,4 +865,9 @@
     <string name="error_missing_edits">Ваш сервер знает, что это сообщение было отредактировано, но не сохраняет копию правок, поэтому не может их вам показать.\n\nЭто <a href="https://github.com/mastodon/mastodon/issues/25398">проблема в Mastodon #25398</a>.</string>
     <string name="pref_change_unified_push_distributor_msg">Это приведет к сбросу выбора распределителя UnifiedPush и перезапуску Pachli.\n\nЕсли установлено несколько распределителей UnifiedPush, то вам будет предложено выбрать один.</string>
     <string name="upload_failed_msg_fmt">Не удалось закачать вложение. Закачка будет повторена после отправки публикации. Если снова возникнет ошибка, публикация будет сохранена в черновиках.\n\nОшибка: %1$s</string>
+    <string name="translator_error_server_does_not_translate">сервер не поддерживает перевод</string>
+    <string name="translator_error_no_language_detected">не удалось определить исходный язык</string>
+    <string name="translator_error_unsupported_source_language_fmt">невозможно перевести с %1$s</string>
+    <string name="translator_error_unsupported_target_language_fmt">невозможно перевести на %1$s</string>
+    <string name="translator_error_download_required_fmt">для перевода на %1$s нужно скачать языковой пакет, а Wi-Fi не подключён</string>
 </resources>
