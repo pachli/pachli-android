@@ -39,4 +39,12 @@
     <string name="pref_default_audio_playback_option_unmuted">Díbhalbhaigh</string>
     <string name="pref_default_audio_playback_option_muted">Balbhaithe</string>
     <string name="pref_title_translation">Aistriúchán</string>
+    <string name="pref_translation_backend">Conas a aistriú</string>
+    <string name="pref_translation_backend_option_server_only">Freastalaí amháin</string>
+    <string name="pref_translation_backend_option_server_only_help">Aistríonn sé poist ag baint úsáide as do fhreastalaí. Ní oibreoidh sé mura dtacaíonn do fhreastalaí le haistriúchán, nó mura bhfuil teanga an phoist ceart.</string>
+    <string name="pref_translation_backend_option_server_first">Freastalaí ar dtús</string>
+    <string name="pref_translation_backend_option_server_first_help">Aistríonn sé poist ag baint úsáide as do fhreastalaí. Mura n-éiríonn leis sin, aistrítear ar do ghléas é ag baint úsáide as Google Translate.</string>
+    <string name="pref_translation_backend_option_local_only">Ar an ngléas amháin</string>
+    <string name="pref_translation_backend_option_local_only_help">Aistríonn sé poist ar do ghléas ag baint úsáide as Google Translate.</string>
+    <string name="pref_translation_backend_requires_play_label">Suiteáil ó Google Play le haghaidh tacaíochta aistriúcháin ar an ngléas</string>
 </resources>
