@@ -1,0 +1,17 @@
+Pachli 2.14.0
+
+Uus:
+
+- Kasutaja asukoha taastamine loendeis
+- Kui kontokohaseid filtreid pole, siis käib konto vahatemine nüüd kiiremini
+- Kontohalduse kasutajaliides
+
+Parandused:
+
+- Teavituste kustutamisel serverist kustutatakse ka nutiseadmes puhverdatud teavitused
+- Kokkujooksmine teavituse saamisel endiselt suhtluspartnerilt
+- Kokkujooksmine piltide laadimise katkestamisel
+
+Tõlked:
+
+- hiina, eesti, soome, indoneesia, iiri, itaalia, läti, uusnorra, poola, vene, slovaki ja tamili keeled
