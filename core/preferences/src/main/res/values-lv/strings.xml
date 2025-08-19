@@ -38,5 +38,13 @@
     <string name="pref_tab_alignment_end">Teksta virziena beigas</string>
     <string name="pref_default_audio_playback_option_unmuted">Neapklusināta</string>
     <string name="pref_default_audio_playback_option_muted">Apklusināta</string>
-    <string name="pref_title_translation">Translācija</string>
+    <string name="pref_title_translation">Tulkošana</string>
+    <string name="pref_translation_backend">Kā tulkot</string>
+    <string name="pref_translation_backend_option_server_only">Tikai serveris</string>
+    <string name="pref_translation_backend_option_server_only_help">Tulko serverus ar Tavu serveri. Nedarbosies, ja Tavs serveris neatbalsta tulkošanu vai ieraksta valoda nav pareiza.</string>
+    <string name="pref_translation_backend_option_server_first">Vispirms serveris</string>
+    <string name="pref_translation_backend_option_server_first_help">Tulko ierakstus ar Tavu serveri. Ja tas neizdodas, tad tulko Tavā ierīcē ar Google tulkotāju.</string>
+    <string name="pref_translation_backend_option_local_only">Tikai ierīcē</string>
+    <string name="pref_translation_backend_option_local_only_help">Tulko ierakstus Tavā ierīcē ar Google tulkotāju.</string>
+    <string name="pref_translation_backend_requires_play_label">Tulkošanas ierīcē atbalstam jāuzstāda no Google Play</string>
 </resources>
