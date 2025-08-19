@@ -2,4 +2,22 @@
 <resources>
     <string name="update_dialog_message">Oscail Google Play chun na sonraí a fheiceáil?</string>
     <string name="update_dialog_positive">Oscail Google Play</string>
+    <string name="action_delete_remote_model_fmt">Scrios %1$s</string>
+    <string name="action_download_remote_model_fmt">Íoslódáil %1$s</string>
+    <string name="content_description_loading_fmt">%1$s, ag íoslódáil</string>
+    <string name="content_description_loaded_fmt">%1$s, íoslódáilte</string>
+    <string name="content_description_available_fmt">%1$s, ar fáil le híoslódáil</string>
+    <string name="pref_translation_require_wifi">Éiligh Wi-Fi chun pacáistí teanga a íoslódáil</string>
+    <string name="pref_translation_manage_languages">Éiligh Wi-Fi chun pacáistí teanga a theagasc</string>
+    <string name="translation_model_manager_fragment_title">Pacáistí teanga</string>
+    <string name="translation_model_manager_fragment_info">Teangacha ar féidir le Pachli aistriú eatarthu ag baint úsáide as Google Translate. Má íoslódálann tú pacáistí teanga roimh ré, beidh an t-aistriúchán níos tapúla.</string>
+    <string name="translation_model_manager_fragment_downloaded_heading">Íoslódáilte</string>
+    <string name="translation_model_manager_fragment_remote_heading">Tapáil le híoslódáil</string>
+    <string name="fragment_confirm_download_language_dialog_title_fmt">Íoslódáil %1$s le sonraí soghluaiste?</string>
+    <string name="fragment_confirm_download_language_dialog_msg">De ghnáth, úsáidfidh sé seo 30–60MB de shonraí soghluaiste.</string>
+    <string name="fragment_confirm_delete_language_dialog_title_fmt">Scrios %1$s?</string>
+    <string name="fragment_confirm_delete_language_dialog_msg">Má scriosann tú an teanga seo, déanfar í a íoslódáil an chéad uair eile a bheidh gá léi.</string>
+    <string name="fragment_google_disclaimer_dialog_title">Séanadh aistriúcháin</string>
+    <string name="action_translate_mlkit">Aistrigh le Google</string>
+    <string name="label_translated_mlkit">Aistrithe ag Google</string>
 </resources>
