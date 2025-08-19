@@ -1,0 +1,15 @@
+Pachli 1.4.0
+
+Uus:
+
+- Uuenduste olemasolu kontroll ja sellest kasutaja teavitamine 
+
+Veaparandused ja muu:
+
+- Eelistuste muudatused on nähtavad kohe
+- FAB_HIDE eelistus on nüüd kasutusel ka ajajoontel 
+- Süsteemi juhtnupud on nähtavad ka vanemates seadmetes 
+- Oleku ajajoonel pole enam edenemisriba 
+- Lohistamise lõpetamisel taastatakse pildi kuvasuhe 
+- Võimaliku kokkujooksmise vältimine filtreeritud andmete aeglasel laadimisel 
+- uuendatud itaalia keele tõlge
