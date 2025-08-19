@@ -873,4 +873,9 @@
         <item quantity="many">le róil:</item>
         <item quantity="other">le róil:</item>
     </plurals>
+    <string name="translator_error_server_does_not_translate">ní thacaíonn an freastalaí le haistriúchán</string>
+    <string name="translator_error_no_language_detected">níorbh fhéidir an teanga bhunaidh a chinneadh</string>
+    <string name="translator_error_unsupported_source_language_fmt">ní féidir aistriú ó %1$s</string>
+    <string name="translator_error_unsupported_target_language_fmt">ní féidir aistriú go %1$s</string>
+    <string name="translator_error_download_required_fmt">Éilíonn aistriúchán go %1$s an pacáiste teanga a íoslódáil, agus níl Wi-Fi ceangailte</string>
 </resources>
