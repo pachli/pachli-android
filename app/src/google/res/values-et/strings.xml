@@ -2,4 +2,22 @@
 <resources>
     <string name="update_dialog_positive">Ava Google Play</string>
     <string name="update_dialog_message">Kas avan üksikasjade vaatamiseks Google Play?</string>
+    <string name="action_delete_remote_model_fmt">Kustuta %1$s</string>
+    <string name="action_download_remote_model_fmt">Laadi %1$s alla</string>
+    <string name="content_description_loading_fmt">%1$s, allalaadimisel</string>
+    <string name="content_description_loaded_fmt">%1$s, allalaaditud</string>
+    <string name="content_description_available_fmt">%1$s, saadaval allalaadimiseks</string>
+    <string name="pref_translation_require_wifi">Kasuta keelepakkide allalaadimieks vaid WiFi ühendust</string>
+    <string name="pref_translation_manage_languages">Halda keelepakke</string>
+    <string name="translation_model_manager_fragment_title">Keelepakid</string>
+    <string name="translation_model_manager_fragment_downloaded_heading">Allalaaditud</string>
+    <string name="translation_model_manager_fragment_remote_heading">Allalaadimiseks puuduta</string>
+    <string name="translation_model_manager_fragment_info">Keeled, mille vahel Pachli oskab Google Translate\'i abil tõlkida. Kui laadid keelepakid eelnevalt alla, siis tõlkimine toimib kiiremini.</string>
+    <string name="fragment_confirm_download_language_dialog_title_fmt">Kas laadid %1$s alla mobiilse andmeside võrgus?</string>
+    <string name="fragment_confirm_download_language_dialog_msg">Tavaliselt kulub selleks 30–60MB mobiilse andmeside mahtu.</string>
+    <string name="fragment_confirm_delete_language_dialog_title_fmt">Kas kustutad: %1$s?</string>
+    <string name="fragment_confirm_delete_language_dialog_msg">Kui kustutad selle keele, siis laaditakse ta tulevikus vajadusel uuesti alla.</string>
+    <string name="fragment_google_disclaimer_dialog_title">Lahtiütlus vastutusest tõlketeenuse puhul</string>
+    <string name="action_translate_mlkit">Tõlgi Google\'iga</string>
+    <string name="label_translated_mlkit">Tõlgitud Google\'iga</string>
 </resources>
