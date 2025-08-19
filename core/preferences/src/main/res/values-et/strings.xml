@@ -39,4 +39,12 @@
     <string name="pref_default_audio_playback_option_unmuted">Lõpeta summutamine</string>
     <string name="pref_default_audio_playback_option_muted">Summutatud</string>
     <string name="pref_title_translation">Tõlge</string>
+    <string name="pref_translation_backend">Kuidas tõlkimine toimib</string>
+    <string name="pref_translation_backend_option_server_only">Vaid serveris</string>
+    <string name="pref_translation_backend_option_server_only_help">Postitused tõlgitakse sinu koduserveris. Ei toimi, kui tõlkimine pole serveris kasutusel või postituse keel ei sobi.</string>
+    <string name="pref_translation_backend_option_server_first">Esmalt serveris</string>
+    <string name="pref_translation_backend_option_server_first_help">Postitused tõlgitakse sinu koduserveris. Kui see ei toimi, siis tõlgitakse nutiseadmes Google\'i tõlketeenusega.</string>
+    <string name="pref_translation_backend_option_local_only">Vaid nutiseadmes</string>
+    <string name="pref_translation_backend_option_local_only_help">Postitused tõlgitakse sinu nutiseadmes Google\'i tõlketeenusega.</string>
+    <string name="pref_translation_backend_requires_play_label">Kasutamaks seadmepõhise tõlkimise tuge, paigalda vajalikud komponendid Google Playst</string>
 </resources>
