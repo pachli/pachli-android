@@ -4,4 +4,5 @@
     <string name="post_lookup_error_format">Earráid ag cuardach %s</string>
     <string name="performing_lookup_title">Amharc taibhithe…</string>
     <string name="send_error_report">Seol tuairisc earráide</string>
+    <string name="action_open_as_ellipsis">Oscail mar…</string>
 </resources>
