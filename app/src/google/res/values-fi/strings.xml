@@ -2,4 +2,18 @@
 <resources>
     <string name="update_dialog_positive">Avaa Google Play</string>
     <string name="update_dialog_message">Avaa Google Play nähdäksesi yksityiskohdat?</string>
+    <string name="label_translated_mlkit">Googlen kääntämä</string>
+    <string name="action_translate_mlkit">Käännä Googlen avulla</string>
+    <string name="fragment_google_disclaimer_dialog_title">Käännöksen vastuuvapaus</string>
+    <string name="fragment_confirm_delete_language_dialog_msg">jos poistat tämän kielen se ladataan ensi kerralla kun sitä tarvitaan.</string>
+    <string name="fragment_confirm_delete_language_dialog_title_fmt">Poista %1$s?</string>
+    <string name="fragment_confirm_download_language_dialog_msg">Tämä vaatii yleensä 30–60 MB mobiilidataa.</string>
+    <string name="fragment_confirm_download_language_dialog_title_fmt">Lataa %1$s mobiilidataa käyttäen?</string>
+    <string name="translation_model_manager_fragment_remote_heading">Paina ladataksesi</string>
+    <string name="translation_model_manager_fragment_downloaded_heading">Ladattu</string>
+    <string name="translation_model_manager_fragment_info">Näiden kielien välillä Pachli voi kääntää käyttäen Google-kääntäjää. Kielipakettien lataaminen etukäteen nopeuttaa kääntämistä.</string>
+    <string name="translation_model_manager_fragment_title">Kielipaketit</string>
+    <string name="pref_translation_manage_languages">Hallinnoi kielipaketteja</string>
+    <string name="pref_translation_require_wifi">Vadi Wi-Fi-yhteys kielipakettien lataamiseksi</string>
+    <string name="content_description_available_fmt">%1$s, ladattavissa</string>
 </resources>
