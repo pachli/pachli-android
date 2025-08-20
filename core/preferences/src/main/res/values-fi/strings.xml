@@ -37,4 +37,14 @@
     <string name="pref_default_audio_playback_option_unmuted">Mykistys poistettu.</string>
     <string name="pref_default_audio_playback_option_muted">Mykistetty</string>
     <string name="pref_title_translation">Käännös</string>
+    <string name="pref_summary_export_settings">Tallenna sovelluksen ja tilin asetukset painamalla tästä</string>
+    <string name="pref_summary_import_settings">Paina palauttaaksesi asetukset tiedostosta joka on luotu \"Vie asetukset\"-toiminnolla</string>
+    <string name="pref_translation_backend">Miten käännetään</string>
+    <string name="pref_translation_backend_option_server_only">Vain palvelin</string>
+    <string name="pref_translation_backend_option_server_only_help">Käännä julkaisut omalla palvelimellasi. Ei toimi jos palvein ei tue kääntämistä, tai jos julkaisun kieli on merkitty väärin.</string>
+    <string name="pref_translation_backend_option_server_first">Palvein ensin</string>
+    <string name="pref_translation_backend_option_server_first_help">Kääntää julkaisut omalla palvelimellasi. Ellei tämä toimi, käännös tehdään Google Käännökset -palvelua käyttäen omalla laitteellasi.</string>
+    <string name="pref_translation_backend_option_local_only">Vain laitteella</string>
+    <string name="pref_translation_backend_option_local_only_help">Julkaisut käännetään omalla laitteellasi Google Käännökset -palvelua käyttäen.</string>
+    <string name="pref_translation_backend_requires_play_label">Asenna Google Play-sivustolta laitteella tapahtuvaa kääntämistä varten</string>
 </resources>
