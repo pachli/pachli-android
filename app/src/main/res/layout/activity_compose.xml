@@ -294,7 +294,8 @@
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
                 android:textColorHint="?android:attr/textColorTertiary"
-                android:textSize="?attr/status_text_large" />
+                android:textSize="?attr/status_text_large"
+                android:layerType="software" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/composeMediaPreviewBar"
