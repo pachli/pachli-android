@@ -22,6 +22,7 @@ import android.text.method.KeyListener
 import android.util.AttributeSet
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
+import android.widget.EditText
 import androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView
 import androidx.core.view.OnReceiveContentListener
 import androidx.core.view.ViewCompat
@@ -36,6 +37,14 @@ class EditTextTyped @JvmOverloads constructor(
     AppCompatMultiAutoCompleteTextView(context, attributeSet) {
 
     private val emojiEditTextHelper: EmojiEditTextHelper = EmojiEditTextHelper(this)
+
+    /**
+     * Optional listener called after text in the view has been replaced by the user
+     * auto-completing the text.
+     *
+     * Use this to, e.g., add spans to the newly inserted text.
+     */
+    var onReplaceTextListener: ((EditText, CharSequence?) -> Unit)? = null
 
     init {
         // fix a bug with autocomplete and some keyboards
@@ -59,6 +68,7 @@ class EditTextTyped @JvmOverloads constructor(
     override fun replaceText(text: CharSequence?) {
         super.replaceText(text)
         append(" ")
+        onReplaceTextListener?.invoke(this, text)
     }
 
     override fun onCreateInputConnection(editorInfo: EditorInfo): InputConnection {

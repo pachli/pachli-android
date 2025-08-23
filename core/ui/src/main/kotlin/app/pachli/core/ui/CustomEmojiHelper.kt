@@ -21,6 +21,7 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.drawable.Animatable
 import android.graphics.drawable.Drawable
+import android.text.Spannable
 import android.text.style.ReplacementSpan
 import android.util.Size
 import android.view.View
@@ -41,6 +42,10 @@ import com.bumptech.glide.request.transition.Transition
  * @return the text with the shortcodes replaced by EmojiSpans
  */
 fun CharSequence.emojify(glide: RequestManager, emojis: List<Emoji>?, view: View, animate: Boolean): CharSequence {
+    return toSpannable().emojify(glide, emojis, view, animate)
+}
+
+fun Spannable.emojify(glide: RequestManager, emojis: List<Emoji>?, view: View, animate: Boolean): CharSequence {
     return view.updateEmojiTargets(glide) {
         emojify(glide, emojis, animate)
     }
@@ -54,7 +59,11 @@ class EmojiTargetScope<T : View>(val view: T) {
     fun CharSequence.emojify(glide: RequestManager, emojis: List<Emoji>?, animate: Boolean): CharSequence {
         if (emojis.isNullOrEmpty()) return this
 
-        val spannable = toSpannable()
+        return toSpannable().apply { emojify(glide, emojis, animate) }
+    }
+
+    fun Spannable.emojify(glide: RequestManager, emojis: List<Emoji>?, animate: Boolean): CharSequence {
+        if (emojis.isNullOrEmpty()) return this
 
         emojis.forEach { (shortcode, url, staticUrl) ->
             var start = indexOf(shortcode)
@@ -63,7 +72,7 @@ class EmojiTargetScope<T : View>(val view: T) {
                 val end = start + shortcode.length
                 val span = EmojiSpan(view)
 
-                spannable.setSpan(span, start, end, 0)
+                setSpan(span, start, end, 0)
                 val target = span.createGlideTarget(view, animate)
                 glide.asDrawable().load(if (animate) url else staticUrl).into(target)
                 _targets.add(target)
@@ -72,7 +81,7 @@ class EmojiTargetScope<T : View>(val view: T) {
             }
         }
 
-        return spannable
+        return this
     }
 }
 
@@ -132,7 +141,7 @@ class EmojiSpan(view: View) : ReplacementSpan() {
      * @return The size of the emoji drawable, scaled to fit within the
      * [textSize][Paint.getTextSize] (height) of [paint], including [scaleFactor].
      */
-    fun getScaledSize(paint: Paint): Size {
+    private fun getScaledSize(paint: Paint): Size {
         return imageDrawable?.let { drawable ->
             val maxHeight = paint.textSize * 1.2
             val drawableWidth = drawable.intrinsicWidth
@@ -170,9 +179,7 @@ class EmojiSpan(view: View) : ReplacementSpan() {
                 (imageDrawable as? Animatable)?.stop()
             }
 
-            override fun onLoadFailed(errorDrawable: Drawable?) {
-                // Nothing to do
-            }
+            override fun onLoadFailed(errorDrawable: Drawable?) = Unit
 
             override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
                 if (animate && resource is Animatable) {

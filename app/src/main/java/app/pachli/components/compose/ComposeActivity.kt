@@ -36,6 +36,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.PopupMenu
 import android.widget.Toast
@@ -95,6 +96,7 @@ import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InReplyTo
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InitialCursorPosition
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.preferences.AppTheme
+import app.pachli.core.ui.EmojiSpan
 import app.pachli.core.ui.emojify
 import app.pachli.core.ui.extensions.InsetType
 import app.pachli.core.ui.extensions.applyWindowInsets
@@ -1620,11 +1622,50 @@ class ComposeActivity :
     }
 
     private fun bindEmojiList(emojis: List<Emoji>) {
+        binding.composeEditField.text.emojify(glide, emojis, binding.composeEditField, sharedPreferencesRepository.animateEmojis)
+
+        // Listen for the user auto-completing an emoji (text starting and ending with ':').
+        // Find the equivalent `Emoji`, and wrap the inserted text in an EmojiSpan.
+        binding.composeEditField.onReplaceTextListener = { view, text ->
+            if (text != null && text.startsWith(':') && text.endsWith(':')) {
+                emojis.firstOrNull { it.shortcode == text }?.let { emoji ->
+                    // Inserted an emoji, and a space. Cursor is currently after the space
+                    // that was just inserted.
+                    val end = view.selectionStart - 1
+                    val start = end - text.length
+                    view.wrapTextWithEmojiSpan(start, end, emoji)
+                }
+            }
+        }
+
         binding.emojiPickerBottomSheet.animate = sharedPreferencesRepository.animateEmojis
-        binding.emojiPickerBottomSheet.onSelectEmoji = { replaceTextAtCaret("${it.shortcode} ") }
+        binding.emojiPickerBottomSheet.onSelectEmoji = {
+            val selectionStart = binding.composeEditField.selectionStart
+            val codeLength = it.shortcode.length
+
+            replaceTextAtCaret("${it.shortcode} ")
+
+            binding.composeEditField.wrapTextWithEmojiSpan(
+                selectionStart,
+                selectionStart + codeLength,
+                it,
+            )
+        }
         binding.emojiPickerBottomSheet.emojis = emojis
 
         enableButton(binding.composeEmojiButton, emojis.isNotEmpty(), emojis.isNotEmpty())
+    }
+
+    /**
+     * Wraps the text in [this] with an [EmojiSpan] displaying [emoji]. The text
+     * starts at [start] and ends at [end] inclusive.
+     */
+    private fun EditText.wrapTextWithEmojiSpan(start: Int, end: Int, emoji: Emoji) {
+        val span = EmojiSpan(this)
+        text.setSpan(span, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        val animate = sharedPreferencesRepository.animateAvatars
+        val target = span.createGlideTarget(this, animate)
+        glide.asDrawable().load(if (animate) emoji.url else emoji.staticUrl).into(target)
     }
 
     /**
