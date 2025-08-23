@@ -56,6 +56,11 @@ class EditTextTyped @JvmOverloads constructor(
         ViewCompat.setOnReceiveContentListener(this, arrayOf("image/*"), listener)
     }
 
+    override fun replaceText(text: CharSequence?) {
+        super.replaceText(text)
+        append(" ")
+    }
+
     override fun onCreateInputConnection(editorInfo: EditorInfo): InputConnection {
         val connection = super.onCreateInputConnection(editorInfo)
         EditorInfoCompat.setContentMimeTypes(editorInfo, arrayOf("image/*"))
