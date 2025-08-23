@@ -43,7 +43,7 @@ internal class EmojiGridView @JvmOverloads constructor(
     private val gridLayoutManager = GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false)
 
     /** Width of an [app.pachli.databinding.ItemEmojiButtonBinding] in pixels. */
-    private val pxSpanWidth = dpToPx(48f, context.resources.displayMetrics)
+    private val pxSpanWidth = dpToPx(40f, context.resources.displayMetrics)
 
     /**
      * Determines the size of each span based on the item's view type.
