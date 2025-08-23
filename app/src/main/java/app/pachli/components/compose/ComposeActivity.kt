@@ -1619,12 +1619,12 @@ class ComposeActivity :
         return viewModel.searchAutocompleteSuggestions(token)
     }
 
-    private fun bindEmojiList(emojiList: List<Emoji>) {
+    private fun bindEmojiList(emojis: List<Emoji>) {
         binding.emojiPickerBottomSheet.animate = sharedPreferencesRepository.animateEmojis
-        binding.emojiPickerBottomSheet.clickListener = { replaceTextAtCaret("${it.shortcode} ") }
-        binding.emojiPickerBottomSheet.emojis = emojiList
+        binding.emojiPickerBottomSheet.onSelectEmoji = { replaceTextAtCaret("${it.shortcode} ") }
+        binding.emojiPickerBottomSheet.emojis = emojis
 
-        enableButton(binding.composeEmojiButton, emojiList.isNotEmpty(), emojiList.isNotEmpty())
+        enableButton(binding.composeEmojiButton, emojis.isNotEmpty(), emojis.isNotEmpty())
     }
 
     /**

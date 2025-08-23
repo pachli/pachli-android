@@ -46,7 +46,7 @@ class ChooseEmojiDialogFragment : AppCompatDialogFragment(), SuspendDialogResult
 
         val args = requireArguments()
         emojiPickerView.animate = args.getBoolean(ARG_ANIMATE_EMOJIS)
-        emojiPickerView.clickListener = {
+        emojiPickerView.onSelectEmoji = {
             result = it
             dismiss()
         }

@@ -23,12 +23,16 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/emojiFilter"
         style="@style/AppTextInput"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/hint_search_emojis"
         app:endIconContentDescription="@string/clear_text_end_icon_content_description"
         app:endIconMinSize="32dp"
-        app:endIconMode="clear_text">
+        app:endIconMode="clear_text"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toStartOf="@id/showDetail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/emojiFilterText"
@@ -41,11 +45,60 @@
             tools:text="Some query" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <CheckBox
+        android:id="@+id/showDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="@string/emoji_picker_show_detail"
+        app:layout_constraintBaseline_toBaselineOf="@id/emojiFilter"
+        app:layout_constraintTop_toTopOf="@id/emojiFilter"
+        app:layout_constraintBottom_toBottomOf="@+id/emojiFilter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/emojiFilter" />
+
     <app.pachli.core.ui.emoji.EmojiGridView
         android:id="@+id/emojiGrid"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="200dp"
         android:scrollbars="vertical"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/emojiFilter"
+        app:layout_constraintEnd_toStartOf="@id/emojiDetail"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
+    <LinearLayout
+        android:id="@+id/emojiDetail"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@id/emojiGrid"
+        app:layout_constraintTop_toBottomOf="@id/emojiFilter"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="vertical"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/emojiDetailImage"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:padding="8dp"
+            tools:ignore="ContentDescription" />
+
+        <!-- Keep android:singleLine="true", otherwise the marquee effect won't trigger. -->
+        <TextView
+            android:id="@+id/emojiDetailShortcode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="?attr/status_text_small"
+            android:paddingTop="8dp"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:gravity="center"
+            tools:ignore="SelectableText" />
+
+    </LinearLayout>
 </merge>

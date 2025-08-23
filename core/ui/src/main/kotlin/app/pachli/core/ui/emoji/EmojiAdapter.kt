@@ -34,13 +34,6 @@ import java.util.Locale
 import timber.log.Timber
 
 /**
- * Listener for clicks on emojis.
- *
- * @param emoji The clicked [Emoji]
- */
-typealias EmojiClickListener = (emoji: Emoji) -> Unit
-
-/**
  * Items that can be be displayed in the list of emojis.
  *
  * @property id Unique identifier for this item.
@@ -63,6 +56,9 @@ internal sealed interface EmojiListItem {
 
         val category: String?
             get() = emoji.category
+
+        val staticUrl: String
+            get() = emoji.staticUrl
 
         val url: String
             get() = emoji.url
@@ -120,7 +116,7 @@ internal class EmojiAdapter(
         }
 
     /** Listener for clicks on [EmojiListItem.EmojiItem]. */
-    internal var onClick: EmojiClickListener? = null
+    internal var onClick: ((Emoji) -> Unit)? = null
 
     /** Emojis, grouped within the list by category. The list is flat. */
     private var emojiItems: List<EmojiListItem> = categoriseEmojis()
@@ -208,9 +204,7 @@ internal class EmojiAdapter(
         val inflater = LayoutInflater.from(parent.context)
         return when (viewType) {
             R.layout.item_emoji_category -> EmojiCategoryViewHolder(ItemEmojiCategoryBinding.inflate(inflater, parent, false))
-            R.layout.item_emoji_button -> EmojiItemViewHolder(glide, ItemEmojiButtonBinding.inflate(inflater, parent, false), animate) { emoji ->
-                onClick?.invoke(emoji)
-            }
+            R.layout.item_emoji_button -> EmojiItemViewHolder(glide, ItemEmojiButtonBinding.inflate(inflater, parent, false), animate, onClick)
             else -> throw IllegalStateException("incorrect viewType: $viewType")
         }
     }
@@ -252,26 +246,22 @@ internal class EmojiItemViewHolder(
     val glide: RequestManager,
     val binding: ItemEmojiButtonBinding,
     val animate: Boolean,
-    val onClick: EmojiClickListener?,
+    val onClick: ((Emoji) -> Unit)?,
 ) : EmojiViewHolder<EmojiListItem.EmojiItem>, RecyclerView.ViewHolder(binding.root) {
     // Inline classes can't be marked lateinit, so this must be nullable
-    internal var emoji: EmojiListItem.EmojiItem? = null
+    private var emojiItem: EmojiListItem.EmojiItem? = null
 
     init {
         onClick?.let {
-            binding.root.setOnClickListener { emoji?.let { onClick(it.emoji) } }
+            binding.root.setOnClickListener { emojiItem?.let { onClick(it.emoji) } }
         }
     }
 
     override fun bind(viewData: EmojiListItem.EmojiItem) {
         with(binding.root) {
-            emoji = viewData
+            emojiItem = viewData
 
-            if (animate) {
-                glide.load(viewData.url).into(this)
-            } else {
-                glide.asBitmap().load(viewData.url).into(this)
-            }
+            glide.load(if (animate) viewData.url else viewData.staticUrl).into(this)
 
             contentDescription = viewData.shortcode
             TooltipCompat.setTooltipText(this, viewData.shortcode)
