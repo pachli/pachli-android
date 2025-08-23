@@ -16,33 +16,36 @@
   -->
 
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
-    <LinearLayout
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/emojiFilter"
+        style="@style/AppTextInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:hint="@string/hint_search_emojis"
+        app:endIconContentDescription="@string/clear_text_end_icon_content_description"
+        app:endIconMinSize="32dp"
+        app:endIconMode="clear_text">
 
-        <app.pachli.core.ui.emoji.EmojiGridView
-            android:id="@+id/emojiGrid"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:scrollbars="vertical" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/emojiFilter"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/emojiFilterText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:hint="@string/hint_search_emojis"
-            style="@style/AppTextInput"
-            app:endIconMode="clear_text"
-            app:endIconContentDescription="@string/clear_text_end_icon_content_description">
+            android:paddingStart="8dp"
+            android:paddingTop="12dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="8dp"
+            tools:text="Some query" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
+    <app.pachli.core.ui.emoji.EmojiGridView
+        android:id="@+id/emojiGrid"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scrollbars="vertical"
+        android:layout_marginTop="8dp" />
+
 </merge>
