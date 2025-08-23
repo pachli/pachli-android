@@ -98,11 +98,11 @@ class ComposeTokenizer : MultiAutoCompleteTextView.Tokenizer {
         return if (i > 0 && text[i - 1] == ' ') {
             text
         } else if (text is Spanned) {
-            val s = SpannableString("$text ")
+            val s = SpannableString(text)
             TextUtils.copySpansFrom(text, 0, text.length, Object::class.java, s, 0)
             s
         } else {
-            "$text "
+            text
         }
     }
 }
