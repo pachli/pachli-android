@@ -4,7 +4,8 @@
     android:background="?attr/selectableItemBackgroundBorderless"
     android:layout_width="40dp"
     android:layout_height="40dp"
-    android:layout_margin="4dp"
-    android:padding="4dp"
+    android:paddingStart="4dp"
+    android:paddingEnd="4dp"
+    android:paddingBottom="8dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     tools:ignore="ContentDescription" />

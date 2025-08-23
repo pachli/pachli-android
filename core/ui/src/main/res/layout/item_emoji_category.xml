@@ -20,9 +20,9 @@
     android:id="@android:id/text1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    style="@style/TextAppearance.Material3.TitleSmall"
     android:gravity="bottom"
-    android:paddingTop="8dp"
-    android:textAppearance="?android:attr/textAppearanceListItemSmall"
+    android:paddingBottom="8dp"
     android:focusable="false"
     tools:ignore="SelectableText"
     tools:text="Category" />

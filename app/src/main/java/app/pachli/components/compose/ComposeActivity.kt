@@ -57,6 +57,8 @@ import androidx.core.os.BundleCompat
 import androidx.core.view.ContentInfoCompat
 import androidx.core.view.OnReceiveContentListener
 import androidx.core.view.ViewGroupCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
@@ -295,9 +297,9 @@ class ComposeActivity :
             left = InsetType.PADDING,
             right = InsetType.PADDING,
         )
+        // Top/bottom insets are specified in the XML.
         binding.emojiPickerBottomSheet.applyWindowInsets(
             left = InsetType.PADDING,
-            top = InsetType.MARGIN,
             right = InsetType.PADDING,
         )
 
@@ -388,9 +390,11 @@ class ComposeActivity :
                     }
                 }
 
-                binding.composeEditField.post {
-                    binding.composeEditField.requestFocus()
-                }
+                // Ensure the focus starts in the edit field. Calling requestFocus() is not enough
+                // to reliably show the keyboard, follow rec. from
+                // https://developer.android.com/develop/ui/views/touch-and-input/keyboard-input/visibility#ShowReliably
+                binding.composeEditField.requestFocus()
+                WindowCompat.getInsetsController(window, binding.composeEditField).show(WindowInsetsCompat.Type.ime())
             }
         }
     }
@@ -709,7 +713,37 @@ class ComposeActivity :
         visibilityBehavior = BottomSheetBehavior.from(binding.composeOptionsBottomSheet)
         addAttachmentBehavior = BottomSheetBehavior.from(binding.addMediaBottomSheet)
         scheduleBehavior = BottomSheetBehavior.from(binding.composeScheduleView)
-        emojiBehavior = BottomSheetBehavior.from(binding.emojiPickerBottomSheet)
+        emojiBehavior = BottomSheetBehavior.from(binding.emojiPickerBottomSheet).apply {
+            addBottomSheetCallback(
+                object : BottomSheetBehavior.BottomSheetCallback() {
+                    override fun onStateChanged(bottomSheet: View, newState: Int) {
+                        // Adjust the "Toot" button state; disabled when the emoji
+                        // sheet is open, enabled when closed, so tapping emojis
+                        // can't mis-click and send the post too early.
+                        //
+                        // When the sheet is open focus shifts to the filter view,
+                        // when closed focus shifts to the editor.
+                        when {
+                            newState == BottomSheetBehavior.STATE_SETTLING -> {
+                                binding.composeTootButton.isEnabled = !binding.composeTootButton.isEnabled
+                            }
+
+                            newState == BottomSheetBehavior.STATE_EXPANDED -> {
+                                binding.composeTootButton.isEnabled = false
+                                binding.emojiPickerBottomSheet.requestFocus()
+                            }
+
+                            newState == BottomSheetBehavior.STATE_HIDDEN -> {
+                                binding.composeTootButton.isEnabled = true
+                                binding.composeEditField.requestFocus()
+                            }
+                        }
+                    }
+
+                    override fun onSlide(bottomSheet: View, slideOffset: Float) = Unit
+                },
+            )
+        }
 
         val bottomSheetCallback = object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
