@@ -57,11 +57,10 @@ class EmojiTargetScope<T : View>(val view: T) {
         val spannable = toSpannable()
 
         emojis.forEach { (shortcode, url, staticUrl) ->
-            val pattern = ":$shortcode:"
-            var start = indexOf(pattern)
+            var start = indexOf(shortcode)
 
             while (start != -1) {
-                val end = start + pattern.length
+                val end = start + shortcode.length
                 val span = EmojiSpan(view)
 
                 spannable.setSpan(span, start, end, 0)
@@ -69,7 +68,7 @@ class EmojiTargetScope<T : View>(val view: T) {
                 glide.asDrawable().load(if (animate) url else staticUrl).into(target)
                 _targets.add(target)
 
-                start = indexOf(pattern, end)
+                start = indexOf(shortcode, end)
             }
         }
 
