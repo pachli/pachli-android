@@ -28,7 +28,7 @@ data class Emoji(
     val category: String? = null,
 ) {
     fun asModel() = app.pachli.core.model.Emoji(
-        shortcode = shortcode,
+        shortcode = if (shortcode.startsWith(':')) shortcode else ":$shortcode:",
         url = url,
         staticUrl = staticUrl,
         visibleInPicker = visibleInPicker,

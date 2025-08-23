@@ -239,7 +239,6 @@
     <string name="restart_emoji">你需要重启 Pachli 才能生效</string>
     <string name="later">稍后</string>
     <string name="restart">立即重启</string>
-    <!-- string name="emoji_shortcode_format" translatable="false">:%s:</string -->
     <string name="download_failed">下载失败</string>
     <string name="account_moved_description">%1$s 已迁移到：</string>
     <string name="reblog_private">转嘟（可见者不变）</string>

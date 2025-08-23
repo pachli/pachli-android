@@ -1587,7 +1587,7 @@ class ComposeActivity :
 
     private fun bindEmojiList(emojiList: List<Emoji>) {
         binding.emojiPickerBottomSheet.animate = sharedPreferencesRepository.animateEmojis
-        binding.emojiPickerBottomSheet.clickListener = { replaceTextAtCaret(":${it.shortcode}: ") }
+        binding.emojiPickerBottomSheet.clickListener = { replaceTextAtCaret("${it.shortcode} ") }
         binding.emojiPickerBottomSheet.emojis = emojiList
 
         enableButton(binding.composeEmojiButton, emojiList.isNotEmpty(), emojiList.isNotEmpty())

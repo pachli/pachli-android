@@ -23,7 +23,6 @@ import android.widget.BaseAdapter
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.annotation.WorkerThread
-import app.pachli.R
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.util.formatNumber
 import app.pachli.core.designsystem.R as DR
@@ -140,7 +139,7 @@ class ComposeAutoCompleteAdapter(
             }
             is ItemAutocompleteEmojiBinding -> {
                 val emoji = (getItem(position) as AutocompleteResult.EmojiResult).emoji
-                binding.shortcode.text = context.getString(R.string.emoji_shortcode_format, emoji.shortcode)
+                binding.shortcode.text = emoji.shortcode
                 glide.load(emoji.url).into(binding.preview)
             }
         }
@@ -183,7 +182,7 @@ class ComposeAutoCompleteAdapter(
         }
 
         private fun formatEmoji(result: AutocompleteResult.EmojiResult): String {
-            return ":${result.emoji.shortcode}:"
+            return result.emoji.shortcode
         }
     }
 }
