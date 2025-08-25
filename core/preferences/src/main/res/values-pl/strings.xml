@@ -39,4 +39,12 @@
     <string name="pref_default_audio_playback_option_unmuted">Wyłączono wyciszenie mikrofonu</string>
     <string name="pref_default_audio_playback_option_muted">Wyciszony</string>
     <string name="pref_title_translation">Tłumaczenie</string>
+    <string name="pref_translation_backend">Jak tłumaczyć</string>
+    <string name="pref_translation_backend_option_server_only">Tylko serwer</string>
+    <string name="pref_translation_backend_option_server_only_help">Tłumaczy wpisy używając twojego serwera. Nie zadziała, jeżeli twój serwer nie wspiera tłumaczenia lub język wpisu jest niewłaściwy.</string>
+    <string name="pref_translation_backend_option_server_first">Najpierw serwer</string>
+    <string name="pref_translation_backend_option_server_first_help">Tłumaczy wpisy przy użyciu twojego serwera. Jeżeli to zawiedzie, tłumaczy na twoim urządzeniu przez Tłumacza Google.</string>
+    <string name="pref_translation_backend_option_local_only">Tylko na urządzeniu</string>
+    <string name="pref_translation_backend_option_local_only_help">Tłumaczy wpisy na twoim urządzeniu przy użyciu Tłumacza Google.</string>
+    <string name="pref_translation_backend_requires_play_label">Zainstaluj z Google Play dla wsparcia dla tłumaczenia na urządzeniu</string>
 </resources>
