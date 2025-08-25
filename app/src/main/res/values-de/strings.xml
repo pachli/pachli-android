@@ -831,4 +831,13 @@
     <string name="notification_moderation_warning_body_none_fmt">Du hast eine Moderationswarnung erhalten: %1$s</string>
     <string name="notification_moderation_warning_title">Eine Nachricht von deinen Moderatoren</string>
     <string name="error_share_media">es existiert kein Ordner zum Speichern temporärer Medien</string>
+    <string name="translator_error_server_does_not_translate">Server unterstützt keine Übersetzungen</string>
+    <string name="translator_error_no_language_detected">Originalsprache konnte nicht bestimmt werden</string>
+    <string name="translator_error_unsupported_source_language_fmt">kann von %1$s nicht übersetzen</string>
+    <string name="translator_error_unsupported_target_language_fmt">kann nicht nach %1$s übersetzen</string>
+    <string name="translator_error_download_required_fmt">Übersetzung in %1$s erfordert das Herunterladen des Sprachpakets und es besteht keine WLAN-Verbindung</string>
+    <plurals name="description_post_roles">
+        <item quantity="one">mit Rolle:</item>
+        <item quantity="other">mit Rollen:</item>
+    </plurals>
 </resources>
