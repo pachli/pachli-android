@@ -2,4 +2,22 @@
 <resources>
     <string name="update_dialog_message">Открыть Google Play чтобы посмотреть подробности?</string>
     <string name="update_dialog_positive">Открыть Google Play</string>
+    <string name="action_delete_remote_model_fmt">Удалить %1$s</string>
+    <string name="action_download_remote_model_fmt">Скачать %1$s</string>
+    <string name="content_description_loading_fmt">%1$s, скачивается</string>
+    <string name="content_description_loaded_fmt">%1$s, скачано</string>
+    <string name="content_description_available_fmt">%1$s, доступно для скачивания</string>
+    <string name="pref_translation_require_wifi">Требуется Wi-Fi для скачивания языковых пакетов</string>
+    <string name="pref_translation_manage_languages">Управление языковыми пакетами</string>
+    <string name="translation_model_manager_fragment_title">Языковые пакеты</string>
+    <string name="translation_model_manager_fragment_info">Языки, на которые Pachli может переводить с помощью Google Переводчика. Предварительное скачивание языковых пакетов ускорит перевод.</string>
+    <string name="translation_model_manager_fragment_downloaded_heading">Скачано</string>
+    <string name="translation_model_manager_fragment_remote_heading">Нажмите для скачивания</string>
+    <string name="fragment_confirm_download_language_dialog_title_fmt">Скачать %1$s через мобильный интернет?</string>
+    <string name="fragment_confirm_download_language_dialog_msg">Обычно это займёт 30–60 МБ мобильного интернета.</string>
+    <string name="fragment_confirm_delete_language_dialog_title_fmt">Удалить %1$s?</string>
+    <string name="fragment_confirm_delete_language_dialog_msg">Если вы удалите этот язык, он будет загружен при следующей необходимости.</string>
+    <string name="fragment_google_disclaimer_dialog_title">Отказ от ответственности за перевод</string>
+    <string name="action_translate_mlkit">Перевести с помощью Google</string>
+    <string name="label_translated_mlkit">Переведено Google</string>
 </resources>
