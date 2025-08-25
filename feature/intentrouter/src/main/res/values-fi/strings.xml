@@ -1,7 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_set_active_account">Kirjautuminen epäonnistui, virhe oli:\n\n%1$s</string>
     <string name="error_refresh_account">Tilin päivittäminen epäonnistui, virhe oli:\n\n%1$s\n\nVoit jatkaa, mutta listasi ja suodattimesi saattavat olla eivät ehkä ole ajan tasalla.</string>
     <string name="action_relogin">Kirjaudu uudestaan</string>
     <string name="action_share_as">Jaa…</string>
+    <string name="client_error_unauthorized_fmt">%1$s\n\nNapauta \"%2$s\" yrittääksesi uudelleen.</string>
+    <string name="client_error_unauthorized_multiple_fmt">%1$s\n\nNapauta \"%2$s\" yrittääksesi uudelleen tai \"%3$s\" valitaksesi toisen tilin.</string>
+    <string name="error_login_failed_hint_multiple">Napauta samaa tiliä yrittääksesi uudelleen, tai toista tiliä kirjautuaksesi sille.</string>
+    <string name="error_login_failed_hint">Napauta tiliä yrittääksesi uudelleen.</string>
+    <string name="title_error_dialog">Kirjautuminen epäonnistui</string>
+    <string name="title_choose_account_dialog">Valitse tili</string>
 </resources>
