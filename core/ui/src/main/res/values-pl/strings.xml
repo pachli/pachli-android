@@ -32,4 +32,5 @@
     <string name="action_logout">Wyloguj się</string>
     <string name="hint_search_emojis">Wyszukaj emoji…</string>
     <string name="label_emoji_no_category">Bez kategorii</string>
+    <string name="emoji_picker_show_detail">Pokaż szczegóły</string>
 </resources>
