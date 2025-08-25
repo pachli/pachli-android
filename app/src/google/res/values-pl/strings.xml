@@ -8,4 +8,16 @@
     <string name="content_description_loaded_fmt">%1$s, pobrano</string>
     <string name="content_description_available_fmt">%1$s, gotowe do pobrania</string>
     <string name="pref_translation_require_wifi">Wymagaj Wi-Fi do pobierania pakietów językowych</string>
+    <string name="pref_translation_manage_languages">Zarządzaj pakietami językowymi</string>
+    <string name="translation_model_manager_fragment_title">Pakiety językowe</string>
+    <string name="translation_model_manager_fragment_info">Języki, między którymi Pachli może tłumaczyć przez Tłumacza Google. Pobranie zawczasu pakietów językowych przyśpieszy tłumaczenie.</string>
+    <string name="translation_model_manager_fragment_downloaded_heading">Pobrano</string>
+    <string name="translation_model_manager_fragment_remote_heading">Dotknij, by pobrać</string>
+    <string name="fragment_confirm_download_language_dialog_title_fmt">Pobrać %1$s przy użyciu danych mobilnych?</string>
+    <string name="fragment_confirm_download_language_dialog_msg">To zazwyczaj zużywa 30-60 MB danych.</string>
+    <string name="fragment_confirm_delete_language_dialog_title_fmt">Usunąć %1$s?</string>
+    <string name="fragment_confirm_delete_language_dialog_msg">Jeżeli usuniesz ten język, zostanie pobrany następnym razem, gdy będzie potrzebny.</string>
+    <string name="fragment_google_disclaimer_dialog_title">Zastrzeżenie dotyczące tłumaczenia</string>
+    <string name="action_translate_mlkit">Przetłumacz z Google</string>
+    <string name="label_translated_mlkit">Przetłumaczone przez Google</string>
 </resources>
