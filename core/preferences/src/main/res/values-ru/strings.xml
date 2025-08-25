@@ -39,4 +39,12 @@
     <string name="pref_summary_export_settings">Нажмите, чтобы сохранить настройки приложения и учётной записи в локальный файл</string>
     <string name="pref_summary_import_settings">Нажмите, чтобы восстановить настройки из файла, созданного с помощью функции «Экспорт настроек»</string>
     <string name="pref_title_translation">Перевод</string>
+    <string name="pref_translation_backend">Как улучшить перевод</string>
+    <string name="pref_translation_backend_option_server_only">Только сервер</string>
+    <string name="pref_translation_backend_option_server_only_help">Переводит сообщения, используя ваш сервер. Не будет работать, если ваш сервер не поддерживает перевод или язык сообщения неверный.</string>
+    <string name="pref_translation_backend_option_server_first">Сначала сервер</string>
+    <string name="pref_translation_backend_option_server_first_help">Переводит сообщения, используя ваш сервер. В случае неудачи переводит на вашем устройстве с помощью Google Translate.</string>
+    <string name="pref_translation_backend_option_local_only">Только на устройстве</string>
+    <string name="pref_translation_backend_option_local_only_help">Переводит сообщения на вашем устройстве с помощью Google Translate.</string>
+    <string name="pref_translation_backend_requires_play_label">Установите из Google Play для поддержки перевода на устройстве</string>
 </resources>
