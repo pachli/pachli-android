@@ -856,4 +856,9 @@
         <item quantity="other">z rolami:</item>
     </plurals>
     <string name="error_share_media">brak katalogu do zapisu mediów tymczasowych</string>
+    <string name="translator_error_server_does_not_translate">serwer nie obsługuje tłumaczenia</string>
+    <string name="translator_error_no_language_detected">nie udało się ustalić oryginalnego języka</string>
+    <string name="translator_error_unsupported_source_language_fmt">nie udało się przetłumaczyć z %1$s</string>
+    <string name="translator_error_unsupported_target_language_fmt">nie można przetłumaczyć na %1$s</string>
+    <string name="translator_error_download_required_fmt">tłumaczenie na %1$s wymaga pobrania pakietu językowego a Wi-Fi jest nie połączone</string>
 </resources>
