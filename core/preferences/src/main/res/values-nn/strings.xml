@@ -38,4 +38,9 @@
     <string name="pref_title_import_settings">Importer innstillingar</string>
     <string name="pref_default_audio_playback_option_unmuted">Fjern demping</string>
     <string name="pref_title_translation">Omsetjing</string>
+    <string name="pref_default_audio_playback_option_muted">Dempa</string>
+    <string name="pref_translation_backend">Korleis omsetja</string>
+    <string name="pref_translation_backend_option_server_only">Berre på tenar</string>
+    <string name="pref_translation_backend_option_server_only_help">Omset innlegg ved å nytte tenaren din. Går ikkje om tenaren din ikkje stør omsetjing eller om innleggets språk er feil.</string>
+    <string name="pref_translation_backend_option_server_first">Tenar fyrst</string>
 </resources>
