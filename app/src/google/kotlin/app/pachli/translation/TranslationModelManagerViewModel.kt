@@ -18,6 +18,7 @@
 package app.pachli.translation
 
 import android.content.Context
+import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.core.common.PachliError
@@ -104,6 +105,7 @@ data class ModelStats(
  * - Err(ThrowableError) - An error occurred during the download.
  * @param locale The locale corresponding to the model's language.
  */
+@Immutable
 data class TranslationModelViewData(
     val remoteModel: TranslateRemoteModel,
     val state: State,
