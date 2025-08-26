@@ -833,4 +833,5 @@
         <item quantity="few">s rolami:</item>
         <item quantity="other">s rolami:</item>
     </plurals>
+    <string name="translator_error_server_does_not_translate">server nepodporuje preklad</string>
 </resources>
