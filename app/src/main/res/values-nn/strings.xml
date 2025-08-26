@@ -36,7 +36,7 @@
     <string name="title_blocks">Blokkerte brukarar</string>
     <string name="title_domain_mutes">Skjulte domene</string>
     <string name="title_migration_relogin">Logg inn på nytt for å slå på pushvarsel</string>
-    <string name="title_follow_requests">Fylgjeførespurnadar</string>
+    <string name="title_follow_requests">Fylgjeførespurnader</string>
     <string name="title_edit_profile">Brigd profilen din</string>
     <string name="title_drafts">Utkast</string>
     <string name="title_scheduled_posts">Planlagte innlegg</string>
@@ -116,7 +116,7 @@
     <string name="action_view_mutes">Dempa brukarar</string>
     <string name="action_view_blocks">Blokkerte brukarar</string>
     <string name="action_view_domain_mutes">Skjulte domene</string>
-    <string name="action_view_follow_requests">Fylgjeførespurnadar</string>
+    <string name="action_view_follow_requests">Fylgjeførespurnader</string>
     <string name="action_view_media">Media</string>
     <string name="action_open_in_web">Opne i nettlesar</string>
     <string name="action_add_media">Legg ved media</string>
@@ -354,8 +354,8 @@
     <string name="notification_mention_descriptions">Varsel om nye nemningar</string>
     <string name="notification_follow_name">Nye fylgjarar</string>
     <string name="notification_follow_description">Varsel om nye fylgjarar</string>
-    <string name="notification_follow_request_name">Fylgjeførespurnadar</string>
-    <string name="notification_follow_request_description">Varsel om fylgjeførespurnadar</string>
+    <string name="notification_follow_request_name">Fylgjeførespurnader</string>
+    <string name="notification_follow_request_description">Varsel om fylgjeførespurnader</string>
     <string name="notification_boost_name">Delingar</string>
     <string name="notification_boost_description">Varsel når innlegga dine vert delte</string>
     <string name="notification_favourite_name">Favorittar</string>
@@ -529,7 +529,7 @@
     <string name="pref_title_hide_top_toolbar">Skjul tittelen på den øvste verktøylinja</string>
     <string name="pref_title_wellbeing_mode">Hugnad</string>
     <string name="account_note_saved">Lagra!</string>
-    <string name="follow_requests_info">Sjølv om kontoen din ikkje er låst, tykte moderatorane hjå %1$s at du ville endå sjå gjennom fylgjeførespurnadane frå desse kontoane for hand.</string>
+    <string name="follow_requests_info">Sjølv om kontoen din ikkje er låst, tykte moderatorane hjå %1$s at du ville endå sjå gjennom fylgjeførespurnadene frå desse kontoane for hand.</string>
     <string name="action_subscribe_account">Abonner</string>
     <string name="action_unsubscribe_account">Fjern abonnement</string>
     <string name="filter_action_none">Syn</string>
@@ -709,7 +709,7 @@
     <string name="search_operator_date_dialog_last_7_days">På dei siste 7 dagane</string>
     <string name="search_operator_language_dialog_title">Avgrens til innlegg skrevne på…</string>
     <string name="search_operator_date_dialog_last_30_days">På dei siste 30 dagane</string>
-    <string name="search_operator_date_dialog_last_6_months">På dei siste 6 månadane</string>
+    <string name="search_operator_date_dialog_last_6_months">På dei siste 6 månadene</string>
     <string name="search_operator_date_dialog_custom_range">Tilpassa utval</string>
     <string name="search_operator_language_all">Alle språk ▾</string>
     <string name="search_operator_replies_no_replies">Utelat svar</string>
