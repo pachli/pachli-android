@@ -2,4 +2,22 @@
 <resources>
     <string name="update_dialog_message">¿Abrir Google Play para ver los detalles?</string>
     <string name="update_dialog_positive">Abrir Google Play</string>
+    <string name="action_delete_remote_model_fmt">Eliminar %1$s</string>
+    <string name="action_download_remote_model_fmt">Descargar %1$s</string>
+    <string name="content_description_loading_fmt">%1$s, descargando</string>
+    <string name="content_description_loaded_fmt">%1$s, descargado</string>
+    <string name="content_description_available_fmt">%1$s, disponible para descargar</string>
+    <string name="pref_translation_require_wifi">Requerir Wi‑Fi para descargar paquetes de idioma</string>
+    <string name="pref_translation_manage_languages">Gestionar paquetes de idioma</string>
+    <string name="translation_model_manager_fragment_title">Paquetes de idioma</string>
+    <string name="translation_model_manager_fragment_info">Idiomas que Pachli puede traducir usando el Traductor de Google. Descargar los paquetes de idioma anticipadamente hará más rápida la traducción.</string>
+    <string name="translation_model_manager_fragment_downloaded_heading">Descargados</string>
+    <string name="translation_model_manager_fragment_remote_heading">Tocar para descargar</string>
+    <string name="fragment_confirm_download_language_dialog_title_fmt">¿Descargar %1$s con datos móviles?</string>
+    <string name="fragment_confirm_download_language_dialog_msg">Típicamente se usarán 30‑60 MB de datos.</string>
+    <string name="fragment_confirm_delete_language_dialog_title_fmt">¿Eliminar %1$s?</string>
+    <string name="fragment_confirm_delete_language_dialog_msg">Si eliminas este idioma, será descargado nuevamente la próxima vez que se lo necesite.</string>
+    <string name="action_translate_mlkit">Traducir con Google</string>
+    <string name="label_translated_mlkit">Traducido por Google</string>
+    <string name="fragment_google_disclaimer_dialog_title">Descargo de responsabilidad de las traducciones</string>
 </resources>
