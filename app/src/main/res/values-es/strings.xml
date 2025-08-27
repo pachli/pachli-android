@@ -201,7 +201,7 @@
     <string name="compose_active_account_description">Publicar como %1$s</string>
     <string name="action_remove">Eliminar</string>
     <string name="lock_account_label">Proteger cuenta</string>
-    <string name="lock_account_label_description">Tendrá que admitir los seguidores manualmente</string>
+    <string name="lock_account_label_description">Requiere admitir los seguidores manualmente</string>
     <string name="compose_save_draft">¿Guardar borrador?</string>
     <string name="send_post_notification_title">Enviando publicación…</string>
     <string name="send_post_notification_error_title">Error al enviar publicación</string>
@@ -422,7 +422,7 @@
     <string name="post_media_attachments">Adjuntos</string>
     <string name="post_media_audio">Audio</string>
     <string name="action_unbookmark">Quitar marcador</string>
-    <string name="follow_requests_info">Aunque tu cuenta no está bloqueada, el personal de %1$s pensó que podrías querer revisar las solicitudes de seguimiento de estas cuentas manualmente.</string>
+    <string name="follow_requests_info">Aunque tu cuenta no está protegida, el personal de %1$s pensó que podrías querer revisar las solicitudes de seguimiento de estas cuentas manualmente.</string>
     <string name="action_subscribe_account">Suscribir</string>
     <string name="dialog_delete_conversation_warning">¿Eliminar esta conversación\?</string>
     <string name="pref_title_animate_custom_emojis">Animar emojis personalizados</string>
@@ -843,4 +843,14 @@
     <string name="notification_moderation_warnings_name">Advertencias de moderación</string>
     <string name="notification_moderation_warnings_description">Notificaciones sobre advertencias de moderación</string>
     <string name="error_share_media">no existe ningún directorio para guardar la multimedia temporalmente</string>
+    <string name="translator_error_server_does_not_translate">el servidor no admite traducciones</string>
+    <string name="translator_error_no_language_detected">no se pudo determinar el idioma original</string>
+    <string name="translator_error_unsupported_source_language_fmt">no se puede traducir desde %1$s</string>
+    <string name="translator_error_unsupported_target_language_fmt">no se puede traducir al %1$s</string>
+    <string name="translator_error_download_required_fmt">para traducir al %1$s se necesita descargar el paquete de idioma, pero el Wi‑Fi no está conectado</string>
+    <plurals name="description_post_roles">
+        <item quantity="one">con rol:</item>
+        <item quantity="many">con roles:</item>
+        <item quantity="other">con roles:</item>
+    </plurals>
 </resources>
