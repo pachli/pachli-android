@@ -39,4 +39,12 @@
     <string name="pref_default_audio_playback_option_unmuted">No silenciado</string>
     <string name="pref_default_audio_playback_option_muted">Silenciado</string>
     <string name="pref_title_translation">Traducción</string>
+    <string name="pref_translation_backend">Cómo traducir</string>
+    <string name="pref_translation_backend_option_server_only">Sólo servidor</string>
+    <string name="pref_translation_backend_option_server_only_help">Traducir publicaciones usando tu servidor. No funcionará si tu servidor no admite traducciones o si el idioma de la publicación es incorecto.</string>
+    <string name="pref_translation_backend_option_server_first">Servidor primero</string>
+    <string name="pref_translation_backend_option_server_first_help">Traducir publicaciones usando tu servidor. Si este método falla, traducir en tu dispositivo usando el Traductor de Google.</string>
+    <string name="pref_translation_backend_option_local_only">Sólo dispositivo</string>
+    <string name="pref_translation_backend_option_local_only_help">Traducir publicaciones en tu dispositivo usando el Traductor de Google.</string>
+    <string name="pref_translation_backend_requires_play_label">Instala desde Google Play para tener compatibilidad con la traducción en dispositivo</string>
 </resources>
