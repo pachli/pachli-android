@@ -14,7 +14,7 @@
     <string name="translation_model_manager_fragment_downloaded_heading">Pobrano</string>
     <string name="translation_model_manager_fragment_remote_heading">Dotknij, by pobrać</string>
     <string name="fragment_confirm_download_language_dialog_title_fmt">Pobrać %1$s przy użyciu danych mobilnych?</string>
-    <string name="fragment_confirm_download_language_dialog_msg">To zazwyczaj zużywa 30-60 MB danych.</string>
+    <string name="fragment_confirm_download_language_dialog_msg">To zazwyczaj zużywa 30–60 MB danych.</string>
     <string name="fragment_confirm_delete_language_dialog_title_fmt">Usunąć %1$s?</string>
     <string name="fragment_confirm_delete_language_dialog_msg">Jeżeli usuniesz ten język, zostanie pobrany następnym razem, gdy będzie potrzebny.</string>
     <string name="fragment_google_disclaimer_dialog_title">Zastrzeżenie dotyczące tłumaczenia</string>
