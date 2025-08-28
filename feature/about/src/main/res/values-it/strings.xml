@@ -35,4 +35,8 @@
     <string name="notification_log_download_failed">Scaricamento fallito: %1$s</string>
     <string name="notitication_log_filter_dialog_title">Mostra le priorità del registro</string>
     <string name="about_nivenly_foundation">Pachli è un progetto <a href="https://nivenly.org">della fondazione Nivenly</a>.</string>
+    <string name="notification_details_usage_event">Restrizioni di gestione dell’energia</string>
+    <string name="notification_details_ago">%1$s fa @ %2$s</string>
+    <string name="notification_details_standby_bucket_exempted">Esentato</string>
+    <string name="notification_details_standby_bucket_active">Attivo. Lavori in background senza restrizioni</string>
 </resources>
