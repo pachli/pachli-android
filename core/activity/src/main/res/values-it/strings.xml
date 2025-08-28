@@ -4,4 +4,5 @@
     <string name="post_lookup_error_format">Errore nella ricerca di %s</string>
     <string name="performing_lookup_title">Ricerca in corso…</string>
     <string name="send_error_report">Invia segnalazione errore</string>
+    <string name="action_open_as_ellipsis">Apri come…</string>
 </resources>
