@@ -1,5 +1,42 @@
 # Pachli changelog
 
+## v2.16.0
+
+### New features and other improvements
+
+- Show emojis as images when writing/editing posts (#[1747](https://github.com/pachli/pachli-android/pull/1747), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Allow the user to see an emoji's detail (#[1746](https://github.com/pachli/pachli-android/pull/1746), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Allow delete over autocomplete-inserted space (#[1743](https://github.com/pachli/pachli-android/pull/1743), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Support on-device translation in the Google Play Store variant (#[1731](https://github.com/pachli/pachli-android/pull/1731), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Restore reading position on Local and Federated timelines (#[1711](https://github.com/pachli/pachli-android/pull/1711), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Significant bug fixes
+
+- Improve emoji picker / compose usability (#[1745](https://github.com/pachli/pachli-android/pull/1745), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Remove the spurious space in "Open as …" (#[1737](https://github.com/pachli/pachli-android/pull/1737), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show translation state when viewing a thread (#[1735](https://github.com/pachli/pachli-android/pull/1735), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Always load cached thread status data with the correct account (#[1732](https://github.com/pachli/pachli-android/pull/1732), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show animated avatars at correct size in timelines (#[1721](https://github.com/pachli/pachli-android/pull/1721), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Use properly scoped Glide in more places (#[1701](https://github.com/pachli/pachli-android/pull/1701), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Translations
+
+- Update Chinese (Simplified Han script) translations ([HPCesia](https://github.com/pachli/pachli-android/commits?author=HPCesia@foxmail.com))
+- Update Estonian translations ([Priit Jõerüüt](https://github.com/pachli/pachli-android/commits?author=jrthwlate@users.noreply.hosted.weblate.org))
+- Update Finnish translations ([Kalle Kniivilä](https://github.com/pachli/pachli-android/commits?author=kalle.kniivila@gmail.com))
+- Update German translations ([RealZero](https://github.com/pachli/pachli-android/commits?author=realzero@protonmail.com))
+- Update German translations ([Thomas Cloer](https://github.com/pachli/pachli-android/commits?author=tcloer@mac.com))
+- Update Irish translations ([Aindriú Mac Giolla Eoin](https://github.com/pachli/pachli-android/commits?author=aindriu80@gmail.com))
+- Update Italian translations ([Dizro](https://github.com/pachli/pachli-android/commits?author=weblate.delirium794@passmail.net))
+- Update Kabyle translations ([ButterflyOfFire](https://github.com/pachli/pachli-android/commits?author=boffire@users.noreply.hosted.weblate.org))
+- Update Latvian translations ([Edgars Andersons](https://github.com/pachli/pachli-android/commits?author=Edgars+Weblate@gaitenis.id.lv))
+- Update Norwegian Nynorsk translations ([Sunniva Løvstad](https://github.com/pachli/pachli-android/commits?author=weblate@turtle.garden))
+- Update Polish translations ([Łukasz Horodecki](https://github.com/pachli/pachli-android/commits?author=dakilla@gmail.com))
+- Update Russian translations ([Yurt Page](https://github.com/pachli/pachli-android/commits?author=yurtpage@gmail.com))
+- Update Slovak translations ([Russssty](https://github.com/pachli/pachli-android/commits?author=russssty@users.noreply.hosted.weblate.org))
+- Update Spanish translations ([Juan M Sevilla](https://github.com/pachli/pachli-android/commits?author=jumase@disroot.org))
+- Update Tamil translations ([தமிழ்நேரம்](https://github.com/pachli/pachli-android/commits?author=anishprabu.t@gmail.com))
+
 ## v2.15.1
 
 ### Significant bug fixes
