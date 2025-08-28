@@ -8,4 +8,15 @@
     <string name="content_description_available_fmt">%1$s, disponibile ad essere scaricata</string>
     <string name="pref_translation_require_wifi">Richiedi Wi-Fi per poter scaricare i pacchetti della lingua</string>
     <string name="pref_translation_manage_languages">Gestisci pacchetti di lingua</string>
+    <string name="content_description_loaded_fmt">%1$s, scaricata</string>
+    <string name="translation_model_manager_fragment_title">Pacchetti di linguaggio</string>
+    <string name="translation_model_manager_fragment_info">Lingue che Pachli può tradurre attraverso l’uso di Google Translate. Scaricando i pacchetti di linguaggio in anticipo renderà le traduzioni più rapide.</string>
+    <string name="translation_model_manager_fragment_downloaded_heading">Scaricato</string>
+    <string name="translation_model_manager_fragment_remote_heading">Tocca per scaricare</string>
+    <string name="fragment_confirm_download_language_dialog_title_fmt">Scaricare %1$s con i dati mobili?</string>
+    <string name="fragment_confirm_download_language_dialog_msg">Questa operazione userà all’incirca 30-60MB di dati mobili.</string>
+    <string name="fragment_confirm_delete_language_dialog_title_fmt">Eliminare %1$s?</string>
+    <string name="fragment_confirm_delete_language_dialog_msg">Se elimini questa lingua sarà scaricata la prossima volta che sarà necessaria.</string>
+    <string name="action_translate_mlkit">Traduci con Google</string>
+    <string name="label_translated_mlkit">Tradotto da Google</string>
 </resources>
