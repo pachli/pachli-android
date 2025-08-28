@@ -4,10 +4,10 @@
     <string name="sources_similar_to_recently_followed">Liknar på konotar du har fylgt nyleg</string>
     <string name="sources_featured">Handvalde av moderatorane til instansen din</string>
     <string name="sources_most_followed">Ein av dei som vert mest fylgt på serveren din</string>
-    <string name="sources_most_interactions">Får mykje oppmerksemd på serveren din</string>
+    <string name="sources_most_interactions">Får mykje åtgaum på tenaren din</string>
     <string name="sources_friends_of_friends">Populær blant dei som du fylgjer</string>
     <string name="sources_unknown">(serveren gav ukjende kjelder)</string>
-    <string name="source_unknown">(server gav ugjenkjend kjelde)</string>
+    <string name="source_unknown">(tenar gav uattkjend kjelde)</string>
     <string name="action_follow_account">Fylg</string>
     <string name="action_dismiss_follow_suggestion">Avvis</string>
     <string name="ui_error_delete_suggestion_fmt">Mislukkast i å avvise forslag til %1$s: %2$s</string>
