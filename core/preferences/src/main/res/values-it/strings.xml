@@ -39,4 +39,7 @@
     <string name="pref_summary_export_settings">Tocca per salvare le impostazioni dell’app e dell’account su un file locale</string>
     <string name="pref_summary_import_settings">Tocca per reimpostare le impostazioni da un file creato usando “Esporta impostazioni”</string>
     <string name="pref_title_translation">Traduzione</string>
+    <string name="pref_translation_backend">Come tradurre</string>
+    <string name="pref_translation_backend_option_server_only">Solo server</string>
+    <string name="pref_translation_backend_option_local_only">Solo tramite dispositivo</string>
 </resources>
