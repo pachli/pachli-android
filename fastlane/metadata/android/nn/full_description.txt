@@ -1,4 +1,4 @@
-Pachli er ein fullfunksjonert klient for Mastodon og liknande serverar.
+Pachli er ein fullfunksjonert klient for Mastodon og liknande tenarar.
 
 - Les, svar, filtrer, tut, favorittmerk, og del innlegg
 - Omset innlegg frå andre språk
