@@ -270,8 +270,8 @@ fun shouldBlurAttachment(status: Status, alwaysShowSensitiveMedia: Boolean): Att
 
     // Blur attachments if the status is marked sensitive and the user always wants to
     // see them.
-    if (alwaysShowSensitiveMedia || status.sensitive == false) return AttachmentBlurDecision.None
+    if (alwaysShowSensitiveMedia || status.sensitive == false) return AttachmentBlurDecision.None()
 
     // Sensitive media, mark as such.
-    return AttachmentBlurDecision.Sensitive
+    return AttachmentBlurDecision.Sensitive()
 }

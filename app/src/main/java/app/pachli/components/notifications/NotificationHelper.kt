@@ -671,19 +671,19 @@ fun filterNotificationByAccount(accountWithFilters: PachliAccount, notificationD
     // sent them.
     when (notification.type) {
         // Poll we interacted with has ended.
-        NotificationEntity.Type.POLL -> return AccountFilterDecision.None
+        NotificationEntity.Type.POLL -> return AccountFilterDecision.None()
         // Status we interacted with has been updated.
-        NotificationEntity.Type.UPDATE -> return AccountFilterDecision.None
+        NotificationEntity.Type.UPDATE -> return AccountFilterDecision.None()
         // A new moderation report.
-        NotificationEntity.Type.REPORT -> return AccountFilterDecision.None
+        NotificationEntity.Type.REPORT -> return AccountFilterDecision.None()
         // Moderation has resulted in severed relationships.
-        NotificationEntity.Type.SEVERED_RELATIONSHIPS -> return AccountFilterDecision.None
+        NotificationEntity.Type.SEVERED_RELATIONSHIPS -> return AccountFilterDecision.None()
         // Moderators sent a warning.
-        NotificationEntity.Type.MODERATION_WARNING -> return AccountFilterDecision.None
+        NotificationEntity.Type.MODERATION_WARNING -> return AccountFilterDecision.None()
         // We explicitly asked to be notified about this user.
-        NotificationEntity.Type.STATUS -> return AccountFilterDecision.None
+        NotificationEntity.Type.STATUS -> return AccountFilterDecision.None()
         // Admin signup notifications should not be filtered.
-        NotificationEntity.Type.SIGN_UP -> return AccountFilterDecision.None
+        NotificationEntity.Type.SIGN_UP -> return AccountFilterDecision.None()
         else -> {
             /* fall through */
         }
@@ -693,7 +693,7 @@ fun filterNotificationByAccount(accountWithFilters: PachliAccount, notificationD
     val accountToTest = notificationData.account
 
     // Any notifications from our own activity are not filtered.
-    if (accountWithFilters.entity.accountId == accountToTest.serverId) return AccountFilterDecision.None
+    if (accountWithFilters.entity.accountId == accountToTest.serverId) return AccountFilterDecision.None()
 
     val decisions = buildList {
         // Check the following relationship.
@@ -735,7 +735,8 @@ fun filterNotificationByAccount(accountWithFilters: PachliAccount, notificationD
 
     return decisions.firstOrNull { it is AccountFilterDecision.Hide }
         ?: decisions.firstOrNull { it is AccountFilterDecision.Warn }
-        ?: AccountFilterDecision.None
+        ?: decisions.firstOrNull { it is AccountFilterDecision.Blur }
+        ?: AccountFilterDecision.None()
 }
 
 private fun getChannelId(account: AccountEntity, notification: Notification): String? {

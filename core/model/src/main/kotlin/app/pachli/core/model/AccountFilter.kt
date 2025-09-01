@@ -18,7 +18,6 @@
 package app.pachli.core.model
 
 import com.squareup.moshi.JsonClass
-import dev.zacsweers.moshix.sealed.annotations.DefaultObject
 import dev.zacsweers.moshix.sealed.annotations.TypeLabel
 
 /** Reasons an account may be filtered. */
@@ -40,8 +39,9 @@ enum class AccountFilterReason {
 @JsonClass(generateAdapter = true, generator = "sealed:type")
 sealed interface AccountFilterDecision {
     /** The item did not match any filters, and should be shown. */
-    @DefaultObject
-    data object None : AccountFilterDecision
+    @TypeLabel("none")
+    @JsonClass(generateAdapter = true)
+    class None : AccountFilterDecision
 
     /** The item matched a [reason] set to "blur". */
     @TypeLabel("blur")
@@ -71,7 +71,7 @@ sealed interface AccountFilterDecision {
          * Creates an [AccountFilterDecision] from [action] and [reason].
          */
         fun make(action: FilterAction, reason: AccountFilterReason) = when (action) {
-            FilterAction.NONE -> None
+            FilterAction.NONE -> None()
             FilterAction.BLUR -> Blur(reason)
             FilterAction.WARN -> Warn(reason)
             FilterAction.HIDE -> Hide(reason)

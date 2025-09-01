@@ -37,7 +37,8 @@ data class MatchingFilter(
 sealed interface AttachmentBlurDecision {
     /** The attachment should be shown. */
     @TypeLabel("none")
-    data object None : AttachmentBlurDecision
+    @JsonClass(generateAdapter = true)
+    class None : AttachmentBlurDecision
 
     /**
      * The status containing the attachment matched one or more filter set to
@@ -47,12 +48,13 @@ sealed interface AttachmentBlurDecision {
      */
     @TypeLabel("filter")
     @JsonClass(generateAdapter = true)
-    data class Filter(val filters: List<MatchingFilter>) : AttachmentBlurDecision
+    class Filter(val filters: List<MatchingFilter>) : AttachmentBlurDecision
 
     /** The status containing the attachment is marked "sensitive". */
+    //    class Sensitive(val x: Int = 0) : AttachmentBlurDecision()
     @TypeLabel("sensitive")
-//    data class Sensitive(val x: Int = 0) : AttachmentBlurDecision
-    data object Sensitive : AttachmentBlurDecision
+    @JsonClass(generateAdapter = true)
+    class Sensitive : AttachmentBlurDecision
 
     /**
      * The attachment was originally blurred because of [original], the user has
@@ -60,60 +62,7 @@ sealed interface AttachmentBlurDecision {
      */
     @TypeLabel("override")
     @JsonClass(generateAdapter = true)
-    data class Override(val original: AttachmentBlurDecision) : AttachmentBlurDecision
+    class Override(val original: AttachmentBlurDecision) : AttachmentBlurDecision
 
     fun show(): Boolean = this is None || this is Override
-}
-
-@JsonClass(generateAdapter = true, generator = "sealed:type")
-sealed class SealedTest {
-    @TypeLabel("default")
-    data object Default : SealedTest()
-
-    @TypeLabel("bar")
-    @JsonClass(generateAdapter = true)
-    data class Bar(val x: Int) : SealedTest()
-
-    @TypeLabel("wrapper")
-    @JsonClass(generateAdapter = true)
-    data class Wrapper(val inner: SealedTest) : SealedTest()
-
-//    @TypeLabel("baz")
-//    object Baz : SealedTest()
-}
-
-@JsonClass(generateAdapter = true, generator = "sealed:type")
-sealed class SealedType2(val type: String) {
-    @TypeLabel("void")
-    data object VoidType : SealedType2("void")
-
-    @TypeLabel("string")
-    @JsonClass(generateAdapter = true)
-    data class StringType(val s: String) : SealedType2("string")
-}
-
-// Works:
-// @JsonClass(generateAdapter = true, generator = "sealed:type")
-// sealed interface SealedType3 {
-//    @TypeLabel("string")
-//    @JsonClass(generateAdapter = true)
-//    data class StringType(val s: String) : SealedType3
-//
-//    @TypeLabel("pointer")
-//    @JsonClass(generateAdapter = true)
-//    data class PointerType(val targetType: SealedType3) : SealedType3
-// }
-
-@JsonClass(generateAdapter = true, generator = "sealed:type")
-sealed class SealedType3(val type: String) {
-    @TypeLabel("void")
-    object VoidType : SealedType3("void")
-
-    @TypeLabel("string")
-    @JsonClass(generateAdapter = true)
-    data class StringType(val s: String) : SealedType3("string")
-
-    @TypeLabel("pointer")
-    @JsonClass(generateAdapter = true)
-    data class PointerType(val targetType: SealedType3) : SealedType3("pointer")
 }

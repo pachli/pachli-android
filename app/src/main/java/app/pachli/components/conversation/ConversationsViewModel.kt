@@ -137,7 +137,7 @@ class ConversationsViewModel @AssistedInject constructor(
         conversationData: ConversationData,
     ): AccountFilterDecision {
         // Only the initial account posting in a conversation is tested.
-        if (!conversationData.isConversationStarter) return AccountFilterDecision.None
+        if (!conversationData.isConversationStarter) return AccountFilterDecision.None()
 
         // The status to test against
         val status = conversationData.lastStatus.status
@@ -146,7 +146,7 @@ class ConversationsViewModel @AssistedInject constructor(
         val accountToTest = conversationData.lastStatus.account
 
         // Any conversations where we wrote the last status are not filtered.
-        if (accountWithFilters.entity.accountId == accountToTest.serverId) return AccountFilterDecision.None
+        if (accountWithFilters.entity.accountId == accountToTest.serverId) return AccountFilterDecision.None()
 
         val decisions = buildList {
             // Check the following relationship.
@@ -188,7 +188,8 @@ class ConversationsViewModel @AssistedInject constructor(
 
         return decisions.firstOrNull { it is AccountFilterDecision.Hide }
             ?: decisions.firstOrNull { it is AccountFilterDecision.Warn }
-            ?: AccountFilterDecision.None
+            ?: decisions.firstOrNull { it is AccountFilterDecision.Blur }
+            ?: AccountFilterDecision.None()
     }
 
     /**

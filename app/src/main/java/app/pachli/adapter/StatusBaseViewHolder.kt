@@ -537,7 +537,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
             setAttachmentClickListener(viewData, imageView, listener, i, attachment, true)
 
             when (blurDecision) {
-                AttachmentBlurDecision.None -> {
+                is AttachmentBlurDecision.None -> {
                     sensitiveMediaWarning.hide()
                 }
 

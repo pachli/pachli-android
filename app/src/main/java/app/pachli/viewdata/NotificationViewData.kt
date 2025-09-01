@@ -107,7 +107,7 @@ data class NotificationViewData(
             report = data.report,
             relationshipSeveranceEvent = data.relationshipSeveranceEvent?.asModel(),
             isAboutSelf = isAboutSelf,
-            accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
+            accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None(),
             accountWarning = data.accountWarning?.asModel(),
         )
     }
