@@ -18,4 +18,6 @@
     <string name="pref_default_audio_playback_option_unmuted">Ўключыць гук</string>
     <string name="pref_default_audio_playback_option_muted">Без гуку</string>
     <string name="pref_title_translation">Пераклад</string>
+    <string name="pref_title_export_settings">Экспартаваць налады праграмы</string>
+    <string name="pref_title_import_settings">Імпартаваць налады праграмы</string>
 </resources>
