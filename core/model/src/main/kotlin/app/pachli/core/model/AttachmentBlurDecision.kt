@@ -27,6 +27,49 @@ data class MatchingFilter(
     val title: String,
 )
 
+// Preferences:
+// - Show colorful gradients for hidden media
+// Account preferences
+// - Download media previews
+// - Always show sensitive content
+
+// Decisions:
+//
+// - Show
+// - Hide, because:
+//   - Download media previews is off
+//   - Media is sensitive? (what does web app do, what is current behaviour?)
+//   - Matches filter marked "blur"
+//   - User tapped the eye icon to hide it
+//
+// - Blur isn't a decision show/hide decision, it's a rendering decision. "Hide" might
+// hide the media completely, or it might replace it with the blur.
+
+// Filter preference is badly named, shouldn't be blur, should be "Hide media"
+
+@JsonClass(generateAdapter = true, generator = "sealed:type")
+sealed interface AttachmentDisplayReason {
+    /**
+     * The status containing the attachment matched one or more filters marked
+     * "blur"
+     *
+     * @property filters The [MatchingFilter]s
+     */
+    @TypeLabel(label = "blurFilter")
+    @JsonClass(generateAdapter = true)
+    data class BlurFilter(val filters: List<MatchingFilter>) : AttachmentDisplayReason
+
+    /** The status is marked sensitive. */
+    @TypeLabel(label = "sensitive")
+    @JsonClass(generateAdapter = true)
+    class Sensitive : AttachmentDisplayReason
+
+    /** The user hid the attachment using the UI. */
+    @TypeLabel("userAction")
+    @JsonClass(generateAdapter = true)
+    class UserAction : AttachmentDisplayReason
+}
+
 /**
  * The attachment filter decision, with the reason for the decision if
  * applicable.
@@ -35,34 +78,54 @@ data class MatchingFilter(
 // to blur or not is a user preference.
 @JsonClass(generateAdapter = true, generator = "sealed:type")
 sealed interface AttachmentBlurDecision {
-    /** The attachment should be shown. */
-    @TypeLabel("none")
-    @JsonClass(generateAdapter = true)
-    class None : AttachmentBlurDecision
-
     /**
-     * The status containing the attachment matched one or more filter set to
-     * "blur".
+     * The attachment should be shown.
      *
-     * @property filters The [MatchingFilter]s
+     * @property originalDecision If this is overriding the previous decision,
+     * this records the previous decision. Null if not overridden.
      */
-    @TypeLabel("filter")
+    @TypeLabel("show")
     @JsonClass(generateAdapter = true)
-    class Filter(val filters: List<MatchingFilter>) : AttachmentBlurDecision
-
-    /** The status containing the attachment is marked "sensitive". */
-    //    class Sensitive(val x: Int = 0) : AttachmentBlurDecision()
-    @TypeLabel("sensitive")
-    @JsonClass(generateAdapter = true)
-    class Sensitive : AttachmentBlurDecision
+    data class Show(val originalDecision: AttachmentBlurDecision? = null) : AttachmentBlurDecision
 
     /**
-     * The attachment was originally blurred because of [original], the user has
-     * overriden that to view the attachment anyway.
+     * The attachment should be hidden.
+     *
+     * @property reason The reason why this attachment should be hidden.
      */
-    @TypeLabel("override")
+    @TypeLabel("hide")
     @JsonClass(generateAdapter = true)
-    class Override(val original: AttachmentBlurDecision) : AttachmentBlurDecision
-
-    fun show(): Boolean = this is None || this is Override
+    data class Hide(val reason: AttachmentDisplayReason) : AttachmentBlurDecision
+//    /** The attachment should be shown. */
+//    @TypeLabel("none")
+//    @JsonClass(generateAdapter = true)
+//    class None : AttachmentBlurDecision
+//
+//    /**
+//     * The status containing the attachment matched one or more filter set to
+//     * "blur".
+//     *
+//     * @property filters The [MatchingFilter]s
+//     */
+//    @TypeLabel("filter")
+//    @JsonClass(generateAdapter = true)
+//    class Filter(val filters: List<MatchingFilter>) : AttachmentBlurDecision
+//
+//    /** The status containing the attachment is marked "sensitive". */
+//    //    class Sensitive(val x: Int = 0) : AttachmentBlurDecision()
+//    @TypeLabel("sensitive")
+//    @JsonClass(generateAdapter = true)
+//    class Sensitive : AttachmentBlurDecision
+//
+//    /**
+//     * The attachment was originally blurred because of [original], the user has
+//     * overriden that to view the attachment anyway.
+//     */
+//    @TypeLabel("override")
+//    @JsonClass(generateAdapter = true)
+//    class Override(val original: AttachmentBlurDecision) : AttachmentBlurDecision
+//
+//    /** True if the attachment can be shown. */
+//    val show: Boolean
+//        get() = this is None || this is Override
 }

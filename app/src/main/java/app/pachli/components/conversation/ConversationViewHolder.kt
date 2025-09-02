@@ -26,6 +26,7 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.util.SmartLengthInputFilter
 import app.pachli.core.data.model.StatusDisplayOptions
+import app.pachli.core.model.AttachmentBlurDecision
 import app.pachli.core.model.ConversationAccount
 import app.pachli.core.model.arePreviewable
 import app.pachli.core.ui.SetStatusContent
@@ -78,7 +79,7 @@ class ConversationViewHolder internal constructor(
                     mediaLabel.visibility = View.GONE
                 }
             } else {
-                setMediaLabel(viewData, attachments, sensitive, listener, viewData.attachmentBlurDecision.show())
+                setMediaLabel(viewData, attachments, sensitive, listener, viewData.attachmentBlurDecision is AttachmentBlurDecision.Show)
                 // Hide all unused views.
                 mediaPreview.visibility = View.GONE
                 hideSensitiveMediaWarning()

@@ -158,15 +158,10 @@ interface StatusRepository {
      */
     suspend fun setContentShowing(pachliAccountId: Long, statusId: String, contentShowing: Boolean)
 
-    suspend fun setAttachmentBlurDecision(pachliAccountId: Long, statusId: String, attachmentBlurDecision: AttachmentBlurDecision) {
-//        statusDao.setAttachmentBlurDecision(
-//            StatusViewDataAttachmentBlurDecision(
-//                pachliAccountId = pachliAccountId,
-//                serverId = statusId,
-//                attachmentBlurDecision = attachmentBlurDecision,
-//            ),
-//        )
-    }
+    /**
+     * Sets the attachment display decision of [statusId] to [attachmentBlurDecision].
+     */
+    suspend fun setAttachmentBlurDecision(pachliAccountId: Long, statusId: String, attachmentBlurDecision: AttachmentBlurDecision)
 
     /**
      * Sets the content-collapsed state of [statusId] to [contentCollapsed].

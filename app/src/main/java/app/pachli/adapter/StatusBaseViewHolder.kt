@@ -28,6 +28,7 @@ import app.pachli.core.database.model.TranslationState
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.Attachment
 import app.pachli.core.model.AttachmentBlurDecision
+import app.pachli.core.model.AttachmentDisplayReason
 import app.pachli.core.model.Emoji
 import app.pachli.core.model.PreviewCardKind
 import app.pachli.core.model.Status
@@ -65,6 +66,7 @@ import com.google.android.material.color.MaterialColors
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import java.text.NumberFormat
 import java.util.Date
+import timber.log.Timber
 
 abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
     itemView: View,
@@ -520,7 +522,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
             }
 
             val blurDecision = viewData.attachmentBlurDecision
-            val showContent = blurDecision.show()
+            val showContent = blurDecision is AttachmentBlurDecision.Show
 
             loadImage(
                 imageView,
@@ -537,35 +539,30 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
             setAttachmentClickListener(viewData, imageView, listener, i, attachment, true)
 
             when (blurDecision) {
-                is AttachmentBlurDecision.None -> {
+                is AttachmentBlurDecision.Show -> {
                     sensitiveMediaWarning.hide()
                 }
 
-                is AttachmentBlurDecision.Filter -> {
+                is AttachmentBlurDecision.Hide -> {
+                    val text = when (val reason = blurDecision.reason) {
+                        is AttachmentDisplayReason.BlurFilter -> "Filtered: ${reason.filters.map { it.title }.joinToString(",")}"
+                        is AttachmentDisplayReason.Sensitive -> context.getText(R.string.post_sensitive_media_title)
+                        is AttachmentDisplayReason.UserAction -> "You hid this"
+                    }
+                    sensitiveMediaWarning.text = text
                     sensitiveMediaWarning.show()
-                    sensitiveMediaWarning.setText("Filtered: ${blurDecision.filters.map { it.title }.joinToString(",")}")
                 }
-
-                is AttachmentBlurDecision.Sensitive -> {
-                    sensitiveMediaWarning.show()
-                    sensitiveMediaWarning.setText(R.string.post_sensitive_media_title)
-                }
-
-                is AttachmentBlurDecision.Override -> sensitiveMediaWarning.hide()
             }
-//            if (blurFilter != null) {
-//            } else if (sensitive) {
-//            } else {
-//                sensitiveMediaWarning.setText(R.string.post_media_hidden_title)
-//            }
+
             sensitiveMediaWarning.visibility = if (showContent) View.GONE else View.VISIBLE
             sensitiveMediaShow.visibility = if (showContent) View.VISIBLE else View.GONE
             descriptionIndicator.visibility =
                 if (hasDescription && showContent) View.VISIBLE else View.GONE
             sensitiveMediaShow.setOnClickListener { v: View ->
+                Timber.d("Clicking to see hidden media, sensitiveMediaShow")
                 listener.onAttachmentBlurDecisionChange(
                     viewData,
-                    AttachmentBlurDecision.Override(viewData.attachmentBlurDecision),
+                    AttachmentBlurDecision.Show(originalDecision = viewData.attachmentBlurDecision),
                 )
 //                listener.onContentHiddenChange(viewData, false)
 //                v.visibility = View.GONE
@@ -573,9 +570,10 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
 //                descriptionIndicator.visibility = View.GONE
             }
             sensitiveMediaWarning.setOnClickListener { v: View ->
+                Timber.d("Clicking to see hidden media, sensitiveMediaWarning")
                 listener.onAttachmentBlurDecisionChange(
                     viewData,
-                    AttachmentBlurDecision.Override(viewData.attachmentBlurDecision),
+                    AttachmentBlurDecision.Show(originalDecision = viewData.attachmentBlurDecision),
                 )
 //                listener.onContentHiddenChange(viewData, true)
 //                v.visibility = View.GONE
@@ -633,7 +631,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
             if (sensitiveMediaWarning.isVisible) {
                 listener.onAttachmentBlurDecisionChange(
                     viewData,
-                    AttachmentBlurDecision.Override(viewData.attachmentBlurDecision),
+                    AttachmentBlurDecision.Show(originalDecision = viewData.attachmentBlurDecision),
                 )
 //                listener.onContentHiddenChange(viewData, true)
             } else {
@@ -798,7 +796,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
                     mediaLabel.visibility = View.GONE
                 }
             } else {
-                setMediaLabel(viewData, attachments, sensitive, listener, viewData.attachmentBlurDecision.show())
+                setMediaLabel(viewData, attachments, sensitive, listener, viewData.attachmentBlurDecision is AttachmentBlurDecision.Show)
                 // Hide all unused views.
                 mediaPreview.visibility = View.GONE
                 hideSensitiveMediaWarning()

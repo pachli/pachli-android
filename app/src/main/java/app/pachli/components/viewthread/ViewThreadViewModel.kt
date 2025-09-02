@@ -214,7 +214,7 @@ class ViewThreadViewModel @Inject constructor(
                     detailedStatus = StatusViewData.from(
                         pachliAccountId = account.id,
                         it,
-                        showSensitiveMedia = detailedStatus.attachmentBlurDecision.show(),
+                        showSensitiveMedia = detailedStatus.attachmentBlurDecision is AttachmentBlurDecision.Show,
                         isExpanded = detailedStatus.isExpanded,
                         isCollapsed = detailedStatus.isCollapsed,
                         isDetailed = true,
@@ -592,7 +592,7 @@ class ViewThreadViewModel @Inject constructor(
         return from(
             pachliAccountId = account.id,
             status,
-            showSensitiveMedia = oldStatus?.attachmentBlurDecision?.show() ?: (account.alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
+            showSensitiveMedia = oldStatus?.attachmentBlurDecision?.let { it is AttachmentBlurDecision.Show } ?: (account.alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
             isExpanded = oldStatus?.isExpanded ?: account.alwaysOpenSpoiler,
             isCollapsed = oldStatus?.isCollapsed ?: !isDetailed,
             isDetailed = oldStatus?.isDetailed ?: isDetailed,

@@ -22,6 +22,7 @@ import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.model.AttachmentBlurDecision
+import app.pachli.core.model.AttachmentDisplayReason
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.MatchingFilter
 import app.pachli.core.model.Status
@@ -261,17 +262,22 @@ data class StatusViewData(
 }
 
 fun shouldBlurAttachment(status: Status, alwaysShowSensitiveMedia: Boolean): AttachmentBlurDecision {
-    // Blur attachments if there is any matching filter.
-    status.filtered?.filter { it.filter.filterAction == FilterAction.BLUR }?.let {
-        return AttachmentBlurDecision.Filter(
-            it.map { MatchingFilter(filterId = it.filter.id, title = it.filter.title) },
+    // Hide attachments if there is any matching "blur" filter.
+    val matchingBlurFilters = status.filtered
+        ?.filter { it.filter.filterAction == FilterAction.BLUR }
+        ?.map { MatchingFilter(filterId = it.filter.id, title = it.filter.title) }
+        .orEmpty()
+
+    if (matchingBlurFilters.isNotEmpty()) {
+        return AttachmentBlurDecision.Hide(
+            reason = AttachmentDisplayReason.BlurFilter(matchingBlurFilters),
         )
     }
 
     // Blur attachments if the status is marked sensitive and the user always wants to
     // see them.
-    if (alwaysShowSensitiveMedia || status.sensitive == false) return AttachmentBlurDecision.None()
+    if (alwaysShowSensitiveMedia || status.sensitive == false) return AttachmentBlurDecision.Show()
 
     // Sensitive media, mark as such.
-    return AttachmentBlurDecision.Sensitive()
+    return AttachmentBlurDecision.Hide(reason = AttachmentDisplayReason.Sensitive())
 }
