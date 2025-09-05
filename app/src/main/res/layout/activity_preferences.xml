@@ -6,14 +6,21 @@
     android:layout_height="match_parent"
     tools:context="app.pachli.components.preference.PreferencesActivity">
 
-    <include
-        android:id="@+id/includedToolbar"
-        layout="@layout/toolbar_basic" />
-
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragment_container"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/includedToolbar"
+            layout="@layout/toolbar_basic" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

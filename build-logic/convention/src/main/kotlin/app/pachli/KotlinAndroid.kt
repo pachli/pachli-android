@@ -59,8 +59,13 @@ internal fun Project.configureKotlinAndroid(
 
         buildFeatures {
             buildConfig = true
+            compose = true
             resValues = true
             viewBinding = true
+        }
+
+        composeOptions {
+            kotlinCompilerExtensionVersion = "1.5.15"
         }
     }
 
