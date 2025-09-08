@@ -4,4 +4,5 @@
     <string name="performing_lookup_title">Veic uzmeklēšanu…</string>
     <string name="send_error_report">Nosūtīt kļūdas ziņojumu</string>
     <string name="post_lookup_error_format">Kļūda uzmeklējot %s</string>
+    <string name="action_open_as_ellipsis">Atvērt kā…</string>
 </resources>
