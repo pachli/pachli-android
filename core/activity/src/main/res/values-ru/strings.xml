@@ -4,4 +4,5 @@
     <string name="post_lookup_error_format">Ошибка поиска %s</string>
     <string name="performing_lookup_title">Производится поиск…</string>
     <string name="send_error_report">Отправить отчёт об ошибке</string>
+    <string name="action_open_as_ellipsis">Отрыть как…</string>
 </resources>

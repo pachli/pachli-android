@@ -32,4 +32,5 @@
     <string name="action_logout">Logáil Amach</string>
     <string name="hint_search_emojis">Cuardaigh emojis…</string>
     <string name="label_emoji_no_category">Gan catagóir</string>
+    <string name="emoji_picker_show_detail">Taispeáin sonraí</string>
 </resources>

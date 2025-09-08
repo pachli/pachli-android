@@ -32,4 +32,5 @@
     <string name="notification_details_last_fetch_label">Последний запрос /api/v1/notifications</string>
     <string name="hint_search_emojis">Поиск эмодзи…</string>
     <string name="label_emoji_no_category">Без категории</string>
+    <string name="emoji_picker_show_detail">Подробности</string>
 </resources>

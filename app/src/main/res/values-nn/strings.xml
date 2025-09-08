@@ -17,7 +17,7 @@
     <string name="title_public_trending_hashtags">Trendande emneknaggar</string>
     <string name="title_public_trending_links">Trendande lenkjer</string>
     <string name="title_public_trending_statuses">Trendande innlegg</string>
-    <string name="error_status_source_load">Kunne ikkje laste inn statuskjelda frå serveren.</string>
+    <string name="error_status_source_load">Kunne ikkje laste inn statuskjelda frå tenaren.</string>
     <string name="title_tab_public_trending_hashtags">Emneknaggar</string>
     <string name="title_tab_public_trending_links">Lenkjer</string>
     <string name="title_tab_public_trending_statuses">Innlegg</string>
@@ -36,7 +36,7 @@
     <string name="title_blocks">Blokkerte brukarar</string>
     <string name="title_domain_mutes">Skjulte domene</string>
     <string name="title_migration_relogin">Logg inn på nytt for å slå på pushvarsel</string>
-    <string name="title_follow_requests">Fylgjeførespurnadar</string>
+    <string name="title_follow_requests">Fylgjeførespurnader</string>
     <string name="title_edit_profile">Brigd profilen din</string>
     <string name="title_drafts">Utkast</string>
     <string name="title_scheduled_posts">Planlagte innlegg</string>
@@ -88,7 +88,7 @@
     <string name="action_bookmark">Bokmerk</string>
     <string name="action_unbookmark">Fjern bokmerke</string>
     <string name="action_post_failed">Opplastinga mislykkast</string>
-    <string name="action_post_failed_detail">Opplasting av innlegget ditt mislykkast og innlegget er vorte lagra som eit utkast.\n\nDette skjedde enten fordi serveren ikkje kunne verte nådd, eller fordi serveren har nekta å ta imot innlegget ditt.</string>
+    <string name="action_post_failed_detail">Opplasting av innlegget ditt mislykkast og innlegget er vorte lagra som eit utkast.\n\nDette skjedde anten fordi tenaren ikkje kunne verte nådd, eller fordi tenaren har nekta å ta imot innlegget ditt.</string>
     <string name="action_post_failed_show_drafts">Syn utkast</string>
     <string name="action_post_failed_do_nothing">Lukk</string>
     <string name="action_unfollow">Avfylg</string>
@@ -116,7 +116,7 @@
     <string name="action_view_mutes">Dempa brukarar</string>
     <string name="action_view_blocks">Blokkerte brukarar</string>
     <string name="action_view_domain_mutes">Skjulte domene</string>
-    <string name="action_view_follow_requests">Fylgjeførespurnadar</string>
+    <string name="action_view_follow_requests">Fylgjeførespurnader</string>
     <string name="action_view_media">Media</string>
     <string name="action_open_in_web">Opne i nettlesar</string>
     <string name="action_add_media">Legg ved media</string>
@@ -169,7 +169,7 @@
         <item quantity="other">%1$s kontoar du fylgjer, vart fjerna.</item>
     </plurals>
     <string name="action_compose">Skriv</string>
-    <string name="action_post_failed_detail_plural">Opplasting av innlegga dine mislykkast og innlegga er vorte lagra som utkast.\n\nDette skjedde enten fordi serveren ikkje kunne verte nådd, eller fordi serveren har nekta å ta imot innlegget ditt.</string>
+    <string name="action_post_failed_detail_plural">Opplasting av innlegga dine mislykkast og innlegga er vortne lagra som utkast.\n\nDette skjedde anten fordi tenaren ikkje kunne verte nådd, eller fordi tenaren har nekta å ta imot innlegget ditt.</string>
     <string name="action_follow">Fylg</string>
     <string name="downloading_media">Lastar ned media</string>
     <string name="hint_display_name">Visningsnamn</string>
@@ -219,13 +219,13 @@
     <string name="pref_title_notification_filter_updates">Eit innlegg eg har samhandla med, vert brigda</string>
     <string name="pref_title_app_theme">Apptema</string>
     <string name="pref_title_language">Språk</string>
-    <string name="pref_summary_content_filters">Serveren din støttar ikkje filter</string>
+    <string name="pref_summary_content_filters">Tenaren din stør ikkje filter</string>
     <string name="pref_title_browser_settings">Nettlesar</string>
     <string name="pref_title_custom_tabs">Opne lenkjer i tilpassa faner</string>
     <string name="pref_title_hide_follow_button">Døl skriv-knappen under skrolling</string>
     <string name="pref_title_font_family">Skrifttype</string>
     <string name="pref_title_show_media_preview">Last ned forhandssyningar av media</string>
-    <string name="pref_title_proxy_settings">Proxyserver</string>
+    <string name="pref_title_proxy_settings">Proxytenar</string>
     <string name="pref_title_http_proxy_settings">HTTP-proxy</string>
     <string name="pref_title_http_proxy_enable">Aktiver HTTP-proxy</string>
     <string name="pref_default_media_sensitivity">Marker alltid media som sensitiv</string>
@@ -333,7 +333,7 @@
     <string name="pref_title_post_tabs">Faner</string>
     <string name="pref_title_show_boosts">Syn delingar</string>
     <string name="pref_title_show_replies">Syn svar</string>
-    <string name="pref_title_http_proxy_server">HTTP-proxyserver</string>
+    <string name="pref_title_http_proxy_server">HTTP-proxytenar</string>
     <string name="pref_title_http_proxy_port">HTTP-proxyport</string>
     <string name="pref_title_http_proxy_port_message">Portnummeret burde vere mellom %d og %d</string>
     <string name="pref_summary_http_proxy_disabled">Deaktivert</string>
@@ -341,7 +341,7 @@
     <string name="pref_summary_http_proxy_invalid">&lt;ugyldig&gt;</string>
     <string name="pref_default_post_privacy">Standardinnstilling for innlegg</string>
     <string name="pref_default_post_language">Standardspråk for innlegg</string>
-    <string name="pref_publishing">Publisering (synkronisert med serveren)</string>
+    <string name="pref_publishing">Publisering (synkronisert med tenaren)</string>
     <string name="pref_failed_to_sync">Mislykkast i å synkronisere innstillingar</string>
     <string name="pref_main_nav_position">Hovednavigeringsplassering</string>
     <string name="post_privacy_unlisted">Ulista</string>
@@ -354,8 +354,8 @@
     <string name="notification_mention_descriptions">Varsel om nye nemningar</string>
     <string name="notification_follow_name">Nye fylgjarar</string>
     <string name="notification_follow_description">Varsel om nye fylgjarar</string>
-    <string name="notification_follow_request_name">Fylgjeførespurnadar</string>
-    <string name="notification_follow_request_description">Varsel om fylgjeførespurnadar</string>
+    <string name="notification_follow_request_name">Fylgjeførespurnader</string>
+    <string name="notification_follow_request_description">Varsel om fylgjeførespurnader</string>
     <string name="notification_boost_name">Delingar</string>
     <string name="notification_boost_description">Varsel når innlegga dine vert delte</string>
     <string name="notification_favourite_name">Favorittar</string>
@@ -408,7 +408,7 @@
     <string name="title_favourited_by">Favorittmerkt av</string>
     <string name="conversation_0_recipients">Ingen andre deltakarar</string>
     <string name="conversation_1_recipients">%1$s</string>
-    <string name="report_description_1">Rapporten vert send til moderatorane på serveren din. Du kan oppgje ei forklåring på kvifor du rapporterer kontoen nedanfor:</string>
+    <string name="report_description_1">Rapporten skal verte send til moderatorane på tenaren din. Du kan oppgje ei forklåring på kvifor du rapporterer kontoen nedanfor:</string>
     <string name="duration_indefinite">Uendeleg</string>
     <string name="duration_30_min">30 minutt</string>
     <string name="duration_1_hour">1 time</string>
@@ -498,7 +498,7 @@
     <string name="report_remote_instance">Vidaresend til %s</string>
     <string name="failed_report">Klarte ikkje å rapportere</string>
     <string name="failed_fetch_posts">Klarte ikkje å hente innlegg</string>
-    <string name="report_description_remote_instance">Kontoen tilhøyrer ein annan server. Vil du òg sende ein anonymisert kopi av rapporten dit?</string>
+    <string name="report_description_remote_instance">Kontoen tilhøyrer ein annan tenar. Vil du òg sende ein anonymisert kopi av rapporten dit?</string>
     <string name="title_accounts">Kontoar</string>
     <string name="failed_search">Klarte ikkje å søkje</string>
     <string name="pref_title_enable_swipe_for_tabs">Aktiver sveiprørsler for å bytte mellom faner</string>
@@ -529,7 +529,7 @@
     <string name="pref_title_hide_top_toolbar">Skjul tittelen på den øvste verktøylinja</string>
     <string name="pref_title_wellbeing_mode">Hugnad</string>
     <string name="account_note_saved">Lagra!</string>
-    <string name="follow_requests_info">Sjølv om kontoen din ikkje er låst, tykte moderatorane hjå %1$s at du ville endå sjå gjennom fylgjeførespurnadane frå desse kontoane for hand.</string>
+    <string name="follow_requests_info">Sjølv om kontoen din ikkje er låst, tykte moderatorane hjå %1$s at du ville endå sjå gjennom fylgjeførespurnadene frå desse kontoane for hand.</string>
     <string name="action_subscribe_account">Abonner</string>
     <string name="action_unsubscribe_account">Fjern abonnement</string>
     <string name="filter_action_none">Syn</string>
@@ -565,7 +565,7 @@
     <string name="compose_warn_language_dialog_accept_language_fmt">Publiser slik som det er (på %1$s)</string>
     <string name="error_media_uploader_upload_not_found_fmt">Mediaopplasting med ID %1$s finst ikkje</string>
     <string name="compose_warn_language_dialog_accept_and_dont_ask_fmt">Publiser på %1$s og ikkje spør igjen</string>
-    <string name="error_prepare_media_unsupported_mime_type_fmt">server støttar ikkje filtype: %1$s</string>
+    <string name="error_prepare_media_unsupported_mime_type_fmt">tenar stør ikkje filtype: %1$s</string>
     <string name="error_prepare_media_unknown_mime_type">filtypen er ukjend</string>
     <string name="error_pick_media_fmt">Kunne ikkje leggje fila ved innlegget: %1$s</string>
     <string name="error_load_filter_failed_fmt">Innlasting av filter mislykkast: %1$s</string>
@@ -601,11 +601,11 @@
     <string name="language_display_name_format">%s (%s)</string>
     <string name="action_unfollow_hashtag_format">Avfylg #%s?</string>
     <string name="mute_notifications_switch">Demp varsel</string>
-    <string name="error_missing_edits">Serveren din veit at dette innlegget vart brigda, men han har ingen kopi av brigdingane, så kan dei ikkje synast for deg.\n\nDette er <a href="https://github.com/mastodon/mastodon/issues/25398">Mastodon-problem #25398</a>.</string>
+    <string name="error_missing_edits">Tenaren din veit at dette innlegget vart brigda, men han har ingen kopi av brigdingane, så kan dei ikkje synast for deg.\n\nDette er <a href="https://github.com/mastodon/mastodon/issues/25398">Mastodon-problem #25398</a>.</string>
     <string name="a11y_label_loading_thread">Lastar inn tråd</string>
     <string name="accessibility_talking_about_tag">%1$d folk snakkar om emneknaggen %2$s</string>
     <string name="total_usage">Total bruk</string>
-    <string name="socket_timeout_exception">Det tok for lang tid å kontaktere serveren din</string>
+    <string name="socket_timeout_exception">Det tok for lang tid å nå tenaren din</string>
     <string name="ui_error_bookmark_fmt">Mislykkast i å bokmerkje innlegg: %1$s</string>
     <string name="ui_error_favourite_fmt">Mislykkast i å favorittmerke innlegg: %1$s</string>
     <string name="action_add">Legg til</string>
@@ -640,7 +640,7 @@
     <string name="action_timeline_link">Innlegg om denne lenkja</string>
     <string name="search_operator_from_me">Kun mine innlegg</string>
     <string name="search_operator_from_dialog_all">Alle kontoar</string>
-    <string name="help_empty_home">Dette er <b>heimtidslinja</b> di. Ho syner dei nyaste innlegga frå kontoane du fylgjer.\n\nFor å utforske kontoar, kan du anten oppdage dei i ei av dei andre tidslinjene (t.d. den lokale tidslinja av serveren din [iconics gmd_group]) eller søkje etter namnet deira [iconics gmd_search] (t.d. søk etter Pachli for å finne vår konto).</string>
+    <string name="help_empty_home">Dette er <b>heimtidslinja</b> di. Ho syner dei nyaste innlegga frå kontoane du fylgjer.\n\nFor å utforske kontoar, kan du anten oppdage dei i ei av dei andre tidslinjene (t.d. den lokale tidslinja av tenaren din [iconics gmd_group]) eller søkje etter namnet deira [iconics gmd_search] (til dømes, søk etter Pachli for å finne vår konto).</string>
     <string name="report_category_other">Annat</string>
     <string name="report_category_spam">Spam</string>
     <string name="ui_error_clear_notifications">Mislykkast i å slette varsel: %s</string>
@@ -709,7 +709,7 @@
     <string name="search_operator_date_dialog_last_7_days">På dei siste 7 dagane</string>
     <string name="search_operator_language_dialog_title">Avgrens til innlegg skrevne på…</string>
     <string name="search_operator_date_dialog_last_30_days">På dei siste 30 dagane</string>
-    <string name="search_operator_date_dialog_last_6_months">På dei siste 6 månadane</string>
+    <string name="search_operator_date_dialog_last_6_months">På dei siste 6 månadene</string>
     <string name="search_operator_date_dialog_custom_range">Tilpassa utval</string>
     <string name="search_operator_language_all">Alle språk ▾</string>
     <string name="search_operator_replies_no_replies">Utelat svar</string>
@@ -727,7 +727,7 @@
     <string name="search_operator_sensitive_dialog_no_sensitive">Skjul innlegg med sensitivt innhald</string>
     <string name="search_operator_where_all">Alle innlegg ▾</string>
     <string name="search_operator_where_library">Biblioteket ditt</string>
-    <string name="search_operator_where_dialog_public_hint">Oppførte og søkjelege innlegg som serveren veit om</string>
+    <string name="search_operator_where_dialog_public_hint">Oppførte og søkjelege innlegg som tenaren kjenner til</string>
     <string name="search_operator_where_public">Lista innlegg</string>
     <string name="search_operator_where_dialog_public">Lista innlegg</string>
     <string name="upload_failed_msg_fmt">Noko gjekk gale i å laste opp veddlegget. Pachli skal prøve å laste opp vedlegget når du sender innlegget. Dersom opplastinga mislykkast igjen, skal innlegget lagrast i utkasta dine.\n\nFeilen var: %1$s</string>
@@ -800,4 +800,25 @@
     </plurals>
     <string name="notification_moderation_warning_title">Ei melding frå moderatorane dine</string>
     <string name="notification_moderation_warning_body_none_fmt">Du har motteke ei moderasjonsåtvaring: %1$s</string>
+    <string name="notification_moderation_warning_body_disable_fmt">Kontoen din er vorten deaktivert: %1$s</string>
+    <string name="notification_moderation_warning_body_mark_statuses_as_sensitive_fmt">Nokre av dine innlegg er vortne merkte som sensitive: %1$s</string>
+    <string name="notification_moderation_warning_body_delete_statuses_fmt">Nokre av dine innlegg er vortne sletta: %1$s</string>
+    <string name="notification_moderation_warning_body_silence_fmt">Kontoen din er vorten avgrensa: %1$s</string>
+    <string name="notification_moderation_warning_body_suspend_fmt">Kontoen din er vorten suspendert: %1$s</string>
+    <string name="notification_moderation_warning_body_unknown_fmt">Du har motteke ei moderasjonsåtvaring: %1$s</string>
+    <string name="notification_moderation_warning_tap_for_more">Trykk for å sjå fleire opplysingar på tenaren din.</string>
+    <string name="translator_error_server_does_not_translate">tenar stør ikkje omsetjing</string>
+    <string name="translator_error_no_language_detected">kunne ikkje fastsetja opphavleg språk</string>
+    <string name="translator_error_unsupported_source_language_fmt">kan ikkje omsetja frå %1$s</string>
+    <string name="translator_error_unsupported_target_language_fmt">kan ikkje omsetja til %1$s</string>
+    <string name="translator_error_download_required_fmt">å omsetja til %1$s krev at du lastar ned språkpakka og du er ikkje kopla til Wi-Fi</string>
+    <string name="pref_title_notification_filter_moderation_warning">Ein moderator sender ei melding</string>
+    <string name="pref_default_audio_playback">Standard audioavspeling</string>
+    <string name="notification_moderation_warnings_name">Moderasjonsåtvaringar</string>
+    <string name="notification_moderation_warnings_description">Varsel om moderasjonsåtvaringar</string>
+    <plurals name="description_post_roles">
+        <item quantity="one">med rolle:</item>
+        <item quantity="other">med roller:</item>
+    </plurals>
+    <string name="error_share_media">ingen mappe for å lagre mellombels medium finst</string>
 </resources>

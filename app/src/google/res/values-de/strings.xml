@@ -2,4 +2,22 @@
 <resources>
     <string name="update_dialog_message">Google Play öffnen, um Details anzuzeigen?</string>
     <string name="update_dialog_positive">Google Play öffnen</string>
+    <string name="action_delete_remote_model_fmt">%1$s löschen</string>
+    <string name="action_download_remote_model_fmt">%1$s herunterladen</string>
+    <string name="content_description_loading_fmt">%1$s, lädt herunter</string>
+    <string name="content_description_loaded_fmt">%1$s, heruntergeladen</string>
+    <string name="content_description_available_fmt">%1$s, kann heruntergeladen werden</string>
+    <string name="pref_translation_require_wifi">Sprachpakete nur über WLAN herunterladen</string>
+    <string name="pref_translation_manage_languages">Sprachpakete verwalten</string>
+    <string name="translation_model_manager_fragment_title">Sprachpakete</string>
+    <string name="translation_model_manager_fragment_info">Sprachen zwischen denen Pachli mit Google Translate übersetzen kann. Das Herunterladen der Sprachpakete macht die Übersetzung schneller.</string>
+    <string name="translation_model_manager_fragment_downloaded_heading">Heruntergeladen</string>
+    <string name="translation_model_manager_fragment_remote_heading">Antippen zum Herunterladen</string>
+    <string name="fragment_confirm_download_language_dialog_title_fmt">%1$s über mobile Daten herunterladen?</string>
+    <string name="fragment_confirm_download_language_dialog_msg">Dies verbraucht typischerweise 30–60MB an mobilen Daten.</string>
+    <string name="fragment_confirm_delete_language_dialog_title_fmt">%1$s löschen?</string>
+    <string name="fragment_confirm_delete_language_dialog_msg">Wenn diese Sprache gelöscht wird, wird sie erneut heruntergeladen, wenn sie das nächste Mal gebraucht wird.</string>
+    <string name="fragment_google_disclaimer_dialog_title">Übersetzungen Haftungsausschluss</string>
+    <string name="action_translate_mlkit">Übersetzt mit Google</string>
+    <string name="label_translated_mlkit">Übersetzt von Google</string>
 </resources>

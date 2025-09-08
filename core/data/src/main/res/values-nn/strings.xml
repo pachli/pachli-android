@@ -5,8 +5,8 @@
     <string name="server_repository_error_get_node_info">henting av nodeinfo %1$s mislykkast: %2$s</string>
     <string name="server_repository_error_validate_node_info">validering av nodeinfo %1$s mislykkast: %2$s</string>
     <string name="server_repository_error_get_instance_info">hending av /api/v1/instance mislykkast: %1$s</string>
-    <string name="server_repository_error_capabilities">tolking av serverevner mislykkast: %1$s</string>
-    <string name="error_filter_server_does_not_filter">Server støttar ikkje filter</string>
+    <string name="server_repository_error_capabilities">tolking av tenarevner mislykkast: %1$s</string>
+    <string name="error_filter_server_does_not_filter">Tenar stør ikkje filter</string>
     <string name="account_manager_error_account_does_not_exist">Kontoen finst ikkje i den lokale databasen. Dette burde aldri skje. Om du ser dette, rapporter feilen til team@pachli.app.</string>
     <string name="account_manager_error_no_active_account">Ingen konto er markert som aktiv</string>
     <string name="account_manager_error_unexpected">uventa feil: %1$s</string>

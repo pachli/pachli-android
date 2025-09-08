@@ -4,4 +4,5 @@
     <string name="action_open_as">Opne som %s</string>
     <string name="performing_lookup_title">Utfører søkning…</string>
     <string name="send_error_report">Send feilrapport</string>
+    <string name="action_open_as_ellipsis">Opne som…</string>
 </resources>

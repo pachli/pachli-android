@@ -833,4 +833,9 @@
         <item quantity="few">s rolami:</item>
         <item quantity="other">s rolami:</item>
     </plurals>
+    <string name="translator_error_server_does_not_translate">server nepodporuje preklad</string>
+    <string name="translator_error_no_language_detected">nedokázal rozpoznať pôvodný jazyk</string>
+    <string name="translator_error_unsupported_source_language_fmt">nemôže preložiť z %1$s</string>
+    <string name="translator_error_unsupported_target_language_fmt">nemôže preložiť do %1$s</string>
+    <string name="translator_error_download_required_fmt">preklad do jazyka %1$s si vyžaduje stiahnutie jazykového balíka a momentálne Wi-Fi nie je pripojená</string>
 </resources>

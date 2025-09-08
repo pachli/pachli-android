@@ -1,6 +1,7 @@
 Pachli 2.13.0
  
 Nowości:
+
 - Parsowanie wiadomości z serwerów bez strefy czasowej
 - Popularne zamiast Lokalnych w domyślnych kartach
 - Większa ważność opisów mediów przy tworzeniu wpisu

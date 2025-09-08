@@ -2,4 +2,22 @@
 <resources>
     <string name="update_dialog_message">Otvoriť Google Play pre zobrazenie podrobností?</string>
     <string name="update_dialog_positive">Otvoriť Google Play</string>
+    <string name="action_delete_remote_model_fmt">Vymazať %1$s</string>
+    <string name="action_download_remote_model_fmt">Stiahnuť %1$s</string>
+    <string name="content_description_loading_fmt">%1$s, sťahovanie</string>
+    <string name="content_description_loaded_fmt">%1$s, stiahnuté</string>
+    <string name="content_description_available_fmt">%1$s, dostupné na stiahnutie</string>
+    <string name="pref_translation_require_wifi">Vyžaduje sa Wi-Fi na stiahnutie jazykových balíkov</string>
+    <string name="pref_translation_manage_languages">Spravovať jazykové balíky</string>
+    <string name="translation_model_manager_fragment_title">Jazykové balíky</string>
+    <string name="translation_model_manager_fragment_info">Jazyky, medzi ktorými vie Pachli prekladať pomocou prekladača Google. Stiahnutie jazykových balíkov vopred urýchli preklad.</string>
+    <string name="translation_model_manager_fragment_downloaded_heading">Stiahnuté</string>
+    <string name="translation_model_manager_fragment_remote_heading">Klepnutím stiahni</string>
+    <string name="fragment_confirm_download_language_dialog_title_fmt">Stiahnuť %1$s cez mobilné dáta?</string>
+    <string name="fragment_confirm_download_language_dialog_msg">Stiahnutie si vyžiada 30–60 MB mobilných dát.</string>
+    <string name="fragment_confirm_delete_language_dialog_title_fmt">Vymazať %1$s?</string>
+    <string name="fragment_confirm_delete_language_dialog_msg">Ak tento jazyk odstrániš, stiahne sa, keď bude znova potrebný.</string>
+    <string name="fragment_google_disclaimer_dialog_title">Vylúčenie zodpovednosti za preklad</string>
+    <string name="action_translate_mlkit">Preložiť s Google</string>
+    <string name="label_translated_mlkit">Preložil Google</string>
 </resources>
