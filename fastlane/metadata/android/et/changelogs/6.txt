@@ -1,0 +1,19 @@
+Pachli 1.3.0
+
+Täiendused:
+
+-  Lisandus eelistus endale hooandmiste peitmisteks
+-  Profiilivaates on nüüd ekraaninimi ja kasutajanimi
+-  Parem hägustatud linkide kuvamine
+-  Video taasesituse liidese parendused
+
+Parandused:
+
+-  Tühja ajajoone sõnum on korrektset näha
+-  Pachli sini-oranž ikoon teavitustes
+-  Meedia kuvamine ViewMediaFragment'i töö jätkamisel
+-  Jutulõngade tunnustel ja muudel eraldajatel on nüüd MD-värvid
+
+Tõlked:
+
+-  Poola ja jaapani keelte tõlgete uuendus
