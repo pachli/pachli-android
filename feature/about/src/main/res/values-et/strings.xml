@@ -43,4 +43,21 @@
     <string name="notification_details_standby_bucket_active">Aktiivne. Piiranguteta taustaprotsess</string>
     <string name="notification_details_standby_bucket_working_set">Töökomplekt. Piiratud 10 minutiga iga 2 tunni jooksul</string>
     <string name="notification_details_standby_bucket_unknown">Teadmata</string>
+    <string name="notification_details_any_account_needs_migration">Kas kõikidel kasutajakontodel on OAuthi toimealaks märgitud „push“?</string>
+    <string name="notification_details_any_account_needs_migration_help">Ühel või enamal kasutajakontol pole OAuthi toimealaks märgitud „push“ - tõuketeavitused ei tööta.</string>
+    <string name="notification_details_accounts_unified_push_url">Kas kõikidel kasutajakontodel on seadistatud UnifiedPushi võrguaadress?</string>
+    <string name="notification_details_accounts_unified_push_url_help">Ühel või enamal kasutajakontol pole seadistatud UnifiedPushi võrguaadressi - tõuketeavitused ei tööta antud konto puhul.</string>
+    <string name="notification_details_accounts_unified_push_subscription">Kas kõikidel kasutajakontodel on tellimus tõuketeavituste olemas?</string>
+    <string name="notification_details_ntfy_exempt">Kas ntfy klientrakendus on välistatud akukasutuse optimeerimise alt?</string>
+    <string name="notification_details_ntfy_exempt_help">Ntfy klientrakendus pole välistatud akukasutuse optimeerimise alt? Kui ekraan on lülitatud välja, siis Android ilmselt blokeerib teavituste liikumist.</string>
+    <string name="notification_details_accounts_unified_push_subscription_help">Üks või enam kasutajakontot pole suutnud oma UnifiedPushi tellimust uuendada ja sel puhul tõuketeavitused ei toimi.</string>
+    <string name="notification_details_standby_bucket_exempted">Välistatud</string>
+    <string name="notification_details_ago">%1$s eest, kell %2$s</string>
+    <string name="notification_details_usage_event_label">Android piirab seda, mida rakendused saavad taustal teha. Siin loendis on kirjas need juhtumid, kus Pachli tegevus on olnud piiratud. Uuemad kirjed on eespool.</string>
+    <string name="notification_details_usage_event">Energiakasutuse halduse piirangud</string>
+    <string name="notification_details_last_fetch_help">Sõltumata teavituse meetodist on kõik kasutajakontode teavitused siin kirjas, sh viimane laadimine, selle olek ja konkreetne teade vea puhul.</string>
+    <string name="notification_details_pull_section">Teavitused korduvate päringutena</string>
+    <string name="notification_details_pachli_exempt">Kas Pachli puhul ei kasutata akukasutuse optimeerimist?</string>
+    <string name="notification_details_workers_help">Siin peaks olema teavitusi laadivate päringuagentide loend. Neis peaks olema üks, tema olek kas RUNNING või ENQUEUED ja ta olema ajastatud käivituma järgmise 15 minuti jooksul.</string>
+    <string name="notification_details_pachli_exempt_help">Pachli pole välistatud akukasutuse optimeerimise reeglite alt. Kui ekraan poel lülitatud sisse, siis Android võib piirata teavituste liikumist.</string>
 </resources>
