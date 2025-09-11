@@ -23,7 +23,7 @@ import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
-import app.pachli.core.model.AttachmentBlurDecision
+import app.pachli.core.model.AttachmentDisplayAction
 
 /**
  * The local view data for a status.
@@ -58,7 +58,7 @@ data class StatusViewDataEntity(
     /** Show the translated version of the status (if it exists) */
     @ColumnInfo(defaultValue = "SHOW_ORIGINAL")
     val translationState: TranslationState,
-    val attachmentBlurDecision: AttachmentBlurDecision?,
+    val attachmentDisplayAction: AttachmentDisplayAction?,
 )
 
 enum class TranslationState {
@@ -121,13 +121,13 @@ data class StatusViewDataTranslationState(
 )
 
 /**
- * Partial class for setting [StatusViewDataEntity.attachmentBlurDecision] to
- * [attachmentBlurDecision].
+ * Partial class for setting [StatusViewDataEntity.attachmentDisplayAction] to
+ * [attachmentDisplayAction].
  *
- * @see [app.pachli.core.database.dao.StatusDao.setAttachmentBlurDecision]
+ * @see [app.pachli.core.database.dao.StatusDao.setAttachmentDisplayAction]
  */
-data class StatusViewDataAttachmentBlurDecision(
+data class StatusViewDataAttachmentDisplayAction(
     val pachliAccountId: Long,
     val serverId: String,
-    val attachmentBlurDecision: AttachmentBlurDecision,
+    val attachmentDisplayAction: AttachmentDisplayAction,
 )

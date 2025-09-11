@@ -134,7 +134,7 @@ SELECT
     svd.contentShowing AS 's_svd_contentShowing',
     svd.contentCollapsed AS 's_svd_contentCollapsed',
     svd.translationState AS 's_svd_translationState',
-    svd.attachmentBlurDecision AS 's_svd_attachmentBlurDecision',
+    svd.attachmentDisplayAction AS 's_svd_attachmentDisplayAction',
 
     -- Translation
     t.serverId AS 's_t_serverId',

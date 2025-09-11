@@ -49,10 +49,12 @@ import app.pachli.core.eventhub.StatusComposedEvent
 import app.pachli.core.eventhub.StatusDeletedEvent
 import app.pachli.core.eventhub.StatusEditedEvent
 import app.pachli.core.eventhub.UnfollowEvent
-import app.pachli.core.model.AttachmentBlurDecision
+import app.pachli.core.model.AttachmentDisplayAction
+import app.pachli.core.model.AttachmentDisplayReason
 import app.pachli.core.model.ContentFilterVersion
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.FilterContext
+import app.pachli.core.model.MatchingFilter
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
@@ -341,6 +343,8 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
 
     val timeline: Timeline = savedStateHandle.get<Timeline>(TIMELINE_TAG)!!
 
+    val filterContext = FilterContext.from(timeline)
+
     /**
      * Flow of the status ID to use when initially refreshing the list, and where
      * the user's reading position should be restored to. Null if the user's
@@ -375,7 +379,7 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
         }
 
         viewModelScope.launch {
-            FilterContext.from(timeline)?.let { filterContext ->
+            filterContext?.let { filterContext ->
                 pachliAccountFlow
                     .distinctUntilChangedBy { it.contentFilters }
                     .fold(false) { reload, account ->
@@ -566,7 +570,7 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
      */
     abstract fun onChangeContentShowing(isShowing: Boolean, statusViewData: StatusViewData)
 
-    abstract fun onChangeAttachmentBlurDecision(viewData: StatusViewData, newDecision: AttachmentBlurDecision)
+    abstract fun onChangeAttachmentDisplayAction(viewData: StatusViewData, newDecision: AttachmentDisplayAction)
 
     /**
      * Sets the collapsed state of [statusViewData] in [OfflineFirstStatusRepository] to [isCollapsed] and
@@ -615,6 +619,8 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
         // Apply content filters.
         return contentFilterModel?.filterActionFor(status) ?: FilterAction.NONE
     }
+
+    protected fun getAttachmentDisplayAction(status: TimelineStatusWithAccount, alwaysShowSensitiveMedia: Boolean, cachedDecision: AttachmentDisplayAction?) = status.getAttachmentDisplayAction(filterContext, alwaysShowSensitiveMedia, cachedDecision)
 
     // TODO: Update this so that the list of UIPrefs is correct
     private suspend fun onPreferenceChanged(key: String) {
@@ -699,4 +705,54 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
             TIMELINE_TAG to timeline,
         )
     }
+}
+
+/**
+ * Returns the [AttachmentDisplayAction] for [this] given the current [filterContext],
+ * whether [showSensitiveMedia] is true, and the [cachedAction] (if any).
+ *
+ * @param filterContext Applicable filter context. May be null for timelines that are
+ * not filtered (e.g., private messages).
+ * @param showSensitiveMedia
+ * @param cachedAction
+ */
+fun TimelineStatusWithAccount.getAttachmentDisplayAction(filterContext: FilterContext?, showSensitiveMedia: Boolean, cachedAction: AttachmentDisplayAction?): AttachmentDisplayAction {
+    // Hide attachments if there is any matching "blur" filter.
+    val matchingBlurFilters = filterContext?.let {
+        status.filtered
+            ?.filter { it.filter.filterAction == FilterAction.BLUR }
+            ?.filter { it.filter.contexts.contains(filterContext) }
+            ?.map { MatchingFilter(filterId = it.filter.id, title = it.filter.title) }
+    }.orEmpty()
+
+    // Any matching filters probably hides the attachment.
+    if (matchingBlurFilters.isNotEmpty()) {
+        val hideDecision = AttachmentDisplayAction.Hide(
+            reason = AttachmentDisplayReason.BlurFilter(matchingBlurFilters),
+        )
+
+        // If the cached decision is a Show then return the Show, but with an updated
+        // originalDecision. This ensures that if the user then hides the attachment
+        // the description that shows which filters matched reflects the user's latest
+        // set of filters.
+        (cachedAction as? AttachmentDisplayAction.Show)?.let {
+            return it.copy(originalDecision = hideDecision)
+        }
+
+        // Otherwise, the decision to hide is good.
+        return hideDecision
+    }
+
+    // Now safe to use the cached decision, if present. If the user overrode a Hide with
+    // a Show this will be returned here.
+    cachedAction?.let { return it }
+
+    // Blur attachments if the status is marked sensitive and the user doesn't want to
+    // see them.
+    if (status.sensitive && !showSensitiveMedia) {
+        return AttachmentDisplayAction.Hide(reason = AttachmentDisplayReason.Sensitive())
+    }
+
+    // Attachment is OK, and can be shown.
+    return AttachmentDisplayAction.Show()
 }

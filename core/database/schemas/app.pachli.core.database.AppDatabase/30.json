@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 30,
-    "identityHash": "b36f8228f3986dbaa3d065920a1816d0",
+    "identityHash": "5b9b0f0cbbe675213cd743eabcfbf1bd",
     "entities": [
       {
         "tableName": "DraftEntity",
@@ -1082,7 +1082,7 @@
       },
       {
         "tableName": "StatusViewDataEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `expanded` INTEGER, `contentShowing` INTEGER, `contentCollapsed` INTEGER, `translationState` TEXT NOT NULL DEFAULT 'SHOW_ORIGINAL', `attachmentBlurDecision` TEXT, PRIMARY KEY(`serverId`, `pachliAccountId`), FOREIGN KEY(`pachliAccountId`) REFERENCES `AccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `expanded` INTEGER, `contentShowing` INTEGER, `contentCollapsed` INTEGER, `translationState` TEXT NOT NULL DEFAULT 'SHOW_ORIGINAL', `attachmentDisplayAction` TEXT, PRIMARY KEY(`serverId`, `pachliAccountId`), FOREIGN KEY(`pachliAccountId`) REFERENCES `AccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
         "fields": [
           {
             "fieldPath": "pachliAccountId",
@@ -1119,8 +1119,8 @@
             "defaultValue": "'SHOW_ORIGINAL'"
           },
           {
-            "fieldPath": "attachmentBlurDecision",
-            "columnName": "attachmentBlurDecision",
+            "fieldPath": "attachmentDisplayAction",
+            "columnName": "attachmentDisplayAction",
             "affinity": "TEXT"
           }
         ],
@@ -2020,7 +2020,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b36f8228f3986dbaa3d065920a1816d0')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5b9b0f0cbbe675213cd743eabcfbf1bd')"
     ]
   }
 }

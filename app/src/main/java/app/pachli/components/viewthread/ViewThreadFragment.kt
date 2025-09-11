@@ -45,9 +45,9 @@ import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
-import app.pachli.core.model.AttachmentBlurDecision
 import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.EditContentFilterActivityIntent
@@ -391,8 +391,8 @@ class ViewThreadFragment :
         viewModel.changeExpanded(expanded, viewData)
     }
 
-    override fun onAttachmentBlurDecisionChange(viewData: StatusViewData, newDecision: AttachmentBlurDecision) {
-        viewModel.changeAttachmentBlurDecision(viewData, newDecision)
+    override fun onAttachmentDisplayActionChange(viewData: StatusViewData, newDecision: AttachmentDisplayAction) {
+        viewModel.changeAttachmentDisplayAction(viewData, newDecision)
     }
 
     override fun onShowReblogs(statusId: String) {

@@ -185,7 +185,12 @@ class MediaPreviewLayout(context: Context, attrs: AttributeSet? = null) :
         }
     }
 
-    inline fun forEachIndexed(action: (Int, MediaPreviewImageView, TextView) -> Unit) {
+    /**
+     * Calls [action] for each child preview view.
+     *
+     * @see [MediaPreviewForEachAction.invoke]
+     */
+    fun forEachIndexed(action: MediaPreviewForEachAction) {
         for (index in 0 until childCount) {
             val wrapper = getChildAt(index)
             action(
@@ -195,6 +200,16 @@ class MediaPreviewLayout(context: Context, attrs: AttributeSet? = null) :
             )
         }
     }
+}
+
+/** @see [invoke] */
+fun interface MediaPreviewForEachAction {
+    /**
+     * @param index Index of this attachment.
+     * @param mediaPreviewImageView View the preview image should be loaded in to.
+     * @param textView View that shows "ALT" if the attachment has a description.
+     */
+    operator fun invoke(index: Int, mediaPreviewImageView: MediaPreviewImageView, textView: TextView)
 }
 
 private fun rowHeight(halfWidth: Int, aspect1: Double, aspect2: Double): Int {

@@ -68,6 +68,14 @@ enum class ServerOperation(id: String, versions: List<Version>) {
         ),
     ),
 
+    ORG_JOINMASTODON_FILTERS_ACTION_BLUR(
+        "org.joinmastodon.filters.action.blur",
+        listOf(
+            // Initial introduction in Mastodon 4.4.0.
+            Version(major = 1),
+        ),
+    ),
+
     /** Translate a status */
     ORG_JOINMASTODON_STATUSES_TRANSLATE(
         "org.joinmastodon.statuses.translate",

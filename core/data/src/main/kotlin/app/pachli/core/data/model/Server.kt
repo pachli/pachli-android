@@ -76,7 +76,6 @@ import io.github.z4kn4fein.semver.constraints.Constraint
 import io.github.z4kn4fein.semver.satisfies
 import io.github.z4kn4fein.semver.toVersion
 import java.text.ParseException
-import kotlin.collections.set
 
 data class Server(
     val kind: ServerKind,
@@ -87,10 +86,9 @@ data class Server(
      * @return true if the server supports the given operation at the given minimum version
      * level, false otherwise.
      */
-    fun can(operation: ServerOperation, constraint: Constraint) =
-        capabilities[operation]?.let { version ->
-            version satisfies constraint
-        } ?: false
+    fun can(operation: ServerOperation, constraint: Constraint) = capabilities[operation]?.let { version ->
+        version satisfies constraint
+    } ?: false
 
     companion object {
         /**
@@ -344,6 +342,11 @@ data class Server(
                     // Get multiple statuses at once.
                     when {
                         v >= "4.3.0".toVersion() -> c[ORG_JOINMASTODON_STATUSES_GET] = "1.0.0".toVersion()
+                    }
+
+                    // Blur filters.
+                    when {
+                        v >= "4.4.0".toVersion() -> c[ServerOperation.ORG_JOINMASTODON_FILTERS_ACTION_BLUR] = "1.0.0".toVersion()
                     }
                 }
 

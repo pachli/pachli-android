@@ -34,7 +34,7 @@ import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.FavoriteEvent
 import app.pachli.core.eventhub.PinEvent
 import app.pachli.core.eventhub.ReblogEvent
-import app.pachli.core.model.AttachmentBlurDecision
+import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
@@ -84,8 +84,12 @@ class NetworkTimelineViewModel @Inject constructor(
                         pachliAccount.id,
                         timelineStatusWithAccount,
                         isExpanded = statusDisplayOptions.value.openSpoiler,
-                        showSensitiveMedia = statusDisplayOptions.value.showSensitiveMedia,
                         contentFilterAction = contentFilterAction,
+                        attachmentDisplayAction = getAttachmentDisplayAction(
+                            timelineStatusWithAccount,
+                            pachliAccount.entity.alwaysShowSensitiveMedia,
+                            timelineStatusWithAccount.viewData?.attachmentDisplayAction,
+                        ),
                     )
                 }
         }
@@ -161,10 +165,9 @@ class NetworkTimelineViewModel @Inject constructor(
         }
     }
 
-    override fun onChangeAttachmentBlurDecision(viewData: StatusViewData, newDecision: AttachmentBlurDecision) {
+    override fun onChangeAttachmentDisplayAction(viewData: StatusViewData, newDecision: AttachmentDisplayAction) {
         viewModelScope.launch {
-            repository.setAttachmentBlurDecision(viewData.pachliAccountId, viewData.actionableId, newDecision)
-//            modifiedViewData[viewData.actionableId] = viewData.copy(attachmentBlurDecision = newDecision)
+            repository.setAttachmentDisplayAction(viewData.pachliAccountId, viewData.actionableId, newDecision)
             repository.invalidate()
         }
     }

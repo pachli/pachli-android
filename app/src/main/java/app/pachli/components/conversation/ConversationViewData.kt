@@ -22,6 +22,7 @@ import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.database.model.ConversationData
 import app.pachli.core.model.AccountFilterDecision
+import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.ConversationAccount
 import app.pachli.core.model.FilterAction
 
@@ -57,15 +58,14 @@ data class ConversationViewData(
          * @param pachliAccount
          * @param conversationData
          * @param defaultIsExpanded Default value for the `isExpanded` property if not set.
-         * @param defaultIsShowingContent Default value for the `isShowingContent` property if not set.
          * @param accountFilterDecision
          */
         fun make(
             pachliAccount: PachliAccount,
             conversationData: ConversationData,
             defaultIsExpanded: Boolean,
-            defaultIsShowingContent: Boolean,
             contentFilterAction: FilterAction,
+            attachmentDisplayAction: AttachmentDisplayAction = AttachmentDisplayAction.Show(),
             accountFilterDecision: AccountFilterDecision?,
         ) = ConversationViewData(
             pachliAccountId = pachliAccount.id,
@@ -77,9 +77,9 @@ data class ConversationViewData(
                 pachliAccountId = pachliAccount.id,
                 conversationData.lastStatus,
                 isExpanded = defaultIsExpanded,
-                showSensitiveMedia = defaultIsShowingContent,
                 isDetailed = false,
                 contentFilterAction = contentFilterAction,
+                attachmentDisplayAction = attachmentDisplayAction,
             ),
             isConversationStarter = conversationData.isConversationStarter,
             accountFilterDecision = accountFilterDecision,

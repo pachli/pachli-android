@@ -28,12 +28,13 @@
 
     <TextView
         android:id="@+id/status_sensitive_media_warning"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/media_warning_bg"
         android:gravity="center"
         android:lineSpacingMultiplier="1.2"
         android:orientation="vertical"
+        android:layout_margin="8dp"
         android:paddingLeft="12dp"
         android:paddingTop="8dp"
         android:paddingRight="12dp"

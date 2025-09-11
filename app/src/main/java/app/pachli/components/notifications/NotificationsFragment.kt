@@ -54,10 +54,10 @@ import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.Notification
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
-import app.pachli.core.model.AttachmentBlurDecision
 import app.pachli.core.navigation.AttachmentViewData.Companion.list
 import app.pachli.core.navigation.EditContentFilterActivityIntent
 import app.pachli.core.preferences.TabTapBehaviour
@@ -551,12 +551,12 @@ class NotificationsFragment :
         )
     }
 
-    override fun onAttachmentBlurDecisionChange(viewData: NotificationViewData, newDecision: AttachmentBlurDecision) {
+    override fun onAttachmentDisplayActionChange(viewData: NotificationViewData, newAction: AttachmentDisplayAction) {
         viewModel.accept(
-            InfallibleUiAction.SetAttachmentBlurDecision(
+            InfallibleUiAction.SetAttachmentDisplayAction(
                 viewData.pachliAccountId,
                 viewData.statusViewData!!,
-                newDecision,
+                newAction,
             ),
         )
     }

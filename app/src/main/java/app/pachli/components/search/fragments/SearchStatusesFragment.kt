@@ -47,10 +47,10 @@ import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.domain.DownloadUrlUseCase
 import app.pachli.core.model.Attachment
+import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 import app.pachli.core.model.Status.Mention
-import app.pachli.core.model.AttachmentBlurDecision
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
@@ -129,8 +129,8 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
         return SearchStatusesAdapter(Glide.with(this), setStatusContent, statusDisplayOptions, this)
     }
 
-    override fun onAttachmentBlurDecisionChange(viewData: StatusViewData, newDecision: AttachmentBlurDecision) {
-        viewModel.attachmentBlurDecisionChange(viewData, newDecision)
+    override fun onAttachmentDisplayActionChange(viewData: StatusViewData, newDecision: AttachmentDisplayAction) {
+        viewModel.attachmentDisplayActionChange(viewData, newDecision)
     }
 
     override fun onReply(viewData: StatusViewData) {

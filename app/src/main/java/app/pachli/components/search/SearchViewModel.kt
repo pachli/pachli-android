@@ -39,9 +39,9 @@ import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.ServerRepository
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.DeletedStatus
 import app.pachli.core.model.Poll
-import app.pachli.core.model.AttachmentBlurDecision
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_BY_DATE
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_FROM
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_AUDIO
@@ -211,7 +211,6 @@ class SearchViewModel @Inject constructor(
             StatusViewData.from(
                 pachliAccountId = activeAccount!!.id,
                 status,
-                showSensitiveMedia = alwaysShowSensitiveMedia || !status.actionableStatus.sensitive,
                 isExpanded = alwaysOpenSpoiler,
                 isCollapsed = true,
             )
@@ -309,10 +308,10 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    fun attachmentBlurDecisionChange(statusViewData: StatusViewData, attachmentBlurDecision: AttachmentBlurDecision) {
-        updateStatusViewData(statusViewData.copy(attachmentBlurDecision = attachmentBlurDecision))
+    fun attachmentDisplayActionChange(statusViewData: StatusViewData, attachmentDisplayAction: AttachmentDisplayAction) {
+        updateStatusViewData(statusViewData.copy(attachmentDisplayAction = attachmentDisplayAction))
         viewModelScope.launch {
-            statusRepository.setAttachmentBlurDecision(statusViewData.pachliAccountId, statusViewData.id, attachmentBlurDecision)
+            statusRepository.setAttachmentDisplayAction(statusViewData.pachliAccountId, statusViewData.id, attachmentDisplayAction)
         }
     }
 
