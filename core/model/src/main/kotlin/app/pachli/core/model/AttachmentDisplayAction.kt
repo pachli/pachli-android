@@ -28,7 +28,7 @@ data class MatchingFilter(
 )
 
 // The `type` property here, and having to pass it when defining the subclasses
-// is to work around
+// is to work around https://github.com/ZacSweers/MoshiX/issues/775.
 @JsonClass(generateAdapter = true, generator = "sealed:type")
 sealed class AttachmentDisplayReason(val type: String) {
     /**

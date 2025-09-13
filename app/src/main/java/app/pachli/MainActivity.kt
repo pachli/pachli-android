@@ -167,7 +167,6 @@ import com.mikepenz.materialdrawer.util.removeItemByPosition
 import com.mikepenz.materialdrawer.util.removeItems
 import com.mikepenz.materialdrawer.util.updateBadge
 import com.mikepenz.materialdrawer.widget.AccountHeaderView
-import com.squareup.moshi.Moshi
 import dagger.hilt.android.AndroidEntryPoint
 import de.c1710.filemojicompat_ui.helpers.EMOJI_PREFERENCE
 import javax.inject.Inject
@@ -212,9 +211,6 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
     @Inject
     lateinit var updateShortCuts: UpdateShortCutsUseCase
 
-    @Inject
-    lateinit var moshi: Moshi
-
     private val viewModel: MainViewModel by viewModels()
 
     private val binding by viewBinding(ActivityMainBinding::inflate)
@@ -254,7 +250,6 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
     /** Mutex to protect modifications to the drawer's items. */
     private val drawerMutex = Mutex()
 
-    @OptIn(ExperimentalStdlibApi::class)
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
