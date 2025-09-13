@@ -750,7 +750,7 @@ fun TimelineStatusWithAccount.getAttachmentDisplayAction(filterContext: FilterCo
     // Blur attachments if the status is marked sensitive and the user doesn't want to
     // see them.
     if (status.sensitive && !showSensitiveMedia) {
-        return AttachmentDisplayAction.Hide(reason = AttachmentDisplayReason.Sensitive())
+        return AttachmentDisplayAction.Hide(reason = AttachmentDisplayReason.Sensitive)
     }
 
     // Attachment is OK, and can be shown.

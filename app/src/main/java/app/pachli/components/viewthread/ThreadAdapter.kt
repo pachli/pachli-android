@@ -18,11 +18,11 @@ package app.pachli.components.viewthread
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import app.pachli.adapter.FilterableStatusViewHolder
 import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.adapter.StatusDetailedViewHolder
+import app.pachli.adapter.StatusViewDataDiffCallback
 import app.pachli.adapter.StatusViewHolder
 import app.pachli.core.activity.OpenUrlUseCase
 import app.pachli.core.data.model.StatusDisplayOptions
@@ -41,7 +41,7 @@ class ThreadAdapter(
     private val statusActionListener: StatusActionListener<StatusViewData>,
     private val setStatusContent: SetStatusContent,
     private val openUrl: OpenUrlUseCase,
-) : ListAdapter<StatusViewData, StatusBaseViewHolder<StatusViewData>>(ThreadDifferCallback) {
+) : ListAdapter<StatusViewData, StatusBaseViewHolder<StatusViewData>>(StatusViewDataDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StatusBaseViewHolder<StatusViewData> {
         val inflater = LayoutInflater.from(parent.context)
@@ -72,6 +72,11 @@ class ThreadAdapter(
         }
     }
 
+    override fun onBindViewHolder(viewHolder: StatusBaseViewHolder<StatusViewData>, position: Int, payloads: List<Any?>) {
+        val status = getItem(position)
+        viewHolder.setupWithStatus(status, statusActionListener, statusDisplayOptions, payloads)
+    }
+
     override fun onBindViewHolder(viewHolder: StatusBaseViewHolder<StatusViewData>, position: Int) {
         val status = getItem(position)
         viewHolder.setupWithStatus(status, statusActionListener, statusDisplayOptions, null)
@@ -100,22 +105,5 @@ class ThreadAdapter(
         private const val VIEW_TYPE_STATUS = 0
         private const val VIEW_TYPE_STATUS_DETAILED = 1
         private const val VIEW_TYPE_STATUS_FILTERED = 2
-
-        val ThreadDifferCallback = object : DiffUtil.ItemCallback<StatusViewData>() {
-            override fun areItemsTheSame(oldItem: StatusViewData, newItem: StatusViewData) = oldItem.id == newItem.id
-
-            // Items are different always. It allows to refresh timestamp on every view holder update
-            override fun areContentsTheSame(oldItem: StatusViewData, newItem: StatusViewData) = false
-
-            override fun getChangePayload(oldItem: StatusViewData, newItem: StatusViewData): Any? {
-                return if (oldItem == newItem) {
-                    // If items are equal - update timestamp only
-                    listOf(StatusBaseViewHolder.Key.KEY_CREATED)
-                } else {
-                    // If items are different - update the whole view holder
-                    null
-                }
-            }
-        }
     }
 }

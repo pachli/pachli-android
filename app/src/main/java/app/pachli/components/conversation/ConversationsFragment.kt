@@ -35,7 +35,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.R
-import app.pachli.adapter.StatusBaseViewHolder
+import app.pachli.adapter.StatusViewDataDiffCallback
 import app.pachli.components.preference.accountfilters.AccountConversationFiltersPreferenceDialogFragment
 import app.pachli.core.activity.ReselectableFragment
 import app.pachli.core.activity.extensions.TransitionKind
@@ -270,7 +270,7 @@ class ConversationsFragment :
                         adapter.notifyItemRangeChanged(
                             0,
                             adapter.itemCount,
-                            listOf(StatusBaseViewHolder.Key.KEY_CREATED),
+                            listOf(StatusViewDataDiffCallback.Payload.CREATED),
                         )
                     }
                 }

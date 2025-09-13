@@ -22,6 +22,7 @@ import android.view.View
 import android.widget.ImageView
 import app.pachli.R
 import app.pachli.adapter.StatusBaseViewHolder
+import app.pachli.adapter.StatusViewDataDiffCallback
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.util.SmartLengthInputFilter
@@ -76,7 +77,7 @@ class ConversationViewHolder internal constructor(
             setAvatars(viewData.accounts, statusDisplayOptions.animateAvatars)
         } else {
             payloads.flatten().forEach { item ->
-                if (item == Key.KEY_CREATED) {
+                if (item == StatusViewDataDiffCallback.Payload.CREATED) {
                     setMetaData(viewData, statusDisplayOptions, listener)
                 }
             }

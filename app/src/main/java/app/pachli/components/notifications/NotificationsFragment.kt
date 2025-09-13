@@ -45,7 +45,7 @@ import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
 import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.R
-import app.pachli.adapter.StatusBaseViewHolder
+import app.pachli.adapter.StatusViewDataDiffCallback
 import app.pachli.components.preference.accountfilters.AccountNotificationFiltersPreferencesDialogFragment
 import app.pachli.components.timeline.TimelineLoadStateAdapter
 import app.pachli.core.activity.ReselectableFragment
@@ -134,7 +134,11 @@ class NotificationsFragment :
             emit(Unit)
         }
     }.onEach {
-        adapter.notifyItemRangeChanged(0, adapter.itemCount, listOf(StatusBaseViewHolder.Key.KEY_CREATED))
+        adapter.notifyItemRangeChanged(
+            0,
+            adapter.itemCount,
+            listOf(StatusViewDataDiffCallback.Payload.CREATED),
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -692,7 +696,7 @@ class NotificationsFragment :
                 ): Any? {
                     return if (oldItem == newItem) {
                         //  If items are equal - update timestamp only
-                        listOf(StatusBaseViewHolder.Key.KEY_CREATED)
+                        listOf(StatusViewDataDiffCallback.Payload.CREATED)
                     } else {
                         // If items are different - update a whole view holder
                         null

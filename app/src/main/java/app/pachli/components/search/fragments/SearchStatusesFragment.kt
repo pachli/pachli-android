@@ -35,7 +35,7 @@ import androidx.paging.PagingData
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.pachli.R
-import app.pachli.adapter.StatusBaseViewHolder
+import app.pachli.adapter.StatusViewDataDiffCallback
 import app.pachli.components.search.adapter.SearchStatusesAdapter
 import app.pachli.core.activity.BaseActivity
 import app.pachli.core.activity.OpenUrlUseCase
@@ -105,7 +105,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                         adapter.notifyItemRangeChanged(
                             0,
                             adapter.itemCount,
-                            listOf(StatusBaseViewHolder.Key.KEY_CREATED),
+                            listOf(StatusViewDataDiffCallback.Payload.CREATED),
                         )
                     }
                 }

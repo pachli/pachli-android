@@ -15,6 +15,7 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.core.common.extensions.hide
@@ -25,6 +26,7 @@ import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.common.util.formatNumber
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusDisplayOptions
+import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.Attachment
@@ -72,10 +74,6 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
     protected val glide: RequestManager,
     protected val setStatusContent: SetStatusContent,
 ) : RecyclerView.ViewHolder(itemView) {
-    object Key {
-        const val KEY_CREATED = "created"
-    }
-
     protected val context: Context = itemView.context
     private val displayName: TextView = itemView.findViewById(R.id.status_display_name)
     private val username: TextView = itemView.findViewById(R.id.status_username)
@@ -592,7 +590,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
                 // If (a) then the new decision is `Show.originalDecision`. If (b) then
                 // then the new decision is UserAction.
                 val decision = (viewData.attachmentDisplayAction as? AttachmentDisplayAction.Show)?.originalDecision
-                    ?: AttachmentDisplayAction.Hide(AttachmentDisplayReason.UserAction())
+                    ?: AttachmentDisplayAction.Hide(AttachmentDisplayReason.UserAction)
                 listener.onAttachmentDisplayActionChange(viewData, decision)
             }
             sensitiveMediaWarning.setOnClickListener { v: View ->
@@ -790,15 +788,6 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
             setReblogged(actionable.reblogged)
             setFavourited(actionable.favourited)
             setBookmarked(actionable.bookmarked)
-//            val attachments = if (viewData.translationState == TranslationState.SHOW_TRANSLATION) {
-//                viewData.translation?.attachments?.zip(actionable.attachments) { t, a ->
-//                    a.copy(description = t.description)
-//                } ?: actionable.attachments
-//            } else {
-//                actionable.attachments
-//            }
-//            val sensitive = actionable.sensitive
-//            if (statusDisplayOptions.mediaPreviewEnabled && attachments.arePreviewable()) {
             setMediaPreviews(
                 viewData,
                 statusDisplayOptions.mediaPreviewEnabled,
@@ -806,19 +795,6 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
                 listener,
                 statusDisplayOptions.useBlurhash,
             )
-//                if (attachments.isEmpty()) {
-//                    hideSensitiveMediaWarning()
-//                }
-            // Hide the unused label.
-//                for (mediaLabel in mediaLabels) {
-//                    mediaLabel.visibility = View.GONE
-//                }
-//            } else {
-//                setMediaLabel(viewData, attachments, sensitive, listener, viewData.attachmentDisplayAction is AttachmentDisplayAction.Show)
-//                // Hide all unused views.
-//                mediaPreview.visibility = View.GONE
-//                hideSensitiveMediaWarning()
-//            }
             setupCard(
                 viewData,
                 viewData.isExpanded,
@@ -843,9 +819,17 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
             // and let RecyclerView ask for a new delegate.
             itemView.accessibilityDelegate = null
         } else {
-            payloads.flatten().forEach { item ->
-                if (item == Key.KEY_CREATED) {
+            payloads.flatten()?.forEach { item ->
+                if (item == StatusViewDataDiffCallback.Payload.CREATED) {
                     setMetaData(viewData, statusDisplayOptions, listener)
+                }
+                if (item == StatusViewDataDiffCallback.Payload.ATTACHMENTS) {
+                    setMediaPreviews(
+                        viewData,
+                        statusDisplayOptions.mediaPreviewEnabled,
+                        listener,
+                        statusDisplayOptions.useBlurhash,
+                    )
                 }
             }
         }
@@ -1063,4 +1047,46 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
 fun Attachment.Type.isPlayable() = when (this) {
     Attachment.Type.AUDIO, Attachment.Type.GIFV, Attachment.Type.VIDEO -> true
     Attachment.Type.IMAGE, Attachment.Type.UNKNOWN -> false
+}
+
+object StatusViewDataDiffCallback : DiffUtil.ItemCallback<StatusViewData>() {
+    enum class Payload {
+        CREATED,
+        ATTACHMENTS,
+    }
+
+    override fun areItemsTheSame(
+        oldItem: StatusViewData,
+        newItem: StatusViewData,
+    ): Boolean {
+        return oldItem.actionableId == newItem.actionableId
+    }
+
+    override fun areContentsTheSame(
+        oldItem: StatusViewData,
+        newItem: StatusViewData,
+    ): Boolean {
+        // Items are different always. It allows to refresh timestamp on every view holder update
+        return false
+    }
+
+    override fun getChangePayload(
+        oldItem: StatusViewData,
+        newItem: StatusViewData,
+    ): Any? {
+        val payload = buildList {
+            if (oldItem == newItem) {
+                add(Payload.CREATED)
+                return@buildList
+            }
+
+            if (oldItem.actionable.attachments != newItem.actionable.attachments ||
+                oldItem.attachmentDisplayAction != newItem.attachmentDisplayAction
+            ) {
+                add(Payload.ATTACHMENTS)
+            }
+        }
+
+        return payload
+    }
 }

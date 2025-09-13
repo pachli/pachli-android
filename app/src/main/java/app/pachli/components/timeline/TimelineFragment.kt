@@ -46,7 +46,7 @@ import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.BuildConfig
 import app.pachli.R
-import app.pachli.adapter.StatusBaseViewHolder
+import app.pachli.adapter.StatusViewDataDiffCallback
 import app.pachli.components.timeline.viewmodel.CachedTimelineViewModel
 import app.pachli.components.timeline.viewmodel.FallibleStatusAction
 import app.pachli.components.timeline.viewmodel.InfallibleStatusAction
@@ -179,7 +179,11 @@ class TimelineFragment :
             emit(Unit)
         }
     }.onEach {
-        adapter.notifyItemRangeChanged(0, adapter.itemCount, listOf(StatusBaseViewHolder.Key.KEY_CREATED))
+        adapter.notifyItemRangeChanged(
+            0,
+            adapter.itemCount,
+            listOf(StatusViewDataDiffCallback.Payload.CREATED),
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

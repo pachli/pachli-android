@@ -27,28 +27,10 @@ data class MatchingFilter(
     val title: String,
 )
 
-// Preferences:
-// - Show colorful gradients for hidden media
-// Account preferences
-// - Download media previews
-// - Always show sensitive content
-
-// Decisions:
-//
-// - Show
-// - Hide, because:
-//   - Download media previews is off
-//   - Media is sensitive? (what does web app do, what is current behaviour?)
-//   - Matches filter marked "blur"
-//   - User tapped the eye icon to hide it
-//
-// - Blur isn't a decision show/hide decision, it's a rendering decision. "Hide" might
-// hide the media completely, or it might replace it with the blur.
-
-// Filter preference is badly named, shouldn't be blur, should be "Hide media"
-
+// The `type` property here, and having to pass it when defining the subclasses
+// is to work around
 @JsonClass(generateAdapter = true, generator = "sealed:type")
-sealed interface AttachmentDisplayReason {
+sealed class AttachmentDisplayReason(val type: String) {
     /**
      * The status containing the attachment matched one or more filters marked
      * "blur"
@@ -57,17 +39,15 @@ sealed interface AttachmentDisplayReason {
      */
     @TypeLabel(label = "blurFilter")
     @JsonClass(generateAdapter = true)
-    data class BlurFilter(val filters: List<MatchingFilter>) : AttachmentDisplayReason
+    data class BlurFilter(val filters: List<MatchingFilter>) : AttachmentDisplayReason("blurFilter")
 
     /** The status is marked sensitive. */
     @TypeLabel(label = "sensitive")
-    @JsonClass(generateAdapter = true)
-    class Sensitive : AttachmentDisplayReason
+    data object Sensitive : AttachmentDisplayReason("sensitive")
 
     /** The user hid the attachment using the UI. */
     @TypeLabel("userAction")
-    @JsonClass(generateAdapter = true)
-    class UserAction : AttachmentDisplayReason
+    data object UserAction : AttachmentDisplayReason("userAction")
 }
 
 /** How to display attachments, with the reason for the action. */

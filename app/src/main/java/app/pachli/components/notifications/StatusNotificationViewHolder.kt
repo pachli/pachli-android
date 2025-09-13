@@ -27,7 +27,7 @@ import android.text.style.StyleSpan
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
-import app.pachli.adapter.StatusBaseViewHolder
+import app.pachli.adapter.StatusViewDataDiffCallback
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.common.util.SmartLengthInputFilter
@@ -124,7 +124,7 @@ internal class StatusNotificationViewHolder(
             setMessage(viewData, statusActionListener, statusDisplayOptions)
         } else {
             payloads.flatten().forEach { item ->
-                if (item == StatusBaseViewHolder.Key.KEY_CREATED && statusViewData != null) {
+                if (item == StatusViewDataDiffCallback.Payload.CREATED == item && statusViewData != null) {
                     setCreatedAt(
                         viewData.actionable.createdAt,
                         statusDisplayOptions.useAbsoluteTime,

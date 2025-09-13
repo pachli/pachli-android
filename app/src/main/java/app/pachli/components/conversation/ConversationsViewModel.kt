@@ -91,7 +91,7 @@ class ConversationsViewModel @AssistedInject constructor(
                         // is always FilterAction.NONE.
                         contentFilterAction = FilterAction.NONE,
                         accountFilterDecision = accountFilterDecision,
-                        attachmentDisplayAction = conversation.lastStatus.toStatus().getAttachmentDisplayAction(
+                        attachmentDisplayAction = conversation.lastStatus.getAttachmentDisplayAction(
                             // There is no filter context for private messages (FilterContext.CONVERSATIONS
                             // is for threads).
                             null,
