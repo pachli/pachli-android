@@ -1,5 +1,20 @@
 # Pachli changelog
 
+## v2.16.1
+
+### Significant bug fixes
+
+- Correctly hide filtered posts from network timelines (#[1763](https://github.com/pachli/pachli-android/pull/1763), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Translations
+
+- Update Estonian translations ([Priit Jõerüüt](https://github.com/pachli/pachli-android/commits?author=jrthwlate@users.noreply.hosted.weblate.org))
+- Update German translations ([Thomas Cloer](https://github.com/pachli/pachli-android/commits?author=tcloer@mac.com))
+- Update Irish translations ([Aindriú Mac Giolla Eoin](https://github.com/pachli/pachli-android/commits?author=aindriu80@gmail.com))
+- Update Italian translations ([Dizro](https://github.com/pachli/pachli-android/commits?author=weblate.delirium794@passmail.net))
+- Update Latvian translations ([Edgars Andersons](https://github.com/pachli/pachli-android/commits?author=Edgars+Weblate@gaitenis.id.lv))
+- Update Norwegian Nynorsk translations ([Sunniva Løvstad](https://github.com/pachli/pachli-android/commits?author=weblate@turtle.garden))
+
 ## v2.16.0
 
 ### New features and other improvements
