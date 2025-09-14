@@ -245,6 +245,7 @@ class EditContentFilterActivity : BaseActivity() {
     }
 
     private fun bindFilterActions(filterActions: Set<FilterAction>) {
+        binding.filterActionBlur.visible(filterActions.contains(FilterAction.BLUR))
         binding.filterActionWarn.visible(filterActions.contains(FilterAction.WARN))
         binding.filterActionHide.visible(filterActions.contains(FilterAction.HIDE))
     }

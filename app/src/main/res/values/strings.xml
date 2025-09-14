@@ -683,7 +683,7 @@
     <string name="ui_success_rejected_follow_request">Follow request blocked</string>
     <string name="hint_filter_title">My filter</string>
     <string name="label_filter_title">Title</string>
-    <string name="filter_action_blur">Blur</string>
+    <string name="filter_action_blur">Hide attachments</string>
     <string name="filter_action_warn">Warn</string>
     <string name="filter_action_hide">Hide</string>
     <string name="filter_action_none">Show</string>
