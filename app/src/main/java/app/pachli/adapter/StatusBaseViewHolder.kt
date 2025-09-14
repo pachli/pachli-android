@@ -1087,6 +1087,7 @@ object StatusViewDataDiffCallback : DiffUtil.ItemCallback<StatusViewData>() {
             }
         }
 
+        if (payload.isEmpty()) return super.getChangePayload(oldItem, newItem)
         return payload
     }
 }
