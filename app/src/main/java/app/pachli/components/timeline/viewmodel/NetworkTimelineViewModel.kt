@@ -20,6 +20,7 @@ package app.pachli.components.timeline.viewmodel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
+import androidx.paging.filter
 import androidx.paging.map
 import app.pachli.components.timeline.NetworkTimelineRepository
 import app.pachli.core.data.model.StatusViewData
@@ -33,6 +34,7 @@ import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.FavoriteEvent
 import app.pachli.core.eventhub.PinEvent
 import app.pachli.core.eventhub.ReblogEvent
+import app.pachli.core.model.FilterAction
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 import app.pachli.core.model.translation.TranslatedStatus
@@ -71,23 +73,19 @@ class NetworkTimelineViewModel @Inject constructor(
     statusDisplayOptionsRepository,
     sharedPreferencesRepository,
 ) {
-    override val statuses = pachliAccountId.distinctUntilChanged()
-        .flatMapLatest { pachliAccountId ->
-            repository.getStatusStream(pachliAccountId, timeline = timeline)
-                .map { pagingData ->
-                    pagingData.map {
-                        StatusViewData.from(
-                            pachliAccountId,
-                            it,
-                            isExpanded = it.viewData?.expanded ?: statusDisplayOptions.value.openSpoiler,
-                            isShowingContent = it.viewData?.contentShowing ?: statusDisplayOptions.value.showSensitiveMedia || !it.status.sensitive,
-                            isDetailed = false,
-                            contentFilterAction = shouldFilterStatus(it.toStatus()),
-                            translationState = it.viewData?.translationState ?: TranslationState.SHOW_ORIGINAL,
-                        )
-                    }
-                }
-        }.cachedIn(viewModelScope)
+    override val statuses = pachliAccountId.distinctUntilChanged().flatMapLatest { pachliAccountId ->
+        repository.getStatusStream(pachliAccountId, timeline = timeline).map { pagingData ->
+            pagingData.map {
+                StatusViewData.from(
+                    pachliAccountId,
+                    it,
+                    isExpanded = statusDisplayOptions.value.openSpoiler,
+                    isShowingContent = statusDisplayOptions.value.showSensitiveMedia,
+                    contentFilterAction = shouldFilterStatus(it.toStatus()),
+                )
+            }.filter { it.contentFilterAction != FilterAction.HIDE }
+        }
+    }.cachedIn(viewModelScope)
 
     override fun removeAllByAccountId(pachliAccountId: Long, accountId: String) {
         viewModelScope.launch {
