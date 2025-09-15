@@ -65,10 +65,10 @@ class TimelinePagingAdapter(
     }
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int, payloads: List<Any?>) {
-        bindViewHolder(viewHolder, position, payloads)
+        bindViewHolder(viewHolder, position, payloads as? List<List<Any?>>)
     }
 
-    private fun bindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int, payloads: List<*>?) {
+    private fun bindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int, payloads: List<List<Any?>>?) {
         try {
             getItem(position)
         } catch (_: IndexOutOfBoundsException) {

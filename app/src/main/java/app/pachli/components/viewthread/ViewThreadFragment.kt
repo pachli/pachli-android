@@ -33,7 +33,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.R
-import app.pachli.adapter.StatusBaseViewHolder
+import app.pachli.adapter.StatusViewDataDiffCallback
 import app.pachli.components.viewthread.edits.ViewEditsFragment
 import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
@@ -164,7 +164,7 @@ class ViewThreadFragment :
                         adapter.notifyItemRangeChanged(
                             0,
                             adapter.itemCount,
-                            listOf(StatusBaseViewHolder.Key.KEY_CREATED),
+                            listOf(StatusViewDataDiffCallback.Payload.CREATED),
                         )
                     }
                 }

@@ -72,11 +72,6 @@ class ThreadAdapter(
         }
     }
 
-    override fun onBindViewHolder(viewHolder: StatusBaseViewHolder<StatusViewData>, position: Int, payloads: List<Any?>) {
-        val status = getItem(position)
-        viewHolder.setupWithStatus(status, statusActionListener, statusDisplayOptions, payloads)
-    }
-
     override fun onBindViewHolder(viewHolder: StatusBaseViewHolder<StatusViewData>, position: Int) {
         val status = getItem(position)
         viewHolder.setupWithStatus(status, statusActionListener, statusDisplayOptions, null)
@@ -84,7 +79,7 @@ class ThreadAdapter(
 
     override fun onBindViewHolder(holder: StatusBaseViewHolder<StatusViewData>, position: Int, payloads: List<Any?>) {
         val status = getItem(position)
-        holder.setupWithStatus(status, statusActionListener, statusDisplayOptions, payloads as? List<List<Any?>>?)
+        holder.setupWithStatus(status, statusActionListener, statusDisplayOptions, payloads as? List<List<Any?>>)
     }
 
     override fun getItemViewType(position: Int): Int {
