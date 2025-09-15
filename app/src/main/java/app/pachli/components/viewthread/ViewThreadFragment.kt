@@ -336,7 +336,7 @@ class ViewThreadFragment :
     }
 
     override fun onViewThread(status: Status) {
-        if (thisThreadsStatusId == status.id) {
+        if (thisThreadsStatusId == status.actionableId) {
             // If already viewing this thread, don't reopen it.
             return
         }
