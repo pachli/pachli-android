@@ -54,7 +54,7 @@ class StatusViewHelper(
         fun onContentHiddenChange(isShowing: Boolean)
     }
 
-    fun setMediasPreview(
+    fun setMediaPreviews(
         statusDisplayOptions: StatusDisplayOptions,
         attachments: List<Attachment>,
         sensitive: Boolean,
@@ -191,7 +191,7 @@ class StatusViewHelper(
                 previewListener.onContentHiddenChange(false)
                 v.visibility = View.GONE
                 sensitiveMediaWarning.visibility = View.VISIBLE
-                setMediasPreview(
+                setMediaPreviews(
                     statusDisplayOptions,
                     attachments,
                     sensitive,
@@ -204,7 +204,7 @@ class StatusViewHelper(
                 previewListener.onContentHiddenChange(true)
                 v.visibility = View.GONE
                 sensitiveMediaShow.visibility = View.VISIBLE
-                setMediasPreview(
+                setMediaPreviews(
                     statusDisplayOptions,
                     attachments,
                     sensitive,

@@ -89,7 +89,7 @@ open class StatusViewHolder(
 
         val sensitive = viewData.status.sensitive
 
-        statusViewHelper.setMediasPreview(
+        statusViewHelper.setMediaPreviews(
             statusDisplayOptions,
             viewData.status.attachments,
             sensitive,
