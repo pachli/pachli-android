@@ -101,7 +101,7 @@ interface IStatusViewData {
     /** The current translation state */
     val translationState: TranslationState
 
-    /** Whether to blur attachments on this status, and why. */
+    /** How to display attachments on this status. */
     val attachmentDisplayAction: AttachmentDisplayAction
 }
 

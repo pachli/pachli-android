@@ -255,12 +255,6 @@ class ConversationsViewModel @AssistedInject constructor(
         }
     }
 
-    fun showContent(pachliAccountId: Long, showingHiddenContent: Boolean, lastStatusId: String) {
-        viewModelScope.launch {
-            repository.setContentShowing(pachliAccountId, lastStatusId, showingHiddenContent)
-        }
-    }
-
     fun remove(viewData: ConversationViewData) {
         viewModelScope.launch {
             api.deleteConversation(conversationId = viewData.id).onSuccess {

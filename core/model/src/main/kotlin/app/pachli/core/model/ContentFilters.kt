@@ -66,7 +66,7 @@ enum class FilterAction {
     @Json(name = "none")
     NONE,
 
-    /** Show text content, blur any attached media. */
+    /** Show text content, hide any attached media. */
     @Json(name = "blur")
     BLUR,
 

@@ -137,7 +137,7 @@ import java.util.TimeZone
         AutoMigration(from = 27, to = 28),
         // Saving TimelineAccount.roles to the database.
         AutoMigration(from = 28, to = 29),
-        // Record the attachment blur decision.
+        // Record the attachment display action.
         AutoMigration(from = 29, to = 30),
     ],
 )

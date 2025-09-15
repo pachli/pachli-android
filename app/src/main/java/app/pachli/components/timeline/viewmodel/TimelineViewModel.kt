@@ -713,7 +713,8 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
  *
  * @param filterContext Applicable filter context. May be null for timelines that are
  * not filtered (e.g., private messages).
- * @param showSensitiveMedia
+ * @param showSensitiveMedia True if the user's preference is to show attachments
+ * marked sensitive.
  * @param cachedAction
  */
 fun TimelineStatusWithAccount.getAttachmentDisplayAction(filterContext: FilterContext?, showSensitiveMedia: Boolean, cachedAction: AttachmentDisplayAction?): AttachmentDisplayAction {

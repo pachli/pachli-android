@@ -76,7 +76,7 @@ data class NotificationViewData(
          *
          * @param pachliAccountEntity
          * @param data
-         * @param isShowingContent
+         * @param showSensitiveMedia
          * @param isExpanded
          * @param contentFilterAction
          * @param accountFilterDecision
@@ -85,7 +85,7 @@ data class NotificationViewData(
         fun make(
             pachliAccountEntity: AccountEntity,
             data: NotificationData,
-            isShowingContent: Boolean,
+            showSensitiveMedia: Boolean,
             isExpanded: Boolean,
             contentFilterAction: FilterAction,
             accountFilterDecision: AccountFilterDecision?,
@@ -105,7 +105,7 @@ data class NotificationViewData(
                     contentFilterAction = contentFilterAction,
                     attachmentDisplayAction = it.toStatus().getAttachmentDisplayAction(
                         FilterContext.NOTIFICATIONS,
-                        isShowingContent,
+                        showSensitiveMedia,
                         it.viewData?.attachmentDisplayAction,
                     ),
                 )

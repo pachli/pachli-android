@@ -496,6 +496,24 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
         }
     }
 
+    /**
+     * Shows/hides the media previews based on the attachments, and wires
+     * up click listeners.
+     *
+     * If the user has disabled media previews an icon is shown for
+     * each attachment, along with the attachment's description.
+     *
+     * Otherwise the attachment is shown or hidden depending on
+     * [viewdData.attachmentDisplayAction][StatusViewData.attachmentDisplayAction].
+     *
+     * @param viewData
+     * @param mediaPreviewEnabled True if the user has enabled attachment previews
+     * @param listener
+     * @param useBlurhash If true and
+     * [viewdData.attachmentDisplayAction][StatusViewData.attachmentDisplayAction]
+     * is [Hide][AttachmentDisplayAction.Hide] the attachment's blur hash will be
+     * shown. Otherwise a solid colour is used.
+     */
     protected fun setMediaPreviews(
         viewData: T,
         mediaPreviewEnabled: Boolean,
@@ -541,8 +559,8 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
                 imageView.contentDescription = context.getString(R.string.action_view_media)
             }
 
-            val blurDecision = viewData.attachmentDisplayAction
-            val showContent = blurDecision is AttachmentDisplayAction.Show
+            val displayAction = viewData.attachmentDisplayAction
+            val showContent = displayAction is AttachmentDisplayAction.Show
 
             loadImage(
                 imageView,
@@ -558,11 +576,11 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
             }
             setAttachmentClickListener(viewData, imageView, listener, i, attachment, true)
 
-            when (blurDecision) {
+            when (displayAction) {
                 is AttachmentDisplayAction.Show -> sensitiveMediaWarning.hide()
 
                 is AttachmentDisplayAction.Hide -> {
-                    val text = when (val reason = blurDecision.reason) {
+                    val text = when (val reason = displayAction.reason) {
                         is AttachmentDisplayReason.BlurFilter -> {
                             val resource = when (reason.filters.size) {
                                 1 -> R.string.attachment_matches_filter_one_fmt
@@ -1049,9 +1067,25 @@ fun Attachment.Type.isPlayable() = when (this) {
     Attachment.Type.IMAGE, Attachment.Type.UNKNOWN -> false
 }
 
+/**
+ * Callback to determine what, if anything, has changed in a [StatusViewData].
+ *
+ * Changes are represented by [Payload].
+ */
 object StatusViewDataDiffCallback : DiffUtil.ItemCallback<StatusViewData>() {
+    /** Changes to a [StatusViewData]. */
     enum class Payload {
+        /** The timestamp for the status should be recalculated and displayed. */
         CREATED,
+
+        /**
+         * The attachments have changed and should be re-displayed.
+         *
+         * This might be change to an attachment (e.g.,a status was edited and
+         * an attachment was modified, added, or removed), or the
+         * [attachmentDisplayAction][StatusViewData.attachmentDisplayAction]
+         * was changed.
+         */
         ATTACHMENTS,
     }
 
