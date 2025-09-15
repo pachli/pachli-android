@@ -168,7 +168,7 @@ class NotificationsPagingAdapter(
         /** Bind the data from the notification and payloads to the view. */
         fun bind(
             viewData: NotificationViewData,
-            payloads: List<*>?,
+            payloads: List<List<Any?>>?,
             statusDisplayOptions: StatusDisplayOptions,
         )
     }
@@ -272,12 +272,12 @@ class NotificationsPagingAdapter(
     override fun onBindViewHolder(
         holder: RecyclerView.ViewHolder,
         position: Int,
-        payloads: MutableList<Any>,
+        payloads: List<Any?>,
     ) {
-        bindViewHolder(holder, position, payloads)
+        bindViewHolder(holder, position, payloads as? List<List<Any?>>?)
     }
 
-    private fun bindViewHolder(holder: RecyclerView.ViewHolder, position: Int, payloads: List<*>?) {
+    private fun bindViewHolder(holder: RecyclerView.ViewHolder, position: Int, payloads: List<List<Any?>>?) {
         getItem(position)?.let {
             (holder as ViewHolder).bind(it, payloads, statusDisplayOptions)
         }
@@ -292,7 +292,7 @@ class NotificationsPagingAdapter(
     ) : ViewHolder, RecyclerView.ViewHolder(binding.root) {
         override fun bind(
             viewData: NotificationViewData,
-            payloads: List<*>?,
+            payloads: List<List<Any?>>?,
             statusDisplayOptions: StatusDisplayOptions,
         ) {
             binding.text1.text = binding.root.context.getString(R.string.notification_unknown)

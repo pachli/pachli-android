@@ -40,7 +40,7 @@ class ModerationWarningViewHolder(
         }
     }
 
-    override fun bind(viewData: NotificationViewData, payloads: List<*>?, statusDisplayOptions: StatusDisplayOptions) {
+    override fun bind(viewData: NotificationViewData, payloads: List<List<Any?>>?, statusDisplayOptions: StatusDisplayOptions) {
         this.viewData = viewData
         val context = itemView.context
         val warning = viewData.accountWarning!!

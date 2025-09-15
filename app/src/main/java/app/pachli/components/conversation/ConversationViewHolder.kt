@@ -46,7 +46,7 @@ class ConversationViewHolder internal constructor(
         binding.statusAvatar2,
     )
 
-    override fun bind(viewData: ConversationViewData, payloads: List<*>?, statusDisplayOptions: StatusDisplayOptions) {
+    override fun bind(viewData: ConversationViewData, payloads: List<List<Any?>>?, statusDisplayOptions: StatusDisplayOptions) {
         val account = viewData.actionable.account
         val inReplyToId = viewData.actionable.inReplyToId
         val favourited = viewData.actionable.favourited
@@ -93,11 +93,9 @@ class ConversationViewHolder internal constructor(
             setConversationName(viewData.accounts)
             setAvatars(viewData.accounts, statusDisplayOptions.animateAvatars)
         } else {
-            if (payloads is List<*>) {
-                for (item in payloads) {
-                    if (Key.KEY_CREATED == item) {
-                        setMetaData(viewData, statusDisplayOptions, listener)
-                    }
+            payloads.flatten().forEach { item ->
+                if (item == Key.KEY_CREATED) {
+                    setMetaData(viewData, statusDisplayOptions, listener)
                 }
             }
         }

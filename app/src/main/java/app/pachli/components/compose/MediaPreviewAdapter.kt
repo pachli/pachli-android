@@ -259,7 +259,7 @@ class AttachmentViewHolder(
     fun bind(item: QueuedMedia, payloads: List<Any?>? = null) {
         this.item = item
 
-        if (payloads == null || payloads.isEmpty()) {
+        if (payloads.isNullOrEmpty()) {
             bindAll(item)
             return
         }

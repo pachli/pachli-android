@@ -37,7 +37,7 @@ internal class StatusViewHolder(
 
     override fun bind(
         viewData: NotificationViewData,
-        payloads: List<*>?,
+        payloads: List<List<Any?>>?,
         statusDisplayOptions: StatusDisplayOptions,
     ) {
         val statusViewData = viewData.statusViewData
@@ -53,7 +53,7 @@ internal class StatusViewHolder(
                 viewData,
                 statusActionListener,
                 statusDisplayOptions,
-                payloads?.firstOrNull(),
+                payloads,
             )
         }
         if (viewData.type == NotificationEntity.Type.POLL) {
@@ -73,7 +73,7 @@ class FilterableStatusViewHolder(
     // Note: Identical to bind() in StatusViewHolder above
     override fun bind(
         viewData: NotificationViewData,
-        payloads: List<*>?,
+        payloads: List<List<Any?>>?,
         statusDisplayOptions: StatusDisplayOptions,
     ) {
         val statusViewData = viewData.statusViewData
@@ -89,7 +89,7 @@ class FilterableStatusViewHolder(
                 viewData,
                 statusActionListener,
                 statusDisplayOptions,
-                payloads?.firstOrNull(),
+                payloads,
             )
         }
         if (viewData.type == NotificationEntity.Type.POLL) {

@@ -74,7 +74,12 @@ class ThreadAdapter(
 
     override fun onBindViewHolder(viewHolder: StatusBaseViewHolder<StatusViewData>, position: Int) {
         val status = getItem(position)
-        viewHolder.setupWithStatus(status, statusActionListener, statusDisplayOptions)
+        viewHolder.setupWithStatus(status, statusActionListener, statusDisplayOptions, null)
+    }
+
+    override fun onBindViewHolder(holder: StatusBaseViewHolder<StatusViewData>, position: Int, payloads: List<Any?>) {
+        val status = getItem(position)
+        holder.setupWithStatus(status, statusActionListener, statusDisplayOptions, payloads as? List<List<Any?>>?)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -97,24 +102,12 @@ class ThreadAdapter(
         private const val VIEW_TYPE_STATUS_FILTERED = 2
 
         val ThreadDifferCallback = object : DiffUtil.ItemCallback<StatusViewData>() {
-            override fun areItemsTheSame(
-                oldItem: StatusViewData,
-                newItem: StatusViewData,
-            ): Boolean {
-                return oldItem.id == newItem.id
-            }
+            override fun areItemsTheSame(oldItem: StatusViewData, newItem: StatusViewData) = oldItem.id == newItem.id
 
-            override fun areContentsTheSame(
-                oldItem: StatusViewData,
-                newItem: StatusViewData,
-            ): Boolean {
-                return false // Items are different always. It allows to refresh timestamp on every view holder update
-            }
+            // Items are different always. It allows to refresh timestamp on every view holder update
+            override fun areContentsTheSame(oldItem: StatusViewData, newItem: StatusViewData) = false
 
-            override fun getChangePayload(
-                oldItem: StatusViewData,
-                newItem: StatusViewData,
-            ): Any? {
+            override fun getChangePayload(oldItem: StatusViewData, newItem: StatusViewData): Any? {
                 return if (oldItem == newItem) {
                     // If items are equal - update timestamp only
                     listOf(StatusBaseViewHolder.Key.KEY_CREATED)

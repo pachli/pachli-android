@@ -48,9 +48,9 @@ open class StatusViewHolder<T : IStatusViewData>(
         viewData: T,
         listener: StatusActionListener<T>,
         statusDisplayOptions: StatusDisplayOptions,
-        payloads: Any?,
+        payloads: List<List<Any?>>?,
     ) = with(binding) {
-        if (payloads == null) {
+        if (payloads.isNullOrEmpty()) {
             val sensitive = !TextUtils.isEmpty(viewData.actionable.spoilerText)
             val expanded = viewData.isExpanded
             setupCollapsedState(viewData, sensitive, expanded, listener)

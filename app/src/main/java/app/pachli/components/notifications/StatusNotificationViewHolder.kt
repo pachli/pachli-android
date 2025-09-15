@@ -78,7 +78,7 @@ internal class StatusNotificationViewHolder(
 
     override fun bind(
         viewData: NotificationViewData,
-        payloads: List<*>?,
+        payloads: List<List<Any?>>?,
         statusDisplayOptions: StatusDisplayOptions,
     ) {
         val statusViewData = viewData.statusViewData
@@ -123,8 +123,8 @@ internal class StatusNotificationViewHolder(
             }
             setMessage(viewData, statusActionListener, statusDisplayOptions)
         } else {
-            for (item in payloads) {
-                if (StatusBaseViewHolder.Key.KEY_CREATED == item && statusViewData != null) {
+            payloads.flatten().forEach { item ->
+                if (item == StatusBaseViewHolder.Key.KEY_CREATED && statusViewData != null) {
                     setCreatedAt(
                         viewData.actionable.createdAt,
                         statusDisplayOptions.useAbsoluteTime,

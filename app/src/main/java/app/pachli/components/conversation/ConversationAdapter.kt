@@ -48,7 +48,7 @@ internal class ConversationAdapter(
         /** Bind the data from the notification and payloads to the view. */
         fun bind(
             viewData: ConversationViewData,
-            payloads: List<*>?,
+            payloads: List<List<Any?>>?,
             statusDisplayOptions: StatusDisplayOptions,
         )
     }
@@ -108,10 +108,10 @@ internal class ConversationAdapter(
     override fun onBindViewHolder(
         holder: RecyclerView.ViewHolder,
         position: Int,
-        payloads: List<Any>,
+        payloads: List<Any?>,
     ) {
         getItem(position)?.let { conversationViewData ->
-            (holder as ViewHolder).bind(conversationViewData, payloads, statusDisplayOptions)
+            (holder as ViewHolder).bind(conversationViewData, payloads as? List<List<Any?>>, statusDisplayOptions)
         }
     }
 
@@ -165,7 +165,7 @@ class FilterableConversationStatusViewHolder internal constructor(
     setStatusContent: SetStatusContent,
     private val listener: StatusActionListener<ConversationViewData>,
 ) : ConversationAdapter.ViewHolder, FilterableStatusViewHolder<ConversationViewData>(binding, glide, setStatusContent) {
-    override fun bind(viewData: ConversationViewData, payloads: List<*>?, statusDisplayOptions: StatusDisplayOptions) {
+    override fun bind(viewData: ConversationViewData, payloads: List<List<Any?>>?, statusDisplayOptions: StatusDisplayOptions) {
         if (payloads.isNullOrEmpty()) {
             showStatusContent(true)
         }
@@ -173,7 +173,7 @@ class FilterableConversationStatusViewHolder internal constructor(
             viewData,
             listener,
             statusDisplayOptions,
-            payloads?.firstOrNull(),
+            payloads,
         )
     }
 }
@@ -221,7 +221,7 @@ class FilterableConversationViewHolder internal constructor(
         }
     }
 
-    override fun bind(viewData: ConversationViewData, payloads: List<*>?, statusDisplayOptions: StatusDisplayOptions) {
+    override fun bind(viewData: ConversationViewData, payloads: List<List<Any?>>?, statusDisplayOptions: StatusDisplayOptions) {
         this.viewData = viewData
         binding.accountFilterDomain.text = HtmlCompat.fromHtml(
             context.getString(

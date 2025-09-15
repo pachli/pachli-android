@@ -265,12 +265,12 @@ class ConversationsFragment :
                 launch {
                     val useAbsoluteTime = sharedPreferencesRepository.useAbsoluteTime
                     while (!useAbsoluteTime) {
+                        delay(1.minutes)
                         adapter.notifyItemRangeChanged(
                             0,
                             adapter.itemCount,
                             listOf(StatusBaseViewHolder.Key.KEY_CREATED),
                         )
-                        delay(1.minutes)
                     }
                 }
 
