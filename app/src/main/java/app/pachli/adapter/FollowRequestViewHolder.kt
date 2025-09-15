@@ -52,7 +52,7 @@ class FollowRequestViewHolder(
 
     override fun bind(
         viewData: NotificationViewData,
-        payloads: List<*>?,
+        payloads: List<List<Any?>>?,
         statusDisplayOptions: StatusDisplayOptions,
     ) {
         // Skip updates with payloads. That indicates a timestamp update, and

@@ -41,7 +41,7 @@ open class FilterableStatusViewHolder<T : IStatusViewData>(
         viewData: T,
         listener: StatusActionListener<T>,
         statusDisplayOptions: StatusDisplayOptions,
-        payloads: Any?,
+        payloads: List<List<Any?>>?,
     ) {
         super.setupWithStatus(viewData, listener, statusDisplayOptions, payloads)
         setupFilterPlaceholder(viewData, listener)

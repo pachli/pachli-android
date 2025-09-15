@@ -20,6 +20,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.adapter.StatusViewHolder
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusViewData
@@ -45,15 +46,32 @@ class SearchStatusesAdapter(
 
     override fun onBindViewHolder(holder: StatusViewHolder<StatusViewData>, position: Int) {
         getItem(position)?.let { item ->
-            holder.setupWithStatus(item, statusListener, statusDisplayOptions)
+            holder.setupWithStatus(item, statusListener, statusDisplayOptions, null)
+        }
+    }
+
+    override fun onBindViewHolder(holder: StatusViewHolder<StatusViewData>, position: Int, payloads: List<Any?>) {
+        getItem(position)?.let { item ->
+            holder.setupWithStatus(item, statusListener, statusDisplayOptions, payloads as? List<List<Any?>>?)
         }
     }
 
     companion object {
         val STATUS_COMPARATOR = object : DiffUtil.ItemCallback<StatusViewData>() {
-            override fun areContentsTheSame(oldItem: StatusViewData, newItem: StatusViewData): Boolean = oldItem == newItem
+            override fun areItemsTheSame(oldItem: StatusViewData, newItem: StatusViewData) = oldItem.id == newItem.id
 
-            override fun areItemsTheSame(oldItem: StatusViewData, newItem: StatusViewData): Boolean = oldItem.id == newItem.id
+            // Items are different always. It allows to refresh timestamp on every view holder update
+            override fun areContentsTheSame(oldItem: StatusViewData, newItem: StatusViewData) = false
+
+            override fun getChangePayload(oldItem: StatusViewData, newItem: StatusViewData): Any? {
+                return if (oldItem == newItem) {
+                    // If items are equal - update timestamp only
+                    listOf(StatusBaseViewHolder.Key.KEY_CREATED)
+                } else {
+                    // If items are different - update the whole view holder
+                    null
+                }
+            }
         }
     }
 }

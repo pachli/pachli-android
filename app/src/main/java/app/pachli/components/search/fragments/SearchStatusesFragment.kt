@@ -20,6 +20,7 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
+import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -27,11 +28,14 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.PagingData
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.pachli.R
+import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.components.search.adapter.SearchStatusesAdapter
 import app.pachli.core.activity.BaseActivity
 import app.pachli.core.activity.OpenUrlUseCase
@@ -65,6 +69,8 @@ import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import kotlin.time.Duration.Companion.minutes
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -85,6 +91,26 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
 
     override val data: Flow<PagingData<StatusViewData>>
         get() = viewModel.statusesFlow
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                launch {
+                    val useAbsoluteTime = statusDisplayOptionsRepository.flow.value.useAbsoluteTime
+                    while (!useAbsoluteTime) {
+                        delay(1.minutes)
+                        adapter.notifyItemRangeChanged(
+                            0,
+                            adapter.itemCount,
+                            listOf(StatusBaseViewHolder.Key.KEY_CREATED),
+                        )
+                    }
+                }
+            }
+        }
+    }
 
     override fun createAdapter(): PagingDataAdapter<StatusViewData, *> {
         val statusDisplayOptions = statusDisplayOptionsRepository.flow.value

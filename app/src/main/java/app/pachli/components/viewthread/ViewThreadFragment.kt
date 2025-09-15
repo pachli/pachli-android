@@ -33,6 +33,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.R
+import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.components.viewthread.edits.ViewEditsFragment
 import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
@@ -49,6 +50,7 @@ import app.pachli.core.model.Status
 import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.EditContentFilterActivityIntent
+import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.ui.SetMarkdownContent
 import app.pachli.core.ui.SetMastodonHtmlContent
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
@@ -64,7 +66,10 @@ import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kotlin.properties.Delegates
+import kotlin.time.Duration.Companion.minutes
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -74,6 +79,9 @@ class ViewThreadFragment :
     OnRefreshListener,
     StatusActionListener<StatusViewData>,
     MenuProvider {
+
+    @Inject
+    lateinit var sharedPreferencesRepository: SharedPreferencesRepository
 
     private val viewModel: ViewThreadViewModel by viewModels()
 
@@ -147,6 +155,18 @@ class ViewThreadFragment :
                 launch { viewModel.uiResult.collect(::bindUiResult) }
 
                 launch { viewModel.errors.collectLatest(::bindError) }
+
+                launch {
+                    val useAbsoluteTime = sharedPreferencesRepository.useAbsoluteTime
+                    while (!useAbsoluteTime) {
+                        delay(1.minutes)
+                        adapter.notifyItemRangeChanged(
+                            0,
+                            adapter.itemCount,
+                            listOf(StatusBaseViewHolder.Key.KEY_CREATED),
+                        )
+                    }
+                }
             }
         }
 

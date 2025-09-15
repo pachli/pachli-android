@@ -70,13 +70,13 @@ class TimelinePagingAdapter(
         position: Int,
         payloads: List<*>,
     ) {
-        bindViewHolder(viewHolder, position, payloads)
+        bindViewHolder(viewHolder, position, payloads as? List<List<Any?>>?)
     }
 
     private fun bindViewHolder(
         viewHolder: RecyclerView.ViewHolder,
         position: Int,
-        payloads: List<*>?,
+        payloads: List<List<Any?>>?,
     ) {
         try {
             getItem(position)
@@ -87,7 +87,7 @@ class TimelinePagingAdapter(
                 it,
                 statusListener,
                 statusDisplayOptions,
-                payloads?.getOrNull(0),
+                payloads,
             )
         }
     }
@@ -116,24 +116,12 @@ class TimelinePagingAdapter(
         private const val VIEW_TYPE_PLACEHOLDER = -1
 
         val TimelineDifferCallback = object : DiffUtil.ItemCallback<StatusViewData>() {
-            override fun areItemsTheSame(
-                oldItem: StatusViewData,
-                newItem: StatusViewData,
-            ): Boolean {
-                return oldItem.id == newItem.id
-            }
+            override fun areItemsTheSame(oldItem: StatusViewData, newItem: StatusViewData) = oldItem.id == newItem.id
 
-            override fun areContentsTheSame(
-                oldItem: StatusViewData,
-                newItem: StatusViewData,
-            ): Boolean {
-                return oldItem == newItem
-            }
+            // Items are different always. It allows to refresh timestamp on every view holder update
+            override fun areContentsTheSame(oldItem: StatusViewData, newItem: StatusViewData) = false
 
-            override fun getChangePayload(
-                oldItem: StatusViewData,
-                newItem: StatusViewData,
-            ): Any? {
+            override fun getChangePayload(oldItem: StatusViewData, newItem: StatusViewData): Any? {
                 return if (oldItem == newItem) {
                     // If items are equal - update timestamp only
                     listOf(StatusBaseViewHolder.Key.KEY_CREATED)

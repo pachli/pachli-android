@@ -714,9 +714,9 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
         viewData: T,
         listener: StatusActionListener<T>,
         statusDisplayOptions: StatusDisplayOptions,
-        payloads: Any? = null,
+        payloads: List<List<Any?>>?,
     ) {
-        if (payloads == null) {
+        if (payloads.isNullOrEmpty()) {
             val actionable = viewData.actionable
             setDisplayName(actionable.account.name, actionable.account.emojis, statusDisplayOptions)
             setUsername(actionable.account.username)
@@ -786,11 +786,9 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
             // and let RecyclerView ask for a new delegate.
             itemView.accessibilityDelegate = null
         } else {
-            if (payloads is List<*>) {
-                for (item in payloads) {
-                    if (Key.KEY_CREATED == item) {
-                        setMetaData(viewData, statusDisplayOptions, listener)
-                    }
+            payloads.flatten().forEach { item ->
+                if (item == Key.KEY_CREATED) {
+                    setMetaData(viewData, statusDisplayOptions, listener)
                 }
             }
         }

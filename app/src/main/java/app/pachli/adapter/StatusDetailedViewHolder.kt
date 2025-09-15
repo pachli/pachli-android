@@ -115,7 +115,7 @@ class StatusDetailedViewHolder(
         viewData: StatusViewData,
         listener: StatusActionListener<StatusViewData>,
         statusDisplayOptions: StatusDisplayOptions,
-        payloads: Any?,
+        payloads: List<List<Any?>>?,
     ) {
         // We never collapse statuses in the detail view
         val uncollapsedViewdata =
@@ -128,7 +128,7 @@ class StatusDetailedViewHolder(
             statusDisplayOptions,
             listener,
         ) // Always show card for detailed status
-        if (payloads == null) {
+        if (payloads.isNullOrEmpty()) {
             val reblogsCount = uncollapsedViewdata.actionable.reblogsCount
             val favouritesCount = uncollapsedViewdata.actionable.favouritesCount
             if (!statusDisplayOptions.hideStatsInDetailedView) {

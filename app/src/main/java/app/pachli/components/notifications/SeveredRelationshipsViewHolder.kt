@@ -35,7 +35,7 @@ class SeveredRelationshipsViewHolder(
 ) : NotificationsPagingAdapter.ViewHolder, RecyclerView.ViewHolder(binding.root) {
     override fun bind(
         viewData: NotificationViewData,
-        payloads: List<*>?,
+        payloads: List<List<Any?>>?,
         statusDisplayOptions: StatusDisplayOptions,
     ) {
         val context = itemView.context
@@ -82,7 +82,7 @@ class SeveredRelationshipsViewHolder(
                 event.followingCount,
             )
         } else {
-            if (payloads.any { it == StatusBaseViewHolder.Key.KEY_CREATED }) {
+            if (payloads.flatten().any { it == StatusBaseViewHolder.Key.KEY_CREATED }) {
                 binding.datetime.text = getRelativeTimeSpanString(itemView.context, event.createdAt.toEpochMilli(), System.currentTimeMillis())
             }
         }
