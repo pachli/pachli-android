@@ -383,7 +383,7 @@ class ConversationsFragment :
     }
 
     override fun onViewThread(status: Status) {
-        viewThread(status.id, status.url)
+        viewThread(status.actionableId, status.url)
     }
 
     override fun onOpenReblog(status: Status) {

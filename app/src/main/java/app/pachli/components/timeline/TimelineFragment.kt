@@ -671,7 +671,7 @@ class TimelineFragment :
     }
 
     override fun onViewThread(status: Status) {
-        super.viewThread(status.id, status.url)
+        super.viewThread(status.actionableId, status.url)
     }
 
     override fun onViewTag(tag: String) {
