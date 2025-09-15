@@ -123,7 +123,7 @@ class ConversationsViewModel @AssistedInject constructor(
     }
 
     /**
-     * Returns the [AccountFilterDecision] for [conversationData] based on the notification
+     * Returns the [AccountFilterDecision] for [conversationData] based on the
      * filters in [accountWithFilters].
      *
      * @return The most severe [AccountFilterDecision], in order [Hide][AccountFilterDecision.Hide],

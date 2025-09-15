@@ -30,6 +30,10 @@ data class Attachment(
     val previewUrl: String?,
     val meta: MetaData?,
     val type: Type,
+    /**
+     * Alternate text for the media (plain text). May be null if no description
+     * was provided.
+     */
     val description: String?,
     val blurhash: String?,
 ) : Parcelable {
