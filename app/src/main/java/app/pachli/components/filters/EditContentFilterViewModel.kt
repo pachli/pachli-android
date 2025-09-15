@@ -90,7 +90,7 @@ data class ContentFilterViewData(
 
     /**
      * Calculates the difference between [contentFilter] and `this`, returning an
-     * [ContentFilterEdit] that representes the differences.
+     * [ContentFilterEdit] that represents the differences.
      */
     fun diff(contentFilter: ContentFilter): ContentFilterEdit {
         val title: String? = if (title != contentFilter.title) title else null

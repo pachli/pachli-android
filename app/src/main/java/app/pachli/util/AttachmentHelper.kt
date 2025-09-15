@@ -5,6 +5,16 @@ import app.pachli.R
 import app.pachli.core.model.Attachment
 import kotlin.math.roundToInt
 
+/**
+ * Returns a formatted version of [Attachment.description].
+ *
+ * If the media has no description then the content of
+ * R.string.description_post_media_no_description_placeholder is returned.
+ *
+ * If the media has a duration (i.e., it's audio or video) the duration is
+ * prepended to the description, and returned (again, the string resource
+ * is used if the media has no description).
+ */
 fun Attachment.getFormattedDescription(context: Context): CharSequence {
     var duration = ""
     if (meta?.duration != null && meta!!.duration!! > 0) {

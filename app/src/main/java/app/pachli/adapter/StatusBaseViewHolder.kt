@@ -84,9 +84,21 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
     private val favouriteButton: SparkButton = itemView.findViewById(R.id.status_favourite)
     private val bookmarkButton: SparkButton = itemView.findViewById(R.id.status_bookmark)
     private val moreButton: ImageButton = itemView.findViewById(R.id.status_more)
+
+    /** [MediaPreviewLayout] that encompasses and lays out all the attachment previews. */
     protected val mediaPreview: MediaPreviewLayout = itemView.findViewById(R.id.status_media_preview)
+
+    /**
+     * [TextView] that overlays attachment previews when hidden/blurred to explain why
+     * they are hidden/blurred.
+     */
     private val sensitiveMediaWarning: TextView = itemView.findViewById(R.id.status_sensitive_media_warning)
-    private val sensitiveMediaShow: View = itemView.findViewById(R.id.status_sensitive_media_button)
+
+    /**
+     * [ImageView] showing an icon the user can click on to toggle between showing or
+     * hiding the attachment preview.
+     */
+    private val sensitiveMediaShow: ImageView = itemView.findViewById(R.id.status_sensitive_media_button)
     protected val mediaLabels: Array<TextView> = arrayOf(
         itemView.findViewById(R.id.status_media_label_0),
         itemView.findViewById(R.id.status_media_label_1),
@@ -542,6 +554,11 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
         mediaLabels[index].text = label
     }
 
+    /**
+     * Sets the label (icon and text) to display for the attachments, assuming
+     * that none of them are previewable, or the user has chosen not to show
+     * previews.
+     */
     protected fun setMediaLabel(
         viewData: T,
         attachments: List<Attachment>,
@@ -589,6 +606,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
         }
     }
 
+    /** Hides [sensitiveMediaWarning] and [sensitiveMediaShow]. */
     protected fun hideSensitiveMediaWarning() {
         sensitiveMediaWarning.hide()
         sensitiveMediaShow.hide()
