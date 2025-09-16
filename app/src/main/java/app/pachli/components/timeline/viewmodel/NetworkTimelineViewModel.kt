@@ -46,7 +46,7 @@ import com.github.michaelbull.result.onFailure
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -73,17 +73,20 @@ class NetworkTimelineViewModel @Inject constructor(
     statusDisplayOptionsRepository,
     sharedPreferencesRepository,
 ) {
-    override val statuses = pachliAccountId.distinctUntilChanged().flatMapLatest { pachliAccountId ->
-        repository.getStatusStream(pachliAccountId, timeline = timeline).map { pagingData ->
-            pagingData.map {
-                StatusViewData.from(
-                    pachliAccountId,
-                    it,
-                    isExpanded = statusDisplayOptions.value.openSpoiler,
-                    isShowingContent = statusDisplayOptions.value.showSensitiveMedia,
-                    contentFilterAction = shouldFilterStatus(it.toStatus()),
-                )
-            }.filter { it.contentFilterAction != FilterAction.HIDE }
+    override val statuses = pachliAccountFlow.distinctUntilChangedBy { it.id }.flatMapLatest { pachliAccount ->
+        repository.getStatusStream(pachliAccount.id, timeline = timeline).map { pagingData ->
+            pagingData
+                .map { Pair(it, shouldFilterStatus(it)) }
+                .filter { it.second != FilterAction.HIDE }
+                .map { (timelineStatusWithAccount, contentFilterAction) ->
+                    StatusViewData.from(
+                        pachliAccount.id,
+                        timelineStatusWithAccount,
+                        isExpanded = statusDisplayOptions.value.openSpoiler,
+                        isShowingContent = statusDisplayOptions.value.showSensitiveMedia,
+                        contentFilterAction = contentFilterAction,
+                    )
+                }
         }
     }.cachedIn(viewModelScope)
 

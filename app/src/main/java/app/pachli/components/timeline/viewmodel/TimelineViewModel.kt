@@ -34,6 +34,7 @@ import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.StatusActionError
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
+import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.eventhub.BlockEvent
 import app.pachli.core.eventhub.BookmarkEvent
 import app.pachli.core.eventhub.DomainMuteEvent
@@ -589,17 +590,27 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
     /** Triggered when currently displayed data must be reloaded. */
     protected abstract suspend fun invalidate(pachliAccountId: Long)
 
-    protected fun shouldFilterStatus(status: Status): FilterAction {
-        return if (
-            (status.inReplyToId != null && filterRemoveReplies) ||
-            (status.reblog != null && filterRemoveReblogs) ||
-            // To determine if the boost is boosting your own toot
-            ((status.account.id == status.reblog?.account?.id) && filterRemoveSelfReblogs)
-        ) {
-            FilterAction.HIDE
-        } else {
-            contentFilterModel?.filterActionFor(status) ?: FilterAction.NONE
+    /**
+     * @return The correct [FilterAction] for [timelineStatus] given the user's
+     * preferences and any filters attached to the status.
+     */
+    protected fun shouldFilterStatus(timelineStatus: TimelineStatusWithAccount): FilterAction {
+        // Local user preferences first
+
+        // Remove self-boosts.
+        if (timelineStatus.account.serverId == timelineStatus.reblogAccount?.serverId && filterRemoveSelfReblogs) {
+            return FilterAction.HIDE
         }
+
+        val status = timelineStatus.status
+        // Remove replies
+        if (status.inReplyToId != null && filterRemoveReplies) return FilterAction.HIDE
+
+        // Remove boosts
+        if (status.reblogged && filterRemoveReblogs) return FilterAction.HIDE
+
+        // Apply content filters.
+        return contentFilterModel?.filterActionFor(status) ?: FilterAction.NONE
     }
 
     // TODO: Update this so that the list of UIPrefs is correct

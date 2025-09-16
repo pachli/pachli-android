@@ -67,15 +67,18 @@ class CachedTimelineViewModel @Inject constructor(
 ) {
     override val statuses = pachliAccountFlow.distinctUntilChangedBy { it.id }.flatMapLatest { pachliAccount ->
         repository.getStatusStream(pachliAccount.id, timeline).map { pagingData ->
-            pagingData.map {
-                StatusViewData.from(
-                    pachliAccountId = pachliAccount.id,
-                    it,
-                    isExpanded = pachliAccount.entity.alwaysOpenSpoiler,
-                    isShowingContent = pachliAccount.entity.alwaysShowSensitiveMedia,
-                    contentFilterAction = shouldFilterStatus(it.toStatus()),
-                )
-            }.filter { it.contentFilterAction != FilterAction.HIDE }
+            pagingData
+                .map { Pair(it, shouldFilterStatus(it)) }
+                .filter { it.second != FilterAction.HIDE }
+                .map { (timelineStatusWithAccount, contentFilterAction) ->
+                    StatusViewData.from(
+                        pachliAccountId = pachliAccount.id,
+                        timelineStatusWithAccount,
+                        isExpanded = pachliAccount.entity.alwaysOpenSpoiler,
+                        isShowingContent = pachliAccount.entity.alwaysShowSensitiveMedia,
+                        contentFilterAction = contentFilterAction,
+                    )
+                }
         }
     }.cachedIn(viewModelScope)
 
