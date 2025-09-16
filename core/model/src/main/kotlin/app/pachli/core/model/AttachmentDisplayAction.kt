@@ -27,6 +27,9 @@ data class MatchingFilter(
     val title: String,
 )
 
+/**
+ * The original reason
+ */
 // The `type` property here, and having to pass it when defining the subclasses
 // is to work around https://github.com/ZacSweers/MoshiX/issues/775.
 @JsonClass(generateAdapter = true, generator = "sealed:type")

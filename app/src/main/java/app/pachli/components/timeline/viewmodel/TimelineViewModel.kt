@@ -343,7 +343,8 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
 
     val timeline: Timeline = savedStateHandle.get<Timeline>(TIMELINE_TAG)!!
 
-    val filterContext = FilterContext.from(timeline)
+    /** [FilterContext] for this [timeline]. */
+    private val filterContext = FilterContext.from(timeline)
 
     /**
      * Flow of the status ID to use when initially refreshing the list, and where
@@ -736,6 +737,10 @@ fun TimelineStatusWithAccount.getAttachmentDisplayAction(filterContext: FilterCo
         // originalDecision. This ensures that if the user then hides the attachment
         // the description that shows which filters matched reflects the user's latest
         // set of filters.
+        //
+        // The filters changing *doesn't* cause this to reset to Hide because the
+        // user has already seen the attachment, and decided to keep seeing it.
+        // Hiding it from them again isn't helpful.
         (cachedAction as? AttachmentDisplayAction.Show)?.let {
             return it.copy(originalDecision = hideDecision)
         }

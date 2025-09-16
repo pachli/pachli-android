@@ -156,7 +156,7 @@ sealed interface InfallibleUiAction : UiAction {
         val isCollapsed: Boolean,
     ) : InfallibleUiAction
 
-    /** Set whether attached media is blurred. */
+    /** Set how to show attached media. */
     data class SetAttachmentDisplayAction(
         val pachliAccountId: Long,
         val statusViewData: StatusViewData,
