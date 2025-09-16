@@ -683,7 +683,6 @@
     <string name="action_open_byline_account">Näita artikli autori profiili</string>
     <string name="action_open_link">Ava link</string>
     <string name="action_timeline_link">Postitused selle lingi kohta</string>
-    <string name="error_load_filter_failed_fmt">Filtri laadimine ei õnnestunud: %1$s</string>
     <string name="error_save_filter_failed_fmt">Filtri salvestamine ei õnnestunud: %1$s</string>
     <string name="error_delete_filter_failed_fmt">Filtri kustutamine ei õnnestunud: %1$s</string>
     <string name="preview_card_timeline_link_fmt">Vaata <b>%1$s</b> postitusi selle lingi kohta</string>

@@ -697,7 +697,6 @@
     <string name="action_open_link">Link öffnen</string>
     <string name="preview_card_timeline_link_fmt"><b>%1$s</b> Beiträge über diesen Link anzeigen</string>
     <string name="action_timeline_link">Beiträge über diesen Link</string>
-    <string name="error_load_filter_failed_fmt">Filter konnte nicht geladen werden: %1$s</string>
     <string name="error_save_filter_failed_fmt">Filter konnte nicht gespeichert werden: %1$s</string>
     <string name="error_delete_filter_failed_fmt">Filter konnte nicht gelöscht werden: %1$s</string>
     <string name="search_operator_attachment_dialog_title">Auf Beiträge mit Medien beschränken?</string>

@@ -687,7 +687,6 @@
     <string name="error_prepare_media_unknown_mime_type">neznámy typ súboru</string>
     <string name="error_pick_media_fmt">Nepodarilo sa pripojiť súbor k príspevku: %1$s</string>
     <string name="action_open_link">Otvoriť odkaz</string>
-    <string name="error_load_filter_failed_fmt">Načítanie filtra zlyhalo: %1$s</string>
     <string name="error_save_filter_failed_fmt">Uloženie filtra zlyhalo: %1$s</string>
     <string name="search_operator_attachment_dialog_any_label">Akýkoľvek typ</string>
     <string name="search_operator_from_dialog_account_hint">\@účet</string>

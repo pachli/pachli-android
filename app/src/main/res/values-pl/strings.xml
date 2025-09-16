@@ -725,7 +725,6 @@
     <string name="poll_show_votes">Pokaż wyniki</string>
     <string name="ui_error_vote_fmt">Oddanie głosu w ankiecie się nie powiodło: %1$s</string>
     <string name="compose_warn_language_dialog_fmt">Język wpisuj jest ustawiony jako %1$s, ale możliwe, że jest napisany w %2$s.</string>
-    <string name="error_load_filter_failed_fmt">Wczytanie filtra się nie powiodło: %1$s</string>
     <string name="search_operator_attachment_kind_image_label">obrazy</string>
     <string name="search_operator_replies_no_replies">Bez odpowiedzi</string>
     <string name="select_list_empty">Nie masz żadnych list</string>

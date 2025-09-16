@@ -568,7 +568,6 @@
     <string name="error_prepare_media_unsupported_mime_type_fmt">tenar stør ikkje filtype: %1$s</string>
     <string name="error_prepare_media_unknown_mime_type">filtypen er ukjend</string>
     <string name="error_pick_media_fmt">Kunne ikkje leggje fila ved innlegget: %1$s</string>
-    <string name="error_load_filter_failed_fmt">Innlasting av filter mislykkast: %1$s</string>
     <string name="error_save_filter_failed_fmt">Lagring av filter mislykkast: %1$s</string>
     <string name="action_open_byline_account">Syn artikkelforfattarens profil</string>
     <string name="action_open_link">Opne lenkje</string>

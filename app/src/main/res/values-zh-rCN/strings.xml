@@ -720,7 +720,6 @@
     <string name="preview_card_byline_name_only_fmt">由 <b>%1$s</b> 发布</string>
     <string name="preview_card_timeline_link_fmt">查看 <b>%1$s</b> 关于此链接的帖文</string>
     <string name="action_timeline_link">关于此链接的帖文</string>
-    <string name="error_load_filter_failed_fmt">加载过滤器失败：%1$s</string>
     <string name="error_save_filter_failed_fmt">保存过滤器失败：%1$s</string>
     <string name="error_delete_filter_failed_fmt">删除过滤器失败：%1$s</string>
     <string name="search_operator_attachment_dialog_title">限制为包含媒体的帖文？</string>

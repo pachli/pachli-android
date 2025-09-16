@@ -23,7 +23,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.R
 import app.pachli.core.common.PachliError
-import app.pachli.core.common.extensions.mapIfNotNull
 import app.pachli.core.data.repository.ContentFilterEdit
 import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.model.ContentFilter
@@ -35,7 +34,6 @@ import app.pachli.core.model.NewContentFilterKeyword
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
-import com.github.michaelbull.result.get
 import com.github.michaelbull.result.map
 import com.github.michaelbull.result.mapError
 import com.github.michaelbull.result.onFailure
@@ -49,10 +47,13 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.onSubscription
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -169,14 +170,6 @@ sealed class UiError(
     @StringRes override val resourceId: Int,
     override val formatArgs: Array<out Any>? = null,
 ) : PachliError {
-    /**
-     * Filter could not be loaded.
-     *
-     * @param contentFilterId ID of the filter that could not be loaded.
-     */
-    data class GetContentFilterError(val contentFilterId: String, override val cause: PachliError) :
-        UiError(R.string.error_load_filter_failed_fmt)
-
     /** Filter could not be saved. */
     data class SaveContentFilterError(override val cause: PachliError) :
         UiError(R.string.error_save_filter_failed_fmt)
@@ -225,144 +218,105 @@ class EditContentFilterViewModel @AssistedInject constructor(
     /** User interface mode. */
     val uiMode = if (contentFilter == null && contentFilterId == null) UiMode.CREATE else UiMode.EDIT
 
-    /** True if the user has made unsaved changes to the filter */
-    private val _isDirty = MutableStateFlow(false)
-    val isDirty = _isDirty.asStateFlow()
-
-    /** True if the filter is valid and can be saved */
-    private val _validationErrors = MutableStateFlow(emptySet<ContentFilterValidationError>())
-    val validationErrors = _validationErrors.asStateFlow()
-
     private val _uiResult = Channel<Result<UiSuccess, UiError>>()
     val uiResult = _uiResult.receiveAsFlow()
 
-    private var _contentFilterViewData = MutableSharedFlow<Result<ContentFilterViewData?, UiError.GetContentFilterError>>()
-    val contentFilterViewData = _contentFilterViewData
-        .onSubscription {
-            contentFilter?.let {
-                originalContentFilter = it
-                emit(Ok(ContentFilterViewData.from(it)))
-                return@onSubscription
+    private val _reload = MutableSharedFlow<Unit>(replay = 1).apply { tryEmit(Unit) }
+    private val reload = _reload.onEach {
+        if (originalContentFilter == null) {
+            originalContentFilter = when {
+                contentFilter != null -> contentFilter
+                contentFilterId != null -> contentFiltersRepository.getContentFilter(pachliAccountId, contentFilterId)
+                else -> null
             }
+        }
 
-            emit(
-                contentFilterId?.let {
-                    originalContentFilter = contentFiltersRepository.getContentFilter(pachliAccountId, contentFilterId)
-                    originalContentFilter?.let { Ok(ContentFilterViewData.from(it)) } ?: Ok(ContentFilterViewData())
-                } ?: Ok(ContentFilterViewData()),
-            )
-        }.onEach { it.onSuccess { it?.let { onChange(it) } } }
+        _contentFilterViewData.value = originalContentFilter?.let { ContentFilterViewData.from(it) }
+            ?: ContentFilterViewData()
+    }
+
+    /** Available filter actions. */
+    val filterActions = flowOf(setOf(FilterAction.WARN, FilterAction.HIDE))
+        .shareIn(viewModelScope, SharingStarted.WhileSubscribed(5000))
+
+    private val _contentFilterViewData = MutableStateFlow<ContentFilterViewData?>(null)
+    val contentFilterViewData = combine(_contentFilterViewData.filterNotNull(), reload) { contentFilter, _ ->
+        contentFilter
+    }
         .stateIn(
             viewModelScope,
             SharingStarted.WhileSubscribed(5000),
-            initialValue = Ok(null),
+            initialValue = null,
         )
 
-    /** Reload the filter, if [contentFilterId] is non-null. */
-    fun reload() = viewModelScope.launch {
-        contentFilterId ?: return@launch _contentFilterViewData.emit(Ok(ContentFilterViewData()))
+    /** Set of validation errors for the current filter. */
+    val validationErrors = contentFilterViewData.filterNotNull().map { it.validate() }.shareIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000),
+        replay = 1,
+    )
 
-        originalContentFilter = contentFiltersRepository.getContentFilter(pachliAccountId, contentFilterId)
-
-        _contentFilterViewData.emit(
-            originalContentFilter?.let {
-                Ok(ContentFilterViewData.from(it))
-            } ?: Ok(ContentFilterViewData()),
-        )
-    }
-
-    /** Adds [keyword] to [contentFilterViewData]. */
-    fun addKeyword(keyword: FilterKeyword) = viewModelScope.launch {
-        _contentFilterViewData.emit(
-            contentFilterViewData.value.mapIfNotNull {
-                it.copy(keywords = it.keywords + keyword)
-            },
-        )
-    }
-
-    /** Deletes [keyword] from [contentFilterViewData]. */
-    fun deleteKeyword(keyword: FilterKeyword) = viewModelScope.launch {
-        _contentFilterViewData.emit(
-            contentFilterViewData.value.mapIfNotNull {
-                it.copy(keywords = it.keywords.filterNot { it == keyword })
-            },
-        )
-    }
-
-    /** Replaces [original] keyword in [contentFilterViewData] with [newKeyword]. */
-    fun updateKeyword(original: FilterKeyword, newKeyword: FilterKeyword) = viewModelScope.launch {
-        _contentFilterViewData.emit(
-            contentFilterViewData.value.mapIfNotNull {
-                it.copy(
-                    keywords = it.keywords.map {
-                        if (it == original) newKeyword else it
-                    },
-                )
-            },
-        )
-    }
-
-    /** Replaces [contentFilterViewData]'s [title][ContentFilterViewData.title] with [title]. */
-    fun setTitle(title: String) = viewModelScope.launch {
-        _contentFilterViewData.emit(
-            contentFilterViewData.value.mapIfNotNull {
-                it.copy(title = title)
-            },
-        )
-    }
-
-    /** Replaces [contentFilterViewData]'s [expiresIn][ContentFilterViewData.expiresIn] with [expiresIn]. */
-    fun setExpiresIn(expiresIn: Int) = viewModelScope.launch {
-        _contentFilterViewData.emit(
-            contentFilterViewData.value.mapIfNotNull {
-                it.copy(expiresIn = expiresIn)
-            },
-        )
-    }
-
-    /** Replaces [contentFilterViewData]'s [action][ContentFilterViewData.filterAction] with [filterAction]. */
-    fun setAction(filterAction: FilterAction) = viewModelScope.launch {
-        _contentFilterViewData.emit(
-            contentFilterViewData.value.mapIfNotNull {
-                it.copy(filterAction = filterAction)
-            },
-        )
-    }
-
-    /** Adds [filterContext] to [contentFilterViewData]'s [contexts][ContentFilterViewData.contexts]. */
-    fun addContext(filterContext: FilterContext) = viewModelScope.launch {
-        contentFilterViewData.value.get()?.let { filter ->
-            if (filter.contexts.contains(filterContext)) return@launch
-
-            _contentFilterViewData.emit(Ok(filter.copy(contexts = filter.contexts + filterContext)))
-        }
-    }
-
-    /** Deletes [filterContext] from [contentFilterViewData]'s [contexts][ContentFilterViewData.contexts]. */
-    fun deleteContext(filterContext: FilterContext) = viewModelScope.launch {
-        contentFilterViewData.value.get()?.let { filter ->
-            if (!filter.contexts.contains(filterContext)) return@launch
-
-            _contentFilterViewData.emit(Ok(filter.copy(contexts = filter.contexts - filterContext)))
-        }
-    }
-
-    /** Recalculates validity and dirty state. */
-    private fun onChange(contentFilterViewData: ContentFilterViewData) {
-        _validationErrors.update { contentFilterViewData.validate() }
-
-        if (contentFilterViewData.expiresIn != -1) {
-            _isDirty.value = true
-            return
+    /** True if the user has made unsaved changes to the filter. */
+    val isDirty = contentFilterViewData.filterNotNull().map {
+        if (uiMode == UiMode.CREATE && it == ContentFilterViewData()) {
+            return@map false
         }
 
-        _isDirty.value = when {
-            originalContentFilter?.title != contentFilterViewData.title -> true
-            originalContentFilter?.contexts != contentFilterViewData.contexts -> true
-            originalContentFilter?.filterAction != contentFilterViewData.filterAction -> true
-            originalContentFilter?.keywords?.toSet() != contentFilterViewData.keywords.toSet() -> true
+        if (it.expiresIn != -1) {
+            return@map true
+        }
+
+        return@map when {
+            originalContentFilter?.title != it.title -> true
+            originalContentFilter?.contexts != it.contexts -> true
+            originalContentFilter?.filterAction != it.filterAction -> true
+            originalContentFilter?.keywords?.toSet() != it.keywords.toSet() -> true
             else -> false
         }
+    }.shareIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000),
+        replay = 1,
+    )
+
+    /** Adds [keyword] to [_contentFilterViewData]. */
+    fun addKeyword(keyword: FilterKeyword) = _contentFilterViewData.update {
+        it?.copy(keywords = it.keywords + keyword)
+    }
+
+    /** Deletes [keyword] from [_contentFilterViewData]. */
+    fun deleteKeyword(keyword: FilterKeyword) = _contentFilterViewData.update {
+        it?.copy(keywords = it.keywords.filterNot { it == keyword })
+    }
+
+    /** Replaces [original] keyword in [_contentFilterViewData] with [newKeyword]. */
+    fun updateKeyword(original: FilterKeyword, newKeyword: FilterKeyword) = _contentFilterViewData.update {
+        it?.copy(keywords = it.keywords.map { if (it == original) newKeyword else it })
+    }
+
+    /** Replaces [_contentFilterViewData]'s [title][ContentFilterViewData.title] with [title]. */
+    fun setTitle(title: String) = _contentFilterViewData.update {
+        it?.copy(title = title)
+    }
+
+    /** Replaces [_contentFilterViewData]'s [expiresIn][ContentFilterViewData.expiresIn] with [expiresIn]. */
+    fun setExpiresIn(expiresIn: Int) = _contentFilterViewData.update {
+        it?.copy(expiresIn = expiresIn)
+    }
+
+    /** Replaces [_contentFilterViewData]'s [action][ContentFilterViewData.filterAction] with [filterAction]. */
+    fun setAction(filterAction: FilterAction) = _contentFilterViewData.update {
+        it?.copy(filterAction = filterAction)
+    }
+
+    /** Adds [filterContext] to [_contentFilterViewData]'s [contexts][ContentFilterViewData.contexts]. */
+    fun addContext(filterContext: FilterContext) = _contentFilterViewData.update {
+        it?.copy(contexts = it.contexts + filterContext)
+    }
+
+    /** Deletes [filterContext] from [_contentFilterViewData]'s [contexts][ContentFilterViewData.contexts]. */
+    fun deleteContext(filterContext: FilterContext) = _contentFilterViewData.update {
+        it?.copy(contexts = it.contexts - filterContext)
     }
 
     /**
@@ -370,7 +324,7 @@ class EditContentFilterViewModel @AssistedInject constructor(
      * existing filter.
      */
     fun saveChanges() = viewModelScope.launch {
-        val contentFilterViewData = contentFilterViewData.value.get() ?: return@launch
+        val contentFilterViewData = contentFilterViewData.value ?: return@launch
 
         _uiResult.send(
             when (uiMode) {
@@ -393,9 +347,9 @@ class EditContentFilterViewModel @AssistedInject constructor(
             .mapError { UiError.SaveContentFilterError(it) }
     }
 
-    /** Delete [contentFilterViewData]. */
+    /** Delete the filter identified by [contentFilterViewData]. */
     fun deleteContentFilter() = viewModelScope.launch {
-        val filterViewData = contentFilterViewData.value.get() ?: return@launch
+        val filterViewData = contentFilterViewData.value ?: return@launch
 
         // TODO: Check for non-null, or have a type that makes this impossible.
         contentFiltersRepository.deleteContentFilter(pachliAccountId, filterViewData.id!!)

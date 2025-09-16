@@ -40,14 +40,13 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_gravity="center_vertical"
-        android:layout_margin="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/action_delete"
         android:padding="4dp"
-        app:srcCompat="@drawable/ic_clear_24dp" />
+        app:srcCompat="@drawable/outline_delete_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

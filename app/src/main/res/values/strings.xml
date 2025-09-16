@@ -771,7 +771,6 @@
     <string name="preview_card_timeline_link_fmt">See &lt;b>%1$s&lt;/b> posts about this link</string>
     <string name="action_timeline_link">Posts about this link</string>
 
-    <string name="error_load_filter_failed_fmt">Loading filter failed: %1$s</string>
     <string name="error_save_filter_failed_fmt">Saving filter failed: %1$s</string>
     <string name="error_delete_filter_failed_fmt">Deleting filter failed: %1$s</string>
 

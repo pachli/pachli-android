@@ -714,7 +714,6 @@
     <string name="preview_card_byline_fediverse_account_fmt">Se mer fra %1$s</string>
     <string name="action_open_byline_account">Vis artikkelforfatterens profil</string>
     <string name="action_open_link">Åpne lenk</string>
-    <string name="error_load_filter_failed_fmt">Innlasting av filter mislyktes: %1$s</string>
     <string name="search_operator_poll_all">Avstemninger ▾</string>
     <string name="search_operator_embed_only">Bare forhåndsvisningskort</string>
     <string name="search_operator_embed_dialog_only">Bare innlegg med forhåndsvisningskort</string>
