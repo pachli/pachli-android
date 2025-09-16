@@ -694,7 +694,6 @@
     <string name="action_open_link">Открыть ссылку</string>
     <string name="preview_card_timeline_link_fmt">Смотреть <b>%1$s</b> публикаций об этой ссылке</string>
     <string name="action_timeline_link">Публикации об этой ссылке</string>
-    <string name="error_load_filter_failed_fmt">Не удалось загрузить фильтр: %1$s</string>
     <string name="error_save_filter_failed_fmt">Не удалось сохранить фильтр: %1$s</string>
     <string name="error_delete_filter_failed_fmt">Не удалось удалить фильтр: %1$s</string>
     <string name="search_operator_attachment_dialog_title">Ограничить публикациями с медиафайлами?</string>

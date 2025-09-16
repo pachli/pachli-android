@@ -502,7 +502,6 @@
         <item quantity="other">%s வாக்குகள்</item>
     </plurals>
     <string name="status_filter_placeholder_label_format">வடிகட்டப்பட்டது: <b>%1$s </b></string>
-    <string name="error_load_filter_failed_fmt">ஏற்றுதல் வடிகட்டி தோல்வியுற்றது: %1$s</string>
     <string name="search_operator_attachment_kind_video_label">ஒளிதோற்றம்</string>
     <string name="search_operator_attachment_kind_audio_label">ஒலி</string>
     <string name="search_operator_poll_only">கருத்துக் கணிப்புகளை மட்டுமே காட்டுங்கள்</string>

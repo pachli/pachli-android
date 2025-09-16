@@ -747,7 +747,6 @@
     <string name="pref_labs_warning">Is gnéithe turgnamhacha iad seo. Níl aon chinnteacht ann go n-oibríonn siad, nó go mbeidh siad san áireamh i leaganacha amach anseo. Bain úsáid as ar do phriacal féin.</string>
     <string name="pref_labs_reverse_home_timeline_title">Ordú amlíne droim ar ais</string>
     <string name="pref_labs_reverse_home_timeline_off_summary">Ordaítear poist is nuaí ar dtús</string>
-    <string name="error_load_filter_failed_fmt">Theip ar luchtú an scagaire: %1$s</string>
     <string name="pref_labs_reverse_home_timeline_on_summary">Ordaítear poist is sine ar dtús</string>
     <string name="error_filter_missing_keyword">Tá eochairfhocal nó frása amháin ar a laghad ag teastáil</string>
     <string name="compose_warn_language_dialog_title">Seiceáil teanga an phoist</string>

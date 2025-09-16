@@ -685,7 +685,6 @@
     <string name="search_operator_where_dialog_public_hint">Julkiset, palvelimen tuntemat, hakukelpoiset julkaisut</string>
     <string name="search_operator_from_ignore_me">Ei omia julkaisuja</string>
     <string name="search_operator_attachment_has_media_except_1_label_fmt">Kaikki paitsi %1$s</string>
-    <string name="error_load_filter_failed_fmt">Suodattimen lataaminen epäonnistui: %1$s</string>
     <string name="error_save_filter_failed_fmt">Suodattimen tallentaminen epäonnistui: %1$s</string>
     <string name="search_operator_attachment_all">Mediat ▾</string>
     <string name="search_operator_attachment_has_media_except_2_label_fmt">Kaikki paitsi %1$s, %2$s</string>

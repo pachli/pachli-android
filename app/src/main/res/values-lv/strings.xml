@@ -803,7 +803,6 @@
     <string name="ui_error_reject_follow_request">Sekošanas pieprasījuma noraidīšana neizdevās: %s</string>
     <string name="preview_card_byline_name_only_fmt">No <b>%1$s</b></string>
     <string name="preview_card_timeline_link_fmt">Apskatīt <b>%1$s</b> ierakstus par šo saiti</string>
-    <string name="error_load_filter_failed_fmt">Atlasītāja ielādēšana neizdevās: %1$s</string>
     <string name="error_delete_filter_failed_fmt">Atlasītāja izdzēšana neizdevās: %1$s</string>
     <string name="search_operator_attachment_dialog_title">Tikai ieraksti ar informācijas nesējiem?</string>
     <string name="search_operator_attachment_dialog_any_label">Jebkurš veids</string>

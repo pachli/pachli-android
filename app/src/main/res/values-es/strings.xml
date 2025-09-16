@@ -631,7 +631,6 @@
     <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">el agente de resolución de contenido tiene un esquema no compatible: %1$s</string>
     <string name="error_prepare_media_file_is_too_large_fmt">el tamaño del archivo es %1$s, el máximo permitido es %2$s</string>
     <string name="error_prepare_media_io_fmt">%1$s</string>
-    <string name="error_load_filter_failed_fmt">Fallo al cargar el filtro: %1$s</string>
     <string name="search_operator_attachment_dialog_any_label">Cualquier tipo</string>
     <string name="search_operator_attachment_kind_video_label">vídeo</string>
     <string name="search_operator_attachment_specific_media_include_1_exclude_2_fmt">Con %1$s, sin %2$s, %3$s</string>
