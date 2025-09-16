@@ -67,32 +67,31 @@ class ConversationsViewModel @AssistedInject constructor(
     private val uiAction = MutableSharedFlow<UiAction>()
     val accept: (UiAction) -> Unit = { action -> viewModelScope.launch { uiAction.emit(action) } }
 
-    val conversationFlow = accountFlow
-        .flatMapLatest { pachliAccount ->
-            repository.conversations(pachliAccount.id)
-                .map { pagingData ->
-                    pagingData
-                        .map { conversation ->
-                            val accountFilterDecision = if (conversation.isConversationStarter) {
-                                conversation.viewData?.accountFilterDecision
-                                    ?: filterConversationByAccount(pachliAccount, conversation)
-                            } else {
-                                null
-                            }
-
-                            ConversationViewData.make(
-                                pachliAccount,
-                                conversation,
-                                defaultIsExpanded = pachliAccount.entity.alwaysOpenSpoiler,
-                                defaultIsShowingContent = (pachliAccount.entity.alwaysShowSensitiveMedia || !conversation.lastStatus.status.sensitive),
-                                contentFilterAction = FilterAction.NONE,
-                                accountFilterDecision = accountFilterDecision,
-                            )
-                        }
-                        .filter { it.accountFilterDecision !is AccountFilterDecision.Hide }
+    val conversationFlow = accountFlow.flatMapLatest { pachliAccount ->
+        repository.conversations(pachliAccount.id).map { pagingData ->
+            pagingData
+                .map { conversation ->
+                    val accountFilterDecision = if (conversation.isConversationStarter) {
+                        conversation.viewData?.accountFilterDecision
+                            ?: filterConversationByAccount(pachliAccount, conversation)
+                    } else {
+                        null
+                    }
+                    Pair(conversation, accountFilterDecision)
+                }
+                .filter { it.second !is AccountFilterDecision.Hide }
+                .map { (conversation, accountFilterDecision) ->
+                    ConversationViewData.make(
+                        pachliAccount,
+                        conversation,
+                        defaultIsExpanded = pachliAccount.entity.alwaysOpenSpoiler,
+                        defaultIsShowingContent = (pachliAccount.entity.alwaysShowSensitiveMedia || !conversation.lastStatus.status.sensitive),
+                        contentFilterAction = FilterAction.NONE,
+                        accountFilterDecision = accountFilterDecision,
+                    )
                 }
         }
-        .cachedIn(viewModelScope)
+    }.cachedIn(viewModelScope)
 
     val showFabWhileScrolling = sharedPreferencesRepository.changes
         .filter { it == null || it == PrefKeys.FAB_HIDE }
