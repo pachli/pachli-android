@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
@@ -38,7 +39,6 @@ import app.pachli.core.ui.extensions.await
 import app.pachli.databinding.ActivityEditContentFilterBinding
 import app.pachli.databinding.DialogFilterBinding
 import com.github.michaelbull.result.Result
-import com.github.michaelbull.result.get
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import com.google.android.material.chip.Chip
@@ -48,6 +48,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.withCreationCallback
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 
 /**
@@ -142,7 +143,7 @@ class EditContentFilterActivity : BaseActivity() {
         binding.filterSaveButton.setOnClickListener { saveChanges() }
         binding.filterDeleteButton.setOnClickListener {
             lifecycleScope.launch {
-                viewModel.contentFilterViewData.value.get()?.let {
+                viewModel.contentFilterViewData.value?.let {
                     if (showDeleteFilterDialog(it.title) == BUTTON_POSITIVE) deleteFilter()
                 }
             }
@@ -162,8 +163,15 @@ class EditContentFilterActivity : BaseActivity() {
         binding.filterTitle.doAfterTextChanged { editable ->
             viewModel.setTitle(editable.toString())
         }
-        binding.filterActionWarn.setOnCheckedChangeListener { _, checked ->
-            viewModel.setAction(if (checked) FilterAction.WARN else FilterAction.HIDE)
+
+        binding.filterActionGroup.setOnCheckedChangeListener { group: RadioGroup, checkedId: Int ->
+            val filterAction = when (checkedId) {
+                R.id.filter_action_warn -> FilterAction.WARN
+                R.id.filter_action_hide -> FilterAction.HIDE
+                -1 -> FilterAction.NONE
+                else -> throw IllegalStateException("invalid filter radio button")
+            }
+            viewModel.setAction(filterAction)
         }
 
         bind()
@@ -172,9 +180,11 @@ class EditContentFilterActivity : BaseActivity() {
     private fun bind() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                launch { viewModel.filterActions.collect(::bindFilterActions) }
+
                 launch { viewModel.uiResult.collect(::bindUiResult) }
 
-                launch { viewModel.contentFilterViewData.collect(::bindFilter) }
+                launch { viewModel.contentFilterViewData.filterNotNull().collect(::bindContentFilterViewData) }
 
                 launch { viewModel.isDirty.collectLatest { onBackPressedCallback.isEnabled = it } }
 
@@ -219,7 +229,6 @@ class EditContentFilterActivity : BaseActivity() {
                 setAction(app.pachli.core.ui.R.string.action_retry) {
                     when (uiError) {
                         is UiError.DeleteContentFilterError -> viewModel.deleteContentFilter()
-                        is UiError.GetContentFilterError -> viewModel.reload()
                         is UiError.SaveContentFilterError -> viewModel.saveChanges()
                     }
                 }
@@ -234,42 +243,44 @@ class EditContentFilterActivity : BaseActivity() {
         }
     }
 
-    private fun bindFilter(result: Result<ContentFilterViewData?, UiError.GetContentFilterError>) {
-        result.onFailure(::bindUiError)
+    private fun bindFilterActions(filterActions: Set<FilterAction>) {
+        binding.filterActionWarn.visible(filterActions.contains(FilterAction.WARN))
+        binding.filterActionHide.visible(filterActions.contains(FilterAction.HIDE))
+    }
 
-        result.onSuccess { filterViewData ->
-            filterViewData ?: return
-
-            when (val expiresIn = filterViewData.expiresIn) {
-                -1 -> binding.filterDurationSpinner.setSelection(0)
-                else -> {
-                    filterDurationAdapter.items.indexOfFirst { it.duration == expiresIn }.let {
-                        if (it == -1) {
-                            binding.filterDurationSpinner.setSelection(0)
-                        } else {
-                            binding.filterDurationSpinner.setSelection(it)
-                        }
+    private fun bindContentFilterViewData(contentFilterViewData: ContentFilterViewData) {
+        when (val expiresIn = contentFilterViewData.expiresIn) {
+            -1 -> binding.filterDurationSpinner.setSelection(0)
+            else -> {
+                filterDurationAdapter.items.indexOfFirst { it.duration == expiresIn }.let {
+                    if (it == -1) {
+                        binding.filterDurationSpinner.setSelection(0)
+                    } else {
+                        binding.filterDurationSpinner.setSelection(it)
                     }
                 }
             }
-
-            if (filterViewData.title != binding.filterTitle.text.toString()) {
-                // We also get this callback when typing in the field,
-                // which messes with the cursor focus
-                binding.filterTitle.setText(filterViewData.title)
-            }
-
-            bindKeywords(filterViewData.keywords)
-
-            for ((key, value) in filterContextSwitches) {
-                key.isChecked = filterViewData.contexts.contains(value)
-            }
-
-            when (filterViewData.filterAction) {
-                FilterAction.HIDE -> binding.filterActionHide.isChecked = true
-                else -> binding.filterActionWarn.isChecked = true
-            }
         }
+
+        if (contentFilterViewData.title != binding.filterTitle.text.toString()) {
+            // We also get this callback when typing in the field,
+            // which messes with the cursor focus
+            binding.filterTitle.setText(contentFilterViewData.title)
+        }
+
+        bindKeywords(contentFilterViewData.keywords)
+
+        for ((key, value) in filterContextSwitches) {
+            key.isChecked = contentFilterViewData.contexts.contains(value)
+        }
+
+        binding.filterActionGroup.check(
+            when (contentFilterViewData.filterAction) {
+                FilterAction.NONE -> -1
+                FilterAction.WARN -> R.id.filter_action_warn
+                FilterAction.HIDE -> R.id.filter_action_hide
+            },
+        )
     }
 
     private fun bindKeywords(newKeywords: List<FilterKeyword>) {
