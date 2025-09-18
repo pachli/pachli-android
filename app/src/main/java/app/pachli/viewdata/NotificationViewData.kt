@@ -103,7 +103,7 @@ data class NotificationViewData(
                     isExpanded = isExpanded,
                     isDetailed = false,
                     contentFilterAction = contentFilterAction,
-                    attachmentDisplayAction = it.toStatus().getAttachmentDisplayAction(
+                    attachmentDisplayAction = it.getAttachmentDisplayAction(
                         FilterContext.NOTIFICATIONS,
                         showSensitiveMedia,
                         it.viewData?.attachmentDisplayAction,

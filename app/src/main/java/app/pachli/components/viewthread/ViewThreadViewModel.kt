@@ -241,42 +241,49 @@ class ViewThreadViewModel @Inject constructor(
                 val ids = statusContext.ancestors.map { it.id } + statusContext.descendants.map { it.id }
                 val cachedViewData = repository.getStatusViewData(activeAccount.id, ids)
                 val cachedTranslations = repository.getStatusTranslations(activeAccount.id, ids)
-                val ancestors = statusContext.ancestors.asModel().map { status ->
-                    val svd = cachedViewData[status.id]
-                    StatusViewData.from(
-                        pachliAccountId = account.id,
-                        status,
-                        isExpanded = svd?.expanded ?: account.alwaysOpenSpoiler,
-                        isCollapsed = svd?.contentCollapsed ?: true,
-                        isDetailed = false,
-                        contentFilterAction = contentFilterModel?.filterActionFor(status) ?: FilterAction.NONE,
-                        attachmentDisplayAction = status.getAttachmentDisplayAction(
-                            FilterContext.CONVERSATIONS,
-                            account.alwaysShowSensitiveMedia,
-                            svd?.attachmentDisplayAction,
-                        ),
-                        translationState = svd?.translationState ?: TranslationState.SHOW_ORIGINAL,
-                        translation = cachedTranslations[status.id],
-                    )
-                }.filterByFilterAction()
-                val descendants = statusContext.descendants.asModel().map { status ->
-                    val svd = cachedViewData[status.id]
-                    StatusViewData.from(
-                        pachliAccountId = account.id,
-                        status,
-                        isExpanded = svd?.expanded ?: account.alwaysOpenSpoiler,
-                        isCollapsed = svd?.contentCollapsed ?: true,
-                        isDetailed = false,
-                        contentFilterAction = contentFilterModel?.filterActionFor(status) ?: FilterAction.NONE,
-                        attachmentDisplayAction = status.getAttachmentDisplayAction(
-                            FilterContext.CONVERSATIONS,
-                            account.alwaysShowSensitiveMedia,
-                            svd?.attachmentDisplayAction,
-                        ),
-                        translationState = svd?.translationState ?: TranslationState.SHOW_ORIGINAL,
-                        translation = cachedTranslations[status.id],
-                    )
-                }.filterByFilterAction()
+                val ancestors = statusContext.ancestors.asModel()
+                    .map { Pair(it, shouldFilterStatus(it)) }
+                    .filter { it.second != FilterAction.HIDE }
+                    .map { (status, contentFilterAction) ->
+                        val svd = cachedViewData[status.id]
+                        StatusViewData.from(
+                            pachliAccountId = activeAccount.id,
+                            status,
+                            isExpanded = svd?.expanded ?: account.alwaysOpenSpoiler,
+                            isCollapsed = svd?.contentCollapsed ?: true,
+                            isDetailed = false,
+                            contentFilterAction = contentFilterAction,
+                            attachmentDisplayAction = status.getAttachmentDisplayAction(
+                                FilterContext.CONVERSATIONS,
+                                account.alwaysShowSensitiveMedia,
+                                svd?.attachmentDisplayAction,
+                            ),
+                            translationState = svd?.translationState ?: TranslationState.SHOW_ORIGINAL,
+                            translation = cachedTranslations[status.id],
+                        )
+                    }
+                val descendants = statusContext.descendants.asModel()
+                    .map { Pair(it, shouldFilterStatus(it)) }
+                    .filter { it.second != FilterAction.HIDE }
+                    .map { (status, contentFilterAction) ->
+                        val svd = cachedViewData[status.id]
+
+                        StatusViewData.from(
+                            pachliAccountId = activeAccount.id,
+                            status,
+                            isExpanded = svd?.expanded ?: account.alwaysOpenSpoiler,
+                            isCollapsed = svd?.contentCollapsed ?: true,
+                            isDetailed = false,
+                            contentFilterAction = contentFilterAction,
+                            attachmentDisplayAction = status.getAttachmentDisplayAction(
+                                FilterContext.CONVERSATIONS,
+                                account.alwaysShowSensitiveMedia,
+                                svd?.attachmentDisplayAction,
+                            ),
+                            translationState = svd?.translationState ?: TranslationState.SHOW_ORIGINAL,
+                            translation = cachedTranslations[status.id],
+                        )
+                    }
                 val statuses = ancestors + detailedStatus + descendants
 
                 _uiResult.value = Ok(
@@ -587,6 +594,8 @@ class ViewThreadViewModel @Inject constructor(
             )
         }
     }
+
+    private fun shouldFilterStatus(status: Status) = (contentFilterModel?.filterActionFor(status) ?: FilterAction.NONE)
 
     private fun List<StatusViewData>.filterByFilterAction(): List<StatusViewData> {
         return filter { status ->

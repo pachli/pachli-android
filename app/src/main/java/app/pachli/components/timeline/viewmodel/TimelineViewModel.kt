@@ -54,6 +54,7 @@ import app.pachli.core.model.AttachmentDisplayReason
 import app.pachli.core.model.ContentFilterVersion
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.FilterContext
+import app.pachli.core.model.FilterResult
 import app.pachli.core.model.MatchingFilter
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
@@ -718,10 +719,54 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
  * marked sensitive.
  * @param cachedAction
  */
-fun TimelineStatusWithAccount.getAttachmentDisplayAction(filterContext: FilterContext?, showSensitiveMedia: Boolean, cachedAction: AttachmentDisplayAction?): AttachmentDisplayAction {
+fun Status.getAttachmentDisplayAction(filterContext: FilterContext?, showSensitiveMedia: Boolean, cachedAction: AttachmentDisplayAction?) = getAttachmentDisplayAction(
+    filterContext,
+    filtered,
+    sensitive,
+    showSensitiveMedia = showSensitiveMedia,
+    cachedAction = cachedAction,
+)
+
+/**
+ * Returns the [AttachmentDisplayAction] for [this] given the current [filterContext],
+ * whether [showSensitiveMedia] is true, and the [cachedAction] (if any).
+ *
+ * @param filterContext Applicable filter context. May be null for timelines that are
+ * not filtered (e.g., private messages).
+ * @param showSensitiveMedia True if the user's preference is to show attachments
+ * marked sensitive.
+ * @param cachedAction
+ */
+fun TimelineStatusWithAccount.getAttachmentDisplayAction(filterContext: FilterContext?, showSensitiveMedia: Boolean, cachedAction: AttachmentDisplayAction?) = getAttachmentDisplayAction(
+    filterContext,
+    status.filtered,
+    status.sensitive,
+    showSensitiveMedia = showSensitiveMedia,
+    cachedAction = cachedAction,
+)
+
+/**
+ * Returns the [AttachmentDisplayAction] for [this] given the current [filterContext],
+ * whether [showSensitiveMedia] is true, and the [cachedAction] (if any).
+ *
+ * @param filterContext Applicable filter context. May be null for timelines that are
+ * not filtered (e.g., private messages).
+ * @param matchingFilters List of filters that matched the status.
+ * @param sensitive True if the status was marked senstive.
+ * @param showSensitiveMedia True if the user's preference is to show attachments
+ * marked sensitive.
+ * @param cachedAction
+ */
+private fun getAttachmentDisplayAction(
+    filterContext: FilterContext?,
+    matchingFilters: List<FilterResult>?,
+    sensitive: Boolean,
+    showSensitiveMedia: Boolean,
+    cachedAction: AttachmentDisplayAction?,
+): AttachmentDisplayAction {
     // Hide attachments if there is any matching "blur" filter.
     val matchingBlurFilters = filterContext?.let {
-        status.filtered
+        matchingFilters
             ?.filter { it.filter.filterAction == FilterAction.BLUR }
             ?.filter { it.filter.contexts.contains(filterContext) }
             ?.map { MatchingFilter(filterId = it.filter.id, title = it.filter.title) }
@@ -753,9 +798,9 @@ fun TimelineStatusWithAccount.getAttachmentDisplayAction(filterContext: FilterCo
     // a Show this will be returned here.
     cachedAction?.let { return it }
 
-    // Blur attachments if the status is marked sensitive and the user doesn't want to
+    // Hide attachments if the status is marked sensitive and the user doesn't want to
     // see them.
-    if (status.sensitive && !showSensitiveMedia) {
+    if (sensitive && !showSensitiveMedia) {
         return AttachmentDisplayAction.Hide(reason = AttachmentDisplayReason.Sensitive)
     }
 
