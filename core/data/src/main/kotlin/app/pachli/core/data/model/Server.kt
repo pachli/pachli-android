@@ -40,6 +40,7 @@ import app.pachli.core.model.ServerKind.PLEROMA
 import app.pachli.core.model.ServerKind.SHARKEY
 import app.pachli.core.model.ServerKind.UNKNOWN
 import app.pachli.core.model.ServerOperation
+import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_FILTERS_ACTION_BLUR
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_FILTERS_CLIENT
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_FILTERS_SERVER
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_BY_DATE
@@ -346,7 +347,7 @@ data class Server(
 
                     // Blur filters.
                     when {
-                        v >= "4.4.0".toVersion() -> c[ServerOperation.ORG_JOINMASTODON_FILTERS_ACTION_BLUR] = "1.0.0".toVersion()
+                        v >= "4.4.0".toVersion() -> c[ORG_JOINMASTODON_FILTERS_ACTION_BLUR] = "1.0.0".toVersion()
                     }
                 }
 
@@ -369,6 +370,13 @@ data class Server(
                         // from: in https://github.com/superseriousbusiness/gotosocial/pull/2943
                         v >= "0.16.0".toVersion() -> {
                             c[ORG_JOINMASTODON_SEARCH_QUERY_FROM] = "1.0.0".toVersion()
+                        }
+                    }
+
+                    // Blur filters
+                    when {
+                        v >= "0.20.0".toVersion() -> {
+                            c[ORG_JOINMASTODON_FILTERS_ACTION_BLUR] = "1.0.0".toVersion()
                         }
                     }
                 }

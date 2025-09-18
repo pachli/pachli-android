@@ -746,8 +746,9 @@ fun TimelineStatusWithAccount.getAttachmentDisplayAction(filterContext: FilterCo
 )
 
 /**
- * Returns the [AttachmentDisplayAction] for [this] given the current [filterContext],
- * whether [showSensitiveMedia] is true, and the [cachedAction] (if any).
+ * Returns the [AttachmentDisplayAction] for given the current [filterContext], based on
+ * the [matchingFilters], whether the content is [sensitive], if [showSensitiveMedia]
+ * is true, and the [cachedAction] (if any).
  *
  * @param filterContext Applicable filter context. May be null for timelines that are
  * not filtered (e.g., private messages).
