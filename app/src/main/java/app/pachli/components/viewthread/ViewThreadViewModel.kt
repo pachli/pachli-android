@@ -227,7 +227,11 @@ class ViewThreadViewModel @Inject constructor(
                         isCollapsed = detailedStatus.isCollapsed,
                         isDetailed = true,
                         contentFilterAction = contentFilterModel?.filterActionFor(it) ?: FilterAction.NONE,
-                        attachmentDisplayAction = detailedStatus.attachmentDisplayAction,
+                        attachmentDisplayAction = it.getAttachmentDisplayAction(
+                            FilterContext.CONVERSATIONS,
+                            account.alwaysShowSensitiveMedia,
+                            timelineStatusWithAccount.viewData?.attachmentDisplayAction,
+                        ),
                         translationState = detailedStatus.translationState,
                         translation = detailedStatus.translation,
                     )

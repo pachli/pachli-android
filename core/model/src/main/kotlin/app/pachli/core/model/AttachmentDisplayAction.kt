@@ -59,13 +59,13 @@ sealed interface AttachmentDisplayAction {
     /**
      * The attachment should be shown.
      *
-     * @property originalDecision If this is overriding the previous decision
+     * @property originalAction If this is overriding the previous decision
      * to hide the attachment, this records the previous decision. Null if not
      * overridden.
      */
     @TypeLabel("show")
     @JsonClass(generateAdapter = true)
-    data class Show(val originalDecision: Hide? = null) : AttachmentDisplayAction
+    data class Show(val originalAction: Hide? = null) : AttachmentDisplayAction
 
     /**
      * The attachment should be hidden.

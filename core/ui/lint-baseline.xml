@@ -4,12 +4,12 @@
     <issue
         id="PrivateResource"
         message="The resource `@string/clear_text_end_icon_content_description` is marked as private in com.google.android.material:material:1.12.0"
-        errorLine1="            app:endIconContentDescription=&quot;@string/clear_text_end_icon_content_description&quot;>"
-        errorLine2="                                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        errorLine1="        app:endIconContentDescription=&quot;@string/clear_text_end_icon_content_description&quot;"
+        errorLine2="                                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/emoji_picker.xml"
-            line="41"
-            column="44"/>
+            line="29"
+            column="40"/>
     </issue>
 
     <issue

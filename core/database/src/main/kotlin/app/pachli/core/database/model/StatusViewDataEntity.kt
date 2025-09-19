@@ -51,8 +51,6 @@ data class StatusViewDataEntity(
     val serverId: String,
     /** Corresponds to [app.pachli.viewdata.IStatusViewData.isExpanded] */
     val expanded: Boolean?,
-    /** Corresponds to [app.pachli.viewdata.IStatusViewData.isShowingContent] */
-    val contentShowing: Boolean?,
     /** Corresponds to [app.pachli.viewdata.IStatusViewData.isCollapsed] */
     val contentCollapsed: Boolean?,
     /** Show the translated version of the status (if it exists) */
@@ -82,18 +80,6 @@ data class StatusViewDataExpanded(
     val pachliAccountId: Long,
     val serverId: String,
     val expanded: Boolean,
-)
-
-/**
- * Partial class for setting [StatusViewDataEntity.contentShowing] to [contentShowing].
- *
- * @see [app.pachli.core.database.dao.StatusDao.setContentShowing]
- * @see [androidx.room.Upsert.entity]
- */
-data class StatusViewDataContentShowing(
-    val pachliAccountId: Long,
-    val serverId: String,
-    val contentShowing: Boolean,
 )
 
 /**

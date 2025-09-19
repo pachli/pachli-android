@@ -413,9 +413,9 @@ class AccountEntityForeignKeyTest {
             pachliAccountId = pachliAccountId,
             serverId = "1",
             expanded = false,
-            contentShowing = false,
             contentCollapsed = false,
             translationState = TranslationState.SHOW_ORIGINAL,
+            attachmentDisplayAction = null,
         )
         statusDao.upsertStatusViewData(statusViewData)
 

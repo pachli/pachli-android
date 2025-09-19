@@ -138,7 +138,7 @@ import java.util.TimeZone
         // Saving TimelineAccount.roles to the database.
         AutoMigration(from = 28, to = 29),
         // Record the attachment display action.
-        AutoMigration(from = 29, to = 30),
+        AutoMigration(from = 29, to = 30, spec = AppDatabase.MIGRATE_29_30::class),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -294,6 +294,13 @@ abstract class AppDatabase : RoomDatabase() {
             db.execSQL("UPDATE AccountEntity SET emojis = '[]'")
         }
     }
+
+    /**
+     * `contentShowing` column is deleted, preferring the new `attachmentDisplayAction`
+     * column.
+     */
+    @DeleteColumn("StatusViewDataEntity", "contentShowing")
+    class MIGRATE_29_30 : AutoMigrationSpec
 }
 
 val MIGRATE_8_9 = object : Migration(8, 9) {

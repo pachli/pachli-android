@@ -29,7 +29,7 @@ class SearchPagingSource<T : Any>(
     private val searchType: SearchType,
     private val searchRequest: String,
     private val initialItems: List<T>?,
-    private val parser: (SearchResult) -> List<T>,
+    private val parser: suspend (SearchResult) -> List<T>,
 ) : PagingSource<Int, T>() {
 
     override fun getRefreshKey(state: PagingState<Int, T>): Int? {

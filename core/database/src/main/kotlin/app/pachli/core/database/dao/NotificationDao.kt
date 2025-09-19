@@ -131,7 +131,6 @@ SELECT
     svd.serverId AS 's_svd_serverId',
     svd.pachliAccountId AS 's_svd_pachliAccountId',
     svd.expanded AS 's_svd_expanded',
-    svd.contentShowing AS 's_svd_contentShowing',
     svd.contentCollapsed AS 's_svd_contentCollapsed',
     svd.translationState AS 's_svd_translationState',
     svd.attachmentDisplayAction AS 's_svd_attachmentDisplayAction',

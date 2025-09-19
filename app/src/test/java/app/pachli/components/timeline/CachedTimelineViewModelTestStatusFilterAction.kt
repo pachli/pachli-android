@@ -24,6 +24,7 @@ import app.pachli.components.timeline.viewmodel.StatusActionSuccess
 import app.pachli.components.timeline.viewmodel.UiError
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.model.TranslationState
+import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.testing.failure
 import app.pachli.core.testing.success
 import com.github.michaelbull.result.get
@@ -53,9 +54,9 @@ class CachedTimelineViewModelTestStatusFilterAction : CachedTimelineViewModelTes
         pachliAccountId = 1L,
         status = status.asModel(),
         isExpanded = true,
-        isShowingContent = false,
         isCollapsed = false,
         translationState = TranslationState.SHOW_ORIGINAL,
+        attachmentDisplayAction = AttachmentDisplayAction.Show(),
     )
 
     /** Action to bookmark a status */

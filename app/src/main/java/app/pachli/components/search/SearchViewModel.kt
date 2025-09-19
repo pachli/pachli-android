@@ -33,6 +33,7 @@ import app.pachli.components.search.SearchOperator.IsSensitiveOperator
 import app.pachli.components.search.SearchOperator.LanguageOperator
 import app.pachli.components.search.SearchOperator.WhereOperator
 import app.pachli.components.search.adapter.SearchPagingSourceFactory
+import app.pachli.components.timeline.viewmodel.getAttachmentDisplayAction
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.Loadable
@@ -213,6 +214,12 @@ class SearchViewModel @Inject constructor(
                 status,
                 isExpanded = alwaysOpenSpoiler,
                 isCollapsed = true,
+                attachmentDisplayAction = status.getAttachmentDisplayAction(
+                    // Search results don't have a filter context.
+                    null,
+                    activeAccount!!.alwaysShowSensitiveMedia,
+                    statusRepository.getStatusViewData(activeAccount!!.id, status.actionableId)?.attachmentDisplayAction,
+                ),
             )
         }.apply {
             loadedStatuses.addAll(this)

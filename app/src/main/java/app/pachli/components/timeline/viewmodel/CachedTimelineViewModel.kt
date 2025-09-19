@@ -133,15 +133,9 @@ class CachedTimelineViewModel @Inject constructor(
         }
     }
 
-    override fun onChangeContentShowing(isShowing: Boolean, statusViewData: StatusViewData) {
+    override fun onChangeAttachmentDisplayAction(viewData: StatusViewData, newAction: AttachmentDisplayAction) {
         viewModelScope.launch {
-            repository.setContentShowing(statusViewData.pachliAccountId, statusViewData.id, isShowing)
-        }
-    }
-
-    override fun onChangeAttachmentDisplayAction(viewData: StatusViewData, newDecision: AttachmentDisplayAction) {
-        viewModelScope.launch {
-            repository.setAttachmentDisplayAction(viewData.pachliAccountId, viewData.actionableId, newDecision)
+            repository.setAttachmentDisplayAction(viewData.pachliAccountId, viewData.actionableId, newAction)
         }
     }
 

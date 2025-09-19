@@ -607,7 +607,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
                 //
                 // If (a) then the new decision is `Show.originalDecision`. If (b) then
                 // then the new decision is UserAction.
-                val decision = (viewData.attachmentDisplayAction as? AttachmentDisplayAction.Show)?.originalDecision
+                val decision = (viewData.attachmentDisplayAction as? AttachmentDisplayAction.Show)?.originalAction
                     ?: AttachmentDisplayAction.Hide(AttachmentDisplayReason.UserAction)
                 listener.onAttachmentDisplayActionChange(viewData, decision)
             }
@@ -615,7 +615,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
                 // The user is clicking through the warning to show the attachment.
                 listener.onAttachmentDisplayActionChange(
                     viewData,
-                    AttachmentDisplayAction.Show(originalDecision = viewData.attachmentDisplayAction as? AttachmentDisplayAction.Hide),
+                    AttachmentDisplayAction.Show(originalAction = viewData.attachmentDisplayAction as? AttachmentDisplayAction.Hide),
                 )
             }
         }
@@ -666,7 +666,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
             if (sensitiveMediaWarning.isVisible) {
                 listener.onAttachmentDisplayActionChange(
                     viewData,
-                    AttachmentDisplayAction.Show(originalDecision = viewData.attachmentDisplayAction as? AttachmentDisplayAction.Hide),
+                    AttachmentDisplayAction.Show(originalAction = viewData.attachmentDisplayAction as? AttachmentDisplayAction.Hide),
                 )
             } else {
                 listener.onViewMedia(viewData, index, if (animateTransition) v else null)

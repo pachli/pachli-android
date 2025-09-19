@@ -567,12 +567,10 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
     abstract fun onChangeExpanded(isExpanded: Boolean, statusViewData: StatusViewData)
 
     /**
-     * Sets the content-showing state of [statusViewData] in [OfflineFirstStatusRepository] to
-     * [isShowing] and invalidates the repository.
+     * Sets the attachment display action of [statusViewData] in [OfflineFirstStatusRepository] to
+     * [newAction] and invalidates the repository.
      */
-    abstract fun onChangeContentShowing(isShowing: Boolean, statusViewData: StatusViewData)
-
-    abstract fun onChangeAttachmentDisplayAction(viewData: StatusViewData, newDecision: AttachmentDisplayAction)
+    abstract fun onChangeAttachmentDisplayAction(viewData: StatusViewData, newAction: AttachmentDisplayAction)
 
     /**
      * Sets the collapsed state of [statusViewData] in [OfflineFirstStatusRepository] to [isCollapsed] and
@@ -775,7 +773,7 @@ private fun getAttachmentDisplayAction(
 
     // Any matching filters probably hides the attachment.
     if (matchingBlurFilters.isNotEmpty()) {
-        val hideDecision = AttachmentDisplayAction.Hide(
+        val hideAction = AttachmentDisplayAction.Hide(
             reason = AttachmentDisplayReason.BlurFilter(matchingBlurFilters),
         )
 
@@ -788,11 +786,11 @@ private fun getAttachmentDisplayAction(
         // user has already seen the attachment, and decided to keep seeing it.
         // Hiding it from them again isn't helpful.
         (cachedAction as? AttachmentDisplayAction.Show)?.let {
-            return it.copy(originalDecision = hideDecision)
+            return it.copy(originalAction = hideAction)
         }
 
         // Otherwise, the decision to hide is good.
-        return hideDecision
+        return hideAction
     }
 
     // Now safe to use the cached decision, if present. If the user overrode a Hide with

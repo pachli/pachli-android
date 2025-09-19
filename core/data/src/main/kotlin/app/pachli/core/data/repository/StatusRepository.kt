@@ -154,11 +154,6 @@ interface StatusRepository {
     suspend fun setExpanded(pachliAccountId: Long, statusId: String, expanded: Boolean)
 
     /**
-     * Sets the showing state of [statusId] to [contentShowing].
-     */
-    suspend fun setContentShowing(pachliAccountId: Long, statusId: String, contentShowing: Boolean)
-
-    /**
      * Sets the attachment display action of [statusId] to [attachmentDisplayAction].
      */
     suspend fun setAttachmentDisplayAction(pachliAccountId: Long, statusId: String, attachmentDisplayAction: AttachmentDisplayAction)

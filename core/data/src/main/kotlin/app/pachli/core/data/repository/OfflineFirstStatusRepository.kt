@@ -23,7 +23,6 @@ import app.pachli.core.database.dao.TranslatedStatusDao
 import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.StatusViewDataAttachmentDisplayAction
 import app.pachli.core.database.model.StatusViewDataContentCollapsed
-import app.pachli.core.database.model.StatusViewDataContentShowing
 import app.pachli.core.database.model.StatusViewDataExpanded
 import app.pachli.core.database.model.StatusViewDataTranslationState
 import app.pachli.core.database.model.TranslationState
@@ -187,16 +186,6 @@ class OfflineFirstStatusRepository @Inject constructor(
                 pachliAccountId = pachliAccountId,
                 serverId = statusId,
                 expanded = expanded,
-            ),
-        )
-    }
-
-    override suspend fun setContentShowing(pachliAccountId: Long, statusId: String, contentShowing: Boolean) {
-        statusDao.setContentShowing(
-            StatusViewDataContentShowing(
-                pachliAccountId = pachliAccountId,
-                serverId = statusId,
-                contentShowing = contentShowing,
             ),
         )
     }
