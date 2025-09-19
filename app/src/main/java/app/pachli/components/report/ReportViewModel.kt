@@ -180,7 +180,7 @@ class ReportViewModel @AssistedInject constructor(
         .map { pagingData ->
                 /* TODO: refactor reports to use the isShowingContent / isExpanded / isCollapsed attributes from StatusViewData
                  instead of StatusViewState */
-            pagingData.map { status -> StatusViewData.from(pachliAccountId, status.asModel(), false, false, false) }
+            pagingData.map { status -> StatusViewData.from(pachliAccountId, status.asModel(), false, false) }
         }
         .cachedIn(viewModelScope)
 

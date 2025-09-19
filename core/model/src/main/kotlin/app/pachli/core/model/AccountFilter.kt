@@ -67,6 +67,7 @@ sealed interface AccountFilterDecision {
          */
         fun make(action: FilterAction, reason: AccountFilterReason) = when (action) {
             FilterAction.NONE -> None
+            FilterAction.BLUR -> Warn(reason)
             FilterAction.WARN -> Warn(reason)
             FilterAction.HIDE -> Hide(reason)
         }

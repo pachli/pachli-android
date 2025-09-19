@@ -34,6 +34,7 @@ import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.FavoriteEvent
 import app.pachli.core.eventhub.PinEvent
 import app.pachli.core.eventhub.ReblogEvent
+import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
@@ -83,8 +84,12 @@ class NetworkTimelineViewModel @Inject constructor(
                         pachliAccount.id,
                         timelineStatusWithAccount,
                         isExpanded = statusDisplayOptions.value.openSpoiler,
-                        isShowingContent = statusDisplayOptions.value.showSensitiveMedia,
                         contentFilterAction = contentFilterAction,
+                        attachmentDisplayAction = getAttachmentDisplayAction(
+                            timelineStatusWithAccount,
+                            pachliAccount.entity.alwaysShowSensitiveMedia,
+                            timelineStatusWithAccount.viewData?.attachmentDisplayAction,
+                        ),
                     )
                 }
         }
@@ -154,9 +159,10 @@ class NetworkTimelineViewModel @Inject constructor(
         }
     }
 
-    override fun onChangeContentShowing(isShowing: Boolean, statusViewData: StatusViewData) {
+    override fun onChangeAttachmentDisplayAction(viewData: StatusViewData, newAction: AttachmentDisplayAction) {
         viewModelScope.launch {
-            repository.setContentShowing(statusViewData.pachliAccountId, statusViewData.actionableId, isShowing)
+            repository.setAttachmentDisplayAction(viewData.pachliAccountId, viewData.actionableId, newAction)
+            repository.invalidate()
         }
     }
 

@@ -17,6 +17,7 @@
 
 package app.pachli.viewdata
 
+import app.pachli.components.timeline.viewmodel.getAttachmentDisplayAction
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.model.AccountEntity
@@ -28,7 +29,9 @@ import app.pachli.core.database.model.TranslationState
 import app.pachli.core.database.model.asModel
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.AccountWarning
+import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.FilterAction
+import app.pachli.core.model.FilterContext
 import app.pachli.core.model.RelationshipSeveranceEvent
 import app.pachli.core.model.Status
 import app.pachli.core.model.TimelineAccount
@@ -73,7 +76,7 @@ data class NotificationViewData(
          *
          * @param pachliAccountEntity
          * @param data
-         * @param isShowingContent
+         * @param showSensitiveMedia
          * @param isExpanded
          * @param contentFilterAction
          * @param accountFilterDecision
@@ -82,7 +85,7 @@ data class NotificationViewData(
         fun make(
             pachliAccountEntity: AccountEntity,
             data: NotificationData,
-            isShowingContent: Boolean,
+            showSensitiveMedia: Boolean,
             isExpanded: Boolean,
             contentFilterAction: FilterAction,
             accountFilterDecision: AccountFilterDecision?,
@@ -98,9 +101,13 @@ data class NotificationViewData(
                     pachliAccountId = pachliAccountEntity.id,
                     it,
                     isExpanded = isExpanded,
-                    isShowingContent = isShowingContent,
                     isDetailed = false,
                     contentFilterAction = contentFilterAction,
+                    attachmentDisplayAction = it.getAttachmentDisplayAction(
+                        FilterContext.NOTIFICATIONS,
+                        showSensitiveMedia,
+                        it.viewData?.attachmentDisplayAction,
+                    ),
                 )
             },
             report = data.report,
@@ -128,8 +135,8 @@ data class NotificationViewData(
         }
     override val isExpanded: Boolean
         get() = statusViewData?.isExpanded ?: throw IllegalStateException()
-    override val isShowingContent: Boolean
-        get() = statusViewData?.isShowingContent ?: throw IllegalStateException()
+    override val attachmentDisplayAction: AttachmentDisplayAction
+        get() = statusViewData?.attachmentDisplayAction ?: throw IllegalStateException()
     override val isCollapsible: Boolean
         get() = statusViewData?.isCollapsible ?: throw IllegalStateException()
     override val isCollapsed: Boolean

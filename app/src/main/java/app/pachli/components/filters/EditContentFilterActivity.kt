@@ -166,6 +166,7 @@ class EditContentFilterActivity : BaseActivity() {
 
         binding.filterActionGroup.setOnCheckedChangeListener { group: RadioGroup, checkedId: Int ->
             val filterAction = when (checkedId) {
+                R.id.filter_action_blur -> FilterAction.BLUR
                 R.id.filter_action_warn -> FilterAction.WARN
                 R.id.filter_action_hide -> FilterAction.HIDE
                 -1 -> FilterAction.NONE
@@ -244,6 +245,7 @@ class EditContentFilterActivity : BaseActivity() {
     }
 
     private fun bindFilterActions(filterActions: Set<FilterAction>) {
+        binding.filterActionBlur.visible(filterActions.contains(FilterAction.BLUR))
         binding.filterActionWarn.visible(filterActions.contains(FilterAction.WARN))
         binding.filterActionHide.visible(filterActions.contains(FilterAction.HIDE))
     }
@@ -277,6 +279,7 @@ class EditContentFilterActivity : BaseActivity() {
         binding.filterActionGroup.check(
             when (contentFilterViewData.filterAction) {
                 FilterAction.NONE -> -1
+                FilterAction.BLUR -> R.id.filter_action_blur
                 FilterAction.WARN -> R.id.filter_action_warn
                 FilterAction.HIDE -> R.id.filter_action_hide
             },

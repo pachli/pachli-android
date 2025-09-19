@@ -19,6 +19,7 @@ package app.pachli.interfaces
 
 import android.view.View
 import app.pachli.core.data.model.IStatusViewData
+import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 import app.pachli.core.ui.LinkListener
@@ -37,7 +38,8 @@ interface StatusActionListener<T : IStatusViewData> : LinkListener {
      */
     fun onOpenReblog(status: Status)
     fun onExpandedChange(viewData: T, expanded: Boolean)
-    fun onContentHiddenChange(viewData: T, isShowingContent: Boolean)
+
+    fun onAttachmentDisplayActionChange(viewData: T, newDecision: AttachmentDisplayAction)
 
     /**
      * Called when the status [android.widget.ToggleButton] responsible for collapsing long

@@ -35,7 +35,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.R
-import app.pachli.adapter.StatusBaseViewHolder
+import app.pachli.adapter.StatusViewDataDiffCallback
 import app.pachli.components.preference.accountfilters.AccountConversationFiltersPreferenceDialogFragment
 import app.pachli.core.activity.ReselectableFragment
 import app.pachli.core.activity.extensions.TransitionKind
@@ -49,6 +49,7 @@ import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.model.AccountFilterDecision
+import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 import app.pachli.core.navigation.AccountActivityIntent
@@ -269,7 +270,7 @@ class ConversationsFragment :
                         adapter.notifyItemRangeChanged(
                             0,
                             adapter.itemCount,
-                            listOf(StatusBaseViewHolder.Key.KEY_CREATED),
+                            listOf(StatusViewDataDiffCallback.Payload.CREATED),
                         )
                     }
                 }
@@ -394,8 +395,8 @@ class ConversationsFragment :
         viewModel.expandHiddenStatus(viewData.pachliAccountId, expanded, viewData.lastStatus.id)
     }
 
-    override fun onContentHiddenChange(viewData: ConversationViewData, isShowingContent: Boolean) {
-        viewModel.showContent(viewData.pachliAccountId, isShowingContent, viewData.lastStatus.id)
+    override fun onAttachmentDisplayActionChange(viewData: ConversationViewData, newDecision: AttachmentDisplayAction) {
+        viewModel.changeAttachmentDisplayAction(viewData.pachliAccountId, viewData.lastStatus.id, newDecision)
     }
 
     override fun onContentCollapsedChange(viewData: ConversationViewData, isCollapsed: Boolean) {

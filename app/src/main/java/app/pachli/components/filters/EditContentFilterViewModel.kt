@@ -23,6 +23,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.R
 import app.pachli.core.common.PachliError
+import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.ContentFilterEdit
 import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.model.ContentFilter
@@ -31,6 +32,7 @@ import app.pachli.core.model.FilterContext
 import app.pachli.core.model.FilterKeyword
 import app.pachli.core.model.NewContentFilter
 import app.pachli.core.model.NewContentFilterKeyword
+import app.pachli.core.model.ServerOperation
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
@@ -42,6 +44,7 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.github.z4kn4fein.semver.constraints.toConstraint
 import java.util.Date
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -49,7 +52,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -207,6 +209,7 @@ enum class UiMode {
  */
 @HiltViewModel(assistedFactory = EditContentFilterViewModel.Factory::class)
 class EditContentFilterViewModel @AssistedInject constructor(
+    accountManager: AccountManager,
     private val contentFiltersRepository: ContentFiltersRepository,
     @Assisted val pachliAccountId: Long,
     @Assisted val contentFilter: ContentFilter?,
@@ -236,7 +239,16 @@ class EditContentFilterViewModel @AssistedInject constructor(
     }
 
     /** Available filter actions. */
-    val filterActions = flowOf(setOf(FilterAction.WARN, FilterAction.HIDE))
+    val filterActions = accountManager.getPachliAccountFlow(pachliAccountId).filterNotNull()
+        .map {
+            val canBlur = it.server.can(ServerOperation.ORG_JOINMASTODON_FILTERS_ACTION_BLUR, ">= 1.0.0".toConstraint())
+
+            buildSet {
+                add(FilterAction.WARN)
+                add(FilterAction.HIDE)
+                if (canBlur) add(FilterAction.BLUR)
+            }
+        }
         .shareIn(viewModelScope, SharingStarted.WhileSubscribed(5000))
 
     private val _contentFilterViewData = MutableStateFlow<ContentFilterViewData?>(null)

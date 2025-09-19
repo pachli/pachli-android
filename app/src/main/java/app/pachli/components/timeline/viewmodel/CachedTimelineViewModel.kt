@@ -32,6 +32,7 @@ import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.FavoriteEvent
 import app.pachli.core.eventhub.PinEvent
 import app.pachli.core.eventhub.ReblogEvent
+import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.FilterAction
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.usecase.TimelineCases
@@ -75,8 +76,12 @@ class CachedTimelineViewModel @Inject constructor(
                         pachliAccountId = pachliAccount.id,
                         timelineStatusWithAccount,
                         isExpanded = pachliAccount.entity.alwaysOpenSpoiler,
-                        isShowingContent = pachliAccount.entity.alwaysShowSensitiveMedia,
                         contentFilterAction = contentFilterAction,
+                        attachmentDisplayAction = getAttachmentDisplayAction(
+                            timelineStatusWithAccount,
+                            pachliAccount.entity.alwaysShowSensitiveMedia,
+                            timelineStatusWithAccount.viewData?.attachmentDisplayAction,
+                        ),
                     )
                 }
         }
@@ -128,9 +133,9 @@ class CachedTimelineViewModel @Inject constructor(
         }
     }
 
-    override fun onChangeContentShowing(isShowing: Boolean, statusViewData: StatusViewData) {
+    override fun onChangeAttachmentDisplayAction(viewData: StatusViewData, newAction: AttachmentDisplayAction) {
         viewModelScope.launch {
-            repository.setContentShowing(statusViewData.pachliAccountId, statusViewData.id, isShowing)
+            repository.setAttachmentDisplayAction(viewData.pachliAccountId, viewData.actionableId, newAction)
         }
     }
 

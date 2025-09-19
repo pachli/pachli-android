@@ -20,7 +20,7 @@ package app.pachli.components.notifications
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
-import app.pachli.adapter.StatusBaseViewHolder
+import app.pachli.adapter.StatusViewDataDiffCallback
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.model.RelationshipSeveranceEvent.Type.ACCOUNT_SUSPENSION
 import app.pachli.core.model.RelationshipSeveranceEvent.Type.DOMAIN_BLOCK
@@ -82,7 +82,7 @@ class SeveredRelationshipsViewHolder(
                 event.followingCount,
             )
         } else {
-            if (payloads.flatten().any { it == StatusBaseViewHolder.Key.KEY_CREATED }) {
+            if (payloads.flatten().any { it == StatusViewDataDiffCallback.Payload.CREATED }) {
                 binding.datetime.text = getRelativeTimeSpanString(itemView.context, event.createdAt.toEpochMilli(), System.currentTimeMillis())
             }
         }

@@ -19,6 +19,7 @@ package app.pachli.components.viewthread
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.components.timeline.CachedTimelineRepository
+import app.pachli.components.timeline.viewmodel.getAttachmentDisplayAction
 import app.pachli.core.common.PachliError
 import app.pachli.core.data.model.ContentFilterModel
 import app.pachli.core.data.model.StatusViewData
@@ -38,6 +39,7 @@ import app.pachli.core.eventhub.ReblogEvent
 import app.pachli.core.eventhub.StatusComposedEvent
 import app.pachli.core.eventhub.StatusDeletedEvent
 import app.pachli.core.eventhub.StatusEditedEvent
+import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.ContentFilterVersion
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.FilterContext
@@ -157,11 +159,15 @@ class ViewThreadViewModel @Inject constructor(
                         pachliAccountId = account.id,
                         status = status.actionableStatus,
                         isExpanded = timelineStatusWithAccount.viewData?.expanded ?: account.alwaysOpenSpoiler,
-                        isShowingContent = timelineStatusWithAccount.viewData?.contentShowing ?: (account.alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
                         isCollapsed = timelineStatusWithAccount.viewData?.contentCollapsed ?: true,
                         isDetailed = true,
                         contentFilterAction = contentFilterModel?.filterActionFor(status.actionableStatus)
                             ?: FilterAction.NONE,
+                        attachmentDisplayAction = status.actionableStatus.getAttachmentDisplayAction(
+                            FilterContext.CONVERSATIONS,
+                            account.alwaysShowSensitiveMedia,
+                            timelineStatusWithAccount.viewData?.attachmentDisplayAction,
+                        ),
                         translationState = timelineStatusWithAccount.viewData?.translationState ?: TranslationState.SHOW_ORIGINAL,
                         translation = timelineStatusWithAccount.translatedStatus,
                     )
@@ -170,10 +176,14 @@ class ViewThreadViewModel @Inject constructor(
                         pachliAccountId = account.id,
                         timelineStatusWithAccount,
                         isExpanded = account.alwaysOpenSpoiler,
-                        isShowingContent = (account.alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
                         isDetailed = true,
                         contentFilterAction = contentFilterModel?.filterActionFor(status.actionableStatus)
                             ?: FilterAction.NONE,
+                        attachmentDisplayAction = status.getAttachmentDisplayAction(
+                            FilterContext.CONVERSATIONS,
+                            account.alwaysShowSensitiveMedia,
+                            timelineStatusWithAccount.viewData?.attachmentDisplayAction,
+                        ),
                         translationState = TranslationState.SHOW_ORIGINAL,
                     )
                 }
@@ -213,11 +223,15 @@ class ViewThreadViewModel @Inject constructor(
                     detailedStatus = StatusViewData.from(
                         pachliAccountId = account.id,
                         it,
-                        isShowingContent = detailedStatus.isShowingContent,
                         isExpanded = detailedStatus.isExpanded,
                         isCollapsed = detailedStatus.isCollapsed,
                         isDetailed = true,
                         contentFilterAction = contentFilterModel?.filterActionFor(it) ?: FilterAction.NONE,
+                        attachmentDisplayAction = it.getAttachmentDisplayAction(
+                            FilterContext.CONVERSATIONS,
+                            account.alwaysShowSensitiveMedia,
+                            timelineStatusWithAccount.viewData?.attachmentDisplayAction,
+                        ),
                         translationState = detailedStatus.translationState,
                         translation = detailedStatus.translation,
                     )
@@ -231,34 +245,49 @@ class ViewThreadViewModel @Inject constructor(
                 val ids = statusContext.ancestors.map { it.id } + statusContext.descendants.map { it.id }
                 val cachedViewData = repository.getStatusViewData(activeAccount.id, ids)
                 val cachedTranslations = repository.getStatusTranslations(activeAccount.id, ids)
-                val ancestors = statusContext.ancestors.asModel().map { status ->
-                    val svd = cachedViewData[status.id]
-                    StatusViewData.from(
-                        pachliAccountId = account.id,
-                        status,
-                        isShowingContent = svd?.contentShowing ?: (account.alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
-                        isExpanded = svd?.expanded ?: account.alwaysOpenSpoiler,
-                        isCollapsed = svd?.contentCollapsed ?: true,
-                        isDetailed = false,
-                        contentFilterAction = contentFilterModel?.filterActionFor(status) ?: FilterAction.NONE,
-                        translationState = svd?.translationState ?: TranslationState.SHOW_ORIGINAL,
-                        translation = cachedTranslations[status.id],
-                    )
-                }.filterByFilterAction()
-                val descendants = statusContext.descendants.asModel().map { status ->
-                    val svd = cachedViewData[status.id]
-                    StatusViewData.from(
-                        pachliAccountId = account.id,
-                        status,
-                        isShowingContent = svd?.contentShowing ?: (account.alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
-                        isExpanded = svd?.expanded ?: account.alwaysOpenSpoiler,
-                        isCollapsed = svd?.contentCollapsed ?: true,
-                        isDetailed = false,
-                        contentFilterAction = contentFilterModel?.filterActionFor(status) ?: FilterAction.NONE,
-                        translationState = svd?.translationState ?: TranslationState.SHOW_ORIGINAL,
-                        translation = cachedTranslations[status.id],
-                    )
-                }.filterByFilterAction()
+                val ancestors = statusContext.ancestors.asModel()
+                    .map { Pair(it, shouldFilterStatus(it)) }
+                    .filter { it.second != FilterAction.HIDE }
+                    .map { (status, contentFilterAction) ->
+                        val svd = cachedViewData[status.id]
+                        StatusViewData.from(
+                            pachliAccountId = activeAccount.id,
+                            status,
+                            isExpanded = svd?.expanded ?: account.alwaysOpenSpoiler,
+                            isCollapsed = svd?.contentCollapsed ?: true,
+                            isDetailed = false,
+                            contentFilterAction = contentFilterAction,
+                            attachmentDisplayAction = status.getAttachmentDisplayAction(
+                                FilterContext.CONVERSATIONS,
+                                account.alwaysShowSensitiveMedia,
+                                svd?.attachmentDisplayAction,
+                            ),
+                            translationState = svd?.translationState ?: TranslationState.SHOW_ORIGINAL,
+                            translation = cachedTranslations[status.id],
+                        )
+                    }
+                val descendants = statusContext.descendants.asModel()
+                    .map { Pair(it, shouldFilterStatus(it)) }
+                    .filter { it.second != FilterAction.HIDE }
+                    .map { (status, contentFilterAction) ->
+                        val svd = cachedViewData[status.id]
+
+                        StatusViewData.from(
+                            pachliAccountId = activeAccount.id,
+                            status,
+                            isExpanded = svd?.expanded ?: account.alwaysOpenSpoiler,
+                            isCollapsed = svd?.contentCollapsed ?: true,
+                            isDetailed = false,
+                            contentFilterAction = contentFilterAction,
+                            attachmentDisplayAction = status.getAttachmentDisplayAction(
+                                FilterContext.CONVERSATIONS,
+                                account.alwaysShowSensitiveMedia,
+                                svd?.attachmentDisplayAction,
+                            ),
+                            translationState = svd?.translationState ?: TranslationState.SHOW_ORIGINAL,
+                            translation = cachedTranslations[status.id],
+                        )
+                    }
                 val statuses = ancestors + detailedStatus + descendants
 
                 _uiResult.value = Ok(
@@ -376,12 +405,12 @@ class ViewThreadViewModel @Inject constructor(
         }
     }
 
-    fun changeContentShowing(isShowing: Boolean, status: StatusViewData) {
-        updateStatusViewData(status.id) { viewData ->
-            viewData.copy(isShowingContent = isShowing)
+    fun changeAttachmentDisplayAction(statusViewData: StatusViewData, attachmentDisplayAction: AttachmentDisplayAction) {
+        updateStatusViewData(statusViewData.id) { viewData ->
+            viewData.copy(attachmentDisplayAction = attachmentDisplayAction)
         }
         viewModelScope.launch {
-            repository.setContentShowing(status.pachliAccountId, status.id, isShowing)
+            repository.setAttachmentDisplayAction(statusViewData.pachliAccountId, statusViewData.actionableId, attachmentDisplayAction)
         }
     }
 
@@ -570,6 +599,8 @@ class ViewThreadViewModel @Inject constructor(
         }
     }
 
+    private fun shouldFilterStatus(status: Status) = (contentFilterModel?.filterActionFor(status) ?: FilterAction.NONE)
+
     private fun List<StatusViewData>.filterByFilterAction(): List<StatusViewData> {
         return filter { status ->
             if (status.isDetailed) {
@@ -591,10 +622,14 @@ class ViewThreadViewModel @Inject constructor(
         return from(
             pachliAccountId = account.id,
             status,
-            isShowingContent = oldStatus?.isShowingContent ?: (account.alwaysShowSensitiveMedia || !status.actionableStatus.sensitive),
             isExpanded = oldStatus?.isExpanded ?: account.alwaysOpenSpoiler,
             isCollapsed = oldStatus?.isCollapsed ?: !isDetailed,
             isDetailed = oldStatus?.isDetailed ?: isDetailed,
+            attachmentDisplayAction = status.getAttachmentDisplayAction(
+                FilterContext.CONVERSATIONS,
+                account.alwaysShowSensitiveMedia,
+                oldStatus?.attachmentDisplayAction,
+            ),
         )
     }
 

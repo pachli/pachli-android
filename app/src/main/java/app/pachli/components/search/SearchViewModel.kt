@@ -33,12 +33,14 @@ import app.pachli.components.search.SearchOperator.IsSensitiveOperator
 import app.pachli.components.search.SearchOperator.LanguageOperator
 import app.pachli.components.search.SearchOperator.WhereOperator
 import app.pachli.components.search.adapter.SearchPagingSourceFactory
+import app.pachli.components.timeline.viewmodel.getAttachmentDisplayAction
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.ServerRepository
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.DeletedStatus
 import app.pachli.core.model.Poll
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_BY_DATE
@@ -210,9 +212,14 @@ class SearchViewModel @Inject constructor(
             StatusViewData.from(
                 pachliAccountId = activeAccount!!.id,
                 status,
-                isShowingContent = alwaysShowSensitiveMedia || !status.actionableStatus.sensitive,
                 isExpanded = alwaysOpenSpoiler,
                 isCollapsed = true,
+                attachmentDisplayAction = status.getAttachmentDisplayAction(
+                    // Search results don't have a filter context.
+                    null,
+                    activeAccount!!.alwaysShowSensitiveMedia,
+                    statusRepository.getStatusViewData(activeAccount!!.id, status.actionableId)?.attachmentDisplayAction,
+                ),
             )
         }.apply {
             loadedStatuses.addAll(this)
@@ -292,10 +299,6 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    fun contentHiddenChange(statusViewData: StatusViewData, isShowing: Boolean) {
-        updateStatusViewData(statusViewData.copy(isShowingContent = isShowing))
-    }
-
     fun collapsedChange(statusViewData: StatusViewData, collapsed: Boolean) {
         updateStatusViewData(statusViewData.copy(isCollapsed = collapsed))
     }
@@ -309,6 +312,13 @@ class SearchViewModel @Inject constructor(
                     updateStatus(statusViewData.status)
                     Timber.d("Failed to vote in poll: %s: %s", statusViewData.id, it)
                 }
+        }
+    }
+
+    fun attachmentDisplayActionChange(statusViewData: StatusViewData, attachmentDisplayAction: AttachmentDisplayAction) {
+        updateStatusViewData(statusViewData.copy(attachmentDisplayAction = attachmentDisplayAction))
+        viewModelScope.launch {
+            statusRepository.setAttachmentDisplayAction(statusViewData.pachliAccountId, statusViewData.id, attachmentDisplayAction)
         }
     }
 

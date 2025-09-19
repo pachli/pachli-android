@@ -153,17 +153,13 @@ class StatusViewHelper(
             }
 
             val type = attachment.type
-            if (showingContent &&
-                (type === Attachment.Type.VIDEO) or (type === Attachment.Type.GIFV)
-            ) {
+            if (showingContent && (type === Attachment.Type.VIDEO) or (type === Attachment.Type.GIFV)) {
                 mediaOverlays[i].visibility = View.VISIBLE
             } else {
                 mediaOverlays[i].visibility = View.GONE
             }
 
-            mediaPreviews[i].setOnClickListener { v ->
-                previewListener.onViewMedia(v, i)
-            }
+            mediaPreviews[i].setOnClickListener { v -> previewListener.onViewMedia(v, i) }
 
             if (n <= 2) {
                 mediaPreviews[0].layoutParams.height = mediaPreviewHeight * 2

@@ -21,12 +21,14 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import androidx.paging.filter
 import androidx.paging.map
+import app.pachli.components.timeline.viewmodel.getAttachmentDisplayAction
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.database.dao.ConversationsDao
 import app.pachli.core.database.model.ConversationData
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.AccountFilterReason
+import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.FilterAction
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.PrefKeys
@@ -85,9 +87,17 @@ class ConversationsViewModel @AssistedInject constructor(
                         pachliAccount,
                         conversation,
                         defaultIsExpanded = pachliAccount.entity.alwaysOpenSpoiler,
-                        defaultIsShowingContent = (pachliAccount.entity.alwaysShowSensitiveMedia || !conversation.lastStatus.status.sensitive),
+                        // Mastodon filters don't apply to direct messages, so this
+                        // is always FilterAction.NONE.
                         contentFilterAction = FilterAction.NONE,
                         accountFilterDecision = accountFilterDecision,
+                        attachmentDisplayAction = conversation.lastStatus.getAttachmentDisplayAction(
+                            // There is no filter context for private messages (FilterContext.CONVERSATIONS
+                            // is for threads).
+                            null,
+                            pachliAccount.entity.alwaysShowSensitiveMedia,
+                            conversation.lastStatus.viewData?.attachmentDisplayAction,
+                        ),
                     )
                 }
         }
@@ -238,9 +248,9 @@ class ConversationsViewModel @AssistedInject constructor(
         }
     }
 
-    fun showContent(pachliAccountId: Long, showingHiddenContent: Boolean, lastStatusId: String) {
+    fun changeAttachmentDisplayAction(pachliAccountId: Long, statusId: String, attachmentDisplayAction: AttachmentDisplayAction) {
         viewModelScope.launch {
-            repository.setContentShowing(pachliAccountId, lastStatusId, showingHiddenContent)
+            repository.setAttachmentDisplayAction(pachliAccountId, statusId, attachmentDisplayAction)
         }
     }
 

@@ -21,6 +21,7 @@ import app.pachli.core.data.BuildConfig
 import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.database.model.TranslationState
+import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.Status
 import app.pachli.core.network.parseAsMastodonHtml
@@ -46,12 +47,6 @@ interface IStatusViewData {
      * Ignored if there is no content warning.
      */
     val isExpanded: Boolean
-
-    /**
-     * If the status contains attached media, specifies whether whether the media is shown
-     * (true), or not (false).
-     */
-    val isShowingContent: Boolean
 
     /**
      * Specifies whether the content of this status is long enough to be automatically
@@ -105,6 +100,9 @@ interface IStatusViewData {
 
     /** The current translation state */
     val translationState: TranslationState
+
+    /** How to display attachments on this status. */
+    val attachmentDisplayAction: AttachmentDisplayAction
 }
 
 /**
@@ -115,10 +113,10 @@ data class StatusViewData(
     override var status: Status,
     override var translation: TranslatedStatusEntity? = null,
     override val isExpanded: Boolean,
-    override val isShowingContent: Boolean,
     override val isCollapsed: Boolean,
     override var contentFilterAction: FilterAction = FilterAction.NONE,
     override val translationState: TranslationState,
+    override val attachmentDisplayAction: AttachmentDisplayAction,
 
     /**
      * Specifies whether this status should be shown with the "detailed" layout, meaning it is
@@ -191,11 +189,11 @@ data class StatusViewData(
         fun from(
             pachliAccountId: Long,
             status: Status,
-            isShowingContent: Boolean,
             isExpanded: Boolean,
             isCollapsed: Boolean,
             isDetailed: Boolean = false,
             contentFilterAction: FilterAction = FilterAction.NONE,
+            attachmentDisplayAction: AttachmentDisplayAction = AttachmentDisplayAction.Show(),
             translationState: TranslationState = TranslationState.SHOW_ORIGINAL,
             translation: TranslatedStatusEntity? = null,
         ): StatusViewData {
@@ -213,11 +211,11 @@ data class StatusViewData(
             return StatusViewData(
                 pachliAccountId = pachliAccountId,
                 status = status,
-                isShowingContent = isShowingContent,
                 isCollapsed = isCollapsed,
                 isExpanded = isExpanded,
                 isDetailed = isDetailed,
                 contentFilterAction = contentFilterAction,
+                attachmentDisplayAction = attachmentDisplayAction,
                 translationState = translationState,
                 translation = translation,
             )
@@ -228,11 +226,10 @@ data class StatusViewData(
          * @param timelineStatusWithAccount
          * @param isExpanded Default expansion behaviour for a status with a content
          * warning. Used if the status viewdata is null
-         * @param isShowingContent Default behaviour for a status with attached media.
-         * Used if the status viewdata is null.
          * @param isDetailed True if the status should be shown with the detailed
          * layout, false otherwise.
          * @param contentFilterAction
+         * @param attachmentDisplayAction
          * @param translationState Default translation state for this status. Used if
          * the status viewdata is null.
          */
@@ -240,9 +237,9 @@ data class StatusViewData(
             pachliAccountId: Long,
             timelineStatusWithAccount: TimelineStatusWithAccount,
             isExpanded: Boolean,
-            isShowingContent: Boolean,
             isDetailed: Boolean = false,
             contentFilterAction: FilterAction,
+            attachmentDisplayAction: AttachmentDisplayAction = AttachmentDisplayAction.Show(),
             translationState: TranslationState = TranslationState.SHOW_ORIGINAL,
         ): StatusViewData {
             val status = timelineStatusWithAccount.toStatus()
@@ -251,10 +248,10 @@ data class StatusViewData(
                 status = status,
                 translation = timelineStatusWithAccount.translatedStatus,
                 isExpanded = timelineStatusWithAccount.viewData?.expanded ?: isExpanded,
-                isShowingContent = timelineStatusWithAccount.viewData?.contentShowing ?: (isShowingContent || !status.actionableStatus.sensitive),
                 isCollapsed = timelineStatusWithAccount.viewData?.contentCollapsed ?: true,
                 isDetailed = isDetailed,
                 contentFilterAction = contentFilterAction,
+                attachmentDisplayAction = attachmentDisplayAction,
                 translationState = timelineStatusWithAccount.viewData?.translationState ?: translationState,
             )
         }

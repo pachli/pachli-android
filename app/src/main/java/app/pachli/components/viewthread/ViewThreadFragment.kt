@@ -33,7 +33,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.R
-import app.pachli.adapter.StatusBaseViewHolder
+import app.pachli.adapter.StatusViewDataDiffCallback
 import app.pachli.components.viewthread.edits.ViewEditsFragment
 import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
@@ -45,6 +45,7 @@ import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 import app.pachli.core.navigation.AccountListActivityIntent
@@ -163,7 +164,7 @@ class ViewThreadFragment :
                         adapter.notifyItemRangeChanged(
                             0,
                             adapter.itemCount,
-                            listOf(StatusBaseViewHolder.Key.KEY_CREATED),
+                            listOf(StatusViewDataDiffCallback.Payload.CREATED),
                         )
                     }
                 }
@@ -390,8 +391,8 @@ class ViewThreadFragment :
         viewModel.changeExpanded(expanded, viewData)
     }
 
-    override fun onContentHiddenChange(viewData: StatusViewData, isShowingContent: Boolean) {
-        viewModel.changeContentShowing(isShowingContent, viewData)
+    override fun onAttachmentDisplayActionChange(viewData: StatusViewData, newDecision: AttachmentDisplayAction) {
+        viewModel.changeAttachmentDisplayAction(viewData, newDecision)
     }
 
     override fun onShowReblogs(statusId: String) {

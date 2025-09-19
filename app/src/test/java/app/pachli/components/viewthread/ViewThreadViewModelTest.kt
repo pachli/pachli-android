@@ -13,6 +13,8 @@ import app.pachli.core.eventhub.BookmarkEvent
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.FavoriteEvent
 import app.pachli.core.eventhub.ReblogEvent
+import app.pachli.core.model.AttachmentDisplayAction
+import app.pachli.core.model.AttachmentDisplayReason
 import app.pachli.core.network.di.test.DEFAULT_INSTANCE_V2
 import app.pachli.core.network.model.AccountSource
 import app.pachli.core.network.model.CredentialAccount
@@ -555,9 +557,9 @@ class ViewThreadViewModelTest {
             viewModel.loadThread(threadId)
             while (awaitItem().get() !is ThreadUiState.Loaded) {
             }
-            viewModel.changeContentShowing(
-                true,
+            viewModel.changeAttachmentDisplayAction(
                 fakeStatusViewData(id = "2", inReplyToId = "1", inReplyToAccountId = "1", isDetailed = true, spoilerText = "Test"),
+                AttachmentDisplayAction.Show(originalAction = AttachmentDisplayAction.Hide(AttachmentDisplayReason.Sensitive)),
             )
 
             assertEquals(

@@ -20,7 +20,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import app.pachli.adapter.StatusBaseViewHolder
+import app.pachli.adapter.StatusViewDataDiffCallback
 import app.pachli.adapter.StatusViewHolder
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusViewData
@@ -66,7 +66,7 @@ class SearchStatusesAdapter(
             override fun getChangePayload(oldItem: StatusViewData, newItem: StatusViewData): Any? {
                 return if (oldItem == newItem) {
                     // If items are equal - update timestamp only
-                    listOf(StatusBaseViewHolder.Key.KEY_CREATED)
+                    listOf(StatusViewDataDiffCallback.Payload.CREATED)
                 } else {
                     // If items are different - update the whole view holder
                     null

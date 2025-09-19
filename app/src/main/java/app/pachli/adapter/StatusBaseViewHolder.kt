@@ -15,22 +15,26 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.text.HtmlCompat
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
+import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.common.util.formatNumber
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusDisplayOptions
+import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.Attachment
+import app.pachli.core.model.AttachmentDisplayAction
+import app.pachli.core.model.AttachmentDisplayReason
 import app.pachli.core.model.Emoji
 import app.pachli.core.model.PreviewCardKind
 import app.pachli.core.model.Status
-import app.pachli.core.model.arePreviewable
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.ViewMediaActivityIntent
 import app.pachli.core.network.parseAsMastodonHtml
@@ -70,10 +74,6 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
     protected val glide: RequestManager,
     protected val setStatusContent: SetStatusContent,
 ) : RecyclerView.ViewHolder(itemView) {
-    object Key {
-        const val KEY_CREATED = "created"
-    }
-
     protected val context: Context = itemView.context
     private val displayName: TextView = itemView.findViewById(R.id.status_display_name)
     private val username: TextView = itemView.findViewById(R.id.status_username)
@@ -86,7 +86,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
     private val moreButton: ImageButton = itemView.findViewById(R.id.status_more)
 
     /** [MediaPreviewLayout] that encompasses and lays out all the attachment previews. */
-    protected val mediaPreview: MediaPreviewLayout = itemView.findViewById(R.id.status_media_preview)
+    private val mediaPreview: MediaPreviewLayout = itemView.findViewById(R.id.status_media_preview)
 
     /**
      * [TextView] that overlays attachment previews when hidden/blurred to explain why
@@ -99,13 +99,15 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
      * hiding the attachment preview.
      */
     private val sensitiveMediaShow: ImageView = itemView.findViewById(R.id.status_sensitive_media_button)
-    protected val mediaLabels: Array<TextView> = arrayOf(
+
+    /** Views for displaying the description of the attachment at that index. */
+    private val mediaDescriptionViews: Array<TextView> = arrayOf(
         itemView.findViewById(R.id.status_media_label_0),
         itemView.findViewById(R.id.status_media_label_1),
         itemView.findViewById(R.id.status_media_label_2),
         itemView.findViewById(R.id.status_media_label_3),
     )
-    private val mediaDescriptions: Array<CharSequence?> = arrayOfNulls(mediaLabels.size)
+
     private val contentWarningButton: MaterialButton = itemView.findViewById(R.id.status_content_warning_button)
     private val avatarInset: ImageView = itemView.findViewById(R.id.status_avatar_inset)
     val avatar: ImageView = itemView.findViewById(R.id.status_avatar)
@@ -271,10 +273,6 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
                 listener,
             )
 
-            for (i in mediaLabels.indices) {
-                updateMediaLabel(i, sensitive, true)
-            }
-
             poll?.let {
                 val pollViewData = if (viewData.translationState == TranslationState.SHOW_TRANSLATION) {
                     from(poll).copy(translatedPoll = viewData.translation?.poll)
@@ -290,8 +288,9 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
                     numberFormat,
                     absoluteTimeFormatter,
                 ) { choices ->
-                    choices?.let { listener.onVoteInPoll(viewData, poll, it) }
-                        ?: listener.onViewThread(viewData.actionable)
+                    choices?.let {
+                        listener.onVoteInPoll(viewData, poll, it)
+                    } ?: listener.onViewThread(viewData.actionable)
                 }
             } ?: pollView.hide()
         } else {
@@ -497,61 +496,129 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
         }
     }
 
+    /**
+     * Shows/hides the media previews based on the attachments, and wires
+     * up click listeners.
+     *
+     * If the user has disabled media previews an icon is shown for
+     * each attachment, along with the attachment's description.
+     *
+     * Otherwise the attachment is shown or hidden depending on
+     * [viewdData.attachmentDisplayAction][StatusViewData.attachmentDisplayAction].
+     *
+     * @param viewData
+     * @param mediaPreviewEnabled True if the user has enabled attachment previews
+     * @param listener
+     * @param useBlurhash If true and
+     * [viewdData.attachmentDisplayAction][StatusViewData.attachmentDisplayAction]
+     * is [Hide][AttachmentDisplayAction.Hide] the attachment's blur hash will be
+     * shown. Otherwise a solid colour is used.
+     */
     protected fun setMediaPreviews(
         viewData: T,
-        attachments: List<Attachment>,
-        sensitive: Boolean,
+        mediaPreviewEnabled: Boolean,
         listener: StatusActionListener<T>,
         useBlurhash: Boolean,
     ) {
-        mediaPreview.visibility = View.VISIBLE
-        mediaPreview.aspectRatios = attachments.aspectRatios()
+        // Get the attachments -- this might be the translated version (with any
+        // translated descriptions).
+        val actionable = viewData.actionable
+        val attachments = if (viewData.translationState == TranslationState.SHOW_TRANSLATION) {
+            viewData.translation?.attachments?.zip(actionable.attachments) { t, a ->
+                a.copy(description = t.description)
+            } ?: actionable.attachments
+        } else {
+            actionable.attachments
+        }
+
+        val previewableAttachments = attachments.filter { it.isPreviewable() }.take(4)
+
+        // Disable all previews if the user has disabled media previews or there
+        // are no previewable attachments. Display attachment descriptions instead.
+        if (!mediaPreviewEnabled || previewableAttachments.isEmpty()) {
+            setMediaLabel(viewData, attachments, listener)
+            mediaPreview.hide()
+            hideSensitiveMediaWarning()
+            return
+        }
+
+        // Previewable attachments exist. Hide all the description fields.
+        mediaDescriptionViews.forEach { it.hide() }
+
+        mediaPreview.show()
+        mediaPreview.aspectRatios = previewableAttachments.aspectRatios()
         mediaPreview.forEachIndexed { i: Int, imageView: MediaPreviewImageView, descriptionIndicator: TextView ->
+            // Loads each attachment in to the correct imageView.
             val attachment = attachments[i]
             val previewUrl = attachment.previewUrl
             val description = attachment.description
-            val showingMedia = viewData.isShowingContent
-            val hasDescription = !TextUtils.isEmpty(description)
+            val hasDescription = description?.isNotBlank() == true
             if (hasDescription) {
                 imageView.contentDescription = description
             } else {
                 imageView.contentDescription = context.getString(R.string.action_view_media)
             }
+
+            val displayAction = viewData.attachmentDisplayAction
+            val showContent = displayAction is AttachmentDisplayAction.Show
+
             loadImage(
                 imageView,
-                if (showingMedia) previewUrl else null,
+                if (showContent) previewUrl else null,
                 attachment.meta?.focus,
                 if (useBlurhash) attachment.blurhash else null,
             )
             val type = attachment.type
-            if (showingMedia && type.isPlayable()) {
+            if (showContent && type.isPlayable()) {
                 imageView.foreground = AppCompatResources.getDrawable(context, R.drawable.play_indicator_overlay)
             } else {
                 imageView.foreground = null
             }
             setAttachmentClickListener(viewData, imageView, listener, i, attachment, true)
-            if (sensitive) {
-                sensitiveMediaWarning.setText(R.string.post_sensitive_media_title)
-            } else {
-                sensitiveMediaWarning.setText(R.string.post_media_hidden_title)
+
+            when (displayAction) {
+                is AttachmentDisplayAction.Show -> sensitiveMediaWarning.hide()
+
+                is AttachmentDisplayAction.Hide -> {
+                    val text = when (val reason = displayAction.reason) {
+                        is AttachmentDisplayReason.BlurFilter -> {
+                            val resource = when (reason.filters.size) {
+                                1 -> R.string.attachment_matches_filter_one_fmt
+                                2 -> R.string.attachment_matches_filter_two_fmt
+                                else -> R.string.attachment_matches_filter_other_fmt
+                            }
+                            context.getString(resource, *reason.filters.map { it.title }.toTypedArray())
+                        }
+                        is AttachmentDisplayReason.Sensitive -> context.getText(R.string.post_sensitive_media_title)
+                        is AttachmentDisplayReason.UserAction -> context.getText(R.string.attachment_hidden_user_action)
+                    }
+                    sensitiveMediaWarning.text = text
+                    sensitiveMediaWarning.show()
+                }
             }
-            sensitiveMediaWarning.visibility = if (showingMedia) View.GONE else View.VISIBLE
-            sensitiveMediaShow.visibility = if (showingMedia) View.VISIBLE else View.GONE
-            descriptionIndicator.visibility =
-                if (hasDescription && showingMedia) View.VISIBLE else View.GONE
+
+            descriptionIndicator.visible(hasDescription && showContent)
+            sensitiveMediaShow.visible(showContent)
             sensitiveMediaShow.setOnClickListener { v: View ->
-                listener.onContentHiddenChange(viewData, false)
+                // The user clicked to hide the attachment. Either they are:
+                //
+                // a. Re-hiding an attachment that was hidden that they decided to show, or
+                // b. Hiding media that wasn't originally hidden.
+                //
+                // If (a) then the new decision is `Show.originalDecision`. If (b) then
+                // then the new decision is UserAction.
+                val decision = (viewData.attachmentDisplayAction as? AttachmentDisplayAction.Show)?.originalAction
+                    ?: AttachmentDisplayAction.Hide(AttachmentDisplayReason.UserAction)
+                listener.onAttachmentDisplayActionChange(viewData, decision)
             }
             sensitiveMediaWarning.setOnClickListener { v: View ->
-                listener.onContentHiddenChange(viewData, true)
+                // The user is clicking through the warning to show the attachment.
+                listener.onAttachmentDisplayActionChange(
+                    viewData,
+                    AttachmentDisplayAction.Show(originalAction = viewData.attachmentDisplayAction as? AttachmentDisplayAction.Hide),
+                )
             }
         }
-    }
-
-    private fun updateMediaLabel(index: Int, sensitive: Boolean, showingContent: Boolean) {
-        val label =
-            if (sensitive && !showingContent) context.getString(R.string.post_sensitive_media_title) else mediaDescriptions[index]
-        mediaLabels[index].text = label
     }
 
     /**
@@ -559,27 +626,30 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
      * that none of them are previewable, or the user has chosen not to show
      * previews.
      */
-    protected fun setMediaLabel(
+    private fun setMediaLabel(
         viewData: T,
         attachments: List<Attachment>,
-        sensitive: Boolean,
         listener: StatusActionListener<T>,
-        showingContent: Boolean,
     ) {
-        for (i in mediaLabels.indices) {
-            val mediaLabel = mediaLabels[i]
-            if (i < attachments.size) {
-                val attachment = attachments[i]
-                mediaLabel.visibility = View.VISIBLE
-                mediaDescriptions[i] = attachment.getFormattedDescription(context)
-                updateMediaLabel(i, sensitive, showingContent)
+        val sensitive = viewData.actionable.sensitive
+        mediaDescriptionViews.forEachIndexed { index, mediaLabel ->
+            if (index < attachments.size) {
+                val attachment = attachments[index]
+                mediaLabel.show()
+
+                val mediaDescription = if (sensitive) {
+                    context.getString(R.string.post_sensitive_media_title)
+                } else {
+                    attachment.getFormattedDescription(context)
+                }
+                mediaDescriptionViews[index].text = mediaDescription
 
                 // Set the icon next to the label.
-                val drawableId = attachments[0].iconResource()
+                val drawableId = attachment.iconResource()
                 mediaLabel.setCompoundDrawablesRelativeWithIntrinsicBounds(drawableId, 0, 0, 0)
-                setAttachmentClickListener(viewData, mediaLabel, listener, i, attachment, false)
+                setAttachmentClickListener(viewData, mediaLabel, listener, index, attachment, false)
             } else {
-                mediaLabel.visibility = View.GONE
+                mediaLabel.hide()
             }
         }
     }
@@ -594,7 +664,10 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
     ) {
         view.setOnClickListener { v: View? ->
             if (sensitiveMediaWarning.isVisible) {
-                listener.onContentHiddenChange(viewData, true)
+                listener.onAttachmentDisplayActionChange(
+                    viewData,
+                    AttachmentDisplayAction.Show(originalAction = viewData.attachmentDisplayAction as? AttachmentDisplayAction.Hide),
+                )
             } else {
                 listener.onViewMedia(viewData, index, if (animateTransition) v else null)
             }
@@ -733,35 +806,13 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
             setReblogged(actionable.reblogged)
             setFavourited(actionable.favourited)
             setBookmarked(actionable.bookmarked)
-            val attachments = if (viewData.translationState == TranslationState.SHOW_TRANSLATION) {
-                viewData.translation?.attachments?.zip(actionable.attachments) { t, a ->
-                    a.copy(description = t.description)
-                } ?: actionable.attachments
-            } else {
-                actionable.attachments
-            }
-            val sensitive = actionable.sensitive
-            if (statusDisplayOptions.mediaPreviewEnabled && attachments.arePreviewable()) {
-                setMediaPreviews(
-                    viewData,
-                    attachments,
-                    sensitive,
-                    listener,
-                    statusDisplayOptions.useBlurhash,
-                )
-                if (attachments.isEmpty()) {
-                    hideSensitiveMediaWarning()
-                }
-                // Hide the unused label.
-                for (mediaLabel in mediaLabels) {
-                    mediaLabel.visibility = View.GONE
-                }
-            } else {
-                setMediaLabel(viewData, attachments, sensitive, listener, viewData.isShowingContent)
-                // Hide all unused views.
-                mediaPreview.visibility = View.GONE
-                hideSensitiveMediaWarning()
-            }
+            setMediaPreviews(
+                viewData,
+                statusDisplayOptions.mediaPreviewEnabled,
+
+                listener,
+                statusDisplayOptions.useBlurhash,
+            )
             setupCard(
                 viewData,
                 viewData.isExpanded,
@@ -786,9 +837,17 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
             // and let RecyclerView ask for a new delegate.
             itemView.accessibilityDelegate = null
         } else {
-            payloads.flatten().forEach { item ->
-                if (item == Key.KEY_CREATED) {
+            payloads.flatten()?.forEach { item ->
+                if (item == StatusViewDataDiffCallback.Payload.CREATED) {
                     setMetaData(viewData, statusDisplayOptions, listener)
+                }
+                if (item == StatusViewDataDiffCallback.Payload.ATTACHMENTS) {
+                    setMediaPreviews(
+                        viewData,
+                        statusDisplayOptions.mediaPreviewEnabled,
+                        listener,
+                        statusDisplayOptions.useBlurhash,
+                    )
                 }
             }
         }
@@ -1006,4 +1065,63 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
 fun Attachment.Type.isPlayable() = when (this) {
     Attachment.Type.AUDIO, Attachment.Type.GIFV, Attachment.Type.VIDEO -> true
     Attachment.Type.IMAGE, Attachment.Type.UNKNOWN -> false
+}
+
+/**
+ * Callback to determine what, if anything, has changed in a [StatusViewData].
+ *
+ * Changes are represented by [Payload].
+ */
+object StatusViewDataDiffCallback : DiffUtil.ItemCallback<StatusViewData>() {
+    /** Changes to a [StatusViewData]. */
+    enum class Payload {
+        /** The timestamp for the status should be recalculated and displayed. */
+        CREATED,
+
+        /**
+         * The attachments have changed and should be re-displayed.
+         *
+         * This might be change to an attachment (e.g.,a status was edited and
+         * an attachment was modified, added, or removed), or the
+         * [attachmentDisplayAction][StatusViewData.attachmentDisplayAction]
+         * was changed.
+         */
+        ATTACHMENTS,
+    }
+
+    override fun areItemsTheSame(
+        oldItem: StatusViewData,
+        newItem: StatusViewData,
+    ): Boolean {
+        return oldItem.actionableId == newItem.actionableId
+    }
+
+    override fun areContentsTheSame(
+        oldItem: StatusViewData,
+        newItem: StatusViewData,
+    ): Boolean {
+        // Items are different always. It allows to refresh timestamp on every view holder update
+        return false
+    }
+
+    override fun getChangePayload(
+        oldItem: StatusViewData,
+        newItem: StatusViewData,
+    ): Any? {
+        val payload = buildList {
+            if (oldItem == newItem) {
+                add(Payload.CREATED)
+                return@buildList
+            }
+
+            if (oldItem.actionable.attachments != newItem.actionable.attachments ||
+                oldItem.attachmentDisplayAction != newItem.attachmentDisplayAction
+            ) {
+                add(Payload.ATTACHMENTS)
+            }
+        }
+
+        if (payload.isEmpty()) return super.getChangePayload(oldItem, newItem)
+        return payload
+    }
 }

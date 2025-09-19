@@ -29,6 +29,10 @@ enum class FilterAction {
     @Json(name = "none")
     NONE,
 
+    /** Show text content, hide any attached media. */
+    @Json(name = "blur")
+    BLUR,
+
     /** Replace the item with a warning, allowing the user to click through. */
     @Default
     @Json(name = "warn")
@@ -42,6 +46,7 @@ enum class FilterAction {
 
     fun asModel() = when (this) {
         NONE -> FilterAction.NONE
+        BLUR -> FilterAction.BLUR
         WARN -> FilterAction.WARN
         HIDE -> FilterAction.HIDE
     }
@@ -49,6 +54,7 @@ enum class FilterAction {
     companion object {
         fun from(filterAction: FilterAction) = when (filterAction) {
             FilterAction.NONE -> NONE
+            FilterAction.BLUR -> BLUR
             FilterAction.WARN -> WARN
             FilterAction.HIDE -> HIDE
         }

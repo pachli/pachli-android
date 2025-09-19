@@ -21,8 +21,8 @@ import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TranslatedStatusDao
 import app.pachli.core.database.di.TransactionProvider
+import app.pachli.core.database.model.StatusViewDataAttachmentDisplayAction
 import app.pachli.core.database.model.StatusViewDataContentCollapsed
-import app.pachli.core.database.model.StatusViewDataContentShowing
 import app.pachli.core.database.model.StatusViewDataExpanded
 import app.pachli.core.database.model.StatusViewDataTranslationState
 import app.pachli.core.database.model.TranslationState
@@ -33,6 +33,7 @@ import app.pachli.core.eventhub.MuteConversationEvent
 import app.pachli.core.eventhub.PinEvent
 import app.pachli.core.eventhub.PollVoteEvent
 import app.pachli.core.eventhub.ReblogEvent
+import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
@@ -189,12 +190,12 @@ class OfflineFirstStatusRepository @Inject constructor(
         )
     }
 
-    override suspend fun setContentShowing(pachliAccountId: Long, statusId: String, contentShowing: Boolean) {
-        statusDao.setContentShowing(
-            StatusViewDataContentShowing(
+    override suspend fun setAttachmentDisplayAction(pachliAccountId: Long, statusId: String, attachmentDisplayAction: AttachmentDisplayAction) {
+        statusDao.setAttachmentDisplayAction(
+            StatusViewDataAttachmentDisplayAction(
                 pachliAccountId = pachliAccountId,
                 serverId = statusId,
-                contentShowing = contentShowing,
+                attachmentDisplayAction = attachmentDisplayAction,
             ),
         )
     }

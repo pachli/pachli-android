@@ -82,7 +82,14 @@
     <string name="dialog_follow_hashtag_title">Follow hashtag</string>
     <string name="dialog_follow_hashtag_hint">#hashtag</string>
     <string name="post_boosted_format">%s boosted</string>
-    <string name="post_sensitive_media_title">Sensitive content</string>
+    <string name="post_sensitive_media_title">Sensitive content. Tap to show.</string>
+    <!-- Can't use 'plurals' here because e.g. English doesn't distinguish between
+         "two" and "other", resulting in "other" being used even if the quantity is
+         only two. -->
+    <string name="attachment_matches_filter_one_fmt">Matches filter: \"%1$s\". Tap to show.</string>
+    <string name="attachment_matches_filter_two_fmt">Matches filters: \"%1$s\" and \"%2$s\". Tap to show.</string>
+    <string name="attachment_matches_filter_other_fmt">Matches filters: \"%1$s\", \"%2$s\", and more. Tap to show.</string>
+    <string name="attachment_hidden_user_action">You hid this. Tap to show.</string>
     <string name="post_media_hidden_title">Media hidden</string>
     <string name="post_media_alt">ALT</string>
     <string name="post_sensitive_media_directions">Click to view</string>
@@ -676,9 +683,11 @@
     <string name="ui_success_rejected_follow_request">Follow request blocked</string>
     <string name="hint_filter_title">My filter</string>
     <string name="label_filter_title">Title</string>
+    <string name="filter_action_blur">Hide attachments</string>
     <string name="filter_action_warn">Warn</string>
     <string name="filter_action_hide">Hide</string>
     <string name="filter_action_none">Show</string>
+    <string name="filter_description_blur">Show content, hide attachments with a warning</string>
     <string name="filter_description_warn">Hide with a warning</string>
     <string name="filter_description_hide">Hide completely</string>
     <string name="filter_description_none">Show as normal</string>

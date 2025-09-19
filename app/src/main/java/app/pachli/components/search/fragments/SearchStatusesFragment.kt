@@ -35,7 +35,7 @@ import androidx.paging.PagingData
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.pachli.R
-import app.pachli.adapter.StatusBaseViewHolder
+import app.pachli.adapter.StatusViewDataDiffCallback
 import app.pachli.components.search.adapter.SearchStatusesAdapter
 import app.pachli.core.activity.BaseActivity
 import app.pachli.core.activity.OpenUrlUseCase
@@ -47,6 +47,7 @@ import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.domain.DownloadUrlUseCase
 import app.pachli.core.model.Attachment
+import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 import app.pachli.core.model.Status.Mention
@@ -104,7 +105,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                         adapter.notifyItemRangeChanged(
                             0,
                             adapter.itemCount,
-                            listOf(StatusBaseViewHolder.Key.KEY_CREATED),
+                            listOf(StatusViewDataDiffCallback.Payload.CREATED),
                         )
                     }
                 }
@@ -128,8 +129,8 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
         return SearchStatusesAdapter(Glide.with(this), setStatusContent, statusDisplayOptions, this)
     }
 
-    override fun onContentHiddenChange(viewData: StatusViewData, isShowingContent: Boolean) {
-        viewModel.contentHiddenChange(viewData, isShowingContent)
+    override fun onAttachmentDisplayActionChange(viewData: StatusViewData, newDecision: AttachmentDisplayAction) {
+        viewModel.attachmentDisplayActionChange(viewData, newDecision)
     }
 
     override fun onReply(viewData: StatusViewData) {

@@ -24,7 +24,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.adapter.FilterableStatusViewHolder
-import app.pachli.adapter.StatusBaseViewHolder
+import app.pachli.adapter.StatusViewDataDiffCallback
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.AccountFilterReason
@@ -128,7 +128,7 @@ internal class ConversationAdapter(
             override fun getChangePayload(oldItem: ConversationViewData, newItem: ConversationViewData): Any? {
                 return if (oldItem == newItem) {
                     // If items are equal - update timestamp only
-                    listOf(StatusBaseViewHolder.Key.KEY_CREATED)
+                    listOf(StatusViewDataDiffCallback.Payload.CREATED)
                 } else {
                     // If items are different - update the whole view holder
                     null

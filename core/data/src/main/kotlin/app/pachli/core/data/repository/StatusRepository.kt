@@ -21,6 +21,7 @@ import app.pachli.core.common.PachliError
 import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.database.model.TranslationState
+import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 import app.pachli.core.network.retrofit.apiresult.ApiError
@@ -153,9 +154,9 @@ interface StatusRepository {
     suspend fun setExpanded(pachliAccountId: Long, statusId: String, expanded: Boolean)
 
     /**
-     * Sets the showing state of [statusId] to [contentShowing].
+     * Sets the attachment display action of [statusId] to [attachmentDisplayAction].
      */
-    suspend fun setContentShowing(pachliAccountId: Long, statusId: String, contentShowing: Boolean)
+    suspend fun setAttachmentDisplayAction(pachliAccountId: Long, statusId: String, attachmentDisplayAction: AttachmentDisplayAction)
 
     /**
      * Sets the content-collapsed state of [statusId] to [contentCollapsed].

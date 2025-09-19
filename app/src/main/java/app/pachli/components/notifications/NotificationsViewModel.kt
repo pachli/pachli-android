@@ -40,6 +40,7 @@ import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.MuteConversationEvent
 import app.pachli.core.eventhub.MuteEvent
 import app.pachli.core.model.AccountFilterDecision
+import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.ContentFilterVersion
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.FilterContext
@@ -155,11 +156,11 @@ sealed interface InfallibleUiAction : UiAction {
         val isCollapsed: Boolean,
     ) : InfallibleUiAction
 
-    /** Set whether to show attached media. */
-    data class SetShowingContent(
+    /** Set how to show attached media. */
+    data class SetAttachmentDisplayAction(
         val pachliAccountId: Long,
         val statusViewData: StatusViewData,
-        val isShowingContent: Boolean,
+        val attachmentDisplayAction: AttachmentDisplayAction,
     ) : InfallibleUiAction
 
     /** Set whether to show just the content warning, or the full content. */
@@ -448,8 +449,8 @@ class NotificationsViewModel @AssistedInject constructor(
         }
 
         viewModelScope.launch {
-            uiAction.filterIsInstance<InfallibleUiAction.SetShowingContent>()
-                .collectLatest(::onShowingContent)
+            uiAction.filterIsInstance<InfallibleUiAction.SetAttachmentDisplayAction>()
+                .collectLatest(::onAttachmentDisplayAction)
         }
 
         viewModelScope.launch {
@@ -650,8 +651,7 @@ class NotificationsViewModel @AssistedInject constructor(
                         NotificationViewData.make(
                             pachliAccount.entity,
                             notification,
-                            isShowingContent = statusDisplayOptions.value.showSensitiveMedia ||
-                                !(notification.status?.status?.sensitive ?: false),
+                            showSensitiveMedia = statusDisplayOptions.value.showSensitiveMedia,
                             isExpanded = statusDisplayOptions.value.openSpoiler,
                             contentFilterAction = contentFilterAction,
                             accountFilterDecision = accountFilterDecision,
@@ -674,9 +674,9 @@ class NotificationsViewModel @AssistedInject constructor(
         }
     }
 
-    private fun onShowingContent(action: InfallibleUiAction.SetShowingContent) {
+    private fun onAttachmentDisplayAction(action: InfallibleUiAction.SetAttachmentDisplayAction) {
         viewModelScope.launch {
-            repository.setContentShowing(action.pachliAccountId, action.statusViewData.actionableId, action.isShowingContent)
+            repository.setAttachmentDisplayAction(action.pachliAccountId, action.statusViewData.actionableId, action.attachmentDisplayAction)
         }
     }
 

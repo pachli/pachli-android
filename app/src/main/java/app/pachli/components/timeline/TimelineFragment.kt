@@ -46,7 +46,7 @@ import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.BuildConfig
 import app.pachli.R
-import app.pachli.adapter.StatusBaseViewHolder
+import app.pachli.adapter.StatusViewDataDiffCallback
 import app.pachli.components.timeline.viewmodel.CachedTimelineViewModel
 import app.pachli.components.timeline.viewmodel.FallibleStatusAction
 import app.pachli.components.timeline.viewmodel.InfallibleStatusAction
@@ -66,6 +66,7 @@ import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.model.TranslationState
+import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
@@ -178,7 +179,11 @@ class TimelineFragment :
             emit(Unit)
         }
     }.onEach {
-        adapter.notifyItemRangeChanged(0, adapter.itemCount, listOf(StatusBaseViewHolder.Key.KEY_CREATED))
+        adapter.notifyItemRangeChanged(
+            0,
+            adapter.itemCount,
+            listOf(StatusViewDataDiffCallback.Payload.CREATED),
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -629,8 +634,8 @@ class TimelineFragment :
         viewModel.onChangeExpanded(expanded, viewData)
     }
 
-    override fun onContentHiddenChange(viewData: StatusViewData, isShowingContent: Boolean) {
-        viewModel.onChangeContentShowing(isShowingContent, viewData)
+    override fun onAttachmentDisplayActionChange(viewData: StatusViewData, newDecision: AttachmentDisplayAction) {
+        viewModel.onChangeAttachmentDisplayAction(viewData, newDecision)
     }
 
     override fun onShowReblogs(statusId: String) {

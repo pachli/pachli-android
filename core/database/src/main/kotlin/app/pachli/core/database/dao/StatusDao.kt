@@ -24,8 +24,8 @@ import androidx.room.TypeConverters
 import androidx.room.Upsert
 import app.pachli.core.database.Converters
 import app.pachli.core.database.model.StatusEntity
+import app.pachli.core.database.model.StatusViewDataAttachmentDisplayAction
 import app.pachli.core.database.model.StatusViewDataContentCollapsed
-import app.pachli.core.database.model.StatusViewDataContentShowing
 import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.StatusViewDataExpanded
 import app.pachli.core.database.model.StatusViewDataTranslationState
@@ -186,13 +186,6 @@ WHERE
     abstract suspend fun setExpanded(partial: StatusViewDataExpanded)
 
     /**
-     * Upserts [partial], setting the [contentShowing][StatusViewDataEntity.contentShowing]
-     * property.
-     */
-    @Upsert(entity = StatusViewDataEntity::class)
-    abstract suspend fun setContentShowing(partial: StatusViewDataContentShowing)
-
-    /**
      * Upserts [partial], setting the [contentCollapsed][StatusViewDataEntity.contentCollapsed]
      * property.
      */
@@ -205,4 +198,11 @@ WHERE
      */
     @Upsert(entity = StatusViewDataEntity::class)
     abstract suspend fun setTranslationState(partial: StatusViewDataTranslationState)
+
+    /**
+     * Upserts [partial], setting the [attachmentDisplayAction][StatusViewDataEntity.attachmentDisplayAction]
+     * property.
+     */
+    @Upsert(entity = StatusViewDataEntity::class)
+    abstract suspend fun setAttachmentDisplayAction(partial: StatusViewDataAttachmentDisplayAction)
 }

@@ -22,6 +22,8 @@ import app.pachli.core.data.repository.notifications.asEntity
 import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.database.model.TranslationState
+import app.pachli.core.model.AttachmentDisplayAction
+import app.pachli.core.model.AttachmentDisplayReason
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.TimelineAccount
 import java.util.Date
@@ -103,10 +105,14 @@ fun fakeStatusViewData(
         bookmarked = bookmarked,
     ).asModel(),
     isExpanded = isExpanded,
-    isShowingContent = isShowingContent,
     isCollapsed = isCollapsed,
     isDetailed = isDetailed,
     translationState = TranslationState.SHOW_ORIGINAL,
+    attachmentDisplayAction = if (isShowingContent) {
+        AttachmentDisplayAction.Show(originalAction = AttachmentDisplayAction.Hide(AttachmentDisplayReason.Sensitive))
+    } else {
+        AttachmentDisplayAction.Hide(reason = AttachmentDisplayReason.Sensitive)
+    },
 )
 
 fun fakeStatusEntityWithAccount(
@@ -123,9 +129,9 @@ fun fakeStatusEntityWithAccount(
             serverId = id,
             pachliAccountId = userId,
             expanded = expanded,
-            contentShowing = false,
             contentCollapsed = true,
             translationState = TranslationState.SHOW_ORIGINAL,
+            attachmentDisplayAction = AttachmentDisplayAction.Show(),
         ),
     )
 }
