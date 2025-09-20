@@ -29,7 +29,7 @@
     <string name="title_edit_profile">Editar tu perfil</string>
     <string name="title_drafts">Borradores</string>
     <string name="post_boosted_format">%s impulsó</string>
-    <string name="post_sensitive_media_title">Contenido sensible</string>
+    <string name="post_sensitive_media_title">Contenido sensible. Toca para mostrar.</string>
     <string name="post_media_hidden_title">Material oculto</string>
     <string name="post_sensitive_media_directions">Pulsa para ver</string>
     <string name="post_content_warning_show_more">Mostrar más</string>
@@ -852,4 +852,10 @@
         <item quantity="many">con roles:</item>
         <item quantity="other">con roles:</item>
     </plurals>
+    <string name="attachment_matches_filter_one_fmt">Filtro aplicado: \"%1$s\". Toca para mostrar.</string>
+    <string name="attachment_matches_filter_two_fmt">Filtros aplicados: \"%1$s\" y \"%2$s\". Toca para mostrar.</string>
+    <string name="attachment_matches_filter_other_fmt">Filtros aplicados: \"%1$s\", \"%2$s\" y otros. Toca para mostrar.</string>
+    <string name="attachment_hidden_user_action">Ocultado por ti. Toca para mostrar.</string>
+    <string name="filter_action_blur">Ocultar adjuntos</string>
+    <string name="filter_description_blur">Mostrar contenido, ocultar adjuntos con una advertencia</string>
 </resources>
