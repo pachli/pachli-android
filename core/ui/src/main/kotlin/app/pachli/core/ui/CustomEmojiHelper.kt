@@ -25,6 +25,7 @@ import android.text.Spannable
 import android.text.style.ReplacementSpan
 import android.util.Size
 import android.view.View
+import android.widget.EditText
 import android.widget.TextView
 import androidx.core.graphics.withSave
 import androidx.core.text.toSpannable
@@ -185,7 +186,7 @@ class EmojiSpan(view: View) : ReplacementSpan() {
                 if (animate && resource is Animatable) {
                     resource.callback = object : Drawable.Callback {
                         override fun invalidateDrawable(who: Drawable) {
-                            view.invalidate()
+                            invalidate()
                         }
 
                         override fun scheduleDrawable(who: Drawable, what: Runnable, `when`: Long) {
@@ -200,7 +201,7 @@ class EmojiSpan(view: View) : ReplacementSpan() {
                 }
 
                 imageDrawable = resource
-                view.invalidate()
+                invalidate()
             }
 
             override fun onLoadCleared(placeholder: Drawable?) {
@@ -212,6 +213,41 @@ class EmojiSpan(view: View) : ReplacementSpan() {
                 }
                 imageDrawable = null
                 view.invalidate()
+            }
+
+            /**
+             * Invalidate, or otherwise cause the view containing the span to redraw to
+             * reflect the current state of the span.
+             */
+            fun invalidate() {
+                // Views that aren't EditText do the right thing if you call invalidate().
+                if (view !is EditText) {
+                    view.invalidate()
+                    return
+                }
+
+                // EditText has a bug -- calling invalidate() does not cause it to call
+                // the span's draw() method.
+                //
+                // Unless EditText.layerType is "software". But, if it's software then
+                // there's a limit on the number of characters the EditText can display
+                // before it starts emitting errors like "not displayed because it is
+                // too large to fit into a software layer (or drawing cache), needs
+                // 10210380 bytes, only 10108800 available" and then all the text
+                // disappears.
+                //
+                // So work around this bug by recording the span's state, removing the
+                // span and immediately adding it back.
+                //
+                // https://issuetracker.google.com/issues/446220461
+                val text = view.text
+                val start = text.getSpanStart(this@EmojiSpan)
+                // Bail early if the span is no longer attached
+                if (start == -1) return
+                val end = text.getSpanEnd(this@EmojiSpan)
+                val flags = text.getSpanFlags(this@EmojiSpan)
+                text.removeSpan(this@EmojiSpan)
+                text.setSpan(this@EmojiSpan, start, end, flags)
             }
         }
     }
