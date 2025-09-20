@@ -21,7 +21,7 @@
     <string name="title_follow_requests">Sekošanas pieprasījumi</string>
     <string name="title_scheduled_posts">Ieplānotie ieraksti</string>
     <string name="title_announcements">Paziņojumi</string>
-    <string name="post_sensitive_media_title">Jūtīgs saturs</string>
+    <string name="post_sensitive_media_title">Jūtīgs saturs. Jāpiesit, lai parādītu.</string>
     <string name="post_content_show_less">Sakļaut</string>
     <string name="post_content_warning_show_more">Rādīt vairāk</string>
     <string name="post_content_warning_show_less">Rādīt mazāk</string>
@@ -837,4 +837,10 @@
     <string name="translator_error_unsupported_source_language_fmt">nevar tulkot no %1$s</string>
     <string name="translator_error_unsupported_target_language_fmt">nevar tulkot uz %1$s</string>
     <string name="translator_error_download_required_fmt">tulkošanai uz %1$s nepieciešama valodas pakas lejupielādēšana, un nav savienojuma ar Wi-Fi</string>
+    <string name="attachment_matches_filter_one_fmt">Atbilst atlasītājam: “%1$s”. Jāpiesit, lai parādītu.</string>
+    <string name="attachment_matches_filter_two_fmt">Atbilst atlasītājiem: “%1$s” un “%2$s”. Jāpiesit, lai parādītu.</string>
+    <string name="attachment_matches_filter_other_fmt">Atbilst atlasītājiem: “%1$s”, “%2$s” un vēl. Jāpiesit, lai parādītu.</string>
+    <string name="attachment_hidden_user_action">Tu paslēpi šo. Jāpiesit, lai parādītu.</string>
+    <string name="filter_action_blur">Paslēpt pielikumus</string>
+    <string name="filter_description_blur">Rādīt saturu, paslēpt pielikumus ar brīdinājumu</string>
 </resources>
