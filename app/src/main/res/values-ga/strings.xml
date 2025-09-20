@@ -5,7 +5,7 @@
     <string name="post_content_warning_show_more">Taispeáin Níos Mó</string>
     <string name="post_sensitive_media_directions">Cliceáil chun amharc</string>
     <string name="post_media_hidden_title">Meáin i bhfolach</string>
-    <string name="post_sensitive_media_title">Ábhar íogair</string>
+    <string name="post_sensitive_media_title">Ábhar íogair. Tapáil le taispeáint.</string>
     <string name="post_boosted_format">D\'athchraol %s</string>
     <string name="title_scheduled_posts">Postálacha sceidealta</string>
     <string name="title_edit_profile">Cuir do phróifíl in eagar</string>
@@ -877,4 +877,10 @@
     <string name="translator_error_unsupported_source_language_fmt">ní féidir aistriú ó %1$s</string>
     <string name="translator_error_unsupported_target_language_fmt">ní féidir aistriú go %1$s</string>
     <string name="translator_error_download_required_fmt">Éilíonn aistriúchán go %1$s an pacáiste teanga a íoslódáil, agus níl Wi-Fi ceangailte</string>
+    <string name="attachment_matches_filter_one_fmt">Meaitseálann an scagaire: \"%1$s\". Tapáil le taispeáint.</string>
+    <string name="attachment_matches_filter_two_fmt">Meaitseálann na scagairí seo a leanas: \"%1$s\" agus \"%2$s\". Tapáil le taispeáint.</string>
+    <string name="attachment_matches_filter_other_fmt">Meaitseálann scagairí: \"%1$s\", \"%2$s\", agus tuilleadh. Tapáil le taispeáint.</string>
+    <string name="attachment_hidden_user_action">Chuir tú seo i bhfolach. Tapáil le taispeáint.</string>
+    <string name="filter_action_blur">Folaigh ceangaltáin</string>
+    <string name="filter_description_blur">Taispeáin ábhar, folaigh ceangaltáin le rabhadh</string>
 </resources>
