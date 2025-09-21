@@ -5,13 +5,13 @@
     <string name="title_lists">Listas</string>
     <string name="error_create_list_fmt">No se pudo crear la lista \"%1$s\": %2$s</string>
     <string name="error_delete_list_fmt">No se pudo eliminar la lista \"%1$s\": %2$s</string>
-    <string name="error_rename_list_fmt">No se pudo renombrar la lista \"%1$s\": %2$s</string>
-    <string name="action_rename_list">Renombrar la lista</string>
+    <string name="error_rename_list_fmt">No se pudo editar la lista \"%1$s\": %2$s</string>
+    <string name="action_rename_list">Editar lista</string>
     <string name="action_create_list">Crear una lista</string>
     <string name="dialog_delete_list_warning">¿Eliminar la lista \"%s\"?</string>
     <string name="action_remove_from_list">Eliminar cuenta de la lista</string>
     <string name="action_add_to_list">Añadir cuenta a la lista</string>
-    <string name="action_delete_list">Eliminar la lista</string>
+    <string name="action_delete_list">Eliminar lista</string>
     <string name="failed_to_add_to_list">Falló añadir la cuenta a la lista</string>
     <string name="failed_to_remove_from_list">Falló al eliminar la cuenta de la lista</string>
     <string name="no_lists">No tienes ninguna lista.</string>
