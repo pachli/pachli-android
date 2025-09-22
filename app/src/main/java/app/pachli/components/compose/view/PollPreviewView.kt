@@ -40,7 +40,7 @@ class PollPreviewView @JvmOverloads constructor(
     init {
         orientation = VERTICAL
 
-        setBackgroundResource(R.drawable.card_frame)
+        setBackgroundResource(app.pachli.core.ui.R.drawable.card_frame)
 
         val padding = resources.getDimensionPixelSize(DR.dimen.poll_preview_padding)
 

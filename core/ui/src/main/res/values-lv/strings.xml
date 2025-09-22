@@ -33,4 +33,7 @@
     <string name="hint_search_emojis">Meklēt emocijzīmes…</string>
     <string name="label_emoji_no_category">Bez kategorijas</string>
     <string name="emoji_picker_show_detail">Rādīt informāciju</string>
+    <string name="preview_card_byline_fediverse_account_fmt">No <b>%1$s</b>. Apskatīt vairāk ierakstu</string>
+    <string name="preview_card_byline_name_only_fmt">No <b>%1$s</b></string>
+    <string name="preview_card_timeline_link_fmt">Apskatīt <b>%1$s</b> ierakstus par šo saiti</string>
 </resources>

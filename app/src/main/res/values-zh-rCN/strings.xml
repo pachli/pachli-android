@@ -716,9 +716,6 @@
     <string name="error_prepare_media_content_resolver_missing_path_fmt">内容解析器 URI 缺少路径: %1$s</string>
     <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">内容解析器 URI 的方案不受支持: %1$s</string>
     <string name="filter_description_none">显示为正常</string>
-    <string name="preview_card_byline_fediverse_account_fmt">由 <b>%1$s</b> 发布。查看更多帖文</string>
-    <string name="preview_card_byline_name_only_fmt">由 <b>%1$s</b> 发布</string>
-    <string name="preview_card_timeline_link_fmt">查看 <b>%1$s</b> 关于此链接的帖文</string>
     <string name="action_timeline_link">关于此链接的帖文</string>
     <string name="error_save_filter_failed_fmt">保存过滤器失败：%1$s</string>
     <string name="error_delete_filter_failed_fmt">删除过滤器失败：%1$s</string>

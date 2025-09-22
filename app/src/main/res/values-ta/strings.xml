@@ -347,7 +347,6 @@
     <string name="error_prepare_media_file_is_too_large_fmt">கோப்பு அளவு %1$s, அதிகபட்சம் அனுமதிக்கப்பட்டுள்ளது %2$s</string>
     <string name="error_prepare_media_unknown_file_size">கோப்பு அளவை தீர்மானிக்க முடியவில்லை</string>
     <string name="error_pick_media_fmt">இடுகையை இடுகையுடன் இணைக்க முடியவில்லை: %1$s</string>
-    <string name="preview_card_byline_fediverse_account_fmt">மூலம் <b>%1$s </b>. மேலும் இடுகைகளைக் காண்க</string>
     <string name="action_open_byline_account">கட்டுரை ஆசிரியரின் சுயவிவரத்தைக் காட்டு</string>
     <string name="error_save_filter_failed_fmt">சேமிப்பு வடிகட்டி தோல்வியுற்றது: %1$s</string>
     <string name="error_delete_filter_failed_fmt">வடிகட்டி நீக்குதல் தோல்வியுற்றது: %1$s</string>
@@ -674,8 +673,6 @@
     <string name="report_category_other">மற்றொன்று</string>
     <string name="mute_notifications_switch">முடக்கு அறிவிப்புகள்</string>
     <string name="status_edit_info">திருத்தப்பட்டது: %1$s</string>
-    <string name="preview_card_byline_name_only_fmt">மூலம் <b>%1$s </b></string>
-    <string name="preview_card_timeline_link_fmt">இந்த இணைப்பைப் பற்றிய <b>%1$s </b> இடுகைகளைப் பார்க்கவும்</string>
     <string name="action_timeline_link">இந்த இணைப்பைப் பற்றிய இடுகைகள்</string>
     <string name="search_operator_attachment_specific_media_include_2_exclude_1_fmt">%1$s, %2$s உடன், %3$s இல்லை</string>
     <string name="search_operator_attachment_specific_media_include_1_exclude_2_fmt">%1$s உடன், %2$s, %3$s</string>

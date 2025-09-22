@@ -31,4 +31,7 @@
     <string name="action_logout">Kirjaudu ulos</string>
     <string name="hint_search_emojis">Etsi hymiöitä…</string>
     <string name="label_emoji_no_category">Ei kategoriaa</string>
+    <string name="preview_card_byline_fediverse_account_fmt">Teki &lt;b&gt;%1$s&lt;/b&gt;. Katso lisää julkaisuja</string>
+    <string name="preview_card_byline_name_only_fmt">Tehnyt &lt;b&gt;%1$s&lt;/b&gt;</string>
+    <string name="preview_card_timeline_link_fmt">Katso &lt;b&gt;%1$s&lt;/b&gt; julkaisua tästä linkistä</string>
 </resources>

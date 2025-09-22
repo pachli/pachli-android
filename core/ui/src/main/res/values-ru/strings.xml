@@ -33,4 +33,7 @@
     <string name="hint_search_emojis">Поиск эмодзи…</string>
     <string name="label_emoji_no_category">Без категории</string>
     <string name="emoji_picker_show_detail">Подробности</string>
+    <string name="preview_card_byline_fediverse_account_fmt">От <b>%1$s</b>. Посмотреть другие публикации</string>
+    <string name="preview_card_byline_name_only_fmt">От <b>%1$s</b></string>
+    <string name="preview_card_timeline_link_fmt">Смотреть <b>%1$s</b> публикаций об этой ссылке</string>
 </resources>

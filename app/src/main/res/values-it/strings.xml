@@ -693,8 +693,6 @@
     <string name="error_prepare_media_io_fmt">%1$s</string>
     <string name="error_prepare_media_file_is_too_large_fmt">la dimensione del file è %1$s, il massimo consentito è di %2$s</string>
     <string name="error_prepare_media_unsupported_mime_type_fmt">il server non supporta il tipo di file: %1$s</string>
-    <string name="preview_card_byline_fediverse_account_fmt">Di <b>%1$s</b>. Vedi altri post</string>
-    <string name="preview_card_byline_name_only_fmt">Di <b>%1$s</b></string>
     <string name="action_open_link">Apri link</string>
     <string name="search_operator_attachment_dialog_any_label">Qualsiasi tipo</string>
     <string name="search_operator_attachment_dialog_image_label">Immagini</string>

@@ -33,4 +33,7 @@
     <string name="hint_search_emojis">Hľadať emoji…</string>
     <string name="label_emoji_no_category">Žiadna kategória</string>
     <string name="emoji_picker_show_detail">Zobraziť detail</string>
+    <string name="preview_card_byline_fediverse_account_fmt">Od <b>%1$s</b>. Zobraziť viac príspevkov</string>
+    <string name="preview_card_byline_name_only_fmt">Od <b>%1$s</b></string>
+    <string name="preview_card_timeline_link_fmt">Pozri si <b>%1$s</b> príspevkov o tomto odkaze</string>
 </resources>

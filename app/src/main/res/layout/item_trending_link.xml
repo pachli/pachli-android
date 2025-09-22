@@ -15,7 +15,7 @@
   ~ see <http://www.gnu.org/licenses>.
   -->
 
-<app.pachli.view.PreviewCardView
+<app.pachli.core.ui.PreviewCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/status_card_view"
     android:layout_width="match_parent"

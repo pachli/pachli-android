@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Pachli Association
+ * Copyright (c) 2025 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -15,7 +15,7 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.view
+package app.pachli.core.ui
 
 import android.content.Context
 import android.graphics.drawable.Drawable
@@ -24,18 +24,14 @@ import android.view.LayoutInflater
 import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.text.HtmlCompat
-import app.pachli.R
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.common.util.formatNumber
 import app.pachli.core.data.model.StatusDisplayOptions
-import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.PreviewCard
 import app.pachli.core.model.TrendsLink
-import app.pachli.core.ui.decodeBlurHash
-import app.pachli.core.ui.emojify
-import app.pachli.databinding.PreviewCardBinding
+import app.pachli.core.ui.databinding.PreviewCardBinding
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -46,7 +42,7 @@ import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.ShapeAppearanceModel
 
 /**
- * Compound view that displays [PreviewCard].
+ * Compound view that displays [app.pachli.core.model.PreviewCard].
  *
  * Classes hosting this should provide a [PreviewCardView.OnClickListener] to be notified when the
  * the user clicks on the card.
@@ -78,13 +74,13 @@ class PreviewCardView @JvmOverloads constructor(
     }
 
     private val binding: PreviewCardBinding
-    private val cardCornerRadius = context.resources.getDimensionPixelSize(DR.dimen.card_radius).toFloat()
+    private val cardCornerRadius = context.resources.getDimensionPixelSize(app.pachli.core.designsystem.R.dimen.card_radius).toFloat()
 
     /** Corner radius of the byline avatar. */
-    private val bylineAvatarCornerRadius = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_36dp)
+    private val bylineAvatarCornerRadius = context.resources.getDimensionPixelSize(app.pachli.core.designsystem.R.dimen.avatar_radius_36dp)
 
     /** Dimensions (width and height) of the byline avatar. */
-    val bylineAvatarDimen = context.resources.getDimensionPixelSize(DR.dimen.card_byline_avatar_dimen)
+    val bylineAvatarDimen = context.resources.getDimensionPixelSize(app.pachli.core.designsystem.R.dimen.card_byline_avatar_dimen)
 
     /** Transformations to apply when loading the byline avatar. */
     private val bylineAvatarTransformation = MultiTransformation(
@@ -198,7 +194,7 @@ class PreviewCardView @JvmOverloads constructor(
                 )
 
                 glide.load(author.account?.avatar).transform(bylineAvatarTransformation)
-                    .placeholder(DR.drawable.avatar_default).into(bylineAvatarTarget)
+                    .placeholder(app.pachli.core.designsystem.R.drawable.avatar_default).into(bylineAvatarTarget)
                 authorInfo.show()
                 showBylineDivider = true
             }
@@ -245,7 +241,7 @@ class PreviewCardView @JvmOverloads constructor(
     private fun setTopBottomLayout() = with(binding) {
         // Move image to top.
         val lpCardImage = cardImage.layoutParams as ConstraintLayout.LayoutParams
-        lpCardImage.height = cardImage.resources.getDimensionPixelSize(DR.dimen.card_image_vertical_height)
+        lpCardImage.height = cardImage.resources.getDimensionPixelSize(app.pachli.core.designsystem.R.dimen.card_image_vertical_height)
         lpCardImage.width = LayoutParams.MATCH_PARENT
         lpCardImage.bottomToBottom = ConstraintLayout.LayoutParams.UNSET
         cardImage.layoutParams = lpCardImage
@@ -274,7 +270,7 @@ class PreviewCardView @JvmOverloads constructor(
         // Move image to start with fixed width to allow space for cardInfo.
         val lpCardImage = cardImage.layoutParams as ConstraintLayout.LayoutParams
         lpCardImage.height = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
-        lpCardImage.width = cardImage.resources.getDimensionPixelSize(DR.dimen.card_image_horizontal_width)
+        lpCardImage.width = cardImage.resources.getDimensionPixelSize(app.pachli.core.designsystem.R.dimen.card_image_horizontal_width)
         lpCardImage.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID
         cardImage.layoutParams = lpCardImage
 

@@ -33,4 +33,7 @@
     <string name="hint_search_emojis">Search emojis…</string>
     <string name="label_emoji_no_category">No category</string>
     <string name="emoji_picker_show_detail">Show detail</string>
+    <string name="preview_card_byline_fediverse_account_fmt">By &lt;b>%1$s&lt;/b>. See more posts</string>
+    <string name="preview_card_byline_name_only_fmt">By &lt;b>%1$s&lt;/b></string>
+    <string name="preview_card_timeline_link_fmt">See &lt;b>%1$s&lt;/b> posts about this link</string>
 </resources>

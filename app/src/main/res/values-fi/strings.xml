@@ -614,7 +614,6 @@
     <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">sisältöselvittäjä-URI:n kaavaa ei tueta: %1$s</string>
     <string name="error_prepare_media_unknown_mime_type">tuntematon tiedostotyyppi</string>
     <string name="error_pick_media_fmt">Julkaisuun ei voitu liittää tiedostoa: %1$s</string>
-    <string name="preview_card_byline_fediverse_account_fmt">Teki &lt;b&gt;%1$s&lt;/b&gt;. Katso lisää julkaisuja</string>
     <string name="action_open_byline_account">Näytä julkaisun tekijän profiili</string>
     <string name="action_open_link">Avaa linkki</string>
     <string name="error_prepare_media_unknown_file_size">tiedoston kokoa ei voitu määrittää</string>
@@ -768,9 +767,7 @@
     </plurals>
     <string name="upload_failed_msg_fmt">Lataus epäonnistui. Latausta yritetään uudestaan kun lähetät julkaisun. Jos se epäonnistuu jälleen, julkaisu tallennetaan luonnoksiisi.\n\nVirhe oli: %1$s</string>
     <string name="notification_unknown">Tuntematon ilmoitustyyppi</string>
-    <string name="preview_card_timeline_link_fmt">Katso &lt;b&gt;%1$s&lt;/b&gt; julkaisua tästä linkistä</string>
     <string name="action_timeline_link">Julkaisuja tästä linkistä</string>
-    <string name="preview_card_byline_name_only_fmt">Tehnyt &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="action_refresh_account">Päivitä tili</string>
     <string name="pref_title_account_conversation_filters">Keskustelusuodattimet</string>
     <string name="pref_account_conversation_filters_subtitle">Mitä tehdään keskusteluille, jotka on aloittanut tili…</string>

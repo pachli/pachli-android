@@ -711,7 +711,6 @@
     <string name="search_operator_attachment_no_media_label">Ingen media</string>
     <string name="error_prepare_media_unknown_mime_type">filtypen er ukjent</string>
     <string name="error_pick_media_fmt">Kunne ikke legge filen ved innlegget: %1$s</string>
-    <string name="preview_card_byline_fediverse_account_fmt">Se mer fra %1$s</string>
     <string name="action_open_byline_account">Vis artikkelforfatterens profil</string>
     <string name="action_open_link">Åpne lenk</string>
     <string name="search_operator_poll_all">Avstemninger ▾</string>
@@ -763,9 +762,7 @@
     <string name="account_filter_placeholder_type_mention_fmt">En bruker (@&lt;b&gt;%1s&lt;/b&gt;) nevnte deg</string>
     <string name="account_filter_placeholder_type_reblog_fmt">En bruker (@&lt;b&gt;%1s&lt;/b&gt;) delte innlegget ditt</string>
     <string name="account_filter_placeholder_label_domain">Fra en bruker (@&lt;b&gt;%1s&lt;/b&gt;)</string>
-    <string name="preview_card_timeline_link_fmt">Vis &lt;b&gt;%1$s&lt;/b&gt; innlegg om denne lenken</string>
     <string name="account_filter_placeholder_type_follow_fmt">En bruker (@&lt;b&gt;%1s&lt;/b&gt;) fulgte deg</string>
     <string name="account_filter_placeholder_type_follow_request_fmt">Følgeforespørsel fra en bruker (@&lt;b&gt;%1s&lt;/b&gt;)</string>
-    <string name="preview_card_byline_name_only_fmt">Av &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="action_timeline_link">Innlegg om denne lenken</string>
 </resources>

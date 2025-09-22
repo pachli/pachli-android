@@ -633,9 +633,6 @@
     <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">Innhaldsoppløser-URI har ustøtta skjema: %1$s</string>
     <string name="search_operator_attachment_none">Ingen</string>
     <string name="report_category_violation">Regelbrot</string>
-    <string name="preview_card_byline_fediverse_account_fmt">Av &lt;b&gt;%1$s&lt;/b&gt;. Sjå fleire innlegg</string>
-    <string name="preview_card_byline_name_only_fmt">Av &lt;b&gt;%1$s&lt;/b&gt;</string>
-    <string name="preview_card_timeline_link_fmt">Syn &lt;b&gt;%1$s&lt;/b&gt; innlegg om denne lenkja</string>
     <string name="action_timeline_link">Innlegg om denne lenkja</string>
     <string name="search_operator_from_me">Kun mine innlegg</string>
     <string name="search_operator_from_dialog_all">Alle kontoar</string>

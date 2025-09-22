@@ -185,7 +185,7 @@
         tools:text="@string/post_content_show_less"
         tools:visibility="visible" />
 
-    <app.pachli.view.PreviewCardView
+    <app.pachli.core.ui.PreviewCardView
         android:id="@+id/status_card_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

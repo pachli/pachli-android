@@ -39,6 +39,7 @@ import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.ViewMediaActivityIntent
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.preferences.CardViewMode
+import app.pachli.core.ui.PreviewCardView
 import app.pachli.core.ui.SetStatusContent
 import app.pachli.core.ui.decodeBlurHash
 import app.pachli.core.ui.emojify
@@ -57,7 +58,6 @@ import app.pachli.util.iconResource
 import app.pachli.view.MediaPreviewImageView
 import app.pachli.view.MediaPreviewLayout
 import app.pachli.view.PollView
-import app.pachli.view.PreviewCardView
 import app.pachli.viewdata.PollViewData.Companion.from
 import at.connyduck.sparkbutton.SparkButton
 import at.connyduck.sparkbutton.helpers.Utils

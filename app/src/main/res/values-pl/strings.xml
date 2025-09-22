@@ -728,9 +728,6 @@
     <string name="search_operator_attachment_kind_image_label">obrazy</string>
     <string name="search_operator_replies_no_replies">Bez odpowiedzi</string>
     <string name="select_list_empty">Nie masz żadnych list</string>
-    <string name="preview_card_byline_name_only_fmt">Od: <b>%1$s</b></string>
-    <string name="preview_card_timeline_link_fmt">Zobacz <b>%1$s</b> wpisów na ten temat</string>
-    <string name="preview_card_byline_fediverse_account_fmt">Od: <b>%1$s</b>. Zobacz więcej wpisów</string>
     <string name="search_operator_attachment_kind_audio_label">dźwięk</string>
     <string name="search_operator_poll_dialog_all">Z ankietami lub bez</string>
     <string name="search_operator_poll_all">Ankiety ▾</string>

@@ -33,4 +33,7 @@
     <string name="pref_notification_method_pull">Pull</string>
     <string name="notification_details_last_fetch_label">Letzte /api/v1/notifications-Abfrage</string>
     <string name="emoji_picker_show_detail">Detail anzeigen</string>
+    <string name="preview_card_byline_fediverse_account_fmt">Von <b>%1$s</b>. Mehr Beiträge anzeigen</string>
+    <string name="preview_card_byline_name_only_fmt">Von <b>%1$s</b></string>
+    <string name="preview_card_timeline_link_fmt"><b>%1$s</b> Beiträge über diesen Link anzeigen</string>
 </resources>

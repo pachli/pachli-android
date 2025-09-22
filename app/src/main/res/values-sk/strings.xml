@@ -707,9 +707,6 @@
     <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">URI Content Resolveru obsahuje nepodporovanú schému: %1$s</string>
     <string name="error_prepare_media_io_fmt">%1$s</string>
     <string name="error_prepare_media_unknown_file_size">nepodarilo sa určiť veľkosť súboru</string>
-    <string name="preview_card_byline_fediverse_account_fmt">Od <b>%1$s</b>. Zobraziť viac príspevkov</string>
-    <string name="preview_card_byline_name_only_fmt">Od <b>%1$s</b></string>
-    <string name="preview_card_timeline_link_fmt">Pozri si <b>%1$s</b> príspevkov o tomto odkaze</string>
     <string name="search_operator_attachment_specific_media_include_1_exclude_2_fmt">S %1$s, bez %2$s, %3$s</string>
     <string name="search_operator_attachment_specific_media_include_3_fmt">S %1$s, %2$s, %3$s</string>
     <string name="search_operator_link_dialog_title">Zobraziť príspevky s odkazmi?</string>
