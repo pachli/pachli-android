@@ -19,4 +19,45 @@
     <string name="action_logout_confirm">Вы ўпэўнены, што жадаеце выйсці з уліковага запісу %1$s?</string>
     <string name="add_account_name">Дадаць уліковы запіс</string>
     <string name="action_logout">Выхад</string>
+    <string name="poll_vote">Галасаваць</string>
+    <plurals name="poll_timespan_seconds">
+        <item quantity="one">Засталася %d секунда</item>
+        <item quantity="few">Засталося %d секунды</item>
+        <item quantity="many">Засталося %d секунд</item>
+        <item quantity="other">Засталося %d секунд</item>
+    </plurals>
+    <plurals name="poll_timespan_minutes">
+        <item quantity="one">Засталася %d хвіліна</item>
+        <item quantity="few">Засталося %d хвіліны</item>
+        <item quantity="many">Засталося %d хвілін</item>
+        <item quantity="other">Засталося %d хвілін</item>
+    </plurals>
+    <plurals name="poll_timespan_hours">
+        <item quantity="one">Засталася %d гадзіна</item>
+        <item quantity="few">Засталося %d гадзіны</item>
+        <item quantity="many">Засталося %d гадзін</item>
+        <item quantity="other">Засталося %d гадзін</item>
+    </plurals>
+    <plurals name="poll_timespan_days">
+        <item quantity="one">Застаўся %d дзень</item>
+        <item quantity="few">Засталося %d дні</item>
+        <item quantity="many">Засталося %d дзён</item>
+        <item quantity="other">Засталося %d дзён</item>
+    </plurals>
+    <plurals name="poll_info_votes">
+        <item quantity="one">%s голас</item>
+        <item quantity="few">%s галасы</item>
+        <item quantity="many">%s галасоў</item>
+        <item quantity="other">%s галасоў</item>
+    </plurals>
+    <plurals name="poll_info_people">
+        <item quantity="one">%s чалавек</item>
+        <item quantity="few">%s чалавекі</item>
+        <item quantity="many">%s людзей</item>
+        <item quantity="other">%s людзей</item>
+    </plurals>
+    <string name="poll_info_closed">скончаны</string>
+    <string name="poll_info_time_absolute">завяршыцца ў %s</string>
+    <string name="poll_info_format"><!-- 15 галасоў • 1 гадзіна засталася -->%1$s • %2$s</string>
+    <string name="description_poll">Апытанне з варыянтамі: %1$s, %2$s, %3$s, %4$s; %5$s</string>
 </resources>

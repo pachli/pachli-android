@@ -36,4 +36,46 @@
     <string name="preview_card_byline_fediverse_account_fmt">Od: <b>%1$s</b>. Zobacz więcej wpisów</string>
     <string name="preview_card_byline_name_only_fmt">Od: <b>%1$s</b></string>
     <string name="preview_card_timeline_link_fmt">Zobacz <b>%1$s</b> wpisów na ten temat</string>
+    <string name="poll_vote">Głosuj</string>
+    <string name="poll_show_votes">Pokaż wyniki</string>
+    <plurals name="poll_timespan_seconds">
+        <item quantity="one">Została %d sekunda</item>
+        <item quantity="few">Zostały %d sekundy</item>
+        <item quantity="many">Zostało %d sekund</item>
+        <item quantity="other">Zostało %d sekund</item>
+    </plurals>
+    <plurals name="poll_timespan_minutes">
+        <item quantity="one">Została %d minuta</item>
+        <item quantity="few">Zostały %d minuty</item>
+        <item quantity="many">Zostało %d minut</item>
+        <item quantity="other">Zostało %d minut</item>
+    </plurals>
+    <plurals name="poll_timespan_hours">
+        <item quantity="one">Została %d godzina</item>
+        <item quantity="few">Zostały %d godziny</item>
+        <item quantity="many">Zostało %d godzin</item>
+        <item quantity="other">Zostało %d godzin</item>
+    </plurals>
+    <plurals name="poll_timespan_days">
+        <item quantity="one">Został %d dzień</item>
+        <item quantity="few">Zostały %d dni</item>
+        <item quantity="many">Zostało %d dni</item>
+        <item quantity="other">Zostało %d dni</item>
+    </plurals>
+    <plurals name="poll_info_votes">
+        <item quantity="one">%s głos</item>
+        <item quantity="few">%s głosy</item>
+        <item quantity="many">%s głosów</item>
+        <item quantity="other">%s głosów</item>
+    </plurals>
+    <plurals name="poll_info_people">
+        <item quantity="one">%s osoba</item>
+        <item quantity="few">%s osoby</item>
+        <item quantity="many">%s osób</item>
+        <item quantity="other">%s osób</item>
+    </plurals>
+    <string name="poll_info_closed">zakończona</string>
+    <string name="poll_info_time_absolute">kończy się %s</string>
+    <string name="poll_info_format"><!-- 15 głosów • 1 godzina pozostała -->%1$s • %2$s</string>
+    <string name="description_poll">Ankieta z opcjami: %1$s, %2$s, %3$s, %4$s; %5$s</string>
 </resources>

@@ -125,8 +125,6 @@
     <string name="filter_apply">Pielietot</string>
     <string name="button_back">Atpakaļ</string>
     <string name="hint_additional_info">Papildu komentāri</string>
-    <string name="poll_info_closed">noslēgusies</string>
-    <string name="poll_vote">Balsot</string>
     <string name="create_poll_title">Aptauja</string>
     <string name="report_description_remote_instance">Konts ir no cita servera. Vai nosūtīt anonimizētu ziņojuma kopiju arī tam?</string>
     <string name="duration_30_min">30 minūtes</string>
@@ -312,8 +310,6 @@
     <string name="pref_title_alway_show_sensitive_media">Vienmēr rādīt jūtīgu saturu</string>
     <string name="unsaved_changes">Tev ir nesaglabātas izmaiņas.</string>
     <string name="description_post_media">Multivide: %s</string>
-    <string name="description_poll">Aptauja ar izvēlēm: %1$s, %2$s, %3$s, %4$s; %5$s</string>
-    <string name="poll_info_format"><!-- 15 balsis • atlikusi 1 stunda -->%1$s • %2$s</string>
     <string name="notification_clear_text">Vai tiešām vēlies neatgriezeniski notīrīt visus savus paziņojumus?</string>
     <string name="poll_ended_created">Tevis izveidotā aptauja ir noslēgusies</string>
     <string name="compose_preview_image_description">Darības ar attēlu %s</string>
@@ -414,44 +410,13 @@
     <string name="notification_favourite_name">Izlases</string>
     <string name="report_category_spam">Mēstule</string>
     <string name="action_set_focus">Iestatīt fokālo punktu</string>
-    <plurals name="poll_info_votes">
-        <item quantity="zero">%s balsis</item>
-        <item quantity="one">%s balss</item>
-        <item quantity="other">%s balsis</item>
-    </plurals>
     <string name="status_created_info">%1$s izveidoja</string>
-    <plurals name="poll_info_people">
-        <item quantity="zero">%s cilvēku</item>
-        <item quantity="one">%s cilvēks</item>
-        <item quantity="other">%s cilvēki</item>
-    </plurals>
-    <plurals name="poll_timespan_hours">
-        <item quantity="zero">atlikušas %d stundas</item>
-        <item quantity="one">atlikusi %d stunda</item>
-        <item quantity="other">atlikušas %d stundas</item>
-    </plurals>
-    <plurals name="poll_timespan_days">
-        <item quantity="zero">atlikušas %d dienas</item>
-        <item quantity="one">atlikusi %d diena</item>
-        <item quantity="other">atlikušas %d dienas</item>
-    </plurals>
-    <plurals name="poll_timespan_minutes">
-        <item quantity="zero">atlikušas %d minūtes</item>
-        <item quantity="one">atlikusi %d minūte</item>
-        <item quantity="other">atlikušas %d minūtes</item>
-    </plurals>
-    <plurals name="poll_timespan_seconds">
-        <item quantity="zero">atlikušas %d sekundes</item>
-        <item quantity="one">atlikusi %d sekunde</item>
-        <item quantity="other">atlikušas %d sekundes</item>
-    </plurals>
     <string name="action_post_failed">Augšupielāde neizdevās</string>
     <string name="action_post_failed_show_drafts">Rādīt melnrakstus</string>
     <string name="action_post_failed_do_nothing">Aizvākt</string>
     <string name="edit_hashtag_hint">Tēmturis bez #</string>
     <string name="status_edit_info">%1$s laboja</string>
     <string name="description_login">Darbojas vairumā gadījumu. Dati netiek nopludināti citām lietotnēm.</string>
-    <string name="poll_info_time_absolute">beidzas %s</string>
     <string name="pref_title_confirm_favourites">Pirms pievienošanas izlasei rādīt apstiprināšanas dialogu</string>
     <string name="action_view_favourites">Izlases</string>
     <string name="pref_title_notification_filter_favourites">Mani ieraksti tiek pievienoti izlasei</string>
@@ -700,7 +665,6 @@
     <string name="error_import_preferences_fmt">Nevarēja ievietot iestatījumus no %1$s: %2$s</string>
     <string name="description_visibility_direct">Tiešs</string>
     <string name="ui_error_reblog_fmt">Ieraksta pastiprināšana neizdevās: %1$s</string>
-    <string name="poll_show_votes">Rādīt balsojumus</string>
     <string name="conversation_0_recipients">Nav citu dalībnieku</string>
     <string name="error_prepare_media_unknown_file_size">datnes lielumu nevarēja noteikt</string>
     <string name="error_media_uploader_upload_not_found_fmt">informācijas nesēju augšupielāde ar Id %1$s nav atrasta</string>

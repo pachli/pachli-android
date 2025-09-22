@@ -19,4 +19,45 @@
     <string name="action_logout_confirm">A bheil thu cinnteach gu bheil thu airson clàradh a-mach à %1$s? Thèid gach dàta ionadail a’ chunntais a sguabadh às, a’ gabhail a-staigh nan dreachdan is roghainnean.</string>
     <string name="add_account_name">Cuir cunntas ris</string>
     <string name="action_logout">Clàraich a-mach</string>
+    <string name="poll_vote">Bhòt</string>
+    <plurals name="poll_timespan_seconds">
+        <item quantity="one">Tha %d diog air fhàgail</item>
+        <item quantity="two">Tha %d dhiog air fhàgail</item>
+        <item quantity="few">Tha %d diogan air fhàgail</item>
+        <item quantity="other">Tha %d diog air fhàgail</item>
+    </plurals>
+    <plurals name="poll_timespan_minutes">
+        <item quantity="one">Tha %d mhionaid air fhàgail</item>
+        <item quantity="two">Tha %d mhionaid air fhàgail</item>
+        <item quantity="few">Tha %d mionaidean air fhàgail</item>
+        <item quantity="other">Tha %d mionaid air fhàgail</item>
+    </plurals>
+    <plurals name="poll_timespan_hours">
+        <item quantity="one">Tha %d uair a thìde air fhàgail</item>
+        <item quantity="two">Tha %d uair a thìde air fhàgail</item>
+        <item quantity="few">Tha %d uairean a thìde air fhàgail</item>
+        <item quantity="other">Tha %d uair a thìde air fhàgail</item>
+    </plurals>
+    <plurals name="poll_timespan_days">
+        <item quantity="one">Tha %d latha air fhàgail</item>
+        <item quantity="two">Tha %d latha air fhàgail</item>
+        <item quantity="few">Tha %d làithean air fhàgail</item>
+        <item quantity="other">Tha %d latha air fhàgail</item>
+    </plurals>
+    <plurals name="poll_info_votes">
+        <item quantity="one">%s bhòt</item>
+        <item quantity="two">%s bhòt</item>
+        <item quantity="few">%s bhòtaichean</item>
+        <item quantity="other">%s bhòt</item>
+    </plurals>
+    <plurals name="poll_info_people">
+        <item quantity="one">%s duine</item>
+        <item quantity="two">%s dhuine</item>
+        <item quantity="few">%s dhaoine</item>
+        <item quantity="other">%s duine</item>
+    </plurals>
+    <string name="poll_info_closed">air a dhùnadh</string>
+    <string name="poll_info_time_absolute">thig e gu crìoch %s</string>
+    <string name="poll_info_format"><!-- 15 bhòtaichean • 1 uair a thìde air fhàgail -->%1$s • %2$s</string>
+    <string name="description_poll">Cunntas-bheachd le roghainnean: %1$s, %2$s, %3$s, %4$s; %5$s</string>
 </resources>

@@ -17,4 +17,24 @@
     <string name="action_logout_confirm">정말로 %1$s에서 로그아웃하시겠습니까?</string>
     <string name="add_account_name">계정 추가</string>
     <string name="action_logout">로그아웃</string>
+    <string name="poll_vote">투표</string>
+    <plurals name="poll_timespan_seconds">
+        <item quantity="other">%d초 남음</item>
+    </plurals>
+    <plurals name="poll_timespan_minutes">
+        <item quantity="other">%d분 남음</item>
+    </plurals>
+    <plurals name="poll_timespan_hours">
+        <item quantity="other">%d시간 남음</item>
+    </plurals>
+    <plurals name="poll_timespan_days">
+        <item quantity="other">%d일 남음</item>
+    </plurals>
+    <plurals name="poll_info_votes">
+        <item quantity="other">%s 명 참여</item>
+    </plurals>
+    <string name="poll_info_closed">마감됨</string>
+    <string name="poll_info_time_absolute">%s에 종료</string>
+    <string name="poll_info_format"><!-- 15 명 참여 • 1 시간 남음 -->%1$s • %2$s</string>
+    <string name="description_poll">투표 선택지: %1$s, %2$s, %3$s, %4$s, %5$s</string>
 </resources>

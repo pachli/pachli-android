@@ -34,4 +34,34 @@
     <string name="preview_card_byline_fediverse_account_fmt">Teki &lt;b&gt;%1$s&lt;/b&gt;. Katso lisää julkaisuja</string>
     <string name="preview_card_byline_name_only_fmt">Tehnyt &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="preview_card_timeline_link_fmt">Katso &lt;b&gt;%1$s&lt;/b&gt; julkaisua tästä linkistä</string>
+    <string name="poll_vote">Äänestä</string>
+    <string name="poll_show_votes">Näytä äänet</string>
+    <plurals name="poll_timespan_seconds">
+        <item quantity="one">%d sekunti jäljellä</item>
+        <item quantity="other">%d sekuntia jäljellä</item>
+    </plurals>
+    <plurals name="poll_timespan_minutes">
+        <item quantity="one">%d minuutti jäljellä</item>
+        <item quantity="other">%d minuuttia jäljellä</item>
+    </plurals>
+    <plurals name="poll_timespan_hours">
+        <item quantity="one">%d tunti jäljellä</item>
+        <item quantity="other">%d tuntia jäljellä</item>
+    </plurals>
+    <plurals name="poll_timespan_days">
+        <item quantity="one">%d päivä jäljellä</item>
+        <item quantity="other">%d päivää jäljellä</item>
+    </plurals>
+    <plurals name="poll_info_votes">
+        <item quantity="one">%s ääni</item>
+        <item quantity="other">%s ääntä</item>
+    </plurals>
+    <plurals name="poll_info_people">
+        <item quantity="one">%s henkilö</item>
+        <item quantity="other">%s henkilöä</item>
+    </plurals>
+    <string name="poll_info_closed">suljettu</string>
+    <string name="poll_info_time_absolute">päättyy %s</string>
+    <string name="poll_info_format"><!-- 15 ääntä • 1 tunti jäljellä -->%1$s• %2$s</string>
+    <string name="description_poll">Kysely jossa vaihtoehdot: %1$s, %2$s, %3$s, %4$s, %5$s</string>
 </resources>

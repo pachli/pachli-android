@@ -36,4 +36,34 @@
     <string name="preview_card_byline_fediverse_account_fmt">Von <b>%1$s</b>. Mehr Beiträge anzeigen</string>
     <string name="preview_card_byline_name_only_fmt">Von <b>%1$s</b></string>
     <string name="preview_card_timeline_link_fmt"><b>%1$s</b> Beiträge über diesen Link anzeigen</string>
+    <string name="poll_vote">Abstimmen</string>
+    <string name="poll_show_votes">Stimmen anzeigen</string>
+    <plurals name="poll_timespan_seconds">
+        <item quantity="one">noch %d Sekunde</item>
+        <item quantity="other">noch %d Sekunden</item>
+    </plurals>
+    <plurals name="poll_timespan_minutes">
+        <item quantity="one">noch %d Minute</item>
+        <item quantity="other">noch %d Minuten</item>
+    </plurals>
+    <plurals name="poll_timespan_hours">
+        <item quantity="one">noch %d Stunde</item>
+        <item quantity="other">noch %d Stunden</item>
+    </plurals>
+    <plurals name="poll_timespan_days">
+        <item quantity="one">noch %d Tag</item>
+        <item quantity="other">noch %d Tage</item>
+    </plurals>
+    <plurals name="poll_info_votes">
+        <item quantity="one">%s Stimme</item>
+        <item quantity="other">%s Stimmen</item>
+    </plurals>
+    <plurals name="poll_info_people">
+        <item quantity="one">%s Person</item>
+        <item quantity="other">%s Personen</item>
+    </plurals>
+    <string name="poll_info_closed">Geschlossen</string>
+    <string name="poll_info_time_absolute">endet um %s</string>
+    <string name="poll_info_format"><!-- 15 Stimmen • noch 1 Stunde -->%1$s • %2$s</string>
+    <string name="description_poll">Umfrage mit den Möglichkeiten: %1$s, %2$s, %3$s, %4$s; %5$s</string>
 </resources>

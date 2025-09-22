@@ -19,4 +19,33 @@
     <string name="action_logout_confirm">Bu oturumu sonlandırmak istediğinizden emin misiniz%1$s? Bu, taslaklar ve tercihler dahil olmak üzere hesabın tüm yerel verilerini silecektir.</string>
     <string name="add_account_name">Hesap Ekle</string>
     <string name="action_logout">Oturumu kapat</string>
+    <string name="poll_vote">Oy</string>
+    <plurals name="poll_timespan_seconds">
+        <item quantity="one">%d saniye kaldı</item>
+        <item quantity="other">%d saniyeler kaldı</item>
+    </plurals>
+    <plurals name="poll_timespan_minutes">
+        <item quantity="one">%d dakika kaldı</item>
+        <item quantity="other">%d dakikalar kaldı</item>
+    </plurals>
+    <plurals name="poll_timespan_hours">
+        <item quantity="one">%d saat kaldı</item>
+        <item quantity="other">%d saatler kaldı</item>
+    </plurals>
+    <plurals name="poll_timespan_days">
+        <item quantity="one">%d gün kaldı</item>
+        <item quantity="other">%d günler kaldı</item>
+    </plurals>
+    <plurals name="poll_info_votes">
+        <item quantity="one">%s oy</item>
+        <item quantity="other">%s oylar</item>
+    </plurals>
+    <plurals name="poll_info_people">
+        <item quantity="one">%s kişi</item>
+        <item quantity="other">%s kişiler</item>
+    </plurals>
+    <string name="poll_info_closed">kapandı</string>
+    <string name="poll_info_time_absolute">%s içinde sona erecek</string>
+    <string name="poll_info_format"><!-- 15 oy • 1 saat kaldı -->%1$s • %2$s</string>
+    <string name="description_poll">Seçenekli anket: %1$s, %2$s, %3$s, %4$s; %5$s</string>
 </resources>

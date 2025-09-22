@@ -17,4 +17,33 @@
     <string name="action_logout_confirm">Ziur zaude %1$s saioa itxi nahi duzula?</string>
     <string name="add_account_name">Gehitu kontua</string>
     <string name="action_logout">Saioa itxi</string>
+    <string name="poll_vote">Botatu</string>
+    <plurals name="poll_timespan_seconds">
+        <item quantity="one">Segundu %d geratzen da</item>
+        <item quantity="other">%d segundu geratzen da</item>
+    </plurals>
+    <plurals name="poll_timespan_minutes">
+        <item quantity="one">Minutu %d faltan</item>
+        <item quantity="other">%d minutu faltan</item>
+    </plurals>
+    <plurals name="poll_timespan_hours">
+        <item quantity="one">Ordu %d geratzen da</item>
+        <item quantity="other">%d ordu geratzen da</item>
+    </plurals>
+    <plurals name="poll_timespan_days">
+        <item quantity="one">Egun %d geratzen da</item>
+        <item quantity="other">%d egun geratzen da</item>
+    </plurals>
+    <plurals name="poll_info_votes">
+        <item quantity="one">Boto %s</item>
+        <item quantity="other">%s boto</item>
+    </plurals>
+    <plurals name="poll_info_people">
+        <item quantity="one">Pertsona %s</item>
+        <item quantity="other">%s pertsona</item>
+    </plurals>
+    <string name="poll_info_closed">Itxita</string>
+    <string name="poll_info_time_absolute">%s amaitzen da</string>
+    <string name="poll_info_format"><!-- 15 boto • Ordu 1 geratzen da -->%1$s • %2$s</string>
+    <string name="description_poll">Inkestatu aukerekin: %1$s, %2$s, %3$s, %4$s; %5$s</string>
 </resources>

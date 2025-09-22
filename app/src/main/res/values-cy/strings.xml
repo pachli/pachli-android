@@ -339,7 +339,6 @@
     <string name="add_poll_choice">Ychwanegu dewis</string>
     <string name="pin_action">Pinio</string>
     <string name="conversation_more_recipients">%1$s, %2$s a %3$d eraill</string>
-    <string name="poll_info_time_absolute">yn dod i ben am %s</string>
     <string name="duration_no_change">(Dim newid)</string>
     <string name="poll_allow_multiple_choices">Amlddewis</string>
     <string name="poll_new_choice_hint">Dewis %d</string>
@@ -357,7 +356,6 @@
     <string name="drafts_post_reply_removed">Mae\'r neges y drafftioch ymateb iddi wedi cael ei dileu</string>
     <string name="description_post_language">Iaith y neges</string>
     <string name="hashtags">Hashnodau</string>
-    <string name="poll_vote">Pleidleisio</string>
     <string name="poll_ended_voted">Mae pôl rydych wedi pleidleisio ynddo wedi dod i ben</string>
     <string name="poll_ended_created">Mae pôl a greoch wedi dod i ben</string>
     <string name="button_back">Nôl</string>
@@ -386,7 +384,6 @@
     <string name="description_visibility_direct">Uniongyrchol</string>
     <string name="compose_save_draft_loses_media">Cadw drafft? (Bydd atodiadau\'n cael eu lanlwytho eto pan fyddwch chi\'n adfer y drafft.)</string>
     <string name="description_post_reblogged">Ailflogiwyd</string>
-    <string name="poll_info_format"><!-- 15 votes • 1 hour left -->%1$s • %2$s</string>
     <string name="hint_media_description_missing">Dylai fod gan y cyfryngau ddisgrifiad.</string>
     <string name="description_post_cw">Rhybudd cynnwys: %s</string>
     <string name="pref_title_confirm_reblogs">Dangos cadarnhâd cyn hybu</string>
@@ -411,7 +408,6 @@
     <string name="pref_title_hide_top_toolbar">Cuddio teitl y bar offer uchaf</string>
     <string name="language_display_name_format">%s (%s)</string>
     <string name="error_following_hashtags_unsupported">Nid yw\'r gweinydd hwn yn cefnogi\'r hashnodau canlynol.</string>
-    <string name="poll_info_closed">wedi cau</string>
     <string name="failed_fetch_posts">Wedi methu nôl negeseuon</string>
     <string name="error_muting_hashtag_format">Gwall wrth dewi #%s</string>
     <string name="error_unmuting_hashtag_format">Gwall wrth ddad-dewi #%s</string>
@@ -439,7 +435,6 @@
     <string name="notification_report_description">Hysbysiadau am adroddiadau cymedroli</string>
     <string name="filter_dialog_whole_word_description">Os yw\'r allweddair neu\'r ymadrodd yn alffaniwmerig yn unig, mi fydd ond yn cael ei osod os yw\'n cyfateb â\'r gair cyfan</string>
     <string name="set_focus_description">Tapiwch neu lusgo\'r cylch i ddewis y canolbwynt a fydd bob amser yn weladwy mewn lluniau bach.</string>
-    <string name="description_poll">Pôl gyda dewisiadau: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="list">Rhestr</string>
     <string name="action_set_focus">Gosod pwynt ffocws</string>
     <string name="status_created_at_now">nawr</string>
@@ -447,22 +442,6 @@
     <string name="description_post_media">Cyfryngau: %s</string>
     <string name="error_status_source_load">Wedi methu llwytho\'r ffynhonnell statws o\'r gweinydd.</string>
     <string name="pref_title_enable_swipe_for_tabs">Galluogi ystum llusgo i newid rhwng tabiau</string>
-    <plurals name="poll_info_votes">
-        <item quantity="zero">%s pleidlais</item>
-        <item quantity="one">%s pleidlais</item>
-        <item quantity="two">%s bleidlais</item>
-        <item quantity="few">%s pleidlais</item>
-        <item quantity="many">%s pleidlais</item>
-        <item quantity="other">%s phleidlais</item>
-    </plurals>
-    <plurals name="poll_info_people">
-        <item quantity="zero">%s person</item>
-        <item quantity="one">%s person</item>
-        <item quantity="two">%s berson</item>
-        <item quantity="few">%s person</item>
-        <item quantity="many">%s person</item>
-        <item quantity="other">%s pherson</item>
-    </plurals>
     <string name="wellbeing_mode_notice">Bydd rhywfaint o wybodaeth a all effeithio ar eich lles meddyliol yn cael ei chuddio. Mae hyn yn cynnwys:
 \n
 \n - Hysbysiadau hoffi/hybu/dilyn
@@ -478,38 +457,6 @@
     <string name="compose_preview_image_description">Gweithredoedd ar gyfer delwedd %s</string>
     <string name="action_open_reblogger">Agor awdur hybu</string>
     <string name="notification_follow_request_description">Hysbysiadau am geisiadau i\'ch dilyn</string>
-    <plurals name="poll_timespan_seconds">
-        <item quantity="zero">%d eiliadau ar ôl</item>
-        <item quantity="one">%d eiliad ar ôl</item>
-        <item quantity="two">%d eiliad ar ôl</item>
-        <item quantity="few">%d eiliad ar ôl</item>
-        <item quantity="many">%d eiliad ar ôl</item>
-        <item quantity="other">%d eiliad ar ôl</item>
-    </plurals>
-    <plurals name="poll_timespan_hours">
-        <item quantity="zero">%d oriau ar ôl</item>
-        <item quantity="one">%d awr ar ôl</item>
-        <item quantity="two">%d awr ar ôl</item>
-        <item quantity="few">%d awr ar ôl</item>
-        <item quantity="many">%d awr ar ôl</item>
-        <item quantity="other">%d awr ar ôl</item>
-    </plurals>
-    <plurals name="poll_timespan_days">
-        <item quantity="zero">%d diwrnodau ar ôl</item>
-        <item quantity="one">%d diwrnod ar ôl</item>
-        <item quantity="two">%d ddiwrnod ar ôl</item>
-        <item quantity="few">%d diwrnod ar ôl</item>
-        <item quantity="many">%d diwrnod ar ôl</item>
-        <item quantity="other">%d niwrnod ar ôl</item>
-    </plurals>
-    <plurals name="poll_timespan_minutes">
-        <item quantity="zero">%d munudau ar ôl</item>
-        <item quantity="one">%d munud ar ôl</item>
-        <item quantity="two">%d funud ar ôl</item>
-        <item quantity="few">%d munud ar ôl</item>
-        <item quantity="many">%d munud ar ôl</item>
-        <item quantity="other">%d munud ar ôl</item>
-    </plurals>
     <plurals name="error_upload_max_media_reached">
         <item quantity="zero">Nid oes modd i chi lanlwytho mwy na %1$d atodiadau cyfryngau.</item>
         <item quantity="one">Nid oes modd i chi lanlwytho mwy nag %1$d atodiad cyfryngau.</item>

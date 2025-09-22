@@ -36,4 +36,52 @@
     <string name="preview_card_byline_fediverse_account_fmt">Le <b>%1$s</b>. Féach tuilleadh postálacha</string>
     <string name="preview_card_byline_name_only_fmt">Le <b>%1$s</b></string>
     <string name="preview_card_timeline_link_fmt">Féach ar <b>%1$s</b> postálacha faoin nasc seo</string>
+    <string name="poll_vote">Vóta</string>
+    <string name="poll_show_votes">Taispeáin vótaí</string>
+    <plurals name="poll_timespan_seconds">
+        <item quantity="one">D\'imigh %d soicind</item>
+        <item quantity="two">D\'imigh %d soicindí</item>
+        <item quantity="few">D\'imigh %d soicindí</item>
+        <item quantity="many">D\'imigh %d soicindí</item>
+        <item quantity="other">D\'imigh %d soicindí</item>
+    </plurals>
+    <plurals name="poll_timespan_minutes">
+        <item quantity="one">%d nóiméad fágtha</item>
+        <item quantity="two">%d nóiméid fágtha</item>
+        <item quantity="few">%d nóiméid fágtha</item>
+        <item quantity="many">%d nóiméid fágtha</item>
+        <item quantity="other">%d nóiméid fágtha</item>
+    </plurals>
+    <plurals name="poll_timespan_hours">
+        <item quantity="one">D\'imigh %d uair</item>
+        <item quantity="two">D\'imigh %d uair an chloig</item>
+        <item quantity="few">D\'imigh %d uair an chloig</item>
+        <item quantity="many">D\'imigh %d uair an chloig</item>
+        <item quantity="other">D\'imigh %d uair an chloig</item>
+    </plurals>
+    <plurals name="poll_timespan_days">
+        <item quantity="one">%d lá</item>
+        <item quantity="two">%d laethanta</item>
+        <item quantity="few">%d laethanta</item>
+        <item quantity="many">%d laethanta</item>
+        <item quantity="other">%d laethanta</item>
+    </plurals>
+    <plurals name="poll_info_votes">
+        <item quantity="one">%s vóta</item>
+        <item quantity="two">%s vótaí</item>
+        <item quantity="few">%s vótaí</item>
+        <item quantity="many">%s vótaí</item>
+        <item quantity="other">%s vótaí</item>
+    </plurals>
+    <plurals name="poll_info_people">
+        <item quantity="one">%s duine</item>
+        <item quantity="two">%s daoine</item>
+        <item quantity="few">%s daoine</item>
+        <item quantity="many">%s daoine</item>
+        <item quantity="other">%s daoine</item>
+    </plurals>
+    <string name="poll_info_closed">dúnta</string>
+    <string name="poll_info_time_absolute">foircinn ag %s</string>
+    <string name="poll_info_format"><!-- 15 vóta • 1 uair fágtha -->%1$s •%2$s</string>
+    <string name="description_poll">Vótaíocht le roghanna: %1$s, %2$s, %3$s, %4$s; %5$s</string>
 </resources>

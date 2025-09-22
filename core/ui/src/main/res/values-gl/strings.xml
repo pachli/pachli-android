@@ -28,4 +28,34 @@
     <string name="notification_details_last_fetch_label">Última solicitude /api/v1/notifications</string>
     <string name="action_logout">Pechar sesión</string>
     <string name="preview_card_byline_fediverse_account_fmt">Le máis de %1$s</string>
+    <string name="poll_vote">Votar</string>
+    <string name="poll_show_votes">Ver votos</string>
+    <plurals name="poll_timespan_seconds">
+        <item quantity="one">queda %d segundo</item>
+        <item quantity="other">quedan %d segundos</item>
+    </plurals>
+    <plurals name="poll_timespan_minutes">
+        <item quantity="one">queda %d minuto</item>
+        <item quantity="other">quedan %d minutos</item>
+    </plurals>
+    <plurals name="poll_timespan_hours">
+        <item quantity="one">queda %d hora</item>
+        <item quantity="other">quedan %d horas</item>
+    </plurals>
+    <plurals name="poll_timespan_days">
+        <item quantity="one">queda %d día</item>
+        <item quantity="other">quedan %d días</item>
+    </plurals>
+    <plurals name="poll_info_votes">
+        <item quantity="one">%s voto</item>
+        <item quantity="other">%s votos</item>
+    </plurals>
+    <plurals name="poll_info_people">
+        <item quantity="one">%s persoa</item>
+        <item quantity="other">%s persoas</item>
+    </plurals>
+    <string name="poll_info_closed">pechada</string>
+    <string name="poll_info_time_absolute">remata en %s</string>
+    <string name="poll_info_format"><!-- 15 votos • queda 1 hora -->%1$s • %2$s</string>
+    <string name="description_poll">Enquisa con opcións: %1$s, %2$s, %3$s, %4$s; %5$s</string>
 </resources>

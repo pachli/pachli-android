@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~ Copyright (c) 2025 Pachli Association
   ~
   ~ This file is a part of Pachli.
@@ -15,7 +16,6 @@
   ~ see <http://www.gnu.org/licenses>.
   -->
 
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <corners android:radius="6dp" />
-    <stroke android:color="?colorOutline" android:width="1dp" />
-</shape>
+<resources>
+    <string name="poll_percent_format"><!-- 15% -->%1$d%%</string>
+</resources>

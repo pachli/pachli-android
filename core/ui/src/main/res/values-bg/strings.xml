@@ -17,4 +17,33 @@
     <string name="action_logout_confirm">Сигурни ли сте, че искате да излезете от акаунта %1$s?</string>
     <string name="add_account_name">Добавяне на акаунт</string>
     <string name="action_logout">Излизане</string>
+    <string name="poll_vote">Гласуване</string>
+    <plurals name="poll_timespan_seconds">
+        <item quantity="one">Остава %d секунда</item>
+        <item quantity="other">Остават %d секунди</item>
+    </plurals>
+    <plurals name="poll_timespan_minutes">
+        <item quantity="one">Остава %d минута</item>
+        <item quantity="other">Остават %d минути</item>
+    </plurals>
+    <plurals name="poll_timespan_hours">
+        <item quantity="one">Остава %d час</item>
+        <item quantity="other">Остават %d часа</item>
+    </plurals>
+    <plurals name="poll_timespan_days">
+        <item quantity="one">Остава %d ден</item>
+        <item quantity="other">Остават %d дни</item>
+    </plurals>
+    <plurals name="poll_info_votes">
+        <item quantity="one">%s глас</item>
+        <item quantity="other">%s гласа</item>
+    </plurals>
+    <plurals name="poll_info_people">
+        <item quantity="one">%s човек</item>
+        <item quantity="other">%s човека</item>
+    </plurals>
+    <string name="poll_info_closed">затворено</string>
+    <string name="poll_info_time_absolute">завършва в %s</string>
+    <string name="poll_info_format"><!-- 15 votes • 1 hour left -->%1$s • %2$s</string>
+    <string name="description_poll">Анкета с избори: %1$s, %2$s, %3$s, %4$s; %5$s</string>
 </resources>

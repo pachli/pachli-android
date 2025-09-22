@@ -32,12 +32,13 @@ import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.model.Attachment
 import app.pachli.core.model.Emoji
 import app.pachli.core.model.Status
+import app.pachli.core.ui.PollViewData
+import app.pachli.core.ui.buildDescription
+import app.pachli.core.ui.calculatePercent
 import app.pachli.core.ui.decodeBlurHash
 import app.pachli.core.ui.emojify
+import app.pachli.core.ui.formatPollDuration
 import app.pachli.view.MediaPreviewImageView
-import app.pachli.viewdata.PollViewData
-import app.pachli.viewdata.buildDescription
-import app.pachli.viewdata.calculatePercent
 import com.bumptech.glide.RequestManager
 import com.google.android.material.color.MaterialColors
 import java.text.NumberFormat
@@ -297,22 +298,24 @@ class StatusViewHelper(
 
         val votesText = if (poll.votersCount == null) {
             val votes = NumberFormat.getNumberInstance().format(poll.votesCount.toLong())
-            context.resources.getQuantityString(R.plurals.poll_info_votes, poll.votesCount, votes)
+            context.resources.getQuantityString(app.pachli.core.ui.R.plurals.poll_info_votes, poll.votesCount, votes)
         } else {
-            val votes = NumberFormat.getNumberInstance().format(poll.votersCount.toLong())
-            context.resources.getQuantityString(R.plurals.poll_info_people, poll.votersCount, votes)
+            poll.votersCount?.let { votersCount ->
+                val votes = NumberFormat.getNumberInstance().format(votersCount.toLong())
+                context.resources.getQuantityString(app.pachli.core.ui.R.plurals.poll_info_people, votersCount, votes)
+            }
         }
         val pollDurationInfo = if (poll.expired) {
-            context.getString(R.string.poll_info_closed)
+            context.getString(app.pachli.core.ui.R.string.poll_info_closed)
         } else {
             if (useAbsoluteTime) {
-                context.getString(R.string.poll_info_time_absolute, absoluteTimeFormatter.format(poll.expiresAt, false))
+                context.getString(app.pachli.core.ui.R.string.poll_info_time_absolute, absoluteTimeFormatter.format(poll.expiresAt, false))
             } else {
                 formatPollDuration(context, poll.expiresAt!!.time, timestamp)
             }
         }
 
-        return context.getString(R.string.poll_info_format, votesText, pollDurationInfo)
+        return context.getString(app.pachli.core.ui.R.string.poll_info_format, votesText, pollDurationInfo)
     }
 
     private fun setupPollResult(poll: PollViewData, emojis: List<Emoji>, pollResults: List<TextView>, animateEmojis: Boolean) {

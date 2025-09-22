@@ -35,4 +35,34 @@
     <string name="preview_card_byline_fediverse_account_fmt">மூலம் <b>%1$s </b>. மேலும் இடுகைகளைக் காண்க</string>
     <string name="preview_card_byline_name_only_fmt">மூலம் <b>%1$s </b></string>
     <string name="preview_card_timeline_link_fmt">இந்த இணைப்பைப் பற்றிய <b>%1$s </b> இடுகைகளைப் பார்க்கவும்</string>
+    <string name="poll_vote">வாக்களிக்கவும்</string>
+    <string name="poll_show_votes">வாக்குகளைக் காட்டு</string>
+    <plurals name="poll_timespan_seconds">
+        <item quantity="one">%d இரண்டாவது இடது</item>
+        <item quantity="other">%d விநாடிகள் எஞ்சியுள்ளன</item>
+    </plurals>
+    <plurals name="poll_timespan_minutes">
+        <item quantity="one">%d மணித்துளி மீதமுள்ளது</item>
+        <item quantity="other">%d நிமிடங்கள் உள்ளன</item>
+    </plurals>
+    <plurals name="poll_timespan_hours">
+        <item quantity="one">%d மணிநேரம் மீதமுள்ளது</item>
+        <item quantity="other">%d மணிநேரங்கள் மீதமுள்ளது</item>
+    </plurals>
+    <plurals name="poll_timespan_days">
+        <item quantity="one">%d நாள் மீதமுள்ளது</item>
+        <item quantity="other">%d நாட்கள் உள்ளன</item>
+    </plurals>
+    <plurals name="poll_info_votes">
+        <item quantity="one">%s வாக்கு</item>
+        <item quantity="other">%s வாக்குகள்</item>
+    </plurals>
+    <plurals name="poll_info_people">
+        <item quantity="one">%s நபர்</item>
+        <item quantity="other">%s நபர்கள்</item>
+    </plurals>
+    <string name="poll_info_closed">மூடப்பட்டது</string>
+    <string name="poll_info_time_absolute">%s இல் முடிகிறது</string>
+    <string name="poll_info_format"><!-- 15 வாக்குகள் • 1 மணிநேரம் மீதமுள்ளது--> %1$s • %2$s</string>
+    <string name="description_poll">தேர்வுகளுடன் வாக்கெடுப்பு: %1$s, %2$s, %3$s, %4$s; %5$s</string>
 </resources>

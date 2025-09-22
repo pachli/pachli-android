@@ -297,14 +297,6 @@
     <string name="notification_clear_text">Sei sicuro di voler permanentemente eliminare tutte le tue notifiche?</string>
     <string name="action_delete_and_redraft">Cancella e riscrivi</string>
     <string name="dialog_redraft_post_warning">Cancellare e riscrivere questo messaggio?</string>
-    <plurals name="poll_info_votes">
-        <item quantity="one">%s voto</item>
-        <item quantity="many">%s voti</item>
-        <item quantity="other">%s voti</item>
-    </plurals>
-    <string name="poll_info_time_absolute">si conclude alle %s</string>
-    <string name="poll_info_closed">concluso</string>
-    <string name="poll_vote">Vota</string>
     <string name="title_domain_mutes">Domini nascosti</string>
     <string name="action_view_domain_mutes">Domini nascosti</string>
     <string name="action_mute_domain">Silenzia %s</string>
@@ -323,33 +315,12 @@
     <string name="action_add_poll">Aggiungi sondaggio</string>
     <string name="pref_title_alway_open_spoiler">Espandi sempre i messaggi segnalati come contenuto sensibile</string>
     <string name="description_post_bookmarked">Messo nei segnalibri</string>
-    <string name="description_poll">Sondaggio con scelte: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="select_list_title">Scegli lista</string>
     <string name="list">Lista</string>
     <string name="compose_preview_image_description">Azioni per l\'immagine %s</string>
     <string name="poll_ended_voted">Un sondaggio in cui hai votato si è concluso</string>
     <string name="poll_ended_created">Un sondaggio che hai creato si è concluso</string>
     <!--These are for timestamps on polls -->
-    <plurals name="poll_timespan_days">
-        <item quantity="one">%d giorno rimasto</item>
-        <item quantity="many">%d giorni rimasti</item>
-        <item quantity="other">%d giorni rimasti</item>
-    </plurals>
-    <plurals name="poll_timespan_hours">
-        <item quantity="one">%d ora rimasta</item>
-        <item quantity="many">%d ore rimaste</item>
-        <item quantity="other">%d ore rimaste</item>
-    </plurals>
-    <plurals name="poll_timespan_minutes">
-        <item quantity="one">%d minuto rimasto</item>
-        <item quantity="many">%d minuti rimasti</item>
-        <item quantity="other">%d minuti rimasti</item>
-    </plurals>
-    <plurals name="poll_timespan_seconds">
-        <item quantity="one">%d secondo rimasto</item>
-        <item quantity="many">%d secondi rimasti</item>
-        <item quantity="other">%d secondi rimasti</item>
-    </plurals>
     <string name="button_back">Indietro</string>
     <string name="report_sent_success">Segnalato @%s con successo</string>
     <string name="hint_additional_info">Altri commenti</string>
@@ -376,13 +347,7 @@
     <string name="action_access_scheduled_posts">Messaggi programmati</string>
     <string name="action_schedule_post">Programma un messaggio</string>
     <string name="action_reset_schedule">Ripristina</string>
-    <string name="poll_info_format"><!-- 15 votes • 1 hour left -->%1$s • %2$s</string>
     <string name="no_drafts">Non hai bozze.</string>
-    <plurals name="poll_info_people">
-        <item quantity="one">%s persona</item>
-        <item quantity="many">%s persone</item>
-        <item quantity="other">%s persone</item>
-    </plurals>
     <string name="hashtags">Hashtag</string>
     <string name="add_hashtag_title">Aggiungi hashtag</string>
     <string name="dialog_mute_warning">Silenziare @%s?</string>
@@ -669,7 +634,6 @@
     <string name="manage_lists">Gestisci liste</string>
     <string name="conversation_0_recipients">Nessun altro partecipante</string>
     <string name="compose_schedule_date_time_fmt">%1$s%2$s</string>
-    <string name="poll_show_votes">Mostra voti</string>
     <string name="title_report_category_fmt">Categoria: %1$s</string>
     <string name="ui_error_translate_status_fmt">Traduzione fallita: %1$s</string>
     <string name="filter_action_none">Mostra</string>

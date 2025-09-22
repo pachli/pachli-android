@@ -314,7 +314,7 @@
 
     <issue
         id="MemberExtensionConflict"
-        message="`hide` is defined both as a member in class `app.pachli.view.PollView` and an extension in package `app.pachli.core.common.extensions`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
+        message="`hide` is defined both as a member in class `app.pachli.core.ui.PollView` and an extension in package `app.pachli.core.common.extensions`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
         errorLine1="            } ?: pollView.hide()"
         errorLine2="                 ~~~~~~~~~~~~~~~">
         <location
@@ -325,7 +325,7 @@
 
     <issue
         id="MemberExtensionConflict"
-        message="`hide` is defined both as a member in class `app.pachli.view.PollView` and an extension in package `app.pachli.core.common.extensions`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
+        message="`hide` is defined both as a member in class `app.pachli.core.ui.PollView` and an extension in package `app.pachli.core.common.extensions`. The defined behavior for this is to use the member, but since the extension is explicitly imported into this file, there&apos;s a chance that this was not expected. (One common way this happens is for members to be added to a class after code was already written to use an extension)."
         errorLine1="            pollView.hide()"
         errorLine2="            ~~~~~~~~~~~~~~~">
         <location
@@ -796,7 +796,7 @@
         errorLine2="                                                                                     ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="370"
+            line="341"
             column="86"/>
     </issue>
 
@@ -807,7 +807,7 @@
         errorLine2="                                                  ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="488"
+            line="459"
             column="51"/>
     </issue>
 
@@ -818,7 +818,7 @@
         errorLine2="                                          ~~~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="602"
+            line="572"
             column="43"/>
     </issue>
 
@@ -829,7 +829,7 @@
         errorLine2="                                                  ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="687"
+            line="657"
             column="51"/>
     </issue>
 
@@ -840,7 +840,7 @@
         errorLine2="                                                                   ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="711"
+            line="681"
             column="68"/>
     </issue>
 
@@ -862,7 +862,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="666"
+            line="634"
             column="5"/>
     </issue>
 
@@ -3370,7 +3370,7 @@
         errorLine2="                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/donottranslate.xml"
-            line="270"
+            line="268"
             column="19"/>
     </issue>
 
@@ -3381,7 +3381,7 @@
         errorLine2="                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/donottranslate.xml"
-            line="275"
+            line="273"
             column="19"/>
     </issue>
 
@@ -3755,7 +3755,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="531"
+            line="528"
             column="13"/>
     </issue>
 
@@ -3766,7 +3766,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="532"
+            line="529"
             column="13"/>
     </issue>
 
@@ -3777,7 +3777,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="542"
+            line="539"
             column="13"/>
     </issue>
 
@@ -3788,7 +3788,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="543"
+            line="540"
             column="13"/>
     </issue>
 
@@ -3799,7 +3799,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="544"
+            line="541"
             column="13"/>
     </issue>
 
@@ -3810,7 +3810,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="547"
+            line="544"
             column="13"/>
     </issue>
 
@@ -3821,7 +3821,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="584"
+            line="552"
             column="13"/>
     </issue>
 
@@ -3832,7 +3832,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="626"
+            line="594"
             column="13"/>
     </issue>
 
@@ -3843,7 +3843,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="632"
+            line="600"
             column="13"/>
     </issue>
 
@@ -3854,7 +3854,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="658"
+            line="626"
             column="13"/>
     </issue>
 
@@ -3865,7 +3865,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="684"
+            line="652"
             column="13"/>
     </issue>
 
@@ -3993,7 +3993,7 @@
         errorLine2="         ~~~~~~~~">
         <location
             file="src/main/res/layout/activity_compose.xml"
-            line="515"
+            line="514"
             column="10"/>
     </issue>
 

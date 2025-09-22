@@ -284,38 +284,13 @@
     <string name="notification_clear_text">Désirez-vous nettoyer toutes vos notifications de façon permanente \?</string>
     <string name="action_delete_and_redraft">Effacer et ré-écrire</string>
     <string name="dialog_redraft_post_warning">Effacer et ré-écrire ce message \?</string>
-    <string name="poll_info_time_absolute">Termina à %s</string>
-    <string name="poll_info_closed">Terminé</string>
-    <string name="poll_vote">Voter</string>
     <string name="notification_poll_name">Sondages</string>
     <string name="pref_title_notification_filter_poll">les sondages se terminent</string>
     <string name="notification_poll_description">Notifications pour les sondages terminés</string>
     <string name="poll_ended_created">Un sondage que vous avez créé est terminé</string>
-    <plurals name="poll_timespan_days">
-        <item quantity="one">%d jour restant</item>
-        <item quantity="many">%d jours restants</item>
-        <item quantity="other">%d jours restants</item>
-    </plurals>
-    <plurals name="poll_timespan_hours">
-        <item quantity="one">%d heure restante</item>
-        <item quantity="many">%d heures restantes</item>
-        <item quantity="other">%d heures restantes</item>
-    </plurals>
-    <plurals name="poll_timespan_minutes">
-        <item quantity="one">%d minute restante</item>
-        <item quantity="many">%d minutes restantes</item>
-        <item quantity="other">%d minutes restantes</item>
-    </plurals>
-    <plurals name="poll_timespan_seconds">
-        <item quantity="one">%d seconde restante</item>
-        <item quantity="many">%d secondes restantes</item>
-        <item quantity="other">%d secondes restantes</item>
-    </plurals>
     <string name="pref_title_animate_gif_avatars">Activer l’animation des avatars</string>
     <string name="compose_preview_image_description">Actions pour l’image %s</string>
-    <string name="poll_info_format"><!-- 15 votes • 1 heure restante -->%1$s • %2$s</string>
     <string name="poll_ended_voted">Un sondage auquel vous avez participé vient de se terminer</string>
-    <string name="description_poll">Sondage avec des choix : %1$s, %2$s, %3$s, %4$s ; %5$s</string>
     <string name="title_domain_mutes">Domaines cachés</string>
     <string name="action_view_domain_mutes">Domaines cachés</string>
     <string name="action_mute_domain">Masquer %s</string>
@@ -380,17 +355,7 @@
     <string name="action_unmute_domain">Ne plus masquer %s</string>
     <string name="dialog_mute_hide_notifications">Cacher les notifications</string>
     <string name="action_unmute_desc">Ne plus masquer %s</string>
-    <plurals name="poll_info_people">
-        <item quantity="one">%s personne</item>
-        <item quantity="many">%s personnes</item>
-        <item quantity="other">%s personnes</item>
-    </plurals>
     <string name="pref_title_hide_top_toolbar">Cacher le titre de la barre d’outils supérieure</string>
-    <plurals name="poll_info_votes">
-        <item quantity="one">%s voix</item>
-        <item quantity="many">%s voix</item>
-        <item quantity="other">%s voix</item>
-    </plurals>
     <string name="account_note_saved">Sauvegardé !</string>
     <string name="account_note_hint">Votre note privée sur ce compte</string>
     <string name="no_announcements">Il n’y a pas d’annonce.</string>

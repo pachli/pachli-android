@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Pachli Association
+ * Copyright (c) 2025 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -15,7 +15,7 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.view
+package app.pachli.core.ui
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -23,26 +23,22 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Rect
 import android.graphics.Typeface
+import android.text.format.DateUtils.DAY_IN_MILLIS
+import android.text.format.DateUtils.HOUR_IN_MILLIS
+import android.text.format.DateUtils.MINUTE_IN_MILLIS
+import android.text.format.DateUtils.SECOND_IN_MILLIS
 import android.text.style.ReplacementSpan
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import app.pachli.R
-import app.pachli.adapter.PollAdapter
-import app.pachli.adapter.PollOptionClickListener
-import app.pachli.adapter.ResultClickListener
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.model.Emoji
-import app.pachli.databinding.StatusPollBinding
-import app.pachli.util.formatPollDuration
-import app.pachli.viewdata.PollViewData
-import app.pachli.viewdata.buildDescription
-import app.pachli.viewdata.calculatePercent
+import app.pachli.core.ui.databinding.StatusPollBinding
 import com.bumptech.glide.RequestManager
 import java.text.NumberFormat
 
@@ -281,4 +277,26 @@ class VotePercentSpan : ReplacementSpan() {
         /** Span will be sized to be large enough for this text */
         private const val TEMPLATE = "100%"
     }
+}
+
+fun formatPollDuration(context: Context, then: Long, now: Long): String {
+    var span = then - now
+    if (span < 0) {
+        span = 0
+    }
+    val format: Int
+    if (span < MINUTE_IN_MILLIS) {
+        span /= SECOND_IN_MILLIS
+        format = R.plurals.poll_timespan_seconds
+    } else if (span < HOUR_IN_MILLIS) {
+        span /= MINUTE_IN_MILLIS
+        format = R.plurals.poll_timespan_minutes
+    } else if (span < DAY_IN_MILLIS) {
+        span /= HOUR_IN_MILLIS
+        format = R.plurals.poll_timespan_hours
+    } else {
+        span /= DAY_IN_MILLIS
+        format = R.plurals.poll_timespan_days
+    }
+    return context.resources.getQuantityString(format, span.toInt(), span.toInt())
 }
