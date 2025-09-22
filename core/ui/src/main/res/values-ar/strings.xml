@@ -72,4 +72,5 @@
     <string name="poll_info_time_absolute">ينتهي في %s</string>
     <string name="poll_info_format"><!-- 15 votes • 1 hour left -->%1$s • %2$s</string>
     <string name="description_poll">استطلاع رأي بالخيارات: %1$s, %2$s, %3$s, %4$s; %5$s</string>
+    <string name="post_media_alt">ALT</string>
 </resources>

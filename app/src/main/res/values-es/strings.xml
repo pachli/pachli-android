@@ -449,7 +449,6 @@
     <string name="error_following_hashtags_unsupported">Esta instancia no es compatible con el seguimiento de etiquetas.</string>
     <string name="title_followed_hashtags">Etiquetas seguidas</string>
     <string name="report_category_other">Otros</string>
-    <string name="post_media_alt">ALT</string>
     <string name="action_unfollow_hashtag_format">¿Dejar de seguir a #%s\?</string>
     <string name="post_edited">%s editado</string>
     <string name="error_status_source_load">Fallo al cargar el estado de la origen desde el servidor.</string>

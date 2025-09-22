@@ -435,7 +435,6 @@
     <string name="error_unfollowing_hashtag_format">#%s のフォロー解除エラー</string>
     <string name="hint_media_description_missing">メディアには説明文が必要です。</string>
     <string name="title_edits">編集</string>
-    <string name="post_media_alt">ALT</string>
     <string name="error_muting_hashtag_format">#%s のミュート中にエラーが起こりました</string>
     <string name="error_unmuting_hashtag_format">#%s のミュート解除中にエラーが起こりました</string>
     <string name="action_add_reaction">リアクションを追加</string>

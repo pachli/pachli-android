@@ -451,7 +451,6 @@
     <string name="error_following_hashtags_unsupported">مثيل الخادم هذا لا يدعم متابعة الوسوم.</string>
     <string name="action_discard">تجاهل التعديلات</string>
     <string name="action_continue_edit">الاستمرار في التعديل</string>
-    <string name="post_media_alt">ALT</string>
     <string name="notification_header_report_format">%s أبلغ عن %s</string>
     <plurals name="notification_summary_report_format">
         <item quantity="other">%1$s · %2$d منشورات ملحقة</item>

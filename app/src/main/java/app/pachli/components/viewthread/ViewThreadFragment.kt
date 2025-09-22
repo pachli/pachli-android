@@ -280,7 +280,7 @@ class ViewThreadFragment :
         actionReveal.isVisible = revealButtonState != RevealButtonState.NO_BUTTON
         actionReveal.setIcon(
             when (revealButtonState) {
-                RevealButtonState.REVEAL -> R.drawable.ic_eye_24dp
+                RevealButtonState.REVEAL -> app.pachli.core.ui.R.drawable.ic_eye_24dp
                 else -> R.drawable.ic_hide_media_24dp
             },
         )

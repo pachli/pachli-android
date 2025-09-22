@@ -15,9 +15,8 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli
+package app.pachli.core.ui
 
-import app.pachli.util.FocalPointUtil
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue

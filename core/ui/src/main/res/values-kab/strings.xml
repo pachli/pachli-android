@@ -44,4 +44,5 @@
     <string name="poll_info_closed">ifuk</string>
     <string name="poll_info_time_absolute">ad ifak deg %s</string>
     <string name="poll_info_format"><!-- 15 n wadɣaren • 1 n wesrag id yeqqimen -->%1$s • %2$s</string>
+    <string name="post_media_alt">ALT</string>
 </resources>

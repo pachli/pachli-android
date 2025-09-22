@@ -68,7 +68,7 @@
         app:layout_constraintTop_toBottomOf="@id/status_edit_content_warning_separator"
         tools:text="This is an edited status" />
 
-    <app.pachli.view.MediaPreviewLayout
+    <app.pachli.core.ui.MediaPreviewLayout
         android:id="@+id/status_edit_media_preview"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

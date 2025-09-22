@@ -440,7 +440,6 @@
     <string name="action_post_failed">Błąd wysyłania</string>
     <string name="action_post_failed_show_drafts">Pokaż szkice</string>
     <string name="action_post_failed_do_nothing">Odrzuć</string>
-    <string name="post_media_alt">ALT</string>
     <string name="action_continue_edit">Kontynuuj edycję</string>
     <string name="report_category_spam">Spam</string>
     <string name="send_account_link_to">Udostępnij odnośnik do konta…</string>

@@ -42,4 +42,5 @@
     <string name="poll_info_time_absolute">kết thúc lúc %s</string>
     <string name="poll_info_format"><!-- 15 người bình chọn • còn 1 giờ -->%1$s • %2$s</string>
     <string name="description_poll">Lượt bình chọn: %1$s, %2$s, %3$s, %4$s; %5$s</string>
+    <string name="post_media_alt">✦</string>
 </resources>

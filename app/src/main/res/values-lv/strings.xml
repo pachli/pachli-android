@@ -29,7 +29,6 @@
     <string name="notification_sign_up_format">%s reģistrējās</string>
     <string name="footer_empty">Šeit nekā nav. Pavilkt uz leju, lai atsvaidzinātu.</string>
     <string name="notification_update_format">%s laboja savu ierakstu</string>
-    <string name="post_media_alt">ALT</string>
     <string name="action_quick_reply">Ātrā atbilde</string>
     <string name="action_reply">Atbildēt</string>
     <string name="action_bookmark">Atzīmēt ar grāmatzīmi</string>

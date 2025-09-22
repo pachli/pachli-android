@@ -453,7 +453,6 @@
     <string name="status_created_info">%1$s creèt</string>
     <string name="title_edits">Modificacions</string>
     <string name="status_edit_info">%1$s modifiquèt</string>
-    <string name="post_media_alt">ALT</string>
     <string name="action_discard">Ignorar las modificacions</string>
     <string name="action_continue_edit">Téner de modificar</string>
     <string name="unsaved_changes">Avètz de modificacions pas salvadas.</string>

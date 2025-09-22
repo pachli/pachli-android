@@ -64,4 +64,5 @@
     <string name="poll_info_time_absolute">avsluttar %s</string>
     <string name="poll_info_format"><!-- 15 røyster • 1 time igjen -->%1$s • %2$s</string>
     <string name="description_poll">Avstemming med vala %1$s, %2$s, %3$s, og %4$s; %5$s</string>
+    <string name="post_media_alt">ALT</string>
 </resources>

@@ -457,7 +457,6 @@
     <string name="title_edits">Szerkesztések</string>
     <string name="status_created_info">%1$s-kor létrehozta</string>
     <string name="status_edit_info">%1$s-kor szerkesztette</string>
-    <string name="post_media_alt">ALT</string>
     <string name="action_discard">Változtatások elvetése</string>
     <string name="action_continue_edit">Szerkesztés folytatása</string>
     <string name="unsaved_changes">Elmentetlen változtatásaid vannak.</string>

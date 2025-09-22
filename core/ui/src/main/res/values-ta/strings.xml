@@ -65,4 +65,5 @@
     <string name="poll_info_time_absolute">%s இல் முடிகிறது</string>
     <string name="poll_info_format"><!-- 15 வாக்குகள் • 1 மணிநேரம் மீதமுள்ளது--> %1$s • %2$s</string>
     <string name="description_poll">தேர்வுகளுடன் வாக்கெடுப்பு: %1$s, %2$s, %3$s, %4$s; %5$s</string>
+    <string name="post_media_alt">மாற்று</string>
 </resources>
