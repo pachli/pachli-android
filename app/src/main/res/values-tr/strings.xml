@@ -449,7 +449,6 @@
     <string name="label_duration">Süre</string>
     <string name="error_status_source_load">Sunucudan kaynak durumu yüklenemedi.</string>
     <string name="pref_title_http_proxy_port_message">Bağlantı noktası %d ile %d arasında olmalıdır</string>
-    <string name="post_media_alt">Alternatif metin</string>
     <string name="a11y_label_loading_thread">Konu yükleniyor</string>
     <string name="help_empty_home">Bu senin <b>ana ağ akışın</b>. Takip ettiğin hesapların son gönderileri burada yer alacak. \n \nTakip edebileceğin hesapları diğer zaman tünellerinden keşfedebilirsin, örneğin kendi sunucunun yerel zaman tünelinden [iconics gmd_group]. Veya hesapları adlarıyla arayabilirsin [iconics gmd_search], örneğin Mastodon hesabımızı bulmak için Pachli adıyla araman yeterli.</string>
     <string name="pref_summary_http_proxy_missing">&lt;ayarlanmadı&gt;</string>

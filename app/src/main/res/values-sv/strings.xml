@@ -455,7 +455,6 @@
     <string name="hint_media_description_missing">Media bör ha en beskrivning.</string>
     <string name="pref_title_http_proxy_port_message">Portnummer bör vara mellan %d och %d</string>
     <string name="error_status_source_load">Kunde inte ladda status från servern.</string>
-    <string name="post_media_alt">ALT</string>
     <string name="a11y_label_loading_thread">Laddar tråd</string>
     <string name="mute_notifications_switch">Tysta notiser</string>
     <string name="title_edits">Redigeringar</string>

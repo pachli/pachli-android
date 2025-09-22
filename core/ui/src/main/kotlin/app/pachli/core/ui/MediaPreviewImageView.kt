@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License along with Pachli; if not,
  * see <http://www.gnu.org/licenses>.
  */
-package app.pachli.view
+package app.pachli.core.ui
 
 import android.content.Context
 import android.graphics.Matrix
@@ -21,7 +21,6 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatImageView
 import app.pachli.core.model.Attachment
-import app.pachli.util.FocalPointUtil
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener

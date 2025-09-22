@@ -94,7 +94,7 @@
         app:layout_constraintTop_toBottomOf="@id/buttonToggleContent"
         tools:visibility="visible">
 
-        <app.pachli.view.MediaPreviewImageView
+        <app.pachli.core.ui.MediaPreviewImageView
             android:id="@+id/status_media_preview_0"
             android:layout_width="0dp"
             android:layout_height="@dimen/status_media_preview_height"
@@ -104,7 +104,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription" />
 
-        <app.pachli.view.MediaPreviewImageView
+        <app.pachli.core.ui.MediaPreviewImageView
             android:id="@+id/status_media_preview_1"
             android:layout_width="0dp"
             android:layout_height="@dimen/status_media_preview_height"
@@ -116,7 +116,7 @@
             tools:ignore="ContentDescription" />
 
 
-        <app.pachli.view.MediaPreviewImageView
+        <app.pachli.core.ui.MediaPreviewImageView
             android:id="@+id/status_media_preview_2"
             android:layout_width="0dp"
             android:layout_height="@dimen/status_media_preview_height"
@@ -127,7 +127,7 @@
             app:layout_constraintTop_toBottomOf="@+id/status_media_preview_0"
             tools:ignore="ContentDescription" />
 
-        <app.pachli.view.MediaPreviewImageView
+        <app.pachli.core.ui.MediaPreviewImageView
             android:id="@+id/status_media_preview_3"
             android:layout_width="0dp"
             android:layout_height="@dimen/status_media_preview_height"

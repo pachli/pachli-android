@@ -39,6 +39,8 @@ import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.ViewMediaActivityIntent
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.preferences.CardViewMode
+import app.pachli.core.ui.MediaPreviewImageView
+import app.pachli.core.ui.MediaPreviewLayout
 import app.pachli.core.ui.PollView
 import app.pachli.core.ui.PollViewData.Companion.from
 import app.pachli.core.ui.PreviewCardView
@@ -57,8 +59,6 @@ import app.pachli.util.expandTouchSizeToFillRow
 import app.pachli.util.getFormattedDescription
 import app.pachli.util.getRelativeTimeSpanString
 import app.pachli.util.iconResource
-import app.pachli.view.MediaPreviewImageView
-import app.pachli.view.MediaPreviewLayout
 import at.connyduck.sparkbutton.SparkButton
 import at.connyduck.sparkbutton.helpers.Utils
 import com.bumptech.glide.RequestManager
@@ -86,7 +86,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
     private val moreButton: ImageButton = itemView.findViewById(R.id.status_more)
 
     /** [MediaPreviewLayout] that encompasses and lays out all the attachment previews. */
-    private val mediaPreview: MediaPreviewLayout = itemView.findViewById(R.id.status_media_preview)
+    private val mediaPreview: MediaPreviewLayout = itemView.findViewById(app.pachli.core.ui.R.id.status_media_preview)
 
     /**
      * [TextView] that overlays attachment previews when hidden/blurred to explain why
@@ -102,10 +102,10 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
 
     /** Views for displaying the description of the attachment at that index. */
     private val mediaDescriptionViews: Array<TextView> = arrayOf(
-        itemView.findViewById(R.id.status_media_label_0),
-        itemView.findViewById(R.id.status_media_label_1),
-        itemView.findViewById(R.id.status_media_label_2),
-        itemView.findViewById(R.id.status_media_label_3),
+        itemView.findViewById(app.pachli.core.ui.R.id.status_media_label_0),
+        itemView.findViewById(app.pachli.core.ui.R.id.status_media_label_1),
+        itemView.findViewById(app.pachli.core.ui.R.id.status_media_label_2),
+        itemView.findViewById(app.pachli.core.ui.R.id.status_media_label_3),
     )
 
     private val contentWarningButton: MaterialButton = itemView.findViewById(R.id.status_content_warning_button)

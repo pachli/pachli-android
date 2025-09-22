@@ -425,7 +425,6 @@
     <string name="followed_hashtags_summary_fmt">%1$s из %2$s (последние %3$s)</string>
     <string name="dialog_follow_hashtag_title">Подписаться на метки</string>
     <string name="dialog_follow_hashtag_hint">#метка</string>
-    <string name="post_media_alt">Альт</string>
     <string name="post_edited">Изменено %s</string>
     <string name="notification_sign_up_format">%s зарегистрировался</string>
     <string name="notification_update_format">%s изменил свою запись</string>

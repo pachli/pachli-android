@@ -442,7 +442,6 @@
     <string name="action_post_failed">Le téléversement a échoué</string>
     <string name="action_post_failed_show_drafts">Afficher les brouillons</string>
     <string name="action_post_failed_do_nothing">Ignorer</string>
-    <string name="post_media_alt">ALT</string>
     <string name="notification_report_format">Nouveau signalement sur %s</string>
     <string name="notification_header_report_format">%s a signalé %s</string>
     <plurals name="notification_summary_report_format">

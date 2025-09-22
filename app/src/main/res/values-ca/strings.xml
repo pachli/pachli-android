@@ -397,7 +397,6 @@
     <string name="action_post_failed_show_drafts">Mostra esborranys</string>
     <string name="action_post_failed_do_nothing">Descartar</string>
     <string name="send_account_link_to">Comparteix l\'URL del compte a…</string>
-    <string name="post_media_alt">ALT</string>
     <string name="notification_update_format">%s ha editat la seva publicació</string>
     <string name="notification_report_format">Nou informe sobre %s</string>
     <string name="notification_header_report_format">%s ha informat %s</string>

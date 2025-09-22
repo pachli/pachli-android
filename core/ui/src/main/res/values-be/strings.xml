@@ -60,4 +60,5 @@
     <string name="poll_info_time_absolute">завяршыцца ў %s</string>
     <string name="poll_info_format"><!-- 15 галасоў • 1 гадзіна засталася -->%1$s • %2$s</string>
     <string name="description_poll">Апытанне з варыянтамі: %1$s, %2$s, %3$s, %4$s; %5$s</string>
+    <string name="post_media_alt">ALT</string>
 </resources>

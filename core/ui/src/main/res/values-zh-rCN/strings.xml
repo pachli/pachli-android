@@ -46,4 +46,5 @@
     <string name="poll_info_time_absolute">%s 结束</string>
     <string name="poll_info_format"><!-- 15 票 • 1 小时剩余 -->%1$s • %2$s</string>
     <string name="description_poll">使用以下选项创建投票：%1$s，%2$s，%3$s，%4$s；%5$s</string>
+    <string name="post_media_alt">ALT</string>
 </resources>

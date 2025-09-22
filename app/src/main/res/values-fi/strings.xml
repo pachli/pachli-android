@@ -308,7 +308,6 @@
     <string name="abbreviated_hours_ago">%dt</string>
     <string name="filter_expiration_format">%s (%s)</string>
     <string name="action_set_focus">Valitse keskipiste</string>
-    <string name="post_media_alt">ALT</string>
     <string name="error_unfollowing_hashtag_format">Virhe tilin # %s seuraamista lopetettaessa</string>
     <string name="abbreviated_minutes_ago">%dmin</string>
     <string name="action_share_account_username">Jaa tilin käyttäjänimi</string>

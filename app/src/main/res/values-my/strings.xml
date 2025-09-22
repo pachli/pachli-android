@@ -81,7 +81,6 @@
     <string name="post_boosted_format">%s တစ်ဆင့်မျှဝေပြီး</string>
     <string name="post_sensitive_media_title">ထိလွယ်ရှလွယ်သော</string>
     <string name="post_media_hidden_title">မီဒီယာဖျောက်ထား</string>
-    <string name="post_media_alt">ပုံစာ</string>
     <string name="notification_reblog_format">%s မှသင့်ပိုစ့်ကိုတစ်ဆင့်မျှဝေသည်</string>
     <string name="post_content_show_more">ချဲ့မည်</string>
     <string name="notification_favourite_format">%s မှသင့်ပိုစ့်ကိုကြိုက်နှစ်သက်သည်</string>

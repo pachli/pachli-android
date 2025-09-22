@@ -66,7 +66,7 @@ class AccountMediaGridAdapter(
             item.sensitive && !item.isRevealed -> {
                 overlay.show()
                 overlay.setImageDrawable(mediaHiddenDrawable)
-                overlay.setBackgroundResource(R.drawable.media_warning_bg)
+                overlay.setBackgroundResource(app.pachli.core.ui.R.drawable.media_warning_bg)
 
                 val (placeholder, width, height) = item.attachment.placeholder(context, preview)
 

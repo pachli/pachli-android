@@ -469,7 +469,6 @@
 \nDette skjedde fordi serveren kunne ikke bli nådd, eller fordi serveren nektet å ta imot innleggene.</string>
     <string name="action_post_failed_show_drafts">Vis utkast</string>
     <string name="action_post_failed_do_nothing">Lukk</string>
-    <string name="post_media_alt">ALT</string>
     <string name="notification_unknown_name">Ukjent</string>
     <string name="socket_timeout_exception">Det tok for lang tid å kontaktere tjeneren din</string>
     <string name="ui_error_clear_notifications">Sletting av vasler feilet: %s</string>

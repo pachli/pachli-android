@@ -229,7 +229,6 @@
     <string name="description_visibility_public">அனைவருக்கும்</string>
     <string name="compose_shortcut_short_label">எழுது</string>
     <string name="title_edits">திருத்தங்கள்</string>
-    <string name="post_media_alt">மாற்று</string>
     <string name="notification_follow_request_format">%s உங்களைப் பின்தொடருமாறு கேட்டுக்கொண்டது</string>
     <string name="notification_report_format">%s பற்றிய புதிய அறிக்கை</string>
     <string name="action_post_failed">பதிவேற்றம் தோல்வியடைந்தது</string>

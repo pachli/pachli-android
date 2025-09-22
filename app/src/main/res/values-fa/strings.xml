@@ -447,7 +447,6 @@
     <string name="description_post_edited">ویراسته</string>
     <string name="error_muting_hashtag_format">خطا در خموش کردن #%s</string>
     <string name="error_unmuting_hashtag_format">خطا در ناخموش کردن #%s</string>
-    <string name="post_media_alt">متن جایگزین</string>
     <string name="post_edited">%s را ویراست</string>
     <string name="error_status_source_load">شکست در بار کردن مبدأ وضعیت از کارساز.</string>
     <string name="a11y_label_loading_thread">بار کردن رشته</string>

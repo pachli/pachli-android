@@ -48,4 +48,5 @@
     <string name="poll_info_time_absolute">%s içinde sona erecek</string>
     <string name="poll_info_format"><!-- 15 oy • 1 saat kaldı -->%1$s • %2$s</string>
     <string name="description_poll">Seçenekli anket: %1$s, %2$s, %3$s, %4$s; %5$s</string>
+    <string name="post_media_alt">Alternatif metin</string>
 </resources>

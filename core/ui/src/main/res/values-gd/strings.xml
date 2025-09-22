@@ -60,4 +60,5 @@
     <string name="poll_info_time_absolute">thig e gu crìoch %s</string>
     <string name="poll_info_format"><!-- 15 bhòtaichean • 1 uair a thìde air fhàgail -->%1$s • %2$s</string>
     <string name="description_poll">Cunntas-bheachd le roghainnean: %1$s, %2$s, %3$s, %4$s; %5$s</string>
+    <string name="post_media_alt">ALT</string>
 </resources>

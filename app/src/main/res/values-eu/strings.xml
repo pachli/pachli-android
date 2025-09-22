@@ -414,7 +414,6 @@
 \nZerbitzariarekin ezin izan da komunikatu edo zure tutak baztertuak izan dira.</string>
     <string name="action_post_failed_show_drafts">Zirriborroak erakutsi</string>
     <string name="action_post_failed_do_nothing">Baztertu</string>
-    <string name="post_media_alt">ALT</string>
     <string name="post_edited">%s editatua</string>
     <string name="notification_sign_up_format">%s-(e)k izena eman du</string>
     <string name="error_status_source_load">Akatsa zerbitzaritik egoeraren iturria kargatzean.</string>

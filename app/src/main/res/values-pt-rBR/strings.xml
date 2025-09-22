@@ -405,7 +405,6 @@
     <string name="pref_summary_http_proxy_invalid">&lt;inválido&gt;</string>
     <string name="error_image_edit_failed">A imagem não pôde ser editada.</string>
     <string name="hint_media_description_missing">A mídia deve ter uma descrição.</string>
-    <string name="post_media_alt">ALT</string>
     <string name="error_muting_hashtag_format">Erro ao silenciar #%s</string>
     <string name="account_username_copied">Nome de usuário copiado</string>
     <string name="title_followed_hashtags">Hashtags seguidas</string>

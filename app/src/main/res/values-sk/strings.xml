@@ -287,7 +287,6 @@
     <string name="dialog_follow_hashtag_title">Sledovať hashtag</string>
     <string name="dialog_follow_hashtag_hint">#hashtag</string>
     <string name="post_media_hidden_title">Médiá sú skryté</string>
-    <string name="post_media_alt">ALT</string>
     <string name="notification_sign_up_format">%s sa zaregistroval/a</string>
     <string name="notification_subscription_format">%s práve uverejnil/a príspevok</string>
     <string name="notification_update_format">%s upravil/a svoj príspevok</string>

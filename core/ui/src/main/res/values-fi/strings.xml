@@ -64,4 +64,5 @@
     <string name="poll_info_time_absolute">päättyy %s</string>
     <string name="poll_info_format"><!-- 15 ääntä • 1 tunti jäljellä -->%1$s• %2$s</string>
     <string name="description_poll">Kysely jossa vaihtoehdot: %1$s, %2$s, %3$s, %4$s, %5$s</string>
+    <string name="post_media_alt">ALT</string>
 </resources>

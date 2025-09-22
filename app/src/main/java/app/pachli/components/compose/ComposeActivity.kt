@@ -983,7 +983,7 @@ class ComposeActivity :
                     // Control is available for use.
                     alpha = 1F
                     isClickable = true
-                    setImageResource(R.drawable.ic_eye_24dp)
+                    setImageResource(app.pachli.core.ui.R.drawable.ic_eye_24dp)
                     setDrawableTint(this@ComposeActivity, drawable, android.R.attr.colorControlNormal)
                 }
             }

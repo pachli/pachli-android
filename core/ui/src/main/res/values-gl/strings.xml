@@ -58,4 +58,5 @@
     <string name="poll_info_time_absolute">remata en %s</string>
     <string name="poll_info_format"><!-- 15 votos • queda 1 hora -->%1$s • %2$s</string>
     <string name="description_poll">Enquisa con opcións: %1$s, %2$s, %3$s, %4$s; %5$s</string>
+    <string name="post_media_alt">ALT</string>
 </resources>

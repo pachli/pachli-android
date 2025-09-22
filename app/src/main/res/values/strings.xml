@@ -91,7 +91,6 @@
     <string name="attachment_matches_filter_other_fmt">Matches filters: \"%1$s\", \"%2$s\", and more. Tap to show.</string>
     <string name="attachment_hidden_user_action">You hid this. Tap to show.</string>
     <string name="post_media_hidden_title">Media hidden</string>
-    <string name="post_media_alt">ALT</string>
     <string name="post_sensitive_media_directions">Click to view</string>
     <string name="post_content_warning_show_more">Show More</string>
     <string name="post_content_warning_show_less">Show Less</string>

@@ -210,7 +210,6 @@
     <string name="notification_header_report_format">%s dilaporkan %s</string>
     <string name="dialog_follow_hashtag_title">Ikuti tagar</string>
     <string name="dialog_follow_hashtag_hint">#tagar</string>
-    <string name="post_media_alt">ALT</string>
     <string name="post_content_show_less">Tutup</string>
     <string name="post_edited">Diedit %s</string>
     <string name="notification_report_format">Laporan baru tentang %s</string>

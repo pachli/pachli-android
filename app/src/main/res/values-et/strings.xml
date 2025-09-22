@@ -109,7 +109,6 @@
     <string name="post_boosted_format">%s lisas hoogu</string>
     <string name="post_sensitive_media_title">Delikaatne sisu. Nägemiseks klõpsa.</string>
     <string name="post_media_hidden_title">Meedium on peidetud</string>
-    <string name="post_media_alt">ALT</string>
     <string name="post_sensitive_media_directions">Vaatamiseks klõpsi</string>
     <string name="notification_unknown">Tundmatu teavituse tüüp</string>
     <string name="notification_header_report_format">%s saatis teatise: %s</string>
