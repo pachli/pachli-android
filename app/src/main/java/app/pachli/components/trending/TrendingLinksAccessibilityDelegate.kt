@@ -24,10 +24,10 @@ import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
+import app.pachli.core.ui.PreviewCardView
+import app.pachli.core.ui.PreviewCardView.Target
 import app.pachli.core.ui.accessibility.PachliRecyclerViewAccessibilityDelegate
 import app.pachli.core.ui.di.UseCaseEntryPoint
-import app.pachli.view.PreviewCardView
-import app.pachli.view.PreviewCardView.Target
 import dagger.hilt.android.EntryPointAccessors
 
 /**

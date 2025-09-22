@@ -620,7 +620,6 @@
     <string name="error_media_uploader_upload_not_found_fmt">no se encontró la subida de multimedia con ID %1$s</string>
     <string name="error_prepare_media_unknown_file_size">no se pudo determinar el tamaño del archivo</string>
     <string name="error_prepare_media_unknown_mime_type">se desconoce el tipo de archivo</string>
-    <string name="preview_card_byline_fediverse_account_fmt">Por &lt;b&gt;%1$s&lt;/b&gt;. Ver más publicaciones</string>
     <string name="action_open_byline_account">Mostrar el perfil del autor del artículo</string>
     <string name="action_open_link">Abrir enlace</string>
     <string name="compose_warn_language_dialog_title">Comprueba el idioma de la publicación</string>
@@ -780,11 +779,9 @@
     <string name="notification_unknown">Tipo de notificación desconocido</string>
     <string name="pref_account_notification_filters_subtitle">Qué debería ocurrir con las notificaciones de cuentas…</string>
     <string name="pref_title_account_notification_filters">Filtros de notificaciones</string>
-    <string name="preview_card_byline_name_only_fmt">Por &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="action_timeline_link">Publicaciones acerca de este enlace</string>
     <string name="account_filter_placeholder_label_younger_30d">Filtrado porque: &lt;b&gt;creada en los últimos 30 días&lt;/b&gt;</string>
     <string name="account_filter_placeholder_label_limited_by_server">Filtrado porque: &lt;b&gt;limitada por tus moderadores&lt;/b&gt;</string>
-    <string name="preview_card_timeline_link_fmt">Ver &lt;b&gt;%1$s&lt;/b&gt; publicaciones sobre este enlace</string>
     <string name="pref_title_public_filter_home_and_lists">Inicio y listas</string>
     <string name="pref_title_account_conversation_filters">Filtros de conversaciones</string>
     <string name="pref_summary_account_conversation_filters">Tu servidor no es compatible con los filtros de conversaciones</string>

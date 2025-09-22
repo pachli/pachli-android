@@ -32,4 +32,7 @@
     <string name="title_mentions_dialog">குறிப்பிடுகிறது</string>
     <string name="title_logout_fmt">வெளியேறு %1$s</string>
     <string name="notification_details_last_fetch_label">கடைசி/ஏபிஐ/வி 1/அறிவிப்புகள் கோரிக்கை</string>
+    <string name="preview_card_byline_fediverse_account_fmt">மூலம் <b>%1$s </b>. மேலும் இடுகைகளைக் காண்க</string>
+    <string name="preview_card_byline_name_only_fmt">மூலம் <b>%1$s </b></string>
+    <string name="preview_card_timeline_link_fmt">இந்த இணைப்பைப் பற்றிய <b>%1$s </b> இடுகைகளைப் பார்க்கவும்</string>
 </resources>

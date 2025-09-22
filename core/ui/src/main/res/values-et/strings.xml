@@ -33,4 +33,7 @@
     <string name="hint_search_emojis">Otsi emojisid…</string>
     <string name="label_emoji_no_category">Kategooria puudub</string>
     <string name="emoji_picker_show_detail">Näita üksikasju</string>
+    <string name="preview_card_byline_fediverse_account_fmt">Kasutajalt <b>%1$s</b>. Vaata ka teisi postitusi</string>
+    <string name="preview_card_byline_name_only_fmt">Kasutajalt <b>%1$s</b></string>
+    <string name="preview_card_timeline_link_fmt">Vaata <b>%1$s</b> postitusi selle lingi kohta</string>
 </resources>

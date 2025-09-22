@@ -685,7 +685,6 @@
     <string name="action_timeline_link">Postitused selle lingi kohta</string>
     <string name="error_save_filter_failed_fmt">Filtri salvestamine ei õnnestunud: %1$s</string>
     <string name="error_delete_filter_failed_fmt">Filtri kustutamine ei õnnestunud: %1$s</string>
-    <string name="preview_card_timeline_link_fmt">Vaata <b>%1$s</b> postitusi selle lingi kohta</string>
     <string name="search_operator_attachment_has_media_except_1_label_fmt">Kõik, välja arvatud %1$s</string>
     <string name="search_operator_attachment_has_media_except_2_label_fmt">Kõik, välja arvatud %1$s, %2$s</string>
     <string name="search_operator_attachment_has_media_except_3_label_fmt">Kõik, välja arvatud %1$s, %2$s, %3$s</string>
@@ -706,8 +705,6 @@
     <string name="error_prepare_media_unsupported_mime_type_fmt">server ei toeta failitüüpi: %1$s</string>
     <string name="error_prepare_media_unknown_mime_type">failitüüp pole teada</string>
     <string name="error_pick_media_fmt">Faili lisamine postitusele ei õnnestunud: %1$s</string>
-    <string name="preview_card_byline_fediverse_account_fmt">Kasutajalt <b>%1$s</b>. Vaata ka teisi postitusi</string>
-    <string name="preview_card_byline_name_only_fmt">Kasutajalt <b>%1$s</b></string>
     <string name="error_share_media">pole kausta, kuhu salvestada ajutisi meediafaile</string>
     <string name="search_operator_where_all">Kõik postitused ▾</string>
     <string name="search_operator_where_library">Sinu meediakogu</string>

@@ -691,11 +691,8 @@
     <string name="error_prepare_media_unsupported_mime_type_fmt">Server unterstützt den Dateityp nicht: %1$s</string>
     <string name="error_prepare_media_unknown_mime_type">Typ der Datei ist nicht bekannt</string>
     <string name="error_pick_media_fmt">Konnte die Datei nicht an den Beitrag anheften: %1$s</string>
-    <string name="preview_card_byline_fediverse_account_fmt">Von <b>%1$s</b>. Mehr Beiträge anzeigen</string>
-    <string name="preview_card_byline_name_only_fmt">Von <b>%1$s</b></string>
     <string name="action_open_byline_account">Profil des Artikelautoren anzeigen</string>
     <string name="action_open_link">Link öffnen</string>
-    <string name="preview_card_timeline_link_fmt"><b>%1$s</b> Beiträge über diesen Link anzeigen</string>
     <string name="action_timeline_link">Beiträge über diesen Link</string>
     <string name="error_save_filter_failed_fmt">Filter konnte nicht gespeichert werden: %1$s</string>
     <string name="error_delete_filter_failed_fmt">Filter konnte nicht gelöscht werden: %1$s</string>

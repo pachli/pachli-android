@@ -151,7 +151,7 @@
         app:layout_constraintTop_toBottomOf="@+id/status_content_warning_button"
         tools:text="Status content. Can be pretty long. " />
 
-    <app.pachli.view.PreviewCardView
+    <app.pachli.core.ui.PreviewCardView
         android:id="@+id/status_card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -24,8 +24,8 @@ import androidx.recyclerview.widget.ListAdapter
 import app.pachli.R
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.model.TrendsLink
+import app.pachli.core.ui.PreviewCardView
 import app.pachli.databinding.ItemTrendingLinkBinding
-import app.pachli.view.PreviewCardView
 import com.bumptech.glide.RequestManager
 
 /**

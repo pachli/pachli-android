@@ -677,7 +677,6 @@
     <string name="pref_title_notification_method">Modh fógartha</string>
     <string name="pref_notification_method_all_pull">Fetched thart ar uair amháin gach 15 nóiméad. Tapáil le haghaidh sonraí.</string>
     <string name="pref_title_notification_battery_optimisation">Leas iomlán a bhaint ceallraí</string>
-    <string name="preview_card_byline_fediverse_account_fmt">Le <b>%1$s</b>. Féach tuilleadh postálacha</string>
     <string name="action_open_byline_account">Taispeáin próifíl údar an ailt</string>
     <string name="action_open_link">Oscail nasc</string>
     <string name="search_operator_attachment_dialog_title">Teorainn le poist leis na meáin?</string>
@@ -799,9 +798,7 @@
     <string name="pref_account_notification_filters_label_not_followed">… ní leanann tú</string>
     <string name="account_filter_placeholder_type_follow_fmt">Lean úsáideoir @&lt;b&gt;%1s&lt;/b&gt; tú</string>
     <string name="notification_unknown">Cineál fógra anaithnid</string>
-    <string name="preview_card_byline_name_only_fmt">Le <b>%1$s</b></string>
     <string name="action_timeline_link">Postálacha faoin nasc seo</string>
-    <string name="preview_card_timeline_link_fmt">Féach ar <b>%1$s</b> postálacha faoin nasc seo</string>
     <string name="ui_error_reload_reply_fmt">Níorbh fhéidir postáil a luchtú: %1$s</string>
     <string name="pref_summary_account_conversation_filters">Ní thacaíonn do fhreastalaí le scagairí comhrá</string>
     <string name="pref_account_conversation_filters_subtitle">Cad ba cheart a tharlóidh do chomhráite tosaithe ag cuntais…</string>

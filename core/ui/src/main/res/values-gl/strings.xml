@@ -27,4 +27,5 @@
     <string name="add_account_name">Engadir conta</string>
     <string name="notification_details_last_fetch_label">Última solicitude /api/v1/notifications</string>
     <string name="action_logout">Pechar sesión</string>
+    <string name="preview_card_byline_fediverse_account_fmt">Le máis de %1$s</string>
 </resources>
