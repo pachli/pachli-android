@@ -19,4 +19,27 @@
     <string name="action_logout_confirm">アカウント %1$s からログアウトしてもよろしいですか？ログアウトすると、下書きや詳細設定を含めて、ローカルに保存されているアカウントの全てのデータが削除されます。</string>
     <string name="add_account_name">アカウントを追加</string>
     <string name="action_logout">ログアウト</string>
+    <string name="poll_vote">投票</string>
+    <plurals name="poll_timespan_seconds">
+        <item quantity="other">残り%d秒</item>
+    </plurals>
+    <plurals name="poll_timespan_minutes">
+        <item quantity="other">残り%d分</item>
+    </plurals>
+    <plurals name="poll_timespan_hours">
+        <item quantity="other">残り%d時間</item>
+    </plurals>
+    <plurals name="poll_timespan_days">
+        <item quantity="other">残り%d日</item>
+    </plurals>
+    <plurals name="poll_info_votes">
+        <item quantity="other">%s票</item>
+    </plurals>
+    <plurals name="poll_info_people">
+        <item quantity="other">%s人</item>
+    </plurals>
+    <string name="poll_info_closed">投票終了</string>
+    <string name="poll_info_time_absolute">%sに終了</string>
+    <string name="poll_info_format"><!-- 15 votes • 1 hour left -->%1$s • %2$s</string>
+    <string name="description_poll">選択肢付きの投票: %1$s, %2$s, %3$s, %4$s; %5$s</string>
 </resources>

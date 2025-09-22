@@ -284,7 +284,6 @@
     <string name="description_post_favourited">Kedvelt</string>
     <string name="description_visibility_unlisted">Listázatlan</string>
     <string name="description_visibility_direct">Közvetlen</string>
-    <string name="description_poll">Szavazás válaszokkal: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="edit_hashtag_hint">Hashtag # nélkül</string>
     <string name="notifications_clear">Törlés</string>
     <string name="notifications_apply_filter">Szűrés</string>
@@ -293,32 +292,8 @@
     <string name="compose_shortcut_short_label">Szerkesztés</string>
     <string name="notification_clear_text">Biztos, hogy minden értesítésedet véglegesen törlöd\?</string>
     <string name="compose_preview_image_description">Műveletek a(z) %s képpel</string>
-    <string name="poll_info_format"><!-- 15 szavazat • 1 óra maradt -->%1$s • %2$s</string>
-    <plurals name="poll_info_votes">
-        <item quantity="one">%s szavazat</item>
-        <item quantity="other">%s szavazat</item>
-    </plurals>
-    <string name="poll_info_time_absolute">vége %s</string>
-    <string name="poll_info_closed">véget ért</string>
-    <string name="poll_vote">Szavazás</string>
     <string name="poll_ended_voted">Egy szavazás véget ért, melyben részt vettél</string>
     <string name="poll_ended_created">Egy szavazás véget ért, melyet te hoztál létre</string>
-    <plurals name="poll_timespan_days">
-        <item quantity="one">%d nap maradt</item>
-        <item quantity="other">%d nap maradt</item>
-    </plurals>
-    <plurals name="poll_timespan_hours">
-        <item quantity="one">%d óra maradt</item>
-        <item quantity="other">%d óra maradt</item>
-    </plurals>
-    <plurals name="poll_timespan_minutes">
-        <item quantity="one">%d perc maradt</item>
-        <item quantity="other">%d perc maradt</item>
-    </plurals>
-    <plurals name="poll_timespan_seconds">
-        <item quantity="one">%d másodperc maradt</item>
-        <item quantity="other">%d másodperc maradt</item>
-    </plurals>
     <string name="button_back">Vissza</string>
     <string name="report_sent_success">\@%s sikeresen bejelentettük</string>
     <string name="hint_additional_info">Egyéb megjegyzések</string>
@@ -361,10 +336,6 @@
     <string name="pref_title_confirm_reblogs">Jóváhagyás mutatása megtolás előtt</string>
     <string name="pref_title_show_cards_in_timelines">Hivatkozás előnézetének mutatása idővonalakon</string>
     <string name="pref_title_enable_swipe_for_tabs">Lapok közötti váltás engedélyezése csúsztatással</string>
-    <plurals name="poll_info_people">
-        <item quantity="one">%s személy</item>
-        <item quantity="other">%s személy</item>
-    </plurals>
     <string name="hashtags">Hashtagek</string>
     <string name="add_hashtag_title">Hashtag hozzáadása</string>
     <string name="notification_follow_request_description">Értesítések követési kérelmekről</string>

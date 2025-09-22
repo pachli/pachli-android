@@ -170,48 +170,8 @@
     <string name="hint_additional_info">Додаткові коментарі</string>
     <string name="report_sent_success">Звіт @%s надіслано</string>
     <string name="button_back">Назад</string>
-    <plurals name="poll_timespan_seconds">
-        <item quantity="one">Залишилася %d секунда</item>
-        <item quantity="few">Залишилося %d секунди</item>
-        <item quantity="many">Залишилося %d секунд</item>
-        <item quantity="other">Залишилося %d секунд</item>
-    </plurals>
-    <plurals name="poll_timespan_minutes">
-        <item quantity="one">Залишилася %d хвилина</item>
-        <item quantity="few">Залишилося %d хвилини</item>
-        <item quantity="many">Залишилося %d хвилин</item>
-        <item quantity="other">Залишилося %d хвилин</item>
-    </plurals>
-    <plurals name="poll_timespan_hours">
-        <item quantity="one">Залишилася %d година</item>
-        <item quantity="few">Залишилося %d години</item>
-        <item quantity="many">Залишилося %d годин</item>
-        <item quantity="other">Залишилося %d годин</item>
-    </plurals>
-    <plurals name="poll_timespan_days">
-        <item quantity="one">Залишився %d день</item>
-        <item quantity="few">Залишилося %d дні</item>
-        <item quantity="many">Залишилося %d днів</item>
-        <item quantity="other">Залишилося %d днів</item>
-    </plurals>
     <string name="poll_ended_created">Створене вами опитування завершилося</string>
     <string name="poll_ended_voted">Опитування, в якому ви проголосували</string>
-    <string name="poll_vote">Голосувати</string>
-    <string name="poll_info_closed">закрито</string>
-    <string name="poll_info_time_absolute">завершується о %s</string>
-    <plurals name="poll_info_people">
-        <item quantity="one">%s особа</item>
-        <item quantity="few">%s людини</item>
-        <item quantity="many">%s людей</item>
-        <item quantity="other">%s людей</item>
-    </plurals>
-    <plurals name="poll_info_votes">
-        <item quantity="one">%s голос</item>
-        <item quantity="few">%s голоси</item>
-        <item quantity="many">%s голосів</item>
-        <item quantity="other">%s голосів</item>
-    </plurals>
-    <string name="poll_info_format"><!-- 15 голосів • 1 година залишилась -->%1$s • %2$s</string>
     <string name="description_post_media_no_description_placeholder">Без опису</string>
     <string name="description_post_cw">Попередження про вміст: %s</string>
     <string name="description_post_media">Медіа: %s</string>
@@ -406,7 +366,6 @@
     <string name="select_list_title">Вибрати список</string>
     <string name="edit_hashtag_hint">Хештег без #</string>
     <string name="add_hashtag_title">Додати хештег</string>
-    <string name="description_poll">Опитування з варіантами: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="description_visibility_direct">Безпосередньо</string>
     <string name="description_post_bookmarked">Додано до закладок</string>
     <string name="description_post_reblogged">Поширено</string>

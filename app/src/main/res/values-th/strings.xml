@@ -20,30 +20,8 @@
     <string name="hint_additional_info">ความคิดเห็นเพิ่มเติม</string>
     <string name="report_sent_success">รายงาน @%s เรียบร้อยแล้ว</string>
     <string name="button_back">ย้อนกลับ</string>
-    <plurals name="poll_timespan_seconds">
-        <item quantity="other">เหลืออีก %d วินาที</item>
-    </plurals>
-    <plurals name="poll_timespan_minutes">
-        <item quantity="other">เหลืออีก %d นาที</item>
-    </plurals>
-    <plurals name="poll_timespan_hours">
-        <item quantity="other">เหลืออีก %d ชั่วโมง</item>
-    </plurals>
-    <plurals name="poll_timespan_days">
-        <item quantity="other">เหลืออีก %d วัน</item>
-    </plurals>
     <string name="poll_ended_created">โพลที่คุณสร้างสิ้นสุดลงแล้ว</string>
     <string name="poll_ended_voted">โพลที่คุณโหวตสิ้นสุดลงแล้ว</string>
-    <string name="poll_vote">โหวต</string>
-    <string name="poll_info_closed">สิ้นสุดแล้ว</string>
-    <string name="poll_info_time_absolute">จบที่ %s</string>
-    <plurals name="poll_info_people">
-        <item quantity="other">%s คน</item>
-    </plurals>
-    <plurals name="poll_info_votes">
-        <item quantity="other">%s โหวต</item>
-    </plurals>
-    <string name="poll_info_format"><!-- 15 votes • 1 hour left -->%1$s • %2$s</string>
     <string name="compose_preview_image_description">การกระทำสำหรับภาพ %s</string>
     <string name="notification_clear_text">ต้องการลบการแจ้งเตือนทั้งหมดอย่างสมบูรณ์\?</string>
     <string name="compose_shortcut_short_label">เขียน</string>
@@ -56,7 +34,6 @@
     <string name="hashtags">แฮชแท็ก</string>
     <string name="edit_hashtag_hint">แฮชแท็กโดยไม่มี #</string>
     <string name="add_hashtag_title">เพิ่มแฮชแท็ก</string>
-    <string name="description_poll">โพลกับตัวเลือก: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="description_visibility_direct">ไดเร็กต์</string>
     <string name="description_visibility_private">ผู้ติดตาม</string>
     <string name="description_visibility_unlisted">ไม่อยู่ในรายการ</string>

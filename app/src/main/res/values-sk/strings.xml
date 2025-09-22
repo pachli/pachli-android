@@ -383,11 +383,6 @@
     <string name="ui_error_clear_notifications">Vymazanie upozornení zlyhalo: %s</string>
     <string name="ui_error_reject_follow_request">Zamietnutie žiadosti o sledovanie zlyhalo: %s</string>
     <string name="filter_description_hide">Skryť úplne</string>
-    <plurals name="poll_timespan_minutes">
-        <item quantity="one">zostáva %d minúta</item>
-        <item quantity="few">zostávajú %d minúty</item>
-        <item quantity="other">zostáva %d minút</item>
-    </plurals>
     <plurals name="favs">
         <item quantity="one"><b>%1$s</b> obľúbenie</item>
         <item quantity="few"><b>%1$s</b> obľúbenia</item>
@@ -399,16 +394,6 @@
         <item quantity="one"><b>%s</b> zdieľanie</item>
         <item quantity="few"><b>%s</b> zdieľania</item>
         <item quantity="other"><b>%s</b> zdieľaní</item>
-    </plurals>
-    <plurals name="poll_info_votes">
-        <item quantity="one">%s hlas</item>
-        <item quantity="few">%s hlasy</item>
-        <item quantity="other">%s hlasov</item>
-    </plurals>
-    <plurals name="poll_timespan_seconds">
-        <item quantity="one">zostáva %d sekunda</item>
-        <item quantity="few">zostávajú %d sekundy</item>
-        <item quantity="other">zostáva %d sekúnd</item>
     </plurals>
     <string name="notification_report_description">Upozornenia na nahlásenia moderátorom</string>
     <string name="account_filter_placeholder_type_reblog_fmt">Účet @<b>%1s</b> zdieľal tvoj príspevok</string>
@@ -427,12 +412,6 @@
     <string name="description_post_reblogged">Zdielaný</string>
     <string name="compose_schedule_date_time_fmt">%1$s %2$s</string>
     <string name="compose_preview_image_description">Akcie pre obrázok %s</string>
-    <plurals name="poll_timespan_days">
-        <item quantity="one">zostáva %d deň</item>
-        <item quantity="few">zostávajú %d dni</item>
-        <item quantity="other">zostáva %d dní</item>
-    </plurals>
-    <string name="poll_info_time_absolute">končí o %s</string>
     <string name="no_scheduled_posts">Nemáš žiadne naplánované príspevky.</string>
     <string name="follow_requests_info">Hoci tvoj účet nie je uzamknutý, tím serveru %1$s odporúča manuálnu kontrolu žiadostí o sledovanie.</string>
     <string name="pref_title_show_self_username">Zobraziť používateľské meno v nástrojových lištách</string>
@@ -445,8 +424,6 @@
     <string name="abbreviated_hours_ago">%dh</string>
     <string name="pin_action">Pripnúť</string>
     <string name="failed_to_pin">Pripnutie zlyhalo</string>
-    <string name="description_poll">Anketa s voľbami: %1$s, %2$s, %3$s, %4$s; %5$s</string>
-    <string name="poll_info_closed">ukončená</string>
     <string name="pref_labs_reverse_home_timeline_off_summary">Príspevky sú zoradené od najnovších po najstaršie</string>
     <string name="drafts_post_reply_removed">Príspevok, ku ktorému si písal/a odpoveď, bol zmazaný</string>
     <string name="wellbeing_hide_stats_profile">Skryť kvantitatívne štatistiky profilov</string>
@@ -471,10 +448,7 @@
     <string name="description_login">Funguje vo väčšine prípadov. Nedochádza k úniku dát do iných aplikácií.</string>
     <string name="description_browser_login">Môže podporovať dodatočné metódy overenia, ale vyžaduje kompatibilný prehliadač.</string>
     <string name="add_hashtag_title">Pridať hashtag</string>
-    <string name="poll_info_format"><!-- 15 hlasov • zostáva 1 hodina do konca -->%1$s • %2$s</string>
     <string name="report_sent_success">\@%s bol/a úspešne nahlásený/nahlásená</string>
-    <string name="poll_vote">Hlasovať</string>
-    <string name="poll_show_votes">Zobraziť výsledky ankety</string>
     <string name="poll_ended_voted">Anketa, v ktorej si hlasoval/a, sa skončila</string>
     <string name="pref_title_show_stat_inline">Zobraziť štatistiky príspevkov v časovej osi</string>
     <string name="create_poll_title">Anketa</string>
@@ -575,11 +549,6 @@
     <string name="load_newest_statuses">Načítať najnovšie príspevky</string>
     <string name="update_dialog_neutral">Neupozorňuj ma na túto verziu</string>
     <string name="translating">Prekladám…</string>
-    <plurals name="poll_info_people">
-        <item quantity="one">%s osoba</item>
-        <item quantity="few">%s ľudia</item>
-        <item quantity="other">%s ľudí</item>
-    </plurals>
     <string name="reblog_private">Zdieľať s pôvodným publikom</string>
     <string name="unreblog_private">Zrušit zdieľanie</string>
     <string name="filter_edit_title">Upraviť filter</string>
@@ -602,11 +571,6 @@
     <string name="pref_title_labs">Experimentálne funkcie</string>
     <string name="pref_labs_warning">Toto sú experimentálne funkcie. Ich funkčnosť nie je zaručená a nemusia byť zahrnuté v budúcich verziách. Používaj ich výhradne na vlastné riziko.</string>
     <string name="pref_labs_reverse_home_timeline_title">Obrátiť poradie časovej osi</string>
-    <plurals name="poll_timespan_hours">
-        <item quantity="one">zostáva %d hodina</item>
-        <item quantity="few">zostávajú %d hodiny</item>
-        <item quantity="other">zostáva %d hodín</item>
-    </plurals>
     <string name="description_post_media">Média %s</string>
     <string name="description_post_language">Jazyk príspevku</string>
     <string name="set_focus_description">Klepnutím alebo potiahnutím kruhu urči bod, ktorý bude v náhľadoch vždy zobrazený.</string>

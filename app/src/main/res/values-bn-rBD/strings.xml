@@ -2,7 +2,6 @@
 <resources>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="abbreviated_seconds_ago">%dসে</string>
-    <string name="description_poll">পছন্দগুলি সহ নর্বাচন: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="description_visibility_direct">সরাসরি</string>
     <string name="description_visibility_private">অনুগামিবৃন্দ</string>
     <string name="description_visibility_unlisted">অতালিকাভুক্ত</string>
@@ -289,10 +288,6 @@
     <string name="button_back">পিছাও</string>
     <string name="poll_ended_created">আপনি তৈরি একটি নির্বাচন শেষ হয়েছে</string>
     <string name="poll_ended_voted">আপনি ভোট দিয়েছেন যে নির্বাচন এ সেটি শেষ হয়েছে</string>
-    <string name="poll_vote">ভোট</string>
-    <string name="poll_info_closed">বন্ধ</string>
-    <string name="poll_info_time_absolute">\'%s এ শেষ হবে\'</string>
-    <string name="poll_info_format"><!-- 15 votes • 1 hour left -->%1$s • %2$s</string>
     <string name="compose_preview_image_description">ছবি %s এর জন্য ক্রিয়া</string>
     <string name="notification_clear_text">আপনি কি আপনার সমস্ত বিজ্ঞপ্তি স্থায়ীভাবে মুছে ফেলতে চান\?</string>
     <string name="compose_shortcut_short_label">রচনা</string>
@@ -366,30 +361,6 @@
     <string name="pref_title_wellbeing_mode">সুস্থতা</string>
     <string name="duration_indefinite">সময়হীন</string>
     <string name="label_duration">সময়কাল</string>
-    <plurals name="poll_timespan_seconds">
-        <item quantity="one">%d সেকেন্ড বাকি</item>
-        <item quantity="other">%d সেকেন্ড বাকি</item>
-    </plurals>
-    <plurals name="poll_timespan_minutes">
-        <item quantity="one">%d মিনিট বাকি</item>
-        <item quantity="other">%d মিনিট বাকি</item>
-    </plurals>
-    <plurals name="poll_timespan_hours">
-        <item quantity="one">%d ঘন্টা বাকি</item>
-        <item quantity="other">%d ঘন্টা বাকি</item>
-    </plurals>
-    <plurals name="poll_timespan_days">
-        <item quantity="one">%d দিন বাকি</item>
-        <item quantity="other">%d দিন বাকি</item>
-    </plurals>
-    <plurals name="poll_info_people">
-        <item quantity="one">%s জন</item>
-        <item quantity="other">%s জন</item>
-    </plurals>
-    <plurals name="poll_info_votes">
-        <item quantity="one">%sটি ভোট</item>
-        <item quantity="other">%sটি ভোট</item>
-    </plurals>
     <string name="conversation_more_recipients">%1$s, %2$s এবং %3$d আরো অন্য জন</string>
     <string name="conversation_2_recipients">%1$s এবং %2$s</string>
     <string name="action_subscribe_account">সদস্যতা</string>

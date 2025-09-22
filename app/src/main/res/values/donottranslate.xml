@@ -219,8 +219,6 @@
         <item>31536000</item>
     </integer-array>
 
-    <string name="poll_percent_format"><!-- 15% -->%1$d%%</string>
-
     <string-array name="mute_duration_names">
         <item>@string/duration_indefinite</item>
         <item>@string/duration_5_min</item>

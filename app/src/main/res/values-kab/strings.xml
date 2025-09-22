@@ -134,28 +134,8 @@
     <string name="conversation_2_recipients">%1$s akked %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s akked %3$d nniḍen</string>
     <string name="compose_shortcut_long_label">Aru izen</string>
-    <string name="poll_info_format"><!-- 15 n wadɣaren • 1 n wesrag id yeqqimen -->%1$s • %2$s</string>
-    <plurals name="poll_info_votes">
-        <item quantity="one">%s n wedɣar</item>
-        <item quantity="other">%s n yedɣaren</item>
-    </plurals>
-    <string name="poll_info_time_absolute">ad ifak deg %s</string>
-    <string name="poll_info_closed">ifuk</string>
-    <string name="poll_vote">Dɣer</string>
     <string name="poll_ended_voted">Ifuk, tura kan, yiwen wedɣar t tteki-iḍ degs</string>
     <string name="poll_ended_created">Ifukk yiwen wedɣar id snulfaḍ</string>
-    <plurals name="poll_timespan_days">
-        <item quantity="one">%d n wass id yugran</item>
-        <item quantity="other">%d n wussan id yugran</item>
-    </plurals>
-    <plurals name="poll_timespan_hours">
-        <item quantity="one">%d wesrag id yugran</item>
-        <item quantity="other">%d n yisragen id yugran</item>
-    </plurals>
-    <plurals name="poll_timespan_minutes">
-        <item quantity="one">%d n tasdidt id yugran</item>
-        <item quantity="other">%d n tisdidin id yugran</item>
-    </plurals>
     <string name="button_back">Uɣal</string>
     <string name="failed_report">Tella-d tuccḍa deg cetki</string>
     <string name="failed_search">Tucḍa n unadi</string>
@@ -185,10 +165,6 @@
     <string name="abbreviated_in_hours">deg %dsr</string>
     <string name="abbreviated_in_minutes">deg %dtsd</string>
     <string name="abbreviated_in_seconds">deg %dtsn</string>
-    <plurals name="poll_timespan_seconds">
-        <item quantity="one">%d n tasint id yugran</item>
-        <item quantity="other">%d n tasinin id yugran</item>
-    </plurals>
     <string name="post_sensitive_media_title">Agbur amḥulfu</string>
     <string name="pref_default_media_sensitivity">Creḍ allal n teywalt amzun d amḥulfu</string>
     <string name="action_reset_schedule">Wennez tikkelt-nniḍen</string>
@@ -214,10 +190,6 @@
     <string name="action_block">Cekkel</string>
     <string name="action_unblock">Kkes tacekkalt</string>
     <string name="confirmation_unblocked">Tettwakkes tacekkalt ɣef umiḍan-nni</string>
-    <plurals name="poll_info_people">
-        <item quantity="one">%s n wemdan</item>
-        <item quantity="other">%s n yemdanen</item>
-    </plurals>
     <string name="report_remote_instance">Bren-it ɣer %s</string>
     <string name="pref_title_app_theme">Asentel n wesnas</string>
     <string name="no_scheduled_posts">Ulac ɣur-k·m ula d yiwet n tjewwiqt yettwasɣawsen.</string>

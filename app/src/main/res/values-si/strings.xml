@@ -49,17 +49,12 @@
     <string name="abbreviated_days_ago">දව. %d</string>
     <string name="filter_edit_title">පෙරහන සංස්කරණය</string>
     <string name="notification_summary_medium">%1$s, %2$s, සහ %3$s</string>
-    <string name="poll_info_format"><!-- 15 votes • 1 hour left -->%1$s • %2$s</string>
     <string name="lock_account_label">ගිණුම අගුළුලන්න</string>
     <string name="post_media_hidden_title">මාධ්‍ය සැඟවී ඇත</string>
     <string name="post_sent_long">පිළිතුර සාර්ථකව යැවිණි.</string>
     <string name="title_public_federated">ඒකාබද්ධ</string>
     <string name="dialog_message_uploading_media">උඩුගත වෙමින්…</string>
     <string name="label_header">ශීර්ෂය</string>
-    <plurals name="poll_timespan_hours">
-        <item quantity="one">පැය %d ක් ඉතිරිය</item>
-        <item quantity="other">පැය %d ක් ඉතිරිය</item>
-    </plurals>
     <string name="action_unfavourite">ප්‍රියතමය ඉවත් කරන්න</string>
     <string name="drafts_failed_loading_reply">පිළිතුරෙහි තොරතුරු පූරණය වීමට අසමත් විය</string>
     <string name="report_username_format">\@%s වාර්තා කරන්න</string>
@@ -73,10 +68,6 @@
     <string name="abbreviated_years_ago">අවු. %d</string>
     <string name="action_open_faved_by">ප්‍රියතමයන් පෙන්වන්න</string>
     <string name="abbreviated_in_minutes">වි. %d කින්</string>
-    <plurals name="poll_info_votes">
-        <item quantity="one">ජන්ද %s</item>
-        <item quantity="other">ජන්ද %s</item>
-    </plurals>
     <string name="action_view_bookmarks">පොත්යොමු</string>
     <string name="notification_mention_format">%s ඔබව සඳහන් කළා</string>
     <string name="compose_active_account_description">%1$s ගිණුම සමඟ පළකරන්න</string>
@@ -116,10 +107,6 @@
     <string name="description_visibility_public">ප්‍රසිද්ධ</string>
     <string name="add_account_description">නව මාස්ටඩන් ගිණුමක් එක්කරන්න</string>
     <string name="dialog_title_finishing_media_upload">මාධ්‍ය උඩුගත වීම අහවර වෙමින්</string>
-    <plurals name="poll_timespan_seconds">
-        <item quantity="one">තත්. %d ක් ඉතිරිය</item>
-        <item quantity="other">තත්. %d ක් ඉතිරිය</item>
-    </plurals>
     <string name="title_public_local">ස්ථානීය</string>
     <string name="action_view_favourites">ප්‍රියතමයන්</string>
     <string name="label_quick_reply">පිළිතුරු…</string>
@@ -175,27 +162,14 @@
     <string name="notification_subscription_name">නව ටූට්ස්</string>
     <string name="action_open_media_n">#%d මාධ්‍ය විවෘත කරන්න</string>
     <string name="action_view_media">මාධ්‍ය</string>
-    <plurals name="poll_info_people">
-        <item quantity="one">පුද්ගලයින් %s</item>
-        <item quantity="other">මිනිසුන් %s</item>
-    </plurals>
     <string name="send_media_to">වෙත මාධ්‍ය බෙදාගන්න…</string>
     <string name="pref_title_public_filter_keywords">ප්‍රසිද්ධ කාලරේඛා</string>
     <string name="post_text_size_smallest">කුඩාම</string>
     <string name="notification_poll_name">මත විමසුම්</string>
     <string name="post_sensitive_media_directions">දැකීමට ඔබන්න</string>
-    <string name="poll_info_closed">වසා ඇත</string>
-    <plurals name="poll_timespan_days">
-        <item quantity="one">දවස් %d ක් ඉතිරිය</item>
-        <item quantity="other">දවස් %d ක් ඉතිරිය</item>
-    </plurals>
     <string name="pref_title_notification_alert_sound">ශබ්දය සමඟ දන්වන්න</string>
     <string name="pref_title_alway_show_sensitive_media">සැමවිටම සංවේදී අන්තර්ගත පෙන්වන්න</string>
     <string name="title_announcements">නිවේදන</string>
-    <plurals name="poll_timespan_minutes">
-        <item quantity="one">විනාඩි %d ක් ඉතිරිය</item>
-        <item quantity="other">විනාඩි %d ක් ඉතිරිය</item>
-    </plurals>
     <string name="action_access_drafts">කටුපිටපත්</string>
     <string name="poll_ended_created">ඔබ සෑදූ මත විමසුම නිම වී ඇත</string>
     <string name="pref_title_bot_overlay">ස්වයංක්‍රමලේඛ සඳහා දර්ශකය පෙන්වන්න</string>
@@ -212,7 +186,6 @@
     <string name="account_note_hint">මෙම ගිණුම පිළිබඳව ඔබගේ පෞද්ගලික සටහන</string>
     <string name="title_notifications">දැනුම්දීම්</string>
     <string name="post_sent">යැවිණි!</string>
-    <string name="poll_vote">ජන්දය</string>
     <string name="filter_dialog_whole_word">මුළු වචනය</string>
     <string name="drafts_post_failed_to_send">මෙම ටූට් යැවීමට අසමත් විය!</string>
     <string name="post_media_video">දෘශ්‍යකය</string>

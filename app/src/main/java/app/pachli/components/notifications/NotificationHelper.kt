@@ -60,9 +60,9 @@ import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InReplyTo
 import app.pachli.core.navigation.IntentRouterActivityIntent
 import app.pachli.core.network.parseAsMastodonHtml
+import app.pachli.core.ui.buildDescription
+import app.pachli.core.ui.calculatePercent
 import app.pachli.receiver.SendStatusBroadcastReceiver
-import app.pachli.viewdata.buildDescription
-import app.pachli.viewdata.calculatePercent
 import app.pachli.worker.NotificationWorker
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners

@@ -275,7 +275,6 @@
     <string name="description_visibility_unlisted">অতালিকাভুক্ত</string>
     <string name="description_visibility_private">অনুগামিবৃন্দ</string>
     <string name="description_visibility_direct">সরাসরি</string>
-    <string name="description_poll">পছন্দগুলি সহ নর্বাচন: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="edit_hashtag_hint"># ছাড়া হ্যাশট্যাগ</string>
     <string name="notifications_clear">পরিষ্কার</string>
     <string name="notifications_apply_filter">ফিল্টার</string>
@@ -284,10 +283,6 @@
     <string name="compose_shortcut_short_label">রচনা</string>
     <string name="notification_clear_text">আপনি কি আপনার সমস্ত বিজ্ঞপ্তি স্থায়ীভাবে মুছে ফেলতে চান\?</string>
     <string name="compose_preview_image_description">ছবি %s এর জন্য ক্রিয়া</string>
-    <string name="poll_info_format"><!-- ১৫ ভোট • ১ ঘন্টা বাকি -->%1$s • %2$s</string>
-    <string name="poll_info_time_absolute">%s এ শেষ হবে</string>
-    <string name="poll_info_closed">বন্ধ</string>
-    <string name="poll_vote">ভোট</string>
     <string name="poll_ended_voted">আপনি ভোট দিয়েছেন যে নির্বাচন এ সেটি শেষ হয়েছে</string>
     <string name="poll_ended_created">আপনি তৈরি একটি নির্বাচন শেষ হয়েছে</string>
     <string name="button_back">পিছাও</string>
@@ -335,10 +330,6 @@
     <string name="dialog_mute_hide_notifications">বিজ্ঞপ্তি লুকাও</string>
     <string name="dialog_mute_warning">নিঃশব্দ @%s\?</string>
     <string name="dialog_block_warning">অবরুদ্ধ @%s\?</string>
-    <plurals name="poll_timespan_days">
-        <item quantity="one">%d দিন বাকি</item>
-        <item quantity="other">%d দিন বাকি</item>
-    </plurals>
     <string name="pref_title_gradient_for_media">লুকানো মিডিয়ার জন্য রঙিন গ্রেডিয়েন্ট ব্যবহার করি</string>
     <string name="action_unmute_conversation">আলাপ বন্ধ করো</string>
     <string name="action_mute_conversation">আলাপ বন্ধ করো</string>
@@ -346,26 +337,6 @@
     <string name="action_unmute_desc">আনমিউট %s</string>
     <string name="notification_follow_request_name">অনুরোধ অনুসরণ করুন</string>
     <string name="pref_title_confirm_reblogs">বুস্ট করার আগে নিশ্চিত করো</string>
-    <plurals name="poll_timespan_seconds">
-        <item quantity="one">%d সেকেন্ড বাকি</item>
-        <item quantity="other">%d সেকেন্ড বাকি</item>
-    </plurals>
-    <plurals name="poll_timespan_minutes">
-        <item quantity="one">%d মিনিট বাকি</item>
-        <item quantity="other">%d মিনিট বাকি</item>
-    </plurals>
-    <plurals name="poll_timespan_hours">
-        <item quantity="one">%d ঘন্টা বাকি</item>
-        <item quantity="other">%d ঘন্টা বাকি</item>
-    </plurals>
-    <plurals name="poll_info_people">
-        <item quantity="one">%s জন</item>
-        <item quantity="other">%s জন</item>
-    </plurals>
-    <plurals name="poll_info_votes">
-        <item quantity="one">%sটি ভোট</item>
-        <item quantity="other">%sটি ভোট</item>
-    </plurals>
     <string name="list">তালিকা</string>
     <string name="select_list_title">তালিকা নির্বাচন করো</string>
     <string name="hashtags">হ্যাশট্যাগ</string>

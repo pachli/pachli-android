@@ -285,28 +285,9 @@
     <string name="compose_shortcut_short_label">发表嘟文</string>
     <string name="pref_title_bot_overlay">显示机器人标志</string>
     <string name="notification_clear_text">你确定要永久清空通知列表吗？</string>
-    <string name="poll_info_format"><!-- 15 票 • 1 小时剩余 -->%1$s • %2$s</string>
-    <plurals name="poll_info_votes">
-        <item quantity="other">%s 次投票</item>
-    </plurals>
-    <string name="poll_info_time_absolute">%s 结束</string>
-    <string name="poll_info_closed">已结束</string>
-    <string name="poll_vote">投票</string>
     <string name="poll_ended_voted">你参与的投票已结束</string>
     <string name="poll_ended_created">你创建的投票已结束</string>
     <!--These are for timestamps on polls -->
-    <plurals name="poll_timespan_days">
-        <item quantity="other">剩余 %d 天</item>
-    </plurals>
-    <plurals name="poll_timespan_hours">
-        <item quantity="other">剩余 %d 小时</item>
-    </plurals>
-    <plurals name="poll_timespan_minutes">
-        <item quantity="other">剩余 %d 分钟</item>
-    </plurals>
-    <plurals name="poll_timespan_seconds">
-        <item quantity="other">剩余 %d 秒</item>
-    </plurals>
     <string name="action_reset_schedule">重置</string>
     <string name="title_bookmarks">书签</string>
     <string name="title_domain_mutes">被隐藏的域名</string>
@@ -325,7 +306,6 @@
     <string name="filter_dialog_whole_word">整个单词</string>
     <string name="filter_dialog_whole_word_description">如果关键字或缩写只有字母或数字，则只有在匹配整个单词时才会应用</string>
     <string name="description_post_bookmarked">被加入书签</string>
-    <string name="description_poll">使用以下选项创建投票：%1$s，%2$s，%3$s，%4$s；%5$s</string>
     <string name="select_list_title">选择列表</string>
     <string name="list">列表</string>
     <string name="button_back">返回</string>
@@ -401,9 +381,6 @@
     <string name="pref_title_wellbeing_mode">健康模式</string>
     <string name="duration_indefinite">永久</string>
     <string name="label_duration">持续时间</string>
-    <plurals name="poll_info_people">
-        <item quantity="other">%s 人</item>
-    </plurals>
     <string name="post_media_attachments">附件</string>
     <string name="post_media_audio">音频</string>
     <string name="notification_subscription_description">当我关注的用户发布了新嘟文时通知</string>
@@ -642,7 +619,6 @@
     <string name="error_import_preferences_fmt">无法从%1$s导入首选项：%2$s</string>
     <string name="conversation_0_recipients">没有其他参与者</string>
     <string name="compose_schedule_date_time_fmt">%1$s %2$s</string>
-    <string name="poll_show_votes">显示投票</string>
     <string name="ui_error_translate_status_fmt">翻译失败: %1$s</string>
     <string name="ui_error_reload_reply_fmt">无法加载嘟文：%1$s</string>
     <string name="announcement_date_updated">(更新于: %1$s)</string>

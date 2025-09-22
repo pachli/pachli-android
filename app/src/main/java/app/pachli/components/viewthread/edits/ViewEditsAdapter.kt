@@ -18,8 +18,6 @@ import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
-import app.pachli.adapter.PollAdapter
-import app.pachli.adapter.PollAdapter.DisplayMode
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.visible
@@ -29,12 +27,14 @@ import app.pachli.core.model.StatusEdit
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.BindingHolder
 import app.pachli.core.ui.LinkListener
+import app.pachli.core.ui.PollAdapter
+import app.pachli.core.ui.PollAdapter.DisplayMode
+import app.pachli.core.ui.PollOptionViewData
 import app.pachli.core.ui.decodeBlurHash
 import app.pachli.core.ui.emojify
 import app.pachli.core.ui.setClickableText
 import app.pachli.databinding.ItemStatusEditBinding
 import app.pachli.util.aspectRatios
-import app.pachli.viewdata.PollOptionViewData
 import com.bumptech.glide.RequestManager
 import com.google.android.material.color.MaterialColors
 import org.xml.sax.XMLReader

@@ -19,4 +19,33 @@
     <string name="action_logout_confirm">%1$s مطمئنید که می‌خواهید از خارج شوید؟ این کار تمامی داده‌های محلی از جمله پیش‌نویس‌ها و ترجیحات را حذف خواهد کرد.</string>
     <string name="add_account_name">افزودن حساب</string>
     <string name="action_logout">خروج</string>
+    <string name="poll_vote">رأی</string>
+    <plurals name="poll_timespan_seconds">
+        <item quantity="one">%d ثانیه مانده</item>
+        <item quantity="other">%d ثانیه مانده</item>
+    </plurals>
+    <plurals name="poll_timespan_minutes">
+        <item quantity="one">%d دقیقه مانده</item>
+        <item quantity="other">%d دقیقه مانده</item>
+    </plurals>
+    <plurals name="poll_timespan_hours">
+        <item quantity="one">%d ساعت مانده</item>
+        <item quantity="other">%d ساعت مانده</item>
+    </plurals>
+    <plurals name="poll_timespan_days">
+        <item quantity="one">%d روز مانده</item>
+        <item quantity="other">%d روز مانده</item>
+    </plurals>
+    <plurals name="poll_info_votes">
+        <item quantity="one">%s رأی</item>
+        <item quantity="other">%s رأی</item>
+    </plurals>
+    <plurals name="poll_info_people">
+        <item quantity="one">%s نفر</item>
+        <item quantity="other">%s نفر</item>
+    </plurals>
+    <string name="poll_info_closed">بسته</string>
+    <string name="poll_info_time_absolute">پایان در %s</string>
+    <string name="poll_info_format"><!-- ۱۵ رأی • ۱ ساعت مانده -->%1$s • %2$s</string>
+    <string name="description_poll">%1$s, %2$s, %3$s, %4$s, %5$s :نظرسنجی با گزینه‌ها</string>
 </resources>

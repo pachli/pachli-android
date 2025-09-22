@@ -107,48 +107,8 @@
     <string name="hint_additional_info">Beachdan a bharrachd</string>
     <string name="report_sent_success">Chaidh do gearan air @%s a chlàradh</string>
     <string name="button_back">Air ais</string>
-    <plurals name="poll_timespan_seconds">
-        <item quantity="one">Tha %d diog air fhàgail</item>
-        <item quantity="two">Tha %d dhiog air fhàgail</item>
-        <item quantity="few">Tha %d diogan air fhàgail</item>
-        <item quantity="other">Tha %d diog air fhàgail</item>
-    </plurals>
-    <plurals name="poll_timespan_minutes">
-        <item quantity="one">Tha %d mhionaid air fhàgail</item>
-        <item quantity="two">Tha %d mhionaid air fhàgail</item>
-        <item quantity="few">Tha %d mionaidean air fhàgail</item>
-        <item quantity="other">Tha %d mionaid air fhàgail</item>
-    </plurals>
-    <plurals name="poll_timespan_hours">
-        <item quantity="one">Tha %d uair a thìde air fhàgail</item>
-        <item quantity="two">Tha %d uair a thìde air fhàgail</item>
-        <item quantity="few">Tha %d uairean a thìde air fhàgail</item>
-        <item quantity="other">Tha %d uair a thìde air fhàgail</item>
-    </plurals>
-    <plurals name="poll_timespan_days">
-        <item quantity="one">Tha %d latha air fhàgail</item>
-        <item quantity="two">Tha %d latha air fhàgail</item>
-        <item quantity="few">Tha %d làithean air fhàgail</item>
-        <item quantity="other">Tha %d latha air fhàgail</item>
-    </plurals>
     <string name="poll_ended_created">Thàinig cunntas-bheachd sa chruthaich thu gu crìoch</string>
     <string name="poll_ended_voted">Thàinig cunntas-bheachd sa bhòt thu gu crìoch</string>
-    <string name="poll_vote">Bhòt</string>
-    <string name="poll_info_closed">air a dhùnadh</string>
-    <string name="poll_info_time_absolute">thig e gu crìoch %s</string>
-    <plurals name="poll_info_people">
-        <item quantity="one">%s duine</item>
-        <item quantity="two">%s dhuine</item>
-        <item quantity="few">%s dhaoine</item>
-        <item quantity="other">%s duine</item>
-    </plurals>
-    <plurals name="poll_info_votes">
-        <item quantity="one">%s bhòt</item>
-        <item quantity="two">%s bhòt</item>
-        <item quantity="few">%s bhòtaichean</item>
-        <item quantity="other">%s bhòt</item>
-    </plurals>
-    <string name="poll_info_format"><!-- 15 bhòtaichean • 1 uair a thìde air fhàgail -->%1$s • %2$s</string>
     <string name="compose_preview_image_description">Gnìomhan dhan dealbh %s</string>
     <string name="notification_clear_text">A bheil thu cinnteach gu bheil thu airson na brathan uile agad fhalamhachadh gu buan\?</string>
     <string name="compose_shortcut_long_label">Sgrìobh post</string>
@@ -159,7 +119,6 @@
     <string name="select_list_title">Tagh liosta</string>
     <string name="edit_hashtag_hint">Taga hais gun #</string>
     <string name="add_hashtag_title">Cuir taga hais ris</string>
-    <string name="description_poll">Cunntas-bheachd le roghainnean: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="description_visibility_direct">Dìreach</string>
     <string name="description_post_bookmarked">’Na chomharra-lìn</string>
     <string name="description_post_favourited">’Na annsachd</string>

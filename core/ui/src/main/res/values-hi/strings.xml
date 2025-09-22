@@ -16,4 +16,29 @@
     <string name="action_logout_confirm">क्या आप %1$s खाते से लॉग आउट करना चाहते हैं?</string>
     <string name="add_account_name">खाता जोड़ो</string>
     <string name="action_logout">लॉग आउट</string>
+    <string name="poll_vote">वोट</string>
+    <plurals name="poll_timespan_seconds">
+        <item quantity="one">%d सेकेंड शेष</item>
+        <item quantity="other">%d सेकेंड शेष</item>
+    </plurals>
+    <plurals name="poll_timespan_hours">
+        <item quantity="one">%d घंटा शेष</item>
+        <item quantity="other">%d घंटे शेष</item>
+    </plurals>
+    <plurals name="poll_timespan_days">
+        <item quantity="one">%d दिन शेष</item>
+        <item quantity="other">%d दिन शेष</item>
+    </plurals>
+    <plurals name="poll_info_votes">
+        <item quantity="one">%s वोट</item>
+        <item quantity="other">%s वोट</item>
+    </plurals>
+    <plurals name="poll_info_people">
+        <item quantity="one">%s व्यक्ति</item>
+        <item quantity="other">%s लोग</item>
+    </plurals>
+    <string name="poll_info_closed">बन्द है</string>
+    <string name="poll_info_time_absolute">%s समाप्त होगा</string>
+    <string name="poll_info_format"><!-- 15 वोट • 1 घंटा बाकी -->%1$s • %2$s</string>
+    <string name="description_poll">जनमत के विकल्प: %1$s, %2$s, %3$s, %4$s; %5$s</string>
 </resources>

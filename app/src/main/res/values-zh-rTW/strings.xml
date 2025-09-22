@@ -295,28 +295,9 @@
     <string name="compose_shortcut_short_label">新嘟文</string>
     <string name="pref_title_bot_overlay">顯示機器人標誌</string>
     <string name="notification_clear_text">你確定要永久清空通知列表嗎？</string>
-    <string name="poll_info_format"><!-- 15 votes • 1 hour left -->%1$s • %2$s</string>
-    <plurals name="poll_info_votes">
-        <item quantity="other">%s 次投票</item>
-    </plurals>
-    <string name="poll_info_time_absolute">%s 結束</string>
-    <string name="poll_info_closed">已結束</string>
-    <string name="poll_vote">投票</string>
     <string name="poll_ended_voted">你參與的投票已結束</string>
     <string name="poll_ended_created">你創建的投票已結束</string>
     <!--These are for timestamps on polls -->
-    <plurals name="poll_timespan_days">
-        <item quantity="other">剩餘 %d 天</item>
-    </plurals>
-    <plurals name="poll_timespan_hours">
-        <item quantity="other">剩餘 %d 小時</item>
-    </plurals>
-    <plurals name="poll_timespan_minutes">
-        <item quantity="other">剩餘 %d 分鐘</item>
-    </plurals>
-    <plurals name="poll_timespan_seconds">
-        <item quantity="other">剩餘 %d 秒</item>
-    </plurals>
     <string name="title_domain_mutes">隱藏域名</string>
     <string name="action_view_domain_mutes">隱藏域名</string>
     <string name="action_mute_domain">靜音 %s</string>
@@ -326,7 +307,6 @@
     <string name="pref_title_animate_gif_avatars">GIF 動畫大頭貼</string>
     <string name="filter_dialog_whole_word">整個單詞</string>
     <string name="filter_dialog_whole_word_description">如果關鍵字或短語僅為字母或數字，則只有在匹配整個單詞時才會應用</string>
-    <string name="description_poll">使用以下選項創建投票：%1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="compose_preview_image_description">圖片 %s 的動作</string>
     <string name="button_back">返回</string>
     <string name="report_sent_success">成功回報 @%s</string>
@@ -352,9 +332,6 @@
 \n
 \n推播通知不會受到影響，但你可以手動檢查你的通知設定。</string>
     <string name="pref_title_wellbeing_mode">數位健康</string>
-    <plurals name="poll_info_people">
-        <item quantity="other">%s 人</item>
-    </plurals>
     <string name="notification_subscription_format">%s 剛剛發了新嘟文</string>
     <string name="notification_follow_request_format">%s 請求關注你</string>
     <string name="pref_title_animate_custom_emojis">動態自訂表情符號</string>

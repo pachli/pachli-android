@@ -14,20 +14,14 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.adapter
+package app.pachli.core.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.model.Emoji
-import app.pachli.core.ui.BindingHolder
-import app.pachli.core.ui.emojify
-import app.pachli.core.ui.makeIcon
-import app.pachli.databinding.ItemPollBinding
-import app.pachli.viewdata.PollOptionViewData
-import app.pachli.viewdata.buildDescription
-import app.pachli.viewdata.calculatePercent
+import app.pachli.core.ui.databinding.ItemPollBinding
 import com.bumptech.glide.RequestManager
 import com.google.android.material.R
 import com.google.android.material.color.MaterialColors

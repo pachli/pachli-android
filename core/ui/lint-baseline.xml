@@ -56,4 +56,15 @@
             column="5"/>
     </issue>
 
+    <issue
+        id="SelectableText"
+        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
+        errorLine1="    &lt;TextView"
+        errorLine2="     ~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_poll.xml"
+            line="8"
+            column="6"/>
+    </issue>
+
 </issues>

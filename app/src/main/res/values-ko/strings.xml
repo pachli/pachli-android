@@ -281,7 +281,6 @@
     <string name="description_visibility_unlisted">타임라인에 비표시</string>
     <string name="description_visibility_private">비공개</string>
     <string name="description_visibility_direct">다이렉트</string>
-    <string name="description_poll">투표 선택지: %1$s, %2$s, %3$s, %4$s, %5$s</string>
     <string name="edit_hashtag_hint">#를 제외한 해시태그</string>
     <string name="notifications_clear">알림 지우기</string>
     <string name="notifications_apply_filter">필터</string>
@@ -290,28 +289,9 @@
     <string name="compose_shortcut_short_label">작성</string>
     <string name="notification_clear_text">모든 알림을 영구적으로 지우시겠습니까\?</string>
     <string name="compose_preview_image_description">이미지 %s를…</string>
-    <string name="poll_info_format"><!-- 15 명 참여 • 1 시간 남음 -->%1$s • %2$s</string>
-    <plurals name="poll_info_votes">
-        <item quantity="other">%s 명 참여</item>
-    </plurals>
-    <string name="poll_info_time_absolute">%s에 종료</string>
-    <string name="poll_info_closed">마감됨</string>
-    <string name="poll_vote">투표</string>
     <string name="poll_ended_voted">당신이 참여한 투표가 종료되었습니다</string>
     <string name="poll_ended_created">당신이 시작한 투표가 종료되었습니다</string>
     <!--These are for timestamps on polls -->
-    <plurals name="poll_timespan_days">
-        <item quantity="other">%d일 남음</item>
-    </plurals>
-    <plurals name="poll_timespan_hours">
-        <item quantity="other">%d시간 남음</item>
-    </plurals>
-    <plurals name="poll_timespan_minutes">
-        <item quantity="other">%d분 남음</item>
-    </plurals>
-    <plurals name="poll_timespan_seconds">
-        <item quantity="other">%d초 남음</item>
-    </plurals>
     <string name="button_back">이전</string>
     <string name="report_sent_success">\@%s를 신고하였습니다</string>
     <string name="hint_additional_info">부가 설명</string>

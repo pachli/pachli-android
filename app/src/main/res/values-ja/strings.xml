@@ -257,22 +257,6 @@
     <string name="notifications_clear">通知を削除</string>
     <string name="notifications_apply_filter">フィルター</string>
     <string name="notification_clear_text">すべての通知を完全に削除してよろしいですか？</string>
-    <plurals name="poll_info_votes">
-        <item quantity="other">%s票</item>
-    </plurals>
-    <string name="poll_vote">投票</string>
-    <plurals name="poll_timespan_days">
-        <item quantity="other">残り%d日</item>
-    </plurals>
-    <plurals name="poll_timespan_hours">
-        <item quantity="other">残り%d時間</item>
-    </plurals>
-    <plurals name="poll_timespan_minutes">
-        <item quantity="other">残り%d分</item>
-    </plurals>
-    <plurals name="poll_timespan_seconds">
-        <item quantity="other">残り%d秒</item>
-    </plurals>
     <string name="title_domain_mutes">非表示のドメイン</string>
     <string name="action_view_domain_mutes">非表示のドメイン</string>
     <string name="action_mute_domain">%sをミュート</string>
@@ -302,7 +286,6 @@
     <string name="pref_title_public_filter_keywords">公開タイムライン</string>
     <string name="description_post_cw">閲覧注意：%s</string>
     <string name="filter_apply">適用</string>
-    <string name="poll_info_closed">投票終了</string>
     <string name="title_accounts">アカウント</string>
     <string name="failed_search">検索に失敗しました</string>
     <string name="action_reset_schedule">リセット</string>
@@ -356,14 +339,9 @@
     <string name="pref_title_confirm_reblogs">ブーストする前に確認を表示</string>
     <string name="edit_hashtag_hint">ハッシュタグ (#をつけない)</string>
     <string name="select_list_title">リストを選択</string>
-    <string name="poll_info_format"><!-- 15 votes • 1 hour left -->%1$s • %2$s</string>
-    <string name="poll_info_time_absolute">%sに終了</string>
     <string name="hint_additional_info">追加コメント</string>
     <string name="report_remote_instance">%sに転送</string>
     <string name="failed_report">通報に失敗しました</string>
-    <plurals name="poll_info_people">
-        <item quantity="other">%s人</item>
-    </plurals>
     <string name="warning_scheduling_interval">Mastodonにおける予約までの最小間隔は5分です。</string>
     <string name="notification_subscription_format">%sさんが投稿しました</string>
     <string name="title_announcements">お知らせ</string>
@@ -560,7 +538,6 @@
     <string name="announcement_date_updated">(更新済み: %1$s)</string>
     <string name="help_empty_home">これはあなたの<b>ホームタイムライン</b>です。あなたがフォローしているアカウントの最新のポストが表示されます。 \n \nあなたのインスタンスのローカルタイムラインや他のタイムラインから、他のアカウントを見つけることができます（[iconics gmd_group]）。また、名前で検索することもできます（[iconics gmd_search]）；例えば、Pachliを検索すると、当社のMastodonアカウントを見つけることができます。</string>
     <string name="pref_title_font_family">フォント</string>
-    <string name="description_poll">選択肢付きの投票: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="label_image">画像</string>
     <string name="status_filter_placeholder_label_format">フィルタ済み: &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="pref_title_show_self_boosts_description">自分の投稿をブーストすること</string>

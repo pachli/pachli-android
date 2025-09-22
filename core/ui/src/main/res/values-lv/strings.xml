@@ -36,4 +36,40 @@
     <string name="preview_card_byline_fediverse_account_fmt">No <b>%1$s</b>. Apskatīt vairāk ierakstu</string>
     <string name="preview_card_byline_name_only_fmt">No <b>%1$s</b></string>
     <string name="preview_card_timeline_link_fmt">Apskatīt <b>%1$s</b> ierakstus par šo saiti</string>
+    <string name="poll_vote">Balsot</string>
+    <string name="poll_show_votes">Rādīt balsojumus</string>
+    <plurals name="poll_timespan_seconds">
+        <item quantity="zero">atlikušas %d sekundes</item>
+        <item quantity="one">atlikusi %d sekunde</item>
+        <item quantity="other">atlikušas %d sekundes</item>
+    </plurals>
+    <plurals name="poll_timespan_minutes">
+        <item quantity="zero">atlikušas %d minūtes</item>
+        <item quantity="one">atlikusi %d minūte</item>
+        <item quantity="other">atlikušas %d minūtes</item>
+    </plurals>
+    <plurals name="poll_timespan_hours">
+        <item quantity="zero">atlikušas %d stundas</item>
+        <item quantity="one">atlikusi %d stunda</item>
+        <item quantity="other">atlikušas %d stundas</item>
+    </plurals>
+    <plurals name="poll_timespan_days">
+        <item quantity="zero">atlikušas %d dienas</item>
+        <item quantity="one">atlikusi %d diena</item>
+        <item quantity="other">atlikušas %d dienas</item>
+    </plurals>
+    <plurals name="poll_info_votes">
+        <item quantity="zero">%s balsis</item>
+        <item quantity="one">%s balss</item>
+        <item quantity="other">%s balsis</item>
+    </plurals>
+    <plurals name="poll_info_people">
+        <item quantity="zero">%s cilvēku</item>
+        <item quantity="one">%s cilvēks</item>
+        <item quantity="other">%s cilvēki</item>
+    </plurals>
+    <string name="poll_info_closed">noslēgusies</string>
+    <string name="poll_info_time_absolute">beidzas %s</string>
+    <string name="poll_info_format"><!-- 15 balsis • atlikusi 1 stunda -->%1$s • %2$s</string>
+    <string name="description_poll">Aptauja ar izvēlēm: %1$s, %2$s, %3$s, %4$s; %5$s</string>
 </resources>

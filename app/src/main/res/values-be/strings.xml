@@ -359,7 +359,6 @@
     <string name="hashtags">Хэштэгі</string>
     <string name="add_hashtag_title">Дадаць хэштэг</string>
     <string name="description_post_reblogged">Пашырана</string>
-    <string name="description_poll">Апытанне з варыянтамі: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="edit_hashtag_hint">Хэштэг без #</string>
     <string name="description_post_edited">Зменена</string>
     <string name="description_post_bookmarked">Дададзена ў закладкі</string>
@@ -383,32 +382,8 @@
     <string name="create_poll_title">Апытанне</string>
     <string name="duration_1_day">1 дзень</string>
     <string name="duration_3_days">3 дні</string>
-    <plurals name="poll_timespan_minutes">
-        <item quantity="one">Засталася %d хвіліна</item>
-        <item quantity="few">Засталося %d хвіліны</item>
-        <item quantity="many">Засталося %d хвілін</item>
-        <item quantity="other">Засталося %d хвілін</item>
-    </plurals>
     <string name="report_remote_instance">Пераслаць да %s</string>
     <string name="pref_title_enable_swipe_for_tabs">Уключыць пераключэнне паміж укладкамі жэстам чыркання</string>
-    <plurals name="poll_timespan_seconds">
-        <item quantity="one">Засталася %d секунда</item>
-        <item quantity="few">Засталося %d секунды</item>
-        <item quantity="many">Засталося %d секунд</item>
-        <item quantity="other">Засталося %d секунд</item>
-    </plurals>
-    <plurals name="poll_info_votes">
-        <item quantity="one">%s голас</item>
-        <item quantity="few">%s галасы</item>
-        <item quantity="many">%s галасоў</item>
-        <item quantity="other">%s галасоў</item>
-    </plurals>
-    <plurals name="poll_info_people">
-        <item quantity="one">%s чалавек</item>
-        <item quantity="few">%s чалавекі</item>
-        <item quantity="many">%s людзей</item>
-        <item quantity="other">%s людзей</item>
-    </plurals>
     <string name="label_duration">Працягласць</string>
     <string name="button_back">Назад</string>
     <string name="failed_report">Не атрымалася адправіць скаргу</string>
@@ -424,24 +399,9 @@
     <string name="send_account_username_to">Падзяліцца імем карыстальніка ўліковага запісу праз…</string>
     <string name="account_username_copied">Імя карыстальніка скапіявана</string>
     <string name="filter_apply">Прымяніць</string>
-    <string name="poll_info_format"><!-- 15 галасоў • 1 гадзіна засталася -->%1$s • %2$s</string>
-    <string name="poll_info_time_absolute">завяршыцца ў %s</string>
-    <plurals name="poll_timespan_hours">
-        <item quantity="one">Засталася %d гадзіна</item>
-        <item quantity="few">Засталося %d гадзіны</item>
-        <item quantity="many">Засталося %d гадзін</item>
-        <item quantity="other">Засталося %d гадзін</item>
-    </plurals>
     <string name="duration_1_hour">1 гадзіну</string>
-    <string name="poll_info_closed">скончаны</string>
     <string name="poll_ended_voted">Апытанне, у якім Вы ўдзельнічалі, скончана</string>
     <string name="poll_ended_created">Створанае Вамі апытанне скончана</string>
-    <plurals name="poll_timespan_days">
-        <item quantity="one">Застаўся %d дзень</item>
-        <item quantity="few">Засталося %d дні</item>
-        <item quantity="many">Засталося %d дзён</item>
-        <item quantity="other">Засталося %d дзён</item>
-    </plurals>
     <string name="duration_6_hours">6 гадзін</string>
     <string name="duration_7_days">7 дзён</string>
     <string name="duration_14_days">14 дзён</string>
@@ -449,7 +409,6 @@
     <string name="duration_60_days">60 дзён</string>
     <string name="duration_90_days">90 дзён</string>
     <string name="duration_180_days">180 дзён</string>
-    <string name="poll_vote">Галасаваць</string>
     <string name="a11y_label_loading_thread">Спампоўваю стужку</string>
     <string name="wellbeing_mode_notice">Некаторая інфармацыя, якая можа ўплываць на Ваш псіхічны стан, будзе скрыта. Гэта ўключае:
 \n

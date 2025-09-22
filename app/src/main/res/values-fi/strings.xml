@@ -67,8 +67,6 @@
     <string name="create_poll_title">Kysely</string>
     <string name="title_accounts">Tilit</string>
     <string name="button_back">Takaisin</string>
-    <string name="poll_vote">Äänestä</string>
-    <string name="poll_info_closed">suljettu</string>
     <string name="notifications_apply_filter">Suodatin</string>
     <string name="list">Lista</string>
     <string name="hashtags">Aihetunnisteet</string>
@@ -492,22 +490,16 @@
     <string name="pref_title_show_cards_in_timelines">Näytä linkkien esikatselut aikajanoissa</string>
     <string name="pref_title_enable_swipe_for_tabs">Vaihda välilehteä pyyhkäisemällä</string>
     <string name="report_remote_instance">Lähetä edelleen %s</string>
-    <string name="poll_info_time_absolute">päättyy %s</string>
     <string name="description_post_language">Julkaisun kieli</string>
     <string name="duration_30_days">30 päivää</string>
     <string name="reblog_private">Tehosta alkuperäiselle yleisölle</string>
     <string name="compose_preview_image_description">Toiminnot kuvalle %s</string>
-    <string name="poll_info_format"><!-- 15 ääntä • 1 tunti jäljellä -->%1$s• %2$s</string>
     <string name="action_compose_shortcut">Kirjoita</string>
     <string name="unreblog_private">Peru tehostus</string>
     <string name="description_post_reblogged">Tehostettu</string>
     <string name="account_moved_description">%1$s on siirtynyt tänne:</string>
     <string name="description_visibility_direct">Vain mainitut</string>
     <string name="description_post_favourited">Tykätty</string>
-    <plurals name="poll_timespan_hours">
-        <item quantity="one">%d tunti jäljellä</item>
-        <item quantity="other">%d tuntia jäljellä</item>
-    </plurals>
     <string name="title_favourited_by">Tykännyt</string>
     <string name="send_post_notification_saved_content">Kopio julkaisusta on tallennettu luonnoksiisi</string>
     <string name="description_browser_login">Saattaa tukea muita tunnistautumistapoja, mutta vaatii tuetun verkkoselaimen.</string>
@@ -521,10 +513,6 @@
     <string name="label_remote_account">Alla olevat tiedot eivät välttämättä näytä kaikkea käyttäjän profiilista. Paina avataksesi täydellinen profiili selaimessa.</string>
     <string name="report_description_remote_instance">Tili on toisella palvelimella. Lähetetäänkö sinnekin nimetön kopio raportista?</string>
     <string name="conversation_2_recipients">%1$s ja %2$s</string>
-    <plurals name="poll_info_votes">
-        <item quantity="one">%s ääni</item>
-        <item quantity="other">%s ääntä</item>
-    </plurals>
     <string name="select_list_manage">Hallinnoi listoja</string>
     <string name="hint_additional_info">Lisäkommentteja</string>
     <string name="download_fonts">Nämä emojikokoelmat on ensin ladattava</string>
@@ -536,10 +524,6 @@
     <string name="title_reblogged_by">Tehostanut</string>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="notification_clear_text">Haluatko varmasti poistaa kaikki ilmoituksesi pysyvästi?</string>
-    <plurals name="poll_timespan_seconds">
-        <item quantity="one">%d sekunti jäljellä</item>
-        <item quantity="other">%d sekuntia jäljellä</item>
-    </plurals>
     <string name="profile_metadata_label_label">Etiketti</string>
     <string name="label_duration">Kesto</string>
     <string name="pref_title_show_stat_inline">Näytä julkaisujen tilastot aikajanassa</string>
@@ -556,20 +540,8 @@
     <string name="failed_search">Haku epäonnistui</string>
     <string name="report_sent_success">Raportti käyttäjästä @%s lähetetty</string>
     <string name="compose_shortcut_long_label">Kirjoita julkaisu</string>
-    <plurals name="poll_info_people">
-        <item quantity="one">%s henkilö</item>
-        <item quantity="other">%s henkilöä</item>
-    </plurals>
     <string name="select_list_empty">Sinulla ei vielä ole listoja</string>
-    <plurals name="poll_timespan_days">
-        <item quantity="one">%d päivä jäljellä</item>
-        <item quantity="other">%d päivää jäljellä</item>
-    </plurals>
     <string name="description_post_edited">Muokattu</string>
-    <plurals name="poll_timespan_minutes">
-        <item quantity="one">%d minuutti jäljellä</item>
-        <item quantity="other">%d minuuttia jäljellä</item>
-    </plurals>
     <string name="error_no_custom_emojis">Instanssissa %s ei ole omia hymiöitä</string>
     <string name="poll_ended_created">Kysely jonka olet luonut on päättynyt</string>
     <string name="description_post_bookmarked">Kirjanmerkki lisätty</string>
@@ -577,7 +549,6 @@
         <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Tykkäys</item>
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Tykkäystä</item>
     </plurals>
-    <string name="description_poll">Kysely jossa vaihtoehdot: %1$s, %2$s, %3$s, %4$s, %5$s</string>
     <string name="duration_no_change">(Ei muutosta)</string>
     <string name="description_post_media">Media: %s</string>
     <string name="pref_summary_content_filters">Palvelimesi ei tue suodattimia</string>
@@ -586,7 +557,6 @@
     <string name="pref_update_check_no_updates">Ei päivityksiä tarjolla</string>
     <string name="error_media_download">Lataaminen epäonnistui %1$s: %2$s</string>
     <string name="manage_lists">Hallinnoi listoja</string>
-    <string name="poll_show_votes">Näytä äänet</string>
     <string name="notification_severed_relationships_name">Katkaistut yhteydet</string>
     <string name="notification_severed_relationships_description">Ilmoitukset katkaistuista yhteyksistä</string>
     <string name="action_add_to_tab">Lisää välilehteen</string>

@@ -33,6 +33,7 @@ import app.pachli.core.model.HashTag
 import app.pachli.core.model.Status
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.LinkListener
+import app.pachli.core.ui.PollViewData
 import app.pachli.core.ui.SetStatusContent
 import app.pachli.core.ui.emojify
 import app.pachli.core.ui.setClickableMentions
@@ -41,7 +42,6 @@ import app.pachli.util.StatusViewHelper
 import app.pachli.util.StatusViewHelper.Companion.COLLAPSE_INPUT_FILTER
 import app.pachli.util.StatusViewHelper.Companion.NO_INPUT_FILTER
 import app.pachli.util.getRelativeTimeSpanString
-import app.pachli.viewdata.PollViewData
 import com.bumptech.glide.RequestManager
 import java.util.Date
 

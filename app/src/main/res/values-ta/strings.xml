@@ -294,17 +294,7 @@
     <string name="description_post_language">மொழியை இடுங்கள்</string>
     <string name="edit_hashtag_hint"># இல்லாமல் ஏச்டேக்</string>
     <string name="select_list_manage">பட்டியல்களை நிர்வகிக்கவும்</string>
-    <string name="poll_info_time_absolute">%s இல் முடிகிறது</string>
-    <string name="poll_vote">வாக்களிக்கவும்</string>
     <string name="poll_ended_voted">நீங்கள் வாக்களித்த ஒரு கருத்துக் கணிப்பு முடிந்தது</string>
-    <plurals name="poll_timespan_days">
-        <item quantity="one">%d நாள் மீதமுள்ளது</item>
-        <item quantity="other">%d நாட்கள் உள்ளன</item>
-    </plurals>
-    <plurals name="poll_timespan_seconds">
-        <item quantity="one">%d இரண்டாவது இடது</item>
-        <item quantity="other">%d விநாடிகள் எஞ்சியுள்ளன</item>
-    </plurals>
     <string name="button_back">பின்</string>
     <string name="hint_additional_info">கூடுதல் கருத்துகள்</string>
     <string name="report_description_1">அறிக்கை உங்கள் சேவையக மதிப்பீட்டாளருக்கு அனுப்பப்படும். இந்த கணக்கை நீங்கள் ஏன் கீழே புகாரளிக்கிறீர்கள் என்பதற்கான விளக்கத்தை நீங்கள் வழங்கலாம்:</string>
@@ -442,10 +432,6 @@
     <string name="filter_keyword_addition_title">முக்கிய சொல்லைச் சேர்க்கவும்</string>
     <string name="compose_warn_language_dialog_change_language_fmt">மொழியை %1$s ஆக மாற்றி இடுகையிடவும்</string>
     <string name="error_prepare_media_content_resolver_missing_path_fmt">உள்ளடக்க தீர்வி யூரி ஒரு பாதையை காணவில்லை: %1$s</string>
-    <plurals name="poll_timespan_minutes">
-        <item quantity="one">%d மணித்துளி மீதமுள்ளது</item>
-        <item quantity="other">%d நிமிடங்கள் உள்ளன</item>
-    </plurals>
     <string name="label_filter_action">வடிகட்டி செயல்</string>
     <string name="filter_description_hide">முழுமையாக மறைக்கவும்</string>
     <string name="filter_description_none">சாதாரணமாகக் காட்டு</string>
@@ -478,7 +464,6 @@
     <string name="pref_summary_http_proxy_invalid">&lt;செல்லாத&gt;</string>
     <string name="filter_add_description">வடிகட்ட சொற்றொடர்</string>
     <string name="description_post_favourited">பிடித்தது</string>
-    <string name="description_poll">தேர்வுகளுடன் வாக்கெடுப்பு: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="failed_fetch_posts">இடுகைகளைப் பெறத் தவறிவிட்டது</string>
     <string name="poll_new_choice_hint">தேர்வு %d</string>
     <string name="no_announcements">அறிவிப்புகள் எதுவும் இல்லை.</string>
@@ -496,10 +481,6 @@
     <string name="error_filter_missing_context">குறைந்தது ஒரு வடிகட்டி சூழல் தேவை</string>
     <string name="error_filter_missing_title">தலைப்பு தேவை</string>
     <string name="compose_warn_language_dialog_accept_and_dont_ask_fmt">இடுகையிடவும் (%1$s) மற்றும் மீண்டும் கேட்க வேண்டாம்</string>
-    <plurals name="poll_info_votes">
-        <item quantity="one">%s வாக்கு</item>
-        <item quantity="other">%s வாக்குகள்</item>
-    </plurals>
     <string name="status_filter_placeholder_label_format">வடிகட்டப்பட்டது: <b>%1$s </b></string>
     <string name="search_operator_attachment_kind_video_label">ஒளிதோற்றம்</string>
     <string name="search_operator_attachment_kind_audio_label">ஒலி</string>
@@ -566,7 +547,6 @@
     <string name="filter_dialog_whole_word_description">முக்கிய சொல் அல்லது சொற்றொடர் எண்ணெழுத்து மட்டுமே இருக்கும்போது, அது முழு வார்த்தையுடனும் பொருந்தினால் மட்டுமே அது பயன்படுத்தப்படும்</string>
     <string name="set_focus_description">சிறுபடங்களில் எப்போதும் காணப்படும் மைய புள்ளியைத் தேர்வுசெய்ய வட்டத்தைத் தட்டவும் அல்லது இழுக்கவும்.</string>
     <string name="conversation_more_recipients">%1$s, %2$s மற்றும் %3$d</string>
-    <string name="poll_info_format"><!-- 15 வாக்குகள் • 1 மணிநேரம் மீதமுள்ளது--> %1$s • %2$s</string>
     <string name="poll_ended_created">நீங்கள் உருவாக்கிய வாக்கெடுப்பு முடிந்தது</string>
     <string name="report_sent_success">வெற்றிகரமாக அறிவிக்கப்பட்டது @%s</string>
     <string name="report_description_remote_instance">கணக்கு மற்றொரு சேவையகத்திலிருந்து வந்தது. அறிக்கையின் அநாமதேய நகலையும் அங்கே அனுப்பவா?</string>
@@ -620,10 +600,6 @@
     <string name="search_operator_from_me">எனது பதிவுகள் மட்டுமே</string>
     <string name="search_operator_no_link">இணைப்புகள் இல்லாமல்</string>
     <string name="search_operator_link_dialog_title">இணைப்புகளுடன் இடுகைகளைக் காட்டவா?</string>
-    <plurals name="poll_timespan_hours">
-        <item quantity="one">%d மணிநேரம் மீதமுள்ளது</item>
-        <item quantity="other">%d மணிநேரங்கள் மீதமுள்ளது</item>
-    </plurals>
     <string name="dialog_delete_filter_positive_action">நீக்கு</string>
     <string name="reaction_name_and_count">%1$s %2$d</string>
     <string name="post_content_show_more">விரிவாக்கு</string>
@@ -711,12 +687,6 @@
     </plurals>
     <string name="description_post_cw">உள்ளடக்க எச்சரிக்கை: %s</string>
     <string name="description_post_edited">திருத்தப்பட்டது</string>
-    <plurals name="poll_info_people">
-        <item quantity="one">%s நபர்</item>
-        <item quantity="other">%s நபர்கள்</item>
-    </plurals>
-    <string name="poll_info_closed">மூடப்பட்டது</string>
-    <string name="poll_show_votes">வாக்குகளைக் காட்டு</string>
     <string name="failed_report">புகாரளிக்கத் தவறிவிட்டது</string>
     <string name="duration_30_days">30 நாட்கள்</string>
     <string name="search_operator_from_account_fmt">%1$s மட்டுமே</string>

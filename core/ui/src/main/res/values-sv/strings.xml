@@ -19,4 +19,34 @@
     <string name="action_logout_confirm">Är du säker på att du vill logga ut från kontot %1$s? All lokal information kommer att raderas, inklusive utkast och inställningar.</string>
     <string name="add_account_name">Lägg till konto</string>
     <string name="action_logout">Logga ut</string>
+    <string name="poll_vote">Rösta</string>
+    <string name="poll_show_votes">Via röster</string>
+    <plurals name="poll_timespan_seconds">
+        <item quantity="one">%d sekund kvar</item>
+        <item quantity="other">%d sekunder kvar</item>
+    </plurals>
+    <plurals name="poll_timespan_minutes">
+        <item quantity="one">%d minut kvar</item>
+        <item quantity="other">%d minuter kvar</item>
+    </plurals>
+    <plurals name="poll_timespan_hours">
+        <item quantity="one">%d timme kvar</item>
+        <item quantity="other">%d timmar kvar</item>
+    </plurals>
+    <plurals name="poll_timespan_days">
+        <item quantity="one">%d dag kvar</item>
+        <item quantity="other">%d dagar kvar</item>
+    </plurals>
+    <plurals name="poll_info_votes">
+        <item quantity="one">%s röst</item>
+        <item quantity="other">%s röster</item>
+    </plurals>
+    <plurals name="poll_info_people">
+        <item quantity="one">%s person</item>
+        <item quantity="other">%s personer</item>
+    </plurals>
+    <string name="poll_info_closed">stängd</string>
+    <string name="poll_info_time_absolute">avslutas vid %s</string>
+    <string name="poll_info_format"><!-- 15 röster • 1 timme kvar -->%1$s • %2$s</string>
+    <string name="description_poll">Omröstning med valen: %1$s, %2$s, %3$s, %4$s; %5$s</string>
 </resources>

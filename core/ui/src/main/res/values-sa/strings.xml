@@ -18,4 +18,33 @@
     <string name="action_logout_confirm">नूनमेव बहिर्गन्तुमीहते %1$s इति व्यक्तित्वलेखात् ?</string>
     <string name="add_account_name">नवलेखा युज्यताम्</string>
     <string name="action_logout">बहिर्गम्यताम्</string>
+    <string name="poll_vote">मतम्</string>
+    <plurals name="poll_timespan_seconds">
+        <item quantity="one">%d क्षणम्</item>
+        <item quantity="other">%d क्षणे</item>
+    </plurals>
+    <plurals name="poll_timespan_minutes">
+        <item quantity="one">%d निमेषः शेषम्</item>
+        <item quantity="other">%d निमेषौ शेषम्</item>
+    </plurals>
+    <plurals name="poll_timespan_hours">
+        <item quantity="one">%d घण्टा शेषम्</item>
+        <item quantity="other">%d घण्टे शेषम्</item>
+    </plurals>
+    <plurals name="poll_timespan_days">
+        <item quantity="one">%d दिनम् शेषम्</item>
+        <item quantity="other">%d दिने शेषम्</item>
+    </plurals>
+    <plurals name="poll_info_votes">
+        <item quantity="one">%s मतम्</item>
+        <item quantity="other">%s मते</item>
+    </plurals>
+    <plurals name="poll_info_people">
+        <item quantity="one">%s जनः</item>
+        <item quantity="other">%s जनौ</item>
+    </plurals>
+    <string name="poll_info_closed">पिहितम्</string>
+    <string name="poll_info_time_absolute">समापनं यावत् %s</string>
+    <string name="poll_info_format"><!-- 15 मतानि • 1 शेषघटिकाः -->%1$s • %2$s</string>
+    <string name="description_poll">मतदाने मतानि- %1$s, %2$s, %3$s, %4$s; %5$s</string>
 </resources>
