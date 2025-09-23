@@ -162,16 +162,6 @@
     <string name="post_media_video">காணொளி</string>
     <string name="state_follow_requested">கோரிக்கையைப் பின்பற்றவும்</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
-    <string name="abbreviated_in_years">%dஆ-முன்</string>
-    <string name="abbreviated_in_days">%dநா-முன்</string>
-    <string name="abbreviated_in_hours">%dம.நே-முன்</string>
-    <string name="abbreviated_in_minutes">%dநி-முன்</string>
-    <string name="abbreviated_in_seconds">%dவி-முன்</string>
-    <string name="abbreviated_years_ago">%dஆ</string>
-    <string name="abbreviated_days_ago">%dநா</string>
-    <string name="abbreviated_hours_ago">%dம.நே</string>
-    <string name="abbreviated_minutes_ago">%dநி</string>
-    <string name="abbreviated_seconds_ago">%dவி</string>
     <string name="follows_you">நீங்கள் பின் தொடரபடுகிறீர்கள்</string>
     <string name="pref_title_alway_show_sensitive_media">எல்லா nsfw(உணர்ச்சிகரமான) உள்ளடக்கத்தையும் எப்போதும் காண்பி</string>
     <string name="title_media">ஊடகம்</string>
@@ -282,7 +272,6 @@
     <string name="notification_notification_worker">அறிவிப்புகளைப் பெறுதல்…</string>
     <string name="post_media_attachments">இணைப்புகள்</string>
     <string name="status_count_one_plus">1+</string>
-    <string name="status_created_at_now">இப்போது</string>
     <string name="pref_title_public_filter_keywords">பொது காலவரிசைகள்</string>
     <string name="action_set_focus">கவனம் செலுத்தும் புள்ளியை அமைக்கவும்</string>
     <string name="action_edit_image">படத்தைத் திருத்து</string>

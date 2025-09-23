@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="conversation_1_recipients">%1$s</string>
-    <string name="abbreviated_seconds_ago">%dসে</string>
     <string name="description_visibility_direct">সরাসরি</string>
     <string name="description_visibility_private">অনুগামিবৃন্দ</string>
     <string name="description_visibility_unlisted">অতালিকাভুক্ত</string>
@@ -55,11 +54,6 @@
     <string name="title_media">মিডিয়া</string>
     <string name="pref_title_alway_show_sensitive_media">সর্বদা সংবেদনশীল কন্টেন্ট প্রদর্শন করুন</string>
     <string name="follows_you">আপনাকে অনুসরন করে</string>
-    <string name="abbreviated_in_seconds">\'%ds এ\'</string>
-    <string name="abbreviated_in_minutes">\'%dm এ\'</string>
-    <string name="abbreviated_in_hours">\'%dh এ\'</string>
-    <string name="abbreviated_in_days">\'%dd এ\'</string>
-    <string name="abbreviated_in_years">\'%dy এ\'</string>
     <string name="state_follow_requested">অনুরোধ অনুসরণ করুন</string>
     <string name="post_media_video">ভিডিও</string>
     <string name="post_media_images">চিত্রগুলি</string>
@@ -218,10 +212,6 @@
     <string name="title_follow_requests">অনুরোধ অনুসরণ করুন</string>
     <string name="title_blocks">অবরুদ্ধ ব্যবহারকারী</string>
     <string name="title_mutes">শব্দ বন্ধ ব্যবহারকারী</string>
-    <string name="abbreviated_days_ago">%dদি</string>
-    <string name="abbreviated_minutes_ago">%dমা</string>
-    <string name="abbreviated_hours_ago">%dঘ</string>
-    <string name="abbreviated_years_ago">%dব</string>
     <string name="post_boosted_format">%s বুস্টকৃত</string>
     <string name="dialog_mute_hide_notifications">বিজ্ঞপ্তি লুকাও</string>
     <string name="action_unmute_desc">আনমিউট %s</string>

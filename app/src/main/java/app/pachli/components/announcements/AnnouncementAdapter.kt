@@ -35,11 +35,11 @@ import app.pachli.core.ui.EmojiSpan
 import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.clearEmojiTargets
 import app.pachli.core.ui.emojify
+import app.pachli.core.ui.getRelativeTimeSpanString
 import app.pachli.core.ui.setClickableText
 import app.pachli.core.ui.setEmojiTargets
 import app.pachli.databinding.ItemAnnouncementBinding
 import app.pachli.util.equalByMinute
-import app.pachli.util.getRelativeTimeSpanString
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.target.Target
 import com.google.android.material.chip.Chip

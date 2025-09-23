@@ -194,16 +194,6 @@
     <string name="post_media_video">Видео</string>
     <string name="state_follow_requested">Запрошенные подписки</string>
     <!--Отметки времени у постов: "16s" or "2d"-->
-    <string name="abbreviated_in_years">через %dг</string>
-    <string name="abbreviated_in_days">через %dд</string>
-    <string name="abbreviated_in_hours">через %dч</string>
-    <string name="abbreviated_in_minutes">через %dм</string>
-    <string name="abbreviated_in_seconds">через %dс</string>
-    <string name="abbreviated_years_ago">%dг</string>
-    <string name="abbreviated_days_ago">%dд</string>
-    <string name="abbreviated_hours_ago">%dч</string>
-    <string name="abbreviated_minutes_ago">%dм</string>
-    <string name="abbreviated_seconds_ago">%dс</string>
     <!--Оставшееся время в опросах -->
     <string name="follows_you">Подписан(а) на вас</string>
     <string name="pref_title_alway_show_sensitive_media">Всегда показывать чувствительный контент</string>
@@ -510,7 +500,6 @@
     <string name="notification_notification_worker">Получение уведомлений…</string>
     <string name="notification_prune_cache">Обслуживание кеша…</string>
     <string name="status_count_one_plus">1+</string>
-    <string name="status_created_at_now">сейчас</string>
     <string name="status_filtered_show_anyway">Показать всё равно</string>
     <string name="status_filter_placeholder_label_format">Фильтр: <b>%1$s</b></string>
     <string name="pref_title_public_filter_home_and_lists">Домашняя и списки</string>

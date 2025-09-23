@@ -1,8 +1,7 @@
-package app.pachli.util
+package app.pachli.core.ui
 
 import android.content.Context
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import app.pachli.R
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith

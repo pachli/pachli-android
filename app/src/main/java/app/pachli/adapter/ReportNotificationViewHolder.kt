@@ -31,10 +31,10 @@ import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.database.model.NotificationReportEntity
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.TimelineAccount
+import app.pachli.core.ui.getRelativeTimeSpanString
 import app.pachli.core.ui.loadAvatar
 import app.pachli.core.ui.updateEmojiTargets
 import app.pachli.databinding.ItemReportNotificationBinding
-import app.pachli.util.getRelativeTimeSpanString
 import app.pachli.viewdata.NotificationViewData
 import at.connyduck.sparkbutton.helpers.Utils
 import com.bumptech.glide.RequestManager

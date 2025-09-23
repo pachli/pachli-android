@@ -337,16 +337,6 @@
     <string name="action_unmute_conversation">Comhrá unmute</string>
     <string name="dialog_mute_warning">Tost @%s\?</string>
     <string name="pref_title_post_tabs">Cluaisíní</string>
-    <string name="abbreviated_in_years">in %dy</string>
-    <string name="abbreviated_in_days">in %dd</string>
-    <string name="abbreviated_in_hours">in %dh</string>
-    <string name="abbreviated_in_minutes">in %dm</string>
-    <string name="abbreviated_in_seconds">in %ds</string>
-    <string name="abbreviated_years_ago">%dy</string>
-    <string name="abbreviated_days_ago">%dd</string>
-    <string name="abbreviated_hours_ago">%dh</string>
-    <string name="abbreviated_minutes_ago">%dm</string>
-    <string name="abbreviated_seconds_ago">%ds</string>
     <string name="unreblog_private">Bain athchraoladh</string>
     <string name="unpin_action">Díphionnáil</string>
     <string name="conversation_1_recipients">%1$s</string>
@@ -488,7 +478,6 @@
     <string name="notification_report_name">Tuarascálacha</string>
     <string name="notification_report_description">Fógraí faoi thuarascálacha modhnóireachta</string>
     <string name="status_count_one_plus">1+</string>
-    <string name="status_created_at_now">anois</string>
     <string name="status_filtered_show_anyway">Taispeáin ar aon nós</string>
     <string name="pref_title_account_filter_keywords">Próifílí</string>
     <string name="failed_to_pin">Theip ar phionnáil</string>

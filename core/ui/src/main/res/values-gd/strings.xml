@@ -61,4 +61,15 @@
     <string name="poll_info_format"><!-- 15 bhòtaichean • 1 uair a thìde air fhàgail -->%1$s • %2$s</string>
     <string name="description_poll">Cunntas-bheachd le roghainnean: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="post_media_alt">ALT</string>
+    <string name="status_created_at_now">an-dràsta</string>
+    <string name="abbreviated_in_seconds">an ceann %dd</string>
+    <string name="abbreviated_seconds_ago">%dd</string>
+    <string name="abbreviated_in_minutes">an ceann %dm</string>
+    <string name="abbreviated_minutes_ago">%dm</string>
+    <string name="abbreviated_in_hours">an ceann %du</string>
+    <string name="abbreviated_hours_ago">%du</string>
+    <string name="abbreviated_in_days">an ceann %dl</string>
+    <string name="abbreviated_days_ago">%dl</string>
+    <string name="abbreviated_in_years">an ceann %db</string>
+    <string name="abbreviated_years_ago">%db</string>
 </resources>

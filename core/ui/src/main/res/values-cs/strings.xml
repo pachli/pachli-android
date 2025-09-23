@@ -53,4 +53,14 @@
     <string name="poll_info_time_absolute">končí v %s</string>
     <string name="poll_info_format"><!-- 15 hlasů • 1 hodina do konce -->%1$s • %2$s</string>
     <string name="description_poll">Anketa s volbami: %1$s, %2$s, %3$s, %4$s; %5$s</string>
+    <string name="abbreviated_in_seconds">za %d s</string>
+    <string name="abbreviated_seconds_ago">%d s</string>
+    <string name="abbreviated_in_minutes">za %d m</string>
+    <string name="abbreviated_minutes_ago">%d min</string>
+    <string name="abbreviated_in_hours">za %d h</string>
+    <string name="abbreviated_hours_ago">%d h</string>
+    <string name="abbreviated_in_days">za %d d</string>
+    <string name="abbreviated_days_ago">%d d</string>
+    <string name="abbreviated_in_years">za %d let</string>
+    <string name="abbreviated_years_ago">%d let</string>
 </resources>
