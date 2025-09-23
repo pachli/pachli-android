@@ -39,6 +39,7 @@ import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.ViewMediaActivityIntent
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.preferences.CardViewMode
+import app.pachli.core.ui.CompositeWithOpaqueBackground
 import app.pachli.core.ui.MediaPreviewImageView
 import app.pachli.core.ui.MediaPreviewLayout
 import app.pachli.core.ui.PollView
@@ -52,7 +53,6 @@ import app.pachli.core.ui.loadAvatar
 import app.pachli.core.ui.makeIcon
 import app.pachli.core.ui.setClickableMentions
 import app.pachli.interfaces.StatusActionListener
-import app.pachli.util.CompositeWithOpaqueBackground
 import app.pachli.util.aspectRatios
 import app.pachli.util.description
 import app.pachli.util.expandTouchSizeToFillRow
