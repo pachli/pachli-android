@@ -1,7 +1,7 @@
 [versions]
 aboutlibraries = "11.6.3"
 acra = "5.12.0"
-agp = "8.12.0"
+agp = "8.12.1"
 androidx-activity = "1.10.1"
 androidx-appcompat = "1.7.1"
 androidx-browser = "1.8.0"
@@ -52,7 +52,7 @@ ksoup = "0.5.0"
 ksp = "2.2.0-2.0.2"
 image-cropper = "4.6.0"
 leakcanary = "2.14"
-lint = "31.12.0" # = agp + 23.0.0 (= 8.12.0), see https://github.com/googlesamples/android-custom-lint-rules#lint-version
+lint = "31.12.1" # = agp + 23.0.0 (= 8.12.0), see https://github.com/googlesamples/android-custom-lint-rules#lint-version
 markwon = "4.6.2"
 material = "1.12.0"
 material-drawer = "9.0.2"
@@ -102,6 +102,7 @@ ktlint = "org.jlleitschuh.gradle.ktlint:12.3.0"
 room = { id = "androidx.room", version.ref = "androidx-room" }
 quadrant = { id = "com.gaelmarhic.quadrant", version.ref = "quadrant" }
 apollographql = { id = "com.apollographql.apollo3", version.ref = "apollographql"}
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 
 # Plugins defined by this project
 pachli-android-application = { id = "pachli.android.application", version = "unspecified" }

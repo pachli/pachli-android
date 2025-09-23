@@ -23,28 +23,21 @@ import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.core.content.getSystemService
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
-import androidx.recyclerview.widget.ConcatAdapter
-import androidx.recyclerview.widget.LinearLayoutManager
 import app.pachli.R
 import app.pachli.core.common.extensions.viewBinding
-import app.pachli.core.data.repository.Loadable
+import app.pachli.core.designsystem.theme.AppTheme
 import app.pachli.core.preferences.SharedPreferencesRepository
-import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.databinding.FragmentModelManagerBinding
 import app.pachli.translation.ConfirmDeleteLanguageDialogFragment.Companion.newInstance
 import app.pachli.translation.ConfirmDownloadLanguageDialogFragment.Companion.newInstance
-import com.github.michaelbull.result.get
+import com.google.mlkit.nl.translate.TranslateRemoteModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 /**
  * Displays a list of downloaded and available translation models, and UI controls to
@@ -64,66 +57,25 @@ class TranslationModelManagerFragment : Fragment(R.layout.fragment_model_manager
 
     private val connectivityManager by lazy { requireContext().getSystemService<ConnectivityManager>()!! }
 
-    /** Adapter for a list of translation models already downloaded. */
-    private val downloadedModelAdapter by lazy {
-        TranslationModelAdapter(
-            onDelete = ::confirmDeleteModel,
-            onDownload = ::confirmDownloadLanguage,
-        )
-    }
-
-    /** Adapter for a list of translation models that can be downloaded. */
-    private val remoteModelAdapter by lazy {
-        TranslationModelAdapter(
-            onDelete = ::confirmDeleteModel,
-            onDownload = ::confirmDownloadLanguage,
-        )
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.recyclerView.applyDefaultWindowInsets()
 
-        with(binding.recyclerView) {
-            layoutManager = LinearLayoutManager(context)
-
-            adapter = ConcatAdapter(
-                HeadingAdapter(R.string.translation_model_manager_fragment_downloaded_heading),
-                downloadedModelAdapter,
-                HeadingAdapter(R.string.translation_model_manager_fragment_remote_heading),
-                remoteModelAdapter,
-            )
-            setHasFixedSize(true)
-            setAccessibilityDelegateCompat(
-                RemoteModelAccessibilityDelegate(
-                    this,
-                    ::confirmDeleteModel,
-                    ::confirmDownloadLanguage,
-                ),
-            )
-        }
-
-        bind()
-    }
-
-    private fun bind() {
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                launch {
-                    // Split the list of models in two, depending on whether the model has
-                    // been downloaded. Send each part to the correct adapter.
-                    viewModel.flowViewData.collectLatest { models ->
-                        val (loaded, remote) = models.partition { it.state.get() is Loadable.Loaded }
-                        downloadedModelAdapter.submitList(loaded)
-                        remoteModelAdapter.submitList(remote)
-                    }
+        binding.composeView.apply {
+            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+            setContent {
+                AppTheme {
+                    TranslationModelManagerScreen(
+                        viewModel,
+                        ::confirmDeleteModel,
+                        ::confirmDownloadLanguage,
+                    )
                 }
             }
         }
     }
 
     /**
-     * Downloads the [viewData.remoteModel.language][com.google.mlkit.nl.translate.TranslateRemoteModel.language].
+     * Downloads the [viewData.remoteModel.language][TranslateRemoteModel.language].
      *
      * If the user allows downloads with mobile data, or the user is connected to a Wi-Fi
      * network, then the download proceeds immediately.
