@@ -806,7 +806,7 @@
         <item quantity="one">mit Rolle:</item>
         <item quantity="other">mit Rollen:</item>
     </plurals>
-    <string name="attachment_matches_filter_one_fmt">Entspricht Filter: \"%1$\". Antippen zum Anzeigen.</string>
+    <string name="attachment_matches_filter_one_fmt">Entspricht Filter: \"%1$s\". Antippen zum Anzeigen.</string>
     <string name="attachment_matches_filter_two_fmt">Entspricht Filtern: \"%1$s\" und \"%2$s\". Antippen zum Anzeigen.</string>
     <string name="attachment_matches_filter_other_fmt">Entspricht Filtern: \"%1$s\", \"%2$s\" und weiteren. Antippen zum Anzeigen.</string>
     <string name="attachment_hidden_user_action">Du hast dies ausgeblendet. Antippen zum Anzeigen.</string>
