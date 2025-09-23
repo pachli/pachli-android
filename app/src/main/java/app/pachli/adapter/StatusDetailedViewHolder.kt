@@ -16,9 +16,9 @@ import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.preferences.CardViewMode
 import app.pachli.core.ui.NoUnderlineURLSpan
 import app.pachli.core.ui.SetStatusContent
+import app.pachli.core.ui.StatusActionListener
 import app.pachli.core.ui.createClickableText
 import app.pachli.databinding.ItemStatusDetailedBinding
-import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.description
 import app.pachli.util.icon
 import com.bumptech.glide.RequestManager

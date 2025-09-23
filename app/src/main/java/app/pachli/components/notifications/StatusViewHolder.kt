@@ -22,9 +22,9 @@ import app.pachli.adapter.StatusViewHolder
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.ui.SetStatusContent
+import app.pachli.core.ui.StatusActionListener
 import app.pachli.databinding.ItemStatusBinding
 import app.pachli.databinding.ItemStatusWrapperBinding
-import app.pachli.interfaces.StatusActionListener
 import app.pachli.viewdata.NotificationViewData
 import com.bumptech.glide.RequestManager
 

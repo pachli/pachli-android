@@ -60,7 +60,7 @@ import app.pachli.core.navigation.ViewThreadActivityIntent
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.ui.ClipboardUseCase
-import app.pachli.interfaces.StatusActionListener
+import app.pachli.core.ui.StatusActionListener
 import app.pachli.translation.TranslationService
 import app.pachli.usecase.TimelineCases
 import app.pachli.view.showMuteAccountDialog
