@@ -183,16 +183,6 @@
     <string name="post_media_video">Video</string>
     <string name="state_follow_requested">Takip istenen</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
-    <string name="abbreviated_in_years">%dy içinde</string>
-    <string name="abbreviated_in_days">%dd içinde</string>
-    <string name="abbreviated_in_hours">%dh içinde</string>
-    <string name="abbreviated_in_minutes">%dm içinde</string>
-    <string name="abbreviated_in_seconds">%ds içinde</string>
-    <string name="abbreviated_years_ago">%dy</string>
-    <string name="abbreviated_days_ago">%dd</string>
-    <string name="abbreviated_hours_ago">%dh</string>
-    <string name="abbreviated_minutes_ago">%dm</string>
-    <string name="abbreviated_seconds_ago">%ds</string>
     <string name="follows_you">Seni takip ediyor</string>
     <string name="pref_title_alway_show_sensitive_media">Her zaman hassas içerikleri göster</string>
     <string name="title_media">Medya</string>
@@ -268,7 +258,6 @@
     <string name="filter_add_description">Süzgeçlenecek ifade</string>
     <string name="description_post_media">Ortam: %s</string>
     <string name="description_post_cw">İçerik uyarısı: %s</string>
-    <string name="description_post_media_no_description_placeholder">Açıklama yok</string>
     <string name="description_post_reblogged">Yeniden blogladı</string>
     <string name="description_post_favourited">Gözdelendi</string>
     <string name="description_visibility_public">Herkese açık</string>
@@ -421,7 +410,6 @@
     <string name="failed_to_unpin">Açılamadı</string>
     <string name="drafts_post_failed_to_send">Bu yayın gönderilemedi!</string>
     <string name="wellbeing_hide_stats_posts">Yayınların niceliksel istatistikleri gizle</string>
-    <string name="status_created_at_now">şimdi</string>
     <string name="drafts_post_reply_removed">Yanıt yazdığınız yayın kaldırıldı</string>
     <string name="language_display_name_format">%s (%s)</string>
     <string name="report_category_violation">Kural ihlali</string>
@@ -449,7 +437,6 @@
     <string name="label_duration">Süre</string>
     <string name="error_status_source_load">Sunucudan kaynak durumu yüklenemedi.</string>
     <string name="pref_title_http_proxy_port_message">Bağlantı noktası %d ile %d arasında olmalıdır</string>
-    <string name="post_media_alt">Alternatif metin</string>
     <string name="a11y_label_loading_thread">Konu yükleniyor</string>
     <string name="help_empty_home">Bu senin <b>ana ağ akışın</b>. Takip ettiğin hesapların son gönderileri burada yer alacak. \n \nTakip edebileceğin hesapları diğer zaman tünellerinden keşfedebilirsin, örneğin kendi sunucunun yerel zaman tünelinden [iconics gmd_group]. Veya hesapları adlarıyla arayabilirsin [iconics gmd_search], örneğin Mastodon hesabımızı bulmak için Pachli adıyla araman yeterli.</string>
     <string name="pref_summary_http_proxy_missing">&lt;ayarlanmadı&gt;</string>

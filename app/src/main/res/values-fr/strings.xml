@@ -194,16 +194,6 @@
     <string name="post_media_video">Vidéo</string>
     <string name="state_follow_requested">Demande d’abonnement effectuée</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
-    <string name="abbreviated_in_years">dans %da</string>
-    <string name="abbreviated_in_days">dans %dj</string>
-    <string name="abbreviated_in_hours">dans %dh</string>
-    <string name="abbreviated_in_minutes">dans %dm</string>
-    <string name="abbreviated_in_seconds">dans %ds</string>
-    <string name="abbreviated_years_ago">%d a</string>
-    <string name="abbreviated_days_ago">%dj</string>
-    <string name="abbreviated_hours_ago">%d h</string>
-    <string name="abbreviated_minutes_ago">%dm</string>
-    <string name="abbreviated_seconds_ago">%ds</string>
     <string name="follows_you">Vous suit</string>
     <string name="pref_title_alway_show_sensitive_media">Toujours afficher les contenus sensibles</string>
     <string name="title_media">Média</string>
@@ -266,7 +256,6 @@
     <string name="description_post_media">Média : %s</string>
     <string name="description_post_cw">        Avertissement : %s
     </string>
-    <string name="description_post_media_no_description_placeholder">Aucune description</string>
     <string name="description_post_reblogged">Partagé</string>
     <string name="description_post_favourited">Mis en favoris</string>
     <string name="description_visibility_public">Public</string>
@@ -442,7 +431,6 @@
     <string name="action_post_failed">Le téléversement a échoué</string>
     <string name="action_post_failed_show_drafts">Afficher les brouillons</string>
     <string name="action_post_failed_do_nothing">Ignorer</string>
-    <string name="post_media_alt">ALT</string>
     <string name="notification_report_format">Nouveau signalement sur %s</string>
     <string name="notification_header_report_format">%s a signalé %s</string>
     <plurals name="notification_summary_report_format">
@@ -467,7 +455,6 @@
     <string name="status_filter_placeholder_label_format">Caché : &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="title_public_trending_hashtags">Hashtags tendance</string>
     <string name="send_account_username_to">Partager le nom du compte avec…</string>
-    <string name="status_created_at_now">maintenant</string>
     <string name="action_unfollow_hashtag_format">Arrêter de suivre #%s \?</string>
     <string name="failed_to_pin">Échec de l\'épinglage</string>
     <string name="status_edit_info">Modification de %1$s</string>

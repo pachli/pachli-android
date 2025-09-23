@@ -46,4 +46,15 @@
     <string name="poll_info_time_absolute">%s এ শেষ হবে</string>
     <string name="poll_info_format"><!-- ১৫ ভোট • ১ ঘন্টা বাকি -->%1$s • %2$s</string>
     <string name="description_poll">পছন্দগুলি সহ নর্বাচন: %1$s, %2$s, %3$s, %4$s; %5$s</string>
+    <string name="abbreviated_in_seconds">%ds এ</string>
+    <string name="abbreviated_seconds_ago">%ds</string>
+    <string name="abbreviated_in_minutes">%dm এ</string>
+    <string name="abbreviated_minutes_ago">%dm</string>
+    <string name="abbreviated_in_hours">%dh এ</string>
+    <string name="abbreviated_hours_ago">%dh</string>
+    <string name="abbreviated_in_days">%dd এ</string>
+    <string name="abbreviated_days_ago">%dd</string>
+    <string name="abbreviated_in_years">%dy এ</string>
+    <string name="abbreviated_years_ago">%dy</string>
+    <string name="description_post_media_no_description_placeholder">বর্ণনা নাই</string>
 </resources>

@@ -54,10 +54,10 @@ import app.pachli.core.navigation.EditContentFilterActivityIntent
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.ui.SetMarkdownContent
 import app.pachli.core.ui.SetMastodonHtmlContent
+import app.pachli.core.ui.StatusActionListener
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.databinding.FragmentViewThreadBinding
 import app.pachli.fragment.SFragment
-import app.pachli.interfaces.StatusActionListener
 import app.pachli.util.ListStatusAccessibilityDelegate
 import com.bumptech.glide.Glide
 import com.github.michaelbull.result.Result
@@ -280,7 +280,7 @@ class ViewThreadFragment :
         actionReveal.isVisible = revealButtonState != RevealButtonState.NO_BUTTON
         actionReveal.setIcon(
             when (revealButtonState) {
-                RevealButtonState.REVEAL -> R.drawable.ic_eye_24dp
+                RevealButtonState.REVEAL -> app.pachli.core.ui.R.drawable.ic_eye_24dp
                 else -> R.drawable.ic_hide_media_24dp
             },
         )

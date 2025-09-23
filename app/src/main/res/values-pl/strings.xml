@@ -172,16 +172,6 @@
     <string name="post_media_video">Wideo</string>
     <string name="state_follow_requested">Wysłano prośbę o obserwację</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
-    <string name="abbreviated_in_years">za %d lata</string>
-    <string name="abbreviated_in_days">za %d dni</string>
-    <string name="abbreviated_in_hours">za %d godz</string>
-    <string name="abbreviated_in_minutes">za %d min</string>
-    <string name="abbreviated_in_seconds">za %d s</string>
-    <string name="abbreviated_years_ago">%d lat temu</string>
-    <string name="abbreviated_days_ago">%d dni temu</string>
-    <string name="abbreviated_hours_ago">%d godz. temu</string>
-    <string name="abbreviated_minutes_ago">%d min temu</string>
-    <string name="abbreviated_seconds_ago">%d s temu</string>
     <string name="follows_you">Obserwuje cię</string>
     <string name="pref_title_alway_show_sensitive_media">Zawsze wyświetlaj drażliwą zawartość</string>
     <string name="title_media">Multimedia</string>
@@ -284,7 +274,6 @@
     <string name="conversation_more_recipients">%1$s, %2$s i %3$d innych</string>
     <string name="description_post_media">Media: %s</string>
     <string name="description_post_cw">Ostrzeżenie o zawartości: %s</string>
-    <string name="description_post_media_no_description_placeholder">Brak opisu</string>
     <string name="description_post_reblogged">Podbity</string>
     <string name="description_post_favourited">Polubiony</string>
     <string name="description_visibility_public">Publiczny</string>
@@ -420,7 +409,6 @@
     <string name="set_focus_description">Naciśnij lub przeciągnij kółko, aby wybrać punkt skupienia, który będzie zawsze widoczny w miniaturkach.</string>
     <string name="action_unfollow_hashtag_format">Odobserwować #%s?</string>
     <string name="pref_default_post_language">Domyślny język wpisów</string>
-    <string name="status_created_at_now">teraz</string>
     <string name="action_add_reaction">dodaj reakcję</string>
     <string name="notification_header_report_format">Konto %s zgłosiło %s</string>
     <string name="confirmation_hashtag_unfollowed">Odobserwowano #%s</string>
@@ -440,7 +428,6 @@
     <string name="action_post_failed">Błąd wysyłania</string>
     <string name="action_post_failed_show_drafts">Pokaż szkice</string>
     <string name="action_post_failed_do_nothing">Odrzuć</string>
-    <string name="post_media_alt">ALT</string>
     <string name="action_continue_edit">Kontynuuj edycję</string>
     <string name="report_category_spam">Spam</string>
     <string name="send_account_link_to">Udostępnij odnośnik do konta…</string>

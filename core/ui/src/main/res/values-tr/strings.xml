@@ -48,4 +48,17 @@
     <string name="poll_info_time_absolute">%s içinde sona erecek</string>
     <string name="poll_info_format"><!-- 15 oy • 1 saat kaldı -->%1$s • %2$s</string>
     <string name="description_poll">Seçenekli anket: %1$s, %2$s, %3$s, %4$s; %5$s</string>
+    <string name="post_media_alt">Alternatif metin</string>
+    <string name="status_created_at_now">şimdi</string>
+    <string name="abbreviated_in_seconds">%ds içinde</string>
+    <string name="abbreviated_seconds_ago">%ds</string>
+    <string name="abbreviated_in_minutes">%dm içinde</string>
+    <string name="abbreviated_minutes_ago">%dm</string>
+    <string name="abbreviated_in_hours">%dh içinde</string>
+    <string name="abbreviated_hours_ago">%dh</string>
+    <string name="abbreviated_in_days">%dd içinde</string>
+    <string name="abbreviated_days_ago">%dd</string>
+    <string name="abbreviated_in_years">%dy içinde</string>
+    <string name="abbreviated_years_ago">%dy</string>
+    <string name="description_post_media_no_description_placeholder">Açıklama yok</string>
 </resources>

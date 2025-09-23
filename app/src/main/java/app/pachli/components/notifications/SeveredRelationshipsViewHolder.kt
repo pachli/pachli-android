@@ -26,8 +26,8 @@ import app.pachli.core.model.RelationshipSeveranceEvent.Type.ACCOUNT_SUSPENSION
 import app.pachli.core.model.RelationshipSeveranceEvent.Type.DOMAIN_BLOCK
 import app.pachli.core.model.RelationshipSeveranceEvent.Type.UNKNOWN
 import app.pachli.core.model.RelationshipSeveranceEvent.Type.USER_DOMAIN_BLOCK
+import app.pachli.core.ui.getRelativeTimeSpanString
 import app.pachli.databinding.ItemSeveredRelationshipsBinding
-import app.pachli.util.getRelativeTimeSpanString
 import app.pachli.viewdata.NotificationViewData
 
 class SeveredRelationshipsViewHolder(

@@ -179,16 +179,6 @@
     <string name="post_media_video">Fideo</string>
     <string name="state_follow_requested">Ceisiwyd</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
-    <string name="abbreviated_in_years">ymhen %dy</string>
-    <string name="abbreviated_in_days">ymhen %dd</string>
-    <string name="abbreviated_in_hours">ymhen %dh</string>
-    <string name="abbreviated_in_minutes">ymhen %dm</string>
-    <string name="abbreviated_in_seconds">ymhen %ds</string>
-    <string name="abbreviated_years_ago">%db yn ôl</string>
-    <string name="abbreviated_days_ago">%dd yn ôl</string>
-    <string name="abbreviated_hours_ago">%da yn ôl</string>
-    <string name="abbreviated_minutes_ago">%dm yn ôl</string>
-    <string name="abbreviated_seconds_ago">%de yn ôl</string>
     <string name="follows_you">Yn eich dilyn chi</string>
     <string name="pref_title_alway_show_sensitive_media">Dangos cynnwys sensitif bob tro</string>
     <string name="title_media">Cyfryngau</string>
@@ -314,7 +304,6 @@
     <string name="warning_scheduling_interval">Mae gan Mastodon egwyl amserlennu o o leiaf 5 munud.</string>
     <string name="follow_requests_info">Er nad ydych wedi cloi\'ch cyfrif, roedd staff %1$s yn meddwl efallai yr hoffech adolygu\'r ceisiadau i\'ch dilyn o\'r cyfrifon hyn â llaw.</string>
     <string name="delete_scheduled_post_warning">Hoffech chi ddileu\'r neges a amserlennwyd hon\?</string>
-    <string name="description_post_media_no_description_placeholder">Dim disgrifiad</string>
     <string name="edit_hashtag_hint">Hashnod heb #</string>
     <string name="report_remote_instance">Anfon ymlaen at %s</string>
     <string name="report_description_remote_instance">Daw\'r cyfrif o weinydd arall. Hoffech chi anfon copi dienw o\'r adroddiad i\'r gweinydd hwnnw hefyd\?</string>
@@ -437,7 +426,6 @@
     <string name="set_focus_description">Tapiwch neu lusgo\'r cylch i ddewis y canolbwynt a fydd bob amser yn weladwy mewn lluniau bach.</string>
     <string name="list">Rhestr</string>
     <string name="action_set_focus">Gosod pwynt ffocws</string>
-    <string name="status_created_at_now">nawr</string>
     <string name="action_add_reaction">ychwanegu ymateb</string>
     <string name="description_post_media">Cyfryngau: %s</string>
     <string name="error_status_source_load">Wedi methu llwytho\'r ffynhonnell statws o\'r gweinydd.</string>
@@ -469,7 +457,6 @@
     <string name="status_edit_info">Golygwyd: %1$s</string>
     <string name="status_created_info">Crëwyd: %1$s</string>
     <string name="title_edits">Golygiadau</string>
-    <string name="post_media_alt">AMGEN</string>
     <string name="action_discard">Hepgor newidiadau</string>
     <string name="unsaved_changes">Mae gennych newidiadau heb eu cadw.</string>
     <string name="mute_notifications_switch">Tewi hysbysiadau</string>

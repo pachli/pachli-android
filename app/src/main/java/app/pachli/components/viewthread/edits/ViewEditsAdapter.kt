@@ -32,9 +32,9 @@ import app.pachli.core.ui.PollAdapter.DisplayMode
 import app.pachli.core.ui.PollOptionViewData
 import app.pachli.core.ui.decodeBlurHash
 import app.pachli.core.ui.emojify
+import app.pachli.core.ui.extensions.aspectRatios
 import app.pachli.core.ui.setClickableText
 import app.pachli.databinding.ItemStatusEditBinding
-import app.pachli.util.aspectRatios
 import com.bumptech.glide.RequestManager
 import com.google.android.material.color.MaterialColors
 import org.xml.sax.XMLReader

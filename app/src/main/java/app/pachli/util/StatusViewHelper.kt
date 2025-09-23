@@ -32,13 +32,14 @@ import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.model.Attachment
 import app.pachli.core.model.Emoji
 import app.pachli.core.model.Status
+import app.pachli.core.ui.MediaPreviewImageView
 import app.pachli.core.ui.PollViewData
 import app.pachli.core.ui.buildDescription
 import app.pachli.core.ui.calculatePercent
 import app.pachli.core.ui.decodeBlurHash
 import app.pachli.core.ui.emojify
+import app.pachli.core.ui.extensions.iconResource
 import app.pachli.core.ui.formatPollDuration
-import app.pachli.view.MediaPreviewImageView
 import com.bumptech.glide.RequestManager
 import com.google.android.material.color.MaterialColors
 import java.text.NumberFormat

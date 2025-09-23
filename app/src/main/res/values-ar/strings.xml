@@ -193,16 +193,6 @@
     <string name="post_media_video">فيديو</string>
     <string name="state_follow_requested">طلب متابعة</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
-    <string name="abbreviated_in_years">في %dy</string>
-    <string name="abbreviated_in_days">في %dd</string>
-    <string name="abbreviated_in_hours">في %dh</string>
-    <string name="abbreviated_in_minutes">في %dm</string>
-    <string name="abbreviated_in_seconds">في %ds</string>
-    <string name="abbreviated_years_ago">%dس</string>
-    <string name="abbreviated_days_ago">%dأيام</string>
-    <string name="abbreviated_hours_ago">%dسا</string>
-    <string name="abbreviated_minutes_ago">%dد</string>
-    <string name="abbreviated_seconds_ago">%dثا</string>
     <string name="follows_you">يتبعك الآن</string>
     <string name="pref_title_alway_show_sensitive_media">أظهر دائما المحتوى الحساس</string>
     <string name="title_media">الوسائط</string>
@@ -254,7 +244,6 @@
     <string name="conversation_more_recipients">%1$s و %2$s و %3$d آخَرون</string>
     <string name="description_post_media">الوسائط: %s    </string>
     <string name="description_post_cw">تحذير عن المحتوى: %s    </string>
-    <string name="description_post_media_no_description_placeholder">مِن دون وصف    </string>
     <string name="description_post_reblogged">أعاد تدوينه    </string>
     <string name="description_visibility_public">للعامة    </string>
     <string name="description_visibility_unlisted">غير مُدرَج    </string>
@@ -451,7 +440,6 @@
     <string name="error_following_hashtags_unsupported">مثيل الخادم هذا لا يدعم متابعة الوسوم.</string>
     <string name="action_discard">تجاهل التعديلات</string>
     <string name="action_continue_edit">الاستمرار في التعديل</string>
-    <string name="post_media_alt">ALT</string>
     <string name="notification_header_report_format">%s أبلغ عن %s</string>
     <plurals name="notification_summary_report_format">
         <item quantity="other">%1$s · %2$d منشورات ملحقة</item>
@@ -467,7 +455,6 @@
     <string name="send_account_link_to">شارك رابط الحساب الى…</string>
     <string name="send_account_username_to">شارك اسم مستخدم الحساب إلى…</string>
     <string name="account_username_copied">تم نسخ اسم المستخدم</string>
-    <string name="status_created_at_now">الآن</string>
     <string name="action_unfollow_hashtag_format">الغاء متابعة #%s ؟</string>
     <string name="mute_notifications_switch">كتم الاشعارات</string>
     <string name="error_following_hashtag_format">خطأ في متابعة %s#</string>

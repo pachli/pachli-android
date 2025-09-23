@@ -168,16 +168,6 @@
     <string name="pref_title_alway_open_spoiler">सर्वदा विषयसतर्कतयाऽङ्कितं दौत्यं विस्तार्यताम्</string>
     <string name="pref_title_alway_show_sensitive_media">सर्वदा संवेदनशीलविषयो दृश्यताम्</string>
     <string name="follows_you">त्वामनुसरति</string>
-    <string name="abbreviated_seconds_ago">%ds क्ष</string>
-    <string name="abbreviated_minutes_ago">%dm नि</string>
-    <string name="abbreviated_hours_ago">%dh घ</string>
-    <string name="abbreviated_years_ago">%dy वर्ष</string>
-    <string name="abbreviated_days_ago">%dd दि</string>
-    <string name="abbreviated_in_seconds">%ds क्ष</string>
-    <string name="abbreviated_in_minutes">%dm नि</string>
-    <string name="abbreviated_in_hours">%dh घ</string>
-    <string name="abbreviated_in_days">%dd दि</string>
-    <string name="abbreviated_in_years">%dy वर्ष</string>
     <string name="state_follow_requested">अनुसरणं निवेदितम्</string>
     <string name="post_media_video">चलचित्राणि</string>
     <string name="post_media_images">चित्राणि</string>
@@ -329,7 +319,6 @@
     <string name="description_post_bookmarked">पुटचिह्नं कृतम्</string>
     <string name="description_post_favourited">प्रीतिर्दत्ता</string>
     <string name="description_post_reblogged">पुनर्लिखितम्</string>
-    <string name="description_post_media_no_description_placeholder">विवरणं नास्ति</string>
     <string name="description_post_cw">विषयपूर्वसतर्कता: %s</string>
     <string name="description_post_media">सामग्र्यः %s</string>
     <string name="conversation_more_recipients">%1$s, %2$s तथा %3$d अन्येऽपि</string>
@@ -375,7 +364,6 @@
     <string name="notification_subscription_name">नूतन-प्रकटनानि</string>
     <string name="notification_sign_up_name">पञ्जीकरणानि</string>
     <string name="no_announcements">उद्घोषणाः न सन्ति।</string>
-    <string name="status_created_at_now">अधुना</string>
     <string name="duration_60_days">६० दिनानि</string>
     <string name="action_unsubscribe_account">ग्राहकता-समापनम्</string>
     <string name="language_display_name_format">%s (%s)</string>
@@ -425,7 +413,6 @@
     <string name="pref_title_wellbeing_mode">सुस्थितिः</string>
     <string name="delete_scheduled_post_warning">इदं कालबद्धदौत्यं विनश्येत् किम् \?</string>
     <string name="drafts_failed_loading_reply">प्रत्युत्तरसमाचारस्य आरोपनं विफलं जातम्</string>
-    <string name="post_media_alt">आल्ट्</string>
     <string name="pref_title_animate_custom_emojis">स्वीयानुकूलानि भावचिह्नानि सञ्जीव्यताम्</string>
     <string name="notification_report_format">%s-विषये नूतनम् आवेदनम्</string>
     <string name="action_share_account_username">लेखायाः उपभोक्तृनाम्नः संविभागं कुरुताम्</string>

@@ -244,16 +244,6 @@
     <string name="post_media_audio">Áudio</string>
     <string name="post_media_attachments">Anexos</string>
     <string name="state_follow_requested">Pedido para seguir enviado</string>
-    <string name="abbreviated_in_years">em %dy</string>
-    <string name="abbreviated_in_days">em %dd</string>
-    <string name="abbreviated_in_hours">em %dh</string>
-    <string name="abbreviated_in_minutes">em %dm</string>
-    <string name="abbreviated_in_seconds">em %ds</string>
-    <string name="abbreviated_years_ago">%dy</string>
-    <string name="abbreviated_days_ago">%dd</string>
-    <string name="abbreviated_hours_ago">%dh</string>
-    <string name="abbreviated_minutes_ago">%dm</string>
-    <string name="abbreviated_seconds_ago">%ds</string>
     <string name="follows_you">Segue-te</string>
     <string name="pref_title_alway_show_sensitive_media">Mostrar sempre conteúdo multimédia sensível</string>
     <string name="pref_title_alway_open_spoiler">Expandir sempre toots com Aviso de Conteúdo</string>
@@ -312,7 +302,6 @@
     <string name="conversation_more_recipients">%1$s, %2$s e %3$d mais</string>
     <string name="description_post_media">Conteúdo multimédia: %s</string>
     <string name="description_post_cw">Aviso de Conteúdo: %s</string>
-    <string name="description_post_media_no_description_placeholder">Sem descrição</string>
     <string name="description_post_reblogged">Replicado</string>
     <string name="description_post_favourited">Adicionado aos favoritos</string>
     <string name="description_post_bookmarked">Guardado</string>
@@ -436,7 +425,6 @@
 \nO servidor não pode ser contactado, ou rejeitou as publicações.</string>
     <string name="action_post_failed_show_drafts">Mostrar rascunhos</string>
     <string name="action_post_failed_do_nothing">Descartar</string>
-    <string name="post_media_alt">ALT</string>
     <string name="error_muting_hashtag_format">Erro a silenciar #%s</string>
     <string name="notification_header_report_format">%s reportou %s</string>
     <string name="action_discard">Descartar alterações</string>

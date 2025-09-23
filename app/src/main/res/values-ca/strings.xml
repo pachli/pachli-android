@@ -139,16 +139,6 @@
     <string name="post_media_images">Imatges</string>
     <string name="post_media_video">Vídeo</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
-    <string name="abbreviated_in_years">en %d anys</string>
-    <string name="abbreviated_in_days">en %dd</string>
-    <string name="abbreviated_in_hours">en %dh</string>
-    <string name="abbreviated_in_minutes">en %dm</string>
-    <string name="abbreviated_in_seconds">en %ds</string>
-    <string name="abbreviated_years_ago">%d anys</string>
-    <string name="abbreviated_days_ago">%dd</string>
-    <string name="abbreviated_hours_ago">%dh</string>
-    <string name="abbreviated_minutes_ago">%dm</string>
-    <string name="abbreviated_seconds_ago">%ds</string>
     <string name="follows_you">Et segueix</string>
     <string name="pref_title_alway_show_sensitive_media">Mostra el contingut no apte (NSFW)</string>
     <string name="title_media">Multimèdia</string>
@@ -258,7 +248,6 @@
     <string name="conversation_2_recipients">%1$s i %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s i %3$d més</string>
     <string name="description_post_media">Mèdia : %s</string>
-    <string name="description_post_media_no_description_placeholder">Sense descripció</string>
     <string name="description_post_favourited">Favorits</string>
     <string name="description_visibility_public">Públic</string>
     <string name="description_visibility_unlisted">Sense llistar</string>
@@ -397,7 +386,6 @@
     <string name="action_post_failed_show_drafts">Mostra esborranys</string>
     <string name="action_post_failed_do_nothing">Descartar</string>
     <string name="send_account_link_to">Comparteix l\'URL del compte a…</string>
-    <string name="post_media_alt">ALT</string>
     <string name="notification_update_format">%s ha editat la seva publicació</string>
     <string name="notification_report_format">Nou informe sobre %s</string>
     <string name="notification_header_report_format">%s ha informat %s</string>
@@ -413,7 +401,6 @@
     <string name="pref_default_post_language">Idioma de publicació per defecte</string>
     <string name="notification_update_description">Les notificacions quan s\'editen les publicacions amb les quals has interaccionat</string>
     <string name="notification_report_description">Notificacions sobre informes de moderació</string>
-    <string name="status_created_at_now">ara</string>
     <string name="action_add_reaction">afegir reacció</string>
     <string name="action_share_account_link">Comparteix l\'enllaç al compte</string>
     <string name="action_share_account_username">Comparteix el nom d\'usuari del compte</string>

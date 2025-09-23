@@ -69,4 +69,6 @@ dependencies {
     kapt(libs.prism4j)
     implementation(libs.ksoup.entities)
     implementation(libs.jlatexmath.android)
+
+    testImplementation(libs.bundles.mockito)
 }

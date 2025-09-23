@@ -66,4 +66,17 @@
     <string name="poll_info_time_absolute">endet um %s</string>
     <string name="poll_info_format"><!-- 15 Stimmen • noch 1 Stunde -->%1$s • %2$s</string>
     <string name="description_poll">Umfrage mit den Möglichkeiten: %1$s, %2$s, %3$s, %4$s; %5$s</string>
+    <string name="post_media_alt">ALT</string>
+    <string name="status_created_at_now">Jetzt</string>
+    <string name="abbreviated_in_seconds">in %d Sek.</string>
+    <string name="abbreviated_seconds_ago">%d Sek.</string>
+    <string name="abbreviated_in_minutes">in %d Min.</string>
+    <string name="abbreviated_minutes_ago">%d Min.</string>
+    <string name="abbreviated_in_hours">in %d Std.</string>
+    <string name="abbreviated_hours_ago">%d Std.</string>
+    <string name="abbreviated_in_days">in %d T.</string>
+    <string name="abbreviated_days_ago">%d T.</string>
+    <string name="abbreviated_in_years">in %d J.</string>
+    <string name="abbreviated_years_ago">%d J.</string>
+    <string name="description_post_media_no_description_placeholder">        Keine Beschreibung    </string>
 </resources>

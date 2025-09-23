@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
-    <app.pachli.view.MediaPreviewLayout
+    <app.pachli.core.ui.MediaPreviewLayout
         android:id="@+id/status_media_preview"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

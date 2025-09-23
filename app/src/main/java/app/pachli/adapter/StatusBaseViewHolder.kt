@@ -39,26 +39,27 @@ import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.ViewMediaActivityIntent
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.preferences.CardViewMode
+import app.pachli.core.ui.CompositeWithOpaqueBackground
+import app.pachli.core.ui.MediaPreviewImageView
+import app.pachli.core.ui.MediaPreviewLayout
 import app.pachli.core.ui.PollView
 import app.pachli.core.ui.PollViewData.Companion.from
 import app.pachli.core.ui.PreviewCardView
 import app.pachli.core.ui.SetStatusContent
+import app.pachli.core.ui.StatusActionListener
 import app.pachli.core.ui.decodeBlurHash
 import app.pachli.core.ui.emojify
+import app.pachli.core.ui.extensions.aspectRatios
+import app.pachli.core.ui.extensions.getFormattedDescription
+import app.pachli.core.ui.extensions.iconResource
+import app.pachli.core.ui.extensions.isPlayable
 import app.pachli.core.ui.extensions.setRoles
+import app.pachli.core.ui.getRelativeTimeSpanString
 import app.pachli.core.ui.loadAvatar
 import app.pachli.core.ui.makeIcon
 import app.pachli.core.ui.setClickableMentions
-import app.pachli.interfaces.StatusActionListener
-import app.pachli.util.CompositeWithOpaqueBackground
-import app.pachli.util.aspectRatios
 import app.pachli.util.description
 import app.pachli.util.expandTouchSizeToFillRow
-import app.pachli.util.getFormattedDescription
-import app.pachli.util.getRelativeTimeSpanString
-import app.pachli.util.iconResource
-import app.pachli.view.MediaPreviewImageView
-import app.pachli.view.MediaPreviewLayout
 import at.connyduck.sparkbutton.SparkButton
 import at.connyduck.sparkbutton.helpers.Utils
 import com.bumptech.glide.RequestManager
@@ -86,7 +87,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
     private val moreButton: ImageButton = itemView.findViewById(R.id.status_more)
 
     /** [MediaPreviewLayout] that encompasses and lays out all the attachment previews. */
-    private val mediaPreview: MediaPreviewLayout = itemView.findViewById(R.id.status_media_preview)
+    private val mediaPreview: MediaPreviewLayout = itemView.findViewById(app.pachli.core.ui.R.id.status_media_preview)
 
     /**
      * [TextView] that overlays attachment previews when hidden/blurred to explain why
@@ -102,10 +103,10 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
 
     /** Views for displaying the description of the attachment at that index. */
     private val mediaDescriptionViews: Array<TextView> = arrayOf(
-        itemView.findViewById(R.id.status_media_label_0),
-        itemView.findViewById(R.id.status_media_label_1),
-        itemView.findViewById(R.id.status_media_label_2),
-        itemView.findViewById(R.id.status_media_label_3),
+        itemView.findViewById(app.pachli.core.ui.R.id.status_media_label_0),
+        itemView.findViewById(app.pachli.core.ui.R.id.status_media_label_1),
+        itemView.findViewById(app.pachli.core.ui.R.id.status_media_label_2),
+        itemView.findViewById(app.pachli.core.ui.R.id.status_media_label_3),
     )
 
     private val contentWarningButton: MaterialButton = itemView.findViewById(R.id.status_content_warning_button)
@@ -1039,7 +1040,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
         private fun getMediaDescription(context: Context, status: IStatusViewData): String? {
             if (status.actionable.attachments.isEmpty()) return null
 
-            val missingDescription = context.getString(R.string.description_post_media_no_description_placeholder)
+            val missingDescription = context.getString(app.pachli.core.ui.R.string.description_post_media_no_description_placeholder)
 
             val mediaDescriptions = status.actionable.attachments.map {
                 it.description ?: missingDescription
@@ -1056,15 +1057,6 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
             return context.getString(R.string.description_post_cw, status.spoilerText)
         }
     }
-}
-
-/**
- * @return True if this attachment type is playable and should show the playable indicator,
- *     otherwise false.
- */
-fun Attachment.Type.isPlayable() = when (this) {
-    Attachment.Type.AUDIO, Attachment.Type.GIFV, Attachment.Type.VIDEO -> true
-    Attachment.Type.IMAGE, Attachment.Type.UNKNOWN -> false
 }
 
 /**

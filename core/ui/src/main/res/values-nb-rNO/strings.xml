@@ -60,4 +60,17 @@
     <string name="poll_info_time_absolute">avsluttes %s</string>
     <string name="poll_info_format"><!-- 15 votes • 1 hour left -->%1$s • %2$s</string>
     <string name="description_poll">Avstemming med valg: %1$s, %2$s, %3$s, %4$s; %5$s</string>
+    <string name="post_media_alt">ALT</string>
+    <string name="status_created_at_now">nå</string>
+    <string name="abbreviated_in_seconds">om %ds</string>
+    <string name="abbreviated_seconds_ago">%ds</string>
+    <string name="abbreviated_in_minutes">om %dm</string>
+    <string name="abbreviated_minutes_ago">%dm</string>
+    <string name="abbreviated_in_hours">om %dt</string>
+    <string name="abbreviated_hours_ago">%dt</string>
+    <string name="abbreviated_in_days">om %dd</string>
+    <string name="abbreviated_days_ago">%dd</string>
+    <string name="abbreviated_in_years">om %då</string>
+    <string name="abbreviated_years_ago">%då</string>
+    <string name="description_post_media_no_description_placeholder">Ingen beskrivelse</string>
 </resources>

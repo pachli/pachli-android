@@ -41,7 +41,6 @@
     <string name="description_post_bookmarked">คั่นหน้า</string>
     <string name="description_post_favourited">ชื่นชอบ</string>
     <string name="description_post_reblogged">ได้ถูกเขียนใหม่</string>
-    <string name="description_post_media_no_description_placeholder">ไม่มีคำอธิบาย</string>
     <string name="description_post_cw">เตือนเนื้อหา : %s</string>
     <string name="description_post_media">สื่อ: %s</string>
     <string name="conversation_more_recipients">%1$s, %2$s และอีก %3$d</string>
@@ -102,16 +101,6 @@
     <string name="pref_title_alway_open_spoiler">ขยาย Toot ที่มีเครื่องหมายเนื้อหาอ่อนไหวเสมอ</string>
     <string name="pref_title_alway_show_sensitive_media">แสดงเนื้อหาอ่อนไหวเสมอ</string>
     <string name="follows_you">กำลังติดตามคุณ</string>
-    <string name="abbreviated_seconds_ago">%d วินาทีที่แล้ว</string>
-    <string name="abbreviated_minutes_ago">%d นาทีที่แล้ว</string>
-    <string name="abbreviated_hours_ago">%d ชั่วโมงที่แล้ว</string>
-    <string name="abbreviated_days_ago">%d วันที่แล้ว</string>
-    <string name="abbreviated_years_ago">%d ปีที่แล้ว</string>
-    <string name="abbreviated_in_seconds">ใน %d วินาที</string>
-    <string name="abbreviated_in_minutes">ใน %d นาที</string>
-    <string name="abbreviated_in_hours">ใน %d ชั่วโมง</string>
-    <string name="abbreviated_in_days">ใน %d วัน</string>
-    <string name="abbreviated_in_years">ใน %d ปี</string>
     <string name="state_follow_requested">กำลังขอติดตาม</string>
     <string name="post_media_video">วิดีทัศน์</string>
     <string name="post_media_images">ภาพ</string>

@@ -72,4 +72,17 @@
     <string name="poll_info_time_absolute">končí o %s</string>
     <string name="poll_info_format"><!-- 15 hlasov • zostáva 1 hodina do konca -->%1$s • %2$s</string>
     <string name="description_poll">Anketa s voľbami: %1$s, %2$s, %3$s, %4$s; %5$s</string>
+    <string name="post_media_alt">ALT</string>
+    <string name="status_created_at_now">teraz</string>
+    <string name="abbreviated_in_seconds">za %ds</string>
+    <string name="abbreviated_seconds_ago">%ds</string>
+    <string name="abbreviated_in_minutes">za %dm</string>
+    <string name="abbreviated_minutes_ago">%dm</string>
+    <string name="abbreviated_in_hours">za %dh</string>
+    <string name="abbreviated_hours_ago">%dh</string>
+    <string name="abbreviated_in_days">za %dd</string>
+    <string name="abbreviated_days_ago">%dd</string>
+    <string name="abbreviated_in_years">za %dr</string>
+    <string name="abbreviated_years_ago">%dr</string>
+    <string name="description_post_media_no_description_placeholder">Žiadny popis</string>
 </resources>

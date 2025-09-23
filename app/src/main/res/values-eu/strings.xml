@@ -179,13 +179,6 @@
     <string name="post_media_video">Bideoa</string>
     <string name="state_follow_requested">Eskaera bidalita</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
-    <string name="abbreviated_in_years">%du-an</string>
-    <string name="abbreviated_in_days">%de-an</string>
-    <string name="abbreviated_in_hours">%dh-an</string>
-    <string name="abbreviated_in_minutes">%dm-an</string>
-    <string name="abbreviated_in_seconds">%ds-an</string>
-    <string name="abbreviated_years_ago">%du</string>
-    <string name="abbreviated_days_ago">%de</string>
     <string name="follows_you">Jarraitzen zaitu</string>
     <string name="pref_title_alway_show_sensitive_media">Eduki mingarria erakutsi</string>
     <string name="title_media">Multimedia</string>
@@ -255,9 +248,6 @@
     <string name="pref_title_animate_gif_avatars">GIF abatarrak animatu</string>
     <string name="notification_poll_name">Galdeketak</string>
     <string name="notification_poll_description">Bukatutako galdeketen jakinarazpenak</string>
-    <string name="abbreviated_hours_ago">%dh</string>
-    <string name="abbreviated_minutes_ago">%dm</string>
-    <string name="abbreviated_seconds_ago">%ds</string>
     <string name="pref_title_alway_open_spoiler">Beti zabaldu edukien abisuekin markatutako tootak</string>
     <string name="pref_title_thread_filter_keywords">Elkarrizketak</string>
     <string name="filter_addition_title">Gehitu iragazkia</string>
@@ -282,7 +272,6 @@
     <string name="conversation_more_recipients">%1$s, %2$s eta %3$d gehiago</string>
     <string name="description_post_media">Media: %s</string>
     <string name="description_post_cw">Edukiarekiko abisua: %s</string>
-    <string name="description_post_media_no_description_placeholder">Deskribapenik ez</string>
     <string name="description_post_reblogged">Partekatua</string>
     <string name="description_post_favourited">Gogokoa</string>
     <string name="description_visibility_public">Publikoa</string>
@@ -414,7 +403,6 @@
 \nZerbitzariarekin ezin izan da komunikatu edo zure tutak baztertuak izan dira.</string>
     <string name="action_post_failed_show_drafts">Zirriborroak erakutsi</string>
     <string name="action_post_failed_do_nothing">Baztertu</string>
-    <string name="post_media_alt">ALT</string>
     <string name="post_edited">%s editatua</string>
     <string name="notification_sign_up_format">%s-(e)k izena eman du</string>
     <string name="error_status_source_load">Akatsa zerbitzaritik egoeraren iturria kargatzean.</string>

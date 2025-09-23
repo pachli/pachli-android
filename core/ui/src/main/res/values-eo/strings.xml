@@ -47,4 +47,16 @@
     <string name="poll_info_time_absolute">finiĝos je %s</string>
     <string name="poll_info_format"><!-- 15 votes • 1 hour left -->%1$s • %2$s</string>
     <string name="description_poll">Balotenketo kun elektoj: %1$s, %2$s, %3$s, %4$s, %5$s</string>
+    <string name="abbreviated_in_seconds">post %ds</string>
+    <string name="abbreviated_seconds_ago">%ds</string>
+    <string name="abbreviated_in_minutes">post %dm</string>
+    <string name="abbreviated_minutes_ago">%dm</string>
+    <string name="abbreviated_in_hours">post %dh</string>
+    <string name="abbreviated_hours_ago">%dh</string>
+    <string name="abbreviated_in_days">post %dt</string>
+    <string name="abbreviated_days_ago">%dt</string>
+    <string name="abbreviated_in_years">post %dj</string>
+    <string name="abbreviated_years_ago">%dj</string>
+    <string name="description_post_media_no_description_placeholder">        Neniu priskribo
+    </string>
 </resources>

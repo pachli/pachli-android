@@ -183,17 +183,6 @@
     <string name="post_media_video">Video</string>
     <string name="state_follow_requested">Solicitud enviada</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
-    <string name="status_created_at_now">Ahora</string>
-    <string name="abbreviated_in_years">en %dy</string>
-    <string name="abbreviated_in_days">en %dd</string>
-    <string name="abbreviated_in_hours">en %dh</string>
-    <string name="abbreviated_in_minutes">en %dm</string>
-    <string name="abbreviated_in_seconds">en %ds</string>
-    <string name="abbreviated_years_ago">%dy</string>
-    <string name="abbreviated_days_ago">%dd</string>
-    <string name="abbreviated_hours_ago">%dh</string>
-    <string name="abbreviated_minutes_ago">%dm</string>
-    <string name="abbreviated_seconds_ago">%ds</string>
     <string name="follows_you">Te sigue</string>
     <string name="pref_title_alway_show_sensitive_media">Mostrar contenido sensible</string>
     <string name="title_media">Multimedia</string>
@@ -272,7 +261,6 @@
     <string name="filter_add_description">Frase para filtrar</string>
     <string name="description_post_media">Contenido: %s</string>
     <string name="description_post_cw">Aviso de contenido: %s</string>
-    <string name="description_post_media_no_description_placeholder">Sin descripción</string>
     <string name="description_post_reblogged">Compartido</string>
     <string name="description_visibility_public">Público</string>
     <string name="description_visibility_unlisted">Sin listar</string>
@@ -449,7 +437,6 @@
     <string name="error_following_hashtags_unsupported">Esta instancia no es compatible con el seguimiento de etiquetas.</string>
     <string name="title_followed_hashtags">Etiquetas seguidas</string>
     <string name="report_category_other">Otros</string>
-    <string name="post_media_alt">ALT</string>
     <string name="action_unfollow_hashtag_format">¿Dejar de seguir a #%s\?</string>
     <string name="post_edited">%s editado</string>
     <string name="error_status_source_load">Fallo al cargar el estado de la origen desde el servidor.</string>

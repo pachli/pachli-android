@@ -27,8 +27,8 @@ import android.util.AttributeSet
 import androidx.annotation.OptIn
 import app.pachli.components.compose.MediaUploaderError
 import app.pachli.components.compose.UploadState
+import app.pachli.core.ui.MediaPreviewImageView
 import app.pachli.core.ui.makeIcon
-import app.pachli.view.MediaPreviewImageView
 import at.connyduck.sparkbutton.helpers.Utils
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result

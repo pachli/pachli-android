@@ -15,7 +15,7 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.util
+package app.pachli.core.ui
 
 import android.graphics.Bitmap
 import android.graphics.BitmapShader

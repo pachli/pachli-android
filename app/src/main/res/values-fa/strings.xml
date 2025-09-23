@@ -179,11 +179,6 @@
     <string name="post_media_video">ویدیو</string>
     <string name="state_follow_requested">تقاضای پیگیری شد</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
-    <string name="abbreviated_in_years">در %d سال</string>
-    <string name="abbreviated_in_days">در %d روز</string>
-    <string name="abbreviated_in_hours">در %d ساعت</string>
-    <string name="abbreviated_in_minutes">در %d دقیقه</string>
-    <string name="abbreviated_in_seconds">در %d ثانیه</string>
     <string name="follows_you">پیگیرتان است</string>
     <string name="pref_title_alway_show_sensitive_media">نمایش همیشگی محتوای حساس</string>
     <string name="title_media">رسانه</string>
@@ -248,11 +243,6 @@
     <string name="pref_title_animate_gif_avatars">پویانمایی آواتارهای جیف</string>
     <string name="notification_poll_name">نظرسنجی‌ها</string>
     <string name="notification_poll_description">آگاهی‌ها دربارهٔ نظرسنجی‌های پایان‌یافته</string>
-    <string name="abbreviated_years_ago">%d سال</string>
-    <string name="abbreviated_days_ago">%d روز</string>
-    <string name="abbreviated_hours_ago">%d ساعت</string>
-    <string name="abbreviated_minutes_ago">%d دقیقه</string>
-    <string name="abbreviated_seconds_ago">%d ثانیه</string>
     <string name="pref_title_alway_open_spoiler">گسترش همیشگی فرسته‌های علامت‌خورده با هشدار محتوا</string>
     <string name="pref_title_public_filter_keywords">خط زمانی‌های عمومی</string>
     <string name="pref_title_thread_filter_keywords">گفت‌وگوها</string>
@@ -276,7 +266,6 @@
     <string name="conversation_more_recipients">%1$s، %2$s و %3$d بیش‌تر</string>
     <string name="description_post_media">رسانه: %s</string>
     <string name="description_post_cw">هشدار محتوا: %s</string>
-    <string name="description_post_media_no_description_placeholder">بدون شرح</string>
     <string name="description_post_reblogged">تقویت شده</string>
     <string name="description_post_favourited">برگزیده</string>
     <string name="description_visibility_public">عمومی</string>
@@ -439,7 +428,6 @@
     <string name="report_category_spam">هرزنامه</string>
     <string name="report_category_other">دیگر</string>
     <string name="action_unfollow_hashtag_format">لغو پی‌گیری #%s؟</string>
-    <string name="status_created_at_now">اکنون</string>
     <string name="hint_media_description_missing">رسانه باید شرحی داشته باشد.</string>
     <string name="pref_default_post_language">زبان فرستهٔ پیش‌گزیده</string>
     <string name="language_display_name_format">%s (%s)</string>
@@ -447,7 +435,6 @@
     <string name="description_post_edited">ویراسته</string>
     <string name="error_muting_hashtag_format">خطا در خموش کردن #%s</string>
     <string name="error_unmuting_hashtag_format">خطا در ناخموش کردن #%s</string>
-    <string name="post_media_alt">متن جایگزین</string>
     <string name="post_edited">%s را ویراست</string>
     <string name="error_status_source_load">شکست در بار کردن مبدأ وضعیت از کارساز.</string>
     <string name="a11y_label_loading_thread">بار کردن رشته</string>

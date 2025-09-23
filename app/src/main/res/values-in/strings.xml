@@ -210,7 +210,6 @@
     <string name="notification_header_report_format">%s dilaporkan %s</string>
     <string name="dialog_follow_hashtag_title">Ikuti tagar</string>
     <string name="dialog_follow_hashtag_hint">#tagar</string>
-    <string name="post_media_alt">ALT</string>
     <string name="post_content_show_less">Tutup</string>
     <string name="post_edited">Diedit %s</string>
     <string name="notification_report_format">Laporan baru tentang %s</string>
@@ -278,10 +277,8 @@
     <string name="notification_listenable_worker_description">Pemberitahuan saat Pachli bekerja di latar belakang</string>
     <string name="pref_title_alway_open_spoiler">Selalu perluas postingan yg ditandai dengan peringatan konten</string>
     <string name="action_set_focus">Menetapkan titik fokus</string>
-    <string name="status_created_at_now">Sekarang</string>
     <string name="status_filtered_show_anyway">Tampilkan kapan saja</string>
     <string name="state_follow_requested">Ikuti yang diminta</string>
-    <string name="abbreviated_in_seconds">Dalam %ds</string>
     <string name="pref_title_thread_filter_keywords">Percakapan</string>
     <string name="pref_title_account_filter_keywords">Profil</string>
     <string name="filter_add_description">Frasa yang akan difilter</string>
@@ -292,18 +289,14 @@
     <string name="post_privacy_followers_only">Pengikut saja</string>
     <string name="post_privacy_unlisted">Tidak terdata</string>
     <string name="filter_dialog_update_button">Pembaruan</string>
-    <string name="abbreviated_in_years">Dalam %d</string>
-    <string name="abbreviated_years_ago">%dy</string>
     <string name="action_remove">Hapus</string>
     <string name="description_account_locked">Akun terkunci</string>
     <string name="post_share_link">Bagikan tautan ke pos</string>
-    <string name="abbreviated_in_days">Dalam %dd</string>
     <string name="title_media">Media</string>
     <string name="pref_title_alway_show_sensitive_media">Selalu tampilkan konten sensitif</string>
     <string name="pref_title_public_filter_home_and_lists">Beranda dan list</string>
     <string name="filter_edit_title">Edit penyaring</string>
     <string name="filter_expiration_format">%s %s</string>
-    <string name="abbreviated_in_hours">Dalam %dh</string>
     <string name="filter_dialog_remove_button">Buang</string>
     <string name="lock_account_label_description">Mengharuskan Anda untuk menyetujui pengikut secara manual</string>
     <string name="compose_delete_draft">Hapus Draft?</string>
@@ -312,16 +305,13 @@
     <string name="notification_mention_name">Disebut baru ini</string>
     <string name="notification_severed_relationships_description">Notifikasi tentang Hubungan yang terputus</string>
     <string name="notification_report_name">Laporkan</string>
-    <string name="abbreviated_seconds_ago">%ds</string>
     <string name="filter_addition_title">Tambah penyaring</string>
     <string name="notification_unknown_name">Tidak diketahui</string>
     <string name="notification_summary_medium">%1$s, %2$s, dan %3$s</string>
     <string name="emoji_style">Gaya emoji</string>
     <string name="account_moved_description">%1$s telah pindah ke sana:</string>
-    <string name="abbreviated_days_ago">%dd</string>
     <string name="notification_update_description">Pemberitahuan ketika postingan yang Anda berinteraksi diedit</string>
     <string name="notification_severed_relationships_name">Hubungan yang terputus</string>
-    <string name="abbreviated_hours_ago">%dh</string>
     <string name="pref_title_public_filter_keywords">Linimasa publik</string>
     <string name="download_failed">Unduhan gagal</string>
     <string name="pref_publishing">Penerbitan (disinkronkan dengan server)</string>
@@ -334,7 +324,6 @@
     <string name="label_remote_account">Informasi di bawah ini mungkin tidak mencerminkan profil pengguna secara lengkap. Tekan untuk membuka profil lengkap di browser.</string>
     <string name="unpin_action">Lepaskan pin</string>
     <string name="notification_follow_request_description">Pemberitahuan tentang permintaan mengikuti</string>
-    <string name="abbreviated_in_minutes">Dalam %dm</string>
     <string name="compose_active_account_description">Memposting sebagai %1$s</string>
     <string name="error_no_custom_emojis">Instance %s Anda tidak memiliki emoji khusus apa pun</string>
     <string name="action_open_post">Buka pos</string>
@@ -351,7 +340,6 @@
     <string name="notification_mention_descriptions">Pemberitahuan tentang sebutan baru</string>
     <string name="send_post_notification_title">Mengirim kiriman…</string>
     <string name="send_post_notification_cancel_title">Mengirim dibatalkan</string>
-    <string name="abbreviated_minutes_ago">%dm</string>
     <plurals name="notification_title_summary">
         <item quantity="other">%d interaksi baru</item>
     </plurals>

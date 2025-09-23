@@ -208,16 +208,6 @@
     <string name="post_media_images">Myndir</string>
     <string name="post_media_video">Myndskeið</string>
     <string name="state_follow_requested">Beðið um að fylgja</string>
-    <string name="abbreviated_in_years">eftir %dár</string>
-    <string name="abbreviated_in_days">eftir %dd</string>
-    <string name="abbreviated_in_hours">eftir %dklst</string>
-    <string name="abbreviated_in_minutes">eftir %dm</string>
-    <string name="abbreviated_in_seconds">eftir %ds</string>
-    <string name="abbreviated_years_ago">%dár</string>
-    <string name="abbreviated_days_ago">%dd</string>
-    <string name="abbreviated_hours_ago">%dklst</string>
-    <string name="abbreviated_minutes_ago">%dm</string>
-    <string name="abbreviated_seconds_ago">%ds</string>
     <string name="follows_you">Fylgir þér</string>
     <string name="pref_title_alway_show_sensitive_media">Alltaf birta myndefni sem merkt er viðkvæmt</string>
     <string name="pref_title_alway_open_spoiler">Alltaf fletta út færslum sem eru með aðvörun vegna efnis</string>
@@ -272,7 +262,6 @@
     <string name="conversation_more_recipients">%1$s, %2$s og %3$d til viðbótar</string>
     <string name="description_post_media">Myndefni: %s</string>
     <string name="description_post_cw">Aðvörun vegna efnis: %s</string>
-    <string name="description_post_media_no_description_placeholder">Engin lýsing</string>
     <string name="description_post_reblogged">Endurbloggað</string>
     <string name="description_post_favourited">Í eftirlætum</string>
     <string name="description_post_bookmarked">Bókamerkt</string>
@@ -421,7 +410,6 @@
     <string name="language_display_name_format">%s (%s)</string>
     <string name="error_following_hashtags_unsupported">Þessi netþjónn styður ekki að fylgst sé með myllumerkjum.</string>
     <string name="title_followed_hashtags">Myllumerki sem fylgst er með</string>
-    <string name="status_created_at_now">núna</string>
     <string name="action_unfollow_hashtag_format">Hætta að fylgjast með #%s\?</string>
     <string name="notification_report_format">Ný kæra vegna %s</string>
     <string name="notification_header_report_format">%s kærði %s</string>
@@ -450,7 +438,6 @@
     <string name="title_edits">Breytingar</string>
     <string name="status_created_info">%1$s bjó til</string>
     <string name="status_edit_info">%1$s breytti</string>
-    <string name="post_media_alt">AUKA</string>
     <string name="action_discard">Henda breytingum</string>
     <string name="action_continue_edit">Halda breytingum áfram</string>
     <string name="action_share_account_link">Deila tengli á notandaaðgang</string>

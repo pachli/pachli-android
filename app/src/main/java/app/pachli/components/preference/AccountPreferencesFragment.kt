@@ -296,7 +296,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
 
                 switchPreference {
                     setTitle(R.string.pref_default_media_sensitivity)
-                    setIcon(R.drawable.ic_eye_24dp)
+                    setIcon(app.pachli.core.ui.R.drawable.ic_eye_24dp)
                     key = PrefKeys.DEFAULT_MEDIA_SENSITIVITY
                     isSingleLineTitle = false
                     val sensitivity = accountManager.activeAccount?.defaultMediaSensitivity ?: false
@@ -396,7 +396,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
         return if (sensitive) {
             R.drawable.ic_hide_media_24dp
         } else {
-            R.drawable.ic_eye_24dp
+            app.pachli.core.ui.R.drawable.ic_eye_24dp
         }
     }
 

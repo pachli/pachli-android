@@ -48,4 +48,17 @@
     <string name="poll_info_time_absolute">vége %s</string>
     <string name="poll_info_format"><!-- 15 szavazat • 1 óra maradt -->%1$s • %2$s</string>
     <string name="description_poll">Szavazás válaszokkal: %1$s, %2$s, %3$s, %4$s; %5$s</string>
+    <string name="post_media_alt">ALT</string>
+    <string name="status_created_at_now">most</string>
+    <string name="abbreviated_in_seconds">%dmp múlva</string>
+    <string name="abbreviated_seconds_ago">%dmp</string>
+    <string name="abbreviated_in_minutes">%dp múlva</string>
+    <string name="abbreviated_minutes_ago">%dp</string>
+    <string name="abbreviated_in_hours">%dó múlva</string>
+    <string name="abbreviated_hours_ago">%dó</string>
+    <string name="abbreviated_in_days">%dn múlva</string>
+    <string name="abbreviated_days_ago">%dn</string>
+    <string name="abbreviated_in_years">%dé múlva</string>
+    <string name="abbreviated_years_ago">%dé</string>
+    <string name="description_post_media_no_description_placeholder">Nincs leírás</string>
 </resources>

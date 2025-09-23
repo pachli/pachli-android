@@ -29,7 +29,6 @@
     <string name="notification_sign_up_format">%s reģistrējās</string>
     <string name="footer_empty">Šeit nekā nav. Pavilkt uz leju, lai atsvaidzinātu.</string>
     <string name="notification_update_format">%s laboja savu ierakstu</string>
-    <string name="post_media_alt">ALT</string>
     <string name="action_quick_reply">Ātrā atbilde</string>
     <string name="action_reply">Atbildēt</string>
     <string name="action_bookmark">Atzīmēt ar grāmatzīmi</string>
@@ -113,7 +112,6 @@
     <string name="profile_metadata_label">Profila metadati</string>
     <string name="profile_metadata_add">pievienot datus</string>
     <string name="conversation_more_recipients">%1$s, %2$s un %3$d citi</string>
-    <string name="description_post_media_no_description_placeholder">Nav apraksta</string>
     <string name="description_post_language">Ieraksta valoda</string>
     <string name="select_list_title">Atlasīt sarakstu</string>
     <string name="description_post_edited">Labots</string>
@@ -237,9 +235,6 @@
     <string name="notification_mention_name">Jaunas pieminēšanas</string>
     <string name="notification_follow_name">Jauni sekotāji</string>
     <string name="notification_boost_name">Pastiprinājumi</string>
-    <string name="abbreviated_days_ago">%dd</string>
-    <string name="abbreviated_hours_ago">%dh</string>
-    <string name="abbreviated_years_ago">%dg</string>
     <string name="filter_dialog_whole_word">Viss vārds</string>
     <string name="unreblog_private">Atcelt pastiprināšanu</string>
     <string name="unpin_action">Atspraust</string>
@@ -252,8 +247,6 @@
     <string name="notification_update_name">Ierakstu labojumi</string>
     <string name="send_media_to">Kopīgot informācijas nesēju…</string>
     <string name="description_account_locked">Privāts konts</string>
-    <string name="abbreviated_seconds_ago">%ds</string>
-    <string name="abbreviated_minutes_ago">%dm</string>
     <string name="lock_account_label">Slēgt kontu</string>
     <string name="review_notifications">Pārskatīt paziņojumus</string>
     <string name="account_date_joined">Pievienojās %1$s</string>
@@ -268,7 +261,6 @@
     <string name="pref_title_notification_filter_poll">Aptaujas ir noslēgušās</string>
     <string name="pref_title_show_boosts">Parādīt pastiprinājumus</string>
     <string name="status_count_one_plus">1+</string>
-    <string name="status_created_at_now">tikko</string>
     <string name="error_media_upload_permission">Nepieciešama atļauja lasīt multividi.</string>
     <string name="error_media_download_permission">Nepieciešama atļauja saglabāt multividi.</string>
     <string name="error_following_hashtag_format">Radās kļūda, sākot sekot #%s</string>
@@ -420,11 +412,6 @@
     <string name="pref_title_confirm_favourites">Pirms pievienošanas izlasei rādīt apstiprināšanas dialogu</string>
     <string name="action_view_favourites">Izlases</string>
     <string name="pref_title_notification_filter_favourites">Mani ieraksti tiek pievienoti izlasei</string>
-    <string name="abbreviated_in_days">pēc %dd</string>
-    <string name="abbreviated_in_hours">pēc %dh</string>
-    <string name="abbreviated_in_minutes">pēc %dm</string>
-    <string name="abbreviated_in_years">pēc %dg</string>
-    <string name="abbreviated_in_seconds">pēc %ds</string>
     <string name="pref_title_alway_open_spoiler">Vienmēr izvērst ziņas, kas atzīmētas ar satura brīdinājumiem</string>
     <string name="action_post_failed_detail">Neizdevās augšupielādēt Tavu ierakstu, un tas tika saglabāts kā melnraksts. \n \nVai nu neizdevās sazināties ar serveri, vai arī tas noraidīja ierakstu.</string>
     <string name="action_post_failed_detail_plural">Neizdevās augšupielādēt Tavus ierakstus, un tie tika saglabāti kā melnraksti. \n \nVai nu neizdevās sazināties ar serveri, vai arī tas noraidīja ierakstus.</string>

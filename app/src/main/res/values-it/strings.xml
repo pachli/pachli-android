@@ -207,16 +207,6 @@
     <string name="post_media_video">Video</string>
     <string name="state_follow_requested">Richiesta inviata</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
-    <string name="abbreviated_in_years">in %d a</string>
-    <string name="abbreviated_in_days">in %dg</string>
-    <string name="abbreviated_in_hours">in %do</string>
-    <string name="abbreviated_in_minutes">in %d min</string>
-    <string name="abbreviated_in_seconds">in %ds</string>
-    <string name="abbreviated_years_ago">%da</string>
-    <string name="abbreviated_days_ago">%dg</string>
-    <string name="abbreviated_hours_ago">%do</string>
-    <string name="abbreviated_minutes_ago">%dmin</string>
-    <string name="abbreviated_seconds_ago">%ds</string>
     <string name="follows_you">Ti segue</string>
     <string name="pref_title_alway_show_sensitive_media">Mostra sempre i contenuti sensibili</string>
     <string name="title_media">Media</string>
@@ -278,7 +268,6 @@
     <string name="conversation_more_recipients">%1$s, %2$s ed altri %3$d</string>
     <string name="description_post_media">Media: %s</string>
     <string name="description_post_cw">Contenuto sensibile: %s</string>
-    <string name="description_post_media_no_description_placeholder">Nessuna descrizione</string>
     <string name="description_post_reblogged">Ribloggato</string>
     <string name="description_post_favourited">Messo nei post apprezzati</string>
     <string name="description_visibility_public">Pubblico</string>
@@ -451,8 +440,6 @@
     <string name="failed_to_unpin">Rimozione del fissaggio fallita</string>
     <string name="pref_title_http_proxy_port_message">La porta dovrebbe essere tra %d e %d</string>
     <string name="report_category_violation">Violazione di una regola</string>
-    <string name="status_created_at_now">adesso</string>
-    <string name="post_media_alt">ALT</string>
     <string name="pref_title_notification_filter_reports">C\'è una nuova segnalazione</string>
     <string name="notification_report_name">Segnalazioni</string>
     <string name="error_muting_hashtag_format">Errore nel silenziamento di #%s</string>

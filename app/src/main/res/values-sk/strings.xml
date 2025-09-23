@@ -84,7 +84,6 @@
     <string name="profile_metadata_content_label">Obsah</string>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s a %2$s</string>
-    <string name="description_post_media_no_description_placeholder">Žiadny popis</string>
     <string name="description_visibility_public">Verejný</string>
     <string name="action_reblog">Zdieľať</string>
     <string name="action_unreblog">Zrušiť zdieľanie</string>
@@ -287,7 +286,6 @@
     <string name="dialog_follow_hashtag_title">Sledovať hashtag</string>
     <string name="dialog_follow_hashtag_hint">#hashtag</string>
     <string name="post_media_hidden_title">Médiá sú skryté</string>
-    <string name="post_media_alt">ALT</string>
     <string name="notification_sign_up_format">%s sa zaregistroval/a</string>
     <string name="notification_subscription_format">%s práve uverejnil/a príspevok</string>
     <string name="notification_update_format">%s upravil/a svoj príspevok</string>
@@ -344,7 +342,6 @@
     <string name="no_announcements">Žiadne oznámenia.</string>
     <string name="post_media_images">Obrázky</string>
     <string name="post_media_video">Video</string>
-    <string name="abbreviated_in_seconds">za %ds</string>
     <string name="follows_you">Sleduje ťa</string>
     <string name="add_poll_choice">Pridať voľbu</string>
     <string name="poll_allow_multiple_choices">Viacero možností</string>
@@ -417,11 +414,6 @@
     <string name="pref_title_show_self_username">Zobraziť používateľské meno v nástrojových lištách</string>
     <string name="drafts_post_failed_to_send">Tento príspevok se nepodarilo odoslať!</string>
     <string name="wellbeing_hide_stats_posts">Skryť kvantitatívne štatistiky príspevkov</string>
-    <string name="abbreviated_in_years">za %dr</string>
-    <string name="abbreviated_in_hours">za %dh</string>
-    <string name="abbreviated_years_ago">%dr</string>
-    <string name="abbreviated_days_ago">%dd</string>
-    <string name="abbreviated_hours_ago">%dh</string>
     <string name="pin_action">Pripnúť</string>
     <string name="failed_to_pin">Pripnutie zlyhalo</string>
     <string name="pref_labs_reverse_home_timeline_off_summary">Príspevky sú zoradené od najnovších po najstaršie</string>
@@ -494,7 +486,6 @@
     <string name="notification_update_description">Upozornenia na zmeny príspevkov, s ktorými si interagoval/a</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s a ďalších %4$d</string>
     <string name="status_count_one_plus">1+</string>
-    <string name="status_created_at_now">teraz</string>
     <string name="pref_title_alway_open_spoiler">Vždy rozbaliť príspevky označené varovaními o obsahu</string>
     <string name="pref_title_alway_show_sensitive_media">Vždy zobraziť citlivý obsah</string>
     <string name="title_media">Média</string>
@@ -545,7 +536,6 @@
     <string name="pref_notification_up_distributor_none">Žiadny</string>
     <string name="notification_notification_worker">Načítavam upozornenia…</string>
     <string name="notification_prune_cache">Údržba cache…</string>
-    <string name="abbreviated_in_days">za %dd</string>
     <string name="load_newest_statuses">Načítať najnovšie príspevky</string>
     <string name="update_dialog_neutral">Neupozorňuj ma na túto verziu</string>
     <string name="translating">Prekladám…</string>
@@ -574,9 +564,6 @@
     <string name="description_post_media">Média %s</string>
     <string name="description_post_language">Jazyk príspevku</string>
     <string name="set_focus_description">Klepnutím alebo potiahnutím kruhu urči bod, ktorý bude v náhľadoch vždy zobrazený.</string>
-    <string name="abbreviated_minutes_ago">%dm</string>
-    <string name="abbreviated_seconds_ago">%ds</string>
-    <string name="abbreviated_in_minutes">za %dm</string>
     <string name="manage_lists">Spravovať zoznamy</string>
     <string name="compose_active_account_description">Uverejniť ako %1$s</string>
     <string name="label_remote_account">Nižšie zobrazené informácie o profile môžu byť neúplné. Klikni pre zobrazenie celého profilu v prehliadači.</string>

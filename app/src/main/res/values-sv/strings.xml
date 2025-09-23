@@ -191,16 +191,6 @@
     <string name="post_media_video">Video</string>
     <string name="state_follow_requested">Följarförfrågan</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
-    <string name="abbreviated_in_years">om %dy</string>
-    <string name="abbreviated_in_days">om %dd</string>
-    <string name="abbreviated_in_hours">om %dh</string>
-    <string name="abbreviated_in_minutes">om %dm</string>
-    <string name="abbreviated_in_seconds">om %ds</string>
-    <string name="abbreviated_years_ago">%dy</string>
-    <string name="abbreviated_days_ago">%dd</string>
-    <string name="abbreviated_hours_ago">%dh</string>
-    <string name="abbreviated_minutes_ago">%dm</string>
-    <string name="abbreviated_seconds_ago">%ds</string>
     <string name="follows_you">Följer dig</string>
     <string name="pref_title_alway_show_sensitive_media">Visa alltid allt innehåll (inkl. känsligt)</string>
     <string name="title_media">Media</string>
@@ -260,8 +250,6 @@
     <string name="conversation_more_recipients">%1$s, %2$s och %3$d mer</string>
     <string name="description_post_media">Media: %s</string>
     <string name="description_post_cw">Innehållsvarning: %s</string>
-    <string name="description_post_media_no_description_placeholder">        Ingen beskrivning
-    </string>
     <string name="description_post_reblogged">        Knuffad
     </string>
     <string name="description_post_favourited">Favoritmarkerat</string>
@@ -432,7 +420,6 @@
     <string name="action_add_reaction">lägg till reaktion</string>
     <string name="report_category_violation">Regelbrott</string>
     <string name="action_unfollow_hashtag_format">Sluta följa #%s\?</string>
-    <string name="status_created_at_now">nu</string>
     <string name="notification_report_format">Ny rapport för %s</string>
     <string name="notification_header_report_format">%s rapporterade %s</string>
     <plurals name="notification_summary_report_format">
@@ -455,7 +442,6 @@
     <string name="hint_media_description_missing">Media bör ha en beskrivning.</string>
     <string name="pref_title_http_proxy_port_message">Portnummer bör vara mellan %d och %d</string>
     <string name="error_status_source_load">Kunde inte ladda status från servern.</string>
-    <string name="post_media_alt">ALT</string>
     <string name="a11y_label_loading_thread">Laddar tråd</string>
     <string name="mute_notifications_switch">Tysta notiser</string>
     <string name="title_edits">Redigeringar</string>

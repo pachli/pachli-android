@@ -48,4 +48,17 @@
     <string name="poll_info_time_absolute">پایان در %s</string>
     <string name="poll_info_format"><!-- ۱۵ رأی • ۱ ساعت مانده -->%1$s • %2$s</string>
     <string name="description_poll">%1$s, %2$s, %3$s, %4$s, %5$s :نظرسنجی با گزینه‌ها</string>
+    <string name="post_media_alt">متن جایگزین</string>
+    <string name="status_created_at_now">اکنون</string>
+    <string name="abbreviated_in_seconds">در %d ثانیه</string>
+    <string name="abbreviated_seconds_ago">%d ثانیه</string>
+    <string name="abbreviated_in_minutes">در %d دقیقه</string>
+    <string name="abbreviated_minutes_ago">%d دقیقه</string>
+    <string name="abbreviated_in_hours">در %d ساعت</string>
+    <string name="abbreviated_hours_ago">%d ساعت</string>
+    <string name="abbreviated_in_days">در %d روز</string>
+    <string name="abbreviated_days_ago">%d روز</string>
+    <string name="abbreviated_in_years">در %d سال</string>
+    <string name="abbreviated_years_ago">%d سال</string>
+    <string name="description_post_media_no_description_placeholder">بدون شرح</string>
 </resources>

@@ -199,16 +199,6 @@
     <string name="post_media_video">ভিডিও</string>
     <string name="state_follow_requested">অনুরোধ অনুসরণ করুন</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
-    <string name="abbreviated_in_years">%dy এ</string>
-    <string name="abbreviated_in_days">%dd এ</string>
-    <string name="abbreviated_in_hours">%dh এ</string>
-    <string name="abbreviated_in_minutes">%dm এ</string>
-    <string name="abbreviated_in_seconds">%ds এ</string>
-    <string name="abbreviated_years_ago">%dy</string>
-    <string name="abbreviated_days_ago">%dd</string>
-    <string name="abbreviated_hours_ago">%dh</string>
-    <string name="abbreviated_minutes_ago">%dm</string>
-    <string name="abbreviated_seconds_ago">%ds</string>
     <string name="follows_you">আপনাকে অনুসরন করে</string>
     <string name="pref_title_alway_show_sensitive_media">সর্বদা সংবেদনশীল কন্টেন্ট প্রদর্শন করুন</string>
     <string name="title_media">মিডিয়া</string>
@@ -268,7 +258,6 @@
     <string name="conversation_more_recipients">%1$s, %2$s এবং %3$d আরো অন্য জন</string>
     <string name="description_post_media">মিডিয়া: %s</string>
     <string name="description_post_cw">সতর্কবার্তা: %s</string>
-    <string name="description_post_media_no_description_placeholder">বর্ণনা নাই</string>
     <string name="description_post_reblogged">আবার ব্লগ</string>
     <string name="description_post_favourited">পছন্দ</string>
     <string name="description_visibility_public">সর্বজনীন</string>

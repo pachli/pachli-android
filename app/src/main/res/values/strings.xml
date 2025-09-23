@@ -91,7 +91,6 @@
     <string name="attachment_matches_filter_other_fmt">Matches filters: \"%1$s\", \"%2$s\", and more. Tap to show.</string>
     <string name="attachment_hidden_user_action">You hid this. Tap to show.</string>
     <string name="post_media_hidden_title">Media hidden</string>
-    <string name="post_media_alt">ALT</string>
     <string name="post_sensitive_media_directions">Click to view</string>
     <string name="post_content_warning_show_more">Show More</string>
     <string name="post_content_warning_show_less">Show Less</string>
@@ -398,21 +397,10 @@
     <string name="post_media_audio">Audio</string>
     <string name="post_media_attachments">Attachments</string>
     <string name="status_count_one_plus">1+</string>
-    <string name="status_created_at_now">now</string>
     <string name="status_filtered_show_anyway">Show anyway</string>
     <string name="status_filter_placeholder_label_format">Filtered: &lt;b>%1$s&lt;/b></string>
     <string name="state_follow_requested">Follow requested</string>
     <!--These are for timestamps on posts. For example: "16s" or "2d"-->
-    <string name="abbreviated_in_years">in %dy</string>
-    <string name="abbreviated_in_days">in %dd</string>
-    <string name="abbreviated_in_hours">in %dh</string>
-    <string name="abbreviated_in_minutes">in %dm</string>
-    <string name="abbreviated_in_seconds">in %ds</string>
-    <string name="abbreviated_years_ago">%dy</string>
-    <string name="abbreviated_days_ago">%dd</string>
-    <string name="abbreviated_hours_ago">%dh</string>
-    <string name="abbreviated_minutes_ago">%dm</string>
-    <string name="abbreviated_seconds_ago">%ds</string>
     <string name="follows_you">Follows you</string>
     <string name="pref_title_alway_show_sensitive_media">Always show sensitive content</string>
     <string name="pref_title_alway_open_spoiler">Always expand posts marked with content warnings</string>
@@ -496,9 +484,6 @@
     </plurals>
     <string name="description_post_cw">
         Content warning: %s
-    </string>
-    <string name="description_post_media_no_description_placeholder">
-        No description
     </string>
     <string name="description_post_edited">
         Edited
