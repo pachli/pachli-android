@@ -73,4 +73,13 @@ interface StatusActionListener<T : IStatusViewData> : LinkListener {
 
     /** Edit the filter that matched this status. */
     fun onEditFilterById(pachliAccountId: Long, filterId: String)
+
+    /**
+     * View non-attached media referenced by URL.
+     *
+     * @param pachliAccountId
+     * @param username The username that owns the media.
+     * @param url The URL of the media.
+     */
+    fun onViewMedia(pachliAccountId: Long, username: String, url: String)
 }

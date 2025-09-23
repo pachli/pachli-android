@@ -544,6 +544,13 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
         }
     }
 
+    override fun onViewMedia(pachliAccountId: Long, username: String, url: String) {
+        startActivityWithTransition(
+            ViewMediaActivityIntent(requireContext(), pachliAccountId, username, url),
+            TransitionKind.SLIDE_FROM_END,
+        )
+    }
+
     companion object {
         private fun accountIsInMentions(account: AccountEntity?, mentions: List<Status.Mention>): Boolean {
             return mentions.any { mention ->

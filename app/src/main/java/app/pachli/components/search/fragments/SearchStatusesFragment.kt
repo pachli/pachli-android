@@ -212,6 +212,13 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
         )
     }
 
+    override fun onViewMedia(pachliAccountId: Long, username: String, url: String) {
+        startActivityWithTransition(
+            ViewMediaActivityIntent(requireContext(), pachliAccountId, username, url),
+            TransitionKind.SLIDE_FROM_END,
+        )
+    }
+
     private fun reply(status: StatusViewData) {
         val actionableStatus = status.actionable
         val mentionedUsernames = actionableStatus.mentions.map { it.username }
