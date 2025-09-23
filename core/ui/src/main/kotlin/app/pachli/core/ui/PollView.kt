@@ -67,12 +67,7 @@ class PollView @JvmOverloads constructor(
     defStyleAttr: Int = 0,
     defStyleRes: Int = 0,
 ) : ConstraintLayout(context, attrs, defStyleAttr, defStyleRes) {
-    val binding: StatusPollBinding
-
-    init {
-        val inflater = context.getSystemService(LayoutInflater::class.java)
-        binding = StatusPollBinding.inflate(inflater, this)
-    }
+    val binding = StatusPollBinding.inflate(LayoutInflater.from(context), this)
 
     fun bind(
         glide: RequestManager,
