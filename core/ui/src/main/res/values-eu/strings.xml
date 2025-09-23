@@ -47,4 +47,14 @@
     <string name="poll_info_format"><!-- 15 boto • Ordu 1 geratzen da -->%1$s • %2$s</string>
     <string name="description_poll">Inkestatu aukerekin: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="post_media_alt">ALT</string>
+    <string name="abbreviated_in_seconds">%ds-an</string>
+    <string name="abbreviated_seconds_ago">%ds</string>
+    <string name="abbreviated_in_minutes">%dm-an</string>
+    <string name="abbreviated_minutes_ago">%dm</string>
+    <string name="abbreviated_in_hours">%dh-an</string>
+    <string name="abbreviated_hours_ago">%dh</string>
+    <string name="abbreviated_in_days">%de-an</string>
+    <string name="abbreviated_days_ago">%de</string>
+    <string name="abbreviated_in_years">%du-an</string>
+    <string name="abbreviated_years_ago">%du</string>
 </resources>

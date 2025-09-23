@@ -230,15 +230,6 @@
     <string name="pref_publishing">Közzététel (szerverrel szinkronizált)</string>
     <string name="notification_poll_name">Szavazások</string>
     <string name="notification_poll_description">Értesítés befejezett szavazásokról</string>
-    <string name="abbreviated_in_years">%dé múlva</string>
-    <string name="abbreviated_in_days">%dn múlva</string>
-    <string name="abbreviated_in_hours">%dó múlva</string>
-    <string name="abbreviated_in_minutes">%dp múlva</string>
-    <string name="abbreviated_years_ago">%dé</string>
-    <string name="abbreviated_days_ago">%dn</string>
-    <string name="abbreviated_hours_ago">%dó</string>
-    <string name="abbreviated_minutes_ago">%dp</string>
-    <string name="abbreviated_seconds_ago">%dmp</string>
     <string name="pref_title_public_filter_keywords">Nyilvános idővonalak</string>
     <string name="pref_title_thread_filter_keywords">Beszélgetések</string>
     <string name="filter_addition_title">Szűrő hozzáadása</string>
@@ -258,7 +249,6 @@
     <string name="pref_title_app_theme">Alkalmazástéma</string>
     <string name="pref_title_bot_overlay">Bot jelölő mutatása</string>
     <string name="pref_title_animate_gif_avatars">GIF profilképek animálása</string>
-    <string name="abbreviated_in_seconds">%dmp múlva</string>
     <string name="filter_dialog_whole_word">Teljes szó</string>
     <string name="filter_dialog_whole_word_description">Ha a kulcsszó csak alfanumerikus karakterekből áll, csak teljes szóra fog illeszkedni</string>
     <string name="compose_active_account_description">Bejegyzés mint %1$s</string>
@@ -431,7 +421,6 @@
     <string name="language_display_name_format">%s (%s)</string>
     <string name="report_category_violation">Szabálysértés</string>
     <string name="pref_title_http_proxy_port_message">A portnak %d és %d között kell lennie</string>
-    <string name="status_created_at_now">most</string>
     <string name="description_post_edited">Szerkesztve</string>
     <string name="error_following_hashtags_unsupported">Ez a kiszolgáló nem támogatja a hashtagek követését.</string>
     <string name="error_muting_hashtag_format">Hiba #%s némításakor</string>

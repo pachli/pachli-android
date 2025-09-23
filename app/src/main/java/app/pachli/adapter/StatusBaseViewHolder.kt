@@ -50,6 +50,7 @@ import app.pachli.core.ui.StatusActionListener
 import app.pachli.core.ui.decodeBlurHash
 import app.pachli.core.ui.emojify
 import app.pachli.core.ui.extensions.setRoles
+import app.pachli.core.ui.getRelativeTimeSpanString
 import app.pachli.core.ui.loadAvatar
 import app.pachli.core.ui.makeIcon
 import app.pachli.core.ui.setClickableMentions
@@ -57,7 +58,6 @@ import app.pachli.util.aspectRatios
 import app.pachli.util.description
 import app.pachli.util.expandTouchSizeToFillRow
 import app.pachli.util.getFormattedDescription
-import app.pachli.util.getRelativeTimeSpanString
 import app.pachli.util.iconResource
 import at.connyduck.sparkbutton.SparkButton
 import at.connyduck.sparkbutton.helpers.Utils

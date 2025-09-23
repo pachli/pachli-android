@@ -172,12 +172,6 @@
     <string name="post_media_video">Vidèo</string>
     <string name="state_follow_requested">Demanda d’abonament</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
-    <string name="abbreviated_in_years">en %d ans</string>
-    <string name="abbreviated_in_days">en %dd</string>
-    <string name="abbreviated_in_hours">en %dh</string>
-    <string name="abbreviated_in_minutes">en %dm</string>
-    <string name="abbreviated_in_seconds">en %ds</string>
-    <string name="abbreviated_years_ago">%d ans</string>
     <string name="follows_you">Vos sèc</string>
     <string name="pref_title_alway_show_sensitive_media">Mostrar lo contengut sensible (NSFW)</string>
     <string name="title_media">Mèdia</string>
@@ -236,10 +230,6 @@
     <string name="pref_title_proxy_settings">Servidor mandatari</string>
     <string name="pref_default_media_sensitivity">Totjorn marcar los mèdias coma sensibles</string>
     <string name="pref_failed_to_sync">Fracàs de la sincronizacion dels paramètres</string>
-    <string name="abbreviated_days_ago">%dd</string>
-    <string name="abbreviated_hours_ago">%dh</string>
-    <string name="abbreviated_minutes_ago">%dm</string>
-    <string name="abbreviated_seconds_ago">%ds</string>
     <string name="pref_title_public_filter_keywords">Flux publics</string>
     <string name="pref_title_thread_filter_keywords">Discutidas</string>
     <string name="filter_addition_title">Ajustar un filtre</string>
@@ -416,7 +406,6 @@
     <string name="delete_scheduled_post_warning">Suprimir la publicacion programada \?</string>
     <string name="drafts_post_reply_removed">La publicacion a la quala respondiá lo borrolhon foguèt suprimida</string>
     <string name="action_unfollow_hashtag_format">Quitar de seguir #%s \?</string>
-    <string name="status_created_at_now">ara</string>
     <string name="notification_report_format">Senhalament novèl sus %s</string>
     <string name="notification_header_report_format">%s a senhalat %s</string>
     <string name="pref_title_notification_filter_reports">i a un senhalament novèl</string>

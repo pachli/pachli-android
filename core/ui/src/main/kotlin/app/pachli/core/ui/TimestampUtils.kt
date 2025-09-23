@@ -15,14 +15,13 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.util
+package app.pachli.core.ui
 
 import android.content.Context
 import android.text.format.DateUtils.DAY_IN_MILLIS
 import android.text.format.DateUtils.HOUR_IN_MILLIS
 import android.text.format.DateUtils.MINUTE_IN_MILLIS
 import android.text.format.DateUtils.SECOND_IN_MILLIS
-import app.pachli.R
 import kotlin.math.abs
 
 private const val YEAR_IN_MILLIS = DAY_IN_MILLIS * 365

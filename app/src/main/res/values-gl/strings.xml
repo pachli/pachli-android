@@ -204,16 +204,6 @@
     <string name="pref_title_alway_open_spoiler">Despregar sempre publicacións marcadas con avisos sobre o contido</string>
     <string name="pref_title_alway_show_sensitive_media">Mostrar sempre contido sensible</string>
     <string name="follows_you">Séguete</string>
-    <string name="abbreviated_seconds_ago">%ds</string>
-    <string name="abbreviated_minutes_ago">%dm</string>
-    <string name="abbreviated_hours_ago">%dh</string>
-    <string name="abbreviated_days_ago">%dd</string>
-    <string name="abbreviated_years_ago">%dy</string>
-    <string name="abbreviated_in_seconds">fai %ds</string>
-    <string name="abbreviated_in_hours">fai %dh</string>
-    <string name="abbreviated_in_minutes">fai %dm</string>
-    <string name="abbreviated_in_days">en %dd</string>
-    <string name="abbreviated_in_years">en %dy</string>
     <string name="state_follow_requested">Seguimento solicitado</string>
     <string name="post_media_attachments">Anexos</string>
     <string name="post_media_audio">Audio</string>
@@ -427,7 +417,6 @@
     <string name="report_category_other">Outra</string>
     <string name="error_following_hashtags_unsupported">Esta instancia non ten soporte para seguimento de cancelos.</string>
     <string name="title_followed_hashtags">Cancelos seguidos</string>
-    <string name="status_created_at_now">agora</string>
     <string name="notification_report_format">Nova denuncia en %s</string>
     <string name="notification_header_report_format">%s denunciou a %s</string>
     <plurals name="notification_summary_report_format">

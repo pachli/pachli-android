@@ -122,8 +122,6 @@
     <string name="notification_poll_name">Adɣaren</string>
     <string name="notification_mention_format">Yuder-ik-id %s</string>
     <string name="description_account_locked">Yettwargel umiḍan</string>
-    <string name="abbreviated_years_ago">%dis aya</string>
-    <string name="abbreviated_days_ago">%dus aya</string>
     <string name="pref_title_thread_filter_keywords">Idewenniyen</string>
     <string name="lock_account_label">Rgel amiḍan</string>
     <string name="restart">Ales tanekra</string>
@@ -156,15 +154,9 @@
     <string name="search_no_results">Ula d yiwen n ugmuḍ</string>
     <string name="post_privacy_followers_only">I yimeḍfaṛen kan</string>
     <string name="pref_post_text_size">Teɣzi n weḍṛis</string>
-    <string name="abbreviated_hours_ago">%dsr</string>
-    <string name="abbreviated_minutes_ago">%dtsd</string>
-    <string name="abbreviated_seconds_ago">%dtsn</string>
     <string name="compose_save_draft">Sekles amzun d arewway\?</string>
     <string name="later">Ticki</string>
     <string name="description_post_bookmarked">Yettwarna ɣer ticṛad</string>
-    <string name="abbreviated_in_hours">deg %dsr</string>
-    <string name="abbreviated_in_minutes">deg %dtsd</string>
-    <string name="abbreviated_in_seconds">deg %dtsn</string>
     <string name="post_sensitive_media_title">Agbur amḥulfu</string>
     <string name="pref_default_media_sensitivity">Creḍ allal n teywalt amzun d amḥulfu</string>
     <string name="action_reset_schedule">Wennez tikkelt-nniḍen</string>
@@ -209,7 +201,6 @@
     <string name="label_image">Tugna</string>
     <string name="post_media_audio">Imesli</string>
     <string name="status_count_one_plus">1+</string>
-    <string name="status_created_at_now">tura</string>
     <string name="profile_metadata_content_label">Agbur</string>
     <string name="description_visibility_direct">Srid</string>
     <string name="filter_action_hide">Ffer</string>

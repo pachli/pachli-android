@@ -12,4 +12,9 @@
     <string name="title_hashtags_dialog">Hashtags</string>
     <string name="add_account_name">Account Tafoegje</string>
     <string name="action_logout">Útlogge</string>
+    <string name="abbreviated_in_seconds">oer %ds</string>
+    <string name="abbreviated_in_minutes">oer %dm</string>
+    <string name="abbreviated_in_hours">oer %dh</string>
+    <string name="abbreviated_in_days">oer %dd</string>
+    <string name="abbreviated_years_ago">%dy</string>
 </resources>

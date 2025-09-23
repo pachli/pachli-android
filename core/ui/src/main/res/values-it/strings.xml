@@ -69,4 +69,15 @@
     <string name="poll_info_format"><!-- 15 votes • 1 hour left -->%1$s • %2$s</string>
     <string name="description_poll">Sondaggio con scelte: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="post_media_alt">ALT</string>
+    <string name="status_created_at_now">adesso</string>
+    <string name="abbreviated_in_seconds">in %ds</string>
+    <string name="abbreviated_seconds_ago">%ds</string>
+    <string name="abbreviated_in_minutes">in %d min</string>
+    <string name="abbreviated_minutes_ago">%dmin</string>
+    <string name="abbreviated_in_hours">in %do</string>
+    <string name="abbreviated_hours_ago">%do</string>
+    <string name="abbreviated_in_days">in %dg</string>
+    <string name="abbreviated_days_ago">%dg</string>
+    <string name="abbreviated_in_years">in %d a</string>
+    <string name="abbreviated_years_ago">%da</string>
 </resources>

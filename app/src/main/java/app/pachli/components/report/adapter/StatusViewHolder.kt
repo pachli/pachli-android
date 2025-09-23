@@ -36,12 +36,12 @@ import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.PollViewData
 import app.pachli.core.ui.SetStatusContent
 import app.pachli.core.ui.emojify
+import app.pachli.core.ui.getRelativeTimeSpanString
 import app.pachli.core.ui.setClickableMentions
 import app.pachli.databinding.ItemReportStatusBinding
 import app.pachli.util.StatusViewHelper
 import app.pachli.util.StatusViewHelper.Companion.COLLAPSE_INPUT_FILTER
 import app.pachli.util.StatusViewHelper.Companion.NO_INPUT_FILTER
-import app.pachli.util.getRelativeTimeSpanString
 import com.bumptech.glide.RequestManager
 import java.util.Date
 

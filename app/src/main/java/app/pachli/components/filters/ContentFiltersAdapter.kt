@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.ListAdapter
 import app.pachli.R
 import app.pachli.core.model.ContentFilter
 import app.pachli.core.ui.BindingHolder
+import app.pachli.core.ui.getRelativeTimeSpanString
 import app.pachli.databinding.ItemRemovableBinding
-import app.pachli.util.getRelativeTimeSpanString
 import com.google.android.material.color.MaterialColors
 
 class ContentFiltersAdapter(val listener: ContentFiltersListener) :

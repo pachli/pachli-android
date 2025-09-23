@@ -179,16 +179,6 @@
     <string name="post_media_video">Fideo</string>
     <string name="state_follow_requested">Ceisiwyd</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
-    <string name="abbreviated_in_years">ymhen %dy</string>
-    <string name="abbreviated_in_days">ymhen %dd</string>
-    <string name="abbreviated_in_hours">ymhen %dh</string>
-    <string name="abbreviated_in_minutes">ymhen %dm</string>
-    <string name="abbreviated_in_seconds">ymhen %ds</string>
-    <string name="abbreviated_years_ago">%db yn ôl</string>
-    <string name="abbreviated_days_ago">%dd yn ôl</string>
-    <string name="abbreviated_hours_ago">%da yn ôl</string>
-    <string name="abbreviated_minutes_ago">%dm yn ôl</string>
-    <string name="abbreviated_seconds_ago">%de yn ôl</string>
     <string name="follows_you">Yn eich dilyn chi</string>
     <string name="pref_title_alway_show_sensitive_media">Dangos cynnwys sensitif bob tro</string>
     <string name="title_media">Cyfryngau</string>
@@ -437,7 +427,6 @@
     <string name="set_focus_description">Tapiwch neu lusgo\'r cylch i ddewis y canolbwynt a fydd bob amser yn weladwy mewn lluniau bach.</string>
     <string name="list">Rhestr</string>
     <string name="action_set_focus">Gosod pwynt ffocws</string>
-    <string name="status_created_at_now">nawr</string>
     <string name="action_add_reaction">ychwanegu ymateb</string>
     <string name="description_post_media">Cyfryngau: %s</string>
     <string name="error_status_source_load">Wedi methu llwytho\'r ffynhonnell statws o\'r gweinydd.</string>
