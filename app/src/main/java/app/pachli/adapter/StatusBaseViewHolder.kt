@@ -35,8 +35,6 @@ import app.pachli.core.model.AttachmentDisplayReason
 import app.pachli.core.model.Emoji
 import app.pachli.core.model.PreviewCardKind
 import app.pachli.core.model.Status
-import app.pachli.core.navigation.AccountActivityIntent
-import app.pachli.core.navigation.ViewMediaActivityIntent
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.preferences.CardViewMode
 import app.pachli.core.ui.CompositeWithOpaqueBackground
@@ -1006,14 +1004,12 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
             cardView.visibility = View.VISIBLE
             cardView.bind(glide, card, viewData.actionable.sensitive, statusDisplayOptions, false) { card, target ->
                 if (target == PreviewCardView.Target.BYLINE) {
-                    card.authors?.firstOrNull()?.account?.id?.let {
-                        context.startActivity(AccountActivityIntent(context, viewData.pachliAccountId, it))
-                    }
+                    card.authors?.firstOrNull()?.account?.id?.let { listener.onViewAccount(it) }
                     return@bind
                 }
 
                 if (card.kind == PreviewCardKind.PHOTO && card.embedUrl.isNotEmpty() && target == PreviewCardView.Target.IMAGE) {
-                    context.startActivity(ViewMediaActivityIntent(context, viewData.pachliAccountId, viewData.actionable.account.username, card.embedUrl))
+                    listener.onViewMedia(viewData.pachliAccountId, viewData.actionable.account.username, card.embedUrl)
                     return@bind
                 }
 
