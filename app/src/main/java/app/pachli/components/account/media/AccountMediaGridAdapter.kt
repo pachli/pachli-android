@@ -19,8 +19,8 @@ import app.pachli.core.model.Attachment
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.ui.BindingHolder
 import app.pachli.core.ui.decodeBlurHash
+import app.pachli.core.ui.getFormattedDescription
 import app.pachli.databinding.ItemAccountMediaBinding
-import app.pachli.util.getFormattedDescription
 import app.pachli.util.iconResource
 import com.bumptech.glide.RequestManager
 import com.google.android.material.color.MaterialColors

@@ -254,7 +254,6 @@
     <string name="conversation_more_recipients">%1$s，%2$s 和 %3$d 等人</string>
     <string name="description_post_media">媒体：%s</string>
     <string name="description_post_cw">内容警告：%s</string>
-    <string name="description_post_media_no_description_placeholder">没有描述信息</string>
     <string name="description_post_reblogged">被转嘟</string>
     <string name="description_post_favourited">被喜欢</string>
     <string name="description_visibility_public">

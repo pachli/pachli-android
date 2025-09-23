@@ -261,7 +261,6 @@
     <string name="filter_add_description">Frase para filtrar</string>
     <string name="description_post_media">Contenido: %s</string>
     <string name="description_post_cw">Aviso de contenido: %s</string>
-    <string name="description_post_media_no_description_placeholder">Sin descripción</string>
     <string name="description_post_reblogged">Compartido</string>
     <string name="description_visibility_public">Público</string>
     <string name="description_visibility_unlisted">Sin listar</string>

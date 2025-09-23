@@ -238,7 +238,6 @@
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s und %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s und %3$d mehr</string>
-    <string name="description_post_media_no_description_placeholder">        Keine Beschreibung    </string>
     <string name="description_post_favourited">Favorisiert    </string>
     <string name="description_visibility_public">Öffentlich    </string>
     <string name="description_visibility_private">Follower</string>

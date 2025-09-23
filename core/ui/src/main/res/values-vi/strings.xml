@@ -54,4 +54,5 @@
     <string name="abbreviated_days_ago">%d ngày</string>
     <string name="abbreviated_in_years">%d năm</string>
     <string name="abbreviated_years_ago">%d năm</string>
+    <string name="description_post_media_no_description_placeholder">Không có mô tả</string>
 </resources>

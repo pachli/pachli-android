@@ -258,7 +258,6 @@
     <string name="conversation_more_recipients">%1$s, %2$s এবং %3$d আরো অন্য জন</string>
     <string name="description_post_media">মিডিয়া: %s</string>
     <string name="description_post_cw">সতর্কবার্তা: %s</string>
-    <string name="description_post_media_no_description_placeholder">বর্ণনা নাই</string>
     <string name="description_post_reblogged">আবার ব্লগ</string>
     <string name="description_post_favourited">পছন্দ</string>
     <string name="description_visibility_public">সর্বজনীন</string>

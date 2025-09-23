@@ -289,7 +289,6 @@
     <string name="conversation_more_recipients">%1$s, %2$s agus %3$d níos mó</string>
     <string name="description_post_media">Meáin: %s</string>
     <string name="description_post_cw">Rabhadh ábhair: %s</string>
-    <string name="description_post_media_no_description_placeholder">Gan cur síos</string>
     <string name="description_post_favourited">Tofa</string>
     <string name="description_post_bookmarked">Leabharmharcáilte</string>
     <string name="description_visibility_public">Poiblí</string>

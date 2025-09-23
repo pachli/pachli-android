@@ -283,7 +283,6 @@
     <string name="description_post_bookmarked">Đã lưu</string>
     <string name="description_post_favourited">Đã thích</string>
     <string name="description_post_reblogged">Đã đăng lại</string>
-    <string name="description_post_media_no_description_placeholder">Không có mô tả</string>
     <string name="description_post_cw">Nội dung ẩn: %s</string>
     <string name="conversation_more_recipients">%1$s, %2$s và %3$d người nữa</string>
     <string name="conversation_2_recipients">%1$s và %2$s</string>

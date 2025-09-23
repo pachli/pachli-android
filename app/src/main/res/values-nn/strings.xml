@@ -427,7 +427,6 @@
     <string name="no_scheduled_posts">Du har ingen planlagte innlegg.</string>
     <string name="conversation_2_recipients">%1$s og %2$s</string>
     <string name="description_post_cw">Innhaldsåtvaring: %s</string>
-    <string name="description_post_media_no_description_placeholder">Inga skildring</string>
     <string name="description_post_edited">Brigda</string>
     <string name="description_post_reblogged">Delt</string>
     <string name="description_post_favourited">Favorittmarka</string>

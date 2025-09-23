@@ -47,17 +47,17 @@ import app.pachli.core.ui.PollViewData.Companion.from
 import app.pachli.core.ui.PreviewCardView
 import app.pachli.core.ui.SetStatusContent
 import app.pachli.core.ui.StatusActionListener
+import app.pachli.core.ui.aspectRatios
 import app.pachli.core.ui.decodeBlurHash
 import app.pachli.core.ui.emojify
 import app.pachli.core.ui.extensions.setRoles
+import app.pachli.core.ui.getFormattedDescription
 import app.pachli.core.ui.getRelativeTimeSpanString
 import app.pachli.core.ui.loadAvatar
 import app.pachli.core.ui.makeIcon
 import app.pachli.core.ui.setClickableMentions
-import app.pachli.util.aspectRatios
 import app.pachli.util.description
 import app.pachli.util.expandTouchSizeToFillRow
-import app.pachli.util.getFormattedDescription
 import app.pachli.util.iconResource
 import at.connyduck.sparkbutton.SparkButton
 import at.connyduck.sparkbutton.helpers.Utils
@@ -1039,7 +1039,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
         private fun getMediaDescription(context: Context, status: IStatusViewData): String? {
             if (status.actionable.attachments.isEmpty()) return null
 
-            val missingDescription = context.getString(R.string.description_post_media_no_description_placeholder)
+            val missingDescription = context.getString(app.pachli.core.ui.R.string.description_post_media_no_description_placeholder)
 
             val mediaDescriptions = status.actionable.attachments.map {
                 it.description ?: missingDescription

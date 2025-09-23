@@ -303,7 +303,6 @@
     <string name="list">リスト</string>
     <string name="hashtags">ハッシュタグ</string>
     <string name="add_hashtag_title">ハッシュタグを追加</string>
-    <string name="description_post_media_no_description_placeholder">説明なし</string>
     <string name="description_post_media">メディア: %s</string>
     <string name="conversation_more_recipients">%1$sさん、%2$sさんと他%3$d人</string>
     <string name="conversation_1_recipients">%1$sさん</string>

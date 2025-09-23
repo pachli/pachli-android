@@ -84,4 +84,5 @@
     <string name="abbreviated_days_ago">%dd</string>
     <string name="abbreviated_in_years">za %dr</string>
     <string name="abbreviated_years_ago">%dr</string>
+    <string name="description_post_media_no_description_placeholder">Žiadny popis</string>
 </resources>

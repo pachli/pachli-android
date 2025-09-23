@@ -255,7 +255,6 @@
     <string name="conversation_more_recipients">%1$s, %2$s a %3$d další</string>
     <string name="description_post_media">Média %s</string>
     <string name="description_post_cw">Varování o obsahu: %s</string>
-    <string name="description_post_media_no_description_placeholder">Žádný popis</string>
     <string name="description_post_reblogged">Boostnutý</string>
     <string name="description_post_favourited">Oblíbený</string>
     <string name="description_visibility_public">Veřejný</string>

@@ -624,7 +624,6 @@
     <string name="action_post_failed_show_drafts">வரைவுகளைக் காட்டு</string>
     <string name="post_text_size_medium">சராசரி</string>
     <string name="post_text_size_large">பெரிய</string>
-    <string name="description_post_media_no_description_placeholder">விளக்கம் இல்லை</string>
     <string name="list">பட்டியல்</string>
     <string name="notifications_clear">அறிவிப்புகளை நீக்கு</string>
     <string name="failed_search">தேடத் தவறிவிட்டது</string>

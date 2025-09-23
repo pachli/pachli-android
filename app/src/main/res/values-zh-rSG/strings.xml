@@ -258,9 +258,6 @@
     <string name="description_post_cw">
         内容提醒: %s
     </string>
-    <string name="description_post_media_no_description_placeholder">
-        没有媒体描述信息
-    </string>
     <string name="description_post_reblogged">
         被转嘟
     </string>

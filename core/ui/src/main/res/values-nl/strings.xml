@@ -61,4 +61,5 @@
     <string name="abbreviated_days_ago">%dd</string>
     <string name="abbreviated_in_years">over %dj</string>
     <string name="abbreviated_years_ago">%dj</string>
+    <string name="description_post_media_no_description_placeholder">Geen omschrijving</string>
 </resources>

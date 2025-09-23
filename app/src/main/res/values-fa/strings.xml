@@ -266,7 +266,6 @@
     <string name="conversation_more_recipients">%1$s، %2$s و %3$d بیش‌تر</string>
     <string name="description_post_media">رسانه: %s</string>
     <string name="description_post_cw">هشدار محتوا: %s</string>
-    <string name="description_post_media_no_description_placeholder">بدون شرح</string>
     <string name="description_post_reblogged">تقویت شده</string>
     <string name="description_post_favourited">برگزیده</string>
     <string name="description_visibility_public">عمومی</string>

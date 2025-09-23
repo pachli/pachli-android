@@ -78,4 +78,5 @@
     <string name="abbreviated_days_ago">%d p</string>
     <string name="abbreviated_in_years">%d a</string>
     <string name="abbreviated_years_ago">%d a</string>
+    <string name="description_post_media_no_description_placeholder">Kirjeldus puudub</string>
 </resources>

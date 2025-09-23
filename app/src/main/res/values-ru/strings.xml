@@ -260,9 +260,6 @@
         Медиафайл: %s
     </string>
     <string name="description_post_cw">Предупреждение о содержании: %s</string>
-    <string name="description_post_media_no_description_placeholder">
-        Без описания
-    </string>
     <string name="description_post_reblogged">Реблогнуто</string>
     <string name="description_post_favourited">Понравилось</string>
     <string name="description_visibility_public">

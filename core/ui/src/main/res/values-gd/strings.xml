@@ -72,4 +72,5 @@
     <string name="abbreviated_days_ago">%dl</string>
     <string name="abbreviated_in_years">an ceann %db</string>
     <string name="abbreviated_years_ago">%db</string>
+    <string name="description_post_media_no_description_placeholder">Gun tuairisgeul</string>
 </resources>

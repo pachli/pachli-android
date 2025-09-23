@@ -258,7 +258,6 @@
     <string name="filter_add_description">Süzgeçlenecek ifade</string>
     <string name="description_post_media">Ortam: %s</string>
     <string name="description_post_cw">İçerik uyarısı: %s</string>
-    <string name="description_post_media_no_description_placeholder">Açıklama yok</string>
     <string name="description_post_reblogged">Yeniden blogladı</string>
     <string name="description_post_favourited">Gözdelendi</string>
     <string name="description_visibility_public">Herkese açık</string>

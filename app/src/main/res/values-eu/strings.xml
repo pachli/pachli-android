@@ -272,7 +272,6 @@
     <string name="conversation_more_recipients">%1$s, %2$s eta %3$d gehiago</string>
     <string name="description_post_media">Media: %s</string>
     <string name="description_post_cw">Edukiarekiko abisua: %s</string>
-    <string name="description_post_media_no_description_placeholder">Deskribapenik ez</string>
     <string name="description_post_reblogged">Partekatua</string>
     <string name="description_post_favourited">Gogokoa</string>
     <string name="description_visibility_public">Publikoa</string>

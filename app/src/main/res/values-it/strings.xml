@@ -268,7 +268,6 @@
     <string name="conversation_more_recipients">%1$s, %2$s ed altri %3$d</string>
     <string name="description_post_media">Media: %s</string>
     <string name="description_post_cw">Contenuto sensibile: %s</string>
-    <string name="description_post_media_no_description_placeholder">Nessuna descrizione</string>
     <string name="description_post_reblogged">Ribloggato</string>
     <string name="description_post_favourited">Messo nei post apprezzati</string>
     <string name="description_visibility_public">Pubblico</string>

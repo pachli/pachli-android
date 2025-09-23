@@ -96,4 +96,5 @@
     <string name="abbreviated_days_ago">%dd</string>
     <string name="abbreviated_in_years">in %dy</string>
     <string name="abbreviated_years_ago">%dy</string>
+    <string name="description_post_media_no_description_placeholder">Gan cur síos</string>
 </resources>

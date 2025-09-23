@@ -1,7 +1,6 @@
-package app.pachli.util
+package app.pachli.core.ui
 
 import android.content.Context
-import app.pachli.R
 import app.pachli.core.model.Attachment
 import kotlin.math.roundToInt
 

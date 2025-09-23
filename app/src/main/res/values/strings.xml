@@ -485,9 +485,6 @@
     <string name="description_post_cw">
         Content warning: %s
     </string>
-    <string name="description_post_media_no_description_placeholder">
-        No description
-    </string>
     <string name="description_post_edited">
         Edited
     </string>

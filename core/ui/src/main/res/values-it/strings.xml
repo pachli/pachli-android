@@ -80,4 +80,5 @@
     <string name="abbreviated_days_ago">%dg</string>
     <string name="abbreviated_in_years">in %d a</string>
     <string name="abbreviated_years_ago">%da</string>
+    <string name="description_post_media_no_description_placeholder">Nessuna descrizione</string>
 </resources>

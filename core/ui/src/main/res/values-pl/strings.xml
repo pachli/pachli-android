@@ -90,4 +90,5 @@
     <string name="abbreviated_days_ago">%d dni temu</string>
     <string name="abbreviated_in_years">za %d lata</string>
     <string name="abbreviated_years_ago">%d lat temu</string>
+    <string name="description_post_media_no_description_placeholder">Brak opisu</string>
 </resources>

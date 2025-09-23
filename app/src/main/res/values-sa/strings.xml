@@ -319,7 +319,6 @@
     <string name="description_post_bookmarked">पुटचिह्नं कृतम्</string>
     <string name="description_post_favourited">प्रीतिर्दत्ता</string>
     <string name="description_post_reblogged">पुनर्लिखितम्</string>
-    <string name="description_post_media_no_description_placeholder">विवरणं नास्ति</string>
     <string name="description_post_cw">विषयपूर्वसतर्कता: %s</string>
     <string name="description_post_media">सामग्र्यः %s</string>
     <string name="conversation_more_recipients">%1$s, %2$s तथा %3$d अन्येऽपि</string>

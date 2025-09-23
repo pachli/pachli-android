@@ -39,7 +39,6 @@
     <string name="description_post_bookmarked">Отметнато</string>
     <string name="description_post_favourited">Поставено в любими</string>
     <string name="description_post_reblogged">Реблог</string>
-    <string name="description_post_media_no_description_placeholder">Без описание</string>
     <string name="description_post_cw">Предупреждение за съдържание: %s</string>
     <string name="description_post_media">Мултимедия: %s</string>
     <string name="conversation_more_recipients">%1$s, %2$s и %3$d други</string>

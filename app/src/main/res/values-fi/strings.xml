@@ -19,7 +19,6 @@
     <string name="duration_30_min">30 minuuttia</string>
     <string name="duration_5_min">5 minuuttia</string>
     <string name="add_hashtag_title">Lisää aihetunniste</string>
-    <string name="description_post_media_no_description_placeholder">Ei kuvausta</string>
     <string name="download_failed">Lataus epäonnistui</string>
     <string name="action_open_post">Avaa tuuttaus</string>
     <string name="system_default">Järjestelmän oletus</string>

@@ -304,7 +304,6 @@
     <string name="warning_scheduling_interval">Mae gan Mastodon egwyl amserlennu o o leiaf 5 munud.</string>
     <string name="follow_requests_info">Er nad ydych wedi cloi\'ch cyfrif, roedd staff %1$s yn meddwl efallai yr hoffech adolygu\'r ceisiadau i\'ch dilyn o\'r cyfrifon hyn â llaw.</string>
     <string name="delete_scheduled_post_warning">Hoffech chi ddileu\'r neges a amserlennwyd hon\?</string>
-    <string name="description_post_media_no_description_placeholder">Dim disgrifiad</string>
     <string name="edit_hashtag_hint">Hashnod heb #</string>
     <string name="report_remote_instance">Anfon ymlaen at %s</string>
     <string name="report_description_remote_instance">Daw\'r cyfrif o weinydd arall. Hoffech chi anfon copi dienw o\'r adroddiad i\'r gweinydd hwnnw hefyd\?</string>
