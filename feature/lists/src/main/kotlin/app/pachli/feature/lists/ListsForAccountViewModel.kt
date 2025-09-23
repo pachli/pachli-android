@@ -36,7 +36,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
-import okhttp3.internal.toImmutableMap
 
 sealed interface ListsWithMembership {
     data object Loading : ListsWithMembership
@@ -88,7 +87,7 @@ class ListsForAccountViewModel @AssistedInject constructor(
                         lists.forEach { list ->
                             putIfAbsent(list.listId, ListWithMembership(list, false))
                         }
-                        ListsWithMembership.Loaded(listsWithMembershipMap.toImmutableMap())
+                        ListsWithMembership.Loaded(listsWithMembershipMap)
                     },
                     { Error.GetListsWithAccount(it) },
                 )
@@ -105,7 +104,7 @@ class ListsForAccountViewModel @AssistedInject constructor(
             listsWithMembershipMap[listId] = it.copy(isMember = true)
         }
 
-        _listsWithMembership.value = Ok(ListsWithMembership.Loaded(listsWithMembershipMap.toImmutableMap()))
+        _listsWithMembership.value = Ok(ListsWithMembership.Loaded(listsWithMembershipMap))
 
         listsRepository.addAccountsToList(pachliAccountId, listId, listOf(accountId)).onFailure { error ->
             // Undo the optimistic update
@@ -113,7 +112,7 @@ class ListsForAccountViewModel @AssistedInject constructor(
                 listsWithMembershipMap[listId] = it.copy(isMember = false)
             }
 
-            _listsWithMembership.value = Ok(ListsWithMembership.Loaded(listsWithMembershipMap.toImmutableMap()))
+            _listsWithMembership.value = Ok(ListsWithMembership.Loaded(listsWithMembershipMap))
 
             _errors.send(Error.AddAccounts(error))
         }
@@ -127,7 +126,7 @@ class ListsForAccountViewModel @AssistedInject constructor(
         listsWithMembershipMap[listId]?.let {
             listsWithMembershipMap[listId] = it.copy(isMember = false)
         }
-        _listsWithMembership.value = Ok(ListsWithMembership.Loaded(listsWithMembershipMap.toImmutableMap()))
+        _listsWithMembership.value = Ok(ListsWithMembership.Loaded(listsWithMembershipMap))
 
         listsRepository.deleteAccountsFromList(pachliAccountId, listId, listOf(accountId)).onFailure { error ->
             // Undo the optimistic update
@@ -135,7 +134,7 @@ class ListsForAccountViewModel @AssistedInject constructor(
                 listsWithMembershipMap[listId] = it.copy(isMember = true)
             }
 
-            _listsWithMembership.value = Ok(ListsWithMembership.Loaded(listsWithMembershipMap.toImmutableMap()))
+            _listsWithMembership.value = Ok(ListsWithMembership.Loaded(listsWithMembershipMap))
 
             _errors.send(Error.DeleteAccounts(error))
         }
