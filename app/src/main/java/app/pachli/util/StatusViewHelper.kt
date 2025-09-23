@@ -38,6 +38,7 @@ import app.pachli.core.ui.buildDescription
 import app.pachli.core.ui.calculatePercent
 import app.pachli.core.ui.decodeBlurHash
 import app.pachli.core.ui.emojify
+import app.pachli.core.ui.extensions.iconResource
 import app.pachli.core.ui.formatPollDuration
 import com.bumptech.glide.RequestManager
 import com.google.android.material.color.MaterialColors

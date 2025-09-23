@@ -11,7 +11,6 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import app.pachli.R
-import app.pachli.adapter.isPlayable
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.data.model.StatusDisplayOptions
@@ -19,9 +18,10 @@ import app.pachli.core.model.Attachment
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.ui.BindingHolder
 import app.pachli.core.ui.decodeBlurHash
-import app.pachli.core.ui.getFormattedDescription
+import app.pachli.core.ui.extensions.getFormattedDescription
+import app.pachli.core.ui.extensions.iconResource
+import app.pachli.core.ui.extensions.isPlayable
 import app.pachli.databinding.ItemAccountMediaBinding
-import app.pachli.util.iconResource
 import com.bumptech.glide.RequestManager
 import com.google.android.material.color.MaterialColors
 
