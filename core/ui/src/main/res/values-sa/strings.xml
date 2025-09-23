@@ -59,4 +59,5 @@
     <string name="abbreviated_days_ago">%dd दि</string>
     <string name="abbreviated_in_years">%dy वर्ष</string>
     <string name="abbreviated_years_ago">%dy वर्ष</string>
+    <string name="description_post_media_no_description_placeholder">विवरणं नास्ति</string>
 </resources>

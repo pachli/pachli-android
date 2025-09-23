@@ -47,4 +47,5 @@
     <string name="abbreviated_days_ago">%d일</string>
     <string name="abbreviated_in_years">%d년 후</string>
     <string name="abbreviated_years_ago">%d년</string>
+    <string name="description_post_media_no_description_placeholder">설명 없음</string>
 </resources>

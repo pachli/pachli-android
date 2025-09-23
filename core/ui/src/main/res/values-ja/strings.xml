@@ -54,4 +54,5 @@
     <string name="abbreviated_days_ago">%d日前</string>
     <string name="abbreviated_in_years">%d年後</string>
     <string name="abbreviated_years_ago">%d年前</string>
+    <string name="description_post_media_no_description_placeholder">説明なし</string>
 </resources>

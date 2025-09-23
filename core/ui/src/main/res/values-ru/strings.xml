@@ -90,4 +90,7 @@
     <string name="abbreviated_days_ago">%dд</string>
     <string name="abbreviated_in_years">через %dг</string>
     <string name="abbreviated_years_ago">%dг</string>
+    <string name="description_post_media_no_description_placeholder">
+        Без описания
+    </string>
 </resources>

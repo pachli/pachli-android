@@ -250,8 +250,6 @@
     <string name="conversation_more_recipients">%1$s, %2$s och %3$d mer</string>
     <string name="description_post_media">Media: %s</string>
     <string name="description_post_cw">Innehållsvarning: %s</string>
-    <string name="description_post_media_no_description_placeholder">        Ingen beskrivning
-    </string>
     <string name="description_post_reblogged">        Knuffad
     </string>
     <string name="description_post_favourited">Favoritmarkerat</string>

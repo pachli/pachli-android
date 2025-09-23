@@ -77,4 +77,5 @@
     <string name="abbreviated_days_ago">%dநா</string>
     <string name="abbreviated_in_years">%dஆ-முன்</string>
     <string name="abbreviated_years_ago">%dஆ</string>
+    <string name="description_post_media_no_description_placeholder">விளக்கம் இல்லை</string>
 </resources>

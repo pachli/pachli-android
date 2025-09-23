@@ -248,7 +248,6 @@
     <string name="conversation_2_recipients">%1$s i %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s i %3$d més</string>
     <string name="description_post_media">Mèdia : %s</string>
-    <string name="description_post_media_no_description_placeholder">Sense descripció</string>
     <string name="description_post_favourited">Favorits</string>
     <string name="description_visibility_public">Públic</string>
     <string name="description_visibility_unlisted">Sense llistar</string>

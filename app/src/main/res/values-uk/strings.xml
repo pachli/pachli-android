@@ -172,7 +172,6 @@
     <string name="button_back">Назад</string>
     <string name="poll_ended_created">Створене вами опитування завершилося</string>
     <string name="poll_ended_voted">Опитування, в якому ви проголосували</string>
-    <string name="description_post_media_no_description_placeholder">Без опису</string>
     <string name="description_post_cw">Попередження про вміст: %s</string>
     <string name="description_post_media">Медіа: %s</string>
     <string name="title_reblogged_by">Поширює</string>

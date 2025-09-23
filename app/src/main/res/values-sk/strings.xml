@@ -84,7 +84,6 @@
     <string name="profile_metadata_content_label">Obsah</string>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s a %2$s</string>
-    <string name="description_post_media_no_description_placeholder">Žiadny popis</string>
     <string name="description_visibility_public">Verejný</string>
     <string name="action_reblog">Zdieľať</string>
     <string name="action_unreblog">Zrušiť zdieľanie</string>

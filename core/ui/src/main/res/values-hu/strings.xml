@@ -60,4 +60,5 @@
     <string name="abbreviated_days_ago">%dn</string>
     <string name="abbreviated_in_years">%dé múlva</string>
     <string name="abbreviated_years_ago">%dé</string>
+    <string name="description_post_media_no_description_placeholder">Nincs leírás</string>
 </resources>

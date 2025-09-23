@@ -249,7 +249,6 @@
     <string name="conversation_more_recipients" tools:ignore="PluralsCandidate">%1$s, %2$s ja veel %3$d</string>
     <string name="description_post_media">Meedia: %s</string>
     <string name="description_post_cw">Sisuhoiatus: %s</string>
-    <string name="description_post_media_no_description_placeholder">Kirjeldus puudub</string>
     <string name="description_post_edited">Muudetud</string>
     <string name="description_post_reblogged">Korduspostitus</string>
     <string name="description_post_favourited">Lemmikuks märgitud</string>

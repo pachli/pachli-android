@@ -340,7 +340,6 @@
     <string name="conversation_2_recipients">%1$s і %2$s</string>
     <string name="description_post_media">Медыя: %s</string>
     <string name="description_post_cw">Папярэджанне пра змесціва: %s</string>
-    <string name="description_post_media_no_description_placeholder">Няма апісання</string>
     <string name="description_visibility_private">Падпісчыкі</string>
     <string name="description_visibility_direct">Асабіста</string>
     <string name="description_visibility_unlisted">Не ў стужках</string>

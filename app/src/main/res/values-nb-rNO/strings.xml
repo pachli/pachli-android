@@ -237,7 +237,6 @@
     <string name="conversation_more_recipients">%1$s, %2$s og %3$d fler</string>
     <string name="description_post_media">Media: %s</string>
     <string name="description_post_cw">Innholdsadvarsel: %s</string>
-    <string name="description_post_media_no_description_placeholder">Ingen beskrivelse</string>
     <string name="description_post_reblogged">Reblogget</string>
     <string name="description_post_favourited">Favorisert</string>
     <string name="description_visibility_public">Offentlig</string>

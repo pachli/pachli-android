@@ -262,7 +262,6 @@
     <string name="conversation_more_recipients">%1$s, %2$s og %3$d til viðbótar</string>
     <string name="description_post_media">Myndefni: %s</string>
     <string name="description_post_cw">Aðvörun vegna efnis: %s</string>
-    <string name="description_post_media_no_description_placeholder">Engin lýsing</string>
     <string name="description_post_reblogged">Endurbloggað</string>
     <string name="description_post_favourited">Í eftirlætum</string>
     <string name="description_post_bookmarked">Bókamerkt</string>

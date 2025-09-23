@@ -63,4 +63,5 @@
     <string name="abbreviated_days_ago">%d d</string>
     <string name="abbreviated_in_years">za %d let</string>
     <string name="abbreviated_years_ago">%d let</string>
+    <string name="description_post_media_no_description_placeholder">Žádný popis</string>
 </resources>

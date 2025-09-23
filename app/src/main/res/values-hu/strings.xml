@@ -214,7 +214,6 @@
     <string name="title_reblogged_by">Megtolta</string>
     <string name="title_favourited_by">Kedvencnek jelölte</string>
     <string name="conversation_2_recipients">%1$s és %2$s</string>
-    <string name="description_post_media_no_description_placeholder">Nincs leírás</string>
     <string name="description_visibility_public">Nyilvános</string>
     <string name="description_visibility_private">Követők</string>
     <string name="action_unfavourite">Kedvenc eltávolítása</string>

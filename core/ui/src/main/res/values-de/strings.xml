@@ -78,4 +78,5 @@
     <string name="abbreviated_days_ago">%d T.</string>
     <string name="abbreviated_in_years">in %d J.</string>
     <string name="abbreviated_years_ago">%d J.</string>
+    <string name="description_post_media_no_description_placeholder">        Keine Beschreibung    </string>
 </resources>

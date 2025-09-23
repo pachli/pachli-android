@@ -112,7 +112,6 @@
     <string name="profile_metadata_label">Profila metadati</string>
     <string name="profile_metadata_add">pievienot datus</string>
     <string name="conversation_more_recipients">%1$s, %2$s un %3$d citi</string>
-    <string name="description_post_media_no_description_placeholder">Nav apraksta</string>
     <string name="description_post_language">Ieraksta valoda</string>
     <string name="select_list_title">Atlasīt sarakstu</string>
     <string name="description_post_edited">Labots</string>

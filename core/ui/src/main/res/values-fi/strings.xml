@@ -76,4 +76,5 @@
     <string name="abbreviated_days_ago">%dpv</string>
     <string name="abbreviated_in_years">%dv</string>
     <string name="abbreviated_years_ago">%dv</string>
+    <string name="description_post_media_no_description_placeholder">Ei kuvausta</string>
 </resources>

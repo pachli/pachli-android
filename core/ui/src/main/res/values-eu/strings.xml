@@ -57,4 +57,5 @@
     <string name="abbreviated_days_ago">%de</string>
     <string name="abbreviated_in_years">%du-an</string>
     <string name="abbreviated_years_ago">%du</string>
+    <string name="description_post_media_no_description_placeholder">Deskribapenik ez</string>
 </resources>

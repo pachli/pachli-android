@@ -245,7 +245,6 @@
     <string name="description_post_bookmarked">نیشانکراوە</string>
     <string name="description_post_favourited">پەسەندکراو</string>
     <string name="description_post_reblogged">دووبارە بڵاگ کرا</string>
-    <string name="description_post_media_no_description_placeholder">هیچ وەسفێک</string>
     <string name="description_post_cw">ئاگاداری ناوەڕۆک: %s</string>
     <string name="description_post_media">میدیا: %s</string>
     <string name="conversation_more_recipients">%1$s, %2$s و %3$d زیاتر</string>

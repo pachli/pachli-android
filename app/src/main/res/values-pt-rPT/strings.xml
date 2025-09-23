@@ -302,7 +302,6 @@
     <string name="conversation_more_recipients">%1$s, %2$s e %3$d mais</string>
     <string name="description_post_media">Conteúdo multimédia: %s</string>
     <string name="description_post_cw">Aviso de Conteúdo: %s</string>
-    <string name="description_post_media_no_description_placeholder">Sem descrição</string>
     <string name="description_post_reblogged">Replicado</string>
     <string name="description_post_favourited">Adicionado aos favoritos</string>
     <string name="description_post_bookmarked">Guardado</string>

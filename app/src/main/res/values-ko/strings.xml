@@ -264,7 +264,6 @@
     <string name="conversation_more_recipients">%1$s, %2$s 외 %3$d명</string>
     <string name="description_post_media">미디어: %s</string>
     <string name="description_post_cw">열람주의: %s</string>
-    <string name="description_post_media_no_description_placeholder">설명 없음</string>
     <string name="description_post_reblogged">부스트함</string>
     <string name="description_post_favourited">좋아요함</string>
     <string name="description_visibility_public">공개</string>

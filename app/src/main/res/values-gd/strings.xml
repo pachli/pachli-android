@@ -123,7 +123,6 @@
     <string name="description_post_bookmarked">’Na chomharra-lìn</string>
     <string name="description_post_favourited">’Na annsachd</string>
     <string name="description_post_reblogged">Air ath-bhlogadh</string>
-    <string name="description_post_media_no_description_placeholder">Gun tuairisgeul</string>
     <string name="description_post_cw">Rabhadh susbainte: %s</string>
     <string name="description_post_media">Meadhan: %s</string>
     <string name="conversation_more_recipients">%1$s, %2$s ’s %3$d eile</string>

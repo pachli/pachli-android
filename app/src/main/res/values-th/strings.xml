@@ -41,7 +41,6 @@
     <string name="description_post_bookmarked">คั่นหน้า</string>
     <string name="description_post_favourited">ชื่นชอบ</string>
     <string name="description_post_reblogged">ได้ถูกเขียนใหม่</string>
-    <string name="description_post_media_no_description_placeholder">ไม่มีคำอธิบาย</string>
     <string name="description_post_cw">เตือนเนื้อหา : %s</string>
     <string name="description_post_media">สื่อ: %s</string>
     <string name="conversation_more_recipients">%1$s, %2$s และอีก %3$d</string>

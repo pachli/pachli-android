@@ -242,7 +242,6 @@
     <string name="conversation_more_recipients">%1$s, %2$s en %3$d meer</string>
     <string name="description_post_media">Media: %s</string>
     <string name="description_post_cw">Inhoudswaarschuwing: %s</string>
-    <string name="description_post_media_no_description_placeholder">Geen omschrijving</string>
     <string name="description_post_reblogged">Geboost</string>
     <string name="description_post_favourited">Als favoriet gemarkeerd</string>
     <string name="description_visibility_public">Openbaar</string>

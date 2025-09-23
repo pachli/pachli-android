@@ -233,7 +233,6 @@
     <string name="conversation_more_recipients">%1$s, %2$s in %3$d več</string>
     <string name="description_post_media">Mediji: %s</string>
     <string name="description_post_cw">Opozorila o vsebini: %s</string>
-    <string name="description_post_media_no_description_placeholder">Brez opisa</string>
     <string name="description_post_reblogged">Ponovno objavljen</string>
     <string name="description_post_favourited">Priljubljene</string>
     <string name="description_visibility_public">Javno</string>

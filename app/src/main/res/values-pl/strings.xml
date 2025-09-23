@@ -274,7 +274,6 @@
     <string name="conversation_more_recipients">%1$s, %2$s i %3$d innych</string>
     <string name="description_post_media">Media: %s</string>
     <string name="description_post_cw">Ostrzeżenie o zawartości: %s</string>
-    <string name="description_post_media_no_description_placeholder">Brak opisu</string>
     <string name="description_post_reblogged">Podbity</string>
     <string name="description_post_favourited">Polubiony</string>
     <string name="description_visibility_public">Publiczny</string>
