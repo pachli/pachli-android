@@ -46,7 +46,6 @@ import java.lang.reflect.Type
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import okhttp3.internal.toImmutableMap
 import okio.buffer
 import okio.sink
 import okio.source
@@ -151,7 +150,7 @@ class ExportedPreferencesRepository @Inject constructor(
             val data = ExportedPreferences(
                 version = 1,
                 v1 = ExportedPreferences.V1(
-                    sharedPreferences = sharedPreferencesRepository.all.toImmutableMap(),
+                    sharedPreferences = sharedPreferencesRepository.all,
                     accounts = redactedAccounts,
                 ),
             )
