@@ -25,8 +25,8 @@ import app.pachli.adapter.StatusViewHolder
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.ui.SetStatusContent
+import app.pachli.core.ui.StatusActionListener
 import app.pachli.databinding.ItemStatusBinding
-import app.pachli.interfaces.StatusActionListener
 import com.bumptech.glide.RequestManager
 
 class SearchStatusesAdapter(

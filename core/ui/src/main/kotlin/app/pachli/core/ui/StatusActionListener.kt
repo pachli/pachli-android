@@ -15,14 +15,13 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.interfaces
+package app.pachli.core.ui
 
 import android.view.View
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
-import app.pachli.core.ui.LinkListener
 
 interface StatusActionListener<T : IStatusViewData> : LinkListener {
     fun onReply(viewData: T)

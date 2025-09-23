@@ -13,8 +13,8 @@ import app.pachli.core.activity.OpenUrlUseCase
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.model.Status.Companion.MAX_MEDIA_ATTACHMENTS
 import app.pachli.core.network.parseAsMastodonHtml
+import app.pachli.core.ui.StatusActionListener
 import app.pachli.core.ui.accessibility.PachliRecyclerViewAccessibilityDelegate
-import app.pachli.interfaces.StatusActionListener
 import app.pachli.viewdata.NotificationViewData
 import kotlin.math.min
 

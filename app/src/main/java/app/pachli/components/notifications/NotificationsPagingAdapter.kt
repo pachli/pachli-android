@@ -32,6 +32,7 @@ import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.Status
 import app.pachli.core.ui.SetStatusContent
+import app.pachli.core.ui.StatusActionListener
 import app.pachli.databinding.ItemFollowBinding
 import app.pachli.databinding.ItemFollowRequestBinding
 import app.pachli.databinding.ItemModerationWarningBinding
@@ -43,7 +44,6 @@ import app.pachli.databinding.ItemStatusNotificationBinding
 import app.pachli.databinding.ItemStatusWrapperBinding
 import app.pachli.databinding.ItemUnknownNotificationBinding
 import app.pachli.interfaces.AccountActionListener
-import app.pachli.interfaces.StatusActionListener
 import app.pachli.viewdata.NotificationViewData
 import com.bumptech.glide.RequestManager
 

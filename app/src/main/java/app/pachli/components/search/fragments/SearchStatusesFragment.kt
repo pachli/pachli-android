@@ -61,7 +61,7 @@ import app.pachli.core.navigation.ViewMediaActivityIntent
 import app.pachli.core.ui.ClipboardUseCase
 import app.pachli.core.ui.SetMarkdownContent
 import app.pachli.core.ui.SetMastodonHtmlContent
-import app.pachli.interfaces.StatusActionListener
+import app.pachli.core.ui.StatusActionListener
 import app.pachli.view.showMuteAccountDialog
 import com.bumptech.glide.Glide
 import com.github.michaelbull.result.onFailure

@@ -28,9 +28,9 @@ import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.model.FilterAction
 import app.pachli.core.ui.SetStatusContent
+import app.pachli.core.ui.StatusActionListener
 import app.pachli.databinding.ItemStatusBinding
 import app.pachli.databinding.ItemStatusWrapperBinding
-import app.pachli.interfaces.StatusActionListener
 import com.bumptech.glide.RequestManager
 
 class TimelinePagingAdapter(

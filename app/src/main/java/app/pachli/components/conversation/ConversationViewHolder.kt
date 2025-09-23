@@ -29,9 +29,9 @@ import app.pachli.core.common.util.SmartLengthInputFilter
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.model.ConversationAccount
 import app.pachli.core.ui.SetStatusContent
+import app.pachli.core.ui.StatusActionListener
 import app.pachli.core.ui.loadAvatar
 import app.pachli.databinding.ItemConversationBinding
-import app.pachli.interfaces.StatusActionListener
 import com.bumptech.glide.RequestManager
 
 class ConversationViewHolder internal constructor(
