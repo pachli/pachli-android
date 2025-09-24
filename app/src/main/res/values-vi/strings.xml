@@ -276,10 +276,6 @@
     <string name="hashtags">Hashtag</string>
     <string name="edit_hashtag_hint">Không cần dấu #</string>
     <string name="add_hashtag_title">Thêm hashtag</string>
-    <string name="description_visibility_direct">Nhắn riêng</string>
-    <string name="description_visibility_private">Người theo dõi</string>
-    <string name="description_visibility_unlisted">Hạn chế</string>
-    <string name="description_visibility_public">Công khai</string>
     <string name="description_post_bookmarked">Đã lưu</string>
     <string name="description_post_favourited">Đã thích</string>
     <string name="description_post_reblogged">Đã đăng lại</string>

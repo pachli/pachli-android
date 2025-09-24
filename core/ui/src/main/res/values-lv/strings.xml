@@ -85,4 +85,8 @@
     <string name="abbreviated_in_years">pēc %dg</string>
     <string name="abbreviated_years_ago">%dg</string>
     <string name="description_post_media_no_description_placeholder">Nav apraksta</string>
+    <string name="description_visibility_public">Publisks</string>
+    <string name="description_visibility_unlisted">Neiekļauts</string>
+    <string name="description_visibility_private">Sekotāji</string>
+    <string name="description_visibility_direct">Tiešs</string>
 </resources>

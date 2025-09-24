@@ -62,4 +62,8 @@
     <string name="abbreviated_in_years">over %dj</string>
     <string name="abbreviated_years_ago">%dj</string>
     <string name="description_post_media_no_description_placeholder">Geen omschrijving</string>
+    <string name="description_visibility_public">Openbaar</string>
+    <string name="description_visibility_unlisted">Minder openbaar</string>
+    <string name="description_visibility_private">Volgers</string>
+    <string name="description_visibility_direct">Direct</string>
 </resources>

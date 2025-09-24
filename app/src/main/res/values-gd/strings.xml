@@ -119,7 +119,6 @@
     <string name="select_list_title">Tagh liosta</string>
     <string name="edit_hashtag_hint">Taga hais gun #</string>
     <string name="add_hashtag_title">Cuir taga hais ris</string>
-    <string name="description_visibility_direct">Dìreach</string>
     <string name="description_post_bookmarked">’Na chomharra-lìn</string>
     <string name="description_post_favourited">’Na annsachd</string>
     <string name="description_post_reblogged">Air ath-bhlogadh</string>
@@ -194,9 +193,6 @@
     <string name="error_sender_account_gone">Mearachd a’ cur a’ phuist.</string>
     <string name="action_unmute_desc">Dì-mhùch %s</string>
     <string name="hashtags">Tagaichean hais</string>
-    <string name="description_visibility_private">Luchd-leantainn</string>
-    <string name="description_visibility_unlisted">Falaichte o liostaichean</string>
-    <string name="description_visibility_public">Poblach</string>
     <string name="conversation_2_recipients">%1$s ’s %2$s</string>
     <string name="action_remove">Thoir air falbh</string>
     <string name="filter_dialog_whole_word">Facal slàn</string>

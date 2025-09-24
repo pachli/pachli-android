@@ -61,4 +61,8 @@
     <string name="abbreviated_in_years">en %d ans</string>
     <string name="abbreviated_years_ago">%d ans</string>
     <string name="description_post_media_no_description_placeholder">Cap de descripcion</string>
+    <string name="description_visibility_public">Publica</string>
+    <string name="description_visibility_unlisted">Pas listada</string>
+    <string name="description_visibility_private">Seguidors</string>
+    <string name="description_visibility_direct">Dirècte</string>
 </resources>

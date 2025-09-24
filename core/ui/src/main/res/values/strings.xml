@@ -83,4 +83,16 @@
     <string name="description_post_media_no_description_placeholder">
         No description
     </string>
+    <string name="description_visibility_public">
+        Public
+    </string>
+    <string name="description_visibility_unlisted">
+        Unlisted
+    </string>
+    <string name="description_visibility_private">
+        Followers
+    </string>
+    <string name="description_visibility_direct">
+        Direct
+    </string>
 </resources>

@@ -51,4 +51,8 @@
     <string name="abbreviated_in_years">ใน %d ปี</string>
     <string name="abbreviated_years_ago">%d ปีที่แล้ว</string>
     <string name="description_post_media_no_description_placeholder">ไม่มีคำอธิบาย</string>
+    <string name="description_visibility_public">สาธารณะ</string>
+    <string name="description_visibility_unlisted">ไม่อยู่ในรายการ</string>
+    <string name="description_visibility_private">ผู้ติดตาม</string>
+    <string name="description_visibility_direct">ไดเร็กต์</string>
 </resources>

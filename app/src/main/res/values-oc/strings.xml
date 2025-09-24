@@ -254,10 +254,6 @@
     <string name="description_post_cw">Avertiment : %s</string>
     <string name="description_post_reblogged">Repartajat</string>
     <string name="description_post_favourited">Mes en favorit</string>
-    <string name="description_visibility_public">Publica</string>
-    <string name="description_visibility_unlisted">Pas listada</string>
-    <string name="description_visibility_private">Seguidors</string>
-    <string name="description_visibility_direct">Dirècte</string>
     <string name="edit_hashtag_hint">Etiquetas sens #</string>
     <string name="compose_shortcut_long_label">Escriure una publicacion</string>
     <string name="compose_shortcut_short_label">Redactar</string>

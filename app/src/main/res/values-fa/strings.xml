@@ -268,10 +268,6 @@
     <string name="description_post_cw">هشدار محتوا: %s</string>
     <string name="description_post_reblogged">تقویت شده</string>
     <string name="description_post_favourited">برگزیده</string>
-    <string name="description_visibility_public">عمومی</string>
-    <string name="description_visibility_unlisted">فهرست نشده</string>
-    <string name="description_visibility_private">پی‌گیران</string>
-    <string name="description_visibility_direct">مستقیم</string>
     <string name="edit_hashtag_hint">برچسب بدون #</string>
     <string name="notifications_clear">پاک‌سازی</string>
     <string name="notifications_apply_filter">پالایش</string>

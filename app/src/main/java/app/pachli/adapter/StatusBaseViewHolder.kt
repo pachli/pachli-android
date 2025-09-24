@@ -48,6 +48,7 @@ import app.pachli.core.ui.StatusActionListener
 import app.pachli.core.ui.decodeBlurHash
 import app.pachli.core.ui.emojify
 import app.pachli.core.ui.extensions.aspectRatios
+import app.pachli.core.ui.extensions.description
 import app.pachli.core.ui.extensions.getFormattedDescription
 import app.pachli.core.ui.extensions.iconResource
 import app.pachli.core.ui.extensions.isPlayable
@@ -56,7 +57,6 @@ import app.pachli.core.ui.getRelativeTimeSpanString
 import app.pachli.core.ui.loadAvatar
 import app.pachli.core.ui.makeIcon
 import app.pachli.core.ui.setClickableMentions
-import app.pachli.util.description
 import app.pachli.util.expandTouchSizeToFillRow
 import at.connyduck.sparkbutton.SparkButton
 import at.connyduck.sparkbutton.helpers.Utils

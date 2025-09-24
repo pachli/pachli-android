@@ -78,4 +78,8 @@
     <string name="abbreviated_in_years">%dஆ-முன்</string>
     <string name="abbreviated_years_ago">%dஆ</string>
     <string name="description_post_media_no_description_placeholder">விளக்கம் இல்லை</string>
+    <string name="description_visibility_public">அனைவருக்கும்</string>
+    <string name="description_visibility_unlisted">பட்டியலிடப்படாதவர்களுக்கு</string>
+    <string name="description_visibility_private">பின்பற்றுபவர்கள்</string>
+    <string name="description_visibility_direct">நேரடி</string>
 </resources>

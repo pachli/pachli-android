@@ -253,10 +253,6 @@
     <string name="description_post_reblogged">Korduspostitus</string>
     <string name="description_post_favourited">Lemmikuks märgitud</string>
     <string name="description_post_bookmarked">Lisatud järjehoidjaks</string>
-    <string name="description_visibility_public">Avalik</string>
-    <string name="description_visibility_unlisted">Ajajooneväline</string>
-    <string name="description_visibility_private">Vaid jälgijatele</string>
-    <string name="description_visibility_direct">Otsesõnum</string>
     <string name="description_post_language">Postituse keel</string>
     <string name="description_login">Üldjuhul toimib. Mitte mingeid andmeid ei leki teistele rakendustele.</string>
     <string name="description_browser_login">Võib toetada täiendavaid autentimismeetodeid, aga eeldab toetatud veebibrauserit.</string>

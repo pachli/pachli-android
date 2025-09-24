@@ -73,4 +73,8 @@
     <string name="abbreviated_in_years">an ceann %db</string>
     <string name="abbreviated_years_ago">%db</string>
     <string name="description_post_media_no_description_placeholder">Gun tuairisgeul</string>
+    <string name="description_visibility_public">Poblach</string>
+    <string name="description_visibility_unlisted">Falaichte o liostaichean</string>
+    <string name="description_visibility_private">Luchd-leantainn</string>
+    <string name="description_visibility_direct">Dìreach</string>
 </resources>

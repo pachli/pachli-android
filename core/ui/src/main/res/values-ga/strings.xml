@@ -97,4 +97,8 @@
     <string name="abbreviated_in_years">in %dy</string>
     <string name="abbreviated_years_ago">%dy</string>
     <string name="description_post_media_no_description_placeholder">Gan cur síos</string>
+    <string name="description_visibility_public">Poiblí</string>
+    <string name="description_visibility_unlisted">Neamhliostaithe</string>
+    <string name="description_visibility_private">Leantóirí</string>
+    <string name="description_visibility_direct">Díreach</string>
 </resources>

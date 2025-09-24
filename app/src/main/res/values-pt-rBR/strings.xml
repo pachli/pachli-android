@@ -219,8 +219,6 @@
     <string name="pref_title_absolute_time">Usar tempo absoluto</string>
     <string name="title_reblogged_by">Recebeu Boost de</string>
     <string name="title_favourited_by">Favoritado por</string>
-    <string name="description_visibility_public">Público</string>
-    <string name="description_visibility_private">Seguidores</string>
     <string name="title_posts_pinned">Fixado</string>
     <string name="post_content_show_more">Mostrar mais</string>
     <string name="post_content_show_less">Mostrar menos</string>
@@ -264,8 +262,6 @@
     <string name="description_post_cw">Aviso de Conteúdo: %s</string>
     <string name="description_post_reblogged">Deu Boost</string>
     <string name="description_post_favourited">Favoritado</string>
-    <string name="description_visibility_unlisted">Não-listado</string>
-    <string name="description_visibility_direct">Direto</string>
     <string name="edit_hashtag_hint">Hashtag sem #</string>
     <string name="notifications_clear">Limpar notificações</string>
     <string name="notifications_apply_filter">Filtra notificações</string>

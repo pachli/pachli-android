@@ -244,7 +244,6 @@
     <string name="notification_poll_name">Encuestas</string>
     <string name="filter_dialog_remove_button">Eliminar</string>
     <string name="description_post_favourited">Marcado como favorito</string>
-    <string name="description_visibility_private">Seguidores</string>
     <string name="filter_apply">Aplicar</string>
     <string name="pref_title_bot_overlay">Mostrar indicador de bots</string>
     <string name="action_delete_and_redraft">Eliminar y reescribir</string>
@@ -262,9 +261,6 @@
     <string name="description_post_media">Contenido: %s</string>
     <string name="description_post_cw">Aviso de contenido: %s</string>
     <string name="description_post_reblogged">Compartido</string>
-    <string name="description_visibility_public">Público</string>
-    <string name="description_visibility_unlisted">Sin listar</string>
-    <string name="description_visibility_direct">Directo</string>
     <string name="edit_hashtag_hint">Etiqueta sin #</string>
     <string name="notifications_clear">Limpiar</string>
     <string name="notifications_apply_filter">Filtro</string>

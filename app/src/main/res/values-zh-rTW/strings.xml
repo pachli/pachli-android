@@ -262,18 +262,6 @@
         被轉嘟
     </string>
     <string name="description_post_favourited">被最愛</string>
-    <string name="description_visibility_public">
-        公開
-    </string>
-    <string name="description_visibility_unlisted">
-        不公開
-    </string>
-    <string name="description_visibility_private">
-        僅關注者
-    </string>
-    <string name="description_visibility_direct">
-        私信
-    </string>
     <string name="edit_hashtag_hint">話題名（不含前面的 # 號）</string>
     <string name="notifications_clear">清空</string>
     <string name="notifications_apply_filter">分類</string>

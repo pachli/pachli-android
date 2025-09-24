@@ -55,4 +55,8 @@
     <string name="abbreviated_in_years">%d năm</string>
     <string name="abbreviated_years_ago">%d năm</string>
     <string name="description_post_media_no_description_placeholder">Không có mô tả</string>
+    <string name="description_visibility_public">Công khai</string>
+    <string name="description_visibility_unlisted">Hạn chế</string>
+    <string name="description_visibility_private">Người theo dõi</string>
+    <string name="description_visibility_direct">Nhắn riêng</string>
 </resources>

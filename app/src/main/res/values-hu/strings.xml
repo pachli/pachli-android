@@ -214,8 +214,6 @@
     <string name="title_reblogged_by">Megtolta</string>
     <string name="title_favourited_by">Kedvencnek jelölte</string>
     <string name="conversation_2_recipients">%1$s és %2$s</string>
-    <string name="description_visibility_public">Nyilvános</string>
-    <string name="description_visibility_private">Követők</string>
     <string name="action_unfavourite">Kedvenc eltávolítása</string>
     <string name="action_delete_and_redraft">Törlés és újrafogalmazás</string>
     <string name="action_open_media_n">Média megnyitása: #%d</string>
@@ -271,8 +269,6 @@
     <string name="description_post_cw">Tartalomfigyelmeztetés: %s</string>
     <string name="description_post_reblogged">Megtolt</string>
     <string name="description_post_favourited">Kedvelt</string>
-    <string name="description_visibility_unlisted">Listázatlan</string>
-    <string name="description_visibility_direct">Közvetlen</string>
     <string name="edit_hashtag_hint">Hashtag # nélkül</string>
     <string name="notifications_clear">Törlés</string>
     <string name="notifications_apply_filter">Szűrés</string>

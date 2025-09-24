@@ -256,16 +256,6 @@
     <string name="description_post_cw">内容警告：%s</string>
     <string name="description_post_reblogged">被转嘟</string>
     <string name="description_post_favourited">被喜欢</string>
-    <string name="description_visibility_public">
-        公开
-    </string>
-    <string name="description_visibility_unlisted">
-        不公开
-    </string>
-    <string name="description_visibility_private">仅关注者</string>
-    <string name="description_visibility_direct">
-        私信
-    </string>
     <string name="edit_hashtag_hint">话题名（不含前面的 # 号）</string>
     <string name="notifications_clear">清空</string>
     <string name="notifications_apply_filter">分类</string>

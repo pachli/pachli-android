@@ -54,4 +54,6 @@
     <string name="abbreviated_hours_ago">%dsr</string>
     <string name="abbreviated_days_ago">%dus aya</string>
     <string name="abbreviated_years_ago">%dis aya</string>
+    <string name="description_visibility_private">Imeḍfaṛen</string>
+    <string name="description_visibility_direct">Srid</string>
 </resources>

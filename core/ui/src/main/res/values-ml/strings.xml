@@ -14,4 +14,5 @@
     <string name="action_logout_confirm">ഈ അക്കൗണ്ടിൽ നിന്നും പുറത്തു പോകാൻ ഉറപ്പിച്ചോ %1$s?</string>
     <string name="add_account_name">അക്കൗണ്ട് ചേർക്കുക</string>
     <string name="action_logout">പുറത്തിറങ്ങുക</string>
+    <string name="description_visibility_private">പിന്തുടരുന്നവർ</string>
 </resources>

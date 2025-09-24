@@ -238,10 +238,6 @@
     <string name="hashtags">هاشتاگی</string>
     <string name="edit_hashtag_hint">هاشتاگی بێ #</string>
     <string name="add_hashtag_title">هاشتاگی زیاد بکە</string>
-    <string name="description_visibility_direct">ڕاستەوخۆ</string>
-    <string name="description_visibility_private">شوێنکەوتوانی</string>
-    <string name="description_visibility_unlisted">لە لیست نەکراو</string>
-    <string name="description_visibility_public">گشتی</string>
     <string name="description_post_bookmarked">نیشانکراوە</string>
     <string name="description_post_favourited">پەسەندکراو</string>
     <string name="description_post_reblogged">دووبارە بڵاگ کرا</string>

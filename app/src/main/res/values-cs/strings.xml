@@ -257,10 +257,6 @@
     <string name="description_post_cw">Varování o obsahu: %s</string>
     <string name="description_post_reblogged">Boostnutý</string>
     <string name="description_post_favourited">Oblíbený</string>
-    <string name="description_visibility_public">Veřejný</string>
-    <string name="description_visibility_unlisted">Neuvedený</string>
-    <string name="description_visibility_private">Pro sledující</string>
-    <string name="description_visibility_direct">Přímý</string>
     <string name="edit_hashtag_hint">Hashtag bez #</string>
     <string name="compose_shortcut_long_label">Napsat příspěvek</string>
     <string name="compose_shortcut_short_label">Napsat</string>

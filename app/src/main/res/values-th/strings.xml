@@ -34,10 +34,6 @@
     <string name="hashtags">แฮชแท็ก</string>
     <string name="edit_hashtag_hint">แฮชแท็กโดยไม่มี #</string>
     <string name="add_hashtag_title">เพิ่มแฮชแท็ก</string>
-    <string name="description_visibility_direct">ไดเร็กต์</string>
-    <string name="description_visibility_private">ผู้ติดตาม</string>
-    <string name="description_visibility_unlisted">ไม่อยู่ในรายการ</string>
-    <string name="description_visibility_public">สาธารณะ</string>
     <string name="description_post_bookmarked">คั่นหน้า</string>
     <string name="description_post_favourited">ชื่นชอบ</string>
     <string name="description_post_reblogged">ได้ถูกเขียนใหม่</string>

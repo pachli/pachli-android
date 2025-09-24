@@ -148,7 +148,6 @@
     <string name="poll_new_choice_hint">Tafrant %d</string>
     <string name="title_follows">Ig ṭṭafar</string>
     <string name="title_followers">Imeḍfaṛen</string>
-    <string name="description_visibility_private">Imeḍfaṛen</string>
     <string name="confirmation_reported">Yettwaceyyeɛ!</string>
     <string name="post_sent">Yettwaceyyaɛ!</string>
     <string name="search_no_results">Ula d yiwen n ugmuḍ</string>
@@ -202,7 +201,6 @@
     <string name="post_media_audio">Imesli</string>
     <string name="status_count_one_plus">1+</string>
     <string name="profile_metadata_content_label">Agbur</string>
-    <string name="description_visibility_direct">Srid</string>
     <string name="filter_action_hide">Ffer</string>
     <string name="title_tab_public_trending_hashtags">Ihacṭagen</string>
     <string name="title_tab_public_trending_links">Iseɣwan</string>

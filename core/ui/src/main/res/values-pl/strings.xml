@@ -91,4 +91,8 @@
     <string name="abbreviated_in_years">za %d lata</string>
     <string name="abbreviated_years_ago">%d lat temu</string>
     <string name="description_post_media_no_description_placeholder">Brak opisu</string>
+    <string name="description_visibility_public">Publiczny</string>
+    <string name="description_visibility_unlisted">Niewidoczny</string>
+    <string name="description_visibility_private">Obserwujący</string>
+    <string name="description_visibility_direct">Bezpośrednio</string>
 </resources>

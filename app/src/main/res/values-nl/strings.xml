@@ -244,10 +244,6 @@
     <string name="description_post_cw">Inhoudswaarschuwing: %s</string>
     <string name="description_post_reblogged">Geboost</string>
     <string name="description_post_favourited">Als favoriet gemarkeerd</string>
-    <string name="description_visibility_public">Openbaar</string>
-    <string name="description_visibility_unlisted">Minder openbaar</string>
-    <string name="description_visibility_private">Volgers</string>
-    <string name="description_visibility_direct">Direct</string>
     <string name="download_media">Media downloaden</string>
     <string name="downloading_media">Media aan het downloaden</string>
     <string name="pref_title_timeline_filters">Filters</string>

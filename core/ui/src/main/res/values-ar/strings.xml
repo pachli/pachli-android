@@ -85,4 +85,8 @@
     <string name="abbreviated_in_years">في %dy</string>
     <string name="abbreviated_years_ago">%dس</string>
     <string name="description_post_media_no_description_placeholder">مِن دون وصف    </string>
+    <string name="description_visibility_public">للعامة    </string>
+    <string name="description_visibility_unlisted">غير مُدرَج    </string>
+    <string name="description_visibility_private">المتابِعون    </string>
+    <string name="description_visibility_direct">مباشر    </string>
 </resources>

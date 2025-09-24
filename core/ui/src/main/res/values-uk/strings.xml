@@ -73,4 +73,8 @@
     <string name="abbreviated_in_years">за %dр.</string>
     <string name="abbreviated_years_ago">%dр.</string>
     <string name="description_post_media_no_description_placeholder">Без опису</string>
+    <string name="description_visibility_public">Публічно</string>
+    <string name="description_visibility_unlisted">Приховано</string>
+    <string name="description_visibility_private">Підписники</string>
+    <string name="description_visibility_direct">Безпосередньо</string>
 </resources>

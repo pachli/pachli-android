@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Pachli Association
+ * Copyright (c) 2025 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -15,7 +15,7 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.util
+package app.pachli.core.ui.extensions
 
 import android.content.Context
 import android.graphics.drawable.Drawable
@@ -23,8 +23,8 @@ import android.view.View
 import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.appcompat.content.res.AppCompatResources
-import app.pachli.R
 import app.pachli.core.model.Status
+import app.pachli.core.ui.R
 
 // TODO: Not part of the [Status] implementation because that module doesn't
 // store resources (yet).

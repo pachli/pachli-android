@@ -312,10 +312,6 @@
     <string name="hashtags">निश्रेणिचिह्नशीर्षकाः</string>
     <string name="edit_hashtag_hint"># चिह्नं विना प्रचलितम्</string>
     <string name="add_hashtag_title">प्रचलितं युज्यताम्</string>
-    <string name="description_visibility_direct">प्रत्यक्षम्</string>
-    <string name="description_visibility_private">अनुसर्तारः</string>
-    <string name="description_visibility_unlisted">अनिर्दिष्टम्</string>
-    <string name="description_visibility_public">सार्वजनिकम्</string>
     <string name="description_post_bookmarked">पुटचिह्नं कृतम्</string>
     <string name="description_post_favourited">प्रीतिर्दत्ता</string>
     <string name="description_post_reblogged">पुनर्लिखितम्</string>

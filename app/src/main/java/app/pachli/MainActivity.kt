@@ -758,7 +758,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
                 },
                 primaryDrawerItem {
                     nameRes = R.string.title_public_federated
-                    iconRes = R.drawable.ic_public_24dp
+                    iconRes = app.pachli.core.ui.R.drawable.ic_public_24dp
                     onClick = {
                         startActivityWithDefaultTransition(
                             TimelineActivityIntent.publicFederated(context, pachliAccountId),

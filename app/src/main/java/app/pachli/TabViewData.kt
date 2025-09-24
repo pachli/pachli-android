@@ -86,7 +86,7 @@ data class TabViewData(
             Timeline.PublicFederated -> TabViewData(
                 timeline = timeline,
                 text = R.string.title_public_federated,
-                icon = R.drawable.ic_public_24dp,
+                icon = app.pachli.core.ui.R.drawable.ic_public_24dp,
                 fragment = { TimelineFragment.newInstance(pachliAccountId, timeline) },
             )
             Timeline.Conversations -> TabViewData(

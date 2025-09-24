@@ -81,4 +81,8 @@
     <string name="abbreviated_in_years">in %d a</string>
     <string name="abbreviated_years_ago">%da</string>
     <string name="description_post_media_no_description_placeholder">Nessuna descrizione</string>
+    <string name="description_visibility_public">Pubblico</string>
+    <string name="description_visibility_unlisted">Non in elenco</string>
+    <string name="description_visibility_private">Solo seguaci</string>
+    <string name="description_visibility_direct">Diretti</string>
 </resources>
