@@ -65,4 +65,8 @@
     <string name="abbreviated_in_years">em %dy</string>
     <string name="abbreviated_years_ago">%dy</string>
     <string name="description_post_media_no_description_placeholder">Sem descrição</string>
+    <string name="description_visibility_public">Público</string>
+    <string name="description_visibility_unlisted">Não-listado</string>
+    <string name="description_visibility_private">Privado</string>
+    <string name="description_visibility_direct">Direto</string>
 </resources>

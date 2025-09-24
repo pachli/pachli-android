@@ -266,10 +266,6 @@
     <string name="description_post_cw">열람주의: %s</string>
     <string name="description_post_reblogged">부스트함</string>
     <string name="description_post_favourited">좋아요함</string>
-    <string name="description_visibility_public">공개</string>
-    <string name="description_visibility_unlisted">타임라인에 비표시</string>
-    <string name="description_visibility_private">비공개</string>
-    <string name="description_visibility_direct">다이렉트</string>
     <string name="edit_hashtag_hint">#를 제외한 해시태그</string>
     <string name="notifications_clear">알림 지우기</string>
     <string name="notifications_apply_filter">필터</string>

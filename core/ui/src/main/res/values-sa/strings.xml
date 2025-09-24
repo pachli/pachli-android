@@ -60,4 +60,8 @@
     <string name="abbreviated_in_years">%dy वर्ष</string>
     <string name="abbreviated_years_ago">%dy वर्ष</string>
     <string name="description_post_media_no_description_placeholder">विवरणं नास्ति</string>
+    <string name="description_visibility_public">सार्वजनिकम्</string>
+    <string name="description_visibility_unlisted">अनिर्दिष्टम्</string>
+    <string name="description_visibility_private">अनुसर्तारः</string>
+    <string name="description_visibility_direct">प्रत्यक्षम्</string>
 </resources>

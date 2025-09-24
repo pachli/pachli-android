@@ -63,4 +63,8 @@
     <string name="abbreviated_in_years">v %dy</string>
     <string name="abbreviated_years_ago">%dy</string>
     <string name="description_post_media_no_description_placeholder">Brez opisa</string>
+    <string name="description_visibility_public">Javno</string>
+    <string name="description_visibility_unlisted">Ni prikazano</string>
+    <string name="description_visibility_private">Sledilci</string>
+    <string name="description_visibility_direct">Neposredno</string>
 </resources>

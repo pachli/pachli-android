@@ -56,6 +56,7 @@ import app.pachli.core.navigation.TabPreferenceActivityIntent
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
+import app.pachli.core.ui.extensions.iconRes
 import app.pachli.core.ui.makeIcon
 import app.pachli.settings.listPreference
 import app.pachli.settings.makePreferenceScreen
@@ -65,7 +66,6 @@ import app.pachli.settings.switchPreference
 import app.pachli.util.getInitialLanguages
 import app.pachli.util.getLocaleList
 import app.pachli.util.getPachliDisplayName
-import app.pachli.util.iconRes
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import com.google.android.material.snackbar.Snackbar

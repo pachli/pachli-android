@@ -276,10 +276,6 @@
     <string name="description_post_cw">Ostrzeżenie o zawartości: %s</string>
     <string name="description_post_reblogged">Podbity</string>
     <string name="description_post_favourited">Polubiony</string>
-    <string name="description_visibility_public">Publiczny</string>
-    <string name="description_visibility_unlisted">Niewidoczny</string>
-    <string name="description_visibility_private">Obserwujący</string>
-    <string name="description_visibility_direct">Bezpośrednio</string>
     <string name="edit_hashtag_hint">Hasztag bez #</string>
     <string name="notifications_clear">Wyczyść powiadomienia</string>
     <string name="notifications_apply_filter">Filtruj powiadomienia</string>

@@ -85,4 +85,8 @@
     <string name="abbreviated_in_years">ymhen %dy</string>
     <string name="abbreviated_years_ago">%db yn ôl</string>
     <string name="description_post_media_no_description_placeholder">Dim disgrifiad</string>
+    <string name="description_visibility_public">Cyhoeddus</string>
+    <string name="description_visibility_unlisted">Heb ei restru</string>
+    <string name="description_visibility_private">Dilynwyr</string>
+    <string name="description_visibility_direct">Uniongyrchol</string>
 </resources>

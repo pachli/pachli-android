@@ -59,4 +59,10 @@
     <string name="abbreviated_years_ago">%dj</string>
     <string name="description_post_media_no_description_placeholder">        Neniu priskribo
     </string>
+    <string name="description_visibility_public">        Publika
+    </string>
+    <string name="description_visibility_unlisted">        Nelistigita    </string>
+    <string name="description_visibility_private">        Sekvantoj
+    </string>
+    <string name="description_visibility_direct">        Rekta    </string>
 </resources>

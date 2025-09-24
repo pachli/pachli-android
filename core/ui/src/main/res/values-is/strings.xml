@@ -61,4 +61,8 @@
     <string name="abbreviated_in_years">eftir %dár</string>
     <string name="abbreviated_years_ago">%dár</string>
     <string name="description_post_media_no_description_placeholder">Engin lýsing</string>
+    <string name="description_visibility_public">Opinbert</string>
+    <string name="description_visibility_unlisted">Óskráð</string>
+    <string name="description_visibility_private">Fylgjendur</string>
+    <string name="description_visibility_direct">Beint</string>
 </resources>

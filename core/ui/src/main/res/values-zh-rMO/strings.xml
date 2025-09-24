@@ -47,4 +47,14 @@
     <string name="description_post_media_no_description_placeholder">
         沒有媒體描述信息
     </string>
+    <string name="description_visibility_public">
+        公開
+    </string>
+    <string name="description_visibility_unlisted">
+        不公開
+    </string>
+    <string name="description_visibility_private">關注者</string>
+    <string name="description_visibility_direct">
+        私信
+    </string>
 </resources>

@@ -260,10 +260,6 @@
     <string name="description_post_cw">İçerik uyarısı: %s</string>
     <string name="description_post_reblogged">Yeniden blogladı</string>
     <string name="description_post_favourited">Gözdelendi</string>
-    <string name="description_visibility_public">Herkese açık</string>
-    <string name="description_visibility_unlisted">Liste dışı</string>
-    <string name="description_visibility_private">Takipçiler</string>
-    <string name="description_visibility_direct">Doğrudan</string>
     <string name="edit_hashtag_hint"># Etiket olmadan</string>
     <string name="notifications_clear">Temizle</string>
     <string name="notifications_apply_filter">Süzgeçle</string>

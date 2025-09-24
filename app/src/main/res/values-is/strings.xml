@@ -265,10 +265,6 @@
     <string name="description_post_reblogged">Endurbloggað</string>
     <string name="description_post_favourited">Í eftirlætum</string>
     <string name="description_post_bookmarked">Bókamerkt</string>
-    <string name="description_visibility_public">Opinbert</string>
-    <string name="description_visibility_unlisted">Óskráð</string>
-    <string name="description_visibility_private">Fylgjendur</string>
-    <string name="description_visibility_direct">Beint</string>
     <string name="edit_hashtag_hint">Myllumerki án #</string>
     <string name="select_list_title">Veldu lista</string>
     <string name="list">Listi</string>

@@ -214,9 +214,6 @@
     <string name="edit_poll">திருத்த</string>
     <string name="action_edit">திருத்த</string>
     <string name="conversation_2_recipients">%1$s மற்றும் %2$s</string>
-    <string name="description_visibility_private">பின்பற்றுபவர்கள்</string>
-    <string name="description_visibility_unlisted">பட்டியலிடப்படாதவர்களுக்கு</string>
-    <string name="description_visibility_public">அனைவருக்கும்</string>
     <string name="compose_shortcut_short_label">எழுது</string>
     <string name="title_edits">திருத்தங்கள்</string>
     <string name="notification_follow_request_format">%s உங்களைப் பின்தொடருமாறு கேட்டுக்கொண்டது</string>
@@ -486,7 +483,6 @@
     <string name="confirmation_domain_unmuted">%s</string>
     <string name="dialog_message_cancel_follow_request">பின்தொடர்தல் கோரிக்கையை ரத்து செய்யவா?</string>
     <string name="filter_expiration_format">%s (%s)</string>
-    <string name="description_visibility_direct">நேரடி</string>
     <string name="compose_preview_image_description">படங்களுக்கான செயல்கள் %s</string>
     <string name="duration_indefinite">காலவரையற்றது</string>
     <string name="duration_5_min">5 நிமிடங்கள்</string>

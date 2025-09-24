@@ -69,7 +69,6 @@
     <string name="notifications_apply_filter">Suodatin</string>
     <string name="list">Lista</string>
     <string name="hashtags">Aihetunnisteet</string>
-    <string name="description_visibility_public">Julkinen</string>
     <string name="pin_action">Kiinnitä</string>
     <string name="unpin_action">Poista kiinnitys</string>
     <string name="action_remove">Poista</string>
@@ -207,13 +206,11 @@
     <string name="notification_update_name">Julkaisujen muokkaukset</string>
     <string name="title_migration_relogin">Kirjaudu uudestaan sisään ottaaksesi vastaan puskuilmoituksia</string>
     <string name="error_image_edit_failed">Kuvaa ei voitu muokata.</string>
-    <string name="description_visibility_unlisted">Listaamaton</string>
     <string name="dialog_delete_conversation_warning">Poista tämä keskustelu\?</string>
     <string name="pref_title_show_media_preview">Lataa median esikatselu</string>
     <string name="post_privacy_unlisted">Listaamaton</string>
     <string name="pref_title_alway_show_sensitive_media">Näytä aina arkaluonteinen sisältö</string>
     <string name="send_post_notification_cancel_title">Lähettäminen peruutettu</string>
-    <string name="description_visibility_private">Seuraajat</string>
     <string name="notification_boost_name">Buustaukset</string>
     <string name="notification_favourite_name">Suosikit</string>
     <string name="notification_poll_name">Äänestykset</string>
@@ -485,7 +482,6 @@
     <string name="unreblog_private">Peru tehostus</string>
     <string name="description_post_reblogged">Tehostettu</string>
     <string name="account_moved_description">%1$s on siirtynyt tänne:</string>
-    <string name="description_visibility_direct">Vain mainitut</string>
     <string name="description_post_favourited">Tykätty</string>
     <string name="title_favourited_by">Tykännyt</string>
     <string name="send_post_notification_saved_content">Kopio julkaisusta on tallennettu luonnoksiisi</string>

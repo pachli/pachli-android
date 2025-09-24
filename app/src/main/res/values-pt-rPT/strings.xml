@@ -305,10 +305,6 @@
     <string name="description_post_reblogged">Replicado</string>
     <string name="description_post_favourited">Adicionado aos favoritos</string>
     <string name="description_post_bookmarked">Guardado</string>
-    <string name="description_visibility_public">Público</string>
-    <string name="description_visibility_unlisted">Não-listado</string>
-    <string name="description_visibility_private">Privado</string>
-    <string name="description_visibility_direct">Direto</string>
     <string name="add_hashtag_title">Adicionar hashtag</string>
     <string name="edit_hashtag_hint">Hashtag sem #</string>
     <string name="hashtags">Hashtags</string>

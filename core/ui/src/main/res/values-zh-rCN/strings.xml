@@ -59,4 +59,14 @@
     <string name="abbreviated_in_years">%d 年内</string>
     <string name="abbreviated_years_ago">%d 年前</string>
     <string name="description_post_media_no_description_placeholder">没有描述信息</string>
+    <string name="description_visibility_public">
+        公开
+    </string>
+    <string name="description_visibility_unlisted">
+        不公开
+    </string>
+    <string name="description_visibility_private">仅关注者</string>
+    <string name="description_visibility_direct">
+        私信
+    </string>
 </resources>

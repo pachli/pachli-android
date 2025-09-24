@@ -18,9 +18,9 @@ import app.pachli.core.ui.NoUnderlineURLSpan
 import app.pachli.core.ui.SetStatusContent
 import app.pachli.core.ui.StatusActionListener
 import app.pachli.core.ui.createClickableText
+import app.pachli.core.ui.extensions.description
+import app.pachli.core.ui.extensions.icon
 import app.pachli.databinding.ItemStatusDetailedBinding
-import app.pachli.util.description
-import app.pachli.util.icon
 import com.bumptech.glide.RequestManager
 import java.text.DateFormat
 import java.util.Locale

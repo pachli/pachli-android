@@ -64,4 +64,8 @@
     <string name="abbreviated_in_years">za %d let</string>
     <string name="abbreviated_years_ago">%d let</string>
     <string name="description_post_media_no_description_placeholder">Žádný popis</string>
+    <string name="description_visibility_public">Veřejný</string>
+    <string name="description_visibility_unlisted">Neuvedený</string>
+    <string name="description_visibility_private">Pro sledující</string>
+    <string name="description_visibility_direct">Přímý</string>
 </resources>

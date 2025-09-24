@@ -73,4 +73,8 @@
     <string name="abbreviated_in_years">праз %dг</string>
     <string name="abbreviated_years_ago">%dг</string>
     <string name="description_post_media_no_description_placeholder">Няма апісання</string>
+    <string name="description_visibility_public">Публічны</string>
+    <string name="description_visibility_unlisted">Не ў стужках</string>
+    <string name="description_visibility_private">Падпісчыкі</string>
+    <string name="description_visibility_direct">Асабіста</string>
 </resources>

@@ -61,4 +61,8 @@
     <string name="abbreviated_in_years">در %d سال</string>
     <string name="abbreviated_years_ago">%d سال</string>
     <string name="description_post_media_no_description_placeholder">بدون شرح</string>
+    <string name="description_visibility_public">عمومی</string>
+    <string name="description_visibility_unlisted">فهرست نشده</string>
+    <string name="description_visibility_private">پی‌گیران</string>
+    <string name="description_visibility_direct">مستقیم</string>
 </resources>

@@ -274,10 +274,6 @@
     <string name="description_post_cw">Edukiarekiko abisua: %s</string>
     <string name="description_post_reblogged">Partekatua</string>
     <string name="description_post_favourited">Gogokoa</string>
-    <string name="description_visibility_public">Publikoa</string>
-    <string name="description_visibility_unlisted">Zerrendatu gabea</string>
-    <string name="description_visibility_private">Jarraitzaileak</string>
-    <string name="description_visibility_direct">Zuzena</string>
     <string name="edit_hashtag_hint">Traola # gabe</string>
     <string name="notifications_clear">Garbitu</string>
     <string name="notifications_apply_filter">Iragazi</string>

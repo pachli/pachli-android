@@ -116,7 +116,6 @@
     <string name="select_list_title">Atlasīt sarakstu</string>
     <string name="description_post_edited">Labots</string>
     <string name="description_post_bookmarked">Atzīmēts ar grāmatzīmi</string>
-    <string name="description_visibility_public">Publisks</string>
     <string name="hashtags">Tēmturi</string>
     <string name="notifications_clear">Notīrīt</string>
     <string name="notifications_apply_filter">Filtrēt</string>
@@ -167,7 +166,6 @@
     <string name="post_text_size_smallest">Mazākais</string>
     <string name="post_media_images">Attēli</string>
     <string name="action_remove">Noņemt</string>
-    <string name="description_visibility_private">Sekotāji</string>
     <string name="list">Saraksts</string>
     <string name="account_note_saved">Saglabāts!</string>
     <string name="title_posts_with_replies">Ar atbildēm</string>
@@ -617,7 +615,6 @@
     <string name="search_operator_embed_dialog_no_embeds">Tikai ierakstus bez priekšskatījuma kartītēm</string>
     <string name="title_public_trending">Izplatīts</string>
     <string name="title_public_trending_links">Izplatītas saites</string>
-    <string name="description_visibility_unlisted">Neiekļauts</string>
     <string name="action_send_unlisted_content_description">Nosūtīt neiekļautu ierakstu</string>
     <string name="title_public_trending_statuses">Izplatīti ieraksti</string>
     <string name="title_tab_public_trending_links">Saites</string>
@@ -650,7 +647,6 @@
     <string name="error_export_preferences_fmt">Nevarēja izgūt iestatījumus %1$s: %2$s</string>
     <string name="ui_error_favourite_fmt">Ieraksta ievietošana izlasē neizdevās: %1$s</string>
     <string name="error_import_preferences_fmt">Nevarēja ievietot iestatījumus no %1$s: %2$s</string>
-    <string name="description_visibility_direct">Tiešs</string>
     <string name="ui_error_reblog_fmt">Ieraksta pastiprināšana neizdevās: %1$s</string>
     <string name="conversation_0_recipients">Nav citu dalībnieku</string>
     <string name="error_prepare_media_unknown_file_size">datnes lielumu nevarēja noteikt</string>

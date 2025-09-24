@@ -77,4 +77,8 @@
     <string name="abbreviated_in_years">%dv</string>
     <string name="abbreviated_years_ago">%dv</string>
     <string name="description_post_media_no_description_placeholder">Ei kuvausta</string>
+    <string name="description_visibility_public">Julkinen</string>
+    <string name="description_visibility_unlisted">Listaamaton</string>
+    <string name="description_visibility_private">Seuraajat</string>
+    <string name="description_visibility_direct">Vain mainitut</string>
 </resources>

@@ -258,11 +258,6 @@
     </string>
     <string name="description_post_reblogged">Partagé</string>
     <string name="description_post_favourited">Mis en favoris</string>
-    <string name="description_visibility_public">Public</string>
-    <string name="description_visibility_unlisted">Non listé</string>
-    <string name="description_visibility_private">        Abonné·e·s
-    </string>
-    <string name="description_visibility_direct">Direct</string>
     <string name="edit_hashtag_hint">Hashtag sans #</string>
     <string name="notifications_clear">Nettoyer</string>
     <string name="notifications_apply_filter">Filtrer</string>

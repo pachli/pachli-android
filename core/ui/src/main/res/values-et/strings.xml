@@ -79,4 +79,8 @@
     <string name="abbreviated_in_years">%d a</string>
     <string name="abbreviated_years_ago">%d a</string>
     <string name="description_post_media_no_description_placeholder">Kirjeldus puudub</string>
+    <string name="description_visibility_public">Avalik</string>
+    <string name="description_visibility_unlisted">Ajajooneväline</string>
+    <string name="description_visibility_private">Vaid jälgijatele</string>
+    <string name="description_visibility_direct">Otsesõnum</string>
 </resources>

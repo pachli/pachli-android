@@ -101,6 +101,7 @@ import app.pachli.core.ui.emojify
 import app.pachli.core.ui.extensions.InsetType
 import app.pachli.core.ui.extensions.applyWindowInsets
 import app.pachli.core.ui.extensions.await
+import app.pachli.core.ui.extensions.iconRes
 import app.pachli.core.ui.loadAvatar
 import app.pachli.core.ui.makeIcon
 import app.pachli.databinding.ActivityComposeBinding
@@ -111,7 +112,6 @@ import app.pachli.util.getInitialLanguages
 import app.pachli.util.getLocaleList
 import app.pachli.util.getMediaSize
 import app.pachli.util.highlightSpans
-import app.pachli.util.iconRes
 import app.pachli.util.modernLanguageCode
 import app.pachli.util.setDrawableTint
 import com.canhub.cropper.CropImage
@@ -1026,7 +1026,7 @@ class ComposeActivity :
         binding.composeOptionsBottomSheet.setStatusVisibility(visibility)
         binding.composeTootButton.setStatusVisibility(binding.composeTootButton, visibility)
 
-        val iconRes = visibility.iconRes() ?: R.drawable.ic_lock_open_24dp
+        val iconRes = visibility.iconRes() ?: app.pachli.core.ui.R.drawable.ic_lock_open_24dp
         binding.composeChangeVisibilityButton.setImageResource(iconRes)
         if (viewModel.editing) {
             // Can't update visibility on published status

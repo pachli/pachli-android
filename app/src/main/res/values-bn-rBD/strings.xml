@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="conversation_1_recipients">%1$s</string>
-    <string name="description_visibility_direct">সরাসরি</string>
-    <string name="description_visibility_private">অনুগামিবৃন্দ</string>
-    <string name="description_visibility_unlisted">অতালিকাভুক্ত</string>
-    <string name="description_visibility_public">সর্বজনীন</string>
     <string name="description_post_favourited">পছন্দ</string>
     <string name="description_post_reblogged">আবার ব্লগ</string>
     <string name="description_post_cw">সতর্কবার্তা: %s</string>

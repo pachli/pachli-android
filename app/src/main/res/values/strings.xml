@@ -497,18 +497,6 @@
     <string name="description_post_bookmarked">
         Bookmarked
     </string>
-    <string name="description_visibility_public">
-        Public
-    </string>
-    <string name="description_visibility_unlisted">
-        Unlisted
-    </string>
-    <string name="description_visibility_private">
-        Followers
-    </string>
-    <string name="description_visibility_direct">
-        Direct
-    </string>
     <string name="description_post_language">Post language</string>
     <string name="description_login">Works in most cases. No data is leaked to other apps.</string>
     <string name="description_browser_login">May support additional authentication methods, but requires a supported browser.</string>

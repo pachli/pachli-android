@@ -55,4 +55,11 @@
     <string name="abbreviated_in_years">%d年後</string>
     <string name="abbreviated_years_ago">%d年前</string>
     <string name="description_post_media_no_description_placeholder">説明なし</string>
+    <string name="description_visibility_public">        公開
+    </string>
+    <string name="description_visibility_unlisted">        未収載
+    </string>
+    <string name="description_visibility_private">フォロワー</string>
+    <string name="description_visibility_direct">        ダイレクト
+    </string>
 </resources>

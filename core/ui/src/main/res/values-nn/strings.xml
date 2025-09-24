@@ -77,4 +77,8 @@
     <string name="abbreviated_in_years">om %då</string>
     <string name="abbreviated_years_ago">%då</string>
     <string name="description_post_media_no_description_placeholder">Inga skildring</string>
+    <string name="description_visibility_public">Offentleg</string>
+    <string name="description_visibility_unlisted">Ulista</string>
+    <string name="description_visibility_private">Fylgjarar</string>
+    <string name="description_visibility_direct">Direkte</string>
 </resources>

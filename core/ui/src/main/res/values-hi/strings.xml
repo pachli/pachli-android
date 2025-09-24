@@ -42,4 +42,8 @@
     <string name="poll_info_format"><!-- 15 वोट • 1 घंटा बाकी -->%1$s • %2$s</string>
     <string name="description_poll">जनमत के विकल्प: %1$s, %2$s, %3$s, %4$s; %5$s</string>
     <string name="description_post_media_no_description_placeholder">कोई विवरण नहीं</string>
+    <string name="description_visibility_public">सार्वजनिक</string>
+    <string name="description_visibility_unlisted">असूचीबद्ध</string>
+    <string name="description_visibility_private">अनुगामी</string>
+    <string name="description_visibility_direct">प्रत्यक्ष</string>
 </resources>

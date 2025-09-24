@@ -61,4 +61,8 @@
     <string name="abbreviated_in_years">%dy içinde</string>
     <string name="abbreviated_years_ago">%dy</string>
     <string name="description_post_media_no_description_placeholder">Açıklama yok</string>
+    <string name="description_visibility_public">Herkese açık</string>
+    <string name="description_visibility_unlisted">Liste dışı</string>
+    <string name="description_visibility_private">Takipçiler</string>
+    <string name="description_visibility_direct">Doğrudan</string>
 </resources>

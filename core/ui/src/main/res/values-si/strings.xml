@@ -50,4 +50,6 @@
     <string name="abbreviated_days_ago">දව. %d</string>
     <string name="abbreviated_in_years">වර්. %d කින්</string>
     <string name="abbreviated_years_ago">අවු. %d</string>
+    <string name="description_visibility_public">ප්‍රසිද්ධ</string>
+    <string name="description_visibility_direct">සෘජු</string>
 </resources>

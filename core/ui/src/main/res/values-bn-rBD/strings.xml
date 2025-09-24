@@ -57,4 +57,8 @@
     <string name="abbreviated_in_years">\'%dy এ\'</string>
     <string name="abbreviated_years_ago">%dব</string>
     <string name="description_post_media_no_description_placeholder">বর্ণনা নাই</string>
+    <string name="description_visibility_public">সর্বজনীন</string>
+    <string name="description_visibility_unlisted">অতালিকাভুক্ত</string>
+    <string name="description_visibility_private">অনুগামিবৃন্দ</string>
+    <string name="description_visibility_direct">সরাসরি</string>
 </resources>

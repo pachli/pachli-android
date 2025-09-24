@@ -61,4 +61,8 @@
     <string name="abbreviated_in_years">%dé múlva</string>
     <string name="abbreviated_years_ago">%dé</string>
     <string name="description_post_media_no_description_placeholder">Nincs leírás</string>
+    <string name="description_visibility_public">Nyilvános</string>
+    <string name="description_visibility_unlisted">Listázatlan</string>
+    <string name="description_visibility_private">Követők</string>
+    <string name="description_visibility_direct">Közvetlen</string>
 </resources>

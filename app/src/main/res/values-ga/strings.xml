@@ -291,10 +291,6 @@
     <string name="description_post_cw">Rabhadh ábhair: %s</string>
     <string name="description_post_favourited">Tofa</string>
     <string name="description_post_bookmarked">Leabharmharcáilte</string>
-    <string name="description_visibility_public">Poiblí</string>
-    <string name="description_visibility_unlisted">Neamhliostaithe</string>
-    <string name="description_visibility_private">Leantóirí</string>
-    <string name="description_visibility_direct">Díreach</string>
     <string name="add_hashtag_title">Cuir hashtag leis</string>
     <string name="edit_hashtag_hint">Hashtag gan #</string>
     <string name="select_list_title">Roghnaigh liosta</string>

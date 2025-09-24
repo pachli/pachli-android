@@ -85,4 +85,8 @@
     <string name="abbreviated_in_years">za %dr</string>
     <string name="abbreviated_years_ago">%dr</string>
     <string name="description_post_media_no_description_placeholder">Žiadny popis</string>
+    <string name="description_visibility_public">Verejný</string>
+    <string name="description_visibility_unlisted">Tiché verejné</string>
+    <string name="description_visibility_private">Sledujúci</string>
+    <string name="description_visibility_direct">Priame</string>
 </resources>

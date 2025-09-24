@@ -84,10 +84,8 @@
     <string name="profile_metadata_content_label">Obsah</string>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s a %2$s</string>
-    <string name="description_visibility_public">Verejný</string>
     <string name="action_reblog">Zdieľať</string>
     <string name="action_unreblog">Zrušiť zdieľanie</string>
-    <string name="description_visibility_private">Sledujúci</string>
     <string name="post_privacy_public">Verejný</string>
     <string name="action_view_bookmarks">Záložky</string>
     <string name="notification_summary_small">%1$s a %2$s</string>
@@ -372,7 +370,6 @@
     <string name="ui_error_translate_status_fmt">Preklad zlyhal: %1$s</string>
     <string name="ui_error_filter_v1_load_fmt">Načítanie filtrov zlyhalo: %1$s</string>
     <string name="pref_title_account_filter_keywords">Profily</string>
-    <string name="description_visibility_unlisted">Tiché verejné</string>
     <string name="title_accounts">Účty</string>
     <string name="warning_scheduling_interval">Mastodon má minimálny interval plánovania 5 minút.</string>
     <string name="pref_title_show_cards_in_timelines">Zobrazovať náhľady odkazov v časových osiach</string>
@@ -478,7 +475,6 @@
     <string name="expand_collapse_all_posts">Rozbaliť/Zbaliť všetky príspevky</string>
     <string name="download_fonts">Musíš si najprv stiahnuť tieto sady emoji</string>
     <string name="restart_required">Vyžaduje sa reštart aplikácie</string>
-    <string name="description_visibility_direct">Priame</string>
     <string name="select_list_manage">Spravovať zoznamy</string>
     <string name="duration_6_hours">6 hodín</string>
     <string name="total_usage">Celková vyťaženosť</string>

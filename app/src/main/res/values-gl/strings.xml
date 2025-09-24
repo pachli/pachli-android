@@ -135,10 +135,6 @@
     <string name="hashtags">Cancelos</string>
     <string name="edit_hashtag_hint">Cancelo sen #</string>
     <string name="add_hashtag_title">Engadir cancelo</string>
-    <string name="description_visibility_direct">Directo</string>
-    <string name="description_visibility_private">Seguidoras</string>
-    <string name="description_visibility_unlisted">Non listado</string>
-    <string name="description_visibility_public">Público</string>
     <string name="description_post_bookmarked">Marcado</string>
     <string name="description_post_favourited">Favorecido</string>
     <string name="description_post_reblogged">Repetido</string>

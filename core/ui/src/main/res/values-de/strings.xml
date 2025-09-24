@@ -79,4 +79,8 @@
     <string name="abbreviated_in_years">in %d J.</string>
     <string name="abbreviated_years_ago">%d J.</string>
     <string name="description_post_media_no_description_placeholder">        Keine Beschreibung    </string>
+    <string name="description_visibility_public">Öffentlich    </string>
+    <string name="description_visibility_unlisted">Nicht gelistet</string>
+    <string name="description_visibility_private">Follower</string>
+    <string name="description_visibility_direct">Direkt    </string>
 </resources>

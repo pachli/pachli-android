@@ -431,10 +431,6 @@
     <string name="description_post_reblogged">Delt</string>
     <string name="description_post_favourited">Favorittmarka</string>
     <string name="description_post_bookmarked">Bokmerkt</string>
-    <string name="description_visibility_public">Offentleg</string>
-    <string name="description_visibility_unlisted">Ulista</string>
-    <string name="description_visibility_private">Fylgjarar</string>
-    <string name="description_visibility_direct">Direkte</string>
     <string name="description_post_language">Innleggsspråk</string>
     <string name="description_login">Funkar i dei fleste tilfella. Ingen informasjon vert delt med andre appar.</string>
     <string name="description_browser_login">Kan støtte andre autentiseringsmetodar, men treng ein støtta nettlesar.</string>
