@@ -17,16 +17,10 @@
 
 package app.pachli.components.timeline
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.components.timeline.viewmodel.NetworkTimelineViewModel
-import app.pachli.components.timeline.viewmodel.TimelineViewModel
 import app.pachli.core.data.repository.AccountManager
-import app.pachli.core.data.repository.ContentFiltersRepository
-import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
-import app.pachli.core.database.dao.StatusDao
-import app.pachli.core.database.dao.TranslatedStatusDao
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.di.test.DEFAULT_INSTANCE_V2
@@ -83,22 +77,10 @@ abstract class NetworkTimelineViewModelTestBase {
     lateinit var sharedPreferencesRepository: SharedPreferencesRepository
 
     @Inject
-    lateinit var contentFiltersRepository: ContentFiltersRepository
-
-    @Inject
     lateinit var networkTimelineRepository: NetworkTimelineRepository
 
     @Inject
     lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
-
-    @Inject
-    lateinit var statusRepository: OfflineFirstStatusRepository
-
-    @Inject
-    lateinit var statusDao: StatusDao
-
-    @Inject
-    lateinit var translatedStatusDao: TranslatedStatusDao
 
     protected lateinit var timelineCases: TimelineCases
     protected lateinit var viewModel: NetworkTimelineViewModel
@@ -162,7 +144,7 @@ abstract class NetworkTimelineViewModelTestBase {
         timelineCases = mock()
 
         viewModel = NetworkTimelineViewModel(
-            SavedStateHandle(mapOf(TimelineViewModel.TIMELINE_TAG to Timeline.Bookmarks)),
+            Timeline.Bookmarks,
             networkTimelineRepository,
             timelineCases,
             eventHub,
