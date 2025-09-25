@@ -216,7 +216,6 @@
     <string name="action_add_poll">Добавяне на анкета</string>
     <string name="action_add_media">Добавяне на мултимедия</string>
     <string name="action_open_in_web">Отваряне в браузър</string>
-    <string name="action_view_media">Мултимедия</string>
     <string name="action_view_follow_requests">Заявки за последване</string>
     <string name="action_view_domain_mutes">Скрити домейни</string>
     <string name="action_view_blocks">Блокирани потребители</string>
@@ -258,7 +257,6 @@
     <string name="post_content_warning_show_less">Покажи по-малко</string>
     <string name="post_content_warning_show_more">Покажи повече</string>
     <string name="post_sensitive_media_directions">Щракнете за преглед</string>
-    <string name="post_media_hidden_title">Мултимедията е скрита</string>
     <string name="post_boosted_format">%s сподели</string>
     <string name="title_announcements">Оповестявания</string>
     <string name="title_scheduled_posts">Планирани публикации</string>

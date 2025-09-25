@@ -26,7 +26,6 @@
     <string name="title_edit_profile">Edytuj profil</string>
     <string name="title_drafts">Szkice</string>
     <string name="post_boosted_format">Podbicie od %s</string>
-    <string name="post_media_hidden_title">Ukryto multimedia</string>
     <string name="post_sensitive_media_directions">Naciśnij, aby wyświetlić</string>
     <string name="post_content_warning_show_more">Pokaż więcej</string>
     <string name="post_content_warning_show_less">Pokaż mniej</string>
@@ -56,7 +55,6 @@
     <string name="action_view_mutes">Wyciszone konta</string>
     <string name="action_view_blocks">Zablokowane konta</string>
     <string name="action_view_follow_requests">Prośby o obserwację</string>
-    <string name="action_view_media">Multimedia</string>
     <string name="action_open_in_web">Otwórz w przeglądarce</string>
     <string name="action_add_media">Dodaj treści multimedialne</string>
     <string name="action_photo_take">Zrób zdjęcie</string>

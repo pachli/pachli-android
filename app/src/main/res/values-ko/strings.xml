@@ -30,7 +30,6 @@
     <string name="title_edit_profile">프로필 편집</string>
     <string name="title_drafts">임시 저장</string>
     <string name="post_boosted_format">%s님이 부스트 했습니다</string>
-    <string name="post_media_hidden_title">미디어 숨겨짐</string>
     <string name="post_sensitive_media_directions">클릭하여 보기</string>
     <string name="post_content_warning_show_more">더 보기</string>
     <string name="post_content_warning_show_less">숨기기</string>
@@ -67,7 +66,6 @@
     <string name="action_view_blocks">블록한 유저</string>
     <string name="action_view_domain_mutes">숨긴 도메인</string>
     <string name="action_view_follow_requests">팔로우 요청</string>
-    <string name="action_view_media">미디어</string>
     <string name="action_open_in_web">브라우저에서 열기</string>
     <string name="action_add_media">미디어 추가</string>
     <string name="action_photo_take">사진 촬영</string>

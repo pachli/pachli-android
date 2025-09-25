@@ -42,7 +42,6 @@
     <string name="title_announcements">Аб\'явы</string>
     <string name="title_followed_hashtags">Падпіскі на хэштэгі</string>
     <string name="post_boosted_format">%s пашырыў(-ла)</string>
-    <string name="post_media_hidden_title">Медыя схаванае</string>
     <string name="post_content_show_more">Разгарнуць</string>
     <string name="report_comment_hint">Дадатковыя каментарыі\?</string>
     <string name="post_sensitive_media_directions">Націсніце для прагляду</string>
@@ -169,7 +168,6 @@
     <string name="action_view_blocks">Заблакаваныя карыстальнікі</string>
     <string name="action_view_domain_mutes">Схаваныя дамены</string>
     <string name="action_view_follow_requests">Запыты на падпіску</string>
-    <string name="action_view_media">Медыя</string>
     <string name="action_open_in_web">Адкрыць у браўзеры</string>
     <string name="action_add_media">Дадаць медыя</string>
     <string name="action_add_poll">Дадаць апытанне</string>

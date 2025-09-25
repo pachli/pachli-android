@@ -97,7 +97,6 @@
     <string name="action_add_poll">Tạo bình chọn</string>
     <string name="action_add_media">Thêm tệp</string>
     <string name="action_open_in_web">Mở trong trình duyệt</string>
-    <string name="action_view_media">Media</string>
     <string name="action_view_follow_requests">Yêu cầu theo dõi</string>
     <string name="action_view_domain_mutes">Những máy chủ đã ẩn</string>
     <string name="action_view_blocks">Những người đã chặn</string>
@@ -130,7 +129,6 @@
     <string name="post_content_warning_show_less">Thu gọn</string>
     <string name="post_content_warning_show_more">Mở rộng</string>
     <string name="post_sensitive_media_directions">Hiển thị</string>
-    <string name="post_media_hidden_title">Media bị ẩn</string>
     <string name="post_boosted_format">%s đăng lại</string>
     <string name="title_scheduled_posts">Những tút đã lên lịch</string>
     <string name="title_edit_profile">Chỉnh sửa hồ sơ</string>

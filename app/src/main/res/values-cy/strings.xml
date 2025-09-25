@@ -26,7 +26,6 @@
     <string name="title_edit_profile">Golygu\'ch proffil</string>
     <string name="title_drafts">Drafftiau</string>
     <string name="post_boosted_format">Hybodd %s</string>
-    <string name="post_media_hidden_title">Cyfryngau cudd</string>
     <string name="post_sensitive_media_directions">Cliciwch i weld</string>
     <string name="post_content_warning_show_more">Dangos Mwy</string>
     <string name="post_content_warning_show_less">Dangos Llai</string>
@@ -58,7 +57,6 @@
     <string name="action_view_mutes">Defnyddwyr a dawyd</string>
     <string name="action_view_blocks">Defnyddwyr a flociwyd</string>
     <string name="action_view_follow_requests">Ceisiadau i\'ch dilyn</string>
-    <string name="action_view_media">Cyfryngau</string>
     <string name="action_open_in_web">Agor mewn porwr</string>
     <string name="action_add_media">Ychwanegu cyfryngau</string>
     <string name="action_photo_take">Tynnu llun</string>

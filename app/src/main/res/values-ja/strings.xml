@@ -29,7 +29,6 @@
     <string name="title_edit_profile">プロフィールを編集</string>
     <string name="title_drafts">下書き</string>
     <string name="post_boosted_format">%sさんがブーストしました</string>
-    <string name="post_media_hidden_title">非表示のメディア</string>
     <string name="post_sensitive_media_directions">タップして表示</string>
     <string name="post_content_warning_show_more">続きを表示</string>
     <string name="post_content_warning_show_less">続きを隠す</string>
@@ -63,7 +62,6 @@
     <string name="action_view_mutes">ミュートしたユーザー</string>
     <string name="action_view_blocks">ブロックしたユーザー</string>
     <string name="action_view_follow_requests">フォローリクエスト</string>
-    <string name="action_view_media">メディア</string>
     <string name="action_open_in_web">ブラウザで開く</string>
     <string name="action_add_media">メディアを追加</string>
     <string name="action_photo_take">写真を撮る</string>

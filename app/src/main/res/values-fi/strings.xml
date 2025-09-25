@@ -56,7 +56,6 @@
     <string name="action_view_account_preferences">Tiliasetukset</string>
     <string name="post_content_warning_show_less">Näytä vähemmän</string>
     <string name="post_content_warning_show_more">Näytä lisää</string>
-    <string name="post_media_hidden_title">Media piilotettu</string>
     <string name="title_follow_requests">Seuraamispyynnöt</string>
     <string name="title_blocks">Estetyt tilit</string>
     <string name="title_mutes">Mykistetyt tilit</string>
@@ -103,7 +102,6 @@
     <string name="action_unmute">Poista mykistys</string>
     <string name="action_mute">Mykistä</string>
     <string name="action_share">Jaa</string>
-    <string name="action_view_media">Media</string>
     <string name="action_view_bookmarks">Kirjanmerkit</string>
     <string name="action_view_favourites">Suosikit</string>
     <string name="action_view_preferences">Asetukset</string>

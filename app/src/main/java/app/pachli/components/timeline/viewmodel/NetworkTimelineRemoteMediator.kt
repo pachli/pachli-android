@@ -265,8 +265,6 @@ class NetworkTimelineRemoteMediator(
                 maxId = maxId,
                 minId = minId,
                 limit = loadSize,
-                excludeReplies = null,
-                onlyMedia = null,
                 pinned = true,
             )
             is Timeline.User.Posts -> api.accountStatuses(
@@ -275,17 +273,12 @@ class NetworkTimelineRemoteMediator(
                 minId = minId,
                 limit = loadSize,
                 excludeReplies = true,
-                onlyMedia = null,
-                pinned = null,
             )
             is Timeline.User.Replies -> api.accountStatuses(
                 timeline.id,
                 maxId = maxId,
                 minId = minId,
                 limit = loadSize,
-                excludeReplies = null,
-                onlyMedia = null,
-                pinned = null,
             )
             is Timeline.UserList -> api.listTimeline(
                 timeline.listId,

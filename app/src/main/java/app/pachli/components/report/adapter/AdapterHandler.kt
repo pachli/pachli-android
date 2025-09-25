@@ -17,6 +17,8 @@
 package app.pachli.components.report.adapter
 
 import android.view.View
+import app.pachli.core.data.model.StatusViewData
+import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.Status
 import app.pachli.core.ui.LinkListener
 
@@ -24,4 +26,6 @@ interface AdapterHandler : LinkListener {
     fun showMedia(v: View?, status: Status?, idx: Int)
     fun setStatusChecked(status: Status, isChecked: Boolean)
     fun isStatusChecked(id: String): Boolean
+
+    fun onAttachmentDisplayActionChange(viewData: StatusViewData, action: AttachmentDisplayAction)
 }

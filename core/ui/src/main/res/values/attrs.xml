@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2025 Pachli Association
+  ~
+  ~ This file is a part of Pachli.
+  ~
+  ~ This program is free software; you can redistribute it and/or modify it under the terms of the
+  ~ GNU General Public License as published by the Free Software Foundation; either version 3 of the
+  ~ License, or (at your option) any later version.
+  ~
+  ~ Pachli is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+  ~ the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+  ~ Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License along with Pachli; if not,
+  ~ see <http://www.gnu.org/licenses>.
+  -->
+
+<resources>
+    <!--
+      Attributes for AttachmentPreviewView.
+
+      As AttachmentPreviewView wraps (but does not extend) ImageView, these are the
+      same attributes supported by ImageView. AttachmentPreviewView forwards the
+      values of these attributes to the inner ImageView.
+
+      These were taken from
+      https://cs.android.com/android/platform/superproject/main/+/main:frameworks/base/core/res/res/values/attrs.xml
+    -->
+    <declare-styleable name="AttachmentPreviewView">
+        <!-- Sets a drawable as the content of this ImageView. -->
+        <attr name="android:src" format="reference|color" />
+        <!-- Controls how the image should be resized or moved to match the size
+             of this ImageView.  See {@link android.widget.ImageView.ScaleType} -->
+        <attr name="android:scaleType">
+            <!-- Scale using the image matrix when drawing. See
+                 {@link android.widget.ImageView#setImageMatrix(Matrix)}. -->
+            <enum name="matrix" value="0" />
+            <!-- Scale the image using {@link android.graphics.Matrix.ScaleToFit#FILL}. -->
+            <enum name="fitXY" value="1" />
+            <!-- Scale the image using {@link android.graphics.Matrix.ScaleToFit#START}. -->
+            <enum name="fitStart" value="2" />
+            <!-- Scale the image using {@link android.graphics.Matrix.ScaleToFit#CENTER}. -->
+            <enum name="fitCenter" value="3" />
+            <!-- Scale the image using {@link android.graphics.Matrix.ScaleToFit#END}. -->
+            <enum name="fitEnd" value="4" />
+            <!-- Center the image in the view, but perform no scaling. -->
+            <enum name="center" value="5" />
+            <!-- Scale the image uniformly (maintain the image's aspect ratio) so both dimensions
+                 (width and height) of the image will be equal to or larger than the corresponding
+                 dimension of the view (minus padding). The image is then centered in the view. -->
+            <enum name="centerCrop" value="6" />
+            <!-- Scale the image uniformly (maintain the image's aspect ratio) so that both
+                 dimensions (width and height) of the image will be equal to or less than the
+                 corresponding dimension of the view (minus padding). The image is then centered in
+                 the view. -->
+            <enum name="centerInside" value="7" />
+        </attr>
+        <!-- Set this to true if you want the ImageView to adjust its bounds
+             to preserve the aspect ratio of its drawable. -->
+        <attr name="android:adjustViewBounds" format="boolean" />
+        <!-- An optional argument to supply a maximum width for this view.
+             See {see android.widget.ImageView#setMaxWidth} for details. -->
+        <attr name="android:maxWidth" format="dimension" />
+        <!-- An optional argument to supply a maximum height for this view.
+             See {see android.widget.ImageView#setMaxHeight} for details. -->
+        <attr name="android:maxHeight" format="dimension" />
+        <!-- The tinting color for the image. By default, the tint will blend using SRC_ATOP mode.
+             Please note that for compatibility reasons, this is NOT consistent with the default
+             SRC_IN tint mode used by {@link android.widget.ImageView#setImageTintList} and by
+             similar tint attributes on other views. -->
+        <attr name="android:tint" format="color" />
+        <!-- If true, the image view will be baseline aligned with based on its
+             bottom edge. -->
+        <attr name="android:baselineAlignBottom" format="boolean" />
+        <!-- If true, the image will be cropped to fit within its padding. -->
+        <attr name="android:cropToPadding" format="boolean" />
+        <!-- The offset of the baseline within this view. See {see android.view.View#getBaseline}
+             for details -->
+        <attr name="android:baseline" format="dimension" />
+        <!-- Blending mode used to apply the image tint. -->
+        <attr name="android:tintMode" />
+    </declare-styleable>
+</resources>

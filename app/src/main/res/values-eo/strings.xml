@@ -29,7 +29,6 @@
     <string name="title_edit_profile">Redakti vian profilon</string>
     <string name="title_drafts">Malnetoj</string>
     <string name="post_boosted_format">%s diskonigis</string>
-    <string name="post_media_hidden_title">Kaŝitaj aŭdovidaĵoj</string>
     <string name="post_sensitive_media_directions">Alklaki por vidi</string>
     <string name="post_content_warning_show_more">Montri pli</string>
     <string name="post_content_warning_show_less">Montri malpli</string>
@@ -64,7 +63,6 @@
     <string name="action_view_mutes">Silentigitaj uzantoj</string>
     <string name="action_view_blocks">Blokitaj uzantoj</string>
     <string name="action_view_follow_requests">Petoj de sekvado</string>
-    <string name="action_view_media">Aŭdovidaĵo</string>
     <string name="action_open_in_web">Malfermi en retumilo</string>
     <string name="action_add_media">Aldoni aŭdovidaĵon</string>
     <string name="action_photo_take">Foti</string>

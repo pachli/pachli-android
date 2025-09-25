@@ -24,7 +24,6 @@
     <string name="title_edit_profile">சுயவிவரத்தை திருத்த</string>
     <string name="title_drafts">வரைவுகள்</string>
     <string name="post_boosted_format">%s மேலேற்றப்பட்டது</string>
-    <string name="post_media_hidden_title">ஊடகம் மறைக்கப்பட்டது</string>
     <string name="post_sensitive_media_directions">பார்வையிட சொடுக்கவும்</string>
     <string name="post_content_warning_show_more">அதிகமாக்கு</string>
     <string name="post_content_warning_show_less">கம்மியாக்கு</string>
@@ -52,7 +51,6 @@
     <string name="action_view_mutes">ஒலி நீக்கபட்ட பயனர்கள்</string>
     <string name="action_view_blocks">தடைசெய்யபட்ட பயனர்கள்</string>
     <string name="action_view_follow_requests">பின்பற்ற கோரிக்கை</string>
-    <string name="action_view_media">ஊடகம்</string>
     <string name="action_open_in_web">உலாவியில் திற</string>
     <string name="action_add_media">Mediaவை இணை</string>
     <string name="action_photo_take">புகைப்படம் எடு</string>

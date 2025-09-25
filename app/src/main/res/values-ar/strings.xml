@@ -29,7 +29,6 @@
     <string name="title_edit_profile">عدل ملفك التعريفي</string>
     <string name="title_drafts">المسودات</string>
     <string name="post_boosted_format">شاركه %s</string>
-    <string name="post_media_hidden_title">وسائط مخفية</string>
     <string name="post_sensitive_media_directions">اضغط للعرض</string>
     <string name="post_content_warning_show_more">اعرض المزيد</string>
     <string name="post_content_warning_show_less">اعرض أقل</string>
@@ -64,7 +63,6 @@
     <string name="action_view_mutes">المستخدمون المكتومون</string>
     <string name="action_view_blocks">المستخدمون المحظورون</string>
     <string name="action_view_follow_requests">طلبات المتابعة</string>
-    <string name="action_view_media">وسائط</string>
     <string name="action_open_in_web">إفتح في متصفح</string>
     <string name="action_add_media">إضافة وسائط</string>
     <string name="action_photo_take">أخذ صورة</string>

@@ -29,7 +29,6 @@
     <string name="title_edit_profile">Modifier votre profil</string>
     <string name="title_drafts">Brouillons</string>
     <string name="post_boosted_format">%s a partagé</string>
-    <string name="post_media_hidden_title">Média caché</string>
     <string name="post_sensitive_media_directions">Appuyer pour voir</string>
     <string name="post_content_warning_show_more">Voir plus</string>
     <string name="post_content_warning_show_less">Voir moins</string>
@@ -64,7 +63,6 @@
     <string name="action_view_mutes">Comptes masqués</string>
     <string name="action_view_blocks">Comptes bloqués</string>
     <string name="action_view_follow_requests">Demandes d’abonnement</string>
-    <string name="action_view_media">Média</string>
     <string name="action_open_in_web">Ouvrir dans votre navigateur</string>
     <string name="action_add_media">Ajouter un média</string>
     <string name="action_photo_take">Prendre une photo</string>
