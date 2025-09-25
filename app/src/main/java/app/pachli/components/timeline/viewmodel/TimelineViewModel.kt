@@ -20,7 +20,6 @@ package app.pachli.components.timeline.viewmodel
 import androidx.annotation.StringRes
 import androidx.annotation.VisibleForTesting
 import androidx.core.os.bundleOf
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -309,7 +308,7 @@ sealed interface UiError {
 }
 
 abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
-    savedStateHandle: SavedStateHandle,
+    protected val timeline: Timeline,
     protected val timelineCases: TimelineCases,
     private val eventHub: EventHub,
     protected val accountManager: AccountManager,
@@ -342,8 +341,6 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
         viewModelScope.launch { uiAction.emit(action) }
     }
 
-    val timeline: Timeline = savedStateHandle.get<Timeline>(TIMELINE_TAG)!!
-
     /** [FilterContext] for this [timeline]. */
     private val filterContext = FilterContext.from(timeline)
 
@@ -353,7 +350,7 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
      * reading position should not be restored, or the reading position was
      * explicitly cleared.
      */
-    val initialRefreshStatusId = pachliAccountId.distinctUntilChanged().map { pachliAccountId ->
+    open val initialRefreshStatusId = pachliAccountId.distinctUntilChanged().map { pachliAccountId ->
         timeline.remoteKeyTimelineId?.let {
             timelineCases.getRefreshStatusId(pachliAccountId, it)
         }

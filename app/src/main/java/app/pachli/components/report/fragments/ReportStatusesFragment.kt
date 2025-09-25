@@ -28,6 +28,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
@@ -37,6 +38,7 @@ import app.pachli.components.report.ReportViewModel
 import app.pachli.components.report.Screen
 import app.pachli.components.report.adapter.AdapterHandler
 import app.pachli.components.report.adapter.StatusesAdapter
+import app.pachli.components.timeline.viewmodel.InfallibleUiAction
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
@@ -62,6 +64,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import kotlin.properties.Delegates
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 
 /**
@@ -105,6 +111,8 @@ class ReportStatusesFragment :
             viewModel.statusViewState,
             this@ReportStatusesFragment,
         )
+
+        viewModel.accept(InfallibleUiAction.LoadPachliAccount(pachliAccountId))
     }
 
     override fun showMedia(v: View?, status: Status?, idx: Int) {
@@ -174,6 +182,19 @@ class ReportStatusesFragment :
     }
 
     private fun initStatusesView() {
+        // Set the initial position in the list to the reported status.
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.CREATED) {
+                launch {
+                    viewModel.initialRefreshStatusId.combine(adapter.onPagesUpdatedFlow) { statusId, _ -> Pair(statusId, adapter.snapshot()) }
+                        .map { (statusId, snapshot) -> snapshot.indexOfFirst { it?.id == statusId } }
+                        .filter { it != -1 }
+                        .take(1)
+                        .collect { binding.recyclerView.scrollToPosition(it) }
+                }
+            }
+        }
+
         viewLifecycleOwner.lifecycleScope.launch {
             binding.recyclerView.addItemDecoration(
                 MaterialDividerItemDecoration(
@@ -194,16 +215,19 @@ class ReportStatusesFragment :
                     showError()
                 }
 
-                binding.progressBarBottom.visible(loadState.append == LoadState.Loading)
-                binding.progressBarTop.visible(loadState.prepend == LoadState.Loading)
-                binding.progressBarLoading.visible(loadState.refresh == LoadState.Loading && !binding.swipeRefreshLayout.isRefreshing)
+                // Show only centre progress bar if refreshing. Use the top/bottom progress
+                // bars for prepend/append outside of a refresh.
+                val refreshing = loadState.refresh == LoadState.Loading && !binding.swipeRefreshLayout.isRefreshing
+                binding.progressBarLoading.visible(refreshing)
+                binding.progressBarBottom.visible(loadState.append == LoadState.Loading && !refreshing)
+                binding.progressBarTop.visible(loadState.prepend == LoadState.Loading && !refreshing)
 
                 if (loadState.refresh != LoadState.Loading) {
                     binding.swipeRefreshLayout.isRefreshing = false
                 }
             }
 
-            viewModel.statusesFlow.collectLatest { pagingData ->
+            viewModel.statuses.collectLatest { pagingData ->
                 adapter.submitData(pagingData)
             }
         }

@@ -17,7 +17,6 @@
 
 package app.pachli.components.timeline.viewmodel
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import androidx.paging.filter
@@ -38,14 +37,17 @@ import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
+import app.pachli.core.model.Timeline
 import app.pachli.core.model.translation.TranslatedStatus
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.translation.TranslatorError
 import app.pachli.usecase.TimelineCases
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.onFailure
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.flatMapLatest
@@ -56,9 +58,9 @@ import kotlinx.coroutines.launch
  * TimelineViewModel that caches all statuses in an in-memory list
  */
 @OptIn(ExperimentalCoroutinesApi::class)
-@HiltViewModel
-class NetworkTimelineViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
+@HiltViewModel(assistedFactory = NetworkTimelineViewModel.Factory::class)
+open class NetworkTimelineViewModel @AssistedInject constructor(
+    @Assisted("timeline") timeline: Timeline,
     repository: NetworkTimelineRepository,
     timelineCases: TimelineCases,
     eventHub: EventHub,
@@ -66,7 +68,7 @@ class NetworkTimelineViewModel @Inject constructor(
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     sharedPreferencesRepository: SharedPreferencesRepository,
 ) : TimelineViewModel<TimelineStatusWithAccount, NetworkTimelineRepository>(
-    savedStateHandle,
+    timeline,
     timelineCases,
     eventHub,
     accountManager,
@@ -260,5 +262,13 @@ class NetworkTimelineViewModel @Inject constructor(
 
     override suspend fun invalidate(pachliAccountId: Long) {
         repository.invalidate()
+    }
+
+    @AssistedFactory
+    interface Factory {
+        /** Creates [NetworkTimelineViewModel] for [timeline]. */
+        fun create(
+            @Assisted("timeline") timeline: Timeline,
+        ): NetworkTimelineViewModel
     }
 }

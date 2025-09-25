@@ -374,7 +374,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/timeline/TimelineFragment.kt"
-            line="221"
+            line="219"
             column="13"/>
     </issue>
 
@@ -385,7 +385,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/timeline/TimelineFragment.kt"
-            line="416"
+            line="414"
             column="17"/>
     </issue>
 
@@ -396,7 +396,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/timeline/TimelineFragment.kt"
-            line="427"
+            line="425"
             column="17"/>
     </issue>
 
@@ -407,7 +407,7 @@
         errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/timeline/TimelineFragment.kt"
-            line="434"
+            line="432"
             column="21"/>
     </issue>
 

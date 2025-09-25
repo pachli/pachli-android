@@ -30,11 +30,9 @@ import android.widget.Toast.LENGTH_LONG
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.DEFAULT_ARGS_KEY
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.lifecycle.viewmodel.MutableCreationExtras
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
@@ -98,6 +96,7 @@ import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.withCreationCallback
 import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
@@ -124,8 +123,7 @@ class TimelineFragment :
 
     // Create the correct view model. Do this lazily because it depends on the value of
     // `timelineKind`, which won't be known until part way through `onCreate`. Pass this in
-    // the "extras" to the view model, which are populated in to the `SavedStateHandle` it
-    // takes as a parameter.
+    // the "extras" to the view model.
     //
     // If the navigation library was being used this would happen automatically, so this
     // workaround can be removed when that change happens.
@@ -133,16 +131,16 @@ class TimelineFragment :
         if (timeline == Timeline.Home) {
             viewModels<CachedTimelineViewModel>(
                 extrasProducer = {
-                    MutableCreationExtras(defaultViewModelCreationExtras).apply {
-                        set(DEFAULT_ARGS_KEY, TimelineViewModel.creationExtras(timeline))
+                    defaultViewModelCreationExtras.withCreationCallback<CachedTimelineViewModel.Factory> {
+                        it.create(timeline)
                     }
                 },
             ).value
         } else {
             viewModels<NetworkTimelineViewModel>(
                 extrasProducer = {
-                    MutableCreationExtras(defaultViewModelCreationExtras).apply {
-                        set(DEFAULT_ARGS_KEY, TimelineViewModel.creationExtras(timeline))
+                    defaultViewModelCreationExtras.withCreationCallback<NetworkTimelineViewModel.Factory> {
+                        it.create(timeline)
                     }
                 },
             ).value

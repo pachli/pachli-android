@@ -47,7 +47,6 @@ class ReportActivity : ViewUrlActivity() {
         extrasProducer = {
             defaultViewModelCreationExtras.withCreationCallback<ReportViewModel.Factory> {
                 it.create(
-                    intent.pachliAccountId,
                     ReportActivityIntent.getAccountId(intent),
                     ReportActivityIntent.getAccountUserName(intent),
                     ReportActivityIntent.getStatusId(intent),
