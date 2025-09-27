@@ -11,7 +11,7 @@
     <string name="title_posts_pinned">Pripnuté</string>
     <string name="title_followers">Sledujúci</string>
     <string name="title_bookmarks">Záložky</string>
-    <string name="post_sensitive_media_title">Citlivý obsah</string>
+    <string name="post_sensitive_media_title">Citlivý obsah. Zobraziť klepnutím.</string>
     <string name="post_sensitive_media_directions">Klikni pre zobrazenie</string>
     <string name="post_content_warning_show_more">Zobraziť viac</string>
     <string name="post_content_warning_show_less">Zobraziť menej</string>
@@ -781,4 +781,10 @@
     <string name="translator_error_unsupported_source_language_fmt">nemôže preložiť z %1$s</string>
     <string name="translator_error_unsupported_target_language_fmt">nemôže preložiť do %1$s</string>
     <string name="translator_error_download_required_fmt">preklad do jazyka %1$s si vyžaduje stiahnutie jazykového balíka a momentálne Wi-Fi nie je pripojená</string>
+    <string name="attachment_matches_filter_one_fmt">Zodpovedá filtru: „%1$s“. Zobraziť klepnutím.</string>
+    <string name="attachment_matches_filter_two_fmt">Zodpovedá filtrom: \"%1$s\" a \"%2$s\". Zobraziť klepnutím.</string>
+    <string name="attachment_matches_filter_other_fmt">Zodpovedá filtrom: \"%1$s\", \"%2$s\" a ďalšie. Zobraziť klepnutím.</string>
+    <string name="attachment_hidden_user_action">Skryté. Zobraziť klepnutím.</string>
+    <string name="filter_action_blur">Skryť prílohy</string>
+    <string name="filter_description_blur">Zobraziť text, skryť prílohy s upozornením na obsah</string>
 </resources>
