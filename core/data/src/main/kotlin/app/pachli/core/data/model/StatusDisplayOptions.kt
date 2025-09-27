@@ -22,6 +22,7 @@ import app.pachli.core.preferences.CardViewMode
 data class StatusDisplayOptions(
     @get:JvmName("animateAvatars")
     val animateAvatars: Boolean = false,
+    /** See [app.pachli.core.database.model.AccountEntity.mediaPreviewEnabled]. */
     @get:JvmName("mediaPreviewEnabled")
     val mediaPreviewEnabled: Boolean = true,
     @get:JvmName("useAbsoluteTime")
