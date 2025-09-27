@@ -395,8 +395,8 @@ class ConversationsFragment :
         viewModel.expandHiddenStatus(viewData.pachliAccountId, expanded, viewData.lastStatus.id)
     }
 
-    override fun onAttachmentDisplayActionChange(viewData: ConversationViewData, newDecision: AttachmentDisplayAction) {
-        viewModel.changeAttachmentDisplayAction(viewData.pachliAccountId, viewData.lastStatus.id, newDecision)
+    override fun onAttachmentDisplayActionChange(viewData: ConversationViewData, newAction: AttachmentDisplayAction) {
+        viewModel.changeAttachmentDisplayAction(viewData.pachliAccountId, viewData.lastStatus.id, newAction)
     }
 
     override fun onContentCollapsedChange(viewData: ConversationViewData, isCollapsed: Boolean) {

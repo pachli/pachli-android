@@ -391,8 +391,8 @@ class ViewThreadFragment :
         viewModel.changeExpanded(expanded, viewData)
     }
 
-    override fun onAttachmentDisplayActionChange(viewData: StatusViewData, newDecision: AttachmentDisplayAction) {
-        viewModel.changeAttachmentDisplayAction(viewData, newDecision)
+    override fun onAttachmentDisplayActionChange(viewData: StatusViewData, newAction: AttachmentDisplayAction) {
+        viewModel.changeAttachmentDisplayAction(viewData, newAction)
     }
 
     override fun onShowReblogs(statusId: String) {

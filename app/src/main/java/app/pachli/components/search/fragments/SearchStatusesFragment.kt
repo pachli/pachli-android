@@ -129,8 +129,8 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
         return SearchStatusesAdapter(Glide.with(this), setStatusContent, statusDisplayOptions, this)
     }
 
-    override fun onAttachmentDisplayActionChange(viewData: StatusViewData, newDecision: AttachmentDisplayAction) {
-        viewModel.attachmentDisplayActionChange(viewData, newDecision)
+    override fun onAttachmentDisplayActionChange(viewData: StatusViewData, newAction: AttachmentDisplayAction) {
+        viewModel.attachmentDisplayActionChange(viewData, newAction)
     }
 
     override fun onReply(viewData: StatusViewData) {

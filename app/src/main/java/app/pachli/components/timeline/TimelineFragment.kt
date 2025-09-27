@@ -632,8 +632,8 @@ class TimelineFragment :
         viewModel.onChangeExpanded(expanded, viewData)
     }
 
-    override fun onAttachmentDisplayActionChange(viewData: StatusViewData, newDecision: AttachmentDisplayAction) {
-        viewModel.onChangeAttachmentDisplayAction(viewData, newDecision)
+    override fun onAttachmentDisplayActionChange(viewData: StatusViewData, newAction: AttachmentDisplayAction) {
+        viewModel.onChangeAttachmentDisplayAction(viewData, newAction)
     }
 
     override fun onShowReblogs(statusId: String) {
