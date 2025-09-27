@@ -38,7 +38,7 @@ interface StatusActionListener<T : IStatusViewData> : LinkListener {
     fun onOpenReblog(status: Status)
     fun onExpandedChange(viewData: T, expanded: Boolean)
 
-    fun onAttachmentDisplayActionChange(viewData: T, newDecision: AttachmentDisplayAction)
+    fun onAttachmentDisplayActionChange(viewData: T, newAction: AttachmentDisplayAction)
 
     /**
      * Called when the status [android.widget.ToggleButton] responsible for collapsing long

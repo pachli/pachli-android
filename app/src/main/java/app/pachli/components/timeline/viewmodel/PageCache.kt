@@ -239,7 +239,7 @@ class PageCache private constructor(private val mutex: Mutex) : Mutex by mutex {
             if (BuildConfig.DEBUG) {
                 if (idToPage.containsKey(status.id)) {
                     debug()
-                    throw IllegalStateException("Duplicate item ID ${status.id} in pagesById")
+//                    throw IllegalStateException("Duplicate item ID ${status.id} in pagesById")
                 }
             }
             idToPage[status.id] = page
