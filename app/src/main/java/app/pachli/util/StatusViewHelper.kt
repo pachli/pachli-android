@@ -178,7 +178,7 @@ class StatusViewHelper(
             sensitiveMediaShow.visibility = View.GONE
         } else {
             sensitiveMediaWarning.text = if (sensitive) {
-                context.getString(R.string.post_sensitive_media_title)
+                context.getString(app.pachli.core.ui.R.string.post_sensitive_media_title)
             } else {
                 context.getString(R.string.post_media_hidden_title)
             }
@@ -235,7 +235,7 @@ class StatusViewHelper(
         val context = mediaLabel.context
         var labelText = getLabelTypeText(context, attachments[0].type)
         if (sensitive) {
-            val sensitiveText = context.getString(R.string.post_sensitive_media_title)
+            val sensitiveText = context.getString(app.pachli.core.ui.R.string.post_sensitive_media_title)
             labelText += " ($sensitiveText)"
         }
         mediaLabel.text = labelText
@@ -249,10 +249,10 @@ class StatusViewHelper(
 
     private fun getLabelTypeText(context: Context, type: Attachment.Type): String {
         return when (type) {
-            Attachment.Type.IMAGE -> context.getString(R.string.post_media_images)
-            Attachment.Type.GIFV, Attachment.Type.VIDEO -> context.getString(R.string.post_media_video)
-            Attachment.Type.AUDIO -> context.getString(R.string.post_media_audio)
-            else -> context.getString(R.string.post_media_attachments)
+            Attachment.Type.IMAGE -> context.getString(app.pachli.core.ui.R.string.post_media_images)
+            Attachment.Type.GIFV, Attachment.Type.VIDEO -> context.getString(app.pachli.core.ui.R.string.post_media_video)
+            Attachment.Type.AUDIO -> context.getString(app.pachli.core.ui.R.string.post_media_audio)
+            else -> context.getString(app.pachli.core.ui.R.string.post_media_attachments)
         }
     }
 

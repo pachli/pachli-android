@@ -29,7 +29,6 @@
     <string name="title_edit_profile">আপনার প্রোফাইল সম্পাদনা করুন</string>
     <string name="title_drafts">খসড়াগুলো</string>
     <string name="post_boosted_format">%s সমর্থন দিয়েছে</string>
-    <string name="post_sensitive_media_title">সংবেদনশীল কন্টেন্ট</string>
     <string name="post_media_hidden_title">মিডিয়া লুকানো</string>
     <string name="post_sensitive_media_directions">দেখার জন্য ক্লিক করুন</string>
     <string name="post_content_warning_show_more">আরও দেখাও</string>
@@ -195,8 +194,6 @@
     -->
     <string name="post_share_content">টুট এর কন্টেন্ট ভাগ করুন</string>
     <string name="post_share_link">টুট এর সাথে লিংক ভাগ করুন</string>
-    <string name="post_media_images">চিত্রগুলি</string>
-    <string name="post_media_video">ভিডিও</string>
     <string name="state_follow_requested">অনুরোধ অনুসরণ করুন</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">আপনাকে অনুসরন করে</string>

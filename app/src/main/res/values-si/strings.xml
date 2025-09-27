@@ -27,7 +27,6 @@
     <string name="search_no_results">ප්‍රතිඵල නැත</string>
     <string name="pref_title_notifications_enabled">දැනුම්දීම්</string>
     <string name="post_privacy_public">ප්‍රසිද්ධ</string>
-    <string name="post_media_attachments">ඇමුණුම්</string>
     <string name="notification_mention_name">නව සැඳහුම්</string>
     <string name="action_compose_shortcut">රචනා කරන්න</string>
     <string name="post_content_warning_show_more">තව පෙන්වන්න</string>
@@ -44,7 +43,6 @@
     <string name="action_edit_profile">පැතිකඩ සංස්කරණය</string>
     <string name="hint_display_name">දර්ශන නාමය</string>
     <string name="post_text_size_medium">මධ්‍යම</string>
-    <string name="post_media_audio">ශ්‍රව්‍ය</string>
     <string name="filter_edit_title">පෙරහන සංස්කරණය</string>
     <string name="notification_summary_medium">%1$s, %2$s, සහ %3$s</string>
     <string name="lock_account_label">ගිණුම අගුළුලන්න</string>
@@ -60,7 +58,6 @@
     <string name="pref_title_notification_filter_mentions">සඳහන් කළ</string>
     <string name="send_post_link_to">වෙත ටූට් ඒ.ස.නි. බෙදාගන්න…</string>
     <string name="compose_save_draft">කටුපිටපත සුරකින්නද\?</string>
-    <string name="post_sensitive_media_title">සංවේදී අන්තර්ගතයකි</string>
     <string name="action_bookmark">පොත්යොමුව</string>
     <string name="failed_report">වාර්තා කිරීමට අසමත් විය</string>
     <string name="action_open_faved_by">ප්‍රියතමයන් පෙන්වන්න</string>
@@ -177,7 +174,6 @@
     <string name="post_sent">යැවිණි!</string>
     <string name="filter_dialog_whole_word">මුළු වචනය</string>
     <string name="drafts_post_failed_to_send">මෙම ටූට් යැවීමට අසමත් විය!</string>
-    <string name="post_media_video">දෘශ්‍යකය</string>
     <string name="later">පසුව</string>
     <string name="action_edit_own_profile">සංස්කරණය</string>
     <string name="send_post_notification_title">ටූට් යැවෙමින්…</string>

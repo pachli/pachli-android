@@ -46,7 +46,6 @@
     <string name="dialog_follow_hashtag_title">Fylg emneknagg</string>
     <string name="dialog_follow_hashtag_hint">#emneknagg</string>
     <string name="post_boosted_format">%s delte</string>
-    <string name="post_sensitive_media_title">Sensitivt innhald</string>
     <string name="post_media_hidden_title">Media skjult</string>
     <string name="post_sensitive_media_directions">Trykk for å syne</string>
     <string name="post_content_warning_show_more">Syn meir</string>
@@ -232,7 +231,6 @@
     <string name="notification_summary_medium">%1$s, %2$s, og %3$s</string>
     <string name="notification_summary_small">%1$s og %2$s</string>
     <string name="notification_prune_cache">Hurtiglagringsvedlikehald…</string>
-    <string name="post_media_attachments">Vedlegg</string>
     <string name="status_count_one_plus">1+</string>
     <string name="status_filtered_show_anyway">Syn likevel</string>
     <string name="status_filter_placeholder_label_format">Filtrert: &lt;b&gt;%1$s&lt;/b&gt;</string>
@@ -366,9 +364,6 @@
     <string name="notification_notification_worker">Hentar varsel…</string>
     <string name="description_account_locked">Låst konto</string>
     <string name="post_share_link">Del lenkja til innlegget</string>
-    <string name="post_media_images">Bilete</string>
-    <string name="post_media_video">Video</string>
-    <string name="post_media_audio">Ljod</string>
     <string name="pref_title_alway_open_spoiler">Utvid alltid innlegg med innhaldsåtvaringar</string>
     <string name="title_media">Media</string>
     <string name="pref_title_account_filter_keywords">Profilar</string>

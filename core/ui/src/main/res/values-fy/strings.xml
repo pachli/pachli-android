@@ -17,4 +17,9 @@
     <string name="abbreviated_in_hours">oer %dh</string>
     <string name="abbreviated_in_days">oer %dd</string>
     <string name="abbreviated_years_ago">%dy</string>
+    <string name="post_sensitive_media_title">Gefoelige ynhâld</string>
+    <string name="post_media_images">Ôfbyldingen</string>
+    <string name="post_media_audio">Lûd</string>
+    <string name="post_media_video">Fideo</string>
+    <string name="post_media_attachments">Taheaksels</string>
 </resources>

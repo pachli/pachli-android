@@ -59,4 +59,9 @@
     <string name="description_visibility_unlisted">Hạn chế</string>
     <string name="description_visibility_private">Người theo dõi</string>
     <string name="description_visibility_direct">Nhắn riêng</string>
+    <string name="post_sensitive_media_title">Nhạy cảm</string>
+    <string name="post_media_images">Hình ảnh</string>
+    <string name="post_media_audio">Âm thanh</string>
+    <string name="post_media_video">Video</string>
+    <string name="post_media_attachments">Đính kèm</string>
 </resources>

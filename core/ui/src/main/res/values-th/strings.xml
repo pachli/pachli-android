@@ -55,4 +55,9 @@
     <string name="description_visibility_unlisted">ไม่อยู่ในรายการ</string>
     <string name="description_visibility_private">ผู้ติดตาม</string>
     <string name="description_visibility_direct">ไดเร็กต์</string>
+    <string name="post_sensitive_media_title">เนื้อหาอ่อนไหว</string>
+    <string name="post_media_images">ภาพ</string>
+    <string name="post_media_audio">เสียง</string>
+    <string name="post_media_video">วิดีทัศน์</string>
+    <string name="post_media_attachments">ไฟล์แนบ</string>
 </resources>

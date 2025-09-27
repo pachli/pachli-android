@@ -62,4 +62,9 @@
     <string name="description_visibility_private">フォロワー</string>
     <string name="description_visibility_direct">        ダイレクト
     </string>
+    <string name="post_sensitive_media_title">閲覧注意</string>
+    <string name="post_media_images">画像</string>
+    <string name="post_media_audio">音声</string>
+    <string name="post_media_video">動画</string>
+    <string name="post_media_attachments">添付ファイル</string>
 </resources>

@@ -5,7 +5,6 @@
     <string name="post_content_warning_show_more">Taispeáin Níos Mó</string>
     <string name="post_sensitive_media_directions">Cliceáil chun amharc</string>
     <string name="post_media_hidden_title">Meáin i bhfolach</string>
-    <string name="post_sensitive_media_title">Ábhar íogair. Tapáil le taispeáint.</string>
     <string name="post_boosted_format">D\'athchraol %s</string>
     <string name="title_scheduled_posts">Postálacha sceidealta</string>
     <string name="title_edit_profile">Cuir do phróifíl in eagar</string>
@@ -146,7 +145,6 @@
     <string name="action_view_preferences">Sainroghanna</string>
     <string name="title_drafts">Dréachtaí</string>
     <string name="title_favourites">Toghanna</string>
-    <string name="post_media_images">Íomhánna</string>
     <string name="post_share_link">Comhroinn nasc chuig postáil</string>
     <string name="post_share_content">Comhroinn inneachar na postála</string>
     <string name="description_account_locked">Cuntas faoi Ghlas</string>
@@ -217,7 +215,6 @@
     <string name="notification_favourite_format">Thogh %s do phostáil</string>
     <string name="action_unmute_desc">Díbhalbhaigh %s</string>
     <string name="action_mute_conversation">Comhrá tost</string>
-    <string name="post_media_video">Físeán</string>
     <string name="state_follow_requested">Lean iarrtha</string>
     <string name="follows_you">Leanann tú</string>
     <string name="pref_title_alway_show_sensitive_media">Taispeáin ábhar íogair i gcónaí</string>
@@ -565,8 +562,6 @@
     <string name="pref_default_post_language">Teanga phostála réamhshocraithe</string>
     <string name="notification_listenable_worker_name">Gníomhaíocht chúlra</string>
     <string name="notification_listenable_worker_description">Fógraí nuair atá Pachli ag obair sa chúlra</string>
-    <string name="post_media_audio">Fuaim</string>
-    <string name="post_media_attachments">Ceangaltáin</string>
     <string name="status_filter_placeholder_label_format">Scagtha: &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="compose_save_draft_loses_media">Uaslódálfar ceangaltáin arís nuair a chuirfidh tú an dréacht ar ais.</string>
     <string name="update_dialog_title">Tá nuashonrú ar fáil</string>
@@ -809,10 +804,6 @@
     <string name="translator_error_unsupported_source_language_fmt">ní féidir aistriú ó %1$s</string>
     <string name="translator_error_unsupported_target_language_fmt">ní féidir aistriú go %1$s</string>
     <string name="translator_error_download_required_fmt">Éilíonn aistriúchán go %1$s an pacáiste teanga a íoslódáil, agus níl Wi-Fi ceangailte</string>
-    <string name="attachment_matches_filter_one_fmt">Meaitseálann an scagaire: \"%1$s\". Tapáil le taispeáint.</string>
-    <string name="attachment_matches_filter_two_fmt">Meaitseálann na scagairí seo a leanas: \"%1$s\" agus \"%2$s\". Tapáil le taispeáint.</string>
-    <string name="attachment_matches_filter_other_fmt">Meaitseálann scagairí: \"%1$s\", \"%2$s\", agus tuilleadh. Tapáil le taispeáint.</string>
-    <string name="attachment_hidden_user_action">Chuir tú seo i bhfolach. Tapáil le taispeáint.</string>
     <string name="filter_action_blur">Folaigh ceangaltáin</string>
     <string name="filter_description_blur">Taispeáin ábhar, folaigh ceangaltáin le rabhadh</string>
 </resources>

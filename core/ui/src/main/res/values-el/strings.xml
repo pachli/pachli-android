@@ -9,4 +9,5 @@
     <string name="title_links_dialog">Σύνδεσμοι</string>
     <string name="action_logout_confirm">Είστε σίγουροι ότι θέλετε να αποσυνδεθείτε από τον λογαριασμό %1$s;</string>
     <string name="action_logout">Αποσύνδεση</string>
+    <string name="post_sensitive_media_title">Ευαίσθητο περιεχόμενο</string>
 </resources>

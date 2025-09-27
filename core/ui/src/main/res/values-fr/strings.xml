@@ -72,4 +72,9 @@
     <string name="description_visibility_private">        Abonné·e·s
     </string>
     <string name="description_visibility_direct">Direct</string>
+    <string name="post_sensitive_media_title">Contenu sensible</string>
+    <string name="post_media_images">Images</string>
+    <string name="post_media_audio">Audio</string>
+    <string name="post_media_video">Vidéo</string>
+    <string name="post_media_attachments">Pièces jointes</string>
 </resources>

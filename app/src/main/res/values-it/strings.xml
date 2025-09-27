@@ -33,7 +33,6 @@
     <string name="title_edit_profile">Modifica il tuo profilo</string>
     <string name="title_drafts">Bozze</string>
     <string name="post_boosted_format">%s ha condiviso</string>
-    <string name="post_sensitive_media_title">Contenuto sensibile</string>
     <string name="post_media_hidden_title">Media nascosto</string>
     <string name="post_sensitive_media_directions">Clicca per visualizzare</string>
     <string name="post_content_warning_show_more">Mostra di più</string>
@@ -203,8 +202,6 @@
     -->
     <string name="post_share_content">Condividi contenuto</string>
     <string name="post_share_link">Condividi collegamento</string>
-    <string name="post_media_images">Immagini</string>
-    <string name="post_media_video">Video</string>
     <string name="state_follow_requested">Richiesta inviata</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">Ti segue</string>
@@ -377,8 +374,6 @@
     <string name="drafts_post_failed_to_send">L\'invio di questo messaggio è fallito!</string>
     <string name="duration_indefinite">Indefinita</string>
     <string name="label_duration">Durata</string>
-    <string name="post_media_attachments">Allegati</string>
-    <string name="post_media_audio">Audio</string>
     <string name="pref_title_animate_custom_emojis">Riproduci emoji animate</string>
     <string name="action_subscribe_account">Iscriviti</string>
     <string name="dialog_delete_conversation_warning">Rimuovere questa conversazione?</string>

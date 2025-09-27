@@ -108,7 +108,6 @@
     <string name="notification_reblog_format">%s поширює ваш допис</string>
     <string name="post_content_show_less">Згорнути</string>
     <string name="post_content_show_more">Розгорнути</string>
-    <string name="post_sensitive_media_title">Делікатний вміст</string>
     <string name="post_boosted_format">%s поширює</string>
     <string name="title_domain_mutes">Приховані домени</string>
     <string name="title_mutes">Приховувані користувачі</string>
@@ -203,10 +202,6 @@
     <string name="follows_you">Підписники</string>
     <string name="pref_title_alway_show_sensitive_media">Завжди показувати делікатний вміст</string>
     <string name="state_follow_requested">Запит на підписку надіслано</string>
-    <string name="post_media_attachments">Вкладення</string>
-    <string name="post_media_audio">Звуки</string>
-    <string name="post_media_video">Відео</string>
-    <string name="post_media_images">Зображення</string>
     <string name="post_share_link">Поділитися посиланням на допис</string>
     <string name="post_share_content">Поділитися вмістом допису</string>
     <string name="description_account_locked">Заблокований обліковий запис</string>

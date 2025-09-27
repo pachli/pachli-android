@@ -59,4 +59,9 @@
 
     <item name="action_show_anyway" type="id" />
     <item name="action_edit_filter" type="id" />
+
+    <!-- Show hidden attachments. -->
+    <item name="action_show_attachments" type="id" />
+    <!-- Hide shown attachments. -->
+    <item name="action_hide_attachments" type="id" />
 </resources>

@@ -61,4 +61,7 @@
     <string name="description_visibility_unlisted">لە لیست نەکراو</string>
     <string name="description_visibility_private">شوێنکەوتوانی</string>
     <string name="description_visibility_direct">ڕاستەوخۆ</string>
+    <string name="post_sensitive_media_title">ناوەڕۆکی هەستیار</string>
+    <string name="post_media_images">وێنەکان</string>
+    <string name="post_media_video">ڤیدیۆ</string>
 </resources>

@@ -29,7 +29,6 @@
     <string name="title_edit_profile">编辑个人资料</string>
     <string name="title_drafts">草稿</string>
     <string name="post_boosted_format">%s 转嘟了</string>
-    <string name="post_sensitive_media_title">敏感内容</string>
     <string name="post_media_hidden_title">已隐藏的照片或视频</string>
     <string name="post_sensitive_media_directions">点击显示</string>
     <string name="post_content_warning_show_more">显示更多</string>
@@ -193,8 +192,6 @@
     -->
     <string name="post_share_content">分享嘟文内容</string>
     <string name="post_share_link">分享嘟文链接</string>
-    <string name="post_media_images">照片</string>
-    <string name="post_media_video">视频</string>
     <string name="state_follow_requested">已发送关注请求</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">关注了你</string>

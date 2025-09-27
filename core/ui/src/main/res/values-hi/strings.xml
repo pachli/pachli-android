@@ -46,4 +46,7 @@
     <string name="description_visibility_unlisted">असूचीबद्ध</string>
     <string name="description_visibility_private">अनुगामी</string>
     <string name="description_visibility_direct">प्रत्यक्ष</string>
+    <string name="post_sensitive_media_title">संवेदनशील विषय वस्तु</string>
+    <string name="post_media_images">तस्वीरें</string>
+    <string name="post_media_video">वीडियो</string>
 </resources>

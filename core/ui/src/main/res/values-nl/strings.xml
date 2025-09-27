@@ -66,4 +66,9 @@
     <string name="description_visibility_unlisted">Minder openbaar</string>
     <string name="description_visibility_private">Volgers</string>
     <string name="description_visibility_direct">Direct</string>
+    <string name="post_sensitive_media_title">Gevoelige inhoud</string>
+    <string name="post_media_images">Afbeeldingen</string>
+    <string name="post_media_audio">Geluid</string>
+    <string name="post_media_video">Video</string>
+    <string name="post_media_attachments">Bijlagen</string>
 </resources>

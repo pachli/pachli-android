@@ -48,7 +48,6 @@
     <string name="post_content_warning_show_more">കൂടുതൽ കാണിക്കൂ</string>
     <string name="post_sensitive_media_directions">തുറന്ന് കാണുവാൻ</string>
     <string name="post_media_hidden_title">മറയ്ക്കപ്പെട്ട മീഡിയ</string>
-    <string name="post_sensitive_media_title">സെൻസിറ്റീവ് ഉള്ളടക്കം</string>
     <string name="title_scheduled_posts">മുന്‍നിശ്ചയിച്ച ടൂറ്റ്‌സ്</string>
     <string name="title_bookmarks">ബുക് മാർക്ക്</string>
     <string name="action_reset_schedule">പുനഃക്രമീകരിക്കുക</string>
@@ -104,7 +103,6 @@
     <string name="follows_you">നിങ്ങളെ പിന്തുടരുന്നു</string>
     <string name="action_photo_take">ഫോട്ടോ എടുക്കുക</string>
     <string name="hint_search">തിരയുക…</string>
-    <string name="post_media_images">ചിത്രങ്ങൾ</string>
     <string name="hint_note">ബയോ</string>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="pref_title_thread_filter_keywords">സംഭാഷണങ്ങൾ</string>
@@ -125,7 +123,6 @@
     <string name="profile_metadata_content_label">ഉള്ളടക്കം</string>
     <string name="filter_dialog_update_button">പുതുക്കുക</string>
     <string name="label_avatar">അവതാർ</string>
-    <string name="post_media_video">വിഡിയോ</string>
     <string name="action_mention">സൂചിപ്പിക്കുക</string>
     <string name="filter_dialog_remove_button">നീക്കം ചെയ്യുക</string>
 </resources>

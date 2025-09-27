@@ -61,4 +61,9 @@
     <string name="description_visibility_unlisted">Скрито</string>
     <string name="description_visibility_private">Последователи</string>
     <string name="description_visibility_direct">Директно</string>
+    <string name="post_sensitive_media_title">Деликатно съдържание</string>
+    <string name="post_media_images">Изображения</string>
+    <string name="post_media_audio">Аудио</string>
+    <string name="post_media_video">Видео</string>
+    <string name="post_media_attachments">Прикачени файлове</string>
 </resources>

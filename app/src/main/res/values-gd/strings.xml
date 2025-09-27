@@ -49,8 +49,6 @@
     <string name="draft_deleted">Chaidh an dreach a sguabadh às</string>
     <string name="drafts_failed_loading_reply">Cha deach leinn fiosrachadh na freagairte a luchdadh</string>
     <string name="drafts_post_failed_to_send">Cha b’ urrainn dhuinn am post a chur!</string>
-    <string name="post_media_attachments">Ceanglachain</string>
-    <string name="post_media_audio">Fuaim</string>
     <string name="duration_7_days">7 làithean</string>
     <string name="duration_3_days">3 làithean</string>
     <string name="duration_1_day">Latha</string>
@@ -205,8 +203,6 @@
     <string name="pref_title_alway_show_sensitive_media">Seall susbaint fhrionasach an-còmhnaidh</string>
     <string name="follows_you">’Gad leantainn</string>
     <string name="state_follow_requested">Iarrtas leantainn air</string>
-    <string name="post_media_video">Videothan</string>
-    <string name="post_media_images">Dealbhan</string>
     <string name="description_account_locked">Cunntas glaiste</string>
     <plurals name="notification_title_summary">
         <item quantity="one">%d chonaltradh ùr</item>
@@ -345,7 +341,6 @@
     <string name="post_content_warning_show_more">Seall barrachd dheth</string>
     <string name="post_sensitive_media_directions">Briog air gus a shealltainn</string>
     <string name="post_media_hidden_title">Meadhanan falaichte</string>
-    <string name="post_sensitive_media_title">Susbaint fhrionasach</string>
     <string name="post_boosted_format">’Ga bhrosnachadh le %s</string>
     <string name="title_follow_requests">Iarrtasan leantainn</string>
     <string name="title_domain_mutes">Àrainnean falaichte</string>

@@ -82,4 +82,9 @@
     <string name="description_visibility_unlisted">பட்டியலிடப்படாதவர்களுக்கு</string>
     <string name="description_visibility_private">பின்பற்றுபவர்கள்</string>
     <string name="description_visibility_direct">நேரடி</string>
+    <string name="post_sensitive_media_title">உணர்ச்சிகரமான உள்ளடக்கம்</string>
+    <string name="post_media_images">படங்கள்</string>
+    <string name="post_media_audio">ஆடியோ</string>
+    <string name="post_media_video">காணொளி</string>
+    <string name="post_media_attachments">இணைப்புகள்</string>
 </resources>

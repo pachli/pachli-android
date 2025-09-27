@@ -30,7 +30,6 @@
     <string name="title_edit_profile">프로필 편집</string>
     <string name="title_drafts">임시 저장</string>
     <string name="post_boosted_format">%s님이 부스트 했습니다</string>
-    <string name="post_sensitive_media_title">민감한 미디어</string>
     <string name="post_media_hidden_title">미디어 숨겨짐</string>
     <string name="post_sensitive_media_directions">클릭하여 보기</string>
     <string name="post_content_warning_show_more">더 보기</string>
@@ -201,8 +200,6 @@
     -->
     <string name="post_share_content">이 툿의 내용 공유</string>
     <string name="post_share_link">이 툿의 링크 공유</string>
-    <string name="post_media_images">사진</string>
-    <string name="post_media_video">비디오</string>
     <string name="state_follow_requested">팔로우 요청함</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">당신을 팔로우합니다</string>

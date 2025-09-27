@@ -64,4 +64,9 @@
     <string name="description_visibility_unlisted">अनिर्दिष्टम्</string>
     <string name="description_visibility_private">अनुसर्तारः</string>
     <string name="description_visibility_direct">प्रत्यक्षम्</string>
+    <string name="post_sensitive_media_title">संवेदनशीलो विषयः</string>
+    <string name="post_media_images">चित्राणि</string>
+    <string name="post_media_audio">ध्वनिः</string>
+    <string name="post_media_video">चलचित्राणि</string>
+    <string name="post_media_attachments">सम्योजितानि</string>
 </resources>

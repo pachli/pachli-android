@@ -29,7 +29,6 @@
     <string name="title_edit_profile">Redakti vian profilon</string>
     <string name="title_drafts">Malnetoj</string>
     <string name="post_boosted_format">%s diskonigis</string>
-    <string name="post_sensitive_media_title">Tikla enhavo</string>
     <string name="post_media_hidden_title">Kaŝitaj aŭdovidaĵoj</string>
     <string name="post_sensitive_media_directions">Alklaki por vidi</string>
     <string name="post_content_warning_show_more">Montri pli</string>
@@ -189,8 +188,6 @@
     -->
     <string name="post_share_content">Konigi enhavon de la mesaĝo</string>
     <string name="post_share_link">Konigi ligilon al mesaĝo</string>
-    <string name="post_media_images">Bildoj</string>
-    <string name="post_media_video">Video</string>
     <string name="state_follow_requested">Sekvado petita</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">Sekvas vin</string>
@@ -344,9 +341,7 @@
     <string name="no_announcements">Estas neniu anonco.</string>
     <string name="pref_title_enable_swipe_for_tabs">Ebligi ŝovumadon por ŝanĝi inter la langetoj</string>
     <string name="warning_scheduling_interval">Mastodon havas minimuman intervalon de planado de 5 minutoj.</string>
-    <string name="post_media_attachments">Kunsendaĵoj</string>
     <string name="pref_title_notification_filter_subscriptions">iu, kiun mi sekvas, afiŝis novan mesaĝon</string>
-    <string name="post_media_audio">Aŭdaĵo</string>
     <string name="action_subscribe_account">Aboni</string>
     <string name="draft_deleted">Malneto forigita</string>
     <plurals name="error_upload_max_media_reached">

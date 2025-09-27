@@ -33,7 +33,8 @@ fun Attachment.iconResource() = when (this.type) {
 }
 
 /**
- * Returns a formatted version of [Attachment.description].
+ * Returns a formatted version of [Attachment.description] for use in a
+ * UX label.
  *
  * If the media has no description then the content of
  * R.string.description_post_media_no_description_placeholder is returned.
@@ -41,6 +42,9 @@ fun Attachment.iconResource() = when (this.type) {
  * If the media has a duration (i.e., it's audio or video) the duration is
  * prepended to the description, and returned (again, the string resource
  * is used if the media has no description).
+ *
+ * Use [Attachment.getContentDescription] for text to use as the attachment's
+ * content description.
  */
 fun Attachment.getFormattedDescription(context: Context): CharSequence {
     var duration = ""
@@ -52,6 +56,24 @@ fun Attachment.getFormattedDescription(context: Context): CharSequence {
     } else {
         duration + description
     }
+}
+
+/**
+ * Returns text suitable for use in an attachment's content description.
+ *
+ * Like [Attachment.getFormattedDescription], but prepends the text with
+ * information about the media's type (image, video, etc).
+ */
+fun Attachment.getContentDescription(context: Context): CharSequence {
+    val description = getFormattedDescription(context)
+    val label = when (type) {
+        Attachment.Type.IMAGE -> context.getString(R.string.post_media_images)
+        Attachment.Type.GIFV, Attachment.Type.VIDEO -> context.getString(R.string.post_media_video)
+        Attachment.Type.AUDIO -> context.getString(R.string.post_media_audio)
+        else -> context.getString(R.string.post_media_attachments)
+    }
+
+    return "$label, $description"
 }
 
 private fun formatDuration(durationInSeconds: Double): String {

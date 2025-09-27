@@ -65,4 +65,9 @@
     <string name="description_visibility_unlisted">Listázatlan</string>
     <string name="description_visibility_private">Követők</string>
     <string name="description_visibility_direct">Közvetlen</string>
+    <string name="post_sensitive_media_title">Érzékeny tartalom</string>
+    <string name="post_media_images">Képek</string>
+    <string name="post_media_audio">Audio</string>
+    <string name="post_media_video">Videó</string>
+    <string name="post_media_attachments">Csatolmányok</string>
 </resources>

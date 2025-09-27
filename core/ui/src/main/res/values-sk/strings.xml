@@ -89,4 +89,9 @@
     <string name="description_visibility_unlisted">Tiché verejné</string>
     <string name="description_visibility_private">Sledujúci</string>
     <string name="description_visibility_direct">Priame</string>
+    <string name="post_sensitive_media_title">Citlivý obsah</string>
+    <string name="post_media_images">Obrázky</string>
+    <string name="post_media_audio">Audio</string>
+    <string name="post_media_video">Video</string>
+    <string name="post_media_attachments">Prílohy</string>
 </resources>

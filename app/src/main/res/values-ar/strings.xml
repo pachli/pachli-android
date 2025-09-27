@@ -29,7 +29,6 @@
     <string name="title_edit_profile">عدل ملفك التعريفي</string>
     <string name="title_drafts">المسودات</string>
     <string name="post_boosted_format">شاركه %s</string>
-    <string name="post_sensitive_media_title">محتوى حساس</string>
     <string name="post_media_hidden_title">وسائط مخفية</string>
     <string name="post_sensitive_media_directions">اضغط للعرض</string>
     <string name="post_content_warning_show_more">اعرض المزيد</string>
@@ -189,8 +188,6 @@
     -->
     <string name="post_share_content">شارك محتوى التبويق</string>
     <string name="post_share_link">شارك الرابط إلى التبويق</string>
-    <string name="post_media_images">صور</string>
-    <string name="post_media_video">فيديو</string>
     <string name="state_follow_requested">طلب متابعة</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">يتبعك الآن</string>
@@ -357,13 +354,11 @@
     <string name="action_delete_conversation">احذف المحادثة</string>
     <string name="dialog_delete_conversation_warning">هل تريد حذف هذه المحادثة؟</string>
     <string name="notification_subscription_name">منشورات جديدة</string>
-    <string name="post_media_attachments">مرفقات</string>
     <string name="label_duration">المدة</string>
     <string name="no_announcements">لا توجد إعلانات.</string>
     <string name="account_note_hint">ملاحظتك الخاصة عن هذا الحساب</string>
     <string name="account_note_saved">تم حفظها!</string>
     <string name="review_notifications">راجع الإشعارات</string>
-    <string name="post_media_audio">صوت</string>
     <string name="drafts_post_reply_removed">لقد حُذِف التبويق الذي حررت من أجله مسودة الرد</string>
     <string name="pref_title_notification_filter_subscriptions">شخص ما أنا مشترك في حسابه قد نشر منشورا جديدا</string>
     <string name="pref_title_animate_custom_emojis">حرّك الإيموجيات المخصصة</string>

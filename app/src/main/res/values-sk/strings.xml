@@ -11,7 +11,6 @@
     <string name="title_posts_pinned">Pripnuté</string>
     <string name="title_followers">Sledujúci</string>
     <string name="title_bookmarks">Záložky</string>
-    <string name="post_sensitive_media_title">Citlivý obsah</string>
     <string name="post_sensitive_media_directions">Klikni pre zobrazenie</string>
     <string name="post_content_warning_show_more">Zobraziť viac</string>
     <string name="post_content_warning_show_less">Zobraziť menej</string>
@@ -338,8 +337,6 @@
     <string name="mute_notifications_switch">Stíšiť upozornenia</string>
     <string name="ui_error_accept_follow_request">Potvrdenie žiadosti o sledovanie zlyhalo: %s</string>
     <string name="no_announcements">Žiadne oznámenia.</string>
-    <string name="post_media_images">Obrázky</string>
-    <string name="post_media_video">Video</string>
     <string name="follows_you">Sleduje ťa</string>
     <string name="add_poll_choice">Pridať voľbu</string>
     <string name="poll_allow_multiple_choices">Viacero možností</string>
@@ -394,7 +391,6 @@
     <string name="wellbeing_mode_notice">Niektoré informácie, ktoré by mohli mať vplyv na tvoju duševnú pohodu, budú skryté. Týka sa to:\n\n - Upozornení na zdieľanie, sledovaníe a pridanie medzi obľúbené\n - Počtu obľúbení a zdieľaní pri príspevkoch\n - Štatistík sledujúcich a príspevkov na profiloch\n\nPush upozornenia nebudú ovplyvnené, ale môžeš si skontrolovať ich nastavenia manuálne.</string>
     <string name="notifications_apply_filter">Filtrovať upozornenia</string>
     <string name="filter_apply">Použiť</string>
-    <string name="post_media_audio">Audio</string>
     <string name="pref_title_thread_filter_keywords">Konverzácie</string>
     <string name="filter_add_description">Fráza pre filtrovanie</string>
     <string name="notification_clear_text">Naozaj si si istý/á, že chceš natrvalo vymazať všetky svoje oznámenia?</string>
@@ -424,7 +420,6 @@
     <string name="notification_unknown_name">Neznáme</string>
     <string name="notification_mention_format">%s ťa zmienil/a</string>
     <string name="notification_summary_medium">%1$s, %2$s a %3$s</string>
-    <string name="post_media_attachments">Prílohy</string>
     <string name="filter_dialog_whole_word">Celé slovo</string>
     <string name="add_account_description">Pridať nový účet Mastodon</string>
     <string name="compose_save_draft_loses_media">Prílohy budú opätovne nahrané po obnovení konceptu.</string>
