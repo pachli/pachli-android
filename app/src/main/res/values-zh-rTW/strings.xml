@@ -29,7 +29,6 @@
     <string name="title_edit_profile">編輯個人資料</string>
     <string name="title_drafts">草稿</string>
     <string name="post_boosted_format">%s 轉嘟了</string>
-    <string name="post_sensitive_media_title">敏感內容</string>
     <string name="post_media_hidden_title">已隱藏的照片或影片</string>
     <string name="post_sensitive_media_directions">點一下顯示</string>
     <string name="post_content_warning_show_more">顯示更多</string>
@@ -193,8 +192,6 @@
     -->
     <string name="post_share_content">分享嘟文內容</string>
     <string name="post_share_link">分享嘟文連結</string>
-    <string name="post_media_images">照片</string>
-    <string name="post_media_video">影片</string>
     <string name="state_follow_requested">已請求關注</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">關注了你</string>
@@ -314,8 +311,6 @@
     <string name="draft_deleted">草稿已刪除</string>
     <string name="drafts_failed_loading_reply">載入回覆資訊失敗</string>
     <string name="drafts_post_failed_to_send">這條嘟文發送失敗！</string>
-    <string name="post_media_attachments">附件</string>
-    <string name="post_media_audio">錄音</string>
     <string name="duration_7_days">7 天</string>
     <string name="duration_3_days">3 天</string>
     <string name="duration_1_day">1 天</string>

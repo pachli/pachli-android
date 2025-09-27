@@ -65,4 +65,9 @@
     <string name="description_visibility_unlisted">Pas listada</string>
     <string name="description_visibility_private">Seguidors</string>
     <string name="description_visibility_direct">Dirècte</string>
+    <string name="post_sensitive_media_title">Contengut sensible</string>
+    <string name="post_media_images">Imatges</string>
+    <string name="post_media_audio">Àudio</string>
+    <string name="post_media_video">Vidèo</string>
+    <string name="post_media_attachments">Pèças juntas</string>
 </resources>

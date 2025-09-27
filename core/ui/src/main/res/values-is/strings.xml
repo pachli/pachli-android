@@ -65,4 +65,9 @@
     <string name="description_visibility_unlisted">Óskráð</string>
     <string name="description_visibility_private">Fylgjendur</string>
     <string name="description_visibility_direct">Beint</string>
+    <string name="post_sensitive_media_title">Viðkvæmt efni</string>
+    <string name="post_media_images">Myndir</string>
+    <string name="post_media_audio">Hljóð</string>
+    <string name="post_media_video">Myndskeið</string>
+    <string name="post_media_attachments">Viðhengi</string>
 </resources>

@@ -99,4 +99,9 @@
     <string name="description_visibility_unlisted">Не в списке</string>
     <string name="description_visibility_private">Подписчики</string>
     <string name="description_visibility_direct">Непосредственно</string>
+    <string name="post_sensitive_media_title">Чувствительный контент</string>
+    <string name="post_media_images">Изображения</string>
+    <string name="post_media_audio">Аудио</string>
+    <string name="post_media_video">Видео</string>
+    <string name="post_media_attachments">Вложения</string>
 </resources>

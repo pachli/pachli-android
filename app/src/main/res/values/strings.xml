@@ -82,14 +82,9 @@
     <string name="dialog_follow_hashtag_title">Follow hashtag</string>
     <string name="dialog_follow_hashtag_hint">#hashtag</string>
     <string name="post_boosted_format">%s boosted</string>
-    <string name="post_sensitive_media_title">Sensitive content. Tap to show.</string>
     <!-- Can't use 'plurals' here because e.g. English doesn't distinguish between
          "two" and "other", resulting in "other" being used even if the quantity is
          only two. -->
-    <string name="attachment_matches_filter_one_fmt">Matches filter: \"%1$s\". Tap to show.</string>
-    <string name="attachment_matches_filter_two_fmt">Matches filters: \"%1$s\" and \"%2$s\". Tap to show.</string>
-    <string name="attachment_matches_filter_other_fmt">Matches filters: \"%1$s\", \"%2$s\", and more. Tap to show.</string>
-    <string name="attachment_hidden_user_action">You hid this. Tap to show.</string>
     <string name="post_media_hidden_title">Media hidden</string>
     <string name="post_sensitive_media_directions">Click to view</string>
     <string name="post_content_warning_show_more">Show More</string>
@@ -229,7 +224,7 @@
     <string name="translator_error_unsupported_target_language_fmt">cannot translate to "%1$s"</string>
     <string name="translator_error_download_required_fmt">translating to "%1$s" requires downloading the language pack, and Wi-Fi is not connected</string>
     <string name="action_translate_undo">Undo translate</string>
-    <string name="action_open_media_n">Open media #%d</string>
+    <string name="action_open_media_n">Open attachment #%d</string>
     <string name="download_image">Downloading %1$s</string>
     <string name="action_copy_link">Copy the link</string>
     <string name="action_refresh_account">Refresh account</string>
@@ -392,10 +387,6 @@
     -->
     <string name="post_share_content">Share content of post</string>
     <string name="post_share_link">Share link to post</string>
-    <string name="post_media_images">Images</string>
-    <string name="post_media_video">Video</string>
-    <string name="post_media_audio">Audio</string>
-    <string name="post_media_attachments">Attachments</string>
     <string name="status_count_one_plus">1+</string>
     <string name="status_filtered_show_anyway">Show anyway</string>
     <string name="status_filter_placeholder_label_format">Filtered: &lt;b>%1$s&lt;/b></string>

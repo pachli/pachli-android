@@ -68,7 +68,7 @@ sealed interface AttachmentDisplayAction {
     data class Show(val originalAction: Hide? = null) : AttachmentDisplayAction
 
     /**
-     * The attachment should be hidden.
+     * The attachment should be hidden and replaced with a placeholder image.
      *
      * @property reason The reason why this attachment should be hidden.
      */

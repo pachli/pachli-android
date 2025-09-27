@@ -95,4 +95,9 @@
     <string name="description_visibility_unlisted">Niewidoczny</string>
     <string name="description_visibility_private">Obserwujący</string>
     <string name="description_visibility_direct">Bezpośrednio</string>
+    <string name="post_sensitive_media_title">Treści drażliwe</string>
+    <string name="post_media_images">Obrazy</string>
+    <string name="post_media_audio">Dźwięk</string>
+    <string name="post_media_video">Wideo</string>
+    <string name="post_media_attachments">Załączniki</string>
 </resources>

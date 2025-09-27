@@ -49,6 +49,7 @@ import app.pachli.core.ui.decodeBlurHash
 import app.pachli.core.ui.emojify
 import app.pachli.core.ui.extensions.aspectRatios
 import app.pachli.core.ui.extensions.description
+import app.pachli.core.ui.extensions.getContentDescription
 import app.pachli.core.ui.extensions.getFormattedDescription
 import app.pachli.core.ui.extensions.iconResource
 import app.pachli.core.ui.extensions.isPlayable
@@ -582,14 +583,15 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
                     val text = when (val reason = displayAction.reason) {
                         is AttachmentDisplayReason.BlurFilter -> {
                             val resource = when (reason.filters.size) {
-                                1 -> R.string.attachment_matches_filter_one_fmt
-                                2 -> R.string.attachment_matches_filter_two_fmt
-                                else -> R.string.attachment_matches_filter_other_fmt
+                                1 -> app.pachli.core.ui.R.string.attachment_matches_filter_one_fmt
+                                2 -> app.pachli.core.ui.R.string.attachment_matches_filter_two_fmt
+                                else -> app.pachli.core.ui.R.string.attachment_matches_filter_other_fmt
                             }
                             context.getString(resource, *reason.filters.map { it.title }.toTypedArray())
                         }
-                        is AttachmentDisplayReason.Sensitive -> context.getText(R.string.post_sensitive_media_title)
-                        is AttachmentDisplayReason.UserAction -> context.getText(R.string.attachment_hidden_user_action)
+
+                        is AttachmentDisplayReason.Sensitive -> context.getText(app.pachli.core.ui.R.string.post_sensitive_media_title)
+                        is AttachmentDisplayReason.UserAction -> context.getText(app.pachli.core.ui.R.string.attachment_hidden_user_action)
                     }
                     sensitiveMediaWarning.text = text
                     sensitiveMediaWarning.show()
@@ -637,7 +639,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
                 mediaLabel.show()
 
                 val mediaDescription = if (sensitive) {
-                    context.getString(R.string.post_sensitive_media_title)
+                    context.getString(app.pachli.core.ui.R.string.post_sensitive_media_title)
                 } else {
                     attachment.getFormattedDescription(context)
                 }
@@ -1036,13 +1038,18 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
         private fun getMediaDescription(context: Context, status: IStatusViewData): String? {
             if (status.actionable.attachments.isEmpty()) return null
 
-            val missingDescription = context.getString(app.pachli.core.ui.R.string.description_post_media_no_description_placeholder)
+            val attachmentDisplayAction = status.attachmentDisplayAction
+            return when (attachmentDisplayAction) {
+                is AttachmentDisplayAction.Show -> {
+                    val descriptions = status.actionable.attachments.map { it.getContentDescription(context) }
+                    context.getString(R.string.description_post_media, descriptions.joinToString(", "))
+                }
 
-            val mediaDescriptions = status.actionable.attachments.map {
-                it.description ?: missingDescription
+                is AttachmentDisplayAction.Hide -> context.getString(
+                    R.string.description_post_media,
+                    attachmentDisplayAction.reason.getFormattedDescription(context),
+                )
             }
-
-            return context.getString(R.string.description_post_media, mediaDescriptions.joinToString(", "))
         }
 
         /** @return "Content warning: {spoilerText}", for use in a content description. */

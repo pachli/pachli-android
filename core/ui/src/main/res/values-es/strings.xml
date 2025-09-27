@@ -89,4 +89,13 @@
     <string name="description_visibility_unlisted">Sin listar</string>
     <string name="description_visibility_private">Seguidores</string>
     <string name="description_visibility_direct">Directo</string>
+    <string name="attachment_matches_filter_one_fmt">Filtro aplicado: \"%1$s\". Toca para mostrar.</string>
+    <string name="attachment_matches_filter_two_fmt">Filtros aplicados: \"%1$s\" y \"%2$s\". Toca para mostrar.</string>
+    <string name="attachment_matches_filter_other_fmt">Filtros aplicados: \"%1$s\", \"%2$s\" y otros. Toca para mostrar.</string>
+    <string name="post_sensitive_media_title">Contenido sensible. Toca para mostrar.</string>
+    <string name="attachment_hidden_user_action">Ocultado por ti. Toca para mostrar.</string>
+    <string name="post_media_images">Imágenes</string>
+    <string name="post_media_audio">Audio</string>
+    <string name="post_media_video">Video</string>
+    <string name="post_media_attachments">Adjuntos</string>
 </resources>

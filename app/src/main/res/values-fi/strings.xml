@@ -74,9 +74,6 @@
     <string name="action_remove">Poista</string>
     <string name="filter_dialog_update_button">Päivitä</string>
     <string name="filter_dialog_remove_button">Poista</string>
-    <string name="post_media_audio">Ääni</string>
-    <string name="post_media_video">Video</string>
-    <string name="post_media_images">Kuvat</string>
     <string name="pref_title_proxy_settings">Välityspalvelin</string>
     <string name="post_privacy_followers_only">Vain seuraajat</string>
     <string name="post_privacy_public">Julkinen</string>
@@ -197,7 +194,6 @@
     <string name="action_toggle_visibility">Julkaisun näkyvyys</string>
     <string name="title_posts_with_replies">Vastauksetkin</string>
     <string name="post_boosted_format">%s jakoi</string>
-    <string name="post_sensitive_media_title">Herkkää sisältoä</string>
     <string name="post_sensitive_media_directions">Klikkaa näyttääksesi</string>
     <string name="post_content_show_more">Laajenna</string>
     <string name="post_content_show_less">Vähennä</string>
@@ -232,7 +228,6 @@
     <string name="post_text_size_large">Suuri</string>
     <string name="post_text_size_largest">Suurin</string>
     <string name="post_share_link">Jaa linkki postaukseen</string>
-    <string name="post_media_attachments">Liitteet</string>
     <string name="title_media">Media</string>
     <string name="pref_title_public_filter_keywords">Julkiset aikajanat</string>
     <string name="pref_title_thread_filter_keywords">Keskustelut</string>

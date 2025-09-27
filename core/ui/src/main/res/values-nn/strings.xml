@@ -81,4 +81,9 @@
     <string name="description_visibility_unlisted">Ulista</string>
     <string name="description_visibility_private">Fylgjarar</string>
     <string name="description_visibility_direct">Direkte</string>
+    <string name="post_sensitive_media_title">Sensitivt innhald</string>
+    <string name="post_media_images">Bilete</string>
+    <string name="post_media_audio">Ljod</string>
+    <string name="post_media_video">Video</string>
+    <string name="post_media_attachments">Vedlegg</string>
 </resources>

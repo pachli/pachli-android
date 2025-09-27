@@ -68,4 +68,9 @@
     <string name="description_visibility_unlisted">Neuvedený</string>
     <string name="description_visibility_private">Pro sledující</string>
     <string name="description_visibility_direct">Přímý</string>
+    <string name="post_sensitive_media_title">Citlivý obsah</string>
+    <string name="post_media_images">Obrázky</string>
+    <string name="post_media_audio">Audio</string>
+    <string name="post_media_video">Video</string>
+    <string name="post_media_attachments">Přílohy</string>
 </resources>

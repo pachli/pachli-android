@@ -15,4 +15,7 @@
     <string name="add_account_name">അക്കൗണ്ട് ചേർക്കുക</string>
     <string name="action_logout">പുറത്തിറങ്ങുക</string>
     <string name="description_visibility_private">പിന്തുടരുന്നവർ</string>
+    <string name="post_sensitive_media_title">സെൻസിറ്റീവ് ഉള്ളടക്കം</string>
+    <string name="post_media_images">ചിത്രങ്ങൾ</string>
+    <string name="post_media_video">വിഡിയോ</string>
 </resources>

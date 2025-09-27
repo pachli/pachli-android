@@ -20,7 +20,6 @@
     <string name="post_content_warning_show_more">अधिकं दृश्यताम्</string>
     <string name="post_sensitive_media_directions">द्रष्टुमत्र नुद्यताम्</string>
     <string name="post_media_hidden_title">प्रच्छन्नसामग्र्यः</string>
-    <string name="post_sensitive_media_title">संवेदनशीलो विषयः</string>
     <string name="post_boosted_format">%s अप्रकाशयत्</string>
     <string name="title_scheduled_posts">कालबद्धदौत्यानि</string>
     <string name="title_drafts">लेखविकर्षाः</string>
@@ -169,8 +168,6 @@
     <string name="pref_title_alway_show_sensitive_media">सर्वदा संवेदनशीलविषयो दृश्यताम्</string>
     <string name="follows_you">त्वामनुसरति</string>
     <string name="state_follow_requested">अनुसरणं निवेदितम्</string>
-    <string name="post_media_video">चलचित्राणि</string>
-    <string name="post_media_images">चित्राणि</string>
     <string name="post_share_link">दौत्याय जालस्थानं विभाज्यताम्</string>
     <string name="post_share_content">दौत्यविषयो विभाज्यताम्</string>
     <string name="description_account_locked">कपाटितव्यक्तिविवरणलेखः</string>
@@ -351,7 +348,6 @@
     <string name="pref_title_show_self_username">साधनशलाकासु उपभोक्तृनाम दृश्यताम्</string>
     <string name="title_edits">सम्पादनानि</string>
     <string name="notification_sign_up_description">नूतनोपभोक्तॄन् प्रति सूचनाः</string>
-    <string name="post_media_audio">ध्वनिः</string>
     <string name="filter_expiration_format">%s (%s)</string>
     <string name="duration_30_days">३० दिनानि</string>
     <string name="report_category_other">अन्यम्</string>
@@ -395,7 +391,6 @@
     <string name="description_post_language">दौत्यस्य भाषा</string>
     <string name="error_following_hashtag_format">#%s-अनुसरणे दोषो जातः</string>
     <string name="error_unfollowing_hashtag_format">#%s-अनुसरण-अपाकरणे दोषो जातः</string>
-    <string name="post_media_attachments">सम्योजितानि</string>
     <string name="status_count_one_plus">१+</string>
     <string name="account_note_saved">रक्षितम् !</string>
     <string name="title_announcements">उद्घोषणाः</string>

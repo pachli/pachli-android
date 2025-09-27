@@ -65,4 +65,9 @@
     <string name="description_visibility_unlisted">فهرست نشده</string>
     <string name="description_visibility_private">پی‌گیران</string>
     <string name="description_visibility_direct">مستقیم</string>
+    <string name="post_sensitive_media_title">محتوای حسّاس</string>
+    <string name="post_media_images">تصویرها</string>
+    <string name="post_media_audio">صدا</string>
+    <string name="post_media_video">ویدیو</string>
+    <string name="post_media_attachments">پیوست‌ها</string>
 </resources>
