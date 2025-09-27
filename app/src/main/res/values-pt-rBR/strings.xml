@@ -28,7 +28,6 @@
     <string name="title_edit_profile">Editar perfil</string>
     <string name="title_drafts">Rascunhos</string>
     <string name="post_boosted_format">%s deu Boost</string>
-    <string name="post_media_hidden_title">Mídia sensível</string>
     <string name="post_sensitive_media_directions">Toque para ver</string>
     <string name="post_content_warning_show_more">Expandir</string>
     <string name="post_content_warning_show_less">Ocultar</string>
@@ -60,7 +59,6 @@
     <string name="action_view_mutes">Usuários silenciados</string>
     <string name="action_view_blocks">Usuários bloqueados</string>
     <string name="action_view_follow_requests">Pedidos para te seguir</string>
-    <string name="action_view_media">Mídia</string>
     <string name="action_open_in_web">Abrir no navegador</string>
     <string name="action_add_media">Adicionar mídia</string>
     <string name="action_photo_take">Tirar foto</string>

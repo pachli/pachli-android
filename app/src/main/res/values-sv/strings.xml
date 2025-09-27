@@ -29,7 +29,6 @@
     <string name="title_edit_profile">Redigera din profil</string>
     <string name="title_drafts">Utkast</string>
     <string name="post_boosted_format">%s knuffade</string>
-    <string name="post_media_hidden_title">Dold media</string>
     <string name="post_sensitive_media_directions">Tryck för att visa</string>
     <string name="post_content_warning_show_more">Visa mer</string>
     <string name="post_content_warning_show_less">Visa mindre</string>
@@ -64,7 +63,6 @@
     <string name="action_view_mutes">Tystade användare</string>
     <string name="action_view_blocks">Blockerade användare</string>
     <string name="action_view_follow_requests">Följarförfrågningar</string>
-    <string name="action_view_media">Media</string>
     <string name="action_open_in_web">Öppna i webbläsare</string>
     <string name="action_add_media">Lägg till media</string>
     <string name="action_photo_take">Ta foto</string>

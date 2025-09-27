@@ -29,7 +29,6 @@
     <string name="title_edit_profile">আপনার প্রোফাইল সম্পাদনা করুন</string>
     <string name="title_drafts">খসড়াগুলো</string>
     <string name="post_boosted_format">%s সমর্থন দিয়েছে</string>
-    <string name="post_media_hidden_title">মিডিয়া লুকানো</string>
     <string name="post_sensitive_media_directions">দেখার জন্য ক্লিক করুন</string>
     <string name="post_content_warning_show_more">আরও দেখাও</string>
     <string name="post_content_warning_show_less">প্রদর্শন কম</string>
@@ -65,7 +64,6 @@
     <string name="action_view_mutes">শব্দ বন্ধ ব্যবহারকারী</string>
     <string name="action_view_blocks">অবরুদ্ধ ব্যবহারকারী</string>
     <string name="action_view_follow_requests">অনুরোধ অনুসরণ করুন</string>
-    <string name="action_view_media">মিডিয়া</string>
     <string name="action_open_in_web">ব্রাউজারে খোলা</string>
     <string name="action_add_media">মিডিয়া যোগ করুন</string>
     <string name="action_photo_take">ছবি তোল</string>

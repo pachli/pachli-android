@@ -29,7 +29,6 @@
     <string name="title_edit_profile">Profiel bewerken</string>
     <string name="title_drafts">Concepten</string>
     <string name="post_boosted_format">%s boostte</string>
-    <string name="post_media_hidden_title">Verborgen media</string>
     <string name="post_sensitive_media_directions">Klik om te bekijken</string>
     <string name="post_content_warning_show_more">Meer tonen</string>
     <string name="post_content_warning_show_less">Minder tonen</string>
@@ -64,7 +63,6 @@
     <string name="action_view_mutes">Genegeerde gebruikers</string>
     <string name="action_view_blocks">Geblokkeerde gebruikers</string>
     <string name="action_view_follow_requests">Volgverzoeken</string>
-    <string name="action_view_media">Media</string>
     <string name="action_open_in_web">Open in webbrowser</string>
     <string name="action_add_media">Media toevoegen</string>
     <string name="action_photo_take">Foto maken</string>

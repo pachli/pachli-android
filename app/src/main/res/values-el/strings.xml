@@ -80,7 +80,6 @@
     <string name="title_scheduled_posts">Προγραμματισμένες δημοσιεύσεις</string>
     <string name="title_posts">Δημοσιεύσεις</string>
     <string name="title_posts_pinned">Καρφιτσωμένο</string>
-    <string name="post_media_hidden_title">Κρυμμένα μέσα</string>
     <string name="post_boosted_format">ο/η %s το προώθησε</string>
     <string name="title_posts_with_replies">Με απαντήσεις</string>
     <string name="post_content_warning_show_more">Δείτε περισσότερα</string>

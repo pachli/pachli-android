@@ -29,7 +29,6 @@
     <string name="title_edit_profile">Редактировать профиль</string>
     <string name="title_drafts">Черновики</string>
     <string name="post_boosted_format">%s продвинул(а)</string>
-    <string name="post_media_hidden_title">Медиа скрыто</string>
     <string name="post_sensitive_media_directions">Нажмите для просмотра</string>
     <string name="post_content_warning_show_more">Показать больше</string>
     <string name="post_content_warning_show_less">Показать меньше</string>
@@ -65,7 +64,6 @@
     <string name="action_view_mutes">Заглушенные пользователи</string>
     <string name="action_view_blocks">Заблокированные пользователи</string>
     <string name="action_view_follow_requests">Запросы на подписку</string>
-    <string name="action_view_media">Медиаконтент</string>
     <string name="action_open_in_web">Открыть в браузере</string>
     <string name="action_add_media">Добавить медиаконтент</string>
     <string name="action_photo_take">Сфотографировать</string>

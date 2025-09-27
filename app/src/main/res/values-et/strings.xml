@@ -107,7 +107,6 @@
     <string name="dialog_follow_hashtag_title">Jälgi teemaviidet</string>
     <string name="dialog_follow_hashtag_hint">#teemaviide</string>
     <string name="post_boosted_format">%s lisas hoogu</string>
-    <string name="post_media_hidden_title">Meedium on peidetud</string>
     <string name="post_sensitive_media_directions">Vaatamiseks klõpsi</string>
     <string name="notification_unknown">Tundmatu teavituse tüüp</string>
     <string name="notification_header_report_format">%s saatis teatise: %s</string>
@@ -158,7 +157,6 @@
     <string name="action_view_blocks">Blokeeritud kasutajad</string>
     <string name="action_view_domain_mutes">Peidetud domeenid</string>
     <string name="action_view_follow_requests">Jälgimispäringud</string>
-    <string name="action_view_media">Meedia</string>
     <string name="action_open_in_web">Ava veebibrauseris</string>
     <string name="action_add_media">Lisa meediat</string>
     <string name="action_add_poll">Lisa küsitlus</string>

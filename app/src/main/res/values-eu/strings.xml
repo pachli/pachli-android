@@ -26,7 +26,6 @@
     <string name="title_edit_profile">Profila editatu</string>
     <string name="title_drafts">Zirriborroak</string>
     <string name="post_boosted_format">%s-(e)k bultzatu du</string>
-    <string name="post_media_hidden_title">Ezkutuko media</string>
     <string name="post_sensitive_media_directions">Sakatu ikusteko</string>
     <string name="post_content_warning_show_more">Gehiago erakutsi</string>
     <string name="post_content_warning_show_less">Gutxiago erakutsi</string>
@@ -59,7 +58,6 @@
     <string name="action_view_mutes">Isilduak</string>
     <string name="action_view_blocks">Blokeatuak</string>
     <string name="action_view_follow_requests">Eskakizunak</string>
-    <string name="action_view_media">Multimedia</string>
     <string name="action_open_in_web">Nabigatzailean ireki</string>
     <string name="action_add_media">Multimedia erantsi</string>
     <string name="action_photo_take">Argazkia atera</string>

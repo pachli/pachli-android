@@ -25,7 +25,6 @@
     <string name="title_edit_profile">Modificar lo perfil</string>
     <string name="title_drafts">Borrolhons</string>
     <string name="post_boosted_format">%s a partejat</string>
-    <string name="post_media_hidden_title">Mèdia amagat</string>
     <string name="post_sensitive_media_directions">Clicar per mostrar</string>
     <string name="post_content_warning_show_more">Mostrar mai</string>
     <string name="post_content_warning_show_less">Mostrar mens</string>
@@ -57,7 +56,6 @@
     <string name="action_view_mutes">Utilizaires silenciats</string>
     <string name="action_view_blocks">Utilizaires blocats</string>
     <string name="action_view_follow_requests">Demandas d’abonament</string>
-    <string name="action_view_media">Mèdia</string>
     <string name="action_open_in_web">Dobrir al navegador</string>
     <string name="action_add_media">Ajustar un mèdia</string>
     <string name="action_photo_take">Prendre una fotografia</string>

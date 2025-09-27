@@ -50,7 +50,6 @@
     <string name="action_view_mutes">Usuaris silenciats</string>
     <string name="action_view_blocks">Usuaris blocats</string>
     <string name="action_view_follow_requests">Peticions de seguiment</string>
-    <string name="action_view_media">Multimèdia</string>
     <string name="action_open_in_web">Obre al navegador</string>
     <string name="action_add_media">Afegeix multimèdia</string>
     <string name="action_photo_take">Fes una foto</string>
@@ -148,7 +147,6 @@
     <string name="action_edit_own_profile">Edita</string>
     <string name="title_direct_messages">Missatges directes</string>
     <string name="action_unreblog">Elimina l\'impuls</string>
-    <string name="post_media_hidden_title">Multimèdia amagada</string>
     <string name="post_content_show_less">Amaga</string>
     <string name="action_hide_reblogs">Amaga els impulsos</string>
     <string name="action_show_reblogs">Mostra els impulsos</string>

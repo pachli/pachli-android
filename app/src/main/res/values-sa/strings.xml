@@ -19,7 +19,6 @@
     <string name="post_content_warning_show_less">स्वल्पं दृश्यताम्</string>
     <string name="post_content_warning_show_more">अधिकं दृश्यताम्</string>
     <string name="post_sensitive_media_directions">द्रष्टुमत्र नुद्यताम्</string>
-    <string name="post_media_hidden_title">प्रच्छन्नसामग्र्यः</string>
     <string name="post_boosted_format">%s अप्रकाशयत्</string>
     <string name="title_scheduled_posts">कालबद्धदौत्यानि</string>
     <string name="title_drafts">लेखविकर्षाः</string>
@@ -67,7 +66,6 @@
     <string name="notification_follow_request_format">%s तवाऽनुसरणार्थंं न्यवेदयत्</string>
     <string name="action_add_media">सामग्र्यः युज्यन्ताम्</string>
     <string name="action_open_in_web">जालसञ्चारके उद्घाट्यताम्</string>
-    <string name="action_view_media">सामग्र्यः</string>
     <string name="action_view_follow_requests">अनुसरणार्थमनुरोधाः</string>
     <string name="action_view_domain_mutes">प्रच्छन्नप्रदेशाः</string>
     <string name="action_view_blocks">निषिद्धभोक्तारः</string>

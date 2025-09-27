@@ -4,7 +4,6 @@
     <string name="post_content_warning_show_less">Taispeáin Níos Lú</string>
     <string name="post_content_warning_show_more">Taispeáin Níos Mó</string>
     <string name="post_sensitive_media_directions">Cliceáil chun amharc</string>
-    <string name="post_media_hidden_title">Meáin i bhfolach</string>
     <string name="post_boosted_format">D\'athchraol %s</string>
     <string name="title_scheduled_posts">Postálacha sceidealta</string>
     <string name="title_edit_profile">Cuir do phróifíl in eagar</string>
@@ -111,7 +110,6 @@
     <string name="action_add_poll">Cuir vótaíocht leis</string>
     <string name="action_add_media">Cuir meáin leis</string>
     <string name="action_open_in_web">Oscail sa bhrabhsálaí</string>
-    <string name="action_view_media">Meáin</string>
     <string name="action_view_follow_requests">Lean Iarrataí</string>
     <string name="action_view_domain_mutes">Fearainn i bhfolach</string>
     <string name="action_view_blocks">Úsáideoirí blocáilte</string>

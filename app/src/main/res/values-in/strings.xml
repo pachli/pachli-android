@@ -29,7 +29,6 @@
     <string name="error_compose_character_limit">Postingan terlalu panjang!</string>
     <string name="error_media_upload_permission">Izin untuk membaca media diperlukan.</string>
     <string name="error_media_download_permission">Izin untuk menyimpan media diperlukan.</string>
-    <string name="post_media_hidden_title">Media disembunyikan</string>
     <string name="post_sensitive_media_directions">Klik untuk melihat</string>
     <string name="post_content_warning_show_more">Tampilkan Lebih Banyak</string>
     <string name="post_content_warning_show_less">Tampilkan Lebih Sedikit</string>
@@ -47,7 +46,6 @@
     <string name="action_view_bookmarks">Markah</string>
     <string name="action_view_mutes">Pengguna dibisukan</string>
     <string name="action_view_blocks">Pengguna diblokir</string>
-    <string name="action_view_media">Media</string>
     <string name="action_open_in_web">Buka di peramban</string>
     <string name="action_add_media">Tambahkan media</string>
     <string name="action_photo_take">Ambil gambar</string>

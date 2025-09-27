@@ -1,29 +1,25 @@
 package app.pachli.components.account.media
 
 import android.content.Context
-import android.graphics.drawable.Drawable
-import android.graphics.drawable.PaintDrawable
+import android.util.Size
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import app.pachli.R
+import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
-import app.pachli.core.common.extensions.visible
+import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.model.Attachment
+import app.pachli.core.model.AttachmentDisplayAction
+import app.pachli.core.model.AttachmentDisplayReason
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.ui.BindingHolder
-import app.pachli.core.ui.decodeBlurHash
 import app.pachli.core.ui.extensions.getFormattedDescription
-import app.pachli.core.ui.extensions.iconResource
-import app.pachli.core.ui.extensions.isPlayable
 import app.pachli.databinding.ItemAccountMediaBinding
 import com.bumptech.glide.RequestManager
-import com.google.android.material.color.MaterialColors
 
 class AccountMediaGridAdapter(
     context: Context,
@@ -47,10 +43,13 @@ class AccountMediaGridAdapter(
             notifyItemRangeChanged(0, itemCount)
         }
 
-    private val playableIcon = AppCompatResources.getDrawable(context, R.drawable.ic_play_indicator)
-    private val mediaHiddenDrawable = AppCompatResources.getDrawable(context, R.drawable.ic_hide_media_24dp)
-
-    private val defaultSize = context.resources.getDimensionPixelSize(app.pachli.core.designsystem.R.dimen.account_media_grid_default)
+    /**
+     * Default pixel size to use for width or height when previewing an attachment
+     * if the attachment does not have metadata describing this.
+     */
+    private val defaultPreviewDimenPx by unsafeLazy {
+        context.resources.getDimensionPixelSize(app.pachli.core.designsystem.R.dimen.account_media_grid_default)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingHolder<ItemAccountMediaBinding> {
         val binding = ItemAccountMediaBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -61,47 +60,31 @@ class AccountMediaGridAdapter(
         val item = getItem(position) ?: return
 
         val context = root.context
+        val size = item.attachment.previewSize()
 
         when {
             item.sensitive && !item.isRevealed -> {
                 overlay.show()
-                overlay.setImageDrawable(mediaHiddenDrawable)
-                overlay.setBackgroundResource(app.pachli.core.ui.R.drawable.media_warning_bg)
-
-                val (placeholder, width, height) = item.attachment.placeholder(context, preview)
-
-                glide.load(placeholder)
-                    .override(width, height)
-                    .centerInside()
-                    .into(preview)
-
-                preview.contentDescription = context.getString(R.string.post_media_hidden_title)
-            }
-
-            item.attachment.isPreviewable() -> {
-                if (item.attachment.type.isPlayable()) overlay.setImageDrawable(playableIcon)
-                overlay.setBackgroundResource(0)
-                overlay.visible(item.attachment.type.isPlayable())
-
-                val placeholder = item.attachment.placeholder(context, preview).first
-
-                glide.asBitmap()
-                    .load(item.attachment.previewUrl)
-                    .placeholder(placeholder)
-                    .into(preview)
-
-                preview.contentDescription = item.attachment.getFormattedDescription(context)
+                preview.bind(
+                    glide,
+                    item.attachment,
+                    AttachmentDisplayAction.Hide(
+                        AttachmentDisplayReason.Sensitive,
+                    ),
+                    statusDisplayOptions.useBlurhash,
+                    size,
+                )
             }
 
             else -> {
-                if (item.attachment.type.isPlayable()) overlay.setImageDrawable(playableIcon)
-                overlay.setBackgroundResource(0)
-                overlay.visible(item.attachment.type.isPlayable())
-
-                glide.load(item.attachment.iconResource())
-                    .into(preview)
-
-                preview.contentDescription = item.attachment.getFormattedDescription(context)
+                overlay.hide()
+                preview.bind(
+                    glide,
+                    item.attachment,
+                    AttachmentDisplayAction.Show(),
+                    statusDisplayOptions.useBlurhash,
+                    size,
+                )
             }
         }
 
@@ -117,12 +100,11 @@ class AccountMediaGridAdapter(
     }
 
     /**
-     * Determine the placeholder for this [Attachment].
-     *
-     * @return A triple of the [Drawable] that should be used for the placeholder, and the
-     *     width and height to set on the imageview displaying the placeholder.
+     * @return The size of the image to use when previewing this attachment, based on
+     * [this.meta.small][Attachment.MetaData.small]. If no metadata for the small preview
+     * is provided then falls back to [defaultPreviewDimenPx].
      */
-    fun Attachment.placeholder(context: Context, view: View): Triple<Drawable?, Int, Int> {
+    private fun Attachment.previewSize(): Size {
         //  To avoid the list jumping when the user taps the placeholder to reveal the media
         //  the placeholder must have the same size as the underlying preview.
         //
@@ -131,34 +113,20 @@ class AccountMediaGridAdapter(
         // the aspect ratio, falling back to 100 if both are missing.
         //
         // Do the same to compute the width.
+        val small = meta?.small
+
         val height = when {
-            meta?.small?.height != null -> meta?.small?.height!!
-            meta?.small?.width != null && meta?.small?.aspect != null ->
-                (meta?.small?.width!! / meta?.small?.aspect!!).toInt()
-            else -> defaultSize
+            small?.height != null -> small.height!!
+            small?.width != null && small.aspect != null -> (small.width!! / small.aspect!!).toInt()
+            else -> defaultPreviewDimenPx
         }
 
         val width = when {
-            meta?.small?.width != null -> meta?.small?.width!!
-            meta?.small?.aspect != null -> (height * meta?.small?.aspect!!).toInt()
-            else -> defaultSize
+            small?.width != null -> small.width!!
+            small?.aspect != null -> (height * small.aspect!!).toInt()
+            else -> defaultPreviewDimenPx
         }
 
-        // The drawable's height and width does not need to be as large, as it will be
-        // automatically scaled by Glide. Set to a max height of 32, and scale the width
-        // appropriately.
-        val placeholderHeight = 32
-        val placeholderWidth = (placeholderHeight * (meta?.small?.aspect ?: 1.0)).toInt()
-
-        val placeholder = if (statusDisplayOptions.useBlurhash) {
-            blurhash?.let { decodeBlurHash(context, it, placeholderWidth, placeholderHeight) }
-        } else {
-            PaintDrawable(MaterialColors.getColor(view, android.R.attr.textColorLink)).apply {
-                intrinsicHeight = placeholderHeight
-                intrinsicWidth = placeholderWidth
-            }
-        }
-
-        return Triple(placeholder, width, height)
+        return Size(width, height)
     }
 }

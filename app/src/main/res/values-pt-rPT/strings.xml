@@ -46,7 +46,6 @@
     <string name="title_domain_mutes">Instâncias bloqueadas</string>
     <string name="title_follow_requests">Seguidores Pendentes</string>
     <string name="title_edit_profile">Editar perfil</string>
-    <string name="post_media_hidden_title">Conteúdo multimédia ocultado</string>
     <string name="title_drafts">Rascunhos</string>
     <string name="post_sensitive_media_directions">Toque para ver</string>
     <string name="post_content_warning_show_more">Mostrar Mais</string>
@@ -96,7 +95,6 @@
     <string name="action_view_blocks">Utilizadores bloqueados</string>
     <string name="action_view_domain_mutes">Instâncias bloqueadas</string>
     <string name="action_view_follow_requests">Seguidores Pendentes</string>
-    <string name="action_view_media">Conteúdo multimédia</string>
     <string name="action_open_in_web">Abrir no navegador</string>
     <string name="action_add_media">Adicionar conteúdo multimédia</string>
     <string name="action_add_poll">Adicionar votação</string>

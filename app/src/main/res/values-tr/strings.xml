@@ -29,7 +29,6 @@
     <string name="title_edit_profile">Profili düzenle</string>
     <string name="title_drafts">Taslaklar</string>
     <string name="post_boosted_format">%s yeniden paylaştı</string>
-    <string name="post_media_hidden_title">Gizlenmiş medya</string>
     <string name="post_sensitive_media_directions">Görüntülemek için dokunun</string>
     <string name="post_content_warning_show_more">Daha fazlası</string>
     <string name="post_content_warning_show_less">Daha az göster</string>
@@ -62,7 +61,6 @@
     <string name="action_view_mutes">Sessize alınmış kullanıcılar</string>
     <string name="action_view_blocks">Engellenmiş kullanıcılar</string>
     <string name="action_view_follow_requests">Takip istekleri</string>
-    <string name="action_view_media">Medya</string>
     <string name="action_open_in_web">Tarayıcıda aç</string>
     <string name="action_add_media">Medya ekle</string>
     <string name="action_photo_take">Fotoğraf çek</string>

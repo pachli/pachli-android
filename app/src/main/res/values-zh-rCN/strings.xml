@@ -29,7 +29,6 @@
     <string name="title_edit_profile">编辑个人资料</string>
     <string name="title_drafts">草稿</string>
     <string name="post_boosted_format">%s 转嘟了</string>
-    <string name="post_media_hidden_title">已隐藏的照片或视频</string>
     <string name="post_sensitive_media_directions">点击查看</string>
     <string name="post_content_warning_show_more">显示更多</string>
     <string name="post_content_warning_show_less">折叠内容</string>
@@ -65,7 +64,6 @@
     <string name="action_view_mutes">被隐藏的用户</string>
     <string name="action_view_blocks">被屏蔽的用户</string>
     <string name="action_view_follow_requests">关注请求</string>
-    <string name="action_view_media">媒体</string>
     <string name="action_open_in_web">在浏览器中打开</string>
     <string name="action_add_media">添加媒体</string>
     <string name="action_photo_take">拍照</string>

@@ -42,7 +42,6 @@
     <string name="action_view_domain_mutes">Paslēptie domēni</string>
     <string name="action_view_mutes">Apklusinātie lietotāji</string>
     <string name="action_view_blocks">Bloķētie lietotāji</string>
-    <string name="action_view_media">Multivide</string>
     <string name="action_share">Kopīgot</string>
     <string name="action_add_poll">Pievienot aptauju</string>
     <string name="action_photo_take">Uzņemt fotoattēlu</string>
@@ -261,7 +260,6 @@
     <string name="error_muting_hashtag_format">Radās kļūda, apklusinot #%s</string>
     <string name="error_unmuting_hashtag_format">Radās kļūda, atceļot #%s apklusināšanu</string>
     <string name="title_direct_messages">Tiešās ziņas</string>
-    <string name="post_media_hidden_title">Multivide ir paslēpta</string>
     <string name="notification_reblog_format">%s pastiprināja Tavu ierakstu</string>
     <string name="notification_follow_request_format">%s lūdza atļauju sekot Tev</string>
     <plurals name="notification_summary_report_format">

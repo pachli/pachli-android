@@ -46,7 +46,6 @@
     <string name="filter_edit_title">පෙරහන සංස්කරණය</string>
     <string name="notification_summary_medium">%1$s, %2$s, සහ %3$s</string>
     <string name="lock_account_label">ගිණුම අගුළුලන්න</string>
-    <string name="post_media_hidden_title">මාධ්‍ය සැඟවී ඇත</string>
     <string name="post_sent_long">පිළිතුර සාර්ථකව යැවිණි.</string>
     <string name="title_public_federated">ඒකාබද්ධ</string>
     <string name="dialog_message_uploading_media">උඩුගත වෙමින්…</string>
@@ -147,7 +146,6 @@
     <string name="profile_metadata_content_label">අන්තර්ගතය</string>
     <string name="notification_subscription_name">නව ටූට්ස්</string>
     <string name="action_open_media_n">#%d මාධ්‍ය විවෘත කරන්න</string>
-    <string name="action_view_media">මාධ්‍ය</string>
     <string name="send_media_to">වෙත මාධ්‍ය බෙදාගන්න…</string>
     <string name="pref_title_public_filter_keywords">ප්‍රසිද්ධ කාලරේඛා</string>
     <string name="post_text_size_smallest">කුඩාම</string>

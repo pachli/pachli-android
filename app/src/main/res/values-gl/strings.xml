@@ -26,7 +26,6 @@
     <string name="action_add_poll">Engadir enquisa</string>
     <string name="action_add_media">Engadir multimedia</string>
     <string name="action_open_in_web">Abrir no navegador</string>
-    <string name="action_view_media">Multimedia</string>
     <string name="action_view_follow_requests">Solicitudes de seguimento</string>
     <string name="action_view_domain_mutes">Dominios agochados</string>
     <string name="action_view_blocks">Usuarias bloqueadas</string>
@@ -68,7 +67,6 @@
     <string name="post_content_warning_show_less">Ver menos</string>
     <string name="post_content_warning_show_more">Ver máis</string>
     <string name="post_sensitive_media_directions">Click para ver</string>
-    <string name="post_media_hidden_title">Multimedia agochado</string>
     <string name="post_boosted_format">%s promoveu</string>
     <string name="title_announcements">Anuncios</string>
     <string name="title_scheduled_posts">Toots programados</string>

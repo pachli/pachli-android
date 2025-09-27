@@ -33,7 +33,6 @@
     <string name="title_edit_profile">Modifica il tuo profilo</string>
     <string name="title_drafts">Bozze</string>
     <string name="post_boosted_format">%s ha condiviso</string>
-    <string name="post_media_hidden_title">Media nascosto</string>
     <string name="post_sensitive_media_directions">Clicca per visualizzare</string>
     <string name="post_content_warning_show_more">Mostra di più</string>
     <string name="post_content_warning_show_less">Mostra di meno</string>
@@ -70,7 +69,6 @@
     <string name="action_view_mutes">Utenti silenziati</string>
     <string name="action_view_blocks">Utenti bloccati</string>
     <string name="action_view_follow_requests">Richieste di seguirti</string>
-    <string name="action_view_media">Media</string>
     <string name="action_open_in_web">Apri nel browser</string>
     <string name="action_add_media">Aggiungi media</string>
     <string name="action_photo_take">Scatta foto</string>

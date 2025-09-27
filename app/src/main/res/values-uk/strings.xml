@@ -53,7 +53,6 @@
     <string name="action_add_poll">Додати опитування</string>
     <string name="action_add_media">Додати медіа</string>
     <string name="action_open_in_web">Відкрити в браузері</string>
-    <string name="action_view_media">Медіа</string>
     <string name="action_view_follow_requests">Запити на стеження</string>
     <string name="action_view_blocks">Заблоковані користувачі</string>
     <string name="action_view_bookmarks">Закладки</string>
@@ -80,7 +79,6 @@
     <string name="post_content_warning_show_less">Згорнути</string>
     <string name="post_content_warning_show_more">Розгорнути</string>
     <string name="post_sensitive_media_directions">Натисніть для перегляду</string>
-    <string name="post_media_hidden_title">Медіа приховано</string>
     <string name="hint_content_warning">Попередження про вміст</string>
     <string name="edit_poll">Змінити</string>
     <string name="compose_shortcut_short_label">Написати</string>

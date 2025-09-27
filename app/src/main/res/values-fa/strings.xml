@@ -26,7 +26,6 @@
     <string name="title_edit_profile">ویرایش نمایه‌تان</string>
     <string name="title_drafts">پیش‌نویس‌ها</string>
     <string name="post_boosted_format">%s تقویت کرد</string>
-    <string name="post_media_hidden_title">رسانهٔ نهفته</string>
     <string name="post_sensitive_media_directions">کلیک برای نمایش</string>
     <string name="post_content_warning_show_more">نمایش بیش‌تر</string>
     <string name="post_content_warning_show_less">نمایش کم‌تر</string>
@@ -59,7 +58,6 @@
     <string name="action_view_mutes">کاربران خموش</string>
     <string name="action_view_blocks">کاربران مسدود</string>
     <string name="action_view_follow_requests">درخواست‌های پی‌گیری</string>
-    <string name="action_view_media">رسانه</string>
     <string name="action_open_in_web">گشودن در مرورگر</string>
     <string name="action_add_media">افزودن رسانه</string>
     <string name="action_photo_take">گرفتن عکس</string>

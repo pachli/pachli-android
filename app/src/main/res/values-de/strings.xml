@@ -29,7 +29,6 @@
     <string name="title_edit_profile">Dein Profil bearbeiten</string>
     <string name="title_drafts">Entwürfe</string>
     <string name="post_boosted_format">%s teilte</string>
-    <string name="post_media_hidden_title">Medien ausgeblendet</string>
     <string name="post_sensitive_media_directions">Zum Anzeigen tippen</string>
     <string name="post_content_warning_show_more">Mehr anzeigen</string>
     <string name="post_content_warning_show_less">Weniger anzeigen</string>
@@ -64,7 +63,6 @@
     <string name="action_view_mutes">Stummgeschaltete Profile</string>
     <string name="action_view_blocks">Blockierte Nutzer</string>
     <string name="action_view_follow_requests">Folgeanfragen</string>
-    <string name="action_view_media">Medien</string>
     <string name="action_open_in_web">Im Browser öffnen</string>
     <string name="action_add_media">Mediendateien hinzufügen</string>
     <string name="action_photo_take">Foto aufnehmen</string>
