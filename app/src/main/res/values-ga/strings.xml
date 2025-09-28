@@ -790,13 +790,6 @@
     <string name="pref_title_notification_filter_moderation_warning">Seolann modhnóir teachtaireacht</string>
     <string name="notification_moderation_warnings_name">Rabhaidh mhodhnóireachta</string>
     <string name="notification_moderation_warnings_description">Fógraí faoi rabhaidh modhnóireachta</string>
-    <plurals name="description_post_roles">
-        <item quantity="one">le ról:</item>
-        <item quantity="two">le róil:</item>
-        <item quantity="few">le róil:</item>
-        <item quantity="many">le róil:</item>
-        <item quantity="other">le róil:</item>
-    </plurals>
     <string name="translator_error_server_does_not_translate">ní thacaíonn an freastalaí le haistriúchán</string>
     <string name="translator_error_no_language_detected">níorbh fhéidir an teanga bhunaidh a chinneadh</string>
     <string name="translator_error_unsupported_source_language_fmt">ní féidir aistriú ó %1$s</string>

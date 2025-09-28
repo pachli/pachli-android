@@ -92,4 +92,8 @@
     <string name="post_media_audio">Audio</string>
     <string name="post_media_video">Video</string>
     <string name="post_media_attachments">Anhänge</string>
+    <plurals name="description_post_roles">
+        <item quantity="one">mit Rolle:</item>
+        <item quantity="other">mit Rollen:</item>
+    </plurals>
 </resources>

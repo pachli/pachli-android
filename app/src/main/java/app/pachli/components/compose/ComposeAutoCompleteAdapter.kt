@@ -30,7 +30,7 @@ import app.pachli.core.model.Emoji
 import app.pachli.core.model.TimelineAccount
 import app.pachli.core.ui.databinding.ItemAutocompleteAccountBinding
 import app.pachli.core.ui.emojify
-import app.pachli.core.ui.extensions.setRoles
+import app.pachli.core.ui.extensions.contentDescription
 import app.pachli.core.ui.loadAvatar
 import app.pachli.databinding.ItemAutocompleteEmojiBinding
 import app.pachli.databinding.ItemAutocompleteHashtagBinding
@@ -131,6 +131,7 @@ class ComposeAutoCompleteAdapter(
                 binding.avatarBadge.visible(showBotBadge && account.bot)
 
                 binding.roleChipGroup.setRoles(account.roles)
+                binding.root.contentDescription = account.contentDescription(context)
             }
             is ItemAutocompleteHashtagBinding -> {
                 val result = getItem(position) as AutocompleteResult.HashtagResult

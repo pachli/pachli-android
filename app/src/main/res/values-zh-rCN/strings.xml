@@ -647,9 +647,6 @@
     <string name="notification_moderation_warnings_name">审查警告</string>
     <string name="notification_moderation_warnings_description">关于审查警告的通知</string>
     <string name="pref_title_public_filter_home_and_lists">首页和列表</string>
-    <plurals name="description_post_roles">
-        <item quantity="other">具有身份：</item>
-    </plurals>
     <string name="title_report_category_fmt">类别: %1$s</string>
     <string name="title_report_comment">报告者的评论</string>
     <string name="ui_error_filter_v1_load_fmt">加载过滤器失败：%1$s</string>

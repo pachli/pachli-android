@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="error_network">Atgadījās tīkla kļūda. Lūgums pārbaudīt savienojumu un mēģināt vēlreiz.</string>
     <string name="error_generic">Atgadījās kļūda.</string>
     <string name="message_empty">Šeit nekā nav.</string>
@@ -98,4 +98,9 @@
     <string name="post_media_audio">Audio</string>
     <string name="post_media_video">Video</string>
     <string name="post_media_attachments">Pielikumi</string>
+    <plurals name="description_post_roles" tools:ignore="ImpliedQuantity">
+        <item quantity="zero">ar lomām:</item>
+        <item quantity="one">ar lomu:</item>
+        <item quantity="other">ar lomām:</item>
+    </plurals>
 </resources>

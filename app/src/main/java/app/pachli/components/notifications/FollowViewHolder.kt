@@ -31,7 +31,7 @@ import app.pachli.core.model.TimelineAccount
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.emojify
-import app.pachli.core.ui.extensions.setRoles
+import app.pachli.core.ui.extensions.handleContentDescription
 import app.pachli.core.ui.loadAvatar
 import app.pachli.core.ui.setClickableText
 import app.pachli.databinding.ItemFollowBinding
@@ -100,6 +100,7 @@ class FollowViewHolder(
         binding.notificationText.text = emojifiedMessage
         val username = context.getString(DR.string.post_username_format, account.username)
         binding.notificationUsername.text = username
+        binding.notificationUsername.contentDescription = account.handleContentDescription(context)
         loadAvatar(
             glide,
             account.avatar,

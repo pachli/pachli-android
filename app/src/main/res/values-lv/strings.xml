@@ -764,11 +764,6 @@
     <string name="pref_title_notification_filter_moderation_warning">Satura pārraudzītājs nosūta ziņojumu</string>
     <string name="notification_moderation_warnings_name">Satura pārraudzības brīdinājumi</string>
     <string name="notification_moderation_warnings_description">Paziņojumi par satura pārraudzības brīdinājumiem</string>
-    <plurals name="description_post_roles" tools:ignore="ImpliedQuantity">
-        <item quantity="zero">ar lomām:</item>
-        <item quantity="one">ar lomu:</item>
-        <item quantity="other">ar lomām:</item>
-    </plurals>
     <string name="translator_error_server_does_not_translate">serveris neatbalsta tulkošanu</string>
     <string name="translator_error_no_language_detected">nevarēja noteikt sākotnējo valodu</string>
     <string name="translator_error_unsupported_source_language_fmt">nevar tulkot no %1$s</string>

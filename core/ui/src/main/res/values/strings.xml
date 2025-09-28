@@ -109,4 +109,12 @@
     <string name="post_media_attachments">Attachments</string>
     <string name="action_show_attachments">Show attachments</string>
     <string name="action_hide_attachments">Hide attachments</string>
+    <string name="dot_in_name">dot</string>
+    <string name="role_content_description_fmt">%1$s, at %2$s</string>
+    <plurals name="description_post_roles">
+        <item quantity="one">with role: </item>
+        <item quantity="other">with roles: </item>
+    </plurals>
+    <string name="handle_contentdescription_fmt">Handle, @%1$s</string>
+    <string name="account_contentdescription_fmt">%1$s, %2$s; %3$s</string>
 </resources>

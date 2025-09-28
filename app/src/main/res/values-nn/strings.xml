@@ -758,9 +758,5 @@
     <string name="pref_default_audio_playback">Standard audioavspeling</string>
     <string name="notification_moderation_warnings_name">Moderasjonsåtvaringar</string>
     <string name="notification_moderation_warnings_description">Varsel om moderasjonsåtvaringar</string>
-    <plurals name="description_post_roles">
-        <item quantity="one">med rolle:</item>
-        <item quantity="other">med roller:</item>
-    </plurals>
     <string name="error_share_media">ingen mappe for å lagre mellombels medium finst</string>
 </resources>

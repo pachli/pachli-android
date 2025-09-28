@@ -784,11 +784,6 @@
     <string name="translator_error_unsupported_source_language_fmt">no se puede traducir desde %1$s</string>
     <string name="translator_error_unsupported_target_language_fmt">no se puede traducir al %1$s</string>
     <string name="translator_error_download_required_fmt">para traducir al %1$s se necesita descargar el paquete de idioma, pero el Wi‑Fi no está conectado</string>
-    <plurals name="description_post_roles">
-        <item quantity="one">con rol:</item>
-        <item quantity="many">con roles:</item>
-        <item quantity="other">con roles:</item>
-    </plurals>
     <string name="filter_action_blur">Ocultar adjuntos</string>
     <string name="filter_description_blur">Mostrar contenido, ocultar adjuntos con una advertencia</string>
 </resources>

@@ -36,6 +36,7 @@ import app.pachli.core.model.Suggestion
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.emojify
+import app.pachli.core.ui.extensions.nameContentDescription
 import app.pachli.core.ui.loadAvatar
 import app.pachli.core.ui.setClickableText
 import app.pachli.feature.suggestions.SuggestionViewHolder.ChangePayload
@@ -194,7 +195,7 @@ internal class SuggestionViewHolder(
             // Build an accessible content description.
             root.contentDescription = root.context.getString(
                 R.string.account_content_description_fmt,
-                account.displayName,
+                account.nameContentDescription(root.context),
                 followerCount.text,
                 followsCount.text,
                 statusesCount.text,

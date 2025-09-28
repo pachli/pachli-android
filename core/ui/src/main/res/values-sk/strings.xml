@@ -94,4 +94,9 @@
     <string name="post_media_audio">Audio</string>
     <string name="post_media_video">Video</string>
     <string name="post_media_attachments">Prílohy</string>
+    <plurals name="description_post_roles">
+        <item quantity="one">s rolou:</item>
+        <item quantity="few">s rolami:</item>
+        <item quantity="other">s rolami:</item>
+    </plurals>
 </resources>

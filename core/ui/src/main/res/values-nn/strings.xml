@@ -86,4 +86,8 @@
     <string name="post_media_audio">Ljod</string>
     <string name="post_media_video">Video</string>
     <string name="post_media_attachments">Vedlegg</string>
+    <plurals name="description_post_roles">
+        <item quantity="one">med rolle:</item>
+        <item quantity="other">med roller:</item>
+    </plurals>
 </resources>
