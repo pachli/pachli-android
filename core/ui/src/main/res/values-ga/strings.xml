@@ -110,4 +110,11 @@
     <string name="post_media_audio">Fuaim</string>
     <string name="post_media_video">Físeán</string>
     <string name="post_media_attachments">Ceangaltáin</string>
+    <plurals name="description_post_roles">
+        <item quantity="one">le ról:</item>
+        <item quantity="two">le róil:</item>
+        <item quantity="few">le róil:</item>
+        <item quantity="many">le róil:</item>
+        <item quantity="other">le róil:</item>
+    </plurals>
 </resources>

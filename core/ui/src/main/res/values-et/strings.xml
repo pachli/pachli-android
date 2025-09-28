@@ -92,4 +92,8 @@
     <string name="post_media_audio">Helifail</string>
     <string name="post_media_video">Video</string>
     <string name="post_media_attachments">Manused</string>
+    <plurals name="description_post_roles">
+        <item quantity="one">rollis:</item>
+        <item quantity="other">rollides:</item>
+    </plurals>
 </resources>

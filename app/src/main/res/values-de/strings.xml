@@ -778,10 +778,6 @@
     <string name="translator_error_unsupported_source_language_fmt">kann von %1$s nicht übersetzen</string>
     <string name="translator_error_unsupported_target_language_fmt">kann nicht nach %1$s übersetzen</string>
     <string name="translator_error_download_required_fmt">Übersetzung in %1$s erfordert das Herunterladen des Sprachpakets und es besteht keine WLAN-Verbindung</string>
-    <plurals name="description_post_roles">
-        <item quantity="one">mit Rolle:</item>
-        <item quantity="other">mit Rollen:</item>
-    </plurals>
     <string name="filter_description_blur">Inhalt anzeigen, Medien mit Inhaltswarnung ausblenden</string>
     <string name="filter_action_blur">Anhänge ausblenden</string>
 </resources>

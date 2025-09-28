@@ -764,11 +764,6 @@
     <string name="notification_moderation_warnings_name">Upozornenia moderácie</string>
     <string name="notification_moderation_warnings_description">Upozornenia o moderátorských varovaniach</string>
     <string name="error_share_media">neexistuje žiadny adresár na uloženie dočasných médií</string>
-    <plurals name="description_post_roles">
-        <item quantity="one">s rolou:</item>
-        <item quantity="few">s rolami:</item>
-        <item quantity="other">s rolami:</item>
-    </plurals>
     <string name="translator_error_server_does_not_translate">server nepodporuje preklad</string>
     <string name="translator_error_no_language_detected">nedokázal rozpoznať pôvodný jazyk</string>
     <string name="translator_error_unsupported_source_language_fmt">nemôže preložiť z %1$s</string>

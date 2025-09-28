@@ -597,10 +597,6 @@
     <string name="wellbeing_hide_stats_posts">Peida postituste statistika</string>
     <string name="wellbeing_hide_stats_profile">Peida profiilide statistika</string>
     <string name="pref_title_labs">Arendamisel lahendused ja katsetused</string>
-    <plurals name="description_post_roles">
-        <item quantity="one">rollis:</item>
-        <item quantity="other">rollides:</item>
-    </plurals>
     <string name="notification_moderation_warning_title">Sõnum sinu koduserveri moderaatoritelt</string>
     <string name="notification_moderation_warning_body_none_fmt">Moderaatorid on saatnud sulle hoiatuse: %1$s</string>
     <string name="notification_moderation_warning_body_disable_fmt">Sinu konto on kasutuselt eemaldatud: %1$s</string>

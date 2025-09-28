@@ -98,4 +98,9 @@
     <string name="post_media_audio">Audio</string>
     <string name="post_media_video">Video</string>
     <string name="post_media_attachments">Adjuntos</string>
+    <plurals name="description_post_roles">
+        <item quantity="one">con rol:</item>
+        <item quantity="many">con roles:</item>
+        <item quantity="other">con roles:</item>
+    </plurals>
 </resources>

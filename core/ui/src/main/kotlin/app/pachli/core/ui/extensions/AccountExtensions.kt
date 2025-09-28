@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Pachli Association
+ * Copyright (c) 2025 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -17,28 +17,11 @@
 
 package app.pachli.core.ui.extensions
 
-import app.pachli.core.common.extensions.hide
-import app.pachli.core.common.extensions.show
-import app.pachli.core.model.Role
-import app.pachli.core.ui.RoleChip
-import com.google.android.material.chip.ChipGroup
+import android.content.Context
+import app.pachli.core.model.Account
 
-/**
- * Clears chips from this [ChipGroup], sets them to [roles], and shows
- * the group.
- *
- * Hides the group if [roles] is empty.
- */
-fun ChipGroup.setRoles(roles: List<Role>) {
-    removeAllViews()
-    if (roles.isEmpty()) {
-        hide()
-        return
-    }
+/** @see [app.pachli.core.model.TimelineAccount.nameContentDescription] */
+fun Account.nameContentDescription(context: Context) = nameContentDescription(context, name)
 
-    roles.forEach { role ->
-        val roleChip = RoleChip(context).apply { this.role = role.name }
-        addView(roleChip)
-    }
-    show()
-}
+/** @see [app.pachli.core.model.TimelineAccount.handleContentDescription] */
+fun Account.handleContentDescription(context: Context) = handleContentDescription(context, username)

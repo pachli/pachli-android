@@ -767,10 +767,6 @@
     <string name="pref_default_audio_playback">Äänen oletusarvoinen toisto</string>
     <string name="notification_moderation_warnings_name">Moderointivaroitukset</string>
     <string name="notification_moderation_warnings_description">Ilmoitukset moderointivaroituksista</string>
-    <plurals name="description_post_roles">
-        <item quantity="one">roolissa:</item>
-        <item quantity="other">rooleissa:</item>
-    </plurals>
     <string name="error_share_media">hakemisto väliaikaisen median tallentamiseen puuttuu</string>
     <string name="translator_error_server_does_not_translate">palvelin ei tue kääntämistä</string>
     <string name="translator_error_no_language_detected">alkukieltä ei voitu tunnistaa</string>

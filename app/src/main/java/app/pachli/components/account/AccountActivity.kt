@@ -77,6 +77,8 @@ import app.pachli.core.ui.emojify
 import app.pachli.core.ui.extensions.InsetType
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.core.ui.extensions.applyWindowInsets
+import app.pachli.core.ui.extensions.handleContentDescription
+import app.pachli.core.ui.extensions.nameContentDescription
 import app.pachli.core.ui.extensions.reduceSwipeSensitivity
 import app.pachli.core.ui.getDomain
 import app.pachli.core.ui.loadAvatar
@@ -513,9 +515,12 @@ class AccountActivity :
     private fun onAccountChanged(account: Account?) {
         loadedAccount = account ?: return
 
+        binding.accountDisplayNameTextView.text = account.name.emojify(glide, account.emojis, binding.accountDisplayNameTextView, animateEmojis)
+        binding.accountDisplayNameTextView.contentDescription = account.nameContentDescription(this)
+
         val usernameFormatted = getString(DR.string.post_username_format, account.username)
         binding.accountUsernameTextView.text = usernameFormatted
-        binding.accountDisplayNameTextView.text = account.name.emojify(glide, account.emojis, binding.accountDisplayNameTextView, animateEmojis)
+        binding.accountUsernameTextView.contentDescription = account.handleContentDescription(this)
 
         // Long press on username to copy it to clipboard
         for (view in listOf(binding.accountUsernameTextView, binding.accountDisplayNameTextView)) {
@@ -821,8 +826,7 @@ class AccountActivity :
         // so follow suit for the moment, https://github.com/mastodon/mastodon/issues/28327
         loadedAccount?.roles?.forEach { role ->
             val badgeView = getBadge(app.pachli.core.ui.R.drawable.profile_role_badge).apply {
-                this.role = role.name
-                this.domain = viewModel.domain
+                bind(role, viewModel.domain)
             }
 
             binding.accountBadgeContainer.addView(badgeView)
