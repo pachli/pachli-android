@@ -769,4 +769,6 @@
     <string name="translator_error_unsupported_source_language_fmt">nemôže preložiť z %1$s</string>
     <string name="translator_error_unsupported_target_language_fmt">nemôže preložiť do %1$s</string>
     <string name="translator_error_download_required_fmt">preklad do jazyka %1$s si vyžaduje stiahnutie jazykového balíka a momentálne Wi-Fi nie je pripojená</string>
+    <string name="filter_action_blur">Skryť prílohy</string>
+    <string name="filter_description_blur">Zobraziť text, skryť prílohy s upozornením na obsah</string>
 </resources>
