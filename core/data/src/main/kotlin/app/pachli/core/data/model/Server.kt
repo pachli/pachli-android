@@ -379,6 +379,13 @@ data class Server(
                             c[ORG_JOINMASTODON_FILTERS_ACTION_BLUR] = "1.0.0".toVersion()
                         }
                     }
+
+                    // Scheduled statuses
+                    when {
+                        v >= "0.20.0".toVersion() -> {
+                            c[ORG_JOINMASTODON_STATUSES_SCHEDULED] = "1.0.0".toVersion()
+                        }
+                    }
                 }
 
                 // FireFish can't filter (conversation in the Firefish dev. chat )
