@@ -101,4 +101,20 @@
     <string name="description_visibility_unlisted">Neamhliostaithe</string>
     <string name="description_visibility_private">Leantóirí</string>
     <string name="description_visibility_direct">Díreach</string>
+    <string name="attachment_matches_filter_one_fmt">Meaitseálann an scagaire: \"%1$s\". Tapáil le taispeáint.</string>
+    <string name="attachment_matches_filter_two_fmt">Meaitseálann na scagairí seo a leanas: \"%1$s\" agus \"%2$s\". Tapáil le taispeáint.</string>
+    <string name="attachment_matches_filter_other_fmt">Meaitseálann scagairí: \"%1$s\", \"%2$s\", agus tuilleadh. Tapáil le taispeáint.</string>
+    <string name="post_sensitive_media_title">Ábhar íogair. Tapáil le taispeáint.</string>
+    <string name="attachment_hidden_user_action">Chuir tú seo i bhfolach. Tapáil le taispeáint.</string>
+    <string name="post_media_images">Íomhánna</string>
+    <string name="post_media_audio">Fuaim</string>
+    <string name="post_media_video">Físeán</string>
+    <string name="post_media_attachments">Ceangaltáin</string>
+    <plurals name="description_post_roles">
+        <item quantity="one">le ról:</item>
+        <item quantity="two">le róil:</item>
+        <item quantity="few">le róil:</item>
+        <item quantity="many">le róil:</item>
+        <item quantity="other">le róil:</item>
+    </plurals>
 </resources>

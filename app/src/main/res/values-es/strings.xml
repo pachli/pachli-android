@@ -29,8 +29,6 @@
     <string name="title_edit_profile">Editar tu perfil</string>
     <string name="title_drafts">Borradores</string>
     <string name="post_boosted_format">%s impulsó</string>
-    <string name="post_sensitive_media_title">Contenido sensible. Toca para mostrar.</string>
-    <string name="post_media_hidden_title">Material oculto</string>
     <string name="post_sensitive_media_directions">Pulsa para ver</string>
     <string name="post_content_warning_show_more">Mostrar más</string>
     <string name="post_content_warning_show_less">Mostrar menos</string>
@@ -63,7 +61,6 @@
     <string name="action_view_mutes">Silenciados</string>
     <string name="action_view_blocks">Bloqueados</string>
     <string name="action_view_follow_requests">Solicitudes de seguimiento</string>
-    <string name="action_view_media">Multimedia</string>
     <string name="action_open_in_web">Abrir en el navegador</string>
     <string name="action_add_media">Añadir multimedia</string>
     <string name="action_photo_take">Tomar foto</string>
@@ -179,8 +176,6 @@
     -->
     <string name="post_share_content">Compartir contenido</string>
     <string name="post_share_link">Compartir enlace</string>
-    <string name="post_media_images">Imágenes</string>
-    <string name="post_media_video">Video</string>
     <string name="state_follow_requested">Solicitud enviada</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">Te sigue</string>
@@ -368,8 +363,6 @@
     <string name="drafts_post_failed_to_send">¡Esta publicación no se pudo enviar!</string>
     <string name="duration_indefinite">Indefinido</string>
     <string name="label_duration">Duración</string>
-    <string name="post_media_attachments">Adjuntos</string>
-    <string name="post_media_audio">Audio</string>
     <string name="action_unbookmark">Quitar marcador</string>
     <string name="follow_requests_info">Aunque tu cuenta no está protegida, el personal de %1$s pensó que podrías querer revisar las solicitudes de seguimiento de estas cuentas manualmente.</string>
     <string name="action_subscribe_account">Suscribir</string>
@@ -791,15 +784,6 @@
     <string name="translator_error_unsupported_source_language_fmt">no se puede traducir desde %1$s</string>
     <string name="translator_error_unsupported_target_language_fmt">no se puede traducir al %1$s</string>
     <string name="translator_error_download_required_fmt">para traducir al %1$s se necesita descargar el paquete de idioma, pero el Wi‑Fi no está conectado</string>
-    <plurals name="description_post_roles">
-        <item quantity="one">con rol:</item>
-        <item quantity="many">con roles:</item>
-        <item quantity="other">con roles:</item>
-    </plurals>
-    <string name="attachment_matches_filter_one_fmt">Filtro aplicado: \"%1$s\". Toca para mostrar.</string>
-    <string name="attachment_matches_filter_two_fmt">Filtros aplicados: \"%1$s\" y \"%2$s\". Toca para mostrar.</string>
-    <string name="attachment_matches_filter_other_fmt">Filtros aplicados: \"%1$s\", \"%2$s\" y otros. Toca para mostrar.</string>
-    <string name="attachment_hidden_user_action">Ocultado por ti. Toca para mostrar.</string>
     <string name="filter_action_blur">Ocultar adjuntos</string>
     <string name="filter_description_blur">Mostrar contenido, ocultar adjuntos con una advertencia</string>
 </resources>

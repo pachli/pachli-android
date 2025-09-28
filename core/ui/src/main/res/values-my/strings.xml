@@ -3,4 +3,5 @@
     <string name="action_logout_confirm">သင် %1$s? မှထွက်ရန် သေချာသလား။ပုံကြမ်းများနှင့်ချိန်ညှိမှုများကိုဖျက်မည်ဖြစ်သည်။</string>
     <string name="action_logout">ထွက်မည်</string>
     <string name="post_media_alt">ပုံစာ</string>
+    <string name="post_sensitive_media_title">ထိလွယ်ရှလွယ်သော</string>
 </resources>

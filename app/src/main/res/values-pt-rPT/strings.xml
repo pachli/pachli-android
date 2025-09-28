@@ -45,9 +45,7 @@
     <string name="title_blocks">Utilizadores bloqueados</string>
     <string name="title_domain_mutes">Instâncias bloqueadas</string>
     <string name="title_follow_requests">Seguidores Pendentes</string>
-    <string name="post_sensitive_media_title">Conteúdo sensível</string>
     <string name="title_edit_profile">Editar perfil</string>
-    <string name="post_media_hidden_title">Conteúdo multimédia ocultado</string>
     <string name="title_drafts">Rascunhos</string>
     <string name="post_sensitive_media_directions">Toque para ver</string>
     <string name="post_content_warning_show_more">Mostrar Mais</string>
@@ -97,7 +95,6 @@
     <string name="action_view_blocks">Utilizadores bloqueados</string>
     <string name="action_view_domain_mutes">Instâncias bloqueadas</string>
     <string name="action_view_follow_requests">Seguidores Pendentes</string>
-    <string name="action_view_media">Conteúdo multimédia</string>
     <string name="action_open_in_web">Abrir no navegador</string>
     <string name="action_add_media">Adicionar conteúdo multimédia</string>
     <string name="action_add_poll">Adicionar votação</string>
@@ -239,10 +236,6 @@
     <string name="filter_dialog_update_button">Atualizar</string>
     <string name="post_share_content">Partilhar conteúdo do toot</string>
     <string name="post_share_link">Partilhar hiperligação do toot</string>
-    <string name="post_media_images">Imagens</string>
-    <string name="post_media_video">Vídeo</string>
-    <string name="post_media_audio">Áudio</string>
-    <string name="post_media_attachments">Anexos</string>
     <string name="state_follow_requested">Pedido para seguir enviado</string>
     <string name="follows_you">Segue-te</string>
     <string name="pref_title_alway_show_sensitive_media">Mostrar sempre conteúdo multimédia sensível</string>

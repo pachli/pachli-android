@@ -65,8 +65,6 @@
     <string name="notification_summary_large">%1$s, %2$s, %3$s d %4$d nniḍen</string>
     <string name="notification_summary_medium">%1$s, %2$s, akked %3$s</string>
     <string name="notification_summary_small">%1$s akked %2$s</string>
-    <string name="post_media_images">Tugniwin</string>
-    <string name="post_media_video">Tibidyutin</string>
     <string name="follows_you">Yeṭṭafar-ik·ikem-id</string>
     <string name="filter_dialog_remove_button">Kkes</string>
     <string name="filter_dialog_update_button">Lqem</string>
@@ -79,7 +77,6 @@
     <string name="action_view_blocks">Imiḍan yettusḥebsen</string>
     <string name="action_view_domain_mutes">Tiɣula yettwaffren</string>
     <string name="action_view_follow_requests">Isuturen n teḍfeṛt</string>
-    <string name="action_view_media">Taɣwalt</string>
     <string name="notifications_clear">Sfeḍ</string>
     <string name="title_mutes">Imiḍanen yettwasgugmen</string>
     <string name="title_blocks">Imiḍan yettusḥebsen</string>
@@ -156,7 +153,6 @@
     <string name="compose_save_draft">Sekles amzun d arewway\?</string>
     <string name="later">Ticki</string>
     <string name="description_post_bookmarked">Yettwarna ɣer ticṛad</string>
-    <string name="post_sensitive_media_title">Agbur amḥulfu</string>
     <string name="pref_default_media_sensitivity">Creḍ allal n teywalt amzun d amḥulfu</string>
     <string name="action_reset_schedule">Wennez tikkelt-nniḍen</string>
     <string name="error_media_upload_sending">Asali ur yeddi ara.</string>
@@ -198,7 +194,6 @@
     <string name="translation_provider_fmt">%1$s</string>
     <string name="hint_description">Aglam</string>
     <string name="label_image">Tugna</string>
-    <string name="post_media_audio">Imesli</string>
     <string name="status_count_one_plus">1+</string>
     <string name="profile_metadata_content_label">Agbur</string>
     <string name="filter_action_hide">Ffer</string>

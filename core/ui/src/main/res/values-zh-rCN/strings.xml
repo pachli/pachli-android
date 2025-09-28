@@ -69,4 +69,12 @@
     <string name="description_visibility_direct">
         私信
     </string>
+    <string name="post_sensitive_media_title">敏感内容</string>
+    <string name="post_media_images">图片</string>
+    <string name="post_media_audio">音频</string>
+    <string name="post_media_video">视频</string>
+    <string name="post_media_attachments">附件</string>
+    <plurals name="description_post_roles">
+        <item quantity="other">具有身份：</item>
+    </plurals>
 </resources>

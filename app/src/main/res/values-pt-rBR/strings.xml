@@ -28,8 +28,6 @@
     <string name="title_edit_profile">Editar perfil</string>
     <string name="title_drafts">Rascunhos</string>
     <string name="post_boosted_format">%s deu Boost</string>
-    <string name="post_sensitive_media_title">Mídia sensível</string>
-    <string name="post_media_hidden_title">Mídia sensível</string>
     <string name="post_sensitive_media_directions">Toque para ver</string>
     <string name="post_content_warning_show_more">Expandir</string>
     <string name="post_content_warning_show_less">Ocultar</string>
@@ -61,7 +59,6 @@
     <string name="action_view_mutes">Usuários silenciados</string>
     <string name="action_view_blocks">Usuários bloqueados</string>
     <string name="action_view_follow_requests">Pedidos para te seguir</string>
-    <string name="action_view_media">Mídia</string>
     <string name="action_open_in_web">Abrir no navegador</string>
     <string name="action_add_media">Adicionar mídia</string>
     <string name="action_photo_take">Tirar foto</string>
@@ -179,8 +176,6 @@
     -->
     <string name="post_share_content">Compartilhar conteúdo do Toot</string>
     <string name="post_share_link">Compartilhar URL do Toot</string>
-    <string name="post_media_images">Imagens</string>
-    <string name="post_media_video">Vídeo</string>
     <string name="state_follow_requested">Solicitação enviada</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">te segue</string>
@@ -366,8 +361,6 @@
     <string name="no_announcements">Sem comunicados.</string>
     <string name="duration_indefinite">Indefinido</string>
     <string name="label_duration">Duração</string>
-    <string name="post_media_attachments">Anexos</string>
-    <string name="post_media_audio">Áudio</string>
     <string name="notification_subscription_name">Novos Toots</string>
     <string name="notification_subscription_format">%s recém postou</string>
     <string name="title_announcements">Comunicados</string>

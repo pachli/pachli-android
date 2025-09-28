@@ -36,8 +36,6 @@
     <string name="title_edit_profile">Breyta notandasniðinu þínu</string>
     <string name="title_scheduled_posts">Áætlaðar færslur</string>
     <string name="post_boosted_format">%s endurbirti</string>
-    <string name="post_sensitive_media_title">Viðkvæmt efni</string>
-    <string name="post_media_hidden_title">Myndefni er falið</string>
     <string name="post_sensitive_media_directions">Ýttu til að skoða</string>
     <string name="post_content_warning_show_more">Sýna meira</string>
     <string name="post_content_warning_show_less">Sýna minna</string>
@@ -75,7 +73,6 @@
     <string name="action_view_blocks">Útilokaðir notendur</string>
     <string name="action_view_domain_mutes">Falin lén</string>
     <string name="action_view_follow_requests">Fylgjendabeiðnir</string>
-    <string name="action_view_media">Myndefni</string>
     <string name="action_open_in_web">Opna í vafra</string>
     <string name="action_add_media">Bæta við myndefni</string>
     <string name="action_add_poll">Bæta við könnun</string>
@@ -205,8 +202,6 @@
     <string name="description_account_locked">Læstur notandaaðgangur</string>
     <string name="post_share_content">Deila efni úr færslu</string>
     <string name="post_share_link">Deila tengli á færslu</string>
-    <string name="post_media_images">Myndir</string>
-    <string name="post_media_video">Myndskeið</string>
     <string name="state_follow_requested">Beðið um að fylgja</string>
     <string name="follows_you">Fylgir þér</string>
     <string name="pref_title_alway_show_sensitive_media">Alltaf birta myndefni sem merkt er viðkvæmt</string>
@@ -347,8 +342,6 @@
     <string name="draft_deleted">Eyddi drögum</string>
     <string name="drafts_failed_loading_reply">Mistókst að hlaða inn svarupplýsingum</string>
     <string name="drafts_post_failed_to_send">Mistókst að senda þessa færslu!</string>
-    <string name="post_media_attachments">Viðhengi</string>
-    <string name="post_media_audio">Hljóð</string>
     <string name="duration_indefinite">Ótiltekið</string>
     <string name="label_duration">Tímalengd</string>
     <plurals name="error_upload_max_media_reached">

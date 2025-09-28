@@ -45,7 +45,7 @@ import app.pachli.core.network.retrofit.apiresult.ApiError
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.ui.BindingHolder
 import app.pachli.core.ui.emojify
-import app.pachli.core.ui.extensions.setRoles
+import app.pachli.core.ui.extensions.contentDescription
 import app.pachli.core.ui.loadAvatar
 import app.pachli.feature.lists.databinding.FragmentAccountsInListBinding
 import app.pachli.feature.lists.databinding.ItemAccountInListBinding
@@ -264,6 +264,7 @@ class AccountsInListFragment : AppCompatDialogFragment() {
             loadAvatar(glide, account.avatar, holder.binding.avatar, radius, animateAvatar)
 
             holder.binding.roleChipGroup.setRoles(account.roles)
+            holder.binding.root.contentDescription = account.contentDescription(holder.binding.root.context)
         }
     }
 
@@ -307,6 +308,8 @@ class AccountsInListFragment : AppCompatDialogFragment() {
             holder.binding.avatarBadge.visible(account.bot)
 
             holder.binding.roleChipGroup.setRoles(account.roles)
+
+            holder.binding.root.contentDescription = account.contentDescription(holder.binding.root.context)
 
             with(holder.binding.checkBox) {
                 contentDescription = getString(

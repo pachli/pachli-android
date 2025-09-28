@@ -79,8 +79,6 @@
     <string name="title_bookmarks">သိမ်းဆည်းမှုများ</string>
     <string name="title_edits">ပြုပြင်မှုများ</string>
     <string name="post_boosted_format">%s တစ်ဆင့်မျှဝေပြီး</string>
-    <string name="post_sensitive_media_title">ထိလွယ်ရှလွယ်သော</string>
-    <string name="post_media_hidden_title">မီဒီယာဖျောက်ထား</string>
     <string name="notification_reblog_format">%s မှသင့်ပိုစ့်ကိုတစ်ဆင့်မျှဝေသည်</string>
     <string name="post_content_show_more">ချဲ့မည်</string>
     <string name="notification_favourite_format">%s မှသင့်ပိုစ့်ကိုကြိုက်နှစ်သက်သည်</string>
@@ -165,7 +163,6 @@
     <string name="action_view_bookmarks">သိမ်းဆည်းထားသည်များ</string>
     <string name="action_view_follow_requests">စောင့်ကြည့်ရန်တောင်းဆိုမှုများ</string>
     <string name="action_view_domain_mutes">ဖယ်ရှားထားသောဒိုမိန်းများ</string>
-    <string name="action_view_media">မီဒီယာ</string>
     <string name="action_open_in_web">ဘရောက်ဇာတွင်ဖွင့်မည်</string>
     <string name="action_photo_take">ပုံရိုက်မည်</string>
     <string name="action_share">မျှဝေမည်</string>

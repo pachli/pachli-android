@@ -85,4 +85,9 @@
     <string name="description_visibility_unlisted">Non in elenco</string>
     <string name="description_visibility_private">Solo seguaci</string>
     <string name="description_visibility_direct">Diretti</string>
+    <string name="post_sensitive_media_title">Contenuto sensibile</string>
+    <string name="post_media_images">Immagini</string>
+    <string name="post_media_audio">Audio</string>
+    <string name="post_media_video">Video</string>
+    <string name="post_media_attachments">Allegati</string>
 </resources>

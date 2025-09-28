@@ -67,4 +67,7 @@
     <string name="description_visibility_unlisted">Ni prikazano</string>
     <string name="description_visibility_private">Sledilci</string>
     <string name="description_visibility_direct">Neposredno</string>
+    <string name="post_sensitive_media_title">Občutljiva vsebina</string>
+    <string name="post_media_images">Slike</string>
+    <string name="post_media_video">Video</string>
 </resources>

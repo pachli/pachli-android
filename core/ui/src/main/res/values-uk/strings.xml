@@ -77,4 +77,9 @@
     <string name="description_visibility_unlisted">Приховано</string>
     <string name="description_visibility_private">Підписники</string>
     <string name="description_visibility_direct">Безпосередньо</string>
+    <string name="post_sensitive_media_title">Делікатний вміст</string>
+    <string name="post_media_images">Зображення</string>
+    <string name="post_media_audio">Звуки</string>
+    <string name="post_media_video">Відео</string>
+    <string name="post_media_attachments">Вкладення</string>
 </resources>

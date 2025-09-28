@@ -47,7 +47,6 @@
     <string name="action_add_poll">زیادکردنی ڕاپرسی</string>
     <string name="action_add_media">زیادکردنی میدیا</string>
     <string name="action_open_in_web">لە وێبگەڕ بیکەوە</string>
-    <string name="action_view_media">میدیا</string>
     <string name="action_view_follow_requests">بەدواداچونی داواکاریەکان بکە</string>
     <string name="action_view_domain_mutes">دۆمەینە شاراوەکان</string>
     <string name="action_view_blocks">بەکارهێنەرە بلۆککراوەکان</string>
@@ -89,8 +88,6 @@
     <string name="post_content_warning_show_less">کەمتر نیشان بدە</string>
     <string name="post_content_warning_show_more">زیاتر پیشان بدە</string>
     <string name="post_sensitive_media_directions">کرتە بکە بۆ بینین</string>
-    <string name="post_media_hidden_title">میدیا شاراوە</string>
-    <string name="post_sensitive_media_title">ناوەڕۆکی هەستیار</string>
     <string name="post_boosted_format">%s پۆستی کردەوە</string>
     <string name="title_announcements">ڕاگه یه نراوەکان</string>
     <string name="title_scheduled_posts">توتی خشتەکراو</string>
@@ -303,8 +300,6 @@
     <string name="pref_title_alway_show_sensitive_media">هەمیشە ناوەڕۆکی هەستیار نیشان بدە</string>
     <string name="follows_you">دوای تۆ دەکەوێت</string>
     <string name="state_follow_requested">بەدواداچوونەوەی داواکراو</string>
-    <string name="post_media_video">ڤیدیۆ</string>
-    <string name="post_media_images">وێنەکان</string>
     <string name="post_share_link">هاوبەشکردنی لینک بۆ توت</string>
     <string name="post_share_content">هاوبەشکردنی ناوەڕۆکی دووت</string>
     <string name="description_account_locked">هەژماری داخراو</string>

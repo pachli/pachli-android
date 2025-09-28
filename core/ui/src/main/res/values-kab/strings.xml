@@ -56,4 +56,8 @@
     <string name="abbreviated_years_ago">%dis aya</string>
     <string name="description_visibility_private">Imeḍfaṛen</string>
     <string name="description_visibility_direct">Srid</string>
+    <string name="post_sensitive_media_title">Agbur amḥulfu</string>
+    <string name="post_media_images">Tugniwin</string>
+    <string name="post_media_audio">Imesli</string>
+    <string name="post_media_video">Tibidyutin</string>
 </resources>

@@ -29,8 +29,6 @@
     <string name="title_edit_profile">Profiel bewerken</string>
     <string name="title_drafts">Concepten</string>
     <string name="post_boosted_format">%s boostte</string>
-    <string name="post_sensitive_media_title">Gevoelige inhoud</string>
-    <string name="post_media_hidden_title">Verborgen media</string>
     <string name="post_sensitive_media_directions">Klik om te bekijken</string>
     <string name="post_content_warning_show_more">Meer tonen</string>
     <string name="post_content_warning_show_less">Minder tonen</string>
@@ -65,7 +63,6 @@
     <string name="action_view_mutes">Genegeerde gebruikers</string>
     <string name="action_view_blocks">Geblokkeerde gebruikers</string>
     <string name="action_view_follow_requests">Volgverzoeken</string>
-    <string name="action_view_media">Media</string>
     <string name="action_open_in_web">Open in webbrowser</string>
     <string name="action_add_media">Media toevoegen</string>
     <string name="action_photo_take">Foto maken</string>
@@ -186,8 +183,6 @@
     -->
     <string name="post_share_content">Inhoud van bericht delen</string>
     <string name="post_share_link">Link van het bericht delen</string>
-    <string name="post_media_images">Afbeeldingen</string>
-    <string name="post_media_video">Video</string>
     <string name="state_follow_requested">Volgverzoek verzonden</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">Volgt jou</string>
@@ -319,7 +314,6 @@
     <string name="warning_scheduling_interval">Om in te plannen moet je in Mastodon een minimum interval van 5 minuten gebruiken.</string>
     <string name="notification_follow_request_name">Volgverzoeken</string>
     <string name="hashtags">Hashtags</string>
-    <string name="post_media_attachments">Bijlagen</string>
     <string name="pref_title_notification_filter_follow_requests">volgverzoek verstuurd</string>
     <string name="action_unsubscribe_account">Afmelden</string>
     <string name="action_subscribe_account">Abonneren</string>
@@ -340,7 +334,6 @@
     <string name="label_duration">Looptijd</string>
     <string name="pref_title_enable_swipe_for_tabs">Swipebewegingen om tussen tabs te schakelen inschakelen</string>
     <string name="add_hashtag_title">Hashtag toevoegen</string>
-    <string name="post_media_audio">Geluid</string>
     <string name="notification_subscription_description">Meldingen wanneer iemand waar je op bent geabonneerd een nieuw bericht plaatst</string>
     <string name="notification_subscription_name">Nieuwe berichten</string>
     <string name="notification_follow_request_description">Meldingen over volgverzoeken</string>

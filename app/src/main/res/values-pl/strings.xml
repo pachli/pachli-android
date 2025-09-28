@@ -26,8 +26,6 @@
     <string name="title_edit_profile">Edytuj profil</string>
     <string name="title_drafts">Szkice</string>
     <string name="post_boosted_format">Podbicie od %s</string>
-    <string name="post_sensitive_media_title">Treści drażliwe</string>
-    <string name="post_media_hidden_title">Ukryto multimedia</string>
     <string name="post_sensitive_media_directions">Naciśnij, aby wyświetlić</string>
     <string name="post_content_warning_show_more">Pokaż więcej</string>
     <string name="post_content_warning_show_less">Pokaż mniej</string>
@@ -57,7 +55,6 @@
     <string name="action_view_mutes">Wyciszone konta</string>
     <string name="action_view_blocks">Zablokowane konta</string>
     <string name="action_view_follow_requests">Prośby o obserwację</string>
-    <string name="action_view_media">Multimedia</string>
     <string name="action_open_in_web">Otwórz w przeglądarce</string>
     <string name="action_add_media">Dodaj treści multimedialne</string>
     <string name="action_photo_take">Zrób zdjęcie</string>
@@ -168,8 +165,6 @@
     -->
     <string name="post_share_content">Udostępnij zawartość wpisu</string>
     <string name="post_share_link">Udostępnij odnośnik do wpisu</string>
-    <string name="post_media_images">Obrazy</string>
-    <string name="post_media_video">Wideo</string>
     <string name="state_follow_requested">Wysłano prośbę o obserwację</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">Obserwuje cię</string>
@@ -349,7 +344,6 @@
     <string name="notification_subscription_name">Nowe wpisy</string>
     <string name="wellbeing_mode_notice">Niektóre informacje, które mogą wpływać na twój dobrostan psychiczny, zostaną ukryte. W ich skład wchodzą:\n\n - powiadomienia o ulubionych/podbiciach/obserwowaniu\n - liczba polubień/podbić wpisu \n - statystyki obserwujących/postów na profilach \n\nNie będzie to miało wpływu na powiadomienia, ale możesz zmienić ustawienia powiadomień ręcznie.</string>
     <string name="pref_title_enable_swipe_for_tabs">Włącz gest przesuwania, by przełączać między kartami</string>
-    <string name="post_media_attachments">Załączniki</string>
     <string name="notification_follow_request_description">Powiadomienia o prośbach o obserwowanie</string>
     <string name="pref_title_notification_filter_subscriptions">Ktoś, kogo obserwuję opublikował nowy wpis</string>
     <string name="pref_title_notification_filter_follow_requests">Wysłano prośbę o obserwowanie</string>
@@ -366,7 +360,6 @@
     <string name="account_note_saved">Zapisano!</string>
     <string name="account_note_hint">Twoja prywatna notatka o tym koncie</string>
     <string name="duration_indefinite">Nieograniczony</string>
-    <string name="post_media_audio">Dźwięk</string>
     <string name="notification_subscription_description">Powiadomienia o opublikowaniu nowego wpisu przez kogoś, kogo obserwujesz</string>
     <string name="pref_main_nav_position">Pozycja głównego paska nawigacji</string>
     <string name="pref_title_animate_custom_emojis">Animuj niestandardowe emoji</string>
@@ -786,12 +779,6 @@
     <string name="pref_title_notification_filter_moderation_warning">Moderacja przysłała wiadomość</string>
     <string name="notification_moderation_warnings_name">Ostrzeżenie moderacji</string>
     <string name="notification_moderation_warnings_description">Powiadomienia o ostrzeżeniach moderacji</string>
-    <plurals name="description_post_roles">
-        <item quantity="one">z rolą:</item>
-        <item quantity="few">z rolami:</item>
-        <item quantity="many">z rolami:</item>
-        <item quantity="other">z rolami:</item>
-    </plurals>
     <string name="error_share_media">brak katalogu do zapisu mediów tymczasowych</string>
     <string name="translator_error_server_does_not_translate">serwer nie obsługuje tłumaczenia</string>
     <string name="translator_error_no_language_detected">nie udało się ustalić oryginalnego języka</string>

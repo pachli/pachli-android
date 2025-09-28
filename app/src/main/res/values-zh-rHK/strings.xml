@@ -29,8 +29,6 @@
     <string name="title_edit_profile">編輯個人資料</string>
     <string name="title_drafts">草稿</string>
     <string name="post_boosted_format">%s 轉嘟了</string>
-    <string name="post_sensitive_media_title">敏感內容</string>
-    <string name="post_media_hidden_title">已隱藏的照片或影片</string>
     <string name="post_sensitive_media_directions">點一下顯示</string>
     <string name="post_content_warning_show_more">顯示更多</string>
     <string name="post_content_warning_show_less">摺疊內容</string>
@@ -66,7 +64,6 @@
     <string name="action_view_mutes">被靜音的使用者</string>
     <string name="action_view_blocks">被封鎖的使用者</string>
     <string name="action_view_follow_requests">關注請求</string>
-    <string name="action_view_media">媒體</string>
     <string name="action_open_in_web">在瀏覽器中開啟</string>
     <string name="action_add_media">從相簿中選擇</string>
     <string name="action_photo_take">拍照</string>
@@ -193,8 +190,6 @@
     -->
     <string name="post_share_content">分享嘟文內容</string>
     <string name="post_share_link">分享嘟文連結</string>
-    <string name="post_media_images">照片</string>
-    <string name="post_media_video">影片</string>
     <string name="state_follow_requested">已請求關注</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">關注了你</string>
@@ -352,8 +347,6 @@
     <string name="select_list_title">選擇列表</string>
     <string name="add_hashtag_title">加上話題標籤</string>
     <string name="pref_title_alway_open_spoiler">總是顯示被標注為內容警告的嘟文</string>
-    <string name="post_media_attachments">附件</string>
-    <string name="post_media_audio">錄音</string>
     <string name="notification_subscription_description">當你關注的人發布新嘟文時通知</string>
     <string name="notification_subscription_name">新嘟文</string>
     <string name="notification_follow_request_description">關注請求的通知</string>

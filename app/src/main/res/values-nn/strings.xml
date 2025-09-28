@@ -46,8 +46,6 @@
     <string name="dialog_follow_hashtag_title">Fylg emneknagg</string>
     <string name="dialog_follow_hashtag_hint">#emneknagg</string>
     <string name="post_boosted_format">%s delte</string>
-    <string name="post_sensitive_media_title">Sensitivt innhald</string>
-    <string name="post_media_hidden_title">Media skjult</string>
     <string name="post_sensitive_media_directions">Trykk for å syne</string>
     <string name="post_content_warning_show_more">Syn meir</string>
     <string name="post_content_warning_show_less">Syn mindre</string>
@@ -116,7 +114,6 @@
     <string name="action_view_blocks">Blokkerte brukarar</string>
     <string name="action_view_domain_mutes">Skjulte domene</string>
     <string name="action_view_follow_requests">Fylgjeførespurnader</string>
-    <string name="action_view_media">Media</string>
     <string name="action_open_in_web">Opne i nettlesar</string>
     <string name="action_add_media">Legg ved media</string>
     <string name="action_add_poll">Legg ved avstemming</string>
@@ -232,7 +229,6 @@
     <string name="notification_summary_medium">%1$s, %2$s, og %3$s</string>
     <string name="notification_summary_small">%1$s og %2$s</string>
     <string name="notification_prune_cache">Hurtiglagringsvedlikehald…</string>
-    <string name="post_media_attachments">Vedlegg</string>
     <string name="status_count_one_plus">1+</string>
     <string name="status_filtered_show_anyway">Syn likevel</string>
     <string name="status_filter_placeholder_label_format">Filtrert: &lt;b&gt;%1$s&lt;/b&gt;</string>
@@ -366,9 +362,6 @@
     <string name="notification_notification_worker">Hentar varsel…</string>
     <string name="description_account_locked">Låst konto</string>
     <string name="post_share_link">Del lenkja til innlegget</string>
-    <string name="post_media_images">Bilete</string>
-    <string name="post_media_video">Video</string>
-    <string name="post_media_audio">Ljod</string>
     <string name="pref_title_alway_open_spoiler">Utvid alltid innlegg med innhaldsåtvaringar</string>
     <string name="title_media">Media</string>
     <string name="pref_title_account_filter_keywords">Profilar</string>
@@ -765,9 +758,5 @@
     <string name="pref_default_audio_playback">Standard audioavspeling</string>
     <string name="notification_moderation_warnings_name">Moderasjonsåtvaringar</string>
     <string name="notification_moderation_warnings_description">Varsel om moderasjonsåtvaringar</string>
-    <plurals name="description_post_roles">
-        <item quantity="one">med rolle:</item>
-        <item quantity="other">med roller:</item>
-    </plurals>
     <string name="error_share_media">ingen mappe for å lagre mellombels medium finst</string>
 </resources>

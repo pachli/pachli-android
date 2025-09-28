@@ -29,8 +29,6 @@
     <string name="title_edit_profile">Redigera din profil</string>
     <string name="title_drafts">Utkast</string>
     <string name="post_boosted_format">%s knuffade</string>
-    <string name="post_sensitive_media_title">Känsligt innehåll</string>
-    <string name="post_media_hidden_title">Dold media</string>
     <string name="post_sensitive_media_directions">Tryck för att visa</string>
     <string name="post_content_warning_show_more">Visa mer</string>
     <string name="post_content_warning_show_less">Visa mindre</string>
@@ -65,7 +63,6 @@
     <string name="action_view_mutes">Tystade användare</string>
     <string name="action_view_blocks">Blockerade användare</string>
     <string name="action_view_follow_requests">Följarförfrågningar</string>
-    <string name="action_view_media">Media</string>
     <string name="action_open_in_web">Öppna i webbläsare</string>
     <string name="action_add_media">Lägg till media</string>
     <string name="action_photo_take">Ta foto</string>
@@ -187,8 +184,6 @@
     -->
     <string name="post_share_content">Dela innehåll av toot</string>
     <string name="post_share_link">Dela länk till toot</string>
-    <string name="post_media_images">Bilder</string>
-    <string name="post_media_video">Video</string>
     <string name="state_follow_requested">Följarförfrågan</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">Följer dig</string>
@@ -402,8 +397,6 @@
     <string name="pref_title_notification_filter_sign_ups">någon registrerade sig</string>
     <string name="pref_title_notification_filter_updates">ett inlägg jag interagerat med har redigerats</string>
     <string name="pref_title_animate_custom_emojis">Animera skräddarsydda emojis</string>
-    <string name="post_media_audio">Ljud</string>
-    <string name="post_media_attachments">Bilagor</string>
     <string name="status_count_one_plus">1+</string>
     <string name="title_migration_relogin">Logga in igen för pushnotiser</string>
     <string name="compose_save_draft_loses_media">Bilagor kommer att laddas upp igen när du återställer utkastet.</string>

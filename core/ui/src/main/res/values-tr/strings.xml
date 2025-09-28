@@ -65,4 +65,9 @@
     <string name="description_visibility_unlisted">Liste dışı</string>
     <string name="description_visibility_private">Takipçiler</string>
     <string name="description_visibility_direct">Doğrudan</string>
+    <string name="post_sensitive_media_title">Hassas medya</string>
+    <string name="post_media_images">Görseller</string>
+    <string name="post_media_audio">Ses</string>
+    <string name="post_media_video">Video</string>
+    <string name="post_media_attachments">Ekler</string>
 </resources>

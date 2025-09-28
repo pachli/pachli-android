@@ -50,8 +50,6 @@
     <string name="pref_title_alway_show_sensitive_media">সর্বদা সংবেদনশীল কন্টেন্ট প্রদর্শন করুন</string>
     <string name="follows_you">আপনাকে অনুসরন করে</string>
     <string name="state_follow_requested">অনুরোধ অনুসরণ করুন</string>
-    <string name="post_media_video">ভিডিও</string>
-    <string name="post_media_images">চিত্রগুলি</string>
     <string name="post_share_link">টুট এর সাথে লিংক ভাগ করুন</string>
     <string name="post_share_content">টুট এর কন্টেন্ট ভাগ করুন</string>
     <string name="description_account_locked">লক অ্যাকাউন্ট</string>
@@ -167,7 +165,6 @@
     <string name="action_photo_take">ছবি তোল</string>
     <string name="action_add_media">মিডিয়া যোগ করুন</string>
     <string name="action_open_in_web">ব্রাউজারে খোলা</string>
-    <string name="action_view_media">মিডিয়া</string>
     <string name="action_view_follow_requests">অনুরোধ অনুসরণ করুন</string>
     <string name="action_view_blocks">অবরুদ্ধ ব্যবহারকারী</string>
     <string name="action_view_mutes">শব্দ বন্ধ ব্যবহারকারী</string>
@@ -200,8 +197,6 @@
     <string name="post_content_warning_show_less">প্রদর্শন কম</string>
     <string name="post_content_warning_show_more">আরও দেখাও</string>
     <string name="post_sensitive_media_directions">দেখার জন্য ক্লিক করুন</string>
-    <string name="post_media_hidden_title">মিডিয়া লুকানো</string>
-    <string name="post_sensitive_media_title">সংবেদনশীল কন্টেন্ট</string>
     <string name="title_drafts">খসড়া</string>
     <string name="title_edit_profile">আপনার প্রোফাইল সম্পাদনা করুন</string>
     <string name="title_follow_requests">অনুরোধ অনুসরণ করুন</string>
@@ -355,8 +350,6 @@
         <item quantity="other">&lt;b&gt;%s&lt;/b&gt; বুস্ট</item>
     </plurals>
     <string name="account_moved_description">%1$s স্থানান্তরিত হয়েছে এখানে:</string>
-    <string name="post_media_attachments">সংযুক্তি</string>
-    <string name="post_media_audio">শব্দ</string>
     <plurals name="notification_title_summary">
         <item quantity="one">%dটি নতুন ক্রিয়া</item>
         <item quantity="other">%dটি নতুন ক্রিয়া</item>

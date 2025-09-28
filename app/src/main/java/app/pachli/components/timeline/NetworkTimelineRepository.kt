@@ -176,7 +176,7 @@ class NetworkTimelineRepository @Inject constructor(
                     val statusViewData = statusRepository.getStatusViewData(pachliAccountId, status.actionableId)
                     val translations = statusRepository.getTranslation(pachliAccountId, status.actionableId)
                     TimelineStatusWithAccount(
-                        status = status.reblog?.asEntity(pachliAccountId) ?: status.asEntity(pachliAccountId),
+                        status = status.asEntity(pachliAccountId),
                         account = status.reblog?.account?.asEntity(pachliAccountId) ?: status.account.asEntity(pachliAccountId),
                         reblogAccount = status.reblog?.let { status.account.asEntity(pachliAccountId) },
                         viewData = statusViewData,

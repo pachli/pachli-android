@@ -57,4 +57,7 @@
     <string name="description_visibility_direct">
         私信
     </string>
+    <string name="post_sensitive_media_title">敏感內容</string>
+    <string name="post_media_images">照片</string>
+    <string name="post_media_video">影片</string>
 </resources>

@@ -75,4 +75,9 @@
     <string name="description_visibility_unlisted">Non listado</string>
     <string name="description_visibility_private">Seguidoras</string>
     <string name="description_visibility_direct">Directo</string>
+    <string name="post_sensitive_media_title">Contido sensible</string>
+    <string name="post_media_images">Imaxes</string>
+    <string name="post_media_audio">Audio</string>
+    <string name="post_media_video">Vídeo</string>
+    <string name="post_media_attachments">Anexos</string>
 </resources>

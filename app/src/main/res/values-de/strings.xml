@@ -29,8 +29,6 @@
     <string name="title_edit_profile">Dein Profil bearbeiten</string>
     <string name="title_drafts">Entwürfe</string>
     <string name="post_boosted_format">%s teilte</string>
-    <string name="post_sensitive_media_title">Inhaltswarnung. Antippen zum Anzeigen.</string>
-    <string name="post_media_hidden_title">Medien ausgeblendet</string>
     <string name="post_sensitive_media_directions">Zum Anzeigen tippen</string>
     <string name="post_content_warning_show_more">Mehr anzeigen</string>
     <string name="post_content_warning_show_less">Weniger anzeigen</string>
@@ -65,7 +63,6 @@
     <string name="action_view_mutes">Stummgeschaltete Profile</string>
     <string name="action_view_blocks">Blockierte Nutzer</string>
     <string name="action_view_follow_requests">Folgeanfragen</string>
-    <string name="action_view_media">Medien</string>
     <string name="action_open_in_web">Im Browser öffnen</string>
     <string name="action_add_media">Mediendateien hinzufügen</string>
     <string name="action_photo_take">Foto aufnehmen</string>
@@ -188,8 +185,6 @@
     -->
     <string name="post_share_content">Inhalt des Beitrags teilen</string>
     <string name="post_share_link">Link zum Beitrag teilen</string>
-    <string name="post_media_images">Bilder</string>
-    <string name="post_media_video">Video</string>
     <string name="state_follow_requested">Folgeanfrage gesendet</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">Folgt dir</string>
@@ -354,8 +349,6 @@
     <string name="pref_title_wellbeing_mode">Wohlbefinden</string>
     <string name="label_duration">Dauer</string>
     <string name="duration_indefinite">Für immer</string>
-    <string name="post_media_attachments">Anhänge</string>
-    <string name="post_media_audio">Audio</string>
     <string name="notification_subscription_description">Benachrichtigungen, wenn jemand, den ich abonniert habe, eine neue Nachricht veröffentlicht</string>
     <string name="notification_subscription_name">Neue Beiträge</string>
     <string name="pref_title_animate_custom_emojis">GIF-Emojis animieren</string>
@@ -785,14 +778,6 @@
     <string name="translator_error_unsupported_source_language_fmt">kann von %1$s nicht übersetzen</string>
     <string name="translator_error_unsupported_target_language_fmt">kann nicht nach %1$s übersetzen</string>
     <string name="translator_error_download_required_fmt">Übersetzung in %1$s erfordert das Herunterladen des Sprachpakets und es besteht keine WLAN-Verbindung</string>
-    <plurals name="description_post_roles">
-        <item quantity="one">mit Rolle:</item>
-        <item quantity="other">mit Rollen:</item>
-    </plurals>
-    <string name="attachment_matches_filter_one_fmt">Entspricht Filter: \"%1$s\". Antippen zum Anzeigen.</string>
-    <string name="attachment_matches_filter_two_fmt">Entspricht Filtern: \"%1$s\" und \"%2$s\". Antippen zum Anzeigen.</string>
-    <string name="attachment_matches_filter_other_fmt">Entspricht Filtern: \"%1$s\", \"%2$s\" und weiteren. Antippen zum Anzeigen.</string>
-    <string name="attachment_hidden_user_action">Du hast dies ausgeblendet. Antippen zum Anzeigen.</string>
     <string name="filter_description_blur">Inhalt anzeigen, Medien mit Inhaltswarnung ausblenden</string>
     <string name="filter_action_blur">Anhänge ausblenden</string>
 </resources>

@@ -95,4 +95,26 @@
     <string name="description_visibility_direct">
         Direct
     </string>
+    <!-- Can't use 'plurals' here because e.g. English doesn't distinguish between
+         "two" and "other", resulting in "other" being used even if the quantity is
+         only two. -->
+    <string name="attachment_matches_filter_one_fmt">Matches filter: \"%1$s\". Tap to show.</string>
+    <string name="attachment_matches_filter_two_fmt">Matches filters: \"%1$s\" and \"%2$s\". Tap to show.</string>
+    <string name="attachment_matches_filter_other_fmt">Matches filters: \"%1$s\", \"%2$s\", and more. Tap to show.</string>
+    <string name="post_sensitive_media_title">Sensitive content. Tap to show.</string>
+    <string name="attachment_hidden_user_action">You hid this. Tap to show.</string>
+    <string name="post_media_images">Images</string>
+    <string name="post_media_audio">Audio</string>
+    <string name="post_media_video">Video</string>
+    <string name="post_media_attachments">Attachments</string>
+    <string name="action_show_attachments">Show attachments</string>
+    <string name="action_hide_attachments">Hide attachments</string>
+    <string name="dot_in_name">dot</string>
+    <string name="role_content_description_fmt">%1$s, at %2$s</string>
+    <plurals name="description_post_roles">
+        <item quantity="one">with role: </item>
+        <item quantity="other">with roles: </item>
+    </plurals>
+    <string name="handle_contentdescription_fmt">Handle, @%1$s</string>
+    <string name="account_contentdescription_fmt">%1$s, %2$s; %3$s</string>
 </resources>

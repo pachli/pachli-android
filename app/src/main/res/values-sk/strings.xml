@@ -11,7 +11,6 @@
     <string name="title_posts_pinned">Pripnuté</string>
     <string name="title_followers">Sledujúci</string>
     <string name="title_bookmarks">Záložky</string>
-    <string name="post_sensitive_media_title">Citlivý obsah. Zobraziť klepnutím.</string>
     <string name="post_sensitive_media_directions">Klikni pre zobrazenie</string>
     <string name="post_content_warning_show_more">Zobraziť viac</string>
     <string name="post_content_warning_show_less">Zobraziť menej</string>
@@ -254,7 +253,6 @@
     <string name="pref_default_media_sensitivity">Vždy označiť médiá ako citlivé</string>
     <string name="pref_title_content_filters">Filtre obsahu</string>
     <string name="pref_title_http_proxy_enable">Povoliť HTTP proxy</string>
-    <string name="action_view_media">Média</string>
     <string name="action_filter_search">Filtrovať vyhľadávanie</string>
     <string name="action_add_reaction">pridať reakciu</string>
     <string name="downloading_media">Sťahujem médiá</string>
@@ -283,7 +281,6 @@
     <string name="title_domain_mutes">Skryté domény</string>
     <string name="dialog_follow_hashtag_title">Sledovať hashtag</string>
     <string name="dialog_follow_hashtag_hint">#hashtag</string>
-    <string name="post_media_hidden_title">Médiá sú skryté</string>
     <string name="notification_sign_up_format">%s sa zaregistroval/a</string>
     <string name="notification_subscription_format">%s práve uverejnil/a príspevok</string>
     <string name="notification_update_format">%s upravil/a svoj príspevok</string>
@@ -338,8 +335,6 @@
     <string name="mute_notifications_switch">Stíšiť upozornenia</string>
     <string name="ui_error_accept_follow_request">Potvrdenie žiadosti o sledovanie zlyhalo: %s</string>
     <string name="no_announcements">Žiadne oznámenia.</string>
-    <string name="post_media_images">Obrázky</string>
-    <string name="post_media_video">Video</string>
     <string name="follows_you">Sleduje ťa</string>
     <string name="add_poll_choice">Pridať voľbu</string>
     <string name="poll_allow_multiple_choices">Viacero možností</string>
@@ -394,7 +389,6 @@
     <string name="wellbeing_mode_notice">Niektoré informácie, ktoré by mohli mať vplyv na tvoju duševnú pohodu, budú skryté. Týka sa to:\n\n - Upozornení na zdieľanie, sledovaníe a pridanie medzi obľúbené\n - Počtu obľúbení a zdieľaní pri príspevkoch\n - Štatistík sledujúcich a príspevkov na profiloch\n\nPush upozornenia nebudú ovplyvnené, ale môžeš si skontrolovať ich nastavenia manuálne.</string>
     <string name="notifications_apply_filter">Filtrovať upozornenia</string>
     <string name="filter_apply">Použiť</string>
-    <string name="post_media_audio">Audio</string>
     <string name="pref_title_thread_filter_keywords">Konverzácie</string>
     <string name="filter_add_description">Fráza pre filtrovanie</string>
     <string name="notification_clear_text">Naozaj si si istý/á, že chceš natrvalo vymazať všetky svoje oznámenia?</string>
@@ -424,7 +418,6 @@
     <string name="notification_unknown_name">Neznáme</string>
     <string name="notification_mention_format">%s ťa zmienil/a</string>
     <string name="notification_summary_medium">%1$s, %2$s a %3$s</string>
-    <string name="post_media_attachments">Prílohy</string>
     <string name="filter_dialog_whole_word">Celé slovo</string>
     <string name="add_account_description">Pridať nový účet Mastodon</string>
     <string name="compose_save_draft_loses_media">Prílohy budú opätovne nahrané po obnovení konceptu.</string>
@@ -771,20 +764,11 @@
     <string name="notification_moderation_warnings_name">Upozornenia moderácie</string>
     <string name="notification_moderation_warnings_description">Upozornenia o moderátorských varovaniach</string>
     <string name="error_share_media">neexistuje žiadny adresár na uloženie dočasných médií</string>
-    <plurals name="description_post_roles">
-        <item quantity="one">s rolou:</item>
-        <item quantity="few">s rolami:</item>
-        <item quantity="other">s rolami:</item>
-    </plurals>
     <string name="translator_error_server_does_not_translate">server nepodporuje preklad</string>
     <string name="translator_error_no_language_detected">nedokázal rozpoznať pôvodný jazyk</string>
     <string name="translator_error_unsupported_source_language_fmt">nemôže preložiť z %1$s</string>
     <string name="translator_error_unsupported_target_language_fmt">nemôže preložiť do %1$s</string>
     <string name="translator_error_download_required_fmt">preklad do jazyka %1$s si vyžaduje stiahnutie jazykového balíka a momentálne Wi-Fi nie je pripojená</string>
-    <string name="attachment_matches_filter_one_fmt">Zodpovedá filtru: „%1$s“. Zobraziť klepnutím.</string>
-    <string name="attachment_matches_filter_two_fmt">Zodpovedá filtrom: \"%1$s\" a \"%2$s\". Zobraziť klepnutím.</string>
-    <string name="attachment_matches_filter_other_fmt">Zodpovedá filtrom: \"%1$s\", \"%2$s\" a ďalšie. Zobraziť klepnutím.</string>
-    <string name="attachment_hidden_user_action">Skryté. Zobraziť klepnutím.</string>
     <string name="filter_action_blur">Skryť prílohy</string>
     <string name="filter_description_blur">Zobraziť text, skryť prílohy s upozornením na obsah</string>
 </resources>

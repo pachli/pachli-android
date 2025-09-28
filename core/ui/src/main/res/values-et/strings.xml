@@ -83,4 +83,17 @@
     <string name="description_visibility_unlisted">Ajajooneväline</string>
     <string name="description_visibility_private">Vaid jälgijatele</string>
     <string name="description_visibility_direct">Otsesõnum</string>
+    <string name="attachment_matches_filter_one_fmt">Vastab filtrile: „%1$s“. Nägemiseks klõpsa.</string>
+    <string name="attachment_matches_filter_two_fmt">Vastab filtritele: „%1$s“ ja „%2$s“. Nägemiseks klõpsa.</string>
+    <string name="attachment_matches_filter_other_fmt">Vastab filtritele: „%1$s“, „%2$s“ ja teistele. Nägemiseks klõpsa.</string>
+    <string name="post_sensitive_media_title">Delikaatne sisu. Nägemiseks klõpsa.</string>
+    <string name="attachment_hidden_user_action">Sa oled selle peitnud. Nägemiseks klõpsa.</string>
+    <string name="post_media_images">Pildid</string>
+    <string name="post_media_audio">Helifail</string>
+    <string name="post_media_video">Video</string>
+    <string name="post_media_attachments">Manused</string>
+    <plurals name="description_post_roles">
+        <item quantity="one">rollis:</item>
+        <item quantity="other">rollides:</item>
+    </plurals>
 </resources>

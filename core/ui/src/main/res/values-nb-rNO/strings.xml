@@ -77,4 +77,9 @@
     <string name="description_visibility_unlisted">Ikke listet</string>
     <string name="description_visibility_private">Følgere</string>
     <string name="description_visibility_direct">Direkte</string>
+    <string name="post_sensitive_media_title">Sensitivt innhold</string>
+    <string name="post_media_images">Bilder</string>
+    <string name="post_media_audio">Lyd</string>
+    <string name="post_media_video">Video</string>
+    <string name="post_media_attachments">Vedlegg</string>
 </resources>

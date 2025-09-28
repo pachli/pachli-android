@@ -125,7 +125,6 @@
     <string name="action_photo_take">फोटो खींचिए</string>
     <string name="action_add_media">ऐड मीडिया</string>
     <string name="action_open_in_web">ब्राउज़र में खोलें</string>
-    <string name="action_view_media">मीडिया</string>
     <string name="error_sender_account_gone">टोट भेजने में त्रुटि।</string>
     <string name="action_bookmark">बुकमार्क</string>
     <string name="action_reblog">बढ़ावा दें</string>
@@ -138,8 +137,6 @@
     <string name="post_content_warning_show_less">कम दिखाएं</string>
     <string name="post_content_warning_show_more">और दिखाओ</string>
     <string name="post_sensitive_media_directions">देखने के लिए क्लिक करें</string>
-    <string name="post_media_hidden_title">मीडिया छिपा हुआ</string>
-    <string name="post_sensitive_media_title">संवेदनशील विषय वस्तु</string>
     <string name="title_view_thread">टूट</string>
     <string name="title_scheduled_posts">अनुसूचित टूट</string>
     <string name="title_domain_mutes">छिपे हुए डोमेन</string>
@@ -235,8 +232,6 @@
     <string name="follows_you">आपको फॉलो करते है</string>
     <string name="pref_title_notification_filter_follow_requests">फ़ॉलो करने का अनुरोध किया</string>
     <string name="state_follow_requested">फ़ॉलो करने का अनुरोध किया हुआ</string>
-    <string name="post_media_video">वीडियो</string>
-    <string name="post_media_images">तस्वीरें</string>
     <string name="post_share_link">टूट का लिंक साझा करें</string>
     <string name="post_share_content">टूट की विषय वस्तु साझा करें</string>
     <string name="notification_mention_format">%s ने आपका जिक्र किया</string>

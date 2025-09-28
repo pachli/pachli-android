@@ -29,8 +29,6 @@
     <string name="title_edit_profile">Redigere profilen din</string>
     <string name="title_drafts">Utkast</string>
     <string name="post_boosted_format">%s delte</string>
-    <string name="post_sensitive_media_title">Sensitivt innhold</string>
-    <string name="post_media_hidden_title">Media skjult</string>
     <string name="post_sensitive_media_directions">Trykk for å vise</string>
     <string name="post_content_warning_show_more">Vis mer</string>
     <string name="post_content_warning_show_less">Vis mindre</string>
@@ -65,7 +63,6 @@
     <string name="action_view_mutes">Dempede brukere</string>
     <string name="action_view_blocks">Blokkerte brukere</string>
     <string name="action_view_follow_requests">Følgeforespørsler</string>
-    <string name="action_view_media">Media</string>
     <string name="action_open_in_web">Åpne i nettleser</string>
     <string name="action_add_media">Legg til media</string>
     <string name="action_photo_take">Ta bilde</string>
@@ -172,8 +169,6 @@
     <string name="description_account_locked">Låst konto</string>
     <string name="post_share_content">Del inneholdet i innlegget</string>
     <string name="post_share_link">Del lenke til tuten</string>
-    <string name="post_media_images">Bilder</string>
-    <string name="post_media_video">Video</string>
     <string name="state_follow_requested">Forespørsel sendt</string>
     <string name="follows_you">Følger deg</string>
     <string name="pref_title_alway_show_sensitive_media">Vis alltid sensitivt innhold</string>
@@ -354,8 +349,6 @@
     </plurals>
     <string name="duration_indefinite">Uendelig</string>
     <string name="label_duration">Varighet</string>
-    <string name="post_media_attachments">Vedlegg</string>
-    <string name="post_media_audio">Lyd</string>
     <string name="drafts_post_reply_removed">Innlegget du hadde opprettet et utkast som svar på har blitt fjernet</string>
     <string name="draft_deleted">Utkast slettet</string>
     <string name="drafts_failed_loading_reply">Lasting av svarinformasjon feilet</string>

@@ -39,7 +39,7 @@
         app:layout_constraintTop_toBottomOf="@+id/notification_text"
         tools:src="@drawable/avatar_default" />
 
-    <com.google.android.material.chip.ChipGroup
+    <app.pachli.core.ui.RoleChipGroup
         android:id="@+id/roleChipGroup"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -47,7 +47,8 @@
         app:chipSpacingVertical="4dp"
         app:layout_constraintStart_toStartOf="@id/notification_username"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/notification_avatar" />
+        app:layout_constraintTop_toTopOf="@id/notification_avatar"
+        android:importantForAccessibility="no" />
 
     <TextView
         android:id="@+id/notification_username"

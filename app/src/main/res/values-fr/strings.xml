@@ -29,8 +29,6 @@
     <string name="title_edit_profile">Modifier votre profil</string>
     <string name="title_drafts">Brouillons</string>
     <string name="post_boosted_format">%s a partagé</string>
-    <string name="post_sensitive_media_title">Contenu sensible</string>
-    <string name="post_media_hidden_title">Média caché</string>
     <string name="post_sensitive_media_directions">Appuyer pour voir</string>
     <string name="post_content_warning_show_more">Voir plus</string>
     <string name="post_content_warning_show_less">Voir moins</string>
@@ -65,7 +63,6 @@
     <string name="action_view_mutes">Comptes masqués</string>
     <string name="action_view_blocks">Comptes bloqués</string>
     <string name="action_view_follow_requests">Demandes d’abonnement</string>
-    <string name="action_view_media">Média</string>
     <string name="action_open_in_web">Ouvrir dans votre navigateur</string>
     <string name="action_add_media">Ajouter un média</string>
     <string name="action_photo_take">Prendre une photo</string>
@@ -190,8 +187,6 @@
     -->
     <string name="post_share_content">Partager le contenu du message</string>
     <string name="post_share_link">Partager le lien du message</string>
-    <string name="post_media_images">Images</string>
-    <string name="post_media_video">Vidéo</string>
     <string name="state_follow_requested">Demande d’abonnement effectuée</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">Vous suit</string>
@@ -365,7 +360,6 @@
     <string name="wellbeing_hide_stats_profile">Cacher les statistiques quantitatives sur les profils</string>
     <string name="wellbeing_hide_stats_posts">Cacher les statistiques quantitatives sur les messages</string>
     <string name="action_unbookmark">Supprimer le signet</string>
-    <string name="post_media_attachments">Pièces jointes</string>
     <string name="action_subscribe_account">S’abonner</string>
     <string name="dialog_delete_conversation_warning">Supprimer cette conversation \?</string>
     <string name="pref_title_animate_custom_emojis">Animer les émojis personnalisés</string>
@@ -374,7 +368,6 @@
     <string name="duration_indefinite">Indéfinie</string>
     <string name="action_unsubscribe_account">Se désabonner</string>
     <string name="action_delete_conversation">Supprimer la conversation</string>
-    <string name="post_media_audio">Audio</string>
     <string name="pref_title_confirm_favourites">Demander confirmation avant de mettre en favoris</string>
     <string name="drafts_post_reply_removed">Le message auquel répondait ce brouillon a été supprimé</string>
     <string name="drafts_post_failed_to_send">Échec d’envoi du message !</string>

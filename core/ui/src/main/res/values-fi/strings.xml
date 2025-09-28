@@ -81,4 +81,13 @@
     <string name="description_visibility_unlisted">Listaamaton</string>
     <string name="description_visibility_private">Seuraajat</string>
     <string name="description_visibility_direct">Vain mainitut</string>
+    <string name="post_sensitive_media_title">Herkkää sisältoä</string>
+    <string name="post_media_images">Kuvat</string>
+    <string name="post_media_audio">Ääni</string>
+    <string name="post_media_video">Video</string>
+    <string name="post_media_attachments">Liitteet</string>
+    <plurals name="description_post_roles">
+        <item quantity="one">roolissa:</item>
+        <item quantity="other">rooleissa:</item>
+    </plurals>
 </resources>

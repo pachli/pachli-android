@@ -29,8 +29,6 @@
     <string name="title_edit_profile">Profili düzenle</string>
     <string name="title_drafts">Taslaklar</string>
     <string name="post_boosted_format">%s yeniden paylaştı</string>
-    <string name="post_sensitive_media_title">Hassas medya</string>
-    <string name="post_media_hidden_title">Gizlenmiş medya</string>
     <string name="post_sensitive_media_directions">Görüntülemek için dokunun</string>
     <string name="post_content_warning_show_more">Daha fazlası</string>
     <string name="post_content_warning_show_less">Daha az göster</string>
@@ -63,7 +61,6 @@
     <string name="action_view_mutes">Sessize alınmış kullanıcılar</string>
     <string name="action_view_blocks">Engellenmiş kullanıcılar</string>
     <string name="action_view_follow_requests">Takip istekleri</string>
-    <string name="action_view_media">Medya</string>
     <string name="action_open_in_web">Tarayıcıda aç</string>
     <string name="action_add_media">Medya ekle</string>
     <string name="action_photo_take">Fotoğraf çek</string>
@@ -179,8 +176,6 @@
     -->
     <string name="post_share_content">Gönderinin içeriğini paylaş</string>
     <string name="post_share_link">Gönderinin adresini paylaş</string>
-    <string name="post_media_images">Görseller</string>
-    <string name="post_media_video">Video</string>
     <string name="state_follow_requested">Takip istenen</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">Seni takip ediyor</string>
@@ -399,8 +394,6 @@
     <string name="dialog_delete_conversation_warning">Bu görüşmeyi sil\?</string>
     <string name="pref_title_notification_filter_subscriptions">abone olduğum birisi yeni bir gönderi yayınladı</string>
     <string name="pref_title_notification_filter_sign_ups">birisi kaydolmuş</string>
-    <string name="post_media_audio">Ses</string>
-    <string name="post_media_attachments">Ekler</string>
     <string name="filter_expiration_format">%s (%s)</string>
     <string name="failed_to_pin">Sabitleme Başarısız</string>
     <string name="failed_to_unpin">Açılamadı</string>

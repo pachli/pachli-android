@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="error_network">Atgadījās tīkla kļūda. Lūgums pārbaudīt savienojumu un mēģināt vēlreiz.</string>
     <string name="error_generic">Atgadījās kļūda.</string>
     <string name="message_empty">Šeit nekā nav.</string>
@@ -89,4 +89,18 @@
     <string name="description_visibility_unlisted">Neiekļauts</string>
     <string name="description_visibility_private">Sekotāji</string>
     <string name="description_visibility_direct">Tiešs</string>
+    <string name="attachment_matches_filter_one_fmt">Atbilst atlasītājam: “%1$s”. Jāpiesit, lai parādītu.</string>
+    <string name="attachment_matches_filter_two_fmt">Atbilst atlasītājiem: “%1$s” un “%2$s”. Jāpiesit, lai parādītu.</string>
+    <string name="attachment_matches_filter_other_fmt">Atbilst atlasītājiem: “%1$s”, “%2$s” un vēl. Jāpiesit, lai parādītu.</string>
+    <string name="post_sensitive_media_title">Jūtīgs saturs. Jāpiesit, lai parādītu.</string>
+    <string name="attachment_hidden_user_action">Tu paslēpi šo. Jāpiesit, lai parādītu.</string>
+    <string name="post_media_images">Attēli</string>
+    <string name="post_media_audio">Audio</string>
+    <string name="post_media_video">Video</string>
+    <string name="post_media_attachments">Pielikumi</string>
+    <plurals name="description_post_roles" tools:ignore="ImpliedQuantity">
+        <item quantity="zero">ar lomām:</item>
+        <item quantity="one">ar lomu:</item>
+        <item quantity="other">ar lomām:</item>
+    </plurals>
 </resources>

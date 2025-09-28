@@ -61,4 +61,7 @@
     <string name="description_visibility_unlisted">অতালিকাভুক্ত</string>
     <string name="description_visibility_private">অনুগামিবৃন্দ</string>
     <string name="description_visibility_direct">সরাসরি</string>
+    <string name="post_sensitive_media_title">সংবেদনশীল কন্টেন্ট</string>
+    <string name="post_media_images">চিত্রগুলি</string>
+    <string name="post_media_video">ভিডিও</string>
 </resources>

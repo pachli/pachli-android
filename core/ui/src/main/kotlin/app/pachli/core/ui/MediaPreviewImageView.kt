@@ -86,7 +86,6 @@ open class MediaPreviewImageView
     /**
      * Overridden setScaleType method which only accepts the new type if we don't have a focal
      * point set.
-     *
      */
     override fun setScaleType(type: ScaleType) {
         if (focus != null) {

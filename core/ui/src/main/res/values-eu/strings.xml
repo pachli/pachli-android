@@ -62,4 +62,9 @@
     <string name="description_visibility_unlisted">Zerrendatu gabea</string>
     <string name="description_visibility_private">Jarraitzaileak</string>
     <string name="description_visibility_direct">Zuzena</string>
+    <string name="post_sensitive_media_title">Eduki hunkigarria</string>
+    <string name="post_media_images">Irudiak</string>
+    <string name="post_media_audio">Audioa</string>
+    <string name="post_media_video">Bideoa</string>
+    <string name="post_media_attachments">Eranskinak</string>
 </resources>

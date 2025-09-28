@@ -28,8 +28,6 @@
     <string name="title_follow_requests">Zahteve za Sledenje</string>
     <string name="title_edit_profile">Uredi svoj profil</string>
     <string name="title_drafts">Osnutki</string>
-    <string name="post_sensitive_media_title">Občutljiva vsebina</string>
-    <string name="post_media_hidden_title">Medij je skrit</string>
     <string name="post_sensitive_media_directions">Kliknite za ogled</string>
     <string name="post_content_warning_show_more">Pokaži več</string>
     <string name="post_content_warning_show_less">Pokaži manj</string>
@@ -63,7 +61,6 @@
     <string name="action_view_mutes">Utišani uporabniki</string>
     <string name="action_view_blocks">Blokirani uporabniki</string>
     <string name="action_view_follow_requests">Prošnje za sledenje</string>
-    <string name="action_view_media">Mediji</string>
     <string name="action_open_in_web">Odpri v brskalniku</string>
     <string name="action_add_media">Dodaj medij</string>
     <string name="action_photo_take">Posnemi fotografijo</string>
@@ -173,8 +170,6 @@
     <string name="description_account_locked">Zaklenjen račun</string>
     <string name="post_share_content">Deli vsebino tuta</string>
     <string name="post_share_link">Deli povezavo do tuta</string>
-    <string name="post_media_images">Slike</string>
-    <string name="post_media_video">Video</string>
     <string name="state_follow_requested">Prošnja za sledenje</string>
     <string name="follows_you">Vam sledi</string>
     <string name="pref_title_alway_show_sensitive_media">Vedno prikaži občutljivo vsebino</string>

@@ -11,6 +11,8 @@ import app.pachli.adapter.FilterableStatusViewHolder
 import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.core.activity.OpenUrlUseCase
 import app.pachli.core.data.model.IStatusViewData
+import app.pachli.core.model.AttachmentDisplayAction
+import app.pachli.core.model.AttachmentDisplayReason
 import app.pachli.core.model.Status.Companion.MAX_MEDIA_ATTACHMENTS
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.StatusActionListener
@@ -69,20 +71,28 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
             info.addAction(if (actionable.favourited) unfavouriteAction else favouriteAction)
             info.addAction(if (actionable.bookmarked) unbookmarkAction else bookmarkAction)
 
-            val mediaActions = intArrayOf(
-                app.pachli.core.ui.R.id.action_open_media_1,
-                app.pachli.core.ui.R.id.action_open_media_2,
-                app.pachli.core.ui.R.id.action_open_media_3,
-                app.pachli.core.ui.R.id.action_open_media_4,
-            )
-            val attachmentCount = min(actionable.attachments.size, MAX_MEDIA_ATTACHMENTS)
-            for (i in 0 until attachmentCount) {
-                info.addAction(
-                    AccessibilityActionCompat(
-                        mediaActions[i],
-                        context.getString(R.string.action_open_media_n, i + 1),
-                    ),
-                )
+            val attachmentDisplayAction = status.attachmentDisplayAction
+            when (attachmentDisplayAction) {
+                is AttachmentDisplayAction.Show -> {
+                    val mediaActions = intArrayOf(
+                        app.pachli.core.ui.R.id.action_open_media_1,
+                        app.pachli.core.ui.R.id.action_open_media_2,
+                        app.pachli.core.ui.R.id.action_open_media_3,
+                        app.pachli.core.ui.R.id.action_open_media_4,
+                    )
+                    val attachmentCount = min(actionable.attachments.size, MAX_MEDIA_ATTACHMENTS)
+                    for (i in 0 until attachmentCount) {
+                        info.addAction(
+                            AccessibilityActionCompat(
+                                mediaActions[i],
+                                context.getString(R.string.action_open_media_n, i + 1),
+                            ),
+                        )
+                        info.addAction(hideAttachmentsAction)
+                    }
+                }
+
+                is AttachmentDisplayAction.Hide -> info.addAction(showAttachmentsAction)
             }
 
             val parsedContent = status.content.parseAsMastodonHtml()
@@ -212,6 +222,25 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
                         return@let true
                     } ?: false
                 }
+                app.pachli.core.ui.R.id.action_show_attachments -> {
+                    statusActionListener.onAttachmentDisplayActionChange(
+                        status,
+                        AttachmentDisplayAction.Show(status.attachmentDisplayAction as? AttachmentDisplayAction.Hide),
+                    )
+                }
+
+                app.pachli.core.ui.R.id.action_hide_attachments -> {
+                    // The user clicked to hide the attachment. Either they are:
+                    //
+                    // a. Re-hiding an attachment that was hidden that they decided to show, or
+                    // b. Hiding media that wasn't originally hidden.
+                    //
+                    // If (a) then the new decision is `Show.originalDecision`. If (b) then
+                    // then the new decision is UserAction.
+                    val newAction = (status.attachmentDisplayAction as? AttachmentDisplayAction.Show)?.originalAction
+                        ?: AttachmentDisplayAction.Hide(AttachmentDisplayReason.UserAction)
+                    statusActionListener.onAttachmentDisplayActionChange(status, newAction)
+                }
 
                 else -> return super.performAccessibilityAction(host, action, args)
             }
@@ -317,5 +346,15 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
     private val editFilterAction = AccessibilityActionCompat(
         app.pachli.core.ui.R.id.action_edit_filter,
         context.getString(R.string.filter_edit_title),
+    )
+
+    private val showAttachmentsAction = AccessibilityActionCompat(
+        app.pachli.core.ui.R.id.action_show_attachments,
+        context.getString(app.pachli.core.ui.R.string.action_show_attachments),
+    )
+
+    private val hideAttachmentsAction = AccessibilityActionCompat(
+        app.pachli.core.ui.R.id.action_hide_attachments,
+        context.getString(app.pachli.core.ui.R.string.action_hide_attachments),
     )
 }

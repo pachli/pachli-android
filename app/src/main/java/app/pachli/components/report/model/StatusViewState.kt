@@ -22,7 +22,6 @@ class StatusViewState {
     private val longContentCollapsedState = HashMap<String, Boolean>()
 
     fun isMediaShow(id: String, isSensitive: Boolean): Boolean = isStateEnabled(mediaShownState, id, !isSensitive)
-    fun setMediaShow(id: String, isShow: Boolean) = setStateEnabled(mediaShownState, id, isShow)
 
     fun isContentShow(id: String, isSensitive: Boolean): Boolean = isStateEnabled(contentShownState, id, !isSensitive)
     fun setContentShow(id: String, isShow: Boolean) = setStateEnabled(contentShownState, id, isShow)

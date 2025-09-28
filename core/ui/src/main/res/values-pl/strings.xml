@@ -95,4 +95,15 @@
     <string name="description_visibility_unlisted">Niewidoczny</string>
     <string name="description_visibility_private">Obserwujący</string>
     <string name="description_visibility_direct">Bezpośrednio</string>
+    <string name="post_sensitive_media_title">Treści drażliwe</string>
+    <string name="post_media_images">Obrazy</string>
+    <string name="post_media_audio">Dźwięk</string>
+    <string name="post_media_video">Wideo</string>
+    <string name="post_media_attachments">Załączniki</string>
+    <plurals name="description_post_roles">
+        <item quantity="one">z rolą:</item>
+        <item quantity="few">z rolami:</item>
+        <item quantity="many">z rolami:</item>
+        <item quantity="other">z rolami:</item>
+    </plurals>
 </resources>

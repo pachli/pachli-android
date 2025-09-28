@@ -29,8 +29,6 @@
     <string name="title_edit_profile">Upravit váš profil</string>
     <string name="title_drafts">Koncepty</string>
     <string name="post_boosted_format">%s boostnul/a</string>
-    <string name="post_sensitive_media_title">Citlivý obsah</string>
-    <string name="post_media_hidden_title">Média skryta</string>
     <string name="post_sensitive_media_directions">Klikněte pro zobrazení</string>
     <string name="post_content_warning_show_more">Zobrazit více</string>
     <string name="post_content_warning_show_less">Zobrazit méně</string>
@@ -65,7 +63,6 @@
     <string name="action_view_mutes">Skrytí uživatelé</string>
     <string name="action_view_blocks">Blokovaní uživatelé</string>
     <string name="action_view_follow_requests">Žádosti o sledování</string>
-    <string name="action_view_media">Média</string>
     <string name="action_open_in_web">Otevřít v prohlížeči</string>
     <string name="action_add_media">Přidat média</string>
     <string name="action_photo_take">Pořídit fotku</string>
@@ -190,8 +187,6 @@
     -->
     <string name="post_share_content">Sdílet obsah příspěvku</string>
     <string name="post_share_link">Sdílet odkaz na příspěvek</string>
-    <string name="post_media_images">Obrázky</string>
-    <string name="post_media_video">Video</string>
     <string name="state_follow_requested">Vyžádáno sledování</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">Sleduje vás</string>
@@ -385,8 +380,6 @@
     <string name="notification_sign_up_description">Oznámení o nových uživatelích</string>
     <string name="notification_update_name">Úpravy příspěvků</string>
     <string name="notification_update_description">Oznámení, když je upraven příspěvek, se kterým jste interagovala, je upraven</string>
-    <string name="post_media_audio">Audio</string>
-    <string name="post_media_attachments">Přílohy</string>
     <string name="status_count_one_plus">1+</string>
     <string name="description_post_language">Jazyk příspěvku</string>
     <string name="label_duration">Doba trvání</string>

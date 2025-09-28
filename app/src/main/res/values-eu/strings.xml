@@ -26,8 +26,6 @@
     <string name="title_edit_profile">Profila editatu</string>
     <string name="title_drafts">Zirriborroak</string>
     <string name="post_boosted_format">%s-(e)k bultzatu du</string>
-    <string name="post_sensitive_media_title">Eduki hunkigarria</string>
-    <string name="post_media_hidden_title">Ezkutuko media</string>
     <string name="post_sensitive_media_directions">Sakatu ikusteko</string>
     <string name="post_content_warning_show_more">Gehiago erakutsi</string>
     <string name="post_content_warning_show_less">Gutxiago erakutsi</string>
@@ -60,7 +58,6 @@
     <string name="action_view_mutes">Isilduak</string>
     <string name="action_view_blocks">Blokeatuak</string>
     <string name="action_view_follow_requests">Eskakizunak</string>
-    <string name="action_view_media">Multimedia</string>
     <string name="action_open_in_web">Nabigatzailean ireki</string>
     <string name="action_add_media">Multimedia erantsi</string>
     <string name="action_photo_take">Argazkia atera</string>
@@ -175,8 +172,6 @@
     -->
     <string name="post_share_content">Tutaren edukia partekatu</string>
     <string name="post_share_link">Tutaren esteka partekatu</string>
-    <string name="post_media_images">Irudiak</string>
-    <string name="post_media_video">Bideoa</string>
     <string name="state_follow_requested">Eskaera bidalita</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">Jarraitzen zaitu</string>
@@ -340,8 +335,6 @@
     <string name="pref_title_confirm_favourites">Erakutsi baieztapen elkarrizketa-koadroa gogokoenetara gehitu aurretik</string>
     <string name="follow_requests_info">Zure kontua blokeatuta ez badago ere, %1$s-ko langileek kontu hauetako eskaerak eskuz berrikusi nahi dituzula pentsatu dute.</string>
     <string name="pref_title_notification_filter_subscriptions">harpidedun naizen norbaitek tut berria argitaratu du</string>
-    <string name="post_media_attachments">Eranskinak</string>
-    <string name="post_media_audio">Audioa</string>
     <string name="action_subscribe_account">Harpidetu</string>
     <string name="dialog_delete_conversation_warning">Elkarrizketa ezabatu nahi duzu\?</string>
     <string name="pref_title_animate_custom_emojis">Animatu emoji pertsonalizatuak</string>

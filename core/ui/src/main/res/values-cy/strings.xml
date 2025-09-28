@@ -89,4 +89,9 @@
     <string name="description_visibility_unlisted">Heb ei restru</string>
     <string name="description_visibility_private">Dilynwyr</string>
     <string name="description_visibility_direct">Uniongyrchol</string>
+    <string name="post_sensitive_media_title">Cynnwys sensitif</string>
+    <string name="post_media_images">Delweddau</string>
+    <string name="post_media_audio">Sain</string>
+    <string name="post_media_video">Fideo</string>
+    <string name="post_media_attachments">Atodiadau</string>
 </resources>

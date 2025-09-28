@@ -24,8 +24,6 @@
     <string name="title_edit_profile">சுயவிவரத்தை திருத்த</string>
     <string name="title_drafts">வரைவுகள்</string>
     <string name="post_boosted_format">%s மேலேற்றப்பட்டது</string>
-    <string name="post_sensitive_media_title">உணர்ச்சிகரமான உள்ளடக்கம்</string>
-    <string name="post_media_hidden_title">ஊடகம் மறைக்கப்பட்டது</string>
     <string name="post_sensitive_media_directions">பார்வையிட சொடுக்கவும்</string>
     <string name="post_content_warning_show_more">அதிகமாக்கு</string>
     <string name="post_content_warning_show_less">கம்மியாக்கு</string>
@@ -53,7 +51,6 @@
     <string name="action_view_mutes">ஒலி நீக்கபட்ட பயனர்கள்</string>
     <string name="action_view_blocks">தடைசெய்யபட்ட பயனர்கள்</string>
     <string name="action_view_follow_requests">பின்பற்ற கோரிக்கை</string>
-    <string name="action_view_media">ஊடகம்</string>
     <string name="action_open_in_web">உலாவியில் திற</string>
     <string name="action_add_media">Mediaவை இணை</string>
     <string name="action_photo_take">புகைப்படம் எடு</string>
@@ -158,8 +155,6 @@
     -->
     <string name="post_share_content">Toot உள்ளடக்கத்தைப் பகிர்</string>
     <string name="post_share_link">Toot இணைப்பைப் பகிர்</string>
-    <string name="post_media_images">படங்கள்</string>
-    <string name="post_media_video">காணொளி</string>
     <string name="state_follow_requested">கோரிக்கையைப் பின்பற்றவும்</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">நீங்கள் பின் தொடரபடுகிறீர்கள்</string>
@@ -267,7 +262,6 @@
     <string name="notification_listenable_worker_description">பச்ச்லி பின்னணியில் வேலை செய்யும் போது அறிவிப்புகள்</string>
     <string name="notification_unknown_name">தெரியவில்லை</string>
     <string name="notification_notification_worker">அறிவிப்புகளைப் பெறுதல்…</string>
-    <string name="post_media_attachments">இணைப்புகள்</string>
     <string name="status_count_one_plus">1+</string>
     <string name="pref_title_public_filter_keywords">பொது காலவரிசைகள்</string>
     <string name="action_set_focus">கவனம் செலுத்தும் புள்ளியை அமைக்கவும்</string>
@@ -526,7 +520,6 @@
     <string name="filter_addition_title">வடிகட்டியைச் சேர்க்கவும்</string>
     <string name="filter_edit_title">வடிகட்டியைத் திருத்து</string>
     <string name="filter_dialog_whole_word">முழு சொல்</string>
-    <string name="post_media_audio">ஆடியோ</string>
     <string name="status_filtered_show_anyway">எப்படியும் காட்டு</string>
     <string name="filter_dialog_whole_word_description">முக்கிய சொல் அல்லது சொற்றொடர் எண்ணெழுத்து மட்டுமே இருக்கும்போது, அது முழு வார்த்தையுடனும் பொருந்தினால் மட்டுமே அது பயன்படுத்தப்படும்</string>
     <string name="set_focus_description">சிறுபடங்களில் எப்போதும் காணப்படும் மைய புள்ளியைத் தேர்வுசெய்ய வட்டத்தைத் தட்டவும் அல்லது இழுக்கவும்.</string>

@@ -52,4 +52,8 @@
     <string name="abbreviated_years_ago">අවු. %d</string>
     <string name="description_visibility_public">ප්‍රසිද්ධ</string>
     <string name="description_visibility_direct">සෘජු</string>
+    <string name="post_sensitive_media_title">සංවේදී අන්තර්ගතයකි</string>
+    <string name="post_media_audio">ශ්‍රව්‍ය</string>
+    <string name="post_media_video">දෘශ්‍යකය</string>
+    <string name="post_media_attachments">ඇමුණුම්</string>
 </resources>

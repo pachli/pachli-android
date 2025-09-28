@@ -29,8 +29,6 @@
     <string name="title_edit_profile">Profilod szerkesztése</string>
     <string name="title_drafts">Piszkozatok</string>
     <string name="post_boosted_format">%s megtolta</string>
-    <string name="post_sensitive_media_title">Érzékeny tartalom</string>
-    <string name="post_media_hidden_title">Rejtett média</string>
     <string name="post_sensitive_media_directions">Kattints a megtekintéshez</string>
     <string name="post_content_warning_show_more">Mutass többet</string>
     <string name="post_content_warning_show_less">Mutass kevesebbet</string>
@@ -63,7 +61,6 @@
     <string name="action_view_mutes">Némított felhasználók</string>
     <string name="action_view_blocks">Letiltott felhasználók</string>
     <string name="action_view_follow_requests">Követési kérelmek</string>
-    <string name="action_view_media">Média</string>
     <string name="action_open_in_web">Megnyitás böngészőben</string>
     <string name="action_add_media">Média csatolása</string>
     <string name="action_photo_take">Kép készítése</string>
@@ -177,8 +174,6 @@
     -->
     <string name="post_share_content">Bejegyzés tartalmának megosztása</string>
     <string name="post_share_link">Bejegyzés hivatkozásának megosztása</string>
-    <string name="post_media_images">Képek</string>
-    <string name="post_media_video">Videó</string>
     <string name="state_follow_requested">Követés kérelmezve</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">Követ téged</string>
@@ -360,8 +355,6 @@
 \nA Push-értesítéseket ez nem befolyásolja, de kézzel átállíthatod az értesítési beállításaidat.</string>
     <string name="duration_indefinite">Végtelen</string>
     <string name="label_duration">Időtartam</string>
-    <string name="post_media_attachments">Csatolmányok</string>
-    <string name="post_media_audio">Audio</string>
     <string name="notification_subscription_description">Értesítések általam követett személy új bejegyzéseiről</string>
     <string name="notification_subscription_name">Új bejegyzések</string>
     <string name="pref_title_notification_filter_subscriptions">valaki, akit követek új bejegyzést tett közzé</string>

@@ -77,4 +77,9 @@
     <string name="description_visibility_unlisted">Не ў стужках</string>
     <string name="description_visibility_private">Падпісчыкі</string>
     <string name="description_visibility_direct">Асабіста</string>
+    <string name="post_sensitive_media_title">Далікатнае змесціва</string>
+    <string name="post_media_images">Выявы</string>
+    <string name="post_media_audio">Аўдыё</string>
+    <string name="post_media_video">Відэа</string>
+    <string name="post_media_attachments">Далучэнні</string>
 </resources>

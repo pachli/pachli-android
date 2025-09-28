@@ -21,7 +21,6 @@
     <string name="title_follow_requests">Sekošanas pieprasījumi</string>
     <string name="title_scheduled_posts">Ieplānotie ieraksti</string>
     <string name="title_announcements">Paziņojumi</string>
-    <string name="post_sensitive_media_title">Jūtīgs saturs. Jāpiesit, lai parādītu.</string>
     <string name="post_content_show_less">Sakļaut</string>
     <string name="post_content_warning_show_more">Rādīt vairāk</string>
     <string name="post_content_warning_show_less">Rādīt mazāk</string>
@@ -43,7 +42,6 @@
     <string name="action_view_domain_mutes">Paslēptie domēni</string>
     <string name="action_view_mutes">Apklusinātie lietotāji</string>
     <string name="action_view_blocks">Bloķētie lietotāji</string>
-    <string name="action_view_media">Multivide</string>
     <string name="action_share">Kopīgot</string>
     <string name="action_add_poll">Pievienot aptauju</string>
     <string name="action_photo_take">Uzņemt fotoattēlu</string>
@@ -90,9 +88,6 @@
     <string name="post_text_size_largest">Lielākais</string>
     <string name="notification_poll_name">Aptaujas</string>
     <string name="notification_report_name">Ziņojumi</string>
-    <string name="post_media_video">Video</string>
-    <string name="post_media_audio">Audio</string>
-    <string name="post_media_attachments">Pielikumi</string>
     <string name="state_follow_requested">Sekošana pieprasīta</string>
     <string name="pref_title_public_filter_keywords">Publiskās laika līnijas</string>
     <string name="filter_addition_title">Pievienot filtru</string>
@@ -164,7 +159,6 @@
     <string name="pref_title_timeline_filters">Filtri</string>
     <string name="pref_title_browser_settings">Pārlūks</string>
     <string name="post_text_size_smallest">Mazākais</string>
-    <string name="post_media_images">Attēli</string>
     <string name="action_remove">Noņemt</string>
     <string name="list">Saraksts</string>
     <string name="account_note_saved">Saglabāts!</string>
@@ -266,7 +260,6 @@
     <string name="error_muting_hashtag_format">Radās kļūda, apklusinot #%s</string>
     <string name="error_unmuting_hashtag_format">Radās kļūda, atceļot #%s apklusināšanu</string>
     <string name="title_direct_messages">Tiešās ziņas</string>
-    <string name="post_media_hidden_title">Multivide ir paslēpta</string>
     <string name="notification_reblog_format">%s pastiprināja Tavu ierakstu</string>
     <string name="notification_follow_request_format">%s lūdza atļauju sekot Tev</string>
     <plurals name="notification_summary_report_format">
@@ -771,20 +764,11 @@
     <string name="pref_title_notification_filter_moderation_warning">Satura pārraudzītājs nosūta ziņojumu</string>
     <string name="notification_moderation_warnings_name">Satura pārraudzības brīdinājumi</string>
     <string name="notification_moderation_warnings_description">Paziņojumi par satura pārraudzības brīdinājumiem</string>
-    <plurals name="description_post_roles" tools:ignore="ImpliedQuantity">
-        <item quantity="zero">ar lomām:</item>
-        <item quantity="one">ar lomu:</item>
-        <item quantity="other">ar lomām:</item>
-    </plurals>
     <string name="translator_error_server_does_not_translate">serveris neatbalsta tulkošanu</string>
     <string name="translator_error_no_language_detected">nevarēja noteikt sākotnējo valodu</string>
     <string name="translator_error_unsupported_source_language_fmt">nevar tulkot no %1$s</string>
     <string name="translator_error_unsupported_target_language_fmt">nevar tulkot uz %1$s</string>
     <string name="translator_error_download_required_fmt">tulkošanai uz %1$s nepieciešama valodas pakas lejupielādēšana, un nav savienojuma ar Wi-Fi</string>
-    <string name="attachment_matches_filter_one_fmt">Atbilst atlasītājam: “%1$s”. Jāpiesit, lai parādītu.</string>
-    <string name="attachment_matches_filter_two_fmt">Atbilst atlasītājiem: “%1$s” un “%2$s”. Jāpiesit, lai parādītu.</string>
-    <string name="attachment_matches_filter_other_fmt">Atbilst atlasītājiem: “%1$s”, “%2$s” un vēl. Jāpiesit, lai parādītu.</string>
-    <string name="attachment_hidden_user_action">Tu paslēpi šo. Jāpiesit, lai parādītu.</string>
     <string name="filter_action_blur">Paslēpt pielikumus</string>
     <string name="filter_description_blur">Rādīt saturu, paslēpt pielikumus ar brīdinājumu</string>
 </resources>

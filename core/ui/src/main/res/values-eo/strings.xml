@@ -65,4 +65,9 @@
     <string name="description_visibility_private">        Sekvantoj
     </string>
     <string name="description_visibility_direct">        Rekta    </string>
+    <string name="post_sensitive_media_title">Tikla enhavo</string>
+    <string name="post_media_images">Bildoj</string>
+    <string name="post_media_audio">Aŭdaĵo</string>
+    <string name="post_media_video">Video</string>
+    <string name="post_media_attachments">Kunsendaĵoj</string>
 </resources>

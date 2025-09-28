@@ -42,8 +42,10 @@ import app.pachli.components.timeline.viewmodel.InfallibleUiAction
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
+import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.model.Attachment
+import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.Status
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AttachmentViewData
@@ -259,6 +261,10 @@ class ReportStatusesFragment :
 
     override fun isStatusChecked(id: String): Boolean {
         return viewModel.isStatusChecked(id)
+    }
+
+    override fun onAttachmentDisplayActionChange(viewData: StatusViewData, action: AttachmentDisplayAction) {
+        viewModel.onChangeAttachmentDisplayAction(viewData, action)
     }
 
     override fun onViewAccount(id: String) = startActivityWithDefaultTransition(

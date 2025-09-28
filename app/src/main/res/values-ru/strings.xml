@@ -29,8 +29,6 @@
     <string name="title_edit_profile">Редактировать профиль</string>
     <string name="title_drafts">Черновики</string>
     <string name="post_boosted_format">%s продвинул(а)</string>
-    <string name="post_sensitive_media_title">Чувствительный контент</string>
-    <string name="post_media_hidden_title">Медиа скрыто</string>
     <string name="post_sensitive_media_directions">Нажмите для просмотра</string>
     <string name="post_content_warning_show_more">Показать больше</string>
     <string name="post_content_warning_show_less">Показать меньше</string>
@@ -66,7 +64,6 @@
     <string name="action_view_mutes">Заглушенные пользователи</string>
     <string name="action_view_blocks">Заблокированные пользователи</string>
     <string name="action_view_follow_requests">Запросы на подписку</string>
-    <string name="action_view_media">Медиаконтент</string>
     <string name="action_open_in_web">Открыть в браузере</string>
     <string name="action_add_media">Добавить медиаконтент</string>
     <string name="action_photo_take">Сфотографировать</string>
@@ -190,8 +187,6 @@
     <!-- note to translators: the url can be changed to link to the localized version of the license -->
     <string name="post_share_content">Поделиться содержанием гудка</string>
     <string name="post_share_link">Поделиться ссылкой на гудок</string>
-    <string name="post_media_images">Изображения</string>
-    <string name="post_media_video">Видео</string>
     <string name="state_follow_requested">Запрошенные подписки</string>
     <!--Отметки времени у постов: "16s" or "2d"-->
     <!--Оставшееся время в опросах -->
@@ -354,8 +349,6 @@
     <string name="pref_title_wellbeing_mode">Самочувствие</string>
     <string name="duration_indefinite">Неопределённая</string>
     <string name="label_duration">Продолжительность</string>
-    <string name="post_media_attachments">Вложения</string>
-    <string name="post_media_audio">Аудио</string>
     <string name="notification_subscription_format">%s только что опубликовал(а)</string>
     <string name="follow_requests_info">Несмотря на то, что ваша профиль не закрыт, наши сотрудники %1$s решили, что вы, возможно, захотите просмотреть запросы на отслеживание от этих профилей вручную.</string>
     <plurals name="error_upload_max_media_reached">
@@ -789,12 +782,6 @@
         <item quantity="other">%1$s · %2$d прикреплённых записей</item>
     </plurals>
     <string name="action_post_failed_detail">Ваша публикация не была закачана и сохранена в черновиках.\n\nЛибо сервер недоступен, либо он отклонил публикацию.</string>
-    <plurals name="description_post_roles">
-        <item quantity="one" tools:ignore="ImpliedQuantity">с ролью:</item>
-        <item quantity="few">с ролями:</item>
-        <item quantity="many">с ролями:</item>
-        <item quantity="other">с ролями:</item>
-    </plurals>
     <string name="error_missing_edits">Ваш сервер знает, что это сообщение было отредактировано, но не сохраняет копию правок, поэтому не может их вам показать.\n\nЭто <a href="https://github.com/mastodon/mastodon/issues/25398">проблема в Mastodon #25398</a>.</string>
     <string name="pref_change_unified_push_distributor_msg">Это приведет к сбросу выбора распределителя UnifiedPush и перезапуску Pachli.\n\nЕсли установлено несколько распределителей UnifiedPush, то вам будет предложено выбрать один.</string>
     <string name="upload_failed_msg_fmt">Не удалось закачать вложение. Закачка будет повторена после отправки публикации. Если снова возникнет ошибка, публикация будет сохранена в черновиках.\n\nОшибка: %1$s</string>

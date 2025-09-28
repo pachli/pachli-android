@@ -77,4 +77,9 @@
     <string name="description_visibility_unlisted">Falaichte o liostaichean</string>
     <string name="description_visibility_private">Luchd-leantainn</string>
     <string name="description_visibility_direct">Dìreach</string>
+    <string name="post_sensitive_media_title">Susbaint fhrionasach</string>
+    <string name="post_media_images">Dealbhan</string>
+    <string name="post_media_audio">Fuaim</string>
+    <string name="post_media_video">Videothan</string>
+    <string name="post_media_attachments">Ceanglachain</string>
 </resources>

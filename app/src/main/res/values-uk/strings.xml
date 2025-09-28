@@ -53,7 +53,6 @@
     <string name="action_add_poll">Додати опитування</string>
     <string name="action_add_media">Додати медіа</string>
     <string name="action_open_in_web">Відкрити в браузері</string>
-    <string name="action_view_media">Медіа</string>
     <string name="action_view_follow_requests">Запити на стеження</string>
     <string name="action_view_blocks">Заблоковані користувачі</string>
     <string name="action_view_bookmarks">Закладки</string>
@@ -80,7 +79,6 @@
     <string name="post_content_warning_show_less">Згорнути</string>
     <string name="post_content_warning_show_more">Розгорнути</string>
     <string name="post_sensitive_media_directions">Натисніть для перегляду</string>
-    <string name="post_media_hidden_title">Медіа приховано</string>
     <string name="hint_content_warning">Попередження про вміст</string>
     <string name="edit_poll">Змінити</string>
     <string name="compose_shortcut_short_label">Написати</string>
@@ -108,7 +106,6 @@
     <string name="notification_reblog_format">%s поширює ваш допис</string>
     <string name="post_content_show_less">Згорнути</string>
     <string name="post_content_show_more">Розгорнути</string>
-    <string name="post_sensitive_media_title">Делікатний вміст</string>
     <string name="post_boosted_format">%s поширює</string>
     <string name="title_domain_mutes">Приховані домени</string>
     <string name="title_mutes">Приховувані користувачі</string>
@@ -203,10 +200,6 @@
     <string name="follows_you">Підписники</string>
     <string name="pref_title_alway_show_sensitive_media">Завжди показувати делікатний вміст</string>
     <string name="state_follow_requested">Запит на підписку надіслано</string>
-    <string name="post_media_attachments">Вкладення</string>
-    <string name="post_media_audio">Звуки</string>
-    <string name="post_media_video">Відео</string>
-    <string name="post_media_images">Зображення</string>
     <string name="post_share_link">Поділитися посиланням на допис</string>
     <string name="post_share_content">Поділитися вмістом допису</string>
     <string name="description_account_locked">Заблокований обліковий запис</string>

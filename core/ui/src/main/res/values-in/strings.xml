@@ -27,4 +27,9 @@
     <string name="abbreviated_days_ago">%dd</string>
     <string name="abbreviated_in_years">Dalam %d</string>
     <string name="abbreviated_years_ago">%dy</string>
+    <string name="post_sensitive_media_title">Konten sensitif</string>
+    <string name="post_media_images">Gambar</string>
+    <string name="post_media_audio">Audio</string>
+    <string name="post_media_video">Video</string>
+    <string name="post_media_attachments">Lampiran</string>
 </resources>

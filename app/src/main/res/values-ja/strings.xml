@@ -29,8 +29,6 @@
     <string name="title_edit_profile">プロフィールを編集</string>
     <string name="title_drafts">下書き</string>
     <string name="post_boosted_format">%sさんがブーストしました</string>
-    <string name="post_sensitive_media_title">閲覧注意</string>
-    <string name="post_media_hidden_title">非表示のメディア</string>
     <string name="post_sensitive_media_directions">タップして表示</string>
     <string name="post_content_warning_show_more">続きを表示</string>
     <string name="post_content_warning_show_less">続きを隠す</string>
@@ -64,7 +62,6 @@
     <string name="action_view_mutes">ミュートしたユーザー</string>
     <string name="action_view_blocks">ブロックしたユーザー</string>
     <string name="action_view_follow_requests">フォローリクエスト</string>
-    <string name="action_view_media">メディア</string>
     <string name="action_open_in_web">ブラウザで開く</string>
     <string name="action_add_media">メディアを追加</string>
     <string name="action_photo_take">写真を撮る</string>
@@ -181,8 +178,6 @@
     -->
     <string name="post_share_content">投稿の内容を共有</string>
     <string name="post_share_link">投稿へのリンクを共有</string>
-    <string name="post_media_images">画像</string>
-    <string name="post_media_video">動画</string>
     <string name="state_follow_requested">フォローリクエスト中</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">あなたをフォロー中</string>
@@ -327,7 +322,6 @@
     <string name="notification_subscription_format">%sさんが投稿しました</string>
     <string name="title_announcements">お知らせ</string>
     <string name="mute_domain_warning">本当に %s のすべてをブロックするのですか？ そのドメインからのコンテンツは、公開タイムラインや通知に表示されなくなります。また、そのドメインのフォロワーは削除されます。</string>
-    <string name="post_media_audio">音声</string>
     <string name="mute_domain_warning_dialog_ok">ドメイン全体を非表示</string>
     <string name="delete_scheduled_post_warning">この予約投稿を削除しますか？</string>
     <string name="action_unbookmark">ブックマークを削除</string>
@@ -380,7 +374,6 @@
     <string name="notification_sign_up_name">サインアップ</string>
     <string name="notification_report_name">報告</string>
     <string name="notification_report_description">モデレーション報告に関する通知</string>
-    <string name="post_media_attachments">添付ファイル</string>
     <string name="status_count_one_plus">1+</string>
     <string name="no_announcements">アナウンスはありません。</string>
     <string name="description_post_edited">編集しました</string>

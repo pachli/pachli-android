@@ -36,7 +36,7 @@
         tools:src="#000"
         tools:visibility="visible" />
 
-    <com.google.android.material.chip.ChipGroup
+    <app.pachli.core.ui.RoleChipGroup
         android:id="@+id/roleChipGroup"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -44,7 +44,8 @@
         app:chipSpacingVertical="4dp"
         app:layout_constraintStart_toStartOf="@id/account_display_name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/account_avatar" />
+        app:layout_constraintTop_toTopOf="@id/account_avatar"
+        android:importantForAccessibility="no" />
 
     <TextView
         android:id="@+id/account_display_name"

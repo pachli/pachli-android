@@ -26,8 +26,6 @@
     <string name="title_edit_profile">Golygu\'ch proffil</string>
     <string name="title_drafts">Drafftiau</string>
     <string name="post_boosted_format">Hybodd %s</string>
-    <string name="post_sensitive_media_title">Cynnwys sensitif</string>
-    <string name="post_media_hidden_title">Cyfryngau cudd</string>
     <string name="post_sensitive_media_directions">Cliciwch i weld</string>
     <string name="post_content_warning_show_more">Dangos Mwy</string>
     <string name="post_content_warning_show_less">Dangos Llai</string>
@@ -59,7 +57,6 @@
     <string name="action_view_mutes">Defnyddwyr a dawyd</string>
     <string name="action_view_blocks">Defnyddwyr a flociwyd</string>
     <string name="action_view_follow_requests">Ceisiadau i\'ch dilyn</string>
-    <string name="action_view_media">Cyfryngau</string>
     <string name="action_open_in_web">Agor mewn porwr</string>
     <string name="action_add_media">Ychwanegu cyfryngau</string>
     <string name="action_photo_take">Tynnu llun</string>
@@ -175,8 +172,6 @@
     -->
     <string name="post_share_content">Rhannu cynnwys y neges</string>
     <string name="post_share_link">Rhannu dolen i\'r neges</string>
-    <string name="post_media_images">Delweddau</string>
-    <string name="post_media_video">Fideo</string>
     <string name="state_follow_requested">Ceisiwyd</string>
     <!--These are for timestamps on statuses. For example: "16s" or "2d"-->
     <string name="follows_you">Yn eich dilyn chi</string>
@@ -308,7 +303,6 @@
     <string name="duration_6_hours">6 awr</string>
     <string name="duration_1_day">Diwrnod</string>
     <string name="unpin_action">Dadbinio</string>
-    <string name="post_media_attachments">Atodiadau</string>
     <string name="action_edit_image">Golygu llun</string>
     <string name="title_reblogged_by">Hybwyd gan</string>
     <string name="label_duration">Hyd</string>
@@ -353,7 +347,6 @@
     <string name="create_poll_title">Pôl</string>
     <string name="add_hashtag_title">Ychwanegu hashnod</string>
     <string name="status_count_one_plus">1+</string>
-    <string name="post_media_audio">Sain</string>
     <string name="compose_shortcut_long_label">Ysgrifennu neges</string>
     <string name="drafts_post_failed_to_send">Methodd anfon y neges hon!</string>
     <string name="pachli_compose_post_quicksetting_label">Ysgrifennu Neges</string>
