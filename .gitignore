@@ -12,5 +12,6 @@ profile-out-*
 app/*/release
 app-release.apk
 .kotlin
+.weblate
 
 feature/about/src/main/assets/PRIVACY.md
