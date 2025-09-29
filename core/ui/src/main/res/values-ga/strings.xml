@@ -117,4 +117,10 @@
         <item quantity="many">le róil:</item>
         <item quantity="other">le róil:</item>
     </plurals>
+    <string name="action_show_attachments">Taispeáin ceangaltáin</string>
+    <string name="action_hide_attachments">Folaigh ceangaltáin</string>
+    <string name="dot_in_name">ponc</string>
+    <string name="role_content_description_fmt">%1$s, ag %2$s</string>
+    <string name="handle_contentdescription_fmt">Láimhseáil, @%1$s</string>
+    <string name="account_contentdescription_fmt">%1$s, %2$s; %3$s</string>
 </resources>
