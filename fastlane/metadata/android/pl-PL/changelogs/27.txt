@@ -8,10 +8,10 @@ Nowości:
 
 Poprawki:
 
-- Podwójna pozycja "Odśwież" w menu
+- Podwójna pozycja „Odśwież” w menu
 - Podświetlanie hasztagów przy wyświetlaniu edycji wpisu
 - Zapobieganie różnym awariom
-- Usunięcie "dummy.placeholder" z błędów
+- Usunięcie „dummy.placeholder” z błędów
 - Sortowanie list według tytułu
 - Naprawiona awaria związana z rozmiarem suwaka
 

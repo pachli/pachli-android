@@ -11,7 +11,7 @@ Nowe możliwości obejmują:
 
 Poprawki błędów obejmują:
 
-- Obrazy nie "utykają" przy powiększaniu lub przewijaniu pomiędzy nimi
+- Obrazy nie „utykają” przy powiększaniu lub przewijaniu pomiędzy nimi
 
 Poprawki UX obejmują:
 

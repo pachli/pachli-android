@@ -9,7 +9,7 @@ Nowości:
 Poprawki:
 
 - Zatrzymanie zawieszania się interfejsu raportowania
-- Ustawienie opisu przycisku "Wyślij"
+- Ustawienie opisu przycisku „Wyślij”
 - Zapobieganie różnym awariom
 - Tworzenie filtrów z właściwym typem zawartości
 - Poprawie filtrowanie w wątkach i wiadomościach prywatnych

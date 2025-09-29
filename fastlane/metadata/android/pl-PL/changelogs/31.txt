@@ -11,7 +11,7 @@ Poprawki:
 - Lepsze kolory przycisków w edytorze
 - Wyświetlanie podglądu ankiet
 - Zapobieganie awarii gdy ComposeActivity jest usunięte podczas robienia zdjęcia
-- Poprawione położenie przycisku "Głosuj"
+- Poprawione położenie przycisku „Głosuj”
  
 Tłumaczenia: 
  

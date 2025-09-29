@@ -12,5 +12,5 @@ Poprawki:
 - Poprawiona czytelności opisów multimediów
 - Czytelność tekstu w nagłówku konta w menu
 - Nie przekraczaj maksymalnej liczby tworzonych skrótów
-- Użycie domyślnego opisu "Navigate up" w ViewThreadActivity
+- Użycie domyślnego opisu „Navigate up” w ViewThreadActivity
 - Aktualizacje tłumaczeń na fiński, hiszpański i szwedzki
