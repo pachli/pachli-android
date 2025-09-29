@@ -217,7 +217,7 @@
     <string name="action_add_tab">Dodaj zakładkę</string>
     <string name="action_open_reblogger">Otwórz konto osoby podbijającej</string>
     <string name="action_open_reblogged_by">Pokaż podbicia</string>
-    <string name="action_open_media_n">Otwórz media #%d</string>
+    <string name="action_open_media_n">Otwórz załącznik #%d</string>
     <string name="download_media">Pobierz media</string>
     <string name="downloading_media">Pobieranie mediów</string>
     <string name="send_media_to">Wyślij media do…</string>
@@ -601,7 +601,7 @@
     <string name="ui_error_translate_status_fmt">Tłumaczenie się nie powiodło: %1$s</string>
     <string name="dialog_delete_filter_text">Usunąć filtr \'%1$s\'?</string>
     <string name="load_newest_statuses">Wczytaj najnowsze wpisy</string>
-    <string name="help_empty_home">To twoja <b>oś czasu</b>. Pokazuje ostatnie wpisy kont, które obserwujesz.\n\nBy znaleźć konta, możesz na przykład odnaleźć je na innych osiach czasu, takich jak lokalna oś czasu twojego serwera [iconics gmd_group]. Lub wyszukać po nazwie [iconics gmd_search]; na przykład wyszukaj \"Pachli\", by znaleźć nasze konto na Mastodonie.</string>
+    <string name="help_empty_home">To twoja <b>oś czasu</b>. Pokazuje ostatnie wpisy kont, które obserwujesz.\n\nBy znaleźć konta, możesz na przykład odnaleźć je na innych osiach czasu, takich jak lokalna oś czasu twojego serwera [iconics gmd_group]. Możesz też wyszukać po nazwie [iconics gmd_search]; na przykład poszukaj „Pachli”, by znaleźć nasze konto na Mastodonie.</string>
     <string name="dialog_save_profile_changes_message">Czy chcesz zapisać zmiany profilu?</string>
     <string name="reaction_name_and_count">%1$s %2$d</string>
     <string name="pref_title_update_settings">Aktualizacje oprogramowania</string>
@@ -785,4 +785,6 @@
     <string name="translator_error_unsupported_source_language_fmt">nie udało się przetłumaczyć z %1$s</string>
     <string name="translator_error_unsupported_target_language_fmt">nie można przetłumaczyć na %1$s</string>
     <string name="translator_error_download_required_fmt">tłumaczenie na %1$s wymaga pobrania pakietu językowego a Wi-Fi jest nie połączone</string>
+    <string name="filter_action_blur">Ukryj załączniki</string>
+    <string name="filter_description_blur">Pokaż zawartość, ukryj załączniki z ostrzeżeniem</string>
 </resources>
