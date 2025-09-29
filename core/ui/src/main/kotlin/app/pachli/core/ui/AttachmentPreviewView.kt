@@ -208,12 +208,14 @@ class AttachmentPreviewView @JvmOverloads constructor(
             mediaPreviewImageView.setFocalPoint(focus)
             glide.load(url)
                 .placeholder(placeholder)
+                .centerInside()
                 .addListener(mediaPreviewImageView)
                 .into(mediaPreviewImageView)
         } else {
             mediaPreviewImageView.removeFocalPoint()
             glide.load(url)
                 .placeholder(placeholder)
+                .centerInside()
                 .into(mediaPreviewImageView)
         }
     }
