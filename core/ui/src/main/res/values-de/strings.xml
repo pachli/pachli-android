@@ -96,4 +96,10 @@
         <item quantity="one">mit Rolle:</item>
         <item quantity="other">mit Rollen:</item>
     </plurals>
+    <string name="account_contentdescription_fmt">%1$s, %2$s; %3$s</string>
+    <string name="handle_contentdescription_fmt">Handle, @%1$s</string>
+    <string name="role_content_description_fmt">%1$s, bei %2$s</string>
+    <string name="dot_in_name">Punkt</string>
+    <string name="action_hide_attachments">Anhänge verbergen</string>
+    <string name="action_show_attachments">Anhänge anzeigen</string>
 </resources>
