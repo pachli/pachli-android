@@ -84,7 +84,7 @@
     <string name="download_media">Íoslódáil meáin</string>
     <string name="action_copy_link">Cóipeáil an nasc</string>
     <string name="download_image">Ag íoslódáil %1$s</string>
-    <string name="action_open_media_n">Meáin oscailte #%d</string>
+    <string name="action_open_media_n">Oscail ceangaltán #%d</string>
     <string name="action_open_faved_by">Taispeáin toghanna</string>
     <string name="action_open_reblogged_by">Taispeáin athchraolta</string>
     <string name="action_open_reblogger">Oscail údar an athchraolta</string>
