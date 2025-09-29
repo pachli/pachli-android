@@ -166,7 +166,8 @@ class MlKitTranslationService(
         }
         val sourceLanguage = TranslateLanguage.fromLanguageTag(identifiedLanguageTag)
         if (sourceLanguage == null) {
-            return Err(TranslatorError.UnsupportedSourceLanguage(identifiedLanguageTag))
+            val locale = Locale.forLanguageTag(identifiedLanguageTag)
+            return Err(TranslatorError.UnsupportedSourceLanguage(locale.displayLanguage.ifEmpty { identifiedLanguageTag }))
         }
 
         Timber.d("Source language: $sourceLanguage")
