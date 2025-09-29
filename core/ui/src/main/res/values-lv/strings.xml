@@ -95,7 +95,7 @@
     <string name="post_sensitive_media_title">Jūtīgs saturs. Jāpiesit, lai parādītu.</string>
     <string name="attachment_hidden_user_action">Tu paslēpi šo. Jāpiesit, lai parādītu.</string>
     <string name="post_media_images">Attēli</string>
-    <string name="post_media_audio">Audio</string>
+    <string name="post_media_audio">Skaņa</string>
     <string name="post_media_video">Video</string>
     <string name="post_media_attachments">Pielikumi</string>
     <plurals name="description_post_roles" tools:ignore="ImpliedQuantity">
@@ -103,4 +103,10 @@
         <item quantity="one">ar lomu:</item>
         <item quantity="other">ar lomām:</item>
     </plurals>
+    <string name="action_hide_attachments">Paslēpt pielikumus</string>
+    <string name="action_show_attachments">Parādīt pielikumus</string>
+    <string name="dot_in_name">punkts</string>
+    <string name="role_content_description_fmt">%1$s, %2$s</string>
+    <string name="handle_contentdescription_fmt">Turis, @%1$s</string>
+    <string name="account_contentdescription_fmt">%1$s, %2$s; %3$s</string>
 </resources>
