@@ -96,4 +96,10 @@
         <item quantity="one">rollis:</item>
         <item quantity="other">rollides:</item>
     </plurals>
+    <string name="action_hide_attachments">Peida manused</string>
+    <string name="action_show_attachments">Näita manuseid</string>
+    <string name="dot_in_name">punkt</string>
+    <string name="role_content_description_fmt">%1$s, %2$s</string>
+    <string name="handle_contentdescription_fmt">Võrgunimi, @%1$s</string>
+    <string name="account_contentdescription_fmt">%1$s, %2$s; %3$s</string>
 </resources>
