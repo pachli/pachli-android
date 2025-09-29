@@ -195,7 +195,7 @@
     <string name="action_suggestions">Kasutajakontode soovitused</string>
     <string name="action_translate">Tõlgi</string>
     <string name="action_translate_undo">Eemalda tõlge</string>
-    <string name="action_open_media_n">Ava meedia #%d</string>
+    <string name="action_open_media_n">Ava manus #%d</string>
     <string name="download_image">%1$s on allalaadimisel</string>
     <string name="action_copy_link">Kopeeri link</string>
     <string name="action_refresh_account">Uuenda kasutajakontot</string>
