@@ -60,10 +60,10 @@ sealed interface TranslatorError : PachliError {
         override val cause = null
     }
 
-    /** Language detected succeeded, but the source language is not supported. */
-    data class UnsupportedSourceLanguage(val languageTag: String) : TranslatorError {
+    /** Language detection succeeded, but the source language is not supported. */
+    data class UnsupportedSourceLanguage(val language: String) : TranslatorError {
         override val resourceId = R.string.translator_error_unsupported_source_language_fmt
-        override val formatArgs = arrayOf(languageTag)
+        override val formatArgs = arrayOf(language)
         override val cause = null
     }
 
