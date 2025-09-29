@@ -106,4 +106,14 @@
         <item quantity="many">z rolami:</item>
         <item quantity="other">z rolami:</item>
     </plurals>
+    <string name="attachment_matches_filter_one_fmt">Pasuje do filtra: „%1$s”. Dotknij, by pokazać.</string>
+    <string name="attachment_matches_filter_two_fmt">Pasuje do filtrów: „%1$s” i „%2$s”. Dotknij, by pokazać.</string>
+    <string name="attachment_matches_filter_other_fmt">Pasuje do filtrów: „%1$s”, „%2$s” i innych. Dotknij, by pokazać.</string>
+    <string name="attachment_hidden_user_action">Ukrywasz to. Dotknij, by pokazać.</string>
+    <string name="action_show_attachments">Pokaż załączniki</string>
+    <string name="action_hide_attachments">Ukryj załączniki</string>
+    <string name="dot_in_name">kropka</string>
+    <string name="role_content_description_fmt">%1$s, na %2$s</string>
+    <string name="handle_contentdescription_fmt">Konto, @%1$s</string>
+    <string name="account_contentdescription_fmt">%1$s, %2$s, %3$s</string>
 </resources>
