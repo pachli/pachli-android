@@ -9,6 +9,6 @@
     <string name="node_info_error_no_software">nie zawierał blokady oprogramowania</string>
     <string name="node_info_error_no_software_name">brak nazwy oprogramowania lub jest pusta</string>
     <string name="node_info_error_no_software_version">brak wersji oprogramowania lub jest pusta</string>
-    <string name="server_error_unparseable_version">nie można było przetworzyć \"%1$s\" jako wersji: %2$s</string>
+    <string name="server_error_unparseable_version">nie można było przetworzyć „%1$s” jako wersji: %2$s</string>
     <string name="error_generic_fmt">%1$s</string>
 </resources>
