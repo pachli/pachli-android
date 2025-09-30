@@ -99,7 +99,7 @@
     <string name="description_visibility_unlisted">Не в списке</string>
     <string name="description_visibility_private">Подписчики</string>
     <string name="description_visibility_direct">Непосредственно</string>
-    <string name="post_sensitive_media_title">Чувствительный контент</string>
+    <string name="post_sensitive_media_title">Вызывающее содержимое. Нажмите чтобы отобразить.</string>
     <string name="post_media_images">Изображения</string>
     <string name="post_media_audio">Аудио</string>
     <string name="post_media_video">Видео</string>
@@ -110,4 +110,10 @@
         <item quantity="many">с ролями:</item>
         <item quantity="other">с ролями:</item>
     </plurals>
+    <string name="account_contentdescription_fmt">%1$s, %2$s; %3$s</string>
+    <string name="role_content_description_fmt">%1$s, в %2$s</string>
+    <string name="action_hide_attachments">Скрыть вложения</string>
+    <string name="dot_in_name">точка</string>
+    <string name="action_show_attachments">Показать вложения</string>
+    <string name="attachment_matches_filter_other_fmt">Соответствует фильтрам: \"%1$s\", \"%2$s\" и другим. Нажмите, чтобы показать.</string>
 </resources>
