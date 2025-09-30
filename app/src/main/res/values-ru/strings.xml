@@ -5,8 +5,8 @@
     <string name="error_compose_character_limit">Статус слишком длинный!</string>
     <string name="error_media_upload_type">Данный тип файла не может быть загружен.</string>
     <string name="error_media_upload_opening">Файл не может быть открыт.</string>
-    <string name="error_media_upload_permission">Необходимо разрешение на чтение медиаконтента.</string>
-    <string name="error_media_download_permission">Необходимо разрешение для хранения медиаконтента.</string>
+    <string name="error_media_upload_permission">Необходимо разрешение на доступ к галерее.</string>
+    <string name="error_media_download_permission">Необходимо разрешение для сохранения в галерею.</string>
     <string name="error_media_upload_image_or_video">изображения и видео не могут быть прикреплены к той же записи одновременно.</string>
     <string name="error_media_upload_sending">Загрузка не удалась.</string>
     <string name="error_sender_account_gone">Ошибка при засвистывании.</string>
@@ -65,13 +65,13 @@
     <string name="action_view_blocks">Заблокированные пользователи</string>
     <string name="action_view_follow_requests">Запросы на подписку</string>
     <string name="action_open_in_web">Открыть в браузере</string>
-    <string name="action_add_media">Добавить медиаконтент</string>
+    <string name="action_add_media">Добавить медиа</string>
     <string name="action_photo_take">Сфотографировать</string>
     <string name="action_share">Поделиться</string>
     <string name="action_mute">Заглушить</string>
     <string name="action_unmute">Отменить глушение</string>
     <string name="action_mention">Упомянуть</string>
-    <string name="action_hide_media">Скрыть медиаконтент</string>
+    <string name="action_hide_media">Скрыть медиа</string>
     <string name="action_open_drawer">Открыть черновик</string>
     <string name="action_save">Сохранить</string>
     <string name="action_edit_profile">Редактировать профиль</string>
@@ -88,7 +88,7 @@
     <string name="action_open_reblogger">Перейти к автору</string>
     <string name="action_open_reblogged_by">Показывать продвижения</string>
     <string name="action_open_faved_by">Показать избранное</string>
-    <string name="action_open_media_n">Открыть медиафайл #%d</string>
+    <string name="action_open_media_n">Открыть вложение #%d</string>
     <string name="download_image">Загрузка %1$s</string>
     <string name="action_copy_link">Копировать ссылку</string>
     <string name="download_media">Скачать медиафайл</string>
@@ -110,7 +110,7 @@
     <string name="label_quick_reply">Ответ…</string>
     <string name="label_avatar">Аватар</string>
     <string name="label_header">Заголовок</string>
-    <string name="dialog_title_finishing_media_upload">Завершается загрузка медиаконтента</string>
+    <string name="dialog_title_finishing_media_upload">Завершается закачка медиа</string>
     <string name="dialog_message_uploading_media">Загружается…</string>
     <string name="dialog_download_image">Скачать</string>
     <string name="dialog_message_cancel_follow_request">Отозвать запрос на подписку\?</string>
@@ -144,14 +144,14 @@
     <string name="pref_title_post_tabs">Вкладки</string>
     <string name="pref_title_show_boosts">Показывать продвижения</string>
     <string name="pref_title_show_replies">Показывать ответы</string>
-    <string name="pref_title_show_media_preview">Загрузить предпросмотр медиаконтента</string>
+    <string name="pref_title_show_media_preview">Скачать предпросмотр медиа</string>
     <string name="pref_title_proxy_settings">Прокси</string>
     <string name="pref_title_http_proxy_settings">HTTP прокси</string>
     <string name="pref_title_http_proxy_enable">Использовать HTTP прокси</string>
     <string name="pref_title_http_proxy_server">Адрес сервера</string>
     <string name="pref_title_http_proxy_port">Порт</string>
     <string name="pref_default_post_privacy">Приватность публикаций по умолчанию</string>
-    <string name="pref_default_media_sensitivity">Считать все медиа чувствительными</string>
+    <string name="pref_default_media_sensitivity">Всегда отмечать все медиа как вызывающие</string>
     <string name="pref_publishing">Публикация (синхронизировано с сервером)</string>
     <string name="pref_failed_to_sync">Не удалось синхронизировать настройки</string>
     <string name="post_privacy_public">Публичные</string>
@@ -191,7 +191,7 @@
     <!--Отметки времени у постов: "16s" or "2d"-->
     <!--Оставшееся время в опросах -->
     <string name="follows_you">Подписан(а) на вас</string>
-    <string name="pref_title_alway_show_sensitive_media">Всегда показывать чувствительный контент</string>
+    <string name="pref_title_alway_show_sensitive_media">Всегда показывать вызывающее содержимое</string>
     <string name="title_media">Медиа</string>
     <string name="pref_title_public_filter_keywords">Публичные ленты</string>
     <string name="pref_title_thread_filter_keywords">Разговоры</string>
@@ -415,7 +415,7 @@
     <string name="notification_moderation_warning_title">Сообщение от ваших модераторов</string>
     <string name="notification_moderation_warning_body_none_fmt">Вы получили предупреждение модерации: %1$s</string>
     <string name="notification_moderation_warning_body_disable_fmt">Ваша учётная запись отключена: %1$s</string>
-    <string name="notification_moderation_warning_body_mark_statuses_as_sensitive_fmt">Некоторые из ваших публикаций отмечены как конфиденциальные: %1$s</string>
+    <string name="notification_moderation_warning_body_mark_statuses_as_sensitive_fmt">Некоторые из ваших публикаций отмечены как вызывающие: %1$s</string>
     <string name="notification_moderation_warning_body_delete_statuses_fmt">Некоторые из ваших публикаций удалены: %1$s</string>
     <string name="notification_moderation_warning_body_silence_fmt">Ваш профиль ограничен: %1$s</string>
     <string name="notification_moderation_warning_body_suspend_fmt">Ваш профиль заблокирован: %1$s</string>
@@ -790,4 +790,6 @@
     <string name="translator_error_unsupported_source_language_fmt">невозможно перевести с %1$s</string>
     <string name="translator_error_unsupported_target_language_fmt">невозможно перевести на %1$s</string>
     <string name="translator_error_download_required_fmt">для перевода на %1$s нужно скачать языковой пакет, а Wi-Fi не подключён</string>
+    <string name="filter_action_blur">Скрыть вложения</string>
+    <string name="filter_description_blur">Показывать содержимое, скрывать вложения с предупреждением</string>
 </resources>
