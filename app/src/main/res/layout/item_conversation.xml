@@ -78,7 +78,7 @@
         tools:src="#000"
         tools:visibility="visible" />
 
-    <com.google.android.material.chip.ChipGroup
+    <app.pachli.core.ui.RoleChipGroup
         android:id="@+id/roleChipGroup"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
