@@ -1,5 +1,31 @@
 # Pachli changelog
 
+## v3.0.0
+
+### New features and other improvements
+
+- Support scheduled posts on GoToSocial 0.20.0 and above. (#[1823](https://github.com/pachli/pachli-android/pull/1823), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Improve accessibility of account name, handle, and roles (#[1821](https://github.com/pachli/pachli-android/pull/1821), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Support filters that hide media attachments (#[1776](https://github.com/pachli/pachli-android/pull/1776), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Significant bug fixes
+
+- Show source language name if translation is not supported (#[1834](https://github.com/pachli/pachli-android/pull/1834), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show if a post is a boost on network timelines (#[1820](https://github.com/pachli/pachli-android/pull/1820), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Work around Android bug where editable text disappears (#[1795](https://github.com/pachli/pachli-android/pull/1795), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Periodically update timestamps in threads, search results (#[1769](https://github.com/pachli/pachli-android/pull/1769), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Translations
+
+- Update Estonian translations ([Priit Jõerüüt](https://github.com/pachli/pachli-android/commits?author=jrthwlate@users.noreply.hosted.weblate.org))
+- Update German translations ([Thomas Cloer](https://github.com/pachli/pachli-android/commits?author=tcloer@mac.com))
+- Update Irish translations ([Aindriú Mac Giolla Eoin](https://github.com/pachli/pachli-android/commits?author=aindriu80@gmail.com))
+- Update Latvian translations ([Edgars Andersons](https://github.com/pachli/pachli-android/commits?author=Edgars+Weblate@gaitenis.id.lv))
+- Update Polish translations ([Łukasz Horodecki](https://github.com/pachli/pachli-android/commits?author=dakilla@gmail.com))
+- Update Russian translations ([Yurt Page](https://github.com/pachli/pachli-android/commits?author=yurtpage+weblate@gmail.com))
+- Update Slovak translations ([Russssty](https://github.com/pachli/pachli-android/commits?author=russssty@users.noreply.hosted.weblate.org))
+- Update Spanish translations ([Juan M Sevilla](https://github.com/pachli/pachli-android/commits?author=jumase@disroot.org))
+
 ## v2.16.1
 
 ### Significant bug fixes
