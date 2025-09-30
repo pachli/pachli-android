@@ -227,7 +227,7 @@ class AttachmentPreviewView @JvmOverloads constructor(
      * is used as the placeholder.
      * @param size Optional size to use.
      */
-    fun placeholder(blurHash: String?, size: Size?): Drawable {
+    private fun placeholder(blurHash: String?, size: Size?): Drawable {
         size ?: return blurHash?.let { decodeBlurHash(context, it) } ?: mediaPreviewUnloadedDrawable
 
         val aspectRatio = if (size.height == 0 || size.width == 0) 1.7778 else size.width.toDouble() / size.height

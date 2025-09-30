@@ -30,7 +30,6 @@ import app.pachli.core.ui.PollAdapter
 import app.pachli.core.ui.PollAdapter.DisplayMode
 import app.pachli.core.ui.PollOptionViewData
 import app.pachli.core.ui.emojify
-import app.pachli.core.ui.extensions.aspectRatios
 import app.pachli.core.ui.setClickableText
 import app.pachli.databinding.ItemStatusEditBinding
 import com.bumptech.glide.RequestManager
@@ -158,16 +157,15 @@ class ViewEditsAdapter(
             binding.statusEditMediaSensitivity.hide()
         } else {
             binding.statusEditMediaPreview.show()
-            binding.statusEditMediaPreview.aspectRatios = edit.mediaAttachments.aspectRatios()
-
-            binding.statusEditMediaPreview.forEachIndexed { index, attachmentPreview ->
-
-                val attachment = edit.mediaAttachments[index]
-                // TODO: Passing `Show` here for `displayAction` might not be correct. Would be
-                // better to figure this out from the filter context of whatever activity or
-                // fragment contained the status we're viewing the edits for.
-                attachmentPreview.bind(glide, attachment, AttachmentDisplayAction.Show(), useBlurhash)
-            }
+            // TODO: Passing `Show` here for `displayAction` might not be correct. Would be
+            // better to figure this out from the filter context of whatever activity or
+            // fragment contained the status we're viewing the edits for.
+            binding.statusEditMediaPreview.bind(
+                glide,
+                edit.mediaAttachments,
+                AttachmentDisplayAction.Show(),
+                useBlurhash,
+            )
             binding.statusEditMediaSensitivity.visible(edit.sensitive)
         }
     }

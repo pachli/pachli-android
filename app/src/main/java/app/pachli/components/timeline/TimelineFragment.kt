@@ -658,7 +658,7 @@ class TimelineFragment :
         viewModel.accept(InfallibleStatusAction.TranslateUndo(viewData))
     }
 
-    override fun onViewMedia(viewData: StatusViewData, attachmentIndex: Int, view: View?) {
+    override fun onViewAttachment(view: View?, viewData: StatusViewData, attachmentIndex: Int) {
         // Pass the translated media descriptions through (if appropriate)
         val actionable = if (viewData.translationState == TranslationState.SHOW_TRANSLATION) {
             viewData.actionable.copy(

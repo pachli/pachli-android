@@ -141,19 +141,19 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
                 }
                 app.pachli.core.ui.R.id.action_open_media_1 -> {
                     interrupt()
-                    statusActionListener.onViewMedia(status, 0, null)
+                    statusActionListener.onViewAttachment(null, status, 0)
                 }
                 app.pachli.core.ui.R.id.action_open_media_2 -> {
                     interrupt()
-                    statusActionListener.onViewMedia(status, 1, null)
+                    statusActionListener.onViewAttachment(null, status, 1)
                 }
                 app.pachli.core.ui.R.id.action_open_media_3 -> {
                     interrupt()
-                    statusActionListener.onViewMedia(status, 2, null)
+                    statusActionListener.onViewAttachment(null, status, 2)
                 }
                 app.pachli.core.ui.R.id.action_open_media_4 -> {
                     interrupt()
-                    statusActionListener.onViewMedia(status, 3, null)
+                    statusActionListener.onViewAttachment(null, status, 3)
                 }
                 app.pachli.core.ui.R.id.action_expand_cw -> {
                     // Toggling it directly to avoid animations

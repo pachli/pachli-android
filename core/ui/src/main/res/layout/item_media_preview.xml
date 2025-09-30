@@ -2,18 +2,19 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
-    <app.pachli.core.ui.MediaPreviewLayout
-        android:id="@+id/status_media_preview"
+    <app.pachli.core.ui.AttachmentGridView
+        android:id="@+id/preview_grid"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@+id/status_media_preview_1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/status_sensitive_media_button"
+        android:id="@+id/hide_attachments_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="3dp"
@@ -21,13 +22,13 @@
         android:contentDescription="@null"
         android:padding="@dimen/status_sensitive_media_button_padding"
         android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@+id/status_media_preview_container"
-        app:layout_constraintTop_toTopOf="@+id/status_media_preview_container"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_eye_24dp"
         app:tint="?android:attr/textColorSecondary" />
 
     <TextView
-        android:id="@+id/status_sensitive_media_warning"
+        android:id="@+id/display_action_label"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/media_warning_bg"

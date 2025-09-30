@@ -164,8 +164,8 @@
         app:layout_constraintTop_toBottomOf="@+id/status_content"
         tools:visibility="gone" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/status_media_preview_container"
+    <app.pachli.core.ui.AttachmentsView
+        android:id="@+id/attachmentGrid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
@@ -174,11 +174,7 @@
         android:layout_marginBottom="4dp"
         android:background="@drawable/media_preview_outline"
         android:importantForAccessibility="noHideDescendants"
-        app:layout_constraintTop_toBottomOf="@id/status_card_view">
-
-        <include layout="@layout/item_media_preview" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toBottomOf="@id/status_card_view" />
 
     <app.pachli.core.ui.PollView
         android:id="@+id/status_poll"
@@ -189,7 +185,7 @@
         android:layout_marginEnd="14dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/status_media_preview_container" />
+        app:layout_constraintTop_toBottomOf="@id/attachmentGrid" />
 
     <TextView
         android:id="@+id/translationProvider"

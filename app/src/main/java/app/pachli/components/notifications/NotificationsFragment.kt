@@ -528,7 +528,7 @@ class NotificationsFragment :
         }
     }
 
-    override fun onViewMedia(viewData: NotificationViewData, attachmentIndex: Int, view: View?) {
+    override fun onViewAttachment(view: View?, viewData: NotificationViewData, attachmentIndex: Int) {
         super.viewMedia(
             viewData.statusViewData!!.status.account.username,
             attachmentIndex,

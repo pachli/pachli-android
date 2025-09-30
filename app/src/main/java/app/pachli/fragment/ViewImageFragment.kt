@@ -299,13 +299,15 @@ class ViewImageFragment : ViewMediaFragment() {
      *  - Do not wait to transition until the image loads from network
      *
      * Preview, cached image, network image, x - failed, o - succeeded
+     *
+     * ```
      * P C N - start transition after...
      * x x x - the cache fails
      * x x o - the cache fails
      * x o o - the cache succeeds
      * o x o - the preview succeeds. Do not start on cache.
      * o o o - the preview succeeds. Do not start on cache.
-     *
+     * ```
      * So start transition after the first success or after anything with the cache
      *
      * @param isCacheRequest - is this listener for request image from cache or from the network
