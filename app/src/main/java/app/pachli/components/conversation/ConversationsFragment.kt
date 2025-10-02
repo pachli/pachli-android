@@ -374,7 +374,7 @@ class ConversationsFragment :
         super.more(view, viewData)
     }
 
-    override fun onViewMedia(viewData: ConversationViewData, attachmentIndex: Int, view: View?) {
+    override fun onViewAttachment(view: View?, viewData: ConversationViewData, attachmentIndex: Int) {
         viewMedia(
             viewData.lastStatus.actionable.account.username,
             attachmentIndex,

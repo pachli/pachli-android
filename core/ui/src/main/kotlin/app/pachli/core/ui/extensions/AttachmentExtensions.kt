@@ -83,17 +83,16 @@ private fun formatDuration(durationInSeconds: Double): String {
     return "%d:%02d:%02d".format(hours, minutes, seconds)
 }
 
-fun Iterable<Attachment>.aspectRatios(): List<Double> {
-    return map { attachment ->
-        // clamp ratio between 2:1 & 1:2, defaulting to 16:9
-        val (width, height, aspect) = (attachment.meta?.small ?: attachment.meta?.original) ?: return@map 1.7778
-        width ?: return@map 1.778
-        height ?: return@map 1.778
-        aspect ?: return@map 1.778
-        val adjustedAspect = if (aspect > 0) aspect else width.toDouble() / height
-        adjustedAspect.coerceIn(0.5, 2.0)
-    }
+fun Attachment.aspectRatio(): Double {
+    val (width, height, aspect) = (meta?.small ?: meta?.original) ?: return 1.7778
+    width ?: return 1.778
+    height ?: return 1.778
+    aspect ?: return 1.778
+    val adjustedAspect = if (aspect > 0) aspect else width.toDouble() / height
+    return adjustedAspect.coerceIn(0.5, 2.0)
 }
+
+fun Iterable<Attachment>.aspectRatios() = map { it.aspectRatio() }
 
 /**
  * @return True if this attachment type is playable and should show the playable indicator,

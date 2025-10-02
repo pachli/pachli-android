@@ -30,7 +30,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_account_in_list.xml"
-            line="58"
+            line="59"
             column="6"/>
     </issue>
 
@@ -41,7 +41,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_account_in_list.xml"
-            line="75"
+            line="76"
             column="6"/>
     </issue>
 

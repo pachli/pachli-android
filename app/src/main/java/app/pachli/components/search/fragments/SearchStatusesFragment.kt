@@ -149,7 +149,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
         more(viewData, view)
     }
 
-    override fun onViewMedia(viewData: StatusViewData, attachmentIndex: Int, view: View?) {
+    override fun onViewAttachment(view: View?, viewData: StatusViewData, attachmentIndex: Int) {
         val actionable = viewData.actionable
         when (actionable.attachments[attachmentIndex].type) {
             Attachment.Type.GIFV, Attachment.Type.VIDEO, Attachment.Type.IMAGE, Attachment.Type.AUDIO -> {

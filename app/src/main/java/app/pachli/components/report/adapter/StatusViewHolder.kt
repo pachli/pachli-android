@@ -61,7 +61,7 @@ open class StatusViewHolder(
                 adapterHandler.setStatusChecked(viewdata.status, isChecked)
             }
         }
-        binding.statusMediaPreviewContainer.clipToOutline = true
+        binding.attachmentGrid.clipToOutline = true
     }
 
     fun bind(viewData: StatusViewData) {
