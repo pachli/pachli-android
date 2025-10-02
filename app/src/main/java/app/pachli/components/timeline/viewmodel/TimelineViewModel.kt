@@ -607,11 +607,12 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
         }
 
         val status = timelineStatus.status
+
         // Remove replies
-        if (status.inReplyToId != null && filterRemoveReplies) return FilterAction.HIDE
+        if (status.isReply && filterRemoveReplies) return FilterAction.HIDE
 
         // Remove boosts
-        if (status.reblogged && filterRemoveReblogs) return FilterAction.HIDE
+        if (status.isReblog && filterRemoveReblogs) return FilterAction.HIDE
 
         // Apply content filters.
         return contentFilterModel?.filterActionFor(status) ?: FilterAction.NONE

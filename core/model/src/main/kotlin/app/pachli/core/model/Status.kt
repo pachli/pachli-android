@@ -21,6 +21,9 @@ import app.pachli.core.common.extensions.getOrElse
 import com.squareup.moshi.JsonClass
 import java.util.Date
 
+/**
+ * @property reblogged True if the current user reblogged this status.
+ */
 data class Status(
     val id: String,
     // not present if it's reblog
@@ -53,7 +56,6 @@ data class Status(
     val language: String?,
     val filtered: List<FilterResult>?,
 ) {
-
     val actionableId: String
         get() = reblog?.id ?: id
 

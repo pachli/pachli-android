@@ -21,6 +21,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Ignore
 import androidx.room.Index
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
@@ -46,6 +47,12 @@ import java.util.Date
  * serialization).
  * "Reblog status", if present, is marked by [reblogServerId], and [reblogAccountId]
  * fields.
+ *
+ * @property reblogged True if [timelineUserId] reblogged this status.
+ * @property isReblog True if this status is a reblog of another status (see
+ * [reblogServerId] and [reblogAccountId])
+ * @property isReply True if this status is a reply to another status (see
+ * [inReplyToId] and [inReplyToAccountId])
  */
 @Entity(
     primaryKeys = ["serverId", "timelineUserId"],
@@ -106,6 +113,12 @@ data class StatusEntity(
     val language: String?,
     val filtered: List<FilterResult>?,
 ) {
+    @Ignore
+    val isReblog = reblogServerId != null
+
+    @Ignore
+    val isReply = inReplyToId != null
+
     companion object {
         fun from(status: Status, timelineUserId: Long) = StatusEntity(
             serverId = status.id,
