@@ -30,6 +30,7 @@ import android.view.accessibility.AccessibilityManager
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.core.util.TypedValueCompat.dpToPx
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
@@ -74,7 +75,6 @@ import app.pachli.interfaces.AccountActionListener
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.util.ListStatusAccessibilityDelegate
 import app.pachli.viewdata.NotificationViewData
-import at.connyduck.sparkbutton.helpers.Utils
 import com.bumptech.glide.Glide
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.onFailure
@@ -444,7 +444,7 @@ class NotificationsFragment :
                     view ?: return@post
                     binding.recyclerView.smoothScrollBy(
                         0,
-                        Utils.dpToPx(requireContext(), -30),
+                        dpToPx(-30f, requireContext().resources.displayMetrics).toInt(),
                     )
                 }
             }

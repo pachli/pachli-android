@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.text.HtmlCompat
+import androidx.core.util.TypedValueCompat.dpToPx
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
@@ -48,7 +49,6 @@ import app.pachli.core.ui.makeIcon
 import app.pachli.core.ui.setClickableMentions
 import app.pachli.util.expandTouchSizeToFillRow
 import at.connyduck.sparkbutton.SparkButton
-import at.connyduck.sparkbutton.helpers.Utils
 import com.bumptech.glide.RequestManager
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.color.MaterialColors
@@ -288,7 +288,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
             }
             avatarRadius = avatarRadius48dp
         } else {
-            val padding = Utils.dpToPx(context, 12)
+            val padding = dpToPx(12f, context.resources.displayMetrics).toInt()
             avatar.setPaddingRelative(0, 0, padding, padding)
             avatarInset.visibility = View.VISIBLE
             avatarInset.background = null

@@ -25,11 +25,11 @@ import android.graphics.PorterDuffXfermode
 import android.graphics.RectF
 import android.util.AttributeSet
 import androidx.annotation.OptIn
+import androidx.core.util.TypedValueCompat.dpToPx
 import app.pachli.components.compose.MediaUploaderError
 import app.pachli.components.compose.UploadState
 import app.pachli.core.ui.MediaPreviewImageView
 import app.pachli.core.ui.makeIcon
-import at.connyduck.sparkbutton.helpers.Utils
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.onFailure
@@ -49,14 +49,14 @@ class ProgressImageView
     private val biggerRect = RectF()
     private val circlePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = MaterialColors.getColor(this@ProgressImageView, androidx.appcompat.R.attr.colorPrimary)
-        strokeWidth = Utils.dpToPx(context, 4).toFloat()
+        strokeWidth = dpToPx(4f, context.resources.displayMetrics)
         style = Paint.Style.STROKE
     }
     private val clearPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         xfermode = PorterDuffXfermode(PorterDuff.Mode.DST_OUT)
     }
 
-    private val uploadErrorRadius = Utils.dpToPx(context, 24)
+    private val uploadErrorRadius = dpToPx(24f, context.resources.displayMetrics).toInt()
 
     private val uploadErrorDrawable = makeIcon(context, GoogleMaterial.Icon.gmd_error, 48).apply {
         setTint(Color.WHITE)
