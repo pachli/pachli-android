@@ -21,14 +21,10 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.components.filters.EditContentFilterViewModel.Companion.getSecondsForDurationIndex
 import app.pachli.core.data.model.ContentFilterModel
 import app.pachli.core.model.FilterAction
-import app.pachli.core.network.model.Attachment as NetworkAttachment
 import app.pachli.core.network.model.FilterContext
 import app.pachli.core.network.model.FilterV1
-import app.pachli.core.network.model.Poll as NetworkPoll
-import app.pachli.core.network.model.PollOption as NetworkPollOption
-import app.pachli.core.network.model.Status as NetworkStatus
 import app.pachli.core.network.model.asModel
-import app.pachli.core.testing.fakes.fakeAccount
+import app.pachli.core.testing.fakes.fakeStatus
 import java.time.Instant
 import java.util.Date
 import org.junit.Assert.assertEquals
@@ -110,7 +106,7 @@ class ContentFilterV1Test {
         assertEquals(
             FilterAction.NONE,
             contentFilterModel.filterActionFor(
-                mockStatus(content = "should not be filtered").asModel(),
+                fakeStatus(content = "should not be filtered").asModel(),
             ),
         )
     }
@@ -120,7 +116,7 @@ class ContentFilterV1Test {
         assertEquals(
             FilterAction.HIDE,
             contentFilterModel.filterActionFor(
-                mockStatus(content = "one two badWord three").asModel(),
+                fakeStatus(content = "one two badWord three").asModel(),
             ),
         )
     }
@@ -130,7 +126,7 @@ class ContentFilterV1Test {
         assertEquals(
             FilterAction.HIDE,
             contentFilterModel.filterActionFor(
-                mockStatus(content = "one two badWordPart three").asModel(),
+                fakeStatus(content = "one two badWordPart three").asModel(),
             ),
         )
     }
@@ -140,7 +136,7 @@ class ContentFilterV1Test {
         assertEquals(
             FilterAction.HIDE,
             contentFilterModel.filterActionFor(
-                mockStatus(content = "one two badWholeWord three").asModel(),
+                fakeStatus(content = "one two badWholeWord three").asModel(),
             ),
         )
     }
@@ -150,7 +146,7 @@ class ContentFilterV1Test {
         assertEquals(
             FilterAction.NONE,
             contentFilterModel.filterActionFor(
-                mockStatus(content = "one two badWholeWordTest three").asModel(),
+                fakeStatus(content = "one two badWholeWordTest three").asModel(),
             ),
         )
     }
@@ -160,7 +156,7 @@ class ContentFilterV1Test {
         assertEquals(
             FilterAction.HIDE,
             contentFilterModel.filterActionFor(
-                mockStatus(
+                fakeStatus(
                     content = "should not be filtered",
                     spoilerText = "badWord should be filtered",
                 ).asModel(),
@@ -173,7 +169,7 @@ class ContentFilterV1Test {
         assertEquals(
             FilterAction.HIDE,
             contentFilterModel.filterActionFor(
-                mockStatus(
+                fakeStatus(
                     content = "should not be filtered",
                     spoilerText = "should not be filtered",
                     pollOptions = listOf("should not be filtered", "badWord"),
@@ -187,7 +183,7 @@ class ContentFilterV1Test {
         assertEquals(
             FilterAction.HIDE,
             contentFilterModel.filterActionFor(
-                mockStatus(
+                fakeStatus(
                     content = "should not be filtered",
                     spoilerText = "should not be filtered",
                     attachmentsDescriptions = listOf("should not be filtered", "badWord"),
@@ -201,7 +197,7 @@ class ContentFilterV1Test {
         assertEquals(
             FilterAction.HIDE,
             contentFilterModel.filterActionFor(
-                mockStatus(content = "one two someone@twitter.com three").asModel(),
+                fakeStatus(content = "one two someone@twitter.com three").asModel(),
             ),
         )
     }
@@ -211,7 +207,7 @@ class ContentFilterV1Test {
         assertEquals(
             FilterAction.HIDE,
             contentFilterModel.filterActionFor(
-                mockStatus(content = "#hashtag one two three").asModel(),
+                fakeStatus(content = "#hashtag one two three").asModel(),
             ),
         )
     }
@@ -221,7 +217,7 @@ class ContentFilterV1Test {
         assertEquals(
             FilterAction.HIDE,
             contentFilterModel.filterActionFor(
-                mockStatus(content = "<p><a href=\"https://foo.bar/tags/hashtag\" class=\"mention hashtag\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">#<span>hashtag</span></a>one two three</p>").asModel(),
+                fakeStatus(content = "<p><a href=\"https://foo.bar/tags/hashtag\" class=\"mention hashtag\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">#<span>hashtag</span></a>one two three</p>").asModel(),
             ),
         )
     }
@@ -231,7 +227,7 @@ class ContentFilterV1Test {
         assertEquals(
             FilterAction.NONE,
             contentFilterModel.filterActionFor(
-                mockStatus(content = "<p><a href=\"https://foo.bar/\">https://foo.bar/</a> one two three</p>").asModel(),
+                fakeStatus(content = "<p><a href=\"https://foo.bar/\">https://foo.bar/</a> one two three</p>").asModel(),
             ),
         )
     }
@@ -241,7 +237,7 @@ class ContentFilterV1Test {
         assertEquals(
             FilterAction.NONE,
             contentFilterModel.filterActionFor(
-                mockStatus(content = "content matching expired filter should not be filtered").asModel(),
+                fakeStatus(content = "content matching expired filter should not be filtered").asModel(),
             ),
         )
     }
@@ -251,7 +247,7 @@ class ContentFilterV1Test {
         assertEquals(
             FilterAction.HIDE,
             contentFilterModel.filterActionFor(
-                mockStatus(content = "content matching unexpired filter should be filtered").asModel(),
+                fakeStatus(content = "content matching unexpired filter should be filtered").asModel(),
             ),
         )
     }
@@ -270,78 +266,5 @@ class ContentFilterV1Test {
         val expiredDate = Date.from(Instant.now().plusSeconds(expiresInSeconds.toLong()))
         val updatedDuration = getSecondsForDurationIndex(-1, null, expiredDate)
         assert(updatedDuration != null && updatedDuration.toInt() > (expiresInSeconds - 60))
-    }
-
-    companion object {
-        fun mockStatus(
-            content: String = "",
-            spoilerText: String = "",
-            pollOptions: List<String>? = null,
-            attachmentsDescriptions: List<String>? = null,
-        ): NetworkStatus {
-            return NetworkStatus(
-                id = "123",
-                url = "https://mastodon.social/@Tusky/100571663297225812",
-                account = fakeAccount(),
-                inReplyToId = null,
-                inReplyToAccountId = null,
-                reblog = null,
-                content = content,
-                createdAt = Date(),
-                editedAt = null,
-                emojis = emptyList(),
-                reblogsCount = 0,
-                favouritesCount = 0,
-                repliesCount = 0,
-                reblogged = false,
-                favourited = false,
-                bookmarked = false,
-                sensitive = false,
-                spoilerText = spoilerText,
-                visibility = NetworkStatus.Visibility.PUBLIC,
-                attachments = if (attachmentsDescriptions != null) {
-                    ArrayList(
-                        attachmentsDescriptions.map {
-                            NetworkAttachment(
-                                id = "1234",
-                                url = "",
-                                previewUrl = null,
-                                meta = null,
-                                type = NetworkAttachment.Type.IMAGE,
-                                description = it,
-                                blurhash = null,
-                            )
-                        },
-                    )
-                } else {
-                    arrayListOf()
-                },
-                mentions = listOf(),
-                tags = listOf(),
-                application = null,
-                pinned = false,
-                muted = false,
-                poll = if (pollOptions != null) {
-                    NetworkPoll(
-                        id = "1234",
-                        expiresAt = null,
-                        expired = false,
-                        multiple = false,
-                        votesCount = 0,
-                        votersCount = 0,
-                        options = pollOptions.map {
-                            NetworkPollOption(it, 0)
-                        },
-                        voted = false,
-                        ownVotes = null,
-                    )
-                } else {
-                    null
-                },
-                card = null,
-                language = null,
-                filtered = null,
-            )
-        }
     }
 }

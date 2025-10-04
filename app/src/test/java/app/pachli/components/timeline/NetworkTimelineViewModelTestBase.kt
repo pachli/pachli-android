@@ -21,6 +21,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.components.timeline.viewmodel.NetworkTimelineViewModel
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
+import app.pachli.core.database.AppDatabase
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.di.test.DEFAULT_INSTANCE_V2
@@ -82,6 +83,9 @@ abstract class NetworkTimelineViewModelTestBase {
     @Inject
     lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
 
+    @Inject
+    lateinit var appDatabase: AppDatabase
+
     protected lateinit var timelineCases: TimelineCases
     protected lateinit var viewModel: NetworkTimelineViewModel
 
@@ -101,7 +105,7 @@ abstract class NetworkTimelineViewModelTestBase {
     )
 
     @Before
-    fun setup() = runTest {
+    open fun setup() = runTest {
         hilt.inject()
 
         reset(mastodonApi)

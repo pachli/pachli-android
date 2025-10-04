@@ -22,6 +22,7 @@ import app.pachli.PachliApplication
 import app.pachli.components.timeline.viewmodel.CachedTimelineViewModel
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
+import app.pachli.core.database.AppDatabase
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.di.test.DEFAULT_INSTANCE_V2
@@ -88,6 +89,9 @@ abstract class CachedTimelineViewModelTestBase {
     @Inject
     lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
 
+    @Inject
+    lateinit var appDatabase: AppDatabase
+
     private lateinit var timelineCases: TimelineCases
     protected lateinit var viewModel: CachedTimelineViewModel
 
@@ -107,7 +111,7 @@ abstract class CachedTimelineViewModelTestBase {
     )
 
     @Before
-    fun setup() = runTest {
+    open fun setup() = runTest {
         hilt.inject()
 
         reset(mastodonApi)
