@@ -87,7 +87,7 @@
     <string name="action_post_failed">Opplastinga mislykkast</string>
     <string name="action_post_failed_detail">Opplasting av innlegget ditt mislykkast og innlegget er vorte lagra som eit utkast.\n\nDette skjedde anten fordi tenaren ikkje kunne verte nådd, eller fordi tenaren har nekta å ta imot innlegget ditt.</string>
     <string name="action_post_failed_show_drafts">Syn utkast</string>
-    <string name="action_post_failed_do_nothing">Lukk</string>
+    <string name="action_post_failed_do_nothing">Lat att</string>
     <string name="action_unfollow">Avfylg</string>
     <string name="action_block">Blokker</string>
     <string name="action_unblock">Fjern blokkering</string>
@@ -152,7 +152,7 @@
     <string name="action_suggestions">Føreslegne kontoar</string>
     <string name="action_translate">Omset</string>
     <string name="action_translate_undo">Angre omsetjing</string>
-    <string name="action_open_media_n">Opne %d. vedlegg</string>
+    <string name="action_open_media_n">Opne vedlegg %%d</string>
     <string name="error_compose_character_limit">Innlegget er for langt!</string>
     <string name="error_image_edit_failed">Biletet kunne ikkje brigdast.</string>
     <string name="error_media_upload_permission">Pachli treng løyve for å lesa media.</string>
@@ -426,7 +426,7 @@
     <string name="description_post_bookmarked">Bokmerkt</string>
     <string name="description_post_language">Innleggsspråk</string>
     <string name="description_login">Funkar i dei fleste tilfella. Ingen informasjon vert delt med andre appar.</string>
-    <string name="description_browser_login">Kan støtte andre autentiseringsmetodar, men treng ein støtta nettlesar.</string>
+    <string name="description_browser_login">Kan stø andre autentiseringsmetodar, men treng ein stødd nettlesar.</string>
     <string name="add_hashtag_title">Legg til emneknagg</string>
     <string name="edit_hashtag_hint">Emneknagg utan #-teiknet</string>
     <string name="hashtags">Emneknaggar</string>
@@ -759,4 +759,6 @@
     <string name="notification_moderation_warnings_name">Moderasjonsåtvaringar</string>
     <string name="notification_moderation_warnings_description">Varsel om moderasjonsåtvaringar</string>
     <string name="error_share_media">ingen mappe for å lagre mellombels medium finst</string>
+    <string name="filter_action_blur">Gøym vedlegg</string>
+    <string name="filter_description_blur">Syn innhald, gøym vedlegg med eit varsel</string>
 </resources>
