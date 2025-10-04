@@ -43,4 +43,8 @@
     <string name="pref_translation_backend_option_server_only">Berre på tenar</string>
     <string name="pref_translation_backend_option_server_only_help">Omset innlegg ved å nytte tenaren din. Går ikkje om tenaren din ikkje stør omsetjing eller om innleggets språk er feil.</string>
     <string name="pref_translation_backend_option_server_first">Tenar fyrst</string>
+    <string name="pref_translation_backend_option_server_first_help">Omset innlegg med tenaren din. Om det mislukkast, så omset Pachli innlegg på eininga di med Google-omsetjaren.</string>
+    <string name="pref_translation_backend_option_local_only">Berre på eininga</string>
+    <string name="pref_translation_backend_option_local_only_help">Omset innlegg på eininga di med Google-omsetjaren.</string>
+    <string name="pref_translation_backend_requires_play_label">Installer frå Google Play for påeinings omsetjingsstytte</string>
 </resources>
