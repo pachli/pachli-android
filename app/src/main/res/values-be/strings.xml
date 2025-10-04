@@ -61,12 +61,6 @@
     <string name="notification_header_report_format">%s скардзіцца на %s</string>
     <string name="report_username_format">Паскардзіцца на @%s</string>
     <string name="action_quick_reply">Хуткі адказ</string>
-    <string name="action_reply">Адказаць</string>
-    <string name="action_reblog">Пашырыць</string>
-    <string name="action_unreblog">Скасаваць пашырэнне</string>
-    <string name="action_favourite">Упадабаць</string>
-    <string name="action_unfavourite">Выдаліць з абраных</string>
-    <string name="action_bookmark">Дадаць у закладкі</string>
     <string name="action_delete">Выдаліць</string>
     <string name="action_search">Пошук</string>
     <string name="action_content_warning">Папярэджанне пра змесціва</string>
@@ -254,7 +248,6 @@
     <string name="notification_summary_small">%1$s ды %2$s</string>
     <string name="post_share_content">Падзяліцца зместам допісу</string>
     <string name="post_share_link">Падзяліцца спасылкай на допіс</string>
-    <string name="status_count_one_plus">1+</string>
     <string name="state_follow_requested">Запыт на падпіску</string>
     <string name="title_media">Медыя</string>
     <string name="pref_title_alway_open_spoiler">Заўсёды разгортваць допіс з далікатным зместам</string>

@@ -16,7 +16,6 @@
     <string name="post_content_warning_show_more">Zeṛ ugar</string>
     <string name="post_content_warning_show_less">Zeṛ kra kan</string>
     <string name="notification_follow_format">%s yeṭṭafar-ik·ikem-id</string>
-    <string name="action_reply">Err</string>
     <string name="action_compose">Azen</string>
     <string name="action_follow">Ḍfeṛ</string>
     <string name="action_unfollow">Ur ṭṭafar ara</string>
@@ -39,7 +38,6 @@
     <string name="no_drafts">Ur tesɛiḍ ara irewwayen.</string>
     <string name="title_notifications">Tilɣa</string>
     <string name="title_bookmarks">Ticraḍ</string>
-    <string name="action_bookmark">Rnu ɣer ticraḍ</string>
     <string name="action_view_bookmarks">Ticraḍ</string>
     <string name="action_mute_domain">Sgugem %s</string>
     <string name="action_mention">Bder</string>
@@ -162,8 +160,6 @@
     <string name="notification_reblog_format">%s yebḍa izen-ik·im</string>
     <string name="notification_favourite_format">%s yerna izen-ik·im ɣer ismenyafen-is</string>
     <string name="action_quick_reply">Tiririt taruradt</string>
-    <string name="action_reblog">Bḍu</string>
-    <string name="action_unreblog">Kkes beṭu</string>
     <string name="action_hide_reblogs">Ffer beṭuyat</string>
     <string name="action_show_reblogs">Sken-d beṭuyat</string>
     <string name="action_unmute">Ur sgugum ara</string>
@@ -194,13 +190,11 @@
     <string name="translation_provider_fmt">%1$s</string>
     <string name="hint_description">Aglam</string>
     <string name="label_image">Tugna</string>
-    <string name="status_count_one_plus">1+</string>
     <string name="profile_metadata_content_label">Agbur</string>
     <string name="filter_action_hide">Ffer</string>
     <string name="title_tab_public_trending_hashtags">Ihacṭagen</string>
     <string name="title_tab_public_trending_links">Iseɣwan</string>
     <string name="title_tab_public_trending_statuses">Tisuffaɣ</string>
-    <string name="action_favourite">Smenyef</string>
     <string name="account_note_saved">Tettwasekles!</string>
     <string name="error_prepare_media_io_fmt">%1$s</string>
     <string name="action_translate">Suqel</string>

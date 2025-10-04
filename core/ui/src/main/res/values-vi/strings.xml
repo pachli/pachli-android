@@ -64,4 +64,11 @@
     <string name="post_media_audio">Âm thanh</string>
     <string name="post_media_video">Video</string>
     <string name="post_media_attachments">Đính kèm</string>
+    <string name="action_reply">Trả lời</string>
+    <string name="action_reblog">Đăng lại</string>
+    <string name="action_favourite">Thích</string>
+    <string name="action_bookmark">Lưu</string>
+    <string name="status_count_one_plus">1+</string>
+    <string name="action_unreblog">Hủy đăng lại</string>
+    <string name="action_unfavourite">Bỏ lưu</string>
 </resources>

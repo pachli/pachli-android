@@ -129,9 +129,6 @@
     <string name="action_unfollow">Stop ag leanúint</string>
     <string name="action_follow">Lean</string>
     <string name="action_compose">Cum</string>
-    <string name="action_unfavourite">Bain togha</string>
-    <string name="action_bookmark">Leabharmharc</string>
-    <string name="action_favourite">Togh</string>
     <string name="error_media_upload_type">Ní féidir an cineál comhaid sin a uaslódáil.</string>
     <string name="error_compose_character_limit">Tá an stádas ró-fhada!</string>
     <string name="error_no_web_browser_found">Níorbh fhéidir brabhsálaí gréasáin a aimsiú le húsáid.</string>
@@ -197,9 +194,6 @@
     <string name="pref_title_bot_overlay">Taispeáin táscaire do róbónna</string>
     <string name="pref_title_language">Teanga</string>
     <string name="label_avatar">Abhatár</string>
-    <string name="action_reblog">Athchraol</string>
-    <string name="action_unreblog">Cealaigh athchraoladh</string>
-    <string name="action_reply">Freagra</string>
     <string name="action_quick_reply">Freagra Tapa</string>
     <string name="report_comment_hint">Tuairimí Breise\?</string>
     <string name="report_username_format">Tuairiscigh @%s</string>
@@ -467,7 +461,6 @@
     <string name="notification_severed_relationships_description">Fógraí faoi chaidrimh throma</string>
     <string name="notification_report_name">Tuarascálacha</string>
     <string name="notification_report_description">Fógraí faoi thuarascálacha modhnóireachta</string>
-    <string name="status_count_one_plus">1+</string>
     <string name="status_filtered_show_anyway">Taispeáin ar aon nós</string>
     <string name="pref_title_account_filter_keywords">Próifílí</string>
     <string name="failed_to_pin">Theip ar phionnáil</string>

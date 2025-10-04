@@ -194,7 +194,7 @@ fun makeNotification(
             .build()
         val quickReplyPendingIntent = getStatusReplyIntent(context, notif, account)
         val quickReplyAction = NotificationCompat.Action.Builder(
-            R.drawable.ic_reply_24dp,
+            app.pachli.core.ui.R.drawable.ic_reply_24dp,
             context.getString(R.string.action_quick_reply),
             quickReplyPendingIntent,
         )
@@ -203,7 +203,7 @@ fun makeNotification(
         builder.addAction(quickReplyAction)
         val composeIntent = getStatusComposeIntent(context, notif, account)
         val composeAction = NotificationCompat.Action.Builder(
-            R.drawable.ic_reply_24dp,
+            app.pachli.core.ui.R.drawable.ic_reply_24dp,
             context.getString(R.string.action_compose_shortcut),
             composeIntent,
         )

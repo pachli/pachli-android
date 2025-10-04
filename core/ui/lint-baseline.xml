@@ -67,4 +67,15 @@
             column="6"/>
     </issue>
 
+    <issue
+        id="NegativeMargin"
+        message="Margin values should not be negative"
+        errorLine1="        android:layout_marginStart=&quot;-14dp&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/status_controls.xml"
+            line="29"
+            column="9"/>
+    </issue>
+
 </issues>

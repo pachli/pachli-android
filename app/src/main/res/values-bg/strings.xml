@@ -237,12 +237,6 @@
     <string name="action_unfollow">Отследване</string>
     <string name="action_follow">Последване</string>
     <string name="action_compose">Композиране</string>
-    <string name="action_unfavourite">Премахване от любими</string>
-    <string name="action_bookmark">Отмятане</string>
-    <string name="action_favourite">Поставяне в любими</string>
-    <string name="action_unreblog">Премахване на споделяне</string>
-    <string name="action_reblog">Споделяне</string>
-    <string name="action_reply">Отговор</string>
     <string name="action_quick_reply">Бърз отговор</string>
     <string name="report_comment_hint">Допълнителни коментари\?</string>
     <string name="report_username_format">Докладване на @%s</string>

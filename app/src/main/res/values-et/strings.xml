@@ -113,12 +113,6 @@
     <string name="report_username_format">Saada teatis: @%s</string>
     <string name="report_comment_hint">On sul täiendavaid kommentaare?</string>
     <string name="action_quick_reply">Kiirvastus</string>
-    <string name="action_reply">Vasta</string>
-    <string name="action_reblog">Lisa hoogu</string>
-    <string name="action_unreblog">Eemalda hooandmine</string>
-    <string name="action_favourite">Lisa lemmikuks</string>
-    <string name="action_unfavourite">Eemalda lemmikute hulgast</string>
-    <string name="action_bookmark">Lisa järjehoidjaks</string>
     <string name="action_unbookmark">Eemalda järjehoidja</string>
     <string name="action_compose">Koosta postitus</string>
     <string name="action_post_failed">Üleslaadimine ei õnnestunud</string>
@@ -452,7 +446,6 @@
     <string name="description_account_locked">Lukustatud kasutajakonto</string>
     <string name="post_share_content">Jaga postituse sisu</string>
     <string name="post_share_link">Jaga postituse linki</string>
-    <string name="status_count_one_plus">1+</string>
     <string name="status_filtered_show_anyway">Näita ikkagi</string>
     <string name="status_filter_placeholder_label_format">Filtreeritud: <b>%1$s</b></string>
     <string name="state_follow_requested">Oled saanud jälgimispäringu</string>

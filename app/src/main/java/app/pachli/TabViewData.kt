@@ -92,7 +92,7 @@ data class TabViewData(
             Timeline.Conversations -> TabViewData(
                 timeline = timeline,
                 text = R.string.title_direct_messages,
-                icon = R.drawable.ic_reblog_direct_24dp,
+                icon = app.pachli.core.ui.R.drawable.ic_reblog_direct_24dp,
                 fragment = { ConversationsFragment.newInstance(pachliAccountId) },
             ) { context, pachliAccountId ->
                 ComposeActivityIntent(
@@ -152,7 +152,7 @@ data class TabViewData(
             Timeline.Bookmarks -> TabViewData(
                 timeline = timeline,
                 text = R.string.title_bookmarks,
-                icon = R.drawable.ic_bookmark_active_24dp,
+                icon = app.pachli.core.ui.R.drawable.ic_bookmark_active_24dp,
                 fragment = { TimelineFragment.newInstance(pachliAccountId, timeline) },
             )
             Timeline.Favourites -> TabViewData(

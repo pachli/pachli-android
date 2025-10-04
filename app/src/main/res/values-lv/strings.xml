@@ -29,8 +29,6 @@
     <string name="footer_empty">Šeit nekā nav. Pavilkt uz leju, lai atsvaidzinātu.</string>
     <string name="notification_update_format">%s laboja savu ierakstu</string>
     <string name="action_quick_reply">Ātrā atbilde</string>
-    <string name="action_reply">Atbildēt</string>
-    <string name="action_bookmark">Atzīmēt ar grāmatzīmi</string>
     <string name="action_unbookmark">Noņemt grāmatzīmi</string>
     <string name="action_follow">Sekot</string>
     <string name="action_unblock">Atbloķēt</string>
@@ -233,9 +231,7 @@
     <string name="pin_action">Piespraust</string>
     <string name="action_unfollow_hashtag_format">Vai pārtraukt sekot #%s\?</string>
     <string name="mute_notifications_switch">Apklusināt paziņojumus</string>
-    <string name="action_reblog">Pastiprināt</string>
     <string name="title_edits">Labojumi</string>
-    <string name="action_unreblog">Noņemt pastiprinājumu</string>
     <string name="notification_update_name">Ierakstu labojumi</string>
     <string name="send_media_to">Kopīgot informācijas nesēju…</string>
     <string name="description_account_locked">Privāts konts</string>
@@ -252,7 +248,6 @@
     <string name="pref_title_app_theme">Lietotnes tēma</string>
     <string name="pref_title_notification_filter_poll">Aptaujas ir noslēgušās</string>
     <string name="pref_title_show_boosts">Parādīt pastiprinājumus</string>
-    <string name="status_count_one_plus">1+</string>
     <string name="error_media_upload_permission">Nepieciešama atļauja lasīt multividi.</string>
     <string name="error_media_download_permission">Nepieciešama atļauja saglabāt multividi.</string>
     <string name="error_following_hashtag_format">Radās kļūda, sākot sekot #%s</string>
@@ -384,8 +379,6 @@
     </plurals>
     <string name="title_favourites">Izlases</string>
     <string name="notification_favourite_format">%s pievienoja izlasei Tavu ierakstu</string>
-    <string name="action_favourite">Pievienot izlasei</string>
-    <string name="action_unfavourite">Noņemt no izlases</string>
     <string name="action_send">PUBLICĒT</string>
     <string name="action_send_public">PUBLICĒT!</string>
     <string name="action_open_faved_by">Rādīt izlases</string>

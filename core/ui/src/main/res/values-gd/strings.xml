@@ -82,4 +82,11 @@
     <string name="post_media_audio">Fuaim</string>
     <string name="post_media_video">Videothan</string>
     <string name="post_media_attachments">Ceanglachain</string>
+    <string name="action_reply">Freagair</string>
+    <string name="action_reblog">Brosnaich</string>
+    <string name="action_favourite">Cuir ris na h-annsachdan</string>
+    <string name="action_bookmark">Cuir ris na comharran-lìn</string>
+    <string name="status_count_one_plus">1+</string>
+    <string name="action_unreblog">Thoir am brosnachadh air falbh</string>
+    <string name="action_unfavourite">Thoir air falbh o na h-annsachdan</string>
 </resources>

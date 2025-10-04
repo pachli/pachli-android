@@ -90,4 +90,11 @@
     <string name="post_media_audio">Audio</string>
     <string name="post_media_video">Video</string>
     <string name="post_media_attachments">Allegati</string>
+    <string name="action_reply">Rispondi</string>
+    <string name="action_reblog">Condividi</string>
+    <string name="action_favourite">Aggiungi ai post apprezzati</string>
+    <string name="action_bookmark">Segnalibro</string>
+    <string name="status_count_one_plus">1+</string>
+    <string name="action_unreblog">Rimuovi condivisione</string>
+    <string name="action_unfavourite">Rimuovi apprezzamento</string>
 </resources>

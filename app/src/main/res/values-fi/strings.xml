@@ -116,7 +116,6 @@
     <string name="action_send_public">TUUT!</string>
     <string name="title_view_thread">Ketju</string>
     <string name="title_scheduled_posts">Ajastetut tuuttaukset</string>
-    <string name="action_reply">Vastaa</string>
     <string name="title_drafts">Luonnokset</string>
     <string name="title_favourites">Suosikit</string>
     <string name="title_bookmarks">Kirjanmerkit</string>
@@ -128,7 +127,6 @@
     <string name="title_public_local">Paikallinen</string>
     <string name="title_notifications">Ilmoitukset</string>
     <string name="title_home">Koti</string>
-    <string name="action_unfavourite">Poista suosikki</string>
     <string name="action_open_reblogger">Avaa jakajan tili</string>
     <string name="action_edit_image">Muokkaa kuvaa</string>
     <string name="action_view_mutes">Mykistetyt tilit</string>
@@ -147,7 +145,6 @@
     <string name="report_username_format">Ilmianna @%s</string>
     <string name="report_comment_hint">Lisähuomautuksia\?</string>
     <string name="error_media_upload_permission">Tiedostojen lähettäminen vaatii lukuoikeuden.</string>
-    <string name="action_bookmark">Kirjanmerkki</string>
     <string name="action_unmute_domain">Poista mykistys verkkonimeltä %s</string>
     <string name="notification_mention_format">%s on maininnut sinut</string>
     <string name="error_media_upload_opening">Tiedoston lataaminen epäonnistui.</string>
@@ -156,7 +153,6 @@
     <string name="action_unmute_conversation">Poista keskustelun mykistys</string>
     <string name="download_image">Ladataan kuvaa %1$s</string>
     <string name="action_mute_conversation">Mykistä keskustelu</string>
-    <string name="action_unreblog">Poista jako</string>
     <string name="action_mute_domain">Mykistä %s</string>
     <string name="action_view_domain_mutes">Piilotetut verkkonimet</string>
     <string name="notification_favourite_format">%s lisäsi julkaisusi suosikkeihinsa</string>
@@ -176,7 +172,6 @@
     <string name="error_empty">Tätä ei voi jättää tyhjäksi.</string>
     <string name="title_announcements">Tiedotukset</string>
     <string name="notification_subscription_description">Ilmoitukset seuraamiesi uusista julkaisuista</string>
-    <string name="action_favourite">Lisää suosikiksi</string>
     <string name="error_media_download_permission">Tiedostojen tallentamiseen vaaditaan kirjoitusoikeus.</string>
     <string name="notification_summary_small">%1$s ja %2$s</string>
     <string name="action_unmute_desc">Poista mykistys tililtä %s</string>
@@ -188,7 +183,6 @@
     <string name="duration_90_days">90 päivää</string>
     <string name="duration_180_days">180 päivää</string>
     <string name="duration_365_days">365 päivää</string>
-    <string name="action_reblog">Jaa</string>
     <string name="action_toggle_visibility">Julkaisun näkyvyys</string>
     <string name="title_posts_with_replies">Vastauksetkin</string>
     <string name="post_boosted_format">%s jakoi</string>
@@ -336,7 +330,6 @@
     <string name="pref_post_text_size">Julkaisujen tekstikoko</string>
     <string name="send_post_notification_channel_name">Julkaisuja lähetetään</string>
     <string name="notification_report_description">Ilmoitukset moderointiraporteista</string>
-    <string name="status_count_one_plus">1+</string>
     <string name="pref_title_http_proxy_port_message">Portin arvon tulee olla välillä %d – %d</string>
     <string name="visibility_direct">Suoraan: Vain mainitut käyttäjät</string>
     <string name="pref_publishing">Julkaiseminen (synkronoitu palvelimen kanssa)</string>

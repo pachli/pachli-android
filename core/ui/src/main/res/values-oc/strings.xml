@@ -70,4 +70,11 @@
     <string name="post_media_audio">Àudio</string>
     <string name="post_media_video">Vidèo</string>
     <string name="post_media_attachments">Pèças juntas</string>
+    <string name="action_reply">Respondre</string>
+    <string name="action_reblog">Partejar</string>
+    <string name="action_favourite">Aimar</string>
+    <string name="action_bookmark">Ajustar als marcapaginas</string>
+    <string name="status_count_one_plus">&gt;1</string>
+    <string name="action_unreblog">Suprimir lo partatge</string>
+    <string name="action_unfavourite">Suprimir lo favorit</string>
 </resources>

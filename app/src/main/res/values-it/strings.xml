@@ -45,11 +45,6 @@
     <string name="report_username_format">Segnala @%s</string>
     <string name="report_comment_hint">Commenti aggiuntivi?</string>
     <string name="action_quick_reply">Risposta veloce</string>
-    <string name="action_reply">Rispondi</string>
-    <string name="action_reblog">Condividi</string>
-    <string name="action_unreblog">Rimuovi condivisione</string>
-    <string name="action_favourite">Aggiungi ai post apprezzati</string>
-    <string name="action_unfavourite">Rimuovi apprezzamento</string>
     <string name="action_compose">Componi</string>
     <string name="action_follow">Segui</string>
     <string name="action_unfollow">Smetti di seguire</string>
@@ -289,7 +284,6 @@
     <string name="filter_dialog_whole_word">Parola intera</string>
     <string name="filter_dialog_whole_word_description">Quando la parola chiave o la frase sono composte da soli caratteri alfanumerici, sarà applicata solo se corrisponde alla parola completa</string>
     <string name="title_bookmarks">Segnalibri</string>
-    <string name="action_bookmark">Segnalibro</string>
     <string name="action_edit">Modifica</string>
     <string name="action_view_bookmarks">Segnalibri</string>
     <string name="action_add_poll">Aggiungi sondaggio</string>
@@ -413,7 +407,6 @@
     <string name="title_migration_relogin">Riaccedi per le notifiche</string>
     <string name="error_following_hashtag_format">Errore provando a seguire #%s</string>
     <string name="error_unfollowing_hashtag_format">Errore smettendo di provare a seguire #%s</string>
-    <string name="status_count_one_plus">1+</string>
     <string name="delete_scheduled_post_warning">Cancellare questo post programmato?</string>
     <string name="set_focus_description">Tappa o crea un cerchio per scegliere il punto focale che sarà sempre visibile nelle anteprime.</string>
     <string name="action_set_focus">Imposta punto focale</string>

@@ -41,9 +41,6 @@
     <string name="report_username_format">\@%sさんを通報</string>
     <string name="report_comment_hint">コメント</string>
     <string name="action_quick_reply">クイック返信</string>
-    <string name="action_reply">返信</string>
-    <string name="action_reblog">ブースト</string>
-    <string name="action_favourite">お気に入り</string>
     <string name="action_compose">投稿する</string>
     <string name="action_follow">フォローする</string>
     <string name="action_unfollow">フォロー解除</string>
@@ -227,8 +224,6 @@
     </plurals>
     <string name="title_reblogged_by">ブーストした人物</string>
     <string name="title_favourited_by">お気に入りした人物</string>
-    <string name="action_unreblog">ブーストを解除</string>
-    <string name="action_unfavourite">お気に入りを解除</string>
     <string name="action_open_reblogged_by">ブーストを表示</string>
     <string name="download_media">メディアをダウンロード</string>
     <string name="downloading_media">メディアをダウンロード中</string>
@@ -268,7 +263,6 @@
     <string name="failed_search">検索に失敗しました</string>
     <string name="action_reset_schedule">リセット</string>
     <string name="title_bookmarks">ブックマーク</string>
-    <string name="action_bookmark">ブックマーク</string>
     <string name="action_edit">編集</string>
     <string name="action_view_bookmarks">ブックマーク</string>
     <string name="title_scheduled_posts">予約投稿</string>
@@ -374,7 +368,6 @@
     <string name="notification_sign_up_name">サインアップ</string>
     <string name="notification_report_name">報告</string>
     <string name="notification_report_description">モデレーション報告に関する通知</string>
-    <string name="status_count_one_plus">1+</string>
     <string name="no_announcements">アナウンスはありません。</string>
     <string name="description_post_edited">編集しました</string>
     <string name="pref_title_confirm_favourites">お気に入りに追加する前に確認を表示する</string>

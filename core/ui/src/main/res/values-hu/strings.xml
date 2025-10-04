@@ -70,4 +70,11 @@
     <string name="post_media_audio">Audio</string>
     <string name="post_media_video">Videó</string>
     <string name="post_media_attachments">Csatolmányok</string>
+    <string name="action_reply">Válasz</string>
+    <string name="action_reblog">Megtolás</string>
+    <string name="action_favourite">Kedvencnek jelölés</string>
+    <string name="action_bookmark">Könyvjelzőzés</string>
+    <string name="status_count_one_plus">1+</string>
+    <string name="action_unreblog">Megtolás visszavonása</string>
+    <string name="action_unfavourite">Kedvenc eltávolítása</string>
 </resources>

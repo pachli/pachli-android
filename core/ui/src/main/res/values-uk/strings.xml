@@ -82,4 +82,11 @@
     <string name="post_media_audio">Звуки</string>
     <string name="post_media_video">Відео</string>
     <string name="post_media_attachments">Вкладення</string>
+    <string name="action_reply">Відповісти</string>
+    <string name="action_reblog">Поширити</string>
+    <string name="action_favourite">Вподобати</string>
+    <string name="action_bookmark">Додати в закладки</string>
+    <string name="status_count_one_plus">1+</string>
+    <string name="action_unreblog">Скасувати поширення</string>
+    <string name="action_unfavourite">Не подобається</string>
 </resources>

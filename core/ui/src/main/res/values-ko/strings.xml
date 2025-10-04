@@ -55,4 +55,9 @@
     <string name="post_sensitive_media_title">민감한 미디어</string>
     <string name="post_media_images">사진</string>
     <string name="post_media_video">비디오</string>
+    <string name="action_reply">답장</string>
+    <string name="action_reblog">부스트</string>
+    <string name="action_favourite">좋아요</string>
+    <string name="action_unreblog">부스트 해제</string>
+    <string name="action_unfavourite">좋아요 취소</string>
 </resources>

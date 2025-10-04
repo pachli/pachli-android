@@ -167,8 +167,6 @@ dependencies {
 
     implementation(libs.conscrypt.android)
 
-    implementation(libs.sparkbutton)
-
     implementation(libs.touchimageview)
 
     implementation(libs.bundles.material.drawer)

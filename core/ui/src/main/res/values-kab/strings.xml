@@ -60,4 +60,10 @@
     <string name="post_media_images">Tugniwin</string>
     <string name="post_media_audio">Imesli</string>
     <string name="post_media_video">Tibidyutin</string>
+    <string name="action_reply">Err</string>
+    <string name="action_reblog">Bḍu</string>
+    <string name="action_favourite">Smenyef</string>
+    <string name="action_bookmark">Rnu ɣer ticraḍ</string>
+    <string name="status_count_one_plus">1+</string>
+    <string name="action_unreblog">Kkes beṭu</string>
 </resources>

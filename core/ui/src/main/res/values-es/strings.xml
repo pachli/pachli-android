@@ -103,6 +103,13 @@
         <item quantity="many">con roles:</item>
         <item quantity="other">con roles:</item>
     </plurals>
+    <string name="action_reply">Responder</string>
+    <string name="action_reblog">Impulsar</string>
+    <string name="action_favourite">Favorito</string>
+    <string name="action_bookmark">Marcador</string>
+    <string name="status_count_one_plus">1+</string>
+    <string name="action_unreblog">Dejar de impulsar</string>
+    <string name="action_unfavourite">Eliminar favorito</string>
     <string name="action_show_attachments">Mostrar adjuntos</string>
     <string name="action_hide_attachments">Ocultar adjuntos</string>
     <string name="dot_in_name">punto</string>

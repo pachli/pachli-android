@@ -66,4 +66,10 @@
     <string name="post_media_audio">Аудио</string>
     <string name="post_media_video">Видео</string>
     <string name="post_media_attachments">Прикачени файлове</string>
+    <string name="action_reply">Отговор</string>
+    <string name="action_reblog">Споделяне</string>
+    <string name="action_favourite">Поставяне в любими</string>
+    <string name="action_bookmark">Отмятане</string>
+    <string name="action_unreblog">Премахване на споделяне</string>
+    <string name="action_unfavourite">Премахване от любими</string>
 </resources>

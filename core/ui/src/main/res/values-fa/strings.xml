@@ -70,4 +70,11 @@
     <string name="post_media_audio">صدا</string>
     <string name="post_media_video">ویدیو</string>
     <string name="post_media_attachments">پیوست‌ها</string>
+    <string name="action_reply">پاسخ</string>
+    <string name="action_reblog">تقویت</string>
+    <string name="action_favourite">برگزیدن</string>
+    <string name="action_bookmark">نشانک</string>
+    <string name="status_count_one_plus">۱+</string>
+    <string name="action_unreblog">برداشتن تقویت</string>
+    <string name="action_unfavourite">برداشتن برگزیدگی</string>
 </resources>

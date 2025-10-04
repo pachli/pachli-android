@@ -56,4 +56,8 @@
     <string name="post_media_audio">ශ්‍රව්‍ය</string>
     <string name="post_media_video">දෘශ්‍යකය</string>
     <string name="post_media_attachments">ඇමුණුම්</string>
+    <string name="action_reply">පිළිතුර</string>
+    <string name="action_favourite">ප්‍රියතම</string>
+    <string name="action_bookmark">පොත්යොමුව</string>
+    <string name="action_unfavourite">ප්‍රියතමය ඉවත් කරන්න</string>
 </resources>

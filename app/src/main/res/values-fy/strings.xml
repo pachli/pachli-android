@@ -144,9 +144,6 @@
     <string name="action_unfollow">Net mear folgje</string>
     <string name="action_follow">Folgje</string>
     <string name="action_compose">Gearstelle</string>
-    <string name="action_unfavourite">Net mear as favoryt oanmerke</string>
-    <string name="action_favourite">As favoryt oanmerke</string>
-    <string name="action_reply">Reagearje</string>
     <string name="action_quick_reply">Flugge Reaksje</string>
     <string name="report_comment_hint">Oanfoljende opmerkingen\?</string>
     <string name="report_username_format">Jou @%s oan</string>
@@ -197,8 +194,6 @@
     <string name="action_reset_schedule">Nei standert ynstelling weromsette</string>
     <string name="action_show_reblogs">Boosts sjen litte</string>
     <string name="action_hide_reblogs">Boosts ferburgje</string>
-    <string name="action_unreblog">Boost fuorthelje</string>
-    <string name="action_reblog">Boost</string>
     <string name="notification_reblog_format">%s hat dyn toot boost</string>
     <string name="title_announcements">Oankundigingen</string>
 </resources>

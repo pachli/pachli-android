@@ -94,4 +94,11 @@
     <string name="post_media_audio">صوت</string>
     <string name="post_media_video">فيديو</string>
     <string name="post_media_attachments">مرفقات</string>
+    <string name="action_reply">رد</string>
+    <string name="action_reblog">شارك</string>
+    <string name="action_favourite">تفضيل</string>
+    <string name="action_bookmark">أضفه إلى الفواصل المرجعية</string>
+    <string name="status_count_one_plus">1+</string>
+    <string name="action_unreblog">إزالة المشاركة</string>
+    <string name="action_unfavourite">إزالة المفضلة</string>
 </resources>

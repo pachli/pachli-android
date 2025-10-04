@@ -68,12 +68,6 @@
     <string name="action_unfollow">بەدوادانەچو</string>
     <string name="action_follow">شوێنی بکەوە</string>
     <string name="action_compose">دروستکردن</string>
-    <string name="action_unfavourite">لابردنی دڵخوازەکان</string>
-    <string name="action_bookmark">نیشانه</string>
-    <string name="action_favourite">دڵخواز</string>
-    <string name="action_unreblog">پۆستکردنەوەکە بگەڕێنەوە</string>
-    <string name="action_reblog">بەهێزکردن</string>
-    <string name="action_reply">وەڵام</string>
     <string name="action_quick_reply">وەڵامدانەوەی خێرا</string>
     <string name="report_comment_hint">سەرنجەکانی تر؟</string>
     <string name="report_username_format">گوزارشت @%s</string>

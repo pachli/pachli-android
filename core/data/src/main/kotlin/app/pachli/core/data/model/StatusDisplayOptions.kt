@@ -49,6 +49,14 @@ data class StatusDisplayOptions(
     val hideStatsInDetailedView: Boolean = false,
     @get:JvmName("animateEmojis")
     val animateEmojis: Boolean = false,
+    /**
+     * If true, statuses in timelines show the counts of replies, reblogs,
+     * and favourites.
+     *
+     * If false, the counts of reblogs and favourites are hidden, and the
+     * count of replies is set to either "0", "1", or "1+" so the user can
+     * tell if there are replies if they click through.
+     */
     @get:JvmName("showStatsInline")
     val showStatsInline: Boolean = false,
     @get:JvmName("showSensitiveMedia")

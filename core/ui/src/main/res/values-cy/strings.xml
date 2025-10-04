@@ -94,4 +94,11 @@
     <string name="post_media_audio">Sain</string>
     <string name="post_media_video">Fideo</string>
     <string name="post_media_attachments">Atodiadau</string>
+    <string name="action_reply">Ymateb</string>
+    <string name="action_reblog">Hybu</string>
+    <string name="action_favourite">Hoffi</string>
+    <string name="action_bookmark">Tudalnodi</string>
+    <string name="status_count_one_plus">1+</string>
+    <string name="action_unreblog">Dileu hwb</string>
+    <string name="action_unfavourite">Dileu ffefryn</string>
 </resources>

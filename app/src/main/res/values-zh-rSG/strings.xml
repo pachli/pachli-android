@@ -41,11 +41,6 @@
     <string name="report_username_format">报告用户 @%s 的滥用行为</string>
     <string name="report_comment_hint">报告更多信息</string>
     <string name="action_quick_reply">快速回复</string>
-    <string name="action_reply">回复</string>
-    <string name="action_reblog">转嘟</string>
-    <string name="action_unreblog">取消转嘟</string>
-    <string name="action_favourite">喜欢</string>
-    <string name="action_unfavourite">取消喜欢</string>
     <string name="action_compose">新嘟文</string>
     <string name="action_follow">关注</string>
     <string name="action_unfollow">取消关注</string>

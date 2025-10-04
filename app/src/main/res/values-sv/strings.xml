@@ -41,11 +41,6 @@
     <string name="report_username_format">Rapportera @%s</string>
     <string name="report_comment_hint">Ytterligare kommentarer?</string>
     <string name="action_quick_reply">Snabbsvar</string>
-    <string name="action_reply">Svara</string>
-    <string name="action_reblog">Knuffa</string>
-    <string name="action_unreblog">Ta bort knuff</string>
-    <string name="action_favourite">Favorit</string>
-    <string name="action_unfavourite">Ta bort favorit</string>
     <string name="action_compose">Skriv</string>
     <string name="action_follow">Följ</string>
     <string name="action_unfollow">Avfölj</string>
@@ -305,7 +300,6 @@
     <string name="action_schedule_post">Schemalägg toot</string>
     <string name="action_reset_schedule">Återställ</string>
     <string name="title_bookmarks">Bokmärken</string>
-    <string name="action_bookmark">Bokmärk</string>
     <string name="action_view_bookmarks">Bokmärken</string>
     <string name="description_post_bookmarked">Bokmärkt</string>
     <string name="select_list_title">Välj lista</string>
@@ -397,7 +391,6 @@
     <string name="pref_title_notification_filter_sign_ups">någon registrerade sig</string>
     <string name="pref_title_notification_filter_updates">ett inlägg jag interagerat med har redigerats</string>
     <string name="pref_title_animate_custom_emojis">Animera skräddarsydda emojis</string>
-    <string name="status_count_one_plus">1+</string>
     <string name="title_migration_relogin">Logga in igen för pushnotiser</string>
     <string name="compose_save_draft_loses_media">Bilagor kommer att laddas upp igen när du återställer utkastet.</string>
     <string name="failed_to_pin">Kunde inte fästa</string>

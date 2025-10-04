@@ -109,4 +109,11 @@
     <string name="role_content_description_fmt">%1$s, %2$s</string>
     <string name="handle_contentdescription_fmt">Turis, @%1$s</string>
     <string name="account_contentdescription_fmt">%1$s, %2$s; %3$s</string>
+    <string name="action_reply">Atbildēt</string>
+    <string name="action_reblog">Pastiprināt</string>
+    <string name="action_favourite">Pievienot izlasei</string>
+    <string name="action_bookmark">Atzīmēt ar grāmatzīmi</string>
+    <string name="status_count_one_plus">1+</string>
+    <string name="action_unreblog">Noņemt pastiprinājumu</string>
+    <string name="action_unfavourite">Noņemt no izlases</string>
 </resources>

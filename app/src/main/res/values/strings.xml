@@ -132,12 +132,6 @@
     <string name="report_username_format">Report @%s</string>
     <string name="report_comment_hint">Additional comments?</string>
     <string name="action_quick_reply">Quick Reply</string>
-    <string name="action_reply">Reply</string>
-    <string name="action_reblog">Boost</string>
-    <string name="action_unreblog">Remove boost</string>
-    <string name="action_favourite">Favorite</string>
-    <string name="action_unfavourite">Remove favorite</string>
-    <string name="action_bookmark">Bookmark</string>
     <string name="action_unbookmark">Remove bookmark</string>
     <string name="action_compose">Compose</string>
     <string name="action_post_failed">Upload failed</string>
@@ -382,7 +376,6 @@
     -->
     <string name="post_share_content">Share content of post</string>
     <string name="post_share_link">Share link to post</string>
-    <string name="status_count_one_plus">1+</string>
     <string name="status_filtered_show_anyway">Show anyway</string>
     <string name="status_filter_placeholder_label_format">Filtered: &lt;b>%1$s&lt;/b></string>
     <string name="state_follow_requested">Follow requested</string>

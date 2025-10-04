@@ -102,4 +102,11 @@
     <string name="dot_in_name">Punkt</string>
     <string name="action_hide_attachments">Anhänge verbergen</string>
     <string name="action_show_attachments">Anhänge anzeigen</string>
+    <string name="action_reply">Antworten</string>
+    <string name="action_reblog">Teilen</string>
+    <string name="action_favourite">Favorisieren</string>
+    <string name="action_bookmark">Lesezeichen</string>
+    <string name="status_count_one_plus">1+</string>
+    <string name="action_unreblog">Teilen rückgängig machen</string>
+    <string name="action_unfavourite">Aus Favoriten entfernen</string>
 </resources>

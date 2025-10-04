@@ -12,8 +12,6 @@
     <string name="pref_title_notification_filter_favourites">my posts are favourited</string>
     <string name="action_open_faved_by">Show favourites</string>
     <string name="action_view_favourites">Favourites</string>
-    <string name="action_unfavourite">Remove favourite</string>
-    <string name="action_favourite">Favourite</string>
     <string name="notification_favourite_format">%s favourited your post</string>
     <string name="title_favourites">Favourites</string>
     <string name="pref_title_gradient_for_media">Show colourful gradients for hidden media</string>

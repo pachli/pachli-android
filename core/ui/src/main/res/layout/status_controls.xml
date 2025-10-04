@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2025 Pachli Association
+  ~
+  ~ This file is a part of Pachli.
+  ~
+  ~ This program is free software; you can redistribute it and/or modify it under the terms of the
+  ~ GNU General Public License as published by the Free Software Foundation; either version 3 of the
+  ~ License, or (at your option) any later version.
+  ~
+  ~ Pachli is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+  ~ the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+  ~ Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License along with Pachli; if not,
+  ~ see <http://www.gnu.org/licenses>.
+  -->
+
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:sparkbutton="http://schemas.android.com/apk/res-auto"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+    <ImageButton
+        android:id="@+id/reply"
+        style="@style/AppImageButton"
+        android:layout_width="52dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="-14dp"
+        android:contentDescription="@string/action_reply"
+        android:importantForAccessibility="no"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/reblog"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:srcCompat="@drawable/ic_reply_24dp" />
+
+    <TextView
+        android:id="@+id/reply_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:textSize="?attr/status_text_small"
+        app:layout_constraintBottom_toBottomOf="@id/reply"
+        app:layout_constraintStart_toStartOf="@id/reply"
+        app:layout_constraintTop_toTopOf="@id/reply"
+        tools:ignore="SelectableText"
+        tools:text="1+" />
+
+    <at.connyduck.sparkbutton.SparkButton
+        android:id="@+id/reblog"
+        android:layout_width="52dp"
+        android:layout_height="48dp"
+        android:clipToPadding="false"
+        android:contentDescription="@string/action_reblog"
+        android:importantForAccessibility="no"
+        android:padding="4dp"
+        app:layout_constraintEnd_toStartOf="@id/favourite"
+        app:layout_constraintStart_toEndOf="@id/reply"
+        app:layout_constraintTop_toTopOf="@id/reply"
+        sparkbutton:activeImage="@drawable/ic_reblog_active_24dp"
+        sparkbutton:iconSize="28dp"
+        sparkbutton:inactiveImage="@drawable/ic_reblog_24dp"
+        sparkbutton:primaryColor="?colorPrimary"
+        sparkbutton:secondaryColor="?colorPrimaryContainer" />
+
+    <TextView
+        android:id="@+id/reblog_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:textSize="?attr/status_text_small"
+        app:layout_constraintBottom_toBottomOf="@id/reblog"
+        app:layout_constraintStart_toStartOf="@id/reblog"
+        app:layout_constraintTop_toTopOf="@id/reblog"
+        tools:ignore="SelectableText"
+        tools:text="1" />
+
+    <at.connyduck.sparkbutton.SparkButton
+        android:id="@+id/favourite"
+        android:layout_width="52dp"
+        android:layout_height="48dp"
+        android:clipToPadding="false"
+        android:contentDescription="@string/action_favourite"
+        android:importantForAccessibility="no"
+        android:padding="4dp"
+        app:layout_constraintStart_toEndOf="@id/reblog"
+        app:layout_constraintTop_toTopOf="@id/reblog"
+        app:layout_constraintEnd_toStartOf="@id/bookmark"
+        sparkbutton:activeImage="@drawable/ic_favourite_active_24dp"
+        sparkbutton:iconSize="28dp"
+        sparkbutton:inactiveImage="@drawable/ic_favourite_24dp"
+        sparkbutton:primaryColor="@color/tusky_orange"
+        sparkbutton:secondaryColor="@color/tusky_orange_light" />
+
+    <TextView
+        android:id="@+id/favourite_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:textSize="?attr/status_text_small"
+        app:layout_constraintStart_toStartOf="@id/favourite"
+        app:layout_constraintTop_toTopOf="@id/favourite"
+        app:layout_constraintBottom_toBottomOf="@id/favourite"
+        tools:ignore="SelectableText"
+        tools:text="1" />
+
+    <at.connyduck.sparkbutton.SparkButton
+        android:id="@+id/bookmark"
+        android:layout_width="52dp"
+        android:layout_height="48dp"
+        android:clipToPadding="false"
+        android:contentDescription="@string/action_bookmark"
+        android:importantForAccessibility="no"
+        android:padding="4dp"
+        app:layout_constraintStart_toEndOf="@id/favourite"
+        app:layout_constraintTop_toTopOf="@id/reply"
+        app:layout_constraintEnd_toStartOf="@id/status_more"
+        sparkbutton:activeImage="@drawable/ic_bookmark_active_24dp"
+        sparkbutton:iconSize="28dp"
+        sparkbutton:inactiveImage="@drawable/ic_bookmark_24dp"
+        sparkbutton:primaryColor="@color/tusky_green"
+        sparkbutton:secondaryColor="@color/tusky_green_light" />
+
+    <ImageButton
+        android:id="@+id/status_more"
+        style="@style/AppImageButton"
+        android:layout_width="52dp"
+        android:layout_height="48dp"
+        android:layout_gravity="end"
+        android:contentDescription="@string/action_more"
+        android:importantForAccessibility="no"
+        app:layout_constraintStart_toEndOf="@id/bookmark"
+        app:layout_constraintTop_toTopOf="@id/reply"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/reply"
+        app:srcCompat="@drawable/ic_more_horiz_24dp" />
+</merge>

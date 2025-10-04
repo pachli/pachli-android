@@ -72,4 +72,11 @@
     <string name="post_media_audio">錄音</string>
     <string name="post_media_video">影片</string>
     <string name="post_media_attachments">附件</string>
+    <string name="action_reply">回覆</string>
+    <string name="action_reblog">轉嘟</string>
+    <string name="action_favourite">最愛</string>
+    <string name="action_bookmark">書籤</string>
+    <string name="status_count_one_plus">1+</string>
+    <string name="action_unreblog">取消轉嘟</string>
+    <string name="action_unfavourite">取消最愛</string>
 </resources>

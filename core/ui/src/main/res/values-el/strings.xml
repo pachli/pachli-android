@@ -10,4 +10,10 @@
     <string name="action_logout_confirm">Είστε σίγουροι ότι θέλετε να αποσυνδεθείτε από τον λογαριασμό %1$s;</string>
     <string name="action_logout">Αποσύνδεση</string>
     <string name="post_sensitive_media_title">Ευαίσθητο περιεχόμενο</string>
+    <string name="action_reply">Απάντηση</string>
+    <string name="action_reblog">Προώθηση</string>
+    <string name="action_favourite">Αγαπημένο</string>
+    <string name="action_bookmark">Προσθήκη σελιδοδείκτη</string>
+    <string name="action_unreblog">Αφαίρεση προώθησης</string>
+    <string name="action_unfavourite">Αφαίρεση αγαπημένου</string>
 </resources>

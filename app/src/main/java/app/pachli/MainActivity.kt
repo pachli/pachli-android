@@ -767,7 +767,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
                 },
                 primaryDrawerItem {
                     nameRes = R.string.title_direct_messages
-                    iconRes = R.drawable.ic_reblog_direct_24dp
+                    iconRes = app.pachli.core.ui.R.drawable.ic_reblog_direct_24dp
                     onClick = {
                         startActivityWithDefaultTransition(
                             TimelineActivityIntent.conversations(context, pachliAccountId),

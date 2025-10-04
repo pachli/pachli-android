@@ -251,12 +251,6 @@
     <string name="action_unfollow">เลิกติดตาม</string>
     <string name="action_follow">ติดตาม</string>
     <string name="action_compose">เขียนโพสต์ใหม่</string>
-    <string name="action_unfavourite">เลิกชื่นชอบ</string>
-    <string name="action_bookmark">คั่นหน้า</string>
-    <string name="action_favourite">ชื่นชอบ</string>
-    <string name="action_unreblog">ลบการดัน</string>
-    <string name="action_reblog">ดัน</string>
-    <string name="action_reply">ตอบกลับ</string>
     <string name="action_quick_reply">ตอบกลับด่วน</string>
     <string name="report_comment_hint">ความคิดเห็นเพิ่มเติม</string>
     <string name="report_username_format">รายงาน @%s</string>

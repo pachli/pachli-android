@@ -260,37 +260,37 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
 
     private val replyAction = AccessibilityActionCompat(
         app.pachli.core.ui.R.id.action_reply,
-        context.getString(R.string.action_reply),
+        context.getString(app.pachli.core.ui.R.string.action_reply),
     )
 
     private val unreblogAction = AccessibilityActionCompat(
         app.pachli.core.ui.R.id.action_unreblog,
-        context.getString(R.string.action_unreblog),
+        context.getString(app.pachli.core.ui.R.string.action_unreblog),
     )
 
     private val reblogAction = AccessibilityActionCompat(
         app.pachli.core.ui.R.id.action_reblog,
-        context.getString(R.string.action_reblog),
+        context.getString(app.pachli.core.ui.R.string.action_reblog),
     )
 
     private val unfavouriteAction = AccessibilityActionCompat(
         app.pachli.core.ui.R.id.action_unfavourite,
-        context.getString(R.string.action_unfavourite),
+        context.getString(app.pachli.core.ui.R.string.action_unfavourite),
     )
 
     private val favouriteAction = AccessibilityActionCompat(
         app.pachli.core.ui.R.id.action_favourite,
-        context.getString(R.string.action_favourite),
+        context.getString(app.pachli.core.ui.R.string.action_favourite),
     )
 
     private val bookmarkAction = AccessibilityActionCompat(
         app.pachli.core.ui.R.id.action_bookmark,
-        context.getString(R.string.action_bookmark),
+        context.getString(app.pachli.core.ui.R.string.action_bookmark),
     )
 
     private val unbookmarkAction = AccessibilityActionCompat(
         app.pachli.core.ui.R.id.action_unbookmark,
-        context.getString(R.string.action_bookmark),
+        context.getString(app.pachli.core.ui.R.string.action_bookmark),
     )
 
     private val openProfileAction = AccessibilityActionCompat(

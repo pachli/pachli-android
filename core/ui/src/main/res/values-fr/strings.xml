@@ -77,4 +77,11 @@
     <string name="post_media_audio">Audio</string>
     <string name="post_media_video">Vidéo</string>
     <string name="post_media_attachments">Pièces jointes</string>
+    <string name="action_reply">Répondre</string>
+    <string name="action_reblog">Partager</string>
+    <string name="action_favourite">Favori</string>
+    <string name="action_bookmark">Marquer comme signet</string>
+    <string name="status_count_one_plus">&gt;1</string>
+    <string name="action_unreblog">Annuler le partage</string>
+    <string name="action_unfavourite">Supprimer le favori</string>
 </resources>

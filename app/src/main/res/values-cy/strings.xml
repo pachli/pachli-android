@@ -38,9 +38,6 @@
     <string name="report_username_format">Adrodd @%s</string>
     <string name="report_comment_hint">Sylwadau ychwanegol?</string>
     <string name="action_quick_reply">Ymateb yn gyflym</string>
-    <string name="action_reply">Ymateb</string>
-    <string name="action_reblog">Hybu</string>
-    <string name="action_favourite">Hoffi</string>
     <string name="action_compose">Creu</string>
     <string name="action_follow">Dilyn</string>
     <string name="action_unfollow">Dad-ddilyn</string>
@@ -211,8 +208,6 @@
     <string name="title_tab_preferences">Tabiau</string>
     <string name="title_posts_pinned">Piniwyd</string>
     <string name="title_domain_mutes">Parthau cudd</string>
-    <string name="action_unreblog">Dileu hwb</string>
-    <string name="action_unfavourite">Dileu ffefryn</string>
     <string name="action_delete_and_redraft">Dileu ac ailddrafftio</string>
     <string name="action_view_account_preferences">Dewisiadau\'ch cyfrif</string>
     <string name="action_view_domain_mutes">Parthau cudd</string>
@@ -220,7 +215,6 @@
     <string name="action_add_tab">Ychwanegu tab</string>
     <string name="action_open_reblogged_by">Dangos hybiau</string>
     <string name="notification_follow_request_name">Ceisiadau i\'ch dilyn</string>
-    <string name="action_bookmark">Tudalnodi</string>
     <string name="action_edit">Golygu</string>
     <string name="edit_poll">Golygu</string>
     <string name="compose_shortcut_short_label">Creu</string>
@@ -346,7 +340,6 @@
     <string name="title_accounts">Cyfrifon</string>
     <string name="create_poll_title">Pôl</string>
     <string name="add_hashtag_title">Ychwanegu hashnod</string>
-    <string name="status_count_one_plus">1+</string>
     <string name="compose_shortcut_long_label">Ysgrifennu neges</string>
     <string name="drafts_post_failed_to_send">Methodd anfon y neges hon!</string>
     <string name="pachli_compose_post_quicksetting_label">Ysgrifennu Neges</string>
