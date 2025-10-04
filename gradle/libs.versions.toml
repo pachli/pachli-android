@@ -8,6 +8,7 @@ androidx-browser = "1.8.0"
 androidx-cardview = "1.0.0"
 androidx-constraintlayout = "2.2.1"
 androidx-core = "1.17.0"
+androidx-core-animation = "1.0.0"
 androidx-exifinterface = "1.4.1"
 androidx-fragment = "1.8.6"
 androidx-hilt = "1.2.0"
@@ -122,6 +123,7 @@ androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "a
 androidx-browser = { module = "androidx.browser:browser", version.ref = "androidx-browser" }
 androidx-cardview = { module = "androidx.cardview:cardview", version.ref = "androidx-cardview" }
 androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "androidx-constraintlayout" }
+androidx-core-animation = { group = "androidx.core", name = "core-animation", version.ref = "androidx-core-animation" }
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "androidx-splashscreen" }
 androidx-core-testing = { module = "androidx.arch.core:core-testing", version.ref = "androidx-testing" }

@@ -152,6 +152,7 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
 
     implementation(libs.bundles.androidx)
+    implementation(libs.androidx.core.animation)
 
     implementation(libs.android.material)
 

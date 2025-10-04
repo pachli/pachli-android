@@ -31,7 +31,7 @@
 
     <dimen name="preference_icon_size">20dp</dimen>
 
-    <dimen name="selected_drag_item_elevation">12dp</dimen>
+    <dimen name="selected_drag_item_elevation">4dp</dimen>
 
     <dimen name="avatar_radius_94dp">11.75dp</dimen> <!-- 1/8 of 100dp - 2 * 3dp padding -->
     <dimen name="avatar_radius_80dp">10dp</dimen> <!-- 1/8 of 80dp -->

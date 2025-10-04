@@ -16,7 +16,9 @@
 
 package app.pachli.components.compose
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
@@ -36,10 +38,13 @@ import app.pachli.components.compose.MediaPreviewAdapter.Companion.QUEUED_MEDIA_
 import app.pachli.components.compose.MediaPreviewAdapter.MediaAction
 import app.pachli.components.compose.MediaPreviewAdapter.MediaAction.EDIT_FOCUS
 import app.pachli.components.compose.MediaPreviewAdapter.MediaAction.EDIT_IMAGE
+import app.pachli.components.compose.MediaPreviewAdapter.MediaAction.MOVE_DOWN
+import app.pachli.components.compose.MediaPreviewAdapter.MediaAction.MOVE_UP
 import app.pachli.components.compose.MediaPreviewAdapter.MediaAction.REMOVE
 import app.pachli.components.compose.UploadState.Uploaded
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
+import app.pachli.core.common.extensions.visible
 import app.pachli.core.model.Attachment
 import app.pachli.databinding.ItemComposeMediaAttachmentBinding
 import com.bumptech.glide.RequestManager
@@ -56,7 +61,7 @@ import com.google.android.material.shape.ShapeAppearanceModel
  * Listener for user updates to media descriptions.
  *
  * @param item The item. [item.description][QueuedMedia.description] is the
- * the **previous** description.
+ * **previous** description.
  * @param newDescription The new description.
  */
 typealias OnDescriptionChangedListener = (item: QueuedMedia, newDescription: String) -> Unit
@@ -87,6 +92,31 @@ typealias OnEditImageListener = (item: QueuedMedia) -> Unit
 typealias OnRemoveMediaListener = (item: QueuedMedia) -> Unit
 
 /**
+ * Listener for requests to start dragging a viewholder.
+ *
+ * @see [invoke]
+ */
+fun interface OnStartDragListener {
+    /**
+     * @param viewHolder The viewholder being dragged.
+     */
+    operator fun invoke(viewHolder: RecyclerView.ViewHolder)
+}
+
+/**
+ * Listener for requests to swap two items in the list.
+ *
+ * @see [invoke]
+ */
+fun interface OnSwapAttachmentsListener {
+    /**
+     * @param first Index of the first item to swap.
+     * @param second Index of the second item to swap.
+     */
+    operator fun invoke(first: Int, second: Int)
+}
+
+/**
  * Manages a list of [QueuedMedia] items, displayed using
  * [ItemComposeMediaAttachmentBinding].
  *
@@ -106,6 +136,8 @@ class MediaPreviewAdapter(
     private val onEditFocus: OnEditFocusListener,
     private val onEditImage: OnEditImageListener,
     private val onRemoveMedia: OnRemoveMediaListener,
+    private val onStartDrag: OnStartDragListener,
+    private val onSwapAttachments: OnSwapAttachmentsListener,
 ) : ListAdapter<QueuedMedia, AttachmentViewHolder>(QUEUED_MEDIA_DIFFER) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AttachmentViewHolder {
         return AttachmentViewHolder(
@@ -114,6 +146,7 @@ class MediaPreviewAdapter(
             descriptionLimit,
             onDescriptionChanged = onDescriptionChanged,
             onMediaClick = ::showMediaPopup,
+            onStartDrag = onStartDrag,
         )
     }
 
@@ -123,6 +156,11 @@ class MediaPreviewAdapter(
 
     override fun onBindViewHolder(holder: AttachmentViewHolder, position: Int, payloads: List<Any?>) {
         holder.bind(getItem(position), payloads)
+    }
+
+    override fun onCurrentListChanged(previousList: List<QueuedMedia?>, currentList: List<QueuedMedia?>) {
+        super.onCurrentListChanged(previousList, currentList)
+        notifyItemRangeChanged(0, currentList.size, Payload.LIST_SIZE)
     }
 
     /**
@@ -137,12 +175,18 @@ class MediaPreviewAdapter(
         EDIT_FOCUS(R.string.action_set_focus),
         EDIT_IMAGE(R.string.action_edit_image),
         REMOVE(R.string.action_remove),
-
+        MOVE_UP(R.string.action_move_up),
+        MOVE_DOWN(R.string.action_move_down),
         ;
 
         companion object {
-            /** @return List of valid actions for [item]. */
-            fun from(item: QueuedMedia) = buildList {
+            /**
+             * @param itemCount Count of items in the list.
+             * @param position Current position of [item] in the list.
+             * @param item
+             * @return List of valid actions for [item].
+             */
+            fun from(itemCount: Int, position: Int, item: QueuedMedia) = buildList {
                 if (item.type == QueuedMedia.Type.IMAGE) {
                     add(EDIT_FOCUS)
                     // Already-published items can't be edited
@@ -151,21 +195,22 @@ class MediaPreviewAdapter(
                     }
                 }
                 add(REMOVE)
+                if (position != 0) add(MOVE_UP)
+                if (position < itemCount - 1) add(MOVE_DOWN)
             }
         }
     }
 
     /**
-     * Shows a menu allowing the user to perform the actions from
-     * [MediaAction.from].
+     * Shows a menu allowing the user to perform different actions.
      *
-     * Menu clicks are sent to [onEditFocus], [onEditImage], or
-     * [onRemoveMedia] as appropriate.
      */
     private fun showMediaPopup(item: QueuedMedia, view: View) {
         val popup = PopupMenu(view.context, view)
 
-        MediaAction.from(item).forEach {
+        val index = currentList.indexOf(item)
+
+        MediaAction.from(currentList.size, index, item).forEach {
             popup.menu.add(0, it.ordinal, 0, it.resourceId)
         }
 
@@ -174,6 +219,8 @@ class MediaPreviewAdapter(
                 EDIT_FOCUS.ordinal -> onEditFocus(item)
                 EDIT_IMAGE.ordinal -> onEditImage(item)
                 REMOVE.ordinal -> onRemoveMedia(item)
+                MOVE_UP.ordinal -> onSwapAttachments(index, index - 1)
+                MOVE_DOWN.ordinal -> onSwapAttachments(index, index + 1)
             }
             true
         }
@@ -184,17 +231,20 @@ class MediaPreviewAdapter(
     companion object {
         /** Payload from [QUEUED_MEDIA_DIFFER.getChangePayload]. */
         enum class Payload {
-            /** [QueuedMedia.uri] changed */
+            /** [QueuedMedia.uri] changed. */
             URI,
 
-            /** [QueuedMedia.description] changed */
+            /** [QueuedMedia.description] changed. */
             DESCRIPTION,
 
-            /** [QueuedMedia.focus] changed */
+            /** [QueuedMedia.focus] changed. */
             FOCUS,
 
-            /** [QueuedMedia.uploadState] changed */
+            /** [QueuedMedia.uploadState] changed. */
             UPLOAD_STATE,
+
+            /** Size of the list changed. */
+            LIST_SIZE,
         }
 
         private val QUEUED_MEDIA_DIFFER = object : DiffUtil.ItemCallback<QueuedMedia>() {
@@ -215,8 +265,8 @@ class MediaPreviewAdapter(
                 // 4. A new list means bind() is called, and we end up back
                 //    here.
                 // 5. Setting the *same* text goes back to step 1, hence loop.
-                val oldDescription = oldItem.description?.toString()?.ifBlank { "" } ?: ""
-                val newDescription = newItem.description?.toString()?.ifBlank { "" } ?: ""
+                val oldDescription = oldItem.description?.ifBlank { "" } ?: ""
+                val newDescription = newItem.description?.ifBlank { "" } ?: ""
                 if (oldDescription != newDescription) return Payload.DESCRIPTION
                 return super.getChangePayload(oldItem, newItem)
             }
@@ -231,13 +281,16 @@ class MediaPreviewAdapter(
  * @param descriptionLimit Max characters for a media description.
  * @param onDescriptionChanged Called when the description is changed.
  * @param onMediaClick Called when the user clicks the media preview image.
+ * @param onStartDrag Called when the user starts dragging the drag handle.
  */
+@SuppressLint("ClickableViewAccessibility")
 class AttachmentViewHolder(
     val binding: ItemComposeMediaAttachmentBinding,
     private val glide: RequestManager,
     descriptionLimit: Int,
     private val onDescriptionChanged: OnDescriptionChangedListener,
     private val onMediaClick: (QueuedMedia, View) -> Unit,
+    private val onStartDrag: OnStartDragListener,
 ) : RecyclerView.ViewHolder(binding.root) {
     private val context = binding.root.context
 
@@ -254,6 +307,14 @@ class AttachmentViewHolder(
             .build()
         val materialShapeDrawable = MaterialShapeDrawable(shapeAppearanceModel)
         binding.errorMsg.background = materialShapeDrawable
+
+        binding.dragHandle.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                onStartDrag(this)
+                return@setOnTouchListener true
+            }
+            return@setOnTouchListener false
+        }
     }
 
     fun bind(item: QueuedMedia, payloads: List<Any?>? = null) {
@@ -270,6 +331,7 @@ class AttachmentViewHolder(
                 Payload.DESCRIPTION -> bindDescription(item.description)
                 Payload.FOCUS -> bindFocus(item.focus)
                 Payload.UPLOAD_STATE -> bindUploadState(item.uploadState)
+                Payload.LIST_SIZE -> bindDragHandle()
                 else -> bindAll(item)
             }
         }
@@ -281,6 +343,7 @@ class AttachmentViewHolder(
         bindDescription(item.description)
         bindFocus(item.focus)
         bindUploadState(item.uploadState)
+        bindDragHandle()
     }
 
     /**
@@ -315,7 +378,7 @@ class AttachmentViewHolder(
                 override fun onInitializeAccessibilityNodeInfo(host: View, info: AccessibilityNodeInfoCompat) {
                     super.onInitializeAccessibilityNodeInfo(host, info)
 
-                    val options = MediaAction.from(item).map {
+                    val options = MediaAction.from(bindingAdapter?.itemCount ?: 0, bindingAdapterPosition, item).map {
                         context.getString(it.resourceId)
                     }
 
@@ -374,5 +437,13 @@ class AttachmentViewHolder(
                     show()
                 }
         }
+    }
+
+    /**
+     * Updates the visibility of the drag handle based on the number of items in the
+     * list.
+     */
+    private fun bindDragHandle() {
+        binding.dragHandle.visible((bindingAdapter?.itemCount ?: 0) > 1)
     }
 }

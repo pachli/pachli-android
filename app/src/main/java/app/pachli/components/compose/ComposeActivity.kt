@@ -23,8 +23,10 @@ import android.content.ClipData
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -65,7 +67,9 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionManager
 import app.pachli.BuildConfig
 import app.pachli.R
@@ -97,6 +101,7 @@ import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InitialCu
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.preferences.AppTheme
 import app.pachli.core.ui.EmojiSpan
+import app.pachli.core.ui.clearDragAnimator
 import app.pachli.core.ui.emojify
 import app.pachli.core.ui.extensions.InsetType
 import app.pachli.core.ui.extensions.applyWindowInsets
@@ -104,6 +109,7 @@ import app.pachli.core.ui.extensions.await
 import app.pachli.core.ui.extensions.iconRes
 import app.pachli.core.ui.loadAvatar
 import app.pachli.core.ui.makeIcon
+import app.pachli.core.ui.startDragAnimator
 import app.pachli.databinding.ActivityComposeBinding
 import app.pachli.languageidentification.LanguageIdentifier
 import app.pachli.languageidentification.UNDETERMINED_LANGUAGE_TAG
@@ -157,10 +163,93 @@ class ComposeActivity :
     OnReceiveContentListener,
     ComposeScheduleView.OnTimeSetListener {
 
+    @VisibleForTesting
+    val viewModel: ComposeViewModel by viewModels(
+        extrasProducer = {
+            defaultViewModelCreationExtras.withCreationCallback<ComposeViewModel.Factory> { factory ->
+                factory.create(
+                    intent.pachliAccountId,
+                    ComposeActivityIntent.getComposeOptions(intent),
+                )
+            }
+        },
+    )
+
     private lateinit var visibilityBehavior: BottomSheetBehavior<*>
     private lateinit var addAttachmentBehavior: BottomSheetBehavior<*>
     private lateinit var emojiBehavior: BottomSheetBehavior<*>
     private lateinit var scheduleBehavior: BottomSheetBehavior<*>
+
+    private val binding by viewBinding(ActivityComposeBinding::inflate)
+
+    /**
+     * [ItemTouchHelper] for attachments. Allows the user to drag attachments up
+     * and down to a different position, swapping their positions. Swiping left/right
+     * is not supported.
+     */
+    private val touchHelper = ItemTouchHelper(
+        object : ItemTouchHelper.SimpleCallback(
+            ItemTouchHelper.UP or ItemTouchHelper.DOWN,
+            0,
+        ) {
+            private val selectedItemElevation by unsafeLazy { resources.getDimension(DR.dimen.selected_drag_item_elevation) }
+
+            /** Background colour for the item when dragging. */
+            private val dragBackgroundColor by unsafeLazy { MaterialColors.getColor(this@ComposeActivity, com.google.android.material.R.attr.colorSurface, Color.BLACK) }
+
+            /** Background colour for the item at rest. */
+            private var backgroundAtRest: Drawable? = null
+
+            private var statusContainerOriginalClipChildren = true
+            private var composeMainScrollViewOriginalClipChildren = true
+
+            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+                viewModel.swapAttachmentOrder(viewHolder.bindingAdapterPosition, target.bindingAdapterPosition)
+                return true
+            }
+
+            override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
+                super.onSelectedChanged(viewHolder, actionState)
+
+                if (actionState != ItemTouchHelper.ACTION_STATE_DRAG) return
+                val view = viewHolder?.itemView ?: return
+
+                startDragAnimator(
+                    view,
+                    dragElevation = selectedItemElevation,
+                    onStart = {
+                        // Save the original clipChildren values for restoration in clearView.
+                        statusContainerOriginalClipChildren = binding.statusContainer.clipChildren
+                        composeMainScrollViewOriginalClipChildren = binding.composeMainScrollView.clipChildren
+
+                        // Set clipChildren to false up the view hierarchy so the zoomed in view
+                        // can expand past its normal bounds.
+                        binding.statusContainer.clipChildren = false
+                        binding.composeMainScrollView.clipChildren = false
+
+                        // View needs a background, otherwise parts of it are transparent and
+                        // the shadow doesn't appear.
+                        backgroundAtRest = view.background
+                        view.setBackgroundColor(dragBackgroundColor)
+                    },
+                ).start()
+            }
+
+            override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
+                super.clearView(recyclerView, viewHolder)
+                clearDragAnimator(
+                    viewHolder.itemView,
+                    onEnd = {
+                        binding.statusContainer.clipChildren = statusContainerOriginalClipChildren
+                        binding.composeMainScrollView.clipChildren = composeMainScrollViewOriginalClipChildren
+                        viewHolder.itemView.background = backgroundAtRest
+                    },
+                ).start()
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) = Unit
+        },
+    )
 
     private var photoUploadUri: Uri? = null
 
@@ -176,20 +265,6 @@ class ComposeActivity :
 
     @VisibleForTesting
     var maximumTootCharacters = DEFAULT_CHARACTER_LIMIT
-
-    @VisibleForTesting
-    val viewModel: ComposeViewModel by viewModels(
-        extrasProducer = {
-            defaultViewModelCreationExtras.withCreationCallback<ComposeViewModel.Factory> { factory ->
-                factory.create(
-                    intent.pachliAccountId,
-                    ComposeActivityIntent.getComposeOptions(intent),
-                )
-            }
-        },
-    )
-
-    private val binding by viewBinding(ActivityComposeBinding::inflate)
 
     private var maxUploadMediaNumber = DEFAULT_MAX_MEDIA_ATTACHMENTS
 
@@ -360,6 +435,8 @@ class ComposeActivity :
                     },
                     onEditImage = { lifecycleScope.launch { editImageInQueue(it) } },
                     onRemoveMedia = this@ComposeActivity::removeMediaFromQueue,
+                    onStartDrag = { viewHolder -> touchHelper.startDrag(viewHolder) },
+                    onSwapAttachments = { first, second -> viewModel.swapAttachmentOrder(first, second) },
                 )
 
                 subscribeToUpdates(mediaAdapter)
@@ -367,7 +444,7 @@ class ComposeActivity :
                 binding.composeMediaPreviewBar.layoutManager =
                     LinearLayoutManager(this@ComposeActivity, LinearLayoutManager.VERTICAL, false)
                 binding.composeMediaPreviewBar.adapter = mediaAdapter
-                binding.composeMediaPreviewBar.itemAnimator = null
+                touchHelper.attachToRecyclerView(binding.composeMediaPreviewBar)
 
                 composeOptions?.scheduledAt?.let {
                     binding.composeScheduleView.setDateTime(it)

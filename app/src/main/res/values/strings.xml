@@ -411,6 +411,8 @@
     <string name="action_set_focus">Set focus point</string>
     <string name="action_edit_image">Edit image</string>
     <string name="action_remove">Remove</string>
+    <string name="action_move_up">Move up</string>
+    <string name="action_move_down">Move down</string>
     <string name="lock_account_label">Lock account</string>
     <string name="lock_account_label_description">Requires you to manually approve followers</string>
     <string name="compose_delete_draft">Delete draft?</string>
