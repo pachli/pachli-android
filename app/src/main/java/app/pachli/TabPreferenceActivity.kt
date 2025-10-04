@@ -28,6 +28,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatEditText
+import androidx.core.util.TypedValueCompat.dpToPx
 import androidx.core.view.ViewGroupCompat
 import androidx.core.view.updatePadding
 import androidx.core.widget.doOnTextChanged
@@ -58,7 +59,6 @@ import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.core.ui.extensions.applyWindowInsets
 import app.pachli.databinding.ActivityTabPreferenceBinding
 import app.pachli.databinding.DialogSelectListBinding
-import at.connyduck.sparkbutton.helpers.Utils
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.transition.MaterialArcMotion
 import com.google.android.material.transition.MaterialContainerTransform
@@ -247,7 +247,7 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
 
     private fun showAddHashtagDialog(timeline: Timeline.Hashtags? = null, tabPosition: Int = 0) {
         val frameLayout = FrameLayout(this)
-        val padding = Utils.dpToPx(this, 8)
+        val padding = dpToPx(8f, resources.displayMetrics).toInt()
         frameLayout.updatePadding(left = padding, right = padding)
 
         val editText = AppCompatEditText(this)

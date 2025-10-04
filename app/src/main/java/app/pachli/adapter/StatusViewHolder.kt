@@ -19,6 +19,7 @@ package app.pachli.adapter
 import android.text.InputFilter
 import android.text.TextUtils
 import android.view.View
+import androidx.core.util.TypedValueCompat.dpToPx
 import app.pachli.R
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
@@ -34,7 +35,6 @@ import app.pachli.core.ui.SetStatusContent
 import app.pachli.core.ui.StatusActionListener
 import app.pachli.core.ui.emojify
 import app.pachli.databinding.ItemStatusBinding
-import at.connyduck.sparkbutton.helpers.Utils
 import com.bumptech.glide.RequestManager
 
 open class StatusViewHolder<T : IStatusViewData>(
@@ -93,8 +93,8 @@ open class StatusViewHolder<T : IStatusViewData>(
     protected fun setPollInfo(ownPoll: Boolean) = with(binding) {
         statusInfo.setText(if (ownPoll) R.string.poll_ended_created else R.string.poll_ended_voted)
         statusInfo.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_poll_24dp, 0, 0, 0)
-        statusInfo.compoundDrawablePadding = Utils.dpToPx(context, 10)
-        statusInfo.setPaddingRelative(Utils.dpToPx(context, 28), 0, 0, 0)
+        statusInfo.compoundDrawablePadding = dpToPx(10f, context.resources.displayMetrics).toInt()
+        statusInfo.setPaddingRelative(dpToPx(28f, context.resources.displayMetrics).toInt(), 0, 0, 0)
         statusInfo.show()
     }
 

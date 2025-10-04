@@ -25,6 +25,7 @@ import android.text.TextUtils
 import android.text.format.DateUtils
 import android.text.style.StyleSpan
 import android.view.View
+import androidx.core.util.TypedValueCompat.dpToPx
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.adapter.StatusViewDataDiffCallback
@@ -44,7 +45,6 @@ import app.pachli.core.ui.getRelativeTimeSpanString
 import app.pachli.core.ui.loadAvatar
 import app.pachli.databinding.ItemStatusNotificationBinding
 import app.pachli.viewdata.NotificationViewData
-import at.connyduck.sparkbutton.helpers.Utils
 import com.bumptech.glide.RequestManager
 import java.util.Date
 
@@ -207,7 +207,7 @@ internal class StatusNotificationViewHolder(
     }
 
     private fun setAvatars(statusAvatarUrl: String?, notificationAvatarUrl: String?, animateAvatars: Boolean) {
-        val padding = Utils.dpToPx(binding.notificationStatusAvatar.context, 12)
+        val padding = dpToPx(12f, binding.notificationStatusAvatar.context.resources.displayMetrics).toInt()
         binding.notificationStatusAvatar.setPaddingRelative(0, 0, padding, padding)
         loadAvatar(
             glide,

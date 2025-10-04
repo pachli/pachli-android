@@ -28,6 +28,7 @@ import android.view.accessibility.AccessibilityManager
 import android.widget.Toast
 import android.widget.Toast.LENGTH_LONG
 import androidx.core.content.ContextCompat
+import androidx.core.util.TypedValueCompat.dpToPx
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -83,7 +84,6 @@ import app.pachli.fragment.SFragment
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.interfaces.AppBarLayoutHost
 import app.pachli.util.ListStatusAccessibilityDelegate
-import at.connyduck.sparkbutton.helpers.Utils
 import com.bumptech.glide.Glide
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.onFailure
@@ -576,10 +576,10 @@ class TimelineFragment :
             adapter.postPrepend {
                 binding.recyclerView.post {
                     view ?: return@post
-                    Timber.d("scrolling up by -30px because peeking after refresh")
+                    Timber.d("scrolling up by -30dp because peeking after refresh")
                     binding.recyclerView.smoothScrollBy(
                         0,
-                        Utils.dpToPx(requireContext(), -30),
+                        dpToPx(-30f, requireContext().resources.displayMetrics).toInt(),
                     )
                 }
             }

@@ -24,6 +24,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.core.util.TypedValueCompat.dpToPx
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -68,7 +69,6 @@ import app.pachli.databinding.FragmentTimelineBinding
 import app.pachli.fragment.SFragment
 import app.pachli.interfaces.ActionButtonActivity
 import app.pachli.util.ListStatusAccessibilityDelegate
-import at.connyduck.sparkbutton.helpers.Utils
 import com.bumptech.glide.Glide
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
@@ -227,7 +227,7 @@ class ConversationsFragment :
                                 if (getView() != null) {
                                     binding.recyclerView.scrollBy(
                                         0,
-                                        Utils.dpToPx(requireContext(), -30),
+                                        dpToPx(-30f, requireContext().resources.displayMetrics).toInt(),
                                     )
                                 }
                             }
