@@ -17,7 +17,6 @@ import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
-import app.pachli.core.database.model.TimelineStatusEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.model.Timeline
 import app.pachli.core.model.VersionAdapter
@@ -27,6 +26,7 @@ import app.pachli.core.network.json.Guarded
 import app.pachli.core.network.json.InstantJsonAdapter
 import app.pachli.core.network.json.LenientRfc3339DateJsonAdapter
 import app.pachli.core.network.json.UriAdapter
+import app.pachli.core.testing.extensions.insertStatuses
 import app.pachli.core.testing.failure
 import app.pachli.core.testing.fakes.fakeStatus
 import app.pachli.core.testing.fakes.fakeStatusEntityWithAccount
@@ -215,7 +215,7 @@ class CachedTimelineRemoteMediatorTest {
             fakeStatusEntityWithAccount("1", expanded = false),
         )
 
-        db.insert(statusesAlreadyInDb)
+        db.insertStatuses(statusesAlreadyInDb)
 
         val remoteMediator = CachedTimelineRemoteMediator(
             mastodonApi = mock {
@@ -268,7 +268,7 @@ class CachedTimelineRemoteMediatorTest {
             fakeStatusEntityWithAccount("5"),
         )
 
-        db.insert(statusesAlreadyInDb)
+        db.insertStatuses(statusesAlreadyInDb)
         db.remoteKeyDao().upsert(RemoteKeyEntity(1, Timeline.Home.remoteKeyTimelineId, RemoteKeyKind.PREV, "8"))
         db.remoteKeyDao().upsert(RemoteKeyEntity(1, Timeline.Home.remoteKeyTimelineId, RemoteKeyKind.NEXT, "5"))
 
@@ -328,29 +328,6 @@ class CachedTimelineRemoteMediatorTest {
         ),
         leadingPlaceholderCount = 0,
     )
-
-    private fun AppDatabase.insert(statuses: List<TimelineStatusWithAccount>) {
-        runBlocking {
-            statuses.forEach { statusWithAccount ->
-                statusWithAccount.account.let { account ->
-                    timelineDao().insertAccount(account)
-                }
-                statusWithAccount.reblogAccount?.let { account ->
-                    timelineDao().insertAccount(account)
-                }
-                statusDao().insertStatus(statusWithAccount.status)
-            }
-            timelineDao().upsertStatuses(
-                statuses.map {
-                    TimelineStatusEntity(
-                        pachliAccountId = it.status.timelineUserId,
-                        kind = TimelineStatusEntity.Kind.Home,
-                        statusId = it.status.serverId,
-                    )
-                },
-            )
-        }
-    }
 
     private fun AppDatabase.assertStatuses(
         expected: List<TimelineStatusWithAccount>,

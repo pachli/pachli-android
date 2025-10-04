@@ -18,20 +18,23 @@
 package app.pachli.components.timeline
 
 import app.cash.turbine.test
-import app.pachli.ContentFilterV1Test.Companion.mockStatus
 import app.pachli.components.timeline.viewmodel.FallibleStatusAction
 import app.pachli.components.timeline.viewmodel.StatusActionSuccess
 import app.pachli.components.timeline.viewmodel.UiError
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.model.AttachmentDisplayAction
+import app.pachli.core.testing.extensions.insertStatuses
 import app.pachli.core.testing.failure
+import app.pachli.core.testing.fakes.fakeStatus
+import app.pachli.core.testing.fakes.fakeStatusEntityWithAccount
 import app.pachli.core.testing.success
 import com.github.michaelbull.result.get
 import com.github.michaelbull.result.getError
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.test.runTest
+import org.junit.Before
 import org.junit.Test
 import org.mockito.kotlin.any
 import org.mockito.kotlin.doReturn
@@ -49,10 +52,12 @@ import org.mockito.kotlin.stub
 // NotificationsViewModelTestStatusAction.
 @HiltAndroidTest
 class CachedTimelineViewModelTestStatusFilterAction : CachedTimelineViewModelTestBase() {
-    private val status = mockStatus(pollOptions = listOf("Choice 1", "Choice 2", "Choice 3"))
+    private val fakeStatus = fakeStatus(pollOptions = listOf("Choice 1", "Choice 2", "Choice 3"))
+    private val fakeStatusEntityWithAccount = fakeStatusEntityWithAccount(makeFakeStatus = { fakeStatus })
+
     private val statusViewData = StatusViewData(
         pachliAccountId = 1L,
-        status = status.asModel(),
+        status = fakeStatus.asModel(),
         isExpanded = true,
         isCollapsed = false,
         translationState = TranslationState.SHOW_ORIGINAL,
@@ -70,15 +75,22 @@ class CachedTimelineViewModelTestStatusFilterAction : CachedTimelineViewModelTes
 
     /** Action to vote in a poll */
     private val voteInPollAction = FallibleStatusAction.VoteInPoll(
-        poll = status.poll?.asModel()!!,
+        poll = fakeStatus.poll?.asModel()!!,
         choices = listOf(1, 0, 0),
         statusViewData,
     )
 
+    @Before
+    override fun setup() = runTest {
+        super.setup()
+
+        appDatabase.insertStatuses(listOf(fakeStatusEntityWithAccount))
+    }
+
     @Test
     fun `bookmark succeeds && emits UiSuccess`() = runTest {
         // Given
-        mastodonApi.stub { onBlocking { bookmarkStatus(any()) } doReturn success(status) }
+        mastodonApi.stub { onBlocking { bookmarkStatus(any()) } doReturn success(fakeStatus) }
 
         viewModel.uiResult.test {
             // When
@@ -108,7 +120,7 @@ class CachedTimelineViewModelTestStatusFilterAction : CachedTimelineViewModelTes
     @Test
     fun `favourite succeeds && emits UiSuccess`() = runTest {
         // Given
-        mastodonApi.stub { onBlocking { favouriteStatus(any()) } doReturn success(status) }
+        mastodonApi.stub { onBlocking { favouriteStatus(any()) } doReturn success(fakeStatus) }
 
         viewModel.uiResult.test {
             // When
@@ -138,7 +150,7 @@ class CachedTimelineViewModelTestStatusFilterAction : CachedTimelineViewModelTes
     @Test
     fun `reblog succeeds && emits UiSuccess`() = runTest {
         // Given
-        mastodonApi.stub { onBlocking { reblogStatus(any()) } doReturn success(status) }
+        mastodonApi.stub { onBlocking { reblogStatus(any()) } doReturn success(fakeStatus) }
 
         viewModel.uiResult.test {
             // When
@@ -168,7 +180,7 @@ class CachedTimelineViewModelTestStatusFilterAction : CachedTimelineViewModelTes
     @Test
     fun `voteinpoll succeeds && emits UiSuccess`() = runTest {
         // Given
-        mastodonApi.stub { onBlocking { voteInPoll(any(), any()) } doReturn success(status.poll!!) }
+        mastodonApi.stub { onBlocking { voteInPoll(any(), any()) } doReturn success(fakeStatus.poll!!) }
 
         viewModel.uiResult.test {
             // When

@@ -24,6 +24,9 @@ import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.AttachmentDisplayReason
+import app.pachli.core.network.model.Attachment
+import app.pachli.core.network.model.Poll
+import app.pachli.core.network.model.PollOption
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.TimelineAccount
 import java.util.Date
@@ -49,14 +52,18 @@ fun fakeStatus(
     reblogged: Boolean = false,
     favourited: Boolean = true,
     bookmarked: Boolean = true,
+    content: String = "Test",
+    pollOptions: List<String>? = null,
+    attachmentsDescriptions: List<String>? = null,
+    makeFakeAccount: () -> TimelineAccount = ::fakeAccount,
 ) = Status(
     id = id,
     url = "https://mastodon.example/@ConnyDuck/$id",
-    account = fakeAccount(),
+    account = makeFakeAccount(),
     inReplyToId = inReplyToId,
     inReplyToAccountId = inReplyToAccountId,
     reblog = null,
-    content = "Test",
+    content = content,
     createdAt = fixedDate,
     editedAt = null,
     emojis = emptyList(),
@@ -69,13 +76,39 @@ fun fakeStatus(
     sensitive = true,
     spoilerText = spoilerText,
     visibility = Status.Visibility.PUBLIC,
-    attachments = ArrayList(),
+    attachments = attachmentsDescriptions?.let {
+        it.mapIndexed { index, description ->
+            Attachment(
+                id = index.toString(),
+                url = "",
+                previewUrl = "",
+                meta = null,
+                type = Attachment.Type.IMAGE,
+                description = description,
+                blurhash = null,
+            )
+        }
+    } ?: emptyList(),
     mentions = emptyList(),
     tags = emptyList(),
     application = Status.Application("Pachli", "https://pachli.app"),
     pinned = false,
     muted = false,
-    poll = null,
+    poll = pollOptions?.let {
+        Poll(
+            id = "1234",
+            expiresAt = null,
+            expired = false,
+            multiple = false,
+            votesCount = 0,
+            votersCount = 0,
+            options = it.map {
+                PollOption(it, 0)
+            },
+            voted = false,
+            ownVotes = null,
+        )
+    },
     card = null,
     language = null,
     filtered = null,
@@ -117,17 +150,18 @@ fun fakeStatusViewData(
 
 fun fakeStatusEntityWithAccount(
     id: String = "100",
-    userId: Long = 1,
+    pachliAccountId: Long = 1,
     expanded: Boolean = false,
+    makeFakeStatus: () -> Status = { fakeStatus(id) },
 ): TimelineStatusWithAccount {
-    val status = fakeStatus(id)
+    val status = makeFakeStatus()
 
     return TimelineStatusWithAccount(
-        status = status.asEntity(userId),
-        account = status.account.asEntity(userId),
+        status = status.asEntity(pachliAccountId),
+        account = status.account.asEntity(pachliAccountId),
         viewData = StatusViewDataEntity(
-            serverId = id,
-            pachliAccountId = userId,
+            serverId = status.id,
+            pachliAccountId = pachliAccountId,
             expanded = expanded,
             contentCollapsed = true,
             translationState = TranslationState.SHOW_ORIGINAL,
