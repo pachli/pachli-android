@@ -17,19 +17,19 @@
     <string name="item_copied">Tekst kopiert</string>
     <string name="action_copy_item">Kopier oppføring</string>
     <string name="title_mentions_dialog">Nemningar</string>
-    <string name="button_continue">Fortsett</string>
-    <string name="pref_notification_method_push">Skyv</string>
+    <string name="button_continue">Hald fram</string>
+    <string name="pref_notification_method_push">Skuv</string>
     <string name="pref_notification_method_pull">Hent</string>
     <string name="pref_notification_fetch_method_title">Varselmetode</string>
-    <string name="pref_notification_fetch_ok_timestamp_fmt">✔ For %1$s sidan, kl. %2$s</string>
-    <string name="pref_notification_fetch_err_timestamp_fmt">✖ For %1$s sidan, kl. %2$s</string>
+    <string name="pref_notification_fetch_ok_timestamp_fmt">✔ %1$s sidan, kl. %2$s</string>
+    <string name="pref_notification_fetch_err_timestamp_fmt">✖ %1$s sidan, kl. %2$s</string>
     <string name="pref_notification_fetch_server_rejected">%1$s nekta «push»-registrasjon</string>
     <string name="pref_notification_fetch_needs_push">Kontoen har ikkje «push»-løyve. Å logge ut og så inn igjen kan fikse dette.</string>
     <string name="action_logout_confirm">Er du sikker på at du vil logge ut frå kontoen %1$s? Alle opplysingar, utkast, og innstillingar som er lagra på eininga, vil gå permanent tapt.\n\nDette slettar ikkje kontoen din på tenaren.</string>
     <string name="add_account_name">Legg til konto</string>
     <string name="action_logout">Logg ut</string>
     <string name="title_logout_fmt">Logg ut %1$s</string>
-    <string name="notification_details_last_fetch_label">Siste førespurnad av /api/v1/notifications</string>
+    <string name="notification_details_last_fetch_label">Førre førespurnad av /api/v1/notifications</string>
     <string name="emoji_picker_show_detail">Syn detaljar</string>
     <string name="preview_card_byline_fediverse_account_fmt">Av &lt;b&gt;%1$s&lt;/b&gt;. Sjå fleire innlegg</string>
     <string name="preview_card_byline_name_only_fmt">Av &lt;b&gt;%1$s&lt;/b&gt;</string>
@@ -81,7 +81,7 @@
     <string name="description_visibility_unlisted">Ulista</string>
     <string name="description_visibility_private">Fylgjarar</string>
     <string name="description_visibility_direct">Direkte</string>
-    <string name="post_sensitive_media_title">Sensitivt innhald</string>
+    <string name="post_sensitive_media_title">Sensitivt innhald. Trykk for å syne.</string>
     <string name="post_media_images">Bilete</string>
     <string name="post_media_audio">Ljod</string>
     <string name="post_media_video">Video</string>
@@ -90,4 +90,16 @@
         <item quantity="one">med rolle:</item>
         <item quantity="other">med roller:</item>
     </plurals>
+    <string name="hint_search_emojis">Søk gjennom emojiar…</string>
+    <string name="label_emoji_no_category">Inkje kategori</string>
+    <string name="attachment_matches_filter_one_fmt">Samsvarar med filter «%1$s». Trykk for å syne.</string>
+    <string name="attachment_matches_filter_two_fmt">Samsvarar med filtera «%1$s» og «%2$s». Trykk for å syne.</string>
+    <string name="attachment_matches_filter_other_fmt">Samsvarar med filtera «%1$s», «%2$s» med fleire. Trykk for å syne.</string>
+    <string name="attachment_hidden_user_action">Du gøymde dette. Trykk for å syne.</string>
+    <string name="action_show_attachments">Syn vedlegg</string>
+    <string name="action_hide_attachments">Gøym vedlegg</string>
+    <string name="dot_in_name">dått</string>
+    <string name="role_content_description_fmt">%1$s på %2$s</string>
+    <string name="handle_contentdescription_fmt">Brukarnamn: @%1$s</string>
+    <string name="account_contentdescription_fmt">%1$s, %2$s: %3$s</string>
 </resources>
