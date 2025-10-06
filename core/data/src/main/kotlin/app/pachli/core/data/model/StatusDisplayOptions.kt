@@ -19,10 +19,18 @@ package app.pachli.core.data.model
 
 import app.pachli.core.preferences.CardViewMode
 
+/**
+ * @property mediaPreviewEnabled See [app.pachli.core.database.model.AccountEntity.mediaPreviewEnabled].
+ * @property showStatsInline If true, statuses in timelines show the counts
+ * of replies, reblogs, and favourites.
+ *
+ * If false, the counts of reblogs and favourites are hidden, and the
+ *  count of replies is set to either "0", "1", or "1+" so the user can
+ *  tell if there are replies if they click through.
+ */
 data class StatusDisplayOptions(
     @get:JvmName("animateAvatars")
     val animateAvatars: Boolean = false,
-    /** See [app.pachli.core.database.model.AccountEntity.mediaPreviewEnabled]. */
     @get:JvmName("mediaPreviewEnabled")
     val mediaPreviewEnabled: Boolean = true,
     @get:JvmName("useAbsoluteTime")
