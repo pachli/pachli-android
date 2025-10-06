@@ -70,6 +70,7 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.z4kn4fein.semver.constraints.toConstraint
+import java.util.Collections
 import java.util.Date
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -346,6 +347,24 @@ class ComposeViewModel @AssistedInject constructor(
         mediaUploader.cancelUploadScope(item.localId)
         _media.update { mediaList -> mediaList.filter { it.localId != item.localId } }
         updateCloseConfirmation()
+    }
+
+    /**
+     * Swaps the position of [first] and [second] in [_media].
+     *
+     * @param first Index of the first item to swap.
+     * @param second Index of the second item to swap.
+     */
+    fun swapAttachmentOrder(first: Int, second: Int) {
+        _media.update { mediaList ->
+            val newList = mediaList.toMutableList()
+            try {
+                Collections.swap(newList, first, second)
+            } catch (_: IndexOutOfBoundsException) {
+                /* do nothing, original list will be returned */
+            }
+            newList
+        }
     }
 
     fun toggleMarkSensitive() {

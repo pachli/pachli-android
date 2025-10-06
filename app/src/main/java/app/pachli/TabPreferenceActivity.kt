@@ -53,16 +53,19 @@ import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.ListsActivityIntent
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.ui.appbar.FadeChildScrollEffect
+import app.pachli.core.ui.clearDragAnimator
 import app.pachli.core.ui.extensions.InsetType
 import app.pachli.core.ui.extensions.addScrollEffect
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.core.ui.extensions.applyWindowInsets
+import app.pachli.core.ui.startDragAnimator
 import app.pachli.databinding.ActivityTabPreferenceBinding
 import app.pachli.databinding.DialogSelectListBinding
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import com.google.android.material.transition.MaterialArcMotion
 import com.google.android.material.transition.MaterialContainerTransform
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Collections
 import java.util.regex.Pattern
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
@@ -90,8 +93,6 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
     private lateinit var currentTabsAdapter: TabAdapter
     private lateinit var touchHelper: ItemTouchHelper
     private lateinit var addTabAdapter: TabAdapter
-
-    private val selectedItemElevation by unsafeLazy { resources.getDimension(DR.dimen.selected_drag_item_elevation) }
 
     private val hashtagRegex by unsafeLazy { Pattern.compile("([\\w_]*[\\p{Alpha}_][\\w_]*)", Pattern.CASE_INSENSITIVE) }
 
@@ -135,6 +136,8 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
 
         touchHelper = ItemTouchHelper(
             object : ItemTouchHelper.Callback() {
+                private val selectedItemElevation by unsafeLazy { resources.getDimension(DR.dimen.selected_drag_item_elevation) }
+
                 override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
                     return makeMovementFlags(ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.END)
                 }
@@ -145,10 +148,11 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
                 }
 
                 override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
-                    val temp = currentTabs[viewHolder.bindingAdapterPosition]
-                    currentTabs[viewHolder.bindingAdapterPosition] = currentTabs[target.bindingAdapterPosition]
-                    currentTabs[target.bindingAdapterPosition] = temp
-
+                    try {
+                        Collections.swap(currentTabs, viewHolder.bindingAdapterPosition, target.bindingAdapterPosition)
+                    } catch (_: IndexOutOfBoundsException) {
+                        return false
+                    }
                     currentTabsAdapter.notifyItemMoved(viewHolder.bindingAdapterPosition, target.bindingAdapterPosition)
                     saveTabs()
                     return true
@@ -159,14 +163,17 @@ class TabPreferenceActivity : BaseActivity(), ItemInteractionListener {
                 }
 
                 override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
-                    if (actionState == ItemTouchHelper.ACTION_STATE_DRAG) {
-                        viewHolder?.itemView?.elevation = selectedItemElevation
-                    }
+                    super.onSelectedChanged(viewHolder, actionState)
+
+                    if (actionState != ItemTouchHelper.ACTION_STATE_DRAG) return
+                    val view = viewHolder?.itemView ?: return
+
+                    startDragAnimator(view, dragElevation = selectedItemElevation).start()
                 }
 
                 override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
                     super.clearView(recyclerView, viewHolder)
-                    viewHolder.itemView.elevation = 0f
+                    clearDragAnimator(viewHolder.itemView).start()
                 }
             },
         )
