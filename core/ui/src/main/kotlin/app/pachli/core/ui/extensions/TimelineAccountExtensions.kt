@@ -20,7 +20,6 @@ package app.pachli.core.ui.extensions
 import android.content.Context
 import app.pachli.core.model.TimelineAccount
 import app.pachli.core.ui.R
-import timber.log.Timber
 
 /**
  * Returns a content description for this account.
@@ -92,10 +91,7 @@ fun TimelineAccount.handleContentDescription(context: Context) = handleContentDe
 internal fun handleContentDescription(context: Context, handle: String): String {
     // Create a pronounceable version of the handle by replacing problematic TLDs.
     val correctedHandle = rxTalkbackTlds.replace(handle) { m ->
-        m.groupValues.getOrNull(1)?.let {
-            Timber.w("Matched: $it, ${m.groupValues}")
-            talkbackTlds[it] as CharSequence
-        } ?: ""
+        m.groupValues.getOrNull(1)?.let { talkbackTlds[it] as CharSequence } ?: ""
     }
 
     return context.getString(R.string.handle_contentdescription_fmt, correctedHandle)
