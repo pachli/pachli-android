@@ -152,7 +152,7 @@
     <string name="action_suggestions">Føreslegne kontoar</string>
     <string name="action_translate">Omset</string>
     <string name="action_translate_undo">Angre omsetjing</string>
-    <string name="action_open_media_n">Opne vedlegg %%d</string>
+    <string name="action_open_media_n">Opne vedlegg %1$d</string>
     <string name="error_compose_character_limit">Innlegget er for langt!</string>
     <string name="error_image_edit_failed">Biletet kunne ikkje brigdast.</string>
     <string name="error_media_upload_permission">Pachli treng løyve for å lesa media.</string>
