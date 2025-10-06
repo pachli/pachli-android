@@ -72,13 +72,13 @@ data class Status(
         /** Visible to everyone, shown in public timelines. */
         PUBLIC,
 
-        /* Visible to public, but not included in public timelines. */
+        /** Visible to public, but not included in public timelines. */
         UNLISTED,
 
-        /* Visible to followers only, and to any mentioned users. */
+        /** Visible to followers only, and to any mentioned users. */
         PRIVATE,
 
-        /* Visible only to mentioned users. */
+        /** Visible only to mentioned users. */
         DIRECT,
         ;
 
@@ -91,6 +91,19 @@ data class Status(
                 UNKNOWN -> "unknown"
             }
         }
+
+        /**
+         * @return True if statuses with this visibility can be reblogged, otherwise
+         * false.
+         */
+        val allowsReblog: Boolean
+            get() = when (this) {
+                UNKNOWN -> false
+                PUBLIC -> true
+                UNLISTED -> true
+                PRIVATE -> false
+                DIRECT -> false
+            }
 
         companion object {
             @JvmStatic
@@ -110,9 +123,14 @@ data class Status(
         }
     }
 
-    fun rebloggingAllowed(): Boolean {
-        return (visibility != Visibility.DIRECT && visibility != Visibility.UNKNOWN)
-    }
+    /**
+     * @return True if this status can be reblogged based on the visibility.
+     * Only statuses with [Visibility.PUBLIC] or [Visibility.UNLISTED] can be
+     * reblogged.
+     *
+     * @see [Status.Visibility.allowsReblog]
+     */
+    fun rebloggingAllowed() = visibility.allowsReblog
 
     fun isPinned(): Boolean {
         return pinned ?: false
