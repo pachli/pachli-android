@@ -33,6 +33,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import app.pachli.BuildConfig
 import app.pachli.R
+import app.pachli.components.conversation.ConversationViewData
 import app.pachli.core.activity.BaseActivity
 import app.pachli.core.activity.OpenUrlUseCase
 import app.pachli.core.activity.ViewUrlActivity
@@ -222,7 +223,11 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
 
         menu.findItem(R.id.status_mute_conversation)?.isVisible = status.muted == false && (statusIsByCurrentUser || accountIsInMentions(activeAccount, status.mentions))
         menu.findItem(R.id.status_unmute_conversation)?.isVisible = status.muted == true && (statusIsByCurrentUser || accountIsInMentions(activeAccount, status.mentions))
-        menu.findItem(R.id.conversation_delete)?.isVisible = status.visibility == Status.Visibility.DIRECT
+
+        // Can't rely on the visibility here, as statuses with Visibility.DIRECT can appear in
+        // the home timeline, threads, notifications, etc, and none of those places can delete
+        // conversations.
+        menu.findItem(R.id.conversation_delete).isVisible = viewData is ConversationViewData
 
         popup.setOnMenuItemClickListener { item: MenuItem ->
             when (item.itemId) {
