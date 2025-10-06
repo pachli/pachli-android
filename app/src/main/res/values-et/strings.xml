@@ -761,4 +761,6 @@
     <string name="error_prepare_media_io_fmt">%1$s</string>
     <string name="filter_action_blur">Peida manused</string>
     <string name="filter_description_blur">Näita sisu, peida manused hoiatuse taha</string>
+    <string name="action_move_up">Liiguta ülespoole</string>
+    <string name="action_move_down">Liiguta allapoole</string>
 </resources>
