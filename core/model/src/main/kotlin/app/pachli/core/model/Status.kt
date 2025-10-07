@@ -98,11 +98,8 @@ data class Status(
          */
         val allowsReblog: Boolean
             get() = when (this) {
-                UNKNOWN -> false
-                PUBLIC -> true
-                UNLISTED -> true
-                PRIVATE -> false
-                DIRECT -> false
+                PUBLIC, UNLISTED -> true
+                PRIVATE, DIRECT, UNKNOWN -> false
             }
 
         companion object {

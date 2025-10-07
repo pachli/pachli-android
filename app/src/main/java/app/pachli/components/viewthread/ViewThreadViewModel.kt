@@ -335,7 +335,11 @@ class ViewThreadViewModel @Inject constructor(
         updateStatus(status.id) {
             it.copy(
                 reblogged = reblog,
-                reblog = it.reblog?.copy(reblogged = reblog),
+                reblogsCount = it.reblogsCount + if (reblog) 1 else -1,
+                reblog = it.reblog?.copy(
+                    reblogged = reblog,
+                    reblogsCount = it.reblogsCount + if (reblog) 1 else -1,
+                ),
             )
         }
         repository.reblog(status.pachliAccountId, status.actionableId, reblog).onFailure {
@@ -348,7 +352,7 @@ class ViewThreadViewModel @Inject constructor(
         updateStatus(status.id) {
             it.copy(
                 favourited = favorite,
-                favouritesCount = it.favouritesCount + 1,
+                favouritesCount = it.favouritesCount + if (favorite) 1 else -1,
             )
         }
         repository.favourite(status.pachliAccountId, status.actionableId, favorite).onFailure {

@@ -29,16 +29,23 @@ import app.pachli.components.timeline.viewmodel.NetworkTimelinePagingSource
 import app.pachli.components.timeline.viewmodel.NetworkTimelineRemoteMediator
 import app.pachli.components.timeline.viewmodel.PageCache
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
+import app.pachli.core.data.repository.StatusActionError
 import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.di.InvalidationTracker
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
 import app.pachli.core.database.model.TimelineStatusWithAccount
+import app.pachli.core.database.model.TranslationState
 import app.pachli.core.database.model.asEntity
+import app.pachli.core.model.AttachmentDisplayAction
+import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.ui.getDomain
+import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import javax.inject.Inject
 import kotlin.coroutines.coroutineContext
 import kotlinx.coroutines.CoroutineScope
@@ -86,7 +93,7 @@ class NetworkTimelineRepository @Inject constructor(
     private val mastodonApi: MastodonApi,
     private val remoteKeyDao: RemoteKeyDao,
     private val statusRepository: OfflineFirstStatusRepository,
-) : TimelineRepository<TimelineStatusWithAccount>, StatusRepository by statusRepository {
+) : TimelineRepository<TimelineStatusWithAccount>, StatusRepository {
     private val pageCache = PageCache()
 
     private var factory: InvalidatingPagingSourceFactory<String, Status>? = null
@@ -223,4 +230,78 @@ class NetworkTimelineRepository @Inject constructor(
         pageCache.withLock { pageCache.updateActionableStatusById(statusId, updater) }
         invalidate()
     }
+
+    override suspend fun bookmark(pachliAccountId: Long, statusId: String, bookmarked: Boolean): Result<Status, StatusActionError.Bookmark> {
+        updateActionableStatusById(statusId) { it.copy(bookmarked = bookmarked) }
+
+        return statusRepository.bookmark(pachliAccountId, statusId, bookmarked)
+            .onSuccess { updateActionableStatusById(statusId) { it } }
+            .onFailure { updateActionableStatusById(statusId) { it.copy(bookmarked = !bookmarked) } }
+    }
+
+    override suspend fun favourite(pachliAccountId: Long, statusId: String, favourited: Boolean): Result<Status, StatusActionError.Favourite> {
+        updateActionableStatusById(statusId) {
+            it.copy(
+                favourited = favourited,
+                favouritesCount = it.favouritesCount + if (favourited) 1 else -1,
+            )
+        }
+
+        return statusRepository.favourite(pachliAccountId, statusId, favourited)
+            .onSuccess { updateActionableStatusById(statusId) { it } }
+            .onFailure {
+                updateActionableStatusById(statusId) {
+                    it.copy(
+                        favourited = !favourited,
+                        favouritesCount = it.favouritesCount - if (favourited) 1 else -1,
+                    )
+                }
+            }
+    }
+
+    override suspend fun reblog(pachliAccountId: Long, statusId: String, reblogged: Boolean): Result<Status, StatusActionError.Reblog> {
+        updateActionableStatusById(statusId) {
+            it.copy(
+                reblogged = reblogged,
+                reblogsCount = it.reblogsCount + if (reblogged) 1 else -1,
+            )
+        }
+
+        return statusRepository.reblog(pachliAccountId, statusId, reblogged)
+            .onSuccess { updateActionableStatusById(statusId) { it } }
+            .onFailure {
+                updateActionableStatusById(statusId) {
+                    it.copy(
+                        reblogged = !reblogged,
+                        reblogsCount = it.reblogsCount - if (reblogged) 1 else -1,
+                    )
+                }
+            }
+    }
+
+    override suspend fun mute(pachliAccountId: Long, statusId: String, muted: Boolean): Result<Status, StatusActionError.Mute> {
+        return statusRepository.mute(pachliAccountId, statusId, muted).onSuccess {
+            updateActionableStatusById(statusId) { it }
+        }
+    }
+
+    override suspend fun pin(pachliAccountId: Long, statusId: String, pinned: Boolean): Result<Status, StatusActionError.Pin> {
+        return statusRepository.pin(pachliAccountId, statusId, pinned).onSuccess {
+            updateActionableStatusById(statusId) { it }
+        }
+    }
+
+    override suspend fun voteInPoll(pachliAccountId: Long, statusId: String, pollId: String, choices: List<Int>): Result<Poll, StatusActionError.VoteInPoll> = statusRepository.voteInPoll(pachliAccountId, statusId, pollId, choices)
+
+    override suspend fun setExpanded(pachliAccountId: Long, statusId: String, expanded: Boolean) = statusRepository.setExpanded(pachliAccountId, statusId, expanded)
+
+    override suspend fun setAttachmentDisplayAction(pachliAccountId: Long, statusId: String, attachmentDisplayAction: AttachmentDisplayAction) = statusRepository.setAttachmentDisplayAction(pachliAccountId, statusId, attachmentDisplayAction)
+
+    override suspend fun setContentCollapsed(pachliAccountId: Long, statusId: String, contentCollapsed: Boolean) = statusRepository.setContentCollapsed(pachliAccountId, statusId, contentCollapsed)
+
+    override suspend fun setTranslationState(pachliAccountId: Long, statusId: String, translationState: TranslationState) = statusRepository.setTranslationState(pachliAccountId, statusId, translationState)
+
+    override suspend fun getStatusViewData(pachliAccountId: Long, statusId: String) = statusRepository.getStatusViewData(pachliAccountId, statusId)
+
+    override suspend fun getTranslation(pachliAccountId: Long, statusId: String) = statusRepository.getTranslation(pachliAccountId, statusId)
 }

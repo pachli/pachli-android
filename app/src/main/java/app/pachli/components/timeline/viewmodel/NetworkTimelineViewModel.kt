@@ -174,53 +174,23 @@ open class NetworkTimelineViewModel @AssistedInject constructor(
         }
     }
 
-    override suspend fun onBookmark(action: FallibleStatusAction.Bookmark): Result<Status, StatusActionError.Bookmark> {
-        repository.updateActionableStatusById(action.statusViewData.actionableId) {
-            it.copy(bookmarked = action.state)
-        }
+    override suspend fun onBookmark(action: FallibleStatusAction.Bookmark): Result<Status, StatusActionError.Bookmark> = repository.bookmark(
+        action.statusViewData.pachliAccountId,
+        action.statusViewData.actionableId,
+        action.state,
+    )
 
-        return repository.bookmark(
-            action.statusViewData.pachliAccountId,
-            action.statusViewData.actionableId,
-            action.state,
-        ).onFailure {
-            repository.updateActionableStatusById(action.statusViewData.actionableId) {
-                it.copy(bookmarked = !action.state)
-            }
-        }
-    }
+    override suspend fun onFavourite(action: FallibleStatusAction.Favourite): Result<Status, StatusActionError.Favourite> = repository.favourite(
+        action.statusViewData.pachliAccountId,
+        action.statusViewData.actionableId,
+        action.state,
+    )
 
-    override suspend fun onFavourite(action: FallibleStatusAction.Favourite): Result<Status, StatusActionError.Favourite> {
-        repository.updateActionableStatusById(action.statusViewData.actionableId) {
-            it.copy(favourited = action.state)
-        }
-
-        return repository.favourite(
-            action.statusViewData.pachliAccountId,
-            action.statusViewData.actionableId,
-            action.state,
-        ).onFailure {
-            repository.updateActionableStatusById(action.statusViewData.actionableId) {
-                it.copy(favourited = !action.state)
-            }
-        }
-    }
-
-    override suspend fun onReblog(action: FallibleStatusAction.Reblog): Result<Status, StatusActionError.Reblog> {
-        repository.updateActionableStatusById(action.statusViewData.actionableId) {
-            it.copy(reblogged = action.state)
-        }
-
-        return repository.reblog(
-            action.statusViewData.pachliAccountId,
-            action.statusViewData.actionableId,
-            action.state,
-        ).onFailure {
-            repository.updateActionableStatusById(action.statusViewData.actionableId) {
-                it.copy(reblogged = !action.state)
-            }
-        }
-    }
+    override suspend fun onReblog(action: FallibleStatusAction.Reblog): Result<Status, StatusActionError.Reblog> = repository.reblog(
+        action.statusViewData.pachliAccountId,
+        action.statusViewData.actionableId,
+        action.state,
+    )
 
     override suspend fun onVoteInPoll(action: FallibleStatusAction.VoteInPoll): Result<Poll, StatusActionError.VoteInPoll> {
         repository.updateActionableStatusById(action.statusViewData.actionableId) {
