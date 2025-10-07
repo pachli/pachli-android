@@ -23,7 +23,6 @@ import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.database.AppDatabase
 import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TranslatedStatusDao
-import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.PinEvent
 import app.pachli.core.network.extensions.getServerErrorMessage
@@ -85,9 +84,6 @@ class StatusRepositoryTest {
 
     @Inject
     lateinit var nodeInfoApi: NodeInfoApi
-
-    @Inject
-    lateinit var transactionProvider: TransactionProvider
 
     @Inject
     lateinit var statusDao: StatusDao
@@ -177,7 +173,6 @@ class StatusRepositoryTest {
         statusRepository = OfflineFirstStatusRepository(
             externalScope,
             mastodonApi,
-            transactionProvider,
             statusDao,
             translatedStatusDao,
             eventHub,

@@ -18,9 +18,9 @@
 package app.pachli.core.data.repository
 
 import app.pachli.core.common.di.ApplicationScope
+import app.pachli.core.data.repository.notifications.asEntity
 import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TranslatedStatusDao
-import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.StatusViewDataAttachmentDisplayAction
 import app.pachli.core.database.model.StatusViewDataContentCollapsed
 import app.pachli.core.database.model.StatusViewDataExpanded
@@ -66,7 +66,6 @@ import kotlinx.coroutines.async
 class OfflineFirstStatusRepository @Inject constructor(
     @ApplicationScope private val externalScope: CoroutineScope,
     private val mastodonApi: MastodonApi,
-    private val transactionProvider: TransactionProvider,
     private val statusDao: StatusDao,
     private val translatedStatusDao: TranslatedStatusDao,
     private val eventHub: EventHub,
@@ -76,17 +75,18 @@ class OfflineFirstStatusRepository @Inject constructor(
         statusId: String,
         bookmarked: Boolean,
     ): Result<Status, StatusActionError.Bookmark> = externalScope.async {
-        transactionProvider {
-            statusDao.setBookmarked(pachliAccountId, statusId, bookmarked)
-            if (bookmarked) {
-                mastodonApi.bookmarkStatus(statusId)
-            } else {
-                mastodonApi.unbookmarkStatus(statusId)
-            }
-                .onSuccess { eventHub.dispatch(BookmarkEvent(statusId, bookmarked)) }
-                .onFailure { statusDao.setBookmarked(pachliAccountId, statusId, !bookmarked) }
-                .mapEither({ it.body.asModel() }, { StatusActionError.Bookmark(it) })
+        statusDao.setBookmarked(pachliAccountId, statusId, bookmarked)
+        if (bookmarked) {
+            mastodonApi.bookmarkStatus(statusId)
+        } else {
+            mastodonApi.unbookmarkStatus(statusId)
         }
+            .onSuccess {
+                statusDao.updateStatus(it.body.asEntity(pachliAccountId))
+                eventHub.dispatch(BookmarkEvent(statusId, bookmarked))
+            }
+            .onFailure { statusDao.setBookmarked(pachliAccountId, statusId, !bookmarked) }
+            .mapEither({ it.body.asModel() }, { StatusActionError.Bookmark(it) })
     }.await()
 
     override suspend fun favourite(
@@ -94,17 +94,18 @@ class OfflineFirstStatusRepository @Inject constructor(
         statusId: String,
         favourited: Boolean,
     ): Result<Status, StatusActionError.Favourite> = externalScope.async {
-        transactionProvider {
-            statusDao.setFavourited(pachliAccountId, statusId, favourited)
-            if (favourited) {
-                mastodonApi.favouriteStatus(statusId)
-            } else {
-                mastodonApi.unfavouriteStatus(statusId)
-            }
-                .onSuccess { eventHub.dispatch(FavoriteEvent(statusId, favourited)) }
-                .onFailure { statusDao.setFavourited(pachliAccountId, statusId, !favourited) }
-                .mapEither({ it.body.asModel() }, { StatusActionError.Favourite(it) })
+        statusDao.setFavourited(pachliAccountId, statusId, favourited)
+        if (favourited) {
+            mastodonApi.favouriteStatus(statusId)
+        } else {
+            mastodonApi.unfavouriteStatus(statusId)
         }
+            .onSuccess {
+                statusDao.updateStatus(it.body.asEntity(pachliAccountId))
+                eventHub.dispatch(FavoriteEvent(statusId, favourited))
+            }
+            .onFailure { statusDao.setFavourited(pachliAccountId, statusId, !favourited) }
+            .mapEither({ it.body.asModel() }, { StatusActionError.Favourite(it) })
     }.await()
 
     override suspend fun reblog(
@@ -112,17 +113,18 @@ class OfflineFirstStatusRepository @Inject constructor(
         statusId: String,
         reblogged: Boolean,
     ): Result<Status, StatusActionError.Reblog> = externalScope.async {
-        transactionProvider {
-            statusDao.setReblogged(pachliAccountId, statusId, reblogged)
-            if (reblogged) {
-                mastodonApi.reblogStatus(statusId)
-            } else {
-                mastodonApi.unreblogStatus(statusId)
-            }
-                .onSuccess { eventHub.dispatch(ReblogEvent(statusId, reblogged)) }
-                .onFailure { statusDao.setReblogged(pachliAccountId, statusId, !reblogged) }
-                .mapEither({ it.body.asModel() }, { StatusActionError.Reblog(it) })
+        statusDao.setReblogged(pachliAccountId, statusId, reblogged)
+        if (reblogged) {
+            mastodonApi.reblogStatus(statusId)
+        } else {
+            mastodonApi.unreblogStatus(statusId)
         }
+            .onSuccess {
+                statusDao.updateStatus(it.body.asEntity(pachliAccountId))
+                eventHub.dispatch(ReblogEvent(statusId, reblogged))
+            }
+            .onFailure { statusDao.setReblogged(pachliAccountId, statusId, !reblogged) }
+            .mapEither({ it.body.asModel() }, { StatusActionError.Reblog(it) })
     }.await()
 
     override suspend fun mute(
@@ -136,7 +138,10 @@ class OfflineFirstStatusRepository @Inject constructor(
         } else {
             mastodonApi.unmuteConversation(statusId)
         }
-            .onSuccess { eventHub.dispatch(MuteConversationEvent(pachliAccountId, statusId, muted)) }
+            .onSuccess {
+                statusDao.updateStatus(it.body.asEntity(pachliAccountId))
+                eventHub.dispatch(MuteConversationEvent(pachliAccountId, statusId, muted))
+            }
             .onFailure { statusDao.setMuted(pachliAccountId, statusId, !muted) }
             .mapEither({ it.body.asModel() }, { StatusActionError.Mute(it) })
     }.await()
@@ -152,7 +157,10 @@ class OfflineFirstStatusRepository @Inject constructor(
         } else {
             mastodonApi.unpinStatus(statusId)
         }
-            .onSuccess { eventHub.dispatch(PinEvent(statusId, pinned)) }
+            .onSuccess {
+                statusDao.updateStatus(it.body.asEntity(pachliAccountId))
+                eventHub.dispatch(PinEvent(statusId, pinned))
+            }
             .onFailure { statusDao.setPinned(pachliAccountId, statusId, !pinned) }
             .mapEither({ it.body.asModel() }, { StatusActionError.Pin(it) })
     }.await()
@@ -163,21 +171,21 @@ class OfflineFirstStatusRepository @Inject constructor(
         pollId: String,
         choices: List<Int>,
     ): Result<Poll, StatusActionError.VoteInPoll> = externalScope.async {
-        transactionProvider {
-            val poll = statusDao.getStatus(pachliAccountId, statusId)?.poll
-            poll?.let {
-                statusDao.setPoll(pachliAccountId, statusId, poll.votedCopy(choices))
-            }
-
-            mastodonApi.voteInPoll(pollId, choices)
-                .map { it.body.asModel() }
-                .onSuccess { poll ->
-                    statusDao.setPoll(pachliAccountId, statusId, poll)
-                    eventHub.dispatch(PollVoteEvent(statusId, poll))
-                }
-                .onFailure { poll?.let { statusDao.setPoll(pachliAccountId, statusId, it) } }
-                .mapError { StatusActionError.VoteInPoll(it) }
+        val originalPoll = statusDao.getStatus(pachliAccountId, statusId)?.poll
+        originalPoll?.let {
+            statusDao.setPoll(pachliAccountId, statusId, originalPoll.votedCopy(choices))
         }
+
+        mastodonApi.voteInPoll(pollId, choices)
+            .map { it.body.asModel() }
+            .onSuccess { poll ->
+                if (originalPoll != null) {
+                    statusDao.setPoll(pachliAccountId, statusId, poll)
+                }
+                eventHub.dispatch(PollVoteEvent(statusId, poll))
+            }
+            .onFailure { originalPoll?.let { statusDao.setPoll(pachliAccountId, statusId, it) } }
+            .mapError { StatusActionError.VoteInPoll(it) }
     }.await()
 
     override suspend fun setExpanded(pachliAccountId: Long, statusId: String, expanded: Boolean) {

@@ -21,6 +21,7 @@ import androidx.room.Dao
 import androidx.room.MapColumn
 import androidx.room.Query
 import androidx.room.TypeConverters
+import androidx.room.Update
 import androidx.room.Upsert
 import app.pachli.core.database.Converters
 import app.pachli.core.database.model.StatusEntity
@@ -44,6 +45,10 @@ abstract class StatusDao {
     @Upsert
     abstract suspend fun insertStatus(statusEntity: StatusEntity): Long
 
+    /** Update an existing status, does nothing if [statusEntity] does not exist. */
+    @Update
+    abstract suspend fun updateStatus(statusEntity: StatusEntity)
+
     @Query(
         """
 SELECT *
@@ -57,7 +62,8 @@ WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId)
         """
 UPDATE StatusEntity
 SET
-    favourited = :favourited
+    favourited = :favourited,
+    favouritesCount = favouritesCount + IIF(:favourited, 1, -1)
 WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServerId = :statusId)
 """,
     )
@@ -77,7 +83,8 @@ WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServe
         """
 UPDATE StatusEntity
 SET
-    reblogged = :reblogged
+    reblogged = :reblogged,
+    reblogsCount = reblogsCount + IIF(:reblogged, 1, -1)
 WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServerId = :statusId)
 """,
     )
