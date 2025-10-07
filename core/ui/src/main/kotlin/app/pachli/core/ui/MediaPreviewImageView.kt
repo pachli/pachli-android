@@ -37,8 +37,7 @@ import com.bumptech.glide.request.target.Target
  * However if there is no focal point set (e.g. it is null), then this view should simply
  * act exactly the same as an ordinary android ImageView.
  */
-open class MediaPreviewImageView
-@JvmOverloads constructor(
+open class MediaPreviewImageView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
@@ -56,6 +55,7 @@ open class MediaPreviewImageView
         if (focalMatrix == null) {
             focalMatrix = Matrix()
         }
+        recalculateMatrix(width, height, drawable)
     }
 
     /**
