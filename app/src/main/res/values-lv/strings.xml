@@ -771,4 +771,6 @@
     <string name="translator_error_download_required_fmt">tulkošanai uz %1$s nepieciešama valodas pakas lejupielādēšana, un nav savienojuma ar Wi-Fi</string>
     <string name="filter_action_blur">Paslēpt pielikumus</string>
     <string name="filter_description_blur">Rādīt saturu, paslēpt pielikumus ar brīdinājumu</string>
+    <string name="action_move_up">Pārvietot uz augšu</string>
+    <string name="action_move_down">Pārvietot uz leju</string>
 </resources>
