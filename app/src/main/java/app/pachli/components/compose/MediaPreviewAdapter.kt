@@ -315,6 +315,28 @@ class AttachmentViewHolder(
             }
             return@setOnTouchListener false
         }
+
+        // Default Talkback behaviour reads out the media preview as a button with
+        // options available. Enhance the experience by listing the options.
+        ViewCompat.setAccessibilityDelegate(
+            binding.media,
+            object : AccessibilityDelegateCompat() {
+                override fun onInitializeAccessibilityNodeInfo(host: View, info: AccessibilityNodeInfoCompat) {
+                    super.onInitializeAccessibilityNodeInfo(host, info)
+
+                    val options = MediaAction.from(bindingAdapter?.itemCount ?: 0, bindingAdapterPosition, item).map {
+                        context.getString(it.resourceId)
+                    }
+
+                    info.addAction(
+                        AccessibilityActionCompat(
+                            AccessibilityNodeInfoCompat.ACTION_CLICK,
+                            options.joinToString(", "),
+                        ),
+                    )
+                }
+            },
+        )
     }
 
     fun bind(item: QueuedMedia, payloads: List<Any?>? = null) {
@@ -369,28 +391,6 @@ class AttachmentViewHolder(
         if (item.focus != null) request = request.addListener(this)
 
         request.into(this)
-
-        // Default Talkback behaviour reads out that this is a button with
-        // options available. Enhance the experience by listing the options.
-        ViewCompat.setAccessibilityDelegate(
-            this,
-            object : AccessibilityDelegateCompat() {
-                override fun onInitializeAccessibilityNodeInfo(host: View, info: AccessibilityNodeInfoCompat) {
-                    super.onInitializeAccessibilityNodeInfo(host, info)
-
-                    val options = MediaAction.from(bindingAdapter?.itemCount ?: 0, bindingAdapterPosition, item).map {
-                        context.getString(it.resourceId)
-                    }
-
-                    info.addAction(
-                        AccessibilityActionCompat(
-                            AccessibilityNodeInfoCompat.ACTION_CLICK,
-                            options.joinToString(", "),
-                        ),
-                    )
-                }
-            },
-        )
     }
 
     /**
