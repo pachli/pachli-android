@@ -2,6 +2,7 @@
 <resources>
     <string name="action_open_as">Avaa tilinä %s</string>
     <string name="performing_lookup_title">Etsitään…</string>
-    <string name="post_lookup_error_format">Julkaisun %s haku epäonnistui</string>
+    <string name="post_lookup_error_format">%s haku epäonnistui</string>
     <string name="send_error_report">Lähetä virheraportti</string>
+    <string name="action_open_as_ellipsis">Avaa nimellä…</string>
 </resources>
