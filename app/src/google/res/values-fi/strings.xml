@@ -16,4 +16,8 @@
     <string name="pref_translation_manage_languages">Hallinnoi kielipaketteja</string>
     <string name="pref_translation_require_wifi">Vadi Wi-Fi-yhteys kielipakettien lataamiseksi</string>
     <string name="content_description_available_fmt">%1$s, ladattavissa</string>
+    <string name="content_description_loaded_fmt">%1$s, ladattu</string>
+    <string name="content_description_loading_fmt">%1$s, ladataan</string>
+    <string name="action_download_remote_model_fmt">Lataa %1$s</string>
+    <string name="action_delete_remote_model_fmt">Poista %1$s</string>
 </resources>
