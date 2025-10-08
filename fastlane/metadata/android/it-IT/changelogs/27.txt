@@ -1,0 +1,20 @@
+Pachli 2.10.0
+
+Nuove funzionalità:
+
+- Aggiungi Atkinson Hyperlegible Next font
+- Conversazione dei contenuti e dei filtri account
+- Mostrare il post essere risposto a
+
+Fissi:
+
+- Fissare il menu "Refresh" duplicato
+- Evidenzia i tag durante la visualizzazione delle modifiche post
+- Prevenire blocchi assortiti
+- Rimuovere "dummy.placeholder" dagli errori
+- Ordina liste per titolo
+- Fissare l'incidente con lo slider formato UI
+
+Traduzione:
+
+- Burmese, tedesco, indonesiano, irlandese, Kabyle, lituano, norvegese Nynorsk, polacco, slovacco, spagnolo, svedese, tamil
