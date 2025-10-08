@@ -10,4 +10,8 @@
     <string name="error_login_failed_hint">Napauta tiliä yrittääksesi uudelleen.</string>
     <string name="title_error_dialog">Kirjautuminen epäonnistui</string>
     <string name="title_choose_account_dialog">Valitse tili</string>
+    <string name="error_mime_type_fmt">Pachli avattiin tyyppiä \"%1$s\" olevan sisällön jakamiseksi, mutta Pachli ei tue tätä tyyppiä.</string>
+    <string name="title_error_mime_type">Tuntematon tyyppi</string>
+    <string name="action_choose_another_account">Valitse toinen tili</string>
+    <string name="error_refresh_account_fmt">Joidenkin tilin tietojen haku epäonnistui:\n\n%1$s\n\nNapauta \"%2$s\" jatkaaksesi, mutta osa tiedoista voi olla väärin (esim. suodattimet ja listat).\n\nNapauta \"%3$s\" yrittääksesi uudelleen.\n\nNapauta \"%4$s\" valitaksesi toisen tilin.</string>
 </resources>
