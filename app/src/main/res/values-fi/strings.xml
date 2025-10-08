@@ -167,7 +167,7 @@
     <string name="action_quick_reply">Vastaa nopeasti</string>
     <string name="action_hide_reblogs">Piilota jaetut julkaisut</string>
     <string name="footer_empty">Täällä ei ole mitään. Vedä alas päivittääksesi!</string>
-    <string name="action_open_media_n">Avaa media No. %d</string>
+    <string name="action_open_media_n">Avaa liite numero %d</string>
     <string name="error_sender_account_gone">Julkaisun lähettäminen epäonnistui.</string>
     <string name="error_empty">Tätä ei voi jättää tyhjäksi.</string>
     <string name="title_announcements">Tiedotukset</string>
@@ -766,4 +766,8 @@
     <string name="translator_error_unsupported_source_language_fmt">kielestä %1$s ei voida kääntää</string>
     <string name="translator_error_unsupported_target_language_fmt">kielelle %1$s ei voida kääntää</string>
     <string name="translator_error_download_required_fmt">kielelle %1$s kääntäminen vaatii kielipaketin lataamista, Wi-Fi-yhteys puuttuu</string>
+    <string name="action_move_up">Siirrä ylös</string>
+    <string name="action_move_down">Siirrä alas</string>
+    <string name="filter_action_blur">Piilota liitteet</string>
+    <string name="filter_description_blur">Näytä sisältö, piilota liitteet varoituksen taakse</string>
 </resources>
