@@ -19,4 +19,5 @@
     <string name="fragment_confirm_delete_language_dialog_msg">Se elimini questa lingua sarà scaricata la prossima volta che sarà necessaria.</string>
     <string name="action_translate_mlkit">Traduci con Google</string>
     <string name="label_translated_mlkit">Tradotto da Google</string>
+    <string name="fragment_google_disclaimer_dialog_title">Avvertenza sulla traduzione</string>
 </resources>
