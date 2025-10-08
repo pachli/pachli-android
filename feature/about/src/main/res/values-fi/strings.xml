@@ -21,7 +21,7 @@
     <string name="license_description">Pachlissa on koodia ja osioita näistä vapaan lähdekoodin projekteista:</string>
     <string name="notification_details_title">Yksityiskohdat</string>
     <string name="notification_details_android_notifications_enabled">Androidin ilmoitukset sallittu?</string>
-    <string name="notification_details_notifications_enabled_help">Ilmoituksia ei ole otettu käyttöön millään tileistäsi. Muuta tämä kohdasta Tiliasetukset &gt; Ilmoitukset. Siihen asti kaikki ilmoitukset ovat poissa käytöstä.</string>
+    <string name="notification_details_notifications_enabled_help"><![CDATA[lmoituksia ei ole otettu käyttöön millään tileistäsi. Muuta tämä kohdasta Tiliasetukset > Ilmoitukset. Siihen asti kaikki ilmoitukset ovat poissa käytöstä.]]></string>
     <string name="notification_details_push_notifications_with_unifiedpush">Push-ilmoitukset UnifiedPush-tekniikalla</string>
     <string name="notification_details_unifiedpush_available">UnifiedPush käytettävissä?</string>
     <string name="notification_details_unifiedpush_available_help">UnifiedPush (ntfy.sh) ei ole käytettävissä, ilmoitukset haetaan määräajoin. Tämän osion jatko selittää, miksi UnifiedPush ei ole käytössä, mutta ei liity siihen, miten ilmoitukset haetaan nyt.</string>
@@ -35,4 +35,31 @@
     <string name="notification_details_ntfy_exempt_help">NTFY ei ole vapautettu akunkäytön optimoinnista. Android voi viivyttää ilmoituksia kun näyttö ei ole käytössä.</string>
     <string name="notification_details_pachli_exempt_help">Pachli ei ole vapautettu akunkäytön optimoinnista. Android saattaa viivyttää ilmoituksia kun näyttö ei ole käytössä.</string>
     <string name="notification_details_pachli_exempt">Onko Pachli vapautettu akunkäytön optimoinnista?</string>
+    <string name="about_nivenly_foundation">Pachli on <a href="https://nivenly.org">Nivenly Foundationin</a> projekti.</string>
+    <string name="notitication_log_filter_dialog_title">Näytä lokien prioriteetit</string>
+    <string name="notification_log_download_failed">Lataus epäonnistui: %1$s</string>
+    <string name="notification_log_method_pusherror">UnifiedPush on käytössä mutta tapahtui virhe: %1$s</string>
+    <string name="notification_log_method_unknown">Ilmoitusmekanismia ei ole valittu</string>
+    <string name="notification_log_method_pull">Ilmoitukset haetaan säännöllisin välein, noin joka 15. minuutti.</string>
+    <string name="notification_log_method_push">Ilmoitukset pusketaan käyttäen UnifiedPushia, ja niiden pitäisi tulla välittömästi</string>
+    <string name="notification_log_scheduled_in">Suunniteltu %1$s@%2$s</string>
+    <string name="notification_log_previous_attempts">Aiemmat yriktykset: %1$d</string>
+    <string name="notification_log_sort">Uusimmat ensin</string>
+    <string name="notification_log_download">Lataa</string>
+    <string name="notification_log_download_content_description">Lataa lokit</string>
+    <string name="notification_log_filter">Suodatin</string>
+    <string name="notification_log_filter_content_description">Suodata lokit etikettien mukaan</string>
+    <string name="notification_log_title">Loki</string>
+    <string name="notification_details_standby_bucket_unknown">Tuntematon</string>
+    <string name="notification_details_standby_bucket_never">Ei koskaan</string>
+    <string name="notification_details_standby_bucket_restricted">Rajoitettu. Kerran päivässä</string>
+    <string name="notification_details_standby_bucket_rare">Harvinainen. Rajoitettu 10 minuuttiin 24 tunnissa</string>
+    <string name="notification_details_standby_bucket_frequent">Säännöllinen. Rajoitettu 10 minuuttiin 2 tunnin välein</string>
+    <string name="notification_details_standby_bucket_working_set">Toiminta valittu. Rajoitettu 10 minuuttiin 2 tunnin välein</string>
+    <string name="notification_details_standby_bucket_active">Käytössä. Taustaprosessien määrä rajoittamaton</string>
+    <string name="notification_details_standby_bucket_exempted">Sallittu poikkeuksena</string>
+    <string name="notification_details_ago">%1$s sitten @ %2$s</string>
+    <string name="notification_details_usage_event_label">Android voi rajoittaa, mitä sovellukset saavat tehdä taustalla. Lista näyttää miten Pachlia on rajoitettu viimeisten kolmen päivän aikana, uusin ensin.</string>
+    <string name="notification_details_usage_event">Virrankäytön rajoitukset</string>
+    <string name="notification_details_last_fetch_help">Ilmoitusmenetelmästä riippumatta tämä näyttää tileittäin milloin viimeinen haku tapahtui, onnistuiko se, ja mahdollisen virheilmoituksen.</string>
 </resources>
