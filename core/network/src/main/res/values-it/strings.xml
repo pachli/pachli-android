@@ -9,4 +9,5 @@
     <string name="node_info_error_no_software_version">la versione del software è mancante, vuota o non scritta</string>
     <string name="error_missing_content_type_fmt">il tuo server non è configurato bene, la risposta non ha nessun tipo di contenuto: %1$s</string>
     <string name="error_wrong_content_type_fmt">il tuo server non è configurato bene e ha riportato \'%2$s\' con il tipo di contenuto sbagliato, \'%1$s\'</string>
+    <string name="error_429_rate_limit_fmt">il tuo server sta limitando le tue richieste: %1$s</string>
 </resources>
