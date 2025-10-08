@@ -39,4 +39,9 @@
     <string name="notification_details_ago">%1$s fa @ %2$s</string>
     <string name="notification_details_standby_bucket_exempted">Esentato</string>
     <string name="notification_details_standby_bucket_active">Attivo. Lavori in background senza restrizioni</string>
+    <string name="notification_details_notifications_enabled_help"><![CDATA[Notifications are not enabled for any of your accounts. Change this in Account Preferences > Notifiche. Fino ad allora tutte le notifiche sono disabilitate.]]></string>
+    <string name="notification_details_accounts_unified_push_subscription">Gli account sono tutti iscritti?</string>
+    <string name="notification_details_pachli_exempt">Pachli è esclusa dall\'ottimizzazione della batteria?</string>
+    <string name="notification_details_usage_event_label">Android può limitare le app e definire cosa sono in grado di fare quando sono attive in sfondo. Questa lista mostra come Pachli sia stata limitata nel corso degli ultimi tre giorni, prima le limitazioni più recenti.</string>
+    <string name="notification_details_standby_bucket_restricted">Ristretta. Uno al giorno</string>
 </resources>
