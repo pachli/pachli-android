@@ -12,4 +12,5 @@
     <string name="title_error_mime_type">Tipo non riconosciuto</string>
     <string name="error_set_active_account">Tentativo di accesso fallito con il seguente errore: %1$s</string>
     <string name="error_refresh_account">L’aggiornamento dell’account è fallito con il seguente errore: %1$s\n\nPuoi continuare, ma le tue liste e i filtri potrebbero essere incompleti.</string>
+    <string name="error_mime_type_fmt">Pachli è stato aperto per condividere il contenuto col tipo \"%1$s\", ma Pachli non può gestire quella tipologia.</string>
 </resources>
