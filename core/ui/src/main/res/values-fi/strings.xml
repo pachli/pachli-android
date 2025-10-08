@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_network">Verkkovirhe. Tarkista yhteytesi ja yritä uudelleen.</string>
     <string name="error_generic">Tapahtui virhe.</string>
@@ -97,4 +97,11 @@
     <string name="status_count_one_plus">1+</string>
     <string name="action_unreblog">Poista jako</string>
     <string name="action_unfavourite">Poista suosikki</string>
+    <string name="action_hide_attachments">Piilota liitteet</string>
+    <string name="action_show_attachments">Näytä liitteet</string>
+    <string name="attachment_hidden_user_action">Piilotit tämän. Napauta näyttääksesi.</string>
+    <string name="attachment_matches_filter_other_fmt">Sopii suodattimiin: \"%1$s\", \"%2$s\", ja muihin. Napauta näyttääksesi.</string>
+    <string name="attachment_matches_filter_two_fmt">Sopii suodattimiin: \"%1$s\" ja \"%2$s\". Napauta näyttääksesi.</string>
+    <string name="attachment_matches_filter_one_fmt">Sopii suodattimeen: \"%1$s\". Napauta näyttääksesi.</string>
+    <string name="emoji_picker_show_detail">Näytä yksityiskohdat</string>
 </resources>
