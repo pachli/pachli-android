@@ -14,4 +14,5 @@
     <string name="ui_error_follow_account_fmt">La richiesta di seguire %1$s è fallita: %2$s</string>
     <string name="sources_most_interactions">Il tuo server sta ricevendo molte attenzioni</string>
     <string name="statuses_count_per_week_fmt"><b>%1$s</b> posta (<b>%2$d</b> alla settimana)</string>
+    <string name="statuses_count_per_week_last_fmt"><b>%1$s</b> post (<b>%2$d</b> per settimana, ultimo <b>%3$s</b>)</string>
 </resources>
