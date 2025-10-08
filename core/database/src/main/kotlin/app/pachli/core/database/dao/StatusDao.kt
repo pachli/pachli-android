@@ -63,7 +63,7 @@ WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId)
 UPDATE StatusEntity
 SET
     favourited = :favourited,
-    favouritesCount = favouritesCount + IIF(:favourited, 1, -1)
+    favouritesCount = favouritesCount + CASE WHEN :favourited THEN 1 ELSE -1 END
 WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServerId = :statusId)
 """,
     )
@@ -84,7 +84,7 @@ WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServe
 UPDATE StatusEntity
 SET
     reblogged = :reblogged,
-    reblogsCount = reblogsCount + IIF(:reblogged, 1, -1)
+    reblogsCount = reblogsCount + CASE WHEN :reblogged THEN 1 ELSE -1 END
 WHERE timelineUserId = :pachliAccountId AND (serverId = :statusId OR reblogServerId = :statusId)
 """,
     )
