@@ -23,7 +23,6 @@ import android.app.NotificationManager
 import android.content.Context
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.graphics.Bitmap
-import android.graphics.Color
 import android.graphics.drawable.Animatable
 import android.graphics.drawable.Drawable
 import android.net.Uri
@@ -315,8 +314,6 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
                 }
             }
         }
-
-        window.statusBarColor = Color.TRANSPARENT // don't draw a status bar, the DrawerLayout and the MaterialDrawerLayout have their own
 
         // Determine which of the three toolbars should be the supportActionBar (which hosts
         // the options menu).

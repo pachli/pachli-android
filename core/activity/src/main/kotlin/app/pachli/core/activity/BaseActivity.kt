@@ -140,6 +140,18 @@ abstract class BaseActivity : AppCompatActivity(), MenuProvider {
         }
     }
 
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+
+        if (window.isFloating) return
+
+        // Enabling edge-to-edge appears to cause the decor and main content view
+        // to have the wrong background colour, so set it it here.
+        window.decorView.setBackgroundColor(Color.BLACK)
+        val contentView: View = findViewById(android.R.id.content)
+        contentView.setBackgroundColor(MaterialColors.getColor(contentView, android.R.attr.colorBackground))
+    }
+
     override fun attachBaseContext(newBase: Context) {
         val sharedPreferencesRepository = fromApplication(
             newBase.applicationContext,
