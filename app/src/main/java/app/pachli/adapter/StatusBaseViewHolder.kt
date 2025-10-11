@@ -4,11 +4,8 @@ import android.content.Context
 import android.text.TextUtils
 import android.text.format.DateUtils
 import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.widget.PopupMenu
 import androidx.core.text.HtmlCompat
 import androidx.core.util.TypedValueCompat.dpToPx
 import androidx.recyclerview.widget.DiffUtil
@@ -18,7 +15,6 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.common.util.AbsoluteTimeFormatter
-import app.pachli.core.common.util.formatNumber
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusViewData
@@ -27,7 +23,6 @@ import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.Emoji
 import app.pachli.core.model.PreviewCardKind
-import app.pachli.core.model.Status
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.preferences.CardViewMode
 import app.pachli.core.ui.AttachmentsView
@@ -38,6 +33,7 @@ import app.pachli.core.ui.PreviewCardView
 import app.pachli.core.ui.RoleChipGroup
 import app.pachli.core.ui.SetStatusContent
 import app.pachli.core.ui.StatusActionListener
+import app.pachli.core.ui.StatusControlView
 import app.pachli.core.ui.emojify
 import app.pachli.core.ui.extensions.contentDescription
 import app.pachli.core.ui.extensions.description
@@ -47,8 +43,6 @@ import app.pachli.core.ui.getRelativeTimeSpanString
 import app.pachli.core.ui.loadAvatar
 import app.pachli.core.ui.makeIcon
 import app.pachli.core.ui.setClickableMentions
-import app.pachli.util.expandTouchSizeToFillRow
-import at.connyduck.sparkbutton.SparkButton
 import com.bumptech.glide.RequestManager
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.color.MaterialColors
@@ -65,12 +59,6 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
     private val displayName: TextView = itemView.findViewById(R.id.status_display_name)
     private val username: TextView = itemView.findViewById(R.id.status_username)
     private val roleChipGroup: RoleChipGroup = itemView.findViewById(R.id.roleChipGroup)
-    private val replyButton: ImageButton = itemView.findViewById(R.id.status_reply)
-    private val replyCountLabel: TextView? = itemView.findViewById(R.id.status_replies)
-    private val reblogButton: SparkButton? = itemView.findViewById(R.id.status_inset)
-    private val favouriteButton: SparkButton = itemView.findViewById(R.id.status_favourite)
-    private val bookmarkButton: SparkButton = itemView.findViewById(R.id.status_bookmark)
-    private val moreButton: ImageButton = itemView.findViewById(R.id.status_more)
 
     /** [AttachmentsView] that encompasses and lays out all the attachment previews. */
     private val attachmentsView: AttachmentsView = itemView.findViewById(R.id.attachmentGrid)
@@ -83,6 +71,8 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
     private val contentWarningDescription: TextView = itemView.findViewById(R.id.status_content_warning_description)
     private val pollView: PollView = itemView.findViewById(R.id.status_poll)
     private val cardView: PreviewCardView? = itemView.findViewById(R.id.status_card_view)
+
+    protected val statusControls: StatusControlView = itemView.findViewById(R.id.status_controls)
     private val numberFormat = NumberFormat.getNumberInstance()
     private val absoluteTimeFormatter = AbsoluteTimeFormatter()
     private val translationProvider: TextView? = itemView.findViewById<TextView?>(R.id.translationProvider)?.apply {
@@ -92,18 +82,6 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
     protected val avatarRadius48dp = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_48dp)
     private val avatarRadius36dp = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_36dp)
     private val avatarRadius24dp = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_24dp)
-
-    init {
-        (itemView as ViewGroup).expandTouchSizeToFillRow(
-            listOfNotNull(
-                replyButton,
-                reblogButton,
-                favouriteButton,
-                bookmarkButton,
-                moreButton,
-            ),
-        )
-    }
 
     protected fun setDisplayName(
         name: String,
@@ -368,65 +346,6 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
         }
     }
 
-    protected fun setIsReply(isReply: Boolean) {
-        val drawable = if (isReply) R.drawable.ic_reply_all_24dp else R.drawable.ic_reply_24dp
-        replyButton.setImageResource(drawable)
-    }
-
-    private fun setReplyCount(repliesCount: Int, fullStats: Boolean) {
-        // This label only exists in the non-detailed view (to match the web ui)
-        replyCountLabel ?: return
-
-        if (fullStats) {
-            replyCountLabel.text = formatNumber(repliesCount.toLong(), 1000)
-            return
-        }
-
-        // Show "0", "1", or "1+" for replies otherwise, so the user knows if there is a thread
-        // that they can click through to read.
-        replyCountLabel.text =
-            if (repliesCount > 1) context.getString(R.string.status_count_one_plus) else repliesCount.toString()
-    }
-
-    private fun setReblogged(reblogged: Boolean) {
-        reblogButton!!.isChecked = reblogged
-    }
-
-    // This should only be called after setReblogged, in order to override the tint correctly.
-    private fun setRebloggingEnabled(enabled: Boolean, visibility: Status.Visibility) {
-        reblogButton!!.isEnabled = enabled && visibility !== Status.Visibility.PRIVATE
-        if (enabled) {
-            val inactiveId: Int
-            val activeId: Int
-            if (visibility === Status.Visibility.PRIVATE) {
-                inactiveId = R.drawable.ic_reblog_private_24dp
-                activeId = R.drawable.ic_reblog_private_active_24dp
-            } else {
-                inactiveId = R.drawable.ic_reblog_24dp
-                activeId = R.drawable.ic_reblog_active_24dp
-            }
-            reblogButton.setInactiveImage(inactiveId)
-            reblogButton.setActiveImage(activeId)
-            return
-        }
-
-        val disabledId: Int = if (visibility === Status.Visibility.DIRECT) {
-            R.drawable.ic_reblog_direct_24dp
-        } else {
-            R.drawable.ic_reblog_private_24dp
-        }
-        reblogButton.setInactiveImage(disabledId)
-        reblogButton.setActiveImage(disabledId)
-    }
-
-    protected fun setFavourited(favourited: Boolean) {
-        favouriteButton.isChecked = favourited
-    }
-
-    protected fun setBookmarked(bookmarked: Boolean) {
-        bookmarkButton.isChecked = bookmarked
-    }
-
     /**
      * Shows/hides the media previews based on the attachments, and wires
      * up click listeners.
@@ -477,41 +396,10 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
         viewData: T,
         listener: StatusActionListener<T>,
         accountId: String,
-        statusDisplayOptions: StatusDisplayOptions,
     ) {
         val profileButtonClickListener = View.OnClickListener { listener.onViewAccount(accountId) }
         avatar.setOnClickListener(profileButtonClickListener)
         displayName.setOnClickListener(profileButtonClickListener)
-        replyButton.setOnClickListener {
-            listener.onReply(viewData)
-        }
-        reblogButton?.setEventListener { _: SparkButton?, buttonState: Boolean ->
-            // return true to play animation
-            return@setEventListener if (statusDisplayOptions.confirmReblogs) {
-                showConfirmReblog(viewData, listener, buttonState)
-                false
-            } else {
-                listener.onReblog(viewData, !buttonState)
-                true
-            }
-        }
-        favouriteButton.setEventListener { _: SparkButton?, buttonState: Boolean ->
-            // return true to play animation
-            return@setEventListener if (statusDisplayOptions.confirmFavourites) {
-                showConfirmFavourite(viewData, listener, buttonState)
-                false
-            } else {
-                listener.onFavourite(viewData, !buttonState)
-                true
-            }
-        }
-        bookmarkButton.setEventListener { _: SparkButton?, buttonState: Boolean ->
-            listener.onBookmark(viewData, !buttonState)
-            true
-        }
-        moreButton.setOnClickListener { v: View? ->
-            listener.onMore(v!!, viewData)
-        }
 
         /* Even though the content TextView is a child of the container, it won't respond to clicks
          * if it contains URLSpans without also setting its listener. The surrounding spans will
@@ -523,52 +411,6 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
 
         content.setOnClickListener(viewThreadListener)
         itemView.setOnClickListener(viewThreadListener)
-    }
-
-    private fun showConfirmReblog(
-        viewData: T,
-        listener: StatusActionListener<T>,
-        buttonState: Boolean,
-    ) {
-        val popup = PopupMenu(context, reblogButton!!)
-        popup.inflate(R.menu.status_reblog)
-        val menu = popup.menu
-        if (buttonState) {
-            menu.findItem(R.id.menu_action_reblog).isVisible = false
-        } else {
-            menu.findItem(R.id.menu_action_unreblog).isVisible = false
-        }
-        popup.setOnMenuItemClickListener {
-            listener.onReblog(viewData, !buttonState)
-            if (!buttonState) {
-                reblogButton.playAnimation()
-            }
-            true
-        }
-        popup.show()
-    }
-
-    private fun showConfirmFavourite(
-        viewData: T,
-        listener: StatusActionListener<T>,
-        buttonState: Boolean,
-    ) {
-        val popup = PopupMenu(context, favouriteButton)
-        popup.inflate(R.menu.status_favourite)
-        val menu = popup.menu
-        if (buttonState) {
-            menu.findItem(R.id.menu_action_favourite).isVisible = false
-        } else {
-            menu.findItem(R.id.menu_action_unfavourite).isVisible = false
-        }
-        popup.setOnMenuItemClickListener {
-            listener.onFavourite(viewData, !buttonState)
-            if (!buttonState) {
-                favouriteButton.playAnimation()
-            }
-            true
-        }
-        popup.show()
     }
 
     open fun setupWithStatus(
@@ -583,17 +425,12 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
             setUsername(actionable.account.username)
             setMetaData(viewData, statusDisplayOptions, listener)
             setRoleChips(viewData)
-            setIsReply(actionable.inReplyToId != null)
-            setReplyCount(actionable.repliesCount, statusDisplayOptions.showStatsInline)
             setAvatar(
                 actionable.account.avatar,
                 viewData.rebloggedAvatar,
                 actionable.account.bot,
                 statusDisplayOptions,
             )
-            setReblogged(actionable.reblogged)
-            setFavourited(actionable.favourited)
-            setBookmarked(actionable.bookmarked)
             setMediaPreviews(
                 viewData,
                 statusDisplayOptions.mediaPreviewEnabled,
@@ -607,13 +444,29 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
                 statusDisplayOptions,
                 listener,
             )
+            statusControls.bind(
+                statusVisibility = actionable.visibility,
+                showCounts = statusDisplayOptions.showStatsInline,
+                confirmReblog = statusDisplayOptions.confirmReblogs,
+                confirmFavourite = statusDisplayOptions.confirmFavourites,
+                isReply = actionable.inReplyToId != null,
+                isReblogged = actionable.reblogged,
+                isFavourited = actionable.favourited,
+                isBookmarked = actionable.bookmarked,
+                replyCount = actionable.repliesCount,
+                reblogCount = actionable.reblogsCount,
+                favouriteCount = actionable.favouritesCount,
+                onReplyClick = { listener.onReply(viewData) },
+                onReblogClick = { reblog -> listener.onReblog(viewData, reblog) },
+                onFavouriteClick = { favourite -> listener.onFavourite(viewData, favourite) },
+                onBookmarkClick = { bookmark -> listener.onBookmark(viewData, bookmark) },
+                onMoreClick = { view -> listener.onMore(view, viewData) },
+            )
             setupButtons(
                 viewData,
                 listener,
                 actionable.account.id,
-                statusDisplayOptions,
             )
-            setRebloggingEnabled(actionable.rebloggingAllowed(), actionable.visibility)
             setSpoilerAndContent(viewData, statusDisplayOptions, listener)
             setContentDescriptionForStatus(viewData, statusDisplayOptions)
 

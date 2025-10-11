@@ -50,14 +50,12 @@
     <string name="title_public_federated">ඒකාබද්ධ</string>
     <string name="dialog_message_uploading_media">උඩුගත වෙමින්…</string>
     <string name="label_header">ශීර්ෂය</string>
-    <string name="action_unfavourite">ප්‍රියතමය ඉවත් කරන්න</string>
     <string name="drafts_failed_loading_reply">පිළිතුරෙහි තොරතුරු පූරණය වීමට අසමත් විය</string>
     <string name="report_username_format">\@%s වාර්තා කරන්න</string>
     <string name="report_comment_hint">අතිරේක අදහස්\?</string>
     <string name="pref_title_notification_filter_mentions">සඳහන් කළ</string>
     <string name="send_post_link_to">වෙත ටූට් ඒ.ස.නි. බෙදාගන්න…</string>
     <string name="compose_save_draft">කටුපිටපත සුරකින්නද\?</string>
-    <string name="action_bookmark">පොත්යොමුව</string>
     <string name="failed_report">වාර්තා කිරීමට අසමත් විය</string>
     <string name="action_open_faved_by">ප්‍රියතමයන් පෙන්වන්න</string>
     <string name="action_view_bookmarks">පොත්යොමු</string>
@@ -79,7 +77,6 @@
     <string name="downloading_media">මාධ්‍ය බාගත වෙමින්</string>
     <string name="pref_title_show_media_preview">මාධ්‍ය පෙරදසුන් බාගන්න</string>
     <string name="dialog_download_image">බාගන්න</string>
-    <string name="action_reply">පිළිතුර</string>
     <string name="pref_title_edit_notification_settings">දැනුම්දීම්</string>
     <string name="confirmation_unblocked">පරිශීලක අනවහිර කෙරිණි</string>
     <string name="profile_metadata_add">දත්ත එක්කරන්න</string>
@@ -161,7 +158,6 @@
         <item quantity="one">ප්‍රියතමයන් &lt;b&gt;%1$s&lt;/b&gt;</item>
         <item quantity="other">ප්‍රියතමයන් &lt;b&gt;%1$s&lt;/b&gt;</item>
     </plurals>
-    <string name="action_favourite">ප්‍රියතම</string>
     <string name="filter_dialog_update_button">යාවත්කාල</string>
     <string name="notification_summary_small">%1$s සහ %2$s</string>
     <string name="title_media">මාධ්‍ය</string>

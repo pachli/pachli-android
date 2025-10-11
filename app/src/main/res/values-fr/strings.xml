@@ -41,11 +41,6 @@
     <string name="report_username_format">Signaler @%s</string>
     <string name="report_comment_hint">Commentaires additionnels \?</string>
     <string name="action_quick_reply">Réponse rapide</string>
-    <string name="action_reply">Répondre</string>
-    <string name="action_reblog">Partager</string>
-    <string name="action_unreblog">Annuler le partage</string>
-    <string name="action_favourite">Favori</string>
-    <string name="action_unfavourite">Supprimer le favori</string>
     <string name="action_compose">Écrire</string>
     <string name="action_follow">Suivre</string>
     <string name="action_unfollow">Ne plus suivre</string>
@@ -308,7 +303,6 @@
     <string name="action_schedule_post">Planifier le message</string>
     <string name="action_reset_schedule">Réinitialiser</string>
     <string name="title_bookmarks">Signets</string>
-    <string name="action_bookmark">Marquer comme signet</string>
     <string name="action_view_bookmarks">Signets</string>
     <string name="description_post_bookmarked">Ajouté aux signets</string>
     <string name="select_list_title">Sélectionner la liste</string>
@@ -390,7 +384,6 @@
     <string name="notification_update_description">Notifications quand un message avec lequel vous avez interagi est modifié</string>
     <string name="account_date_joined">Ici depuis %1$s</string>
     <string name="saving_draft">Sauvegarde du brouillon …</string>
-    <string name="status_count_one_plus">&gt;1</string>
     <string name="action_edit_image">Retoucher l’image</string>
     <string name="title_migration_relogin">Se reconnecter pour recevoir les notifications instantanées</string>
     <string name="error_image_edit_failed">L\'image n’a pas pu être retouchée.</string>

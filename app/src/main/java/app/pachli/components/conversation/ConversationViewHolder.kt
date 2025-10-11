@@ -48,29 +48,40 @@ class ConversationViewHolder internal constructor(
 
     override fun bind(viewData: ConversationViewData, payloads: List<List<Any?>>?, statusDisplayOptions: StatusDisplayOptions) {
         val account = viewData.actionable.account
-        val inReplyToId = viewData.actionable.inReplyToId
-        val favourited = viewData.actionable.favourited
-        val bookmarked = viewData.actionable.bookmarked
 
         if (payloads.isNullOrEmpty()) {
             setupCollapsedState(viewData, listener)
             setDisplayName(account.name, account.emojis, statusDisplayOptions)
             setUsername(account.username)
             setMetaData(viewData, statusDisplayOptions, listener)
-            setIsReply(inReplyToId != null)
-            setFavourited(favourited)
-            setBookmarked(bookmarked)
             setMediaPreviews(
                 viewData,
                 statusDisplayOptions.mediaPreviewEnabled,
                 listener,
                 statusDisplayOptions.useBlurhash,
             )
+            val actionable = viewData.actionable
+            statusControls.bind(
+                statusVisibility = actionable.visibility,
+                showCounts = statusDisplayOptions.showStatsInline,
+                confirmReblog = statusDisplayOptions.confirmReblogs,
+                confirmFavourite = statusDisplayOptions.confirmFavourites,
+                isReply = actionable.inReplyToId != null,
+                isReblogged = actionable.reblogged,
+                isFavourited = actionable.favourited,
+                isBookmarked = actionable.bookmarked,
+                replyCount = actionable.repliesCount,
+                reblogCount = actionable.reblogsCount,
+                favouriteCount = actionable.favouritesCount,
+                onReplyClick = { listener.onReply(viewData) },
+                onFavouriteClick = { favourite -> listener.onFavourite(viewData, favourite) },
+                onBookmarkClick = { bookmark -> listener.onBookmark(viewData, bookmark) },
+                onMoreClick = { view -> listener.onMore(view, viewData) },
+            )
             setupButtons(
                 viewData,
                 listener,
                 account.id,
-                statusDisplayOptions,
             )
             setSpoilerAndContent(viewData, statusDisplayOptions, listener)
             setConversationName(viewData.accounts)

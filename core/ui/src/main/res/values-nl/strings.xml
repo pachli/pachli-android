@@ -71,4 +71,11 @@
     <string name="post_media_audio">Geluid</string>
     <string name="post_media_video">Video</string>
     <string name="post_media_attachments">Bijlagen</string>
+    <string name="action_reply">Reageren</string>
+    <string name="action_reblog">Boosten</string>
+    <string name="action_favourite">Als favoriet markeren</string>
+    <string name="action_bookmark">Bladwijzer</string>
+    <string name="status_count_one_plus">1+</string>
+    <string name="action_unreblog">Boost verwijderen</string>
+    <string name="action_unfavourite">Favoriet verwijderen</string>
 </resources>

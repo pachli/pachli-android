@@ -66,4 +66,10 @@
     <string name="post_media_audio">শব্দ</string>
     <string name="post_media_video">ভিডিও</string>
     <string name="post_media_attachments">সংযুক্তি</string>
+    <string name="action_reply">উত্তর</string>
+    <string name="action_reblog">সমর্থন</string>
+    <string name="action_favourite">পছন্দ</string>
+    <string name="action_bookmark">বুকমার্ক</string>
+    <string name="action_unreblog">সমর্থন সরান</string>
+    <string name="action_unfavourite">পছন্দ সরান</string>
 </resources>

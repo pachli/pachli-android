@@ -41,11 +41,6 @@
     <string name="report_username_format">Rapporteer @%s</string>
     <string name="report_comment_hint">Extra opmerkingen\?</string>
     <string name="action_quick_reply">Snelle reactie</string>
-    <string name="action_reply">Reageren</string>
-    <string name="action_reblog">Boosten</string>
-    <string name="action_unreblog">Boost verwijderen</string>
-    <string name="action_favourite">Als favoriet markeren</string>
-    <string name="action_unfavourite">Favoriet verwijderen</string>
     <string name="action_compose">Bericht schrijven</string>
     <string name="action_follow">Volgen</string>
     <string name="action_unfollow">Ontvolgen</string>
@@ -295,7 +290,6 @@
     <string name="edit_poll">Bewerken</string>
     <string name="title_bookmarks">Bladwijzers</string>
     <string name="title_scheduled_posts">Ingeplande berichten</string>
-    <string name="action_bookmark">Bladwijzer</string>
     <string name="action_edit">Bewerken</string>
     <string name="action_view_bookmarks">Bladwijzers</string>
     <string name="action_add_poll">Poll toevoegen</string>
@@ -377,7 +371,6 @@
     <string name="notification_sign_up_description">Meldingen over nieuwe gebruikers</string>
     <string name="notification_update_name">Bewerkingen van berichten</string>
     <string name="notification_update_description">Meldingen wanneer berichten waarmee je interactie had werden bewerkt</string>
-    <string name="status_count_one_plus">1+</string>
     <string name="action_edit_image">Afbeelding bewerken</string>
     <string name="duration_30_days">30 dagen</string>
     <string name="duration_60_days">60 dagen</string>

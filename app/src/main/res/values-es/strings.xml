@@ -41,9 +41,6 @@
     <string name="report_username_format">Reportar @%s</string>
     <string name="report_comment_hint">¿Información adicional?</string>
     <string name="action_quick_reply">Respuesta rápida</string>
-    <string name="action_reply">Responder</string>
-    <string name="action_reblog">Impulsar</string>
-    <string name="action_favourite">Favorito</string>
     <string name="action_compose">Redactar</string>
     <string name="action_follow">Seguir</string>
     <string name="action_unfollow">Dejar de seguir</string>
@@ -233,8 +230,6 @@
     <string name="action_open_faved_by">Mostrar favoritos</string>
     <string name="download_media">Descargar multimedia</string>
     <string name="pref_title_language">Idioma</string>
-    <string name="action_unreblog">Dejar de impulsar</string>
-    <string name="action_unfavourite">Eliminar favorito</string>
     <string name="pref_title_timeline_filters">Filtros</string>
     <string name="notification_poll_name">Encuestas</string>
     <string name="filter_dialog_remove_button">Eliminar</string>
@@ -306,7 +301,6 @@
     <string name="action_schedule_post">Programar Publicación</string>
     <string name="action_reset_schedule">Restablecer</string>
     <string name="title_bookmarks">Marcadores</string>
-    <string name="action_bookmark">Marcador</string>
     <string name="action_view_bookmarks">Marcadores</string>
     <string name="description_post_bookmarked">Añadido a marcadores</string>
     <string name="select_list_title">Seleccionar lista</string>
@@ -392,7 +386,6 @@
     <string name="notification_sign_up_description">Notificaciones sobre nuevos usuarios</string>
     <string name="notification_update_name">Ediciones de una publicación</string>
     <string name="notification_update_description">Notificaciones cuando se editan publicaciones con las que has interactuado</string>
-    <string name="status_count_one_plus">1+</string>
     <string name="filter_expiration_format">%s (%s)</string>
     <string name="action_set_focus">Establece el foco</string>
     <string name="description_post_language">Idioma de publicación</string>

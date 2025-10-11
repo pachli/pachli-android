@@ -67,4 +67,10 @@
     <string name="post_media_audio">Audioa</string>
     <string name="post_media_video">Bideoa</string>
     <string name="post_media_attachments">Eranskinak</string>
+    <string name="action_reply">Erantzun</string>
+    <string name="action_reblog">Bultzatu</string>
+    <string name="action_favourite">Gogokoa</string>
+    <string name="action_bookmark">Laster-marka</string>
+    <string name="action_unreblog">Bultzada kendu</string>
+    <string name="action_unfavourite">Gogokoa kendu</string>
 </resources>

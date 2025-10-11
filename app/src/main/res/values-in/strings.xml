@@ -92,7 +92,6 @@
     <string name="notification_follow_name">Pengikut Baru</string>
     <string name="notification_follow_description">Notifikasi tentang pengikut baru</string>
     <string name="notification_sign_up_name">Daftar</string>
-    <string name="status_count_one_plus">1+</string>
     <string name="follows_you">Mengikuti Anda</string>
     <string name="add_account_description">Tambahkan Akun Mastodon baru</string>
     <string name="lock_account_label">Kunci akun</string>
@@ -132,12 +131,7 @@
     <string name="notification_subscription_format">%s baru saja memosting</string>
     <string name="notification_update_format">%s mengedit post mereka</string>
     <string name="report_comment_hint">Komentar tambahan\?</string>
-    <string name="action_reply">Balas</string>
     <string name="action_quick_reply">Balas Cepat</string>
-    <string name="action_reblog">Boost</string>
-    <string name="action_unreblog">Hapus boost</string>
-    <string name="action_favourite">Favorit</string>
-    <string name="action_unfavourite">Hapus favorit</string>
     <string name="action_unbookmark">Hapus bookmark</string>
     <string name="action_compose">Menyusun</string>
     <string name="action_hide_reblogs">Sembunyikan boost</string>
@@ -209,7 +203,6 @@
     <plurals name="notification_summary_report_format">
         <item quantity="other">%1$s - %2$d posting terlampir</item>
     </plurals>
-    <string name="action_bookmark">Penanda</string>
     <string name="action_post_failed">Unggahan gagal</string>
     <string name="action_post_failed_detail">Postingan Anda gagal diunggah dan telah disimpan ke draf.
 \n

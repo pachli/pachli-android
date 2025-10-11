@@ -117,4 +117,11 @@
     </plurals>
     <string name="handle_contentdescription_fmt">Handle, @%1$s</string>
     <string name="account_contentdescription_fmt">%1$s, %2$s; %3$s</string>
+    <string name="action_reply">Reply</string>
+    <string name="action_reblog">Boost</string>
+    <string name="action_favourite">Favorite</string>
+    <string name="action_bookmark">Bookmark</string>
+    <string name="status_count_one_plus">1+</string>
+    <string name="action_unreblog">Remove boost</string>
+    <string name="action_unfavourite">Remove favorite</string>
 </resources>

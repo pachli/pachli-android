@@ -41,9 +41,6 @@
     <string name="report_username_format">\@%s Bildir</string>
     <string name="report_comment_hint">Daha fazla yorum?</string>
     <string name="action_quick_reply">Hızlı yanıt</string>
-    <string name="action_reply">Yanıtla</string>
-    <string name="action_reblog">Yeniden Paylaş</string>
-    <string name="action_favourite">Gözdele</string>
     <string name="action_compose">Oluştur</string>
     <string name="action_follow">Takip et</string>
     <string name="action_unfollow">Takibi bırak</string>
@@ -228,8 +225,6 @@
     <string name="conversation_2_recipients">%1$s ve %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s ve %3$d dahası</string>
     <string name="title_domain_mutes">Gizli alan adları</string>
-    <string name="action_unreblog">Yeniden paylaşmaktan vazgeç</string>
-    <string name="action_unfavourite">Gözdeyi kaldır</string>
     <string name="action_view_domain_mutes">Gizli alan adları</string>
     <string name="action_mute_domain">%s alan adını sessize al</string>
     <string name="action_open_faved_by">Gözdeleri göster</string>
@@ -277,7 +272,6 @@
     <string name="action_open_media_n">#%d medyayı aç</string>
     <string name="title_bookmarks">Yer imleri</string>
     <string name="title_scheduled_posts">Zamanlanmış yayınlar</string>
-    <string name="action_bookmark">Yer imi</string>
     <string name="action_edit">Düzenle</string>
     <string name="action_delete_and_redraft">Sil ve düzenle</string>
     <string name="action_view_bookmarks">Yer imleri</string>
@@ -422,7 +416,6 @@
     <string name="notification_update_format">%s gönderilerini düzenledi</string>
     <string name="draft_deleted">Taslak Silindi</string>
     <string name="error_unfollowing_hashtag_format">Takip etmeyi bırakırken Hata #%s</string>
-    <string name="status_count_one_plus">1+</string>
     <string name="label_duration">Süre</string>
     <string name="error_status_source_load">Sunucudan kaynak durumu yüklenemedi.</string>
     <string name="pref_title_http_proxy_port_message">Bağlantı noktası %d ile %d arasında olmalıdır</string>

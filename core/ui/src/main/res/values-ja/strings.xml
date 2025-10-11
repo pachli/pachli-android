@@ -67,4 +67,11 @@
     <string name="post_media_audio">音声</string>
     <string name="post_media_video">動画</string>
     <string name="post_media_attachments">添付ファイル</string>
+    <string name="action_reply">返信</string>
+    <string name="action_reblog">ブースト</string>
+    <string name="action_favourite">お気に入り</string>
+    <string name="action_bookmark">ブックマーク</string>
+    <string name="status_count_one_plus">1+</string>
+    <string name="action_unreblog">ブーストを解除</string>
+    <string name="action_unfavourite">お気に入りを解除</string>
 </resources>

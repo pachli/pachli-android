@@ -32,4 +32,11 @@
     <string name="post_media_audio">Audio</string>
     <string name="post_media_video">Video</string>
     <string name="post_media_attachments">Lampiran</string>
+    <string name="action_reply">Balas</string>
+    <string name="action_reblog">Boost</string>
+    <string name="action_favourite">Favorit</string>
+    <string name="action_bookmark">Penanda</string>
+    <string name="status_count_one_plus">1+</string>
+    <string name="action_unreblog">Hapus boost</string>
+    <string name="action_unfavourite">Hapus favorit</string>
 </resources>

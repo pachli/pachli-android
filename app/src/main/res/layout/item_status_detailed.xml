@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:sparkbutton="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/status_container"
     android:layout_width="match_parent"
@@ -279,84 +278,12 @@
         android:paddingEnd="16dp"
         app:layout_constraintTop_toBottomOf="@id/status_counters_barrier" />
 
-    <ImageButton
-        android:id="@+id/status_reply"
-        style="@style/AppImageButton"
-        android:layout_width="52dp"
-        android:layout_height="48dp"
-        android:contentDescription="@string/action_reply"
-        android:importantForAccessibility="no"
-        android:padding="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/status_inset"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintStart_toStartOf="parent"
+    <app.pachli.core.ui.StatusControlView
+        android:id="@+id/status_controls"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/status_avatar"
         app:layout_constraintTop_toBottomOf="@id/status_buttons_divider"
-        app:srcCompat="@drawable/ic_reply_24dp" />
-
-    <at.connyduck.sparkbutton.SparkButton
-        android:id="@+id/status_inset"
-        android:layout_width="52dp"
-        android:layout_height="48dp"
-        android:clipToPadding="false"
-        android:contentDescription="@string/action_reblog"
-        android:importantForAccessibility="no"
-        android:padding="4dp"
-        app:layout_constraintEnd_toStartOf="@id/status_favourite"
-        app:layout_constraintStart_toEndOf="@id/status_reply"
-        app:layout_constraintTop_toTopOf="@id/status_reply"
-        sparkbutton:activeImage="@drawable/ic_reblog_active_24dp"
-        sparkbutton:iconSize="28dp"
-        sparkbutton:inactiveImage="@drawable/ic_reblog_24dp"
-        sparkbutton:primaryColor="?colorPrimary"
-        sparkbutton:secondaryColor="?colorPrimaryContainer" />
-
-    <at.connyduck.sparkbutton.SparkButton
-        android:id="@+id/status_favourite"
-        android:layout_width="52dp"
-        android:layout_height="48dp"
-        android:clipToPadding="false"
-        android:contentDescription="@string/action_favourite"
-        android:importantForAccessibility="no"
-        android:padding="4dp"
-        app:layout_constraintEnd_toStartOf="@id/status_bookmark"
-        app:layout_constraintStart_toEndOf="@id/status_inset"
-        app:layout_constraintTop_toTopOf="@id/status_inset"
-        sparkbutton:activeImage="@drawable/ic_favourite_active_24dp"
-        sparkbutton:iconSize="28dp"
-        sparkbutton:inactiveImage="@drawable/ic_favourite_24dp"
-        sparkbutton:primaryColor="@color/tusky_orange"
-        sparkbutton:secondaryColor="@color/tusky_orange_light" />
-
-    <at.connyduck.sparkbutton.SparkButton
-        android:id="@+id/status_bookmark"
-        android:layout_width="52dp"
-        android:layout_height="48dp"
-        android:clipToPadding="false"
-        android:contentDescription="@string/action_bookmark"
-        android:importantForAccessibility="no"
-        android:padding="4dp"
-        app:layout_constraintEnd_toStartOf="@id/status_more"
-        app:layout_constraintStart_toEndOf="@id/status_favourite"
-        app:layout_constraintTop_toTopOf="@id/status_reply"
-        sparkbutton:activeImage="@drawable/ic_bookmark_active_24dp"
-        sparkbutton:iconSize="28dp"
-        sparkbutton:inactiveImage="@drawable/ic_bookmark_24dp"
-        sparkbutton:primaryColor="@color/tusky_green"
-        sparkbutton:secondaryColor="@color/tusky_green_light" />
-
-    <ImageButton
-        android:id="@+id/status_more"
-        style="@style/AppImageButton"
-        android:layout_width="52dp"
-        android:layout_height="48dp"
-        android:contentDescription="@string/action_more"
-        android:importantForAccessibility="no"
-        android:padding="4dp"
-        app:layout_constraintBottom_toBottomOf="@id/status_reply"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/status_bookmark"
-        app:layout_constraintTop_toTopOf="@id/status_reply"
-        app:srcCompat="@drawable/ic_more_horiz_24dp" />
-
+        app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

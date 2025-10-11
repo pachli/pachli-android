@@ -18,13 +18,11 @@
     <string name="post_content_show_less">Zabaliť</string>
     <string name="report_username_format">Nahlásiť účet @%s</string>
     <string name="action_quick_reply">Rýchla odpoveď</string>
-    <string name="action_reply">Odpovedať</string>
     <string name="title_favourites">Obľúbené</string>
     <string name="error_empty">Toto nemôže byť prázdne.</string>
     <string name="error_media_upload_opening">Súbor sa nepodarilo otvoriť.</string>
     <string name="title_home">Domov</string>
     <string name="title_tab_preferences">Panely</string>
-    <string name="action_bookmark">Vytvoriť záložku</string>
     <string name="action_follow">Sledovať</string>
     <string name="action_unfollow">Prestať sledovať</string>
     <string name="action_block">Blokovať</string>
@@ -83,8 +81,6 @@
     <string name="profile_metadata_content_label">Obsah</string>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s a %2$s</string>
-    <string name="action_reblog">Zdieľať</string>
-    <string name="action_unreblog">Zrušiť zdieľanie</string>
     <string name="post_privacy_public">Verejný</string>
     <string name="action_view_bookmarks">Záložky</string>
     <string name="notification_summary_small">%1$s a %2$s</string>
@@ -199,7 +195,6 @@
     <string name="pref_title_show_media_preview">Sťahovať náhľady médií</string>
     <string name="pref_title_public_filter_keywords">Verejné časové osi</string>
     <string name="description_post_favourited">Obľúbené</string>
-    <string name="action_favourite">Obľúbiť</string>
     <string name="action_hide_reblogs">Skryť zdieľania</string>
     <string name="action_show_reblogs">Zobraziť zdieľania</string>
     <string name="dialog_unfollow_warning">Prestať sledovať tento účet?</string>
@@ -214,7 +209,6 @@
         <item quantity="other">%1$s · %2$d priložených príspevkov</item>
     </plurals>
     <string name="report_comment_hint">Ďalšie komentáre?</string>
-    <string name="action_unfavourite">Odstrániť z obľúbených</string>
     <string name="action_unbookmark">Odstrániť záložku</string>
     <string name="action_post_failed_detail">Tvoj príspevok sa nepodarilo odoslať a bol uložený medzi koncepty.\n\nServer sa buď nepodarilo kontaktovať, alebo príspevok odmietol.</string>
     <string name="action_post_failed_detail_plural">Tvoje príspevky sa nepodarilo odoslať a boli uložené medzi koncepty.\n\nServer sa buď nepodarilo kontaktovať, alebo príspevky odmietol.</string>
@@ -474,7 +468,6 @@
     <string name="error_missing_edits">Tento príspevok bol upravený, ale tvoj server nemá informácie o týchto zmenách, takže ich nevidíš.\n\nJedná sa o problém <a href="https://github.com/mastodon/mastodon/issues/25398">Mastodon issue #25398</a>.</string>
     <string name="notification_update_description">Upozornenia na zmeny príspevkov, s ktorými si interagoval/a</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s a ďalších %4$d</string>
-    <string name="status_count_one_plus">1+</string>
     <string name="pref_title_alway_open_spoiler">Vždy rozbaliť príspevky označené varovaními o obsahu</string>
     <string name="pref_title_alway_show_sensitive_media">Vždy zobraziť citlivý obsah</string>
     <string name="title_media">Média</string>

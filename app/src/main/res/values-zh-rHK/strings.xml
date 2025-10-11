@@ -41,11 +41,6 @@
     <string name="report_username_format">檢舉使用者 @%s 的濫用行為</string>
     <string name="report_comment_hint">更多評論？</string>
     <string name="action_quick_reply">快速回覆</string>
-    <string name="action_reply">回覆</string>
-    <string name="action_reblog">轉嘟</string>
-    <string name="action_unreblog">取消轉嘟</string>
-    <string name="action_favourite">收藏</string>
-    <string name="action_unfavourite">取消收藏</string>
     <string name="action_compose">撰寫嘟文</string>
     <string name="action_follow">關注</string>
     <string name="action_unfollow">取消關注</string>
@@ -297,7 +292,6 @@
     <string name="action_view_domain_mutes">被隱藏的網域</string>
     <string name="description_post_bookmarked">被加入書籤</string>
     <string name="action_view_bookmarks">我的書籤</string>
-    <string name="action_bookmark">書籤</string>
     <string name="title_bookmarks">我的書籤</string>
     <string name="notification_subscription_format">%s 剛剛發了新嘟文</string>
     <string name="notification_follow_request_format">%s 希望可以關注你</string>

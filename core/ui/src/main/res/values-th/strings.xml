@@ -60,4 +60,10 @@
     <string name="post_media_audio">เสียง</string>
     <string name="post_media_video">วิดีทัศน์</string>
     <string name="post_media_attachments">ไฟล์แนบ</string>
+    <string name="action_reply">ตอบกลับ</string>
+    <string name="action_reblog">ดัน</string>
+    <string name="action_favourite">ชื่นชอบ</string>
+    <string name="action_bookmark">คั่นหน้า</string>
+    <string name="action_unreblog">ลบการดัน</string>
+    <string name="action_unfavourite">เลิกชื่นชอบ</string>
 </resources>

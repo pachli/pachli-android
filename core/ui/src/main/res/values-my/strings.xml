@@ -4,4 +4,10 @@
     <string name="action_logout">ထွက်မည်</string>
     <string name="post_media_alt">ပုံစာ</string>
     <string name="post_sensitive_media_title">ထိလွယ်ရှလွယ်သော</string>
+    <string name="action_reply">ပြန်စာ</string>
+    <string name="action_reblog">တစ်ဆင့်မျှဝေမှု</string>
+    <string name="action_favourite">ကြိုက်သည်</string>
+    <string name="action_bookmark">သိမ်းဆည်းမည်</string>
+    <string name="action_unreblog">ပယ်ဖျက်မည်</string>
+    <string name="action_unfavourite">ပယ်ဖျက်မည်</string>
 </resources>

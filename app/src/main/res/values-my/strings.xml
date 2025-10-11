@@ -40,9 +40,6 @@
         <item quantity="other">%1$s မှ %2$d အထိပိုစ့်များပါဝင်သည်</item>
     </plurals>
     <string name="report_comment_hint">ဖြည့်စွက်မှတ်ချက်များရှိပါသလား</string>
-    <string name="action_unreblog">ပယ်ဖျက်မည်</string>
-    <string name="action_favourite">ကြိုက်သည်</string>
-    <string name="action_bookmark">သိမ်းဆည်းမည်</string>
     <string name="action_compose">စာစီမည်</string>
     <string name="action_post_failed_show_drafts">ပုံကြမ်းများပြရန်</string>
     <string name="action_post_failed_do_nothing">ပယ်ဖျက်မည်</string>
@@ -91,9 +88,6 @@
     <string name="notification_header_report_format">%s မှ %s အားတိုင်ကြားထားသည်</string>
     <string name="report_username_format">\@%s အားတိုင်ကြားမည်</string>
     <string name="action_quick_reply">အမြန်ပြန်စာ</string>
-    <string name="action_reply">ပြန်စာ</string>
-    <string name="action_reblog">တစ်ဆင့်မျှဝေမှု</string>
-    <string name="action_unfavourite">ပယ်ဖျက်မည်</string>
     <string name="action_unbookmark">သိမ်ဆည်းမှုဖယ်ရှားမည်</string>
     <string name="action_post_failed">ပို့စ်တင်ခြင်းမအောင်မြင်ပါ</string>
     <string name="action_post_failed_detail_plural">ပိုစ့်တင်ခြင်းမအောင်မြင်ပါ ပုံကြမ်းများထဲတွင်သိမ်းထားသည်။\n\nဆာဗာအားမချိတ်ဆက်နိုင်ခြင်း သို့ ပယ်ချခြင်းဖြစ်နိုင်သည်။</string>

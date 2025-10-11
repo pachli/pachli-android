@@ -70,4 +70,11 @@
     <string name="post_media_audio">Ses</string>
     <string name="post_media_video">Video</string>
     <string name="post_media_attachments">Ekler</string>
+    <string name="action_reply">Yanıtla</string>
+    <string name="action_reblog">Yeniden Paylaş</string>
+    <string name="action_favourite">Gözdele</string>
+    <string name="action_bookmark">Yer imi</string>
+    <string name="status_count_one_plus">1+</string>
+    <string name="action_unreblog">Yeniden paylaşmaktan vazgeç</string>
+    <string name="action_unfavourite">Gözdeyi kaldır</string>
 </resources>

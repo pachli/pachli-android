@@ -41,11 +41,6 @@
     <string name="report_username_format">Пожаловаться на @%s</string>
     <string name="report_comment_hint">Дополнительные комментарии?</string>
     <string name="action_quick_reply">Быстрый ответ</string>
-    <string name="action_reply">Ответить</string>
-    <string name="action_reblog">Продвинуть</string>
-    <string name="action_unreblog">Убрать продвижение</string>
-    <string name="action_favourite">Нравится</string>
-    <string name="action_unfavourite">Убрать из избранного</string>
     <string name="action_compose">Сочинить</string>
     <string name="action_follow">Подписаться</string>
     <string name="action_unfollow">Отписаться</string>
@@ -308,7 +303,6 @@
     <string name="action_schedule_post">Запланировать гудок</string>
     <string name="action_reset_schedule">Сброс</string>
     <string name="title_bookmarks">Закладки</string>
-    <string name="action_bookmark">Добавить в закладки</string>
     <string name="action_view_bookmarks">Закладки</string>
     <string name="description_post_bookmarked">Добавлено в закладки</string>
     <string name="select_list_title">Выбрать список</string>
@@ -483,7 +477,6 @@
     <string name="notification_unknown_name">Неизвестно</string>
     <string name="notification_notification_worker">Получение уведомлений…</string>
     <string name="notification_prune_cache">Обслуживание кеша…</string>
-    <string name="status_count_one_plus">1+</string>
     <string name="status_filtered_show_anyway">Показать всё равно</string>
     <string name="status_filter_placeholder_label_format">Фильтр: <b>%1$s</b></string>
     <string name="pref_title_public_filter_home_and_lists">Домашняя и списки</string>

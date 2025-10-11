@@ -80,4 +80,11 @@
     <string name="post_media_audio">Audio</string>
     <string name="post_media_video">Vídeo</string>
     <string name="post_media_attachments">Anexos</string>
+    <string name="action_reply">Responder</string>
+    <string name="action_reblog">Promover</string>
+    <string name="action_favourite">Favorito</string>
+    <string name="action_bookmark">Marcar</string>
+    <string name="status_count_one_plus">1+</string>
+    <string name="action_unreblog">Eliminar promoción</string>
+    <string name="action_unfavourite">Eliminar favorito</string>
 </resources>

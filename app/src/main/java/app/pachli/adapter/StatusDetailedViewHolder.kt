@@ -120,14 +120,20 @@ class StatusDetailedViewHolder(
         // We never collapse statuses in the detail view
         val uncollapsedViewdata =
             if (viewData.isCollapsible && viewData.isCollapsed) viewData.copy(isCollapsed = false) else viewData
+
+        // Hide statistics on the controls in detailed view, statistics are (optionally) shown
+        // elsewhere in the UI.
+        val statusDisplayOptions = statusDisplayOptions.copy(showStatsInline = false)
         super.setupWithStatus(uncollapsedViewdata, listener, statusDisplayOptions, payloads)
+
+        // Always show card for detailed status
         setupCard(
             uncollapsedViewdata,
             viewData.isExpanded,
             CardViewMode.FULL_WIDTH,
             statusDisplayOptions,
             listener,
-        ) // Always show card for detailed status
+        )
         if (payloads.isNullOrEmpty()) {
             val reblogsCount = uncollapsedViewdata.actionable.reblogsCount
             val favouritesCount = uncollapsedViewdata.actionable.favouritesCount

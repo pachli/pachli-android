@@ -49,4 +49,9 @@
     <string name="post_sensitive_media_title">संवेदनशील विषय वस्तु</string>
     <string name="post_media_images">तस्वीरें</string>
     <string name="post_media_video">वीडियो</string>
+    <string name="action_reply">उत्तर दें</string>
+    <string name="action_reblog">बढ़ावा दें</string>
+    <string name="action_favourite">पसंद</string>
+    <string name="action_bookmark">बुकमार्क</string>
+    <string name="action_unfavourite">नापसन्द</string>
 </resources>

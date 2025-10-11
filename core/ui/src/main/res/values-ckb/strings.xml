@@ -64,4 +64,10 @@
     <string name="post_sensitive_media_title">ناوەڕۆکی هەستیار</string>
     <string name="post_media_images">وێنەکان</string>
     <string name="post_media_video">ڤیدیۆ</string>
+    <string name="action_reply">وەڵام</string>
+    <string name="action_reblog">بەهێزکردن</string>
+    <string name="action_favourite">دڵخواز</string>
+    <string name="action_bookmark">نیشانه</string>
+    <string name="action_unreblog">پۆستکردنەوەکە بگەڕێنەوە</string>
+    <string name="action_unfavourite">لابردنی دڵخوازەکان</string>
 </resources>

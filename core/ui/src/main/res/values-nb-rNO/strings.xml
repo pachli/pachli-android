@@ -82,4 +82,11 @@
     <string name="post_media_audio">Lyd</string>
     <string name="post_media_video">Video</string>
     <string name="post_media_attachments">Vedlegg</string>
+    <string name="action_reply">Svar</string>
+    <string name="action_reblog">Del</string>
+    <string name="action_favourite">Legg til i favoritter</string>
+    <string name="action_bookmark">Bokmerke</string>
+    <string name="status_count_one_plus">1+</string>
+    <string name="action_unreblog">Fjern deling</string>
+    <string name="action_unfavourite">Fjern favoritt</string>
 </resources>

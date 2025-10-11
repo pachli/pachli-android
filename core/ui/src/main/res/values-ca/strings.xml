@@ -70,4 +70,11 @@
     <string name="post_media_audio">Àudio</string>
     <string name="post_media_video">Vídeo</string>
     <string name="post_media_attachments">Adjuncions</string>
+    <string name="action_reply">Respon</string>
+    <string name="action_reblog">Impulsa</string>
+    <string name="action_favourite">Preferit</string>
+    <string name="action_bookmark">Preferit</string>
+    <string name="status_count_one_plus">+1</string>
+    <string name="action_unreblog">Elimina l\'impuls</string>
+    <string name="action_unfavourite">Elimineu els preferits</string>
 </resources>

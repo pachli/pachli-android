@@ -38,11 +38,6 @@
     <string name="report_username_format">Denunciar @%s</string>
     <string name="report_comment_hint">Comentários adicionais?</string>
     <string name="action_quick_reply">Resposta rápida</string>
-    <string name="action_reply">Responder</string>
-    <string name="action_reblog">Dar Boost</string>
-    <string name="action_unreblog">Desfazer Boost</string>
-    <string name="action_favourite">Favoritar</string>
-    <string name="action_unfavourite">Desfavoritar</string>
     <string name="action_compose">Compor</string>
     <string name="action_follow">Seguir</string>
     <string name="action_unfollow">Deixar de seguir</string>
@@ -307,7 +302,6 @@
     <string name="action_schedule_post">Agendar Toot</string>
     <string name="action_reset_schedule">Cancelar</string>
     <string name="title_bookmarks">Salvos</string>
-    <string name="action_bookmark">Salvar</string>
     <string name="action_view_bookmarks">Salvos</string>
     <string name="description_post_bookmarked">Salvo</string>
     <string name="select_list_title">Selecionar lista</string>
@@ -405,7 +399,6 @@
     <string name="report_category_spam">Spam</string>
     <string name="report_category_other">Outros</string>
     <string name="pref_title_http_proxy_port_message">A porta deve estar entre %d e %d</string>
-    <string name="status_count_one_plus">1+</string>
     <string name="action_post_failed">Falha ao enviar</string>
     <string name="action_post_failed_show_drafts">Mostrar rascunhos</string>
     <string name="account_date_joined">Entrou em %1$s</string>

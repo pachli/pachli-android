@@ -73,4 +73,11 @@
     <string name="post_media_audio">Audio</string>
     <string name="post_media_video">Video</string>
     <string name="post_media_attachments">Přílohy</string>
+    <string name="action_reply">Odpovědět</string>
+    <string name="action_reblog">Boostnout</string>
+    <string name="action_favourite">Oblíbit</string>
+    <string name="action_bookmark">Záložka</string>
+    <string name="status_count_one_plus">1+</string>
+    <string name="action_unreblog">Odstranit boost</string>
+    <string name="action_unfavourite">Odstranit oblíbení</string>
 </resources>

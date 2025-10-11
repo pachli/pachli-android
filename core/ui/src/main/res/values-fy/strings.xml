@@ -22,4 +22,9 @@
     <string name="post_media_audio">Lûd</string>
     <string name="post_media_video">Fideo</string>
     <string name="post_media_attachments">Taheaksels</string>
+    <string name="action_reply">Reagearje</string>
+    <string name="action_reblog">Boost</string>
+    <string name="action_favourite">As favoryt oanmerke</string>
+    <string name="action_unreblog">Boost fuorthelje</string>
+    <string name="action_unfavourite">Net mear as favoryt oanmerke</string>
 </resources>

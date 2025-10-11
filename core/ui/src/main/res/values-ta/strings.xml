@@ -87,4 +87,11 @@
     <string name="post_media_audio">ஆடியோ</string>
     <string name="post_media_video">காணொளி</string>
     <string name="post_media_attachments">இணைப்புகள்</string>
+    <string name="action_reply">பதிலளி</string>
+    <string name="action_reblog">மேலேற்று</string>
+    <string name="action_favourite">பிடித்தவை</string>
+    <string name="action_bookmark">புத்தககுறி</string>
+    <string name="status_count_one_plus">1+</string>
+    <string name="action_unreblog">பூச்டை அகற்று</string>
+    <string name="action_unfavourite">பிடித்ததை அகற்று</string>
 </resources>

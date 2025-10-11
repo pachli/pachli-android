@@ -38,9 +38,6 @@
     <string name="report_username_format">\@%s salatu</string>
     <string name="report_comment_hint">Informazio gehigarria?</string>
     <string name="action_quick_reply">Erantzun azkarra</string>
-    <string name="action_reply">Erantzun</string>
-    <string name="action_reblog">Bultzatu</string>
-    <string name="action_favourite">Gogokoa</string>
     <string name="action_compose">Idatzi</string>
     <string name="action_follow">Jarraitu</string>
     <string name="action_unfollow">Jarraitzeari utzi</string>
@@ -216,8 +213,6 @@
     <string name="title_posts_pinned">Finkatua</string>
     <string name="title_domain_mutes">Ezkutuko domeinuak</string>
     <string name="title_scheduled_posts">Programatutako tutak</string>
-    <string name="action_unreblog">Bultzada kendu</string>
-    <string name="action_unfavourite">Gogokoa kendu</string>
     <string name="action_edit">Editatu</string>
     <string name="action_delete_and_redraft">Ezabatu eta zirriborroa berriro egin</string>
     <string name="action_view_domain_mutes">Ezkutuko domeinuak</string>
@@ -302,7 +297,6 @@
     <string name="poll_new_choice_hint">%d. aukera</string>
     <string name="edit_poll">Editatu</string>
     <string name="title_bookmarks">Laster-markak</string>
-    <string name="action_bookmark">Laster-marka</string>
     <string name="action_view_bookmarks">Laster-markak</string>
     <string name="action_open_reblogger">Ireki bultzadaren egilea</string>
     <string name="pref_title_public_filter_keywords">Denbora lerro publikoak</string>

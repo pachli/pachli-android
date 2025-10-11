@@ -41,11 +41,6 @@
     <string name="report_username_format">举报 @%s</string>
     <string name="report_comment_hint">报告更多信息？</string>
     <string name="action_quick_reply">快速回复</string>
-    <string name="action_reply">回复</string>
-    <string name="action_reblog">转嘟</string>
-    <string name="action_unreblog">取消转嘟</string>
-    <string name="action_favourite">喜欢</string>
-    <string name="action_unfavourite">取消喜欢</string>
     <string name="action_compose">发表嘟文</string>
     <string name="action_follow">关注</string>
     <string name="action_unfollow">取消关注</string>
@@ -266,7 +261,6 @@
     <string name="title_bookmarks">书签</string>
     <string name="title_domain_mutes">被隐藏的域名</string>
     <string name="title_scheduled_posts">定时嘟文</string>
-    <string name="action_bookmark">书签</string>
     <string name="action_edit">编辑</string>
     <string name="action_view_bookmarks">书签</string>
     <string name="action_view_domain_mutes">隐藏的域名</string>
@@ -383,7 +377,6 @@
     <string name="saving_draft">正在保存草稿…</string>
     <string name="title_migration_relogin">重新登陆以启用通知推送</string>
     <string name="account_date_joined">加入于%1$s</string>
-    <string name="status_count_one_plus">1+</string>
     <string name="action_edit_image">编辑图片</string>
     <string name="error_image_edit_failed">无法编辑图片。</string>
     <string name="error_following_hashtag_format">关注 #%s 出错</string>

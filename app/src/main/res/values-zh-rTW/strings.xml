@@ -41,11 +41,6 @@
     <string name="report_username_format">檢舉使用者 @%s 的濫用行為</string>
     <string name="report_comment_hint">更多評論？</string>
     <string name="action_quick_reply">快速回覆</string>
-    <string name="action_reply">回覆</string>
-    <string name="action_reblog">轉嘟</string>
-    <string name="action_unreblog">取消轉嘟</string>
-    <string name="action_favourite">最愛</string>
-    <string name="action_unfavourite">取消最愛</string>
     <string name="action_compose">撰寫嘟文</string>
     <string name="action_follow">關注</string>
     <string name="action_unfollow">取消關注</string>
@@ -351,7 +346,6 @@
     <string name="select_list_title">選擇列表</string>
     <string name="description_post_bookmarked">被加入書籤</string>
     <string name="action_view_bookmarks">我的書籤</string>
-    <string name="action_bookmark">書籤</string>
     <string name="action_reset_schedule">重設</string>
     <string name="action_schedule_post">排程嘟文</string>
     <string name="action_access_scheduled_posts">排程的嘟文</string>
@@ -386,7 +380,6 @@
     <string name="saving_draft">正在儲存草稿…</string>
     <string name="action_set_focus">設置關注點</string>
     <string name="title_migration_relogin">重新登入以啟用推播功能</string>
-    <string name="status_count_one_plus">1+</string>
     <string name="action_add_reaction">添加反應</string>
     <string name="pref_title_notification_filter_sign_ups">有人進行了註冊</string>
     <string name="action_edit_image">編輯圖片</string>

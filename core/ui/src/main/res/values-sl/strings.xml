@@ -70,4 +70,9 @@
     <string name="post_sensitive_media_title">Občutljiva vsebina</string>
     <string name="post_media_images">Slike</string>
     <string name="post_media_video">Video</string>
+    <string name="action_reply">Odgovori</string>
+    <string name="action_reblog">Spodbudi</string>
+    <string name="action_favourite">Vzljubi</string>
+    <string name="action_unreblog">Odstrani spodbudo</string>
+    <string name="action_unfavourite">Odstrani priljubljene</string>
 </resources>

@@ -47,12 +47,6 @@
     <string name="action_unfollow">Deixar de seguir</string>
     <string name="action_follow">Seguir</string>
     <string name="action_compose">Redactar</string>
-    <string name="action_unfavourite">Eliminar favorito</string>
-    <string name="action_bookmark">Marcar</string>
-    <string name="action_favourite">Favorito</string>
-    <string name="action_unreblog">Eliminar promoción</string>
-    <string name="action_reblog">Promover</string>
-    <string name="action_reply">Responder</string>
     <string name="action_quick_reply">Resposta rápida</string>
     <string name="report_comment_hint">Comentarios adicionais\?</string>
     <string name="report_username_format">Denunciar a @%s</string>
@@ -379,7 +373,6 @@
     <string name="title_migration_relogin">Volve a acceder para ter notificacións push</string>
     <string name="notification_update_format">%s editou a publicación</string>
     <string name="saving_draft">Gardando borrador…</string>
-    <string name="status_count_one_plus">1+</string>
     <string name="action_edit_image">Editar imaxe</string>
     <string name="error_image_edit_failed">A imaxe non puido ser editada.</string>
     <string name="set_focus_description">Toca ou arrastra o círculo para elexir onde centrar a imaxe e sexa máis visible nas miniaturas.</string>

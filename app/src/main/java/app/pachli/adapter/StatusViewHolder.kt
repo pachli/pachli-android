@@ -23,10 +23,8 @@ import androidx.core.util.TypedValueCompat.dpToPx
 import app.pachli.R
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
-import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.common.util.SmartLengthInputFilter
-import app.pachli.core.common.util.formatNumber
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.model.Emoji
@@ -69,10 +67,6 @@ open class StatusViewHolder<T : IStatusViewData>(
                 }
             }
         }
-        statusReblogsCount.visible(statusDisplayOptions.showStatsInline)
-        statusFavouritesCount.visible(statusDisplayOptions.showStatsInline)
-        setFavouritedCount(viewData.actionable.favouritesCount)
-        setReblogsCount(viewData.actionable.reblogsCount)
         super.setupWithStatus(viewData, listener, statusDisplayOptions, payloads)
     }
 
@@ -96,14 +90,6 @@ open class StatusViewHolder<T : IStatusViewData>(
         statusInfo.compoundDrawablePadding = dpToPx(10f, context.resources.displayMetrics).toInt()
         statusInfo.setPaddingRelative(dpToPx(28f, context.resources.displayMetrics).toInt(), 0, 0, 0)
         statusInfo.show()
-    }
-
-    private fun setReblogsCount(reblogsCount: Int) = with(binding) {
-        statusReblogsCount.text = formatNumber(reblogsCount.toLong(), 1000)
-    }
-
-    private fun setFavouritedCount(favouritedCount: Int) = with(binding) {
-        statusFavouritesCount.text = formatNumber(favouritedCount.toLong(), 1000)
     }
 
     protected fun hideStatusInfo() = with(binding) {

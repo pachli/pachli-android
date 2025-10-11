@@ -8,7 +8,6 @@
     <string name="action_search">खोज</string>
     <string name="title_posts_with_replies">उत्तरों के साथ</string>
     <string name="title_followers">अनुगामी</string>
-    <string name="action_reply">उत्तर दें</string>
     <string name="action_follow">फ़ॉलो</string>
     <string name="action_unfollow">अनफ़ॉलो</string>
     <string name="action_block">ब्लॉक</string>
@@ -126,8 +125,6 @@
     <string name="action_add_media">ऐड मीडिया</string>
     <string name="action_open_in_web">ब्राउज़र में खोलें</string>
     <string name="error_sender_account_gone">टोट भेजने में त्रुटि।</string>
-    <string name="action_bookmark">बुकमार्क</string>
-    <string name="action_reblog">बढ़ावा दें</string>
     <string name="action_quick_reply">तुरंत जवाब</string>
     <string name="report_comment_hint">अतिरिक्त टिप्पणियां\?</string>
     <string name="report_username_format">रिपोर्ट @%s</string>
@@ -267,8 +264,6 @@
     <string name="action_view_mutes">म्यूट किए गए उपयोगकर्ता</string>
     <string name="action_view_favourites">पसंदीदा</string>
     <string name="action_compose">लिखें</string>
-    <string name="action_unfavourite">नापसन्द</string>
-    <string name="action_favourite">पसंद</string>
     <string name="title_edit_profile">अपनी प्रोफाइल एडिट करें</string>
     <string name="title_follow_requests">फ़ॉलो अनुरोध</string>
     <string name="title_blocks">रोके गए उपयोगकर्ता</string>

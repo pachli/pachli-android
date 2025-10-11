@@ -60,4 +60,9 @@
     <string name="post_sensitive_media_title">敏感內容</string>
     <string name="post_media_images">照片</string>
     <string name="post_media_video">影片</string>
+    <string name="action_reply">回覆</string>
+    <string name="action_reblog">轉嘟</string>
+    <string name="action_favourite">收藏</string>
+    <string name="action_unreblog">取消轉嘟</string>
+    <string name="action_unfavourite">取消收藏</string>
 </resources>

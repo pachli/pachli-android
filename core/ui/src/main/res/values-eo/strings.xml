@@ -70,4 +70,11 @@
     <string name="post_media_audio">Aŭdaĵo</string>
     <string name="post_media_video">Video</string>
     <string name="post_media_attachments">Kunsendaĵoj</string>
+    <string name="action_reply">Respondi</string>
+    <string name="action_reblog">Diskonigi</string>
+    <string name="action_favourite">Stelumi</string>
+    <string name="action_bookmark">Aldoni al la legosignoj</string>
+    <string name="status_count_one_plus">1+</string>
+    <string name="action_unreblog">Nuligi diskonigon</string>
+    <string name="action_unfavourite">Nuligi stelumon</string>
 </resources>

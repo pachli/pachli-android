@@ -40,10 +40,6 @@
     <string name="report_username_format">Prijavi @%s</string>
     <string name="report_comment_hint">Dodatni komentarji\?</string>
     <string name="action_quick_reply">Hiter odgovor</string>
-    <string name="action_reply">Odgovori</string>
-    <string name="action_reblog">Spodbudi</string>
-    <string name="action_unreblog">Odstrani spodbudo</string>
-    <string name="action_favourite">Vzljubi</string>
     <string name="action_compose">Sestavi</string>
     <string name="action_follow">Sledi</string>
     <string name="action_unfollow">Prenehaj slediti</string>
@@ -104,7 +100,6 @@
     <string name="label_quick_reply">Odgovori…</string>
     <string name="label_avatar">Podoba</string>
     <string name="label_header">Glava</string>
-    <string name="action_unfavourite">Odstrani priljubljene</string>
     <string name="action_unmute">Prekini utišanje</string>
     <string name="confirmation_unblocked">Odblokiran uporabnik</string>
     <string name="confirmation_unmuted">Prekinjeno utišanje uporabnika</string>

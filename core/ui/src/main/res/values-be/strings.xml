@@ -82,4 +82,11 @@
     <string name="post_media_audio">Аўдыё</string>
     <string name="post_media_video">Відэа</string>
     <string name="post_media_attachments">Далучэнні</string>
+    <string name="action_reply">Адказаць</string>
+    <string name="action_reblog">Пашырыць</string>
+    <string name="action_favourite">Упадабаць</string>
+    <string name="action_bookmark">Дадаць у закладкі</string>
+    <string name="status_count_one_plus">1+</string>
+    <string name="action_unreblog">Скасаваць пашырэнне</string>
+    <string name="action_unfavourite">Выдаліць з абраных</string>
 </resources>

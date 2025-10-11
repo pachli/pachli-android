@@ -14,7 +14,7 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.util
+package app.pachli.core.ui.extensions
 
 import android.graphics.Rect
 import android.view.MotionEvent

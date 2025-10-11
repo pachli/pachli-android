@@ -76,4 +76,11 @@
     <string name="post_media_audio">Áudio</string>
     <string name="post_media_video">Vídeo</string>
     <string name="post_media_attachments">Anexos</string>
+    <string name="action_reply">Responder</string>
+    <string name="action_reblog">Dar Boost</string>
+    <string name="action_favourite">Favoritar</string>
+    <string name="action_bookmark">Salvar</string>
+    <string name="status_count_one_plus">1+</string>
+    <string name="action_unreblog">Desfazer Boost</string>
+    <string name="action_unfavourite">Desfavoritar</string>
 </resources>

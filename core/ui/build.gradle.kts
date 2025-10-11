@@ -55,6 +55,9 @@ dependencies {
     implementation(libs.bundles.glide)
         ?.because("Loads account avatars and emojis")
 
+    implementation(libs.sparkbutton)
+        ?.because("Used in StatusControlView")
+
     api(libs.material.iconics)
     api(libs.material.typeface)
 

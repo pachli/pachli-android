@@ -42,11 +42,6 @@
     <string name="report_username_format">\@%s 신고</string>
     <string name="report_comment_hint">코멘트</string>
     <string name="action_quick_reply">빠른 답장</string>
-    <string name="action_reply">답장</string>
-    <string name="action_reblog">부스트</string>
-    <string name="action_unreblog">부스트 해제</string>
-    <string name="action_favourite">좋아요</string>
-    <string name="action_unfavourite">좋아요 취소</string>
     <string name="action_compose">작성</string>
     <string name="action_follow">팔로우</string>
     <string name="action_unfollow">팔로우 해제</string>

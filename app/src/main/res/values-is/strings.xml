@@ -48,12 +48,6 @@
     <string name="report_username_format">Kæra @%s</string>
     <string name="report_comment_hint">Aðrar athugasemdir\?</string>
     <string name="action_quick_reply">Snöggt svar</string>
-    <string name="action_reply">Svara</string>
-    <string name="action_reblog">Endurbirta</string>
-    <string name="action_unreblog">Fjarlægja endurbirtingu</string>
-    <string name="action_favourite">Eftirlæti</string>
-    <string name="action_bookmark">Bókamerki</string>
-    <string name="action_unfavourite">Fjarlægja eftirlæti</string>
     <string name="action_compose">Semja skilaboð</string>
     <string name="action_follow">Fylgja</string>
     <string name="action_unfollow">Hætta að fylgjast með</string>
@@ -377,7 +371,6 @@
     <string name="notification_update_name">Breytingar á færslum</string>
     <string name="notification_update_description">Tilkynningar þegar færslum sem þú hefur átt við er breytt</string>
     <string name="account_date_joined">Skráði sig %1$s</string>
-    <string name="status_count_one_plus">1+</string>
     <string name="action_edit_image">Breyta mynd</string>
     <string name="saving_draft">Vista drög…</string>
     <string name="title_migration_relogin">Skráðu aftur inn fyrir ýti-tilkynningar</string>

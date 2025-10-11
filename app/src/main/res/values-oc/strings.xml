@@ -37,9 +37,6 @@
     <string name="report_username_format">Denonciar @%s</string>
     <string name="report_comment_hint">Cap comentari addicional ?</string>
     <string name="action_quick_reply">Responsa rapida</string>
-    <string name="action_reply">Respondre</string>
-    <string name="action_reblog">Partejar</string>
-    <string name="action_favourite">Aimar</string>
     <string name="action_compose">Redactar</string>
     <string name="action_follow">Seguir</string>
     <string name="action_unfollow">Quitar de seguir</string>
@@ -208,8 +205,6 @@
     <string name="title_direct_messages">Messatges dirèctes</string>
     <string name="title_tab_preferences">Onglets</string>
     <string name="title_posts_pinned">Penjats</string>
-    <string name="action_unreblog">Suprimir lo partatge</string>
-    <string name="action_unfavourite">Suprimir lo favorit</string>
     <string name="action_view_account_preferences">Preferéncias del compte</string>
     <string name="action_add_tab">Ajustar un onglet</string>
     <string name="action_open_reblogger">Dobrir l’autor del partatge</string>
@@ -304,7 +299,6 @@
     <string name="action_schedule_post">Planificar de tuts</string>
     <string name="action_reset_schedule">Escafar</string>
     <string name="title_bookmarks">Marcapaginas</string>
-    <string name="action_bookmark">Ajustar als marcapaginas</string>
     <string name="action_view_bookmarks">Marcapaginas</string>
     <string name="description_post_bookmarked">Ajustat als marcapaginas</string>
     <string name="select_list_title">Seleccionar la list</string>
@@ -363,7 +357,6 @@
     <string name="failed_to_unpin">Fracàs en despenjant</string>
     <string name="description_post_language">Lenga de la publicacion</string>
     <string name="notification_update_name">Publicacions modificadas</string>
-    <string name="status_count_one_plus">&gt;1</string>
     <string name="duration_14_days">14 jorns</string>
     <string name="duration_30_days">30 jorns</string>
     <string name="error_following_hashtag_format">Error en seguissent #%s</string>

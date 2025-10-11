@@ -36,9 +36,6 @@
     <string name="report_username_format">Zgłoś @%s</string>
     <string name="report_comment_hint">Dodatkowe komentarze?</string>
     <string name="action_quick_reply">Szybka odpowiedź</string>
-    <string name="action_reply">Odpowiedz</string>
-    <string name="action_reblog">Podbij</string>
-    <string name="action_favourite">Polub</string>
     <string name="action_compose">Napisz</string>
     <string name="action_follow">Obserwuj</string>
     <string name="action_unfollow">Przestań obserwować</string>
@@ -204,13 +201,11 @@
     <string name="title_posts_pinned">Przypięte</string>
     <string name="post_content_show_more">Rozwiń</string>
     <string name="post_content_show_less">Zwiń</string>
-    <string name="action_unfavourite">Cofnij polubienie</string>
     <string name="action_delete_and_redraft">Usuń i przeredaguj</string>
     <string name="action_view_account_preferences">Ustawienia konta</string>
     <string name="action_open_faved_by">Pokaż polubione</string>
     <string name="title_tab_preferences">Karty</string>
     <string name="title_domain_mutes">Ukryte domeny</string>
-    <string name="action_unreblog">Cofnij podbicie</string>
     <string name="action_view_domain_mutes">Ukryte domeny</string>
     <string name="action_add_poll">Dodaj ankietę</string>
     <string name="action_mute_domain">Wycisz %s</string>
@@ -309,7 +304,6 @@
     <string name="action_schedule_post">Zaplanuj wpis</string>
     <string name="action_reset_schedule">Resetuj</string>
     <string name="title_bookmarks">Zakładki</string>
-    <string name="action_bookmark">Dodaj do zakładek</string>
     <string name="action_view_bookmarks">Zakładki</string>
     <string name="description_post_bookmarked">Dodany do zakładek</string>
     <string name="select_list_title">Wybierz listę</string>
@@ -385,7 +379,6 @@
     <string name="notification_update_format">Edycja wpisu przez %s</string>
     <string name="notification_update_name">Edycje wpisów</string>
     <string name="saving_draft">Zapisywanie szkicu…</string>
-    <string name="status_count_one_plus">1+</string>
     <string name="account_date_joined">Data dołączenia: %1$s</string>
     <string name="action_edit_image">Edytuj obraz</string>
     <string name="error_image_edit_failed">Obrazek nie mógł być zmodyfikowany.</string>
