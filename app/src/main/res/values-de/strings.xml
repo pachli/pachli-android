@@ -773,4 +773,6 @@
     <string name="translator_error_download_required_fmt">Übersetzung in %1$s erfordert das Herunterladen des Sprachpakets und es besteht keine WLAN-Verbindung</string>
     <string name="filter_description_blur">Inhalt anzeigen, Medien mit Inhaltswarnung ausblenden</string>
     <string name="filter_action_blur">Anhänge ausblenden</string>
+    <string name="action_move_down">Herunterschieben</string>
+    <string name="action_move_up">Hochschieben</string>
 </resources>
