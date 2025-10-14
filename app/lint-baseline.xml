@@ -242,7 +242,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="1109"
+            line="1106"
             column="13"/>
     </issue>
 
@@ -253,7 +253,7 @@
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="1110"
+            line="1107"
             column="14"/>
     </issue>
 
@@ -264,7 +264,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/MainActivity.kt"
-            line="1168"
+            line="1165"
             column="17"/>
     </issue>
 
@@ -995,17 +995,6 @@
         <location
             file="src/main/res/layout/activity_view_media.xml"
             line="6"
-            column="5"/>
-    </issue>
-
-    <issue
-        id="Overdraw"
-        message="Possible overdraw: Root element paints background `?android:attr/colorBackground` with a theme that also paints a background (inferred theme is `@style/AppTheme`)"
-        errorLine1="    android:background=&quot;?android:attr/colorBackground&quot;"
-        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/layout/fragment_timeline_notifications.xml"
-            line="24"
             column="5"/>
     </issue>
 
@@ -3865,7 +3854,7 @@
         errorLine2="           ~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="../core/designsystem/src/main/res/values/styles.xml"
-            line="196"
+            line="201"
             column="12"/>
     </issue>
 

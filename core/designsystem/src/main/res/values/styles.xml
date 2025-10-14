@@ -155,20 +155,27 @@
         <item name="android:colorBackground">@color/black</item>
         <item name="windowBackgroundColor">@color/black</item>
 
+        <item name="colorOnPrimary">@color/black</item>
         <item name="colorSurface">@color/tusky_grey_10</item>
+        <item name="colorSurfaceContainerLowest">@color/tusky_grey_10</item>
+        <item name="colorSurfaceContainerLow">@color/tusky_grey_10</item>
+        <item name="colorSurfaceContainer">@color/tusky_grey_10</item>
+        <item name="colorSurfaceContainerHigh">@color/tusky_grey_10</item>
+        <item name="colorSurfaceContainerHighest">@color/tusky_grey_10</item>
 
         <!-- TODO: Remove this, use colorControlNormal everywhere instead of iconColor -->
         <item name="iconColor">?attr/colorControlNormal</item>
 
-        <item name="toolbarStyle">@style/Pachli.Widget.Toolbar.Black</item>
+        <item name="appBarLayoutStyle">@style/Pachli.Widget.Material3.AppBarLayout.Black</item>
         <item name="tabStyle">@style/Pachli.Widget.Material3.TabLayout.Black</item>
-        <item name="android:horizontalScrollViewStyle">
-            @style/Pachli.Widget.HorizontalScrollView.Black
-        </item>
+        <item name="android:horizontalScrollViewStyle">@style/Pachli.Widget.HorizontalScrollView.Black</item>
     </style>
 
-    <style name="Pachli.Widget.Toolbar.Black" parent="Widget.Material3.Toolbar">
+    <style name="Pachli.Widget.Material3.AppBarLayout.Black" parent="Widget.Material3.AppBarLayout">
         <item name="android:background">@color/black</item>
+
+        <!-- Prevents flashing/colour changes when scrolling. -->
+        <item name="liftOnScrollColor">@color/black</item>
     </style>
 
     <style name="Pachli.Widget.Material3.TabLayout.Black" parent="Widget.Material3.TabLayout">
@@ -178,6 +185,8 @@
     <style name="Pachli.Widget.HorizontalScrollView.Black" parent="">
         <item name="android:background">@color/black</item>
     </style>
+
+    <style name="Theme.Pachli.Black" parent="Base.Theme.Black" />
 
     <style name="Pachli.Widget.GraphView" parent="">
         <item name="primaryLineColor">@color/pachli_blue</item>
@@ -189,8 +198,6 @@
         <item name="minHideDelay">500</item>
         <item name="showDelay">500</item>
     </style>
-
-    <style name="Theme.Pachli.Black" parent="Base.Theme.Black" />
 
     <!-- customize the shape of the avatars in account selection list -->
     <style name="BezelImageView">

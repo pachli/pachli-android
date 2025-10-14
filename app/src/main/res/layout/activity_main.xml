@@ -16,8 +16,7 @@
             android:id="@+id/appBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:liftOnScroll="true"
-            app:liftOnScrollTargetViewId="@id/viewPager">
+            app:liftOnScroll="true">
 
             <com.google.android.material.appbar.MaterialToolbar
                 style="@style/Pachli.Widget.Toolbar"
