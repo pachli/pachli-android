@@ -279,6 +279,7 @@ class NetworkTimelineRemoteMediator(
                 maxId = maxId,
                 minId = minId,
                 limit = loadSize,
+                excludeReblogs = timeline.excludeReblogs,
             )
             is Timeline.UserList -> api.listTimeline(
                 timeline.listId,

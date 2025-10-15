@@ -89,7 +89,7 @@ class ReportViewModel @AssistedInject constructor(
     accountManager: AccountManager,
     sharedPreferencesRepository: SharedPreferencesRepository,
 ) : NetworkTimelineViewModel(
-    timeline = Timeline.User.Replies(reportedAccountId),
+    timeline = Timeline.User.Replies(reportedAccountId, excludeReblogs = true),
     repository = repository,
     timelineCases = timelineCases,
     eventHub = eventHub,

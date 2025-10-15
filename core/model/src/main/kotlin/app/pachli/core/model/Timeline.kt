@@ -79,7 +79,11 @@ sealed class Timeline : Parcelable {
     @TypeLabel("direct")
     data object Conversations : Timeline()
 
-    /** Any timeline showing statuses from a single user */
+    /**
+     * Any timeline showing statuses from a single user.
+     *
+     * @property id ID of the account that posted the statuses.
+     */
     @NestedSealed
     @Parcelize
     sealed class User : Timeline() {
@@ -95,10 +99,18 @@ sealed class Timeline : Parcelable {
         @JsonClass(generateAdapter = true)
         data class Pinned(override val id: String) : User()
 
-        /** Timeline showing a user's top-level statuses and replies they have made */
+        /**
+         * Timeline showing a user's top-level statuses and replies they have made.
+         *
+         * @property excludeReblogs If true, statuses the account has reblogged
+         * are excluded from the timeline.
+         */
         @TypeLabel("userReplies")
         @JsonClass(generateAdapter = true)
-        data class Replies(override val id: String) : User()
+        data class Replies(
+            override val id: String,
+            val excludeReblogs: Boolean = false,
+        ) : User()
     }
 
     @TypeLabel("favourites")
