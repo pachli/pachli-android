@@ -47,6 +47,7 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
+import app.pachli.core.data.model.ConversationViewData
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.model.AccountFilterDecision
@@ -100,7 +101,7 @@ sealed interface UiAction {
 }
 
 /**
- * Actions taken from an individual [ConversationViewData].
+ * Actions taken from an individual [app.pachli.core.data.model.ConversationViewData].
  */
 internal sealed interface ConversationAction : UiAction {
     /**
