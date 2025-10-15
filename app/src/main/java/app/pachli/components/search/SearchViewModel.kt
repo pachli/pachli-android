@@ -33,7 +33,6 @@ import app.pachli.components.search.SearchOperator.IsSensitiveOperator
 import app.pachli.components.search.SearchOperator.LanguageOperator
 import app.pachli.components.search.SearchOperator.WhereOperator
 import app.pachli.components.search.adapter.SearchPagingSourceFactory
-import app.pachli.components.timeline.viewmodel.getAttachmentDisplayAction
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.Loadable
@@ -60,6 +59,7 @@ import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_LANGU
 import app.pachli.core.model.Status
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiError
+import app.pachli.core.ui.extensions.getAttachmentDisplayAction
 import app.pachli.usecase.TimelineCases
 import app.pachli.util.getInitialLanguages
 import app.pachli.util.getLocaleList

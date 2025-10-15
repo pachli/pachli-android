@@ -19,7 +19,6 @@ package app.pachli.components.viewthread
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.components.timeline.CachedTimelineRepository
-import app.pachli.components.timeline.viewmodel.getAttachmentDisplayAction
 import app.pachli.core.common.PachliError
 import app.pachli.core.data.model.ContentFilterModel
 import app.pachli.core.data.model.StatusViewData
@@ -48,6 +47,7 @@ import app.pachli.core.model.Status
 import app.pachli.core.network.model.asModel
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiError
+import app.pachli.core.ui.extensions.getAttachmentDisplayAction
 import app.pachli.usecase.TimelineCases
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok

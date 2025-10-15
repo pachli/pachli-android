@@ -17,7 +17,6 @@
 
 package app.pachli.viewdata
 
-import app.pachli.components.timeline.viewmodel.getAttachmentDisplayAction
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.model.AccountEntity
@@ -35,6 +34,7 @@ import app.pachli.core.model.FilterContext
 import app.pachli.core.model.RelationshipSeveranceEvent
 import app.pachli.core.model.Status
 import app.pachli.core.model.TimelineAccount
+import app.pachli.core.ui.extensions.getAttachmentDisplayAction
 
 /**
  * Data necessary to show a single notification.
