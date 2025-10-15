@@ -21,10 +21,10 @@ import android.content.Intent
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
+import app.pachli.core.data.model.NotificationViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.model.AccountWarning
 import app.pachli.databinding.ItemModerationWarningBinding
-import app.pachli.viewdata.NotificationViewData
 
 class ModerationWarningViewHolder(
     private val binding: ItemModerationWarningBinding,

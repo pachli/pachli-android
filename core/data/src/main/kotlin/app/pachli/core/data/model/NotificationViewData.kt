@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Pachli Association
+ * Copyright (c) 2025 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -15,26 +15,19 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.viewdata
+package app.pachli.core.data.model
 
-import app.pachli.core.data.model.IStatusViewData
-import app.pachli.core.data.model.StatusViewData
-import app.pachli.core.database.model.AccountEntity
-import app.pachli.core.database.model.NotificationData
 import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.database.model.NotificationReportEntity
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.database.model.TranslationState
-import app.pachli.core.database.model.asModel
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.AccountWarning
 import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.FilterAction
-import app.pachli.core.model.FilterContext
 import app.pachli.core.model.RelationshipSeveranceEvent
 import app.pachli.core.model.Status
 import app.pachli.core.model.TimelineAccount
-import app.pachli.core.ui.extensions.getAttachmentDisplayAction
 
 /**
  * Data necessary to show a single notification.
@@ -71,53 +64,6 @@ data class NotificationViewData(
     val accountFilterDecision: AccountFilterDecision,
     val accountWarning: AccountWarning?,
 ) : IStatusViewData {
-    companion object {
-        /**
-         *
-         * @param pachliAccountEntity
-         * @param data
-         * @param showSensitiveMedia
-         * @param isExpanded
-         * @param contentFilterAction
-         * @param accountFilterDecision
-         * @param isAboutSelf
-         */
-        fun make(
-            pachliAccountEntity: AccountEntity,
-            data: NotificationData,
-            showSensitiveMedia: Boolean,
-            isExpanded: Boolean,
-            contentFilterAction: FilterAction,
-            accountFilterDecision: AccountFilterDecision?,
-            isAboutSelf: Boolean,
-        ) = NotificationViewData(
-            pachliAccountId = pachliAccountEntity.id,
-            localDomain = pachliAccountEntity.domain,
-            type = data.notification.type,
-            id = data.notification.serverId,
-            account = data.account.asModel(),
-            statusViewData = data.status?.let {
-                StatusViewData.from(
-                    pachliAccountId = pachliAccountEntity.id,
-                    it,
-                    isExpanded = isExpanded,
-                    isDetailed = false,
-                    contentFilterAction = contentFilterAction,
-                    attachmentDisplayAction = it.getAttachmentDisplayAction(
-                        FilterContext.NOTIFICATIONS,
-                        showSensitiveMedia,
-                        it.viewData?.attachmentDisplayAction,
-                    ),
-                )
-            },
-            report = data.report,
-            relationshipSeveranceEvent = data.relationshipSeveranceEvent?.asModel(),
-            isAboutSelf = isAboutSelf,
-            accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
-            accountWarning = data.accountWarning?.asModel(),
-        )
-    }
-
     // Implement properties for IStatusViewData. These can't be delegated to `statusViewData`
     // as that might be null. It's up to the calling code to only check these properties if
     // `statusViewData` is not null; not doing that is an illegal state, hence the exception.
@@ -160,4 +106,6 @@ data class NotificationViewData(
         }
     override val translationState: TranslationState
         get() = statusViewData?.translationState ?: throw IllegalStateException()
+
+    companion object
 }

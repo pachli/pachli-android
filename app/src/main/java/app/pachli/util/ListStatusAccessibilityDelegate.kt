@@ -11,13 +11,13 @@ import app.pachli.adapter.FilterableStatusViewHolder
 import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.core.activity.OpenUrlUseCase
 import app.pachli.core.data.model.IStatusViewData
+import app.pachli.core.data.model.NotificationViewData
 import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.AttachmentDisplayReason
 import app.pachli.core.model.Status.Companion.MAX_MEDIA_ATTACHMENTS
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.StatusActionListener
 import app.pachli.core.ui.accessibility.PachliRecyclerViewAccessibilityDelegate
-import app.pachli.viewdata.NotificationViewData
 import kotlin.math.min
 
 // Not using lambdas because there's boxing of int then
