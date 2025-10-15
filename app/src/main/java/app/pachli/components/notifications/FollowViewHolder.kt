@@ -24,6 +24,7 @@ import android.text.style.StyleSpan
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.core.common.string.unicodeWrap
+import app.pachli.core.data.model.NotificationViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.designsystem.R as DR
@@ -35,7 +36,6 @@ import app.pachli.core.ui.extensions.handleContentDescription
 import app.pachli.core.ui.loadAvatar
 import app.pachli.core.ui.setClickableText
 import app.pachli.databinding.ItemFollowBinding
-import app.pachli.viewdata.NotificationViewData
 import com.bumptech.glide.RequestManager
 
 class FollowViewHolder(

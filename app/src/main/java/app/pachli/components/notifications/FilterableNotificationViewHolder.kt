@@ -20,12 +20,12 @@ package app.pachli.components.notifications
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
+import app.pachli.core.data.model.NotificationViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.AccountFilterReason
 import app.pachli.databinding.ItemNotificationFilteredBinding
-import app.pachli.viewdata.NotificationViewData
 
 /**
  * Viewholder for a notification that has been filtered to "warn".
@@ -95,8 +95,9 @@ class FilterableNotificationViewHolder(
             HtmlCompat.FROM_HTML_MODE_LEGACY,
         )
 
-        if (viewData.accountFilterDecision is AccountFilterDecision.Warn) {
-            binding.accountFilterReason.text = when (viewData.accountFilterDecision.reason) {
+        val accountFilterDecision = viewData.accountFilterDecision
+        if (accountFilterDecision is AccountFilterDecision.Warn) {
+            binding.accountFilterReason.text = when (accountFilterDecision.reason) {
                 AccountFilterReason.NOT_FOLLOWING -> notFollowing
                 AccountFilterReason.YOUNGER_30D -> younger30d
                 AccountFilterReason.LIMITED_BY_SERVER -> limitedByServer

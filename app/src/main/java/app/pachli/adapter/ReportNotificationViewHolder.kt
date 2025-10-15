@@ -28,6 +28,7 @@ import app.pachli.components.notifications.NotificationsPagingAdapter
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.string.unicodeWrap
+import app.pachli.core.data.model.NotificationViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.database.model.NotificationReportEntity
 import app.pachli.core.designsystem.R as DR
@@ -36,7 +37,6 @@ import app.pachli.core.ui.getRelativeTimeSpanString
 import app.pachli.core.ui.loadAvatar
 import app.pachli.core.ui.updateEmojiTargets
 import app.pachli.databinding.ItemReportNotificationBinding
-import app.pachli.viewdata.NotificationViewData
 import com.bumptech.glide.RequestManager
 
 class ReportNotificationViewHolder(
@@ -54,17 +54,19 @@ class ReportNotificationViewHolder(
         // this view does not have timestamps.
         if (!payloads.isNullOrEmpty()) return
 
+        val report = viewData.report ?: return
+
         setupWithReport(
             viewData.account,
-            viewData.report!!,
+            report,
             statusDisplayOptions.animateAvatars,
             statusDisplayOptions.animateEmojis,
         )
         setupActionListener(
             notificationActionListener,
-            viewData.report.targetAccount.serverId,
+            report.targetAccount.serverId,
             viewData.account.id,
-            viewData.report.reportId,
+            report.reportId,
         )
     }
 

@@ -32,6 +32,7 @@ import app.pachli.adapter.StatusViewDataDiffCallback
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.common.util.SmartLengthInputFilter
+import app.pachli.core.data.model.NotificationViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.model.NotificationEntity
@@ -44,7 +45,6 @@ import app.pachli.core.ui.emojify
 import app.pachli.core.ui.getRelativeTimeSpanString
 import app.pachli.core.ui.loadAvatar
 import app.pachli.databinding.ItemStatusNotificationBinding
-import app.pachli.viewdata.NotificationViewData
 import com.bumptech.glide.RequestManager
 import java.util.Date
 
