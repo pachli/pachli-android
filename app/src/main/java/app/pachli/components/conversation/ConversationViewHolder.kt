@@ -26,6 +26,7 @@ import app.pachli.adapter.StatusViewDataDiffCallback
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.util.SmartLengthInputFilter
+import app.pachli.core.data.model.ConversationViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.model.ConversationAccount
 import app.pachli.core.ui.SetStatusContent

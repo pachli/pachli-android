@@ -33,13 +33,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import app.pachli.BuildConfig
 import app.pachli.R
-import app.pachli.components.conversation.ConversationViewData
 import app.pachli.core.activity.BaseActivity
 import app.pachli.core.activity.OpenUrlUseCase
 import app.pachli.core.activity.ViewUrlActivity
 import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
+import app.pachli.core.data.model.ConversationViewData
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.OfflineFirstStatusRepository

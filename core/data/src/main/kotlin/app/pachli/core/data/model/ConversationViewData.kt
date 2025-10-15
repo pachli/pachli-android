@@ -15,10 +15,8 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.components.conversation
+package app.pachli.core.data.model
 
-import app.pachli.core.data.model.IStatusViewData
-import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.database.model.ConversationData
 import app.pachli.core.model.AccountFilterDecision
