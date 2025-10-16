@@ -87,7 +87,7 @@ abstract class ViewUrlActivity : BaseActivity() {
                 onEndSearch(url)
 
                 statuses.firstOrNull()?.let {
-                    viewThread(pachliAccountId, it.id, it.url)
+                    viewThread(pachliAccountId, it.actionableStatus.id, it.actionableStatus.url)
                     return@onSuccess
                 }
 

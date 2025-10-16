@@ -42,6 +42,7 @@ import app.pachli.core.common.PachliError
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.designsystem.R as DR
@@ -90,6 +91,8 @@ class ViewThreadFragment :
 
     private lateinit var adapter: ThreadAdapter
     private val thisThreadsStatusId by lazy { requireArguments().getString(ARG_ID)!! }
+
+    private val thisThreadsUrl by unsafeLazy { requireArguments().getString(ARG_URL) }
 
     override var pachliAccountId by Delegates.notNull<Long>()
 
@@ -284,6 +287,8 @@ class ViewThreadFragment :
                 else -> R.drawable.ic_hide_media_24dp
             },
         )
+
+        menu.findItem(R.id.action_open_in_web).apply { isVisible = thisThreadsUrl != null }
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
@@ -293,7 +298,8 @@ class ViewThreadFragment :
                 true
             }
             R.id.action_open_in_web -> {
-                openUrl(requireArguments().getString(ARG_URL)!!)
+                // Belt-and-braces, menu shouldn't be showing if thisThreadsUrl is null.
+                thisThreadsUrl?.let { openUrl(it) }
                 true
             }
             R.id.action_refresh -> {
@@ -454,6 +460,13 @@ class ViewThreadFragment :
         private const val ARG_ID = "app.pachli.ARG_ID"
         private const val ARG_URL = "app.pachli.ARG_URL"
 
+        /**
+         * @param pachliAccountId
+         * @param id Actionable ID of the status to root the thread at.
+         * @param url URL of the status in [id]. May be null if the status doesn't have
+         * an associated URL (in which case the "Open in browser" menu item is
+         * disabled).
+         */
         fun newInstance(pachliAccountId: Long, id: String, url: String?): ViewThreadFragment {
             val fragment = ViewThreadFragment()
             fragment.arguments = Bundle(3).apply {

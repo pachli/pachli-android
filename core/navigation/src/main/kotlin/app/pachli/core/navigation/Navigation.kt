@@ -843,9 +843,9 @@ class ViewMediaActivityIntent private constructor(context: Context, accountId: L
 /**
  * @param context
  * @param accountId ID of the Pachli account viewing the thread
- * @param statusId ID of the status to start from (may be in the middle of the thread)
- * @param statusUrl Optional URL of the status in `statusId`
- * @see [app.pachli.components.viewthread.ViewThreadActivity]
+ * @param statusId ID of the actionable status to start from (may be in the middle of the thread)
+ * @param statusUrl Optional URL of the actionable status in `statusId`
+ * @see [app.pachli.components.viewthread.ViewThreadFragment.newInstance]
  */
 class ViewThreadActivityIntent(context: Context, accountId: Long, statusId: String, statusUrl: String? = null) : Intent() {
     init {
