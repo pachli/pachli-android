@@ -57,7 +57,6 @@ import app.pachli.core.ui.PreviewCardView.Target
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.databinding.FragmentTrendingLinksBinding
 import app.pachli.interfaces.ActionButtonActivity
-import app.pachli.interfaces.AppBarLayoutHost
 import com.bumptech.glide.Glide
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.snackbar.Snackbar
@@ -310,8 +309,6 @@ class TrendingLinksFragment :
         if (talkBackWasEnabled && !wasEnabled) {
             trendingLinksAdapter.notifyItemRangeChanged(0, trendingLinksAdapter.itemCount)
         }
-
-        (requireActivity() as? AppBarLayoutHost)?.appBarLayout?.setLiftOnScrollTargetView(binding.recyclerView)
     }
 
     companion object {

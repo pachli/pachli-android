@@ -21,8 +21,6 @@ class AndroidxToolbarDetectorTest {
                     <com.google.android.material.appbar.AppBarLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:liftOnScroll="true"
-                        app:liftOnScrollTargetViewId="@id/pages"
                         app:layout_collapseMode="pin">
 
                         <androidx.appcompat.widget.Toolbar
@@ -64,9 +62,7 @@ class AndroidxToolbarDetectorTest {
                     <com.google.android.material.appbar.AppBarLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layout_collapseMode="pin"
-                        app:liftOnScroll="true"
-                        app:liftOnScrollTargetViewId="@id/pages">
+                        app:layout_collapseMode="pin">
 
                         <com.google.android.material.appbar.MaterialToolbar
                             android:id="@+id/toolbar"

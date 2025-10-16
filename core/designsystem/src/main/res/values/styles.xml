@@ -78,7 +78,6 @@
 
         <item name="preferenceTheme">@style/AppPreferenceTheme</item>
 
-        <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
 
         <item name="graphViewStyle">@style/Pachli.Widget.GraphView</item>
@@ -90,6 +89,16 @@
         <!-- TODO: Change this to pachli_orange, but also need a lighter version for the
              sparkbutton effect first. -->
         <item name="favoriteIconColor">@color/tusky_orange</item>
+
+        <item name="appBarLayoutStyle">@style/Pachli.Widget.Material3.AppBarLayout</item>
+    </style>
+
+    <style name="Pachli.Widget.Material3.AppBarLayout" parent="Widget.Material3.AppBarLayout">
+        <!-- Disable liftOnScroll, colour changes are distracting. -->
+        <item name="liftOnScroll">false</item>
+        <!-- Even with liftOnScroll disabled there are still some colour changes.
+             Explicitly set the colour to prevents flashing/colour changes when scrolling. -->
+        <item name="liftOnScrollColor">?colorSurface</item>
     </style>
 
     <style name="AppTheme" parent="Theme.Pachli" />
@@ -171,7 +180,7 @@
         <item name="android:horizontalScrollViewStyle">@style/Pachli.Widget.HorizontalScrollView.Black</item>
     </style>
 
-    <style name="Pachli.Widget.Material3.AppBarLayout.Black" parent="Widget.Material3.AppBarLayout">
+    <style name="Pachli.Widget.Material3.AppBarLayout.Black" parent="Pachli.Widget.Material3.AppBarLayout">
         <item name="android:background">@color/black</item>
 
         <!-- Prevents flashing/colour changes when scrolling. -->

@@ -36,19 +36,14 @@ import app.pachli.core.ui.appbar.FadeChildScrollEffect
 import app.pachli.core.ui.extensions.addScrollEffect
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.databinding.ActivityAccountListBinding
-import app.pachli.interfaces.AppBarLayoutHost
-import com.google.android.material.appbar.AppBarLayout
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * Show a list of accounts of a particular kind.
  */
 @AndroidEntryPoint
-class AccountListActivity : ViewUrlActivity(), AppBarLayoutHost {
+class AccountListActivity : ViewUrlActivity() {
     private val binding by viewBinding(ActivityAccountListBinding::inflate)
-
-    override val appBarLayout: AppBarLayout
-        get() = binding.includedToolbar.appbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()

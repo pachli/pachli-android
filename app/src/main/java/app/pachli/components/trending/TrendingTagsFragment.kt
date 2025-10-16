@@ -50,7 +50,6 @@ import app.pachli.core.ui.BackgroundMessage
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.databinding.FragmentTrendingTagsBinding
 import app.pachli.interfaces.ActionButtonActivity
-import app.pachli.interfaces.AppBarLayoutHost
 import app.pachli.viewdata.TrendingViewData
 import com.google.android.material.color.MaterialColors
 import com.mikepenz.iconics.IconicsDrawable
@@ -272,8 +271,6 @@ class TrendingTagsFragment :
             val composeButton = (activity as ActionButtonActivity).actionButton
             composeButton?.hide()
         }
-
-        (requireActivity() as? AppBarLayoutHost)?.appBarLayout?.setLiftOnScrollTargetView(binding.recyclerView)
     }
 
     override fun onReselect() {
