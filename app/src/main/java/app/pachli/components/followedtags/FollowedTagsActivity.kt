@@ -86,8 +86,6 @@ class FollowedTagsActivity :
             }
         }
 
-        binding.includedToolbar.appbar.setLiftOnScrollTargetView(binding.followedTagsView)
-
         val actionButtonScrollListener = ActionButtonScrollListener(binding.fab)
         binding.followedTagsView.addOnScrollListener(actionButtonScrollListener)
         lifecycleScope.launch {

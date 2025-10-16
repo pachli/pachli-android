@@ -40,9 +40,7 @@ import app.pachli.core.ui.extensions.addScrollEffect
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.core.ui.extensions.reduceSwipeSensitivity
 import app.pachli.databinding.ActivityTrendingBinding
-import app.pachli.interfaces.AppBarLayoutHost
 import app.pachli.pager.MainPagerAdapter
-import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayoutMediator
@@ -52,14 +50,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class TrendingActivity : ViewUrlActivity(), AppBarLayoutHost, MenuProvider {
+class TrendingActivity : ViewUrlActivity(), MenuProvider {
     @Inject
     lateinit var eventHub: EventHub
 
     private val binding by viewBinding(ActivityTrendingBinding::inflate)
-
-    override val appBarLayout: AppBarLayout
-        get() = binding.appBar
 
     private lateinit var adapter: MainPagerAdapter
 

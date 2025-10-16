@@ -48,10 +48,8 @@ import app.pachli.core.ui.extensions.addScrollEffect
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.databinding.ActivityTimelineBinding
 import app.pachli.interfaces.ActionButtonActivity
-import app.pachli.interfaces.AppBarLayoutHost
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
-import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -66,7 +64,7 @@ import timber.log.Timber
  * Show a single timeline.
  */
 @AndroidEntryPoint
-class TimelineActivity : ViewUrlActivity(), AppBarLayoutHost, ActionButtonActivity, MenuProvider {
+class TimelineActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
     @Inject
     lateinit var eventHub: EventHub
 
@@ -75,9 +73,6 @@ class TimelineActivity : ViewUrlActivity(), AppBarLayoutHost, ActionButtonActivi
 
     private val binding by viewBinding(ActivityTimelineBinding::inflate)
     private lateinit var timeline: Timeline
-
-    override val appBarLayout: AppBarLayout
-        get() = binding.includedToolbar.appbar
 
     override val actionButton: FloatingActionButton? by unsafeLazy { binding.composeButton }
 

@@ -60,7 +60,6 @@ import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.databinding.FragmentAccountListBinding
 import app.pachli.interfaces.AccountActionListener
-import app.pachli.interfaces.AppBarLayoutHost
 import app.pachli.usecase.TimelineCases
 import app.pachli.view.EndlessOnScrollListener
 import com.bumptech.glide.Glide
@@ -167,11 +166,6 @@ class AccountListFragment :
         binding.recyclerView.addOnScrollListener(scrollListener)
 
         fetchAccounts()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        (requireActivity() as? AppBarLayoutHost)?.appBarLayout?.setLiftOnScrollTargetView(binding.recyclerView)
     }
 
     override fun onViewTag(tag: String) {

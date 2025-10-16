@@ -21,8 +21,6 @@ class AndroidxToolbarDetectorTest {
                     <com.google.android.material.appbar.AppBarLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:liftOnScroll="true"
-                        app:liftOnScrollTargetViewId="@id/pages"
                         app:layout_collapseMode="pin">
 
                         <androidx.appcompat.widget.Toolbar
@@ -40,7 +38,7 @@ class AndroidxToolbarDetectorTest {
             ).indented(),
         ).issues(AndroidxToolbarDetector.ISSUE).allowMissingSdk().run().expectWarningCount(1)
             .expect(
-                """res/layout/test.xml:16: Warning: Use com.google.android.material.appbar.MaterialToolbar instead of androidx.appcompat.widget.Toolbar [AndroidxToolbarDetector]
+                """res/layout/test.xml:14: Warning: Use com.google.android.material.appbar.MaterialToolbar instead of androidx.appcompat.widget.Toolbar [AndroidxToolbarDetector]
                         <androidx.appcompat.widget.Toolbar
                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 0 errors, 1 warnings
@@ -64,9 +62,7 @@ class AndroidxToolbarDetectorTest {
                     <com.google.android.material.appbar.AppBarLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layout_collapseMode="pin"
-                        app:liftOnScroll="true"
-                        app:liftOnScrollTargetViewId="@id/pages">
+                        app:layout_collapseMode="pin">
 
                         <com.google.android.material.appbar.MaterialToolbar
                             android:id="@+id/toolbar"

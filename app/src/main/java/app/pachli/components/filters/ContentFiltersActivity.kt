@@ -70,7 +70,6 @@ class ContentFiltersActivity : BaseActivity(), ContentFiltersListener {
         }
 
         binding.swipeRefreshLayout.setColorSchemeColors(MaterialColors.getColor(binding.root, androidx.appcompat.R.attr.colorPrimary))
-        binding.includedToolbar.appbar.setLiftOnScrollTargetView(binding.filtersList)
 
         binding.filtersList.adapter = adapter
 

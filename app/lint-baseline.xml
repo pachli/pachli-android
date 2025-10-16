@@ -187,7 +187,7 @@
         errorLine2="                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/filters/ContentFiltersActivity.kt"
-            line="99"
+            line="98"
             column="30"/>
     </issue>
 
@@ -198,7 +198,7 @@
         errorLine2="                                                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/filters/ContentFiltersActivity.kt"
-            line="99"
+            line="98"
             column="68"/>
     </issue>
 
@@ -209,7 +209,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/conversation/ConversationsFragment.kt"
-            line="240"
+            line="241"
             column="17"/>
     </issue>
 
@@ -374,7 +374,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/timeline/TimelineFragment.kt"
-            line="219"
+            line="218"
             column="13"/>
     </issue>
 
@@ -385,7 +385,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/timeline/TimelineFragment.kt"
-            line="414"
+            line="413"
             column="17"/>
     </issue>
 
@@ -396,7 +396,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/timeline/TimelineFragment.kt"
-            line="425"
+            line="424"
             column="17"/>
     </issue>
 
@@ -407,7 +407,7 @@
         errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/timeline/TimelineFragment.kt"
-            line="432"
+            line="431"
             column="21"/>
     </issue>
 
@@ -418,7 +418,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/trending/TrendingLinksFragment.kt"
-            line="122"
+            line="121"
             column="13"/>
     </issue>
 
@@ -429,7 +429,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/trending/TrendingTagsFragment.kt"
-            line="124"
+            line="123"
             column="9"/>
     </issue>
 
@@ -440,7 +440,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/trending/TrendingTagsFragment.kt"
-            line="273"
+            line="272"
             column="13"/>
     </issue>
 
@@ -451,7 +451,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/viewthread/ViewThreadFragment.kt"
-            line="180"
+            line="183"
             column="13"/>
     </issue>
 
@@ -462,7 +462,7 @@
         errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/viewthread/ViewThreadFragment.kt"
-            line="210"
+            line="213"
             column="21"/>
     </issue>
 
@@ -473,7 +473,7 @@
         errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/viewthread/ViewThreadFragment.kt"
-            line="232"
+            line="235"
             column="21"/>
     </issue>
 
@@ -484,7 +484,7 @@
         errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/viewthread/ViewThreadFragment.kt"
-            line="254"
+            line="257"
             column="21"/>
     </issue>
 
@@ -528,7 +528,7 @@
         errorLine2="                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/styles.xml"
-            line="142"
+            line="151"
             column="42"/>
     </issue>
 
@@ -539,7 +539,7 @@
         errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/styles.xml"
-            line="143"
+            line="152"
             column="43"/>
     </issue>
 
@@ -3843,7 +3843,7 @@
         errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="../core/designsystem/src/main/res/values/styles.xml"
-            line="140"
+            line="149"
             column="12"/>
     </issue>
 
@@ -3854,7 +3854,7 @@
         errorLine2="           ~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="../core/designsystem/src/main/res/values/styles.xml"
-            line="201"
+            line="212"
             column="12"/>
     </issue>
 
