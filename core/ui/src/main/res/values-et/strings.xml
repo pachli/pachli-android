@@ -130,4 +130,6 @@
     </plurals>
     <string name="post_boosted_format">%s lisas hoogu</string>
     <string name="post_edited">Muudetud %s</string>
+    <string name="action_select_status">Vali postitus</string>
+    <string name="action_unselect_status">Eemalda postituse valik</string>
 </resources>
