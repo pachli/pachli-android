@@ -75,4 +75,24 @@
     <string name="action_favourite">Vzljubi</string>
     <string name="action_unreblog">Odstrani spodbudo</string>
     <string name="action_unfavourite">Odstrani priljubljene</string>
+    <string name="post_content_warning_show_less">Pokaži manj</string>
+    <string name="post_content_warning_show_more">Pokaži več</string>
+    <string name="post_content_show_less">Strni</string>
+    <string name="description_post_reblogged">Ponovno objavljen</string>
+    <string name="description_post_favourited">Priljubljene</string>
+    <string name="description_post_media">Mediji: %s</string>
+    <string name="description_post_cw">Opozorila o vsebini: %s</string>
+    <plurals name="reblogs">
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Spodbuda</item>
+        <item quantity="two">&lt;b&gt;%s&lt;/b&gt; Spodbudi</item>
+        <item quantity="few">&lt;b&gt;%s&lt;/b&gt; Spodbude</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; Spodbud</item>
+    </plurals>
+    <plurals name="favs">
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Priljubljena</item>
+        <item quantity="two">&lt;b&gt;%1$s&lt;/b&gt; Priljubljeni</item>
+        <item quantity="few">&lt;b&gt;%1$s&lt;/b&gt; Priljubljene</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Priljubljenih</item>
+    </plurals>
+    <string name="post_boosted_format">%s spodbudil</string>
 </resources>

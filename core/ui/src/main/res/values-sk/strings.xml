@@ -116,4 +116,27 @@
     <string name="status_count_one_plus">1+</string>
     <string name="action_unreblog">Zrušiť zdieľanie</string>
     <string name="action_unfavourite">Odstrániť z obľúbených</string>
+    <string name="post_content_warning_show_less">Zobraziť menej</string>
+    <string name="post_content_warning_show_more">Zobraziť viac</string>
+    <string name="post_content_show_less">Zabaliť</string>
+    <string name="translating">Prekladám…</string>
+    <string name="translation_provider_fmt">%1$s</string>
+    <string name="description_post_edited">Upravené</string>
+    <string name="description_post_reblogged">Zdielaný</string>
+    <string name="description_post_favourited">Obľúbené</string>
+    <string name="description_post_bookmarked">Pridané do záložiek</string>
+    <string name="description_post_media">Média %s</string>
+    <string name="description_post_cw">Varovanie pred obsahom: %s</string>
+    <plurals name="reblogs">
+        <item quantity="one"><b>%s</b> zdieľanie</item>
+        <item quantity="few"><b>%s</b> zdieľania</item>
+        <item quantity="other"><b>%s</b> zdieľaní</item>
+    </plurals>
+    <plurals name="favs">
+        <item quantity="one"><b>%1$s</b> obľúbenie</item>
+        <item quantity="few"><b>%1$s</b> obľúbenia</item>
+        <item quantity="other"><b>%1$s</b> obľúbení</item>
+    </plurals>
+    <string name="post_boosted_format">%s zdieľal/a</string>
+    <string name="post_edited">Upravené %s</string>
 </resources>

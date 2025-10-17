@@ -13,8 +13,6 @@
     <string name="title_posts">Iznan</string>
     <string name="title_posts_with_replies">S tririyin</string>
     <string name="title_edit_profile">Ẓreg amaɣnu-ik</string>
-    <string name="post_content_warning_show_more">Zeṛ ugar</string>
-    <string name="post_content_warning_show_less">Zeṛ kra kan</string>
     <string name="notification_follow_format">%s yeṭṭafar-ik·ikem-id</string>
     <string name="action_compose">Azen</string>
     <string name="action_follow">Ḍfeṛ</string>
@@ -31,10 +29,6 @@
     <string name="action_access_drafts">Irewwayen</string>
     <string name="action_open_faved_by">Sken-d ismenyifen</string>
     <string name="notification_favourite_name">Ismenyifen</string>
-    <plurals name="favs">
-        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; n usmenyaf</item>
-        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; n ismenyifen</item>
-    </plurals>
     <string name="no_drafts">Ur tesɛiḍ ara irewwayen.</string>
     <string name="title_notifications">Tilɣa</string>
     <string name="title_bookmarks">Ticraḍ</string>
@@ -150,13 +144,11 @@
     <string name="pref_post_text_size">Teɣzi n weḍṛis</string>
     <string name="compose_save_draft">Sekles amzun d arewway\?</string>
     <string name="later">Ticki</string>
-    <string name="description_post_bookmarked">Yettwarna ɣer ticṛad</string>
     <string name="pref_default_media_sensitivity">Creḍ allal n teywalt amzun d amḥulfu</string>
     <string name="action_reset_schedule">Wennez tikkelt-nniḍen</string>
     <string name="error_media_upload_sending">Asali ur yeddi ara.</string>
     <string name="error_sender_account_gone">Tuccḍa deg tuzna n tijewwiqt.</string>
     <string name="title_public_local">Adigan</string>
-    <string name="post_boosted_format">Yebḍa-t %s</string>
     <string name="notification_reblog_format">%s yebḍa izen-ik·im</string>
     <string name="notification_favourite_format">%s yerna izen-ik·im ɣer ismenyafen-is</string>
     <string name="action_quick_reply">Tiririt taruradt</string>
@@ -186,8 +178,6 @@
     <string name="search_operator_from_dialog_account_hint">\@amiḍan</string>
     <string name="search_operator_date_dialog_today">Ass-a</string>
     <string name="dialog_delete_filter_positive_action">Kkes</string>
-    <string name="translating">Yessuqul …</string>
-    <string name="translation_provider_fmt">%1$s</string>
     <string name="hint_description">Aglam</string>
     <string name="label_image">Tugna</string>
     <string name="profile_metadata_content_label">Agbur</string>
@@ -202,9 +192,7 @@
     <string name="post_text_size_large">Hraw</string>
     <string name="post_text_size_largest">Ahrawan maḍi</string>
     <string name="pref_title_account_filter_keywords">Imaɣnuyen</string>
-    <string name="description_post_edited">Tettwaẓreg</string>
     <string name="report_category_spam">Aspam</string>
-    <string name="description_post_reblogged">Yettwazuzer</string>
     <string name="search_operator_attachment_dialog_image_label">Tugniwin</string>
     <string name="search_operator_attachment_kind_image_label">Tugniwin</string>
     <string name="search_operator_attachment_kind_video_label">tavidyutt</string>

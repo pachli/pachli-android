@@ -117,27 +117,10 @@
     <string name="select_list_title">Tagh liosta</string>
     <string name="edit_hashtag_hint">Taga hais gun #</string>
     <string name="add_hashtag_title">Cuir taga hais ris</string>
-    <string name="description_post_bookmarked">’Na chomharra-lìn</string>
-    <string name="description_post_favourited">’Na annsachd</string>
-    <string name="description_post_reblogged">Air ath-bhlogadh</string>
-    <string name="description_post_cw">Rabhadh susbainte: %s</string>
-    <string name="description_post_media">Meadhan: %s</string>
     <string name="conversation_more_recipients">%1$s, %2$s ’s %3$d eile</string>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="title_favourited_by">’Na annsachd aig</string>
     <string name="title_reblogged_by">’Ga brosnachadh le</string>
-    <plurals name="reblogs">
-        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; bhrosnachadh</item>
-        <item quantity="two">&lt;b&gt;%s&lt;/b&gt; bhrosnachadh</item>
-        <item quantity="few">&lt;b&gt;%s&lt;/b&gt; brosnachaidhean</item>
-        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; brosnachadh</item>
-    </plurals>
-    <plurals name="favs">
-        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; annsachd</item>
-        <item quantity="two">&lt;b&gt;%1$s&lt;/b&gt; annsachd</item>
-        <item quantity="few">&lt;b&gt;%1$s&lt;/b&gt; annsachdan</item>
-        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; annsachd</item>
-    </plurals>
     <string name="pin_action">Prìnich</string>
     <string name="unpin_action">Dì-phrìnich</string>
     <string name="label_remote_account">Dh’fhaoidte nach fhaic thu pròifil gu lèir a’ chleachdaiche gu h-ìosal. Dèan brùthadh gus a’ phròifil shlàn fhosgladh ann am brabhsair.</string>
@@ -328,12 +311,7 @@
     <string name="notification_follow_request_format">Dh’iarr %s leantainn ort</string>
     <string name="notification_follow_format">Lean %s ort</string>
     <string name="footer_empty">Chan eil dad an-seo. Tarraing a-nuas airson ath-nuadhachadh!</string>
-    <string name="post_content_show_less">Co-theannaich</string>
-    <string name="post_content_show_more">Leudaich</string>
-    <string name="post_content_warning_show_less">Seall nas lugha dheth</string>
-    <string name="post_content_warning_show_more">Seall barrachd dheth</string>
     <string name="post_sensitive_media_directions">Briog air gus a shealltainn</string>
-    <string name="post_boosted_format">’Ga bhrosnachadh le %s</string>
     <string name="title_follow_requests">Iarrtasan leantainn</string>
     <string name="title_domain_mutes">Àrainnean falaichte</string>
     <string name="title_blocks">Cleachdaichean bacte</string>
@@ -425,13 +403,11 @@
     <string name="action_post_failed_show_drafts">Seall na dreachdan</string>
     <string name="action_post_failed_do_nothing">Leig seachad</string>
     <string name="confirmation_hashtag_unfollowed">Chan eil #%s a’ leantainn tuilleadh</string>
-    <string name="description_post_edited">Chaidh a dheasachadh</string>
     <string name="pref_title_notification_filter_reports">bhios gearan ùr ann</string>
     <string name="description_login">Obraichidh seo mar as trice. Cha dèid dàta fhoillseachadh do dh’aplacaidean eile.</string>
     <string name="description_browser_login">Dh’fhaoidte gun cuir seo taic ri dòighean dearbhaidh a bharrachd ach bi feum air brabhsair a chuireas taic ris.</string>
     <string name="action_discard">Tilg air falbh na h-atharraichean</string>
     <string name="action_continue_edit">Lean air an deasachadh</string>
-    <string name="post_edited">Air a dheasachadh %s</string>
     <string name="notification_report_format">Gearan ùr air %s</string>
     <string name="notification_header_report_format">Rinn %s gearan mu %s</string>
     <plurals name="notification_summary_report_format">

@@ -17,5 +17,7 @@
   -->
 
 <resources>
+    <string name="metadata_joiner" translatable="false">" • "</string>
+    <string name="post_timestamp_with_edited_indicator" translatable="false">%s *</string>
     <string name="poll_percent_format"><!-- 15% -->%1$d%%</string>
 </resources>

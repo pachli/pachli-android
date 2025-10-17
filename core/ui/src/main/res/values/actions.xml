@@ -64,4 +64,8 @@
     <item name="action_show_attachments" type="id" />
     <!-- Hide shown attachments. -->
     <item name="action_hide_attachments" type="id" />
+    <!-- Select a status. e.g., when reporting an account. -->
+    <item name="action_select_status" type="id" />
+    <!-- Unselect a status, e.g., when reporting an account. -->
+    <item name="action_unselect_status" type="id" />
 </resources>

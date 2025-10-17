@@ -89,4 +89,27 @@
     <string name="status_count_one_plus">1+</string>
     <string name="action_unreblog">Скасувати поширення</string>
     <string name="action_unfavourite">Не подобається</string>
+    <string name="post_content_warning_show_less">Згорнути</string>
+    <string name="post_content_warning_show_more">Розгорнути</string>
+    <string name="post_content_show_less">Згорнути</string>
+    <string name="description_post_edited">Змінено</string>
+    <string name="description_post_reblogged">Поширено</string>
+    <string name="description_post_favourited">Уподобано</string>
+    <string name="description_post_bookmarked">Додано до закладок</string>
+    <string name="description_post_media">Медіа: %s</string>
+    <string name="description_post_cw">Попередження про вміст: %s</string>
+    <plurals name="reblogs">
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; поширення</item>
+        <item quantity="few">&lt;b&gt;%s&lt;/b&gt; поширення</item>
+        <item quantity="many">&lt;b&gt;%s&lt;/b&gt; поширень</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; поширень</item>
+    </plurals>
+    <plurals name="favs">
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; вподобання</item>
+        <item quantity="few">&lt;b&gt;%1$s&lt;/b&gt; вподобання</item>
+        <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; вподобань</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; вподобань</item>
+    </plurals>
+    <string name="post_boosted_format">%s поширює</string>
+    <string name="post_edited">Змінено %s</string>
 </resources>

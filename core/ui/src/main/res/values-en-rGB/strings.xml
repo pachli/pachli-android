@@ -6,4 +6,9 @@
     <string name="action_logout">Log out</string>
     <string name="action_favourite">Favourite</string>
     <string name="action_unfavourite">Remove favourite</string>
+    <string name="description_post_favourited">Favourited</string>
+    <plurals name="favs">
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Favourite</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Favourites</item>
+    </plurals>
 </resources>

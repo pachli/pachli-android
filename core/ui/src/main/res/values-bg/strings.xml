@@ -72,4 +72,21 @@
     <string name="action_bookmark">Отмятане</string>
     <string name="action_unreblog">Премахване на споделяне</string>
     <string name="action_unfavourite">Премахване от любими</string>
+    <string name="post_content_warning_show_less">Покажи по-малко</string>
+    <string name="post_content_warning_show_more">Покажи повече</string>
+    <string name="post_content_show_less">Свиване</string>
+    <string name="description_post_reblogged">Реблог</string>
+    <string name="description_post_favourited">Поставено в любими</string>
+    <string name="description_post_bookmarked">Отметнато</string>
+    <string name="description_post_media">Мултимедия: %s</string>
+    <string name="description_post_cw">Предупреждение за съдържание: %s</string>
+    <plurals name="reblogs">
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Споделяне</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; Споделяния</item>
+    </plurals>
+    <plurals name="favs">
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Любимо</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Любими</item>
+    </plurals>
+    <string name="post_boosted_format">%s сподели</string>
 </resources>

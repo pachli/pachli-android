@@ -25,12 +25,7 @@
     <string name="title_follow_requests">Jarraipen-eskaerak</string>
     <string name="title_edit_profile">Profila editatu</string>
     <string name="title_drafts">Zirriborroak</string>
-    <string name="post_boosted_format">%s-(e)k bultzatu du</string>
     <string name="post_sensitive_media_directions">Sakatu ikusteko</string>
-    <string name="post_content_warning_show_more">Gehiago erakutsi</string>
-    <string name="post_content_warning_show_less">Gutxiago erakutsi</string>
-    <string name="post_content_show_more">Zabaldu</string>
-    <string name="post_content_show_less">Itxi</string>
     <string name="footer_empty">Edukirik ez. Arrastatu behera birkargatzeko!</string>
     <string name="notification_reblog_format">%s-(e)k zure tuta bultzatu du</string>
     <string name="notification_favourite_format">%s-(e)k zure tuta gogoko du</string>
@@ -247,23 +242,11 @@
     <string name="filter_dialog_whole_word">Hitz osoa</string>
     <string name="filter_dialog_whole_word_description">Gako-hitza edo esaldia alfanumerikoa denean bakarrik, hitz osoarekin bat datorrenean bakarrik aplikatuko da</string>
     <string name="filter_add_description">Iragazteko esaldia</string>
-    <plurals name="favs">
-        <item quantity="one">Gogoko &lt;b&gt;%1$s&lt;/b&gt;</item>
-        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Gogoko</item>
-    </plurals>
-    <plurals name="reblogs">
-        <item quantity="one">Bultzada &lt;b&gt;%s&lt;/b&gt;</item>
-        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; Bultzada</item>
-    </plurals>
     <string name="title_reblogged_by">Bultzatuta</string>
     <string name="title_favourited_by">Gogokoa</string>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s eta %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s eta %3$d gehiago</string>
-    <string name="description_post_media">Media: %s</string>
-    <string name="description_post_cw">Edukiarekiko abisua: %s</string>
-    <string name="description_post_reblogged">Partekatua</string>
-    <string name="description_post_favourited">Gogokoa</string>
     <string name="edit_hashtag_hint">Traola # gabe</string>
     <string name="notifications_clear">Garbitu</string>
     <string name="notifications_apply_filter">Iragazi</string>
@@ -300,7 +283,6 @@
     <string name="action_view_bookmarks">Laster-markak</string>
     <string name="action_open_reblogger">Ireki bultzadaren egilea</string>
     <string name="pref_title_public_filter_keywords">Denbora lerro publikoak</string>
-    <string name="description_post_bookmarked">Laster-marketara gehitua</string>
     <string name="select_list_title">Aukeratu zerrenda</string>
     <string name="list">Zerrenda</string>
     <string name="no_drafts">Ez duzu zirriborrorik.</string>
@@ -386,7 +368,6 @@
 \nZerbitzariarekin ezin izan da komunikatu edo zure tutak baztertuak izan dira.</string>
     <string name="action_post_failed_show_drafts">Zirriborroak erakutsi</string>
     <string name="action_post_failed_do_nothing">Baztertu</string>
-    <string name="post_edited">%s editatua</string>
     <string name="notification_sign_up_format">%s-(e)k izena eman du</string>
     <string name="error_status_source_load">Akatsa zerbitzaritik egoeraren iturria kargatzean.</string>
 </resources>

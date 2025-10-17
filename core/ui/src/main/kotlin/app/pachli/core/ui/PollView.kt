@@ -110,7 +110,7 @@ class PollView @JvmOverloads constructor(
             emojis = emojis,
             animateEmojis = statusDisplayOptions.animateEmojis,
             displayMode = displayMode,
-            enabled = true,
+            enabled = isEnabled,
             resultClickListener = resultClickListener,
             pollOptionClickListener = pollOptionClickListener,
         )
@@ -160,6 +160,18 @@ class PollView @JvmOverloads constructor(
         binding.statusPollVoteButton.hide()
         binding.statusPollShowResults.hide()
         binding.statusPollDescription.hide()
+    }
+
+    /**
+     * Enable or disable the poll.
+     *
+     * If the poll would allow voting, but is disabled, then the voting controls
+     * (checkbox, radio buttons, "Vote" button) are disabled.
+     */
+    override fun setEnabled(enabled: Boolean) {
+        super.setEnabled(enabled)
+        binding.statusPollVoteButton.isEnabled = enabled
+        (binding.statusPollOptions.adapter as? PollAdapter)?.isEnabled = enabled
     }
 
     private fun getPollInfoText(

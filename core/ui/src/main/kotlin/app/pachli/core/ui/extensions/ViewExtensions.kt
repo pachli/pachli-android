@@ -20,6 +20,7 @@ package app.pachli.core.ui.extensions
 import android.graphics.Rect
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.MarginLayoutParams
 import androidx.appcompat.widget.Toolbar
 import androidx.core.graphics.Insets
 import androidx.core.view.OnApplyWindowInsetsListener
@@ -27,6 +28,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsAnimationCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
+import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.appbar.AppBarLayout
@@ -293,4 +295,13 @@ private class WindowInsetsAnimationCallback(
         }
         isAnimating = false
     }
+}
+
+// Required to support `android:layout_marginStart="@{...}" in layout files
+// (to compute margins from two or more dimensions.
+@BindingAdapter("android:layout_marginStart")
+fun View.setStartMargin(start: Float) {
+    val lp = layoutParams as? MarginLayoutParams ?: return
+    lp.marginStart = start.toInt()
+    layoutParams = lp
 }

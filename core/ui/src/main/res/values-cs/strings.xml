@@ -80,4 +80,23 @@
     <string name="status_count_one_plus">1+</string>
     <string name="action_unreblog">Odstranit boost</string>
     <string name="action_unfavourite">Odstranit oblíbení</string>
+    <string name="post_content_warning_show_less">Zobrazit méně</string>
+    <string name="post_content_warning_show_more">Zobrazit více</string>
+    <string name="post_content_show_less">Sbalit</string>
+    <string name="description_post_reblogged">Boostnutý</string>
+    <string name="description_post_favourited">Oblíbený</string>
+    <string name="description_post_bookmarked">Uloženo do Záložek</string>
+    <string name="description_post_media">Média %s</string>
+    <string name="description_post_cw">Varování o obsahu: %s</string>
+    <plurals name="reblogs">
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; boost</item>
+        <item quantity="few">&lt;b&gt;%s&lt;/b&gt; boosty</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; boostů</item>
+    </plurals>
+    <plurals name="favs">
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; oblíbení</item>
+        <item quantity="few">&lt;b&gt;%1$s&lt;/b&gt; oblíbení</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; oblíbení</item>
+    </plurals>
+    <string name="post_boosted_format">%s boostnul/a</string>
 </resources>

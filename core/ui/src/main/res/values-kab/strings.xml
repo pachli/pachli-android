@@ -66,4 +66,16 @@
     <string name="action_bookmark">Rnu ɣer ticraḍ</string>
     <string name="status_count_one_plus">1+</string>
     <string name="action_unreblog">Kkes beṭu</string>
+    <string name="post_content_warning_show_less">Zeṛ kra kan</string>
+    <string name="post_content_warning_show_more">Zeṛ ugar</string>
+    <string name="translating">Yessuqul …</string>
+    <string name="translation_provider_fmt">%1$s</string>
+    <string name="description_post_edited">Tettwaẓreg</string>
+    <string name="description_post_reblogged">Yettwazuzer</string>
+    <string name="description_post_bookmarked">Yettwarna ɣer ticṛad</string>
+    <plurals name="favs">
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; n usmenyaf</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; n ismenyifen</item>
+    </plurals>
+    <string name="post_boosted_format">Yebḍa-t %s</string>
 </resources>

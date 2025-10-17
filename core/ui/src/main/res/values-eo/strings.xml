@@ -77,4 +77,25 @@
     <string name="status_count_one_plus">1+</string>
     <string name="action_unreblog">Nuligi diskonigon</string>
     <string name="action_unfavourite">Nuligi stelumon</string>
+    <string name="post_content_warning_show_less">Montri malpli</string>
+    <string name="post_content_warning_show_more">Montri pli</string>
+    <string name="post_content_show_less">Malgrandigi</string>
+    <string name="description_post_reblogged">        Diskonigita
+    </string>
+    <string name="description_post_favourited">        Stelumita
+    </string>
+    <string name="description_post_bookmarked">Aldonita al la legosignoj</string>
+    <string name="description_post_media">        Aŭdovidaĵo: %s
+    </string>
+    <string name="description_post_cw">        Enhava averto: %s
+    </string>
+    <plurals name="reblogs">
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Diskonigo</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; Diskonigoj</item>
+    </plurals>
+    <plurals name="favs">
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Stelumo</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Stelumoj</item>
+    </plurals>
+    <string name="post_boosted_format">%s diskonigis</string>
 </resources>

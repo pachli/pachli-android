@@ -28,14 +28,6 @@
         <item quantity="one">%d uus vastasmõju</item>
         <item quantity="other">%d uut vastasmõju</item>
     </plurals>
-    <plurals name="favs">
-        <item quantity="one"><b>%1$s</b> lemmik</item>
-        <item quantity="other"><b>%1$s</b> lemmikut</item>
-    </plurals>
-    <plurals name="reblogs">
-        <item quantity="one"><b>%s</b> hooandmine</item>
-        <item quantity="other"><b>%s</b> hooandmist</item>
-    </plurals>
     <plurals name="error_upload_max_media_reached">
         <item quantity="one">Sa ei saa üles laadida enam, kui %1$d meediamanuse.</item>
         <item quantity="other">Sa ei saa üles laadida enam, kui %1$d meediamanust.</item>
@@ -48,8 +40,6 @@
         <item quantity="one">%1$s jälgija on eemaldatud.</item>
         <item quantity="other">%1$s jälgijat on eemaldatud.</item>
     </plurals>
-    <string name="post_content_warning_show_more">Näita rohkem</string>
-    <string name="post_content_warning_show_less">Näita vähem</string>
     <string name="title_mutes">Summutatud kasutajad</string>
     <string name="error_media_upload_sending">Üleslaadimine ei õnnestunud.</string>
     <string name="hint_search">Otsi…</string>
@@ -86,9 +76,6 @@
     <string name="title_edit_profile">Muuda oma profiili</string>
     <string name="title_drafts">Kavandid</string>
     <string name="title_scheduled_posts">Ajastatud postitused</string>
-    <string name="post_content_show_more">Laienda vaadet</string>
-    <string name="post_content_show_less">Ahenda vaadet</string>
-    <string name="post_edited">Muudetud %s</string>
     <string name="footer_empty">Siin ei leidu midagi. Andmete uuendamiseks viipa ülevalt alla!</string>
     <string name="notification_reblog_format">%s lisas sinu postitusele hoogu</string>
     <string name="notification_favourite_format">%s märkis sinu postituse lemmikuks</string>
@@ -106,7 +93,6 @@
     <string name="title_edits">Muudatused</string>
     <string name="dialog_follow_hashtag_title">Jälgi teemaviidet</string>
     <string name="dialog_follow_hashtag_hint">#teemaviide</string>
-    <string name="post_boosted_format">%s lisas hoogu</string>
     <string name="post_sensitive_media_directions">Vaatamiseks klõpsi</string>
     <string name="notification_unknown">Tundmatu teavituse tüüp</string>
     <string name="notification_header_report_format">%s saatis teatise: %s</string>
@@ -238,12 +224,6 @@
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s ja %2$s</string>
     <string name="conversation_more_recipients" tools:ignore="PluralsCandidate">%1$s, %2$s ja veel %3$d</string>
-    <string name="description_post_media">Meedia: %s</string>
-    <string name="description_post_cw">Sisuhoiatus: %s</string>
-    <string name="description_post_edited">Muudetud</string>
-    <string name="description_post_reblogged">Korduspostitus</string>
-    <string name="description_post_favourited">Lemmikuks märgitud</string>
-    <string name="description_post_bookmarked">Lisatud järjehoidjaks</string>
     <string name="description_post_language">Postituse keel</string>
     <string name="description_login">Üldjuhul toimib. Mitte mingeid andmeid ei leki teistele rakendustele.</string>
     <string name="description_browser_login">Võib toetada täiendavaid autentimismeetodeid, aga eeldab toetatud veebibrauserit.</string>
@@ -301,8 +281,6 @@
     <string name="no_drafts">Sul pole ühtegi kavandit.</string>
     <string name="no_scheduled_posts">Sul pole ühtegi ajastatud postitust.</string>
     <string name="no_announcements">Ühtegi teadaannet ei leidu.</string>
-    <string name="translating">Sisu on tõlkimisel…</string>
-    <string name="translation_provider_fmt">%1$s</string>
     <string name="pref_title_notification_up_distributor">Unified Pushi tõuketeenuste levitaja</string>
     <string name="pref_notification_up_distributor_name_fmt">%1$s. Avamiseks klõpsi</string>
     <string name="pref_notification_up_distributor_none">Pole kasutusel</string>

@@ -83,4 +83,27 @@
     <string name="status_count_one_plus">1+</string>
     <string name="action_unreblog">Desfazer Boost</string>
     <string name="action_unfavourite">Desfavoritar</string>
+    <string name="post_content_warning_show_less">Ocultar</string>
+    <string name="post_content_warning_show_more">Expandir</string>
+    <string name="post_content_show_less">Mostrar menos</string>
+    <string name="translating">Traduzindo…</string>
+    <string name="translation_provider_fmt">%1$s</string>
+    <string name="description_post_edited">Editado</string>
+    <string name="description_post_reblogged">Deu Boost</string>
+    <string name="description_post_favourited">Favoritado</string>
+    <string name="description_post_bookmarked">Salvo</string>
+    <string name="description_post_media">Mídia: %s</string>
+    <string name="description_post_cw">Aviso de Conteúdo: %s</string>
+    <plurals name="reblogs">
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Boost</item>
+        <item quantity="many">&lt;b&gt;%s&lt;/b&gt; Boosts</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; Boosts</item>
+    </plurals>
+    <plurals name="favs">
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Favorito</item>
+        <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; Favoritos</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Favoritos</item>
+    </plurals>
+    <string name="post_boosted_format">%s deu Boost</string>
+    <string name="post_edited">Editado %s</string>
 </resources>

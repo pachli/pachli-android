@@ -25,10 +25,7 @@
     <string name="title_follow_requests">Prośby o obserwację</string>
     <string name="title_edit_profile">Edytuj profil</string>
     <string name="title_drafts">Szkice</string>
-    <string name="post_boosted_format">Podbicie od %s</string>
     <string name="post_sensitive_media_directions">Naciśnij, aby wyświetlić</string>
-    <string name="post_content_warning_show_more">Pokaż więcej</string>
-    <string name="post_content_warning_show_less">Pokaż mniej</string>
     <string name="footer_empty">Pusto tutaj. Pociągnij, aby odświeżyć!</string>
     <string name="notification_reblog_format">Osoba %s podbiła twój wpis</string>
     <string name="notification_favourite_format">Osoba %s polubiła twój wpis</string>
@@ -199,8 +196,6 @@
     <string name="profile_metadata_content_label">Zawartość</string>
     <string name="title_direct_messages">Bezpośrednie wiadomości</string>
     <string name="title_posts_pinned">Przypięte</string>
-    <string name="post_content_show_more">Rozwiń</string>
-    <string name="post_content_show_less">Zwiń</string>
     <string name="action_delete_and_redraft">Usuń i przeredaguj</string>
     <string name="action_view_account_preferences">Ustawienia konta</string>
     <string name="action_open_faved_by">Pokaż polubione</string>
@@ -246,26 +241,11 @@
     <string name="label_remote_account">Informacje poniżej mogą niekompletnie przedstawiać profil tego konta. Kliknij, by otworzyć pełny profil w przeglądarce.</string>
     <string name="unpin_action">Odepnij z profilu</string>
     <string name="pin_action">Przypnij do profilu</string>
-    <plurals name="favs">
-        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; polubienie</item>
-        <item quantity="few">&lt;b&gt;%1$s&lt;/b&gt; polubienia</item>
-        <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; polubień</item>
-        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; polubień</item>
-    </plurals>
-    <plurals name="reblogs">
-        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; podbicie</item>
-        <item quantity="few">&lt;b&gt;%s&lt;/b&gt; podbicia</item>
-        <item quantity="many">&lt;b&gt;%s&lt;/b&gt; podbić</item>
-    </plurals>
     <string name="title_reblogged_by">Podbite przez</string>
     <string name="title_favourited_by">Polubione przez</string>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s i %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s i %3$d innych</string>
-    <string name="description_post_media">Media: %s</string>
-    <string name="description_post_cw">Ostrzeżenie o zawartości: %s</string>
-    <string name="description_post_reblogged">Podbity</string>
-    <string name="description_post_favourited">Polubiony</string>
     <string name="edit_hashtag_hint">Hasztag bez #</string>
     <string name="notifications_clear">Wyczyść powiadomienia</string>
     <string name="notifications_apply_filter">Filtruj powiadomienia</string>
@@ -305,7 +285,6 @@
     <string name="action_reset_schedule">Resetuj</string>
     <string name="title_bookmarks">Zakładki</string>
     <string name="action_view_bookmarks">Zakładki</string>
-    <string name="description_post_bookmarked">Dodany do zakładek</string>
     <string name="select_list_title">Wybierz listę</string>
     <string name="list">Lista</string>
     <string name="no_drafts">Nie masz żadnych szkiców.</string>
@@ -415,9 +394,7 @@
     <string name="send_account_link_to">Udostępnij odnośnik do konta…</string>
     <string name="send_account_username_to">Udostępnij nazwę konta…</string>
     <string name="account_username_copied">Skopiowano nazwę konta</string>
-    <string name="description_post_edited">Edytowano</string>
     <string name="report_category_other">Inne</string>
-    <string name="post_edited">Edytowano %s</string>
     <string name="delete_scheduled_post_warning">Usunąć ten zaplanowany wpis\?</string>
     <string name="pref_summary_http_proxy_missing">&lt;nieustawiony&gt;</string>
     <string name="pref_summary_http_proxy_invalid">&lt;niepoprawny&gt;</string>
@@ -510,7 +487,6 @@
     <string name="action_manage_tabs">Zarządzaj kartami</string>
     <string name="ui_success_rejected_follow_request">Odrzucono prośbę o obserwację</string>
     <string name="filter_description_warn">Ukryj z ostrzeżeniem</string>
-    <string name="translation_provider_fmt">%1$s</string>
     <string name="pref_title_show_stat_inline">Pokazuj statystyki wpisu na osi czasu</string>
     <string name="ui_error_accept_follow_request">Zatwierdzenie prośby o obserwację się nie powiodło: %s</string>
     <string name="error_filter_missing_keyword">Co najmniej jedno słowo kluczowe lub fraza są wymagane</string>
@@ -599,7 +575,6 @@
     <string name="reaction_name_and_count">%1$s %2$d</string>
     <string name="pref_title_update_settings">Aktualizacje oprogramowania</string>
     <string name="pref_title_update_notification_frequency">Powiadamiaj mnie o nowych wersjach Pachli</string>
-    <string name="translating">Tłumaczenie…</string>
     <string name="pref_title_notification_battery_optimisation">Optymalizacja użycia baterii</string>
     <string name="pref_labs_reverse_home_timeline_title">Odwrócona kolejność na osi czasu</string>
     <string name="pref_labs_reverse_home_timeline_on_summary">Wpisy są ułożone od najstarszych</string>

@@ -109,6 +109,8 @@
     <string name="post_media_attachments">Attachments</string>
     <string name="action_show_attachments">Show attachments</string>
     <string name="action_hide_attachments">Hide attachments</string>
+    <string name="action_select_status">Select post</string>
+    <string name="action_unselect_status">Unselect post</string>
     <string name="dot_in_name">dot</string>
     <string name="role_content_description_fmt">%1$s, at %2$s</string>
     <plurals name="description_post_roles">
@@ -124,4 +126,37 @@
     <string name="status_count_one_plus">1+</string>
     <string name="action_unreblog">Remove boost</string>
     <string name="action_unfavourite">Remove favorite</string>
+    <string name="post_content_warning_show_less">Show Less</string>
+    <string name="post_content_warning_show_more">Show More</string>
+    <string name="post_content_show_less">Collapse</string>
+    <string name="translating">Translating…</string>
+    <string name="translation_provider_fmt">%1$s</string>
+    <string name="description_post_edited">
+        Edited
+    </string>
+    <string name="description_post_reblogged">
+        Reblogged
+    </string>
+    <string name="description_post_favourited">
+        Favorited
+    </string>
+    <string name="description_post_bookmarked">
+        Bookmarked
+    </string>
+    <string name="description_post_media">
+        Media: %s
+    </string>
+    <string name="description_post_cw">
+        Content warning: %s
+    </string>
+    <plurals name="reblogs">
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Boost</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; Boosts</item>
+    </plurals>
+    <plurals name="favs">
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Favorite</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Favorites</item>
+    </plurals>
+    <string name="post_boosted_format">%s boosted</string>
+    <string name="post_edited">Edited %s</string>
 </resources>

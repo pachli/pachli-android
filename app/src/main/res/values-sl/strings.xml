@@ -29,10 +29,6 @@
     <string name="title_edit_profile">Uredi svoj profil</string>
     <string name="title_drafts">Osnutki</string>
     <string name="post_sensitive_media_directions">Kliknite za ogled</string>
-    <string name="post_content_warning_show_more">Pokaži več</string>
-    <string name="post_content_warning_show_less">Pokaži manj</string>
-    <string name="post_content_show_more">Razširi</string>
-    <string name="post_content_show_less">Strni</string>
     <string name="footer_empty">Tukaj ni ničesar. Potegnite navzdol za osvežitev!</string>
     <string name="notification_reblog_format">%s je spodbudil tvoj tut</string>
     <string name="notification_favourite_format">%s je vzljubil vaš tut</string>
@@ -210,21 +206,11 @@
     <string name="label_remote_account">Spodnje informacije lahko nepopolno odražajo profil uporabnika. Pritisnite, da odprete polni profil v brskalniku.</string>
     <string name="unpin_action">Odpni</string>
     <string name="pin_action">Pripni</string>
-    <plurals name="reblogs">
-        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Spodbuda</item>
-        <item quantity="two">&lt;b&gt;%s&lt;/b&gt; Spodbudi</item>
-        <item quantity="few">&lt;b&gt;%s&lt;/b&gt; Spodbude</item>
-        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; Spodbud</item>
-    </plurals>
     <string name="title_reblogged_by">Spodbudil/a</string>
     <string name="title_favourited_by">Vzljubil/a</string>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s in %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s in %3$d več</string>
-    <string name="description_post_media">Mediji: %s</string>
-    <string name="description_post_cw">Opozorila o vsebini: %s</string>
-    <string name="description_post_reblogged">Ponovno objavljen</string>
-    <string name="description_post_favourited">Priljubljene</string>
     <string name="edit_hashtag_hint">Ključnik brez #</string>
     <string name="notifications_clear">Počisti</string>
     <string name="notifications_apply_filter">Filter</string>
@@ -287,13 +273,6 @@
     <string name="action_access_scheduled_posts">Napovedani tuti</string>
     <string name="action_reset_schedule">Ponastavi</string>
     <string name="action_schedule_post">Napovej tut</string>
-    <string name="post_boosted_format">%s spodbudil</string>
     <string name="hashtags">Ključniki</string>
     <string name="notification_follow_request_name">Zahteve za Sledenje</string>
-    <plurals name="favs">
-        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Priljubljena</item>
-        <item quantity="two">&lt;b&gt;%1$s&lt;/b&gt; Priljubljeni</item>
-        <item quantity="few">&lt;b&gt;%1$s&lt;/b&gt; Priljubljene</item>
-        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Priljubljenih</item>
-    </plurals>
 </resources>

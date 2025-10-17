@@ -83,4 +83,26 @@
     <string name="status_count_one_plus">1+</string>
     <string name="action_unreblog">Ta bort knuff</string>
     <string name="action_unfavourite">Ta bort favorit</string>
+    <string name="post_content_warning_show_less">Visa mindre</string>
+    <string name="post_content_warning_show_more">Visa mer</string>
+    <string name="post_content_show_less">Dölj</string>
+    <string name="translating">Översätter…</string>
+    <string name="translation_provider_fmt">%1$s</string>
+    <string name="description_post_edited">Redigerade</string>
+    <string name="description_post_reblogged">        Knuffad
+    </string>
+    <string name="description_post_favourited">Favoritmarkerat</string>
+    <string name="description_post_bookmarked">Bokmärkt</string>
+    <string name="description_post_media">Media: %s</string>
+    <string name="description_post_cw">Innehållsvarning: %s</string>
+    <plurals name="reblogs">
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Knuff</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; Knuffar</item>
+    </plurals>
+    <plurals name="favs">
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Favorit</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Favoriter</item>
+    </plurals>
+    <string name="post_boosted_format">%s knuffade</string>
+    <string name="post_edited">Redigerade %s</string>
 </resources>

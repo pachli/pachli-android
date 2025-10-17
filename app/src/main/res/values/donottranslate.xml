@@ -5,8 +5,6 @@
     <string name="title_tag" translatable="false">#%s</string>
     <string name="title_tag_with_initial_position" translatable="false">" #%s"</string>
 
-    <string name="post_timestamp_with_edited_indicator" translatable="false">%s *</string>
-    <string name="metadata_joiner" translatable="false">" • "</string>
     <string name="date_range" translatable="false">%1$s — %2$s</string>
 
     <string-array name="post_privacy_values">

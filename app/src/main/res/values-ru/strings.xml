@@ -28,12 +28,7 @@
     <string name="title_follow_requests">Запросы на подписку</string>
     <string name="title_edit_profile">Редактировать профиль</string>
     <string name="title_drafts">Черновики</string>
-    <string name="post_boosted_format">%s продвинул(а)</string>
     <string name="post_sensitive_media_directions">Нажмите для просмотра</string>
-    <string name="post_content_warning_show_more">Показать больше</string>
-    <string name="post_content_warning_show_less">Показать меньше</string>
-    <string name="post_content_show_more">Развернуть</string>
-    <string name="post_content_show_less">Свернуть</string>
     <string name="footer_empty">Ничего нет. Потяните вниз, чтобы обновить!</string>
     <string name="notification_reblog_format">%s продвинул(а) вашу запись</string>
     <string name="notification_favourite_format">%s понравился ваша запись</string>
@@ -229,29 +224,11 @@
     <string name="label_remote_account">Информация ниже может не полностью отражать профиль пользователя. Нажмите чтобы открыть профиль в браузере.</string>
     <string name="unpin_action">Открепить</string>
     <string name="pin_action">Закрепить</string>
-    <plurals name="favs">
-        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Понравился</item>
-        <item quantity="few">&lt;b&gt;%1$s&lt;/b&gt; Понравилось</item>
-        <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; Понравилось</item>
-        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Понравилось</item>
-    </plurals>
-    <plurals name="reblogs">
-        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Продвинул(а)</item>
-        <item quantity="few">&lt;b&gt;%s&lt;/b&gt; Продвинули</item>
-        <item quantity="many">&lt;b&gt;%s&lt;/b&gt; Продвинули</item>
-        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; Продвинули</item>
-    </plurals>
     <string name="title_reblogged_by">Продвинули</string>
     <string name="title_favourited_by">Понравилось</string>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s и %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s и ещё %3$d</string>
-    <string name="description_post_media">
-        Медиафайл: %s
-    </string>
-    <string name="description_post_cw">Предупреждение о содержании: %s</string>
-    <string name="description_post_reblogged">Реблогнуто</string>
-    <string name="description_post_favourited">Понравилось</string>
     <string name="edit_hashtag_hint">Хэштег без #</string>
     <string name="notifications_clear">Очистить</string>
     <string name="notifications_apply_filter">Фильтр</string>
@@ -304,7 +281,6 @@
     <string name="action_reset_schedule">Сброс</string>
     <string name="title_bookmarks">Закладки</string>
     <string name="action_view_bookmarks">Закладки</string>
-    <string name="description_post_bookmarked">Добавлено в закладки</string>
     <string name="select_list_title">Выбрать список</string>
     <string name="list">Список</string>
     <string name="no_drafts">У вас нет черновиков.</string>
@@ -393,7 +369,6 @@
     <string name="followed_hashtags_summary_fmt">%1$s из %2$s (последние %3$s)</string>
     <string name="dialog_follow_hashtag_title">Подписаться на метки</string>
     <string name="dialog_follow_hashtag_hint">#метка</string>
-    <string name="post_edited">Изменено %s</string>
     <string name="notification_sign_up_format">%s зарегистрировался</string>
     <string name="notification_update_format">%s изменил свою запись</string>
     <string name="notification_report_format">Новая жалоба на %s</string>
@@ -493,7 +468,6 @@
     <string name="failed_to_pin">Не удалось закрепить</string>
     <string name="failed_to_unpin">Не удалось открепить</string>
     <string name="conversation_0_recipients">Нет других участников</string>
-    <string name="description_post_edited">Изменено</string>
     <string name="description_post_language">Язык записи</string>
     <string name="description_login">Работает в большинстве случаев. Данные не передаются в другие приложения.</string>
     <string name="description_browser_login">Может поддерживать дополнительные методы аутентификации, но требуется поддерживаемый браузер.</string>
@@ -572,8 +546,6 @@
     <string name="pref_labs_reverse_home_timeline_title">Обратный порядок в ленте</string>
     <string name="pref_labs_reverse_home_timeline_off_summary">Сообщения сортируются по мере появления новых</string>
     <string name="pref_labs_reverse_home_timeline_on_summary">Сообщения сортируются по мере появления старых</string>
-    <string name="translating">Перевод…</string>
-    <string name="translation_provider_fmt">%1$s</string>
     <string name="pref_title_notification_up_distributor">Распределитель уведомлений UnifiedPush</string>
     <string name="pref_notification_up_distributor_name_fmt">%1$s. Нажмите, чтобы открыть</string>
     <string name="pref_notification_up_distributor_none">Нету</string>

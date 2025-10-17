@@ -275,7 +275,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/notifications/NotificationsFragment.kt"
-            line="199"
+            line="198"
             column="13"/>
     </issue>
 
@@ -286,7 +286,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/notifications/NotificationsFragment.kt"
-            line="367"
+            line="366"
             column="17"/>
     </issue>
 
@@ -297,7 +297,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/notifications/NotificationsFragment.kt"
-            line="378"
+            line="377"
             column="17"/>
     </issue>
 
@@ -308,7 +308,7 @@
         errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/notifications/NotificationsFragment.kt"
-            line="385"
+            line="384"
             column="21"/>
     </issue>
 
@@ -318,8 +318,8 @@
         errorLine1="            } ?: pollView.hide()"
         errorLine2="                 ~~~~~~~~~~~~~~~">
         <location
-            file="src/main/java/app/pachli/adapter/StatusBaseViewHolder.kt"
-            line="239"
+            file="src/main/kotlin/app/pachli/core/ui/StatusView.kt"
+            line="322"
             column="18"/>
     </issue>
 
@@ -329,8 +329,8 @@
         errorLine1="            pollView.hide()"
         errorLine2="            ~~~~~~~~~~~~~~~">
         <location
-            file="src/main/java/app/pachli/adapter/StatusBaseViewHolder.kt"
-            line="241"
+            file="src/main/kotlin/app/pachli/core/ui/StatusView.kt"
+            line="324"
             column="13"/>
     </issue>
 
@@ -631,7 +631,7 @@
         errorLine2="                                                 ~~~~~~">
         <location
             file="src/main/res/values-tr/strings.xml"
-            line="37"
+            line="32"
             column="50"/>
     </issue>
 
@@ -642,7 +642,7 @@
         errorLine2="                                             ~~~~~~~~~~">
         <location
             file="src/main/res/values-tr/strings.xml"
-            line="37"
+            line="32"
             column="46"/>
     </issue>
 
@@ -653,7 +653,7 @@
         errorLine2="                                             ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="62"
+            line="57"
             column="46"/>
     </issue>
 
@@ -664,7 +664,7 @@
         errorLine2="                                           ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="68"
+            line="63"
             column="44"/>
     </issue>
 
@@ -675,7 +675,7 @@
         errorLine2="                                            ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="85"
+            line="80"
             column="45"/>
     </issue>
 
@@ -686,7 +686,7 @@
         errorLine2="                                           ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="88"
+            line="83"
             column="44"/>
     </issue>
 
@@ -697,7 +697,7 @@
         errorLine2="                                                ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="89"
+            line="84"
             column="49"/>
     </issue>
 
@@ -708,8 +708,19 @@
         errorLine2="                                     ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="92"
+            line="87"
             column="38"/>
+    </issue>
+
+    <issue
+        id="Typos"
+        message="&quot;Media&quot; is a common misspelling; did you mean &quot;Medier&quot;?"
+        errorLine1="    &lt;string name=&quot;description_post_media&quot;>Media: %s&lt;/string>"
+        errorLine2="                                          ~~~~~">
+        <location
+            file="src/main/res/values-nb-rNO/strings.xml"
+            line="101"
+            column="43"/>
     </issue>
 
     <issue
@@ -719,7 +730,7 @@
         errorLine2="                                                                     ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="107"
+            line="102"
             column="70"/>
     </issue>
 
@@ -730,7 +741,7 @@
         errorLine2="                                                                             ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="140"
+            line="135"
             column="78"/>
     </issue>
 
@@ -741,7 +752,7 @@
         errorLine2="                                                                ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="146"
+            line="141"
             column="65"/>
     </issue>
 
@@ -752,19 +763,8 @@
         errorLine2="                               ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="170"
+            line="165"
             column="32"/>
-    </issue>
-
-    <issue
-        id="Typos"
-        message="&quot;Media&quot; is a common misspelling; did you mean &quot;Medier&quot;?"
-        errorLine1="    &lt;string name=&quot;description_post_media&quot;>Media: %s&lt;/string>"
-        errorLine2="                                          ~~~~~">
-        <location
-            file="src/main/res/values-nb-rNO/strings.xml"
-            line="228"
-            column="43"/>
     </issue>
 
     <issue
@@ -774,7 +774,7 @@
         errorLine2="                                                                                     ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="315"
+            line="297"
             column="86"/>
     </issue>
 
@@ -785,7 +785,7 @@
         errorLine2="                                                  ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="429"
+            line="409"
             column="51"/>
     </issue>
 
@@ -796,7 +796,7 @@
         errorLine2="                                          ~~~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="541"
+            line="519"
             column="43"/>
     </issue>
 
@@ -807,7 +807,7 @@
         errorLine2="                                                  ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="626"
+            line="604"
             column="51"/>
     </issue>
 
@@ -818,7 +818,7 @@
         errorLine2="                                                                   ~~~~~">
         <location
             file="src/main/res/values-nb-rNO/strings.xml"
-            line="650"
+            line="628"
             column="68"/>
     </issue>
 
@@ -829,7 +829,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="312"
+            line="306"
             column="5"/>
     </issue>
 
@@ -840,7 +840,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="584"
+            line="552"
             column="5"/>
     </issue>
 
@@ -3326,7 +3326,7 @@
         errorLine2="                  ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/donottranslate.xml"
-            line="46"
+            line="44"
             column="19"/>
     </issue>
 
@@ -3337,7 +3337,7 @@
         errorLine2="                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/donottranslate.xml"
-            line="268"
+            line="266"
             column="19"/>
     </issue>
 
@@ -3348,7 +3348,7 @@
         errorLine2="                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/donottranslate.xml"
-            line="273"
+            line="271"
             column="19"/>
     </issue>
 
@@ -3524,7 +3524,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="85"
+            line="84"
             column="13"/>
     </issue>
 
@@ -3535,7 +3535,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="91"
+            line="85"
             column="13"/>
     </issue>
 
@@ -3546,7 +3546,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="133"
+            line="127"
             column="13"/>
     </issue>
 
@@ -3557,7 +3557,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="135"
+            line="129"
             column="13"/>
     </issue>
 
@@ -3568,7 +3568,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="171"
+            line="165"
             column="13"/>
     </issue>
 
@@ -3579,7 +3579,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="228"
+            line="222"
             column="13"/>
     </issue>
 
@@ -3590,7 +3590,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="249"
+            line="243"
             column="13"/>
     </issue>
 
@@ -3601,7 +3601,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="250"
+            line="244"
             column="13"/>
     </issue>
 
@@ -3612,7 +3612,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="302"
+            line="296"
             column="13"/>
     </issue>
 
@@ -3623,7 +3623,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="393"
+            line="387"
             column="13"/>
     </issue>
 
@@ -3634,7 +3634,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="421"
+            line="415"
             column="13"/>
     </issue>
 
@@ -3645,7 +3645,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="424"
+            line="418"
             column="13"/>
     </issue>
 
@@ -3656,7 +3656,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="427"
+            line="421"
             column="13"/>
     </issue>
 
@@ -3667,7 +3667,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="428"
+            line="422"
             column="13"/>
     </issue>
 
@@ -3678,7 +3678,7 @@
         errorLine2="            ~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="429"
+            line="423"
             column="13"/>
     </issue>
 
@@ -3689,7 +3689,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="431"
+            line="425"
             column="13"/>
     </issue>
 
@@ -3700,7 +3700,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="443"
+            line="437"
             column="13"/>
     </issue>
 
@@ -3711,7 +3711,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="444"
+            line="438"
             column="13"/>
     </issue>
 
@@ -3722,7 +3722,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="478"
+            line="446"
             column="13"/>
     </issue>
 
@@ -3733,7 +3733,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="479"
+            line="447"
             column="13"/>
     </issue>
 
@@ -3744,7 +3744,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="489"
+            line="457"
             column="13"/>
     </issue>
 
@@ -3755,7 +3755,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="490"
+            line="458"
             column="13"/>
     </issue>
 
@@ -3766,7 +3766,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="491"
+            line="459"
             column="13"/>
     </issue>
 
@@ -3777,7 +3777,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="494"
+            line="462"
             column="13"/>
     </issue>
 
@@ -3788,7 +3788,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="502"
+            line="470"
             column="13"/>
     </issue>
 
@@ -3799,7 +3799,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="544"
+            line="512"
             column="13"/>
     </issue>
 
@@ -3810,7 +3810,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="550"
+            line="518"
             column="13"/>
     </issue>
 
@@ -3821,7 +3821,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="576"
+            line="544"
             column="13"/>
     </issue>
 
@@ -3832,7 +3832,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="602"
+            line="570"
             column="13"/>
     </issue>
 
@@ -4121,45 +4121,12 @@
     <issue
         id="SelectableText"
         message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="    &lt;TextView"
-        errorLine2="     ~~~~~~~~">
+        errorLine1="        &lt;TextView"
+        errorLine2="         ~~~~~~~~">
         <location
             file="src/main/res/layout/item_conversation.xml"
-            line="13"
-            column="6"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="    &lt;TextView"
-        errorLine2="     ~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_conversation.xml"
-            line="90"
-            column="6"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="    &lt;TextView"
-        errorLine2="     ~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_conversation.xml"
-            line="107"
-            column="6"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="    &lt;TextView"
-        errorLine2="     ~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_conversation.xml"
-            line="119"
-            column="6"/>
+            line="30"
+            column="10"/>
     </issue>
 
     <issue
@@ -4388,83 +4355,6 @@
         errorLine1="    &lt;TextView"
         errorLine2="     ~~~~~~~~">
         <location
-            file="src/main/res/layout/item_report_status.xml"
-            line="52"
-            column="6"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="    &lt;TextView"
-        errorLine2="     ~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_report_status.xml"
-            line="97"
-            column="6"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="    &lt;TextView"
-        errorLine2="     ~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_report_status.xml"
-            line="117"
-            column="6"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="    &lt;TextView"
-        errorLine2="     ~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_report_status.xml"
-            line="137"
-            column="6"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="    &lt;TextView"
-        errorLine2="     ~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_report_status.xml"
-            line="157"
-            column="6"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="    &lt;TextView"
-        errorLine2="     ~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_report_status.xml"
-            line="177"
-            column="6"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="    &lt;TextView"
-        errorLine2="     ~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_report_status.xml"
-            line="196"
-            column="6"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="    &lt;TextView"
-        errorLine2="     ~~~~~~~~">
-        <location
             file="src/main/res/layout/item_scheduled_status.xml"
             line="24"
             column="6"/>
@@ -4473,100 +4363,12 @@
     <issue
         id="SelectableText"
         message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="    &lt;TextView"
-        errorLine2="     ~~~~~~~~">
+        errorLine1="        &lt;TextView"
+        errorLine2="         ~~~~~~~~">
         <location
             file="src/main/res/layout/item_status.xml"
-            line="12"
-            column="6"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="    &lt;TextView"
-        errorLine2="     ~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_status.xml"
-            line="68"
-            column="6"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="    &lt;TextView"
-        errorLine2="     ~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_status.xml"
-            line="86"
-            column="6"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="    &lt;TextView"
-        errorLine2="     ~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_status.xml"
-            line="99"
-            column="6"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="    &lt;TextView"
-        errorLine2="     ~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_status_detailed.xml"
-            line="48"
-            column="6"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="    &lt;TextView"
-        errorLine2="     ~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_status_detailed.xml"
-            line="68"
-            column="6"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="    &lt;TextView"
-        errorLine2="     ~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_status_detailed.xml"
-            line="203"
-            column="6"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="    &lt;TextView"
-        errorLine2="     ~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_status_detailed.xml"
-            line="232"
-            column="6"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="    &lt;TextView"
-        errorLine2="     ~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_status_detailed.xml"
-            line="246"
-            column="6"/>
+            line="31"
+            column="10"/>
     </issue>
 
     <issue
@@ -4598,40 +4400,7 @@
         errorLine2="     ~~~~~~~~">
         <location
             file="src/main/res/layout/item_status_notification.xml"
-            line="12"
-            column="6"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="    &lt;TextView"
-        errorLine2="     ~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_status_notification.xml"
-            line="50"
-            column="6"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="    &lt;TextView"
-        errorLine2="     ~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_status_notification.xml"
-            line="71"
-            column="6"/>
-    </issue>
-
-    <issue
-        id="SelectableText"
-        message="Consider making the text value selectable by specifying `android:textIsSelectable=&quot;true&quot;`"
-        errorLine1="    &lt;TextView"
-        errorLine2="     ~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_status_notification.xml"
-            line="85"
+            line="29"
             column="6"/>
     </issue>
 
@@ -4775,17 +4544,6 @@
         <location
             file="src/main/res/layout/item_report_notification.xml"
             line="55"
-            column="9"/>
-    </issue>
-
-    <issue
-        id="NegativeMargin"
-        message="Margin values should not be negative"
-        errorLine1="        android:layout_marginStart=&quot;-14dp&quot;"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/layout/status_controls.xml"
-            line="29"
             column="9"/>
     </issue>
 
@@ -4945,17 +4703,6 @@
 
     <issue
         id="RtlSymmetry"
-        message="When you define `paddingEnd` you should probably also define `paddingStart` for right-to-left symmetry"
-        errorLine1="        android:paddingEnd=&quot;@dimen/status_display_name_padding_end&quot;"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/layout/item_conversation.xml"
-            line="97"
-            column="9"/>
-    </issue>
-
-    <issue
-        id="RtlSymmetry"
         message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry"
         errorLine1="        android:paddingStart=&quot;28dp&quot;"
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~">
@@ -4989,23 +4736,34 @@
 
     <issue
         id="RtlSymmetry"
-        message="When you define `paddingEnd` you should probably also define `paddingStart` for right-to-left symmetry"
-        errorLine1="        android:paddingEnd=&quot;@dimen/status_display_name_padding_end&quot;"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~">
+        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry"
+        errorLine1="        android:paddingStart=&quot;38dp&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~">
         <location
-            file="src/main/res/layout/item_status.xml"
-            line="76"
+            file="src/main/res/layout/item_status_notification.xml"
+            line="39"
             column="9"/>
     </issue>
 
     <issue
         id="RtlSymmetry"
-        message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry"
-        errorLine1="        android:paddingStart=&quot;28dp&quot;"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~~~">
+        message="When you define `paddingEnd` you should probably also define `paddingStart` for right-to-left symmetry"
+        errorLine1="        android:paddingEnd=&quot;@dimen/status_display_name_padding_end&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~">
         <location
-            file="src/main/res/layout/item_status_notification.xml"
-            line="22"
+            file="src/main/res/layout/status_content.xml"
+            line="75"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="RtlSymmetry"
+        message="When you define `paddingEnd` you should probably also define `paddingStart` for right-to-left symmetry"
+        errorLine1="        android:paddingEnd=&quot;@dimen/status_display_name_padding_end&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/status_content_conversation.xml"
+            line="120"
             column="9"/>
     </issue>
 

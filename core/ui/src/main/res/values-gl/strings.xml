@@ -87,4 +87,25 @@
     <string name="status_count_one_plus">1+</string>
     <string name="action_unreblog">Eliminar promoción</string>
     <string name="action_unfavourite">Eliminar favorito</string>
+    <string name="post_content_warning_show_less">Ver menos</string>
+    <string name="post_content_warning_show_more">Ver máis</string>
+    <string name="post_content_show_less">Pregar</string>
+    <string name="translating">Traducindo…</string>
+    <string name="translation_provider_fmt">%1$s</string>
+    <string name="description_post_edited">Editado</string>
+    <string name="description_post_reblogged">Repetido</string>
+    <string name="description_post_favourited">Favorecido</string>
+    <string name="description_post_bookmarked">Marcado</string>
+    <string name="description_post_media">Multimedia: %s</string>
+    <string name="description_post_cw">Aviso sobre o contido: %s</string>
+    <plurals name="reblogs">
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Promoción</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; Promocións</item>
+    </plurals>
+    <plurals name="favs">
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Favorito</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Favoritos</item>
+    </plurals>
+    <string name="post_boosted_format">%s promoveu</string>
+    <string name="post_edited">Editado %s</string>
 </resources>

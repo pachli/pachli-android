@@ -1,12 +1,29 @@
-<?xml version="1.0" encoding="utf-8"?><!--This applies only to favourite and rebnotificationsEnabledions.-->
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2025 Pachli Association
+  ~
+  ~ This file is a part of Pachli.
+  ~
+  ~ This program is free software; you can redistribute it and/or modify it under the terms of the
+  ~ GNU General Public License as published by the Free Software Foundation; either version 3 of the
+  ~ License, or (at your option) any later version.
+  ~
+  ~ Pachli is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+  ~ the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+  ~ Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License along with Pachli; if not,
+  ~ see <http://www.gnu.org/licenses>.
+  -->
+
+<!--This applies only to favourite and reblog notifications. -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/notification_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="14dp"
-    android:paddingRight="14dp"
     android:paddingBottom="10dp">
 
     <TextView
@@ -19,147 +36,18 @@
         android:ellipsize="end"
         android:gravity="center_vertical"
         android:maxLines="1"
-        android:paddingStart="28dp"
+        android:paddingStart="38dp"
         android:textColor="?android:textColorSecondary"
         android:textSize="?attr/status_text_medium"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Someone favourited your status" />
 
-    <ImageView
-        android:id="@+id/notification_status_avatar"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="14dp"
-        android:contentDescription="@string/action_view_profile"
-        android:scaleType="centerCrop"
+    <app.pachli.core.ui.NotificationStatusView
+        android:id="@+id/status_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/account_avatar_margin"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/notification_top_text"
-        tools:ignore="RtlHardcoded,RtlSymmetry"
-        tools:src="@drawable/avatar_default" />
-
-    <ImageView
-        android:id="@+id/notification_notification_avatar"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        app:layout_constraintBottom_toBottomOf="@id/notification_status_avatar"
-        app:layout_constraintEnd_toEndOf="@id/notification_status_avatar"
-        android:contentDescription="@string/action_view_profile" />
-
-    <TextView
-        android:id="@+id/status_display_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="6dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:paddingStart="0dp"
-        android:paddingEnd="@dimen/status_display_name_padding_end"
-        android:paddingBottom="4dp"
-        android:textColor="?android:textColorTertiary"
-        android:textSize="?attr/status_text_medium"
-        android:textStyle="normal|bold"
-        app:layout_constrainedWidth="true"
-        app:layout_constraintEnd_toStartOf="@id/status_meta_info"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toEndOf="@id/notification_notification_avatar"
-        app:layout_constraintTop_toBottomOf="@id/notification_top_text"
-        tools:text="Ente MM" />
-
-    <TextView
-        android:id="@+id/status_username"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:paddingBottom="4dp"
-        android:textColor="?android:textColorTertiary"
-        android:textSize="?attr/status_text_medium"
-        app:layout_constraintEnd_toStartOf="@id/status_meta_info"
-        app:layout_constraintStart_toEndOf="@id/status_display_name"
-        app:layout_constraintBaseline_toBaselineOf="@id/status_display_name"
-        tools:text="\@Entenhausen" />
-
-    <TextView
-        android:id="@+id/status_meta_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="4dp"
-        android:textColor="?android:textColorTertiary"
-        android:textSize="?attr/status_text_medium"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBaseline_toBaselineOf="@id/status_display_name"
-        tools:text="13:37" />
-
-    <app.pachli.core.ui.ClickableSpanTextView
-        android:id="@+id/notification_content_warning_description"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
-        android:hyphenationFrequency="full"
-        android:lineSpacingMultiplier="1.1"
-        android:textColor="?android:textColorTertiary"
-        android:textSize="?attr/status_text_medium"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/notification_status_avatar"
-        app:layout_constraintTop_toBottomOf="@id/status_display_name"
-        tools:text="Example CW text" />
-
-    <Button
-        android:id="@+id/notification_content_warning_button"
-        style="@style/AppButton.Outlined"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
-        android:minWidth="150dp"
-        android:minHeight="0dp"
-        android:paddingLeft="16dp"
-        android:paddingTop="4dp"
-        android:paddingRight="16dp"
-        android:paddingBottom="4dp"
-        android:textAllCaps="true"
-        android:textSize="?attr/status_text_medium"
-        app:layout_constraintStart_toEndOf="@id/notification_status_avatar"
-        app:layout_constraintTop_toBottomOf="@id/notification_content_warning_description"
-        tools:text="@string/post_content_warning_show_more" />
-
-    <app.pachli.core.ui.ClickableSpanTextView
-        android:id="@+id/notification_content"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
-        android:hyphenationFrequency="full"
-        android:lineSpacingMultiplier="1.1"
-        android:textColor="?android:textColorTertiary"
-        android:textSize="?attr/status_text_medium"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/notification_status_avatar"
-        app:layout_constraintTop_toBottomOf="@id/notification_content_warning_button"
-        tools:text="Example status here" />
-
-    <Button
-        android:id="@+id/button_toggle_notification_content"
-        style="@style/AppButton.Outlined"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="4dp"
-        android:minWidth="150dp"
-        android:minHeight="0dp"
-        android:paddingLeft="16dp"
-        android:paddingTop="4dp"
-        android:paddingRight="16dp"
-        android:paddingBottom="4dp"
-        android:textAllCaps="true"
-        android:textSize="?attr/status_text_medium"
-        android:visibility="gone"
-        app:layout_constraintStart_toEndOf="@id/notification_status_avatar"
-        app:layout_constraintTop_toBottomOf="@id/notification_content"
-        tools:visibility="visible"
-        tools:text="@string/post_content_show_less" />
-
+        app:layout_constraintTop_toBottomOf="@id/notification_top_text" />
 </androidx.constraintlayout.widget.ConstraintLayout>

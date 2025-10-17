@@ -60,4 +60,11 @@
     <string name="action_favourite">ප්‍රියතම</string>
     <string name="action_bookmark">පොත්යොමුව</string>
     <string name="action_unfavourite">ප්‍රියතමය ඉවත් කරන්න</string>
+    <string name="post_content_warning_show_less">අඩුවෙන් පෙන්වන්න</string>
+    <string name="post_content_warning_show_more">තව පෙන්වන්න</string>
+    <string name="description_post_media">මාධ්‍ය: %s</string>
+    <plurals name="favs">
+        <item quantity="one">ප්‍රියතමයන් &lt;b&gt;%1$s&lt;/b&gt;</item>
+        <item quantity="other">ප්‍රියතමයන් &lt;b&gt;%1$s&lt;/b&gt;</item>
+    </plurals>
 </resources>

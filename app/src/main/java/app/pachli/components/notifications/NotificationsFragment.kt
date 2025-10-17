@@ -177,7 +177,6 @@ class NotificationsFragment :
             Glide.with(this),
             notificationDiffCallback,
             setStatusContent,
-            statusActionListener = this,
             notificationActionListener = this,
             accountActionListener = this,
         )
@@ -640,10 +639,6 @@ class NotificationsFragment :
         } else {
             viewModel.accept(NotificationAction.RejectFollowRequest(accountId))
         }
-    }
-
-    override fun onViewThreadForStatus(status: Status) {
-        super.viewThread(status.actionableId, status.actionableStatus.url)
     }
 
     override fun onViewReport(reportId: String) {

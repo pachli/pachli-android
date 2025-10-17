@@ -72,4 +72,21 @@
     <string name="action_bookmark">বুকমার্ক</string>
     <string name="action_unreblog">সমর্থন সরান</string>
     <string name="action_unfavourite">পছন্দ সরান</string>
+    <string name="post_content_warning_show_less">প্রদর্শন কম</string>
+    <string name="post_content_warning_show_more">আরও দেখাও</string>
+    <string name="post_content_show_less">বন্ধ</string>
+    <string name="description_post_reblogged">আবার ব্লগ</string>
+    <string name="description_post_favourited">পছন্দ</string>
+    <string name="description_post_bookmarked">বুকমার্ককৃত</string>
+    <string name="description_post_media">মিডিয়া: %s</string>
+    <string name="description_post_cw">সতর্কবার্তা: %s</string>
+    <plurals name="reblogs">
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; বুস্ট</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; বুস্ট</item>
+    </plurals>
+    <plurals name="favs">
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt;টি পছন্দ</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt;টি পছন্দ</item>
+    </plurals>
+    <string name="post_boosted_format">%s বুস্টকৃত</string>
 </resources>

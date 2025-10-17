@@ -28,12 +28,7 @@
     <string name="title_follow_requests">Följarförfrågningar</string>
     <string name="title_edit_profile">Redigera din profil</string>
     <string name="title_drafts">Utkast</string>
-    <string name="post_boosted_format">%s knuffade</string>
     <string name="post_sensitive_media_directions">Tryck för att visa</string>
-    <string name="post_content_warning_show_more">Visa mer</string>
-    <string name="post_content_warning_show_less">Visa mindre</string>
-    <string name="post_content_show_more">Expandera</string>
-    <string name="post_content_show_less">Dölj</string>
     <string name="footer_empty">Inget här. Dra ner för att uppdatera!</string>
     <string name="notification_reblog_format">%s puffade ditt inlägg</string>
     <string name="notification_favourite_format">%s favoritmarkerade ditt inlägg</string>
@@ -225,24 +220,11 @@
     <string name="label_remote_account">Information nedan kan visa en inkomplett profil. Tryck för att öppna profilen i webbläsaren.</string>
     <string name="unpin_action">Ta bort nål</string>
     <string name="pin_action">Nåla fast</string>
-    <plurals name="favs">
-        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Favorit</item>
-        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Favoriter</item>
-    </plurals>
-    <plurals name="reblogs">
-        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Knuff</item>
-        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; Knuffar</item>
-    </plurals>
     <string name="title_reblogged_by">Knuffad av</string>
     <string name="title_favourited_by">Favoritmarkerad av</string>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s och %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s och %3$d mer</string>
-    <string name="description_post_media">Media: %s</string>
-    <string name="description_post_cw">Innehållsvarning: %s</string>
-    <string name="description_post_reblogged">        Knuffad
-    </string>
-    <string name="description_post_favourited">Favoritmarkerat</string>
     <string name="download_media">Ladda ned media</string>
     <string name="downloading_media">Laddar ned media</string>
     <string name="edit_hashtag_hint">Hashtag utan #</string>
@@ -301,7 +283,6 @@
     <string name="action_reset_schedule">Återställ</string>
     <string name="title_bookmarks">Bokmärken</string>
     <string name="action_view_bookmarks">Bokmärken</string>
-    <string name="description_post_bookmarked">Bokmärkt</string>
     <string name="select_list_title">Välj lista</string>
     <string name="list">Lista</string>
     <string name="no_scheduled_posts">Du har inga schemalagda statusar.</string>
@@ -413,8 +394,6 @@
     <string name="title_followed_hashtags">Följda hashtaggar</string>
     <string name="pref_default_post_language">Standardspråk för inlägg</string>
     <string name="language_display_name_format">%s (%s)</string>
-    <string name="description_post_edited">Redigerade</string>
-    <string name="post_edited">Redigerade %s</string>
     <string name="error_muting_hashtag_format">Kunde inte tysta #%s, fel uppstod</string>
     <string name="error_unmuting_hashtag_format">Kunde inte avtysta #%s, fel uppstod</string>
     <string name="hint_media_description_missing">Media bör ha en beskrivning.</string>
@@ -498,7 +477,6 @@
 \nDet är <a href="https://github.com/mastodon/mastodon/issues/25398">Mastodon problem #25398</a>.</string>
     <string name="ui_error_translate_status_fmt">Översättning misslyckades: %1$s</string>
     <string name="update_dialog_negative">Påminna mig aldrig</string>
-    <string name="translating">Översätter…</string>
     <string name="dialog_delete_filter_positive_action">Radera</string>
     <string name="pref_title_update_notification_frequency">Skicka en avisering vid en ny Pachli-version</string>
     <string name="title_public_trending_links">Trendande länkar</string>
@@ -508,7 +486,6 @@
     <string name="dialog_delete_filter_text">Radera filter \'%1$s\'?</string>
     <string name="error_media_playback">Uppspelning misslyckades: %s</string>
     <string name="title_public_trending">Trendande</string>
-    <string name="translation_provider_fmt">%1$s</string>
     <string name="pref_title_update_settings">Mjukvaruuppdateringar</string>
     <string name="title_public_trending_statuses">Trendande toots</string>
     <string name="announcement_date">%1$s %2$s</string>

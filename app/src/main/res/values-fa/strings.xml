@@ -25,12 +25,7 @@
     <string name="title_follow_requests">درخواست‌های پی‌گیری</string>
     <string name="title_edit_profile">ویرایش نمایه‌تان</string>
     <string name="title_drafts">پیش‌نویس‌ها</string>
-    <string name="post_boosted_format">%s تقویت کرد</string>
     <string name="post_sensitive_media_directions">کلیک برای نمایش</string>
-    <string name="post_content_warning_show_more">نمایش بیش‌تر</string>
-    <string name="post_content_warning_show_less">نمایش کم‌تر</string>
-    <string name="post_content_show_more">گسترش</string>
-    <string name="post_content_show_less">جمع کردن</string>
     <string name="footer_empty">این‌جا هیچ‌چیز نیست. برای تازه‌سازی، به پایین بکشید!</string>
     <string name="notification_reblog_format">%s فرسته‌تان را تقویت کرد</string>
     <string name="notification_favourite_format">%s فرسته‌تان را برگزید</string>
@@ -241,23 +236,11 @@
     <string name="filter_dialog_remove_button">برداشتن</string>
     <string name="filter_dialog_update_button">به‌روز رسانی</string>
     <string name="filter_dialog_whole_word">تمام واژه</string>
-    <plurals name="favs">
-        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; برگزیدن</item>
-        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; برگزیدن</item>
-    </plurals>
-    <plurals name="reblogs">
-        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; تقویت</item>
-        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; تقویت</item>
-    </plurals>
     <string name="title_reblogged_by">تقویت‌شده به دست</string>
     <string name="title_favourited_by">برگزیده به دست</string>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s و %2$s</string>
     <string name="conversation_more_recipients">%1$s، %2$s و %3$d بیش‌تر</string>
-    <string name="description_post_media">رسانه: %s</string>
-    <string name="description_post_cw">هشدار محتوا: %s</string>
-    <string name="description_post_reblogged">تقویت شده</string>
-    <string name="description_post_favourited">برگزیده</string>
     <string name="edit_hashtag_hint">برچسب بدون #</string>
     <string name="notifications_clear">پاک‌سازی</string>
     <string name="notifications_apply_filter">پالایش</string>
@@ -299,7 +282,6 @@
     <string name="report_description_remote_instance">این حساب از کارسازی دیگر است. رونوشتی ناشناس از گزارش، به آن‌جا نیز ارسال شود؟</string>
     <string name="title_bookmarks">نشانک‌ها</string>
     <string name="action_view_bookmarks">نشانک‌ها</string>
-    <string name="description_post_bookmarked">نشان‌شده</string>
     <string name="select_list_title">گزینش سیاهه</string>
     <string name="list">سیاهه</string>
     <string name="no_drafts">هیچ پیش‌نویسی ندارید.</string>
@@ -414,10 +396,8 @@
     <string name="pref_default_post_language">زبان فرستهٔ پیش‌گزیده</string>
     <string name="language_display_name_format">%s (%s)</string>
     <string name="pref_title_http_proxy_port_message">درگاه باید بین %d و %d باشد</string>
-    <string name="description_post_edited">ویراسته</string>
     <string name="error_muting_hashtag_format">خطا در خموش کردن #%s</string>
     <string name="error_unmuting_hashtag_format">خطا در ناخموش کردن #%s</string>
-    <string name="post_edited">%s را ویراست</string>
     <string name="error_status_source_load">شکست در بار کردن مبدأ وضعیت از کارساز.</string>
     <string name="a11y_label_loading_thread">بار کردن رشته</string>
     <string name="title_edits">ویرایش‌ها</string>

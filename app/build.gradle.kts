@@ -21,6 +21,7 @@ plugins {
     alias(libs.plugins.pachli.android.application)
     alias(libs.plugins.pachli.android.hilt)
     alias(libs.plugins.kotlin.parcelize)
+    kotlin("kapt")
 }
 
 apply(from = "gitTools.gradle")

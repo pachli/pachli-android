@@ -116,4 +116,27 @@
     <string name="role_content_description_fmt">%1$s, en %2$s</string>
     <string name="handle_contentdescription_fmt">Identificador, @%1$s</string>
     <string name="account_contentdescription_fmt">%1$s, %2$s; %3$s</string>
+    <string name="post_content_warning_show_less">Mostrar menos</string>
+    <string name="post_content_warning_show_more">Mostrar más</string>
+    <string name="post_content_show_less">Ocultar</string>
+    <string name="translating">Traduciendo…</string>
+    <string name="translation_provider_fmt">%1$s</string>
+    <string name="description_post_edited">Editado</string>
+    <string name="description_post_reblogged">Compartido</string>
+    <string name="description_post_favourited">Marcado como favorito</string>
+    <string name="description_post_bookmarked">Añadido a marcadores</string>
+    <string name="description_post_media">Contenido: %s</string>
+    <string name="description_post_cw">Aviso de contenido: %s</string>
+    <plurals name="reblogs">
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Impulso</item>
+        <item quantity="many">&lt;b&gt;%s&lt;/b&gt; Impulsos</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; Impulsos</item>
+    </plurals>
+    <plurals name="favs">
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Favorito</item>
+        <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; Favoritos</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Favoritos</item>
+    </plurals>
+    <string name="post_boosted_format">%s impulsó</string>
+    <string name="post_edited">%s editado</string>
 </resources>

@@ -28,12 +28,7 @@
     <string name="title_follow_requests">Folgeanfragen</string>
     <string name="title_edit_profile">Dein Profil bearbeiten</string>
     <string name="title_drafts">Entwürfe</string>
-    <string name="post_boosted_format">%s teilte</string>
     <string name="post_sensitive_media_directions">Zum Anzeigen tippen</string>
-    <string name="post_content_warning_show_more">Mehr anzeigen</string>
-    <string name="post_content_warning_show_less">Weniger anzeigen</string>
-    <string name="post_content_show_more">Ausklappen</string>
-    <string name="post_content_show_less">Einklappen</string>
     <string name="footer_empty">Noch keine Beiträge. Ziehe zum Aktualisieren nach unten!</string>
     <string name="notification_reblog_format">%s teilte deinen Beitrag</string>
     <string name="notification_favourite_format">%s favorisierte deinen Beitrag</string>
@@ -228,21 +223,13 @@
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s und %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s und %3$d mehr</string>
-    <string name="description_post_favourited">Favorisiert    </string>
     <string name="download_media">Dateien herunterladen</string>
     <string name="downloading_media">Dateien werden heruntergeladen</string>
     <string name="filter_add_description">zu filternder Ausdruck</string>
     <string name="edit_hashtag_hint">Hashtag ohne #</string>
     <string name="action_open_reblogger">Autor*in des geteilten Beitrags öffnen</string>
     <string name="pref_title_public_filter_keywords">Öffentliche Timelines</string>
-    <plurals name="favs">
-        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Favorit</item>
-        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Favoriten</item>
-    </plurals>
     <string name="title_reblogged_by">Geteilt von</string>
-    <string name="description_post_media">Medien: %s</string>
-    <string name="description_post_cw">Inhaltswarnung: %s</string>
-    <string name="description_post_reblogged">Geteilt</string>
     <string name="action_delete_and_redraft">Löschen und neu erstellen</string>
     <string name="dialog_redraft_post_warning">Diesen Beitrag löschen und neu erstellen\?</string>
     <string name="pref_title_notification_filter_poll">Umfragen beendet wurden</string>
@@ -298,7 +285,6 @@
     <string name="action_reset_schedule">Zurücksetzen</string>
     <string name="title_bookmarks">Lesezeichen</string>
     <string name="action_view_bookmarks">Lesezeichen</string>
-    <string name="description_post_bookmarked">Als Lesezeichen gespeichert</string>
     <string name="select_list_title">Liste auswählen</string>
     <string name="select_list_empty">Du hast noch keine Listen</string>
     <string name="select_list_manage">Listen verwalten</string>
@@ -321,10 +307,6 @@
     <string name="pref_title_enable_swipe_for_tabs">Wischgeste zum Wechseln zwischen Tabs aktivieren</string>
     <string name="pref_title_gradient_for_media">Farbverlauf für verborgene Medien anzeigen</string>
     <string name="action_unmute_domain">%s nicht mehr stummschalten</string>
-    <plurals name="reblogs">
-        <item quantity="one">&lt;b&gt;%s&lt;/b&gt;-mal geteilt</item>
-        <item quantity="other">&lt;b&gt;%s&lt;/b&gt;-mal geteilt</item>
-    </plurals>
     <string name="pref_main_nav_position">Position der Hauptnavigation</string>
     <string name="dialog_mute_hide_notifications">Benachrichtigungen ausblenden</string>
     <string name="action_unmute_desc">%s nicht mehr stummschalten</string>
@@ -413,7 +395,6 @@
     <string name="error_following_hashtags_unsupported">Diese Instanz unterstützt das Folgen von Hashtags nicht.</string>
     <string name="title_followed_hashtags">Gefolgte Hashtags</string>
     <string name="action_unfollow_hashtag_format">#%s entfolgen\?</string>
-    <string name="description_post_edited">Bearbeitet</string>
     <string name="a11y_label_loading_thread">Thread wird geladen</string>
     <string name="mute_notifications_switch">Benachrichtigungen stummschalten</string>
     <string name="title_edits">Bearbeitungen</string>
@@ -432,7 +413,6 @@
 \nEntweder ist die Verbindung zum Server fehlgeschlagen oder der Server hat die Beiträge abgelehnt.</string>
     <string name="action_post_failed_show_drafts">Entwürfe anzeigen</string>
     <string name="action_post_failed_do_nothing">Abbrechen</string>
-    <string name="post_edited">Bearbeitet %s</string>
     <string name="action_discard">Änderungen verwerfen</string>
     <string name="action_continue_edit">Bearbeiten fortsetzen</string>
     <string name="action_share_account_username">Name des Profils teilen</string>
@@ -498,7 +478,6 @@
 \nHierbei handelt es sich um <a href="https://github.com/mastodon/mastodon/issues/25398">Mastodon Issue #25398</a>.</string>
     <string name="ui_error_translate_status_fmt">Übersetzung fehlgeschlagen: %1$s</string>
     <string name="update_dialog_negative">Erinnere mich nie</string>
-    <string name="translating">Übersetze…</string>
     <string name="dialog_delete_filter_positive_action">Löschen</string>
     <string name="pref_title_update_notification_frequency">Benachrichtige mich über neue Versionen von Pachli</string>
     <string name="title_public_trending_links">Angesagte Links</string>
@@ -507,7 +486,6 @@
     <string name="dialog_delete_filter_text">Filter \'%1$s\' löschen?</string>
     <string name="error_media_playback">Wiedergabe fehlgeschlagen: %s</string>
     <string name="title_public_trending">Trends</string>
-    <string name="translation_provider_fmt">%1$s</string>
     <string name="pref_title_update_settings">Softwareaktualisierungen</string>
     <string name="title_public_trending_statuses">Angesagte Beiträge</string>
     <string name="load_newest_statuses">Neueste Beiträge laden</string>

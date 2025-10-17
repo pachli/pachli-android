@@ -29,12 +29,7 @@
     <string name="title_follow_requests">팔로우 요청</string>
     <string name="title_edit_profile">프로필 편집</string>
     <string name="title_drafts">임시 저장</string>
-    <string name="post_boosted_format">%s님이 부스트 했습니다</string>
     <string name="post_sensitive_media_directions">클릭하여 보기</string>
-    <string name="post_content_warning_show_more">더 보기</string>
-    <string name="post_content_warning_show_less">숨기기</string>
-    <string name="post_content_show_more">더 보기</string>
-    <string name="post_content_show_less">줄이기</string>
     <string name="footer_empty">게시물이 없습니다. 아래로 당겨서 새로고침하세요!</string>
     <string name="notification_reblog_format">%s님이 부스트 했습니다</string>
     <string name="notification_favourite_format">%s님이 당신의 게시물을 좋아합니다</string>
@@ -241,21 +236,11 @@
     <string name="label_remote_account">다음 정보는 원본과 차이가 있을 수 있습니다. 브라우저로 프로필을 확인하시려면 여기를 누르세요.</string>
     <string name="unpin_action">고정 해제</string>
     <string name="pin_action">고정</string>
-    <plurals name="favs">
-        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; 좋아요</item>
-    </plurals>
-    <plurals name="reblogs">
-        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; 부스트</item>
-    </plurals>
     <string name="title_reblogged_by">부스트한 유저</string>
     <string name="title_favourited_by">좋아요한 유저</string>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s와 %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s 외 %3$d명</string>
-    <string name="description_post_media">미디어: %s</string>
-    <string name="description_post_cw">열람주의: %s</string>
-    <string name="description_post_reblogged">부스트함</string>
-    <string name="description_post_favourited">좋아요함</string>
     <string name="edit_hashtag_hint">#를 제외한 해시태그</string>
     <string name="notifications_clear">알림 지우기</string>
     <string name="notifications_apply_filter">필터</string>

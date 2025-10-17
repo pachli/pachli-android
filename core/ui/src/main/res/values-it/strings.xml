@@ -99,4 +99,27 @@
     <string name="action_unfavourite">Rimuovi apprezzamento</string>
     <string name="pref_notification_method_pull">Raccogli</string>
     <string name="pref_notification_fetch_server_rejected">%1$s ha rifiutato la registrazione push</string>
+    <string name="post_content_warning_show_less">Mostra di meno</string>
+    <string name="post_content_warning_show_more">Mostra di più</string>
+    <string name="post_content_show_less">Riduci</string>
+    <string name="translating">Traducendo…</string>
+    <string name="translation_provider_fmt">%1$s</string>
+    <string name="description_post_edited">Modificato</string>
+    <string name="description_post_reblogged">Ribloggato</string>
+    <string name="description_post_favourited">Messo nei post apprezzati</string>
+    <string name="description_post_bookmarked">Messo nei segnalibri</string>
+    <string name="description_post_media">Media: %s</string>
+    <string name="description_post_cw">Contenuto sensibile: %s</string>
+    <plurals name="reblogs">
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; ricondivisione</item>
+        <item quantity="many">&lt;b&gt;%s&lt;/b&gt; ricondivisioni</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; ricondivisioni</item>
+    </plurals>
+    <plurals name="favs">
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Preferito</item>
+        <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; Preferiti</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Preferiti</item>
+    </plurals>
+    <string name="post_boosted_format">%s ha condiviso</string>
+    <string name="post_edited">Modificato %s</string>
 </resources>

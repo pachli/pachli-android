@@ -101,4 +101,33 @@
     <string name="status_count_one_plus">1+</string>
     <string name="action_unreblog">إزالة المشاركة</string>
     <string name="action_unfavourite">إزالة المفضلة</string>
+    <string name="post_content_warning_show_less">اعرض أقل</string>
+    <string name="post_content_warning_show_more">اعرض المزيد</string>
+    <string name="post_content_show_less">تصغير</string>
+    <string name="translating">الترجمة جارية…</string>
+    <string name="translation_provider_fmt">%1$s</string>
+    <string name="description_post_edited">تم تعديله</string>
+    <string name="description_post_reblogged">أعاد تدوينه    </string>
+    <string name="description_post_favourited">تم تفضيله</string>
+    <string name="description_post_bookmarked">أضيف إلى الفواصل المرجعية</string>
+    <string name="description_post_media">الوسائط: %s    </string>
+    <string name="description_post_cw">تحذير عن المحتوى: %s    </string>
+    <plurals name="reblogs">
+        <item quantity="zero">&lt;b&gt;%s&lt;/b&gt; مشاركة</item>
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; مشاركة</item>
+        <item quantity="two">&lt;b&gt;%s&lt;/b&gt; مشاركتين</item>
+        <item quantity="few">&lt;b&gt;%s&lt;/b&gt; مشاركات</item>
+        <item quantity="many">&lt;b&gt;%s&lt;/b&gt; مشاركات</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; مشاركات</item>
+    </plurals>
+    <plurals name="favs">
+        <item quantity="zero">&lt;b&gt;%1$s&lt;/b&gt; مفضلة</item>
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; مفضلة</item>
+        <item quantity="two">&lt;b&gt;%1$s&lt;/b&gt; مفضلتين</item>
+        <item quantity="few">&lt;b&gt;%1$s&lt;/b&gt; مفضلة</item>
+        <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; مفضلات</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; مفضلات</item>
+    </plurals>
+    <string name="post_boosted_format">شاركه %s</string>
+    <string name="post_edited">عدَّلَ %s</string>
 </resources>

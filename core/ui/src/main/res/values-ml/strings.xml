@@ -23,4 +23,8 @@
     <string name="action_favourite">ഇഷ്ടപ്പെട്ടവ</string>
     <string name="action_unreblog">ബൂസ്റ്റ് പിൻവലിക്കുക</string>
     <string name="action_unfavourite">ഇഷ്ടപ്പെട്ടവയിൽ നിന്നും കളയുക</string>
+    <string name="post_content_warning_show_less">അൽപ്പം കാണിക്കൂ</string>
+    <string name="post_content_warning_show_more">കൂടുതൽ കാണിക്കൂ</string>
+    <string name="post_content_show_less">ചുരുക്കുക</string>
+    <string name="post_boosted_format">%s ബൂസ്റ്റ് ചെയ്തു</string>
 </resources>

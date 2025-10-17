@@ -77,4 +77,23 @@
     <string name="status_count_one_plus">+1</string>
     <string name="action_unreblog">Elimina l\'impuls</string>
     <string name="action_unfavourite">Elimineu els preferits</string>
+    <string name="post_content_warning_show_less">Mostra\'n menys</string>
+    <string name="post_content_warning_show_more">Mostra\'n més</string>
+    <string name="post_content_show_less">Amaga</string>
+    <string name="description_post_edited">Editat</string>
+    <string name="description_post_reblogged">Respost</string>
+    <string name="description_post_favourited">Favorits</string>
+    <string name="description_post_bookmarked">S\'ha afegit a les adreces d\'interès</string>
+    <string name="description_post_media">Mèdia : %s</string>
+    <string name="description_post_cw">Advertència: %s</string>
+    <plurals name="reblogs">
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; impuls</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; impulsos</item>
+    </plurals>
+    <plurals name="favs">
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Favorit</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Favorits</item>
+    </plurals>
+    <string name="post_boosted_format">%s ha impulsat</string>
+    <string name="post_edited">S\'ha editat %s</string>
 </resources>

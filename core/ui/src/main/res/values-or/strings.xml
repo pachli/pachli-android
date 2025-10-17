@@ -3,4 +3,5 @@
     <string name="action_retry">ପୁନଃଚେଷ୍ଟା କରିବା</string>
     <string name="action_more">ଅଧିକ</string>
     <string name="action_reply">ପ୍ରତ୍ୟୁତ୍ତର</string>
+    <string name="post_content_show_less">ସଙ୍କୋଚନ</string>
 </resources>

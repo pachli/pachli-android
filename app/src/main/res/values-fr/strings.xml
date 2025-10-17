@@ -28,12 +28,7 @@
     <string name="title_follow_requests">Demandes d’abonnement</string>
     <string name="title_edit_profile">Modifier votre profil</string>
     <string name="title_drafts">Brouillons</string>
-    <string name="post_boosted_format">%s a partagé</string>
     <string name="post_sensitive_media_directions">Appuyer pour voir</string>
-    <string name="post_content_warning_show_more">Voir plus</string>
-    <string name="post_content_warning_show_less">Voir moins</string>
-    <string name="post_content_show_more">Déplier</string>
-    <string name="post_content_show_less">Replier</string>
     <string name="footer_empty">Il n’y a aucun pouet ici pour l’instant. Glissez vers le bas pour actualiser !</string>
     <string name="notification_reblog_format">%s a partagé votre message</string>
     <string name="notification_favourite_format">%s a ajouté votre message à ses favoris</string>
@@ -228,26 +223,11 @@
     <string name="label_remote_account">Les informations ci-dessous peuvent ne pas refléter le profil complet de l’utilisateur. Appuyez pour ouvrir le profil complet dans le navigateur.</string>
     <string name="unpin_action">Détacher</string>
     <string name="pin_action">Épingler</string>
-    <plurals name="favs">
-        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Favori</item>
-        <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; de favoris</item>
-        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Favoris</item>
-    </plurals>
-    <plurals name="reblogs">
-        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Partage</item>
-        <item quantity="many">&lt;b&gt;%s&lt;/b&gt; de partages</item>
-        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; Partages</item>
-    </plurals>
     <string name="title_reblogged_by">Partagé par</string>
     <string name="title_favourited_by">Mis en favoris par</string>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s et %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s et %3$d autres</string>
-    <string name="description_post_media">Média : %s</string>
-    <string name="description_post_cw">        Avertissement : %s
-    </string>
-    <string name="description_post_reblogged">Partagé</string>
-    <string name="description_post_favourited">Mis en favoris</string>
     <string name="edit_hashtag_hint">Hashtag sans #</string>
     <string name="notifications_clear">Nettoyer</string>
     <string name="notifications_apply_filter">Filtrer</string>
@@ -304,7 +284,6 @@
     <string name="action_reset_schedule">Réinitialiser</string>
     <string name="title_bookmarks">Signets</string>
     <string name="action_view_bookmarks">Signets</string>
-    <string name="description_post_bookmarked">Ajouté aux signets</string>
     <string name="select_list_title">Sélectionner la liste</string>
     <string name="list">Liste</string>
     <string name="no_drafts">Vous n’avez aucun brouillon.</string>
@@ -425,7 +404,6 @@
     <string name="action_discard">Abandonner les modifications</string>
     <string name="action_continue_edit">Continuer à modifier</string>
     <string name="confirmation_hashtag_unfollowed">#%s n\'est plus suivi</string>
-    <string name="post_edited">Modifié le %s</string>
     <string name="notification_report_description">Notifications à propos des signalements</string>
     <string name="action_share_account_link">Partager le lien du compte</string>
     <string name="action_share_account_username">Partager le nom du compte</string>
@@ -465,7 +443,6 @@
     <string name="description_browser_login">Peut permettre des méthodes d\'authentification supplémentaires, mais un navigateur compatible est nécessaire.</string>
     <string name="mute_notifications_switch">Masquer les notifications</string>
     <string name="unsaved_changes">Il y a des modifications non enregistrées.</string>
-    <string name="description_post_edited">Modifié</string>
     <string name="select_list_empty">Vous n\'avez pas encore de liste</string>
     <string name="select_list_manage">Gérer les listes</string>
     <string name="report_category_violation">Règle enfreinte</string>
@@ -505,8 +482,6 @@
     <string name="pref_title_update_notification_frequency">M\'informer des nouvelles versions de Pachli</string>
     <string name="update_dialog_title">Une mise à jour est disponible</string>
     <string name="update_dialog_neutral">Ne plus me rappeller pour cette version</string>
-    <string name="translating">Traduction …</string>
-    <string name="translation_provider_fmt">%1$s</string>
     <string name="confirmation_hashtag_muted">#%s caché</string>
     <string name="label_image">Image</string>
     <string name="pref_summary_content_filters">Votre serveur ne supporte pas les filtres</string>

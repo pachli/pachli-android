@@ -45,13 +45,7 @@
     <string name="title_edits">Brigdingar</string>
     <string name="dialog_follow_hashtag_title">Fylg emneknagg</string>
     <string name="dialog_follow_hashtag_hint">#emneknagg</string>
-    <string name="post_boosted_format">%s delte</string>
     <string name="post_sensitive_media_directions">Trykk for å syne</string>
-    <string name="post_content_warning_show_more">Syn meir</string>
-    <string name="post_content_warning_show_less">Syn mindre</string>
-    <string name="post_content_show_more">Utvid</string>
-    <string name="post_content_show_less">Døl</string>
-    <string name="post_edited">Brigda %s</string>
     <string name="footer_empty">Ingenting her. Dra ned for å oppdatere!</string>
     <string name="notification_reblog_format">%s delte innlegget ditt</string>
     <string name="notification_favourite_format">%s favorittmerkte innlegget ditt</string>
@@ -370,14 +364,6 @@
     <string name="pin_action">Fest</string>
     <string name="failed_to_pin">Festing mislukkast</string>
     <string name="failed_to_unpin">Løysing mislukkast</string>
-    <plurals name="favs">
-        <item quantity="one"><b>%1$s</b> favorittmerke</item>
-        <item quantity="other"><b>%1$s</b> favorittmerke</item>
-    </plurals>
-    <plurals name="reblogs">
-        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; deling</item>
-        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; delingar</item>
-    </plurals>
     <string name="title_reblogged_by">Delt av</string>
     <string name="title_favourited_by">Favorittmerkt av</string>
     <string name="conversation_0_recipients">Ingen andre deltakarar</string>
@@ -402,7 +388,6 @@
         <item quantity="other">Du kan ikkje laste opp meir enn %1$d mediavedlegg.</item>
     </plurals>
     <string name="conversation_more_recipients">%1$s, %2$s, og %3$d til</string>
-    <string name="description_post_media">Media: %s</string>
     <string name="select_list_manage">Handsam lister</string>
     <string name="list">Liste</string>
     <string name="notifications_clear">Fjern varsel</string>
@@ -412,11 +397,6 @@
     <string name="no_drafts">Du har ingen lagra utkast.</string>
     <string name="no_scheduled_posts">Du har ingen planlagte innlegg.</string>
     <string name="conversation_2_recipients">%1$s og %2$s</string>
-    <string name="description_post_cw">Innhaldsåtvaring: %s</string>
-    <string name="description_post_edited">Brigda</string>
-    <string name="description_post_reblogged">Delt</string>
-    <string name="description_post_favourited">Favorittmerkt</string>
-    <string name="description_post_bookmarked">Bokmerkt</string>
     <string name="description_post_language">Innleggsmål</string>
     <string name="description_login">Funkar i dei fleste tilfella. Ingen informasjon vert delt med andre appar.</string>
     <string name="description_browser_login">Kan stø andre autentiseringsmetodar, men treng ein stødd nettlesar.</string>
@@ -490,7 +470,6 @@
     <string name="update_dialog_neutral">Ikkje minn meg om denne utgåva</string>
     <string name="pref_labs_reverse_home_timeline_off_summary">Innlegg vert oppførte nyaste først</string>
     <string name="pref_labs_reverse_home_timeline_on_summary">Innlegg vert oppførte eldste først</string>
-    <string name="translating">Omset…</string>
     <string name="pref_notification_up_distributor_none">Ingen</string>
     <string name="pref_update_check_no_updates">Det finst ingen tigjengelege oppdateringar</string>
     <string name="pref_update_next_scheduled_check">Nest planlagt kontroll: %1$s</string>
@@ -551,7 +530,6 @@
     <string name="dialog_save_profile_changes_message">Vil du lagre endringane til profilen din?</string>
     <string name="pref_title_labs">Labbeksperiment</string>
     <string name="pref_labs_reverse_home_timeline_title">Vend om rekkjefylgja på tidslinjane</string>
-    <string name="translation_provider_fmt">%1$s</string>
     <string name="pref_notification_up_distributor_name_fmt">%1$s. Trykk for å opne</string>
     <string name="pref_notification_method_all_pull">Hentar inn omtrent kvart 15. minutt. Trykk for å syne detaljar.</string>
     <string name="pref_title_notification_battery_optimisation">Batterioptimisering</string>

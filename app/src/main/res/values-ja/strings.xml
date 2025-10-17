@@ -28,12 +28,7 @@
     <string name="title_follow_requests">フォローリクエスト</string>
     <string name="title_edit_profile">プロフィールを編集</string>
     <string name="title_drafts">下書き</string>
-    <string name="post_boosted_format">%sさんがブーストしました</string>
     <string name="post_sensitive_media_directions">タップして表示</string>
-    <string name="post_content_warning_show_more">続きを表示</string>
-    <string name="post_content_warning_show_less">続きを隠す</string>
-    <string name="post_content_show_more">続きを読む</string>
-    <string name="post_content_show_less">閉じる</string>
     <string name="footer_empty">現在投稿はありません。更新するにはプルダウンしてください！</string>
     <string name="notification_reblog_format">%sさんが投稿をブーストしました</string>
     <string name="notification_favourite_format">%sさんが投稿をお気に入りに登録しました</string>
@@ -216,12 +211,6 @@
     <string name="label_remote_account">以下の情報は不正確な可能性があります。タップしてブラウザでプロフィールを開く</string>
     <string name="unpin_action">固定表示を解除</string>
     <string name="pin_action">プロフィールに固定</string>
-    <plurals name="favs">
-        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; お気に入り</item>
-    </plurals>
-    <plurals name="reblogs">
-        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; ブースト</item>
-    </plurals>
     <string name="title_reblogged_by">ブーストした人物</string>
     <string name="title_favourited_by">お気に入りした人物</string>
     <string name="action_open_reblogged_by">ブーストを表示</string>
@@ -257,7 +246,6 @@
     <string name="pref_title_bot_overlay">ボットマークを表示</string>
     <string name="pref_title_animate_gif_avatars">GIFアバターを動かす</string>
     <string name="pref_title_public_filter_keywords">公開タイムライン</string>
-    <string name="description_post_cw">閲覧注意：%s</string>
     <string name="filter_apply">適用</string>
     <string name="title_accounts">アカウント</string>
     <string name="failed_search">検索に失敗しました</string>
@@ -285,7 +273,6 @@
     <string name="list">リスト</string>
     <string name="hashtags">ハッシュタグ</string>
     <string name="add_hashtag_title">ハッシュタグを追加</string>
-    <string name="description_post_media">メディア: %s</string>
     <string name="conversation_more_recipients">%1$sさん、%2$sさんと他%3$d人</string>
     <string name="conversation_1_recipients">%1$sさん</string>
     <string name="filter_add_description">フィルターする語句</string>
@@ -322,8 +309,6 @@
     <string name="action_delete_conversation">会話を削除</string>
     <string name="notification_sign_up_format">%sさんがサインアップしました</string>
     <string name="description_post_language">投稿言語</string>
-    <string name="description_post_favourited">お気に入りに追加しました</string>
-    <string name="description_post_bookmarked">ブックマークに追加しました</string>
     <string name="label_duration">期間</string>
     <string name="duration_indefinite">無期限</string>
     <string name="duration_14_days">14日間</string>
@@ -338,7 +323,6 @@
     <string name="wellbeing_hide_stats_posts">投稿上の数値的な統計情報を隠す</string>
     <string name="failed_to_pin">ピン留めに失敗しました</string>
     <string name="failed_to_unpin">ピン留めの解除に失敗しました</string>
-    <string name="description_post_reblogged">リブログしました</string>
     <string name="saving_draft">下書きの保存中…</string>
     <string name="pref_default_post_language">デフォルトの投稿言語</string>
     <string name="notification_subscription_name">新しい投稿</string>
@@ -357,7 +341,6 @@
     <string name="notification_update_name">投稿の編集</string>
     <string name="notification_report_format">%s に関する新しい報告</string>
     <string name="notification_update_format">%sさんが投稿を編集しました</string>
-    <string name="post_edited">%s を編集しました</string>
     <string name="notification_header_report_format">%sさんが %s を報告しました</string>
     <string name="confirmation_hashtag_unfollowed">#%s をフォロー解除しました</string>
     <string name="pref_title_animate_custom_emojis">カスタム絵文字のアニメーションを有効化</string>
@@ -369,7 +352,6 @@
     <string name="notification_report_name">報告</string>
     <string name="notification_report_description">モデレーション報告に関する通知</string>
     <string name="no_announcements">アナウンスはありません。</string>
-    <string name="description_post_edited">編集しました</string>
     <string name="pref_title_confirm_favourites">お気に入りに追加する前に確認を表示する</string>
     <string name="pref_title_hide_top_toolbar">トップバーのタイトルを隠す</string>
     <string name="pref_title_wellbeing_mode">ウェルビーイング</string>
@@ -514,10 +496,8 @@
     </plurals>
     <string name="ui_error_translate_status_fmt">翻訳に失敗しました: %1$s</string>
     <string name="update_dialog_negative">通知しない</string>
-    <string name="translating">翻訳中です…</string>
     <string name="pref_title_update_notification_frequency">Pachli最新バージョンへの更新頻度</string>
     <string name="update_dialog_neutral">このバージョンは通知しないでください</string>
-    <string name="translation_provider_fmt">%1$s</string>
     <string name="pref_title_update_settings">ソフトウェアアップデート</string>
     <string name="action_translate">翻訳</string>
     <string name="update_dialog_title">アップデート可能です</string>

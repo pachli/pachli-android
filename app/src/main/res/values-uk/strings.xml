@@ -72,8 +72,6 @@
     <string name="notification_follow_request_format">%s надсилає запит на підписку</string>
     <string name="notification_follow_format">%s підписується на вас</string>
     <string name="footer_empty">Тут нічого немає. Потягніть вниз, щоб оновити!</string>
-    <string name="post_content_warning_show_less">Згорнути</string>
-    <string name="post_content_warning_show_more">Розгорнути</string>
     <string name="post_sensitive_media_directions">Натисніть для перегляду</string>
     <string name="hint_content_warning">Попередження про вміст</string>
     <string name="edit_poll">Змінити</string>
@@ -98,9 +96,6 @@
     <string name="action_hide_reblogs">Сховати поширення</string>
     <string name="notification_favourite_format">%s вподобує ваш допис</string>
     <string name="notification_reblog_format">%s поширює ваш допис</string>
-    <string name="post_content_show_less">Згорнути</string>
-    <string name="post_content_show_more">Розгорнути</string>
-    <string name="post_boosted_format">%s поширює</string>
     <string name="title_domain_mutes">Приховані домени</string>
     <string name="title_mutes">Приховувані користувачі</string>
     <string name="title_posts">Дописи</string>
@@ -119,14 +114,7 @@
 \n - Статистика підписників/поширень у профілях
 \n
 \n На push-сповіщення це не вплине, але ви можете переглянути налаштування сповіщень вручну.</string>
-    <string name="description_post_favourited">Уподобано</string>
     <string name="title_favourited_by">Вподобали</string>
-    <plurals name="favs">
-        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; вподобання</item>
-        <item quantity="few">&lt;b&gt;%1$s&lt;/b&gt; вподобання</item>
-        <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; вподобань</item>
-        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; вподобань</item>
-    </plurals>
     <string name="notification_favourite_description">Сповіщати про вподобання кимось дописів</string>
     <string name="pref_title_notification_filter_favourites">мої дописи вподобано</string>
     <string name="action_hide_media">Сховати медіа</string>
@@ -162,8 +150,6 @@
     <string name="button_back">Назад</string>
     <string name="poll_ended_created">Створене вами опитування завершилося</string>
     <string name="poll_ended_voted">Опитування, в якому ви проголосували</string>
-    <string name="description_post_cw">Попередження про вміст: %s</string>
-    <string name="description_post_media">Медіа: %s</string>
     <string name="title_reblogged_by">Поширює</string>
     <string name="profile_metadata_content_label">Вміст</string>
     <string name="restart">Перезапустити</string>
@@ -339,14 +325,6 @@
     <string name="select_list_title">Вибрати список</string>
     <string name="edit_hashtag_hint">Хештег без #</string>
     <string name="add_hashtag_title">Додати хештег</string>
-    <string name="description_post_bookmarked">Додано до закладок</string>
-    <string name="description_post_reblogged">Поширено</string>
-    <plurals name="reblogs">
-        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; поширення</item>
-        <item quantity="few">&lt;b&gt;%s&lt;/b&gt; поширення</item>
-        <item quantity="many">&lt;b&gt;%s&lt;/b&gt; поширень</item>
-        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; поширень</item>
-    </plurals>
     <string name="pin_action">Прикріпити</string>
     <string name="unpin_action">Відкріпити</string>
     <string name="label_remote_account">Наведені далі відомості можуть відбивати не повний профіль користувача. Натисніть, щоб відкрити повний профіль у браузері.</string>
@@ -410,8 +388,6 @@
     <string name="title_followed_hashtags">Відстежувані хештеги</string>
     <string name="pref_default_post_language">Типова мова дописів</string>
     <string name="language_display_name_format">%s (%s)</string>
-    <string name="post_edited">Змінено %s</string>
-    <string name="description_post_edited">Змінено</string>
     <string name="error_muting_hashtag_format">Помилка приховування #%s</string>
     <string name="error_unmuting_hashtag_format">Помилка увімкнення сповіщень #%s</string>
     <string name="hint_media_description_missing">Медіа повинні мати опис.</string>

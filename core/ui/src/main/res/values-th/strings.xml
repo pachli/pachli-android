@@ -66,4 +66,19 @@
     <string name="action_bookmark">คั่นหน้า</string>
     <string name="action_unreblog">ลบการดัน</string>
     <string name="action_unfavourite">เลิกชื่นชอบ</string>
+    <string name="post_content_warning_show_less">แสดงน้อยลง</string>
+    <string name="post_content_warning_show_more">แสดงเพิ่มเติม</string>
+    <string name="post_content_show_less">ย่อ</string>
+    <string name="description_post_reblogged">ได้ถูกเขียนใหม่</string>
+    <string name="description_post_favourited">ชื่นชอบ</string>
+    <string name="description_post_bookmarked">คั่นหน้า</string>
+    <string name="description_post_media">สื่อ: %s</string>
+    <string name="description_post_cw">เตือนเนื้อหา : %s</string>
+    <plurals name="reblogs">
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; บูสต์</item>
+    </plurals>
+    <plurals name="favs">
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; ชื่นชอบ</item>
+    </plurals>
+    <string name="post_boosted_format">%s ได้ดัน</string>
 </resources>

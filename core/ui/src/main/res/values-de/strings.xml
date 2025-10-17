@@ -109,4 +109,25 @@
     <string name="status_count_one_plus">1+</string>
     <string name="action_unreblog">Teilen rückgängig machen</string>
     <string name="action_unfavourite">Aus Favoriten entfernen</string>
+    <string name="post_content_warning_show_less">Weniger anzeigen</string>
+    <string name="post_content_warning_show_more">Mehr anzeigen</string>
+    <string name="post_content_show_less">Einklappen</string>
+    <string name="translating">Übersetze…</string>
+    <string name="translation_provider_fmt">%1$s</string>
+    <string name="description_post_edited">Bearbeitet</string>
+    <string name="description_post_reblogged">Geteilt</string>
+    <string name="description_post_favourited">Favorisiert    </string>
+    <string name="description_post_bookmarked">Als Lesezeichen gespeichert</string>
+    <string name="description_post_media">Medien: %s</string>
+    <string name="description_post_cw">Inhaltswarnung: %s</string>
+    <plurals name="reblogs">
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt;-mal geteilt</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt;-mal geteilt</item>
+    </plurals>
+    <plurals name="favs">
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Favorit</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Favoriten</item>
+    </plurals>
+    <string name="post_boosted_format">%s teilte</string>
+    <string name="post_edited">Bearbeitet %s</string>
 </resources>

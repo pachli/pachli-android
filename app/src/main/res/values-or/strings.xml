@@ -2,8 +2,6 @@
 <resources>
     <string name="title_home">ଗୃହ</string>
     <string name="title_notifications">ଵିଜ୍ଞପ୍ତି</string>
-    <string name="post_content_show_more">ପ୍ରସାରଣ</string>
-    <string name="post_content_show_less">ସଙ୍କୋଚନ</string>
     <string name="action_hide_media">ମିଡ଼ିଆ ଲୁଚାଅ</string>
     <string name="action_edit_own_profile">ସମ୍ପାଦନା</string>
     <string name="action_undo">ପୂର୍ଵଵତ୍</string>

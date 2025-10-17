@@ -131,8 +131,6 @@
     <string name="notification_favourite_format">%s ने आपके टूट को पसंद किया</string>
     <string name="notification_reblog_format">%s ने आपके टूट को बढावा दिया</string>
     <string name="footer_empty">यहाँ कुछ नहीं। ताज़ा करने के लिए नीचे खींचो!</string>
-    <string name="post_content_warning_show_less">कम दिखाएं</string>
-    <string name="post_content_warning_show_more">और दिखाओ</string>
     <string name="post_sensitive_media_directions">देखने के लिए क्लिक करें</string>
     <string name="title_view_thread">टूट</string>
     <string name="title_scheduled_posts">अनुसूचित टूट</string>
@@ -158,8 +156,6 @@
     <string name="poll_ended_voted">आपके द्वारा मतदान किया गया जनमत समाप्त हो गया है</string>
     <string name="hashtags">हैशटैग</string>
     <string name="list">सूची</string>
-    <string name="description_post_bookmarked">बुकमार्क किया हुआ</string>
-    <string name="description_post_media">मीडिया: %s</string>
     <string name="profile_metadata_add">जानकारी जोड़ें</string>
     <string name="profile_metadata_label">प्रोफ़ाइल मेटाडेटा</string>
     <string name="download_failed">डाउनलोड विफल</string>
@@ -194,14 +190,9 @@
     <string name="notifications_clear">साफ करें</string>
     <string name="select_list_title">सूची का चयन करें</string>
     <string name="add_hashtag_title">हैशटैग जोड़ें</string>
-    <string name="description_post_cw">विषय वस्तु चेतावनी: %s</string>
     <string name="conversation_more_recipients">%1$s, %2$s तथा %3$d अन्य लोग</string>
     <string name="conversation_2_recipients">%1$s तथा %2$s</string>
     <string name="conversation_1_recipients">%1$s</string>
-    <plurals name="reblogs">
-        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; ने बढ़ावा दिया</item>
-        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; ने बढ़ावा दिया</item>
-    </plurals>
     <string name="pin_action">पिन</string>
     <string name="unpin_action">अनपिन</string>
     <string name="label_remote_account">नीचे दी गई जानकारी उपयोगकर्ता की प्रोफ़ाइल को अपूर्ण रूप से दर्शा सकती है। ब्राउज़र में पूर्ण प्रोफ़ाइल खोलने के लिए यहां दबाएं।</string>
@@ -278,10 +269,6 @@
     <string name="notification_follow_format">%s ने आपको फ़ॉलो किया</string>
     <string name="pref_title_show_boosts">बूस्ट दिखाएं</string>
     <string name="action_open_reblogged_by">बूस्ट दिखाएं</string>
-    <plurals name="favs">
-        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; ने पसंद किया</item>
-        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; ने पसंद किया</item>
-    </plurals>
     <string name="error_compose_character_limit">पोस्ट बहुत लंबा है!</string>
     <string name="error_image_edit_failed">फोटो संपादित नहीं किया जा सका।</string>
     <string name="error_media_upload_image_or_video">फोटो और वीडियो दोनों को एक ही पोस्ट से अटैच नहीं किया जा सकता है।</string>

@@ -28,12 +28,7 @@
     <string name="title_follow_requests">Solicitudes de seguimiento</string>
     <string name="title_edit_profile">Editar tu perfil</string>
     <string name="title_drafts">Borradores</string>
-    <string name="post_boosted_format">%s impulsó</string>
     <string name="post_sensitive_media_directions">Pulsa para ver</string>
-    <string name="post_content_warning_show_more">Mostrar más</string>
-    <string name="post_content_warning_show_less">Mostrar menos</string>
-    <string name="post_content_show_more">Expandir</string>
-    <string name="post_content_show_less">Ocultar</string>
     <string name="footer_empty">Nada por aquí. ¡Arrastra hacia abajo para recargar!</string>
     <string name="notification_reblog_format">%s impulsó tu publicación</string>
     <string name="notification_favourite_format">%s marcó como favorita tu publicación</string>
@@ -212,16 +207,6 @@
     <string name="label_remote_account">La información de abajo puede mostrar el perfil del usuario incompleto. Pulse para abrir el perfil completo en el navegador.</string>
     <string name="unpin_action">Desfijar</string>
     <string name="pin_action">Fijar</string>
-    <plurals name="favs">
-        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Favorito</item>
-        <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; Favoritos</item>
-        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Favoritos</item>
-    </plurals>
-    <plurals name="reblogs">
-        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Impulso</item>
-        <item quantity="many">&lt;b&gt;%s&lt;/b&gt; Impulsos</item>
-        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; Impulsos</item>
-    </plurals>
     <string name="title_reblogged_by">Impulsado por</string>
     <string name="title_favourited_by">Marcado como favorito por</string>
     <string name="conversation_1_recipients">%1$s</string>
@@ -233,7 +218,6 @@
     <string name="pref_title_timeline_filters">Filtros</string>
     <string name="notification_poll_name">Encuestas</string>
     <string name="filter_dialog_remove_button">Eliminar</string>
-    <string name="description_post_favourited">Marcado como favorito</string>
     <string name="filter_apply">Aplicar</string>
     <string name="pref_title_bot_overlay">Mostrar indicador de bots</string>
     <string name="action_delete_and_redraft">Eliminar y reescribir</string>
@@ -248,9 +232,6 @@
     <string name="filter_edit_title">Editar filtro</string>
     <string name="filter_dialog_update_button">Actualizar</string>
     <string name="filter_add_description">Frase para filtrar</string>
-    <string name="description_post_media">Contenido: %s</string>
-    <string name="description_post_cw">Aviso de contenido: %s</string>
-    <string name="description_post_reblogged">Compartido</string>
     <string name="edit_hashtag_hint">Etiqueta sin #</string>
     <string name="notifications_clear">Limpiar</string>
     <string name="notifications_apply_filter">Filtro</string>
@@ -302,7 +283,6 @@
     <string name="action_reset_schedule">Restablecer</string>
     <string name="title_bookmarks">Marcadores</string>
     <string name="action_view_bookmarks">Marcadores</string>
-    <string name="description_post_bookmarked">Añadido a marcadores</string>
     <string name="select_list_title">Seleccionar lista</string>
     <string name="list">Lista</string>
     <string name="no_drafts">No tienes ningún borrador.</string>
@@ -404,7 +384,6 @@
     <string name="pref_default_post_language">Idioma de publicación por defecto</string>
     <string name="pref_title_http_proxy_port_message">El puerto debe situarse entre %d y %d</string>
     <string name="notification_report_name">Denuncias</string>
-    <string name="description_post_edited">Editado</string>
     <string name="notification_report_format">Nueva denuncia en %s</string>
     <string name="notification_header_report_format">%s denunció a %s</string>
     <plurals name="notification_summary_report_format">
@@ -420,7 +399,6 @@
     <string name="title_followed_hashtags">Etiquetas seguidas</string>
     <string name="report_category_other">Otros</string>
     <string name="action_unfollow_hashtag_format">¿Dejar de seguir a #%s\?</string>
-    <string name="post_edited">%s editado</string>
     <string name="error_status_source_load">Fallo al cargar el estado de la origen desde el servidor.</string>
     <string name="confirmation_hashtag_unfollowed">Dejaste de seguir a #%s</string>
     <string name="pref_title_notification_filter_reports">Hay una nueva denuncia</string>
@@ -492,7 +470,6 @@
     <string name="compose_delete_draft">¿Eliminar borrador\?</string>
     <string name="ui_error_translate_status_fmt">La traducción falló: %1$s</string>
     <string name="update_dialog_negative">Nunca me lo recuerdes</string>
-    <string name="translating">Traduciendo…</string>
     <string name="dialog_delete_filter_positive_action">Borrar</string>
     <string name="notification_listenable_worker_name">Actividad de fondo</string>
     <string name="pref_title_update_notification_frequency">Notifícame sobre nuevas versiones de Pachli</string>
@@ -503,7 +480,6 @@
     <string name="dialog_delete_filter_text">¿Eliminar filtro \"%1$s\"?</string>
     <string name="error_media_playback">La reproducción falló: %s</string>
     <string name="title_public_trending">En tendencia</string>
-    <string name="translation_provider_fmt">%1$s</string>
     <string name="pref_title_update_settings">Actualizaciones de programa</string>
     <string name="title_public_trending_statuses">Publicaciones en tendencia</string>
     <string name="announcement_date">%1$s %2$s</string>

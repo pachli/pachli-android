@@ -32,12 +32,7 @@
     <string name="title_follow_requests">Richieste di seguirti</string>
     <string name="title_edit_profile">Modifica il tuo profilo</string>
     <string name="title_drafts">Bozze</string>
-    <string name="post_boosted_format">%s ha condiviso</string>
     <string name="post_sensitive_media_directions">Clicca per visualizzare</string>
-    <string name="post_content_warning_show_more">Mostra di più</string>
-    <string name="post_content_warning_show_less">Mostra di meno</string>
-    <string name="post_content_show_more">Espandi</string>
-    <string name="post_content_show_less">Riduci</string>
     <string name="footer_empty">Qui non c\'è nulla. Trascina verso il basso per aggiornare!</string>
     <string name="notification_reblog_format">%s ha condiviso il tuo post</string>
     <string name="notification_favourite_format">%s ha apprezzato il tuo post</string>
@@ -241,25 +236,11 @@
     <string name="label_remote_account">Il profilo dell\'utente mostrato qui sotto potrebbe essere incompleto. Premi per aprire il profilo completo nel browser.</string>
     <string name="unpin_action">Non fissare in cima</string>
     <string name="pin_action">Fissa</string>
-    <plurals name="favs">
-        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Preferito</item>
-        <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; Preferiti</item>
-        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Preferiti</item>
-    </plurals>
-    <plurals name="reblogs">
-        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; ricondivisione</item>
-        <item quantity="many">&lt;b&gt;%s&lt;/b&gt; ricondivisioni</item>
-        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; ricondivisioni</item>
-    </plurals>
     <string name="title_reblogged_by">Condiviso da</string>
     <string name="title_favourited_by">Aggiunto ai post apprezzati da</string>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s e %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s ed altri %3$d</string>
-    <string name="description_post_media">Media: %s</string>
-    <string name="description_post_cw">Contenuto sensibile: %s</string>
-    <string name="description_post_reblogged">Ribloggato</string>
-    <string name="description_post_favourited">Messo nei post apprezzati</string>
     <string name="download_media">Scarica media</string>
     <string name="downloading_media">Scaricando media</string>
     <string name="compose_shortcut_long_label">Componi messaggio</string>
@@ -288,7 +269,6 @@
     <string name="action_view_bookmarks">Segnalibri</string>
     <string name="action_add_poll">Aggiungi sondaggio</string>
     <string name="pref_title_alway_open_spoiler">Espandi sempre i messaggi segnalati come contenuto sensibile</string>
-    <string name="description_post_bookmarked">Messo nei segnalibri</string>
     <string name="select_list_title">Scegli lista</string>
     <string name="list">Lista</string>
     <string name="compose_preview_image_description">Azioni per l\'immagine %s</string>
@@ -427,7 +407,6 @@
     <string name="error_muting_hashtag_format">Errore nel silenziamento di #%s</string>
     <string name="error_unmuting_hashtag_format">Errore nella rimozione del silenziamento di #%s</string>
     <string name="title_followed_hashtags">Hashtag seguiti</string>
-    <string name="description_post_edited">Modificato</string>
     <string name="error_following_hashtags_unsupported">Questa istanza non permette di seguire gli hashtag.</string>
     <string name="action_discard">Scarta modifiche</string>
     <string name="action_continue_edit">Continua a modificare</string>
@@ -442,7 +421,6 @@
     <string name="unsaved_changes">Hai delle modifiche non salvate.</string>
     <string name="confirmation_hashtag_unfollowed">Non segui più #%s</string>
     <string name="error_status_source_load">Caricamento dello status della sorgente dal server fallito.</string>
-    <string name="post_edited">Modificato %s</string>
     <string name="mute_notifications_switch">Silenzia notifiche</string>
     <string name="title_edits">Modifiche</string>
     <string name="report_category_spam">Spam</string>
@@ -609,8 +587,6 @@
     <string name="filter_description_none">Mostra normalmente</string>
     <string name="pref_title_labs">Esperimenti di laboratorio</string>
     <string name="pref_labs_warning">Queste sono funzionalità sperimentali. Non sono garantite che funzioneranno, o che verranno incluse in versioni future. Usare a proprio rischio.</string>
-    <string name="translating">Traducendo…</string>
-    <string name="translation_provider_fmt">%1$s</string>
     <string name="pref_notification_up_distributor_name_fmt">%1$s. Tocca per aprire</string>
     <string name="pref_notification_up_distributor_none">Nessuno</string>
     <string name="pref_title_notification_method">Metodo di notifica</string>

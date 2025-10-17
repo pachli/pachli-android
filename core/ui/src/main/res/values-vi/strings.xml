@@ -71,4 +71,21 @@
     <string name="status_count_one_plus">1+</string>
     <string name="action_unreblog">Hủy đăng lại</string>
     <string name="action_unfavourite">Bỏ lưu</string>
+    <string name="post_content_warning_show_less">Thu gọn</string>
+    <string name="post_content_warning_show_more">Mở rộng</string>
+    <string name="post_content_show_less">Thu gọn</string>
+    <string name="description_post_edited">Đã sửa</string>
+    <string name="description_post_reblogged">Đã đăng lại</string>
+    <string name="description_post_favourited">Đã thích</string>
+    <string name="description_post_bookmarked">Đã lưu</string>
+    <string name="description_post_media">Media: %s</string>
+    <string name="description_post_cw">Nội dung ẩn: %s</string>
+    <plurals name="reblogs">
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; Đăng lại</item>
+    </plurals>
+    <plurals name="favs">
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Thích</item>
+    </plurals>
+    <string name="post_boosted_format">%s đăng lại</string>
+    <string name="post_edited">Sửa %s</string>
 </resources>

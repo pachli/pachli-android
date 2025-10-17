@@ -77,12 +77,7 @@
     <string name="notification_favourite_format">%s خۆشترین توتەکەت</string>
     <string name="notification_reblog_format">%s توتەکەتی بەرزکردەوە</string>
     <string name="footer_empty">هیچ شتێک لێرە نیە ڕاکە خوارەوە بۆ نوێکردنەوە!</string>
-    <string name="post_content_show_less">نوشتانەوە</string>
-    <string name="post_content_show_more">فراوانکردن</string>
-    <string name="post_content_warning_show_less">کەمتر نیشان بدە</string>
-    <string name="post_content_warning_show_more">زیاتر پیشان بدە</string>
     <string name="post_sensitive_media_directions">کرتە بکە بۆ بینین</string>
-    <string name="post_boosted_format">%s پۆستی کردەوە</string>
     <string name="title_announcements">ڕاگه یه نراوەکان</string>
     <string name="title_scheduled_posts">توتی خشتەکراو</string>
     <string name="title_edit_profile">دەستکاری پرۆفایلەکەت بکە</string>
@@ -229,24 +224,11 @@
     <string name="hashtags">هاشتاگی</string>
     <string name="edit_hashtag_hint">هاشتاگی بێ #</string>
     <string name="add_hashtag_title">هاشتاگی زیاد بکە</string>
-    <string name="description_post_bookmarked">نیشانکراوە</string>
-    <string name="description_post_favourited">پەسەندکراو</string>
-    <string name="description_post_reblogged">دووبارە بڵاگ کرا</string>
-    <string name="description_post_cw">ئاگاداری ناوەڕۆک: %s</string>
-    <string name="description_post_media">میدیا: %s</string>
     <string name="conversation_more_recipients">%1$s, %2$s و %3$d زیاتر</string>
     <string name="conversation_2_recipients">%1$s و %2$s</string>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="title_favourited_by">پەسەندکراوە لەلایەن</string>
     <string name="title_reblogged_by">پۆست کراوەتەوە لەلایەن</string>
-    <plurals name="reblogs">
-        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; پۆستکردنەوە</item>
-        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; پۆستکردنەوە</item>
-    </plurals>
-    <plurals name="favs">
-        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; دڵخواز</item>
-        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; دڵخواز</item>
-    </plurals>
     <string name="pin_action">Pin</string>
     <string name="unpin_action">لابردن</string>
     <string name="label_remote_account">ڕەنگە زانیاری خوارەوە ڕەنگدانەوەی پرۆفایلی بەکارهێنەر بە ناتەواوی بێت. فشار بکە بۆ کردنەوەی پرۆفایلی تەواو لە وێبگەڕەکە.</string>

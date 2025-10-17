@@ -89,4 +89,25 @@
     <string name="status_count_one_plus">1+</string>
     <string name="action_unreblog">Fjern deling</string>
     <string name="action_unfavourite">Fjern favoritt</string>
+    <string name="post_content_warning_show_less">Vis mindre</string>
+    <string name="post_content_warning_show_more">Vis mer</string>
+    <string name="post_content_show_less">Skjul</string>
+    <string name="translating">Oversetter…</string>
+    <string name="translation_provider_fmt">%1$s</string>
+    <string name="description_post_edited">Redigert</string>
+    <string name="description_post_reblogged">Reblogget</string>
+    <string name="description_post_favourited">Favorisert</string>
+    <string name="description_post_bookmarked">Bokmerke lagt til</string>
+    <string name="description_post_media">Media: %s</string>
+    <string name="description_post_cw">Innholdsadvarsel: %s</string>
+    <plurals name="reblogs">
+        <item quantity="one">Delt &lt;b&gt;%s&lt;/b&gt; gang</item>
+        <item quantity="other">Delt &lt;b&gt;%s&lt;/b&gt; ganger</item>
+    </plurals>
+    <plurals name="favs">
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Favoritt</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Favoritter</item>
+    </plurals>
+    <string name="post_boosted_format">%s delte</string>
+    <string name="post_edited">Redigert %s</string>
 </resources>

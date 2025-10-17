@@ -12,10 +12,6 @@
     <string name="title_followers">Sledujúci</string>
     <string name="title_bookmarks">Záložky</string>
     <string name="post_sensitive_media_directions">Klikni pre zobrazenie</string>
-    <string name="post_content_warning_show_more">Zobraziť viac</string>
-    <string name="post_content_warning_show_less">Zobraziť menej</string>
-    <string name="post_content_show_more">Rozbaliť</string>
-    <string name="post_content_show_less">Zabaliť</string>
     <string name="report_username_format">Nahlásiť účet @%s</string>
     <string name="action_quick_reply">Rýchla odpoveď</string>
     <string name="title_favourites">Obľúbené</string>
@@ -111,7 +107,6 @@
     <string name="visibility_unlisted">Tiché verejné: Nezobrazovať na verejných časových osách</string>
     <string name="pref_title_notification_filter_favourites">Moje príspevky sú obľúbené</string>
     <string name="pref_summary_http_proxy_missing">&lt;nenastavené&gt;</string>
-    <string name="post_boosted_format">%s zdieľal/a</string>
     <string name="title_edits">Úpravy</string>
     <string name="pref_title_font_family">Typ písma</string>
     <string name="action_content_warning">Varovanie pred obsahom</string>
@@ -194,7 +189,6 @@
     <string name="dialog_message_cancel_follow_request">Zrušiť žiadosť o sledovanie?</string>
     <string name="pref_title_show_media_preview">Sťahovať náhľady médií</string>
     <string name="pref_title_public_filter_keywords">Verejné časové osi</string>
-    <string name="description_post_favourited">Obľúbené</string>
     <string name="action_hide_reblogs">Skryť zdieľania</string>
     <string name="action_show_reblogs">Zobraziť zdieľania</string>
     <string name="dialog_unfollow_warning">Prestať sledovať tento účet?</string>
@@ -288,7 +282,6 @@
     <string name="pref_title_http_proxy_server">HTTP proxy server</string>
     <string name="pref_title_http_proxy_port">HTTP proxy port</string>
     <string name="hint_media_description_missing">Médiá by mali mať popis.</string>
-    <string name="post_edited">Upravené %s</string>
     <string name="search_operator_where_dialog_library_hint">Tvoje vlastné príspevky, zdieľania, obľúbené príspevky, záložky, a príspevky, ktoré ťa zmieňujú</string>
     <string name="confirmation_hashtag_muted">#%s skrytý</string>
     <string name="confirmation_hashtag_unmuted">Skrytie #%s zrušené</string>
@@ -322,7 +315,6 @@
     <string name="notification_follow_description">Upozornenia na nových sledujúcích</string>
     <string name="download_failed">Sťahovanie zlyhalo</string>
     <string name="title_reblogged_by">Zdieľané účtom</string>
-    <string name="description_post_bookmarked">Pridané do záložiek</string>
     <string name="list">Zoznam</string>
     <string name="action_unsubscribe_account">Zrušiť odoberanie</string>
     <string name="pachli_compose_post_quicksetting_label">Vytvoriť príspevok</string>
@@ -366,18 +358,8 @@
     <string name="ui_error_clear_notifications">Vymazanie upozornení zlyhalo: %s</string>
     <string name="ui_error_reject_follow_request">Zamietnutie žiadosti o sledovanie zlyhalo: %s</string>
     <string name="filter_description_hide">Skryť úplne</string>
-    <plurals name="favs">
-        <item quantity="one"><b>%1$s</b> obľúbenie</item>
-        <item quantity="few"><b>%1$s</b> obľúbenia</item>
-        <item quantity="other"><b>%1$s</b> obľúbení</item>
-    </plurals>
     <string name="account_date_joined">Dátum registrácie %1$s</string>
     <string name="announcement_date_updated">(Aktualizované: %1$s)</string>
-    <plurals name="reblogs">
-        <item quantity="one"><b>%s</b> zdieľanie</item>
-        <item quantity="few"><b>%s</b> zdieľania</item>
-        <item quantity="other"><b>%s</b> zdieľaní</item>
-    </plurals>
     <string name="notification_report_description">Upozornenia na nahlásenia moderátorom</string>
     <string name="account_filter_placeholder_type_reblog_fmt">Účet @<b>%1s</b> zdieľal tvoj príspevok</string>
     <string name="wellbeing_mode_notice">Niektoré informácie, ktoré by mohli mať vplyv na tvoju duševnú pohodu, budú skryté. Týka sa to:\n\n - Upozornení na zdieľanie, sledovaníe a pridanie medzi obľúbené\n - Počtu obľúbení a zdieľaní pri príspevkoch\n - Štatistík sledujúcich a príspevkov na profiloch\n\nPush upozornenia nebudú ovplyvnené, ale môžeš si skontrolovať ich nastavenia manuálne.</string>
@@ -391,7 +373,6 @@
     <string name="compose_shortcut_short_label">Napísať</string>
     <string name="profile_metadata_label_label">Označenie</string>
     <string name="pref_title_absolute_time">Používať absolútny čas</string>
-    <string name="description_post_reblogged">Zdielaný</string>
     <string name="compose_schedule_date_time_fmt">%1$s %2$s</string>
     <string name="compose_preview_image_description">Akcie pre obrázok %s</string>
     <string name="no_scheduled_posts">Nemáš žiadne naplánované príspevky.</string>
@@ -420,7 +401,6 @@
     <string name="unpin_action">Odopnúť</string>
     <string name="failed_to_unpin">Odopnutie zlyhalo</string>
     <string name="conversation_0_recipients">Žiadni ďalší účastníci</string>
-    <string name="description_post_edited">Upravené</string>
     <string name="description_login">Funguje vo väčšine prípadov. Nedochádza k úniku dát do iných aplikácií.</string>
     <string name="description_browser_login">Môže podporovať dodatočné metódy overenia, ale vyžaduje kompatibilný prehliadač.</string>
     <string name="add_hashtag_title">Pridať hashtag</string>
@@ -473,7 +453,6 @@
     <string name="title_media">Média</string>
     <string name="filter_expiration_format">%s (%s)</string>
     <string name="system_default">Východzie nastavenie systému</string>
-    <string name="description_post_cw">Varovanie pred obsahom: %s</string>
     <string name="report_description_1">Hlásenie bude odoslané moderátorovi tvojho servera. Nižšie môžeš uviesť dôvod, prečo tento účet nahlasuješ:</string>
     <string name="report_remote_instance">Preposlať na %s</string>
     <string name="duration_1_day">1 deň</string>
@@ -507,7 +486,6 @@
     <string name="dialog_delete_filter_positive_action">Vymazať</string>
     <string name="update_dialog_title">Je dostupná aktualizácia</string>
     <string name="update_dialog_negative">Neupozorňovať</string>
-    <string name="translation_provider_fmt">%1$s</string>
     <string name="pref_notification_method_mixed">Niektoré účty používajú UnifiedPush, iné sťahujú oznámenia každých 15 minút. Klepni pre viac informácií</string>
     <string name="pref_notification_battery_optimisation_should_ignore">Optimalizácia batérie by mala byť vypnutá. Klepni pre otvorenie.</string>
     <string name="pref_title_wellbeing_mode">Pohoda</string>
@@ -520,7 +498,6 @@
     <string name="notification_prune_cache">Údržba cache…</string>
     <string name="load_newest_statuses">Načítať najnovšie príspevky</string>
     <string name="update_dialog_neutral">Neupozorňuj ma na túto verziu</string>
-    <string name="translating">Prekladám…</string>
     <string name="reblog_private">Zdieľať s pôvodným publikom</string>
     <string name="unreblog_private">Zrušit zdieľanie</string>
     <string name="filter_edit_title">Upraviť filter</string>
@@ -543,7 +520,6 @@
     <string name="pref_title_labs">Experimentálne funkcie</string>
     <string name="pref_labs_warning">Toto sú experimentálne funkcie. Ich funkčnosť nie je zaručená a nemusia byť zahrnuté v budúcich verziách. Používaj ich výhradne na vlastné riziko.</string>
     <string name="pref_labs_reverse_home_timeline_title">Obrátiť poradie časovej osi</string>
-    <string name="description_post_media">Média %s</string>
     <string name="description_post_language">Jazyk príspevku</string>
     <string name="set_focus_description">Klepnutím alebo potiahnutím kruhu urči bod, ktorý bude v náhľadoch vždy zobrazený.</string>
     <string name="manage_lists">Spravovať zoznamy</string>

@@ -24,12 +24,7 @@
     <string name="title_follow_requests">Demandas d’abonament</string>
     <string name="title_edit_profile">Modificar lo perfil</string>
     <string name="title_drafts">Borrolhons</string>
-    <string name="post_boosted_format">%s a partejat</string>
     <string name="post_sensitive_media_directions">Clicar per mostrar</string>
-    <string name="post_content_warning_show_more">Mostrar mai</string>
-    <string name="post_content_warning_show_less">Mostrar mens</string>
-    <string name="post_content_show_more">Desplegar</string>
-    <string name="post_content_show_less">Replegar</string>
     <string name="footer_empty">I a pas res aquí. Davalatz per actualizar !</string>
     <string name="notification_reblog_format">%s a partejat vòstra publicacion</string>
     <string name="notification_favourite_format">%s a aimat vòstra publicacion</string>
@@ -227,23 +222,11 @@
     <string name="filter_dialog_remove_button">Suprimir</string>
     <string name="filter_dialog_update_button">Actualizar</string>
     <string name="filter_add_description">Frasa de filtrar</string>
-    <plurals name="favs">
-        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Favorit</item>
-        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Favorits</item>
-    </plurals>
-    <plurals name="reblogs">
-        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Partatge</item>
-        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; Partatges</item>
-    </plurals>
     <string name="title_reblogged_by">Partejat per</string>
     <string name="title_favourited_by">Aimat per</string>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s e %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s e %3$d mai</string>
-    <string name="description_post_media">Mèdia : %s</string>
-    <string name="description_post_cw">Avertiment : %s</string>
-    <string name="description_post_reblogged">Repartajat</string>
-    <string name="description_post_favourited">Mes en favorit</string>
     <string name="edit_hashtag_hint">Etiquetas sens #</string>
     <string name="compose_shortcut_long_label">Escriure una publicacion</string>
     <string name="compose_shortcut_short_label">Redactar</string>
@@ -300,7 +283,6 @@
     <string name="action_reset_schedule">Escafar</string>
     <string name="title_bookmarks">Marcapaginas</string>
     <string name="action_view_bookmarks">Marcapaginas</string>
-    <string name="description_post_bookmarked">Ajustat als marcapaginas</string>
     <string name="select_list_title">Seleccionar la list</string>
     <string name="list">Lista</string>
     <string name="no_drafts">Avètz pas cap de borrolhon.</string>
@@ -416,8 +398,6 @@
     <plurals name="notification_summary_report_format">
         <item quantity="other">%1$s · %2$d publicacions juntadas</item>
     </plurals>
-    <string name="post_edited">%s modificat</string>
-    <string name="description_post_edited">Modificada</string>
     <string name="error_status_source_load">Fracàs del cargament de l’estatut a partir del servidor.</string>
     <string name="mute_notifications_switch">Amudir las notificacions</string>
     <string name="status_created_info">%1$s creèt</string>

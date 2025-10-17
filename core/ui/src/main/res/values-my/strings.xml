@@ -10,4 +10,9 @@
     <string name="action_bookmark">သိမ်းဆည်းမည်</string>
     <string name="action_unreblog">ပယ်ဖျက်မည်</string>
     <string name="action_unfavourite">ပယ်ဖျက်မည်</string>
+    <string name="post_content_warning_show_less">ချုံ့မည်</string>
+    <string name="post_content_warning_show_more">ပို၍</string>
+    <string name="post_content_show_less">ဖြန့်မည်</string>
+    <string name="post_boosted_format">%s တစ်ဆင့်မျှဝေပြီး</string>
+    <string name="post_edited">ပြုပြင်ထား %s</string>
 </resources>

@@ -30,8 +30,6 @@
     <string name="error_media_upload_permission">Izin untuk membaca media diperlukan.</string>
     <string name="error_media_download_permission">Izin untuk menyimpan media diperlukan.</string>
     <string name="post_sensitive_media_directions">Klik untuk melihat</string>
-    <string name="post_content_warning_show_more">Tampilkan Lebih Banyak</string>
-    <string name="post_content_warning_show_less">Tampilkan Lebih Sedikit</string>
     <string name="notification_follow_format">%s mengikuti Anda</string>
     <string name="report_username_format">Laporkan @%s</string>
     <string name="action_follow">Ikuti</string>
@@ -122,8 +120,6 @@
     <string name="title_public_federated">Federasi</string>
     <string name="title_migration_relogin">Login ulang untuk notifikasi push</string>
     <string name="title_follow_requests">Permintaan mengikuti</string>
-    <string name="post_boosted_format">%s ter-boost</string>
-    <string name="post_content_show_more">Meluaskan</string>
     <string name="footer_empty">Tidak ada apapun di sini. Tarik ke bawah untuk menyegarkan!</string>
     <string name="notification_reblog_format">%s telah meng-boost post mu</string>
     <string name="notification_favourite_format">%s memfavoritkan post mu</string>
@@ -197,8 +193,6 @@
     <string name="notification_header_report_format">%s dilaporkan %s</string>
     <string name="dialog_follow_hashtag_title">Ikuti tagar</string>
     <string name="dialog_follow_hashtag_hint">#tagar</string>
-    <string name="post_content_show_less">Tutup</string>
-    <string name="post_edited">Diedit %s</string>
     <string name="notification_report_format">Laporan baru tentang %s</string>
     <plurals name="notification_summary_report_format">
         <item quantity="other">%1$s - %2$d posting terlampir</item>

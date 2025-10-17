@@ -54,8 +54,6 @@
     <string name="action_view_follow_requests">Seuraamispyynnöt</string>
     <string name="action_view_blocks">Estetyt tilit</string>
     <string name="action_view_account_preferences">Tiliasetukset</string>
-    <string name="post_content_warning_show_less">Näytä vähemmän</string>
-    <string name="post_content_warning_show_more">Näytä lisää</string>
     <string name="title_follow_requests">Seuraamispyynnöt</string>
     <string name="title_blocks">Estetyt tilit</string>
     <string name="title_mutes">Mykistetyt tilit</string>
@@ -185,10 +183,7 @@
     <string name="duration_365_days">365 päivää</string>
     <string name="action_toggle_visibility">Julkaisun näkyvyys</string>
     <string name="title_posts_with_replies">Vastauksetkin</string>
-    <string name="post_boosted_format">%s jakoi</string>
     <string name="post_sensitive_media_directions">Klikkaa näyttääksesi</string>
-    <string name="post_content_show_more">Laajenna</string>
-    <string name="post_content_show_less">Vähennä</string>
     <string name="send_post_link_to">Jaa julkaisun URL…</string>
     <string name="notification_update_format">%s muokkasi julkaisua</string>
     <string name="notification_update_name">Julkaisujen muokkaukset</string>
@@ -225,7 +220,6 @@
     <string name="pref_title_thread_filter_keywords">Keskustelut</string>
     <string name="filter_addition_title">Lisää suodatin</string>
     <string name="later">Myöhemmin</string>
-    <string name="description_post_cw">Sisältövaroitus: %s</string>
     <string name="pref_title_http_proxy_server">HTTP-välityspalvelin</string>
     <string name="restart">Käynnistä uudelleen</string>
     <string name="dialog_block_warning">Estä @%s\?</string>
@@ -275,7 +269,6 @@
     <string name="send_post_content_to">Jaa julkaisu…</string>
     <string name="confirmation_hashtag_muted">#%s hiljennetty</string>
     <string name="confirmation_hashtag_unmuted">#%s näytetään</string>
-    <string name="post_edited">Muokattu %s</string>
     <string name="pref_title_show_self_boosts">Näytä itsetehostukset</string>
     <string name="pref_title_alway_open_spoiler">Avaa aina sisältövaroituksella varustetut julkaisut</string>
     <string name="title_tab_public_trending_statuses">Julkaisut</string>
@@ -368,7 +361,6 @@
     <string name="pref_ui_text_size">Käyttöliittymän tekstikoko</string>
     <string name="ui_error_translate_status_fmt">Kääntäminen epäonnistui: %1$s</string>
     <string name="update_dialog_negative">Älä muistuta koskaan</string>
-    <string name="translating">Käännetään…</string>
     <string name="dialog_delete_filter_positive_action">Poista</string>
     <string name="ui_error_reblog_fmt">Julkaisun tehostaminen epäonnistui: %1$s</string>
     <string name="review_notifications">Katso ilmoitukset</string>
@@ -395,7 +387,6 @@
     <string name="warning_scheduling_interval">Lyhin ajastusväli Mastodonissa on 5 minuuttia.</string>
     <string name="mute_notifications_switch">Hiljennä ilmoitukset</string>
     <string name="accessibility_talking_about_tag">%1$d käyttäjää keskustelee aihetunnisteesta %2$s</string>
-    <string name="translation_provider_fmt">%1$s</string>
     <string name="status_edit_info">Muokattu: %1$s</string>
     <string name="pref_title_update_settings">Ohjelmiston päivitykset</string>
     <string name="wellbeing_hide_stats_profile">Piilota profiilien tilastonumerot</string>
@@ -466,17 +457,11 @@
     <string name="compose_preview_image_description">Toiminnot kuvalle %s</string>
     <string name="action_compose_shortcut">Kirjoita</string>
     <string name="unreblog_private">Peru tehostus</string>
-    <string name="description_post_reblogged">Tehostettu</string>
     <string name="account_moved_description">%1$s on siirtynyt tänne:</string>
-    <string name="description_post_favourited">Tykätty</string>
     <string name="title_favourited_by">Tykännyt</string>
     <string name="send_post_notification_saved_content">Kopio julkaisusta on tallennettu luonnoksiisi</string>
     <string name="description_browser_login">Saattaa tukea muita tunnistautumistapoja, mutta vaatii tuetun verkkoselaimen.</string>
     <string name="report_description_1">Raportti lähetetään palvelimesi moderaattorille. Alla voit selittää miksi raportoit tämän tilin:</string>
-    <plurals name="reblogs">
-        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Tehostus</item>
-        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; Tehostusta</item>
-    </plurals>
     <string name="failed_report">Raportointi epäonnistui</string>
     <string name="description_login">Toimii yleensä. Dataa ei vuoda muihin sovelluksiin.</string>
     <string name="label_remote_account">Alla olevat tiedot eivät välttämättä näytä kaikkea käyttäjän profiilista. Paina avataksesi täydellinen profiili selaimessa.</string>
@@ -510,16 +495,9 @@
     <string name="report_sent_success">Raportti käyttäjästä @%s lähetetty</string>
     <string name="compose_shortcut_long_label">Kirjoita julkaisu</string>
     <string name="select_list_empty">Sinulla ei vielä ole listoja</string>
-    <string name="description_post_edited">Muokattu</string>
     <string name="error_no_custom_emojis">Instanssissa %s ei ole omia hymiöitä</string>
     <string name="poll_ended_created">Kysely jonka olet luonut on päättynyt</string>
-    <string name="description_post_bookmarked">Kirjanmerkki lisätty</string>
-    <plurals name="favs">
-        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Tykkäys</item>
-        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Tykkäystä</item>
-    </plurals>
     <string name="duration_no_change">(Ei muutosta)</string>
-    <string name="description_post_media">Media: %s</string>
     <string name="pref_summary_content_filters">Palvelimesi ei tue suodattimia</string>
     <string name="pref_title_update_check_now">Etsi päivitystä nyt</string>
     <string name="pref_update_next_scheduled_check">Seuraava ajoitettu tarkistus: %1$s</string>

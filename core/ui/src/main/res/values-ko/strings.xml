@@ -60,4 +60,18 @@
     <string name="action_favourite">좋아요</string>
     <string name="action_unreblog">부스트 해제</string>
     <string name="action_unfavourite">좋아요 취소</string>
+    <string name="post_content_warning_show_less">숨기기</string>
+    <string name="post_content_warning_show_more">더 보기</string>
+    <string name="post_content_show_less">줄이기</string>
+    <string name="description_post_reblogged">부스트함</string>
+    <string name="description_post_favourited">좋아요함</string>
+    <string name="description_post_media">미디어: %s</string>
+    <string name="description_post_cw">열람주의: %s</string>
+    <plurals name="reblogs">
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; 부스트</item>
+    </plurals>
+    <plurals name="favs">
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; 좋아요</item>
+    </plurals>
+    <string name="post_boosted_format">%s님이 부스트 했습니다</string>
 </resources>
