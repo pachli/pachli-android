@@ -2,9 +2,11 @@ package app.pachli.util
 
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.view.AccessibilityDelegateCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat
+import androidx.core.view.children
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.adapter.FilterableStatusViewHolder
@@ -17,6 +19,7 @@ import app.pachli.core.model.AttachmentDisplayReason
 import app.pachli.core.model.Status.Companion.MAX_MEDIA_ATTACHMENTS
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.StatusActionListener
+import app.pachli.core.ui.StatusControlView
 import app.pachli.core.ui.accessibility.PachliRecyclerViewAccessibilityDelegate
 import kotlin.math.min
 
@@ -63,13 +66,21 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
                 info.addAction(if (status.isExpanded) collapseCwAction else expandCwAction)
             }
 
-            info.addAction(replyAction)
+            // Hack. Not all statuses are displayed with controls. If it is then fetch
+            // extra actions from the control, if present.
+            //
+            // TODO: Figure out a cleaner way to do this.
+            val statusControlView = (viewHolder?.itemView as? ViewGroup)?.children?.firstNotNullOfOrNull { it as? StatusControlView }
+            val controlActions = statusControlView?.actions.orEmpty()
 
-            if (actionable.rebloggingAllowed()) {
+            if (controlActions.contains(replyAction.id)) info.addAction(replyAction)
+
+            if (actionable.rebloggingAllowed() && controlActions.contains(reblogAction.id)) {
                 info.addAction(if (actionable.reblogged) unreblogAction else reblogAction)
             }
-            info.addAction(if (actionable.favourited) unfavouriteAction else favouriteAction)
-            info.addAction(if (actionable.bookmarked) unbookmarkAction else bookmarkAction)
+
+            if (controlActions.contains(favouriteAction.id)) info.addAction(if (actionable.favourited) unfavouriteAction else favouriteAction)
+            if (controlActions.contains(bookmarkAction.id)) info.addAction(if (actionable.bookmarked) unbookmarkAction else bookmarkAction)
 
             val attachmentDisplayAction = status.attachmentDisplayAction
             when (attachmentDisplayAction) {
@@ -114,7 +125,7 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
                 info.addAction(openBylineAccountAction)
             }
 
-            info.addAction(moreAction)
+            if (controlActions.contains(moreAction.id)) info.addAction(moreAction)
         }
 
         override fun performAccessibilityAction(

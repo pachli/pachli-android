@@ -133,6 +133,8 @@ fun interface OnMoreClick {
  *
  * Data is bound to the control using [bind], see that method's documentation
  * for more details.
+ *
+ * @property actions
  */
 class StatusControlView @JvmOverloads constructor(
     context: Context,
@@ -170,6 +172,12 @@ class StatusControlView @JvmOverloads constructor(
             binding.favouriteCount.text = formatNumber(value.toLong(), 1000)
             field = value
         }
+
+    private var _actions = mutableSetOf<Int>()
+
+    /** Set of accessibility actions this view supports. */
+    val actions: Set<Int>
+        get() = _actions
 
     init {
         expandTouchSizeToFillRow(
@@ -241,6 +249,8 @@ class StatusControlView @JvmOverloads constructor(
         this.reblogCount = reblogCount
         this.favouriteCount = favouriteCount
 
+        _actions.clear()
+
         // Replies
         bindReply(isReply, onReplyClick)
 
@@ -255,7 +265,10 @@ class StatusControlView @JvmOverloads constructor(
         bindBookmark(isBookmarked, onBookmarkClick)
 
         // More
-        onMoreClick?.let { binding.statusMore.setOnClickListener { onMoreClick(it) } }
+        onMoreClick?.let {
+            _actions.add(R.id.action_more)
+            binding.statusMore.setOnClickListener { onMoreClick(it) }
+        }
     }
 
     /**
@@ -265,6 +278,7 @@ class StatusControlView @JvmOverloads constructor(
      * @param onReplyClick
      */
     private fun bindReply(isReply: Boolean, onReplyClick: OnReplyClick) {
+        _actions.add(R.id.action_reply)
         binding.reply.setImageResource(if (isReply) R.drawable.ic_reply_all_24dp else R.drawable.ic_reply_24dp)
         binding.reply.setOnClickListener { onReplyClick(it) }
     }
@@ -293,6 +307,8 @@ class StatusControlView @JvmOverloads constructor(
             binding.reblogCount.hide()
             return
         }
+
+        _actions.add(R.id.action_reblog)
 
         binding.reblogCount.visible(showCounts && statusVisibility.allowsReblog)
 
@@ -363,6 +379,7 @@ class StatusControlView @JvmOverloads constructor(
         isFavourited: Boolean,
         onFavouriteClick: OnFavouriteClick,
     ) {
+        _actions.add(R.id.action_favourite)
         binding.favouriteCount.visible(showCounts)
         binding.favourite.isChecked = isFavourited
 
@@ -408,6 +425,7 @@ class StatusControlView @JvmOverloads constructor(
      * status.
      */
     private fun bindBookmark(isBookmarked: Boolean, onBookmarkClick: OnBookmarkClick) {
+        _actions.add(R.id.action_bookmark)
         binding.bookmark.isChecked = isBookmarked
         binding.bookmark.setEventListener { _, checked ->
             val bookmark = !checked
