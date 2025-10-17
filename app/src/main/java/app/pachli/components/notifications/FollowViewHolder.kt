@@ -63,7 +63,6 @@ class FollowViewHolder(
             statusDisplayOptions.animateAvatars,
             statusDisplayOptions.animateEmojis,
         )
-        setupButtons(notificationActionListener, viewData.account.id)
     }
 
     private fun setMessage(
@@ -118,9 +117,7 @@ class FollowViewHolder(
             animateEmojis,
         )
         setClickableText(binding.notificationAccountNote, emojifiedNote, emptyList(), null, linkListener)
-    }
-
-    private fun setupButtons(listener: NotificationActionListener, accountId: String) {
-        binding.root.setOnClickListener { listener.onViewAccount(accountId) }
+        binding.notificationAccountNote.setOnClickListener { linkListener.onViewAccount(account.id) }
+        itemView.setOnClickListener { linkListener.onViewAccount(account.id) }
     }
 }
