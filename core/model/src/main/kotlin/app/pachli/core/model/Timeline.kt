@@ -110,7 +110,10 @@ sealed class Timeline : Parcelable {
         data class Replies(
             override val id: String,
             val excludeReblogs: Boolean = false,
-        ) : User()
+        ) : User() {
+            @IgnoredOnParcel
+            override val remoteKeyTimelineId: String = "USER.REPLIES:$id"
+        }
     }
 
     @TypeLabel("favourites")

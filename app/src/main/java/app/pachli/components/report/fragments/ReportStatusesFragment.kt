@@ -157,6 +157,46 @@ class ReportStatusesFragment :
     }
 
     private fun initStatusesView() {
+        with(binding.recyclerView) {
+            addItemDecoration(
+                MaterialDividerItemDecoration(
+                    requireContext(),
+                    MaterialDividerItemDecoration.VERTICAL,
+                ),
+            )
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = this@ReportStatusesFragment.adapter
+            (itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+            setAccessibilityDelegateCompat(
+                ListStatusAccessibilityDelegate(
+                    pachliAccountId,
+                    this,
+                    this@ReportStatusesFragment,
+                    openUrl,
+                ) { index -> this@ReportStatusesFragment.adapter.snapshot().getOrNull(index) },
+            )
+        }
+
+        adapter.addLoadStateListener { loadState ->
+            if (loadState.refresh is LoadState.Error ||
+                loadState.append is LoadState.Error ||
+                loadState.prepend is LoadState.Error
+            ) {
+                showError()
+            }
+
+            // Show only centre progress bar if refreshing. Use the top/bottom progress
+            // bars for prepend/append outside of a refresh.
+            val refreshing = loadState.refresh == LoadState.Loading && !binding.swipeRefreshLayout.isRefreshing
+            binding.progressBarLoading.visible(refreshing)
+            binding.progressBarBottom.visible(loadState.append == LoadState.Loading && !refreshing)
+            binding.progressBarTop.visible(loadState.prepend == LoadState.Loading && !refreshing)
+
+            if (loadState.refresh != LoadState.Loading) {
+                binding.swipeRefreshLayout.isRefreshing = false
+            }
+        }
+
         // Set the initial position in the list to the reported status.
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.CREATED) {
@@ -171,47 +211,10 @@ class ReportStatusesFragment :
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            with(binding.recyclerView) {
-                addItemDecoration(
-                    MaterialDividerItemDecoration(
-                        requireContext(),
-                        MaterialDividerItemDecoration.VERTICAL,
-                    ),
-                )
-                layoutManager = LinearLayoutManager(requireContext())
-                adapter = this@ReportStatusesFragment.adapter
-                (itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
-                setAccessibilityDelegateCompat(
-                    ListStatusAccessibilityDelegate(
-                        pachliAccountId,
-                        this,
-                        this@ReportStatusesFragment,
-                        openUrl,
-                    ) { index -> this@ReportStatusesFragment.adapter.snapshot().getOrNull(index) },
-                )
-            }
-            adapter.addLoadStateListener { loadState ->
-                if (loadState.refresh is LoadState.Error ||
-                    loadState.append is LoadState.Error ||
-                    loadState.prepend is LoadState.Error
-                ) {
-                    showError()
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.statuses.collectLatest { pagingData ->
+                    adapter.submitData(pagingData)
                 }
-
-                // Show only centre progress bar if refreshing. Use the top/bottom progress
-                // bars for prepend/append outside of a refresh.
-                val refreshing = loadState.refresh == LoadState.Loading && !binding.swipeRefreshLayout.isRefreshing
-                binding.progressBarLoading.visible(refreshing)
-                binding.progressBarBottom.visible(loadState.append == LoadState.Loading && !refreshing)
-                binding.progressBarTop.visible(loadState.prepend == LoadState.Loading && !refreshing)
-
-                if (loadState.refresh != LoadState.Loading) {
-                    binding.swipeRefreshLayout.isRefreshing = false
-                }
-            }
-
-            viewModel.statuses.collectLatest { pagingData ->
-                adapter.submitData(pagingData)
             }
         }
     }
