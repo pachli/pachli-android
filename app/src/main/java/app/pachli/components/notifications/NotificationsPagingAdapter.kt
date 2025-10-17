@@ -30,7 +30,6 @@ import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
-import app.pachli.core.model.Status
 import app.pachli.core.ui.SetStatusContent
 import app.pachli.core.ui.StatusActionListener
 import app.pachli.databinding.ItemFollowBinding
@@ -106,18 +105,7 @@ enum class NotificationViewKind {
 }
 
 interface NotificationActionListener : StatusActionListener<NotificationViewData> {
-    override fun onViewAccount(id: String)
-    fun onViewThreadForStatus(status: Status)
     fun onViewReport(reportId: String)
-
-    /**
-     * Called when the status has a content warning and the visibility of the content behind
-     * the warning is being changed.
-     *
-     * @param expanded the desired state of the content behind the content warning
-     *
-     */
-    override fun onExpandedChange(viewData: NotificationViewData, expanded: Boolean)
 
     /**
      * Called when the status [android.widget.ToggleButton] responsible for collapsing long

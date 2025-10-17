@@ -641,10 +641,6 @@ class NotificationsFragment :
         }
     }
 
-    override fun onViewThreadForStatus(status: Status) {
-        super.viewThread(status.actionableId, status.actionableStatus.url)
-    }
-
     override fun onViewReport(reportId: String) {
         openUrl("https://${viewModel.account.domain}/admin/reports/$reportId")
     }
