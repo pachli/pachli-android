@@ -81,13 +81,7 @@
     <string name="title_edits">Edits</string>
     <string name="dialog_follow_hashtag_title">Follow hashtag</string>
     <string name="dialog_follow_hashtag_hint">#hashtag</string>
-    <string name="post_boosted_format">%s boosted</string>
     <string name="post_sensitive_media_directions">Click to view</string>
-    <string name="post_content_warning_show_more">Show More</string>
-    <string name="post_content_warning_show_less">Show Less</string>
-    <string name="post_content_show_more">Expand</string>
-    <string name="post_content_show_less">Collapse</string>
-    <string name="post_edited">Edited %s</string>
     <string name="footer_empty">Nothing here. Pull down to refresh!</string>
     <string name="notification_reblog_format">%s boosted your post</string>
     <string name="notification_favourite_format">%s favorited your post</string>
@@ -442,38 +436,12 @@
     <string name="pin_action">Pin</string>
     <string name="failed_to_pin">Failed to Pin</string>
     <string name="failed_to_unpin">Failed to Unpin</string>
-    <plurals name="favs">
-        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Favorite</item>
-        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Favorites</item>
-    </plurals>
-    <plurals name="reblogs">
-        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Boost</item>
-        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; Boosts</item>
-    </plurals>
     <string name="title_reblogged_by">Boosted by</string>
     <string name="title_favourited_by">Favorited by</string>
     <string name="conversation_0_recipients">No other participants</string>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s and %2$s</string>
     <string name="conversation_more_recipients" tools:ignore="PluralsCandidate">%1$s, %2$s and %3$d more</string>
-    <string name="description_post_media">
-        Media: %s
-    </string>
-    <string name="description_post_cw">
-        Content warning: %s
-    </string>
-    <string name="description_post_edited">
-        Edited
-    </string>
-    <string name="description_post_reblogged">
-        Reblogged
-    </string>
-    <string name="description_post_favourited">
-        Favorited
-    </string>
-    <string name="description_post_bookmarked">
-        Bookmarked
-    </string>
     <string name="description_post_language">Post language</string>
     <string name="description_login">Works in most cases. No data is leaked to other apps.</string>
     <string name="description_browser_login">May support additional authentication methods, but requires a supported browser.</string>
@@ -638,8 +606,6 @@
     <string name="pref_labs_reverse_home_timeline_title">Reverse timeline order</string>
     <string name="pref_labs_reverse_home_timeline_off_summary">Posts are ordered newest first</string>
     <string name="pref_labs_reverse_home_timeline_on_summary">Posts are ordered oldest first</string>
-    <string name="translating">Translating…</string>
-    <string name="translation_provider_fmt">%1$s</string>
 
     <string name="pref_title_notification_up_distributor">Unified push distributor</string>
     <string name="pref_notification_up_distributor_name_fmt">%1$s. Tap to open</string>

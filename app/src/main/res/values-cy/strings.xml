@@ -25,12 +25,7 @@
     <string name="title_follow_requests">Ceisiadau i\'ch dilyn</string>
     <string name="title_edit_profile">Golygu\'ch proffil</string>
     <string name="title_drafts">Drafftiau</string>
-    <string name="post_boosted_format">Hybodd %s</string>
     <string name="post_sensitive_media_directions">Cliciwch i weld</string>
-    <string name="post_content_warning_show_more">Dangos Mwy</string>
-    <string name="post_content_warning_show_less">Dangos Llai</string>
-    <string name="post_content_show_more">Chwyddo</string>
-    <string name="post_content_show_less">Lleihau</string>
     <string name="footer_empty">Dim byd yma. Tynnwch lawr i adnewyddu!</string>
     <string name="notification_reblog_format">Hybodd %s eich neges</string>
     <string name="notification_favourite_format">Hoffodd %s eich neges</string>
@@ -274,7 +269,6 @@
     <string name="pref_title_timelines">Ffrydiau</string>
     <string name="title_favourited_by">Hoffwyd gan</string>
     <string name="error_image_edit_failed">Methu golygu\'r ddelwedd.</string>
-    <string name="description_post_favourited">Hoffwyd</string>
     <string name="saving_draft">Yn cadw drafft…</string>
     <string name="action_open_media_n">Agor cyfryngau #%d</string>
     <string name="downloading_media">Yn llwytho cyfryngau</string>
@@ -345,18 +339,8 @@
     <string name="pachli_compose_post_quicksetting_label">Ysgrifennu Neges</string>
     <string name="mute_domain_warning">Ydych chi\'n siŵr yr hoffech chi flocio %s gyfan\? Fyddwch chi ddim yn gweld dim cynnwys o\'r parth hwnnw mewn unrhyw ffrwd gyhoeddus na chwaith yn eich hysbysiadau. Bydd eich dilynwyr o\'r parth hwnnw yn cael eu dileu.</string>
     <string name="duration_indefinite">Dim diwedd</string>
-    <plurals name="favs">
-        <item quantity="zero">&lt;b&gt;%1$s&lt;/b&gt; Ffefryn</item>
-        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Ffefryn</item>
-        <item quantity="two">&lt;b&gt;%1$s&lt;/b&gt; Ffefryn</item>
-        <item quantity="few">&lt;b&gt;%1$s&lt;/b&gt; Ffefryn</item>
-        <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; Ffefryn</item>
-        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Ffefryn</item>
-    </plurals>
     <string name="compose_save_draft_loses_media">Cadw drafft? (Bydd atodiadau\'n cael eu lanlwytho eto pan fyddwch chi\'n adfer y drafft.)</string>
-    <string name="description_post_reblogged">Ailflogiwyd</string>
     <string name="hint_media_description_missing">Dylai fod gan y cyfryngau ddisgrifiad.</string>
-    <string name="description_post_cw">Rhybudd cynnwys: %s</string>
     <string name="pref_title_confirm_reblogs">Dangos cadarnhâd cyn hybu</string>
     <string name="review_notifications">Adolygu hysbysiadau</string>
     <string name="notification_report_format">Adroddiad newydd ar %s</string>
@@ -371,7 +355,6 @@
     <string name="failed_to_unpin">Wedi methu dadbinio</string>
     <string name="pref_title_http_proxy_port_message">Dylai\'r porth fod rhwng %d a %d</string>
     <string name="pref_default_post_language">Iaith bostio ragosodedig</string>
-    <string name="description_post_bookmarked">Tudalnodiwyd</string>
     <string name="select_list_title">Dewiswch restr</string>
     <string name="report_sent_success">Wedi adrodd ar @%s yn llwyddiannus</string>
     <string name="pref_title_show_self_username">Dangos enw defnyddiwr mewn bariau offer</string>
@@ -385,20 +368,10 @@
     <string name="title_followed_hashtags">Hashnodau a ddilynir</string>
     <string name="notification_report_name">Adroddiadau</string>
     <string name="label_remote_account">Gall y wybodaeth isod adlewyrchu proffil y defnyddiwr yn anghyflawn. Pwyswch i agor proffil llawn yn y porwr.</string>
-    <plurals name="reblogs">
-        <item quantity="zero">&lt;b&gt;%s&lt;/b&gt; Hybiau</item>
-        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Hwb</item>
-        <item quantity="two">&lt;b&gt;%s&lt;/b&gt; Hwb</item>
-        <item quantity="few">&lt;b&gt;%s&lt;/b&gt; Hwb</item>
-        <item quantity="many">&lt;b&gt;%s&lt;/b&gt; Hwb</item>
-        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; Hwb</item>
-    </plurals>
     <string name="conversation_1_recipients">%1$s</string>
-    <string name="description_post_edited">Golygwyd</string>
     <string name="drafts_failed_loading_reply">Wedi methu llwytho gwybodaeth Ateb</string>
     <string name="pref_title_alway_open_spoiler">Agor negeseuon wedi\'u marcio â rhybudd cynnwys bob tro</string>
     <string name="profile_metadata_label_label">Label</string>
-    <string name="post_edited">Golygwyd %s</string>
     <string name="confirmation_hashtag_unfollowed">#%s wedi ei ddad-ddilyn</string>
     <string name="pref_title_animate_custom_emojis">Animeiddio emojis cyfaddas</string>
     <string name="notification_subscription_description">Hysbysiadau pan fydd rhywun rydych wedi tanysgrifio iddyn nhw\'n cyhoeddi neges newydd</string>
@@ -409,7 +382,6 @@
     <string name="list">Rhestr</string>
     <string name="action_set_focus">Gosod pwynt ffocws</string>
     <string name="action_add_reaction">ychwanegu ymateb</string>
-    <string name="description_post_media">Cyfryngau: %s</string>
     <string name="error_status_source_load">Wedi methu llwytho\'r ffynhonnell statws o\'r gweinydd.</string>
     <string name="pref_title_enable_swipe_for_tabs">Galluogi ystum llusgo i newid rhwng tabiau</string>
     <string name="wellbeing_mode_notice">Bydd rhywfaint o wybodaeth a all effeithio ar eich lles meddyliol yn cael ei chuddio. Mae hyn yn cynnwys:

@@ -74,10 +74,7 @@
     <string name="title_scheduled_posts">Προγραμματισμένες δημοσιεύσεις</string>
     <string name="title_posts">Δημοσιεύσεις</string>
     <string name="title_posts_pinned">Καρφιτσωμένο</string>
-    <string name="post_boosted_format">ο/η %s το προώθησε</string>
     <string name="title_posts_with_replies">Με απαντήσεις</string>
-    <string name="post_content_warning_show_more">Δείτε περισσότερα</string>
-    <string name="post_content_warning_show_less">Δείτε λιγότερα</string>
     <string name="post_sensitive_media_directions">Κλικ για να δείτε</string>
     <string name="notification_update_format">ο/η %s επεξεργάστηκε τη δημοσίευσή του/της</string>
     <string name="dialog_redraft_post_warning">Διαγραφή και αναδιατύπωση αυτής της δημοσίευσης;</string>

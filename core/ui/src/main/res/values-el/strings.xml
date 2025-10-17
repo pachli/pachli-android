@@ -16,4 +16,7 @@
     <string name="action_bookmark">Προσθήκη σελιδοδείκτη</string>
     <string name="action_unreblog">Αφαίρεση προώθησης</string>
     <string name="action_unfavourite">Αφαίρεση αγαπημένου</string>
+    <string name="post_content_warning_show_less">Δείτε λιγότερα</string>
+    <string name="post_content_warning_show_more">Δείτε περισσότερα</string>
+    <string name="post_boosted_format">ο/η %s το προώθησε</string>
 </resources>

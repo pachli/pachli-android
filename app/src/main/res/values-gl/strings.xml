@@ -56,12 +56,7 @@
     <string name="notification_favourite_format">%s fixo favorita a publicación</string>
     <string name="notification_reblog_format">%s promoveu a túa publicación</string>
     <string name="footer_empty">Nada por aquí. Arrastra hacia abaixo para actualizar!</string>
-    <string name="post_content_show_less">Pregar</string>
-    <string name="post_content_show_more">Expandir</string>
-    <string name="post_content_warning_show_less">Ver menos</string>
-    <string name="post_content_warning_show_more">Ver máis</string>
     <string name="post_sensitive_media_directions">Click para ver</string>
-    <string name="post_boosted_format">%s promoveu</string>
     <string name="title_announcements">Anuncios</string>
     <string name="title_scheduled_posts">Toots programados</string>
     <string name="title_drafts">Borradores</string>
@@ -126,23 +121,10 @@
     <string name="hashtags">Cancelos</string>
     <string name="edit_hashtag_hint">Cancelo sen #</string>
     <string name="add_hashtag_title">Engadir cancelo</string>
-    <string name="description_post_bookmarked">Marcado</string>
-    <string name="description_post_favourited">Favorecido</string>
-    <string name="description_post_reblogged">Repetido</string>
-    <string name="description_post_cw">Aviso sobre o contido: %s</string>
-    <string name="description_post_media">Multimedia: %s</string>
     <string name="conversation_more_recipients">%1$s, %2$s e %3$d máis</string>
     <string name="conversation_2_recipients">%1$s e %2$s</string>
     <string name="title_favourited_by">Favorecido por</string>
     <string name="title_reblogged_by">Promovido por</string>
-    <plurals name="reblogs">
-        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Promoción</item>
-        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; Promocións</item>
-    </plurals>
-    <plurals name="favs">
-        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Favorito</item>
-        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Favoritos</item>
-    </plurals>
     <string name="pin_action">Fixar</string>
     <string name="unpin_action">Desafixar</string>
     <string name="label_remote_account">A información inferior sobre a usuaria podería non estar completa. Preme para ver o perfil completo no navegador.</string>
@@ -409,8 +391,6 @@
     <string name="pref_title_http_proxy_port_message">O porto debe estar entre %d e %d</string>
     <string name="error_muting_hashtag_format">Erro ao acalar #%s</string>
     <string name="error_unmuting_hashtag_format">Erro ao reactivar #%s</string>
-    <string name="description_post_edited">Editado</string>
-    <string name="post_edited">Editado %s</string>
     <string name="error_status_source_load">Fallou a carga da fonte do estado desde o servidor.</string>
     <string name="a11y_label_loading_thread">Cargando fío</string>
     <string name="mute_notifications_switch">Acalar notificacións</string>
@@ -526,9 +506,7 @@
     <string name="pref_title_update_notification_frequency">Avísame cando haxa novas versións de Pachli</string>
     <string name="error_media_playback">Fallou a reprodución: %s</string>
     <string name="update_dialog_title">Hai unha actualización dispoñible</string>
-    <string name="translation_provider_fmt">%1$s</string>
     <string name="update_dialog_neutral">Non avisarme para esta versión</string>
-    <string name="translating">Traducindo…</string>
     <string name="announcement_date">%1$s %2$s</string>
     <string name="load_newest_statuses">Cargar as publicacións máis recentes</string>
     <string name="pref_title_labs">Experimental</string>

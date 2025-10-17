@@ -17,7 +17,6 @@
 package app.pachli.adapter
 
 import android.text.InputFilter
-import android.text.TextUtils
 import android.view.View
 import androidx.core.util.TypedValueCompat.dpToPx
 import app.pachli.R
@@ -47,40 +46,41 @@ open class StatusViewHolder<T : IStatusViewData>(
         listener: StatusActionListener<T>,
         statusDisplayOptions: StatusDisplayOptions,
         payloads: List<List<Any?>>?,
-    ) = with(binding) {
-        if (payloads.isNullOrEmpty()) {
-            val sensitive = !TextUtils.isEmpty(viewData.actionable.spoilerText)
-            val expanded = viewData.isExpanded
-            setupCollapsedState(viewData, sensitive, expanded, listener)
-            val reblogging = viewData.rebloggingStatus
-            if (reblogging == null || viewData.contentFilterAction === FilterAction.WARN) {
-                statusInfo.hide()
-            } else {
-                val rebloggedByDisplayName = reblogging.account.name
-                setRebloggedByDisplayName(
-                    rebloggedByDisplayName,
-                    reblogging.account.emojis,
-                    statusDisplayOptions,
-                )
-                statusInfo.setOnClickListener {
-                    listener.onOpenReblog(viewData.status)
+    ) {
+        with(binding) {
+            if (payloads.isNullOrEmpty()) {
+                val reblogging = viewData.rebloggingStatus
+                if (reblogging == null || viewData.contentFilterAction === FilterAction.WARN) {
+                    statusInfo.hide()
+                } else {
+                    val rebloggedByDisplayName = reblogging.account.name
+                    setRebloggedByDisplayName(
+                        rebloggedByDisplayName,
+                        reblogging.account.emojis,
+                        statusDisplayOptions,
+                    )
+                    statusInfo.setOnClickListener {
+                        listener.onOpenReblog(viewData.status)
+                    }
                 }
             }
+            super.setupWithStatus(viewData, listener, statusDisplayOptions, payloads)
         }
-        super.setupWithStatus(viewData, listener, statusDisplayOptions, payloads)
     }
 
     private fun setRebloggedByDisplayName(
         name: CharSequence,
         accountEmoji: List<Emoji>?,
         statusDisplayOptions: StatusDisplayOptions,
-    ) = with(binding) {
-        val wrappedName: CharSequence = name.unicodeWrap()
-        val boostedText: CharSequence = context.getString(R.string.post_boosted_format, wrappedName)
-        val emojifiedText =
-            boostedText.emojify(glide, accountEmoji, statusInfo, statusDisplayOptions.animateEmojis)
-        statusInfo.text = emojifiedText
-        statusInfo.show()
+    ) {
+        with(binding) {
+            val wrappedName: CharSequence = name.unicodeWrap()
+            val boostedText: CharSequence = context.getString(app.pachli.core.ui.R.string.post_boosted_format, wrappedName)
+            val emojifiedText =
+                boostedText.emojify(glide, accountEmoji, statusInfo, statusDisplayOptions.animateEmojis)
+            statusInfo.text = emojifiedText
+            statusInfo.show()
+        }
     }
 
     // don't use this on the same ViewHolder as setRebloggedByDisplayName, will cause recycling issues as paddings are changed
@@ -94,47 +94,6 @@ open class StatusViewHolder<T : IStatusViewData>(
 
     protected fun hideStatusInfo() = with(binding) {
         statusInfo.hide()
-    }
-
-    private fun setupCollapsedState(
-        viewData: T,
-        sensitive: Boolean,
-        expanded: Boolean,
-        listener: StatusActionListener<T>,
-    ) = with(binding) {
-        /* input filter for TextViews have to be set before text */
-        if (viewData.isCollapsible && (!sensitive || expanded)) {
-            buttonToggleContent.setOnClickListener {
-                listener.onContentCollapsedChange(viewData, !viewData.isCollapsed)
-            }
-            buttonToggleContent.show()
-            if (viewData.isCollapsed) {
-                buttonToggleContent.setText(R.string.post_content_warning_show_more)
-                content.filters = COLLAPSE_INPUT_FILTER
-            } else {
-                buttonToggleContent.setText(R.string.post_content_warning_show_less)
-                content.filters = NO_INPUT_FILTER
-            }
-        } else {
-            buttonToggleContent.hide()
-            content.filters = NO_INPUT_FILTER
-        }
-    }
-
-    override fun showStatusContent(show: Boolean) = with(binding) {
-        super.showStatusContent(show)
-        buttonToggleContent.visibility = if (show) View.VISIBLE else View.GONE
-    }
-
-    override fun toggleExpandedState(
-        viewData: T,
-        sensitive: Boolean,
-        expanded: Boolean,
-        statusDisplayOptions: StatusDisplayOptions,
-        listener: StatusActionListener<T>,
-    ) {
-        setupCollapsedState(viewData, sensitive, expanded, listener)
-        super.toggleExpandedState(viewData, sensitive, expanded, statusDisplayOptions, listener)
     }
 
     companion object {

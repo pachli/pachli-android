@@ -17,14 +17,13 @@
 package app.pachli.components.report.fragments
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import androidx.core.app.ActivityOptionsCompat
+import android.view.ViewGroup
 import androidx.core.view.MenuProvider
-import androidx.core.view.ViewCompat
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -36,24 +35,27 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.R
 import app.pachli.components.report.ReportViewModel
 import app.pachli.components.report.Screen
-import app.pachli.components.report.adapter.AdapterHandler
-import app.pachli.components.report.adapter.StatusesAdapter
+import app.pachli.components.report.adapter.ReportStatusActionListener
+import app.pachli.components.report.adapter.ReportStatusesAdapter
 import app.pachli.components.timeline.viewmodel.InfallibleUiAction
+import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
+import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.data.model.StatusViewData
-import app.pachli.core.data.repository.AccountManager
-import app.pachli.core.model.Attachment
 import app.pachli.core.model.AttachmentDisplayAction
+import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AttachmentViewData
+import app.pachli.core.navigation.EditContentFilterActivityIntent
 import app.pachli.core.navigation.TimelineActivityIntent
-import app.pachli.core.navigation.ViewMediaActivityIntent
 import app.pachli.core.ui.SetMarkdownContent
 import app.pachli.core.ui.SetMastodonHtmlContent
 import app.pachli.databinding.FragmentReportStatusesBinding
+import app.pachli.fragment.SFragment
+import app.pachli.util.ListStatusAccessibilityDelegate
 import com.bumptech.glide.Glide
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.divider.MaterialDividerItemDecoration
@@ -63,7 +65,6 @@ import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 import kotlin.properties.Delegates
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
@@ -78,23 +79,19 @@ import kotlinx.coroutines.launch
  */
 @AndroidEntryPoint
 class ReportStatusesFragment :
-    Fragment(R.layout.fragment_report_statuses),
+    SFragment<StatusViewData>(),
     OnRefreshListener,
     MenuProvider,
-    AdapterHandler {
-
-    @Inject
-    lateinit var accountManager: AccountManager
-
+    ReportStatusActionListener {
     private val viewModel: ReportViewModel by activityViewModels()
 
     private val binding by viewBinding(FragmentReportStatusesBinding::bind)
 
-    private lateinit var adapter: StatusesAdapter
+    private lateinit var adapter: ReportStatusesAdapter
 
     private var snackbarErrorRetry: Snackbar? = null
 
-    private var pachliAccountId by Delegates.notNull<Long>()
+    override var pachliAccountId by Delegates.notNull<Long>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -106,42 +103,18 @@ class ReportStatusesFragment :
             SetMastodonHtmlContent
         }
 
-        adapter = StatusesAdapter(
+        adapter = ReportStatusesAdapter(
             Glide.with(this),
             setStatusContent,
             viewModel.statusDisplayOptions.value,
-            viewModel.statusViewState,
             this@ReportStatusesFragment,
         )
 
         viewModel.accept(InfallibleUiAction.LoadPachliAccount(pachliAccountId))
     }
 
-    override fun showMedia(v: View?, status: Status?, idx: Int) {
-        status?.actionableStatus?.let { actionable ->
-            when (actionable.attachments[idx].type) {
-                Attachment.Type.GIFV, Attachment.Type.VIDEO, Attachment.Type.IMAGE, Attachment.Type.AUDIO -> {
-                    val attachments = AttachmentViewData.list(actionable)
-                    val intent = ViewMediaActivityIntent(
-                        requireContext(),
-                        pachliAccountId,
-                        actionable.account.username,
-                        attachments,
-                        idx,
-                    )
-                    if (v != null) {
-                        val url = actionable.attachments[idx].url
-                        ViewCompat.setTransitionName(v, url)
-                        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(requireActivity(), v, url)
-                        startActivityWithDefaultTransition(intent, options.toBundle())
-                    } else {
-                        startActivityWithDefaultTransition(intent)
-                    }
-                }
-                Attachment.Type.UNKNOWN -> {
-                }
-            }
-        }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_report_statuses, container, true)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -198,17 +171,25 @@ class ReportStatusesFragment :
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            binding.recyclerView.addItemDecoration(
-                MaterialDividerItemDecoration(
-                    requireContext(),
-                    MaterialDividerItemDecoration.VERTICAL,
-                ),
-            )
-            binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-            binding.recyclerView.adapter = adapter
-            (binding.recyclerView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations =
-                false
-
+            with(binding.recyclerView) {
+                addItemDecoration(
+                    MaterialDividerItemDecoration(
+                        requireContext(),
+                        MaterialDividerItemDecoration.VERTICAL,
+                    ),
+                )
+                layoutManager = LinearLayoutManager(requireContext())
+                adapter = this@ReportStatusesFragment.adapter
+                (itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+                setAccessibilityDelegateCompat(
+                    ListStatusAccessibilityDelegate(
+                        pachliAccountId,
+                        this,
+                        this@ReportStatusesFragment,
+                        openUrl,
+                    ) { index -> this@ReportStatusesFragment.adapter.snapshot().getOrNull(index) },
+                )
+            }
             adapter.addLoadStateListener { loadState ->
                 if (loadState.refresh is LoadState.Error ||
                     loadState.append is LoadState.Error ||
@@ -263,8 +244,40 @@ class ReportStatusesFragment :
         return viewModel.isStatusChecked(id)
     }
 
-    override fun onAttachmentDisplayActionChange(viewData: StatusViewData, action: AttachmentDisplayAction) {
-        viewModel.onChangeAttachmentDisplayAction(viewData, action)
+    override fun onViewAttachment(view: View?, viewData: StatusViewData, attachmentIndex: Int) {
+        super.viewMedia(
+            viewData.actionable.account.username,
+            attachmentIndex,
+            AttachmentViewData.list(viewData.actionable),
+            view,
+        )
+    }
+
+    override fun onViewThread(status: Status) {
+        super.viewThread(status.actionableId, status.actionableStatus.url)
+    }
+
+    override fun onExpandedChange(viewData: StatusViewData, expanded: Boolean) {
+        viewModel.onChangeExpanded(expanded, viewData)
+    }
+
+    override fun onAttachmentDisplayActionChange(viewData: StatusViewData, newAction: AttachmentDisplayAction) {
+        viewModel.onChangeAttachmentDisplayAction(viewData, newAction)
+    }
+
+    override fun onContentCollapsedChange(viewData: StatusViewData, isCollapsed: Boolean) {
+        viewModel.onContentCollapsed(isCollapsed, viewData)
+    }
+
+    override fun clearContentFilter(viewData: StatusViewData) {
+        viewModel.clearWarning(viewData)
+    }
+
+    override fun onEditFilterById(pachliAccountId: Long, filterId: String) {
+        startActivityWithTransition(
+            EditContentFilterActivityIntent.edit(requireContext(), pachliAccountId, filterId),
+            TransitionKind.SLIDE_FROM_END,
+        )
     }
 
     override fun onViewAccount(id: String) = startActivityWithDefaultTransition(
@@ -276,6 +289,17 @@ class ReportStatusesFragment :
     )
 
     override fun onViewUrl(url: String) = viewModel.checkClickedUrl(url)
+
+    override fun removeItem(viewData: StatusViewData) = Unit
+    override fun onReply(viewData: StatusViewData) = Unit
+    override fun onReblog(viewData: StatusViewData, reblog: Boolean) = Unit
+    override fun onFavourite(viewData: StatusViewData, favourite: Boolean) = Unit
+    override fun onBookmark(viewData: StatusViewData, bookmark: Boolean) = Unit
+    override fun onMore(view: View, viewData: StatusViewData) = Unit
+    override fun onOpenReblog(status: Status) = Unit
+    override fun onVoteInPoll(viewData: StatusViewData, poll: Poll, choices: List<Int>) = Unit
+    override fun onTranslate(viewData: StatusViewData) = Unit
+    override fun onTranslateUndo(viewData: StatusViewData) = Unit
 
     companion object {
         private const val ARG_PACHLI_ACCOUNT_ID = "app.pachli.ARG_PACHLI_ACCOUNT_ID"

@@ -72,8 +72,15 @@ data class NotificationViewData(
     // https://github.com/pachli/pachli-android/issues/669
     override val username: String
         get() = statusViewData?.username ?: throw IllegalStateException()
+
+    // TODO: rebloggedAvatar is the wrong name for the property in IStatusViewData. This is
+    // the avatar to show inset in the main avatar view. When viewing a boosted status in
+    // a timeline this is avatar that boosted it, but when viewing a notification about a
+    // boost or favourite this the avatar that boosted/favourited it.
+    //
+    // Maybe rename to `interactionAvatar`?
     override val rebloggedAvatar: String?
-        get() = statusViewData?.rebloggedAvatar
+        get() = if (type == NotificationEntity.Type.REBLOG || type == NotificationEntity.Type.FAVOURITE) account.avatar else null
     override var translation: TranslatedStatusEntity?
         get() = statusViewData?.translation
         set(value) {

@@ -17,7 +17,6 @@
 package app.pachli.components.report
 
 import androidx.lifecycle.viewModelScope
-import app.pachli.components.report.model.StatusViewState
 import app.pachli.components.timeline.NetworkTimelineRepository
 import app.pachli.components.timeline.viewmodel.NetworkTimelineViewModel
 import app.pachli.core.common.PachliError
@@ -186,7 +185,6 @@ class ReportViewModel @AssistedInject constructor(
 
     /** IDs of statuses the user is reporting. */
     private val selectedIds = HashSet<String>().apply { reportedStatusId?.let { add(it) } }
-    val statusViewState = StatusViewState()
 
     /** Text of the comment to include with the report. */
     var reportNote: String = ""

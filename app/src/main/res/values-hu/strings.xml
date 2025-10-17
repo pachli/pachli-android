@@ -28,12 +28,7 @@
     <string name="title_follow_requests">Követési kérelmek</string>
     <string name="title_edit_profile">Profilod szerkesztése</string>
     <string name="title_drafts">Piszkozatok</string>
-    <string name="post_boosted_format">%s megtolta</string>
     <string name="post_sensitive_media_directions">Kattints a megtekintéshez</string>
-    <string name="post_content_warning_show_more">Mutass többet</string>
-    <string name="post_content_warning_show_less">Mutass kevesebbet</string>
-    <string name="post_content_show_more">Kibontás</string>
-    <string name="post_content_show_less">Összecsukás</string>
     <string name="footer_empty">Üres tartalom. Húzd le a frissítéshez!</string>
     <string name="notification_reblog_format">%s megtolta a bejegyzésedet</string>
     <string name="notification_favourite_format">%s kedvencnek jelölte a bejegyzésedet</string>
@@ -245,20 +240,8 @@
     <string name="unreblog_private">Megtolás visszavonása</string>
     <string name="unpin_action">Kitűzés eltávolítása</string>
     <string name="pin_action">Kitűzés</string>
-    <plurals name="favs">
-        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Kedvenc</item>
-        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Kedvenc</item>
-    </plurals>
-    <plurals name="reblogs">
-        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Megtolás</item>
-        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; Megtolás</item>
-    </plurals>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s és még %3$d</string>
-    <string name="description_post_media">Média: %s</string>
-    <string name="description_post_cw">Tartalomfigyelmeztetés: %s</string>
-    <string name="description_post_reblogged">Megtolt</string>
-    <string name="description_post_favourited">Kedvelt</string>
     <string name="edit_hashtag_hint">Hashtag # nélkül</string>
     <string name="notifications_clear">Törlés</string>
     <string name="notifications_apply_filter">Szűrés</string>
@@ -300,7 +283,6 @@
     <string name="action_reset_schedule">Visszaállítás</string>
     <string name="title_bookmarks">Könyvjelzők</string>
     <string name="action_view_bookmarks">Könyvjelzők</string>
-    <string name="description_post_bookmarked">Könyvjelzőzve</string>
     <string name="select_list_title">Lista kiválasztása</string>
     <string name="list">Lista</string>
     <string name="no_drafts">Nincs egy piszkozatod sem.</string>
@@ -402,7 +384,6 @@
     <string name="language_display_name_format">%s (%s)</string>
     <string name="report_category_violation">Szabálysértés</string>
     <string name="pref_title_http_proxy_port_message">A portnak %d és %d között kell lennie</string>
-    <string name="description_post_edited">Szerkesztve</string>
     <string name="error_following_hashtags_unsupported">Ez a kiszolgáló nem támogatja a hashtagek követését.</string>
     <string name="error_muting_hashtag_format">Hiba #%s némításakor</string>
     <string name="error_unmuting_hashtag_format">Hiba #%s némításának feloldása közben</string>
@@ -416,7 +397,6 @@
     <string name="notification_report_description">Értesítések moderációs bejelentésekről</string>
     <string name="report_category_spam">Spam</string>
     <string name="report_category_other">Egyéb</string>
-    <string name="post_edited">%s szerkesztve</string>
     <string name="error_status_source_load">Nem sikerült letölteni a kiszolgálóról az állapotforrást.</string>
     <string name="title_followed_hashtags">Követett hashtagek</string>
     <string name="a11y_label_loading_thread">Szál betöltése</string>

@@ -3,6 +3,7 @@ package app.pachli.util
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Checkable
 import androidx.core.view.AccessibilityDelegateCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat
@@ -64,6 +65,12 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
             val actionable = status.actionable
             if (actionable.spoilerText.isNotEmpty()) {
                 info.addAction(if (status.isExpanded) collapseCwAction else expandCwAction)
+            }
+
+            // Selecting / deselecting statuses when reporting (or any other Checkable
+            // viewholder).
+            if (viewHolder is Checkable) {
+                info.addAction(if (viewHolder.isChecked) unselectStatusAction else selectStatusAction)
             }
 
             // Hack. Not all statuses are displayed with controls. If it is then fetch
@@ -253,6 +260,14 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
                     statusActionListener.onAttachmentDisplayActionChange(status, newAction)
                 }
 
+                app.pachli.core.ui.R.id.action_select_status -> {
+                    (recyclerView.findContainingViewHolder(host) as? Checkable)?.isChecked = true
+                }
+
+                app.pachli.core.ui.R.id.action_unselect_status -> {
+                    (recyclerView.findContainingViewHolder(host) as? Checkable)?.isChecked = false
+                }
+
                 else -> return super.performAccessibilityAction(host, action, args)
             }
             return true
@@ -261,12 +276,12 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
 
     private val collapseCwAction = AccessibilityActionCompat(
         app.pachli.core.ui.R.id.action_collapse_cw,
-        context.getString(R.string.post_content_warning_show_less),
+        context.getString(app.pachli.core.ui.R.string.post_content_warning_show_less),
     )
 
     private val expandCwAction = AccessibilityActionCompat(
         app.pachli.core.ui.R.id.action_expand_cw,
-        context.getString(R.string.post_content_warning_show_more),
+        context.getString(app.pachli.core.ui.R.string.post_content_warning_show_more),
     )
 
     private val replyAction = AccessibilityActionCompat(
@@ -367,5 +382,15 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
     private val hideAttachmentsAction = AccessibilityActionCompat(
         app.pachli.core.ui.R.id.action_hide_attachments,
         context.getString(app.pachli.core.ui.R.string.action_hide_attachments),
+    )
+
+    private val selectStatusAction = AccessibilityActionCompat(
+        app.pachli.core.ui.R.id.action_select_status,
+        context.getString(app.pachli.core.ui.R.string.action_select_status),
+    )
+
+    private val unselectStatusAction = AccessibilityActionCompat(
+        app.pachli.core.ui.R.id.action_unselect_status,
+        context.getString(app.pachli.core.ui.R.string.action_unselect_status),
     )
 }

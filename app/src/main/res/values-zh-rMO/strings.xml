@@ -28,12 +28,7 @@
     <string name="title_follow_requests">關注請求</string>
     <string name="title_edit_profile">編輯個人資料</string>
     <string name="title_drafts">草稿</string>
-    <string name="post_boosted_format">%s 轉嘟了</string>
     <string name="post_sensitive_media_directions">點一下顯示</string>
-    <string name="post_content_warning_show_more">顯示更多</string>
-    <string name="post_content_warning_show_less">摺疊內容</string>
-    <string name="post_content_show_more">展開</string>
-    <string name="post_content_show_less">摺疊</string>
     <string name="footer_empty">還沒有內容，向下拉動即可重新整理！</string>
     <string name="notification_reblog_format">%s 轉嘟了你的嘟文</string>
     <string name="notification_favourite_format">%s 收藏了你的嘟文</string>
@@ -231,29 +226,11 @@
     <string name="label_remote_account">以下資訊可能並不完整，要檢視完整資料請使用瀏覽器開啟。</string>
     <string name="unpin_action">取消置頂</string>
     <string name="pin_action">置頂</string>
-    <plurals name="favs">
-        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; 次收藏</item>
-    </plurals>
-    <plurals name="reblogs">
-        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; 次轉嘟</item>
-    </plurals>
     <string name="title_reblogged_by">轉嘟</string>
     <string name="title_favourited_by">收藏</string>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s 和 %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s 和 %3$d 等人</string>
-    <string name="description_post_media">
-        媒體: %s
-    </string>
-    <string name="description_post_cw">
-        內容提醒: %s
-    </string>
-    <string name="description_post_reblogged">
-        被轉嘟
-    </string>
-    <string name="description_post_favourited">
-        被收藏
-    </string>
     <string name="edit_hashtag_hint">話題名（不含前面的 # 號）</string>
     <string name="notifications_clear">清空</string>
     <string name="notifications_apply_filter">分類</string>

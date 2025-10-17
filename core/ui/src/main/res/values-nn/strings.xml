@@ -109,4 +109,25 @@
     <string name="status_count_one_plus">1+</string>
     <string name="action_unreblog">Fjern deling</string>
     <string name="action_unfavourite">Fjern favorittmerke</string>
+    <string name="post_content_warning_show_less">Syn mindre</string>
+    <string name="post_content_warning_show_more">Syn meir</string>
+    <string name="post_content_show_less">Døl</string>
+    <string name="translating">Omset…</string>
+    <string name="translation_provider_fmt">%1$s</string>
+    <string name="description_post_edited">Brigda</string>
+    <string name="description_post_reblogged">Delt</string>
+    <string name="description_post_favourited">Favorittmerkt</string>
+    <string name="description_post_bookmarked">Bokmerkt</string>
+    <string name="description_post_media">Media: %s</string>
+    <string name="description_post_cw">Innhaldsåtvaring: %s</string>
+    <plurals name="reblogs">
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; deling</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; delingar</item>
+    </plurals>
+    <plurals name="favs">
+        <item quantity="one"><b>%1$s</b> favorittmerke</item>
+        <item quantity="other"><b>%1$s</b> favorittmerke</item>
+    </plurals>
+    <string name="post_boosted_format">%s delte</string>
+    <string name="post_edited">Brigda %s</string>
 </resources>

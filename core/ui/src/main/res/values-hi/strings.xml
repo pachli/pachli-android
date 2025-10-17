@@ -54,4 +54,17 @@
     <string name="action_favourite">पसंद</string>
     <string name="action_bookmark">बुकमार्क</string>
     <string name="action_unfavourite">नापसन्द</string>
+    <string name="post_content_warning_show_less">कम दिखाएं</string>
+    <string name="post_content_warning_show_more">और दिखाओ</string>
+    <string name="description_post_bookmarked">बुकमार्क किया हुआ</string>
+    <string name="description_post_media">मीडिया: %s</string>
+    <string name="description_post_cw">विषय वस्तु चेतावनी: %s</string>
+    <plurals name="reblogs">
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; ने बढ़ावा दिया</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; ने बढ़ावा दिया</item>
+    </plurals>
+    <plurals name="favs">
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; ने पसंद किया</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; ने पसंद किया</item>
+    </plurals>
 </resources>

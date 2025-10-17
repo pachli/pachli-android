@@ -32,7 +32,7 @@ internal class StatusViewHolder(
     binding: ItemStatusBinding,
     glide: RequestManager,
     setStatusContent: SetStatusContent,
-    private val statusActionListener: StatusActionListener<NotificationViewData>,
+    private val statusActionListener: NotificationActionListener,
 ) : NotificationsPagingAdapter.ViewHolder, StatusViewHolder<NotificationViewData>(binding, glide, setStatusContent) {
 
     override fun bind(

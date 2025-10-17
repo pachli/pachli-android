@@ -94,4 +94,25 @@
     <string name="status_count_one_plus">1+</string>
     <string name="action_unreblog">பூச்டை அகற்று</string>
     <string name="action_unfavourite">பிடித்ததை அகற்று</string>
+    <string name="post_content_warning_show_less">கம்மியாக்கு</string>
+    <string name="post_content_warning_show_more">அதிகமாக்கு</string>
+    <string name="post_content_show_less">சரிவு</string>
+    <string name="translating">மொழிபெயர்க்கிறது…</string>
+    <string name="translation_provider_fmt">%1$s</string>
+    <string name="description_post_edited">திருத்தப்பட்டது</string>
+    <string name="description_post_reblogged">மறுபிரசுரம் செய்யப்பட்டது</string>
+    <string name="description_post_favourited">பிடித்தது</string>
+    <string name="description_post_bookmarked">புக்மார்க்கு செய்யப்பட்டது</string>
+    <string name="description_post_media">மீடியா: %s</string>
+    <string name="description_post_cw">உள்ளடக்க எச்சரிக்கை: %s</string>
+    <plurals name="reblogs">
+        <item quantity="one"><b>%s </b> பூச்ட்</item>
+        <item quantity="other"><b>%s </b> ஊக்கங்கள்</item>
+    </plurals>
+    <plurals name="favs">
+        <item quantity="one"><b>%1$s </b> பிடித்தது</item>
+        <item quantity="other"><b>%1$s </b> பிடித்தவை</item>
+    </plurals>
+    <string name="post_boosted_format">%s மேலேற்றப்பட்டது</string>
+    <string name="post_edited">திருத்தப்பட்ட %s</string>
 </resources>

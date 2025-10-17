@@ -77,4 +77,27 @@
     <string name="action_bookmark">書籤</string>
     <string name="action_unreblog">取消轉嘟</string>
     <string name="action_unfavourite">取消收藏</string>
+    <string name="post_content_warning_show_less">摺疊內容</string>
+    <string name="post_content_warning_show_more">顯示更多</string>
+    <string name="post_content_show_less">摺疊</string>
+    <string name="description_post_reblogged">
+        被轉嘟
+    </string>
+    <string name="description_post_favourited">
+        被收藏
+    </string>
+    <string name="description_post_bookmarked">被加入書籤</string>
+    <string name="description_post_media">
+        媒體: %s
+    </string>
+    <string name="description_post_cw">
+        內容提醒: %s
+    </string>
+    <plurals name="reblogs">
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; 次轉嘟</item>
+    </plurals>
+    <plurals name="favs">
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; 次收藏</item>
+    </plurals>
+    <string name="post_boosted_format">%s 轉嘟了</string>
 </resources>

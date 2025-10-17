@@ -46,7 +46,7 @@ class PollAdapter(
     val animateEmojis: Boolean,
     val displayMode: DisplayMode,
     /** True if the user can vote in this poll, false otherwise (e.g., it's from an edit) */
-    val enabled: Boolean = true,
+    enabled: Boolean = true,
     /** Listener to call when the user clicks on the poll results */
     private val resultClickListener: ResultClickListener? = null,
     /** Listener to call when the user clicks on a poll option */
@@ -73,6 +73,15 @@ class PollAdapter(
      * vote, false otherwise. Ignored if the display maode is [DisplayMode.RESULT]
      */
     var showVotes: Boolean by Delegates.observable(false) { _, _, _ ->
+        notifyItemRangeChanged(0, itemCount)
+    }
+
+    /**
+     * True if the poll UI is enabled for voting. Initial value is from the
+     * constructor's [enabled] property, and can be updated after the adapter has
+     * been created.
+     */
+    var isEnabled: Boolean by Delegates.observable(enabled) { _, _, _ ->
         notifyItemRangeChanged(0, itemCount)
     }
 
@@ -108,9 +117,9 @@ class PollAdapter(
         // the text colour, which is undesirable (this happens when showing status edits) so
         // reset the text colour as necessary.
         val defaultTextColor = radioButton.currentTextColor
-        radioButton.isEnabled = enabled
-        checkBox.isEnabled = enabled
-        if (!enabled) {
+        radioButton.isEnabled = isEnabled
+        checkBox.isEnabled = isEnabled
+        if (!isEnabled) {
             radioButton.setTextColor(defaultTextColor)
             checkBox.setTextColor(defaultTextColor)
         }

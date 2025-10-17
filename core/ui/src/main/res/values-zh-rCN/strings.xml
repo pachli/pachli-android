@@ -84,4 +84,23 @@
     <string name="status_count_one_plus">1+</string>
     <string name="action_unreblog">取消转嘟</string>
     <string name="action_unfavourite">取消喜欢</string>
+    <string name="post_content_warning_show_less">折叠内容</string>
+    <string name="post_content_warning_show_more">显示更多</string>
+    <string name="post_content_show_less">折叠</string>
+    <string name="translating">正在翻译……</string>
+    <string name="translation_provider_fmt">%1$s</string>
+    <string name="description_post_edited">已编辑</string>
+    <string name="description_post_reblogged">被转嘟</string>
+    <string name="description_post_favourited">被喜欢</string>
+    <string name="description_post_bookmarked">被加入书签</string>
+    <string name="description_post_media">媒体：%s</string>
+    <string name="description_post_cw">内容警告：%s</string>
+    <plurals name="reblogs">
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; 次转嘟</item>
+    </plurals>
+    <plurals name="favs">
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; 次喜欢</item>
+    </plurals>
+    <string name="post_boosted_format">%s 转嘟了</string>
+    <string name="post_edited">编辑了 %s</string>
 </resources>

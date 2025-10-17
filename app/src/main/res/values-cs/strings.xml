@@ -28,12 +28,7 @@
     <string name="title_follow_requests">Žádosti o sledování</string>
     <string name="title_edit_profile">Upravit váš profil</string>
     <string name="title_drafts">Koncepty</string>
-    <string name="post_boosted_format">%s boostnul/a</string>
     <string name="post_sensitive_media_directions">Klikněte pro zobrazení</string>
-    <string name="post_content_warning_show_more">Zobrazit více</string>
-    <string name="post_content_warning_show_less">Zobrazit méně</string>
-    <string name="post_content_show_more">Rozbalit</string>
-    <string name="post_content_show_less">Sbalit</string>
     <string name="footer_empty">Tady nic není. Obnovte přetažením dolů!</string>
     <string name="notification_reblog_format">%s boostnul/a váš příspěvek</string>
     <string name="notification_favourite_format">%s si oblíbil/a váš příspěvek</string>
@@ -228,25 +223,11 @@
     <string name="label_remote_account">Níže uvedené informace nemusejí zcela odrážet profil uživatele. Dotknutím se otevřete celý profil v prohlížeči.</string>
     <string name="unpin_action">Odepnout</string>
     <string name="pin_action">Připnout</string>
-    <plurals name="favs">
-        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; oblíbení</item>
-        <item quantity="few">&lt;b&gt;%1$s&lt;/b&gt; oblíbení</item>
-        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; oblíbení</item>
-    </plurals>
-    <plurals name="reblogs">
-        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; boost</item>
-        <item quantity="few">&lt;b&gt;%s&lt;/b&gt; boosty</item>
-        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; boostů</item>
-    </plurals>
     <string name="title_reblogged_by">Boostnuto uživatelem</string>
     <string name="title_favourited_by">Oblíbeno uživatelem</string>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s a %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s a %3$d další</string>
-    <string name="description_post_media">Média %s</string>
-    <string name="description_post_cw">Varování o obsahu: %s</string>
-    <string name="description_post_reblogged">Boostnutý</string>
-    <string name="description_post_favourited">Oblíbený</string>
     <string name="edit_hashtag_hint">Hashtag bez #</string>
     <string name="compose_shortcut_long_label">Napsat příspěvek</string>
     <string name="compose_shortcut_short_label">Napsat</string>
@@ -316,7 +297,6 @@
     <string name="pref_title_enable_swipe_for_tabs">Možnost přetahování prstem pro přechod mezi kartami</string>
     <string name="list">Seznam</string>
     <string name="add_hashtag_title">Přidat hashtag</string>
-    <string name="description_post_bookmarked">Uloženo do Záložek</string>
     <string name="select_list_title">Vybrat seznam</string>
     <string name="pref_main_nav_position">Umístění hlavní navigační lišty</string>
     <string name="hashtags">Hashtagy</string>

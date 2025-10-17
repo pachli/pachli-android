@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="conversation_1_recipients">%1$s</string>
-    <string name="description_post_favourited">পছন্দ</string>
-    <string name="description_post_reblogged">আবার ব্লগ</string>
-    <string name="description_post_cw">সতর্কবার্তা: %s</string>
-    <string name="description_post_media">মিডিয়া: %s</string>
     <string name="title_favourited_by">দ্বারা পছন্দ</string>
     <string name="title_reblogged_by">দ্বারা সর্মথন</string>
     <string name="pin_action">পিন</string>
@@ -187,17 +183,12 @@
     <string name="report_comment_hint">অতিরিক্ত মন্তব্যগুলি\?</string>
     <string name="report_username_format">রিপোর্ট @%s</string>
     <string name="footer_empty">এখানে কিছু নেই. রিফ্রেশ করতে নিচে টানুন!</string>
-    <string name="post_content_show_less">বন্ধ</string>
-    <string name="post_content_show_more">বিস্তৃত</string>
-    <string name="post_content_warning_show_less">প্রদর্শন কম</string>
-    <string name="post_content_warning_show_more">আরও দেখাও</string>
     <string name="post_sensitive_media_directions">দেখার জন্য ক্লিক করুন</string>
     <string name="title_drafts">খসড়া</string>
     <string name="title_edit_profile">আপনার প্রোফাইল সম্পাদনা করুন</string>
     <string name="title_follow_requests">অনুরোধ অনুসরণ করুন</string>
     <string name="title_blocks">অবরুদ্ধ ব্যবহারকারী</string>
     <string name="title_mutes">শব্দ বন্ধ ব্যবহারকারী</string>
-    <string name="post_boosted_format">%s বুস্টকৃত</string>
     <string name="dialog_mute_hide_notifications">বিজ্ঞপ্তি লুকাও</string>
     <string name="action_unmute_desc">আনমিউট %s</string>
     <string name="action_unmute_domain">আনমিউট %s</string>
@@ -220,7 +211,6 @@
     <string name="no_scheduled_posts">তোমার কোনো সময়সূচীত স্ট্যাটাস নেই।</string>
     <string name="list">তালিকা</string>
     <string name="select_list_title">তালিকা নির্বাচন করো</string>
-    <string name="description_post_bookmarked">বুকমার্ককৃত</string>
     <string name="action_view_bookmarks">বুকমার্কগুলি</string>
     <string name="title_bookmarks">বুকমার্কগুলি</string>
     <string name="action_reset_schedule">রিসেট</string>
@@ -293,10 +283,6 @@
     <string name="error_compose_character_limit">এই স্টেটাস টি খুব দীর্ঘ!</string>
     <string name="error_no_web_browser_found">ব্যবহার করার জন্য একটি ওয়েব ব্রাউজার খুঁজে পাওয়া যায়নি।</string>
     <string name="error_empty">এই জায়গা খালি হতে পারে না।</string>
-    <plurals name="favs">
-        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt;টি পছন্দ</item>
-        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt;টি পছন্দ</item>
-    </plurals>
     <string name="confirmation_domain_unmuted">%s দৃশ্যমান</string>
     <string name="notification_subscription_format">%s পোস্ট করেছে</string>
     <string name="notification_follow_request_format">%s তোমাকে ফলো করতে চায়</string>
@@ -339,10 +325,6 @@
     <string name="conversation_2_recipients">%1$s এবং %2$s</string>
     <string name="action_subscribe_account">সদস্যতা</string>
     <string name="action_unsubscribe_account">সদস্যতা বাতিল</string>
-    <plurals name="reblogs">
-        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; বুস্ট</item>
-        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; বুস্ট</item>
-    </plurals>
     <string name="account_moved_description">%1$s স্থানান্তরিত হয়েছে এখানে:</string>
     <plurals name="notification_title_summary">
         <item quantity="one">%dটি নতুন ক্রিয়া</item>

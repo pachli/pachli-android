@@ -101,4 +101,31 @@
     <string name="status_count_one_plus">1+</string>
     <string name="action_unreblog">Dileu hwb</string>
     <string name="action_unfavourite">Dileu ffefryn</string>
+    <string name="post_content_warning_show_less">Dangos Llai</string>
+    <string name="post_content_warning_show_more">Dangos Mwy</string>
+    <string name="post_content_show_less">Lleihau</string>
+    <string name="description_post_edited">Golygwyd</string>
+    <string name="description_post_reblogged">Ailflogiwyd</string>
+    <string name="description_post_favourited">Hoffwyd</string>
+    <string name="description_post_bookmarked">Tudalnodiwyd</string>
+    <string name="description_post_media">Cyfryngau: %s</string>
+    <string name="description_post_cw">Rhybudd cynnwys: %s</string>
+    <plurals name="reblogs">
+        <item quantity="zero">&lt;b&gt;%s&lt;/b&gt; Hybiau</item>
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Hwb</item>
+        <item quantity="two">&lt;b&gt;%s&lt;/b&gt; Hwb</item>
+        <item quantity="few">&lt;b&gt;%s&lt;/b&gt; Hwb</item>
+        <item quantity="many">&lt;b&gt;%s&lt;/b&gt; Hwb</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; Hwb</item>
+    </plurals>
+    <plurals name="favs">
+        <item quantity="zero">&lt;b&gt;%1$s&lt;/b&gt; Ffefryn</item>
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Ffefryn</item>
+        <item quantity="two">&lt;b&gt;%1$s&lt;/b&gt; Ffefryn</item>
+        <item quantity="few">&lt;b&gt;%1$s&lt;/b&gt; Ffefryn</item>
+        <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; Ffefryn</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Ffefryn</item>
+    </plurals>
+    <string name="post_boosted_format">Hybodd %s</string>
+    <string name="post_edited">Golygwyd %s</string>
 </resources>

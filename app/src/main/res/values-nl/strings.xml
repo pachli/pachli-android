@@ -28,12 +28,7 @@
     <string name="title_follow_requests">Volgverzoeken</string>
     <string name="title_edit_profile">Profiel bewerken</string>
     <string name="title_drafts">Concepten</string>
-    <string name="post_boosted_format">%s boostte</string>
     <string name="post_sensitive_media_directions">Klik om te bekijken</string>
-    <string name="post_content_warning_show_more">Meer tonen</string>
-    <string name="post_content_warning_show_less">Minder tonen</string>
-    <string name="post_content_show_more">Uitklappen</string>
-    <string name="post_content_show_less">Inklappen</string>
     <string name="footer_empty">Niets te zien. Swipe naar beneden om te verversen!</string>
     <string name="notification_reblog_format">%s boostte jouw bericht</string>
     <string name="notification_favourite_format">%s markeerde jouw bericht als favoriet</string>
@@ -217,23 +212,11 @@
     <string name="label_remote_account">De informatie hieronder kan een incompleet beeld geven van dit gebruikersprofiel. Druk hier om het volledige profiel in de webbrowser te openen.</string>
     <string name="unpin_action">Losmaken</string>
     <string name="pin_action">Vastmaken</string>
-    <plurals name="favs">
-        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; favoriet</item>
-        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; favorieten</item>
-    </plurals>
-    <plurals name="reblogs">
-        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; boost</item>
-        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; boosts</item>
-    </plurals>
     <string name="title_reblogged_by">Geboost door</string>
     <string name="title_favourited_by">Als favoriet gemarkeerd door</string>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s en %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s en %3$d meer</string>
-    <string name="description_post_media">Media: %s</string>
-    <string name="description_post_cw">Inhoudswaarschuwing: %s</string>
-    <string name="description_post_reblogged">Geboost</string>
-    <string name="description_post_favourited">Als favoriet gemarkeerd</string>
     <string name="download_media">Media downloaden</string>
     <string name="downloading_media">Media aan het downloaden</string>
     <string name="pref_title_timeline_filters">Filters</string>
@@ -297,7 +280,6 @@
     <string name="action_schedule_post">Ingepland bericht</string>
     <string name="action_reset_schedule">Herstellen</string>
     <string name="pref_title_alway_open_spoiler">Berichten met tekstwaarschuwingen altijd uitklappen</string>
-    <string name="description_post_bookmarked">Als bladwijzer toegevoegd</string>
     <string name="select_list_title">Kies een lijst</string>
     <string name="list">Lijst</string>
     <string name="title_accounts">Accounts</string>
@@ -398,7 +380,6 @@
     <string name="title_edits">Bewerkingen</string>
     <string name="pref_default_post_language">Standaardtaal van berichten</string>
     <string name="notification_report_name">Rapporten</string>
-    <string name="description_post_edited">Bewerkt</string>
     <string name="status_edit_info">%1$s bewerkte</string>
     <string name="status_created_info">%1$s maakte</string>
     <string name="report_category_spam">Spam</string>
@@ -430,7 +411,6 @@
     <string name="error_unmuting_hashtag_format">Fout bij unmuting #%s</string>
     <string name="action_add_reaction">reactie toevoegen</string>
     <string name="action_discard">Veranderingen ongedaan maken</string>
-    <string name="post_edited">Bewerkt %s</string>
     <string name="notification_header_report_format">%s gerapporteerd %s</string>
     <plurals name="notification_summary_report_format">
         <item quantity="other">%1$s · %2$d berichten bijgevoegd</item>
@@ -481,7 +461,6 @@
     <string name="dialog_delete_filter_text">Verwijder filter \'%1$s\'?</string>
     <string name="ui_error_translate_status_fmt">Vertaling faalde: %1$s</string>
     <string name="update_dialog_negative">Herinner mij nooit</string>
-    <string name="translating">Vertalen…</string>
     <string name="pref_title_update_notification_frequency">Vertel mij over nieuwe versies van Pachli</string>
     <string name="title_public_trending_links">Opkomende links</string>
     <string name="title_tab_public_trending_links">Koppelingen</string>
@@ -490,7 +469,6 @@
     <string name="error_media_playback">Afspelen mislukt: %s</string>
     <string name="title_public_trending">Opkomend</string>
     <string name="description_browser_login">Mogelijk ondersteunt dit extra authenticatie opties, maar dit vereist een ondersteunde browser.</string>
-    <string name="translation_provider_fmt">%1$s</string>
     <string name="description_login">Werkt in de meeste gevallen. Geen data wordt gelekt naar andere apps.</string>
     <string name="pref_title_update_settings">Software updates</string>
     <string name="title_public_trending_statuses">Opkomende posts</string>

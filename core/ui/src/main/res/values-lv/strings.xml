@@ -116,4 +116,27 @@
     <string name="status_count_one_plus">1+</string>
     <string name="action_unreblog">Noņemt pastiprinājumu</string>
     <string name="action_unfavourite">Noņemt no izlases</string>
+    <string name="post_content_warning_show_less">Rādīt mazāk</string>
+    <string name="post_content_warning_show_more">Rādīt vairāk</string>
+    <string name="post_content_show_less">Sakļaut</string>
+    <string name="translating">Tulko…</string>
+    <string name="translation_provider_fmt">%1$s</string>
+    <string name="description_post_edited">Labots</string>
+    <string name="description_post_reblogged">Pastiprināts</string>
+    <string name="description_post_favourited">Pievienots izlasei</string>
+    <string name="description_post_bookmarked">Atzīmēts ar grāmatzīmi</string>
+    <string name="description_post_media">Multivide: %s</string>
+    <string name="description_post_cw">Satura brīdinājums: %s</string>
+    <plurals name="reblogs">
+        <item quantity="zero"><b>%s</b> pastiprinājumu</item>
+        <item quantity="one"><b>%s</b> pastiprinājums</item>
+        <item quantity="other"><b>%s</b> pastiprinājumi</item>
+    </plurals>
+    <plurals name="favs">
+        <item quantity="zero"><b>%1$s</b> ierakstu izlasē</item>
+        <item quantity="one"><b>%1$s</b> ieraksts izlasē</item>
+        <item quantity="other"><b>%1$s</b> ieraksti izlasē</item>
+    </plurals>
+    <string name="post_boosted_format">%s pastiprināja</string>
+    <string name="post_edited">Labots %s</string>
 </resources>

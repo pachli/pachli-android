@@ -123,4 +123,31 @@
     <string name="status_count_one_plus">1+</string>
     <string name="action_unreblog">Убрать продвижение</string>
     <string name="action_unfavourite">Убрать из избранного</string>
+    <string name="post_content_warning_show_less">Показать меньше</string>
+    <string name="post_content_warning_show_more">Показать больше</string>
+    <string name="post_content_show_less">Свернуть</string>
+    <string name="translating">Перевод…</string>
+    <string name="translation_provider_fmt">%1$s</string>
+    <string name="description_post_edited">Изменено</string>
+    <string name="description_post_reblogged">Реблогнуто</string>
+    <string name="description_post_favourited">Понравилось</string>
+    <string name="description_post_bookmarked">Добавлено в закладки</string>
+    <string name="description_post_media">
+        Медиафайл: %s
+    </string>
+    <string name="description_post_cw">Предупреждение о содержании: %s</string>
+    <plurals name="reblogs">
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Продвинул(а)</item>
+        <item quantity="few">&lt;b&gt;%s&lt;/b&gt; Продвинули</item>
+        <item quantity="many">&lt;b&gt;%s&lt;/b&gt; Продвинули</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; Продвинули</item>
+    </plurals>
+    <plurals name="favs">
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Понравился</item>
+        <item quantity="few">&lt;b&gt;%1$s&lt;/b&gt; Понравилось</item>
+        <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; Понравилось</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Понравилось</item>
+    </plurals>
+    <string name="post_boosted_format">%s продвинул(а)</string>
+    <string name="post_edited">Изменено %s</string>
 </resources>

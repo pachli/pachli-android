@@ -89,4 +89,27 @@
     <string name="status_count_one_plus">1+</string>
     <string name="action_unreblog">Thoir am brosnachadh air falbh</string>
     <string name="action_unfavourite">Thoir air falbh o na h-annsachdan</string>
+    <string name="post_content_warning_show_less">Seall nas lugha dheth</string>
+    <string name="post_content_warning_show_more">Seall barrachd dheth</string>
+    <string name="post_content_show_less">Co-theannaich</string>
+    <string name="description_post_edited">Chaidh a dheasachadh</string>
+    <string name="description_post_reblogged">Air ath-bhlogadh</string>
+    <string name="description_post_favourited">’Na annsachd</string>
+    <string name="description_post_bookmarked">’Na chomharra-lìn</string>
+    <string name="description_post_media">Meadhan: %s</string>
+    <string name="description_post_cw">Rabhadh susbainte: %s</string>
+    <plurals name="reblogs">
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; bhrosnachadh</item>
+        <item quantity="two">&lt;b&gt;%s&lt;/b&gt; bhrosnachadh</item>
+        <item quantity="few">&lt;b&gt;%s&lt;/b&gt; brosnachaidhean</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; brosnachadh</item>
+    </plurals>
+    <plurals name="favs">
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; annsachd</item>
+        <item quantity="two">&lt;b&gt;%1$s&lt;/b&gt; annsachd</item>
+        <item quantity="few">&lt;b&gt;%1$s&lt;/b&gt; annsachdan</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; annsachd</item>
+    </plurals>
+    <string name="post_boosted_format">’Ga bhrosnachadh le %s</string>
+    <string name="post_edited">Air a dheasachadh %s</string>
 </resources>

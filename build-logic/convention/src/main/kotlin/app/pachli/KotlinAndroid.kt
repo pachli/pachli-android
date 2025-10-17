@@ -61,6 +61,9 @@ internal fun Project.configureKotlinAndroid(
             buildConfig = true
             resValues = true
             viewBinding = true
+            dataBinding {
+                enable = true
+            }
         }
     }
 

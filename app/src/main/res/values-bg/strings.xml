@@ -33,24 +33,11 @@
     <string name="hashtags">Хаштагове</string>
     <string name="edit_hashtag_hint">Хаштаг без #</string>
     <string name="add_hashtag_title">Добавяне на хаштаг</string>
-    <string name="description_post_bookmarked">Отметнато</string>
-    <string name="description_post_favourited">Поставено в любими</string>
-    <string name="description_post_reblogged">Реблог</string>
-    <string name="description_post_cw">Предупреждение за съдържание: %s</string>
-    <string name="description_post_media">Мултимедия: %s</string>
     <string name="conversation_more_recipients">%1$s, %2$s и %3$d други</string>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s и %2$s</string>
     <string name="title_favourited_by">Поставено в любими от</string>
     <string name="title_reblogged_by">Споделено от</string>
-    <plurals name="reblogs">
-        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Споделяне</item>
-        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; Споделяния</item>
-    </plurals>
-    <plurals name="favs">
-        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Любимо</item>
-        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Любими</item>
-    </plurals>
     <string name="pin_action">Закачане</string>
     <string name="unpin_action">Разкачане</string>
     <string name="label_remote_account">Информацията по-долу може да отразява непълно потребителския профил. Натиснете, за да отворите пълен профил в браузъра.</string>
@@ -246,12 +233,7 @@
     <string name="notification_favourite_format">%s постави вашата публикация в любими</string>
     <string name="notification_reblog_format">%s сподели вашата публикация</string>
     <string name="footer_empty">Нищо тук. Дръпнете надолу, за да опресните!</string>
-    <string name="post_content_show_less">Свиване</string>
-    <string name="post_content_show_more">Разгъване</string>
-    <string name="post_content_warning_show_less">Покажи по-малко</string>
-    <string name="post_content_warning_show_more">Покажи повече</string>
     <string name="post_sensitive_media_directions">Щракнете за преглед</string>
-    <string name="post_boosted_format">%s сподели</string>
     <string name="title_announcements">Оповестявания</string>
     <string name="title_scheduled_posts">Планирани публикации</string>
     <string name="title_drafts">Чернови</string>

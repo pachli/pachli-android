@@ -177,7 +177,6 @@ class NotificationsFragment :
             Glide.with(this),
             notificationDiffCallback,
             setStatusContent,
-            statusActionListener = this,
             notificationActionListener = this,
             accountActionListener = this,
         )

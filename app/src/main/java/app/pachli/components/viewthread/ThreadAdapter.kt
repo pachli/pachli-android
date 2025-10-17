@@ -65,7 +65,6 @@ class ThreadAdapter(
                     ItemStatusDetailedBinding.inflate(inflater, parent, false),
                     glide,
                     setStatusContent,
-                    openUrl,
                 )
             }
             else -> error("Unknown item type: $viewType")

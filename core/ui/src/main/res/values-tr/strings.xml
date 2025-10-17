@@ -77,4 +77,23 @@
     <string name="status_count_one_plus">1+</string>
     <string name="action_unreblog">Yeniden paylaşmaktan vazgeç</string>
     <string name="action_unfavourite">Gözdeyi kaldır</string>
+    <string name="post_content_warning_show_less">Daha az göster</string>
+    <string name="post_content_warning_show_more">Daha fazlası</string>
+    <string name="post_content_show_less">Daralt</string>
+    <string name="description_post_edited">Düzenlendi</string>
+    <string name="description_post_reblogged">Yeniden blogladı</string>
+    <string name="description_post_favourited">Gözdelendi</string>
+    <string name="description_post_bookmarked">Yerimine eklendi</string>
+    <string name="description_post_media">Ortam: %s</string>
+    <string name="description_post_cw">İçerik uyarısı: %s</string>
+    <plurals name="reblogs">
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Yeniden Paylaşan</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; Yeniden Paylaşanlar</item>
+    </plurals>
+    <plurals name="favs">
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Gözde</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Gözdeler</item>
+    </plurals>
+    <string name="post_boosted_format">%s yeniden paylaştı</string>
+    <string name="post_edited">Düzenleme %s</string>
 </resources>

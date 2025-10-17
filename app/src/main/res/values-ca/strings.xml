@@ -23,10 +23,7 @@
     <string name="title_follow_requests">Peticions de seguiment</string>
     <string name="title_edit_profile">Edita el perfil</string>
     <string name="title_drafts">Esborranys</string>
-    <string name="post_boosted_format">%s ha impulsat</string>
     <string name="post_sensitive_media_directions">Fes clic per a visualitzar-lo</string>
-    <string name="post_content_warning_show_more">Mostra\'n més</string>
-    <string name="post_content_warning_show_less">Mostra\'n menys</string>
     <string name="footer_empty">No hi res aquí. Llisca avall per a actualitzar!</string>
     <string name="notification_reblog_format">%s ha impulsat la teva publicació</string>
     <string name="notification_favourite_format">%s ha marcat com a preferida la teva publicació</string>
@@ -137,12 +134,10 @@
     <string name="title_media">Multimèdia</string>
     <string name="error_sender_account_gone">S\'ha produït un error en publicar.</string>
     <string name="title_tab_preferences">Pestanyes</string>
-    <string name="post_content_show_more">Amplia</string>
     <string name="action_quick_reply">Resposta ràpida</string>
     <string name="action_view_account_preferences">Preferències del compte</string>
     <string name="action_edit_own_profile">Edita</string>
     <string name="title_direct_messages">Missatges directes</string>
-    <string name="post_content_show_less">Amaga</string>
     <string name="action_hide_reblogs">Amaga els impulsos</string>
     <string name="action_show_reblogs">Mostra els impulsos</string>
     <string name="action_delete_and_redraft">Elimina i reescriu</string>
@@ -224,21 +219,11 @@
     <string name="profile_metadata_content_label">Contingut</string>
     <string name="pref_title_absolute_time">Utilitzar el temps absolut</string>
     <string name="label_remote_account">La informació de sota pot mostrar el perfil incomplert de l\'usuari. Clica per obrir el perfil complert al navegador.</string>
-    <plurals name="favs">
-        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Favorit</item>
-        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Favorits</item>
-    </plurals>
-    <plurals name="reblogs">
-        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; impuls</item>
-        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; impulsos</item>
-    </plurals>
     <string name="title_reblogged_by">Impulsat per</string>
     <string name="title_favourited_by">Marcat favorit per</string>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s i %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s i %3$d més</string>
-    <string name="description_post_media">Mèdia : %s</string>
-    <string name="description_post_favourited">Favorits</string>
     <string name="edit_hashtag_hint">Hashtag sense #</string>
     <string name="notifications_clear">Netejar</string>
     <string name="notifications_apply_filter">Filtrar</string>
@@ -249,11 +234,9 @@
     <string name="notification_clear_text">Vols netejar totes les notificacions permanentment\?</string>
     <string name="poll_ended_voted">L\'enquesta on has votat està tancada</string>
     <string name="poll_ended_created">La enquesta que heu creat ha finalitzat</string>
-    <string name="description_post_cw">Advertència: %s</string>
     <string name="title_posts_pinned">Fixat</string>
     <string name="unpin_action">No fixis</string>
     <string name="pin_action">Fixar</string>
-    <string name="description_post_reblogged">Respost</string>
     <string name="compose_preview_image_description">Accions per a la imatge %s</string>
     <string name="pref_title_animate_gif_avatars">Activar l\'animació dels GIF</string>
     <string name="title_domain_mutes">Dominis ocults</string>
@@ -295,7 +278,6 @@
     <string name="action_access_scheduled_posts">Publicacions programades</string>
     <string name="action_schedule_post">Programa la publicació</string>
     <string name="action_reset_schedule">Reiniciar</string>
-    <string name="description_post_bookmarked">S\'ha afegit a les adreces d\'interès</string>
     <string name="select_list_title">Seleccionar la llista</string>
     <string name="list">Llista</string>
     <string name="no_scheduled_posts">No tens cap estat planificat.</string>
@@ -356,7 +338,6 @@
     <string name="notification_sign_up_format">%s s\'ha registrat</string>
     <string name="error_unmuting_hashtag_format">S\'ha produït un error en activar #%s</string>
     <string name="error_muting_hashtag_format">S\'ha produït un error en silenciar #%s</string>
-    <string name="post_edited">S\'ha editat %s</string>
     <string name="notification_update_name">Edicions de publicacions</string>
     <string name="action_post_failed">La càrrega ha fallat</string>
     <string name="action_post_failed_detail">La teva publicació no s\'ha pogut penjar i s\'ha desat als esborranys.
@@ -435,7 +416,6 @@
 \n Les notificacions push no es veuran afectades, però podeu revisar les vostres preferències de notificació manualment.</string>
     <string name="account_date_joined">S\'ha unit el %1$s</string>
     <string name="saving_draft">Desant l\'esborrany…</string>
-    <string name="description_post_edited">Editat</string>
     <string name="status_edit_info">%1$s ha editat</string>
     <string name="action_subscribe_account">Subscriu-te</string>
     <string name="action_unsubscribe_account">Cancel·la la subscripció</string>

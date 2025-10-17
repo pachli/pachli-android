@@ -77,4 +77,23 @@
     <string name="status_count_one_plus">۱+</string>
     <string name="action_unreblog">برداشتن تقویت</string>
     <string name="action_unfavourite">برداشتن برگزیدگی</string>
+    <string name="post_content_warning_show_less">نمایش کم‌تر</string>
+    <string name="post_content_warning_show_more">نمایش بیش‌تر</string>
+    <string name="post_content_show_less">جمع کردن</string>
+    <string name="description_post_edited">ویراسته</string>
+    <string name="description_post_reblogged">تقویت شده</string>
+    <string name="description_post_favourited">برگزیده</string>
+    <string name="description_post_bookmarked">نشان‌شده</string>
+    <string name="description_post_media">رسانه: %s</string>
+    <string name="description_post_cw">هشدار محتوا: %s</string>
+    <plurals name="reblogs">
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; تقویت</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; تقویت</item>
+    </plurals>
+    <plurals name="favs">
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; برگزیدن</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; برگزیدن</item>
+    </plurals>
+    <string name="post_boosted_format">%s تقویت کرد</string>
+    <string name="post_edited">%s را ویراست</string>
 </resources>

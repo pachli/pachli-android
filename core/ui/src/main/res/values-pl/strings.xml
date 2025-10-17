@@ -123,4 +123,28 @@
     <string name="status_count_one_plus">1+</string>
     <string name="action_unreblog">Cofnij podbicie</string>
     <string name="action_unfavourite">Cofnij polubienie</string>
+    <string name="post_content_warning_show_less">Pokaż mniej</string>
+    <string name="post_content_warning_show_more">Pokaż więcej</string>
+    <string name="post_content_show_less">Zwiń</string>
+    <string name="translating">Tłumaczenie…</string>
+    <string name="translation_provider_fmt">%1$s</string>
+    <string name="description_post_edited">Edytowano</string>
+    <string name="description_post_reblogged">Podbity</string>
+    <string name="description_post_favourited">Polubiony</string>
+    <string name="description_post_bookmarked">Dodany do zakładek</string>
+    <string name="description_post_media">Media: %s</string>
+    <string name="description_post_cw">Ostrzeżenie o zawartości: %s</string>
+    <plurals name="reblogs">
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; podbicie</item>
+        <item quantity="few">&lt;b&gt;%s&lt;/b&gt; podbicia</item>
+        <item quantity="many">&lt;b&gt;%s&lt;/b&gt; podbić</item>
+    </plurals>
+    <plurals name="favs">
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; polubienie</item>
+        <item quantity="few">&lt;b&gt;%1$s&lt;/b&gt; polubienia</item>
+        <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; polubień</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; polubień</item>
+    </plurals>
+    <string name="post_boosted_format">Podbicie od %s</string>
+    <string name="post_edited">Edytowano %s</string>
 </resources>

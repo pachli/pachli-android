@@ -21,39 +21,43 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import app.pachli.components.report.model.StatusViewState
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusViewData
+import app.pachli.core.model.Status
 import app.pachli.core.ui.SetStatusContent
+import app.pachli.core.ui.StatusActionListener
 import app.pachli.databinding.ItemReportStatusBinding
 import com.bumptech.glide.RequestManager
 
-class StatusesAdapter(
+interface ReportStatusActionListener : StatusActionListener<StatusViewData> {
+    fun setStatusChecked(status: Status, isChecked: Boolean)
+    fun isStatusChecked(id: String): Boolean
+}
+
+class ReportStatusesAdapter(
     private val glide: RequestManager,
     private val setStatusContent: SetStatusContent,
     private val statusDisplayOptions: StatusDisplayOptions,
-    private val statusViewState: StatusViewState,
-    private val adapterHandler: AdapterHandler,
-) : PagingDataAdapter<StatusViewData, StatusViewHolder>(STATUS_COMPARATOR) {
+    private val reportStatusActionListener: ReportStatusActionListener,
+) : PagingDataAdapter<StatusViewData, ReportStatusViewHolder>(STATUS_COMPARATOR) {
 
     private val statusForPosition: (Int) -> StatusViewData? = { position: Int ->
         if (position != RecyclerView.NO_POSITION) getItem(position) else null
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StatusViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReportStatusViewHolder {
         val binding = ItemReportStatusBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return StatusViewHolder(
+        return ReportStatusViewHolder(
             binding,
             glide,
             setStatusContent,
             statusDisplayOptions,
-            statusViewState,
-            adapterHandler,
+            reportStatusActionListener,
             statusForPosition,
         )
     }
 
-    override fun onBindViewHolder(holder: StatusViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ReportStatusViewHolder, position: Int) {
         getItem(position)?.let { status ->
             holder.bind(status)
         }

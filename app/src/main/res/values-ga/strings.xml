@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="post_content_show_more">Leathnaigh</string>
-    <string name="post_content_warning_show_less">Taispeáin Níos Lú</string>
-    <string name="post_content_warning_show_more">Taispeáin Níos Mó</string>
     <string name="post_sensitive_media_directions">Cliceáil chun amharc</string>
-    <string name="post_boosted_format">D\'athchraol %s</string>
     <string name="title_scheduled_posts">Postálacha sceidealta</string>
     <string name="title_edit_profile">Cuir do phróifíl in eagar</string>
     <string name="title_follow_requests">Lean Iarrataí</string>
@@ -201,7 +197,6 @@
     <string name="notification_follow_format">lean %s thú</string>
     <string name="notification_reblog_format">D\'athchraol %s do phostáil</string>
     <string name="footer_empty">Níl aon rud anseo. Tarraingt anuas chun athnuachan a dhéanamh!</string>
-    <string name="post_content_show_less">Fill</string>
     <string name="filter_dialog_whole_word_description">Nuair atá an eochairfhocal nó an frása alfa-uimhriúil amháin, ní chuirfear i bhfeidhm é ach má oireann sé don fhocal iomlán</string>
     <string name="title_posts">Postálacha</string>
     <string name="notification_favourite_format">Thogh %s do phostáil</string>
@@ -258,28 +253,10 @@
     <string name="profile_metadata_content_label">Ábhar</string>
     <string name="pref_title_absolute_time">Úsáid am iomlán</string>
     <string name="pin_action">Bioráin</string>
-    <plurals name="favs">
-        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Togha</item>
-        <item quantity="two">&lt;b&gt;%1$s&lt;/b&gt; Toghanna</item>
-        <item quantity="few">&lt;b&gt;%1$s&lt;/b&gt; Toghanna</item>
-        <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; Toghanna</item>
-        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Toghanna</item>
-    </plurals>
-    <plurals name="reblogs">
-        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; athchraoladh</item>
-        <item quantity="two">&lt;b&gt;%s&lt;/b&gt; athchraolta</item>
-        <item quantity="few">&lt;b&gt;%s&lt;/b&gt; athchraolta</item>
-        <item quantity="many">&lt;b&gt;%s&lt;/b&gt; athchraolta</item>
-        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; athchraolta</item>
-    </plurals>
     <string name="title_reblogged_by">Athchraolta ag</string>
     <string name="title_favourited_by">Tofa ag</string>
     <string name="conversation_2_recipients">%1$s agus %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s agus %3$d níos mó</string>
-    <string name="description_post_media">Meáin: %s</string>
-    <string name="description_post_cw">Rabhadh ábhair: %s</string>
-    <string name="description_post_favourited">Tofa</string>
-    <string name="description_post_bookmarked">Leabharmharcáilte</string>
     <string name="add_hashtag_title">Cuir hashtag leis</string>
     <string name="edit_hashtag_hint">Hashtag gan #</string>
     <string name="select_list_title">Roghnaigh liosta</string>
@@ -324,7 +301,6 @@
     <string name="unreblog_private">Bain athchraoladh</string>
     <string name="unpin_action">Díphionnáil</string>
     <string name="conversation_1_recipients">%1$s</string>
-    <string name="description_post_reblogged">Ath-bhlagáilte</string>
     <string name="hashtags">Haischlibeanna</string>
     <string name="wellbeing_mode_notice">Folófar roinnt eolais ar féidir leis cuir isteach ar do mheabhairshláinte. Tá an méid seo a leanas san áireamh:
 \n
@@ -352,7 +328,6 @@
     <string name="notification_sign_up_name">Cláraigh</string>
     <string name="action_set_focus">Socraigh pointe fócais</string>
     <string name="compose_delete_draft">Scrios dréacht?</string>
-    <string name="description_post_edited">Curtha in eagar</string>
     <string name="description_browser_login">D\'fhéadfadh sé tacú le modhanna fíordheimhnithe breise, ach éilíonn brabhsálaí tacaithe.</string>
     <string name="select_list_empty">Níl aon liostaí agat, go fóill</string>
     <string name="select_list_manage">Bainistigh liostaí</string>
@@ -539,8 +514,6 @@
     <string name="report_category_spam">Turscar</string>
     <string name="filter_description_hide">Folaigh go hiomlán</string>
     <string name="pref_title_update_notification_frequency">Inis dom faoi leaganacha nua Pachli</string>
-    <string name="translation_provider_fmt">%1$s</string>
-    <string name="translating">Ag aistriú…</string>
     <string name="pref_title_notification_up_distributor">Dáileoir brú aontaithe</string>
     <string name="pref_notification_method_mixed">Úsáideann roinnt cuntas UnifiedPush, tarraingíonn cuid acu gach 15 nóiméad. Tapáil le haghaidh sonraí</string>
     <string name="pref_update_check_no_updates">Níl aon nuashonruithe ar fáil</string>
@@ -616,7 +589,6 @@
     <string name="title_followed_hashtags">Haischlibeanna ina dhiaidh sin</string>
     <string name="dialog_follow_hashtag_title">Lean an haischlib</string>
     <string name="dialog_follow_hashtag_hint">#hashtag</string>
-    <string name="post_edited">Curtha in eagar %s</string>
     <string name="pref_title_show_self_boosts">Taispeáin féin-boosts</string>
     <string name="action_continue_edit">Lean ar aghaidh leis an eagarthóireacht</string>
     <string name="confirmation_hashtag_muted">#%s i bhfolach</string>

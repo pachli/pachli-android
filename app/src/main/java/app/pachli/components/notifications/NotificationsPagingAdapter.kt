@@ -25,7 +25,6 @@ import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.adapter.FollowRequestViewHolder
 import app.pachli.adapter.ReportNotificationViewHolder
-import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.data.model.NotificationViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.database.model.NotificationEntity
@@ -106,8 +105,8 @@ enum class NotificationViewKind {
     }
 }
 
-interface NotificationActionListener {
-    fun onViewAccount(id: String)
+interface NotificationActionListener : StatusActionListener<NotificationViewData> {
+    override fun onViewAccount(id: String)
     fun onViewThreadForStatus(status: Status)
     fun onViewReport(reportId: String)
 
@@ -118,7 +117,7 @@ interface NotificationActionListener {
      * @param expanded the desired state of the content behind the content warning
      *
      */
-    fun onExpandedChange(viewData: NotificationViewData, expanded: Boolean)
+    override fun onExpandedChange(viewData: NotificationViewData, expanded: Boolean)
 
     /**
      * Called when the status [android.widget.ToggleButton] responsible for collapsing long
@@ -146,7 +145,6 @@ interface NotificationActionListener {
 
 /**
  * @param diffCallback
- * @param statusActionListener
  * @param notificationActionListener
  * @param accountActionListener
  * @param statusDisplayOptions
@@ -155,13 +153,10 @@ class NotificationsPagingAdapter(
     private val glide: RequestManager,
     diffCallback: DiffUtil.ItemCallback<NotificationViewData>,
     private val setStatusContent: SetStatusContent,
-    private val statusActionListener: StatusActionListener<NotificationViewData>,
     private val notificationActionListener: NotificationActionListener,
     private val accountActionListener: AccountActionListener,
     var statusDisplayOptions: StatusDisplayOptions = StatusDisplayOptions(),
 ) : PagingDataAdapter<NotificationViewData, RecyclerView.ViewHolder>(diffCallback) {
-
-    private val absoluteTimeFormatter = AbsoluteTimeFormatter()
 
     /** View holders in this adapter must implement this interface. */
     interface ViewHolder {
@@ -195,7 +190,7 @@ class NotificationsPagingAdapter(
                     ItemStatusBinding.inflate(inflater, parent, false),
                     glide,
                     setStatusContent,
-                    statusActionListener,
+                    notificationActionListener,
                 )
             }
             NotificationViewKind.STATUS_FILTERED -> {
@@ -203,7 +198,7 @@ class NotificationsPagingAdapter(
                     ItemStatusWrapperBinding.inflate(inflater, parent, false),
                     glide,
                     setStatusContent,
-                    statusActionListener,
+                    notificationActionListener,
                 )
             }
             NotificationViewKind.ACCOUNT_FILTERED -> {
@@ -218,9 +213,7 @@ class NotificationsPagingAdapter(
                     ItemStatusNotificationBinding.inflate(inflater, parent, false),
                     glide,
                     setStatusContent,
-                    statusActionListener,
                     notificationActionListener,
-                    absoluteTimeFormatter,
                 )
             }
             NotificationViewKind.FOLLOW -> {
@@ -228,7 +221,7 @@ class NotificationsPagingAdapter(
                     ItemFollowBinding.inflate(inflater, parent, false),
                     glide,
                     notificationActionListener,
-                    statusActionListener,
+                    notificationActionListener,
                 )
             }
             NotificationViewKind.FOLLOW_REQUEST -> {
@@ -236,7 +229,7 @@ class NotificationsPagingAdapter(
                     ItemFollowRequestBinding.inflate(inflater, parent, false),
                     glide,
                     accountActionListener,
-                    statusActionListener,
+                    notificationActionListener,
                     showHeader = true,
                 )
             }

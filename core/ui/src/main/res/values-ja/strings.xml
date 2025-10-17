@@ -74,4 +74,23 @@
     <string name="status_count_one_plus">1+</string>
     <string name="action_unreblog">ブーストを解除</string>
     <string name="action_unfavourite">お気に入りを解除</string>
+    <string name="post_content_warning_show_less">続きを隠す</string>
+    <string name="post_content_warning_show_more">続きを表示</string>
+    <string name="post_content_show_less">閉じる</string>
+    <string name="translating">翻訳中です…</string>
+    <string name="translation_provider_fmt">%1$s</string>
+    <string name="description_post_edited">編集しました</string>
+    <string name="description_post_reblogged">リブログしました</string>
+    <string name="description_post_favourited">お気に入りに追加しました</string>
+    <string name="description_post_bookmarked">ブックマークに追加しました</string>
+    <string name="description_post_media">メディア: %s</string>
+    <string name="description_post_cw">閲覧注意：%s</string>
+    <plurals name="reblogs">
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; ブースト</item>
+    </plurals>
+    <plurals name="favs">
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; お気に入り</item>
+    </plurals>
+    <string name="post_boosted_format">%sさんがブーストしました</string>
+    <string name="post_edited">%s を編集しました</string>
 </resources>

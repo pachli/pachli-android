@@ -23,10 +23,7 @@
     <string name="title_follow_requests">பின்பற்ற கோரிக்கை</string>
     <string name="title_edit_profile">சுயவிவரத்தை திருத்த</string>
     <string name="title_drafts">வரைவுகள்</string>
-    <string name="post_boosted_format">%s மேலேற்றப்பட்டது</string>
     <string name="post_sensitive_media_directions">பார்வையிட சொடுக்கவும்</string>
-    <string name="post_content_warning_show_more">அதிகமாக்கு</string>
-    <string name="post_content_warning_show_less">கம்மியாக்கு</string>
     <string name="footer_empty">இங்கு எதுவுமில்லை. புதுப்பிக்க கீழே இழுக்கவும்!</string>
     <string name="notification_reblog_format">%s தங்களின் toot உயர்த்தப்பட்டுள்ளது</string>
     <string name="notification_favourite_format">%s தங்களின் toot பிடித்தவையானது</string>
@@ -234,7 +231,6 @@
     <string name="notifications_apply_filter">அறிவிப்புகளை வடிகட்டவும்</string>
     <string name="compose_shortcut_long_label">இடுகையை எழுதுங்கள்</string>
     <string name="total_accounts">மொத்த கணக்குகள்</string>
-    <string name="translating">மொழிபெயர்க்கிறது…</string>
     <string name="mute_domain_warning">%s அனைத்தையும் தடுக்க விரும்புகிறீர்களா? எந்தவொரு பொது காலக்கெடுவிலும் அல்லது உங்கள் அறிவிப்புகளிலோ அந்த களத்திலிருந்து உள்ளடக்கத்தை நீங்கள் காண மாட்டீர்கள். அந்த களத்திலிருந்து உங்களைப் பின்தொடர்பவர்கள் அகற்றப்படுவார்கள்.</string>
     <string name="mute_domain_warning_dialog_ok">முழு களத்தையும் மறைக்கவும்</string>
     <string name="pref_title_notification_filter_follow_requests">கோரப்பட்டதைப் பின்தொடரவும்</string>
@@ -435,7 +431,6 @@
     <string name="action_open_media_n">திறந்த மீடியா #%d</string>
     <string name="pref_summary_http_proxy_invalid">&lt;செல்லாத&gt;</string>
     <string name="filter_add_description">வடிகட்ட சொற்றொடர்</string>
-    <string name="description_post_favourited">பிடித்தது</string>
     <string name="failed_fetch_posts">இடுகைகளைப் பெறத் தவறிவிட்டது</string>
     <string name="poll_new_choice_hint">தேர்வு %d</string>
     <string name="no_announcements">அறிவிப்புகள் எதுவும் இல்லை.</string>
@@ -533,7 +528,6 @@
     <string name="notification_poll_description">முடிவடைந்த கருத்துக் கணிப்புகள் பற்றிய அறிவிப்புகள்</string>
     <string name="notification_severed_relationships_name">துண்டிக்கப்பட்ட உறவுகள்</string>
     <string name="conversation_1_recipients">%1$s</string>
-    <string name="description_post_media">மீடியா: %s</string>
     <string name="title_reblogged_by">மூலம் உயர்த்தப்பட்டது</string>
     <string name="pref_title_confirm_favourites">விருப்பத்திற்கு முன் உறுதிப்படுத்தலைக் காட்டு</string>
     <string name="no_scheduled_posts">உங்களிடம் திட்டமிடப்பட்ட இடுகைகள் எதுவும் இல்லை.</string>
@@ -560,7 +554,6 @@
     <string name="dialog_mute_warning">முடக்கு @%s?</string>
     <string name="ui_success_rejected_follow_request">கோரிக்கை தடுக்கப்பட்டது</string>
     <string name="update_dialog_title">புதுப்பிப்பு கிடைக்கிறது</string>
-    <string name="translation_provider_fmt">%1$s</string>
     <string name="pref_update_check_no_updates">புதுப்பிப்புகள் எதுவும் கிடைக்கவில்லை</string>
     <string name="action_open_link">இணைப்பை திற</string>
     <string name="search_operator_attachment_specific_media_exclude_3_fmt">இல்லை %1$s, %2$s, %3$s</string>
@@ -572,8 +565,6 @@
     <string name="search_operator_link_dialog_title">இணைப்புகளுடன் இடுகைகளைக் காட்டவா?</string>
     <string name="dialog_delete_filter_positive_action">நீக்கு</string>
     <string name="reaction_name_and_count">%1$s %2$d</string>
-    <string name="post_content_show_more">விரிவாக்கு</string>
-    <string name="post_edited">திருத்தப்பட்ட %s</string>
     <string name="notification_subscription_format">%s இப்போது இடுகையிடப்பட்டது</string>
     <string name="notification_severed_relationships_user_domain_block_body">நீங்கள் டொமைனைத் தடுத்தீர்கள்</string>
     <string name="action_view_domain_mutes">மறைக்கப்பட்ட களங்கள்</string>
@@ -583,8 +574,6 @@
     <string name="failed_to_pin">பின் தவறிவிட்டது</string>
     <string name="error_filter_missing_keyword">குறைந்தது ஒரு முக்கிய சொல் அல்லது சொற்றொடர் தேவை</string>
     <string name="conversation_0_recipients">வேறு பங்கேற்பாளர்கள் இல்லை</string>
-    <string name="description_post_reblogged">மறுபிரசுரம் செய்யப்பட்டது</string>
-    <string name="description_post_bookmarked">புக்மார்க்கு செய்யப்பட்டது</string>
     <string name="description_browser_login">கூடுதல் அங்கீகார முறைகளை ஆதரிக்கலாம், ஆனால் உதவி உலாவி தேவைப்படுகிறது.</string>
     <string name="select_list_empty">உங்களிடம் இன்னும் பட்டியல்கள் இல்லை</string>
     <string name="poll_allow_multiple_choices">பல தேர்வுகள்</string>
@@ -602,7 +591,6 @@
     <string name="search_operator_poll_dialog_no_polls">வாக்கெடுப்புகள் இல்லாமல் மட்டுமே இடுகையிடுகிறது</string>
     <string name="search_operator_where_dialog_public">பொது பதவிகள்</string>
     <string name="title_domain_mutes">மறைக்கப்பட்ட களங்கள்</string>
-    <string name="post_content_show_less">சரிவு</string>
     <string name="action_post_failed_show_drafts">வரைவுகளைக் காட்டு</string>
     <string name="post_text_size_medium">சராசரி</string>
     <string name="post_text_size_large">பெரிய</string>
@@ -646,16 +634,6 @@
     <string name="search_operator_link_dialog_no_link">இணைப்புகள் இல்லாமல் மட்டுமே இடுகைகள்</string>
     <string name="notification_follow_request_description">பின்தொடர்தல் கோரிக்கைகளைப் பற்றிய அறிவிப்புகள்</string>
     <string name="notification_severed_relationships_description">துண்டிக்கப்பட்ட உறவுகள் பற்றிய அறிவிப்புகள்</string>
-    <plurals name="favs">
-        <item quantity="one"><b>%1$s </b> பிடித்தது</item>
-        <item quantity="other"><b>%1$s </b> பிடித்தவை</item>
-    </plurals>
-    <plurals name="reblogs">
-        <item quantity="one"><b>%s </b> பூச்ட்</item>
-        <item quantity="other"><b>%s </b> ஊக்கங்கள்</item>
-    </plurals>
-    <string name="description_post_cw">உள்ளடக்க எச்சரிக்கை: %s</string>
-    <string name="description_post_edited">திருத்தப்பட்டது</string>
     <string name="failed_report">புகாரளிக்கத் தவறிவிட்டது</string>
     <string name="duration_30_days">30 நாட்கள்</string>
     <string name="search_operator_from_account_fmt">%1$s மட்டுமே</string>

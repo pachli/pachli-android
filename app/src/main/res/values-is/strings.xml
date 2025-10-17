@@ -35,12 +35,7 @@
     <string name="title_follow_requests">Fylgjendabeiðnir</string>
     <string name="title_edit_profile">Breyta notandasniðinu þínu</string>
     <string name="title_scheduled_posts">Áætlaðar færslur</string>
-    <string name="post_boosted_format">%s endurbirti</string>
     <string name="post_sensitive_media_directions">Ýttu til að skoða</string>
-    <string name="post_content_warning_show_more">Sýna meira</string>
-    <string name="post_content_warning_show_less">Sýna minna</string>
-    <string name="post_content_show_more">Fletta út</string>
-    <string name="post_content_show_less">Fella saman</string>
     <string name="footer_empty">Ekkert hér. Togaðu niður til að endurhlaða!</string>
     <string name="notification_reblog_format">%s endurbirti færsluna þína</string>
     <string name="notification_favourite_format">%s setti færslu frá þér í eftirlæti</string>
@@ -249,11 +244,6 @@
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s og %2$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s og %3$d til viðbótar</string>
-    <string name="description_post_media">Myndefni: %s</string>
-    <string name="description_post_cw">Aðvörun vegna efnis: %s</string>
-    <string name="description_post_reblogged">Endurbloggað</string>
-    <string name="description_post_favourited">Í eftirlætum</string>
-    <string name="description_post_bookmarked">Bókamerkt</string>
     <string name="edit_hashtag_hint">Myllumerki án #</string>
     <string name="select_list_title">Veldu lista</string>
     <string name="list">Listi</string>
@@ -293,14 +283,6 @@
     <string name="warning_scheduling_interval">Mastodon er með 5 mínútna lágmarksbil fyrir áætlaðar aðgerðir.</string>
     <string name="notification_follow_request_name">Fylgjendabeiðnir</string>
     <string name="hashtags">Myllumerki</string>
-    <plurals name="favs">
-        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; eftirlæti</item>
-        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; eftirlæti</item>
-    </plurals>
-    <plurals name="reblogs">
-        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Endurbirting</item>
-        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; Endurbirtingar</item>
-    </plurals>
     <string name="account_note_saved">Vistað!</string>
     <string name="account_note_hint">Þín eigin einkaathugasemd um þennan aðgang</string>
     <string name="pref_title_hide_top_toolbar">Fela titil á verkfærastikunni efst</string>
@@ -398,12 +380,10 @@
     <plurals name="notification_summary_report_format">
         <item quantity="other">%1$s · %2$d færslur viðhengdar</item>
     </plurals>
-    <string name="post_edited">Breytti %s</string>
     <string name="confirmation_hashtag_unfollowed">Hætt að fylgjast með #%s</string>
     <string name="notification_report_name">Kærur</string>
     <string name="notification_report_description">Tilkynningar um kærur umsjónarmanna</string>
     <string name="pref_title_notification_filter_reports">það er ný kæra</string>
-    <string name="description_post_edited">Breytti</string>
     <string name="report_category_violation">Brot á reglu</string>
     <string name="report_category_spam">Ruslpóstur</string>
     <string name="report_category_other">Annað</string>

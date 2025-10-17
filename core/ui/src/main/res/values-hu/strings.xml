@@ -77,4 +77,23 @@
     <string name="status_count_one_plus">1+</string>
     <string name="action_unreblog">Megtolás visszavonása</string>
     <string name="action_unfavourite">Kedvenc eltávolítása</string>
+    <string name="post_content_warning_show_less">Mutass kevesebbet</string>
+    <string name="post_content_warning_show_more">Mutass többet</string>
+    <string name="post_content_show_less">Összecsukás</string>
+    <string name="description_post_edited">Szerkesztve</string>
+    <string name="description_post_reblogged">Megtolt</string>
+    <string name="description_post_favourited">Kedvelt</string>
+    <string name="description_post_bookmarked">Könyvjelzőzve</string>
+    <string name="description_post_media">Média: %s</string>
+    <string name="description_post_cw">Tartalomfigyelmeztetés: %s</string>
+    <plurals name="reblogs">
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Megtolás</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; Megtolás</item>
+    </plurals>
+    <plurals name="favs">
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Kedvenc</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Kedvenc</item>
+    </plurals>
+    <string name="post_boosted_format">%s megtolta</string>
+    <string name="post_edited">%s szerkesztve</string>
 </resources>

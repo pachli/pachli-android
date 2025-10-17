@@ -78,4 +78,25 @@
     <string name="status_count_one_plus">1+</string>
     <string name="action_unreblog">Boost verwijderen</string>
     <string name="action_unfavourite">Favoriet verwijderen</string>
+    <string name="post_content_warning_show_less">Minder tonen</string>
+    <string name="post_content_warning_show_more">Meer tonen</string>
+    <string name="post_content_show_less">Inklappen</string>
+    <string name="translating">Vertalen…</string>
+    <string name="translation_provider_fmt">%1$s</string>
+    <string name="description_post_edited">Bewerkt</string>
+    <string name="description_post_reblogged">Geboost</string>
+    <string name="description_post_favourited">Als favoriet gemarkeerd</string>
+    <string name="description_post_bookmarked">Als bladwijzer toegevoegd</string>
+    <string name="description_post_media">Media: %s</string>
+    <string name="description_post_cw">Inhoudswaarschuwing: %s</string>
+    <plurals name="reblogs">
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; boost</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; boosts</item>
+    </plurals>
+    <plurals name="favs">
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; favoriet</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; favorieten</item>
+    </plurals>
+    <string name="post_boosted_format">%s boostte</string>
+    <string name="post_edited">Bewerkt %s</string>
 </resources>

@@ -77,4 +77,23 @@
     <string name="status_count_one_plus">&gt;1</string>
     <string name="action_unreblog">Suprimir lo partatge</string>
     <string name="action_unfavourite">Suprimir lo favorit</string>
+    <string name="post_content_warning_show_less">Mostrar mens</string>
+    <string name="post_content_warning_show_more">Mostrar mai</string>
+    <string name="post_content_show_less">Replegar</string>
+    <string name="description_post_edited">Modificada</string>
+    <string name="description_post_reblogged">Repartajat</string>
+    <string name="description_post_favourited">Mes en favorit</string>
+    <string name="description_post_bookmarked">Ajustat als marcapaginas</string>
+    <string name="description_post_media">Mèdia : %s</string>
+    <string name="description_post_cw">Avertiment : %s</string>
+    <plurals name="reblogs">
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Partatge</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; Partatges</item>
+    </plurals>
+    <plurals name="favs">
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Favorit</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Favorits</item>
+    </plurals>
+    <string name="post_boosted_format">%s a partejat</string>
+    <string name="post_edited">%s modificat</string>
 </resources>

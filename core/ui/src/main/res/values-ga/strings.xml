@@ -130,4 +130,31 @@
     <string name="status_count_one_plus">1+</string>
     <string name="action_unreblog">Cealaigh athchraoladh</string>
     <string name="action_unfavourite">Bain togha</string>
+    <string name="post_content_warning_show_less">Taispeáin Níos Lú</string>
+    <string name="post_content_warning_show_more">Taispeáin Níos Mó</string>
+    <string name="post_content_show_less">Fill</string>
+    <string name="translating">Ag aistriú…</string>
+    <string name="translation_provider_fmt">%1$s</string>
+    <string name="description_post_edited">Curtha in eagar</string>
+    <string name="description_post_reblogged">Ath-bhlagáilte</string>
+    <string name="description_post_favourited">Tofa</string>
+    <string name="description_post_bookmarked">Leabharmharcáilte</string>
+    <string name="description_post_media">Meáin: %s</string>
+    <string name="description_post_cw">Rabhadh ábhair: %s</string>
+    <plurals name="reblogs">
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; athchraoladh</item>
+        <item quantity="two">&lt;b&gt;%s&lt;/b&gt; athchraolta</item>
+        <item quantity="few">&lt;b&gt;%s&lt;/b&gt; athchraolta</item>
+        <item quantity="many">&lt;b&gt;%s&lt;/b&gt; athchraolta</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; athchraolta</item>
+    </plurals>
+    <plurals name="favs">
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Togha</item>
+        <item quantity="two">&lt;b&gt;%1$s&lt;/b&gt; Toghanna</item>
+        <item quantity="few">&lt;b&gt;%1$s&lt;/b&gt; Toghanna</item>
+        <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; Toghanna</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Toghanna</item>
+    </plurals>
+    <string name="post_boosted_format">D\'athchraol %s</string>
+    <string name="post_edited">Curtha in eagar %s</string>
 </resources>

@@ -29,13 +29,11 @@
     <string name="post_privacy_public">ප්‍රසිද්ධ</string>
     <string name="notification_mention_name">නව සැඳහුම්</string>
     <string name="action_compose_shortcut">රචනා කරන්න</string>
-    <string name="post_content_warning_show_more">තව පෙන්වන්න</string>
     <string name="send_post_notification_saved_content">ටූට් හි පිටපතක් ඔබගේ කටුපිටපත් තුළට සුරකින ලදි</string>
     <string name="action_hide_media">මාධ්‍ය සඟවන්න</string>
     <string name="title_edit_profile">පැතිකඩ සංස්කරණය</string>
     <string name="confirmation_reported">යැවිණි!</string>
     <string name="action_reset_schedule">යළි සකසන්න</string>
-    <string name="post_content_warning_show_less">අඩුවෙන් පෙන්වන්න</string>
     <string name="action_view_mutes">නිහඬ කළ පරිශීලකයින්</string>
     <string name="action_share">බෙදාගන්න</string>
     <string name="account_moved_description">%1$s ගෙන ගොස් ඇත:</string>
@@ -87,7 +85,6 @@
     <string name="title_favourites">ප්‍රියතමයන්</string>
     <string name="download_image">%1$s බාගත වෙමින්</string>
     <string name="failed_fetch_posts">තත්ව ගෙන ඒමට අසමත් විය</string>
-    <string name="description_post_media">මාධ්‍ය: %s</string>
     <string name="action_mute_conversation">සංවාදය නිහඬ කරන්න</string>
     <string name="send_post_notification_channel_name">ටූට්ස් යැවෙමින්</string>
     <string name="pref_title_thread_filter_keywords">සංවාද</string>
@@ -114,7 +111,6 @@
     <string name="post_text_size_small">කුඩා</string>
     <string name="pref_title_alway_open_spoiler">අන්තර්ගත අවවාද සමඟ ඇති ටූට්ස් සැමවිටම විහිදන්න</string>
     <string name="action_undo">පෙරසේ</string>
-    <string name="post_content_show_more">විහිදන්න</string>
     <string name="action_mute">නිහඬ කරන්න</string>
     <string name="action_accept">පිළිගන්න</string>
     <string name="create_poll_title">මතවිමසුම</string>
@@ -154,10 +150,6 @@
     <string name="action_access_drafts">කටුපිටපත්</string>
     <string name="poll_ended_created">ඔබ සෑදූ මත විමසුම නිම වී ඇත</string>
     <string name="pref_title_bot_overlay">ස්වයංක්‍රමලේඛ සඳහා දර්ශකය පෙන්වන්න</string>
-    <plurals name="favs">
-        <item quantity="one">ප්‍රියතමයන් &lt;b&gt;%1$s&lt;/b&gt;</item>
-        <item quantity="other">ප්‍රියතමයන් &lt;b&gt;%1$s&lt;/b&gt;</item>
-    </plurals>
     <string name="filter_dialog_update_button">යාවත්කාල</string>
     <string name="notification_summary_small">%1$s සහ %2$s</string>
     <string name="title_media">මාධ්‍ය</string>

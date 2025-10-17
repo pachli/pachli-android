@@ -118,12 +118,7 @@
     <string name="report_comment_hint">Ghi chú\?</string>
     <string name="report_username_format">Báo cáo @%s</string>
     <string name="footer_empty">Trượt xuống để tải nội dung!</string>
-    <string name="post_content_show_less">Thu gọn</string>
-    <string name="post_content_show_more">Tiếp tục đọc</string>
-    <string name="post_content_warning_show_less">Thu gọn</string>
-    <string name="post_content_warning_show_more">Mở rộng</string>
     <string name="post_sensitive_media_directions">Hiển thị</string>
-    <string name="post_boosted_format">%s đăng lại</string>
     <string name="title_scheduled_posts">Những tút đã lên lịch</string>
     <string name="title_edit_profile">Chỉnh sửa hồ sơ</string>
     <string name="title_follow_requests">Yêu cầu theo dõi</string>
@@ -265,21 +260,11 @@
     <string name="hashtags">Hashtag</string>
     <string name="edit_hashtag_hint">Không cần dấu #</string>
     <string name="add_hashtag_title">Thêm hashtag</string>
-    <string name="description_post_bookmarked">Đã lưu</string>
-    <string name="description_post_favourited">Đã thích</string>
-    <string name="description_post_reblogged">Đã đăng lại</string>
-    <string name="description_post_cw">Nội dung ẩn: %s</string>
     <string name="conversation_more_recipients">%1$s, %2$s và %3$d người nữa</string>
     <string name="conversation_2_recipients">%1$s và %2$s</string>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="title_favourited_by">Lượt thích tút này</string>
     <string name="title_reblogged_by">Lượt đăng lại tút này</string>
-    <plurals name="reblogs">
-        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; Đăng lại</item>
-    </plurals>
-    <plurals name="favs">
-        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Thích</item>
-    </plurals>
     <string name="pin_action">Ghim</string>
     <string name="unpin_action">Gỡ ghim</string>
     <string name="label_remote_account">Nội dung có thể hiển thị không đầy đủ. Nhấn để mở xem chi tiết trên trình duyệt.</string>
@@ -310,7 +295,6 @@
     <string name="add_account_description">Thêm tài khoản Mastodon</string>
     <string name="filter_add_description">Cụm từ muốn lọc</string>
     <string name="filter_dialog_whole_word_description">Chỉ có tác dụng nếu cụm từ là chữ-số trùng khớp, viết liền không dấu cách</string>
-    <string name="description_post_media">Media: %s</string>
     <string name="dialog_mute_hide_notifications">Ẩn thông báo</string>
     <string name="action_unmute_desc">Bỏ ẩn %s</string>
     <string name="action_unmute_domain">Bỏ ẩn %s</string>
@@ -399,8 +383,6 @@
     <string name="report_category_other">Khác</string>
     <string name="error_following_hashtags_unsupported">Máy chủ này không hỗ trợ theo dõi hashtag.</string>
     <string name="title_followed_hashtags">Những hashtag theo dõi</string>
-    <string name="post_edited">Sửa %s</string>
-    <string name="description_post_edited">Đã sửa</string>
     <string name="pref_default_post_language">Ngôn ngữ đăng mặc định</string>
     <string name="language_display_name_format">%s (%s)</string>
     <string name="error_muting_hashtag_format">Lỗi khi ẩn #%s</string>

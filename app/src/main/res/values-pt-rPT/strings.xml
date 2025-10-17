@@ -48,13 +48,8 @@
     <string name="title_edit_profile">Editar perfil</string>
     <string name="title_drafts">Rascunhos</string>
     <string name="post_sensitive_media_directions">Toque para ver</string>
-    <string name="post_content_warning_show_more">Mostrar Mais</string>
-    <string name="post_content_warning_show_less">Mostrar Menos</string>
-    <string name="post_content_show_more">Expandir</string>
-    <string name="post_content_show_less">Contrair</string>
     <string name="title_scheduled_posts">Toots agendados</string>
     <string name="title_announcements">Anúncios</string>
-    <string name="post_boosted_format">%s deu boost</string>
     <string name="footer_empty">Nada para ver aqui. Arraste para baixo para atualizar!</string>
     <string name="notification_reblog_format">%s deu boost ao seu toot</string>
     <string name="notification_favourite_format">%s adicionou o seu toot aos favoritos</string>
@@ -273,25 +268,10 @@
     <string name="pref_title_absolute_time">Usar data absoluta</string>
     <string name="label_remote_account">As informações abaixo podem refletir, de forma incompleta, o perfil do utilizador. Toque aqui para abrir o perfil completo no navegador.</string>
     <string name="pin_action">Fixar</string>
-    <plurals name="favs">
-        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Favorito</item>
-        <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; Favoritos</item>
-        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Favoritos</item>
-    </plurals>
-    <plurals name="reblogs">
-        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Boost</item>
-        <item quantity="many">&lt;b&gt;%s&lt;/b&gt; Boosts</item>
-        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; Boosts</item>
-    </plurals>
     <string name="title_reblogged_by">Boost dado por</string>
     <string name="title_favourited_by">Adicionado aos favoritos por</string>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_more_recipients">%1$s, %2$s e %3$d mais</string>
-    <string name="description_post_media">Conteúdo multimédia: %s</string>
-    <string name="description_post_cw">Aviso de Conteúdo: %s</string>
-    <string name="description_post_reblogged">Replicado</string>
-    <string name="description_post_favourited">Adicionado aos favoritos</string>
-    <string name="description_post_bookmarked">Guardado</string>
     <string name="add_hashtag_title">Adicionar hashtag</string>
     <string name="edit_hashtag_hint">Hashtag sem #</string>
     <string name="hashtags">Hashtags</string>
@@ -417,7 +397,6 @@
     <string name="send_account_username_to">Partilhar nome de utilizador da conta para…</string>
     <string name="account_username_copied">Nome de utilizador copiado</string>
     <string name="confirmation_hashtag_unfollowed">Parou de seguir #%s</string>
-    <string name="post_edited">Editado %s</string>
     <string name="title_followed_hashtags">Hashtags seguidas</string>
     <string name="title_public_trending_hashtags">Hashtags populares</string>
 </resources>

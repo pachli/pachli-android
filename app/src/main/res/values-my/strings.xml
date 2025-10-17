@@ -28,9 +28,6 @@
     <string name="dialog_follow_hashtag_title">Hashtag ကိုစောင့်ကြည့်မည်</string>
     <string name="dialog_follow_hashtag_hint">#hashtag</string>
     <string name="post_sensitive_media_directions">ကြည့်ရန်နှိပ်ပါ</string>
-    <string name="post_content_warning_show_more">ပို၍</string>
-    <string name="post_content_warning_show_less">ချုံ့မည်</string>
-    <string name="post_edited">ပြုပြင်ထား %s</string>
     <string name="notification_follow_request_format">%s မှသင့်အားစောင့်ကြည့်ခွင့်တောင်းခံထားသည်</string>
     <string name="notification_subscription_format">%s ပိုစ့်တင်သည်</string>
     <string name="notification_update_format">%s သည်၎င်းတို့၌ပိုစ့်ကိုပြုပြင်ခဲ့သည်</string>
@@ -75,11 +72,8 @@
     <string name="title_domain_mutes">ဖျောက်ထားသော ဒိုမိန်းများ</string>
     <string name="title_bookmarks">သိမ်းဆည်းမှုများ</string>
     <string name="title_edits">ပြုပြင်မှုများ</string>
-    <string name="post_boosted_format">%s တစ်ဆင့်မျှဝေပြီး</string>
     <string name="notification_reblog_format">%s မှသင့်ပိုစ့်ကိုတစ်ဆင့်မျှဝေသည်</string>
-    <string name="post_content_show_more">ချဲ့မည်</string>
     <string name="notification_favourite_format">%s မှသင့်ပိုစ့်ကိုကြိုက်နှစ်သက်သည်</string>
-    <string name="post_content_show_less">ဖြန့်မည်</string>
     <string name="footer_empty">ဘာမှမရှိ။ ရီဖလက်ရှ်လုပ်ရန်အောက်သို့ဆွဲပါ!</string>
     <string name="notification_follow_format">%s မှသင့်အားစောင့်ကြည့်ခြင်းစတင်သည်</string>
     <string name="notification_severed_relationships_user_domain_block_body">သင် ဒိုမိန်းအားဘလော့ခ်ထားသည်</string>

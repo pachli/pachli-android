@@ -28,12 +28,7 @@
     <string name="title_follow_requests">Takip istekleri</string>
     <string name="title_edit_profile">Profili düzenle</string>
     <string name="title_drafts">Taslaklar</string>
-    <string name="post_boosted_format">%s yeniden paylaştı</string>
     <string name="post_sensitive_media_directions">Görüntülemek için dokunun</string>
-    <string name="post_content_warning_show_more">Daha fazlası</string>
-    <string name="post_content_warning_show_less">Daha az göster</string>
-    <string name="post_content_show_more">Genişlet</string>
-    <string name="post_content_show_less">Daralt</string>
     <string name="footer_empty">Burada henüz hiç birşey yok. Yenilemek için aşağıya çekin!</string>
     <string name="notification_reblog_format">%s gönderinizi paylaştı</string>
     <string name="notification_favourite_format">%s gönderinizi gözdelerilerine ekledi</string>
@@ -211,14 +206,6 @@
     <string name="label_remote_account">Aşağıdaki bilgiler değişken olabilir. Tüm profili tarayıcıda görmek için tuşlayın.</string>
     <string name="unpin_action">Sabitlemeyi kaldır</string>
     <string name="pin_action">Sabitle</string>
-    <plurals name="favs">
-        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Gözde</item>
-        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Gözdeler</item>
-    </plurals>
-    <plurals name="reblogs">
-        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Yeniden Paylaşan</item>
-        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; Yeniden Paylaşanlar</item>
-    </plurals>
     <string name="title_reblogged_by">tarafından paylaşıldı</string>
     <string name="title_favourited_by">Tarafından gözdelendi</string>
     <string name="conversation_1_recipients">%1$s</string>
@@ -246,10 +233,6 @@
     <string name="filter_dialog_whole_word">Tüm dünya</string>
     <string name="filter_dialog_whole_word_description">Bir anahtar kelime veya kelime öbeği sadece alfanümerik olduğunda, yalnızca tüm kelimeyle eşleşirse uygulanır</string>
     <string name="filter_add_description">Süzgeçlenecek ifade</string>
-    <string name="description_post_media">Ortam: %s</string>
-    <string name="description_post_cw">İçerik uyarısı: %s</string>
-    <string name="description_post_reblogged">Yeniden blogladı</string>
-    <string name="description_post_favourited">Gözdelendi</string>
     <string name="edit_hashtag_hint"># Etiket olmadan</string>
     <string name="notifications_clear">Temizle</string>
     <string name="notifications_apply_filter">Süzgeçle</string>
@@ -281,7 +264,6 @@
     <string name="action_reset_schedule">Sıfırla</string>
     <string name="dialog_redraft_post_warning">Bu durumu silip yeniden düzenlemek istiyor musunuz\?</string>
     <string name="pref_title_bot_overlay">Botlar için işaret göster</string>
-    <string name="description_post_bookmarked">Yerimine eklendi</string>
     <string name="select_list_title">Liste seç</string>
     <string name="list">Liste</string>
     <string name="title_accounts">Hesaplar</string>
@@ -343,7 +325,6 @@
     <plurals name="notification_summary_report_format">
         <item quantity="other">%1$s · %2$d ekli gönderiler</item>
     </plurals>
-    <string name="post_edited">Düzenleme %s</string>
     <string name="account_note_hint">Bu hesap hakkındaki özel notun</string>
     <string name="title_migration_relogin">Bildirim beslemesi için yeniden giriş yapın</string>
     <string name="title_followed_hashtags">Takip edilen etiketler</string>
@@ -409,7 +390,6 @@
     <string name="notification_update_name">Düzenlemeleri yayınla</string>
     <string name="notification_update_description">Etkileşimde bulunduğunuz gönderiler düzenlendiğinde bildirimler</string>
     <string name="duration_indefinite">Tanımsız</string>
-    <string name="description_post_edited">Düzenlendi</string>
     <string name="action_unsubscribe_account">Abonelikten Çık</string>
     <string name="error_following_hashtags_unsupported">Bu sunucu aşağıdaki etiketleri desteklemez.</string>
     <string name="notification_subscription_format">%s az önce paylaşım yaptı</string>

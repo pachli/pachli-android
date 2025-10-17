@@ -41,14 +41,8 @@
     <string name="title_migration_relogin">Увайдзіце зноў, каб атрымліваць push-апавяшчэнні</string>
     <string name="title_announcements">Аб\'явы</string>
     <string name="title_followed_hashtags">Падпіскі на хэштэгі</string>
-    <string name="post_boosted_format">%s пашырыў(-ла)</string>
-    <string name="post_content_show_more">Разгарнуць</string>
     <string name="report_comment_hint">Дадатковыя каментарыі\?</string>
     <string name="post_sensitive_media_directions">Націсніце для прагляду</string>
-    <string name="post_content_warning_show_more">Паказаць больш</string>
-    <string name="post_content_warning_show_less">Паказаць менш</string>
-    <string name="post_content_show_less">Згарнуць</string>
-    <string name="post_edited">Рэдагаваны %s</string>
     <string name="footer_empty">Тут нічога няма. Пацягніце ўніз, каб абнавіць!</string>
     <string name="notification_reblog_format">%s пашырыў(-ла) ваш допіс</string>
     <string name="notification_favourite_format">%s падабаўся ваш допіс</string>
@@ -279,12 +273,6 @@
     <string name="action_edit_image">Рэдагаваць выяву</string>
     <string name="send_post_notification_channel_name">Дасыланне допісаў</string>
     <string name="later">Пазней</string>
-    <plurals name="favs">
-        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; абраны</item>
-        <item quantity="few">&lt;b&gt;%1$s&lt;/b&gt; абраныя</item>
-        <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; абраных</item>
-        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; абраных</item>
-    </plurals>
     <string name="title_reblogged_by">Пашырылі</string>
     <string name="profile_metadata_label">Метазвесткі профілю</string>
     <string name="title_favourited_by">Упадабалі</string>
@@ -308,12 +296,6 @@
     <string name="profile_metadata_content_label">Змест</string>
     <string name="pref_title_absolute_time">Паказваць абсалютны час</string>
     <string name="label_remote_account">Інфармацыя ніжэй можа не паказваць поўны профіль карыстальніка. Націсніце, каб адкрыць поўны профіль у браўзеры.</string>
-    <plurals name="reblogs">
-        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; пашыраны</item>
-        <item quantity="few">&lt;b&gt;%s&lt;/b&gt; пашырана</item>
-        <item quantity="many">&lt;b&gt;%s&lt;/b&gt; пашыраных</item>
-        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; пашыраных</item>
-    </plurals>
     <string name="unsaved_changes">У Вас засталіся незахаваныя змены.</string>
     <string name="expand_collapse_all_posts">Разгарнуць/згарнуць допісы</string>
     <string name="action_open_post">Адкрыць допіс</string>
@@ -324,15 +306,9 @@
     <string name="reblog_private">Пашырыць для пачатковай аўдыторыі</string>
     <string name="conversation_1_recipients">%1$s</string>
     <string name="conversation_2_recipients">%1$s і %2$s</string>
-    <string name="description_post_media">Медыя: %s</string>
-    <string name="description_post_cw">Папярэджанне пра змесціва: %s</string>
     <string name="hashtags">Хэштэгі</string>
     <string name="add_hashtag_title">Дадаць хэштэг</string>
-    <string name="description_post_reblogged">Пашырана</string>
     <string name="edit_hashtag_hint">Хэштэг без #</string>
-    <string name="description_post_edited">Зменена</string>
-    <string name="description_post_bookmarked">Дададзена ў закладкі</string>
-    <string name="description_post_favourited">Упадабана</string>
     <string name="description_post_language">Мова допісу</string>
     <string name="select_list_title">Выбраць спіс</string>
     <string name="list">Спіс</string>
