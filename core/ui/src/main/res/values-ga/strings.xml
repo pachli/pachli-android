@@ -157,4 +157,6 @@
     </plurals>
     <string name="post_boosted_format">D\'athchraol %s</string>
     <string name="post_edited">Curtha in eagar %s</string>
+    <string name="action_select_status">Roghnaigh post</string>
+    <string name="action_unselect_status">Díroghnaigh post</string>
 </resources>
