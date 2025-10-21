@@ -59,6 +59,10 @@ internal class StatusNotificationViewHolder(
         statusDisplayOptions: StatusDisplayOptions,
     ) {
         if (payloads.isNullOrEmpty()) {
+            binding.notificationTopText.setOnClickListener {
+                notificationActionListener.onViewAccount(viewData.account.id)
+            }
+
             binding.statusView.setupWithStatus(
                 setStatusContent,
                 glide,
