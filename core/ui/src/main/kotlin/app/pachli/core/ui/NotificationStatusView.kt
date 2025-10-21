@@ -35,7 +35,7 @@ class NotificationStatusView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
     defStyleRes: Int = 0,
-) : StatusView<NotificationViewData>(context, attrs, defStyleAttr, defStyleRes) {
+) : StatusView<NotificationViewData.WithStatus>(context, attrs, defStyleAttr, defStyleRes) {
     val binding = StatusContentConversationBinding.inflate(LayoutInflater.from(context), this)
 
     override val avatar = binding.statusAvatar

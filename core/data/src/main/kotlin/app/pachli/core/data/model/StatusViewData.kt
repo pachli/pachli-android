@@ -36,6 +36,11 @@ interface IStatusViewData {
     /** ID of the Pachli account that loaded this status. */
     val pachliAccountId: Long
     val username: String
+
+    // TODO: rebloggedAvatar is the wrong name for this property. This is the avatar to show
+    // inset in the main avatar view. When viewing a boosted status in a timeline this is
+    // avatar that boosted it, but when viewing a notification about a boost or favourite
+    // this the avatar that boosted/favourited it
     val rebloggedAvatar: String?
 
     var translation: TranslatedStatusEntity?

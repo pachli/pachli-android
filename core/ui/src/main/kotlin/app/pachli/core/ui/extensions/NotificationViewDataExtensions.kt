@@ -18,9 +18,23 @@
 package app.pachli.core.ui.extensions
 
 import app.pachli.core.data.model.NotificationViewData
+import app.pachli.core.data.model.NotificationViewData.FollowNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.FollowRequestNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.ModerationWarningNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.ReportNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.SeveredRelationshipsNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.SignupNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.UnknownNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatus.FavouriteNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatus.MentionNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatus.PollNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatus.ReblogNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatus.StatusNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatus.UpdateNotificationViewData
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.NotificationData
+import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.database.model.asModel
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
@@ -44,29 +58,208 @@ fun NotificationViewData.Companion.make(
     contentFilterAction: FilterAction,
     accountFilterDecision: AccountFilterDecision?,
     isAboutSelf: Boolean,
-) = NotificationViewData(
-    pachliAccountId = pachliAccountEntity.id,
-    localDomain = pachliAccountEntity.domain,
-    type = data.notification.type,
-    id = data.notification.serverId,
-    account = data.account.asModel(),
-    statusViewData = data.status?.let {
-        StatusViewData.from(
-            pachliAccountId = pachliAccountEntity.id,
-            it,
-            isExpanded = isExpanded,
-            isDetailed = false,
-            contentFilterAction = contentFilterAction,
-            attachmentDisplayAction = it.getAttachmentDisplayAction(
-                FilterContext.NOTIFICATIONS,
-                showSensitiveMedia,
-                it.viewData?.attachmentDisplayAction,
-            ),
-        )
-    },
-    report = data.report,
-    relationshipSeveranceEvent = data.relationshipSeveranceEvent?.asModel(),
-    isAboutSelf = isAboutSelf,
-    accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
-    accountWarning = data.accountWarning?.asModel(),
-)
+) = when (data.notification.type) {
+    NotificationEntity.Type.UNKNOWN -> UnknownNotificationViewData(
+        pachliAccountId = pachliAccountEntity.id,
+        localDomain = pachliAccountEntity.domain,
+        id = data.notification.serverId,
+        account = data.account.asModel(),
+        isAboutSelf = isAboutSelf,
+        accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
+    )
+
+    NotificationEntity.Type.MENTION -> MentionNotificationViewData(
+        pachliAccountId = pachliAccountEntity.id,
+        localDomain = pachliAccountEntity.domain,
+        id = data.notification.serverId,
+        account = data.account.asModel(),
+        isAboutSelf = isAboutSelf,
+        accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
+        statusViewData = data.status!!.let {
+            StatusViewData.from(
+                pachliAccountId = pachliAccountEntity.id,
+                it,
+                isExpanded = isExpanded,
+                isDetailed = false,
+                contentFilterAction = contentFilterAction,
+                attachmentDisplayAction = it.getAttachmentDisplayAction(
+                    FilterContext.NOTIFICATIONS,
+                    showSensitiveMedia,
+                    it.viewData?.attachmentDisplayAction,
+                ),
+            )
+        },
+    )
+
+    NotificationEntity.Type.REBLOG -> ReblogNotificationViewData(
+        pachliAccountId = pachliAccountEntity.id,
+        localDomain = pachliAccountEntity.domain,
+        id = data.notification.serverId,
+        account = data.account.asModel(),
+        isAboutSelf = isAboutSelf,
+        accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
+        statusViewData = data.status!!.let {
+            StatusViewData.from(
+                pachliAccountId = pachliAccountEntity.id,
+                it,
+                isExpanded = isExpanded,
+                isDetailed = false,
+                contentFilterAction = contentFilterAction,
+                attachmentDisplayAction = it.getAttachmentDisplayAction(
+                    FilterContext.NOTIFICATIONS,
+                    showSensitiveMedia,
+                    it.viewData?.attachmentDisplayAction,
+                ),
+            )
+        },
+    )
+
+    NotificationEntity.Type.FAVOURITE -> FavouriteNotificationViewData(
+        pachliAccountId = pachliAccountEntity.id,
+        localDomain = pachliAccountEntity.domain,
+        id = data.notification.serverId,
+        account = data.account.asModel(),
+        isAboutSelf = isAboutSelf,
+        accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
+        statusViewData = data.status!!.let {
+            StatusViewData.from(
+                pachliAccountId = pachliAccountEntity.id,
+                it,
+                isExpanded = isExpanded,
+                isDetailed = false,
+                contentFilterAction = contentFilterAction,
+                attachmentDisplayAction = it.getAttachmentDisplayAction(
+                    FilterContext.NOTIFICATIONS,
+                    showSensitiveMedia,
+                    it.viewData?.attachmentDisplayAction,
+                ),
+            )
+        },
+    )
+
+    NotificationEntity.Type.FOLLOW -> FollowNotificationViewData(
+        pachliAccountId = pachliAccountEntity.id,
+        localDomain = pachliAccountEntity.domain,
+        id = data.notification.serverId,
+        isAboutSelf = isAboutSelf,
+        accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
+        account = data.account.asModel(),
+    )
+
+    NotificationEntity.Type.FOLLOW_REQUEST -> FollowRequestNotificationViewData(
+        pachliAccountId = pachliAccountEntity.id,
+        localDomain = pachliAccountEntity.domain,
+        id = data.notification.serverId,
+        isAboutSelf = isAboutSelf,
+        accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
+        account = data.account.asModel(),
+    )
+
+    NotificationEntity.Type.POLL -> PollNotificationViewData(
+        pachliAccountId = pachliAccountEntity.id,
+        localDomain = pachliAccountEntity.domain,
+        id = data.notification.serverId,
+        account = data.account.asModel(),
+        isAboutSelf = isAboutSelf,
+        accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
+        statusViewData = data.status!!.let {
+            StatusViewData.from(
+                pachliAccountId = pachliAccountEntity.id,
+                it,
+                isExpanded = isExpanded,
+                isDetailed = false,
+                contentFilterAction = contentFilterAction,
+                attachmentDisplayAction = it.getAttachmentDisplayAction(
+                    FilterContext.NOTIFICATIONS,
+                    showSensitiveMedia,
+                    it.viewData?.attachmentDisplayAction,
+                ),
+            )
+        },
+    )
+
+    NotificationEntity.Type.STATUS -> StatusNotificationViewData(
+        pachliAccountId = pachliAccountEntity.id,
+        localDomain = pachliAccountEntity.domain,
+        id = data.notification.serverId,
+        account = data.account.asModel(),
+        isAboutSelf = isAboutSelf,
+        accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
+        statusViewData = data.status!!.let {
+            StatusViewData.from(
+                pachliAccountId = pachliAccountEntity.id,
+                it,
+                isExpanded = isExpanded,
+                isDetailed = false,
+                contentFilterAction = contentFilterAction,
+                attachmentDisplayAction = it.getAttachmentDisplayAction(
+                    FilterContext.NOTIFICATIONS,
+                    showSensitiveMedia,
+                    it.viewData?.attachmentDisplayAction,
+                ),
+            )
+        },
+    )
+
+    NotificationEntity.Type.SIGN_UP -> SignupNotificationViewData(
+        pachliAccountId = pachliAccountEntity.id,
+        localDomain = pachliAccountEntity.domain,
+        id = data.notification.serverId,
+        isAboutSelf = isAboutSelf,
+        accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
+        account = data.account.asModel(),
+    )
+
+    NotificationEntity.Type.UPDATE -> UpdateNotificationViewData(
+        pachliAccountId = pachliAccountEntity.id,
+        localDomain = pachliAccountEntity.domain,
+        id = data.notification.serverId,
+        account = data.account.asModel(),
+        isAboutSelf = isAboutSelf,
+        accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
+        statusViewData = data.status!!.let {
+            StatusViewData.from(
+                pachliAccountId = pachliAccountEntity.id,
+                it,
+                isExpanded = isExpanded,
+                isDetailed = false,
+                contentFilterAction = contentFilterAction,
+                attachmentDisplayAction = it.getAttachmentDisplayAction(
+                    FilterContext.NOTIFICATIONS,
+                    showSensitiveMedia,
+                    it.viewData?.attachmentDisplayAction,
+                ),
+            )
+        },
+    )
+
+    NotificationEntity.Type.REPORT -> ReportNotificationViewData(
+        pachliAccountId = pachliAccountEntity.id,
+        localDomain = pachliAccountEntity.domain,
+        id = data.notification.serverId,
+        account = data.account.asModel(),
+        isAboutSelf = isAboutSelf,
+        accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
+        report = data.report!!,
+    )
+
+    NotificationEntity.Type.SEVERED_RELATIONSHIPS -> SeveredRelationshipsNotificationViewData(
+        pachliAccountId = pachliAccountEntity.id,
+        localDomain = pachliAccountEntity.domain,
+        id = data.notification.serverId,
+        account = data.account.asModel(),
+        isAboutSelf = isAboutSelf,
+        accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
+        relationshipSeveranceEvent = data.relationshipSeveranceEvent!!.asModel(),
+    )
+
+    NotificationEntity.Type.MODERATION_WARNING -> ModerationWarningNotificationViewData(
+        pachliAccountId = pachliAccountEntity.id,
+        localDomain = pachliAccountEntity.domain,
+        id = data.notification.serverId,
+        account = data.account.asModel(),
+        isAboutSelf = isAboutSelf,
+        accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
+        accountWarning = data.accountWarning!!.asModel(),
+    )
+}

@@ -17,14 +17,9 @@
 
 package app.pachli.core.data.model
 
-import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.database.model.NotificationReportEntity
-import app.pachli.core.database.model.TranslatedStatusEntity
-import app.pachli.core.database.model.TranslationState
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.AccountWarning
-import app.pachli.core.model.AttachmentDisplayAction
-import app.pachli.core.model.FilterAction
 import app.pachli.core.model.RelationshipSeveranceEvent
 import app.pachli.core.model.Status
 import app.pachli.core.model.TimelineAccount
@@ -32,87 +27,218 @@ import app.pachli.core.model.TimelineAccount
 /**
  * Data necessary to show a single notification.
  *
- * A notification may also need to display a status (e.g., if it is a notification
- * about boosting a status, the boosted status is also shown). However, not all
- * notifications are related to statuses (e.g., a "Someone has followed you"
- * notification) so `statusViewData` is nullable.
+ * See [NotificationViewData.WithStatus] for notifications that reference a
+ * status.
  *
- * @param pachliAccountId
- * @param localDomain Local domain of the logged in user's account (e.g., "mastodon.social")
- * @param type
- * @param id Notification's server ID
- * @param account Account that triggered the notification
- * @param statusViewData (optional) Viewdata for the status referenced by the notification
- * @param report
- * @param relationshipSeveranceEvent
- * @param isAboutSelf True if this notification relates to something the user
- * posted (e.g., it's a boost, favourite, or poll ending), false otherwise
- * (e.g., it's a mention).
- * @param accountFilterDecision Whether this notification should be filtered
- * because of the account that sent it, and why.
+ * @property pachliAccountId
+ * @property localDomain Local domain of the logged in user's account (e.g., "mastodon.social").
+ * @property id Notification's server ID.
+ * @property account Account that triggered the notification.
+ * @property isAboutSelf True if the account that triggered the notification is the user's
+ * account.
+ * @property accountFilterDecision How/if to filter this notification, based on the account
+ * that triggered it.
  */
-data class NotificationViewData(
-    override val pachliAccountId: Long,
-    val localDomain: String,
-    val type: NotificationEntity.Type,
-    val id: String,
-    val account: TimelineAccount,
-    var statusViewData: StatusViewData?,
-    val report: NotificationReportEntity?,
-    val relationshipSeveranceEvent: RelationshipSeveranceEvent?,
-    val isAboutSelf: Boolean,
-    val accountFilterDecision: AccountFilterDecision,
-    val accountWarning: AccountWarning?,
-) : IStatusViewData {
-    // Implement properties for IStatusViewData. These can't be delegated to `statusViewData`
-    // as that might be null. It's up to the calling code to only check these properties if
-    // `statusViewData` is not null; not doing that is an illegal state, hence the exception.
+sealed interface NotificationViewData {
+    val pachliAccountId: Long
+    val localDomain: String
+    val id: String
+    val account: TimelineAccount
+    val isAboutSelf: Boolean
+    val accountFilterDecision: AccountFilterDecision
 
-    // TODO: Don't do this, it's a significant footgun, see
-    // https://github.com/pachli/pachli-android/issues/669
-    override val username: String
-        get() = statusViewData?.username ?: throw IllegalStateException()
+    /** Fallback for notifications of unknown type. */
+    data class UnknownNotificationViewData(
+        override val pachliAccountId: Long,
+        override val localDomain: String,
+        override val id: String,
+        override val account: TimelineAccount,
+        override val isAboutSelf: Boolean,
+        override val accountFilterDecision: AccountFilterDecision,
+    ) : NotificationViewData
 
-    // TODO: rebloggedAvatar is the wrong name for the property in IStatusViewData. This is
-    // the avatar to show inset in the main avatar view. When viewing a boosted status in
-    // a timeline this is avatar that boosted it, but when viewing a notification about a
-    // boost or favourite this the avatar that boosted/favourited it.
-    //
-    // Maybe rename to `interactionAvatar`?
-    override val rebloggedAvatar: String?
-        get() = if (type == NotificationEntity.Type.REBLOG || type == NotificationEntity.Type.FAVOURITE) account.avatar else null
-    override var translation: TranslatedStatusEntity?
-        get() = statusViewData?.translation
-        set(value) {
-            statusViewData?.translation = value
+    /**
+     * Additional data to show a notification that references a [Status].
+     *
+     * @property statusViewData [StatusViewData] for the referenced [Status].
+     */
+    sealed interface WithStatus : NotificationViewData, IStatusViewData {
+        val statusViewData: StatusViewData
+
+        /**
+         * [account] posted [statusViewData] mentioning the user.
+         *
+         * @property statusViewData Status containing the mention.
+         */
+        data class MentionNotificationViewData(
+            override val pachliAccountId: Long,
+            override val localDomain: String,
+            override val id: String,
+            override val account: TimelineAccount,
+            override val isAboutSelf: Boolean,
+            override val accountFilterDecision: AccountFilterDecision,
+            override val statusViewData: StatusViewData,
+        ) : WithStatus, IStatusViewData by statusViewData
+
+        /**
+         * Notification that one of the user's statuses has been reblogged
+         * by [account].
+         *
+         * @property statusViewData Status being reblogged.
+         */
+        data class ReblogNotificationViewData(
+            override val pachliAccountId: Long,
+            override val localDomain: String,
+            override val id: String,
+            override val account: TimelineAccount,
+            override val isAboutSelf: Boolean,
+            override val accountFilterDecision: AccountFilterDecision,
+            override val statusViewData: StatusViewData,
+        ) : WithStatus, IStatusViewData by statusViewData {
+            override val rebloggedAvatar: String
+                get() = account.avatar
         }
-    override val isExpanded: Boolean
-        get() = statusViewData?.isExpanded ?: throw IllegalStateException()
-    override val attachmentDisplayAction: AttachmentDisplayAction
-        get() = statusViewData?.attachmentDisplayAction ?: throw IllegalStateException()
-    override val isCollapsible: Boolean
-        get() = statusViewData?.isCollapsible ?: throw IllegalStateException()
-    override val isCollapsed: Boolean
-        get() = statusViewData?.isCollapsed ?: throw IllegalStateException()
-    override val spoilerText: String
-        get() = statusViewData?.spoilerText ?: throw IllegalStateException()
-    override val content: CharSequence
-        get() = statusViewData?.content ?: throw IllegalStateException()
-    override val status: Status
-        get() = statusViewData?.status ?: throw IllegalStateException()
-    override val actionable: Status
-        get() = statusViewData?.actionable ?: throw IllegalStateException()
-    override val actionableId: String
-        get() = statusViewData?.actionableId ?: throw IllegalStateException()
-    override val rebloggingStatus: Status?
-        get() = statusViewData?.rebloggingStatus
-    override var contentFilterAction: FilterAction
-        get() = statusViewData?.contentFilterAction ?: throw IllegalStateException()
-        set(value) {
-            statusViewData?.contentFilterAction = value
+
+        /**
+         * One of the user's statuses has been favourited by [account].
+         *
+         * @property statusViewData Status being favourited.
+         */
+        data class FavouriteNotificationViewData(
+            override val pachliAccountId: Long,
+            override val localDomain: String,
+            override val id: String,
+            override val account: TimelineAccount,
+            override val isAboutSelf: Boolean,
+            override val accountFilterDecision: AccountFilterDecision,
+            override val statusViewData: StatusViewData,
+        ) : WithStatus, IStatusViewData by statusViewData {
+            override val rebloggedAvatar: String
+                get() = account.avatar
         }
-    override val translationState: TranslationState
-        get() = statusViewData?.translationState ?: throw IllegalStateException()
+
+        /**
+         * A poll the user voted in or created has ended.
+         *
+         * @property statusViewData Status containing the poll.
+         */
+        data class PollNotificationViewData(
+            override val pachliAccountId: Long,
+            override val localDomain: String,
+            override val id: String,
+            override val account: TimelineAccount,
+            override val isAboutSelf: Boolean,
+            override val accountFilterDecision: AccountFilterDecision,
+            override val statusViewData: StatusViewData,
+        ) : WithStatus, IStatusViewData by statusViewData
+
+        /**
+         * An [account] the user enabled notifications for has posted a status.
+         *
+         * @property statusViewData Newly posted status.
+         */
+        data class StatusNotificationViewData(
+            override val pachliAccountId: Long,
+            override val localDomain: String,
+            override val id: String,
+            override val account: TimelineAccount,
+            override val isAboutSelf: Boolean,
+            override val accountFilterDecision: AccountFilterDecision,
+            override val statusViewData: StatusViewData,
+        ) : WithStatus, IStatusViewData by statusViewData
+
+        /**
+         * A status the user reblogged has been edited.
+         *
+         * @property statusViewData Latest version of the edited status.
+         */
+        data class UpdateNotificationViewData(
+            override val pachliAccountId: Long,
+            override val localDomain: String,
+            override val id: String,
+            override val account: TimelineAccount,
+            override val isAboutSelf: Boolean,
+            override val accountFilterDecision: AccountFilterDecision,
+            override val statusViewData: StatusViewData,
+        ) : WithStatus, IStatusViewData by statusViewData
+    }
+
+    /** An [account] has followed the user. */
+    data class FollowNotificationViewData(
+        override val pachliAccountId: Long,
+        override val localDomain: String,
+        override val id: String,
+        override val account: TimelineAccount,
+        override val isAboutSelf: Boolean,
+        override val accountFilterDecision: AccountFilterDecision,
+    ) : NotificationViewData
+
+    /** An [account] has requested to follow the user. */
+    data class FollowRequestNotificationViewData(
+        override val pachliAccountId: Long,
+        override val localDomain: String,
+        override val id: String,
+        override val account: TimelineAccount,
+        override val isAboutSelf: Boolean,
+        override val accountFilterDecision: AccountFilterDecision,
+    ) : NotificationViewData
+
+    /** A new [account] has signed up. */
+    data class SignupNotificationViewData(
+        override val pachliAccountId: Long,
+        override val localDomain: String,
+        override val id: String,
+        override val account: TimelineAccount,
+        override val isAboutSelf: Boolean,
+        override val accountFilterDecision: AccountFilterDecision,
+    ) : NotificationViewData
+
+    /**
+     * A new moderation [report] has been filed.
+     *
+     * @property report Moderation report.
+     */
+    data class ReportNotificationViewData(
+        override val pachliAccountId: Long,
+        override val localDomain: String,
+        override val id: String,
+        override val account: TimelineAccount,
+        override val isAboutSelf: Boolean,
+        override val accountFilterDecision: AccountFilterDecision,
+        val report: NotificationReportEntity,
+    ) : NotificationViewData
+
+    /**
+     * Some of the user's follow relationships have been severed as a result
+     * of a moderator- or user-initiated block.
+     *
+     * @property relationshipSeveranceEvent Details of the severed relationships.
+     */
+    data class SeveredRelationshipsNotificationViewData(
+        override val pachliAccountId: Long,
+        override val localDomain: String,
+        override val id: String,
+        override val account: TimelineAccount,
+        override val isAboutSelf: Boolean,
+        override val accountFilterDecision: AccountFilterDecision,
+        val relationshipSeveranceEvent: RelationshipSeveranceEvent,
+    ) : NotificationViewData
+
+    /**
+     * A moderator has taken action against the user's account or sent
+     * a warning.
+     *
+     * @property accountWarning Details of the action taken.
+     */
+    data class ModerationWarningNotificationViewData(
+        override val pachliAccountId: Long,
+        override val localDomain: String,
+        override val id: String,
+        override val account: TimelineAccount,
+        override val isAboutSelf: Boolean,
+        override val accountFilterDecision: AccountFilterDecision,
+        val accountWarning: AccountWarning,
+    ) : NotificationViewData
 
     companion object
 }

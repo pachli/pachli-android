@@ -28,7 +28,7 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.string.unicodeWrap
-import app.pachli.core.data.model.NotificationViewData
+import app.pachli.core.data.model.NotificationViewData.FollowRequestNotificationViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.TimelineAccount
@@ -47,10 +47,10 @@ class FollowRequestViewHolder(
     private val accountActionListener: AccountActionListener,
     private val linkListener: LinkListener,
     private val showHeader: Boolean,
-) : NotificationsPagingAdapter.ViewHolder, RecyclerView.ViewHolder(binding.root) {
+) : NotificationsPagingAdapter.ViewHolder<FollowRequestNotificationViewData>, RecyclerView.ViewHolder(binding.root) {
 
     override fun bind(
-        viewData: NotificationViewData,
+        viewData: FollowRequestNotificationViewData,
         payloads: List<List<Any?>>?,
         statusDisplayOptions: StatusDisplayOptions,
     ) {
