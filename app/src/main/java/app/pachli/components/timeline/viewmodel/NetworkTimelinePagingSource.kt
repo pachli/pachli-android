@@ -49,8 +49,42 @@ class NetworkTimelinePagingSource(
                     is LoadParams.Refresh -> {
                         // If params.key is null then either there was no initialKey, or
                         // getRefreshKey returned null. If so just return the first page.
-                        val key = params.key
-                        key?.let { pageCache.getPageById(it) } ?: pageCache.firstPage
+                        // Similarly, if there is no page with that key then return the
+                        // first page.
+                        Timber.d("Refreshing with ${params.key}")
+                        val page = params.key?.let { pageCache.getPageById(it) }
+                            ?: return@run pageCache.firstPage
+
+                        // Refresh pages should be bigger than the normal loadSize. If not
+                        // scrolling past an "edge" that triggers a refresh can still cause
+                        // flicking and slight jump scrolling.
+                        //
+                        // Fix this by checking the page size. If it's too small construct
+                        // a larger synthetic page by including the desired page's immediate
+                        // neighbours.
+                        if (page.data.size > params.loadSize) return@run page
+
+                        val prevPage = page.prevKey?.let { pageCache.getPrevPage(it) }
+                        val nextPage = page.nextKey?.let { pageCache.getNextPage(it) }
+
+                        Page(
+                            data = buildList {
+                                addAll(prevPage?.data.orEmpty())
+                                addAll(page.data)
+                                addAll(nextPage?.data.orEmpty())
+                            }.toMutableList(),
+
+                            // Need to distinguish between nextPage or prevPage being null,
+                            // and them not being null but having a null nextKey or prevKey.
+                            //
+                            // If the *page* is null then fall back to the key from the
+                            // page in the middle. But the page might exist but have a
+                            // null next/prev key, which is valid. In that case that
+                            // key must be used as is, even if it is null. So the "?:"
+                            // operator won't work here.
+                            nextKey = if (nextPage == null) page.nextKey else nextPage.nextKey,
+                            prevKey = if (prevPage == null) page.prevKey else prevPage.prevKey,
+                        )
                     }
 
                     is LoadParams.Append -> {
