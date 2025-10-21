@@ -19,44 +19,40 @@ package app.pachli.components.notifications
 
 import app.pachli.adapter.FilterableStatusViewHolder
 import app.pachli.adapter.StatusViewHolder
-import app.pachli.core.data.model.NotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatus
 import app.pachli.core.data.model.StatusDisplayOptions
-import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.ui.SetStatusContent
 import app.pachli.core.ui.StatusActionListener
 import app.pachli.databinding.ItemStatusBinding
 import app.pachli.databinding.ItemStatusWrapperBinding
 import com.bumptech.glide.RequestManager
 
+/**
+ * Displays any notification of type
+ * [NotificationViewData.WithStatus][app.pachli.core.data.model.NotificationViewData.WithStatus].
+ */
 internal class StatusViewHolder(
     binding: ItemStatusBinding,
     glide: RequestManager,
     setStatusContent: SetStatusContent,
     private val statusActionListener: NotificationActionListener,
-) : NotificationsPagingAdapter.ViewHolder, StatusViewHolder<NotificationViewData>(binding, glide, setStatusContent) {
+) : NotificationsPagingAdapter.ViewHolder<WithStatus>, StatusViewHolder<WithStatus>(binding, glide, setStatusContent) {
 
     override fun bind(
-        viewData: NotificationViewData,
+        viewData: WithStatus,
         payloads: List<List<Any?>>?,
         statusDisplayOptions: StatusDisplayOptions,
     ) {
-        val statusViewData = viewData.statusViewData
-        if (statusViewData == null) {
-            // Hide null statuses. Shouldn't happen according to the spec, but some servers
-            // have been seen to do this (https://github.com/tuskyapp/Tusky/issues/2252)
-            showStatusContent(false)
-        } else {
-            if (payloads.isNullOrEmpty()) {
-                showStatusContent(true)
-            }
-            setupWithStatus(
-                viewData,
-                statusActionListener,
-                statusDisplayOptions,
-                payloads,
-            )
+        if (payloads.isNullOrEmpty()) {
+            showStatusContent(true)
         }
-        if (viewData.type == NotificationEntity.Type.POLL) {
+        setupWithStatus(
+            viewData,
+            statusActionListener,
+            statusDisplayOptions,
+            payloads,
+        )
+        if (viewData is WithStatus.PollNotificationViewData) {
             setPollInfo(viewData.isAboutSelf)
         } else {
             hideStatusInfo()
@@ -68,31 +64,24 @@ class FilterableStatusViewHolder(
     binding: ItemStatusWrapperBinding,
     glide: RequestManager,
     setStatusContent: SetStatusContent,
-    private val statusActionListener: StatusActionListener<NotificationViewData>,
-) : NotificationsPagingAdapter.ViewHolder, FilterableStatusViewHolder<NotificationViewData>(binding, glide, setStatusContent) {
+    private val statusActionListener: StatusActionListener<WithStatus>,
+) : NotificationsPagingAdapter.ViewHolder<WithStatus>, FilterableStatusViewHolder<WithStatus>(binding, glide, setStatusContent) {
     // Note: Identical to bind() in StatusViewHolder above
     override fun bind(
-        viewData: NotificationViewData,
+        viewData: WithStatus,
         payloads: List<List<Any?>>?,
         statusDisplayOptions: StatusDisplayOptions,
     ) {
-        val statusViewData = viewData.statusViewData
-        if (statusViewData == null) {
-            // Hide null statuses. Shouldn't happen according to the spec, but some servers
-            // have been seen to do this (https://github.com/tuskyapp/Tusky/issues/2252)
-            showStatusContent(false)
-        } else {
-            if (payloads.isNullOrEmpty()) {
-                showStatusContent(true)
-            }
-            setupWithStatus(
-                viewData,
-                statusActionListener,
-                statusDisplayOptions,
-                payloads,
-            )
+        if (payloads.isNullOrEmpty()) {
+            showStatusContent(true)
         }
-        if (viewData.type == NotificationEntity.Type.POLL) {
+        setupWithStatus(
+            viewData,
+            statusActionListener,
+            statusDisplayOptions,
+            payloads,
+        )
+        if (viewData is WithStatus.PollNotificationViewData) {
             setPollInfo(viewData.isAboutSelf)
         } else {
             hideStatusInfo()

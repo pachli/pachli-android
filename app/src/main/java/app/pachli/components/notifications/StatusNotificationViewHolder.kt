@@ -24,12 +24,14 @@ import android.text.style.StyleSpan
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.adapter.StatusViewDataDiffCallback
-import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.data.model.NotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatus.FavouriteNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatus.ReblogNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatus.StatusNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatus.UpdateNotificationViewData
 import app.pachli.core.data.model.StatusDisplayOptions
-import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.ui.SetStatusContent
 import app.pachli.core.ui.emojify
 import app.pachli.databinding.ItemStatusNotificationBinding
@@ -50,33 +52,25 @@ internal class StatusNotificationViewHolder(
     private val glide: RequestManager,
     private val setStatusContent: SetStatusContent,
     private val notificationActionListener: NotificationActionListener,
-) : NotificationsPagingAdapter.ViewHolder, RecyclerView.ViewHolder(binding.root) {
+) : NotificationsPagingAdapter.ViewHolder<NotificationViewData.WithStatus>, RecyclerView.ViewHolder(binding.root) {
     override fun bind(
-        viewData: NotificationViewData,
+        viewData: NotificationViewData.WithStatus,
         payloads: List<List<Any?>>?,
         statusDisplayOptions: StatusDisplayOptions,
     ) {
-        val statusViewData = viewData.statusViewData
         if (payloads.isNullOrEmpty()) {
-            // Hide null statuses. Shouldn't happen according to the spec, but some servers
-            // have been seen to do this (https://github.com/tuskyapp/Tusky/issues/2252)
-            if (statusViewData == null) {
-                itemView.hide()
-                return
-            } else {
-                binding.statusView.setupWithStatus(
-                    setStatusContent,
-                    glide,
-                    viewData,
-                    notificationActionListener,
-                    statusDisplayOptions,
-                )
-                itemView.show()
-            }
+            binding.statusView.setupWithStatus(
+                setStatusContent,
+                glide,
+                viewData,
+                notificationActionListener,
+                statusDisplayOptions,
+            )
+            itemView.show()
             setMessage(viewData, statusDisplayOptions)
         } else {
             payloads.flatten().forEach { item ->
-                if (item == StatusViewDataDiffCallback.Payload.CREATED == item && statusViewData != null) {
+                if (item == StatusViewDataDiffCallback.Payload.CREATED) {
                     binding.statusView.setMetaData(viewData, statusDisplayOptions, notificationActionListener)
                 }
             }
@@ -84,18 +78,17 @@ internal class StatusNotificationViewHolder(
     }
 
     fun setMessage(
-        viewData: NotificationViewData,
+        viewData: NotificationViewData.WithStatus,
         statusDisplayOptions: StatusDisplayOptions,
     ) {
         val displayName = viewData.account.name.unicodeWrap()
-        val type = viewData.type
         val context = binding.notificationTopText.context
-        val icon = type.icon(context)
-        val format = when (type) {
-            NotificationEntity.Type.FAVOURITE -> context.getString(R.string.notification_favourite_format)
-            NotificationEntity.Type.REBLOG -> context.getString(R.string.notification_reblog_format)
-            NotificationEntity.Type.STATUS -> context.getString(R.string.notification_subscription_format)
-            NotificationEntity.Type.UPDATE -> context.getString(R.string.notification_update_format)
+        val icon = viewData.icon(context)
+        val format = when (viewData) {
+            is FavouriteNotificationViewData -> context.getString(R.string.notification_favourite_format)
+            is ReblogNotificationViewData -> context.getString(R.string.notification_reblog_format)
+            is StatusNotificationViewData -> context.getString(R.string.notification_subscription_format)
+            is UpdateNotificationViewData -> context.getString(R.string.notification_update_format)
             else -> context.getString(R.string.notification_favourite_format)
         }
         binding.notificationTopText.setCompoundDrawablesWithIntrinsicBounds(

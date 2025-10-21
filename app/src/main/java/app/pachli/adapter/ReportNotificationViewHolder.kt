@@ -28,7 +28,7 @@ import app.pachli.components.notifications.NotificationsPagingAdapter
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.string.unicodeWrap
-import app.pachli.core.data.model.NotificationViewData
+import app.pachli.core.data.model.NotificationViewData.ReportNotificationViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.database.model.NotificationReportEntity
 import app.pachli.core.designsystem.R as DR
@@ -43,10 +43,10 @@ class ReportNotificationViewHolder(
     private val binding: ItemReportNotificationBinding,
     private val glide: RequestManager,
     private val notificationActionListener: NotificationActionListener,
-) : NotificationsPagingAdapter.ViewHolder, RecyclerView.ViewHolder(binding.root) {
+) : NotificationsPagingAdapter.ViewHolder<ReportNotificationViewData>, RecyclerView.ViewHolder(binding.root) {
 
     override fun bind(
-        viewData: NotificationViewData,
+        viewData: ReportNotificationViewData,
         payloads: List<List<Any?>>?,
         statusDisplayOptions: StatusDisplayOptions,
     ) {
@@ -54,19 +54,17 @@ class ReportNotificationViewHolder(
         // this view does not have timestamps.
         if (!payloads.isNullOrEmpty()) return
 
-        val report = viewData.report ?: return
-
         setupWithReport(
             viewData.account,
-            report,
+            viewData.report,
             statusDisplayOptions.animateAvatars,
             statusDisplayOptions.animateEmojis,
         )
         setupActionListener(
             notificationActionListener,
-            report.targetAccount.serverId,
+            viewData.report.targetAccount.serverId,
             viewData.account.id,
-            report.reportId,
+            viewData.report.reportId,
         )
     }
 

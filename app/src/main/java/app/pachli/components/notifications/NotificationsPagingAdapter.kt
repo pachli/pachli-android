@@ -26,8 +26,20 @@ import app.pachli.R
 import app.pachli.adapter.FollowRequestViewHolder
 import app.pachli.adapter.ReportNotificationViewHolder
 import app.pachli.core.data.model.NotificationViewData
+import app.pachli.core.data.model.NotificationViewData.FollowNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.FollowRequestNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.ModerationWarningNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.ReportNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.SeveredRelationshipsNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.SignupNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.UnknownNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatus.FavouriteNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatus.MentionNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatus.PollNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatus.ReblogNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatus.StatusNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatus.UpdateNotificationViewData
 import app.pachli.core.data.model.StatusDisplayOptions
-import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
 import app.pachli.core.ui.SetStatusContent
@@ -78,33 +90,34 @@ enum class NotificationViewKind {
     ;
 
     companion object {
-        fun from(kind: NotificationEntity.Type?): NotificationViewKind {
-            return when (kind) {
-                NotificationEntity.Type.MENTION,
-                NotificationEntity.Type.POLL,
+        fun from(viewData: NotificationViewData?): NotificationViewKind {
+            return when (viewData) {
+                is MentionNotificationViewData,
+                is PollNotificationViewData,
                 -> STATUS
 
-                NotificationEntity.Type.FAVOURITE,
-                NotificationEntity.Type.REBLOG,
-                NotificationEntity.Type.STATUS,
-                NotificationEntity.Type.UPDATE,
+                is FavouriteNotificationViewData,
+                is ReblogNotificationViewData,
+                is StatusNotificationViewData,
+                is UpdateNotificationViewData,
                 -> NOTIFICATION
 
-                NotificationEntity.Type.FOLLOW,
-                NotificationEntity.Type.SIGN_UP,
+                is FollowNotificationViewData,
+                is SignupNotificationViewData,
                 -> FOLLOW
-                NotificationEntity.Type.FOLLOW_REQUEST -> FOLLOW_REQUEST
-                NotificationEntity.Type.REPORT -> REPORT
-                NotificationEntity.Type.SEVERED_RELATIONSHIPS -> SEVERED_RELATIONSHIPS
-                NotificationEntity.Type.MODERATION_WARNING -> MODERATION_WARNING
-                NotificationEntity.Type.UNKNOWN -> UNKNOWN
+
+                is FollowRequestNotificationViewData -> FOLLOW_REQUEST
+                is ReportNotificationViewData -> REPORT
+                is SeveredRelationshipsNotificationViewData -> SEVERED_RELATIONSHIPS
+                is ModerationWarningNotificationViewData -> MODERATION_WARNING
+                is UnknownNotificationViewData -> UNKNOWN
                 null -> UNKNOWN
             }
         }
     }
 }
 
-interface NotificationActionListener : StatusActionListener<NotificationViewData> {
+interface NotificationActionListener : StatusActionListener<NotificationViewData.WithStatus> {
     fun onViewReport(reportId: String)
 
     /**
@@ -115,7 +128,7 @@ interface NotificationActionListener : StatusActionListener<NotificationViewData
      */
     fun onNotificationContentCollapsedChange(
         isCollapsed: Boolean,
-        viewData: NotificationViewData,
+        viewData: NotificationViewData.WithStatus,
     )
 
     /**
@@ -147,10 +160,10 @@ class NotificationsPagingAdapter(
 ) : PagingDataAdapter<NotificationViewData, RecyclerView.ViewHolder>(diffCallback) {
 
     /** View holders in this adapter must implement this interface. */
-    interface ViewHolder {
+    interface ViewHolder<T : NotificationViewData> {
         /** Bind the data from the notification and payloads to the view. */
         fun bind(
-            viewData: NotificationViewData,
+            viewData: T,
             payloads: List<List<Any?>>?,
             statusDisplayOptions: StatusDisplayOptions,
         )
@@ -158,7 +171,7 @@ class NotificationsPagingAdapter(
 
     override fun getItemViewType(position: Int): Int {
         val item = getItem(position)
-        if (item?.statusViewData?.contentFilterAction == FilterAction.WARN) {
+        if (item is NotificationViewData.WithStatus && item.statusViewData.contentFilterAction == FilterAction.WARN) {
             return NotificationViewKind.STATUS_FILTERED.ordinal
         }
 
@@ -166,7 +179,7 @@ class NotificationsPagingAdapter(
             return NotificationViewKind.ACCOUNT_FILTERED.ordinal
         }
 
-        return NotificationViewKind.from(item?.type).ordinal
+        return NotificationViewKind.from(item).ordinal
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -208,7 +221,6 @@ class NotificationsPagingAdapter(
                 FollowViewHolder(
                     ItemFollowBinding.inflate(inflater, parent, false),
                     glide,
-                    notificationActionListener,
                     notificationActionListener,
                 )
             }
@@ -260,7 +272,7 @@ class NotificationsPagingAdapter(
 
     private fun bindViewHolder(holder: RecyclerView.ViewHolder, position: Int, payloads: List<List<Any?>>?) {
         getItem(position)?.let {
-            (holder as ViewHolder).bind(it, payloads, statusDisplayOptions)
+            (holder as ViewHolder<NotificationViewData>).bind(it, payloads, statusDisplayOptions)
         }
     }
 
@@ -270,9 +282,9 @@ class NotificationsPagingAdapter(
      */
     private class FallbackNotificationViewHolder(
         val binding: ItemUnknownNotificationBinding,
-    ) : ViewHolder, RecyclerView.ViewHolder(binding.root) {
+    ) : ViewHolder<UnknownNotificationViewData>, RecyclerView.ViewHolder(binding.root) {
         override fun bind(
-            viewData: NotificationViewData,
+            viewData: UnknownNotificationViewData,
             payloads: List<List<Any?>>?,
             statusDisplayOptions: StatusDisplayOptions,
         ) {

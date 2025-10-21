@@ -23,63 +23,71 @@ import androidx.annotation.AttrRes
 import androidx.annotation.DrawableRes
 import androidx.appcompat.content.res.AppCompatResources
 import app.pachli.R
-import app.pachli.core.database.model.NotificationEntity
-import app.pachli.core.network.model.Notification
+import app.pachli.core.data.model.NotificationViewData
+import app.pachli.core.data.model.NotificationViewData.FollowNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.FollowRequestNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.UnknownNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatus.FavouriteNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatus.MentionNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatus.PollNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatus.ReblogNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatus.StatusNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatus.UpdateNotificationViewData
 import app.pachli.util.setDrawableTint
 
 /**
- * @return An icon for the given [Notification.Type], appropriately coloured.
+ * @return An icon for the given [NotificationViewData], appropriately coloured.
  */
-fun NotificationEntity.Type.icon(context: Context) = when (this) {
-    NotificationEntity.Type.UNKNOWN -> getIconWithColor(
+fun NotificationViewData.icon(context: Context) = when (this) {
+    is UnknownNotificationViewData -> getIconWithColor(
         context,
         R.drawable.ic_home_24dp,
         androidx.appcompat.R.attr.colorPrimary,
     )
 
-    NotificationEntity.Type.MENTION -> getIconWithColor(
+    is MentionNotificationViewData -> getIconWithColor(
         context,
         app.pachli.core.ui.R.drawable.ic_mention_24dp,
         androidx.appcompat.R.attr.colorPrimary,
     )
 
-    NotificationEntity.Type.REBLOG -> getIconWithColor(
+    is ReblogNotificationViewData -> getIconWithColor(
         context,
         R.drawable.ic_repeat_24dp,
         androidx.appcompat.R.attr.colorPrimary,
     )
 
-    NotificationEntity.Type.FAVOURITE -> getIconWithColor(
+    is FavouriteNotificationViewData -> getIconWithColor(
         context,
         R.drawable.ic_star_24dp,
         app.pachli.core.designsystem.R.attr.favoriteIconColor,
     )
 
-    NotificationEntity.Type.FOLLOW -> getIconWithColor(
+    is FollowNotificationViewData -> getIconWithColor(
         context,
         app.pachli.core.ui.R.drawable.ic_person_add_24dp,
         androidx.appcompat.R.attr.colorPrimary,
     )
 
-    NotificationEntity.Type.FOLLOW_REQUEST -> getIconWithColor(
+    is FollowRequestNotificationViewData -> getIconWithColor(
         context,
         app.pachli.core.ui.R.drawable.ic_person_add_24dp,
         androidx.appcompat.R.attr.colorPrimary,
     )
 
-    NotificationEntity.Type.POLL -> getIconWithColor(
+    is PollNotificationViewData -> getIconWithColor(
         context,
         R.drawable.ic_poll_24dp,
         androidx.appcompat.R.attr.colorPrimary,
     )
 
-    NotificationEntity.Type.STATUS -> getIconWithColor(
+    is StatusNotificationViewData -> getIconWithColor(
         context,
         R.drawable.ic_home_24dp,
         androidx.appcompat.R.attr.colorPrimary,
     )
 
-    NotificationEntity.Type.UPDATE -> getIconWithColor(
+    is UpdateNotificationViewData -> getIconWithColor(
         context,
         R.drawable.ic_edit_24dp,
         androidx.appcompat.R.attr.colorPrimary,

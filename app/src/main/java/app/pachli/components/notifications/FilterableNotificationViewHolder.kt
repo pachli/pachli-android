@@ -21,8 +21,12 @@ import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.core.data.model.NotificationViewData
+import app.pachli.core.data.model.NotificationViewData.FollowNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.FollowRequestNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatus.FavouriteNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatus.MentionNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatus.ReblogNotificationViewData
 import app.pachli.core.data.model.StatusDisplayOptions
-import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.AccountFilterReason
 import app.pachli.databinding.ItemNotificationFilteredBinding
@@ -40,7 +44,7 @@ import app.pachli.databinding.ItemNotificationFilteredBinding
 class FilterableNotificationViewHolder(
     private val binding: ItemNotificationFilteredBinding,
     private val notificationActionListener: NotificationActionListener,
-) : NotificationsPagingAdapter.ViewHolder, RecyclerView.ViewHolder(binding.root) {
+) : NotificationsPagingAdapter.ViewHolder<NotificationViewData>, RecyclerView.ViewHolder(binding.root) {
     private val context = binding.root.context
 
     lateinit var viewData: NotificationViewData
@@ -73,16 +77,16 @@ class FilterableNotificationViewHolder(
     override fun bind(viewData: NotificationViewData, payloads: List<List<Any?>>?, statusDisplayOptions: StatusDisplayOptions) {
         this.viewData = viewData
 
-        val icon = viewData.type.icon(context)
+        val icon = viewData.icon(context)
 
         // Labels for different notification types filtered by account. The account's
         // domain is interpolated in to the string.
-        val label = when (viewData.type) {
-            NotificationEntity.Type.MENTION -> R.string.account_filter_placeholder_type_mention_fmt
-            NotificationEntity.Type.REBLOG -> R.string.account_filter_placeholder_type_reblog_fmt
-            NotificationEntity.Type.FAVOURITE -> R.string.account_filter_placeholder_type_favourite_fmt
-            NotificationEntity.Type.FOLLOW -> R.string.account_filter_placeholder_type_follow_fmt
-            NotificationEntity.Type.FOLLOW_REQUEST -> R.string.account_filter_placeholder_type_follow_request_fmt
+        val label = when (viewData) {
+            is MentionNotificationViewData -> R.string.account_filter_placeholder_type_mention_fmt
+            is ReblogNotificationViewData -> R.string.account_filter_placeholder_type_reblog_fmt
+            is FavouriteNotificationViewData -> R.string.account_filter_placeholder_type_favourite_fmt
+            is FollowNotificationViewData -> R.string.account_filter_placeholder_type_follow_fmt
+            is FollowRequestNotificationViewData -> R.string.account_filter_placeholder_type_follow_request_fmt
             else -> R.string.account_filter_placeholder_label_domain
         }
 

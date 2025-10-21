@@ -21,29 +21,29 @@ import android.content.Intent
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
-import app.pachli.core.data.model.NotificationViewData
+import app.pachli.core.data.model.NotificationViewData.ModerationWarningNotificationViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.model.AccountWarning
 import app.pachli.databinding.ItemModerationWarningBinding
 
 class ModerationWarningViewHolder(
     private val binding: ItemModerationWarningBinding,
-) : NotificationsPagingAdapter.ViewHolder, RecyclerView.ViewHolder(binding.root) {
-    var viewData: NotificationViewData? = null
+) : NotificationsPagingAdapter.ViewHolder<ModerationWarningNotificationViewData>, RecyclerView.ViewHolder(binding.root) {
+    var viewData: ModerationWarningNotificationViewData? = null
 
     init {
         binding.root.setOnClickListener {
             viewData?.let {
-                val intent = Intent(Intent.ACTION_VIEW, "https://${it.localDomain}/disputes/strikes/${it.accountWarning!!.id}".toUri())
+                val intent = Intent(Intent.ACTION_VIEW, "https://${it.localDomain}/disputes/strikes/${it.accountWarning.id}".toUri())
                 binding.root.context.startActivity(intent)
             }
         }
     }
 
-    override fun bind(viewData: NotificationViewData, payloads: List<List<Any?>>?, statusDisplayOptions: StatusDisplayOptions) {
+    override fun bind(viewData: ModerationWarningNotificationViewData, payloads: List<List<Any?>>?, statusDisplayOptions: StatusDisplayOptions) {
         this.viewData = viewData
         val context = itemView.context
-        val warning = viewData.accountWarning!!
+        val warning = viewData.accountWarning
 
         val stringRes = when (warning.action) {
             AccountWarning.Action.NONE -> R.string.notification_moderation_warning_body_none_fmt
