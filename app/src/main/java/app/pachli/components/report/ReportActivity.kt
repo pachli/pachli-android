@@ -27,14 +27,17 @@ import app.pachli.R
 import app.pachli.components.report.adapter.ReportPagerAdapter
 import app.pachli.core.activity.ViewUrlActivity
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.ReportActivityIntent
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.ui.extensions.InsetType
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.core.ui.extensions.applyWindowInsets
 import app.pachli.databinding.ActivityReportBinding
+import app.pachli.usecase.TimelineCases
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.withCreationCallback
+import javax.inject.Inject
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -54,6 +57,9 @@ class ReportActivity : ViewUrlActivity() {
             }
         },
     )
+
+    @Inject
+    lateinit var timelineCases: TimelineCases
 
     private val binding by viewBinding(ActivityReportBinding::inflate)
 
@@ -84,6 +90,14 @@ class ReportActivity : ViewUrlActivity() {
             setDisplayShowHomeEnabled(true)
             setHomeAsUpIndicator(app.pachli.core.ui.R.drawable.ic_close_24dp)
         }
+
+        // Save the ID of the reported status as the "refresh status ID", so it is
+        // focused in the initial list of statuses shown to the user.
+        timelineCases.saveRefreshStatusId(
+            intent.pachliAccountId,
+            Timeline.User.Replies(ReportActivityIntent.getAccountId(intent)).remoteKeyTimelineId,
+            ReportActivityIntent.getStatusId(intent),
+        )
 
         initViewPager()
         bind()

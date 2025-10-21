@@ -186,6 +186,16 @@ class NetworkTimelineRemoteMediator(
                 api.publicTimeline(local = false, minId = minId, maxId = maxId, limit = limit)
             }
 
+            is Timeline.User.Replies -> getPageAround(statusId, pageSize) { maxId, minId, limit ->
+                api.accountStatuses(
+                    timeline.id,
+                    maxId = maxId,
+                    minId = minId,
+                    limit = limit,
+                    excludeReblogs = timeline.excludeReblogs,
+                )
+            }
+
             is Timeline.UserList -> getPageAround(statusId, pageSize) { maxId, minId, limit ->
                 api.listTimeline(minId = minId, maxId = maxId, limit = limit, listId = timeline.listId)
             }

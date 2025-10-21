@@ -21,7 +21,6 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingSource.LoadResult
 import androidx.paging.PagingState
 import app.pachli.core.model.Status
-import javax.inject.Inject
 import kotlinx.coroutines.sync.withLock
 import timber.log.Timber
 
@@ -31,13 +30,15 @@ private val INVALID = LoadResult.Invalid<String, Status>()
  * [PagingSource] for Mastodon Status, identified by the Status ID
  *
  * @param pageCache The [PageCache] backing this source
+ * @param initialKey The initial key to load, see [getRefreshKey].
  */
-class NetworkTimelinePagingSource @Inject constructor(
+class NetworkTimelinePagingSource(
     private val pageCache: PageCache,
+    private val initialKey: String? = null,
 ) : PagingSource<String, Status>() {
-
     override suspend fun load(params: LoadParams<String>): LoadResult<String, Status> {
         Timber.d("- load(), type = %s, key = %s", params.javaClass.simpleName, params.key)
+
         return pageCache.withLock {
             pageCache.debug()
 
@@ -46,7 +47,10 @@ class NetworkTimelinePagingSource @Inject constructor(
 
                 return@run when (params) {
                     is LoadParams.Refresh -> {
-                        pageCache.getPageById(params.key) ?: pageCache.firstPage
+                        // If params.key is null then either there was no initialKey, or
+                        // getRefreshKey returned null. If so just return the first page.
+                        val key = params.key
+                        key?.let { pageCache.getPageById(it) } ?: pageCache.firstPage
                     }
 
                     is LoadParams.Append -> {
@@ -83,12 +87,11 @@ class NetworkTimelinePagingSource @Inject constructor(
     }
 
     override fun getRefreshKey(state: PagingState<String, Status>): String? {
+        // `state` might be null (see https://issuetracker.google.com/issues/452663010
+        // for details). If it is, fall back to the key passed to the constructor.
         val refreshKey = state.anchorPosition?.let {
             state.closestItemToPosition(it)?.id
-        } ?: pageCache.firstPage?.data?.let {
-            it.getOrNull(it.size / 2)?.id
-        }
-
+        } ?: initialKey
         Timber.d("- getRefreshKey(), state.anchorPosition = %d, return %s", state.anchorPosition, refreshKey)
         return refreshKey
     }
