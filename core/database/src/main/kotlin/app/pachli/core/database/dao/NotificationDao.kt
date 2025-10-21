@@ -191,9 +191,8 @@ SELECT
     warn.serverId AS 'warn_serverId',
     warn.accountWarningId AS 'warn_accountWarningId',
     warn.text AS 'warn_text',
-    warn.action AS 'warn_action',
+    warn."action" AS "warn_action",
     warn.createdAt AS 'warn_createdAt'
-
 FROM NotificationEntity AS n
 LEFT JOIN TimelineAccountEntity AS a ON (n.pachliAccountId = a.timelineUserId AND n.accountServerId = a.serverId)
 LEFT JOIN StatusEntity AS s ON (n.pachliAccountId = s.timelineUserId AND n.statusServerId = s.serverId)
