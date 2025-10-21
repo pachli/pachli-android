@@ -56,30 +56,38 @@ class NetworkTimelinePagingSourceTest {
     }
 
     @Test
-    fun `load() for an item in a page returns the page containing that item and next, prev keys`() = runTest {
+    fun `load() for an item in a page returns a large page containing the page and its immediate neighbours`() = runTest {
         // Given
+        val page1 = Page(data = listOf(fakeStatus(id = "3")).asModel().toMutableList(), nextKey = "1", prevKey = "4")
+        val page2 = Page(data = listOf(fakeStatus(id = "1"), fakeStatus(id = "2")).asModel().toMutableList(), nextKey = "0", prevKey = "3")
+        val page3 = Page(data = listOf(fakeStatus(id = "0")).asModel().toMutableList(), prevKey = "1")
         val pages = PageCache().apply {
             withLock {
-                add(Page(data = listOf(fakeStatus(id = "3")).asModel().toMutableList(), nextKey = "1", prevKey = "4"))
-                append(Page(data = listOf(fakeStatus(id = "1"), fakeStatus(id = "2")).asModel().toMutableList(), nextKey = "0", prevKey = "3"))
-                append(Page(data = listOf(fakeStatus(id = "0")).asModel().toMutableList(), prevKey = "1"))
+                append(page1)
+                append(page2)
+                append(page3)
             }
         }
         val pagingSource = NetworkTimelinePagingSource(pages)
 
         // When
-        val loadResult = pagingSource.load(PagingSource.LoadParams.Refresh("1", 2, false))
+        val loadResult = pagingSource.load(PagingSource.LoadParams.Refresh("1", 2, false)) as? LoadResult.Page
 
         // Then
         assertThat(loadResult).isInstanceOf(LoadResult.Page::class.java)
-        assertThat((loadResult as? LoadResult.Page))
-            .isEqualTo(
-                LoadResult.Page(
-                    data = listOf(fakeStatus(id = "1"), fakeStatus(id = "2")).asModel(),
-                    prevKey = "3",
-                    nextKey = "0",
-                ),
-            )
+
+        val largePage = LoadResult.Page(
+            data = buildList {
+                addAll(page1.data)
+                addAll(page2.data)
+                addAll(page3.data)
+            }.toMutableList(),
+            prevKey = page1.prevKey,
+            nextKey = page3.nextKey,
+        )
+
+        println("lp: $largePage")
+        assertThat(loadResult).isEqualTo(largePage)
     }
 
     @Test
