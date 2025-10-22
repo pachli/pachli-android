@@ -167,10 +167,7 @@ class NotificationsRemoteMediator(
                 }
             }
 
-            // Filter out notifications that should have a non-null status but don't.
-            val notifications = response.body.filter { notification ->
-                !notificationTypesWithStatus.contains(notification.type) || notification.status != null
-            }
+            val notifications = response.body
 
             upsertNotifications(pachliAccountId, notifications)
 
