@@ -257,6 +257,10 @@ fun TimelineAccount.asEntity(pachliAccountId: Long) = TimelineAccountEntity(
 /**
  * Converts a network Status to an entity, associated with [pachliAccountId].
  */
+// Used in NotificationsRemoteMediator, need to look at that in more detail so
+// this can be made private (maybe -- there might be a case for converting a
+// a single status to a single entity, but probably not a TimelineStatusWithAccount
+// as NotificationsRemoteMediator does.
 fun Status.asEntity(pachliAccountId: Long) = StatusEntity(
     serverId = id,
     url = actionableStatus.url,
@@ -270,6 +274,7 @@ fun Status.asEntity(pachliAccountId: Long) = StatusEntity(
     emojis = actionableStatus.emojis.asModel(),
     reblogsCount = actionableStatus.reblogsCount,
     favouritesCount = actionableStatus.favouritesCount,
+    quotesCount = actionableStatus.quotesCount,
     reblogged = actionableStatus.reblogged,
     favourited = actionableStatus.favourited,
     bookmarked = actionableStatus.bookmarked,
@@ -286,7 +291,41 @@ fun Status.asEntity(pachliAccountId: Long) = StatusEntity(
     muted = actionableStatus.muted,
     pinned = actionableStatus.pinned == true,
     card = actionableStatus.card?.asModel(),
+    quoteState = actionableStatus.quote?.state?.asModel(),
+    quoteServerId = actionableStatus.quote?.asModel()?.statusId,
+    quoteApproval = actionableStatus.quoteApproval.asModel(),
     repliesCount = actionableStatus.repliesCount,
     language = actionableStatus.language,
     filtered = actionableStatus.filtered?.asModel(),
 )
+
+/**
+ * Converts a single [status] to the one-or-more `StatusEntity` used to
+ * represent the status.
+ *
+ * A single [Status] will be stored as:
+ *
+ * - 1 x [StatusEntity] for the top-level status
+ * - 1 x [StatusEntity] if the top-level status is a reblog, to hold the
+ * status being reblogged.
+ * - N x [StatusEntity] to hold the chain of quotes.
+ */
+fun Status.asEntities(pachliAccountId: Long): List<StatusEntity> {
+    return buildList {
+        val status = this@asEntities
+
+        add(status.asEntity(pachliAccountId))
+        status.reblog?.let { add(it.asEntity(pachliAccountId)) }
+
+        var next = status.quote?.quotedStatus
+
+        // TODO: Possibly shouldn't recurse here, should just process the first
+        // quote, if any.
+        while (next != null) {
+            add(next.asEntity(pachliAccountId))
+            next.reblog?.let { add(it.asEntity(pachliAccountId)) }
+
+            next = next.quote?.quotedStatus
+        }
+    }
+}

@@ -21,13 +21,18 @@ import androidx.lifecycle.viewModelScope
 import app.pachli.components.timeline.CachedTimelineRepository
 import app.pachli.core.common.PachliError
 import app.pachli.core.data.model.ContentFilterModel
+import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusViewData
+import app.pachli.core.data.model.StatusViewDataQ
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.dao.TimelineDao
+import app.pachli.core.database.dao.TimelineStatusWithAccount
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.TSQ
 import app.pachli.core.database.model.TranslationState
+import app.pachli.core.database.model.asEntity
 import app.pachli.core.database.model.toEntity
 import app.pachli.core.eventhub.BlockEvent
 import app.pachli.core.eventhub.BookmarkEvent
@@ -37,7 +42,6 @@ import app.pachli.core.eventhub.PinEvent
 import app.pachli.core.eventhub.ReblogEvent
 import app.pachli.core.eventhub.StatusComposedEvent
 import app.pachli.core.eventhub.StatusDeletedEvent
-import app.pachli.core.eventhub.StatusEditedEvent
 import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.ContentFilterVersion
 import app.pachli.core.model.FilterAction
@@ -115,7 +119,8 @@ class ViewThreadViewModel @Inject constructor(
                         is BlockEvent -> removeAllByAccountId(event.accountId)
                         is StatusComposedEvent -> handleStatusComposedEvent(event)
                         is StatusDeletedEvent -> handleStatusDeletedEvent(event)
-                        is StatusEditedEvent -> handleStatusEditedEvent(event)
+                        // TODO: Fix this.
+//                        is StatusEditedEvent -> handleStatusEditedEvent(event)
                     }
                 }
         }
@@ -144,54 +149,48 @@ class ViewThreadViewModel @Inject constructor(
 
             Timber.d("Finding status with: %s", id)
             val contextCall = async { api.statusContext(id) }
-            val timelineStatusWithAccount = timelineDao.getStatus(account.id, id)
+            val tsq = timelineDao.getStatusQ(account.id, id)
 
-            var detailedStatus = if (timelineStatusWithAccount != null) {
-                Timber.d("Loaded status from local timeline")
-                val status = timelineStatusWithAccount.toStatus()
+            var detailedStatus = if (tsq != null) {
+                Timber.d("Loading status from local timeline")
+                val status = tsq.toStatus()
 
-                // Return the correct status, depending on which one matched. If you do not do
-                // this the status IDs will be different between the status that's displayed with
-                // ThreadUiState.LoadingThread and ThreadUiState.Success, even though the apparent
-                // status content is the same. Then the status flickers as it is drawn twice.
-                if (status.actionableId == id) {
-                    StatusViewData.from(
-                        pachliAccountId = account.id,
-                        status = status.actionableStatus,
-                        isExpanded = timelineStatusWithAccount.viewData?.expanded ?: account.alwaysOpenSpoiler,
-                        isCollapsed = timelineStatusWithAccount.viewData?.contentCollapsed ?: true,
-                        isDetailed = true,
-                        contentFilterAction = contentFilterModel?.filterActionFor(status.actionableStatus)
-                            ?: FilterAction.NONE,
-                        attachmentDisplayAction = status.actionableStatus.getAttachmentDisplayAction(
-                            FilterContext.CONVERSATIONS,
-                            account.alwaysShowSensitiveMedia,
-                            timelineStatusWithAccount.viewData?.attachmentDisplayAction,
-                        ),
-                        translationState = timelineStatusWithAccount.viewData?.translationState ?: TranslationState.SHOW_ORIGINAL,
-                        translation = timelineStatusWithAccount.translatedStatus,
-                        // All posts in threads are replies, no need to fetch this, since it won't
-                        // be displayed.
-                        replyToAccount = null,
-                    )
-                } else {
-                    StatusViewData.from(
-                        pachliAccountId = account.id,
-                        timelineStatusWithAccount,
-                        isExpanded = account.alwaysOpenSpoiler,
-                        isDetailed = true,
-                        contentFilterAction = contentFilterModel?.filterActionFor(status.actionableStatus)
-                            ?: FilterAction.NONE,
-                        attachmentDisplayAction = status.getAttachmentDisplayAction(
-                            FilterContext.CONVERSATIONS,
-                            account.alwaysShowSensitiveMedia,
-                            timelineStatusWithAccount.viewData?.attachmentDisplayAction,
-                        ),
-                        translationState = TranslationState.SHOW_ORIGINAL,
-                    )
-                }
+//                // Return the correct status, depending on which one matched. If you do not do
+//                // this the status IDs will be different between the status that's displayed with
+//                // ThreadUiState.LoadingThread and ThreadUiState.Success, even though the apparent
+//                // status content is the same. Then the status flickers as it is drawn twice.
+//                if (status.actionableId == id) {
+//                    StatusViewData.from(
+//                        pachliAccountId = account.id,
+//                        status = status.actionableStatus,
+//                        isExpanded = tsq.viewData?.expanded ?: account.alwaysOpenSpoiler,
+//                        isCollapsed = tsq.viewData?.contentCollapsed ?: true,
+//                        isDetailed = true,
+//                        contentFilterAction = contentFilterModel?.filterActionFor(status.actionableStatus)
+//                            ?: FilterAction.NONE,
+//                        attachmentDisplayAction = status.actionableStatus.getAttachmentDisplayAction(
+//                            FilterContext.CONVERSATIONS,
+//                            account.alwaysShowSensitiveMedia,
+//                            tsq.viewData?.attachmentDisplayAction,
+//                        ),
+//                        translationState = tsq.viewData?.translationState ?: TranslationState.SHOW_ORIGINAL,
+//                        translation = tsq.translatedStatus,
+//                    )
+//                } else {
+                StatusViewDataQ.from(
+                    pachliAccountId = account.id,
+                    tsq,
+                    isExpanded = account.alwaysOpenSpoiler,
+                    showSensitiveMedia = account.alwaysShowSensitiveMedia,
+                    isDetailed = true,
+                    contentFilterAction = contentFilterModel?.filterActionFor(status.actionableStatus)
+                        ?: FilterAction.NONE,
+                    translationState = TranslationState.SHOW_ORIGINAL,
+                    filterContext = FilterContext.CONVERSATIONS,
+                )
+//                }
             } else {
-                Timber.d("Loaded status from network")
+                Timber.d("Loading status from network")
                 val statusCall = async { api.status(id) }
                 val existingViewData = repository.getStatusViewData(account.id, id)
                 val existingTranslation = repository.getTranslation(account.id, id)
@@ -201,13 +200,42 @@ class ViewThreadViewModel @Inject constructor(
                     return@launch
                 }.body.asModel()
 
-                val statusViewData = StatusViewData.fromStatusAndUiState(account, status, isDetailed = true)
-                existingViewData?.let {
-                    statusViewData.copy(
-                        translationState = existingViewData.translationState,
-                        translation = existingTranslation,
-                    )
-                } ?: statusViewData
+                StatusViewDataQ.from(
+                    pachliAccountId = account.id,
+                    tsq = TSQ(
+                        timelineStatus = TimelineStatusWithAccount(
+                            status = status.asEntity(account.id),
+                            account = status.reblog?.account?.asEntity(account.id) ?: status.account.asEntity(account.id),
+                            reblogAccount = status.reblog?.let { status.account.asEntity(account.id) },
+                            viewData = existingViewData,
+                            translatedStatus = existingTranslation,
+                        ),
+                        quotedStatus = (status.quote as? Status.Quote.FullQuote)?.status?.let { q ->
+                            TimelineStatusWithAccount(
+                                status = q.asEntity(account.id),
+                                account = q.account.asEntity(account.id),
+                                reblogAccount = null,
+                                viewData = repository.getStatusViewData(account.id, q.actionableId),
+                                translatedStatus = repository.getTranslation(account.id, q.actionableId),
+                            )
+                        },
+                    ),
+                    isExpanded = account.alwaysOpenSpoiler,
+                    showSensitiveMedia = account.alwaysShowSensitiveMedia,
+                    isDetailed = true,
+                    contentFilterAction = contentFilterModel?.filterActionFor(status.actionableStatus)
+                        ?: FilterAction.NONE,
+                    translationState = TranslationState.SHOW_ORIGINAL,
+                    filterContext = FilterContext.CONVERSATIONS,
+                )
+
+//                val statusViewData = StatusViewData.fromStatusAndUiState(account, status, isDetailed = true)
+//                existingViewData?.let {
+//                    statusViewData.copy(
+//                        translationState = existingViewData.translationState,
+//                        translation = existingTranslation,
+//                    )
+//                } ?: statusViewData
             }
 
             _uiResult.value = Ok(
@@ -221,24 +249,36 @@ class ViewThreadViewModel @Inject constructor(
             // compared to the remote one. Now the user has a working UI do a background fetch
             // for the status. Ignore errors, the user still has a functioning UI if the fetch
             // failed.
-            if (timelineStatusWithAccount != null) {
-                api.status(id).get()?.body?.asModel()?.let {
-                    detailedStatus = StatusViewData.from(
-                        pachliAccountId = account.id,
-                        it,
-                        isExpanded = detailedStatus.isExpanded,
-                        isCollapsed = detailedStatus.isCollapsed,
-                        isDetailed = true,
-                        contentFilterAction = contentFilterModel?.filterActionFor(it) ?: FilterAction.NONE,
-                        attachmentDisplayAction = it.getAttachmentDisplayAction(
-                            FilterContext.CONVERSATIONS,
-                            account.alwaysShowSensitiveMedia,
-                            timelineStatusWithAccount.viewData?.attachmentDisplayAction,
-                        ),
-                        translationState = detailedStatus.translationState,
-                        translation = detailedStatus.translation,
-                        replyToAccount = null,
+            if (tsq != null) {
+                api.status(id).get()?.body?.asModel()?.let { status ->
+                    detailedStatus = detailedStatus.copy(
+                        statusViewData = detailedStatus.statusViewData.copy(status = status),
+                        quotedViewData = (status.quote as? Status.Quote.FullQuote)?.status?.let {
+                            detailedStatus.quotedViewData?.copy(status = it)
+                        },
                     )
+//                        tsq.timelineStatus.status = status,
+//                        status = status,
+//                        quoteViewData = (status.quote as? Status.Quote.FullQuote)?.status?.let { q ->
+//                            detailedStatus.quoteViewData?.copy(status = q)
+//                        },
+//                    )
+
+//                    detailedStatus = StatusViewData.from(
+//                        pachliAccountId = account.id,
+//                        it,
+//                        isExpanded = detailedStatus.isExpanded,
+//                        isCollapsed = detailedStatus.isCollapsed,
+//                        isDetailed = true,
+//                        contentFilterAction = contentFilterModel?.filterActionFor(it) ?: FilterAction.NONE,
+// //                        attachmentDisplayAction = it.getAttachmentDisplayAction(
+// //                            FilterContext.CONVERSATIONS,
+// //                            account.alwaysShowSensitiveMedia,
+// //                            tsq.viewData?.attachmentDisplayAction,
+// //                        ),
+//                        translationState = detailedStatus.translationState,
+//                        translation = detailedStatus.translation,
+//                    )
                 }
             }
 
@@ -246,52 +286,77 @@ class ViewThreadViewModel @Inject constructor(
 
             contextResult.onSuccess {
                 val statusContext = it.body
-                val ids = statusContext.ancestors.map { it.id } + statusContext.descendants.map { it.id }
+                val ids = buildList {
+                    addAll(statusContext.ancestors.flatMap { listOf(it.id, it.quote?.quotedStatusId) }.filterNotNull())
+                    addAll(statusContext.descendants.flatMap { listOf(it.id, it.quote?.quotedStatusId) }.filterNotNull())
+                }
                 val cachedViewData = repository.getStatusViewData(activeAccount.id, ids)
                 val cachedTranslations = repository.getStatusTranslations(activeAccount.id, ids)
                 val ancestors = statusContext.ancestors.asModel()
                     .map { Pair(it, shouldFilterStatus(it)) }
                     .filter { it.second != FilterAction.HIDE }
                     .map { (status, contentFilterAction) ->
-                        val svd = cachedViewData[status.statusId]
-                        StatusViewData.from(
+                        val tsq = TSQ(
+                            timelineStatus = TimelineStatusWithAccount(
+                                status = status.asEntity(activeAccount.id),
+                                account = status.reblog?.account?.asEntity(activeAccount.id) ?: status.account.asEntity(activeAccount.id),
+                                reblogAccount = status.reblog?.let { status.account.asEntity(activeAccount.id) },
+                                viewData = cachedViewData[status.actionableId],
+                                translatedStatus = cachedTranslations[status.actionableId],
+                            ),
+                            quotedStatus = (status.quote as? Status.Quote.FullQuote)?.status?.let { status ->
+                                TimelineStatusWithAccount(
+                                    status = status.asEntity(activeAccount.id),
+                                    account = status.account.asEntity(activeAccount.id),
+                                    reblogAccount = null,
+                                    viewData = cachedViewData[status.actionableId],
+                                    translatedStatus = cachedTranslations[status.actionableId],
+                                )
+                            },
+
+                        )
+                        StatusViewDataQ.from(
                             pachliAccountId = activeAccount.id,
-                            status,
-                            isExpanded = svd?.expanded ?: account.alwaysOpenSpoiler,
-                            isCollapsed = svd?.contentCollapsed ?: true,
+                            tsq,
+                            isExpanded = account.alwaysOpenSpoiler,
                             isDetailed = false,
                             contentFilterAction = contentFilterAction,
-                            attachmentDisplayAction = status.getAttachmentDisplayAction(
-                                FilterContext.CONVERSATIONS,
-                                account.alwaysShowSensitiveMedia,
-                                svd?.attachmentDisplayAction,
-                            ),
-                            translationState = svd?.translationState ?: TranslationState.SHOW_ORIGINAL,
-                            translation = cachedTranslations[status.statusId],
-                            replyToAccount = null,
+                            showSensitiveMedia = activeAccount.alwaysShowSensitiveMedia,
+                            filterContext = FilterContext.CONVERSATIONS,
                         )
                     }
                 val descendants = statusContext.descendants.asModel()
                     .map { Pair(it, shouldFilterStatus(it)) }
                     .filter { it.second != FilterAction.HIDE }
                     .map { (status, contentFilterAction) ->
-                        val svd = cachedViewData[status.statusId]
+                        val tsq = TSQ(
+                            timelineStatus = TimelineStatusWithAccount(
+                                status = status.asEntity(activeAccount.id),
+                                account = status.reblog?.account?.asEntity(activeAccount.id) ?: status.account.asEntity(activeAccount.id),
+                                reblogAccount = status.reblog?.let { status.account.asEntity(activeAccount.id) },
+                                viewData = cachedViewData[status.actionableId],
+                                translatedStatus = cachedTranslations[status.actionableId],
+                            ),
+                            quotedStatus = (status.quote as? Status.Quote.FullQuote)?.status?.let { status ->
+                                val svd = cachedViewData[status.actionableId]
+                                TimelineStatusWithAccount(
+                                    status = status.asEntity(activeAccount.id),
+                                    account = status.account.asEntity(activeAccount.id),
+                                    reblogAccount = null,
+                                    viewData = cachedViewData[status.actionableId],
+                                    translatedStatus = cachedTranslations[status.actionableId],
+                                )
+                            },
 
-                        StatusViewData.from(
+                        )
+                        StatusViewDataQ.from(
                             pachliAccountId = activeAccount.id,
-                            status,
-                            isExpanded = svd?.expanded ?: account.alwaysOpenSpoiler,
-                            isCollapsed = svd?.contentCollapsed ?: true,
+                            tsq,
+                            isExpanded = account.alwaysOpenSpoiler,
                             isDetailed = false,
                             contentFilterAction = contentFilterAction,
-                            attachmentDisplayAction = status.getAttachmentDisplayAction(
-                                FilterContext.CONVERSATIONS,
-                                account.alwaysShowSensitiveMedia,
-                                svd?.attachmentDisplayAction,
-                            ),
-                            translationState = svd?.translationState ?: TranslationState.SHOW_ORIGINAL,
-                            translation = cachedTranslations[status.statusId],
-                            replyToAccount = null,
+                            showSensitiveMedia = activeAccount.alwaysShowSensitiveMedia,
+                            filterContext = FilterContext.CONVERSATIONS,
                         )
                     }
                 val statuses = ancestors + detailedStatus + descendants
@@ -327,7 +392,7 @@ class ViewThreadViewModel @Inject constructor(
         loadThread(id)
     }
 
-    fun detailedStatus(): StatusViewData? {
+    fun detailedStatus(): StatusViewDataQ? {
         return when (val uiState = _uiResult.value.get()) {
             is ThreadUiState.Loaded -> uiState.statusViewData.find { status ->
                 status.isDetailed
@@ -337,8 +402,8 @@ class ViewThreadViewModel @Inject constructor(
         }
     }
 
-    fun reblog(reblog: Boolean, status: StatusViewData) = viewModelScope.launch {
-        updateStatus(status.id) {
+    fun reblog(reblog: Boolean, status: StatusViewDataQ) = viewModelScope.launch {
+        updateStatus(status.statusId) {
             it.copy(
                 reblogged = reblog,
                 reblogsCount = it.reblogsCount + if (reblog) 1 else -1,
@@ -349,46 +414,46 @@ class ViewThreadViewModel @Inject constructor(
             )
         }
         repository.reblog(status.pachliAccountId, status.actionableId, reblog).onFailure {
-            updateStatus(status.id) { it }
+            updateStatus(status.statusId) { it }
             Timber.d("Failed to reblog status: %s: %s", status.actionableId, it)
         }
     }
 
-    fun favorite(favorite: Boolean, status: StatusViewData) = viewModelScope.launch {
-        updateStatus(status.id) {
+    fun favorite(favorite: Boolean, status: StatusViewDataQ) = viewModelScope.launch {
+        updateStatus(status.statusId) {
             it.copy(
                 favourited = favorite,
                 favouritesCount = it.favouritesCount + if (favorite) 1 else -1,
             )
         }
         repository.favourite(status.pachliAccountId, status.actionableId, favorite).onFailure {
-            updateStatus(status.id) { it }
+            updateStatus(status.statusId) { it }
             Timber.d("Failed to favourite status: %s: %s", status.actionableId, it)
         }
     }
 
-    fun bookmark(bookmark: Boolean, status: StatusViewData) = viewModelScope.launch {
-        updateStatus(status.id) { it.copy(bookmarked = bookmark) }
+    fun bookmark(bookmark: Boolean, status: StatusViewDataQ) = viewModelScope.launch {
+        updateStatus(status.statusId) { it.copy(bookmarked = bookmark) }
         repository.bookmark(status.pachliAccountId, status.actionableId, bookmark).onFailure {
-            updateStatus(status.id) { it }
+            updateStatus(status.statusId) { it }
             Timber.d("Failed to bookmark status: %s: %s", status.actionableId, it)
         }
     }
 
-    fun voteInPoll(poll: Poll, choices: List<Int>, status: StatusViewData): Job = viewModelScope.launch {
+    fun voteInPoll(poll: Poll, choices: List<Int>, status: StatusViewDataQ): Job = viewModelScope.launch {
         val votedPoll = poll.votedCopy(choices)
-        updateStatus(status.id) { status ->
+        updateStatus(status.statusId) { status ->
             status.copy(poll = votedPoll)
         }
 
         repository.voteInPoll(status.pachliAccountId, status.actionableId, poll.id, choices)
             .onFailure {
                 Timber.d("Failed to vote in poll: %s: %s", status.actionableId, it)
-                updateStatus(status.id) { it.copy(poll = poll) }
+                updateStatus(status.statusId) { it.copy(poll = poll) }
             }
     }
 
-    fun removeStatus(statusToRemove: StatusViewData) {
+    fun removeStatus(statusToRemove: StatusViewDataQ) {
         updateSuccess { uiState ->
             uiState.copy(
                 statusViewData = uiState.statusViewData.filterNot { status -> status == statusToRemove },
@@ -396,11 +461,15 @@ class ViewThreadViewModel @Inject constructor(
         }
     }
 
-    fun changeExpanded(expanded: Boolean, status: StatusViewData) {
+    fun changeExpanded(expanded: Boolean, status: StatusViewDataQ) {
         updateSuccess { uiState ->
             val statuses = uiState.statusViewData.map { viewData ->
-                if (viewData.id == status.id) {
-                    viewData.copy(isExpanded = expanded)
+                if (viewData.statusId == status.statusId) {
+                    viewData.copy(
+                        statusViewData = viewData.statusViewData.copy(
+                            isExpanded = expanded,
+                        ),
+                    )
                 } else {
                     viewData
                 }
@@ -411,12 +480,12 @@ class ViewThreadViewModel @Inject constructor(
             )
         }
         viewModelScope.launch {
-            repository.setExpanded(status.pachliAccountId, status.id, expanded)
+            repository.setExpanded(status.pachliAccountId, status.statusId, expanded)
         }
     }
 
-    fun changeAttachmentDisplayAction(statusViewData: StatusViewData, attachmentDisplayAction: AttachmentDisplayAction) {
-        updateStatusViewData(statusViewData.id) { viewData ->
+    fun changeAttachmentDisplayAction(statusViewData: StatusViewDataQ, attachmentDisplayAction: AttachmentDisplayAction) {
+        updateStatusViewData(statusViewData.statusId) { viewData ->
             viewData.copy(attachmentDisplayAction = attachmentDisplayAction)
         }
         viewModelScope.launch {
@@ -424,12 +493,12 @@ class ViewThreadViewModel @Inject constructor(
         }
     }
 
-    fun changeContentCollapsed(isCollapsed: Boolean, status: StatusViewData) {
-        updateStatusViewData(status.id) { viewData ->
+    fun changeContentCollapsed(isCollapsed: Boolean, status: StatusViewDataQ) {
+        updateStatusViewData(status.statusId) { viewData ->
             viewData.copy(isCollapsed = isCollapsed)
         }
         viewModelScope.launch {
-            repository.setContentCollapsed(status.pachliAccountId, status.id, isCollapsed)
+            repository.setContentCollapsed(status.pachliAccountId, status.statusId, isCollapsed)
         }
     }
 
@@ -467,43 +536,45 @@ class ViewThreadViewModel @Inject constructor(
         }
     }
 
+    // TODO: Fix this.
     private fun handleStatusComposedEvent(event: StatusComposedEvent) {
-        val eventStatus = event.status
-        updateSuccess { uiState ->
-            val statuses = uiState.statusViewData
-            val detailedIndex = statuses.indexOfFirst { status -> status.isDetailed }
-            val repliedIndex = statuses.indexOfFirst { status -> eventStatus.inReplyToId == status.id }
-            if (detailedIndex != -1 && repliedIndex >= detailedIndex) {
-                // there is a new reply to the detailed status or below -> display it
-                val newStatuses = statuses.subList(0, repliedIndex + 1) +
-                    StatusViewData.fromStatusAndUiState(activeAccount, eventStatus) +
-                    statuses.subList(repliedIndex + 1, statuses.size)
-                uiState.copy(statusViewData = newStatuses)
-            } else {
-                uiState
-            }
-        }
+//        val eventStatus = event.status
+//        updateSuccess { uiState ->
+//            val statuses = uiState.statusViewData
+//            val detailedIndex = statuses.indexOfFirst { status -> status.isDetailed }
+//            val repliedIndex = statuses.indexOfFirst { status -> eventStatus.inReplyToId == status.statusId }
+//            if (detailedIndex != -1 && repliedIndex >= detailedIndex) {
+//                // there is a new reply to the detailed status or below -> display it
+//                val newStatuses = statuses.subList(0, repliedIndex + 1) +
+//                    StatusViewData.fromStatusAndUiState(activeAccount, eventStatus) +
+//                    statuses.subList(repliedIndex + 1, statuses.size)
+//                uiState.copy(statusViewData = newStatuses)
+//            } else {
+//                uiState
+//            }
+//        }
     }
 
-    private fun handleStatusEditedEvent(event: StatusEditedEvent) {
-        updateSuccess { uiState ->
-            uiState.copy(
-                statusViewData = uiState.statusViewData.map { status ->
-                    if (status.actionableId == event.originalId) {
-                        StatusViewData.fromStatusAndUiState(activeAccount, event.status)
-                    } else {
-                        status
-                    }
-                },
-            )
-        }
-    }
+    // TODO: Fix this.
+//    private fun handleStatusEditedEvent(event: StatusEditedEvent) {
+//        updateSuccess { uiState ->
+//            uiState.copy(
+//                statusViewData = uiState.statusViewData.map { status ->
+//                    if (status.actionableId == event.originalId) {
+//                        StatusViewData.fromStatusAndUiState(activeAccount, event.status)
+//                    } else {
+//                        status
+//                    }
+//                },
+//            )
+//        }
+//    }
 
     private fun handleStatusDeletedEvent(event: StatusDeletedEvent) {
         updateSuccess { uiState ->
             uiState.copy(
                 statusViewData = uiState.statusViewData.filter { status ->
-                    status.id != event.statusId
+                    status.statusId != event.statusId
                 },
             )
         }
@@ -514,13 +585,21 @@ class ViewThreadViewModel @Inject constructor(
             when (uiState.revealButton) {
                 RevealButtonState.HIDE -> uiState.copy(
                     statusViewData = uiState.statusViewData.map { viewData ->
-                        viewData.copy(isExpanded = false)
+                        viewData.copy(
+                            statusViewData = viewData.statusViewData.copy(
+                                isExpanded = false,
+                            ),
+                        )
                     },
                     revealButton = RevealButtonState.REVEAL,
                 )
                 RevealButtonState.REVEAL -> uiState.copy(
                     statusViewData = uiState.statusViewData.map { viewData ->
-                        viewData.copy(isExpanded = true)
+                        viewData.copy(
+                            statusViewData = viewData.statusViewData.copy(
+                                isExpanded = true,
+                            ),
+                        )
                     },
                     revealButton = RevealButtonState.HIDE,
                 )
@@ -529,21 +608,21 @@ class ViewThreadViewModel @Inject constructor(
         }
     }
 
-    fun translate(statusViewData: StatusViewData) {
+    fun translate(statusViewData: StatusViewDataQ) {
         viewModelScope.launch {
-            updateStatusViewData(statusViewData.id) { viewData ->
+            updateStatusViewData(statusViewData.statusId) { viewData ->
                 viewData.copy(translationState = TranslationState.TRANSLATING)
             }
 
             timelineCases.translate(statusViewData)
                 .onSuccess {
                     val translatedEntity = it.toEntity(statusViewData.pachliAccountId, statusViewData.actionableId)
-                    updateStatusViewData(statusViewData.id) { viewData ->
+                    updateStatusViewData(statusViewData.statusId) { viewData ->
                         viewData.copy(translation = translatedEntity, translationState = TranslationState.SHOW_TRANSLATION)
                     }
                 }
                 .onFailure {
-                    updateStatusViewData(statusViewData.id) { viewData ->
+                    updateStatusViewData(statusViewData.statusId) { viewData ->
                         viewData.copy(translationState = TranslationState.SHOW_ORIGINAL)
                     }
                     _errors.send(it)
@@ -551,16 +630,16 @@ class ViewThreadViewModel @Inject constructor(
         }
     }
 
-    fun translateUndo(statusViewData: StatusViewData) {
-        updateStatusViewData(statusViewData.id) { viewData ->
+    fun translateUndo(statusViewData: StatusViewDataQ) {
+        updateStatusViewData(statusViewData.statusId) { viewData ->
             viewData.copy(translationState = TranslationState.SHOW_ORIGINAL)
         }
         viewModelScope.launch {
-            repository.setTranslationState(statusViewData.pachliAccountId, statusViewData.id, TranslationState.SHOW_ORIGINAL)
+            repository.setTranslationState(statusViewData.pachliAccountId, statusViewData.statusId, TranslationState.SHOW_ORIGINAL)
         }
     }
 
-    private fun StatusViewData.getRevealButtonState(): RevealButtonState {
+    private fun IStatusViewData.getRevealButtonState(): RevealButtonState {
         val hasWarnings = status.spoilerText.isNotEmpty()
 
         return if (hasWarnings) {
@@ -581,7 +660,7 @@ class ViewThreadViewModel @Inject constructor(
      * - If no status sets it to REVEAL, but at least one uses HIDE, use HIDE
      * - Otherwise use NO_BUTTON
      */
-    private fun List<StatusViewData>.getRevealButtonState(): RevealButtonState {
+    private fun List<IStatusViewData>.getRevealButtonState(): RevealButtonState {
         var seenHide = false
 
         forEach {
@@ -611,7 +690,7 @@ class ViewThreadViewModel @Inject constructor(
 
     private fun shouldFilterStatus(status: Status) = (contentFilterModel?.filterActionFor(status) ?: FilterAction.NONE)
 
-    private fun List<StatusViewData>.filterByFilterAction(): List<StatusViewData> {
+    private fun <T : IStatusViewData> List<T>.filterByFilterAction(): List<T> {
         return filter { status ->
             if (status.isDetailed) {
                 true
@@ -627,18 +706,18 @@ class ViewThreadViewModel @Inject constructor(
      * status in _uiState (if that status exists).
      */
     private fun StatusViewData.Companion.fromStatusAndUiState(account: AccountEntity, status: Status, isDetailed: Boolean = false): StatusViewData {
-        val oldStatus =
-            (_uiResult.value.get() as? ThreadUiState.Loaded)?.statusViewData?.find { it.id == status.statusId }
+        val oldStatusViewData =
+            (_uiResult.value.get() as? ThreadUiState.Loaded)?.statusViewData?.find { it.statusId == status.statusId }
         return from(
             pachliAccountId = account.id,
             status,
-            isExpanded = oldStatus?.isExpanded ?: account.alwaysOpenSpoiler,
-            isCollapsed = oldStatus?.isCollapsed ?: !isDetailed,
-            isDetailed = oldStatus?.isDetailed ?: isDetailed,
+            isExpanded = oldStatusViewData?.isExpanded ?: account.alwaysOpenSpoiler,
+            isCollapsed = oldStatusViewData?.isCollapsed ?: !isDetailed,
+            isDetailed = oldStatusViewData?.isDetailed ?: isDetailed,
             attachmentDisplayAction = status.getAttachmentDisplayAction(
                 FilterContext.CONVERSATIONS,
                 account.alwaysShowSensitiveMedia,
-                oldStatus?.attachmentDisplayAction,
+                oldStatusViewData?.attachmentDisplayAction,
             ),
             replyToAccount = null,
         )
@@ -661,8 +740,8 @@ class ViewThreadViewModel @Inject constructor(
         updateSuccess { uiState ->
             uiState.copy(
                 statusViewData = uiState.statusViewData.map { viewData ->
-                    if (viewData.id == statusId) {
-                        updater(viewData)
+                    if (viewData.statusViewData.statusId == statusId) {
+                        viewData.copy(statusViewData = updater(viewData.statusViewData))
                     } else {
                         viewData
                     }
@@ -677,8 +756,10 @@ class ViewThreadViewModel @Inject constructor(
         }
     }
 
-    fun clearWarning(viewData: StatusViewData) {
-        updateStatusViewData(viewData.id) { it.copy(contentFilterAction = FilterAction.NONE) }
+    fun clearWarning(viewData: StatusViewDataQ) {
+        updateStatusViewData(viewData.statusId) {
+            it.copy(contentFilterAction = FilterAction.NONE)
+        }
     }
 }
 
@@ -688,13 +769,13 @@ sealed interface ThreadUiState {
 
     /** Loading the detailed status has completed, now loading ancestors/descendants */
     data class LoadingThread(
-        val statusViewDatum: StatusViewData?,
+        val statusViewDatum: StatusViewDataQ?,
         val revealButton: RevealButtonState,
     ) : ThreadUiState
 
     /** Successfully loaded the full thread */
     data class Loaded(
-        val statusViewData: List<StatusViewData>,
+        val statusViewData: List<StatusViewDataQ>,
         val revealButton: RevealButtonState,
         val detailedStatusPosition: Int,
     ) : ThreadUiState

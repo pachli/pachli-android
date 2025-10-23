@@ -29,7 +29,7 @@ import app.pachli.core.common.PachliError
 import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.data.model.ContentFilterModel
 import app.pachli.core.data.model.NotificationViewData
-import app.pachli.core.data.model.StatusViewData
+import app.pachli.core.data.model.StatusViewDataQ
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.PachliAccount
@@ -153,21 +153,21 @@ sealed interface InfallibleUiAction : UiAction {
     /** Set the "collapsed" state (if the status content > 500 chars) */
     data class SetContentCollapsed(
         val pachliAccountId: Long,
-        val statusViewData: StatusViewData,
+        val statusViewData: StatusViewDataQ,
         val isCollapsed: Boolean,
     ) : InfallibleUiAction
 
     /** Set how to show attached media. */
     data class SetAttachmentDisplayAction(
         val pachliAccountId: Long,
-        val statusViewData: StatusViewData,
+        val statusViewData: StatusViewDataQ,
         val attachmentDisplayAction: AttachmentDisplayAction,
     ) : InfallibleUiAction
 
     /** Set whether to show just the content warning, or the full content. */
     data class SetExpanded(
         val pachliAccountId: Long,
-        val statusViewData: StatusViewData,
+        val statusViewData: StatusViewDataQ,
         val isExpanded: Boolean,
     ) : InfallibleUiAction
 
@@ -252,33 +252,33 @@ sealed interface NotificationActionSuccess : UiSuccess {
 sealed interface StatusAction
 
 sealed interface InfallibleStatusAction : InfallibleUiAction, StatusAction {
-    val statusViewData: StatusViewData
+    val statusViewData: StatusViewDataQ
 
-    data class TranslateUndo(override val statusViewData: StatusViewData) : InfallibleStatusAction
+    data class TranslateUndo(override val statusViewData: StatusViewDataQ) : InfallibleStatusAction
 }
 
 /** Actions the user can trigger on an individual status */
 sealed interface FallibleStatusAction : FallibleUiAction, StatusAction {
-    val statusViewData: StatusViewData
+    val statusViewData: StatusViewDataQ
 
     /** Set the bookmark state for a status */
-    data class Bookmark(val state: Boolean, override val statusViewData: StatusViewData) : FallibleStatusAction
+    data class Bookmark(val state: Boolean, override val statusViewData: StatusViewDataQ) : FallibleStatusAction
 
     /** Set the favourite state for a status */
-    data class Favourite(val state: Boolean, override val statusViewData: StatusViewData) : FallibleStatusAction
+    data class Favourite(val state: Boolean, override val statusViewData: StatusViewDataQ) : FallibleStatusAction
 
     /** Set the reblog state for a status */
-    data class Reblog(val state: Boolean, override val statusViewData: StatusViewData) : FallibleStatusAction
+    data class Reblog(val state: Boolean, override val statusViewData: StatusViewDataQ) : FallibleStatusAction
 
     /** Vote in a poll */
     data class VoteInPoll(
         val poll: Poll,
         val choices: List<Int>,
-        override val statusViewData: StatusViewData,
+        override val statusViewData: StatusViewDataQ,
     ) : FallibleStatusAction
 
     /** Translate a status */
-    data class Translate(override val statusViewData: StatusViewData) : FallibleStatusAction
+    data class Translate(override val statusViewData: StatusViewDataQ) : FallibleStatusAction
 }
 
 /** Changes to a status' visible state after API calls */
@@ -642,7 +642,7 @@ class NotificationsViewModel @AssistedInject constructor(
                     .map { notification ->
                         val contentFilterAction =
                             notification.viewData?.contentFilterAction
-                                ?: notification.status?.status?.let { contentFilterModel?.filterActionFor(it) }
+                                ?: notification.status?.timelineStatus?.let { contentFilterModel?.filterActionFor(it.status) }
                                 ?: FilterAction.NONE
                         val isAboutSelf = notification.account.serverId == pachliAccount.entity.accountId
                         val accountFilterDecision =

@@ -43,7 +43,7 @@ data class ConversationData(
     val accounts: List<ConversationAccount>,
     val unread: Boolean,
     @Embedded(prefix = "s_")
-    val lastStatus: TimelineStatusWithAccount,
+    val lastStatus: TSQ,
     val isConversationStarter: Boolean,
     @Embedded(prefix = "cvd_") val viewData: ConversationViewDataEntity?,
 )

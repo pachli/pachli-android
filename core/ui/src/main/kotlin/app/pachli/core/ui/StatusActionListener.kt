@@ -20,6 +20,7 @@ package app.pachli.core.ui
 import android.view.View
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.model.AttachmentDisplayAction
+import app.pachli.core.model.IStatus
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 
@@ -35,7 +36,7 @@ interface StatusActionListener<T : IStatusViewData> : LinkListener {
     /**
      * Open reblog author for the status.
      */
-    fun onOpenReblog(status: Status)
+    fun onOpenReblog(status: IStatus)
     fun onExpandedChange(viewData: T, expanded: Boolean)
 
     fun onAttachmentDisplayActionChange(viewData: T, newAction: AttachmentDisplayAction)

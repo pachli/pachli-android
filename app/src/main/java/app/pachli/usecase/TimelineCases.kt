@@ -17,7 +17,7 @@
 package app.pachli.usecase
 
 import app.pachli.core.common.di.ApplicationScope
-import app.pachli.core.data.model.StatusViewData
+import app.pachli.core.data.model.StatusViewDataQ
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.StatusActionError
@@ -200,22 +200,22 @@ class TimelineCases @Inject constructor(
         return mastodonApi.rejectFollowRequest(accountId)
     }
 
-    suspend fun translate(statusViewData: StatusViewData): Result<TranslatedStatus, TranslatorError> {
-        statusRepository.setTranslationState(statusViewData.pachliAccountId, statusViewData.id, TranslationState.TRANSLATING)
+    suspend fun translate(statusViewData: StatusViewDataQ): Result<TranslatedStatus, TranslatorError> {
+        statusRepository.setTranslationState(statusViewData.pachliAccountId, statusViewData.statusId, TranslationState.TRANSLATING)
         return translationService.translate(statusViewData)
             .onSuccess {
                 translatedStatusDao.upsert(
                     it.toEntity(statusViewData.pachliAccountId, statusViewData.actionableId),
                 )
-                statusRepository.setTranslationState(statusViewData.pachliAccountId, statusViewData.id, TranslationState.SHOW_TRANSLATION)
+                statusRepository.setTranslationState(statusViewData.pachliAccountId, statusViewData.statusId, TranslationState.SHOW_TRANSLATION)
             }.onFailure {
                 // Reset the translation state
-                statusRepository.setTranslationState(statusViewData.pachliAccountId, statusViewData.id, TranslationState.SHOW_ORIGINAL)
+                statusRepository.setTranslationState(statusViewData.pachliAccountId, statusViewData.statusId, TranslationState.SHOW_ORIGINAL)
             }
     }
 
-    suspend fun translateUndo(statusViewData: StatusViewData) {
-        statusRepository.setTranslationState(statusViewData.pachliAccountId, statusViewData.id, TranslationState.SHOW_ORIGINAL)
+    suspend fun translateUndo(statusViewData: StatusViewDataQ) {
+        statusRepository.setTranslationState(statusViewData.pachliAccountId, statusViewData.statusId, TranslationState.SHOW_ORIGINAL)
     }
 
     /**

@@ -22,10 +22,11 @@ import androidx.paging.cachedIn
 import androidx.paging.filter
 import androidx.paging.map
 import app.pachli.components.timeline.CachedTimelineRepository
-import app.pachli.core.data.model.StatusViewData
+import app.pachli.core.data.model.IStatusViewData
+import app.pachli.core.data.model.StatusViewDataQ
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
-import app.pachli.core.database.model.TimelineStatusWithAccount
+import app.pachli.core.database.model.TSQ
 import app.pachli.core.eventhub.BookmarkEvent
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.FavoriteEvent
@@ -59,7 +60,7 @@ class CachedTimelineViewModel @AssistedInject constructor(
     accountManager: AccountManager,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     sharedPreferencesRepository: SharedPreferencesRepository,
-) : TimelineViewModel<TimelineStatusWithAccount, CachedTimelineRepository>(
+) : TimelineViewModel<TSQ, CachedTimelineRepository>(
     timeline = timeline,
     timelineCases = timelineCases,
     eventHub = eventHub,
@@ -71,19 +72,16 @@ class CachedTimelineViewModel @AssistedInject constructor(
     override val statuses = pachliAccountFlow.distinctUntilChangedBy { it.id }.flatMapLatest { pachliAccount ->
         repository.getStatusStream(pachliAccount.id, timeline).map { pagingData ->
             pagingData
-                .map { Pair(it, shouldFilterStatus(it)) }
+                .map { Pair(it, shouldFilterStatus(it.timelineStatus)) }
                 .filter { it.second != FilterAction.HIDE }
-                .map { (timelineStatusWithAccount, contentFilterAction) ->
-                    StatusViewData.from(
+                .map { (tsq, contentFilterAction) ->
+                    StatusViewDataQ.from(
                         pachliAccountId = pachliAccount.id,
-                        timelineStatusWithAccount,
+                        tsq,
                         isExpanded = pachliAccount.entity.alwaysOpenSpoiler,
                         contentFilterAction = contentFilterAction,
-                        attachmentDisplayAction = getAttachmentDisplayAction(
-                            timelineStatusWithAccount,
-                            pachliAccount.entity.alwaysShowSensitiveMedia,
-                            timelineStatusWithAccount.viewData?.attachmentDisplayAction,
-                        ),
+                        showSensitiveMedia = pachliAccount.entity.alwaysShowSensitiveMedia,
+                        filterContext = filterContext,
                     )
                 }
         }
@@ -101,7 +99,7 @@ class CachedTimelineViewModel @AssistedInject constructor(
         }
     }
 
-    override fun clearWarning(statusViewData: StatusViewData) {
+    override fun clearWarning(statusViewData: IStatusViewData) {
         viewModelScope.launch {
             repository.clearStatusWarning(statusViewData.pachliAccountId, statusViewData.actionableId)
         }
@@ -129,21 +127,21 @@ class CachedTimelineViewModel @AssistedInject constructor(
         // handled by CacheUpdater
     }
 
-    override fun onChangeExpanded(isExpanded: Boolean, statusViewData: StatusViewData) {
+    override fun onChangeExpanded(isExpanded: Boolean, statusViewData: IStatusViewData) {
         viewModelScope.launch {
-            repository.setExpanded(statusViewData.pachliAccountId, statusViewData.id, isExpanded)
+            repository.setExpanded(statusViewData.pachliAccountId, statusViewData.statusId, isExpanded)
         }
     }
 
-    override fun onChangeAttachmentDisplayAction(viewData: StatusViewData, newAction: AttachmentDisplayAction) {
+    override fun onChangeAttachmentDisplayAction(viewData: IStatusViewData, newAction: AttachmentDisplayAction) {
         viewModelScope.launch {
             repository.setAttachmentDisplayAction(viewData.pachliAccountId, viewData.actionableId, newAction)
         }
     }
 
-    override fun onContentCollapsed(isCollapsed: Boolean, statusViewData: StatusViewData) {
+    override fun onContentCollapsed(isCollapsed: Boolean, statusViewData: IStatusViewData) {
         viewModelScope.launch {
-            repository.setContentCollapsed(statusViewData.pachliAccountId, statusViewData.id, isCollapsed)
+            repository.setContentCollapsed(statusViewData.pachliAccountId, statusViewData.statusId, isCollapsed)
         }
     }
 

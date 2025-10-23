@@ -63,9 +63,10 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
-import app.pachli.core.data.model.StatusViewData
+import app.pachli.core.data.model.StatusViewDataQ
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.model.AttachmentDisplayAction
+import app.pachli.core.model.IStatus
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
@@ -113,9 +114,9 @@ import timber.log.Timber
 
 @AndroidEntryPoint
 class TimelineFragment :
-    SFragment<StatusViewData>(),
+    SFragment<StatusViewDataQ>(),
     OnRefreshListener,
-    StatusActionListener<StatusViewData>,
+    StatusActionListener<StatusViewDataQ>,
     ReselectableFragment,
     RefreshableFragment,
     MenuProvider {
@@ -256,7 +257,7 @@ class TimelineFragment :
                             // contain the ID we expect (no idea how that can happen). Filter those
                             // out.
                             .onEach { (statusId, _) -> Timber.d("timeline: $timeline, Checking contains $statusId") }
-                            .map { (statusId, snapshot) -> Triple(statusId, snapshot, snapshot.indexOfFirst { it?.id == statusId }) }
+                            .map { (statusId, snapshot) -> Triple(statusId, snapshot, snapshot.indexOfFirst { it?.statusId == statusId }) }
                             .filter { (_, _, index) -> index != -1 }
                             // Only going to restore the position manually once over the lifetime of this
                             // fragment. Other position restoration is handled by the RecyclerView.
@@ -264,8 +265,8 @@ class TimelineFragment :
                             .collect { (statusId, snapshot, index) ->
                                 Timber.d("timeline: $timeline, snapshot.size: ${snapshot.size}")
                                 Timber.d("timeline: $timeline, snapshot.items.size: ${snapshot.items.size}")
-                                Timber.d("timeline: $timeline, snapshot.items.first id: ${snapshot.items.firstOrNull()?.id}")
-                                Timber.d("timeline: $timeline, snapshot.items.last  id: ${snapshot.items.lastOrNull()?.id}")
+                                Timber.d("timeline: $timeline, snapshot.items.first id: ${snapshot.items.firstOrNull()?.statusId}")
+                                Timber.d("timeline: $timeline, snapshot.items.last  id: ${snapshot.items.lastOrNull()?.statusId}")
                                 Timber.d("timeline: $timeline, placeholdersBefore: ${snapshot.placeholdersBefore}")
 
                                 // If the recyclerview is using a ConcatAdapter to display a progress spinner while
@@ -367,7 +368,7 @@ class TimelineFragment :
                 if (action !is FallibleStatusAction) return@let
 
                 adapter.snapshot()
-                    .indexOfFirst { it?.id == action.statusViewData.id }
+                    .indexOfFirst { it?.statusId == action.statusViewData.statusId }
                     .takeIf { it != RecyclerView.NO_POSITION }
                     ?.let { adapter.notifyItemChanged(it) }
             }
@@ -508,7 +509,7 @@ class TimelineFragment :
      */
     fun saveVisibleId() {
         if (timeline.remoteKeyTimelineId == null) return
-        val id = getFirstVisibleStatus()?.id
+        val id = getFirstVisibleStatus()?.statusId
         if (BuildConfig.DEBUG && id == null) {
             Toast.makeText(requireActivity(), "Could not find ID of item to save", LENGTH_LONG).show()
         }
@@ -588,27 +589,27 @@ class TimelineFragment :
         adapter.refresh()
     }
 
-    override fun onReply(viewData: StatusViewData) {
+    override fun onReply(viewData: StatusViewDataQ) {
         super.reply(viewData.pachliAccountId, viewData.actionable)
     }
 
-    override fun onReblog(viewData: StatusViewData, reblog: Boolean) {
+    override fun onReblog(viewData: StatusViewDataQ, reblog: Boolean) {
         viewModel.accept(FallibleStatusAction.Reblog(reblog, viewData))
     }
 
-    override fun onFavourite(viewData: StatusViewData, favourite: Boolean) {
+    override fun onFavourite(viewData: StatusViewDataQ, favourite: Boolean) {
         viewModel.accept(FallibleStatusAction.Favourite(favourite, viewData))
     }
 
-    override fun onBookmark(viewData: StatusViewData, bookmark: Boolean) {
+    override fun onBookmark(viewData: StatusViewDataQ, bookmark: Boolean) {
         viewModel.accept(FallibleStatusAction.Bookmark(bookmark, viewData))
     }
 
-    override fun onVoteInPoll(viewData: StatusViewData, poll: Poll, choices: List<Int>) {
+    override fun onVoteInPoll(viewData: StatusViewDataQ, poll: Poll, choices: List<Int>) {
         viewModel.accept(FallibleStatusAction.VoteInPoll(poll, choices, viewData))
     }
 
-    override fun clearContentFilter(viewData: StatusViewData) {
+    override fun clearContentFilter(viewData: StatusViewDataQ) {
         viewModel.clearWarning(viewData)
     }
 
@@ -619,19 +620,19 @@ class TimelineFragment :
         )
     }
 
-    override fun onMore(view: View, viewData: StatusViewData) {
+    override fun onMore(view: View, viewData: StatusViewDataQ) {
         super.more(view, viewData)
     }
 
-    override fun onOpenReblog(status: Status) {
+    override fun onOpenReblog(status: IStatus) {
         super.openReblog(status)
     }
 
-    override fun onExpandedChange(viewData: StatusViewData, expanded: Boolean) {
+    override fun onExpandedChange(viewData: StatusViewDataQ, expanded: Boolean) {
         viewModel.onChangeExpanded(expanded, viewData)
     }
 
-    override fun onAttachmentDisplayActionChange(viewData: StatusViewData, newAction: AttachmentDisplayAction) {
+    override fun onAttachmentDisplayActionChange(viewData: StatusViewDataQ, newAction: AttachmentDisplayAction) {
         viewModel.onChangeAttachmentDisplayAction(viewData, newAction)
     }
 
@@ -645,19 +646,19 @@ class TimelineFragment :
         startActivityWithDefaultTransition(intent)
     }
 
-    override fun onContentCollapsedChange(viewData: StatusViewData, isCollapsed: Boolean) {
+    override fun onContentCollapsedChange(viewData: StatusViewDataQ, isCollapsed: Boolean) {
         viewModel.onContentCollapsed(isCollapsed, viewData)
     }
 
-    override fun onTranslate(viewData: StatusViewData) {
+    override fun onTranslate(viewData: StatusViewDataQ) {
         viewModel.accept(FallibleStatusAction.Translate(viewData))
     }
 
-    override fun onTranslateUndo(viewData: StatusViewData) {
+    override fun onTranslateUndo(viewData: StatusViewDataQ) {
         viewModel.accept(InfallibleStatusAction.TranslateUndo(viewData))
     }
 
-    override fun onViewAttachment(view: View?, viewData: StatusViewData, attachmentIndex: Int) {
+    override fun onViewAttachment(view: View?, viewData: StatusViewDataQ, attachmentIndex: Int) {
         // Pass the translated media descriptions through (if appropriate)
         val actionable = if (viewData.translationState == TranslationState.SHOW_TRANSLATION) {
             viewData.actionable.copy(
@@ -724,8 +725,8 @@ class TimelineFragment :
         }
     }
 
-    public override fun removeItem(viewData: StatusViewData) {
-        viewModel.removeStatusWithId(viewData.id)
+    public override fun removeItem(viewData: StatusViewDataQ) {
+        viewModel.removeStatusWithId(viewData.statusId)
     }
 
     private var talkBackWasEnabled = false

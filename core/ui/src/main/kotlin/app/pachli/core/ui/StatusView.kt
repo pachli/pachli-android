@@ -27,6 +27,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.withStyledAttributes
 import androidx.core.text.HtmlCompat
 import androidx.core.util.TypedValueCompat.dpToPx
 import app.pachli.core.common.extensions.hide
@@ -129,6 +130,9 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
     /** View displaying the status' content. */
     abstract val content: TextView
 
+    /** View displaying the quoted status, if any. */
+//    abstract val quotedStatusView: StatusView<T>
+
     /**
      * Button to toggle expanding/collapsing the status' content.
      *
@@ -155,6 +159,14 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
     protected val avatarRadius48dp = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_48dp)
     private val avatarRadius36dp = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_36dp)
     private val avatarRadius24dp = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_24dp)
+
+    private var showQuote = true
+
+    init {
+        context.withStyledAttributes(attrs, R.styleable.StatusView, defStyleAttr, defStyleRes) {
+            showQuote = getBoolean(R.styleable.StatusView_showQuote, true)
+        }
+    }
 
     fun setDisplayName(
         glide: RequestManager,
@@ -290,6 +302,8 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
                 }
             }
         }
+
+        translationProvider.hide()
 
         if (!sensitive || viewData.isExpanded) {
             setStatusContent(
@@ -472,6 +486,13 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
         } else {
             actionable.attachments
         }
+
+        if (attachments.isEmpty()) {
+            attachmentsView.hide()
+            return
+        }
+
+        attachmentsView.show()
 
         attachmentsView.bind(
             glide,

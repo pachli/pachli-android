@@ -31,7 +31,7 @@ import app.pachli.core.data.model.NotificationViewData.WithStatus.PollNotificati
 import app.pachli.core.data.model.NotificationViewData.WithStatus.ReblogNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.WithStatus.StatusNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.WithStatus.UpdateNotificationViewData
-import app.pachli.core.data.model.StatusViewData
+import app.pachli.core.data.model.StatusViewDataQ
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.NotificationData
 import app.pachli.core.database.model.NotificationEntity
@@ -76,17 +76,14 @@ fun NotificationViewData.Companion.make(
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
         statusViewData = data.status!!.let {
-            StatusViewData.from(
+            StatusViewDataQ.from(
                 pachliAccountId = pachliAccountEntity.id,
                 it,
                 isExpanded = isExpanded,
                 isDetailed = false,
                 contentFilterAction = contentFilterAction,
-                attachmentDisplayAction = it.getAttachmentDisplayAction(
-                    FilterContext.NOTIFICATIONS,
-                    showSensitiveMedia,
-                    it.viewData?.attachmentDisplayAction,
-                ),
+                showSensitiveMedia = showSensitiveMedia,
+                filterContext = FilterContext.NOTIFICATIONS,
             )
         },
     )
@@ -99,17 +96,14 @@ fun NotificationViewData.Companion.make(
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
         statusViewData = data.status!!.let {
-            StatusViewData.from(
+            StatusViewDataQ.from(
                 pachliAccountId = pachliAccountEntity.id,
                 it,
                 isExpanded = isExpanded,
                 isDetailed = false,
                 contentFilterAction = contentFilterAction,
-                attachmentDisplayAction = it.getAttachmentDisplayAction(
-                    FilterContext.NOTIFICATIONS,
-                    showSensitiveMedia,
-                    it.viewData?.attachmentDisplayAction,
-                ),
+                showSensitiveMedia = showSensitiveMedia,
+                filterContext = FilterContext.NOTIFICATIONS,
             )
         },
     )
@@ -122,17 +116,14 @@ fun NotificationViewData.Companion.make(
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
         statusViewData = data.status!!.let {
-            StatusViewData.from(
+            StatusViewDataQ.from(
                 pachliAccountId = pachliAccountEntity.id,
                 it,
                 isExpanded = isExpanded,
                 isDetailed = false,
                 contentFilterAction = contentFilterAction,
-                attachmentDisplayAction = it.getAttachmentDisplayAction(
-                    FilterContext.NOTIFICATIONS,
-                    showSensitiveMedia,
-                    it.viewData?.attachmentDisplayAction,
-                ),
+                showSensitiveMedia = showSensitiveMedia,
+                filterContext = FilterContext.NOTIFICATIONS,
             )
         },
     )
@@ -163,17 +154,14 @@ fun NotificationViewData.Companion.make(
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
         statusViewData = data.status!!.let {
-            StatusViewData.from(
+            StatusViewDataQ.from(
                 pachliAccountId = pachliAccountEntity.id,
                 it,
                 isExpanded = isExpanded,
                 isDetailed = false,
                 contentFilterAction = contentFilterAction,
-                attachmentDisplayAction = it.getAttachmentDisplayAction(
-                    FilterContext.NOTIFICATIONS,
-                    showSensitiveMedia,
-                    it.viewData?.attachmentDisplayAction,
-                ),
+                showSensitiveMedia = showSensitiveMedia,
+                filterContext = FilterContext.NOTIFICATIONS,
             )
         },
     )
@@ -186,17 +174,14 @@ fun NotificationViewData.Companion.make(
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
         statusViewData = data.status!!.let {
-            StatusViewData.from(
+            StatusViewDataQ.from(
                 pachliAccountId = pachliAccountEntity.id,
                 it,
                 isExpanded = isExpanded,
                 isDetailed = false,
                 contentFilterAction = contentFilterAction,
-                attachmentDisplayAction = it.getAttachmentDisplayAction(
-                    FilterContext.NOTIFICATIONS,
-                    showSensitiveMedia,
-                    it.viewData?.attachmentDisplayAction,
-                ),
+                showSensitiveMedia = showSensitiveMedia,
+                filterContext = FilterContext.NOTIFICATIONS,
             )
         },
     )
@@ -218,17 +203,14 @@ fun NotificationViewData.Companion.make(
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
         statusViewData = data.status!!.let {
-            StatusViewData.from(
+            StatusViewDataQ.from(
                 pachliAccountId = pachliAccountEntity.id,
                 it,
                 isExpanded = isExpanded,
                 isDetailed = false,
                 contentFilterAction = contentFilterAction,
-                attachmentDisplayAction = it.getAttachmentDisplayAction(
-                    FilterContext.NOTIFICATIONS,
-                    showSensitiveMedia,
-                    it.viewData?.attachmentDisplayAction,
-                ),
+                showSensitiveMedia = showSensitiveMedia,
+                filterContext = FilterContext.NOTIFICATIONS,
             )
         },
     )

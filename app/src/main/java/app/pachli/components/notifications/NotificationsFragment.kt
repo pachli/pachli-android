@@ -57,6 +57,7 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.data.model.NotificationViewData
 import app.pachli.core.model.AttachmentDisplayAction
+import app.pachli.core.model.IStatus
 import app.pachli.core.model.Notification
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
@@ -534,7 +535,7 @@ class NotificationsFragment :
         super.viewThread(status.actionableId, status.actionableStatus.url)
     }
 
-    override fun onOpenReblog(status: Status) {
+    override fun onOpenReblog(status: IStatus) {
         onViewAccount(status.account.id)
     }
 
@@ -580,7 +581,7 @@ class NotificationsFragment :
     }
 
     override fun clearContentFilter(viewData: NotificationViewData.WithStatus) {
-        viewModel.accept(InfallibleUiAction.ClearContentFilter(viewData.pachliAccountId, viewData.notificationId))
+        viewModel.accept(InfallibleUiAction.ClearContentFilter(viewData.pachliAccountId, viewData.statusId))
     }
 
     override fun clearAccountFilter(viewData: NotificationViewData) {

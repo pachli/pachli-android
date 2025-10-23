@@ -66,6 +66,7 @@ SELECT
     a.pronouns AS 'a_pronouns',
 
     -- The status in the notification (if any)
+    -- TimelineStatusWithAccount
     s.serverId AS 's_serverId',
     s.url AS 's_url',
     s.timelineUserId AS 's_timelineUserId',
@@ -78,6 +79,7 @@ SELECT
     s.reblogsCount AS 's_reblogsCount',
     s.favouritesCount AS 's_favouritesCount',
     s.repliesCount AS 's_repliesCount',
+    s.quotesCount AS 's_quotesCount',
     s.reblogged AS 's_reblogged',
     s.favourited AS 's_favourited',
     s.bookmarked AS 's_bookmarked',
@@ -93,59 +95,62 @@ SELECT
     s.attachments AS 's_attachments',
     s.poll AS 's_poll',
     s.card AS 's_card',
+    s.quoteState AS 's_quoteState',
+    s.quoteServerId AS 's_quoteServerId',
+    s.quoteApproval AS 's_quoteApproval',
     s.muted AS 's_muted',
     s.pinned AS 's_pinned',
     s.language AS 's_language',
     s.filtered AS 's_filtered',
 
     -- The status' account (if any)
-    sa.serverId AS 's_a_serverId',
-    sa.timelineUserId AS 's_a_timelineUserId',
-    sa.localUsername AS 's_a_localUsername',
-    sa.username AS 's_a_username',
-    sa.displayName AS 's_a_displayName',
-    sa.url AS 's_a_url',
-    sa.avatar AS 's_a_avatar',
-    sa.emojis AS 's_a_emojis',
-    sa.bot AS 's_a_bot',
-    sa.createdAt AS 's_a_createdAt',
-    sa.limited AS 's_a_limited',
-    sa.note AS 's_a_note',
-    sa.roles AS 's_a_roles',
-    sa.pronouns AS 's_a_pronouns',
+    s.a_serverId AS 's_a_serverId',
+    s.a_timelineUserId AS 's_a_timelineUserId',
+    s.a_localUsername AS 's_a_localUsername',
+    s.a_username AS 's_a_username',
+    s.a_displayName AS 's_a_displayName',
+    s.a_url AS 's_a_url',
+    s.a_avatar AS 's_a_avatar',
+    s.a_emojis AS 's_a_emojis',
+    s.a_bot AS 's_a_bot',
+    s.a_createdAt AS 's_a_createdAt',
+    s.a_limited AS 's_a_limited',
+    s.a_note AS 's_a_note',
+    s.a_roles AS 's_a_roles',
+    s.a_pronouns AS 's_a_pronouns',
 
     -- The status's reblog account (if any)
-    rb.serverId AS 's_rb_serverId',
-    rb.timelineUserId AS 's_rb_timelineUserId',
-    rb.localUsername AS 's_rb_localUsername',
-    rb.username AS 's_rb_username',
-    rb.displayName AS 's_rb_displayName',
-    rb.url AS 's_rb_url',
-    rb.avatar AS 's_rb_avatar',
-    rb.emojis AS 's_rb_emojis',
-    rb.bot AS 's_rb_bot',
-    rb.createdAt AS 's_rb_createdAt',
-    rb.limited AS 's_rb_limited',
-    rb.note AS 's_rb_note',
-    rb.roles AS 's_rb_roles',
-    rb.pronouns AS 's_rb_pronouns',
+    s.rb_serverId AS 's_rb_serverId',
+    s.rb_timelineUserId AS 's_rb_timelineUserId',
+    s.rb_localUsername AS 's_rb_localUsername',
+    s.rb_username AS 's_rb_username',
+    s.rb_displayName AS 's_rb_displayName',
+    s.rb_url AS 's_rb_url',
+    s.rb_avatar AS 's_rb_avatar',
+    s.rb_emojis AS 's_rb_emojis',
+    s.rb_bot AS 's_rb_bot',
+    s.rb_createdAt AS 's_rb_createdAt',
+    s.rb_limited AS 's_rb_limited',
+    s.rb_note AS 's_rb_note',
+    s.rb_roles AS 's_rb_roles',
+    s.rb_pronouns AS 's_rb_pronouns',
 
     -- Status view data
-    svd.serverId AS 's_svd_serverId',
-    svd.pachliAccountId AS 's_svd_pachliAccountId',
-    svd.expanded AS 's_svd_expanded',
-    svd.contentCollapsed AS 's_svd_contentCollapsed',
-    svd.translationState AS 's_svd_translationState',
-    svd.attachmentDisplayAction AS 's_svd_attachmentDisplayAction',
+    s.svd_serverId AS 's_svd_serverId',
+    s.svd_pachliAccountId AS 's_svd_pachliAccountId',
+    s.svd_expanded AS 's_svd_expanded',
+    s.svd_contentCollapsed AS 's_svd_contentCollapsed',
+    s.svd_translationState AS 's_svd_translationState',
+    s.svd_attachmentDisplayAction AS 's_svd_attachmentDisplayAction',
 
     -- Translation
-    t.serverId AS 's_t_serverId',
-    t.timelineUserId AS 's_t_timelineUserId',
-    t.content AS 's_t_content',
-    t.spoilerText AS 's_t_spoilerText',
-    t.poll AS 's_t_poll',
-    t.attachments AS 's_t_attachments',
-    t.provider AS 's_t_provider',
+    s.t_serverId AS 's_t_serverId',
+    s.t_timelineUserId AS 's_t_timelineUserId',
+    s.t_content AS 's_t_content',
+    s.t_spoilerText AS 's_t_spoilerText',
+    s.t_poll AS 's_t_poll',
+    s.t_attachments AS 's_t_attachments',
+    s.t_provider AS 's_t_provider',
 
     -- NotificationViewData
     nvd.pachliAccountId AS 'nvd_pachliAccountId',
@@ -198,15 +203,7 @@ SELECT
     warn.createdAt AS 'warn_createdAt'
 FROM NotificationEntity AS n
 LEFT JOIN TimelineAccountEntity AS a ON (n.pachliAccountId = a.timelineUserId AND n.accountServerId = a.serverId)
-LEFT JOIN StatusEntity AS s ON (n.pachliAccountId = s.timelineUserId AND n.statusServerId = s.serverId)
-LEFT JOIN TimelineAccountEntity AS sa ON (n.pachliAccountId = sa.timelineUserId AND s.authorServerId = sa.serverId)
-LEFT JOIN TimelineAccountEntity AS rb ON (n.pachliAccountId = rb.timelineUserId AND s.reblogAccountId = rb.serverId)
-LEFT JOIN
-    StatusViewDataEntity AS svd
-    ON (n.pachliAccountId = svd.pachliAccountId AND (s.serverId = svd.serverId OR s.reblogServerId = svd.serverId))
-LEFT JOIN
-    TranslatedStatusEntity AS t
-    ON (n.pachliAccountId = t.timelineUserId AND (s.serverId = t.serverId OR s.reblogServerId = t.serverId))
+LEFT JOIN TimelineStatusWithAccount AS s ON (n.pachliAccountId = s.timelineUserId AND n.statusServerId = s.serverId)
 LEFT JOIN NotificationViewDataEntity AS nvd ON (n.pachliAccountId = nvd.pachliAccountId AND n.serverId = nvd.serverId)
 LEFT JOIN
     NotificationReportEntity AS report

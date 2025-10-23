@@ -25,6 +25,7 @@ import app.pachli.core.database.dao.NotificationDao
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TimelineDao
+import app.pachli.core.database.dao.TimelineStatusWithAccount
 import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.NotificationAccountWarningEntity
 import app.pachli.core.database.model.NotificationData
@@ -32,7 +33,8 @@ import app.pachli.core.database.model.NotificationRelationshipSeveranceEventEnti
 import app.pachli.core.database.model.NotificationReportEntity
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
-import app.pachli.core.database.model.TimelineStatusWithAccount
+import app.pachli.core.database.model.StatusEntity
+import app.pachli.core.database.model.TSQ
 import app.pachli.core.database.model.asEntity
 import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
@@ -269,9 +271,17 @@ fun NotificationData.Companion.from(pachliAccountId: Long, notification: Notific
     notification = notification.asEntity(pachliAccountId),
     account = notification.account.asEntity(pachliAccountId),
     status = notification.status?.let { status ->
-        TimelineStatusWithAccount(
-            status = status.asEntity(pachliAccountId),
-            account = status.account.asEntity(pachliAccountId),
+        TSQ(
+            timelineStatus = TimelineStatusWithAccount(
+                status = status.asEntity(pachliAccountId),
+                account = status.account.asEntity(pachliAccountId),
+            ),
+            quotedStatus = (status.quote?.asModel() as? Status.Quote.FullQuote)?.let {
+                TimelineStatusWithAccount(
+                    status = it.status.asEntity(pachliAccountId),
+                    account = it.status.account.asEntity(pachliAccountId),
+                )
+            },
         )
     },
     viewData = null,

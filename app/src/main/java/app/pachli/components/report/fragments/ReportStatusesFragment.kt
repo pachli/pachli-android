@@ -44,7 +44,9 @@ import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.data.model.StatusViewData
+import app.pachli.core.data.model.StatusViewDataQ
 import app.pachli.core.model.AttachmentDisplayAction
+import app.pachli.core.model.IStatus
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 import app.pachli.core.navigation.AccountActivityIntent
@@ -79,7 +81,7 @@ import kotlinx.coroutines.launch
  */
 @AndroidEntryPoint
 class ReportStatusesFragment :
-    SFragment<StatusViewData>(),
+    SFragment<StatusViewDataQ>(),
     OnRefreshListener,
     MenuProvider,
     ReportStatusActionListener {
@@ -202,7 +204,7 @@ class ReportStatusesFragment :
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.CREATED) {
                 launch {
                     viewModel.initialRefreshStatusId.combine(adapter.onPagesUpdatedFlow) { statusId, _ -> Pair(statusId, adapter.snapshot()) }
-                        .map { (statusId, snapshot) -> snapshot.indexOfFirst { it?.id == statusId } }
+                        .map { (statusId, snapshot) -> snapshot.indexOfFirst { it?.statusId == statusId } }
                         .filter { it != -1 }
                         .take(1)
                         .collect { binding.recyclerView.scrollToPosition(it) }
@@ -247,7 +249,7 @@ class ReportStatusesFragment :
         return viewModel.isStatusChecked(id)
     }
 
-    override fun onViewAttachment(view: View?, viewData: StatusViewData, attachmentIndex: Int) {
+    override fun onViewAttachment(view: View?, viewData: StatusViewDataQ, attachmentIndex: Int) {
         super.viewMedia(
             viewData.actionable.account.username,
             attachmentIndex,
@@ -260,19 +262,19 @@ class ReportStatusesFragment :
         super.viewThread(status.actionableId, status.actionableStatus.url)
     }
 
-    override fun onExpandedChange(viewData: StatusViewData, expanded: Boolean) {
+    override fun onExpandedChange(viewData: StatusViewDataQ, expanded: Boolean) {
         viewModel.onChangeExpanded(expanded, viewData)
     }
 
-    override fun onAttachmentDisplayActionChange(viewData: StatusViewData, newAction: AttachmentDisplayAction) {
+    override fun onAttachmentDisplayActionChange(viewData: StatusViewDataQ, newAction: AttachmentDisplayAction) {
         viewModel.onChangeAttachmentDisplayAction(viewData, newAction)
     }
 
-    override fun onContentCollapsedChange(viewData: StatusViewData, isCollapsed: Boolean) {
+    override fun onContentCollapsedChange(viewData: StatusViewDataQ, isCollapsed: Boolean) {
         viewModel.onContentCollapsed(isCollapsed, viewData)
     }
 
-    override fun clearContentFilter(viewData: StatusViewData) {
+    override fun clearContentFilter(viewData: StatusViewDataQ) {
         viewModel.clearWarning(viewData)
     }
 
@@ -293,16 +295,16 @@ class ReportStatusesFragment :
 
     override fun onViewUrl(url: String) = viewModel.checkClickedUrl(url)
 
-    override fun removeItem(viewData: StatusViewData) = Unit
-    override fun onReply(viewData: StatusViewData) = Unit
-    override fun onReblog(viewData: StatusViewData, reblog: Boolean) = Unit
-    override fun onFavourite(viewData: StatusViewData, favourite: Boolean) = Unit
-    override fun onBookmark(viewData: StatusViewData, bookmark: Boolean) = Unit
-    override fun onMore(view: View, viewData: StatusViewData) = Unit
-    override fun onOpenReblog(status: Status) = Unit
-    override fun onVoteInPoll(viewData: StatusViewData, poll: Poll, choices: List<Int>) = Unit
-    override fun onTranslate(viewData: StatusViewData) = Unit
-    override fun onTranslateUndo(viewData: StatusViewData) = Unit
+    override fun removeItem(viewData: StatusViewDataQ) = Unit
+    override fun onReply(viewData: StatusViewDataQ) = Unit
+    override fun onReblog(viewData: StatusViewDataQ, reblog: Boolean) = Unit
+    override fun onFavourite(viewData: StatusViewDataQ, favourite: Boolean) = Unit
+    override fun onBookmark(viewData: StatusViewDataQ, bookmark: Boolean) = Unit
+    override fun onMore(view: View, viewData: StatusViewDataQ) = Unit
+    override fun onOpenReblog(status: IStatus) = Unit
+    override fun onVoteInPoll(viewData: StatusViewDataQ, poll: Poll, choices: List<Int>) = Unit
+    override fun onTranslate(viewData: StatusViewDataQ) = Unit
+    override fun onTranslateUndo(viewData: StatusViewDataQ) = Unit
 
     companion object {
         private const val ARG_PACHLI_ACCOUNT_ID = "app.pachli.ARG_PACHLI_ACCOUNT_ID"

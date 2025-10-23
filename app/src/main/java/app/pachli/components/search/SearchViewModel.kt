@@ -272,7 +272,7 @@ class SearchViewModel @Inject constructor(
 
     fun removeItem(statusViewData: StatusViewData) {
         viewModelScope.launch {
-            timelineCases.delete(statusViewData.id)
+            timelineCases.delete(statusViewData.statusId)
                 .onSuccess {
                     if (loadedStatuses.remove(statusViewData)) {
                         statusesPagingSourceFactory.invalidate()
@@ -293,10 +293,10 @@ class SearchViewModel @Inject constructor(
                     reblog = statusViewData.status.reblog?.copy(reblogged = reblog),
                 ),
             )
-            statusRepository.reblog(statusViewData.pachliAccountId, statusViewData.id, reblog)
+            statusRepository.reblog(statusViewData.pachliAccountId, statusViewData.statusId, reblog)
                 .onFailure {
                     updateStatus(statusViewData.status)
-                    Timber.d("Failed to reblog status %s: %s", statusViewData.id, it)
+                    Timber.d("Failed to reblog status %s: %s", statusViewData.statusId, it)
                 }
         }
     }
@@ -309,10 +309,10 @@ class SearchViewModel @Inject constructor(
         val votedPoll = poll.votedCopy(choices)
         updateStatus(statusViewData.status.copy(poll = votedPoll))
         viewModelScope.launch {
-            statusRepository.voteInPoll(statusViewData.pachliAccountId, statusViewData.id, votedPoll.id, choices)
+            statusRepository.voteInPoll(statusViewData.pachliAccountId, statusViewData.statusId, votedPoll.id, choices)
                 .onFailure {
                     updateStatus(statusViewData.status)
-                    Timber.d("Failed to vote in poll: %s: %s", statusViewData.id, it)
+                    Timber.d("Failed to vote in poll: %s: %s", statusViewData.statusId, it)
                 }
         }
     }
@@ -320,14 +320,14 @@ class SearchViewModel @Inject constructor(
     fun attachmentDisplayActionChange(statusViewData: StatusViewData, attachmentDisplayAction: AttachmentDisplayAction) {
         updateStatusViewData(statusViewData.copy(attachmentDisplayAction = attachmentDisplayAction))
         viewModelScope.launch {
-            statusRepository.setAttachmentDisplayAction(statusViewData.pachliAccountId, statusViewData.id, attachmentDisplayAction)
+            statusRepository.setAttachmentDisplayAction(statusViewData.pachliAccountId, statusViewData.statusId, attachmentDisplayAction)
         }
     }
 
     fun favorite(statusViewData: StatusViewData, isFavorited: Boolean) {
         updateStatus(statusViewData.status.copy(favourited = isFavorited))
         viewModelScope.launch {
-            statusRepository.favourite(statusViewData.pachliAccountId, statusViewData.id, isFavorited)
+            statusRepository.favourite(statusViewData.pachliAccountId, statusViewData.statusId, isFavorited)
                 .onFailure { updateStatus(statusViewData.status) }
         }
     }
@@ -335,7 +335,7 @@ class SearchViewModel @Inject constructor(
     fun bookmark(statusViewData: StatusViewData, isBookmarked: Boolean) {
         updateStatus(statusViewData.status.copy(bookmarked = isBookmarked))
         viewModelScope.launch {
-            statusRepository.bookmark(statusViewData.pachliAccountId, statusViewData.id, isBookmarked)
+            statusRepository.bookmark(statusViewData.pachliAccountId, statusViewData.statusId, isBookmarked)
                 .onFailure { updateStatus(statusViewData.status) }
         }
     }
@@ -348,7 +348,7 @@ class SearchViewModel @Inject constructor(
 
     fun pinStatus(statusViewData: StatusViewData, isPin: Boolean) {
         viewModelScope.launch {
-            statusRepository.pin(statusViewData.pachliAccountId, statusViewData.id, isPin)
+            statusRepository.pin(statusViewData.pachliAccountId, statusViewData.statusId, isPin)
         }
     }
 
@@ -367,7 +367,7 @@ class SearchViewModel @Inject constructor(
     fun muteConversation(statusViewData: StatusViewData, mute: Boolean) {
         updateStatus(statusViewData.status.copy(muted = mute))
         viewModelScope.launch {
-            timelineCases.muteConversation(activeAccount!!.id, statusViewData.id, mute)
+            timelineCases.muteConversation(activeAccount!!.id, statusViewData.statusId, mute)
         }
     }
 
@@ -387,7 +387,7 @@ class SearchViewModel @Inject constructor(
     }
 
     private fun updateStatusViewData(newStatusViewData: StatusViewData) {
-        val idx = loadedStatuses.indexOfFirst { it.id == newStatusViewData.id }
+        val idx = loadedStatuses.indexOfFirst { it.statusId == newStatusViewData.statusId }
         if (idx >= 0) {
             loadedStatuses[idx] = newStatusViewData
             statusesPagingSourceFactory.invalidate()
@@ -395,7 +395,7 @@ class SearchViewModel @Inject constructor(
     }
 
     private fun updateStatus(newStatus: Status) {
-        val statusViewData = loadedStatuses.find { it.id == newStatus.statusId }
+        val statusViewData = loadedStatuses.find { it.statusId == newStatus.statusId }
         if (statusViewData != null) {
             updateStatusViewData(statusViewData.copy(status = newStatus))
         }

@@ -44,13 +44,13 @@ class ConversationLineItemDecoration(context: Context) : RecyclerView.ItemDecora
 
             items.getOrNull(position)?.let { current ->
                 val above = items.getOrNull(position - 1)
-                val dividerTop = if (above != null && above.id == current.status.inReplyToId) {
+                val dividerTop = if (above != null && above.statusId == current.statusViewData.status.inReplyToId) {
                     statusItemView.top
                 } else {
                     statusItemView.top + avatarTopMargin + halfAvatarHeight
                 }
                 val below = items.getOrNull(position + 1)
-                val dividerBottom = if (below != null && current.id == below.status.inReplyToId && !current.isDetailed) {
+                val dividerBottom = if (below != null && current.statusId == below.statusViewData.status.inReplyToId && !current.isDetailed) {
                     statusItemView.bottom
                 } else {
                     statusItemView.top + avatarTopMargin + halfAvatarHeight

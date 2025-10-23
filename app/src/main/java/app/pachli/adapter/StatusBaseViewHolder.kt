@@ -26,6 +26,7 @@ import app.pachli.R
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusViewData
+import app.pachli.core.data.model.StatusViewDataQ
 import app.pachli.core.ui.SetStatusContent
 import app.pachli.core.ui.StatusActionListener
 import app.pachli.core.ui.StatusControlView
@@ -122,11 +123,11 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
 }
 
 /**
- * Callback to determine what, if anything, has changed in a [StatusViewData].
+ * Callback to determine what, if anything, has changed in a [StatusViewDataQ].
  *
  * Changes are represented by [Payload].
  */
-object StatusViewDataDiffCallback : DiffUtil.ItemCallback<StatusViewData>() {
+object StatusViewDataDiffCallback : DiffUtil.ItemCallback<StatusViewDataQ>() {
     /** Changes to a [StatusViewData]. */
     enum class Payload {
         /** The timestamp for the status should be recalculated and displayed. */
@@ -144,23 +145,23 @@ object StatusViewDataDiffCallback : DiffUtil.ItemCallback<StatusViewData>() {
     }
 
     override fun areItemsTheSame(
-        oldItem: StatusViewData,
-        newItem: StatusViewData,
+        oldItem: StatusViewDataQ,
+        newItem: StatusViewDataQ,
     ): Boolean {
         return oldItem.actionableId == newItem.actionableId
     }
 
     override fun areContentsTheSame(
-        oldItem: StatusViewData,
-        newItem: StatusViewData,
+        oldItem: StatusViewDataQ,
+        newItem: StatusViewDataQ,
     ): Boolean {
         // Items are different always. It allows to refresh timestamp on every view holder update
         return false
     }
 
     override fun getChangePayload(
-        oldItem: StatusViewData,
-        newItem: StatusViewData,
+        oldItem: StatusViewDataQ,
+        newItem: StatusViewDataQ,
     ): Any? {
         val payload = buildList {
             if (oldItem == newItem) {

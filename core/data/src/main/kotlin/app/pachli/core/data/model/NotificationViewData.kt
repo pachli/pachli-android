@@ -63,7 +63,7 @@ sealed interface NotificationViewData {
      * @property statusViewData [StatusViewData] for the referenced [Status].
      */
     sealed interface WithStatus : NotificationViewData, IStatusViewData {
-        val statusViewData: StatusViewData
+        val statusViewData: StatusViewDataQ
 
         /**
          * [account] posted [statusViewData] mentioning the user.
@@ -77,7 +77,7 @@ sealed interface NotificationViewData {
             override val account: TimelineAccount,
             override val isAboutSelf: Boolean,
             override val accountFilterDecision: AccountFilterDecision,
-            override val statusViewData: StatusViewData,
+            override val statusViewData: StatusViewDataQ,
         ) : WithStatus, IStatusViewData by statusViewData
 
         /**
@@ -93,7 +93,7 @@ sealed interface NotificationViewData {
             override val account: TimelineAccount,
             override val isAboutSelf: Boolean,
             override val accountFilterDecision: AccountFilterDecision,
-            override val statusViewData: StatusViewData,
+            override val statusViewData: StatusViewDataQ,
         ) : WithStatus, IStatusViewData by statusViewData {
             override val rebloggedAvatar: String
                 get() = account.avatar
@@ -111,7 +111,7 @@ sealed interface NotificationViewData {
             override val account: TimelineAccount,
             override val isAboutSelf: Boolean,
             override val accountFilterDecision: AccountFilterDecision,
-            override val statusViewData: StatusViewData,
+            override val statusViewData: StatusViewDataQ,
         ) : WithStatus, IStatusViewData by statusViewData {
             override val rebloggedAvatar: String
                 get() = account.avatar
@@ -129,7 +129,7 @@ sealed interface NotificationViewData {
             override val account: TimelineAccount,
             override val isAboutSelf: Boolean,
             override val accountFilterDecision: AccountFilterDecision,
-            override val statusViewData: StatusViewData,
+            override val statusViewData: StatusViewDataQ,
         ) : WithStatus, IStatusViewData by statusViewData
 
         /**
@@ -144,7 +144,7 @@ sealed interface NotificationViewData {
             override val account: TimelineAccount,
             override val isAboutSelf: Boolean,
             override val accountFilterDecision: AccountFilterDecision,
-            override val statusViewData: StatusViewData,
+            override val statusViewData: StatusViewDataQ,
         ) : WithStatus, IStatusViewData by statusViewData
 
         /**
@@ -159,7 +159,7 @@ sealed interface NotificationViewData {
             override val account: TimelineAccount,
             override val isAboutSelf: Boolean,
             override val accountFilterDecision: AccountFilterDecision,
-            override val statusViewData: StatusViewData,
+            override val statusViewData: StatusViewDataQ,
         ) : WithStatus, IStatusViewData by statusViewData
     }
 

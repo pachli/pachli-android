@@ -58,7 +58,7 @@ class SearchStatusesAdapter(
 
     companion object {
         val STATUS_COMPARATOR = object : DiffUtil.ItemCallback<StatusViewData>() {
-            override fun areItemsTheSame(oldItem: StatusViewData, newItem: StatusViewData) = oldItem.id == newItem.id
+            override fun areItemsTheSame(oldItem: StatusViewData, newItem: StatusViewData) = oldItem.statusId == newItem.statusId
 
             // Items are different always. It allows to refresh timestamp on every view holder update
             override fun areContentsTheSame(oldItem: StatusViewData, newItem: StatusViewData) = false

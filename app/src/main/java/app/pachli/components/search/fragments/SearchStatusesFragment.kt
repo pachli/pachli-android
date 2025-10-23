@@ -48,6 +48,7 @@ import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.domain.DownloadUrlUseCase
 import app.pachli.core.model.Attachment
 import app.pachli.core.model.AttachmentDisplayAction
+import app.pachli.core.model.IStatus
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 import app.pachli.core.model.Status.Mention
@@ -183,7 +184,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
         viewUrlActivity?.viewThread(pachliAccountId, actionableStatus.statusId, actionableStatus.url)
     }
 
-    override fun onOpenReblog(status: Status) {
+    override fun onOpenReblog(status: IStatus) {
         viewUrlActivity?.viewAccount(pachliAccountId, status.account.id)
     }
 
@@ -447,7 +448,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
             AlertDialog.Builder(it)
                 .setMessage(R.string.dialog_delete_post_warning)
                 .setPositiveButton(android.R.string.ok) { _, _ ->
-                    viewModel.deleteStatusAsync(statusViewData.id)
+                    viewModel.deleteStatusAsync(statusViewData.statusId)
                     viewModel.removeItem(statusViewData)
                 }
                 .setNegativeButton(android.R.string.cancel, null)
@@ -462,7 +463,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
                 .setMessage(R.string.dialog_redraft_post_warning)
                 .setPositiveButton(android.R.string.ok) { _, _ ->
                     lifecycleScope.launch {
-                        viewModel.deleteStatusAsync(statusViewData.id).await().onSuccess { redraftStatus ->
+                        viewModel.deleteStatusAsync(statusViewData.statusId).await().onSuccess { redraftStatus ->
                             viewModel.removeItem(statusViewData)
 
                             val intent = ComposeActivityIntent(

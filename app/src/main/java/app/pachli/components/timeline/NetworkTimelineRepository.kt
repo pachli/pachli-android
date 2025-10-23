@@ -32,9 +32,10 @@ import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.StatusActionError
 import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.database.dao.RemoteKeyDao
+import app.pachli.core.database.dao.TimelineStatusWithAccount
 import app.pachli.core.database.di.InvalidationTracker
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
-import app.pachli.core.database.model.TimelineStatusWithAccount
+import app.pachli.core.database.model.TSQ
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.database.model.asEntity
 import app.pachli.core.model.AttachmentDisplayAction
@@ -130,7 +131,7 @@ class NetworkTimelineRepository @Inject constructor(
     override suspend fun getStatusStream(
         pachliAccountId: Long,
         timeline: Timeline,
-    ): Flow<PagingData<TimelineStatusWithAccount>> {
+    ): Flow<PagingData<TSQ>> {
         Timber.d("timeline: $timeline, getStatusStream()")
 
         val initialKey = timeline.remoteKeyTimelineId?.let { refreshKeyPrimaryKey ->
@@ -180,14 +181,23 @@ class NetworkTimelineRepository @Inject constructor(
                         !hiddenDomains.contains(getDomain(status.actionableStatus.account.url)) &&
                         !hiddenDomains.contains(getDomain(status.account.url))
                 }.map { status ->
-                    val statusViewData = statusRepository.getStatusViewData(pachliAccountId, status.actionableId)
-                    val translations = statusRepository.getTranslation(pachliAccountId, status.actionableId)
-                    TimelineStatusWithAccount(
-                        status = status.asEntity(pachliAccountId),
-                        account = status.reblog?.account?.asEntity(pachliAccountId) ?: status.account.asEntity(pachliAccountId),
-                        reblogAccount = status.reblog?.let { status.account.asEntity(pachliAccountId) },
-                        viewData = statusViewData,
-                        translatedStatus = translations,
+                    TSQ(
+                        timelineStatus = TimelineStatusWithAccount(
+                            status = status.asEntity(pachliAccountId),
+                            account = status.reblog?.account?.asEntity(pachliAccountId) ?: status.account.asEntity(pachliAccountId),
+                            reblogAccount = status.reblog?.let { status.account.asEntity(pachliAccountId) },
+                            viewData = statusRepository.getStatusViewData(pachliAccountId, status.actionableId),
+                            translatedStatus = statusRepository.getTranslation(pachliAccountId, status.actionableId),
+                        ),
+                        quotedStatus = (status.quote as? Status.Quote.FullQuote)?.status?.let { q ->
+                            TimelineStatusWithAccount(
+                                status = q.asEntity(pachliAccountId),
+                                account = q.account.asEntity(pachliAccountId),
+                                reblogAccount = null,
+                                viewData = statusRepository.getStatusViewData(pachliAccountId, q.actionableId),
+                                translatedStatus = statusRepository.getTranslation(pachliAccountId, q.actionableId),
+                            )
+                        },
                     )
                 }
             }

@@ -25,6 +25,7 @@ import androidx.room.Ignore
 import androidx.room.Index
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
+import app.pachli.core.database.dao.TimelineStatusWithAccount
 import app.pachli.core.model.Attachment
 import app.pachli.core.model.Card
 import app.pachli.core.model.Emoji
@@ -74,7 +75,10 @@ import java.util.Date
         ]
         ),
     // Avoiding rescanning status table when accounts table changes. Recommended by Room(c).
-    indices = [Index("authorServerId", "timelineUserId"), Index("timelineUserId")],
+    indices = [
+        Index("authorServerId", "timelineUserId"),
+        Index("timelineUserId"),
+    ],
 )
 @TypeConverters(Converters::class)
 data class StatusEntity(
@@ -93,6 +97,8 @@ data class StatusEntity(
     val reblogsCount: Int,
     val favouritesCount: Int,
     val repliesCount: Int,
+    @ColumnInfo(defaultValue = "0")
+    val quotesCount: Int,
     val reblogged: Boolean,
     val bookmarked: Boolean,
     val favourited: Boolean,
@@ -110,6 +116,10 @@ data class StatusEntity(
     val muted: Boolean?,
     val pinned: Boolean,
     val card: Card?,
+    val quoteState: Status.QuoteState?,
+    val quoteServerId: String?,
+    @ColumnInfo(defaultValue = "{\"automatic\":[], \"manual\":[], \"currentUser\":\"UNKNOWN\",}")
+    val quoteApproval: Status.QuoteApproval,
     val language: String?,
     val filtered: List<FilterResult>?,
 ) {
@@ -133,6 +143,7 @@ fun Status.asEntity(pachliAccountId: Long) = StatusEntity(
     emojis = actionableStatus.emojis,
     reblogsCount = actionableStatus.reblogsCount,
     favouritesCount = actionableStatus.favouritesCount,
+    quotesCount = actionableStatus.quotesCount,
     reblogged = actionableStatus.reblogged,
     favourited = actionableStatus.favourited,
     bookmarked = actionableStatus.bookmarked,
@@ -149,6 +160,9 @@ fun Status.asEntity(pachliAccountId: Long) = StatusEntity(
     muted = actionableStatus.muted,
     pinned = actionableStatus.pinned == true,
     card = actionableStatus.card,
+    quoteState = actionableStatus.quote?.state,
+    quoteServerId = actionableStatus.quote?.statusId,
+    quoteApproval = actionableStatus.quoteApproval,
     repliesCount = actionableStatus.repliesCount,
     language = actionableStatus.language,
     filtered = actionableStatus.filtered,
@@ -241,31 +255,34 @@ fun TimelineAccount.asEntity(pachliAccountId: Long) = TimelineAccountEntity(
 
 fun Iterable<TimelineAccount>.asEntity(pachliAccountId: Long) = map { it.asEntity(pachliAccountId) }
 
-/**
- * @property status
- * @property account
- * @property reblogAccount
- * @property viewData
- * @property translatedStatus
- * @property replyAccount If [status] is a reply, this is the details of the
- * account it is replying to. Null otherwise.
- */
-data class TimelineStatusWithAccount(
-    @Embedded
-    val status: StatusEntity,
-    @Embedded(prefix = "a_")
-    val account: TimelineAccountEntity,
-    // null when no reblog
-    @Embedded(prefix = "rb_")
-    val reblogAccount: TimelineAccountEntity? = null,
-    @Embedded(prefix = "svd_")
-    val viewData: StatusViewDataEntity? = null,
-    @Embedded(prefix = "t_")
-    val translatedStatus: TranslatedStatusEntity? = null,
-    @Embedded(prefix = "reply_")
-    val replyAccount: TimelineAccountEntity? = null,
+fun TimelineAccountEntity.asModel() = TimelineAccount(
+    id = serverId,
+    localUsername = localUsername,
+    username = username,
+    displayName = displayName,
+    url = url,
+    avatar = avatar,
+    note = note,
+    bot = bot,
+    emojis = emojis,
+    createdAt = createdAt,
+    limited = limited,
+    roles = roles.orEmpty(),
+    pronouns = pronouns,
+)
+
+// TimelineStatusWithQuote
+data class TSQ(
+    @Embedded(prefix = "s_")
+    val timelineStatus: TimelineStatusWithAccount,
+    @Embedded(prefix = "q_")
+    val quotedStatus: TimelineStatusWithAccount? = null,
 ) {
     fun toStatus(): Status {
+        val status = timelineStatus.status
+        val account = timelineStatus.account
+        val reblogAccount = timelineStatus.reblogAccount
+
         val attachments: List<Attachment> = status.attachments.orEmpty()
         val mentions: List<Status.Mention> = status.mentions.orEmpty()
         val tags: List<HashTag>? = status.tags
@@ -274,6 +291,9 @@ data class TimelineStatusWithAccount(
         val poll: Poll? = status.poll
         val card: Card? = status.card
 
+        /**
+         * If [this] is a reblog, this is the status being reblogged.
+         */
         val reblog = status.reblogServerId?.let { id ->
             Status(
                 statusId = id,
@@ -288,6 +308,8 @@ data class TimelineStatusWithAccount(
                 emojis = emojis,
                 reblogsCount = status.reblogsCount,
                 favouritesCount = status.favouritesCount,
+                quotesCount = status.quotesCount,
+//                quotesCount = 0,
                 reblogged = status.reblogged,
                 favourited = status.favourited,
                 bookmarked = status.bookmarked,
@@ -302,12 +324,30 @@ data class TimelineStatusWithAccount(
                 muted = status.muted,
                 poll = poll,
                 card = card,
+//                quote = quotedStatus?.let {
+//                    Status.Quote.FullQuote(
+//                        state = status.quoteState!!,
+//                        status = quotedStatus.toStatus(),
+//                    )
+//                },
+                quote = quotedStatus?.let {
+                    Status.Quote.FullQuote(
+                        state = status.quoteState!!,
+                        status = quotedStatus.toStatus(),
+                    )
+                },
+                quoteApproval = status.quoteApproval,
+//                quote = null,
+//                quoteApproval = Status.QuoteApproval(),
                 repliesCount = status.repliesCount,
                 language = status.language,
                 filtered = status.filtered,
             )
         }
         return if (reblog != null) {
+            val status = timelineStatus.status
+            val account = timelineStatus.account
+
             Status(
                 statusId = status.serverId,
                 // no url for reblogs
@@ -323,6 +363,7 @@ data class TimelineStatusWithAccount(
                 emojis = listOf(),
                 reblogsCount = 0,
                 favouritesCount = 0,
+                quotesCount = 0,
                 reblogged = false,
                 favourited = false,
                 bookmarked = false,
@@ -337,6 +378,8 @@ data class TimelineStatusWithAccount(
                 muted = status.muted,
                 poll = null,
                 card = null,
+                quote = null,
+                quoteApproval = Status.QuoteApproval(),
                 repliesCount = status.repliesCount,
                 language = status.language,
                 filtered = status.filtered,
@@ -355,6 +398,7 @@ data class TimelineStatusWithAccount(
                 emojis = emojis,
                 reblogsCount = status.reblogsCount,
                 favouritesCount = status.favouritesCount,
+                quotesCount = 0,
                 reblogged = status.reblogged,
                 favourited = status.favourited,
                 bookmarked = status.bookmarked,
@@ -369,6 +413,8 @@ data class TimelineStatusWithAccount(
                 muted = status.muted,
                 poll = poll,
                 card = card,
+                quote = null,
+                quoteApproval = Status.QuoteApproval(),
                 repliesCount = status.repliesCount,
                 language = status.language,
                 filtered = status.filtered,

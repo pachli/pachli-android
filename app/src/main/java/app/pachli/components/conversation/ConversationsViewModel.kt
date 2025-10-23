@@ -24,6 +24,7 @@ import androidx.paging.map
 import app.pachli.core.data.model.ConversationViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.PachliAccount
+import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.dao.ConversationsDao
 import app.pachli.core.database.model.ConversationData
 import app.pachli.core.model.AccountFilterDecision
@@ -33,7 +34,6 @@ import app.pachli.core.model.FilterAction
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
-import app.pachli.core.ui.extensions.getAttachmentDisplayAction
 import app.pachli.usecase.TimelineCases
 import com.github.michaelbull.result.onSuccess
 import dagger.assisted.Assisted
@@ -59,6 +59,7 @@ class ConversationsViewModel @AssistedInject constructor(
     private val conversationsDao: ConversationsDao,
     accountManager: AccountManager,
     private val api: MastodonApi,
+    statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     sharedPreferencesRepository: SharedPreferencesRepository,
     private val timelineCases: TimelineCases,
     @Assisted val pachliAccountId: Long,
@@ -66,6 +67,9 @@ class ConversationsViewModel @AssistedInject constructor(
     private val accountFlow = accountManager.getPachliAccountFlow(pachliAccountId)
         .filterNotNull()
         .shareIn(viewModelScope, SharingStarted.WhileSubscribed(5000), replay = 1)
+
+    /** Flow of changes to statusDisplayOptions, for use by the UI */
+    val statusDisplayOptions = statusDisplayOptionsRepository.flow
 
     private val uiAction = MutableSharedFlow<UiAction>()
     val accept: (UiAction) -> Unit = { action -> viewModelScope.launch { uiAction.emit(action) } }
@@ -87,18 +91,12 @@ class ConversationsViewModel @AssistedInject constructor(
                     ConversationViewData.make(
                         pachliAccount,
                         conversation,
+                        showSensitiveMedia = statusDisplayOptions.value.showSensitiveMedia,
                         defaultIsExpanded = pachliAccount.entity.alwaysOpenSpoiler,
                         // Mastodon filters don't apply to direct messages, so this
                         // is always FilterAction.NONE.
                         contentFilterAction = FilterAction.NONE,
                         accountFilterDecision = accountFilterDecision,
-                        attachmentDisplayAction = conversation.lastStatus.getAttachmentDisplayAction(
-                            // There is no filter context for private messages (FilterContext.CONVERSATIONS
-                            // is for threads).
-                            null,
-                            pachliAccount.entity.alwaysShowSensitiveMedia,
-                            conversation.lastStatus.viewData?.attachmentDisplayAction,
-                        ),
                     )
                 }
         }
@@ -150,10 +148,10 @@ class ConversationsViewModel @AssistedInject constructor(
         if (!conversationData.isConversationStarter) return AccountFilterDecision.None
 
         // The status to test against
-        val status = conversationData.lastStatus.status
+        val status = conversationData.lastStatus.timelineStatus
 
         // The account that wrote the last status
-        val accountToTest = conversationData.lastStatus.account
+        val accountToTest = conversationData.lastStatus.timelineStatus.account
 
         // Any conversations where we wrote the last status are not filtered.
         if (accountWithFilters.entity.accountId == accountToTest.serverId) return AccountFilterDecision.None
@@ -174,7 +172,7 @@ class ConversationsViewModel @AssistedInject constructor(
             // Check the age of the account relative to the status.
             accountToTest.createdAt?.let { createdAt ->
                 if (accountWithFilters.entity.conversationAccountFilterYounger30d != FilterAction.NONE) {
-                    if (Duration.between(createdAt, Instant.ofEpochMilli(status.createdAt)) < Duration.ofDays(30)) {
+                    if (Duration.between(createdAt, Instant.ofEpochMilli(status.status.createdAt)) < Duration.ofDays(30)) {
                         add(
                             AccountFilterDecision.make(
                                 accountWithFilters.entity.conversationAccountFilterYounger30d,

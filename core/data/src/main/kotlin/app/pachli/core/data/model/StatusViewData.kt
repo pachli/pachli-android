@@ -18,11 +18,17 @@ package app.pachli.core.data.model
 import android.os.Build
 import app.pachli.core.common.util.shouldTrimStatus
 import app.pachli.core.data.BuildConfig
-import app.pachli.core.database.model.TimelineStatusWithAccount
+import app.pachli.core.database.dao.TimelineStatusWithAccount
+import app.pachli.core.database.model.TSQ
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.model.AttachmentDisplayAction
+import app.pachli.core.model.AttachmentDisplayReason
 import app.pachli.core.model.FilterAction
+import app.pachli.core.model.FilterContext
+import app.pachli.core.model.FilterResult
+import app.pachli.core.model.IStatus
+import app.pachli.core.model.MatchingFilter
 import app.pachli.core.model.Status
 import app.pachli.core.model.TimelineAccount
 import app.pachli.core.network.parseAsMastodonHtml
@@ -33,7 +39,7 @@ import app.pachli.core.network.replaceCrashingCharacters
  * a status, like [NotificationViewData] or
  * [app.pachli.components.conversation.ConversationViewData].
  */
-interface IStatusViewData {
+interface IStatusViewData : IStatus {
     /** ID of the Pachli account that loaded this status. */
     val pachliAccountId: Long
     val username: String
@@ -71,16 +77,18 @@ interface IStatusViewData {
     val isCollapsed: Boolean
 
     /** The content warning, may be the empty string */
-    val spoilerText: String
+//    val spoilerText: String
 
     /**
      * The content to show for this status. May be the original content, or
      * translated, depending on `translationState`.
      */
-    val content: CharSequence
+//    val content: CharSequence
 
-    /** The underlying network status */
+    /** The underlying status */
     val status: Status
+
+//    val quoteViewData: IStatusViewData?
 
     /**
      * The "actionable" status; the one on which the user can perform actions
@@ -120,6 +128,70 @@ interface IStatusViewData {
      * details to show, and a generic "Reply" indicator should be shown.
      */
     val replyToAccount: TimelineAccount?
+
+    /**
+     * Specifies whether this status should be shown with the "detailed" layout, meaning it is
+     * the status that has a focus when viewing a thread.
+     */
+    val isDetailed: Boolean
+}
+
+/**
+ * Contains a status, and an optional status being quoted.
+ */
+// TODO: Better name for this is "StatusItemViewData" -- "item" implies UI based
+data class StatusViewDataQ(
+    val statusViewData: StatusViewData,
+    val quotedViewData: StatusViewData? = null,
+) : IStatusViewData by statusViewData {
+
+    companion object {
+        fun from(
+            pachliAccountId: Long,
+            tsq: TSQ,
+            isExpanded: Boolean,
+            isDetailed: Boolean = false,
+            contentFilterAction: FilterAction,
+            translationState: TranslationState = TranslationState.SHOW_ORIGINAL,
+            showSensitiveMedia: Boolean,
+            filterContext: FilterContext?,
+        ): StatusViewDataQ {
+            return StatusViewDataQ(
+                statusViewData = StatusViewData.from(
+                    pachliAccountId,
+                    tsq.timelineStatus.toStatus(),
+                    translation = tsq.timelineStatus.translatedStatus,
+                    isExpanded = tsq.timelineStatus.viewData?.expanded ?: isExpanded,
+                    isCollapsed = tsq.timelineStatus.viewData?.contentCollapsed ?: true,
+                    isDetailed = isDetailed,
+                    contentFilterAction = contentFilterAction,
+                    attachmentDisplayAction = tsq.timelineStatus.getAttachmentDisplayAction(
+                        filterContext,
+                        showSensitiveMedia,
+                    ),
+                    translationState = tsq.timelineStatus.viewData?.translationState ?: translationState,
+                    replyToAccount = tsq.timelineStatus.replyAccount?.asModel(),
+                ),
+                quotedViewData = tsq.quotedStatus?.let { status ->
+                    StatusViewData.from(
+                        pachliAccountId,
+                        status.toStatus(),
+                        translation = status.translatedStatus,
+                        isExpanded = status.viewData?.expanded ?: isExpanded,
+                        isCollapsed = status.viewData?.contentCollapsed ?: true,
+                        isDetailed = isDetailed,
+                        contentFilterAction = contentFilterAction,
+                        attachmentDisplayAction = status.getAttachmentDisplayAction(
+                            filterContext,
+                            showSensitiveMedia,
+                        ),
+                        translationState = status.viewData?.translationState ?: translationState,
+                        replyToAccount = status.replyAccount?.asModel(),
+                    )
+                },
+            )
+        }
+    }
 }
 
 /**
@@ -127,7 +199,8 @@ interface IStatusViewData {
  */
 data class StatusViewData(
     override val pachliAccountId: Long,
-    override var status: Status,
+    override val status: Status,
+//    override val quoteViewData: StatusViewData? = null,
     override var translation: TranslatedStatusEntity? = null,
     override val isExpanded: Boolean,
     override val isCollapsed: Boolean,
@@ -135,16 +208,8 @@ data class StatusViewData(
     override val translationState: TranslationState,
     override val attachmentDisplayAction: AttachmentDisplayAction,
     override val replyToAccount: TimelineAccount?,
-
-    /**
-     * Specifies whether this status should be shown with the "detailed" layout, meaning it is
-     * the status that has a focus when viewing a thread.
-     */
-    val isDetailed: Boolean = false,
-) : IStatusViewData {
-    val id: String
-        get() = status.statusId
-
+    override val isDetailed: Boolean = false,
+) : IStatusViewData, IStatus by status {
     override val isCollapsible: Boolean
 
     private val _content: CharSequence
@@ -227,9 +292,27 @@ data class StatusViewData(
                 }
             }
 
+//            return StatusViewData(
+//                pachliAccountId = pachliAccountId,
+//                status = status,
+//                isCollapsed = isCollapsed,
+//                isExpanded = isExpanded,
+//                isDetailed = isDetailed,
+//                contentFilterAction = contentFilterAction,
+//                attachmentDisplayAction = attachmentDisplayAction,
+//                translationState = translationState,
+//                translation = translation,
+//            )
+
             return StatusViewData(
                 pachliAccountId = pachliAccountId,
                 status = status,
+//                quoteViewData = (status.quote as? Status.Quote.FullQuote)?.status?.let { q ->
+//                    StatusViewData.from(
+//                        pachliAccountId = pachliAccountId,
+//                        status = q,
+//                    )
+//                },
                 isCollapsed = isCollapsed,
                 isExpanded = isExpanded,
                 isDetailed = isDetailed,
@@ -241,40 +324,186 @@ data class StatusViewData(
             )
         }
 
-        /**
-         *
-         * @param timelineStatusWithAccount
-         * @param isExpanded Default expansion behaviour for a status with a content
-         * warning. Used if the status viewdata is null
-         * @param isDetailed True if the status should be shown with the detailed
-         * layout, false otherwise.
-         * @param contentFilterAction
-         * @param attachmentDisplayAction
-         * @param translationState Default translation state for this status. Used if
-         * the status viewdata is null.
-         */
         fun from(
             pachliAccountId: Long,
-            timelineStatusWithAccount: TimelineStatusWithAccount,
+            tsq: TSQ,
             isExpanded: Boolean,
             isDetailed: Boolean = false,
             contentFilterAction: FilterAction,
-            attachmentDisplayAction: AttachmentDisplayAction = AttachmentDisplayAction.Show(),
             translationState: TranslationState = TranslationState.SHOW_ORIGINAL,
+            showSensitiveMedia: Boolean,
+            filterContext: FilterContext?,
         ): StatusViewData {
-            val status = timelineStatusWithAccount.toStatus()
+            val status = tsq.timelineStatus
+            val quote = tsq.quotedStatus
             return StatusViewData(
                 pachliAccountId = pachliAccountId,
-                status = status,
-                translation = timelineStatusWithAccount.translatedStatus,
-                isExpanded = timelineStatusWithAccount.viewData?.expanded ?: isExpanded,
-                isCollapsed = timelineStatusWithAccount.viewData?.contentCollapsed ?: true,
+                status = status.toStatus(),
+//                quoteViewData = quote?.let {
+//                    StatusViewData.from(
+//                        pachliAccountId,
+//                        status = it.toStatus(),
+//                        isExpanded = isExpanded,
+//                        isCollapsed = it.viewData?.contentCollapsed ?: true,
+//                        isDetailed = false,
+//                        contentFilterAction = contentFilterAction,
+//                        attachmentDisplayAction = it.getAttachmentDisplayAction(
+//                            filterContext,
+//                            showSensitiveMedia,
+//                        ),
+//                        translationState = it.viewData?.translationState ?: TranslationState.SHOW_ORIGINAL,
+//                    )
+//                },
+                translation = tsq.timelineStatus.translatedStatus,
+                isExpanded = tsq.timelineStatus.viewData?.expanded ?: isExpanded,
+                isCollapsed = tsq.timelineStatus.viewData?.contentCollapsed ?: true,
                 isDetailed = isDetailed,
                 contentFilterAction = contentFilterAction,
-                attachmentDisplayAction = attachmentDisplayAction,
-                translationState = timelineStatusWithAccount.viewData?.translationState ?: translationState,
-                replyToAccount = timelineStatusWithAccount.replyAccount?.asModel(),
+                attachmentDisplayAction = status.getAttachmentDisplayAction(
+                    filterContext,
+                    showSensitiveMedia,
+                ),
+                translationState = tsq.timelineStatus.viewData?.translationState ?: translationState,
+                replyToAccount = tsq.timelineStatus.replyAccount?.asModel(),
             )
         }
+
+//        /**
+//         *
+//         * @param tsq
+//         * @param isExpanded Default expansion behaviour for a status with a content
+//         * warning. Used if the status viewdata is null
+//         * @param isDetailed True if the status should be shown with the detailed
+//         * layout, false otherwise.
+//         * @param contentFilterAction
+//         * @param attachmentDisplayAction
+//         * @param translationState Default translation state for this status. Used if
+//         * the status viewdata is null.
+//         */
+//        fun from(
+//            pachliAccountId: Long,
+//            tsq: TSQ,
+//            isExpanded: Boolean,
+//            isDetailed: Boolean = false,
+//            contentFilterAction: FilterAction,
+//            attachmentDisplayAction: AttachmentDisplayAction = AttachmentDisplayAction.Show(),
+//            translationState: TranslationState = TranslationState.SHOW_ORIGINAL,
+//            showSensitiveMedia: Boolean,
+//            filterContext: FilterContext?,
+//        ): StatusViewData {
+//            val status = tsq.timelineStatus.toStatus()
+//            val quote = tsq.quotedStatus?.toStatus()
+//            return StatusViewData(
+//                pachliAccountId = pachliAccountId,
+//                status = status,
+//                quoteViewData = quote?.let {
+//                    StatusViewData.from(
+//                        pachliAccountId,
+//                        status = it,
+//                        isExpanded = isExpanded,
+//                        isCollapsed = tsq.quotedStatus?.viewData?.contentCollapsed ?: true,
+//                        isDetailed = false,
+//                        contentFilterAction = contentFilterAction,
+//                        attachmentDisplayAction = it.getAttachmentDisplayAction(
+//                            filterContext,
+//                            showSensitiveMedia,
+//                            tsq.quotedStatus?.viewData?.attachmentDisplayAction,
+//                        ),
+//                        translationState = translationState,
+//                    )
+//                },
+//                translation = tsq.timelineStatus.translatedStatus,
+//                isExpanded = tsq.timelineStatus.viewData?.expanded ?: isExpanded,
+//                isCollapsed = tsq.timelineStatus.viewData?.contentCollapsed ?: true,
+//                isDetailed = isDetailed,
+//                contentFilterAction = contentFilterAction,
+//                attachmentDisplayAction = attachmentDisplayAction,
+//                translationState = tsq.timelineStatus.viewData?.translationState ?: translationState,
+//            )
+//        }
     }
+}
+
+/* ---- copied from StatusExtensions.kt ---- */
+
+/**
+ * Returns the [AttachmentDisplayAction] for [this] given the current [filterContext],
+ * whether [showSensitiveMedia] is true.
+ *
+ * @param filterContext Applicable filter context. May be null for timelines that are
+ * not filtered (e.g., private messages).
+ * @param showSensitiveMedia True if the user's preference is to show attachments
+ * marked sensitive.
+ * @param cachedAction
+ */
+fun TimelineStatusWithAccount.getAttachmentDisplayAction(filterContext: FilterContext?, showSensitiveMedia: Boolean) = getAttachmentDisplayAction(
+    filterContext,
+    status.filtered,
+    status.sensitive,
+    showSensitiveMedia = showSensitiveMedia,
+    cachedAction = viewData?.attachmentDisplayAction,
+)
+
+/**
+ * Returns the [AttachmentDisplayAction] for given the current [filterContext], based on
+ * the [matchingFilters], whether the content is [sensitive], if [showSensitiveMedia]
+ * is true, and the [cachedAction] (if any).
+ *
+ * @param filterContext Applicable filter context. May be null for timelines that are
+ * not filtered (e.g., private messages).
+ * @param matchingFilters List of filters that matched the status.
+ * @param sensitive True if the status was marked senstive.
+ * @param showSensitiveMedia True if the user's preference is to show attachments
+ * marked sensitive.
+ * @param cachedAction
+ */
+private fun getAttachmentDisplayAction(
+    filterContext: FilterContext?,
+    matchingFilters: List<FilterResult>?,
+    sensitive: Boolean,
+    showSensitiveMedia: Boolean,
+    cachedAction: AttachmentDisplayAction?,
+): AttachmentDisplayAction {
+    // Hide attachments if there is any matching "blur" filter.
+    val matchingBlurFilters = filterContext?.let {
+        matchingFilters
+            ?.filter { it.filter.filterAction == FilterAction.BLUR }
+            ?.filter { it.filter.contexts.contains(filterContext) }
+            ?.map { MatchingFilter(filterId = it.filter.id, title = it.filter.title) }
+    }.orEmpty()
+
+    // Any matching filters probably hides the attachment.
+    if (matchingBlurFilters.isNotEmpty()) {
+        val hideAction = AttachmentDisplayAction.Hide(
+            reason = AttachmentDisplayReason.BlurFilter(matchingBlurFilters),
+        )
+
+        // If the cached decision is a Show then return the Show, but with an updated
+        // originalDecision. This ensures that if the user then hides the attachment
+        // the description that shows which filters matched reflects the user's latest
+        // set of filters.
+        //
+        // The filters changing *doesn't* cause this to reset to Hide because the
+        // user has already seen the attachment, and decided to keep seeing it.
+        // Hiding it from them again isn't helpful.
+        (cachedAction as? AttachmentDisplayAction.Show)?.let {
+            return it.copy(originalAction = hideAction)
+        }
+
+        // Otherwise, the decision to hide is good.
+        return hideAction
+    }
+
+    // Now safe to use the cached decision, if present. If the user overrode a Hide with
+    // a Show this will be returned here.
+    cachedAction?.let { return it }
+
+    // Hide attachments if the status is marked sensitive and the user doesn't want to
+    // see them.
+    if (sensitive && !showSensitiveMedia) {
+        return AttachmentDisplayAction.Hide(reason = AttachmentDisplayReason.Sensitive)
+    }
+
+    // Attachment is OK, and can be shown.
+    return AttachmentDisplayAction.Show()
 }

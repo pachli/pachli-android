@@ -52,6 +52,7 @@ import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.AttachmentDisplayAction
+import app.pachli.core.model.IStatus
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 import app.pachli.core.navigation.AccountActivityIntent
@@ -388,20 +389,20 @@ class ConversationsFragment :
         viewThread(status.actionableId, status.actionableStatus.url)
     }
 
-    override fun onOpenReblog(status: Status) {
+    override fun onOpenReblog(status: IStatus) {
         // there are no reblogs in conversations
     }
 
     override fun onExpandedChange(viewData: ConversationViewData, expanded: Boolean) {
-        viewModel.expandHiddenStatus(viewData.pachliAccountId, expanded, viewData.lastStatus.id)
+        viewModel.expandHiddenStatus(viewData.pachliAccountId, expanded, viewData.lastStatus.statusId)
     }
 
     override fun onAttachmentDisplayActionChange(viewData: ConversationViewData, newAction: AttachmentDisplayAction) {
-        viewModel.changeAttachmentDisplayAction(viewData.pachliAccountId, viewData.lastStatus.id, newAction)
+        viewModel.changeAttachmentDisplayAction(viewData.pachliAccountId, viewData.lastStatus.statusId, newAction)
     }
 
     override fun onContentCollapsedChange(viewData: ConversationViewData, isCollapsed: Boolean) {
-        viewModel.collapseLongStatus(viewData.pachliAccountId, isCollapsed, viewData.lastStatus.id)
+        viewModel.collapseLongStatus(viewData.pachliAccountId, isCollapsed, viewData.lastStatus.statusId)
     }
 
     override fun onViewAccount(id: String) {

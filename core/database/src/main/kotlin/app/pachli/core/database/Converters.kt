@@ -336,4 +336,10 @@ class Converters @Inject constructor(
 
     @TypeConverter
     fun jsonToAttachmentDisplayAction(s: String?) = s?.let { moshi.adapter<AttachmentDisplayAction>().fromJson(it) }
+
+    @TypeConverter
+    fun quoteApprovalToJson(quoteApproval: Status.QuoteApproval): String = moshi.adapter<Status.QuoteApproval>().toJson(quoteApproval)
+
+    @TypeConverter
+    fun jsonToQuoteApproval(s: String?) = s?.let { moshi.adapter<Status.QuoteApproval>().fromJson(it) }
 }

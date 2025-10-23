@@ -23,7 +23,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.appcompat.content.res.AppCompatResources
-import app.pachli.core.database.model.TimelineStatusWithAccount
+import app.pachli.core.database.dao.TimelineStatusWithAccount
 import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.AttachmentDisplayReason
 import app.pachli.core.model.FilterAction
