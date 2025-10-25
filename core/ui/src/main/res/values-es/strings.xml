@@ -139,4 +139,6 @@
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; impulsó</string>
     <string name="post_edited">%s editado</string>
+    <string name="action_select_status">Seleccionar publicación</string>
+    <string name="action_unselect_status">Deseleccionar publicación</string>
 </resources>
