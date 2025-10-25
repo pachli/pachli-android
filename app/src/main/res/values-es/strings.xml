@@ -710,7 +710,7 @@
         <item quantity="many">%1$d publicaciones</item>
         <item quantity="other">%1$d publicaciones</item>
     </plurals>
-    <string name="followed_hashtags_summary_fmt">%1$s de %2$s (última: %3$s)</string>
+    <string name="followed_hashtags_summary_fmt">%1$s de %2$s (últimos %3$s)</string>
     <plurals name="followed_hashtags_days_count_fmt">
         <item quantity="one">%1$d día</item>
         <item quantity="many">%1$d días</item>
