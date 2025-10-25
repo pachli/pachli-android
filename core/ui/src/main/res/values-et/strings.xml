@@ -132,4 +132,7 @@
     <string name="post_edited">Muudetud %s</string>
     <string name="action_select_status">Vali postitus</string>
     <string name="action_unselect_status">Eemalda postituse valik</string>
+    <string name="post_replied">Vastatud</string>
+    <string name="post_continued_thread">Jutulõnga jätk</string>
+    <string name="post_replied_to_fmt">Vastuseks sõnumile: <b>%1$s</b></string>
 </resources>
