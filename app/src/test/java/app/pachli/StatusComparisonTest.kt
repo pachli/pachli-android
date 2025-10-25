@@ -65,6 +65,7 @@ class StatusComparisonTest {
             isCollapsed = false,
             translationState = TranslationState.SHOW_ORIGINAL,
             attachmentDisplayAction = AttachmentDisplayAction.Show(),
+            replyToAccount = null,
         )
         val viewdata2 = StatusViewData(
             pachliAccountId = 1L,
@@ -73,6 +74,7 @@ class StatusComparisonTest {
             isCollapsed = false,
             translationState = TranslationState.SHOW_ORIGINAL,
             attachmentDisplayAction = AttachmentDisplayAction.Show(),
+            replyToAccount = null,
         )
         assertEquals(viewdata1, viewdata2)
     }
@@ -86,6 +88,7 @@ class StatusComparisonTest {
             isCollapsed = false,
             translationState = TranslationState.SHOW_ORIGINAL,
             attachmentDisplayAction = AttachmentDisplayAction.Show(),
+            replyToAccount = null,
         )
         val viewdata2 = StatusViewData(
             pachliAccountId = 1L,
@@ -94,6 +97,7 @@ class StatusComparisonTest {
             isCollapsed = false,
             translationState = TranslationState.SHOW_ORIGINAL,
             attachmentDisplayAction = AttachmentDisplayAction.Show(),
+            replyToAccount = null,
         )
         assertNotEquals(viewdata1, viewdata2)
     }
@@ -107,6 +111,7 @@ class StatusComparisonTest {
             isCollapsed = false,
             translationState = TranslationState.SHOW_ORIGINAL,
             attachmentDisplayAction = AttachmentDisplayAction.Show(),
+            replyToAccount = null,
         )
         val viewdata2 = StatusViewData(
             pachliAccountId = 1L,
@@ -115,6 +120,7 @@ class StatusComparisonTest {
             isCollapsed = false,
             translationState = TranslationState.SHOW_ORIGINAL,
             attachmentDisplayAction = AttachmentDisplayAction.Show(),
+            replyToAccount = null,
         )
         assertNotEquals(viewdata1, viewdata2)
     }

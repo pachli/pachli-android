@@ -146,6 +146,7 @@ fun fakeStatusViewData(
     } else {
         AttachmentDisplayAction.Hide(reason = AttachmentDisplayReason.Sensitive)
     },
+    replyToAccount = null,
 )
 
 fun fakeStatusEntityWithAccount(
