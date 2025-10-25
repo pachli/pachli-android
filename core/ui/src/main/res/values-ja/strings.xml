@@ -91,6 +91,6 @@
     <plurals name="favs">
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; お気に入り</item>
     </plurals>
-    <string name="post_boosted_format">%sさんがブーストしました</string>
+    <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt;さんがブーストしました</string>
     <string name="post_edited">%s を編集しました</string>
 </resources>

@@ -47,7 +47,6 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="8dp"
         android:gravity="top"
-        android:textColor="?android:textColorSecondary"
         android:textSize="?attr/status_text_medium"
         app:layout_constrainedWidth="false"
         app:layout_constraintEnd_toStartOf="@id/datetime"

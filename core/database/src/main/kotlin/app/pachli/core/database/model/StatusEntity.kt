@@ -308,6 +308,15 @@ fun TimelineAccountEntity.asModel() = TimelineAccount(
     roles = roles.orEmpty(),
 )
 
+/**
+ * @property status
+ * @property account
+ * @property reblogAccount
+ * @property viewData
+ * @property translatedStatus
+ * @property replyAccount If [status] is a reply, this is the details of the
+ * account it is replying to. Null otherwise.
+ */
 data class TimelineStatusWithAccount(
     @Embedded
     val status: StatusEntity,
@@ -320,6 +329,8 @@ data class TimelineStatusWithAccount(
     val viewData: StatusViewDataEntity? = null,
     @Embedded(prefix = "t_")
     val translatedStatus: TranslatedStatusEntity? = null,
+    @Embedded(prefix = "reply_")
+    val replyAccount: TimelineAccountEntity? = null,
 ) {
     fun toStatus(): Status {
         val attachments: List<Attachment> = status.attachments.orEmpty()

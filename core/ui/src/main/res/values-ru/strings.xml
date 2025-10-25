@@ -148,6 +148,6 @@
         <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; Понравилось</item>
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Понравилось</item>
     </plurals>
-    <string name="post_boosted_format">%s продвинул(а)</string>
+    <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; продвинул(а)</string>
     <string name="post_edited">Изменено %s</string>
 </resources>

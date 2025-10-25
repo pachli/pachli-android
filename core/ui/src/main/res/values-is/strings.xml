@@ -94,6 +94,6 @@
         <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; eftirlæti</item>
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; eftirlæti</item>
     </plurals>
-    <string name="post_boosted_format">%s endurbirti</string>
+    <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; endurbirti</string>
     <string name="post_edited">Breytti %s</string>
 </resources>

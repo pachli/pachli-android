@@ -86,5 +86,5 @@
         <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; دڵخواز</item>
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; دڵخواز</item>
     </plurals>
-    <string name="post_boosted_format">%s پۆستی کردەوە</string>
+    <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; پۆستی کردەوە</string>
 </resources>

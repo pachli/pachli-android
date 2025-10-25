@@ -94,6 +94,6 @@
         <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; برگزیدن</item>
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; برگزیدن</item>
     </plurals>
-    <string name="post_boosted_format">%s تقویت کرد</string>
+    <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; تقویت کرد</string>
     <string name="post_edited">%s را ویراست</string>
 </resources>

@@ -128,6 +128,6 @@
         <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; مفضلات</item>
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; مفضلات</item>
     </plurals>
-    <string name="post_boosted_format">شاركه %s</string>
+    <string name="post_boosted_fmt">شاركه &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="post_edited">عدَّلَ %s</string>
 </resources>

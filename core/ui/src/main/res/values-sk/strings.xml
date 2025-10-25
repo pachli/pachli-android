@@ -137,6 +137,6 @@
         <item quantity="few"><b>%1$s</b> obľúbenia</item>
         <item quantity="other"><b>%1$s</b> obľúbení</item>
     </plurals>
-    <string name="post_boosted_format">%s zdieľal/a</string>
+    <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; zdieľal/a</string>
     <string name="post_edited">Upravené %s</string>
 </resources>

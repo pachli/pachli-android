@@ -97,5 +97,5 @@
         <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Stelumo</item>
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Stelumoj</item>
     </plurals>
-    <string name="post_boosted_format">%s diskonigis</string>
+    <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; diskonigis</string>
 </resources>

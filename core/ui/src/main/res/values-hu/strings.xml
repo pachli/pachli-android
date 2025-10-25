@@ -94,6 +94,6 @@
         <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Kedvenc</item>
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Kedvenc</item>
     </plurals>
-    <string name="post_boosted_format">%s megtolta</string>
+    <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; megtolta</string>
     <string name="post_edited">%s szerkesztve</string>
 </resources>

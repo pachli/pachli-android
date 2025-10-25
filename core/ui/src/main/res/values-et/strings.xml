@@ -128,7 +128,7 @@
         <item quantity="one"><b>%1$s</b> lemmik</item>
         <item quantity="other"><b>%1$s</b> lemmikut</item>
     </plurals>
-    <string name="post_boosted_format">%s lisas hoogu</string>
+    <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; lisas hoogu</string>
     <string name="post_edited">Muudetud %s</string>
     <string name="action_select_status">Vali postitus</string>
     <string name="action_unselect_status">Eemalda postituse valik</string>

@@ -110,6 +110,6 @@
         <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; абраных</item>
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; абраных</item>
     </plurals>
-    <string name="post_boosted_format">%s пашырыў(-ла)</string>
+    <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; пашырыў(-ла)</string>
     <string name="post_edited">Рэдагаваны %s</string>
 </resources>

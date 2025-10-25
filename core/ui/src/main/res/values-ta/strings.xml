@@ -113,6 +113,6 @@
         <item quantity="one"><b>%1$s </b> பிடித்தது</item>
         <item quantity="other"><b>%1$s </b> பிடித்தவை</item>
     </plurals>
-    <string name="post_boosted_format">%s மேலேற்றப்பட்டது</string>
+    <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; மேலேற்றப்பட்டது</string>
     <string name="post_edited">திருத்தப்பட்ட %s</string>
 </resources>

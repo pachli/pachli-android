@@ -110,6 +110,6 @@
         <item quantity="few">&lt;b&gt;%1$s&lt;/b&gt; annsachdan</item>
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; annsachd</item>
     </plurals>
-    <string name="post_boosted_format">’Ga bhrosnachadh le %s</string>
+    <string name="post_boosted_fmt">’Ga bhrosnachadh le &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="post_edited">Air a dheasachadh %s</string>
 </resources>

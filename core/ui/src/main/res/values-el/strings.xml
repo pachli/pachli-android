@@ -18,5 +18,5 @@
     <string name="action_unfavourite">Αφαίρεση αγαπημένου</string>
     <string name="post_content_warning_show_less">Δείτε λιγότερα</string>
     <string name="post_content_warning_show_more">Δείτε περισσότερα</string>
-    <string name="post_boosted_format">ο/η %s το προώθησε</string>
+    <string name="post_boosted_fmt">ο/η &lt;b&gt;%1$s&lt;/b&gt; το προώθησε</string>
 </resources>

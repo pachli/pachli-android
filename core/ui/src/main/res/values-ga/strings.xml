@@ -155,7 +155,7 @@
         <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; Toghanna</item>
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Toghanna</item>
     </plurals>
-    <string name="post_boosted_format">D\'athchraol %s</string>
+    <string name="post_boosted_fmt">D\'athchraol &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="post_edited">Curtha in eagar %s</string>
     <string name="action_select_status">Roghnaigh post</string>
     <string name="action_unselect_status">Díroghnaigh post</string>

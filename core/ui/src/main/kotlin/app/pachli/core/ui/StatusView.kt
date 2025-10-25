@@ -724,7 +724,7 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
         /** @return "{account.username} boosted", for use in a content description. */
         private fun getReblogDescription(context: Context, status: IStatusViewData): String? {
             return status.rebloggingStatus?.let {
-                context.getString(R.string.post_boosted_format, it.account.username)
+                context.getString(R.string.post_boosted_fmt, it.account.username)
             }
         }
 

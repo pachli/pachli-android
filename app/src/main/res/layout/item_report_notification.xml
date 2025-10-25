@@ -21,7 +21,6 @@
         android:gravity="center_vertical"
         android:maxLines="2"
         android:paddingStart="28dp"
-        android:textColor="?android:textColorSecondary"
         android:textSize="?attr/status_text_medium"
         tools:text="Someone reported someone else" />
 

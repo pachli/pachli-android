@@ -128,6 +128,6 @@
         <item quantity="one"><b>%1$s</b> favorittmerke</item>
         <item quantity="other"><b>%1$s</b> favorittmerke</item>
     </plurals>
-    <string name="post_boosted_format">%s delte</string>
+    <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; delte</string>
     <string name="post_edited">Brigda %s</string>
 </resources>

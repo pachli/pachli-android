@@ -73,5 +73,5 @@
     <plurals name="favs">
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; 좋아요</item>
     </plurals>
-    <string name="post_boosted_format">%s님이 부스트 했습니다</string>
+    <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt;님이 부스트 했습니다</string>
 </resources>

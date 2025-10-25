@@ -157,6 +157,9 @@
         <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Favorite</item>
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Favorites</item>
     </plurals>
-    <string name="post_boosted_format">%s boosted</string>
+    <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; boosted</string>
+    <string name="post_replied">Replied</string>
+    <string name="post_continued_thread">Continued thread</string>
+    <string name="post_replied_to_fmt">Replied to &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="post_edited">Edited %s</string>
 </resources>
