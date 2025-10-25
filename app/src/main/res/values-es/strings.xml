@@ -755,4 +755,6 @@
     <string name="translator_error_download_required_fmt">para traducir al %1$s se necesita descargar el paquete de idioma, pero el Wi‑Fi no está conectado</string>
     <string name="filter_action_blur">Ocultar adjuntos</string>
     <string name="filter_description_blur">Mostrar contenido, ocultar adjuntos con una advertencia</string>
+    <string name="action_move_up">Mover arriba</string>
+    <string name="action_move_down">Mover abajo</string>
 </resources>
