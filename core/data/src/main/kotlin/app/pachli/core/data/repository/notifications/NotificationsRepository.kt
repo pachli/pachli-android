@@ -47,6 +47,7 @@ import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.model.asModel
 import app.pachli.core.network.model.asNetworkModel
+import app.pachli.core.network.model.pronouns
 import app.pachli.core.network.retrofit.MastodonApi
 import com.github.michaelbull.result.onSuccess
 import javax.inject.Inject
@@ -250,6 +251,7 @@ fun TimelineAccount.asEntity(pachliAccountId: Long) = TimelineAccountEntity(
     createdAt = createdAt,
     limited = limited,
     roles = roles.orEmpty().asModel(),
+    pronouns = fields?.pronouns(),
 )
 
 /**

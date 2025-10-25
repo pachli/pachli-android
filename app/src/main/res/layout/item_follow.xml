@@ -59,9 +59,20 @@
         android:maxLines="1"
         android:textSize="?attr/status_text_medium"
         app:layout_constraintStart_toEndOf="@id/notification_avatar"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/account_pronouns"
         app:layout_constraintTop_toBottomOf="@+id/roleChipGroup"
         tools:text="\@testuser" />
+
+    <app.pachli.core.ui.PronounsChip
+        android:id="@+id/account_pronouns"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBaseline_toBaselineOf="@id/notification_username"
+        app:layout_constraintStart_toEndOf="@id/notification_username"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_max="@dimen/pronounChip_maxWidth"
+        tools:ignore="SelectableText"
+        tools:text="he/him" />
 
     <app.pachli.core.ui.ClickableSpanTextView
         android:id="@+id/notification_account_note"

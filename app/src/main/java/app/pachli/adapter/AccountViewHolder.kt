@@ -63,6 +63,7 @@ class AccountViewHolder(
         binding.accountBotBadge.visible(showBotOverlay && account.bot)
 
         binding.roleChipGroup.setRoles(account.roles)
+        binding.accountPronouns.text = account.pronouns
 
         binding.root.contentDescription = account.contentDescription(binding.root.context)
     }

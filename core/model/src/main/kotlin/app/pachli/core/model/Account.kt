@@ -53,6 +53,9 @@ data class Account(
      * https://github.com/mastodon/documentation/issues/1483.
      */
     val roles: List<Role>?,
+
+    /** Optional pronouns, derived from the account's fields. */
+    val pronouns: String?,
 ) {
     val name: String
         get() = if (displayName.isNullOrEmpty()) {

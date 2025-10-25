@@ -143,7 +143,7 @@
 
             <TextView
                 android:id="@+id/status_display_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="14dp"
                 android:layout_marginTop="10dp"
@@ -153,16 +153,26 @@
                 android:textColor="?android:textColorPrimary"
                 android:textSize="?attr/status_text_medium"
                 android:textStyle="normal|bold"
-                app:layout_constrainedWidth="true"
-                app:layout_constraintBottom_toTopOf="@id/status_username"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0"
-                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintStart_toEndOf="@id/status_avatar"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/account_pronouns"
+                app:layout_constraintBottom_toTopOf="@id/status_username"
                 app:layout_constraintVertical_chainStyle="packed"
+                app:layout_constraintHorizontal_weight="1"
                 tools:ignore="SelectableText"
                 tools:text="Display Name" />
+
+            <app.pachli.core.ui.PronounsChip
+                android:id="@+id/account_pronouns"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBaseline_toBaselineOf="@id/status_display_name"
+                app:layout_constraintStart_toEndOf="@id/status_display_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintWidth_max="@dimen/pronounChip_maxWidth"
+                tools:text="he/him"
+                tools:ignore="SelectableText" />
 
             <TextView
                 android:id="@+id/status_username"

@@ -438,6 +438,7 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOpti
                 val emojis: List<Emoji>?,
                 val contentWarning: String,
                 val content: String,
+                val pronouns: String?,
             ) : InReplyTo() {
                 companion object {
                     fun from(status: app.pachli.core.model.Status) = Status(
@@ -449,6 +450,7 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOpti
                         emojis = status.emojis + status.account.emojis.orEmpty(),
                         contentWarning = status.spoilerText,
                         content = status.content.parseAsMastodonHtml().toString(),
+                        pronouns = status.account.pronouns,
                     )
                 }
             }

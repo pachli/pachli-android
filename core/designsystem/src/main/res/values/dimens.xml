@@ -74,6 +74,9 @@
 
     <dimen name="account_media_grid_default">130dp</dimen>
 
+    <dimen name="pronounChip_maxWidth">102sp</dimen>
+    <dimen name="pronounChip_minHeight">24dp</dimen>
+
     <!-- Adjust the dimensions of items in the Material drawer to provide a
          slightly tighter layout while ensuring that minimum touch sizes are
          maintained.

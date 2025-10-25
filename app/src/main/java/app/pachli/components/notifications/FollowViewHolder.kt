@@ -105,6 +105,7 @@ class FollowViewHolder(
             avatarRadius42dp,
             animateAvatars,
         )
+        binding.accountPronouns.text = account.pronouns
 
         binding.roleChipGroup.setRoles(account.roles)
 
