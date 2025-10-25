@@ -109,6 +109,7 @@ SELECT
     rb.createdAt AS 'rb_createdAt',
     rb.limited AS 'rb_limited',
     rb.note AS 'rb_note',
+    rb.roles AS 'rb_roles',
     svd.serverId AS 'svd_serverId',
     svd.pachliAccountId AS 'svd_pachliAccountId',
     svd.expanded AS 'svd_expanded',
@@ -121,7 +122,20 @@ SELECT
     tr.spoilerText AS 't_spoilerText',
     tr.poll AS 't_poll',
     tr.attachments AS 't_attachments',
-    tr.provider AS 't_provider'
+    tr.provider AS 't_provider',
+    reply.serverId AS 'reply_serverId',
+    reply.timelineUserId AS 'reply_timelineUserId',
+    reply.localUsername AS 'reply_localUsername',
+    reply.username AS 'reply_username',
+    reply.displayName AS 'reply_displayName',
+    reply.url AS 'reply_url',
+    reply.avatar AS 'reply_avatar',
+    reply.emojis AS 'reply_emojis',
+    reply.bot AS 'reply_bot',
+    reply.createdAt AS 'reply_createdAt',
+    reply.limited AS 'reply_limited',
+    reply.note AS 'reply_note',
+    reply.roles AS 'reply_roles'
 FROM TimelineStatusEntity AS t
 LEFT JOIN
     StatusEntity AS s
@@ -134,6 +148,7 @@ LEFT JOIN
 LEFT JOIN
     TranslatedStatusEntity AS tr
     ON (s.timelineUserId = tr.timelineUserId AND (s.serverId = tr.serverId OR s.reblogServerId = tr.serverId))
+LEFT JOIN TimelineAccountEntity AS reply ON (s.timelineUserId = reply.timelineUserId AND s.inReplyToAccountId = reply.serverId)
 WHERE t.kind = :timelineKind AND t.pachliAccountId = :account --AND s.timelineUserId = :account
 ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC
 """,
@@ -257,7 +272,20 @@ SELECT
     t.spoilerText AS 't_spoilerText',
     t.poll AS 't_poll',
     t.attachments AS 't_attachments',
-    t.provider AS 't_provider'
+    t.provider AS 't_provider',
+    reply.serverId AS 'reply_serverId',
+    reply.timelineUserId AS 'reply_timelineUserId',
+    reply.localUsername AS 'reply_localUsername',
+    reply.username AS 'reply_username',
+    reply.displayName AS 'reply_displayName',
+    reply.url AS 'reply_url',
+    reply.avatar AS 'reply_avatar',
+    reply.emojis AS 'reply_emojis',
+    reply.bot AS 'reply_bot',
+    reply.createdAt AS 'reply_createdAt',
+    reply.limited AS 'reply_limited',
+    reply.note AS 'reply_note',
+    reply.roles AS 'reply_roles'
 FROM StatusEntity AS s
 LEFT JOIN TimelineAccountEntity AS a ON (s.timelineUserId = a.timelineUserId AND s.authorServerId = a.serverId)
 LEFT JOIN TimelineAccountEntity AS rb ON (s.timelineUserId = rb.timelineUserId AND s.reblogAccountId = rb.serverId)
@@ -267,6 +295,7 @@ LEFT JOIN
 LEFT JOIN
     TranslatedStatusEntity AS t
     ON (s.timelineUserId = t.timelineUserId AND (s.serverId = t.serverId OR s.reblogServerId = t.serverId))
+LEFT JOIN TimelineAccountEntity AS reply ON (s.timelineUserId = reply.timelineUserId AND s.inReplyToAccountId = reply.serverId)
 WHERE
     s.timelineUserId == :pachliAccountId
     AND (s.serverId = :statusId OR s.reblogServerId = :statusId)

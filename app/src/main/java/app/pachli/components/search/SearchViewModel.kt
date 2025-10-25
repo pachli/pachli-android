@@ -220,6 +220,8 @@ class SearchViewModel @Inject constructor(
                     activeAccount!!.alwaysShowSensitiveMedia,
                     statusRepository.getStatusViewData(activeAccount!!.id, status.actionableId)?.attachmentDisplayAction,
                 ),
+                // Don't bother looking up replyToAccount details.
+                replyToAccount = null,
             )
         }.apply {
             loadedStatuses.addAll(this)

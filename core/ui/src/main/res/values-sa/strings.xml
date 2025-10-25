@@ -93,6 +93,6 @@
         <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; प्रियम्</item>
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; प्रिये</item>
     </plurals>
-    <string name="post_boosted_format">%s अप्रकाशयत्</string>
+    <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; अप्रकाशयत्</string>
     <string name="post_edited">%s सम्पादितम्</string>
 </resources>

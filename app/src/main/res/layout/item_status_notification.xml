@@ -38,7 +38,7 @@
         android:ellipsize="end"
         android:gravity="center_vertical"
         android:maxLines="1"
-        android:paddingStart="32dp"
+        android:paddingStart="28dp"
         android:textSize="?attr/status_text_medium"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

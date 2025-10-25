@@ -110,6 +110,6 @@
         <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; вподобань</item>
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; вподобань</item>
     </plurals>
-    <string name="post_boosted_format">%s поширює</string>
+    <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; поширює</string>
     <string name="post_edited">Змінено %s</string>
 </resources>

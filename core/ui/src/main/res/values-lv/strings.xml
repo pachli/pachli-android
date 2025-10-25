@@ -137,7 +137,7 @@
         <item quantity="one"><b>%1$s</b> ieraksts izlasē</item>
         <item quantity="other"><b>%1$s</b> ieraksti izlasē</item>
     </plurals>
-    <string name="post_boosted_format">%s pastiprināja</string>
+    <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; pastiprināja</string>
     <string name="post_edited">Labots %s</string>
     <string name="action_select_status">Atlasīt ierakstu</string>
     <string name="action_unselect_status">Atcelt ieraksta atlasīšanu</string>

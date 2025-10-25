@@ -104,6 +104,6 @@
         <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; Favoritos</item>
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Favoritos</item>
     </plurals>
-    <string name="post_boosted_format">%s deu Boost</string>
+    <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; deu Boost</string>
     <string name="post_edited">Editado %s</string>
 </resources>

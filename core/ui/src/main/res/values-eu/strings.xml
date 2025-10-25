@@ -89,6 +89,6 @@
         <item quantity="one">Gogoko &lt;b&gt;%1$s&lt;/b&gt;</item>
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Gogoko</item>
     </plurals>
-    <string name="post_boosted_format">%s-(e)k bultzatu du</string>
+    <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt;-(e)k bultzatu du</string>
     <string name="post_edited">%s editatua</string>
 </resources>

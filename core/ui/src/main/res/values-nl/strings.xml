@@ -97,6 +97,6 @@
         <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; favoriet</item>
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; favorieten</item>
     </plurals>
-    <string name="post_boosted_format">%s boostte</string>
+    <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; boostte</string>
     <string name="post_edited">Bewerkt %s</string>
 </resources>

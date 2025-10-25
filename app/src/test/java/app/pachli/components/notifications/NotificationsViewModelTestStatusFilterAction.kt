@@ -57,6 +57,7 @@ class NotificationsViewModelTestStatusFilterAction : NotificationsViewModelTestB
         isCollapsed = false,
         translationState = TranslationState.SHOW_ORIGINAL,
         attachmentDisplayAction = AttachmentDisplayAction.Show(),
+        replyToAccount = null,
     )
 
     /** Action to bookmark a status */
@@ -85,7 +86,10 @@ class NotificationsViewModelTestStatusFilterAction : NotificationsViewModelTestB
     @Test
     fun `bookmark succeeds && emits UiSuccess`() = runTest {
         // Given
-        mastodonApi.stub { onBlocking { bookmarkStatus(any()) } doReturn success(this@NotificationsViewModelTestStatusFilterAction.fakeStatus) }
+        mastodonApi.stub {
+            onBlocking { bookmarkStatus(any()) } doReturn
+                success(this@NotificationsViewModelTestStatusFilterAction.fakeStatus)
+        }
 
         viewModel.uiResult.test {
             // When
@@ -115,7 +119,10 @@ class NotificationsViewModelTestStatusFilterAction : NotificationsViewModelTestB
     @Test
     fun `favourite succeeds && emits UiSuccess`() = runTest {
         // Given
-        mastodonApi.stub { onBlocking { favouriteStatus(any()) } doReturn success(this@NotificationsViewModelTestStatusFilterAction.fakeStatus) }
+        mastodonApi.stub {
+            onBlocking { favouriteStatus(any()) } doReturn
+                success(this@NotificationsViewModelTestStatusFilterAction.fakeStatus)
+        }
 
         viewModel.uiResult.test {
             // When

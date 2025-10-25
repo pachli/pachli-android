@@ -80,5 +80,5 @@
     <plurals name="favs">
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; ชื่นชอบ</item>
     </plurals>
-    <string name="post_boosted_format">%s ได้ดัน</string>
+    <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; ได้ดัน</string>
 </resources>

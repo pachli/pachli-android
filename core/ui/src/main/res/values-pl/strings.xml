@@ -145,6 +145,6 @@
         <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; polubień</item>
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; polubień</item>
     </plurals>
-    <string name="post_boosted_format">Podbicie od %s</string>
+    <string name="post_boosted_fmt">Podbicie od &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="post_edited">Edytowano %s</string>
 </resources>

@@ -42,6 +42,6 @@
     <string name="post_content_warning_show_less">Tampilkan Lebih Sedikit</string>
     <string name="post_content_warning_show_more">Tampilkan Lebih Banyak</string>
     <string name="post_content_show_less">Tutup</string>
-    <string name="post_boosted_format">%s ter-boost</string>
+    <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; ter-boost</string>
     <string name="post_edited">Diedit %s</string>
 </resources>

@@ -170,6 +170,9 @@ class ViewThreadViewModel @Inject constructor(
                         ),
                         translationState = timelineStatusWithAccount.viewData?.translationState ?: TranslationState.SHOW_ORIGINAL,
                         translation = timelineStatusWithAccount.translatedStatus,
+                        // All posts in threads are replies, no need to fetch this, since it won't
+                        // be displayed.
+                        replyToAccount = null,
                     )
                 } else {
                     StatusViewData.from(
@@ -234,6 +237,7 @@ class ViewThreadViewModel @Inject constructor(
                         ),
                         translationState = detailedStatus.translationState,
                         translation = detailedStatus.translation,
+                        replyToAccount = null,
                     )
                 }
             }
@@ -264,6 +268,7 @@ class ViewThreadViewModel @Inject constructor(
                             ),
                             translationState = svd?.translationState ?: TranslationState.SHOW_ORIGINAL,
                             translation = cachedTranslations[status.id],
+                            replyToAccount = null,
                         )
                     }
                 val descendants = statusContext.descendants.asModel()
@@ -286,6 +291,7 @@ class ViewThreadViewModel @Inject constructor(
                             ),
                             translationState = svd?.translationState ?: TranslationState.SHOW_ORIGINAL,
                             translation = cachedTranslations[status.id],
+                            replyToAccount = null,
                         )
                     }
                 val statuses = ancestors + detailedStatus + descendants
@@ -634,6 +640,7 @@ class ViewThreadViewModel @Inject constructor(
                 account.alwaysShowSensitiveMedia,
                 oldStatus?.attachmentDisplayAction,
             ),
+            replyToAccount = null,
         )
     }
 

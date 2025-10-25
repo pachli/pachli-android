@@ -26,5 +26,5 @@
     <string name="post_content_warning_show_less">അൽപ്പം കാണിക്കൂ</string>
     <string name="post_content_warning_show_more">കൂടുതൽ കാണിക്കൂ</string>
     <string name="post_content_show_less">ചുരുക്കുക</string>
-    <string name="post_boosted_format">%s ബൂസ്റ്റ് ചെയ്തു</string>
+    <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; ബൂസ്റ്റ് ചെയ്തു</string>
 </resources>

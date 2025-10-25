@@ -94,6 +94,6 @@
         <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Favorit</item>
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Favorits</item>
     </plurals>
-    <string name="post_boosted_format">%s ha impulsat</string>
+    <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; ha impulsat</string>
     <string name="post_edited">S\'ha editat %s</string>
 </resources>

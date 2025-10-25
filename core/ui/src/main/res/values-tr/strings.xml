@@ -94,6 +94,6 @@
         <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Gözde</item>
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Gözdeler</item>
     </plurals>
-    <string name="post_boosted_format">%s yeniden paylaştı</string>
+    <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; yeniden paylaştı</string>
     <string name="post_edited">Düzenleme %s</string>
 </resources>

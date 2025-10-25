@@ -94,5 +94,5 @@
         <item quantity="few">&lt;b&gt;%1$s&lt;/b&gt; Priljubljene</item>
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Priljubljenih</item>
     </plurals>
-    <string name="post_boosted_format">%s spodbudil</string>
+    <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; spodbudil</string>
 </resources>

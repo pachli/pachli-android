@@ -49,7 +49,7 @@
         android:layout_marginEnd="8dp"
         android:gravity="top"
         android:textColor="?android:textColorSecondary"
-        android:textSize="?attr/status_text_medium"
+        android:textSize="?attr/status_text_small"
         android:text="@string/notification_moderation_warning_title"
         app:layout_constrainedWidth="false"
         app:layout_constraintEnd_toStartOf="@id/datetime"

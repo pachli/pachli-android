@@ -86,6 +86,6 @@
     <plurals name="favs">
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Thích</item>
     </plurals>
-    <string name="post_boosted_format">%s đăng lại</string>
+    <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; đăng lại</string>
     <string name="post_edited">Sửa %s</string>
 </resources>

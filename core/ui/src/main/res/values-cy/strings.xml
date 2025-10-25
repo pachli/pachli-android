@@ -126,6 +126,6 @@
         <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; Ffefryn</item>
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Ffefryn</item>
     </plurals>
-    <string name="post_boosted_format">Hybodd %s</string>
+    <string name="post_boosted_fmt">Hybodd &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="post_edited">Golygwyd %s</string>
 </resources>

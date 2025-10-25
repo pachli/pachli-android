@@ -66,4 +66,10 @@ data class StatusDisplayOptions(
     @get:JvmName("canTranslate")
     val canTranslate: Boolean = false,
     val renderMarkdown: Boolean = false,
+
+    /**
+     * True if the "status info" content should be shown (whether the
+     * status is a reblog, reply, etc).
+     */
+    val showStatusInfo: Boolean = true,
 )
