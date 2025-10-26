@@ -740,4 +740,6 @@
     <string name="translator_error_download_required_fmt">preklad do jazyka %1$s si vyžaduje stiahnutie jazykového balíka a momentálne Wi-Fi nie je pripojená</string>
     <string name="filter_action_blur">Skryť prílohy</string>
     <string name="filter_description_blur">Zobraziť text, skryť prílohy s upozornením na obsah</string>
+    <string name="action_move_up">Posunúť vyššie</string>
+    <string name="action_move_down">Posunúť nižšie</string>
 </resources>
