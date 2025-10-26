@@ -139,4 +139,9 @@
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; zdieľal/a</string>
     <string name="post_edited">Upravené %s</string>
+    <string name="action_select_status">Vybrať príspevok</string>
+    <string name="action_unselect_status">Zrušiť výber príspevku</string>
+    <string name="post_replied">Odpovedané</string>
+    <string name="post_continued_thread">Pokračovanie vlákna</string>
+    <string name="post_replied_to_fmt">Odpoveď pre <b>%1$s</b></string>
 </resources>
