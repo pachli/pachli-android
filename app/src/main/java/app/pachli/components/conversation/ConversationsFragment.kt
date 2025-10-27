@@ -430,7 +430,7 @@ class ConversationsFragment :
         viewModel.accept(
             ConversationAction.ClearContentFilter(
                 viewData.pachliAccountId,
-                viewData.id,
+                viewData.conversationId,
             ),
         )
     }
