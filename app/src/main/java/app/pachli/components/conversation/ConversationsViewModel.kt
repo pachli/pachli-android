@@ -257,9 +257,9 @@ class ConversationsViewModel @AssistedInject constructor(
 
     fun remove(viewData: ConversationViewData) {
         viewModelScope.launch {
-            api.deleteConversation(conversationId = viewData.id).onSuccess {
+            api.deleteConversation(conversationId = viewData.conversationId).onSuccess {
                 conversationsDao.delete(
-                    id = viewData.id,
+                    id = viewData.conversationId,
                     accountId = viewData.pachliAccountId,
                 )
             }

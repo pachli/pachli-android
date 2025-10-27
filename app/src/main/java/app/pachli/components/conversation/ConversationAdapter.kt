@@ -119,7 +119,7 @@ internal class ConversationAdapter(
     companion object {
         val CONVERSATION_COMPARATOR = object : DiffUtil.ItemCallback<ConversationViewData>() {
             override fun areItemsTheSame(oldItem: ConversationViewData, newItem: ConversationViewData): Boolean {
-                return oldItem.id == newItem.id
+                return oldItem.conversationId == newItem.conversationId
             }
 
             override fun areContentsTheSame(oldItem: ConversationViewData, newItem: ConversationViewData): Boolean {
@@ -211,7 +211,7 @@ class FilterableConversationViewHolder internal constructor(
             accept(
                 ConversationAction.OverrideAccountFilter(
                     viewData.pachliAccountId,
-                    viewData.id,
+                    viewData.conversationId,
                     viewData.accountFilterDecision!!,
                 ),
             )

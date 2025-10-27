@@ -32,7 +32,7 @@ import app.pachli.core.model.FilterAction
  *
  * @param pachliAccountId
  * @param localDomain The domain associated with [pachliAccountId].
- * @param id Server ID of this conversation.
+ * @param conversationId Server ID of this conversation.
  * @param accounts Accounts participating in this conversation.
  * @param unread True if this conversation is marked unread.
  * @param lastStatus The most recent [StatusViewData] in this conversation.
@@ -42,7 +42,7 @@ import app.pachli.core.model.FilterAction
 data class ConversationViewData(
     override val pachliAccountId: Long,
     val localDomain: String,
-    val id: String,
+    val conversationId: String,
     val accounts: List<ConversationAccount>,
     val unread: Boolean,
     val lastStatus: StatusViewData,
@@ -68,7 +68,7 @@ data class ConversationViewData(
         ) = ConversationViewData(
             pachliAccountId = pachliAccount.id,
             localDomain = pachliAccount.entity.domain,
-            id = conversationData.id,
+            conversationId = conversationData.id,
             accounts = conversationData.accounts,
             unread = conversationData.unread,
             lastStatus = StatusViewData.from(
