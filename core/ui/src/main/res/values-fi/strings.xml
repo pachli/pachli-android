@@ -125,4 +125,12 @@
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; jakoi</string>
     <string name="post_edited">Muokattu %s</string>
+    <string name="post_replied_to_fmt">Vastasi käyttäjälle <b>%1$s</b></string>
+    <string name="post_continued_thread">Ketju jatkuu</string>
+    <string name="post_replied">Vastasi</string>
+    <string name="action_unselect_status">Poista julkaisun valinta</string>
+    <string name="action_select_status">Valitse julkaisu</string>
+    <string name="handle_contentdescription_fmt">Tili, @%1$s</string>
+    <string name="role_content_description_fmt">%1$s, aikaan %2$s</string>
+    <string name="dot_in_name">piste</string>
 </resources>
