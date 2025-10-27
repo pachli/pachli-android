@@ -139,7 +139,7 @@ data class ConversationEntity(
                     id = conversation.id,
                     accounts = conversation.accounts.asConversationAccount(),
                     unread = conversation.unread,
-                    lastStatusServerId = it.id,
+                    lastStatusServerId = it.statusId,
                     isConversationStarter = isInitial,
                 )
             }

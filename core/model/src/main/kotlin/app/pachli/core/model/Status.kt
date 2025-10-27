@@ -25,7 +25,7 @@ import java.util.Date
  * @property reblogged True if the current user reblogged this status.
  */
 data class Status(
-    val id: String,
+    val statusId: String,
     // not present if it's reblog
     val url: String?,
     val account: TimelineAccount,
@@ -57,7 +57,7 @@ data class Status(
     val filtered: List<FilterResult>?,
 ) {
     val actionableId: String
-        get() = reblog?.id ?: id
+        get() = reblog?.statusId ?: statusId
 
     val actionableStatus: Status
         get() = reblog ?: this

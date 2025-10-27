@@ -143,7 +143,7 @@ data class StatusViewData(
     val isDetailed: Boolean = false,
 ) : IStatusViewData {
     val id: String
-        get() = status.id
+        get() = status.statusId
 
     override val isCollapsible: Boolean
 
@@ -169,7 +169,7 @@ data class StatusViewData(
         get() = status.actionableStatus
 
     override val actionableId: String
-        get() = status.actionableStatus.id
+        get() = status.actionableStatus.statusId
 
     override val rebloggedAvatar: String?
         get() = if (status.reblog != null) {

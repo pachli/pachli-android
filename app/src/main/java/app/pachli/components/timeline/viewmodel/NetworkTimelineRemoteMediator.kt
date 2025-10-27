@@ -73,14 +73,14 @@ class NetworkTimelineRemoteMediator(
                     val itemKey = if (remoteKeyTimelineId != null) {
                         remoteKeyDao.remoteKeyForKind(pachliAccountId, remoteKeyTimelineId, RemoteKeyKind.REFRESH)?.key
                     } else {
-                        state.anchorPosition?.let { state.closestItemToPosition(it) }?.id?.let { ik ->
+                        state.anchorPosition?.let { state.closestItemToPosition(it) }?.statusId?.let { ik ->
                             // Find the page that contains the item, so the remote key can be determined
                             val pageContainingItem = pageCache.getPageById(ik)
 
                             // Double check the item appears in the page
                             if (BuildConfig.DEBUG) {
                                 pageContainingItem ?: throw java.lang.IllegalStateException("page with $ik not found")
-                                pageContainingItem.data.find { it.id == ik }
+                                pageContainingItem.data.find { it.statusId == ik }
                                     ?: throw java.lang.IllegalStateException("$ik not found in returned page, might be Mastodon bug https://github.com/mastodon/mastodon/issues/30172")
                             }
 
@@ -104,8 +104,8 @@ class NetworkTimelineRemoteMediator(
             }.getOrElse { return MediatorResult.Error(it.throwable) }
 
             Timber.d("- $timeline, load(), type = %s, items: %d", loadType, page.data.size)
-            Timber.d("  $timeline, first id: ${page.data.firstOrNull()?.id}")
-            Timber.d("  $timeline, last  id: ${page.data.lastOrNull()?.id}")
+            Timber.d("  $timeline, first id: ${page.data.firstOrNull()?.statusId}")
+            Timber.d("  $timeline, last  id: ${page.data.lastOrNull()?.statusId}")
 
             val endOfPaginationReached = when (loadType) {
                 LoadType.REFRESH -> page.data.isEmpty() || (page.prevKey == null && page.nextKey == null)

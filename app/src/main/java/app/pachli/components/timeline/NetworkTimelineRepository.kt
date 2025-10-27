@@ -174,7 +174,7 @@ class NetworkTimelineRepository @Inject constructor(
             .map { pagingData ->
                 pagingData.filter { status ->
                     !hiddenStatuses.contains(status.actionableId) &&
-                        !hiddenStatuses.contains(status.reblog?.id) &&
+                        !hiddenStatuses.contains(status.reblog?.statusId) &&
                         !hiddenAccounts.contains(status.actionableStatus.account.id) &&
                         !hiddenAccounts.contains(status.account.id) &&
                         !hiddenDomains.contains(getDomain(status.actionableStatus.account.url)) &&

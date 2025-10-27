@@ -121,7 +121,7 @@ data class StatusEntity(
 
     companion object {
         fun from(status: Status, timelineUserId: Long) = StatusEntity(
-            serverId = status.id,
+            serverId = status.statusId,
             url = status.actionableStatus.url,
             timelineUserId = timelineUserId,
             authorServerId = status.actionableStatus.account.id,
@@ -143,7 +143,7 @@ data class StatusEntity(
             mentions = status.actionableStatus.mentions,
             tags = status.actionableStatus.tags,
             application = status.actionableStatus.application,
-            reblogServerId = status.reblog?.id,
+            reblogServerId = status.reblog?.statusId,
             reblogAccountId = status.reblog?.let { status.account.id },
             poll = status.actionableStatus.poll,
             muted = status.actionableStatus.muted,
@@ -157,7 +157,7 @@ data class StatusEntity(
 }
 
 fun Status.asEntity(pachliAccountId: Long) = StatusEntity(
-    serverId = id,
+    serverId = statusId,
     url = actionableStatus.url,
     timelineUserId = pachliAccountId,
     authorServerId = actionableStatus.account.id,
@@ -179,7 +179,7 @@ fun Status.asEntity(pachliAccountId: Long) = StatusEntity(
     mentions = actionableStatus.mentions,
     tags = actionableStatus.tags,
     application = actionableStatus.application,
-    reblogServerId = reblog?.id,
+    reblogServerId = reblog?.statusId,
     reblogAccountId = reblog?.let { account.id },
     poll = actionableStatus.poll,
     muted = actionableStatus.muted,
@@ -343,7 +343,7 @@ data class TimelineStatusWithAccount(
 
         val reblog = status.reblogServerId?.let { id ->
             Status(
-                id = id,
+                statusId = id,
                 url = status.url,
                 account = account.toTimelineAccount(),
                 inReplyToId = status.inReplyToId,
@@ -376,7 +376,7 @@ data class TimelineStatusWithAccount(
         }
         return if (reblog != null) {
             Status(
-                id = status.serverId,
+                statusId = status.serverId,
                 // no url for reblogs
                 url = null,
                 account = reblogAccount!!.toTimelineAccount(),
@@ -410,7 +410,7 @@ data class TimelineStatusWithAccount(
             )
         } else {
             Status(
-                id = status.serverId,
+                statusId = status.serverId,
                 url = status.url,
                 account = account.toTimelineAccount(),
                 inReplyToId = status.inReplyToId,

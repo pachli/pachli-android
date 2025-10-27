@@ -124,7 +124,7 @@ class NetworkTimelinePagingSource(
         // `state` might be null (see https://issuetracker.google.com/issues/452663010
         // for details). If it is, fall back to the key passed to the constructor.
         val refreshKey = state.anchorPosition?.let {
-            state.closestItemToPosition(it)?.id
+            state.closestItemToPosition(it)?.statusId
         } ?: initialKey
         Timber.d("- getRefreshKey(), state.anchorPosition = %d, return %s", state.anchorPosition, refreshKey)
         return refreshKey

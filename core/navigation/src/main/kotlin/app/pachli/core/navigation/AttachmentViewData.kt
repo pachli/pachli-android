@@ -45,7 +45,7 @@ data class AttachmentViewData(
                 AttachmentViewData(
                     username = actionable.account.username,
                     attachment = attachment,
-                    statusId = actionable.id,
+                    statusId = actionable.statusId,
                     statusUrl = actionable.url!!,
                     sensitive = actionable.sensitive,
                     isRevealed = alwaysShowSensitiveMedia || !actionable.sensitive,

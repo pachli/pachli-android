@@ -253,7 +253,7 @@ class ViewThreadViewModel @Inject constructor(
                     .map { Pair(it, shouldFilterStatus(it)) }
                     .filter { it.second != FilterAction.HIDE }
                     .map { (status, contentFilterAction) ->
-                        val svd = cachedViewData[status.id]
+                        val svd = cachedViewData[status.statusId]
                         StatusViewData.from(
                             pachliAccountId = activeAccount.id,
                             status,
@@ -267,7 +267,7 @@ class ViewThreadViewModel @Inject constructor(
                                 svd?.attachmentDisplayAction,
                             ),
                             translationState = svd?.translationState ?: TranslationState.SHOW_ORIGINAL,
-                            translation = cachedTranslations[status.id],
+                            translation = cachedTranslations[status.statusId],
                             replyToAccount = null,
                         )
                     }
@@ -275,7 +275,7 @@ class ViewThreadViewModel @Inject constructor(
                     .map { Pair(it, shouldFilterStatus(it)) }
                     .filter { it.second != FilterAction.HIDE }
                     .map { (status, contentFilterAction) ->
-                        val svd = cachedViewData[status.id]
+                        val svd = cachedViewData[status.statusId]
 
                         StatusViewData.from(
                             pachliAccountId = activeAccount.id,
@@ -290,7 +290,7 @@ class ViewThreadViewModel @Inject constructor(
                                 svd?.attachmentDisplayAction,
                             ),
                             translationState = svd?.translationState ?: TranslationState.SHOW_ORIGINAL,
-                            translation = cachedTranslations[status.id],
+                            translation = cachedTranslations[status.statusId],
                             replyToAccount = null,
                         )
                     }
@@ -628,7 +628,7 @@ class ViewThreadViewModel @Inject constructor(
      */
     private fun StatusViewData.Companion.fromStatusAndUiState(account: AccountEntity, status: Status, isDetailed: Boolean = false): StatusViewData {
         val oldStatus =
-            (_uiResult.value.get() as? ThreadUiState.Loaded)?.statusViewData?.find { it.id == status.id }
+            (_uiResult.value.get() as? ThreadUiState.Loaded)?.statusViewData?.find { it.id == status.statusId }
         return from(
             pachliAccountId = account.id,
             status,

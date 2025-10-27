@@ -392,7 +392,7 @@ private fun getStatusReplyIntent(
     account: AccountEntity,
 ): PendingIntent {
     val status = body.status!!
-    val inReplyToId = status.id
+    val inReplyToId = status.statusId
     val account1 = status.actionableStatus.account
     val contentWarning = status.actionableStatus.spoilerText
     val replyVisibility = status.actionableStatus.visibility

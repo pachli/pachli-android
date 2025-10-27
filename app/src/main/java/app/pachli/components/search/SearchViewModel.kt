@@ -395,7 +395,7 @@ class SearchViewModel @Inject constructor(
     }
 
     private fun updateStatus(newStatus: Status) {
-        val statusViewData = loadedStatuses.find { it.id == newStatus.id }
+        val statusViewData = loadedStatuses.find { it.id == newStatus.statusId }
         if (statusViewData != null) {
             updateStatusViewData(statusViewData.copy(status = newStatus))
         }

@@ -275,9 +275,9 @@ class ReportViewModel @AssistedInject constructor(
 
     fun setStatusChecked(status: Status, checked: Boolean) {
         if (checked) {
-            selectedIds.add(status.id)
+            selectedIds.add(status.statusId)
         } else {
-            selectedIds.remove(status.id)
+            selectedIds.remove(status.statusId)
         }
     }
 
