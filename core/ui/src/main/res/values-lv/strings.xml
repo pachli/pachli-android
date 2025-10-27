@@ -141,4 +141,6 @@
     <string name="post_edited">Labots %s</string>
     <string name="action_select_status">Atlasīt ierakstu</string>
     <string name="action_unselect_status">Atcelt ieraksta atlasīšanu</string>
+    <string name="post_replied">Atbildēts</string>
+    <string name="post_continued_thread">Turpināts pavediens</string>
 </resources>
