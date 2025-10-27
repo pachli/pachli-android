@@ -278,7 +278,7 @@ class PageCache private constructor(private val mutex: Mutex) : Mutex by mutex {
      * Finds [statusId] in the cache and calls [updater] on the status (if found),
      * saves the result back to the cache.
      *
-     * @throws IllegalStateException if the cache is unlocked.*
+     * @throws IllegalStateException if the cache is unlocked.
      */
     fun updateStatusById(statusId: String, updater: (Status) -> Status) {
         assertLocked()
@@ -289,6 +289,18 @@ class PageCache private constructor(private val mutex: Mutex) : Mutex by mutex {
         }
     }
 
+    /**
+     * Finds [statusId] in the cache and calls [updater] on the *actionable* status
+     * for that status (if found), saves the result back to the cache.
+     *
+     * Note: [statusId] is **not** the ID of the actionable status, it's the ID
+     * of the status that (possibly) contains it.
+     *
+     * @param statusId
+     * @param updater Function to call, receives a copy of the actionable status
+     * and returns the modified version.
+     * @throws IllegalStateException if the cache is unlocked.
+     */
     fun updateActionableStatusById(statusId: String, updater: (Status) -> Status) {
         assertLocked()
         idToPage[statusId]?.let { page ->
@@ -296,7 +308,7 @@ class PageCache private constructor(private val mutex: Mutex) : Mutex by mutex {
             if (index == -1) return
             val status = page.data[index]
             page.data[index] = status.reblog?.let {
-                status.copy(reblog = it)
+                status.copy(reblog = updater(it))
             } ?: updater(status)
         }
     }

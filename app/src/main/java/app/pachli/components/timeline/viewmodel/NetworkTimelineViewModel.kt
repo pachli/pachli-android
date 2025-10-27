@@ -149,7 +149,7 @@ open class NetworkTimelineViewModel @AssistedInject constructor(
 
     override fun clearWarning(statusViewData: StatusViewData) {
         viewModelScope.launch {
-            repository.updateActionableStatusById(statusViewData.actionableId) {
+            repository.updateActionableStatusById(statusViewData.id) {
                 it.copy(filtered = null)
             }
         }
