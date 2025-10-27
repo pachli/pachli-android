@@ -143,4 +143,5 @@
     <string name="action_unselect_status">Atcelt ieraksta atlasīšanu</string>
     <string name="post_replied">Atbildēts</string>
     <string name="post_continued_thread">Turpināts pavediens</string>
+    <string name="post_replied_to_fmt">Atbildēja <b>%1$s</b></string>
 </resources>
