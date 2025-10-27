@@ -21,7 +21,15 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class NotificationSubscribeResult(
-    val id: Int,
+    // Documentation about the type of `id` is inconsistent, showing it as both
+    // a string and a number (https://github.com/mastodon/mastodon/issues/36609).
+    //
+    // Mastodon returns a number, some other servers, like GoToSocial, return
+    // a string.
+    //
+    // Since we don't actually use it for anything ignore it for the moment.
+    //
+    // val id: Int,
     val endpoint: String,
     @Json(name = "server_key") val serverKey: String,
 )
