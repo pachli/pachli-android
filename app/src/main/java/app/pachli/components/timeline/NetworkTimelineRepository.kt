@@ -226,6 +226,17 @@ class NetworkTimelineRepository @Inject constructor(
         invalidate()
     }
 
+    /**
+     * Updates whatever the actionable status is in the status identified by
+     * [statusId].
+     *
+     * Note: [statusId] is **not** the ID of the actionable status, it's the ID
+     * of the status that (possibly) contains it.
+     *
+     * @param statusId
+     * @param updater Function to call, receives a copy of the actionable status
+     * and returns the modified version.
+     */
     suspend fun updateActionableStatusById(statusId: String, updater: (Status) -> Status) {
         pageCache.withLock { pageCache.updateActionableStatusById(statusId, updater) }
         invalidate()
