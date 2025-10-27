@@ -32,7 +32,7 @@ import app.pachli.core.model.TimelineAccount
  *
  * @property pachliAccountId
  * @property localDomain Local domain of the logged in user's account (e.g., "mastodon.social").
- * @property id Notification's server ID.
+ * @property notificationId Notification's server ID.
  * @property account Account that triggered the notification.
  * @property isAboutSelf True if the account that triggered the notification is the user's
  * account.
@@ -42,7 +42,7 @@ import app.pachli.core.model.TimelineAccount
 sealed interface NotificationViewData {
     val pachliAccountId: Long
     val localDomain: String
-    val id: String
+    val notificationId: String
     val account: TimelineAccount
     val isAboutSelf: Boolean
     val accountFilterDecision: AccountFilterDecision
@@ -51,7 +51,7 @@ sealed interface NotificationViewData {
     data class UnknownNotificationViewData(
         override val pachliAccountId: Long,
         override val localDomain: String,
-        override val id: String,
+        override val notificationId: String,
         override val account: TimelineAccount,
         override val isAboutSelf: Boolean,
         override val accountFilterDecision: AccountFilterDecision,
@@ -73,7 +73,7 @@ sealed interface NotificationViewData {
         data class MentionNotificationViewData(
             override val pachliAccountId: Long,
             override val localDomain: String,
-            override val id: String,
+            override val notificationId: String,
             override val account: TimelineAccount,
             override val isAboutSelf: Boolean,
             override val accountFilterDecision: AccountFilterDecision,
@@ -89,7 +89,7 @@ sealed interface NotificationViewData {
         data class ReblogNotificationViewData(
             override val pachliAccountId: Long,
             override val localDomain: String,
-            override val id: String,
+            override val notificationId: String,
             override val account: TimelineAccount,
             override val isAboutSelf: Boolean,
             override val accountFilterDecision: AccountFilterDecision,
@@ -107,7 +107,7 @@ sealed interface NotificationViewData {
         data class FavouriteNotificationViewData(
             override val pachliAccountId: Long,
             override val localDomain: String,
-            override val id: String,
+            override val notificationId: String,
             override val account: TimelineAccount,
             override val isAboutSelf: Boolean,
             override val accountFilterDecision: AccountFilterDecision,
@@ -125,7 +125,7 @@ sealed interface NotificationViewData {
         data class PollNotificationViewData(
             override val pachliAccountId: Long,
             override val localDomain: String,
-            override val id: String,
+            override val notificationId: String,
             override val account: TimelineAccount,
             override val isAboutSelf: Boolean,
             override val accountFilterDecision: AccountFilterDecision,
@@ -140,7 +140,7 @@ sealed interface NotificationViewData {
         data class StatusNotificationViewData(
             override val pachliAccountId: Long,
             override val localDomain: String,
-            override val id: String,
+            override val notificationId: String,
             override val account: TimelineAccount,
             override val isAboutSelf: Boolean,
             override val accountFilterDecision: AccountFilterDecision,
@@ -155,7 +155,7 @@ sealed interface NotificationViewData {
         data class UpdateNotificationViewData(
             override val pachliAccountId: Long,
             override val localDomain: String,
-            override val id: String,
+            override val notificationId: String,
             override val account: TimelineAccount,
             override val isAboutSelf: Boolean,
             override val accountFilterDecision: AccountFilterDecision,
@@ -167,7 +167,7 @@ sealed interface NotificationViewData {
     data class FollowNotificationViewData(
         override val pachliAccountId: Long,
         override val localDomain: String,
-        override val id: String,
+        override val notificationId: String,
         override val account: TimelineAccount,
         override val isAboutSelf: Boolean,
         override val accountFilterDecision: AccountFilterDecision,
@@ -177,7 +177,7 @@ sealed interface NotificationViewData {
     data class FollowRequestNotificationViewData(
         override val pachliAccountId: Long,
         override val localDomain: String,
-        override val id: String,
+        override val notificationId: String,
         override val account: TimelineAccount,
         override val isAboutSelf: Boolean,
         override val accountFilterDecision: AccountFilterDecision,
@@ -187,7 +187,7 @@ sealed interface NotificationViewData {
     data class SignupNotificationViewData(
         override val pachliAccountId: Long,
         override val localDomain: String,
-        override val id: String,
+        override val notificationId: String,
         override val account: TimelineAccount,
         override val isAboutSelf: Boolean,
         override val accountFilterDecision: AccountFilterDecision,
@@ -201,7 +201,7 @@ sealed interface NotificationViewData {
     data class ReportNotificationViewData(
         override val pachliAccountId: Long,
         override val localDomain: String,
-        override val id: String,
+        override val notificationId: String,
         override val account: TimelineAccount,
         override val isAboutSelf: Boolean,
         override val accountFilterDecision: AccountFilterDecision,
@@ -217,7 +217,7 @@ sealed interface NotificationViewData {
     data class SeveredRelationshipsNotificationViewData(
         override val pachliAccountId: Long,
         override val localDomain: String,
-        override val id: String,
+        override val notificationId: String,
         override val account: TimelineAccount,
         override val isAboutSelf: Boolean,
         override val accountFilterDecision: AccountFilterDecision,
@@ -233,7 +233,7 @@ sealed interface NotificationViewData {
     data class ModerationWarningNotificationViewData(
         override val pachliAccountId: Long,
         override val localDomain: String,
-        override val id: String,
+        override val notificationId: String,
         override val account: TimelineAccount,
         override val isAboutSelf: Boolean,
         override val accountFilterDecision: AccountFilterDecision,

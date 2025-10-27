@@ -242,7 +242,7 @@ class NotificationsFragment :
                         .filterNotNull()
                         .collect { key ->
                             val snapshot = adapter.snapshot()
-                            val index = snapshot.items.indexOfFirst { it.id == key }
+                            val index = snapshot.items.indexOfFirst { it.notificationId == key }
                             binding.recyclerView.scrollToPosition(
                                 snapshot.placeholdersBefore + index,
                             )
@@ -473,7 +473,7 @@ class NotificationsFragment :
      * Saves the ID of the notification returned by [getFirstVisibleNotification].
      */
     private fun saveVisibleId() = getFirstVisibleNotification()?.let {
-        viewModel.accept(InfallibleUiAction.SaveVisibleId(pachliAccountId, it.id))
+        viewModel.accept(InfallibleUiAction.SaveVisibleId(pachliAccountId, it.notificationId))
     }
 
     override fun onResume() {
@@ -580,14 +580,14 @@ class NotificationsFragment :
     }
 
     override fun clearContentFilter(viewData: NotificationViewData.WithStatus) {
-        viewModel.accept(InfallibleUiAction.ClearContentFilter(viewData.pachliAccountId, viewData.id))
+        viewModel.accept(InfallibleUiAction.ClearContentFilter(viewData.pachliAccountId, viewData.notificationId))
     }
 
     override fun clearAccountFilter(viewData: NotificationViewData) {
         viewModel.accept(
             InfallibleUiAction.OverrideAccountFilter(
                 viewData.pachliAccountId,
-                viewData.id,
+                viewData.notificationId,
                 viewData.accountFilterDecision,
             ),
         )
@@ -668,7 +668,7 @@ class NotificationsFragment :
                     oldItem: NotificationViewData,
                     newItem: NotificationViewData,
                 ): Boolean {
-                    return oldItem.id == newItem.id
+                    return oldItem.notificationId == newItem.notificationId
                 }
 
                 override fun areContentsTheSame(
