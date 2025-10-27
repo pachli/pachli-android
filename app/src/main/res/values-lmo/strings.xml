@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="pref_title_language">Lengua</string>
+    <string name="language_display_name_format">%s (%s)</string>
+    <string name="search_operator_language_checked_fmt">%1$s</string>
+    <string name="action_edit">Modifega</string>
+    <string name="post_sensitive_media_directions">Sqiça per veder</string>
+</resources>
