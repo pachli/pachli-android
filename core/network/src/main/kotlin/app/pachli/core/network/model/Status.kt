@@ -95,7 +95,7 @@ data class Status(
     }
 
     fun asModel(): app.pachli.core.model.Status = app.pachli.core.model.Status(
-        id = id,
+        statusId = id,
         url = url,
         account = account.asModel(),
         inReplyToId = inReplyToId,

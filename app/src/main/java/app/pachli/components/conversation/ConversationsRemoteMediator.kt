@@ -75,7 +75,7 @@ class ConversationsRemoteMediator(
                     ConversationEntity.from(
                         it,
                         pachliAccountId,
-                        conversationStarter[it.lastStatus!!.id] == true,
+                        conversationStarter[it.lastStatus!!.statusId] == true,
                     )!!,
                 )
             }
@@ -125,7 +125,7 @@ class ConversationsRemoteMediator(
         for (status in statuses) {
             // If inReplyToId is null then this is the first message in the thread.
             if (status.inReplyToId == null) {
-                result[status.id] = true
+                result[status.statusId] = true
                 continue
             }
 
@@ -135,13 +135,13 @@ class ConversationsRemoteMediator(
             // it's multiple statuses, the whole chain is considered to have started
             // the thread.
             if (status.account.id == status.inReplyToAccountId) {
-                result[status.id] = true
+                result[status.statusId] = true
                 continue
             }
 
             // Not enough information in lastStatus to make a decision, record this
             // as a status to check.
-            statusesToCheck[status.inReplyToId!!] = status.id
+            statusesToCheck[status.inReplyToId!!] = status.statusId
         }
 
         val statusIdsToCheck = statusesToCheck.keys.toList()

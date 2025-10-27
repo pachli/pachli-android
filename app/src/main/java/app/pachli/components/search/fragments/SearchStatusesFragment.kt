@@ -180,7 +180,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
 
     override fun onViewThread(status: Status) {
         val actionableStatus = status.actionableStatus
-        viewUrlActivity?.viewThread(pachliAccountId, actionableStatus.id, actionableStatus.url)
+        viewUrlActivity?.viewThread(pachliAccountId, actionableStatus.statusId, actionableStatus.url)
     }
 
     override fun onOpenReblog(status: Status) {

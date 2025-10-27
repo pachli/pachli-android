@@ -441,7 +441,7 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOpti
             ) : InReplyTo() {
                 companion object {
                     fun from(status: app.pachli.core.model.Status) = Status(
-                        statusId = status.id,
+                        statusId = status.statusId,
                         avatarUrl = status.account.avatar,
                         isBot = status.account.bot,
                         displayName = status.account.name,

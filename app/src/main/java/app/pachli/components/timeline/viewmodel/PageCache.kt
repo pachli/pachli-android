@@ -45,7 +45,7 @@ data class Page(
      */
     val nextKey: String? = null,
 ) {
-    override fun toString() = "size: ${"%2d".format(data.size)}, range: ${data.firstOrNull()?.id}..${data.lastOrNull()?.id}, prevKey: $prevKey, nextKey: $nextKey"
+    override fun toString() = "size: ${"%2d".format(data.size)}, range: ${data.firstOrNull()?.statusId}..${data.lastOrNull()?.statusId}, prevKey: $prevKey, nextKey: $nextKey"
 
     companion object {
         fun tryFrom(response: ApiResult<List<app.pachli.core.network.model.Status>>): Result<Page, ApiError> = response.map {
@@ -237,12 +237,12 @@ class PageCache private constructor(private val mutex: Mutex) : Mutex by mutex {
         page.data.forEach { status ->
             // There should never be duplicate items across all pages. Enforce this in debug mode
             if (BuildConfig.DEBUG) {
-                if (idToPage.containsKey(status.id)) {
+                if (idToPage.containsKey(status.statusId)) {
                     debug()
 //                    throw IllegalStateException("Duplicate item ID ${status.id} in pagesById")
                 }
             }
-            idToPage[status.id] = page
+            idToPage[status.statusId] = page
         }
     }
 
@@ -283,7 +283,7 @@ class PageCache private constructor(private val mutex: Mutex) : Mutex by mutex {
     fun updateStatusById(statusId: String, updater: (Status) -> Status) {
         assertLocked()
         idToPage[statusId]?.let { page ->
-            val index = page.data.indexOfFirst { it.id == statusId }
+            val index = page.data.indexOfFirst { it.statusId == statusId }
             if (index == -1) return
             page.data[index] = updater(page.data[index])
         }
@@ -304,7 +304,7 @@ class PageCache private constructor(private val mutex: Mutex) : Mutex by mutex {
     fun updateActionableStatusById(statusId: String, updater: (Status) -> Status) {
         assertLocked()
         idToPage[statusId]?.let { page ->
-            val index = page.data.indexOfFirst { it.id == statusId }
+            val index = page.data.indexOfFirst { it.statusId == statusId }
             if (index == -1) return
             val status = page.data[index]
             page.data[index] = status.reblog?.let {
