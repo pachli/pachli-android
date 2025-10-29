@@ -239,7 +239,7 @@
         android:id="@+id/status_quote"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/card_frame"
+        android:background="@drawable/quote_background"
         android:paddingTop="14dp"
         android:paddingBottom="14dp"
         android:layout_marginTop="4dp"
