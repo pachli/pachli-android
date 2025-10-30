@@ -49,6 +49,7 @@ jlatexmath-android = "0.2.0"
 junit = "4.13.2"
 kotlin = "2.2.20"
 kotlin-result = "1.1.20"
+kotlin-serialization = "1.9.0"
 ksoup = "0.6.0"
 ksp = "2.2.20-2.0.3"
 image-cropper = "4.6.0"
@@ -99,6 +100,7 @@ hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ktlint = "org.jlleitschuh.gradle.ktlint:12.3.0"
 room = { id = "androidx.room", version.ref = "androidx-room" }
 quadrant = { id = "com.gaelmarhic.quadrant", version.ref = "quadrant" }
@@ -192,6 +194,7 @@ kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutine
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines"}
 kotlinx-coroutines-play-services = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "coroutines-play-services" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlin-serialization" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
 ksoup-entities = { module = "com.mohamedrejeb.ksoup:ksoup-entities", version.ref = "ksoup" }
 image-cropper = { module = "com.vanniktech:android-image-cropper", version.ref = "image-cropper" }

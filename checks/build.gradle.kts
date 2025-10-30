@@ -18,6 +18,7 @@
 plugins {
     id("java-library")
     alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.android.lint)
 }
 
@@ -39,4 +40,5 @@ tasks.jar {
 dependencies {
     compileOnly(libs.bundles.lint.api)
     testImplementation(libs.bundles.lint.tests)
+    implementation(libs.kotlinx.serialization.json)
 }

@@ -13,6 +13,8 @@ class LintRegistry : IssueRegistry() {
             DateDotTimeDetector.ISSUE,
             GlideWithViewDetector.ISSUE,
             IntentDetector.ISSUE,
+            StringResourceAngleBracketDetector.ISSUE,
+            StringResourceEntityDetector.ISSUE,
             TypedArrayUseDetector.ISSUE,
         )
 
