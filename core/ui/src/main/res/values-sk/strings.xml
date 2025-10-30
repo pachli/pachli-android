@@ -33,9 +33,9 @@
     <string name="hint_search_emojis">Hľadať emoji…</string>
     <string name="label_emoji_no_category">Žiadna kategória</string>
     <string name="emoji_picker_show_detail">Zobraziť detail</string>
-    <string name="preview_card_byline_fediverse_account_fmt">Od <b>%1$s</b>. Zobraziť viac príspevkov</string>
-    <string name="preview_card_byline_name_only_fmt">Od <b>%1$s</b></string>
-    <string name="preview_card_timeline_link_fmt">Pozri si <b>%1$s</b> príspevkov o tomto odkaze</string>
+    <string name="preview_card_byline_fediverse_account_fmt">Od &lt;b>%1$s&lt;/b>. Zobraziť viac príspevkov</string>
+    <string name="preview_card_byline_name_only_fmt">Od &lt;b>%1$s&lt;/b></string>
+    <string name="preview_card_timeline_link_fmt">Pozri si &lt;b>%1$s&lt;/b> príspevkov o tomto odkaze</string>
     <string name="poll_vote">Hlasovať</string>
     <string name="poll_show_votes">Zobraziť výsledky ankety</string>
     <plurals name="poll_timespan_seconds">
@@ -128,14 +128,14 @@
     <string name="description_post_media">Média %s</string>
     <string name="description_post_cw">Varovanie pred obsahom: %s</string>
     <plurals name="reblogs">
-        <item quantity="one"><b>%s</b> zdieľanie</item>
-        <item quantity="few"><b>%s</b> zdieľania</item>
-        <item quantity="other"><b>%s</b> zdieľaní</item>
+        <item quantity="one">&lt;b>%s&lt;/b> zdieľanie</item>
+        <item quantity="few">&lt;b>%s&lt;/b> zdieľania</item>
+        <item quantity="other">&lt;b>%s&lt;/b> zdieľaní</item>
     </plurals>
     <plurals name="favs">
-        <item quantity="one"><b>%1$s</b> obľúbenie</item>
-        <item quantity="few"><b>%1$s</b> obľúbenia</item>
-        <item quantity="other"><b>%1$s</b> obľúbení</item>
+        <item quantity="one">&lt;b>%1$s&lt;/b> obľúbenie</item>
+        <item quantity="few">&lt;b>%1$s&lt;/b> obľúbenia</item>
+        <item quantity="other">&lt;b>%1$s&lt;/b> obľúbení</item>
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; zdieľal/a</string>
     <string name="post_edited">Upravené %s</string>
@@ -143,5 +143,5 @@
     <string name="action_unselect_status">Zrušiť výber príspevku</string>
     <string name="post_replied">Odpovedané</string>
     <string name="post_continued_thread">Pokračovanie vlákna</string>
-    <string name="post_replied_to_fmt">Odpoveď pre <b>%1$s</b></string>
+    <string name="post_replied_to_fmt">Odpoveď pre &lt;b>%1$s&lt;/b></string>
 </resources>

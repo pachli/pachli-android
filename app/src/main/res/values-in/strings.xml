@@ -235,7 +235,7 @@
     <plurals name="notification_severed_relationships_summary_followers_fmt">
         <item quantity="other">%1$s pengikut di hapus</item>
     </plurals>
-    <string name="notification_severed_relationships_format">Hubungan dengan <b>%1$s</b> terputus</string>
+    <string name="notification_severed_relationships_format">Hubungan dengan &lt;b>%1$s&lt;/b> terputus</string>
     <string name="notification_severed_relationships_domain_block_body">Moderator menangguhkan domain tersebut</string>
     <string name="pref_title_notification_filter_follow_requests">ikuti diminta</string>
     <plurals name="notification_severed_relationships_summary_following_fmt">
@@ -341,7 +341,7 @@
     <string name="notification_summary_small">%1$s dan %2$s</string>
     <string name="notification_notification_worker">Mengambil notifikasi…</string>
     <string name="post_share_content">Bagikan konten postingan</string>
-    <string name="status_filter_placeholder_label_format">Disaring: <b>%1$s</b></string>
+    <string name="status_filter_placeholder_label_format">Disaring: &lt;b>%1$s&lt;/b></string>
     <string name="set_focus_description">Ketuk atau seret lingkaran untuk memilih titik fokus yang akan selalu terlihat dalam gambar mini.</string>
     <string name="download_fonts">Anda harus mengunduh set emoji ini terlebih dahulu</string>
     <string name="expand_collapse_all_posts">Memperluas/Memperkecil semua tulisan</string>

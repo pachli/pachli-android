@@ -12,9 +12,9 @@
     <string name="action_dismiss_follow_suggestion">Отклонить</string>
     <string name="ui_error_delete_suggestion_fmt">Не удалось отклонить предложение для %1$s: ошибка %2$s</string>
     <string name="ui_error_follow_account_fmt">Не удалось подписаться на %1$s: ошибка %2$s</string>
-    <string name="follower_count_fmt"><b>%1$s</b> подписчиков</string>
-    <string name="follows_count_fmt"><b>%1$s</b> подписок</string>
-    <string name="statuses_count_fmt"><b>%1$s</b> записей</string>
-    <string name="statuses_count_per_week_fmt"><b>%1$s</b> записей (<b>%2$d</b> в неделю)</string>
-    <string name="statuses_count_per_week_last_fmt"><b>%1$s</b> записей (<b>%2$d</b> в неделю, последние <b>%3$s</b>)</string>
+    <string name="follower_count_fmt">&lt;b>%1$s&lt;/b> подписчиков</string>
+    <string name="follows_count_fmt">&lt;b>%1$s&lt;/b> подписок</string>
+    <string name="statuses_count_fmt">&lt;b>%1$s&lt;/b> записей</string>
+    <string name="statuses_count_per_week_fmt">&lt;b>%1$s&lt;/b> записей (&lt;b>%2$d&lt;/b> в неделю)</string>
+    <string name="statuses_count_per_week_last_fmt">&lt;b>%1$s&lt;/b> записей (&lt;b>%2$d&lt;/b> в неделю, последние &lt;b>%3$s&lt;/b>)</string>
 </resources>

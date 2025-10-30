@@ -505,29 +505,29 @@
     <string name="title_tab_public_trending_statuses">Post</string>
     <string name="update_dialog_title">Un aggiornamento è disponibile</string>
     <string name="notification_severed_relationships_unknown_body">Motivo ignoto</string>
-    <string name="notification_severed_relationships_format">Relazione con <b>%1$s</b> troncata</string>
+    <string name="notification_severed_relationships_format">Relazione con &lt;b>%1$s&lt;/b> troncata</string>
     <string name="notification_severed_relationships_domain_block_body">Un moderatore ha sospeso il dominio</string>
-    <string name="account_filter_placeholder_type_follow_request_fmt">Richiesta di seguace da un utente @<b>%1s</b></string>
-    <string name="account_filter_placeholder_type_follow_fmt">Un utente @<b>%1s</b> ha iniziato a seguirti</string>
-    <string name="account_filter_placeholder_label_younger_30d">Filtrato perché: <b>creato negli ultimi 30 giorni</b></string>
-    <string name="account_filter_placeholder_label_domain">Da un utente @<b>%1s</b></string>
-    <string name="account_filter_placeholder_label_not_following">Filtrato perché: <b>non li segui</b></string>
+    <string name="account_filter_placeholder_type_follow_request_fmt">Richiesta di seguace da un utente @&lt;b>%1s&lt;/b></string>
+    <string name="account_filter_placeholder_type_follow_fmt">Un utente @&lt;b>%1s&lt;/b> ha iniziato a seguirti</string>
+    <string name="account_filter_placeholder_label_younger_30d">Filtrato perché: &lt;b>creato negli ultimi 30 giorni&lt;/b></string>
+    <string name="account_filter_placeholder_label_domain">Da un utente @&lt;b>%1s&lt;/b></string>
+    <string name="account_filter_placeholder_label_not_following">Filtrato perché: &lt;b>non li segui&lt;/b></string>
     <string name="notification_severed_relationships_user_domain_block_body">Hai bloccato il dominio</string>
     <string name="notification_severed_relationships_account_suspension_body">Un moderatore ha sospeso l\'account</string>
-    <string name="notification_severed_relationships_user_domain_block_fmt">Hai bloccato <b>%1$s</b></string>
-    <string name="notification_severed_relationships_account_suspension_fmt">Un amministratore di %1$s ha bloccato <b>%2$s</b></string>
+    <string name="notification_severed_relationships_user_domain_block_fmt">Hai bloccato &lt;b>%1$s&lt;/b></string>
+    <string name="notification_severed_relationships_account_suspension_fmt">Un amministratore di %1$s ha bloccato &lt;b>%2$s&lt;/b></string>
     <plurals name="followed_hashtags_accounts_count_fmt">
         <item quantity="one">%1$d account</item>
         <item quantity="many">%1$d account</item>
         <item quantity="other">%1$d account</item>
     </plurals>
-    <string name="account_filter_placeholder_type_reblog_fmt">Un utente @<b>%1s</b> ha ricondiviso il tuo post</string>
+    <string name="account_filter_placeholder_type_reblog_fmt">Un utente @&lt;b>%1s&lt;/b> ha ricondiviso il tuo post</string>
     <plurals name="followed_hashtags_posts_count_fmt">
         <item quantity="one">%1$d post</item>
         <item quantity="many">%1$d post</item>
         <item quantity="other">%1$d post</item>
     </plurals>
-    <string name="account_filter_placeholder_label_limited_by_server">Filtrato perché: <b>limitato dai tuoi moderatori</b></string>
+    <string name="account_filter_placeholder_label_limited_by_server">Filtrato perché: &lt;b>limitato dai tuoi moderatori&lt;/b></string>
     <string name="notification_unknown">Tipologia di notifica sconosciuta</string>
     <string name="action_filter_search">Filtra ricerca</string>
     <string name="action_translate_undo">Non tradurre</string>
@@ -541,7 +541,7 @@
     <string name="action_send_private_content_description">Invia post solo ai seguaci</string>
     <string name="action_send_unlisted_content_description">Invia post non elencato</string>
     <string name="action_suggestions">Account suggeriti</string>
-    <string name="account_filter_placeholder_type_conversation">Un utente @<b>%1$s</b> ha iniziato una conversazione</string>
+    <string name="account_filter_placeholder_type_conversation">Un utente @&lt;b>%1$s&lt;/b> ha iniziato una conversazione</string>
     <plurals name="followed_hashtags_days_count_fmt">
         <item quantity="one">%1$d giorno</item>
         <item quantity="many">%1$d giorni</item>
@@ -552,12 +552,12 @@
         <item quantity="many">%1$s di seguaci rimossi.</item>
         <item quantity="other">%1$s seguaci rimossi.</item>
     </plurals>
-    <string name="notification_severed_relationships_domain_block_fmt">Un amministratore di %1$s ha bloccato <b>%2$s</b></string>
-    <string name="notification_severed_relationships_unknown_fmt"><b>%1$s</b> è bloccato (motivo ignoto)</string>
+    <string name="notification_severed_relationships_domain_block_fmt">Un amministratore di %1$s ha bloccato &lt;b>%2$s&lt;/b></string>
+    <string name="notification_severed_relationships_unknown_fmt">&lt;b>%1$s&lt;/b> è bloccato (motivo ignoto)</string>
     <string name="action_translate">Traduci</string>
     <string name="action_refresh_account">Aggiorna account</string>
     <string name="pref_title_notification_filter_severed_relationships">Una relazione fra i seguaci/seguiti è stata troncata</string>
-    <string name="account_filter_placeholder_type_mention_fmt">Un utente @<b>%1s</b> ti ha menzionato</string>
+    <string name="account_filter_placeholder_type_mention_fmt">Un utente @&lt;b>%1s&lt;/b> ti ha menzionato</string>
     <string name="notification_moderation_warning_title">Un messaggio da parte dei tuoi moderatori</string>
     <string name="notification_moderation_warning_body_none_fmt">Hai ricevuto un avviso di moderazione: %1$s</string>
     <string name="notification_moderation_warning_body_disable_fmt">Il tuo account è stato disabilitato: %1$s</string>

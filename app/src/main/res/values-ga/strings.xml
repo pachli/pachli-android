@@ -695,7 +695,7 @@
     <string name="ui_error_reload_reply_fmt">Níorbh fhéidir postáil a luchtú: %1$s</string>
     <string name="pref_summary_account_conversation_filters">Ní thacaíonn do fhreastalaí le scagairí comhrá</string>
     <string name="pref_account_conversation_filters_subtitle">Cad ba cheart a tharlóidh do chomhráite tosaithe ag cuntais…</string>
-    <string name="account_filter_placeholder_type_conversation">Chuir úsáideoir @ <b>%1$s</b> tús le comhrá</string>
+    <string name="account_filter_placeholder_type_conversation">Chuir úsáideoir @ &lt;b>%1$s&lt;/b> tús le comhrá</string>
     <string name="action_refresh_account">Athnuaigh cuntas</string>
     <string name="pref_title_public_filter_home_and_lists">Baile agus liostaí</string>
     <string name="pref_title_account_conversation_filters">Scagairí comhrá</string>
@@ -736,10 +736,10 @@
     <string name="export_preferences_ok_fmt">Roghanna a easpórtáileadh chuig %1$s</string>
     <string name="error_export_preferences_fmt">Níorbh fhéidir roghanna a easpórtáil chuig %1$s: %2$s</string>
     <string name="error_import_preferences_fmt">Níorbh fhéidir roghanna a iompórtáil ó %1$s: %2$s</string>
-    <string name="notification_severed_relationships_user_domain_block_fmt">Chuir tú bac ar <b>%1$s</b></string>
-    <string name="notification_severed_relationships_domain_block_fmt">Chuir riarthóir %1$s bac ar <b>%2$s</b></string>
-    <string name="notification_severed_relationships_unknown_fmt">Tá <b>%1$s</b> blocáilte (cúis anaithnid)</string>
-    <string name="notification_severed_relationships_account_suspension_fmt">Chuir riarthóir %1$s bac ar <b>%2$s</b></string>
+    <string name="notification_severed_relationships_user_domain_block_fmt">Chuir tú bac ar &lt;b>%1$s&lt;/b></string>
+    <string name="notification_severed_relationships_domain_block_fmt">Chuir riarthóir %1$s bac ar &lt;b>%2$s&lt;/b></string>
+    <string name="notification_severed_relationships_unknown_fmt">Tá &lt;b>%1$s&lt;/b> blocáilte (cúis anaithnid)</string>
+    <string name="notification_severed_relationships_account_suspension_fmt">Chuir riarthóir %1$s bac ar &lt;b>%2$s&lt;/b></string>
     <string name="manage_accounts_name">Bainistigh cuntais</string>
     <string name="pref_default_audio_playback">Athsheinm fuaime réamhshocraithe</string>
     <string name="error_share_media">níl aon eolaire ann chun meáin shealadacha a shábháil</string>

@@ -33,9 +33,9 @@
     <string name="pref_notification_method_pull">Pull</string>
     <string name="notification_details_last_fetch_label">Letzte /api/v1/notifications-Abfrage</string>
     <string name="emoji_picker_show_detail">Detail anzeigen</string>
-    <string name="preview_card_byline_fediverse_account_fmt">Von <b>%1$s</b>. Mehr Beiträge anzeigen</string>
-    <string name="preview_card_byline_name_only_fmt">Von <b>%1$s</b></string>
-    <string name="preview_card_timeline_link_fmt"><b>%1$s</b> Beiträge über diesen Link anzeigen</string>
+    <string name="preview_card_byline_fediverse_account_fmt">Von &lt;b>%1$s&lt;/b>. Mehr Beiträge anzeigen</string>
+    <string name="preview_card_byline_name_only_fmt">Von &lt;b>%1$s&lt;/b></string>
+    <string name="preview_card_timeline_link_fmt">&lt;b>%1$s&lt;/b> Beiträge über diesen Link anzeigen</string>
     <string name="poll_vote">Abstimmen</string>
     <string name="poll_show_votes">Stimmen anzeigen</string>
     <plurals name="poll_timespan_seconds">
@@ -128,9 +128,9 @@
         <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Favorit</item>
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Favoriten</item>
     </plurals>
-    <string name="post_boosted_fmt"><b>%1$s</b> geteilt</string>
+    <string name="post_boosted_fmt">&lt;b>%1$s&lt;/b> geteilt</string>
     <string name="post_edited">Bearbeitet %s</string>
-    <string name="post_replied_to_fmt">Antwort auf <b>%1$s</b></string>
+    <string name="post_replied_to_fmt">Antwort auf &lt;b>%1$s&lt;/b></string>
     <string name="post_continued_thread">Fortgeführter Thread</string>
     <string name="post_replied">Beantwortet</string>
 </resources>

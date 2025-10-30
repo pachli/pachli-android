@@ -12,9 +12,9 @@
     <string name="action_dismiss_follow_suggestion">Verwerfen</string>
     <string name="ui_error_delete_suggestion_fmt">Fehler beim Verwerfen des Vorschlags für %1$s : %2$s</string>
     <string name="ui_error_follow_account_fmt">Fehler beim Folgen von %1$s: %2$s</string>
-    <string name="follower_count_fmt"><b>%1$s</b> Follower</string>
-    <string name="follows_count_fmt"><b>%1$s</b> folgen</string>
-    <string name="statuses_count_fmt"><b>%1$s</b> Beiträge</string>
-    <string name="statuses_count_per_week_fmt"><b>%1$s</b> Beiträge (<b>%2$d</b> pro Woche)</string>
-    <string name="statuses_count_per_week_last_fmt"><b>%1$s</b> Beiträge (<b>%2$d</b> pro Woche, letzter am <b>%3$s</b>)</string>
+    <string name="follower_count_fmt">&lt;b>%1$s&lt;/b> Follower</string>
+    <string name="follows_count_fmt">&lt;b>%1$s&lt;/b> folgen</string>
+    <string name="statuses_count_fmt">&lt;b>%1$s&lt;/b> Beiträge</string>
+    <string name="statuses_count_per_week_fmt">&lt;b>%1$s&lt;/b> Beiträge (&lt;b>%2$d&lt;/b> pro Woche)</string>
+    <string name="statuses_count_per_week_last_fmt">&lt;b>%1$s&lt;/b> Beiträge (&lt;b>%2$d&lt;/b> pro Woche, letzter am &lt;b>%3$s&lt;/b>)</string>
 </resources>

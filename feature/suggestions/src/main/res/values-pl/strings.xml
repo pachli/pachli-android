@@ -10,11 +10,11 @@
     <string name="sources_unknown">(serwer zwrócił nierozpoznawalne źródła)</string>
     <string name="action_follow_account">Obserwuj</string>
     <string name="action_dismiss_follow_suggestion">Odrzuć</string>
-    <string name="follows_count_fmt"><b>%1$s</b> obserwowanych</string>
-    <string name="statuses_count_fmt"><b>%1$s</b> wpisów</string>
-    <string name="statuses_count_per_week_fmt"><b>%1$s</b> wpisów (<b>%2$d</b> na tydzień)</string>
-    <string name="statuses_count_per_week_last_fmt"><b>%1$s</b> wpisów (<b>%2$d</b> na tydzień, ostatni <b>%3$s</b>)</string>
+    <string name="follows_count_fmt">&lt;b>%1$s&lt;/b> obserwowanych</string>
+    <string name="statuses_count_fmt">&lt;b>%1$s&lt;/b> wpisów</string>
+    <string name="statuses_count_per_week_fmt">&lt;b>%1$s&lt;/b> wpisów (&lt;b>%2$d&lt;/b> na tydzień)</string>
+    <string name="statuses_count_per_week_last_fmt">&lt;b>%1$s&lt;/b> wpisów (&lt;b>%2$d&lt;/b> na tydzień, ostatni &lt;b>%3$s&lt;/b>)</string>
     <string name="ui_error_follow_account_fmt">Obserwowanie %1$s się nie powiodło: %2$s</string>
     <string name="ui_error_delete_suggestion_fmt">Odrzucanie sugestii %1$s się nie powiodło: %2$s</string>
-    <string name="follower_count_fmt"><b>%1$s</b> obserwujących</string>
+    <string name="follower_count_fmt">&lt;b>%1$s&lt;/b> obserwujących</string>
 </resources>
