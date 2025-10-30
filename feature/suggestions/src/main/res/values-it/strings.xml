@@ -8,11 +8,11 @@
     <string name="sources_unknown">(il server ha riportato fonti non riconosciute)</string>
     <string name="action_follow_account">Segui</string>
     <string name="action_dismiss_follow_suggestion">Scartare</string>
-    <string name="follower_count_fmt"><b>%1$s</b> seguaci</string>
-    <string name="follows_count_fmt"><b>%1$s</b> seguiti</string>
-    <string name="statuses_count_fmt"><b>%1$s</b> post</string>
+    <string name="follower_count_fmt">&lt;b>%1$s&lt;/b> seguaci</string>
+    <string name="follows_count_fmt">&lt;b>%1$s&lt;/b> seguiti</string>
+    <string name="statuses_count_fmt">&lt;b>%1$s&lt;/b> post</string>
     <string name="ui_error_follow_account_fmt">La richiesta di seguire %1$s è fallita: %2$s</string>
     <string name="sources_most_interactions">Il tuo server sta ricevendo molte attenzioni</string>
-    <string name="statuses_count_per_week_fmt"><b>%1$s</b> posta (<b>%2$d</b> alla settimana)</string>
-    <string name="statuses_count_per_week_last_fmt"><b>%1$s</b> post (<b>%2$d</b> per settimana, ultimo <b>%3$s</b>)</string>
+    <string name="statuses_count_per_week_fmt">&lt;b>%1$s&lt;/b> posta (&lt;b>%2$d&lt;/b> alla settimana)</string>
+    <string name="statuses_count_per_week_last_fmt">&lt;b>%1$s&lt;/b> post (&lt;b>%2$d&lt;/b> per settimana, ultimo &lt;b>%3$s&lt;/b>)</string>
 </resources>

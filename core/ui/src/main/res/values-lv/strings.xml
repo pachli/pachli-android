@@ -33,9 +33,9 @@
     <string name="hint_search_emojis">Meklēt emocijzīmes…</string>
     <string name="label_emoji_no_category">Bez kategorijas</string>
     <string name="emoji_picker_show_detail">Rādīt informāciju</string>
-    <string name="preview_card_byline_fediverse_account_fmt">No <b>%1$s</b>. Apskatīt vairāk ierakstu</string>
-    <string name="preview_card_byline_name_only_fmt">No <b>%1$s</b></string>
-    <string name="preview_card_timeline_link_fmt">Apskatīt <b>%1$s</b> ierakstus par šo saiti</string>
+    <string name="preview_card_byline_fediverse_account_fmt">No &lt;b>%1$s&lt;/b>. Apskatīt vairāk ierakstu</string>
+    <string name="preview_card_byline_name_only_fmt">No &lt;b>%1$s&lt;/b></string>
+    <string name="preview_card_timeline_link_fmt">Apskatīt &lt;b>%1$s&lt;/b> ierakstus par šo saiti</string>
     <string name="poll_vote">Balsot</string>
     <string name="poll_show_votes">Rādīt balsojumus</string>
     <plurals name="poll_timespan_seconds">
@@ -128,14 +128,14 @@
     <string name="description_post_media">Informācijas nesēji: %s</string>
     <string name="description_post_cw">Satura brīdinājums: %s</string>
     <plurals name="reblogs">
-        <item quantity="zero"><b>%s</b> pastiprinājumu</item>
-        <item quantity="one"><b>%s</b> pastiprinājums</item>
-        <item quantity="other"><b>%s</b> pastiprinājumi</item>
+        <item quantity="zero">&lt;b>%s&lt;/b> pastiprinājumu</item>
+        <item quantity="one">&lt;b>%s&lt;/b> pastiprinājums</item>
+        <item quantity="other">&lt;b>%s&lt;/b> pastiprinājumi</item>
     </plurals>
     <plurals name="favs">
-        <item quantity="zero"><b>%1$s</b> ierakstu izlasē</item>
-        <item quantity="one"><b>%1$s</b> ieraksts izlasē</item>
-        <item quantity="other"><b>%1$s</b> ieraksti izlasē</item>
+        <item quantity="zero">&lt;b>%1$s&lt;/b> ierakstu izlasē</item>
+        <item quantity="one">&lt;b>%1$s&lt;/b> ieraksts izlasē</item>
+        <item quantity="other">&lt;b>%1$s&lt;/b> ieraksti izlasē</item>
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; pastiprināja</string>
     <string name="post_edited">Labots %s</string>
@@ -143,5 +143,5 @@
     <string name="action_unselect_status">Atcelt ieraksta atlasīšanu</string>
     <string name="post_replied">Atbildēts</string>
     <string name="post_continued_thread">Turpināts pavediens</string>
-    <string name="post_replied_to_fmt">Atbildēja <b>%1$s</b></string>
+    <string name="post_replied_to_fmt">Atbildēja &lt;b>%1$s&lt;/b></string>
 </resources>

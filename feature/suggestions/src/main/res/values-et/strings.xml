@@ -12,9 +12,9 @@
     <string name="action_dismiss_follow_suggestion">Loobu</string>
     <string name="ui_error_delete_suggestion_fmt">%1$s soovitusest loobumine ei õnnestunud: %2$s</string>
     <string name="ui_error_follow_account_fmt">%1$s jälgimise alustamine ei õnnestunud: %2$s</string>
-    <string name="follower_count_fmt"><b>%1$s</b> jälgijat</string>
-    <string name="follows_count_fmt"><b>%1$s</b> jälgimas</string>
-    <string name="statuses_count_fmt"><b>%1$s</b> postitust</string>
-    <string name="statuses_count_per_week_fmt"><b>%1$s</b> postitust (<b>%2$d</b> nädalas)</string>
-    <string name="statuses_count_per_week_last_fmt"><b>%1$s</b> postitust (<b>%2$d</b> nädalas, viimati <b>%3$s</b>)</string>
+    <string name="follower_count_fmt">&lt;b>%1$s&lt;/b> jälgijat</string>
+    <string name="follows_count_fmt">&lt;b>%1$s&lt;/b> jälgimas</string>
+    <string name="statuses_count_fmt">&lt;b>%1$s&lt;/b> postitust</string>
+    <string name="statuses_count_per_week_fmt">&lt;b>%1$s&lt;/b> postitust (&lt;b>%2$d&lt;/b> nädalas)</string>
+    <string name="statuses_count_per_week_last_fmt">&lt;b>%1$s&lt;/b> postitust (&lt;b>%2$d&lt;/b> nädalas, viimati &lt;b>%3$s&lt;/b>)</string>
 </resources>

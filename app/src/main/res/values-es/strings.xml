@@ -699,7 +699,7 @@
     <string name="pref_account_conversation_filters_label_younger_30d">… creadas en los últimos 30 días</string>
     <string name="ui_error_reload_reply_fmt">No se pudo cargar la publicación: %1$s</string>
     <string name="pref_account_conversation_filters_subtitle">Qué debería ocurrir con las conversaciones iniciadas por cuentas…</string>
-    <string name="account_filter_placeholder_type_conversation">Un usuario de <b>%1$s</b> inició una conversación</string>
+    <string name="account_filter_placeholder_type_conversation">Un usuario de &lt;b>%1$s&lt;/b> inició una conversación</string>
     <string name="pref_account_conversation_filters_label_limited_by_server">… limitadas por tus moderadores</string>
     <string name="action_send_unlisted_content_description">Enviar como no listado</string>
     <string name="action_send_public_content_description">Enviar como público</string>
@@ -729,10 +729,10 @@
     <string name="error_import_preferences_fmt">No se pudieron exportar las preferencias desde %1$s: %2$s</string>
     <string name="export_preferences_ok_fmt">Preferencias exportadas a %1$s</string>
     <string name="error_export_preferences_fmt">No se pudieron exportar las preferencias a %1$s: %2$s</string>
-    <string name="notification_severed_relationships_domain_block_fmt">Un administrador de %1$s bloqueó a <b>%2$s</b></string>
-    <string name="notification_severed_relationships_user_domain_block_fmt">Bloqueaste a <b>%1$s</b></string>
-    <string name="notification_severed_relationships_account_suspension_fmt">Un administrador de %1$s bloqueó a <b>%2$s</b></string>
-    <string name="notification_severed_relationships_unknown_fmt"><b>%1$s</b> se encuentra bloqueado (razón desconocida)</string>
+    <string name="notification_severed_relationships_domain_block_fmt">Un administrador de %1$s bloqueó a &lt;b>%2$s&lt;/b></string>
+    <string name="notification_severed_relationships_user_domain_block_fmt">Bloqueaste a &lt;b>%1$s&lt;/b></string>
+    <string name="notification_severed_relationships_account_suspension_fmt">Un administrador de %1$s bloqueó a &lt;b>%2$s&lt;/b></string>
+    <string name="notification_severed_relationships_unknown_fmt">&lt;b>%1$s&lt;/b> se encuentra bloqueado (razón desconocida)</string>
     <string name="manage_accounts_name">Gestionar cuentas</string>
     <string name="pref_default_audio_playback">Reproducción de audio por defecto</string>
     <string name="notification_moderation_warning_title">Mensaje de tus moderadores</string>

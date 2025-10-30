@@ -12,9 +12,9 @@
     <string name="action_dismiss_follow_suggestion">Zavrieť</string>
     <string name="ui_error_delete_suggestion_fmt">Odmietnutie návrhu pre %1$s zlyhalo: %2$s</string>
     <string name="ui_error_follow_account_fmt">Sledovanie účtu %1$s zlyhalo: %2$s</string>
-    <string name="follows_count_fmt"><b>%1$s</b> sledovaných</string>
-    <string name="follower_count_fmt"><b>%1$s</b> sledujúcich</string>
-    <string name="statuses_count_fmt"><b>%1$s</b> príspevkov</string>
-    <string name="statuses_count_per_week_last_fmt"><b>%1$s</b> príspevkov (<b>%2$d</b> za týždeň, posledný <b>%3$s</b>)</string>
-    <string name="statuses_count_per_week_fmt"><b>%1$s</b> príspevkov (<b>%2$d</b> za týždeň)</string>
+    <string name="follows_count_fmt">&lt;b>%1$s&lt;/b> sledovaných</string>
+    <string name="follower_count_fmt">&lt;b>%1$s&lt;/b> sledujúcich</string>
+    <string name="statuses_count_fmt">&lt;b>%1$s&lt;/b> príspevkov</string>
+    <string name="statuses_count_per_week_last_fmt">&lt;b>%1$s&lt;/b> príspevkov (&lt;b>%2$d&lt;/b> za týždeň, posledný &lt;b>%3$s&lt;/b>)</string>
+    <string name="statuses_count_per_week_fmt">&lt;b>%1$s&lt;/b> príspevkov (&lt;b>%2$d&lt;/b> za týždeň)</string>
 </resources>

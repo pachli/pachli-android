@@ -465,7 +465,9 @@
         <item quantity="many">%1$s kont obserwujących usunięto.</item>
         <item quantity="other">%1$s kont obserwujących usunięto.</item>
     </plurals>
-    <string name="notification_severed_relationships_format">Relacja z <b>%1$s</b> została przerwana</string>
+    <string name="notification_severed_relationships_format">Relacja z &lt;b>%1$s&lt;/b>
+    została przerwana
+</string>
     <string name="notification_unknown">Nieznany typ powiadomienia</string>
     <string name="manage_lists">Zarządzaj listami</string>
     <string name="pref_summary_content_filters">Twój serwer nie wspiera filtrów treści</string>
@@ -479,7 +481,7 @@
     <string name="pref_title_show_self_boosts_description">Podbicia własnych wpisów</string>
     <string name="action_translate_undo">Pokaż oryginał</string>
     <string name="confirmation_hashtag_unmuted">Cofnięto ukrycie #%s</string>
-    <string name="status_filter_placeholder_label_format">Zastosowano filtr: <b>%1$s</b></string>
+    <string name="status_filter_placeholder_label_format">Zastosowano filtr: &lt;b>%1$s&lt;/b></string>
     <string name="notification_severed_relationships_user_domain_block_body">Domena zablokowana przez ciebie</string>
     <string name="notification_severed_relationships_domain_block_body">Domena zawieszona przez osobę moderującą</string>
     <string name="notification_prune_cache">Zarządzanie cache…</string>
@@ -517,13 +519,13 @@
     <string name="pref_account_notification_filters_label_younger_30d">… utworzonych w ciągu ostatnich 30 dni</string>
     <string name="pref_account_notification_filters_label_not_followed">… których nie obserwujesz</string>
     <string name="pref_account_notification_filters_label_limited_by_server">… ograniczonych przez moderację</string>
-    <string name="account_filter_placeholder_type_favourite_fmt">Osoba @<b>%1s</b> polubiła twój wpis</string>
-    <string name="account_filter_placeholder_type_follow_fmt">Konto @<b>%1s</b> cię obserwuje</string>
-    <string name="account_filter_placeholder_type_mention_fmt">Nowa wzmianka od @<b>%1s</b></string>
-    <string name="account_filter_placeholder_type_follow_request_fmt">Prośba o obserwację od @<b>%1s</b></string>
-    <string name="account_filter_placeholder_type_reblog_fmt">Osoba @<b>%1s</b> podbiła twój wpis</string>
-    <string name="account_filter_placeholder_label_domain">Od konta @<b>%1s</b></string>
-    <string name="account_filter_placeholder_label_not_following">Odfiltrowane z powodu: <b>nie obserwujesz tego konta</b></string>
+    <string name="account_filter_placeholder_type_favourite_fmt">Osoba @&lt;b>%1s&lt;/b> polubiła twój wpis</string>
+    <string name="account_filter_placeholder_type_follow_fmt">Konto @&lt;b>%1s&lt;/b> cię obserwuje</string>
+    <string name="account_filter_placeholder_type_mention_fmt">Nowa wzmianka od @&lt;b>%1s&lt;/b></string>
+    <string name="account_filter_placeholder_type_follow_request_fmt">Prośba o obserwację od @&lt;b>%1s&lt;/b></string>
+    <string name="account_filter_placeholder_type_reblog_fmt">Osoba @&lt;b>%1s&lt;/b> podbiła twój wpis</string>
+    <string name="account_filter_placeholder_label_domain">Od konta @&lt;b>%1s&lt;/b></string>
+    <string name="account_filter_placeholder_label_not_following">Odfiltrowane z powodu: &lt;b>nie obserwujesz tego konta&lt;/b></string>
     <string name="announcement_date">%1$s %2$s</string>
     <string name="update_dialog_negative">Nigdy mi nie przypominaj</string>
     <string name="pref_notification_up_distributor_name_fmt">%1$s. Dotknij, by otworzyć.</string>
@@ -658,8 +660,8 @@
     <string name="search_operator_embed_no_embeds">Bez kart podglądu</string>
     <string name="search_operator_replies_dialog_all">Wszystkie wpisy</string>
     <string name="search_operator_sensitive_dialog_title">Wpisy z drażliwą zawartością</string>
-    <string name="account_filter_placeholder_label_younger_30d">Odfiltrowane z powodu: <b>konto stworzone w ciągu ostatnich 30 dni</b></string>
-    <string name="account_filter_placeholder_label_limited_by_server">Odfiltrowane z powodu: <b>konto ograniczone przez moderację</b></string>
+    <string name="account_filter_placeholder_label_younger_30d">Odfiltrowane z powodu: &lt;b>konto stworzone w ciągu ostatnich 30 dni&lt;/b></string>
+    <string name="account_filter_placeholder_label_limited_by_server">Odfiltrowane z powodu: &lt;b>konto ograniczone przez moderację&lt;/b></string>
     <string name="ui_error_reload_reply_fmt">Nie powiodło się załadowanie wpisu: %1$s</string>
     <string name="pref_notification_battery_optimisation_ok">Optymalizacja użycia baterii nie musi być wyłączona.</string>
     <string name="search_operator_attachment_specific_media_include_2_fmt">Z %1$s i %2$s</string>
@@ -687,7 +689,7 @@
     <string name="pref_title_account_conversation_filters">Filtry rozmów</string>
     <string name="pref_summary_account_conversation_filters">Twój serwer nie wspiera filtrowania rozmów</string>
     <string name="pref_account_conversation_filters_subtitle">Co powinno się stać z rozmowami zaczętymi przez konta…</string>
-    <string name="account_filter_placeholder_type_conversation">Konto @<b>%1$s</b> zaczęło rozmowę</string>
+    <string name="account_filter_placeholder_type_conversation">Konto @&lt;b>%1$s&lt;/b> zaczęło rozmowę</string>
     <string name="action_refresh_account">Odśwież konto</string>
     <string name="pref_account_conversation_filters_label_limited_by_server">… ograniczone przez moderację</string>
     <string name="pref_account_conversation_filters_label_not_followed">… których nie obserwujesz</string>
@@ -730,10 +732,10 @@
         <item quantity="other">%1$s · %2$d załączonych wpisów</item>
     </plurals>
     <string name="manage_accounts_name">Zarządzaj kontami</string>
-    <string name="notification_severed_relationships_domain_block_fmt">Administracja %1$s zablokowała <b>%2$s</b></string>
-    <string name="notification_severed_relationships_user_domain_block_fmt">Zablokowano <b>%1$s</b></string>
-    <string name="notification_severed_relationships_account_suspension_fmt">Administracja %1$s zablokowała <b>%2$s</b></string>
-    <string name="notification_severed_relationships_unknown_fmt"><b>%1$s</b> jest zablokowane (z nieznanego powodu)</string>
+    <string name="notification_severed_relationships_domain_block_fmt">Administracja %1$s zablokowała &lt;b>%2$s&lt;/b></string>
+    <string name="notification_severed_relationships_user_domain_block_fmt">Zablokowano &lt;b>%1$s&lt;/b></string>
+    <string name="notification_severed_relationships_account_suspension_fmt">Administracja %1$s zablokowała &lt;b>%2$s&lt;/b></string>
+    <string name="notification_severed_relationships_unknown_fmt">&lt;b>%1$s&lt;/b> jest zablokowane (z nieznanego powodu)</string>
     <string name="pref_default_audio_playback">Domyślne odtwarzanie audio</string>
     <string name="notification_moderation_warning_title">Wiadomość od moderacji</string>
     <string name="notification_moderation_warning_body_none_fmt">Otrzymano ostrzeżenie od moderacji: %1$s</string>

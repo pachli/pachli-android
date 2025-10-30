@@ -141,7 +141,7 @@
     <string name="pref_summary_content_filters">သင့်ဆာဗာသည် အကြောင်းအရာစစ်ထုတ်မှုကိုမထောက်ပံ့ပါ</string>
     <string name="pref_title_browser_settings">ဘရောက်ဇာ</string>
     <string name="pref_title_custom_tabs">ဘရောက်ဇာ custom တဘ်များကိုသုံးမည်</string>
-    <string name="notification_severed_relationships_format"><b>%1$s</b> နှင့်ဆက်ဆံရေးစတင်သည်</string>
+    <string name="notification_severed_relationships_format">&lt;b>%1$s&lt;/b> နှင့်ဆက်ဆံရေးစတင်သည်</string>
     <string name="action_report">တိုင်ကြားမည်</string>
     <string name="action_view_preferences">ပြင်ဆင်စရာများ</string>
     <string name="action_view_mutes">ကန့်သတ်ထားသောအသုံးပြုသူ</string>

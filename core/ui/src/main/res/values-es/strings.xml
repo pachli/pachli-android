@@ -142,6 +142,6 @@
     <string name="action_select_status">Seleccionar publicación</string>
     <string name="action_unselect_status">Deseleccionar publicación</string>
     <string name="post_continued_thread">Continuó hilo</string>
-    <string name="post_replied_to_fmt">Respondió a <b>%1$s</b></string>
+    <string name="post_replied_to_fmt">Respondió a &lt;b>%1$s&lt;/b></string>
     <string name="post_replied">Respondió</string>
 </resources>

@@ -32,9 +32,9 @@
     <string name="title_mentions_dialog">குறிப்பிடுகிறது</string>
     <string name="title_logout_fmt">வெளியேறு %1$s</string>
     <string name="notification_details_last_fetch_label">கடைசி/ஏபிஐ/வி 1/அறிவிப்புகள் கோரிக்கை</string>
-    <string name="preview_card_byline_fediverse_account_fmt">மூலம் <b>%1$s </b>. மேலும் இடுகைகளைக் காண்க</string>
-    <string name="preview_card_byline_name_only_fmt">மூலம் <b>%1$s </b></string>
-    <string name="preview_card_timeline_link_fmt">இந்த இணைப்பைப் பற்றிய <b>%1$s </b> இடுகைகளைப் பார்க்கவும்</string>
+    <string name="preview_card_byline_fediverse_account_fmt">மூலம் &lt;b>%1$s &lt;/b>. மேலும் இடுகைகளைக் காண்க</string>
+    <string name="preview_card_byline_name_only_fmt">மூலம் &lt;b>%1$s &lt;/b></string>
+    <string name="preview_card_timeline_link_fmt">இந்த இணைப்பைப் பற்றிய &lt;b>%1$s &lt;/b> இடுகைகளைப் பார்க்கவும்</string>
     <string name="poll_vote">வாக்களிக்கவும்</string>
     <string name="poll_show_votes">வாக்குகளைக் காட்டு</string>
     <plurals name="poll_timespan_seconds">
@@ -106,12 +106,12 @@
     <string name="description_post_media">மீடியா: %s</string>
     <string name="description_post_cw">உள்ளடக்க எச்சரிக்கை: %s</string>
     <plurals name="reblogs">
-        <item quantity="one"><b>%s </b> பூச்ட்</item>
-        <item quantity="other"><b>%s </b> ஊக்கங்கள்</item>
+        <item quantity="one">&lt;b>%s &lt;/b> பூச்ட்</item>
+        <item quantity="other">&lt;b>%s&lt;/b> ஊக்கங்கள்</item>
     </plurals>
     <plurals name="favs">
-        <item quantity="one"><b>%1$s </b> பிடித்தது</item>
-        <item quantity="other"><b>%1$s </b> பிடித்தவை</item>
+        <item quantity="one">&lt;b>%1$s &lt;/b> பிடித்தது</item>
+        <item quantity="other">&lt;b>%1$s&lt;/b> பிடித்தவை</item>
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; மேலேற்றப்பட்டது</string>
     <string name="post_edited">திருத்தப்பட்ட %s</string>

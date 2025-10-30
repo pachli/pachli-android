@@ -19,9 +19,9 @@
     <string name="action_logout_confirm">你确定要退出登录 %1$s 吗？这会删除账户的所有本地数据，包括草稿和选项。</string>
     <string name="add_account_name">添加账号</string>
     <string name="action_logout">注销</string>
-    <string name="preview_card_byline_fediverse_account_fmt">由 <b>%1$s</b> 发布。查看更多帖文</string>
-    <string name="preview_card_byline_name_only_fmt">由 <b>%1$s</b> 发布</string>
-    <string name="preview_card_timeline_link_fmt">查看 <b>%1$s</b> 关于此链接的帖文</string>
+    <string name="preview_card_byline_fediverse_account_fmt">由 &lt;b>%1$s&lt;/b> 发布。查看更多帖文</string>
+    <string name="preview_card_byline_name_only_fmt">由 &lt;b>%1$s&lt;/b> 发布</string>
+    <string name="preview_card_timeline_link_fmt">查看 &lt;b>%1$s&lt;/b> 关于此链接的帖文</string>
     <string name="poll_vote">投票</string>
     <string name="poll_show_votes">显示投票</string>
     <plurals name="poll_timespan_seconds">

@@ -33,9 +33,9 @@
     <string name="hint_search_emojis">Cuardaigh emojis…</string>
     <string name="label_emoji_no_category">Gan catagóir</string>
     <string name="emoji_picker_show_detail">Taispeáin sonraí</string>
-    <string name="preview_card_byline_fediverse_account_fmt">Le <b>%1$s</b>. Féach tuilleadh postálacha</string>
-    <string name="preview_card_byline_name_only_fmt">Le <b>%1$s</b></string>
-    <string name="preview_card_timeline_link_fmt">Féach ar <b>%1$s</b> postálacha faoin nasc seo</string>
+    <string name="preview_card_byline_fediverse_account_fmt">Le &lt;b>%1$s&lt;/b>. Féach tuilleadh postálacha</string>
+    <string name="preview_card_byline_name_only_fmt">Le &lt;b>%1$s&lt;/b></string>
+    <string name="preview_card_timeline_link_fmt">Féach ar &lt;b>%1$s&lt;/b> postálacha faoin nasc seo</string>
     <string name="poll_vote">Vóta</string>
     <string name="poll_show_votes">Taispeáin vótaí</string>
     <plurals name="poll_timespan_seconds">
@@ -161,5 +161,5 @@
     <string name="action_unselect_status">Díroghnaigh post</string>
     <string name="post_replied">D’fhreagair</string>
     <string name="post_continued_thread">Snáithe leanúnach</string>
-    <string name="post_replied_to_fmt">D’fhreagair <b>%1$s</b></string>
+    <string name="post_replied_to_fmt">D’fhreagair &lt;b>%1$s&lt;/b></string>
 </resources>

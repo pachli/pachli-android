@@ -690,7 +690,7 @@
     <string name="pref_account_conversation_filters_subtitle">Mitä tehdään keskusteluille, jotka on aloittanut tili…</string>
     <string name="pref_title_public_filter_home_and_lists">Koti ja listat</string>
     <string name="pref_summary_account_conversation_filters">Palvelimesi ei tue keskustelusuodattimia</string>
-    <string name="account_filter_placeholder_type_conversation">Käyttäjä @<b>%1$s</b> aloitti keskustelun</string>
+    <string name="account_filter_placeholder_type_conversation">Käyttäjä @&lt;b>%1$s&lt;/b> aloitti keskustelun</string>
     <string name="ui_error_reload_reply_fmt">Julkaisua ei voitu ladata: %1$s</string>
     <string name="pref_account_conversation_filters_label_younger_30d">… joka on luotu viimeisten 30 päivän aikana</string>
     <string name="pref_account_conversation_filters_label_not_followed">… jota et seuraa</string>
@@ -721,10 +721,10 @@
     <string name="title_report_category_fmt">Kategoria: %1$s</string>
     <string name="title_report_comment">Raportoijan kommentti</string>
     <string name="manage_accounts_name">Tilien hallinta</string>
-    <string name="notification_severed_relationships_domain_block_fmt">Palvelun %1$s ylläpitäjä esti tilin <b>%2$s</b></string>
-    <string name="notification_severed_relationships_user_domain_block_fmt">Estit tilin <b>%1$s</b></string>
-    <string name="notification_severed_relationships_account_suspension_fmt">Palvelun %1$s ylläpitäjä esti tilin <b>%2$s</b></string>
-    <string name="notification_severed_relationships_unknown_fmt"><b>%1$s</b> on estetty (syy tuntematon)</string>
+    <string name="notification_severed_relationships_domain_block_fmt">Palvelun %1$s ylläpitäjä esti tilin &lt;b>%2$s&lt;/b></string>
+    <string name="notification_severed_relationships_user_domain_block_fmt">Estit tilin &lt;b>%1$s&lt;/b></string>
+    <string name="notification_severed_relationships_account_suspension_fmt">Palvelun %1$s ylläpitäjä esti tilin &lt;b>%2$s&lt;/b></string>
+    <string name="notification_severed_relationships_unknown_fmt">&lt;b>%1$s&lt;/b> on estetty (syy tuntematon)</string>
     <string name="notification_moderation_warning_title">Viesti moderaattoreilta</string>
     <string name="notification_moderation_warning_body_none_fmt">Olet saanut moderointivaroituksen: %1$s</string>
     <string name="notification_moderation_warning_body_disable_fmt">Tilisi on poistettu käytöstä: %1$s</string>

@@ -2,8 +2,8 @@
 <resources>
     <string name="error_media_upload_sending">Įkėlimas nepavyko.</string>
     <string name="error_muting_hashtag_format">Klaida nutildant #%s.</string>
-    <string name="account_filter_placeholder_label_domain">Iš naudotojo @<b>%1s</b></string>
-    <string name="account_filter_placeholder_label_not_following">Filtruojama, nes: <b>jų nesekate</b></string>
+    <string name="account_filter_placeholder_label_domain">Iš naudotojo @&lt;b>%1s&lt;/b> </string>
+    <string name="account_filter_placeholder_label_not_following">Filtruojama, nes: &lt;b>jų nesekate&lt;/b></string>
     <string name="error_following_hashtag_format">Klaida sekant #%s.</string>
     <string name="title_public_local">Vietinis</string>
     <string name="title_public_federated">Federacinis</string>
