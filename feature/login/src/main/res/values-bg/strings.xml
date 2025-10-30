@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <string name="dialog_whats_an_instance">Тук може да се въведе адресът или домейнът на която и да е инстанция, като mastodon.social, icosahedron.website, social.tchncs.de и &lt;a href=\"https://instances.social\"&gt;други!&lt;/a&gt;
+    <string name="dialog_whats_an_instance">Тук може да се въведе адресът или домейнът на която и да е инстанция, като mastodon.social, icosahedron.website, social.tchncs.de и <a href="https://instances.social">други!</a>
 \n
 \nАко все още нямате акаунт, можете да въведете името на инстанцията, към който искате да се присъедините, и да създадете акаунт там.
 \n
 \nИнстанцията е единично място, където се хоства акаунтът ви, но можете лесно да комуникирате и да следвате хора в други инстанции, сякаш сте на същия сайт.
 \n
-\nПовече информация можете да намерите на &lt;a href=\"https://joinmastodon.org\"&gt;joinmastodon.org&lt;/a&gt;. <a href="https://instances.social">more!</a>
-\n
-\nAn instance is a single place where your account is hosted, but you can easily communicate with and follow folks on other instances as though you were on the same site.
-\n
-\nMore info can be found at <a href="https://joinmastodon.org">joinmastodon.org</a>. </string>
+\nПовече информация можете да намерите на <a href="https://joinmastodon.org">joinmastodon.org</a>.</string>
     <string name="action_close">Затваряне</string>
     <string name="error_invalid_domain">Въведен е невалиден домейн</string>
     <string name="error_failed_app_registration_fmt">Неуспешно удостоверяване с тази инстанция: %1$s</string>
