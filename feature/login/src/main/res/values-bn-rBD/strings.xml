@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <string name="dialog_whats_an_instance">কোনও উদাহরণের ঠিকানা বা ডোমেন এখানে প্রবেশ করা যেতে পারে যেমন mastodon.social, icosahedron.website, social.tchncs.de, এবং &lt;a href=\"https://instances.social\"&gt; আরও! &lt;/a&gt;
+    <string name="dialog_whats_an_instance">কোনও উদাহরণের ঠিকানা বা ডোমেন এখানে প্রবেশ করা যেতে পারে যেমন mastodon.social, icosahedron.website, social.tchncs.de, এবং <a href="https://instances.social">আরও!</a>
 \n
 \nআপনার যদি এখনো অ্যাকাউন্ট না থাকে তবে আপনি যে ইনস্ট্যান্সটিতে যোগ দিতে চান সেটির নামটি প্রবেশ করতে এবং সেখানে একটি অ্যাকাউন্ট তৈরি করতে পারেন।
 \n
@@ -10,11 +10,11 @@
 \n
 \n
 \n
-\nআরো তথ্য &lt;a href=\"https://joinmastodon.org\"&gt; joinmastodon.org &lt;/a&gt; এ পাওয়া যেতে পারে। <a href="https://instances.social">more!</a>
+\nআরো তথ্য <a href="https://joinmastodon.org">joinmastodon.org</a> এ পাওয়া যেতে পারে। <a href="https://instances.social">more!</a>
 \n
 \nAn instance is a single place where your account is hosted, but you can easily communicate with and follow folks on other instances as though you were on the same site.
 \n
-\nMore info can be found at <a href="https://joinmastodon.org">joinmastodon.org</a>. </string>
+\nMore info can be found at <a href="https://joinmastodon.org">joinmastodon.org</a>.</string>
     <string name="action_close">বদ্ধ</string>
     <string name="error_invalid_domain">অবৈধ ডোমেইন প্রবেশ করানো হয়েছে</string>
     <string name="error_failed_app_registration_fmt">এই ইনস্ট্যান্স এর সঙ্গে প্রমাণীকরণ ব্যর্থ।: %1$s</string>
