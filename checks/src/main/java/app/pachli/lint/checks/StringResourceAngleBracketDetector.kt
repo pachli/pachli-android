@@ -68,9 +68,9 @@ import org.jetbrains.uast.UCallExpression
  * one when resources are sent to `getText`.
  */
 // This can't process the XML files using the XML parser because, when parsing XML, any
-// any `&gt;` or `&lt;` entities in the source XML file are converted to `<` and `>` by
-// the parser **before** they are passed to the detector, so it's impossible to tell
-// how the text was represented in the source element.
+// `&gt;` or `&lt;` entities in the source XML file are converted to `<` and `>` by the
+// parser **before** they are passed to the detector, so it's impossible to tell how the
+// text was represented in the source element.
 //
 // So the resource files are processed as text, with regexes to pull out the different
 // resources.
