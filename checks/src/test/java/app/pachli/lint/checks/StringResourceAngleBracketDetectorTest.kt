@@ -22,6 +22,7 @@ import com.android.tools.lint.checks.infrastructure.TestMode
 import com.android.tools.lint.detector.api.Detector
 import com.android.tools.lint.detector.api.Issue
 
+@Suppress("ktlint:standard:function-naming")
 class StringResourceAngleBracketDetectorTest : LintDetectorTest() {
     override fun getDetector(): Detector = StringResourceAngleBracketDetector()
 

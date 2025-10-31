@@ -136,25 +136,25 @@ class StringResourceEntityDetector : Detector(), SourceCodeScanner, OtherFileSca
             // also possible that they're looking up strings that are not intended to be used
             // for formatting so while we may want to warn about this it's not necessarily
             // an error.
-            "getText" if (
+            "getText" -> if (
                 evaluator.isMemberInSubClassOf(method, SdkConstants.CLASS_RESOURCES, false) ||
-                    evaluator.isMemberInSubClassOf(method, SdkConstants.CLASS_CONTEXT, false) ||
-                    evaluator.isMemberInSubClassOf(method, SdkConstants.CLASS_FRAGMENT, false) ||
-                    evaluator.isMemberInSubClassOf(
-                        method,
-                        AndroidXConstants.CLASS_V4_FRAGMENT.oldName(),
-                        false,
-                    ) ||
-                    evaluator.isMemberInSubClassOf(
-                        method,
-                        AndroidXConstants.CLASS_V4_FRAGMENT.newName(),
-                        false,
-                    )
-                ) -> {
+                evaluator.isMemberInSubClassOf(method, SdkConstants.CLASS_CONTEXT, false) ||
+                evaluator.isMemberInSubClassOf(method, SdkConstants.CLASS_FRAGMENT, false) ||
+                evaluator.isMemberInSubClassOf(
+                    method,
+                    AndroidXConstants.CLASS_V4_FRAGMENT.oldName(),
+                    false,
+                ) ||
+                evaluator.isMemberInSubClassOf(
+                    method,
+                    AndroidXConstants.CLASS_V4_FRAGMENT.newName(),
+                    false,
+                )
+            ) {
                 checkGetTextCall(context, node)
             }
 
-            "setMessage" if evaluator.isMemberInClass(method, "androidx.appcompat.app.AlertDialog.Builder") -> {
+            "setMessage" -> if (evaluator.isMemberInClass(method, "androidx.appcompat.app.AlertDialog.Builder")) {
                 checkGetTextCall(context, node)
             }
         }
