@@ -134,5 +134,5 @@
     <string name="action_unselect_status">Vel av innlegg</string>
     <string name="post_replied">Svara</string>
     <string name="post_continued_thread">Framhalden tråd</string>
-    <string name="post_replied_to_fmt">Svara på <b>%1$s</b></string>
+    <string name="post_replied_to_fmt">Svara på - <b>%1$s</b></string>
 </resources>
