@@ -118,42 +118,6 @@ data class StatusEntity(
 
     @Ignore
     val isReply = inReplyToId != null
-
-    companion object {
-        fun from(status: Status, timelineUserId: Long) = StatusEntity(
-            serverId = status.statusId,
-            url = status.actionableStatus.url,
-            timelineUserId = timelineUserId,
-            authorServerId = status.actionableStatus.account.id,
-            inReplyToId = status.actionableStatus.inReplyToId,
-            inReplyToAccountId = status.actionableStatus.inReplyToAccountId,
-            content = status.actionableStatus.content,
-            createdAt = status.actionableStatus.createdAt.time,
-            editedAt = status.actionableStatus.editedAt?.time,
-            emojis = status.actionableStatus.emojis,
-            reblogsCount = status.actionableStatus.reblogsCount,
-            favouritesCount = status.actionableStatus.favouritesCount,
-            reblogged = status.actionableStatus.reblogged,
-            favourited = status.actionableStatus.favourited,
-            bookmarked = status.actionableStatus.bookmarked,
-            sensitive = status.actionableStatus.sensitive,
-            spoilerText = status.actionableStatus.spoilerText,
-            visibility = status.actionableStatus.visibility,
-            attachments = status.actionableStatus.attachments,
-            mentions = status.actionableStatus.mentions,
-            tags = status.actionableStatus.tags,
-            application = status.actionableStatus.application,
-            reblogServerId = status.reblog?.statusId,
-            reblogAccountId = status.reblog?.let { status.account.id },
-            poll = status.actionableStatus.poll,
-            muted = status.actionableStatus.muted,
-            pinned = status.actionableStatus.pinned == true,
-            card = status.actionableStatus.card,
-            repliesCount = status.actionableStatus.repliesCount,
-            language = status.actionableStatus.language,
-            filtered = status.actionableStatus.filtered,
-        )
-    }
 }
 
 fun Status.asEntity(pachliAccountId: Long) = StatusEntity(
@@ -239,40 +203,20 @@ data class TimelineAccountEntity(
     @ColumnInfo(defaultValue = "")
     val roles: List<Role>?,
 ) {
-    fun toTimelineAccount(): TimelineAccount {
-        return TimelineAccount(
-            id = serverId,
-            localUsername = localUsername,
-            username = username,
-            displayName = displayName,
-            note = note,
-            url = url,
-            avatar = avatar,
-            bot = bot,
-            emojis = emojis,
-            createdAt = createdAt,
-            limited = limited,
-            roles = roles.orEmpty(),
-        )
-    }
-
-    companion object {
-        fun from(timelineAccount: TimelineAccount, accountId: Long) = TimelineAccountEntity(
-            serverId = timelineAccount.id,
-            timelineUserId = accountId,
-            localUsername = timelineAccount.localUsername,
-            username = timelineAccount.username,
-            displayName = timelineAccount.name,
-            note = timelineAccount.note,
-            url = timelineAccount.url,
-            avatar = timelineAccount.avatar,
-            emojis = timelineAccount.emojis.orEmpty(),
-            bot = timelineAccount.bot,
-            createdAt = timelineAccount.createdAt,
-            limited = timelineAccount.limited,
-            roles = timelineAccount.roles,
-        )
-    }
+    fun asModel() = TimelineAccount(
+        id = serverId,
+        localUsername = localUsername,
+        username = username,
+        displayName = displayName,
+        url = url,
+        avatar = avatar,
+        note = note,
+        bot = bot,
+        emojis = emojis,
+        createdAt = createdAt,
+        limited = limited,
+        roles = roles.orEmpty(),
+    )
 }
 
 fun TimelineAccount.asEntity(pachliAccountId: Long) = TimelineAccountEntity(
@@ -292,21 +236,6 @@ fun TimelineAccount.asEntity(pachliAccountId: Long) = TimelineAccountEntity(
 )
 
 fun Iterable<TimelineAccount>.asEntity(pachliAccountId: Long) = map { it.asEntity(pachliAccountId) }
-
-fun TimelineAccountEntity.asModel() = TimelineAccount(
-    id = serverId,
-    localUsername = localUsername,
-    username = username,
-    displayName = displayName,
-    url = url,
-    avatar = avatar,
-    note = note,
-    bot = bot,
-    emojis = emojis,
-    createdAt = createdAt,
-    limited = limited,
-    roles = roles.orEmpty(),
-)
 
 /**
  * @property status
@@ -345,7 +274,7 @@ data class TimelineStatusWithAccount(
             Status(
                 statusId = id,
                 url = status.url,
-                account = account.toTimelineAccount(),
+                account = account.asModel(),
                 inReplyToId = status.inReplyToId,
                 inReplyToAccountId = status.inReplyToAccountId,
                 reblog = null,
@@ -379,7 +308,7 @@ data class TimelineStatusWithAccount(
                 statusId = status.serverId,
                 // no url for reblogs
                 url = null,
-                account = reblogAccount!!.toTimelineAccount(),
+                account = reblogAccount!!.asModel(),
                 inReplyToId = null,
                 inReplyToAccountId = null,
                 reblog = reblog,
@@ -412,7 +341,7 @@ data class TimelineStatusWithAccount(
             Status(
                 statusId = status.serverId,
                 url = status.url,
-                account = account.toTimelineAccount(),
+                account = account.asModel(),
                 inReplyToId = status.inReplyToId,
                 inReplyToAccountId = status.inReplyToAccountId,
                 reblog = null,
