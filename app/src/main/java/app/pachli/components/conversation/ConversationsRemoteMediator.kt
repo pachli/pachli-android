@@ -10,7 +10,6 @@ import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.ConversationData
 import app.pachli.core.database.model.ConversationEntity
-import app.pachli.core.database.model.StatusEntity
 import app.pachli.core.database.model.asEntity
 import app.pachli.core.model.Status
 import app.pachli.core.model.TimelineAccount
@@ -81,7 +80,7 @@ class ConversationsRemoteMediator(
             }
 
             timelineDao.upsertAccounts(accounts.asEntity(pachliAccountId))
-            statusDao.upsertStatuses(statuses.map { StatusEntity.from(it, pachliAccountId) })
+            statusDao.upsertStatuses(statuses.map { it.asEntity(pachliAccountId) })
             conversationsDao.upsert(conversationEntities)
         }
 

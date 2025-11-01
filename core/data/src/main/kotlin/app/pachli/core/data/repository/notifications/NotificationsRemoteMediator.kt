@@ -32,7 +32,6 @@ import app.pachli.core.database.model.NotificationRelationshipSeveranceEventEnti
 import app.pachli.core.database.model.NotificationReportEntity
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
-import app.pachli.core.database.model.StatusEntity
 import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.database.model.asEntity
 import app.pachli.core.model.Status
@@ -253,7 +252,7 @@ class NotificationsRemoteMediator(
 
         // Bulk upsert the discovered items.
         timelineDao.upsertAccounts(accounts.asEntity(pachliAccountId))
-        statusDao.upsertStatuses(statuses.map { StatusEntity.from(it, pachliAccountId) })
+        statusDao.upsertStatuses(statuses.map { it.asEntity(pachliAccountId) })
         notificationDao.upsertReports(reports)
         notificationDao.upsertEvents(severanceEvents)
         notificationDao.upsertAccountWarnings(accountWarnings)

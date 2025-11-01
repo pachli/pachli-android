@@ -273,7 +273,7 @@ data class StatusViewData(
                 contentFilterAction = contentFilterAction,
                 attachmentDisplayAction = attachmentDisplayAction,
                 translationState = timelineStatusWithAccount.viewData?.translationState ?: translationState,
-                replyToAccount = timelineStatusWithAccount.replyAccount?.toTimelineAccount(),
+                replyToAccount = timelineStatusWithAccount.replyAccount?.asModel(),
             )
         }
     }
