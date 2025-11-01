@@ -98,7 +98,7 @@
     <string name="attachment_hidden_user_action">Du gøymde dette. Trykk for å syne.</string>
     <string name="action_show_attachments">Syn vedlegg</string>
     <string name="action_hide_attachments">Gøym vedlegg</string>
-    <string name="dot_in_name">dått</string>
+    <string name="dot_in_name">punktum</string>
     <string name="role_content_description_fmt">%1$s på %2$s</string>
     <string name="handle_contentdescription_fmt">Brukarnamn: @%1$s</string>
     <string name="account_contentdescription_fmt">%1$s, %2$s: %3$s</string>
@@ -125,9 +125,14 @@
         <item quantity="other">&lt;b&gt;%s&lt;/b&gt; delingar</item>
     </plurals>
     <plurals name="favs">
-        <item quantity="one">&lt;b>%1$s&lt;/b> favorittmerke</item>
-        <item quantity="other">&lt;b>%1$s&lt;/b> favorittmerke</item>
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; favorittmerke</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; favorittmerke</item>
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; delte</string>
     <string name="post_edited">Brigda %s</string>
+    <string name="action_select_status">Vel innlegg</string>
+    <string name="action_unselect_status">Vel av innlegg</string>
+    <string name="post_replied">Svara</string>
+    <string name="post_continued_thread">Framhalden tråd</string>
+    <string name="post_replied_to_fmt">Svara på <b>%1$s</b></string>
 </resources>
