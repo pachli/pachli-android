@@ -14,4 +14,4 @@ Labojumi:
 
 Tulkojumi:
 
-- ķīniešu, igauņu, somu, indonēziešu, īru, itāļu, latviešu, jaunnorvēģu, poļu, krievu, slovāku, tamilu.
+- ķīniešu, igauņu, somu, indonēziešu, īru, itāļu, latviešu, jaunnorvēģu, poļu, krievu, slovāku, tamilu
