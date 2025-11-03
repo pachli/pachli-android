@@ -92,6 +92,7 @@ class NotificationEntityForeignKeyTest {
         limited = false,
         note = "",
         roles = null,
+        pronouns = null,
     )
 
     @Before
@@ -144,6 +145,7 @@ class NotificationEntityForeignKeyTest {
                 limited = false,
                 note = "",
                 roles = null,
+                pronouns = null,
             ),
         )
         notificationDao.upsertReports(listOf(notificationReport))
