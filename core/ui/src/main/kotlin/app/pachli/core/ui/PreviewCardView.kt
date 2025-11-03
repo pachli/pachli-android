@@ -187,11 +187,11 @@ class PreviewCardView @JvmOverloads constructor(
         when {
             // Author has an account, link to that, with their avatar.
             author?.account != null -> {
-                val name = author.account?.name.unicodeWrap().emojify(glide, author.account?.emojis, authorInfo, false)
+                val name = author.account?.name.unicodeWrap()
                 authorInfo.text = HtmlCompat.fromHtml(
                     authorInfo.context.getString(R.string.preview_card_byline_fediverse_account_fmt, name),
                     HtmlCompat.FROM_HTML_MODE_LEGACY,
-                )
+                ).emojify(glide, author.account?.emojis, authorInfo, false)
 
                 glide.load(author.account?.avatar).transform(bylineAvatarTransformation)
                     .placeholder(app.pachli.core.designsystem.R.drawable.avatar_default).into(bylineAvatarTarget)
