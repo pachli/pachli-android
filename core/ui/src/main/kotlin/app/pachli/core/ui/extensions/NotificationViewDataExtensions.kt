@@ -35,7 +35,6 @@ import app.pachli.core.data.model.StatusViewDataQ
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.NotificationData
 import app.pachli.core.database.model.NotificationEntity
-import app.pachli.core.database.model.asModel
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.FilterContext
@@ -75,7 +74,7 @@ fun NotificationViewData.Companion.make(
         account = data.account.asModel(),
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
-        statusViewData = data.status!!.let {
+        statusViewDataQ = data.status!!.let {
             StatusViewDataQ.from(
                 pachliAccountId = pachliAccountEntity.id,
                 it,
@@ -95,7 +94,7 @@ fun NotificationViewData.Companion.make(
         account = data.account.asModel(),
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
-        statusViewData = data.status!!.let {
+        statusViewDataQ = data.status!!.let {
             StatusViewDataQ.from(
                 pachliAccountId = pachliAccountEntity.id,
                 it,
@@ -115,7 +114,7 @@ fun NotificationViewData.Companion.make(
         account = data.account.asModel(),
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
-        statusViewData = data.status!!.let {
+        statusViewDataQ = data.status!!.let {
             StatusViewDataQ.from(
                 pachliAccountId = pachliAccountEntity.id,
                 it,
@@ -153,7 +152,7 @@ fun NotificationViewData.Companion.make(
         account = data.account.asModel(),
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
-        statusViewData = data.status!!.let {
+        statusViewDataQ = data.status!!.let {
             StatusViewDataQ.from(
                 pachliAccountId = pachliAccountEntity.id,
                 it,
@@ -173,7 +172,7 @@ fun NotificationViewData.Companion.make(
         account = data.account.asModel(),
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
-        statusViewData = data.status!!.let {
+        statusViewDataQ = data.status!!.let {
             StatusViewDataQ.from(
                 pachliAccountId = pachliAccountEntity.id,
                 it,
@@ -202,7 +201,7 @@ fun NotificationViewData.Companion.make(
         account = data.account.asModel(),
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
-        statusViewData = data.status!!.let {
+        statusViewDataQ = data.status!!.let {
             StatusViewDataQ.from(
                 pachliAccountId = pachliAccountEntity.id,
                 it,

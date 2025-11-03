@@ -136,14 +136,19 @@ interface IStatusViewData : IStatus {
     val isDetailed: Boolean
 }
 
+interface IStatusViewDataQ : IStatusViewData {
+    val statusViewData: StatusViewData
+    val quotedViewData: StatusViewData?
+}
+
 /**
  * Contains a status, and an optional status being quoted.
  */
 // TODO: Better name for this is "StatusItemViewData" -- "item" implies UI based
 data class StatusViewDataQ(
-    val statusViewData: StatusViewData,
-    val quotedViewData: StatusViewData? = null,
-) : IStatusViewData by statusViewData {
+    override val statusViewData: StatusViewData,
+    override val quotedViewData: StatusViewData? = null,
+) : IStatusViewDataQ, IStatusViewData by statusViewData {
 
     companion object {
         fun from(

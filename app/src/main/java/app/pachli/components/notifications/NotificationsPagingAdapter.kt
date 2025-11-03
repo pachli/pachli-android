@@ -171,7 +171,7 @@ class NotificationsPagingAdapter(
 
     override fun getItemViewType(position: Int): Int {
         val item = getItem(position)
-        if (item is NotificationViewData.WithStatus && item.statusViewData.contentFilterAction == FilterAction.WARN) {
+        if (item is NotificationViewData.WithStatus && item.statusViewDataQ.contentFilterAction == FilterAction.WARN) {
             return NotificationViewKind.STATUS_FILTERED.ordinal
         }
 

@@ -491,23 +491,23 @@ class NotificationsFragment :
     }
 
     override fun onReply(viewData: NotificationViewData.WithStatus) {
-        super.reply(viewData.pachliAccountId, viewData.statusViewData.actionable)
+        super.reply(viewData.pachliAccountId, viewData.statusViewDataQ.actionable)
     }
 
     override fun onReblog(viewData: NotificationViewData.WithStatus, reblog: Boolean) {
-        viewModel.accept(FallibleStatusAction.Reblog(reblog, viewData.statusViewData))
+        viewModel.accept(FallibleStatusAction.Reblog(reblog, viewData.statusViewDataQ))
     }
 
     override fun onFavourite(viewData: NotificationViewData.WithStatus, favourite: Boolean) {
-        viewModel.accept(FallibleStatusAction.Favourite(favourite, viewData.statusViewData))
+        viewModel.accept(FallibleStatusAction.Favourite(favourite, viewData.statusViewDataQ))
     }
 
     override fun onBookmark(viewData: NotificationViewData.WithStatus, bookmark: Boolean) {
-        viewModel.accept(FallibleStatusAction.Bookmark(bookmark, viewData.statusViewData))
+        viewModel.accept(FallibleStatusAction.Bookmark(bookmark, viewData.statusViewDataQ))
     }
 
     override fun onVoteInPoll(viewData: NotificationViewData.WithStatus, poll: Poll, choices: List<Int>) {
-        viewModel.accept(FallibleStatusAction.VoteInPoll(poll, choices, viewData.statusViewData))
+        viewModel.accept(FallibleStatusAction.VoteInPoll(poll, choices, viewData.statusViewDataQ))
     }
 
     override fun onMore(view: View, viewData: NotificationViewData.WithStatus) {
@@ -515,18 +515,18 @@ class NotificationsFragment :
     }
 
     override fun onTranslate(viewData: NotificationViewData.WithStatus) {
-        viewModel.accept(FallibleStatusAction.Translate(viewData.statusViewData))
+        viewModel.accept(FallibleStatusAction.Translate(viewData.statusViewDataQ))
     }
 
     override fun onTranslateUndo(viewData: NotificationViewData.WithStatus) {
-        viewModel.accept(InfallibleStatusAction.TranslateUndo(viewData.statusViewData))
+        viewModel.accept(InfallibleStatusAction.TranslateUndo(viewData.statusViewDataQ))
     }
 
     override fun onViewAttachment(view: View?, viewData: NotificationViewData.WithStatus, attachmentIndex: Int) {
         super.viewMedia(
-            viewData.statusViewData.status.account.username,
+            viewData.statusViewDataQ.status.account.username,
             attachmentIndex,
-            list(viewData.statusViewData.status, viewModel.statusDisplayOptions.value.showSensitiveMedia),
+            list(viewData.statusViewDataQ.status, viewModel.statusDisplayOptions.value.showSensitiveMedia),
             view,
         )
     }
@@ -543,7 +543,7 @@ class NotificationsFragment :
         viewModel.accept(
             InfallibleUiAction.SetExpanded(
                 viewData.pachliAccountId,
-                viewData.statusViewData,
+                viewData.statusViewDataQ,
                 expanded,
             ),
         )
@@ -553,7 +553,7 @@ class NotificationsFragment :
         viewModel.accept(
             InfallibleUiAction.SetAttachmentDisplayAction(
                 viewData.pachliAccountId,
-                viewData.statusViewData,
+                viewData.statusViewDataQ,
                 newAction,
             ),
         )
@@ -563,7 +563,7 @@ class NotificationsFragment :
         viewModel.accept(
             InfallibleUiAction.SetContentCollapsed(
                 viewData.pachliAccountId,
-                viewData.statusViewData,
+                viewData.statusViewDataQ,
                 isCollapsed,
             ),
         )

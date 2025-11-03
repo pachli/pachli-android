@@ -22,7 +22,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.Button
 import app.pachli.core.data.model.NotificationViewData
-import app.pachli.core.ui.databinding.StatusContentConversationBinding
+import app.pachli.core.ui.databinding.StatusContentBinding
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 
 /**
@@ -36,7 +36,7 @@ class NotificationStatusView @JvmOverloads constructor(
     defStyleAttr: Int = 0,
     defStyleRes: Int = 0,
 ) : StatusView<NotificationViewData.WithStatus>(context, attrs, defStyleAttr, defStyleRes) {
-    val binding = StatusContentConversationBinding.inflate(LayoutInflater.from(context), this)
+    val binding = StatusContentBinding.inflate(LayoutInflater.from(context), this)
 
     override val avatar = binding.statusAvatar
     override val avatarInset = binding.statusAvatarInset

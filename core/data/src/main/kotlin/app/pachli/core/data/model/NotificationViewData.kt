@@ -60,15 +60,15 @@ sealed interface NotificationViewData {
     /**
      * Additional data to show a notification that references a [Status].
      *
-     * @property statusViewData [StatusViewData] for the referenced [Status].
+     * @property statusViewDataQ [StatusViewData] for the referenced [Status].
      */
-    sealed interface WithStatus : NotificationViewData, IStatusViewData {
-        val statusViewData: StatusViewDataQ
+    sealed interface WithStatus : NotificationViewData, IStatusViewDataQ, IStatusViewData {
+        val statusViewDataQ: StatusViewDataQ
 
         /**
-         * [account] posted [statusViewData] mentioning the user.
+         * [account] posted [statusViewDataQ] mentioning the user.
          *
-         * @property statusViewData Status containing the mention.
+         * @property statusViewDataQ Status containing the mention.
          */
         data class MentionNotificationViewData(
             override val pachliAccountId: Long,
@@ -77,14 +77,14 @@ sealed interface NotificationViewData {
             override val account: TimelineAccount,
             override val isAboutSelf: Boolean,
             override val accountFilterDecision: AccountFilterDecision,
-            override val statusViewData: StatusViewDataQ,
-        ) : WithStatus, IStatusViewData by statusViewData
+            override val statusViewDataQ: StatusViewDataQ,
+        ) : WithStatus, IStatusViewDataQ by statusViewDataQ
 
         /**
          * Notification that one of the user's statuses has been reblogged
          * by [account].
          *
-         * @property statusViewData Status being reblogged.
+         * @property statusViewDataQ Status being reblogged.
          */
         data class ReblogNotificationViewData(
             override val pachliAccountId: Long,
@@ -93,8 +93,8 @@ sealed interface NotificationViewData {
             override val account: TimelineAccount,
             override val isAboutSelf: Boolean,
             override val accountFilterDecision: AccountFilterDecision,
-            override val statusViewData: StatusViewDataQ,
-        ) : WithStatus, IStatusViewData by statusViewData {
+            override val statusViewDataQ: StatusViewDataQ,
+        ) : WithStatus, IStatusViewDataQ by statusViewDataQ {
             override val rebloggedAvatar: String
                 get() = account.avatar
         }
@@ -102,7 +102,7 @@ sealed interface NotificationViewData {
         /**
          * One of the user's statuses has been favourited by [account].
          *
-         * @property statusViewData Status being favourited.
+         * @property statusViewDataQ Status being favourited.
          */
         data class FavouriteNotificationViewData(
             override val pachliAccountId: Long,
@@ -111,8 +111,8 @@ sealed interface NotificationViewData {
             override val account: TimelineAccount,
             override val isAboutSelf: Boolean,
             override val accountFilterDecision: AccountFilterDecision,
-            override val statusViewData: StatusViewDataQ,
-        ) : WithStatus, IStatusViewData by statusViewData {
+            override val statusViewDataQ: StatusViewDataQ,
+        ) : WithStatus, IStatusViewDataQ by statusViewDataQ {
             override val rebloggedAvatar: String
                 get() = account.avatar
         }
@@ -120,7 +120,7 @@ sealed interface NotificationViewData {
         /**
          * A poll the user voted in or created has ended.
          *
-         * @property statusViewData Status containing the poll.
+         * @property statusViewDataQ Status containing the poll.
          */
         data class PollNotificationViewData(
             override val pachliAccountId: Long,
@@ -129,13 +129,13 @@ sealed interface NotificationViewData {
             override val account: TimelineAccount,
             override val isAboutSelf: Boolean,
             override val accountFilterDecision: AccountFilterDecision,
-            override val statusViewData: StatusViewDataQ,
-        ) : WithStatus, IStatusViewData by statusViewData
+            override val statusViewDataQ: StatusViewDataQ,
+        ) : WithStatus, IStatusViewDataQ by statusViewDataQ
 
         /**
          * An [account] the user enabled notifications for has posted a status.
          *
-         * @property statusViewData Newly posted status.
+         * @property statusViewDataQ Newly posted status.
          */
         data class StatusNotificationViewData(
             override val pachliAccountId: Long,
@@ -144,13 +144,13 @@ sealed interface NotificationViewData {
             override val account: TimelineAccount,
             override val isAboutSelf: Boolean,
             override val accountFilterDecision: AccountFilterDecision,
-            override val statusViewData: StatusViewDataQ,
-        ) : WithStatus, IStatusViewData by statusViewData
+            override val statusViewDataQ: StatusViewDataQ,
+        ) : WithStatus, IStatusViewDataQ by statusViewDataQ
 
         /**
          * A status the user reblogged has been edited.
          *
-         * @property statusViewData Latest version of the edited status.
+         * @property statusViewDataQ Latest version of the edited status.
          */
         data class UpdateNotificationViewData(
             override val pachliAccountId: Long,
@@ -159,8 +159,8 @@ sealed interface NotificationViewData {
             override val account: TimelineAccount,
             override val isAboutSelf: Boolean,
             override val accountFilterDecision: AccountFilterDecision,
-            override val statusViewData: StatusViewDataQ,
-        ) : WithStatus, IStatusViewData by statusViewData
+            override val statusViewDataQ: StatusViewDataQ,
+        ) : WithStatus, IStatusViewDataQ by statusViewDataQ
     }
 
     /** An [account] has followed the user. */
