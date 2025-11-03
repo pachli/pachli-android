@@ -410,6 +410,7 @@ class TimelineDaoTest {
             createdAt = null,
             note = "",
             roles = null,
+            pronouns = null,
         )
 
         val reblogAuthor = if (reblog) {
@@ -426,6 +427,7 @@ class TimelineDaoTest {
                 createdAt = null,
                 note = "",
                 roles = null,
+                pronouns = null,
             )
         } else {
             null

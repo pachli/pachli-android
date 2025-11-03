@@ -97,6 +97,7 @@ SELECT
     a.limited AS 'a_limited',
     a.note AS 'a_note',
     a.roles AS 'a_roles',
+    a.pronouns AS 'a_pronouns',
     rb.serverId AS 'rb_serverId',
     rb.timelineUserId AS 'rb_timelineUserId',
     rb.localUsername AS 'rb_localUsername',
@@ -110,6 +111,7 @@ SELECT
     rb.limited AS 'rb_limited',
     rb.note AS 'rb_note',
     rb.roles AS 'rb_roles',
+    rb.pronouns AS 'rb_pronouns',
     svd.serverId AS 'svd_serverId',
     svd.pachliAccountId AS 'svd_pachliAccountId',
     svd.expanded AS 'svd_expanded',
@@ -135,7 +137,8 @@ SELECT
     reply.createdAt AS 'reply_createdAt',
     reply.limited AS 'reply_limited',
     reply.note AS 'reply_note',
-    reply.roles AS 'reply_roles'
+    reply.roles AS 'reply_roles',
+    reply.pronouns AS 'reply_pronouns'
 FROM TimelineStatusEntity AS t
 LEFT JOIN
     StatusEntity AS s
@@ -248,6 +251,7 @@ SELECT
     a.limited AS 'a_limited',
     a.note AS 'a_note',
     a.roles AS 'a_roles',
+    a.pronouns AS 'a_pronouns',
     rb.serverId AS 'rb_serverId',
     rb.timelineUserId AS 'rb_timelineUserId',
     rb.localUsername AS 'rb_localUsername',
@@ -260,6 +264,8 @@ SELECT
     rb.createdAt AS 'rb_createdAt',
     rb.limited AS 'rb_limited',
     rb.note AS 'rb_note',
+    rb.roles AS 'rb_roles',
+    rb.pronouns AS 'rb_pronouns',
     svd.serverId AS 'svd_serverId',
     svd.pachliAccountId AS 'svd_pachliAccountId',
     svd.expanded AS 'svd_expanded',
@@ -285,7 +291,8 @@ SELECT
     reply.createdAt AS 'reply_createdAt',
     reply.limited AS 'reply_limited',
     reply.note AS 'reply_note',
-    reply.roles AS 'reply_roles'
+    reply.roles AS 'reply_roles',
+    reply.pronouns AS 'reply_pronouns'
 FROM StatusEntity AS s
 LEFT JOIN TimelineAccountEntity AS a ON (s.timelineUserId = a.timelineUserId AND s.authorServerId = a.serverId)
 LEFT JOIN TimelineAccountEntity AS rb ON (s.timelineUserId = rb.timelineUserId AND s.reblogAccountId = rb.serverId)

@@ -131,6 +131,7 @@ class AccountEntityForeignKeyTest {
         limited = false,
         note = "",
         roles = null,
+        pronouns = null,
     )
 
     @Before
@@ -445,6 +446,7 @@ class AccountEntityForeignKeyTest {
             limited = false,
             note = "",
             roles = null,
+            pronouns = null,
         )
         timelineDao.insertAccount(timelineAccount)
 

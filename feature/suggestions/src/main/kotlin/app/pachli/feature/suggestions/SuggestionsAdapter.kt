@@ -185,6 +185,7 @@ internal class SuggestionViewHolder(
             } ?: suggestionReason.hide()
 
             username.text = username.context.getString(app.pachli.core.designsystem.R.string.post_username_format, account.username)
+            accountPronouns.text = account.pronouns
 
             bindAvatar(viewData, animateAvatars)
             bindAnimateEmojis(viewData, animateEmojis)

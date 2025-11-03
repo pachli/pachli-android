@@ -62,6 +62,9 @@ data class TimelineAccount(
 
     /** Roles associated with this account on this server.*/
     val roles: List<Role>,
+
+    /** Optional pronouns, derived from the account's fields. */
+    val pronouns: String?,
 ) {
 
     /**

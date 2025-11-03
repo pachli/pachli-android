@@ -72,6 +72,7 @@ data class Account(
         fields = fields?.asModel(),
         moved = moved?.asModel(),
         roles = roles?.asModel(),
+        pronouns = fields?.pronouns(),
     )
 }
 
@@ -90,6 +91,66 @@ data class Field(
 
 @JvmName("iterableFieldAsModel")
 fun Iterable<Field>.asModel() = map { it.asModel() }
+
+/**
+ * Set of field names. Any field matching this name is considered to contain displayable
+ * pronouns for [pronouns]
+ */
+// The code uses this as a set, but build it here from a Map<LanguageCode, List<String>>.
+// This makes it easier to see which language code corresponds to which set of pronouns
+// when maintaining this list. Only the final pronoun text is used, the language code
+// is discarded.
+//
+// Using a string array, raw resource, or asset was considered here, they don't make
+// it easy to keep the nested structure. This also doesn't play well with translation
+// tools.
+//
+// Initial contents of this list were seeded from Fedilab in
+// https://codeberg.org/tom79/Fedilab/src/branch/main/app/src/main/java/app/fedilab/android/mastodon/helper/PronounsHelper.java
+// and Moshidon (e.g., https://github.com/LucasGGamerM/moshidon/blob/b6a4211af93e3ae0b5b4baca6acce30cec601f5c/mastodon/src/main/res/values-el-rGR/strings_sk.xml#L285)
+private val pronounFieldNames = mapOf(
+    "ar" to listOf("الضمائر"),
+    "ast" to listOf("pronomes"),
+    "ca" to listOf("pronom", "pronoms"),
+    "de" to listOf("pronomen"),
+    "el" to listOf("Αντωνυμίες"),
+    "en" to listOf("pronoun", "pronouns"),
+    "eo" to listOf("pronomoj"),
+    "es" to listOf("pronombres"),
+    "fa" to listOf("ضمایر"),
+    "fi" to listOf("Pronominit"),
+    "fr" to listOf("pronoms"),
+    "ga" to listOf("Forainmneacha"),
+    "gd" to listOf("riochdairean"),
+    "gl" to listOf("pronomes"),
+    "he" to listOf("כינויי גוף", "לשון פנייה", "כינויי גוף"),
+    "id" to listOf("pronomina"),
+    "in-rID" to listOf("Kata ganti"),
+    "it" to listOf("pronomi"),
+    "jp" to listOf("代名詞"),
+    "ko" to listOf("인칭 대명사"),
+    "lt" to listOf("Įvardžiai"),
+    "lv" to listOf("vietniekv", "vietniekvārdi", "vietniekvārds"),
+    "nl" to listOf("voornaamwoorden"),
+    "nn" to listOf("pronomen"),
+    "no" to listOf("personlig pronomen"),
+    "pl" to listOf("zaimki"),
+    "pt" to listOf("pronomes"),
+    "pt-br" to listOf("pronome"),
+    "ro" to listOf("pronume"),
+    "ru" to listOf("местоим", "местоимения", "Произношение"),
+    "tr" to listOf("Zamirler"),
+    "uk" to listOf("Займенники"),
+    "zh" to listOf("人称", "人稱", "称谓"),
+    "zh-rCN" to listOf("人称代词"),
+    "zh-rTW" to listOf("別名"),
+).values.flatMap { pronouns -> pronouns.map { it.lowercase() } }.toSet()
+
+/**
+ * @return The account's pronouns, if one of the fields has a recognisable name.
+ * Null if no field had a recognisable name.
+ */
+fun Iterable<Field>.pronouns() = firstOrNull { pronounFieldNames.contains(it.name.lowercase()) }?.value
 
 @JsonClass(generateAdapter = true)
 data class StringField(

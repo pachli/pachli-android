@@ -32,4 +32,8 @@
     <!-- Colour to use for the "favourite" icon. Also displayed next to
          favourite notifications. -->
     <attr name="favoriteIconColor" format="color" />
+
+    <declare-styleable name="PronounsChip">
+        <attr name="pronounsChipStyle" format="reference" />
+    </declare-styleable>
 </resources>

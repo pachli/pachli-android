@@ -37,7 +37,7 @@
         android:drawablePadding="10dp"
         android:ellipsize="end"
         android:gravity="center_vertical"
-        android:maxLines="1"
+        android:maxLines="2"
         android:paddingStart="28dp"
         android:textSize="?attr/status_text_medium"
         app:layout_constraintStart_toStartOf="parent"

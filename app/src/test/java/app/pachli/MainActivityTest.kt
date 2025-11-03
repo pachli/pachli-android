@@ -209,6 +209,7 @@ class MainActivityTest {
                         avatar = "https://mastodon.example/system/accounts/avatars/000/150/486/original/ab27d7ddd18a10ea.jpg",
                         createdAt = Instant.now(),
                         roles = emptyList(),
+                        pronouns = null,
                     ),
                     status = null,
                     report = null,

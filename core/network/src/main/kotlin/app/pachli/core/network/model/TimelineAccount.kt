@@ -61,6 +61,8 @@ data class TimelineAccount(
     val limited: Boolean = false,
 
     val roles: List<Role>? = null,
+
+    val fields: List<Field>? = emptyList(),
 ) {
 
     /**
@@ -88,6 +90,7 @@ data class TimelineAccount(
         createdAt = createdAt,
         limited = limited,
         roles = roles.orEmpty().asModel(),
+        pronouns = fields?.pronouns(),
     )
 }
 

@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Checkable
+import android.widget.Toast
+import androidx.core.text.HtmlCompat
+import androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
 import androidx.core.view.AccessibilityDelegateCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat
@@ -122,6 +125,10 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
 
             status.actionable.card?.authors?.firstOrNull()?.account?.let {
                 info.addAction(openBylineAccountAction)
+            }
+
+            if (!status.actionable.account.pronouns.isNullOrBlank()) {
+                info.addAction(showPronounsAction)
             }
 
             if (controlActions.contains(moreAction.id)) info.addAction(moreAction)
@@ -260,6 +267,13 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
                     (recyclerView.findContainingViewHolder(host) as? Checkable)?.isChecked = false
                 }
 
+                app.pachli.core.ui.R.id.action_show_pronouns -> {
+                    val pronouns = status.actionable.account.pronouns?.trim()
+                    if (pronouns.isNullOrBlank()) return true
+                    val formatted = HtmlCompat.fromHtml(pronouns, FROM_HTML_MODE_LEGACY)
+                    Toast.makeText(context, formatted, Toast.LENGTH_LONG).show()
+                }
+
                 else -> return super.performAccessibilityAction(host, action, args)
             }
             return true
@@ -384,5 +398,10 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
     private val unselectStatusAction = AccessibilityActionCompat(
         app.pachli.core.ui.R.id.action_unselect_status,
         context.getString(app.pachli.core.ui.R.string.action_unselect_status),
+    )
+
+    private val showPronounsAction = AccessibilityActionCompat(
+        app.pachli.core.ui.R.id.action_show_pronouns,
+        context.getString(app.pachli.core.ui.R.string.action_show_pronouns),
     )
 }

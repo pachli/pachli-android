@@ -91,6 +91,8 @@
         <item name="favoriteIconColor">@color/tusky_orange</item>
 
         <item name="appBarLayoutStyle">@style/Pachli.Widget.Material3.AppBarLayout</item>
+
+        <item name="pronounsChipStyle">@style/Pachli.Widget.PronounChip</item>
     </style>
 
     <style name="Pachli.Widget.Material3.AppBarLayout" parent="Widget.Material3.AppBarLayout">
@@ -206,6 +208,20 @@
     <style name="Pachli.Widget.Material3.LinearProgressIndicator" parent="Widget.Material3.LinearProgressIndicator">
         <item name="minHideDelay">500</item>
         <item name="showDelay">500</item>
+    </style>
+
+    <style name="Pachli.Widget.PronounChip" parent="Widget.Material3.Chip.Suggestion">
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">?android:textColorTertiary</item>
+        <item name="android:textSize">?status_text_small</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:minHeight">@dimen/pronounChip_minHeight</item>
+        <item name="chipMinHeight">@dimen/pronounChip_minHeight</item>
+        <item name="chipStrokeWidth">0dp</item>
+        <item name="chipBackgroundColor">?colorSurfaceContainerLow</item>
+        <item name="ensureMinTouchTargetSize">false</item>
+        <item name="android:importantForAccessibility">no</item>
     </style>
 
     <!-- customize the shape of the avatars in account selection list -->

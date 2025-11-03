@@ -111,6 +111,7 @@
     <string name="action_hide_attachments">Hide attachments</string>
     <string name="action_select_status">Select post</string>
     <string name="action_unselect_status">Unselect post</string>
+    <string name="action_show_pronouns">Show pronouns</string>
     <string name="dot_in_name">dot</string>
     <string name="role_content_description_fmt">%1$s, at %2$s</string>
     <plurals name="description_post_roles">

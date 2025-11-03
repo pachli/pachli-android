@@ -100,7 +100,7 @@ import java.util.TimeZone
         TimelineStatusEntity::class,
         ConversationViewDataEntity::class,
     ],
-    version = 30,
+    version = 31,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
@@ -139,6 +139,8 @@ import java.util.TimeZone
         AutoMigration(from = 28, to = 29),
         // Record the attachment display action.
         AutoMigration(from = 29, to = 30, spec = AppDatabase.MIGRATE_29_30::class),
+        // Add pronouns to TimelineAccountEntity and AccountEntity
+        AutoMigration(from = 30, to = 31),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {

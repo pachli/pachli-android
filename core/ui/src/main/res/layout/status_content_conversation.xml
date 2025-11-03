@@ -110,7 +110,7 @@
 
     <TextView
         android:id="@+id/status_display_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:ellipsize="end"
@@ -128,31 +128,45 @@
         tools:ignore="SelectableText" />
 
     <TextView
-        android:id="@+id/status_username"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:importantForAccessibility="no"
-        android:maxLines="1"
-        android:textSize="?attr/status_text_medium"
-        app:layout_constraintEnd_toStartOf="@id/status_meta_info"
-        app:layout_constraintStart_toEndOf="@id/status_display_name"
-        app:layout_constraintBaseline_toBaselineOf="@id/status_display_name"
-        tools:text="\@Entenhausen@birbsarecooooooooooool.site"
-        tools:ignore="SelectableText" />
-
-    <TextView
         android:id="@+id/status_meta_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginEnd="14dp"
         android:importantForAccessibility="no"
-        android:textSize="?attr/status_text_medium"
+        android:textSize="?attr/status_text_small"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBaseline_toBaselineOf="@id/status_display_name"
         tools:text="13:37"
         tools:ignore="SelectableText" />
+
+    <TextView
+        android:id="@+id/status_username"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:importantForAccessibility="no"
+        android:maxLines="1"
+        android:textSize="?attr/status_text_small"
+        app:layout_constraintEnd_toStartOf="@id/account_pronouns"
+        app:layout_constraintStart_toStartOf="@id/status_display_name"
+        app:layout_constraintTop_toBottomOf="@id/status_display_name"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_goneMarginEnd="14dp"
+        tools:ignore="SelectableText"
+        tools:text="\@Entenhausen@birbsarecooooooooooool.site" />
+
+    <app.pachli.core.ui.PronounsChip
+        android:id="@+id/account_pronouns"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="14dp"
+        app:layout_constraintBaseline_toBaselineOf="@id/status_username"
+        app:layout_constraintStart_toEndOf="@id/status_username"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_max="@dimen/pronounChip_maxWidth"
+        tools:ignore="SelectableText"
+        tools:text="he/him" />
 
     <app.pachli.core.ui.ClickableSpanTextView
         android:id="@+id/status_content_warning_description"
@@ -166,7 +180,7 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/status_display_name"
-        app:layout_constraintTop_toBottomOf="@id/status_display_name"
+        app:layout_constraintTop_toBottomOf="@id/status_username"
         tools:text="content warning which is very long and it doesn't fit"
         tools:visibility="visible" />
 

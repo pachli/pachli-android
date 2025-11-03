@@ -596,6 +596,8 @@ class ComposeActivity :
 
             binding.statusDisplayName.text =
                 displayName.emojify(glide, emojis, binding.statusDisplayName, sharedPreferencesRepository.animateEmojis)
+
+            binding.accountPronouns.text = pronouns
             binding.statusUsername.text = getString(DR.string.post_username_format, username)
 
             if (contentWarning.isEmpty()) {

@@ -202,6 +202,8 @@ data class TimelineAccountEntity(
     val note: String,
     @ColumnInfo(defaultValue = "")
     val roles: List<Role>?,
+    @ColumnInfo(defaultValue = "")
+    val pronouns: String?,
 ) {
     fun asModel() = TimelineAccount(
         id = serverId,
@@ -216,6 +218,7 @@ data class TimelineAccountEntity(
         createdAt = createdAt,
         limited = limited,
         roles = roles.orEmpty(),
+        pronouns = pronouns,
     )
 }
 
@@ -233,6 +236,7 @@ fun TimelineAccount.asEntity(pachliAccountId: Long) = TimelineAccountEntity(
     createdAt = createdAt,
     limited = limited,
     roles = roles,
+    pronouns = pronouns,
 )
 
 fun Iterable<TimelineAccount>.asEntity(pachliAccountId: Long) = map { it.asEntity(pachliAccountId) }

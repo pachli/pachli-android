@@ -114,6 +114,9 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
      */
     abstract val metaInfo: TextView
 
+    /** Chip to display the account's pronouns. */
+    abstract val pronouns: PronounsChip?
+
     /** View displaying the status' content warning, if present. */
     abstract val contentWarningDescription: TextView
 
@@ -398,6 +401,10 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
         metaInfo.text = timestampText
     }
 
+    open fun setPronouns(viewData: T, statusDisplayOptions: StatusDisplayOptions) {
+        pronouns?.text = viewData.actionable.account.pronouns
+    }
+
     /**
      * Shows/hides the chips for any roles the account that posted the actionable
      * status has.
@@ -485,6 +492,7 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
         val profileButtonClickListener = View.OnClickListener { listener.onViewAccount(accountId) }
         avatar.setOnClickListener(profileButtonClickListener)
         displayName.setOnClickListener(profileButtonClickListener)
+        username.setOnClickListener(profileButtonClickListener)
 
         /* Even though the content TextView is a child of the container, it won't respond to clicks
          * if it contains URLSpans without also setting its listener. The surrounding spans will
@@ -534,6 +542,7 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
         setDisplayName(glide, actionable.account.name, actionable.account.emojis, statusDisplayOptions)
         setUsername(actionable.account.username)
         setMetaData(viewData, statusDisplayOptions, listener)
+        setPronouns(viewData, statusDisplayOptions)
         setRoleChips(viewData)
         setAvatar(
             glide,
