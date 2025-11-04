@@ -30,8 +30,8 @@
 
     <ImageView
         android:id="@+id/status_avatar"
-        android:layout_width="@dimen/timeline_status_avatar_width"
-        android:layout_height="@dimen/timeline_status_avatar_height"
+        android:layout_width="@dimen/timeline_quoted_status_avatar_width"
+        android:layout_height="@dimen/timeline_quoted_status_avatar_height"
         android:layout_marginStart="@dimen/account_avatar_margin"
         android:layout_marginTop="@dimen/account_avatar_margin"
         android:contentDescription="@string/action_view_profile"
@@ -43,8 +43,8 @@
 
     <ImageView
         android:id="@+id/status_avatar_inset"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
         android:contentDescription="@null"
         android:importantForAccessibility="no"
         android:visibility="gone"
@@ -73,7 +73,7 @@
         android:importantForAccessibility="no"
         android:maxLines="1"
         android:paddingEnd="@dimen/status_display_name_padding_end"
-        android:textSize="?attr/status_text_medium"
+        android:textSize="?attr/status_text_small"
         android:textStyle="normal|bold"
         app:layout_constrainedWidth="true"
         app:layout_constraintEnd_toStartOf="@id/status_meta_info"
@@ -124,6 +124,13 @@
         tools:ignore="SelectableText"
         tools:text="he/him" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline_body"
+        app:layout_constraintGuide_begin="@dimen/account_avatar_margin"
+        android:orientation="vertical" />
+
     <app.pachli.core.ui.ClickableSpanTextView
         android:id="@+id/status_content_warning_description"
         android:layout_width="0dp"
@@ -132,10 +139,10 @@
         android:hyphenationFrequency="full"
         android:importantForAccessibility="no"
         android:lineSpacingMultiplier="1.1"
-        android:textSize="?attr/status_text_medium"
+        android:textSize="?attr/status_text_small"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/status_display_name"
+        app:layout_constraintStart_toStartOf="@id/guideline_body"
         app:layout_constraintTop_toBottomOf="@id/status_username"
         tools:text="content warning which is very long and it doesn't fit"
         tools:visibility="visible" />
@@ -157,9 +164,9 @@
         android:textAllCaps="true"
         android:textOff="@string/post_content_warning_show_more"
         android:textOn="@string/post_content_warning_show_less"
-        android:textSize="?attr/status_text_medium"
+        android:textSize="?attr/status_text_small"
         android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@id/status_display_name"
+        app:layout_constraintStart_toStartOf="@+id/guideline_body"
         app:layout_constraintTop_toBottomOf="@id/status_content_warning_description"
         tools:text="@string/post_content_warning_show_more"
         tools:visibility="visible" />
@@ -174,9 +181,11 @@
         android:hyphenationFrequency="full"
         android:importantForAccessibility="no"
         android:lineSpacingMultiplier="1.1"
-        android:textSize="?attr/status_text_medium"
+        android:textSize="?attr/status_text_small"
+        android:maxLines="4"
+        android:ellipsize="end"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/status_content_warning_button"
+        app:layout_constraintStart_toStartOf="@+id/guideline_body"
         app:layout_constraintTop_toBottomOf="@id/status_content_warning_button"
         tools:text="This is a status" />
 
@@ -193,9 +202,9 @@
         android:paddingRight="16dp"
         android:paddingBottom="4dp"
         android:textAllCaps="true"
-        android:textSize="?attr/status_text_medium"
+        android:textSize="?attr/status_text_small"
         android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@id/status_display_name"
+        app:layout_constraintStart_toStartOf="@+id/guideline_body"
         app:layout_constraintTop_toBottomOf="@+id/status_content"
         tools:text="@string/post_content_show_less"
         tools:visibility="visible" />
@@ -207,7 +216,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="14dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/status_display_name"
+        app:layout_constraintStart_toStartOf="@+id/guideline_body"
         app:layout_constraintTop_toBottomOf="@id/button_toggle_content"
         tools:visibility="visible" />
 
@@ -220,7 +229,7 @@
         android:background="@drawable/media_preview_outline"
         android:importantForAccessibility="noHideDescendants"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/status_display_name"
+        app:layout_constraintStart_toStartOf="@+id/guideline_body"
         app:layout_constraintTop_toBottomOf="@id/status_card_view"
         tools:visibility="gone" />
 
@@ -231,7 +240,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginEnd="14dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/status_display_name"
+        app:layout_constraintStart_toStartOf="@+id/guideline_body"
         app:layout_constraintTop_toBottomOf="@id/attachmentGrid"
         tools:visibility="visible" />
 
@@ -243,7 +252,7 @@
         android:layout_marginEnd="14dp"
         android:textSize="?attr/status_text_small"
         android:drawablePadding="4dp"
-        app:layout_constraintStart_toStartOf="@id/status_display_name"
+        app:layout_constraintStart_toStartOf="@+id/guideline_body"
         app:layout_constraintTop_toBottomOf="@id/status_poll"
         tools:text="Translation provider: DeepL"
         tools:ignore="SelectableText"

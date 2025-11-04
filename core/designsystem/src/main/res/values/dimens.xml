@@ -72,6 +72,9 @@
     <dimen name="timeline_status_avatar_height">48dp</dimen>
     <dimen name="timeline_status_avatar_width">48dp</dimen>
 
+    <dimen name="timeline_quoted_status_avatar_height">36dp</dimen>
+    <dimen name="timeline_quoted_status_avatar_width">36dp</dimen>
+
     <dimen name="account_media_grid_default">130dp</dimen>
 
     <dimen name="pronounChip_maxWidth">102sp</dimen>
