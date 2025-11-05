@@ -24,7 +24,7 @@ import app.pachli.adapter.StatusViewDataDiffCallback
 import app.pachli.adapter.StatusViewHolder
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusDisplayOptions
-import app.pachli.core.data.model.StatusViewData
+import app.pachli.core.data.model.StatusViewDataQ
 import app.pachli.core.ui.SetStatusContent
 import app.pachli.core.ui.StatusActionListener
 import app.pachli.databinding.ItemStatusBinding
@@ -35,9 +35,9 @@ class SearchStatusesAdapter(
     private val setStatusContent: SetStatusContent,
     private val statusDisplayOptions: StatusDisplayOptions,
     private val statusListener: StatusActionListener<IStatusViewData>,
-) : PagingDataAdapter<StatusViewData, StatusViewHolder<StatusViewData, IStatusViewData>>(STATUS_COMPARATOR) {
+) : PagingDataAdapter<StatusViewDataQ, StatusViewHolder<StatusViewDataQ, IStatusViewData>>(STATUS_COMPARATOR) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StatusViewHolder<StatusViewData, IStatusViewData> {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StatusViewHolder<StatusViewDataQ, IStatusViewData> {
         return StatusViewHolder(
             ItemStatusBinding.inflate(LayoutInflater.from(parent.context), parent, false),
             glide,
@@ -45,26 +45,26 @@ class SearchStatusesAdapter(
         )
     }
 
-    override fun onBindViewHolder(holder: StatusViewHolder<StatusViewData, IStatusViewData>, position: Int) {
+    override fun onBindViewHolder(holder: StatusViewHolder<StatusViewDataQ, IStatusViewData>, position: Int) {
         getItem(position)?.let { item ->
             holder.setupWithStatus(item, statusListener, statusDisplayOptions, null)
         }
     }
 
-    override fun onBindViewHolder(holder: StatusViewHolder<StatusViewData, IStatusViewData>, position: Int, payloads: List<Any?>) {
+    override fun onBindViewHolder(holder: StatusViewHolder<StatusViewDataQ, IStatusViewData>, position: Int, payloads: List<Any?>) {
         getItem(position)?.let { item ->
             holder.setupWithStatus(item, statusListener, statusDisplayOptions, payloads as? List<List<Any?>>?)
         }
     }
 
     companion object {
-        val STATUS_COMPARATOR = object : DiffUtil.ItemCallback<StatusViewData>() {
-            override fun areItemsTheSame(oldItem: StatusViewData, newItem: StatusViewData) = oldItem.statusId == newItem.statusId
+        val STATUS_COMPARATOR = object : DiffUtil.ItemCallback<StatusViewDataQ>() {
+            override fun areItemsTheSame(oldItem: StatusViewDataQ, newItem: StatusViewDataQ) = oldItem.statusId == newItem.statusId
 
             // Items are different always. It allows to refresh timestamp on every view holder update
-            override fun areContentsTheSame(oldItem: StatusViewData, newItem: StatusViewData) = false
+            override fun areContentsTheSame(oldItem: StatusViewDataQ, newItem: StatusViewDataQ) = false
 
-            override fun getChangePayload(oldItem: StatusViewData, newItem: StatusViewData): Any? {
+            override fun getChangePayload(oldItem: StatusViewDataQ, newItem: StatusViewDataQ): Any? {
                 return if (oldItem == newItem) {
                     // If items are equal - update timestamp only
                     listOf(StatusViewDataDiffCallback.Payload.CREATED)
