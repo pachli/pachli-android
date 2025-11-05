@@ -82,21 +82,21 @@ class QuotedStatusView @JvmOverloads constructor(
 ) : StatusView<StatusViewData, IStatusViewData>(context, attrs, defStyleAttr, defStyleRes) {
     val binding = QuotedStatusContentBinding.inflate(LayoutInflater.from(context), this)
 
-    override val avatar = binding.statusAvatar
-    override val avatarInset = binding.statusAvatarInset
-    override val roleChipGroup = binding.roleChipGroup
-    override val displayName = binding.statusDisplayName
-    override val username = binding.statusUsername
-    override val metaInfo = binding.statusMetaInfo
-    override val pronouns = binding.accountPronouns
-    override val contentWarningDescription = binding.statusContentWarningDescription
-    override val contentWarningButton = binding.statusContentWarningButton
-    override val content = binding.statusContent
-    override val buttonToggleContent = binding.buttonToggleContent
-    override val attachmentsView = binding.attachmentGrid
-    override val pollView = binding.statusPoll
-    override val cardView = binding.statusCardView
-    override val translationProvider = binding.translationProvider.apply {
+    override val avatar = binding.quoteStatusAvatar
+    override val avatarInset = binding.quoteStatusAvatarInset
+    override val roleChipGroup = binding.quoteRoleChipGroup
+    override val displayName = binding.quoteStatusDisplayName
+    override val username = binding.quoteStatusUsername
+    override val metaInfo = binding.quoteStatusMetaInfo
+    override val pronouns = binding.quoteAccountPronouns
+    override val contentWarningDescription = binding.quoteStatusContentWarningDescription
+    override val contentWarningButton = binding.quoteStatusContentWarningButton
+    override val content = binding.quoteStatusContent
+    override val buttonToggleContent = binding.quoteButtonToggleContent
+    override val attachmentsView = binding.quoteAttachmentGrid
+    override val pollView = binding.quoteStatusPoll
+    override val cardView = binding.quoteStatusCardView
+    override val translationProvider = binding.quoteTranslationProvider.apply {
         val icon = makeIcon(context, GoogleMaterial.Icon.gmd_translate, textSize.toInt())
         setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null)
     }

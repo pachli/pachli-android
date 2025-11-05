@@ -30,6 +30,7 @@ import androidx.core.view.isGone
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.data.model.IStatusViewData
+import app.pachli.core.data.model.IStatusViewDataQ
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.model.StatusViewDataQ
@@ -102,6 +103,15 @@ class DetailedStatusView @JvmOverloads constructor(
         } else {
             hideQuantitativeStats()
         }
+
+        val quotedViewData = (viewData as? IStatusViewDataQ)?.quotedViewData
+        if (quotedViewData == null) {
+            binding.statusQuote.hide()
+            return
+        }
+
+        binding.statusQuote.setupWithStatus(setStatusContent, glide, quotedViewData, listener, statusDisplayOptions)
+        binding.statusQuote.show()
     }
 
     private fun setReblogAndFavCount(
