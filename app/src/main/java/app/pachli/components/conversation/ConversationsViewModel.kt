@@ -22,6 +22,7 @@ import androidx.paging.cachedIn
 import androidx.paging.filter
 import androidx.paging.map
 import app.pachli.core.data.model.ConversationViewData
+import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
@@ -264,15 +265,15 @@ class ConversationsViewModel @AssistedInject constructor(
         }
     }
 
-    fun translate(conversationViewData: ConversationViewData) {
+    fun translate(conversationViewData: IStatusViewData) {
         viewModelScope.launch {
-            timelineCases.translate(conversationViewData.lastStatus)
+            timelineCases.translate(conversationViewData)
         }
     }
 
-    fun translateUndo(conversationViewData: ConversationViewData) {
+    fun translateUndo(conversationViewData: IStatusViewData) {
         viewModelScope.launch {
-            timelineCases.translateUndo(conversationViewData.lastStatus)
+            timelineCases.translateUndo(conversationViewData)
         }
     }
 

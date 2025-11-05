@@ -26,6 +26,8 @@ import androidx.core.util.TypedValueCompat
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.data.model.ConversationViewData
+import app.pachli.core.data.model.IStatusViewData
+import app.pachli.core.data.model.IStatusViewDataQ
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.ui.databinding.StatusContentConversationBinding
 import com.bumptech.glide.RequestManager
@@ -49,7 +51,7 @@ class ConversationStatusView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
     defStyleRes: Int = 0,
-) : StatusView<ConversationViewData, ConversationViewData>(context, attrs, defStyleAttr, defStyleRes) {
+) : StatusView<ConversationViewData, IStatusViewData>(context, attrs, defStyleAttr, defStyleRes) {
     val binding = StatusContentConversationBinding.inflate(LayoutInflater.from(context), this)
 
     override val avatar = binding.statusAvatar
@@ -79,7 +81,7 @@ class ConversationStatusView @JvmOverloads constructor(
 
     private val avatarPadding = TypedValueCompat.dpToPx(2f, context.resources.displayMetrics).toInt()
 
-    override fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: ConversationViewData, listener: StatusActionListener<ConversationViewData>, statusDisplayOptions: StatusDisplayOptions) {
+    override fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: ConversationViewData, listener: StatusActionListener<IStatusViewData>, statusDisplayOptions: StatusDisplayOptions) {
         super.setupWithStatus(setStatusContent, glide, viewData, listener, statusDisplayOptions)
 
         // Load additional avatars.
@@ -98,5 +100,14 @@ class ConversationStatusView @JvmOverloads constructor(
 
         // setAvatar will have cleared the padding on the first avatar, set it back.
         binding.statusAvatar.setPaddingRelative(avatarPadding, avatarPadding, avatarPadding, avatarPadding)
+
+        val quotedViewData = (viewData as? IStatusViewDataQ)?.quotedViewData
+        if (quotedViewData == null) {
+            binding.statusQuote.hide()
+            return
+        }
+
+        binding.statusQuote.setupWithStatus(setStatusContent, glide, quotedViewData, listener, statusDisplayOptions)
+        binding.statusQuote.show()
     }
 }

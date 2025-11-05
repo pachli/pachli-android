@@ -26,6 +26,7 @@ import app.pachli.R
 import app.pachli.adapter.FilterableStatusViewHolder
 import app.pachli.adapter.StatusViewDataDiffCallback
 import app.pachli.core.data.model.ConversationViewData
+import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.AccountFilterReason
@@ -41,7 +42,7 @@ internal class ConversationAdapter(
     private val glide: RequestManager,
     private var statusDisplayOptions: StatusDisplayOptions,
     private val setStatusContent: SetStatusContent,
-    private val listener: StatusActionListener<ConversationViewData>,
+    private val listener: StatusActionListener<IStatusViewData>,
     private val accept: (UiAction) -> Unit,
 ) : PagingDataAdapter<ConversationViewData, RecyclerView.ViewHolder>(CONVERSATION_COMPARATOR) {
     /** View holders in this adapter must implement this interface. */
@@ -164,8 +165,8 @@ class FilterableConversationStatusViewHolder internal constructor(
     binding: ItemStatusWrapperBinding,
     glide: RequestManager,
     setStatusContent: SetStatusContent,
-    private val listener: StatusActionListener<ConversationViewData>,
-) : ConversationAdapter.ViewHolder, FilterableStatusViewHolder<ConversationViewData, ConversationViewData>(binding, glide, setStatusContent) {
+    private val listener: StatusActionListener<IStatusViewData>,
+) : ConversationAdapter.ViewHolder, FilterableStatusViewHolder<ConversationViewData, IStatusViewData>(binding, glide, setStatusContent) {
     override fun bind(viewData: ConversationViewData, payloads: List<List<Any?>>?, statusDisplayOptions: StatusDisplayOptions) {
         if (payloads.isNullOrEmpty()) {
             showStatusContent(true)

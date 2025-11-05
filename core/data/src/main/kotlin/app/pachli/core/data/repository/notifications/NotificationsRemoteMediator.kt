@@ -254,7 +254,10 @@ class NotificationsRemoteMediator(
 
                 (status.quote as? Status.Quote.FullQuote)?.status?.let {
                     accounts.add(it.account)
-                    it.reblog?.let { accounts.add(it.account) }
+                    it.reblog?.let {
+                        accounts.add(it.account)
+                        statuses.add(it)
+                    }
                     statuses.add(it)
                 }
             }

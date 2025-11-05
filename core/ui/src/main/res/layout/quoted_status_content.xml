@@ -182,7 +182,6 @@
         android:importantForAccessibility="no"
         android:lineSpacingMultiplier="1.1"
         android:textSize="?attr/status_text_small"
-        android:maxLines="4"
         android:ellipsize="end"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline_body"
