@@ -33,7 +33,6 @@ import app.pachli.core.database.model.NotificationRelationshipSeveranceEventEnti
 import app.pachli.core.database.model.NotificationReportEntity
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
-import app.pachli.core.database.model.StatusEntity
 import app.pachli.core.database.model.TSQ
 import app.pachli.core.database.model.asEntity
 import app.pachli.core.model.Status
@@ -238,13 +237,26 @@ class NotificationsRemoteMediator(
         val accountWarnings = mutableSetOf<NotificationAccountWarningEntity>()
 
         // Collect the different items from this batch of notifications.
+        // TODO: This could do less work by using a Map<String, T> as the type,
+        // instead of a Set, where the map key is the server ID of the thing.
+        // Then check for presence in the map before converting from the network
+        // type to the model type.
+        //
+        // See similar code in CachedTimelineRemoteMediator
         notifications.forEach { notification ->
             accounts.add(notification.account.asModel())
 
             notification.status?.asModel()?.let { status ->
                 accounts.add(status.account)
                 status.reblog?.account?.let { accounts.add(it) }
+
                 statuses.add(status)
+
+                (status.quote as? Status.Quote.FullQuote)?.status?.let {
+                    accounts.add(it.account)
+                    it.reblog?.let { accounts.add(it.account) }
+                    statuses.add(it)
+                }
             }
 
             notification.report?.let { reports.add(it.asEntity(pachliAccountId, notification.id)) }

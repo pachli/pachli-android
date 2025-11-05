@@ -73,8 +73,8 @@ import javax.inject.Inject
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener<T> {
-    protected abstract fun removeItem(viewData: T)
+abstract class SFragment<T : IStatusViewData, L : IStatusViewData> : Fragment(), StatusActionListener<L> {
+    protected abstract fun removeItem(viewData: L)
 
     @Inject
     lateinit var mastodonApi: MastodonApi
@@ -163,7 +163,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
      * Handles the user clicking the "..." (more) button typically at the bottom-right of
      * the status.
      */
-    protected fun more(view: View, viewData: T) {
+    protected fun more(view: View, viewData: L) {
         val status = viewData.status
         val actionableId = viewData.actionableId
         val accountId = viewData.actionable.account.id
@@ -349,10 +349,10 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
     }
 
     /** Translate [viewData]. */
-    abstract fun onTranslate(viewData: T)
+    abstract fun onTranslate(viewData: L)
 
     /** Undo the translation of [viewData]. */
-    abstract fun onTranslateUndo(viewData: T)
+    abstract fun onTranslateUndo(viewData: L)
 
     private fun onMute(accountId: String, accountUsername: String) {
         showMuteAccountDialog(this.requireActivity(), accountUsername) { notifications: Boolean?, duration: Int? ->
@@ -413,7 +413,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
         startActivityWithDefaultTransition(ReportActivityIntent(requireContext(), pachliAccountId, accountId, accountUsername, statusId))
     }
 
-    private fun showConfirmDeleteDialog(viewData: T) {
+    private fun showConfirmDeleteDialog(viewData: L) {
         AlertDialog.Builder(requireActivity())
             .setMessage(R.string.dialog_delete_post_warning)
             .setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
@@ -434,7 +434,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
             .show()
     }
 
-    private fun showConfirmEditDialog(statusViewData: T) {
+    private fun showConfirmEditDialog(statusViewData: L) {
         if (activity == null) {
             return
         }
@@ -503,7 +503,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
         }
     }
 
-    open fun onConversationDelete(viewData: T) {
+    open fun onConversationDelete(viewData: L) {
         if (BuildConfig.DEBUG) throw RuntimeException("onConversationDelete should have been overridden")
     }
 

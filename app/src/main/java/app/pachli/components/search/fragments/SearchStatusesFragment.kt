@@ -42,6 +42,7 @@ import app.pachli.core.activity.OpenUrlUseCase
 import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
+import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.model.AccountEntity
@@ -78,7 +79,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
-class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionListener<StatusViewData> {
+class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionListener<IStatusViewData> {
     @Inject
     lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
 
@@ -130,27 +131,27 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
         return SearchStatusesAdapter(Glide.with(this), setStatusContent, statusDisplayOptions, this)
     }
 
-    override fun onAttachmentDisplayActionChange(viewData: StatusViewData, newAction: AttachmentDisplayAction) {
+    override fun onAttachmentDisplayActionChange(viewData: IStatusViewData, newAction: AttachmentDisplayAction) {
         viewModel.attachmentDisplayActionChange(viewData, newAction)
     }
 
-    override fun onReply(viewData: StatusViewData) {
+    override fun onReply(viewData: IStatusViewData) {
         reply(viewData)
     }
 
-    override fun onFavourite(viewData: StatusViewData, favourite: Boolean) {
+    override fun onFavourite(viewData: IStatusViewData, favourite: Boolean) {
         viewModel.favorite(viewData, favourite)
     }
 
-    override fun onBookmark(viewData: StatusViewData, bookmark: Boolean) {
+    override fun onBookmark(viewData: IStatusViewData, bookmark: Boolean) {
         viewModel.bookmark(viewData, bookmark)
     }
 
-    override fun onMore(view: View, viewData: StatusViewData) {
+    override fun onMore(view: View, viewData: IStatusViewData) {
         more(viewData, view)
     }
 
-    override fun onViewAttachment(view: View?, viewData: StatusViewData, attachmentIndex: Int) {
+    override fun onViewAttachment(view: View?, viewData: IStatusViewData, attachmentIndex: Int) {
         val actionable = viewData.actionable
         when (actionable.attachments[attachmentIndex].type) {
             Attachment.Type.GIFV, Attachment.Type.VIDEO, Attachment.Type.IMAGE, Attachment.Type.AUDIO -> {
@@ -188,21 +189,21 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
         viewUrlActivity?.viewAccount(pachliAccountId, status.account.id)
     }
 
-    override fun onExpandedChange(viewData: StatusViewData, expanded: Boolean) {
+    override fun onExpandedChange(viewData: IStatusViewData, expanded: Boolean) {
         viewModel.expandedChange(viewData, expanded)
     }
 
-    override fun onContentCollapsedChange(viewData: StatusViewData, isCollapsed: Boolean) {
+    override fun onContentCollapsedChange(viewData: IStatusViewData, isCollapsed: Boolean) {
         viewModel.collapsedChange(viewData, isCollapsed)
     }
 
-    override fun onVoteInPoll(viewData: StatusViewData, poll: Poll, choices: List<Int>) {
+    override fun onVoteInPoll(viewData: IStatusViewData, poll: Poll, choices: List<Int>) {
         viewModel.voteInPoll(viewData, poll, choices)
     }
 
-    override fun clearContentFilter(viewData: StatusViewData) {}
+    override fun clearContentFilter(viewData: IStatusViewData) {}
 
-    override fun onReblog(viewData: StatusViewData, reblog: Boolean) {
+    override fun onReblog(viewData: IStatusViewData, reblog: Boolean) {
         viewModel.reblog(viewData, reblog)
     }
 
@@ -220,7 +221,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
         )
     }
 
-    private fun reply(status: StatusViewData) {
+    private fun reply(status: IStatusViewData) {
         val actionableStatus = status.actionable
         val mentionedUsernames = actionableStatus.mentions.map { it.username }
             .toMutableSet()
@@ -244,7 +245,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
         startActivityWithDefaultTransition(intent)
     }
 
-    private fun more(statusViewData: StatusViewData, view: View) {
+    private fun more(statusViewData: IStatusViewData, view: View) {
         val id = statusViewData.actionableId
         val status = statusViewData.actionable
         val accountId = status.account.id
@@ -443,7 +444,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
     }
 
     // TODO: Identical to the same function in SFragment.kt
-    private fun showConfirmDeleteDialog(statusViewData: StatusViewData) {
+    private fun showConfirmDeleteDialog(statusViewData: IStatusViewData) {
         context?.let {
             AlertDialog.Builder(it)
                 .setMessage(R.string.dialog_delete_post_warning)
@@ -457,7 +458,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewData>(), StatusActionLis
     }
 
     // TODO: Identical to the same function in SFragment.kt
-    private fun showConfirmEditDialog(pachliAccountId: Long, statusViewData: StatusViewData) {
+    private fun showConfirmEditDialog(pachliAccountId: Long, statusViewData: IStatusViewData) {
         activity?.let {
             AlertDialog.Builder(it)
                 .setMessage(R.string.dialog_redraft_post_warning)

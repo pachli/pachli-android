@@ -62,7 +62,7 @@ sealed interface NotificationViewData {
      *
      * @property statusViewDataQ [StatusViewData] for the referenced [Status].
      */
-    sealed interface WithStatus : NotificationViewData, IStatusViewDataQ, IStatusViewData {
+    sealed interface WithStatus : NotificationViewData, IStatusViewDataQ {
         val statusViewDataQ: StatusViewDataQ
 
         /**

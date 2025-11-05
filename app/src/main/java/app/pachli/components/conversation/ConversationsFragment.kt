@@ -124,7 +124,7 @@ internal sealed interface ConversationAction : UiAction {
 
 @AndroidEntryPoint
 class ConversationsFragment :
-    SFragment<ConversationViewData>(),
+    SFragment<ConversationViewData, ConversationViewData>(),
     OnRefreshListener,
     StatusActionListener<ConversationViewData>,
     ReselectableFragment,

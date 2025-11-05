@@ -17,6 +17,7 @@
 
 package app.pachli.adapter
 
+import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusViewDataQ
 import app.pachli.core.ui.SetStatusContent
@@ -28,11 +29,11 @@ class StatusDetailedViewHolder(
     binding: ItemStatusDetailedBinding,
     glide: RequestManager,
     setStatusContent: SetStatusContent,
-) : StatusBaseViewHolder<StatusViewDataQ>(binding.root, glide, setStatusContent) {
+) : StatusBaseViewHolder<StatusViewDataQ, IStatusViewData>(binding.root, glide, setStatusContent) {
 
     override fun setupWithStatus(
         viewData: StatusViewDataQ,
-        listener: StatusActionListener<StatusViewDataQ>,
+        listener: StatusActionListener<IStatusViewData>,
         statusDisplayOptions: StatusDisplayOptions,
         payloads: List<List<Any?>>?,
     ) {
@@ -41,9 +42,7 @@ class StatusDetailedViewHolder(
         super.setupWithStatus(
             viewData,
             listener,
-            statusDisplayOptions.copy(
-                showStatsInline = false,
-            ),
+            statusDisplayOptions.copy(showStatsInline = false),
             payloads,
         )
     }

@@ -175,27 +175,27 @@ sealed interface UiSuccess {
 sealed interface StatusAction : UiAction
 
 sealed interface InfallibleStatusAction : InfallibleUiAction, StatusAction {
-    val statusViewData: StatusViewDataQ
+    val statusViewData: IStatusViewData
 
-    data class TranslateUndo(override val statusViewData: StatusViewDataQ) : InfallibleStatusAction
+    data class TranslateUndo(override val statusViewData: IStatusViewData) : InfallibleStatusAction
 }
 
 /** Actions the user can trigger on an individual status */
 sealed interface FallibleStatusAction : FallibleUiAction, StatusAction {
     // TODO: Include a property for the PachliAccountId the action is being performed as.
 
-    val statusViewData: StatusViewDataQ
+    val statusViewData: IStatusViewData
 
     /** Set the bookmark state for a status */
-    data class Bookmark(val state: Boolean, override val statusViewData: StatusViewDataQ) :
+    data class Bookmark(val state: Boolean, override val statusViewData: IStatusViewData) :
         FallibleStatusAction
 
     /** Set the favourite state for a status */
-    data class Favourite(val state: Boolean, override val statusViewData: StatusViewDataQ) :
+    data class Favourite(val state: Boolean, override val statusViewData: IStatusViewData) :
         FallibleStatusAction
 
     /** Set the reblog state for a status */
-    data class Reblog(val state: Boolean, override val statusViewData: StatusViewDataQ) :
+    data class Reblog(val state: Boolean, override val statusViewData: IStatusViewData) :
         FallibleStatusAction
 
     /**
@@ -208,11 +208,11 @@ sealed interface FallibleStatusAction : FallibleUiAction, StatusAction {
     data class VoteInPoll(
         val poll: Poll,
         val choices: List<Int>,
-        override val statusViewData: StatusViewDataQ,
+        override val statusViewData: IStatusViewData,
     ) : FallibleStatusAction
 
     /** Translate a status */
-    data class Translate(override val statusViewData: StatusViewDataQ) : FallibleStatusAction
+    data class Translate(override val statusViewData: IStatusViewData) : FallibleStatusAction
 }
 
 /** Changes to a status' visible state after API calls */

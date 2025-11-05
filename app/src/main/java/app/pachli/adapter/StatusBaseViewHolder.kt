@@ -33,14 +33,14 @@ import app.pachli.core.ui.StatusControlView
 import app.pachli.core.ui.StatusView
 import com.bumptech.glide.RequestManager
 
-abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
+abstract class StatusBaseViewHolder<T : L, L : IStatusViewData> protected constructor(
     itemView: View,
     protected val glide: RequestManager,
     protected val setStatusContent: SetStatusContent,
 ) : RecyclerView.ViewHolder(itemView) {
     protected val context: Context = itemView.context
 
-    private val statusView: StatusView<T> = itemView.findViewById(R.id.status_view)
+    private val statusView: StatusView<T, L> = itemView.findViewById(R.id.status_view)
 
     val content: TextView = itemView.findViewById(R.id.status_content)
 
@@ -50,7 +50,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
 
     open fun setupWithStatus(
         viewData: T,
-        listener: StatusActionListener<T>,
+        listener: StatusActionListener<L>,
         statusDisplayOptions: StatusDisplayOptions,
         payloads: List<List<Any?>>?,
     ) {

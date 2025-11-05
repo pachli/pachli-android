@@ -17,7 +17,7 @@
 package app.pachli.usecase
 
 import app.pachli.core.common.di.ApplicationScope
-import app.pachli.core.data.model.StatusViewDataQ
+import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.StatusActionError
@@ -200,7 +200,7 @@ class TimelineCases @Inject constructor(
         return mastodonApi.rejectFollowRequest(accountId)
     }
 
-    suspend fun translate(statusViewData: StatusViewDataQ): Result<TranslatedStatus, TranslatorError> {
+    suspend fun translate(statusViewData: IStatusViewData): Result<TranslatedStatus, TranslatorError> {
         statusRepository.setTranslationState(statusViewData.pachliAccountId, statusViewData.statusId, TranslationState.TRANSLATING)
         return translationService.translate(statusViewData)
             .onSuccess {
@@ -214,7 +214,7 @@ class TimelineCases @Inject constructor(
             }
     }
 
-    suspend fun translateUndo(statusViewData: StatusViewDataQ) {
+    suspend fun translateUndo(statusViewData: IStatusViewData) {
         statusRepository.setTranslationState(statusViewData.pachliAccountId, statusViewData.statusId, TranslationState.SHOW_ORIGINAL)
     }
 

@@ -19,6 +19,7 @@ package app.pachli.components.notifications
 
 import app.pachli.adapter.FilterableStatusViewHolder
 import app.pachli.adapter.StatusViewHolder
+import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.NotificationViewData.WithStatus
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.ui.SetStatusContent
@@ -36,7 +37,7 @@ internal class StatusViewHolder(
     glide: RequestManager,
     setStatusContent: SetStatusContent,
     private val statusActionListener: NotificationActionListener,
-) : NotificationsPagingAdapter.ViewHolder<WithStatus>, StatusViewHolder<WithStatus>(binding, glide, setStatusContent) {
+) : NotificationsPagingAdapter.ViewHolder<WithStatus>, StatusViewHolder<WithStatus, IStatusViewData>(binding, glide, setStatusContent) {
 
     override fun bind(
         viewData: WithStatus,
@@ -64,8 +65,8 @@ class FilterableStatusViewHolder(
     binding: ItemStatusWrapperBinding,
     glide: RequestManager,
     setStatusContent: SetStatusContent,
-    private val statusActionListener: StatusActionListener<WithStatus>,
-) : NotificationsPagingAdapter.ViewHolder<WithStatus>, FilterableStatusViewHolder<WithStatus>(binding, glide, setStatusContent) {
+    private val statusActionListener: StatusActionListener<IStatusViewData>,
+) : NotificationsPagingAdapter.ViewHolder<WithStatus>, FilterableStatusViewHolder<WithStatus, IStatusViewData>(binding, glide, setStatusContent) {
     // Note: Identical to bind() in StatusViewHolder above
     override fun bind(
         viewData: WithStatus,

@@ -33,6 +33,7 @@ import app.pachli.components.search.SearchOperator.IsSensitiveOperator
 import app.pachli.components.search.SearchOperator.LanguageOperator
 import app.pachli.components.search.SearchOperator.WhereOperator
 import app.pachli.components.search.adapter.SearchPagingSourceFactory
+import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.Loadable
@@ -270,7 +271,7 @@ class SearchViewModel @Inject constructor(
         hashtagsPagingSourceFactory.newSearch(currentQuery)
     }
 
-    fun removeItem(statusViewData: StatusViewData) {
+    fun removeItem(statusViewData: IStatusViewData) {
         viewModelScope.launch {
             timelineCases.delete(statusViewData.statusId)
                 .onSuccess {
@@ -281,11 +282,11 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    fun expandedChange(statusViewData: StatusViewData, expanded: Boolean) {
-        updateStatusViewData(statusViewData.copy(isExpanded = expanded))
+    fun expandedChange(statusViewData: IStatusViewData, expanded: Boolean) {
+        updateStatusViewData(statusViewData) { it.copy(isExpanded = expanded) }
     }
 
-    fun reblog(statusViewData: StatusViewData, reblog: Boolean) {
+    fun reblog(statusViewData: IStatusViewData, reblog: Boolean) {
         viewModelScope.launch {
             updateStatus(
                 statusViewData.status.copy(
@@ -301,11 +302,11 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    fun collapsedChange(statusViewData: StatusViewData, collapsed: Boolean) {
-        updateStatusViewData(statusViewData.copy(isCollapsed = collapsed))
+    fun collapsedChange(statusViewData: IStatusViewData, collapsed: Boolean) {
+        updateStatusViewData(statusViewData) { it.copy(isCollapsed = collapsed) }
     }
 
-    fun voteInPoll(statusViewData: StatusViewData, poll: Poll, choices: List<Int>) {
+    fun voteInPoll(statusViewData: IStatusViewData, poll: Poll, choices: List<Int>) {
         val votedPoll = poll.votedCopy(choices)
         updateStatus(statusViewData.status.copy(poll = votedPoll))
         viewModelScope.launch {
@@ -317,14 +318,14 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    fun attachmentDisplayActionChange(statusViewData: StatusViewData, attachmentDisplayAction: AttachmentDisplayAction) {
-        updateStatusViewData(statusViewData.copy(attachmentDisplayAction = attachmentDisplayAction))
+    fun attachmentDisplayActionChange(statusViewData: IStatusViewData, attachmentDisplayAction: AttachmentDisplayAction) {
+        updateStatusViewData(statusViewData) { it.copy(attachmentDisplayAction = attachmentDisplayAction) }
         viewModelScope.launch {
             statusRepository.setAttachmentDisplayAction(statusViewData.pachliAccountId, statusViewData.statusId, attachmentDisplayAction)
         }
     }
 
-    fun favorite(statusViewData: StatusViewData, isFavorited: Boolean) {
+    fun favorite(statusViewData: IStatusViewData, isFavorited: Boolean) {
         updateStatus(statusViewData.status.copy(favourited = isFavorited))
         viewModelScope.launch {
             statusRepository.favourite(statusViewData.pachliAccountId, statusViewData.statusId, isFavorited)
@@ -332,7 +333,7 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    fun bookmark(statusViewData: StatusViewData, isBookmarked: Boolean) {
+    fun bookmark(statusViewData: IStatusViewData, isBookmarked: Boolean) {
         updateStatus(statusViewData.status.copy(bookmarked = isBookmarked))
         viewModelScope.launch {
             statusRepository.bookmark(statusViewData.pachliAccountId, statusViewData.statusId, isBookmarked)
@@ -346,7 +347,7 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    fun pinStatus(statusViewData: StatusViewData, isPin: Boolean) {
+    fun pinStatus(statusViewData: IStatusViewData, isPin: Boolean) {
         viewModelScope.launch {
             statusRepository.pin(statusViewData.pachliAccountId, statusViewData.statusId, isPin)
         }
@@ -364,7 +365,7 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    fun muteConversation(statusViewData: StatusViewData, mute: Boolean) {
+    fun muteConversation(statusViewData: IStatusViewData, mute: Boolean) {
         updateStatus(statusViewData.status.copy(muted = mute))
         viewModelScope.launch {
             timelineCases.muteConversation(activeAccount!!.id, statusViewData.statusId, mute)
@@ -386,10 +387,10 @@ class SearchViewModel @Inject constructor(
             )
     }
 
-    private fun updateStatusViewData(newStatusViewData: StatusViewData) {
-        val idx = loadedStatuses.indexOfFirst { it.statusId == newStatusViewData.statusId }
+    private fun updateStatusViewData(oldStatusViewData: IStatusViewData, updater: (StatusViewData) -> StatusViewData) {
+        val idx = loadedStatuses.indexOfFirst { it.statusId == oldStatusViewData.statusId }
         if (idx >= 0) {
-            loadedStatuses[idx] = newStatusViewData
+            loadedStatuses[idx] = updater(loadedStatuses[idx])
             statusesPagingSourceFactory.invalidate()
         }
     }
@@ -397,7 +398,7 @@ class SearchViewModel @Inject constructor(
     private fun updateStatus(newStatus: Status) {
         val statusViewData = loadedStatuses.find { it.statusId == newStatus.statusId }
         if (statusViewData != null) {
-            updateStatusViewData(statusViewData.copy(status = newStatus))
+            updateStatusViewData(statusViewData) { it.copy(status = newStatus) }
         }
     }
 

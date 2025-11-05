@@ -33,7 +33,7 @@ class ConversationViewHolder internal constructor(
     glide: RequestManager,
     setStatusContent: SetStatusContent,
     private val listener: StatusActionListener<ConversationViewData>,
-) : ConversationAdapter.ViewHolder, StatusBaseViewHolder<ConversationViewData>(binding.root, glide, setStatusContent) {
+) : ConversationAdapter.ViewHolder, StatusBaseViewHolder<ConversationViewData, ConversationViewData>(binding.root, glide, setStatusContent) {
 
     override fun bind(viewData: ConversationViewData, payloads: List<List<Any?>>?, statusDisplayOptions: StatusDisplayOptions) {
         if (payloads.isNullOrEmpty()) {

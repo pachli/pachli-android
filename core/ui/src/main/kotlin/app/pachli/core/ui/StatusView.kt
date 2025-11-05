@@ -79,7 +79,7 @@ private val TIME_FORMATTER = AbsoluteTimeFormatter()
  *
  * @param T The specific type of data this view will be showing.
  */
-abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
+abstract class StatusView<T : L, L : IStatusViewData> @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
@@ -190,7 +190,7 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
         glide: RequestManager,
         viewData: T,
         statusDisplayOptions: StatusDisplayOptions,
-        listener: StatusActionListener<T>,
+        listener: StatusActionListener<L>,
     ) {
         val spoilerText = when (viewData.translationState) {
             TranslationState.SHOW_ORIGINAL -> viewData.actionable.spoilerText
@@ -255,7 +255,7 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
         sensitive: Boolean,
         expanded: Boolean,
         statusDisplayOptions: StatusDisplayOptions,
-        listener: StatusActionListener<T>,
+        listener: StatusActionListener<L>,
     ) {
         contentWarningDescription.invalidate()
         listener.onExpandedChange(viewData, expanded)
@@ -277,7 +277,7 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
         sensitive: Boolean,
         viewData: T,
         statusDisplayOptions: StatusDisplayOptions,
-        listener: StatusActionListener<T>,
+        listener: StatusActionListener<L>,
     ) {
         val emojis = viewData.actionable.emojis
         val mentions = viewData.actionable.mentions
@@ -393,7 +393,7 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
     open fun setMetaData(
         viewData: T,
         statusDisplayOptions: StatusDisplayOptions,
-        listener: StatusActionListener<T>,
+        listener: StatusActionListener<L>,
     ) {
         val createdAt = viewData.actionable.createdAt
         val editedAt = viewData.actionable.editedAt
@@ -473,7 +473,7 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
         glide: RequestManager,
         viewData: T,
         mediaPreviewEnabled: Boolean,
-        listener: StatusActionListener<T>,
+        listener: StatusActionListener<L>,
         useBlurhash: Boolean,
     ) {
         // Get the attachments -- this might be the translated version (with any
@@ -507,7 +507,7 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
 
     fun setupButtons(
         viewData: T,
-        listener: StatusActionListener<T>,
+        listener: StatusActionListener<L>,
         accountId: String,
     ) {
         val profileButtonClickListener = View.OnClickListener { listener.onViewAccount(accountId) }
@@ -529,7 +529,7 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
     private fun setupCollapsedState(
         viewData: T,
         sensitive: Boolean,
-        listener: StatusActionListener<T>,
+        listener: StatusActionListener<L>,
     ) {
         val buttonToggleContent = buttonToggleContent ?: return
 
@@ -556,7 +556,7 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
         setStatusContent: SetStatusContent,
         glide: RequestManager,
         viewData: T,
-        listener: StatusActionListener<T>,
+        listener: StatusActionListener<L>,
         statusDisplayOptions: StatusDisplayOptions,
     ) {
         val actionable = viewData.actionable
@@ -716,7 +716,7 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
         expanded: Boolean,
         cardViewMode: CardViewMode,
         statusDisplayOptions: StatusDisplayOptions,
-        listener: StatusActionListener<T>,
+        listener: StatusActionListener<L>,
     ) {
         val sensitive = viewData.actionable.sensitive
         val attachments = viewData.actionable.attachments

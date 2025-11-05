@@ -55,6 +55,7 @@ import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.NotificationViewData
 import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.IStatus
@@ -101,7 +102,7 @@ import postPrepend
 
 @AndroidEntryPoint
 class NotificationsFragment :
-    SFragment<NotificationViewData.WithStatus>(),
+    SFragment<NotificationViewData.WithStatus, IStatusViewData>(),
     NotificationActionListener,
     AccountActionListener,
     OnRefreshListener,
@@ -490,43 +491,43 @@ class NotificationsFragment :
         clearNotificationsForAccount(requireContext(), pachliAccountId)
     }
 
-    override fun onReply(viewData: NotificationViewData.WithStatus) {
-        super.reply(viewData.pachliAccountId, viewData.statusViewDataQ.actionable)
+    override fun onReply(viewData: IStatusViewData) {
+        super.reply(viewData.pachliAccountId, viewData.actionable)
     }
 
-    override fun onReblog(viewData: NotificationViewData.WithStatus, reblog: Boolean) {
-        viewModel.accept(FallibleStatusAction.Reblog(reblog, viewData.statusViewDataQ))
+    override fun onReblog(viewData: IStatusViewData, reblog: Boolean) {
+        viewModel.accept(FallibleStatusAction.Reblog(reblog, viewData))
     }
 
-    override fun onFavourite(viewData: NotificationViewData.WithStatus, favourite: Boolean) {
-        viewModel.accept(FallibleStatusAction.Favourite(favourite, viewData.statusViewDataQ))
+    override fun onFavourite(viewData: IStatusViewData, favourite: Boolean) {
+        viewModel.accept(FallibleStatusAction.Favourite(favourite, viewData))
     }
 
-    override fun onBookmark(viewData: NotificationViewData.WithStatus, bookmark: Boolean) {
-        viewModel.accept(FallibleStatusAction.Bookmark(bookmark, viewData.statusViewDataQ))
+    override fun onBookmark(viewData: IStatusViewData, bookmark: Boolean) {
+        viewModel.accept(FallibleStatusAction.Bookmark(bookmark, viewData))
     }
 
-    override fun onVoteInPoll(viewData: NotificationViewData.WithStatus, poll: Poll, choices: List<Int>) {
-        viewModel.accept(FallibleStatusAction.VoteInPoll(poll, choices, viewData.statusViewDataQ))
+    override fun onVoteInPoll(viewData: IStatusViewData, poll: Poll, choices: List<Int>) {
+        viewModel.accept(FallibleStatusAction.VoteInPoll(poll, choices, viewData))
     }
 
-    override fun onMore(view: View, viewData: NotificationViewData.WithStatus) {
+    override fun onMore(view: View, viewData: IStatusViewData) {
         super.more(view, viewData)
     }
 
-    override fun onTranslate(viewData: NotificationViewData.WithStatus) {
-        viewModel.accept(FallibleStatusAction.Translate(viewData.statusViewDataQ))
+    override fun onTranslate(viewData: IStatusViewData) {
+        viewModel.accept(FallibleStatusAction.Translate(viewData))
     }
 
-    override fun onTranslateUndo(viewData: NotificationViewData.WithStatus) {
-        viewModel.accept(InfallibleStatusAction.TranslateUndo(viewData.statusViewDataQ))
+    override fun onTranslateUndo(viewData: IStatusViewData) {
+        viewModel.accept(InfallibleStatusAction.TranslateUndo(viewData))
     }
 
-    override fun onViewAttachment(view: View?, viewData: NotificationViewData.WithStatus, attachmentIndex: Int) {
+    override fun onViewAttachment(view: View?, viewData: IStatusViewData, attachmentIndex: Int) {
         super.viewMedia(
-            viewData.statusViewDataQ.status.account.username,
+            viewData.status.account.username,
             attachmentIndex,
-            list(viewData.statusViewDataQ.status, viewModel.statusDisplayOptions.value.showSensitiveMedia),
+            list(viewData.status, viewModel.statusDisplayOptions.value.showSensitiveMedia),
             view,
         )
     }
@@ -539,31 +540,31 @@ class NotificationsFragment :
         onViewAccount(status.account.id)
     }
 
-    override fun onExpandedChange(viewData: NotificationViewData.WithStatus, expanded: Boolean) {
+    override fun onExpandedChange(viewData: IStatusViewData, expanded: Boolean) {
         viewModel.accept(
             InfallibleUiAction.SetExpanded(
                 viewData.pachliAccountId,
-                viewData.statusViewDataQ,
+                viewData,
                 expanded,
             ),
         )
     }
 
-    override fun onAttachmentDisplayActionChange(viewData: NotificationViewData.WithStatus, newAction: AttachmentDisplayAction) {
+    override fun onAttachmentDisplayActionChange(viewData: IStatusViewData, newAction: AttachmentDisplayAction) {
         viewModel.accept(
             InfallibleUiAction.SetAttachmentDisplayAction(
                 viewData.pachliAccountId,
-                viewData.statusViewDataQ,
+                viewData,
                 newAction,
             ),
         )
     }
 
-    override fun onContentCollapsedChange(viewData: NotificationViewData.WithStatus, isCollapsed: Boolean) {
+    override fun onContentCollapsedChange(viewData: IStatusViewData, isCollapsed: Boolean) {
         viewModel.accept(
             InfallibleUiAction.SetContentCollapsed(
                 viewData.pachliAccountId,
-                viewData.statusViewDataQ,
+                viewData,
                 isCollapsed,
             ),
         )
@@ -580,7 +581,7 @@ class NotificationsFragment :
         onContentCollapsedChange(viewData, isCollapsed)
     }
 
-    override fun clearContentFilter(viewData: NotificationViewData.WithStatus) {
+    override fun clearContentFilter(viewData: IStatusViewData) {
         viewModel.accept(InfallibleUiAction.ClearContentFilter(viewData.pachliAccountId, viewData.statusId))
     }
 
@@ -641,7 +642,7 @@ class NotificationsFragment :
     }
 
     // Empty -- this fragment doesn't remove items
-    override fun removeItem(viewData: NotificationViewData.WithStatus) = Unit
+    override fun removeItem(viewData: IStatusViewData) = Unit
 
     override fun onReselect() {
         if (isAdded) {

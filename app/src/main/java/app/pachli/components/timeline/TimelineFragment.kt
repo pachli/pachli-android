@@ -63,6 +63,7 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
+import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusViewDataQ
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.model.AttachmentDisplayAction
@@ -78,7 +79,6 @@ import app.pachli.core.ui.ActionButtonScrollListener
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.core.ui.SetMarkdownContent
 import app.pachli.core.ui.SetMastodonHtmlContent
-import app.pachli.core.ui.StatusActionListener
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.databinding.FragmentTimelineBinding
 import app.pachli.fragment.SFragment
@@ -114,9 +114,8 @@ import timber.log.Timber
 
 @AndroidEntryPoint
 class TimelineFragment :
-    SFragment<StatusViewDataQ>(),
+    SFragment<StatusViewDataQ, IStatusViewData>(),
     OnRefreshListener,
-    StatusActionListener<StatusViewDataQ>,
     ReselectableFragment,
     RefreshableFragment,
     MenuProvider {
@@ -589,27 +588,27 @@ class TimelineFragment :
         adapter.refresh()
     }
 
-    override fun onReply(viewData: StatusViewDataQ) {
+    override fun onReply(viewData: IStatusViewData) {
         super.reply(viewData.pachliAccountId, viewData.actionable)
     }
 
-    override fun onReblog(viewData: StatusViewDataQ, reblog: Boolean) {
+    override fun onReblog(viewData: IStatusViewData, reblog: Boolean) {
         viewModel.accept(FallibleStatusAction.Reblog(reblog, viewData))
     }
 
-    override fun onFavourite(viewData: StatusViewDataQ, favourite: Boolean) {
+    override fun onFavourite(viewData: IStatusViewData, favourite: Boolean) {
         viewModel.accept(FallibleStatusAction.Favourite(favourite, viewData))
     }
 
-    override fun onBookmark(viewData: StatusViewDataQ, bookmark: Boolean) {
+    override fun onBookmark(viewData: IStatusViewData, bookmark: Boolean) {
         viewModel.accept(FallibleStatusAction.Bookmark(bookmark, viewData))
     }
 
-    override fun onVoteInPoll(viewData: StatusViewDataQ, poll: Poll, choices: List<Int>) {
+    override fun onVoteInPoll(viewData: IStatusViewData, poll: Poll, choices: List<Int>) {
         viewModel.accept(FallibleStatusAction.VoteInPoll(poll, choices, viewData))
     }
 
-    override fun clearContentFilter(viewData: StatusViewDataQ) {
+    override fun clearContentFilter(viewData: IStatusViewData) {
         viewModel.clearWarning(viewData)
     }
 
@@ -620,7 +619,7 @@ class TimelineFragment :
         )
     }
 
-    override fun onMore(view: View, viewData: StatusViewDataQ) {
+    override fun onMore(view: View, viewData: IStatusViewData) {
         super.more(view, viewData)
     }
 
@@ -628,11 +627,11 @@ class TimelineFragment :
         super.openReblog(status)
     }
 
-    override fun onExpandedChange(viewData: StatusViewDataQ, expanded: Boolean) {
+    override fun onExpandedChange(viewData: IStatusViewData, expanded: Boolean) {
         viewModel.onChangeExpanded(expanded, viewData)
     }
 
-    override fun onAttachmentDisplayActionChange(viewData: StatusViewDataQ, newAction: AttachmentDisplayAction) {
+    override fun onAttachmentDisplayActionChange(viewData: IStatusViewData, newAction: AttachmentDisplayAction) {
         viewModel.onChangeAttachmentDisplayAction(viewData, newAction)
     }
 
@@ -646,19 +645,19 @@ class TimelineFragment :
         startActivityWithDefaultTransition(intent)
     }
 
-    override fun onContentCollapsedChange(viewData: StatusViewDataQ, isCollapsed: Boolean) {
+    override fun onContentCollapsedChange(viewData: IStatusViewData, isCollapsed: Boolean) {
         viewModel.onContentCollapsed(isCollapsed, viewData)
     }
 
-    override fun onTranslate(viewData: StatusViewDataQ) {
+    override fun onTranslate(viewData: IStatusViewData) {
         viewModel.accept(FallibleStatusAction.Translate(viewData))
     }
 
-    override fun onTranslateUndo(viewData: StatusViewDataQ) {
+    override fun onTranslateUndo(viewData: IStatusViewData) {
         viewModel.accept(InfallibleStatusAction.TranslateUndo(viewData))
     }
 
-    override fun onViewAttachment(view: View?, viewData: StatusViewDataQ, attachmentIndex: Int) {
+    override fun onViewAttachment(view: View?, viewData: IStatusViewData, attachmentIndex: Int) {
         // Pass the translated media descriptions through (if appropriate)
         val actionable = if (viewData.translationState == TranslationState.SHOW_TRANSLATION) {
             viewData.actionable.copy(
@@ -725,7 +724,7 @@ class TimelineFragment :
         }
     }
 
-    public override fun removeItem(viewData: StatusViewDataQ) {
+    public override fun removeItem(viewData: IStatusViewData) {
         viewModel.removeStatusWithId(viewData.statusId)
     }
 

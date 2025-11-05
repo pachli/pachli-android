@@ -29,6 +29,7 @@ import android.view.LayoutInflater
 import androidx.core.view.isGone
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
+import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.model.StatusViewDataQ
@@ -62,7 +63,7 @@ class DetailedStatusView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
     defStyleRes: Int = 0,
-) : StatusView<StatusViewDataQ>(context, attrs, defStyleAttr, defStyleRes) {
+) : StatusView<StatusViewDataQ, IStatusViewData>(context, attrs, defStyleAttr, defStyleRes) {
     val binding = StatusContentDetailedBinding.inflate(LayoutInflater.from(context), this)
 
     override val avatar = binding.statusAvatar
@@ -84,7 +85,7 @@ class DetailedStatusView @JvmOverloads constructor(
         setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null)
     }
 
-    override fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: StatusViewDataQ, listener: StatusActionListener<StatusViewDataQ>, statusDisplayOptions: StatusDisplayOptions) {
+    override fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: StatusViewDataQ, listener: StatusActionListener<IStatusViewData>, statusDisplayOptions: StatusDisplayOptions) {
         // We never collapse statuses in the detail view
         val uncollapsedViewdata = if (viewData.isCollapsible && viewData.isCollapsed) {
             viewData.copy(
@@ -105,7 +106,7 @@ class DetailedStatusView @JvmOverloads constructor(
 
     private fun setReblogAndFavCount(
         viewData: StatusViewDataQ,
-        listener: StatusActionListener<StatusViewDataQ>,
+        listener: StatusActionListener<IStatusViewData>,
     ) {
         val reblogCount = viewData.actionable.reblogsCount
         val favCount = viewData.actionable.favouritesCount
@@ -141,7 +142,7 @@ class DetailedStatusView @JvmOverloads constructor(
         binding.statusInfoDivider.hide()
     }
 
-    override fun setMetaData(viewData: StatusViewDataQ, statusDisplayOptions: StatusDisplayOptions, listener: StatusActionListener<StatusViewDataQ>) {
+    override fun setMetaData(viewData: StatusViewDataQ, statusDisplayOptions: StatusDisplayOptions, listener: StatusActionListener<IStatusViewData>) {
         val createdAt = viewData.actionable.createdAt
         val editedAt = viewData.actionable.editedAt
         val visibility = viewData.actionable.visibility
@@ -186,7 +187,7 @@ class DetailedStatusView @JvmOverloads constructor(
     }
 
     // Always show the card for detailed statuses.
-    override fun setupCard(glide: RequestManager, viewData: StatusViewDataQ, expanded: Boolean, cardViewMode: CardViewMode, statusDisplayOptions: StatusDisplayOptions, listener: StatusActionListener<StatusViewDataQ>) {
+    override fun setupCard(glide: RequestManager, viewData: StatusViewDataQ, expanded: Boolean, cardViewMode: CardViewMode, statusDisplayOptions: StatusDisplayOptions, listener: StatusActionListener<IStatusViewData>) {
         super.setupCard(glide, viewData, viewData.isExpanded, CardViewMode.FULL_WIDTH, statusDisplayOptions, listener)
     }
 

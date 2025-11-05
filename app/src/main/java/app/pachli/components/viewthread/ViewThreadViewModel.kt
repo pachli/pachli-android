@@ -402,7 +402,7 @@ class ViewThreadViewModel @Inject constructor(
         }
     }
 
-    fun reblog(reblog: Boolean, status: StatusViewDataQ) = viewModelScope.launch {
+    fun reblog(reblog: Boolean, status: IStatusViewData) = viewModelScope.launch {
         updateStatus(status.statusId) {
             it.copy(
                 reblogged = reblog,
@@ -419,7 +419,7 @@ class ViewThreadViewModel @Inject constructor(
         }
     }
 
-    fun favorite(favorite: Boolean, status: StatusViewDataQ) = viewModelScope.launch {
+    fun favorite(favorite: Boolean, status: IStatusViewData) = viewModelScope.launch {
         updateStatus(status.statusId) {
             it.copy(
                 favourited = favorite,
@@ -432,7 +432,7 @@ class ViewThreadViewModel @Inject constructor(
         }
     }
 
-    fun bookmark(bookmark: Boolean, status: StatusViewDataQ) = viewModelScope.launch {
+    fun bookmark(bookmark: Boolean, status: IStatusViewData) = viewModelScope.launch {
         updateStatus(status.statusId) { it.copy(bookmarked = bookmark) }
         repository.bookmark(status.pachliAccountId, status.actionableId, bookmark).onFailure {
             updateStatus(status.statusId) { it }
@@ -440,7 +440,7 @@ class ViewThreadViewModel @Inject constructor(
         }
     }
 
-    fun voteInPoll(poll: Poll, choices: List<Int>, status: StatusViewDataQ): Job = viewModelScope.launch {
+    fun voteInPoll(poll: Poll, choices: List<Int>, status: IStatusViewData): Job = viewModelScope.launch {
         val votedPoll = poll.votedCopy(choices)
         updateStatus(status.statusId) { status ->
             status.copy(poll = votedPoll)
@@ -453,7 +453,7 @@ class ViewThreadViewModel @Inject constructor(
             }
     }
 
-    fun removeStatus(statusToRemove: StatusViewDataQ) {
+    fun removeStatus(statusToRemove: IStatusViewData) {
         updateSuccess { uiState ->
             uiState.copy(
                 statusViewData = uiState.statusViewData.filterNot { status -> status == statusToRemove },
@@ -461,7 +461,7 @@ class ViewThreadViewModel @Inject constructor(
         }
     }
 
-    fun changeExpanded(expanded: Boolean, status: StatusViewDataQ) {
+    fun changeExpanded(expanded: Boolean, status: IStatusViewData) {
         updateSuccess { uiState ->
             val statuses = uiState.statusViewData.map { viewData ->
                 if (viewData.statusId == status.statusId) {
@@ -484,7 +484,7 @@ class ViewThreadViewModel @Inject constructor(
         }
     }
 
-    fun changeAttachmentDisplayAction(statusViewData: StatusViewDataQ, attachmentDisplayAction: AttachmentDisplayAction) {
+    fun changeAttachmentDisplayAction(statusViewData: IStatusViewData, attachmentDisplayAction: AttachmentDisplayAction) {
         updateStatusViewData(statusViewData.statusId) { viewData ->
             viewData.copy(attachmentDisplayAction = attachmentDisplayAction)
         }
@@ -493,7 +493,7 @@ class ViewThreadViewModel @Inject constructor(
         }
     }
 
-    fun changeContentCollapsed(isCollapsed: Boolean, status: StatusViewDataQ) {
+    fun changeContentCollapsed(isCollapsed: Boolean, status: IStatusViewData) {
         updateStatusViewData(status.statusId) { viewData ->
             viewData.copy(isCollapsed = isCollapsed)
         }
@@ -608,7 +608,7 @@ class ViewThreadViewModel @Inject constructor(
         }
     }
 
-    fun translate(statusViewData: StatusViewDataQ) {
+    fun translate(statusViewData: IStatusViewData) {
         viewModelScope.launch {
             updateStatusViewData(statusViewData.statusId) { viewData ->
                 viewData.copy(translationState = TranslationState.TRANSLATING)
@@ -630,7 +630,7 @@ class ViewThreadViewModel @Inject constructor(
         }
     }
 
-    fun translateUndo(statusViewData: StatusViewDataQ) {
+    fun translateUndo(statusViewData: IStatusViewData) {
         updateStatusViewData(statusViewData.statusId) { viewData ->
             viewData.copy(translationState = TranslationState.SHOW_ORIGINAL)
         }
@@ -756,7 +756,7 @@ class ViewThreadViewModel @Inject constructor(
         }
     }
 
-    fun clearWarning(viewData: StatusViewDataQ) {
+    fun clearWarning(viewData: IStatusViewData) {
         updateStatusViewData(viewData.statusId) {
             it.copy(contentFilterAction = FilterAction.NONE)
         }

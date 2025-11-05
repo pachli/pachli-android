@@ -43,7 +43,7 @@ import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
-import app.pachli.core.data.model.StatusViewData
+import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusViewDataQ
 import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.IStatus
@@ -81,7 +81,7 @@ import kotlinx.coroutines.launch
  */
 @AndroidEntryPoint
 class ReportStatusesFragment :
-    SFragment<StatusViewDataQ>(),
+    SFragment<StatusViewDataQ, IStatusViewData>(),
     OnRefreshListener,
     MenuProvider,
     ReportStatusActionListener {
@@ -249,7 +249,7 @@ class ReportStatusesFragment :
         return viewModel.isStatusChecked(id)
     }
 
-    override fun onViewAttachment(view: View?, viewData: StatusViewDataQ, attachmentIndex: Int) {
+    override fun onViewAttachment(view: View?, viewData: IStatusViewData, attachmentIndex: Int) {
         super.viewMedia(
             viewData.actionable.account.username,
             attachmentIndex,
@@ -262,19 +262,19 @@ class ReportStatusesFragment :
         super.viewThread(status.actionableId, status.actionableStatus.url)
     }
 
-    override fun onExpandedChange(viewData: StatusViewDataQ, expanded: Boolean) {
+    override fun onExpandedChange(viewData: IStatusViewData, expanded: Boolean) {
         viewModel.onChangeExpanded(expanded, viewData)
     }
 
-    override fun onAttachmentDisplayActionChange(viewData: StatusViewDataQ, newAction: AttachmentDisplayAction) {
+    override fun onAttachmentDisplayActionChange(viewData: IStatusViewData, newAction: AttachmentDisplayAction) {
         viewModel.onChangeAttachmentDisplayAction(viewData, newAction)
     }
 
-    override fun onContentCollapsedChange(viewData: StatusViewDataQ, isCollapsed: Boolean) {
+    override fun onContentCollapsedChange(viewData: IStatusViewData, isCollapsed: Boolean) {
         viewModel.onContentCollapsed(isCollapsed, viewData)
     }
 
-    override fun clearContentFilter(viewData: StatusViewDataQ) {
+    override fun clearContentFilter(viewData: IStatusViewData) {
         viewModel.clearWarning(viewData)
     }
 
@@ -295,16 +295,16 @@ class ReportStatusesFragment :
 
     override fun onViewUrl(url: String) = viewModel.checkClickedUrl(url)
 
-    override fun removeItem(viewData: StatusViewDataQ) = Unit
-    override fun onReply(viewData: StatusViewDataQ) = Unit
-    override fun onReblog(viewData: StatusViewDataQ, reblog: Boolean) = Unit
-    override fun onFavourite(viewData: StatusViewDataQ, favourite: Boolean) = Unit
-    override fun onBookmark(viewData: StatusViewDataQ, bookmark: Boolean) = Unit
-    override fun onMore(view: View, viewData: StatusViewDataQ) = Unit
+    override fun removeItem(viewData: IStatusViewData) = Unit
+    override fun onReply(viewData: IStatusViewData) = Unit
+    override fun onReblog(viewData: IStatusViewData, reblog: Boolean) = Unit
+    override fun onFavourite(viewData: IStatusViewData, favourite: Boolean) = Unit
+    override fun onBookmark(viewData: IStatusViewData, bookmark: Boolean) = Unit
+    override fun onMore(view: View, viewData: IStatusViewData) = Unit
     override fun onOpenReblog(status: IStatus) = Unit
-    override fun onVoteInPoll(viewData: StatusViewDataQ, poll: Poll, choices: List<Int>) = Unit
-    override fun onTranslate(viewData: StatusViewDataQ) = Unit
-    override fun onTranslateUndo(viewData: StatusViewDataQ) = Unit
+    override fun onVoteInPoll(viewData: IStatusViewData, poll: Poll, choices: List<Int>) = Unit
+    override fun onTranslate(viewData: IStatusViewData) = Unit
+    override fun onTranslateUndo(viewData: IStatusViewData) = Unit
 
     companion object {
         private const val ARG_PACHLI_ACCOUNT_ID = "app.pachli.ARG_PACHLI_ACCOUNT_ID"

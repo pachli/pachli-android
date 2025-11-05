@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.adapter.FollowRequestViewHolder
 import app.pachli.adapter.ReportNotificationViewHolder
+import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.NotificationViewData
 import app.pachli.core.data.model.NotificationViewData.FollowNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.FollowRequestNotificationViewData
@@ -117,7 +118,7 @@ enum class NotificationViewKind {
     }
 }
 
-interface NotificationActionListener : StatusActionListener<NotificationViewData.WithStatus> {
+interface NotificationActionListener : StatusActionListener<IStatusViewData> {
     fun onViewReport(reportId: String)
 
     /**

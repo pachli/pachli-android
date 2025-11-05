@@ -20,17 +20,13 @@ package app.pachli.core.ui
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
+import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.IStatusViewDataQ
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.model.StatusViewDataQ
-import app.pachli.core.model.AttachmentDisplayAction
-import app.pachli.core.model.IStatus
-import app.pachli.core.model.Poll
-import app.pachli.core.model.Status
 import app.pachli.core.ui.databinding.QuotedStatusContentBinding
 import app.pachli.core.ui.databinding.StatusContentBinding
 import com.bumptech.glide.RequestManager
@@ -42,7 +38,7 @@ class TimelineStatusView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
     defStyleRes: Int = 0,
-) : StatusView<IStatusViewDataQ>(context, attrs, defStyleAttr, defStyleRes) {
+) : StatusView<IStatusViewDataQ, IStatusViewData>(context, attrs, defStyleAttr, defStyleRes) {
     val binding = StatusContentBinding.inflate(LayoutInflater.from(context), this)
 
     override val avatar = binding.statusAvatar
@@ -64,91 +60,17 @@ class TimelineStatusView @JvmOverloads constructor(
         setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null)
     }
 
-    override fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: IStatusViewDataQ, listener: StatusActionListener<IStatusViewDataQ>, statusDisplayOptions: StatusDisplayOptions) {
+    override fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: IStatusViewDataQ, listener: StatusActionListener<IStatusViewData>, statusDisplayOptions: StatusDisplayOptions) {
         super.setupWithStatus(setStatusContent, glide, viewData, listener, statusDisplayOptions)
 
-        val quotedViewData = viewData.quotedViewData
+        val quotedViewData = (viewData as? IStatusViewDataQ)?.quotedViewData
         if (quotedViewData == null) {
             binding.statusQuote.hide()
             return
         }
 
-        binding.statusQuote.setupWithStatus(setStatusContent, glide, quotedViewData, L, statusDisplayOptions)
+        binding.statusQuote.setupWithStatus(setStatusContent, glide, quotedViewData, listener, statusDisplayOptions)
         binding.statusQuote.show()
-    }
-}
-
-object L : StatusActionListener<StatusViewData> {
-    override fun onReply(viewData: StatusViewData) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onReblog(viewData: StatusViewData, reblog: Boolean) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onFavourite(viewData: StatusViewData, favourite: Boolean) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onBookmark(viewData: StatusViewData, bookmark: Boolean) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onMore(view: View, viewData: StatusViewData) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onViewAttachment(view: View?, viewData: StatusViewData, attachmentIndex: Int) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onViewThread(status: Status) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onOpenReblog(status: IStatus) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onExpandedChange(viewData: StatusViewData, expanded: Boolean) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onAttachmentDisplayActionChange(viewData: StatusViewData, newAction: AttachmentDisplayAction) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onContentCollapsedChange(viewData: StatusViewData, isCollapsed: Boolean) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onVoteInPoll(viewData: StatusViewData, poll: Poll, choices: List<Int>) {
-        TODO("Not yet implemented")
-    }
-
-    override fun clearContentFilter(viewData: StatusViewData) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onEditFilterById(pachliAccountId: Long, filterId: String) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onViewMedia(pachliAccountId: Long, username: String, url: String) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onViewTag(tag: String) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onViewAccount(id: String) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onViewUrl(url: String) {
-        TODO("Not yet implemented")
     }
 }
 
@@ -157,7 +79,7 @@ class QuotedStatusView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
     defStyleRes: Int = 0,
-) : StatusView<StatusViewData>(context, attrs, defStyleAttr, defStyleRes) {
+) : StatusView<StatusViewData, IStatusViewData>(context, attrs, defStyleAttr, defStyleRes) {
     val binding = QuotedStatusContentBinding.inflate(LayoutInflater.from(context), this)
 
     override val avatar = binding.statusAvatar

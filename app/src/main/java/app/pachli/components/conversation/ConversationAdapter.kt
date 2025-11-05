@@ -165,7 +165,7 @@ class FilterableConversationStatusViewHolder internal constructor(
     glide: RequestManager,
     setStatusContent: SetStatusContent,
     private val listener: StatusActionListener<ConversationViewData>,
-) : ConversationAdapter.ViewHolder, FilterableStatusViewHolder<ConversationViewData>(binding, glide, setStatusContent) {
+) : ConversationAdapter.ViewHolder, FilterableStatusViewHolder<ConversationViewData, ConversationViewData>(binding, glide, setStatusContent) {
     override fun bind(viewData: ConversationViewData, payloads: List<List<Any?>>?, statusDisplayOptions: StatusDisplayOptions) {
         if (payloads.isNullOrEmpty()) {
             showStatusContent(true)
