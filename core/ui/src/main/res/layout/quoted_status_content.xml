@@ -234,7 +234,7 @@
 
     <app.pachli.core.ui.PollView
         android:id="@+id/quote_status_poll"
-        style="@style/Pachli.Widget.PollView.Quoted"
+        android:theme="@style/Pachli.Widget.PollView.Quoted"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"

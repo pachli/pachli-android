@@ -16,10 +16,8 @@
 
 package app.pachli.core.ui
 
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.view.ViewParent
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.model.Emoji
