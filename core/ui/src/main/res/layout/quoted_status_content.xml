@@ -204,7 +204,7 @@
         android:textSize="?attr/status_text_small"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="@+id/quote_guideline_body"
-        app:layout_constraintTop_toBottomOf="@+id/status_content"
+        app:layout_constraintTop_toBottomOf="@id/quote_status_content"
         tools:text="@string/post_content_show_less"
         tools:visibility="visible" />
 
@@ -234,6 +234,7 @@
 
     <app.pachli.core.ui.PollView
         android:id="@+id/quote_status_poll"
+        style="@style/Pachli.Widget.PollView.Quoted"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
