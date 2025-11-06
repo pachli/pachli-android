@@ -68,7 +68,7 @@
         android:id="@+id/quote_status_display_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
+        android:layout_marginStart="7dp"
         android:ellipsize="end"
         android:importantForAccessibility="no"
         android:maxLines="1"
