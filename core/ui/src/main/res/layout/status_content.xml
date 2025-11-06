@@ -202,6 +202,7 @@
 
     <app.pachli.core.ui.PreviewCardView
         android:id="@+id/status_card_view"
+        android:theme="?previewCardViewStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"

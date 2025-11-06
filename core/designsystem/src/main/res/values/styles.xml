@@ -253,6 +253,16 @@
         <item name="previewCardAvatarCornerRadius">@dimen/avatar_radius_36dp</item>
     </style>
 
+    <style name="Pachli.Widget.PreviewCardView.Quoted">
+        <item name="previewCardImageVerticalHeight">@dimen/card_image_vertical_height_quoted</item>
+        <item name="previewCardImageHorizontalWidth">@dimen/card_image_horizontal_width_quoted</item>
+        <item name="previewCardTitleTextSize">?status_text_small</item>
+        <item name="previewCardDescriptionTextSize">?status_text_small</item>
+        <item name="previewCardAuthorTextSize">?status_text_small</item>
+        <item name="previewCardAuthorTimelineLinkTextSize">?status_text_small</item>
+        <item name="previewCardAvatarSize">@dimen/card_byline_avatar_dimen_quoted</item>
+    </style>
+
     <!-- customize the shape of the avatars in account selection list -->
     <style name="BezelImageView">
         <item name="materialDrawerMaskDrawable">@drawable/materialdrawer_shape_small</item>
