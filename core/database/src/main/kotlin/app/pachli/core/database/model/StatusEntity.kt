@@ -255,22 +255,6 @@ fun TimelineAccount.asEntity(pachliAccountId: Long) = TimelineAccountEntity(
 
 fun Iterable<TimelineAccount>.asEntity(pachliAccountId: Long) = map { it.asEntity(pachliAccountId) }
 
-fun TimelineAccountEntity.asModel() = TimelineAccount(
-    id = serverId,
-    localUsername = localUsername,
-    username = username,
-    displayName = displayName,
-    url = url,
-    avatar = avatar,
-    note = note,
-    bot = bot,
-    emojis = emojis,
-    createdAt = createdAt,
-    limited = limited,
-    roles = roles.orEmpty(),
-    pronouns = pronouns,
-)
-
 // TimelineStatusWithQuote
 data class TSQ(
     @Embedded(prefix = "s_")
