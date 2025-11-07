@@ -185,6 +185,7 @@ class ViewThreadViewModel @Inject constructor(
                     isDetailed = true,
                     contentFilterAction = contentFilterModel?.filterActionFor(status.actionableStatus)
                         ?: FilterAction.NONE,
+                    quoteContentFilterAction = tsq.quotedStatus?.status?.let { contentFilterModel?.filterActionFor(it) },
                     translationState = TranslationState.SHOW_ORIGINAL,
                     filterContext = FilterContext.CONVERSATIONS,
                 )
@@ -200,6 +201,7 @@ class ViewThreadViewModel @Inject constructor(
                     return@launch
                 }.body.asModel()
 
+                val quote = (status.quote as? Status.Quote.FullQuote)?.status
                 StatusViewDataQ.from(
                     pachliAccountId = account.id,
                     tsq = TSQ(
@@ -210,7 +212,7 @@ class ViewThreadViewModel @Inject constructor(
                             viewData = existingViewData,
                             translatedStatus = existingTranslation,
                         ),
-                        quotedStatus = (status.quote as? Status.Quote.FullQuote)?.status?.let { q ->
+                        quotedStatus = quote?.let { q ->
                             TimelineStatusWithAccount(
                                 status = q.asEntity(account.id),
                                 account = q.account.asEntity(account.id),
@@ -225,6 +227,7 @@ class ViewThreadViewModel @Inject constructor(
                     isDetailed = true,
                     contentFilterAction = contentFilterModel?.filterActionFor(status.actionableStatus)
                         ?: FilterAction.NONE,
+                    quoteContentFilterAction = quote?.let { contentFilterModel?.filterActionFor(it) },
                     translationState = TranslationState.SHOW_ORIGINAL,
                     filterContext = FilterContext.CONVERSATIONS,
                 )
@@ -321,6 +324,7 @@ class ViewThreadViewModel @Inject constructor(
                             isExpanded = account.alwaysOpenSpoiler,
                             isDetailed = false,
                             contentFilterAction = contentFilterAction,
+                            quoteContentFilterAction = tsq.quotedStatus?.let { contentFilterModel?.filterActionFor(it.status) },
                             showSensitiveMedia = activeAccount.alwaysShowSensitiveMedia,
                             filterContext = FilterContext.CONVERSATIONS,
                         )
@@ -355,6 +359,7 @@ class ViewThreadViewModel @Inject constructor(
                             isExpanded = account.alwaysOpenSpoiler,
                             isDetailed = false,
                             contentFilterAction = contentFilterAction,
+                            quoteContentFilterAction = tsq.quotedStatus?.let { contentFilterModel?.filterActionFor(it.status) },
                             showSensitiveMedia = activeAccount.alwaysShowSensitiveMedia,
                             filterContext = FilterContext.CONVERSATIONS,
                         )

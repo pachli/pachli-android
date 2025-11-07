@@ -157,6 +157,7 @@ data class StatusViewDataQ(
             isExpanded: Boolean,
             isDetailed: Boolean = false,
             contentFilterAction: FilterAction,
+            quoteContentFilterAction: FilterAction?,
             translationState: TranslationState = TranslationState.SHOW_ORIGINAL,
             showSensitiveMedia: Boolean,
             filterContext: FilterContext?,
@@ -185,7 +186,7 @@ data class StatusViewDataQ(
                         isExpanded = status.viewData?.expanded ?: isExpanded,
                         isCollapsed = status.viewData?.contentCollapsed ?: true,
                         isDetailed = isDetailed,
-                        contentFilterAction = contentFilterAction,
+                        contentFilterAction = quoteContentFilterAction ?: FilterAction.NONE,
                         attachmentDisplayAction = status.getAttachmentDisplayAction(
                             filterContext,
                             showSensitiveMedia,

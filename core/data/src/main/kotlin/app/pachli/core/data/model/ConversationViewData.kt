@@ -66,6 +66,7 @@ data class ConversationViewData(
             showSensitiveMedia: Boolean,
             defaultIsExpanded: Boolean,
             contentFilterAction: FilterAction,
+            quoteContentFilterAction: FilterAction?,
             accountFilterDecision: AccountFilterDecision?,
         ) = ConversationViewData(
             pachliAccountId = pachliAccount.id,
@@ -79,6 +80,7 @@ data class ConversationViewData(
                 isExpanded = defaultIsExpanded,
                 isDetailed = false,
                 contentFilterAction = contentFilterAction,
+                quoteContentFilterAction = quoteContentFilterAction,
                 showSensitiveMedia = showSensitiveMedia,
                 filterContext = FilterContext.from(Timeline.Conversations),
             ),

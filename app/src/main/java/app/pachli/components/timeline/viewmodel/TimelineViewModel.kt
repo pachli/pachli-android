@@ -368,7 +368,7 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
         accountManager.getPachliAccountFlow(pachliAccountId)
     }.filterNotNull()
 
-    private var contentFilterModel: ContentFilterModel? = null
+    protected var contentFilterModel: ContentFilterModel? = null
 
     init {
         // Handle LoadPachliAcccount. Emit the received account ID to pachliAccountFlow.

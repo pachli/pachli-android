@@ -30,7 +30,6 @@ import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.data.model.ContentFilterModel
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.NotificationViewData
-import app.pachli.core.data.model.StatusViewDataQ
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.PachliAccount
@@ -645,6 +644,8 @@ class NotificationsViewModel @AssistedInject constructor(
                             notification.viewData?.contentFilterAction
                                 ?: notification.status?.timelineStatus?.let { contentFilterModel?.filterActionFor(it.status) }
                                 ?: FilterAction.NONE
+                        val quoteContentFilterAction =
+                            notification.status?.quotedStatus?.let { contentFilterModel?.filterActionFor(it.status) }
                         val isAboutSelf = notification.account.serverId == pachliAccount.entity.accountId
                         val accountFilterDecision =
                             notification.viewData?.accountFilterDecision
@@ -656,6 +657,7 @@ class NotificationsViewModel @AssistedInject constructor(
                             showSensitiveMedia = statusDisplayOptions.value.showSensitiveMedia,
                             isExpanded = statusDisplayOptions.value.openSpoiler,
                             contentFilterAction = contentFilterAction,
+                            quoteContentFilterAction = quoteContentFilterAction,
                             accountFilterDecision = accountFilterDecision,
                             isAboutSelf = isAboutSelf,
                         )

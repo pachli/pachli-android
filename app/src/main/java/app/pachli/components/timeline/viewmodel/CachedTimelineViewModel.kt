@@ -80,6 +80,7 @@ class CachedTimelineViewModel @AssistedInject constructor(
                         tsq,
                         isExpanded = pachliAccount.entity.alwaysOpenSpoiler,
                         contentFilterAction = contentFilterAction,
+                        quoteContentFilterAction = tsq.quotedStatus?.let { contentFilterModel?.filterActionFor(it.status) },
                         showSensitiveMedia = pachliAccount.entity.alwaysShowSensitiveMedia,
                         filterContext = filterContext,
                     )

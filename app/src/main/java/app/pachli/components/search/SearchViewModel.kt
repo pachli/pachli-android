@@ -240,6 +240,7 @@ class SearchViewModel @Inject constructor(
                 // Search results are not filtered
                 // TODO: Check this.
                 contentFilterAction = app.pachli.core.model.FilterAction.NONE,
+                quoteContentFilterAction = app.pachli.core.model.FilterAction.NONE,
                 filterContext = null,
                 showSensitiveMedia = activeAccount!!.alwaysShowSensitiveMedia,
             )

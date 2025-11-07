@@ -55,6 +55,7 @@ fun NotificationViewData.Companion.make(
     showSensitiveMedia: Boolean,
     isExpanded: Boolean,
     contentFilterAction: FilterAction,
+    quoteContentFilterAction: FilterAction?,
     accountFilterDecision: AccountFilterDecision?,
     isAboutSelf: Boolean,
 ) = when (data.notification.type) {
@@ -81,6 +82,7 @@ fun NotificationViewData.Companion.make(
                 isExpanded = isExpanded,
                 isDetailed = false,
                 contentFilterAction = contentFilterAction,
+                quoteContentFilterAction = quoteContentFilterAction,
                 showSensitiveMedia = showSensitiveMedia,
                 filterContext = FilterContext.NOTIFICATIONS,
             )
@@ -101,6 +103,7 @@ fun NotificationViewData.Companion.make(
                 isExpanded = isExpanded,
                 isDetailed = false,
                 contentFilterAction = contentFilterAction,
+                quoteContentFilterAction = quoteContentFilterAction,
                 showSensitiveMedia = showSensitiveMedia,
                 filterContext = FilterContext.NOTIFICATIONS,
             )
@@ -121,6 +124,7 @@ fun NotificationViewData.Companion.make(
                 isExpanded = isExpanded,
                 isDetailed = false,
                 contentFilterAction = contentFilterAction,
+                quoteContentFilterAction = quoteContentFilterAction,
                 showSensitiveMedia = showSensitiveMedia,
                 filterContext = FilterContext.NOTIFICATIONS,
             )
@@ -159,6 +163,7 @@ fun NotificationViewData.Companion.make(
                 isExpanded = isExpanded,
                 isDetailed = false,
                 contentFilterAction = contentFilterAction,
+                quoteContentFilterAction = quoteContentFilterAction,
                 showSensitiveMedia = showSensitiveMedia,
                 filterContext = FilterContext.NOTIFICATIONS,
             )
@@ -179,6 +184,7 @@ fun NotificationViewData.Companion.make(
                 isExpanded = isExpanded,
                 isDetailed = false,
                 contentFilterAction = contentFilterAction,
+                quoteContentFilterAction = quoteContentFilterAction,
                 showSensitiveMedia = showSensitiveMedia,
                 filterContext = FilterContext.NOTIFICATIONS,
             )
@@ -208,6 +214,7 @@ fun NotificationViewData.Companion.make(
                 isExpanded = isExpanded,
                 isDetailed = false,
                 contentFilterAction = contentFilterAction,
+                quoteContentFilterAction = quoteContentFilterAction,
                 showSensitiveMedia = showSensitiveMedia,
                 filterContext = FilterContext.NOTIFICATIONS,
             )

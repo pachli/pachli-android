@@ -97,6 +97,7 @@ class ConversationsViewModel @AssistedInject constructor(
                         // Mastodon filters don't apply to direct messages, so this
                         // is always FilterAction.NONE.
                         contentFilterAction = FilterAction.NONE,
+                        quoteContentFilterAction = FilterAction.NONE,
                         accountFilterDecision = accountFilterDecision,
                     )
                 }
