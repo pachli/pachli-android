@@ -745,10 +745,10 @@ class ViewThreadViewModel @Inject constructor(
         updateSuccess { uiState ->
             uiState.copy(
                 statusViewData = uiState.statusViewData.map { viewData ->
-                    if (viewData.statusViewData.statusId == statusId) {
-                        viewData.copy(statusViewData = updater(viewData.statusViewData))
-                    } else {
-                        viewData
+                    when {
+                        viewData.statusViewData.statusId == statusId -> viewData.copy(statusViewData = updater(viewData.statusViewData))
+                        viewData.quotedViewData?.statusId == statusId -> viewData.copy(quotedViewData = updater(viewData.quotedViewData!!))
+                        else -> viewData
                     }
                 },
             )

@@ -20,6 +20,7 @@ package app.pachli.core.ui
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import androidx.core.text.HtmlCompat
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.data.model.IStatusViewData
@@ -27,6 +28,7 @@ import app.pachli.core.data.model.IStatusViewDataQ
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.model.StatusViewDataQ
+import app.pachli.core.model.FilterAction
 import app.pachli.core.ui.databinding.QuotedStatusContentBinding
 import app.pachli.core.ui.databinding.StatusContentBinding
 import com.bumptech.glide.RequestManager
@@ -39,7 +41,7 @@ class TimelineStatusView @JvmOverloads constructor(
     defStyleAttr: Int = 0,
     defStyleRes: Int = 0,
 ) : StatusView<IStatusViewDataQ, IStatusViewData>(context, attrs, defStyleAttr, defStyleRes) {
-    val binding = StatusContentBinding.inflate(LayoutInflater.from(context), this)
+    private val binding = StatusContentBinding.inflate(LayoutInflater.from(context), this)
 
     override val avatar = binding.statusAvatar
     override val avatarInset = binding.statusAvatarInset
@@ -80,24 +82,73 @@ class QuotedStatusView @JvmOverloads constructor(
     defStyleAttr: Int = 0,
     defStyleRes: Int = 0,
 ) : StatusView<StatusViewData, IStatusViewData>(context, attrs, defStyleAttr, defStyleRes) {
-    val binding = QuotedStatusContentBinding.inflate(LayoutInflater.from(context), this)
+    private val binding = QuotedStatusContentBinding.inflate(LayoutInflater.from(context), this)
 
-    override val avatar = binding.quoteStatusAvatar
-    override val avatarInset = binding.quoteStatusAvatarInset
-    override val roleChipGroup = binding.quoteRoleChipGroup
-    override val displayName = binding.quoteStatusDisplayName
-    override val username = binding.quoteStatusUsername
-    override val metaInfo = binding.quoteStatusMetaInfo
-    override val pronouns = binding.quoteAccountPronouns
-    override val contentWarningDescription = binding.quoteStatusContentWarningDescription
-    override val contentWarningButton = binding.quoteStatusContentWarningButton
-    override val content = binding.quoteStatusContent
-    override val buttonToggleContent = binding.quoteButtonToggleContent
-    override val attachmentsView = binding.quoteAttachmentGrid
-    override val pollView = binding.quoteStatusPoll
-    override val cardView = binding.quoteStatusCardView
-    override val translationProvider = binding.quoteTranslationProvider.apply {
+    override val avatar = binding.quotedStatusContainer.quoteStatusAvatar
+    override val avatarInset = binding.quotedStatusContainer.quoteStatusAvatarInset
+    override val roleChipGroup = binding.quotedStatusContainer.quoteRoleChipGroup
+    override val displayName = binding.quotedStatusContainer.quoteStatusDisplayName
+    override val username = binding.quotedStatusContainer.quoteStatusUsername
+    override val metaInfo = binding.quotedStatusContainer.quoteStatusMetaInfo
+    override val pronouns = binding.quotedStatusContainer.quoteAccountPronouns
+    override val contentWarningDescription = binding.quotedStatusContainer.quoteStatusContentWarningDescription
+    override val contentWarningButton = binding.quotedStatusContainer.quoteStatusContentWarningButton
+    override val content = binding.quotedStatusContainer.quoteStatusContent
+    override val buttonToggleContent = binding.quotedStatusContainer.quoteButtonToggleContent
+    override val attachmentsView = binding.quotedStatusContainer.quoteAttachmentGrid
+    override val pollView = binding.quotedStatusContainer.quoteStatusPoll
+    override val cardView = binding.quotedStatusContainer.quoteStatusCardView
+    override val translationProvider = binding.quotedStatusContainer.quoteTranslationProvider.apply {
         val icon = makeIcon(context, GoogleMaterial.Icon.gmd_translate, textSize.toInt())
         setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null)
+    }
+
+    override fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: StatusViewData, listener: StatusActionListener<IStatusViewData>, statusDisplayOptions: StatusDisplayOptions) {
+        val filterResults = viewData.actionable.filtered.orEmpty().groupBy { (filter, keywordMatches, statusMatches) -> filter.filterAction }
+
+        val filterAction = viewData.contentFilterAction
+
+        when (filterAction) {
+            FilterAction.HIDE -> {
+                // TODO: Hide the quote
+                return
+            }
+
+            FilterAction.WARN -> {
+                filterResults[FilterAction.WARN]?.let { filters ->
+                    binding.quotedStatusContainer.root.hide()
+                    binding.quotedStatusFiltered.root.show()
+
+                    val label = HtmlCompat.fromHtml(
+                        context.getString(
+                            R.string.status_filter_placeholder_label_format,
+                            filters.first().filter.title,
+                        ),
+                        HtmlCompat.FROM_HTML_MODE_LEGACY,
+                    )
+
+                    binding.root.contentDescription = label
+                    binding.quotedStatusFiltered.statusFilterLabel.text = label
+
+                    binding.quotedStatusFiltered.statusFilterShowAnyway.setOnClickListener {
+                        listener.clearContentFilter(viewData)
+                    }
+
+                    binding.quotedStatusFiltered.statusFilterEditFilter.setOnClickListener {
+                        listener.onEditFilterById(viewData.pachliAccountId, filters.first().filter.id)
+                    }
+
+                    return
+                }
+            }
+
+            FilterAction.BLUR,
+            FilterAction.NONE,
+            -> {
+                binding.quotedStatusFiltered.root.hide()
+                binding.quotedStatusContainer.root.show()
+                super.setupWithStatus(setStatusContent, glide, viewData, listener, statusDisplayOptions)
+            }
+        }
     }
 }
