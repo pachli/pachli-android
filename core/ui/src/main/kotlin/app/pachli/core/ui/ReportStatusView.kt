@@ -20,7 +20,10 @@ package app.pachli.core.ui
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import app.pachli.core.common.extensions.hide
+import app.pachli.core.common.extensions.show
 import app.pachli.core.data.model.IStatusViewData
+import app.pachli.core.data.model.IStatusViewDataQ
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.model.StatusViewDataQ
@@ -68,5 +71,14 @@ class ReportStatusView @JvmOverloads constructor(
 
         // Can't vote while reporting statuses.
         binding.statusPoll.isEnabled = false
+
+        val quotedViewData = (viewData as? IStatusViewDataQ)?.quotedViewData
+        if (quotedViewData == null) {
+            binding.statusQuote.hide()
+            return
+        }
+
+        binding.statusQuote.setupWithStatus(setStatusContent, glide, quotedViewData, listener, statusDisplayOptions)
+        binding.statusQuote.show()
     }
 }
