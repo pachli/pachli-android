@@ -31,7 +31,6 @@ import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.di.TransactionProvider
-import app.pachli.core.database.model.FilterActionUpdate
 import app.pachli.core.database.model.NotificationAccountFilterDecisionUpdate
 import app.pachli.core.database.model.NotificationData
 import app.pachli.core.database.model.NotificationEntity
@@ -171,13 +170,13 @@ class NotificationsRepository @Inject constructor(
     }.await()
 
     /**
-     * Sets the [FilterAction] for [notificationId] to [FilterAction.NONE]
+     * Sets the [FilterAction] for [statusId] to [FilterAction.NONE]
      *
      * @param pachliAccountId
-     * @param notificationId Notification's server ID.
+     * @param statusId Notification's server ID.
      */
-    fun clearContentFilter(pachliAccountId: Long, notificationId: String) = externalScope.launch {
-        notificationDao.upsert(FilterActionUpdate(pachliAccountId, notificationId, FilterAction.NONE))
+    fun clearContentFilter(pachliAccountId: Long, statusId: String) = externalScope.launch {
+        statusDao.clearWarning(pachliAccountId, statusId)
     }
 
     /**

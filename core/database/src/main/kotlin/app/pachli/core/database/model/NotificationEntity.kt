@@ -80,17 +80,7 @@ data class NotificationData(
 data class NotificationViewDataEntity(
     val pachliAccountId: Long,
     val serverId: String,
-    val contentFilterAction: FilterAction? = null,
     val accountFilterDecision: AccountFilterDecision? = null,
-)
-
-/**
- * Partial entity to update [NotificationViewDataEntity.contentFilterAction].
- */
-data class FilterActionUpdate(
-    val pachliAccountId: Long,
-    val serverId: String,
-    val contentFilterAction: FilterAction?,
 )
 
 /**

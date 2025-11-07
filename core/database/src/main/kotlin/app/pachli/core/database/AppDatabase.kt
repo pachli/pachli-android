@@ -146,7 +146,7 @@ import java.util.TimeZone
         // Add pronouns to TimelineAccountEntity and AccountEntity
         AutoMigration(from = 30, to = 31),
         // Add columns to handle quotes.
-        AutoMigration(from = 31, to = 32),
+        AutoMigration(from = 31, to = 32, spec = AppDatabase.MIGRATE_31_31::class),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -309,6 +309,9 @@ abstract class AppDatabase : RoomDatabase() {
      */
     @DeleteColumn("StatusViewDataEntity", "contentShowing")
     class MIGRATE_29_30 : AutoMigrationSpec
+
+    @DeleteColumn("NotificationViewDataEntity", "contentFilterAction")
+    class MIGRATE_31_31 : AutoMigrationSpec
 }
 
 val MIGRATE_8_9 = object : Migration(8, 9) {

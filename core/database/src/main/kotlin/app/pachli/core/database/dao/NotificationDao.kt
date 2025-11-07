@@ -25,7 +25,6 @@ import androidx.room.Transaction
 import androidx.room.TypeConverters
 import androidx.room.Upsert
 import app.pachli.core.database.Converters
-import app.pachli.core.database.model.FilterActionUpdate
 import app.pachli.core.database.model.NotificationAccountFilterDecisionUpdate
 import app.pachli.core.database.model.NotificationAccountWarningEntity
 import app.pachli.core.database.model.NotificationData
@@ -242,7 +241,6 @@ SELECT
     -- NotificationViewData
     nvd.pachliAccountId AS 'nvd_pachliAccountId',
     nvd.serverId AS 'nvd_serverId',
-    nvd.contentFilterAction AS 'nvd_contentFilterAction',
     nvd.accountFilterDecision AS 'nvd_accountFilterDecision',
 
     -- NotificationReportEntity
@@ -357,9 +355,6 @@ WHERE pachliAccountId = :pachliAccountId
 
     @Upsert
     fun upsertAccountWarnings(accountWarnings: Collection<NotificationAccountWarningEntity>)
-
-    @Upsert(entity = NotificationViewDataEntity::class)
-    suspend fun upsert(filterActionUpdate: FilterActionUpdate)
 
     @Upsert(entity = NotificationViewDataEntity::class)
     suspend fun upsert(notificationAccountFilterDecisionUpdate: NotificationAccountFilterDecisionUpdate)

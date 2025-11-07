@@ -174,7 +174,7 @@ sealed interface InfallibleUiAction : UiAction {
     /** Clear the content filter. */
     data class ClearContentFilter(
         val pachliAccountId: Long,
-        val notificationId: String,
+        val statusId: String,
     ) : InfallibleUiAction
 
     /** Override the account filter and show the content. */
@@ -641,8 +641,7 @@ class NotificationsViewModel @AssistedInject constructor(
                 pagingData
                     .map { notification ->
                         val contentFilterAction =
-                            notification.viewData?.contentFilterAction
-                                ?: notification.status?.timelineStatus?.let { contentFilterModel?.filterActionFor(it.status) }
+                            notification.status?.timelineStatus?.let { contentFilterModel?.filterActionFor(it.status) }
                                 ?: FilterAction.NONE
                         val quoteContentFilterAction =
                             notification.status?.quotedStatus?.let { contentFilterModel?.filterActionFor(it.status) }
@@ -691,7 +690,7 @@ class NotificationsViewModel @AssistedInject constructor(
     }
 
     private fun onClearContentFilter(action: InfallibleUiAction.ClearContentFilter) {
-        repository.clearContentFilter(action.pachliAccountId, action.notificationId)
+        repository.clearContentFilter(action.pachliAccountId, action.statusId)
     }
 
     private fun onOverrideAccountFilter(action: InfallibleUiAction.OverrideAccountFilter) {

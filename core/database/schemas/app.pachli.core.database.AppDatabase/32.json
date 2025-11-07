@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 32,
-    "identityHash": "2b6ce74341e34e96b4e656eaf89f5ae3",
+    "identityHash": "8159040754c64fb3ba6e86b63a89deae",
     "entities": [
       {
         "tableName": "DraftEntity",
@@ -1773,7 +1773,7 @@
       },
       {
         "tableName": "NotificationViewDataEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `contentFilterAction` TEXT, `accountFilterDecision` TEXT, PRIMARY KEY(`pachliAccountId`, `serverId`), FOREIGN KEY(`pachliAccountId`) REFERENCES `AccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pachliAccountId` INTEGER NOT NULL, `serverId` TEXT NOT NULL, `accountFilterDecision` TEXT, PRIMARY KEY(`pachliAccountId`, `serverId`), FOREIGN KEY(`pachliAccountId`) REFERENCES `AccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED)",
         "fields": [
           {
             "fieldPath": "pachliAccountId",
@@ -1786,11 +1786,6 @@
             "columnName": "serverId",
             "affinity": "TEXT",
             "notNull": true
-          },
-          {
-            "fieldPath": "contentFilterAction",
-            "columnName": "contentFilterAction",
-            "affinity": "TEXT"
           },
           {
             "fieldPath": "accountFilterDecision",
@@ -2057,7 +2052,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2b6ce74341e34e96b4e656eaf89f5ae3')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8159040754c64fb3ba6e86b63a89deae')"
     ]
   }
 }
