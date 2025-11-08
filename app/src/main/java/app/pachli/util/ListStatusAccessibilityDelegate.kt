@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Checkable
+import android.widget.Toast
+import androidx.core.text.HtmlCompat
+import androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
 import androidx.core.view.AccessibilityDelegateCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat
@@ -11,9 +14,11 @@ import androidx.core.view.children
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.adapter.FilterableStatusViewHolder
+import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.core.activity.OpenUrlUseCase
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.model.AttachmentDisplayAction
+import app.pachli.core.model.AttachmentDisplayReason
 import app.pachli.core.model.Status.Companion.MAX_MEDIA_ATTACHMENTS
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.StatusActionListener
@@ -137,137 +142,151 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
             val pos = recyclerView.getChildAdapterPosition(host)
             val status = statusProvider.getStatus(pos) ?: return false
             when (action) {
-//                app.pachli.core.ui.R.id.action_reply -> {
-//                    interrupt()
-//                    statusActionListener.onReply(status)
-//                }
-//                app.pachli.core.ui.R.id.action_favourite -> statusActionListener.onFavourite(status, true)
-//                app.pachli.core.ui.R.id.action_unfavourite -> statusActionListener.onFavourite(status, false)
-//                app.pachli.core.ui.R.id.action_bookmark -> statusActionListener.onBookmark(status, true)
-//                app.pachli.core.ui.R.id.action_unbookmark -> statusActionListener.onBookmark(status, false)
-//                app.pachli.core.ui.R.id.action_reblog -> statusActionListener.onReblog(status, true)
-//                app.pachli.core.ui.R.id.action_unreblog -> statusActionListener.onReblog(status, false)
-//                app.pachli.core.ui.R.id.action_open_profile -> {
-//                    interrupt()
-//                    statusActionListener.onViewAccount(status.actionable.account.id)
-//                }
-//                app.pachli.core.ui.R.id.action_open_media_1 -> {
-//                    interrupt()
-//                    statusActionListener.onViewAttachment(null, status, 0)
-//                }
-//                app.pachli.core.ui.R.id.action_open_media_2 -> {
-//                    interrupt()
-//                    statusActionListener.onViewAttachment(null, status, 1)
-//                }
-//                app.pachli.core.ui.R.id.action_open_media_3 -> {
-//                    interrupt()
-//                    statusActionListener.onViewAttachment(null, status, 2)
-//                }
-//                app.pachli.core.ui.R.id.action_open_media_4 -> {
-//                    interrupt()
-//                    statusActionListener.onViewAttachment(null, status, 3)
-//                }
-//                app.pachli.core.ui.R.id.action_expand_cw -> {
-//                    // Toggling it directly to avoid animations
-//                    // which cannot be disabled for detailed status for some reason
-//                    val holder = recyclerView.getChildViewHolder(host) as StatusBaseViewHolder<IStatusViewData>
-//                    holder.toggleContentWarning()
-//                    // Stop and restart narrator before it reads old description.
-//                    // Would be nice if we could *just* read the content here but doesn't seem
-//                    // to be possible.
-//                    forceFocus(host)
-//                }
-//                app.pachli.core.ui.R.id.action_collapse_cw -> {
-//                    statusActionListener.onExpandedChange(status, false)
-//                    interrupt()
-//                }
-//
-//                app.pachli.core.ui.R.id.action_links -> {
-//                    val links = status.content.parseAsMastodonHtml().getLinks()
-//                    showA11yDialogWithCopyButton(
-//                        app.pachli.core.ui.R.string.title_links_dialog,
-//                        links.map { it.url },
-//                    ) { openUrl(links[it].url) }
-//                }
-//
-//                app.pachli.core.ui.R.id.action_mentions -> {
-//                    val mentions = status.actionable.mentions
-//                    showA11yDialogWithCopyButton(
-//                        app.pachli.core.ui.R.string.title_mentions_dialog,
-//                        mentions.map { "@${it.username}" },
-//                    ) { statusActionListener.onViewAccount(mentions[it].id) }
-//                }
-//
-//                app.pachli.core.ui.R.id.action_hashtags -> {
-//                    val hashtags = status.content.parseAsMastodonHtml().getHashtags()
-//                    showA11yDialogWithCopyButton(
-//                        app.pachli.core.ui.R.string.title_hashtags_dialog,
-//                        hashtags.map { "#$it" },
-//                    ) { statusActionListener.onViewTag(hashtags[it].toString()) }
-//                }
-//
-//                app.pachli.core.ui.R.id.action_open_reblogger -> {
-//                    interrupt()
-//                    statusActionListener.onOpenReblog(status.status)
-//                }
-//                app.pachli.core.ui.R.id.action_open_reblogged_by -> {
-//                    interrupt()
-//                    statusActionListener.onShowReblogs(status.actionableId)
-//                }
-//                app.pachli.core.ui.R.id.action_open_faved_by -> {
-//                    interrupt()
-//                    statusActionListener.onShowFavs(status.actionableId)
-//                }
-//                app.pachli.core.ui.R.id.action_open_byline_account -> {
-//                    status.actionable.card?.authors?.firstOrNull()?.account?.let {
-//                        interrupt()
-//                        statusActionListener.onViewAccount(it.id)
-//                    }
-//                }
-//                app.pachli.core.ui.R.id.action_more -> {
-//                    statusActionListener.onMore(host, status)
-//                }
-//                app.pachli.core.ui.R.id.action_show_anyway -> statusActionListener.clearContentFilter(status)
-//                app.pachli.core.ui.R.id.action_edit_filter -> {
-//                    (recyclerView.findContainingViewHolder(host) as? FilterableStatusViewHolder<*>)?.matchedFilter?.let {
-//                        statusActionListener.onEditFilterById(pachliAccountId, it.id)
-//                        return@let true
-//                    } ?: false
-//                }
-//                app.pachli.core.ui.R.id.action_show_attachments -> {
-//                    statusActionListener.onAttachmentDisplayActionChange(
-//                        status,
-//                        AttachmentDisplayAction.Show(status.attachmentDisplayAction as? AttachmentDisplayAction.Hide),
-//                    )
-//                }
-//
-//                app.pachli.core.ui.R.id.action_hide_attachments -> {
-//                    // The user clicked to hide the attachment. Either they are:
-//                    //
-//                    // a. Re-hiding an attachment that was hidden that they decided to show, or
-//                    // b. Hiding media that wasn't originally hidden.
-//                    //
-//                    // If (a) then the new decision is `Show.originalDecision`. If (b) then
-//                    // then the new decision is UserAction.
-//                    val newAction = (status.attachmentDisplayAction as? AttachmentDisplayAction.Show)?.originalAction
-//                        ?: AttachmentDisplayAction.Hide(AttachmentDisplayReason.UserAction)
-//                    statusActionListener.onAttachmentDisplayActionChange(status, newAction)
-//                }
-//
-//                app.pachli.core.ui.R.id.action_select_status -> {
-//                    (recyclerView.findContainingViewHolder(host) as? Checkable)?.isChecked = true
-//                }
-//
-//                app.pachli.core.ui.R.id.action_unselect_status -> {
-//                    (recyclerView.findContainingViewHolder(host) as? Checkable)?.isChecked = false
-//                }
-//
-//                app.pachli.core.ui.R.id.action_show_pronouns -> {
-//                    val pronouns = status.actionable.account.pronouns?.trim()
-//                    if (pronouns.isNullOrBlank()) return true
-//                    val formatted = HtmlCompat.fromHtml(pronouns, FROM_HTML_MODE_LEGACY)
-//                    Toast.makeText(context, formatted, Toast.LENGTH_LONG).show()
-//                }
+                app.pachli.core.ui.R.id.action_reply -> {
+                    interrupt()
+                    statusActionListener.onReply(status)
+                }
+
+                app.pachli.core.ui.R.id.action_favourite -> statusActionListener.onFavourite(status, true)
+                app.pachli.core.ui.R.id.action_unfavourite -> statusActionListener.onFavourite(status, false)
+                app.pachli.core.ui.R.id.action_bookmark -> statusActionListener.onBookmark(status, true)
+                app.pachli.core.ui.R.id.action_unbookmark -> statusActionListener.onBookmark(status, false)
+                app.pachli.core.ui.R.id.action_reblog -> statusActionListener.onReblog(status, true)
+                app.pachli.core.ui.R.id.action_unreblog -> statusActionListener.onReblog(status, false)
+                app.pachli.core.ui.R.id.action_open_profile -> {
+                    interrupt()
+                    statusActionListener.onViewAccount(status.actionable.account.id)
+                }
+
+                app.pachli.core.ui.R.id.action_open_media_1 -> {
+                    interrupt()
+                    statusActionListener.onViewAttachment(null, status, 0)
+                }
+
+                app.pachli.core.ui.R.id.action_open_media_2 -> {
+                    interrupt()
+                    statusActionListener.onViewAttachment(null, status, 1)
+                }
+
+                app.pachli.core.ui.R.id.action_open_media_3 -> {
+                    interrupt()
+                    statusActionListener.onViewAttachment(null, status, 2)
+                }
+
+                app.pachli.core.ui.R.id.action_open_media_4 -> {
+                    interrupt()
+                    statusActionListener.onViewAttachment(null, status, 3)
+                }
+
+                app.pachli.core.ui.R.id.action_expand_cw -> {
+                    // Toggling it directly to avoid animations
+                    // which cannot be disabled for detailed status for some reason
+                    val holder = recyclerView.getChildViewHolder(host) as StatusBaseViewHolder<IStatusViewData, IStatusViewData>
+                    holder.toggleContentWarning()
+                    // Stop and restart narrator before it reads old description.
+                    // Would be nice if we could *just* read the content here but doesn't seem
+                    // to be possible.
+                    forceFocus(host)
+                }
+
+                app.pachli.core.ui.R.id.action_collapse_cw -> {
+                    statusActionListener.onExpandedChange(status, false)
+                    interrupt()
+                }
+
+                app.pachli.core.ui.R.id.action_links -> {
+                    val links = status.content.parseAsMastodonHtml().getLinks()
+                    showA11yDialogWithCopyButton(
+                        app.pachli.core.ui.R.string.title_links_dialog,
+                        links.map { it.url },
+                    ) { openUrl(links[it].url) }
+                }
+
+                app.pachli.core.ui.R.id.action_mentions -> {
+                    val mentions = status.actionable.mentions
+                    showA11yDialogWithCopyButton(
+                        app.pachli.core.ui.R.string.title_mentions_dialog,
+                        mentions.map { "@${it.username}" },
+                    ) { statusActionListener.onViewAccount(mentions[it].id) }
+                }
+
+                app.pachli.core.ui.R.id.action_hashtags -> {
+                    val hashtags = status.content.parseAsMastodonHtml().getHashtags()
+                    showA11yDialogWithCopyButton(
+                        app.pachli.core.ui.R.string.title_hashtags_dialog,
+                        hashtags.map { "#$it" },
+                    ) { statusActionListener.onViewTag(hashtags[it].toString()) }
+                }
+
+                app.pachli.core.ui.R.id.action_open_reblogger -> {
+                    interrupt()
+                    statusActionListener.onOpenReblog(status.status)
+                }
+
+                app.pachli.core.ui.R.id.action_open_reblogged_by -> {
+                    interrupt()
+                    statusActionListener.onShowReblogs(status.actionableId)
+                }
+
+                app.pachli.core.ui.R.id.action_open_faved_by -> {
+                    interrupt()
+                    statusActionListener.onShowFavs(status.actionableId)
+                }
+
+                app.pachli.core.ui.R.id.action_open_byline_account -> {
+                    status.actionable.card?.authors?.firstOrNull()?.account?.let {
+                        interrupt()
+                        statusActionListener.onViewAccount(it.id)
+                    }
+                }
+
+                app.pachli.core.ui.R.id.action_more -> {
+                    statusActionListener.onMore(host, status)
+                }
+
+                app.pachli.core.ui.R.id.action_show_anyway -> statusActionListener.clearContentFilter(status)
+
+                app.pachli.core.ui.R.id.action_edit_filter -> {
+                    (recyclerView.findContainingViewHolder(host) as? FilterableStatusViewHolder<*, IStatusViewData>)?.matchedFilter?.let {
+                        statusActionListener.onEditFilterById(pachliAccountId, it.id)
+                        return@let true
+                    } ?: false
+                }
+
+                app.pachli.core.ui.R.id.action_show_attachments -> {
+                    statusActionListener.onAttachmentDisplayActionChange(
+                        status,
+                        AttachmentDisplayAction.Show(status.attachmentDisplayAction as? AttachmentDisplayAction.Hide),
+                    )
+                }
+
+                app.pachli.core.ui.R.id.action_hide_attachments -> {
+                    // The user clicked to hide the attachment. Either they are:
+                    //
+                    // a. Re-hiding an attachment that was hidden that they decided to show, or
+                    // b. Hiding media that wasn't originally hidden.
+                    //
+                    // If (a) then the new decision is `Show.originalDecision`. If (b) then
+                    // then the new decision is UserAction.
+                    val newAction = (status.attachmentDisplayAction as? AttachmentDisplayAction.Show)?.originalAction
+                        ?: AttachmentDisplayAction.Hide(AttachmentDisplayReason.UserAction)
+                    statusActionListener.onAttachmentDisplayActionChange(status, newAction)
+                }
+
+                app.pachli.core.ui.R.id.action_select_status -> {
+                    (recyclerView.findContainingViewHolder(host) as? Checkable)?.isChecked = true
+                }
+
+                app.pachli.core.ui.R.id.action_unselect_status -> {
+                    (recyclerView.findContainingViewHolder(host) as? Checkable)?.isChecked = false
+                }
+
+                app.pachli.core.ui.R.id.action_show_pronouns -> {
+                    val pronouns = status.actionable.account.pronouns?.trim()
+                    if (pronouns.isNullOrBlank()) return true
+                    val formatted = HtmlCompat.fromHtml(pronouns, FROM_HTML_MODE_LEGACY)
+                    Toast.makeText(context, formatted, Toast.LENGTH_LONG).show()
+                }
 
                 else -> return super.performAccessibilityAction(host, action, args)
             }
