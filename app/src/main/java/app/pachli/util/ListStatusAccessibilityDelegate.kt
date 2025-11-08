@@ -17,6 +17,7 @@ import app.pachli.adapter.FilterableStatusViewHolder
 import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.core.activity.OpenUrlUseCase
 import app.pachli.core.data.model.IStatusViewData
+import app.pachli.core.data.model.IStatusViewDataQ
 import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.AttachmentDisplayReason
 import app.pachli.core.model.Status.Companion.MAX_MEDIA_ATTACHMENTS
@@ -31,10 +32,10 @@ fun interface StatusProvider<T : IStatusViewData> {
     fun getStatus(pos: Int): T?
 }
 
-class ListStatusAccessibilityDelegate<T : IStatusViewData>(
+class ListStatusAccessibilityDelegate<T : IStatusViewDataQ>(
     private val pachliAccountId: Long,
     private val recyclerView: RecyclerView,
-    private val statusActionListener: StatusActionListener<T>,
+    private val statusActionListener: StatusActionListener<IStatusViewData>,
     private val openUrl: OpenUrlUseCase,
     private val statusProvider: StatusProvider<T>,
 ) : PachliRecyclerViewAccessibilityDelegate(recyclerView) {
@@ -129,6 +130,10 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
 
             if (!status.actionable.account.pronouns.isNullOrBlank()) {
                 info.addAction(showPronounsAction)
+            }
+
+            status.quotedViewData?.let {
+                info.addAction(openQuotedPostAction)
             }
 
             if (controlActions.contains(moreAction.id)) info.addAction(moreAction)
@@ -288,6 +293,13 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
                     Toast.makeText(context, formatted, Toast.LENGTH_LONG).show()
                 }
 
+                app.pachli.core.ui.R.id.action_open_quoted_post -> {
+                    interrupt()
+                    status.quotedViewData?.let {
+                        statusActionListener.onViewThread(it.actionable)
+                    }
+                }
+
                 else -> return super.performAccessibilityAction(host, action, args)
             }
             return true
@@ -417,5 +429,10 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
     private val showPronounsAction = AccessibilityActionCompat(
         app.pachli.core.ui.R.id.action_show_pronouns,
         context.getString(app.pachli.core.ui.R.string.action_show_pronouns),
+    )
+
+    private val openQuotedPostAction = AccessibilityActionCompat(
+        app.pachli.core.ui.R.id.action_open_quoted_post,
+        context.getString(app.pachli.core.ui.R.string.action_open_quoted_post),
     )
 }
