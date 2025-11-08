@@ -30,4 +30,5 @@
     <string name="post_content_warning_show_less">Minder sjen litte</string>
     <string name="post_content_warning_show_more">Mear sjen litte</string>
     <string name="post_content_show_less">Yntearre</string>
+    <string name="filter_edit_title">Filter oanpasse</string>
 </resources>

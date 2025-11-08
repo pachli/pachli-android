@@ -144,4 +144,7 @@
     <string name="post_replied">Atbildēts</string>
     <string name="post_continued_thread">Turpināts pavediens</string>
     <string name="post_replied_to_fmt">Atbildēja &lt;b>%1$s&lt;/b></string>
+    <string name="filter_edit_title">Labot filtru</string>
+    <string name="status_filtered_show_anyway">Vienalga parādīt</string>
+    <string name="status_filter_placeholder_label_format">Atlasīts: &lt;b>%1$s&lt;/b></string>
 </resources>

@@ -112,4 +112,7 @@
     </plurals>
     <string name="post_boosted_fmt">’Ga bhrosnachadh le &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="post_edited">Air a dheasachadh %s</string>
+    <string name="filter_edit_title">Deasaich a’ chriathrag</string>
+    <string name="status_filtered_show_anyway">Seall e co-dhiù</string>
+    <string name="status_filter_placeholder_label_format">Criathraichte: &lt;b&gt;%1$s&lt;/b&gt;</string>
 </resources>

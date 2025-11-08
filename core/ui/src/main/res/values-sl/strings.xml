@@ -95,4 +95,5 @@
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Priljubljenih</item>
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; spodbudil</string>
+    <string name="filter_edit_title">Uredi filter</string>
 </resources>

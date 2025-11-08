@@ -188,7 +188,6 @@
     <string name="pref_title_public_filter_keywords">公共时间轴</string>
     <string name="pref_title_thread_filter_keywords">对话</string>
     <string name="filter_addition_title">添加新的过滤器</string>
-    <string name="filter_edit_title">编辑过滤器</string>
     <string name="filter_dialog_remove_button">移除</string>
     <string name="filter_dialog_update_button">更新</string>
     <string name="filter_add_description">需要过滤的文字</string>
@@ -442,8 +441,6 @@
     <string name="ui_error_reject_follow_request">未能拒绝关注请求：%s</string>
     <string name="ui_success_accepted_follow_request">关注请求被接受</string>
     <string name="ui_success_rejected_follow_request">关注请求被拦截</string>
-    <string name="status_filtered_show_anyway">仍要显示</string>
-    <string name="status_filter_placeholder_label_format">已过滤：&lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="pref_title_account_filter_keywords">个人资料</string>
     <string name="hint_filter_title">我的筛选器</string>
     <string name="label_filter_title">标题</string>

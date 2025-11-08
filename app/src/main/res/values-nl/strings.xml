@@ -223,7 +223,6 @@
     <string name="pref_title_public_filter_keywords">Openbare tijdlijnen</string>
     <string name="pref_title_thread_filter_keywords">Gesprekken</string>
     <string name="filter_addition_title">Filter toevoegen</string>
-    <string name="filter_edit_title">Filter bewerken</string>
     <string name="filter_dialog_remove_button">Verwijderen</string>
     <string name="filter_dialog_update_button">Bijwerken</string>
     <string name="filter_add_description">Zinsdeel om te filteren</string>
@@ -433,8 +432,6 @@
     <string name="select_list_empty">Je hebt nog geen lijsten</string>
     <string name="select_list_manage">Lijsten beheren</string>
     <string name="pref_title_account_filter_keywords">Profielen</string>
-    <string name="status_filtered_show_anyway">Toch tonen</string>
-    <string name="status_filter_placeholder_label_format">Gefilterd: &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="hint_filter_title">Mijn filter</string>
     <string name="label_filter_action">Filteractie</string>
     <string name="filter_action_warn">Waarschuwen</string>

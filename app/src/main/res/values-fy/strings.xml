@@ -13,7 +13,6 @@
     <string name="add_account_description">Nij Mastodon Account Tafoegje</string>
     <string name="filter_dialog_update_button">Fernije</string>
     <string name="filter_dialog_remove_button">Fuortsmite</string>
-    <string name="filter_edit_title">Filter oanpasse</string>
     <string name="filter_addition_title">Filter tafoegje</string>
     <string name="pref_title_thread_filter_keywords">Petearen</string>
     <string name="title_media">Media</string>

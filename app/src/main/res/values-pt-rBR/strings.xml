@@ -223,7 +223,6 @@
     <string name="pref_title_public_filter_keywords">Linhas públicas</string>
     <string name="pref_title_thread_filter_keywords">Conversas</string>
     <string name="filter_addition_title">Criar filtro</string>
-    <string name="filter_edit_title">Editar filtro</string>
     <string name="filter_dialog_remove_button">Excluir</string>
     <string name="filter_dialog_update_button">Atualizar</string>
     <string name="filter_add_description">Frase para filtrar</string>
@@ -413,7 +412,6 @@
     <string name="title_public_trending_links">URL em alta</string>
     <string name="title_tab_public_trending_links">URL</string>
     <string name="title_public_trending_hashtags">Hashtags em alta</string>
-    <string name="status_filter_placeholder_label_format">Filtrado(s): &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="confirmation_hashtag_unfollowed">#%s deixado de seguir</string>
     <string name="ui_error_vote_fmt">Votar na enquete falhou: %1$s</string>
     <string name="update_dialog_neutral">Não me lembre desta versão</string>
@@ -480,7 +478,6 @@
     <string name="pref_title_font_family">Família da fonte</string>
     <string name="notification_update_description">Notificações quando Toots com os quais interagiu são editados</string>
     <string name="notification_listenable_worker_description">Notificações quando Pachli está trabalhando em segundo plano</string>
-    <string name="status_filtered_show_anyway">Mostrar mesmo assim</string>
     <string name="ui_error_accept_follow_request">Falha ao aceitar a solicitação de seguir: %s</string>
     <string name="ui_success_rejected_follow_request">Pedido para seguir bloqueado</string>
     <string name="notification_sign_up_format">%s se inscreveu</string>

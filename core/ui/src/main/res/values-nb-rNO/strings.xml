@@ -110,4 +110,7 @@
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; delte</string>
     <string name="post_edited">Redigert %s</string>
+    <string name="filter_edit_title">Rediger filter</string>
+    <string name="status_filtered_show_anyway">Vis allikevel</string>
+    <string name="status_filter_placeholder_label_format">Filtrert: &lt;b&gt;%1$s&lt;/b&gt;</string>
 </resources>

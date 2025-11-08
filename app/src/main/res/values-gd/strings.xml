@@ -7,7 +7,6 @@
     <string name="title_drafts">Dreachdan</string>
     <string name="title_favourites">Annsachdan</string>
     <string name="edit_poll">Deasaich</string>
-    <string name="filter_edit_title">Deasaich a’ chriathrag</string>
     <string name="pref_title_edit_notification_settings">Brathan</string>
     <string name="action_edit_own_profile">Deasaich</string>
     <string name="action_edit">Deasaich</string>
@@ -441,8 +440,6 @@
     <string name="ui_success_rejected_follow_request">Chaidh iarrtas leantainn a bhacadh</string>
     <string name="select_list_manage">Stiùirich na liostaichean</string>
     <string name="select_list_empty">Chan eil liosta agad fhathast</string>
-    <string name="status_filtered_show_anyway">Seall e co-dhiù</string>
-    <string name="status_filter_placeholder_label_format">Criathraichte: &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="pref_title_account_filter_keywords">Pròifilean</string>
     <string name="hint_filter_title">A’ chriathrag agam</string>
     <string name="filter_description_warn">Falaich le rabhadh</string>

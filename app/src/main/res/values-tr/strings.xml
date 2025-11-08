@@ -227,7 +227,6 @@
     <string name="pref_title_public_filter_keywords">Genel ağ akışı</string>
     <string name="pref_title_thread_filter_keywords">Konuşmalar</string>
     <string name="filter_addition_title">Süzgeç ekle</string>
-    <string name="filter_edit_title">Süzgeci düzenle</string>
     <string name="filter_dialog_remove_button">Kaldır</string>
     <string name="filter_dialog_update_button">Güncelle</string>
     <string name="filter_dialog_whole_word">Tüm dünya</string>
@@ -456,8 +455,6 @@
     <string name="filter_action_warn">Uyar</string>
     <string name="filter_action_hide">Gizle</string>
     <string name="filter_description_warn">Bir uyarı ile gizle</string>
-    <string name="status_filtered_show_anyway">Yine de göster</string>
-    <string name="status_filter_placeholder_label_format">Süzgeçlendi: &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="filter_edit_keyword_title">Anahtar kelimeyi düzenle</string>
     <string name="filter_description_format">%s: %s</string>
     <string name="pref_title_show_stat_inline">Gönderi istatistiklerini sğ akışında göster</string>

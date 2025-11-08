@@ -96,4 +96,7 @@
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; ha impulsat</string>
     <string name="post_edited">S\'ha editat %s</string>
+    <string name="filter_edit_title">Modificar un filtre</string>
+    <string name="status_filtered_show_anyway">Mostra de totes maneres</string>
+    <string name="status_filter_placeholder_label_format">Filtrat: &lt;b&gt;%1$s&lt;/b&gt;</string>
 </resources>

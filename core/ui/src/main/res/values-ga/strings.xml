@@ -162,4 +162,7 @@
     <string name="post_replied">D’fhreagair</string>
     <string name="post_continued_thread">Snáithe leanúnach</string>
     <string name="post_replied_to_fmt">D’fhreagair &lt;b>%1$s&lt;/b></string>
+    <string name="filter_edit_title">Cuir scagaire in eagar</string>
+    <string name="status_filtered_show_anyway">Taispeáin ar aon nós</string>
+    <string name="status_filter_placeholder_label_format">Scagtha: &lt;b&gt;%1$s&lt;/b&gt;</string>
 </resources>

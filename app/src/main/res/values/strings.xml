@@ -370,8 +370,6 @@
     -->
     <string name="post_share_content">Share content of post</string>
     <string name="post_share_link">Share link to post</string>
-    <string name="status_filtered_show_anyway">Show anyway</string>
-    <string name="status_filter_placeholder_label_format">Filtered: &lt;b>%1$s&lt;/b></string>
     <string name="state_follow_requested">Follow requested</string>
     <!--These are for timestamps on posts. For example: "16s" or "2d"-->
     <string name="follows_you">Follows you</string>
@@ -383,7 +381,6 @@
     <string name="pref_title_thread_filter_keywords">Conversations</string>
     <string name="pref_title_account_filter_keywords">Profiles</string>
     <string name="filter_addition_title">Add filter</string>
-    <string name="filter_edit_title">Edit filter</string>
     <string name="filter_dialog_remove_button">Remove</string>
     <string name="filter_dialog_update_button">Update</string>
     <string name="filter_dialog_whole_word">Whole word</string>

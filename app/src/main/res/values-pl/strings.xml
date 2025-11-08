@@ -231,7 +231,6 @@
     <string name="pref_title_public_filter_keywords">Publiczne osi czasu</string>
     <string name="pref_title_thread_filter_keywords">Rozmowy</string>
     <string name="filter_addition_title">Dodaj filtr</string>
-    <string name="filter_edit_title">Edytuj filtr</string>
     <string name="filter_dialog_remove_button">Usuń</string>
     <string name="filter_dialog_update_button">Aktualizuj</string>
     <string name="filter_dialog_whole_word">Całe słowo</string>
@@ -442,7 +441,6 @@
     <string name="filter_action_hide">Ukryj</string>
     <string name="label_filter_title">Tytuł</string>
     <string name="pref_title_font_family">Czcionka</string>
-    <string name="status_filtered_show_anyway">Pokaż mimo to</string>
     <string name="pref_title_account_filter_keywords">Profile</string>
     <string name="label_filter_action">Działanie filtra</string>
     <string name="title_tab_public_trending_hashtags">Hasztagi</string>
@@ -481,7 +479,6 @@
     <string name="pref_title_show_self_boosts_description">Podbicia własnych wpisów</string>
     <string name="action_translate_undo">Pokaż oryginał</string>
     <string name="confirmation_hashtag_unmuted">Cofnięto ukrycie #%s</string>
-    <string name="status_filter_placeholder_label_format">Zastosowano filtr: &lt;b>%1$s&lt;/b></string>
     <string name="notification_severed_relationships_user_domain_block_body">Domena zablokowana przez ciebie</string>
     <string name="notification_severed_relationships_domain_block_body">Domena zawieszona przez osobę moderującą</string>
     <string name="notification_prune_cache">Zarządzanie cache…</string>

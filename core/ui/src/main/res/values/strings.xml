@@ -163,4 +163,7 @@
     <string name="post_continued_thread">Continued thread</string>
     <string name="post_replied_to_fmt">Replied to &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="post_edited">Edited %s</string>
+    <string name="filter_edit_title">Edit filter</string>
+    <string name="status_filtered_show_anyway">Show anyway</string>
+    <string name="status_filter_placeholder_label_format">Filtered: &lt;b>%1$s&lt;/b></string>
 </resources>

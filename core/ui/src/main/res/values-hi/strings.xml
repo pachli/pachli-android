@@ -67,4 +67,5 @@
         <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; ने पसंद किया</item>
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; ने पसंद किया</item>
     </plurals>
+    <string name="filter_edit_title">फ़िल्टर संपादित करें</string>
 </resources>

@@ -166,7 +166,6 @@
     <string name="pref_title_public_filter_keywords">Offentlige tidslinjer</string>
     <string name="pref_title_thread_filter_keywords">Samtaler</string>
     <string name="filter_addition_title">Legg til filter</string>
-    <string name="filter_edit_title">Rediger filter</string>
     <string name="filter_dialog_remove_button">Fjern</string>
     <string name="filter_dialog_update_button">Oppdater</string>
     <string name="filter_add_description">Filtrer frase</string>
@@ -450,8 +449,6 @@
     <string name="send_account_username_to">Del kontoens brukernavn med…</string>
     <string name="account_username_copied">Brukernavn kopiert</string>
     <string name="error_status_source_load">Kunne ikke laste inn statuskilden fra serveren.</string>
-    <string name="status_filtered_show_anyway">Vis allikevel</string>
-    <string name="status_filter_placeholder_label_format">Filtrert: &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="pref_title_account_filter_keywords">Profiler</string>
     <string name="action_add">Legg til</string>
     <string name="filter_keyword_display_format">%s (helt ord)</string>

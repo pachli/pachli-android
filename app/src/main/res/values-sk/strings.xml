@@ -299,8 +299,6 @@
     <string name="notification_poll_description">Upozornenia na ukončené ankety</string>
     <string name="notification_subscription_name">Nové príspevky</string>
     <string name="notification_sign_up_name">Registrácia</string>
-    <string name="status_filtered_show_anyway">Zobraziť aj tak</string>
-    <string name="status_filter_placeholder_label_format">Filtrované: &lt;b>%1$s&lt;/b></string>
     <string name="state_follow_requested">Sledovanie vyžiadané</string>
     <string name="post_text_size_smallest">Najmenšie</string>
     <string name="notification_mention_descriptions">Upozornenia na nové zmienenia</string>
@@ -500,7 +498,6 @@
     <string name="update_dialog_neutral">Neupozorňuj ma na túto verziu</string>
     <string name="reblog_private">Zdieľať s pôvodným publikom</string>
     <string name="unreblog_private">Zrušit zdieľanie</string>
-    <string name="filter_edit_title">Upraviť filter</string>
     <string name="error_no_custom_emojis">Tvoja inštancia %s nemá žiadne vlastné emoji</string>
     <string name="emoji_style">Štýl emoji</string>
     <string name="restart_emoji">Pre uplatnenie týchto zmien je potrebné reštartovať aplikáciu</string>

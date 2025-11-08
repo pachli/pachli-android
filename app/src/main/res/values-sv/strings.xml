@@ -182,7 +182,6 @@
     <string name="pref_title_public_filter_keywords">Offentliga tidslinjer</string>
     <string name="pref_title_thread_filter_keywords">Trådar</string>
     <string name="filter_addition_title">Lägg till filter</string>
-    <string name="filter_edit_title">Redigera filter</string>
     <string name="filter_dialog_remove_button">Ta bort</string>
     <string name="filter_dialog_update_button">Uppdatera</string>
     <string name="filter_add_description">Filtrera fras</string>
@@ -441,8 +440,6 @@
     <string name="ui_success_rejected_follow_request">Följ begäran blockerad</string>
     <string name="select_list_manage">Hantera listor</string>
     <string name="select_list_empty">Du har inga listor, än</string>
-    <string name="status_filtered_show_anyway">Visa allafall</string>
-    <string name="status_filter_placeholder_label_format">Filtrerad: &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="pref_title_account_filter_keywords">Profiler</string>
     <string name="label_filter_action">Filteråtgärd</string>
     <string name="label_filter_keywords">Nyckelord eller fraser att filtrera</string>

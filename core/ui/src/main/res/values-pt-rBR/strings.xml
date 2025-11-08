@@ -106,4 +106,7 @@
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; deu Boost</string>
     <string name="post_edited">Editado %s</string>
+    <string name="filter_edit_title">Editar filtro</string>
+    <string name="status_filtered_show_anyway">Mostrar mesmo assim</string>
+    <string name="status_filter_placeholder_label_format">Filtrado(s): &lt;b&gt;%1$s&lt;/b&gt;</string>
 </resources>
