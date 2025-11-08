@@ -212,7 +212,7 @@
 
     <app.pachli.core.ui.PreviewCardView
         android:id="@+id/quote_status_card_view"
-        android:theme="@style/Pachli.Widget.PreviewCardView.Quoted"
+        style="@style/Pachli.Widget.PreviewCardView.Quoted"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
