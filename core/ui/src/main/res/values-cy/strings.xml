@@ -128,4 +128,7 @@
     </plurals>
     <string name="post_boosted_fmt">Hybodd &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="post_edited">Golygwyd %s</string>
+    <string name="filter_edit_title">Golygu hidlydd</string>
+    <string name="status_filtered_show_anyway">Dangos beth bynnag</string>
+    <string name="status_filter_placeholder_label_format">Hidlwyd: &lt;b&gt;%1$s&lt;/b&gt;</string>
 </resources>

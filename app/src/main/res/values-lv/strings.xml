@@ -89,7 +89,6 @@
     <string name="pref_title_thread_filter_keywords">Sarunas</string>
     <string name="filter_dialog_remove_button">Noņemt</string>
     <string name="filter_dialog_update_button">Atjaunināt</string>
-    <string name="filter_edit_title">Labot filtru</string>
     <string name="action_edit_image">Labot attēlu</string>
     <string name="send_post_notification_title">Sūta ierakstu…</string>
     <string name="send_post_notification_cancel_title">Sūtīšana atcelta</string>
@@ -454,8 +453,6 @@
     <string name="action_suggestions">Ieteiktie konti</string>
     <string name="action_refresh_account">Atsvaidzināt kontu</string>
     <string name="confirmation_hashtag_muted">#%s paslēpts</string>
-    <string name="status_filtered_show_anyway">Vienalga parādīt</string>
-    <string name="status_filter_placeholder_label_format">Atlasīts: &lt;b>%1$s&lt;/b></string>
     <string name="notification_prune_cache">Kešatmiņas uzturēšanas darbi…</string>
     <string name="notification_listenable_worker_description">Paziņojumi, kad Pachli darbojas fonā</string>
     <string name="profile_metadata_label_label">Iezīme</string>

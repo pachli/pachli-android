@@ -257,7 +257,6 @@
     <string name="notification_listenable_worker_description">Pemberitahuan saat Pachli bekerja di latar belakang</string>
     <string name="pref_title_alway_open_spoiler">Selalu perluas postingan yg ditandai dengan peringatan konten</string>
     <string name="action_set_focus">Menetapkan titik fokus</string>
-    <string name="status_filtered_show_anyway">Tampilkan kapan saja</string>
     <string name="state_follow_requested">Ikuti yang diminta</string>
     <string name="pref_title_thread_filter_keywords">Percakapan</string>
     <string name="pref_title_account_filter_keywords">Profil</string>
@@ -275,7 +274,6 @@
     <string name="title_media">Media</string>
     <string name="pref_title_alway_show_sensitive_media">Selalu tampilkan konten sensitif</string>
     <string name="pref_title_public_filter_home_and_lists">Beranda dan list</string>
-    <string name="filter_edit_title">Edit penyaring</string>
     <string name="filter_expiration_format">%s %s</string>
     <string name="filter_dialog_remove_button">Buang</string>
     <string name="lock_account_label_description">Mengharuskan Anda untuk menyetujui pengikut secara manual</string>
@@ -341,7 +339,6 @@
     <string name="notification_summary_small">%1$s dan %2$s</string>
     <string name="notification_notification_worker">Mengambil notifikasi…</string>
     <string name="post_share_content">Bagikan konten postingan</string>
-    <string name="status_filter_placeholder_label_format">Disaring: &lt;b>%1$s&lt;/b></string>
     <string name="set_focus_description">Ketuk atau seret lingkaran untuk memilih titik fokus yang akan selalu terlihat dalam gambar mini.</string>
     <string name="download_fonts">Anda harus mengunduh set emoji ini terlebih dahulu</string>
     <string name="expand_collapse_all_posts">Memperluas/Memperkecil semua tulisan</string>

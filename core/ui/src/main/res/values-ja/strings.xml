@@ -93,4 +93,7 @@
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt;さんがブーストしました</string>
     <string name="post_edited">%s を編集しました</string>
+    <string name="filter_edit_title">フィルターを編集</string>
+    <string name="status_filtered_show_anyway">とにかく表示する</string>
+    <string name="status_filter_placeholder_label_format">フィルタ済み: &lt;b&gt;%1$s&lt;/b&gt;</string>
 </resources>

@@ -372,12 +372,12 @@ class ListStatusAccessibilityDelegate<T : IStatusViewData>(
 
     private val showAnywayAction = AccessibilityActionCompat(
         app.pachli.core.ui.R.id.action_show_anyway,
-        context.getString(R.string.status_filtered_show_anyway),
+        context.getString(app.pachli.core.ui.R.string.status_filtered_show_anyway),
     )
 
     private val editFilterAction = AccessibilityActionCompat(
         app.pachli.core.ui.R.id.action_edit_filter,
-        context.getString(R.string.filter_edit_title),
+        context.getString(app.pachli.core.ui.R.string.filter_edit_title),
     )
 
     private val showAttachmentsAction = AccessibilityActionCompat(

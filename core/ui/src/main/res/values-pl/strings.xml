@@ -147,4 +147,7 @@
     </plurals>
     <string name="post_boosted_fmt">Podbicie od &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="post_edited">Edytowano %s</string>
+    <string name="filter_edit_title">Edytuj filtr</string>
+    <string name="status_filtered_show_anyway">Pokaż mimo to</string>
+    <string name="status_filter_placeholder_label_format">Zastosowano filtr: &lt;b>%1$s&lt;/b></string>
 </resources>

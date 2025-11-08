@@ -95,4 +95,5 @@
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; अप्रकाशयत्</string>
     <string name="post_edited">%s सम्पादितम्</string>
+    <string name="filter_edit_title">शोधकं सम्पाद्यताम्</string>
 </resources>

@@ -144,4 +144,7 @@
     <string name="post_continued_thread">Continuó hilo</string>
     <string name="post_replied_to_fmt">Respondió a &lt;b>%1$s&lt;/b></string>
     <string name="post_replied">Respondió</string>
+    <string name="filter_edit_title">Editar filtro</string>
+    <string name="status_filtered_show_anyway">Mostrar de todas formas</string>
+    <string name="status_filter_placeholder_label_format">Filtrado: &lt;b&gt;%1$s&lt;/b&gt;</string>
 </resources>

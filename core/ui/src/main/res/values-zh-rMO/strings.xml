@@ -87,4 +87,5 @@
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; 次收藏</item>
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; 轉嘟了</string>
+    <string name="filter_edit_title">編輯過濾器</string>
 </resources>

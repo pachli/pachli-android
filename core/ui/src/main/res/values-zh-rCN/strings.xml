@@ -103,4 +103,7 @@
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; 转嘟了</string>
     <string name="post_edited">编辑了 %s</string>
+    <string name="filter_edit_title">编辑过滤器</string>
+    <string name="status_filtered_show_anyway">仍要显示</string>
+    <string name="status_filter_placeholder_label_format">已过滤：&lt;b&gt;%1$s&lt;/b&gt;</string>
 </resources>

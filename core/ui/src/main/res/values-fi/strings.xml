@@ -133,4 +133,7 @@
     <string name="handle_contentdescription_fmt">Tili, @%1$s</string>
     <string name="role_content_description_fmt">%1$s, aikaan %2$s</string>
     <string name="dot_in_name">piste</string>
+    <string name="filter_edit_title">Muokkaa suodatinta</string>
+    <string name="status_filtered_show_anyway">Näytä joka tapauksessa</string>
+    <string name="status_filter_placeholder_label_format">Suodatettu: &lt;b&gt;%1$s&lt;/b&gt;</string>
 </resources>

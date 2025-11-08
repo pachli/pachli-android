@@ -144,4 +144,7 @@
     <string name="post_replied">Odpovedané</string>
     <string name="post_continued_thread">Pokračovanie vlákna</string>
     <string name="post_replied_to_fmt">Odpoveď pre &lt;b>%1$s&lt;/b></string>
+    <string name="filter_edit_title">Upraviť filter</string>
+    <string name="status_filtered_show_anyway">Zobraziť aj tak</string>
+    <string name="status_filter_placeholder_label_format">Filtrované: &lt;b>%1$s&lt;/b></string>
 </resources>

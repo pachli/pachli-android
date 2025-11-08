@@ -85,4 +85,5 @@
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; 次喜欢</item>
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; 转嘟了</string>
+    <string name="filter_edit_title">编辑过滤器</string>
 </resources>

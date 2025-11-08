@@ -78,4 +78,5 @@
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; n ismenyifen</item>
     </plurals>
     <string name="post_boosted_fmt">Yebḍa-t &lt;b&gt;%1$s&lt;/b&gt;</string>
+    <string name="filter_edit_title">Ẓreg amsizdeg</string>
 </resources>

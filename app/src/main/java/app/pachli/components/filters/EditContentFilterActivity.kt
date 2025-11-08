@@ -122,7 +122,7 @@ class EditContentFilterActivity : BaseActivity() {
         setTitle(
             when (viewModel.uiMode) {
                 UiMode.CREATE -> R.string.filter_addition_title
-                UiMode.EDIT -> R.string.filter_edit_title
+                UiMode.EDIT -> app.pachli.core.ui.R.string.filter_edit_title
             },
         )
 

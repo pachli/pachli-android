@@ -122,4 +122,7 @@
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; ha condiviso</string>
     <string name="post_edited">Modificato %s</string>
+    <string name="filter_edit_title">Modifica filtro</string>
+    <string name="status_filtered_show_anyway">Mostra comunque</string>
+    <string name="status_filter_placeholder_label_format">Filtrato: &lt;b&gt;%1$s&lt;/b&gt;</string>
 </resources>

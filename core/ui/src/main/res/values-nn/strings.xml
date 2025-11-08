@@ -135,4 +135,7 @@
     <string name="post_replied">Svara</string>
     <string name="post_continued_thread">Framhalden tråd</string>
     <string name="post_replied_to_fmt">Svara på &lt;b&gt;%1$s&lt;/b&gt;</string>
+    <string name="filter_edit_title">Brigd filter</string>
+    <string name="status_filtered_show_anyway">Syn likevel</string>
+    <string name="status_filter_placeholder_label_format">Filtrert: &lt;b&gt;%1$s&lt;/b&gt;</string>
 </resources>
