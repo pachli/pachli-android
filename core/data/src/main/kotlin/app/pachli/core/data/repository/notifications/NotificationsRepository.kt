@@ -314,7 +314,10 @@ fun Status.asEntities(pachliAccountId: Long): List<StatusEntity> {
         val status = this@asEntities
 
         add(status.asEntity(pachliAccountId))
-        status.reblog?.let { add(it.asEntity(pachliAccountId)) }
+        status.reblog?.let {
+            // Recurse, to pick up any quotes on the reblogged status.
+            addAll(it.asEntities(pachliAccountId))
+        }
 
         var next = status.quote?.quotedStatus
 
