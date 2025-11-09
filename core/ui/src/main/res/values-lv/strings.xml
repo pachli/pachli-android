@@ -33,9 +33,9 @@
     <string name="hint_search_emojis">Meklēt emocijzīmes…</string>
     <string name="label_emoji_no_category">Bez kategorijas</string>
     <string name="emoji_picker_show_detail">Rādīt informāciju</string>
-    <string name="preview_card_byline_fediverse_account_fmt">No &lt;b>%1$s&lt;/b>. Apskatīt vairāk ierakstu</string>
-    <string name="preview_card_byline_name_only_fmt">No &lt;b>%1$s&lt;/b></string>
-    <string name="preview_card_timeline_link_fmt">Apskatīt &lt;b>%1$s&lt;/b> ierakstus par šo saiti</string>
+    <string name="preview_card_byline_fediverse_account_fmt">No &lt;b&gt;%1$s&lt;/b&gt;. Apskatīt vairāk ierakstu</string>
+    <string name="preview_card_byline_name_only_fmt">No &lt;b&gt;%1$s&lt;/b&gt;</string>
+    <string name="preview_card_timeline_link_fmt">Apskatīt &lt;b&gt;%1$s&lt;/b&gt; ierakstus par šo saiti</string>
     <string name="poll_vote">Balsot</string>
     <string name="poll_show_votes">Rādīt balsojumus</string>
     <plurals name="poll_timespan_seconds">
@@ -128,14 +128,14 @@
     <string name="description_post_media">Informācijas nesēji: %s</string>
     <string name="description_post_cw">Satura brīdinājums: %s</string>
     <plurals name="reblogs">
-        <item quantity="zero">&lt;b>%s&lt;/b> pastiprinājumu</item>
-        <item quantity="one">&lt;b>%s&lt;/b> pastiprinājums</item>
-        <item quantity="other">&lt;b>%s&lt;/b> pastiprinājumi</item>
+        <item quantity="zero">&lt;b&gt;%s&lt;/b&gt; pastiprinājumu</item>
+        <item quantity="one">&lt;b&gt;%s&lt;/b&gt; pastiprinājums</item>
+        <item quantity="other">&lt;b&gt;%s&lt;/b&gt; pastiprinājumi</item>
     </plurals>
     <plurals name="favs">
-        <item quantity="zero">&lt;b>%1$s&lt;/b> ierakstu izlasē</item>
-        <item quantity="one">&lt;b>%1$s&lt;/b> ieraksts izlasē</item>
-        <item quantity="other">&lt;b>%1$s&lt;/b> ieraksti izlasē</item>
+        <item quantity="zero">&lt;b&gt;%1$s&lt;/b&gt; ierakstu izlasē</item>
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; ieraksts izlasē</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; ieraksti izlasē</item>
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; pastiprināja</string>
     <string name="post_edited">Labots %s</string>
@@ -143,8 +143,9 @@
     <string name="action_unselect_status">Atcelt ieraksta atlasīšanu</string>
     <string name="post_replied">Atbildēts</string>
     <string name="post_continued_thread">Turpināts pavediens</string>
-    <string name="post_replied_to_fmt">Atbildēja &lt;b>%1$s&lt;/b></string>
-    <string name="filter_edit_title">Labot filtru</string>
+    <string name="post_replied_to_fmt">Atbildēja &lt;b&gt;%1$s&lt;/b&gt;</string>
+    <string name="filter_edit_title">Labot atsijātāju</string>
     <string name="status_filtered_show_anyway">Vienalga parādīt</string>
-    <string name="status_filter_placeholder_label_format">Atlasīts: &lt;b>%1$s&lt;/b></string>
+    <string name="status_filter_placeholder_label_format">Atsijāts: <b>%1$s</b></string>
+    <string name="action_show_pronouns">Rādīt vietniekvārdus</string>
 </resources>
