@@ -208,7 +208,10 @@ class CachedTimelineRemoteMediator(
                 // TODO: Provide a status.accounts property that lists all
                 // the accounts embedded in the status
                 add(status.account)
-                status.reblog?.let { add(it.account) }
+                status.reblog?.let {
+                    add(it.account)
+                    it.quote?.quotedStatus?.account?.let { add(it) }
+                }
 
                 status.quote?.quotedStatus?.let { quote ->
                     add(quote.account)
