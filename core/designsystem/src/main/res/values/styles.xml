@@ -236,6 +236,10 @@
         <item name="android:textSize">?status_text_large</item>
     </style>
 
+    <style name="Pachli.Widget.PollView.Quoted">
+        <item name="android:textSize">?status_text_small</item>
+    </style>
+
     <style name="Pachli.Widget.PreviewCardView" parent="">
         <item name="android:background">@drawable/card_frame</item>
         <item name="android:foreground">?selectableItemBackground</item>
