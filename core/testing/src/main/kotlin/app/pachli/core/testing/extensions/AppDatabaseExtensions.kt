@@ -18,8 +18,9 @@
 package app.pachli.core.testing.extensions
 
 import app.pachli.core.database.AppDatabase
+import app.pachli.core.database.dao.TimelineStatusWithAccount
+import app.pachli.core.database.model.TSQ
 import app.pachli.core.database.model.TimelineStatusEntity
-import app.pachli.core.database.model.TimelineStatusWithAccount
 
 /**
  * Inserts [statuses] in to the database, populating the correct
@@ -48,4 +49,35 @@ suspend fun AppDatabase.insertStatuses(statuses: Iterable<TimelineStatusWithAcco
             )
         },
     )
+}
+
+suspend fun AppDatabase.insertTSQ(statuses: Iterable<TSQ>) {
+    val quoted = statuses.mapNotNull { it.quotedStatus }
+    insertStatuses(quoted)
+
+    insertStatuses(statuses.map { it.timelineStatus })
+
+//    statuses.forEach {
+//        insertStatuses(it.timelineStatus)
+//        insertStatuses(it.quotedStatus)
+//    }
+//
+//    statuses.forEach { statusWithAccount ->
+//        statusWithAccount.account.let { account ->
+//            timelineDao().insertAccount(account)
+//        }
+//        statusWithAccount.reblogAccount?.let { account ->
+//            timelineDao().insertAccount(account)
+//        }
+//        statusDao().insertStatus(statusWithAccount.status)
+//    }
+//    timelineDao().upsertStatuses(
+//        statuses.map {
+//            TimelineStatusEntity(
+//                pachliAccountId = it.status.timelineUserId,
+//                kind = TimelineStatusEntity.Kind.Home,
+//                statusId = it.status.serverId,
+//            )
+//        },
+//    )
 }
