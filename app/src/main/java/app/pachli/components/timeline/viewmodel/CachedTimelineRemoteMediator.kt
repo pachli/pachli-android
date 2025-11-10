@@ -200,6 +200,8 @@ class CachedTimelineRemoteMediator(
     /**
      * Inserts `statuses` and the accounts referenced by those statuses in to the cache,
      * then adds references to them in the Home timeline.
+     *
+     * Must be called inside an existing database transaction.
      */
     private suspend fun insertStatuses(pachliAccountId: Long, statuses: List<Status>) {
         check(transactionProvider.inTransaction())

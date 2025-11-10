@@ -18,6 +18,7 @@
 package app.pachli.core.database.dao
 
 import androidx.paging.PagingSource
+import androidx.room.support.getSupportWrapper
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.core.database.AppDatabase
 import app.pachli.core.database.model.AccountEntity
@@ -182,7 +183,7 @@ class TimelineDaoTest {
         assertStatuses(wantAccount2StatusesAfterCleanup, gotAccount2StatusesAfterCleanup)
 
         val loadedAccounts: MutableList<Pair<Long, String>> = mutableListOf()
-        val accountCursor = db.query("SELECT timelineUserId, serverId FROM TimelineAccountEntity ORDER BY timelineUserId, serverId", null)
+        val accountCursor = db.getSupportWrapper().query("SELECT timelineUserId, serverId FROM TimelineAccountEntity ORDER BY timelineUserId, serverId")
         accountCursor.moveToFirst()
         while (!accountCursor.isAfterLast) {
             val accountId: Long = accountCursor.getLong(accountCursor.getColumnIndex("timelineUserId"))
