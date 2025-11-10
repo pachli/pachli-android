@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 32,
-    "identityHash": "8159040754c64fb3ba6e86b63a89deae",
+    "identityHash": "8d7a3c9ef5f685822b51d2834155bde2",
     "entities": [
       {
         "tableName": "DraftEntity",
@@ -612,7 +612,7 @@
       },
       {
         "tableName": "StatusEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`serverId` TEXT NOT NULL, `url` TEXT, `timelineUserId` INTEGER NOT NULL, `authorServerId` TEXT NOT NULL, `inReplyToId` TEXT, `inReplyToAccountId` TEXT, `content` TEXT, `createdAt` INTEGER NOT NULL, `editedAt` INTEGER, `emojis` TEXT, `reblogsCount` INTEGER NOT NULL, `favouritesCount` INTEGER NOT NULL, `repliesCount` INTEGER NOT NULL, `quotesCount` INTEGER NOT NULL DEFAULT 0, `reblogged` INTEGER NOT NULL, `bookmarked` INTEGER NOT NULL, `favourited` INTEGER NOT NULL, `sensitive` INTEGER NOT NULL, `spoilerText` TEXT NOT NULL, `visibility` INTEGER NOT NULL, `attachments` TEXT, `mentions` TEXT, `tags` TEXT, `application` TEXT, `reblogServerId` TEXT, `reblogAccountId` TEXT, `poll` TEXT, `muted` INTEGER, `pinned` INTEGER NOT NULL, `card` TEXT, `quoteState` TEXT, `quoteServerId` TEXT, `quoteApproval` TEXT NOT NULL DEFAULT '{\"automatic\":[], \"manual\":[], \"currentUser\":\"UNKNOWN\",}', `language` TEXT, `filtered` TEXT, PRIMARY KEY(`serverId`, `timelineUserId`), FOREIGN KEY(`timelineUserId`) REFERENCES `AccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED, FOREIGN KEY(`authorServerId`, `timelineUserId`) REFERENCES `TimelineAccountEntity`(`serverId`, `timelineUserId`) ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE INITIALLY DEFERRED)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`serverId` TEXT NOT NULL, `url` TEXT, `timelineUserId` INTEGER NOT NULL, `authorServerId` TEXT NOT NULL, `inReplyToId` TEXT, `inReplyToAccountId` TEXT, `content` TEXT, `createdAt` INTEGER NOT NULL, `editedAt` INTEGER, `emojis` TEXT, `reblogsCount` INTEGER NOT NULL, `favouritesCount` INTEGER NOT NULL, `repliesCount` INTEGER NOT NULL, `quotesCount` INTEGER NOT NULL DEFAULT 0, `reblogged` INTEGER NOT NULL, `bookmarked` INTEGER NOT NULL, `favourited` INTEGER NOT NULL, `sensitive` INTEGER NOT NULL, `spoilerText` TEXT NOT NULL, `visibility` INTEGER NOT NULL, `attachments` TEXT, `mentions` TEXT, `tags` TEXT, `application` TEXT, `reblogServerId` TEXT, `reblogAccountId` TEXT, `poll` TEXT, `muted` INTEGER, `pinned` INTEGER NOT NULL, `card` TEXT, `quoteState` TEXT, `quoteServerId` TEXT, `quoteApproval` TEXT NOT NULL DEFAULT '{\"automatic\":[], \"manual\":[], \"currentUser\":\"UNKNOWN\"}', `language` TEXT, `filtered` TEXT, PRIMARY KEY(`serverId`, `timelineUserId`), FOREIGN KEY(`timelineUserId`) REFERENCES `AccountEntity`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED, FOREIGN KEY(`authorServerId`, `timelineUserId`) REFERENCES `TimelineAccountEntity`(`serverId`, `timelineUserId`) ON UPDATE NO ACTION ON DELETE NO ACTION DEFERRABLE INITIALLY DEFERRED)",
         "fields": [
           {
             "fieldPath": "serverId",
@@ -795,7 +795,7 @@
             "columnName": "quoteApproval",
             "affinity": "TEXT",
             "notNull": true,
-            "defaultValue": "'{\"automatic\":[], \"manual\":[], \"currentUser\":\"UNKNOWN\",}'"
+            "defaultValue": "'{\"automatic\":[], \"manual\":[], \"currentUser\":\"UNKNOWN\"}'"
           },
           {
             "fieldPath": "language",
@@ -2052,7 +2052,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8159040754c64fb3ba6e86b63a89deae')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8d7a3c9ef5f685822b51d2834155bde2')"
     ]
   }
 }

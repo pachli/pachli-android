@@ -118,7 +118,7 @@ data class StatusEntity(
     val card: Card?,
     val quoteState: Status.QuoteState?,
     val quoteServerId: String?,
-    @ColumnInfo(defaultValue = "{\"automatic\":[], \"manual\":[], \"currentUser\":\"UNKNOWN\",}")
+    @ColumnInfo(defaultValue = "{\"automatic\":[], \"manual\":[], \"currentUser\":\"UNKNOWN\"}")
     val quoteApproval: Status.QuoteApproval,
     val language: String?,
     val filtered: List<FilterResult>?,
