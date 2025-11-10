@@ -294,8 +294,6 @@ abstract class StatusView<T : L, L : IStatusViewData> @JvmOverloads constructor(
             }
         }
 
-        translationProvider.hide()
-
         if (!sensitive || viewData.isExpanded) {
             setStatusContent(
                 glide,
