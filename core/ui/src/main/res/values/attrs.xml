@@ -80,10 +80,4 @@
         <!-- Blending mode used to apply the image tint. -->
         <attr name="android:tintMode" />
     </declare-styleable>
-
-    <declare-styleable name="StatusView">
-        <!-- True if the view should show any embeded quote post. -->
-        <attr name="showQuote" format="boolean" />
-
-    </declare-styleable>
 </resources>

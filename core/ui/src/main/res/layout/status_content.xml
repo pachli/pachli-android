@@ -247,7 +247,6 @@
         app:layout_constraintStart_toEndOf="@id/status_avatar"
         app:layout_constraintTop_toBottomOf="@id/status_poll"
         app:layout_constraintEnd_toEndOf="parent"
-        app:showQuote="false"
         android:visibility="gone"
         tools:visibility="visible" />
 

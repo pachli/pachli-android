@@ -27,7 +27,6 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.withStyledAttributes
 import androidx.core.text.HtmlCompat
 import androidx.core.util.TypedValueCompat.dpToPx
 import app.pachli.core.common.extensions.hide
@@ -159,14 +158,6 @@ abstract class StatusView<T : L, L : IStatusViewData> @JvmOverloads constructor(
     protected val avatarRadius48dp = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_48dp)
     private val avatarRadius36dp = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_36dp)
     private val avatarRadius24dp = context.resources.getDimensionPixelSize(DR.dimen.avatar_radius_24dp)
-
-    private var showQuote = true
-
-    init {
-        context.withStyledAttributes(attrs, R.styleable.StatusView, defStyleAttr, defStyleRes) {
-            showQuote = getBoolean(R.styleable.StatusView_showQuote, true)
-        }
-    }
 
     fun setDisplayName(
         glide: RequestManager,
