@@ -29,7 +29,8 @@
 
     <include
         android:id="@+id/quoted_status_container"
-        layout="@layout/status_content_quoted" />
+        layout="@layout/status_content_quoted"
+        android:visibility="gone" />
 
     <include
         android:id="@+id/quoted_status_filtered"
