@@ -52,6 +52,20 @@ object DatabaseModule {
             .addMigrations(MIGRATE_12_13)
             .addMigrations(MIGRATE_18_19)
             .addMigrations(MIGRATE_22_23)
+//            .apply {
+//                if (BuildConfig.DEBUG) {
+//                    setQueryCallback(
+//                        { sqlQuery, bindArgs ->
+//                            // Don't log tables with no FK constraints.
+//                            if (sqlQuery.contains("TimelineStatusEntity")) {
+//                                return@setQueryCallback
+//                            }
+//                            Timber.d("SQL Query: $sqlQuery\nSQL Args: $bindArgs")
+//                        },
+//                        Executors.newSingleThreadExecutor(),
+//                    )
+//                }
+//            }
             .build()
     }
 
