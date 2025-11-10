@@ -17,6 +17,7 @@
 
 package app.pachli.components.timeline
 
+import android.annotation.SuppressLint
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.InvalidatingPagingSourceFactory
 import androidx.paging.Pager
@@ -48,11 +49,8 @@ import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import javax.inject.Inject
-import kotlin.coroutines.coroutineContext
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.withLock
 import timber.log.Timber
 
@@ -180,22 +178,48 @@ class NetworkTimelineRepository @Inject constructor(
                         !hiddenAccounts.contains(status.account.id) &&
                         !hiddenDomains.contains(getDomain(status.actionableStatus.account.url)) &&
                         !hiddenDomains.contains(getDomain(status.account.url))
-                }.map { status ->
+                }
+            }.map { pagingData ->
+                // Optimisation: Fetch status view data and translations in bulk, instead
+                // of once per status.
+                //
+                // Map over pagingData and build a set of all referenced status IDs. Then
+                // make two queries to fetch the viewdata and translations for those
+                // statuses.
+                //
+                // Without this the code would make up to pageSize * 4 queries (2 for the
+                // viewdata and translation info for each status, and if the status contains
+                // a quote then another 2 to fetch the viewdata and translation info for
+                // the quote.
+                val statusIds = mutableSetOf<String>()
+                @SuppressLint("CheckResult")
+                pagingData.map {
+                    statusIds.add(it.actionableId)
+                    it.reblog?.let {
+                        (it.quote as? Status.Quote.FullQuote)?.let { statusIds.add(it.statusId) }
+                    }
+                    (it.quote as? Status.Quote.FullQuote)?.let { statusIds.add(it.statusId) }
+                    it
+                }
+                val viewDataCache = statusRepository.getStatusViewData(pachliAccountId, statusIds)
+                val translationCache = statusRepository.getTranslations(pachliAccountId, statusIds)
+
+                pagingData.map { status ->
                     TSQ(
                         timelineStatus = TimelineStatusWithAccount(
                             status = status.asEntity(pachliAccountId),
                             account = status.reblog?.account?.asEntity(pachliAccountId) ?: status.account.asEntity(pachliAccountId),
                             reblogAccount = status.reblog?.let { status.account.asEntity(pachliAccountId) },
-                            viewData = statusRepository.getStatusViewData(pachliAccountId, status.actionableId),
-                            translatedStatus = statusRepository.getTranslation(pachliAccountId, status.actionableId),
+                            viewData = viewDataCache[status.actionableId],
+                            translatedStatus = translationCache[status.actionableId],
                         ),
                         quotedStatus = (status.quote as? Status.Quote.FullQuote)?.status?.let { q ->
                             TimelineStatusWithAccount(
                                 status = q.asEntity(pachliAccountId),
                                 account = q.account.asEntity(pachliAccountId),
                                 reblogAccount = null,
-                                viewData = statusRepository.getStatusViewData(pachliAccountId, q.actionableId),
-                                translatedStatus = statusRepository.getTranslation(pachliAccountId, q.actionableId),
+                                viewData = viewDataCache[q.actionableId],
+                                translatedStatus = translationCache[q.actionableId],
                             )
                         },
                     )

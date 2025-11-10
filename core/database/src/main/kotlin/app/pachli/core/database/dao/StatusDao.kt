@@ -165,7 +165,7 @@ WHERE
     )
     abstract suspend fun getStatusViewData(
         accountId: Long,
-        serverIds: List<String>,
+        serverIds: Collection<String>,
     ): Map<
         @MapColumn(columnName = "serverId")
         String,
