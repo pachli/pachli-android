@@ -49,6 +49,9 @@ abstract class StatusDao {
     @Update
     abstract suspend fun updateStatus(statusEntity: StatusEntity)
 
+    @Update
+    abstract suspend fun updateStatuses(statuses: Collection<StatusEntity>)
+
     @Query(
         """
 SELECT *

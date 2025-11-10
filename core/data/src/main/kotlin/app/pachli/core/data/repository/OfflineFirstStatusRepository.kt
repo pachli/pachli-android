@@ -82,7 +82,7 @@ class OfflineFirstStatusRepository @Inject constructor(
             mastodonApi.unbookmarkStatus(statusId)
         }
             .onSuccess {
-                statusDao.upsertStatuses(it.body.asEntities(pachliAccountId))
+                statusDao.updateStatuses(it.body.asEntities(pachliAccountId))
                 eventHub.dispatch(BookmarkEvent(statusId, bookmarked))
             }
             .onFailure { statusDao.setBookmarked(pachliAccountId, statusId, !bookmarked) }
@@ -101,7 +101,7 @@ class OfflineFirstStatusRepository @Inject constructor(
             mastodonApi.unfavouriteStatus(statusId)
         }
             .onSuccess {
-                statusDao.upsertStatuses(it.body.asEntities(pachliAccountId))
+                statusDao.updateStatuses(it.body.asEntities(pachliAccountId))
                 eventHub.dispatch(FavoriteEvent(statusId, favourited))
             }
             .onFailure { statusDao.setFavourited(pachliAccountId, statusId, !favourited) }
@@ -120,7 +120,7 @@ class OfflineFirstStatusRepository @Inject constructor(
             mastodonApi.unreblogStatus(statusId)
         }
             .onSuccess {
-                statusDao.upsertStatuses(it.body.asEntities(pachliAccountId))
+                statusDao.updateStatuses(it.body.asEntities(pachliAccountId))
                 eventHub.dispatch(ReblogEvent(statusId, reblogged))
             }
             .onFailure { statusDao.setReblogged(pachliAccountId, statusId, !reblogged) }
@@ -139,7 +139,7 @@ class OfflineFirstStatusRepository @Inject constructor(
             mastodonApi.unmuteConversation(statusId)
         }
             .onSuccess {
-                statusDao.upsertStatuses(it.body.asEntities(pachliAccountId))
+                statusDao.updateStatuses(it.body.asEntities(pachliAccountId))
                 eventHub.dispatch(MuteConversationEvent(pachliAccountId, statusId, muted))
             }
             .onFailure { statusDao.setMuted(pachliAccountId, statusId, !muted) }
@@ -158,7 +158,7 @@ class OfflineFirstStatusRepository @Inject constructor(
             mastodonApi.unpinStatus(statusId)
         }
             .onSuccess {
-                statusDao.upsertStatuses(it.body.asEntities(pachliAccountId))
+                statusDao.updateStatuses(it.body.asEntities(pachliAccountId))
                 eventHub.dispatch(PinEvent(statusId, pinned))
             }
             .onFailure { statusDao.setPinned(pachliAccountId, statusId, !pinned) }
