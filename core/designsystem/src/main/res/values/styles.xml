@@ -93,6 +93,8 @@
         <item name="appBarLayoutStyle">@style/Pachli.Widget.Material3.AppBarLayout</item>
 
         <item name="pronounsChipStyle">@style/Pachli.Widget.PronounChip</item>
+
+        <item name="pollViewStyle">@style/Pachli.Widget.PollView</item>
     </style>
 
     <style name="Pachli.Widget.Material3.AppBarLayout" parent="Widget.Material3.AppBarLayout">
@@ -222,6 +224,14 @@
         <item name="chipBackgroundColor">?colorSurfaceContainerLow</item>
         <item name="ensureMinTouchTargetSize">false</item>
         <item name="android:importantForAccessibility">no</item>
+    </style>
+
+    <style name="Pachli.Widget.PollView" parent="">
+        <item name="android:textSize">?status_text_medium</item>
+    </style>
+
+    <style name="Pachli.Widget.PollView.Detailed">
+        <item name="android:textSize">?status_text_large</item>
     </style>
 
     <!-- customize the shape of the avatars in account selection list -->

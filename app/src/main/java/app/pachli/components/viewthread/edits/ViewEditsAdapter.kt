@@ -144,6 +144,7 @@ class ViewEditsAdapter(
                 animateEmojis = animateEmojis,
                 displayMode = DisplayMode.EDIT_HISTORY,
                 enabled = false,
+                textSize = mediumTextSizePx,
                 resultClickListener = null,
                 pollOptionClickListener = null,
             )

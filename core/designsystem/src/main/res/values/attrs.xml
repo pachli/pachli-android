@@ -25,8 +25,9 @@
     <attr name="status_text_medium" format="dimension" />
     <attr name="status_text_large" format="dimension" />
 
-    <!-- Height of a toolbar that contains a title and a subtitle -->
-    <!-- Some custom fonts require this to be larger than the default -->
+    <!--
+      Height of a toolbar that contains a title and a subtitle.
+      Some custom fonts require this to be larger than the default -->
     <attr name="actionBarSizeWithSubtitle" format="dimension|reference" />
 
     <!-- Colour to use for the "favourite" icon. Also displayed next to
@@ -35,5 +36,10 @@
 
     <declare-styleable name="PronounsChip">
         <attr name="pronounsChipStyle" format="reference" />
+    </declare-styleable>
+
+    <attr name="pollViewStyle" format="reference" />
+    <declare-styleable name="PollView">
+        <attr name="android:textSize" format="reference|dimension" />
     </declare-styleable>
 </resources>
