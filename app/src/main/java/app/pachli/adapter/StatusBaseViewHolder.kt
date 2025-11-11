@@ -184,7 +184,9 @@ object StatusViewDataDiffCallback : DiffUtil.ItemCallback<StatusViewDataQ>() {
         val payload = buildList {
             add(Payload.CREATED)
 
-            if (oldItem.statusViewData != newItem.statusViewData) {
+            if (oldItem.statusViewData != newItem.statusViewData ||
+                oldItem.quotedViewData != newItem.quotedViewData
+            ) {
                 add(Payload.STATUS_VIEW_DATA)
                 return@buildList
             }
