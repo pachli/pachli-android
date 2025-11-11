@@ -72,7 +72,7 @@ class CachedTimelineRemoteMediator(
                         RemoteKeyKind.REFRESH,
                     )?.key
                     Timber.d("Refresh from item: %s", statusId)
-                    getInitialPage(statusId, state.config.initialLoadSize * PAGE_SIZE_MULTIPLIER)
+                    getInitialPage(statusId, state.config.initialLoadSize)
                 }
 
                 LoadType.PREPEND -> {
@@ -82,7 +82,7 @@ class CachedTimelineRemoteMediator(
                         RemoteKeyKind.PREV,
                     ) ?: return@transactionProvider MediatorResult.Success(endOfPaginationReached = true)
                     Timber.d("Prepend from remoteKey: %s", rke)
-                    mastodonApi.homeTimeline(minId = rke.key, limit = state.config.pageSize * PAGE_SIZE_MULTIPLIER)
+                    mastodonApi.homeTimeline(minId = rke.key, limit = state.config.pageSize)
                 }
 
                 LoadType.APPEND -> {
@@ -92,7 +92,7 @@ class CachedTimelineRemoteMediator(
                         RemoteKeyKind.NEXT,
                     ) ?: return@transactionProvider MediatorResult.Success(endOfPaginationReached = true)
                     Timber.d("Append from remoteKey: %s", rke)
-                    mastodonApi.homeTimeline(maxId = rke.key, limit = state.config.pageSize * PAGE_SIZE_MULTIPLIER)
+                    mastodonApi.homeTimeline(maxId = rke.key, limit = state.config.pageSize)
                 }
             }.getOrElse { return@transactionProvider MediatorResult.Error(it.throwable) }
 
@@ -231,13 +231,5 @@ class CachedTimelineRemoteMediator(
                 )
             },
         )
-    }
-
-    companion object {
-        /**
-         * Factor to multiply the page size to load a larger number of posts from the server.
-         * See [TimelineRepository.PAGE_SIZE][app.pachli.components.timeline.TimelineRepository.Companion.PAGE_SIZE]
-         */
-        private const val PAGE_SIZE_MULTIPLIER = 3
     }
 }

@@ -89,17 +89,17 @@ class NetworkTimelineRemoteMediator(
                         }
                     }
                     Timber.d("timeline: $timeline, itemKey: $itemKey")
-                    Page.tryFrom(getInitialPage(itemKey, state.config.initialLoadSize * PAGE_SIZE_MULTIPLIER))
+                    Page.tryFrom(getInitialPage(itemKey, state.config.initialLoadSize))
                 }
 
                 LoadType.APPEND -> {
                     val key = pageCache.lastPage?.nextKey ?: return MediatorResult.Success(endOfPaginationReached = true)
-                    Page.tryFrom(fetchStatusPageByKind(loadType, key, state.config.pageSize * PAGE_SIZE_MULTIPLIER))
+                    Page.tryFrom(fetchStatusPageByKind(loadType, key, state.config.pageSize))
                 }
 
                 LoadType.PREPEND -> {
                     val key = pageCache.firstPage?.prevKey ?: return MediatorResult.Success(endOfPaginationReached = true)
-                    Page.tryFrom(fetchStatusPageByKind(loadType, key, state.config.pageSize * PAGE_SIZE_MULTIPLIER))
+                    Page.tryFrom(fetchStatusPageByKind(loadType, key, state.config.pageSize))
                 }
             }.getOrElse { return MediatorResult.Error(it.throwable) }
 
@@ -308,11 +308,5 @@ class NetworkTimelineRemoteMediator(
          * maximum.
          */
         const val LIMIT_TRENDING_STATUSES = 40
-
-        /**
-         * Factor to multiply the page size to load a larger number of posts from the server.
-         * See [TimelineRepository.PAGE_SIZE][app.pachli.components.timeline.TimelineRepository.Companion.PAGE_SIZE]
-         */
-        private const val PAGE_SIZE_MULTIPLIER = 3
     }
 }
