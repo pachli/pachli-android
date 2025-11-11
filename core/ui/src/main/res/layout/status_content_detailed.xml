@@ -210,6 +210,7 @@
 
     <app.pachli.core.ui.PollView
         android:id="@+id/status_poll"
+        style="@style/Pachli.Widget.PollView.Detailed"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
