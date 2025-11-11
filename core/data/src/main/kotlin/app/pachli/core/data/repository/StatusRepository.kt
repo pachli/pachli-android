@@ -174,6 +174,16 @@ interface StatusRepository {
     suspend fun getStatusViewData(pachliAccountId: Long, statusId: String): StatusViewDataEntity?
 
     /**
+     * @return Map of cached view data for [statusIds].
+     */
+    suspend fun getStatusViewData(pachliAccountId: Long, statusIds: Collection<String>): Map<String, StatusViewDataEntity>
+
+    /**
+     * @return Map of translations for [statusIds].
+     */
+    suspend fun getTranslations(pachliAccountId: Long, statusIds: Collection<String>): Map<String, TranslatedStatusEntity>
+
+    /**
      * @return Translation (null if not present) for [statusId].
      */
     suspend fun getTranslation(pachliAccountId: Long, statusId: String): TranslatedStatusEntity?

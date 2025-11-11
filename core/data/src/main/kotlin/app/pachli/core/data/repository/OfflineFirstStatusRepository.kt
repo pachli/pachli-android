@@ -228,11 +228,11 @@ class OfflineFirstStatusRepository @Inject constructor(
         )
     }
 
-    suspend fun getStatusViewData(pachliAccountId: Long, statusIds: Collection<String>) = statusDao.getStatusViewData(pachliAccountId, statusIds)
+    override suspend fun getStatusViewData(pachliAccountId: Long, statusIds: Collection<String>) = statusDao.getStatusViewData(pachliAccountId, statusIds)
 
     override suspend fun getStatusViewData(pachliAccountId: Long, statusId: String) = statusDao.getStatusViewData(pachliAccountId, statusId)
 
-    suspend fun getTranslations(pachliAccountId: Long, statusIds: Collection<String>) = translatedStatusDao.getTranslations(pachliAccountId, statusIds)
+    override suspend fun getTranslations(pachliAccountId: Long, statusIds: Collection<String>) = translatedStatusDao.getTranslations(pachliAccountId, statusIds)
 
     override suspend fun getTranslation(pachliAccountId: Long, statusId: String) = translatedStatusDao.getTranslation(pachliAccountId, statusId)
 }

@@ -27,7 +27,7 @@ import app.pachli.core.data.model.StatusViewDataQ
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.StatusActionError
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
-import app.pachli.core.database.dao.TimelineStatusWithAccount
+import app.pachli.core.database.model.TSQ
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.eventhub.BookmarkEvent
 import app.pachli.core.eventhub.EventHub
@@ -68,7 +68,7 @@ open class NetworkTimelineViewModel @AssistedInject constructor(
     accountManager: AccountManager,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     sharedPreferencesRepository: SharedPreferencesRepository,
-) : TimelineViewModel<TimelineStatusWithAccount, NetworkTimelineRepository>(
+) : TimelineViewModel<TSQ, NetworkTimelineRepository>(
     timeline,
     timelineCases,
     eventHub,

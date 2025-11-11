@@ -20,11 +20,15 @@ package app.pachli.components.timeline.viewmodel
 import androidx.paging.PagingSource
 import androidx.paging.PagingSource.LoadResult
 import androidx.paging.PagingState
+import app.pachli.core.data.repository.StatusRepository
+import app.pachli.core.database.dao.TimelineStatusWithAccount
+import app.pachli.core.database.model.TSQ
+import app.pachli.core.database.model.asEntity
 import app.pachli.core.model.Status
 import kotlinx.coroutines.sync.withLock
 import timber.log.Timber
 
-private val INVALID = LoadResult.Invalid<String, Status>()
+private val INVALID = LoadResult.Invalid<String, TSQ>()
 
 /**
  * [PagingSource] for Mastodon Status, identified by the Status ID
@@ -33,10 +37,12 @@ private val INVALID = LoadResult.Invalid<String, Status>()
  * @param initialKey The initial key to load, see [getRefreshKey].
  */
 class NetworkTimelinePagingSource(
+    private val pachliAccountId: Long,
     private val pageCache: PageCache,
     private val initialKey: String? = null,
-) : PagingSource<String, Status>() {
-    override suspend fun load(params: LoadParams<String>): LoadResult<String, Status> {
+    private val statusRepository: StatusRepository,
+) : PagingSource<String, TSQ>() {
+    override suspend fun load(params: LoadParams<String>): LoadResult<String, TSQ> {
         Timber.d("- load(), type = %s, key = %s", params.javaClass.simpleName, params.key)
 
         return pageCache.withLock {
@@ -113,18 +119,59 @@ class NetworkTimelinePagingSource(
             }
 
             LoadResult.Page(
-                page?.data.orEmpty(),
+                page?.data.orEmpty().asTSQ(),
                 nextKey = page?.nextKey,
                 prevKey = page?.prevKey,
             )
         }
     }
 
-    override fun getRefreshKey(state: PagingState<String, Status>): String? {
+    /**
+     * Converts a `Iterable<Status>` to a `List<TSQ>`, minimising the database lookups
+     * that need to happen to get the viewdata and translations.
+     */
+    private suspend fun Iterable<Status>.asTSQ(): List<TSQ> {
+        // Figure out all the status IDs referenced in this iterable.
+        val statusIds = buildSet {
+            this@asTSQ.map {
+                add(it.actionableId)
+                it.reblog?.let {
+                    (it.quote as? Status.Quote.FullQuote)?.let { add(it.statusId) }
+                }
+                (it.quote as? Status.Quote.FullQuote)?.let { add(it.statusId) }
+            }
+        }
+        // Populate the caches in two database lookups.
+        val viewDataCache = statusRepository.getStatusViewData(pachliAccountId, statusIds)
+        val translationCache = statusRepository.getTranslations(pachliAccountId, statusIds)
+
+        return map { status ->
+            TSQ(
+                timelineStatus = TimelineStatusWithAccount(
+                    status = status.asEntity(pachliAccountId),
+                    account = status.reblog?.account?.asEntity(pachliAccountId) ?: status.account.asEntity(pachliAccountId),
+                    reblogAccount = status.reblog?.let { status.account.asEntity(pachliAccountId) },
+                    viewData = viewDataCache[status.actionableId],
+                    translatedStatus = translationCache[status.actionableId],
+                ),
+                quotedStatus = (status.quote as? Status.Quote.FullQuote)?.status?.let { q ->
+                    TimelineStatusWithAccount(
+                        status = q.asEntity(pachliAccountId),
+                        account = q.account.asEntity(pachliAccountId),
+                        reblogAccount = null,
+                        viewData = viewDataCache[q.actionableId],
+                        translatedStatus = translationCache[q.actionableId],
+                    )
+                },
+            )
+        }
+    }
+
+    override fun getRefreshKey(state: PagingState<String, TSQ>): String? {
         // `state` might be null (see https://issuetracker.google.com/issues/452663010
         // for details). If it is, fall back to the key passed to the constructor.
         val refreshKey = state.anchorPosition?.let {
-            state.closestItemToPosition(it)?.statusId
+            state.closestItemToPosition(it)?.timelineStatus?.status?.serverId
         } ?: initialKey
         Timber.d("- getRefreshKey(), state.anchorPosition = %d, return %s", state.anchorPosition, refreshKey)
         return refreshKey
