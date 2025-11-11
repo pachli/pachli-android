@@ -135,10 +135,8 @@ class NetworkTimelinePagingSource(
         val statusIds = buildSet {
             this@asTSQ.map {
                 add(it.actionableId)
-                it.reblog?.let {
-                    (it.quote as? Status.Quote.FullQuote)?.let { add(it.statusId) }
-                }
-                (it.quote as? Status.Quote.FullQuote)?.let { add(it.statusId) }
+                it.reblog?.let { (it.quote as? Status.Quote.FullQuote)?.let { add(it.status.actionableId) } }
+                (it.quote as? Status.Quote.FullQuote)?.let { add(it.status.actionableId) }
             }
         }
         // Populate the caches in two database lookups.
