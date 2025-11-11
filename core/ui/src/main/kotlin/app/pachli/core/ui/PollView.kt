@@ -29,14 +29,17 @@ import android.text.format.DateUtils.MINUTE_IN_MILLIS
 import android.text.format.DateUtils.SECOND_IN_MILLIS
 import android.text.style.ReplacementSpan
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.res.use
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.data.model.StatusDisplayOptions
+import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.Emoji
 import app.pachli.core.ui.databinding.StatusPollBinding
 import com.bumptech.glide.RequestManager
@@ -60,14 +63,31 @@ typealias PollClickListener = (choices: List<Int>?) -> Unit
  *
  * Classes hosting this should provide a [PollClickListener] to be notified when the
  * user clicks on the poll (either to vote, or to navigate).
+ *
+ * [PollView] supports the `android:textSize` attribute. Create a style that sets that,
+ * then apply it to this view using `android:theme` so it is inherited by the child
+ * views.
  */
 class PollView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0,
-    defStyleRes: Int = 0,
-) : ConstraintLayout(context, attrs, defStyleAttr, defStyleRes) {
+) : ConstraintLayout(context, attrs) {
     val binding = StatusPollBinding.inflate(LayoutInflater.from(context), this)
+
+    private val textSize = context.obtainStyledAttributes(attrs, DR.styleable.PollView, DR.attr.pollViewStyle, DR.style.Pachli_Widget_PollView).use {
+        it.getDimension(DR.styleable.PollView_android_textSize, 15f)
+    }
+
+    init {
+        binding.statusPollVoteButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
+        binding.statusPollDescription.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
+
+        // "Show votes" text is always small.
+        val smallTextSize = context.obtainStyledAttributes(null, intArrayOf(DR.attr.status_text_small)).use {
+            it.getDimension(0, -1f)
+        }
+        binding.statusPollShowResults.setTextSize(TypedValue.COMPLEX_UNIT_PX, smallTextSize)
+    }
 
     fun bind(
         glide: RequestManager,
@@ -111,6 +131,7 @@ class PollView @JvmOverloads constructor(
             animateEmojis = statusDisplayOptions.animateEmojis,
             displayMode = displayMode,
             enabled = isEnabled,
+            textSize = textSize,
             resultClickListener = resultClickListener,
             pollOptionClickListener = pollOptionClickListener,
         )

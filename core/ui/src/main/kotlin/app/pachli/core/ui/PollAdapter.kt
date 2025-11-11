@@ -16,6 +16,7 @@
 
 package app.pachli.core.ui
 
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -47,6 +48,8 @@ class PollAdapter(
     val displayMode: DisplayMode,
     /** True if the user can vote in this poll, false otherwise (e.g., it's from an edit) */
     enabled: Boolean = true,
+    /** TextSize (px) of the views in each [ItemPollBinding]. */
+    private val textSize: Float,
     /** Listener to call when the user clicks on the poll results */
     private val resultClickListener: ResultClickListener? = null,
     /** Listener to call when the user clicks on a poll option */
@@ -90,6 +93,11 @@ class PollAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingHolder<ItemPollBinding> {
         val binding = ItemPollBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+
+        binding.statusPollOptionResult.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
+        binding.statusPollRadioButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
+        binding.statusPollCheckbox.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
+
         return BindingHolder(binding)
     }
 

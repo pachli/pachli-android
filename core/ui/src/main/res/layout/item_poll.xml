@@ -21,7 +21,6 @@
         android:drawablePadding="8dp"
         android:textAlignment="viewStart"
         android:textColor="?colorOnSecondary"
-        android:textSize="?attr/status_text_medium"
         tools:visibility="gone"
         tools:text="40%" />
 
@@ -30,7 +29,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="?android:attr/textColorPrimary"
-        android:textSize="?attr/status_text_medium"
         app:buttonTint="@color/compound_button_color"
         android:background="@drawable/poll_option_background_inset"
         android:paddingTop="2dp"
@@ -42,10 +40,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="?android:attr/textColorPrimary"
-        android:textSize="?attr/status_text_medium"
         app:buttonTint="@color/compound_button_color"
         android:background="@drawable/poll_option_background_inset"
         tools:visibility="gone"
         tools:text="Option 1" />
-
 </FrameLayout>
