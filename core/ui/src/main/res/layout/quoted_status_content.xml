@@ -36,4 +36,15 @@
         android:id="@+id/quoted_status_filtered"
         layout="@layout/item_status_filtered"
         android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/quoted_status_hidden"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
+        android:textAlignment="center"
+        android:textSize="?status_text_small"
+        android:text="@string/label_quoted_status_hidden"
+        android:visibility="gone" />
 </merge>

@@ -111,12 +111,16 @@ class QuotedStatusView @JvmOverloads constructor(
         when (filterAction) {
             FilterAction.HIDE -> {
                 // TODO: Hide the quote
+                binding.quotedStatusFiltered.root.hide()
+                binding.quotedStatusContainer.root.hide()
+                binding.quotedStatusHidden.show()
                 return
             }
 
             FilterAction.WARN -> {
                 filterResults[FilterAction.WARN]?.let { filters ->
                     binding.quotedStatusContainer.root.hide()
+                    binding.quotedStatusHidden.hide()
                     binding.quotedStatusFiltered.root.show()
 
                     val label = HtmlCompat.fromHtml(
@@ -145,6 +149,7 @@ class QuotedStatusView @JvmOverloads constructor(
             FilterAction.BLUR,
             FilterAction.NONE,
             -> {
+                binding.quotedStatusHidden.hide()
                 binding.quotedStatusFiltered.root.hide()
                 binding.quotedStatusContainer.root.show()
                 super.setupWithStatus(setStatusContent, glide, viewData, listener, statusDisplayOptions)
