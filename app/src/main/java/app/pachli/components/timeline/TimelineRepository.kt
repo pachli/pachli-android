@@ -36,7 +36,15 @@ interface TimelineRepository<T : Any> : StatusRepository {
     suspend fun invalidate(pachliAccountId: Long)
 
     companion object {
-        /** Default page size when fetching remote items. */
-        const val PAGE_SIZE = 30
+        /**
+         * Default page size when fetching items to display from the paging source.
+         * Keep this relatively low, as the larger it gets the more work the differ
+         * has to perform.
+         *
+         * This is *not* the number of items to load at once from the server, the
+         * different [RemoteMediator][androidx.paging.RemoteMediator] classes have
+         * their own limits.
+         */
+        const val PAGE_SIZE = 10
     }
 }

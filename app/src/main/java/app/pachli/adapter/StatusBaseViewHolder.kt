@@ -101,6 +101,16 @@ abstract class StatusBaseViewHolder<T : L, L : IStatusViewData> protected constr
             itemView.setOnClickListener { listener.onViewThread(actionable) }
         } else {
             payloads.flatten().forEach { item ->
+                if (item == StatusViewDataDiffCallback.Payload.STATUS_VIEW_DATA) {
+                    statusView.setupWithStatus(
+                        setStatusContent,
+                        glide,
+                        viewData,
+                        listener,
+                        statusDisplayOptions,
+                    )
+                    return
+                }
                 if (item == StatusViewDataDiffCallback.Payload.CREATED) {
                     statusView.setMetaData(viewData, statusDisplayOptions, listener)
                 }
@@ -142,21 +152,29 @@ object StatusViewDataDiffCallback : DiffUtil.ItemCallback<StatusViewDataQ>() {
          * was changed.
          */
         ATTACHMENTS,
+
+        /**
+         * The statusViewData for the status has changed, and the
+         * status should be re-displayed.
+         *
+         * This preempts other payloads, as it typically triggers a full
+         * re-display.
+         */
+        STATUS_VIEW_DATA,
     }
 
     override fun areItemsTheSame(
         oldItem: StatusViewDataQ,
         newItem: StatusViewDataQ,
     ): Boolean {
-        return oldItem.actionableId == newItem.actionableId
+        return oldItem.statusId == newItem.statusId
     }
 
     override fun areContentsTheSame(
         oldItem: StatusViewDataQ,
         newItem: StatusViewDataQ,
     ): Boolean {
-        // Items are different always. It allows to refresh timestamp on every view holder update
-        return false
+        return oldItem == newItem
     }
 
     override fun getChangePayload(
@@ -164,8 +182,10 @@ object StatusViewDataDiffCallback : DiffUtil.ItemCallback<StatusViewDataQ>() {
         newItem: StatusViewDataQ,
     ): Any? {
         val payload = buildList {
-            if (oldItem == newItem) {
-                add(Payload.CREATED)
+            add(Payload.CREATED)
+
+            if (oldItem.statusViewData != newItem.statusViewData) {
+                add(Payload.STATUS_VIEW_DATA)
                 return@buildList
             }
 
