@@ -130,7 +130,7 @@ class CachedTimelineViewModel @AssistedInject constructor(
 
     override fun onChangeExpanded(isExpanded: Boolean, statusViewData: IStatusViewData) {
         viewModelScope.launch {
-            repository.setExpanded(statusViewData.pachliAccountId, statusViewData.statusId, isExpanded)
+            repository.setExpanded(statusViewData.pachliAccountId, statusViewData.actionableId, isExpanded)
         }
     }
 
@@ -142,7 +142,7 @@ class CachedTimelineViewModel @AssistedInject constructor(
 
     override fun onContentCollapsed(isCollapsed: Boolean, statusViewData: IStatusViewData) {
         viewModelScope.launch {
-            repository.setContentCollapsed(statusViewData.pachliAccountId, statusViewData.statusId, isCollapsed)
+            repository.setContentCollapsed(statusViewData.pachliAccountId, statusViewData.actionableId, isCollapsed)
         }
     }
 
