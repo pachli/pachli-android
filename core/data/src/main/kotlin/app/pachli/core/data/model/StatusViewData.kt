@@ -15,6 +15,7 @@
  */
 package app.pachli.core.data.model
 
+import android.annotation.SuppressLint
 import android.os.Build
 import app.pachli.core.common.util.shouldTrimStatus
 import app.pachli.core.data.BuildConfig
@@ -138,6 +139,7 @@ sealed interface IStatusViewData {
         // an IStatusViewData as a parameter can't copy it.
         //
         // Fix this with a companion function that does the copy.
+        @SuppressLint("MemberExtensionConflict")
         fun IStatusViewData.copy(
             pachliAccountId: Long = this.pachliAccountId,
             translation: TranslatedStatusEntity? = this.translation,
