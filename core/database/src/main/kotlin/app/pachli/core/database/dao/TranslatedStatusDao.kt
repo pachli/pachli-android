@@ -42,7 +42,7 @@ WHERE
     )
     suspend fun getTranslations(
         accountId: Long,
-        serverIds: List<String>,
+        serverIds: Collection<String>,
     ): Map<
         @MapColumn(columnName = "serverId")
         String,
