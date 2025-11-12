@@ -102,7 +102,7 @@ import postPrepend
 
 @AndroidEntryPoint
 class NotificationsFragment :
-    SFragment<NotificationViewData.WithStatus, IStatusViewData>(),
+    SFragment<NotificationViewData.WithStatus>(),
     NotificationActionListener,
     AccountActionListener,
     OnRefreshListener,
@@ -512,14 +512,14 @@ class NotificationsFragment :
     }
 
     override fun onMore(view: View, viewData: IStatusViewData) {
-        super.more(view, viewData)
+        super.more(view, viewData as NotificationViewData.WithStatus)
     }
 
-    override fun onTranslate(viewData: IStatusViewData) {
+    override fun onTranslate(viewData: NotificationViewData.WithStatus) {
         viewModel.accept(FallibleStatusAction.Translate(viewData))
     }
 
-    override fun onTranslateUndo(viewData: IStatusViewData) {
+    override fun onTranslateUndo(viewData: NotificationViewData.WithStatus) {
         viewModel.accept(InfallibleStatusAction.TranslateUndo(viewData))
     }
 
@@ -642,7 +642,7 @@ class NotificationsFragment :
     }
 
     // Empty -- this fragment doesn't remove items
-    override fun removeItem(viewData: IStatusViewData) = Unit
+    override fun removeItem(viewData: NotificationViewData.WithStatus) = Unit
 
     override fun onReselect() {
         if (isAdded) {

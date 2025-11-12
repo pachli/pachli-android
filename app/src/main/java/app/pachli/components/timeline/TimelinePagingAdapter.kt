@@ -24,7 +24,6 @@ import app.pachli.R
 import app.pachli.adapter.FilterableStatusViewHolder
 import app.pachli.adapter.StatusViewDataDiffCallback
 import app.pachli.adapter.StatusViewHolder
-import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusViewDataQ
 import app.pachli.core.model.FilterAction
@@ -37,21 +36,21 @@ import com.bumptech.glide.RequestManager
 class TimelinePagingAdapter(
     private val glide: RequestManager,
     private val setStatusContent: SetStatusContent,
-    private val statusListener: StatusActionListener<IStatusViewData>,
+    private val statusListener: StatusActionListener,
     var statusDisplayOptions: StatusDisplayOptions,
 ) : PagingDataAdapter<StatusViewDataQ, RecyclerView.ViewHolder>(StatusViewDataDiffCallback) {
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(viewGroup.context)
         return when (viewType) {
             VIEW_TYPE_STATUS_FILTERED -> {
-                FilterableStatusViewHolder<StatusViewDataQ, IStatusViewData>(
+                FilterableStatusViewHolder<StatusViewDataQ>(
                     ItemStatusWrapperBinding.inflate(inflater, viewGroup, false),
                     glide,
                     setStatusContent,
                 )
             }
             VIEW_TYPE_STATUS -> {
-                StatusViewHolder<StatusViewDataQ, IStatusViewData>(
+                StatusViewHolder<StatusViewDataQ>(
                     ItemStatusBinding.inflate(inflater, viewGroup, false),
                     glide,
                     setStatusContent,
@@ -75,7 +74,7 @@ class TimelinePagingAdapter(
         } catch (_: IndexOutOfBoundsException) {
             null
         }?.let {
-            (viewHolder as StatusViewHolder<StatusViewDataQ, IStatusViewData>).setupWithStatus(
+            (viewHolder as StatusViewHolder<StatusViewDataQ>).setupWithStatus(
                 it,
                 statusListener,
                 statusDisplayOptions,

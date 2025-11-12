@@ -35,7 +35,7 @@ fun interface StatusProvider<T : IStatusViewData> {
 class ListStatusAccessibilityDelegate<T : IStatusViewDataQ>(
     private val pachliAccountId: Long,
     private val recyclerView: RecyclerView,
-    private val statusActionListener: StatusActionListener<IStatusViewData>,
+    private val statusActionListener: StatusActionListener,
     private val openUrl: OpenUrlUseCase,
     private val statusProvider: StatusProvider<T>,
 ) : PachliRecyclerViewAccessibilityDelegate(recyclerView) {
@@ -49,7 +49,7 @@ class ListStatusAccessibilityDelegate<T : IStatusViewDataQ>(
             super.onInitializeAccessibilityNodeInfo(host, info)
 
             val viewHolder = recyclerView.findContainingViewHolder(host)
-            if (viewHolder is FilterableStatusViewHolder<*, *> && viewHolder.matchedFilter != null) {
+            if (viewHolder is FilterableStatusViewHolder<*> && viewHolder.matchedFilter != null) {
                 info.addAction(showAnywayAction)
                 info.addAction(editFilterAction)
                 return
@@ -186,7 +186,7 @@ class ListStatusAccessibilityDelegate<T : IStatusViewDataQ>(
                 app.pachli.core.ui.R.id.action_expand_cw -> {
                     // Toggling it directly to avoid animations
                     // which cannot be disabled for detailed status for some reason
-                    val holder = recyclerView.getChildViewHolder(host) as StatusBaseViewHolder<IStatusViewData, IStatusViewData>
+                    val holder = recyclerView.getChildViewHolder(host) as StatusBaseViewHolder<IStatusViewData>
                     holder.toggleContentWarning()
                     // Stop and restart narrator before it reads old description.
                     // Would be nice if we could *just* read the content here but doesn't seem
@@ -252,7 +252,7 @@ class ListStatusAccessibilityDelegate<T : IStatusViewDataQ>(
                 app.pachli.core.ui.R.id.action_show_anyway -> statusActionListener.clearContentFilter(status)
 
                 app.pachli.core.ui.R.id.action_edit_filter -> {
-                    (recyclerView.findContainingViewHolder(host) as? FilterableStatusViewHolder<*, IStatusViewData>)?.matchedFilter?.let {
+                    (recyclerView.findContainingViewHolder(host) as? FilterableStatusViewHolder<*>)?.matchedFilter?.let {
                         statusActionListener.onEditFilterById(pachliAccountId, it.id)
                         return@let true
                     } ?: false

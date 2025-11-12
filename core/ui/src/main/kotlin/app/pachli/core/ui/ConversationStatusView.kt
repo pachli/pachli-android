@@ -51,7 +51,7 @@ class ConversationStatusView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
     defStyleRes: Int = 0,
-) : StatusView<ConversationViewData, IStatusViewData>(context, attrs, defStyleAttr, defStyleRes) {
+) : StatusView<ConversationViewData>(context, attrs, defStyleAttr, defStyleRes) {
     val binding = StatusContentConversationBinding.inflate(LayoutInflater.from(context), this)
 
     override val avatar = binding.statusAvatar
@@ -81,7 +81,7 @@ class ConversationStatusView @JvmOverloads constructor(
 
     private val avatarPadding = TypedValueCompat.dpToPx(2f, context.resources.displayMetrics).toInt()
 
-    override fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: ConversationViewData, listener: StatusActionListener<IStatusViewData>, statusDisplayOptions: StatusDisplayOptions) {
+    override fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: ConversationViewData, listener: StatusActionListener, statusDisplayOptions: StatusDisplayOptions) {
         super.setupWithStatus(setStatusContent, glide, viewData, listener, statusDisplayOptions)
 
         // Load additional avatars.

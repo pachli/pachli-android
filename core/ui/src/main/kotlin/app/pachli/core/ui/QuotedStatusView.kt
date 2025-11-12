@@ -23,7 +23,6 @@ import android.view.LayoutInflater
 import androidx.core.text.HtmlCompat
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
-import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.model.FilterAction
@@ -39,7 +38,7 @@ class QuotedStatusView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
     defStyleRes: Int = 0,
-) : StatusView<StatusViewData, IStatusViewData>(context, attrs, defStyleAttr, defStyleRes) {
+) : StatusView<StatusViewData>(context, attrs, defStyleAttr, defStyleRes) {
     private val binding = QuotedStatusContentBinding.inflate(LayoutInflater.from(context), this)
 
     override val avatar = binding.quotedStatusContainer.quoteStatusAvatar
@@ -61,7 +60,7 @@ class QuotedStatusView @JvmOverloads constructor(
         setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null)
     }
 
-    override fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: StatusViewData, listener: StatusActionListener<IStatusViewData>, statusDisplayOptions: StatusDisplayOptions) {
+    override fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: StatusViewData, listener: StatusActionListener, statusDisplayOptions: StatusDisplayOptions) {
         val filterResults = viewData.actionable.filtered.orEmpty().groupBy { (filter, keywordMatches, statusMatches) -> filter.filterAction }
 
         val filterAction = viewData.contentFilterAction

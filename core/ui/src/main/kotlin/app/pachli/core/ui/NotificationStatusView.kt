@@ -42,7 +42,7 @@ class NotificationStatusView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
     defStyleRes: Int = 0,
-) : StatusView<NotificationViewData.WithStatus, IStatusViewData>(context, attrs, defStyleAttr, defStyleRes) {
+) : StatusView<NotificationViewData.WithStatus>(context, attrs, defStyleAttr, defStyleRes) {
     val binding = StatusContentBinding.inflate(LayoutInflater.from(context), this)
 
     override val avatar = binding.statusAvatar
@@ -64,7 +64,7 @@ class NotificationStatusView @JvmOverloads constructor(
         setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null)
     }
 
-    override fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: NotificationViewData.WithStatus, listener: StatusActionListener<IStatusViewData>, statusDisplayOptions: StatusDisplayOptions) {
+    override fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: NotificationViewData.WithStatus, listener: StatusActionListener, statusDisplayOptions: StatusDisplayOptions) {
         super.setupWithStatus(setStatusContent, glide, viewData, listener, statusDisplayOptions)
 
         val quotedViewData = (viewData as? IStatusViewDataQ)?.quotedViewData

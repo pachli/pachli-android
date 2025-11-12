@@ -21,7 +21,6 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusViewDataQ
 import app.pachli.core.model.Status
@@ -30,7 +29,7 @@ import app.pachli.core.ui.StatusActionListener
 import app.pachli.databinding.ItemReportStatusBinding
 import com.bumptech.glide.RequestManager
 
-interface ReportStatusActionListener : StatusActionListener<IStatusViewData> {
+interface ReportStatusActionListener : StatusActionListener {
     fun setStatusChecked(status: Status, isChecked: Boolean)
     fun isStatusChecked(id: String): Boolean
 }

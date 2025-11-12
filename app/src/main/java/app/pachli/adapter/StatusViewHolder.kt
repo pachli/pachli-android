@@ -33,16 +33,16 @@ import app.pachli.core.ui.emojify
 import app.pachli.databinding.ItemStatusBinding
 import com.bumptech.glide.RequestManager
 
-open class StatusViewHolder<T : L, L : IStatusViewData>(
+open class StatusViewHolder<T : IStatusViewData>(
     private val binding: ItemStatusBinding,
     glide: RequestManager,
     setStatusContent: SetStatusContent,
     root: View? = null,
-) : StatusBaseViewHolder<T, L>(root ?: binding.root, glide, setStatusContent) {
+) : StatusBaseViewHolder<T>(root ?: binding.root, glide, setStatusContent) {
 
     override fun setupWithStatus(
         viewData: T,
-        listener: StatusActionListener<L>,
+        listener: StatusActionListener,
         statusDisplayOptions: StatusDisplayOptions,
         payloads: List<List<Any?>>?,
     ) {
@@ -61,7 +61,7 @@ open class StatusViewHolder<T : L, L : IStatusViewData>(
     private fun ItemStatusBinding.setStatusInfo(
         viewData: T,
         statusDisplayOptions: StatusDisplayOptions,
-        listener: StatusActionListener<L>,
+        listener: StatusActionListener,
     ) {
         if (!statusDisplayOptions.showStatusInfo) {
             statusInfo.hide()
@@ -142,7 +142,7 @@ open class StatusViewHolder<T : L, L : IStatusViewData>(
         viewData: T,
         rebloggingAccount: TimelineAccount,
         statusDisplayOptions: StatusDisplayOptions,
-        listener: StatusActionListener<L>,
+        listener: StatusActionListener,
     ) {
         statusInfo.text = HtmlCompat.fromHtml(
             context.getString(

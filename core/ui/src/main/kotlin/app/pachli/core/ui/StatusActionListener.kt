@@ -24,22 +24,22 @@ import app.pachli.core.model.IStatus
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 
-interface StatusActionListener<T : IStatusViewData> : LinkListener {
-    fun onReply(viewData: T)
-    fun onReblog(viewData: T, reblog: Boolean)
-    fun onFavourite(viewData: T, favourite: Boolean)
-    fun onBookmark(viewData: T, bookmark: Boolean)
-    fun onMore(view: View, viewData: T)
-    fun onViewAttachment(view: View?, viewData: T, attachmentIndex: Int)
+interface StatusActionListener : LinkListener {
+    fun onReply(viewData: IStatusViewData)
+    fun onReblog(viewData: IStatusViewData, reblog: Boolean)
+    fun onFavourite(viewData: IStatusViewData, favourite: Boolean)
+    fun onBookmark(viewData: IStatusViewData, bookmark: Boolean)
+    fun onMore(view: View, viewData: IStatusViewData)
+    fun onViewAttachment(view: View?, viewData: IStatusViewData, attachmentIndex: Int)
     fun onViewThread(status: Status)
 
     /**
      * Open reblog author for the status.
      */
     fun onOpenReblog(status: IStatus)
-    fun onExpandedChange(viewData: T, expanded: Boolean)
+    fun onExpandedChange(viewData: IStatusViewData, expanded: Boolean)
 
-    fun onAttachmentDisplayActionChange(viewData: T, newAction: AttachmentDisplayAction)
+    fun onAttachmentDisplayActionChange(viewData: IStatusViewData, newAction: AttachmentDisplayAction)
 
     /**
      * Called when the status [android.widget.ToggleButton] responsible for collapsing long
@@ -47,7 +47,7 @@ interface StatusActionListener<T : IStatusViewData> : LinkListener {
      *
      * @param isCollapsed Whether the status content is shown in a collapsed state or fully.
      */
-    fun onContentCollapsedChange(viewData: T, isCollapsed: Boolean)
+    fun onContentCollapsedChange(viewData: IStatusViewData, isCollapsed: Boolean)
 
     /**
      * called when the reblog count has been clicked
@@ -66,11 +66,11 @@ interface StatusActionListener<T : IStatusViewData> : LinkListener {
      * @param poll The poll the user is voting in.
      * @param choices The indices of the options the user is voting for.
      */
-    fun onVoteInPoll(viewData: T, poll: Poll, choices: List<Int>)
+    fun onVoteInPoll(viewData: IStatusViewData, poll: Poll, choices: List<Int>)
     fun onShowEdits(statusId: String) {}
 
     /** Remove the content filter from the status. */
-    fun clearContentFilter(viewData: T)
+    fun clearContentFilter(viewData: IStatusViewData)
 
     /** Edit the filter that matched this status. */
     fun onEditFilterById(pachliAccountId: Long, filterId: String)

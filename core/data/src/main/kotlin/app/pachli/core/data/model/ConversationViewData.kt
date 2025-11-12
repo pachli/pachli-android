@@ -49,7 +49,7 @@ data class ConversationViewData(
     val lastStatus: StatusViewDataQ,
     val accountFilterDecision: AccountFilterDecision? = null,
     val isConversationStarter: Boolean,
-) : IStatusViewDataQ by lastStatus {
+) : IStatusViewDataQ by lastStatus, IStatusViewData {
     companion object {
         /**
          * Creates a [ConversationViewData].

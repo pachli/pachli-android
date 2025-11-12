@@ -22,7 +22,6 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
-import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.IStatusViewDataQ
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusViewDataQ
@@ -36,7 +35,7 @@ class TimelineStatusView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
     defStyleRes: Int = 0,
-) : StatusView<IStatusViewDataQ, IStatusViewData>(context, attrs, defStyleAttr, defStyleRes) {
+) : StatusView<IStatusViewDataQ>(context, attrs, defStyleAttr, defStyleRes) {
     private val binding = StatusContentBinding.inflate(LayoutInflater.from(context), this)
 
     override val avatar = binding.statusAvatar
@@ -58,10 +57,10 @@ class TimelineStatusView @JvmOverloads constructor(
         setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null)
     }
 
-    override fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: IStatusViewDataQ, listener: StatusActionListener<IStatusViewData>, statusDisplayOptions: StatusDisplayOptions) {
+    override fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: IStatusViewDataQ, listener: StatusActionListener, statusDisplayOptions: StatusDisplayOptions) {
         super.setupWithStatus(setStatusContent, glide, viewData, listener, statusDisplayOptions)
 
-        val quotedViewData = (viewData as? IStatusViewDataQ)?.quotedViewData
+        val quotedViewData = viewData.quotedViewData
         if (quotedViewData == null) {
             binding.statusQuote.hide()
             return

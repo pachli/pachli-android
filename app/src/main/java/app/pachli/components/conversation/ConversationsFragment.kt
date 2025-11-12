@@ -124,7 +124,7 @@ internal sealed interface ConversationAction : UiAction {
 
 @AndroidEntryPoint
 class ConversationsFragment :
-    SFragment<ConversationViewData, IStatusViewData>(),
+    SFragment<ConversationViewData>(),
     OnRefreshListener,
     ReselectableFragment,
     MenuProvider {
@@ -372,7 +372,11 @@ class ConversationsFragment :
     }
 
     override fun onMore(view: View, viewData: IStatusViewData) {
-        super.more(view, viewData)
+        // TODO: Cast here is necessary because SFragment.onMore adds an extra
+        // menu item if the viewData is ConversationViewData. This design needs
+        // to be fixed. The menu should be created here (onCreateMenu or similar)
+        // which can call through to a generic implementation in SFragment.
+        super.more(view, viewData as ConversationViewData)
     }
 
     override fun onViewAttachment(view: View?, viewData: IStatusViewData, attachmentIndex: Int) {
@@ -414,7 +418,7 @@ class ConversationsFragment :
         startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
     }
 
-    override fun removeItem(viewData: IStatusViewData) {
+    override fun removeItem(viewData: ConversationViewData) {
         // not needed
     }
 
@@ -451,7 +455,7 @@ class ConversationsFragment :
         }
     }
 
-    override fun onConversationDelete(viewData: IStatusViewData) {
+    override fun onConversationDelete(viewData: ConversationViewData) {
         if (viewData !is ConversationViewData) return
 
         AlertDialog.Builder(requireContext())
@@ -463,11 +467,11 @@ class ConversationsFragment :
             .show()
     }
 
-    override fun onTranslate(viewData: IStatusViewData) {
+    override fun onTranslate(viewData: ConversationViewData) {
         viewModel.translate(viewData)
     }
 
-    override fun onTranslateUndo(viewData: IStatusViewData) {
+    override fun onTranslateUndo(viewData: ConversationViewData) {
         viewModel.translateUndo(viewData)
     }
 

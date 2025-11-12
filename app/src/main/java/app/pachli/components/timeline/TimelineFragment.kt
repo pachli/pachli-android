@@ -64,7 +64,6 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.model.IStatusViewData
-import app.pachli.core.data.model.StatusViewDataQ
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.IStatus
@@ -114,7 +113,7 @@ import timber.log.Timber
 
 @AndroidEntryPoint
 class TimelineFragment :
-    SFragment<StatusViewDataQ, IStatusViewData>(),
+    SFragment<IStatusViewData>(),
     OnRefreshListener,
     ReselectableFragment,
     RefreshableFragment,

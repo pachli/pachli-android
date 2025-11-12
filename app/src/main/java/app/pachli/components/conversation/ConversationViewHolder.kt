@@ -21,7 +21,6 @@ import app.pachli.R
 import app.pachli.adapter.StatusBaseViewHolder
 import app.pachli.adapter.StatusViewDataDiffCallback
 import app.pachli.core.data.model.ConversationViewData
-import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.model.ConversationAccount
 import app.pachli.core.ui.SetStatusContent
@@ -33,8 +32,8 @@ class ConversationViewHolder internal constructor(
     private val binding: ItemConversationBinding,
     glide: RequestManager,
     setStatusContent: SetStatusContent,
-    private val listener: StatusActionListener<IStatusViewData>,
-) : ConversationAdapter.ViewHolder, StatusBaseViewHolder<ConversationViewData, IStatusViewData>(binding.root, glide, setStatusContent) {
+    private val listener: StatusActionListener,
+) : ConversationAdapter.ViewHolder, StatusBaseViewHolder<ConversationViewData>(binding.root, glide, setStatusContent) {
 
     override fun bind(viewData: ConversationViewData, payloads: List<List<Any?>>?, statusDisplayOptions: StatusDisplayOptions) {
         if (payloads.isNullOrEmpty()) {

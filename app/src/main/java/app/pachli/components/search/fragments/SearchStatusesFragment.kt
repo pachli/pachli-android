@@ -43,7 +43,6 @@ import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.data.model.IStatusViewData
-import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.model.StatusViewDataQ
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.model.AccountEntity
@@ -80,7 +79,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
-class SearchStatusesFragment : SearchFragment<StatusViewDataQ>(), StatusActionListener<IStatusViewData> {
+class SearchStatusesFragment : SearchFragment<StatusViewDataQ>(), StatusActionListener {
     @Inject
     lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
 

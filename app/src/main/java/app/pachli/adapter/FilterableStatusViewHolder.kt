@@ -28,17 +28,17 @@ import app.pachli.core.ui.StatusActionListener
 import app.pachli.databinding.ItemStatusWrapperBinding
 import com.bumptech.glide.RequestManager
 
-open class FilterableStatusViewHolder<T : L, L : IStatusViewData>(
+open class FilterableStatusViewHolder<T : IStatusViewData>(
     private val binding: ItemStatusWrapperBinding,
     glide: RequestManager,
     setStatusContent: SetStatusContent,
-) : StatusViewHolder<T, L>(binding.statusContainer, glide, setStatusContent, binding.root) {
+) : StatusViewHolder<T>(binding.statusContainer, glide, setStatusContent, binding.root) {
     /** The filter that matched the status, null if the status is not being filtered. */
     var matchedFilter: ContentFilter? = null
 
     override fun setupWithStatus(
         viewData: T,
-        listener: StatusActionListener<L>,
+        listener: StatusActionListener,
         statusDisplayOptions: StatusDisplayOptions,
         payloads: List<List<Any?>>?,
     ) {
@@ -48,7 +48,7 @@ open class FilterableStatusViewHolder<T : L, L : IStatusViewData>(
 
     private fun setupFilterPlaceholder(
         viewData: T,
-        listener: StatusActionListener<L>,
+        listener: StatusActionListener,
     ) {
         if (viewData.contentFilterAction !== FilterAction.WARN) {
             matchedFilter = null

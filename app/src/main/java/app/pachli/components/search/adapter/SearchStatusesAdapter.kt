@@ -22,7 +22,6 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import app.pachli.adapter.StatusViewDataDiffCallback
 import app.pachli.adapter.StatusViewHolder
-import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusViewDataQ
 import app.pachli.core.ui.SetStatusContent
@@ -34,10 +33,10 @@ class SearchStatusesAdapter(
     private val glide: RequestManager,
     private val setStatusContent: SetStatusContent,
     private val statusDisplayOptions: StatusDisplayOptions,
-    private val statusListener: StatusActionListener<IStatusViewData>,
-) : PagingDataAdapter<StatusViewDataQ, StatusViewHolder<StatusViewDataQ, IStatusViewData>>(STATUS_COMPARATOR) {
+    private val statusListener: StatusActionListener,
+) : PagingDataAdapter<StatusViewDataQ, StatusViewHolder<StatusViewDataQ>>(STATUS_COMPARATOR) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StatusViewHolder<StatusViewDataQ, IStatusViewData> {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StatusViewHolder<StatusViewDataQ> {
         return StatusViewHolder(
             ItemStatusBinding.inflate(LayoutInflater.from(parent.context), parent, false),
             glide,
@@ -45,13 +44,13 @@ class SearchStatusesAdapter(
         )
     }
 
-    override fun onBindViewHolder(holder: StatusViewHolder<StatusViewDataQ, IStatusViewData>, position: Int) {
+    override fun onBindViewHolder(holder: StatusViewHolder<StatusViewDataQ>, position: Int) {
         getItem(position)?.let { item ->
             holder.setupWithStatus(item, statusListener, statusDisplayOptions, null)
         }
     }
 
-    override fun onBindViewHolder(holder: StatusViewHolder<StatusViewDataQ, IStatusViewData>, position: Int, payloads: List<Any?>) {
+    override fun onBindViewHolder(holder: StatusViewHolder<StatusViewDataQ>, position: Int, payloads: List<Any?>) {
         getItem(position)?.let { item ->
             holder.setupWithStatus(item, statusListener, statusDisplayOptions, payloads as? List<List<Any?>>?)
         }

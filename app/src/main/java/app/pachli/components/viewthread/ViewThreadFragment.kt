@@ -79,9 +79,9 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ViewThreadFragment :
-    SFragment<StatusViewDataQ, IStatusViewData>(),
+    SFragment<StatusViewDataQ>(),
     OnRefreshListener,
-    StatusActionListener<IStatusViewData>,
+    StatusActionListener,
     MenuProvider {
 
     @Inject
@@ -318,11 +318,11 @@ class ViewThreadFragment :
         }
     }
 
-    override fun onTranslate(viewData: IStatusViewData) {
+    override fun onTranslate(viewData: StatusViewDataQ) {
         viewModel.translate(viewData)
     }
 
-    override fun onTranslateUndo(viewData: IStatusViewData) {
+    override fun onTranslateUndo(viewData: StatusViewDataQ) {
         viewModel.translateUndo(viewData)
     }
 
@@ -352,7 +352,7 @@ class ViewThreadFragment :
     }
 
     override fun onMore(view: View, viewData: IStatusViewData) {
-        super.more(view, viewData)
+        super.more(view, viewData as StatusViewDataQ)
     }
 
     override fun onViewAttachment(view: View?, viewData: IStatusViewData, attachmentIndex: Int) {
@@ -431,7 +431,7 @@ class ViewThreadFragment :
         super.viewAccount(id)
     }
 
-    public override fun removeItem(viewData: IStatusViewData) {
+    public override fun removeItem(viewData: StatusViewDataQ) {
         if (viewData.isDetailed) {
             // the main status we are viewing is being removed, finish the activity
             activity?.finish()
