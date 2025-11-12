@@ -473,6 +473,13 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
             actionable.attachments
         }
 
+        if (attachments.isEmpty()) {
+            attachmentsView.hide()
+            return
+        }
+
+        attachmentsView.show()
+
         attachmentsView.bind(
             glide,
             viewData,
