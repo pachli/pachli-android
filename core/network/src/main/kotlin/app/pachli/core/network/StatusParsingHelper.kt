@@ -23,18 +23,20 @@ import android.text.Spanned
 import androidx.core.text.parseAsHtml
 import app.pachli.core.common.string.trimTrailingWhitespace
 
+private val rxBR = "<br> ".toRegex()
+
 /**
  * parse a String containing html from the Mastodon api to Spanned
  */
 @JvmOverloads
 fun CharSequence.parseAsMastodonHtml(tagHandler: TagHandler? = null): Spanned {
-    return this.replace("<br> ".toRegex(), "<br>&nbsp;")
+    return this.replace(rxBR, "<br>&nbsp;")
         .replace("<br /> ", "<br />&nbsp;")
         .replace("<br/> ", "<br/>&nbsp;")
         .replace("  ", "&nbsp;&nbsp;")
         .parseAsHtml(tagHandler = tagHandler)
-        /* Html.fromHtml returns trailing whitespace if the html ends in a </p> tag, which
-         * most status contents do, so it should be trimmed. */
+        // Html.fromHtml returns trailing whitespace if the html ends in a </p> tag, which
+        // most status contents do, so it should be trimmed.
         .trimTrailingWhitespace()
 }
 
