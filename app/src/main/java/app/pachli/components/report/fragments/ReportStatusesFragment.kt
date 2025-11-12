@@ -43,6 +43,7 @@ import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
+import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.Poll
@@ -247,7 +248,7 @@ class ReportStatusesFragment :
         return viewModel.isStatusChecked(id)
     }
 
-    override fun onViewAttachment(view: View?, viewData: StatusViewData, attachmentIndex: Int) {
+    override fun onViewAttachment(view: View?, viewData: IStatusViewData, attachmentIndex: Int) {
         super.viewMedia(
             viewData.actionable.account.username,
             attachmentIndex,
@@ -260,19 +261,19 @@ class ReportStatusesFragment :
         super.viewThread(status.actionableId, status.actionableStatus.url)
     }
 
-    override fun onExpandedChange(viewData: StatusViewData, expanded: Boolean) {
+    override fun onExpandedChange(viewData: IStatusViewData, expanded: Boolean) {
         viewModel.onChangeExpanded(expanded, viewData)
     }
 
-    override fun onAttachmentDisplayActionChange(viewData: StatusViewData, newAction: AttachmentDisplayAction) {
+    override fun onAttachmentDisplayActionChange(viewData: IStatusViewData, newAction: AttachmentDisplayAction) {
         viewModel.onChangeAttachmentDisplayAction(viewData, newAction)
     }
 
-    override fun onContentCollapsedChange(viewData: StatusViewData, isCollapsed: Boolean) {
+    override fun onContentCollapsedChange(viewData: IStatusViewData, isCollapsed: Boolean) {
         viewModel.onContentCollapsed(isCollapsed, viewData)
     }
 
-    override fun clearContentFilter(viewData: StatusViewData) {
+    override fun clearContentFilter(viewData: IStatusViewData) {
         viewModel.clearWarning(viewData)
     }
 
@@ -294,13 +295,13 @@ class ReportStatusesFragment :
     override fun onViewUrl(url: String) = viewModel.checkClickedUrl(url)
 
     override fun removeItem(viewData: StatusViewData) = Unit
-    override fun onReply(viewData: StatusViewData) = Unit
-    override fun onReblog(viewData: StatusViewData, reblog: Boolean) = Unit
-    override fun onFavourite(viewData: StatusViewData, favourite: Boolean) = Unit
-    override fun onBookmark(viewData: StatusViewData, bookmark: Boolean) = Unit
-    override fun onMore(view: View, viewData: StatusViewData) = Unit
+    override fun onReply(viewData: IStatusViewData) = Unit
+    override fun onReblog(viewData: IStatusViewData, reblog: Boolean) = Unit
+    override fun onFavourite(viewData: IStatusViewData, favourite: Boolean) = Unit
+    override fun onBookmark(viewData: IStatusViewData, bookmark: Boolean) = Unit
+    override fun onMore(view: View, viewData: IStatusViewData) = Unit
     override fun onOpenReblog(status: Status) = Unit
-    override fun onVoteInPoll(viewData: StatusViewData, poll: Poll, choices: List<Int>) = Unit
+    override fun onVoteInPoll(viewData: IStatusViewData, poll: Poll, choices: List<Int>) = Unit
     override fun onTranslate(viewData: StatusViewData) = Unit
     override fun onTranslateUndo(viewData: StatusViewData) = Unit
 

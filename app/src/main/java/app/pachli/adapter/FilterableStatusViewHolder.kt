@@ -38,7 +38,7 @@ open class FilterableStatusViewHolder<T : IStatusViewData>(
 
     override fun setupWithStatus(
         viewData: T,
-        listener: StatusActionListener<T>,
+        listener: StatusActionListener,
         statusDisplayOptions: StatusDisplayOptions,
         payloads: List<List<Any?>>?,
     ) {
@@ -48,7 +48,7 @@ open class FilterableStatusViewHolder<T : IStatusViewData>(
 
     private fun setupFilterPlaceholder(
         viewData: T,
-        listener: StatusActionListener<T>,
+        listener: StatusActionListener,
     ) {
         if (viewData.contentFilterAction !== FilterAction.WARN) {
             matchedFilter = null

@@ -15,6 +15,7 @@
  */
 package app.pachli.core.data.model
 
+import android.annotation.SuppressLint
 import android.os.Build
 import app.pachli.core.common.util.shouldTrimStatus
 import app.pachli.core.data.BuildConfig
@@ -30,12 +31,15 @@ import app.pachli.core.network.replaceCrashingCharacters
 
 /**
  * Interface for the data shown when viewing a status, or something that wraps
- * a status, like [NotificationViewData] or
- * [app.pachli.components.conversation.ConversationViewData].
+ * a status, like [NotificationViewData] or [ConversationViewData].
  */
-interface IStatusViewData {
+sealed interface IStatusViewData {
     /** ID of the Pachli account that loaded this status. */
     val pachliAccountId: Long
+
+    val id: String
+        get() = status.statusId
+
     val username: String
 
     // TODO: rebloggedAvatar is the wrong name for this property. This is the avatar to show
@@ -43,6 +47,11 @@ interface IStatusViewData {
     // avatar that boosted it, but when viewing a notification about a boost or favourite
     // this the avatar that boosted/favourited it
     val rebloggedAvatar: String?
+        get() = if (status.reblog != null) {
+            status.account.avatar
+        } else {
+            null
+        }
 
     var translation: TranslatedStatusEntity?
 
@@ -93,13 +102,16 @@ interface IStatusViewData {
      * and `actionable` are the same.
      */
     val actionable: Status
+        get() = status.actionableStatus
 
     /**
      * The ID of the [actionable] status.
      */
     val actionableId: String
+        get() = status.actionableStatus.statusId
 
     val rebloggingStatus: Status?
+        get() = if (status.reblog != null) status else null
 
     /** The [FilterAction] to apply, based on the status' content. */
     var contentFilterAction: FilterAction
@@ -120,6 +132,129 @@ interface IStatusViewData {
      * details to show, and a generic "Reply" indicator should be shown.
      */
     val replyToAccount: TimelineAccount?
+
+    companion object {
+        // There's no marker interface for data classes, so even though everything
+        // that implements IStatusViewData is a data class, a function that receives
+        // an IStatusViewData as a parameter can't copy it.
+        //
+        // Fix this with a companion function that does the copy.
+        @SuppressLint("MemberExtensionConflict")
+        fun IStatusViewData.copy(
+            pachliAccountId: Long = this.pachliAccountId,
+            translation: TranslatedStatusEntity? = this.translation,
+            isExpanded: Boolean = this.isExpanded,
+            isCollapsed: Boolean = this.isCollapsed,
+            status: Status = this.status,
+            contentFilterAction: FilterAction = this.contentFilterAction,
+            translationState: TranslationState = this.translationState,
+            attachmentDisplayAction: AttachmentDisplayAction = this.attachmentDisplayAction,
+        ): IStatusViewData {
+            return when (this) {
+                is ConversationViewData -> copy(
+                    lastStatus = this.lastStatus.copy(
+                        pachliAccountId = pachliAccountId,
+                        translation = translation,
+                        isExpanded = isExpanded,
+                        isCollapsed = isCollapsed,
+                        status = status,
+                        contentFilterAction = contentFilterAction,
+                        translationState = translationState,
+                        attachmentDisplayAction = attachmentDisplayAction,
+                    ),
+                )
+
+                is NotificationViewData.WithStatus.MentionNotificationViewData -> copy(
+                    statusViewData = this.statusViewData.copy(
+                        pachliAccountId = pachliAccountId,
+                        translation = translation,
+                        isExpanded = isExpanded,
+                        isCollapsed = isCollapsed,
+                        status = status,
+                        contentFilterAction = contentFilterAction,
+                        translationState = translationState,
+                        attachmentDisplayAction = attachmentDisplayAction,
+                    ),
+                )
+
+                is NotificationViewData.WithStatus.FavouriteNotificationViewData -> copy(
+                    statusViewData = this.statusViewData.copy(
+                        pachliAccountId = pachliAccountId,
+                        translation = translation,
+                        isExpanded = isExpanded,
+                        isCollapsed = isCollapsed,
+                        status = status,
+                        contentFilterAction = contentFilterAction,
+                        translationState = translationState,
+                        attachmentDisplayAction = attachmentDisplayAction,
+                    ),
+                )
+
+                is NotificationViewData.WithStatus.PollNotificationViewData -> copy(
+                    statusViewData = this.statusViewData.copy(
+                        pachliAccountId = pachliAccountId,
+                        translation = translation,
+                        isExpanded = isExpanded,
+                        isCollapsed = isCollapsed,
+                        status = status,
+                        contentFilterAction = contentFilterAction,
+                        translationState = translationState,
+                        attachmentDisplayAction = attachmentDisplayAction,
+                    ),
+                )
+
+                is NotificationViewData.WithStatus.ReblogNotificationViewData -> copy(
+                    statusViewData = this.statusViewData.copy(
+                        pachliAccountId = pachliAccountId,
+                        translation = translation,
+                        isExpanded = isExpanded,
+                        isCollapsed = isCollapsed,
+                        status = status,
+                        contentFilterAction = contentFilterAction,
+                        translationState = translationState,
+                        attachmentDisplayAction = attachmentDisplayAction,
+                    ),
+                )
+
+                is NotificationViewData.WithStatus.StatusNotificationViewData -> copy(
+                    statusViewData = this.statusViewData.copy(
+                        pachliAccountId = pachliAccountId,
+                        translation = translation,
+                        isExpanded = isExpanded,
+                        isCollapsed = isCollapsed,
+                        status = status,
+                        contentFilterAction = contentFilterAction,
+                        translationState = translationState,
+                        attachmentDisplayAction = attachmentDisplayAction,
+                    ),
+                )
+
+                is NotificationViewData.WithStatus.UpdateNotificationViewData -> copy(
+                    statusViewData = this.statusViewData.copy(
+                        pachliAccountId = pachliAccountId,
+                        translation = translation,
+                        isExpanded = isExpanded,
+                        isCollapsed = isCollapsed,
+                        status = status,
+                        contentFilterAction = contentFilterAction,
+                        translationState = translationState,
+                        attachmentDisplayAction = attachmentDisplayAction,
+                    ),
+                )
+
+                is StatusViewData -> copy(
+                    pachliAccountId = pachliAccountId,
+                    translation = translation,
+                    isExpanded = isExpanded,
+                    isCollapsed = isCollapsed,
+                    status = status,
+                    contentFilterAction = contentFilterAction,
+                    translationState = translationState,
+                    attachmentDisplayAction = attachmentDisplayAction,
+                )
+            }
+        }
+    }
 }
 
 /**
@@ -142,8 +277,6 @@ data class StatusViewData(
      */
     val isDetailed: Boolean = false,
 ) : IStatusViewData {
-    val id: String
-        get() = status.statusId
 
     override val isCollapsible: Boolean
 
@@ -165,21 +298,12 @@ data class StatusViewData(
 
     override val username: String
 
-    override val actionable: Status
-        get() = status.actionableStatus
-
-    override val actionableId: String
-        get() = status.actionableStatus.statusId
-
     override val rebloggedAvatar: String?
         get() = if (status.reblog != null) {
             status.account.avatar
         } else {
             null
         }
-
-    override val rebloggingStatus: Status?
-        get() = if (status.reblog != null) status else null
 
     init {
         if (Build.VERSION.SDK_INT == 23) {

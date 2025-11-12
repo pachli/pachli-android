@@ -36,7 +36,7 @@ import com.bumptech.glide.RequestManager
 class TimelinePagingAdapter(
     private val glide: RequestManager,
     private val setStatusContent: SetStatusContent,
-    private val statusListener: StatusActionListener<StatusViewData>,
+    private val statusListener: StatusActionListener,
     var statusDisplayOptions: StatusDisplayOptions,
 ) : PagingDataAdapter<StatusViewData, RecyclerView.ViewHolder>(StatusViewDataDiffCallback) {
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

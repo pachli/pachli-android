@@ -37,7 +37,7 @@ import com.bumptech.glide.RequestManager
 class ThreadAdapter(
     private val glide: RequestManager,
     private val statusDisplayOptions: StatusDisplayOptions,
-    private val statusActionListener: StatusActionListener<StatusViewData>,
+    private val statusActionListener: StatusActionListener,
     private val setStatusContent: SetStatusContent,
 ) : ListAdapter<StatusViewData, StatusBaseViewHolder<StatusViewData>>(StatusViewDataDiffCallback) {
 

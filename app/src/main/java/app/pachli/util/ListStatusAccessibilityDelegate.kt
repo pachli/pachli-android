@@ -34,7 +34,7 @@ fun interface StatusProvider<T> {
 class ListStatusAccessibilityDelegate<T : IStatusViewData>(
     private val pachliAccountId: Long,
     private val recyclerView: RecyclerView,
-    private val statusActionListener: StatusActionListener<T>,
+    private val statusActionListener: StatusActionListener,
     private val openUrl: OpenUrlUseCase,
     private val statusProvider: StatusProvider<T>,
 ) : PachliRecyclerViewAccessibilityDelegate(recyclerView) {

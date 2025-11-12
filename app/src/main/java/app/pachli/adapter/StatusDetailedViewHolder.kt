@@ -32,7 +32,7 @@ class StatusDetailedViewHolder(
 
     override fun setupWithStatus(
         viewData: StatusViewData,
-        listener: StatusActionListener<StatusViewData>,
+        listener: StatusActionListener,
         statusDisplayOptions: StatusDisplayOptions,
         payloads: List<List<Any?>>?,
     ) {

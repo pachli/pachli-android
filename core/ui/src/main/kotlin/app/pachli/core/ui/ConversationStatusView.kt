@@ -79,7 +79,7 @@ class ConversationStatusView @JvmOverloads constructor(
 
     private val avatarPadding = TypedValueCompat.dpToPx(2f, context.resources.displayMetrics).toInt()
 
-    override fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: ConversationViewData, listener: StatusActionListener<ConversationViewData>, statusDisplayOptions: StatusDisplayOptions) {
+    override fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: ConversationViewData, listener: StatusActionListener, statusDisplayOptions: StatusDisplayOptions) {
         super.setupWithStatus(setStatusContent, glide, viewData, listener, statusDisplayOptions)
 
         // Load additional avatars.

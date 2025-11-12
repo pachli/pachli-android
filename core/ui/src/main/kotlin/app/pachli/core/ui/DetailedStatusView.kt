@@ -83,7 +83,7 @@ class DetailedStatusView @JvmOverloads constructor(
         setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null)
     }
 
-    override fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: StatusViewData, listener: StatusActionListener<StatusViewData>, statusDisplayOptions: StatusDisplayOptions) {
+    override fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: StatusViewData, listener: StatusActionListener, statusDisplayOptions: StatusDisplayOptions) {
         // We never collapse statuses in the detail view
         val uncollapsedViewdata =
             if (viewData.isCollapsible && viewData.isCollapsed) viewData.copy(isCollapsed = false) else viewData
@@ -99,7 +99,7 @@ class DetailedStatusView @JvmOverloads constructor(
 
     private fun setReblogAndFavCount(
         viewData: StatusViewData,
-        listener: StatusActionListener<StatusViewData>,
+        listener: StatusActionListener,
     ) {
         val reblogCount = viewData.actionable.reblogsCount
         val favCount = viewData.actionable.favouritesCount
@@ -135,7 +135,7 @@ class DetailedStatusView @JvmOverloads constructor(
         binding.statusInfoDivider.hide()
     }
 
-    override fun setMetaData(viewData: StatusViewData, statusDisplayOptions: StatusDisplayOptions, listener: StatusActionListener<StatusViewData>) {
+    override fun setMetaData(viewData: StatusViewData, statusDisplayOptions: StatusDisplayOptions, listener: StatusActionListener) {
         val createdAt = viewData.actionable.createdAt
         val editedAt = viewData.actionable.editedAt
         val visibility = viewData.actionable.visibility
@@ -180,7 +180,7 @@ class DetailedStatusView @JvmOverloads constructor(
     }
 
     // Always show the card for detailed statuses.
-    override fun setupCard(glide: RequestManager, viewData: StatusViewData, expanded: Boolean, cardViewMode: CardViewMode, statusDisplayOptions: StatusDisplayOptions, listener: StatusActionListener<StatusViewData>) {
+    override fun setupCard(glide: RequestManager, viewData: StatusViewData, expanded: Boolean, cardViewMode: CardViewMode, statusDisplayOptions: StatusDisplayOptions, listener: StatusActionListener) {
         super.setupCard(glide, viewData, viewData.isExpanded, CardViewMode.FULL_WIDTH, statusDisplayOptions, listener)
     }
 

@@ -41,7 +41,7 @@ internal class ConversationAdapter(
     private val glide: RequestManager,
     private var statusDisplayOptions: StatusDisplayOptions,
     private val setStatusContent: SetStatusContent,
-    private val listener: StatusActionListener<ConversationViewData>,
+    private val listener: StatusActionListener,
     private val accept: (UiAction) -> Unit,
 ) : PagingDataAdapter<ConversationViewData, RecyclerView.ViewHolder>(CONVERSATION_COMPARATOR) {
     /** View holders in this adapter must implement this interface. */
@@ -164,7 +164,7 @@ class FilterableConversationStatusViewHolder internal constructor(
     binding: ItemStatusWrapperBinding,
     glide: RequestManager,
     setStatusContent: SetStatusContent,
-    private val listener: StatusActionListener<ConversationViewData>,
+    private val listener: StatusActionListener,
 ) : ConversationAdapter.ViewHolder, FilterableStatusViewHolder<ConversationViewData>(binding, glide, setStatusContent) {
     override fun bind(viewData: ConversationViewData, payloads: List<List<Any?>>?, statusDisplayOptions: StatusDisplayOptions) {
         if (payloads.isNullOrEmpty()) {
