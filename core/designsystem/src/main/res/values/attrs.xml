@@ -42,4 +42,32 @@
     <declare-styleable name="PollView">
         <attr name="android:textSize" format="reference|dimension" />
     </declare-styleable>
+
+    <attr name="previewCardViewStyle" format="reference" />
+    <declare-styleable name="PreviewCardView">
+        <attr name="android:background" />
+        <attr name="android:foreground" />
+
+        <!-- Height of the preview image, if the image is stacked vertically above
+             the preview content. -->
+        <attr name="previewCardImageVerticalHeight" format="reference|dimension" />
+        <!-- Width of the preview image, if the image is laid out horizontally next
+             to the preview content. -->
+        <attr name="previewCardImageHorizontalWidth" format="reference|dimension" />
+
+        <attr name="previewCardTitleTextColor" format="reference|color" />
+        <attr name="previewCardTitleTextSize" format="reference|dimension" />
+
+        <attr name="previewCardDescriptionTextColor" format="reference|color" />
+        <attr name="previewCardDescriptionTextSize" format="reference|dimension" />
+
+        <attr name="previewCardAuthorTextColor" format="reference|color" />
+        <attr name="previewCardAuthorTextSize" format="reference|dimension" />
+
+        <attr name="previewCardAuthorTimelineLinkTextColor" format="reference|color" />
+        <attr name="previewCardAuthorTimelineLinkTextSize" format="reference|dimension" />
+
+        <attr name="previewCardAvatarSize" format="reference|dimension" />
+        <attr name="previewCardAvatarCornerRadius" format="reference|dimension" />
+    </declare-styleable>
 </resources>
