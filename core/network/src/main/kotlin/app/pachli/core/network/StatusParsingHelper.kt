@@ -29,7 +29,7 @@ private val rxBR = "<br> ".toRegex()
  * Matches the fallback "<p class="quote-inline">...</p>" added to statuses
  * with an embedded quote for clients that don't display quotes.
  */
-private val rxQuoteInline = "<p class=\"quote-inline\".*?</p>\\s*".toRegex()
+val rxQuoteInline = "<p class=\"quote-inline\".*?</p>\\s*".toRegex()
 
 /**
  * parse a String containing html from the Mastodon api to Spanned
