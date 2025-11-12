@@ -162,7 +162,7 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
         customEmojis: List<Emoji>?,
         statusDisplayOptions: StatusDisplayOptions,
     ) {
-        displayName.text = name.emojify(glide, customEmojis, displayName, statusDisplayOptions.animateEmojis)
+        displayName.text = name.unicodeWrap().emojify(glide, customEmojis, displayName, statusDisplayOptions.animateEmojis)
     }
 
     fun setUsername(name: String) {
