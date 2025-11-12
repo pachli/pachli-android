@@ -102,11 +102,36 @@ abstract class StatusBaseViewHolder<T : L, L : IStatusViewData> protected constr
         } else {
             payloads.flatten().forEach { item ->
                 if (item == StatusViewDataDiffCallback.Payload.STATUS_VIEW_DATA) {
+                    val actionable = viewData.actionable
                     statusView.setupWithStatus(
                         setStatusContent,
                         glide,
                         viewData,
                         listener,
+                        statusDisplayOptions,
+                    )
+
+                    statusControls.bind(
+                        statusVisibility = actionable.visibility,
+                        showCounts = statusDisplayOptions.showStatsInline,
+                        confirmReblog = statusDisplayOptions.confirmReblogs,
+                        confirmFavourite = statusDisplayOptions.confirmFavourites,
+                        isReply = actionable.inReplyToId != null,
+                        isReblogged = actionable.reblogged,
+                        isFavourited = actionable.favourited,
+                        isBookmarked = actionable.bookmarked,
+                        replyCount = actionable.repliesCount,
+                        reblogCount = actionable.reblogsCount,
+                        favouriteCount = actionable.favouritesCount,
+                        onReplyClick = { listener.onReply(viewData) },
+                        onReblogClick = { reblog -> listener.onReblog(viewData, reblog) },
+                        onFavouriteClick = { favourite -> listener.onFavourite(viewData, favourite) },
+                        onBookmarkClick = { bookmark -> listener.onBookmark(viewData, bookmark) },
+                        onMoreClick = { view -> listener.onMore(view, viewData) },
+                    )
+
+                    itemView.contentDescription = statusView.getContentDescription(
+                        viewData,
                         statusDisplayOptions,
                     )
                     return
@@ -184,6 +209,8 @@ object StatusViewDataDiffCallback : DiffUtil.ItemCallback<StatusViewDataQ>() {
         val payload = buildList {
             add(Payload.CREATED)
 
+            // TODO: This is wrong, because statusViewData contains the status, so
+            // this will trigger on every change
             if (oldItem.statusViewData != newItem.statusViewData ||
                 oldItem.quotedViewData != newItem.quotedViewData
             ) {
