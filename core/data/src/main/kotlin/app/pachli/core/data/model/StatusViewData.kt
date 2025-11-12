@@ -76,19 +76,8 @@ interface IStatusViewData : IStatus {
      */
     val isCollapsed: Boolean
 
-    /** The content warning, may be the empty string */
-//    val spoilerText: String
-
-    /**
-     * The content to show for this status. May be the original content, or
-     * translated, depending on `translationState`.
-     */
-//    val content: CharSequence
-
     /** The underlying status */
     val status: Status
-
-//    val quoteViewData: IStatusViewData?
 
     /**
      * The "actionable" status; the one on which the user can perform actions
@@ -206,7 +195,6 @@ data class StatusViewDataQ(
 data class StatusViewData(
     override val pachliAccountId: Long,
     override val status: Status,
-//    override val quoteViewData: StatusViewData? = null,
     override var translation: TranslatedStatusEntity? = null,
     override val isExpanded: Boolean,
     override val isCollapsed: Boolean,
@@ -298,27 +286,9 @@ data class StatusViewData(
                 }
             }
 
-//            return StatusViewData(
-//                pachliAccountId = pachliAccountId,
-//                status = status,
-//                isCollapsed = isCollapsed,
-//                isExpanded = isExpanded,
-//                isDetailed = isDetailed,
-//                contentFilterAction = contentFilterAction,
-//                attachmentDisplayAction = attachmentDisplayAction,
-//                translationState = translationState,
-//                translation = translation,
-//            )
-
             return StatusViewData(
                 pachliAccountId = pachliAccountId,
                 status = status,
-//                quoteViewData = (status.quote as? Status.Quote.FullQuote)?.status?.let { q ->
-//                    StatusViewData.from(
-//                        pachliAccountId = pachliAccountId,
-//                        status = q,
-//                    )
-//                },
                 isCollapsed = isCollapsed,
                 isExpanded = isExpanded,
                 isDetailed = isDetailed,
@@ -345,21 +315,6 @@ data class StatusViewData(
             return StatusViewData(
                 pachliAccountId = pachliAccountId,
                 status = status.toStatus(),
-//                quoteViewData = quote?.let {
-//                    StatusViewData.from(
-//                        pachliAccountId,
-//                        status = it.toStatus(),
-//                        isExpanded = isExpanded,
-//                        isCollapsed = it.viewData?.contentCollapsed ?: true,
-//                        isDetailed = false,
-//                        contentFilterAction = contentFilterAction,
-//                        attachmentDisplayAction = it.getAttachmentDisplayAction(
-//                            filterContext,
-//                            showSensitiveMedia,
-//                        ),
-//                        translationState = it.viewData?.translationState ?: TranslationState.SHOW_ORIGINAL,
-//                    )
-//                },
                 translation = tsq.timelineStatus.translatedStatus,
                 isExpanded = tsq.timelineStatus.viewData?.expanded ?: isExpanded,
                 isCollapsed = tsq.timelineStatus.viewData?.contentCollapsed ?: true,
@@ -373,60 +328,6 @@ data class StatusViewData(
                 replyToAccount = tsq.timelineStatus.replyAccount?.asModel(),
             )
         }
-
-//        /**
-//         *
-//         * @param tsq
-//         * @param isExpanded Default expansion behaviour for a status with a content
-//         * warning. Used if the status viewdata is null
-//         * @param isDetailed True if the status should be shown with the detailed
-//         * layout, false otherwise.
-//         * @param contentFilterAction
-//         * @param attachmentDisplayAction
-//         * @param translationState Default translation state for this status. Used if
-//         * the status viewdata is null.
-//         */
-//        fun from(
-//            pachliAccountId: Long,
-//            tsq: TSQ,
-//            isExpanded: Boolean,
-//            isDetailed: Boolean = false,
-//            contentFilterAction: FilterAction,
-//            attachmentDisplayAction: AttachmentDisplayAction = AttachmentDisplayAction.Show(),
-//            translationState: TranslationState = TranslationState.SHOW_ORIGINAL,
-//            showSensitiveMedia: Boolean,
-//            filterContext: FilterContext?,
-//        ): StatusViewData {
-//            val status = tsq.timelineStatus.toStatus()
-//            val quote = tsq.quotedStatus?.toStatus()
-//            return StatusViewData(
-//                pachliAccountId = pachliAccountId,
-//                status = status,
-//                quoteViewData = quote?.let {
-//                    StatusViewData.from(
-//                        pachliAccountId,
-//                        status = it,
-//                        isExpanded = isExpanded,
-//                        isCollapsed = tsq.quotedStatus?.viewData?.contentCollapsed ?: true,
-//                        isDetailed = false,
-//                        contentFilterAction = contentFilterAction,
-//                        attachmentDisplayAction = it.getAttachmentDisplayAction(
-//                            filterContext,
-//                            showSensitiveMedia,
-//                            tsq.quotedStatus?.viewData?.attachmentDisplayAction,
-//                        ),
-//                        translationState = translationState,
-//                    )
-//                },
-//                translation = tsq.timelineStatus.translatedStatus,
-//                isExpanded = tsq.timelineStatus.viewData?.expanded ?: isExpanded,
-//                isCollapsed = tsq.timelineStatus.viewData?.contentCollapsed ?: true,
-//                isDetailed = isDetailed,
-//                contentFilterAction = contentFilterAction,
-//                attachmentDisplayAction = attachmentDisplayAction,
-//                translationState = tsq.timelineStatus.viewData?.translationState ?: translationState,
-//            )
-//        }
     }
 }
 

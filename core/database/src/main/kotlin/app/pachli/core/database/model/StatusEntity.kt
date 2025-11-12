@@ -293,7 +293,6 @@ data class TSQ(
                 reblogsCount = status.reblogsCount,
                 favouritesCount = status.favouritesCount,
                 quotesCount = status.quotesCount,
-//                quotesCount = 0,
                 reblogged = status.reblogged,
                 favourited = status.favourited,
                 bookmarked = status.bookmarked,
@@ -308,12 +307,6 @@ data class TSQ(
                 muted = status.muted,
                 poll = poll,
                 card = card,
-//                quote = quotedStatus?.let {
-//                    Status.Quote.FullQuote(
-//                        state = status.quoteState!!,
-//                        status = quotedStatus.toStatus(),
-//                    )
-//                },
                 quote = quotedStatus?.let {
                     Status.Quote.FullQuote(
                         state = status.quoteState!!,
@@ -321,8 +314,6 @@ data class TSQ(
                     )
                 },
                 quoteApproval = status.quoteApproval,
-//                quote = null,
-//                quoteApproval = Status.QuoteApproval(),
                 repliesCount = status.repliesCount,
                 language = status.language,
                 filtered = status.filtered,
@@ -330,7 +321,6 @@ data class TSQ(
         }
         return if (reblog != null) {
             val status = timelineStatus.status
-            val account = timelineStatus.account
 
             Status(
                 statusId = status.serverId,

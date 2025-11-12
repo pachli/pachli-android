@@ -231,14 +231,6 @@ class ViewThreadViewModel @Inject constructor(
                     translationState = TranslationState.SHOW_ORIGINAL,
                     filterContext = FilterContext.CONVERSATIONS,
                 )
-
-//                val statusViewData = StatusViewData.fromStatusAndUiState(account, status, isDetailed = true)
-//                existingViewData?.let {
-//                    statusViewData.copy(
-//                        translationState = existingViewData.translationState,
-//                        translation = existingTranslation,
-//                    )
-//                } ?: statusViewData
             }
 
             _uiResult.value = Ok(
@@ -260,28 +252,6 @@ class ViewThreadViewModel @Inject constructor(
                             detailedStatus.quotedViewData?.copy(status = it)
                         },
                     )
-//                        tsq.timelineStatus.status = status,
-//                        status = status,
-//                        quoteViewData = (status.quote as? Status.Quote.FullQuote)?.status?.let { q ->
-//                            detailedStatus.quoteViewData?.copy(status = q)
-//                        },
-//                    )
-
-//                    detailedStatus = StatusViewData.from(
-//                        pachliAccountId = account.id,
-//                        it,
-//                        isExpanded = detailedStatus.isExpanded,
-//                        isCollapsed = detailedStatus.isCollapsed,
-//                        isDetailed = true,
-//                        contentFilterAction = contentFilterModel?.filterActionFor(it) ?: FilterAction.NONE,
-// //                        attachmentDisplayAction = it.getAttachmentDisplayAction(
-// //                            FilterContext.CONVERSATIONS,
-// //                            account.alwaysShowSensitiveMedia,
-// //                            tsq.viewData?.attachmentDisplayAction,
-// //                        ),
-//                        translationState = detailedStatus.translationState,
-//                        translation = detailedStatus.translation,
-//                    )
                 }
             }
 

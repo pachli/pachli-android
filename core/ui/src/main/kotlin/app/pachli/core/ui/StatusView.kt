@@ -129,9 +129,6 @@ abstract class StatusView<T : L, L : IStatusViewData> @JvmOverloads constructor(
     /** View displaying the status' content. */
     abstract val content: TextView
 
-    /** View displaying the quoted status, if any. */
-//    abstract val quotedStatusView: StatusView<T>
-
     /**
      * Button to toggle expanding/collapsing the status' content.
      *

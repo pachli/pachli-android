@@ -216,7 +216,7 @@ data class Status(
                 )
             }
 
-            Timber.w("Could not convert network Quote to model Quote")
+            Timber.e("Could not convert network Quote to model Quote: $this")
             return null
         }
     }

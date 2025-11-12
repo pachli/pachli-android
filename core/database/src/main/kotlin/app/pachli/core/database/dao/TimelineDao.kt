@@ -893,7 +893,6 @@ data class TimelineStatusWithAccount(
                 reblogsCount = status.reblogsCount,
                 favouritesCount = status.favouritesCount,
                 quotesCount = status.quotesCount,
-//                quotesCount = 0,
                 reblogged = status.reblogged,
                 favourited = status.favourited,
                 bookmarked = status.bookmarked,
@@ -908,13 +907,7 @@ data class TimelineStatusWithAccount(
                 muted = status.muted,
                 poll = poll,
                 card = card,
-//                quote = quotedStatus?.let {
-//                    Status.Quote.FullQuote(
-//                        state = status.quoteState!!,
-//                        status = quotedStatus.toStatus(),
-//                    )
-//                },
-//                quoteApproval = status.quoteApproval,
+                // TODO: Is this right?
                 quote = null,
                 quoteApproval = Status.QuoteApproval(),
                 repliesCount = status.repliesCount,
@@ -953,6 +946,7 @@ data class TimelineStatusWithAccount(
                 muted = status.muted,
                 poll = null,
                 card = null,
+                // TODO: Is this right?
                 quote = null,
                 quoteApproval = Status.QuoteApproval(),
                 repliesCount = status.repliesCount,
@@ -988,6 +982,7 @@ data class TimelineStatusWithAccount(
                 muted = status.muted,
                 poll = poll,
                 card = card,
+                // TODO: Is this right?
                 quote = null,
                 quoteApproval = Status.QuoteApproval(),
                 repliesCount = status.repliesCount,

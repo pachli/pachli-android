@@ -56,28 +56,4 @@ suspend fun AppDatabase.insertTSQ(statuses: Iterable<TSQ>) {
     insertStatuses(quoted)
 
     insertStatuses(statuses.map { it.timelineStatus })
-
-//    statuses.forEach {
-//        insertStatuses(it.timelineStatus)
-//        insertStatuses(it.quotedStatus)
-//    }
-//
-//    statuses.forEach { statusWithAccount ->
-//        statusWithAccount.account.let { account ->
-//            timelineDao().insertAccount(account)
-//        }
-//        statusWithAccount.reblogAccount?.let { account ->
-//            timelineDao().insertAccount(account)
-//        }
-//        statusDao().insertStatus(statusWithAccount.status)
-//    }
-//    timelineDao().upsertStatuses(
-//        statuses.map {
-//            TimelineStatusEntity(
-//                pachliAccountId = it.status.timelineUserId,
-//                kind = TimelineStatusEntity.Kind.Home,
-//                statusId = it.status.serverId,
-//            )
-//        },
-//    )
 }

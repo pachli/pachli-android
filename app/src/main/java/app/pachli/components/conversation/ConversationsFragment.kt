@@ -88,7 +88,6 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 /**
  * Actions taken from the broader UI (which can include actions triggered by the
@@ -453,7 +452,6 @@ class ConversationsFragment :
     }
 
     override fun onConversationDelete(viewData: IStatusViewData) {
-        Timber.d("onConversationDelete: $viewData")
         if (viewData !is ConversationViewData) return
 
         AlertDialog.Builder(requireContext())
