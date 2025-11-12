@@ -38,7 +38,7 @@ import app.pachli.core.network.replaceCrashingCharacters
  * Interface for the data shown when viewing a status, or something that wraps
  * a status, like [NotificationViewData] or [ConversationViewData].
  */
-interface IStatusViewData : IStatus {
+sealed interface IStatusViewData : IStatus {
     /** ID of the Pachli account that loaded this status. */
     val pachliAccountId: Long
 
