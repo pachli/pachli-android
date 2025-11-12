@@ -582,7 +582,7 @@ class NotificationsFragment :
     }
 
     override fun clearContentFilter(viewData: IStatusViewData) {
-        viewModel.accept(InfallibleUiAction.ClearContentFilter(viewData.pachliAccountId, viewData.statusId))
+        viewModel.accept(InfallibleUiAction.ClearContentFilter(viewData.pachliAccountId, viewData.actionableId))
     }
 
     override fun clearAccountFilter(viewData: NotificationViewData) {

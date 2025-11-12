@@ -118,7 +118,7 @@ internal sealed interface ConversationAction : UiAction {
     /** Clear the content filter. */
     data class ClearContentFilter(
         val pachliAccountId: Long,
-        val conversationId: String,
+        val statusId: String,
     ) : ConversationAction
 }
 
@@ -397,15 +397,15 @@ class ConversationsFragment :
     }
 
     override fun onExpandedChange(viewData: IStatusViewData, expanded: Boolean) {
-        viewModel.expandHiddenStatus(viewData.pachliAccountId, expanded, viewData.statusId)
+        viewModel.expandHiddenStatus(viewData.pachliAccountId, expanded, viewData.actionableId)
     }
 
     override fun onAttachmentDisplayActionChange(viewData: IStatusViewData, newAction: AttachmentDisplayAction) {
-        viewModel.changeAttachmentDisplayAction(viewData.pachliAccountId, viewData.statusId, newAction)
+        viewModel.changeAttachmentDisplayAction(viewData.pachliAccountId, viewData.actionableId, newAction)
     }
 
     override fun onContentCollapsedChange(viewData: IStatusViewData, isCollapsed: Boolean) {
-        viewModel.collapseLongStatus(viewData.pachliAccountId, isCollapsed, viewData.statusId)
+        viewModel.collapseLongStatus(viewData.pachliAccountId, isCollapsed, viewData.actionableId)
     }
 
     override fun onViewAccount(id: String) {

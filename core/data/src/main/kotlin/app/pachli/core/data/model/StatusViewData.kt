@@ -36,12 +36,15 @@ import app.pachli.core.network.replaceCrashingCharacters
 
 /**
  * Interface for the data shown when viewing a status, or something that wraps
- * a status, like [NotificationViewData] or
- * [app.pachli.components.conversation.ConversationViewData].
+ * a status, like [NotificationViewData] or [ConversationViewData].
  */
 interface IStatusViewData : IStatus {
     /** ID of the Pachli account that loaded this status. */
     val pachliAccountId: Long
+
+    val id: String
+        get() = status.statusId
+
     val username: String
 
     // TODO: rebloggedAvatar is the wrong name for this property. This is the avatar to show
@@ -49,6 +52,11 @@ interface IStatusViewData : IStatus {
     // avatar that boosted it, but when viewing a notification about a boost or favourite
     // this the avatar that boosted/favourited it
     val rebloggedAvatar: String?
+        get() = if (status.reblog != null) {
+            status.account.avatar
+        } else {
+            null
+        }
 
     var translation: TranslatedStatusEntity?
 
@@ -90,13 +98,16 @@ interface IStatusViewData : IStatus {
      * and `actionable` are the same.
      */
     val actionable: Status
+        get() = status.actionableStatus
 
     /**
      * The ID of the [actionable] status.
      */
     val actionableId: String
+        get() = status.actionableStatus.statusId
 
     val rebloggingStatus: Status?
+        get() = if (status.reblog != null) status else null
 
     /** The [FilterAction] to apply, based on the status' content. */
     var contentFilterAction: FilterAction
@@ -125,7 +136,7 @@ interface IStatusViewData : IStatus {
     val isDetailed: Boolean
 }
 
-interface IStatusViewDataQ : IStatusViewData {
+sealed interface IStatusViewDataQ : IStatusViewData {
     val statusViewData: StatusViewData
     val quotedViewData: StatusViewData?
 }
@@ -202,6 +213,11 @@ data class StatusViewData(
     override val translationState: TranslationState,
     override val attachmentDisplayAction: AttachmentDisplayAction,
     override val replyToAccount: TimelineAccount?,
+
+    /**
+     * Specifies whether this status should be shown with the "detailed" layout, meaning it is
+     * the status that has a focus when viewing a thread.
+     */
     override val isDetailed: Boolean = false,
 ) : IStatusViewData, IStatus by status {
     override val isCollapsible: Boolean
@@ -224,21 +240,12 @@ data class StatusViewData(
 
     override val username: String
 
-    override val actionable: Status
-        get() = status.actionableStatus
-
-    override val actionableId: String
-        get() = status.actionableStatus.statusId
-
     override val rebloggedAvatar: String?
         get() = if (status.reblog != null) {
             status.account.avatar
         } else {
             null
         }
-
-    override val rebloggingStatus: Status?
-        get() = if (status.reblog != null) status else null
 
     init {
         if (Build.VERSION.SDK_INT == 23) {
@@ -289,14 +296,14 @@ data class StatusViewData(
             return StatusViewData(
                 pachliAccountId = pachliAccountId,
                 status = status,
-                isCollapsed = isCollapsed,
-                isExpanded = isExpanded,
-                isDetailed = isDetailed,
-                contentFilterAction = contentFilterAction,
-                attachmentDisplayAction = attachmentDisplayAction,
-                translationState = translationState,
                 translation = translation,
+                isExpanded = isExpanded,
+                isCollapsed = isCollapsed,
+                contentFilterAction = contentFilterAction,
+                translationState = translationState,
+                attachmentDisplayAction = attachmentDisplayAction,
                 replyToAccount = replyToAccount,
+                isDetailed = isDetailed,
             )
         }
 
