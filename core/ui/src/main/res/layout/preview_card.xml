@@ -17,134 +17,116 @@
 
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/card_image"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/card_image_vertical_height"
+        android:layout_margin="1dp"
+        android:importantForAccessibility="no"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/preview_card_wrapper"
-        android:layout_width="match_parent"
+        android:id="@+id/card_info"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/card_frame"
-        android:clipChildren="true"
-        android:foreground="?attr/selectableItemBackground"
-        android:minHeight="48dp"
-        android:orientation="vertical">
+        android:paddingLeft="6dp"
+        android:paddingTop="6dp"
+        android:paddingRight="6dp"
+        android:paddingBottom="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/card_image">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/card_image"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_margin="1dp"
-            android:importantForAccessibility="no"
-            android:scaleType="centerCrop"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/backgrounds/scenic" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/card_info"
+        <TextView
+            android:id="@+id/card_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingLeft="6dp"
-            android:paddingTop="6dp"
-            android:paddingRight="6dp"
-            android:paddingBottom="6dp"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:maxLines="2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/card_image">
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="SelectableText"
+            tools:text="@tools:sample/lorem" />
 
-            <TextView
-                android:id="@+id/card_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:fontFamily="sans-serif-medium"
-                android:maxLines="2"
-                android:textColor="?android:textColorSecondary"
-                android:textSize="?attr/status_text_medium"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="SelectableText"
-                tools:text="@tools:sample/lorem" />
+        <TextView
+            android:id="@+id/card_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:lineSpacingMultiplier="1.1"
+            android:maxLines="3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/card_title"
+            tools:ignore="SelectableText"
+            tools:text="@tools:sample/lorem" />
 
-            <TextView
-                android:id="@+id/card_description"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:ellipsize="end"
-                android:lineSpacingMultiplier="1.1"
-                android:maxLines="3"
-                android:textColor="?android:textColorSecondary"
-                android:textSize="?attr/status_text_medium"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/card_title"
-                tools:ignore="SelectableText"
-                tools:text="@tools:sample/lorem" />
+        <TextView
+            android:id="@+id/card_link"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:lines="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/card_description"
+            tools:ignore="SelectableText"
+            tools:text="@tools:sample/lorem" />
 
-            <TextView
-                android:id="@+id/card_link"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:ellipsize="end"
-                android:lines="1"
-                android:textColor="?android:attr/textColorLink"
-                android:textSize="?attr/status_text_small"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/card_description"
-                tools:ignore="SelectableText"
-                tools:text="@tools:sample/lorem" />
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/byline_divider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/card_link" />
 
-            <com.google.android.material.divider.MaterialDivider
-                android:id="@+id/byline_divider"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/card_link" />
+        <TextView
+            android:id="@+id/author_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="?selectableItemBackground"
+            android:drawablePadding="10dp"
+            android:ellipsize="end"
+            android:gravity="start|center"
+            android:lines="1"
+            android:paddingStart="2dp"
+            android:paddingTop="6dp"
+            android:paddingEnd="2dp"
+            android:paddingBottom="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/byline_divider"
+            tools:ignore="SelectableText"
+            tools:text="By John Doe. See more posts" />
 
-            <TextView
-                android:id="@+id/author_info"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="?selectableItemBackground"
-                android:drawablePadding="10dp"
-                android:ellipsize="end"
-                android:gravity="start|center"
-                android:lines="1"
-                android:paddingStart="2dp"
-                android:paddingTop="6dp"
-                android:paddingEnd="2dp"
-                android:paddingBottom="2dp"
-                android:textSize="?attr/status_text_medium"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/byline_divider"
-                tools:ignore="SelectableText"
-                tools:text="@tools:sample/lorem" />
-
-            <TextView
-                android:id="@+id/timeline_link"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="?selectableItemBackground"
-                android:drawablePadding="10dp"
-                android:ellipsize="end"
-                android:gravity="start|center"
-                android:lines="1"
-                android:paddingStart="2dp"
-                android:paddingTop="6dp"
-                android:paddingEnd="2dp"
-                android:paddingBottom="2dp"
-                android:textSize="?attr/status_text_medium"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/author_info"
-                tools:ignore="SelectableText"
-                tools:text="@tools:sample/lorem" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/timeline_link"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="?selectableItemBackground"
+            android:drawablePadding="10dp"
+            android:ellipsize="end"
+            android:gravity="start|center"
+            android:lines="1"
+            android:paddingStart="2dp"
+            android:paddingTop="6dp"
+            android:paddingEnd="2dp"
+            android:paddingBottom="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/author_info"
+            tools:ignore="SelectableText"
+            tools:text="See N posts about this link" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </merge>

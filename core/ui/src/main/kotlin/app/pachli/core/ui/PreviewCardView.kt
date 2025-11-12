@@ -18,10 +18,11 @@
 package app.pachli.core.ui
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.LayoutInflater
-import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.text.HtmlCompat
 import app.pachli.core.common.extensions.hide
@@ -29,9 +30,11 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.common.util.formatNumber
 import app.pachli.core.data.model.StatusDisplayOptions
+import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.PreviewCard
 import app.pachli.core.model.TrendsLink
 import app.pachli.core.ui.databinding.PreviewCardBinding
+import app.pachli.core.ui.extensions.useInPlace
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -50,9 +53,7 @@ import com.google.android.material.shape.ShapeAppearanceModel
 class PreviewCardView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0,
-    defStyleRes: Int = 0,
-) : LinearLayout(context, attrs, defStyleAttr, defStyleRes) {
+) : ConstraintLayout(context, attrs) {
     /** Where on the card the user clicked */
     enum class Target {
         /** Any part of the card that's not the image */
@@ -73,29 +74,87 @@ class PreviewCardView @JvmOverloads constructor(
         fun onClick(card: PreviewCard, target: Target)
     }
 
-    private val binding: PreviewCardBinding
-    private val cardCornerRadius = context.resources.getDimensionPixelSize(app.pachli.core.designsystem.R.dimen.card_radius).toFloat()
+    private val binding = PreviewCardBinding.inflate(LayoutInflater.from(context), this)
 
-    /** Corner radius of the byline avatar. */
-    private val bylineAvatarCornerRadius = context.resources.getDimensionPixelSize(app.pachli.core.designsystem.R.dimen.avatar_radius_36dp)
+    private val cardCornerRadius = context.resources.getDimensionPixelSize(DR.dimen.card_radius).toFloat()
 
     /** Dimensions (width and height) of the byline avatar. */
-    val bylineAvatarDimen = context.resources.getDimensionPixelSize(app.pachli.core.designsystem.R.dimen.card_byline_avatar_dimen)
+    val bylineAvatarDimen: Int
+
+    /**
+     * Height of the preview image, if the image is stacked vertically above
+     * the preview content.
+     */
+    private val imageVerticalHeight: Int
+
+    /**
+     * Width of the preview image, if the image is laid out horizontally next
+     * to the preview content.
+     */
+    private val imageHorizontalWidth: Int
 
     /** Transformations to apply when loading the byline avatar. */
-    private val bylineAvatarTransformation = MultiTransformation(
-        buildList {
-            add(CenterCrop())
-            add(RoundedCorners(bylineAvatarCornerRadius))
-        },
-    )
+    private val bylineAvatarTransformation: MultiTransformation<Bitmap>
 
     /** Glide custom target that loads images in to the authorInfo drawable */
     private val bylineAvatarTarget: CustomTarget<Drawable>
 
     init {
-        val inflater = context.getSystemService(LayoutInflater::class.java)
-        binding = PreviewCardBinding.inflate(inflater, this)
+        // Set here instead of an XML attribute as the attribute requires API 31
+        clipToOutline = true
+        clipChildren = true
+
+        context.obtainStyledAttributes(
+            attrs,
+            DR.styleable.PreviewCardView,
+            DR.attr.previewCardViewStyle,
+            DR.style.Pachli_Widget_PreviewCardView,
+        ).useInPlace {
+            background = it.getDrawable(DR.styleable.PreviewCardView_android_background)
+            foreground = it.getDrawable(DR.styleable.PreviewCardView_android_foreground)
+
+            with(binding.cardTitle) {
+                setTextSize(
+                    TypedValue.COMPLEX_UNIT_PX,
+                    it.getDimension(DR.styleable.PreviewCardView_previewCardTitleTextSize, 0f),
+                )
+                setTextColor(it.getColor(DR.styleable.PreviewCardView_previewCardTitleTextColor, 0))
+            }
+            with(binding.cardDescription) {
+                setTextSize(
+                    TypedValue.COMPLEX_UNIT_PX,
+                    it.getDimension(DR.styleable.PreviewCardView_previewCardDescriptionTextSize, 0f),
+                )
+                setTextColor(it.getColor(DR.styleable.PreviewCardView_previewCardDescriptionTextColor, 0))
+            }
+            with(binding.authorInfo) {
+                setTextSize(
+                    TypedValue.COMPLEX_UNIT_PX,
+                    it.getDimension(DR.styleable.PreviewCardView_previewCardAuthorTextSize, 0f),
+                )
+                setTextColor(it.getColor(DR.styleable.PreviewCardView_previewCardAuthorTextColor, 0))
+            }
+            with(binding.timelineLink) {
+                setTextSize(
+                    TypedValue.COMPLEX_UNIT_PX,
+                    it.getDimension(DR.styleable.PreviewCardView_previewCardAuthorTimelineLinkTextSize, 0f),
+                )
+                setTextColor(it.getColor(DR.styleable.PreviewCardView_previewCardAuthorTimelineLinkTextColor, 0))
+            }
+
+            bylineAvatarDimen = it.getDimensionPixelSize(DR.styleable.PreviewCardView_previewCardAvatarSize, -1)
+            imageVerticalHeight = it.getDimensionPixelSize(DR.styleable.PreviewCardView_previewCardImageVerticalHeight, -1)
+            imageHorizontalWidth = it.getDimensionPixelSize(DR.styleable.PreviewCardView_previewCardImageHorizontalWidth, -1)
+
+            val bylineAvatarCornerRadius = it.getDimensionPixelSize(DR.styleable.PreviewCardView_previewCardAvatarCornerRadius, -1)
+
+            bylineAvatarTransformation = MultiTransformation(
+                buildList {
+                    add(CenterCrop())
+                    add(RoundedCorners(bylineAvatarCornerRadius))
+                },
+            )
+        }
 
         bylineAvatarTarget = object : CustomTarget<Drawable>(bylineAvatarDimen, bylineAvatarDimen) {
             override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
@@ -137,14 +196,13 @@ class PreviewCardView @JvmOverloads constructor(
             cardDescription.show()
         } ?: cardDescription.hide()
 
-        previewCardWrapper.setOnClickListener { listener.onClick(card, Target.CARD) }
+        setOnClickListener { listener.onClick(card, Target.CARD) }
+
         cardImage.setOnClickListener { listener.onClick(card, Target.IMAGE) }
         authorInfo.setOnClickListener { listener.onClick(card, Target.BYLINE) }
         timelineLink.setOnClickListener { listener.onClick(card, Target.TIMELINE_LINK) }
 
         cardLink.text = card.url
-
-        previewCardWrapper.clipToOutline = true
 
         // Either:
         // 1. Card has a (possibly sensitive) image that user wants to see, or
@@ -241,7 +299,7 @@ class PreviewCardView @JvmOverloads constructor(
     private fun setTopBottomLayout() = with(binding) {
         // Move image to top.
         val lpCardImage = cardImage.layoutParams as ConstraintLayout.LayoutParams
-        lpCardImage.height = cardImage.resources.getDimensionPixelSize(app.pachli.core.designsystem.R.dimen.card_image_vertical_height)
+        lpCardImage.height = imageVerticalHeight
         lpCardImage.width = LayoutParams.MATCH_PARENT
         lpCardImage.bottomToBottom = ConstraintLayout.LayoutParams.UNSET
         cardImage.layoutParams = lpCardImage
@@ -270,7 +328,7 @@ class PreviewCardView @JvmOverloads constructor(
         // Move image to start with fixed width to allow space for cardInfo.
         val lpCardImage = cardImage.layoutParams as ConstraintLayout.LayoutParams
         lpCardImage.height = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
-        lpCardImage.width = cardImage.resources.getDimensionPixelSize(app.pachli.core.designsystem.R.dimen.card_image_horizontal_width)
+        lpCardImage.width = imageHorizontalWidth
         lpCardImage.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID
         cardImage.layoutParams = lpCardImage
 

@@ -32,7 +32,7 @@ import org.jetbrains.uast.UCallExpression
 class TypedArrayUseDetector : Detector(), SourceCodeScanner {
     override fun getApplicableMethodNames() = listOf(METHOD_USE)
 
-    private val fix = LintFix.create()
+    private val fixAndroidXUse = LintFix.create()
         .name("Replace with `androidx.core.content.res.use`")
         .replace()
         .text("use")
@@ -40,6 +40,17 @@ class TypedArrayUseDetector : Detector(), SourceCodeScanner {
         .imports("androidx.core.content.res.use")
         .independent(true)
         .build()
+
+    private val fixUseInPlace = LintFix.create()
+        .name("Replace with `app.pachli.core.ui.extensions.useInPlace`")
+        .replace()
+        .text("use")
+        .with("useInPlace")
+        .imports("app.pachli.core.ui.extensions.useInPlace")
+        .independent(true)
+        .build()
+
+    private val fix = fix().alternatives(fixAndroidXUse, fixUseInPlace)
 
     override fun visitMethodCall(context: JavaContext, node: UCallExpression, method: PsiMethod) {
         if (node.receiverType?.canonicalText != CLASS_TYPED_ARRAY) return
@@ -50,7 +61,7 @@ class TypedArrayUseDetector : Detector(), SourceCodeScanner {
             issue = ISSUE,
             scope = node,
             location = context.getCallLocation(node, includeReceiver = false, includeArguments = false),
-            message = "Import `androidx.core.content.res.use`",
+            message = "Import `androidx.core.content.res.use` or `app.pachli.core.ui.extensions.useInPlace`",
             quickfixData = fix,
         )
     }
@@ -62,7 +73,7 @@ class TypedArrayUseDetector : Detector(), SourceCodeScanner {
 
         val ISSUE = Issue.create(
             id = "TypedArrayUseDetector",
-            briefDescription = "Don't use `kotlin.use`, use `androidx.core.content.res.use`",
+            briefDescription = "Don't use `kotlin.use`, use `androidx.core.content.res.use` or `app.pachli.core.ui.extensions.useInPlace`",
             explanation = """
                 TypedArray implements AutoCloseable but doesn't have a desugared `close` on older devices,
                 and will cause a class cast exception at runtime on older devices.
