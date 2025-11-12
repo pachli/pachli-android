@@ -21,6 +21,7 @@ import androidx.lifecycle.viewModelScope
 import app.pachli.components.timeline.CachedTimelineRepository
 import app.pachli.core.common.PachliError
 import app.pachli.core.data.model.ContentFilterModel
+import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.Loadable
@@ -337,7 +338,7 @@ class ViewThreadViewModel @Inject constructor(
         }
     }
 
-    fun reblog(reblog: Boolean, status: StatusViewData) = viewModelScope.launch {
+    fun reblog(reblog: Boolean, status: IStatusViewData) = viewModelScope.launch {
         updateStatus(status.id) {
             it.copy(
                 reblogged = reblog,
@@ -354,7 +355,7 @@ class ViewThreadViewModel @Inject constructor(
         }
     }
 
-    fun favorite(favorite: Boolean, status: StatusViewData) = viewModelScope.launch {
+    fun favorite(favorite: Boolean, status: IStatusViewData) = viewModelScope.launch {
         updateStatus(status.id) {
             it.copy(
                 favourited = favorite,
@@ -367,7 +368,7 @@ class ViewThreadViewModel @Inject constructor(
         }
     }
 
-    fun bookmark(bookmark: Boolean, status: StatusViewData) = viewModelScope.launch {
+    fun bookmark(bookmark: Boolean, status: IStatusViewData) = viewModelScope.launch {
         updateStatus(status.id) { it.copy(bookmarked = bookmark) }
         repository.bookmark(status.pachliAccountId, status.actionableId, bookmark).onFailure {
             updateStatus(status.id) { it }
@@ -375,7 +376,7 @@ class ViewThreadViewModel @Inject constructor(
         }
     }
 
-    fun voteInPoll(poll: Poll, choices: List<Int>, status: StatusViewData): Job = viewModelScope.launch {
+    fun voteInPoll(poll: Poll, choices: List<Int>, status: IStatusViewData): Job = viewModelScope.launch {
         val votedPoll = poll.votedCopy(choices)
         updateStatus(status.id) { status ->
             status.copy(poll = votedPoll)
@@ -396,7 +397,7 @@ class ViewThreadViewModel @Inject constructor(
         }
     }
 
-    fun changeExpanded(expanded: Boolean, status: StatusViewData) {
+    fun changeExpanded(expanded: Boolean, status: IStatusViewData) {
         updateSuccess { uiState ->
             val statuses = uiState.statusViewData.map { viewData ->
                 if (viewData.id == status.id) {
@@ -415,7 +416,7 @@ class ViewThreadViewModel @Inject constructor(
         }
     }
 
-    fun changeAttachmentDisplayAction(statusViewData: StatusViewData, attachmentDisplayAction: AttachmentDisplayAction) {
+    fun changeAttachmentDisplayAction(statusViewData: IStatusViewData, attachmentDisplayAction: AttachmentDisplayAction) {
         updateStatusViewData(statusViewData.id) { viewData ->
             viewData.copy(attachmentDisplayAction = attachmentDisplayAction)
         }
@@ -424,7 +425,7 @@ class ViewThreadViewModel @Inject constructor(
         }
     }
 
-    fun changeContentCollapsed(isCollapsed: Boolean, status: StatusViewData) {
+    fun changeContentCollapsed(isCollapsed: Boolean, status: IStatusViewData) {
         updateStatusViewData(status.id) { viewData ->
             viewData.copy(isCollapsed = isCollapsed)
         }
@@ -677,7 +678,7 @@ class ViewThreadViewModel @Inject constructor(
         }
     }
 
-    fun clearWarning(viewData: StatusViewData) {
+    fun clearWarning(viewData: IStatusViewData) {
         updateStatusViewData(viewData.id) { it.copy(contentFilterAction = FilterAction.NONE) }
     }
 }

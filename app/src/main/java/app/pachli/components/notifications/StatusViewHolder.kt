@@ -64,7 +64,7 @@ class FilterableStatusViewHolder(
     binding: ItemStatusWrapperBinding,
     glide: RequestManager,
     setStatusContent: SetStatusContent,
-    private val statusActionListener: StatusActionListener<WithStatus>,
+    private val statusActionListener: StatusActionListener,
 ) : NotificationsPagingAdapter.ViewHolder<WithStatus>, FilterableStatusViewHolder<WithStatus>(binding, glide, setStatusContent) {
     // Note: Identical to bind() in StatusViewHolder above
     override fun bind(

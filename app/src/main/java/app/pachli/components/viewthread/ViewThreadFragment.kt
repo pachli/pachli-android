@@ -43,6 +43,7 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
+import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.designsystem.R as DR
@@ -79,7 +80,7 @@ import kotlinx.coroutines.launch
 class ViewThreadFragment :
     SFragment<StatusViewData>(),
     OnRefreshListener,
-    StatusActionListener<StatusViewData>,
+    StatusActionListener,
     MenuProvider {
 
     @Inject
@@ -333,27 +334,27 @@ class ViewThreadFragment :
         viewModel.refresh(thisThreadsStatusId)
     }
 
-    override fun onReply(viewData: StatusViewData) {
+    override fun onReply(viewData: IStatusViewData) {
         super.reply(viewData.pachliAccountId, viewData.actionable)
     }
 
-    override fun onReblog(viewData: StatusViewData, reblog: Boolean) {
+    override fun onReblog(viewData: IStatusViewData, reblog: Boolean) {
         viewModel.reblog(reblog, viewData)
     }
 
-    override fun onFavourite(viewData: StatusViewData, favourite: Boolean) {
+    override fun onFavourite(viewData: IStatusViewData, favourite: Boolean) {
         viewModel.favorite(favourite, viewData)
     }
 
-    override fun onBookmark(viewData: StatusViewData, bookmark: Boolean) {
+    override fun onBookmark(viewData: IStatusViewData, bookmark: Boolean) {
         viewModel.bookmark(bookmark, viewData)
     }
 
-    override fun onMore(view: View, viewData: StatusViewData) {
-        super.more(view, viewData)
+    override fun onMore(view: View, viewData: IStatusViewData) {
+        super.more(view, viewData as StatusViewData)
     }
 
-    override fun onViewAttachment(view: View?, viewData: StatusViewData, attachmentIndex: Int) {
+    override fun onViewAttachment(view: View?, viewData: IStatusViewData, attachmentIndex: Int) {
         // Pass the translated media descriptions through (if appropriate)
         val actionable = if (viewData.translationState == TranslationState.SHOW_TRANSLATION) {
             viewData.actionable.copy(
@@ -399,11 +400,11 @@ class ViewThreadFragment :
         )
     }
 
-    override fun onExpandedChange(viewData: StatusViewData, expanded: Boolean) {
+    override fun onExpandedChange(viewData: IStatusViewData, expanded: Boolean) {
         viewModel.changeExpanded(expanded, viewData)
     }
 
-    override fun onAttachmentDisplayActionChange(viewData: StatusViewData, newAction: AttachmentDisplayAction) {
+    override fun onAttachmentDisplayActionChange(viewData: IStatusViewData, newAction: AttachmentDisplayAction) {
         viewModel.changeAttachmentDisplayAction(viewData, newAction)
     }
 
@@ -417,7 +418,7 @@ class ViewThreadFragment :
         startActivityWithDefaultTransition(intent)
     }
 
-    override fun onContentCollapsedChange(viewData: StatusViewData, isCollapsed: Boolean) {
+    override fun onContentCollapsedChange(viewData: IStatusViewData, isCollapsed: Boolean) {
         viewModel.changeContentCollapsed(isCollapsed, viewData)
     }
 
@@ -438,7 +439,7 @@ class ViewThreadFragment :
         viewModel.removeStatus(viewData)
     }
 
-    override fun onVoteInPoll(viewData: StatusViewData, poll: Poll, choices: List<Int>) {
+    override fun onVoteInPoll(viewData: IStatusViewData, poll: Poll, choices: List<Int>) {
         viewModel.voteInPoll(poll, choices, viewData)
     }
 
@@ -457,7 +458,7 @@ class ViewThreadFragment :
         }
     }
 
-    override fun clearContentFilter(viewData: StatusViewData) {
+    override fun clearContentFilter(viewData: IStatusViewData) {
         viewModel.clearWarning(viewData)
     }
 

@@ -48,6 +48,7 @@ import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.model.ConversationViewData
+import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.model.AccountFilterDecision
@@ -117,7 +118,7 @@ internal sealed interface ConversationAction : UiAction {
     /** Clear the content filter. */
     data class ClearContentFilter(
         val pachliAccountId: Long,
-        val conversationId: String,
+        val statusId: String,
     ) : ConversationAction
 }
 
@@ -125,7 +126,7 @@ internal sealed interface ConversationAction : UiAction {
 class ConversationsFragment :
     SFragment<ConversationViewData>(),
     OnRefreshListener,
-    StatusActionListener<ConversationViewData>,
+    StatusActionListener,
     ReselectableFragment,
     MenuProvider {
 
@@ -359,27 +360,31 @@ class ConversationsFragment :
         adapter.refresh()
     }
 
-    override fun onReblog(viewData: ConversationViewData, reblog: Boolean) {
+    override fun onReblog(viewData: IStatusViewData, reblog: Boolean) {
         // its impossible to reblog private messages
     }
 
-    override fun onFavourite(viewData: ConversationViewData, favourite: Boolean) {
-        viewModel.favourite(favourite, viewData.lastStatus.actionableId)
+    override fun onFavourite(viewData: IStatusViewData, favourite: Boolean) {
+        viewModel.favourite(favourite, viewData.actionableId)
     }
 
-    override fun onBookmark(viewData: ConversationViewData, bookmark: Boolean) {
-        viewModel.bookmark(bookmark, viewData.lastStatus.actionableId)
+    override fun onBookmark(viewData: IStatusViewData, bookmark: Boolean) {
+        viewModel.bookmark(bookmark, viewData.actionableId)
     }
 
-    override fun onMore(view: View, viewData: ConversationViewData) {
-        super.more(view, viewData)
+    override fun onMore(view: View, viewData: IStatusViewData) {
+        // TODO: Cast here is necessary because SFragment.onMore adds an extra
+        // menu item if the viewData is ConversationViewData. This design needs
+        // to be fixed. The menu should be created here (onCreateMenu or similar)
+        // which can call through to a generic implementation in SFragment.
+        super.more(view, viewData as ConversationViewData)
     }
 
-    override fun onViewAttachment(view: View?, viewData: ConversationViewData, attachmentIndex: Int) {
+    override fun onViewAttachment(view: View?, viewData: IStatusViewData, attachmentIndex: Int) {
         viewMedia(
-            viewData.lastStatus.actionable.account.username,
+            viewData.actionable.account.username,
             attachmentIndex,
-            AttachmentViewData.list(viewData.lastStatus.status),
+            AttachmentViewData.list(viewData.status),
             view,
         )
     }
@@ -392,16 +397,16 @@ class ConversationsFragment :
         // there are no reblogs in conversations
     }
 
-    override fun onExpandedChange(viewData: ConversationViewData, expanded: Boolean) {
-        viewModel.expandHiddenStatus(viewData.pachliAccountId, expanded, viewData.lastStatus.id)
+    override fun onExpandedChange(viewData: IStatusViewData, expanded: Boolean) {
+        viewModel.expandHiddenStatus(viewData.pachliAccountId, expanded, viewData.actionableId)
     }
 
-    override fun onAttachmentDisplayActionChange(viewData: ConversationViewData, newAction: AttachmentDisplayAction) {
-        viewModel.changeAttachmentDisplayAction(viewData.pachliAccountId, viewData.lastStatus.id, newAction)
+    override fun onAttachmentDisplayActionChange(viewData: IStatusViewData, newAction: AttachmentDisplayAction) {
+        viewModel.changeAttachmentDisplayAction(viewData.pachliAccountId, viewData.actionableId, newAction)
     }
 
-    override fun onContentCollapsedChange(viewData: ConversationViewData, isCollapsed: Boolean) {
-        viewModel.collapseLongStatus(viewData.pachliAccountId, isCollapsed, viewData.lastStatus.id)
+    override fun onContentCollapsedChange(viewData: IStatusViewData, isCollapsed: Boolean) {
+        viewModel.collapseLongStatus(viewData.pachliAccountId, isCollapsed, viewData.actionableId)
     }
 
     override fun onViewAccount(id: String) {
@@ -418,19 +423,19 @@ class ConversationsFragment :
         // not needed
     }
 
-    override fun onReply(viewData: ConversationViewData) {
-        reply(viewData.pachliAccountId, viewData.lastStatus.actionable)
+    override fun onReply(viewData: IStatusViewData) {
+        reply(viewData.pachliAccountId, viewData.actionable)
     }
 
-    override fun onVoteInPoll(viewData: ConversationViewData, poll: Poll, choices: List<Int>) {
-        viewModel.voteInPoll(choices, viewData.lastStatus.actionableId, poll.id)
+    override fun onVoteInPoll(viewData: IStatusViewData, poll: Poll, choices: List<Int>) {
+        viewModel.voteInPoll(choices, viewData.actionableId, poll.id)
     }
 
-    override fun clearContentFilter(viewData: ConversationViewData) {
+    override fun clearContentFilter(viewData: IStatusViewData) {
         viewModel.accept(
             ConversationAction.ClearContentFilter(
                 viewData.pachliAccountId,
-                viewData.conversationId,
+                viewData.actionableId,
             ),
         )
     }

@@ -28,6 +28,7 @@ import app.pachli.components.timeline.TimelineRepository
 import app.pachli.core.common.PachliError
 import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.data.model.ContentFilterModel
+import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
@@ -173,27 +174,27 @@ sealed interface UiSuccess {
 sealed interface StatusAction : UiAction
 
 sealed interface InfallibleStatusAction : InfallibleUiAction, StatusAction {
-    val statusViewData: StatusViewData
+    val statusViewData: IStatusViewData
 
-    data class TranslateUndo(override val statusViewData: StatusViewData) : InfallibleStatusAction
+    data class TranslateUndo(override val statusViewData: IStatusViewData) : InfallibleStatusAction
 }
 
 /** Actions the user can trigger on an individual status */
 sealed interface FallibleStatusAction : FallibleUiAction, StatusAction {
     // TODO: Include a property for the PachliAccountId the action is being performed as.
 
-    val statusViewData: StatusViewData
+    val statusViewData: IStatusViewData
 
     /** Set the bookmark state for a status */
-    data class Bookmark(val state: Boolean, override val statusViewData: StatusViewData) :
+    data class Bookmark(val state: Boolean, override val statusViewData: IStatusViewData) :
         FallibleStatusAction
 
     /** Set the favourite state for a status */
-    data class Favourite(val state: Boolean, override val statusViewData: StatusViewData) :
+    data class Favourite(val state: Boolean, override val statusViewData: IStatusViewData) :
         FallibleStatusAction
 
     /** Set the reblog state for a status */
-    data class Reblog(val state: Boolean, override val statusViewData: StatusViewData) :
+    data class Reblog(val state: Boolean, override val statusViewData: IStatusViewData) :
         FallibleStatusAction
 
     /**
@@ -206,11 +207,11 @@ sealed interface FallibleStatusAction : FallibleUiAction, StatusAction {
     data class VoteInPoll(
         val poll: Poll,
         val choices: List<Int>,
-        override val statusViewData: StatusViewData,
+        override val statusViewData: IStatusViewData,
     ) : FallibleStatusAction
 
     /** Translate a status */
-    data class Translate(override val statusViewData: StatusViewData) : FallibleStatusAction
+    data class Translate(override val statusViewData: IStatusViewData) : FallibleStatusAction
 }
 
 /** Changes to a status' visible state after API calls */
@@ -559,19 +560,19 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
      * Sets the expanded state of [statusViewData] in [OfflineFirstStatusRepository] to [isExpanded] and
      * invalidates the repository.
      */
-    abstract fun onChangeExpanded(isExpanded: Boolean, statusViewData: StatusViewData)
+    abstract fun onChangeExpanded(isExpanded: Boolean, statusViewData: IStatusViewData)
 
     /**
      * Sets the attachment display action of [statusViewData] in [OfflineFirstStatusRepository] to
      * [newAction] and invalidates the repository.
      */
-    abstract fun onChangeAttachmentDisplayAction(viewData: StatusViewData, newAction: AttachmentDisplayAction)
+    abstract fun onChangeAttachmentDisplayAction(viewData: IStatusViewData, newAction: AttachmentDisplayAction)
 
     /**
      * Sets the collapsed state of [statusViewData] in [OfflineFirstStatusRepository] to [isCollapsed] and
      * invalidates the repository.
      */
-    abstract fun onContentCollapsed(isCollapsed: Boolean, statusViewData: StatusViewData)
+    abstract fun onContentCollapsed(isCollapsed: Boolean, statusViewData: IStatusViewData)
 
     abstract fun removeAllByAccountId(pachliAccountId: Long, accountId: String)
 
@@ -587,7 +588,7 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
 
     abstract fun handlePinEvent(pinEvent: PinEvent)
 
-    abstract fun clearWarning(statusViewData: StatusViewData)
+    abstract fun clearWarning(statusViewData: IStatusViewData)
 
     /** Triggered when currently displayed data must be reloaded. */
     protected abstract suspend fun invalidate(pachliAccountId: Long)

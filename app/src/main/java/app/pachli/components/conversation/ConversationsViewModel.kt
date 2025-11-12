@@ -127,7 +127,7 @@ class ConversationsViewModel @AssistedInject constructor(
             is ConversationAction.ClearContentFilter ->
                 repository.clearContentFilter(
                     conversationAction.pachliAccountId,
-                    conversationAction.conversationId,
+                    conversationAction.statusId,
                 )
         }
     }

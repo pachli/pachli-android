@@ -22,6 +22,7 @@ import androidx.paging.cachedIn
 import androidx.paging.filter
 import androidx.paging.map
 import app.pachli.components.timeline.NetworkTimelineRepository
+import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.StatusActionError
@@ -147,7 +148,7 @@ open class NetworkTimelineViewModel @AssistedInject constructor(
         }
     }
 
-    override fun clearWarning(statusViewData: StatusViewData) {
+    override fun clearWarning(statusViewData: IStatusViewData) {
         viewModelScope.launch {
             repository.updateActionableStatusById(statusViewData.id) {
                 it.copy(filtered = null)
@@ -155,20 +156,20 @@ open class NetworkTimelineViewModel @AssistedInject constructor(
         }
     }
 
-    override fun onChangeExpanded(isExpanded: Boolean, statusViewData: StatusViewData) {
+    override fun onChangeExpanded(isExpanded: Boolean, statusViewData: IStatusViewData) {
         viewModelScope.launch {
             repository.setExpanded(statusViewData.pachliAccountId, statusViewData.actionableId, isExpanded)
         }
     }
 
-    override fun onChangeAttachmentDisplayAction(viewData: StatusViewData, newAction: AttachmentDisplayAction) {
+    override fun onChangeAttachmentDisplayAction(viewData: IStatusViewData, newAction: AttachmentDisplayAction) {
         viewModelScope.launch {
             repository.setAttachmentDisplayAction(viewData.pachliAccountId, viewData.actionableId, newAction)
             repository.invalidate()
         }
     }
 
-    override fun onContentCollapsed(isCollapsed: Boolean, statusViewData: StatusViewData) {
+    override fun onContentCollapsed(isCollapsed: Boolean, statusViewData: IStatusViewData) {
         viewModelScope.launch {
             repository.setContentCollapsed(statusViewData.pachliAccountId, statusViewData.actionableId, isCollapsed)
         }

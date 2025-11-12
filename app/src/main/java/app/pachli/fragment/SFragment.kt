@@ -72,7 +72,7 @@ import javax.inject.Inject
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener<T> {
+abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener {
     protected abstract fun removeItem(viewData: T)
 
     @Inject

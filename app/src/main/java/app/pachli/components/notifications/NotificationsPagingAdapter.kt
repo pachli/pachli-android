@@ -117,7 +117,7 @@ enum class NotificationViewKind {
     }
 }
 
-interface NotificationActionListener : StatusActionListener<NotificationViewData.WithStatus> {
+interface NotificationActionListener : StatusActionListener {
     fun onViewReport(reportId: String)
 
     /**

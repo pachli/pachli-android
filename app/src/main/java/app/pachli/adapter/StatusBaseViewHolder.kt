@@ -49,7 +49,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
 
     open fun setupWithStatus(
         viewData: T,
-        listener: StatusActionListener<T>,
+        listener: StatusActionListener,
         statusDisplayOptions: StatusDisplayOptions,
         payloads: List<List<Any?>>?,
     ) {

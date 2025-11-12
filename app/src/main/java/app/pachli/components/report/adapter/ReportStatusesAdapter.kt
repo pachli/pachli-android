@@ -29,7 +29,7 @@ import app.pachli.core.ui.StatusActionListener
 import app.pachli.databinding.ItemReportStatusBinding
 import com.bumptech.glide.RequestManager
 
-interface ReportStatusActionListener : StatusActionListener<StatusViewData> {
+interface ReportStatusActionListener : StatusActionListener {
     fun setStatusChecked(status: Status, isChecked: Boolean)
     fun isStatusChecked(id: String): Boolean
 }
