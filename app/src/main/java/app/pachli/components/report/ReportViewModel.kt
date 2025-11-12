@@ -97,6 +97,7 @@ class ReportViewModel @AssistedInject constructor(
     sharedPreferencesRepository = sharedPreferencesRepository,
 ) {
     override val initialRefreshStatusId = flowOf(reportedStatusId)
+
     private val _navigation = MutableStateFlow(Screen.Statuses)
 
     /** The [Screen] to show to the user. */

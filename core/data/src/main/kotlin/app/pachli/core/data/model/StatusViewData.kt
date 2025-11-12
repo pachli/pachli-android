@@ -352,14 +352,14 @@ data class StatusViewData(
             return StatusViewData(
                 pachliAccountId = pachliAccountId,
                 status = status,
-                translation = translation,
-                isExpanded = isExpanded,
                 isCollapsed = isCollapsed,
-                contentFilterAction = contentFilterAction,
-                translationState = translationState,
-                attachmentDisplayAction = attachmentDisplayAction,
-                replyToAccount = replyToAccount,
+                isExpanded = isExpanded,
                 isDetailed = isDetailed,
+                contentFilterAction = contentFilterAction,
+                attachmentDisplayAction = attachmentDisplayAction,
+                translationState = translationState,
+                translation = translation,
+                replyToAccount = replyToAccount,
             )
         }
 
@@ -391,11 +391,11 @@ data class StatusViewData(
                 translation = timelineStatusWithAccount.translatedStatus,
                 isExpanded = timelineStatusWithAccount.viewData?.expanded ?: isExpanded,
                 isCollapsed = timelineStatusWithAccount.viewData?.contentCollapsed ?: true,
-                contentFilterAction = contentFilterAction,
-                translationState = timelineStatusWithAccount.viewData?.translationState ?: translationState,
-                attachmentDisplayAction = attachmentDisplayAction,
-                replyToAccount = timelineStatusWithAccount.replyAccount?.asModel(),
                 isDetailed = isDetailed,
+                contentFilterAction = contentFilterAction,
+                attachmentDisplayAction = attachmentDisplayAction,
+                translationState = timelineStatusWithAccount.viewData?.translationState ?: translationState,
+                replyToAccount = timelineStatusWithAccount.replyAccount?.asModel(),
             )
         }
     }
