@@ -164,7 +164,7 @@ class ViewThreadViewModel @Inject constructor(
                     isDetailed = true,
                     contentFilterAction = contentFilterModel?.filterActionFor(status.actionableStatus)
                         ?: FilterAction.NONE,
-                    quoteContentFilterAction = timelineStatusWithQuote.quotedStatus?.status?.let { contentFilterModel?.filterActionFor(it) }, //                        attachmentDisplayAction = status.actionableStatus.getAttachmentDisplayAction(
+                    quoteContentFilterAction = timelineStatusWithQuote.quotedStatus?.status?.let { contentFilterModel?.filterActionFor(it) },
                     translationState = TranslationState.SHOW_ORIGINAL,
                     filterContext = FilterContext.CONVERSATIONS,
                 )

@@ -29,7 +29,7 @@ import com.bumptech.glide.RequestManager
 
 /**
  * Displays any notification of type
- * [NotificationViewData.WithStatusItem][app.pachli.core.data.model.NotificationViewData.WithStatus].
+ * [NotificationViewData.WithStatus][app.pachli.core.data.model.NotificationViewData.WithStatus].
  */
 internal class StatusViewHolder(
     binding: ItemStatusBinding,

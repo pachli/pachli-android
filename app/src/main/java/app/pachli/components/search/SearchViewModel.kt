@@ -237,8 +237,7 @@ class SearchViewModel @Inject constructor(
                 pachliAccountId = activeAccount!!.id,
                 status,
                 isExpanded = alwaysOpenSpoiler,
-                // Search results are not filtered
-                // TODO: Check this.
+                // Search results are not filtered, per Mastodon.
                 contentFilterAction = app.pachli.core.model.FilterAction.NONE,
                 quoteContentFilterAction = app.pachli.core.model.FilterAction.NONE,
                 filterContext = null,
@@ -304,9 +303,7 @@ class SearchViewModel @Inject constructor(
 
     fun expandedChange(statusViewData: IStatusViewData, expanded: Boolean) {
         updateStatusViewData(statusViewData) {
-            it.copy(
-                statusViewData = it.statusViewData.copy(isExpanded = expanded),
-            )
+            it.copy(statusViewData = it.statusViewData.copy(isExpanded = expanded))
         }
     }
 
@@ -328,9 +325,7 @@ class SearchViewModel @Inject constructor(
 
     fun collapsedChange(statusViewData: IStatusViewData, collapsed: Boolean) {
         updateStatusViewData(statusViewData) {
-            it.copy(
-                statusViewData = it.statusViewData.copy(isCollapsed = collapsed),
-            )
+            it.copy(statusViewData = it.statusViewData.copy(isCollapsed = collapsed))
         }
     }
 
@@ -348,9 +343,7 @@ class SearchViewModel @Inject constructor(
 
     fun attachmentDisplayActionChange(statusViewData: IStatusViewData, attachmentDisplayAction: AttachmentDisplayAction) {
         updateStatusViewData(statusViewData) {
-            it.copy(
-                statusViewData = it.statusViewData.copy(attachmentDisplayAction = attachmentDisplayAction),
-            )
+            it.copy(statusViewData = it.statusViewData.copy(attachmentDisplayAction = attachmentDisplayAction))
         }
         viewModelScope.launch {
             statusRepository.setAttachmentDisplayAction(statusViewData.pachliAccountId, statusViewData.statusId, attachmentDisplayAction)
@@ -431,9 +424,7 @@ class SearchViewModel @Inject constructor(
         val statusViewData = loadedStatuses.find { it.statusId == newStatus.statusId }
         if (statusViewData != null) {
             updateStatusViewData(statusViewData) {
-                it.copy(
-                    statusViewData = it.statusViewData.copy(status = newStatus),
-                )
+                it.copy(statusViewData = it.statusViewData.copy(status = newStatus))
             }
         }
     }

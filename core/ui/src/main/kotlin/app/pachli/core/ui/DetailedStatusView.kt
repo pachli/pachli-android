@@ -88,9 +88,7 @@ class DetailedStatusView @JvmOverloads constructor(
     override fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: StatusItemViewData, listener: StatusActionListener, statusDisplayOptions: StatusDisplayOptions) {
         // We never collapse statuses in the detail view
         val uncollapsedViewdata = if (viewData.isCollapsible && viewData.isCollapsed) {
-            viewData.copy(
-                statusViewData = viewData.statusViewData.copy(isCollapsed = false),
-            )
+            viewData.copy(statusViewData = viewData.statusViewData.copy(isCollapsed = false))
         } else {
             viewData
         }

@@ -344,10 +344,10 @@ class CachedTimelineRemoteMediatorTest {
 
         assertEquals(expected.size, loadedStatuses.size)
 
-        for ((exp, prov) in expected.zip(loadedStatuses)) {
-//            assertEquals(exp.status, prov.status)
-//            assertEquals(exp.account, prov.account)
-//            assertEquals(exp.reblogAccount, prov.reblogAccount)
+        for ((expected, actual) in expected.zip(loadedStatuses)) {
+            assertEquals(expected.timelineStatus.status, actual.status)
+            assertEquals(expected.timelineStatus.account, actual.account)
+            assertEquals(expected.timelineStatus.reblogAccount, actual.reblogAccount)
         }
     }
 }
