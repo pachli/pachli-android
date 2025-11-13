@@ -58,7 +58,7 @@ data class Status(
     val poll: Poll?,
     val card: Card?,
     val quote: Quote? = null,
-    @Json(name = "quote_approval") val quoteApproval: QuoteApproval,
+    @Json(name = "quote_approval") val quoteApproval: QuoteApproval? = null,
     val language: String?,
     val filtered: List<FilterResult>?,
 ) {
@@ -130,7 +130,7 @@ data class Status(
         poll = poll?.asModel(),
         card = card?.asModel(),
         quote = quote?.asModel(),
-        quoteApproval = quoteApproval.asModel(),
+        quoteApproval = quoteApproval?.asModel() ?: app.pachli.core.model.Status.QuoteApproval(),
         language = language,
         filtered = filtered?.asModel(),
     )
