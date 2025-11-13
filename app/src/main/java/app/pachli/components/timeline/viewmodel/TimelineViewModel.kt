@@ -61,7 +61,6 @@ import app.pachli.core.model.translation.TranslatedStatus
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.preferences.TabTapBehaviour
-import app.pachli.core.ui.extensions.getAttachmentDisplayAction
 import app.pachli.translation.TranslatorError
 import app.pachli.usecase.TimelineCases
 import com.github.michaelbull.result.Ok
@@ -617,8 +616,6 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
         // Apply content filters.
         return contentFilterModel?.filterActionFor(status) ?: FilterAction.NONE
     }
-
-    protected fun getAttachmentDisplayAction(status: TimelineStatusWithAccount, alwaysShowSensitiveMedia: Boolean, cachedDecision: AttachmentDisplayAction?) = status.getAttachmentDisplayAction(filterContext, alwaysShowSensitiveMedia, cachedDecision)
 
     // TODO: Update this so that the list of UIPrefs is correct
     private suspend fun onPreferenceChanged(key: String) {
