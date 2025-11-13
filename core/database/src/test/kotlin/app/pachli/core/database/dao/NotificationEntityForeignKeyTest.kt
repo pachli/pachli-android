@@ -20,13 +20,11 @@ package app.pachli.core.database.dao
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.core.database.AppDatabase
 import app.pachli.core.database.model.AccountEntity
-import app.pachli.core.database.model.FilterActionUpdate
 import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.database.model.NotificationRelationshipSeveranceEventEntity
 import app.pachli.core.database.model.NotificationReportEntity
 import app.pachli.core.database.model.NotificationViewDataEntity
 import app.pachli.core.database.model.TimelineAccountEntity
-import app.pachli.core.model.FilterAction
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -224,18 +222,11 @@ class NotificationEntityForeignKeyTest {
             statusServerId = "1",
         )
         notificationDao.upsertNotifications(listOf(notification))
-        val filterAction = FilterActionUpdate(
-            pachliAccountId = pachliAccountId,
-            serverId = "1",
-            contentFilterAction = FilterAction.NONE,
-        )
-        notificationDao.upsert(filterAction)
 
         // Check everything is as expected.
         val notificationViewData = NotificationViewDataEntity(
             pachliAccountId = pachliAccountId,
             serverId = "1",
-            contentFilterAction = FilterAction.NONE,
             accountFilterDecision = null,
         )
 

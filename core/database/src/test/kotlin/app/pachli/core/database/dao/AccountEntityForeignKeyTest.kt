@@ -25,7 +25,6 @@ import app.pachli.core.database.model.ContentFiltersEntity
 import app.pachli.core.database.model.ConversationEntity
 import app.pachli.core.database.model.DraftEntity
 import app.pachli.core.database.model.EmojisEntity
-import app.pachli.core.database.model.FilterActionUpdate
 import app.pachli.core.database.model.FollowingAccountEntity
 import app.pachli.core.database.model.MastodonListEntity
 import app.pachli.core.database.model.NotificationEntity
@@ -39,7 +38,6 @@ import app.pachli.core.database.model.TranslationState
 import app.pachli.core.database.model.asEntity
 import app.pachli.core.model.Announcement
 import app.pachli.core.model.ContentFilterVersion
-import app.pachli.core.model.FilterAction
 import app.pachli.core.model.ServerKind
 import app.pachli.core.model.Status
 import app.pachli.core.model.UserListRepliesPolicy
@@ -342,18 +340,11 @@ class AccountEntityForeignKeyTest {
             statusServerId = "1",
         )
         notificationDao.upsertNotifications(listOf(notification))
-        val filterAction = FilterActionUpdate(
-            pachliAccountId = pachliAccountId,
-            serverId = "1",
-            contentFilterAction = FilterAction.NONE,
-        )
-        notificationDao.upsert(filterAction)
 
         // Check everything is as expected.
         val notificationViewData = NotificationViewDataEntity(
             pachliAccountId = pachliAccountId,
             serverId = "1",
-            contentFilterAction = FilterAction.NONE,
             accountFilterDecision = null,
         )
         assertThat(notificationDao.loadAllForAccount(pachliAccountId)).containsExactly(notification)

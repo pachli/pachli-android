@@ -17,6 +17,7 @@
 
 package app.pachli.components.timeline.viewmodel
 
+import androidx.annotation.VisibleForTesting
 import androidx.paging.PagingSource
 import androidx.paging.PagingSource.LoadResult
 import androidx.paging.PagingState
@@ -119,48 +120,9 @@ class NetworkTimelinePagingSource(
             }
 
             LoadResult.Page(
-                page?.data.orEmpty().asTSQ(),
+                page?.data.orEmpty().asTSQ(pachliAccountId, statusRepository),
                 nextKey = page?.nextKey,
                 prevKey = page?.prevKey,
-            )
-        }
-    }
-
-    /**
-     * Converts a `Iterable<Status>` to a `List<TSQ>`, minimising the database lookups
-     * that need to happen to get the viewdata and translations.
-     */
-    private suspend fun Iterable<Status>.asTSQ(): List<TSQ> {
-        // Figure out all the status IDs referenced in this iterable.
-        val statusIds = buildSet {
-            this@asTSQ.map {
-                add(it.actionableId)
-                it.reblog?.let { (it.quote as? Status.Quote.FullQuote)?.let { add(it.status.actionableId) } }
-                (it.quote as? Status.Quote.FullQuote)?.let { add(it.status.actionableId) }
-            }
-        }
-        // Populate the caches in two database lookups.
-        val viewDataCache = statusRepository.getStatusViewData(pachliAccountId, statusIds)
-        val translationCache = statusRepository.getTranslations(pachliAccountId, statusIds)
-
-        return map { status ->
-            TSQ(
-                timelineStatus = TimelineStatusWithAccount(
-                    status = status.asEntity(pachliAccountId),
-                    account = status.reblog?.account?.asEntity(pachliAccountId) ?: status.account.asEntity(pachliAccountId),
-                    reblogAccount = status.reblog?.let { status.account.asEntity(pachliAccountId) },
-                    viewData = viewDataCache[status.actionableId],
-                    translatedStatus = translationCache[status.actionableId],
-                ),
-                quotedStatus = (status.quote as? Status.Quote.FullQuote)?.status?.let { q ->
-                    TimelineStatusWithAccount(
-                        status = q.asEntity(pachliAccountId),
-                        account = q.account.asEntity(pachliAccountId),
-                        reblogAccount = null,
-                        viewData = viewDataCache[q.actionableId],
-                        translatedStatus = translationCache[q.actionableId],
-                    )
-                },
             )
         }
     }
@@ -173,5 +135,45 @@ class NetworkTimelinePagingSource(
         } ?: initialKey
         Timber.d("- getRefreshKey(), state.anchorPosition = %d, return %s", state.anchorPosition, refreshKey)
         return refreshKey
+    }
+}
+
+/**
+ * Converts a `Iterable<Status>` to a `List<TSQ>`, minimising the database lookups
+ * that need to happen to get the viewdata and translations.
+ */
+@VisibleForTesting
+suspend fun Iterable<Status>.asTSQ(pachliAccountId: Long, statusRepository: StatusRepository): List<TSQ> {
+    // Figure out all the status IDs referenced in this iterable.
+    val statusIds = buildSet {
+        this@asTSQ.map {
+            add(it.actionableId)
+            it.reblog?.let { (it.quote as? Status.Quote.FullQuote)?.let { add(it.status.actionableId) } }
+            (it.quote as? Status.Quote.FullQuote)?.let { add(it.status.actionableId) }
+        }
+    }
+    // Populate the caches in two database lookups.
+    val viewDataCache = statusRepository.getStatusViewData(pachliAccountId, statusIds)
+    val translationCache = statusRepository.getTranslations(pachliAccountId, statusIds)
+
+    return map { status ->
+        TSQ(
+            timelineStatus = TimelineStatusWithAccount(
+                status = status.asEntity(pachliAccountId),
+                account = status.reblog?.account?.asEntity(pachliAccountId) ?: status.account.asEntity(pachliAccountId),
+                reblogAccount = status.reblog?.let { status.account.asEntity(pachliAccountId) },
+                viewData = viewDataCache[status.actionableId],
+                translatedStatus = translationCache[status.actionableId],
+            ),
+            quotedStatus = (status.quote as? Status.Quote.FullQuote)?.status?.let { q ->
+                TimelineStatusWithAccount(
+                    status = q.asEntity(pachliAccountId),
+                    account = q.account.asEntity(pachliAccountId),
+                    reblogAccount = null,
+                    viewData = viewDataCache[q.actionableId],
+                    translatedStatus = translationCache[q.actionableId],
+                )
+            },
+        )
     }
 }

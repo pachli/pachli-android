@@ -307,34 +307,34 @@ data class StatusViewData(
             )
         }
 
-        fun from(
-            pachliAccountId: Long,
-            tsq: TSQ,
-            isExpanded: Boolean,
-            isDetailed: Boolean = false,
-            contentFilterAction: FilterAction,
-            translationState: TranslationState = TranslationState.SHOW_ORIGINAL,
-            showSensitiveMedia: Boolean,
-            filterContext: FilterContext?,
-        ): StatusViewData {
-            val status = tsq.timelineStatus
-            val quote = tsq.quotedStatus
-            return StatusViewData(
-                pachliAccountId = pachliAccountId,
-                status = status.toStatus(),
-                translation = tsq.timelineStatus.translatedStatus,
-                isExpanded = tsq.timelineStatus.viewData?.expanded ?: isExpanded,
-                isCollapsed = tsq.timelineStatus.viewData?.contentCollapsed ?: true,
-                isDetailed = isDetailed,
-                contentFilterAction = contentFilterAction,
-                attachmentDisplayAction = status.getAttachmentDisplayAction(
-                    filterContext,
-                    showSensitiveMedia,
-                ),
-                translationState = tsq.timelineStatus.viewData?.translationState ?: translationState,
-                replyToAccount = tsq.timelineStatus.replyAccount?.asModel(),
-            )
-        }
+//        fun from(
+//            pachliAccountId: Long,
+//            tsq: TSQ,
+//            isExpanded: Boolean,
+//            isDetailed: Boolean = false,
+//            contentFilterAction: FilterAction,
+//            translationState: TranslationState = TranslationState.SHOW_ORIGINAL,
+//            showSensitiveMedia: Boolean,
+//            filterContext: FilterContext?,
+//        ): StatusViewData {
+//            val status = tsq.timelineStatus
+//            val quote = tsq.quotedStatus
+//            return StatusViewData(
+//                pachliAccountId = pachliAccountId,
+//                status = status.toStatus(),
+//                translation = tsq.timelineStatus.translatedStatus,
+//                isExpanded = tsq.timelineStatus.viewData?.expanded ?: isExpanded,
+//                isCollapsed = tsq.timelineStatus.viewData?.contentCollapsed ?: true,
+//                isDetailed = isDetailed,
+//                contentFilterAction = contentFilterAction,
+//                attachmentDisplayAction = status.getAttachmentDisplayAction(
+//                    filterContext,
+//                    showSensitiveMedia,
+//                ),
+//                translationState = tsq.timelineStatus.viewData?.translationState ?: translationState,
+//                replyToAccount = tsq.timelineStatus.replyAccount?.asModel(),
+//            )
+//        }
     }
 }
 

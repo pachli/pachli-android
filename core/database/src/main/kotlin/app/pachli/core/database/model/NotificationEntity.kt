@@ -25,7 +25,6 @@ import androidx.room.Index
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
 import app.pachli.core.model.AccountFilterDecision
-import app.pachli.core.model.FilterAction
 import java.time.Instant
 
 /**
@@ -55,9 +54,6 @@ data class NotificationData(
  *
  * @param pachliAccountId
  * @param serverId Notification's remote server ID.
- * @param contentFilterAction The user's choice of [FilterAction] for
- * this notification (which may not match the inherent action if they have
- * chosen to show the notification).
  * @param accountFilterDecision The user's [AccountFilterDecision] for
  * this notification (which may not match the inherent decision if they
  * have chosen to show the notification).
