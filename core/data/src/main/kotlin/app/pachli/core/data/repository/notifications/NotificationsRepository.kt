@@ -38,6 +38,7 @@ import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
 import app.pachli.core.database.model.StatusEntity
 import app.pachli.core.database.model.TimelineAccountEntity
+import app.pachli.core.database.model.asEntity
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.Notification
@@ -260,43 +261,7 @@ fun TimelineAccount.asEntity(pachliAccountId: Long) = TimelineAccountEntity(
 // this can be made private (maybe -- there might be a case for converting a
 // a single status to a single entity, but probably not a TimelineStatusWithAccount
 // as NotificationsRemoteMediator does.
-fun Status.asEntity(pachliAccountId: Long) = StatusEntity(
-    serverId = id,
-    url = actionableStatus.url,
-    timelineUserId = pachliAccountId,
-    authorServerId = actionableStatus.account.id,
-    inReplyToId = actionableStatus.inReplyToId,
-    inReplyToAccountId = actionableStatus.inReplyToAccountId,
-    content = actionableStatus.content,
-    createdAt = actionableStatus.createdAt.time,
-    editedAt = actionableStatus.editedAt?.time,
-    emojis = actionableStatus.emojis.asModel(),
-    reblogsCount = actionableStatus.reblogsCount,
-    favouritesCount = actionableStatus.favouritesCount,
-    quotesCount = actionableStatus.quotesCount,
-    reblogged = actionableStatus.reblogged,
-    favourited = actionableStatus.favourited,
-    bookmarked = actionableStatus.bookmarked,
-    sensitive = actionableStatus.sensitive,
-    spoilerText = actionableStatus.spoilerText,
-    visibility = actionableStatus.visibility.asModel(),
-    attachments = actionableStatus.attachments.asModel(),
-    mentions = actionableStatus.mentions.asModel(),
-    tags = actionableStatus.tags?.asModel(),
-    application = actionableStatus.application?.asModel(),
-    reblogServerId = reblog?.id,
-    reblogAccountId = reblog?.let { account.id },
-    poll = actionableStatus.poll?.asModel(),
-    muted = actionableStatus.muted,
-    pinned = actionableStatus.pinned == true,
-    card = actionableStatus.card?.asModel(),
-    quoteState = actionableStatus.quote?.state?.asModel(),
-    quoteServerId = actionableStatus.quote?.asModel()?.statusId,
-    quoteApproval = actionableStatus.quoteApproval.asModel(),
-    repliesCount = actionableStatus.repliesCount,
-    language = actionableStatus.language,
-    filtered = actionableStatus.filtered?.asModel(),
-)
+fun Status.asEntity(pachliAccountId: Long) = this.asModel().asEntity(pachliAccountId)
 
 /**
  * Converts a single [status] to the one-or-more `StatusEntity` used to

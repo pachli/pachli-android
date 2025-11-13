@@ -182,7 +182,7 @@ data class StatusViewDataQ(
                         translation = status.translatedStatus,
                         isExpanded = status.viewData?.expanded ?: isExpanded,
                         isCollapsed = status.viewData?.contentCollapsed ?: true,
-                        isDetailed = isDetailed,
+                        isDetailed = false,
                         contentFilterAction = quoteContentFilterAction ?: FilterAction.NONE,
                         attachmentDisplayAction = status.getAttachmentDisplayAction(
                             filterContext,
