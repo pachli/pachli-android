@@ -31,7 +31,6 @@ import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.di.TransactionProvider
-import app.pachli.core.database.model.FilterActionUpdate
 import app.pachli.core.database.model.NotificationAccountFilterDecisionUpdate
 import app.pachli.core.database.model.NotificationData
 import app.pachli.core.database.model.NotificationEntity
@@ -39,6 +38,7 @@ import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
 import app.pachli.core.database.model.StatusEntity
 import app.pachli.core.database.model.TimelineAccountEntity
+import app.pachli.core.database.model.asEntity
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.Notification
@@ -171,13 +171,13 @@ class NotificationsRepository @Inject constructor(
     }.await()
 
     /**
-     * Sets the [FilterAction] for [notificationId] to [FilterAction.NONE]
+     * Sets the [FilterAction] for [statusId] to [FilterAction.NONE]
      *
      * @param pachliAccountId
-     * @param notificationId Notification's server ID.
+     * @param statusId Notification's server ID.
      */
-    fun clearContentFilter(pachliAccountId: Long, notificationId: String) = externalScope.launch {
-        notificationDao.upsert(FilterActionUpdate(pachliAccountId, notificationId, FilterAction.NONE))
+    fun clearContentFilter(pachliAccountId: Long, statusId: String) = externalScope.launch {
+        statusDao.clearWarning(pachliAccountId, statusId)
     }
 
     /**
@@ -257,36 +257,42 @@ fun TimelineAccount.asEntity(pachliAccountId: Long) = TimelineAccountEntity(
 /**
  * Converts a network Status to an entity, associated with [pachliAccountId].
  */
-fun Status.asEntity(pachliAccountId: Long) = StatusEntity(
-    serverId = id,
-    url = actionableStatus.url,
-    timelineUserId = pachliAccountId,
-    authorServerId = actionableStatus.account.id,
-    inReplyToId = actionableStatus.inReplyToId,
-    inReplyToAccountId = actionableStatus.inReplyToAccountId,
-    content = actionableStatus.content,
-    createdAt = actionableStatus.createdAt.time,
-    editedAt = actionableStatus.editedAt?.time,
-    emojis = actionableStatus.emojis.asModel(),
-    reblogsCount = actionableStatus.reblogsCount,
-    favouritesCount = actionableStatus.favouritesCount,
-    reblogged = actionableStatus.reblogged,
-    favourited = actionableStatus.favourited,
-    bookmarked = actionableStatus.bookmarked,
-    sensitive = actionableStatus.sensitive,
-    spoilerText = actionableStatus.spoilerText,
-    visibility = actionableStatus.visibility.asModel(),
-    attachments = actionableStatus.attachments.asModel(),
-    mentions = actionableStatus.mentions.asModel(),
-    tags = actionableStatus.tags?.asModel(),
-    application = actionableStatus.application?.asModel(),
-    reblogServerId = reblog?.id,
-    reblogAccountId = reblog?.let { account.id },
-    poll = actionableStatus.poll?.asModel(),
-    muted = actionableStatus.muted,
-    pinned = actionableStatus.pinned == true,
-    card = actionableStatus.card?.asModel(),
-    repliesCount = actionableStatus.repliesCount,
-    language = actionableStatus.language,
-    filtered = actionableStatus.filtered?.asModel(),
-)
+// Used in NotificationsRemoteMediator, need to look at that in more detail so
+// this can be made private (maybe -- there might be a case for converting a
+// a single status to a single entity, but probably not a TimelineStatusWithAccount
+// as NotificationsRemoteMediator does.
+fun Status.asEntity(pachliAccountId: Long) = this.asModel().asEntity(pachliAccountId)
+
+/**
+ * Converts a single [status] to the one-or-more `StatusEntity` used to
+ * represent the status.
+ *
+ * A single [Status] will be stored as:
+ *
+ * - 1 x [StatusEntity] for the top-level status
+ * - 1 x [StatusEntity] if the top-level status is a reblog, to hold the
+ * status being reblogged.
+ * - N x [StatusEntity] to hold the chain of quotes.
+ */
+fun Status.asEntities(pachliAccountId: Long): List<StatusEntity> {
+    return buildList {
+        val status = this@asEntities
+
+        add(status.asEntity(pachliAccountId))
+        status.reblog?.let {
+            // Recurse, to pick up any quotes on the reblogged status.
+            addAll(it.asEntities(pachliAccountId))
+        }
+
+        var next = status.quote?.quotedStatus
+
+        // TODO: Possibly shouldn't recurse here, should just process the first
+        // quote, if any.
+        while (next != null) {
+            add(next.asEntity(pachliAccountId))
+            next.reblog?.let { add(it.asEntity(pachliAccountId)) }
+
+            next = next.quote?.quotedStatus
+        }
+    }
+}

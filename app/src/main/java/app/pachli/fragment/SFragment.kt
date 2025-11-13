@@ -48,6 +48,7 @@ import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.domain.DownloadUrlUseCase
 import app.pachli.core.model.Attachment
+import app.pachli.core.model.IStatus
 import app.pachli.core.model.Status
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AttachmentViewData
@@ -114,7 +115,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
         (context as? ViewUrlActivity) ?: throw IllegalStateException("Fragment must be attached to a BottomSheetActivity")
     }
 
-    protected fun openReblog(status: Status) {
+    protected fun openReblog(status: IStatus) {
         val intent = AccountActivityIntent(requireActivity(), pachliAccountId, status.account.id)
         startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
     }

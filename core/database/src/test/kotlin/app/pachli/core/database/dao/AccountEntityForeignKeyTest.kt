@@ -25,9 +25,9 @@ import app.pachli.core.database.model.ContentFiltersEntity
 import app.pachli.core.database.model.ConversationEntity
 import app.pachli.core.database.model.DraftEntity
 import app.pachli.core.database.model.EmojisEntity
-import app.pachli.core.database.model.FilterActionUpdate
 import app.pachli.core.database.model.FollowingAccountEntity
 import app.pachli.core.database.model.MastodonListEntity
+import app.pachli.core.database.model.NotificationAccountFilterDecisionUpdate
 import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.database.model.NotificationViewDataEntity
 import app.pachli.core.database.model.RemoteKeyEntity
@@ -37,6 +37,8 @@ import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.database.model.asEntity
+import app.pachli.core.model.AccountFilterDecision
+import app.pachli.core.model.AccountFilterReason
 import app.pachli.core.model.Announcement
 import app.pachli.core.model.ContentFilterVersion
 import app.pachli.core.model.FilterAction
@@ -341,20 +343,26 @@ class AccountEntityForeignKeyTest {
             accountServerId = "1",
             statusServerId = "1",
         )
+
         notificationDao.upsertNotifications(listOf(notification))
-        val filterAction = FilterActionUpdate(
+
+        val accountFilterDecision = AccountFilterDecision.make(
+            FilterAction.WARN,
+            AccountFilterReason.NOT_FOLLOWING,
+        )
+
+        val accountFilterAction = NotificationAccountFilterDecisionUpdate(
             pachliAccountId = pachliAccountId,
             serverId = "1",
-            contentFilterAction = FilterAction.NONE,
+            accountFilterDecision = accountFilterDecision,
         )
-        notificationDao.upsert(filterAction)
+        notificationDao.upsert(accountFilterAction)
 
         // Check everything is as expected.
         val notificationViewData = NotificationViewDataEntity(
             pachliAccountId = pachliAccountId,
             serverId = "1",
-            contentFilterAction = FilterAction.NONE,
-            accountFilterDecision = null,
+            accountFilterDecision = accountFilterDecision,
         )
         assertThat(notificationDao.loadAllForAccount(pachliAccountId)).containsExactly(notification)
         assertThat(notificationDao.loadViewData(pachliAccountId, "1")).isEqualTo(notificationViewData)

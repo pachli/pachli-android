@@ -23,10 +23,10 @@ import androidx.paging.filter
 import androidx.paging.map
 import app.pachli.components.timeline.CachedTimelineRepository
 import app.pachli.core.data.model.IStatusViewData
-import app.pachli.core.data.model.StatusViewData
+import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
-import app.pachli.core.database.model.TimelineStatusWithAccount
+import app.pachli.core.database.model.TimelineStatusWithQuote
 import app.pachli.core.eventhub.BookmarkEvent
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.FavoriteEvent
@@ -60,7 +60,7 @@ class CachedTimelineViewModel @AssistedInject constructor(
     accountManager: AccountManager,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     sharedPreferencesRepository: SharedPreferencesRepository,
-) : TimelineViewModel<TimelineStatusWithAccount, CachedTimelineRepository>(
+) : TimelineViewModel<TimelineStatusWithQuote, CachedTimelineRepository>(
     timeline = timeline,
     timelineCases = timelineCases,
     eventHub = eventHub,
@@ -72,19 +72,17 @@ class CachedTimelineViewModel @AssistedInject constructor(
     override val statuses = pachliAccountFlow.distinctUntilChangedBy { it.id }.flatMapLatest { pachliAccount ->
         repository.getStatusStream(pachliAccount.id, timeline).map { pagingData ->
             pagingData
-                .map { Pair(it, shouldFilterStatus(it)) }
+                .map { Pair(it, shouldFilterStatus(it.timelineStatus)) }
                 .filter { it.second != FilterAction.HIDE }
-                .map { (timelineStatusWithAccount, contentFilterAction) ->
-                    StatusViewData.from(
+                .map { (timelineStatusWithQuote, contentFilterAction) ->
+                    StatusItemViewData.from(
                         pachliAccountId = pachliAccount.id,
-                        timelineStatusWithAccount,
+                        timelineStatusWithQuote,
                         isExpanded = pachliAccount.entity.alwaysOpenSpoiler,
                         contentFilterAction = contentFilterAction,
-                        attachmentDisplayAction = getAttachmentDisplayAction(
-                            timelineStatusWithAccount,
-                            pachliAccount.entity.alwaysShowSensitiveMedia,
-                            timelineStatusWithAccount.viewData?.attachmentDisplayAction,
-                        ),
+                        quoteContentFilterAction = timelineStatusWithQuote.quotedStatus?.let { contentFilterModel?.filterActionFor(it.status) },
+                        showSensitiveMedia = pachliAccount.entity.alwaysShowSensitiveMedia,
+                        filterContext = filterContext,
                     )
                 }
         }
@@ -132,7 +130,7 @@ class CachedTimelineViewModel @AssistedInject constructor(
 
     override fun onChangeExpanded(isExpanded: Boolean, statusViewData: IStatusViewData) {
         viewModelScope.launch {
-            repository.setExpanded(statusViewData.pachliAccountId, statusViewData.id, isExpanded)
+            repository.setExpanded(statusViewData.pachliAccountId, statusViewData.actionableId, isExpanded)
         }
     }
 
@@ -144,7 +142,7 @@ class CachedTimelineViewModel @AssistedInject constructor(
 
     override fun onContentCollapsed(isCollapsed: Boolean, statusViewData: IStatusViewData) {
         viewModelScope.launch {
-            repository.setContentCollapsed(statusViewData.pachliAccountId, statusViewData.id, isCollapsed)
+            repository.setContentCollapsed(statusViewData.pachliAccountId, statusViewData.actionableId, isCollapsed)
         }
     }
 

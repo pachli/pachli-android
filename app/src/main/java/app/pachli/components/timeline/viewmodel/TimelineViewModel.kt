@@ -29,12 +29,13 @@ import app.pachli.core.common.PachliError
 import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.data.model.ContentFilterModel
 import app.pachli.core.data.model.IStatusViewData
+import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.StatusActionError
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
-import app.pachli.core.database.model.TimelineStatusWithAccount
+import app.pachli.core.database.dao.TimelineStatusWithAccount
 import app.pachli.core.eventhub.BlockEvent
 import app.pachli.core.eventhub.BookmarkEvent
 import app.pachli.core.eventhub.DomainMuteEvent
@@ -60,7 +61,6 @@ import app.pachli.core.model.translation.TranslatedStatus
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.preferences.TabTapBehaviour
-import app.pachli.core.ui.extensions.getAttachmentDisplayAction
 import app.pachli.translation.TranslatorError
 import app.pachli.usecase.TimelineCases
 import com.github.michaelbull.result.Ok
@@ -324,7 +324,7 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
     val uiState: StateFlow<UiState>
 
     /** Flow of statuses that make up the timeline of [timeline] for [pachliAccountId]. */
-    abstract val statuses: Flow<PagingData<StatusViewData>>
+    abstract val statuses: Flow<PagingData<StatusItemViewData>>
 
     /** Flow of changes to statusDisplayOptions, for use by the UI */
     val statusDisplayOptions = statusDisplayOptionsRepository.flow
@@ -341,7 +341,7 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
     }
 
     /** [FilterContext] for this [timeline]. */
-    private val filterContext = FilterContext.from(timeline)
+    protected val filterContext = FilterContext.from(timeline)
 
     /**
      * Flow of the status ID to use when initially refreshing the list, and where
@@ -367,7 +367,7 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
         accountManager.getPachliAccountFlow(pachliAccountId)
     }.filterNotNull()
 
-    private var contentFilterModel: ContentFilterModel? = null
+    protected var contentFilterModel: ContentFilterModel? = null
 
     init {
         // Handle LoadPachliAcccount. Emit the received account ID to pachliAccountFlow.
@@ -616,8 +616,6 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
         // Apply content filters.
         return contentFilterModel?.filterActionFor(status) ?: FilterAction.NONE
     }
-
-    protected fun getAttachmentDisplayAction(status: TimelineStatusWithAccount, alwaysShowSensitiveMedia: Boolean, cachedDecision: AttachmentDisplayAction?) = status.getAttachmentDisplayAction(filterContext, alwaysShowSensitiveMedia, cachedDecision)
 
     // TODO: Update this so that the list of UIPrefs is correct
     private suspend fun onPreferenceChanged(key: String) {

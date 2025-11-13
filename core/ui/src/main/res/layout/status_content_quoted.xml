@@ -17,10 +17,11 @@
   ~ see <http://www.gnu.org/licenses>.
   -->
 
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/status_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clipChildren="false"
@@ -29,62 +30,61 @@
     tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
     <ImageView
-        android:id="@+id/status_avatar"
-        android:layout_width="@dimen/timeline_status_avatar_width"
-        android:layout_height="@dimen/timeline_status_avatar_height"
+        android:id="@+id/quote_status_avatar"
+        android:layout_width="@dimen/timeline_quoted_status_avatar_width"
+        android:layout_height="@dimen/timeline_quoted_status_avatar_height"
         android:layout_marginStart="@dimen/account_avatar_margin"
-        android:layout_marginTop="@dimen/account_avatar_margin"
         android:contentDescription="@string/action_view_profile"
         android:importantForAccessibility="no"
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:src="@drawable/avatar_default" />
 
     <ImageView
-        android:id="@+id/status_avatar_inset"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:id="@+id/quote_status_avatar_inset"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
         android:contentDescription="@null"
         android:importantForAccessibility="no"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/status_avatar"
-        app:layout_constraintEnd_toEndOf="@id/status_avatar"
+        app:layout_constraintBottom_toBottomOf="@id/quote_status_avatar"
+        app:layout_constraintEnd_toEndOf="@id/quote_status_avatar"
         tools:src="#000"
         tools:visibility="visible" />
 
     <app.pachli.core.ui.RoleChipGroup
-        android:id="@+id/roleChipGroup"
+        android:id="@+id/quote_roleChipGroup"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingBottom="4dp"
         app:chipSpacingVertical="4dp"
-        app:layout_constraintStart_toStartOf="@id/status_display_name"
+        app:layout_constraintStart_toStartOf="@id/quote_status_display_name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/status_avatar"
+        app:layout_constraintTop_toTopOf="@id/quote_status_avatar"
         android:importantForAccessibility="no" />
 
     <TextView
-        android:id="@+id/status_display_name"
+        android:id="@+id/quote_status_display_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginEnd="@dimen/status_display_name_padding_end"
         android:ellipsize="end"
         android:importantForAccessibility="no"
         android:maxLines="1"
-        android:paddingEnd="@dimen/status_display_name_padding_end"
-        android:textSize="?attr/status_text_medium"
+        android:textSize="?attr/status_text_small"
         android:textStyle="normal|bold"
         app:layout_constrainedWidth="true"
-        app:layout_constraintEnd_toStartOf="@id/status_meta_info"
+        app:layout_constraintEnd_toStartOf="@id/quote_status_meta_info"
         app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toEndOf="@id/status_avatar"
-        app:layout_constraintTop_toBottomOf="@id/roleChipGroup"
+        app:layout_constraintStart_toEndOf="@id/quote_status_avatar"
+        app:layout_constraintTop_toBottomOf="@id/quote_roleChipGroup"
         tools:text="Ente r the void you foooooo"
         tools:ignore="SelectableText" />
 
     <TextView
-        android:id="@+id/status_meta_info"
+        android:id="@+id/quote_status_meta_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -92,56 +92,64 @@
         android:importantForAccessibility="no"
         android:textSize="?attr/status_text_small"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBaseline_toBaselineOf="@id/status_display_name"
+        app:layout_constraintBaseline_toBaselineOf="@id/quote_status_display_name"
         tools:text="13:37"
         tools:ignore="SelectableText" />
 
     <TextView
-        android:id="@+id/status_username"
+        android:id="@+id/quote_status_username"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:importantForAccessibility="no"
         android:maxLines="1"
         android:textSize="?attr/status_text_small"
-        app:layout_constraintEnd_toStartOf="@id/account_pronouns"
-        app:layout_constraintStart_toStartOf="@id/status_display_name"
-        app:layout_constraintTop_toBottomOf="@id/status_display_name"
+        app:layout_constraintEnd_toStartOf="@id/quote_account_pronouns"
+        app:layout_constraintStart_toStartOf="@id/quote_status_display_name"
+        app:layout_constraintTop_toBottomOf="@id/quote_status_display_name"
         app:layout_constraintHorizontal_weight="1"
         app:layout_goneMarginEnd="14dp"
         tools:ignore="SelectableText"
         tools:text="\@Entenhausen@birbsarecooooooooooool.site" />
 
     <app.pachli.core.ui.PronounsChip
-        android:id="@+id/account_pronouns"
+        android:id="@+id/quote_account_pronouns"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="14dp"
-        app:layout_constraintBaseline_toBaselineOf="@id/status_username"
-        app:layout_constraintStart_toEndOf="@id/status_username"
+        app:layout_constraintBaseline_toBaselineOf="@id/quote_status_username"
+        app:layout_constraintStart_toEndOf="@id/quote_status_username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintWidth_max="@dimen/pronounChip_maxWidth"
         tools:ignore="SelectableText"
         tools:text="he/him" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/quote_guideline_body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintGuide_begin="@dimen/account_avatar_margin"
+        android:orientation="vertical" />
+
     <app.pachli.core.ui.ClickableSpanTextView
-        android:id="@+id/status_content_warning_description"
+        android:id="@+id/quote_status_content_warning_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="14dp"
         android:hyphenationFrequency="full"
         android:importantForAccessibility="no"
         android:lineSpacingMultiplier="1.1"
-        android:textSize="?attr/status_text_medium"
+        android:textSize="?attr/status_text_small"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/status_display_name"
-        app:layout_constraintTop_toBottomOf="@id/status_username"
+        app:layout_constraintStart_toStartOf="@id/quote_guideline_body"
+        app:layout_constraintTop_toBottomOf="@id/quote_status_username"
         tools:text="content warning which is very long and it doesn't fit"
         tools:visibility="visible" />
 
     <Button
-        android:id="@+id/status_content_warning_button"
+        android:id="@+id/quote_status_content_warning_button"
         style="@style/AppButton.Outlined"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -157,15 +165,15 @@
         android:textAllCaps="true"
         android:textOff="@string/post_content_warning_show_more"
         android:textOn="@string/post_content_warning_show_less"
-        android:textSize="?attr/status_text_medium"
+        android:textSize="?attr/status_text_small"
         android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@id/status_display_name"
-        app:layout_constraintTop_toBottomOf="@id/status_content_warning_description"
+        app:layout_constraintStart_toStartOf="@id/quote_guideline_body"
+        app:layout_constraintTop_toBottomOf="@id/quote_status_content_warning_description"
         tools:text="@string/post_content_warning_show_more"
         tools:visibility="visible" />
 
     <app.pachli.core.ui.ClickableSpanTextView
-        android:id="@+id/status_content"
+        android:id="@+id/quote_status_content"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -174,14 +182,15 @@
         android:hyphenationFrequency="full"
         android:importantForAccessibility="no"
         android:lineSpacingMultiplier="1.1"
-        android:textSize="?attr/status_text_medium"
+        android:textSize="?attr/status_text_small"
+        android:ellipsize="end"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/status_content_warning_button"
-        app:layout_constraintTop_toBottomOf="@id/status_content_warning_button"
+        app:layout_constraintStart_toStartOf="@id/quote_guideline_body"
+        app:layout_constraintTop_toBottomOf="@id/quote_status_content_warning_button"
         tools:text="This is a status" />
 
     <Button
-        android:id="@+id/button_toggle_content"
+        android:id="@+id/quote_button_toggle_content"
         style="@style/AppButton.Outlined"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -193,26 +202,27 @@
         android:paddingRight="16dp"
         android:paddingBottom="4dp"
         android:textAllCaps="true"
-        android:textSize="?attr/status_text_medium"
+        android:textSize="?attr/status_text_small"
         android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@id/status_display_name"
-        app:layout_constraintTop_toBottomOf="@+id/status_content"
+        app:layout_constraintStart_toStartOf="@+id/quote_guideline_body"
+        app:layout_constraintTop_toBottomOf="@id/quote_status_content"
         tools:text="@string/post_content_show_less"
         tools:visibility="visible" />
 
     <app.pachli.core.ui.PreviewCardView
-        android:id="@+id/status_card_view"
+        android:id="@+id/quote_status_card_view"
+        style="@style/Pachli.Widget.PreviewCardView.Quoted"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="14dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/status_display_name"
-        app:layout_constraintTop_toBottomOf="@id/button_toggle_content"
+        app:layout_constraintStart_toStartOf="@+id/quote_guideline_body"
+        app:layout_constraintTop_toBottomOf="@id/quote_button_toggle_content"
         tools:visibility="visible" />
 
     <app.pachli.core.ui.AttachmentsView
-        android:id="@+id/attachmentGrid"
+        android:id="@+id/quote_attachmentGrid"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/status_media_preview_margin_top"
@@ -220,48 +230,35 @@
         android:background="@drawable/media_preview_outline"
         android:importantForAccessibility="noHideDescendants"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/status_display_name"
-        app:layout_constraintTop_toBottomOf="@id/status_card_view"
+        app:layout_constraintStart_toStartOf="@+id/quote_guideline_body"
+        app:layout_constraintTop_toBottomOf="@id/quote_status_card_view"
         tools:visibility="gone" />
 
     <app.pachli.core.ui.PollView
-        android:id="@+id/status_poll"
+        android:id="@+id/quote_status_poll"
+        style="@style/Pachli.Widget.PollView.Quoted"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="14dp"
+        android:textSize="?status_text_small"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/status_display_name"
-        app:layout_constraintTop_toBottomOf="@id/attachmentGrid"
-        tools:visibility="visible" />
-
-    <app.pachli.core.ui.QuotedStatusView
-        android:id="@+id/status_quote"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/quote_background"
-        android:paddingTop="14dp"
-        android:paddingBottom="14dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="14dp"
-        app:layout_constraintStart_toEndOf="@id/status_avatar"
-        app:layout_constraintTop_toBottomOf="@id/status_poll"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@+id/quote_guideline_body"
+        app:layout_constraintTop_toBottomOf="@id/quote_attachmentGrid"
         tools:visibility="visible" />
 
     <TextView
-        android:id="@+id/translationProvider"
+        android:id="@+id/quote_translationProvider"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="14dp"
         android:textSize="?attr/status_text_small"
         android:drawablePadding="4dp"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@id/status_display_name"
-        app:layout_constraintTop_toBottomOf="@id/status_quote"
+        app:layout_constraintStart_toStartOf="@+id/quote_guideline_body"
+        app:layout_constraintTop_toBottomOf="@id/quote_status_poll"
         tools:text="Translation provider: DeepL"
         tools:ignore="SelectableText"
         tools:visibility="visible" />
-</merge>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

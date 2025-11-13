@@ -18,44 +18,89 @@
 package app.pachli.core.model
 
 import app.pachli.core.common.extensions.getOrElse
+import app.pachli.core.model.Status.Application
+import app.pachli.core.model.Status.Mention
+import app.pachli.core.model.Status.Quote
+import app.pachli.core.model.Status.QuoteApproval
+import app.pachli.core.model.Status.Visibility
 import com.squareup.moshi.JsonClass
 import java.util.Date
+
+interface IStatus {
+    val statusId: String
+
+    // not present if it's reblog
+    val url: String?
+    val account: TimelineAccount
+    val inReplyToId: String?
+    val inReplyToAccountId: String?
+    val reblog: Status?
+    val content: CharSequence
+    val createdAt: Date
+    val editedAt: Date?
+    val emojis: List<Emoji>
+    val reblogsCount: Int
+    val favouritesCount: Int
+    val repliesCount: Int
+    val quotesCount: Int
+    val reblogged: Boolean
+    val favourited: Boolean
+    val bookmarked: Boolean
+    val sensitive: Boolean
+    val spoilerText: String
+    val visibility: Visibility
+    val attachments: List<Attachment>
+    val mentions: List<Mention>
+    val tags: List<HashTag>?
+    val application: Application?
+    val pinned: Boolean?
+    val muted: Boolean?
+    val poll: Poll?
+    val card: Card?
+    val quote: Quote?
+    val quoteApproval: QuoteApproval
+    val language: String?
+    val filtered: List<FilterResult>?
+}
 
 /**
  * @property reblogged True if the current user reblogged this status.
  */
 data class Status(
-    val statusId: String,
+    override val statusId: String,
     // not present if it's reblog
-    val url: String?,
-    val account: TimelineAccount,
-    val inReplyToId: String?,
-    val inReplyToAccountId: String?,
-    val reblog: Status?,
-    val content: String,
-    val createdAt: Date,
-    val editedAt: Date?,
-    val emojis: List<Emoji>,
-    val reblogsCount: Int,
-    val favouritesCount: Int,
-    val repliesCount: Int,
-    val reblogged: Boolean = false,
-    val favourited: Boolean = false,
-    val bookmarked: Boolean = false,
-    val sensitive: Boolean,
-    val spoilerText: String,
-    val visibility: Visibility,
-    val attachments: List<Attachment>,
-    val mentions: List<Mention>,
-    val tags: List<HashTag>?,
-    val application: Application?,
-    val pinned: Boolean?,
-    val muted: Boolean?,
-    val poll: Poll?,
-    val card: Card?,
-    val language: String?,
-    val filtered: List<FilterResult>?,
-) {
+    override val url: String?,
+    override val account: TimelineAccount,
+    override val inReplyToId: String?,
+    override val inReplyToAccountId: String?,
+    override val reblog: Status?,
+    override val content: String,
+    override val createdAt: Date,
+    override val editedAt: Date?,
+    override val emojis: List<Emoji>,
+    override val reblogsCount: Int,
+    override val favouritesCount: Int,
+    override val repliesCount: Int,
+    override val quotesCount: Int,
+    override val reblogged: Boolean = false,
+    override val favourited: Boolean = false,
+    override val bookmarked: Boolean = false,
+    override val sensitive: Boolean,
+    override val spoilerText: String,
+    override val visibility: Visibility,
+    override val attachments: List<Attachment>,
+    override val mentions: List<Mention>,
+    override val tags: List<HashTag>?,
+    override val application: Application?,
+    override val pinned: Boolean?,
+    override val muted: Boolean?,
+    override val poll: Poll?,
+    override val card: Card?,
+    override val quote: Quote?,
+    override val quoteApproval: QuoteApproval,
+    override val language: String?,
+    override val filtered: List<FilterResult>?,
+) : IStatus {
     val actionableId: String
         get() = reblog?.statusId ?: statusId
 
@@ -151,6 +196,65 @@ data class Status(
         val name: String,
         val website: String?,
     )
+
+    enum class QuoteState {
+        UNKNOWN,
+        PENDING,
+        ACCEPTED,
+        REJECTED,
+        REVOKED,
+        UNAUTHORIZED,
+    }
+
+    sealed interface Quote {
+        val state: QuoteState
+        val statusId: String
+
+        data class FullQuote(
+            override val state: QuoteState,
+            val status: Status,
+        ) : Quote {
+            override val statusId: String
+                get() = status.actionableId
+        }
+
+        data class ShallowQuote(
+            override val state: QuoteState,
+            override val statusId: String,
+        ) : Quote
+    }
+
+    // JSON adapter for database serialisation.
+    @JsonClass(generateAdapter = true)
+    data class QuoteApproval(
+        val automatic: List<QuoteApprovalAutomatic> = emptyList(),
+        val manual: List<QuoteApprovalManual> = emptyList(),
+        val currentUser: QuoteApprovalCurrentUser = QuoteApprovalCurrentUser.UNKNOWN,
+    ) {
+        /** Possible values for [QuoteApproval.automatic]. */
+        enum class QuoteApprovalAutomatic {
+            UNSUPPORTED_POLICY,
+            PUBLIC,
+            FOLLOWERS,
+            FOLLOWING,
+        }
+
+        /** Possible values for [QuoteApproval.manual]. */
+        enum class QuoteApprovalManual {
+            UNSUPPORTED_POLICY,
+            PUBLIC,
+            FOLLOWERS,
+            FOLLOWING,
+        }
+
+        /** Possible values for [QuoteApproval.currentUser]. */
+        enum class QuoteApprovalCurrentUser {
+            UNKNOWN,
+            AUTOMATIC,
+            MANUAL,
+            DENIED,
+        }
+    }
 
     companion object {
         const val MAX_MEDIA_ATTACHMENTS = 4

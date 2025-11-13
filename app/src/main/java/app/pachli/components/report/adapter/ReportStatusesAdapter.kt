@@ -22,7 +22,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.core.data.model.StatusDisplayOptions
-import app.pachli.core.data.model.StatusViewData
+import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.model.Status
 import app.pachli.core.ui.SetStatusContent
 import app.pachli.core.ui.StatusActionListener
@@ -39,9 +39,9 @@ class ReportStatusesAdapter(
     private val setStatusContent: SetStatusContent,
     private val statusDisplayOptions: StatusDisplayOptions,
     private val reportStatusActionListener: ReportStatusActionListener,
-) : PagingDataAdapter<StatusViewData, ReportStatusViewHolder>(STATUS_COMPARATOR) {
+) : PagingDataAdapter<StatusItemViewData, ReportStatusViewHolder>(STATUS_COMPARATOR) {
 
-    private val statusForPosition: (Int) -> StatusViewData? = { position: Int ->
+    private val statusForPosition: (Int) -> StatusItemViewData? = { position: Int ->
         if (position != RecyclerView.NO_POSITION) getItem(position) else null
     }
 
@@ -64,10 +64,10 @@ class ReportStatusesAdapter(
     }
 
     companion object {
-        val STATUS_COMPARATOR = object : DiffUtil.ItemCallback<StatusViewData>() {
-            override fun areContentsTheSame(oldItem: StatusViewData, newItem: StatusViewData): Boolean = oldItem == newItem
+        val STATUS_COMPARATOR = object : DiffUtil.ItemCallback<StatusItemViewData>() {
+            override fun areContentsTheSame(oldItem: StatusItemViewData, newItem: StatusItemViewData): Boolean = oldItem == newItem
 
-            override fun areItemsTheSame(oldItem: StatusViewData, newItem: StatusViewData): Boolean = oldItem.id == newItem.id
+            override fun areItemsTheSame(oldItem: StatusItemViewData, newItem: StatusItemViewData): Boolean = oldItem.statusId == newItem.statusId
         }
     }
 }

@@ -174,7 +174,7 @@ sealed interface InfallibleUiAction : UiAction {
     /** Clear the content filter. */
     data class ClearContentFilter(
         val pachliAccountId: Long,
-        val notificationId: String,
+        val statusId: String,
     ) : InfallibleUiAction
 
     /** Override the account filter and show the content. */
@@ -641,9 +641,10 @@ class NotificationsViewModel @AssistedInject constructor(
                 pagingData
                     .map { notification ->
                         val contentFilterAction =
-                            notification.viewData?.contentFilterAction
-                                ?: notification.status?.status?.let { contentFilterModel?.filterActionFor(it) }
+                            notification.status?.timelineStatus?.let { contentFilterModel?.filterActionFor(it.status) }
                                 ?: FilterAction.NONE
+                        val quoteContentFilterAction =
+                            notification.status?.quotedStatus?.let { contentFilterModel?.filterActionFor(it.status) }
                         val isAboutSelf = notification.account.serverId == pachliAccount.entity.accountId
                         val accountFilterDecision =
                             notification.viewData?.accountFilterDecision
@@ -655,11 +656,12 @@ class NotificationsViewModel @AssistedInject constructor(
                             showSensitiveMedia = statusDisplayOptions.value.showSensitiveMedia,
                             isExpanded = statusDisplayOptions.value.openSpoiler,
                             contentFilterAction = contentFilterAction,
+                            quoteContentFilterAction = quoteContentFilterAction,
                             accountFilterDecision = accountFilterDecision,
                             isAboutSelf = isAboutSelf,
                         )
                     }
-                    .filter { it !is NotificationViewData.WithStatus || it.statusViewData.contentFilterAction != FilterAction.HIDE }
+                    .filter { it !is NotificationViewData.WithStatus || it.statusItemViewData.contentFilterAction != FilterAction.HIDE }
                     .filter { it.accountFilterDecision !is AccountFilterDecision.Hide }
             }
     }
@@ -688,7 +690,7 @@ class NotificationsViewModel @AssistedInject constructor(
     }
 
     private fun onClearContentFilter(action: InfallibleUiAction.ClearContentFilter) {
-        repository.clearContentFilter(action.pachliAccountId, action.notificationId)
+        repository.clearContentFilter(action.pachliAccountId, action.statusId)
     }
 
     private fun onOverrideAccountFilter(action: InfallibleUiAction.OverrideAccountFilter) {

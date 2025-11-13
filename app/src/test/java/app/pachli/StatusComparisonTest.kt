@@ -234,7 +234,13 @@ class StatusComparisonTest {
                 "tags": [],
                 "emojis": [],
                 "card": null,
-                "poll": null
+                "poll": null,
+                "quote": null,
+                "quote_approval": {
+                    "automatic": ["public"],
+                    "manual": [],
+                    "current_user": "automatic"
+                }
             }
         """.trimIndent()
         return moshi.adapter<Status>().fromJson(statusJson)!!.asModel()

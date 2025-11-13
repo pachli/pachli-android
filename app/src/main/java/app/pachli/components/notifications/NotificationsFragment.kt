@@ -58,6 +58,7 @@ import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.NotificationViewData
 import app.pachli.core.model.AttachmentDisplayAction
+import app.pachli.core.model.IStatus
 import app.pachli.core.model.Notification
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
@@ -515,11 +516,11 @@ class NotificationsFragment :
     }
 
     override fun onTranslate(viewData: NotificationViewData.WithStatus) {
-        viewModel.accept(FallibleStatusAction.Translate(viewData.statusViewData))
+        viewModel.accept(FallibleStatusAction.Translate(viewData))
     }
 
     override fun onTranslateUndo(viewData: NotificationViewData.WithStatus) {
-        viewModel.accept(InfallibleStatusAction.TranslateUndo(viewData.statusViewData))
+        viewModel.accept(InfallibleStatusAction.TranslateUndo(viewData))
     }
 
     override fun onViewAttachment(view: View?, viewData: IStatusViewData, attachmentIndex: Int) {
@@ -535,7 +536,7 @@ class NotificationsFragment :
         super.viewThread(status.actionableId, status.actionableStatus.url)
     }
 
-    override fun onOpenReblog(status: Status) {
+    override fun onOpenReblog(status: IStatus) {
         onViewAccount(status.account.id)
     }
 

@@ -220,17 +220,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/attachmentGrid" />
 
+    <app.pachli.core.ui.QuotedStatusView
+        android:id="@+id/status_quote"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/quote_background"
+        android:paddingTop="14dp"
+        android:paddingBottom="14dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/status_poll"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
     <TextView
         android:id="@+id/translationProvider"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="14dp"
         android:textSize="?attr/status_text_small"
         android:drawablePadding="4dp"
-        app:layout_constraintStart_toStartOf="@id/status_poll"
-        app:layout_constraintTop_toBottomOf="@id/status_poll"
         android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/status_quote"
         tools:text="Translation provider: DeepL"
         tools:ignore="SelectableText"
         tools:visibility="visible" />

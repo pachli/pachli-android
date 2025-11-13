@@ -48,6 +48,9 @@
         <attr name="android:background" />
         <attr name="android:foreground" />
 
+        <!-- Background of the "info" part of the preview (contains the text
+             content. -->
+        <attr name="previewCardInfoBackground" format="reference|color" />
         <!-- Height of the preview image, if the image is stacked vertically above
              the preview content. -->
         <attr name="previewCardImageVerticalHeight" format="reference|dimension" />

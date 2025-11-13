@@ -26,7 +26,7 @@ import app.pachli.BuildConfig
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
-import app.pachli.core.model.Status
+import app.pachli.core.database.model.TimelineStatusWithQuote
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Status as NetworkStatus
 import app.pachli.core.network.retrofit.MastodonApi
@@ -55,12 +55,12 @@ typealias FetchPage = suspend (maxId: String?, minId: String?, limit: Int) -> Ap
 class NetworkTimelineRemoteMediator(
     private val api: MastodonApi,
     private val pachliAccountId: Long,
-    private val factory: InvalidatingPagingSourceFactory<String, Status>,
+    private val factory: InvalidatingPagingSourceFactory<String, TimelineStatusWithQuote>,
     private val pageCache: PageCache,
     private val timeline: Timeline,
     private val remoteKeyDao: RemoteKeyDao,
-) : RemoteMediator<String, Status>() {
-    override suspend fun load(loadType: LoadType, state: PagingState<String, Status>): MediatorResult {
+) : RemoteMediator<String, TimelineStatusWithQuote>() {
+    override suspend fun load(loadType: LoadType, state: PagingState<String, TimelineStatusWithQuote>): MediatorResult {
         Timber.d("timeline: $timeline, load(), type: $loadType")
 
         return pageCache.withLock {
@@ -73,7 +73,7 @@ class NetworkTimelineRemoteMediator(
                     val itemKey = if (remoteKeyTimelineId != null) {
                         remoteKeyDao.remoteKeyForKind(pachliAccountId, remoteKeyTimelineId, RemoteKeyKind.REFRESH)?.key
                     } else {
-                        state.anchorPosition?.let { state.closestItemToPosition(it) }?.statusId?.let { ik ->
+                        state.anchorPosition?.let { state.closestItemToPosition(it) }?.timelineStatus?.status?.serverId?.let { ik ->
                             // Find the page that contains the item, so the remote key can be determined
                             val pageContainingItem = pageCache.getPageById(ik)
 

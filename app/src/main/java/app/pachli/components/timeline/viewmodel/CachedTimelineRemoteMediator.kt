@@ -21,6 +21,7 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
+import app.pachli.core.data.repository.notifications.asEntities
 import app.pachli.core.data.repository.notifications.asEntity
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.StatusDao
@@ -29,7 +30,7 @@ import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
 import app.pachli.core.database.model.TimelineStatusEntity
-import app.pachli.core.database.model.TimelineStatusWithAccount
+import app.pachli.core.database.model.TimelineStatusWithQuote
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Status
@@ -52,10 +53,10 @@ class CachedTimelineRemoteMediator(
     private val timelineDao: TimelineDao,
     private val remoteKeyDao: RemoteKeyDao,
     private val statusDao: StatusDao,
-) : RemoteMediator<Int, TimelineStatusWithAccount>() {
+) : RemoteMediator<Int, TimelineStatusWithQuote>() {
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<Int, TimelineStatusWithAccount>,
+        state: PagingState<Int, TimelineStatusWithQuote>,
     ): MediatorResult {
         Timber.d("load(), account ID: %d, LoadType = %s", pachliAccountId, loadType)
         val remoteKeyTimelineId = Timeline.Home.remoteKeyTimelineId
@@ -204,13 +205,23 @@ class CachedTimelineRemoteMediator(
         /** Unique accounts referenced in this batch of statuses. */
         val accounts = buildSet {
             statuses.forEach { status ->
+                // TODO: Provide a status.accounts property that lists all
+                // the accounts embedded in the status
                 add(status.account)
-                status.reblog?.account?.let { add(it) }
+                status.reblog?.let {
+                    add(it.account)
+                    it.quote?.quotedStatus?.account?.let { add(it) }
+                }
+
+                status.quote?.quotedStatus?.let { quote ->
+                    add(quote.account)
+                    quote.reblog?.let { add(it.account) }
+                }
             }
         }
 
         timelineDao.upsertAccounts(accounts.map { it.asEntity(pachliAccountId) })
-        statusDao.upsertStatuses(statuses.map { it.asEntity(pachliAccountId) })
+        statusDao.upsertStatuses(statuses.flatMap { it.asEntities(pachliAccountId) })
         timelineDao.upsertStatuses(
             statuses.map {
                 TimelineStatusEntity(

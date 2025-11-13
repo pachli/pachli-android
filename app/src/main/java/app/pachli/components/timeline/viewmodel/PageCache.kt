@@ -31,6 +31,7 @@ import kotlinx.coroutines.sync.Mutex
 import timber.log.Timber
 
 /** A page of data from the Mastodon API */
+// This is the external representation that consumers of the cache use.
 data class Page(
     /** Loaded data */
     val data: MutableList<Status>,
@@ -61,6 +62,20 @@ data class Page(
         }
     }
 }
+
+/**
+ * Internal representation of a page.
+ *
+ * @property data List of server IDs of statuses in this page, in presentation order.
+ * @property prevKey See [Page.prevKey]
+ * @property nextKey See [Page.nextKey].
+ */
+@VisibleForTesting
+data class InternalPage(
+    val data: List<String>,
+    val prevKey: String? = null,
+    val nextKey: String? = null,
+)
 
 /**
  * Cache of pages from the Mastodon API.
@@ -146,32 +161,125 @@ data class Page(
 // Page1 might point back to Page2 with `nextKey = xxx`. But Page3 **does not** have to
 // point back to Page2 with `prevKey = xxx`, if can use a different value. And if all
 // you have is Page2 you can't ask "What prevKey value does Page3 use to point back?"
+//
+// Further, we need to be able to mutate the cached data to reflect user actions, such
+// showing a filtered status, or showing a filtered *quoted* status.
+//
+// To achieve this the cache contents are split over several data structures.
+//
+// `pages` is the distinct pages. Each status in a page is represented by its ID.
+//
+// `statuses` map is every referenced status. This includes the top-level statuses
+// in each page, as well as every quoted status. This allows the mutation of a
+// quoted status.
+//
+// `quoteToQuoters` maps from the ID of a quoted status to a list of the statuses
+// that quote it, to propogate changes to a quoted status to all the statuses that
+// quote it.
 class PageCache private constructor(private val mutex: Mutex) : Mutex by mutex {
     constructor() : this(Mutex())
 
     /** Map from item identifier (e.g,. status ID) to the page that contains this item */
     @VisibleForTesting
-    val idToPage = mutableMapOf<String, Page>()
+    val idToPage = mutableMapOf<String, InternalPage>()
 
     /**
      * List of all pages, in display order. Pages at the front of the list are
      * newer results from the API and are displayed first.
      */
-    private val pages = LinkedList<Page>()
+    private val pages = LinkedList<InternalPage>()
+
+    /**
+     * Every status in the page, identified by its ID.
+     *
+     * This has an entry for every top-level status in the page, and an entry for
+     * every quoted status in the page.
+     */
+    val statuses = mutableMapOf<String, Status>()
+
+    /**
+     * Map from the server ID of a quoted status to the server IDs of the one or
+     * more statuses that quote this.
+     *
+     * This allows updates of a quoted status (e.g., changing its filter state)
+     * to be propogated to the statuses that quote it.
+     */
+    private val quoteToQuoters = mutableMapOf<String, Set<String>>()
 
     /** The first page in the cache (i.e., the top / newest entry in the timeline) */
     val firstPage: Page?
-        get() = pages.firstOrNull()
+        get() = pages.firstOrNull()?.asPage()
 
     /** The last page in the cache (i.e., the bottom / oldest entry in the timeline) */
     val lastPage: Page?
-        get() = pages.lastOrNull()
+        get() = pages.lastOrNull()?.asPage()
 
     /** The size of the cache, in pages. */
     val size
         get() = pages.size
 
     fun itemCount() = pages.fold(0) { sum, page -> sum + page.data.size }
+
+    /**
+     * Converts an [InternalPage] to an external [Page].
+     *
+     * Populates the returned page with the most recent content for each status from
+     * [statuses].
+     */
+    private fun InternalPage.asPage() = Page(
+        data = data.mapNotNull { statuses[it] }.toMutableList(),
+        nextKey = nextKey,
+        prevKey = prevKey,
+    )
+
+    /**
+     * Converts an external [Page] to an [InternalPage].
+     *
+     * Populates the internal data structures as necessary.
+     *
+     * @throws IllegalStateException if the cache is unlocked.
+     */
+    private fun Page.asInternalPage(): InternalPage {
+        assertLocked()
+
+        data.forEach { status ->
+            statuses.putIfAbsent(status.statusId, status)
+            statuses.putIfAbsent(status.actionableId, status.actionableStatus)
+
+            // If this contains a full quote then add it to `statuses` and
+            // update `quoteToQuoters`.
+            (status.quote as? Status.Quote.FullQuote?)?.let { quote ->
+                statuses.putIfAbsent(quote.statusId, quote.status)
+                statuses.putIfAbsent(quote.status.actionableId, quote.status.actionableStatus)
+
+                quoteToQuoters.merge(quote.statusId, setOf(status.statusId, status.actionableId)) { oldValue, value ->
+                    oldValue + value
+                }
+            }
+        }
+
+        val internalPage = InternalPage(
+            data = data.map { it.statusId },
+            nextKey = nextKey,
+            prevKey = prevKey,
+        )
+
+        internalPage.data.forEach { statusId ->
+            // There should never be duplicate items across all pages. Enforce this in debug mode
+            if (BuildConfig.DEBUG) {
+                if (idToPage.containsKey(statusId)) {
+                    debug()
+                    // Downgraded to a log rather than a throw, because Mastodon servers
+                    // can break this contract, see https://github.com/mastodon/mastodon/issues/30172.
+                    Timber.wtf("Duplicate item ID $statusId in idToPage")
+//                    throw IllegalStateException("Duplicate item ID ${statusId} in idToPage")
+                }
+            }
+            idToPage[statusId] = internalPage
+        }
+
+        return internalPage
+    }
 
     private fun assertLocked() {
         if (BuildConfig.DEBUG) {
@@ -190,6 +298,8 @@ class PageCache private constructor(private val mutex: Mutex) : Mutex by mutex {
         assertLocked()
         pages.clear()
         idToPage.clear()
+        statuses.clear()
+        quoteToQuoters.clear()
     }
 
     /**
@@ -201,8 +311,7 @@ class PageCache private constructor(private val mutex: Mutex) : Mutex by mutex {
      */
     fun add(page: Page) {
         assertLocked()
-        pages.add(page)
-        updateIdMapping(page)
+        pages.add(page.asInternalPage())
     }
 
     /**
@@ -212,8 +321,7 @@ class PageCache private constructor(private val mutex: Mutex) : Mutex by mutex {
      */
     fun prepend(page: Page) {
         assertLocked()
-        pages.addFirst(page)
-        updateIdMapping(page)
+        pages.addFirst(page.asInternalPage())
     }
 
     /**
@@ -223,31 +331,11 @@ class PageCache private constructor(private val mutex: Mutex) : Mutex by mutex {
      */
     fun append(page: Page) {
         assertLocked()
-        pages.addLast(page)
-        updateIdMapping(page)
-    }
-
-    /**
-     * Updates [idToPage] with the contents of [page].
-     *
-     * @throws IllegalStateException if the cache is unlocked.
-     */
-    private fun updateIdMapping(page: Page) {
-        assertLocked()
-        page.data.forEach { status ->
-            // There should never be duplicate items across all pages. Enforce this in debug mode
-            if (BuildConfig.DEBUG) {
-                if (idToPage.containsKey(status.statusId)) {
-                    debug()
-//                    throw IllegalStateException("Duplicate item ID ${status.id} in pagesById")
-                }
-            }
-            idToPage[status.statusId] = page
-        }
+        pages.addLast(page.asInternalPage())
     }
 
     /** @return page that contains [statusId], null if that [statusId] is not in the cache */
-    fun getPageById(statusId: String?) = idToPage[statusId]
+    fun getPageById(statusId: String?) = idToPage[statusId]?.asPage()
 
     /**
      * @return page after the page that has the given [nextKey] value.
@@ -257,7 +345,7 @@ class PageCache private constructor(private val mutex: Mutex) : Mutex by mutex {
     fun getNextPage(nextKey: String?): Page? {
         assertLocked()
         val index = pages.indexOfFirst { it.nextKey == nextKey }.takeIf { it != -1 } ?: return null
-        return pages.getOrNull(index + 1)
+        return pages.getOrNull(index + 1)?.asPage()
     }
 
     /**
@@ -268,7 +356,7 @@ class PageCache private constructor(private val mutex: Mutex) : Mutex by mutex {
     fun getPrevPage(prevKey: String?): Page? {
         assertLocked()
         val index = pages.indexOfFirst { it.prevKey == prevKey }.takeIf { it != -1 } ?: return null
-        return pages.getOrNull(index - 1)
+        return pages.getOrNull(index - 1)?.asPage()
     }
 
     /** @return true if the page cache is empty */
@@ -282,10 +370,24 @@ class PageCache private constructor(private val mutex: Mutex) : Mutex by mutex {
      */
     fun updateStatusById(statusId: String, updater: (Status) -> Status) {
         assertLocked()
-        idToPage[statusId]?.let { page ->
-            val index = page.data.indexOfFirst { it.statusId == statusId }
-            if (index == -1) return
-            page.data[index] = updater(page.data[index])
+
+        statuses.computeIfPresent(statusId) { statusId, status -> updater(status) }
+
+        // If the status being updated is quoted by other statuses then propogate the
+        // change to the quoting statuses.
+        quoteToQuoters[statusId]?.let { quoters ->
+            val updatedQuote = statuses[statusId] ?: return
+
+            quoters.forEach { quoterId ->
+                statuses.computeIfPresent(quoterId) { id, status ->
+                    status.copy(
+                        quote = Status.Quote.FullQuote(
+                            state = status.quote!!.state,
+                            status = updatedQuote,
+                        ),
+                    )
+                }
+            }
         }
     }
 
@@ -303,13 +405,25 @@ class PageCache private constructor(private val mutex: Mutex) : Mutex by mutex {
      */
     fun updateActionableStatusById(statusId: String, updater: (Status) -> Status) {
         assertLocked()
-        idToPage[statusId]?.let { page ->
-            val index = page.data.indexOfFirst { it.statusId == statusId }
-            if (index == -1) return
-            val status = page.data[index]
-            page.data[index] = status.reblog?.let {
-                status.copy(reblog = updater(it))
-            } ?: updater(status)
+        statuses.computeIfPresent(statusId) { statusId, status ->
+            updater(status.actionableStatus)
+        }
+
+        // If the status being updated is quoted by other statuses then propogate the
+        // change to the quoting statuses.
+        quoteToQuoters[statusId]?.let { quoters ->
+            val updatedQuote = statuses[statusId] ?: return
+
+            quoters.forEach { quoterId ->
+                statuses.computeIfPresent(quoterId) { id, status ->
+                    status.copy(
+                        quote = Status.Quote.FullQuote(
+                            state = status.quote!!.state,
+                            status = updatedQuote,
+                        ),
+                    )
+                }
+            }
         }
     }
 

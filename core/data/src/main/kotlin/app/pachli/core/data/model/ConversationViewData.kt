@@ -20,9 +20,10 @@ package app.pachli.core.data.model
 import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.database.model.ConversationData
 import app.pachli.core.model.AccountFilterDecision
-import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.ConversationAccount
 import app.pachli.core.model.FilterAction
+import app.pachli.core.model.FilterContext
+import app.pachli.core.model.Timeline
 
 /**
  * Data necessary to show a conversation.
@@ -45,25 +46,27 @@ data class ConversationViewData(
     val conversationId: String,
     val accounts: List<ConversationAccount>,
     val unread: Boolean,
-    val lastStatus: StatusViewData,
+    val lastStatus: StatusItemViewData,
     val accountFilterDecision: AccountFilterDecision? = null,
     val isConversationStarter: Boolean,
-) : IStatusViewData by lastStatus {
+) : IStatusItemViewData by lastStatus {
     companion object {
         /**
          * Creates a [ConversationViewData].
          *
          * @param pachliAccount
          * @param conversationData
+         * @param showSensitiveMedia
          * @param defaultIsExpanded Default value for the `isExpanded` property if not set.
          * @param accountFilterDecision
          */
         fun make(
             pachliAccount: PachliAccount,
             conversationData: ConversationData,
+            showSensitiveMedia: Boolean,
             defaultIsExpanded: Boolean,
             contentFilterAction: FilterAction,
-            attachmentDisplayAction: AttachmentDisplayAction = AttachmentDisplayAction.Show(),
+            quoteContentFilterAction: FilterAction?,
             accountFilterDecision: AccountFilterDecision?,
         ) = ConversationViewData(
             pachliAccountId = pachliAccount.id,
@@ -71,13 +74,15 @@ data class ConversationViewData(
             conversationId = conversationData.id,
             accounts = conversationData.accounts,
             unread = conversationData.unread,
-            lastStatus = StatusViewData.from(
+            lastStatus = StatusItemViewData.from(
                 pachliAccountId = pachliAccount.id,
                 conversationData.lastStatus,
                 isExpanded = defaultIsExpanded,
                 isDetailed = false,
                 contentFilterAction = contentFilterAction,
-                attachmentDisplayAction = attachmentDisplayAction,
+                quoteContentFilterAction = quoteContentFilterAction,
+                showSensitiveMedia = showSensitiveMedia,
+                filterContext = FilterContext.from(Timeline.Conversations),
             ),
             isConversationStarter = conversationData.isConversationStarter,
             accountFilterDecision = accountFilterDecision,

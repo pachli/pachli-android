@@ -53,6 +53,7 @@ import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.AttachmentDisplayAction
+import app.pachli.core.model.IStatus
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 import app.pachli.core.navigation.AccountActivityIntent
@@ -65,7 +66,6 @@ import app.pachli.core.ui.ActionButtonScrollListener
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.core.ui.SetMarkdownContent
 import app.pachli.core.ui.SetMastodonHtmlContent
-import app.pachli.core.ui.StatusActionListener
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.databinding.FragmentTimelineBinding
 import app.pachli.fragment.SFragment
@@ -126,7 +126,6 @@ internal sealed interface ConversationAction : UiAction {
 class ConversationsFragment :
     SFragment<ConversationViewData>(),
     OnRefreshListener,
-    StatusActionListener,
     ReselectableFragment,
     MenuProvider {
 
@@ -393,7 +392,7 @@ class ConversationsFragment :
         viewThread(status.actionableId, status.actionableStatus.url)
     }
 
-    override fun onOpenReblog(status: Status) {
+    override fun onOpenReblog(status: IStatus) {
         // there are no reblogs in conversations
     }
 
@@ -432,10 +431,12 @@ class ConversationsFragment :
     }
 
     override fun clearContentFilter(viewData: IStatusViewData) {
+        if (viewData !is ConversationViewData) return
+
         viewModel.accept(
             ConversationAction.ClearContentFilter(
                 viewData.pachliAccountId,
-                viewData.actionableId,
+                viewData.conversationId,
             ),
         )
     }
@@ -454,12 +455,14 @@ class ConversationsFragment :
         }
     }
 
-    override fun onConversationDelete(conversation: ConversationViewData) {
+    override fun onConversationDelete(viewData: ConversationViewData) {
+        if (viewData !is ConversationViewData) return
+
         AlertDialog.Builder(requireContext())
             .setMessage(R.string.dialog_delete_conversation_warning)
             .setNegativeButton(android.R.string.cancel, null)
             .setPositiveButton(android.R.string.ok) { _, _ ->
-                viewModel.remove(conversation)
+                viewModel.remove(viewData)
             }
             .show()
     }

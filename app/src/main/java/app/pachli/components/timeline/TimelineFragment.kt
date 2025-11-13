@@ -64,9 +64,9 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.model.IStatusViewData
-import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.model.AttachmentDisplayAction
+import app.pachli.core.model.IStatus
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
@@ -78,7 +78,6 @@ import app.pachli.core.ui.ActionButtonScrollListener
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.core.ui.SetMarkdownContent
 import app.pachli.core.ui.SetMastodonHtmlContent
-import app.pachli.core.ui.StatusActionListener
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.databinding.FragmentTimelineBinding
 import app.pachli.fragment.SFragment
@@ -114,9 +113,8 @@ import timber.log.Timber
 
 @AndroidEntryPoint
 class TimelineFragment :
-    SFragment<StatusViewData>(),
+    SFragment<IStatusViewData>(),
     OnRefreshListener,
-    StatusActionListener,
     ReselectableFragment,
     RefreshableFragment,
     MenuProvider {
@@ -257,7 +255,7 @@ class TimelineFragment :
                             // contain the ID we expect (no idea how that can happen). Filter those
                             // out.
                             .onEach { (statusId, _) -> Timber.d("timeline: $timeline, Checking contains $statusId") }
-                            .map { (statusId, snapshot) -> Triple(statusId, snapshot, snapshot.indexOfFirst { it?.id == statusId }) }
+                            .map { (statusId, snapshot) -> Triple(statusId, snapshot, snapshot.indexOfFirst { it?.statusId == statusId }) }
                             .filter { (_, _, index) -> index != -1 }
                             // Only going to restore the position manually once over the lifetime of this
                             // fragment. Other position restoration is handled by the RecyclerView.
@@ -265,8 +263,8 @@ class TimelineFragment :
                             .collect { (statusId, snapshot, index) ->
                                 Timber.d("timeline: $timeline, snapshot.size: ${snapshot.size}")
                                 Timber.d("timeline: $timeline, snapshot.items.size: ${snapshot.items.size}")
-                                Timber.d("timeline: $timeline, snapshot.items.first id: ${snapshot.items.firstOrNull()?.id}")
-                                Timber.d("timeline: $timeline, snapshot.items.last  id: ${snapshot.items.lastOrNull()?.id}")
+                                Timber.d("timeline: $timeline, snapshot.items.first id: ${snapshot.items.firstOrNull()?.statusId}")
+                                Timber.d("timeline: $timeline, snapshot.items.last  id: ${snapshot.items.lastOrNull()?.statusId}")
                                 Timber.d("timeline: $timeline, placeholdersBefore: ${snapshot.placeholdersBefore}")
 
                                 // If the recyclerview is using a ConcatAdapter to display a progress spinner while
@@ -368,7 +366,7 @@ class TimelineFragment :
                 if (action !is FallibleStatusAction) return@let
 
                 adapter.snapshot()
-                    .indexOfFirst { it?.id == action.statusViewData.id }
+                    .indexOfFirst { it?.statusId == action.statusViewData.statusId }
                     .takeIf { it != RecyclerView.NO_POSITION }
                     ?.let { adapter.notifyItemChanged(it) }
             }
@@ -509,7 +507,7 @@ class TimelineFragment :
      */
     fun saveVisibleId() {
         if (timeline.remoteKeyTimelineId == null) return
-        val id = getFirstVisibleStatus()?.id
+        val id = getFirstVisibleStatus()?.statusId
         if (BuildConfig.DEBUG && id == null) {
             Toast.makeText(requireActivity(), "Could not find ID of item to save", LENGTH_LONG).show()
         }
@@ -621,10 +619,10 @@ class TimelineFragment :
     }
 
     override fun onMore(view: View, viewData: IStatusViewData) {
-        super.more(view, viewData as StatusViewData)
+        super.more(view, viewData)
     }
 
-    override fun onOpenReblog(status: Status) {
+    override fun onOpenReblog(status: IStatus) {
         super.openReblog(status)
     }
 
@@ -650,11 +648,11 @@ class TimelineFragment :
         viewModel.onContentCollapsed(isCollapsed, viewData)
     }
 
-    override fun onTranslate(viewData: StatusViewData) {
+    override fun onTranslate(viewData: IStatusViewData) {
         viewModel.accept(FallibleStatusAction.Translate(viewData))
     }
 
-    override fun onTranslateUndo(viewData: StatusViewData) {
+    override fun onTranslateUndo(viewData: IStatusViewData) {
         viewModel.accept(InfallibleStatusAction.TranslateUndo(viewData))
     }
 
@@ -725,8 +723,8 @@ class TimelineFragment :
         }
     }
 
-    public override fun removeItem(viewData: StatusViewData) {
-        viewModel.removeStatusWithId(viewData.id)
+    public override fun removeItem(viewData: IStatusViewData) {
+        viewModel.removeStatusWithId(viewData.statusId)
     }
 
     private var talkBackWasEnabled = false

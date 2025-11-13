@@ -518,8 +518,8 @@ class ViewThreadViewModelTest {
             while (awaitItem().get() !is ThreadUiState.Loaded) {
             }
             viewModel.changeContentCollapsed(
-                true,
-                fakeStatusViewData(id = "2", inReplyToId = "1", inReplyToAccountId = "1", isDetailed = true, spoilerText = "Test"),
+                false,
+                fakeStatusViewData(id = "3", inReplyToId = "2", inReplyToAccountId = "1", isDetailed = false, spoilerText = "Test"),
             )
 
             assertEquals(
@@ -532,13 +532,13 @@ class ViewThreadViewModelTest {
                             inReplyToAccountId = "1",
                             isDetailed = true,
                             spoilerText = "Test",
-                            isCollapsed = true,
                         ),
                         fakeStatusViewData(
                             id = "3",
                             inReplyToId = "2",
                             inReplyToAccountId = "1",
                             spoilerText = "Test",
+                            isCollapsed = false,
                         ),
                     ),
                     detailedStatusPosition = 1,

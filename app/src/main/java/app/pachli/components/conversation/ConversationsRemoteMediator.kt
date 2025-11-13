@@ -69,7 +69,18 @@ class ConversationsRemoteMediator(
                 val lastStatus = it.lastStatus!!
                 accounts.add(lastStatus.account)
                 lastStatus.reblog?.account?.let { accounts.add(it) }
+
                 statuses.add(lastStatus)
+
+                (lastStatus.quote as? Status.Quote.FullQuote)?.status?.let { quote ->
+                    accounts.add(quote.account)
+                    quote.reblog?.let {
+                        accounts.add(it.account)
+                        statuses.add(it)
+                    }
+                    statuses.add(quote)
+                }
+
                 conversationEntities.add(
                     ConversationEntity.from(
                         it,
@@ -80,7 +91,7 @@ class ConversationsRemoteMediator(
             }
 
             timelineDao.upsertAccounts(accounts.asEntity(pachliAccountId))
-            statusDao.upsertStatuses(statuses.map { it.asEntity(pachliAccountId) })
+            statusDao.upsertStatuses(statuses.map { it.actionableStatus.asEntity(pachliAccountId) })
             conversationsDao.upsert(conversationEntities)
         }
 

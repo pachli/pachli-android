@@ -44,6 +44,7 @@ import app.pachli.core.database.dao.NotificationDao
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TimelineDao
+import app.pachli.core.database.dao.TimelineStatusWithAccount
 import app.pachli.core.database.dao.TranslatedStatusDao
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.AnnouncementEntity
@@ -100,7 +101,10 @@ import java.util.TimeZone
         TimelineStatusEntity::class,
         ConversationViewDataEntity::class,
     ],
-    version = 31,
+    views = [
+        TimelineStatusWithAccount::class,
+    ],
+    version = 32,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
@@ -141,6 +145,8 @@ import java.util.TimeZone
         AutoMigration(from = 29, to = 30, spec = AppDatabase.MIGRATE_29_30::class),
         // Add pronouns to TimelineAccountEntity and AccountEntity
         AutoMigration(from = 30, to = 31),
+        // Add columns to handle quotes.
+        AutoMigration(from = 31, to = 32, spec = AppDatabase.MIGRATE_31_31::class),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -303,6 +309,9 @@ abstract class AppDatabase : RoomDatabase() {
      */
     @DeleteColumn("StatusViewDataEntity", "contentShowing")
     class MIGRATE_29_30 : AutoMigrationSpec
+
+    @DeleteColumn("NotificationViewDataEntity", "contentFilterAction")
+    class MIGRATE_31_31 : AutoMigrationSpec
 }
 
 val MIGRATE_8_9 = object : Migration(8, 9) {

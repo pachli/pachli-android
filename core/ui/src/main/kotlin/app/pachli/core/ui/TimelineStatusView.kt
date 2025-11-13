@@ -20,18 +20,23 @@ package app.pachli.core.ui
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import app.pachli.core.data.model.StatusViewData
+import app.pachli.core.common.extensions.hide
+import app.pachli.core.common.extensions.show
+import app.pachli.core.data.model.IStatusItemViewData
+import app.pachli.core.data.model.StatusDisplayOptions
+import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.ui.databinding.StatusContentBinding
+import com.bumptech.glide.RequestManager
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 
-/** Compound view that displays [StatusViewData] using [StatusContentBinding]. */
+/** Compound view that displays [StatusItemViewData] using [StatusContentBinding]. */
 class TimelineStatusView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
     defStyleRes: Int = 0,
-) : StatusView<StatusViewData>(context, attrs, defStyleAttr, defStyleRes) {
-    val binding = StatusContentBinding.inflate(LayoutInflater.from(context), this)
+) : StatusView<IStatusItemViewData>(context, attrs, defStyleAttr, defStyleRes) {
+    private val binding = StatusContentBinding.inflate(LayoutInflater.from(context), this)
 
     override val avatar = binding.statusAvatar
     override val avatarInset = binding.statusAvatarInset
@@ -50,5 +55,18 @@ class TimelineStatusView @JvmOverloads constructor(
     override val translationProvider = binding.translationProvider.apply {
         val icon = makeIcon(context, GoogleMaterial.Icon.gmd_translate, textSize.toInt())
         setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null)
+    }
+
+    override fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: IStatusItemViewData, listener: StatusActionListener, statusDisplayOptions: StatusDisplayOptions) {
+        super.setupWithStatus(setStatusContent, glide, viewData, listener, statusDisplayOptions)
+
+        val quotedViewData = viewData.quotedViewData
+        if (quotedViewData == null) {
+            binding.statusQuote.hide()
+            return
+        }
+
+        binding.statusQuote.setupWithStatus(setStatusContent, glide, quotedViewData, listener, statusDisplayOptions)
+        binding.statusQuote.show()
     }
 }

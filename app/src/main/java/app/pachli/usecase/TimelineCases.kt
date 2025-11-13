@@ -201,21 +201,21 @@ class TimelineCases @Inject constructor(
     }
 
     suspend fun translate(statusViewData: IStatusViewData): Result<TranslatedStatus, TranslatorError> {
-        statusRepository.setTranslationState(statusViewData.pachliAccountId, statusViewData.actionableId, TranslationState.TRANSLATING)
+        statusRepository.setTranslationState(statusViewData.pachliAccountId, statusViewData.statusId, TranslationState.TRANSLATING)
         return translationService.translate(statusViewData)
             .onSuccess {
                 translatedStatusDao.upsert(
                     it.toEntity(statusViewData.pachliAccountId, statusViewData.actionableId),
                 )
-                statusRepository.setTranslationState(statusViewData.pachliAccountId, statusViewData.actionableId, TranslationState.SHOW_TRANSLATION)
+                statusRepository.setTranslationState(statusViewData.pachliAccountId, statusViewData.statusId, TranslationState.SHOW_TRANSLATION)
             }.onFailure {
                 // Reset the translation state
-                statusRepository.setTranslationState(statusViewData.pachliAccountId, statusViewData.actionableId, TranslationState.SHOW_ORIGINAL)
+                statusRepository.setTranslationState(statusViewData.pachliAccountId, statusViewData.statusId, TranslationState.SHOW_ORIGINAL)
             }
     }
 
     suspend fun translateUndo(statusViewData: IStatusViewData) {
-        statusRepository.setTranslationState(statusViewData.pachliAccountId, statusViewData.actionableId, TranslationState.SHOW_ORIGINAL)
+        statusRepository.setTranslationState(statusViewData.pachliAccountId, statusViewData.statusId, TranslationState.SHOW_ORIGINAL)
     }
 
     /**

@@ -17,10 +17,12 @@
 
 package app.pachli.core.testing.fakes
 
+import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.notifications.asEntity
+import app.pachli.core.database.dao.TimelineStatusWithAccount
 import app.pachli.core.database.model.StatusViewDataEntity
-import app.pachli.core.database.model.TimelineStatusWithAccount
+import app.pachli.core.database.model.TimelineStatusWithQuote
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.AttachmentDisplayReason
@@ -112,6 +114,9 @@ fun fakeStatus(
     card = null,
     language = null,
     filtered = null,
+    quotesCount = 0,
+    quote = null,
+    quoteApproval = Status.QuoteApproval(),
 )
 
 fun fakeStatusViewData(
@@ -122,31 +127,33 @@ fun fakeStatusViewData(
     spoilerText: String = "",
     isExpanded: Boolean = false,
     isShowingContent: Boolean = false,
-    isCollapsed: Boolean = !isDetailed,
+    isCollapsed: Boolean = true,
     reblogged: Boolean = false,
     favourited: Boolean = true,
     bookmarked: Boolean = true,
-) = StatusViewData(
-    pachliAccountId = 1L,
-    status = fakeStatus(
-        id = id,
-        inReplyToId = inReplyToId,
-        inReplyToAccountId = inReplyToAccountId,
-        spoilerText = spoilerText,
-        reblogged = reblogged,
-        favourited = favourited,
-        bookmarked = bookmarked,
-    ).asModel(),
-    isExpanded = isExpanded,
-    isCollapsed = isCollapsed,
-    isDetailed = isDetailed,
-    translationState = TranslationState.SHOW_ORIGINAL,
-    attachmentDisplayAction = if (isShowingContent) {
-        AttachmentDisplayAction.Show(originalAction = AttachmentDisplayAction.Hide(AttachmentDisplayReason.Sensitive))
-    } else {
-        AttachmentDisplayAction.Hide(reason = AttachmentDisplayReason.Sensitive)
-    },
-    replyToAccount = null,
+) = StatusItemViewData(
+    statusViewData = StatusViewData(
+        pachliAccountId = 1L,
+        status = fakeStatus(
+            id = id,
+            inReplyToId = inReplyToId,
+            inReplyToAccountId = inReplyToAccountId,
+            spoilerText = spoilerText,
+            reblogged = reblogged,
+            favourited = favourited,
+            bookmarked = bookmarked,
+        ).asModel(),
+        isExpanded = isExpanded,
+        isCollapsed = isCollapsed,
+        isDetailed = isDetailed,
+        translationState = TranslationState.SHOW_ORIGINAL,
+        attachmentDisplayAction = if (isShowingContent) {
+            AttachmentDisplayAction.Show(originalAction = AttachmentDisplayAction.Hide(AttachmentDisplayReason.Sensitive))
+        } else {
+            AttachmentDisplayAction.Hide(reason = AttachmentDisplayReason.Sensitive)
+        },
+        replyToAccount = null,
+    ),
 )
 
 fun fakeStatusEntityWithAccount(
@@ -154,19 +161,21 @@ fun fakeStatusEntityWithAccount(
     pachliAccountId: Long = 1,
     expanded: Boolean = false,
     makeFakeStatus: () -> Status = { fakeStatus(id) },
-): TimelineStatusWithAccount {
+): TimelineStatusWithQuote {
     val status = makeFakeStatus()
 
-    return TimelineStatusWithAccount(
-        status = status.asEntity(pachliAccountId),
-        account = status.account.asEntity(pachliAccountId),
-        viewData = StatusViewDataEntity(
-            serverId = status.id,
-            pachliAccountId = pachliAccountId,
-            expanded = expanded,
-            contentCollapsed = true,
-            translationState = TranslationState.SHOW_ORIGINAL,
-            attachmentDisplayAction = AttachmentDisplayAction.Show(),
+    return TimelineStatusWithQuote(
+        timelineStatus = TimelineStatusWithAccount(
+            status = status.asEntity(pachliAccountId),
+            account = status.account.asEntity(pachliAccountId),
+            viewData = StatusViewDataEntity(
+                serverId = status.id,
+                pachliAccountId = pachliAccountId,
+                expanded = expanded,
+                contentCollapsed = true,
+                translationState = TranslationState.SHOW_ORIGINAL,
+                attachmentDisplayAction = AttachmentDisplayAction.Show(),
+            ),
         ),
     )
 }

@@ -43,11 +43,13 @@ import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.data.model.IStatusViewData
+import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.domain.DownloadUrlUseCase
 import app.pachli.core.model.Attachment
 import app.pachli.core.model.AttachmentDisplayAction
+import app.pachli.core.model.IStatus
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 import app.pachli.core.model.Status.Mention
@@ -77,7 +79,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
-class SearchStatusesFragment : SearchFragment<IStatusViewData>(), StatusActionListener {
+class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActionListener {
     @Inject
     lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
 
@@ -90,7 +92,7 @@ class SearchStatusesFragment : SearchFragment<IStatusViewData>(), StatusActionLi
     @Inject
     lateinit var openUrl: OpenUrlUseCase
 
-    override val data: Flow<PagingData<IStatusViewData>>
+    override val data: Flow<PagingData<StatusItemViewData>>
         get() = viewModel.statusesFlow
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -113,7 +115,7 @@ class SearchStatusesFragment : SearchFragment<IStatusViewData>(), StatusActionLi
         }
     }
 
-    override fun createAdapter(): PagingDataAdapter<IStatusViewData, *> {
+    override fun createAdapter(): PagingDataAdapter<StatusItemViewData, *> {
         val statusDisplayOptions = statusDisplayOptionsRepository.flow.value
 
         val setStatusContent = if (statusDisplayOptions.renderMarkdown) {
@@ -183,7 +185,7 @@ class SearchStatusesFragment : SearchFragment<IStatusViewData>(), StatusActionLi
         viewUrlActivity?.viewThread(pachliAccountId, actionableStatus.statusId, actionableStatus.url)
     }
 
-    override fun onOpenReblog(status: Status) {
+    override fun onOpenReblog(status: IStatus) {
         viewUrlActivity?.viewAccount(pachliAccountId, status.account.id)
     }
 
@@ -447,7 +449,7 @@ class SearchStatusesFragment : SearchFragment<IStatusViewData>(), StatusActionLi
             AlertDialog.Builder(it)
                 .setMessage(R.string.dialog_delete_post_warning)
                 .setPositiveButton(android.R.string.ok) { _, _ ->
-                    viewModel.deleteStatusAsync(statusViewData.id)
+                    viewModel.deleteStatusAsync(statusViewData.statusId)
                     viewModel.removeItem(statusViewData)
                 }
                 .setNegativeButton(android.R.string.cancel, null)
@@ -462,7 +464,7 @@ class SearchStatusesFragment : SearchFragment<IStatusViewData>(), StatusActionLi
                 .setMessage(R.string.dialog_redraft_post_warning)
                 .setPositiveButton(android.R.string.ok) { _, _ ->
                     lifecycleScope.launch {
-                        viewModel.deleteStatusAsync(statusViewData.id).await().onSuccess { redraftStatus ->
+                        viewModel.deleteStatusAsync(statusViewData.statusId).await().onSuccess { redraftStatus ->
                             viewModel.removeItem(statusViewData)
 
                             val intent = ComposeActivityIntent(

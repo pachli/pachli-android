@@ -44,8 +44,9 @@ import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.data.model.IStatusViewData
-import app.pachli.core.data.model.StatusViewData
+import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.model.AttachmentDisplayAction
+import app.pachli.core.model.IStatus
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 import app.pachli.core.navigation.AccountActivityIntent
@@ -80,7 +81,7 @@ import kotlinx.coroutines.launch
  */
 @AndroidEntryPoint
 class ReportStatusesFragment :
-    SFragment<StatusViewData>(),
+    SFragment<StatusItemViewData>(),
     OnRefreshListener,
     MenuProvider,
     ReportStatusActionListener {
@@ -203,7 +204,7 @@ class ReportStatusesFragment :
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.CREATED) {
                 launch {
                     viewModel.initialRefreshStatusId.combine(adapter.onPagesUpdatedFlow) { statusId, _ -> Pair(statusId, adapter.snapshot()) }
-                        .map { (statusId, snapshot) -> snapshot.indexOfFirst { it?.id == statusId } }
+                        .map { (statusId, snapshot) -> snapshot.indexOfFirst { it?.statusId == statusId } }
                         .filter { it != -1 }
                         .take(1)
                         .collect { binding.recyclerView.scrollToPosition(it) }
@@ -294,16 +295,16 @@ class ReportStatusesFragment :
 
     override fun onViewUrl(url: String) = viewModel.checkClickedUrl(url)
 
-    override fun removeItem(viewData: StatusViewData) = Unit
+    override fun removeItem(viewData: StatusItemViewData) = Unit
     override fun onReply(viewData: IStatusViewData) = Unit
     override fun onReblog(viewData: IStatusViewData, reblog: Boolean) = Unit
     override fun onFavourite(viewData: IStatusViewData, favourite: Boolean) = Unit
     override fun onBookmark(viewData: IStatusViewData, bookmark: Boolean) = Unit
     override fun onMore(view: View, viewData: IStatusViewData) = Unit
-    override fun onOpenReblog(status: Status) = Unit
+    override fun onOpenReblog(status: IStatus) = Unit
     override fun onVoteInPoll(viewData: IStatusViewData, poll: Poll, choices: List<Int>) = Unit
-    override fun onTranslate(viewData: StatusViewData) = Unit
-    override fun onTranslateUndo(viewData: StatusViewData) = Unit
+    override fun onTranslate(viewData: StatusItemViewData) = Unit
+    override fun onTranslateUndo(viewData: StatusItemViewData) = Unit
 
     companion object {
         private const val ARG_PACHLI_ACCOUNT_ID = "app.pachli.ARG_PACHLI_ACCOUNT_ID"

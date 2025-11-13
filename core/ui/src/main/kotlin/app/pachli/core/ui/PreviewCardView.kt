@@ -113,6 +113,8 @@ class PreviewCardView @JvmOverloads constructor(
             background = it.getDrawable(DR.styleable.PreviewCardView_android_background)
             foreground = it.getDrawable(DR.styleable.PreviewCardView_android_foreground)
 
+            binding.cardInfo.background = it.getDrawable(DR.styleable.PreviewCardView_previewCardInfoBackground)
+
             with(binding.cardTitle) {
                 setTextSize(
                     TypedValue.COMPLEX_UNIT_PX,

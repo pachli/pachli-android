@@ -35,7 +35,7 @@ import app.pachli.core.database.dao.TranslatedStatusDao
 import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
 import app.pachli.core.database.model.StatusViewDataEntity
-import app.pachli.core.database.model.TimelineStatusWithAccount
+import app.pachli.core.database.model.TimelineStatusWithQuote
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.retrofit.MastodonApi
@@ -66,8 +66,8 @@ class CachedTimelineRepository @Inject constructor(
     private val statusDao: StatusDao,
     @ApplicationScope private val externalScope: CoroutineScope,
     statusRepository: OfflineFirstStatusRepository,
-) : TimelineRepository<TimelineStatusWithAccount>, StatusRepository by statusRepository {
-    private var factory: InvalidatingPagingSourceFactory<Int, TimelineStatusWithAccount>? = null
+) : TimelineRepository<TimelineStatusWithQuote>, StatusRepository by statusRepository {
+    private var factory: InvalidatingPagingSourceFactory<Int, TimelineStatusWithQuote>? = null
 
     /**
      * Domains that should be (temporarily) removed from the timeline because the user
@@ -96,13 +96,13 @@ class CachedTimelineRepository @Inject constructor(
      */
     private val hiddenAccounts = mutableSetOf<String>()
 
-    /** @return flow of Mastodon [TimelineStatusWithAccount. */
+    /** @return flow of Mastodon [TimelineStatusWithQuote]. */
     @OptIn(ExperimentalPagingApi::class)
     override suspend fun getStatusStream(
         pachliAccountId: Long,
         timeline: Timeline,
-    ): Flow<PagingData<TimelineStatusWithAccount>> {
-        factory = InvalidatingPagingSourceFactory { timelineDao.getStatuses(pachliAccountId) }
+    ): Flow<PagingData<TimelineStatusWithQuote>> {
+        factory = InvalidatingPagingSourceFactory { timelineDao.getStatusesWithQuote(pachliAccountId) }
 
         val initialKey = timeline.remoteKeyTimelineId?.let { timelineId ->
             remoteKeyDao.remoteKeyForKind(pachliAccountId, timelineId, RemoteKeyKind.REFRESH)?.key
@@ -133,12 +133,12 @@ class CachedTimelineRepository @Inject constructor(
             pagingSourceFactory = factory!!,
         ).flow.map { pagingData ->
             pagingData.filter { status ->
-                !hiddenStatuses.contains(status.status.serverId) &&
-                    !hiddenStatuses.contains(status.status.reblogServerId) &&
-                    !hiddenAccounts.contains(status.status.authorServerId) &&
-                    !hiddenAccounts.contains(status.status.reblogAccountId) &&
-                    !hiddenDomains.contains(getDomain(status.account.url)) &&
-                    !hiddenDomains.contains(getDomain(status.reblogAccount?.url))
+                !hiddenStatuses.contains(status.timelineStatus.status.serverId) &&
+                    !hiddenStatuses.contains(status.timelineStatus.status.reblogServerId) &&
+                    !hiddenAccounts.contains(status.timelineStatus.status.authorServerId) &&
+                    !hiddenAccounts.contains(status.timelineStatus.status.reblogAccountId) &&
+                    !hiddenDomains.contains(getDomain(status.timelineStatus.account.url)) &&
+                    !hiddenDomains.contains(getDomain(status.timelineStatus.reblogAccount?.url))
             }
         }
     }

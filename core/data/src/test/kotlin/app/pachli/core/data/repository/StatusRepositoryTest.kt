@@ -35,7 +35,7 @@ import app.pachli.core.network.model.nodeinfo.UnvalidatedJrd
 import app.pachli.core.network.model.nodeinfo.UnvalidatedNodeInfo
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.NodeInfoApi
-import app.pachli.core.testing.extensions.insertStatuses
+import app.pachli.core.testing.extensions.insertTimelineStatusWithQuote
 import app.pachli.core.testing.failure
 import app.pachli.core.testing.fakes.fakeStatus
 import app.pachli.core.testing.fakes.fakeStatusEntityWithAccount
@@ -185,7 +185,7 @@ class StatusRepositoryTest {
         val fakeStatusEntityWithAccount = fakeStatusEntityWithAccount(makeFakeStatus = { fakeStatus })
         val statusId = fakeStatus.id
 
-        appDatabase.insertStatuses(listOf(fakeStatusEntityWithAccount))
+        appDatabase.insertTimelineStatusWithQuote(listOf(fakeStatusEntityWithAccount))
 
         mastodonApi.stub {
             onBlocking { pinStatus(statusId) } doReturn success(fakeStatus)
