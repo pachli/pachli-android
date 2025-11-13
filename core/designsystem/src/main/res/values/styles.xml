@@ -243,26 +243,32 @@
     <style name="Pachli.Widget.PreviewCardView" parent="">
         <item name="android:background">@drawable/card_frame</item>
         <item name="android:foreground">?selectableItemBackground</item>
+        <item name="previewCardInfoBackground">?colorSurfaceContainer</item>
         <item name="previewCardImageVerticalHeight">@dimen/card_image_vertical_height</item>
         <item name="previewCardImageHorizontalWidth">@dimen/card_image_horizontal_width</item>
-        <item name="previewCardTitleTextColor">?android:textColorSecondary</item>
+        <item name="previewCardTitleTextColor">?colorOnSurface</item>
         <item name="previewCardTitleTextSize">?status_text_medium</item>
-        <item name="previewCardDescriptionTextColor">?android:textColorSecondary</item>
+        <item name="previewCardDescriptionTextColor">?colorOnSurface</item>
         <item name="previewCardDescriptionTextSize">?status_text_medium</item>
-        <item name="previewCardAuthorTextColor">?android:textColorSecondary</item>
+        <item name="previewCardAuthorTextColor">?colorOnSurface</item>
         <item name="previewCardAuthorTextSize">?status_text_medium</item>
-        <item name="previewCardAuthorTimelineLinkTextColor">?android:textColorSecondary</item>
+        <item name="previewCardAuthorTimelineLinkTextColor">?colorOnSurface</item>
         <item name="previewCardAuthorTimelineLinkTextSize">?status_text_medium</item>
         <item name="previewCardAvatarSize">@dimen/card_byline_avatar_dimen</item>
         <item name="previewCardAvatarCornerRadius">@dimen/avatar_radius_36dp</item>
     </style>
 
     <style name="Pachli.Widget.PreviewCardView.Quoted">
+        <item name="previewCardInfoBackground">?colorSurfaceVariant</item>
         <item name="previewCardImageVerticalHeight">@dimen/card_image_vertical_height_quoted</item>
         <item name="previewCardImageHorizontalWidth">@dimen/card_image_horizontal_width_quoted</item>
+        <item name="previewCardTitleTextColor">?colorOnSurfaceVariant</item>
         <item name="previewCardTitleTextSize">?status_text_small</item>
+        <item name="previewCardDescriptionTextColor">?colorOnSurfaceVariant</item>
         <item name="previewCardDescriptionTextSize">?status_text_small</item>
+        <item name="previewCardAuthorTextColor">?colorOnSurfaceVariant</item>
         <item name="previewCardAuthorTextSize">?status_text_small</item>
+        <item name="previewCardAuthorTimelineLinkTextColor">?colorOnSurfaceVariant</item>
         <item name="previewCardAuthorTimelineLinkTextSize">?status_text_small</item>
         <item name="previewCardAvatarSize">@dimen/card_byline_avatar_dimen_quoted</item>
     </style>
