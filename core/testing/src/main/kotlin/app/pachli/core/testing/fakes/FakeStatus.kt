@@ -22,7 +22,7 @@ import app.pachli.core.data.model.StatusViewDataQ
 import app.pachli.core.data.repository.notifications.asEntity
 import app.pachli.core.database.dao.TimelineStatusWithAccount
 import app.pachli.core.database.model.StatusViewDataEntity
-import app.pachli.core.database.model.TSQ
+import app.pachli.core.database.model.TimelineStatusWithQuote
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.AttachmentDisplayReason
@@ -161,10 +161,10 @@ fun fakeStatusEntityWithAccount(
     pachliAccountId: Long = 1,
     expanded: Boolean = false,
     makeFakeStatus: () -> Status = { fakeStatus(id) },
-): TSQ {
+): TimelineStatusWithQuote {
     val status = makeFakeStatus()
 
-    return TSQ(
+    return TimelineStatusWithQuote(
         timelineStatus = TimelineStatusWithAccount(
             status = status.asEntity(pachliAccountId),
             account = status.account.asEntity(pachliAccountId),

@@ -23,7 +23,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.components.timeline.viewmodel.NetworkTimelinePagingSource
 import app.pachli.components.timeline.viewmodel.Page
 import app.pachli.components.timeline.viewmodel.PageCache
-import app.pachli.components.timeline.viewmodel.asTSQ
+import app.pachli.components.timeline.viewmodel.asTimelineStatusWithQuote
 import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.network.model.Status
 import app.pachli.core.network.model.asModel
@@ -91,7 +91,7 @@ class NetworkTimelinePagingSourceTest {
                 addAll(page1.data)
                 addAll(page2.data)
                 addAll(page3.data)
-            }.asTSQ(1, statusRepository).toMutableList(),
+            }.asTimelineStatusWithQuote(1, statusRepository).toMutableList(),
             prevKey = page1.prevKey,
             nextKey = page3.nextKey,
         )
@@ -119,7 +119,7 @@ class NetworkTimelinePagingSourceTest {
         assertThat((loadResult as? LoadResult.Page))
             .isEqualTo(
                 LoadResult.Page(
-                    data = listOf(fakeStatus(id = "1")).asModel().asTSQ(1, statusRepository),
+                    data = listOf(fakeStatus(id = "1")).asModel().asTimelineStatusWithQuote(1, statusRepository),
                     prevKey = "2",
                     nextKey = "0",
                 ),
@@ -146,7 +146,7 @@ class NetworkTimelinePagingSourceTest {
         assertThat((loadResult as? LoadResult.Page))
             .isEqualTo(
                 LoadResult.Page(
-                    data = listOf(fakeStatus(id = "1")).asModel().asTSQ(1, statusRepository),
+                    data = listOf(fakeStatus(id = "1")).asModel().asTimelineStatusWithQuote(1, statusRepository),
                     prevKey = "2",
                     nextKey = "0",
                 ),
@@ -173,7 +173,7 @@ class NetworkTimelinePagingSourceTest {
         assertThat((loadResult as? LoadResult.Page))
             .isEqualTo(
                 LoadResult.Page(
-                    data = listOf(fakeStatus(id = "2")).asModel().asTSQ(1, statusRepository),
+                    data = listOf(fakeStatus(id = "2")).asModel().asTimelineStatusWithQuote(1, statusRepository),
                     prevKey = null,
                     nextKey = "1",
                 ),

@@ -21,7 +21,7 @@ import app.cash.turbine.test
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.model.AttachmentDisplayAction
-import app.pachli.core.testing.extensions.insertTSQ
+import app.pachli.core.testing.extensions.insertTimelineStatusWithQuote
 import app.pachli.core.testing.failure
 import app.pachli.core.testing.fakes.fakeStatus
 import app.pachli.core.testing.fakes.fakeStatusEntityWithAccount
@@ -80,7 +80,7 @@ class NotificationsViewModelTestStatusFilterAction : NotificationsViewModelTestB
     override fun setup() = runTest {
         super.setup()
 
-        appDatabase.insertTSQ(listOf(fakeStatusEntityWithAccount))
+        appDatabase.insertTimelineStatusWithQuote(listOf(fakeStatusEntityWithAccount))
     }
 
     @Test

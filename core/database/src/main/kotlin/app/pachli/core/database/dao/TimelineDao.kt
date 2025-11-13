@@ -31,9 +31,9 @@ import androidx.room.Upsert
 import app.pachli.core.database.Converters
 import app.pachli.core.database.model.StatusEntity
 import app.pachli.core.database.model.StatusViewDataEntity
-import app.pachli.core.database.model.TSQ
 import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TimelineStatusEntity
+import app.pachli.core.database.model.TimelineStatusWithQuote
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.model.Attachment
 import app.pachli.core.model.Card
@@ -259,7 +259,7 @@ ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC
     abstract fun getStatusesQ(
         account: Long,
         timelineKind: TimelineStatusEntity.Kind = TimelineStatusEntity.Kind.Home,
-    ): PagingSource<Int, TSQ>
+    ): PagingSource<Int, TimelineStatusWithQuote>
 
     /**
      * @return Row number (0 based) of the status with ID [statusId] for [pachliAccountId]
@@ -488,7 +488,7 @@ FROM TimelineStatusWithAccount AS s
     AND s.authorServerId IS NOT NULL
 """,
     )
-    abstract suspend fun getStatusQ(pachliAccountId: Long, statusId: String): TSQ?
+    abstract suspend fun getStatusQ(pachliAccountId: Long, statusId: String): TimelineStatusWithQuote?
 
     /**
      * Like [getStatusQ], but only returns that status with ID [actionableStatusId]
@@ -678,7 +678,7 @@ FROM TimelineStatusWithAccount AS s
     AND s.authorServerId IS NOT NULL
 """,
     )
-    abstract suspend fun getActionableStatusQ(pachliAccountId: Long, actionableStatusId: String): TSQ?
+    abstract suspend fun getActionableStatusQ(pachliAccountId: Long, actionableStatusId: String): TimelineStatusWithQuote?
 
     @Query(
         """
@@ -1046,6 +1046,12 @@ data class TimelineStatusWithAccount(
     @Embedded(prefix = "reply_")
     val replyAccount: TimelineAccountEntity? = null,
 ) {
+    /**
+     * Returns a [Status] from [this].
+     *
+     * Any embedded quotes are returned as a [Status.Quote.ShallowQuote]. Use
+     * [TimelineStatusWithQuote] to retain quotes.
+     */
     fun toStatus(): Status {
         val attachments: List<Attachment> = status.attachments.orEmpty()
         val mentions: List<Status.Mention> = status.mentions.orEmpty()
@@ -1084,8 +1090,6 @@ data class TimelineStatusWithAccount(
                 muted = status.muted,
                 poll = poll,
                 card = card,
-                // Quotes are converted to shallow quotes here. See [TSQ] for the
-                // class that contains the full quote.
                 quote = status.quoteState?.let { quoteState ->
                     status.quoteServerId?.let { quoteServerId ->
                         Status.Quote.ShallowQuote(quoteState, quoteServerId)
@@ -1128,8 +1132,6 @@ data class TimelineStatusWithAccount(
                 muted = status.muted,
                 poll = null,
                 card = null,
-                // Quotes are converted to shallow quotes here. See [TSQ] for the
-                // class that contains the full quote.
                 quote = status.quoteState?.let { quoteState ->
                     status.quoteServerId?.let { quoteServerId ->
                         Status.Quote.ShallowQuote(quoteState, quoteServerId)
@@ -1169,8 +1171,6 @@ data class TimelineStatusWithAccount(
                 muted = status.muted,
                 poll = poll,
                 card = card,
-                // Quotes are converted to shallow quotes here. See [TSQ] for the
-                // class that contains the full quote.
                 quote = status.quoteState?.let { quoteState ->
                     status.quoteServerId?.let { quoteServerId ->
                         Status.Quote.ShallowQuote(quoteState, quoteServerId)

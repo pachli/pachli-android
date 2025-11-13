@@ -19,7 +19,7 @@ import android.os.Build
 import app.pachli.core.common.util.shouldTrimStatus
 import app.pachli.core.data.BuildConfig
 import app.pachli.core.data.extensions.getAttachmentDisplayAction
-import app.pachli.core.database.model.TSQ
+import app.pachli.core.database.model.TimelineStatusWithQuote
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.model.AttachmentDisplayAction
@@ -150,7 +150,7 @@ data class StatusViewDataQ(
     companion object {
         fun from(
             pachliAccountId: Long,
-            tsq: TSQ,
+            timelineStatusWithQuote: TimelineStatusWithQuote,
             isExpanded: Boolean,
             isDetailed: Boolean = false,
             contentFilterAction: FilterAction,
@@ -162,20 +162,20 @@ data class StatusViewDataQ(
             return StatusViewDataQ(
                 statusViewData = StatusViewData.from(
                     pachliAccountId,
-                    tsq.timelineStatus.toStatus(),
-                    translation = tsq.timelineStatus.translatedStatus,
-                    isExpanded = tsq.timelineStatus.viewData?.expanded ?: isExpanded,
-                    isCollapsed = tsq.timelineStatus.viewData?.contentCollapsed ?: true,
+                    timelineStatusWithQuote.timelineStatus.toStatus(),
+                    translation = timelineStatusWithQuote.timelineStatus.translatedStatus,
+                    isExpanded = timelineStatusWithQuote.timelineStatus.viewData?.expanded ?: isExpanded,
+                    isCollapsed = timelineStatusWithQuote.timelineStatus.viewData?.contentCollapsed ?: true,
                     isDetailed = isDetailed,
                     contentFilterAction = contentFilterAction,
-                    attachmentDisplayAction = tsq.timelineStatus.getAttachmentDisplayAction(
+                    attachmentDisplayAction = timelineStatusWithQuote.timelineStatus.getAttachmentDisplayAction(
                         filterContext,
                         showSensitiveMedia,
                     ),
-                    translationState = tsq.timelineStatus.viewData?.translationState ?: translationState,
-                    replyToAccount = tsq.timelineStatus.replyAccount?.asModel(),
+                    translationState = timelineStatusWithQuote.timelineStatus.viewData?.translationState ?: translationState,
+                    replyToAccount = timelineStatusWithQuote.timelineStatus.replyAccount?.asModel(),
                 ),
-                quotedViewData = tsq.quotedStatus?.let { status ->
+                quotedViewData = timelineStatusWithQuote.quotedStatus?.let { status ->
                     StatusViewData.from(
                         pachliAccountId,
                         status.toStatus(),

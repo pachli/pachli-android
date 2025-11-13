@@ -260,8 +260,14 @@ fun TimelineAccount.asEntity(pachliAccountId: Long) = TimelineAccountEntity(
 
 fun Iterable<TimelineAccount>.asEntity(pachliAccountId: Long) = map { it.asEntity(pachliAccountId) }
 
-// TimelineStatusWithQuote
-data class TSQ(
+/**
+ * A complete [TimelineStatusWithAccount], and the (optional) status it quotes.
+ *
+ * @property timelineStatus The [TimelineStatusWithAccount].
+ * @property quotedStatus The quoted status, if present. Null if [timelineStatus]
+ * does not quote a post.
+ */
+data class TimelineStatusWithQuote(
     @Embedded(prefix = "s_")
     val timelineStatus: TimelineStatusWithAccount,
     @Embedded(prefix = "q_")

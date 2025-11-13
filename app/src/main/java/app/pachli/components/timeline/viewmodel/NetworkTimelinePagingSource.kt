@@ -23,13 +23,13 @@ import androidx.paging.PagingSource.LoadResult
 import androidx.paging.PagingState
 import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.database.dao.TimelineStatusWithAccount
-import app.pachli.core.database.model.TSQ
+import app.pachli.core.database.model.TimelineStatusWithQuote
 import app.pachli.core.database.model.asEntity
 import app.pachli.core.model.Status
 import kotlinx.coroutines.sync.withLock
 import timber.log.Timber
 
-private val INVALID = LoadResult.Invalid<String, TSQ>()
+private val INVALID = LoadResult.Invalid<String, TimelineStatusWithQuote>()
 
 /**
  * [PagingSource] for Mastodon Status, identified by the Status ID
@@ -42,8 +42,8 @@ class NetworkTimelinePagingSource(
     private val statusRepository: StatusRepository,
     private val pageCache: PageCache,
     private val initialKey: String? = null,
-) : PagingSource<String, TSQ>() {
-    override suspend fun load(params: LoadParams<String>): LoadResult<String, TSQ> {
+) : PagingSource<String, TimelineStatusWithQuote>() {
+    override suspend fun load(params: LoadParams<String>): LoadResult<String, TimelineStatusWithQuote> {
         Timber.d("- load(), type = %s, key = %s", params.javaClass.simpleName, params.key)
 
         return pageCache.withLock {
@@ -120,14 +120,14 @@ class NetworkTimelinePagingSource(
             }
 
             LoadResult.Page(
-                page?.data.orEmpty().asTSQ(pachliAccountId, statusRepository),
+                page?.data.orEmpty().asTimelineStatusWithQuote(pachliAccountId, statusRepository),
                 nextKey = page?.nextKey,
                 prevKey = page?.prevKey,
             )
         }
     }
 
-    override fun getRefreshKey(state: PagingState<String, TSQ>): String? {
+    override fun getRefreshKey(state: PagingState<String, TimelineStatusWithQuote>): String? {
         // `state` might be null (see https://issuetracker.google.com/issues/452663010
         // for details). If it is, fall back to the key passed to the constructor.
         val refreshKey = state.anchorPosition?.let {
@@ -139,14 +139,17 @@ class NetworkTimelinePagingSource(
 }
 
 /**
- * Converts a `Iterable<Status>` to a `List<TSQ>`, minimising the database lookups
- * that need to happen to get the viewdata and translations.
+ * Converts an `Iterable<Status>` to a `List<TimelineStatusWithQuote>`, minimising the database
+ * lookups that need to happen to get the viewdata and translations.
+ *
+ * @param pachliAccountId
+ * @param statusRepository Repository to fetch viewdata and translations from.
  */
 @VisibleForTesting
-suspend fun Iterable<Status>.asTSQ(pachliAccountId: Long, statusRepository: StatusRepository): List<TSQ> {
+suspend fun Iterable<Status>.asTimelineStatusWithQuote(pachliAccountId: Long, statusRepository: StatusRepository): List<TimelineStatusWithQuote> {
     // Figure out all the status IDs referenced in this iterable.
     val statusIds = buildSet {
-        this@asTSQ.map {
+        this@asTimelineStatusWithQuote.map {
             add(it.actionableId)
             it.reblog?.let { (it.quote as? Status.Quote.FullQuote)?.let { add(it.status.actionableId) } }
             (it.quote as? Status.Quote.FullQuote)?.let { add(it.status.actionableId) }
@@ -157,7 +160,7 @@ suspend fun Iterable<Status>.asTSQ(pachliAccountId: Long, statusRepository: Stat
     val translationCache = statusRepository.getTranslations(pachliAccountId, statusIds)
 
     return map { status ->
-        TSQ(
+        TimelineStatusWithQuote(
             timelineStatus = TimelineStatusWithAccount(
                 status = status.asEntity(pachliAccountId),
                 account = status.reblog?.account?.asEntity(pachliAccountId) ?: status.account.asEntity(pachliAccountId),

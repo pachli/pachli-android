@@ -33,7 +33,7 @@ import app.pachli.core.database.model.NotificationRelationshipSeveranceEventEnti
 import app.pachli.core.database.model.NotificationReportEntity
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
-import app.pachli.core.database.model.TSQ
+import app.pachli.core.database.model.TimelineStatusWithQuote
 import app.pachli.core.database.model.asEntity
 import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
@@ -286,7 +286,7 @@ fun NotificationData.Companion.from(pachliAccountId: Long, notification: Notific
     notification = notification.asEntity(pachliAccountId),
     account = notification.account.asEntity(pachliAccountId),
     status = notification.status?.let { status ->
-        TSQ(
+        TimelineStatusWithQuote(
             timelineStatus = TimelineStatusWithAccount(
                 status = status.asEntity(pachliAccountId),
                 account = status.account.asEntity(pachliAccountId),

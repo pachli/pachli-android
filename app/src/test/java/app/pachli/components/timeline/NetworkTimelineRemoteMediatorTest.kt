@@ -28,12 +28,12 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.components.timeline.viewmodel.NetworkTimelineRemoteMediator
 import app.pachli.components.timeline.viewmodel.Page
 import app.pachli.components.timeline.viewmodel.PageCache
-import app.pachli.components.timeline.viewmodel.asTSQ
+import app.pachli.components.timeline.viewmodel.asTimelineStatusWithQuote
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.model.AccountEntity
-import app.pachli.core.database.model.TSQ
+import app.pachli.core.database.model.TimelineStatusWithQuote
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.di.test.DEFAULT_INSTANCE_V2
 import app.pachli.core.network.model.AccountSource
@@ -110,7 +110,7 @@ class NetworkTimelineRemoteMediatorTest {
 
     private lateinit var activeAccount: AccountEntity
 
-    private lateinit var pagingSourceFactory: InvalidatingPagingSourceFactory<String, TSQ>
+    private lateinit var pagingSourceFactory: InvalidatingPagingSourceFactory<String, TimelineStatusWithQuote>
 
     @Before
     fun setup() = runTest {
@@ -277,7 +277,7 @@ class NetworkTimelineRemoteMediatorTest {
             listOf(
                 PagingSource.LoadResult.Page(
                     data = listOf(fakeStatus("7"), fakeStatus("6"), fakeStatus("5")).asModel()
-                        .asTSQ(activeAccount.id, statusRepository),
+                        .asTimelineStatusWithQuote(activeAccount.id, statusRepository),
                     prevKey = "7",
                     nextKey = "5",
                 ),
@@ -351,7 +351,7 @@ class NetworkTimelineRemoteMediatorTest {
         val state = state(
             listOf(
                 PagingSource.LoadResult.Page(
-                    data = listOf(fakeStatus("7"), fakeStatus("6"), fakeStatus("5")).asModel().asTSQ(activeAccount.id, statusRepository).toMutableList(),
+                    data = listOf(fakeStatus("7"), fakeStatus("6"), fakeStatus("5")).asModel().asTimelineStatusWithQuote(activeAccount.id, statusRepository).toMutableList(),
                     prevKey = "7",
                     nextKey = "5",
                 ),
@@ -392,7 +392,7 @@ class NetworkTimelineRemoteMediatorTest {
     companion object {
         private const val PAGE_SIZE = 20
 
-        private fun state(pages: List<PagingSource.LoadResult.Page<String, TSQ>> = emptyList()) = PagingState(
+        private fun state(pages: List<PagingSource.LoadResult.Page<String, TimelineStatusWithQuote>> = emptyList()) = PagingState(
             pages = pages,
             anchorPosition = null,
             config = PagingConfig(

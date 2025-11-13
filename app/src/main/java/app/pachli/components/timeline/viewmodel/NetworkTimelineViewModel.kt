@@ -27,7 +27,7 @@ import app.pachli.core.data.model.StatusViewDataQ
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.StatusActionError
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
-import app.pachli.core.database.model.TSQ
+import app.pachli.core.database.model.TimelineStatusWithQuote
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.eventhub.BookmarkEvent
 import app.pachli.core.eventhub.EventHub
@@ -68,7 +68,7 @@ open class NetworkTimelineViewModel @AssistedInject constructor(
     accountManager: AccountManager,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     sharedPreferencesRepository: SharedPreferencesRepository,
-) : TimelineViewModel<TSQ, NetworkTimelineRepository>(
+) : TimelineViewModel<TimelineStatusWithQuote, NetworkTimelineRepository>(
     timeline,
     timelineCases,
     eventHub,
@@ -82,15 +82,15 @@ open class NetworkTimelineViewModel @AssistedInject constructor(
             pagingData
                 .map { Pair(it, shouldFilterStatus(it.timelineStatus)) }
                 .filter { it.second != FilterAction.HIDE }
-                .map { (tsq, contentFilterAction) ->
+                .map { (timelineStatusWithQuote, contentFilterAction) ->
                     StatusViewDataQ.from(
                         pachliAccount.id,
-                        tsq,
+                        timelineStatusWithQuote,
                         isExpanded = statusDisplayOptions.value.openSpoiler,
                         contentFilterAction = contentFilterAction,
                         // Not using shouldFilterStatus here as that also checks to see if things like
                         // "Hide boosts" or "Hide replies" are enabled.
-                        quoteContentFilterAction = tsq.quotedStatus?.let { contentFilterModel?.filterActionFor(it.status) },
+                        quoteContentFilterAction = timelineStatusWithQuote.quotedStatus?.let { contentFilterModel?.filterActionFor(it.status) },
                         showSensitiveMedia = pachliAccount.entity.alwaysShowSensitiveMedia,
                         filterContext = filterContext,
                     )

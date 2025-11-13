@@ -31,7 +31,7 @@ import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.dao.TimelineStatusWithAccount
 import app.pachli.core.database.model.AccountEntity
-import app.pachli.core.database.model.TSQ
+import app.pachli.core.database.model.TimelineStatusWithQuote
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.database.model.asEntity
 import app.pachli.core.database.model.toEntity
@@ -149,22 +149,21 @@ class ViewThreadViewModel @Inject constructor(
 
             Timber.d("Finding status with: %s", id)
             val contextCall = async { api.statusContext(id) }
-            val tsq = timelineDao.getActionableStatusQ(account.id, id)
+            val timelineStatusWithQuote = timelineDao.getActionableStatusQ(account.id, id)
 
-            var detailedStatus = if (tsq != null) {
+            var detailedStatus = if (timelineStatusWithQuote != null) {
                 Timber.d("Loading status from local timeline")
-                val status = tsq.toStatus()
+                val status = timelineStatusWithQuote.toStatus()
 
-                Timber.d("IDs match")
                 StatusViewDataQ.from(
                     pachliAccountId = account.id,
-                    tsq = tsq,
+                    timelineStatusWithQuote = timelineStatusWithQuote,
                     isExpanded = account.alwaysOpenSpoiler,
                     showSensitiveMedia = account.alwaysShowSensitiveMedia,
                     isDetailed = true,
                     contentFilterAction = contentFilterModel?.filterActionFor(status.actionableStatus)
                         ?: FilterAction.NONE,
-                    quoteContentFilterAction = tsq.quotedStatus?.status?.let { contentFilterModel?.filterActionFor(it) }, //                        attachmentDisplayAction = status.actionableStatus.getAttachmentDisplayAction(
+                    quoteContentFilterAction = timelineStatusWithQuote.quotedStatus?.status?.let { contentFilterModel?.filterActionFor(it) }, //                        attachmentDisplayAction = status.actionableStatus.getAttachmentDisplayAction(
                     translationState = TranslationState.SHOW_ORIGINAL, // timelineStatusQ.viewData?.translationState ?: TranslationState.SHOW_ORIGINAL,
                     filterContext = FilterContext.CONVERSATIONS,
                 )
@@ -182,7 +181,7 @@ class ViewThreadViewModel @Inject constructor(
                 val quote = (status.quote as? Status.Quote.FullQuote)?.status
                 StatusViewDataQ.from(
                     pachliAccountId = account.id,
-                    tsq = TSQ(
+                    timelineStatusWithQuote = TimelineStatusWithQuote(
                         timelineStatus = TimelineStatusWithAccount(
                             status = status.asEntity(account.id),
                             account = status.reblog?.account?.asEntity(account.id) ?: status.account.asEntity(account.id),
@@ -222,7 +221,7 @@ class ViewThreadViewModel @Inject constructor(
             // compared to the remote one. Now the user has a working UI do a background fetch
             // for the status. Ignore errors, the user still has a functioning UI if the fetch
             // failed.
-            if (tsq != null) {
+            if (timelineStatusWithQuote != null) {
                 api.status(id).get()?.body?.asModel()?.let { status ->
                     detailedStatus = detailedStatus.copy(
                         statusViewData = detailedStatus.statusViewData.copy(status = status),
@@ -247,7 +246,7 @@ class ViewThreadViewModel @Inject constructor(
                     .map { Pair(it, shouldFilterStatus(it)) }
                     .filter { it.second != FilterAction.HIDE }
                     .map { (status, contentFilterAction) ->
-                        val tsq = TSQ(
+                        val timelineStatusWithQuote = TimelineStatusWithQuote(
                             timelineStatus = TimelineStatusWithAccount(
                                 status = status.asEntity(activeAccount.id),
                                 account = status.reblog?.account?.asEntity(activeAccount.id) ?: status.account.asEntity(activeAccount.id),
@@ -268,11 +267,11 @@ class ViewThreadViewModel @Inject constructor(
                         )
                         StatusViewDataQ.from(
                             pachliAccountId = activeAccount.id,
-                            tsq,
+                            timelineStatusWithQuote,
                             isExpanded = account.alwaysOpenSpoiler,
                             isDetailed = false,
                             contentFilterAction = contentFilterAction,
-                            quoteContentFilterAction = tsq.quotedStatus?.let { contentFilterModel?.filterActionFor(it.status) },
+                            quoteContentFilterAction = timelineStatusWithQuote.quotedStatus?.let { contentFilterModel?.filterActionFor(it.status) },
                             showSensitiveMedia = activeAccount.alwaysShowSensitiveMedia,
                             filterContext = FilterContext.CONVERSATIONS,
                         )
@@ -281,7 +280,7 @@ class ViewThreadViewModel @Inject constructor(
                     .map { Pair(it, shouldFilterStatus(it)) }
                     .filter { it.second != FilterAction.HIDE }
                     .map { (status, contentFilterAction) ->
-                        val tsq = TSQ(
+                        val timelineStatusWithQuote = TimelineStatusWithQuote(
                             timelineStatus = TimelineStatusWithAccount(
                                 status = status.asEntity(activeAccount.id),
                                 account = status.reblog?.account?.asEntity(activeAccount.id) ?: status.account.asEntity(activeAccount.id),
@@ -302,11 +301,11 @@ class ViewThreadViewModel @Inject constructor(
                         )
                         StatusViewDataQ.from(
                             pachliAccountId = activeAccount.id,
-                            tsq,
+                            timelineStatusWithQuote,
                             isExpanded = account.alwaysOpenSpoiler,
                             isDetailed = false,
                             contentFilterAction = contentFilterAction,
-                            quoteContentFilterAction = tsq.quotedStatus?.let { contentFilterModel?.filterActionFor(it.status) },
+                            quoteContentFilterAction = timelineStatusWithQuote.quotedStatus?.let { contentFilterModel?.filterActionFor(it.status) },
                             showSensitiveMedia = activeAccount.alwaysShowSensitiveMedia,
                             filterContext = FilterContext.CONVERSATIONS,
                         )

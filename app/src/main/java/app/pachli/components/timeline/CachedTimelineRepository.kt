@@ -35,7 +35,7 @@ import app.pachli.core.database.dao.TranslatedStatusDao
 import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
 import app.pachli.core.database.model.StatusViewDataEntity
-import app.pachli.core.database.model.TSQ
+import app.pachli.core.database.model.TimelineStatusWithQuote
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.retrofit.MastodonApi
@@ -66,8 +66,8 @@ class CachedTimelineRepository @Inject constructor(
     private val statusDao: StatusDao,
     @ApplicationScope private val externalScope: CoroutineScope,
     statusRepository: OfflineFirstStatusRepository,
-) : TimelineRepository<TSQ>, StatusRepository by statusRepository {
-    private var factory: InvalidatingPagingSourceFactory<Int, TSQ>? = null
+) : TimelineRepository<TimelineStatusWithQuote>, StatusRepository by statusRepository {
+    private var factory: InvalidatingPagingSourceFactory<Int, TimelineStatusWithQuote>? = null
 
     /**
      * Domains that should be (temporarily) removed from the timeline because the user
@@ -96,12 +96,12 @@ class CachedTimelineRepository @Inject constructor(
      */
     private val hiddenAccounts = mutableSetOf<String>()
 
-    /** @return flow of Mastodon [TSQ]. */
+    /** @return flow of Mastodon [TimelineStatusWithQuote]. */
     @OptIn(ExperimentalPagingApi::class)
     override suspend fun getStatusStream(
         pachliAccountId: Long,
         timeline: Timeline,
-    ): Flow<PagingData<TSQ>> {
+    ): Flow<PagingData<TimelineStatusWithQuote>> {
         factory = InvalidatingPagingSourceFactory { timelineDao.getStatusesQ(pachliAccountId) }
 
         val initialKey = timeline.remoteKeyTimelineId?.let { timelineId ->

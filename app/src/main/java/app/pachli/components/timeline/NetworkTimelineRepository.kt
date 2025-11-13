@@ -34,7 +34,7 @@ import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.TimelineStatusWithAccount
 import app.pachli.core.database.di.InvalidationTracker
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
-import app.pachli.core.database.model.TSQ
+import app.pachli.core.database.model.TimelineStatusWithQuote
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.Poll
@@ -92,10 +92,10 @@ class NetworkTimelineRepository @Inject constructor(
     private val mastodonApi: MastodonApi,
     private val remoteKeyDao: RemoteKeyDao,
     private val statusRepository: OfflineFirstStatusRepository,
-) : TimelineRepository<TSQ>, StatusRepository {
+) : TimelineRepository<TimelineStatusWithQuote>, StatusRepository {
     private val pageCache = PageCache()
 
-    private var factory: InvalidatingPagingSourceFactory<String, TSQ>? = null
+    private var factory: InvalidatingPagingSourceFactory<String, TimelineStatusWithQuote>? = null
 
     /**
      * Domains that should be (temporarily) removed from the timeline because the user
@@ -129,7 +129,7 @@ class NetworkTimelineRepository @Inject constructor(
     override suspend fun getStatusStream(
         pachliAccountId: Long,
         timeline: Timeline,
-    ): Flow<PagingData<TSQ>> {
+    ): Flow<PagingData<TimelineStatusWithQuote>> {
         Timber.d("timeline: $timeline, getStatusStream()")
 
         val initialKey = timeline.remoteKeyTimelineId?.let { refreshKeyPrimaryKey ->

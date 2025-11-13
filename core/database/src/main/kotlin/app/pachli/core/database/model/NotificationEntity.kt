@@ -40,7 +40,7 @@ import java.time.Instant
 data class NotificationData(
     @Embedded val notification: NotificationEntity,
     @Embedded(prefix = "a_") val account: TimelineAccountEntity,
-    @Embedded(prefix = "s_") val status: TSQ?,
+    @Embedded(prefix = "s_") val status: TimelineStatusWithQuote?,
     @Embedded(prefix = "nvd_") val viewData: NotificationViewDataEntity?,
     @Embedded(prefix = "report_") val report: NotificationReportEntity?,
     @Embedded(prefix = "rse_") val relationshipSeveranceEvent: NotificationRelationshipSeveranceEventEntity?,

@@ -41,7 +41,7 @@ import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.ServerRepository
 import app.pachli.core.database.dao.TimelineStatusWithAccount
 import app.pachli.core.database.model.AccountEntity
-import app.pachli.core.database.model.TSQ
+import app.pachli.core.database.model.TimelineStatusWithQuote
 import app.pachli.core.database.model.asEntity
 import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.DeletedStatus
@@ -214,7 +214,7 @@ class SearchViewModel @Inject constructor(
         val pachliAccountId = activeAccount!!.id
 
         it.statuses.map { status ->
-            TSQ(
+            TimelineStatusWithQuote(
                 timelineStatus = TimelineStatusWithAccount(
                     status = status.asEntity(pachliAccountId),
                     account = status.reblog?.account?.asEntity(pachliAccountId) ?: status.account.asEntity(pachliAccountId),

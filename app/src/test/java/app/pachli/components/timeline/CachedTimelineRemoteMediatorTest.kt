@@ -18,7 +18,7 @@ import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
-import app.pachli.core.database.model.TSQ
+import app.pachli.core.database.model.TimelineStatusWithQuote
 import app.pachli.core.model.Timeline
 import app.pachli.core.model.VersionAdapter
 import app.pachli.core.network.json.BooleanIfNull
@@ -27,7 +27,7 @@ import app.pachli.core.network.json.Guarded
 import app.pachli.core.network.json.InstantJsonAdapter
 import app.pachli.core.network.json.LenientRfc3339DateJsonAdapter
 import app.pachli.core.network.json.UriAdapter
-import app.pachli.core.testing.extensions.insertTSQ
+import app.pachli.core.testing.extensions.insertTimelineStatusWithQuote
 import app.pachli.core.testing.failure
 import app.pachli.core.testing.fakes.fakeStatus
 import app.pachli.core.testing.fakes.fakeStatusEntityWithAccount
@@ -216,7 +216,7 @@ class CachedTimelineRemoteMediatorTest {
             fakeStatusEntityWithAccount("1", expanded = false),
         )
 
-        db.insertTSQ(statusesAlreadyInDb)
+        db.insertTimelineStatusWithQuote(statusesAlreadyInDb)
 
         val remoteMediator = CachedTimelineRemoteMediator(
             mastodonApi = mock {
@@ -269,7 +269,7 @@ class CachedTimelineRemoteMediatorTest {
             fakeStatusEntityWithAccount("5"),
         )
 
-        db.insertTSQ(statusesAlreadyInDb)
+        db.insertTimelineStatusWithQuote(statusesAlreadyInDb)
         db.remoteKeyDao().upsert(RemoteKeyEntity(1, Timeline.Home.remoteKeyTimelineId, RemoteKeyKind.PREV, "8"))
         db.remoteKeyDao().upsert(RemoteKeyEntity(1, Timeline.Home.remoteKeyTimelineId, RemoteKeyKind.NEXT, "5"))
 
@@ -319,7 +319,7 @@ class CachedTimelineRemoteMediatorTest {
     }
 
     private fun state(
-        pages: List<PagingSource.LoadResult.Page<Int, TSQ>> = emptyList(),
+        pages: List<PagingSource.LoadResult.Page<Int, TimelineStatusWithQuote>> = emptyList(),
         pageSize: Int = 20,
     ) = PagingState(
         pages = pages,
@@ -331,7 +331,7 @@ class CachedTimelineRemoteMediatorTest {
     )
 
     private fun AppDatabase.assertStatuses(
-        expected: List<TSQ>,
+        expected: List<TimelineStatusWithQuote>,
         forAccount: Long = 1,
     ) {
         val pagingSource = timelineDao().getStatuses(forAccount)

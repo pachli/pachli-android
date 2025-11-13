@@ -26,7 +26,7 @@ import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusViewDataQ
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
-import app.pachli.core.database.model.TSQ
+import app.pachli.core.database.model.TimelineStatusWithQuote
 import app.pachli.core.eventhub.BookmarkEvent
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.FavoriteEvent
@@ -60,7 +60,7 @@ class CachedTimelineViewModel @AssistedInject constructor(
     accountManager: AccountManager,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     sharedPreferencesRepository: SharedPreferencesRepository,
-) : TimelineViewModel<TSQ, CachedTimelineRepository>(
+) : TimelineViewModel<TimelineStatusWithQuote, CachedTimelineRepository>(
     timeline = timeline,
     timelineCases = timelineCases,
     eventHub = eventHub,
@@ -74,13 +74,13 @@ class CachedTimelineViewModel @AssistedInject constructor(
             pagingData
                 .map { Pair(it, shouldFilterStatus(it.timelineStatus)) }
                 .filter { it.second != FilterAction.HIDE }
-                .map { (tsq, contentFilterAction) ->
+                .map { (timelineStatusWithQuote, contentFilterAction) ->
                     StatusViewDataQ.from(
                         pachliAccountId = pachliAccount.id,
-                        tsq,
+                        timelineStatusWithQuote,
                         isExpanded = pachliAccount.entity.alwaysOpenSpoiler,
                         contentFilterAction = contentFilterAction,
-                        quoteContentFilterAction = tsq.quotedStatus?.let { contentFilterModel?.filterActionFor(it.status) },
+                        quoteContentFilterAction = timelineStatusWithQuote.quotedStatus?.let { contentFilterModel?.filterActionFor(it.status) },
                         showSensitiveMedia = pachliAccount.entity.alwaysShowSensitiveMedia,
                         filterContext = filterContext,
                     )

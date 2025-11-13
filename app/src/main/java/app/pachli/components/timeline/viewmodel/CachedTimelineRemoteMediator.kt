@@ -29,8 +29,8 @@ import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
-import app.pachli.core.database.model.TSQ
 import app.pachli.core.database.model.TimelineStatusEntity
+import app.pachli.core.database.model.TimelineStatusWithQuote
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Links
 import app.pachli.core.network.model.Status
@@ -53,10 +53,10 @@ class CachedTimelineRemoteMediator(
     private val timelineDao: TimelineDao,
     private val remoteKeyDao: RemoteKeyDao,
     private val statusDao: StatusDao,
-) : RemoteMediator<Int, TSQ>() {
+) : RemoteMediator<Int, TimelineStatusWithQuote>() {
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<Int, TSQ>,
+        state: PagingState<Int, TimelineStatusWithQuote>,
     ): MediatorResult {
         Timber.d("load(), account ID: %d, LoadType = %s", pachliAccountId, loadType)
         val remoteKeyTimelineId = Timeline.Home.remoteKeyTimelineId
