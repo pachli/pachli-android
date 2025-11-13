@@ -503,6 +503,196 @@ FROM TimelineStatusWithAccount AS s
     )
     abstract suspend fun getStatusQ(pachliAccountId: Long, statusId: String): TSQ?
 
+    /**
+     * Like [getStatusQ], but only returns that status with ID [actionableStatusId]
+     * (i.e., ignores boosts of [actionableStatusId]).
+     */
+    @Query(
+        """
+SELECT
+     -- TimelineStatusWithAccount
+    s.serverId AS 's_serverId',
+    s.url AS 's_url',
+    s.timelineUserId AS 's_timelineUserId',
+    s.authorServerId AS 's_authorServerId',
+    s.inReplyToId AS 's_inReplyToId',
+    s.inReplyToAccountId AS 's_inReplyToAccountId',
+    s.createdAt AS 's_createdAt',
+    s.editedAt AS 's_editedAt',
+    s.emojis AS 's_emojis',
+    s.reblogsCount AS 's_reblogsCount',
+    s.favouritesCount AS 's_favouritesCount',
+    s.repliesCount AS 's_repliesCount',
+    s.quotesCount AS 's_quotesCount',
+    s.reblogged AS 's_reblogged',
+    s.favourited AS 's_favourited',
+    s.bookmarked AS 's_bookmarked',
+    s.sensitive AS 's_sensitive',
+    s.spoilerText AS 's_spoilerText',
+    s.visibility AS 's_visibility',
+    s.mentions AS 's_mentions',
+    s.tags AS 's_tags',
+    s.application AS 's_application',
+    s.reblogServerId AS 's_reblogServerId',
+    s.reblogAccountId AS 's_reblogAccountId',
+    s.content AS 's_content',
+    s.attachments AS 's_attachments',
+    s.poll AS 's_poll',
+    s.card AS 's_card',
+    s.muted AS 's_muted',
+    s.pinned AS 's_pinned',
+    s.language AS 's_language',
+    s.filtered AS 's_filtered',
+    s.quoteState AS 's_quoteState',
+    s.quoteServerId AS 's_quoteServerId',
+    s.quoteApproval AS 's_quoteApproval',
+
+    -- The status' account (if any)
+    s.a_serverId AS 's_a_serverId',
+    s.a_timelineUserId AS 's_a_timelineUserId',
+    s.a_localUsername AS 's_a_localUsername',
+    s.a_username AS 's_a_username',
+    s.a_displayName AS 's_a_displayName',
+    s.a_url AS 's_a_url',
+    s.a_avatar AS 's_a_avatar',
+    s.a_emojis AS 's_a_emojis',
+    s.a_bot AS 's_a_bot',
+    s.a_createdAt AS 's_a_createdAt',
+    s.a_limited AS 's_a_limited',
+    s.a_note AS 's_a_note',
+    s.a_roles AS 's_a_roles',
+    s.a_pronouns AS 's_a_pronouns',
+
+    -- The status's reblog account (if any)
+    s.rb_serverId AS 's_rb_serverId',
+    s.rb_timelineUserId AS 's_rb_timelineUserId',
+    s.rb_localUsername AS 's_rb_localUsername',
+    s.rb_username AS 's_rb_username',
+    s.rb_displayName AS 's_rb_displayName',
+    s.rb_url AS 's_rb_url',
+    s.rb_avatar AS 's_rb_avatar',
+    s.rb_emojis AS 's_rb_emojis',
+    s.rb_bot AS 's_rb_bot',
+    s.rb_createdAt AS 's_rb_createdAt',
+    s.rb_limited AS 's_rb_limited',
+    s.rb_note AS 's_rb_note',
+    s.rb_roles AS 's_rb_roles',
+    s.rb_pronouns AS 's_rb_pronouns',
+
+    -- Status view data
+    s.svd_serverId AS 's_svd_serverId',
+    s.svd_pachliAccountId AS 's_svd_pachliAccountId',
+    s.svd_expanded AS 's_svd_expanded',
+    s.svd_contentCollapsed AS 's_svd_contentCollapsed',
+    s.svd_translationState AS 's_svd_translationState',
+    s.svd_attachmentDisplayAction AS 's_svd_attachmentDisplayAction',
+
+    -- Translation
+    s.t_serverId AS 's_t_serverId',
+    s.t_timelineUserId AS 's_t_timelineUserId',
+    s.t_content AS 's_t_content',
+    s.t_spoilerText AS 's_t_spoilerText',
+    s.t_poll AS 's_t_poll',
+    s.t_attachments AS 's_t_attachments',
+    s.t_provider AS 's_t_provider',
+
+    -- Quoted status (if any)
+    -- TimelineStatusWithAccount
+    q.serverId AS 'q_serverId',
+    q.url AS 'q_url',
+    q.timelineUserId AS 'q_timelineUserId',
+    q.authorServerId AS 'q_authorServerId',
+    q.inReplyToId AS 'q_inReplyToId',
+    q.inReplyToAccountId AS 'q_inReplyToAccountId',
+    q.createdAt AS 'q_createdAt',
+    q.editedAt AS 'q_editedAt',
+    q.emojis AS 'q_emojis',
+    q.reblogsCount AS 'q_reblogsCount',
+    q.favouritesCount AS 'q_favouritesCount',
+    q.repliesCount AS 'q_repliesCount',
+    q.quotesCount AS 'q_quotesCount',
+    q.reblogged AS 'q_reblogged',
+    q.favourited AS 'q_favourited',
+    q.bookmarked AS 'q_bookmarked',
+    q.sensitive AS 'q_sensitive',
+    q.spoilerText AS 'q_spoilerText',
+    q.visibility AS 'q_visibility',
+    q.mentions AS 'q_mentions',
+    q.tags AS 'q_tags',
+    q.application AS 'q_application',
+    q.reblogServerId AS 'q_reblogServerId',
+    q.reblogAccountId AS 'q_reblogAccountId',
+    q.content AS 'q_content',
+    q.attachments AS 'q_attachments',
+    q.poll AS 'q_poll',
+    q.card AS 'q_card',
+    q.muted AS 'q_muted',
+    q.pinned AS 'q_pinned',
+    q.language AS 'q_language',
+    q.filtered AS 'q_filtered',
+    q.quoteState AS 'q_quoteState',
+    q.quoteServerId AS 'q_quoteServerId',
+    q.quoteApproval AS 'q_quoteApproval',
+
+    -- The status' account (if any)
+    q.a_serverId AS 'q_a_serverId',
+    q.a_timelineUserId AS 'q_a_timelineUserId',
+    q.a_localUsername AS 'q_a_localUsername',
+    q.a_username AS 'q_a_username',
+    q.a_displayName AS 'q_a_displayName',
+    q.a_url AS 'q_a_url',
+    q.a_avatar AS 'q_a_avatar',
+    q.a_emojis AS 'q_a_emojis',
+    q.a_bot AS 'q_a_bot',
+    q.a_createdAt AS 'q_a_createdAt',
+    q.a_limited AS 'q_a_limited',
+    q.a_note AS 'q_a_note',
+    q.a_roles AS 'q_a_roles',
+    q.a_pronouns AS 'q_a_pronouns',
+
+    -- The status's reblog account (if any)
+    q.rb_serverId AS 'q_rb_serverId',
+    q.rb_timelineUserId AS 'q_rb_timelineUserId',
+    q.rb_localUsername AS 'q_rb_localUsername',
+    q.rb_username AS 'q_rb_username',
+    q.rb_displayName AS 'q_rb_displayName',
+    q.rb_url AS 'q_rb_url',
+    q.rb_avatar AS 'q_rb_avatar',
+    q.rb_emojis AS 'q_rb_emojis',
+    q.rb_bot AS 'q_rb_bot',
+    q.rb_createdAt AS 'q_rb_createdAt',
+    q.rb_limited AS 'q_rb_limited',
+    q.rb_note AS 'q_rb_note',
+    q.rb_roles AS 'q_rb_roles',
+    q.rb_pronouns AS 'q_rb_pronouns',
+
+    -- Status view data
+    q.svd_serverId AS 'q_svd_serverId',
+    q.svd_pachliAccountId AS 'q_svd_pachliAccountId',
+    q.svd_expanded AS 'q_svd_expanded',
+    q.svd_contentCollapsed AS 'q_svd_contentCollapsed',
+    q.svd_translationState AS 'q_svd_translationState',
+    q.svd_attachmentDisplayAction AS 'q_svd_attachmentDisplayAction',
+
+    -- Translation
+    q.t_serverId AS 'q_t_serverId',
+    q.t_timelineUserId AS 'q_t_timelineUserId',
+    q.t_content AS 'q_t_content',
+    q.t_spoilerText AS 'q_t_spoilerText',
+    q.t_poll AS 'q_t_poll',
+    q.t_attachments AS 'q_t_attachments',
+    q.t_provider AS 'q_t_provider'
+FROM TimelineStatusWithAccount AS s
+ LEFT JOIN TimelineStatusWithAccount AS q
+    ON (s.timelineUserId = q.timelineUserId AND s.quoteServerId = q.serverId)
+ WHERE
+    s.timelineUserId == :pachliAccountId
+    AND s.serverId = :actionableStatusId
+    AND s.authorServerId IS NOT NULL
+""",
+    )
+    abstract suspend fun getActionableStatusQ(pachliAccountId: Long, actionableStatusId: String): TSQ?
+
     @Query(
         """
 DELETE

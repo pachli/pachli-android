@@ -149,47 +149,25 @@ class ViewThreadViewModel @Inject constructor(
 
             Timber.d("Finding status with: %s", id)
             val contextCall = async { api.statusContext(id) }
-            val tsq = timelineDao.getStatusQ(account.id, id)
+            val tsq = timelineDao.getActionableStatusQ(account.id, id)
 
             var detailedStatus = if (tsq != null) {
                 Timber.d("Loading status from local timeline")
                 val status = tsq.toStatus()
 
-//                // Return the correct status, depending on which one matched. If you do not do
-//                // this the status IDs will be different between the status that's displayed with
-//                // ThreadUiState.LoadingThread and ThreadUiState.Success, even though the apparent
-//                // status content is the same. Then the status flickers as it is drawn twice.
-//                if (status.actionableId == id) {
-//                    StatusViewData.from(
-//                        pachliAccountId = account.id,
-//                        status = status.actionableStatus,
-//                        isExpanded = tsq.viewData?.expanded ?: account.alwaysOpenSpoiler,
-//                        isCollapsed = tsq.viewData?.contentCollapsed ?: true,
-//                        isDetailed = true,
-//                        contentFilterAction = contentFilterModel?.filterActionFor(status.actionableStatus)
-//                            ?: FilterAction.NONE,
-//                        attachmentDisplayAction = status.actionableStatus.getAttachmentDisplayAction(
-//                            FilterContext.CONVERSATIONS,
-//                            account.alwaysShowSensitiveMedia,
-//                            tsq.viewData?.attachmentDisplayAction,
-//                        ),
-//                        translationState = tsq.viewData?.translationState ?: TranslationState.SHOW_ORIGINAL,
-//                        translation = tsq.translatedStatus,
-//                    )
-//                } else {
+                Timber.d("IDs match")
                 StatusViewDataQ.from(
                     pachliAccountId = account.id,
-                    tsq,
+                    tsq = tsq,
                     isExpanded = account.alwaysOpenSpoiler,
                     showSensitiveMedia = account.alwaysShowSensitiveMedia,
                     isDetailed = true,
                     contentFilterAction = contentFilterModel?.filterActionFor(status.actionableStatus)
                         ?: FilterAction.NONE,
-                    quoteContentFilterAction = tsq.quotedStatus?.status?.let { contentFilterModel?.filterActionFor(it) },
-                    translationState = TranslationState.SHOW_ORIGINAL,
+                    quoteContentFilterAction = tsq.quotedStatus?.status?.let { contentFilterModel?.filterActionFor(it) }, //                        attachmentDisplayAction = status.actionableStatus.getAttachmentDisplayAction(
+                    translationState = TranslationState.SHOW_ORIGINAL, // timelineStatusQ.viewData?.translationState ?: TranslationState.SHOW_ORIGINAL,
                     filterContext = FilterContext.CONVERSATIONS,
                 )
-//                }
             } else {
                 Timber.d("Loading status from network")
                 val statusCall = async { api.status(id) }
