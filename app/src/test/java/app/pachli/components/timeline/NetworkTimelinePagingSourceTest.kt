@@ -48,7 +48,7 @@ class NetworkTimelinePagingSourceTest {
     fun `load() with empty pages returns empty list`() = runTest {
         // Given
         val pages = PageCache()
-        val pagingSource = NetworkTimelinePagingSource(1L, pages, null, mock())
+        val pagingSource = NetworkTimelinePagingSource(1L, mock(), pages)
 
         // When
         val loadResult = pagingSource.load(PagingSource.LoadParams.Refresh("0", 2, false))
@@ -78,7 +78,7 @@ class NetworkTimelinePagingSourceTest {
                 append(page3)
             }
         }
-        val pagingSource = NetworkTimelinePagingSource(1L, pages, null, statusRepository)
+        val pagingSource = NetworkTimelinePagingSource(1L, statusRepository, pages)
 
         // When
         val loadResult = pagingSource.load(PagingSource.LoadParams.Refresh("1", 2, false)) as? LoadResult.Page
@@ -109,7 +109,7 @@ class NetworkTimelinePagingSourceTest {
                 append(Page(data = listOf(fakeStatus(id = "0")).asModel().toMutableList(), prevKey = "1"))
             }
         }
-        val pagingSource = NetworkTimelinePagingSource(1L, pages, null, statusRepository)
+        val pagingSource = NetworkTimelinePagingSource(1L, statusRepository, pages)
 
         // When
         val loadResult = pagingSource.load(PagingSource.LoadParams.Append("1", 2, false))
@@ -136,7 +136,7 @@ class NetworkTimelinePagingSourceTest {
                 append(Page(data = listOf(fakeStatus(id = "0")).asModel().toMutableList(), prevKey = "1"))
             }
         }
-        val pagingSource = NetworkTimelinePagingSource(1L, pages, null, statusRepository)
+        val pagingSource = NetworkTimelinePagingSource(1L, statusRepository, pages)
 
         // When
         val loadResult = pagingSource.load(PagingSource.LoadParams.Prepend("1", 2, false))
@@ -163,7 +163,7 @@ class NetworkTimelinePagingSourceTest {
                 append(Page(data = listOf(fakeStatus(id = "0")).asModel().toMutableList(), prevKey = "1"))
             }
         }
-        val pagingSource = NetworkTimelinePagingSource(1L, pages, null, statusRepository)
+        val pagingSource = NetworkTimelinePagingSource(1L, statusRepository, pages)
 
         // When
         val loadResult = pagingSource.load(PagingSource.LoadParams.Refresh(null, 2, false))
@@ -189,7 +189,7 @@ class NetworkTimelinePagingSourceTest {
                 append(Page(data = listOf(fakeStatus(id = "10")).asModel().toMutableList(), prevKey = "20"))
             }
         }
-        val pagingSource = NetworkTimelinePagingSource(1L, pages, null, statusRepository)
+        val pagingSource = NetworkTimelinePagingSource(1L, statusRepository, pages)
 
         // When
         val loadResult = pagingSource.load(PagingSource.LoadParams.Append("9", 2, false))
@@ -216,7 +216,7 @@ class NetworkTimelinePagingSourceTest {
                 append(Page(data = listOf(fakeStatus(id = "10")).asModel().toMutableList(), prevKey = "20"))
             }
         }
-        val pagingSource = NetworkTimelinePagingSource(1L, pages, null, statusRepository)
+        val pagingSource = NetworkTimelinePagingSource(1L, statusRepository, pages)
 
         // When
         val loadResult = pagingSource.load(PagingSource.LoadParams.Prepend("21", 2, false))

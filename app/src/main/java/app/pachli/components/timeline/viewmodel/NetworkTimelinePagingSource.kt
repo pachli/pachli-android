@@ -39,9 +39,9 @@ private val INVALID = LoadResult.Invalid<String, TSQ>()
  */
 class NetworkTimelinePagingSource(
     private val pachliAccountId: Long,
+    private val statusRepository: StatusRepository,
     private val pageCache: PageCache,
     private val initialKey: String? = null,
-    private val statusRepository: StatusRepository,
 ) : PagingSource<String, TSQ>() {
     override suspend fun load(params: LoadParams<String>): LoadResult<String, TSQ> {
         Timber.d("- load(), type = %s, key = %s", params.javaClass.simpleName, params.key)

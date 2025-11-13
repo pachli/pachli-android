@@ -138,7 +138,7 @@ class NetworkTimelineRepository @Inject constructor(
 
         Timber.d("timeline: $timeline, initialKey: $initialKey")
         factory = InvalidatingPagingSourceFactory {
-            NetworkTimelinePagingSource(pachliAccountId, pageCache, initialKey, statusRepository)
+            NetworkTimelinePagingSource(pachliAccountId, statusRepository, pageCache, initialKey)
         }
 
         // Track changes to tables that might be changed by user actions. Changes to
