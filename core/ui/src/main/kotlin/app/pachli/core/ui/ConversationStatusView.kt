@@ -26,8 +26,7 @@ import androidx.core.util.TypedValueCompat
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.data.model.ConversationViewData
-import app.pachli.core.data.model.IStatusViewData
-import app.pachli.core.data.model.IStatusViewDataQ
+import app.pachli.core.data.model.IStatusItemViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.ui.databinding.StatusContentConversationBinding
 import com.bumptech.glide.RequestManager
@@ -101,7 +100,7 @@ class ConversationStatusView @JvmOverloads constructor(
         // setAvatar will have cleared the padding on the first avatar, set it back.
         binding.statusAvatar.setPaddingRelative(avatarPadding, avatarPadding, avatarPadding, avatarPadding)
 
-        val quotedViewData = (viewData as? IStatusViewDataQ)?.quotedViewData
+        val quotedViewData = (viewData as? IStatusItemViewData)?.quotedViewData
         if (quotedViewData == null) {
             binding.statusQuote.hide()
             return

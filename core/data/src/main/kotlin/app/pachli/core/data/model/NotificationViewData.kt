@@ -27,7 +27,7 @@ import app.pachli.core.model.TimelineAccount
 /**
  * Data necessary to show a single notification.
  *
- * See [NotificationViewData.WithStatus] for notifications that reference a
+ * See [NotificationViewData.WithStatusItem] for notifications that reference a
  * status.
  *
  * @property pachliAccountId
@@ -60,15 +60,15 @@ sealed interface NotificationViewData {
     /**
      * Additional data to show a notification that references a [Status].
      *
-     * @property statusViewDataQ [StatusViewData] for the referenced [Status].
+     * @property statusItemViewData [StatusViewData] for the referenced [Status].
      */
-    sealed interface WithStatus : NotificationViewData, IStatusViewDataQ {
-        val statusViewDataQ: StatusViewDataQ
+    sealed interface WithStatusItem : NotificationViewData, IStatusItemViewData {
+        val statusItemViewData: StatusItemViewData
 
         /**
-         * [account] posted [statusViewDataQ] mentioning the user.
+         * [account] posted [statusItemViewData] mentioning the user.
          *
-         * @property statusViewDataQ Status containing the mention.
+         * @property statusItemViewData Status containing the mention.
          */
         data class MentionNotificationViewData(
             override val pachliAccountId: Long,
@@ -77,14 +77,14 @@ sealed interface NotificationViewData {
             override val account: TimelineAccount,
             override val isAboutSelf: Boolean,
             override val accountFilterDecision: AccountFilterDecision,
-            override val statusViewDataQ: StatusViewDataQ,
-        ) : WithStatus, IStatusViewDataQ by statusViewDataQ
+            override val statusItemViewData: StatusItemViewData,
+        ) : WithStatusItem, IStatusItemViewData by statusItemViewData
 
         /**
          * Notification that one of the user's statuses has been reblogged
          * by [account].
          *
-         * @property statusViewDataQ Status being reblogged.
+         * @property statusItemViewData Status being reblogged.
          */
         data class ReblogNotificationViewData(
             override val pachliAccountId: Long,
@@ -93,8 +93,8 @@ sealed interface NotificationViewData {
             override val account: TimelineAccount,
             override val isAboutSelf: Boolean,
             override val accountFilterDecision: AccountFilterDecision,
-            override val statusViewDataQ: StatusViewDataQ,
-        ) : WithStatus, IStatusViewDataQ by statusViewDataQ {
+            override val statusItemViewData: StatusItemViewData,
+        ) : WithStatusItem, IStatusItemViewData by statusItemViewData {
             override val rebloggedAvatar: String
                 get() = account.avatar
         }
@@ -102,7 +102,7 @@ sealed interface NotificationViewData {
         /**
          * One of the user's statuses has been favourited by [account].
          *
-         * @property statusViewDataQ Status being favourited.
+         * @property statusItemViewData Status being favourited.
          */
         data class FavouriteNotificationViewData(
             override val pachliAccountId: Long,
@@ -111,8 +111,8 @@ sealed interface NotificationViewData {
             override val account: TimelineAccount,
             override val isAboutSelf: Boolean,
             override val accountFilterDecision: AccountFilterDecision,
-            override val statusViewDataQ: StatusViewDataQ,
-        ) : WithStatus, IStatusViewDataQ by statusViewDataQ {
+            override val statusItemViewData: StatusItemViewData,
+        ) : WithStatusItem, IStatusItemViewData by statusItemViewData {
             override val rebloggedAvatar: String
                 get() = account.avatar
         }
@@ -120,7 +120,7 @@ sealed interface NotificationViewData {
         /**
          * A poll the user voted in or created has ended.
          *
-         * @property statusViewDataQ Status containing the poll.
+         * @property statusItemViewData Status containing the poll.
          */
         data class PollNotificationViewData(
             override val pachliAccountId: Long,
@@ -129,13 +129,13 @@ sealed interface NotificationViewData {
             override val account: TimelineAccount,
             override val isAboutSelf: Boolean,
             override val accountFilterDecision: AccountFilterDecision,
-            override val statusViewDataQ: StatusViewDataQ,
-        ) : WithStatus, IStatusViewDataQ by statusViewDataQ
+            override val statusItemViewData: StatusItemViewData,
+        ) : WithStatusItem, IStatusItemViewData by statusItemViewData
 
         /**
          * An [account] the user enabled notifications for has posted a status.
          *
-         * @property statusViewDataQ Newly posted status.
+         * @property statusItemViewData Newly posted status.
          */
         data class StatusNotificationViewData(
             override val pachliAccountId: Long,
@@ -144,13 +144,13 @@ sealed interface NotificationViewData {
             override val account: TimelineAccount,
             override val isAboutSelf: Boolean,
             override val accountFilterDecision: AccountFilterDecision,
-            override val statusViewDataQ: StatusViewDataQ,
-        ) : WithStatus, IStatusViewDataQ by statusViewDataQ
+            override val statusItemViewData: StatusItemViewData,
+        ) : WithStatusItem, IStatusItemViewData by statusItemViewData
 
         /**
          * A status the user reblogged has been edited.
          *
-         * @property statusViewDataQ Latest version of the edited status.
+         * @property statusItemViewData Latest version of the edited status.
          */
         data class UpdateNotificationViewData(
             override val pachliAccountId: Long,
@@ -159,8 +159,8 @@ sealed interface NotificationViewData {
             override val account: TimelineAccount,
             override val isAboutSelf: Boolean,
             override val accountFilterDecision: AccountFilterDecision,
-            override val statusViewDataQ: StatusViewDataQ,
-        ) : WithStatus, IStatusViewDataQ by statusViewDataQ
+            override val statusItemViewData: StatusItemViewData,
+        ) : WithStatusItem, IStatusItemViewData by statusItemViewData
     }
 
     /** An [account] has followed the user. */

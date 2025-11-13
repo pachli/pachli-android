@@ -34,7 +34,7 @@ import app.pachli.components.search.SearchOperator.LanguageOperator
 import app.pachli.components.search.SearchOperator.WhereOperator
 import app.pachli.components.search.adapter.SearchPagingSourceFactory
 import app.pachli.core.data.model.IStatusViewData
-import app.pachli.core.data.model.StatusViewDataQ
+import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
@@ -208,7 +208,7 @@ class SearchViewModel @Inject constructor(
         emptySet(),
     )
 
-    private val loadedStatuses: MutableList<StatusViewDataQ> = mutableListOf()
+    private val loadedStatuses: MutableList<StatusItemViewData> = mutableListOf()
 
     private val statusesPagingSourceFactory = SearchPagingSourceFactory(mastodonApi, SearchType.Status, loadedStatuses) {
         val pachliAccountId = activeAccount!!.id
@@ -233,7 +233,7 @@ class SearchViewModel @Inject constructor(
                 },
             )
         }.map { status ->
-            StatusViewDataQ.from(
+            StatusItemViewData.from(
                 pachliAccountId = activeAccount!!.id,
                 status,
                 isExpanded = alwaysOpenSpoiler,
@@ -419,7 +419,7 @@ class SearchViewModel @Inject constructor(
             )
     }
 
-    private fun updateStatusViewData(oldStatusViewData: IStatusViewData, updater: (StatusViewDataQ) -> StatusViewDataQ) {
+    private fun updateStatusViewData(oldStatusViewData: IStatusViewData, updater: (StatusItemViewData) -> StatusItemViewData) {
         val idx = loadedStatuses.indexOfFirst { it.statusId == oldStatusViewData.statusId }
         if (idx >= 0) {
             loadedStatuses[idx] = updater(loadedStatuses[idx])

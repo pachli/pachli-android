@@ -27,10 +27,10 @@ import app.pachli.adapter.StatusViewDataDiffCallback
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.data.model.NotificationViewData
-import app.pachli.core.data.model.NotificationViewData.WithStatus.FavouriteNotificationViewData
-import app.pachli.core.data.model.NotificationViewData.WithStatus.ReblogNotificationViewData
-import app.pachli.core.data.model.NotificationViewData.WithStatus.StatusNotificationViewData
-import app.pachli.core.data.model.NotificationViewData.WithStatus.UpdateNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatusItem.FavouriteNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatusItem.ReblogNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatusItem.StatusNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatusItem.UpdateNotificationViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.ui.SetStatusContent
 import app.pachli.core.ui.emojify
@@ -52,9 +52,9 @@ internal class StatusNotificationViewHolder(
     private val glide: RequestManager,
     private val setStatusContent: SetStatusContent,
     private val notificationActionListener: NotificationActionListener,
-) : NotificationsPagingAdapter.ViewHolder<NotificationViewData.WithStatus>, RecyclerView.ViewHolder(binding.root) {
+) : NotificationsPagingAdapter.ViewHolder<NotificationViewData.WithStatusItem>, RecyclerView.ViewHolder(binding.root) {
     override fun bind(
-        viewData: NotificationViewData.WithStatus,
+        viewData: NotificationViewData.WithStatusItem,
         payloads: List<List<Any?>>?,
         statusDisplayOptions: StatusDisplayOptions,
     ) {
@@ -82,7 +82,7 @@ internal class StatusNotificationViewHolder(
     }
 
     fun setMessage(
-        viewData: NotificationViewData.WithStatus,
+        viewData: NotificationViewData.WithStatusItem,
         statusDisplayOptions: StatusDisplayOptions,
     ) {
         val displayName = viewData.account.name.unicodeWrap()

@@ -25,7 +25,7 @@ import app.pachli.adapter.StatusDetailedViewHolder
 import app.pachli.adapter.StatusViewDataDiffCallback
 import app.pachli.adapter.StatusViewHolder
 import app.pachli.core.data.model.StatusDisplayOptions
-import app.pachli.core.data.model.StatusViewDataQ
+import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.model.FilterAction
 import app.pachli.core.ui.SetStatusContent
 import app.pachli.core.ui.StatusActionListener
@@ -39,9 +39,9 @@ class ThreadAdapter(
     private val statusDisplayOptions: StatusDisplayOptions,
     private val statusActionListener: StatusActionListener,
     private val setStatusContent: SetStatusContent,
-) : ListAdapter<StatusViewDataQ, StatusBaseViewHolder<StatusViewDataQ>>(StatusViewDataDiffCallback) {
+) : ListAdapter<StatusItemViewData, StatusBaseViewHolder<StatusItemViewData>>(StatusViewDataDiffCallback) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StatusBaseViewHolder<StatusViewDataQ> {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StatusBaseViewHolder<StatusItemViewData> {
         val inflater = LayoutInflater.from(parent.context)
         return when (viewType) {
             VIEW_TYPE_STATUS -> {
@@ -69,12 +69,12 @@ class ThreadAdapter(
         }
     }
 
-    override fun onBindViewHolder(viewHolder: StatusBaseViewHolder<StatusViewDataQ>, position: Int) {
+    override fun onBindViewHolder(viewHolder: StatusBaseViewHolder<StatusItemViewData>, position: Int) {
         val status = getItem(position)
         viewHolder.setupWithStatus(status, statusActionListener, statusDisplayOptions, null)
     }
 
-    override fun onBindViewHolder(holder: StatusBaseViewHolder<StatusViewDataQ>, position: Int, payloads: List<Any?>) {
+    override fun onBindViewHolder(holder: StatusBaseViewHolder<StatusItemViewData>, position: Int, payloads: List<Any?>) {
         val status = getItem(position)
         holder.setupWithStatus(status, statusActionListener, statusDisplayOptions, payloads as? List<List<Any?>>)
     }

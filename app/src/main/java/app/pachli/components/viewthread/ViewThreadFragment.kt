@@ -44,7 +44,7 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.model.IStatusViewData
-import app.pachli.core.data.model.StatusViewDataQ
+import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.AttachmentDisplayAction
@@ -79,7 +79,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ViewThreadFragment :
-    SFragment<StatusViewDataQ>(),
+    SFragment<StatusItemViewData>(),
     OnRefreshListener,
     StatusActionListener,
     MenuProvider {
@@ -318,11 +318,11 @@ class ViewThreadFragment :
         }
     }
 
-    override fun onTranslate(viewData: StatusViewDataQ) {
+    override fun onTranslate(viewData: StatusItemViewData) {
         viewModel.translate(viewData)
     }
 
-    override fun onTranslateUndo(viewData: StatusViewDataQ) {
+    override fun onTranslateUndo(viewData: StatusItemViewData) {
         viewModel.translateUndo(viewData)
     }
 
@@ -352,7 +352,7 @@ class ViewThreadFragment :
     }
 
     override fun onMore(view: View, viewData: IStatusViewData) {
-        super.more(view, viewData as StatusViewDataQ)
+        super.more(view, viewData as StatusItemViewData)
     }
 
     override fun onViewAttachment(view: View?, viewData: IStatusViewData, attachmentIndex: Int) {
@@ -431,7 +431,7 @@ class ViewThreadFragment :
         super.viewAccount(id)
     }
 
-    public override fun removeItem(viewData: StatusViewDataQ) {
+    public override fun removeItem(viewData: StatusItemViewData) {
         if (viewData.isDetailed) {
             // the main status we are viewing is being removed, finish the activity
             activity?.finish()

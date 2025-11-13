@@ -46,10 +46,10 @@ data class ConversationViewData(
     val conversationId: String,
     val accounts: List<ConversationAccount>,
     val unread: Boolean,
-    val lastStatus: StatusViewDataQ,
+    val lastStatus: StatusItemViewData,
     val accountFilterDecision: AccountFilterDecision? = null,
     val isConversationStarter: Boolean,
-) : IStatusViewDataQ by lastStatus {
+) : IStatusItemViewData by lastStatus {
     companion object {
         /**
          * Creates a [ConversationViewData].
@@ -74,7 +74,7 @@ data class ConversationViewData(
             conversationId = conversationData.id,
             accounts = conversationData.accounts,
             unread = conversationData.unread,
-            lastStatus = StatusViewDataQ.from(
+            lastStatus = StatusItemViewData.from(
                 pachliAccountId = pachliAccount.id,
                 conversationData.lastStatus,
                 isExpanded = defaultIsExpanded,

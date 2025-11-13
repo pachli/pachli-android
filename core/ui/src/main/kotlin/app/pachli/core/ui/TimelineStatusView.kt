@@ -22,20 +22,20 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
-import app.pachli.core.data.model.IStatusViewDataQ
+import app.pachli.core.data.model.IStatusItemViewData
 import app.pachli.core.data.model.StatusDisplayOptions
-import app.pachli.core.data.model.StatusViewDataQ
+import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.ui.databinding.StatusContentBinding
 import com.bumptech.glide.RequestManager
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 
-/** Compound view that displays [StatusViewDataQ] using [StatusContentBinding]. */
+/** Compound view that displays [StatusItemViewData] using [StatusContentBinding]. */
 class TimelineStatusView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
     defStyleRes: Int = 0,
-) : StatusView<IStatusViewDataQ>(context, attrs, defStyleAttr, defStyleRes) {
+) : StatusView<IStatusItemViewData>(context, attrs, defStyleAttr, defStyleRes) {
     private val binding = StatusContentBinding.inflate(LayoutInflater.from(context), this)
 
     override val avatar = binding.statusAvatar
@@ -57,7 +57,7 @@ class TimelineStatusView @JvmOverloads constructor(
         setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null)
     }
 
-    override fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: IStatusViewDataQ, listener: StatusActionListener, statusDisplayOptions: StatusDisplayOptions) {
+    override fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: IStatusItemViewData, listener: StatusActionListener, statusDisplayOptions: StatusDisplayOptions) {
         super.setupWithStatus(setStatusContent, glide, viewData, listener, statusDisplayOptions)
 
         val quotedViewData = viewData.quotedViewData

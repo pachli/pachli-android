@@ -25,13 +25,13 @@ import app.pachli.core.data.model.NotificationViewData.ReportNotificationViewDat
 import app.pachli.core.data.model.NotificationViewData.SeveredRelationshipsNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.SignupNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.UnknownNotificationViewData
-import app.pachli.core.data.model.NotificationViewData.WithStatus.FavouriteNotificationViewData
-import app.pachli.core.data.model.NotificationViewData.WithStatus.MentionNotificationViewData
-import app.pachli.core.data.model.NotificationViewData.WithStatus.PollNotificationViewData
-import app.pachli.core.data.model.NotificationViewData.WithStatus.ReblogNotificationViewData
-import app.pachli.core.data.model.NotificationViewData.WithStatus.StatusNotificationViewData
-import app.pachli.core.data.model.NotificationViewData.WithStatus.UpdateNotificationViewData
-import app.pachli.core.data.model.StatusViewDataQ
+import app.pachli.core.data.model.NotificationViewData.WithStatusItem.FavouriteNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatusItem.MentionNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatusItem.PollNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatusItem.ReblogNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatusItem.StatusNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatusItem.UpdateNotificationViewData
+import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.NotificationData
 import app.pachli.core.database.model.NotificationEntity
@@ -75,8 +75,8 @@ fun NotificationViewData.Companion.make(
         account = data.account.asModel(),
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
-        statusViewDataQ = data.status!!.let {
-            StatusViewDataQ.from(
+        statusItemViewData = data.status!!.let {
+            StatusItemViewData.from(
                 pachliAccountId = pachliAccountEntity.id,
                 it,
                 isExpanded = isExpanded,
@@ -96,8 +96,8 @@ fun NotificationViewData.Companion.make(
         account = data.account.asModel(),
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
-        statusViewDataQ = data.status!!.let {
-            StatusViewDataQ.from(
+        statusItemViewData = data.status!!.let {
+            StatusItemViewData.from(
                 pachliAccountId = pachliAccountEntity.id,
                 it,
                 isExpanded = isExpanded,
@@ -117,8 +117,8 @@ fun NotificationViewData.Companion.make(
         account = data.account.asModel(),
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
-        statusViewDataQ = data.status!!.let {
-            StatusViewDataQ.from(
+        statusItemViewData = data.status!!.let {
+            StatusItemViewData.from(
                 pachliAccountId = pachliAccountEntity.id,
                 it,
                 isExpanded = isExpanded,
@@ -156,8 +156,8 @@ fun NotificationViewData.Companion.make(
         account = data.account.asModel(),
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
-        statusViewDataQ = data.status!!.let {
-            StatusViewDataQ.from(
+        statusItemViewData = data.status!!.let {
+            StatusItemViewData.from(
                 pachliAccountId = pachliAccountEntity.id,
                 it,
                 isExpanded = isExpanded,
@@ -177,8 +177,8 @@ fun NotificationViewData.Companion.make(
         account = data.account.asModel(),
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
-        statusViewDataQ = data.status!!.let {
-            StatusViewDataQ.from(
+        statusItemViewData = data.status!!.let {
+            StatusItemViewData.from(
                 pachliAccountId = pachliAccountEntity.id,
                 it,
                 isExpanded = isExpanded,
@@ -207,8 +207,8 @@ fun NotificationViewData.Companion.make(
         account = data.account.asModel(),
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
-        statusViewDataQ = data.status!!.let {
-            StatusViewDataQ.from(
+        statusItemViewData = data.status!!.let {
+            StatusItemViewData.from(
                 pachliAccountId = pachliAccountEntity.id,
                 it,
                 isExpanded = isExpanded,

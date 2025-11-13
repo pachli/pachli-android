@@ -22,10 +22,10 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
-import app.pachli.core.data.model.IStatusViewDataQ
+import app.pachli.core.data.model.IStatusItemViewData
 import app.pachli.core.data.model.StatusDisplayOptions
+import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.data.model.StatusViewData
-import app.pachli.core.data.model.StatusViewDataQ
 import app.pachli.core.ui.databinding.StatusContentBinding
 import com.bumptech.glide.RequestManager
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
@@ -43,7 +43,7 @@ class ReportStatusView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
     defStyleRes: Int = 0,
-) : StatusView<StatusViewDataQ>(context, attrs, defStyleAttr, defStyleRes) {
+) : StatusView<StatusItemViewData>(context, attrs, defStyleAttr, defStyleRes) {
     val binding = StatusContentBinding.inflate(LayoutInflater.from(context), this)
 
     override val avatar = binding.statusAvatar
@@ -65,13 +65,13 @@ class ReportStatusView @JvmOverloads constructor(
         setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null)
     }
 
-    override fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: StatusViewDataQ, listener: StatusActionListener, statusDisplayOptions: StatusDisplayOptions) {
+    override fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: StatusItemViewData, listener: StatusActionListener, statusDisplayOptions: StatusDisplayOptions) {
         super.setupWithStatus(setStatusContent, glide, viewData, listener, statusDisplayOptions)
 
         // Can't vote while reporting statuses.
         binding.statusPoll.isEnabled = false
 
-        val quotedViewData = (viewData as? IStatusViewDataQ)?.quotedViewData
+        val quotedViewData = (viewData as? IStatusItemViewData)?.quotedViewData
         if (quotedViewData == null) {
             binding.statusQuote.hide()
             return

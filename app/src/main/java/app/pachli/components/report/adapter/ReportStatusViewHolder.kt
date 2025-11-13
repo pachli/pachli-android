@@ -20,7 +20,7 @@ package app.pachli.components.report.adapter
 import android.widget.Checkable
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.core.data.model.StatusDisplayOptions
-import app.pachli.core.data.model.StatusViewDataQ
+import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.ui.SetStatusContent
 import app.pachli.databinding.ItemReportStatusBinding
 import com.bumptech.glide.RequestManager
@@ -31,7 +31,7 @@ open class ReportStatusViewHolder(
     private val setStatusContent: SetStatusContent,
     private val statusDisplayOptions: StatusDisplayOptions,
     private val listener: ReportStatusActionListener,
-    private val getStatusForPosition: (Int) -> StatusViewDataQ?,
+    private val getStatusForPosition: (Int) -> StatusItemViewData?,
 ) : RecyclerView.ViewHolder(binding.root), Checkable {
     private var isChecked = false
 
@@ -44,7 +44,7 @@ open class ReportStatusViewHolder(
         }
     }
 
-    fun bind(viewData: StatusViewDataQ) {
+    fun bind(viewData: StatusItemViewData) {
         isChecked = listener.isStatusChecked(viewData.statusId)
         binding.statusSelection.isChecked = isChecked
         binding.statusView.setupWithStatus(

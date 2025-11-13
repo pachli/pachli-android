@@ -22,8 +22,8 @@ import app.pachli.components.timeline.CachedTimelineRepository
 import app.pachli.core.common.PachliError
 import app.pachli.core.data.model.ContentFilterModel
 import app.pachli.core.data.model.IStatusViewData
+import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.data.model.StatusViewData
-import app.pachli.core.data.model.StatusViewDataQ
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
@@ -156,7 +156,7 @@ class ViewThreadViewModel @Inject constructor(
                 Timber.d("Loading status from local timeline")
                 val status = timelineStatusWithQuote.toStatus()
 
-                StatusViewDataQ.from(
+                StatusItemViewData.from(
                     pachliAccountId = account.id,
                     timelineStatusWithQuote = timelineStatusWithQuote,
                     isExpanded = account.alwaysOpenSpoiler,
@@ -280,7 +280,7 @@ class ViewThreadViewModel @Inject constructor(
         loadThread(id)
     }
 
-    fun detailedStatus(): StatusViewDataQ? {
+    fun detailedStatus(): StatusItemViewData? {
         return when (val uiState = _uiResult.value.get()) {
             is ThreadUiState.Loaded -> uiState.statusViewData.find { status ->
                 status.isDetailed
@@ -430,7 +430,7 @@ class ViewThreadViewModel @Inject constructor(
             if (detailedIndex != -1 && repliedIndex >= detailedIndex) {
                 // there is a new reply to the detailed status or below -> display it
                 val newStatuses = statuses.subList(0, repliedIndex + 1) +
-                    StatusViewDataQ.fromStatusAndUiState(activeAccount, eventStatus) +
+                    StatusItemViewData.fromStatusAndUiState(activeAccount, eventStatus) +
                     statuses.subList(repliedIndex + 1, statuses.size)
                 uiState.copy(statusViewData = newStatuses)
             } else {
@@ -444,7 +444,7 @@ class ViewThreadViewModel @Inject constructor(
             uiState.copy(
                 statusViewData = uiState.statusViewData.map { status ->
                     if (status.actionableId == event.originalId) {
-                        StatusViewDataQ.fromStatusAndUiState(activeAccount, event.status)
+                        StatusItemViewData.fromStatusAndUiState(activeAccount, event.status)
                     } else {
                         status
                     }
@@ -454,7 +454,7 @@ class ViewThreadViewModel @Inject constructor(
     }
 
     /**
-     * Returns a [StatusViewDataQ] from [Status].
+     * Returns a [StatusItemViewData] from [Status].
      *
      * @param pachliAccountId
      * @param alwaysOpenSpoiler Default value for [StatusViewData.isExpanded]
@@ -476,9 +476,9 @@ class ViewThreadViewModel @Inject constructor(
         translationCache: Map<String, TranslatedStatusEntity?> = emptyMap(),
         contentFilterAction: FilterAction? = null,
         isDetailed: Boolean = false,
-    ): StatusViewDataQ {
+    ): StatusItemViewData {
         val quote = (quote as? Status.Quote.FullQuote)?.status
-        return StatusViewDataQ.from(
+        return StatusItemViewData.from(
             pachliAccountId = pachliAccountId,
             timelineStatusWithQuote = TimelineStatusWithQuote(
                 timelineStatus = TimelineStatusWithAccount(
@@ -644,11 +644,11 @@ class ViewThreadViewModel @Inject constructor(
      * Creates a [StatusViewData] from `status`, copying over the viewdata state from the same
      * status in _uiState (if that status exists).
      */
-    private fun StatusViewDataQ.Companion.fromStatusAndUiState(
+    private fun StatusItemViewData.Companion.fromStatusAndUiState(
         account: AccountEntity,
         status: Status,
         isDetailed: Boolean = false,
-    ): StatusViewDataQ {
+    ): StatusItemViewData {
         val q = status.asStatusViewDataQ(
             account.id,
             account.alwaysOpenSpoiler,
@@ -728,13 +728,13 @@ sealed interface ThreadUiState {
 
     /** Loading the detailed status has completed, now loading ancestors/descendants */
     data class LoadingThread(
-        val statusViewDatum: StatusViewDataQ?,
+        val statusViewDatum: StatusItemViewData?,
         val revealButton: RevealButtonState,
     ) : ThreadUiState
 
     /** Successfully loaded the full thread */
     data class Loaded(
-        val statusViewData: List<StatusViewDataQ>,
+        val statusViewData: List<StatusItemViewData>,
         val revealButton: RevealButtonState,
         val detailedStatusPosition: Int,
     ) : ThreadUiState

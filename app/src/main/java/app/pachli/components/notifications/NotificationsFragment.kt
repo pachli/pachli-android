@@ -102,7 +102,7 @@ import postPrepend
 
 @AndroidEntryPoint
 class NotificationsFragment :
-    SFragment<NotificationViewData.WithStatus>(),
+    SFragment<NotificationViewData.WithStatusItem>(),
     NotificationActionListener,
     AccountActionListener,
     OnRefreshListener,
@@ -215,7 +215,7 @@ class NotificationsFragment :
         binding.recyclerView.setAccessibilityDelegateCompat(
             ListStatusAccessibilityDelegate(pachliAccountId, binding.recyclerView, this@NotificationsFragment, openUrl) { pos: Int ->
                 if (pos in 0 until adapter.itemCount) {
-                    adapter.peek(pos) as? NotificationViewData.WithStatus
+                    adapter.peek(pos) as? NotificationViewData.WithStatusItem
                 } else {
                     null
                 }
@@ -512,14 +512,14 @@ class NotificationsFragment :
     }
 
     override fun onMore(view: View, viewData: IStatusViewData) {
-        super.more(view, viewData as NotificationViewData.WithStatus)
+        super.more(view, viewData as NotificationViewData.WithStatusItem)
     }
 
-    override fun onTranslate(viewData: NotificationViewData.WithStatus) {
+    override fun onTranslate(viewData: NotificationViewData.WithStatusItem) {
         viewModel.accept(FallibleStatusAction.Translate(viewData))
     }
 
-    override fun onTranslateUndo(viewData: NotificationViewData.WithStatus) {
+    override fun onTranslateUndo(viewData: NotificationViewData.WithStatusItem) {
         viewModel.accept(InfallibleStatusAction.TranslateUndo(viewData))
     }
 
@@ -577,7 +577,7 @@ class NotificationsFragment :
         )
     }
 
-    override fun onNotificationContentCollapsedChange(isCollapsed: Boolean, viewData: NotificationViewData.WithStatus) {
+    override fun onNotificationContentCollapsedChange(isCollapsed: Boolean, viewData: NotificationViewData.WithStatusItem) {
         onContentCollapsedChange(viewData, isCollapsed)
     }
 
@@ -642,7 +642,7 @@ class NotificationsFragment :
     }
 
     // Empty -- this fragment doesn't remove items
-    override fun removeItem(viewData: NotificationViewData.WithStatus) = Unit
+    override fun removeItem(viewData: NotificationViewData.WithStatusItem) = Unit
 
     override fun onReselect() {
         if (isAdded) {

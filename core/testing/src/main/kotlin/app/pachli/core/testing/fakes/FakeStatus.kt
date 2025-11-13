@@ -17,8 +17,8 @@
 
 package app.pachli.core.testing.fakes
 
+import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.data.model.StatusViewData
-import app.pachli.core.data.model.StatusViewDataQ
 import app.pachli.core.data.repository.notifications.asEntity
 import app.pachli.core.database.dao.TimelineStatusWithAccount
 import app.pachli.core.database.model.StatusViewDataEntity
@@ -131,7 +131,7 @@ fun fakeStatusViewData(
     reblogged: Boolean = false,
     favourited: Boolean = true,
     bookmarked: Boolean = true,
-) = StatusViewDataQ(
+) = StatusItemViewData(
     statusViewData = StatusViewData(
         pachliAccountId = 1L,
         status = fakeStatus(

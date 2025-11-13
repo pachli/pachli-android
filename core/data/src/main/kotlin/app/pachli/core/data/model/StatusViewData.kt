@@ -34,6 +34,8 @@ import app.pachli.core.network.replaceCrashingCharacters
 /**
  * Interface for the data shown when viewing a status, or something that wraps
  * a status, like [NotificationViewData] or [ConversationViewData].
+ *
+ * See [IStatusItemViewData].
  */
 sealed interface IStatusViewData : IStatus {
     /** ID of the Pachli account that loaded this status. */
@@ -47,7 +49,7 @@ sealed interface IStatusViewData : IStatus {
     // TODO: rebloggedAvatar is the wrong name for this property. This is the avatar to show
     // inset in the main avatar view. When viewing a boosted status in a timeline this is
     // avatar that boosted it, but when viewing a notification about a boost or favourite
-    // this the avatar that boosted/favourited it
+    // this is the avatar that boosted/favourited it
     val rebloggedAvatar: String?
         get() = if (status.reblog != null) {
             status.account.avatar
@@ -133,7 +135,12 @@ sealed interface IStatusViewData : IStatus {
     val isDetailed: Boolean
 }
 
-sealed interface IStatusViewDataQ : IStatusViewData {
+/**
+ * The [IStatusViewData] for a status and any status it quotes (if present).
+ *
+ * Collectively, these form a "status item", ready for display.
+ */
+sealed interface IStatusItemViewData : IStatusViewData {
     val statusViewData: StatusViewData
     val quotedViewData: StatusViewData?
 }
@@ -141,11 +148,10 @@ sealed interface IStatusViewDataQ : IStatusViewData {
 /**
  * Contains a status, and an optional status being quoted.
  */
-// TODO: Better name for this is "StatusItemViewData" -- "item" implies UI based
-data class StatusViewDataQ(
+data class StatusItemViewData(
     override val statusViewData: StatusViewData,
     override val quotedViewData: StatusViewData? = null,
-) : IStatusViewDataQ, IStatusViewData by statusViewData {
+) : IStatusItemViewData, IStatusViewData by statusViewData {
 
     companion object {
         fun from(
@@ -158,8 +164,8 @@ data class StatusViewDataQ(
             translationState: TranslationState = TranslationState.SHOW_ORIGINAL,
             showSensitiveMedia: Boolean,
             filterContext: FilterContext?,
-        ): StatusViewDataQ {
-            return StatusViewDataQ(
+        ): StatusItemViewData {
+            return StatusItemViewData(
                 statusViewData = StatusViewData.from(
                     pachliAccountId,
                     timelineStatusWithQuote.timelineStatus.toStatus(),

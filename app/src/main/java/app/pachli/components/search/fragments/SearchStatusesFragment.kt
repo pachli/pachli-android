@@ -43,7 +43,7 @@ import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.data.model.IStatusViewData
-import app.pachli.core.data.model.StatusViewDataQ
+import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.domain.DownloadUrlUseCase
@@ -79,7 +79,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
-class SearchStatusesFragment : SearchFragment<StatusViewDataQ>(), StatusActionListener {
+class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActionListener {
     @Inject
     lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
 
@@ -92,7 +92,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewDataQ>(), StatusActionLi
     @Inject
     lateinit var openUrl: OpenUrlUseCase
 
-    override val data: Flow<PagingData<StatusViewDataQ>>
+    override val data: Flow<PagingData<StatusItemViewData>>
         get() = viewModel.statusesFlow
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -115,7 +115,7 @@ class SearchStatusesFragment : SearchFragment<StatusViewDataQ>(), StatusActionLi
         }
     }
 
-    override fun createAdapter(): PagingDataAdapter<StatusViewDataQ, *> {
+    override fun createAdapter(): PagingDataAdapter<StatusItemViewData, *> {
         val statusDisplayOptions = statusDisplayOptionsRepository.flow.value
 
         val setStatusContent = if (statusDisplayOptions.renderMarkdown) {

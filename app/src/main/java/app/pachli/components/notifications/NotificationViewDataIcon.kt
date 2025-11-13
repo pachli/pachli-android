@@ -27,12 +27,12 @@ import app.pachli.core.data.model.NotificationViewData
 import app.pachli.core.data.model.NotificationViewData.FollowNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.FollowRequestNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.UnknownNotificationViewData
-import app.pachli.core.data.model.NotificationViewData.WithStatus.FavouriteNotificationViewData
-import app.pachli.core.data.model.NotificationViewData.WithStatus.MentionNotificationViewData
-import app.pachli.core.data.model.NotificationViewData.WithStatus.PollNotificationViewData
-import app.pachli.core.data.model.NotificationViewData.WithStatus.ReblogNotificationViewData
-import app.pachli.core.data.model.NotificationViewData.WithStatus.StatusNotificationViewData
-import app.pachli.core.data.model.NotificationViewData.WithStatus.UpdateNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatusItem.FavouriteNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatusItem.MentionNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatusItem.PollNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatusItem.ReblogNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatusItem.StatusNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatusItem.UpdateNotificationViewData
 import app.pachli.util.setDrawableTint
 
 /**

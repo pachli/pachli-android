@@ -25,8 +25,8 @@ import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusDisplayOptions
+import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.data.model.StatusViewData
-import app.pachli.core.data.model.StatusViewDataQ
 import app.pachli.core.ui.SetStatusContent
 import app.pachli.core.ui.StatusActionListener
 import app.pachli.core.ui.StatusControlView
@@ -158,11 +158,11 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
 }
 
 /**
- * Callback to determine what, if anything, has changed in a [StatusViewDataQ].
+ * Callback to determine what, if anything, has changed in a [StatusItemViewData].
  *
  * Changes are represented by [Payload].
  */
-object StatusViewDataDiffCallback : DiffUtil.ItemCallback<StatusViewDataQ>() {
+object StatusViewDataDiffCallback : DiffUtil.ItemCallback<StatusItemViewData>() {
     /** Changes to a [StatusViewData]. */
     enum class Payload {
         /** The timestamp for the status should be recalculated and displayed. */
@@ -189,22 +189,22 @@ object StatusViewDataDiffCallback : DiffUtil.ItemCallback<StatusViewDataQ>() {
     }
 
     override fun areItemsTheSame(
-        oldItem: StatusViewDataQ,
-        newItem: StatusViewDataQ,
+        oldItem: StatusItemViewData,
+        newItem: StatusItemViewData,
     ): Boolean {
         return oldItem.statusId == newItem.statusId
     }
 
     override fun areContentsTheSame(
-        oldItem: StatusViewDataQ,
-        newItem: StatusViewDataQ,
+        oldItem: StatusItemViewData,
+        newItem: StatusItemViewData,
     ): Boolean {
         return oldItem == newItem
     }
 
     override fun getChangePayload(
-        oldItem: StatusViewDataQ,
-        newItem: StatusViewDataQ,
+        oldItem: StatusItemViewData,
+        newItem: StatusItemViewData,
     ): Any? {
         val payload = buildList {
             add(Payload.CREATED)

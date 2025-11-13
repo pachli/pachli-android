@@ -29,8 +29,8 @@ import app.pachli.core.common.PachliError
 import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.data.model.ContentFilterModel
 import app.pachli.core.data.model.IStatusViewData
+import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.data.model.StatusViewData
-import app.pachli.core.data.model.StatusViewDataQ
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.StatusActionError
@@ -324,7 +324,7 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
     val uiState: StateFlow<UiState>
 
     /** Flow of statuses that make up the timeline of [timeline] for [pachliAccountId]. */
-    abstract val statuses: Flow<PagingData<StatusViewDataQ>>
+    abstract val statuses: Flow<PagingData<StatusItemViewData>>
 
     /** Flow of changes to statusDisplayOptions, for use by the UI */
     val statusDisplayOptions = statusDisplayOptionsRepository.flow

@@ -23,7 +23,7 @@ import androidx.paging.filter
 import androidx.paging.map
 import app.pachli.components.timeline.CachedTimelineRepository
 import app.pachli.core.data.model.IStatusViewData
-import app.pachli.core.data.model.StatusViewDataQ
+import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.model.TimelineStatusWithQuote
@@ -75,7 +75,7 @@ class CachedTimelineViewModel @AssistedInject constructor(
                 .map { Pair(it, shouldFilterStatus(it.timelineStatus)) }
                 .filter { it.second != FilterAction.HIDE }
                 .map { (timelineStatusWithQuote, contentFilterAction) ->
-                    StatusViewDataQ.from(
+                    StatusItemViewData.from(
                         pachliAccountId = pachliAccount.id,
                         timelineStatusWithQuote,
                         isExpanded = pachliAccount.entity.alwaysOpenSpoiler,

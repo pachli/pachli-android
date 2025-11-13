@@ -25,7 +25,7 @@ import app.pachli.adapter.FilterableStatusViewHolder
 import app.pachli.adapter.StatusViewDataDiffCallback
 import app.pachli.adapter.StatusViewHolder
 import app.pachli.core.data.model.StatusDisplayOptions
-import app.pachli.core.data.model.StatusViewDataQ
+import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.model.FilterAction
 import app.pachli.core.ui.SetStatusContent
 import app.pachli.core.ui.StatusActionListener
@@ -38,19 +38,19 @@ class TimelinePagingAdapter(
     private val setStatusContent: SetStatusContent,
     private val statusListener: StatusActionListener,
     var statusDisplayOptions: StatusDisplayOptions,
-) : PagingDataAdapter<StatusViewDataQ, RecyclerView.ViewHolder>(StatusViewDataDiffCallback) {
+) : PagingDataAdapter<StatusItemViewData, RecyclerView.ViewHolder>(StatusViewDataDiffCallback) {
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(viewGroup.context)
         return when (viewType) {
             VIEW_TYPE_STATUS_FILTERED -> {
-                FilterableStatusViewHolder<StatusViewDataQ>(
+                FilterableStatusViewHolder<StatusItemViewData>(
                     ItemStatusWrapperBinding.inflate(inflater, viewGroup, false),
                     glide,
                     setStatusContent,
                 )
             }
             VIEW_TYPE_STATUS -> {
-                StatusViewHolder<StatusViewDataQ>(
+                StatusViewHolder<StatusItemViewData>(
                     ItemStatusBinding.inflate(inflater, viewGroup, false),
                     glide,
                     setStatusContent,
@@ -74,7 +74,7 @@ class TimelinePagingAdapter(
         } catch (_: IndexOutOfBoundsException) {
             null
         }?.let {
-            (viewHolder as StatusViewHolder<StatusViewDataQ>).setupWithStatus(
+            (viewHolder as StatusViewHolder<StatusItemViewData>).setupWithStatus(
                 it,
                 statusListener,
                 statusDisplayOptions,

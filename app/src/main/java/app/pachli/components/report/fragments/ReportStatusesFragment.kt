@@ -44,7 +44,7 @@ import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.data.model.IStatusViewData
-import app.pachli.core.data.model.StatusViewDataQ
+import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.IStatus
 import app.pachli.core.model.Poll
@@ -81,7 +81,7 @@ import kotlinx.coroutines.launch
  */
 @AndroidEntryPoint
 class ReportStatusesFragment :
-    SFragment<StatusViewDataQ>(),
+    SFragment<StatusItemViewData>(),
     OnRefreshListener,
     MenuProvider,
     ReportStatusActionListener {
@@ -295,7 +295,7 @@ class ReportStatusesFragment :
 
     override fun onViewUrl(url: String) = viewModel.checkClickedUrl(url)
 
-    override fun removeItem(viewData: StatusViewDataQ) = Unit
+    override fun removeItem(viewData: StatusItemViewData) = Unit
     override fun onReply(viewData: IStatusViewData) = Unit
     override fun onReblog(viewData: IStatusViewData, reblog: Boolean) = Unit
     override fun onFavourite(viewData: IStatusViewData, favourite: Boolean) = Unit
@@ -303,8 +303,8 @@ class ReportStatusesFragment :
     override fun onMore(view: View, viewData: IStatusViewData) = Unit
     override fun onOpenReblog(status: IStatus) = Unit
     override fun onVoteInPoll(viewData: IStatusViewData, poll: Poll, choices: List<Int>) = Unit
-    override fun onTranslate(viewData: StatusViewDataQ) = Unit
-    override fun onTranslateUndo(viewData: StatusViewDataQ) = Unit
+    override fun onTranslate(viewData: StatusItemViewData) = Unit
+    override fun onTranslateUndo(viewData: StatusItemViewData) = Unit
 
     companion object {
         private const val ARG_PACHLI_ACCOUNT_ID = "app.pachli.ARG_PACHLI_ACCOUNT_ID"
