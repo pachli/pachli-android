@@ -306,19 +306,6 @@ WHERE serverId = :statusId
 
     @Query(
         """
-SELECT *
-FROM TimelineStatusWithAccount
-WHERE
-    timelineUserId == :pachliAccountId
-    AND (serverId = :statusId OR reblogServerId = :statusId)
-    AND authorServerId IS NOT NULL
-""",
-    )
-    // TODO: Probably doesn't need to use TimelineStatus.
-    abstract suspend fun getStatus(pachliAccountId: Long, statusId: String): TimelineStatusWithAccount?
-
-    @Query(
-        """
 SELECT
      -- TimelineStatusWithAccount
     s.serverId AS 's_serverId',
@@ -1068,9 +1055,9 @@ data class TimelineStatusWithAccount(
         val poll: Poll? = status.poll
         val card: Card? = status.card
 
-        val reblog = status.reblogServerId?.let { id ->
+        val reblog = status.reblogServerId?.let { actionableId ->
             Status(
-                statusId = id,
+                statusId = actionableId,
                 url = status.url,
                 account = account.asModel(),
                 inReplyToId = status.inReplyToId,
@@ -1097,9 +1084,14 @@ data class TimelineStatusWithAccount(
                 muted = status.muted,
                 poll = poll,
                 card = card,
-                // TODO: Is this right?
-                quote = null,
-                quoteApproval = Status.QuoteApproval(),
+                // Quotes are converted to shallow quotes here. See [TSQ] for the
+                // class that contains the full quote.
+                quote = status.quoteState?.let { quoteState ->
+                    status.quoteServerId?.let { quoteServerId ->
+                        Status.Quote.ShallowQuote(quoteState, quoteServerId)
+                    }
+                },
+                quoteApproval = status.quoteApproval,
                 repliesCount = status.repliesCount,
                 language = status.language,
                 filtered = status.filtered,
@@ -1136,9 +1128,14 @@ data class TimelineStatusWithAccount(
                 muted = status.muted,
                 poll = null,
                 card = null,
-                // TODO: Is this right?
-                quote = null,
-                quoteApproval = Status.QuoteApproval(),
+                // Quotes are converted to shallow quotes here. See [TSQ] for the
+                // class that contains the full quote.
+                quote = status.quoteState?.let { quoteState ->
+                    status.quoteServerId?.let { quoteServerId ->
+                        Status.Quote.ShallowQuote(quoteState, quoteServerId)
+                    }
+                },
+                quoteApproval = status.quoteApproval,
                 repliesCount = status.repliesCount,
                 language = status.language,
                 filtered = status.filtered,
@@ -1172,9 +1169,14 @@ data class TimelineStatusWithAccount(
                 muted = status.muted,
                 poll = poll,
                 card = card,
-                // TODO: Is this right?
-                quote = null,
-                quoteApproval = Status.QuoteApproval(),
+                // Quotes are converted to shallow quotes here. See [TSQ] for the
+                // class that contains the full quote.
+                quote = status.quoteState?.let { quoteState ->
+                    status.quoteServerId?.let { quoteServerId ->
+                        Status.Quote.ShallowQuote(quoteState, quoteServerId)
+                    }
+                },
+                quoteApproval = status.quoteApproval,
                 repliesCount = status.repliesCount,
                 language = status.language,
                 filtered = status.filtered,

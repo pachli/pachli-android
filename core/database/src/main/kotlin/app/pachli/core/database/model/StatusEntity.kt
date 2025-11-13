@@ -49,6 +49,11 @@ import java.util.Date
  * "Reblog status", if present, is marked by [reblogServerId], and [reblogAccountId]
  * fields.
  *
+ * @property serverId Status ID (see [reblogServerId])
+ * @property reblogServerId If this is a reblog, the ID of the status being reblogged (*not
+ * the ID of the reblog status*, that is still [serverId]). Also referred to as the
+ * *actionable* ID.
+ * @property reblogAccountId If this is a reblog, the ID of the account doing the reblogging.
  * @property reblogged True if [timelineUserId] reblogged this status.
  * @property isReblog True if this status is a reblog of another status (see
  * [reblogServerId] and [reblogAccountId])
@@ -352,7 +357,12 @@ data class TSQ(
                 muted = status.muted,
                 poll = null,
                 card = null,
-                quote = null,
+                quote = quotedStatus?.let {
+                    Status.Quote.FullQuote(
+                        state = status.quoteState!!,
+                        status = quotedStatus.toStatus(),
+                    )
+                },
                 quoteApproval = Status.QuoteApproval(),
                 repliesCount = status.repliesCount,
                 language = status.language,
@@ -387,7 +397,12 @@ data class TSQ(
                 muted = status.muted,
                 poll = poll,
                 card = card,
-                quote = null,
+                quote = quotedStatus?.let {
+                    Status.Quote.FullQuote(
+                        state = status.quoteState!!,
+                        status = quotedStatus.toStatus(),
+                    )
+                },
                 quoteApproval = Status.QuoteApproval(),
                 repliesCount = status.repliesCount,
                 language = status.language,
