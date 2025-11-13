@@ -312,7 +312,6 @@ class ViewThreadViewModel @Inject constructor(
                                 translatedStatus = cachedTranslations[status.actionableId],
                             ),
                             quotedStatus = (status.quote as? Status.Quote.FullQuote)?.status?.let { status ->
-                                val svd = cachedViewData[status.actionableId]
                                 TimelineStatusWithAccount(
                                     status = status.asEntity(activeAccount.id),
                                     account = status.account.asEntity(activeAccount.id),
