@@ -24,7 +24,6 @@ import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.StatusEntity
 import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TimelineStatusEntity
-import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.model.Card
 import app.pachli.core.model.Emoji
 import app.pachli.core.model.PreviewCardKind
@@ -470,6 +469,10 @@ class TimelineDaoTest {
             card = card,
             language = null,
             filtered = null,
+            quotesCount = 0,
+            quoteState = null,
+            quoteServerId = null,
+            quoteApproval = Status.QuoteApproval(),
         )
         return Triple(status, author, reblogAuthor)
     }
