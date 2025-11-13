@@ -173,7 +173,9 @@ data class InternalPage(
 // in each page, as well as every quoted status. This allows the mutation of a
 // quoted status.
 //
-//
+// `quoteToQuoters` maps from the ID of a quoted status to a list of the statuses
+// that quote it, to propogate changes to a quoted status to all the statuses that
+// quote it.
 class PageCache private constructor(private val mutex: Mutex) : Mutex by mutex {
     constructor() : this(Mutex())
 
