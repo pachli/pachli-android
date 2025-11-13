@@ -19,7 +19,7 @@ package app.pachli.components.notifications
 
 import app.pachli.adapter.FilterableStatusViewHolder
 import app.pachli.adapter.StatusViewHolder
-import app.pachli.core.data.model.NotificationViewData.WithStatusItem
+import app.pachli.core.data.model.NotificationViewData.WithStatus
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.ui.SetStatusContent
 import app.pachli.core.ui.StatusActionListener
@@ -29,17 +29,17 @@ import com.bumptech.glide.RequestManager
 
 /**
  * Displays any notification of type
- * [NotificationViewData.WithStatusItem][app.pachli.core.data.model.NotificationViewData.WithStatusItem].
+ * [NotificationViewData.WithStatusItem][app.pachli.core.data.model.NotificationViewData.WithStatus].
  */
 internal class StatusViewHolder(
     binding: ItemStatusBinding,
     glide: RequestManager,
     setStatusContent: SetStatusContent,
     private val statusActionListener: NotificationActionListener,
-) : NotificationsPagingAdapter.ViewHolder<WithStatusItem>, StatusViewHolder<WithStatusItem>(binding, glide, setStatusContent) {
+) : NotificationsPagingAdapter.ViewHolder<WithStatus>, StatusViewHolder<WithStatus>(binding, glide, setStatusContent) {
 
     override fun bind(
-        viewData: WithStatusItem,
+        viewData: WithStatus,
         payloads: List<List<Any?>>?,
         statusDisplayOptions: StatusDisplayOptions,
     ) {
@@ -52,7 +52,7 @@ internal class StatusViewHolder(
             statusDisplayOptions,
             payloads,
         )
-        if (viewData is WithStatusItem.PollNotificationViewData) {
+        if (viewData is WithStatus.PollNotificationViewData) {
             setPollInfo(viewData.isAboutSelf)
         } else {
             hideStatusInfo()
@@ -65,10 +65,10 @@ class FilterableStatusViewHolder(
     glide: RequestManager,
     setStatusContent: SetStatusContent,
     private val statusActionListener: StatusActionListener,
-) : NotificationsPagingAdapter.ViewHolder<WithStatusItem>, FilterableStatusViewHolder<WithStatusItem>(binding, glide, setStatusContent) {
+) : NotificationsPagingAdapter.ViewHolder<WithStatus>, FilterableStatusViewHolder<WithStatus>(binding, glide, setStatusContent) {
     // Note: Identical to bind() in StatusViewHolder above
     override fun bind(
-        viewData: WithStatusItem,
+        viewData: WithStatus,
         payloads: List<List<Any?>>?,
         statusDisplayOptions: StatusDisplayOptions,
     ) {
@@ -81,7 +81,7 @@ class FilterableStatusViewHolder(
             statusDisplayOptions,
             payloads,
         )
-        if (viewData is WithStatusItem.PollNotificationViewData) {
+        if (viewData is WithStatus.PollNotificationViewData) {
             setPollInfo(viewData.isAboutSelf)
         } else {
             hideStatusInfo()

@@ -27,7 +27,7 @@ import app.pachli.core.model.TimelineAccount
 /**
  * Data necessary to show a single notification.
  *
- * See [NotificationViewData.WithStatusItem] for notifications that reference a
+ * See [NotificationViewData.WithStatus] for notifications that reference a
  * status.
  *
  * @property pachliAccountId
@@ -62,7 +62,7 @@ sealed interface NotificationViewData {
      *
      * @property statusItemViewData [StatusViewData] for the referenced [Status].
      */
-    sealed interface WithStatusItem : NotificationViewData, IStatusItemViewData {
+    sealed interface WithStatus : NotificationViewData, IStatusItemViewData {
         val statusItemViewData: StatusItemViewData
 
         /**
@@ -78,7 +78,7 @@ sealed interface NotificationViewData {
             override val isAboutSelf: Boolean,
             override val accountFilterDecision: AccountFilterDecision,
             override val statusItemViewData: StatusItemViewData,
-        ) : WithStatusItem, IStatusItemViewData by statusItemViewData
+        ) : WithStatus, IStatusItemViewData by statusItemViewData
 
         /**
          * Notification that one of the user's statuses has been reblogged
@@ -94,7 +94,7 @@ sealed interface NotificationViewData {
             override val isAboutSelf: Boolean,
             override val accountFilterDecision: AccountFilterDecision,
             override val statusItemViewData: StatusItemViewData,
-        ) : WithStatusItem, IStatusItemViewData by statusItemViewData {
+        ) : WithStatus, IStatusItemViewData by statusItemViewData {
             override val rebloggedAvatar: String
                 get() = account.avatar
         }
@@ -112,7 +112,7 @@ sealed interface NotificationViewData {
             override val isAboutSelf: Boolean,
             override val accountFilterDecision: AccountFilterDecision,
             override val statusItemViewData: StatusItemViewData,
-        ) : WithStatusItem, IStatusItemViewData by statusItemViewData {
+        ) : WithStatus, IStatusItemViewData by statusItemViewData {
             override val rebloggedAvatar: String
                 get() = account.avatar
         }
@@ -130,7 +130,7 @@ sealed interface NotificationViewData {
             override val isAboutSelf: Boolean,
             override val accountFilterDecision: AccountFilterDecision,
             override val statusItemViewData: StatusItemViewData,
-        ) : WithStatusItem, IStatusItemViewData by statusItemViewData
+        ) : WithStatus, IStatusItemViewData by statusItemViewData
 
         /**
          * An [account] the user enabled notifications for has posted a status.
@@ -145,7 +145,7 @@ sealed interface NotificationViewData {
             override val isAboutSelf: Boolean,
             override val accountFilterDecision: AccountFilterDecision,
             override val statusItemViewData: StatusItemViewData,
-        ) : WithStatusItem, IStatusItemViewData by statusItemViewData
+        ) : WithStatus, IStatusItemViewData by statusItemViewData
 
         /**
          * A status the user reblogged has been edited.
@@ -160,7 +160,7 @@ sealed interface NotificationViewData {
             override val isAboutSelf: Boolean,
             override val accountFilterDecision: AccountFilterDecision,
             override val statusItemViewData: StatusItemViewData,
-        ) : WithStatusItem, IStatusItemViewData by statusItemViewData
+        ) : WithStatus, IStatusItemViewData by statusItemViewData
     }
 
     /** An [account] has followed the user. */

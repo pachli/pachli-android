@@ -23,9 +23,9 @@ import app.pachli.R
 import app.pachli.core.data.model.NotificationViewData
 import app.pachli.core.data.model.NotificationViewData.FollowNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.FollowRequestNotificationViewData
-import app.pachli.core.data.model.NotificationViewData.WithStatusItem.FavouriteNotificationViewData
-import app.pachli.core.data.model.NotificationViewData.WithStatusItem.MentionNotificationViewData
-import app.pachli.core.data.model.NotificationViewData.WithStatusItem.ReblogNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatus.FavouriteNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatus.MentionNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatus.ReblogNotificationViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.AccountFilterReason

@@ -256,7 +256,7 @@ ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC
  ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC
         """,
     )
-    abstract fun getStatusesQ(
+    abstract fun getStatusesWithQuote(
         account: Long,
         timelineKind: TimelineStatusEntity.Kind = TimelineStatusEntity.Kind.Home,
     ): PagingSource<Int, TimelineStatusWithQuote>
@@ -488,10 +488,10 @@ FROM TimelineStatusWithAccount AS s
     AND s.authorServerId IS NOT NULL
 """,
     )
-    abstract suspend fun getStatusQ(pachliAccountId: Long, statusId: String): TimelineStatusWithQuote?
+    abstract suspend fun getStatusWithQuote(pachliAccountId: Long, statusId: String): TimelineStatusWithQuote?
 
     /**
-     * Like [getStatusQ], but only returns that status with ID [actionableStatusId]
+     * Like [getStatusWithQuote], but only returns that status with ID [actionableStatusId]
      * (i.e., ignores boosts of [actionableStatusId]).
      */
     @Query(

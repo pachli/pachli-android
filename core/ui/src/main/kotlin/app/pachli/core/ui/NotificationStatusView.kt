@@ -34,14 +34,14 @@ import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
  * Displays status content as part of a notification.
  *
  * Identical to [TimelineStatusView], but generic over
- * [app.pachli.core.data.model.NotificationViewData.WithStatusItem].
+ * [app.pachli.core.data.model.NotificationViewData.WithStatus].
  */
 class NotificationStatusView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
     defStyleRes: Int = 0,
-) : StatusView<NotificationViewData.WithStatusItem>(context, attrs, defStyleAttr, defStyleRes) {
+) : StatusView<NotificationViewData.WithStatus>(context, attrs, defStyleAttr, defStyleRes) {
     val binding = StatusContentBinding.inflate(LayoutInflater.from(context), this)
 
     override val avatar = binding.statusAvatar
@@ -63,7 +63,7 @@ class NotificationStatusView @JvmOverloads constructor(
         setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null)
     }
 
-    override fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: NotificationViewData.WithStatusItem, listener: StatusActionListener, statusDisplayOptions: StatusDisplayOptions) {
+    override fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: NotificationViewData.WithStatus, listener: StatusActionListener, statusDisplayOptions: StatusDisplayOptions) {
         super.setupWithStatus(setStatusContent, glide, viewData, listener, statusDisplayOptions)
 
         val quotedViewData = (viewData as? IStatusItemViewData)?.quotedViewData

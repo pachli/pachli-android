@@ -661,7 +661,7 @@ class NotificationsViewModel @AssistedInject constructor(
                             isAboutSelf = isAboutSelf,
                         )
                     }
-                    .filter { it !is NotificationViewData.WithStatusItem || it.statusItemViewData.contentFilterAction != FilterAction.HIDE }
+                    .filter { it !is NotificationViewData.WithStatus || it.statusItemViewData.contentFilterAction != FilterAction.HIDE }
                     .filter { it.accountFilterDecision !is AccountFilterDecision.Hide }
             }
     }

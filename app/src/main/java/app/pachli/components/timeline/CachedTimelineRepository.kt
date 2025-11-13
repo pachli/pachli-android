@@ -102,7 +102,7 @@ class CachedTimelineRepository @Inject constructor(
         pachliAccountId: Long,
         timeline: Timeline,
     ): Flow<PagingData<TimelineStatusWithQuote>> {
-        factory = InvalidatingPagingSourceFactory { timelineDao.getStatusesQ(pachliAccountId) }
+        factory = InvalidatingPagingSourceFactory { timelineDao.getStatusesWithQuote(pachliAccountId) }
 
         val initialKey = timeline.remoteKeyTimelineId?.let { timelineId ->
             remoteKeyDao.remoteKeyForKind(pachliAccountId, timelineId, RemoteKeyKind.REFRESH)?.key
