@@ -34,12 +34,11 @@
         android:layout_width="@dimen/timeline_quoted_status_avatar_width"
         android:layout_height="@dimen/timeline_quoted_status_avatar_height"
         android:layout_marginStart="@dimen/account_avatar_margin"
-        android:layout_marginTop="@dimen/account_avatar_margin"
         android:contentDescription="@string/action_view_profile"
         android:importantForAccessibility="no"
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:src="@drawable/avatar_default" />
 
     <ImageView
