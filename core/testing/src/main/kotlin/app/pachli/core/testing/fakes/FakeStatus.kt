@@ -127,7 +127,7 @@ fun fakeStatusViewData(
     spoilerText: String = "",
     isExpanded: Boolean = false,
     isShowingContent: Boolean = false,
-    isCollapsed: Boolean = !isDetailed,
+    isCollapsed: Boolean = true,
     reblogged: Boolean = false,
     favourited: Boolean = true,
     bookmarked: Boolean = true,

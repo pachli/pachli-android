@@ -20,11 +20,15 @@ package app.pachli.core.database.dao
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.core.database.AppDatabase
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.database.model.NotificationAccountFilterDecisionUpdate
 import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.database.model.NotificationRelationshipSeveranceEventEntity
 import app.pachli.core.database.model.NotificationReportEntity
 import app.pachli.core.database.model.NotificationViewDataEntity
 import app.pachli.core.database.model.TimelineAccountEntity
+import app.pachli.core.model.AccountFilterDecision
+import app.pachli.core.model.AccountFilterReason
+import app.pachli.core.model.FilterAction
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -223,11 +227,23 @@ class NotificationEntityForeignKeyTest {
         )
         notificationDao.upsertNotifications(listOf(notification))
 
+        val accountFilterDecision = AccountFilterDecision.make(
+            FilterAction.WARN,
+            AccountFilterReason.NOT_FOLLOWING,
+        )
+
+        val accountFilterAction = NotificationAccountFilterDecisionUpdate(
+            pachliAccountId = pachliAccountId,
+            serverId = "1",
+            accountFilterDecision = accountFilterDecision,
+        )
+        notificationDao.upsert(accountFilterAction)
+
         // Check everything is as expected.
         val notificationViewData = NotificationViewDataEntity(
             pachliAccountId = pachliAccountId,
             serverId = "1",
-            accountFilterDecision = null,
+            accountFilterDecision = accountFilterDecision,
         )
 
         assertThat(notificationDao.loadAllForAccount(pachliAccountId)).containsExactly(notification)
