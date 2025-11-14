@@ -166,4 +166,6 @@
     <string name="status_filtered_show_anyway">Taispeáin ar aon nós</string>
     <string name="status_filter_placeholder_label_format">Scagtha: &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="action_show_pronouns">Taispeáin forainmneacha</string>
+    <string name="action_open_quoted_post">Oscail post luaite</string>
+    <string name="label_quoted_status_hidden">Sleachta ó phost atá i bhfolach ag ceann de do scagairí</string>
 </resources>
