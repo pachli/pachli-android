@@ -1,0 +1,15 @@
+Pachli 1.4.0
+
+Neue Funktionen:
+
+- Regelmäßige Suche nach Updates und Benachrichtigung des Benutzers
+
+Korrekturen:
+
+- Sofortige Anzeige von Einstellungsänderungen
+- Berücksichtigung der Einstellung FAB_HIDE in Zeitleisten
+- Sicherstellung der Sichtbarkeit von Systemsteuerelementen auf älteren Geräten
+- Entfernen der Fortschrittsanzeige aus Status-Zeitleisten
+- Wiederherstellung des Bildseitenverhältnisses nach Beendigung des Ziehvorgangs
+- Verhinderung potenzieller Abstürze bei langsamem Laden von Filtern
+- Aktualisierung der italienischen Übersetzungen

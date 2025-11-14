@@ -1,0 +1,11 @@
+Pachli 1.1
+
+Korrekturen:
+
+-  Verwendung der richtigen Kontrastfarbe für Hashtag- Tab-Chips
+-  Anpassung der Größe des monochromen Symbols
+-  Wiederherstellung der Position der Start-Timeline des Benutzers
+-  Sicherstellung, dass beim Aktualisieren keine Lücke in der Timeline entsteht
+-  Anzeige der FAB entsprechend den Einstellungen des Benutzers
+-  Behebung des Flackerns der Symbolleiste beim Scrollen durch Listen
+-  Behebung des Absturzes beim Aufrufen von MainActivity auf Pixel C-Geräten

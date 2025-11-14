@@ -1,0 +1,14 @@
+Pachli 2.8.0
+
+Neue Funktionen:
+
+- Experimentelle Einstellung zum Umkehren der Startzeitleiste
+- Verbesserung der Zuverlässigkeit von Push- und Pull-Benachrichtigungen
+
+Korrekturen:
+
+- Anzeige des Namens der Posting-App, wenn der App-Link fehlt
+- Toleranz gegenüber fehlenden Statusfeldern auf veganism.social
+- Korrekte Darstellung von Hashtags, Erwähnungen und ersten Absätzen in RTL
+- Suchfilter verwenden im Dunkel- und Schwarzmodus die richtigen Farben
+- Aktualisierte Übersetzungen für Finnisch, Galicisch, Irisch, Norwegisch und Spanisch

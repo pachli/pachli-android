@@ -1,0 +1,16 @@
+Pachli 2.9.1
+
+Neue Funktionen:
+
+- Beiträge anzeigen, die einen Trendlink erwähnen
+- Anforderungsmethode und URL in ApiResult-Fehlern anzeigen
+- Norsk Nynorsk als auswählbare Sprache hinzufügen
+
+Korrekturen:
+
+- Fehler „KeyStoreException: BKS nicht gefunden” bei der Anmeldung
+- Unbekannte Benachrichtigungstypen werden korrekt angezeigt
+- Kein Absturz beim Aktualisieren der Hauptmenüelemente
+- Kein Absturz beim Umschalten der Option „Boosts anzeigen”
+- Inhaltswarnungen werden angezeigt
+- Aktualisierung der Übersetzungen für Finnisch, Irisch, Norwegisch Nynorsk, Spanisch und Schwedisch

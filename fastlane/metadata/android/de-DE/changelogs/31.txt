@@ -1,0 +1,18 @@
+Pachli 2.13.0
+
+Neue Funktionen:
+
+- Parsen von Instants von Servern, die keine Zeitzone enthalten
+- Ersetzen der lokalen Zeitleiste durch „Trending“ in den Standard-Registerkarten
+- Höhere Gewichtung von Medienbeschreibungen beim Verfassen
+
+Korrekturen:
+
+- Farben der Schaltflächen beim Verfassen verbessert
+- Vorschau von Umfragen korrekt anzeigen
+- Kein Absturz mehr, wenn ComposeActivity beim Aufnehmen eines Fotos zerstört wird
+- Position der Schaltfläche „Abstimmen” ausrichten
+
+Übersetzungen:
+
+- Chinesisch, Finnisch, Irisch, Italienisch, Kabylisch, Lettisch, Polnisch, Slowakisch, Spanisch

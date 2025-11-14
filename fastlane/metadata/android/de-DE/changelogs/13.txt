@@ -1,0 +1,16 @@
+Pachli 2.4.0
+
+Neue Funktionen:
+
+- Benutzer über unterbrochene Beziehungen benachrichtigen
+- Benutzer können Umfrageergebnisse vor der Abstimmung einsehen, Antwortrichtlinien für Listen festlegen
+- „Benachrichtigungen”, „“Gefolgte Hashtags” und Listenelemente in der linken Navigationsleiste anzeigen
+- Symbolleiste des Bildbetrachters automatisch ausblenden
+
+Korrekturen:
+
+- Verbesserung der URL-Extraktion beim Verfassen 
+- Tabs werden aktualisiert, wenn Listen umbenannt oder gelöscht werden 
+- Sicherstellen, dass das Abmelden von Konten vollständig erfolgt 
+- Sicherstellen, dass Dateien vor dem Teilen vollständig heruntergeladen sind 
+- Aktualisierung der finnischen, kabylischen und spanischen Übersetzungen

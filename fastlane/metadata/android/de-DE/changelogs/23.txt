@@ -1,0 +1,17 @@
+Pachli 2.8.3
+
+Neue Funktionen:
+
+- Anzeigen des Freigabefensters bei langem Klicken auf Links usw.
+- Anzeigen der Schaltfläche „Kopieren” für Links usw. in Eingabehilfedialogen
+- Hinzufügen von Eingabehilfeoptionen für Tabs
+- Anzeigen der Zeit eines geplanten Beitrags
+- Hinzufügen von „Nicht erneut fragen” bei der Bestätigung der Sprache des Beitrags
+
+Korrekturen:
+
+- Unterstützung für „Geplante Beiträge“ in GoToSocial deaktivieren
+- Umfragen bei der Bearbeitung geplanter Beiträge anzeigen
+- Kein Absturz, wenn eine Unterhaltung keine Teilnehmer hat
+
+- Aktualisierte Übersetzungen für Burmesisch, Finnisch, Litauisch, Spanisch und Ukrainisch

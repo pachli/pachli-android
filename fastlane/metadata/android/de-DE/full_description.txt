@@ -1,11 +1,11 @@
 Pachli ist ein vollwertiger Client für Mastodon und ähnliche Server.
 
-• Beiträge lesen, beantworten, filtern, veröffentlichen, favorisieren und teilen
-• Beiträge aus anderen Sprachen übersetzen
-• Deine Timeline wird lokal gecacht, damit du auch offline lesen lannst
-• Entwerfe Beiträge jetzt, um sie später fertigzustellen
-• Schreibe Beiträge jetzt, plane die Veröffentlichung für später
-• Lies und schreibe von mehreren Profilen aus
-• Mehrere Themes
-• Alle Funktionen auch für Menschen verfügbar, für die Barrierefreiheit wichtig ist
-• Open Source, https://github.com/pachli
+- Beiträge lesen, beantworten, filtern, veröffentlichen, favorisieren und teilen
+- Beiträge aus anderen Sprachen übersetzen
+- Deine Timeline wird lokal gecacht, damit du auch offline lesen lannst
+- Entwirf Beiträge jetzt, um sie später fertigzustellen
+- Schreibe Beiträge jetzt, plane die Veröffentlichung für später
+- Lies und schreibe von mehreren Profilen aus
+- Mehrere Designs
+- Alle Funktionen auch für Menschen verfügbar, für die Barrierefreiheit wichtig ist
+- Open Source, https://github.com/pachli

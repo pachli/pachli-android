@@ -1,0 +1,5 @@
+Pachli 1.2.2
+
+Neue Funktionen:
+
+-  Einbindung der Datenschutzerklärung in die App

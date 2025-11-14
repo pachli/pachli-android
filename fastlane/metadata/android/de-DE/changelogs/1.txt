@@ -1,0 +1,20 @@
+Neue Funktionen:
+
+- Kein „Mehr laden“ mehr, Beiträge werden beim Scrollen geladen.
+- Trends für Links und Beiträge.
+- Mehr als 5 Tabs.
+- Auswahl aus einer Reihe von barrierefreien Schriftarten.
+- Neuer Mediaplayer.
+- Filter in Benachrichtigungen.
+- Listen als „exklusiv“ markieren.
+- „Lesezeichen“ zu Tabs hinzufügen.
+
+Fehlerbehebungen:
+
+- Bilder „kleben“ nicht mehr, wenn du zwischen ihnen zoomst oder wischst.
+
+Änderungen an der Benutzeroberfläche:
+
+- Eine visuelle Auffrischung, neues Farbschema
+- Lege das Standarddesign in deinen Android-Einstellungen fest
+- „Benachrichtigungen löschen“ ist ein Menüpunkt

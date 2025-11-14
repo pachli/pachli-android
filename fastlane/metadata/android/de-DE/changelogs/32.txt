@@ -1,0 +1,17 @@
+Pachli 2.14.0
+
+Neue Funktionen:
+
+- Wiederherstellung der Position des Benutzers in Listen
+- Beschleunigung des Kontowechsels, wenn der Benutzer keine Kontenfilter hat
+- Bereitstellung einer Benutzeroberfläche für die „Kontoverwaltung”
+
+Korrekturen:
+
+- Löschen von zwischengespeicherten Benachrichtigungen beim Löschen von Serverbenachrichtigungen
+- Kein Absturz beim Empfang von Benachrichtigungen über unterbrochene Beziehungen
+- Kein Absturz beim Abbrechen des Ladens von Bildern
+
+Übersetzungen:
+
+- Chinesisch, Estnisch, Finnisch, Indonesisch, Irisch, Italienisch, Lettisch, Norwegisch Nynorsk, Polnisch, Russisch, Slowakisch, Tamil

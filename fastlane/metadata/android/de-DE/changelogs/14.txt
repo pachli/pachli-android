@@ -1,0 +1,16 @@
+Pachli 2.5.0
+
+Neue Funktionen:
+
+- Flüssigere UX-Übergänge
+- Bündelung von Let's Encrypt-Zertifikaten
+- Abruf von mehr Trends für Beiträge, Links und Hashtags
+- Vereinfachung des Hinzufügens/Entfernens von Zeitleisten aus Registerkarten
+- Aktualisierung der finnischen, kabylischen und spanischen Übersetzungen
+
+Korrekturen:
+
+- Talkback-Aktionen in Benachrichtigungen und Unterhaltungen aktivieren
+- Übergänge in/aus Videos verbessern
+- PageCache aktualisieren, um nicht-chronologische Reihenfolgen zu verarbeiten
+- Filterablauf auf „unbegrenzt” setzen

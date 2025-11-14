@@ -1,0 +1,15 @@
+Pachli 2.3.0
+
+Neue Funktionen:
+
+- Anzeige ungekürzter Medien auf den Medienseiten des Kontos
+- Möglichkeit für den Benutzer, Aktualisierungsprüfungen auszulösen
+- Vorschau für abspielbare Audio-Anhänge anzeigen
+- Informationen zum Abrufen von Benachrichtigungen anzeigen
+
+Korrekturen:
+
+- Bildschirm während der Medienwiedergabe eingeschaltet lassen
+- Lesbarkeit der Statusbeschriftungen verbessert
+- Korrekte Anzeige des Kontos/der Zeitleiste beim Verfassen von Benachrichtigungen
+- Aktualisierung der Übersetzungen für Arabisch, Niederländisch, Finnisch, Französisch, Indonesisch, Spanisch und Schwedisch

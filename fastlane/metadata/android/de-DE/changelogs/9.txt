@@ -1,1 +1,17 @@
-Ein vollwertiger Android-Client für Mastodon und ähnliche Server.
+Pachli 2.1.0
+
+Neue Funktionen:
+
+- Rollen in Profilen anzeigen
+- Schaltfläche „Verfassen” beim Anzeigen von Listen anzeigen
+- Schaltfläche „Verfassen” beim Anzeigen der Lesezeichenliste anzeigen
+
+Korrekturen:
+
+- Übersetzte Inhalte in Threads anzeigen
+- Länge von Beiträgen und Umfragen mit Emojis korrekt berechnen
+- Absturz verhindern
+  - Wenn eine Vorschaukarte keinen Autor hat
+  - Wenn ein Fehler in einer Zeitleiste ohne FAB auftritt
+  - Im Profil, wenn das Konto das Feld „createdAt“ nicht enthält
+- Übersetzungen aktualisieren

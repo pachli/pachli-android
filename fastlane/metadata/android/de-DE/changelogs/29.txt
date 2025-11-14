@@ -1,0 +1,20 @@
+Pachli 2.11.0
+
+Neue Funktionen:
+
+- Unterstützung für Übersetzungen in der App
+- Inhaltsfilter sind standardmäßig für alle Kontexte aktiviert
+- Experimentelle Markdown-Unterstützung
+
+Fehlerbehebungen:
+
+- Das Einfrieren der Benutzeroberfläche für Berichte wurde behoben
+- Beschreibung für die Schaltfläche „Toot“ festgelegt
+- Verschiedene Abstürze verhindert
+- Filter mit dem richtigen Inhaltstyp erstellt
+- Korrekter Filter in Threads und privaten Nachrichten
+- Unterstützung für die Bearbeitung von Bildunterschriften hochgeladener Bilder
+
+Übersetzungen:
+
+- Finnisch, Indonesisch, Irisch, Lettisch, Norwegisch Nynorsk, Polnisch, Slowakisch, Spanisch
