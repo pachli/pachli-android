@@ -16,7 +16,7 @@
     <string name="title_hashtags_dialog">Hashtags</string>
     <string name="title_mentions_dialog">Erwähnungen</string>
     <string name="button_continue">Weiter</string>
-    <string name="action_logout_confirm">Dies löscht alle lokalen Daten des Kontos %1$s inklusive Entwürfen und Einstellungen.\n\nDie löscht nicht dein Konto auf dem Server.</string>
+    <string name="action_logout_confirm">Dies löscht alle lokalen Daten des Kontos %1$s inklusive Entwürfen und Einstellungen.\n\nDies löscht nicht dein Konto auf dem Server.</string>
     <string name="add_account_name">Konto hinzufügen</string>
     <string name="action_logout">Abmelden</string>
     <string name="hint_search_emojis">Emojis suchen…</string>
@@ -137,4 +137,8 @@
     <string name="status_filtered_show_anyway">Trotzdem anzeigen</string>
     <string name="status_filter_placeholder_label_format">Gefiltert: &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="action_show_pronouns">Pronomen anzeigen</string>
+    <string name="action_select_status">Beitrag auswählen</string>
+    <string name="action_unselect_status">Beitrag abwählen</string>
+    <string name="action_open_quoted_post">Zitierten Beitrag öffnen</string>
+    <string name="label_quoted_status_hidden">Zitat eines Beitrags, der durch einen deiner Filter ausgeblendet wurde</string>
 </resources>
