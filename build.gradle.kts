@@ -36,6 +36,26 @@ subprojects {
             }
         }
     }
+
+    // Work around compiler error:
+    // AbstractMethodError: Receiver class FieldBundle$$serializer does not define or inherit an implementation of the resolved method KSerializer[]
+    // See https://issuetracker.google.com/issues/447154195
+    //
+    // Triggered by update to androidx.room 2.8.x.
+    configurations.all {
+        resolutionStrategy {
+            eachDependency {
+                if (requested.group == "org.jetbrains.kotlinx" &&
+                    requested.name.startsWith("kotlinx-serialization-")
+                ) {
+                    useVersion(
+                        libs.versions.kotlin.serialization
+                            .get(),
+                    )
+                }
+            }
+        }
+    }
 }
 
 tasks.register<Delete>("clean") {
