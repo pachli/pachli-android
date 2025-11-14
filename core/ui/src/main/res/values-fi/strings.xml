@@ -136,4 +136,7 @@
     <string name="filter_edit_title">Muokkaa suodatinta</string>
     <string name="status_filtered_show_anyway">Näytä joka tapauksessa</string>
     <string name="status_filter_placeholder_label_format">Suodatettu: &lt;b&gt;%1$s&lt;/b&gt;</string>
+    <string name="label_quoted_status_hidden">Suodattimesi piilotti lainatun julkaisun</string>
+    <string name="action_open_quoted_post">Avaa lainattu julkaisu</string>
+    <string name="action_show_pronouns">Näytä pronominit</string>
 </resources>
