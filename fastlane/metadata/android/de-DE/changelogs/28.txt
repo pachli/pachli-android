@@ -1,0 +1,11 @@
+Pachli 2.10.1
+
+Korrekturen:
+
+- Sicherstellen, dass alle Sprachen über die Systemeinstellungen ausgewählt werden können.
+- Alte Kontodaten vor dem Erstellen von FK-Einschränkungen entfernen.
+- Sicherstellen, dass „Trotzdem anzeigen” in allen Zeitleisten funktioniert.
+
+Übersetzungen:
+
+- Finnisch, Indonesisch, Irisch, Polnisch

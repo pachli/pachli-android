@@ -1,0 +1,15 @@
+Pachli 2.0.0
+
+Neue Funktionen:
+
+- Statusmeldungen in zwischengespeicherten Zeitleisten übersetzen
+- Schaltfläche „Verfassen” beim Anzeigen von Hashtags und Favoriten anzeigen
+- Mehr Informationen in Link-Vorschauen anzeigen
+- Benutzer vor einem Android-Animationsfehler warnen
+
+Korrekturen:
+
+- ClassCastException bei der Behandlung von Zeitleistenfehlern verhindern
+- Themenfarben aktualisieren
+- Sicherstellen, dass aktualisierungsbezogene Datenklassen beibehalten werden
+- Deutsche, italienische und japanische Übersetzungen aktualisiert

@@ -1,0 +1,5 @@
+Pachli 1.2.1
+
+Neue Funktionen:
+
+-  Link zur Datenschutzerklärung unter „Über“

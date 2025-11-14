@@ -1,0 +1,19 @@
+Pachli 1.3.0
+
+Neue Funktionen:
+
+-  Einstellung zum Ausblenden von „Selbst-Boosts” hinzugefügt
+-  Vollständige Anzeige und Benutzername in der Profilansicht anzeigen
+-  Anzeige von „verdeckten” Links verbessert
+-  Verhalten der Video-Wiedergabe angepasst
+
+Fehlerbehebungen:
+
+-  Sicherstellen, dass leere Timeline-Nachrichten sichtbar sind
+-  Verwendung von Pachli-Blau und -Orange für Benachrichtigungssymbole
+-  Anzeige von Medien beim Fortsetzen von ViewMediaFragment
+-  Anzeige von Thread-Indikatoren und anderen Trennlinien in Material-Farben
+
+Übersetzungen:
+
+-  Aktualisierung der polnischen und japanischen Übersetzungen

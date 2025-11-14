@@ -1,0 +1,16 @@
+Pachli 2.5.2
+
+Neue Funktionen:
+
+- Unterstützung für Übersetzungen auf Hometown-/Glitch-Servern
+
+Korrekturen:
+
+- Verhindert Absturz auf der Seite „Versteckte Domains”
+- Zeigt nützliche Fehlermeldungen für alle Fehler an
+- Bezieht nur transitionKind in Absichten für Pachli-Aktivitäten ein
+- Schlägt nur Upgrades auf Versionen vor, die F-Droid erstellt hat
+- Aktiviert Barrierefreiheitsaktionen in allen Zeitleisten wieder
+- Fordert den Benutzer nach der Bearbeitung der Biografie auf, Änderungen zu speichern/zu verwerfen
+- Zeigt den Bearbeitungsverlauf für Umfragen an
+- Aktualisierte finnische, französische und spanische Übersetzungen

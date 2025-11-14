@@ -1,0 +1,17 @@
+Pachli 2.2.0
+
+Neue Funktionen:
+
+- Filterfunktion deaktivieren, wenn sie vom Server nicht unterstützt wird
+
+Korrekturen:
+
+- Sicherstellen, dass Aktionen für den richtigen Status ausgeführt werden
+- MainActivity in DrawerImageLoader nicht preisgeben
+- Korrekte Trend-Tag-Werte am Ende der Diagrammlinien anzeigen
+- Schwedische Übersetzungen aktualisiert
+- Indonesische Übersetzungen aktualisiert
+- Niederländische Übersetzungen aktualisiert
+- Portugiesische Übersetzungen aktualisiert
+- Finnische Übersetzungen aktualisiert
+- Arabische Übersetzungen aktualisiert

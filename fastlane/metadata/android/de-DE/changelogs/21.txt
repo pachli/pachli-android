@@ -1,0 +1,7 @@
+Pachli 2.8.1
+
+Korrekturen:
+
+- Verhindert Abstürze beim Senden eines Beitrags während des Hochladens von Medien
+- Stellt Videoübergänge auf AndroidX.Media3 1.4.0 und 1.4.1 wieder her
+- Verhindert, dass der Text der Vorschaukarte Bilder überlagert
