@@ -46,8 +46,8 @@ import app.pachli.core.network.model.Report
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiResponse
 import app.pachli.core.network.retrofit.apiresult.ApiResult
+import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
-import com.github.michaelbull.result.get
 import com.github.michaelbull.result.getOrElse
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
@@ -193,11 +193,11 @@ class NotificationsRemoteMediator(
         val nextPage = async { mastodonApi.notifications(maxId = notificationId, limit = pageSize * 3, excludes = excludeTypes) }
 
         val notifications = buildList {
-            prevPage.await().get()?.let { this.addAll(it.body) }
-            notification.await().get()?.let {
+            prevPage.await().getOrElse { return@coroutineScope Err(it) }.let { this.addAll(it.body) }
+            notification.await().getOrElse { return@coroutineScope Err(it) }.let {
                 if (!excludeTypes.contains(it.body.type)) this.add(it.body)
             }
-            nextPage.await().get()?.let { this.addAll(it.body) }
+            nextPage.await().getOrElse { return@coroutineScope Err(it) }.let { this.addAll(it.body) }
         }
 
         val minId = notifications.firstOrNull()?.id ?: notificationId
