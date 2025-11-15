@@ -75,7 +75,7 @@ import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.EditContentFilterActivityIntent
 import app.pachli.core.preferences.TabTapBehaviour
 import app.pachli.core.ui.ActionButtonScrollListener
-import app.pachli.core.ui.BackgroundMessage
+import app.pachli.core.ui.BackgroundMessage.Empty
 import app.pachli.core.ui.SetMarkdownContent
 import app.pachli.core.ui.SetMastodonHtmlContent
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
@@ -324,7 +324,9 @@ class TimelineFragment :
                     }
                 }
 
-                adapter.loadStateFlow.distinctUntilChangedBy { it.refresh }.collect(::bindLoadState)
+                // Can't `distinctUntilChangedBy { it.refresh }` here because of
+                // https://issuetracker.google.com/issues/460960009.
+                adapter.loadStateFlow.collect(::bindLoadState)
             }
         }
     }
@@ -407,15 +409,30 @@ class TimelineFragment :
      * to show/hide Error, Loading, and NotLoading states.
      */
     private fun bindLoadState(loadState: CombinedLoadStates) {
+        // CombinedLoadStates doesn't handle the case when the mediator load completes
+        // successfully but the source load fails. See
+        // https://issuetracker.google.com/issues/460960009 for details.
+        //
+        // So if either the source or mediator had an error loading data show it
+        // to the user.
+        //
+        // TODO: If loadState.mediator.refresh is the error then maybe this should
+        // be a warning the user can dismiss, as the cached data is still usable
+        // and it would allow them access to the timeline.
+        (loadState.mediator?.refresh as? LoadState.Error ?: loadState.source.refresh as? LoadState.Error)?.let { error ->
+            binding.progressIndicator.hide()
+            binding.statusView.setup(error.error) {
+                adapter.retry()
+            }
+            binding.recyclerView.hide()
+            binding.statusView.show()
+            binding.swipeRefreshLayout.isRefreshing = false
+            return
+        }
+
         when (loadState.refresh) {
             is LoadState.Error -> {
-                binding.progressIndicator.hide()
-                binding.statusView.setup((loadState.refresh as LoadState.Error).error) {
-                    adapter.retry()
-                }
-                binding.recyclerView.hide()
-                binding.statusView.show()
-                binding.swipeRefreshLayout.isRefreshing = false
+                /* Handled earlier. */
             }
 
             LoadState.Loading -> {
@@ -430,7 +447,7 @@ class TimelineFragment :
                     binding.progressIndicator.hide()
                     binding.swipeRefreshLayout.isRefreshing = false
                     if (adapter.itemCount == 0) {
-                        binding.statusView.setup(BackgroundMessage.Empty())
+                        binding.statusView.setup(Empty())
                         if (timeline == Timeline.Home) {
                             binding.statusView.showHelp(R.string.help_empty_home)
                         }

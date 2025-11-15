@@ -275,8 +275,9 @@ class NotificationsFragment :
                     }
                 }
 
-                // Update the UI from the loadState
-                adapter.loadStateFlow.distinctUntilChangedBy { it.refresh }.collect(::bindLoadState)
+                // Can't `distinctUntilChangedBy { it.refresh }` here because of
+                // https://issuetracker.google.com/issues/460960009.
+                adapter.loadStateFlow.collect(::bindLoadState)
             }
         }
     }
@@ -361,15 +362,30 @@ class NotificationsFragment :
      * to show/hide Error, Loading, and NotLoading states.
      */
     private fun bindLoadState(loadState: CombinedLoadStates) {
+        // CombinedLoadStates doesn't handle the case when the mediator load completes
+        // successfully but the source load fails. See
+        // https://issuetracker.google.com/issues/460960009 for details.
+        //
+        // So if either the source or mediator had an error loading data show it
+        // to the user.
+        //
+        // TODO: If loadState.mediator.refresh is the error then maybe this should
+        // be a warning the user can dismiss, as the cached data is still usable
+        // and it would allow them access to the timeline.
+        (loadState.mediator?.refresh as? LoadState.Error ?: loadState.source.refresh as? LoadState.Error)?.let { error ->
+            binding.progressIndicator.hide()
+            binding.statusView.setup(error.error) {
+                adapter.retry()
+            }
+            binding.recyclerView.hide()
+            binding.statusView.show()
+            binding.swipeRefreshLayout.isRefreshing = false
+            return
+        }
+
         when (loadState.refresh) {
             is LoadState.Error -> {
-                binding.progressIndicator.hide()
-                binding.statusView.setup((loadState.refresh as LoadState.Error).error) {
-                    adapter.retry()
-                }
-                binding.recyclerView.hide()
-                binding.statusView.show()
-                binding.swipeRefreshLayout.isRefreshing = false
+                /* Handled earlier. */
             }
 
             LoadState.Loading -> {
