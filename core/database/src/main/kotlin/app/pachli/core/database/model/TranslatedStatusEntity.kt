@@ -22,7 +22,6 @@ import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
 import app.pachli.core.model.TranslatedAttachment
 import app.pachli.core.model.TranslatedPoll
-import app.pachli.core.model.Translation
 import app.pachli.core.model.asNetworkModel
 import app.pachli.core.model.translation.TranslatedStatus
 
@@ -71,16 +70,6 @@ data class TranslatedStatusEntity(
 
     /** The service that provided the machine translation */
     val provider: String,
-)
-
-fun Translation.toEntity(pachliAccountId: Long, serverId: String) = TranslatedStatusEntity(
-    serverId = serverId,
-    timelineUserId = pachliAccountId,
-    content = content,
-    spoilerText = spoilerText,
-    poll = poll,
-    attachments = attachments,
-    provider = provider,
 )
 
 fun TranslatedStatus.toEntity(pachliAccountId: Long, serverId: String) = TranslatedStatusEntity(

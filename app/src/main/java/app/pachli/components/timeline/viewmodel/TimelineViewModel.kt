@@ -544,7 +544,7 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
      * and update [translation][StatusViewData.translation].     .
      * 3. Revert the status state change from (1) if the operation failed.
      */
-    abstract suspend fun onTranslate(action: FallibleStatusAction.Translate): Result<TranslatedStatus, TranslatorError> // = timelineCases.translate(action.statusViewData)
+    abstract suspend fun onTranslate(action: FallibleStatusAction.Translate): Result<TranslatedStatus, TranslatorError>
 
     /**
      * Undo translating a status.
