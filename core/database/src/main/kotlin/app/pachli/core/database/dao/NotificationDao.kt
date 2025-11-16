@@ -348,13 +348,13 @@ WHERE pachliAccountId = :pachliAccountId
     suspend fun upsertNotifications(notifications: Collection<NotificationEntity>)
 
     @Upsert
-    fun upsertReports(reports: Collection<NotificationReportEntity>)
+    suspend fun upsertReports(reports: Collection<NotificationReportEntity>)
 
     @Upsert
-    fun upsertEvents(events: Collection<NotificationRelationshipSeveranceEventEntity>)
+    suspend fun upsertEvents(events: Collection<NotificationRelationshipSeveranceEventEntity>)
 
     @Upsert
-    fun upsertAccountWarnings(accountWarnings: Collection<NotificationAccountWarningEntity>)
+    suspend fun upsertAccountWarnings(accountWarnings: Collection<NotificationAccountWarningEntity>)
 
     @Upsert(entity = NotificationViewDataEntity::class)
     suspend fun upsert(notificationAccountFilterDecisionUpdate: NotificationAccountFilterDecisionUpdate)
