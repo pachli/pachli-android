@@ -409,6 +409,8 @@ class TimelineFragment :
      * to show/hide Error, Loading, and NotLoading states.
      */
     private fun bindLoadState(loadState: CombinedLoadStates) {
+        Timber.d("bindLoadState: $loadState")
+
         // CombinedLoadStates doesn't handle the case when the mediator load completes
         // successfully but the source load fails. See
         // https://issuetracker.google.com/issues/460960009 for details.

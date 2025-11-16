@@ -88,6 +88,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 /**
  * Actions taken from the broader UI (which can include actions triggered by the
@@ -191,6 +192,8 @@ class ConversationsFragment :
             initSwipeToRefresh()
 
             adapter.addLoadStateListener { loadState ->
+                Timber.d("loadState: $loadState")
+
                 if (loadState.refresh != LoadState.Loading && loadState.source.refresh != LoadState.Loading) {
                     binding.swipeRefreshLayout.isRefreshing = false
                 }
