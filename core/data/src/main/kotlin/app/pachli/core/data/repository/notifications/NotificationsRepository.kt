@@ -98,7 +98,7 @@ class NotificationsRepository @Inject constructor(
      */
     @OptIn(ExperimentalPagingApi::class)
     suspend fun notifications(pachliAccountId: Long, excludeTypes: Set<Notification.Type>): Flow<PagingData<NotificationData>> {
-        factory = InvalidatingPagingSourceFactory { notificationDao.pagingSource(pachliAccountId) }
+        factory = InvalidatingPagingSourceFactory { notificationDao.getNotificationsWithQuote(pachliAccountId) }
 
         // Room is row-keyed, not item-keyed. Find the user's REFRESH key, then find the
         // row of the notification with that ID, and use that as the Pager's initialKey.

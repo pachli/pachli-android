@@ -35,6 +35,7 @@ import app.pachli.core.database.dao.AccountDao
 import app.pachli.core.database.dao.AnnouncementsDao
 import app.pachli.core.database.dao.ContentFiltersDao
 import app.pachli.core.database.dao.ConversationsDao
+import app.pachli.core.database.dao.DebugDao
 import app.pachli.core.database.dao.DraftDao
 import app.pachli.core.database.dao.FollowingAccountDao
 import app.pachli.core.database.dao.InstanceDao
@@ -164,6 +165,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun followingAccountDao(): FollowingAccountDao
     abstract fun notificationDao(): NotificationDao
     abstract fun statusDao(): StatusDao
+    abstract fun debugDao(): DebugDao
 
     @DeleteColumn("TimelineStatusEntity", "expanded")
     @DeleteColumn("TimelineStatusEntity", "contentCollapsed")

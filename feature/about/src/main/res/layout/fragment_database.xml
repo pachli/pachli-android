@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:textDirection="anyRtl"
+    tools:context="app.pachli.feature.about.AboutActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tableSizesTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="@dimen/text_content_margin"
+            android:layout_marginEnd="@dimen/text_content_margin"
+            android:lineSpacingMultiplier="1.1"
+            android:text="@string/database_table_sizes"
+            android:textIsSelectable="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/tableSizes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:lineSpacingMultiplier="1.1"
+            android:textIsSelectable="true"
+            app:layout_constraintStart_toStartOf="@+id/tableSizesTitle"
+            app:layout_constraintTop_toBottomOf="@id/tableSizesTitle"
+            app:layout_constraintEnd_toEndOf="@+id/tableSizesTitle" />
+
+        <TextView
+            android:id="@+id/integrityCheckTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="@dimen/text_content_margin"
+            android:layout_marginEnd="@dimen/text_content_margin"
+            android:lineSpacingMultiplier="1.1"
+            android:text="@string/database_integrity_check"
+            android:textIsSelectable="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tableSizes"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
+            android:id="@+id/buttonIntegrityCheck"
+            style="@style/AppButton.Outlined"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/action_run_integrity_check"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/integrityCheckTitle"
+            app:layout_constraintTop_toBottomOf="@id/integrityCheckTitle"/>
+
+        <TextView
+            android:id="@+id/integrityCheck"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:lineSpacingMultiplier="1.1"
+            android:textIsSelectable="true"
+            app:layout_constraintStart_toStartOf="@+id/tableSizesTitle"
+            app:layout_constraintTop_toBottomOf="@id/buttonIntegrityCheck"
+            app:layout_constraintEnd_toEndOf="@+id/tableSizesTitle" />
+
+        <TextView
+            android:id="@+id/queryDurationsTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="@dimen/text_content_margin"
+            android:layout_marginEnd="@dimen/text_content_margin"
+            android:lineSpacingMultiplier="1.1"
+            android:text="@string/database_query_timings"
+            android:textIsSelectable="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/integrityCheck"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
+            android:id="@+id/buttonQueryTimings"
+            style="@style/AppButton.Outlined"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/action_run_query_timings"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/queryDurationsTitle"
+            app:layout_constraintTop_toBottomOf="@id/queryDurationsTitle"/>
+
+        <TextView
+            android:id="@+id/queryDurations"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:lineSpacingMultiplier="1.1"
+            android:textIsSelectable="true"
+            app:layout_constraintStart_toStartOf="@id/queryDurationsTitle"
+            app:layout_constraintTop_toBottomOf="@id/buttonQueryTimings"
+            app:layout_constraintEnd_toEndOf="@id/queryDurationsTitle" />
+
+        <TextView
+            android:id="@+id/vacuumTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="@dimen/text_content_margin"
+            android:layout_marginEnd="@dimen/text_content_margin"
+            android:lineSpacingMultiplier="1.1"
+            android:text="@string/database_vacuum"
+            android:textIsSelectable="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/queryDurations"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
+            android:id="@+id/buttonVacuum"
+            style="@style/AppButton.Outlined"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/action_vacuum"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/vacuumTitle"
+            app:layout_constraintTop_toBottomOf="@id/vacuumTitle"/>
+
+        <TextView
+            android:id="@+id/vacuumResult"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:lineSpacingMultiplier="1.1"
+            android:textIsSelectable="true"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/vacuumTitle"
+            app:layout_constraintTop_toBottomOf="@id/buttonVacuum"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/clearCacheTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="@dimen/text_content_margin"
+            android:layout_marginEnd="@dimen/text_content_margin"
+            android:lineSpacingMultiplier="1.1"
+            android:text="@string/database_clear_cache"
+            android:textIsSelectable="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/vacuumResult"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
+            android:id="@+id/buttonClearCache"
+            style="@style/AppButton.Outlined"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Clear cache"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/clearCacheTitle"
+            app:layout_constraintTop_toBottomOf="@id/clearCacheTitle"/>
+
+        <TextView
+            android:id="@+id/clearCacheResult"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:lineSpacingMultiplier="1.1"
+            android:textIsSelectable="true"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/clearCacheTitle"
+            app:layout_constraintTop_toBottomOf="@id/buttonClearCache"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
