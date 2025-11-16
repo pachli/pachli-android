@@ -142,9 +142,12 @@
     <string name="action_select_status">Seleccionar publicación</string>
     <string name="action_unselect_status">Deseleccionar publicación</string>
     <string name="post_continued_thread">Continuó hilo</string>
-    <string name="post_replied_to_fmt">Respondió a &lt;b>%1$s&lt;/b></string>
+    <string name="post_replied_to_fmt">Respondió a &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="post_replied">Respondió</string>
     <string name="filter_edit_title">Editar filtro</string>
     <string name="status_filtered_show_anyway">Mostrar de todas formas</string>
     <string name="status_filter_placeholder_label_format">Filtrado: &lt;b&gt;%1$s&lt;/b&gt;</string>
+    <string name="action_show_pronouns">Mostrar pronombres</string>
+    <string name="action_open_quoted_post">Abrir publicación citada</string>
+    <string name="label_quoted_status_hidden">Cita ocultada por uno de tus filtros</string>
 </resources>
