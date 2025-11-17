@@ -83,6 +83,9 @@
     <dimen name="pronounChip_maxWidth">102sp</dimen>
     <dimen name="pronounChip_minHeight">24dp</dimen>
 
+    <!-- Top margin between items in the "Trending Links" view. -->
+    <dimen name="trendingLinks_top_margin">16dp</dimen>
+
     <!-- Adjust the dimensions of items in the Material drawer to provide a
          slightly tighter layout while ensuring that minimum touch sizes are
          maintained.
