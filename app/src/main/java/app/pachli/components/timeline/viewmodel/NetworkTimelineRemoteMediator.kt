@@ -101,7 +101,7 @@ class NetworkTimelineRemoteMediator(
                     val key = pageCache.firstPage?.prevKey ?: return MediatorResult.Success(endOfPaginationReached = true)
                     Page.tryFrom(fetchStatusPageByKind(loadType, key, state.config.pageSize))
                 }
-            }.getOrElse { return MediatorResult.Error(it.throwable) }
+            }.getOrElse { return MediatorResult.Error(it.asThrowable()) }
 
             Timber.d("- $timeline, load(), type = %s, items: %d", loadType, page.data.size)
             Timber.d("  $timeline, first id: ${page.data.firstOrNull()?.statusId}")

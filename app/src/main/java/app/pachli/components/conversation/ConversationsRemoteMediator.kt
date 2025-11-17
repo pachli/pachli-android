@@ -46,7 +46,7 @@ class ConversationsRemoteMediator(
         }
 
         val conversationsResponse = api.getConversations(maxId = nextKey, limit = state.config.pageSize)
-            .getOrElse { return MediatorResult.Error(it.throwable) }
+            .getOrElse { return MediatorResult.Error(it.asThrowable()) }
 
         val conversations = conversationsResponse.body.filterNot { it.lastStatus == null }.asModel()
 

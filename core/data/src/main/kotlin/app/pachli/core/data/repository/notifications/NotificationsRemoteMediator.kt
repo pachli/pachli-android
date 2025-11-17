@@ -116,7 +116,7 @@ class NotificationsRemoteMediator(
                     ) ?: return@transactionProvider MediatorResult.Success(endOfPaginationReached = true)
                     mastodonApi.notifications(maxId = rke.key, limit = state.config.pageSize, excludes = excludeTypes)
                 }
-            }.getOrElse { return@transactionProvider MediatorResult.Error(it.throwable) }
+            }.getOrElse { return@transactionProvider MediatorResult.Error(it.asThrowable()) }
 
             val links = Links.from(response.headers["link"])
 

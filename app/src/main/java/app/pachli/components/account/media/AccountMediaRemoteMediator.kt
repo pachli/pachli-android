@@ -52,7 +52,7 @@ class AccountMediaRemoteMediator(
                     return MediatorResult.Success(endOfPaginationReached = false)
                 }
             }
-        }.getOrElse { return MediatorResult.Error(it.throwable) }
+        }.getOrElse { return MediatorResult.Error(it.asThrowable()) }
 
         val statuses = statusResponse.body
         val attachments = statuses.flatMap { status ->

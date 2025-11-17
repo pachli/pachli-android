@@ -96,4 +96,40 @@ interface PachliError {
         }
         return context.getString(resourceId, *args.toTypedArray()).unicodeWrap()
     }
+
+    /** @return [this] as a [PachliThrowable]. */
+    fun asThrowable(): PachliThrowable {
+        return PachliThrowable(
+            cause = cause?.asThrowable(),
+            pachliError = this,
+        )
+    }
+}
+
+/**
+ * Container for a [PachliError] to smuggle as a [Throwable].
+ *
+ * Some APIs -- for example, `MediatorResult.Error` -- require that an error is
+ * represented as a `Throwable`. As an `interface`, `PachliError` can't inherit
+ * from `Throwable`, so this class inverts the relationship, and embeds the
+ * `PachliError` in a `Throwable`.
+ *
+ * Construct using [PachliError.asThrowable].
+ *
+ * This should only be used if there is no other mechanism for reporting the
+ * error up the call stack.
+ *
+ * The [message] property is not used, call [pachliError.fmt()][PachliError.fmt].
+ * In debug builds using [message] will throw.
+ */
+class PachliThrowable internal constructor(
+    override val cause: PachliThrowable? = null,
+    val pachliError: PachliError,
+) : Throwable(message = null), PachliError by pachliError {
+    override val message: String?
+        get() = if (BuildConfig.DEBUG) {
+            throw IllegalStateException("Fetching .message on a PachliThrowable")
+        } else {
+            ""
+        }
 }
