@@ -112,6 +112,42 @@
             app:layout_constraintEnd_toEndOf="@id/queryDurationsTitle" />
 
         <TextView
+            android:id="@+id/pruneCacheTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="@dimen/text_content_margin"
+            android:layout_marginEnd="@dimen/text_content_margin"
+            android:lineSpacingMultiplier="1.1"
+            android:text="@string/database_prune_cache"
+            android:textIsSelectable="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/queryDurations"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
+            android:id="@+id/buttonPruneCache"
+            style="@style/AppButton.Outlined"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/action_prune_cache"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/pruneCacheTitle"
+            app:layout_constraintTop_toBottomOf="@id/pruneCacheTitle" />
+
+        <TextView
+            android:id="@+id/pruneCacheResult"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:lineSpacingMultiplier="1.1"
+            android:textIsSelectable="true"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/pruneCacheTitle"
+            app:layout_constraintTop_toBottomOf="@id/buttonPruneCache"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
             android:id="@+id/vacuumTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -123,7 +159,7 @@
             android:textIsSelectable="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/queryDurations"
+            app:layout_constraintTop_toBottomOf="@id/pruneCacheResult"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <Button
