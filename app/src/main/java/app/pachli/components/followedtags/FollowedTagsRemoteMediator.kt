@@ -39,7 +39,7 @@ class FollowedTagsRemoteMediator(
 
     private fun applyResponse(result: ApiResult<List<HashTag>>): MediatorResult {
         val response = result.getOrElse {
-            return MediatorResult.Error(it.throwable)
+            return MediatorResult.Error(it.asThrowable())
         }
         val tags = response.body
 

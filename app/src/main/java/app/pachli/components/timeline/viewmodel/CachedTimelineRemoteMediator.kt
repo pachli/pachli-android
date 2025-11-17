@@ -94,7 +94,7 @@ class CachedTimelineRemoteMediator(
                     Timber.d("Append from remoteKey: %s", rke)
                     mastodonApi.homeTimeline(maxId = rke.key, limit = state.config.pageSize)
                 }
-            }.getOrElse { return@transactionProvider MediatorResult.Error(it.throwable) }
+            }.getOrElse { return@transactionProvider MediatorResult.Error(it.asThrowable()) }
 
             val statuses = response.body
 

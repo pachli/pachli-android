@@ -25,10 +25,12 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
 import app.pachli.components.timeline.viewmodel.NetworkTimelineRemoteMediator
 import app.pachli.components.timeline.viewmodel.Page
 import app.pachli.components.timeline.viewmodel.PageCache
 import app.pachli.components.timeline.viewmodel.asTimelineStatusWithQuote
+import app.pachli.core.common.PachliThrowable
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.database.dao.RemoteKeyDao
@@ -43,6 +45,8 @@ import app.pachli.core.network.model.nodeinfo.UnvalidatedJrd
 import app.pachli.core.network.model.nodeinfo.UnvalidatedNodeInfo
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.NodeInfoApi
+import app.pachli.core.network.retrofit.apiresult.ApiError
+import app.pachli.core.network.retrofit.apiresult.ServerError
 import app.pachli.core.testing.failure
 import app.pachli.core.testing.fakes.fakeStatus
 import app.pachli.core.testing.rules.MainCoroutineRule
@@ -56,6 +60,8 @@ import java.time.Instant
 import javax.inject.Inject
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.test.runTest
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -111,6 +117,8 @@ class NetworkTimelineRemoteMediatorTest {
     private lateinit var activeAccount: AccountEntity
 
     private lateinit var pagingSourceFactory: InvalidatingPagingSourceFactory<String, TimelineStatusWithQuote>
+
+    private val context = InstrumentationRegistry.getInstrumentation().targetContext
 
     @Before
     fun setup() = runTest {
@@ -180,8 +188,12 @@ class NetworkTimelineRemoteMediatorTest {
 
         // Then
         assertThat(result).isInstanceOf(RemoteMediator.MediatorResult.Error::class.java)
-        assertThat((result as RemoteMediator.MediatorResult.Error).throwable).isInstanceOf(HttpException::class.java)
-        assertThat((result.throwable as HttpException).code()).isEqualTo(500)
+        assertThat((result as RemoteMediator.MediatorResult.Error).throwable).isInstanceOf(PachliThrowable::class.java)
+
+        val pachliError = (result.throwable as PachliThrowable).pachliError as ApiError
+        assertTrue(pachliError is ServerError.Internal)
+
+        assertEquals(500, (pachliError.throwable as HttpException).code())
     }
 
     @Test
