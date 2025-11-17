@@ -45,4 +45,16 @@ class DeveloperToolsUseCase @Inject constructor(
             timelineDao.deleteRange(accountId, ids.last(), ids.first())
         }
     }
+
+    /**
+     * Cleanup the database, almost identically to [PruneCacheWorker].
+     *
+     * This operates on the given [pachliAccountId], [PruneCacheWorker] operates on all
+     * accounts.
+     */
+    suspend fun pruneCache(pachliAccountId: Long) {
+        transactionProvider {
+            timelineDao.cleanup(pachliAccountId)
+        }
+    }
 }

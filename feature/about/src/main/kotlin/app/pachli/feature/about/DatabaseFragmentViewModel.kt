@@ -93,6 +93,7 @@ data class DatabaseUiState(
     val tableRowCounts: TableRowCounts,
     val integrityCheck: Result<String, Throwable> = Ok("Check not run yet"),
     val queryDurations: QueryDurations? = null,
+    val pruneCacheResult: Result<Unit?, Throwable> = Ok(null),
     val vacuumResult: Result<Unit?, Throwable> = Ok(null),
     val clearCacheResult: Result<Unit?, Throwable> = Ok(null),
 )
@@ -236,6 +237,28 @@ class DatabaseFragmentViewModel @Inject constructor(
                 it?.copy(
                     queryDurations = it.queryDurations?.copy(getConversationsWithQuote = getConversationsWithQuote)
                         ?: QueryDurations(getConversationsWithQuote = getConversationsWithQuote),
+                )
+            }
+        }
+    }
+
+    /**
+     * Prunes the cache of unreferenced statuses, accounts, etc.
+     *
+     * Unlike the other methods, this operates on all the user's accounts, so they don't
+     * have to do this for all of them individually.
+     */
+    fun pruneCache() {
+        viewModelScope.launch {
+            val result = runSuspendCatching {
+                accountManager.accounts.forEach {
+                    timelineDao.cleanup(it.id)
+                }
+            }
+            _uiState.update {
+                it?.copy(
+                    tableRowCounts = getTableRowCounts(),
+                    pruneCacheResult = result,
                 )
             }
         }

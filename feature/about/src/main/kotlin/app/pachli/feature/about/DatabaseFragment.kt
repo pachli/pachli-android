@@ -69,6 +69,7 @@ class DatabaseFragment : Fragment(R.layout.fragment_database) {
         bindTableSizes(uiState.tableRowCounts)
         bindIntegrityCheck(uiState.integrityCheck)
         bindQueryTimings(uiState.queryDurations)
+        bindPruneCache(uiState.pruneCacheResult)
         bindVacuum(uiState.vacuumResult)
         bindClearCache(uiState.clearCacheResult)
 
@@ -80,6 +81,11 @@ class DatabaseFragment : Fragment(R.layout.fragment_database) {
         binding.buttonQueryTimings.setOnClickListener { v ->
             v.isEnabled = false
             viewModel.getQueryDurations(uiState.pachliAccountId)
+        }
+
+        binding.buttonPruneCache.setOnClickListener { v ->
+            binding.pruneCacheResult.hide()
+            viewModel.pruneCache()
         }
 
         binding.buttonVacuum.setOnClickListener { v ->
@@ -147,6 +153,14 @@ getConversationsWithQuote: ${queryDurations?.getConversationsWithQuote?.fmt() ?:
         return when (this) {
             is Err -> error.localizedMessage
             is Ok -> "${this.value.first.toMillis()} ms, ${this.value.second} items"
+        }
+    }
+
+    private fun bindPruneCache(pruneCacheResult: Result<Unit?, Throwable>) {
+        binding.pruneCacheResult.visible(pruneCacheResult.get() != null)
+        binding.pruneCacheResult.text = when (pruneCacheResult) {
+            is Err -> pruneCacheResult.error.localizedMessage
+            is Ok -> getString(R.string.database_prune_cache_complete)
         }
     }
 

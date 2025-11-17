@@ -766,7 +766,7 @@ WHERE timelineUserId = :accountId AND serverId NOT IN (
     UNION
     SELECT statusServerId
     FROM NotificationEntity
-    WHERE pachliAccountId = :accountId
+    WHERE pachliAccountId = :accountId AND statusServerId IS NOT NULL
     UNION
     SELECT lastStatusServerId
     FROM ConversationEntity
@@ -822,7 +822,7 @@ WHERE
         UNION
         SELECT statusServerId
         FROM NotificationEntity
-        WHERE pachliAccountId = :accountId
+        WHERE pachliAccountId = :accountId AND statusServerId IS NOT NULL
     )
 """,
     )
@@ -845,7 +845,7 @@ WHERE
         UNION
         SELECT statusServerId
         FROM NotificationEntity
-        WHERE pachliAccountId = :accountId
+        WHERE pachliAccountId = :accountId AND statusServerId IS NOT NULL
     )
 """,
     )
