@@ -140,5 +140,5 @@
     <string name="action_select_status">Beitrag auswählen</string>
     <string name="action_unselect_status">Beitrag abwählen</string>
     <string name="action_open_quoted_post">Zitierten Beitrag öffnen</string>
-    <string name="label_quoted_status_hidden">Zitat eines Beitrags, der durch einen deiner Filter ausgeblendet wurde</string>
+    <string name="label_quoted_status_hidden">Durch einen deiner Filter ausgeblendetes Beitragszitat</string>
 </resources>
