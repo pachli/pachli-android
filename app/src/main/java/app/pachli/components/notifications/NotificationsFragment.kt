@@ -99,6 +99,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import postPrepend
+import timber.log.Timber
 
 @AndroidEntryPoint
 class NotificationsFragment :
@@ -362,6 +363,8 @@ class NotificationsFragment :
      * to show/hide Error, Loading, and NotLoading states.
      */
     private fun bindLoadState(loadState: CombinedLoadStates) {
+        Timber.d("bindLoadState: $loadState")
+
         // CombinedLoadStates doesn't handle the case when the mediator load completes
         // successfully but the source load fails. See
         // https://issuetracker.google.com/issues/460960009 for details.
