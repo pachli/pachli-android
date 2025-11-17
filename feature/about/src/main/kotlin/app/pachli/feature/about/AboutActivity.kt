@@ -20,6 +20,7 @@ package app.pachli.feature.about
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.StringRes
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.MenuProvider
 import androidx.core.view.ViewGroupCompat
@@ -99,25 +100,31 @@ class AboutActivity : ViewUrlActivity(), MenuProvider {
 }
 
 class AboutFragmentAdapter(val activity: FragmentActivity) : FragmentStateAdapter(activity) {
-    override fun getItemCount() = 4
+    data class TabData(
+        @StringRes val title: Int,
+        val createFragment: () -> Fragment,
+    )
 
-    override fun createFragment(position: Int): Fragment {
-        return when (position) {
-            0 -> AboutFragment.newInstance()
-            1 -> LibsBuilder().supportFragment()
-            2 -> PrivacyPolicyFragment.newInstance()
-            3 -> NotificationFragment.newInstance()
-            else -> throw IllegalStateException()
+    val fragments = buildList {
+        add(TabData(R.string.about_title_activity) { AboutFragment.newInstance() })
+        add(TabData(R.string.title_licenses) { LibsBuilder().supportFragment() })
+        add(TabData(R.string.about_privacy_policy) { PrivacyPolicyFragment.newInstance() })
+        add(TabData(R.string.about_notifications) { NotificationFragment.newInstance() })
+
+        if (BuildConfig.FLAVOR_color == "orange") {
+            add(TabData(R.string.about_database) { DatabaseFragment.newInstance() })
         }
     }
 
+    override fun getItemCount() = fragments.size
+
+    override fun createFragment(position: Int): Fragment {
+        return fragments.getOrNull(position)?.createFragment?.invoke()
+            ?: throw IllegalStateException()
+    }
+
     fun title(position: Int): CharSequence {
-        return when (position) {
-            0 -> activity.getString(R.string.about_title_activity)
-            1 -> activity.getString(R.string.title_licenses)
-            2 -> activity.getString(R.string.about_privacy_policy)
-            3 -> "Notifications"
-            else -> throw IllegalStateException()
-        }
+        return fragments.getOrNull(position)?.title?.let { activity.getString(it) }
+            ?: throw IllegalStateException()
     }
 }

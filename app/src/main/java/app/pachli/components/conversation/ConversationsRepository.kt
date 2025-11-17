@@ -53,7 +53,7 @@ class ConversationsRepository @Inject constructor(
 
     @OptIn(ExperimentalPagingApi::class)
     fun conversations(pachliAccountId: Long): Flow<PagingData<ConversationData>> {
-        factory = InvalidatingPagingSourceFactory { conversationsDao.conversationsForAccount(pachliAccountId) }
+        factory = InvalidatingPagingSourceFactory { conversationsDao.getConversationsWithQuote(pachliAccountId) }
 
         // The Mastodon conversations API does not support fetching a specific conversation
         // so it is not possible to restore the user's reading position.
