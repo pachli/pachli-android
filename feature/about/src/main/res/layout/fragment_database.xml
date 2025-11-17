@@ -167,7 +167,7 @@
             style="@style/AppButton.Outlined"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Clear cache"
+            android:text="@string/action_clear_cache"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@id/clearCacheTitle"
             app:layout_constraintTop_toBottomOf="@id/clearCacheTitle"/>
