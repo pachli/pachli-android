@@ -73,4 +73,7 @@
     <string name="action_clear_cache">Kustuta puhverdatud andmed</string>
     <string name="database_vacuum_complete">Andmebaasi tihendamine on tehtud</string>
     <string name="database_clear_cache_complete">Puhverdatud andmed on kustutatud</string>
+    <string name="database_prune_cache">Kärbi puhverdatud andmete mahtu</string>
+    <string name="action_prune_cache">Kärbi puhverdatud andmete mahtu</string>
+    <string name="database_prune_cache_complete">Puhverdatud andmete mahu kärpimine õnnestus</string>
 </resources>
