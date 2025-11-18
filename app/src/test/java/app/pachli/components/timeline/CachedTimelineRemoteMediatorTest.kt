@@ -100,6 +100,7 @@ class CachedTimelineRemoteMediatorTest {
     @ExperimentalPagingApi
     fun `should return ServerError Internal on HTTP 500`() {
         val remoteMediator = CachedTimelineRemoteMediator(
+            context = context,
             mastodonApi = mock {
                 onBlocking { homeTimeline(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull()) } doReturn failure(code = 500)
             },
@@ -125,6 +126,7 @@ class CachedTimelineRemoteMediatorTest {
     @ExperimentalPagingApi
     fun `should return error when network call fails`() {
         val remoteMediator = CachedTimelineRemoteMediator(
+            context = context,
             mastodonApi = mock {
                 onBlocking { homeTimeline(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull()) } doReturn failure()
             },
@@ -149,6 +151,7 @@ class CachedTimelineRemoteMediatorTest {
     @ExperimentalPagingApi
     fun `should not prepend statuses`() {
         val remoteMediator = CachedTimelineRemoteMediator(
+            context = context,
             mastodonApi = mock(),
             pachliAccountId = activeAccount.id,
             transactionProvider = transactionProvider,
@@ -179,6 +182,7 @@ class CachedTimelineRemoteMediatorTest {
     @ExperimentalPagingApi
     fun `should not try to refresh already cached statuses when db is empty`() {
         val remoteMediator = CachedTimelineRemoteMediator(
+            context = context,
             mastodonApi = mock {
                 onBlocking { homeTimeline(maxId = anyOrNull(), minId = anyOrNull(), sinceId = anyOrNull(), limit = any()) } doReturn success(
                     listOf(
@@ -232,6 +236,7 @@ class CachedTimelineRemoteMediatorTest {
         db.insertTimelineStatusWithQuote(statusesAlreadyInDb)
 
         val remoteMediator = CachedTimelineRemoteMediator(
+            context = context,
             mastodonApi = mock {
                 onBlocking { homeTimeline(maxId = anyOrNull(), minId = anyOrNull(), sinceId = anyOrNull(), limit = any()) } doReturn success(
                     listOf(
@@ -287,6 +292,7 @@ class CachedTimelineRemoteMediatorTest {
         db.remoteKeyDao().upsert(RemoteKeyEntity(1, Timeline.Home.remoteKeyTimelineId, RemoteKeyKind.NEXT, "5"))
 
         val remoteMediator = CachedTimelineRemoteMediator(
+            context = context,
             mastodonApi = mock {
                 onBlocking { homeTimeline(maxId = "5", limit = 20) } doReturn success(
                     listOf(

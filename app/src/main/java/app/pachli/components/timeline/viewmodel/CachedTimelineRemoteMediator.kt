@@ -17,6 +17,7 @@
 
 package app.pachli.components.timeline.viewmodel
 
+import android.content.Context
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -47,6 +48,7 @@ import timber.log.Timber
 
 @OptIn(ExperimentalPagingApi::class)
 class CachedTimelineRemoteMediator(
+    private val context: Context,
     private val mastodonApi: MastodonApi,
     private val pachliAccountId: Long,
     private val transactionProvider: TransactionProvider,
@@ -94,7 +96,7 @@ class CachedTimelineRemoteMediator(
                     Timber.d("Append from remoteKey: %s", rke)
                     mastodonApi.homeTimeline(maxId = rke.key, limit = state.config.pageSize)
                 }
-            }.getOrElse { return@transactionProvider MediatorResult.Error(it.asThrowable()) }
+            }.getOrElse { return@transactionProvider MediatorResult.Error(it.asThrowable(context)) }
 
             val statuses = response.body
 

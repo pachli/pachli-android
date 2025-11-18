@@ -16,6 +16,7 @@
 
 package app.pachli.components.account.media
 
+import android.content.Context
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -27,6 +28,7 @@ import com.github.michaelbull.result.getOrElse
 
 @OptIn(ExperimentalPagingApi::class)
 class AccountMediaRemoteMediator(
+    private val context: Context,
     private val api: MastodonApi,
     private val activeAccount: AccountEntity,
     private val viewModel: AccountMediaViewModel,
@@ -52,7 +54,7 @@ class AccountMediaRemoteMediator(
                     return MediatorResult.Success(endOfPaginationReached = false)
                 }
             }
-        }.getOrElse { return MediatorResult.Error(it.asThrowable()) }
+        }.getOrElse { return MediatorResult.Error(it.asThrowable(context)) }
 
         val statuses = statusResponse.body
         val attachments = statuses.flatMap { status ->

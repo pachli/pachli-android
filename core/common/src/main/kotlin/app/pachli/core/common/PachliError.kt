@@ -97,10 +97,18 @@ interface PachliError {
         return context.getString(resourceId, *args.toTypedArray()).unicodeWrap()
     }
 
-    /** @return [this] as a [PachliThrowable]. */
-    fun asThrowable(): PachliThrowable {
+    /**
+     * @param context Context used to resolve the formatting strings.
+     *
+     * @return [PachliError] as a [PachliThrowable].
+     */
+    fun asThrowable(context: Context): PachliThrowable {
         return PachliThrowable(
-            cause = cause?.asThrowable(),
+            // The message has to be resolved now because the Throwable might be
+            // used in places where .fmt() can't be called. For example, logging
+            // the Throwable.
+            message = fmt(context),
+            cause = cause?.asThrowable(context),
             pachliError = this,
         )
     }
@@ -119,17 +127,11 @@ interface PachliError {
  * This should only be used if there is no other mechanism for reporting the
  * error up the call stack.
  *
- * The [message] property is not used, call [pachliError.fmt()][PachliError.fmt].
- * In debug builds using [message] will throw.
+ * @property message
+ * @property cause
  */
 class PachliThrowable internal constructor(
+    override val message: String,
     override val cause: PachliThrowable? = null,
     val pachliError: PachliError,
-) : Throwable(message = null), PachliError by pachliError {
-    override val message: String?
-        get() = if (BuildConfig.DEBUG) {
-            throw IllegalStateException("Fetching .message on a PachliThrowable")
-        } else {
-            ""
-        }
-}
+) : Throwable(message = message, cause = cause), PachliError by pachliError

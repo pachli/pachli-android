@@ -17,6 +17,7 @@
 
 package app.pachli.core.data.repository.notifications
 
+import android.content.Context
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -58,6 +59,7 @@ import okhttp3.Headers
  */
 @OptIn(ExperimentalPagingApi::class)
 class NotificationsRemoteMediator(
+    private val context: Context,
     private val pachliAccountId: Long,
     private val mastodonApi: MastodonApi,
     private val transactionProvider: TransactionProvider,
@@ -116,7 +118,7 @@ class NotificationsRemoteMediator(
                     ) ?: return@transactionProvider MediatorResult.Success(endOfPaginationReached = true)
                     mastodonApi.notifications(maxId = rke.key, limit = state.config.pageSize, excludes = excludeTypes)
                 }
-            }.getOrElse { return@transactionProvider MediatorResult.Error(it.asThrowable()) }
+            }.getOrElse { return@transactionProvider MediatorResult.Error(it.asThrowable(context)) }
 
             val links = Links.from(response.headers["link"])
 

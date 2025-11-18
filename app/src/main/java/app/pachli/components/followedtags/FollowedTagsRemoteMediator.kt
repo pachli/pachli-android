@@ -1,5 +1,6 @@
 package app.pachli.components.followedtags
 
+import android.content.Context
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -12,6 +13,7 @@ import com.github.michaelbull.result.getOrElse
 
 @OptIn(ExperimentalPagingApi::class)
 class FollowedTagsRemoteMediator(
+    private val context: Context,
     private val api: MastodonApi,
     private val viewModel: FollowedTagsViewModel,
 ) : RemoteMediator<String, HashTag>() {
@@ -39,7 +41,7 @@ class FollowedTagsRemoteMediator(
 
     private fun applyResponse(result: ApiResult<List<HashTag>>): MediatorResult {
         val response = result.getOrElse {
-            return MediatorResult.Error(it.asThrowable())
+            return MediatorResult.Error(it.asThrowable(context))
         }
         val tags = response.body
 

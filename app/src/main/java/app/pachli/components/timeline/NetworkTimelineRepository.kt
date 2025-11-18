@@ -17,6 +17,7 @@
 
 package app.pachli.components.timeline
 
+import android.content.Context
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.InvalidatingPagingSourceFactory
 import androidx.paging.Pager
@@ -45,6 +46,7 @@ import app.pachli.core.ui.getDomain
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import kotlin.coroutines.coroutineContext
 import kotlinx.coroutines.CoroutineScope
@@ -88,6 +90,7 @@ import timber.log.Timber
 
 /** Timeline repository where the timeline information is backed by an in-memory cache. */
 class NetworkTimelineRepository @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val invalidationTracker: InvalidationTracker,
     private val mastodonApi: MastodonApi,
     private val remoteKeyDao: RemoteKeyDao,
@@ -161,6 +164,7 @@ class NetworkTimelineRepository @Inject constructor(
             initialKey = initialKey,
             config = PagingConfig(pageSize = PAGE_SIZE),
             remoteMediator = NetworkTimelineRemoteMediator(
+                context,
                 mastodonApi,
                 pachliAccountId,
                 factory!!,
