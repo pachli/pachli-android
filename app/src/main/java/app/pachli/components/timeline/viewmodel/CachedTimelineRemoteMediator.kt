@@ -40,6 +40,7 @@ import app.pachli.core.network.retrofit.apiresult.ApiResponse
 import app.pachli.core.network.retrofit.apiresult.ApiResult
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.get
 import com.github.michaelbull.result.getOrElse
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
@@ -183,7 +184,7 @@ class CachedTimelineRemoteMediator(
 
         val statuses = buildList {
             prevPage.await().getOrElse { return@coroutineScope Err(it) }.let { this.addAll(it.body) }
-            status.await().getOrElse { return@coroutineScope Err(it) }.let { this.add(it.body) }
+            status.await().get()?.let { this.add(it.body) }
             nextPage.await().getOrElse { return@coroutineScope Err(it) }.let { this.addAll(it.body) }
         }
 
