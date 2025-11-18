@@ -175,6 +175,7 @@ class NetworkTimelineRemoteMediatorTest {
     fun `should return error when network call returns error code`() = runTest {
         // Given
         val remoteMediator = NetworkTimelineRemoteMediator(
+            context = context,
             api = mock(defaultAnswer = { failure<Unit>(code = 500) }),
             pachliAccountId = activeAccount.id,
             factory = pagingSourceFactory,
@@ -202,6 +203,7 @@ class NetworkTimelineRemoteMediatorTest {
         // Given
         val pages = PageCache()
         val remoteMediator = NetworkTimelineRemoteMediator(
+            context = context,
             mastodonApi.stub {
                 onBlocking { homeTimeline(maxId = anyOrNull(), minId = anyOrNull(), limit = anyOrNull(), sinceId = anyOrNull()) } doReturn success(
                     listOf(fakeStatus("7"), fakeStatus("6"), fakeStatus("5")),
@@ -269,6 +271,7 @@ class NetworkTimelineRemoteMediatorTest {
         }
 
         val remoteMediator = NetworkTimelineRemoteMediator(
+            context = context,
             mastodonApi.stub {
                 onBlocking { homeTimeline(maxId = anyOrNull(), minId = anyOrNull(), limit = anyOrNull(), sinceId = anyOrNull()) } doReturn success(
                     listOf(fakeStatus("10"), fakeStatus("9"), fakeStatus("8")),
@@ -344,6 +347,7 @@ class NetworkTimelineRemoteMediatorTest {
         }
 
         val remoteMediator = NetworkTimelineRemoteMediator(
+            context = context,
             mastodonApi.stub {
                 onBlocking { homeTimeline(maxId = anyOrNull(), minId = anyOrNull(), limit = anyOrNull(), sinceId = anyOrNull()) } doReturn success(
                     listOf(fakeStatus("4"), fakeStatus("3"), fakeStatus("2")),

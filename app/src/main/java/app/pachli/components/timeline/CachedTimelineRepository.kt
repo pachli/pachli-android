@@ -17,6 +17,7 @@
 
 package app.pachli.components.timeline
 
+import android.content.Context
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.InvalidatingPagingSourceFactory
 import androidx.paging.Pager
@@ -40,6 +41,7 @@ import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.ui.getDomain
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
@@ -58,6 +60,7 @@ import timber.log.Timber
 
 @Singleton
 class CachedTimelineRepository @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val mastodonApi: MastodonApi,
     private val transactionProvider: TransactionProvider,
     val timelineDao: TimelineDao,
@@ -123,6 +126,7 @@ class CachedTimelineRepository @Inject constructor(
                 enablePlaceholders = true,
             ),
             remoteMediator = CachedTimelineRemoteMediator(
+                context,
                 mastodonApi,
                 pachliAccountId,
                 transactionProvider,

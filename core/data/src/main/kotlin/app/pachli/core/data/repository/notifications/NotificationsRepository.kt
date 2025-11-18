@@ -17,6 +17,7 @@
 
 package app.pachli.core.data.repository.notifications
 
+import android.content.Context
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.InvalidatingPagingSourceFactory
 import androidx.paging.Pager
@@ -50,7 +51,9 @@ import app.pachli.core.network.model.asNetworkModel
 import app.pachli.core.network.model.pronouns
 import app.pachli.core.network.retrofit.MastodonApi
 import com.github.michaelbull.result.onSuccess
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
@@ -62,7 +65,9 @@ import timber.log.Timber
  * Repository for [NotificationData] interacting with the remote [MastodonApi]
  * using the local database as a cache.
  */
+@Singleton
 class NotificationsRepository @Inject constructor(
+    @ApplicationContext private val context: Context,
     @ApplicationScope private val externalScope: CoroutineScope,
     private val mastodonApi: MastodonApi,
     private val transactionProvider: TransactionProvider,
@@ -112,6 +117,7 @@ class NotificationsRepository @Inject constructor(
                 enablePlaceholders = true,
             ),
             remoteMediator = NotificationsRemoteMediator(
+                context,
                 pachliAccountId,
                 mastodonApi,
                 transactionProvider,

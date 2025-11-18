@@ -17,6 +17,7 @@
 
 package app.pachli.components.timeline.viewmodel
 
+import android.content.Context
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.InvalidatingPagingSourceFactory
 import androidx.paging.LoadType
@@ -53,6 +54,7 @@ typealias FetchPage = suspend (maxId: String?, minId: String?, limit: Int) -> Ap
 /** Remote mediator for accessing timelines that are not backed by the database. */
 @OptIn(ExperimentalPagingApi::class)
 class NetworkTimelineRemoteMediator(
+    private val context: Context,
     private val api: MastodonApi,
     private val pachliAccountId: Long,
     private val factory: InvalidatingPagingSourceFactory<String, TimelineStatusWithQuote>,
@@ -101,7 +103,7 @@ class NetworkTimelineRemoteMediator(
                     val key = pageCache.firstPage?.prevKey ?: return MediatorResult.Success(endOfPaginationReached = true)
                     Page.tryFrom(fetchStatusPageByKind(loadType, key, state.config.pageSize))
                 }
-            }.getOrElse { return MediatorResult.Error(it.asThrowable()) }
+            }.getOrElse { return MediatorResult.Error(it.asThrowable(context)) }
 
             Timber.d("- $timeline, load(), type = %s, items: %d", loadType, page.data.size)
             Timber.d("  $timeline, first id: ${page.data.firstOrNull()?.statusId}")

@@ -1,5 +1,6 @@
 package app.pachli.components.conversation
 
+import android.content.Context
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -23,6 +24,7 @@ import timber.log.Timber
 
 @OptIn(ExperimentalPagingApi::class)
 class ConversationsRemoteMediator(
+    private val context: Context,
     private val pachliAccountId: Long,
     private val api: MastodonApi,
     private val transactionProvider: TransactionProvider,
@@ -46,7 +48,7 @@ class ConversationsRemoteMediator(
         }
 
         val conversationsResponse = api.getConversations(maxId = nextKey, limit = state.config.pageSize)
-            .getOrElse { return MediatorResult.Error(it.asThrowable()) }
+            .getOrElse { return MediatorResult.Error(it.asThrowable(context)) }
 
         val conversations = conversationsResponse.body.filterNot { it.lastStatus == null }.asModel()
 
