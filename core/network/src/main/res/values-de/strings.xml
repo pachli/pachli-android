@@ -7,7 +7,7 @@
     <string name="node_info_error_no_software_name">Softwarename fehlt oder ist leer</string>
     <string name="node_info_error_no_software_version">Softwareversion fehlt oder ist leer</string>
     <string name="error_429_rate_limit_fmt">Dein Server begrenzt deine Anfragen.: %1$s</string>
-    <string name="error_json_data_fmt">Dein Server hat eine ungültige Rückmeldung gesendet: %1$s</string>
+    <string name="error_json_data_fmt">dein Server hat eine ungültige Rückmeldung gesendet: %1$s</string>
     <string name="error_missing_content_type_fmt">Dein Server ist falsch konfiguriert, die Rückmeldung hat keinen Inhaltstyp: %1$s</string>
     <string name="error_wrong_content_type_fmt">Dein Server ist falsch konfiguriert und hat \'%2$s\' mit dem falschen Inhaltstyp zurückgemeldet, \'%1$s\'</string>
     <string name="server_error_unparseable_version">Konnte \"%1$s\" nicht als Version analysieren: %2$s</string>
