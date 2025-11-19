@@ -748,14 +748,16 @@ WHERE pachliAccountId = :accountId
         """
 DELETE
 FROM StatusEntity
-WHERE NOT EXISTS (
-    SELECT 1
-    FROM ReferencedStatusId AS r
-    WHERE
-        r.pachliAccountId = :accountId
-        AND StatusEntity.timelineUserId = r.pachliAccountId
-        AND StatusEntity.serverId = r.statusId
-)
+WHERE
+    StatusEntity.timelineUserId = :accountId
+    AND NOT EXISTS (
+        SELECT 1
+        FROM ReferencedStatusId AS r
+        WHERE
+            r.pachliAccountId = :accountId
+            AND StatusEntity.timelineUserId = r.pachliAccountId
+            AND StatusEntity.serverId = r.statusId
+    )
 """,
     )
     abstract suspend fun cleanupStatuses(accountId: Long)
@@ -799,14 +801,16 @@ WHERE
         """
 DELETE
 FROM StatusViewDataEntity
-WHERE NOT EXISTS (
-    SELECT 1
-    FROM ReferencedStatusId AS r
-    WHERE
-        r.pachliAccountId = :accountId
-        AND StatusViewDataEntity.pachliAccountId = r.pachliAccountId
-        AND StatusViewDataEntity.serverId = r.statusId
-)
+WHERE
+    StatusViewDataEntity.pachliAccountId = :accountId
+    AND NOT EXISTS (
+        SELECT 1
+        FROM ReferencedStatusId AS r
+        WHERE
+            r.pachliAccountId = :accountId
+            AND StatusViewDataEntity.pachliAccountId = r.pachliAccountId
+            AND StatusViewDataEntity.serverId = r.statusId
+    )
 """,
     )
     abstract suspend fun cleanupStatusViewData(accountId: Long)
@@ -819,14 +823,16 @@ WHERE NOT EXISTS (
         """
 DELETE
 FROM TranslatedStatusEntity
-WHERE NOT EXISTS (
-    SELECT 1
-    FROM ReferencedStatusId AS r
-    WHERE
-        r.pachliAccountId = :accountId
-        AND TranslatedStatusEntity.timelineUserId = r.pachliAccountId
-        AND TranslatedStatusEntity.serverId = r.statusId
-)
+WHERE
+    TranslatedStatusEntity.timelineUserId = :accountId
+    AND NOT EXISTS (
+        SELECT 1
+        FROM ReferencedStatusId AS r
+        WHERE
+            r.pachliAccountId = :accountId
+            AND TranslatedStatusEntity.timelineUserId = r.pachliAccountId
+            AND TranslatedStatusEntity.serverId = r.statusId
+    )
 """,
     )
     abstract suspend fun cleanupTranslatedStatus(accountId: Long)
