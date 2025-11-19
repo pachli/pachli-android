@@ -34,6 +34,8 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import app.pachli.core.common.PachliError
 import app.pachli.core.common.PachliThrowable
+import app.pachli.core.common.extensions.hide
+import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.ui.databinding.ViewBackgroundMessageBinding
 import app.pachli.core.ui.extensions.getDrawableRes
@@ -114,7 +116,30 @@ class BackgroundMessageView @JvmOverloads constructor(
     }
 
     fun setup(message: BackgroundMessage, listener: ((v: View) -> Unit)? = null) {
-        setup(message.drawableRes, message.stringRes, listener)
+        when (message) {
+            is BackgroundMessage.Empty -> setup(
+                message.drawableRes,
+                message.stringRes,
+                listener,
+            )
+
+            is BackgroundMessage.GenericError -> setup(
+                message.drawableRes,
+                context.getString(
+                    app.pachli.core.network.R.string.error_generic_fmt,
+                    context.getString(message.stringRes),
+                ),
+            )
+
+            is BackgroundMessage.Network -> setup(
+                message.drawableRes,
+                context.getString(
+                    app.pachli.core.network.R.string.error_network_fmt,
+                    context.getString(message.stringRes),
+                ),
+
+            )
+        }
     }
 
     private fun setup(
@@ -123,10 +148,7 @@ class BackgroundMessageView @JvmOverloads constructor(
         clickListener: ((v: View) -> Unit)? = null,
     ) = setup(
         imageRes,
-        context.getString(
-            app.pachli.core.network.R.string.error_network_fmt,
-            context.getString(messageRes),
-        ),
+        context.getString(messageRes),
         clickListener,
     )
 
@@ -148,6 +170,7 @@ class BackgroundMessageView @JvmOverloads constructor(
         }
         binding.button.isEnabled = true
         binding.button.visible(clickListener != null)
+        binding.helpText.hide()
     }
 
     fun showHelp(@StringRes helpRes: Int) {
@@ -158,7 +181,10 @@ class BackgroundMessageView @JvmOverloads constructor(
 
         binding.helpText.setText(textWithDrawables, TextView.BufferType.SPANNABLE)
 
-        binding.helpText.visible(true)
+        binding.helpText.show()
+        binding.imageView.hide()
+        binding.messageTextView.hide()
+        binding.button.hide()
     }
 
     /**
