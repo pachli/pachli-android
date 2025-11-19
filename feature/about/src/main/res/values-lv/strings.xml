@@ -60,4 +60,20 @@
     <string name="notification_details_last_fetch_help">Neatkarīgi no paziņojumu piegādes veida, šis katram kontam rāda, kad notika pēdējā iegūšana, vai tā bija sekmīga un kļūdas ziņojumu, ja pieprasījums neizdevās.</string>
     <string name="notification_details_usage_event_label">Android var ierobežot, ko lietotnes var darīt fonā. Šajā sarakstā ir uzskaitīts, kā Pachli tika ierobežota pēdējo trīs dienu laikā, sākot ar visjaunāko.</string>
     <string name="about_nivenly_foundation">Pachli ir <a href="https://nivenly.org">Nivenly Foundation</a> projekts.</string>
+    <string name="about_notifications">Paziņojumi</string>
+    <string name="about_database">Datubāze</string>
+    <string name="database_table_sizes">Tabulu izmēri</string>
+    <string name="database_integrity_check">Veseluma pārbaude</string>
+    <string name="database_query_timings">Vaicājumu izpildes laiki</string>
+    <string name="database_prune_cache">Iztukšot kešatmiņu</string>
+    <string name="database_vacuum">VACUUM</string>
+    <string name="database_clear_cache">Iztīrīt kešatmiņu</string>
+    <string name="action_run_integrity_check">Izpildīt veseluma pārbaudi</string>
+    <string name="action_run_query_timings">Izpildīt vaicājumu laika mērījumus</string>
+    <string name="action_prune_cache">Iztukšot kešatmiņu</string>
+    <string name="action_vacuum">VACUUM</string>
+    <string name="action_clear_cache">Iztīrīt kešatmiņu</string>
+    <string name="database_prune_cache_complete">Kešatmiņas iztukšošana pabeigta</string>
+    <string name="database_vacuum_complete">VACUUM pabeigta</string>
+    <string name="database_clear_cache_complete">Kešatmiņas iztīšana pabeigta</string>
 </resources>
