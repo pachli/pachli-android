@@ -685,5 +685,5 @@ WHERE n.pachliAccountId = :pachliAccountId
 ORDER BY LENGTH(n.serverId) DESC, n.serverId DESC
 """,
     )
-    fun debugGetNotificationsWithQuote(pachliAccountId: Long): List<NotificationData>
+    suspend fun debugGetNotificationsWithQuote(pachliAccountId: Long): List<NotificationData>
 }

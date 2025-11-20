@@ -19,6 +19,7 @@ package app.pachli.feature.about
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.room.support.getSupportWrapper
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.database.AppDatabase
 import app.pachli.core.database.dao.ConversationsDao
@@ -148,7 +149,7 @@ class DatabaseFragmentViewModel @Inject constructor(
     /** @return The number of rows in [tableName], or any error that occurred. */
     private suspend fun getTableCount(tableName: String) = withContext(Dispatchers.IO) {
         return@withContext runSuspendCatching {
-            db.query("SELECT COUNT(*) FROM $tableName", emptyArray())
+            db.getSupportWrapper().query("SELECT COUNT(*) FROM $tableName")
                 .use {
                     it.moveToFirst()
                     it.getInt(0)
@@ -165,7 +166,7 @@ class DatabaseFragmentViewModel @Inject constructor(
             _uiState.update { it?.copy(integrityCheck = Ok("Checking...")) }
 
             val integrityCheck = runSuspendCatching {
-                db.query("PRAGMA integrity_check", emptyArray()).use {
+                db.getSupportWrapper().query("PRAGMA integrity_check").use {
                     buildString {
                         while (it.moveToNext()) {
                             append(it.getString(0))
@@ -183,6 +184,8 @@ class DatabaseFragmentViewModel @Inject constructor(
      */
     fun getQueryDurations(pachliAccountId: Long) {
         viewModelScope.launch {
+            _uiState.update { it?.copy(queryDurations = null) }
+
             val statusIds = timelineDao.getMostRecentNStatusIds(pachliAccountId, 10)
             val id = statusIds.get(min(5, statusIds.size))
 
@@ -250,6 +253,7 @@ class DatabaseFragmentViewModel @Inject constructor(
      */
     fun pruneCache() {
         viewModelScope.launch {
+            _uiState.update { it?.copy(pruneCacheResult = Ok(null)) }
             val result = runSuspendCatching {
                 accountManager.accounts.forEach {
                     timelineDao.cleanup(it.id)
@@ -266,13 +270,15 @@ class DatabaseFragmentViewModel @Inject constructor(
 
     fun vacuum() {
         viewModelScope.launch {
-            val result = runSuspendCatching { db.openHelper.writableDatabase.execSQL("VACUUM") }
+            _uiState.update { it?.copy(vacuumResult = Ok(null)) }
+            val result = runSuspendCatching { db.getSupportWrapper().execSQL("VACUUM") }
             _uiState.update { it?.copy(vacuumResult = result) }
         }
     }
 
     fun clearContentCache() {
         viewModelScope.launch {
+            _uiState.update { it?.copy(clearCacheResult = Ok(null)) }
             val result = runSuspendCatching { debugDao.clearCache() }
             _uiState.update {
                 it?.copy(
