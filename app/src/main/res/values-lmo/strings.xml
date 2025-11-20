@@ -5,4 +5,5 @@
     <string name="search_operator_language_checked_fmt">%1$s</string>
     <string name="action_edit">Modifega</string>
     <string name="post_sensitive_media_directions">Sqiça per veder</string>
+    <string name="error_empty">El campo qi le minga puó rimaner voto.</string>
 </resources>
