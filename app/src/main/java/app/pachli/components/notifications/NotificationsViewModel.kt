@@ -441,7 +441,7 @@ class NotificationsViewModel @AssistedInject constructor(
 
         viewModelScope.launch {
             uiAction.filterIsInstance<InfallibleUiAction.LoadNewest>()
-                .collectLatest { ::onLoadNewest }
+                .collectLatest { onLoadNewest() }
         }
 
         viewModelScope.launch {
