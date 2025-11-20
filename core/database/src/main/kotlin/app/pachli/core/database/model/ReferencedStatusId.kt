@@ -37,14 +37,14 @@ import androidx.room.DatabaseView
 WITH RECURSIVE
 -- CTEs to normalise the column names and restrict to just rows with
 -- non-null references to status IDs, for use in the refId CTE.
-timelineStatusId AS (
+timelineStatusId(pachliAccountId, statusId) AS (
     SELECT
         pachliAccountId,
         statusId
     FROM TimelineStatusEntity
 ),
 
-notificationStatusId AS (
+notificationStatusId(pachliAccountId, statusId) AS (
     SELECT
         pachliAccountId,
         statusServerId AS statusId
@@ -52,7 +52,7 @@ notificationStatusId AS (
     WHERE statusServerId IS NOT NULL
 ),
 
-conversationStatusId AS (
+conversationStatusId(pachliAccountId, statusId) AS (
     SELECT
         pachliAccountId,
         lastStatusServerId AS statusId
@@ -60,7 +60,7 @@ conversationStatusId AS (
     WHERE lastStatusServerId IS NOT NULL
 ),
 
-draftStatusId AS (
+draftStatusId(pachliAccountId, statusId) AS (
     SELECT
         accountId AS pachliAccountId,
         inReplyToId AS statusId
@@ -74,7 +74,7 @@ draftStatusId AS (
 -- (b) referenced by a reply, reblog, or quote in any of the statuses
 -- from "a".
 --
-refId (pachliAccountId, statusId) AS (
+refId(pachliAccountId, statusId) AS (
     --
     -- Find all the "root" statusId. These are the IDs that
     -- are referenced by tables containing "live" data.
@@ -100,7 +100,7 @@ refId (pachliAccountId, statusId) AS (
     FROM draftStatusId
 
     -- Recursively chase down all the references to replies, reblogs, and
-    -- quotes, emitting the `inRelogId`, `inReplyToId`, or `quoteServerId`
+    -- quotes, emitting the `inReblogId`, `inReplyToId`, or `quoteServerId`
     -- columns renamed to `statusId` as extra rows.
     UNION
     SELECT
