@@ -29,6 +29,8 @@ import app.pachli.core.preferences.SharedPreferencesRepository
 import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.unifiedpush.android.connector.UnifiedPush
 import timber.log.Timber
 
@@ -41,7 +43,9 @@ class EnableAllNotificationsUseCase @Inject constructor(
     private val sharedPreferencesRepository: SharedPreferencesRepository,
     private val disablePushNotificationsForAccount: DisablePushNotificationsForAccountUseCase,
 ) {
-    suspend operator fun invoke() {
+    // The UnifiedPush methods change sharedPreferences, which causes a
+    // filesystem access, so run this off the main thread, on Dispatchers.IO.
+    suspend operator fun invoke() = withContext(Dispatchers.IO) {
         // Start from a clean slate.
         disableAllNotifications()
 
@@ -52,8 +56,8 @@ class EnableAllNotificationsUseCase @Inject constructor(
         // If no accounts have push scope there's nothing to do.
         val accountsWithPushScope = accountManager.accounts.filter { it.hasPushScope }
         if (accountsWithPushScope.isEmpty()) {
-            Timber.Forest.d("No accounts have push scope, skipping UnifiedPush reconfiguration")
-            return
+            Timber.d("No accounts have push scope, skipping UnifiedPush reconfiguration")
+            return@withContext
         }
 
         // If no UnifiedPush distributors are installed then there's nothing more to do.
@@ -68,17 +72,17 @@ class EnableAllNotificationsUseCase @Inject constructor(
 
         val distributor = chooseUnifiedPushDistributor(context, usePreviousDistributor)
         if (distributor == null) {
-            Timber.Forest.d("No UnifiedPush distributor installed, skipping UnifiedPush reconfiguration")
+            Timber.d("No UnifiedPush distributor installed, skipping UnifiedPush reconfiguration")
 
             UnifiedPush.safeRemoveDistributor(context)
-            return
+            return@withContext
         }
-        Timber.Forest.d("Chose %s as UnifiedPush distributor", distributor)
+        Timber.d("Chose %s as UnifiedPush distributor", distributor)
         NotificationConfig.unifiedPushAvailable = true
 
         UnifiedPush.saveDistributor(context, distributor)
         accountsWithPushScope.forEach {
-            Timber.Forest.d("Registering instance %s, %s with %s", it.unifiedPushInstance, it.fullName, distributor)
+            Timber.d("Registering instance %s, %s with %s", it.unifiedPushInstance, it.fullName, distributor)
             UnifiedPush.registerApp(context, it.unifiedPushInstance, messageForDistributor = it.fullName)
         }
     }
