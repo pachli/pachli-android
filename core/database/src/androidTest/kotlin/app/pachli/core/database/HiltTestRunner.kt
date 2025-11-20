@@ -23,7 +23,7 @@ import androidx.test.runner.AndroidJUnitRunner
 import dagger.hilt.android.testing.HiltTestApplication
 
 /**
- * Test runner that sets the [HiltTestApplication] as the as the
+ * Test runner that sets the [HiltTestApplication] as the
  * test application in instrumented tests.
  *
  * See https://developer.android.com/training/dependency-injection/hilt-testing#instrumented-tests

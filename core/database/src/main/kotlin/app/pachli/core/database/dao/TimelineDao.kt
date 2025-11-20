@@ -734,9 +734,9 @@ WHERE pachliAccountId = :accountId
     @Transaction
     open suspend fun cleanup(accountId: Long) {
         cleanupStatuses(accountId)
-        cleanupAccounts(accountId)
         cleanupStatusViewData(accountId)
         cleanupTranslatedStatus(accountId)
+        cleanupAccounts(accountId)
     }
 
     /**
@@ -748,25 +748,24 @@ WHERE pachliAccountId = :accountId
         """
 DELETE
 FROM StatusEntity
-WHERE timelineUserId = :accountId AND serverId NOT IN (
-    SELECT statusId
-    FROM TimelineStatusEntity
-    WHERE pachliAccountId = :accountId
-    UNION
-    SELECT statusServerId
-    FROM NotificationEntity
-    WHERE pachliAccountId = :accountId AND statusServerId IS NOT NULL
-    UNION
-    SELECT lastStatusServerId
-    FROM ConversationEntity
-    WHERE pachliAccountId = :accountId
-)
+WHERE
+    StatusEntity.timelineUserId = :accountId
+    AND NOT EXISTS (
+        SELECT 1
+        FROM ReferencedStatusId AS r
+        WHERE
+            r.pachliAccountId = :accountId
+            AND StatusEntity.timelineUserId = r.pachliAccountId
+            AND StatusEntity.serverId = r.statusId
+    )
 """,
     )
     abstract suspend fun cleanupStatuses(accountId: Long)
 
     /**
-     * Cleans the TimelineAccountEntity table from accounts that are no longer referenced in the StatusEntity table
+     * Cleans the TimelineAccountEntity table from accounts that are no longer
+     * referenced in the StatusEntity table
+     *
      * @param accountId id of the user account for which to clean timeline accounts
      */
     @Query(
@@ -803,15 +802,14 @@ WHERE
 DELETE
 FROM StatusViewDataEntity
 WHERE
-    pachliAccountId = :accountId
-    AND serverId NOT IN (
-        SELECT statusId
-        FROM TimelineStatusEntity
-        WHERE pachliAccountId = :accountId
-        UNION
-        SELECT statusServerId
-        FROM NotificationEntity
-        WHERE pachliAccountId = :accountId AND statusServerId IS NOT NULL
+    StatusViewDataEntity.pachliAccountId = :accountId
+    AND NOT EXISTS (
+        SELECT 1
+        FROM ReferencedStatusId AS r
+        WHERE
+            r.pachliAccountId = :accountId
+            AND StatusViewDataEntity.pachliAccountId = r.pachliAccountId
+            AND StatusViewDataEntity.serverId = r.statusId
     )
 """,
     )
@@ -826,15 +824,14 @@ WHERE
 DELETE
 FROM TranslatedStatusEntity
 WHERE
-    timelineUserId = :accountId
-    AND serverId NOT IN (
-        SELECT statusId
-        FROM TimelineStatusEntity
-        WHERE pachliAccountId = :accountId
-        UNION
-        SELECT statusServerId
-        FROM NotificationEntity
-        WHERE pachliAccountId = :accountId AND statusServerId IS NOT NULL
+    TranslatedStatusEntity.timelineUserId = :accountId
+    AND NOT EXISTS (
+        SELECT 1
+        FROM ReferencedStatusId AS r
+        WHERE
+            r.pachliAccountId = :accountId
+            AND TranslatedStatusEntity.timelineUserId = r.pachliAccountId
+            AND TranslatedStatusEntity.serverId = r.statusId
     )
 """,
     )

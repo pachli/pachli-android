@@ -17,7 +17,9 @@
 
 package app.pachli.core.testing.di
 
+import android.os.Build
 import androidx.room.Room
+import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import androidx.test.platform.app.InstrumentationRegistry
 import app.pachli.core.database.AppDatabase
 import app.pachli.core.database.Converters
@@ -41,10 +43,15 @@ object FakeDatabaseModule {
     @Singleton
     fun providesDatabase(moshi: Moshi): AppDatabase {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
-        return Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java)
+        val roomBuilder = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java)
             .addTypeConverter(Converters(moshi))
             .allowMainThreadQueries()
-            .build()
+
+        // Tests run on the device should use the BundledSQLiteDriver, like the app.
+        // Tests run on Robolectic use the default driver provided by Robolectric.
+        if (Build.FINGERPRINT != "robolectric") roomBuilder.setDriver(BundledSQLiteDriver())
+
+        return roomBuilder.build()
     }
 
     @Provides
