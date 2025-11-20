@@ -19,7 +19,10 @@ package app.pachli.core.database.di
 
 import android.content.Context
 import androidx.room.Room
-import androidx.room.withTransaction
+import androidx.room.immediateTransaction
+import androidx.room.useReaderConnection
+import androidx.room.useWriterConnection
+import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import app.pachli.core.database.AppDatabase
 import app.pachli.core.database.Converters
 import app.pachli.core.database.MIGRATE_10_11
@@ -45,6 +48,7 @@ object DatabaseModule {
         converters: Converters,
     ): AppDatabase {
         return Room.databaseBuilder(appContext, AppDatabase::class.java, "pachliDB")
+            .setDriver(BundledSQLiteDriver())
             .addTypeConverter(converters)
             .allowMainThreadQueries()
             .addMigrations(MIGRATE_8_9)
@@ -130,11 +134,17 @@ object DatabaseModule {
 class TransactionProvider(private val appDatabase: AppDatabase) {
     /** Runs the given block in a database transaction */
     suspend operator fun <R> invoke(block: suspend () -> R): R {
-        return if (appDatabase.inTransaction()) block() else appDatabase.withTransaction(block)
+        return appDatabase.useWriterConnection { transactor ->
+            if (transactor.inTransaction()) {
+                block.invoke()
+            } else {
+                transactor.immediateTransaction { block.invoke() }
+            }
+        }
     }
 
     /** @return True if the current thread is in a transaction. */
-    fun inTransaction() = appDatabase.inTransaction()
+    suspend fun inTransaction() = appDatabase.useReaderConnection { it.inTransaction() }
 }
 
 /**
