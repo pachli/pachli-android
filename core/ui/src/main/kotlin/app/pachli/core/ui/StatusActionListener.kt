@@ -83,4 +83,10 @@ interface StatusActionListener : LinkListener {
      * @param url The URL of the media.
      */
     fun onViewMedia(pachliAccountId: Long, username: String, url: String)
+
+    /** Translate [viewData]. */
+    fun onTranslate(viewData: IStatusViewData)
+
+    /** Undo the translation of [viewData]. */
+    fun onTranslateUndo(viewData: IStatusViewData)
 }

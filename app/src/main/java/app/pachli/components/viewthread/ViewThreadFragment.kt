@@ -318,11 +318,11 @@ class ViewThreadFragment :
         }
     }
 
-    override fun onTranslate(viewData: StatusItemViewData) {
+    override fun onTranslate(viewData: IStatusViewData) {
         viewModel.translate(viewData)
     }
 
-    override fun onTranslateUndo(viewData: StatusItemViewData) {
+    override fun onTranslateUndo(viewData: IStatusViewData) {
         viewModel.translateUndo(viewData)
     }
 
@@ -349,10 +349,6 @@ class ViewThreadFragment :
 
     override fun onBookmark(viewData: IStatusViewData, bookmark: Boolean) {
         viewModel.bookmark(bookmark, viewData)
-    }
-
-    override fun onMore(view: View, viewData: IStatusViewData) {
-        super.more(view, viewData as StatusItemViewData)
     }
 
     override fun onViewAttachment(view: View?, viewData: IStatusViewData, attachmentIndex: Int) {
@@ -431,7 +427,7 @@ class ViewThreadFragment :
         super.viewAccount(id)
     }
 
-    public override fun removeItem(viewData: StatusItemViewData) {
+    public override fun removeItem(viewData: IStatusViewData) {
         if (viewData.isDetailed) {
             // the main status we are viewing is being removed, finish the activity
             activity?.finish()

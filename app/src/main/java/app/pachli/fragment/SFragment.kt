@@ -21,9 +21,11 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.CallSuper
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.app.ActivityOptionsCompat
@@ -31,7 +33,6 @@ import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import app.pachli.BuildConfig
 import app.pachli.R
 import app.pachli.core.activity.BaseActivity
 import app.pachli.core.activity.OpenUrlUseCase
@@ -39,7 +40,6 @@ import app.pachli.core.activity.ViewUrlActivity
 import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
-import app.pachli.core.data.model.ConversationViewData
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
@@ -74,7 +74,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener {
-    protected abstract fun removeItem(viewData: T)
+    protected abstract fun removeItem(viewData: IStatusViewData)
 
     @Inject
     lateinit var mastodonApi: MastodonApi
@@ -163,19 +163,16 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
      * Handles the user clicking the "..." (more) button typically at the bottom-right of
      * the status.
      */
-    protected fun more(view: View, viewData: T) {
+    override fun onMore(view: View, viewData: IStatusViewData) {
         val status = viewData.status
-        val actionableId = viewData.actionableId
         val accountId = viewData.actionable.account.id
-        val accountUsername = viewData.actionable.account.username
-        val statusUrl = viewData.actionable.url
         var loggedInAccountId: String? = null
         val activeAccount = accountManager.activeAccount
         if (activeAccount != null) {
             loggedInAccountId = activeAccount.accountId
         }
         val popup = PopupMenu(requireContext(), view)
-        // Give a different menu depending on whether this is the user's own toot or not.
+        // Give a different menu depending on whether this is the user's own status or not.
         val statusIsByCurrentUser = loggedInAccountId != null && loggedInAccountId == accountId
         if (statusIsByCurrentUser) {
             popup.inflate(R.menu.status_more_for_user)
@@ -225,134 +222,174 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
         menu.findItem(R.id.status_mute_conversation)?.isVisible = status.muted == false && (statusIsByCurrentUser || accountIsInMentions(activeAccount, status.mentions))
         menu.findItem(R.id.status_unmute_conversation)?.isVisible = status.muted == true && (statusIsByCurrentUser || accountIsInMentions(activeAccount, status.mentions))
 
-        // Can't rely on the visibility here, as statuses with Visibility.DIRECT can appear in
-        // the home timeline, threads, notifications, etc, and none of those places can delete
-        // conversations.
-        menu.findItem(R.id.conversation_delete).isVisible = viewData is ConversationViewData
+        onPrepareMoreMenu(menu, viewData)
 
-        popup.setOnMenuItemClickListener { item: MenuItem ->
-            when (item.itemId) {
-                R.id.post_share_content -> {
-                    val statusToShare = status.reblog ?: status
-                    val sendIntent = Intent().apply {
-                        action = Intent.ACTION_SEND
-                        type = "text/plain"
-                        putExtra(
-                            Intent.EXTRA_TEXT,
-                            "${statusToShare.account.username} - ${statusToShare.content.parseAsMastodonHtml()}",
-                        )
-                        putExtra(Intent.EXTRA_SUBJECT, statusUrl)
-                    }
-                    startActivityWithDefaultTransition(
-                        Intent.createChooser(
-                            sendIntent,
-                            resources.getText(R.string.send_post_content_to),
-                        ),
-                    )
-                    return@setOnMenuItemClickListener true
-                }
-                R.id.post_share_link -> {
-                    val sendIntent = Intent().apply {
-                        action = Intent.ACTION_SEND
-                        putExtra(Intent.EXTRA_TEXT, statusUrl)
-                        type = "text/plain"
-                    }
-                    startActivityWithDefaultTransition(
-                        Intent.createChooser(
-                            sendIntent,
-                            resources.getText(R.string.send_post_link_to),
-                        ),
-                    )
-                    return@setOnMenuItemClickListener true
-                }
-                R.id.status_copy_link -> {
-                    statusUrl?.let { clipboard.copyTextTo(it) }
-                    return@setOnMenuItemClickListener true
-                }
-                R.id.status_open_as -> {
-                    showOpenAsDialog(statusUrl, item.title)
-                    return@setOnMenuItemClickListener true
-                }
-                R.id.status_download_media -> {
-                    requestDownloadAllMedia(status)
-                    return@setOnMenuItemClickListener true
-                }
-                R.id.status_mute -> {
-                    onMute(accountId, accountUsername)
-                    return@setOnMenuItemClickListener true
-                }
-                R.id.status_block -> {
-                    onBlock(accountId, accountUsername)
-                    return@setOnMenuItemClickListener true
-                }
-                R.id.status_report -> {
-                    openReportPage(accountId, accountUsername, actionableId)
-                    return@setOnMenuItemClickListener true
-                }
-                R.id.status_unreblog_private -> {
-                    onReblog(viewData, false)
-                    return@setOnMenuItemClickListener true
-                }
-                R.id.status_reblog_private -> {
-                    onReblog(viewData, true)
-                    return@setOnMenuItemClickListener true
-                }
-                R.id.status_delete -> {
-                    showConfirmDeleteDialog(viewData)
-                    return@setOnMenuItemClickListener true
-                }
-                R.id.status_delete_and_redraft -> {
-                    showConfirmEditDialog(viewData)
-                    return@setOnMenuItemClickListener true
-                }
-                R.id.status_edit -> {
-                    editStatus(actionableId, status)
-                    return@setOnMenuItemClickListener true
-                }
-                R.id.pin -> {
-                    lifecycleScope.launch {
-                        statusRepository.pin(pachliAccountId, status.actionableId, !status.isPinned()).onFailure { e ->
-                            val message = e.fmt(requireContext())
-                            Snackbar.make(requireView(), message, Snackbar.LENGTH_LONG).show()
-                        }
-                    }
-                    return@setOnMenuItemClickListener true
-                }
-                R.id.status_mute_conversation -> {
-                    lifecycleScope.launch {
-                        timelineCases.muteConversation(pachliAccountId, status.actionableId, true)
-                    }
-                    return@setOnMenuItemClickListener true
-                }
-
-                R.id.status_unmute_conversation -> {
-                    lifecycleScope.launch {
-                        timelineCases.muteConversation(pachliAccountId, status.actionableId, false)
-                    }
-                }
-
-                R.id.conversation_delete -> {
-                    onConversationDelete(viewData)
-                }
-                R.id.status_translate -> {
-                    onTranslate(viewData)
-                    return@setOnMenuItemClickListener true
-                }
-                R.id.status_translate_undo -> {
-                    onTranslateUndo(viewData)
-                    return@setOnMenuItemClickListener true
-                }
-            }
-            false
-        }
+        popup.setOnMenuItemClickListener { item: MenuItem -> onMoreMenuItemClick(item, viewData) }
         popup.show()
     }
 
-    /** Translate [viewData]. */
-    abstract fun onTranslate(viewData: T)
+    /**
+     * Called after the "..." (more) menu has been prepared but before it is
+     * displayed.
+     *
+     * Subclasses may override this and change the visibility of items in
+     * [menu], add items, or remove them.
+     *
+     * Subclasses that override this and add items should also override
+     * [onMoreMenuItemClick] to handle clicks on the new items.
+     *
+     * @param menu Populated menu to modify.
+     * @param viewData IStatusViewData for the current item.
+     */
+    protected open fun onPrepareMoreMenu(menu: Menu, viewData: IStatusViewData) = Unit
 
-    /** Undo the translation of [viewData]. */
-    abstract fun onTranslateUndo(viewData: T)
+    /**
+     * Handler for clicks on the "..." (more) menu. Subclasses that overode
+     * [onPrepareMoreMenu] should also override this to handle the menu items they
+     * added / made visible.
+     *
+     * After handling their items subclasses should call this implementation.
+     *
+     * @param item [MenuItem] that was clicked on.
+     * @param viewData IStatusViewData for the current item.
+     * @return True if the click was acted on, false otherwise.
+     */
+    @CallSuper
+    protected open fun onMoreMenuItemClick(item: MenuItem, viewData: IStatusViewData): Boolean {
+        val status = viewData.status
+        val actionableId = viewData.actionableId
+        val accountId = viewData.actionable.account.id
+        val accountUsername = viewData.actionable.account.username
+        val statusUrl = viewData.actionable.url
+
+        return when (item.itemId) {
+            R.id.post_share_content -> {
+                val statusToShare = status.reblog ?: status
+                val sendIntent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    type = "text/plain"
+                    putExtra(
+                        Intent.EXTRA_TEXT,
+                        "${statusToShare.account.username} - ${statusToShare.content.parseAsMastodonHtml()}",
+                    )
+                    putExtra(Intent.EXTRA_SUBJECT, statusUrl)
+                }
+                startActivityWithDefaultTransition(
+                    Intent.createChooser(
+                        sendIntent,
+                        resources.getText(R.string.send_post_content_to),
+                    ),
+                )
+                true
+            }
+
+            R.id.post_share_link -> {
+                val sendIntent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, statusUrl)
+                    type = "text/plain"
+                }
+                startActivityWithDefaultTransition(
+                    Intent.createChooser(
+                        sendIntent,
+                        resources.getText(R.string.send_post_link_to),
+                    ),
+                )
+                true
+            }
+
+            R.id.status_copy_link -> {
+                statusUrl?.let { clipboard.copyTextTo(it) }
+                true
+            }
+
+            R.id.status_open_as -> {
+                showOpenAsDialog(statusUrl, item.title)
+                true
+            }
+
+            R.id.status_download_media -> {
+                requestDownloadAllMedia(status)
+                true
+            }
+
+            R.id.status_mute -> {
+                onMute(accountId, accountUsername)
+                true
+            }
+
+            R.id.status_block -> {
+                onBlock(accountId, accountUsername)
+                true
+            }
+
+            R.id.status_report -> {
+                openReportPage(accountId, accountUsername, actionableId)
+                true
+            }
+
+            R.id.status_unreblog_private -> {
+                onReblog(viewData, false)
+                true
+            }
+
+            R.id.status_reblog_private -> {
+                onReblog(viewData, true)
+                true
+            }
+
+            R.id.status_delete -> {
+                showConfirmDeleteDialog(viewData)
+                true
+            }
+
+            R.id.status_delete_and_redraft -> {
+                showConfirmEditDialog(viewData)
+                true
+            }
+
+            R.id.status_edit -> {
+                editStatus(actionableId, status)
+                true
+            }
+
+            R.id.pin -> {
+                lifecycleScope.launch {
+                    statusRepository.pin(pachliAccountId, status.actionableId, !status.isPinned()).onFailure { e ->
+                        val message = e.fmt(requireContext())
+                        Snackbar.make(requireView(), message, Snackbar.LENGTH_LONG).show()
+                    }
+                }
+                true
+            }
+
+            R.id.status_mute_conversation -> {
+                lifecycleScope.launch {
+                    timelineCases.muteConversation(pachliAccountId, status.actionableId, true)
+                }
+                true
+            }
+
+            R.id.status_unmute_conversation -> {
+                lifecycleScope.launch {
+                    timelineCases.muteConversation(pachliAccountId, status.actionableId, false)
+                }
+                true
+            }
+
+            R.id.status_translate -> {
+                onTranslate(viewData)
+                true
+            }
+
+            R.id.status_translate_undo -> {
+                onTranslateUndo(viewData)
+                true
+            }
+
+            else -> false
+        }
+    }
 
     private fun onMute(accountId: String, accountUsername: String) {
         showMuteAccountDialog(this.requireActivity(), accountUsername) { notifications: Boolean?, duration: Int? ->
@@ -413,7 +450,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
         startActivityWithDefaultTransition(ReportActivityIntent(requireContext(), pachliAccountId, accountId, accountUsername, statusId))
     }
 
-    private fun showConfirmDeleteDialog(viewData: T) {
+    private fun showConfirmDeleteDialog(viewData: IStatusViewData) {
         AlertDialog.Builder(requireActivity())
             .setMessage(R.string.dialog_delete_post_warning)
             .setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
@@ -434,7 +471,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
             .show()
     }
 
-    private fun showConfirmEditDialog(statusViewData: T) {
+    private fun showConfirmEditDialog(statusViewData: IStatusViewData) {
         if (activity == null) {
             return
         }
@@ -501,10 +538,6 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                     ).show()
                 }
         }
-    }
-
-    open fun onConversationDelete(viewData: T) {
-        if (BuildConfig.DEBUG) throw RuntimeException("onConversationDelete should have been overridden")
     }
 
     private fun showOpenAsDialog(statusUrl: String?, dialogTitle: CharSequence?) {
