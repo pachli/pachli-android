@@ -477,5 +477,5 @@ WHERE c.pachliAccountId = :accountId
 ORDER BY s.createdAt DESC
 """,
     )
-    fun debugGetConversationsWithQuote(accountId: Long): List<ConversationData>
+    suspend fun debugGetConversationsWithQuote(accountId: Long): List<ConversationData>
 }

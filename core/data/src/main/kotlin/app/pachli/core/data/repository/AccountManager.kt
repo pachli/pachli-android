@@ -700,79 +700,79 @@ class AccountManager @Inject constructor(
         )
     }
 
-    fun setDefaultPostPrivacy(accountId: Long, value: Visibility) {
+    suspend fun setDefaultPostPrivacy(accountId: Long, value: Visibility) {
         accountDao.setDefaultPostPrivacy(accountId, value)
     }
 
-    fun setDefaultMediaSensitivity(accountId: Long, value: Boolean) {
+    suspend fun setDefaultMediaSensitivity(accountId: Long, value: Boolean) {
         accountDao.setDefaultMediaSensitivity(accountId, value)
     }
 
-    fun setDefaultPostLanguage(accountId: Long, value: String) {
+    suspend fun setDefaultPostLanguage(accountId: Long, value: String) {
         accountDao.setDefaultPostLanguage(accountId, value)
     }
 
-    fun setNotificationsEnabled(accountId: Long, value: Boolean) {
+    suspend fun setNotificationsEnabled(accountId: Long, value: Boolean) {
         accountDao.setNotificationsEnabled(accountId, value)
     }
 
-    fun setNotificationsMentioned(accountId: Long, value: Boolean) {
+    suspend fun setNotificationsMentioned(accountId: Long, value: Boolean) {
         accountDao.setNotificationsMentioned(accountId, value)
     }
 
-    fun setNotificationsFollowed(accountId: Long, value: Boolean) {
+    suspend fun setNotificationsFollowed(accountId: Long, value: Boolean) {
         accountDao.setNotificationsFollowed(accountId, value)
     }
 
-    fun setNotificationsFollowRequested(accountId: Long, value: Boolean) {
+    suspend fun setNotificationsFollowRequested(accountId: Long, value: Boolean) {
         accountDao.setNotificationsFollowRequested(accountId, value)
     }
 
-    fun setNotificationsReblogged(accountId: Long, value: Boolean) {
+    suspend fun setNotificationsReblogged(accountId: Long, value: Boolean) {
         accountDao.setNotificationsReblogged(accountId, value)
     }
 
-    fun setNotificationsFavorited(accountId: Long, value: Boolean) {
+    suspend fun setNotificationsFavorited(accountId: Long, value: Boolean) {
         accountDao.setNotificationsFavorited(accountId, value)
     }
 
-    fun setNotificationsPolls(accountId: Long, value: Boolean) {
+    suspend fun setNotificationsPolls(accountId: Long, value: Boolean) {
         accountDao.setNotificationsPolls(accountId, value)
     }
 
-    fun setNotificationsSubscriptions(accountId: Long, value: Boolean) {
+    suspend fun setNotificationsSubscriptions(accountId: Long, value: Boolean) {
         accountDao.setNotificationsSubscriptions(accountId, value)
     }
 
-    fun setNotificationsSignUps(accountId: Long, value: Boolean) {
+    suspend fun setNotificationsSignUps(accountId: Long, value: Boolean) {
         accountDao.setNotificationsSignUps(accountId, value)
     }
 
-    fun setNotificationsUpdates(accountId: Long, value: Boolean) {
+    suspend fun setNotificationsUpdates(accountId: Long, value: Boolean) {
         accountDao.setNotificationsUpdates(accountId, value)
     }
 
-    fun setNotificationsReports(accountId: Long, value: Boolean) {
+    suspend fun setNotificationsReports(accountId: Long, value: Boolean) {
         accountDao.setNotificationsReports(accountId, value)
     }
 
-    fun setNotificationsSeveredRelationships(accountId: Long, value: Boolean) {
+    suspend fun setNotificationsSeveredRelationships(accountId: Long, value: Boolean) {
         accountDao.setNotificationsSeveredRelationships(accountId, value)
     }
 
-    fun setNotificationsModerationWarnings(accountId: Long, value: Boolean) {
+    suspend fun setNotificationsModerationWarnings(accountId: Long, value: Boolean) {
         accountDao.setNotificationsModerationWarnings(accountId, value)
     }
 
-    fun setNotificationSound(accountId: Long, value: Boolean) {
+    suspend fun setNotificationSound(accountId: Long, value: Boolean) {
         accountDao.setNotificationSound(accountId, value)
     }
 
-    fun setNotificationVibration(accountId: Long, value: Boolean) {
+    suspend fun setNotificationVibration(accountId: Long, value: Boolean) {
         accountDao.setNotificationVibration(accountId, value)
     }
 
-    fun setNotificationLight(accountId: Long, value: Boolean) {
+    suspend fun setNotificationLight(accountId: Long, value: Boolean) {
         accountDao.setNotificationLight(accountId, value)
     }
 

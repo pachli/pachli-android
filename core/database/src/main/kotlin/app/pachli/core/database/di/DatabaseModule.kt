@@ -24,6 +24,7 @@ import androidx.room.useReaderConnection
 import androidx.room.useWriterConnection
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import app.pachli.core.database.AppDatabase
+import app.pachli.core.database.BuildConfig
 import app.pachli.core.database.Converters
 import app.pachli.core.database.MIGRATE_10_11
 import app.pachli.core.database.MIGRATE_12_13
@@ -50,12 +51,14 @@ object DatabaseModule {
         return Room.databaseBuilder(appContext, AppDatabase::class.java, "pachliDB")
             .setDriver(BundledSQLiteDriver())
             .addTypeConverter(converters)
-            .allowMainThreadQueries()
             .addMigrations(MIGRATE_8_9)
             .addMigrations(MIGRATE_10_11)
             .addMigrations(MIGRATE_12_13)
             .addMigrations(MIGRATE_18_19)
             .addMigrations(MIGRATE_22_23)
+            .apply {
+                if (!BuildConfig.DEBUG) allowMainThreadQueries()
+            }
             .build()
     }
 
