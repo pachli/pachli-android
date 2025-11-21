@@ -33,7 +33,12 @@ data class Notification(
     val accountWarning: AccountWarning? = null,
 ) {
 
-    /** From https://docs.joinmastodon.org/entities/Notification/#type */
+    /**
+     * Order of the enums determines the order in the "Filter notifications"
+     * dialog.
+     *
+     * From https://docs.joinmastodon.org/entities/Notification/#type.
+     */
     enum class Type(val presentation: String) {
         UNKNOWN("unknown"),
 
@@ -51,6 +56,12 @@ data class Notification(
 
         /** Someone requested to follow you */
         FOLLOW_REQUEST("follow_request"),
+
+        /** Someone quoted one of your posts. */
+        QUOTE("quote"),
+
+        /** A post you quoted has been updated. */
+        QUOTED_UPDATE("quoted_updated"),
 
         /** A poll you have voted in or created has ended */
         POLL("poll"),

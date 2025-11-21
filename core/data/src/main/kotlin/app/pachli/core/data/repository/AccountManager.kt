@@ -736,6 +736,14 @@ class AccountManager @Inject constructor(
         accountDao.setNotificationsFavorited(accountId, value)
     }
 
+    suspend fun setNotificationsQuote(accountId: Long, value: Boolean) {
+        accountDao.setNotificationsQuotes(accountId, value)
+    }
+
+    suspend fun setNotificationsQuotedUpdate(accountId: Long, value: Boolean) {
+        accountDao.setNotificationsQuotedUpdate(accountId, value)
+    }
+
     suspend fun setNotificationsPolls(accountId: Long, value: Boolean) {
         accountDao.setNotificationsPolls(accountId, value)
     }

@@ -168,6 +168,12 @@ data class NotificationEntity(
 
         /** A moderator has taken action against your account or has sent you a warning. */
         MODERATION_WARNING,
+
+        /** Someone quoted one of your posts. */
+        QUOTE,
+
+        /** A post you quoted has been updated. */
+        QUOTED_UPDATE,
         ;
 
         companion object
