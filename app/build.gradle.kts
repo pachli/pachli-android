@@ -168,6 +168,8 @@ dependencies {
 
     implementation(libs.conscrypt.android)
 
+    ksp(libs.glide.compiler)
+
     implementation(libs.touchimageview)
 
     implementation(libs.bundles.material.drawer)
