@@ -28,6 +28,8 @@ import app.pachli.core.data.model.NotificationViewData.UnknownNotificationViewDa
 import app.pachli.core.data.model.NotificationViewData.WithStatus.FavouriteNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.WithStatus.MentionNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.WithStatus.PollNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatus.QuoteNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatus.QuotedUpdateNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.WithStatus.ReblogNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.WithStatus.StatusNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.WithStatus.UpdateNotificationViewData
@@ -249,5 +251,47 @@ fun NotificationViewData.Companion.make(
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
         accountWarning = data.accountWarning!!.asModel(),
+    )
+
+    NotificationEntity.Type.QUOTE -> QuoteNotificationViewData(
+        pachliAccountId = pachliAccountEntity.id,
+        localDomain = pachliAccountEntity.domain,
+        notificationId = data.notification.serverId,
+        account = data.account.asModel(),
+        isAboutSelf = isAboutSelf,
+        accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
+        statusItemViewData = data.status!!.let {
+            StatusItemViewData.from(
+                pachliAccountId = pachliAccountEntity.id,
+                it,
+                isExpanded = isExpanded,
+                isDetailed = false,
+                contentFilterAction = contentFilterAction,
+                quoteContentFilterAction = quoteContentFilterAction,
+                showSensitiveMedia = showSensitiveMedia,
+                filterContext = FilterContext.NOTIFICATIONS,
+            )
+        },
+    )
+
+    NotificationEntity.Type.QUOTED_UPDATE -> QuotedUpdateNotificationViewData(
+        pachliAccountId = pachliAccountEntity.id,
+        localDomain = pachliAccountEntity.domain,
+        notificationId = data.notification.serverId,
+        account = data.account.asModel(),
+        isAboutSelf = isAboutSelf,
+        accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
+        statusItemViewData = data.status!!.let {
+            StatusItemViewData.from(
+                pachliAccountId = pachliAccountEntity.id,
+                it,
+                isExpanded = isExpanded,
+                isDetailed = false,
+                contentFilterAction = contentFilterAction,
+                quoteContentFilterAction = quoteContentFilterAction,
+                showSensitiveMedia = showSensitiveMedia,
+                filterContext = FilterContext.NOTIFICATIONS,
+            )
+        },
     )
 }

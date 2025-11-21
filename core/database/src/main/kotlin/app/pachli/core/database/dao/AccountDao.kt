@@ -344,6 +344,26 @@ WHERE id = :accountId
         """
 UPDATE AccountEntity
 SET
+    notificationsQuotes = :value
+WHERE id = :accountId
+""",
+    )
+    suspend fun setNotificationsQuotes(accountId: Long, value: Boolean)
+
+    @Query(
+        """
+UPDATE AccountEntity
+SET
+    notificationsQuotedUpdates = :value
+WHERE id = :accountId
+""",
+    )
+    suspend fun setNotificationsQuotedUpdate(accountId: Long, value: Boolean)
+
+    @Query(
+        """
+UPDATE AccountEntity
+SET
     notificationsFavorited = :value
 WHERE id = :accountId
 """,

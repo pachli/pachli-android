@@ -161,6 +161,36 @@ sealed interface NotificationViewData {
             override val accountFilterDecision: AccountFilterDecision,
             override val statusItemViewData: StatusItemViewData,
         ) : WithStatus, IStatusItemViewData by statusItemViewData
+
+        /**
+         * One of the user's statuses has been quoted by [account].
+         *
+         * @property statusItemViewData Status being quoted.
+         */
+        data class QuoteNotificationViewData(
+            override val pachliAccountId: Long,
+            override val localDomain: String,
+            override val notificationId: String,
+            override val account: TimelineAccount,
+            override val isAboutSelf: Boolean,
+            override val accountFilterDecision: AccountFilterDecision,
+            override val statusItemViewData: StatusItemViewData,
+        ) : WithStatus, IStatusItemViewData by statusItemViewData
+
+        /**
+         * A status quoted by the user has been edited.
+         *
+         * @property statusItemViewData Status being quoted.
+         */
+        data class QuotedUpdateNotificationViewData(
+            override val pachliAccountId: Long,
+            override val localDomain: String,
+            override val notificationId: String,
+            override val account: TimelineAccount,
+            override val isAboutSelf: Boolean,
+            override val accountFilterDecision: AccountFilterDecision,
+            override val statusItemViewData: StatusItemViewData,
+        ) : WithStatus, IStatusItemViewData by statusItemViewData
     }
 
     /** An [account] has followed the user. */

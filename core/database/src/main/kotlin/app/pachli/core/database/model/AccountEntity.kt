@@ -79,6 +79,10 @@ data class AccountEntity(
     val notificationsSeveredRelationships: Boolean = true,
     @ColumnInfo(defaultValue = "true")
     val notificationsModerationWarnings: Boolean = true,
+    @ColumnInfo(defaultValue = "true")
+    val notificationsQuotes: Boolean = true,
+    @ColumnInfo(defaultValue = "true")
+    val notificationsQuotedUpdates: Boolean = true,
     val notificationSound: Boolean = true,
     val notificationVibration: Boolean = true,
     val notificationLight: Boolean = true,

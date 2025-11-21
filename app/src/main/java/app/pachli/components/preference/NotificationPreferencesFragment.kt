@@ -128,6 +128,30 @@ class NotificationPreferencesFragment : PreferenceFragmentCompat() {
                 }
 
                 switchPreference {
+                    setTitle(R.string.pref_title_notification_filter_quote)
+                    key = PrefKeys.NOTIFICATION_FILTER_QUOTE
+                    isIconSpaceReserved = false
+                    isChecked = activeAccount.notificationsQuotes
+                    isSingleLineTitle = false
+                    setOnPreferenceChangeListener { _, newValue ->
+                        viewModel.setNotificationsQuotes(activeAccount.id, newValue as Boolean)
+                        true
+                    }
+                }
+
+                switchPreference {
+                    setTitle(R.string.pref_title_notification_filter_quoted_update)
+                    key = PrefKeys.NOTIFICATION_FILTER_QUOTED_UPDATE
+                    isIconSpaceReserved = false
+                    isChecked = activeAccount.notificationsQuotedUpdates
+                    isSingleLineTitle = false
+                    setOnPreferenceChangeListener { _, newValue ->
+                        viewModel.setNotificationsQuotedUpdates(activeAccount.id, newValue as Boolean)
+                        true
+                    }
+                }
+
+                switchPreference {
                     setTitle(R.string.pref_title_notification_filter_poll)
                     key = PrefKeys.NOTIFICATION_FILTER_POLLS
                     isIconSpaceReserved = false

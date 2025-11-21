@@ -30,6 +30,8 @@ import app.pachli.core.data.model.NotificationViewData.UnknownNotificationViewDa
 import app.pachli.core.data.model.NotificationViewData.WithStatus.FavouriteNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.WithStatus.MentionNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.WithStatus.PollNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatus.QuoteNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatus.QuotedUpdateNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.WithStatus.ReblogNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.WithStatus.StatusNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.WithStatus.UpdateNotificationViewData
@@ -92,6 +94,15 @@ fun NotificationViewData.icon(context: Context) = when (this) {
         R.drawable.ic_edit_24dp,
         androidx.appcompat.R.attr.colorPrimary,
     )
+
+    is QuoteNotificationViewData,
+    is QuotedUpdateNotificationViewData,
+    -> getIconWithColor(
+        context,
+        R.drawable.outline_comment_24,
+        androidx.appcompat.R.attr.colorPrimary,
+    )
+
     else -> getIconWithColor(
         context,
         R.drawable.ic_home_24dp,

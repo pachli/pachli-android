@@ -55,6 +55,14 @@ class NotificationPreferencesViewModel @Inject constructor(
         viewModelScope.launch { accountManager.setNotificationsFavorited(pachliAccountId, value) }
     }
 
+    fun setNotificationsQuotes(pachliAccountId: Long, value: Boolean) {
+        viewModelScope.launch { accountManager.setNotificationsQuote(pachliAccountId, value) }
+    }
+
+    fun setNotificationsQuotedUpdates(pachliAccountId: Long, value: Boolean) {
+        viewModelScope.launch { accountManager.setNotificationsQuotedUpdate(pachliAccountId, value) }
+    }
+
     fun setNotificationsPolls(pachliAccountId: Long, value: Boolean) {
         viewModelScope.launch { accountManager.setNotificationsPolls(pachliAccountId, value) }
     }
