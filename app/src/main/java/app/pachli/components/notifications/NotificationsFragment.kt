@@ -530,15 +530,11 @@ class NotificationsFragment :
         viewModel.accept(FallibleStatusAction.VoteInPoll(poll, choices, viewData))
     }
 
-    override fun onMore(view: View, viewData: IStatusViewData) {
-        super.more(view, viewData as NotificationViewData.WithStatus)
-    }
-
-    override fun onTranslate(viewData: NotificationViewData.WithStatus) {
+    override fun onTranslate(viewData: IStatusViewData) {
         viewModel.accept(FallibleStatusAction.Translate(viewData))
     }
 
-    override fun onTranslateUndo(viewData: NotificationViewData.WithStatus) {
+    override fun onTranslateUndo(viewData: IStatusViewData) {
         viewModel.accept(InfallibleStatusAction.TranslateUndo(viewData))
     }
 
@@ -661,7 +657,7 @@ class NotificationsFragment :
     }
 
     // Empty -- this fragment doesn't remove items
-    override fun removeItem(viewData: NotificationViewData.WithStatus) = Unit
+    override fun removeItem(viewData: IStatusViewData) = Unit
 
     override fun onReselect() {
         if (isAdded) {

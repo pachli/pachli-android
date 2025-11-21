@@ -295,7 +295,7 @@ class ReportStatusesFragment :
 
     override fun onViewUrl(url: String) = viewModel.checkClickedUrl(url)
 
-    override fun removeItem(viewData: StatusItemViewData) = Unit
+    override fun removeItem(viewData: IStatusViewData) = Unit
     override fun onReply(viewData: IStatusViewData) = Unit
     override fun onReblog(viewData: IStatusViewData, reblog: Boolean) = Unit
     override fun onFavourite(viewData: IStatusViewData, favourite: Boolean) = Unit
@@ -303,8 +303,8 @@ class ReportStatusesFragment :
     override fun onMore(view: View, viewData: IStatusViewData) = Unit
     override fun onOpenReblog(status: IStatus) = Unit
     override fun onVoteInPoll(viewData: IStatusViewData, poll: Poll, choices: List<Int>) = Unit
-    override fun onTranslate(viewData: StatusItemViewData) = Unit
-    override fun onTranslateUndo(viewData: StatusItemViewData) = Unit
+    override fun onTranslate(viewData: IStatusViewData) = Unit
+    override fun onTranslateUndo(viewData: IStatusViewData) = Unit
 
     companion object {
         private const val ARG_PACHLI_ACCOUNT_ID = "app.pachli.ARG_PACHLI_ACCOUNT_ID"

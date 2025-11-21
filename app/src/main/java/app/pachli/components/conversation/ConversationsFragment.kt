@@ -374,12 +374,25 @@ class ConversationsFragment :
         viewModel.bookmark(bookmark, viewData.actionableId)
     }
 
-    override fun onMore(view: View, viewData: IStatusViewData) {
-        // TODO: Cast here is necessary because SFragment.onMore adds an extra
-        // menu item if the viewData is ConversationViewData. This design needs
-        // to be fixed. The menu should be created here (onCreateMenu or similar)
-        // which can call through to a generic implementation in SFragment.
-        super.more(view, viewData as ConversationViewData)
+    override fun onPrepareMoreMenu(menu: Menu, viewData: IStatusViewData) {
+        menu.findItem(R.id.conversation_delete).isVisible = true
+    }
+
+    override fun onMoreMenuItemClick(item: MenuItem, viewData: IStatusViewData): Boolean {
+        return when (item.itemId) {
+            R.id.conversation_delete -> {
+                AlertDialog.Builder(requireContext())
+                    .setMessage(R.string.dialog_delete_conversation_warning)
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .setPositiveButton(android.R.string.ok) { _, _ ->
+                        viewModel.remove(viewData as ConversationViewData)
+                    }
+                    .show()
+                true
+            }
+
+            else -> super.onMoreMenuItemClick(item, viewData)
+        }
     }
 
     override fun onViewAttachment(view: View?, viewData: IStatusViewData, attachmentIndex: Int) {
@@ -421,7 +434,7 @@ class ConversationsFragment :
         startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
     }
 
-    override fun removeItem(viewData: ConversationViewData) {
+    override fun removeItem(viewData: IStatusViewData) {
         // not needed
     }
 
@@ -458,7 +471,7 @@ class ConversationsFragment :
         }
     }
 
-    override fun onConversationDelete(viewData: ConversationViewData) {
+    fun onConversationDelete(viewData: ConversationViewData) {
         if (viewData !is ConversationViewData) return
 
         AlertDialog.Builder(requireContext())
@@ -470,11 +483,11 @@ class ConversationsFragment :
             .show()
     }
 
-    override fun onTranslate(viewData: ConversationViewData) {
+    override fun onTranslate(viewData: IStatusViewData) {
         viewModel.translate(viewData)
     }
 
-    override fun onTranslateUndo(viewData: ConversationViewData) {
+    override fun onTranslateUndo(viewData: IStatusViewData) {
         viewModel.translateUndo(viewData)
     }
 

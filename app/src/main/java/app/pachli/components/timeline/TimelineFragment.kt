@@ -637,10 +637,6 @@ class TimelineFragment :
         )
     }
 
-    override fun onMore(view: View, viewData: IStatusViewData) {
-        super.more(view, viewData)
-    }
-
     override fun onOpenReblog(status: IStatus) {
         super.openReblog(status)
     }

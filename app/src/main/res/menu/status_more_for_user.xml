@@ -32,9 +32,12 @@
     <item
         android:id="@+id/status_unmute_conversation"
         android:title="@string/action_unmute_conversation" />
+    <!-- Default is to not show this menu.
+         See ConversationsFragment.onPrepareMoreMenu -->
     <item
         android:id="@+id/conversation_delete"
-        android:title="@string/action_delete_conversation" />
+        android:title="@string/action_delete_conversation"
+        android:visible="false" />
     <item
         android:id="@+id/status_edit"
         android:title="@string/action_edit" />

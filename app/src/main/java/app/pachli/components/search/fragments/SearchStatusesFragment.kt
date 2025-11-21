@@ -147,10 +147,6 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
         viewModel.bookmark(viewData, bookmark)
     }
 
-    override fun onMore(view: View, viewData: IStatusViewData) {
-        more(viewData, view)
-    }
-
     override fun onViewAttachment(view: View?, viewData: IStatusViewData, attachmentIndex: Int) {
         val actionable = viewData.actionable
         when (actionable.attachments[attachmentIndex].type) {
@@ -221,6 +217,14 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
         )
     }
 
+    override fun onTranslate(viewData: IStatusViewData) {
+        // TODO: Implement translation in search results.
+    }
+
+    override fun onTranslateUndo(viewData: IStatusViewData) {
+        // TODO: Implement translation in search results.
+    }
+
     private fun reply(status: IStatusViewData) {
         val actionableStatus = status.actionable
         val mentionedUsernames = actionableStatus.mentions.map { it.username }
@@ -245,7 +249,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
         startActivityWithDefaultTransition(intent)
     }
 
-    private fun more(statusViewData: IStatusViewData, view: View) {
+    override fun onMore(view: View, statusViewData: IStatusViewData) {
         val id = statusViewData.actionableId
         val status = statusViewData.actionable
         val accountId = status.account.id
