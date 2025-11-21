@@ -17,6 +17,7 @@
 
 package app.pachli.components.timeline.viewmodel
 
+import android.content.Context
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.InvalidatingPagingSourceFactory
 import androidx.paging.LoadType
@@ -26,12 +27,13 @@ import app.pachli.BuildConfig
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
-import app.pachli.core.model.Status
+import app.pachli.core.database.model.TimelineStatusWithQuote
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.model.Status as NetworkStatus
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiResponse
 import app.pachli.core.network.retrofit.apiresult.ApiResult
+import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.get
 import com.github.michaelbull.result.getOrElse
@@ -53,14 +55,15 @@ typealias FetchPage = suspend (maxId: String?, minId: String?, limit: Int) -> Ap
 /** Remote mediator for accessing timelines that are not backed by the database. */
 @OptIn(ExperimentalPagingApi::class)
 class NetworkTimelineRemoteMediator(
+    private val context: Context,
     private val api: MastodonApi,
     private val pachliAccountId: Long,
-    private val factory: InvalidatingPagingSourceFactory<String, Status>,
+    private val factory: InvalidatingPagingSourceFactory<String, TimelineStatusWithQuote>,
     private val pageCache: PageCache,
     private val timeline: Timeline,
     private val remoteKeyDao: RemoteKeyDao,
-) : RemoteMediator<String, Status>() {
-    override suspend fun load(loadType: LoadType, state: PagingState<String, Status>): MediatorResult {
+) : RemoteMediator<String, TimelineStatusWithQuote>() {
+    override suspend fun load(loadType: LoadType, state: PagingState<String, TimelineStatusWithQuote>): MediatorResult {
         Timber.d("timeline: $timeline, load(), type: $loadType")
 
         return pageCache.withLock {
@@ -73,7 +76,7 @@ class NetworkTimelineRemoteMediator(
                     val itemKey = if (remoteKeyTimelineId != null) {
                         remoteKeyDao.remoteKeyForKind(pachliAccountId, remoteKeyTimelineId, RemoteKeyKind.REFRESH)?.key
                     } else {
-                        state.anchorPosition?.let { state.closestItemToPosition(it) }?.statusId?.let { ik ->
+                        state.anchorPosition?.let { state.closestItemToPosition(it) }?.timelineStatus?.status?.serverId?.let { ik ->
                             // Find the page that contains the item, so the remote key can be determined
                             val pageContainingItem = pageCache.getPageById(ik)
 
@@ -101,7 +104,7 @@ class NetworkTimelineRemoteMediator(
                     val key = pageCache.firstPage?.prevKey ?: return MediatorResult.Success(endOfPaginationReached = true)
                     Page.tryFrom(fetchStatusPageByKind(loadType, key, state.config.pageSize))
                 }
-            }.getOrElse { return MediatorResult.Error(it.throwable) }
+            }.getOrElse { return MediatorResult.Error(it.asThrowable(context)) }
 
             Timber.d("- $timeline, load(), type = %s, items: %d", loadType, page.data.size)
             Timber.d("  $timeline, first id: ${page.data.firstOrNull()?.statusId}")
@@ -228,9 +231,9 @@ class NetworkTimelineRemoteMediator(
         val nextPage = async { fetchPage(statusId, null, pageSize / 2) }
 
         val statuses = buildList {
-            prevPage.await().get()?.let { this.addAll(it.body) }
+            prevPage.await().getOrElse { return@coroutineScope Err(it) }.let { this.addAll(it.body) }
             status.await().get()?.let { this.add(it.body) }
-            nextPage.await().get()?.let { this.addAll(it.body) }
+            nextPage.await().getOrElse { return@coroutineScope Err(it) }.let { this.addAll(it.body) }
         }
 
         val minId = statuses.firstOrNull()?.id ?: statusId

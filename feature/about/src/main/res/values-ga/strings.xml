@@ -45,7 +45,7 @@
     <string name="notification_details_push_notifications_with_unifiedpush">Brúigh fógraí le UnifiedPush</string>
     <string name="notification_details_any_account_needs_migration_help">Níl an raon feidhme OAuth \'brúigh\' ag cuntas amháin nó níos mó, díchumasaítear fógraí brú.</string>
     <string name="notification_details_standby_bucket_working_set">Sraith oibre. Teoranta do 10 nóiméad gach 2 uair an chloig</string>
-    <string name="notification_details_notifications_enabled_help">Níl fógraí cumasaithe le haghaidh aon cheann de do chuntais. Athraigh é seo i Roghanna Cuntais &gt; Fógraí. Go dtí sin tá gach fógra díchumasaithe.</string>
+    <string name="notification_details_notifications_enabled_help">Níl fógraí cumasaithe d\\\'aon cheann de do chuntais. Athraigh seo i Roghanna Cuntais &gt; Fógraí. Go dtí sin, tá gach fógra díchumasaithe.</string>
     <string name="notification_details_any_account_needs_migration">An bhfuil raon feidhme OAuth \'brú\' ag gach cuntas?</string>
     <string name="notification_details_unifiedpush_available_help">Níl UnifiedPush (ntfy.sh) ar fáil, tarraingeofar fógraí go tréimhsiúil. Míníonn an chuid eile den alt seo cén fáth nach bhfuil UnifiedPush á úsáid, ach nach bhfuil sé ábhartha maidir le conas a tharraingítear fógraí faoi láthair.</string>
     <string name="notification_details_accounts_unified_push_url">Tá URL UnifiedPush ag gach cuntas?</string>
@@ -64,4 +64,20 @@
     <string name="notification_log_method_push">Tá fógraí á bhrú ag baint úsáide as UnifiedPush, agus ba cheart go mbeadh siad láithreach</string>
     <string name="notification_log_download_failed">Theip ar an íosluchtú: %1$s</string>
     <string name="notification_log_method_pusherror">Tá UnifiedPush cumasaithe ach bhí earráid ann: %1$s</string>
+    <string name="about_notifications">Fógraí</string>
+    <string name="about_database">Bunachar Sonraí</string>
+    <string name="database_table_sizes">Méideanna tábla</string>
+    <string name="database_integrity_check">Seiceáil ionracais</string>
+    <string name="database_query_timings">Amanna fiosrúcháin</string>
+    <string name="database_prune_cache">Taisce bearrtha</string>
+    <string name="database_vacuum">Folúsghlantóir</string>
+    <string name="database_clear_cache">Glan an taisce</string>
+    <string name="action_run_integrity_check">Rith seiceáil sláine</string>
+    <string name="action_run_query_timings">Rith amanna fiosrúcháin</string>
+    <string name="action_prune_cache">Taisce bearrtha</string>
+    <string name="action_vacuum">Folúsghlantóir</string>
+    <string name="action_clear_cache">Glan an taisce</string>
+    <string name="database_prune_cache_complete">Taisce bearrtha críochnaithe</string>
+    <string name="database_vacuum_complete">Folúsghlanadh críochnaithe</string>
+    <string name="database_clear_cache_complete">Glanadh an taisce críochnaithe</string>
 </resources>

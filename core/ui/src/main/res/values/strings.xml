@@ -111,6 +111,8 @@
     <string name="action_hide_attachments">Hide attachments</string>
     <string name="action_select_status">Select post</string>
     <string name="action_unselect_status">Unselect post</string>
+    <string name="action_show_pronouns">Show pronouns</string>
+    <string name="action_open_quoted_post">Open quoted post</string>
     <string name="dot_in_name">dot</string>
     <string name="role_content_description_fmt">%1$s, at %2$s</string>
     <plurals name="description_post_roles">
@@ -162,4 +164,8 @@
     <string name="post_continued_thread">Continued thread</string>
     <string name="post_replied_to_fmt">Replied to &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="post_edited">Edited %s</string>
+    <string name="filter_edit_title">Edit filter</string>
+    <string name="status_filtered_show_anyway">Show anyway</string>
+    <string name="status_filter_placeholder_label_format">Filtered: &lt;b>%1$s&lt;/b></string>
+    <string name="label_quoted_status_hidden">Quote of a post hidden by one of your filters</string>
 </resources>

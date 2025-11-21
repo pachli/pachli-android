@@ -55,8 +55,10 @@ import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.NotificationViewData
 import app.pachli.core.model.AttachmentDisplayAction
+import app.pachli.core.model.IStatus
 import app.pachli.core.model.Notification
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
@@ -97,6 +99,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import postPrepend
+import timber.log.Timber
 
 @AndroidEntryPoint
 class NotificationsFragment :
@@ -273,8 +276,9 @@ class NotificationsFragment :
                     }
                 }
 
-                // Update the UI from the loadState
-                adapter.loadStateFlow.distinctUntilChangedBy { it.refresh }.collect(::bindLoadState)
+                // Can't `distinctUntilChangedBy { it.refresh }` here because of
+                // https://issuetracker.google.com/issues/460960009.
+                adapter.loadStateFlow.collect(::bindLoadState)
             }
         }
     }
@@ -359,15 +363,32 @@ class NotificationsFragment :
      * to show/hide Error, Loading, and NotLoading states.
      */
     private fun bindLoadState(loadState: CombinedLoadStates) {
+        Timber.d("bindLoadState: $loadState")
+
+        // CombinedLoadStates doesn't handle the case when the mediator load completes
+        // successfully but the source load fails. See
+        // https://issuetracker.google.com/issues/460960009 for details.
+        //
+        // So if either the source or mediator had an error loading data show it
+        // to the user.
+        //
+        // TODO: If loadState.mediator.refresh is the error then maybe this should
+        // be a warning the user can dismiss, as the cached data is still usable
+        // and it would allow them access to the timeline.
+        (loadState.mediator?.refresh as? LoadState.Error ?: loadState.source.refresh as? LoadState.Error)?.let { error ->
+            binding.progressIndicator.hide()
+            binding.statusView.setup(error.error) {
+                adapter.retry()
+            }
+            binding.recyclerView.hide()
+            binding.statusView.show()
+            binding.swipeRefreshLayout.isRefreshing = false
+            return
+        }
+
         when (loadState.refresh) {
             is LoadState.Error -> {
-                binding.progressIndicator.hide()
-                binding.statusView.setup((loadState.refresh as LoadState.Error).error) {
-                    adapter.retry()
-                }
-                binding.recyclerView.hide()
-                binding.statusView.show()
-                binding.swipeRefreshLayout.isRefreshing = false
+                /* Handled earlier. */
             }
 
             LoadState.Loading -> {
@@ -489,43 +510,43 @@ class NotificationsFragment :
         clearNotificationsForAccount(requireContext(), pachliAccountId)
     }
 
-    override fun onReply(viewData: NotificationViewData.WithStatus) {
-        super.reply(viewData.pachliAccountId, viewData.statusViewData.actionable)
+    override fun onReply(viewData: IStatusViewData) {
+        super.reply(viewData.pachliAccountId, viewData.actionable)
     }
 
-    override fun onReblog(viewData: NotificationViewData.WithStatus, reblog: Boolean) {
-        viewModel.accept(FallibleStatusAction.Reblog(reblog, viewData.statusViewData))
+    override fun onReblog(viewData: IStatusViewData, reblog: Boolean) {
+        viewModel.accept(FallibleStatusAction.Reblog(reblog, viewData))
     }
 
-    override fun onFavourite(viewData: NotificationViewData.WithStatus, favourite: Boolean) {
-        viewModel.accept(FallibleStatusAction.Favourite(favourite, viewData.statusViewData))
+    override fun onFavourite(viewData: IStatusViewData, favourite: Boolean) {
+        viewModel.accept(FallibleStatusAction.Favourite(favourite, viewData))
     }
 
-    override fun onBookmark(viewData: NotificationViewData.WithStatus, bookmark: Boolean) {
-        viewModel.accept(FallibleStatusAction.Bookmark(bookmark, viewData.statusViewData))
+    override fun onBookmark(viewData: IStatusViewData, bookmark: Boolean) {
+        viewModel.accept(FallibleStatusAction.Bookmark(bookmark, viewData))
     }
 
-    override fun onVoteInPoll(viewData: NotificationViewData.WithStatus, poll: Poll, choices: List<Int>) {
-        viewModel.accept(FallibleStatusAction.VoteInPoll(poll, choices, viewData.statusViewData))
+    override fun onVoteInPoll(viewData: IStatusViewData, poll: Poll, choices: List<Int>) {
+        viewModel.accept(FallibleStatusAction.VoteInPoll(poll, choices, viewData))
     }
 
-    override fun onMore(view: View, viewData: NotificationViewData.WithStatus) {
-        super.more(view, viewData)
+    override fun onMore(view: View, viewData: IStatusViewData) {
+        super.more(view, viewData as NotificationViewData.WithStatus)
     }
 
     override fun onTranslate(viewData: NotificationViewData.WithStatus) {
-        viewModel.accept(FallibleStatusAction.Translate(viewData.statusViewData))
+        viewModel.accept(FallibleStatusAction.Translate(viewData))
     }
 
     override fun onTranslateUndo(viewData: NotificationViewData.WithStatus) {
-        viewModel.accept(InfallibleStatusAction.TranslateUndo(viewData.statusViewData))
+        viewModel.accept(InfallibleStatusAction.TranslateUndo(viewData))
     }
 
-    override fun onViewAttachment(view: View?, viewData: NotificationViewData.WithStatus, attachmentIndex: Int) {
+    override fun onViewAttachment(view: View?, viewData: IStatusViewData, attachmentIndex: Int) {
         super.viewMedia(
-            viewData.statusViewData.status.account.username,
+            viewData.status.account.username,
             attachmentIndex,
-            list(viewData.statusViewData.status, viewModel.statusDisplayOptions.value.showSensitiveMedia),
+            list(viewData.status, viewModel.statusDisplayOptions.value.showSensitiveMedia),
             view,
         )
     }
@@ -534,35 +555,35 @@ class NotificationsFragment :
         super.viewThread(status.actionableId, status.actionableStatus.url)
     }
 
-    override fun onOpenReblog(status: Status) {
+    override fun onOpenReblog(status: IStatus) {
         onViewAccount(status.account.id)
     }
 
-    override fun onExpandedChange(viewData: NotificationViewData.WithStatus, expanded: Boolean) {
+    override fun onExpandedChange(viewData: IStatusViewData, expanded: Boolean) {
         viewModel.accept(
             InfallibleUiAction.SetExpanded(
                 viewData.pachliAccountId,
-                viewData.statusViewData,
+                viewData,
                 expanded,
             ),
         )
     }
 
-    override fun onAttachmentDisplayActionChange(viewData: NotificationViewData.WithStatus, newAction: AttachmentDisplayAction) {
+    override fun onAttachmentDisplayActionChange(viewData: IStatusViewData, newAction: AttachmentDisplayAction) {
         viewModel.accept(
             InfallibleUiAction.SetAttachmentDisplayAction(
                 viewData.pachliAccountId,
-                viewData.statusViewData,
+                viewData,
                 newAction,
             ),
         )
     }
 
-    override fun onContentCollapsedChange(viewData: NotificationViewData.WithStatus, isCollapsed: Boolean) {
+    override fun onContentCollapsedChange(viewData: IStatusViewData, isCollapsed: Boolean) {
         viewModel.accept(
             InfallibleUiAction.SetContentCollapsed(
                 viewData.pachliAccountId,
-                viewData.statusViewData,
+                viewData,
                 isCollapsed,
             ),
         )
@@ -579,8 +600,8 @@ class NotificationsFragment :
         onContentCollapsedChange(viewData, isCollapsed)
     }
 
-    override fun clearContentFilter(viewData: NotificationViewData.WithStatus) {
-        viewModel.accept(InfallibleUiAction.ClearContentFilter(viewData.pachliAccountId, viewData.notificationId))
+    override fun clearContentFilter(viewData: IStatusViewData) {
+        viewModel.accept(InfallibleUiAction.ClearContentFilter(viewData.pachliAccountId, viewData.actionableId))
     }
 
     override fun clearAccountFilter(viewData: NotificationViewData) {
@@ -738,4 +759,6 @@ fun Notification.Type.uiString(): Int = when (this) {
     Notification.Type.REPORT -> R.string.notification_report_name
     Notification.Type.SEVERED_RELATIONSHIPS -> R.string.notification_severed_relationships_name
     Notification.Type.MODERATION_WARNING -> R.string.notification_moderation_warnings_name
+    Notification.Type.QUOTE -> R.string.notification_quote_name
+    Notification.Type.QUOTED_UPDATE -> R.string.notification_quoted_update_name
 }

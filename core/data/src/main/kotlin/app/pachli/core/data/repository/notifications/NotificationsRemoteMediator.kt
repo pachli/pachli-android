@@ -17,6 +17,7 @@
 
 package app.pachli.core.data.repository.notifications
 
+import android.content.Context
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -25,6 +26,7 @@ import app.pachli.core.database.dao.NotificationDao
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TimelineDao
+import app.pachli.core.database.dao.TimelineStatusWithAccount
 import app.pachli.core.database.di.TransactionProvider
 import app.pachli.core.database.model.NotificationAccountWarningEntity
 import app.pachli.core.database.model.NotificationData
@@ -32,7 +34,7 @@ import app.pachli.core.database.model.NotificationRelationshipSeveranceEventEnti
 import app.pachli.core.database.model.NotificationReportEntity
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
-import app.pachli.core.database.model.TimelineStatusWithAccount
+import app.pachli.core.database.model.TimelineStatusWithQuote
 import app.pachli.core.database.model.asEntity
 import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
@@ -45,6 +47,7 @@ import app.pachli.core.network.model.Report
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiResponse
 import app.pachli.core.network.retrofit.apiresult.ApiResult
+import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.get
 import com.github.michaelbull.result.getOrElse
@@ -57,6 +60,7 @@ import okhttp3.Headers
  */
 @OptIn(ExperimentalPagingApi::class)
 class NotificationsRemoteMediator(
+    private val context: Context,
     private val pachliAccountId: Long,
     private val mastodonApi: MastodonApi,
     private val transactionProvider: TransactionProvider,
@@ -115,7 +119,7 @@ class NotificationsRemoteMediator(
                     ) ?: return@transactionProvider MediatorResult.Success(endOfPaginationReached = true)
                     mastodonApi.notifications(maxId = rke.key, limit = state.config.pageSize, excludes = excludeTypes)
                 }
-            }.getOrElse { return@transactionProvider MediatorResult.Error(it.throwable) }
+            }.getOrElse { return@transactionProvider MediatorResult.Error(it.asThrowable(context)) }
 
             val links = Links.from(response.headers["link"])
 
@@ -192,11 +196,11 @@ class NotificationsRemoteMediator(
         val nextPage = async { mastodonApi.notifications(maxId = notificationId, limit = pageSize * 3, excludes = excludeTypes) }
 
         val notifications = buildList {
-            prevPage.await().get()?.let { this.addAll(it.body) }
+            prevPage.await().getOrElse { return@coroutineScope Err(it) }.let { this.addAll(it.body) }
             notification.await().get()?.let {
                 if (!excludeTypes.contains(it.body.type)) this.add(it.body)
             }
-            nextPage.await().get()?.let { this.addAll(it.body) }
+            nextPage.await().getOrElse { return@coroutineScope Err(it) }.let { this.addAll(it.body) }
         }
 
         val minId = notifications.firstOrNull()?.id ?: notificationId
@@ -236,13 +240,29 @@ class NotificationsRemoteMediator(
         val accountWarnings = mutableSetOf<NotificationAccountWarningEntity>()
 
         // Collect the different items from this batch of notifications.
+        // TODO: This could do less work by using a Map<String, T> as the type,
+        // instead of a Set, where the map key is the server ID of the thing.
+        // Then check for presence in the map before converting from the network
+        // type to the model type.
+        //
+        // See similar code in CachedTimelineRemoteMediator
         notifications.forEach { notification ->
             accounts.add(notification.account.asModel())
 
             notification.status?.asModel()?.let { status ->
                 accounts.add(status.account)
                 status.reblog?.account?.let { accounts.add(it) }
+
                 statuses.add(status)
+
+                (status.quote as? Status.Quote.FullQuote)?.status?.let {
+                    accounts.add(it.account)
+                    it.reblog?.let {
+                        accounts.add(it.account)
+                        statuses.add(it)
+                    }
+                    statuses.add(it)
+                }
             }
 
             notification.report?.let { reports.add(it.asEntity(pachliAccountId, notification.id)) }
@@ -269,9 +289,17 @@ fun NotificationData.Companion.from(pachliAccountId: Long, notification: Notific
     notification = notification.asEntity(pachliAccountId),
     account = notification.account.asEntity(pachliAccountId),
     status = notification.status?.let { status ->
-        TimelineStatusWithAccount(
-            status = status.asEntity(pachliAccountId),
-            account = status.account.asEntity(pachliAccountId),
+        TimelineStatusWithQuote(
+            timelineStatus = TimelineStatusWithAccount(
+                status = status.asEntity(pachliAccountId),
+                account = status.account.asEntity(pachliAccountId),
+            ),
+            quotedStatus = (status.quote?.asModel() as? Status.Quote.FullQuote)?.let {
+                TimelineStatusWithAccount(
+                    status = it.status.asEntity(pachliAccountId),
+                    account = it.status.account.asEntity(pachliAccountId),
+                )
+            },
         )
     },
     viewData = null,

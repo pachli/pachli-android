@@ -35,6 +35,7 @@ import app.pachli.core.database.dao.AccountDao
 import app.pachli.core.database.dao.AnnouncementsDao
 import app.pachli.core.database.dao.ContentFiltersDao
 import app.pachli.core.database.dao.ConversationsDao
+import app.pachli.core.database.dao.DebugDao
 import app.pachli.core.database.dao.DraftDao
 import app.pachli.core.database.dao.FollowingAccountDao
 import app.pachli.core.database.dao.InstanceDao
@@ -44,6 +45,7 @@ import app.pachli.core.database.dao.NotificationDao
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TimelineDao
+import app.pachli.core.database.dao.TimelineStatusWithAccount
 import app.pachli.core.database.dao.TranslatedStatusDao
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.AnnouncementEntity
@@ -61,6 +63,7 @@ import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.database.model.NotificationRelationshipSeveranceEventEntity
 import app.pachli.core.database.model.NotificationReportEntity
 import app.pachli.core.database.model.NotificationViewDataEntity
+import app.pachli.core.database.model.ReferencedStatusId
 import app.pachli.core.database.model.RemoteKeyEntity
 import app.pachli.core.database.model.ServerEntity
 import app.pachli.core.database.model.StatusEntity
@@ -100,7 +103,11 @@ import java.util.TimeZone
         TimelineStatusEntity::class,
         ConversationViewDataEntity::class,
     ],
-    version = 30,
+    views = [
+        TimelineStatusWithAccount::class,
+        ReferencedStatusId::class,
+    ],
+    version = 34,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
@@ -139,6 +146,14 @@ import java.util.TimeZone
         AutoMigration(from = 28, to = 29),
         // Record the attachment display action.
         AutoMigration(from = 29, to = 30, spec = AppDatabase.MIGRATE_29_30::class),
+        // Add pronouns to TimelineAccountEntity and AccountEntity
+        AutoMigration(from = 30, to = 31),
+        // Add columns to handle quotes.
+        AutoMigration(from = 31, to = 32, spec = AppDatabase.MIGRATE_31_32::class),
+        // Improved cache pruning queries, and one-off cache clearing.
+        AutoMigration(from = 32, to = 33, spec = AppDatabase.MIGRATE_32_33::class),
+        // AccountEntity properties to store quote notification preferences.
+        AutoMigration(from = 33, to = 34),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -156,6 +171,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun followingAccountDao(): FollowingAccountDao
     abstract fun notificationDao(): NotificationDao
     abstract fun statusDao(): StatusDao
+    abstract fun debugDao(): DebugDao
 
     @DeleteColumn("TimelineStatusEntity", "expanded")
     @DeleteColumn("TimelineStatusEntity", "contentCollapsed")
@@ -259,11 +275,7 @@ abstract class AppDatabase : RoomDatabase() {
     @DeleteColumn("ConversationEntity", "s_showingHiddenContent")
     @DeleteColumn("ConversationEntity", "s_collapsed")
     @DeleteColumn("ConversationEntity", "s_expanded")
-    class MIGRATE_19_20 : AutoMigrationSpec {
-        override fun onPostMigrate(db: SupportSQLiteDatabase) {
-            super.onPostMigrate(db)
-        }
-    }
+    class MIGRATE_19_20 : AutoMigrationSpec
 
     /**
      * Deletes content from tables that may have cached an obsolete JSON
@@ -301,6 +313,29 @@ abstract class AppDatabase : RoomDatabase() {
      */
     @DeleteColumn("StatusViewDataEntity", "contentShowing")
     class MIGRATE_29_30 : AutoMigrationSpec
+
+    @DeleteColumn("NotificationViewDataEntity", "contentFilterAction")
+    class MIGRATE_31_32 : AutoMigrationSpec
+
+    /**
+     * Delete contents of key cache tables.
+     *
+     * https://github.com/pachli/pachli-android/pull/1932 fixed a cache
+     * pruning bug, but the user may still have a lot of stale data. Wipe
+     * the cache completely rather than wait for the next scheduled pruning/
+     */
+    class MIGRATE_32_33 : AutoMigrationSpec {
+        override fun onPostMigrate(db: SupportSQLiteDatabase) {
+            super.onPostMigrate(db)
+            db.execSQL("DELETE FROM TimelineStatusEntity")
+            db.execSQL("DELETE FROM StatusEntity")
+            db.execSQL("DELETE FROM TimelineAccountEntity")
+            db.execSQL("DELETE FROM ConversationEntity")
+            db.execSQL("DELETE FROM NotificationEntity")
+            db.execSQL("DELETE FROM StatusViewDataEntity")
+            db.execSQL("DELETE FROM TranslatedStatusEntity")
+        }
+    }
 }
 
 val MIGRATE_8_9 = object : Migration(8, 9) {

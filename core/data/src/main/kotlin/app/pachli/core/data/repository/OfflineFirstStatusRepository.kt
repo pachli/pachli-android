@@ -18,7 +18,7 @@
 package app.pachli.core.data.repository
 
 import app.pachli.core.common.di.ApplicationScope
-import app.pachli.core.data.repository.notifications.asEntity
+import app.pachli.core.data.repository.notifications.asEntities
 import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TranslatedStatusDao
 import app.pachli.core.database.model.StatusViewDataAttachmentDisplayAction
@@ -82,7 +82,7 @@ class OfflineFirstStatusRepository @Inject constructor(
             mastodonApi.unbookmarkStatus(statusId)
         }
             .onSuccess {
-                statusDao.updateStatus(it.body.asEntity(pachliAccountId))
+                statusDao.updateStatuses(it.body.asEntities(pachliAccountId))
                 eventHub.dispatch(BookmarkEvent(statusId, bookmarked))
             }
             .onFailure { statusDao.setBookmarked(pachliAccountId, statusId, !bookmarked) }
@@ -101,7 +101,7 @@ class OfflineFirstStatusRepository @Inject constructor(
             mastodonApi.unfavouriteStatus(statusId)
         }
             .onSuccess {
-                statusDao.updateStatus(it.body.asEntity(pachliAccountId))
+                statusDao.updateStatuses(it.body.asEntities(pachliAccountId))
                 eventHub.dispatch(FavoriteEvent(statusId, favourited))
             }
             .onFailure { statusDao.setFavourited(pachliAccountId, statusId, !favourited) }
@@ -120,7 +120,7 @@ class OfflineFirstStatusRepository @Inject constructor(
             mastodonApi.unreblogStatus(statusId)
         }
             .onSuccess {
-                statusDao.updateStatus(it.body.asEntity(pachliAccountId))
+                statusDao.updateStatuses(it.body.asEntities(pachliAccountId))
                 eventHub.dispatch(ReblogEvent(statusId, reblogged))
             }
             .onFailure { statusDao.setReblogged(pachliAccountId, statusId, !reblogged) }
@@ -139,7 +139,7 @@ class OfflineFirstStatusRepository @Inject constructor(
             mastodonApi.unmuteConversation(statusId)
         }
             .onSuccess {
-                statusDao.updateStatus(it.body.asEntity(pachliAccountId))
+                statusDao.updateStatuses(it.body.asEntities(pachliAccountId))
                 eventHub.dispatch(MuteConversationEvent(pachliAccountId, statusId, muted))
             }
             .onFailure { statusDao.setMuted(pachliAccountId, statusId, !muted) }
@@ -158,7 +158,7 @@ class OfflineFirstStatusRepository @Inject constructor(
             mastodonApi.unpinStatus(statusId)
         }
             .onSuccess {
-                statusDao.updateStatus(it.body.asEntity(pachliAccountId))
+                statusDao.updateStatuses(it.body.asEntities(pachliAccountId))
                 eventHub.dispatch(PinEvent(statusId, pinned))
             }
             .onFailure { statusDao.setPinned(pachliAccountId, statusId, !pinned) }
@@ -228,7 +228,11 @@ class OfflineFirstStatusRepository @Inject constructor(
         )
     }
 
+    override suspend fun getStatusViewData(pachliAccountId: Long, statusIds: Collection<String>) = statusDao.getStatusViewData(pachliAccountId, statusIds)
+
     override suspend fun getStatusViewData(pachliAccountId: Long, statusId: String) = statusDao.getStatusViewData(pachliAccountId, statusId)
+
+    override suspend fun getTranslations(pachliAccountId: Long, statusIds: Collection<String>) = translatedStatusDao.getTranslations(pachliAccountId, statusIds)
 
     override suspend fun getTranslation(pachliAccountId: Long, statusId: String) = translatedStatusDao.getTranslation(pachliAccountId, statusId)
 }

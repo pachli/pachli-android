@@ -25,7 +25,6 @@ import androidx.room.Index
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
 import app.pachli.core.model.AccountFilterDecision
-import app.pachli.core.model.FilterAction
 import java.time.Instant
 
 /**
@@ -41,7 +40,7 @@ import java.time.Instant
 data class NotificationData(
     @Embedded val notification: NotificationEntity,
     @Embedded(prefix = "a_") val account: TimelineAccountEntity,
-    @Embedded(prefix = "s_") val status: TimelineStatusWithAccount?,
+    @Embedded(prefix = "s_") val status: TimelineStatusWithQuote?,
     @Embedded(prefix = "nvd_") val viewData: NotificationViewDataEntity?,
     @Embedded(prefix = "report_") val report: NotificationReportEntity?,
     @Embedded(prefix = "rse_") val relationshipSeveranceEvent: NotificationRelationshipSeveranceEventEntity?,
@@ -55,9 +54,6 @@ data class NotificationData(
  *
  * @param pachliAccountId
  * @param serverId Notification's remote server ID.
- * @param contentFilterAction The user's choice of [FilterAction] for
- * this notification (which may not match the inherent action if they have
- * chosen to show the notification).
  * @param accountFilterDecision The user's [AccountFilterDecision] for
  * this notification (which may not match the inherent decision if they
  * have chosen to show the notification).
@@ -80,17 +76,7 @@ data class NotificationData(
 data class NotificationViewDataEntity(
     val pachliAccountId: Long,
     val serverId: String,
-    val contentFilterAction: FilterAction? = null,
     val accountFilterDecision: AccountFilterDecision? = null,
-)
-
-/**
- * Partial entity to update [NotificationViewDataEntity.contentFilterAction].
- */
-data class FilterActionUpdate(
-    val pachliAccountId: Long,
-    val serverId: String,
-    val contentFilterAction: FilterAction?,
 )
 
 /**
@@ -182,6 +168,12 @@ data class NotificationEntity(
 
         /** A moderator has taken action against your account or has sent you a warning. */
         MODERATION_WARNING,
+
+        /** Someone quoted one of your posts. */
+        QUOTE,
+
+        /** A post you quoted has been updated. */
+        QUOTED_UPDATE,
         ;
 
         companion object

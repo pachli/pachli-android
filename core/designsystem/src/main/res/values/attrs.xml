@@ -25,11 +25,52 @@
     <attr name="status_text_medium" format="dimension" />
     <attr name="status_text_large" format="dimension" />
 
-    <!-- Height of a toolbar that contains a title and a subtitle -->
-    <!-- Some custom fonts require this to be larger than the default -->
+    <!--
+      Height of a toolbar that contains a title and a subtitle.
+      Some custom fonts require this to be larger than the default -->
     <attr name="actionBarSizeWithSubtitle" format="dimension|reference" />
 
     <!-- Colour to use for the "favourite" icon. Also displayed next to
          favourite notifications. -->
     <attr name="favoriteIconColor" format="color" />
+
+    <declare-styleable name="PronounsChip">
+        <attr name="pronounsChipStyle" format="reference" />
+    </declare-styleable>
+
+    <attr name="pollViewStyle" format="reference" />
+    <declare-styleable name="PollView">
+        <attr name="android:textSize" format="reference|dimension" />
+    </declare-styleable>
+
+    <attr name="previewCardViewStyle" format="reference" />
+    <declare-styleable name="PreviewCardView">
+        <attr name="android:background" />
+        <attr name="android:foreground" />
+
+        <!-- Background of the "info" part of the preview (contains the text
+             content. -->
+        <attr name="previewCardInfoBackground" format="reference|color" />
+        <!-- Height of the preview image, if the image is stacked vertically above
+             the preview content. -->
+        <attr name="previewCardImageVerticalHeight" format="reference|dimension" />
+        <!-- Width of the preview image, if the image is laid out horizontally next
+             to the preview content. -->
+        <attr name="previewCardImageHorizontalWidth" format="reference|dimension" />
+
+        <attr name="previewCardTitleTextColor" format="reference|color" />
+        <attr name="previewCardTitleTextSize" format="reference|dimension" />
+
+        <attr name="previewCardDescriptionTextColor" format="reference|color" />
+        <attr name="previewCardDescriptionTextSize" format="reference|dimension" />
+
+        <attr name="previewCardAuthorTextColor" format="reference|color" />
+        <attr name="previewCardAuthorTextSize" format="reference|dimension" />
+
+        <attr name="previewCardAuthorTimelineLinkTextColor" format="reference|color" />
+        <attr name="previewCardAuthorTimelineLinkTextSize" format="reference|dimension" />
+
+        <attr name="previewCardAvatarSize" format="reference|dimension" />
+        <attr name="previewCardAvatarCornerRadius" format="reference|dimension" />
+    </declare-styleable>
 </resources>

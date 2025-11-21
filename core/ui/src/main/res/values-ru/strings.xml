@@ -150,4 +150,7 @@
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; продвинул(а)</string>
     <string name="post_edited">Изменено %s</string>
+    <string name="filter_edit_title">Изм. фильтр</string>
+    <string name="status_filtered_show_anyway">Показать всё равно</string>
+    <string name="status_filter_placeholder_label_format">Фильтр: &lt;b>%1$s&lt;/b></string>
 </resources>

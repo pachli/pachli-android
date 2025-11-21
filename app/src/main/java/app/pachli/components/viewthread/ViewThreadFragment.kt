@@ -43,10 +43,12 @@ import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
-import app.pachli.core.data.model.StatusViewData
+import app.pachli.core.data.model.IStatusViewData
+import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.AttachmentDisplayAction
+import app.pachli.core.model.IStatus
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 import app.pachli.core.navigation.AccountListActivityIntent
@@ -77,9 +79,9 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ViewThreadFragment :
-    SFragment<StatusViewData>(),
+    SFragment<StatusItemViewData>(),
     OnRefreshListener,
-    StatusActionListener<StatusViewData>,
+    StatusActionListener,
     MenuProvider {
 
     @Inject
@@ -316,11 +318,11 @@ class ViewThreadFragment :
         }
     }
 
-    override fun onTranslate(viewData: StatusViewData) {
+    override fun onTranslate(viewData: StatusItemViewData) {
         viewModel.translate(viewData)
     }
 
-    override fun onTranslateUndo(viewData: StatusViewData) {
+    override fun onTranslateUndo(viewData: StatusItemViewData) {
         viewModel.translateUndo(viewData)
     }
 
@@ -333,27 +335,27 @@ class ViewThreadFragment :
         viewModel.refresh(thisThreadsStatusId)
     }
 
-    override fun onReply(viewData: StatusViewData) {
+    override fun onReply(viewData: IStatusViewData) {
         super.reply(viewData.pachliAccountId, viewData.actionable)
     }
 
-    override fun onReblog(viewData: StatusViewData, reblog: Boolean) {
+    override fun onReblog(viewData: IStatusViewData, reblog: Boolean) {
         viewModel.reblog(reblog, viewData)
     }
 
-    override fun onFavourite(viewData: StatusViewData, favourite: Boolean) {
+    override fun onFavourite(viewData: IStatusViewData, favourite: Boolean) {
         viewModel.favorite(favourite, viewData)
     }
 
-    override fun onBookmark(viewData: StatusViewData, bookmark: Boolean) {
+    override fun onBookmark(viewData: IStatusViewData, bookmark: Boolean) {
         viewModel.bookmark(bookmark, viewData)
     }
 
-    override fun onMore(view: View, viewData: StatusViewData) {
-        super.more(view, viewData)
+    override fun onMore(view: View, viewData: IStatusViewData) {
+        super.more(view, viewData as StatusItemViewData)
     }
 
-    override fun onViewAttachment(view: View?, viewData: StatusViewData, attachmentIndex: Int) {
+    override fun onViewAttachment(view: View?, viewData: IStatusViewData, attachmentIndex: Int) {
         // Pass the translated media descriptions through (if appropriate)
         val actionable = if (viewData.translationState == TranslationState.SHOW_TRANSLATION) {
             viewData.actionable.copy(
@@ -377,7 +379,7 @@ class ViewThreadFragment :
     }
 
     override fun onViewUrl(url: String) {
-        val status: StatusViewData? = viewModel.detailedStatus()
+        val status = viewModel.detailedStatus()
         if (status != null && status.status.url == url) {
             // already viewing the status with this url
             // probably just a preview federated and the user is clicking again to view more -> open the browser
@@ -388,7 +390,7 @@ class ViewThreadFragment :
         super.onViewUrl(url)
     }
 
-    override fun onOpenReblog(status: Status) {
+    override fun onOpenReblog(status: IStatus) {
         // there are no reblogs in threads
     }
 
@@ -399,11 +401,11 @@ class ViewThreadFragment :
         )
     }
 
-    override fun onExpandedChange(viewData: StatusViewData, expanded: Boolean) {
+    override fun onExpandedChange(viewData: IStatusViewData, expanded: Boolean) {
         viewModel.changeExpanded(expanded, viewData)
     }
 
-    override fun onAttachmentDisplayActionChange(viewData: StatusViewData, newAction: AttachmentDisplayAction) {
+    override fun onAttachmentDisplayActionChange(viewData: IStatusViewData, newAction: AttachmentDisplayAction) {
         viewModel.changeAttachmentDisplayAction(viewData, newAction)
     }
 
@@ -417,7 +419,7 @@ class ViewThreadFragment :
         startActivityWithDefaultTransition(intent)
     }
 
-    override fun onContentCollapsedChange(viewData: StatusViewData, isCollapsed: Boolean) {
+    override fun onContentCollapsedChange(viewData: IStatusViewData, isCollapsed: Boolean) {
         viewModel.changeContentCollapsed(isCollapsed, viewData)
     }
 
@@ -429,7 +431,7 @@ class ViewThreadFragment :
         super.viewAccount(id)
     }
 
-    public override fun removeItem(viewData: StatusViewData) {
+    public override fun removeItem(viewData: StatusItemViewData) {
         if (viewData.isDetailed) {
             // the main status we are viewing is being removed, finish the activity
             activity?.finish()
@@ -438,7 +440,7 @@ class ViewThreadFragment :
         viewModel.removeStatus(viewData)
     }
 
-    override fun onVoteInPoll(viewData: StatusViewData, poll: Poll, choices: List<Int>) {
+    override fun onVoteInPoll(viewData: IStatusViewData, poll: Poll, choices: List<Int>) {
         viewModel.voteInPoll(poll, choices, viewData)
     }
 
@@ -457,7 +459,7 @@ class ViewThreadFragment :
         }
     }
 
-    override fun clearContentFilter(viewData: StatusViewData) {
+    override fun clearContentFilter(viewData: IStatusViewData) {
         viewModel.clearWarning(viewData)
     }
 

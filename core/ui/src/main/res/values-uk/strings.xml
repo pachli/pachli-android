@@ -112,4 +112,7 @@
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; поширює</string>
     <string name="post_edited">Змінено %s</string>
+    <string name="filter_edit_title">Редагувати фільтр</string>
+    <string name="status_filtered_show_anyway">Усе одно показати</string>
+    <string name="status_filter_placeholder_label_format">Відфільтровано: &lt;b&gt;%1$s&lt;/b&gt;</string>
 </resources>

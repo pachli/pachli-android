@@ -1,0 +1,20 @@
+Pachli 2.10.0
+
+Neue Funktionen:
+
+- Schriftart „Atkinson Hyperlegible Next” hinzugefügt
+- Filter für Konversationsinhalte und Konten
+- Anzeige des Beitrags, auf den geantwortet wird
+
+Fehlerbehebungen:
+
+- Doppeltes „Aktualisieren”-Menü behoben
+- Hervorhebung von Tags beim Anzeigen von Beitragsbearbeitungen
+- Verhindern verschiedener Abstürze
+- „dummy.placeholder” aus Fehlern entfernt
+- Listen nach Titel sortieren
+- Absturz mit UI-Größenschieberegler behoben
+
+Übersetzungen:
+
+- Burmesisch, Deutsch, Indonesisch, Irisch, Kabylisch, Litauisch, Norwegisch Nynorsk, Polnisch, Slowakisch, Spanisch, Schwedisch, Tamil

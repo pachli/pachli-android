@@ -18,10 +18,12 @@
 package app.pachli.core.network.model
 
 import app.pachli.core.network.json.Default
+import app.pachli.core.network.json.DefaultIfNull
 import app.pachli.core.network.json.HasDefault
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import java.util.Date
+import timber.log.Timber
 
 @JsonClass(generateAdapter = true)
 data class Status(
@@ -39,6 +41,8 @@ data class Status(
     @Json(name = "reblogs_count") val reblogsCount: Int,
     @Json(name = "favourites_count") val favouritesCount: Int,
     @Json(name = "replies_count") val repliesCount: Int,
+    @DefaultIfNull
+    @Json(name = "quotes_count") val quotesCount: Int = 0,
     val reblogged: Boolean = false,
     val favourited: Boolean = false,
     val bookmarked: Boolean = false,
@@ -53,6 +57,8 @@ data class Status(
     val muted: Boolean?,
     val poll: Poll?,
     val card: Card?,
+    val quote: Quote? = null,
+    @Json(name = "quote_approval") val quoteApproval: QuoteApproval? = null,
     val language: String?,
     val filtered: List<FilterResult>?,
 ) {
@@ -108,6 +114,7 @@ data class Status(
         reblogsCount = reblogsCount,
         favouritesCount = favouritesCount,
         repliesCount = repliesCount,
+        quotesCount = quotesCount,
         reblogged = reblogged,
         favourited = favourited,
         bookmarked = bookmarked,
@@ -122,6 +129,8 @@ data class Status(
         muted = muted,
         poll = poll?.asModel(),
         card = card?.asModel(),
+        quote = quote?.asModel(),
+        quoteApproval = quoteApproval?.asModel() ?: app.pachli.core.model.Status.QuoteApproval(),
         language = language,
         filtered = filtered?.asModel(),
     )
@@ -151,6 +160,161 @@ data class Status(
         fun asModel() = app.pachli.core.model.Status.Application(
             name = name,
             website = website,
+        )
+    }
+
+    @HasDefault
+    enum class QuoteState {
+        @Default
+        UNKNOWN,
+
+        @Json(name = "pending")
+        PENDING,
+
+        @Json(name = "accepted")
+        ACCEPTED,
+
+        @Json(name = "rejected")
+        REJECTED,
+
+        @Json(name = "revoked")
+        REVOKED,
+
+        @Json(name = "unauthorized")
+        UNAUTHORIZED,
+
+        ;
+
+        fun asModel() = when (this) {
+            UNKNOWN -> app.pachli.core.model.Status.QuoteState.UNKNOWN
+            PENDING -> app.pachli.core.model.Status.QuoteState.PENDING
+            ACCEPTED -> app.pachli.core.model.Status.QuoteState.ACCEPTED
+            REJECTED -> app.pachli.core.model.Status.QuoteState.REJECTED
+            REVOKED -> app.pachli.core.model.Status.QuoteState.REVOKED
+            UNAUTHORIZED -> app.pachli.core.model.Status.QuoteState.UNAUTHORIZED
+        }
+    }
+
+    @JsonClass(generateAdapter = true)
+    data class Quote(
+        val state: QuoteState,
+        @Json(name = "quoted_status") val quotedStatus: Status? = null,
+        @Json(name = "quoted_status_id") val quotedStatusId: String? = null,
+    ) {
+        fun asModel(): app.pachli.core.model.Status.Quote? {
+            if (quotedStatus != null) {
+                return app.pachli.core.model.Status.Quote.FullQuote(
+                    state = state.asModel(),
+                    status = quotedStatus.asModel(),
+                )
+            }
+
+            if (quotedStatusId != null) {
+                return app.pachli.core.model.Status.Quote.ShallowQuote(
+                    state = state.asModel(),
+                    statusId = quotedStatusId,
+                )
+            }
+
+            Timber.e("Could not convert network Quote to model Quote: $this")
+            return null
+        }
+    }
+
+    @JsonClass(generateAdapter = true)
+    data class QuoteApproval(
+        @DefaultIfNull
+        val automatic: List<QuoteApprovalAutomatic> = emptyList(),
+
+        @DefaultIfNull
+        val manual: List<QuoteApprovalManual> = emptyList(),
+
+        @DefaultIfNull
+        @Json(name = "current_user")
+        val currentUser: QuoteApprovalCurrentUser = QuoteApprovalCurrentUser.UNKNOWN,
+    ) {
+        /** Possible values for [QuoteApproval.automatic]. */
+        @HasDefault
+        enum class QuoteApprovalAutomatic {
+            @Default
+            @Json(name = "unsupported_policy")
+            UNSUPPORTED_POLICY,
+
+            @Json(name = "public")
+            PUBLIC,
+
+            @Json(name = "followers")
+            FOLLOWERS,
+
+            @Json(name = "following")
+            FOLLOWING,
+
+            ;
+
+            fun asModel() = when (this) {
+                UNSUPPORTED_POLICY -> app.pachli.core.model.Status.QuoteApproval.QuoteApprovalAutomatic.UNSUPPORTED_POLICY
+                PUBLIC -> app.pachli.core.model.Status.QuoteApproval.QuoteApprovalAutomatic.PUBLIC
+                FOLLOWERS -> app.pachli.core.model.Status.QuoteApproval.QuoteApprovalAutomatic.FOLLOWERS
+                FOLLOWING -> app.pachli.core.model.Status.QuoteApproval.QuoteApprovalAutomatic.FOLLOWING
+            }
+        }
+
+        /** Possible values for [QuoteApproval.manual]. */
+        @HasDefault
+        enum class QuoteApprovalManual {
+            @Default
+            @Json(name = "unsupported_policy")
+            UNSUPPORTED_POLICY,
+
+            @Json(name = "public")
+            PUBLIC,
+
+            @Json(name = "followers")
+            FOLLOWERS,
+
+            @Json(name = "following")
+            FOLLOWING,
+
+            ;
+
+            fun asModel() = when (this) {
+                UNSUPPORTED_POLICY -> app.pachli.core.model.Status.QuoteApproval.QuoteApprovalManual.UNSUPPORTED_POLICY
+                PUBLIC -> app.pachli.core.model.Status.QuoteApproval.QuoteApprovalManual.PUBLIC
+                FOLLOWERS -> app.pachli.core.model.Status.QuoteApproval.QuoteApprovalManual.FOLLOWERS
+                FOLLOWING -> app.pachli.core.model.Status.QuoteApproval.QuoteApprovalManual.FOLLOWING
+            }
+        }
+
+        /** Possible values for [QuoteApproval.currentUser]. */
+        @HasDefault
+        enum class QuoteApprovalCurrentUser {
+            @Default
+            @Json(name = "unknown")
+            UNKNOWN,
+
+            @Json(name = "automatic")
+            AUTOMATIC,
+
+            @Json(name = "manual")
+            MANUAL,
+
+            @Json(name = "denied")
+            DENIED,
+
+            ;
+
+            fun asModel() = when (this) {
+                UNKNOWN -> app.pachli.core.model.Status.QuoteApproval.QuoteApprovalCurrentUser.UNKNOWN
+                AUTOMATIC -> app.pachli.core.model.Status.QuoteApproval.QuoteApprovalCurrentUser.AUTOMATIC
+                MANUAL -> app.pachli.core.model.Status.QuoteApproval.QuoteApprovalCurrentUser.MANUAL
+                DENIED -> app.pachli.core.model.Status.QuoteApproval.QuoteApprovalCurrentUser.DENIED
+            }
+        }
+
+        fun asModel() = app.pachli.core.model.Status.QuoteApproval(
+            automatic = automatic.map { it.asModel() },
+            manual = manual.map { it.asModel() },
+            currentUser = currentUser.asModel(),
         )
     }
 }

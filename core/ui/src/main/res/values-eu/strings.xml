@@ -91,4 +91,5 @@
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt;-(e)k bultzatu du</string>
     <string name="post_edited">%s editatua</string>
+    <string name="filter_edit_title">Editatu iragazkia</string>
 </resources>

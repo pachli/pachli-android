@@ -1,0 +1,12 @@
+Pachli 1.2
+
+Neue Funktionen:
+
+-  Vertikale Bildlaufleisten in scrollbaren Listen anzeigen
+
+Korrekturen:
+
+-  Die Leseposition des Benutzers unter allen Umständen wiederherstellen
+-  Die Abstimmungs-Schaltfläche aktivieren/deaktivieren, wenn der Benutzer abstimmen kann/nicht abstimmen kann
+-  Die richtige Farbe für die Statusleiste verwenden
+-  Sicherstellen, dass der Text der Umfrageoption vor dem Hintergrund sichtbar ist

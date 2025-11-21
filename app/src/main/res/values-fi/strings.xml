@@ -198,7 +198,6 @@
     <string name="notification_favourite_name">Suosikit</string>
     <string name="notification_poll_name">Äänestykset</string>
     <string name="notification_poll_description">Ilmoitukset päättyneistä äänestyksistä</string>
-    <string name="filter_edit_title">Muokkaa suodatinta</string>
     <string name="action_add_reaction">lisää reaktio</string>
     <string name="confirmation_reported">Lähetetty!</string>
     <string name="post_sent">Lähetetty!</string>
@@ -312,7 +311,6 @@
     <string name="send_post_notification_error_title">Julkaisun lähettäminen epäonnistui</string>
     <string name="pref_title_notification_filter_follow_requests">Seuraamista pyydetty</string>
     <string name="pref_title_notification_filters">Ilmoita kun</string>
-    <string name="status_filter_placeholder_label_format">Suodatettu: &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="pref_title_notification_filter_poll">Päättyneet äänestykset</string>
     <string name="failed_to_unpin">Irrottaminen epäonnistui</string>
     <string name="unsaved_changes">Sinulla on tallentamattomia muutoksia.</string>
@@ -344,7 +342,6 @@
     <string name="notification_listenable_worker_description">Ilmoitukset Pachlin toimiessa taustalla</string>
     <string name="pref_title_notification_filter_reblogs">Tehostetut julkaisut</string>
     <string name="post_share_content">Jaa julkaisun sisältö</string>
-    <string name="status_filtered_show_anyway">Näytä joka tapauksessa</string>
     <string name="pref_title_http_proxy_port">HTTP-välityspalvelimen portti</string>
     <string name="profile_metadata_content_label">Sisältö</string>
     <string name="pref_title_notification_filter_updates">Julkaisua, johon olen reagoinut, on muokattu</string>

@@ -1,5 +1,6 @@
 package app.pachli.components.followedtags
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.ExperimentalPagingApi
@@ -14,6 +15,7 @@ import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import com.github.michaelbull.result.mapBoth
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.filter
@@ -24,6 +26,7 @@ import timber.log.Timber
 
 @HiltViewModel
 class FollowedTagsViewModel @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val api: MastodonApi,
     private val sharedPreferencesRepository: SharedPreferencesRepository,
 ) : ViewModel() {
@@ -34,7 +37,7 @@ class FollowedTagsViewModel @Inject constructor(
     @OptIn(ExperimentalPagingApi::class)
     val pager = Pager(
         config = PagingConfig(pageSize = 100),
-        remoteMediator = FollowedTagsRemoteMediator(api, this),
+        remoteMediator = FollowedTagsRemoteMediator(context, api, this),
         pagingSourceFactory = {
             FollowedTagsPagingSource(
                 viewModel = this,

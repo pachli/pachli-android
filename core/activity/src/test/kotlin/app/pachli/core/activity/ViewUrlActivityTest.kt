@@ -105,6 +105,9 @@ class ViewUrlActivityTest {
         card = null,
         language = null,
         filtered = null,
+        quotesCount = 0,
+        quote = null,
+        quoteApproval = Status.QuoteApproval(),
     )
     private val statusResponse = success(
         SearchResult(emptyList(), listOf(status), emptyList()),

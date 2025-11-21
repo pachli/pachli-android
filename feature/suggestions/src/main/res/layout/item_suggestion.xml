@@ -94,12 +94,24 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:textColor="?android:textColorSecondary"
-        android:textSize="?attr/status_text_medium"
+        android:textSize="?attr/status_text_small"
         android:importantForAccessibility="no"
         app:layout_constraintStart_toEndOf="@id/avatar"
         app:layout_constraintTop_toBottomOf="@id/displayName"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/account_pronouns"
         tools:text="\@username" />
+
+    <app.pachli.core.ui.PronounsChip
+        android:id="@+id/account_pronouns"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBaseline_toBaselineOf="@id/username"
+        app:layout_constraintStart_toEndOf="@id/username"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_max="@dimen/pronounChip_maxWidth"
+        tools:ignore="SelectableText"
+        tools:text="he/him" />
 
     <app.pachli.core.ui.ClickableSpanTextView
         android:id="@+id/account_note"

@@ -23,18 +23,28 @@ import android.text.Spanned
 import androidx.core.text.parseAsHtml
 import app.pachli.core.common.string.trimTrailingWhitespace
 
+private val rxBR = "<br> ".toRegex()
+
+/**
+ * Matches the fallback "<p class="quote-inline">...</p>" added to statuses
+ * with an embedded quote for clients that don't display quotes.
+ */
+val rxQuoteInline = "<p class=\"quote-inline\".*?</p>\\s*".toRegex()
+
 /**
  * parse a String containing html from the Mastodon api to Spanned
  */
 @JvmOverloads
 fun CharSequence.parseAsMastodonHtml(tagHandler: TagHandler? = null): Spanned {
-    return this.replace("<br> ".toRegex(), "<br>&nbsp;")
+    return this.replace(rxBR, "<br>&nbsp;")
         .replace("<br /> ", "<br />&nbsp;")
         .replace("<br/> ", "<br/>&nbsp;")
         .replace("  ", "&nbsp;&nbsp;")
+        // Remove the quote-inline paragraph, as quoted statuses are displayed.
+        .replace(rxQuoteInline, "")
         .parseAsHtml(tagHandler = tagHandler)
-        /* Html.fromHtml returns trailing whitespace if the html ends in a </p> tag, which
-         * most status contents do, so it should be trimmed. */
+        // Html.fromHtml returns trailing whitespace if the html ends in a </p> tag, which
+        // most status contents do, so it should be trimmed.
         .trimTrailingWhitespace()
 }
 

@@ -935,6 +935,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
                 arrayOf(
                     "Clear home timeline cache",
                     "Remove first 40 statuses",
+                    "Prune cache",
                 ),
             ) { _, which ->
                 Timber.d("Developer tools: %d", which)
@@ -949,6 +950,12 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
                         Timber.d("Removing most recent 40 statuses")
                         lifecycleScope.launch {
                             developerToolsUseCase.deleteFirstKStatuses(pachliAccountId, 40)
+                        }
+                    }
+                    2 -> {
+                        Timber.d("Pruning cache")
+                        lifecycleScope.launch {
+                            developerToolsUseCase.pruneCache(pachliAccountId)
                         }
                     }
                 }

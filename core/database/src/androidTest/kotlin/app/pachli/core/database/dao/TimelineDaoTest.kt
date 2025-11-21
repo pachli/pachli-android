@@ -18,13 +18,13 @@
 package app.pachli.core.database.dao
 
 import androidx.paging.PagingSource
+import androidx.room.support.getSupportWrapper
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.pachli.core.database.AppDatabase
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.StatusEntity
 import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TimelineStatusEntity
-import app.pachli.core.database.model.TimelineStatusWithAccount
 import app.pachli.core.model.Card
 import app.pachli.core.model.Emoji
 import app.pachli.core.model.PreviewCardKind
@@ -183,7 +183,7 @@ class TimelineDaoTest {
         assertStatuses(wantAccount2StatusesAfterCleanup, gotAccount2StatusesAfterCleanup)
 
         val loadedAccounts: MutableList<Pair<Long, String>> = mutableListOf()
-        val accountCursor = db.query("SELECT timelineUserId, serverId FROM TimelineAccountEntity ORDER BY timelineUserId, serverId", null)
+        val accountCursor = db.getSupportWrapper().query("SELECT timelineUserId, serverId FROM TimelineAccountEntity ORDER BY timelineUserId, serverId")
         accountCursor.moveToFirst()
         while (!accountCursor.isAfterLast) {
             val accountId: Long = accountCursor.getLong(accountCursor.getColumnIndex("timelineUserId"))
@@ -410,6 +410,7 @@ class TimelineDaoTest {
             createdAt = null,
             note = "",
             roles = null,
+            pronouns = null,
         )
 
         val reblogAuthor = if (reblog) {
@@ -426,6 +427,7 @@ class TimelineDaoTest {
                 createdAt = null,
                 note = "",
                 roles = null,
+                pronouns = null,
             )
         } else {
             null
@@ -468,6 +470,10 @@ class TimelineDaoTest {
             card = card,
             language = null,
             filtered = null,
+            quotesCount = 0,
+            quoteState = null,
+            quoteServerId = null,
+            quoteApproval = Status.QuoteApproval(),
         )
         return Triple(status, author, reblogAuthor)
     }

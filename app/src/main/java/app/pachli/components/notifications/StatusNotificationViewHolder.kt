@@ -28,6 +28,8 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.data.model.NotificationViewData
 import app.pachli.core.data.model.NotificationViewData.WithStatus.FavouriteNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatus.QuoteNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatus.QuotedUpdateNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.WithStatus.ReblogNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.WithStatus.StatusNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.WithStatus.UpdateNotificationViewData
@@ -93,6 +95,8 @@ internal class StatusNotificationViewHolder(
             is ReblogNotificationViewData -> context.getString(R.string.notification_reblog_format)
             is StatusNotificationViewData -> context.getString(R.string.notification_subscription_format)
             is UpdateNotificationViewData -> context.getString(R.string.notification_update_format)
+            is QuoteNotificationViewData -> context.getString(R.string.notification_quote_format)
+            is QuotedUpdateNotificationViewData -> context.getString(R.string.notification_quoted_update_format)
             else -> context.getString(R.string.notification_favourite_format)
         }
         binding.notificationTopText.setCompoundDrawablesWithIntrinsicBounds(

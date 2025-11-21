@@ -28,8 +28,8 @@ import app.pachli.R
 import app.pachli.core.common.PachliError
 import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.data.model.ContentFilterModel
+import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.NotificationViewData
-import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.PachliAccount
@@ -153,28 +153,28 @@ sealed interface InfallibleUiAction : UiAction {
     /** Set the "collapsed" state (if the status content > 500 chars) */
     data class SetContentCollapsed(
         val pachliAccountId: Long,
-        val statusViewData: StatusViewData,
+        val statusViewData: IStatusViewData,
         val isCollapsed: Boolean,
     ) : InfallibleUiAction
 
     /** Set how to show attached media. */
     data class SetAttachmentDisplayAction(
         val pachliAccountId: Long,
-        val statusViewData: StatusViewData,
+        val statusViewData: IStatusViewData,
         val attachmentDisplayAction: AttachmentDisplayAction,
     ) : InfallibleUiAction
 
     /** Set whether to show just the content warning, or the full content. */
     data class SetExpanded(
         val pachliAccountId: Long,
-        val statusViewData: StatusViewData,
+        val statusViewData: IStatusViewData,
         val isExpanded: Boolean,
     ) : InfallibleUiAction
 
     /** Clear the content filter. */
     data class ClearContentFilter(
         val pachliAccountId: Long,
-        val notificationId: String,
+        val statusId: String,
     ) : InfallibleUiAction
 
     /** Override the account filter and show the content. */
@@ -252,33 +252,33 @@ sealed interface NotificationActionSuccess : UiSuccess {
 sealed interface StatusAction
 
 sealed interface InfallibleStatusAction : InfallibleUiAction, StatusAction {
-    val statusViewData: StatusViewData
+    val statusViewData: IStatusViewData
 
-    data class TranslateUndo(override val statusViewData: StatusViewData) : InfallibleStatusAction
+    data class TranslateUndo(override val statusViewData: IStatusViewData) : InfallibleStatusAction
 }
 
 /** Actions the user can trigger on an individual status */
 sealed interface FallibleStatusAction : FallibleUiAction, StatusAction {
-    val statusViewData: StatusViewData
+    val statusViewData: IStatusViewData
 
     /** Set the bookmark state for a status */
-    data class Bookmark(val state: Boolean, override val statusViewData: StatusViewData) : FallibleStatusAction
+    data class Bookmark(val state: Boolean, override val statusViewData: IStatusViewData) : FallibleStatusAction
 
     /** Set the favourite state for a status */
-    data class Favourite(val state: Boolean, override val statusViewData: StatusViewData) : FallibleStatusAction
+    data class Favourite(val state: Boolean, override val statusViewData: IStatusViewData) : FallibleStatusAction
 
     /** Set the reblog state for a status */
-    data class Reblog(val state: Boolean, override val statusViewData: StatusViewData) : FallibleStatusAction
+    data class Reblog(val state: Boolean, override val statusViewData: IStatusViewData) : FallibleStatusAction
 
     /** Vote in a poll */
     data class VoteInPoll(
         val poll: Poll,
         val choices: List<Int>,
-        override val statusViewData: StatusViewData,
+        override val statusViewData: IStatusViewData,
     ) : FallibleStatusAction
 
     /** Translate a status */
-    data class Translate(override val statusViewData: StatusViewData) : FallibleStatusAction
+    data class Translate(override val statusViewData: IStatusViewData) : FallibleStatusAction
 }
 
 /** Changes to a status' visible state after API calls */
@@ -441,7 +441,7 @@ class NotificationsViewModel @AssistedInject constructor(
 
         viewModelScope.launch {
             uiAction.filterIsInstance<InfallibleUiAction.LoadNewest>()
-                .collectLatest { ::onLoadNewest }
+                .collectLatest { onLoadNewest() }
         }
 
         viewModelScope.launch {
@@ -641,9 +641,10 @@ class NotificationsViewModel @AssistedInject constructor(
                 pagingData
                     .map { notification ->
                         val contentFilterAction =
-                            notification.viewData?.contentFilterAction
-                                ?: notification.status?.status?.let { contentFilterModel?.filterActionFor(it) }
+                            notification.status?.timelineStatus?.let { contentFilterModel?.filterActionFor(it.status) }
                                 ?: FilterAction.NONE
+                        val quoteContentFilterAction =
+                            notification.status?.quotedStatus?.let { contentFilterModel?.filterActionFor(it.status) }
                         val isAboutSelf = notification.account.serverId == pachliAccount.entity.accountId
                         val accountFilterDecision =
                             notification.viewData?.accountFilterDecision
@@ -655,11 +656,12 @@ class NotificationsViewModel @AssistedInject constructor(
                             showSensitiveMedia = statusDisplayOptions.value.showSensitiveMedia,
                             isExpanded = statusDisplayOptions.value.openSpoiler,
                             contentFilterAction = contentFilterAction,
+                            quoteContentFilterAction = quoteContentFilterAction,
                             accountFilterDecision = accountFilterDecision,
                             isAboutSelf = isAboutSelf,
                         )
                     }
-                    .filter { it !is NotificationViewData.WithStatus || it.statusViewData.contentFilterAction != FilterAction.HIDE }
+                    .filter { it !is NotificationViewData.WithStatus || it.statusItemViewData.contentFilterAction != FilterAction.HIDE }
                     .filter { it.accountFilterDecision !is AccountFilterDecision.Hide }
             }
     }
@@ -688,7 +690,7 @@ class NotificationsViewModel @AssistedInject constructor(
     }
 
     private fun onClearContentFilter(action: InfallibleUiAction.ClearContentFilter) {
-        repository.clearContentFilter(action.pachliAccountId, action.notificationId)
+        repository.clearContentFilter(action.pachliAccountId, action.statusId)
     }
 
     private fun onOverrideAccountFilter(action: InfallibleUiAction.OverrideAccountFilter) {

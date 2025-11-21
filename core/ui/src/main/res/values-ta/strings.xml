@@ -115,4 +115,7 @@
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; மேலேற்றப்பட்டது</string>
     <string name="post_edited">திருத்தப்பட்ட %s</string>
+    <string name="filter_edit_title">வடிகட்டியைத் திருத்து</string>
+    <string name="status_filtered_show_anyway">எப்படியும் காட்டு</string>
+    <string name="status_filter_placeholder_label_format">வடிகட்டப்பட்டது: &lt;b>%1$s &lt;/b></string>
 </resources>

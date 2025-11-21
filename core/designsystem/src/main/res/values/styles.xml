@@ -91,6 +91,12 @@
         <item name="favoriteIconColor">@color/tusky_orange</item>
 
         <item name="appBarLayoutStyle">@style/Pachli.Widget.Material3.AppBarLayout</item>
+
+        <item name="pronounsChipStyle">@style/Pachli.Widget.PronounChip</item>
+
+        <item name="pollViewStyle">@style/Pachli.Widget.PollView</item>
+
+        <item name="previewCardViewStyle">@style/Pachli.Widget.PreviewCardView</item>
     </style>
 
     <style name="Pachli.Widget.Material3.AppBarLayout" parent="Widget.Material3.AppBarLayout">
@@ -206,6 +212,65 @@
     <style name="Pachli.Widget.Material3.LinearProgressIndicator" parent="Widget.Material3.LinearProgressIndicator">
         <item name="minHideDelay">500</item>
         <item name="showDelay">500</item>
+    </style>
+
+    <style name="Pachli.Widget.PronounChip" parent="Widget.Material3.Chip.Suggestion">
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">?android:textColorTertiary</item>
+        <item name="android:textSize">?status_text_small</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:minHeight">@dimen/pronounChip_minHeight</item>
+        <item name="chipMinHeight">@dimen/pronounChip_minHeight</item>
+        <item name="chipStrokeWidth">0dp</item>
+        <item name="chipBackgroundColor">?colorSurfaceContainerLow</item>
+        <item name="ensureMinTouchTargetSize">false</item>
+        <item name="android:importantForAccessibility">no</item>
+    </style>
+
+    <style name="Pachli.Widget.PollView" parent="">
+        <item name="android:textSize">?status_text_medium</item>
+    </style>
+
+    <style name="Pachli.Widget.PollView.Detailed">
+        <item name="android:textSize">?status_text_large</item>
+    </style>
+
+    <style name="Pachli.Widget.PollView.Quoted">
+        <item name="android:textSize">?status_text_small</item>
+    </style>
+
+    <style name="Pachli.Widget.PreviewCardView" parent="">
+        <item name="android:background">@drawable/card_frame</item>
+        <item name="android:foreground">?selectableItemBackground</item>
+        <item name="previewCardInfoBackground">?colorSurfaceContainer</item>
+        <item name="previewCardImageVerticalHeight">@dimen/card_image_vertical_height</item>
+        <item name="previewCardImageHorizontalWidth">@dimen/card_image_horizontal_width</item>
+        <item name="previewCardTitleTextColor">?colorOnSurface</item>
+        <item name="previewCardTitleTextSize">?status_text_medium</item>
+        <item name="previewCardDescriptionTextColor">?colorOnSurface</item>
+        <item name="previewCardDescriptionTextSize">?status_text_medium</item>
+        <item name="previewCardAuthorTextColor">?colorOnSurface</item>
+        <item name="previewCardAuthorTextSize">?status_text_medium</item>
+        <item name="previewCardAuthorTimelineLinkTextColor">?colorOnSurface</item>
+        <item name="previewCardAuthorTimelineLinkTextSize">?status_text_medium</item>
+        <item name="previewCardAvatarSize">@dimen/card_byline_avatar_dimen</item>
+        <item name="previewCardAvatarCornerRadius">@dimen/avatar_radius_36dp</item>
+    </style>
+
+    <style name="Pachli.Widget.PreviewCardView.Quoted">
+        <item name="previewCardInfoBackground">?colorSurfaceVariant</item>
+        <item name="previewCardImageVerticalHeight">@dimen/card_image_vertical_height_quoted</item>
+        <item name="previewCardImageHorizontalWidth">@dimen/card_image_horizontal_width_quoted</item>
+        <item name="previewCardTitleTextColor">?colorOnSurfaceVariant</item>
+        <item name="previewCardTitleTextSize">?status_text_small</item>
+        <item name="previewCardDescriptionTextColor">?colorOnSurfaceVariant</item>
+        <item name="previewCardDescriptionTextSize">?status_text_small</item>
+        <item name="previewCardAuthorTextColor">?colorOnSurfaceVariant</item>
+        <item name="previewCardAuthorTextSize">?status_text_small</item>
+        <item name="previewCardAuthorTimelineLinkTextColor">?colorOnSurfaceVariant</item>
+        <item name="previewCardAuthorTimelineLinkTextSize">?status_text_small</item>
+        <item name="previewCardAvatarSize">@dimen/card_byline_avatar_dimen_quoted</item>
     </style>
 
     <!-- customize the shape of the avatars in account selection list -->

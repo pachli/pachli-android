@@ -121,6 +121,12 @@ object PrefKeys {
     const val NOTIFICATION_FILTER_FAVS = "notificationFilterFavourites"
 
     // Account preference
+    const val NOTIFICATION_FILTER_QUOTE = "notificationFilterQuote"
+
+    // Account preference
+    const val NOTIFICATION_FILTER_QUOTED_UPDATE = "notificationFilterQuoteUpdated"
+
+    // Account preference
     const val NOTIFICATION_FILTER_REBLOGS = "notificationFilterReblogs"
 
     // Account preference

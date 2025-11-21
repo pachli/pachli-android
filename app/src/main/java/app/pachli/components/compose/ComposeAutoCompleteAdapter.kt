@@ -131,6 +131,8 @@ class ComposeAutoCompleteAdapter(
                 binding.avatarBadge.visible(showBotBadge && account.bot)
 
                 binding.roleChipGroup.setRoles(account.roles)
+                binding.accountPronouns.text = account.pronouns
+
                 binding.root.contentDescription = account.contentDescription(context)
             }
             is ItemAutocompleteHashtagBinding -> {

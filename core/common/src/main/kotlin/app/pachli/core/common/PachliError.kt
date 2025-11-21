@@ -96,4 +96,42 @@ interface PachliError {
         }
         return context.getString(resourceId, *args.toTypedArray()).unicodeWrap()
     }
+
+    /**
+     * @param context Context used to resolve the formatting strings.
+     *
+     * @return [PachliError] as a [PachliThrowable].
+     */
+    fun asThrowable(context: Context): PachliThrowable {
+        return PachliThrowable(
+            // The message has to be resolved now because the Throwable might be
+            // used in places where .fmt() can't be called. For example, logging
+            // the Throwable.
+            message = fmt(context),
+            cause = cause?.asThrowable(context),
+            pachliError = this,
+        )
+    }
 }
+
+/**
+ * Container for a [PachliError] to smuggle as a [Throwable].
+ *
+ * Some APIs -- for example, `MediatorResult.Error` -- require that an error is
+ * represented as a `Throwable`. As an `interface`, `PachliError` can't inherit
+ * from `Throwable`, so this class inverts the relationship, and embeds the
+ * `PachliError` in a `Throwable`.
+ *
+ * Construct using [PachliError.asThrowable].
+ *
+ * This should only be used if there is no other mechanism for reporting the
+ * error up the call stack.
+ *
+ * @property message
+ * @property cause
+ */
+class PachliThrowable internal constructor(
+    override val message: String,
+    override val cause: PachliThrowable? = null,
+    val pachliError: PachliError,
+) : Throwable(message = message, cause = cause), PachliError by pachliError

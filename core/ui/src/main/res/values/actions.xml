@@ -68,4 +68,8 @@
     <item name="action_select_status" type="id" />
     <!-- Unselect a status, e.g., when reporting an account. -->
     <item name="action_unselect_status" type="id" />
+    <!-- Show an account's pronouns, e.g., in a toast. -->
+    <item name="action_show_pronouns" type="id" />
+    <!-- Open the quoted post. -->
+    <item name="action_open_quoted_post" type="id" />
 </resources>

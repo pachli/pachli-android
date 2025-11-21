@@ -25,13 +25,17 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
 import app.pachli.components.timeline.viewmodel.NetworkTimelineRemoteMediator
 import app.pachli.components.timeline.viewmodel.Page
 import app.pachli.components.timeline.viewmodel.PageCache
+import app.pachli.components.timeline.viewmodel.asTimelineStatusWithQuote
+import app.pachli.core.common.PachliThrowable
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.database.dao.RemoteKeyDao
 import app.pachli.core.database.model.AccountEntity
-import app.pachli.core.model.Status
+import app.pachli.core.database.model.TimelineStatusWithQuote
 import app.pachli.core.model.Timeline
 import app.pachli.core.network.di.test.DEFAULT_INSTANCE_V2
 import app.pachli.core.network.model.AccountSource
@@ -41,6 +45,8 @@ import app.pachli.core.network.model.nodeinfo.UnvalidatedJrd
 import app.pachli.core.network.model.nodeinfo.UnvalidatedNodeInfo
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.NodeInfoApi
+import app.pachli.core.network.retrofit.apiresult.ApiError
+import app.pachli.core.network.retrofit.apiresult.ServerError
 import app.pachli.core.testing.failure
 import app.pachli.core.testing.fakes.fakeStatus
 import app.pachli.core.testing.rules.MainCoroutineRule
@@ -54,6 +60,8 @@ import java.time.Instant
 import javax.inject.Inject
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.test.runTest
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -90,6 +98,9 @@ class NetworkTimelineRemoteMediatorTest {
     @Inject
     lateinit var remoteKeyDao: RemoteKeyDao
 
+    @Inject
+    lateinit var statusRepository: OfflineFirstStatusRepository
+
     val account = CredentialAccount(
         id = "1",
         localUsername = "username",
@@ -105,7 +116,9 @@ class NetworkTimelineRemoteMediatorTest {
 
     private lateinit var activeAccount: AccountEntity
 
-    private lateinit var pagingSourceFactory: InvalidatingPagingSourceFactory<String, Status>
+    private lateinit var pagingSourceFactory: InvalidatingPagingSourceFactory<String, TimelineStatusWithQuote>
+
+    private val context = InstrumentationRegistry.getInstrumentation().targetContext
 
     @Before
     fun setup() = runTest {
@@ -162,6 +175,7 @@ class NetworkTimelineRemoteMediatorTest {
     fun `should return error when network call returns error code`() = runTest {
         // Given
         val remoteMediator = NetworkTimelineRemoteMediator(
+            context = context,
             api = mock(defaultAnswer = { failure<Unit>(code = 500) }),
             pachliAccountId = activeAccount.id,
             factory = pagingSourceFactory,
@@ -175,8 +189,12 @@ class NetworkTimelineRemoteMediatorTest {
 
         // Then
         assertThat(result).isInstanceOf(RemoteMediator.MediatorResult.Error::class.java)
-        assertThat((result as RemoteMediator.MediatorResult.Error).throwable).isInstanceOf(HttpException::class.java)
-        assertThat((result.throwable as HttpException).code()).isEqualTo(500)
+        assertThat((result as RemoteMediator.MediatorResult.Error).throwable).isInstanceOf(PachliThrowable::class.java)
+
+        val pachliError = (result.throwable as PachliThrowable).pachliError as ApiError
+        assertTrue(pachliError is ServerError.Internal)
+
+        assertEquals(500, (pachliError.throwable as HttpException).code())
     }
 
     @Test
@@ -185,6 +203,7 @@ class NetworkTimelineRemoteMediatorTest {
         // Given
         val pages = PageCache()
         val remoteMediator = NetworkTimelineRemoteMediator(
+            context = context,
             mastodonApi.stub {
                 onBlocking { homeTimeline(maxId = anyOrNull(), minId = anyOrNull(), limit = anyOrNull(), sinceId = anyOrNull()) } doReturn success(
                     listOf(fakeStatus("7"), fakeStatus("6"), fakeStatus("5")),
@@ -252,6 +271,7 @@ class NetworkTimelineRemoteMediatorTest {
         }
 
         val remoteMediator = NetworkTimelineRemoteMediator(
+            context = context,
             mastodonApi.stub {
                 onBlocking { homeTimeline(maxId = anyOrNull(), minId = anyOrNull(), limit = anyOrNull(), sinceId = anyOrNull()) } doReturn success(
                     listOf(fakeStatus("10"), fakeStatus("9"), fakeStatus("8")),
@@ -271,7 +291,8 @@ class NetworkTimelineRemoteMediatorTest {
         val state = state(
             listOf(
                 PagingSource.LoadResult.Page(
-                    data = listOf(fakeStatus("7"), fakeStatus("6"), fakeStatus("5")).asModel(),
+                    data = listOf(fakeStatus("7"), fakeStatus("6"), fakeStatus("5")).asModel()
+                        .asTimelineStatusWithQuote(activeAccount.id, statusRepository),
                     prevKey = "7",
                     nextKey = "5",
                 ),
@@ -326,6 +347,7 @@ class NetworkTimelineRemoteMediatorTest {
         }
 
         val remoteMediator = NetworkTimelineRemoteMediator(
+            context = context,
             mastodonApi.stub {
                 onBlocking { homeTimeline(maxId = anyOrNull(), minId = anyOrNull(), limit = anyOrNull(), sinceId = anyOrNull()) } doReturn success(
                     listOf(fakeStatus("4"), fakeStatus("3"), fakeStatus("2")),
@@ -345,7 +367,7 @@ class NetworkTimelineRemoteMediatorTest {
         val state = state(
             listOf(
                 PagingSource.LoadResult.Page(
-                    data = listOf(fakeStatus("7"), fakeStatus("6"), fakeStatus("5")).asModel().toMutableList(),
+                    data = listOf(fakeStatus("7"), fakeStatus("6"), fakeStatus("5")).asModel().asTimelineStatusWithQuote(activeAccount.id, statusRepository).toMutableList(),
                     prevKey = "7",
                     nextKey = "5",
                 ),
@@ -386,7 +408,7 @@ class NetworkTimelineRemoteMediatorTest {
     companion object {
         private const val PAGE_SIZE = 20
 
-        private fun state(pages: List<PagingSource.LoadResult.Page<String, Status>> = emptyList()) = PagingState(
+        private fun state(pages: List<PagingSource.LoadResult.Page<String, TimelineStatusWithQuote>> = emptyList()) = PagingState(
             pages = pages,
             anchorPosition = null,
             config = PagingConfig(

@@ -49,6 +49,9 @@ abstract class StatusDao {
     @Update
     abstract suspend fun updateStatus(statusEntity: StatusEntity)
 
+    @Update
+    abstract suspend fun updateStatuses(statuses: Collection<StatusEntity>)
+
     @Query(
         """
 SELECT *
@@ -162,7 +165,7 @@ WHERE
     )
     abstract suspend fun getStatusViewData(
         accountId: Long,
-        serverIds: List<String>,
+        serverIds: Collection<String>,
     ): Map<
         @MapColumn(columnName = "serverId")
         String,

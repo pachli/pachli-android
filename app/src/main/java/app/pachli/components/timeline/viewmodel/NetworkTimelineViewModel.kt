@@ -22,11 +22,12 @@ import androidx.paging.cachedIn
 import androidx.paging.filter
 import androidx.paging.map
 import app.pachli.components.timeline.NetworkTimelineRepository
-import app.pachli.core.data.model.StatusViewData
+import app.pachli.core.data.model.IStatusViewData
+import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.StatusActionError
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
-import app.pachli.core.database.model.TimelineStatusWithAccount
+import app.pachli.core.database.model.TimelineStatusWithQuote
 import app.pachli.core.database.model.TranslationState
 import app.pachli.core.eventhub.BookmarkEvent
 import app.pachli.core.eventhub.EventHub
@@ -67,7 +68,7 @@ open class NetworkTimelineViewModel @AssistedInject constructor(
     accountManager: AccountManager,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     sharedPreferencesRepository: SharedPreferencesRepository,
-) : TimelineViewModel<TimelineStatusWithAccount, NetworkTimelineRepository>(
+) : TimelineViewModel<TimelineStatusWithQuote, NetworkTimelineRepository>(
     timeline,
     timelineCases,
     eventHub,
@@ -79,19 +80,19 @@ open class NetworkTimelineViewModel @AssistedInject constructor(
     override val statuses = pachliAccountFlow.distinctUntilChangedBy { it.id }.flatMapLatest { pachliAccount ->
         repository.getStatusStream(pachliAccount.id, timeline = timeline).map { pagingData ->
             pagingData
-                .map { Pair(it, shouldFilterStatus(it)) }
+                .map { Pair(it, shouldFilterStatus(it.timelineStatus)) }
                 .filter { it.second != FilterAction.HIDE }
-                .map { (timelineStatusWithAccount, contentFilterAction) ->
-                    StatusViewData.from(
+                .map { (timelineStatusWithQuote, contentFilterAction) ->
+                    StatusItemViewData.from(
                         pachliAccount.id,
-                        timelineStatusWithAccount,
+                        timelineStatusWithQuote,
                         isExpanded = statusDisplayOptions.value.openSpoiler,
                         contentFilterAction = contentFilterAction,
-                        attachmentDisplayAction = getAttachmentDisplayAction(
-                            timelineStatusWithAccount,
-                            pachliAccount.entity.alwaysShowSensitiveMedia,
-                            timelineStatusWithAccount.viewData?.attachmentDisplayAction,
-                        ),
+                        // Not using shouldFilterStatus here as that also checks to see if things like
+                        // "Hide boosts" or "Hide replies" are enabled.
+                        quoteContentFilterAction = timelineStatusWithQuote.quotedStatus?.let { contentFilterModel?.filterActionFor(it.status) },
+                        showSensitiveMedia = pachliAccount.entity.alwaysShowSensitiveMedia,
+                        filterContext = filterContext,
                     )
                 }
         }
@@ -147,28 +148,28 @@ open class NetworkTimelineViewModel @AssistedInject constructor(
         }
     }
 
-    override fun clearWarning(statusViewData: StatusViewData) {
+    override fun clearWarning(statusViewData: IStatusViewData) {
         viewModelScope.launch {
-            repository.updateActionableStatusById(statusViewData.id) {
+            repository.updateActionableStatusById(statusViewData.statusId) {
                 it.copy(filtered = null)
             }
         }
     }
 
-    override fun onChangeExpanded(isExpanded: Boolean, statusViewData: StatusViewData) {
+    override fun onChangeExpanded(isExpanded: Boolean, statusViewData: IStatusViewData) {
         viewModelScope.launch {
             repository.setExpanded(statusViewData.pachliAccountId, statusViewData.actionableId, isExpanded)
         }
     }
 
-    override fun onChangeAttachmentDisplayAction(viewData: StatusViewData, newAction: AttachmentDisplayAction) {
+    override fun onChangeAttachmentDisplayAction(viewData: IStatusViewData, newAction: AttachmentDisplayAction) {
         viewModelScope.launch {
             repository.setAttachmentDisplayAction(viewData.pachliAccountId, viewData.actionableId, newAction)
             repository.invalidate()
         }
     }
 
-    override fun onContentCollapsed(isCollapsed: Boolean, statusViewData: StatusViewData) {
+    override fun onContentCollapsed(isCollapsed: Boolean, statusViewData: IStatusViewData) {
         viewModelScope.launch {
             repository.setContentCollapsed(statusViewData.pachliAccountId, statusViewData.actionableId, isCollapsed)
         }

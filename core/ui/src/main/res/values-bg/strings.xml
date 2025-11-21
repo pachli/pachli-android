@@ -89,4 +89,5 @@
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Любими</item>
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; сподели</string>
+    <string name="filter_edit_title">Редакция на филтър</string>
 </resources>

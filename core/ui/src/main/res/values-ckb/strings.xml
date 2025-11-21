@@ -87,4 +87,5 @@
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; دڵخواز</item>
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; پۆستی کردەوە</string>
+    <string name="filter_edit_title">دەستکاریکردنی فلتەر</string>
 </resources>

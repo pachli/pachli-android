@@ -424,8 +424,6 @@
     <string name="description_account_locked">Lukustatud kasutajakonto</string>
     <string name="post_share_content">Jaga postituse sisu</string>
     <string name="post_share_link">Jaga postituse linki</string>
-    <string name="status_filtered_show_anyway">Näita ikkagi</string>
-    <string name="status_filter_placeholder_label_format">Filtreeritud: &lt;b>%1$s&lt;/b></string>
     <string name="state_follow_requested">Oled saanud jälgimispäringu</string>
     <string name="follows_you">Jälgib sind</string>
     <string name="pref_title_alway_show_sensitive_media">Alati näita delikaatset sisu</string>
@@ -438,7 +436,6 @@
     <string name="pref_title_thread_filter_keywords">Vestlused</string>
     <string name="pref_title_account_filter_keywords">Profiilid</string>
     <string name="filter_addition_title">Lisa filter</string>
-    <string name="filter_edit_title">Muuda filtrit</string>
     <string name="filter_dialog_remove_button">Eemalda</string>
     <string name="filter_dialog_update_button">Uuenda</string>
     <string name="filter_dialog_whole_word">Terve sõna</string>

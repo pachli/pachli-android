@@ -108,4 +108,7 @@
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; a partagé</string>
     <string name="post_edited">Modifié le %s</string>
+    <string name="filter_edit_title">Modifier un filtre</string>
+    <string name="status_filtered_show_anyway">Montrer quand même</string>
+    <string name="status_filter_placeholder_label_format">Caché : &lt;b&gt;%1$s&lt;/b&gt;</string>
 </resources>

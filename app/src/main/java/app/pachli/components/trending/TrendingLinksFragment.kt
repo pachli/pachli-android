@@ -18,6 +18,7 @@
 package app.pachli.components.trending
 
 import android.content.res.Configuration
+import android.graphics.Rect
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -32,6 +33,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import app.pachli.R
@@ -234,6 +236,12 @@ class TrendingLinksFragment :
             (itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
             adapter = trendingLinksAdapter
             setAccessibilityDelegateCompat(TrendingLinksAccessibilityDelegate(this, ::onOpenLink))
+
+            addItemDecoration(
+                MarginTopItemDecoration(
+                    resources.getDimensionPixelSize(DR.dimen.trendingLinks_top_margin),
+                ),
+            )
         }
     }
 
@@ -321,5 +329,12 @@ class TrendingLinksFragment :
             }
             return fragment
         }
+    }
+}
+
+/** [RecyclerView.ItemDecoration] that ensures a space of [marginTop] between items. */
+class MarginTopItemDecoration(private val marginTop: Int) : RecyclerView.ItemDecoration() {
+    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+        outRect.top = marginTop
     }
 }

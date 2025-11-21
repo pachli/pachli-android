@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusDisplayOptions
+import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.ui.SetStatusContent
 import app.pachli.core.ui.StatusActionListener
@@ -49,7 +50,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
 
     open fun setupWithStatus(
         viewData: T,
-        listener: StatusActionListener<T>,
+        listener: StatusActionListener,
         statusDisplayOptions: StatusDisplayOptions,
         payloads: List<List<Any?>>?,
     ) {
@@ -100,6 +101,41 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
             itemView.setOnClickListener { listener.onViewThread(actionable) }
         } else {
             payloads.flatten().forEach { item ->
+                if (item == StatusViewDataDiffCallback.Payload.STATUS_VIEW_DATA) {
+                    val actionable = viewData.actionable
+                    statusView.setupWithStatus(
+                        setStatusContent,
+                        glide,
+                        viewData,
+                        listener,
+                        statusDisplayOptions,
+                    )
+
+                    statusControls.bind(
+                        statusVisibility = actionable.visibility,
+                        showCounts = statusDisplayOptions.showStatsInline,
+                        confirmReblog = statusDisplayOptions.confirmReblogs,
+                        confirmFavourite = statusDisplayOptions.confirmFavourites,
+                        isReply = actionable.inReplyToId != null,
+                        isReblogged = actionable.reblogged,
+                        isFavourited = actionable.favourited,
+                        isBookmarked = actionable.bookmarked,
+                        replyCount = actionable.repliesCount,
+                        reblogCount = actionable.reblogsCount,
+                        favouriteCount = actionable.favouritesCount,
+                        onReplyClick = { listener.onReply(viewData) },
+                        onReblogClick = { reblog -> listener.onReblog(viewData, reblog) },
+                        onFavouriteClick = { favourite -> listener.onFavourite(viewData, favourite) },
+                        onBookmarkClick = { bookmark -> listener.onBookmark(viewData, bookmark) },
+                        onMoreClick = { view -> listener.onMore(view, viewData) },
+                    )
+
+                    itemView.contentDescription = statusView.getContentDescription(
+                        viewData,
+                        statusDisplayOptions,
+                    )
+                    return
+                }
                 if (item == StatusViewDataDiffCallback.Payload.CREATED) {
                     statusView.setMetaData(viewData, statusDisplayOptions, listener)
                 }
@@ -122,11 +158,11 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
 }
 
 /**
- * Callback to determine what, if anything, has changed in a [StatusViewData].
+ * Callback to determine what, if anything, has changed in a [StatusItemViewData].
  *
  * Changes are represented by [Payload].
  */
-object StatusViewDataDiffCallback : DiffUtil.ItemCallback<StatusViewData>() {
+object StatusViewDataDiffCallback : DiffUtil.ItemCallback<StatusItemViewData>() {
     /** Changes to a [StatusViewData]. */
     enum class Payload {
         /** The timestamp for the status should be recalculated and displayed. */
@@ -141,30 +177,44 @@ object StatusViewDataDiffCallback : DiffUtil.ItemCallback<StatusViewData>() {
          * was changed.
          */
         ATTACHMENTS,
+
+        /**
+         * The statusViewData for the status has changed, and the
+         * status should be re-displayed.
+         *
+         * This preempts other payloads, as it typically triggers a full
+         * re-display.
+         */
+        STATUS_VIEW_DATA,
     }
 
     override fun areItemsTheSame(
-        oldItem: StatusViewData,
-        newItem: StatusViewData,
+        oldItem: StatusItemViewData,
+        newItem: StatusItemViewData,
     ): Boolean {
-        return oldItem.actionableId == newItem.actionableId
+        return oldItem.statusId == newItem.statusId
     }
 
     override fun areContentsTheSame(
-        oldItem: StatusViewData,
-        newItem: StatusViewData,
+        oldItem: StatusItemViewData,
+        newItem: StatusItemViewData,
     ): Boolean {
-        // Items are different always. It allows to refresh timestamp on every view holder update
-        return false
+        return oldItem == newItem
     }
 
     override fun getChangePayload(
-        oldItem: StatusViewData,
-        newItem: StatusViewData,
+        oldItem: StatusItemViewData,
+        newItem: StatusItemViewData,
     ): Any? {
         val payload = buildList {
-            if (oldItem == newItem) {
-                add(Payload.CREATED)
+            add(Payload.CREATED)
+
+            // TODO: This is wrong, because statusViewData contains the status, so
+            // this will trigger on every change
+            if (oldItem.statusViewData != newItem.statusViewData ||
+                oldItem.quotedViewData != newItem.quotedViewData
+            ) {
+                add(Payload.STATUS_VIEW_DATA)
                 return@buildList
             }
 

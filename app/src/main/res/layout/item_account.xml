@@ -56,10 +56,22 @@
         android:maxLines="1"
         android:textSize="?attr/status_text_large"
         android:textStyle="normal|bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/account_pronouns"
         app:layout_constraintStart_toEndOf="@id/account_avatar"
         app:layout_constraintTop_toBottomOf="@id/roleChipGroup"
         tools:text="Display name" />
+
+    <app.pachli.core.ui.PronounsChip
+        android:id="@+id/account_pronouns"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@id/account_display_name"
+        app:layout_constraintBaseline_toBaselineOf="@id/account_display_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_max="@dimen/pronounChip_maxWidth"
+        tools:text="he/him"
+        tools:ignore="SelectableText" />
 
     <TextView
         android:id="@+id/account_username"

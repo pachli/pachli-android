@@ -2,4 +2,9 @@
 <resources>
     <string name="update_dialog_positive">Atvērt Google Play</string>
     <string name="update_dialog_message">Vai atvērt Google Play, lai apskatītu informāciju?</string>
+    <string name="action_delete_remote_model_fmt">Izdzēst %1$s</string>
+    <string name="action_download_remote_model_fmt">Lejupielādēt %1$s</string>
+    <string name="content_description_loading_fmt">%1$s, lejupielādē</string>
+    <string name="content_description_loaded_fmt">%1$s, lejupielādēts</string>
+    <string name="content_description_available_fmt">%1$s, pieejams lejupielādei</string>
 </resources>

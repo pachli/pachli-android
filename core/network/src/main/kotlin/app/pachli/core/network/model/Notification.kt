@@ -94,6 +94,14 @@ data class Notification(
         /** A moderator has taken action against your account or has sent you a warning. */
         @Json(name = "moderation_warning")
         MODERATION_WARNING("moderation_warning"),
+
+        /** Someone quoted one of your posts. */
+        @Json(name = "quote")
+        QUOTE("quote"),
+
+        /** A post you quoted has been updated. */
+        @Json(name = "quoted_update")
+        QUOTED_UPDATE("quoted_update"),
         ;
 
         companion object {
@@ -119,6 +127,8 @@ data class Notification(
             REPORT -> app.pachli.core.model.Notification.Type.REPORT
             SEVERED_RELATIONSHIPS -> app.pachli.core.model.Notification.Type.SEVERED_RELATIONSHIPS
             MODERATION_WARNING -> app.pachli.core.model.Notification.Type.MODERATION_WARNING
+            QUOTE -> app.pachli.core.model.Notification.Type.QUOTE
+            QUOTED_UPDATE -> app.pachli.core.model.Notification.Type.QUOTED_UPDATE
         }
     }
 
@@ -159,6 +169,8 @@ fun app.pachli.core.model.Notification.Type.asNetworkModel() = when (this) {
     app.pachli.core.model.Notification.Type.REPORT -> Notification.Type.REPORT
     app.pachli.core.model.Notification.Type.SEVERED_RELATIONSHIPS -> Notification.Type.SEVERED_RELATIONSHIPS
     app.pachli.core.model.Notification.Type.MODERATION_WARNING -> Notification.Type.MODERATION_WARNING
+    app.pachli.core.model.Notification.Type.QUOTE -> Notification.Type.QUOTE
+    app.pachli.core.model.Notification.Type.QUOTED_UPDATE -> Notification.Type.QUOTED_UPDATE
 }
 
 fun Iterable<app.pachli.core.model.Notification.Type>.asNetworkModel() = map { it.asNetworkModel() }

@@ -28,12 +28,14 @@ import app.pachli.components.timeline.TimelineRepository
 import app.pachli.core.common.PachliError
 import app.pachli.core.common.extensions.throttleFirst
 import app.pachli.core.data.model.ContentFilterModel
+import app.pachli.core.data.model.IStatusViewData
+import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.StatusActionError
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
-import app.pachli.core.database.model.TimelineStatusWithAccount
+import app.pachli.core.database.dao.TimelineStatusWithAccount
 import app.pachli.core.eventhub.BlockEvent
 import app.pachli.core.eventhub.BookmarkEvent
 import app.pachli.core.eventhub.DomainMuteEvent
@@ -59,7 +61,6 @@ import app.pachli.core.model.translation.TranslatedStatus
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.preferences.TabTapBehaviour
-import app.pachli.core.ui.extensions.getAttachmentDisplayAction
 import app.pachli.translation.TranslatorError
 import app.pachli.usecase.TimelineCases
 import com.github.michaelbull.result.Ok
@@ -173,27 +174,27 @@ sealed interface UiSuccess {
 sealed interface StatusAction : UiAction
 
 sealed interface InfallibleStatusAction : InfallibleUiAction, StatusAction {
-    val statusViewData: StatusViewData
+    val statusViewData: IStatusViewData
 
-    data class TranslateUndo(override val statusViewData: StatusViewData) : InfallibleStatusAction
+    data class TranslateUndo(override val statusViewData: IStatusViewData) : InfallibleStatusAction
 }
 
 /** Actions the user can trigger on an individual status */
 sealed interface FallibleStatusAction : FallibleUiAction, StatusAction {
     // TODO: Include a property for the PachliAccountId the action is being performed as.
 
-    val statusViewData: StatusViewData
+    val statusViewData: IStatusViewData
 
     /** Set the bookmark state for a status */
-    data class Bookmark(val state: Boolean, override val statusViewData: StatusViewData) :
+    data class Bookmark(val state: Boolean, override val statusViewData: IStatusViewData) :
         FallibleStatusAction
 
     /** Set the favourite state for a status */
-    data class Favourite(val state: Boolean, override val statusViewData: StatusViewData) :
+    data class Favourite(val state: Boolean, override val statusViewData: IStatusViewData) :
         FallibleStatusAction
 
     /** Set the reblog state for a status */
-    data class Reblog(val state: Boolean, override val statusViewData: StatusViewData) :
+    data class Reblog(val state: Boolean, override val statusViewData: IStatusViewData) :
         FallibleStatusAction
 
     /**
@@ -206,11 +207,11 @@ sealed interface FallibleStatusAction : FallibleUiAction, StatusAction {
     data class VoteInPoll(
         val poll: Poll,
         val choices: List<Int>,
-        override val statusViewData: StatusViewData,
+        override val statusViewData: IStatusViewData,
     ) : FallibleStatusAction
 
     /** Translate a status */
-    data class Translate(override val statusViewData: StatusViewData) : FallibleStatusAction
+    data class Translate(override val statusViewData: IStatusViewData) : FallibleStatusAction
 }
 
 /** Changes to a status' visible state after API calls */
@@ -323,7 +324,7 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
     val uiState: StateFlow<UiState>
 
     /** Flow of statuses that make up the timeline of [timeline] for [pachliAccountId]. */
-    abstract val statuses: Flow<PagingData<StatusViewData>>
+    abstract val statuses: Flow<PagingData<StatusItemViewData>>
 
     /** Flow of changes to statusDisplayOptions, for use by the UI */
     val statusDisplayOptions = statusDisplayOptionsRepository.flow
@@ -340,7 +341,7 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
     }
 
     /** [FilterContext] for this [timeline]. */
-    private val filterContext = FilterContext.from(timeline)
+    protected val filterContext = FilterContext.from(timeline)
 
     /**
      * Flow of the status ID to use when initially refreshing the list, and where
@@ -366,7 +367,7 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
         accountManager.getPachliAccountFlow(pachliAccountId)
     }.filterNotNull()
 
-    private var contentFilterModel: ContentFilterModel? = null
+    protected var contentFilterModel: ContentFilterModel? = null
 
     init {
         // Handle LoadPachliAcccount. Emit the received account ID to pachliAccountFlow.
@@ -543,7 +544,7 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
      * and update [translation][StatusViewData.translation].     .
      * 3. Revert the status state change from (1) if the operation failed.
      */
-    abstract suspend fun onTranslate(action: FallibleStatusAction.Translate): Result<TranslatedStatus, TranslatorError> // = timelineCases.translate(action.statusViewData)
+    abstract suspend fun onTranslate(action: FallibleStatusAction.Translate): Result<TranslatedStatus, TranslatorError>
 
     /**
      * Undo translating a status.
@@ -559,19 +560,19 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
      * Sets the expanded state of [statusViewData] in [OfflineFirstStatusRepository] to [isExpanded] and
      * invalidates the repository.
      */
-    abstract fun onChangeExpanded(isExpanded: Boolean, statusViewData: StatusViewData)
+    abstract fun onChangeExpanded(isExpanded: Boolean, statusViewData: IStatusViewData)
 
     /**
      * Sets the attachment display action of [statusViewData] in [OfflineFirstStatusRepository] to
      * [newAction] and invalidates the repository.
      */
-    abstract fun onChangeAttachmentDisplayAction(viewData: StatusViewData, newAction: AttachmentDisplayAction)
+    abstract fun onChangeAttachmentDisplayAction(viewData: IStatusViewData, newAction: AttachmentDisplayAction)
 
     /**
      * Sets the collapsed state of [statusViewData] in [OfflineFirstStatusRepository] to [isCollapsed] and
      * invalidates the repository.
      */
-    abstract fun onContentCollapsed(isCollapsed: Boolean, statusViewData: StatusViewData)
+    abstract fun onContentCollapsed(isCollapsed: Boolean, statusViewData: IStatusViewData)
 
     abstract fun removeAllByAccountId(pachliAccountId: Long, accountId: String)
 
@@ -587,7 +588,7 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
 
     abstract fun handlePinEvent(pinEvent: PinEvent)
 
-    abstract fun clearWarning(statusViewData: StatusViewData)
+    abstract fun clearWarning(statusViewData: IStatusViewData)
 
     /** Triggered when currently displayed data must be reloaded. */
     protected abstract suspend fun invalidate(pachliAccountId: Long)
@@ -615,8 +616,6 @@ abstract class TimelineViewModel<T : Any, R : TimelineRepository<T>>(
         // Apply content filters.
         return contentFilterModel?.filterActionFor(status) ?: FilterAction.NONE
     }
-
-    protected fun getAttachmentDisplayAction(status: TimelineStatusWithAccount, alwaysShowSensitiveMedia: Boolean, cachedDecision: AttachmentDisplayAction?) = status.getAttachmentDisplayAction(filterContext, alwaysShowSensitiveMedia, cachedDecision)
 
     // TODO: Update this so that the list of UIPrefs is correct
     private suspend fun onPreferenceChanged(key: String) {

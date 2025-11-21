@@ -17,6 +17,7 @@
 
 package app.pachli.components.conversation
 
+import android.content.Context
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.InvalidatingPagingSourceFactory
 import androidx.paging.Pager
@@ -35,12 +36,14 @@ import app.pachli.core.database.model.ConversationData
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
 import app.pachli.core.network.retrofit.MastodonApi
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class ConversationsRepository @Inject constructor(
+    @ApplicationContext private val context: Context,
     @ApplicationScope internal val externalScope: CoroutineScope,
     private val mastodonApi: MastodonApi,
     private val transactionProvider: TransactionProvider,
@@ -53,7 +56,7 @@ class ConversationsRepository @Inject constructor(
 
     @OptIn(ExperimentalPagingApi::class)
     fun conversations(pachliAccountId: Long): Flow<PagingData<ConversationData>> {
-        factory = InvalidatingPagingSourceFactory { conversationsDao.conversationsForAccount(pachliAccountId) }
+        factory = InvalidatingPagingSourceFactory { conversationsDao.getConversationsWithQuote(pachliAccountId) }
 
         // The Mastodon conversations API does not support fetching a specific conversation
         // so it is not possible to restore the user's reading position.
@@ -64,6 +67,7 @@ class ConversationsRepository @Inject constructor(
                 enablePlaceholders = true,
             ),
             remoteMediator = ConversationsRemoteMediator(
+                context,
                 pachliAccountId,
                 mastodonApi,
                 transactionProvider,

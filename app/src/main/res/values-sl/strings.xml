@@ -168,7 +168,6 @@
     <string name="pref_title_public_filter_keywords">Javne časovnice</string>
     <string name="pref_title_thread_filter_keywords">Pogovori</string>
     <string name="filter_addition_title">Dodaj filter</string>
-    <string name="filter_edit_title">Uredi filter</string>
     <string name="filter_dialog_remove_button">Odstrani</string>
     <string name="filter_dialog_update_button">Posodobi</string>
     <string name="filter_add_description">Filtriraj frazo</string>

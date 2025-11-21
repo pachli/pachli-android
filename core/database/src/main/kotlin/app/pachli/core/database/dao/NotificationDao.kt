@@ -25,7 +25,6 @@ import androidx.room.Transaction
 import androidx.room.TypeConverters
 import androidx.room.Upsert
 import app.pachli.core.database.Converters
-import app.pachli.core.database.model.FilterActionUpdate
 import app.pachli.core.database.model.NotificationAccountFilterDecisionUpdate
 import app.pachli.core.database.model.NotificationAccountWarningEntity
 import app.pachli.core.database.model.NotificationData
@@ -63,91 +62,185 @@ SELECT
     a.limited AS 'a_limited',
     a.note AS 'a_note',
     a.roles AS 'a_roles',
+    a.pronouns AS 'a_pronouns',
 
     -- The status in the notification (if any)
-    s.serverId AS 's_serverId',
-    s.url AS 's_url',
-    s.timelineUserId AS 's_timelineUserId',
-    s.authorServerId AS 's_authorServerId',
-    s.inReplyToId AS 's_inReplyToId',
-    s.inReplyToAccountId AS 's_inReplyToAccountId',
-    s.createdAt AS 's_createdAt',
-    s.editedAt AS 's_editedAt',
-    s.emojis AS 's_emojis',
-    s.reblogsCount AS 's_reblogsCount',
-    s.favouritesCount AS 's_favouritesCount',
-    s.repliesCount AS 's_repliesCount',
-    s.reblogged AS 's_reblogged',
-    s.favourited AS 's_favourited',
-    s.bookmarked AS 's_bookmarked',
-    s.sensitive AS 's_sensitive',
-    s.spoilerText AS 's_spoilerText',
-    s.visibility AS 's_visibility',
-    s.mentions AS 's_mentions',
-    s.tags AS 's_tags',
-    s.application AS 's_application',
-    s.reblogServerId AS 's_reblogServerId',
-    s.reblogAccountId AS 's_reblogAccountId',
-    s.content AS 's_content',
-    s.attachments AS 's_attachments',
-    s.poll AS 's_poll',
-    s.card AS 's_card',
-    s.muted AS 's_muted',
-    s.pinned AS 's_pinned',
-    s.language AS 's_language',
-    s.filtered AS 's_filtered',
+    -- TimelineStatusWithAccount
+    s.serverId AS 's_s_serverId',
+    s.url AS 's_s_url',
+    s.timelineUserId AS 's_s_timelineUserId',
+    s.authorServerId AS 's_s_authorServerId',
+    s.inReplyToId AS 's_s_inReplyToId',
+    s.inReplyToAccountId AS 's_s_inReplyToAccountId',
+    s.createdAt AS 's_s_createdAt',
+    s.editedAt AS 's_s_editedAt',
+    s.emojis AS 's_s_emojis',
+    s.reblogsCount AS 's_s_reblogsCount',
+    s.favouritesCount AS 's_s_favouritesCount',
+    s.repliesCount AS 's_s_repliesCount',
+    s.quotesCount AS 's_s_quotesCount',
+    s.reblogged AS 's_s_reblogged',
+    s.favourited AS 's_s_favourited',
+    s.bookmarked AS 's_s_bookmarked',
+    s.sensitive AS 's_s_sensitive',
+    s.spoilerText AS 's_s_spoilerText',
+    s.visibility AS 's_s_visibility',
+    s.mentions AS 's_s_mentions',
+    s.tags AS 's_s_tags',
+    s.application AS 's_s_application',
+    s.reblogServerId AS 's_s_reblogServerId',
+    s.reblogAccountId AS 's_s_reblogAccountId',
+    s.content AS 's_s_content',
+    s.attachments AS 's_s_attachments',
+    s.poll AS 's_s_poll',
+    s.card AS 's_s_card',
+    s.quoteState AS 's_s_quoteState',
+    s.quoteServerId AS 's_s_quoteServerId',
+    s.quoteApproval AS 's_s_quoteApproval',
+    s.muted AS 's_s_muted',
+    s.pinned AS 's_s_pinned',
+    s.language AS 's_s_language',
+    s.filtered AS 's_s_filtered',
 
     -- The status' account (if any)
-    sa.serverId AS 's_a_serverId',
-    sa.timelineUserId AS 's_a_timelineUserId',
-    sa.localUsername AS 's_a_localUsername',
-    sa.username AS 's_a_username',
-    sa.displayName AS 's_a_displayName',
-    sa.url AS 's_a_url',
-    sa.avatar AS 's_a_avatar',
-    sa.emojis AS 's_a_emojis',
-    sa.bot AS 's_a_bot',
-    sa.createdAt AS 's_a_createdAt',
-    sa.limited AS 's_a_limited',
-    sa.note AS 's_a_note',
-    sa.roles AS 's_a_roles',
+    s.a_serverId AS 's_s_a_serverId',
+    s.a_timelineUserId AS 's_s_a_timelineUserId',
+    s.a_localUsername AS 's_s_a_localUsername',
+    s.a_username AS 's_s_a_username',
+    s.a_displayName AS 's_s_a_displayName',
+    s.a_url AS 's_s_a_url',
+    s.a_avatar AS 's_s_a_avatar',
+    s.a_emojis AS 's_s_a_emojis',
+    s.a_bot AS 's_s_a_bot',
+    s.a_createdAt AS 's_s_a_createdAt',
+    s.a_limited AS 's_s_a_limited',
+    s.a_note AS 's_s_a_note',
+    s.a_roles AS 's_s_a_roles',
+    s.a_pronouns AS 's_s_a_pronouns',
 
     -- The status's reblog account (if any)
-    rb.serverId AS 's_rb_serverId',
-    rb.timelineUserId AS 's_rb_timelineUserId',
-    rb.localUsername AS 's_rb_localUsername',
-    rb.username AS 's_rb_username',
-    rb.displayName AS 's_rb_displayName',
-    rb.url AS 's_rb_url',
-    rb.avatar AS 's_rb_avatar',
-    rb.emojis AS 's_rb_emojis',
-    rb.bot AS 's_rb_bot',
-    rb.createdAt AS 's_rb_createdAt',
-    rb.limited AS 's_rb_limited',
-    rb.note AS 's_rb_note',
-    rb.roles AS 's_rb_roles',
+    s.rb_serverId AS 's_s_rb_serverId',
+    s.rb_timelineUserId AS 's_s_rb_timelineUserId',
+    s.rb_localUsername AS 's_s_rb_localUsername',
+    s.rb_username AS 's_s_rb_username',
+    s.rb_displayName AS 's_s_rb_displayName',
+    s.rb_url AS 's_s_rb_url',
+    s.rb_avatar AS 's_s_rb_avatar',
+    s.rb_emojis AS 's_s_rb_emojis',
+    s.rb_bot AS 's_s_rb_bot',
+    s.rb_createdAt AS 's_s_rb_createdAt',
+    s.rb_limited AS 's_s_rb_limited',
+    s.rb_note AS 's_s_rb_note',
+    s.rb_roles AS 's_s_rb_roles',
+    s.rb_pronouns AS 's_s_rb_pronouns',
 
     -- Status view data
-    svd.serverId AS 's_svd_serverId',
-    svd.pachliAccountId AS 's_svd_pachliAccountId',
-    svd.expanded AS 's_svd_expanded',
-    svd.contentCollapsed AS 's_svd_contentCollapsed',
-    svd.translationState AS 's_svd_translationState',
-    svd.attachmentDisplayAction AS 's_svd_attachmentDisplayAction',
+    s.svd_serverId AS 's_s_svd_serverId',
+    s.svd_pachliAccountId AS 's_s_svd_pachliAccountId',
+    s.svd_expanded AS 's_s_svd_expanded',
+    s.svd_contentCollapsed AS 's_s_svd_contentCollapsed',
+    s.svd_translationState AS 's_s_svd_translationState',
+    s.svd_attachmentDisplayAction AS 's_s_svd_attachmentDisplayAction',
 
     -- Translation
-    t.serverId AS 's_t_serverId',
-    t.timelineUserId AS 's_t_timelineUserId',
-    t.content AS 's_t_content',
-    t.spoilerText AS 's_t_spoilerText',
-    t.poll AS 's_t_poll',
-    t.attachments AS 's_t_attachments',
-    t.provider AS 's_t_provider',
+    s.t_serverId AS 's_s_t_serverId',
+    s.t_timelineUserId AS 's_s_t_timelineUserId',
+    s.t_content AS 's_s_t_content',
+    s.t_spoilerText AS 's_s_t_spoilerText',
+    s.t_poll AS 's_s_t_poll',
+    s.t_attachments AS 's_s_t_attachments',
+    s.t_provider AS 's_s_t_provider',
+
+    -- Quoted status (if any)
+    -- TimelineStatusWithAccount
+    q.serverId AS 's_q_serverId',
+    q.url AS 's_q_url',
+    q.timelineUserId AS 's_q_timelineUserId',
+    q.authorServerId AS 's_q_authorServerId',
+    q.inReplyToId AS 's_q_inReplyToId',
+    q.inReplyToAccountId AS 's_q_inReplyToAccountId',
+    q.createdAt AS 's_q_createdAt',
+    q.editedAt AS 's_q_editedAt',
+    q.emojis AS 's_q_emojis',
+    q.reblogsCount AS 's_q_reblogsCount',
+    q.favouritesCount AS 's_q_favouritesCount',
+    q.repliesCount AS 's_q_repliesCount',
+    q.quotesCount AS 's_q_quotesCount',
+    q.reblogged AS 's_q_reblogged',
+    q.favourited AS 's_q_favourited',
+    q.bookmarked AS 's_q_bookmarked',
+    q.sensitive AS 's_q_sensitive',
+    q.spoilerText AS 's_q_spoilerText',
+    q.visibility AS 's_q_visibility',
+    q.mentions AS 's_q_mentions',
+    q.tags AS 's_q_tags',
+    q.application AS 's_q_application',
+    q.reblogServerId AS 's_q_reblogServerId',
+    q.reblogAccountId AS 's_q_reblogAccountId',
+    q.content AS 's_q_content',
+    q.attachments AS 's_q_attachments',
+    q.poll AS 's_q_poll',
+    q.card AS 's_q_card',
+    q.muted AS 's_q_muted',
+    q.pinned AS 's_q_pinned',
+    q.language AS 's_q_language',
+    q.filtered AS 's_q_filtered',
+    q.quoteState AS 's_q_quoteState',
+    q.quoteServerId AS 's_q_quoteServerId',
+    q.quoteApproval AS 's_q_quoteApproval',
+
+    -- The status' account (if any)
+    q.a_serverId AS 's_q_a_serverId',
+    q.a_timelineUserId AS 's_q_a_timelineUserId',
+    q.a_localUsername AS 's_q_a_localUsername',
+    q.a_username AS 's_q_a_username',
+    q.a_displayName AS 's_q_a_displayName',
+    q.a_url AS 's_q_a_url',
+    q.a_avatar AS 's_q_a_avatar',
+    q.a_emojis AS 's_q_a_emojis',
+    q.a_bot AS 's_q_a_bot',
+    q.a_createdAt AS 's_q_a_createdAt',
+    q.a_limited AS 's_q_a_limited',
+    q.a_note AS 's_q_a_note',
+    q.a_roles AS 's_q_a_roles',
+    q.a_pronouns AS 's_q_a_pronouns',
+
+    -- The status's reblog account (if any)
+    q.rb_serverId AS 's_q_rb_serverId',
+    q.rb_timelineUserId AS 's_q_rb_timelineUserId',
+    q.rb_localUsername AS 's_q_rb_localUsername',
+    q.rb_username AS 's_q_rb_username',
+    q.rb_displayName AS 's_q_rb_displayName',
+    q.rb_url AS 's_q_rb_url',
+    q.rb_avatar AS 's_q_rb_avatar',
+    q.rb_emojis AS 's_q_rb_emojis',
+    q.rb_bot AS 's_q_rb_bot',
+    q.rb_createdAt AS 's_q_rb_createdAt',
+    q.rb_limited AS 's_q_rb_limited',
+    q.rb_note AS 's_q_rb_note',
+    q.rb_roles AS 's_q_rb_roles',
+    q.rb_pronouns AS 's_q_rb_pronouns',
+
+    -- Status view data
+    q.svd_serverId AS 's_q_svd_serverId',
+    q.svd_pachliAccountId AS 's_q_svd_pachliAccountId',
+    q.svd_expanded AS 's_q_svd_expanded',
+    q.svd_contentCollapsed AS 's_q_svd_contentCollapsed',
+    q.svd_translationState AS 's_q_svd_translationState',
+    q.svd_attachmentDisplayAction AS 's_q_svd_attachmentDisplayAction',
+
+    -- Translation
+    q.t_serverId AS 's_q_t_serverId',
+    q.t_timelineUserId AS 's_q_t_timelineUserId',
+    q.t_content AS 's_q_t_content',
+    q.t_spoilerText AS 's_q_t_spoilerText',
+    q.t_poll AS 's_q_t_poll',
+    q.t_attachments AS 's_q_t_attachments',
+    q.t_provider AS 's_q_t_provider',
 
     -- NotificationViewData
     nvd.pachliAccountId AS 'nvd_pachliAccountId',
     nvd.serverId AS 'nvd_serverId',
-    nvd.contentFilterAction AS 'nvd_contentFilterAction',
     nvd.accountFilterDecision AS 'nvd_accountFilterDecision',
 
     -- NotificationReportEntity
@@ -195,15 +288,9 @@ SELECT
     warn.createdAt AS 'warn_createdAt'
 FROM NotificationEntity AS n
 LEFT JOIN TimelineAccountEntity AS a ON (n.pachliAccountId = a.timelineUserId AND n.accountServerId = a.serverId)
-LEFT JOIN StatusEntity AS s ON (n.pachliAccountId = s.timelineUserId AND n.statusServerId = s.serverId)
-LEFT JOIN TimelineAccountEntity AS sa ON (n.pachliAccountId = sa.timelineUserId AND s.authorServerId = sa.serverId)
-LEFT JOIN TimelineAccountEntity AS rb ON (n.pachliAccountId = rb.timelineUserId AND s.reblogAccountId = rb.serverId)
-LEFT JOIN
-    StatusViewDataEntity AS svd
-    ON (n.pachliAccountId = svd.pachliAccountId AND (s.serverId = svd.serverId OR s.reblogServerId = svd.serverId))
-LEFT JOIN
-    TranslatedStatusEntity AS t
-    ON (n.pachliAccountId = t.timelineUserId AND (s.serverId = t.serverId OR s.reblogServerId = t.serverId))
+LEFT JOIN TimelineStatusWithAccount AS s ON (n.pachliAccountId = s.timelineUserId AND n.statusServerId = s.serverId)
+ LEFT JOIN TimelineStatusWithAccount AS q
+    ON (n.pachliAccountId = :pachliAccountId AND (q.timelineUserId = :pachliAccountId AND s.quoteServerId = q.serverId))
 LEFT JOIN NotificationViewDataEntity AS nvd ON (n.pachliAccountId = nvd.pachliAccountId AND n.serverId = nvd.serverId)
 LEFT JOIN
     NotificationReportEntity AS report
@@ -218,7 +305,7 @@ WHERE n.pachliAccountId = :pachliAccountId
 ORDER BY LENGTH(n.serverId) DESC, n.serverId DESC
 """,
     )
-    fun pagingSource(pachliAccountId: Long): PagingSource<Int, NotificationData>
+    fun getNotificationsWithQuote(pachliAccountId: Long): PagingSource<Int, NotificationData>
 
     /**
      * @return Row number (0-based) of the notification with ID [notificationId]
@@ -261,16 +348,13 @@ WHERE pachliAccountId = :pachliAccountId
     suspend fun upsertNotifications(notifications: Collection<NotificationEntity>)
 
     @Upsert
-    fun upsertReports(reports: Collection<NotificationReportEntity>)
+    suspend fun upsertReports(reports: Collection<NotificationReportEntity>)
 
     @Upsert
-    fun upsertEvents(events: Collection<NotificationRelationshipSeveranceEventEntity>)
+    suspend fun upsertEvents(events: Collection<NotificationRelationshipSeveranceEventEntity>)
 
     @Upsert
-    fun upsertAccountWarnings(accountWarnings: Collection<NotificationAccountWarningEntity>)
-
-    @Upsert(entity = NotificationViewDataEntity::class)
-    suspend fun upsert(filterActionUpdate: FilterActionUpdate)
+    suspend fun upsertAccountWarnings(accountWarnings: Collection<NotificationAccountWarningEntity>)
 
     @Upsert(entity = NotificationViewDataEntity::class)
     suspend fun upsert(notificationAccountFilterDecisionUpdate: NotificationAccountFilterDecisionUpdate)
@@ -323,4 +407,283 @@ WHERE
 """,
     )
     suspend fun loadRelationshipSeveranceeventById(pachliAccountId: Long, eventId: String): NotificationRelationshipSeveranceEventEntity?
+
+    // Debug queries
+    //
+    // Used in feature.about.DatabaseFragment
+
+    /**
+     * Variant of [getNotificationsWithQuote] that returns all notifications as a [List]
+     * instead of a [PagingSource].
+     */
+    @Transaction
+    @Query(
+        """
+SELECT
+    -- Basic notification info
+    n.pachliAccountId,
+    n.serverId,
+    n.type,
+    n.createdAt,
+    n.accountServerId,
+    n.statusServerId,
+
+    -- The account that triggered the notification
+    a.serverId AS 'a_serverId',
+    a.timelineUserId AS 'a_timelineUserId',
+    a.localUsername AS 'a_localUsername',
+    a.username AS 'a_username',
+    a.displayName AS 'a_displayName',
+    a.url AS 'a_url',
+    a.avatar AS 'a_avatar',
+    a.emojis AS 'a_emojis',
+    a.bot AS 'a_bot',
+    a.createdAt AS 'a_createdAt',
+    a.limited AS 'a_limited',
+    a.note AS 'a_note',
+    a.roles AS 'a_roles',
+    a.pronouns AS 'a_pronouns',
+
+    -- The status in the notification (if any)
+    -- TimelineStatusWithAccount
+    s.serverId AS 's_s_serverId',
+    s.url AS 's_s_url',
+    s.timelineUserId AS 's_s_timelineUserId',
+    s.authorServerId AS 's_s_authorServerId',
+    s.inReplyToId AS 's_s_inReplyToId',
+    s.inReplyToAccountId AS 's_s_inReplyToAccountId',
+    s.createdAt AS 's_s_createdAt',
+    s.editedAt AS 's_s_editedAt',
+    s.emojis AS 's_s_emojis',
+    s.reblogsCount AS 's_s_reblogsCount',
+    s.favouritesCount AS 's_s_favouritesCount',
+    s.repliesCount AS 's_s_repliesCount',
+    s.quotesCount AS 's_s_quotesCount',
+    s.reblogged AS 's_s_reblogged',
+    s.favourited AS 's_s_favourited',
+    s.bookmarked AS 's_s_bookmarked',
+    s.sensitive AS 's_s_sensitive',
+    s.spoilerText AS 's_s_spoilerText',
+    s.visibility AS 's_s_visibility',
+    s.mentions AS 's_s_mentions',
+    s.tags AS 's_s_tags',
+    s.application AS 's_s_application',
+    s.reblogServerId AS 's_s_reblogServerId',
+    s.reblogAccountId AS 's_s_reblogAccountId',
+    s.content AS 's_s_content',
+    s.attachments AS 's_s_attachments',
+    s.poll AS 's_s_poll',
+    s.card AS 's_s_card',
+    s.quoteState AS 's_s_quoteState',
+    s.quoteServerId AS 's_s_quoteServerId',
+    s.quoteApproval AS 's_s_quoteApproval',
+    s.muted AS 's_s_muted',
+    s.pinned AS 's_s_pinned',
+    s.language AS 's_s_language',
+    s.filtered AS 's_s_filtered',
+
+    -- The status' account (if any)
+    s.a_serverId AS 's_s_a_serverId',
+    s.a_timelineUserId AS 's_s_a_timelineUserId',
+    s.a_localUsername AS 's_s_a_localUsername',
+    s.a_username AS 's_s_a_username',
+    s.a_displayName AS 's_s_a_displayName',
+    s.a_url AS 's_s_a_url',
+    s.a_avatar AS 's_s_a_avatar',
+    s.a_emojis AS 's_s_a_emojis',
+    s.a_bot AS 's_s_a_bot',
+    s.a_createdAt AS 's_s_a_createdAt',
+    s.a_limited AS 's_s_a_limited',
+    s.a_note AS 's_s_a_note',
+    s.a_roles AS 's_s_a_roles',
+    s.a_pronouns AS 's_s_a_pronouns',
+
+    -- The status's reblog account (if any)
+    s.rb_serverId AS 's_s_rb_serverId',
+    s.rb_timelineUserId AS 's_s_rb_timelineUserId',
+    s.rb_localUsername AS 's_s_rb_localUsername',
+    s.rb_username AS 's_s_rb_username',
+    s.rb_displayName AS 's_s_rb_displayName',
+    s.rb_url AS 's_s_rb_url',
+    s.rb_avatar AS 's_s_rb_avatar',
+    s.rb_emojis AS 's_s_rb_emojis',
+    s.rb_bot AS 's_s_rb_bot',
+    s.rb_createdAt AS 's_s_rb_createdAt',
+    s.rb_limited AS 's_s_rb_limited',
+    s.rb_note AS 's_s_rb_note',
+    s.rb_roles AS 's_s_rb_roles',
+    s.rb_pronouns AS 's_s_rb_pronouns',
+
+    -- Status view data
+    s.svd_serverId AS 's_s_svd_serverId',
+    s.svd_pachliAccountId AS 's_s_svd_pachliAccountId',
+    s.svd_expanded AS 's_s_svd_expanded',
+    s.svd_contentCollapsed AS 's_s_svd_contentCollapsed',
+    s.svd_translationState AS 's_s_svd_translationState',
+    s.svd_attachmentDisplayAction AS 's_s_svd_attachmentDisplayAction',
+
+    -- Translation
+    s.t_serverId AS 's_s_t_serverId',
+    s.t_timelineUserId AS 's_s_t_timelineUserId',
+    s.t_content AS 's_s_t_content',
+    s.t_spoilerText AS 's_s_t_spoilerText',
+    s.t_poll AS 's_s_t_poll',
+    s.t_attachments AS 's_s_t_attachments',
+    s.t_provider AS 's_s_t_provider',
+
+    -- Quoted status (if any)
+    -- TimelineStatusWithAccount
+    q.serverId AS 's_q_serverId',
+    q.url AS 's_q_url',
+    q.timelineUserId AS 's_q_timelineUserId',
+    q.authorServerId AS 's_q_authorServerId',
+    q.inReplyToId AS 's_q_inReplyToId',
+    q.inReplyToAccountId AS 's_q_inReplyToAccountId',
+    q.createdAt AS 's_q_createdAt',
+    q.editedAt AS 's_q_editedAt',
+    q.emojis AS 's_q_emojis',
+    q.reblogsCount AS 's_q_reblogsCount',
+    q.favouritesCount AS 's_q_favouritesCount',
+    q.repliesCount AS 's_q_repliesCount',
+    q.quotesCount AS 's_q_quotesCount',
+    q.reblogged AS 's_q_reblogged',
+    q.favourited AS 's_q_favourited',
+    q.bookmarked AS 's_q_bookmarked',
+    q.sensitive AS 's_q_sensitive',
+    q.spoilerText AS 's_q_spoilerText',
+    q.visibility AS 's_q_visibility',
+    q.mentions AS 's_q_mentions',
+    q.tags AS 's_q_tags',
+    q.application AS 's_q_application',
+    q.reblogServerId AS 's_q_reblogServerId',
+    q.reblogAccountId AS 's_q_reblogAccountId',
+    q.content AS 's_q_content',
+    q.attachments AS 's_q_attachments',
+    q.poll AS 's_q_poll',
+    q.card AS 's_q_card',
+    q.muted AS 's_q_muted',
+    q.pinned AS 's_q_pinned',
+    q.language AS 's_q_language',
+    q.filtered AS 's_q_filtered',
+    q.quoteState AS 's_q_quoteState',
+    q.quoteServerId AS 's_q_quoteServerId',
+    q.quoteApproval AS 's_q_quoteApproval',
+
+    -- The status' account (if any)
+    q.a_serverId AS 's_q_a_serverId',
+    q.a_timelineUserId AS 's_q_a_timelineUserId',
+    q.a_localUsername AS 's_q_a_localUsername',
+    q.a_username AS 's_q_a_username',
+    q.a_displayName AS 's_q_a_displayName',
+    q.a_url AS 's_q_a_url',
+    q.a_avatar AS 's_q_a_avatar',
+    q.a_emojis AS 's_q_a_emojis',
+    q.a_bot AS 's_q_a_bot',
+    q.a_createdAt AS 's_q_a_createdAt',
+    q.a_limited AS 's_q_a_limited',
+    q.a_note AS 's_q_a_note',
+    q.a_roles AS 's_q_a_roles',
+    q.a_pronouns AS 's_q_a_pronouns',
+
+    -- The status's reblog account (if any)
+    q.rb_serverId AS 's_q_rb_serverId',
+    q.rb_timelineUserId AS 's_q_rb_timelineUserId',
+    q.rb_localUsername AS 's_q_rb_localUsername',
+    q.rb_username AS 's_q_rb_username',
+    q.rb_displayName AS 's_q_rb_displayName',
+    q.rb_url AS 's_q_rb_url',
+    q.rb_avatar AS 's_q_rb_avatar',
+    q.rb_emojis AS 's_q_rb_emojis',
+    q.rb_bot AS 's_q_rb_bot',
+    q.rb_createdAt AS 's_q_rb_createdAt',
+    q.rb_limited AS 's_q_rb_limited',
+    q.rb_note AS 's_q_rb_note',
+    q.rb_roles AS 's_q_rb_roles',
+    q.rb_pronouns AS 's_q_rb_pronouns',
+
+    -- Status view data
+    q.svd_serverId AS 's_q_svd_serverId',
+    q.svd_pachliAccountId AS 's_q_svd_pachliAccountId',
+    q.svd_expanded AS 's_q_svd_expanded',
+    q.svd_contentCollapsed AS 's_q_svd_contentCollapsed',
+    q.svd_translationState AS 's_q_svd_translationState',
+    q.svd_attachmentDisplayAction AS 's_q_svd_attachmentDisplayAction',
+
+    -- Translation
+    q.t_serverId AS 's_q_t_serverId',
+    q.t_timelineUserId AS 's_q_t_timelineUserId',
+    q.t_content AS 's_q_t_content',
+    q.t_spoilerText AS 's_q_t_spoilerText',
+    q.t_poll AS 's_q_t_poll',
+    q.t_attachments AS 's_q_t_attachments',
+    q.t_provider AS 's_q_t_provider',
+
+    -- NotificationViewData
+    nvd.pachliAccountId AS 'nvd_pachliAccountId',
+    nvd.serverId AS 'nvd_serverId',
+    nvd.accountFilterDecision AS 'nvd_accountFilterDecision',
+
+    -- NotificationReportEntity
+    report.pachliAccountId AS 'report_pachliAccountId',
+    report.serverId AS 'report_serverId',
+    report.reportId AS 'report_reportId',
+    report.actionTaken AS 'report_actionTaken',
+    report.actionTakenAt AS 'report_actionTakenAt',
+    report.category AS 'report_category',
+    report.comment AS 'report_comment',
+    report.forwarded AS 'report_forwarded',
+    report.createdAt AS 'report_createdAt',
+    report.statusIds AS 'report_statusIds',
+    report.ruleIds AS 'report_ruleIds',
+    report.target_serverId AS 'report_target_serverId',
+    report.target_timelineUserId AS 'report_target_timelineUserId',
+    report.target_localUsername AS 'report_target_localUsername',
+    report.target_username AS 'report_target_username',
+    report.target_displayName AS 'report_target_displayName',
+    report.target_url AS 'report_target_url',
+    report.target_avatar AS 'report_target_avatar',
+    report.target_emojis AS 'report_target_emojis',
+    report.target_bot AS 'report_target_bot',
+    report.target_createdAt AS 'report_target_createdAt',
+    report.target_limited AS 'report_target_limited',
+    report.target_note AS 'report_target_note',
+
+    -- NotificationRelationshipSeveranceEvent
+    rse.pachliAccountId AS 'rse_pachliAccountId',
+    rse.serverId AS 'rse_serverId',
+    rse.eventId AS 'rse_eventId',
+    rse.type AS 'rse_type',
+    rse.purged AS 'rse_purged',
+    rse.targetName AS 'rse_targetName',
+    rse.followersCount AS 'rse_followersCount',
+    rse.followingCount AS 'rse_followingCount',
+    rse.createdAt AS 'rse_createdAt',
+
+    -- AccountWarning
+    warn.pachliAccountId as 'warn_pachliAccountId',
+    warn.serverId AS 'warn_serverId',
+    warn.accountWarningId AS 'warn_accountWarningId',
+    warn.text AS 'warn_text',
+    warn."action" AS "warn_action",
+    warn.createdAt AS 'warn_createdAt'
+FROM NotificationEntity AS n
+LEFT JOIN TimelineAccountEntity AS a ON (n.pachliAccountId = a.timelineUserId AND n.accountServerId = a.serverId)
+LEFT JOIN TimelineStatusWithAccount AS s ON (n.pachliAccountId = s.timelineUserId AND n.statusServerId = s.serverId)
+ LEFT JOIN TimelineStatusWithAccount AS q
+    ON (n.pachliAccountId = :pachliAccountId AND (q.timelineUserId = :pachliAccountId AND s.quoteServerId = q.serverId))
+LEFT JOIN NotificationViewDataEntity AS nvd ON (n.pachliAccountId = nvd.pachliAccountId AND n.serverId = nvd.serverId)
+LEFT JOIN
+    NotificationReportEntity AS report
+    ON (n.pachliAccountId = report.pachliAccountId AND n.serverId = report.serverId)
+LEFT JOIN
+    NotificationRelationshipSeveranceEventEntity AS rse
+    ON (n.pachliAccountId = rse.pachliAccountId AND n.serverId = rse.serverId)
+LEFT JOIN
+    NotificationAccountWarningEntity AS warn
+    ON (n.pachliAccountId = warn.pachliAccountId AND n.serverId = warn.serverId)
+WHERE n.pachliAccountId = :pachliAccountId
+ORDER BY LENGTH(n.serverId) DESC, n.serverId DESC
+""",
+    )
+    suspend fun debugGetNotificationsWithQuote(pachliAccountId: Long): List<NotificationData>
 }

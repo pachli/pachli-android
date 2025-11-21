@@ -198,7 +198,6 @@
     <string name="pref_title_public_filter_keywords">Timeline pubbliche</string>
     <string name="pref_title_thread_filter_keywords">Conversazioni</string>
     <string name="filter_addition_title">Aggiungi filtro</string>
-    <string name="filter_edit_title">Modifica filtro</string>
     <string name="filter_dialog_remove_button">Rimuovi</string>
     <string name="filter_dialog_update_button">Aggiorna</string>
     <string name="filter_add_description">Frase da filtrare</string>
@@ -471,8 +470,6 @@
     <string name="ui_success_rejected_follow_request">Richiesta di follow bloccata</string>
     <string name="select_list_empty">Non hai ancora alcuna lista</string>
     <string name="select_list_manage">Gestisci liste</string>
-    <string name="status_filtered_show_anyway">Mostra comunque</string>
-    <string name="status_filter_placeholder_label_format">Filtrato: &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="pref_title_account_filter_keywords">Profili</string>
     <string name="hint_filter_title">I miei filtri</string>
     <string name="action_add">Aggiungi</string>

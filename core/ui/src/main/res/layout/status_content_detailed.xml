@@ -87,30 +87,42 @@
 
     <TextView
         android:id="@+id/status_username"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="14dp"
         android:ellipsize="end"
         android:importantForAccessibility="no"
         android:maxLines="1"
         android:textColor="?android:textColorSecondary"
         android:textSize="?attr/status_text_medium"
         app:layout_constrainedWidth="true"
-        app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toEndOf="@id/status_avatar"
         app:layout_constraintTop_toBottomOf="@id/status_display_name"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/account_pronouns"
+        app:layout_goneMarginEnd="14dp"
         tools:text="\@ConnyDuck\@mastodon.social"
         tools:ignore="SelectableText" />
+
+    <app.pachli.core.ui.PronounsChip
+        android:id="@+id/account_pronouns"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="14dp"
+        android:textSize="?attr/status_text_medium"
+        app:layout_constraintBaseline_toBaselineOf="@id/status_username"
+        app:layout_constraintStart_toEndOf="@id/status_username"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_max="@dimen/pronounChip_maxWidth"
+        tools:ignore="SelectableText"
+        tools:text="he/him" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/topContentBarrier"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="status_username,status_avatar" />
+        app:constraint_referenced_ids="status_username,status_avatar,account_pronouns" />
 
     <app.pachli.core.ui.ClickableSpanTextView
         android:id="@+id/status_content_warning_description"
@@ -198,6 +210,7 @@
 
     <app.pachli.core.ui.PollView
         android:id="@+id/status_poll"
+        style="@style/Pachli.Widget.PollView.Detailed"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
@@ -207,16 +220,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/attachmentGrid" />
 
+    <app.pachli.core.ui.QuotedStatusView
+        android:id="@+id/status_quote"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/quote_background"
+        android:paddingTop="14dp"
+        android:paddingBottom="14dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/status_poll"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
     <TextView
         android:id="@+id/translationProvider"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="14dp"
         android:textSize="?attr/status_text_small"
         android:drawablePadding="4dp"
-        app:layout_constraintStart_toStartOf="@id/status_poll"
-        app:layout_constraintTop_toBottomOf="@id/status_poll"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/status_quote"
         tools:text="Translation provider: DeepL"
         tools:ignore="SelectableText"
         tools:visibility="visible" />

@@ -28,14 +28,15 @@ import app.pachli.core.data.model.NotificationViewData.UnknownNotificationViewDa
 import app.pachli.core.data.model.NotificationViewData.WithStatus.FavouriteNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.WithStatus.MentionNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.WithStatus.PollNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatus.QuoteNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatus.QuotedUpdateNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.WithStatus.ReblogNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.WithStatus.StatusNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.WithStatus.UpdateNotificationViewData
-import app.pachli.core.data.model.StatusViewData
+import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.NotificationData
 import app.pachli.core.database.model.NotificationEntity
-import app.pachli.core.database.model.asModel
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.FilterContext
@@ -56,6 +57,7 @@ fun NotificationViewData.Companion.make(
     showSensitiveMedia: Boolean,
     isExpanded: Boolean,
     contentFilterAction: FilterAction,
+    quoteContentFilterAction: FilterAction?,
     accountFilterDecision: AccountFilterDecision?,
     isAboutSelf: Boolean,
 ) = when (data.notification.type) {
@@ -75,18 +77,16 @@ fun NotificationViewData.Companion.make(
         account = data.account.asModel(),
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
-        statusViewData = data.status!!.let {
-            StatusViewData.from(
+        statusItemViewData = data.status!!.let {
+            StatusItemViewData.from(
                 pachliAccountId = pachliAccountEntity.id,
                 it,
                 isExpanded = isExpanded,
                 isDetailed = false,
                 contentFilterAction = contentFilterAction,
-                attachmentDisplayAction = it.getAttachmentDisplayAction(
-                    FilterContext.NOTIFICATIONS,
-                    showSensitiveMedia,
-                    it.viewData?.attachmentDisplayAction,
-                ),
+                quoteContentFilterAction = quoteContentFilterAction,
+                showSensitiveMedia = showSensitiveMedia,
+                filterContext = FilterContext.NOTIFICATIONS,
             )
         },
     )
@@ -98,18 +98,16 @@ fun NotificationViewData.Companion.make(
         account = data.account.asModel(),
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
-        statusViewData = data.status!!.let {
-            StatusViewData.from(
+        statusItemViewData = data.status!!.let {
+            StatusItemViewData.from(
                 pachliAccountId = pachliAccountEntity.id,
                 it,
                 isExpanded = isExpanded,
                 isDetailed = false,
                 contentFilterAction = contentFilterAction,
-                attachmentDisplayAction = it.getAttachmentDisplayAction(
-                    FilterContext.NOTIFICATIONS,
-                    showSensitiveMedia,
-                    it.viewData?.attachmentDisplayAction,
-                ),
+                quoteContentFilterAction = quoteContentFilterAction,
+                showSensitiveMedia = showSensitiveMedia,
+                filterContext = FilterContext.NOTIFICATIONS,
             )
         },
     )
@@ -121,18 +119,16 @@ fun NotificationViewData.Companion.make(
         account = data.account.asModel(),
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
-        statusViewData = data.status!!.let {
-            StatusViewData.from(
+        statusItemViewData = data.status!!.let {
+            StatusItemViewData.from(
                 pachliAccountId = pachliAccountEntity.id,
                 it,
                 isExpanded = isExpanded,
                 isDetailed = false,
                 contentFilterAction = contentFilterAction,
-                attachmentDisplayAction = it.getAttachmentDisplayAction(
-                    FilterContext.NOTIFICATIONS,
-                    showSensitiveMedia,
-                    it.viewData?.attachmentDisplayAction,
-                ),
+                quoteContentFilterAction = quoteContentFilterAction,
+                showSensitiveMedia = showSensitiveMedia,
+                filterContext = FilterContext.NOTIFICATIONS,
             )
         },
     )
@@ -162,18 +158,16 @@ fun NotificationViewData.Companion.make(
         account = data.account.asModel(),
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
-        statusViewData = data.status!!.let {
-            StatusViewData.from(
+        statusItemViewData = data.status!!.let {
+            StatusItemViewData.from(
                 pachliAccountId = pachliAccountEntity.id,
                 it,
                 isExpanded = isExpanded,
                 isDetailed = false,
                 contentFilterAction = contentFilterAction,
-                attachmentDisplayAction = it.getAttachmentDisplayAction(
-                    FilterContext.NOTIFICATIONS,
-                    showSensitiveMedia,
-                    it.viewData?.attachmentDisplayAction,
-                ),
+                quoteContentFilterAction = quoteContentFilterAction,
+                showSensitiveMedia = showSensitiveMedia,
+                filterContext = FilterContext.NOTIFICATIONS,
             )
         },
     )
@@ -185,18 +179,16 @@ fun NotificationViewData.Companion.make(
         account = data.account.asModel(),
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
-        statusViewData = data.status!!.let {
-            StatusViewData.from(
+        statusItemViewData = data.status!!.let {
+            StatusItemViewData.from(
                 pachliAccountId = pachliAccountEntity.id,
                 it,
                 isExpanded = isExpanded,
                 isDetailed = false,
                 contentFilterAction = contentFilterAction,
-                attachmentDisplayAction = it.getAttachmentDisplayAction(
-                    FilterContext.NOTIFICATIONS,
-                    showSensitiveMedia,
-                    it.viewData?.attachmentDisplayAction,
-                ),
+                quoteContentFilterAction = quoteContentFilterAction,
+                showSensitiveMedia = showSensitiveMedia,
+                filterContext = FilterContext.NOTIFICATIONS,
             )
         },
     )
@@ -217,18 +209,16 @@ fun NotificationViewData.Companion.make(
         account = data.account.asModel(),
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
-        statusViewData = data.status!!.let {
-            StatusViewData.from(
+        statusItemViewData = data.status!!.let {
+            StatusItemViewData.from(
                 pachliAccountId = pachliAccountEntity.id,
                 it,
                 isExpanded = isExpanded,
                 isDetailed = false,
                 contentFilterAction = contentFilterAction,
-                attachmentDisplayAction = it.getAttachmentDisplayAction(
-                    FilterContext.NOTIFICATIONS,
-                    showSensitiveMedia,
-                    it.viewData?.attachmentDisplayAction,
-                ),
+                quoteContentFilterAction = quoteContentFilterAction,
+                showSensitiveMedia = showSensitiveMedia,
+                filterContext = FilterContext.NOTIFICATIONS,
             )
         },
     )
@@ -261,5 +251,47 @@ fun NotificationViewData.Companion.make(
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
         accountWarning = data.accountWarning!!.asModel(),
+    )
+
+    NotificationEntity.Type.QUOTE -> QuoteNotificationViewData(
+        pachliAccountId = pachliAccountEntity.id,
+        localDomain = pachliAccountEntity.domain,
+        notificationId = data.notification.serverId,
+        account = data.account.asModel(),
+        isAboutSelf = isAboutSelf,
+        accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
+        statusItemViewData = data.status!!.let {
+            StatusItemViewData.from(
+                pachliAccountId = pachliAccountEntity.id,
+                it,
+                isExpanded = isExpanded,
+                isDetailed = false,
+                contentFilterAction = contentFilterAction,
+                quoteContentFilterAction = quoteContentFilterAction,
+                showSensitiveMedia = showSensitiveMedia,
+                filterContext = FilterContext.NOTIFICATIONS,
+            )
+        },
+    )
+
+    NotificationEntity.Type.QUOTED_UPDATE -> QuotedUpdateNotificationViewData(
+        pachliAccountId = pachliAccountEntity.id,
+        localDomain = pachliAccountEntity.domain,
+        notificationId = data.notification.serverId,
+        account = data.account.asModel(),
+        isAboutSelf = isAboutSelf,
+        accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
+        statusItemViewData = data.status!!.let {
+            StatusItemViewData.from(
+                pachliAccountId = pachliAccountEntity.id,
+                it,
+                isExpanded = isExpanded,
+                isDetailed = false,
+                contentFilterAction = contentFilterAction,
+                quoteContentFilterAction = quoteContentFilterAction,
+                showSensitiveMedia = showSensitiveMedia,
+                filterContext = FilterContext.NOTIFICATIONS,
+            )
+        },
     )
 }

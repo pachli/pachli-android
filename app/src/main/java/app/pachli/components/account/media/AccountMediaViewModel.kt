@@ -16,6 +16,7 @@
 
 package app.pachli.components.account.media
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.ExperimentalPagingApi
@@ -27,10 +28,12 @@ import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.network.retrofit.MastodonApi
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 @HiltViewModel
 class AccountMediaViewModel @Inject constructor(
+    @ApplicationContext private val context: Context,
     accountManager: AccountManager,
     api: MastodonApi,
     statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
@@ -59,7 +62,12 @@ class AccountMediaViewModel @Inject constructor(
                 currentSource = source
             }
         },
-        remoteMediator = AccountMediaRemoteMediator(api, activeAccount, this),
+        remoteMediator = AccountMediaRemoteMediator(
+            context,
+            api,
+            activeAccount,
+            this,
+        ),
     ).flow
         .cachedIn(viewModelScope)
 

@@ -74,4 +74,7 @@ dependencies {
     // Markdown support for the privacy policy
     implementation(libs.markwon)
     implementation(libs.markwon.tables)
+
+    implementation(libs.bundles.room)
+        ?.because("DatabaseFragmentViewModel needs RoomDatabase type.")
 }

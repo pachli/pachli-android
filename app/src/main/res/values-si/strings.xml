@@ -41,7 +41,6 @@
     <string name="action_edit_profile">පැතිකඩ සංස්කරණය</string>
     <string name="hint_display_name">දර්ශන නාමය</string>
     <string name="post_text_size_medium">මධ්‍යම</string>
-    <string name="filter_edit_title">පෙරහන සංස්කරණය</string>
     <string name="notification_summary_medium">%1$s, %2$s, සහ %3$s</string>
     <string name="lock_account_label">ගිණුම අගුළුලන්න</string>
     <string name="post_sent_long">පිළිතුර සාර්ථකව යැවිණි.</string>

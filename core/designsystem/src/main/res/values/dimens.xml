@@ -16,6 +16,8 @@
 
     <dimen name="card_image_vertical_height">210dp</dimen>
     <dimen name="card_image_horizontal_width">100dp</dimen>
+    <dimen name="card_image_vertical_height_quoted">158dp</dimen>
+    <dimen name="card_image_horizontal_width_quoted">75dp</dimen>
 
     <dimen name="compose_activity_snackbar_elevation">16dp</dimen>
 
@@ -50,6 +52,7 @@
 
     <dimen name="card_radius">5dp</dimen>
     <dimen name="card_byline_avatar_dimen">36dp</dimen>
+    <dimen name="card_byline_avatar_dimen_quoted">27dp</dimen>
 
     <dimen name="poll_preview_padding">12dp</dimen>
     <dimen name="poll_preview_min_width">120dp</dimen>
@@ -72,7 +75,16 @@
     <dimen name="timeline_status_avatar_height">48dp</dimen>
     <dimen name="timeline_status_avatar_width">48dp</dimen>
 
+    <dimen name="timeline_quoted_status_avatar_height">36dp</dimen>
+    <dimen name="timeline_quoted_status_avatar_width">36dp</dimen>
+
     <dimen name="account_media_grid_default">130dp</dimen>
+
+    <dimen name="pronounChip_maxWidth">102sp</dimen>
+    <dimen name="pronounChip_minHeight">24dp</dimen>
+
+    <!-- Top margin between items in the "Trending Links" view. -->
+    <dimen name="trendingLinks_top_margin">16dp</dimen>
 
     <!-- Adjust the dimensions of items in the Material drawer to provide a
          slightly tighter layout while ensuring that minimum touch sizes are

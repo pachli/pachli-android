@@ -7,7 +7,7 @@
     <string name="node_info_error_no_software_version">tarkvara versioon on puudu, tühi või nullväärtusega</string>
     <string name="node_info_error_no_software">ei sisaldanud tarkvaraplokki</string>
     <string name="server_error_unparseable_version">„%1$s“ töötlemine versioonina polnud võimalik: %2$s</string>
-    <string name="error_json_data_fmt">Sinu serveri vastuses oli vigane sisu: %1$s</string>
+    <string name="error_json_data_fmt">sinu serveri vastuses oli vigane sisu: %1$s</string>
     <string name="error_network_fmt">Tekkis võrguühenduse viga: %s</string>
     <string name="error_missing_content_type_fmt">sinu server on vigaselt seadistatud - vastusest oli sisutüüp puudu: %1$s</string>
     <string name="error_wrong_content_type_fmt">sinu server on vigaselt seadistatud „%2$s“ vastuses oli vale sisutüüp: %1$s</string>

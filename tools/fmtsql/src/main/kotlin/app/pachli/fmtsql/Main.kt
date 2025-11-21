@@ -75,12 +75,12 @@ class App : SuspendingCliktCommand() {
     override fun help(context: Context) = "Run sqlfluff on DAO SQL"
 
     /**
-     * Regex to match SQL in `@Query` annotations.
+     * Regex to match SQL in `@Query` and `@DatabaseView` annotations.
      *
-     * Matches `@Query("...")` and `@Query("""...""")` where the content inside
+     * Matches `@<Annotation>("...")` and `@<Annotation>("""...""")` where the content inside
      * may span multiple lines.
      */
-    private val rxQuery = """@Query\(\s*"{1,3}(.*?)"{1,3},?\s*\)""".toRegex(
+    private val rxQuery = """@(?<annotation>Query|DatabaseView)\(\s*"{1,3}(?<sql>.*?)"{1,3},?\s*\)""".toRegex(
         setOf(
             RegexOption.DOT_MATCHES_ALL,
             RegexOption.MULTILINE,
@@ -109,14 +109,23 @@ class App : SuspendingCliktCommand() {
         return@coroutineScope
     }
 
-    /** Format `@Query` annotations in [file]. */
+    /** Format `@Query` and `@DatabaseView` annotations in [file]. */
     private suspend fun formatSql(file: File) = withContext(Dispatchers.IO) {
         println(file.path)
 
         val content = file.readText()
 
         val newContent = rxQuery.replace(content) { match ->
-            val unformattedSql = match.groupValues[1].trim()
+            val annotation = match.groups["annotation"]?.value
+            if (annotation == null) {
+                println("Could not parse annotation from input")
+                return@replace match.value
+            }
+            val unformattedSql = match.groups["sql"]?.value?.trim()
+            if (unformattedSql == null) {
+                println("error: could not parse SQL from input")
+                return@replace match.value
+            }
             val lintResults = sqlfluffLint(unformattedSql)
 
             if (lintResults == null) {
@@ -140,7 +149,7 @@ class App : SuspendingCliktCommand() {
 
             // Format, and either return the formatted value (if OK) or the
             // original value (if an error occurred).
-            return@replace when (val result = sqlfluffFix(unformattedSql)) {
+            return@replace when (val result = sqlfluffFix(annotation, unformattedSql)) {
                 is Err -> {
                     println("error: $file: ${result.error}")
                     println("  sql: $unformattedSql")
@@ -188,7 +197,7 @@ class App : SuspendingCliktCommand() {
      * @return A `Result` with either the formatted string, or errors that
      * occurred during formatting.
      */
-    private fun sqlfluffFix(sql: String): Result<String, String> {
+    private fun sqlfluffFix(annotation: String, sql: String): Result<String, String> {
         val cmdFix = arrayOf(sqlFluff.path, "fix", "-")
         val proc = ProcessBuilder(*cmdFix)
             .redirectOutput(ProcessBuilder.Redirect.PIPE)
@@ -207,7 +216,7 @@ class App : SuspendingCliktCommand() {
         val formattedSql = proc.inputStream.bufferedReader().readText().trim()
         val tq = "\"\"\""
         return Ok(
-            """@Query(
+            """@$annotation(
         $tq
 $formattedSql
 $tq,

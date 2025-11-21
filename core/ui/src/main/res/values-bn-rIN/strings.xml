@@ -87,4 +87,5 @@
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; পছন্দসই</item>
     </plurals>
     <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; সমর্থন দিয়েছে</string>
+    <string name="filter_edit_title">ফিল্টার সম্পাদনা করুন</string>
 </resources>

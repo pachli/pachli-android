@@ -17,13 +17,13 @@
 
 package app.pachli.components.timeline
 
+import android.content.Context
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.InvalidatingPagingSourceFactory
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.filter
-import androidx.paging.map
 import app.pachli.components.timeline.TimelineRepository.Companion.PAGE_SIZE
 import app.pachli.components.timeline.viewmodel.NetworkTimelinePagingSource
 import app.pachli.components.timeline.viewmodel.NetworkTimelineRemoteMediator
@@ -32,11 +32,11 @@ import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.StatusActionError
 import app.pachli.core.data.repository.StatusRepository
 import app.pachli.core.database.dao.RemoteKeyDao
+import app.pachli.core.database.dao.TimelineStatusWithAccount
 import app.pachli.core.database.di.InvalidationTracker
 import app.pachli.core.database.model.RemoteKeyEntity.RemoteKeyKind
-import app.pachli.core.database.model.TimelineStatusWithAccount
+import app.pachli.core.database.model.TimelineStatusWithQuote
 import app.pachli.core.database.model.TranslationState
-import app.pachli.core.database.model.asEntity
 import app.pachli.core.model.AttachmentDisplayAction
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
@@ -46,6 +46,7 @@ import app.pachli.core.ui.getDomain
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import kotlin.coroutines.coroutineContext
 import kotlinx.coroutines.CoroutineScope
@@ -89,14 +90,15 @@ import timber.log.Timber
 
 /** Timeline repository where the timeline information is backed by an in-memory cache. */
 class NetworkTimelineRepository @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val invalidationTracker: InvalidationTracker,
     private val mastodonApi: MastodonApi,
     private val remoteKeyDao: RemoteKeyDao,
     private val statusRepository: OfflineFirstStatusRepository,
-) : TimelineRepository<TimelineStatusWithAccount>, StatusRepository {
+) : TimelineRepository<TimelineStatusWithQuote>, StatusRepository {
     private val pageCache = PageCache()
 
-    private var factory: InvalidatingPagingSourceFactory<String, Status>? = null
+    private var factory: InvalidatingPagingSourceFactory<String, TimelineStatusWithQuote>? = null
 
     /**
      * Domains that should be (temporarily) removed from the timeline because the user
@@ -130,7 +132,7 @@ class NetworkTimelineRepository @Inject constructor(
     override suspend fun getStatusStream(
         pachliAccountId: Long,
         timeline: Timeline,
-    ): Flow<PagingData<TimelineStatusWithAccount>> {
+    ): Flow<PagingData<TimelineStatusWithQuote>> {
         Timber.d("timeline: $timeline, getStatusStream()")
 
         val initialKey = timeline.remoteKeyTimelineId?.let { refreshKeyPrimaryKey ->
@@ -139,7 +141,7 @@ class NetworkTimelineRepository @Inject constructor(
 
         Timber.d("timeline: $timeline, initialKey: $initialKey")
         factory = InvalidatingPagingSourceFactory {
-            NetworkTimelinePagingSource(pageCache, initialKey)
+            NetworkTimelinePagingSource(pachliAccountId, statusRepository, pageCache, initialKey)
         }
 
         // Track changes to tables that might be changed by user actions. Changes to
@@ -162,6 +164,7 @@ class NetworkTimelineRepository @Inject constructor(
             initialKey = initialKey,
             config = PagingConfig(pageSize = PAGE_SIZE),
             remoteMediator = NetworkTimelineRemoteMediator(
+                context,
                 mastodonApi,
                 pachliAccountId,
                 factory!!,
@@ -173,22 +176,12 @@ class NetworkTimelineRepository @Inject constructor(
         ).flow
             .map { pagingData ->
                 pagingData.filter { status ->
-                    !hiddenStatuses.contains(status.actionableId) &&
-                        !hiddenStatuses.contains(status.reblog?.statusId) &&
-                        !hiddenAccounts.contains(status.actionableStatus.account.id) &&
-                        !hiddenAccounts.contains(status.account.id) &&
-                        !hiddenDomains.contains(getDomain(status.actionableStatus.account.url)) &&
-                        !hiddenDomains.contains(getDomain(status.account.url))
-                }.map { status ->
-                    val statusViewData = statusRepository.getStatusViewData(pachliAccountId, status.actionableId)
-                    val translations = statusRepository.getTranslation(pachliAccountId, status.actionableId)
-                    TimelineStatusWithAccount(
-                        status = status.asEntity(pachliAccountId),
-                        account = status.reblog?.account?.asEntity(pachliAccountId) ?: status.account.asEntity(pachliAccountId),
-                        reblogAccount = status.reblog?.let { status.account.asEntity(pachliAccountId) },
-                        viewData = statusViewData,
-                        translatedStatus = translations,
-                    )
+                    !hiddenStatuses.contains(status.timelineStatus.status.serverId) &&
+                        !hiddenStatuses.contains(status.timelineStatus.status.reblogServerId) &&
+                        !hiddenAccounts.contains(status.timelineStatus.status.authorServerId) &&
+                        !hiddenAccounts.contains(status.timelineStatus.status.reblogAccountId) &&
+                        !hiddenDomains.contains(getDomain(status.timelineStatus.account.url)) &&
+                        !hiddenDomains.contains(getDomain(status.timelineStatus.reblogAccount?.url))
                 }
             }
     }
@@ -313,6 +306,10 @@ class NetworkTimelineRepository @Inject constructor(
     override suspend fun setTranslationState(pachliAccountId: Long, statusId: String, translationState: TranslationState) = statusRepository.setTranslationState(pachliAccountId, statusId, translationState)
 
     override suspend fun getStatusViewData(pachliAccountId: Long, statusId: String) = statusRepository.getStatusViewData(pachliAccountId, statusId)
+
+    override suspend fun getStatusViewData(pachliAccountId: Long, statusIds: Collection<String>) = statusRepository.getStatusViewData(pachliAccountId, statusIds)
+
+    override suspend fun getTranslations(pachliAccountId: Long, statusIds: Collection<String>) = statusRepository.getTranslations(pachliAccountId, statusIds)
 
     override suspend fun getTranslation(pachliAccountId: Long, statusId: String) = statusRepository.getTranslation(pachliAccountId, statusId)
 }

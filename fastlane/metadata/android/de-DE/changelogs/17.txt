@@ -1,0 +1,16 @@
+Pachli 2.6.0
+
+Neue Funktionen:
+
+- „Vorgeschlagene Konten” anzeigen
+- Serverfilter in GoToSocial 0.16.0 unterstützen
+
+Korrekturen:
+
+- Aktualisiert die Schriftart beim Zurückkehren aus den Einstellungen
+- Verarbeitet die Bearbeitung der Sprache eines Status korrekt
+- Verbessert die Lesbarkeit der Statusmedienbeschriftungen
+- Stellt sicher, dass der Text in der Kopfzeile des Navigationsmenüs lesbar ist
+- Überschreitet nicht die maximale Anzahl der erstellten Verknüpfungen
+- Verwendet die Standardbeschreibung „Nach oben navigieren“ in ViewThreadActivity
+- Aktualisierte finnische, spanische und schwedische Übersetzungen

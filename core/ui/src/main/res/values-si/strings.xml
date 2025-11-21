@@ -67,4 +67,5 @@
         <item quantity="one">ප්‍රියතමයන් &lt;b&gt;%1$s&lt;/b&gt;</item>
         <item quantity="other">ප්‍රියතමයන් &lt;b&gt;%1$s&lt;/b&gt;</item>
     </plurals>
+    <string name="filter_edit_title">පෙරහන සංස්කරණය</string>
 </resources>

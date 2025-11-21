@@ -117,6 +117,8 @@
     <string name="notification_moderation_warning_body_suspend_fmt">Your account has been suspended: %1$s</string>
     <string name="notification_moderation_warning_body_unknown_fmt">You have received a moderation warning: %1$s</string>
     <string name="notification_moderation_warning_tap_for_more">Tap to see more details on your server.</string>
+    <string name="notification_quote_format">%s quoted your post</string>
+    <string name="notification_quoted_update_format">%s updated the post you quoted</string>
     <string name="notification_unknown">Unknown notification type</string>
     <string name="notification_header_report_format">%s reported %s</string>
     <plurals name="notification_summary_report_format">
@@ -269,6 +271,8 @@
     <string name="pref_title_notification_filter_follow_requests">Follow requested</string>
     <string name="pref_title_notification_filter_reblogs">My posts are boosted</string>
     <string name="pref_title_notification_filter_favourites">My posts are favorited</string>
+    <string name="pref_title_notification_filter_quote">My posts are quoted</string>
+    <string name="pref_title_notification_filter_quoted_update">A post I quoted is edited</string>
     <string name="pref_title_notification_filter_poll">Polls have ended</string>
     <string name="pref_title_notification_filter_subscriptions">Somebody I\'m subscribed to published a new post</string>
     <string name="pref_title_notification_filter_sign_ups">Somebody signed up</string>
@@ -348,6 +352,10 @@
     <string name="notification_severed_relationships_description">Notifications about severed relationships</string>
     <string name="notification_moderation_warnings_name">Moderation warnings</string>
     <string name="notification_moderation_warnings_description">Notifications about moderation warnings</string>
+    <string name="notification_quote_name">Someone quoted you</string>
+    <string name="notification_quote_description">Notifications about someone quoting your posts</string>
+    <string name="notification_quoted_update_name">Quoted post edits</string>
+    <string name="notification_quoted_update_description">Notifications when posts you\'ve quoted are edited</string>
     <string name="notification_listenable_worker_name">Background activity</string>
     <string name="notification_listenable_worker_description">Notifications when Pachli is working in the background</string>
     <string name="notification_unknown_name">Unknown</string>
@@ -370,8 +378,6 @@
     -->
     <string name="post_share_content">Share content of post</string>
     <string name="post_share_link">Share link to post</string>
-    <string name="status_filtered_show_anyway">Show anyway</string>
-    <string name="status_filter_placeholder_label_format">Filtered: &lt;b>%1$s&lt;/b></string>
     <string name="state_follow_requested">Follow requested</string>
     <!--These are for timestamps on posts. For example: "16s" or "2d"-->
     <string name="follows_you">Follows you</string>
@@ -383,7 +389,6 @@
     <string name="pref_title_thread_filter_keywords">Conversations</string>
     <string name="pref_title_account_filter_keywords">Profiles</string>
     <string name="filter_addition_title">Add filter</string>
-    <string name="filter_edit_title">Edit filter</string>
     <string name="filter_dialog_remove_button">Remove</string>
     <string name="filter_dialog_update_button">Update</string>
     <string name="filter_dialog_whole_word">Whole word</string>

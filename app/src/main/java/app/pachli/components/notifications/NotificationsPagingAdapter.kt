@@ -36,6 +36,8 @@ import app.pachli.core.data.model.NotificationViewData.UnknownNotificationViewDa
 import app.pachli.core.data.model.NotificationViewData.WithStatus.FavouriteNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.WithStatus.MentionNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.WithStatus.PollNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatus.QuoteNotificationViewData
+import app.pachli.core.data.model.NotificationViewData.WithStatus.QuotedUpdateNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.WithStatus.ReblogNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.WithStatus.StatusNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.WithStatus.UpdateNotificationViewData
@@ -100,6 +102,8 @@ enum class NotificationViewKind {
                 is ReblogNotificationViewData,
                 is StatusNotificationViewData,
                 is UpdateNotificationViewData,
+                is QuoteNotificationViewData,
+                is QuotedUpdateNotificationViewData,
                 -> NOTIFICATION
 
                 is FollowNotificationViewData,
@@ -117,7 +121,7 @@ enum class NotificationViewKind {
     }
 }
 
-interface NotificationActionListener : StatusActionListener<NotificationViewData.WithStatus> {
+interface NotificationActionListener : StatusActionListener {
     fun onViewReport(reportId: String)
 
     /**
@@ -171,7 +175,7 @@ class NotificationsPagingAdapter(
 
     override fun getItemViewType(position: Int): Int {
         val item = getItem(position)
-        if (item is NotificationViewData.WithStatus && item.statusViewData.contentFilterAction == FilterAction.WARN) {
+        if (item is NotificationViewData.WithStatus && item.statusItemViewData.contentFilterAction == FilterAction.WARN) {
             return NotificationViewKind.STATUS_FILTERED.ordinal
         }
 
@@ -250,7 +254,8 @@ class NotificationsPagingAdapter(
                     ItemModerationWarningBinding.inflate(inflater, parent, false),
                 )
             }
-            else -> {
+
+            NotificationViewKind.UNKNOWN -> {
                 FallbackNotificationViewHolder(
                     ItemUnknownNotificationBinding.inflate(inflater, parent, false),
                 )

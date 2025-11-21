@@ -60,4 +60,20 @@
     <string name="notification_details_pachli_exempt">Kas Pachli puhul ei kasutata akukasutuse optimeerimist?</string>
     <string name="notification_details_workers_help">Siin peaks olema teavitusi laadivate päringuagentide loend. Neis peaks olema üks, tema olek kas RUNNING või ENQUEUED ja ta olema ajastatud käivituma järgmise 15 minuti jooksul.</string>
     <string name="notification_details_pachli_exempt_help">Pachli pole välistatud akukasutuse optimeerimise reeglite alt. Kui ekraan poel lülitatud sisse, siis Android võib piirata teavituste liikumist.</string>
+    <string name="about_notifications">Teavitused</string>
+    <string name="about_database">Andmebaas</string>
+    <string name="database_table_sizes">Tabelisuurused</string>
+    <string name="database_integrity_check">Tervikluse kontroll</string>
+    <string name="database_query_timings">Päringute kestused</string>
+    <string name="database_vacuum">Tihenda andmebaas</string>
+    <string name="database_clear_cache">Kustuta puhverdatud andmed</string>
+    <string name="action_run_integrity_check">Käivita tervikluse kontroll</string>
+    <string name="action_run_query_timings">Testi päringute kestusi</string>
+    <string name="action_vacuum">Tihenda andmebaas</string>
+    <string name="action_clear_cache">Kustuta puhverdatud andmed</string>
+    <string name="database_vacuum_complete">Andmebaasi tihendamine on tehtud</string>
+    <string name="database_clear_cache_complete">Puhverdatud andmed on kustutatud</string>
+    <string name="database_prune_cache">Kärbi puhverdatud andmete mahtu</string>
+    <string name="action_prune_cache">Kärbi puhverdatud andmete mahtu</string>
+    <string name="database_prune_cache_complete">Puhverdatud andmete mahu kärpimine õnnestus</string>
 </resources>

@@ -104,6 +104,8 @@ private const val CHANNEL_UPDATES = "CHANNEL_UPDATES"
 private const val CHANNEL_REPORT = "CHANNEL_REPORT"
 private const val CHANNEL_SEVERED_RELATIONSHIPS = "CHANNEL_SEVERED_RELATIONSHIPS"
 private const val CHANNEL_MODERATION_WARNINGS = "CHANNEL_MODERATION_WARNING"
+private const val CHANNEL_QUOTE = "CHANNEL_QUOTE"
+private const val CHANNEL_QUOTED_UPDATE = "CHANNEL_QUOTED_UPDATE"
 private const val CHANNEL_BACKGROUND_TASKS = "CHANNEL_BACKGROUND_TASKS"
 
 /** WorkManager Tag */
@@ -528,6 +530,8 @@ fun createNotificationChannelsForAccount(account: AccountEntity, context: Contex
             CHANNEL_REPORT + account.identifier,
             CHANNEL_SEVERED_RELATIONSHIPS + account.identifier,
             CHANNEL_MODERATION_WARNINGS + account.identifier,
+            CHANNEL_QUOTE + account.identifier,
+            CHANNEL_QUOTED_UPDATE + account.identifier,
         )
         val channelNames = intArrayOf(
             R.string.notification_mention_name,
@@ -542,6 +546,8 @@ fun createNotificationChannelsForAccount(account: AccountEntity, context: Contex
             R.string.notification_report_name,
             R.string.notification_severed_relationships_name,
             R.string.notification_moderation_warnings_name,
+            R.string.notification_quote_name,
+            R.string.notification_quoted_update_name,
         )
         val channelDescriptions = intArrayOf(
             R.string.notification_mention_descriptions,
@@ -556,6 +562,8 @@ fun createNotificationChannelsForAccount(account: AccountEntity, context: Contex
             R.string.notification_report_description,
             R.string.notification_severed_relationships_description,
             R.string.notification_moderation_warnings_description,
+            R.string.notification_quote_description,
+            R.string.notification_quoted_update_description,
         )
         val channels: MutableList<NotificationChannel> = ArrayList(6)
         val channelGroup = NotificationChannelGroup(account.identifier, account.fullName)
@@ -654,6 +662,8 @@ fun filterNotification(
         Notification.Type.REPORT -> account.notificationsReports
         Notification.Type.SEVERED_RELATIONSHIPS -> account.notificationsSeveredRelationships
         Notification.Type.MODERATION_WARNING -> account.notificationsModerationWarnings
+        Notification.Type.QUOTE -> account.notificationsQuotes
+        Notification.Type.QUOTED_UPDATE -> account.notificationsQuotedUpdates
         Notification.Type.UNKNOWN -> false
     }
 }
@@ -756,6 +766,8 @@ private fun getChannelId(account: AccountEntity, type: Notification.Type): Strin
         Notification.Type.REPORT -> CHANNEL_REPORT + account.identifier
         Notification.Type.SEVERED_RELATIONSHIPS -> CHANNEL_SEVERED_RELATIONSHIPS + account.identifier
         Notification.Type.MODERATION_WARNING -> CHANNEL_MODERATION_WARNINGS + account.identifier
+        Notification.Type.QUOTE -> CHANNEL_QUOTE + account.identifier
+        Notification.Type.QUOTED_UPDATE -> CHANNEL_QUOTED_UPDATE + account.identifier
         Notification.Type.UNKNOWN -> null
     }
 }
@@ -873,6 +885,14 @@ private fun titleForType(
             context.getString(R.string.notification_moderation_warning_title)
         }
 
+        Notification.Type.QUOTE -> {
+            context.getString(R.string.notification_quote_format, accountName)
+        }
+
+        Notification.Type.QUOTED_UPDATE -> {
+            context.getString(R.string.notification_quoted_update_format)
+        }
+
         Notification.Type.UNKNOWN -> null
     }
 }
@@ -887,7 +907,13 @@ private fun bodyForType(
             return "@" + notification.account.username
         }
 
-        Notification.Type.MENTION, Notification.Type.FAVOURITE, Notification.Type.REBLOG, Notification.Type.STATUS -> {
+        Notification.Type.MENTION,
+        Notification.Type.FAVOURITE,
+        Notification.Type.REBLOG,
+        Notification.Type.STATUS,
+        Notification.Type.QUOTE,
+        Notification.Type.QUOTED_UPDATE,
+        -> {
             val status = notification.status!!
             return if (!TextUtils.isEmpty(status.spoilerText) && !alwaysOpenSpoiler) {
                 status.spoilerText

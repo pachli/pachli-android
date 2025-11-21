@@ -15,11 +15,14 @@
   ~ see <http://www.gnu.org/licenses>.
   -->
 
-<app.pachli.core.ui.PreviewCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/status_card_view"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="8dp"
-    android:paddingStart="14dp"
-    android:paddingEnd="14dp" />
+    android:paddingStart="?listPreferredItemPaddingStart"
+    android:paddingEnd="?listPreferredItemPaddingEnd">
+
+    <app.pachli.core.ui.PreviewCardView
+        android:id="@+id/status_card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</FrameLayout>

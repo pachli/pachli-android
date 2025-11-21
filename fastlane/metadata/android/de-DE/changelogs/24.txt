@@ -1,0 +1,15 @@
+Pachli 2.9.0
+
+Neue Funktionen:
+
+- Übernahme der Tab-Ausrichtung und Inhaltspräferenzen aus Labs
+- Erste Unterstützung für das Filtern von Benachrichtigungen nach sendendem Konto
+- Unterstützung für Pleroma bei der Rückgabe von Datumsangaben ohne Zeitzone
+- Anzeige zusätzlicher a11y-Aktionen für Trendlinks und vorgeschlagene Konten
+
+Korrekturen:
+
+- Sicherstellen, dass Elemente in a11y-Dialogen anklickbar sind
+- Keine Bilder/Bildunterschriften nach fehlgeschlagenen Uploads verlieren
+- Verschiedene Abstürze behoben
+- Aktualisierung der finnischen, irischen, norwegischen (Bokmål, Nynorsk) und spanischen Übersetzungen

@@ -38,7 +38,6 @@
         android:paddingRight="16dp"
         android:paddingBottom="4dp"
         android:text="@string/poll_vote"
-        android:textSize="?attr/status_text_medium"
         app:layout_constraintEnd_toStartOf="@+id/status_poll_show_results"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
@@ -64,7 +63,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:textIsSelectable="true"
-        android:textSize="?attr/status_text_medium"
         app:layout_constraintTop_toBottomOf="@id/status_poll_vote_button"
         tools:text="7 votes • 7 hours remaining" />
 </merge>
