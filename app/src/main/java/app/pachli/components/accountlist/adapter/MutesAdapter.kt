@@ -36,11 +36,13 @@ class MutesAdapter(
     animateAvatar: Boolean,
     animateEmojis: Boolean,
     showBotOverlay: Boolean,
+    showPronouns: Boolean,
 ) : AccountAdapter<BindingHolder<ItemMutedUserBinding>>(
     accountActionListener = accountActionListener,
     animateAvatar = animateAvatar,
     animateEmojis = animateEmojis,
     showBotOverlay = showBotOverlay,
+    showPronouns = showPronouns,
 ) {
 
     private val mutingNotificationsMap = HashMap<String, Boolean>()
@@ -71,6 +73,9 @@ class MutesAdapter(
         val unmuteString = context.getString(R.string.action_unmute_desc, formattedUsername)
         binding.mutedUserUnmute.contentDescription = unmuteString
         ViewCompat.setTooltipText(binding.mutedUserUnmute, unmuteString)
+
+        if (showPronouns) binding.accountPronouns.text = account.pronouns
+        binding.accountPronouns.visible(showPronouns && account.pronouns?.isBlank() == false)
 
         binding.mutedUserMuteNotifications.setOnCheckedChangeListener(null)
 

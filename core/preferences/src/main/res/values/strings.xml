@@ -71,4 +71,9 @@
     <string name="pref_translation_backend_option_local_only">On-device only</string>
     <string name="pref_translation_backend_option_local_only_help">Translates posts on your device using Google Translate.</string>
     <string name="pref_translation_backend_requires_play_label">Install from Google Play for on-device translation support</string>
+
+    <string name="pref_title_pronoun_display">Show account pronouns</string>
+    <string name="pref_pronoun_display_everywhere">Everywhere</string>
+    <string name="pref_pronoun_display_when_composing">When writing a post</string>
+    <string name="pref_pronoun_display_hide">Nowhere</string>
 </resources>

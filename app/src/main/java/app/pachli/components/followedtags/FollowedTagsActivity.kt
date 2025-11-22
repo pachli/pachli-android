@@ -199,6 +199,7 @@ class FollowedTagsActivity :
                     animateAvatar = false,
                     animateEmojis = false,
                     showBotBadge = false,
+                    showPronouns = false,
                 ),
             )
 

@@ -27,6 +27,7 @@ import app.pachli.core.data.repository.SuggestionsError.DeleteSuggestionError
 import app.pachli.core.data.repository.SuggestionsError.FollowAccountError
 import app.pachli.core.data.repository.SuggestionsRepository
 import app.pachli.core.model.Suggestion
+import app.pachli.core.preferences.PronounDisplay
 import app.pachli.core.ui.OperationCounter
 import app.pachli.feature.suggestions.UiAction.GetSuggestions
 import app.pachli.feature.suggestions.UiAction.SuggestionAction
@@ -61,12 +62,14 @@ internal data class UiState(
     val animateEmojis: Boolean = false,
     val animateAvatars: Boolean = false,
     val showBotOverlay: Boolean = false,
+    val showPronouns: Boolean = false,
 ) {
     companion object {
         fun from(statusDisplayOptions: StatusDisplayOptions) = UiState(
             animateEmojis = statusDisplayOptions.animateEmojis,
             animateAvatars = statusDisplayOptions.animateAvatars,
             showBotOverlay = statusDisplayOptions.showBotOverlay,
+            showPronouns = statusDisplayOptions.pronounDisplay == PronounDisplay.EVERYWHERE,
         )
     }
 }

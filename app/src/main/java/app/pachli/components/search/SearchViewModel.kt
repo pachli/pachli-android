@@ -34,11 +34,13 @@ import app.pachli.components.search.SearchOperator.LanguageOperator
 import app.pachli.components.search.SearchOperator.WhereOperator
 import app.pachli.components.search.adapter.SearchPagingSourceFactory
 import app.pachli.core.data.model.IStatusViewData
+import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.ServerRepository
+import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.dao.TimelineStatusWithAccount
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.TimelineStatusWithQuote
@@ -93,6 +95,7 @@ class SearchViewModel @Inject constructor(
     private val timelineCases: TimelineCases,
     private val accountManager: AccountManager,
     private val statusRepository: OfflineFirstStatusRepository,
+    statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
     serverRepository: ServerRepository,
 ) : ViewModel() {
 
@@ -103,6 +106,8 @@ class SearchViewModel @Inject constructor(
         get() = accountManager.activeAccount
 
     private val alwaysOpenSpoiler = activeAccount?.alwaysOpenSpoiler ?: false
+
+    val statusDisplayOptions: StatusDisplayOptions = statusDisplayOptionsRepository.flow.value
 
     private val _operatorViewData = MutableStateFlow(
         setOf(
