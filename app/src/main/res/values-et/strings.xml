@@ -739,4 +739,7 @@
     <string name="notification_quote_description">Teavitused selle kohta, kuid keegi on sinu postitusi tsiteerinud</string>
     <string name="notification_quoted_update_name">Tsiteeritud postituste muutmised</string>
     <string name="notification_quoted_update_description">Teavitused selle kohta, kuid keegi on sinu tsiteeritud postitusi muutnud</string>
+    <string name="detach_quote_dialog_title">Kas eemaldad tsitaadi?</string>
+    <string name="detach_quote_dialog_message">Sellega eemaldad antud postitusest oma tsiteeritud postituse.\n\nSinu algne postitus jääb alles.\n\nSeda tegevust ei saa hiljem tagasi pöörata.</string>
+    <string name="detach_quote_error_fmt">Postituse eemaldamine ei õnnestunud: %1$s</string>
 </resources>
