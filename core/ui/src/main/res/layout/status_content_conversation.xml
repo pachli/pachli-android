@@ -144,6 +144,7 @@
         android:id="@+id/status_username"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:paddingTop="4dp"
         android:ellipsize="end"
         android:importantForAccessibility="no"
         android:maxLines="1"
