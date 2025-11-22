@@ -141,4 +141,5 @@
     <string name="status_filter_placeholder_label_format">Filtreeritud: &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="action_open_quoted_post">Ava tsiteeritud postitus</string>
     <string name="label_quoted_status_hidden">Postituse tsitaat, mis on mõne sinu filtri poolt peidetud</string>
+    <string name="detach_quote">Eemalda tsitaat</string>
 </resources>
