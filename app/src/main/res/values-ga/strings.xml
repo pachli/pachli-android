@@ -692,7 +692,7 @@
     <string name="ui_error_reload_reply_fmt">Níorbh fhéidir postáil a luchtú: %1$s</string>
     <string name="pref_summary_account_conversation_filters">Ní thacaíonn do fhreastalaí le scagairí comhrá</string>
     <string name="pref_account_conversation_filters_subtitle">Cad ba cheart a tharlóidh do chomhráite tosaithe ag cuntais…</string>
-    <string name="account_filter_placeholder_type_conversation">Chuir úsáideoir @ &lt;b>%1$s&lt;/b> tús le comhrá</string>
+    <string name="account_filter_placeholder_type_conversation">Chuir úsáideoir @ &lt;b&gt;%1$s&lt;/b&gt; tús le comhrá</string>
     <string name="action_refresh_account">Athnuaigh cuntas</string>
     <string name="pref_title_public_filter_home_and_lists">Baile agus liostaí</string>
     <string name="pref_title_account_conversation_filters">Scagairí comhrá</string>
@@ -733,10 +733,10 @@
     <string name="export_preferences_ok_fmt">Roghanna a easpórtáileadh chuig %1$s</string>
     <string name="error_export_preferences_fmt">Níorbh fhéidir roghanna a easpórtáil chuig %1$s: %2$s</string>
     <string name="error_import_preferences_fmt">Níorbh fhéidir roghanna a iompórtáil ó %1$s: %2$s</string>
-    <string name="notification_severed_relationships_user_domain_block_fmt">Chuir tú bac ar &lt;b>%1$s&lt;/b></string>
-    <string name="notification_severed_relationships_domain_block_fmt">Chuir riarthóir %1$s bac ar &lt;b>%2$s&lt;/b></string>
-    <string name="notification_severed_relationships_unknown_fmt">Tá &lt;b>%1$s&lt;/b> blocáilte (cúis anaithnid)</string>
-    <string name="notification_severed_relationships_account_suspension_fmt">Chuir riarthóir %1$s bac ar &lt;b>%2$s&lt;/b></string>
+    <string name="notification_severed_relationships_user_domain_block_fmt">Chuir tú bac ar &lt;b&gt;%1$s&lt;/b&gt;</string>
+    <string name="notification_severed_relationships_domain_block_fmt">Chuir riarthóir %1$s bac ar &lt;b&gt;%2$s&lt;/b&gt;</string>
+    <string name="notification_severed_relationships_unknown_fmt">Tá &lt;b&gt;%1$s&lt;/b&gt; blocáilte (cúis anaithnid)</string>
+    <string name="notification_severed_relationships_account_suspension_fmt">Chuir riarthóir %1$s bac ar &lt;b&gt;%2$s&lt;/b&gt;</string>
     <string name="manage_accounts_name">Bainistigh cuntais</string>
     <string name="pref_default_audio_playback">Athsheinm fuaime réamhshocraithe</string>
     <string name="error_share_media">níl aon eolaire ann chun meáin shealadacha a shábháil</string>
@@ -761,4 +761,12 @@
     <string name="filter_description_blur">Taispeáin ábhar, folaigh ceangaltáin le rabhadh</string>
     <string name="action_move_up">Bog suas</string>
     <string name="action_move_down">Bog síos</string>
+    <string name="notification_quote_format">%s luaigh do phost</string>
+    <string name="notification_quoted_update_format">Nuashonraigh %s an post a luaigh tú</string>
+    <string name="pref_title_notification_filter_quote">Tá mo phoist luaite</string>
+    <string name="pref_title_notification_filter_quoted_update">Tá post a luaigh mé curtha in eagar</string>
+    <string name="notification_quote_name">Luaigh duine éigin thú</string>
+    <string name="notification_quote_description">Fógraí faoi dhuine éigin ag lua do phoist</string>
+    <string name="notification_quoted_update_name">Eagarthóireacht ar phoist atá luaite</string>
+    <string name="notification_quoted_update_description">Fógraí nuair a chuirtear poist atá luaite agat in eagar</string>
 </resources>
