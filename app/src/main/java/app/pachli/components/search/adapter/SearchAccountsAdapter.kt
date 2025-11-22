@@ -32,6 +32,7 @@ class SearchAccountsAdapter(
     private val animateAvatars: Boolean,
     private val animateEmojis: Boolean,
     private val showBotOverlay: Boolean,
+    private val showPronouns: Boolean,
 ) :
     PagingDataAdapter<TimelineAccount, AccountViewHolder>(ACCOUNT_COMPARATOR) {
 
@@ -47,7 +48,7 @@ class SearchAccountsAdapter(
     override fun onBindViewHolder(holder: AccountViewHolder, position: Int) {
         getItem(position)?.let { item ->
             holder.apply {
-                setupWithAccount(item, animateAvatars, animateEmojis, showBotOverlay)
+                setupWithAccount(item, animateAvatars, animateEmojis, showBotOverlay, showPronouns)
                 setupLinkListener(linkListener)
             }
         }

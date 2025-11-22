@@ -47,6 +47,8 @@ object PrefKeys {
     const val STATUS_TEXT_SIZE = "statusTextSize"
     const val MAIN_NAV_POSITION = "mainNavPosition"
     const val DEFAULT_AUDIO_PLAYBACK = "defaultAudioPlayback"
+
+    const val PRONOUN_DISPLAY = "pronounDisplay"
     const val TRANSLATION_BACKEND = "translationBackend"
     const val TRANSLATION_DOWNLOAD_REQUIRE_WIFI = "translationDownloadRequireWiFi"
     const val HIDE_TOP_TOOLBAR = "hideTopToolbar"

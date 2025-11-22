@@ -30,11 +30,13 @@ class FollowAdapter(
     animateAvatar: Boolean,
     animateEmojis: Boolean,
     showBotOverlay: Boolean,
+    showPronouns: Boolean,
 ) : AccountAdapter<AccountViewHolder>(
     accountActionListener = accountActionListener,
     animateAvatar = animateAvatar,
     animateEmojis = animateEmojis,
     showBotOverlay = showBotOverlay,
+    showPronouns = showPronouns,
 ) {
 
     override fun createAccountViewHolder(parent: ViewGroup): AccountViewHolder {
@@ -48,6 +50,7 @@ class FollowAdapter(
             animateAvatar,
             animateEmojis,
             showBotOverlay,
+            showPronouns,
         )
         viewHolder.setupActionListener(accountActionListener)
     }

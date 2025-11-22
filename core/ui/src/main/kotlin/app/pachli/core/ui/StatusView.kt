@@ -31,6 +31,7 @@ import androidx.core.text.HtmlCompat
 import androidx.core.util.TypedValueCompat.dpToPx
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
+import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.common.util.SmartLengthInputFilter
@@ -44,6 +45,7 @@ import app.pachli.core.model.Emoji
 import app.pachli.core.model.PreviewCardKind
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.preferences.CardViewMode
+import app.pachli.core.preferences.PronounDisplay
 import app.pachli.core.ui.PollViewData.Companion.from
 import app.pachli.core.ui.extensions.contentDescription
 import app.pachli.core.ui.extensions.description
@@ -403,7 +405,18 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
     }
 
     open fun setPronouns(viewData: T, statusDisplayOptions: StatusDisplayOptions) {
-        pronouns?.text = viewData.actionable.account.pronouns
+        val pronouns = this.pronouns ?: return
+
+        when (statusDisplayOptions.pronounDisplay) {
+            PronounDisplay.EVERYWHERE -> {
+                pronouns.text = viewData.actionable.account.pronouns
+                pronouns.visible(viewData.actionable.account.pronouns?.isBlank() == false)
+            }
+
+            PronounDisplay.WHEN_COMPOSING,
+            PronounDisplay.HIDE,
+            -> pronouns.hide()
+        }
     }
 
     /**

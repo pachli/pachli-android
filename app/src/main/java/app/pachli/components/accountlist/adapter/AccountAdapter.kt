@@ -30,6 +30,7 @@ abstract class AccountAdapter<AVH : RecyclerView.ViewHolder> internal constructo
     protected val animateAvatar: Boolean,
     protected val animateEmojis: Boolean,
     protected val showBotOverlay: Boolean,
+    protected val showPronouns: Boolean,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder?>() {
 
     protected var accountList: MutableList<TimelineAccount> = mutableListOf()

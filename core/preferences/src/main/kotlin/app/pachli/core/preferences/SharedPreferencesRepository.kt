@@ -278,6 +278,9 @@ class SharedPreferencesRepository @Inject constructor(
             edit { putBoolean(PrefKeys.USE_PREVIOUS_UNIFIED_PUSH_DISTRIBUTOR, value) }
         }
 
+    val pronounDisplay: PronounDisplay
+        get() = getEnum(PrefKeys.PRONOUN_DISPLAY, PronounDisplay.WHEN_COMPOSING)
+
     // Ensure the listener is retained during minification. If you do not do this the
     // field is removed and eventually garbage collected (because registering it as a
     // change listener does not create a strong reference to it) and then no more

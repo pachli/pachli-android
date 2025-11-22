@@ -34,11 +34,13 @@ class BlocksAdapter(
     animateAvatar: Boolean,
     animateEmojis: Boolean,
     showBotOverlay: Boolean,
+    showPronouns: Boolean,
 ) : AccountAdapter<BindingHolder<ItemBlockedUserBinding>>(
     accountActionListener = accountActionListener,
     animateAvatar = animateAvatar,
     animateEmojis = animateEmojis,
     showBotOverlay = showBotOverlay,
+    showPronouns = showPronouns,
 ) {
 
     override fun createAccountViewHolder(parent: ViewGroup): BindingHolder<ItemBlockedUserBinding> {
@@ -60,6 +62,9 @@ class BlocksAdapter(
         loadAvatar(glide, account.avatar, binding.blockedUserAvatar, avatarRadius, animateAvatar)
 
         binding.blockedUserBotBadge.visible(showBotOverlay && account.bot)
+
+        if (showPronouns) binding.accountPronouns.text = account.pronouns
+        binding.accountPronouns.visible(showPronouns && account.pronouns?.isBlank() == false)
 
         binding.blockedUserUnblock.setOnClickListener {
             accountActionListener.onBlock(false, account.id, position)

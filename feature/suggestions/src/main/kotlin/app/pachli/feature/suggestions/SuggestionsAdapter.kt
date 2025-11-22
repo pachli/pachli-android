@@ -61,6 +61,7 @@ internal class SuggestionsAdapter(
     private var animateAvatars: Boolean,
     private var animateEmojis: Boolean,
     private var showBotOverlay: Boolean,
+    private var showPronouns: Boolean,
     private val accept: (UiAction) -> Unit,
 ) : ListAdapter<SuggestionViewData, SuggestionViewHolder>(SuggestionDiffer) {
     override fun getItemViewType(position: Int) = R.layout.item_suggestion
@@ -88,6 +89,12 @@ internal class SuggestionsAdapter(
         notifyItemRangeChanged(0, currentList.size, ChangePayload.ShowBotOverlay(showBotOverlay))
     }
 
+    fun setShowPronouns(showPronouns: Boolean) {
+        if (this.showPronouns == showPronouns) return
+        this.showPronouns = showPronouns
+        notifyItemRangeChanged(0, currentList.size, ChangePayload.ShowPronouns(showPronouns))
+    }
+
     override fun onBindViewHolder(holder: SuggestionViewHolder, position: Int, payloads: List<Any?>) {
         val viewData = currentList[position]
         if (payloads.isEmpty()) {
@@ -99,6 +106,7 @@ internal class SuggestionsAdapter(
                     is ChangePayload.AnimateAvatars -> holder.bindAvatar(viewData, payload.animateAvatars)
                     is ChangePayload.AnimateEmojis -> holder.bindAnimateEmojis(viewData, payload.animateEmojis)
                     is ChangePayload.ShowBotOverlay -> holder.bindShowBotOverlay(viewData, payload.showBotOverlay)
+                    is ChangePayload.ShowPronouns -> holder.bindShowPronouns(viewData, payload.showPronouns)
                 }
             }
         }
@@ -110,6 +118,7 @@ internal class SuggestionsAdapter(
             animateEmojis,
             animateAvatars,
             showBotOverlay,
+            showPronouns,
         )
     }
 }
@@ -143,6 +152,9 @@ internal class SuggestionViewHolder(
 
         /** The [showBotOverlay] state of the UI has changed. */
         data class ShowBotOverlay(val showBotOverlay: Boolean) : ChangePayload
+
+        /** The [showPronouns] state of the UI has changed. */
+        data class ShowPronouns(val showPronouns: Boolean) : ChangePayload
     }
 
     /**
@@ -173,6 +185,7 @@ internal class SuggestionViewHolder(
         animateEmojis: Boolean,
         animateAvatars: Boolean,
         showBotOverlay: Boolean,
+        showPronouns: Boolean,
     ) {
         this.viewData = viewData
         this.suggestion = viewData.suggestion
@@ -185,11 +198,11 @@ internal class SuggestionViewHolder(
             } ?: suggestionReason.hide()
 
             username.text = username.context.getString(app.pachli.core.designsystem.R.string.post_username_format, account.username)
-            accountPronouns.text = account.pronouns
 
             bindAvatar(viewData, animateAvatars)
             bindAnimateEmojis(viewData, animateEmojis)
             bindShowBotOverlay(viewData, showBotOverlay)
+            bindShowPronouns(viewData, showPronouns)
             bindPostStatistics(viewData)
             bindIsEnabled(viewData.isEnabled)
 
@@ -255,6 +268,11 @@ internal class SuggestionViewHolder(
      */
     fun bindShowBotOverlay(viewData: SuggestionViewData, showBotOverlay: Boolean) = with(binding) {
         avatarBadge.visible(viewData.suggestion.account.bot && showBotOverlay)
+    }
+
+    fun bindShowPronouns(viewData: SuggestionViewData, showPronouns: Boolean) = with(binding) {
+        if (showPronouns) accountPronouns.text = viewData.suggestion.account.pronouns
+        accountPronouns.visible(showPronouns && viewData.suggestion.account.pronouns?.isBlank() == false)
     }
 
     /** Bind's the account's post statistics. */

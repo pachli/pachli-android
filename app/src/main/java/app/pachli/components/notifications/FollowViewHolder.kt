@@ -23,12 +23,14 @@ import android.text.Spanned
 import android.text.style.StyleSpan
 import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
+import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.data.model.NotificationViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.TimelineAccount
 import app.pachli.core.network.parseAsMastodonHtml
+import app.pachli.core.preferences.PronounDisplay
 import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.emojify
 import app.pachli.core.ui.extensions.handleContentDescription
@@ -60,6 +62,7 @@ class FollowViewHolder(
             viewData is NotificationViewData.SignupNotificationViewData,
             statusDisplayOptions.animateAvatars,
             statusDisplayOptions.animateEmojis,
+            statusDisplayOptions.pronounDisplay == PronounDisplay.EVERYWHERE,
         )
     }
 
@@ -68,6 +71,7 @@ class FollowViewHolder(
         isSignUp: Boolean,
         animateAvatars: Boolean,
         animateEmojis: Boolean,
+        showPronouns: Boolean,
     ) {
         val context = binding.notificationText.context
         val format =
@@ -105,7 +109,8 @@ class FollowViewHolder(
             avatarRadius42dp,
             animateAvatars,
         )
-        binding.accountPronouns.text = account.pronouns
+        if (showPronouns) binding.accountPronouns.text = account.pronouns
+        binding.accountPronouns.visible(showPronouns && account.pronouns?.isBlank() == false)
 
         binding.roleChipGroup.setRoles(account.roles)
 

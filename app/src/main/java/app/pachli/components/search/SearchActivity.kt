@@ -92,6 +92,7 @@ import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IS_RE
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IS_SENSITIVE
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_LANGUAGE
 import app.pachli.core.navigation.pachliAccountId
+import app.pachli.core.preferences.PronounDisplay
 import app.pachli.core.ui.appbar.FadeChildScrollEffect
 import app.pachli.core.ui.extensions.addScrollEffect
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
@@ -563,6 +564,12 @@ class SearchActivity :
                         animateAvatar = false,
                         animateEmojis = false,
                         showBotBadge = true,
+                        showPronouns = when (viewModel.statusDisplayOptions.pronounDisplay) {
+                            PronounDisplay.EVERYWHERE -> true
+                            PronounDisplay.WHEN_COMPOSING,
+                            PronounDisplay.HIDE,
+                            -> false
+                        },
                     ),
                 )
 

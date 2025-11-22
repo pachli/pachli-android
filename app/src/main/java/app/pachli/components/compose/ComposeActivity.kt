@@ -100,6 +100,7 @@ import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InReplyTo
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InitialCursorPosition
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.preferences.AppTheme
+import app.pachli.core.preferences.PronounDisplay
 import app.pachli.core.ui.EmojiSpan
 import app.pachli.core.ui.clearDragAnimator
 import app.pachli.core.ui.emojify
@@ -597,7 +598,17 @@ class ComposeActivity :
             binding.statusDisplayName.text =
                 displayName.emojify(glide, emojis, binding.statusDisplayName, sharedPreferencesRepository.animateEmojis)
 
-            binding.accountPronouns.text = pronouns
+            when (viewModel.statusDisplayOptions.value.pronounDisplay) {
+                PronounDisplay.EVERYWHERE,
+                PronounDisplay.WHEN_COMPOSING,
+                -> {
+                    binding.accountPronouns.text = pronouns
+                    binding.accountPronouns.visible(pronouns?.isBlank() == false)
+                }
+
+                PronounDisplay.HIDE -> binding.accountPronouns.hide()
+            }
+
             binding.statusUsername.text = getString(DR.string.post_username_format, username)
 
             if (contentWarning.isEmpty()) {
@@ -658,9 +669,16 @@ class ComposeActivity :
             ComposeAutoCompleteAdapter(
                 glide,
                 this,
-                sharedPreferencesRepository.animateAvatars,
-                sharedPreferencesRepository.animateEmojis,
-                sharedPreferencesRepository.showBotOverlay,
+                animateAvatar = sharedPreferencesRepository.animateAvatars,
+                animateEmojis = sharedPreferencesRepository.animateEmojis,
+                showBotBadge = sharedPreferencesRepository.showBotOverlay,
+                showPronouns = when (sharedPreferencesRepository.pronounDisplay) {
+                    PronounDisplay.EVERYWHERE,
+                    PronounDisplay.WHEN_COMPOSING,
+                    -> true
+
+                    PronounDisplay.HIDE -> false
+                },
             ),
         )
         binding.composeEditField.setTokenizer(ComposeTokenizer())

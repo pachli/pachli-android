@@ -40,6 +40,7 @@ class AccountViewHolder(
         animateAvatar: Boolean,
         animateEmojis: Boolean,
         showBotOverlay: Boolean,
+        showPronouns: Boolean,
     ) {
         accountId = account.id
 
@@ -63,7 +64,9 @@ class AccountViewHolder(
         binding.accountBotBadge.visible(showBotOverlay && account.bot)
 
         binding.roleChipGroup.setRoles(account.roles)
-        binding.accountPronouns.text = account.pronouns
+
+        if (showPronouns) binding.accountPronouns.text = account.pronouns
+        binding.accountPronouns.visible(showPronouns && account.pronouns?.isBlank() == false)
 
         binding.root.contentDescription = account.contentDescription(binding.root.context)
     }

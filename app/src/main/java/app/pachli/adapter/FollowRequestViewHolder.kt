@@ -33,6 +33,7 @@ import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.TimelineAccount
 import app.pachli.core.network.parseAsMastodonHtml
+import app.pachli.core.preferences.PronounDisplay
 import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.emojify
 import app.pachli.core.ui.loadAvatar
@@ -63,6 +64,12 @@ class FollowRequestViewHolder(
             statusDisplayOptions.animateAvatars,
             statusDisplayOptions.animateEmojis,
             statusDisplayOptions.showBotOverlay,
+            when (statusDisplayOptions.pronounDisplay) {
+                PronounDisplay.EVERYWHERE -> true
+                PronounDisplay.WHEN_COMPOSING,
+                PronounDisplay.HIDE,
+                -> false
+            },
         )
 
         setupActionListener(accountActionListener, viewData.account.id)
@@ -73,6 +80,7 @@ class FollowRequestViewHolder(
         animateAvatar: Boolean,
         animateEmojis: Boolean,
         showBotOverlay: Boolean,
+        showPronouns: Boolean,
     ) {
         val wrappedName = account.name.unicodeWrap()
         val emojifiedName: CharSequence = wrappedName.emojify(
@@ -97,6 +105,10 @@ class FollowRequestViewHolder(
             }.emojify(glide, account.emojis, binding.notificationTextView, animateEmojis)
         }
         binding.notificationTextView.visible(showHeader)
+
+        if (showPronouns) binding.accountPronouns.text = account.pronouns
+        binding.accountPronouns.visible(showPronouns && account.pronouns?.isBlank() == false)
+
         val formattedUsername = itemView.context.getString(DR.string.post_username_format, account.username)
         binding.usernameTextView.text = formattedUsername
         if (account.note.isEmpty()) {

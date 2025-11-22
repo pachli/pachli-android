@@ -43,6 +43,7 @@ class ComposeAutoCompleteAdapter(
     private val animateAvatar: Boolean,
     private val animateEmojis: Boolean,
     private val showBotBadge: Boolean,
+    private val showPronouns: Boolean,
 ) : BaseAdapter(), Filterable {
 
     private var resultList: List<AutocompleteResult> = emptyList()
@@ -131,7 +132,8 @@ class ComposeAutoCompleteAdapter(
                 binding.avatarBadge.visible(showBotBadge && account.bot)
 
                 binding.roleChipGroup.setRoles(account.roles)
-                binding.accountPronouns.text = account.pronouns
+                if (showPronouns) binding.accountPronouns.text = account.pronouns
+                binding.accountPronouns.visible(showPronouns && account.pronouns?.isBlank() == false)
 
                 binding.root.contentDescription = account.contentDescription(context)
             }

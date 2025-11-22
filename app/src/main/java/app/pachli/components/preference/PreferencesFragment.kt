@@ -57,6 +57,7 @@ import app.pachli.core.preferences.DefaultAudioPlayback
 import app.pachli.core.preferences.DownloadLocation
 import app.pachli.core.preferences.MainNavigationPosition
 import app.pachli.core.preferences.PrefKeys
+import app.pachli.core.preferences.PronounDisplay
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.preferences.ShowSelfUsername
 import app.pachli.core.preferences.TabAlignment
@@ -313,6 +314,12 @@ class PreferencesFragment : PreferenceFragmentCompat() {
                     setDefaultValue(DefaultAudioPlayback.UNMUTED)
                     setTitle(R.string.pref_default_audio_playback)
                     key = PrefKeys.DEFAULT_AUDIO_PLAYBACK
+                }
+
+                enumListPreference<PronounDisplay> {
+                    setDefaultValue(PronounDisplay.WHEN_COMPOSING)
+                    setTitle(app.pachli.core.preferences.R.string.pref_title_pronoun_display)
+                    key = PrefKeys.PRONOUN_DISPLAY
                 }
             }
 
