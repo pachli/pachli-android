@@ -590,6 +590,35 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
         )
     }
 
+    /**
+     * Shows a dialog to confirm the user wants to detatch the quote. If
+     * confirmed, detaches the quote.
+     *
+     * On error shows a snackbar with the message.
+     *
+     * @param actionableQuoteId Actionable ID of the quoted status to remove.
+     * @param actionableStatusId Actionable ID of the status quoting the post.
+     */
+    override fun onDetachQuote(actionableQuoteId: String, actionableStatusId: String) {
+        AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.detach_quote_dialog_title))
+            .setMessage(getString(R.string.detach_quote_dialog_message))
+            .setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
+                lifecycleScope.launch {
+                    timelineCases.detachQuote(
+                        pachliAccountId,
+                        actionableQuoteId,
+                        actionableStatusId,
+                    ).onFailure { e ->
+                        val message = getString(R.string.detach_quote_error_fmt, e.fmt(requireContext()))
+                        Snackbar.make(requireView(), message, Snackbar.LENGTH_LONG).show()
+                    }
+                }
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
+    }
+
     companion object {
         private fun accountIsInMentions(account: AccountEntity?, mentions: List<Status.Mention>): Boolean {
             return mentions.any { mention ->

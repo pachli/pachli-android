@@ -21,8 +21,10 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.core.text.HtmlCompat
+import androidx.core.util.TypedValueCompat.dpToPx
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
+import app.pachli.core.data.model.QuotedStatusViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.model.FilterAction
@@ -38,7 +40,7 @@ class QuotedStatusView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
     defStyleRes: Int = 0,
-) : StatusView<StatusViewData>(context, attrs, defStyleAttr, defStyleRes) {
+) : StatusView<QuotedStatusViewData>(context, attrs, defStyleAttr, defStyleRes) {
     private val binding = QuotedStatusContentBinding.inflate(LayoutInflater.from(context), this)
 
     override val avatar = binding.quotedStatusContainer.quoteStatusAvatar
@@ -60,12 +62,14 @@ class QuotedStatusView @JvmOverloads constructor(
         setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null)
     }
 
-    override fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: StatusViewData, listener: StatusActionListener, statusDisplayOptions: StatusDisplayOptions) {
-        val filterResults = viewData.actionable.filtered.orEmpty().groupBy { (filter, keywordMatches, statusMatches) -> filter.filterAction }
+    /** Bottom padding to use on the root view if the "Remove quote" button is shown. */
+    private val paddingBottomWithRemoveQuote = dpToPx(6f, context.resources.displayMetrics).toInt()
 
-        val filterAction = viewData.contentFilterAction
+    /** Bottom padding to use on the root view if the "Remove quote" button is not shown. */
+    private val paddingBottomWithoutRemoveQuote = dpToPx(14f, context.resources.displayMetrics).toInt()
 
-        when (filterAction) {
+    override fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: QuotedStatusViewData, listener: StatusActionListener, statusDisplayOptions: StatusDisplayOptions) {
+        when (viewData.contentFilterAction) {
             FilterAction.HIDE -> {
                 binding.quotedStatusFiltered.root.hide()
                 binding.quotedStatusContainer.root.hide()
@@ -74,6 +78,7 @@ class QuotedStatusView @JvmOverloads constructor(
             }
 
             FilterAction.WARN -> {
+                val filterResults = viewData.actionable.filtered.orEmpty().groupBy { (filter, _, _) -> filter.filterAction }
                 filterResults[FilterAction.WARN]?.let { filters ->
                     binding.quotedStatusContainer.root.hide()
                     binding.quotedStatusHidden.hide()
@@ -109,6 +114,41 @@ class QuotedStatusView @JvmOverloads constructor(
                 binding.quotedStatusFiltered.root.hide()
                 binding.quotedStatusContainer.root.show()
                 super.setupWithStatus(setStatusContent, glide, viewData, listener, statusDisplayOptions)
+
+                if (viewData.isUsersStatus) {
+                    // The user posted this, provide an option to detach the quote.
+                    // Adjust the bottom padding for visual balance and show the
+                    // "Remove quote" button.
+                    with(binding.quotedStatusContainer) {
+                        root.setPadding(
+                            root.paddingStart,
+                            root.paddingTop,
+                            root.paddingRight,
+                            paddingBottomWithRemoveQuote,
+                        )
+
+                        quoteStatusControlDivider.show()
+                        quoteStatusDetachQuoteButton.show()
+                        quoteStatusDetachQuoteButton.setOnClickListener {
+                            listener.onDetachQuote(viewData.actionableId, viewData.parentId)
+                        }
+                    }
+                } else {
+                    // No "Remove quote" button and section. Restore the bottom
+                    // padding and hide the controls.
+                    with(binding.quotedStatusContainer) {
+                        root.setPadding(
+                            root.paddingStart,
+                            root.paddingTop,
+                            root.paddingRight,
+                            paddingBottomWithoutRemoveQuote,
+                        )
+
+                        quoteStatusControlDivider.hide()
+                        quoteStatusDetachQuoteButton.hide()
+                        quoteStatusDetachQuoteButton.setOnClickListener(null)
+                    }
+                }
             }
         }
     }

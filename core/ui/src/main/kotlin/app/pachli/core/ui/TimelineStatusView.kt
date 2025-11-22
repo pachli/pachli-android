@@ -60,7 +60,7 @@ class TimelineStatusView @JvmOverloads constructor(
     override fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: IStatusItemViewData, listener: StatusActionListener, statusDisplayOptions: StatusDisplayOptions) {
         super.setupWithStatus(setStatusContent, glide, viewData, listener, statusDisplayOptions)
 
-        val quotedViewData = viewData.quotedViewData
+        val quotedViewData = viewData.asQuotedStatusViewData()
         if (quotedViewData == null) {
             binding.statusQuote.hide()
             return

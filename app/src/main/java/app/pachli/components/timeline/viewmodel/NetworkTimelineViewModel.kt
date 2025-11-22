@@ -84,7 +84,7 @@ open class NetworkTimelineViewModel @AssistedInject constructor(
                 .filter { it.second != FilterAction.HIDE }
                 .map { (timelineStatusWithQuote, contentFilterAction) ->
                     StatusItemViewData.from(
-                        pachliAccount.id,
+                        pachliAccount,
                         timelineStatusWithQuote,
                         isExpanded = statusDisplayOptions.value.openSpoiler,
                         contentFilterAction = contentFilterAction,

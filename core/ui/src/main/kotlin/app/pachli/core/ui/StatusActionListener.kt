@@ -89,4 +89,10 @@ interface StatusActionListener : LinkListener {
 
     /** Undo the translation of [viewData]. */
     fun onTranslateUndo(viewData: IStatusViewData)
+
+    /**
+     * Detach the quote with ID [actionableQuoteId] from the status quoting it
+     * with ID [actionableStatusId]
+     */
+    fun onDetachQuote(actionableQuoteId: String, actionableStatusId: String)
 }

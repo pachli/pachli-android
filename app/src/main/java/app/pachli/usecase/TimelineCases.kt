@@ -244,4 +244,8 @@ class TimelineCases @Inject constructor(
             RemoteKeyEntity(pachliAccountId, remoteKeyTimelineId, RemoteKeyKind.REFRESH, statusId),
         )
     }
+
+    suspend fun detachQuote(pachliAccountId: Long, quoteId: String, parentId: String): Result<Status, StatusActionError.RevokeQuote> {
+        return statusRepository.detachQuote(pachliAccountId, quoteId, parentId)
+    }
 }

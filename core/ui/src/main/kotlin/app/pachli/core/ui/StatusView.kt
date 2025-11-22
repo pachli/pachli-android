@@ -322,6 +322,7 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
                         listener.onVoteInPoll(viewData, poll, it)
                     } ?: listener.onViewThread(viewData.actionable)
                 }
+                pollView.show()
             } ?: pollView.hide()
         } else {
             pollView.hide()

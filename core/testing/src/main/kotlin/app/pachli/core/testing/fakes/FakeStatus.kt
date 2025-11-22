@@ -36,7 +36,7 @@ import java.util.Date
 private val fixedDate = Date(1638889052000)
 
 fun fakeAccount() = TimelineAccount(
-    id = "1",
+    id = "2",
     localUsername = "connyduck",
     username = "connyduck@mastodon.example",
     displayName = "Conny Duck",
@@ -153,6 +153,7 @@ fun fakeStatusViewData(
             AttachmentDisplayAction.Hide(reason = AttachmentDisplayReason.Sensitive)
         },
         replyToAccount = null,
+        isUsersStatus = false,
     ),
 )
 

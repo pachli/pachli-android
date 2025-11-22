@@ -36,7 +36,6 @@ import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineAccountEntity
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.database.model.TranslationState
-import app.pachli.core.database.model.asEntity
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.AccountFilterReason
 import app.pachli.core.model.Announcement
@@ -45,7 +44,8 @@ import app.pachli.core.model.FilterAction
 import app.pachli.core.model.ServerKind
 import app.pachli.core.model.Status
 import app.pachli.core.model.UserListRepliesPolicy
-import app.pachli.core.testing.fakes.fakeStatus
+import app.pachli.core.testing.extensions.insertTimelineStatusWithQuote
+import app.pachli.core.testing.fakes.fakeStatusEntityWithAccount
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -211,15 +211,15 @@ class AccountEntityForeignKeyTest {
 
     @Test
     fun `deleting account deletes ConversationEntity`() = runTest {
-        val statusEntity = fakeStatus().asModel().asEntity(pachliAccountId)
-        statusDao.upsertStatuses(listOf(statusEntity))
+        val status = fakeStatusEntityWithAccount()
+        db.insertTimelineStatusWithQuote(listOf(status))
 
         val conversation = ConversationEntity(
             pachliAccountId = pachliAccountId,
             id = "1",
             accounts = emptyList(),
             unread = true,
-            lastStatusServerId = statusEntity.serverId,
+            lastStatusServerId = status.timelineStatus.status.serverId,
             isConversationStarter = true,
         )
         conversationDao.upsert(conversation)

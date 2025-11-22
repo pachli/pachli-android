@@ -76,7 +76,7 @@ class CachedTimelineViewModel @AssistedInject constructor(
                 .filter { it.second != FilterAction.HIDE }
                 .map { (timelineStatusWithQuote, contentFilterAction) ->
                     StatusItemViewData.from(
-                        pachliAccountId = pachliAccount.id,
+                        pachliAccount = pachliAccount,
                         timelineStatusWithQuote,
                         isExpanded = pachliAccount.entity.alwaysOpenSpoiler,
                         contentFilterAction = contentFilterAction,

@@ -312,4 +312,9 @@ class NetworkTimelineRepository @Inject constructor(
     override suspend fun getTranslations(pachliAccountId: Long, statusIds: Collection<String>) = statusRepository.getTranslations(pachliAccountId, statusIds)
 
     override suspend fun getTranslation(pachliAccountId: Long, statusId: String) = statusRepository.getTranslation(pachliAccountId, statusId)
+
+    override suspend fun detachQuote(pachliAccountId: Long, quoteId: String, parentId: String): Result<Status, StatusActionError.RevokeQuote> {
+        return statusRepository.detachQuote(pachliAccountId, quoteId, parentId)
+            .onSuccess { updateActionableStatusById(parentId) { it } }
+    }
 }

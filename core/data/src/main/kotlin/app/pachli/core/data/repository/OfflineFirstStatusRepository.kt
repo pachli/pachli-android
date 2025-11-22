@@ -19,6 +19,7 @@ package app.pachli.core.data.repository
 
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.repository.notifications.asEntities
+import app.pachli.core.data.repository.notifications.asEntity
 import app.pachli.core.database.dao.StatusDao
 import app.pachli.core.database.dao.TranslatedStatusDao
 import app.pachli.core.database.model.StatusViewDataAttachmentDisplayAction
@@ -235,4 +236,10 @@ class OfflineFirstStatusRepository @Inject constructor(
     override suspend fun getTranslations(pachliAccountId: Long, statusIds: Collection<String>) = translatedStatusDao.getTranslations(pachliAccountId, statusIds)
 
     override suspend fun getTranslation(pachliAccountId: Long, statusId: String) = translatedStatusDao.getTranslation(pachliAccountId, statusId)
+
+    override suspend fun detachQuote(pachliAccountId: Long, quoteId: String, parentId: String): Result<Status, StatusActionError.RevokeQuote> = externalScope.async {
+        mastodonApi.revokeQuote(quoteId, parentId)
+            .onSuccess { statusDao.updateStatus(it.body.asEntity(pachliAccountId)) }
+            .mapEither({ it.body.asModel() }, { StatusActionError.RevokeQuote(it) })
+    }.await()
 }

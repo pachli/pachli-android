@@ -101,7 +101,7 @@ class DetailedStatusView @JvmOverloads constructor(
             hideQuantitativeStats()
         }
 
-        val quotedViewData = (viewData as? IStatusItemViewData)?.quotedViewData
+        val quotedViewData = (viewData as? IStatusItemViewData)?.asQuotedStatusViewData()
         if (quotedViewData == null) {
             binding.statusQuote.hide()
             return

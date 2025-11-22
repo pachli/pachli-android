@@ -130,7 +130,7 @@ internal class DownloadedTranslationModelViewHolder(
             R.string.content_description_loaded_fmt,
             displayLanguage,
         )
-        binding.actionButton.setImageResource(R.drawable.outline_delete_24)
+        binding.actionButton.setImageResource(app.pachli.core.ui.R.drawable.outline_delete_24)
 
         (viewData.state.get() as? Loadable.Loaded<ModelStats>)?.let { state ->
             if (state.data.sizeOnDisk == 0L) {
