@@ -17,6 +17,7 @@
 package app.pachli.components.search.fragments
 
 import android.Manifest
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
@@ -64,6 +65,7 @@ import app.pachli.core.ui.ClipboardUseCase
 import app.pachli.core.ui.SetMarkdownContent
 import app.pachli.core.ui.SetMastodonHtmlContent
 import app.pachli.core.ui.StatusActionListener
+import app.pachli.usecase.TimelineCases
 import app.pachli.view.showMuteAccountDialog
 import com.bumptech.glide.Glide
 import com.github.michaelbull.result.onFailure
@@ -85,6 +87,9 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
 
     @Inject
     lateinit var downloadUrlUseCase: DownloadUrlUseCase
+
+    @Inject
+    lateinit var timelineCases: TimelineCases
 
     @Inject
     lateinit var clipboard: ClipboardUseCase
@@ -525,8 +530,28 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
         }
     }
 
+    /**
+     * Copy of `SFragment.onDetachQuote`.
+     */
+    // TODO: Refactor, use viewmodel.
     override fun onDetachQuote(actionableQuoteId: String, actionableStatusId: String) {
-        // TODO("Not yet implemented")
+        AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.detach_quote_dialog_title))
+            .setMessage(getString(R.string.detach_quote_dialog_message))
+            .setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
+                lifecycleScope.launch {
+                    timelineCases.detachQuote(
+                        pachliAccountId,
+                        actionableQuoteId,
+                        actionableStatusId,
+                    ).onFailure { e ->
+                        val message = getString(R.string.detach_quote_error_fmt, e.fmt(requireContext()))
+                        Snackbar.make(requireView(), message, Snackbar.LENGTH_LONG).show()
+                    }
+                }
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
     }
 
     companion object {
