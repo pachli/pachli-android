@@ -216,6 +216,7 @@
         android:layout_marginStart="14dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="14dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/attachmentGrid" />
@@ -225,8 +226,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/quote_background"
-        android:paddingTop="14dp"
-        android:paddingBottom="14dp"
         android:layout_marginStart="14dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="14dp"

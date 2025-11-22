@@ -19,6 +19,7 @@ import android.os.Build
 import app.pachli.core.common.util.shouldTrimStatus
 import app.pachli.core.data.BuildConfig
 import app.pachli.core.data.extensions.getAttachmentDisplayAction
+import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.database.model.TimelineStatusWithQuote
 import app.pachli.core.database.model.TranslatedStatusEntity
 import app.pachli.core.database.model.TranslationState
@@ -133,6 +134,12 @@ sealed interface IStatusViewData : IStatus {
      * the status that has a focus when viewing a thread.
      */
     val isDetailed: Boolean
+
+    /**
+     * True if this status was posted by the user with [pachliAccountId],
+     * otherwise false.
+     */
+    val isUsersStatus: Boolean
 }
 
 /**
@@ -143,6 +150,16 @@ sealed interface IStatusViewData : IStatus {
 sealed interface IStatusItemViewData : IStatusViewData {
     val statusViewData: StatusViewData
     val quotedViewData: StatusViewData?
+
+    /**
+     * @return [quotedViewData] as a [QuotedStatusViewData].
+     */
+    fun asQuotedStatusViewData() = quotedViewData?.let {
+        QuotedStatusViewData(
+            parentId = statusViewData.actionableId,
+            statusViewData = it,
+        )
+    }
 }
 
 /**
@@ -155,7 +172,7 @@ data class StatusItemViewData(
 
     companion object {
         fun from(
-            pachliAccountId: Long,
+            pachliAccount: PachliAccount,
             timelineStatusWithQuote: TimelineStatusWithQuote,
             isExpanded: Boolean,
             isDetailed: Boolean = false,
@@ -167,7 +184,7 @@ data class StatusItemViewData(
         ): StatusItemViewData {
             return StatusItemViewData(
                 statusViewData = StatusViewData.from(
-                    pachliAccountId,
+                    pachliAccount,
                     timelineStatusWithQuote.timelineStatus.toStatus(),
                     translation = timelineStatusWithQuote.timelineStatus.translatedStatus,
                     isExpanded = timelineStatusWithQuote.timelineStatus.viewData?.expanded ?: isExpanded,
@@ -183,7 +200,7 @@ data class StatusItemViewData(
                 ),
                 quotedViewData = timelineStatusWithQuote.quotedStatus?.let { status ->
                     StatusViewData.from(
-                        pachliAccountId,
+                        pachliAccount,
                         status.toStatus(),
                         translation = status.translatedStatus,
                         isExpanded = status.viewData?.expanded ?: isExpanded,
@@ -222,6 +239,8 @@ data class StatusViewData(
      * the status that has a focus when viewing a thread.
      */
     override val isDetailed: Boolean = false,
+
+    override val isUsersStatus: Boolean,
 ) : IStatusViewData, IStatus by status {
     override val isCollapsible: Boolean
 
@@ -274,7 +293,7 @@ data class StatusViewData(
 
     companion object {
         fun from(
-            pachliAccountId: Long,
+            pachliAccount: PachliAccount,
             status: Status,
             isExpanded: Boolean,
             isCollapsed: Boolean,
@@ -297,7 +316,7 @@ data class StatusViewData(
             }
 
             return StatusViewData(
-                pachliAccountId = pachliAccountId,
+                pachliAccountId = pachliAccount.id,
                 status = status,
                 translation = translation,
                 isExpanded = isExpanded,
@@ -307,7 +326,20 @@ data class StatusViewData(
                 attachmentDisplayAction = attachmentDisplayAction,
                 replyToAccount = replyToAccount,
                 isDetailed = isDetailed,
+                isUsersStatus = pachliAccount.entity.accountId == status.actionableStatus.account.id,
             )
         }
     }
 }
+
+/**
+ * Data required to display a quoted status.
+ *
+ * @property parentId Actionable ID of the status that is quoting this
+ * status. Required to revoke the quote.
+ * @property statusViewData [StatusViewData] of the quoted status.
+ */
+data class QuotedStatusViewData(
+    val parentId: String,
+    val statusViewData: StatusViewData,
+) : IStatusViewData by statusViewData

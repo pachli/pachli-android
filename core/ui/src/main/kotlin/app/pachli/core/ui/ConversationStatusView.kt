@@ -100,7 +100,7 @@ class ConversationStatusView @JvmOverloads constructor(
         // setAvatar will have cleared the padding on the first avatar, set it back.
         binding.statusAvatar.setPaddingRelative(avatarPadding, avatarPadding, avatarPadding, avatarPadding)
 
-        val quotedViewData = (viewData as? IStatusItemViewData)?.quotedViewData
+        val quotedViewData = (viewData as? IStatusItemViewData)?.asQuotedStatusViewData()
         if (quotedViewData == null) {
             binding.statusQuote.hide()
             return

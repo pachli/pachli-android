@@ -813,4 +813,7 @@
     <string name="error_import_preferences_fmt">Could not import preferences from %1$s: %2$s</string>
 
     <string name="error_share_media">no directory to save temporary media exists</string>
+    <string name="detach_quote_dialog_title">Remove quote?</string>
+    <string name="detach_quote_dialog_message">This will remove your quoted post from this post.\n\nYour original post is not deleted.\n\nThis cannot be undone.</string>
+    <string name="detach_quote_error_fmt">Removing the quote failed: %1$s</string>
 </resources>

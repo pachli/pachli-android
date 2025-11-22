@@ -75,7 +75,7 @@ data class ConversationViewData(
             accounts = conversationData.accounts,
             unread = conversationData.unread,
             lastStatus = StatusItemViewData.from(
-                pachliAccountId = pachliAccount.id,
+                pachliAccount = pachliAccount,
                 conversationData.lastStatus,
                 isExpanded = defaultIsExpanded,
                 isDetailed = false,

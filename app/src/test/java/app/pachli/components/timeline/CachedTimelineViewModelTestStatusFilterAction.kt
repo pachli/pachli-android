@@ -63,6 +63,7 @@ class CachedTimelineViewModelTestStatusFilterAction : CachedTimelineViewModelTes
         translationState = TranslationState.SHOW_ORIGINAL,
         attachmentDisplayAction = AttachmentDisplayAction.Show(),
         replyToAccount = null,
+        isUsersStatus = false,
     )
 
     /** Action to bookmark a status */

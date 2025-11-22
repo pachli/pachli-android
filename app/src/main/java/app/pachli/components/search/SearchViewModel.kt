@@ -80,6 +80,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -101,8 +102,6 @@ class SearchViewModel @Inject constructor(
     val activeAccount: AccountEntity?
         get() = accountManager.activeAccount
 
-    val mediaPreviewEnabled = activeAccount?.mediaPreviewEnabled ?: false
-    private val alwaysShowSensitiveMedia = activeAccount?.alwaysShowSensitiveMedia ?: false
     private val alwaysOpenSpoiler = activeAccount?.alwaysOpenSpoiler ?: false
 
     private val _operatorViewData = MutableStateFlow(
@@ -211,37 +210,37 @@ class SearchViewModel @Inject constructor(
     private val loadedStatuses: MutableList<StatusItemViewData> = mutableListOf()
 
     private val statusesPagingSourceFactory = SearchPagingSourceFactory(mastodonApi, SearchType.Status, loadedStatuses) {
-        val pachliAccountId = activeAccount!!.id
+        val pachliAccount = accountManager.activePachliAccountFlow.first()
 
         it.statuses.map { status ->
             TimelineStatusWithQuote(
                 timelineStatus = TimelineStatusWithAccount(
-                    status = status.asEntity(pachliAccountId),
-                    account = status.reblog?.account?.asEntity(pachliAccountId) ?: status.account.asEntity(pachliAccountId),
-                    reblogAccount = status.reblog?.let { status.account.asEntity(pachliAccountId) },
-                    viewData = statusRepository.getStatusViewData(pachliAccountId, status.actionableId),
-                    translatedStatus = statusRepository.getTranslation(pachliAccountId, status.actionableId),
+                    status = status.asEntity(pachliAccount.id),
+                    account = status.reblog?.account?.asEntity(pachliAccount.id) ?: status.account.asEntity(pachliAccount.id),
+                    reblogAccount = status.reblog?.let { status.account.asEntity(pachliAccount.id) },
+                    viewData = statusRepository.getStatusViewData(pachliAccount.id, status.actionableId),
+                    translatedStatus = statusRepository.getTranslation(pachliAccount.id, status.actionableId),
                 ),
                 quotedStatus = (status.quote as? Status.Quote.FullQuote)?.status?.let { q ->
                     TimelineStatusWithAccount(
-                        status = q.asEntity(pachliAccountId),
-                        account = q.account.asEntity(pachliAccountId),
+                        status = q.asEntity(pachliAccount.id),
+                        account = q.account.asEntity(pachliAccount.id),
                         reblogAccount = null,
-                        viewData = statusRepository.getStatusViewData(pachliAccountId, q.actionableId),
-                        translatedStatus = statusRepository.getTranslation(pachliAccountId, q.actionableId),
+                        viewData = statusRepository.getStatusViewData(pachliAccount.id, q.actionableId),
+                        translatedStatus = statusRepository.getTranslation(pachliAccount.id, q.actionableId),
                     )
                 },
             )
         }.map { status ->
             StatusItemViewData.from(
-                pachliAccountId = activeAccount!!.id,
+                pachliAccount = pachliAccount,
                 status,
                 isExpanded = alwaysOpenSpoiler,
                 // Search results are not filtered, per Mastodon.
                 contentFilterAction = app.pachli.core.model.FilterAction.NONE,
                 quoteContentFilterAction = app.pachli.core.model.FilterAction.NONE,
                 filterContext = null,
-                showSensitiveMedia = activeAccount!!.alwaysShowSensitiveMedia,
+                showSensitiveMedia = pachliAccount.entity.alwaysShowSensitiveMedia,
             )
         }.apply {
             loadedStatuses.addAll(this)

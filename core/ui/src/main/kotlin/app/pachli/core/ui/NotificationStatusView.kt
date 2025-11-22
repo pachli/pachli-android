@@ -66,7 +66,7 @@ class NotificationStatusView @JvmOverloads constructor(
     override fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: NotificationViewData.WithStatus, listener: StatusActionListener, statusDisplayOptions: StatusDisplayOptions) {
         super.setupWithStatus(setStatusContent, glide, viewData, listener, statusDisplayOptions)
 
-        val quotedViewData = (viewData as? IStatusItemViewData)?.quotedViewData
+        val quotedViewData = (viewData as? IStatusItemViewData)?.asQuotedStatusViewData()
         if (quotedViewData == null) {
             binding.statusQuote.hide()
             return

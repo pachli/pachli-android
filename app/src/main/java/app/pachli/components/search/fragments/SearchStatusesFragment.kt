@@ -525,6 +525,10 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
         }
     }
 
+    override fun onDetachQuote(actionableQuoteId: String, actionableStatusId: String) {
+        // TODO("Not yet implemented")
+    }
+
     companion object {
         fun newInstance(pachliAccountId: Long): SearchStatusesFragment {
             return SearchFragment.newInstance(pachliAccountId)

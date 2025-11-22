@@ -651,7 +651,7 @@ class NotificationsViewModel @AssistedInject constructor(
                                 ?: filterNotificationByAccount(pachliAccount, notification)
 
                         NotificationViewData.make(
-                            pachliAccount.entity,
+                            pachliAccount,
                             notification,
                             showSensitiveMedia = statusDisplayOptions.value.showSensitiveMedia,
                             isExpanded = statusDisplayOptions.value.openSpoiler,

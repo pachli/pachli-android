@@ -50,6 +50,9 @@ sealed class StatusActionError(open val error: ApiError) : PachliError by error 
 
     /** Voting in a poll failed. */
     data class VoteInPoll(override val error: ApiError) : StatusActionError(error)
+
+    /** Revoking a quote failed. */
+    data class RevokeQuote(override val error: ApiError) : StatusActionError(error)
 }
 
 /**
@@ -187,4 +190,6 @@ interface StatusRepository {
      * @return Translation (null if not present) for [statusId].
      */
     suspend fun getTranslation(pachliAccountId: Long, statusId: String): TranslatedStatusEntity?
+
+    suspend fun detachQuote(pachliAccountId: Long, quoteId: String, parentId: String): Result<Status, StatusActionError.RevokeQuote>
 }

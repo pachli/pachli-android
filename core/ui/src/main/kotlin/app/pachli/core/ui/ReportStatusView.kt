@@ -71,7 +71,7 @@ class ReportStatusView @JvmOverloads constructor(
         // Can't vote while reporting statuses.
         binding.statusPoll.isEnabled = false
 
-        val quotedViewData = (viewData as? IStatusItemViewData)?.quotedViewData
+        val quotedViewData = (viewData as? IStatusItemViewData)?.asQuotedStatusViewData()
         if (quotedViewData == null) {
             binding.statusQuote.hide()
             return

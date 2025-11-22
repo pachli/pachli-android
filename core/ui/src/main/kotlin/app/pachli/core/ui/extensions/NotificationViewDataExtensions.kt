@@ -34,7 +34,7 @@ import app.pachli.core.data.model.NotificationViewData.WithStatus.ReblogNotifica
 import app.pachli.core.data.model.NotificationViewData.WithStatus.StatusNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.WithStatus.UpdateNotificationViewData
 import app.pachli.core.data.model.StatusItemViewData
-import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.database.model.NotificationData
 import app.pachli.core.database.model.NotificationEntity
 import app.pachli.core.model.AccountFilterDecision
@@ -52,7 +52,7 @@ import app.pachli.core.model.FilterContext
  * @param isAboutSelf
  */
 fun NotificationViewData.Companion.make(
-    pachliAccountEntity: AccountEntity,
+    pachliAccount: PachliAccount,
     data: NotificationData,
     showSensitiveMedia: Boolean,
     isExpanded: Boolean,
@@ -62,8 +62,8 @@ fun NotificationViewData.Companion.make(
     isAboutSelf: Boolean,
 ) = when (data.notification.type) {
     NotificationEntity.Type.UNKNOWN -> UnknownNotificationViewData(
-        pachliAccountId = pachliAccountEntity.id,
-        localDomain = pachliAccountEntity.domain,
+        pachliAccountId = pachliAccount.entity.id,
+        localDomain = pachliAccount.entity.domain,
         notificationId = data.notification.serverId,
         account = data.account.asModel(),
         isAboutSelf = isAboutSelf,
@@ -71,15 +71,15 @@ fun NotificationViewData.Companion.make(
     )
 
     NotificationEntity.Type.MENTION -> MentionNotificationViewData(
-        pachliAccountId = pachliAccountEntity.id,
-        localDomain = pachliAccountEntity.domain,
+        pachliAccountId = pachliAccount.entity.id,
+        localDomain = pachliAccount.entity.domain,
         notificationId = data.notification.serverId,
         account = data.account.asModel(),
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
         statusItemViewData = data.status!!.let {
             StatusItemViewData.from(
-                pachliAccountId = pachliAccountEntity.id,
+                pachliAccount = pachliAccount,
                 it,
                 isExpanded = isExpanded,
                 isDetailed = false,
@@ -92,15 +92,15 @@ fun NotificationViewData.Companion.make(
     )
 
     NotificationEntity.Type.REBLOG -> ReblogNotificationViewData(
-        pachliAccountId = pachliAccountEntity.id,
-        localDomain = pachliAccountEntity.domain,
+        pachliAccountId = pachliAccount.entity.id,
+        localDomain = pachliAccount.entity.domain,
         notificationId = data.notification.serverId,
         account = data.account.asModel(),
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
         statusItemViewData = data.status!!.let {
             StatusItemViewData.from(
-                pachliAccountId = pachliAccountEntity.id,
+                pachliAccount = pachliAccount,
                 it,
                 isExpanded = isExpanded,
                 isDetailed = false,
@@ -113,15 +113,15 @@ fun NotificationViewData.Companion.make(
     )
 
     NotificationEntity.Type.FAVOURITE -> FavouriteNotificationViewData(
-        pachliAccountId = pachliAccountEntity.id,
-        localDomain = pachliAccountEntity.domain,
+        pachliAccountId = pachliAccount.entity.id,
+        localDomain = pachliAccount.entity.domain,
         notificationId = data.notification.serverId,
         account = data.account.asModel(),
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
         statusItemViewData = data.status!!.let {
             StatusItemViewData.from(
-                pachliAccountId = pachliAccountEntity.id,
+                pachliAccount = pachliAccount,
                 it,
                 isExpanded = isExpanded,
                 isDetailed = false,
@@ -134,8 +134,8 @@ fun NotificationViewData.Companion.make(
     )
 
     NotificationEntity.Type.FOLLOW -> FollowNotificationViewData(
-        pachliAccountId = pachliAccountEntity.id,
-        localDomain = pachliAccountEntity.domain,
+        pachliAccountId = pachliAccount.entity.id,
+        localDomain = pachliAccount.entity.domain,
         notificationId = data.notification.serverId,
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
@@ -143,8 +143,8 @@ fun NotificationViewData.Companion.make(
     )
 
     NotificationEntity.Type.FOLLOW_REQUEST -> FollowRequestNotificationViewData(
-        pachliAccountId = pachliAccountEntity.id,
-        localDomain = pachliAccountEntity.domain,
+        pachliAccountId = pachliAccount.entity.id,
+        localDomain = pachliAccount.entity.domain,
         notificationId = data.notification.serverId,
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
@@ -152,15 +152,15 @@ fun NotificationViewData.Companion.make(
     )
 
     NotificationEntity.Type.POLL -> PollNotificationViewData(
-        pachliAccountId = pachliAccountEntity.id,
-        localDomain = pachliAccountEntity.domain,
+        pachliAccountId = pachliAccount.entity.id,
+        localDomain = pachliAccount.entity.domain,
         notificationId = data.notification.serverId,
         account = data.account.asModel(),
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
         statusItemViewData = data.status!!.let {
             StatusItemViewData.from(
-                pachliAccountId = pachliAccountEntity.id,
+                pachliAccount = pachliAccount,
                 it,
                 isExpanded = isExpanded,
                 isDetailed = false,
@@ -173,15 +173,15 @@ fun NotificationViewData.Companion.make(
     )
 
     NotificationEntity.Type.STATUS -> StatusNotificationViewData(
-        pachliAccountId = pachliAccountEntity.id,
-        localDomain = pachliAccountEntity.domain,
+        pachliAccountId = pachliAccount.entity.id,
+        localDomain = pachliAccount.entity.domain,
         notificationId = data.notification.serverId,
         account = data.account.asModel(),
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
         statusItemViewData = data.status!!.let {
             StatusItemViewData.from(
-                pachliAccountId = pachliAccountEntity.id,
+                pachliAccount = pachliAccount,
                 it,
                 isExpanded = isExpanded,
                 isDetailed = false,
@@ -194,8 +194,8 @@ fun NotificationViewData.Companion.make(
     )
 
     NotificationEntity.Type.SIGN_UP -> SignupNotificationViewData(
-        pachliAccountId = pachliAccountEntity.id,
-        localDomain = pachliAccountEntity.domain,
+        pachliAccountId = pachliAccount.entity.id,
+        localDomain = pachliAccount.entity.domain,
         notificationId = data.notification.serverId,
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
@@ -203,15 +203,15 @@ fun NotificationViewData.Companion.make(
     )
 
     NotificationEntity.Type.UPDATE -> UpdateNotificationViewData(
-        pachliAccountId = pachliAccountEntity.id,
-        localDomain = pachliAccountEntity.domain,
+        pachliAccountId = pachliAccount.entity.id,
+        localDomain = pachliAccount.entity.domain,
         notificationId = data.notification.serverId,
         account = data.account.asModel(),
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
         statusItemViewData = data.status!!.let {
             StatusItemViewData.from(
-                pachliAccountId = pachliAccountEntity.id,
+                pachliAccount = pachliAccount,
                 it,
                 isExpanded = isExpanded,
                 isDetailed = false,
@@ -224,8 +224,8 @@ fun NotificationViewData.Companion.make(
     )
 
     NotificationEntity.Type.REPORT -> ReportNotificationViewData(
-        pachliAccountId = pachliAccountEntity.id,
-        localDomain = pachliAccountEntity.domain,
+        pachliAccountId = pachliAccount.entity.id,
+        localDomain = pachliAccount.entity.domain,
         notificationId = data.notification.serverId,
         account = data.account.asModel(),
         isAboutSelf = isAboutSelf,
@@ -234,8 +234,8 @@ fun NotificationViewData.Companion.make(
     )
 
     NotificationEntity.Type.SEVERED_RELATIONSHIPS -> SeveredRelationshipsNotificationViewData(
-        pachliAccountId = pachliAccountEntity.id,
-        localDomain = pachliAccountEntity.domain,
+        pachliAccountId = pachliAccount.entity.id,
+        localDomain = pachliAccount.entity.domain,
         notificationId = data.notification.serverId,
         account = data.account.asModel(),
         isAboutSelf = isAboutSelf,
@@ -244,8 +244,8 @@ fun NotificationViewData.Companion.make(
     )
 
     NotificationEntity.Type.MODERATION_WARNING -> ModerationWarningNotificationViewData(
-        pachliAccountId = pachliAccountEntity.id,
-        localDomain = pachliAccountEntity.domain,
+        pachliAccountId = pachliAccount.entity.id,
+        localDomain = pachliAccount.entity.domain,
         notificationId = data.notification.serverId,
         account = data.account.asModel(),
         isAboutSelf = isAboutSelf,
@@ -254,15 +254,15 @@ fun NotificationViewData.Companion.make(
     )
 
     NotificationEntity.Type.QUOTE -> QuoteNotificationViewData(
-        pachliAccountId = pachliAccountEntity.id,
-        localDomain = pachliAccountEntity.domain,
+        pachliAccountId = pachliAccount.entity.id,
+        localDomain = pachliAccount.entity.domain,
         notificationId = data.notification.serverId,
         account = data.account.asModel(),
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
         statusItemViewData = data.status!!.let {
             StatusItemViewData.from(
-                pachliAccountId = pachliAccountEntity.id,
+                pachliAccount = pachliAccount,
                 it,
                 isExpanded = isExpanded,
                 isDetailed = false,
@@ -275,15 +275,15 @@ fun NotificationViewData.Companion.make(
     )
 
     NotificationEntity.Type.QUOTED_UPDATE -> QuotedUpdateNotificationViewData(
-        pachliAccountId = pachliAccountEntity.id,
-        localDomain = pachliAccountEntity.domain,
+        pachliAccountId = pachliAccount.entity.id,
+        localDomain = pachliAccount.entity.domain,
         notificationId = data.notification.serverId,
         account = data.account.asModel(),
         isAboutSelf = isAboutSelf,
         accountFilterDecision = accountFilterDecision ?: AccountFilterDecision.None,
         statusItemViewData = data.status!!.let {
             StatusItemViewData.from(
-                pachliAccountId = pachliAccountEntity.id,
+                pachliAccount = pachliAccount,
                 it,
                 isExpanded = isExpanded,
                 isDetailed = false,

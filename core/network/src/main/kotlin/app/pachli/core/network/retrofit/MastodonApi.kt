@@ -339,6 +339,12 @@ interface MastodonApi {
         @Path("id") statusId: String,
     ): ApiResult<Translation>
 
+    @POST("api/v1/statuses/{quoteId}/quotes/{parentId}/revoke")
+    suspend fun revokeQuote(
+        @Path(value = "quoteId") quoteId: String,
+        @Path(value = "parentId") parentId: String,
+    ): ApiResult<Status>
+
     @GET("api/v1/scheduled_statuses")
     suspend fun scheduledStatuses(
         @Query("limit") limit: Int? = null,

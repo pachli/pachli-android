@@ -25,11 +25,10 @@ import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.data.repository.AccountManager
-import app.pachli.core.data.repository.Loadable
+import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.dao.TimelineDao
 import app.pachli.core.database.dao.TimelineStatusWithAccount
-import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.StatusViewDataEntity
 import app.pachli.core.database.model.TimelineStatusWithQuote
 import app.pachli.core.database.model.TranslatedStatusEntity
@@ -69,9 +68,8 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChangedBy
-import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -102,26 +100,22 @@ class ViewThreadViewModel @Inject constructor(
 
     val statusDisplayOptions = statusDisplayOptionsRepository.flow
 
-    val activeAccount: AccountEntity
-        get() {
-            return accountManager.activeAccount!!
-        }
-
     private var contentFilterModel: ContentFilterModel? = null
 
     init {
         viewModelScope.launch {
-            eventHub.events
-                .collect { event ->
+            accountManager.activePachliAccountFlow
+                .combine(eventHub.events) { account, event -> Pair(account, event) }
+                .collect { (account, event) ->
                     when (event) {
                         is FavoriteEvent -> handleFavEvent(event)
                         is ReblogEvent -> handleReblogEvent(event)
                         is BookmarkEvent -> handleBookmarkEvent(event)
                         is PinEvent -> handlePinEvent(event)
                         is BlockEvent -> removeAllByAccountId(event.accountId)
-                        is StatusComposedEvent -> handleStatusComposedEvent(event)
+                        is StatusComposedEvent -> handleStatusComposedEvent(account, event)
                         is StatusDeletedEvent -> handleStatusDeletedEvent(event)
-                        is StatusEditedEvent -> handleStatusEditedEvent(event)
+                        is StatusEditedEvent -> handleStatusEditedEvent(account, event)
                     }
                 }
         }
@@ -143,10 +137,7 @@ class ViewThreadViewModel @Inject constructor(
         viewModelScope.launch {
             _uiResult.value = Ok(ThreadUiState.Loading)
 
-            val account = accountManager.activeAccountFlow
-                .filterIsInstance<Loadable.Loaded<AccountEntity?>>()
-                .filter { it.data != null }
-                .first().data!!
+            val account = accountManager.activePachliAccountFlow.first()
 
             Timber.d("Finding status with: %s", id)
             val contextCall = async { api.statusContext(id) }
@@ -157,10 +148,10 @@ class ViewThreadViewModel @Inject constructor(
                 val status = timelineStatusWithQuote.toStatus()
 
                 StatusItemViewData.from(
-                    pachliAccountId = account.id,
+                    pachliAccount = account,
                     timelineStatusWithQuote = timelineStatusWithQuote,
-                    isExpanded = account.alwaysOpenSpoiler,
-                    showSensitiveMedia = account.alwaysShowSensitiveMedia,
+                    isExpanded = account.entity.alwaysOpenSpoiler,
+                    showSensitiveMedia = account.entity.alwaysShowSensitiveMedia,
                     isDetailed = true,
                     contentFilterAction = contentFilterModel?.filterActionFor(status.actionableStatus)
                         ?: FilterAction.NONE,
@@ -180,9 +171,9 @@ class ViewThreadViewModel @Inject constructor(
                 }.body.asModel()
 
                 status.asStatusViewDataQ(
-                    account.id,
-                    account.alwaysOpenSpoiler,
-                    account.alwaysShowSensitiveMedia,
+                    account,
+                    account.entity.alwaysOpenSpoiler,
+                    account.entity.alwaysShowSensitiveMedia,
                     mapOf(status.actionableId to existingViewData),
                     mapOf(status.actionableId to existingTranslation),
                     isDetailed = true,
@@ -219,16 +210,16 @@ class ViewThreadViewModel @Inject constructor(
                     addAll(statusContext.ancestors.flatMap { listOf(it.id, it.quote?.quotedStatusId) }.filterNotNull())
                     addAll(statusContext.descendants.flatMap { listOf(it.id, it.quote?.quotedStatusId) }.filterNotNull())
                 }
-                val cachedViewData = repository.getStatusViewData(activeAccount.id, ids)
-                val cachedTranslations = repository.getStatusTranslations(activeAccount.id, ids)
+                val cachedViewData = repository.getStatusViewData(account.id, ids)
+                val cachedTranslations = repository.getStatusTranslations(account.id, ids)
                 val ancestors = statusContext.ancestors.asModel()
                     .map { Pair(it, shouldFilterStatus(it)) }
                     .filter { it.second != FilterAction.HIDE }
                     .map { (status, contentFilterAction) ->
                         status.asStatusViewDataQ(
-                            account.id,
-                            account.alwaysOpenSpoiler,
-                            account.alwaysShowSensitiveMedia,
+                            account,
+                            account.entity.alwaysOpenSpoiler,
+                            account.entity.alwaysShowSensitiveMedia,
                             cachedViewData,
                             cachedTranslations,
                             contentFilterAction,
@@ -239,9 +230,9 @@ class ViewThreadViewModel @Inject constructor(
                     .filter { it.second != FilterAction.HIDE }
                     .map { (status, contentFilterAction) ->
                         status.asStatusViewDataQ(
-                            account.id,
-                            account.alwaysOpenSpoiler,
-                            account.alwaysShowSensitiveMedia,
+                            account,
+                            account.entity.alwaysOpenSpoiler,
+                            account.entity.alwaysShowSensitiveMedia,
                             cachedViewData,
                             cachedTranslations,
                             contentFilterAction,
@@ -421,7 +412,7 @@ class ViewThreadViewModel @Inject constructor(
         }
     }
 
-    private fun handleStatusComposedEvent(event: StatusComposedEvent) {
+    private fun handleStatusComposedEvent(account: PachliAccount, event: StatusComposedEvent) {
         val eventStatus = event.status
         updateSuccess { uiState ->
             val statuses = uiState.statusViewData
@@ -430,7 +421,7 @@ class ViewThreadViewModel @Inject constructor(
             if (detailedIndex != -1 && repliedIndex >= detailedIndex) {
                 // there is a new reply to the detailed status or below -> display it
                 val newStatuses = statuses.subList(0, repliedIndex + 1) +
-                    StatusItemViewData.fromStatusAndUiState(activeAccount, eventStatus) +
+                    StatusItemViewData.fromStatusAndUiState(account, eventStatus) +
                     statuses.subList(repliedIndex + 1, statuses.size)
                 uiState.copy(statusViewData = newStatuses)
             } else {
@@ -439,12 +430,12 @@ class ViewThreadViewModel @Inject constructor(
         }
     }
 
-    private fun handleStatusEditedEvent(event: StatusEditedEvent) {
+    private fun handleStatusEditedEvent(account: PachliAccount, event: StatusEditedEvent) {
         updateSuccess { uiState ->
             uiState.copy(
                 statusViewData = uiState.statusViewData.map { status ->
                     if (status.actionableId == event.originalId) {
-                        StatusItemViewData.fromStatusAndUiState(activeAccount, event.status)
+                        StatusItemViewData.fromStatusAndUiState(account, event.status)
                     } else {
                         status
                     }
@@ -469,7 +460,7 @@ class ViewThreadViewModel @Inject constructor(
      * @param isDetailed True if this status should be shown in detailed view.
      */
     private fun Status.asStatusViewDataQ(
-        pachliAccountId: Long,
+        pachliAccount: PachliAccount,
         alwaysOpenSpoiler: Boolean,
         alwaysShowSensitiveMedia: Boolean,
         viewDataCache: Map<String, StatusViewDataEntity?> = emptyMap(),
@@ -479,19 +470,19 @@ class ViewThreadViewModel @Inject constructor(
     ): StatusItemViewData {
         val quote = (quote as? Status.Quote.FullQuote)?.status
         return StatusItemViewData.from(
-            pachliAccountId = pachliAccountId,
+            pachliAccount = pachliAccount,
             timelineStatusWithQuote = TimelineStatusWithQuote(
                 timelineStatus = TimelineStatusWithAccount(
-                    status = asEntity(pachliAccountId),
-                    account = reblog?.account?.asEntity(pachliAccountId) ?: account.asEntity(pachliAccountId),
-                    reblogAccount = reblog?.let { account.asEntity(pachliAccountId) },
+                    status = asEntity(pachliAccount.id),
+                    account = reblog?.account?.asEntity(pachliAccount.id) ?: account.asEntity(pachliAccount.id),
+                    reblogAccount = reblog?.let { account.asEntity(pachliAccount.id) },
                     viewData = viewDataCache[actionableId],
                     translatedStatus = translationCache[actionableId],
                 ),
                 quotedStatus = quote?.let { q ->
                     TimelineStatusWithAccount(
-                        status = q.asEntity(pachliAccountId),
-                        account = q.account.asEntity(pachliAccountId),
+                        status = q.asEntity(pachliAccount.id),
+                        account = q.account.asEntity(pachliAccount.id),
                         reblogAccount = null,
                         viewData = viewDataCache[actionableId],
                         translatedStatus = translationCache[actionableId],
@@ -645,14 +636,14 @@ class ViewThreadViewModel @Inject constructor(
      * status in _uiState (if that status exists).
      */
     private fun StatusItemViewData.Companion.fromStatusAndUiState(
-        account: AccountEntity,
+        account: PachliAccount,
         status: Status,
         isDetailed: Boolean = false,
     ): StatusItemViewData {
         val q = status.asStatusViewDataQ(
-            account.id,
-            account.alwaysOpenSpoiler,
-            account.alwaysShowSensitiveMedia,
+            account,
+            account.entity.alwaysOpenSpoiler,
+            account.entity.alwaysShowSensitiveMedia,
             isDetailed = isDetailed,
         )
 
