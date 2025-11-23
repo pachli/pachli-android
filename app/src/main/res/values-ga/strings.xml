@@ -769,4 +769,7 @@
     <string name="notification_quote_description">Fógraí faoi dhuine éigin ag lua do phoist</string>
     <string name="notification_quoted_update_name">Eagarthóireacht ar phoist atá luaite</string>
     <string name="notification_quoted_update_description">Fógraí nuair a chuirtear poist atá luaite agat in eagar</string>
+    <string name="detach_quote_dialog_title">Bain an luachan?</string>
+    <string name="detach_quote_dialog_message">Bainfear do phost luaite as an bpost seo leis seo.\n\nNí scriosfar do phost bunaidh.\n\nNí féidir é seo a chealú.</string>
+    <string name="detach_quote_error_fmt">Theip ar an luachan a bhaint: %1$s</string>
 </resources>
