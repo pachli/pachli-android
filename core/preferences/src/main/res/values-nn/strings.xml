@@ -47,4 +47,5 @@
     <string name="pref_translation_backend_option_local_only">Berre på eininga</string>
     <string name="pref_translation_backend_option_local_only_help">Omset innlegg på eininga di med Google-omsetjaren.</string>
     <string name="pref_translation_backend_requires_play_label">Installer frå Google Play for påeinings omsetjingsstytte</string>
+    <string name="pref_pronoun_display_everywhere">Over alt</string>
 </resources>
