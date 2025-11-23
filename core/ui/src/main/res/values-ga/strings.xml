@@ -168,4 +168,5 @@
     <string name="action_show_pronouns">Taispeáin forainmneacha</string>
     <string name="action_open_quoted_post">Oscail post luaite</string>
     <string name="label_quoted_status_hidden">Sleachta ó phost atá i bhfolach ag ceann de do scagairí</string>
+    <string name="detach_quote">Bain an luachan</string>
 </resources>
