@@ -37,4 +37,5 @@
     <string name="pref_default_audio_playback_option_unmuted">N\'est pas muet.</string>
     <string name="pref_default_audio_playback_option_muted">Muet</string>
     <string name="pref_title_translation">Traduction</string>
+    <string name="pref_pronoun_display_everywhere">Partout</string>
 </resources>
