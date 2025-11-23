@@ -54,6 +54,7 @@ import app.pachli.core.network.model.TimelineAccount
 import app.pachli.core.network.model.asModel
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.network.retrofit.apiresult.ApiResult
+import app.pachli.core.preferences.PronounDisplay
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.core.ui.LinkListener
@@ -132,23 +133,44 @@ class AccountListFragment :
         val animateAvatar = sharedPreferencesRepository.animateAvatars
         val animateEmojis = sharedPreferencesRepository.animateEmojis
         val showBotOverlay = sharedPreferencesRepository.showBotOverlay
+        val showPronouns = when (sharedPreferencesRepository.pronounDisplay) {
+            PronounDisplay.EVERYWHERE -> true
+            PronounDisplay.WHEN_COMPOSING,
+            PronounDisplay.HIDE,
+            -> false
+        }
 
         val activeAccount = accountManager.activeAccount!!
 
         adapter = when (kind) {
-            BLOCKS -> BlocksAdapter(glide, this, animateAvatar, animateEmojis, showBotOverlay)
-            MUTES -> MutesAdapter(glide, this, animateAvatar, animateEmojis, showBotOverlay)
+            BLOCKS -> BlocksAdapter(glide, this, animateAvatar, animateEmojis, showBotOverlay, showPronouns)
+            MUTES -> MutesAdapter(glide, this, animateAvatar, animateEmojis, showBotOverlay, showPronouns)
             FOLLOW_REQUESTS -> {
                 val headerAdapter = FollowRequestsHeaderAdapter(
                     instanceName = activeAccount.domain,
                     accountLocked = activeAccount.locked,
                 )
-                val followRequestsAdapter = FollowRequestsAdapter(glide, this, this, animateAvatar, animateEmojis, showBotOverlay)
+                val followRequestsAdapter = FollowRequestsAdapter(
+                    glide,
+                    this,
+                    this,
+                    animateAvatar,
+                    animateEmojis,
+                    showBotOverlay,
+                    showPronouns,
+                )
                 binding.recyclerView.adapter = ConcatAdapter(headerAdapter, followRequestsAdapter)
                 followRequestsAdapter
             }
 
-            else -> FollowAdapter(glide, this, animateAvatar, animateEmojis, showBotOverlay)
+            else -> FollowAdapter(
+                glide,
+                this,
+                animateAvatar,
+                animateEmojis,
+                showBotOverlay,
+                showPronouns,
+            )
         }
         if (binding.recyclerView.adapter == null) {
             binding.recyclerView.adapter = adapter

@@ -74,6 +74,7 @@ class StatusDisplayOptionsRepository @Inject constructor(
         PrefKeys.WELLBEING_HIDE_STATS_POSTS,
         PrefKeys.SHOW_STATS_INLINE,
         PrefKeys.LAB_RENDER_MARKDOWN,
+        PrefKeys.PRONOUN_DISPLAY,
     )
 
     init {
@@ -124,6 +125,9 @@ class StatusDisplayOptionsRepository @Inject constructor(
                         )
                         PrefKeys.LAB_RENDER_MARKDOWN -> prev.copy(
                             renderMarkdown = sharedPreferencesRepository.renderMarkdown,
+                        )
+                        PrefKeys.PRONOUN_DISPLAY -> prev.copy(
+                            pronounDisplay = sharedPreferencesRepository.pronounDisplay,
                         )
                         else -> prev
                     }
@@ -176,6 +180,7 @@ class StatusDisplayOptionsRepository @Inject constructor(
             openSpoiler = account?.entity?.alwaysOpenSpoiler ?: default.openSpoiler,
             canTranslate = account?.server?.can(ORG_JOINMASTODON_STATUSES_TRANSLATE, ">=1.0".toConstraint()) ?: default.canTranslate,
             renderMarkdown = sharedPreferencesRepository.renderMarkdown,
+            pronounDisplay = sharedPreferencesRepository.pronounDisplay,
         )
     }
 }

@@ -38,10 +38,22 @@
         android:textSize="?attr/status_text_large"
         android:textStyle="normal|bold"
         app:layout_constraintBottom_toTopOf="@id/blocked_user_username"
-        app:layout_constraintEnd_toStartOf="@id/blocked_user_unblock"
+        app:layout_constraintEnd_toStartOf="@id/account_pronouns"
         app:layout_constraintStart_toEndOf="@id/blocked_user_avatar"
         app:layout_constraintTop_toTopOf="@id/blocked_user_avatar"
         tools:text="Display name" />
+
+    <app.pachli.core.ui.PronounsChip
+        android:id="@+id/account_pronouns"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@id/blocked_user_display_name"
+        app:layout_constraintBaseline_toBaselineOf="@id/blocked_user_display_name"
+        app:layout_constraintEnd_toStartOf="@id/blocked_user_unblock"
+        app:layout_constraintWidth_max="@dimen/pronounChip_maxWidth"
+        tools:text="he/him"
+        tools:ignore="SelectableText" />
 
     <TextView
         android:id="@+id/blocked_user_username"
@@ -61,8 +73,8 @@
     <ImageButton
         android:id="@+id/blocked_user_unblock"
         style="@style/AppImageButton"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:layout_marginStart="12dp"

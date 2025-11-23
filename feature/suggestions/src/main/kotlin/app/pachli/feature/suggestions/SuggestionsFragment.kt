@@ -126,6 +126,7 @@ class SuggestionsFragment :
             animateAvatars = viewModel.uiState.value.animateAvatars,
             animateEmojis = viewModel.uiState.value.animateEmojis,
             showBotOverlay = viewModel.uiState.value.showBotOverlay,
+            showPronouns = viewModel.uiState.value.showPronouns,
             accept = accept,
         )
 
