@@ -47,4 +47,5 @@
     <string name="pref_translation_backend_option_local_only">Vaid nutiseadmes</string>
     <string name="pref_translation_backend_option_local_only_help">Postitused tõlgitakse sinu nutiseadmes Google\'i tõlketeenusega.</string>
     <string name="pref_translation_backend_requires_play_label">Kasutamaks seadmepõhise tõlkimise tuge, paigalda vajalikud komponendid Google Playst</string>
+    <string name="pref_pronoun_display_everywhere">Igal pool</string>
 </resources>
