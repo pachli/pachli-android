@@ -36,4 +36,5 @@
     <string name="pref_default_audio_playback_option_unmuted">Susturulma kaldırıldı.</string>
     <string name="pref_default_audio_playback_option_muted">Sessiz</string>
     <string name="pref_title_translation">Çeviri</string>
+    <string name="pref_pronoun_display_everywhere">Her yer</string>
 </resources>
