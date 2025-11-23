@@ -22,4 +22,5 @@
     <string name="pref_default_audio_playback_option_unmuted">Раззаглушаване</string>
     <string name="pref_default_audio_playback_option_muted">Изключен микрофон</string>
     <string name="pref_title_translation">Превод</string>
+    <string name="pref_pronoun_display_everywhere">Навсякъде</string>
 </resources>
