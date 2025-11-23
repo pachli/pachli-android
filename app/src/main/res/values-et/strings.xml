@@ -360,7 +360,7 @@
     <string name="pref_title_gradient_for_media">Näita peidetud meediume värvimustrina</string>
     <string name="pref_title_animate_custom_emojis">Animeeri kohandatud emojisid</string>
     <string name="pref_title_post_filter">Ajajoone filtreerimine</string>
-    <string name="pref_title_post_tabs">Vahemaardid</string>
+    <string name="pref_title_post_tabs">Vahekaardid</string>
     <string name="pref_title_show_boosts">Näita hoolisamisi</string>
     <string name="pref_title_show_replies">Näita vastuseid</string>
     <string name="pref_title_show_media_preview">Laadi alla meediumide eelvaated</string>
