@@ -36,4 +36,5 @@
     <string name="pref_default_audio_playback_option_unmuted">Némítás visszavonva.</string>
     <string name="pref_default_audio_playback_option_muted">Némítva</string>
     <string name="pref_title_translation">Fordítás</string>
+    <string name="pref_pronoun_display_everywhere">Mindenhol</string>
 </resources>
