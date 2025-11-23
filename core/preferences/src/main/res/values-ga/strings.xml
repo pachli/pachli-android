@@ -47,4 +47,8 @@
     <string name="pref_translation_backend_option_local_only">Ar an ngléas amháin</string>
     <string name="pref_translation_backend_option_local_only_help">Aistríonn sé poist ar do ghléas ag baint úsáide as Google Translate.</string>
     <string name="pref_translation_backend_requires_play_label">Suiteáil ó Google Play le haghaidh tacaíochta aistriúcháin ar an ngléas</string>
+    <string name="pref_title_pronoun_display">Taispeáin forainmneacha cuntais</string>
+    <string name="pref_pronoun_display_everywhere">I ngach áit</string>
+    <string name="pref_pronoun_display_when_composing">Agus post á scríobh</string>
+    <string name="pref_pronoun_display_hide">Áit ar bith</string>
 </resources>
