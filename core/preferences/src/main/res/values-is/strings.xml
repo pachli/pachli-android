@@ -19,4 +19,5 @@
     <string name="pref_default_audio_playback_option_unmuted">Ekki þagga</string>
     <string name="pref_default_audio_playback_option_muted">Þaggað</string>
     <string name="pref_title_translation">Þýðing</string>
+    <string name="pref_pronoun_display_everywhere">Alls staðar</string>
 </resources>
