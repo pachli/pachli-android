@@ -36,4 +36,5 @@
     <string name="pref_default_audio_playback_option_unmuted">Dempen opgeheven.</string>
     <string name="pref_default_audio_playback_option_muted">Gedempt</string>
     <string name="pref_title_translation">Vertaling</string>
+    <string name="pref_pronoun_display_everywhere">Overal</string>
 </resources>
