@@ -39,12 +39,15 @@
     <string name="pref_summary_export_settings">Antippen, um App- und Profileinstellungen in eine lokale Datei zu speichern</string>
     <string name="pref_summary_import_settings">Antippen, um Einstellungen aus einer via „Einstellungen exportieren“ erzeugten Datei wiederherzustellen</string>
     <string name="pref_title_translation">Übersetzung</string>
-    <string name="pref_translation_backend">Wie man übersetzt</string>
-    <string name="pref_translation_backend_option_server_only">Nur Server</string>
+    <string name="pref_translation_backend">Wie soll übersetzt werden</string>
+    <string name="pref_translation_backend_option_server_only">Nur auf dem Server</string>
     <string name="pref_translation_backend_option_server_only_help">Übersetzt Beiträge mithilfe deines Servers. Funktioniert nicht, wenn dein Server keine Übersetzung unterstützt oder die Sprache des Beitrags falsch ist.</string>
-    <string name="pref_translation_backend_option_server_first">Server zuerst</string>
+    <string name="pref_translation_backend_option_server_first">Zuerst auf dem Server</string>
     <string name="pref_translation_backend_option_server_first_help">Übersetzt Beiträge mithilfe deines Servers. Wenn dies fehlschlägt, werden die Beiträge auf deinem Gerät mithilfe von Google Translate übersetzt.</string>
-    <string name="pref_translation_backend_option_local_only">Nur auf Gerät</string>
+    <string name="pref_translation_backend_option_local_only">Nur auf dem Gerät</string>
     <string name="pref_translation_backend_option_local_only_help">Übersetzt Beiträge auf deinem Gerät mit Google Translate.</string>
     <string name="pref_translation_backend_requires_play_label">Für On-device-Übersetzungen über Google Play installieren</string>
+    <string name="pref_title_pronoun_display">Profil-Pronomen anzeigen</string>
+    <string name="pref_pronoun_display_when_composing">Beim Verfassen eines Beitrags</string>
+    <string name="pref_pronoun_display_hide">Nirgendwo</string>
 </resources>
