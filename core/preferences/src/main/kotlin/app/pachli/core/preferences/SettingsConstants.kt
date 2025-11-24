@@ -95,6 +95,9 @@ object PrefKeys {
     // Server-side preference, only written to from AccountPreferenceFragment.
     const val DEFAULT_MEDIA_SENSITIVITY = "defaultMediaSensitivity"
 
+    // Server-side preference, only written to from AccountPreferenceFragment.
+    const val DEFAULT_QUOTE_POLICY = "defaultQuotePolicy"
+
     // Account preference
     const val MEDIA_PREVIEW_ENABLED = "mediaPreviewEnabled"
 

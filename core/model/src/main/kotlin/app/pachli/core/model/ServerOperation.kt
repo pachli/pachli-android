@@ -137,4 +137,22 @@ enum class ServerOperation(id: String, versions: List<Version>) {
             Version(major = 1),
         ),
     ),
+
+    /** Set a default quote policy. */
+    ORG_JOINMASTODON_ACCOUNT_QUOTE_POLICY(
+        "org.joinmastodon.quote_policy",
+        listOf(
+            // Initial introduction in Mastodon 4.5.0
+            Version(major = 1),
+        ),
+    ),
+
+    /** Quote a status. */
+    ORG_JOINMASTODON_STATUSES_QUOTE(
+        "org.joinmastodon.statuses.quote",
+        listOf(
+            // Initial introduction in Mastodon 4.5.0
+            Version(major = 1),
+        ),
+    ),
 }

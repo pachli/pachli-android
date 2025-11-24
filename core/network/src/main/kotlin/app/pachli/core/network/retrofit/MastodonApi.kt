@@ -375,6 +375,7 @@ interface MastodonApi {
         @Field("source[privacy]") privacy: String?,
         @Field("source[sensitive]") sensitive: Boolean?,
         @Field("source[language]") language: String?,
+        @Field("source[quote_policy]") quotePolicy: String?,
     ): ApiResult<CredentialAccount>
 
     @Multipart

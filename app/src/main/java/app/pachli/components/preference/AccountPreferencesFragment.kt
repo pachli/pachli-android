@@ -42,6 +42,8 @@ import app.pachli.core.data.repository.canFilterV1
 import app.pachli.core.data.repository.canFilterV2
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.eventhub.EventHub
+import app.pachli.core.model.AccountSource
+import app.pachli.core.model.ServerOperation
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_STATUSES_GET
 import app.pachli.core.model.Status
 import app.pachli.core.navigation.AccountListActivityIntent
@@ -53,11 +55,15 @@ import app.pachli.core.navigation.LoginActivityIntent.LoginMode
 import app.pachli.core.navigation.PreferencesActivityIntent
 import app.pachli.core.navigation.PreferencesActivityIntent.PreferenceScreen
 import app.pachli.core.navigation.TabPreferenceActivityIntent
+import app.pachli.core.network.model.asNetworkModel
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.PrefKeys
+import app.pachli.core.preferences.QuotePolicy
+import app.pachli.core.preferences.asPreference
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.core.ui.extensions.iconRes
 import app.pachli.core.ui.makeIcon
+import app.pachli.settings.enumListPreference
 import app.pachli.settings.listPreference
 import app.pachli.settings.makePreferenceScreen
 import app.pachli.settings.preference
@@ -66,6 +72,7 @@ import app.pachli.settings.switchPreference
 import app.pachli.util.getInitialLanguages
 import app.pachli.util.getLocaleList
 import app.pachli.util.getPachliDisplayName
+import com.github.michaelbull.result.map
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import com.google.android.material.snackbar.Snackbar
@@ -112,6 +119,13 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
      */
     private lateinit var conversationAccountFilterPreference: Preference
 
+    /**
+     * The default quote policy preference.
+     *
+     * Is enabled/disabled at runtime.
+     */
+    private lateinit var defaultQuotePolicyPreference: Preference
+
     private var pachliAccountId by Delegates.notNull<Long>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -136,6 +150,12 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                         conversationAccountFilterPreference.isEnabled =
                             account.server.can(
                                 ORG_JOINMASTODON_STATUSES_GET,
+                                ">=1.0.0".toConstraint(),
+                            )
+
+                        defaultQuotePolicyPreference.isEnabled =
+                            account.server.can(
+                                ServerOperation.ORG_JOINMASTODON_ACCOUNT_QUOTE_POLICY,
                                 ">=1.0.0".toConstraint(),
                             )
                     }
@@ -308,6 +328,24 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                         true
                     }
                 }
+
+                defaultQuotePolicyPreference = enumListPreference<QuotePolicy> {
+                    setTitle(app.pachli.core.preferences.R.string.pref_title_quote_policy)
+                    key = PrefKeys.DEFAULT_QUOTE_POLICY
+                    isSingleLineTitle = false
+                    val quotePolicy = (accountManager.activeAccount?.defaultQuotePolicy ?: AccountSource.QuotePolicy.PUBLIC).asPreference()
+                    setDefaultValue(quotePolicy)
+                    setIcon(quotePolicy.iconRes())
+                    setOnPreferenceChangeListener { _, newValue ->
+                        val quotePolicy = QuotePolicy.valueOf(newValue as String)
+                        syncWithServer(quotePolicy = quotePolicy.asModel())
+                        setIcon(quotePolicy.iconRes())
+                        true
+                    }
+                    setSummaryProvider {
+                        if (it.isEnabled) entry else context.getString(app.pachli.core.preferences.R.string.pref_summary_quote_policy_disabled)
+                    }
+                }
             }
 
             preferenceCategory(R.string.pref_title_timelines) {
@@ -359,13 +397,23 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
         }
     }
 
-    private fun syncWithServer(visibility: String? = null, sensitive: Boolean? = null, language: String? = null) {
+    private fun syncWithServer(
+        visibility: String? = null,
+        sensitive: Boolean? = null,
+        language: String? = null,
+        quotePolicy: AccountSource.QuotePolicy? = null,
+    ) {
         // TODO these could also be "datastore backed" preferences (a ServerPreferenceDataStore);
         //  follow-up of issue #3204
         lifecycleScope.launch {
-            mastodonApi.accountUpdateSource(visibility, sensitive, language)
-                .onSuccess {
-                    val account = it.body
+            mastodonApi.accountUpdateSource(
+                visibility,
+                sensitive,
+                language,
+                quotePolicy?.asNetworkModel()?.asFormValue(),
+            )
+                .map { it.body }
+                .onSuccess { account ->
                     accountManager.activeAccount?.let {
                         accountManager.setDefaultPostPrivacy(
                             it.id,
@@ -374,6 +422,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
                         )
                         accountManager.setDefaultMediaSensitivity(it.id, account.source.sensitive ?: false)
                         accountManager.setDefaultPostLanguage(it.id, language.orEmpty())
+                        accountManager.setDefaultQuotePolicy(it.id, quotePolicy ?: AccountSource.QuotePolicy.NOBODY)
                     }
                 }
                 .onFailure {
