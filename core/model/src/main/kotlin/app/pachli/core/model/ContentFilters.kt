@@ -130,7 +130,7 @@ enum class FilterContext {
          *     to this timeline.
          */
         fun from(timeline: Timeline): FilterContext? = when (timeline) {
-            is Timeline.Home, is Timeline.UserList -> HOME
+            is Timeline.Home, is Timeline.UserList, is Timeline.Quote -> HOME
             is Timeline.User -> ACCOUNT
             Timeline.Notifications -> NOTIFICATIONS
             Timeline.Bookmarks,

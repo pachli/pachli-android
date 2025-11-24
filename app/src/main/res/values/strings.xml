@@ -54,6 +54,7 @@
     <string name="title_follows">Follows</string>
     <string name="title_followers">Followers</string>
     <string name="title_favourites">Favorites</string>
+    <string name="title_quotes">Quotes</string>
     <string name="title_bookmarks">Bookmarks</string>
     <string name="title_mutes">Muted users</string>
     <string name="title_blocks">Blocked users</string>

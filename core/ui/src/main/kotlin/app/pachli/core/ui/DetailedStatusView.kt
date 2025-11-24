@@ -26,7 +26,6 @@ import android.text.style.DynamicDrawableSpan
 import android.text.style.ImageSpan
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import androidx.core.view.isGone
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.data.model.IStatusItemViewData
@@ -96,7 +95,7 @@ class DetailedStatusView @JvmOverloads constructor(
         super.setupWithStatus(setStatusContent, glide, uncollapsedViewdata, listener, statusDisplayOptions)
 
         if (!statusDisplayOptions.hideStatsInDetailedView) {
-            setReblogAndFavCount(uncollapsedViewdata, listener)
+            setStatCounters(uncollapsedViewdata, listener)
         } else {
             hideQuantitativeStats()
         }
@@ -111,42 +110,62 @@ class DetailedStatusView @JvmOverloads constructor(
         binding.statusQuote.show()
     }
 
-    private fun setReblogAndFavCount(
+    private fun setStatCounters(
         viewData: StatusItemViewData,
         listener: StatusActionListener,
     ) {
         val reblogCount = viewData.actionable.reblogsCount
         val favCount = viewData.actionable.favouritesCount
+        val quotesCount = viewData.actionable.quotesCount
+
+        val showStats = reblogCount > 0 || favCount > 0 || quotesCount > 0
+
+        if (!showStats) {
+            hideQuantitativeStats()
+            return
+        }
+
+        binding.statusInfoDivider.show()
 
         if (reblogCount > 0) {
             binding.statusReblogs.text = getReblogsCountDescription(reblogCount)
             binding.statusReblogs.show()
+            binding.statusReblogs.setOnClickListener {
+                listener.onShowReblogs(viewData.actionableId)
+            }
         } else {
             binding.statusReblogs.hide()
         }
+
         if (favCount > 0) {
             binding.statusFavourites.text = getFavouritesCountDescription(favCount)
             binding.statusFavourites.show()
+            binding.statusFavourites.setOnClickListener {
+                listener.onShowFavs(viewData.actionableId)
+            }
         } else {
             binding.statusFavourites.hide()
         }
-        if (binding.statusReblogs.isGone && binding.statusFavourites.isGone) {
-            binding.statusInfoDivider.hide()
+
+        if (quotesCount > 0) {
+            binding.statusQuotes.text = getQuotesCountDescription(quotesCount)
+            binding.statusQuotes.show()
+            binding.statusQuotes.setOnClickListener {
+                listener.onShowQuotes(viewData.actionableId)
+            }
         } else {
-            binding.statusInfoDivider.show()
-        }
-        binding.statusReblogs.setOnClickListener {
-            listener.onShowReblogs(viewData.actionableId)
-        }
-        binding.statusFavourites.setOnClickListener {
-            listener.onShowFavs(viewData.actionableId)
+            binding.statusQuotes.hide()
         }
     }
 
     private fun hideQuantitativeStats() {
+        binding.statusInfoDivider.hide()
         binding.statusReblogs.hide()
         binding.statusFavourites.hide()
-        binding.statusInfoDivider.hide()
+        binding.statusQuotes.hide()
+        binding.statusReblogs.setOnClickListener(null)
+        binding.statusFavourites.setOnClickListener(null)
+        binding.statusQuotes.setOnClickListener(null)
     }
 
     override fun setMetaData(viewData: StatusItemViewData, statusDisplayOptions: StatusDisplayOptions, listener: StatusActionListener) {

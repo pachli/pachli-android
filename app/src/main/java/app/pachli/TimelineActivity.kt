@@ -160,10 +160,10 @@ class TimelineActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
 
     override fun onPrepareMenu(menu: Menu) {
         // Check if this timeline is in a tab; if not, enable the add_to_tab menu item
-        // Timeline.Link (all posts about a specific link) is special-cased to not be
-        // addable to a tab)
+        // Timeline.Link (all posts about a specific link) and Timeline.Quote are
+        // special-cased to not be addable to a tab).
         val currentTabs = accountManager.activeAccount?.tabPreferences.orEmpty()
-        val hideMenu = timeline is Timeline.Link || currentTabs.contains(timeline)
+        val hideMenu = timeline is Timeline.Link || timeline is Timeline.Quote || currentTabs.contains(timeline)
         menu.findItem(R.id.action_add_to_tab)?.isVisible = !hideMenu
     }
 

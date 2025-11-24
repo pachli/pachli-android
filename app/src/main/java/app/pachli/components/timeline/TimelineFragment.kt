@@ -73,6 +73,7 @@ import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.EditContentFilterActivityIntent
+import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.preferences.TabTapBehaviour
 import app.pachli.core.ui.ActionButtonScrollListener
 import app.pachli.core.ui.BackgroundMessage.Empty
@@ -659,6 +660,11 @@ class TimelineFragment :
         startActivityWithDefaultTransition(intent)
     }
 
+    override fun onShowQuotes(statusId: String) {
+        val intent = TimelineActivityIntent.quote(requireContext(), pachliAccountId, statusId)
+        startActivityWithDefaultTransition(intent)
+    }
+
     override fun onContentCollapsedChange(viewData: IStatusViewData, isCollapsed: Boolean) {
         viewModel.onContentCollapsed(isCollapsed, viewData)
     }
@@ -734,6 +740,7 @@ class TimelineFragment :
             Timeline.TrendingHashtags,
             Timeline.TrendingLinks,
             is Timeline.Link,
+            is Timeline.Quote,
             -> return
         }
     }

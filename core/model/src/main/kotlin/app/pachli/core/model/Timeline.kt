@@ -146,6 +146,11 @@ sealed class Timeline : Parcelable {
     @JsonClass(generateAdapter = true)
     data class Link(val url: String, val title: String) : Timeline()
 
+    /** Timeline of statuses that quote [statusId]. */
+    @TypeLabel("quote")
+    @JsonClass(generateAdapter = true)
+    data class Quote(val statusId: String) : Timeline()
+
     // TODO: DRAFTS
 
     // TODO: SCHEDULED
