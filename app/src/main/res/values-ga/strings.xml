@@ -772,4 +772,5 @@
     <string name="detach_quote_dialog_title">Bain an luachan?</string>
     <string name="detach_quote_dialog_message">Bainfear do phost luaite as an bpost seo leis seo.\n\nNí scriosfar do phost bunaidh.\n\nNí féidir é seo a chealú.</string>
     <string name="detach_quote_error_fmt">Theip ar an luachan a bhaint: %1$s</string>
+    <string name="title_quotes">Sleachta</string>
 </resources>
