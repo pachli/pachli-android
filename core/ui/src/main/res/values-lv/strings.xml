@@ -150,4 +150,5 @@
     <string name="action_show_pronouns">Rādīt vietniekvārdus</string>
     <string name="action_open_quoted_post">Atvērt citēto ierakstu</string>
     <string name="label_quoted_status_hidden">Ieraksta citāts paslēpts viena no atsijātāju dēļ</string>
+    <string name="detach_quote">Noņemt citātu</string>
 </resources>
