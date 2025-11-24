@@ -139,4 +139,9 @@
     <string name="label_quoted_status_hidden">Suodattimesi piilotti lainatun julkaisun</string>
     <string name="action_open_quoted_post">Avaa lainattu julkaisu</string>
     <string name="action_show_pronouns">Näytä pronominit</string>
+    <plurals name="quotes">
+        <item quantity="one"><b>%1$s</b> Lainaus</item>
+        <item quantity="other"><b>%1$s</b> Lainausta</item>
+    </plurals>
+    <string name="detach_quote">Poista lainaus</string>
 </resources>
