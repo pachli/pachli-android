@@ -48,4 +48,7 @@
     <string name="pref_translation_backend_option_local_only_help">Tulko ierakstus Tavā ierīcē ar Google tulkotāju.</string>
     <string name="pref_translation_backend_requires_play_label">Tulkošanas ierīcē atbalstam jāuzstāda no Google Play</string>
     <string name="pref_pronoun_display_everywhere">Visur</string>
+    <string name="pref_title_pronoun_display">Rādīt konta vietniekvārdus</string>
+    <string name="pref_pronoun_display_when_composing">Kad raksta ierakstu</string>
+    <string name="pref_pronoun_display_hide">Nekur</string>
 </resources>
