@@ -37,4 +37,5 @@
     <string name="pref_default_audio_playback_option_muted">Gedempt</string>
     <string name="pref_title_translation">Vertaling</string>
     <string name="pref_pronoun_display_everywhere">Overal</string>
+    <string name="pref_quote_policy_followers">een van je volgers</string>
 </resources>
