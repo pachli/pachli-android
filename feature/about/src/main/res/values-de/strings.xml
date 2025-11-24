@@ -64,4 +64,20 @@
     <string name="notification_log_download_failed">Download fehlgeschlagen: %1$s</string>
     <string name="notitication_log_filter_dialog_title">Log-Prioritäten anzeigen</string>
     <string name="about_nivenly_foundation">Pachli ist ein Projekt der <a href="https://nivenly.org">Nivenly Foundation</a>.</string>
+    <string name="database_prune_cache_complete">Cache-Bereinigung abgeschlossen</string>
+    <string name="action_prune_cache">Cache bereinigen</string>
+    <string name="database_prune_cache">Cache bereinigen</string>
+    <string name="database_clear_cache_complete">Cache-Löschung abgeschlossen</string>
+    <string name="action_clear_cache">Cache löschen</string>
+    <string name="action_vacuum">Leerung</string>
+    <string name="action_run_query_timings">Abfragezeiten ausführen</string>
+    <string name="action_run_integrity_check">Integritätsprüfung ausführen</string>
+    <string name="database_query_timings">Abfragezeiten</string>
+    <string name="database_vacuum">Leerung</string>
+    <string name="database_clear_cache">Cache löschen</string>
+    <string name="database_integrity_check">Integritätsprüfung</string>
+    <string name="database_table_sizes">Tabellengrößen</string>
+    <string name="about_database">Datenbank</string>
+    <string name="about_notifications">Benachrichtigungen</string>
+    <string name="database_vacuum_complete">Datenbank-Leerung abgeschlossen</string>
 </resources>
