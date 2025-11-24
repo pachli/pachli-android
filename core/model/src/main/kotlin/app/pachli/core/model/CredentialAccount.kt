@@ -60,7 +60,14 @@ data class AccountSource(
     val fields: List<StringField> = emptyList(),
     val language: String? = null,
     val attributionDomains: List<String> = emptyList(),
-)
+    val quotePolicy: QuotePolicy = QuotePolicy.PUBLIC,
+) {
+    enum class QuotePolicy {
+        PUBLIC,
+        FOLLOWERS,
+        NOBODY,
+    }
+}
 
 data class CredentialedRole(
     val name: String,

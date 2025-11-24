@@ -27,6 +27,7 @@ import androidx.room.Upsert
 import app.pachli.core.database.Converters
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.PachliAccount
+import app.pachli.core.model.AccountSource
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
@@ -289,6 +290,16 @@ WHERE id = :accountId
 """,
     )
     suspend fun setDefaultPostLanguage(accountId: Long, value: String)
+
+    @Query(
+        """
+UPDATE AccountEntity
+SET
+    defaultQuotePolicy = :value
+WHERE id = :accountId
+""",
+    )
+    suspend fun setDefaultQuotePolicy(accountId: Long, value: AccountSource.QuotePolicy)
 
     @Query(
         """

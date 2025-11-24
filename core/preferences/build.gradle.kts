@@ -30,6 +30,8 @@ android {
 
 dependencies {
     implementation(projects.core.common)
+    implementation(projects.core.model)
+        ?.because("AccountPreferences using AccountSource")
     implementation(projects.core.designsystem)
         ?.because("Preferences uses EmbeddedFontFamily")
 

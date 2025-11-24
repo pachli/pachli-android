@@ -38,6 +38,7 @@ import app.pachli.core.database.model.FollowingAccountEntity
 import app.pachli.core.database.model.InstanceInfoEntity
 import app.pachli.core.database.model.ServerEntity
 import app.pachli.core.model.Account
+import app.pachli.core.model.AccountSource
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.MastodonList
 import app.pachli.core.model.NodeInfo
@@ -382,6 +383,7 @@ class AccountManager @Inject constructor(
                     defaultPostPrivacy = account.source.privacy?.asModel() ?: Visibility.PUBLIC,
                     defaultPostLanguage = account.source.language.orEmpty(),
                     defaultMediaSensitivity = account.source.sensitive == true,
+                    defaultQuotePolicy = account.source.quotePolicy?.asModel() ?: AccountSource.QuotePolicy.NOBODY,
                     emojis = account.emojis.asModel(),
                     locked = account.locked,
                     isBot = account.bot,
@@ -710,6 +712,10 @@ class AccountManager @Inject constructor(
 
     suspend fun setDefaultPostLanguage(accountId: Long, value: String) {
         accountDao.setDefaultPostLanguage(accountId, value)
+    }
+
+    suspend fun setDefaultQuotePolicy(accountId: Long, value: AccountSource.QuotePolicy) {
+        accountDao.setDefaultQuotePolicy(accountId, value)
     }
 
     suspend fun setNotificationsEnabled(accountId: Long, value: Boolean) {

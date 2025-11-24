@@ -40,6 +40,7 @@ import app.pachli.core.model.ServerKind.PLEROMA
 import app.pachli.core.model.ServerKind.SHARKEY
 import app.pachli.core.model.ServerKind.UNKNOWN
 import app.pachli.core.model.ServerOperation
+import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_ACCOUNT_QUOTE_POLICY
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_FILTERS_ACTION_BLUR
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_FILTERS_CLIENT
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_FILTERS_SERVER
@@ -58,6 +59,7 @@ import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IS_RE
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IS_SENSITIVE
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_LANGUAGE
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_STATUSES_GET
+import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_STATUSES_QUOTE
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_STATUSES_SCHEDULED
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_TIMELINES_LINK
@@ -348,6 +350,14 @@ data class Server(
                     // Blur filters.
                     when {
                         v >= "4.4.0".toVersion() -> c[ORG_JOINMASTODON_FILTERS_ACTION_BLUR] = "1.0.0".toVersion()
+                    }
+
+                    // Quotes
+                    when {
+                        v >= "4.5.0".toVersion() -> {
+                            c[ORG_JOINMASTODON_ACCOUNT_QUOTE_POLICY] = "1.0.0".toVersion()
+                            c[ORG_JOINMASTODON_STATUSES_QUOTE] = "1.0.0".toVersion()
+                        }
                     }
                 }
 

@@ -1123,7 +1123,7 @@ class ComposeActivity :
         binding.composeOptionsBottomSheet.setStatusVisibility(visibility)
         binding.composeTootButton.setStatusVisibility(binding.composeTootButton, visibility)
 
-        val iconRes = visibility.iconRes() ?: app.pachli.core.ui.R.drawable.ic_lock_open_24dp
+        val iconRes = visibility.iconRes() ?: app.pachli.core.designsystem.R.drawable.ic_lock_open_24dp
         binding.composeChangeVisibilityButton.setImageResource(iconRes)
         if (viewModel.editing) {
             // Can't update visibility on published status
