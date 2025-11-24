@@ -710,6 +710,16 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
         )
     }
 
+    fun getQuotesCountDescription(count: Int): CharSequence? {
+        if (count <= 0) return null
+
+        val countString = NUMBER_FORMATTER.format(count.toLong())
+        return HtmlCompat.fromHtml(
+            context.resources.getQuantityString(R.plurals.quotes, count, countString),
+            HtmlCompat.FROM_HTML_MODE_LEGACY,
+        )
+    }
+
     open fun setupCard(
         glide: RequestManager,
         viewData: T,

@@ -54,6 +54,7 @@ import app.pachli.core.model.Status
 import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.EditContentFilterActivityIntent
+import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.ui.SetMarkdownContent
 import app.pachli.core.ui.SetMastodonHtmlContent
@@ -412,6 +413,11 @@ class ViewThreadFragment :
 
     override fun onShowFavs(statusId: String) {
         val intent = AccountListActivityIntent(requireContext(), pachliAccountId, AccountListActivityIntent.Kind.FAVOURITED, statusId)
+        startActivityWithDefaultTransition(intent)
+    }
+
+    override fun onShowQuotes(statusId: String) {
+        val intent = TimelineActivityIntent.quote(requireContext(), pachliAccountId, statusId)
         startActivityWithDefaultTransition(intent)
     }
 

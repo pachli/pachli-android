@@ -781,6 +781,13 @@ class TimelineActivityIntent private constructor(context: Context, pachliAccount
             putExtra(EXTRA_TIMELINE, Timeline.Notifications)
         }
 
+        /**
+         * Show statuses that quote [statusId].
+         */
+        fun quote(context: Context, pachliAccountId: Long, statusId: String) = TimelineActivityIntent(context, pachliAccountId).apply {
+            putExtra(EXTRA_TIMELINE, Timeline.Quote(statusId))
+        }
+
         /** @return The [Timeline] to show */
         fun getTimeline(intent: Intent) = IntentCompat.getParcelableExtra(intent, EXTRA_TIMELINE, Timeline::class.java)!!
     }

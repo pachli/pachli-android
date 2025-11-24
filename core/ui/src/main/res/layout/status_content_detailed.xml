@@ -313,4 +313,21 @@
         tools:text="8 favs"
         tools:visibility="visible"
         tools:ignore="SelectableText" />
+
+    <TextView
+        android:id="@+id/status_quotes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="6dp"
+        android:background="?attr/selectableItemBackground"
+        android:importantForAccessibility="no"
+        android:padding="4dp"
+        android:textSize="?attr/status_text_medium"
+        app:layout_constraintStart_toEndOf="@id/status_favourites"
+        app:layout_constraintTop_toBottomOf="@id/status_info_divider"
+        app:layout_goneMarginStart="0dp"
+        tools:text="0 quotes"
+        tools:visibility="visible"
+        tools:ignore="SelectableText" />
 </merge>

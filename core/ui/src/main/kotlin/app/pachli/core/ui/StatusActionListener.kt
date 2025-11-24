@@ -60,6 +60,13 @@ interface StatusActionListener : LinkListener {
     fun onShowFavs(statusId: String) {}
 
     /**
+     * Called when the quotes count has been clicked.
+     *
+     * @param statusId Actionable ID of the status being quoted.
+     */
+    fun onShowQuotes(statusId: String) {}
+
+    /**
      * Called when voting on a poll.
      *
      * @param viewData

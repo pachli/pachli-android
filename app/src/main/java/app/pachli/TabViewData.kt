@@ -171,6 +171,12 @@ data class TabViewData(
             is Timeline.User.Pinned -> throw IllegalArgumentException("can't add to tab: $timeline")
             is Timeline.User.Posts -> throw IllegalArgumentException("can't add to tab: $timeline")
             is Timeline.User.Replies -> throw IllegalArgumentException("can't add to tab: $timeline")
+            is Timeline.Quote -> TabViewData(
+                timeline = timeline,
+                text = R.string.title_quotes,
+                icon = -1,
+                fragment = { TimelineFragment.newInstance(pachliAccountId, timeline) },
+            )
         }
     }
 }

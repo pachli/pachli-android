@@ -300,6 +300,7 @@ class NetworkTimelineRemoteMediator(
                 minId = minId,
                 limit = loadSize,
             )
+            is Timeline.Quote -> api.quotes(statusId = timeline.statusId, maxId = maxId, limit = loadSize)
             else -> throw IllegalStateException("NetworkTimelineRemoteMediator does not support $timeline")
         }
     }
