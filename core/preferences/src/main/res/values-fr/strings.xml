@@ -38,4 +38,5 @@
     <string name="pref_default_audio_playback_option_muted">Muet</string>
     <string name="pref_title_translation">Traduction</string>
     <string name="pref_pronoun_display_everywhere">Partout</string>
+    <string name="pref_quote_policy_followers">Un twitto</string>
 </resources>
