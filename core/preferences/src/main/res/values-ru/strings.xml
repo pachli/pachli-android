@@ -48,4 +48,5 @@
     <string name="pref_translation_backend_option_local_only_help">Переводит сообщения на вашем устройстве с помощью Google Translate.</string>
     <string name="pref_translation_backend_requires_play_label">Установите из Google Play для поддержки перевода на устройстве</string>
     <string name="pref_pronoun_display_everywhere">Повсюду</string>
+    <string name="pref_quote_policy_followers">один из ваших подписчиков</string>
 </resources>
