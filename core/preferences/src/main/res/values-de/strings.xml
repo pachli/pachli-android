@@ -48,7 +48,7 @@
     <string name="pref_translation_backend_option_local_only_help">Übersetzt Beiträge auf deinem Gerät mit Google Translate.</string>
     <string name="pref_translation_backend_requires_play_label">Für On-device-Übersetzungen über Google Play installieren</string>
     <string name="pref_title_pronoun_display">Profil-Pronomen anzeigen</string>
-    <string name="pref_pronoun_display_when_composing">Beim Verfassen eines Beitrags</string>
-    <string name="pref_pronoun_display_hide">Nirgendwo</string>
+    <string name="pref_pronoun_display_when_composing">Beim Schreiben eines Beitrags</string>
+    <string name="pref_pronoun_display_hide">Nirgends</string>
     <string name="pref_pronoun_display_everywhere">Überall</string>
 </resources>
