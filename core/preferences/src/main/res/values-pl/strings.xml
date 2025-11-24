@@ -48,4 +48,5 @@
     <string name="pref_translation_backend_option_local_only_help">Tłumaczy wpisy na twoim urządzeniu przy użyciu Tłumacza Google.</string>
     <string name="pref_translation_backend_requires_play_label">Zainstaluj z Google Play dla wsparcia dla tłumaczenia na urządzeniu</string>
     <string name="pref_pronoun_display_everywhere">Wszędzie</string>
+    <string name="pref_quote_policy_followers">jeden z twoich obserwujących</string>
 </resources>
