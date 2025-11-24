@@ -142,4 +142,8 @@
     <string name="action_open_quoted_post">Ava tsiteeritud postitus</string>
     <string name="label_quoted_status_hidden">Postituse tsitaat, mis on mõne sinu filtri poolt peidetud</string>
     <string name="detach_quote">Eemalda tsitaat</string>
+    <plurals name="quotes">
+        <item quantity="one"><b>%1$s</b> tsitaat</item>
+        <item quantity="other"><b>%1$s</b> tsitaati</item>
+    </plurals>
 </resources>
