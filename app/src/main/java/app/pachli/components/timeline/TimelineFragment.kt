@@ -617,7 +617,7 @@ class TimelineFragment :
     }
 
     override fun onQuote(viewData: IStatusViewData) {
-        TODO("Not yet implemented")
+        super.quote(viewData.pachliAccountId, viewData.actionable)
     }
 
     override fun onFavourite(viewData: IStatusViewData, favourite: Boolean) {

@@ -354,6 +354,8 @@ class IntentRouterActivityIntent(context: Context, pachliAccountId: Long) : Inte
  */
 class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOptions: ComposeOptions? = null) : Intent() {
     /**
+     * @property quotedStatus If quoting a status, details of the status being
+     * quoted.
      * @property statusId If editing an existing status, the ID of the status
      * being edited.
      */
@@ -369,6 +371,7 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOpti
         val visibility: Status.Visibility? = null,
         val contentWarning: String? = null,
         val inReplyTo: InReplyTo? = null,
+        val quotedStatus: QuotedStatus? = null,
         val mediaAttachments: List<Attachment>? = null,
         val draftAttachments: List<DraftAttachment>? = null,
         val scheduledAt: Date? = null,
@@ -444,6 +447,56 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOpti
                 val content: String,
                 val pronouns: String?,
             ) : InReplyTo() {
+                companion object {
+                    fun from(status: app.pachli.core.model.Status) = Status(
+                        statusId = status.statusId,
+                        avatarUrl = status.account.avatar,
+                        isBot = status.account.bot,
+                        displayName = status.account.name,
+                        username = status.account.username,
+                        emojis = status.emojis + status.account.emojis.orEmpty(),
+                        contentWarning = status.spoilerText,
+                        content = status.content.parseAsMastodonHtml().toString(),
+                        pronouns = status.account.pronouns,
+                    )
+                }
+            }
+        }
+
+        /**
+         * The status the user is quoting.
+         */
+        @Parcelize
+        sealed class QuotedStatus : Parcelable {
+            /** ID of the status being replied to. */
+            abstract val statusId: String
+
+            /**
+             * ID of the status being replied to.
+             *
+             * Used when the caller only has the ID, and needs
+             * [ComposeActivity][app.pachli.components.compose.ComposeActivity] to
+             * fetch the contents of the in-reply-to status.
+             */
+//            data class Id(override val statusId: String) : InReplyTo()
+
+            /**
+             * Content of the status being replied to.
+             *
+             * Used when the caller already has the in-reply-to status content which
+             * can be reused without a network round trip.
+             */
+            data class Status(
+                override val statusId: String,
+                val avatarUrl: String,
+                val isBot: Boolean,
+                val displayName: String,
+                val username: String,
+                val emojis: List<Emoji>?,
+                val contentWarning: String,
+                val content: String,
+                val pronouns: String?,
+            ) : QuotedStatus() {
                 companion object {
                     fun from(status: app.pachli.core.model.Status) = Status(
                         statusId = status.statusId,
