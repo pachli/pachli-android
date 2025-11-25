@@ -197,14 +197,20 @@ class ComposeViewModel @AssistedInject constructor(
     private val _markMediaAsSensitive: MutableStateFlow<Boolean?> = MutableStateFlow(composeOptions?.sensitive)
     val markMediaAsSensitive = accountFlow.combine(_markMediaAsSensitive) { account, sens ->
         sens ?: account.entity.defaultMediaSensitivity
-    }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
 
     /** Flow of changes to statusDisplayOptions, for use by the UI */
     val statusDisplayOptions = statusDisplayOptionsRepository.flow
 
     private val _statusVisibility: MutableStateFlow<Status.Visibility> = MutableStateFlow(Status.Visibility.UNKNOWN)
-    val statusVisibility = _statusVisibility.asStateFlow()
+    val statusVisibility = accountFlow.combine(_statusVisibility) { account, vis ->
+        if (vis == Status.Visibility.UNKNOWN) {
+            account.entity.defaultPostPrivacy
+        } else {
+            vis
+        }
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), Status.Visibility.UNKNOWN)
+
     private val _showContentWarning: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val showContentWarning = _showContentWarning.asStateFlow()
     private val _poll: MutableStateFlow<NewPoll?> = MutableStateFlow(null)
@@ -276,11 +282,17 @@ class ComposeViewModel @AssistedInject constructor(
     private val _quotePolicy: MutableStateFlow<AccountSource.QuotePolicy?> = MutableStateFlow(null)
 
     /**
-     * Quote policy for this status. Starts as the default quote policy for this account,
-     * is updated via [_quotePolicy].
+     * Quote policy for this status.
+     *
+     * Initial value depends on the initial visibility, falling back to the account's
+     * default quote policy. Is updated by changing [_quotePolicy].
      */
     val quotePolicy = accountFlow.combine(_quotePolicy) { account, qp ->
-        qp ?: account.entity.defaultQuotePolicy
+        qp ?: if (composeOptions?.visibility == Status.Visibility.DIRECT || composeOptions?.visibility == Status.Visibility.PRIVATE) {
+            AccountSource.QuotePolicy.NOBODY
+        } else {
+            account.entity.defaultQuotePolicy
+        }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
 
     private var setupComplete = false

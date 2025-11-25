@@ -821,4 +821,7 @@
 
     <string name="compose_visibility_title">Where is this sent?</string>
     <string name="compose_quote_policy_title">Who can quote this post?</string>
+    <string name="compose_quote_policy_dialog_title">Change quote setting?</string>
+    <string name="compose_quote_policy_dialog_body_fmt">Posts marked \"%1$s\" or \"%2$s\" must have a quote setting of \"%3$s\".\n\nChange the quote setting now?</string>
+
 </resources>

@@ -1332,8 +1332,43 @@ class ComposeActivity :
     }
 
     override fun onVisibilityChanged(visibility: Status.Visibility) {
-        viewModel.onStatusVisibilityChanged(visibility)
-        visibilityBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+        // Bail if the quote policy isn't ready yet.
+        val quotePolicy = viewModel.quotePolicy.value ?: return
+
+        if (visibility != Status.Visibility.PRIVATE && visibility != Status.Visibility.DIRECT) {
+            enableButton(binding.composeChangeQuotePolicyButton, clickable = true, colorActive = true)
+            viewModel.onStatusVisibilityChanged(visibility)
+            visibilityBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            return
+        }
+
+        if (quotePolicy == AccountSource.QuotePolicy.NOBODY) {
+            enableButton(binding.composeChangeQuotePolicyButton, clickable = false, colorActive = true)
+            viewModel.onStatusVisibilityChanged(visibility)
+            visibilityBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            return
+        }
+
+        AlertDialog.Builder(this)
+            .setTitle(R.string.compose_quote_policy_dialog_title)
+            .setMessage(
+                getString(
+                    R.string.compose_quote_policy_dialog_body_fmt,
+                    getString(R.string.visibility_private),
+                    getString(R.string.visibility_direct),
+                    getString(app.pachli.core.preferences.R.string.pref_quote_policy_nobody),
+                ),
+            )
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                enableButton(binding.composeChangeQuotePolicyButton, clickable = false, colorActive = true)
+                viewModel.onQuotePolicyChanged(AccountSource.QuotePolicy.NOBODY)
+                viewModel.onStatusVisibilityChanged(visibility)
+                visibilityBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            }
+            .setNegativeButton(android.R.string.cancel) { _, _ ->
+                return@setNegativeButton
+            }
+            .show()
     }
 
     override fun onQuotePolicyChanged(quotePolicy: AccountSource.QuotePolicy) {
@@ -1537,10 +1572,11 @@ class ComposeActivity :
 
     private fun enableButton(button: ImageButton, clickable: Boolean, colorActive: Boolean) {
         button.isEnabled = clickable
+        val drawable = button.drawable ?: return
         if (colorActive) {
-            setDrawableTint(this, button.drawable, android.R.attr.textColorTertiary)
+            setDrawableTint(this, drawable, android.R.attr.textColorTertiary)
         } else {
-            button.drawable.clearColorFilter()
+            drawable.clearColorFilter()
         }
     }
 
