@@ -54,7 +54,11 @@ class ConversationViewHolder internal constructor(
                 reblogCount = actionable.reblogsCount,
                 favouriteCount = actionable.favouritesCount,
                 onReplyClick = { listener.onReply(viewData) },
-                onQuoteClick = { listener.onQuote(viewData) },
+                onQuoteClick = if (statusDisplayOptions.canQuote) {
+                    { listener.onQuote(viewData) }
+                } else {
+                    null
+                },
                 onFavouriteClick = { favourite -> listener.onFavourite(viewData, favourite) },
                 onBookmarkClick = { bookmark -> listener.onBookmark(viewData, bookmark) },
                 onMoreClick = { view -> listener.onMore(view, viewData) },

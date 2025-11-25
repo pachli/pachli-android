@@ -81,8 +81,11 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
                 favouriteCount = actionable.favouritesCount,
                 onReplyClick = { listener.onReply(viewData) },
                 onReblogClick = { reblog -> listener.onReblog(viewData, reblog) },
-                // TODO: This should be null if the server doesn't support quotes.
-                onQuoteClick = { listener.onQuote(viewData) },
+                onQuoteClick = if (statusDisplayOptions.canQuote) {
+                    { listener.onQuote(viewData) }
+                } else {
+                    null
+                },
                 onFavouriteClick = { favourite -> listener.onFavourite(viewData, favourite) },
                 onBookmarkClick = { bookmark -> listener.onBookmark(viewData, bookmark) },
                 onMoreClick = { view -> listener.onMore(view, viewData) },
@@ -127,7 +130,11 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
                         favouriteCount = actionable.favouritesCount,
                         onReplyClick = { listener.onReply(viewData) },
                         onReblogClick = { reblog -> listener.onReblog(viewData, reblog) },
-                        onQuoteClick = { listener.onQuote(viewData) },
+                        onQuoteClick = if (statusDisplayOptions.canQuote) {
+                            { listener.onQuote(viewData) }
+                        } else {
+                            null
+                        },
                         onFavouriteClick = { favourite -> listener.onFavourite(viewData, favourite) },
                         onBookmarkClick = { bookmark -> listener.onBookmark(viewData, bookmark) },
                         onMoreClick = { view -> listener.onMore(view, viewData) },
