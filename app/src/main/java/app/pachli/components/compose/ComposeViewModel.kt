@@ -590,7 +590,7 @@ class ComposeViewModel @AssistedInject constructor(
             sensitive = attachedMedia.isNotEmpty() && (markMediaAsSensitive.value || showContentWarning.value),
             media = attachedMedia,
             scheduledAt = scheduledAt.value,
-            inReplyToId = composeOptions?.referencingStatus?.statusId,
+            inReplyToId = (composeOptions?.referencingStatus as? ReferencingStatus.ReplyingTo)?.statusId,
             poll = poll.value,
             replyingStatusContent = null,
             replyingStatusAuthorUsername = null,
@@ -600,6 +600,8 @@ class ComposeViewModel @AssistedInject constructor(
             retries = 0,
             language = language,
             statusId = originalStatusId,
+            quotedStatusId = (composeOptions?.referencingStatus as? ReferencingStatus.Quoting)?.statusId,
+            quoteApprovalPolicy = quotePolicy.value,
         )
 
         serviceClient.sendToot(tootToSend)

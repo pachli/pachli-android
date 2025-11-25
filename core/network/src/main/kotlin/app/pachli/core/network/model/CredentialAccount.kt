@@ -137,9 +137,9 @@ data class AccountSource(
         }
 
         fun asFormValue() = when (this) {
-            QuotePolicy.PUBLIC -> "public"
-            QuotePolicy.FOLLOWERS -> "followers"
-            QuotePolicy.NOBODY -> "nobody"
+            PUBLIC -> "public"
+            FOLLOWERS -> "followers"
+            NOBODY -> "nobody"
         }
     }
 
