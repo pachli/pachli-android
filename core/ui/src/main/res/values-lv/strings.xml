@@ -151,4 +151,9 @@
     <string name="action_open_quoted_post">Atvērt citēto ierakstu</string>
     <string name="label_quoted_status_hidden">Ieraksta citāts paslēpts viena no atsijātāju dēļ</string>
     <string name="detach_quote">Noņemt citātu</string>
+    <plurals name="quotes">
+        <item quantity="zero"><b>%1$s</b> citātu</item>
+        <item quantity="one"><b>%1$s</b> citāts</item>
+        <item quantity="other"><b>%1$s</b> citāti</item>
+    </plurals>
 </resources>
