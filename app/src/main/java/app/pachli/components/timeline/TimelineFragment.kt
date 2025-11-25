@@ -616,6 +616,10 @@ class TimelineFragment :
         viewModel.accept(FallibleStatusAction.Reblog(reblog, viewData))
     }
 
+    override fun onQuote(viewData: IStatusViewData) {
+        TODO("Not yet implemented")
+    }
+
     override fun onFavourite(viewData: IStatusViewData, favourite: Boolean) {
         viewModel.accept(FallibleStatusAction.Favourite(favourite, viewData))
     }

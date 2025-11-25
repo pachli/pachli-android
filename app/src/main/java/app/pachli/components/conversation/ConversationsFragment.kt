@@ -366,6 +366,10 @@ class ConversationsFragment :
         // its impossible to reblog private messages
     }
 
+    override fun onQuote(viewData: IStatusViewData) {
+        TODO("Not yet implemented")
+    }
+
     override fun onFavourite(viewData: IStatusViewData, favourite: Boolean) {
         viewModel.favourite(favourite, viewData.actionableId)
     }

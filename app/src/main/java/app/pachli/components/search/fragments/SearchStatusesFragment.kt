@@ -208,6 +208,10 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
         viewModel.reblog(viewData, reblog)
     }
 
+    override fun onQuote(viewData: IStatusViewData) {
+        TODO("Not yet implemented")
+    }
+
     override fun onEditFilterById(pachliAccountId: Long, filterId: String) {
         startActivityWithTransition(
             EditContentFilterActivityIntent.edit(requireContext(), pachliAccountId, filterId),

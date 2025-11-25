@@ -123,6 +123,7 @@
     <string name="account_contentdescription_fmt">%1$s, %2$s; %3$s</string>
     <string name="action_reply">Reply</string>
     <string name="action_reblog">Boost</string>
+    <string name="action_quote">Quote</string>
     <string name="action_favourite">Favorite</string>
     <string name="action_bookmark">Bookmark</string>
     <string name="status_count_one_plus">1+</string>

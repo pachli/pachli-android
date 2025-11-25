@@ -353,6 +353,10 @@ class IntentRouterActivityIntent(context: Context, pachliAccountId: Long) : Inte
  * @see [app.pachli.components.compose.ComposeActivity]
  */
 class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOptions: ComposeOptions? = null) : Intent() {
+    /**
+     * @property statusId If editing an existing status, the ID of the status
+     * being edited.
+     */
     @Parcelize
     data class ComposeOptions(
         val scheduledTootId: String? = null,
