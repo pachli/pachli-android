@@ -99,6 +99,8 @@ class StringResourceAngleBracketDetector : Detector(), SourceCodeScanner, OtherF
      */
     private val referencedStringResources = mutableSetOf<String>()
 
+    private val referencedPluralsResources = mutableSetOf<String>()
+
     /** Records each [Location] where a potential incident occurs. */
     private val potentialLocations = LintMap()
 
@@ -114,6 +116,16 @@ class StringResourceAngleBracketDetector : Detector(), SourceCodeScanner, OtherF
         setOf(RegexOption.IGNORE_CASE, RegexOption.MULTILINE, RegexOption.DOT_MATCHES_ALL),
     )
 
+    private val rxPluralsResource = Regex(
+        """<plurals\s+name="(?<resourceName>[^"]+?)"[^>]*?>(?<pluralItems>.*?)</plurals>""",
+        setOf(RegexOption.IGNORE_CASE, RegexOption.MULTILINE, RegexOption.DOT_MATCHES_ALL),
+    )
+
+    private val rxPluralItem = Regex(
+        """<item\s+quantity="[^"]+?"[^>]*?>(?<innerText>.*?)</item>""",
+        setOf(RegexOption.IGNORE_CASE, RegexOption.MULTILINE, RegexOption.DOT_MATCHES_ALL),
+    )
+
     /**
      * Regex to match any unexpected `<...>` in the text (or optional `</...>`).
      */
@@ -123,7 +135,10 @@ class StringResourceAngleBracketDetector : Detector(), SourceCodeScanner, OtherF
     )
 
     // Call `visitMethodCall` on calls to `getString`.
-    override fun getApplicableMethodNames(): List<String> = listOf(SdkConstants.GET_STRING_METHOD)
+    override fun getApplicableMethodNames(): List<String> = listOf(
+        SdkConstants.GET_STRING_METHOD,
+        "getQuantityString",
+    )
 
     override fun visitMethodCall(context: JavaContext, node: UCallExpression, method: PsiMethod) {
         val evaluator = context.evaluator
@@ -160,10 +175,11 @@ class StringResourceAngleBracketDetector : Detector(), SourceCodeScanner, OtherF
     }
 
     /**
-     * Check the given `getString` call, record the referenced string resource.
+     * Check the given `getString` or `getQuantityString`, call, record the referenced string
+     * resource.
      *
      * @param context the context to report errors to.
-     * @param call the AST node for the `getString` call.
+     * @param call the AST node for the `getString` or `getQuantityString` call.
      */
     private fun checkGetStringCall(context: JavaContext, call: UCallExpression) {
         val args = call.valueArguments
@@ -171,11 +187,14 @@ class StringResourceAngleBracketDetector : Detector(), SourceCodeScanner, OtherF
         val resource = ResourceEvaluator.getResource(context.evaluator, argument) ?: return
 
         if (resource.isFramework) return
-        if (resource.type != ResourceType.STRING) return
 
         // Record the resource name being used. In `getString(R.string.post_edited, ...)`
         // the resource name is `post_edited`.
-        referencedStringResources.add(resource.name)
+        when (resource.type) {
+            ResourceType.PLURALS -> referencedPluralsResources.add(resource.name)
+            ResourceType.STRING -> referencedStringResources.add(resource.name)
+            else -> return
+        }
     }
 
     override fun run(context: Context) {
@@ -187,7 +206,10 @@ class StringResourceAngleBracketDetector : Detector(), SourceCodeScanner, OtherF
          * `resourceName` and `innerText` group.
          */
         val stringResources = rxStringResource.findAll(text).toList()
-        if (stringResources.isEmpty()) return
+
+        val displayPath = context.project.getDisplayPath(context.file) ?: context.file.path
+
+        var incidentIndex = 0
 
         stringResources.forEach { stringResource ->
             val resourceName = stringResource.groups["resourceName"]?.value ?: return
@@ -197,7 +219,8 @@ class StringResourceAngleBracketDetector : Detector(), SourceCodeScanner, OtherF
             // Find any unexpected tags with angle brackets in `innerText`.
             val unexpectedTags = rxUnexpectedTag.findAll(innerText)
 
-            unexpectedTags.forEachIndexed { index, result ->
+            unexpectedTags.forEach { result ->
+                incidentIndex++
                 val open = result.groups["open"]!!
                 val slash = result.groups["slash"]?.value ?: ""
                 val tagName = result.groups["tagName"]!!.value
@@ -221,9 +244,9 @@ class StringResourceAngleBracketDetector : Detector(), SourceCodeScanner, OtherF
                 //
                 // Build the values and populate those maps.
                 //
-                // $index is in the key so that multiple issues in the same string
+                // $incidentIndex is in the key so that multiple issues in the same string
                 // resource have a unique key.
-                val key = "$resourceName:${context.file.absoluteFile}:$index"
+                val key = "$resourceName:$displayPath:$incidentIndex"
                 val message = Message(
                     message = "Replace with &lt;$slash$tagName&gt;",
                     fix = Fix(
@@ -241,6 +264,49 @@ class StringResourceAngleBracketDetector : Detector(), SourceCodeScanner, OtherF
                 potentialMessages.put(key, Json.encodeToString(message))
             }
         }
+
+        val pluralsResources = rxPluralsResource.findAll(text).toList()
+        pluralsResources.forEach { pluralsResource ->
+            val resourceName = pluralsResource.groups["resourceName"]?.value ?: return
+            val pluralItemsGroup = pluralsResource.groups["pluralItems"] ?: return
+            val pluralItems = pluralItemsGroup.value
+
+            val pluralsItems = rxPluralItem.findAll(pluralItems).toList()
+            pluralsItems.forEach { pluralsItem ->
+                val itemTextGroup = pluralsItem.groups["innerText"] ?: return
+                val itemText = itemTextGroup.value
+
+                // Find any unexpected tags with angle brackets in `pluralsItem`.
+                val unexpectedTags = rxUnexpectedTag.findAll(itemText)
+
+                unexpectedTags.forEach { result ->
+                    incidentIndex++
+                    val open = result.groups["open"]!!
+                    val slash = result.groups["slash"]?.value ?: ""
+                    val tagName = result.groups["tagName"]!!.value
+                    val close = result.groups["close"]!!
+
+                    val location = Location.create(
+                        context.file,
+                        text,
+                        pluralItemsGroup.range.first + itemTextGroup.range.first + open.range.first,
+                        pluralItemsGroup.range.first + itemTextGroup.range.first + close.range.last + 1,
+                    )
+
+                    val key = "$resourceName:$displayPath:$incidentIndex"
+                    val message = Message(
+                        message = "Replace with &lt;$slash$tagName&gt;",
+                        fix = Fix(
+                            oldText = result.groups.first()!!.value,
+                            newText = "&lt;$slash$tagName&gt;",
+                        ),
+                    )
+
+                    potentialLocations.put(key, location)
+                    potentialMessages.put(key, Json.encodeToString(message))
+                }
+            }
+        }
     }
 
     /**
@@ -255,6 +321,7 @@ class StringResourceAngleBracketDetector : Detector(), SourceCodeScanner, OtherF
             put("POTENTIAL_LOCATIONS", potentialLocations)
             put("POTENTIAL_MESSAGES", potentialMessages)
             put("REFERENCED_STRING_RESOURCES", referencedStringResources.joinToString(","))
+            put("REFERENCED_PLURALS_RESOURCES", referencedPluralsResources.joinToString(","))
         }
     }
 
@@ -271,6 +338,7 @@ class StringResourceAngleBracketDetector : Detector(), SourceCodeScanner, OtherF
         val locationsWithAngleBrackets = LintMap()
         val messagesWithAngleBrackets = LintMap()
         val referencedStringResources = mutableSetOf<String>()
+        val referencedPluralsResources = mutableSetOf<String>()
 
         partialResults.forEach { partialResult ->
             val map = partialResult.value
@@ -279,6 +347,9 @@ class StringResourceAngleBracketDetector : Detector(), SourceCodeScanner, OtherF
             map.getMap("POTENTIAL_MESSAGES")?.let { messagesWithAngleBrackets.putAll(it) }
             map.getString("REFERENCED_STRING_RESOURCES")?.let {
                 referencedStringResources.addAll(it.split(","))
+            }
+            map.getString("REFERENCED_PLURALS_RESOURCES")?.let {
+                referencedPluralsResources.addAll(it.split(","))
             }
         }
 
@@ -291,7 +362,7 @@ class StringResourceAngleBracketDetector : Detector(), SourceCodeScanner, OtherF
             //
             // Extract the location and message for the incident, build it, and report
             // it.
-            if (referencedStringResources.contains(resourceName)) {
+            if (referencedStringResources.contains(resourceName) || referencedPluralsResources.contains(resourceName)) {
                 val location = locationsWithAngleBrackets.getLocation(key)!!
                 val message = Json.decodeFromString<Message>(messagesWithAngleBrackets.getString(key)!!)
 
