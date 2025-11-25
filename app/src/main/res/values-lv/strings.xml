@@ -750,4 +750,5 @@
     <string name="detach_quote_dialog_title">Noņemt citātu?</string>
     <string name="detach_quote_dialog_message">Tas noņems Tavu citēto ierakstu no šī ieraksta.\n\nTavs sākotnējais ieraksts netiks izdzēsts.\n\nŠī darbība ir neatgriezeniska.</string>
     <string name="detach_quote_error_fmt">Citāta noņemšana neizdevās: %1$s</string>
+    <string name="title_quotes">Citāti</string>
 </resources>
