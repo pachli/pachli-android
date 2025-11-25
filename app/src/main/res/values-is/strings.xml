@@ -315,7 +315,6 @@
     <string name="pref_title_animate_custom_emojis">Hreyfa sérsniðin tjáningartákn</string>
     <string name="drafts_post_reply_removed">Færslan sem þú gerðir drög að svari við hefur verið fjarlægð</string>
     <string name="draft_deleted">Eyddi drögum</string>
-    <string name="drafts_failed_loading_reply">Mistókst að hlaða inn svarupplýsingum</string>
     <string name="drafts_post_failed_to_send">Mistókst að senda þessa færslu!</string>
     <string name="duration_indefinite">Ótiltekið</string>
     <string name="label_duration">Tímalengd</string>

@@ -309,7 +309,6 @@
     <string name="pref_title_hide_top_toolbar">Ocultar o título da barra superior de tarefas</string>
     <string name="notification_subscription_description">Notificações quando alguém que eu sigo publicar uma novo Toot</string>
     <string name="pref_title_notification_filter_subscriptions">alguém que eu sigo publicou um novo Toot</string>
-    <string name="drafts_failed_loading_reply">Erro ao carregar informação da resposta</string>
     <string name="drafts_post_failed_to_send">Erro ao enviar o Toot!</string>
     <string name="drafts_post_reply_removed">O Toot onde rascunhou uma resposta foi excluído</string>
     <string name="draft_deleted">Rascunho excluído</string>

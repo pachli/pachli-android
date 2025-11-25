@@ -312,7 +312,6 @@
     <string name="title_announcements">Közlemények</string>
     <string name="drafts_post_reply_removed">A bejegyzést, melyre válaszul piszkozatot készítettél törölték</string>
     <string name="draft_deleted">Piszkozat törölve</string>
-    <string name="drafts_failed_loading_reply">Nem sikerült a Válasz információit betölteni</string>
     <string name="drafts_post_failed_to_send">Ezt a bejegyzést nem tudtuk elküldeni!</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="one">Nem tölthetsz fel %1$d médiacsatolmányból többet.</item>

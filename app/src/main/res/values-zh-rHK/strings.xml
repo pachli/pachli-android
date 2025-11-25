@@ -276,7 +276,6 @@
     <string name="filter_dialog_whole_word">完整字詞</string>
     <string name="drafts_post_reply_removed">你的草稿欲回覆的原嘟文已被刪除</string>
     <string name="draft_deleted">草稿已刪除</string>
-    <string name="drafts_failed_loading_reply">載入回覆資訊失敗</string>
     <string name="drafts_post_failed_to_send">這條嘟文發送失敗！</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="other">你無法上傳超過 %1$d 媒體附件。</item>

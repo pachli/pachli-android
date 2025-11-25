@@ -342,7 +342,6 @@
         <item quantity="other">Não é possível enviar mais de %1$d arquivos de conteúdo multimédia.</item>
     </plurals>
     <string name="drafts_post_failed_to_send">Erro ao enviar o toot!</string>
-    <string name="drafts_failed_loading_reply">Erro ao carregar informação de resposta</string>
     <string name="draft_deleted">Rascunho apagado</string>
     <string name="drafts_post_reply_removed">O toot para o qual escreveu um rascunho foi apagado</string>
     <string name="error_empty">Isto não pode estar vazio.</string>

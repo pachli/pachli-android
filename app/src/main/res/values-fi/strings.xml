@@ -380,7 +380,6 @@
     <string name="ui_success_accepted_follow_request">Seuraajapyyntö hyväksytty</string>
     <string name="report_category_other">Muu</string>
     <string name="error_media_playback">Toisto epäonnistui: %s</string>
-    <string name="drafts_failed_loading_reply">Vastaustietojn lataaminen epäonnistui</string>
     <string name="warning_scheduling_interval">Lyhin ajastusväli Mastodonissa on 5 minuuttia.</string>
     <string name="mute_notifications_switch">Hiljennä ilmoitukset</string>
     <string name="accessibility_talking_about_tag">%1$d käyttäjää keskustelee aihetunnisteesta %2$s</string>

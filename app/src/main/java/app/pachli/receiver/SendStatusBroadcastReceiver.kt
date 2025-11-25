@@ -119,7 +119,7 @@ class SendStatusBroadcastReceiver : BroadcastReceiver() {
                         quotedStatusId = null,
                         // Can't set approval policy when quick-replying, server should use
                         // the user's default policy.
-                        quoteApprovalPolicy = null,
+                        quotePolicy = null,
                     ),
                 )
 

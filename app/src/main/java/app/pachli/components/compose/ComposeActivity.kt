@@ -548,7 +548,7 @@ class ComposeActivity :
      *
      * @param result
      */
-    private fun bindInReplyTo(result: Result<Loadable<ReferencingStatus.Status?>, UiError.LoadInReplyToError>) {
+    private fun bindInReplyTo(result: Result<Loadable<ReferencingStatus.Status?>, UiError>) {
         /** Hides the UI elements for referencing a status. */
         fun hide() {
             binding.statusAvatar.hide()

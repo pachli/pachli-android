@@ -309,7 +309,6 @@
         <item quantity="many">Nie możesz przesłać więcej niż %1$d załączników.</item>
         <item quantity="other">Nie możesz przesłać więcej niż %1$d załączników.</item>
     </plurals>
-    <string name="drafts_failed_loading_reply">Nie udało się załadować informacji o odpowiedzi</string>
     <string name="drafts_post_failed_to_send">Przesłanie wpisu nie powiodło się!</string>
     <string name="no_announcements">Nie ma ogłoszeń.</string>
     <string name="label_duration">Czas trwania</string>

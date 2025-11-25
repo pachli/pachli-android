@@ -33,7 +33,7 @@ data class NewStatus(
     val poll: NewPoll?,
     val language: String?,
     @Json(name = "quoted_status_id") val quotedStatusId: String?,
-    @Json(name = "quote_approval_policy") val quoteApprovalPolicy: String?,
+    @Json(name = "quote_approval_policy") val quotePolicy: String?,
 )
 
 fun app.pachli.core.model.NewStatus.asNetworkModel() = NewStatus(
@@ -48,7 +48,7 @@ fun app.pachli.core.model.NewStatus.asNetworkModel() = NewStatus(
     poll = poll?.asNetworkModel(),
     language = language,
     quotedStatusId = quotedStatusId,
-    quoteApprovalPolicy = quoteApprovalPolicy?.asNetworkModel()?.asFormValue(),
+    quotePolicy = quotePolicy?.asNetworkModel()?.asFormValue(),
 )
 
 @JsonClass(generateAdapter = true)

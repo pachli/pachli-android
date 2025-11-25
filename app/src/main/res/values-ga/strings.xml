@@ -438,7 +438,6 @@
     <string name="pref_title_account_filter_keywords">Próifílí</string>
     <string name="failed_to_pin">Theip ar phionnáil</string>
     <string name="duration_no_change">(Gan athrú)</string>
-    <string name="drafts_failed_loading_reply">Theip ar luchtú faisnéise Freagra</string>
     <string name="announcement_date">%1$s%2$s</string>
     <string name="saving_draft">Dréacht á shábháil…</string>
     <string name="accessibility_talking_about_tag">Tá daoine %1$d ag caint faoin haischlib %2$s</string>

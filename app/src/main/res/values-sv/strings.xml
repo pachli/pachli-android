@@ -351,7 +351,6 @@
     <string name="pref_title_show_self_username">Visa användarnamn i verktygsrader</string>
     <string name="pref_title_confirm_favourites">Visa bekräftelse före favoritmarkering</string>
     <string name="drafts_post_failed_to_send">Det här inlägget kunde inte skickas!</string>
-    <string name="drafts_failed_loading_reply">Kunde inte ladda information om svar</string>
     <string name="draft_deleted">Utkast raderat</string>
     <string name="drafts_post_reply_removed">Inlägget du skrev ett utkast till svar på har raderats</string>
     <string name="follow_requests_info">Även om ditt konto inte är låst så tänker administratörerna på %1$s att du kanske ändå vill granska följförfrågan från dessa konton manuellt.</string>

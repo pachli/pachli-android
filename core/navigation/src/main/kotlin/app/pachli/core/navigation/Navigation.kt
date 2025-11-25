@@ -21,6 +21,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Parcelable
 import androidx.core.content.IntentCompat
+import app.pachli.core.model.AccountSource
 import app.pachli.core.model.Attachment
 import app.pachli.core.model.ContentFilter
 import app.pachli.core.model.DraftAttachment
@@ -379,6 +380,7 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOpti
         val statusId: String? = null,
         val kind: ComposeKind? = null,
         val initialCursorPosition: InitialCursorPosition = InitialCursorPosition.END,
+        val quotePolicy: AccountSource.QuotePolicy? = null,
     ) : Parcelable {
         /**
          * Status' kind. This particularly affects how the status is handled if the user
@@ -426,6 +428,15 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOpti
              * fetch the contents of the in-reply-to status.
              */
             data class ReplyId(override val statusId: String) : ReferencingStatus
+
+            /**
+             * ID of the status being quoted.
+             *
+             * Used when the called only has the ID, and needs
+             * [ComposeActivity][app.pachli.components.compose.ComposeActivity] to
+             * fetch the contents of the status being quoted.
+             */
+            data class QuoteId(override val statusId: String) : ReferencingStatus
 
             sealed interface Status : ReferencingStatus {
                 override val statusId: String

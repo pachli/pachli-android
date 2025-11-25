@@ -214,7 +214,7 @@ class SendStatusService : Service() {
                     )
                 },
                 quotedStatusId = statusToSend.quotedStatusId,
-                quoteApprovalPolicy = statusToSend.quoteApprovalPolicy,
+                quotePolicy = statusToSend.quotePolicy,
             )
 
             val sendResult = if (isNew) {
@@ -389,6 +389,8 @@ class SendStatusService : Service() {
             scheduledAt = status.scheduledAt,
             language = status.language,
             statusId = status.statusId,
+            quotePolicy = status.quotePolicy,
+            quotedStatusId = status.quotedStatusId,
         )
     }
 
@@ -495,7 +497,7 @@ data class StatusToSend(
     val language: String?,
     val statusId: String?,
     val quotedStatusId: String?,
-    val quoteApprovalPolicy: AccountSource.QuotePolicy?,
+    val quotePolicy: AccountSource.QuotePolicy?,
 ) : Parcelable
 
 @Parcelize

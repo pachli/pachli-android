@@ -99,6 +99,11 @@ internal sealed class UiError(
     data class LoadInReplyToError(override val cause: PachliError) : UiError(
         R.string.ui_error_reload_reply_fmt,
     )
+
+    /** Error occurred loading the status this is quoting. */
+    data class LoadQuoteError(override val cause: PachliError) : UiError(
+        R.string.ui_error_reload_reply_fmt,
+    )
 }
 
 @HiltViewModel(assistedFactory = ComposeViewModel.Factory::class)
@@ -151,6 +156,14 @@ class ComposeViewModel @AssistedInject constructor(
                         api.status(i.statusId).mapEither(
                             { Loadable.Loaded(ReferencingStatus.ReplyingTo.from(it.body.asModel())) },
                             { UiError.LoadInReplyToError(it) },
+                        )
+                    }
+
+                    is ReferencingStatus.QuoteId -> {
+                        emit(Ok(Loadable.Loading))
+                        api.status(i.statusId).mapEither(
+                            { Loadable.Loaded(ReferencingStatus.Quoting.from(it.body.asModel())) },
+                            { UiError.LoadQuoteError(it) },
                         )
                     }
 
@@ -298,10 +311,11 @@ class ComposeViewModel @AssistedInject constructor(
      * Emits null at start, which the collector should filter out.
      */
     val quotePolicy = accountFlow.combine(_quotePolicy) { account, qp ->
-        qp ?: if (composeOptions?.visibility == Status.Visibility.DIRECT || composeOptions?.visibility == Status.Visibility.PRIVATE) {
-            AccountSource.QuotePolicy.NOBODY
-        } else {
-            account.entity.defaultQuotePolicy
+        when {
+            qp != null -> qp
+            composeOptions?.quotePolicy != null -> composeOptions.quotePolicy
+            composeOptions?.visibility == Status.Visibility.DIRECT || composeOptions?.visibility == Status.Visibility.PRIVATE -> AccountSource.QuotePolicy.NOBODY
+            else -> account.entity.defaultQuotePolicy
         }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
 
@@ -550,10 +564,16 @@ class ComposeViewModel @AssistedInject constructor(
             mediaFocus.add(item.focus)
         }
 
+        val inReplyToId = (composeOptions?.referencingStatus as? ReferencingStatus.ReplyingTo)?.statusId
+            ?: (composeOptions?.referencingStatus as? ReferencingStatus.ReplyId)?.statusId
+
+        val quoteServerId = (composeOptions?.referencingStatus as? ReferencingStatus.Quoting)?.statusId
+            ?: (composeOptions?.referencingStatus as? ReferencingStatus.QuoteId)?.statusId
+
         draftHelper.saveDraft(
             draftId = draftId,
             pachliAccountId = pachliAccountId,
-            inReplyToId = composeOptions?.referencingStatus?.statusId,
+            inReplyToId = inReplyToId,
             content = content,
             contentWarning = contentWarning,
             sensitive = markMediaAsSensitive.value,
@@ -567,6 +587,8 @@ class ComposeViewModel @AssistedInject constructor(
             scheduledAt = scheduledAt.value,
             language = language,
             statusId = originalStatusId,
+            quotePolicy = quotePolicy.value,
+            quotedStatusId = quoteServerId,
         )
     }
 
@@ -611,7 +633,7 @@ class ComposeViewModel @AssistedInject constructor(
             language = language,
             statusId = originalStatusId,
             quotedStatusId = (composeOptions?.referencingStatus as? ReferencingStatus.Quoting)?.statusId,
-            quoteApprovalPolicy = quotePolicy.value,
+            quotePolicy = quotePolicy.value,
         )
 
         serviceClient.sendToot(tootToSend)

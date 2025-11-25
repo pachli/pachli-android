@@ -368,7 +368,6 @@
     <string name="notification_report_name">Adroddiadau</string>
     <string name="label_remote_account">Gall y wybodaeth isod adlewyrchu proffil y defnyddiwr yn anghyflawn. Pwyswch i agor proffil llawn yn y porwr.</string>
     <string name="conversation_1_recipients">%1$s</string>
-    <string name="drafts_failed_loading_reply">Wedi methu llwytho gwybodaeth Ateb</string>
     <string name="pref_title_alway_open_spoiler">Agor negeseuon wedi\'u marcio â rhybudd cynnwys bob tro</string>
     <string name="profile_metadata_label_label">Label</string>
     <string name="confirmation_hashtag_unfollowed">#%s wedi ei ddad-ddilyn</string>

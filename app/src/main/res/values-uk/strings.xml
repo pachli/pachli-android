@@ -288,7 +288,6 @@
     <string name="action_emoji_keyboard">Клавіотура емодзі</string>
     <string name="drafts_post_reply_removed">Допис, для якого ви створили чернетку відповіді, вилучено</string>
     <string name="draft_deleted">Чернетку видалено</string>
-    <string name="drafts_failed_loading_reply">Не вдалося завантажити дані відповіді</string>
     <string name="drafts_post_failed_to_send">Не вдалося надіслати цей допис!</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="one">Ви не можете завантажити більше ніж %1$d медіавкладення.</item>

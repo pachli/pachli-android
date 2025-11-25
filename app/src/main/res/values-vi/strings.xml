@@ -324,7 +324,6 @@
     <string name="label_duration">Thời hạn</string>
     <string name="drafts_post_reply_removed">Đã xóa tút trả lời nháp</string>
     <string name="draft_deleted">Đã xóa tút lên lịch</string>
-    <string name="drafts_failed_loading_reply">Chưa tải được bình luận</string>
     <string name="drafts_post_failed_to_send">Đăng tút không thành công!</string>
     <string name="pref_title_animate_custom_emojis">Emoji GIF</string>
     <string name="action_unsubscribe_account">Dừng nhận thông báo</string>

@@ -316,7 +316,6 @@
     <string name="title_announcements">Avisos</string>
     <string name="drafts_post_reply_removed">S\'ha eliminat la publicació a la qual vau fer un esborrany de resposta</string>
     <string name="draft_deleted">S\'ha eliminat l\'esborrany</string>
-    <string name="drafts_failed_loading_reply">No s\'ha pogut carregar la informació de la resposta</string>
     <string name="drafts_post_failed_to_send">No s\'ha pogut publicar!</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="one">No podeu penjar més de %1$d fitxers adjunts multimèdia.</item>

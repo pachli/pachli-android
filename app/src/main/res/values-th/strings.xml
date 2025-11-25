@@ -315,7 +315,6 @@
     <string name="notification_subscription_description">แจ้งเตือน เมื่อคนที่คุณติดตาม ได้เผยแพร่โพสต์ใหม่</string>
     <string name="drafts_post_reply_removed">โพสต์ที่คุณได้ร่างตอบไว้ ถูกลบแลัว</string>
     <string name="draft_deleted">ลบฉบับร่างแล้ว</string>
-    <string name="drafts_failed_loading_reply">ล้มเหลวในการโหลดข้อมูลตอบกลับ</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="other">คุณไม่สามารถอัปโหลดไฟล์แนบมากกว่า %1$d ได้</item>
     </plurals>

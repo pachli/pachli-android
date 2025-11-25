@@ -302,7 +302,6 @@
         <item quantity="other">%1$d টার বেশি সংযুক্তি পাঠানো যাবে না।</item>
     </plurals>
     <string name="drafts_post_failed_to_send">টুট পাঠাতে ব্যর্থ!</string>
-    <string name="drafts_failed_loading_reply">উত্তরের তথ্য আনতে ব্যর্থ</string>
     <string name="account_note_saved">সংরক্ষিত!</string>
     <string name="wellbeing_hide_stats_profile">অবতারে পরিসংখ্যান লুকাও</string>
     <string name="wellbeing_hide_stats_posts">ছাপার পরিসংখ্যান লুকাও</string>

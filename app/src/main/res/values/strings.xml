@@ -530,9 +530,11 @@
         <item quantity="other">You cannot upload more than %1$d media attachments.</item>
     </plurals>
     <string name="drafts_post_failed_to_send">This post failed to send!</string>
-    <string name="drafts_failed_loading_reply">Failed loading Reply information</string>
+    <string name="drafts_load_reply_failed_fmt">Could not load the post you\'re replying to: %1$s</string>
+    <string name="drafts_load_quote_failed_fmt">Could not load the post you\'re quoting: %1$s</string>
     <string name="draft_deleted">Draft deleted</string>
     <string name="drafts_post_reply_removed">The post you drafted a reply to has been removed</string>
+    <string name="drafts_post_quote_removed">The post you quoted has been removed</string>
     <string name="follow_requests_info">Even though your account is not locked, the %1$s staff thought you might want to review follow requests from these accounts manually.</string>
     <string name="action_subscribe_account">Subscribe</string>
     <string name="action_unsubscribe_account">Unsubscribe</string>

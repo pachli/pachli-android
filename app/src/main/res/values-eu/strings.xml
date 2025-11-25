@@ -313,7 +313,6 @@
     <string name="action_subscribe_account">Harpidetu</string>
     <string name="dialog_delete_conversation_warning">Elkarrizketa ezabatu nahi duzu\?</string>
     <string name="pref_title_animate_custom_emojis">Animatu emoji pertsonalizatuak</string>
-    <string name="drafts_failed_loading_reply">Erantzunaren informazioa ezin izan da kargatu</string>
     <string name="wellbeing_hide_stats_profile">Profiletan estatistika kuantitatiboak ezkutatu</string>
     <string name="draft_deleted">Zirriborroa ezabatu da</string>
     <string name="drafts_post_reply_removed">Erantzun nahi zenuen tuta ezabatua izan da</string>

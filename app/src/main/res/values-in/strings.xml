@@ -356,7 +356,6 @@
     <string name="follow_requests_info">Meskipun akun Anda tidak dikunci, staf %1$s berpikir bahwa Anda mungkin ingin meninjau permintaan mengikuti dari akun-akun ini secara manual.</string>
     <string name="action_subscribe_account">Berlangganan</string>
     <string name="action_unsubscribe_account">Hapus Berlangganan</string>
-    <string name="drafts_failed_loading_reply">Gagal memuat informasi balasan</string>
     <string name="drafts_post_reply_removed">Postingan yang Anda buat sebagai balasan telah dihapus</string>
     <string name="announcement_date_updated">(Diperbarui: %1$s)</string>
     <string name="delete_scheduled_post_warning">Menghapus pos terjadwal ini?</string>
