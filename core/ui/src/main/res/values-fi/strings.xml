@@ -140,8 +140,8 @@
     <string name="action_open_quoted_post">Avaa lainattu julkaisu</string>
     <string name="action_show_pronouns">Näytä pronominit</string>
     <plurals name="quotes">
-        <item quantity="one"><b>%1$s</b> Lainaus</item>
-        <item quantity="other"><b>%1$s</b> Lainausta</item>
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Lainaus</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Lainausta</item>
     </plurals>
     <string name="detach_quote">Poista lainaus</string>
 </resources>
