@@ -247,6 +247,31 @@ class ComposeViewModel @AssistedInject constructor(
             ShowSelfUsername.NEVER -> false
         }
 
+    /**
+     * Flow of Boolean, indicating whether media can be attached.
+     *
+     * Media can be attached as long as:
+     *
+     * 1. This is not quoting another status.
+     * 2. A poll is not already attached.
+     * 3. The number of existing attachments hasn't exceeded the server limit.
+     *
+     * In addition, multiple attachments can only be added if they are all images.
+     */
+    val canAttachMedia = combine(instanceInfo, media, poll) { instanceInfo, media, poll ->
+        composeOptions?.referencingStatus !is ReferencingStatus.Quoting &&
+            poll == null &&
+            media.size < instanceInfo.maxMediaAttachments &&
+            (media.isEmpty() || media.first().type == QueuedMedia.Type.IMAGE)
+    }
+
+    /** True if a poll can be attached, false otherwise. */
+    val canAttachPoll = combine(poll, media) { poll, media ->
+        composeOptions?.referencingStatus !is ReferencingStatus.Quoting &&
+            poll == null &&
+            media.isEmpty()
+    }
+
     private var setupComplete = false
 
     /** Errors preparing media for upload. */

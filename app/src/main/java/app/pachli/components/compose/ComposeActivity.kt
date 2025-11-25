@@ -777,15 +777,18 @@ class ComposeActivity :
             }
         }
 
-        // Determine whether the add attachment options are enabled.
+        // Enable/disable the "Add attachments" UI.
         lifecycleScope.launch {
-            viewModel.media.combine(viewModel.poll) { media, poll ->
-                val active = poll == null &&
-                    media.size < maxUploadMediaNumber &&
-                    (media.isEmpty() || media.first().type == QueuedMedia.Type.IMAGE)
-                enableButton(binding.composeAddAttachmentButton, active, active)
-                enablePollButton(media.isEmpty())
-            }.collect()
+            viewModel.canAttachMedia.collect {
+                enableButton(binding.composeAddAttachmentButton, it, it)
+            }
+        }
+
+        // Enable/disable the "Add poll" UI.
+        lifecycleScope.launch {
+            viewModel.canAttachPoll.collect {
+                enablePollButton(it)
+            }
         }
     }
 

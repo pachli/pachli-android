@@ -488,7 +488,7 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOpti
                 override val pronouns: String?,
             ) : ReferencingStatus.Status {
                 companion object {
-                    fun from(status: app.pachli.core.model.Status) = ReplyingTo(
+                    fun from(status: app.pachli.core.model.Status) = Quoting(
                         statusId = status.statusId,
                         avatarUrl = status.account.avatar,
                         isBot = status.account.bot,
