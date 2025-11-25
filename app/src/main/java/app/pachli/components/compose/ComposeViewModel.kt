@@ -279,6 +279,14 @@ class ComposeViewModel @AssistedInject constructor(
             media.isEmpty()
     }
 
+    /** True if the UI should show the "quote policy" button, otherwise false. */
+    val showQuotePolicy = accountFlow.map {
+        it.server.can(
+            ServerOperation.ORG_JOINMASTODON_ACCOUNT_QUOTE_POLICY,
+            ">=1.0.0".toConstraint(),
+        )
+    }
+
     private val _quotePolicy: MutableStateFlow<AccountSource.QuotePolicy?> = MutableStateFlow(null)
 
     /**
@@ -286,6 +294,8 @@ class ComposeViewModel @AssistedInject constructor(
      *
      * Initial value depends on the initial visibility, falling back to the account's
      * default quote policy. Is updated by changing [_quotePolicy].
+     *
+     * Emits null at start, which the collector should filter out.
      */
     val quotePolicy = accountFlow.combine(_quotePolicy) { account, qp ->
         qp ?: if (composeOptions?.visibility == Status.Visibility.DIRECT || composeOptions?.visibility == Status.Visibility.PRIVATE) {

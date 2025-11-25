@@ -467,7 +467,7 @@ class ComposeActivity :
                     }
 
                     (it.getSerializable(KEY_QUOTE_POLICY) as AccountSource.QuotePolicy).apply {
-                        setQuotePolicy(this)
+                        bindQuotePolicy(this)
                     }
 
                     it.getBoolean(KEY_CONTENT_WARNING_VISIBLE).apply {
@@ -751,8 +751,17 @@ class ComposeActivity :
         }
 
         lifecycleScope.launch {
-            // filterNotNull to drop the initial, unknown, value.
-            viewModel.quotePolicy.filterNotNull().collect(::setQuotePolicy)
+            // Show/hide the quote policy button depending on the server's support. If the server
+            // does support it then update the UI (filterNotNull to drop the initial, unknown,
+            // value).
+            combine(viewModel.showQuotePolicy, viewModel.quotePolicy.filterNotNull()) { show, policy ->
+                if (!show) {
+                    binding.composeChangeQuotePolicyButton.hide()
+                } else {
+                    binding.composeChangeQuotePolicyButton.show()
+                    bindQuotePolicy(policy)
+                }
+            }.collect()
         }
 
         lifecycleScope.launch {
@@ -1153,7 +1162,8 @@ class ComposeActivity :
         }
     }
 
-    private fun setQuotePolicy(quotePolicy: AccountSource.QuotePolicy) {
+    /** Show [quotePolicy] in the UI. */
+    private fun bindQuotePolicy(quotePolicy: AccountSource.QuotePolicy) {
         binding.quotePolicyBottomSheet.setQuotePolicy(quotePolicy)
         val iconRes = when (quotePolicy) {
             AccountSource.QuotePolicy.PUBLIC -> DR.drawable.ic_public_24dp
