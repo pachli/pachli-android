@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/compose_visibility_title"
+        android:text="@string/compose_quote_policy_title"
         android:textSize="?attr/status_text_medium"
         android:gravity="center_vertical"
         android:textStyle="normal|bold" />
@@ -21,44 +21,31 @@
         android:button="@drawable/ic_public_24dp"
         android:paddingStart="10dp"
         android:paddingEnd="0dp"
-        android:text="@string/visibility_public"
+        android:text="@string/pref_quote_policy_public"
         android:textColor="?android:textColorTertiary"
         app:buttonTint="@color/compound_button_color" />
 
     <RadioButton
-        android:id="@+id/unlistedRadioButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="48dp"
-        android:button="@drawable/ic_lock_open_24dp"
-        android:paddingStart="10dp"
-        android:paddingEnd="0dp"
-        android:text="@string/visibility_unlisted"
-        android:textColor="?android:textColorTertiary"
-        app:buttonTint="@color/compound_button_color" />
-
-    <RadioButton
-        android:id="@+id/privateRadioButton"
+        android:id="@+id/followersRadioButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="48dp"
         android:button="@drawable/ic_lock_24dp"
         android:paddingStart="10dp"
         android:paddingEnd="0dp"
-        android:text="@string/visibility_private"
+        android:text="@string/pref_quote_policy_followers"
         android:textColor="?android:textColorTertiary"
         app:buttonTint="@color/compound_button_color" />
 
     <RadioButton
-        android:id="@+id/directRadioButton"
+        android:id="@+id/nobodyRadioButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="48dp"
-        android:button="@drawable/ic_email_24dp"
+        android:button="@drawable/ic_hide_media_24dp"
         android:paddingStart="10dp"
         android:paddingEnd="0dp"
-        android:text="@string/visibility_direct"
+        android:text="@string/pref_quote_policy_nobody"
         android:textColor="?android:textColorTertiary"
         app:buttonTint="@color/compound_button_color" />
-
 </merge>

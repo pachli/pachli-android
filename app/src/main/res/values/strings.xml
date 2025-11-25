@@ -193,6 +193,7 @@
     <string name="action_access_drafts">Drafts</string>
     <string name="action_access_scheduled_posts">Scheduled posts</string>
     <string name="action_toggle_visibility">Post visibility</string>
+    <string name="action_toggle_quote_policy">Change quote policy</string>
     <string name="action_content_warning">Content warning</string>
     <string name="action_emoji_keyboard">Emoji keyboard</string>
     <string name="action_schedule_post">Schedule Post</string>
@@ -817,4 +818,7 @@
     <string name="detach_quote_dialog_title">Remove quote?</string>
     <string name="detach_quote_dialog_message">This will remove your quoted post from this post.\n\nYour original post is not deleted.\n\nThis cannot be undone.</string>
     <string name="detach_quote_error_fmt">Removing the quote failed: %1$s</string>
+
+    <string name="compose_visibility_title">Where is this sent?</string>
+    <string name="compose_quote_policy_title">Who can quote this post?</string>
 </resources>

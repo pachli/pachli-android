@@ -79,6 +79,7 @@ import app.pachli.components.compose.dialog.makeFocusDialog
 import app.pachli.components.compose.dialog.showAddPollDialog
 import app.pachli.components.compose.view.ComposeScheduleView
 import app.pachli.components.compose.view.ComposeVisibilityListener
+import app.pachli.components.compose.view.QuotePolicyListener
 import app.pachli.core.activity.BaseActivity
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
@@ -89,6 +90,7 @@ import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.R as DR
+import app.pachli.core.model.AccountSource
 import app.pachli.core.model.Attachment
 import app.pachli.core.model.Emoji
 import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_CHARACTER_LIMIT
@@ -147,6 +149,7 @@ import kotlin.math.min
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -160,6 +163,7 @@ import timber.log.Timber
 class ComposeActivity :
     BaseActivity(),
     ComposeVisibilityListener,
+    QuotePolicyListener,
     ComposeAutoCompleteAdapter.AutocompletionProvider,
     OnReceiveContentListener,
     ComposeScheduleView.OnTimeSetListener {
@@ -177,6 +181,7 @@ class ComposeActivity :
     )
 
     private lateinit var visibilityBehavior: BottomSheetBehavior<*>
+    private lateinit var quotePolicyBehavior: BottomSheetBehavior<*>
     private lateinit var addAttachmentBehavior: BottomSheetBehavior<*>
     private lateinit var emojiBehavior: BottomSheetBehavior<*>
     private lateinit var scheduleBehavior: BottomSheetBehavior<*>
@@ -461,6 +466,10 @@ class ComposeActivity :
                         setStatusVisibility(this)
                     }
 
+                    (it.getSerializable(KEY_QUOTE_POLICY) as AccountSource.QuotePolicy).apply {
+                        setQuotePolicy(this)
+                    }
+
                     it.getBoolean(KEY_CONTENT_WARNING_VISIBLE).apply {
                         viewModel.showContentWarningChanged(this)
                     }
@@ -742,6 +751,11 @@ class ComposeActivity :
         }
 
         lifecycleScope.launch {
+            // filterNotNull to drop the initial, unknown, value.
+            viewModel.quotePolicy.filterNotNull().collect(::setQuotePolicy)
+        }
+
+        lifecycleScope.launch {
             viewModel.media.collect { media ->
                 mediaAdapter.submitList(media)
 
@@ -811,8 +825,10 @@ class ComposeActivity :
 
     private fun setupButtons(pachliAccountId: Long) {
         binding.composeOptionsBottomSheet.listener = this
+        binding.quotePolicyBottomSheet.listener = this
 
         visibilityBehavior = BottomSheetBehavior.from(binding.composeOptionsBottomSheet)
+        quotePolicyBehavior = BottomSheetBehavior.from(binding.quotePolicyBottomSheet)
         addAttachmentBehavior = BottomSheetBehavior.from(binding.addMediaBottomSheet)
         scheduleBehavior = BottomSheetBehavior.from(binding.composeScheduleView)
         emojiBehavior = BottomSheetBehavior.from(binding.emojiPickerBottomSheet).apply {
@@ -854,6 +870,7 @@ class ComposeActivity :
             override fun onSlide(bottomSheet: View, slideOffset: Float) { }
         }
         visibilityBehavior.addBottomSheetCallback(bottomSheetCallback)
+        quotePolicyBehavior.addBottomSheetCallback(bottomSheetCallback)
         addAttachmentBehavior.addBottomSheetCallback(bottomSheetCallback)
         scheduleBehavior.addBottomSheetCallback(bottomSheetCallback)
         emojiBehavior.addBottomSheetCallback(bottomSheetCallback)
@@ -864,6 +881,7 @@ class ComposeActivity :
         binding.composeTootButton.setOnClickListener { onSendClick(pachliAccountId) }
         binding.composeAddAttachmentButton.setOnClickListener { onAddAttachmentClick() }
         binding.composeChangeVisibilityButton.setOnClickListener { onChangeVisibilityClick() }
+        binding.composeChangeQuotePolicyButton.setOnClickListener { onChangeQuotePolicyClick() }
         binding.composeContentWarningButton.setOnClickListener { onContentWarningChanged() }
         binding.composeEmojiButton.setOnClickListener { onEmojiClick() }
         binding.composeMarkSensitiveButton.setOnClickListener { onMarkSensitiveClick() }
@@ -1020,6 +1038,7 @@ class ComposeActivity :
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putParcelable(KEY_PHOTO_UPLOAD_URI, photoUploadUri)
         outState.putSerializable(KEY_VISIBILITY, viewModel.statusVisibility.value)
+        outState.putSerializable(KEY_QUOTE_POLICY, viewModel.quotePolicy.value)
         outState.putBoolean(KEY_CONTENT_WARNING_VISIBLE, viewModel.showContentWarning.value)
         outState.putSerializable(KEY_SCHEDULED_TIME, viewModel.scheduledAt.value)
         super.onSaveInstanceState(outState)
@@ -1067,7 +1086,7 @@ class ComposeActivity :
                     // Control is disabled, content warning forces media to be sensitive.
                     alpha = disabledAlphaFloat
                     isClickable = false
-                    setImageResource(R.drawable.ic_hide_media_24dp)
+                    setImageResource(DR.drawable.ic_hide_media_24dp)
                     drawable.clearColorFilter()
                 }
 
@@ -1075,7 +1094,7 @@ class ComposeActivity :
                     // Control is active, icon and colour highlight this.
                     alpha = 1F
                     isClickable = true
-                    setImageResource(R.drawable.ic_hide_media_24dp)
+                    setImageResource(DR.drawable.ic_hide_media_24dp)
                     setDrawableTint(this@ComposeActivity, drawable, android.R.attr.colorPrimary)
                 }
 
@@ -1126,12 +1145,22 @@ class ComposeActivity :
         binding.composeOptionsBottomSheet.setStatusVisibility(visibility)
         binding.composeTootButton.setStatusVisibility(binding.composeTootButton, visibility)
 
-        val iconRes = visibility.iconRes() ?: app.pachli.core.designsystem.R.drawable.ic_lock_open_24dp
+        val iconRes = visibility.iconRes() ?: DR.drawable.ic_lock_open_24dp
         binding.composeChangeVisibilityButton.setImageResource(iconRes)
         if (viewModel.editing) {
             // Can't update visibility on published status
             enableButton(binding.composeChangeVisibilityButton, clickable = false, colorActive = false)
         }
+    }
+
+    private fun setQuotePolicy(quotePolicy: AccountSource.QuotePolicy) {
+        binding.quotePolicyBottomSheet.setQuotePolicy(quotePolicy)
+        val iconRes = when (quotePolicy) {
+            AccountSource.QuotePolicy.PUBLIC -> DR.drawable.ic_public_24dp
+            AccountSource.QuotePolicy.FOLLOWERS -> DR.drawable.ic_lock_24dp
+            AccountSource.QuotePolicy.NOBODY -> DR.drawable.ic_hide_media_24dp
+        }
+        binding.composeChangeQuotePolicyButton.setImageResource(iconRes)
     }
 
     /**
@@ -1142,11 +1171,24 @@ class ComposeActivity :
     private fun onChangeVisibilityClick() {
         if (visibilityBehavior.state == BottomSheetBehavior.STATE_HIDDEN || visibilityBehavior.state == BottomSheetBehavior.STATE_COLLAPSED) {
             visibilityBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+            quotePolicyBehavior.state = BottomSheetBehavior.STATE_HIDDEN
             addAttachmentBehavior.state = BottomSheetBehavior.STATE_HIDDEN
             emojiBehavior.state = BottomSheetBehavior.STATE_HIDDEN
             scheduleBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
         } else {
             visibilityBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
+        }
+    }
+
+    private fun onChangeQuotePolicyClick() {
+        if (quotePolicyBehavior.state == BottomSheetBehavior.STATE_HIDDEN || quotePolicyBehavior.state == BottomSheetBehavior.STATE_COLLAPSED) {
+            quotePolicyBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+            visibilityBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+            addAttachmentBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+            emojiBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+            scheduleBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
+        } else {
+            quotePolicyBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
         }
     }
 
@@ -1175,6 +1217,7 @@ class ComposeActivity :
         if (scheduleBehavior.state == BottomSheetBehavior.STATE_HIDDEN || scheduleBehavior.state == BottomSheetBehavior.STATE_COLLAPSED) {
             scheduleBehavior.state = BottomSheetBehavior.STATE_EXPANDED
             visibilityBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+            quotePolicyBehavior.state = BottomSheetBehavior.STATE_HIDDEN
             addAttachmentBehavior.state = BottomSheetBehavior.STATE_HIDDEN
             emojiBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
         } else {
@@ -1191,6 +1234,7 @@ class ComposeActivity :
         if (emojiBehavior.state == BottomSheetBehavior.STATE_HIDDEN || emojiBehavior.state == BottomSheetBehavior.STATE_COLLAPSED) {
             emojiBehavior.state = BottomSheetBehavior.STATE_EXPANDED
             visibilityBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+            quotePolicyBehavior.state = BottomSheetBehavior.STATE_HIDDEN
             addAttachmentBehavior.state = BottomSheetBehavior.STATE_HIDDEN
             scheduleBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
         } else {
@@ -1207,6 +1251,7 @@ class ComposeActivity :
         if (addAttachmentBehavior.state == BottomSheetBehavior.STATE_HIDDEN || addAttachmentBehavior.state == BottomSheetBehavior.STATE_COLLAPSED) {
             addAttachmentBehavior.state = BottomSheetBehavior.STATE_EXPANDED
             visibilityBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+            quotePolicyBehavior.state = BottomSheetBehavior.STATE_HIDDEN
             emojiBehavior.state = BottomSheetBehavior.STATE_HIDDEN
             scheduleBehavior.setState(BottomSheetBehavior.STATE_HIDDEN)
         } else {
@@ -1289,6 +1334,11 @@ class ComposeActivity :
     override fun onVisibilityChanged(visibility: Status.Visibility) {
         viewModel.onStatusVisibilityChanged(visibility)
         visibilityBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+    }
+
+    override fun onQuotePolicyChanged(quotePolicy: AccountSource.QuotePolicy) {
+        viewModel.onQuotePolicyChanged(quotePolicy)
+        quotePolicyBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
     }
 
     @VisibleForTesting
@@ -1847,6 +1897,7 @@ class ComposeActivity :
 
         private const val KEY_PHOTO_UPLOAD_URI = "app.pachli.KEY_PHOTO_UPLOAD_URI"
         private const val KEY_VISIBILITY = "app.pachli.KEY_VISIBILITY"
+        private const val KEY_QUOTE_POLICY = "app.pachli.KEY_QUOTE_POLICY"
         private const val KEY_SCHEDULED_TIME = "app.pachli.KEY_SCHEDULED_TIME"
         private const val KEY_CONTENT_WARNING_VISIBLE = "app.pachli.KEY_CONTENT_WARNING_VISIBLE"
 

@@ -417,6 +417,24 @@
         app:paddingBottomSystemWindowInsets="true"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior" />
 
+    <app.pachli.components.compose.view.QuotePolicyView
+        android:id="@+id/quotePolicyBottomSheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorSurface"
+        android:elevation="12dp"
+        android:paddingStart="24dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="24dp"
+        android:paddingBottom="52dp"
+        app:behavior_hideable="true"
+        app:behavior_peekHeight="0dp"
+        app:paddingLeftSystemWindowInsets="true"
+        app:paddingTopSystemWindowInsets="true"
+        app:paddingRightSystemWindowInsets="true"
+        app:paddingBottomSystemWindowInsets="true"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior" />
+
     <app.pachli.components.compose.view.ComposeScheduleView
         android:id="@+id/composeScheduleView"
         android:layout_width="match_parent"
@@ -470,6 +488,18 @@
             android:padding="4dp"
             app:tint="?attr/colorPrimary"
             app:tooltipText="@string/action_toggle_visibility"
+            tools:src="@drawable/ic_public_24dp" />
+
+        <ImageButton
+            android:id="@+id/compose_change_quote_policy_button"
+            style="@style/AppImageButton"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="4dp"
+            android:contentDescription="@string/action_toggle_quote_policy"
+            android:padding="4dp"
+            app:tint="?attr/colorPrimary"
+            app:tooltipText="@string/action_toggle_quote_policy"
             tools:src="@drawable/ic_public_24dp" />
 
         <ImageButton

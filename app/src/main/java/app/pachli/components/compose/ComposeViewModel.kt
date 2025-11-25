@@ -43,6 +43,7 @@ import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.ServerRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.model.AccountSource
 import app.pachli.core.model.Attachment
 import app.pachli.core.model.NewPoll
 import app.pachli.core.model.ServerOperation
@@ -272,6 +273,16 @@ class ComposeViewModel @AssistedInject constructor(
             media.isEmpty()
     }
 
+    private val _quotePolicy: MutableStateFlow<AccountSource.QuotePolicy?> = MutableStateFlow(null)
+
+    /**
+     * Quote policy for this status. Starts as the default quote policy for this account,
+     * is updated via [_quotePolicy].
+     */
+    val quotePolicy = accountFlow.combine(_quotePolicy) { account, qp ->
+        qp ?: account.entity.defaultQuotePolicy
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
+
     private var setupComplete = false
 
     /** Errors preparing media for upload. */
@@ -422,6 +433,11 @@ class ComposeViewModel @AssistedInject constructor(
     /** Call this to change the status' visibility */
     fun onStatusVisibilityChanged(newVisibility: Status.Visibility) {
         _statusVisibility.value = newVisibility
+    }
+
+    /** Call this to change the status' quote policy. */
+    fun onQuotePolicyChanged(quotePolicy: AccountSource.QuotePolicy) {
+        _quotePolicy.value = quotePolicy
     }
 
     /** Call this to change the status' language */

@@ -35,8 +35,8 @@ enum class QuotePolicy(override val displayResource: Int, override val value: St
 
     fun iconRes(): Int = when (this) {
         PUBLIC -> app.pachli.core.designsystem.R.drawable.ic_public_24dp
-        FOLLOWERS -> app.pachli.core.designsystem.R.drawable.ic_lock_open_24dp
-        NOBODY -> app.pachli.core.designsystem.R.drawable.ic_lock_24dp
+        FOLLOWERS -> app.pachli.core.designsystem.R.drawable.ic_lock_24dp
+        NOBODY -> app.pachli.core.designsystem.R.drawable.ic_hide_media_24dp
     }
 }
 
