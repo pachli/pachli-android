@@ -57,7 +57,7 @@ import app.pachli.core.model.Status.Mention
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
-import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InReplyTo
+import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.ReferencingStatus
 import app.pachli.core.navigation.EditContentFilterActivityIntent
 import app.pachli.core.navigation.ReportActivityIntent
 import app.pachli.core.navigation.ViewMediaActivityIntent
@@ -247,7 +247,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
             requireContext(),
             status.pachliAccountId,
             ComposeOptions(
-                inReplyTo = InReplyTo.Status.from(status.actionable),
+                referencingStatus = ReferencingStatus.ReplyingTo.from(status.actionable),
                 replyVisibility = actionableStatus.visibility,
                 contentWarning = actionableStatus.spoilerText,
                 mentionedUsernames = mentionedUsernames,
@@ -485,7 +485,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
                                 pachliAccountId,
                                 ComposeOptions(
                                     content = redraftStatus.text.orEmpty(),
-                                    inReplyTo = redraftStatus.inReplyToId?.let { InReplyTo.Id(it) },
+                                    referencingStatus = redraftStatus.inReplyToId?.let { ReferencingStatus.ReplyId(it) },
                                     visibility = redraftStatus.visibility,
                                     contentWarning = redraftStatus.spoilerText,
                                     mediaAttachments = redraftStatus.attachments,
@@ -513,7 +513,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
                 val source = response.body
                 val composeOptions = ComposeOptions(
                     content = source.text,
-                    inReplyTo = status.inReplyToId?.let { InReplyTo.Id(it) },
+                    referencingStatus = status.inReplyToId?.let { ReferencingStatus.ReplyId(it) },
                     visibility = status.visibility,
                     contentWarning = source.spoilerText,
                     mediaAttachments = status.attachments,

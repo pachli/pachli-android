@@ -49,7 +49,7 @@ import app.pachli.core.model.ServerOperation
 import app.pachli.core.model.Status
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.ComposeKind
-import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InReplyTo
+import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.ReferencingStatus
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.preferences.ShowSelfUsername
@@ -136,22 +136,25 @@ class ComposeViewModel @AssistedInject constructor(
     /**
      * Flow of data about the in-reply-to status for this post.
      *
-     * - Ok(null) - this is not a reply
-     * - Ok(InReplyTo.Status) - this is a reply, with the status being replied to
-     * - Err() - error occurred fetching the parent
+     * - Ok(null) - another status is not referenced.
+     * - Ok(ReferencingStatus.ReplyingTo) - this is a reply, with the status being replied to.
+     * - Ok(ReferencingStatus.Quoting) - this is a quote, with the status being quoted.
+     * - Err() - error occurred fetching the parent.
      */
-    internal val inReplyTo = stateFlow(viewModelScope, Ok(Loadable.Loaded(null))) {
+    internal val referencingStatus = stateFlow(viewModelScope, Ok(Loadable.Loaded(null))) {
         loadReply.flatMapLatest {
             flow {
-                when (val i = composeOptions?.inReplyTo) {
-                    is InReplyTo.Id -> {
+                when (val i = composeOptions?.referencingStatus) {
+                    is ReferencingStatus.ReplyId -> {
                         emit(Ok(Loadable.Loading))
                         api.status(i.statusId).mapEither(
-                            { Loadable.Loaded(InReplyTo.Status.from(it.body.asModel())) },
+                            { Loadable.Loaded(ReferencingStatus.ReplyingTo.from(it.body.asModel())) },
                             { UiError.LoadInReplyToError(it) },
                         )
                     }
-                    is InReplyTo.Status -> Ok(Loadable.Loaded(i))
+
+                    is ReferencingStatus.ReplyingTo -> Ok(Loadable.Loaded(i))
+                    is ReferencingStatus.Quoting -> Ok(Loadable.Loaded(i))
                     null -> Ok(Loadable.Loaded(null))
                 }.also { emit(it) }
             }
@@ -487,7 +490,7 @@ class ComposeViewModel @AssistedInject constructor(
         draftHelper.saveDraft(
             draftId = draftId,
             pachliAccountId = pachliAccountId,
-            inReplyToId = composeOptions?.inReplyTo?.statusId,
+            inReplyToId = composeOptions?.referencingStatus?.statusId,
             content = content,
             contentWarning = contentWarning,
             sensitive = markMediaAsSensitive.value,
@@ -534,7 +537,7 @@ class ComposeViewModel @AssistedInject constructor(
             sensitive = attachedMedia.isNotEmpty() && (markMediaAsSensitive.value || showContentWarning.value),
             media = attachedMedia,
             scheduledAt = scheduledAt.value,
-            inReplyToId = composeOptions?.inReplyTo?.statusId,
+            inReplyToId = composeOptions?.referencingStatus?.statusId,
             poll = poll.value,
             replyingStatusContent = null,
             replyingStatusAuthorUsername = null,

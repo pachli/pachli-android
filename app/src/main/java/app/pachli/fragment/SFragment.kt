@@ -54,7 +54,7 @@ import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
-import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InReplyTo
+import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.ReferencingStatus
 import app.pachli.core.navigation.ReportActivityIntent
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.navigation.ViewMediaActivityIntent
@@ -147,7 +147,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
         ).apply { remove(loggedInUsername) }
 
         val composeOptions = ComposeOptions(
-            inReplyTo = InReplyTo.Status.from(status.actionableStatus),
+            referencingStatus = ReferencingStatus.ReplyingTo.from(status.actionableStatus),
             replyVisibility = actionableStatus.visibility,
             contentWarning = actionableStatus.spoilerText,
             mentionedUsernames = mentionedUsernames,
@@ -166,7 +166,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
         val actionableStatus = status.actionableStatus
 
         val composeOptions = ComposeOptions(
-            quotedStatus = ComposeOptions.QuotedStatus.Status.from(actionableStatus),
+            referencingStatus = ReferencingStatus.Quoting.from(actionableStatus),
             contentWarning = actionableStatus.spoilerText,
             language = actionableStatus.language,
             kind = ComposeOptions.ComposeKind.NEW,
@@ -500,7 +500,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                         val sourceStatus = it.body.asModel()
                         val composeOptions = ComposeOptions(
                             content = sourceStatus.text,
-                            inReplyTo = statusViewData.status.inReplyToId?.let { InReplyTo.Id(it) },
+                            referencingStatus = statusViewData.status.inReplyToId?.let { ReferencingStatus.ReplyId(it) },
                             visibility = sourceStatus.visibility,
                             contentWarning = sourceStatus.spoilerText,
                             mediaAttachments = sourceStatus.attachments,
@@ -532,7 +532,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                 val source = it.body
                 val composeOptions = ComposeOptions(
                     content = source.text,
-                    inReplyTo = InReplyTo.Status.from(status),
+                    referencingStatus = ReferencingStatus.ReplyingTo.from(status),
                     visibility = status.visibility,
                     contentWarning = source.spoilerText,
                     mediaAttachments = status.attachments,

@@ -96,8 +96,8 @@ import app.pachli.core.model.InstanceInfo.Companion.DEFAULT_MAX_MEDIA_ATTACHMENT
 import app.pachli.core.model.Status
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
-import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InReplyTo
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InitialCursorPosition
+import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.ReferencingStatus
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.preferences.AppTheme
 import app.pachli.core.preferences.PronounDisplay
@@ -397,7 +397,7 @@ class ComposeActivity :
 
         binding.replyLoadingErrorRetry.setOnClickListener { viewModel.reloadReply() }
 
-        lifecycleScope.launch { viewModel.inReplyTo.collect(::bindInReplyTo) }
+        lifecycleScope.launch { viewModel.referencingStatus.collect(::bindInReplyTo) }
 
         lifecycleScope.launch {
             viewModel.accountFlow.take(1).collect { account ->
@@ -530,17 +530,17 @@ class ComposeActivity :
     }
 
     /**
-     * Binds the [InReplyTo] data to the UI.
+     * Binds the [ReferencingStatus] data to the UI.
      *
-     * If there is no [InReplyTo] data the "reply" portion of the UI is hidden.
+     * If there is no [ReferencingStatus] data the "reply" portion of the UI is hidden.
      *
      * Otherwise, either show the reply, or, if loading the reply failed, show UI
      * that allows the user to retry fetching it.
      *
      * @param result
      */
-    private fun bindInReplyTo(result: Result<Loadable<InReplyTo.Status?>, UiError.LoadInReplyToError>) {
-        /** Hides the UI elements for an in-reply-to status. */
+    private fun bindInReplyTo(result: Result<Loadable<ReferencingStatus.Status?>, UiError.LoadInReplyToError>) {
+        /** Hides the UI elements for referencing a status. */
         fun hide() {
             binding.statusAvatar.hide()
             binding.statusAvatarInset.hide()
@@ -551,7 +551,7 @@ class ComposeActivity :
             binding.replyDivider.hide()
         }
 
-        /** Shows the UI elements for an in-reply-to status. */
+        /** Shows the UI elements for referencing a status. */
         fun show() {
             binding.statusAvatar.show()
             binding.statusAvatarInset.show()
@@ -573,7 +573,7 @@ class ComposeActivity :
 
         binding.replyLoadingError.hide()
 
-        val inReplyTo = when (loadable) {
+        val referencing = when (loadable) {
             is Loadable.Loaded -> loadable.data
             is Loadable.Loading -> {
                 hide()
@@ -585,14 +585,14 @@ class ComposeActivity :
         binding.replyProgressIndicator.hide()
 
         // No reply? Hide all the reply UI and return.
-        if (inReplyTo == null) {
+        if (referencing == null) {
             hide()
             return
         }
 
         show()
 
-        with(inReplyTo) {
+        with(referencing) {
             bindReplyAvatar(this)
 
             binding.statusDisplayName.text =
@@ -625,9 +625,9 @@ class ComposeActivity :
     }
 
     /** Loads the avatar of the account being replied to into the UI. */
-    private fun bindReplyAvatar(inReplyTo: InReplyTo.Status) {
+    private fun bindReplyAvatar(referencingStatus: ReferencingStatus.Status) {
         binding.statusAvatar.setPaddingRelative(0, 0, 0, 0)
-        if (viewModel.statusDisplayOptions.value.showBotOverlay && inReplyTo.isBot) {
+        if (viewModel.statusDisplayOptions.value.showBotOverlay && referencingStatus.isBot) {
             binding.statusAvatarInset.visibility = View.VISIBLE
             glide.load(DR.drawable.bot_badge)
                 .into(binding.statusAvatarInset)
@@ -637,7 +637,7 @@ class ComposeActivity :
 
         loadAvatar(
             glide,
-            inReplyTo.avatarUrl,
+            referencingStatus.avatarUrl,
             binding.statusAvatar,
             avatarRadius48dp,
             sharedPreferencesRepository.animateAvatars,

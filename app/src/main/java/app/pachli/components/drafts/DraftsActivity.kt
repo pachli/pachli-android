@@ -116,7 +116,7 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
                         draftId = draft.id,
                         content = draft.content,
                         contentWarning = draft.contentWarning,
-                        inReplyTo = ComposeOptions.InReplyTo.Status.from(status),
+                        referencingStatus = ComposeOptions.ReferencingStatus.ReplyingTo.from(status),
                         draftAttachments = draft.attachments,
                         poll = draft.poll,
                         sensitive = draft.sensitive,

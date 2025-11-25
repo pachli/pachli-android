@@ -57,7 +57,7 @@ import app.pachli.core.model.FilterAction
 import app.pachli.core.model.Notification
 import app.pachli.core.model.RelationshipSeveranceEvent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
-import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InReplyTo
+import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.ReferencingStatus
 import app.pachli.core.navigation.IntentRouterActivityIntent
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.buildDescription
@@ -450,7 +450,7 @@ private fun getStatusComposeIntent(
     val composeOptions = ComposeOptions(
         replyVisibility = replyVisibility,
         contentWarning = contentWarning,
-        inReplyTo = InReplyTo.Status.from(status),
+        referencingStatus = ReferencingStatus.ReplyingTo.from(status),
         mentionedUsernames = mentionedUsernames,
         modifiedInitialState = true,
         language = language,
