@@ -252,6 +252,8 @@ class AccountEntityForeignKeyTest {
             scheduledAt = null,
             language = null,
             statusId = null,
+            quotePolicy = null,
+            quotedStatusId = null,
         )
         draftDao.upsert(draft)
 
