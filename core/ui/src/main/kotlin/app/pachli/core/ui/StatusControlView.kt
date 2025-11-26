@@ -318,7 +318,14 @@ class StatusControlView @JvmOverloads constructor(
         val statusVisibility = status.visibility
 
         if (canReblog) _actions.add(R.id.action_reblog)
-        // TODO: Quote accessibility action here
+
+        // Add the action_quote only if both the status' visibility and quoteApproval
+        // allows quoting. The quoteApproval is ignored in the UI when showing the
+        // menu because that shows why the quote is disallowed. I suspect that's too
+        // much information to show in an accessibility action.
+        if (canQuote && status.quoteApproval.currentUser.canQuote()) {
+            _actions.add(R.id.action_quote)
+        }
 
         binding.reblogCount.visible(showCounts && canReblog)
 
@@ -372,6 +379,24 @@ class StatusControlView @JvmOverloads constructor(
         binding.reblog.setInactiveImage(resInactive)
     }
 
+    private fun Status.QuoteApproval.QuoteApprovalCurrentUser.labelRes() = when (this) {
+        Status.QuoteApproval.QuoteApprovalCurrentUser.AUTOMATIC -> R.string.action_quote
+        Status.QuoteApproval.QuoteApprovalCurrentUser.MANUAL -> R.string.action_request_quote
+        Status.QuoteApproval.QuoteApprovalCurrentUser.UNKNOWN,
+        Status.QuoteApproval.QuoteApprovalCurrentUser.DENIED,
+        -> R.string.label_author_denied_quote
+    }
+
+    private fun Status.QuoteApproval.QuoteApprovalCurrentUser.canQuote() = when (this) {
+        Status.QuoteApproval.QuoteApprovalCurrentUser.AUTOMATIC,
+        Status.QuoteApproval.QuoteApprovalCurrentUser.MANUAL,
+        -> true
+
+        Status.QuoteApproval.QuoteApprovalCurrentUser.UNKNOWN,
+        Status.QuoteApproval.QuoteApprovalCurrentUser.DENIED,
+        -> false
+    }
+
     /**
      * Shows a popup menu for reblog-like actions to perform on the status.
      *
@@ -383,14 +408,10 @@ class StatusControlView @JvmOverloads constructor(
      * @param onQuoteClick Called if the user wants to quote the status.
      */
     private fun showReblogMenu(status: Status, reblog: Boolean, onReblogClick: OnReblogClick?, onQuoteClick: OnQuoteClick?) {
-        val (canQuote, quoteLabel) = when (status.quoteApproval.currentUser) {
-            Status.QuoteApproval.QuoteApprovalCurrentUser.UNKNOWN -> Pair(false, R.string.label_author_denied_quote)
-            Status.QuoteApproval.QuoteApprovalCurrentUser.AUTOMATIC -> Pair(true, R.string.action_quote)
-            Status.QuoteApproval.QuoteApprovalCurrentUser.MANUAL -> Pair(true, R.string.action_request_quote)
-            Status.QuoteApproval.QuoteApprovalCurrentUser.DENIED -> Pair(false, R.string.label_author_denied_quote)
-        }
+        val canQuote = status.quoteApproval.currentUser.canQuote()
+        val quoteLabel = status.quoteApproval.currentUser.labelRes()
 
-        val canReblog = status.visibility.allowsReblog
+        val canReblog = status.visibility.allowsReblog && onReblogClick != null
 
         PopupMenu(context, binding.reblog).apply {
             inflate(R.menu.status_reblog)
@@ -399,8 +420,8 @@ class StatusControlView @JvmOverloads constructor(
                 isEnabled = canQuote
                 setTitle(quoteLabel)
             }
-            menu.findItem(R.id.menu_action_reblog).isVisible = reblog && canReblog && onReblogClick != null
-            menu.findItem(R.id.menu_action_unreblog).isVisible = !reblog && canReblog && onReblogClick != null
+            menu.findItem(R.id.menu_action_reblog).isVisible = reblog && canReblog
+            menu.findItem(R.id.menu_action_unreblog).isVisible = !reblog && canReblog
             setOnMenuItemClickListener { item ->
                 return@setOnMenuItemClickListener when (item.itemId) {
                     R.id.menu_action_quote -> {
