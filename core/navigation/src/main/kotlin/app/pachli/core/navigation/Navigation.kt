@@ -355,8 +355,13 @@ class IntentRouterActivityIntent(context: Context, pachliAccountId: Long) : Inte
  */
 class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOptions: ComposeOptions? = null) : Intent() {
     /**
+     * @property referencingStatus The status the user is referencing while
+     * composing. This could be a status they are replying to, or a status
+     * they are quoting.
      * @property statusId If editing an existing status, the ID of the status
      * being edited.
+     * @property quotePolicy Initial quote policy when composing. If null the
+     * user's default quote policy is used.
      */
     @Parcelize
     data class ComposeOptions(

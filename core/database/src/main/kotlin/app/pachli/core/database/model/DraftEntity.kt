@@ -31,7 +31,7 @@ import java.util.Date
 
 /**
  * @property quotePolicy The quote policy the user set while editing the draft.
- * @property quotedStatusId If non-null, the ID of the status of the user was
+ * @property quotedStatusId If non-null, the ID of the status the user was
  * quoting while editing the draft.
  */
 @Entity(

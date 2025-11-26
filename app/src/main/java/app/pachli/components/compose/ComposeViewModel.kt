@@ -137,18 +137,18 @@ class ComposeViewModel @AssistedInject constructor(
     private val effectiveContentWarning
         get() = if (showContentWarning.value) contentWarning else ""
 
-    private val loadReply = MutableSharedFlow<Unit>(replay = 1).apply { tryEmit(Unit) }
+    private val loadReferencedStatus = MutableSharedFlow<Unit>(replay = 1).apply { tryEmit(Unit) }
 
     /**
-     * Flow of data about the in-reply-to status for this post.
+     * Flow of data about the referenced status for this post.
      *
      * - Ok(null) - another status is not referenced.
      * - Ok(ReferencingStatus.ReplyingTo) - this is a reply, with the status being replied to.
      * - Ok(ReferencingStatus.Quoting) - this is a quote, with the status being quoted.
-     * - Err() - error occurred fetching the parent.
+     * - Err() - error occurred fetching the status being referenced.
      */
     internal val referencingStatus = stateFlow(viewModelScope, Ok(Loadable.Loaded(null))) {
-        loadReply.flatMapLatest {
+        loadReferencedStatus.flatMapLatest {
             flow {
                 when (val i = composeOptions?.referencingStatus) {
                     is ReferencingStatus.ReplyId -> {
@@ -175,8 +175,8 @@ class ComposeViewModel @AssistedInject constructor(
         }.flowWhileShared(SharingStarted.WhileSubscribed(5000))
     }
 
-    /** Triggers a reload of the status being replied to. */
-    internal fun reloadReply() = viewModelScope.launch { loadReply.emit(Unit) }
+    /** Triggers a reload of the referenced status. */
+    internal fun reloadReferencedStatus() = viewModelScope.launch { loadReferencedStatus.emit(Unit) }
 
     /** The initial content for this status, before any edits */
     internal var initialContent: String = composeOptions?.content.orEmpty()
@@ -575,7 +575,7 @@ class ComposeViewModel @AssistedInject constructor(
         val inReplyToId = (composeOptions?.referencingStatus as? ReferencingStatus.ReplyingTo)?.statusId
             ?: (composeOptions?.referencingStatus as? ReferencingStatus.ReplyId)?.statusId
 
-        val quoteServerId = (composeOptions?.referencingStatus as? ReferencingStatus.Quoting)?.statusId
+        val quotedStatusId = (composeOptions?.referencingStatus as? ReferencingStatus.Quoting)?.statusId
             ?: (composeOptions?.referencingStatus as? ReferencingStatus.QuoteId)?.statusId
 
         draftHelper.saveDraft(
@@ -596,7 +596,7 @@ class ComposeViewModel @AssistedInject constructor(
             language = language,
             statusId = originalStatusId,
             quotePolicy = quotePolicy.value,
-            quotedStatusId = quoteServerId,
+            quotedStatusId = quotedStatusId,
         )
     }
 

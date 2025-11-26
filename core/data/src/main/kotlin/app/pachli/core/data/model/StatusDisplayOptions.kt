@@ -28,6 +28,7 @@ import app.pachli.core.preferences.PronounDisplay
  * If false, the counts of reblogs and favourites are hidden, and the
  *  count of replies is set to either "0", "1", or "1+" so the user can
  *  tell if there are replies if they click through.
+ * @property canQuote True if the server supports sending quote posts.
  * @property pronounDisplay How to display account pronouns.
  */
 data class StatusDisplayOptions(

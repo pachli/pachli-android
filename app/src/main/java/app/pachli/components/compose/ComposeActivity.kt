@@ -407,7 +407,7 @@ class ComposeActivity :
             binding.composeOptionsBottomSheet.disableVisibility(Status.Visibility.DIRECT)
         }
 
-        binding.replyLoadingErrorRetry.setOnClickListener { viewModel.reloadReply() }
+        binding.replyLoadingErrorRetry.setOnClickListener { viewModel.reloadReferencedStatus() }
 
         lifecycleScope.launch { viewModel.referencingStatus.collect(::bindInReplyTo) }
 
@@ -600,7 +600,7 @@ class ComposeActivity :
 
         binding.replyProgressIndicator.hide()
 
-        // No reply? Hide all the reply UI and return.
+        // No referencing status? Hide all the relevant UI and return.
         if (referencing == null) {
             hide()
             return
@@ -640,7 +640,7 @@ class ComposeActivity :
         }
     }
 
-    /** Loads the avatar of the account being replied to into the UI. */
+    /** Loads the avatar of the account being referenced into the UI. */
     private fun bindReplyAvatar(referencingStatus: ReferencingStatus.Status) {
         binding.statusAvatar.setPaddingRelative(0, 0, 0, 0)
         if (viewModel.statusDisplayOptions.value.showBotOverlay && referencingStatus.isBot) {
@@ -1359,6 +1359,9 @@ class ComposeActivity :
             return
         }
 
+        // Visibility is PRIVATE or DIRECT. If the quotePolicy is already NOBODY
+        // then the new visibility is fine, and the quotePolicy should be fixed by
+        // disabling the button.
         if (quotePolicy == AccountSource.QuotePolicy.NOBODY) {
             enableButton(binding.composeChangeQuotePolicyButton, clickable = false, colorActive = true)
             viewModel.onStatusVisibilityChanged(visibility)
@@ -1366,7 +1369,7 @@ class ComposeActivity :
             return
         }
 
-        // Visibility is PRIVATE or DIRECT and the QuotePolicy is not NOBODY. Warn
+        // Visibility is PRIVATE or DIRECT and the quotePolicy is not NOBODY. Warn
         // the user the QuotePolicy needs to be changed. Either they tap OK, and
         // the policy is changed and the sheet is dismissed, or they cancel and
         // the sheet stays open so they can pick a different visibility.

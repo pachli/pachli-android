@@ -116,8 +116,6 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
             quotePolicy = draft.quotePolicy,
         )
 
-        Timber.d("Sending compose options with approval: ${draft.quotePolicy}")
-
         if (draft.inReplyToId == null && draft.quotedStatusId == null) {
             startActivity(ComposeActivityIntent(this, intent.pachliAccountId, composeOptions))
             return

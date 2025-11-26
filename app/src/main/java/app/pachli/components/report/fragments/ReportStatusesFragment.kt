@@ -299,7 +299,6 @@ class ReportStatusesFragment :
     override fun onReply(viewData: IStatusViewData) = Unit
     override fun onReblog(viewData: IStatusViewData, reblog: Boolean) = Unit
     override fun onQuote(viewData: IStatusViewData) = Unit
-
     override fun onFavourite(viewData: IStatusViewData, favourite: Boolean) = Unit
     override fun onBookmark(viewData: IStatusViewData, bookmark: Boolean) = Unit
     override fun onMore(view: View, viewData: IStatusViewData) = Unit

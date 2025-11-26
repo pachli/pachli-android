@@ -43,6 +43,7 @@ class ComposeOptionsView @JvmOverloads constructor(context: Context, attrs: Attr
         }
     }
 
+    /** Disable the UI controls for [visibility]. */
     fun disableVisibility(visibility: Status.Visibility) {
         when (visibility) {
             Status.Visibility.UNKNOWN -> Unit
