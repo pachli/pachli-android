@@ -70,7 +70,7 @@ data class AccountSource(
         /** Automatically quoteable by anyone. */
         PUBLIC,
 
-        /** Automatically quoteble by followers. */
+        /** Automatically quoteable by followers. */
         FOLLOWERS,
 
         /** No one can quote. */
