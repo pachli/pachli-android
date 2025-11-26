@@ -45,6 +45,7 @@
             android:paddingRight="16dp"
             android:paddingTop="16dp"
             android:text="@string/error_network"
+            android:textAlignment="center"
             android:textSize="?attr/status_text_medium" />
 
         <Button
