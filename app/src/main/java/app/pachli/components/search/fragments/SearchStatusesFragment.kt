@@ -209,7 +209,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
     }
 
     override fun onQuote(viewData: IStatusViewData) {
-        TODO("Not yet implemented")
+        quote(viewData.pachliAccountId, viewData.actionable)
     }
 
     override fun onEditFilterById(pachliAccountId: Long, filterId: String) {
@@ -256,6 +256,23 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
             ),
         )
         startActivityWithDefaultTransition(intent)
+    }
+
+    /**
+     * Launches ComposeActivity to quote [status].
+     */
+    private fun quote(pachliAccountId: Long, status: Status) {
+        val actionableStatus = status.actionableStatus
+
+        val composeOptions = ComposeOptions(
+            referencingStatus = ReferencingStatus.Quoting.from(actionableStatus),
+            contentWarning = actionableStatus.spoilerText,
+            language = actionableStatus.language,
+            kind = ComposeOptions.ComposeKind.NEW,
+        )
+
+        val intent = ComposeActivityIntent(requireContext(), pachliAccountId, composeOptions)
+        startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
     }
 
     override fun onMore(view: View, statusViewData: IStatusViewData) {
