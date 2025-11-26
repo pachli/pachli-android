@@ -25,4 +25,6 @@ data class StatusParams(
     val inReplyToId: String?,
     val poll: NewPoll?,
     val language: String? = null,
+    val quotedStatusId: String?,
+    val quotePolicy: AccountSource.QuotePolicy?,
 )
