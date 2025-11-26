@@ -24,6 +24,7 @@ import androidx.core.net.toUri
 import app.pachli.BuildConfig
 import app.pachli.core.database.dao.DraftDao
 import app.pachli.core.database.model.DraftEntity
+import app.pachli.core.model.AccountSource
 import app.pachli.core.model.Attachment
 import app.pachli.core.model.DraftAttachment
 import app.pachli.core.model.NewPoll
@@ -66,6 +67,8 @@ class DraftHelper @Inject constructor(
         scheduledAt: Date?,
         language: String?,
         statusId: String?,
+        quotePolicy: AccountSource.QuotePolicy?,
+        quotedStatusId: String?,
     ) = withContext(Dispatchers.IO) {
         val externalFilesDir = context.getExternalFilesDir("Pachli")
 
@@ -127,6 +130,8 @@ class DraftHelper @Inject constructor(
             scheduledAt = scheduledAt,
             language = language,
             statusId = statusId,
+            quotePolicy = quotePolicy,
+            quotedStatusId = quotedStatusId,
         )
 
         draftDao.upsert(draft)

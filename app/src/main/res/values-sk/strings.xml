@@ -510,7 +510,6 @@
         <item quantity="few">Nemôžeš nahrať viac než %1$d mediálne prílohy.</item>
         <item quantity="other">Nemôžeš nahrať viac než %1$d mediálnych príloh.</item>
     </plurals>
-    <string name="drafts_failed_loading_reply">Nepodarilo sa načítať informácie o odpovedi</string>
     <string name="announcement_date">%1$s %2$s</string>
     <string name="saving_draft">Koncept sa ukladá…</string>
     <string name="status_edit_info">Upravené: %1$s</string>

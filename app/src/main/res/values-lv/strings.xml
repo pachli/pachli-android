@@ -326,7 +326,6 @@
     <string name="notification_sign_up_description">Paziņojumi par jauniem lietotājiem</string>
     <string name="wellbeing_hide_stats_profile">Slēpt profilu kvantitatīvo statistiku</string>
     <string name="wellbeing_hide_stats_posts">Paslēpt ierakstu kvantitatīvo uzskaiti</string>
-    <string name="drafts_failed_loading_reply">Neizdevās ielādēt atbildes informāciju</string>
     <string name="action_delete_and_redraft">Dzēst un sākt no jauna</string>
     <string name="dialog_message_cancel_follow_request">Noraidīt sekošanas pieprasījumu?</string>
     <string name="dialog_redraft_post_warning">Izdzēst šo ierakstu un sākt no jauna?</string>

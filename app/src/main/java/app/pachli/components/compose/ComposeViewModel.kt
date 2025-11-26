@@ -43,13 +43,14 @@ import app.pachli.core.data.repository.PachliAccount
 import app.pachli.core.data.repository.ServerRepository
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.database.model.AccountEntity
+import app.pachli.core.model.AccountSource
 import app.pachli.core.model.Attachment
 import app.pachli.core.model.NewPoll
 import app.pachli.core.model.ServerOperation
 import app.pachli.core.model.Status
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.ComposeKind
-import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InReplyTo
+import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.ReferencingStatus
 import app.pachli.core.network.retrofit.MastodonApi
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.preferences.ShowSelfUsername
@@ -98,6 +99,11 @@ internal sealed class UiError(
     data class LoadInReplyToError(override val cause: PachliError) : UiError(
         R.string.ui_error_reload_reply_fmt,
     )
+
+    /** Error occurred loading the status this is quoting. */
+    data class LoadQuoteError(override val cause: PachliError) : UiError(
+        R.string.ui_error_reload_reply_fmt,
+    )
 }
 
 @HiltViewModel(assistedFactory = ComposeViewModel.Factory::class)
@@ -131,35 +137,46 @@ class ComposeViewModel @AssistedInject constructor(
     private val effectiveContentWarning
         get() = if (showContentWarning.value) contentWarning else ""
 
-    private val loadReply = MutableSharedFlow<Unit>(replay = 1).apply { tryEmit(Unit) }
+    private val loadReferencedStatus = MutableSharedFlow<Unit>(replay = 1).apply { tryEmit(Unit) }
 
     /**
-     * Flow of data about the in-reply-to status for this post.
+     * Flow of data about the referenced status for this post.
      *
-     * - Ok(null) - this is not a reply
-     * - Ok(InReplyTo.Status) - this is a reply, with the status being replied to
-     * - Err() - error occurred fetching the parent
+     * - Ok(null) - another status is not referenced.
+     * - Ok(ReferencingStatus.ReplyingTo) - this is a reply, with the status being replied to.
+     * - Ok(ReferencingStatus.Quoting) - this is a quote, with the status being quoted.
+     * - Err() - error occurred fetching the status being referenced.
      */
-    internal val inReplyTo = stateFlow(viewModelScope, Ok(Loadable.Loaded(null))) {
-        loadReply.flatMapLatest {
+    internal val referencingStatus = stateFlow(viewModelScope, Ok(Loadable.Loaded(null))) {
+        loadReferencedStatus.flatMapLatest {
             flow {
-                when (val i = composeOptions?.inReplyTo) {
-                    is InReplyTo.Id -> {
+                when (val i = composeOptions?.referencingStatus) {
+                    is ReferencingStatus.ReplyId -> {
                         emit(Ok(Loadable.Loading))
                         api.status(i.statusId).mapEither(
-                            { Loadable.Loaded(InReplyTo.Status.from(it.body.asModel())) },
+                            { Loadable.Loaded(ReferencingStatus.ReplyingTo.from(it.body.asModel())) },
                             { UiError.LoadInReplyToError(it) },
                         )
                     }
-                    is InReplyTo.Status -> Ok(Loadable.Loaded(i))
+
+                    is ReferencingStatus.QuoteId -> {
+                        emit(Ok(Loadable.Loading))
+                        api.status(i.statusId).mapEither(
+                            { Loadable.Loaded(ReferencingStatus.Quoting.from(it.body.asModel())) },
+                            { UiError.LoadQuoteError(it) },
+                        )
+                    }
+
+                    is ReferencingStatus.ReplyingTo -> Ok(Loadable.Loaded(i))
+                    is ReferencingStatus.Quoting -> Ok(Loadable.Loaded(i))
                     null -> Ok(Loadable.Loaded(null))
                 }.also { emit(it) }
             }
         }.flowWhileShared(SharingStarted.WhileSubscribed(5000))
     }
 
-    /** Triggers a reload of the status being replied to. */
-    internal fun reloadReply() = viewModelScope.launch { loadReply.emit(Unit) }
+    /** Triggers a reload of the referenced status. */
+    internal fun reloadReferencedStatus() = viewModelScope.launch { loadReferencedStatus.emit(Unit) }
 
     /** The initial content for this status, before any edits */
     internal var initialContent: String = composeOptions?.content.orEmpty()
@@ -193,14 +210,20 @@ class ComposeViewModel @AssistedInject constructor(
     private val _markMediaAsSensitive: MutableStateFlow<Boolean?> = MutableStateFlow(composeOptions?.sensitive)
     val markMediaAsSensitive = accountFlow.combine(_markMediaAsSensitive) { account, sens ->
         sens ?: account.entity.defaultMediaSensitivity
-    }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
 
     /** Flow of changes to statusDisplayOptions, for use by the UI */
     val statusDisplayOptions = statusDisplayOptionsRepository.flow
 
     private val _statusVisibility: MutableStateFlow<Status.Visibility> = MutableStateFlow(Status.Visibility.UNKNOWN)
-    val statusVisibility = _statusVisibility.asStateFlow()
+    val statusVisibility = accountFlow.combine(_statusVisibility) { account, vis ->
+        if (vis == Status.Visibility.UNKNOWN) {
+            account.entity.defaultPostPrivacy
+        } else {
+            vis
+        }
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), Status.Visibility.UNKNOWN)
+
     private val _showContentWarning: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val showContentWarning = _showContentWarning.asStateFlow()
     private val _poll: MutableStateFlow<NewPoll?> = MutableStateFlow(null)
@@ -243,6 +266,66 @@ class ComposeViewModel @AssistedInject constructor(
             ShowSelfUsername.DISAMBIGUATE -> accountManager.accountsFlow.value.size > 1
             ShowSelfUsername.NEVER -> false
         }
+
+    /**
+     * Flow of Boolean, indicating whether media can be attached.
+     *
+     * Media can be attached as long as:
+     *
+     * 1. This is not quoting another status.
+     * 2. A poll is not already attached.
+     * 3. The number of existing attachments hasn't exceeded the server limit.
+     *
+     * In addition, multiple attachments can only be added if they are all images.
+     */
+    val canAttachMedia = combine(instanceInfo, media, poll) { instanceInfo, media, poll ->
+        composeOptions?.referencingStatus?.isQuoting() == false &&
+            poll == null &&
+            media.size < instanceInfo.maxMediaAttachments &&
+            (media.isEmpty() || media.first().type == QueuedMedia.Type.IMAGE)
+    }
+
+    /**
+     * Flow of Boolean, indicating whether a poll can be attached.
+     *
+     * Poll can be attached as long as:
+     *
+     * 1. This is not quoting another status.
+     * 2. A poll is not already attached.
+     * 3. There are no media attachments.
+     */
+    val canAttachPoll = combine(poll, media) { poll, media ->
+        composeOptions?.referencingStatus?.isQuoting() == false &&
+            poll == null &&
+            media.isEmpty()
+    }
+
+    /** True if the UI should show the "quote policy" button, otherwise false. */
+    val showQuotePolicy = accountFlow.map {
+        it.server.can(
+            ServerOperation.ORG_JOINMASTODON_ACCOUNT_QUOTE_POLICY,
+            ">=1.0.0".toConstraint(),
+        )
+    }
+
+    private val _quotePolicy: MutableStateFlow<AccountSource.QuotePolicy?> = MutableStateFlow(null)
+
+    /**
+     * Quote policy for this status.
+     *
+     * Initial value depends on the initial visibility, falling back to the account's
+     * default quote policy. Is updated by changing [_quotePolicy].
+     *
+     * Emits null at start, which the collector should filter out.
+     */
+    val quotePolicy = accountFlow.combine(_quotePolicy) { account, qp ->
+        when {
+            qp != null -> qp
+            composeOptions?.quotePolicy != null -> composeOptions.quotePolicy
+            composeOptions?.visibility == Status.Visibility.DIRECT || composeOptions?.visibility == Status.Visibility.PRIVATE -> AccountSource.QuotePolicy.NOBODY
+            else -> account.entity.defaultQuotePolicy
+        }
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
 
     private var setupComplete = false
 
@@ -396,6 +479,11 @@ class ComposeViewModel @AssistedInject constructor(
         _statusVisibility.value = newVisibility
     }
 
+    /** Call this to change the status' quote policy. */
+    fun onQuotePolicyChanged(quotePolicy: AccountSource.QuotePolicy) {
+        _quotePolicy.value = quotePolicy
+    }
+
     /** Call this to change the status' language */
     fun onLanguageChanged(newLanguage: String) {
         language = newLanguage
@@ -484,10 +572,16 @@ class ComposeViewModel @AssistedInject constructor(
             mediaFocus.add(item.focus)
         }
 
+        val inReplyToId = (composeOptions?.referencingStatus as? ReferencingStatus.ReplyingTo)?.statusId
+            ?: (composeOptions?.referencingStatus as? ReferencingStatus.ReplyId)?.statusId
+
+        val quotedStatusId = (composeOptions?.referencingStatus as? ReferencingStatus.Quoting)?.statusId
+            ?: (composeOptions?.referencingStatus as? ReferencingStatus.QuoteId)?.statusId
+
         draftHelper.saveDraft(
             draftId = draftId,
             pachliAccountId = pachliAccountId,
-            inReplyToId = composeOptions?.inReplyTo?.statusId,
+            inReplyToId = inReplyToId,
             content = content,
             contentWarning = contentWarning,
             sensitive = markMediaAsSensitive.value,
@@ -501,6 +595,8 @@ class ComposeViewModel @AssistedInject constructor(
             scheduledAt = scheduledAt.value,
             language = language,
             statusId = originalStatusId,
+            quotePolicy = quotePolicy.value,
+            quotedStatusId = quotedStatusId,
         )
     }
 
@@ -534,7 +630,7 @@ class ComposeViewModel @AssistedInject constructor(
             sensitive = attachedMedia.isNotEmpty() && (markMediaAsSensitive.value || showContentWarning.value),
             media = attachedMedia,
             scheduledAt = scheduledAt.value,
-            inReplyToId = composeOptions?.inReplyTo?.statusId,
+            inReplyToId = (composeOptions?.referencingStatus as? ReferencingStatus.ReplyingTo)?.statusId,
             poll = poll.value,
             replyingStatusContent = null,
             replyingStatusAuthorUsername = null,
@@ -544,6 +640,8 @@ class ComposeViewModel @AssistedInject constructor(
             retries = 0,
             language = language,
             statusId = originalStatusId,
+            quotedStatusId = (composeOptions?.referencingStatus as? ReferencingStatus.Quoting)?.statusId,
+            quotePolicy = quotePolicy.value,
         )
 
         serviceClient.sendToot(tootToSend)

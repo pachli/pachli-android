@@ -17,6 +17,10 @@
 
 package app.pachli.core.model
 
+/**
+ * @property quotedStatusId If quoting, the ID of the status being quoted.
+ * @property quotePolicy The quote policy that applies to this status.
+ */
 data class StatusParams(
     val text: String,
     val sensitive: Boolean?,
@@ -25,4 +29,6 @@ data class StatusParams(
     val inReplyToId: String?,
     val poll: NewPoll?,
     val language: String? = null,
+    val quotedStatusId: String?,
+    val quotePolicy: AccountSource.QuotePolicy?,
 )

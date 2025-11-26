@@ -489,7 +489,6 @@
     <string name="pref_title_confirm_reblogs">Küsi enne hoo lisamist kinnitust</string>
     <string name="pref_title_confirm_favourites">Küsi enne lemmikuks märkimist kinnitust</string>
     <string name="pref_title_confirm_status_language">Enne postitamist kontrolli postituse keelt</string>
-    <string name="drafts_failed_loading_reply">Vastuse teabe laadimine ei õnnestunud</string>
     <string name="draft_deleted">Kavand on kustutatud</string>
     <string name="drafts_post_reply_removed">See postitus on kustutatud, millele olid vastusekavandit koostamas</string>
     <string name="follow_requests_info">Kui sinu kasutajakonto pole lukustatud, siis arvas %1$s koduserveri tiim, et sa sooviksid nende kasutajakontode liitumispalveid käsitsi kinnitada.</string>

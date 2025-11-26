@@ -150,6 +150,16 @@ data class Status(
                 PRIVATE, DIRECT, UNKNOWN -> false
             }
 
+        /**
+         * @return True if statuses with this visibility can be quoted, otherwise
+         * false
+         */
+        val allowsQuote: Boolean
+            get() = when (this) {
+                PUBLIC, UNLISTED, PRIVATE -> true
+                UNKNOWN, DIRECT -> false
+            }
+
         companion object {
             @JvmStatic
             fun getOrUnknown(index: Int) = Enum.getOrElse<Visibility>(index) { UNKNOWN }
@@ -224,6 +234,11 @@ data class Status(
         ) : Quote
     }
 
+    /**
+     * @property automatic Accounts that are automatically approved to quote.
+     * @property manual Accounts that require manual approval to quote.
+     * @property currentUser Approval policy for the authenticated user.
+     */
     // JSON adapter for database serialisation.
     @JsonClass(generateAdapter = true)
     data class QuoteApproval(
@@ -234,24 +249,42 @@ data class Status(
         /** Possible values for [QuoteApproval.automatic]. */
         enum class QuoteApprovalAutomatic {
             UNSUPPORTED_POLICY,
+
+            /** All accounts are automatically approved to quote. */
             PUBLIC,
+
+            /** Followers are automatically approved to quote. */
             FOLLOWERS,
+
+            /** Following accounts are automatically approved to quote. */
             FOLLOWING,
         }
 
         /** Possible values for [QuoteApproval.manual]. */
         enum class QuoteApprovalManual {
             UNSUPPORTED_POLICY,
+
+            /** Public accounts require manual approval to quote. */
             PUBLIC,
+
+            /** Follower accounts require manual approval to quote. */
             FOLLOWERS,
+
+            /** Following accounts require manual approval to quote. */
             FOLLOWING,
         }
 
         /** Possible values for [QuoteApproval.currentUser]. */
         enum class QuoteApprovalCurrentUser {
             UNKNOWN,
+
+            /** The current user is automatically approved to quote. */
             AUTOMATIC,
+
+            /** The current user requires manual approval to quote. */
             MANUAL,
+
+            /** The current user cannot quote this post. */
             DENIED,
         }
     }

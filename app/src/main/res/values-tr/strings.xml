@@ -329,7 +329,6 @@
     <string name="title_followed_hashtags">Takip edilen etiketler</string>
     <string name="notification_sign_up_format">%s kaydol</string>
     <string name="action_unbookmark">Yerimini kaldır</string>
-    <string name="drafts_failed_loading_reply">Yanıt bilgisi yüklenemedi</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="one">adetten fazla %1$d medya eki yükleyemezsiniz.</item>
         <item quantity="other">adetten fazla %1$d medya ekleri yükleyemezsiniz.</item>

@@ -18,6 +18,9 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/menu_action_quote"
+        android:title="@string/action_quote" />
+    <item
         android:id="@+id/menu_action_reblog"
         android:icon="@drawable/ic_reblog_24dp"
         android:title="@string/action_reblog" />

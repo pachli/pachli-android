@@ -264,7 +264,6 @@
     <string name="error_no_web_browser_found">Неуспешно намиране на уеб браузър, който да се използва.</string>
     <string name="error_empty">Това не може да бъде празно.</string>
     <string name="draft_deleted">Черновата е изтрита</string>
-    <string name="drafts_failed_loading_reply">Неуспешно зареждане на информация за отговор</string>
     <string name="drafts_post_failed_to_send">Тази публикация не успя да се изпрати!</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="other">Не можете да качите повече от %1$d мултимедийни прикачени файлове.</item>

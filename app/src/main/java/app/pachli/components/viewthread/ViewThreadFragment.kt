@@ -293,7 +293,7 @@ class ViewThreadFragment :
         actionReveal.setIcon(
             when (revealButtonState) {
                 RevealButtonState.REVEAL -> app.pachli.core.ui.R.drawable.ic_eye_24dp
-                else -> R.drawable.ic_hide_media_24dp
+                else -> DR.drawable.ic_hide_media_24dp
             },
         )
 
@@ -342,6 +342,10 @@ class ViewThreadFragment :
 
     override fun onReblog(viewData: IStatusViewData, reblog: Boolean) {
         viewModel.reblog(reblog, viewData)
+    }
+
+    override fun onQuote(viewData: IStatusViewData) {
+        super.quote(viewData.pachliAccountId, viewData.actionable)
     }
 
     override fun onFavourite(viewData: IStatusViewData, favourite: Boolean) {

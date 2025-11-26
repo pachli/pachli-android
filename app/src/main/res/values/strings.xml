@@ -193,6 +193,7 @@
     <string name="action_access_drafts">Drafts</string>
     <string name="action_access_scheduled_posts">Scheduled posts</string>
     <string name="action_toggle_visibility">Post visibility</string>
+    <string name="action_toggle_quote_policy">Change quote policy</string>
     <string name="action_content_warning">Content warning</string>
     <string name="action_emoji_keyboard">Emoji keyboard</string>
     <string name="action_schedule_post">Schedule Post</string>
@@ -529,9 +530,11 @@
         <item quantity="other">You cannot upload more than %1$d media attachments.</item>
     </plurals>
     <string name="drafts_post_failed_to_send">This post failed to send!</string>
-    <string name="drafts_failed_loading_reply">Failed loading Reply information</string>
+    <string name="drafts_load_reply_failed_fmt">Could not load the post you\'re replying to: %1$s</string>
+    <string name="drafts_load_quote_failed_fmt">Could not load the post you\'re quoting: %1$s</string>
     <string name="draft_deleted">Draft deleted</string>
     <string name="drafts_post_reply_removed">The post you drafted a reply to has been removed</string>
+    <string name="drafts_post_quote_removed">The post you quoted has been removed</string>
     <string name="follow_requests_info">Even though your account is not locked, the %1$s staff thought you might want to review follow requests from these accounts manually.</string>
     <string name="action_subscribe_account">Subscribe</string>
     <string name="action_unsubscribe_account">Unsubscribe</string>
@@ -817,4 +820,10 @@
     <string name="detach_quote_dialog_title">Remove quote?</string>
     <string name="detach_quote_dialog_message">This will remove your quoted post from this post.\n\nYour original post is not deleted.\n\nThis cannot be undone.</string>
     <string name="detach_quote_error_fmt">Removing the quote failed: %1$s</string>
+
+    <string name="compose_visibility_title">Where is this sent?</string>
+    <string name="compose_quote_policy_title">Who can quote this post?</string>
+    <string name="compose_quote_policy_dialog_title">Change quote setting?</string>
+    <string name="compose_quote_policy_dialog_body_fmt">Posts marked \"%1$s\" or \"%2$s\" must have a quote setting of \"%3$s\".\n\nChange the quote setting now?</string>
+
 </resources>

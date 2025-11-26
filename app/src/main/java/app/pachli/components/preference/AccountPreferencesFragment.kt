@@ -443,7 +443,7 @@ class AccountPreferencesFragment : PreferenceFragmentCompat() {
     @DrawableRes
     private fun getIconForSensitivity(sensitive: Boolean): Int {
         return if (sensitive) {
-            R.drawable.ic_hide_media_24dp
+            DR.drawable.ic_hide_media_24dp
         } else {
             app.pachli.core.ui.R.drawable.ic_eye_24dp
         }

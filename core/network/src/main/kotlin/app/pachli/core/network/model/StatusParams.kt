@@ -29,6 +29,10 @@ data class StatusParams(
     @Json(name = "in_reply_to_id") val inReplyToId: String?,
     val poll: NewPoll?,
     val language: String? = null,
+    @Json(name = "quoted_status_id")
+    val quotedStatusId: String? = null,
+    @Json(name = "quote_approval_policy")
+    val quotePolicy: AccountSource.QuotePolicy? = null,
 ) {
     fun asModel() = app.pachli.core.model.StatusParams(
         text = text,
@@ -38,5 +42,7 @@ data class StatusParams(
         inReplyToId = inReplyToId,
         poll = poll?.asModel(),
         language = language,
+        quotedStatusId = quotedStatusId,
+        quotePolicy = quotePolicy?.asModel(),
     )
 }

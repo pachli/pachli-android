@@ -23,11 +23,17 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
+import app.pachli.core.model.AccountSource
 import app.pachli.core.model.DraftAttachment
 import app.pachli.core.model.NewPoll
 import app.pachli.core.model.Status
 import java.util.Date
 
+/**
+ * @property quotePolicy The quote policy the user set while editing the draft.
+ * @property quotedStatusId If non-null, the ID of the status the user was
+ * quoting while editing the draft.
+ */
 @Entity(
     foreignKeys = [
         ForeignKey(
@@ -56,4 +62,6 @@ data class DraftEntity(
     val scheduledAt: Date?,
     val language: String?,
     val statusId: String?,
+    val quotePolicy: AccountSource.QuotePolicy?,
+    val quotedStatusId: String?,
 )

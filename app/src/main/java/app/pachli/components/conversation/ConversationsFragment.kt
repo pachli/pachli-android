@@ -366,6 +366,9 @@ class ConversationsFragment :
         // its impossible to reblog private messages
     }
 
+    // Quoting conversations is not supported.
+    override fun onQuote(viewData: IStatusViewData) = Unit
+
     override fun onFavourite(viewData: IStatusViewData, favourite: Boolean) {
         viewModel.favourite(favourite, viewData.actionableId)
     }

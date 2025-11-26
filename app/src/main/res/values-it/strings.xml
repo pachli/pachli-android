@@ -348,7 +348,6 @@
     <string name="pref_title_animate_custom_emojis">Riproduci emoji animate</string>
     <string name="action_subscribe_account">Iscriviti</string>
     <string name="dialog_delete_conversation_warning">Rimuovere questa conversazione?</string>
-    <string name="drafts_failed_loading_reply">Errore nel recupero delle informazioni sulla risposta</string>
     <string name="action_unsubscribe_account">Disiscriviti</string>
     <string name="action_delete_conversation">Elimina conversazione</string>
     <string name="wellbeing_mode_notice">Alcune informazioni che potrebbero influenzare il tuo benessere mentale saranno nascoste. Questo include:

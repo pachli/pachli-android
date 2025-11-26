@@ -325,7 +325,6 @@
     <string name="pref_title_notification_filter_subscriptions">کسی که پی‌می‌گیرم، فرسته‌ای جدید منتشر کرد</string>
     <string name="notification_subscription_format">%s چیزی فرستاد</string>
     <string name="drafts_post_reply_removed">فرسته‌ای که پاسخی به آن را پیش‌نویس کردید، برداشته شده</string>
-    <string name="drafts_failed_loading_reply">شکست در بار کردن اطّلاعات پاسخ</string>
     <string name="wellbeing_mode_notice">برخی اطّلاعات که ممکن است روی سلامتی ذهنیتان تأثیر بگذارد، پنهان خواهند شد. همچون:
 \n
 \n - آگاهی‌های برگزیدن، تقویت و پی‌گیری

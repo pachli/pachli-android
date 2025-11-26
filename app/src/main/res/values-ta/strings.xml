@@ -663,7 +663,6 @@
         <item quantity="other">நீங்கள் %1$d மீடியா இணைப்புகளுக்கு மேல் பதிவேற்ற முடியாது.</item>
     </plurals>
     <string name="drafts_post_failed_to_send">இந்த இடுகை அனுப்பத் தவறிவிட்டது!</string>
-    <string name="drafts_failed_loading_reply">பதில் தகவலை ஏற்றுவதில் தோல்வி</string>
     <string name="action_subscribe_account">குழுசேர்</string>
     <string name="pachli_compose_post_quicksetting_label">இடுகையை எழுதுங்கள்</string>
     <string name="announcement_date">%1$s %2$s</string>

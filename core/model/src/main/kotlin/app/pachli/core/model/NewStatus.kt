@@ -33,6 +33,8 @@ data class NewStatus(
     val scheduledAt: Date?,
     val poll: NewPoll?,
     val language: String?,
+    val quotedStatusId: String?,
+    val quotePolicy: AccountSource.QuotePolicy?,
 )
 
 @Parcelize

@@ -326,7 +326,6 @@
     <string name="label_duration">Varighet</string>
     <string name="drafts_post_reply_removed">Innlegget du hadde opprettet et utkast som svar på har blitt fjernet</string>
     <string name="draft_deleted">Utkast slettet</string>
-    <string name="drafts_failed_loading_reply">Lasting av svarinformasjon feilet</string>
     <string name="drafts_post_failed_to_send">Sending av innlegg feilet!</string>
     <string name="pref_title_animate_custom_emojis">Animer egendefinerte emojis</string>
     <string name="action_unsubscribe_account">Avslutt abonnementet</string>

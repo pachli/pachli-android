@@ -29,6 +29,7 @@ import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.StatusComposedEvent
 import app.pachli.core.eventhub.StatusEditedEvent
 import app.pachli.core.eventhub.StatusScheduledEvent
+import app.pachli.core.model.AccountSource
 import app.pachli.core.model.Attachment
 import app.pachli.core.model.MediaAttribute
 import app.pachli.core.model.NewPoll
@@ -212,6 +213,8 @@ class SendStatusService : Service() {
                         thumbnail = null,
                     )
                 },
+                quotedStatusId = statusToSend.quotedStatusId,
+                quotePolicy = statusToSend.quotePolicy,
             )
 
             val sendResult = if (isNew) {
@@ -386,6 +389,8 @@ class SendStatusService : Service() {
             scheduledAt = status.scheduledAt,
             language = status.language,
             statusId = status.statusId,
+            quotePolicy = status.quotePolicy,
+            quotedStatusId = status.quotedStatusId,
         )
     }
 
@@ -491,6 +496,8 @@ data class StatusToSend(
     var retries: Int,
     val language: String?,
     val statusId: String?,
+    val quotedStatusId: String?,
+    val quotePolicy: AccountSource.QuotePolicy?,
 ) : Parcelable
 
 @Parcelize

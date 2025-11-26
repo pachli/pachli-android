@@ -273,7 +273,6 @@
     <string name="hint_content_warning">Aviso sobre o contido</string>
     <string name="hint_compose">Que contas\?</string>
     <string name="draft_deleted">Borrador eliminado</string>
-    <string name="drafts_failed_loading_reply">Fallou a carga da información da Resposta</string>
     <string name="drafts_post_failed_to_send">Fallou o envío do toot!</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="one">Non podes subir máis de %1$d anexo multimedia.</item>

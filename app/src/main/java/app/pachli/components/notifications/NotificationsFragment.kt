@@ -518,6 +518,10 @@ class NotificationsFragment :
         viewModel.accept(FallibleStatusAction.Reblog(reblog, viewData))
     }
 
+    override fun onQuote(viewData: IStatusViewData) {
+        super.quote(viewData.pachliAccountId, viewData.actionable)
+    }
+
     override fun onFavourite(viewData: IStatusViewData, favourite: Boolean) {
         viewModel.accept(FallibleStatusAction.Favourite(favourite, viewData))
     }

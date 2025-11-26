@@ -54,10 +54,11 @@ import app.pachli.core.model.IStatus
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 import app.pachli.core.model.Status.Mention
+import app.pachli.core.model.asQuotePolicy
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
-import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InReplyTo
+import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.ReferencingStatus
 import app.pachli.core.navigation.EditContentFilterActivityIntent
 import app.pachli.core.navigation.ReportActivityIntent
 import app.pachli.core.navigation.ViewMediaActivityIntent
@@ -208,6 +209,10 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
         viewModel.reblog(viewData, reblog)
     }
 
+    override fun onQuote(viewData: IStatusViewData) {
+        quote(viewData.pachliAccountId, viewData.actionable)
+    }
+
     override fun onEditFilterById(pachliAccountId: Long, filterId: String) {
         startActivityWithTransition(
             EditContentFilterActivityIntent.edit(requireContext(), pachliAccountId, filterId),
@@ -243,7 +248,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
             requireContext(),
             status.pachliAccountId,
             ComposeOptions(
-                inReplyTo = InReplyTo.Status.from(status.actionable),
+                referencingStatus = ReferencingStatus.ReplyingTo.from(status.actionable),
                 replyVisibility = actionableStatus.visibility,
                 contentWarning = actionableStatus.spoilerText,
                 mentionedUsernames = mentionedUsernames,
@@ -252,6 +257,23 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
             ),
         )
         startActivityWithDefaultTransition(intent)
+    }
+
+    /**
+     * Launches ComposeActivity to quote [status].
+     */
+    private fun quote(pachliAccountId: Long, status: Status) {
+        val actionableStatus = status.actionableStatus
+
+        val composeOptions = ComposeOptions(
+            referencingStatus = ReferencingStatus.Quoting.from(actionableStatus),
+            contentWarning = actionableStatus.spoilerText,
+            language = actionableStatus.language,
+            kind = ComposeOptions.ComposeKind.NEW,
+        )
+
+        val intent = ComposeActivityIntent(requireContext(), pachliAccountId, composeOptions)
+        startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
     }
 
     override fun onMore(view: View, statusViewData: IStatusViewData) {
@@ -481,7 +503,11 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
                                 pachliAccountId,
                                 ComposeOptions(
                                     content = redraftStatus.text.orEmpty(),
-                                    inReplyTo = redraftStatus.inReplyToId?.let { InReplyTo.Id(it) },
+                                    referencingStatus = redraftStatus.inReplyToId?.let {
+                                        ReferencingStatus.ReplyId(it)
+                                    } ?: redraftStatus.quote?.let {
+                                        ReferencingStatus.QuoteId(it.statusId)
+                                    },
                                     visibility = redraftStatus.visibility,
                                     contentWarning = redraftStatus.spoilerText,
                                     mediaAttachments = redraftStatus.attachments,
@@ -489,6 +515,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
                                     poll = redraftStatus.poll?.toNewPoll(redraftStatus.createdAt),
                                     language = redraftStatus.language,
                                     kind = ComposeOptions.ComposeKind.NEW,
+                                    quotePolicy = redraftStatus.quoteApproval?.asQuotePolicy(),
                                 ),
                             )
                             startActivityWithDefaultTransition(intent)
@@ -509,7 +536,11 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
                 val source = response.body
                 val composeOptions = ComposeOptions(
                     content = source.text,
-                    inReplyTo = status.inReplyToId?.let { InReplyTo.Id(it) },
+                    referencingStatus = status.inReplyToId?.let {
+                        ReferencingStatus.ReplyId(it)
+                    } ?: status.quote?.let {
+                        ReferencingStatus.QuoteId(it.statusId)
+                    },
                     visibility = status.visibility,
                     contentWarning = source.spoilerText,
                     mediaAttachments = status.attachments,
@@ -518,6 +549,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
                     statusId = source.id,
                     poll = status.poll?.toNewPoll(status.createdAt),
                     kind = ComposeOptions.ComposeKind.EDIT_POSTED,
+                    quotePolicy = status.quoteApproval.asQuotePolicy(),
                 )
                 startActivityWithDefaultTransition(ComposeActivityIntent(requireContext(), pachliAccountId, composeOptions))
             }.onFailure {

@@ -68,7 +68,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
 
             // Set the controls
             statusControls.bind(
-                statusVisibility = actionable.visibility,
+                status = actionable,
                 showCounts = statusDisplayOptions.showStatsInline,
                 confirmReblog = statusDisplayOptions.confirmReblogs,
                 confirmFavourite = statusDisplayOptions.confirmFavourites,
@@ -81,6 +81,11 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
                 favouriteCount = actionable.favouritesCount,
                 onReplyClick = { listener.onReply(viewData) },
                 onReblogClick = { reblog -> listener.onReblog(viewData, reblog) },
+                onQuoteClick = if (statusDisplayOptions.canQuote) {
+                    { listener.onQuote(viewData) }
+                } else {
+                    null
+                },
                 onFavouriteClick = { favourite -> listener.onFavourite(viewData, favourite) },
                 onBookmarkClick = { bookmark -> listener.onBookmark(viewData, bookmark) },
                 onMoreClick = { view -> listener.onMore(view, viewData) },
@@ -112,7 +117,7 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
                     )
 
                     statusControls.bind(
-                        statusVisibility = actionable.visibility,
+                        status = actionable,
                         showCounts = statusDisplayOptions.showStatsInline,
                         confirmReblog = statusDisplayOptions.confirmReblogs,
                         confirmFavourite = statusDisplayOptions.confirmFavourites,
@@ -125,6 +130,11 @@ abstract class StatusBaseViewHolder<T : IStatusViewData> protected constructor(
                         favouriteCount = actionable.favouritesCount,
                         onReplyClick = { listener.onReply(viewData) },
                         onReblogClick = { reblog -> listener.onReblog(viewData, reblog) },
+                        onQuoteClick = if (statusDisplayOptions.canQuote) {
+                            { listener.onQuote(viewData) }
+                        } else {
+                            null
+                        },
                         onFavouriteClick = { favourite -> listener.onFavourite(viewData, favourite) },
                         onBookmarkClick = { bookmark -> listener.onBookmark(viewData, bookmark) },
                         onMoreClick = { view -> listener.onMore(view, viewData) },

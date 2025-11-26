@@ -46,7 +46,6 @@
     <string name="pref_title_animate_custom_emojis">Beòthaich na h-Emojis gnàthaichte</string>
     <string name="drafts_post_reply_removed">Bha againn ris a’ phost a bha thu airson freagairt dha a thoirt air falbh</string>
     <string name="draft_deleted">Chaidh an dreach a sguabadh às</string>
-    <string name="drafts_failed_loading_reply">Cha deach leinn fiosrachadh na freagairte a luchdadh</string>
     <string name="drafts_post_failed_to_send">Cha b’ urrainn dhuinn am post a chur!</string>
     <string name="duration_7_days">7 làithean</string>
     <string name="duration_3_days">3 làithean</string>

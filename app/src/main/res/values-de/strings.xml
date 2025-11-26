@@ -342,7 +342,6 @@
     <string name="wellbeing_hide_stats_posts">Statistiken in Beiträgen ausblenden</string>
     <string name="action_subscribe_account">Abonnieren</string>
     <string name="action_unsubscribe_account">Deabonnieren</string>
-    <string name="drafts_failed_loading_reply">Informationen zur Antwort konnten nicht geladen werden</string>
     <string name="action_unbookmark">Lesezeichen entfernen</string>
     <string name="pref_title_confirm_favourites">Vor dem Favorisieren bestätigen</string>
     <string name="dialog_delete_conversation_warning">Diese Unterhaltung wirklich löschen\?</string>

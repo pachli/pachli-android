@@ -42,7 +42,7 @@ class ConversationViewHolder internal constructor(
             binding.statusView.setupWithStatus(setStatusContent, glide, viewData, listener, statusDisplayOptions)
 
             statusControls.bind(
-                statusVisibility = actionable.visibility,
+                status = actionable,
                 showCounts = statusDisplayOptions.showStatsInline,
                 confirmReblog = statusDisplayOptions.confirmReblogs,
                 confirmFavourite = statusDisplayOptions.confirmFavourites,
@@ -54,6 +54,11 @@ class ConversationViewHolder internal constructor(
                 reblogCount = actionable.reblogsCount,
                 favouriteCount = actionable.favouritesCount,
                 onReplyClick = { listener.onReply(viewData) },
+                onQuoteClick = if (statusDisplayOptions.canQuote) {
+                    { listener.onQuote(viewData) }
+                } else {
+                    null
+                },
                 onFavouriteClick = { favourite -> listener.onFavourite(viewData, favourite) },
                 onBookmarkClick = { bookmark -> listener.onBookmark(viewData, bookmark) },
                 onMoreClick = { view -> listener.onMore(view, viewData) },

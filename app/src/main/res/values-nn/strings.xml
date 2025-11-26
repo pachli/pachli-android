@@ -377,7 +377,6 @@
     <string name="wellbeing_hide_stats_profile">Skjul kvantitative statistikk på profilar</string>
     <string name="review_notifications">Sjå over varsel</string>
     <string name="drafts_post_failed_to_send">Dette innlegget kunne ikkje sendast!</string>
-    <string name="drafts_failed_loading_reply">Svaropplysningar kunne ikkje lastast inn</string>
     <string name="drafts_post_reply_removed">Innlegget du skreiv et svar til, er vorte fjerna</string>
     <string name="draft_deleted">Utkast sletta</string>
     <plurals name="error_upload_max_media_reached">

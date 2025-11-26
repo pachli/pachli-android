@@ -330,7 +330,6 @@
     <string name="action_unsubscribe_account">Отписаться</string>
     <string name="action_subscribe_account">Подписаться</string>
     <string name="drafts_post_reply_removed">Гудок который Вы записали в черновик был удален</string>
-    <string name="drafts_failed_loading_reply">Не удалось загрузить информацию об ответе</string>
     <string name="draft_deleted">Черновик удалён</string>
     <string name="drafts_post_failed_to_send">Этот гудок не удалось отправить!</string>
     <string name="wellbeing_hide_stats_profile">Скрыть количественную статистику по профилям пользователей</string>

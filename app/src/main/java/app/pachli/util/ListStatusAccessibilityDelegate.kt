@@ -82,6 +82,7 @@ class ListStatusAccessibilityDelegate<T : IStatusItemViewData>(
                 info.addAction(if (actionable.reblogged) unreblogAction else reblogAction)
             }
 
+            if (controlActions.contains(quoteAction.id)) info.addAction(quoteAction)
             if (controlActions.contains(favouriteAction.id)) info.addAction(if (actionable.favourited) unfavouriteAction else favouriteAction)
             if (controlActions.contains(bookmarkAction.id)) info.addAction(if (actionable.bookmarked) unbookmarkAction else bookmarkAction)
 
@@ -300,6 +301,11 @@ class ListStatusAccessibilityDelegate<T : IStatusItemViewData>(
                     }
                 }
 
+                app.pachli.core.ui.R.id.action_quote -> {
+                    interrupt()
+                    statusActionListener.onQuote(status)
+                }
+
                 else -> return super.performAccessibilityAction(host, action, args)
             }
             return true
@@ -329,6 +335,11 @@ class ListStatusAccessibilityDelegate<T : IStatusItemViewData>(
     private val reblogAction = AccessibilityActionCompat(
         app.pachli.core.ui.R.id.action_reblog,
         context.getString(app.pachli.core.ui.R.string.action_reblog),
+    )
+
+    private val quoteAction = AccessibilityActionCompat(
+        app.pachli.core.ui.R.id.action_quote,
+        context.getString(app.pachli.core.ui.R.string.action_quote),
     )
 
     private val unfavouriteAction = AccessibilityActionCompat(

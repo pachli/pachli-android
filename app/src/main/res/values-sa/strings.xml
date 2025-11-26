@@ -373,7 +373,6 @@
     <string name="pref_title_notification_filter_reports">नूतनम् आवेदनमस्ति</string>
     <string name="pref_title_wellbeing_mode">सुस्थितिः</string>
     <string name="delete_scheduled_post_warning">इदं कालबद्धदौत्यं विनश्येत् किम् \?</string>
-    <string name="drafts_failed_loading_reply">प्रत्युत्तरसमाचारस्य आरोपनं विफलं जातम्</string>
     <string name="pref_title_animate_custom_emojis">स्वीयानुकूलानि भावचिह्नानि सञ्जीव्यताम्</string>
     <string name="notification_report_format">%s-विषये नूतनम् आवेदनम्</string>
     <string name="action_share_account_username">लेखायाः उपभोक्तृनाम्नः संविभागं कुरुताम्</string>

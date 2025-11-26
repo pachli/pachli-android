@@ -314,7 +314,6 @@
     <string name="action_subscribe_account">关注</string>
     <string name="drafts_post_reply_removed">该草稿回复的原嘟文已被删除</string>
     <string name="draft_deleted">草稿已删除</string>
-    <string name="drafts_failed_loading_reply">加载回复信息失败</string>
     <string name="drafts_post_failed_to_send">嘟文发送失败！</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="other">最多只可上传 %1$d 个媒体附件。</item>

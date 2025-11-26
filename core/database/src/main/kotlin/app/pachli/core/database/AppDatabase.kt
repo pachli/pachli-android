@@ -107,7 +107,7 @@ import java.util.TimeZone
         TimelineStatusWithAccount::class,
         ReferencedStatusId::class,
     ],
-    version = 35,
+    version = 36,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
@@ -156,6 +156,8 @@ import java.util.TimeZone
         AutoMigration(from = 33, to = 34),
         // AccountEntity properties to quote policy.
         AutoMigration(from = 34, to = 35),
+        // DraftEntity properties when quoting a status.
+        AutoMigration(from = 35, to = 36),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {

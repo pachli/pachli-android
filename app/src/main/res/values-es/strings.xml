@@ -332,7 +332,6 @@
 \nLas notificaciones Push no serán afectadas, pero puedes revisar manualmente tus preferencias.</string>
     <string name="drafts_post_reply_removed">La publicación a la que redactaste una respuesta ha sido eliminada</string>
     <string name="draft_deleted">Borrador eliminado</string>
-    <string name="drafts_failed_loading_reply">Error al cargar la información de respuesta</string>
     <string name="drafts_post_failed_to_send">¡Esta publicación no se pudo enviar!</string>
     <string name="duration_indefinite">Indefinido</string>
     <string name="label_duration">Duración</string>

@@ -17,23 +17,16 @@
 
 package app.pachli.core.ui
 
-import android.R.attr.action
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.widget.PopupMenu
 import androidx.constraintlayout.widget.ConstraintLayout
-import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.util.formatNumber
 import app.pachli.core.model.Status
-import app.pachli.core.model.Status.Visibility.DIRECT
-import app.pachli.core.model.Status.Visibility.PRIVATE
-import app.pachli.core.model.Status.Visibility.PUBLIC
-import app.pachli.core.model.Status.Visibility.UNKNOWN
-import app.pachli.core.model.Status.Visibility.UNLISTED
 import app.pachli.core.ui.databinding.StatusControlsBinding
 import app.pachli.core.ui.extensions.expandTouchSizeToFillRow
 import at.connyduck.sparkbutton.SparkButton
@@ -69,6 +62,18 @@ fun interface OnReblogClick {
      * at the time the user clicked.
      */
     operator fun invoke(reblog: Boolean)
+}
+
+/**
+ * User has clicked to quote the status.
+ *
+ * @see [invoke]
+ */
+fun interface OnQuoteClick {
+    /**
+     * User has clicked to quote the status.
+     */
+    operator fun invoke()
 }
 
 /**
@@ -194,10 +199,9 @@ class StatusControlView @JvmOverloads constructor(
     /**
      * Binds data to the control and configures click handlers.
      *
-     * The paramters control the appearance of the views.
+     * The parameters control the appearance of the views.
      *
-     * @param statusVisibility Visibility of the status. Affects the
-     * availability and appearance of the reblog control.
+     * @param status Actionable status being controlled.
      * @param showCounts True if interaction counts should be shown on the
      * controls (number of replies, favourites, etc). If false numbers are
      * either hidden, or in the case of replies, truncated.
@@ -220,6 +224,8 @@ class StatusControlView @JvmOverloads constructor(
      * @param onReblogClick Called when the user wants to reblog the status. If
      * null reblogging is disabled. If [confirmReblog] is true the user will
      * have confirmed *before* this is called.
+     * @param onQuoteClick Called when the user wants to quote the status. If
+     * null quoting is disabled.
      * @param onFavouriteClick Called when the user wants to favourite the
      * status. If [confirmFavourite] is true the user will have confirmed
      * *before* this is called.
@@ -227,7 +233,7 @@ class StatusControlView @JvmOverloads constructor(
      * @param onMoreClick Called when the user clicks the "..." more button.
      */
     fun bind(
-        statusVisibility: Status.Visibility,
+        status: Status,
         showCounts: Boolean,
         confirmReblog: Boolean,
         confirmFavourite: Boolean,
@@ -240,6 +246,7 @@ class StatusControlView @JvmOverloads constructor(
         favouriteCount: Int,
         onReplyClick: OnReplyClick,
         onReblogClick: OnReblogClick? = null,
+        onQuoteClick: OnQuoteClick? = null,
         onFavouriteClick: OnFavouriteClick,
         onBookmarkClick: OnBookmarkClick,
         onMoreClick: OnMoreClick? = null,
@@ -255,8 +262,9 @@ class StatusControlView @JvmOverloads constructor(
         bindReply(isReply, onReplyClick)
 
         // Reblogs. Not every status allows reblogs (e.g., direct messages). On those
-        // onReblogClick will be null, indicating the UI should be hidden.
-        bindReblog(statusVisibility, showCounts, confirmReblog, isReblogged, onReblogClick)
+        // onReblogClick will be null. They may still be quotable, so onQuoteClick may
+        // not be null.
+        bindReblog(status, showCounts, confirmReblog, isReblogged, onReblogClick, onQuoteClick)
 
         // Favourite
         bindFavourite(showCounts, confirmFavourite, isFavourited, onFavouriteClick)
@@ -286,79 +294,151 @@ class StatusControlView @JvmOverloads constructor(
     /**
      * Sets the control content and click listener.
      *
-     * @param statusVisibility Visibility of the status.
+     * @param status Actionable status
      * @param showCounts True if interaction counts should be shown.
      * @param isReblogged True if the user has reblogged the status.
      * @param confirmReblog True if the user should be prompted to confirm
      * the click.
      * @param onReblogClick Called when the user wants to reblog the status. If
-     * null reblogging is disabled and the control is hidden.
+     * null reblogging is disabled.
+     * @param onQuoteClick Called when the user wants to quote the status. If
+     * null quoting is disabled.
      */
     private fun bindReblog(
-        statusVisibility: Status.Visibility,
+        status: Status,
         showCounts: Boolean,
         confirmReblog: Boolean,
         isReblogged: Boolean,
         onReblogClick: OnReblogClick?,
+        onQuoteClick: OnQuoteClick?,
     ) {
-        if (onReblogClick == null) {
-            binding.reblog.setEventListener(null)
-            binding.reblog.hide()
-            binding.reblogCount.hide()
-            return
+        val canReblog = onReblogClick != null && status.visibility.allowsReblog
+        val canQuote = onQuoteClick != null && status.visibility.allowsQuote
+
+        val statusVisibility = status.visibility
+
+        if (canReblog) _actions.add(R.id.action_reblog)
+
+        // Add the action_quote only if both the status' visibility and quoteApproval
+        // allows quoting. The quoteApproval is ignored in the UI when showing the
+        // menu because that shows why the quote is disallowed. I suspect that's too
+        // much information to show in an accessibility action.
+        if (canQuote && status.quoteApproval.currentUser.canQuote()) {
+            _actions.add(R.id.action_quote)
         }
 
-        _actions.add(R.id.action_reblog)
-
-        binding.reblogCount.visible(showCounts && statusVisibility.allowsReblog)
+        binding.reblogCount.visible(showCounts && canReblog)
 
         binding.reblog.show()
         binding.reblog.isChecked = isReblogged
-        binding.reblog.isEnabled = statusVisibility.allowsReblog
 
-        val eventListener = if (statusVisibility.allowsReblog) {
-            { _: SparkButton, checked: Boolean ->
-                val reblog = !checked
-                if (confirmReblog) {
-                    showConfirmReblog(reblog, onReblogClick)
-                    false
-                } else {
-                    onReblogClick(reblog)
-                    true
-                }
+        val eventListener = { _: SparkButton, checked: Boolean ->
+            val reblog = !checked
+            if (confirmReblog || canQuote) {
+                showReblogMenu(status, reblog, onReblogClick, onQuoteClick)
+                false
+            } else {
+                onReblogClick?.invoke(reblog)
+                true
             }
-        } else {
-            null
         }
-        binding.reblog.setEventListener(eventListener)
 
-        val (resActive, resInactive) = when (statusVisibility) {
-            PUBLIC, UNLISTED -> (R.drawable.ic_reblog_active_24dp to R.drawable.ic_reblog_24dp)
-            UNKNOWN, PRIVATE -> (R.drawable.ic_reblog_private_active_24dp to R.drawable.ic_reblog_private_24dp)
-            DIRECT -> (R.drawable.ic_reblog_direct_24dp to R.drawable.ic_reblog_direct_24dp)
+        if (canReblog || canQuote) {
+            binding.reblog.setEventListener(eventListener)
+            binding.reblog.setOnLongClickListener { view ->
+                val reblog = !(view as SparkButton).isChecked
+                showReblogMenu(status, reblog, onReblogClick, onQuoteClick)
+                true
+            }
+            binding.reblog.isLongClickable = true
+            binding.reblog.isEnabled = true
+        } else {
+            binding.reblog.setEventListener(null)
+            binding.reblog.setOnLongClickListener(null)
+            binding.reblog.isEnabled = false
         }
+
+        // Decide which icons to show on the increasingly misnamed "reblog" button
+        val (resActive, resInactive) = when {
+            // Reblogging has preference. If this can be reblogged then use those icons.
+            canReblog -> (R.drawable.ic_reblog_active_24dp to R.drawable.ic_reblog_24dp)
+
+            // If it can be quoted then use the quote icon (which doesn't have active/inactive
+            // variants).
+            canQuote -> (R.drawable.format_quote_24px to R.drawable.format_quote_24px)
+
+            // Otherwise, use the relevant "can't be reblogged" icons depending on the
+            // visibility.
+            statusVisibility == Status.Visibility.UNKNOWN ||
+                statusVisibility == Status.Visibility.PRIVATE -> (R.drawable.ic_reblog_private_active_24dp to R.drawable.ic_reblog_private_24dp)
+
+            else -> (R.drawable.ic_reblog_direct_24dp to R.drawable.ic_reblog_direct_24dp)
+        }
+
         binding.reblog.setActiveImage(resActive)
         binding.reblog.setInactiveImage(resInactive)
     }
 
+    private fun Status.QuoteApproval.QuoteApprovalCurrentUser.labelRes() = when (this) {
+        Status.QuoteApproval.QuoteApprovalCurrentUser.AUTOMATIC -> R.string.action_quote
+        Status.QuoteApproval.QuoteApprovalCurrentUser.MANUAL -> R.string.action_request_quote
+        Status.QuoteApproval.QuoteApprovalCurrentUser.UNKNOWN,
+        Status.QuoteApproval.QuoteApprovalCurrentUser.DENIED,
+        -> R.string.label_author_denied_quote
+    }
+
+    private fun Status.QuoteApproval.QuoteApprovalCurrentUser.canQuote() = when (this) {
+        Status.QuoteApproval.QuoteApprovalCurrentUser.AUTOMATIC,
+        Status.QuoteApproval.QuoteApprovalCurrentUser.MANUAL,
+        -> true
+
+        Status.QuoteApproval.QuoteApprovalCurrentUser.UNKNOWN,
+        Status.QuoteApproval.QuoteApprovalCurrentUser.DENIED,
+        -> false
+    }
+
     /**
-     * Shows a popup menu for the user to confirm they want to (un)reblog
-     * the status.
+     * Shows a popup menu for reblog-like actions to perform on the status.
      *
+     * @param status Actionable status
      * @param reblog The user's intention. True if they want to reblog the
      * status, false otherwise. This is the **opposite** of the button's
      * state at the time the user clicked.
-     * @param action Called if the user confirms.
+     * @param onReblogClick Called if the user wants to reblog the status.
+     * @param onQuoteClick Called if the user wants to quote the status.
      */
-    private fun showConfirmReblog(reblog: Boolean, onReblogClick: OnReblogClick) {
+    private fun showReblogMenu(status: Status, reblog: Boolean, onReblogClick: OnReblogClick?, onQuoteClick: OnQuoteClick?) {
+        val canQuote = status.quoteApproval.currentUser.canQuote()
+        val quoteLabel = status.quoteApproval.currentUser.labelRes()
+
+        val canReblog = status.visibility.allowsReblog && onReblogClick != null
+
         PopupMenu(context, binding.reblog).apply {
             inflate(R.menu.status_reblog)
-            menu.findItem(R.id.menu_action_reblog).isVisible = reblog
-            menu.findItem(R.id.menu_action_unreblog).isVisible = !reblog
-            setOnMenuItemClickListener {
-                binding.reblog.playAnimation()
-                onReblogClick(reblog)
-                true
+            menu.findItem(R.id.menu_action_quote).apply {
+                isVisible = onQuoteClick != null
+                isEnabled = canQuote
+                setTitle(quoteLabel)
+            }
+            menu.findItem(R.id.menu_action_reblog).isVisible = reblog && canReblog
+            menu.findItem(R.id.menu_action_unreblog).isVisible = !reblog && canReblog
+            setOnMenuItemClickListener { item ->
+                return@setOnMenuItemClickListener when (item.itemId) {
+                    R.id.menu_action_quote -> {
+                        onQuoteClick?.invoke()
+                        true
+                    }
+
+                    R.id.menu_action_reblog,
+                    R.id.menu_action_unreblog,
+                    -> {
+                        binding.reblog.playAnimation()
+                        onReblogClick?.invoke(reblog)
+                        true
+                    }
+
+                    else -> false
+                }
             }
         }.show()
     }

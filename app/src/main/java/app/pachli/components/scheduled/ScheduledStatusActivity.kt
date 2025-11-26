@@ -38,7 +38,7 @@ import app.pachli.core.eventhub.StatusScheduledEvent
 import app.pachli.core.model.ScheduledStatus
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
-import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InReplyTo
+import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.ReferencingStatus
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.core.ui.appbar.FadeChildScrollEffect
@@ -172,13 +172,18 @@ class ScheduledStatusActivity :
                 content = item.params.text,
                 contentWarning = item.params.spoilerText,
                 mediaAttachments = item.mediaAttachments,
-                inReplyTo = item.params.inReplyToId?.let { InReplyTo.Id(it) },
+                referencingStatus = item.params.inReplyToId?.let {
+                    ReferencingStatus.ReplyId(it)
+                } ?: item.params.quotedStatusId?.let {
+                    ReferencingStatus.QuoteId(it)
+                },
                 visibility = item.params.visibility,
                 scheduledAt = item.scheduledAt,
                 sensitive = item.params.sensitive,
                 kind = ComposeOptions.ComposeKind.EDIT_SCHEDULED,
                 poll = item.params.poll,
                 language = item.params.language,
+                quotePolicy = item.params.quotePolicy,
             ),
         )
         startActivity(intent)

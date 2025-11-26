@@ -298,7 +298,6 @@
     <string name="action_unsubscribe_account">Quitar de seguir</string>
     <string name="action_subscribe_account">Seguir</string>
     <string name="draft_deleted">Borrolhon suprimit</string>
-    <string name="drafts_failed_loading_reply">Fracàs del cargament de las info de responsa</string>
     <string name="drafts_post_failed_to_send">Fracàs de l’enviament !</string>
     <string name="review_notifications">Repassar las notificacions</string>
     <string name="account_note_saved">Enregistrat !</string>

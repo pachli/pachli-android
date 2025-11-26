@@ -21,6 +21,7 @@ import androidx.annotation.VisibleForTesting
 import androidx.annotation.VisibleForTesting.Companion.PRIVATE
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.data.model.StatusDisplayOptions
+import app.pachli.core.model.ServerOperation
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_STATUSES_TRANSLATE
 import app.pachli.core.preferences.CardViewMode
 import app.pachli.core.preferences.PrefKeys
@@ -179,6 +180,7 @@ class StatusDisplayOptionsRepository @Inject constructor(
             showSensitiveMedia = account?.entity?.alwaysShowSensitiveMedia ?: default.showSensitiveMedia,
             openSpoiler = account?.entity?.alwaysOpenSpoiler ?: default.openSpoiler,
             canTranslate = account?.server?.can(ORG_JOINMASTODON_STATUSES_TRANSLATE, ">=1.0".toConstraint()) ?: default.canTranslate,
+            canQuote = account?.server?.can(ServerOperation.ORG_JOINMASTODON_STATUSES_QUOTE, ">=1.0.0".toConstraint()) ?: default.canQuote,
             renderMarkdown = sharedPreferencesRepository.renderMarkdown,
             pronounDisplay = sharedPreferencesRepository.pronounDisplay,
         )

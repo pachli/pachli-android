@@ -50,11 +50,12 @@ import app.pachli.core.domain.DownloadUrlUseCase
 import app.pachli.core.model.Attachment
 import app.pachli.core.model.IStatus
 import app.pachli.core.model.Status
+import app.pachli.core.model.asQuotePolicy
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
-import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.InReplyTo
+import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.ReferencingStatus
 import app.pachli.core.navigation.ReportActivityIntent
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.navigation.ViewMediaActivityIntent
@@ -147,10 +148,27 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
         ).apply { remove(loggedInUsername) }
 
         val composeOptions = ComposeOptions(
-            inReplyTo = InReplyTo.Status.from(status.actionableStatus),
+            referencingStatus = ReferencingStatus.ReplyingTo.from(status.actionableStatus),
             replyVisibility = actionableStatus.visibility,
             contentWarning = actionableStatus.spoilerText,
             mentionedUsernames = mentionedUsernames,
+            language = actionableStatus.language,
+            kind = ComposeOptions.ComposeKind.NEW,
+        )
+
+        val intent = ComposeActivityIntent(requireContext(), pachliAccountId, composeOptions)
+        startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
+    }
+
+    /**
+     * Launches ComposeActivity to quote [status].
+     */
+    protected fun quote(pachliAccountId: Long, status: Status) {
+        val actionableStatus = status.actionableStatus
+
+        val composeOptions = ComposeOptions(
+            referencingStatus = ReferencingStatus.Quoting.from(actionableStatus),
+            contentWarning = actionableStatus.spoilerText,
             language = actionableStatus.language,
             kind = ComposeOptions.ComposeKind.NEW,
         )
@@ -472,9 +490,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
     }
 
     private fun showConfirmEditDialog(statusViewData: IStatusViewData) {
-        if (activity == null) {
-            return
-        }
+        activity ?: return
         AlertDialog.Builder(requireActivity())
             .setMessage(R.string.dialog_redraft_post_warning)
             .setPositiveButton(android.R.string.ok) { _: DialogInterface?, _: Int ->
@@ -483,7 +499,11 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                         val sourceStatus = it.body.asModel()
                         val composeOptions = ComposeOptions(
                             content = sourceStatus.text,
-                            inReplyTo = statusViewData.status.inReplyToId?.let { InReplyTo.Id(it) },
+                            referencingStatus = statusViewData.status.inReplyToId?.let {
+                                ReferencingStatus.ReplyId(it)
+                            } ?: statusViewData.status.quote?.let {
+                                ReferencingStatus.QuoteId(it.statusId)
+                            },
                             visibility = sourceStatus.visibility,
                             contentWarning = sourceStatus.spoilerText,
                             mediaAttachments = sourceStatus.attachments,
@@ -492,6 +512,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                             language = sourceStatus.language,
                             poll = sourceStatus.poll?.toNewPoll(sourceStatus.createdAt),
                             kind = ComposeOptions.ComposeKind.NEW,
+                            quotePolicy = statusViewData.status.quoteApproval.asQuotePolicy(),
                         )
                         startActivityWithTransition(
                             ComposeActivityIntent(requireContext(), pachliAccountId, composeOptions),
@@ -515,7 +536,11 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                 val source = it.body
                 val composeOptions = ComposeOptions(
                     content = source.text,
-                    inReplyTo = InReplyTo.Status.from(status),
+                    referencingStatus = status.inReplyToId?.let {
+                        ReferencingStatus.ReplyId(it)
+                    } ?: status.quote?.let {
+                        ReferencingStatus.QuoteId(it.statusId)
+                    },
                     visibility = status.visibility,
                     contentWarning = source.spoilerText,
                     mediaAttachments = status.attachments,
@@ -524,6 +549,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                     statusId = source.id,
                     poll = status.poll?.toNewPoll(status.createdAt),
                     kind = ComposeOptions.ComposeKind.EDIT_POSTED,
+                    quotePolicy = status.quoteApproval.asQuotePolicy(),
                 )
                 startActivityWithTransition(
                     ComposeActivityIntent(requireContext(), pachliAccountId, composeOptions),

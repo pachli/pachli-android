@@ -21,6 +21,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Parcelable
 import androidx.core.content.IntentCompat
+import app.pachli.core.model.AccountSource
 import app.pachli.core.model.Attachment
 import app.pachli.core.model.ContentFilter
 import app.pachli.core.model.DraftAttachment
@@ -353,6 +354,15 @@ class IntentRouterActivityIntent(context: Context, pachliAccountId: Long) : Inte
  * @see [app.pachli.components.compose.ComposeActivity]
  */
 class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOptions: ComposeOptions? = null) : Intent() {
+    /**
+     * @property referencingStatus The status the user is referencing while
+     * composing. This could be a status they are replying to, or a status
+     * they are quoting.
+     * @property statusId If editing an existing status, the ID of the status
+     * being edited.
+     * @property quotePolicy Initial quote policy when composing. If null the
+     * user's default quote policy is used.
+     */
     @Parcelize
     data class ComposeOptions(
         val scheduledTootId: String? = null,
@@ -364,7 +374,7 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOpti
         val replyVisibility: Status.Visibility? = null,
         val visibility: Status.Visibility? = null,
         val contentWarning: String? = null,
-        val inReplyTo: InReplyTo? = null,
+        val referencingStatus: ReferencingStatus? = null,
         val mediaAttachments: List<Attachment>? = null,
         val draftAttachments: List<DraftAttachment>? = null,
         val scheduledAt: Date? = null,
@@ -375,6 +385,7 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOpti
         val statusId: String? = null,
         val kind: ComposeKind? = null,
         val initialCursorPosition: InitialCursorPosition = InitialCursorPosition.END,
+        val quotePolicy: AccountSource.QuotePolicy? = null,
     ) : Parcelable {
         /**
          * Status' kind. This particularly affects how the status is handled if the user
@@ -407,12 +418,18 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOpti
         }
 
         /**
-         * The status the user is replying to.
+         * The status the user is referencing in their status.
          */
         @Parcelize
-        sealed class InReplyTo : Parcelable {
-            /** ID of the status being replied to. */
-            abstract val statusId: String
+        sealed interface ReferencingStatus : Parcelable {
+            /** ID of the status being referenced. */
+            val statusId: String
+
+            /** @return True if the referenced status is being replied to. */
+            fun isReplying() = (this is ReplyId || this is ReplyingTo)
+
+            /** @return True if the referenced status is being quoted. */
+            fun isQuoting() = (this is QuoteId || this is Quoting)
 
             /**
              * ID of the status being replied to.
@@ -421,7 +438,28 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOpti
              * [ComposeActivity][app.pachli.components.compose.ComposeActivity] to
              * fetch the contents of the in-reply-to status.
              */
-            data class Id(override val statusId: String) : InReplyTo()
+            data class ReplyId(override val statusId: String) : ReferencingStatus
+
+            /**
+             * ID of the status being quoted.
+             *
+             * Used when the called only has the ID, and needs
+             * [ComposeActivity][app.pachli.components.compose.ComposeActivity] to
+             * fetch the contents of the status being quoted.
+             */
+            data class QuoteId(override val statusId: String) : ReferencingStatus
+
+            sealed interface Status : ReferencingStatus {
+                override val statusId: String
+                val avatarUrl: String
+                val isBot: Boolean
+                val displayName: String
+                val username: String
+                val emojis: List<Emoji>?
+                val contentWarning: String
+                val content: String
+                val pronouns: String?
+            }
 
             /**
              * Content of the status being replied to.
@@ -429,19 +467,50 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOpti
              * Used when the caller already has the in-reply-to status content which
              * can be reused without a network round trip.
              */
-            data class Status(
+            @Parcelize
+            data class ReplyingTo(
                 override val statusId: String,
-                val avatarUrl: String,
-                val isBot: Boolean,
-                val displayName: String,
-                val username: String,
-                val emojis: List<Emoji>?,
-                val contentWarning: String,
-                val content: String,
-                val pronouns: String?,
-            ) : InReplyTo() {
+                override val avatarUrl: String,
+                override val isBot: Boolean,
+                override val displayName: String,
+                override val username: String,
+                override val emojis: List<Emoji>?,
+                override val contentWarning: String,
+                override val content: String,
+                override val pronouns: String?,
+            ) : ReferencingStatus.Status {
                 companion object {
-                    fun from(status: app.pachli.core.model.Status) = Status(
+                    fun from(status: app.pachli.core.model.Status) = ReplyingTo(
+                        statusId = status.statusId,
+                        avatarUrl = status.account.avatar,
+                        isBot = status.account.bot,
+                        displayName = status.account.name,
+                        username = status.account.username,
+                        emojis = status.emojis + status.account.emojis.orEmpty(),
+                        contentWarning = status.spoilerText,
+                        content = status.content.parseAsMastodonHtml().toString(),
+                        pronouns = status.account.pronouns,
+                    )
+                }
+            }
+
+            /**
+             * Content of the status being quoted.
+             */
+            @Parcelize
+            data class Quoting(
+                override val statusId: String,
+                override val avatarUrl: String,
+                override val isBot: Boolean,
+                override val displayName: String,
+                override val username: String,
+                override val emojis: List<Emoji>?,
+                override val contentWarning: String,
+                override val content: String,
+                override val pronouns: String?,
+            ) : ReferencingStatus.Status {
+                companion object {
+                    fun from(status: app.pachli.core.model.Status) = Quoting(
                         statusId = status.statusId,
                         avatarUrl = status.account.avatar,
                         isBot = status.account.bot,

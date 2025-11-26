@@ -373,7 +373,6 @@
     <string name="pref_title_confirm_favourites">Патрабаваць пацвярджэнне перад упадабаннем</string>
     <string name="pref_title_confirm_reblogs">Патрабаваць пацвярджэнне перад пашырэннем</string>
     <string name="pref_title_wellbeing_mode">Дабрабыт</string>
-    <string name="drafts_failed_loading_reply">Немагчыма атрымаць інфармацыю пра адказ</string>
     <string name="draft_deleted">Чарнавік выдалены</string>
     <string name="report_category_spam">Спам</string>
     <string name="report_category_other">Іншае</string>
