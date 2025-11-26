@@ -78,7 +78,7 @@ data class AccountSource(
  * The imperfect heuristic is:
  *
  * - If PUBLIC is automatically approved then the original policy was "public".
- * - If FOLLOWERS is automatically approved then the original policy "followers".
+ * - If FOLLOWERS is automatically approved then the original policy was "followers".
  * - Anything else means the original policy was "NOBODY".
  */
 fun Status.QuoteApproval.asQuotePolicy(): AccountSource.QuotePolicy {
