@@ -23,7 +23,6 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.widget.PopupMenu
 import androidx.constraintlayout.widget.ConstraintLayout
-import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.util.formatNumber
@@ -313,25 +312,22 @@ class StatusControlView @JvmOverloads constructor(
         onReblogClick: OnReblogClick?,
         onQuoteClick: OnQuoteClick?,
     ) {
-        if (onReblogClick == null && onQuoteClick == null) {
-            binding.reblog.setEventListener(null)
-            binding.reblog.hide()
-            binding.reblogCount.hide()
-            return
-        }
+        val canReblog = onReblogClick != null && status.visibility.allowsReblog
+        val canQuote = onQuoteClick != null && status.visibility.allowsQuote
 
         val statusVisibility = status.visibility
 
-        _actions.add(R.id.action_reblog)
+        if (canReblog) _actions.add(R.id.action_reblog)
+        // TODO: Quote accessibility action here
 
-        binding.reblogCount.visible(showCounts && statusVisibility.allowsReblog)
+        binding.reblogCount.visible(showCounts && canReblog)
 
         binding.reblog.show()
         binding.reblog.isChecked = isReblogged
 
         val eventListener = { _: SparkButton, checked: Boolean ->
             val reblog = !checked
-            if (confirmReblog || onQuoteClick != null) {
+            if (confirmReblog || canQuote) {
                 showReblogMenu(status, reblog, onReblogClick, onQuoteClick)
                 false
             } else {
@@ -340,21 +336,29 @@ class StatusControlView @JvmOverloads constructor(
             }
         }
 
-        binding.reblog.setEventListener(eventListener)
-        binding.reblog.setOnLongClickListener { view ->
-            val reblog = !(view as SparkButton).isChecked
-            showReblogMenu(status, reblog, onReblogClick, onQuoteClick)
-            true
+        if (canReblog || canQuote) {
+            binding.reblog.setEventListener(eventListener)
+            binding.reblog.setOnLongClickListener { view ->
+                val reblog = !(view as SparkButton).isChecked
+                showReblogMenu(status, reblog, onReblogClick, onQuoteClick)
+                true
+            }
+            binding.reblog.isLongClickable = true
+            binding.reblog.isEnabled = true
+        } else {
+            binding.reblog.setEventListener(null)
+            binding.reblog.setOnLongClickListener(null)
+            binding.reblog.isEnabled = false
         }
 
         // Decide which icons to show on the increasingly misnamed "reblog" button
         val (resActive, resInactive) = when {
             // Reblogging has preference. If this can be reblogged then use those icons.
-            statusVisibility.allowsReblog -> (R.drawable.ic_reblog_active_24dp to R.drawable.ic_reblog_24dp)
+            canReblog -> (R.drawable.ic_reblog_active_24dp to R.drawable.ic_reblog_24dp)
 
             // If it can be quoted then use the quote icon (which doesn't have active/inactive
             // variants).
-            onQuoteClick != null -> (R.drawable.format_quote_24px to R.drawable.format_quote_24px)
+            canQuote -> (R.drawable.format_quote_24px to R.drawable.format_quote_24px)
 
             // Otherwise, use the relevant "can't be reblogged" icons depending on the
             // visibility.
@@ -386,6 +390,8 @@ class StatusControlView @JvmOverloads constructor(
             Status.QuoteApproval.QuoteApprovalCurrentUser.DENIED -> Pair(false, R.string.label_author_denied_quote)
         }
 
+        val canReblog = status.visibility.allowsReblog
+
         PopupMenu(context, binding.reblog).apply {
             inflate(R.menu.status_reblog)
             menu.findItem(R.id.menu_action_quote).apply {
@@ -393,8 +399,8 @@ class StatusControlView @JvmOverloads constructor(
                 isEnabled = canQuote
                 setTitle(quoteLabel)
             }
-            menu.findItem(R.id.menu_action_reblog).isVisible = reblog && onReblogClick != null
-            menu.findItem(R.id.menu_action_unreblog).isVisible = !reblog && onReblogClick != null
+            menu.findItem(R.id.menu_action_reblog).isVisible = reblog && canReblog && onReblogClick != null
+            menu.findItem(R.id.menu_action_unreblog).isVisible = !reblog && canReblog && onReblogClick != null
             setOnMenuItemClickListener { item ->
                 return@setOnMenuItemClickListener when (item.itemId) {
                     R.id.menu_action_quote -> {

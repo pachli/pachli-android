@@ -150,6 +150,16 @@ data class Status(
                 PRIVATE, DIRECT, UNKNOWN -> false
             }
 
+        /**
+         * @return True if statuses with this visibility can be quoted, otherwise
+         * false
+         */
+        val allowsQuote: Boolean
+            get() = when (this) {
+                PUBLIC, UNLISTED, PRIVATE -> true
+                UNKNOWN, DIRECT -> false
+            }
+
         companion object {
             @JvmStatic
             fun getOrUnknown(index: Int) = Enum.getOrElse<Visibility>(index) { UNKNOWN }
