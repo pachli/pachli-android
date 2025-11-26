@@ -352,9 +352,7 @@
             android:gravity="center_vertical"
             android:minHeight="48dp"
             android:drawablePadding="8dp"
-            android:text="@string/action_photo_take"
-            app:drawableTint="@color/compound_button_color"
-            android:textColor="?android:textColorTertiary" />
+            android:text="@string/action_photo_take" />
 
         <TextView
             android:id="@+id/action_add_media"
@@ -363,9 +361,7 @@
             android:gravity="center_vertical"
             android:minHeight="48dp"
             android:drawablePadding="8dp"
-            app:drawableTint="@color/compound_button_color"
-            android:text="@string/action_add_media"
-            android:textColor="?android:textColorTertiary" />
+            android:text="@string/action_add_media" />
 
         <TextView
             android:id="@+id/addPollTextActionTextView"
@@ -374,9 +370,7 @@
             android:gravity="center_vertical"
             android:minHeight="48dp"
             android:drawablePadding="8dp"
-            app:drawableTint="@color/compound_button_color"
-            android:text="@string/action_add_poll"
-            android:textColor="?android:textColorTertiary" />
+            android:text="@string/action_add_poll" />
     </LinearLayout>
 
     <app.pachli.core.ui.emoji.EmojiPickerView

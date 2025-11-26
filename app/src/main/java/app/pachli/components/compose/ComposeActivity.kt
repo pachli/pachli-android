@@ -400,6 +400,13 @@ class ComposeActivity :
 
         val composeOptions = ComposeActivityIntent.getComposeOptions(intent)
 
+        // Disable DIRECT visibility if this contains a quote. This is stricter than the API
+        // permits (DIRECT with a quote is OK if the status mentions the account being
+        // quoted) but is consistent with the web UI behaviour.
+        if (composeOptions?.referencingStatus?.isQuoting() == true) {
+            binding.composeOptionsBottomSheet.disableVisibility(Status.Visibility.DIRECT)
+        }
+
         binding.replyLoadingErrorRetry.setOnClickListener { viewModel.reloadReply() }
 
         lifecycleScope.launch { viewModel.referencingStatus.collect(::bindInReplyTo) }
@@ -1359,6 +1366,10 @@ class ComposeActivity :
             return
         }
 
+        // Visibility is PRIVATE or DIRECT and the QuotePolicy is not NOBODY. Warn
+        // the user the QuotePolicy needs to be changed. Either they tap OK, and
+        // the policy is changed and the sheet is dismissed, or they cancel and
+        // the sheet stays open so they can pick a different visibility.
         AlertDialog.Builder(this)
             .setTitle(R.string.compose_quote_policy_dialog_title)
             .setMessage(

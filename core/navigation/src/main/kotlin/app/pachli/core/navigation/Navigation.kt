@@ -418,7 +418,13 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOpti
         @Parcelize
         sealed interface ReferencingStatus : Parcelable {
             /** ID of the status being referenced. */
-            abstract val statusId: String
+            val statusId: String
+
+            /** @return True if the referenced status is being replied to. */
+            fun isReplying() = (this is ReplyId || this is ReplyingTo)
+
+            /** @return True if the referenced status is being quoted. */
+            fun isQuoting() = (this is QuoteId || this is Quoting)
 
             /**
              * ID of the status being replied to.

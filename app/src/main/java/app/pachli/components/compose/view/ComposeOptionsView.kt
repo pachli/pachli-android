@@ -18,17 +18,19 @@ package app.pachli.components.compose.view
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.widget.RadioGroup
 import app.pachli.R
 import app.pachli.core.model.Status
+import app.pachli.databinding.ViewComposeOptionsBinding
 
 class ComposeOptionsView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : RadioGroup(context, attrs) {
 
     var listener: ComposeVisibilityListener? = null
 
-    init {
-        inflate(context, R.layout.view_compose_options, this)
+    val binding = ViewComposeOptionsBinding.inflate(LayoutInflater.from(context), this)
 
+    init {
         setOnCheckedChangeListener { _, checkedId ->
             val visibility = when (checkedId) {
                 R.id.publicRadioButton -> Status.Visibility.PUBLIC
@@ -41,16 +43,24 @@ class ComposeOptionsView @JvmOverloads constructor(context: Context, attrs: Attr
         }
     }
 
-    fun setStatusVisibility(visibility: Status.Visibility) {
-        val selectedButton = when (visibility) {
-            Status.Visibility.PUBLIC -> R.id.publicRadioButton
-            Status.Visibility.UNLISTED -> R.id.unlistedRadioButton
-            Status.Visibility.PRIVATE -> R.id.privateRadioButton
-            Status.Visibility.DIRECT -> R.id.directRadioButton
-            else -> R.id.directRadioButton
+    fun disableVisibility(visibility: Status.Visibility) {
+        when (visibility) {
+            Status.Visibility.UNKNOWN -> Unit
+            Status.Visibility.PUBLIC -> binding.publicRadioButton.isEnabled = false
+            Status.Visibility.UNLISTED -> binding.unlistedRadioButton.isEnabled = false
+            Status.Visibility.PRIVATE -> binding.privateRadioButton.isEnabled = false
+            Status.Visibility.DIRECT -> binding.directRadioButton.isEnabled = false
         }
+    }
 
-        check(selectedButton)
+    fun setStatusVisibility(visibility: Status.Visibility) {
+        when (visibility) {
+            Status.Visibility.PUBLIC -> binding.publicRadioButton
+            Status.Visibility.UNLISTED -> binding.unlistedRadioButton
+            Status.Visibility.PRIVATE -> binding.privateRadioButton
+            Status.Visibility.DIRECT -> binding.directRadioButton
+            else -> binding.directRadioButton
+        }.isChecked = true
     }
 }
 
