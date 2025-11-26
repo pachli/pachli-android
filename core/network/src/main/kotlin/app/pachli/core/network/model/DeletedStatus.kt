@@ -31,6 +31,9 @@ data class DeletedStatus(
     val poll: Poll?,
     @Json(name = "created_at") val createdAt: Date,
     val language: String?,
+    val quote: Status.Quote? = null,
+    @Json(name = "quote_approval") val quoteApproval: Status.QuoteApproval? = null,
+
 ) {
     fun isEmpty(): Boolean {
         return text == null && attachments == null
@@ -46,5 +49,7 @@ data class DeletedStatus(
         poll = poll?.asModel(),
         createdAt = createdAt,
         language = language,
+        quote = quote?.asModel(),
+        quoteApproval = quoteApproval?.asModel(),
     )
 }

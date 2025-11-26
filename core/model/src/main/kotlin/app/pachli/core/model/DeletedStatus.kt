@@ -29,4 +29,6 @@ data class DeletedStatus(
     val poll: Poll?,
     val createdAt: Date,
     val language: String?,
+    val quote: Status.Quote?,
+    val quoteApproval: Status.QuoteApproval?,
 )
