@@ -53,6 +53,10 @@ data class CredentialAccount(
     val roles: List<Role>? = emptyList(),
 )
 
+/**
+ * @property quotePolicy The default [QuotePolicy] for the user's
+ * statuses.
+ */
 data class AccountSource(
     val privacy: Status.Visibility? = null,
     val sensitive: Boolean? = null,
@@ -63,8 +67,13 @@ data class AccountSource(
     val quotePolicy: QuotePolicy = QuotePolicy.PUBLIC,
 ) {
     enum class QuotePolicy {
+        /** Automatically quoteable by anyone. */
         PUBLIC,
+
+        /** Automatically quoteble by followers. */
         FOLLOWERS,
+
+        /** No one can quote. */
         NOBODY,
     }
 }
