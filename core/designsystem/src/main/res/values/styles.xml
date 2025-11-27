@@ -243,7 +243,7 @@
     <style name="Pachli.Widget.PreviewCardView" parent="">
         <item name="android:background">@drawable/card_frame</item>
         <item name="android:foreground">?selectableItemBackground</item>
-        <item name="previewCardInfoBackground">?colorSurfaceContainer</item>
+        <item name="previewCardInfoBackground">?colorSurfaceContainerHigh</item>
         <item name="previewCardImageVerticalHeight">@dimen/card_image_vertical_height</item>
         <item name="previewCardImageHorizontalWidth">@dimen/card_image_horizontal_width</item>
         <item name="previewCardTitleTextColor">?colorOnSurface</item>
