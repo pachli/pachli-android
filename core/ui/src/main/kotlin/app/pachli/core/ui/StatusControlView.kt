@@ -360,11 +360,13 @@ class StatusControlView @JvmOverloads constructor(
 
         // Decide which icons to show on the increasingly misnamed "reblog" button
         val (resActive, resInactive) = when {
-            // Reblogging has preference. If this can be reblogged then use those icons.
+            // Arrow+quote if reblogging and quoting is possible.
+            canReblog && canQuote -> (R.drawable.ic_reblog_quote_active_24dp to R.drawable.ic_reblog_quote_24dp)
+
+            // Reblogging only.
             canReblog -> (R.drawable.ic_reblog_active_24dp to R.drawable.ic_reblog_24dp)
 
-            // If it can be quoted then use the quote icon (which doesn't have active/inactive
-            // variants).
+            // Quoting only.
             canQuote -> (R.drawable.format_quote_24px to R.drawable.format_quote_24px)
 
             // Otherwise, use the relevant "can't be reblogged" icons depending on the
