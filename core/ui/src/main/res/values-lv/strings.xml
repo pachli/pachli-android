@@ -156,4 +156,7 @@
         <item quantity="one"><b>%1$s</b> citāts</item>
         <item quantity="other"><b>%1$s</b> citāti</item>
     </plurals>
+    <string name="action_quote">Citāts</string>
+    <string name="action_request_quote">Pieprasīt citēšanu</string>
+    <string name="label_author_denied_quote">Autors ir atspējojis citēšanu</string>
 </resources>
