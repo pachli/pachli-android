@@ -772,4 +772,12 @@
     <string name="detach_quote_dialog_message">Bainfear do phost luaite as an bpost seo leis seo.\n\nNí scriosfar do phost bunaidh.\n\nNí féidir é seo a chealú.</string>
     <string name="detach_quote_error_fmt">Theip ar an luachan a bhaint: %1$s</string>
     <string name="title_quotes">Sleachta</string>
+    <string name="action_toggle_quote_policy">Athraigh polasaí luachana</string>
+    <string name="drafts_load_reply_failed_fmt">Níorbh fhéidir an post atá á fhreagairt agat a lódáil: %1$s</string>
+    <string name="drafts_load_quote_failed_fmt">Níorbh fhéidir an post atá á lua agat a lódáil: %1$s</string>
+    <string name="drafts_post_quote_removed">Baineadh an post a luaigh tú</string>
+    <string name="compose_visibility_title">Cá seoltar é seo?</string>
+    <string name="compose_quote_policy_title">Cá bhfuil sé seo?</string>
+    <string name="compose_quote_policy_dialog_title">Athraigh an socrú luachana?</string>
+    <string name="compose_quote_policy_dialog_body_fmt">Ní mór socrú athfhriotail de \"%3$s\" a bheith ag poist atá marcáilte mar \"%1$s\" nó \"%2$s\".\n\nAn bhfuil tú ag iarraidh an socrú athfhriotail a athrú anois?</string>
 </resources>
