@@ -43,6 +43,7 @@ open class PronounsChip @JvmOverloads constructor(
     override fun setText(text: CharSequence?, type: BufferType?) {
         if (text.isNullOrBlank()) {
             hide()
+            setOnClickListener(null)
         } else {
             val formatted = HtmlCompat.fromHtml(text.toString().trim(), FROM_HTML_MODE_LEGACY)
             super.setText(formatted, type)
