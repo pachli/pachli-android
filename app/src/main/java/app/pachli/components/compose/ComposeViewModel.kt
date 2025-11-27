@@ -279,7 +279,7 @@ class ComposeViewModel @AssistedInject constructor(
      * In addition, multiple attachments can only be added if they are all images.
      */
     val canAttachMedia = combine(instanceInfo, media, poll) { instanceInfo, media, poll ->
-        composeOptions?.referencingStatus?.isQuoting() == false &&
+        composeOptions?.referencingStatus?.isQuoting() != true &&
             poll == null &&
             media.size < instanceInfo.maxMediaAttachments &&
             (media.isEmpty() || media.first().type == QueuedMedia.Type.IMAGE)
@@ -295,7 +295,7 @@ class ComposeViewModel @AssistedInject constructor(
      * 3. There are no media attachments.
      */
     val canAttachPoll = combine(poll, media) { poll, media ->
-        composeOptions?.referencingStatus?.isQuoting() == false &&
+        composeOptions?.referencingStatus?.isQuoting() != true &&
             poll == null &&
             media.isEmpty()
     }
