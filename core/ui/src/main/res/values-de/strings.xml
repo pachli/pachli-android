@@ -146,7 +146,7 @@
     <string name="action_request_quote">Zitatanfrage</string>
     <string name="label_author_denied_quote">Zitieren durch Autor deaktiviert</string>
     <plurals name="quotes">
-        <item quantity="one"><b>%1$s</b> Zitat</item>
-        <item quantity="other"><b>%1$s</b> Zitate</item>
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Zitat</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Zitate</item>
     </plurals>
 </resources>
