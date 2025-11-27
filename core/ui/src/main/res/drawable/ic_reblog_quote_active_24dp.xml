@@ -1,0 +1,33 @@
+<!--
+  ~ Copyright (c) 2025 Pachli Association
+  ~
+  ~ This file is a part of Pachli.
+  ~
+  ~ This program is free software; you can redistribute it and/or modify it under the terms of the
+  ~ GNU General Public License as published by the Free Software Foundation; either version 3 of the
+  ~ License, or (at your option) any later version.
+  ~
+  ~ Pachli is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+  ~ the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+  ~ Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License along with Pachli; if not,
+  ~ see <http://www.gnu.org/licenses>.
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24.0"
+    android:viewportHeight="24.0"
+    android:tint="?colorPrimary">
+ <path
+     android:fillColor="@android:color/white"
+     android:pathData="m17 17h-10v-3l-4 4 4 4v-3h12v-6h-2z"/>
+ <path
+     android:fillColor="@android:color/white"
+     android:pathData="m13.752 11.576 1.8316-3.1854c-0.87599 0-1.6259-0.31191-2.2497-0.93572-0.62381-0.62381-0.93572-1.3737-0.93572-2.2497 0-0.87599 0.3119-1.6259 0.93572-2.2497 0.62381-0.62381 1.3737-0.93572 2.2497-0.93572 0.87599 0 1.6259 0.31191 2.2497 0.93572 0.62381 0.62381 0.93572 1.3737 0.93572 2.2497 0 0.30527-0.0365 0.58731-0.1095 0.84613-0.07299 0.25881-0.18249 0.50768-0.32849 0.74658l-2.7474 4.7781z" style=""/>
+ <path
+     android:fillColor="@android:color/white"
+     android:pathData="m6.5848 11.576 1.8316-3.1854c-0.87599 0-1.6259-0.31191-2.2497-0.93572-0.62381-0.62381-0.93572-1.3737-0.93572-2.2497 0-0.87599 0.31191-1.6259 0.93572-2.2497 0.62381-0.62381 1.3737-0.93572 2.2497-0.93572 0.87599 0 1.6259 0.31191 2.2497 0.93572 0.62381 0.62381 0.93572 1.3737 0.93572 2.2497 0 0.30527-0.0365 0.58731-0.1095 0.84613-0.073 0.25881-0.1825 0.50768-0.3285 0.74658l-2.7474 4.7781z" style=""/>
+</vector>
