@@ -190,6 +190,8 @@ class StringResourceEntityDetector : Detector(), SourceCodeScanner, OtherFileSca
         val stringResources = rxStringResource.findAll(text).toList()
         if (stringResources.isEmpty()) return
 
+        val displayPath = context.project.getDisplayPath(context.file) ?: context.file.path
+
         stringResources.forEach { stringResource ->
             val resourceName = stringResource.groups["resourceName"]?.value ?: return
             val innerTextGroup = stringResource.groups["innerText"] ?: return
@@ -224,7 +226,7 @@ class StringResourceEntityDetector : Detector(), SourceCodeScanner, OtherFileSca
                     else -> entity.value
                 }
 
-                val key = "$resourceName:${context.file.absoluteFile}:$index"
+                val key = "$resourceName:$displayPath:$index"
                 val message = Message(
                     message = "Replace with $replacement",
                     fix = Fix(

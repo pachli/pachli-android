@@ -86,6 +86,77 @@ res/values/strings.xml:4: Warning: Replace with &lt;b&gt; [StringResourceAngleBr
         ).allowMissingSdk().testModes(TestMode.DEFAULT).run().expectClean()
     }
 
+    fun `test getQuantityString on resource using angle-bracket emits warning`() {
+        lint().files(
+            Context,
+            kotlin(
+                """
+               package test.pkg
+
+               import android.content.Context
+
+               fun foo(context: Context) = return context.getQuantityString(R.plurals.test, 1, 1)
+               """,
+            ),
+            xml(
+                "res/values/strings.xml",
+                """
+                    <?xml version="1.0" encoding="utf-8"?>
+
+                    <resources>
+                        <plurals name="test">
+                            <item quantity="one"><b>one %1${"$"}d</b></item>
+                            <item quantity="other"><b>other %1${"$"}d</b></item>
+                        </plurals>
+                    </resources>
+                """.trimIndent(),
+            ).indented(),
+        ).allowMissingSdk().testModes(TestMode.DEFAULT).run().expect(
+            // ktlint 12.x can't parse strings with multi-dollar interpolation
+            """res/values/strings.xml:5: Warning: Replace with &lt;/b&gt; [StringResourceAngleBracketDetector]
+        <item quantity="one"><b>one %1${"$"}d</b></item>
+                                        ~~~~
+res/values/strings.xml:5: Warning: Replace with &lt;b&gt; [StringResourceAngleBracketDetector]
+        <item quantity="one"><b>one %1${"$"}d</b></item>
+                             ~~~
+res/values/strings.xml:6: Warning: Replace with &lt;/b&gt; [StringResourceAngleBracketDetector]
+        <item quantity="other"><b>other %1${"$"}d</b></item>
+                                            ~~~~
+res/values/strings.xml:6: Warning: Replace with &lt;b&gt; [StringResourceAngleBracketDetector]
+        <item quantity="other"><b>other %1${"$"}d</b></item>
+                               ~~~
+0 errors, 4 warnings""",
+        )
+    }
+
+    fun `test getQuantityString on resource using entity is clean`() {
+        lint().files(
+            Context,
+            kotlin(
+                """
+               package test.pkg
+
+               import android.content.Context
+
+               fun foo(context: Context) = return context.getQuantityString(R.plurals.test, 1, 1)
+               """,
+            ),
+            xml(
+                "res/values/strings.xml",
+                """
+                    <?xml version="1.0" encoding="utf-8"?>
+
+                    <resources>
+                        <plurals name="test">
+                            <item quantity="one">&lt;b>one %1${"$"}d&lt;/b></item>
+                            <item quantity="other">&lt;b>other %1${"$"}d&lt;b></item>
+                        </plurals>
+                    </resources>
+                """.trimIndent(),
+            ).indented(),
+        ).allowMissingSdk().testModes(TestMode.DEFAULT).run().expectClean()
+    }
+
     companion object Stubs {
         /** Stub for `android.content.Context` */
         private val Context = java(
@@ -94,6 +165,7 @@ res/values/strings.xml:4: Warning: Replace with &lt;b&gt; [StringResourceAngleBr
 
             public class Context {
                 public final String getString(int resId) { return null; }
+                public final String getQuantityString(int resId, int quantity, Object... formatArgs) { return null; }
             }
             """,
         ).indented()

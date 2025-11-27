@@ -152,9 +152,9 @@
     <string name="label_quoted_status_hidden">Ieraksta citāts paslēpts viena no atsijātāju dēļ</string>
     <string name="detach_quote">Noņemt citātu</string>
     <plurals name="quotes">
-        <item quantity="zero"><b>%1$s</b> citātu</item>
-        <item quantity="one"><b>%1$s</b> citāts</item>
-        <item quantity="other"><b>%1$s</b> citāti</item>
+        <item quantity="zero">&lt;b&gt;%1$s&lt;/b&gt; citātu</item>
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; citāts</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; citāti</item>
     </plurals>
     <string name="action_quote">Citāts</string>
     <string name="action_request_quote">Pieprasīt citēšanu</string>
