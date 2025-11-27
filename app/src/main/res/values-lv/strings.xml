@@ -750,4 +750,12 @@
     <string name="detach_quote_dialog_message">Tas noņems Tavu citēto ierakstu no šī ieraksta.\n\nTavs sākotnējais ieraksts netiks izdzēsts.\n\nŠī darbība ir neatgriezeniska.</string>
     <string name="detach_quote_error_fmt">Citāta noņemšana neizdevās: %1$s</string>
     <string name="title_quotes">Citāti</string>
+    <string name="action_toggle_quote_policy">Mainīt citēšanas pamatnostādni</string>
+    <string name="drafts_load_reply_failed_fmt">Nevarēja ielādēt ierakstu, uz kuru atbildi: %1$s</string>
+    <string name="drafts_load_quote_failed_fmt">Nevarēja ielādēt ierakstu, kuru citē: %1$s</string>
+    <string name="drafts_post_quote_removed">Ieraksts, kuru citēji, tika noņemts</string>
+    <string name="compose_visibility_title">Kur šis tiek nosūtīts?</string>
+    <string name="compose_quote_policy_title">Kurš var citēt šo ierakstu?</string>
+    <string name="compose_quote_policy_dialog_title">Mainīt citāta iestatījumu?</string>
+    <string name="compose_quote_policy_dialog_body_fmt">Ierakstiem, kas atzīmēti kā “%1$s” vai “%2$s”, jābūt citāta iestatījumam “%3$s”.\n\nMainīt citāta iestatījumu tagad?</string>
 </resources>
