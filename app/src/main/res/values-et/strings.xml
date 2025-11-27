@@ -742,4 +742,12 @@
     <string name="detach_quote_dialog_message">Sellega eemaldad antud postitusest oma tsiteeritud postituse.\n\nSinu algne postitus jääb alles.\n\nSeda tegevust ei saa hiljem tagasi pöörata.</string>
     <string name="detach_quote_error_fmt">Postituse eemaldamine ei õnnestunud: %1$s</string>
     <string name="title_quotes">Tsitaadid</string>
+    <string name="action_toggle_quote_policy">Muuda tsiteerimisreegleid</string>
+    <string name="drafts_load_reply_failed_fmt">Polnud võimalik laadida postitust, millele sa oled vastamas: %1$s</string>
+    <string name="drafts_load_quote_failed_fmt">Polnud võimalik laadida postitust, mida sa oled tsiteerimas: %1$s</string>
+    <string name="drafts_post_quote_removed">Sinu tsiteeritud postitus on eemaldatud</string>
+    <string name="compose_visibility_title">Kuhu ta saadetakse?</string>
+    <string name="compose_quote_policy_title">Kes võivad seda postitust tsiteerida?</string>
+    <string name="compose_quote_policy_dialog_title">Kas muudad tsiteerimise seadistusi?</string>
+    <string name="compose_quote_policy_dialog_body_fmt">Kui postituse reegel on „%1$s“ või „%2$s“, siis tsiteerimise seadistus peab olema „%3$s“.\n\nKas järgnevalt muudad tsiteerimise reeglit?</string>
 </resources>
