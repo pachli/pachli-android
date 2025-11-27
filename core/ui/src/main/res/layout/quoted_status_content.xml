@@ -41,9 +41,10 @@
         android:id="@+id/quoted_status_hidden"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="48dp"
         android:paddingStart="14dp"
         android:paddingEnd="14dp"
-        android:textAlignment="center"
+        android:gravity="center"
         android:textSize="?status_text_small"
         android:text="@string/label_quoted_status_hidden"
         android:visibility="gone" />
