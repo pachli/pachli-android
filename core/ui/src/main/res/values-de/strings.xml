@@ -149,4 +149,13 @@
         <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Zitat</item>
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Zitate</item>
     </plurals>
+    <string name="label_quote_state_unknown">Zitierter Beitrag kann nicht angezeigt werden</string>
+    <string name="label_quote_state_pending">Zitat wartet auf Genehmigung</string>
+    <string name="label_quote_state_rejected">Das zitierte Konto hat die Anzeige dieses Zitats blockiert</string>
+    <string name="label_quote_state_revoked">Das zitierte Konto hat die Anzeige dieses Zitats blockiert</string>
+    <string name="label_quote_state_deleted">Der zitierte Beitrag wurde gelöscht</string>
+    <string name="label_quote_state_unauthorized">Der zitierte Beitrag ist für dich nicht sichtbar</string>
+    <string name="label_quote_state_blocked_account">Der zitierte Beitrag stammt von einem Konto, das du blockiert hast</string>
+    <string name="label_quote_state_blocked_domain">Der zitierte Beitrag stammt von einem Server, den du blockiert hast</string>
+    <string name="label_quote_state_muted_account">Der zitierte Beitrag stammt von einem Konto, das du stummgeschaltet hast</string>
 </resources>
