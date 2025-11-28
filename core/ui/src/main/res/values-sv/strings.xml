@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_network">Ett nätverksfel uppstod. Kontrollera din anslutning och försök igen.</string>
     <string name="error_generic">Ett fel har uppstått.</string>
@@ -16,7 +16,7 @@
     <string name="title_hashtags_dialog">Hashtaggar</string>
     <string name="title_mentions_dialog">Omnämnanden</string>
     <string name="button_continue">Fortsätt</string>
-    <string name="action_logout_confirm">Är du säker på att du vill logga ut från kontot %1$s? All lokal information kommer att raderas, inklusive utkast och inställningar.</string>
+    <string name="action_logout_confirm">All lokal information från kontot %1$s, kommer att raderas, inklusive utkast och inställningar.\n\nDitt konto på servern raderas inte.</string>
     <string name="add_account_name">Lägg till konto</string>
     <string name="action_logout">Logga ut</string>
     <string name="poll_vote">Rösta</string>
@@ -71,7 +71,7 @@
     </string>
     <string name="description_visibility_direct">        Direkt
     </string>
-    <string name="post_sensitive_media_title">Känsligt innehåll</string>
+    <string name="post_sensitive_media_title">Känsligt innehåll. Klicka för att visa.</string>
     <string name="post_media_images">Bilder</string>
     <string name="post_media_audio">Ljud</string>
     <string name="post_media_video">Video</string>
@@ -108,4 +108,39 @@
     <string name="filter_edit_title">Redigera filter</string>
     <string name="status_filtered_show_anyway">Visa allafall</string>
     <string name="status_filter_placeholder_label_format">Filtrerad: &lt;b&gt;%1$s&lt;/b&gt;</string>
+    <plurals name="quotes">
+        <item quantity="one"><b>%1$s</b> Citat</item>
+        <item quantity="other"><b>%1$s</b> Citat</item>
+    </plurals>
+    <plurals name="description_post_roles">
+        <item quantity="one">med roll:</item>
+        <item quantity="other">med roller:</item>
+    </plurals>
+    <string name="pref_notification_fetch_method_title">Aviseringsmetod</string>
+    <string name="item_copied">Text kopierad</string>
+    <string name="action_copy_item">Kopiera</string>
+    <string name="pref_notification_method_push">Push</string>
+    <string name="pref_notification_method_pull">Pull</string>
+    <string name="pref_notification_fetch_ok_timestamp_fmt">✔ %1$s sedan, kl. %2$s</string>
+    <string name="pref_notification_fetch_err_timestamp_fmt">✖ %1$s sedan, kl. %2$s</string>
+    <string name="pref_notification_fetch_server_rejected">%1$s tillät inte push registrering</string>
+    <string name="pref_notification_fetch_needs_push">Kontot har inte tillåtelse att använda \"push\". Att logga ut och in igen kan lösa detta.</string>
+    <string name="title_logout_fmt">Logga ut %1$s</string>
+    <string name="notification_details_last_fetch_label">Senaste /api/v1/notifications frågan</string>
+    <string name="hint_search_emojis">Sök efter emojis…</string>
+    <string name="label_emoji_no_category">Ingen kategori</string>
+    <string name="emoji_picker_show_detail">Visa detaljer</string>
+    <string name="preview_card_byline_fediverse_account_fmt">Se mer från <b>%1$s</b></string>
+    <string name="preview_card_byline_name_only_fmt">Av <b>%1$s</b></string>
+    <string name="preview_card_timeline_link_fmt">Visa <b>%1$s</b> inlägg om denna länk</string>
+    <string name="attachment_matches_filter_one_fmt">Matchar filtret: \"%1$s\". Klicka för att visa.</string>
+    <string name="attachment_matches_filter_two_fmt">Matchar filterna: \"%1$s\" och \"%2$s\". Klicka för att visa.</string>
+    <string name="attachment_matches_filter_other_fmt">Matchar filterna: \"%1$s\", \"%2$s\" med flera. Klicka för att visa.</string>
+    <string name="attachment_hidden_user_action">Du gömde detta. Kicka för att visa.</string>
+    <string name="action_show_attachments">Visa bilagor</string>
+    <string name="action_hide_attachments">Göm bilagor</string>
+    <string name="action_select_status">Markera inlägg</string>
+    <string name="action_unselect_status">Avmarkera inlägg</string>
+    <string name="action_show_pronouns">Visa pronomen</string>
+    <string name="action_open_quoted_post">Öppna citatpost</string>
 </resources>
