@@ -7,7 +7,7 @@
     <string name="error_generic_fmt">%1$s</string>
     <string name="error_404_not_found_fmt">tenar din stør ikkje denne funksjonen: %1$s</string>
     <string name="error_429_rate_limit_fmt">tenaren din fartsavgrensar førespurnadene dine: %1$s</string>
-    <string name="error_json_data_fmt">Tenaren din gav eit ugyldig svar: %1$s</string>
+    <string name="error_json_data_fmt">tenaren din gav eit ugyldig svar: %1$s</string>
     <string name="error_network_fmt">Ein nettverksfeil oppstod: %s</string>
     <string name="error_missing_content_type_fmt">tenaren din er konfigurert feil, svaret har ingen content-type: %1$s</string>
     <string name="error_wrong_content_type_fmt">tenaren din er konfigurert rangt og gav «%2$s» med feil content-type «%1$s»</string>
