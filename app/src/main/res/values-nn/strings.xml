@@ -652,7 +652,7 @@
     <string name="account_filter_placeholder_label_younger_30d">Filtrert fordi: &lt;b&gt;kontoen vart oppretta på dei siste 30 dagane&lt;/b&gt;</string>
     <string name="account_filter_placeholder_label_limited_by_server">Filtrert fordi: &lt;b&gt;kontoen er avgrensa av moderatorane dine&lt;/b&gt;</string>
     <string name="search_operator_from_dialog_other_account">Berre innlegg frå denne kontoen</string>
-    <string name="account_filter_placeholder_type_favourite_fmt">Ein brukar (@&lt;b>%1s&lt;/b>) favorittmerkte innlegget ditt</string>
+    <string name="account_filter_placeholder_type_favourite_fmt">Ein brukar (@&lt;b&gt;%1s&lt;/b&gt;) favorittmerkte innlegget ditt</string>
     <string name="account_filter_placeholder_type_reblog_fmt">Ein brukar (@&lt;b&gt;%1s&lt;/b&gt;) delte innlegget ditt</string>
     <string name="pref_account_notification_filters_subtitle">Kva burde skje til varsel frå kontoar som…</string>
     <string name="search_operator_where_dialog_title">Avgrens til…</string>
@@ -676,7 +676,7 @@
     <string name="pref_title_public_filter_home_and_lists">Heim og lister</string>
     <string name="ui_error_reload_reply_fmt">Kunne ikkje laste inn innlegg: %1$s</string>
     <string name="action_refresh_account">Last inn konto på nytt</string>
-    <string name="account_filter_placeholder_type_conversation">Ein brukar @&lt;b>%1$s&lt;/b> starta ei samtale</string>
+    <string name="account_filter_placeholder_type_conversation">Ein brukar @&lt;b&gt;%1$s&lt;/b&gt; starta ei samtale</string>
     <string name="export_preferences_ok_fmt">Innstillingar eksporterte til %1$s</string>
     <string name="followed_hashtags_summary_fmt">%1$s frå %2$s (siste %3$s)</string>
     <string name="error_import_preferences_fmt">Kunne ikkje importere innstillingar frå %1$s: %2$s</string>
@@ -696,10 +696,10 @@
     <string name="action_send_public_content_description">Send offentleg innlegg</string>
     <string name="pref_title_notification_filter_severed_relationships">Eit samband vert avbrote</string>
     <string name="pref_custom_tabs_false">Saktare; nøyter din føretrekte nettlesar</string>
-    <string name="notification_severed_relationships_user_domain_block_fmt">Du blokkerte &lt;b>%1$s&lt;/b></string>
-    <string name="notification_severed_relationships_domain_block_fmt">Ein moderator av %1$s blokkerte &lt;b>%2$s&lt;/b></string>
-    <string name="notification_severed_relationships_account_suspension_fmt">Ein moderator av %1$s suspenderte &lt;b>%2$s&lt;/b></string>
-    <string name="notification_severed_relationships_unknown_fmt">&lt;b>%1$s&lt;/b> er blokkert (ukjend orsak)</string>
+    <string name="notification_severed_relationships_user_domain_block_fmt">Du blokkerte &lt;b&gt;%1$s&lt;/b&gt;</string>
+    <string name="notification_severed_relationships_domain_block_fmt">Ein moderator av %1$s blokkerte &lt;b&gt;%2$s&lt;/b&gt;</string>
+    <string name="notification_severed_relationships_account_suspension_fmt">Ein moderator av %1$s suspenderte &lt;b&gt;%2$s&lt;/b&gt;</string>
+    <string name="notification_severed_relationships_unknown_fmt">&lt;b&gt;%1$s&lt;/b&gt; er blokkert (ukjend orsak)</string>
     <string name="title_report_category_fmt">Emne: %1$s</string>
     <string name="title_report_comment">Kommentar frå rapporterar</string>
     <string name="manage_accounts_name">Handsam kontoar</string>
@@ -730,4 +730,24 @@
     <string name="filter_description_blur">Syn innhald, gøym vedlegg med eit varsel</string>
     <string name="action_move_up">Flytt oppover</string>
     <string name="action_move_down">Flytt nedover</string>
+    <string name="title_quotes">Hermingar</string>
+    <string name="notification_quote_format">%s hermde innlegget ditt</string>
+    <string name="notification_quoted_update_format">%s oppdaterte innlegget du hermde</string>
+    <string name="action_toggle_quote_policy">Brigd hermingsløyve</string>
+    <string name="pref_title_notification_filter_quote">Mine innlegg vert hermde</string>
+    <string name="pref_title_notification_filter_quoted_update">Eit innlegg som eg hermde vert brigda</string>
+    <string name="notification_quote_name">Nokon hermde etter deg</string>
+    <string name="notification_quote_description">Varsel om at nokon hermer innlegga dine</string>
+    <string name="notification_quoted_update_name">Brigdingar på hermde innlegg</string>
+    <string name="notification_quoted_update_description">Varsel når innlegg du hermde vert brigda</string>
+    <string name="drafts_load_reply_failed_fmt">Klarte ikkje å laste inn innlegget som du svarar på: %1$s</string>
+    <string name="drafts_load_quote_failed_fmt">Klarte ikkje å laste inn innlegget du hermer: %1$s</string>
+    <string name="drafts_post_quote_removed">Innlegget som du hermde, har vorte sletta</string>
+    <string name="detach_quote_dialog_title">Slett herming?</string>
+    <string name="detach_quote_dialog_message">Dette tek ditt hermeinnlegg bort frå dette innlegget.\n\nDitt opphavlege innlegg vert ikkje sletta.\n\nDette kan ikkje verte angra på.</string>
+    <string name="detach_quote_error_fmt">Mislukkast i å sletta hermeinnlegg: %1$s</string>
+    <string name="compose_visibility_title">Kvar vert dette sendt?</string>
+    <string name="compose_quote_policy_title">Kven kan herme dette innlegget?</string>
+    <string name="compose_quote_policy_dialog_title">Brigd hermingsløyve?</string>
+    <string name="compose_quote_policy_dialog_body_fmt">Innlegg merkte som «%1$s» eller «%2$s» lyt ha hermeløyve av «%3$s».\n\nBrigd hermeløyve no?</string>
 </resources>
