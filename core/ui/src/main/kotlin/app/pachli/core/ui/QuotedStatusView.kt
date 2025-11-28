@@ -28,6 +28,7 @@ import app.pachli.core.data.model.QuotedStatusViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusViewData
 import app.pachli.core.model.FilterAction
+import app.pachli.core.model.Status
 import app.pachli.core.ui.databinding.QuotedStatusContentBinding
 import com.bumptech.glide.RequestManager
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
@@ -69,10 +70,34 @@ class QuotedStatusView @JvmOverloads constructor(
     private val paddingBottomWithoutRemoveQuote = dpToPx(14f, context.resources.displayMetrics).toInt()
 
     override fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: QuotedStatusViewData, listener: StatusActionListener, statusDisplayOptions: StatusDisplayOptions) {
+        // Don't show the quote unless the state is ACCEPTED. Every other state
+        // has a custom explanation.
+        val blockedRes = when (viewData.quoteState) {
+            Status.QuoteState.ACCEPTED -> -1
+            Status.QuoteState.UNKNOWN -> R.string.label_quote_state_unknown
+            Status.QuoteState.PENDING -> R.string.label_quote_state_pending
+            Status.QuoteState.REJECTED -> R.string.label_quote_state_rejected
+            Status.QuoteState.REVOKED -> R.string.label_quote_state_revoked
+            Status.QuoteState.DELETED -> R.string.label_quote_state_deleted
+            Status.QuoteState.UNAUTHORIZED -> R.string.label_quote_state_unauthorized
+            Status.QuoteState.BLOCKED_ACCOUNT -> R.string.label_quote_state_blocked_account
+            Status.QuoteState.BLOCKED_DOMAIN -> R.string.label_quote_state_blocked_domain
+            Status.QuoteState.MUTED_ACCOUNT -> R.string.label_quote_state_muted_account
+        }
+
+        if (blockedRes != -1) {
+            binding.quotedStatusFiltered.root.hide()
+            binding.quotedStatusContainer.root.hide()
+            binding.quotedStatusHidden.setText(blockedRes)
+            binding.quotedStatusHidden.show()
+            return
+        }
+
         when (viewData.contentFilterAction) {
             FilterAction.HIDE -> {
                 binding.quotedStatusFiltered.root.hide()
                 binding.quotedStatusContainer.root.hide()
+                binding.quotedStatusHidden.setText(R.string.label_quoted_status_hidden)
                 binding.quotedStatusHidden.show()
                 return
             }

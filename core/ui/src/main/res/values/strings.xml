@@ -176,4 +176,14 @@
     <string name="status_filter_placeholder_label_format">Filtered: &lt;b>%1$s&lt;/b></string>
     <string name="label_quoted_status_hidden">Quote of a post hidden by one of your filters</string>
     <string name="detach_quote">Remove quote</string>
+
+    <string name="label_quote_state_unknown">Quoted post cannot be displayed</string>
+    <string name="label_quote_state_pending">Quote is waiting to be approved</string>
+    <string name="label_quote_state_rejected">Quoted account blocked this quote from being displayed</string>
+    <string name="label_quote_state_revoked">Quoted account blocked this quote from being displayed</string>
+    <string name="label_quote_state_deleted">Quoted post has been deleted</string>
+    <string name="label_quote_state_unauthorized">Quoted post is not visible to you</string>
+    <string name="label_quote_state_blocked_account">Quoted post is from an account you blocked</string>
+    <string name="label_quote_state_blocked_domain">Quoted post is from a server you blocked</string>
+    <string name="label_quote_state_muted_account">Quoted post is from an account you muted</string>
 </resources>

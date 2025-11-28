@@ -154,10 +154,11 @@ sealed interface IStatusItemViewData : IStatusViewData {
     /**
      * @return [quotedViewData] as a [QuotedStatusViewData].
      */
-    fun asQuotedStatusViewData() = quotedViewData?.let {
+    fun asQuotedStatusViewData() = quotedViewData?.let { quotedViewData ->
         QuotedStatusViewData(
             parentId = statusViewData.actionableId,
-            statusViewData = it,
+            statusViewData = quotedViewData,
+            quoteState = statusViewData.quote!!.state,
         )
     }
 }
@@ -338,8 +339,11 @@ data class StatusViewData(
  * @property parentId Actionable ID of the status that is quoting this
  * status. Required to revoke the quote.
  * @property statusViewData [StatusViewData] of the quoted status.
+ * @property quoteState [Status.QuoteState] for the quote. Not all quotes are
+ * displayed.
  */
 data class QuotedStatusViewData(
     val parentId: String,
     val statusViewData: StatusViewData,
+    val quoteState: Status.QuoteState,
 ) : IStatusViewData by statusViewData
