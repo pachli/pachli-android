@@ -41,6 +41,7 @@ import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.data.model.IStatusViewData
+import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.data.repository.AccountManager
 import app.pachli.core.data.repository.OfflineFirstStatusRepository
 import app.pachli.core.data.repository.ServerRepository
@@ -199,11 +200,13 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                 Status.Visibility.PUBLIC, Status.Visibility.UNLISTED -> {
                     menu.add(0, R.id.pin, 1, getString(if (status.isPinned()) R.string.unpin_action else R.string.pin_action))
                 }
+
                 Status.Visibility.PRIVATE -> {
                     val reblogged = status.reblog?.reblogged ?: status.reblogged
                     menu.findItem(R.id.status_reblog_private).isVisible = !reblogged
                     menu.findItem(R.id.status_unreblog_private).isVisible = reblogged
                 }
+
                 else -> {}
             }
         } else {
@@ -220,6 +223,16 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                 popup.menu.findItem(R.id.status_translate_undo).isVisible = false
             }
         }
+
+        // Quoted posts that are solely attachments are difficult to click to view
+        // the quoted post (clicks open the attachment or the profile). Provide a
+        // menu option as an escape hatch.
+        if (viewData !is StatusItemViewData) {
+            popup.menu.findItem(R.id.status_open_quoted_post)?.apply {
+                isVisible = false
+            }
+        }
+
         val menu = popup.menu
 
         // "Open as..." appears if:
@@ -405,6 +418,15 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                 true
             }
 
+            R.id.status_open_quoted_post -> {
+                (viewData as? StatusItemViewData)?.let {
+                    it.quotedViewData?.let {
+                        viewThread(it.actionableId, it.actionable.url)
+                    }
+                }
+                true
+            }
+
             else -> false
         }
     }
@@ -453,6 +475,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                     startActivityWithDefaultTransition(intent)
                 }
             }
+
             Attachment.Type.UNKNOWN -> openUrl(attachment.url)
         }
     }
