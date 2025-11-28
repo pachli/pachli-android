@@ -18,6 +18,11 @@
     <item
         android:id="@+id/status_open_as"
         android:title="@string/action_open_as" />
+
+    <item
+        android:id="@+id/status_open_quoted_post"
+        android:title="@string/action_open_quoted_post" />
+
     <item
         android:id="@+id/status_download_media"
         android:title="@string/download_media" />
