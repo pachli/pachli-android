@@ -33,6 +33,7 @@ import app.pachli.components.search.SearchOperator.IsSensitiveOperator
 import app.pachli.components.search.SearchOperator.LanguageOperator
 import app.pachli.components.search.SearchOperator.WhereOperator
 import app.pachli.components.search.adapter.SearchPagingSourceFactory
+import app.pachli.core.data.model.ContentFilterModel
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusItemViewData
@@ -46,7 +47,10 @@ import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.TimelineStatusWithQuote
 import app.pachli.core.database.model.asEntity
 import app.pachli.core.model.AttachmentDisplayAction
+import app.pachli.core.model.ContentFilterVersion
 import app.pachli.core.model.DeletedStatus
+import app.pachli.core.model.FilterAction
+import app.pachli.core.model.FilterContext
 import app.pachli.core.model.Poll
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_BY_DATE
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_FROM
@@ -217,39 +221,48 @@ class SearchViewModel @Inject constructor(
     private val statusesPagingSourceFactory = SearchPagingSourceFactory(mastodonApi, SearchType.Status, loadedStatuses) {
         val pachliAccount = accountManager.activePachliAccountFlow.first()
 
-        it.statuses.map { status ->
-            TimelineStatusWithQuote(
-                timelineStatus = TimelineStatusWithAccount(
-                    status = status.asEntity(pachliAccount.id),
-                    account = status.reblog?.account?.asEntity(pachliAccount.id) ?: status.account.asEntity(pachliAccount.id),
-                    reblogAccount = status.reblog?.let { status.account.asEntity(pachliAccount.id) },
-                    viewData = statusRepository.getStatusViewData(pachliAccount.id, status.actionableId),
-                    translatedStatus = statusRepository.getTranslation(pachliAccount.id, status.actionableId),
-                ),
-                quotedStatus = (status.quote as? Status.Quote.FullQuote)?.status?.let { q ->
-                    TimelineStatusWithAccount(
-                        status = q.asEntity(pachliAccount.id),
-                        account = q.account.asEntity(pachliAccount.id),
-                        reblogAccount = null,
-                        viewData = statusRepository.getStatusViewData(pachliAccount.id, q.actionableId),
-                        translatedStatus = statusRepository.getTranslation(pachliAccount.id, q.actionableId),
-                    )
-                },
-            )
-        }.map { status ->
-            StatusItemViewData.from(
-                pachliAccount = pachliAccount,
-                status,
-                isExpanded = alwaysOpenSpoiler,
-                // Search results are not filtered, per Mastodon.
-                contentFilterAction = app.pachli.core.model.FilterAction.NONE,
-                quoteContentFilterAction = app.pachli.core.model.FilterAction.NONE,
-                filterContext = null,
-                showSensitiveMedia = pachliAccount.entity.alwaysShowSensitiveMedia,
-            )
-        }.apply {
-            loadedStatuses.addAll(this)
+        // Search uses the "PUBLIC" context, since https://github.com/mastodon/mastodon/pull/36346/
+        val contentFilterModel = when (pachliAccount.contentFilters.version) {
+            ContentFilterVersion.V2 -> ContentFilterModel(FilterContext.PUBLIC)
+            ContentFilterVersion.V1 -> ContentFilterModel(FilterContext.PUBLIC, pachliAccount.contentFilters.contentFilters)
         }
+
+        it.statuses
+            .map { status ->
+                TimelineStatusWithQuote(
+                    timelineStatus = TimelineStatusWithAccount(
+                        status = status.asEntity(pachliAccount.id),
+                        account = status.reblog?.account?.asEntity(pachliAccount.id) ?: status.account.asEntity(pachliAccount.id),
+                        reblogAccount = status.reblog?.let { status.account.asEntity(pachliAccount.id) },
+                        viewData = statusRepository.getStatusViewData(pachliAccount.id, status.actionableId),
+                        translatedStatus = statusRepository.getTranslation(pachliAccount.id, status.actionableId),
+                    ),
+                    quotedStatus = (status.quote as? Status.Quote.FullQuote)?.status?.let { q ->
+                        TimelineStatusWithAccount(
+                            status = q.asEntity(pachliAccount.id),
+                            account = q.account.asEntity(pachliAccount.id),
+                            reblogAccount = null,
+                            viewData = statusRepository.getStatusViewData(pachliAccount.id, q.actionableId),
+                            translatedStatus = statusRepository.getTranslation(pachliAccount.id, q.actionableId),
+                        )
+                    },
+                )
+            }
+            .map { it to contentFilterModel.filterActionFor(it.timelineStatus.status) }
+            .filter { it.second != FilterAction.HIDE }
+            .map { (status, contentFilterAction) ->
+                StatusItemViewData.from(
+                    pachliAccount = pachliAccount,
+                    status,
+                    isExpanded = alwaysOpenSpoiler,
+                    contentFilterAction = contentFilterAction,
+                    quoteContentFilterAction = status.quotedStatus?.let { contentFilterModel.filterActionFor(it.status) },
+                    filterContext = null,
+                    showSensitiveMedia = pachliAccount.entity.alwaysShowSensitiveMedia,
+                )
+            }.apply {
+                loadedStatuses.addAll(this)
+            }
     }
     private val accountsPagingSourceFactory = SearchPagingSourceFactory(mastodonApi, SearchType.Account) {
         it.accounts
