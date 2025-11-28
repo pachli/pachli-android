@@ -209,11 +209,63 @@ data class Status(
 
     enum class QuoteState {
         UNKNOWN,
+
+        /**
+         * The quote has not been acknowledged by the quoted account yet, and
+         * requires authorization before being displayed.
+         */
         PENDING,
+
+        /**
+         * The quote has been accepted and can be displayed. This is one of the
+         * few cases where status is non-null.
+         */
         ACCEPTED,
+
+        /**
+         * The quote has been explicitly rejected by the quoted account, and
+         * cannot be displayed.
+         */
         REJECTED,
+
+        /**
+         * The quote has been previously accepted, but is now revoked, and
+         * thus cannot be displayed.
+         */
         REVOKED,
+
+        /**
+         * The quote has been approved, but the quoted post itself has now
+         * been deleted.
+         */
+        DELETED,
+
+        /**
+         * The quote has been approved, but cannot be displayed because the
+         * user is not authorized to see it.
+         */
         UNAUTHORIZED,
+
+        /**
+         * The quote has been approved, but should not be displayed because
+         * the user has blocked the account being quoted. This is one of the
+         * few cases where status is non-null.
+         */
+        BLOCKED_ACCOUNT,
+
+        /**
+         * The quote has been approved, but should not be displayed because
+         * the user has blocked the domain of the account being quoted.
+         * This is one of the few cases where status is non-null.
+         */
+        BLOCKED_DOMAIN,
+
+        /**
+         * The quote has been approved, but should not be displayed because
+         * the user has muted the the account being quoted. This is one of
+         * the few cases where status is non-null.
+         */
+        MUTED_ACCOUNT,
     }
 
     sealed interface Quote {

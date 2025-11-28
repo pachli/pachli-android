@@ -168,20 +168,71 @@ data class Status(
         @Default
         UNKNOWN,
 
+        /**
+         * The quote has not been acknowledged by the quoted account yet, and
+         * requires authorization before being displayed.
+         */
         @Json(name = "pending")
         PENDING,
 
+        /**
+         * The quote has been accepted and can be displayed. This is one of the
+         * few cases where status is non-null.
+         */
         @Json(name = "accepted")
         ACCEPTED,
 
+        /**
+         * The quote has been explicitly rejected by the quoted account, and
+         * cannot be displayed.
+         */
         @Json(name = "rejected")
         REJECTED,
 
+        /**
+         * The quote has been previously accepted, but is now revoked, and
+         * thus cannot be displayed.
+         */
         @Json(name = "revoked")
         REVOKED,
 
+        /**
+         * The quote has been approved, but the quoted post itself has now
+         * been deleted.
+         */
+        @Json(name = "deleted")
+        DELETED,
+
+        /**
+         * The quote has been approved, but cannot be displayed because the
+         * user is not authorized to see it.
+         */
         @Json(name = "unauthorized")
         UNAUTHORIZED,
+
+        /**
+         * The quote has been approved, but should not be displayed because
+         * the user has blocked the account being quoted. This is one of the
+         * few cases where status is non-null.
+         */
+        @Json(name = "blocked_account")
+        BLOCKED_ACCOUNT,
+
+        /**
+         * The quote has been approved, but should not be displayed because
+         * the user has blocked the domain of the account being quoted.
+         * This is one of the few cases where status is non-null.
+         */
+        @Json(name = "blocked_domain")
+        BLOCKED_DOMAIN,
+
+        /**
+         * The quote has been approved, but should not be displayed because
+         * the user has muted the account being quoted. This is one of
+         * the few cases where status is non-null.
+         */
+        @Json(name = "muted_account")
+        MUTED_ACCOUNT,
 
         ;
 
@@ -191,7 +242,11 @@ data class Status(
             ACCEPTED -> app.pachli.core.model.Status.QuoteState.ACCEPTED
             REJECTED -> app.pachli.core.model.Status.QuoteState.REJECTED
             REVOKED -> app.pachli.core.model.Status.QuoteState.REVOKED
+            DELETED -> app.pachli.core.model.Status.QuoteState.DELETED
             UNAUTHORIZED -> app.pachli.core.model.Status.QuoteState.UNAUTHORIZED
+            BLOCKED_ACCOUNT -> app.pachli.core.model.Status.QuoteState.BLOCKED_ACCOUNT
+            BLOCKED_DOMAIN -> app.pachli.core.model.Status.QuoteState.BLOCKED_DOMAIN
+            MUTED_ACCOUNT -> app.pachli.core.model.Status.QuoteState.MUTED_ACCOUNT
         }
     }
 
