@@ -63,25 +63,24 @@ open class StatusViewHolder<T : IStatusViewData>(
         statusDisplayOptions: StatusDisplayOptions,
         listener: StatusActionListener,
     ) {
-        if (!statusDisplayOptions.showStatusInfo) {
+        if (!statusDisplayOptions.showStatusInfo || viewData.contentFilterAction == FilterAction.WARN) {
             statusInfo.hide()
             return
         }
 
         val status = viewData.actionable
 
+        viewData.rebloggingStatus?.let { reblogging ->
+            setStatusInfoAsReblog(viewData, reblogging.account, statusDisplayOptions, listener)
+            return
+        }
+
         if (status.inReplyToAccountId != null) {
             setStatusInfoAsReply(viewData, statusDisplayOptions)
             return
         }
 
-        val reblogging = viewData.rebloggingStatus
-        if (reblogging == null || viewData.contentFilterAction === FilterAction.WARN) {
-            statusInfo.hide()
-            return
-        }
-
-        setStatusInfoAsReblog(viewData, reblogging.account, statusDisplayOptions, listener)
+        statusInfo.hide()
     }
 
     /**
