@@ -462,7 +462,7 @@
         <item quantity="many">%1$s kont obserwujących usunięto.</item>
         <item quantity="other">%1$s kont obserwujących usunięto.</item>
     </plurals>
-    <string name="notification_severed_relationships_format">Relacja z &lt;b>%1$s&lt;/b>
+    <string name="notification_severed_relationships_format">Relacja z &lt;b&gt;%1$s&lt;/b&gt;
     została przerwana
 </string>
     <string name="notification_unknown">Nieznany typ powiadomienia</string>
@@ -515,13 +515,13 @@
     <string name="pref_account_notification_filters_label_younger_30d">… utworzonych w ciągu ostatnich 30 dni</string>
     <string name="pref_account_notification_filters_label_not_followed">… których nie obserwujesz</string>
     <string name="pref_account_notification_filters_label_limited_by_server">… ograniczonych przez moderację</string>
-    <string name="account_filter_placeholder_type_favourite_fmt">Osoba @&lt;b>%1s&lt;/b> polubiła twój wpis</string>
-    <string name="account_filter_placeholder_type_follow_fmt">Konto @&lt;b>%1s&lt;/b> cię obserwuje</string>
-    <string name="account_filter_placeholder_type_mention_fmt">Nowa wzmianka od @&lt;b>%1s&lt;/b></string>
-    <string name="account_filter_placeholder_type_follow_request_fmt">Prośba o obserwację od @&lt;b>%1s&lt;/b></string>
-    <string name="account_filter_placeholder_type_reblog_fmt">Osoba @&lt;b>%1s&lt;/b> podbiła twój wpis</string>
-    <string name="account_filter_placeholder_label_domain">Od konta @&lt;b>%1s&lt;/b></string>
-    <string name="account_filter_placeholder_label_not_following">Odfiltrowane z powodu: &lt;b>nie obserwujesz tego konta&lt;/b></string>
+    <string name="account_filter_placeholder_type_favourite_fmt">Osoba @&lt;b&gt;%1s&lt;/b&gt; polubiła twój wpis</string>
+    <string name="account_filter_placeholder_type_follow_fmt">Konto @&lt;b&gt;%1s&lt;/b&gt; cię obserwuje</string>
+    <string name="account_filter_placeholder_type_mention_fmt">Nowa wzmianka od @&lt;b&gt;%1s&lt;/b&gt;</string>
+    <string name="account_filter_placeholder_type_follow_request_fmt">Prośba o obserwację od @&lt;b&gt;%1s&lt;/b&gt;</string>
+    <string name="account_filter_placeholder_type_reblog_fmt">Osoba @&lt;b&gt;%1s&lt;/b&gt; podbiła twój wpis</string>
+    <string name="account_filter_placeholder_label_domain">Od konta @&lt;b&gt;%1s&lt;/b&gt;</string>
+    <string name="account_filter_placeholder_label_not_following">Odfiltrowane z powodu: &lt;b&gt;nie obserwujesz tego konta&lt;/b&gt;</string>
     <string name="announcement_date">%1$s %2$s</string>
     <string name="update_dialog_negative">Nigdy mi nie przypominaj</string>
     <string name="pref_notification_up_distributor_name_fmt">%1$s. Dotknij, by otworzyć.</string>
@@ -656,8 +656,8 @@
     <string name="search_operator_embed_no_embeds">Bez kart podglądu</string>
     <string name="search_operator_replies_dialog_all">Wszystkie wpisy</string>
     <string name="search_operator_sensitive_dialog_title">Wpisy z drażliwą zawartością</string>
-    <string name="account_filter_placeholder_label_younger_30d">Odfiltrowane z powodu: &lt;b>konto stworzone w ciągu ostatnich 30 dni&lt;/b></string>
-    <string name="account_filter_placeholder_label_limited_by_server">Odfiltrowane z powodu: &lt;b>konto ograniczone przez moderację&lt;/b></string>
+    <string name="account_filter_placeholder_label_younger_30d">Odfiltrowane z powodu: &lt;b&gt;konto stworzone w ciągu ostatnich 30 dni&lt;/b&gt;</string>
+    <string name="account_filter_placeholder_label_limited_by_server">Odfiltrowane z powodu: &lt;b&gt;konto ograniczone przez moderację&lt;/b&gt;</string>
     <string name="ui_error_reload_reply_fmt">Nie powiodło się załadowanie wpisu: %1$s</string>
     <string name="pref_notification_battery_optimisation_ok">Optymalizacja użycia baterii nie musi być wyłączona.</string>
     <string name="search_operator_attachment_specific_media_include_2_fmt">Z %1$s i %2$s</string>
@@ -685,7 +685,7 @@
     <string name="pref_title_account_conversation_filters">Filtry rozmów</string>
     <string name="pref_summary_account_conversation_filters">Twój serwer nie wspiera filtrowania rozmów</string>
     <string name="pref_account_conversation_filters_subtitle">Co powinno się stać z rozmowami zaczętymi przez konta…</string>
-    <string name="account_filter_placeholder_type_conversation">Konto @&lt;b>%1$s&lt;/b> zaczęło rozmowę</string>
+    <string name="account_filter_placeholder_type_conversation">Konto @&lt;b&gt;%1$s&lt;/b&gt; zaczęło rozmowę</string>
     <string name="action_refresh_account">Odśwież konto</string>
     <string name="pref_account_conversation_filters_label_limited_by_server">… ograniczone przez moderację</string>
     <string name="pref_account_conversation_filters_label_not_followed">… których nie obserwujesz</string>
@@ -728,10 +728,10 @@
         <item quantity="other">%1$s · %2$d załączonych wpisów</item>
     </plurals>
     <string name="manage_accounts_name">Zarządzaj kontami</string>
-    <string name="notification_severed_relationships_domain_block_fmt">Administracja %1$s zablokowała &lt;b>%2$s&lt;/b></string>
-    <string name="notification_severed_relationships_user_domain_block_fmt">Zablokowano &lt;b>%1$s&lt;/b></string>
-    <string name="notification_severed_relationships_account_suspension_fmt">Administracja %1$s zablokowała &lt;b>%2$s&lt;/b></string>
-    <string name="notification_severed_relationships_unknown_fmt">&lt;b>%1$s&lt;/b> jest zablokowane (z nieznanego powodu)</string>
+    <string name="notification_severed_relationships_domain_block_fmt">Administracja %1$s zablokowała &lt;b&gt;%2$s&lt;/b&gt;</string>
+    <string name="notification_severed_relationships_user_domain_block_fmt">Zablokowano &lt;b&gt;%1$s&lt;/b&gt;</string>
+    <string name="notification_severed_relationships_account_suspension_fmt">Administracja %1$s zablokowała &lt;b&gt;%2$s&lt;/b&gt;</string>
+    <string name="notification_severed_relationships_unknown_fmt">&lt;b&gt;%1$s&lt;/b&gt; jest zablokowane (z nieznanego powodu)</string>
     <string name="pref_default_audio_playback">Domyślne odtwarzanie audio</string>
     <string name="notification_moderation_warning_title">Wiadomość od moderacji</string>
     <string name="notification_moderation_warning_body_none_fmt">Otrzymano ostrzeżenie od moderacji: %1$s</string>
@@ -753,4 +753,26 @@
     <string name="translator_error_download_required_fmt">tłumaczenie na %1$s wymaga pobrania pakietu językowego a Wi-Fi jest nie połączone</string>
     <string name="filter_action_blur">Ukryj załączniki</string>
     <string name="filter_description_blur">Pokaż zawartość, ukryj załączniki z ostrzeżeniem</string>
+    <string name="title_quotes">Cytaty</string>
+    <string name="notification_quote_format">Osoba %s zacytowała twój wpis</string>
+    <string name="notification_quoted_update_format">Osoba %s zaktualizowała zacytowany przez ciebie wpis</string>
+    <string name="action_toggle_quote_policy">Zmień ustawienia cytowania</string>
+    <string name="pref_title_notification_filter_quote">Moje wpisy są cytowane</string>
+    <string name="pref_title_notification_filter_quoted_update">Zacytowany przeze mnie wpis został zmieniony</string>
+    <string name="notification_quote_name">Ktoś cię zacytował</string>
+    <string name="notification_quote_description">Powiadomienia o cytowaniu twoich wpisów</string>
+    <string name="notification_quoted_update_name">Edycje cytowanych wpisów</string>
+    <string name="notification_quoted_update_description">Powiadomienia o edycji wpisów zacytowanych przez ciebie</string>
+    <string name="action_move_up">Przenieś wyżej</string>
+    <string name="action_move_down">Przenieś niżej</string>
+    <string name="drafts_load_reply_failed_fmt">Nie udało się wczytanie wpisu, na który odpowiadasz: %1$s</string>
+    <string name="drafts_load_quote_failed_fmt">Nie udało się wczytanie wpisu, który cytujesz: %1$s</string>
+    <string name="drafts_post_quote_removed">Zacytowany przez ciebie wpis został usunięty</string>
+    <string name="detach_quote_dialog_title">Usunąć cytat?</string>
+    <string name="detach_quote_dialog_message">To usunie zacytowany przez ciebie wpis z tego wpisu.\n\nOryginalny wpis nie zostanie usunięty.\n\nTa akcja nie może zostać cofnięta.</string>
+    <string name="detach_quote_error_fmt">Usuwanie cytatu się nie powiodło: %1$s</string>
+    <string name="compose_visibility_title">Dokąd wysłać ten wpis?</string>
+    <string name="compose_quote_policy_title">Kto może zacytować ten wpis?</string>
+    <string name="compose_quote_policy_dialog_title">Zmienić ustawienia cytowania?</string>
+    <string name="compose_quote_policy_dialog_body_fmt">Wpisy oznaczone \"%1$s\" lub \"%2$s\" muszą mieć cytowanie ustawione na \"%3$s\".\n\nCzy zmienić ustawienia cytowania?</string>
 </resources>
