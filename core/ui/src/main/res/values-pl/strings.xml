@@ -157,4 +157,22 @@
     <string name="action_quote">Cytuj</string>
     <string name="action_request_quote">Poproś o zacytowanie</string>
     <string name="label_author_denied_quote">Cytowanie wyłączone</string>
+    <string name="post_replied_to_fmt">Odpowiedziano <b>%1$s</b></string>
+    <string name="label_quoted_status_hidden">Zacytowanie wpisu ukrytego przez jeden z twoich filtrów</string>
+    <string name="detach_quote">Usuń cytat</string>
+    <plurals name="quotes">
+        <item quantity="one"><b>%1$s</b> cytat</item>
+        <item quantity="few"><b>%1$s</b> cytaty</item>
+        <item quantity="many"><b>%1$s</b> cytatów</item>
+        <item quantity="other"><b>%1$s</b> cytatów</item>
+    </plurals>
+    <string name="label_quote_state_unknown">Nie można wyświetlić cytowanego wpisu</string>
+    <string name="label_quote_state_pending">Cytat oczekuje na zatwierdzenie</string>
+    <string name="label_quote_state_rejected">Cytowane konto zablokowało wyświetlanie tego cytatu</string>
+    <string name="label_quote_state_revoked">Cytowane konto zablokowało wyświetlanie tego cytatu</string>
+    <string name="label_quote_state_deleted">Cytowany wpis został usunięty</string>
+    <string name="label_quote_state_unauthorized">Cytowany wpis nie jest dla ciebie widoczny</string>
+    <string name="label_quote_state_blocked_account">Cytowany wpis pochodzi od zablokowanego przez ciebie konta</string>
+    <string name="label_quote_state_blocked_domain">Cytowany wpis pochodzi z zablokowanego przez ciebie serwera</string>
+    <string name="label_quote_state_muted_account">Cytowany wpis pochodzi od wyciszonego przez ciebie konta</string>
 </resources>
