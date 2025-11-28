@@ -44,6 +44,7 @@ import androidx.core.view.ViewGroupCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+import androidx.core.view.iterator
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
@@ -226,6 +227,12 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
         super.onCreateMenu(menu, menuInflater)
 
         menuInflater.inflate(R.menu.view_media_toolbar, menu)
+
+        // Ensure the menu icons are white, to show up against the black background.
+        menu.iterator().forEach {
+            it.icon?.setTint(resources.getColor(android.R.color.white))
+        }
+
         // We don't support 'open status' from single image views
         menu.findItem(R.id.action_open_status)?.isVisible = (attachmentViewData != null)
     }
