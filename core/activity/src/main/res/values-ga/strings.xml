@@ -5,4 +5,5 @@
     <string name="performing_lookup_title">Amharc taibhithe…</string>
     <string name="send_error_report">Seol tuairisc earráide</string>
     <string name="action_open_as_ellipsis">Oscail mar…</string>
+    <string name="action_open_quoted_post">Oscail post luaite</string>
 </resources>
