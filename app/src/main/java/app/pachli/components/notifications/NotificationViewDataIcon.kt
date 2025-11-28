@@ -99,7 +99,7 @@ fun NotificationViewData.icon(context: Context) = when (this) {
     is QuotedUpdateNotificationViewData,
     -> getIconWithColor(
         context,
-        R.drawable.outline_comment_24,
+        app.pachli.core.ui.R.drawable.format_quote_24px,
         androidx.appcompat.R.attr.colorPrimary,
     )
 
