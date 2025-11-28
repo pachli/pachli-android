@@ -150,4 +150,14 @@
     <string name="action_show_pronouns">Zobraziť zámená</string>
     <string name="action_open_quoted_post">Otvoriť citovaný príspevok</string>
     <string name="label_quoted_status_hidden">Citát príspevku bol skrytý jedným z tvojich filtrov</string>
+    <string name="action_quote">Citovať</string>
+    <string name="action_request_quote">Požiadať o povolenie citovať</string>
+    <string name="label_author_denied_quote">Citovanie bolo autorom zakázané</string>
+    <plurals name="quotes">
+        <item quantity="one"><b>%1$s</b> Citát</item>
+        <item quantity="few"><b>%1$s</b> Citáty</item>
+        <item quantity="many"><b>%1$s</b> Citátov</item>
+        <item quantity="other"><b>%1$s</b> Citátov</item>
+    </plurals>
+    <string name="detach_quote">Odstrániť citát</string>
 </resources>
