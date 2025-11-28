@@ -417,6 +417,7 @@ class StatusControlView @JvmOverloads constructor(
 
         PopupMenu(context, binding.reblog).apply {
             inflate(R.menu.status_reblog)
+            setForceShowIcon(true)
             menu.findItem(R.id.menu_action_quote).apply {
                 isVisible = onQuoteClick != null
                 isEnabled = canQuote

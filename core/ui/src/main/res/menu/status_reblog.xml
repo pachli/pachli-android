@@ -19,6 +19,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menu_action_quote"
+        android:icon="@drawable/format_quote_24px"
         android:title="@string/action_quote" />
     <item
         android:id="@+id/menu_action_reblog"
