@@ -130,11 +130,17 @@ enum class FilterContext {
          *     to this timeline.
          */
         fun from(timeline: Timeline): FilterContext? = when (timeline) {
-            is Timeline.Home, is Timeline.UserList, is Timeline.Quote -> HOME
-            is Timeline.User -> ACCOUNT
-            Timeline.Notifications -> NOTIFICATIONS
+            is Timeline.Home, is Timeline.UserList, is Timeline.Quote,
+            // Bookmarks and Favourites were added to the HOME context in
+            // https://github.com/mastodon/mastodon/pull/34260
             Timeline.Bookmarks,
             Timeline.Favourites,
+            -> HOME
+
+            is Timeline.User -> ACCOUNT
+
+            Timeline.Notifications -> NOTIFICATIONS
+
             Timeline.PublicFederated,
             Timeline.PublicLocal,
             is Timeline.Hashtags,
@@ -143,6 +149,7 @@ enum class FilterContext {
             Timeline.TrendingLinks,
             is Timeline.Link,
             -> PUBLIC
+
             Timeline.Conversations -> null
         }
     }
