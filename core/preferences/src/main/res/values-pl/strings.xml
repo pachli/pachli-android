@@ -49,4 +49,11 @@
     <string name="pref_translation_backend_requires_play_label">Zainstaluj z Google Play dla wsparcia dla tłumaczenia na urządzeniu</string>
     <string name="pref_pronoun_display_everywhere">Wszędzie</string>
     <string name="pref_quote_policy_followers">jeden z twoich obserwujących</string>
+    <string name="pref_title_pronoun_display">Pokazuj zaimki konta</string>
+    <string name="pref_pronoun_display_when_composing">Podczas pisania wpisu</string>
+    <string name="pref_pronoun_display_hide">Nigdzie</string>
+    <string name="pref_title_quote_policy">Kto może cytować twoje wpisy?</string>
+    <string name="pref_quote_policy_public">Każdy (poza zablokowanymi kontami)</string>
+    <string name="pref_quote_policy_nobody">Tylko ty</string>
+    <string name="pref_summary_quote_policy_disabled">Twój serwer nie wspiera ustawień cytowania</string>
 </resources>
