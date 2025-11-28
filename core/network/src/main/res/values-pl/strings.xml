@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_json_data_fmt">Twój serwer zwrócił nieprawidłową odpowiedź: %1$s</string>
+    <string name="error_json_data_fmt">twój serwer zwrócił nieprawidłową odpowiedź: %1$s</string>
     <string name="error_429_rate_limit_fmt">Twój serwer ogranicza przepustowość twoich żądań: %1$s</string>
     <string name="error_network_fmt">Wystąpił błąd sieci: %s</string>
     <string name="error_missing_content_type_fmt">Twój serwer ma błędy w konfiguracji, odpowiedź nie ma typu zawartości: %1$s</string>
