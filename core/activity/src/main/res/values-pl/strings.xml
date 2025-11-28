@@ -5,4 +5,5 @@
     <string name="performing_lookup_title">Wyszukiwanie…</string>
     <string name="send_error_report">Wyślij raport o błędzie</string>
     <string name="action_open_as_ellipsis">Otwórz jako…</string>
+    <string name="action_open_quoted_post">Otwórz zacytowany wpis</string>
 </resources>
