@@ -14,6 +14,7 @@ Buggfixar inkluderar:
 - Bilder "fastnar" inte när du zoomar eller sveper mellan dem
 
 UX ändringar inkluderar:
+
 - En visuell uppfräschning, nytt färgschema
 - Bestäm standardtemat från dina Android inställningar
 - "Rensa aviseringar" är ett menyalternativ

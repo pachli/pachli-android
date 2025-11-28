@@ -1,6 +1,7 @@
 Pachli 2.2.0
 
 Nya funktioner:
+
 - Inaktivera filterfunktioner om det inte stöds av servern
 
 Fixar:
