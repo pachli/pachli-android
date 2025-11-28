@@ -48,4 +48,12 @@
     <string name="pref_translation_backend_option_local_only_help">Omset innlegg på eininga di med Google-omsetjaren.</string>
     <string name="pref_translation_backend_requires_play_label">Installer frå Google Play for påeinings omsetjingsstytte</string>
     <string name="pref_pronoun_display_everywhere">Over alt</string>
+    <string name="pref_title_pronoun_display">Syn kontopronomen</string>
+    <string name="pref_pronoun_display_when_composing">Når du skriv innlegg</string>
+    <string name="pref_pronoun_display_hide">Ingenstads</string>
+    <string name="pref_title_quote_policy">Kven kan herme innlegga dine?</string>
+    <string name="pref_quote_policy_public">Nokon som helst (unnateke blokkerte kontoar)</string>
+    <string name="pref_quote_policy_followers">Einast fylgjarane dine</string>
+    <string name="pref_quote_policy_nobody">Einast du</string>
+    <string name="pref_summary_quote_policy_disabled">Tenaren din stør ikkje hermeløyve</string>
 </resources>
