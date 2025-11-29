@@ -144,4 +144,16 @@
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Lainausta</item>
     </plurals>
     <string name="detach_quote">Poista lainaus</string>
+    <string name="label_quote_state_muted_account">Lainattu julkaisu on hiljentämältäsi tililtä</string>
+    <string name="label_quote_state_blocked_domain">Lainattu julkaisu on estämältäsi palvelimelta</string>
+    <string name="label_quote_state_blocked_account">Lainattu julkaisu on estämältäsi tililtä</string>
+    <string name="label_quote_state_unauthorized">Lainattu julkaisu ei näy sinulle</string>
+    <string name="label_quote_state_deleted">Lainattu julkaisu on poistettu</string>
+    <string name="label_quote_state_revoked">Lainattu tili esti tämän lainauksen näyttämisen</string>
+    <string name="label_quote_state_rejected">Lainattu tili esti tämän lainauksen näyttämisen</string>
+    <string name="label_quote_state_pending">Lainauksen hyväksymistä odotetaan</string>
+    <string name="label_quote_state_unknown">Lainattua julkaisua ei voi näyttää</string>
+    <string name="label_author_denied_quote">Tekijä on estänyt lainaamisen</string>
+    <string name="action_request_quote">Lainauspyyntö</string>
+    <string name="action_quote">Lainaus</string>
 </resources>
