@@ -204,6 +204,7 @@ SELECT
     q.a_limited AS 's_q_a_limited',
     q.a_note AS 's_q_a_note',
     q.a_roles AS 's_q_a_roles',
+    q.a_pronouns AS 's_q_a_pronouns',
 
     -- The status's reblog account (if any)
     q.rb_serverId AS 's_q_rb_serverId',
@@ -219,6 +220,7 @@ SELECT
     q.rb_limited AS 's_q_rb_limited',
     q.rb_note AS 's_q_rb_note',
     q.rb_roles AS 's_q_rb_roles',
+    q.rb_pronouns AS 's_q_rb_pronouns',
 
     -- Status view data
     q.svd_serverId AS 's_q_svd_serverId',
@@ -429,6 +431,7 @@ SELECT
     q.a_limited AS 's_q_a_limited',
     q.a_note AS 's_q_a_note',
     q.a_roles AS 's_q_a_roles',
+    q.a_pronouns AS 's_q_a_pronouns',
 
     -- The status's reblog account (if any)
     q.rb_serverId AS 's_q_rb_serverId',
@@ -444,6 +447,7 @@ SELECT
     q.rb_limited AS 's_q_rb_limited',
     q.rb_note AS 's_q_rb_note',
     q.rb_roles AS 's_q_rb_roles',
+    q.rb_pronouns AS 's_q_rb_pronouns',
 
     -- Status view data
     q.svd_serverId AS 's_q_svd_serverId',

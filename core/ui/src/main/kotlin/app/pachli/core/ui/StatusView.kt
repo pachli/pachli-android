@@ -117,7 +117,7 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
     abstract val metaInfo: TextView
 
     /** Chip to display the account's pronouns. */
-    abstract val pronouns: PronounsChip?
+    abstract val pronounsChip: PronounsChip?
 
     /** View displaying the status' content warning, if present. */
     abstract val contentWarningDescription: TextView
@@ -276,6 +276,7 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
 
         when (viewData.translationState) {
             TranslationState.SHOW_ORIGINAL -> translationProvider.hide()
+
             TranslationState.TRANSLATING -> {
                 translationProvider.apply {
                     text = context.getString(R.string.translating)
@@ -405,17 +406,17 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
     }
 
     open fun setPronouns(viewData: T, statusDisplayOptions: StatusDisplayOptions) {
-        val pronouns = this.pronouns ?: return
+        val pronounsChip = this.pronounsChip ?: return
 
         when (statusDisplayOptions.pronounDisplay) {
             PronounDisplay.EVERYWHERE -> {
-                pronouns.text = viewData.actionable.account.pronouns
-                pronouns.visible(viewData.actionable.account.pronouns?.isBlank() == false)
+                pronounsChip.text = viewData.actionable.account.pronouns
+                pronounsChip.visible(viewData.actionable.account.pronouns?.isBlank() == false)
             }
 
             PronounDisplay.WHEN_COMPOSING,
             PronounDisplay.HIDE,
-            -> pronouns.hide()
+            -> pronounsChip.hide()
         }
     }
 

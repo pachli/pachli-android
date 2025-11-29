@@ -71,7 +71,7 @@ class DetailedStatusView @JvmOverloads constructor(
     override val displayName = binding.statusDisplayName
     override val metaInfo = binding.statusMetaInfo
     override val username = binding.statusUsername
-    override val pronouns = binding.accountPronouns
+    override val pronounsChip = binding.accountPronouns
     override val contentWarningDescription = binding.statusContentWarningDescription
     override val contentWarningButton = binding.statusContentWarningButton
     override val content = binding.statusContent
