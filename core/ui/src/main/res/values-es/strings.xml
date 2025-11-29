@@ -150,4 +150,22 @@
     <string name="action_show_pronouns">Mostrar pronombres</string>
     <string name="action_open_quoted_post">Abrir publicación citada</string>
     <string name="label_quoted_status_hidden">Cita ocultada por uno de tus filtros</string>
+    <string name="action_quote">Citar</string>
+    <string name="action_request_quote">Solicitar permiso de cita</string>
+    <string name="label_author_denied_quote">Citas deshabilitadas por su autor</string>
+    <plurals name="quotes">
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Cita</item>
+        <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; Citas</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Citas</item>
+    </plurals>
+    <string name="detach_quote">Quitar cita</string>
+    <string name="label_quote_state_unknown">La publicación citada no puede mostrarse</string>
+    <string name="label_quote_state_pending">Cita en espera de ser aprobada</string>
+    <string name="label_quote_state_rejected">La cuenta citada bloqueó esta cita</string>
+    <string name="label_quote_state_revoked">La cuenta citada bloqueó esta cita</string>
+    <string name="label_quote_state_deleted">La publicación citada ha sido borrada</string>
+    <string name="label_quote_state_unauthorized">La publicación citada no es visible para ti</string>
+    <string name="label_quote_state_blocked_account">La publicación citada es de una cuenta que bloqueaste</string>
+    <string name="label_quote_state_blocked_domain">La publicación citada es de un servidor que bloqueaste</string>
+    <string name="label_quote_state_muted_account">La publicación citada es de una cuenta que silenciaste</string>
 </resources>
