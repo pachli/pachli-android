@@ -109,8 +109,8 @@
     <string name="status_filtered_show_anyway">Visa allafall</string>
     <string name="status_filter_placeholder_label_format">Filtrerad: &lt;b&gt;%1$s&lt;/b&gt;</string>
     <plurals name="quotes">
-        <item quantity="one"><b>%1$s</b> Citat</item>
-        <item quantity="other"><b>%1$s</b> Citat</item>
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Citat</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Citat</item>
     </plurals>
     <plurals name="description_post_roles">
         <item quantity="one">med roll:</item>
