@@ -157,14 +157,14 @@
     <string name="action_quote">Cytuj</string>
     <string name="action_request_quote">Poproś o zacytowanie</string>
     <string name="label_author_denied_quote">Cytowanie wyłączone</string>
-    <string name="post_replied_to_fmt">Odpowiedziano <b>%1$s</b></string>
+    <string name="post_replied_to_fmt">Odpowiedziano &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="label_quoted_status_hidden">Zacytowanie wpisu ukrytego przez jeden z twoich filtrów</string>
     <string name="detach_quote">Usuń cytat</string>
     <plurals name="quotes">
-        <item quantity="one"><b>%1$s</b> cytat</item>
-        <item quantity="few"><b>%1$s</b> cytaty</item>
-        <item quantity="many"><b>%1$s</b> cytatów</item>
-        <item quantity="other"><b>%1$s</b> cytatów</item>
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; cytat</item>
+        <item quantity="few">&lt;b&gt;%1$s&lt;/b&gt; cytaty</item>
+        <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; cytatów</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; cytatów</item>
     </plurals>
     <string name="label_quote_state_unknown">Nie można wyświetlić cytowanego wpisu</string>
     <string name="label_quote_state_pending">Cytat oczekuje na zatwierdzenie</string>
