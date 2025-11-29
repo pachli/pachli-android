@@ -159,4 +159,13 @@
     <string name="action_quote">Citāts</string>
     <string name="action_request_quote">Pieprasīt citēšanu</string>
     <string name="label_author_denied_quote">Autors ir atspējojis citēšanu</string>
+    <string name="label_quote_state_unknown">Citēto ierakstu nevar attēlot</string>
+    <string name="label_quote_state_pending">Citāts gaida apstiprināšanu</string>
+    <string name="label_quote_state_rejected">Citētais konts liedza šī citāta attēlošanu</string>
+    <string name="label_quote_state_revoked">Citētais konts liedza šī citāta attēlošanu</string>
+    <string name="label_quote_state_deleted">Citētais ieraksts tika izdzēsts</string>
+    <string name="label_quote_state_unauthorized">Citētais ieraksts Tev nav redzams</string>
+    <string name="label_quote_state_blocked_account">Citētais ieraksts ir no konta, kuru liedzi</string>
+    <string name="label_quote_state_blocked_domain">Citētais ieraksts ir no servera, kuru liedzi</string>
+    <string name="label_quote_state_muted_account">Citētais ieraksts ir no konta, kuru apklusināji</string>
 </resources>
