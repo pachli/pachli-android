@@ -102,7 +102,7 @@
     <string name="action_compose">Napísať</string>
     <string name="action_photo_take">Odfotiť</string>
     <string name="download_media">Stiahnuť médiá</string>
-    <string name="dialog_mute_warning">Stíšiť @%s?</string>
+    <string name="dialog_mute_warning">Stlmiť @%s?</string>
     <string name="dialog_block_warning">Zablokovať @%s?</string>
     <string name="visibility_unlisted">Tiché verejné: Nezobrazovať na verejných časových osách</string>
     <string name="pref_title_notification_filter_favourites">Moje príspevky sú obľúbené</string>
@@ -128,7 +128,7 @@
     <string name="pref_title_appearance_settings">Vzhľad</string>
     <string name="pref_default_post_language">Predvolený jazyk príspevku</string>
     <string name="label_header">Záhlavie</string>
-    <string name="action_mute">Stíšiť</string>
+    <string name="action_mute">Stlmiť</string>
     <string name="pref_title_browser_settings">Prehliadač</string>
     <string name="title_public_local">Miestne</string>
     <string name="title_public_trending">Populárne</string>
@@ -139,7 +139,7 @@
     <string name="title_tab_public_trending_links">Odkazy</string>
     <string name="title_posts">Príspevky</string>
     <string name="title_follows">Sledovaní</string>
-    <string name="title_mutes">Stíšené účty</string>
+    <string name="title_mutes">Stlmené účty</string>
     <string name="title_migration_relogin">Prihlás sa znova pre push upozornenia</string>
     <string name="title_follow_requests">Žiadosti o sledovanie</string>
     <string name="title_edit_profile">Upraviť tvoj profil</string>
@@ -154,7 +154,7 @@
     <string name="action_delete_conversation">Vymazať konverzáciu</string>
     <string name="action_share_account_username">Zdieľať používateľské meno účtu</string>
     <string name="action_discard">Zahodiť zmeny</string>
-    <string name="action_view_mutes">Stíšené účty</string>
+    <string name="action_view_mutes">Stlmené účty</string>
     <string name="action_hide_media">Skrýť média</string>
     <string name="action_add_tab">Pridať panel</string>
     <string name="label_image">Obrázok</string>
@@ -176,16 +176,16 @@
     <string name="notification_severed_relationships_account_suspension_body">Moderátor pozastavil účet</string>
     <string name="action_post_failed">Nahrávanie zlyhalo</string>
     <string name="action_post_failed_show_drafts">Zobraziť koncepty</string>
-    <string name="action_unmute">Zrušiť stíšenie</string>
-    <string name="action_unmute_desc">Zrušiť stíšenie %s</string>
-    <string name="action_mute_domain">Stíšiť %s</string>
+    <string name="action_unmute">Zrušiť stlmenie</string>
+    <string name="action_unmute_desc">Zrušiť stlmenie %s</string>
+    <string name="action_mute_domain">Stlmiť %s</string>
     <string name="action_add_poll">Pridať anketu</string>
-    <string name="action_unmute_domain">Zrušiť stíšenie %s</string>
-    <string name="action_unmute_conversation">Zrušiť stíšenie konverzácie</string>
+    <string name="action_unmute_domain">Zrušiť stlmenie %s</string>
+    <string name="action_unmute_conversation">Zrušiť stlmenie konverzácie</string>
     <string name="action_emoji_keyboard">Emoji klávesnica</string>
     <string name="action_translate_undo">Vrátiť späť preklad</string>
     <string name="send_media_to">Zdieľať médiá s…</string>
-    <string name="confirmation_unmuted">Stíšenie účtu bolo zrušené</string>
+    <string name="confirmation_unmuted">Stlmenie účtu bolo zrušené</string>
     <string name="dialog_message_cancel_follow_request">Zrušiť žiadosť o sledovanie?</string>
     <string name="pref_title_show_media_preview">Sťahovať náhľady médií</string>
     <string name="pref_title_public_filter_keywords">Verejné časové osi</string>
@@ -215,7 +215,7 @@
     <string name="action_view_follow_requests">Žiadosti o sledovanie</string>
     <string name="action_open_in_web">Otvoriť v prehliadači</string>
     <string name="action_add_media">Pridať média</string>
-    <string name="action_mute_conversation">Stíšiť konverzáciu</string>
+    <string name="action_mute_conversation">Stlmiť konverzáciu</string>
     <string name="action_mention">Zmieniť</string>
     <string name="action_save">Uložiť</string>
     <string name="action_undo">Vrátiť späť</string>
@@ -316,7 +316,7 @@
     <string name="list">Zoznam</string>
     <string name="action_unsubscribe_account">Zrušiť odoberanie</string>
     <string name="pachli_compose_post_quicksetting_label">Vytvoriť príspevok</string>
-    <string name="mute_notifications_switch">Stíšiť upozornenia</string>
+    <string name="mute_notifications_switch">Stlmiť upozornenia</string>
     <string name="ui_error_accept_follow_request">Potvrdenie žiadosti o sledovanie zlyhalo: %s</string>
     <string name="no_announcements">Žiadne oznámenia.</string>
     <string name="follows_you">Sleduje ťa</string>
