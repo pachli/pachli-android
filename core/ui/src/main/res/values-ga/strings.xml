@@ -179,4 +179,13 @@
     <string name="action_quote">Luachan</string>
     <string name="action_request_quote">Iarratas ar luachan</string>
     <string name="label_author_denied_quote">Lua-dhíchumasaithe ag an údar</string>
+    <string name="label_quote_state_unknown">Ní féidir post luaite a thaispeáint</string>
+    <string name="label_quote_state_pending">Tá an luachan ag fanacht le ceadú</string>
+    <string name="label_quote_state_rejected">Chuir cuntas luaite bac ar an luachan seo a bheith á thaispeáint</string>
+    <string name="label_quote_state_revoked">Chuir cuntas luaite bac ar an luachan seo a bheith á thaispeáint</string>
+    <string name="label_quote_state_deleted">Scriosadh an post luaite</string>
+    <string name="label_quote_state_unauthorized">Níl an post luaite le feiceáil agat</string>
+    <string name="label_quote_state_blocked_account">Is ó chuntas a chuir tú bac air atá an post luaite</string>
+    <string name="label_quote_state_blocked_domain">Is ó fhreastalaí a chuir tú bac air atá an post luaite</string>
+    <string name="label_quote_state_muted_account">Is ó chuntas a chuir tú ar an mbrú an post luaite</string>
 </resources>
