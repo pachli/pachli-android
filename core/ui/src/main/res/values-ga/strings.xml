@@ -170,11 +170,11 @@
     <string name="label_quoted_status_hidden">Sleachta ó phost atá i bhfolach ag ceann de do scagairí</string>
     <string name="detach_quote">Bain an luachan</string>
     <plurals name="quotes">
-        <item quantity="one">Luachan <b>%1$s</b></item>
-        <item quantity="two">Luachana <b>%1$s</b></item>
-        <item quantity="few">Luachana <b>%1$s</b></item>
-        <item quantity="many">Luachana <b>%1$s</b></item>
-        <item quantity="other">Luachana <b>%1$s</b></item>
+        <item quantity="one">Luachan &lt;b&gt;%1$s&lt;/b&gt;</item>
+        <item quantity="two">Luachana &lt;b&gt;%1$s&lt;/b&gt;</item>
+        <item quantity="few">Luachana &lt;b&gt;%1$s&lt;/b&gt;</item>
+        <item quantity="many">Luachana &lt;b&gt;%1$s&lt;/b&gt;</item>
+        <item quantity="other">Luachana &lt;b&gt;%1$s&lt;/b&gt;</item>
     </plurals>
     <string name="action_quote">Luachan</string>
     <string name="action_request_quote">Iarratas ar luachan</string>
