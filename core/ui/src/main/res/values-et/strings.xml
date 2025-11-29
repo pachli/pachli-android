@@ -143,8 +143,8 @@
     <string name="label_quoted_status_hidden">Postituse tsitaat, mis on mõne sinu filtri poolt peidetud</string>
     <string name="detach_quote">Eemalda tsitaat</string>
     <plurals name="quotes">
-        <item quantity="one"><b>%1$s</b> tsitaat</item>
-        <item quantity="other"><b>%1$s</b> tsitaati</item>
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; tsitaat</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; tsitaati</item>
     </plurals>
     <string name="action_quote">Tsiteeri</string>
     <string name="action_request_quote">Küsi võimalust tsiteerida</string>
