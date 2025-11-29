@@ -227,7 +227,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
         // Quoted posts that are solely attachments are difficult to click to view
         // the quoted post (clicks open the attachment or the profile). Provide a
         // menu option as an escape hatch.
-        if (viewData !is StatusItemViewData) {
+        if (viewData !is StatusItemViewData || viewData.quotedViewData == null) {
             popup.menu.findItem(R.id.status_open_quoted_post)?.apply {
                 isVisible = false
             }
