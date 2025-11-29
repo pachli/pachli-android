@@ -64,4 +64,20 @@
     <string name="notification_log_method_push">Las notificaciones son obtenidas mediante UnifiedPush y deberían ser inmediatas</string>
     <string name="notification_log_method_pusherror">UnifiedPush está habilitado, pero ocurrió un error: %1$s</string>
     <string name="about_nivenly_foundation">Pachli es un proyecto de la <a href="https://nivenly.org">Fundación Nivenly</a>.</string>
+    <string name="about_notifications">Notificaciones</string>
+    <string name="about_database">Base de datos</string>
+    <string name="database_table_sizes">Tamaños de tablas</string>
+    <string name="database_integrity_check">Revisión de integridad</string>
+    <string name="database_query_timings">Tiempos de consultas</string>
+    <string name="action_run_integrity_check">Comprobar integridad</string>
+    <string name="action_run_query_timings">Comprobar tiempos de consultas</string>
+    <string name="database_prune_cache">Reducir caché</string>
+    <string name="database_vacuum">Vaciar</string>
+    <string name="database_clear_cache">Limpiar caché</string>
+    <string name="action_prune_cache">Reducir caché</string>
+    <string name="action_vacuum">Vaciar</string>
+    <string name="action_clear_cache">Limpiar caché</string>
+    <string name="database_prune_cache_complete">Se completó la reducción de la caché</string>
+    <string name="database_vacuum_complete">Se completó el vaciado</string>
+    <string name="database_clear_cache_complete">Se completó la limpieza de la caché</string>
 </resources>
