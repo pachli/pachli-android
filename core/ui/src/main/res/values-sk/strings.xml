@@ -160,4 +160,13 @@
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Citátov</item>
     </plurals>
     <string name="detach_quote">Odstrániť citát</string>
+    <string name="label_quote_state_unknown">Citovaný príspevok nie je možné zobraziť</string>
+    <string name="label_quote_state_pending">Citácia čaká na schválenie</string>
+    <string name="label_quote_state_rejected">Citovaný účet zablokoval zobrazenie tohto citátu</string>
+    <string name="label_quote_state_revoked">Citovaný účet zablokoval zobrazenie tohto citátu</string>
+    <string name="label_quote_state_deleted">Citovaný príspevok bol odstránený</string>
+    <string name="label_quote_state_unauthorized">Citovaný príspevok pre teba nie je viditeľný</string>
+    <string name="label_quote_state_blocked_account">Citovaný príspevok je zo zablokovaného účtu</string>
+    <string name="label_quote_state_blocked_domain">Citovaný príspevok je zo zablokovaného servera</string>
+    <string name="label_quote_state_muted_account">Citovaný príspevok je od stlmeného účtu</string>
 </resources>
