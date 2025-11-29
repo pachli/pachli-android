@@ -50,7 +50,7 @@ class QuotedStatusView @JvmOverloads constructor(
     override val displayName = binding.quotedStatusContainer.quoteStatusDisplayName
     override val username = binding.quotedStatusContainer.quoteStatusUsername
     override val metaInfo = binding.quotedStatusContainer.quoteStatusMetaInfo
-    override val pronouns = binding.quotedStatusContainer.quoteAccountPronouns
+    override val pronounsChip = binding.quotedStatusContainer.quoteAccountPronouns
     override val contentWarningDescription = binding.quotedStatusContainer.quoteStatusContentWarningDescription
     override val contentWarningButton = binding.quotedStatusContainer.quoteStatusContentWarningButton
     override val content = binding.quotedStatusContainer.quoteStatusContent

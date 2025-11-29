@@ -119,6 +119,7 @@ ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC
     s.a_limited AS 's_a_limited',
     s.a_note AS 's_a_note',
     s.a_roles AS 's_a_roles',
+    s.a_pronouns AS 's_a_pronouns',
 
     -- The status's reblog account (if any)
     s.rb_serverId AS 's_rb_serverId',
@@ -134,6 +135,7 @@ ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC
     s.rb_limited AS 's_rb_limited',
     s.rb_note AS 's_rb_note',
     s.rb_roles AS 's_rb_roles',
+    s.rb_pronouns AS 's_rb_pronouns',
 
     -- Status view data
     s.svd_serverId AS 's_svd_serverId',
@@ -204,6 +206,7 @@ ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC
     q.a_limited AS 'q_a_limited',
     q.a_note AS 'q_a_note',
     q.a_roles AS 'q_a_roles',
+    q.a_pronouns AS 'q_a_pronouns',
 
     -- The status's reblog account (if any)
     q.rb_serverId AS 'q_rb_serverId',
@@ -219,6 +222,7 @@ ORDER BY LENGTH(s.serverId) DESC, s.serverId DESC
     q.rb_limited AS 'q_rb_limited',
     q.rb_note AS 'q_rb_note',
     q.rb_roles AS 'q_rb_roles',
+    q.rb_pronouns AS 'q_rb_pronouns',
 
     -- Status view data
     q.svd_serverId AS 'q_svd_serverId',
@@ -965,6 +969,7 @@ WHERE timelineUserId = :pachliAccountId
     s.a_limited AS 's_a_limited',
     s.a_note AS 's_a_note',
     s.a_roles AS 's_a_roles',
+    s.a_pronouns AS 's_a_pronouns',
 
     -- The status's reblog account (if any)
     s.rb_serverId AS 's_rb_serverId',
@@ -980,6 +985,7 @@ WHERE timelineUserId = :pachliAccountId
     s.rb_limited AS 's_rb_limited',
     s.rb_note AS 's_rb_note',
     s.rb_roles AS 's_rb_roles',
+    s.rb_pronouns AS 's_rb_pronouns',
 
     -- Status view data
     s.svd_serverId AS 's_svd_serverId',
@@ -1050,6 +1056,7 @@ WHERE timelineUserId = :pachliAccountId
     q.a_limited AS 'q_a_limited',
     q.a_note AS 'q_a_note',
     q.a_roles AS 'q_a_roles',
+    q.a_pronouns AS 'q_a_pronouns',
 
     -- The status's reblog account (if any)
     q.rb_serverId AS 'q_rb_serverId',
@@ -1065,6 +1072,7 @@ WHERE timelineUserId = :pachliAccountId
     q.rb_limited AS 'q_rb_limited',
     q.rb_note AS 'q_rb_note',
     q.rb_roles AS 'q_rb_roles',
+    q.rb_pronouns AS 'q_rb_pronouns',
 
     -- Status view data
     q.svd_serverId AS 'q_svd_serverId',
