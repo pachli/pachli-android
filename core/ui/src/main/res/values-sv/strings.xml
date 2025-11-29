@@ -130,9 +130,9 @@
     <string name="hint_search_emojis">Sök efter emojis…</string>
     <string name="label_emoji_no_category">Ingen kategori</string>
     <string name="emoji_picker_show_detail">Visa detaljer</string>
-    <string name="preview_card_byline_fediverse_account_fmt">Se mer från <b>%1$s</b></string>
-    <string name="preview_card_byline_name_only_fmt">Av <b>%1$s</b></string>
-    <string name="preview_card_timeline_link_fmt">Visa <b>%1$s</b> inlägg om denna länk</string>
+    <string name="preview_card_byline_fediverse_account_fmt">Se mer från &lt;b&gt;%1$s&lt;/b&gt;</string>
+    <string name="preview_card_byline_name_only_fmt">Av &lt;b&gt;%1$s&lt;/b&gt;</string>
+    <string name="preview_card_timeline_link_fmt">Visa &lt;b&gt;%1$s&lt;/b&gt; inlägg om denna länk</string>
     <string name="attachment_matches_filter_one_fmt">Matchar filtret: \"%1$s\". Klicka för att visa.</string>
     <string name="attachment_matches_filter_two_fmt">Matchar filterna: \"%1$s\" och \"%2$s\". Klicka för att visa.</string>
     <string name="attachment_matches_filter_other_fmt">Matchar filterna: \"%1$s\", \"%2$s\" med flera. Klicka för att visa.</string>
