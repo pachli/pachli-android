@@ -756,4 +756,12 @@
     <string name="pref_title_notification_filter_quote">Julkaisujani on lainattu</string>
     <string name="notification_quoted_update_format">%s päivitti julkaisua jota lainasit</string>
     <string name="notification_quote_format">%s lainasi julkaisuasi</string>
+    <string name="compose_quote_policy_dialog_body_fmt">Julkaisut merkinnällä \"%1$s\" tai \"%2$s\" tarvitsevat lainausasetuksen \"%3$s\"\n\nHaluatko muuttaa lainausasetuksen nyt?</string>
+    <string name="compose_quote_policy_dialog_title">Muuta lainausasetus?</string>
+    <string name="compose_quote_policy_title">Kuka voi lainata tätä julkaisua?</string>
+    <string name="compose_visibility_title">Minne tämä lähetetään?</string>
+    <string name="drafts_post_quote_removed">Lainaamasi julkaisu on poistettu</string>
+    <string name="drafts_load_quote_failed_fmt">Lainaamaasi julkaisua ei voitu ladata: %1$s</string>
+    <string name="drafts_load_reply_failed_fmt">Julkaisua johon vastaat ei voitu ladata: %1$s</string>
+    <string name="action_toggle_quote_policy">Muuta lainausasetuksia</string>
 </resources>
