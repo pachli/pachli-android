@@ -1,10 +1,10 @@
 Nuevas características:
 
-- "Cargar más" no más, las publicaciones se cargan mientras desplaces
+- "Cargar más" no aparece más, las publicaciones se cargan mientras desplaces
 - Enlaces y publicaciones de tendencias
 - Más de 5 pestañas
 - Elegir entre varios fuentes accesibles
-- Nuevo reproductor de medios
+- Nuevo reproductor multimedia
 - Filtros en notificaciones
 - Marcar listas como "exclusivas"
 - Añadir "marcadores" a pestañas
