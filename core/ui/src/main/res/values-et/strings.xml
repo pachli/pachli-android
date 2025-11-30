@@ -149,4 +149,13 @@
     <string name="action_quote">Tsiteeri</string>
     <string name="action_request_quote">Küsi võimalust tsiteerida</string>
     <string name="label_author_denied_quote">Autor on tsiteerimise lülitanud välja</string>
+    <string name="label_quote_state_unknown">Tsiteeritud postitust pole võimalik näidata</string>
+    <string name="label_quote_state_pending">Tsiteerimine on heakskiitmise ootel</string>
+    <string name="label_quote_state_rejected">Tsiteeritud kasutaja keelas selle tsitaadi näitamise</string>
+    <string name="label_quote_state_revoked">Tsiteeritud kasutaja keelas selle tsitaadi näitamise</string>
+    <string name="label_quote_state_deleted">Tsiteeritud postitus on kustutatud</string>
+    <string name="label_quote_state_unauthorized">Tsiteeritud postitus pole sulle nähtav</string>
+    <string name="label_quote_state_blocked_account">Tsiteeritud postituse on koostanud sinu poolt blokeeritud kasutaja</string>
+    <string name="label_quote_state_blocked_domain">Tsiteeritud postituse kasutaja on sinu poolt blokeeritud serverist</string>
+    <string name="label_quote_state_muted_account">Tsiteeritud postituse on koostanud sinu poolt summutatud kasutaja</string>
 </resources>
