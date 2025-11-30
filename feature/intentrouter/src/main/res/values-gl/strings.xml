@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_share_as">Compartir como …</string>
+    <string name="error_set_active_account">O inicio de sesión fallou co seguinte erro: %1$s</string>
 </resources>
