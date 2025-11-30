@@ -1,5 +1,42 @@
 # Pachli changelog
 
+## v3.2.0
+
+### New features and other improvements
+
+- Apply "Public" filters to search results ([Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Use "Home" filter context for bookmarks and favourites ([Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Quote posts (#[1960](https://github.com/pachli/pachli-android/pull/1960), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Display account pronouns, if present, in timelines etc (#[1901](https://github.com/pachli/pachli-android/pull/1901), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Significant bug fixes
+
+- Show emojis in author names in preview bylines (#[1903](https://github.com/pachli/pachli-android/pull/1903), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Load images from sites that use LetsEncrypt certificates on Android 6 (#[1946](https://github.com/pachli/pachli-android/pull/1946), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Make "Load newest notifications" work (#[1941](https://github.com/pachli/pachli-android/pull/1941), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show detailed error if refreshing a timeline fails (#[1930](https://github.com/pachli/pachli-android/pull/1930), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Use the correct ID when translating boosted posts (#[1929](https://github.com/pachli/pachli-android/pull/1929), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Improve display of error causes on timelines (#[1924](https://github.com/pachli/pachli-android/pull/1924), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show display names with some RTL characters correctly (#[1913](https://github.com/pachli/pachli-android/pull/1913), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Translations
+
+- Update Estonian translations ([Priit Jõerüüt](https://github.com/pachli/pachli-android/commits?author=jrthwlate@users.noreply.hosted.weblate.org))
+- Update Finnish translations ([Kalle Kniivilä](https://github.com/pachli/pachli-android/commits?author=kalle.kniivila@gmail.com))
+- Update Galician translations ([josé m.](https://github.com/pachli/pachli-android/commits?author=correoxm@disroot.org))
+- Update German translations ([Kachelkaiser](https://github.com/pachli/pachli-android/commits?author=kachelkaiser@htpst.de))
+- Update German translations ([RealZero](https://github.com/pachli/pachli-android/commits?author=realzero@protonmail.com))
+- Update German translations ([Thomas Cloer](https://github.com/pachli/pachli-android/commits?author=tcloer@mac.com))
+- Update Irish translations ([Aindriú Mac Giolla Eoin](https://github.com/pachli/pachli-android/commits?author=aindriu80@gmail.com))
+- Update Latvian translations ([Edgars Andersons](https://github.com/pachli/pachli-android/commits?author=Edgars+Weblate@gaitenis.id.lv))
+- Update Lombard translations ([Dizro](https://github.com/pachli/pachli-android/commits?author=weblate.delirium794@passmail.net))
+- Update Norwegian Bokmål translations ([Sunniva Løvstad](https://github.com/pachli/pachli-android/commits?author=sunniva@users.noreply.hosted.weblate.org))
+- Update Norwegian Nynorsk translations ([Sunniva Løvstad](https://github.com/pachli/pachli-android/commits?author=weblate@turtle.garden))
+- Update Polish translations ([Łukasz Horodecki](https://github.com/pachli/pachli-android/commits?author=dakilla@gmail.com))
+- Update Slovak translations ([Russssty](https://github.com/pachli/pachli-android/commits?author=russssty@users.noreply.hosted.weblate.org))
+- Update Spanish translations ([Juan M Sevilla](https://github.com/pachli/pachli-android/commits?author=jumase@disroot.org))
+- Update Swedish translations ([jens persson](https://github.com/pachli/pachli-android/commits?author=jens@persson.cx))
+
 ## v3.1.0
 
 ### New features and other improvements
