@@ -155,5 +155,5 @@
     <string name="label_quote_state_unknown">Lainattua julkaisua ei voi näyttää</string>
     <string name="label_author_denied_quote">Tekijä on estänyt lainaamisen</string>
     <string name="action_request_quote">Lainauspyyntö</string>
-    <string name="action_quote">Lainaus</string>
+    <string name="action_quote">Lainaa</string>
 </resources>
