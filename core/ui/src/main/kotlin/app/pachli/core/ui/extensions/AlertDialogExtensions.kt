@@ -25,7 +25,9 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlinx.coroutines.withContext
 
 /**
  * Wait for the alert dialog buttons to be clicked, return the ID of the clicked button,
@@ -43,18 +45,20 @@ suspend fun AlertDialog.await(
     positiveText: String?,
     negativeText: String? = null,
     neutralText: String? = null,
-) = suspendCancellableCoroutine { cont ->
-    val listener = DialogInterface.OnClickListener { _, which ->
-        cont.resume(which) { dismiss() }
+) = withContext(Dispatchers.Main) {
+    suspendCancellableCoroutine { cont ->
+        val listener = DialogInterface.OnClickListener { _, which ->
+            cont.resume(which) { dismiss() }
+        }
+
+        positiveText?.let { setButton(BUTTON_POSITIVE, positiveText, listener) }
+        negativeText?.let { setButton(BUTTON_NEGATIVE, it, listener) }
+        neutralText?.let { setButton(BUTTON_NEUTRAL, it, listener) }
+
+        setOnCancelListener { cont.cancel() }
+        cont.invokeOnCancellation { dismiss() }
+        show()
     }
-
-    positiveText?.let { setButton(BUTTON_POSITIVE, positiveText, listener) }
-    negativeText?.let { setButton(BUTTON_NEGATIVE, it, listener) }
-    neutralText?.let { setButton(BUTTON_NEUTRAL, it, listener) }
-
-    setOnCancelListener { cont.cancel() }
-    cont.invokeOnCancellation { dismiss() }
-    show()
 }
 
 /**
@@ -101,27 +105,29 @@ suspend inline fun <reified T : CharSequence> AlertDialog.Builder.awaitSingleCho
     @StringRes positiveTextResource: Int,
     @StringRes negativeTextResource: Int? = null,
     @StringRes neutralTextResource: Int? = null,
-) = suspendCancellableCoroutine { cont ->
-    var selectedIndex = initialIndex
+) = withContext(Dispatchers.Main) {
+    suspendCancellableCoroutine { cont ->
+        var selectedIndex = initialIndex
 
-    val itemListener = DialogInterface.OnClickListener { _, which ->
-        selectedIndex = which
+        val itemListener = DialogInterface.OnClickListener { _, which ->
+            selectedIndex = which
+        }
+
+        val buttonListener = DialogInterface.OnClickListener { _, which ->
+            cont.resume(SingleChoiceItemResult(which, selectedIndex)) { }
+        }
+
+        setSingleChoiceItems(items.toTypedArray(), selectedIndex, itemListener)
+        setPositiveButton(positiveTextResource, buttonListener)
+        negativeTextResource?.let { setNegativeButton(it, buttonListener) }
+        neutralTextResource?.let { setNeutralButton(it, buttonListener) }
+        setOnCancelListener { cont.resume(SingleChoiceItemResult(BUTTON_NEGATIVE, selectedIndex)) {} }
+        setOnDismissListener { if (!cont.isCompleted) cont.resume(SingleChoiceItemResult(BUTTON_NEGATIVE, selectedIndex)) {} }
+        val dialog = create()
+
+        cont.invokeOnCancellation { dialog.dismiss() }
+        dialog.show()
     }
-
-    val buttonListener = DialogInterface.OnClickListener { _, which ->
-        cont.resume(SingleChoiceItemResult(which, selectedIndex)) { }
-    }
-
-    setSingleChoiceItems(items.toTypedArray(), selectedIndex, itemListener)
-    setPositiveButton(positiveTextResource, buttonListener)
-    negativeTextResource?.let { setNegativeButton(it, buttonListener) }
-    neutralTextResource?.let { setNeutralButton(it, buttonListener) }
-    setOnCancelListener { cont.resume(SingleChoiceItemResult(BUTTON_NEGATIVE, selectedIndex)) {} }
-    setOnDismissListener { if (!cont.isCompleted) cont.resume(SingleChoiceItemResult(BUTTON_NEGATIVE, selectedIndex)) {} }
-    val dialog = create()
-
-    cont.invokeOnCancellation { dialog.dismiss() }
-    dialog.show()
 }
 
 /**
@@ -137,16 +143,18 @@ suspend inline fun <reified T : CharSequence> AlertDialog.Builder.awaitSingleCho
 suspend fun <S> MaterialDatePicker<S>.await(
     fragmentManager: androidx.fragment.app.FragmentManager,
     tag: String?,
-) = suspendCancellableCoroutine { cont ->
-    val listener = MaterialPickerOnPositiveButtonClickListener<S> { selection ->
-        cont.resume(selection) { dismiss() }
+) = withContext(Dispatchers.Main) {
+    suspendCancellableCoroutine { cont ->
+        val listener = MaterialPickerOnPositiveButtonClickListener<S> { selection ->
+            cont.resume(selection) { dismiss() }
+        }
+
+        addOnPositiveButtonClickListener(listener)
+        addOnNegativeButtonClickListener { cont.resume(null) { dismiss() } }
+        addOnCancelListener { cont.resume(null) { dismiss() } }
+        addOnDismissListener { if (!cont.isCompleted) cont.resume(null) { dismiss() } }
+        cont.invokeOnCancellation { dismiss() }
+
+        show(fragmentManager, tag)
     }
-
-    addOnPositiveButtonClickListener(listener)
-    addOnNegativeButtonClickListener { cont.resume(null) { dismiss() } }
-    addOnCancelListener { cont.resume(null) { dismiss() } }
-    addOnDismissListener { if (!cont.isCompleted) cont.resume(null) { dismiss() } }
-    cont.invokeOnCancellation { dismiss() }
-
-    show(fragmentManager, tag)
 }
