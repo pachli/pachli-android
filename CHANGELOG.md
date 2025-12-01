@@ -1,5 +1,18 @@
 # Pachli changelog
 
+## v3.2.1
+
+### Significant bug fixes
+
+- Don't crash when prompting for notification provider (#[1987](https://github.com/pachli/pachli-android/pull/1987), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Translations
+
+- Update Finnish translations ([Kalle Kniivilä](https://github.com/pachli/pachli-android/commits?author=kalle.kniivila@gmail.com))
+- Update German translations ([Thomas Cloer](https://github.com/pachli/pachli-android/commits?author=tcloer@mac.com))
+- Update Latvian translations ([Edgars Andersons](https://github.com/pachli/pachli-android/commits?author=Edgars+Weblate@gaitenis.id.lv))
+- Update Spanish translations ([Ismael Reyes](https://github.com/pachli/pachli-android/commits?author=ismael.kix2902@gmail.com))
+
 ## v3.2.0
 
 ### New features and other improvements
