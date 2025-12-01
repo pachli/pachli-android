@@ -761,12 +761,12 @@
     <string name="notification_quote_format">%s hat deinen Beitrag zitiert</string>
     <string name="title_quotes">Zitate</string>
     <string name="notification_quoted_update_format">%s hat den von dir zitierten Beitrag aktualisiert</string>
-    <string name="action_toggle_quote_policy">Zitatrichtlinie ändern</string>
-    <string name="drafts_load_reply_failed_fmt">Der Beitrag, auf den du antwortest, konnte nicht geladen werden: %1$s</string>
-    <string name="drafts_load_quote_failed_fmt">Der von dir zitierte Beitrag konnte nicht geladen werden: %1$s</string>
+    <string name="action_toggle_quote_policy">Zitat-Richtlinie ändern</string>
+    <string name="drafts_load_reply_failed_fmt">Konnte Beitrag nicht laden, auf den du antwortest: %1$s</string>
+    <string name="drafts_load_quote_failed_fmt">Konnte von dir zitierten Beitrag nicht laden: %1$s</string>
     <string name="drafts_post_quote_removed">Der von dir zitierte Beitrag wurde entfernt</string>
     <string name="compose_visibility_title">Wohin wird das geschickt?</string>
     <string name="compose_quote_policy_title">Wer kann diesen Beitrag zitieren?</string>
     <string name="compose_quote_policy_dialog_title">Zitat-Einstellung ändern?</string>
-    <string name="compose_quote_policy_dialog_body_fmt">Beiträge, die mit „%1$s“ oder „%2$s“ gekennzeichnet sind, müssen eine Anführungszeichen-Einstellung von „%3$s“ haben.\n\nMöchtest du die Anführungszeichen-Einstellung jetzt ändern?</string>
+    <string name="compose_quote_policy_dialog_body_fmt">Beiträge, die mit „%1$s“ oder „%2$s“ gekennzeichnet sind, müssen eine Zitat-Einstellung von „%3$s“ haben.\n\nMöchtest du die Zitat-Einstellung jetzt ändern?</string>
 </resources>
