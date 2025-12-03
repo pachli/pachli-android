@@ -1,5 +1,17 @@
 # Pachli changelog
 
+## v3.2.2
+
+### New features and other improvements
+
+- Show "Database" tab in "About" screen (#[1997](https://github.com/pachli/pachli-android/pull/1997), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Translations
+
+- Update German translations ([Kachelkaiser](https://github.com/pachli/pachli-android/commits?author=kachelkaiser@htpst.de))
+- Update Irish translations ([Aindriú Mac Giolla Eoin](https://github.com/pachli/pachli-android/commits?author=aindriu80@gmail.com))
+- Update Latvian translations ([Edgars Andersons](https://github.com/pachli/pachli-android/commits?author=Edgars+Weblate@gaitenis.id.lv))
+
 ## v3.2.1
 
 ### Significant bug fixes
