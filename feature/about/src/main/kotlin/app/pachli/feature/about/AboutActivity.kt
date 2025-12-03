@@ -110,10 +110,7 @@ class AboutFragmentAdapter(val activity: FragmentActivity) : FragmentStateAdapte
         add(TabData(R.string.title_licenses) { LibsBuilder().supportFragment() })
         add(TabData(R.string.about_privacy_policy) { PrivacyPolicyFragment.newInstance() })
         add(TabData(R.string.about_notifications) { NotificationFragment.newInstance() })
-
-        if (BuildConfig.FLAVOR_color == "orange") {
-            add(TabData(R.string.about_database) { DatabaseFragment.newInstance() })
-        }
+        add(TabData(R.string.about_database) { DatabaseFragment.newInstance() })
     }
 
     override fun getItemCount() = fragments.size
