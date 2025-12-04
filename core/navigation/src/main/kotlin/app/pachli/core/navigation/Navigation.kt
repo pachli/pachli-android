@@ -531,6 +531,15 @@ class ComposeActivityIntent(context: Context, pachliAccountId: Long, composeOpti
         this.pachliAccountId = pachliAccountId
 
         composeOptions?.let { putExtra(EXTRA_COMPOSE_OPTIONS, it) }
+
+        // Support multiple concurrent compositions/replies. FLAG_ACTIVITY_NEW_DOCUMENT
+        // opens ComposeActivity as a new task (selectable on the "Recents" screen), and
+        // FLAG_ACTIVITY_MULTIPLE_TASK means each unique intent gets its own task.
+        //
+        // In practical terms this means there can be one task that started from a blank
+        // draft (e.g., by tapping the FAB), and N additional ComposeActivity tasks, one
+        // per unique Intent created by replying, composing from a hashtag, etc.
+        flags = FLAG_ACTIVITY_NEW_DOCUMENT or FLAG_ACTIVITY_MULTIPLE_TASK
     }
 
     companion object {
