@@ -28,7 +28,8 @@ import app.pachli.R
 import app.pachli.core.activity.BaseActivity
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
-import app.pachli.core.database.model.DraftEntity
+import app.pachli.core.common.util.unsafeLazy
+import app.pachli.core.model.Draft
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.pachliAccountId
@@ -58,6 +59,8 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
     private val viewModel: DraftsViewModel by viewModels()
 
     private val binding by viewBinding(ActivityDraftsBinding::inflate)
+
+    private val pachliAccountId by unsafeLazy { intent.pachliAccountId }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -100,20 +103,10 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
         draftsAlert.observeInContext(this, false)
     }
 
-    override fun onOpenDraft(draft: DraftEntity) {
+    override fun onOpenDraft(draft: Draft) {
         val composeOptions = ComposeOptions(
-            draftId = draft.id,
-            content = draft.content,
-            contentWarning = draft.contentWarning,
-            draftAttachments = draft.attachments,
-            poll = draft.poll,
-            sensitive = draft.sensitive,
-            visibility = draft.visibility,
-            scheduledAt = draft.scheduledAt,
-            language = draft.language,
-            statusId = draft.statusId,
+            draft = draft,
             kind = ComposeOptions.ComposeKind.EDIT_DRAFT,
-            quotePolicy = draft.quotePolicy,
         )
 
         if (draft.inReplyToId == null && draft.quotedStatusId == null) {
@@ -130,7 +123,7 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
                         startActivity(
                             ComposeActivityIntent(
                                 this@DraftsActivity,
-                                intent.pachliAccountId,
+                                pachliAccountId,
                                 composeOptions.copy(
                                     referencingStatus = ComposeOptions.ReferencingStatus.ReplyingTo.from(it.body.asModel()),
                                 ),
@@ -144,7 +137,7 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
                             // the original status to which a reply was drafted has been deleted
                             // let's open the ComposeActivity without reply information
                             Toast.makeText(context, getString(R.string.drafts_post_reply_removed), Toast.LENGTH_LONG).show()
-                            startActivity(ComposeActivityIntent(context, intent.pachliAccountId, composeOptions))
+                            startActivity(ComposeActivityIntent(context, pachliAccountId, composeOptions))
                         } else {
                             Snackbar.make(
                                 binding.root,
@@ -167,7 +160,7 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
                         startActivity(
                             ComposeActivityIntent(
                                 this@DraftsActivity,
-                                intent.pachliAccountId,
+                                pachliAccountId,
                                 composeOptions.copy(
                                     referencingStatus = ComposeOptions.ReferencingStatus.Quoting.from(it.body.asModel()),
                                 ),
@@ -181,7 +174,7 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
                             // the original status being quoted has been deleted
                             // let's open the ComposeActivity without quote information
                             Toast.makeText(context, getString(R.string.drafts_post_quote_removed), Toast.LENGTH_LONG).show()
-                            startActivity(ComposeActivityIntent(context, intent.pachliAccountId, composeOptions))
+                            startActivity(ComposeActivityIntent(context, pachliAccountId, composeOptions))
                         } else {
                             Snackbar.make(
                                 binding.root,
@@ -197,11 +190,11 @@ class DraftsActivity : BaseActivity(), DraftActionListener {
         }
     }
 
-    override fun onDeleteDraft(draft: DraftEntity) {
-        viewModel.deleteDraft(draft)
+    override fun onDeleteDraft(draft: Draft) {
+        viewModel.deleteDraft(pachliAccountId, draft)
         Snackbar.make(binding.root, getString(R.string.draft_deleted), Snackbar.LENGTH_LONG)
             .setAction(R.string.action_undo) {
-                viewModel.restoreDraft(draft)
+                viewModel.restoreDraft(pachliAccountId, draft)
             }
             .show()
     }

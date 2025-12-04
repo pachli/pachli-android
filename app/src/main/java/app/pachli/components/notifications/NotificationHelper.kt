@@ -47,6 +47,7 @@ import app.pachli.MainActivity
 import app.pachli.R
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.data.repository.PachliAccount
+import app.pachli.core.data.repository.createDraftReply
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.database.model.NotificationData
 import app.pachli.core.database.model.NotificationEntity
@@ -55,11 +56,11 @@ import app.pachli.core.domain.notifications.NotificationConfig
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.AccountFilterReason
 import app.pachli.core.model.AccountWarning
+import app.pachli.core.model.Draft
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.Notification
 import app.pachli.core.model.RelationshipSeveranceEvent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
-import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions.ReferencingStatus
 import app.pachli.core.navigation.IntentRouterActivityIntent
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.buildDescription
@@ -433,27 +434,11 @@ private fun getStatusComposeIntent(
     account: AccountEntity,
 ): PendingIntent {
     val status = body.status!!
-    val account1 = status.actionableStatus.account
-    val contentWarning = status.actionableStatus.spoilerText
-    val replyVisibility = status.actionableStatus.visibility
-    val mentions = status.actionableStatus.mentions
-    val language = status.actionableStatus.language
 
-    val mentionedUsernames: MutableSet<String> = LinkedHashSet()
-    mentionedUsernames.add(account1.username)
-    for ((_, _, mentionedUsername) in mentions) {
-        if (mentionedUsername != account.username) {
-            mentionedUsernames.add(mentionedUsername)
-        }
-    }
+    val draft = Draft.createDraftReply(account, status.actionableStatus)
     val composeOptions = ComposeOptions(
-        replyVisibility = replyVisibility,
-        contentWarning = contentWarning,
-        referencingStatus = ReferencingStatus.ReplyingTo.from(status),
-        mentionedUsernames = mentionedUsernames,
-        modifiedInitialState = true,
-        language = language,
-        kind = ComposeOptions.ComposeKind.NEW,
+        draft = draft,
+        referencingStatus = ComposeOptions.ReferencingStatus.ReplyingTo.from(status.actionableStatus),
     )
     val composeIntent = IntentRouterActivityIntent.fromNotificationCompose(
         context,
@@ -926,6 +911,7 @@ private fun bodyForType(
             }
             return context.getString(resourceId)
         }
+
         Notification.Type.MODERATION_WARNING -> {
             val stringRes = when (notification.accountWarning!!.action) {
                 AccountWarning.Action.NONE -> R.string.notification_moderation_warning_body_none_fmt

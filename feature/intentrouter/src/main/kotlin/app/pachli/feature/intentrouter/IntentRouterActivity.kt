@@ -39,10 +39,15 @@ import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.data.repository.SetActiveAccountError
+import app.pachli.core.data.repository.createDraft
+import app.pachli.core.data.repository.get
 import app.pachli.core.data.repository.getOrNull
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.domain.LogoutUseCase
+import app.pachli.core.model.Draft
+import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.ComposeActivityIntent
+import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.IntentRouterActivityIntent
 import app.pachli.core.navigation.IntentRouterActivityIntent.Payload
 import app.pachli.core.navigation.LoginActivityIntent
@@ -166,6 +171,7 @@ class IntentRouterActivity : BaseActivity() {
 
         when (payload) {
             is Payload.Logout -> routeLogout(accounts, pachliAccountId)
+
             is Payload.QuickTile -> routeQuickTile(accounts)
 
             is Payload.NotificationCompose -> {
@@ -251,7 +257,16 @@ class IntentRouterActivity : BaseActivity() {
             finish()
             return
         }
-        launchComposeActivityAndExit(account.id)
+        launchComposeActivityAndExit(
+            account.id,
+            ComposeOptions(
+                draft = Draft.createDraft(
+                    this,
+                    account,
+                    Timeline.Home,
+                ),
+            ),
+        )
     }
 
     /**
@@ -286,7 +301,19 @@ class IntentRouterActivity : BaseActivity() {
                 .newInstance(getString(R.string.action_share_as), true)
                 .await(supportFragmentManager)?.entity
         }
-        account?.let { forwardToComposeActivityAndExit(account.id, intent) }
+        account?.let {
+            forwardToComposeActivityAndExit(
+                account.id,
+                intent,
+                ComposeOptions(
+                    draft = Draft.createDraft(
+                        this,
+                        it,
+                        Timeline.Home,
+                    ),
+                ),
+            )
+        }
         return
     }
 
@@ -523,7 +550,7 @@ class IntentRouterActivity : BaseActivity() {
      *
      * **Does not** change the active account.
      */
-    private fun launchComposeActivityAndExit(pachliAccountId: Long, composeOptions: ComposeActivityIntent.ComposeOptions? = null) {
+    private fun launchComposeActivityAndExit(pachliAccountId: Long, composeOptions: ComposeOptions) {
         startActivity(
             ComposeActivityIntent(this, pachliAccountId, composeOptions).apply {
                 flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
@@ -541,7 +568,7 @@ class IntentRouterActivity : BaseActivity() {
      *
      * **Does not** change the active account.
      */
-    private fun forwardToComposeActivityAndExit(pachliAccountId: Long, intent: Intent, composeOptions: ComposeActivityIntent.ComposeOptions? = null) {
+    private fun forwardToComposeActivityAndExit(pachliAccountId: Long, intent: Intent, composeOptions: ComposeOptions) {
         val composeIntent = ComposeActivityIntent(this, pachliAccountId, composeOptions).apply {
             action = intent.action
             type = intent.type

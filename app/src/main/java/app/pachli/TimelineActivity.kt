@@ -28,19 +28,25 @@ import androidx.core.view.ViewGroupCompat
 import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
 import app.pachli.core.activity.ViewUrlActivity
+import app.pachli.core.activity.extensions.TransitionKind
+import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.ContentFilterEdit
 import app.pachli.core.data.repository.ContentFiltersRepository
 import app.pachli.core.data.repository.canFilterV1
 import app.pachli.core.data.repository.canFilterV2
+import app.pachli.core.data.repository.createDraft
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.model.ContentFilter
+import app.pachli.core.model.Draft
 import app.pachli.core.model.FilterAction
 import app.pachli.core.model.FilterContext
 import app.pachli.core.model.NewContentFilter
 import app.pachli.core.model.NewContentFilterKeyword
 import app.pachli.core.model.Timeline
+import app.pachli.core.navigation.ComposeActivityIntent
+import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.ui.appbar.FadeChildScrollEffect
@@ -123,12 +129,15 @@ class TimelineActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
             }
         }
 
-        tabViewData.composeIntent?.let { intent ->
-            binding.composeButton.setOnClickListener {
-                startActivity(intent(this@TimelineActivity, this.pachliAccountId))
+        binding.composeButton.setOnClickListener {
+            lifecycleScope.launch {
+                val account = accountManager.getAccountById(pachliAccountId)!!
+                val draft = Draft.createDraft(this@TimelineActivity, account, timeline)
+                val composeOptions = ComposeOptions(draft = draft)
+                val intent = ComposeActivityIntent(this@TimelineActivity, pachliAccountId, composeOptions)
+                startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
             }
-            binding.composeButton.show()
-        } ?: binding.composeButton.hide()
+        }
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {

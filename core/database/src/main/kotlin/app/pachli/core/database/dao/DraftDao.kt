@@ -30,7 +30,7 @@ import app.pachli.core.database.model.DraftEntity
 @TypeConverters(Converters::class)
 interface DraftDao {
     @Upsert
-    suspend fun upsert(draft: DraftEntity)
+    suspend fun upsert(draft: DraftEntity): Long
 
     @Query(
         """
@@ -74,10 +74,10 @@ WHERE accountId = :accountId
         """
 DELETE
 FROM DraftEntity
-WHERE id = :id
+WHERE accountId = :pachliAccountId AND id = :id
 """,
     )
-    suspend fun delete(id: Int)
+    suspend fun delete(pachliAccountId: Long, id: Long)
 
     @Query(
         """
@@ -86,5 +86,16 @@ FROM DraftEntity
 WHERE id = :id
 """,
     )
-    suspend fun find(id: Int): DraftEntity?
+    suspend fun find(id: Long): DraftEntity?
+
+    @Query(
+        """
+UPDATE DraftEntity
+SET
+    failedToSend = :failedToSend,
+    failedToSendNew = :failedToSendNew
+WHERE id = :draftId
+        """,
+    )
+    suspend fun updateFailureState(draftId: Long, failedToSend: Boolean, failedToSendNew: Boolean)
 }

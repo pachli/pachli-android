@@ -20,16 +20,16 @@ import android.content.Context
 import android.net.Uri
 import android.webkit.MimeTypeMap
 import androidx.core.content.FileProvider
-import androidx.core.net.toUri
 import app.pachli.BuildConfig
-import app.pachli.core.database.dao.DraftDao
-import app.pachli.core.database.model.DraftEntity
-import app.pachli.core.model.AccountSource
+import app.pachli.components.compose.ComposeActivity
+import app.pachli.core.common.PachliError
 import app.pachli.core.model.Attachment
 import app.pachli.core.model.DraftAttachment
-import app.pachli.core.model.NewPoll
-import app.pachli.core.model.Status
 import app.pachli.util.copyToFile
+import com.github.michaelbull.result.Err
+import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.getOrElse
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File
 import java.io.IOException
@@ -45,116 +45,71 @@ import okio.buffer
 import okio.sink
 import timber.log.Timber
 
+sealed interface DraftError : PachliError {
+    data object NoExternalFilesDir : DraftError {
+        override val resourceId: Int
+            get() = TODO("Not yet implemented")
+        override val formatArgs: Array<out Any>? = null
+        override val cause: PachliError? = null
+    }
+
+    data object MkdirDrafts : DraftError {
+        override val resourceId: Int
+            get() = TODO("Not yet implemented")
+        override val formatArgs: Array<out Any>? = null
+        override val cause: PachliError? = null
+    }
+
+    data class ThrowableError(val throwable: Throwable) : DraftError {
+        override val resourceId: Int
+            get() = TODO("Not yet implemented")
+        override val formatArgs: Array<out Any>?
+            get() = TODO("Not yet implemented")
+        override val cause: PachliError? = null
+    }
+}
+
 class DraftHelper @Inject constructor(
     @ApplicationContext val context: Context,
     private val okHttpClient: OkHttpClient,
-    private val draftDao: DraftDao,
 ) {
-    suspend fun saveDraft(
-        draftId: Int,
-        pachliAccountId: Long,
-        inReplyToId: String?,
-        content: String?,
-        contentWarning: String?,
-        sensitive: Boolean,
-        visibility: Status.Visibility,
-        mediaUris: List<String>,
-        mediaDescriptions: List<String?>,
-        mediaFocus: List<Attachment.Focus?>,
-        poll: NewPoll?,
-        failedToSend: Boolean,
-        failedToSendAlert: Boolean,
-        scheduledAt: Date?,
-        language: String?,
-        statusId: String?,
-        quotePolicy: AccountSource.QuotePolicy?,
-        quotedStatusId: String?,
-    ) = withContext(Dispatchers.IO) {
-        val externalFilesDir = context.getExternalFilesDir("Pachli")
+    suspend fun saveAttachments(media: List<ComposeActivity.QueuedMedia>): Result<List<DraftAttachment>, DraftError> {
+        if (media.isEmpty()) return Ok(emptyList())
 
+        val externalFilesDir = context.getExternalFilesDir("Pachli")
         if (externalFilesDir == null || !(externalFilesDir.exists())) {
             Timber.e("Error obtaining directory to save media.")
-            throw Exception()
+            return Err(DraftError.NoExternalFilesDir)
         }
 
         val draftDirectory = File(externalFilesDir, "Drafts")
 
-        if (!draftDirectory.exists()) {
-            draftDirectory.mkdir()
-        }
+        runCatching { draftDirectory.mkdir() }.getOrElse { return Err(DraftError.MkdirDrafts) }
 
-        val uris = mediaUris.map { uriString ->
-            uriString.toUri()
-        }.mapIndexedNotNull { index, uri ->
-            if (uri.isInFolder(draftDirectory)) {
-                uri
+        val draftAttachments = media.mapIndexed { index, item ->
+            val uri = if (item.uri.isInFolder(draftDirectory)) {
+                item.uri
             } else {
-                uri.copyToFolder(draftDirectory, index)
+                item.uri.copyToFolder(draftDirectory, index).getOrElse { return Err(it) }
             }
-        }
 
-        val types = uris.map { uri ->
             val mimeType = context.contentResolver.getType(uri)
-            when (mimeType?.substring(0, mimeType.indexOf('/'))) {
-                "video" -> DraftAttachment.Type.VIDEO
-                "image" -> DraftAttachment.Type.IMAGE
-                "audio" -> DraftAttachment.Type.AUDIO
+            val attachmentType = when (mimeType?.substring(0, mimeType.indexOf('/'))) {
+                "video" -> Attachment.Type.VIDEO
+                "image" -> Attachment.Type.IMAGE
+                "audio" -> Attachment.Type.AUDIO
                 else -> throw IllegalStateException("unknown media type")
             }
-        }
 
-        val attachments: MutableList<DraftAttachment> = mutableListOf()
-        for (i in mediaUris.indices) {
-            attachments.add(
-                DraftAttachment(
-                    uri = uris[i],
-                    description = mediaDescriptions[i],
-                    focus = mediaFocus[i],
-                    type = types[i],
-                ),
+            DraftAttachment(
+                uri = uri,
+                description = item.description,
+                type = attachmentType,
+                focus = item.focus,
             )
         }
 
-        val draft = DraftEntity(
-            id = draftId,
-            accountId = pachliAccountId,
-            inReplyToId = inReplyToId,
-            content = content,
-            contentWarning = contentWarning,
-            sensitive = sensitive,
-            visibility = visibility,
-            attachments = attachments,
-            poll = poll,
-            failedToSend = failedToSend,
-            failedToSendNew = failedToSendAlert,
-            scheduledAt = scheduledAt,
-            language = language,
-            statusId = statusId,
-            quotePolicy = quotePolicy,
-            quotedStatusId = quotedStatusId,
-        )
-
-        draftDao.upsert(draft)
-        Timber.d("saved draft to db")
-    }
-
-    suspend fun deleteDraftAndAttachments(draftId: Int) {
-        draftDao.find(draftId)?.let { draft ->
-            deleteDraftAndAttachments(draft)
-        }
-    }
-
-    private suspend fun deleteDraftAndAttachments(draft: DraftEntity) {
-        deleteAttachments(draft)
-        draftDao.delete(draft.id)
-    }
-
-    suspend fun deleteAttachments(draft: DraftEntity) = withContext(Dispatchers.IO) {
-        draft.attachments.forEach { attachment ->
-            if (context.contentResolver.delete(attachment.uri, null, null) == 0) {
-                Timber.e("Did not delete file %s", attachment.uri)
-            }
-        }
+        return Ok(draftAttachments)
     }
 
     private fun Uri.isInFolder(folder: File): Boolean {
@@ -162,7 +117,7 @@ class DraftHelper @Inject constructor(
         return File(filePath).parentFile == folder
     }
 
-    private suspend fun Uri.copyToFolder(folder: File, index: Int): Uri? = withContext(Dispatchers.IO) {
+    private suspend fun Uri.copyToFolder(folder: File, index: Int): Result<Uri, DraftError.ThrowableError> = withContext(Dispatchers.IO) {
         val contentResolver = context.contentResolver
         val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(Date())
 
@@ -188,11 +143,11 @@ class DraftHelper @Inject constructor(
                 }
             } catch (ex: IOException) {
                 Timber.w(ex, "failed to save media")
-                return@withContext null
+                return@withContext Err(DraftError.ThrowableError(ex))
             }
         } else {
             this@copyToFolder.copyToFile(contentResolver, file)
         }
-        return@withContext FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".fileprovider", file)
+        return@withContext Ok(FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".fileprovider", file))
     }
 }

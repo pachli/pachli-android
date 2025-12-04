@@ -18,12 +18,11 @@ package app.pachli.components.drafts
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.DraftRepository
 import app.pachli.core.database.dao.DraftDao
-import app.pachli.core.database.model.DraftEntity
+import app.pachli.core.model.Draft
 import app.pachli.core.network.retrofit.MastodonApi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -34,29 +33,26 @@ class DraftsViewModel @Inject constructor(
     private val draftDao: DraftDao,
     val accountManager: AccountManager,
     val api: MastodonApi,
-    private val draftHelper: DraftHelper,
+    private val draftRepository: DraftRepository,
 ) : ViewModel() {
 
-    val drafts = Pager(
-        config = PagingConfig(pageSize = 20),
-        pagingSourceFactory = { draftDao.draftsPagingSource(accountManager.activeAccount?.id!!) },
-    ).flow
+    val drafts = draftRepository.getDrafts(accountManager.activeAccount?.id!!)
         .cachedIn(viewModelScope)
 
-    private val deletedDrafts: MutableList<DraftEntity> = mutableListOf()
+    private val deletedDrafts: MutableList<Draft> = mutableListOf()
 
-    fun deleteDraft(draft: DraftEntity) {
+    fun deleteDraft(pachliAccountId: Long, draft: Draft) {
         // this does not immediately delete media files to avoid unnecessary file operations
         // in case the user decides to restore the draft
         viewModelScope.launch {
-            draftDao.delete(draft.id)
+            draftRepository.deleteDraft(pachliAccountId, draft.id)
             deletedDrafts.add(draft)
         }
     }
 
-    fun restoreDraft(draft: DraftEntity) {
+    fun restoreDraft(pachliAccountId: Long, draft: Draft) {
         viewModelScope.launch {
-            draftDao.upsert(draft)
+            draftRepository.upsert(pachliAccountId, draft)
             deletedDrafts.remove(draft)
         }
     }
@@ -66,7 +62,7 @@ class DraftsViewModel @Inject constructor(
     override fun onCleared() {
         viewModelScope.launch {
             deletedDrafts.forEach {
-                draftHelper.deleteAttachments(it)
+                draftRepository.deleteAttachments(it.attachments)
             }
         }
     }

@@ -21,7 +21,29 @@ import android.net.Uri
 import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import java.util.Date
 import kotlinx.parcelize.Parcelize
+
+@Parcelize
+data class Draft(
+    val id: Long = 0,
+    val contentWarning: String?,
+    val content: String?,
+    val sensitive: Boolean,
+    val visibility: Status.Visibility,
+    val attachments: List<DraftAttachment> = emptyList(),
+    val poll: NewPoll? = null,
+    val failedToSend: Boolean = false,
+    val failedToSendNew: Boolean = false,
+    val scheduledAt: Date? = null,
+    val language: String?,
+    val quotePolicy: AccountSource.QuotePolicy?,
+    val inReplyToId: String? = null,
+    val quotedStatusId: String? = null,
+    val statusId: String? = null,
+) : Parcelable {
+    companion object
+}
 
 @Parcelize
 @JsonClass(generateAdapter = true)
@@ -29,11 +51,5 @@ data class DraftAttachment(
     @Json(name = "uriString") val uri: Uri,
     val description: String?,
     val focus: Attachment.Focus?,
-    val type: Type,
-) : Parcelable {
-    enum class Type {
-        IMAGE,
-        VIDEO,
-        AUDIO,
-    }
-}
+    val type: Attachment.Type,
+) : Parcelable

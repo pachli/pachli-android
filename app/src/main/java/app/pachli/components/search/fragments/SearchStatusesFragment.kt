@@ -44,15 +44,18 @@ import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.data.model.IStatusViewData
 import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.data.repository.StatusDisplayOptionsRepository
+import app.pachli.core.data.repository.asDraft
+import app.pachli.core.data.repository.createDraftQuote
+import app.pachli.core.data.repository.createDraftReply
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.domain.DownloadUrlUseCase
 import app.pachli.core.model.Attachment
 import app.pachli.core.model.AttachmentDisplayAction
+import app.pachli.core.model.Draft
 import app.pachli.core.model.IStatus
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
 import app.pachli.core.model.Status.Mention
-import app.pachli.core.model.asQuotePolicy
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.ComposeActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
@@ -179,7 +182,6 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
                 )
                 startActivityWithDefaultTransition(intent, options)
             }
-
             Attachment.Type.UNKNOWN -> openUrl(actionable.attachments[attachmentIndex].url)
         }
     }
@@ -250,11 +252,8 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
             requireContext(),
             status.pachliAccountId,
             ComposeOptions(
+                draft = Draft.createDraftReply(viewModel.activeAccount!!, status.actionable),
                 referencingStatus = ReferencingStatus.ReplyingTo.from(status.actionable),
-                replyVisibility = actionableStatus.visibility,
-                contentWarning = actionableStatus.spoilerText,
-                mentionedUsernames = mentionedUsernames,
-                language = actionableStatus.language,
                 kind = ComposeOptions.ComposeKind.NEW,
             ),
         )
@@ -268,9 +267,8 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
         val actionableStatus = status.actionableStatus
 
         val composeOptions = ComposeOptions(
+            draft = Draft.createDraftQuote(viewModel.activeAccount!!, status.actionableStatus),
             referencingStatus = ReferencingStatus.Quoting.from(actionableStatus),
-            contentWarning = actionableStatus.spoilerText,
-            language = actionableStatus.language,
             kind = ComposeOptions.ComposeKind.NEW,
         )
 
@@ -497,38 +495,34 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
                 .setMessage(R.string.dialog_redraft_post_warning)
                 .setPositiveButton(android.R.string.ok) { _, _ ->
                     lifecycleScope.launch {
-                        viewModel.deleteStatusAsync(statusViewData.statusId).await().onSuccess { redraftStatus ->
-                            viewModel.removeItem(statusViewData)
-
-                            val intent = ComposeActivityIntent(
-                                requireContext(),
-                                pachliAccountId,
-                                ComposeOptions(
-                                    content = redraftStatus.text.orEmpty(),
-                                    referencingStatus = redraftStatus.inReplyToId?.let {
-                                        ReferencingStatus.ReplyId(it)
-                                    } ?: redraftStatus.quote?.let { quote ->
-                                        when (quote) {
-                                            is Status.Quote.FullQuote -> quote.statusId
-                                            is Status.Quote.ShallowQuote -> quote.statusId
-                                            is Status.Quote.HiddenQuote -> null
-                                        }?.let { ReferencingStatus.QuoteId(it) }
-                                    },
-                                    visibility = redraftStatus.visibility,
-                                    contentWarning = redraftStatus.spoilerText,
-                                    mediaAttachments = redraftStatus.attachments,
-                                    sensitive = redraftStatus.sensitive,
-                                    poll = redraftStatus.poll?.toNewPoll(redraftStatus.createdAt),
-                                    language = redraftStatus.language,
-                                    kind = ComposeOptions.ComposeKind.NEW,
-                                    quotePolicy = redraftStatus.quoteApproval?.asQuotePolicy(),
-                                ),
+                        timelineCases.delete(statusViewData.status.actionableId).onSuccess {
+                            val sourceStatus = it.body.asModel()
+                            val draft = sourceStatus.asDraft()
+                            val composeOptions = ComposeOptions(
+                                draft = draft,
+                                mediaAttachments = sourceStatus.attachments,
+                                referencingStatus = statusViewData.status.inReplyToId?.let {
+                                    ReferencingStatus.ReplyId(it)
+                                } ?: statusViewData.status.quote?.let { quote ->
+                                    when (quote) {
+                                        is Status.Quote.FullQuote -> quote.statusId
+                                        is Status.Quote.ShallowQuote -> quote.statusId
+                                        is Status.Quote.HiddenQuote -> null
+                                    }?.let { ReferencingStatus.QuoteId(it) }
+                                },
+                                modifiedInitialState = true,
+                                kind = ComposeOptions.ComposeKind.NEW,
                             )
-                            startActivityWithDefaultTransition(intent)
-                        }.onFailure { error ->
-                            Timber.w("error deleting status: %s", error)
-                            Toast.makeText(context, app.pachli.core.ui.R.string.error_generic, Toast.LENGTH_SHORT).show()
+                            startActivityWithTransition(
+                                ComposeActivityIntent(requireContext(), pachliAccountId, composeOptions),
+                                TransitionKind.SLIDE_FROM_END,
+                            )
                         }
+                            .onFailure {
+                                Timber.w("error deleting status: %s", it)
+                                Toast.makeText(context, app.pachli.core.ui.R.string.error_generic, Toast.LENGTH_SHORT)
+                                    .show()
+                            }
                     }
                 }
                 .setNegativeButton(android.R.string.cancel, null)
@@ -540,8 +534,10 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
         lifecycleScope.launch {
             mastodonApi.statusSource(id).onSuccess { response ->
                 val source = response.body
+                val draft = status.asDraft(source)
                 val composeOptions = ComposeOptions(
-                    content = source.text,
+                    draft = draft,
+                    mediaAttachments = status.attachments,
                     referencingStatus = status.inReplyToId?.let {
                         ReferencingStatus.ReplyId(it)
                     } ?: status.quote?.let { quote ->
@@ -551,24 +547,20 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
                             is Status.Quote.HiddenQuote -> null
                         }?.let { ReferencingStatus.QuoteId(it) }
                     },
-                    visibility = status.visibility,
-                    contentWarning = source.spoilerText,
-                    mediaAttachments = status.attachments,
-                    sensitive = status.sensitive,
-                    language = status.language,
-                    statusId = source.id,
-                    poll = status.poll?.toNewPoll(status.createdAt),
                     kind = ComposeOptions.ComposeKind.EDIT_POSTED,
-                    quotePolicy = status.quoteApproval.asQuotePolicy(),
                 )
-                startActivityWithDefaultTransition(ComposeActivityIntent(requireContext(), pachliAccountId, composeOptions))
-            }.onFailure {
-                Snackbar.make(
-                    requireView(),
-                    getString(R.string.error_status_source_load),
-                    Snackbar.LENGTH_SHORT,
-                ).show()
+                startActivityWithTransition(
+                    ComposeActivityIntent(requireContext(), pachliAccountId, composeOptions),
+                    TransitionKind.SLIDE_FROM_END,
+                )
             }
+                .onFailure {
+                    Snackbar.make(
+                        requireView(),
+                        getString(R.string.error_status_source_load),
+                        Snackbar.LENGTH_SHORT,
+                    ).show()
+                }
         }
     }
 

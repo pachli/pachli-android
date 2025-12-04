@@ -59,10 +59,13 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.util.unsafeLazy
-import app.pachli.core.data.repository.getOrNull
+import app.pachli.core.data.repository.createDraft
+import app.pachli.core.data.repository.createDraftMention
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.Account
+import app.pachli.core.model.Draft
 import app.pachli.core.model.Relationship
+import app.pachli.core.model.Timeline
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent
@@ -986,13 +989,20 @@ class AccountActivity :
     }
 
     private fun mention(account: Account) {
-        val options = if (viewModel.isSelf.value) {
-            ComposeOptions(kind = ComposeOptions.ComposeKind.NEW)
-        } else {
-            ComposeOptions(
-                mentionedUsernames = setOf(account.username),
-                kind = ComposeOptions.ComposeKind.NEW,
-            )
+        lifecycleScope.launch {
+            loadedAccount?.let {
+                //val activeAccount = accountManager.activeAccount!!
+                val draft = if (viewModel.isSelf) {
+                    // TODO: Timeline.Home here is wrong
+                    Draft.createDraft(this@AccountActivity, account /*activeAccount*/, Timeline.Home)
+                } else {
+                    // TODO: Timeline.Home here is wrong
+                    Draft.createDraftMention(this@AccountActivity, account /*activeAccount*/, Timeline.Home, it.username)
+                }
+                val composeOptions = ComposeOptions(draft = draft)
+                val intent = ComposeActivityIntent(this@AccountActivity, intent.pachliAccountId, composeOptions)
+                startActivity(intent)
+            }
         }
         val intent = ComposeActivityIntent(this, intent.pachliAccountId, options)
         startActivity(intent)

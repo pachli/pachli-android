@@ -18,19 +18,15 @@
 package app.pachli
 
 import android.content.Context
-import android.content.Intent
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.core.content.ContextCompat.getString
 import androidx.fragment.app.Fragment
 import app.pachli.components.conversation.ConversationsFragment
 import app.pachli.components.notifications.NotificationsFragment
 import app.pachli.components.timeline.TimelineFragment
 import app.pachli.components.trending.TrendingLinksFragment
 import app.pachli.components.trending.TrendingTagsFragment
-import app.pachli.core.model.Status
 import app.pachli.core.model.Timeline
-import app.pachli.core.navigation.ComposeActivityIntent
 
 /**
  * Wrap a [Timeline] with additional information to display a tab with that
@@ -50,7 +46,6 @@ data class TabViewData(
     @DrawableRes val icon: Int,
     val fragment: () -> Fragment,
     val title: (Context) -> String = { context -> context.getString(text) },
-    val composeIntent: ((Context, Long) -> Intent)? = { context, pachliAccountId -> ComposeActivityIntent(context, pachliAccountId) },
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -94,19 +89,13 @@ data class TabViewData(
                 text = R.string.title_direct_messages,
                 icon = app.pachli.core.ui.R.drawable.ic_reblog_direct_24dp,
                 fragment = { ConversationsFragment.newInstance(pachliAccountId) },
-            ) { context, pachliAccountId ->
-                ComposeActivityIntent(
-                    context,
-                    pachliAccountId,
-                    ComposeActivityIntent.ComposeOptions(visibility = Status.Visibility.PRIVATE),
-                )
-            }
+            )
+
             Timeline.TrendingHashtags -> TabViewData(
                 timeline = timeline,
                 text = R.string.title_public_trending_hashtags,
                 icon = R.drawable.ic_trending_up_24px,
                 fragment = { TrendingTagsFragment.newInstance(pachliAccountId) },
-                composeIntent = null,
             )
             Timeline.TrendingLinks -> TabViewData(
                 timeline = timeline,
@@ -130,17 +119,7 @@ data class TabViewData(
                         context.getString(R.string.title_tag, it)
                     }
                 },
-            ) { context, pachliAccountId ->
-                val tag = timeline.tags.first()
-                ComposeActivityIntent(
-                    context,
-                    pachliAccountId,
-                    ComposeActivityIntent.ComposeOptions(
-                        content = getString(context, R.string.title_tag_with_initial_position).format(tag),
-                        initialCursorPosition = ComposeActivityIntent.ComposeOptions.InitialCursorPosition.START,
-                    ),
-                )
-            }
+            )
 
             is Timeline.UserList -> TabViewData(
                 timeline = timeline,

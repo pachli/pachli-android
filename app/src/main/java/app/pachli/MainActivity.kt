@@ -63,7 +63,9 @@ import app.pachli.components.notifications.domain.EnableAllNotificationsUseCase
 import app.pachli.core.activity.PostLookupFallbackBehavior
 import app.pachli.core.activity.ReselectableFragment
 import app.pachli.core.activity.ViewUrlActivity
+import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
+import app.pachli.core.activity.extensions.startActivityWithTransition
 import app.pachli.core.common.di.ApplicationScope
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
@@ -71,11 +73,13 @@ import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.ListsRepository.Companion.compareByListTitle
 import app.pachli.core.data.repository.PachliAccount
+import app.pachli.core.data.repository.createDraft
 import app.pachli.core.database.model.AccountEntity
 import app.pachli.core.designsystem.EmbeddedFontFamily
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.model.Announcement
+import app.pachli.core.model.Draft
 import app.pachli.core.model.MastodonList
 import app.pachli.core.model.Notification
 import app.pachli.core.model.Timeline
@@ -84,6 +88,7 @@ import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AccountListActivityIntent
 import app.pachli.core.navigation.AnnouncementsActivityIntent
 import app.pachli.core.navigation.ComposeActivityIntent
+import app.pachli.core.navigation.ComposeActivityIntent.ComposeOptions
 import app.pachli.core.navigation.DraftsActivityIntent
 import app.pachli.core.navigation.EditProfileActivityIntent
 import app.pachli.core.navigation.FollowedTagsActivityIntent
@@ -420,6 +425,18 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
                         bindMainDrawerAnnouncements(it.announcements)
                     }
                 }
+
+                launch {
+                    account.collect { a ->
+                        binding.composeButton.setOnClickListener {
+                            val timeline = tabAdapter.tabs[binding.viewPager.currentItem].timeline
+                            val draft = Draft.createDraft(this@MainActivity, a.entity, timeline)
+                            val composeOptions = ComposeOptions(draft = draft)
+                            val intent = ComposeActivityIntent(this@MainActivity, pachliAccountId, composeOptions)
+                            startActivityWithTransition(intent, TransitionKind.SLIDE_FROM_END)
+                        }
+                    }
+                }
             }
         }
 
@@ -522,7 +539,18 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
             when (keyCode) {
                 KeyEvent.KEYCODE_N -> {
                     // open compose activity by pressing SHIFT + N (or CTRL + N)
-                    val composeIntent = ComposeActivityIntent(applicationContext, pachliAccountId)
+                    val timeline = tabAdapter.tabs[binding.viewPager.currentItem].timeline
+                    val composeIntent = ComposeActivityIntent(
+                        applicationContext,
+                        pachliAccountId,
+                        ComposeOptions(
+                            draft = Draft.createDraft(
+                                this@MainActivity,
+                                viewModel.pachliAccountFlow.replayCache.first().entity,
+                                timeline,
+                            ),
+                        ),
+                    )
                     startActivity(composeIntent)
                     return true
                 }
@@ -1107,16 +1135,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
             (tabAdapter.getFragment(activeTabLayout.selectedTabPosition) as? ReselectableFragment)?.onReselect()
         }
 
-        refreshComposeButtonState(tabs[position])
-    }
-
-    private fun refreshComposeButtonState(tabViewData: TabViewData) {
-        tabViewData.composeIntent?.let { intent ->
-            binding.composeButton.setOnClickListener {
-                startActivity(intent(applicationContext, pachliAccountId))
-            }
-            binding.composeButton.show()
-        } ?: binding.composeButton.hide()
+        tabAdapter.tabs.getOrNull(binding.viewPager.currentItem)?.timeline
     }
 
     /**

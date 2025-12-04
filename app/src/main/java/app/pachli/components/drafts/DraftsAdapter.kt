@@ -25,26 +25,26 @@ import androidx.recyclerview.widget.RecyclerView
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.visible
-import app.pachli.core.database.model.DraftEntity
+import app.pachli.core.model.Draft
 import app.pachli.core.ui.BindingHolder
 import app.pachli.databinding.ItemDraftBinding
 import com.bumptech.glide.RequestManager
 
 interface DraftActionListener {
-    fun onOpenDraft(draft: DraftEntity)
-    fun onDeleteDraft(draft: DraftEntity)
+    fun onOpenDraft(draft: Draft)
+    fun onDeleteDraft(draft: Draft)
 }
 
 class DraftsAdapter(
     private val glide: RequestManager,
     private val listener: DraftActionListener,
-) : PagingDataAdapter<DraftEntity, BindingHolder<ItemDraftBinding>>(
-    object : DiffUtil.ItemCallback<DraftEntity>() {
-        override fun areItemsTheSame(oldItem: DraftEntity, newItem: DraftEntity): Boolean {
+) : PagingDataAdapter<Draft, BindingHolder<ItemDraftBinding>>(
+    object : DiffUtil.ItemCallback<Draft>() {
+        override fun areItemsTheSame(oldItem: Draft, newItem: Draft): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: DraftEntity, newItem: DraftEntity): Boolean {
+        override fun areContentsTheSame(oldItem: Draft, newItem: Draft): Boolean {
             return oldItem == newItem
         }
     },

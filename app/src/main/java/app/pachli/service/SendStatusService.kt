@@ -24,17 +24,16 @@ import app.pachli.components.drafts.DraftHelper
 import app.pachli.components.notifications.pendingIntentFlags
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.DraftRepository
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.StatusComposedEvent
 import app.pachli.core.eventhub.StatusEditedEvent
 import app.pachli.core.eventhub.StatusScheduledEvent
-import app.pachli.core.model.AccountSource
 import app.pachli.core.model.Attachment
+import app.pachli.core.model.Draft
 import app.pachli.core.model.MediaAttribute
-import app.pachli.core.model.NewPoll
 import app.pachli.core.model.NewStatus
-import app.pachli.core.model.Status
 import app.pachli.core.navigation.IntentRouterActivityIntent
 import app.pachli.core.network.model.asNetworkModel
 import app.pachli.core.network.retrofit.MastodonApi
@@ -43,7 +42,6 @@ import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.IOException
-import java.util.Date
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -76,6 +74,9 @@ class SendStatusService : Service() {
     @Inject
     lateinit var mediaUploader: MediaUploader
 
+    @Inject
+    lateinit var draftRepository: DraftRepository
+
     private val supervisorJob = SupervisorJob()
     private val serviceScope = CoroutineScope(Dispatchers.Main + supervisorJob)
 
@@ -96,10 +97,7 @@ class SendStatusService : Service() {
                 notificationManager.createNotificationChannel(channel)
             }
 
-            var notificationText = statusToSend.warningText
-            if (notificationText.isBlank()) {
-                notificationText = statusToSend.text
-            }
+            val notificationText = statusToSend.draft.contentWarning ?: statusToSend.draft.content
 
             val builder = NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(app.pachli.core.common.R.drawable.ic_notify)
@@ -179,7 +177,7 @@ class SendStatusService : Service() {
                 mediaCheckRetries++
             }
 
-            val isNew = statusToSend.statusId == null
+            val isNew = statusToSend.draft.statusId == null
 
             if (isNew) {
                 media.forEach { mediaItem ->
@@ -196,15 +194,15 @@ class SendStatusService : Service() {
 
             // finally, send the new status
             val newStatus = NewStatus(
-                status = statusToSend.text,
-                warningText = statusToSend.warningText,
-                inReplyToId = statusToSend.inReplyToId,
-                visibility = statusToSend.visibility,
-                sensitive = statusToSend.sensitive,
+                status = statusToSend.draft.content.orEmpty(),
+                warningText = statusToSend.draft.contentWarning.orEmpty(),
+                inReplyToId = statusToSend.draft.inReplyToId,
+                visibility = statusToSend.draft.visibility.serverString(),
+                sensitive = statusToSend.draft.sensitive,
                 mediaIds = media.map { it.id!! },
-                scheduledAt = statusToSend.scheduledAt,
-                poll = statusToSend.poll,
-                language = statusToSend.language,
+                scheduledAt = statusToSend.draft.scheduledAt,
+                poll = statusToSend.draft.poll,
+                language = statusToSend.draft.language,
                 mediaAttributes = media.map { media ->
                     MediaAttribute(
                         id = media.id!!,
@@ -213,8 +211,8 @@ class SendStatusService : Service() {
                         thumbnail = null,
                     )
                 },
-                quotedStatusId = statusToSend.quotedStatusId,
-                quotePolicy = statusToSend.quotePolicy,
+                quotedStatusId = statusToSend.draft.quotedStatusId,
+                quotePolicy = statusToSend.draft.quotePolicy,
             )
 
             val sendResult = if (isNew) {
@@ -235,7 +233,7 @@ class SendStatusService : Service() {
                 }
             } else {
                 mastodonApi.editStatus(
-                    statusToSend.statusId,
+                    statusToSend.draft.statusId!!,
                     account.authHeader,
                     account.domain,
                     statusToSend.idempotencyKey,
@@ -247,20 +245,20 @@ class SendStatusService : Service() {
                 val sentStatus = it.body
                 statusesToSend.remove(statusId)
                 // If the status was loaded from a draft, delete the draft and associated media files.
-                if (statusToSend.draftId != 0) {
-                    draftHelper.deleteDraftAndAttachments(statusToSend.draftId)
+                if (statusToSend.draft.id != 0L) {
+                    draftRepository.deleteDraftAndAttachments(account.id, statusToSend.draft.id)
                 }
 
                 mediaUploader.cancelUploadScope(*statusToSend.media.map { it.localId }.toIntArray())
 
-                val scheduled = statusToSend.scheduledAt != null
+                val scheduled = statusToSend.draft.scheduledAt != null
 
                 if (scheduled) {
                     eventHub.dispatch(StatusScheduledEvent)
                 } else if (!isNew) {
                     eventHub.dispatch(
                         StatusEditedEvent(
-                            statusToSend.statusId,
+                            statusToSend.draft.statusId!!,
                             (sentStatus as app.pachli.core.network.model.Status).asModel(),
                         ),
                     )
@@ -287,8 +285,10 @@ class SendStatusService : Service() {
         when (throwable) {
             // the server refused to accept, save status & show error message
             is HttpException -> failSending(statusId)
+
             // a network problem occurred, let's retry sending the status
             is IOException -> retrySending(statusId)
+
             // Some other problem, fail
             else -> failSending(statusId)
         }
@@ -324,7 +324,7 @@ class SendStatusService : Service() {
         }
     }
 
-    private suspend fun failSending(statusId: Int) {
+    private fun failSending(statusId: Int) {
         val failedStatus = statusesToSend.remove(statusId)
         if (failedStatus != null) {
             mediaUploader.cancelUploadScope(*failedStatus.media.map { it.localId }.toIntArray())
@@ -371,26 +371,12 @@ class SendStatusService : Service() {
         }
     }
 
-    private suspend fun saveStatusToDrafts(status: StatusToSend, failedToSendAlert: Boolean) {
-        draftHelper.saveDraft(
-            draftId = status.draftId,
-            pachliAccountId = status.pachliAccountId,
-            inReplyToId = status.inReplyToId,
-            content = status.text,
-            contentWarning = status.warningText,
-            sensitive = status.sensitive,
-            visibility = Status.Visibility.byString(status.visibility),
-            mediaUris = status.media.map { it.uri },
-            mediaDescriptions = status.media.map { it.description },
-            mediaFocus = status.media.map { it.focus },
-            poll = status.poll,
+    private fun saveStatusToDrafts(status: StatusToSend, failedToSendAlert: Boolean) {
+        draftRepository.updateFailureState(
+            status.pachliAccountId,
+            status.draft.id,
             failedToSend = true,
-            failedToSendAlert = failedToSendAlert,
-            scheduledAt = status.scheduledAt,
-            language = status.language,
-            statusId = status.statusId,
-            quotePolicy = status.quotePolicy,
-            quotedStatusId = status.quotedStatusId,
+            failedToSendNew = failedToSendAlert,
         )
     }
 
@@ -480,24 +466,11 @@ class SendStatusService : Service() {
 
 @Parcelize
 data class StatusToSend(
-    val text: String,
-    val warningText: String,
-    val visibility: String,
-    val sensitive: Boolean,
+    val draft: Draft,
     val media: List<MediaToSend>,
-    val scheduledAt: Date?,
-    val inReplyToId: String?,
-    val poll: NewPoll?,
-    val replyingStatusContent: String?,
-    val replyingStatusAuthorUsername: String?,
     val pachliAccountId: Long,
-    val draftId: Int,
     val idempotencyKey: String,
     var retries: Int,
-    val language: String?,
-    val statusId: String?,
-    val quotedStatusId: String?,
-    val quotePolicy: AccountSource.QuotePolicy?,
 ) : Parcelable
 
 @Parcelize
