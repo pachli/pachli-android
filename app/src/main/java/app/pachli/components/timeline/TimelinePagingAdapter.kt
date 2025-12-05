@@ -88,6 +88,8 @@ class TimelinePagingAdapter(
         // where androidx.paging.PageStore.checkIndex(PageStore.kt:56) throws an
         // IndexOutOfBoundsException. Fall back to returning a placeholder in that
         // case.
+        //
+        // TODO: This might be fixed in https://developer.android.com/jetpack/androidx/releases/paging#3.4.0-alpha01
         val viewData = try {
             getItem(position) ?: return VIEW_TYPE_PLACEHOLDER
         } catch (_: IndexOutOfBoundsException) {

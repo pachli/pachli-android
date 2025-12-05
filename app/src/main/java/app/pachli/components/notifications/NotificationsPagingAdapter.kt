@@ -174,7 +174,18 @@ class NotificationsPagingAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        val item = getItem(position)
+        // The getItem() call here can occasionally trigger a bug in androidx.paging
+        // where androidx.paging.PageStore.checkIndex(PageStore.kt:56) throws an
+        // IndexOutOfBoundsException. Fall back to returning a placeholder in that
+        // case.
+        //
+        // TODO: This might be fixed in https://developer.android.com/jetpack/androidx/releases/paging#3.4.0-alpha01
+        val item = try {
+            getItem(position)
+        } catch (_: IndexOutOfBoundsException) {
+            return NotificationViewKind.UNKNOWN.ordinal
+        }
+
         if (item is NotificationViewData.WithStatus && item.statusItemViewData.contentFilterAction == FilterAction.WARN) {
             return NotificationViewKind.STATUS_FILTERED.ordinal
         }
