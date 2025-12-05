@@ -1,5 +1,11 @@
 # Pachli changelog
 
+## v3.2.3
+
+### Significant bug fixes
+
+- Prevent OOM, actually prune the database (#[2012](https://github.com/pachli/pachli-android/pull/2012), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
 ## v3.2.2
 
 ### New features and other improvements
