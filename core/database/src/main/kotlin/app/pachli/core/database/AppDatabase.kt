@@ -30,7 +30,9 @@ import androidx.room.RenameTable
 import androidx.room.RoomDatabase
 import androidx.room.migration.AutoMigrationSpec
 import androidx.room.migration.Migration
+import androidx.sqlite.SQLiteConnection
 import androidx.sqlite.db.SupportSQLiteDatabase
+import androidx.sqlite.execSQL
 import app.pachli.core.database.dao.AccountDao
 import app.pachli.core.database.dao.AnnouncementsDao
 import app.pachli.core.database.dao.ContentFiltersDao
@@ -107,7 +109,7 @@ import java.util.TimeZone
         TimelineStatusWithAccount::class,
         ReferencedStatusId::class,
     ],
-    version = 36,
+    version = 37,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = AppDatabase.MIGRATE_1_2::class),
         AutoMigration(from = 2, to = 3),
@@ -158,6 +160,7 @@ import java.util.TimeZone
         AutoMigration(from = 34, to = 35),
         // DraftEntity properties when quoting a status.
         AutoMigration(from = 35, to = 36),
+        AutoMigration(from = 36, to = 37, spec = AppDatabase.MIGRATE_36_37::class),
     ],
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -338,6 +341,26 @@ abstract class AppDatabase : RoomDatabase() {
             db.execSQL("DELETE FROM NotificationEntity")
             db.execSQL("DELETE FROM StatusViewDataEntity")
             db.execSQL("DELETE FROM TranslatedStatusEntity")
+        }
+    }
+
+    /**
+     * Properly delete contents of key cache tables.
+     *
+     * MIGRATE_32_33 wasn't being called, because the version of `onPostMigrate`
+     * that takes a `SupportSQLiteDatabase` as a parameter isn't called if
+     * Room is configured with a custom driver.
+     */
+    class MIGRATE_36_37 : AutoMigrationSpec {
+        override fun onPostMigrate(connection: SQLiteConnection) {
+            super.onPostMigrate(connection)
+            connection.execSQL("DELETE FROM TimelineStatusEntity")
+            connection.execSQL("DELETE FROM StatusEntity")
+            connection.execSQL("DELETE FROM TimelineAccountEntity")
+            connection.execSQL("DELETE FROM ConversationEntity")
+            connection.execSQL("DELETE FROM NotificationEntity")
+            connection.execSQL("DELETE FROM StatusViewDataEntity")
+            connection.execSQL("DELETE FROM TranslatedStatusEntity")
         }
     }
 }
