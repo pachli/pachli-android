@@ -826,4 +826,7 @@
     <string name="compose_quote_policy_dialog_title">Change quote setting?</string>
     <string name="compose_quote_policy_dialog_body_fmt">Posts marked \"%1$s\" or \"%2$s\" must have a quote setting of \"%3$s\".\n\nChange the quote setting now?</string>
 
+    <string name="compose_task_description_writing_post">Writing post</string>
+    <string name="compose_task_description_replying_fmt">Replying to %1$s</string>
+    <string name="compose_task_description_quoting_fmt">Quoting %1$s</string>
 </resources>
