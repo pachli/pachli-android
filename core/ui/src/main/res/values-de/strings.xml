@@ -115,7 +115,7 @@
     <string name="translating">Übersetze…</string>
     <string name="translation_provider_fmt">%1$s</string>
     <string name="description_post_edited">Bearbeitet</string>
-    <string name="description_post_reblogged">Geteilt</string>
+    <string name="description_post_reblogged">Wiederveröffentlicht</string>
     <string name="description_post_favourited">Favorisiert    </string>
     <string name="description_post_bookmarked">Als Lesezeichen gespeichert</string>
     <string name="description_post_media">Medien: %s</string>
@@ -128,7 +128,7 @@
         <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Favorit</item>
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Favoriten</item>
     </plurals>
-    <string name="post_boosted_fmt"><b>%1$s</b> hat geteilt</string>
+    <string name="post_boosted_fmt"><b>%1$s</b> teilte</string>
     <string name="post_edited">Bearbeitet %s</string>
     <string name="post_replied_to_fmt">Antwort auf &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="post_continued_thread">Fortgeführter Thread</string>
