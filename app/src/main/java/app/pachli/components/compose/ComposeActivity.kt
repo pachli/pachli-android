@@ -18,6 +18,7 @@ package app.pachli.components.compose
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.ActivityManager
 import android.app.ProgressDialog
 import android.content.ClipData
 import android.content.Intent
@@ -409,6 +410,10 @@ class ComposeActivity :
 
         binding.replyLoadingErrorRetry.setOnClickListener { viewModel.reloadReferencedStatus() }
 
+        // Set default task description. Don't use android:label in the Manifest because the
+        // label isn't overridden properly, see https://issuetracker.google.com/issues/340133008.
+        setTaskDescription(ActivityManager.TaskDescription(getString(R.string.compose_task_description_writing_post)))
+
         lifecycleScope.launch { viewModel.referencingStatus.collect(::bindInReplyTo) }
 
         lifecycleScope.launch {
@@ -609,6 +614,14 @@ class ComposeActivity :
         show()
 
         with(referencing) {
+            // Override task description to indicate this is a reply or a quote, and the
+            // account being referenced.
+            when {
+                isReplying() -> getString(R.string.compose_task_description_replying_fmt, referencing.displayName)
+                isQuoting() -> getString(R.string.compose_task_description_quoting_fmt, referencing.displayName)
+                else -> null
+            }?.let { setTaskDescription(ActivityManager.TaskDescription(it)) }
+
             bindReplyAvatar(this)
 
             binding.statusDisplayName.text =
