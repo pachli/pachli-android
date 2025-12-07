@@ -773,4 +773,7 @@
     <string name="notification_quote_description">Notificaciones sobre alguien citando tus publicaciones</string>
     <string name="notification_quoted_update_name">Ediciones de publicaciones citadas</string>
     <string name="notification_quoted_update_description">Notificaciones cuando se editan las publicaciones que has citado</string>
+    <string name="compose_task_description_writing_post">Escribiendo publicación</string>
+    <string name="compose_task_description_replying_fmt">Respondiendo a %1$s</string>
+    <string name="compose_task_description_quoting_fmt">Citando a %1$s</string>
 </resources>
