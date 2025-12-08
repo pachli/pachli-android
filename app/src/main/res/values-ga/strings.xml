@@ -780,4 +780,7 @@
     <string name="compose_quote_policy_title">Cá bhfuil sé seo?</string>
     <string name="compose_quote_policy_dialog_title">Athraigh an socrú luachana?</string>
     <string name="compose_quote_policy_dialog_body_fmt">Ní mór socrú athfhriotail de \"%3$s\" a bheith ag poist atá marcáilte mar \"%1$s\" nó \"%2$s\".\n\nAn bhfuil tú ag iarraidh an socrú athfhriotail a athrú anois?</string>
+    <string name="compose_task_description_writing_post">Post scríbhneoireachta</string>
+    <string name="compose_task_description_replying_fmt">Ag freagairt do %1$s</string>
+    <string name="compose_task_description_quoting_fmt">Ag lua %1$s</string>
 </resources>
