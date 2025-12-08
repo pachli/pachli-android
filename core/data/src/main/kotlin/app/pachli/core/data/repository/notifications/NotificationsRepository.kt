@@ -95,6 +95,8 @@ class NotificationsRepository @Inject constructor(
         NotificationEntity.Type.MENTION,
         NotificationEntity.Type.POLL,
         NotificationEntity.Type.UPDATE,
+        NotificationEntity.Type.QUOTE,
+        NotificationEntity.Type.QUOTED_UPDATE,
     )
 
     /**
