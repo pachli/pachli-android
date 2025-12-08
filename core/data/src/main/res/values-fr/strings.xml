@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="server_repository_error_get_well_known_node_info">La récupération de /.well-known/nodeinfo a échoué : %1$s</string>
+    <string name="server_repository_error_unsupported_schema">/.well-known/nodeinfo ne contenait pas de schéma compréhensible</string>
+    <string name="server_repository_error_get_node_info">La récupération de nodeinfo %1$s a échoué : %2$s</string>
+    <string name="server_repository_error_validate_node_info">La validation de nodeinfo %1$s a échoué : %2$s</string>
+    <string name="server_repository_error_get_instance_info">La récupération de /api/v1/instance a échoué : %1$s</string>
+    <string name="server_repository_error_capabilities">Le décodage des possibilités du serveur a échoué : %1$s</string>
+    <string name="error_filter_server_does_not_filter">Le serveur ne gère pas les filtres</string>
+    <string name="account_manager_error_account_does_not_exist">Le compte n\'existe pas dans la base de données locale. Cela ne devrait jamais arriver. Si vous voyez ce message, notifiez le à team@pachli.app.</string>
+    <string name="account_manager_error_no_active_account">Aucun compte n\'est marqué comme actif</string>
+    <string name="account_manager_error_dao">Erreur de base de données. Merci de le signaler à team@pachli.app : %1$s</string>
+    <string name="account_manager_error_unexpected">Erreur inattendue : %1$s</string>
+    <string name="error_preference_importer_null_on_import">L\'import du fichier à renvoyé null</string>
+    <string name="error_preference_importer_missing_schema_version">Le fichier ne contient pas de version de schéma</string>
+    <string name="error_preference_importer_wrong_version_fmt">le fichier est une version inconnue : %1$s</string>
+</resources>
