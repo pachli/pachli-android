@@ -771,5 +771,5 @@
     <string name="compose_quote_policy_dialog_body_fmt">Beiträge, die mit „%1$s“ oder „%2$s“ gekennzeichnet sind, müssen eine Zitat-Einstellung von „%3$s“ haben.\n\nMöchtest du die Zitat-Einstellung jetzt ändern?</string>
     <string name="compose_task_description_writing_post">Beitrag schreiben</string>
     <string name="compose_task_description_replying_fmt">Antwort auf %1$s</string>
-    <string name="compose_task_description_quoting_fmt">Zitat von %1$s</string>
+    <string name="compose_task_description_quoting_fmt">%1$s zitieren</string>
 </resources>
