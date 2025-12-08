@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="acra_dialog_title">Rapport d\'erreur %1$s</string>
+    <string name="acra_dialog_text">Cliquez sur OK pour préparer un e-mail aux développeur·euse·s avec des détails</string>
+</resources>
