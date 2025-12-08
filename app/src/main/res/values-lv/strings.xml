@@ -758,4 +758,7 @@
     <string name="compose_quote_policy_title">Kurš var citēt šo ierakstu?</string>
     <string name="compose_quote_policy_dialog_title">Mainīt citāta iestatījumu?</string>
     <string name="compose_quote_policy_dialog_body_fmt">Ierakstiem, kas atzīmēti kā “%1$s” vai “%2$s”, jābūt citāta iestatījumam “%3$s”.\n\nMainīt citāta iestatījumu tagad?</string>
+    <string name="compose_task_description_writing_post">Ieraksta sastādīšana</string>
+    <string name="compose_task_description_replying_fmt">Atbild uz %1$s</string>
+    <string name="compose_task_description_quoting_fmt">Citē %1$s</string>
 </resources>
