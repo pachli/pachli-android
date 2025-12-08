@@ -435,7 +435,7 @@
     <string name="pref_title_show_stat_inline">Mostrar estadísticas de la publicación en la cronología</string>
     <string name="socket_timeout_exception">Contactar con tu servidor ha tardado demasiado tiempo</string>
     <string name="select_list_empty">Todavía no tienes listas</string>
-    <string name="help_empty_home">Esta es tu <b> cronología de inicio</b>. Muestra las publicaciones recientes de las cuentas que sigues. \n \nPara encontrar cuentas, puedes mirar en alguna de las otras cronologías; por ejemplo, la cronología local de tu instancia [iconics gmd_group]. O puedes buscarlas por nombre [iconics gmd_search]; por ejemplo, busca Pachli para encontrar nuestra cuenta de Mastodon.</string>
+    <string name="help_empty_home">Esta es tu <b>cronología de inicio</b>. Muestra las publicaciones recientes de las cuentas que sigues.\n\nPara encontrar cuentas, puedes mirar en alguna de las otras cronologías; por ejemplo, la cronología local de tu instancia [iconics gmd_group]. O puedes buscarlas por nombre [iconics gmd_search]; por ejemplo, busca Pachli para encontrar nuestra cuenta de Mastodon.</string>
     <string name="ui_error_bookmark_fmt">Fallo al añadir a marcadores: %1$s</string>
     <string name="select_list_manage">Gestionar listas</string>
     <string name="ui_error_favourite_fmt">Fallo al marcar la publicación como favorita: %1$s</string>
@@ -766,7 +766,7 @@
     <string name="compose_quote_policy_dialog_title">¿Cambiar preferencias de citas?</string>
     <string name="compose_quote_policy_dialog_body_fmt">El ajuste de citas de publicaciones marcadas como \"%1$s\" o \"%2$s\" debe ser \"%3$s\".\n\n¿Cambiar preferencias de citas ahora?</string>
     <string name="title_quotes">Citas</string>
-    <string name="action_toggle_quote_policy">Cambiar reglas de citas</string>
+    <string name="action_toggle_quote_policy">Cambiar regla de cita</string>
     <string name="pref_title_notification_filter_quote">Mis publicaciones son citadas</string>
     <string name="pref_title_notification_filter_quoted_update">Una publicación que cité es editada</string>
     <string name="notification_quote_name">Alguien te citó</string>
