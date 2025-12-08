@@ -21,13 +21,13 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Rect
 import android.graphics.drawable.Animatable
-import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.graphics.drawable.toDrawable
 import androidx.core.text.HtmlCompat
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
@@ -447,7 +447,7 @@ class DrawableTextViewTarget(
  */
 class BitmapTextViewTarget(private val textView: TextView, width: Int, height: Int) : CustomTarget<Bitmap>(width, height) {
     override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-        val drawable = BitmapDrawable(textView.resources, resource)
+        val drawable = resource.toDrawable(textView.resources)
         textView.setCompoundDrawablesRelativeWithIntrinsicBounds(drawable, null, null, null)
     }
 
