@@ -1,2 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="title_suggestions">Comptes suggérés</string>
+    <string name="source_unknown">(le serveur a renvoyé une source inconnue)</string>
+    <string name="sources_featured">Choisis à la main par l\'équipe de votre serveur</string>
+    <string name="sources_most_followed">Parmi les plus suivis de votre serveur</string>
+    <string name="sources_most_interactions">Recevant beaucoup d\'attention sur votre serveur</string>
+    <string name="sources_similar_to_recently_followed">Similaire à des comptes que vous avez suivi récemment</string>
+    <string name="sources_friends_of_friends">Populaire parmi les personnes que vous suivez</string>
+    <string name="sources_unknown">(le serveur a renvoyé des sources inconnues)</string>
+    <string name="action_follow_account">Suivre</string>
+    <string name="action_dismiss_follow_suggestion">Ignorer</string>
+    <string name="ui_error_delete_suggestion_fmt">Ignorer la suggeston de %1$s a échoué : %2$s</string>
+    <string name="ui_error_follow_account_fmt">Le suivi de %1$s a échoué : %2$s</string>
+    <string name="follower_count_fmt">&lt;b&gt;%1$s&lt;/b&gt; suivi·e·s</string>
+    <string name="follows_count_fmt">&lt;b&gt;%1$s&lt;/b&gt; abonné·e·s</string>
+    <string name="statuses_count_fmt">&lt;b&gt;%1$s&lt;/b&gt; messages</string>
+    <string name="statuses_count_per_week_fmt">&lt;b&gt;%1$s&lt;/b&gt; messages (&lt;b&gt;%2$d&lt;/b&gt; par semaine)</string>
+    <string name="statuses_count_per_week_last_fmt">&lt;b&gt;%1$s&lt;/b&gt; messages (&lt;b&gt;%2$d&lt;/b&gt; par semaine, le dernier &lt;b&gt;%3$s&lt;/b&gt;)</string>
+</resources>
