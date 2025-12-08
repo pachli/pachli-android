@@ -38,5 +38,22 @@
     <string name="pref_default_audio_playback_option_muted">Muet</string>
     <string name="pref_title_translation">Traduction</string>
     <string name="pref_pronoun_display_everywhere">Partout</string>
-    <string name="pref_quote_policy_followers">Un twitto</string>
+    <string name="pref_quote_policy_followers">Seulement vos abonné·e·s</string>
+    <string name="pref_title_quote_policy">Qui peut citer vos messages ?</string>
+    <string name="pref_quote_policy_public">Tout le monde (sauf les comptes bloqués)</string>
+    <string name="pref_quote_policy_nobody">Seulement vous</string>
+    <string name="pref_summary_quote_policy_disabled">Votre serveur ne gère pas les règles de citation</string>
+    <string name="pref_summary_export_settings">Appuyez pour sauvegarder les préférences d\'application et de compte dans un fichier local</string>
+    <string name="pref_summary_import_settings">Appuyez pour restaurer les paramètres depuis un fichier créé en utilisant l\'export des paramètres</string>
+    <string name="pref_translation_backend">Comment traduire</string>
+    <string name="pref_translation_backend_option_server_only">Serveur seulement</string>
+    <string name="pref_translation_backend_option_server_only_help">Traduit les messages en utilisant le serveur. Ne marchera pas si le serveur ne gère pas les traductions, ou la langue du message est incorrecte.</string>
+    <string name="pref_translation_backend_option_server_first">Serveur d\'abord</string>
+    <string name="pref_translation_backend_option_server_first_help">Traduit les messages en utilisant le serveur. Si cela échoue, traduit sur votre appareil en utilisant Google Translate.</string>
+    <string name="pref_translation_backend_option_local_only">Appareil seulement</string>
+    <string name="pref_translation_backend_option_local_only_help">Traduit les messages sur votre appareil en utilisant Google Translate.</string>
+    <string name="pref_translation_backend_requires_play_label">Installez depuis Google Play pour pouvoir traduire sur l\'appareil</string>
+    <string name="pref_title_pronoun_display">Montrer les pronoms des comptes</string>
+    <string name="pref_pronoun_display_when_composing">À la rédaction d\'un message</string>
+    <string name="pref_pronoun_display_hide">Nulle part</string>
 </resources>
