@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_network">Une erreur réseau s’est produite ! Veuillez vérifier votre connexion puis réessayez !</string>
     <string name="error_generic">Une erreur s’est produite.</string>
@@ -51,20 +51,20 @@
         <item quantity="other">%s personnes</item>
     </plurals>
     <string name="poll_info_closed">Terminé</string>
-    <string name="poll_info_time_absolute">Termina à %s</string>
+    <string name="poll_info_time_absolute">Termine à %s</string>
     <string name="poll_info_format"><!-- 15 votes • 1 heure restante -->%1$s • %2$s</string>
-    <string name="description_poll">Sondage avec des choix : %1$s, %2$s, %3$s, %4$s ; %5$s</string>
+    <string name="description_poll">Sondage avec des choix : %1$s, %2$s, %3$s, %4$s ; %5$s</string>
     <string name="post_media_alt">ALT</string>
     <string name="status_created_at_now">maintenant</string>
-    <string name="abbreviated_in_seconds">dans %ds</string>
-    <string name="abbreviated_seconds_ago">%ds</string>
-    <string name="abbreviated_in_minutes">dans %dm</string>
-    <string name="abbreviated_minutes_ago">%dm</string>
-    <string name="abbreviated_in_hours">dans %dh</string>
+    <string name="abbreviated_in_seconds">dans %d s</string>
+    <string name="abbreviated_seconds_ago">%d s</string>
+    <string name="abbreviated_in_minutes">dans %d m</string>
+    <string name="abbreviated_minutes_ago">%d m</string>
+    <string name="abbreviated_in_hours">dans %d h</string>
     <string name="abbreviated_hours_ago">%d h</string>
-    <string name="abbreviated_in_days">dans %dj</string>
-    <string name="abbreviated_days_ago">%dj</string>
-    <string name="abbreviated_in_years">dans %da</string>
+    <string name="abbreviated_in_days">dans %d j</string>
+    <string name="abbreviated_days_ago">%d j</string>
+    <string name="abbreviated_in_years">dans %d a</string>
     <string name="abbreviated_years_ago">%d a</string>
     <string name="description_post_media_no_description_placeholder">Aucune description</string>
     <string name="description_visibility_public">Public</string>
@@ -72,7 +72,7 @@
     <string name="description_visibility_private">        Abonné·e·s
     </string>
     <string name="description_visibility_direct">Direct</string>
-    <string name="post_sensitive_media_title">Contenu sensible</string>
+    <string name="post_sensitive_media_title">Contenu sensible. Appuyez pour montrer.</string>
     <string name="post_media_images">Images</string>
     <string name="post_media_audio">Audio</string>
     <string name="post_media_video">Vidéo</string>
@@ -87,15 +87,14 @@
     <string name="post_content_warning_show_less">Voir moins</string>
     <string name="post_content_warning_show_more">Voir plus</string>
     <string name="post_content_show_less">Replier</string>
-    <string name="translating">Traduction …</string>
+    <string name="translating">Traduction…</string>
     <string name="translation_provider_fmt">%1$s</string>
     <string name="description_post_edited">Modifié</string>
     <string name="description_post_reblogged">Partagé</string>
     <string name="description_post_favourited">Mis en favoris</string>
     <string name="description_post_bookmarked">Ajouté aux signets</string>
     <string name="description_post_media">Média : %s</string>
-    <string name="description_post_cw">        Avertissement : %s
-    </string>
+    <string name="description_post_cw">Avertissement : %s</string>
     <plurals name="reblogs">
         <item quantity="one">&lt;b&gt;%s&lt;/b&gt; Partage</item>
         <item quantity="many">&lt;b&gt;%s&lt;/b&gt; de partages</item>
@@ -111,4 +110,63 @@
     <string name="filter_edit_title">Modifier un filtre</string>
     <string name="status_filtered_show_anyway">Montrer quand même</string>
     <string name="status_filter_placeholder_label_format">Caché : &lt;b&gt;%1$s&lt;/b&gt;</string>
+    <string name="item_copied">Texte copié</string>
+    <string name="action_copy_item">Copier l\'élément</string>
+    <string name="pref_notification_method_push">Push</string>
+    <string name="pref_notification_method_pull">Pull</string>
+    <string name="pref_notification_fetch_method_title">Méthode de notification</string>
+    <string name="pref_notification_fetch_ok_timestamp_fmt">✔ Il y a %1$s à %2$s</string>
+    <string name="pref_notification_fetch_err_timestamp_fmt">✖ Il y a %1$s à %2$s</string>
+    <string name="pref_notification_fetch_server_rejected">%1$s a rejeté l\'enregistrement au push</string>
+    <string name="pref_notification_fetch_needs_push">Le compte n\'a pas la permission « push ». Se déconnecter et reconnecter pourrait régler cela.</string>
+    <string name="title_logout_fmt">Déconnecter %1$s</string>
+    <string name="notification_details_last_fetch_label">Dernier appel à /api/v1/notifications</string>
+    <string name="hint_search_emojis">Rechercher des emojis…</string>
+    <string name="label_emoji_no_category">Sans catégorie</string>
+    <string name="emoji_picker_show_detail">Voir le détail</string>
+    <string name="preview_card_byline_fediverse_account_fmt">Par &lt;b&gt;%1$s&lt;/b&gt;. Voir plus de messages</string>
+    <string name="preview_card_byline_name_only_fmt">Par &lt;b&gt;%1$s&lt;/b&gt;</string>
+    <string name="preview_card_timeline_link_fmt">Voir les messages de &lt;b&gt;%1$s&lt;/b&gt; à propos de ce lien</string>
+    <string name="poll_show_votes">Voir les votes</string>
+    <string name="attachment_matches_filter_one_fmt">Filtré : \"%1$s\". Appuyez pour montrez.</string>
+    <string name="attachment_matches_filter_two_fmt">Filtré : \"%1$s\" et \"%2$s\". Appuyez pour montrer.</string>
+    <string name="attachment_matches_filter_other_fmt">Filtré : \"%1$s\", \"%2$s\" et d\'autres. Appuyez pour montrer.</string>
+    <string name="attachment_hidden_user_action">Vous avez masqué cela. Appuyez pour montrer.</string>
+    <string name="action_show_attachments">Montrer les pièces jointes</string>
+    <string name="action_hide_attachments">Cacher les pièces jointes</string>
+    <string name="action_select_status">Sélectionner le message</string>
+    <string name="action_unselect_status">Désélectionner le message</string>
+    <string name="action_show_pronouns">Montrer les pronoms</string>
+    <string name="action_open_quoted_post">Ouvrir le message cité</string>
+    <string name="dot_in_name">point</string>
+    <string name="role_content_description_fmt">%1$s, à %2$s</string>
+    <plurals name="description_post_roles">
+        <item quantity="one">avec le rôle :</item>
+        <item quantity="many">avec les rôles :</item>
+        <item quantity="other">avec les rôles :</item>
+    </plurals>
+    <string name="handle_contentdescription_fmt">Gérer, @%1$s</string>
+    <string name="account_contentdescription_fmt">%1$s, %2$s ; %3$s</string>
+    <string name="action_quote">Citer</string>
+    <string name="action_request_quote">Demander à citer</string>
+    <string name="label_author_denied_quote">Citation interdite par la personne</string>
+    <plurals name="quotes">
+        <item quantity="one"><b>%1$s</b> citation</item>
+        <item quantity="many"><b>%1$s</b> de citations</item>
+        <item quantity="other"><b>%1$s</b> citations</item>
+    </plurals>
+    <string name="post_replied">En réponse</string>
+    <string name="post_continued_thread">Suite d\'un fil</string>
+    <string name="post_replied_to_fmt">En réponse à &lt;b&gt;%1$s&lt;/b&gt;</string>
+    <string name="label_quoted_status_hidden">Citation d\'un message masqué par un de vos filtres</string>
+    <string name="detach_quote">Retirer la citation</string>
+    <string name="label_quote_state_unknown">Le message cité ne peut pas être affiché</string>
+    <string name="label_quote_state_pending">La citation est en attente d\'accord</string>
+    <string name="label_quote_state_rejected">Le compte cité a empêché cette citation de s\'afficher</string>
+    <string name="label_quote_state_revoked">Le compte cité a interdit à cette citation de s\'afficher</string>
+    <string name="label_quote_state_deleted">Le message cité a été supprimé</string>
+    <string name="label_quote_state_unauthorized">Vous n\'avez pas la possibilité de voir le message cité</string>
+    <string name="label_quote_state_blocked_account">Le message cité vient d\'un compte que vous avez bloqué</string>
+    <string name="label_quote_state_blocked_domain">Le message cité vient d\'un serveur que vous avez bloqué</string>
+    <string name="label_quote_state_muted_account">Le message cité vient d\'un compte que vous avez masqué</string>
 </resources>
