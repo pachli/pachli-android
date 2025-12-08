@@ -1,4 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_share_as">Partager comme …</string>
+    <string name="error_set_active_account">La connexion a échoué avec l\'erreur suivante : %1$s</string>
+    <string name="error_refresh_account">Le rafraîchissement de compte a échofé avec l\'erreu suivante : %1$s\n\nVous pouvez continuer, mais vos listes et filtres pourraient être incomplets.</string>
+    <string name="action_relogin">Se reconnecter</string>
+    <string name="title_choose_account_dialog">Choisir un compte</string>
+    <string name="title_error_dialog">Connexion échouée</string>
+    <string name="error_login_failed_hint">Appuyez sur le compte pour réessayer.</string>
+    <string name="error_login_failed_hint_multiple">Appuyez sur le même compte pour réessayer, ou sur un autre pour vous connecter avec cet autre compte.</string>
+    <string name="client_error_unauthorized_multiple_fmt">%1$s\n\nAppuyez sur \"%2$s\" pour réessayer, ou sur \"%3$s\" pour choisir un autre compte.</string>
+    <string name="client_error_unauthorized_fmt">%1$s\n\nAppuyez sur \"%2$s\" pour réessayer.</string>
+    <string name="action_choose_another_account">Choisissez un autre compte</string>
+    <string name="title_error_mime_type">Type inconnu</string>
+    <string name="error_mime_type_fmt">Pachli a été choisi pour partager un contenu de type \"%1$s\" mais Pachli ne gère pas ce type.</string>
 </resources>
