@@ -1,3 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="title_manage_accounts">Gérer les comptes</string>
+    <string name="label_active_account">Compte actif</string>
+    <string name="action_switch_account">Passer dessus</string>
+    <string name="pachli_account_content_description_fmt">%1$s, compte actif</string>
+    <string name="action_logout_account_fmt">Se déconnecter de %1$s</string>
+    <string name="action_switch_account_fmt">Passer à %1$s</string>
 </resources>
