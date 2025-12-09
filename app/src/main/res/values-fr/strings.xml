@@ -752,4 +752,5 @@
     <string name="detach_quote_error_fmt">Le retrait de la citation a échoué : %1$s</string>
     <string name="compose_visibility_title">Jusqu\'où est-ce envoyé ?</string>
     <string name="compose_quote_policy_title">Qui peut citer ce message ?</string>
+    <string name="compose_quote_policy_dialog_title">Changer les paramètres de citation ?</string>
 </resources>
