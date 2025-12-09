@@ -750,4 +750,7 @@
     <string name="compose_quote_policy_title">Kes võivad seda postitust tsiteerida?</string>
     <string name="compose_quote_policy_dialog_title">Kas muudad tsiteerimise seadistusi?</string>
     <string name="compose_quote_policy_dialog_body_fmt">Kui postituse reegel on „%1$s“ või „%2$s“, siis tsiteerimise seadistus peab olema „%3$s“.\n\nKas järgnevalt muudad tsiteerimise reeglit?</string>
+    <string name="compose_task_description_writing_post">Koostan postitust</string>
+    <string name="compose_task_description_replying_fmt">Koostan vastust: %1$s</string>
+    <string name="compose_task_description_quoting_fmt">Tsiteerin: %1$s</string>
 </resources>
