@@ -1,5 +1,11 @@
 # Pachli changelog
 
+## v3.2.4
+
+### Significant bug fixes
+
+- Ignore quote, quote_update notifications with a missing status ([Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
 ## v3.2.3
 
 ### Significant bug fixes
