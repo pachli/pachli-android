@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="about_title_activity">À propos</string>
     <string name="about_powered_by_pachli">Propulsé par Pachli</string>
@@ -14,4 +14,60 @@
     <string name="about_pachli_account">Profil de Pachli</string>
     <string name="title_licenses">Licences</string>
     <string name="license_description">Pachli contient du code et des ressources issus des projets open source suivants :</string>
+    <string name="about_device_info_title">Votre appareil</string>
+    <string name="about_account_info_title">Votre compte</string>
+    <string name="about_copied">Informations de version et d\'appareil copiées</string>
+    <string name="about_copy">Copier les informations de version et d\'appareil</string>
+    <string name="about_privacy_policy">Politique de vie privée</string>
+    <string name="about_device_info">%s%s\nVersion d\'Android : %s\nNiveau du SDK : %d</string>
+    <string name="about_account_info">\@%s@%s\nVersion: %s</string>
+    <string name="notification_details_title">Détails</string>
+    <string name="notification_details_android_notifications_enabled">Les notifications Android sont activées ?</string>
+    <string name="notification_details_notifications_enabled_help">&lt;![CDATA[Les notifications ne sont activées pour aucun de vos comptes. Modifiez cela dans Paramètres de compte &gt; Notifications. En attendant, toutes les notifications sont désactivées.]&gt;</string>
+    <string name="notification_details_push_notifications_with_unifiedpush">Notifications push avec UnifiedPush</string>
+    <string name="notification_details_unifiedpush_available">UnifiedPush est disponible ?</string>
+    <string name="notification_details_pachli_exempt_help">Pachli n\'est pas exclu des optimisations de batterie. Android risque de retarder les notifications lorsque l\'écran est éteint.</string>
+    <string name="notification_details_workers_help">Voici la liste des agents qui récupèrent les nouvelles notifications. Il devrait y en avoir un, l\'état devrait être RUNNING ou ENQUEUED, et il devrait être programmé pour seelancer dans moins de 15 minutes.</string>
+    <string name="notification_details_last_fetch_help">Indépendemment de la méthode de notification, cela montre, compte par compte, la date de dernière récupération, si elle a été réussie, et le message d\'erreur sinon.</string>
+    <string name="notification_details_usage_event">Restrictions de gestion de l\'énergie</string>
+    <string name="notification_details_usage_event_label">Android peut limiter ce que les applications peuvent faire en arrière-plan. Cette liste montre comment Pachli a été restreint ces trois derniers jours, en commençant par le plus récent.</string>
+    <string name="notification_details_ago">Il y a %1$s à %2$s</string>
+    <string name="notification_details_standby_bucket_exempted">Exempté</string>
+    <string name="notification_details_standby_bucket_active">Actif. Les tâches en arrière-plan ne sont pas restreintes</string>
+    <string name="notification_details_standby_bucket_working_set">Sur une plage. Limité à 10 minutes toutes les 2 heures</string>
+    <string name="notification_details_standby_bucket_frequent">Fréquent. Limité à 10 minutes toutes les 2 heures</string>
+    <string name="notification_details_standby_bucket_rare">Rare. Limité à 10 minutes toutes les 24 heures</string>
+    <string name="notification_details_standby_bucket_restricted">Restreint. Une fois par jour</string>
+    <string name="notification_details_standby_bucket_never">Jamais</string>
+    <string name="notification_details_standby_bucket_unknown">Inconnu</string>
+    <string name="notification_log_title">Journal</string>
+    <string name="notification_log_filter_content_description">Filtrer les journaux par étiquette</string>
+    <string name="notification_log_filter">Filtrer</string>
+    <string name="notification_log_download_content_description">Télécharger les journaux</string>
+    <string name="notification_log_download">Télécharger</string>
+    <string name="notification_log_sort">Trier en ordre antéchronologique</string>
+    <string name="notification_log_previous_attempts">Essais précédents : %1$d</string>
+    <string name="notification_log_scheduled_in">Programmé dans %1$s à %2$s</string>
+    <string name="notification_log_method_push">Les notifications sont poussées avec UnifiedPush et devraient être immédiates</string>
+    <string name="notification_log_method_pull">Les notifications sont récupérées périodiquement, environ toutes les 15 minutes</string>
+    <string name="notification_log_method_unknown">Le mécanisme de notification n\'a pas été déterminé</string>
+    <string name="notification_log_method_pusherror">UnifiedPush est activé mais a produit une erreur : %1$s</string>
+    <string name="notification_log_download_failed">Le téléchargement a échoué : %1$s</string>
+    <string name="notitication_log_filter_dialog_title">Montrer les priorités du journal</string>
+    <string name="about_notifications">Notifications</string>
+    <string name="about_database">Base de données</string>
+    <string name="database_table_sizes">Taille des tables</string>
+    <string name="database_integrity_check">Contrôle d\'intégrité</string>
+    <string name="database_query_timings">Durée des requêtes</string>
+    <string name="database_prune_cache">Purger le cache</string>
+    <string name="database_vacuum">Nettoyer</string>
+    <string name="database_clear_cache">Vider le cache</string>
+    <string name="action_run_integrity_check">Lancer un contrôle d\'intégrité</string>
+    <string name="action_run_query_timings">Lancer la mesure des temps de requête</string>
+    <string name="action_prune_cache">Purger le cache</string>
+    <string name="action_vacuum">Nettoyer</string>
+    <string name="action_clear_cache">Vider le cache</string>
+    <string name="database_prune_cache_complete">Cache purgé</string>
+    <string name="database_vacuum_complete">Application nettoyée</string>
+    <string name="database_clear_cache_complete">Cache vidé</string>
 </resources>
