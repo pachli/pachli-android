@@ -746,4 +746,10 @@
     <string name="export_preferences_ok_fmt">Paramètres exportés vers %1$s</string>
     <string name="error_export_preferences_fmt">Impossible d\'exporter les paramètres vers %1$s : %2$s</string>
     <string name="error_import_preferences_fmt">Impossible d\'importer les paramètres depuis %1$s : %2$s</string>
+    <string name="error_share_media">Il n\'y a pas de répertoire existant pour sauvegarder les médias temporaires</string>
+    <string name="detach_quote_dialog_title">Retirer la citation ?</string>
+    <string name="detach_quote_dialog_message">Cela supprimera votre message cité de ce message.\n\nVotre message original ne sera pas supprimé.\n\nVous ne pourrez pas revenir en arrière.</string>
+    <string name="detach_quote_error_fmt">Le retrait de la citation a échoué : %1$s</string>
+    <string name="compose_visibility_title">Jusqu\'où est-ce envoyé ?</string>
+    <string name="compose_quote_policy_title">Qui peut citer ce message ?</string>
 </resources>
