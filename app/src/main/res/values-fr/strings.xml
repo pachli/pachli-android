@@ -753,4 +753,6 @@
     <string name="compose_visibility_title">Jusqu\'où est-ce envoyé ?</string>
     <string name="compose_quote_policy_title">Qui peut citer ce message ?</string>
     <string name="compose_quote_policy_dialog_title">Changer les paramètres de citation ?</string>
+    <string name="compose_quote_policy_dialog_body_fmt">Les messages marqués « %1$s » ou « %2$s » doivent avoir le paramètre de citation « %3$s ».\n\nModifier le paramètre de citation en ce sens ?</string>
+    <string name="compose_task_description_writing_post">Écrire un message</string>
 </resources>
