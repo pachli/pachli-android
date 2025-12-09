@@ -128,7 +128,7 @@
         <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; Favorit</item>
         <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; Favoriten</item>
     </plurals>
-    <string name="post_boosted_fmt"><b>%1$s</b> teilte</string>
+    <string name="post_boosted_fmt">&lt;b&gt;%1$s&lt;/b&gt; teilte</string>
     <string name="post_edited">Bearbeitet %s</string>
     <string name="post_replied_to_fmt">Antwort auf &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="post_continued_thread">Fortgeführter Thread</string>
