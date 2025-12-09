@@ -151,9 +151,9 @@
     <string name="action_request_quote">Demander à citer</string>
     <string name="label_author_denied_quote">Citation interdite par la personne</string>
     <plurals name="quotes">
-        <item quantity="one"><b>%1$s</b> citation</item>
-        <item quantity="many"><b>%1$s</b> de citations</item>
-        <item quantity="other"><b>%1$s</b> citations</item>
+        <item quantity="one">&lt;b&gt;%1$s&lt;/b&gt; citation</item>
+        <item quantity="many">&lt;b&gt;%1$s&lt;/b&gt; de citations</item>
+        <item quantity="other">&lt;b&gt;%1$s&lt;/b&gt; citations</item>
     </plurals>
     <string name="post_replied">En réponse</string>
     <string name="post_continued_thread">Suite d\'un fil</string>
