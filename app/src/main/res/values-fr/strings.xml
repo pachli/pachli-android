@@ -730,4 +730,20 @@
     <string name="search_operator_where_dialog_library_hint">Vos messages, partages, signets et les messages qui @vous mentionnent</string>
     <string name="search_operator_where_dialog_public">Messages publics</string>
     <string name="search_operator_where_dialog_public_hint">Les messages qui sont publics et peuvent être recherchés par le serveur</string>
+    <string name="upload_failed_msg_fmt">L\'envoi de la pièce jointe a échoué. L\'envoi sera tenté à nouveau quand vous enverrez le message. Si il échoue encore, le message sera enregistré comme brouillon.\n\nL\'erreur était : %1$s</string>
+    <string name="pref_title_account_notification_filters">Filtre des notifications</string>
+    <string name="pref_account_notification_filters_subtitle">Que faire des notifications de comptes…</string>
+    <string name="pref_account_notification_filters_label_not_followed">… que vous ne suivez pas</string>
+    <string name="pref_account_notification_filters_label_younger_30d">… créés il y a moins de 31 jours</string>
+    <string name="pref_account_notification_filters_label_limited_by_server">… restreints par votre équipe de modération</string>
+    <string name="pref_title_account_conversation_filters">Filtres des conversations</string>
+    <string name="pref_summary_account_conversation_filters">Votre serveur ne gère pas les filtres de conversations</string>
+    <string name="pref_account_conversation_filters_subtitle">Que faire des conversations initiées par des comptes…</string>
+    <string name="pref_account_conversation_filters_label_not_followed">… que vous ne suivez pas</string>
+    <string name="pref_account_conversation_filters_label_younger_30d">… créés il y a moins de 31 jours</string>
+    <string name="pref_account_conversation_filters_label_limited_by_server">… restreints par votre équipe de modération</string>
+    <string name="ui_error_reload_reply_fmt">Impossible de charger le message : %1$s</string>
+    <string name="export_preferences_ok_fmt">Paramètres exportés vers %1$s</string>
+    <string name="error_export_preferences_fmt">Impossible d\'exporter les paramètres vers %1$s : %2$s</string>
+    <string name="error_import_preferences_fmt">Impossible d\'importer les paramètres depuis %1$s : %2$s</string>
 </resources>
