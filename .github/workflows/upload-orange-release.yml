@@ -97,6 +97,9 @@ jobs:
           status: completed
           mappingFile: app/build/outputs/mapping/orangeGoogleRelease/mapping.txt
 
+      - name: Set current date as env variable
+        run: echo "NOW=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
+
       - name: Create release in pachli-android-current
         uses: ncipollo/release-action@b7eabc95ff50cbeeedec83973935c8f306dfcd0b # v1
         with:
@@ -106,4 +109,5 @@ jobs:
           bodyFile: googleplay/whatsnew/whatsnew-en-US
           repo: pachli-android-current
           tag: pachli-current-${{ github.sha }}
+          name: $NOW pachli-current-${{ github.sha }}
           makeLatest: true
