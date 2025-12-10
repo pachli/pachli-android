@@ -1,0 +1,3 @@
+Pachli 3.2.4
+
+Skatīt https://github.com/pachli/pachli-android/releases/tag/v3.2.4
