@@ -19,14 +19,18 @@ package app.pachli.core.model
 import com.squareup.moshi.JsonClass
 import java.util.Date
 
+/**
+ * @property localUsername The username of the account, without the domain.
+ * @property username The webfinger account URI. Equal to [localUsername]
+ * for local users, or [localUsername]@domain for remote users.
+ * @property note (HTML) The profile’s bio or description.
+ * @property roles Roles associated with this account on this server.
+ * Undocumented, see https://github.com/mastodon/documentation/issues/1483.
+ * @property pronouns Options pronouns, derived from the account's fields.
+ */
 data class Account(
     val id: String,
-    /** The username of the account, without the domain */
     val localUsername: String,
-    /**
-     * The webfinger account URI. Equal to [localUsername] for local users, or
-     * [localUsername]@domain for remote users.
-     */
     val username: String,
     // should never be null per API definition, but some servers break the contract
     val displayName: String?,
@@ -48,13 +52,7 @@ data class Account(
     // nullable for backward compatibility
     val fields: List<Field>? = emptyList(),
     val moved: Account? = null,
-    /**
-     * Roles associated with this account on this server. Undocumented, see
-     * https://github.com/mastodon/documentation/issues/1483.
-     */
     val roles: List<Role>?,
-
-    /** Optional pronouns, derived from the account's fields. */
     val pronouns: String?,
 ) {
     val name: String

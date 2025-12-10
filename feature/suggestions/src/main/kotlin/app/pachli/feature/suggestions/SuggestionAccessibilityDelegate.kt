@@ -88,17 +88,17 @@ internal class SuggestionAccessibilityDelegate(
             info.addAction(deleteSuggestionAction)
             info.addAction(followAccountAction)
 
-            val text = viewHolder.binding.accountNote.text as Spannable
-
-            if (text.getLinks().any()) info.addAction(linksAction)
-            if (text.getUrlMentions().any()) info.addAction(mentionsAction)
-            if (text.getHashtags().any()) info.addAction(hashtagsAction)
+            // The profile's bio or description. Might not be spannable (e.g., if empty).
+            (viewHolder.binding.accountNote.text as? Spannable)?.let { accountNote ->
+                if (accountNote.getLinks().any()) info.addAction(linksAction)
+                if (accountNote.getUrlMentions().any()) info.addAction(mentionsAction)
+                if (accountNote.getHashtags().any()) info.addAction(hashtagsAction)
+            }
         }
 
         override fun performAccessibilityAction(host: View, action: Int, args: Bundle?): Boolean {
             val viewHolder = recyclerView.findContainingViewHolder(host) as? SuggestionViewHolder ?: return false
             val viewData = viewHolder.viewData
-            val text = viewHolder.binding.accountNote.text as Spannable
 
             if (!viewData.isEnabled) return false
 
@@ -122,7 +122,8 @@ internal class SuggestionAccessibilityDelegate(
                 }
 
                 app.pachli.core.ui.R.id.action_links -> {
-                    val links = (viewHolder.binding.accountNote.text as Spannable).getLinks()
+                    val text = viewHolder.binding.accountNote.text as? Spannable ?: return false
+                    val links = text.getLinks()
                     showA11yDialogWithCopyButton(
                         app.pachli.core.ui.R.string.title_links_dialog,
                         links.map { it.url },
@@ -131,6 +132,7 @@ internal class SuggestionAccessibilityDelegate(
                 }
 
                 app.pachli.core.ui.R.id.action_mentions -> {
+                    val text = viewHolder.binding.accountNote.text as? Spannable ?: return false
                     val mentions = text.getUrlMentions()
                     showA11yDialogWithCopyButton(
                         app.pachli.core.ui.R.string.title_mentions_dialog,
@@ -140,6 +142,7 @@ internal class SuggestionAccessibilityDelegate(
                 }
 
                 app.pachli.core.ui.R.id.action_hashtags -> {
+                    val text = viewHolder.binding.accountNote.text as? Spannable ?: return false
                     val hashtags = text.getHashtags()
                     showA11yDialogWithCopyButton(
                         app.pachli.core.ui.R.string.title_hashtags_dialog,
