@@ -186,22 +186,23 @@ class DatabaseFragmentViewModel @Inject constructor(
         viewModelScope.launch {
             _uiState.update { it?.copy(queryDurations = null) }
 
-            val statusIds = timelineDao.getMostRecentNStatusIds(pachliAccountId, 10)
-            val id = statusIds.get(min(5, statusIds.size))
-
-            val getStatusRowNumber = runSuspendCatching {
-                val start = Instant.now()
-                timelineDao.getStatusRowNumber(pachliAccountId, id)
-                Duration.between(start, Instant.now())
-            }
-
             // Do these updates individually, so if one of them hangs the UI should still
             // update with the result of the most recent successful query.
-            _uiState.update {
-                it?.copy(
-                    queryDurations = it.queryDurations?.copy(getStatusRowNumber = getStatusRowNumber)
-                        ?: QueryDurations(getStatusRowNumber = getStatusRowNumber),
-                )
+
+            val statusIds = timelineDao.getMostRecentNStatusIds(pachliAccountId, 10)
+            statusIds.getOrNull(min(5, statusIds.size))?.let { id ->
+                val getStatusRowNumber = runSuspendCatching {
+                    val start = Instant.now()
+                    timelineDao.getStatusRowNumber(pachliAccountId, id)
+                    Duration.between(start, Instant.now())
+                }
+
+                _uiState.update {
+                    it?.copy(
+                        queryDurations = it.queryDurations?.copy(getStatusRowNumber = getStatusRowNumber)
+                            ?: QueryDurations(getStatusRowNumber = getStatusRowNumber),
+                    )
+                }
             }
 
             val getStatusesWithQuote = runSuspendCatching {
