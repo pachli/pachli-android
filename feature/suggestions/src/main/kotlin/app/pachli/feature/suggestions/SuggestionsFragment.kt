@@ -174,6 +174,7 @@ class SuggestionsFragment :
         suggestionsAdapter.setAnimateEmojis(uiState.animateEmojis)
         suggestionsAdapter.setAnimateAvatars(uiState.animateAvatars)
         suggestionsAdapter.setShowBotOverlay(uiState.showBotOverlay)
+        suggestionsAdapter.setShowPronouns(uiState.showPronouns)
     }
 
     /** Process user actions. */
