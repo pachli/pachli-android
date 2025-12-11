@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hint_list_name">Nom de la liste</string>
     <string name="list_exclusive_label">Masquer du fil d\'actualité principal</string>
@@ -17,4 +17,8 @@
     <string name="no_lists">Vous n\'avez aucune liste.</string>
     <string name="hint_search_people_list">Chercher des personnes que vous suivez</string>
     <string name="action_add_or_remove_from_list">Ajouter à ou retirer de la liste</string>
+    <string name="replies_policy_title">Montrer les réponses de :</string>
+    <string name="replies_policy_name_followed">N\'importe quelle personne suivie</string>
+    <string name="replies_policy_name_list">Les membres de la liste uniquement</string>
+    <string name="replies_policy_name_none">Personne</string>
 </resources>
