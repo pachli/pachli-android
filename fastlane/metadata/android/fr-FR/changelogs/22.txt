@@ -2,14 +2,14 @@ Pachli 2.9.0
 
 Nouvelles fonctionnalités:
 
-- Déplacer l'alignement des onglets et les préfs de contenu des laboratoires
-- Assistance initiale pour les notifications de filtrage envoyant un compte
-- Support Les dates de retour de Pleroma sans fuseau horaire
-- Montrer des actions supplémentaires a11y pour les liens tendance et les comptes suggérés
+- Alignement des onglets et préférences de contenu du laboratoire
+- Assistance initiale pour les notifications de filtrage
+- Support des dates de Pleroma sans fuseau horaire
+- Actions supplémentaires a11y pour les liens tendance et les comptes suggérés
 
 Fixes:
 
-- S'assurer que les éléments dans les dialogues a11y sont cliquables
+- Les éléments dans les dialogues a11y sont cliquables
 - Ne perdez pas d'images / légendes après les téléchargements échoués
-- Fixer des crashes assortis
-- Mise à jour des traductions finlandaises, irlandaises, norvégiennes (Bokmål, Nynorsk) et espagnoles
+- Fixer des crashes variés
+- Mise à jour de traductions
