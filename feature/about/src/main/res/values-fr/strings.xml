@@ -20,7 +20,7 @@
     <string name="about_copy">Copier les informations de version et d\'appareil</string>
     <string name="about_privacy_policy">Politique de vie privée</string>
     <string name="about_device_info">%s%s\nVersion d\'Android : %s\nNiveau du SDK : %d</string>
-    <string name="about_account_info">\@%s@%s\nVersion: %s</string>
+    <string name="about_account_info">\@%s@%s\nVersion : %s</string>
     <string name="notification_details_title">Détails</string>
     <string name="notification_details_android_notifications_enabled">Les notifications Android sont activées ?</string>
     <string name="notification_details_notifications_enabled_help">&lt;![CDATA[Les notifications ne sont activées pour aucun de vos comptes. Modifiez cela dans Paramètres de compte &gt; Notifications. En attendant, toutes les notifications sont désactivées.]&gt;</string>
@@ -70,4 +70,16 @@
     <string name="database_prune_cache_complete">Cache purgé</string>
     <string name="database_vacuum_complete">Application nettoyée</string>
     <string name="database_clear_cache_complete">Cache vidé</string>
+    <string name="notification_details_unifiedpush_available_help">UnifiedPush (ntfy.sh) n\'est pas disponible, les notifications seront récupérées périodiquement. Le reste de cette section explique pourquoi UnifiedPush n\'est pas utilisé, mais ne concerne pas la façon dont les notifications sont actuellement récupérées.</string>
+    <string name="notification_details_any_account_needs_migration">Tous les comptes ont la portée Oauth « push » ?</string>
+    <string name="notification_details_any_account_needs_migration_help">Un ou plusieurs comptes n\'ont pas la portée Oauth « push », les notifications push sont désactivées.</string>
+    <string name="notification_details_accounts_unified_push_url">Tous les comptes ont une URL UnifiedPush ?</string>
+    <string name="notification_details_accounts_unified_push_url_help">Un ou plusieurs comptes ne sont pas configurés avec une URL UnifiedPush, les notifications push pour ces comptes sont désactivées.</string>
+    <string name="notification_details_accounts_unified_push_subscription">Tous les comptes sont abonnés ?</string>
+    <string name="notification_details_accounts_unified_push_subscription_help">Un ou plusieurs comptes ont échoué à la mise à jour de leur abonnement UnifiedPush et ne recevront pas de notifications.</string>
+    <string name="notification_details_ntfy_exempt">NTFY est exclu des optimisations de batterie ?</string>
+    <string name="notification_details_ntfy_exempt_help">NTFY n\'est pas exclu des optimisations de batterie. Android pourrait retarder les notifications lorsque l\'écran est éteint.</string>
+    <string name="notification_details_pull_section">Récupérer les notifications avec des agents périodiques</string>
+    <string name="notification_details_pachli_exempt">Pachli est exclu des optimisations de batterie ?</string>
+    <string name="about_nivenly_foundation">Pachli est un projet de la &lt;a href=\"https://nivenly.org\"&gt;Fondation Nivenly&lt;/a&gt;.</string>
 </resources>
