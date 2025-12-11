@@ -13,4 +13,5 @@
     <string name="action_choose_another_account">Choisissez un autre compte</string>
     <string name="title_error_mime_type">Type inconnu</string>
     <string name="error_mime_type_fmt">Pachli a été choisi pour partager un contenu de type \"%1$s\" mais Pachli ne gère pas ce type.</string>
+    <string name="error_refresh_account_fmt">La récupération de certains détails du compte a échoué :\n\n%1$s\n\nAppuyez sur \"%2$s\" pour continuer, mais certaines informations pourraient être incorrectes (par ex. les filtres et les listes).\n\nAppuyez sur \"%3$s\" pour réessayer.\n\nAppuyez sur \"%4$s\" pour choisir un autre compte.</string>
 </resources>
