@@ -1,0 +1,17 @@
+Pachli 2.8.3
+
+Nouvelles fonctionnalités:
+
+- Montrer la feuille de partage sur les liens longs en cliquant etc
+- Afficher le bouton "copier" pour les liens, etc dans les dialogues d'accessibilité
+- Ajouter des options d'accessibilité pour les onglets
+- Montrez l'heure d'un post
+- Ajouter "Ne redemandez pas" en confirmant la langue du post
+
+Fixes:
+
+- Disable "Scheduled post" support sur GoToSocial
+- Montrer les sondages si l'édition des postes prévus
+- Ne tombez pas si une conversation n'a pas de participants
+
+- Mise à jour des traductions birmanes, finlandaises, lituaniennes, espagnoles, ukrainiennes

@@ -1,0 +1,16 @@
+Pachli 2.6.0
+
+Nouvelles fonctionnalités:
+
+- Montrer "Comptes suggérés"
+- Support des filtres de serveur en GoToSocial 0.16.0
+
+Fixes:
+
+- Mettre à jour la police lors du retour des préférences
+- Gérer correctement l'édition d'une langue de statut
+- Amélioration de la lisibilité des étiquettes des médias de statut
+- S'assurer que le texte dans l'en-tête de compte de menu nav est lisible
+- Ne pas dépasser le nombre maximal de raccourcis créés
+- Utiliser la description de contenu "Navigate up" par défaut dans ViewThreadActivity
+- Mettre à jour les traductions finlandaises, espagnoles et suédoises
