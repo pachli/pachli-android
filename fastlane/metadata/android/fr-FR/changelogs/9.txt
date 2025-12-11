@@ -1,5 +1,17 @@
-Pachli 2.5.1
+Pachli 2.1.0
+
+Nouvelles fonctionnalités:
+
+- Afficher les rôles sur les profils
+- Afficher le bouton de composer quand les listes de visualisation
+- Afficher le bouton de composer lors de l'affichage de la liste des signets
 
 Fixes:
 
-- Seules les actions accessibles sur les notifications attachées à un statut
+- Afficher le contenu traduit en fils
+- Calculer la longueur des postes et des sondages avec emojis correctement
+- Prévenir l'écrasement
+- Si une carte de prévisualisation n'a aucun auteur
+- Si une erreur se produit dans un délai sans FAB
+- Sur le profil si le compte a null `createdAt` champ
+- Mettre à jour les traductions

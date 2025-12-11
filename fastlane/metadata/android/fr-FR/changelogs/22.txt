@@ -1,15 +1,14 @@
-Pachli 2.9.0
+Pachli 2.8.2
 
 Nouvelles fonctionnalités:
 
-- Alignement des onglets et préférences de contenu du laboratoire
-- Assistance initiale pour les notifications de filtrage
-- Support des dates de Pleroma sans fuseau horaire
-- Actions supplémentaires a11y pour les liens tendance et les comptes suggérés
+- Permettre à l'utilisateur de choisir le comportement en tapant un onglet
+- Ajouter l'option pour télécharger les médias vers les répertoires par client
+- Ajouter l'option pour enregistrer les pièces jointes aux dossiers de compte
 
 Fixes:
 
-- Les éléments dans les dialogues a11y sont cliquables
-- Ne perdez pas d'images / légendes après les téléchargements échoués
-- Fixer des crashes variés
-- Mise à jour de traductions
+- Afficher les erreurs de notification chercher au lieu de JSON
+- Sauver la position de lecture si aucun post n'est complètement visible
+- Mettre à jour les traductions galiciens
+- Mettre à jour les traductions irlandaises
