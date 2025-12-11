@@ -2,4 +2,5 @@
 <resources>
     <string name="acra_dialog_title">Rapport d\'erreur %1$s</string>
     <string name="acra_dialog_text">Cliquez sur OK pour préparer un e-mail aux développeur·euse·s avec des détails</string>
+    <string name="acra_email_body">Ces données seront envoyées à l\'équipe de développement.\n\n Merci de vérifier qu\'elles ne contiennent rien que vous ne voulez pas partager, et merci de décrire ce que vous faisiez quand le crash s\'est produit.\n\n ----\n Votre description ici :\n\n ----</string>
 </resources>
