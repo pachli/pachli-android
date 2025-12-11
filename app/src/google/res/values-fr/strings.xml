@@ -1,2 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="action_delete_remote_model_fmt">Supprimer %1$s</string>
+    <string name="action_download_remote_model_fmt">Télécharger %1$s</string>
+    <string name="content_description_loading_fmt">%1$s, en téléchargement</string>
+    <string name="content_description_loaded_fmt">%1$s, téléchargé</string>
+    <string name="content_description_available_fmt">%1$s, disponible pour téléchargement</string>
+    <string name="update_dialog_message">Ouvrir Google Play pour voir les détails ?</string>
+    <string name="update_dialog_positive">Ouvrir Google Play</string>
+    <string name="pref_translation_require_wifi">Nécessite le Wifi pour télécharger les paquets de langue</string>
+    <string name="pref_translation_manage_languages">Gérer les paquets de langue</string>
+    <string name="translation_model_manager_fragment_title">Paquets de langue</string>
+    <string name="translation_model_manager_fragment_info">Langues que Pachli peut traduire en utilisant Google Translate. Télécharger les paquets de langue en avance accélérera la traduction.</string>
+    <string name="translation_model_manager_fragment_downloaded_heading">Téléchargé</string>
+    <string name="translation_model_manager_fragment_remote_heading">Appuyez pour télécharger</string>
+    <string name="fragment_confirm_download_language_dialog_title_fmt">Télécharger %1$s avec les données mobiles ?</string>
+    <string name="fragment_confirm_download_language_dialog_msg">Cela utilisera généralement 30 à 60 Mo de données mobiles.</string>
+    <string name="fragment_confirm_delete_language_dialog_title_fmt">Supprimer %1$s ?</string>
+    <string name="fragment_confirm_delete_language_dialog_msg">Si vous supprimez cette langue, elle sera téléchargée la prochaine fois que vous en aurez besoin.</string>
+    <string name="fragment_google_disclaimer_dialog_title">Responsabilité des traductions</string>
+    <string name="action_translate_mlkit">Traduire avec Google</string>
+    <string name="label_translated_mlkit">Traduit par Google</string>
+</resources>
