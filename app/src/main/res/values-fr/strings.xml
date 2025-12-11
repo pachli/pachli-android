@@ -755,4 +755,25 @@
     <string name="compose_quote_policy_dialog_title">Changer les paramètres de citation ?</string>
     <string name="compose_quote_policy_dialog_body_fmt">Les messages marqués « %1$s » ou « %2$s » doivent avoir le paramètre de citation « %3$s ».\n\nModifier le paramètre de citation en ce sens ?</string>
     <string name="compose_task_description_writing_post">Écrire un message</string>
+    <string name="notification_severed_relationships_format">Relation avec &lt;b&gt;%1$s&lt;/b&gt; endommagée</string>
+    <string name="notification_severed_relationships_domain_block_fmt">L\'administration de %1$s a bloqué &lt;b&gt;%2$s&lt;/b&gt;</string>
+    <string name="notification_severed_relationships_user_domain_block_fmt">Vous avez bloqué &lt;b&gt;%1$s&lt;/b&gt;</string>
+    <string name="notification_severed_relationships_account_suspension_fmt">L\'administration de %1$s a bloqué &lt;b&gt;%2$s&lt;/b&gt;</string>
+    <string name="notification_severed_relationships_unknown_fmt">&lt;b&gt;%1$s&lt;/b&gt; est bloqué·e (raison inconnue)</string>
+    <string name="error_missing_edits">Votre serveur sait que ce message a été édité, mais n\'a pas de copie des modifications, donc elles ne peuvent pas vous être montrées.\n\nC\'est un &lt;a href=\"https://github.com/mastodon/mastodon/issues/25398\"&gt;Problème connu de Mastodon #25398&lt;/a&gt;.</string>
+    <string name="filter_description_none">Montrer comme le reste</string>
+    <string name="error_prepare_media_content_resolver_missing_path_fmt">Un chemin manquait à l\'URI du résolveur de contenu : %1$s</string>
+    <string name="error_prepare_media_content_resolver_unsupported_scheme_fmt">L\'URI du résolveur de contenu a un schéma non supporté : %1$s</string>
+    <string name="account_filter_placeholder_type_favourite_fmt">Une personne @&lt;b&gt;%1s&lt;/b&gt; a mis votre message en signet</string>
+    <string name="account_filter_placeholder_type_follow_fmt">Une personne @&lt;b&gt;%1s&lt;/b&gt; vous suit</string>
+    <string name="account_filter_placeholder_type_follow_request_fmt">Demande d\'abonnement d\'une personne @&lt;b&gt;%1s&lt;/b&gt;</string>
+    <string name="account_filter_placeholder_type_mention_fmt">Une personne @&lt;b&gt;%1s&lt;/b&gt; vous a mentionné</string>
+    <string name="account_filter_placeholder_type_reblog_fmt">Une personne @&lt;b&gt;%1s&lt;/b&gt; a partagé votre message</string>
+    <string name="account_filter_placeholder_label_domain">D\'une personne @&lt;b&gt;%1s&lt;/b&gt;</string>
+    <string name="account_filter_placeholder_label_not_following">Filtré car :&lt;b&gt;vous ne suivez pas cette personne&lt;/b&gt;</string>
+    <string name="account_filter_placeholder_label_younger_30d">Filtré car : &lt;b&gt;créé ces 30 derniers jours&lt;/b&gt;</string>
+    <string name="account_filter_placeholder_label_limited_by_server">Filtré car : &lt;b&gt;limité par votre équipe de modération&lt;/b&gt;</string>
+    <string name="account_filter_placeholder_type_conversation">Une personne @&lt;b&gt;%1$s&lt;/b&gt; a lancé une conversation</string>
+    <string name="compose_task_description_replying_fmt">En réponse à %1$s</string>
+    <string name="compose_task_description_quoting_fmt">Citation de %1$s</string>
 </resources>
