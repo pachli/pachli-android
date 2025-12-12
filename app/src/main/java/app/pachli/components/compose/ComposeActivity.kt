@@ -56,7 +56,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.content.IntentCompat
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.content.res.use
 import androidx.core.os.BundleCompat
 import androidx.core.view.ContentInfoCompat
 import androidx.core.view.OnReceiveContentListener
@@ -111,6 +110,7 @@ import app.pachli.core.ui.extensions.InsetType
 import app.pachli.core.ui.extensions.applyWindowInsets
 import app.pachli.core.ui.extensions.await
 import app.pachli.core.ui.extensions.iconRes
+import app.pachli.core.ui.extensions.useInPlace
 import app.pachli.core.ui.loadAvatar
 import app.pachli.core.ui.makeIcon
 import app.pachli.core.ui.startDragAnimator
@@ -596,6 +596,7 @@ class ComposeActivity :
 
         val referencing = when (loadable) {
             is Loadable.Loaded -> loadable.data
+
             is Loadable.Loading -> {
                 hide()
                 binding.replyProgressIndicator.show()
@@ -724,6 +725,7 @@ class ComposeActivity :
 
             when (composeOptions?.initialCursorPosition ?: InitialCursorPosition.END) {
                 InitialCursorPosition.START -> binding.composeEditField.setSelection(0)
+
                 InitialCursorPosition.END -> binding.composeEditField.setSelection(
                     binding.composeEditField.length(),
                 )
@@ -966,22 +968,26 @@ class ComposeActivity :
     }
 
     private fun setupAvatar(account: AccountEntity) {
-        val actionBarSizeAttr = intArrayOf(androidx.appcompat.R.attr.actionBarSize)
-        val avatarSize = obtainStyledAttributes(null, actionBarSizeAttr).use { a ->
-            a.getDimensionPixelSize(0, 1)
-        }
+        obtainStyledAttributes(
+            null,
+            DR.styleable.PreviewCardView,
+            DR.attr.previewCardViewStyle,
+            DR.style.Pachli_Widget_PreviewCardView,
+        ).useInPlace {
+            val bylineAvatarDimen = it.getDimensionPixelSize(DR.styleable.PreviewCardView_previewCardAvatarSize, -1)
 
-        loadAvatar(
-            glide,
-            account.profilePictureUrl,
-            binding.composeAvatar,
-            avatarSize / 8,
-            sharedPreferencesRepository.animateAvatars,
-        )
-        binding.composeAvatar.contentDescription = getString(
-            R.string.compose_active_account_description,
-            account.fullName,
-        )
+            loadAvatar(
+                glide,
+                account.profilePictureUrl,
+                binding.composeUsernameView,
+                bylineAvatarDimen,
+                sharedPreferencesRepository.animateAvatars,
+            )
+//            binding.composeAvatar.contentDescription = getString(
+//                R.string.compose_active_account_description,
+//                account.fullName,
+//            )
+        }
     }
 
     private fun replaceTextAtCaret(text: CharSequence) {
@@ -1727,12 +1733,16 @@ class ComposeActivity :
                 viewModel.stopUploads()
                 finish()
             }
+
             ConfirmationKind.SAVE_OR_DISCARD ->
                 getSaveAsDraftOrDiscardDialog(contentText, contentWarning).show()
+
             ConfirmationKind.UPDATE_OR_DISCARD ->
                 getUpdateDraftOrDiscardDialog(contentText, contentWarning).show()
+
             ConfirmationKind.CONTINUE_EDITING_OR_DISCARD_CHANGES ->
                 getContinueEditingOrDiscardDialog().show()
+
             ConfirmationKind.CONTINUE_EDITING_OR_DISCARD_DRAFT ->
                 getDeleteEmptyDraftOrContinueEditing().show()
         }

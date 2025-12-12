@@ -21,6 +21,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.annotation.Px
 import androidx.core.graphics.drawable.toDrawable
 import app.pachli.core.common.util.BlurHashDecoder
@@ -64,6 +65,52 @@ fun loadAvatar(
                 .transform(multiTransformation)
                 .placeholder(DR.drawable.avatar_default)
                 .into(imageView)
+        }
+    }
+}
+
+fun loadAvatar(
+    glide: RequestManager,
+    url: String?,
+    textView: TextView,
+    @Px dimen: Int,
+    animate: Boolean,
+    transforms: List<Transformation<Bitmap>>? = null,
+) {
+    if (url.isNullOrBlank()) {
+        glide.load(DR.drawable.avatar_default)
+            .into(textView, dimen, dimen, animate)
+    } else {
+        val multiTransformation = MultiTransformation(
+            buildList {
+                add(centerCropTransformation)
+                add(RoundedCorners(dimen / 8))
+                transforms?.let { this.addAll(it) }
+            },
+        )
+
+        if (animate) {
+            glide
+                .load(url)
+                .transform(multiTransformation)
+                .placeholder(DR.drawable.avatar_default)
+                .into(
+                    textView,
+                    dimen,
+                    dimen,
+                    true,
+                )
+        } else {
+            glide
+                .asBitmap()
+                .load(url)
+                .transform(multiTransformation)
+                .placeholder(DR.drawable.avatar_default)
+                .into(
+                    textView,
+                    dimen,
+                    dimen,
+                )
         }
     }
 }
