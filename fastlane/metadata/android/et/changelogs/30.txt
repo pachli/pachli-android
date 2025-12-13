@@ -1,0 +1,18 @@
+Pachli 2.12.0
+
+Uus funktsionaalsus:
+
+- Parem haldusteadete kuvamine
+- Kliendi poolt krüptitud varundus pilve
+- Eelistuste eksport/import
+
+Parandused:
+
+- Jutulõngade vaatamisel kuvatakse tõlgitud postitusi ja meediumi kirjeldusi
+- Mitu teavituste veaparandust
+- Mainimiste ja katkenud suhestumise filtreerimise võimalus vanemates seadetes
+- "Kirjet ei leidu" teadet enam ei kuvata teise konto avamisel
+
+Tõlked:
+
+- soome, iiri, läti, poola, slovaki, hispaania

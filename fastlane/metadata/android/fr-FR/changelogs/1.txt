@@ -1,0 +1,20 @@
+Dans les nouveautés :
+
+– Les messages chargent au fur et à mesure
+– Liens et messages tendance
+– Plus de 5 onglets
+– Polices accessibles
+– Nouveau lecteur média
+– Filtre de notifications
+– Listes « exclusives »
+– « Signets » en onglet
+
+Dans les corrections :
+
+– Les images qui ne « collent » pas quand vous zoomez ou défilez
+
+Dans les changement d'interface :
+
+– Un rafraîchissement visuel, une nouvelle palette
+– Thème par défaut à partir d'Android
+– « Nettoyer les notifications » en menu

@@ -1,0 +1,11 @@
+Pachli est un client aux multiples fonctionnalités pour Mastodon et les serveurs similaires
+
+– Lisez, répondez, filtrez, écrivez, enregistrez, partagez et citez des messages
+– Traduisez les messages depuis d'autres langues
+– Votre timeline est en cache local, pour que vous puissiez lire quand vous êtes hors-ligne
+– Écrivez des brouillons maintenant, finissez-les plus tard
+– Écrivez des messages maintenant, programmez-les pour les envoyer plus tard
+– Lisez et écrivez depuis plusieurs comptes
+– Nombreux thèmes
+– Concentré sur l'assurance que toutes les fonctionnalités sont disponibles aux personnes avec des besoins d'accessibilité
+– Open source, https://github.com/pachli
