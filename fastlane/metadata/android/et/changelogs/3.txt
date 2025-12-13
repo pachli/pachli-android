@@ -1,0 +1,12 @@
+Pachli 1.2
+
+Uus funktsionaalsus:
+
+-  Püstised kerimisribad keritavates loendites
+
+Parandused:
+
+-  Kasutaja lugemisejärg taastatakse igas olukorras
+-  Hääletuse nupp on aktiivne/mitteaktiivne, kui seda saab/ei saa kasutada
+-  Kasutame olekuribal õigeid värve
+-  Tagame, et küsitluste vastusevariandi tekst on näha igal taustal
