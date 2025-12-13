@@ -1,0 +1,18 @@
+Pachli 2.13.0
+
+Uus funktsionaalsus:
+
+- Kiirsõnumite töötlus, kui server ei lisa ajavööndit
+- Vaikimisi on kohaliku ajajoone asemel viimased trendid
+- Meediakirjeldused on postituse koostamisel olulisemad
+
+Parandused:
+
+- Paremad värvid postituse koostamise nuppudel
+- Küsitluste tulemused kuvatakse täpsemalt
+- Kokkujooksmise viga pildistamisel postituse koostamise ajal
+- Hääleta-nupu parem joondumine
+
+Tõlked:
+
+- hiina, soome, iiri, itaalia, kabiili, läti, poola, slovaki, hispaania
