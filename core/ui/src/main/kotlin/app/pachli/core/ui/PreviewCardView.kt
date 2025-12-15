@@ -18,17 +18,11 @@
 package app.pachli.core.ui
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.Rect
-import android.graphics.drawable.Animatable
-import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.LayoutInflater
-import android.widget.TextView
 import androidx.annotation.Px
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.graphics.drawable.toDrawable
 import androidx.core.text.HtmlCompat
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
@@ -40,14 +34,7 @@ import app.pachli.core.model.PreviewCard
 import app.pachli.core.model.TrendsLink
 import app.pachli.core.ui.databinding.PreviewCardBinding
 import app.pachli.core.ui.extensions.useInPlace
-import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.RequestManager
-import com.bumptech.glide.load.MultiTransformation
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.target.Target
-import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.ShapeAppearanceModel
 
@@ -240,14 +227,13 @@ class PreviewCardView @JvmOverloads constructor(
                     HtmlCompat.FROM_HTML_MODE_LEGACY,
                 ).emojify(glide, author.account?.emojis, authorInfo, false)
 
-
                 loadAvatar(
                     glide,
                     author.account?.avatar,
                     binding.authorInfo,
                     bylineAvatarDimen,
                     bylineAvatarCornerRadius,
-                    statusDisplayOptions.animateAvatars
+                    statusDisplayOptions.animateAvatars,
                 )
 
                 authorInfo.show()

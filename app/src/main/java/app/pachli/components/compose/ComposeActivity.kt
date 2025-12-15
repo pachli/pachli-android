@@ -110,7 +110,6 @@ import app.pachli.core.ui.extensions.InsetType
 import app.pachli.core.ui.extensions.applyWindowInsets
 import app.pachli.core.ui.extensions.await
 import app.pachli.core.ui.extensions.iconRes
-import app.pachli.core.ui.extensions.useInPlace
 import app.pachli.core.ui.loadAvatar
 import app.pachli.core.ui.makeIcon
 import app.pachli.core.ui.startDragAnimator
