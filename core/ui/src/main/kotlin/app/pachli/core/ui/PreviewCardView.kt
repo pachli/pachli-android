@@ -18,16 +18,11 @@
 package app.pachli.core.ui
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.Rect
-import android.graphics.drawable.Animatable
-import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.LayoutInflater
-import android.widget.TextView
+import androidx.annotation.Px
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.graphics.drawable.toDrawable
 import androidx.core.text.HtmlCompat
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
@@ -39,14 +34,7 @@ import app.pachli.core.model.PreviewCard
 import app.pachli.core.model.TrendsLink
 import app.pachli.core.ui.databinding.PreviewCardBinding
 import app.pachli.core.ui.extensions.useInPlace
-import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.RequestManager
-import com.bumptech.glide.load.MultiTransformation
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.target.Target
-import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.ShapeAppearanceModel
 
@@ -85,7 +73,10 @@ class PreviewCardView @JvmOverloads constructor(
     private val cardCornerRadius = context.resources.getDimensionPixelSize(DR.dimen.card_radius).toFloat()
 
     /** Dimensions (width and height) of the byline avatar. */
-    private val bylineAvatarDimen: Int
+    @Px private val bylineAvatarDimen: Int
+
+    /** Corner radius of the byline avatar. */
+    @Px private val bylineAvatarCornerRadius: Int
 
     /**
      * Height of the preview image, if the image is stacked vertically above
@@ -98,9 +89,6 @@ class PreviewCardView @JvmOverloads constructor(
      * to the preview content.
      */
     private val imageHorizontalWidth: Int
-
-    /** Transformations to apply when loading the byline avatar. */
-    private val bylineAvatarTransformation: MultiTransformation<Bitmap>
 
     init {
         // Set here instead of an XML attribute as the attribute requires API 31
@@ -148,17 +136,10 @@ class PreviewCardView @JvmOverloads constructor(
             }
 
             bylineAvatarDimen = it.getDimensionPixelSize(DR.styleable.PreviewCardView_previewCardAvatarSize, -1)
+            bylineAvatarCornerRadius = it.getDimensionPixelSize(DR.styleable.PreviewCardView_previewCardAvatarCornerRadius, -1)
+
             imageVerticalHeight = it.getDimensionPixelSize(DR.styleable.PreviewCardView_previewCardImageVerticalHeight, -1)
             imageHorizontalWidth = it.getDimensionPixelSize(DR.styleable.PreviewCardView_previewCardImageHorizontalWidth, -1)
-
-            val bylineAvatarCornerRadius = it.getDimensionPixelSize(DR.styleable.PreviewCardView_previewCardAvatarCornerRadius, -1)
-
-            bylineAvatarTransformation = MultiTransformation(
-                buildList {
-                    add(CenterCrop())
-                    add(RoundedCorners(bylineAvatarCornerRadius))
-                },
-            )
         }
     }
 
@@ -246,29 +227,15 @@ class PreviewCardView @JvmOverloads constructor(
                     HtmlCompat.FROM_HTML_MODE_LEGACY,
                 ).emojify(glide, author.account?.emojis, authorInfo, false)
 
-                if (statusDisplayOptions.animateAvatars) {
-                    glide
-                        .load(author.account?.avatar)
-                        .transform(bylineAvatarTransformation)
-                        .placeholder(DR.drawable.avatar_default)
-                        .into(
-                            binding.authorInfo,
-                            bylineAvatarDimen,
-                            bylineAvatarDimen,
-                            true,
-                        )
-                } else {
-                    glide
-                        .asBitmap()
-                        .load(author.account?.avatar)
-                        .transform(bylineAvatarTransformation)
-                        .placeholder(DR.drawable.avatar_default)
-                        .into(
-                            binding.authorInfo,
-                            bylineAvatarDimen,
-                            bylineAvatarDimen,
-                        )
-                }
+                loadAvatar(
+                    glide,
+                    author.account?.avatar,
+                    binding.authorInfo,
+                    bylineAvatarDimen,
+                    bylineAvatarCornerRadius,
+                    statusDisplayOptions.animateAvatars,
+                )
+
                 authorInfo.show()
                 showBylineDivider = true
             }
@@ -360,98 +327,5 @@ class PreviewCardView @JvmOverloads constructor(
         return@with ShapeAppearanceModel.Builder()
             .setTopLeftCorner(CornerFamily.ROUNDED, cardCornerRadius)
             .setBottomLeftCorner(CornerFamily.ROUNDED, cardCornerRadius)
-    }
-}
-
-/**
- * Sets [textView] as the target to load the resource. The resource will be set
- * as the `start` compound drawable.
- *
- * Delegates to either [BitmapTextViewTarget] or [DrawableTextViewTarget]
- * as appropriate.
- *
- * @param textView TextView to load into.
- * @param width Intended width of the compound drawable.
- * @param height Height of the compound drawable.
- * @param animate True if the resource should be animated (if it supports
- * animation)
- */
-inline fun <reified T> RequestBuilder<T>.into(
-    textView: TextView,
-    width: Int,
-    height: Int,
-    animate: Boolean = false,
-): Target<T> {
-    if (T::class == Bitmap::class) {
-        return into(BitmapTextViewTarget(textView, width, height) as Target<T>)
-    }
-
-    if (T::class == Drawable::class) {
-        return into(DrawableTextViewTarget(textView, width, height, animate) as Target<T>)
-    }
-    throw RuntimeException("Unexpected class, ${T::class} passed to `into`")
-}
-
-/**
- * [Target][com.bumptech.glide.request.target.Target] that loads drawables into the
- * `start` position of [textView], sized to [width] and [height].
- *
- * @property animate If true, and the resource is animatable, the animation will be
- * started.
- */
-class DrawableTextViewTarget(
-    private val textView: TextView,
-    private val width: Int,
-    private val height: Int,
-    private val animate: Boolean,
-) : CustomTarget<Drawable>(width, height) {
-    private var drawable: Drawable? = null
-
-    override fun onStop() {
-        (drawable as? Animatable)?.stop()
-    }
-
-    override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
-        drawable = resource
-
-        if (animate && resource is Animatable) {
-            // Glide does not apply transformations (e.g., centerCrop) to animated
-            // drawables (https://github.com/bumptech/glide/issues/4942), so the
-            // drawable will not be resized. Work around this by explicitly
-            // setting the bounds before starting the animation.
-            resource.bounds = Rect(0, 0, width, height)
-            resource.start()
-        }
-
-        if (resource !is Animatable) {
-            // Non-animatable drawables must be set with intrinsic bounds, otherwise they
-            // don't appear.
-            textView.setCompoundDrawablesRelativeWithIntrinsicBounds(resource, null, null, null)
-        } else {
-            // Animatable drawables must be set without intrinsic bounds, otherwise they
-            // are positioned incorrectly.
-            textView.setCompoundDrawablesRelative(resource, null, null, null)
-        }
-    }
-
-    override fun onLoadCleared(placeholder: Drawable?) {
-        (drawable as? Animatable)?.stop()
-        drawable = null
-        textView.setCompoundDrawablesRelativeWithIntrinsicBounds(placeholder, null, null, null)
-    }
-}
-
-/**
- * [Target][com.bumptech.glide.request.target.Target] that loads bitmaps into the
- * `start` position of [textView], sized to [width] and [height].
- */
-class BitmapTextViewTarget(private val textView: TextView, width: Int, height: Int) : CustomTarget<Bitmap>(width, height) {
-    override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-        val drawable = resource.toDrawable(textView.resources)
-        textView.setCompoundDrawablesRelativeWithIntrinsicBounds(drawable, null, null, null)
-    }
-
-    override fun onLoadCleared(placeholder: Drawable?) {
-        textView.setCompoundDrawablesRelativeWithIntrinsicBounds(placeholder, null, null, null)
     }
 }

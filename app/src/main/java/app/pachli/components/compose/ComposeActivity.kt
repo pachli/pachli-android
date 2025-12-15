@@ -56,7 +56,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.content.IntentCompat
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.content.res.use
 import androidx.core.os.BundleCompat
 import androidx.core.view.ContentInfoCompat
 import androidx.core.view.OnReceiveContentListener
@@ -966,21 +965,15 @@ class ComposeActivity :
     }
 
     private fun setupAvatar(account: AccountEntity) {
-        val actionBarSizeAttr = intArrayOf(androidx.appcompat.R.attr.actionBarSize)
-        val avatarSize = obtainStyledAttributes(null, actionBarSizeAttr).use { a ->
-            a.getDimensionPixelSize(0, 1)
-        }
+        val avatarDimen = binding.composeUsernameView.resources.getDimension(DR.dimen.compose_avatar_dimen)
 
         loadAvatar(
             glide,
             account.profilePictureUrl,
-            binding.composeAvatar,
-            avatarSize / 8,
+            binding.composeUsernameView,
+            avatarDimen.toInt(),
+            (avatarDimen / 8).toInt(),
             sharedPreferencesRepository.animateAvatars,
-        )
-        binding.composeAvatar.contentDescription = getString(
-            R.string.compose_active_account_description,
-            account.fullName,
         )
     }
 
