@@ -968,26 +968,16 @@ class ComposeActivity :
     }
 
     private fun setupAvatar(account: AccountEntity) {
-        obtainStyledAttributes(
-            null,
-            DR.styleable.PreviewCardView,
-            DR.attr.previewCardViewStyle,
-            DR.style.Pachli_Widget_PreviewCardView,
-        ).useInPlace {
-            val bylineAvatarDimen = it.getDimensionPixelSize(DR.styleable.PreviewCardView_previewCardAvatarSize, -1)
+        val avatarDimen = binding.composeUsernameView.resources.getDimension(DR.dimen.compose_avatar_dimen)
 
-            loadAvatar(
-                glide,
-                account.profilePictureUrl,
-                binding.composeUsernameView,
-                bylineAvatarDimen,
-                sharedPreferencesRepository.animateAvatars,
-            )
-//            binding.composeAvatar.contentDescription = getString(
-//                R.string.compose_active_account_description,
-//                account.fullName,
-//            )
-        }
+        loadAvatar(
+            glide,
+            account.profilePictureUrl,
+            binding.composeUsernameView,
+            avatarDimen.toInt(),
+            (avatarDimen / 8).toInt(),
+            sharedPreferencesRepository.animateAvatars,
+        )
     }
 
     private fun replaceTextAtCaret(text: CharSequence) {
