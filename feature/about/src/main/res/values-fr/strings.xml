@@ -81,5 +81,5 @@
     <string name="notification_details_ntfy_exempt_help">NTFY n\'est pas exclu des optimisations de batterie. Android pourrait retarder les notifications lorsque l\'écran est éteint.</string>
     <string name="notification_details_pull_section">Récupérer les notifications avec des agents périodiques</string>
     <string name="notification_details_pachli_exempt">Pachli est exclu des optimisations de batterie ?</string>
-    <string name="about_nivenly_foundation">Pachli est un projet de la &lt;a href=\"https://nivenly.org\"&gt;Fondation Nivenly&lt;/a&gt;.</string>
+    <string name="about_nivenly_foundation">Pachli est un projet de la &lt;a href="https://nivenly.org"&gt;Fondation Nivenly&lt;/a&gt;.</string>
 </resources>
