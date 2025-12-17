@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
+        <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="error_empty">Не может быть пустым.</string>
     <string name="error_no_web_browser_found">Не удается найти веб-браузер.</string>
     <string name="error_compose_character_limit">Статус слишком длинный!</string>
     <string name="error_media_upload_type">Данный тип файла не может быть загружен.</string>
     <string name="error_media_upload_opening">Файл не может быть открыт.</string>
-    <string name="error_media_upload_permission">Необходимо разрешение на доступ к галерее.</string>
+    <str    ing name="error_media_upload_permission">Необходимо разрешение на доступ к галерее.</string>
     <string name="error_media_download_permission">Необходимо разрешение для сохранения в галерею.</string>
     <string name="error_media_upload_image_or_video">изображения и видео не могут быть прикреплены к той же записи одновременно.</string>
     <string name="error_media_upload_sending">Загрузка не удалась.</string>
@@ -34,9 +34,9 @@
     <string name="notification_favourite_format">%s понравился ваша запись</string>
     <string name="notification_follow_format">%s подписался(-лась) на вас</string>
     <string name="report_username_format">Пожаловаться на @%s</string>
-    <string name="report_comment_hint">Дополнительные комментарии?</string>
+    <string name="report_comment_hint">Дополнительный комментарий?</string>
     <string name="action_quick_reply">Быстрый ответ</string>
-    <string name="action_compose">Сочинить</string>
+    <string name="action_compose">Написать</string>
     <string name="action_follow">Подписаться</string>
     <string name="action_unfollow">Отписаться</string>
     <string name="action_block">Заблокировать</string>
@@ -48,7 +48,7 @@
     <string name="action_delete_and_redraft">Удалить и исправить</string>
     <string name="action_send">ТРУБИТЬ</string>
     <string name="action_send_public">ТРУБИТЬ!</string>
-    <string name="action_view_preferences">Предпочтения</string>
+    <string name="action_view_preferences">Настройки</string>
     <string name="action_view_account_preferences">Настройки учётной записи</string>
     <string name="action_view_favourites">Избранное</string>
     <string name="action_view_mutes">Заглушенные пользователи</string>
@@ -56,36 +56,36 @@
     <string name="action_view_follow_requests">Запросы на подписку</string>
     <string name="action_open_in_web">Открыть в браузере</string>
     <string name="action_add_media">Добавить медиа</string>
-    <string name="action_photo_take">Сфотографировать</string>
+    <string name="action_photo_take">Сделать фото</string>
     <string name="action_share">Поделиться</string>
     <string name="action_mute">Заглушить</string>
     <string name="action_unmute">Отменить глушение</string>
     <string name="action_mention">Упомянуть</string>
     <string name="action_hide_media">Скрыть медиа</string>
-    <string name="action_open_drawer">Открыть черновик</string>
+    <string name="action_open_drawer">Открыть навигационное меню</string>
     <string name="action_save">Сохранить</string>
     <string name="action_edit_profile">Редактировать профиль</string>
-    <string name="action_edit_own_profile">Изменить</string>
+    <string name="action_edit_own_profile">Редактировать</string>
     <string name="action_undo">Отменить</string>
     <string name="action_accept">Принять</string>
     <string name="action_reject">Отклонить</string>
     <string name="action_search">Поиск</string>
     <string name="action_access_drafts">Черновики</string>
-    <string name="action_toggle_visibility">Видимость гудка</string>
+    <string name="action_toggle_visibility">Видимость поста</string>
     <string name="action_content_warning">Предупреждение о содержимом</string>
     <string name="action_emoji_keyboard">Эмодзи-клавиатура</string>
     <string name="action_add_tab">Добавить вкладку</string>
-    <string name="action_open_reblogger">Перейти к автору</string>
-    <string name="action_open_reblogged_by">Показывать продвижения</string>
+    <string name="action_open_reblogger">Открыть автора продвижения</string>
+    <string name="action_open_reblogged_by">Показать продвижения</string>
     <string name="action_open_faved_by">Показать избранное</string>
     <string name="action_open_media_n">Открыть вложение #%d</string>
     <string name="download_image">Загрузка %1$s</string>
     <string name="action_copy_link">Копировать ссылку</string>
     <string name="download_media">Скачать медиафайл</string>
     <string name="downloading_media">Скачивание медиафайла</string>
-    <string name="send_post_link_to">Поделиться ссылкой на гудок…</string>
-    <string name="send_post_content_to">Поделиться гудком с…</string>
-    <string name="send_media_to">Поделиться медифайлом…</string>
+    <string name="send_post_link_to">Поделиться ссылкой на пост…</string>
+    <string name="send_post_content_to">Поделиться постом с…</string>
+    <string name="send_media_to">Поделиться медиа-файлом…</string>
     <string name="confirmation_reported">Отправить!</string>
     <string name="confirmation_unblocked">Пользователь разблокирован</string>
     <string name="confirmation_unmuted">Пользователь включен</string>
@@ -127,8 +127,8 @@
     <string name="pref_title_timelines">Ленты</string>
     <string name="pref_title_timeline_filters">Фильтры</string>
     <string name="pref_title_browser_settings">Браузер</string>
-    <string name="pref_title_custom_tabs">Открывать ссылки в своих вкладках</string>
-    <string name="pref_title_hide_follow_button">Скрывать кнопку композиционирования гудка при прокрутке ленты</string>
+    <string name="pref_title_custom_tabs">Открывать ссылки в пользовательских вкладках</string>
+    <string name="pref_title_hide_follow_button">Скрывать кнопку создания  при прокрутке</string>
     <string name="pref_title_language">Язык</string>
     <string name="pref_title_post_filter">Фильтрование ленты</string>
     <string name="pref_title_post_tabs">Вкладки</string>
@@ -147,7 +147,7 @@
     <string name="post_privacy_public">Публичные</string>
     <string name="post_privacy_unlisted">Не в списке</string>
     <string name="post_privacy_followers_only">Для подписчиков</string>
-    <string name="pref_post_text_size">Размер текста статусов</string>
+    <string name="pref_post_text_size">Размер текста постов</string>
     <string name="post_text_size_smallest">Крохотный</string>
     <string name="post_text_size_small">Маленький</string>
     <string name="post_text_size_medium">Средний</string>
@@ -175,8 +175,8 @@
     </plurals>
     <string name="description_account_locked">Закрытый аккаунт</string>
     <!-- note to translators: the url can be changed to link to the localized version of the license -->
-    <string name="post_share_content">Поделиться содержанием гудка</string>
-    <string name="post_share_link">Поделиться ссылкой на гудок</string>
+    <string name="post_share_content">Поделиться содержанием поста</string>
+    <string name="post_share_link">Поделиться ссылкой на пост</string>
     <string name="state_follow_requested">Запрошенные подписки</string>
     <!--Отметки времени у постов: "16s" or "2d"-->
     <!--Оставшееся время в опросах -->
@@ -195,9 +195,9 @@
     <string name="lock_account_label">Закрыть аккаунт</string>
     <string name="lock_account_label_description">Вам придётся вручную подтверждать подписчиков</string>
     <string name="compose_save_draft">Сохранить черновик?</string>
-    <string name="send_post_notification_title">Отправка гудка…</string>
-    <string name="send_post_notification_error_title">Ошибка при отправке гудка</string>
-    <string name="send_post_notification_channel_name">Отправка гудков</string>
+    <string name="send_post_notification_title">Отправка поста…</string>
+    <string name="send_post_notification_error_title">Ошибка при отправке поста</string>
+    <string name="send_post_notification_channel_name">Отправка постов</string>
     <string name="send_post_notification_cancel_title">Отправка отменена</string>
     <string name="send_post_notification_saved_content">Копия поста сохранена в ваши черновики</string>
     <string name="action_compose_shortcut">Сочинить</string>
@@ -205,7 +205,7 @@
     <string name="emoji_style">Стиль эмодзи</string>
     <string name="system_default">Системный</string>
     <string name="download_fonts">Сперва эти наборы эмодзи нужно скачать</string>
-    <string name="expand_collapse_all_posts">Раскрыть/свернуть все статусы</string>
+    <string name="expand_collapse_all_posts">Раскрыть/свернуть все посты</string>
     <string name="action_open_post">Открыть гудок</string>
     <string name="restart_required">Необходимо перезапустить приложение</string>
     <string name="restart_emoji">Вам нужно перезапустить Pachli для применения изменений</string>
@@ -217,7 +217,7 @@
     <string name="unreblog_private">Убрать продвижение</string>
     <string name="profile_metadata_label">Метаданные профиля</string>
     <string name="profile_metadata_add">добавить данные</string>
-    <string name="profile_metadata_label_label">Ярлык</string>
+    <string name="profile_metadata_label_label">Метка</string>
     <string name="profile_metadata_content_label">Содержание</string>
     <string name="pref_title_absolute_time">Показывать точное время</string>
     <string name="label_remote_account">Информация ниже может не полностью отражать профиль пользователя. Нажмите чтобы открыть профиль в браузере.</string>
@@ -232,7 +232,7 @@
     <string name="notifications_clear">Очистить</string>
     <string name="notifications_apply_filter">Фильтр</string>
     <string name="filter_apply">Применить</string>
-    <string name="compose_shortcut_long_label">Сочинить Гудок</string>
+    <string name="compose_shortcut_long_label">Сочинить пост</string>
     <string name="compose_shortcut_short_label">Сочинить</string>
     <string name="pref_title_bot_overlay">Показывать индикатор ботов</string>
     <string name="notification_clear_text">Вы действительно хотите безвозвратно удалить все уведомления?</string>
@@ -273,17 +273,17 @@
     <string name="poll_allow_multiple_choices">Множественный выбор</string>
     <string name="poll_new_choice_hint">Вариант %d</string>
     <string name="edit_poll">Изменить</string>
-    <string name="title_scheduled_posts">Запланированные гудки</string>
+    <string name="title_scheduled_posts">Запланированные посты</string>
     <string name="action_edit">Редактировать</string>
-    <string name="action_access_scheduled_posts">Запланированные гудки</string>
-    <string name="action_schedule_post">Запланировать гудок</string>
+    <string name="action_access_scheduled_posts">Запланированные посты</string>
+    <string name="action_schedule_post">Запланировать пост</string>
     <string name="action_reset_schedule">Сброс</string>
     <string name="title_bookmarks">Закладки</string>
     <string name="action_view_bookmarks">Закладки</string>
     <string name="select_list_title">Выбрать список</string>
     <string name="list">Список</string>
     <string name="no_drafts">У вас нет черновиков.</string>
-    <string name="no_scheduled_posts">У вас нет запланированный статусов.</string>
+    <string name="no_scheduled_posts">У вас нет запланированных постов.</string>
     <string name="warning_scheduling_interval">Минимальный интервал планирования в Mastodon составляет 5 минут.</string>
     <string name="pref_title_confirm_reblogs">Показывать диалог подтверждения перед продвижением</string>
     <string name="pref_title_show_cards_in_timelines">Показывать предпросмотр ссылок в лентах</string>
@@ -319,7 +319,7 @@
     <string name="duration_indefinite">Неопределённая</string>
     <string name="label_duration">Продолжительность</string>
     <string name="notification_subscription_format">%s только что опубликовал(а)</string>
-    <string name="follow_requests_info">Несмотря на то, что ваша профиль не закрыт, наши сотрудники %1$s решили, что вы, возможно, захотите просмотреть запросы на отслеживание от этих профилей вручную.</string>
+    <string name="follow_requests_info">Несмотря на то, что вашь профиль не закрыт, наши сотрудники %1$s решили, что вы, возможно, захотите просмотреть запросы на отслеживание от этих профилей вручную.</string>
     <plurals name="error_upload_max_media_reached">
         <item quantity="one">Вы не можете загрузить более %1$d мультимедийного вложения.</item>
         <item quantity="few">Вы не можете загрузить более %1$d мультимедийных вложений.</item>
@@ -329,13 +329,13 @@
     <string name="wellbeing_hide_stats_posts">Скрыть количественную статистику по постам</string>
     <string name="action_unsubscribe_account">Отписаться</string>
     <string name="action_subscribe_account">Подписаться</string>
-    <string name="drafts_post_reply_removed">Гудок который Вы записали в черновик был удален</string>
+    <string name="drafts_post_reply_removed">Пост, который Вы записали в черновик, был удален</string>
     <string name="draft_deleted">Черновик удалён</string>
-    <string name="drafts_post_failed_to_send">Этот гудок не удалось отправить!</string>
+    <string name="drafts_post_failed_to_send">Этот пост не удалось отправить!</string>
     <string name="wellbeing_hide_stats_profile">Скрыть количественную статистику по профилям пользователей</string>
     <string name="review_notifications">Просмотр уведомлений</string>
     <string name="notification_subscription_description">Уведомления, когда кто-то, на кого вы подписаны, опубликовал новую запись</string>
-    <string name="notification_subscription_name">Новые гудки</string>
+    <string name="notification_subscription_name">Новые посты</string>
     <string name="pref_title_animate_custom_emojis">Анимировать собственные эмодзи</string>
     <string name="pref_title_notification_filter_subscriptions">Кто-то, на кого я подписан, опубликовал новую запись</string>
     <string name="dialog_delete_conversation_warning">Удалить этот разговор\?</string>
