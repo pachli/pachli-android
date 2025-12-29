@@ -758,4 +758,7 @@
     <string name="compose_quote_policy_title">Kto môže citovať tento príspevok?</string>
     <string name="compose_quote_policy_dialog_title">Zmeniť nastavenie citácie?</string>
     <string name="compose_quote_policy_dialog_body_fmt">Príspevky označené ako \"%1$s\" alebo \"%2$s\" musia mať nastavenie citovania \"%3$s\".\n\nZmeniť nastavenie citovania teraz?</string>
+    <string name="compose_task_description_writing_post">Písanie príspevku</string>
+    <string name="compose_task_description_replying_fmt">Odpoveď pre %1$s</string>
+    <string name="compose_task_description_quoting_fmt">Cituje sa %1$s</string>
 </resources>
