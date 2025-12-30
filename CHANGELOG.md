@@ -1,5 +1,32 @@
 # Pachli changelog
 
+## v3.3.0
+
+### New features and other improvements
+
+- Allow multiple simultaneous "compose" tasks (#[2001](https://github.com/pachli/pachli-android/pull/2001), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Significant bug fixes
+
+- Move the "Toot" button to top right (#[2034](https://github.com/pachli/pachli-android/pull/2034), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Don't crash if getMostRecentNStatusIds returns 0 IDs (#[2027](https://github.com/pachli/pachli-android/pull/2027), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Don't crash if bio of suggested account is empty (#[2026](https://github.com/pachli/pachli-android/pull/2026), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Ignore quote, quote_update notifications with a missing status (#[2020](https://github.com/pachli/pachli-android/pull/2020), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Show animated avatars in preview card bylines (#[2019](https://github.com/pachli/pachli-android/pull/2019), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Prevent OOM, actually prune the database (#[2012](https://github.com/pachli/pachli-android/pull/2012), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+- Prevent crash when scrolling through notifications (#[2011](https://github.com/pachli/pachli-android/pull/2011), [Nik Clayton](https://github.com/pachli/pachli-android/commits?author=nik@ngo.org.uk))
+
+### Translations
+
+- Update Estonian translations ([Priit Jõerüüt](https://github.com/pachli/pachli-android/commits?author=jrthwlate@users.noreply.hosted.weblate.org))
+- Update French translations ([Terry L](https://github.com/pachli/pachli-android/commits?author=terrylaire@gmail.com))
+- Update German translations ([Kachelkaiser](https://github.com/pachli/pachli-android/commits?author=kachelkaiser@htpst.de))
+- Update German translations ([Thomas Cloer](https://github.com/pachli/pachli-android/commits?author=tcloer@mac.com))
+- Update Irish translations ([Aindriú Mac Giolla Eoin](https://github.com/pachli/pachli-android/commits?author=aindriu80@gmail.com))
+- Update Latvian translations ([Edgars Andersons](https://github.com/pachli/pachli-android/commits?author=Edgars+Weblate@gaitenis.id.lv))
+- Update Slovak translations ([Russssty](https://github.com/pachli/pachli-android/commits?author=russssty@users.noreply.hosted.weblate.org))
+- Update Spanish translations ([Juan M Sevilla](https://github.com/pachli/pachli-android/commits?author=jumase@disroot.org))
+
 ## v3.2.4
 
 ### Significant bug fixes
