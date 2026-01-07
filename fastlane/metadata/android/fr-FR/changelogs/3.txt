@@ -1,0 +1,12 @@
+Pachli 1.2
+
+Nouveautés :
+
+-  Ascenseurs verticaux sur les listes défilantes
+
+Corrections:
+
+-  Retrouve la position de lecture en toute circonstances
+-  Active/désactive le bouton de vote lorsque l'utilisateur peut ou non voter
+-  Couleur correcte pour la barre de statut
+-  Le texte d'option de sondage est visible sur le fond
