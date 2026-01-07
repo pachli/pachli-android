@@ -1,0 +1,5 @@
+Pachli 1.2.2
+
+Nouveautés:
+
+-  Incorpore la politique de vie privée dans l'application

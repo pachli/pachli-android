@@ -67,4 +67,8 @@
     <string name="database_prune_cache">Puhdista välimuisti</string>
     <string name="database_clear_cache_complete">Välimuistin tyhjennys valmis</string>
     <string name="action_clear_cache">Tyhjennä välimuisti</string>
+    <string name="database_vacuum_complete">Imurointi valmis</string>
+    <string name="action_vacuum">Imurointi</string>
+    <string name="about_database">Tietokanta</string>
+    <string name="about_notifications">Ilmoitukset</string>
 </resources>

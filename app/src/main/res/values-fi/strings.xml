@@ -764,4 +764,7 @@
     <string name="drafts_load_quote_failed_fmt">Lainaamaasi julkaisua ei voitu ladata: %1$s</string>
     <string name="drafts_load_reply_failed_fmt">Julkaisua johon vastaat ei voitu ladata: %1$s</string>
     <string name="action_toggle_quote_policy">Muuta lainausasetuksia</string>
+    <string name="compose_task_description_quoting_fmt">Lainataan %1$s</string>
+    <string name="compose_task_description_replying_fmt">Vastataan käyttäjälle %1$s</string>
+    <string name="compose_task_description_writing_post">Kirjoitetaan julkaisua</string>
 </resources>
