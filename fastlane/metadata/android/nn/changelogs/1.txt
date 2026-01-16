@@ -1,4 +1,4 @@
-Nokre nye funksjonar i denne oppdateringa er:
+Somme nye funksjonar i denne oppdateringa er:
 
 - «Last inn meir» skal ikkje visast, fordi nye innlegg skal automatisk lastast inn medan du skrollar.
 - Trendande lenkjer og innlegg
