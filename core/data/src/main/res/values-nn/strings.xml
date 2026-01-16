@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="server_repository_error_get_well_known_node_info">henting av /.well-known/nodeinfo mislykkast: %1$s</string>
+    <string name="server_repository_error_get_well_known_node_info">henting av /.well-known/nodeinfo mislukkast: %1$s</string>
     <string name="server_repository_error_unsupported_schema">/.well-known/nodeinfo inneheldt ikkje forståelege skjema</string>
     <string name="server_repository_error_get_node_info">henting av nodeinfo %1$s mislykkast: %2$s</string>
     <string name="server_repository_error_validate_node_info">validering av nodeinfo %1$s mislykkast: %2$s</string>
