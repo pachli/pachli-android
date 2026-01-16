@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_loading_account_details_fmt">Mislukkast i å laste inn kontodetaljar: %1$s</string>
-    <string name="action_close">Lukk</string>
-    <string name="action_browser_login">Logg inn med nettlesar</string>
-    <string name="error_invalid_domain">Ugyldig domene angjeve</string>
-    <string name="error_failed_app_registration_fmt">Kunne ikkje autentisere med den instansen: %1$s</string>
-    <string name="error_authorization_unknown">Ein ukjend autoriseringsfeil oppstod. Om dette fortset, prøv å logge inn med nettlesaren ved å velja det i menyen.</string>
-    <string name="error_authorization_denied">Autorisasjonen vart nekta. Om du er sikker på at du oppgav riktige data, prøv å logge inn med nettlesaren ved å velja det i menyen.</string>
+    <string name="error_loading_account_details_fmt">Mislukkast i å lada inn kontodetaljar: %1$s</string>
+    <string name="action_close">Lat atter</string>
+    <string name="action_browser_login">Logg inn med netlesar</string>
+    <string name="error_invalid_domain">Ugild domene oppgjeve</string>
+    <string name="error_failed_app_registration_fmt">Kunne ikkje autentisera med den instansen: %1$s</string>
+    <string name="error_authorization_unknown">Ein ukjend autoriseringsfeil oppstod. Om dette held fram, prøv å logga inn med netlesaren ved å velja det i menyen.</string>
+    <string name="error_authorization_denied">Autorisasjonen vart neittaa. Om du er viss på at du oppgav riktige opplysingar, prøv å logga inn med nettlesaren ved å velja det i menyen.</string>
     <string name="hint_domain">Kva for ein instans?</string>
-    <string name="action_login">Logg inn med Pachli</string>
+    <string name="action_login">Logga inn med Pachli</string>
     <string name="link_whats_an_instance">Kva er ein instans?</string>
     <string name="login_connection">Koplar til…</string>
-    <string name="title_login">Logg inn</string>
-    <string name="error_could_not_load_login_page">Kunne ikkje laste inn innloggingssida.</string>
-    <string name="instance_rule_info">Ved å logge inn godtek du reglane på %s.</string>
+    <string name="title_login">Logga inn</string>
+    <string name="error_could_not_load_login_page">Kunne ikkje lada inn innloggingssida.</string>
+    <string name="instance_rule_info">Ved å logga inn godtek du reglane på %s.</string>
     <string name="instance_rule_title">Reglar på %s</string>
-    <string name="error_retrieving_oauth_token_fmt">Mislukkast i å hente innloggingstoken. Om dette fortset, prøv å logge inn med nettlesaren ved å velja det i menyen: %1$s</string>
-    <string name="dialog_whats_an_instance">Adressa eller domenet til nokon som helst instans kan tastast inn her, t.d. mastodon.social, icosahedron.website, twoot.site, og <a href="https://instances.social">mange fleire!</a>\n\nEin instans er staden der kontoen din ligg, men du kan lett samhandle med og fylgje andre folk frå andre instansar som om de brukte same instans.\n\nDu finn fleire opplysingar hjå <a href="https://joinmastodon.org">joinmastodon.org</a>.</string>
+    <string name="error_retrieving_oauth_token_fmt">Mislukkast i å henta innloggingslykel. Om dette held fram, prøv å logga inn med netlesaren ved å velja det i menyen: %1$s</string>
+    <string name="dialog_whats_an_instance">Adressa eller domenet til nokon som helst instans kan verta tasta inn her, t.d. mastodon.social, icosahedron.website, twoot.site, og <a href="https://instances.social">mange fleire!</a>\n\nEin instans er staden der kontoen din ligg, men du kan lett samhandla med og fylgja andre folk frå andre instansar som om de nøytte same instans.\n\nDu finn fleire opplysingar hjå <a href="https://joinmastodon.org">joinmastodon.org</a>.</string>
 </resources>
