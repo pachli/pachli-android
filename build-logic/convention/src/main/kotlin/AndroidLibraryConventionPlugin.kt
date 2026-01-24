@@ -35,6 +35,7 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                 apply("com.android.library")
                 apply("org.jetbrains.kotlin.android")
                 apply("pachli.android.lint")
+                apply("org.jetbrains.kotlin.plugin.compose")
             }
 
             extensions.configure<LibraryExtension> {
@@ -54,6 +55,33 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                 add("androidTestImplementation", kotlin("test"))
                 add("androidTestImplementation", project(":core:testing"))
                 add("lintChecks", project(":checks"))
+
+                val composeBom = platform("androidx.compose:compose-bom:2025.08.00")
+                add("implementation", composeBom)
+
+                add("implementation", "androidx.compose.material3:material3")
+                add("implementation", "androidx.compose.ui:ui-tooling-preview")
+                add("debugImplementation", "androidx.compose.ui:ui-tooling")
+
+                // UI Tests
+                add("androidTestImplementation", "androidx.compose.ui:ui-test-junit4")
+                add("debugImplementation", "androidx.compose.ui:ui-test-manifest")
+
+                // Optional - Included automatically by material, only add when you need
+                // the icons but not the material library (e.g. when using Material3 or a
+                // custom design system based on Foundation)
+//    implementation("androidx.compose.material:material-icons-core")
+                // Optional - Add full set of material icons
+//    implementation("androidx.compose.material:material-icons-extended")
+                // Optional - Add window size utils
+                add("implementation", "androidx.compose.material3.adaptive:adaptive")
+
+                // Optional - Integration with activities
+                add("implementation", "androidx.activity:activity-compose:1.10.1")
+                // Optional - Integration with ViewModels
+                add("implementation", "androidx.lifecycle:lifecycle-viewmodel-compose:2.8.5")
+                add("implementation", "androidx.constraintlayout:constraintlayout:2.2.1")
+                add("implementation", "androidx.constraintlayout:constraintlayout-compose:1.1.1")
             }
         }
     }
