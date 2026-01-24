@@ -16,5 +16,5 @@
     <string name="follows_count_fmt">Fylgjer &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="statuses_count_fmt">&lt;b&gt;%1$s&lt;/b&gt; innlegg</string>
     <string name="statuses_count_per_week_fmt">&lt;b&gt;%1$s&lt;/b&gt; innlegg (&lt;b&gt;%2$d&lt;/b&gt; om veka)</string>
-    <string name="statuses_count_per_week_last_fmt"><b>%1$s</b> innlegg (<b>%2$d</b> om veka, førre veke <b>%3$s</b>)</string>
+    <string name="statuses_count_per_week_last_fmt">&lt;b&gt;%1$s&lt;/b&gt; innlegg (&lt;b&gt;%2$d&lt;/b&gt; om veka, førre veke &lt;b&gt;%3$s&lt;/b&gt;)</string>
 </resources>
