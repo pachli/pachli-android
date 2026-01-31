@@ -65,15 +65,15 @@
     <string name="database_table_sizes">Rozmiary tabel</string>
     <string name="database_integrity_check">Sprawdzanie integralności</string>
     <string name="database_query_timings">Czasy zapytań</string>
-    <string name="database_prune_cache">Prunuj pamięć podręczną</string>
-    <string name="database_vacuum">Vacuum</string>
+    <string name="database_prune_cache">Prunowanie pamięci podręcznej</string>
+    <string name="database_vacuum">Czyszczenie bazy danych</string>
     <string name="database_clear_cache">Wyczyść pamięć podręczną</string>
     <string name="action_run_integrity_check">Uruchom sprawdzanie integralności</string>
     <string name="action_run_query_timings">Sprawdź czasy zapytań</string>
     <string name="action_prune_cache">Prunuj pamięć podręczną</string>
-    <string name="action_vacuum">Vacuum</string>
+    <string name="action_vacuum">Wyczyść bazę danych</string>
     <string name="action_clear_cache">Wyczyść pamięć podręczną</string>
-    <string name="database_prune_cache_complete">Prunowanie keszu zakończone</string>
-    <string name="database_vacuum_complete">Vacuum zakończone</string>
+    <string name="database_prune_cache_complete">Zakończone prunowanie pamięci podręcznej</string>
+    <string name="database_vacuum_complete">Zakończono czyszczenie bazy</string>
     <string name="database_clear_cache_complete">Czyszczenie pamięci podręcznej zakończone</string>
 </resources>
