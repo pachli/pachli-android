@@ -4,7 +4,7 @@
     <string name="error_no_web_browser_found">Fann ingen nettlesar som kunne verte nøytt.</string>
     <string name="error_media_download_permission">Pachli treng løyve for å lagre media.</string>
     <string name="error_media_upload_image_or_video">Bilete og videoar kan ikkje leggjast ved i same innlegg.</string>
-    <string name="error_media_upload_sending">Opplastinga mislukkast.</string>
+    <string name="error_media_upload_sending">Oppladinga mislukkast.</string>
     <string name="error_sender_account_gone">Ein feil oppstod under sending av innlegget.</string>
     <string name="error_following_hashtag_format">Kunne ikkje fylgje #%s</string>
     <string name="error_unfollowing_hashtag_format">Kunne ikkje slutte å fylgje #%s</string>
@@ -17,7 +17,7 @@
     <string name="title_public_trending_hashtags">Trendande emneknaggar</string>
     <string name="title_public_trending_links">Trendande lenkjer</string>
     <string name="title_public_trending_statuses">Trendande innlegg</string>
-    <string name="error_status_source_load">Kunne ikkje laste inn statuskjelda frå tenaren.</string>
+    <string name="error_status_source_load">Kunne ikkje lada inn statuskjelda frå tenaren.</string>
     <string name="title_tab_public_trending_hashtags">Emneknaggar</string>
     <string name="title_tab_public_trending_links">Lenkjer</string>
     <string name="title_tab_public_trending_statuses">Innlegg</string>
@@ -66,16 +66,16 @@
     <string name="notification_header_report_format">%s rapporterte %s</string>
     <plurals name="notification_summary_report_format">
         <item quantity="one">%1$s · %2$d innlegg lagt ved</item>
-        <item quantity="other">%1$s · %2$d innlegg lagte ved</item>
+        <item quantity="other">%1$s · %2$d innlegg lagde ved</item>
     </plurals>
     <string name="report_username_format">Rapporter @%s</string>
     <string name="report_comment_hint">Har du fleire kommentarar?</string>
     <string name="action_quick_reply">Hurtigsvar</string>
     <string name="action_unbookmark">Fjern bokmerke</string>
-    <string name="action_post_failed">Opplastinga mislukkast</string>
-    <string name="action_post_failed_detail">Opplasting av innlegget ditt mislukkast og innlegget er vorte lagra som eit utkast.\n\nDette skjedde anten fordi tenaren ikkje kunne verte nådd, eller fordi tenaren har nekta å ta imot innlegget ditt.</string>
+    <string name="action_post_failed">Oppladinga mislukkast</string>
+    <string name="action_post_failed_detail">Opplading av innlegget ditt mislukkast og innlegget er vorte lagra som eit utkast.\n\nDette hende anten fordi tenaren ikkje kunne verta nådd, eller fordi tenaren har neitta å taka imot innlegget ditt.</string>
     <string name="action_post_failed_show_drafts">Syn utkast</string>
-    <string name="action_post_failed_do_nothing">Lat att</string>
+    <string name="action_post_failed_do_nothing">Lat atter</string>
     <string name="action_unfollow">Avfylg</string>
     <string name="action_block">Blokker</string>
     <string name="action_unblock">Fjern blokkering</string>
@@ -84,7 +84,7 @@
     <string name="action_hide_reblogs">Døl delingar</string>
     <string name="action_show_reblogs">Syn delingar</string>
     <string name="pref_title_show_self_boosts">Syn sjølvdelingar</string>
-    <string name="pref_title_show_self_boosts_description">Ei sjølvdeling er eit innlegg delt av forfatteren dets.</string>
+    <string name="pref_title_show_self_boosts_description">Ei sjølvdeling er eit innlegg delt av forfattaren sjølv.</string>
     <string name="action_report">Rapporter</string>
     <string name="action_edit">Brigd</string>
     <string name="action_delete">Slett</string>
@@ -140,11 +140,11 @@
     <string name="action_suggestions">Føreslegne kontoar</string>
     <string name="action_translate">Omset</string>
     <string name="action_translate_undo">Angre omsetjing</string>
-    <string name="action_open_media_n">Opne vedlegg %1$d</string>
+    <string name="action_open_media_n">Opna vedlegg %1$d</string>
     <string name="error_compose_character_limit">Innlegget er for langt!</string>
     <string name="error_image_edit_failed">Biletet kunne ikkje brigdast.</string>
     <string name="error_media_upload_permission">Pachli treng løyve for å lesa media.</string>
-    <string name="error_media_upload_type">Den filtypen kan ikkje lastast opp.</string>
+    <string name="error_media_upload_type">Den filtypen kan ikkje ladast opp.</string>
     <string name="error_media_upload_opening">Den fila kunne ikkje verte opna.</string>
     <string name="error_following_hashtags_unsupported">Denne instansen stør ikkje fylging av emneknaggar.</string>
     <string name="notification_severed_relationships_user_domain_block_body">Du blokkerte instansen</string>
@@ -153,9 +153,9 @@
         <item quantity="other">%1$s kontoar du fylgjer, vart fjerna.</item>
     </plurals>
     <string name="action_compose">Skriv</string>
-    <string name="action_post_failed_detail_plural">Opplasting av innlegga dine mislukkast og innlegga er vortne lagra som utkast.\n\nDette skjedde anten fordi tenaren ikkje kunne verte nådd, eller fordi tenaren har nekta å ta imot innlegget ditt.</string>
+    <string name="action_post_failed_detail_plural">Opplading av innlegga dine mislukkast og innlegga er vortne lagra som utkast.\n\nDette hende anten fordi tenaren ikkje kunne verta nådd, eller fordi tenaren har neitta å taka imot innlegga dine.</string>
     <string name="action_follow">Fylg</string>
-    <string name="downloading_media">Lastar ned media</string>
+    <string name="downloading_media">Lader ned medium</string>
     <string name="hint_display_name">Visningsnamn</string>
     <string name="hint_search">Søk…</string>
     <string name="search_no_results">Ingen treff</string>
@@ -168,8 +168,8 @@
     <string name="send_media_to">Del media til…</string>
     <string name="label_quick_reply">Svar…</string>
     <string name="label_header">Bakgrunnsbilete</string>
-    <string name="dialog_title_finishing_media_upload">Avsluttar opplasting av media</string>
-    <string name="dialog_message_uploading_media">Lastar opp…</string>
+    <string name="dialog_title_finishing_media_upload">Endar opplading av media</string>
+    <string name="dialog_message_uploading_media">Lader opp…</string>
     <string name="dialog_redraft_post_warning">Slett dette innlegget og skriv det på nytt?</string>
     <string name="mute_domain_warning">Er du sikker på at du vil blokkere alt frå %s? Du kjem ikkje til å sjå innhald frå domenet i nokre offentlege tidslinjer eller i varsla dine. Kontoer som fylgjer deg frå dette domenet, vil verte fjerna.</string>
     <string name="dialog_block_warning">Blokker @%s?</string>
@@ -207,7 +207,7 @@
     <string name="pref_title_custom_tabs">Opne lenkjer i tilpassa faner</string>
     <string name="pref_title_hide_follow_button">Døl skriv-knappen under skrolling</string>
     <string name="pref_title_font_family">Skrifttype</string>
-    <string name="pref_title_show_media_preview">Last ned forhandssyningar av media</string>
+    <string name="pref_title_show_media_preview">Lad ned førehandsvisningar av medium</string>
     <string name="pref_title_proxy_settings">Proxytenar</string>
     <string name="pref_title_http_proxy_settings">HTTP-proxy</string>
     <string name="pref_title_http_proxy_enable">Aktiver HTTP-proxy</string>
@@ -236,7 +236,7 @@
     <string name="send_post_notification_channel_name">Sender innlegg</string>
     <string name="compose_delete_draft">Slett utkast?</string>
     <string name="compose_save_draft">Lagre utkast?</string>
-    <string name="compose_save_draft_loses_media">Vedlegg vert lasta opp på nytt når du opnar utkastet att.</string>
+    <string name="compose_save_draft_loses_media">Vedlegg vert ladde opp på nytt når du opnar utkastet atter.</string>
     <string name="action_compose_shortcut">Skriv</string>
     <string name="error_no_custom_emojis">Din instans (%s) har ingen eigendefinerte emojiar</string>
     <string name="system_default">Systemstandard</string>
@@ -246,8 +246,8 @@
     <string name="restart_required">Appen må startast på nytt</string>
     <string name="restart_emoji">Du må starte Pachli på nytt for å taka desse endringane i bruk</string>
     <string name="restart">Start på nytt</string>
-    <string name="download_failed">Nedlasting mislukkast</string>
-    <string name="download_fonts">Du må laste ned desse emojisamlingane før dei kan verte nøytte</string>
+    <string name="download_failed">Nedlading mislukkast</string>
+    <string name="download_fonts">Du lyt lada ned desse emojisamlingane før dei kan verta nøytte</string>
     <string name="expand_collapse_all_posts">Utvid/skjul alle innlegg</string>
     <string name="action_open_post">Opne innlegg</string>
     <string name="later">Seinare</string>
@@ -255,9 +255,9 @@
     <string name="unreblog_private">Fjern deling</string>
     <string name="profile_metadata_label">Profilmetadata</string>
     <string name="label_remote_account">Dei lista opplysningane kan vera feilaktige eller ufullstendige. Trykk for å opne profilen i nettlesar.</string>
-    <string name="download_image">Lastar ned %1$s</string>
+    <string name="download_image">Lader ned %1$s</string>
     <string name="action_copy_link">Kopier lenkje</string>
-    <string name="download_media">Last ned media</string>
+    <string name="download_media">Lad ned medium</string>
     <string name="send_post_content_to">Del innlegg til…</string>
     <string name="send_account_link_to">Del konto-URL til…</string>
     <string name="account_username_copied">Brukarnamn kopiert</string>
@@ -270,8 +270,8 @@
     <string name="post_sent_long">Svaret vart sendt.</string>
     <string name="hint_compose">Kva har du på hjarta?</string>
     <string name="hint_content_warning">Innhaldsåtvaring</string>
-    <string name="dialog_download_image">Last ned</string>
-    <string name="dialog_message_cancel_follow_request">Trekk att fylgjeførespurnaden?</string>
+    <string name="dialog_download_image">Lad ned</string>
+    <string name="dialog_message_cancel_follow_request">Trekk atter fylgjeførespurnaden?</string>
     <string name="dialog_unfollow_warning">Avfylg denne kontoen?</string>
     <string name="dialog_delete_post_warning">Slett dette innlegget?</string>
     <string name="dialog_delete_conversation_warning">Slett denne samtalen?</string>
@@ -314,7 +314,7 @@
     <string name="pref_main_nav_position">Hovednavigeringsplassering</string>
     <string name="post_privacy_unlisted">Ulista</string>
     <string name="post_privacy_followers_only">Einast fylgjarar</string>
-    <string name="pref_ui_text_size">Grensesnittsskriftstorleik</string>
+    <string name="pref_ui_text_size">Grensesnedsskriftstorleik</string>
     <string name="pref_post_text_size">Statustekstskriftstorleik</string>
     <string name="post_text_size_smallest">Ørliten</string>
     <string name="post_text_size_largest">Kjempestor</string>
@@ -380,8 +380,8 @@
     <string name="drafts_post_reply_removed">Innlegget du skreiv et svar til, er vorte fjerna</string>
     <string name="draft_deleted">Utkast sletta</string>
     <plurals name="error_upload_max_media_reached">
-        <item quantity="one">Du kan ikkje laste opp meir enn %1$d mediavedlegg.</item>
-        <item quantity="other">Du kan ikkje laste opp meir enn %1$d mediavedlegg.</item>
+        <item quantity="one">Du kan ikkje lada opp fleire en %1$d mediavedlegg.</item>
+        <item quantity="other">Du kan ikkje lada opp fleire en %1$d mediavedlegg.</item>
     </plurals>
     <string name="conversation_more_recipients">%1$s, %2$s, og %3$d til</string>
     <string name="select_list_manage">Handsam lister</string>
@@ -457,8 +457,8 @@
     <string name="filter_keyword_display_format">%s (heilt ord)</string>
     <string name="filter_keyword_addition_title">Legg til lykelord</string>
     <string name="filter_edit_keyword_title">Brigd lykelord</string>
-    <string name="load_newest_notifications">Last inn dei nyaste varsla</string>
-    <string name="load_newest_statuses">Last inn dei nyaste innlegga</string>
+    <string name="load_newest_notifications">Lad inn dei nyaste varsla</string>
+    <string name="load_newest_statuses">Lad inn dei nyaste innlegga</string>
     <string name="pref_title_update_settings">Programvareoppdateringar</string>
     <string name="pref_title_update_notification_frequency">Fortel meg om nye utgåver av Pachli</string>
     <string name="update_dialog_negative">Minn meg aldri igjen</string>
@@ -469,7 +469,7 @@
     <string name="pref_notification_up_distributor_none">Ingen</string>
     <string name="pref_update_check_no_updates">Det finst ingen tigjengelege oppdateringar</string>
     <string name="pref_update_next_scheduled_check">Nest planlagt kontroll: %1$s</string>
-    <string name="error_media_download">Mislukkast i å laste ned %1$s: %2$s</string>
+    <string name="error_media_download">Mislukkast i å lada ned %1$s: %2$s</string>
     <string name="action_add_to_tab">Legg til i fane</string>
     <string name="action_add_to_tab_success">La til «%1$s» i fanene</string>
     <string name="error_filter_missing_title">Tittel krevst</string>
@@ -477,22 +477,22 @@
     <string name="compose_warn_language_dialog_fmt">Målet til innlegget er %1$s, men det kan skje at du har skrive det på %2$s.</string>
     <string name="compose_warn_language_dialog_change_language_fmt">Byt mål til %1$s og send</string>
     <string name="compose_warn_language_dialog_accept_language_fmt">Publiser slik som det er (på %1$s)</string>
-    <string name="error_media_uploader_upload_not_found_fmt">Mediaopplasting med ID %1$s finst ikkje</string>
+    <string name="error_media_uploader_upload_not_found_fmt">Mediaopplading med ID %1$s finst ikkje</string>
     <string name="compose_warn_language_dialog_accept_and_dont_ask_fmt">Publiser på %1$s og ikkje spør igjen</string>
     <string name="error_prepare_media_unsupported_mime_type_fmt">tenar stør ikkje filtype: %1$s</string>
     <string name="error_prepare_media_unknown_mime_type">filtypen er ukjend</string>
-    <string name="error_pick_media_fmt">Kunne ikkje leggje fila ved innlegget: %1$s</string>
+    <string name="error_pick_media_fmt">Kunne ikkje leggja fila ved innlegget: %1$s</string>
     <string name="error_save_filter_failed_fmt">Mislukkast i å lagre filter: %1$s</string>
-    <string name="action_open_byline_account">Syn artikkelforfattarens profil</string>
+    <string name="action_open_byline_account">Syn profilen til artikkelforfattaren</string>
     <string name="action_open_link">Opne lenkje</string>
     <string name="error_delete_filter_failed_fmt">Mislukkast i å slette filter: %1$s</string>
-    <string name="search_operator_attachment_dialog_title">Avgrens til innlegg med vedlegg?</string>
-    <string name="search_operator_attachment_no_media_label">Ingen media</string>
+    <string name="search_operator_attachment_dialog_title">Avgrensa til innlegg med vedlegg?</string>
+    <string name="search_operator_attachment_no_media_label">Ingen medium</string>
     <string name="search_operator_attachment_dialog_any_label">Alle typar</string>
     <string name="search_operator_attachment_dialog_image_label">Bilete</string>
     <string name="search_operator_attachment_dialog_video_label">Videoar</string>
     <string name="search_operator_attachment_dialog_audio_label">Ljodvedlegg</string>
-    <string name="search_operator_attachment_all">Media ▾</string>
+    <string name="search_operator_attachment_all">Medium ▾</string>
     <string name="search_operator_attachment_kind_image_label">bilete</string>
     <string name="search_operator_attachment_specific_media_include_1_exclude_1_fmt">Med %1$s, ingen %2$s</string>
     <string name="search_operator_attachment_specific_media_include_2_fmt">Med %1$s, %2$s</string>
@@ -515,7 +515,7 @@
     <string name="action_unfollow_hashtag_format">Avfylg #%s?</string>
     <string name="mute_notifications_switch">Demp varsel</string>
     <string name="error_missing_edits">Tenaren din veit at dette innlegget vart brigda, men han har ingen kopi av brigdingane, så kan dei ikkje synast for deg.\n\nDette er <a href="https://github.com/mastodon/mastodon/issues/25398">Mastodon-problem #25398</a>.</string>
-    <string name="a11y_label_loading_thread">Lastar inn tråd</string>
+    <string name="a11y_label_loading_thread">Lader inn tråd</string>
     <string name="accessibility_talking_about_tag">%1$d folk snakkar om emneknaggen %2$s</string>
     <string name="total_usage">Total bruk</string>
     <string name="socket_timeout_exception">Det tok for lang tid å nå tenaren din</string>
@@ -571,14 +571,14 @@
     <string name="ui_error_translate_status_fmt">Mislukkast i å omsetja: %1$s</string>
     <string name="ui_error_accept_follow_request">Mislukkast i å godtaka fylgjeførespurnad: %s</string>
     <string name="ui_error_reject_follow_request">Mislukkast i å avvise fylgjeførespurnad: %s</string>
-    <string name="ui_error_filter_v1_load_fmt">Mislukkast i å laste inn filter: %1$s</string>
+    <string name="ui_error_filter_v1_load_fmt">Mislukkast i å lada inn filter: %1$s</string>
     <string name="ui_success_accepted_follow_request">Godtok fylgjeførespurnad</string>
     <string name="ui_success_rejected_follow_request">Avvist fylgjeførespurnad</string>
     <string name="hint_filter_title">Mitt filter</string>
     <string name="label_filter_title">Tittel</string>
     <string name="filter_action_warn">Varsle</string>
     <string name="filter_action_hide">Skjul</string>
-    <string name="pref_notification_battery_optimisation_should_ignore">Batterioptimisering burde vera slegen av. Trykk for å opne.</string>
+    <string name="pref_notification_battery_optimisation_should_ignore">Batterioptimisering burde vera slegen av. Trykk for å opna.</string>
     <string name="search_operator_attachment_specific_media_include_2_exclude_1_fmt">Med %1$s, %2$s, ingen %3$s</string>
     <string name="search_operator_attachment_specific_media_include_1_fmt">Med %1$s</string>
     <string name="search_operator_attachment_kind_audio_label">ljodvedlegg</string>
@@ -639,7 +639,7 @@
     <string name="search_operator_where_dialog_public_hint">Oppførte og søkjelege innlegg som tenaren kjenner til</string>
     <string name="search_operator_where_public">Lista innlegg</string>
     <string name="search_operator_where_dialog_public">Lista innlegg</string>
-    <string name="upload_failed_msg_fmt">Noko gjekk gale i å laste opp vedlegget. Pachli skal prøve å laste opp vedlegget når du sender innlegget. Dersom opplastinga mislukkast att, skal innlegget verte lagra i utkasta dine.\n\nFeilen var: %1$s</string>
+    <string name="upload_failed_msg_fmt">Noko gjekk gale i å lada opp vedlegget. Pachli skal prøva å lada opp vedlegget når du sender innlegget. Dersom opplastinga mislukkast atter, kjem innlegget til å verta lagra i utkasta dine.\n\nFeilen var: %1$s</string>
     <string name="pref_title_account_notification_filters">Varselfilter</string>
     <string name="pref_account_notification_filters_label_not_followed">…du ikkje fylgjer</string>
     <string name="pref_account_notification_filters_label_younger_30d">…vart oppretta på dei siste 30 dagane</string>
@@ -674,8 +674,8 @@
     <string name="pref_account_conversation_filters_label_not_followed">…som du ikkje fylgjer</string>
     <string name="pref_account_conversation_filters_label_younger_30d">…som vart oppretta på dei siste 30 dagane</string>
     <string name="pref_title_public_filter_home_and_lists">Heim og lister</string>
-    <string name="ui_error_reload_reply_fmt">Kunne ikkje laste inn innlegg: %1$s</string>
-    <string name="action_refresh_account">Last inn konto på nytt</string>
+    <string name="ui_error_reload_reply_fmt">Kunne ikkje lada inn innlegg: %1$s</string>
+    <string name="action_refresh_account">Lad inn konto på nytt</string>
     <string name="account_filter_placeholder_type_conversation">Ein brukar @&lt;b&gt;%1$s&lt;/b&gt; starta ei samtale</string>
     <string name="export_preferences_ok_fmt">Innstillingar eksporterte til %1$s</string>
     <string name="followed_hashtags_summary_fmt">%1$s frå %2$s (siste %3$s)</string>
@@ -720,7 +720,7 @@
     <string name="translator_error_no_language_detected">kunne ikkje fastsetja opphavleg mål</string>
     <string name="translator_error_unsupported_source_language_fmt">kan ikkje omsetja frå %1$s</string>
     <string name="translator_error_unsupported_target_language_fmt">kan ikkje omsetja til %1$s</string>
-    <string name="translator_error_download_required_fmt">å omsetja til %1$s krev at du lastar ned målpakka og du er ikkje kopla til Wi-Fi</string>
+    <string name="translator_error_download_required_fmt">å omsetja til %1$s krev at du lader ned målpakka og du er ikkje kopla til netet</string>
     <string name="pref_title_notification_filter_moderation_warning">Ein moderator sender ei melding</string>
     <string name="pref_default_audio_playback">Standard audioavspeling</string>
     <string name="notification_moderation_warnings_name">Moderasjonsåtvaringar</string>
@@ -740,8 +740,8 @@
     <string name="notification_quote_description">Varsel om at nokon hermer innlegga dine</string>
     <string name="notification_quoted_update_name">Brigdingar på hermde innlegg</string>
     <string name="notification_quoted_update_description">Varsel når innlegg du hermde vert brigda</string>
-    <string name="drafts_load_reply_failed_fmt">Klarte ikkje å laste inn innlegget som du svarar på: %1$s</string>
-    <string name="drafts_load_quote_failed_fmt">Klarte ikkje å laste inn innlegget du hermer: %1$s</string>
+    <string name="drafts_load_reply_failed_fmt">Klarte ikkje å lada inn innlegget som du svarar på: %1$s</string>
+    <string name="drafts_load_quote_failed_fmt">Klarte ikkje å lada inn innlegget du hermer: %1$s</string>
     <string name="drafts_post_quote_removed">Innlegget som du hermde, har vorte sletta</string>
     <string name="detach_quote_dialog_title">Slett herming?</string>
     <string name="detach_quote_dialog_message">Dette tek ditt hermeinnlegg bort frå dette innlegget.\n\nDitt opphavlege innlegg vert ikkje sletta.\n\nDette kan ikkje verte angra på.</string>
@@ -750,4 +750,7 @@
     <string name="compose_quote_policy_title">Kven kan herme dette innlegget?</string>
     <string name="compose_quote_policy_dialog_title">Brigd hermingsløyve?</string>
     <string name="compose_quote_policy_dialog_body_fmt">Innlegg merkte som «%1$s» eller «%2$s» lyt ha hermeløyve av «%3$s».\n\nBrigd hermeløyve no?</string>
+    <string name="compose_task_description_writing_post">Skriv innlegg</string>
+    <string name="compose_task_description_replying_fmt">Svarar på %1$s</string>
+    <string name="compose_task_description_quoting_fmt">Hermer etter %1$s</string>
 </resources>
