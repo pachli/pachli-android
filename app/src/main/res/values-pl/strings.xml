@@ -27,8 +27,8 @@
     <string name="title_drafts">Szkice</string>
     <string name="post_sensitive_media_directions">Naciśnij, aby wyświetlić</string>
     <string name="footer_empty">Pusto tutaj. Pociągnij, aby odświeżyć!</string>
-    <string name="notification_reblog_format">Osoba %s podbiła twój wpis</string>
-    <string name="notification_favourite_format">Osoba %s polubiła twój wpis</string>
+    <string name="notification_reblog_format">Podbicie twojego wpisu przez %s</string>
+    <string name="notification_favourite_format">Polubienie twojego wpisu przez %s</string>
     <string name="notification_follow_format">%s cię obserwuje</string>
     <string name="report_username_format">Zgłoś @%s</string>
     <string name="report_comment_hint">Dodatkowe komentarze?</string>
@@ -515,11 +515,11 @@
     <string name="pref_account_notification_filters_label_younger_30d">… utworzonych w ciągu ostatnich 30 dni</string>
     <string name="pref_account_notification_filters_label_not_followed">… których nie obserwujesz</string>
     <string name="pref_account_notification_filters_label_limited_by_server">… ograniczonych przez moderację</string>
-    <string name="account_filter_placeholder_type_favourite_fmt">Osoba @&lt;b&gt;%1s&lt;/b&gt; polubiła twój wpis</string>
+    <string name="account_filter_placeholder_type_favourite_fmt">Polubienie twojego wpisu przez @<b>%1s</b></string>
     <string name="account_filter_placeholder_type_follow_fmt">Konto @&lt;b&gt;%1s&lt;/b&gt; cię obserwuje</string>
     <string name="account_filter_placeholder_type_mention_fmt">Nowa wzmianka od @&lt;b&gt;%1s&lt;/b&gt;</string>
     <string name="account_filter_placeholder_type_follow_request_fmt">Prośba o obserwację od @&lt;b&gt;%1s&lt;/b&gt;</string>
-    <string name="account_filter_placeholder_type_reblog_fmt">Osoba @&lt;b&gt;%1s&lt;/b&gt; podbiła twój wpis</string>
+    <string name="account_filter_placeholder_type_reblog_fmt">Podbicie twojego wpisu przez @<b>%1s</b></string>
     <string name="account_filter_placeholder_label_domain">Od konta @&lt;b&gt;%1s&lt;/b&gt;</string>
     <string name="account_filter_placeholder_label_not_following">Odfiltrowane z powodu: &lt;b&gt;nie obserwujesz tego konta&lt;/b&gt;</string>
     <string name="announcement_date">%1$s %2$s</string>
@@ -775,4 +775,7 @@
     <string name="compose_quote_policy_title">Kto może zacytować ten wpis?</string>
     <string name="compose_quote_policy_dialog_title">Zmienić ustawienia cytowania?</string>
     <string name="compose_quote_policy_dialog_body_fmt">Wpisy oznaczone \"%1$s\" lub \"%2$s\" muszą mieć cytowanie ustawione na \"%3$s\".\n\nCzy zmienić ustawienia cytowania?</string>
+    <string name="compose_task_description_writing_post">Pisanie wpisu</string>
+    <string name="compose_task_description_replying_fmt">Odpowiadanie %1$s</string>
+    <string name="compose_task_description_quoting_fmt">Cytowanie %1$s</string>
 </resources>
