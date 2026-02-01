@@ -157,7 +157,7 @@
     <string name="action_quote">Cytuj</string>
     <string name="action_request_quote">Poproś o zacytowanie</string>
     <string name="label_author_denied_quote">Cytowanie wyłączone przez autora</string>
-    <string name="post_replied_to_fmt">Odpowiedziano <b>%1$s</b></string>
+    <string name="post_replied_to_fmt">Odpowiedziano &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="label_quoted_status_hidden">Zacytowanie wpisu ukrytego przez jeden z twoich filtrów</string>
     <string name="detach_quote">Usuń cytat</string>
     <plurals name="quotes">
