@@ -6,5 +6,5 @@
     <string name="error_429_rate_limit_fmt">palvelimesi rajoittaa pyyntöjen taajuutta: %1$s</string>
     <string name="error_wrong_content_type_fmt">palveimesi on konfiguroitu väärin ja palautti \'%2$s\' väärällä sisältötyypillä, \'%1$s\'</string>
     <string name="error_missing_content_type_fmt">palvelimesi on konfiguroitu väärin, vastauksesta puuttuu sisältötyyppi: %1$s</string>
-    <string name="error_json_data_fmt">Palvelimesi vastaus ei ole kelvollinen: %1$s</string>
+    <string name="error_json_data_fmt">palvelimesi vastaus ei ole kelvollinen: %1$s</string>
 </resources>

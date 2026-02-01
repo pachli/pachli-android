@@ -1,0 +1,19 @@
+Pachli 1.3.0
+
+Nouveautés :
+
+-  Préférence de cache des "auto-partages"
+-  Nom d'utilisateur complet dans le profil
+-  Meilleur affichage des liens "obscurcis"
+-  Comportement du lecteur vidéo
+
+Corrections:
+
+-  Message de timeline vide visible
+-  Icônes de notifications Pachli bleu et orange
+-  Média visible à la reprise de ViewMediaFragment
+-  Indicateurs de fil et autres diviseurs avec les couleurs de Material
+
+Traductions:
+
+-  Mise à jour des traductions polonaise et japonaise
