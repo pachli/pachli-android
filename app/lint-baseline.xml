@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<issues format="6" by="lint 8.13.1" type="baseline" client="gradle" dependencies="true" name="AGP (8.13.1)" variant="all" version="8.13.1">
+<issues format="6" by="lint 8.13.2" type="baseline" client="gradle" dependencies="true" name="AGP (8.13.2)" variant="all" version="8.13.2">
 
     <issue
         id="MissingSuperCall"
@@ -16,14 +16,14 @@
         id="InvalidPackage"
         message="Invalid package reference in org.pageseeder.diffx:pso-diffx; not included in Android: `javax.xml.stream.events`. Referenced from `org.pageseeder.diffx.load.XMLEventLoader`.">
         <location
-            file="../../../.gradle/caches/modules-2/files-2.1/org.pageseeder.diffx/pso-diffx/1.1.1/b655ebc87588a857a4f3d88cf98bcefa87a6105b/pso-diffx-1.1.1.jar"/>
+            file="../../../.gradle/caches/modules-2/files-2.1/org.pageseeder.diffx/pso-diffx/1.3.1/bc941545f0193b52e89869f07ee2b410402e2cce/pso-diffx-1.3.1.jar"/>
     </issue>
 
     <issue
         id="InvalidPackage"
         message="Invalid package reference in org.pageseeder.diffx:pso-diffx; not included in Android: `javax.xml.stream`. Referenced from `org.pageseeder.diffx.format.StrictXMLDiffOutput`.">
         <location
-            file="../../../.gradle/caches/modules-2/files-2.1/org.pageseeder.diffx/pso-diffx/1.1.1/b655ebc87588a857a4f3d88cf98bcefa87a6105b/pso-diffx-1.1.1.jar"/>
+            file="../../../.gradle/caches/modules-2/files-2.1/org.pageseeder.diffx/pso-diffx/1.3.1/bc941545f0193b52e89869f07ee2b410402e2cce/pso-diffx-1.3.1.jar"/>
     </issue>
 
     <issue
@@ -154,7 +154,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/compose/ComposeActivity.kt"
-            line="588"
+            line="587"
             column="13"/>
     </issue>
 
@@ -165,7 +165,7 @@
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/compose/ComposeActivity.kt"
-            line="601"
+            line="600"
             column="17"/>
     </issue>
 
@@ -176,7 +176,7 @@
         errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/app/pachli/components/compose/ComposeActivity.kt"
-            line="606"
+            line="605"
             column="9"/>
     </issue>
 
