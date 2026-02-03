@@ -859,7 +859,7 @@ class MainActivity : ViewUrlActivity(), ActionButtonActivity, MenuProvider {
                     }
                     badgeStyle = BadgeStyle().apply {
                         textColor = ColorHolder.fromColor(MaterialColors.getColor(binding.mainDrawer, com.google.android.material.R.attr.colorOnPrimary))
-                        color = ColorHolder.fromColor(MaterialColors.getColor(binding.mainDrawer, com.google.android.material.R.attr.colorPrimary))
+                        color = ColorHolder.fromColor(MaterialColors.getColor(binding.mainDrawer, androidx.appcompat.R.attr.colorPrimary))
                     }
                 },
                 DividerDrawerItem(),

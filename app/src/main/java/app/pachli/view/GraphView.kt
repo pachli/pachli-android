@@ -102,7 +102,7 @@ class GraphView @JvmOverloads constructor(
         context.withStyledAttributes(attrs, DR.styleable.GraphView, defStyleAttr, DR.style.Pachli_Widget_GraphView) {
             primaryLineColor = getColor(
                 DR.styleable.GraphView_primaryLineColor,
-                MaterialColors.getColor(this@GraphView, com.google.android.material.R.attr.colorPrimary),
+                MaterialColors.getColor(this@GraphView, androidx.appcompat.R.attr.colorPrimary),
             )
 
             secondaryLineColor = getColor(
