@@ -209,7 +209,7 @@ class SearchActivity :
         // Badge to draw on the filter button if any filters are active.
         val filterBadgeDrawable = BadgeDrawable.create(this).apply {
             text = "!"
-            backgroundColor = MaterialColors.getColor(binding.toolbar, com.google.android.material.R.attr.colorPrimary)
+            backgroundColor = MaterialColors.getColor(binding.toolbar, androidx.appcompat.R.attr.colorPrimary)
         }
         BadgeUtils.attachBadgeDrawable(filterBadgeDrawable, binding.toolbar, R.id.action_filter_search)
 
