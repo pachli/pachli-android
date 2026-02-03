@@ -211,7 +211,6 @@ class SearchActivity :
             text = "!"
             backgroundColor = MaterialColors.getColor(binding.toolbar, androidx.appcompat.R.attr.colorPrimary)
         }
-        BadgeUtils.attachBadgeDrawable(filterBadgeDrawable, binding.toolbar, R.id.action_filter_search)
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
@@ -234,8 +233,10 @@ class SearchActivity :
 
                 launch {
                     viewModel.availableOperators.collectLatest {
+                        BadgeUtils.detachBadgeDrawable(filterBadgeDrawable, binding.toolbar, R.id.action_filter_search)
                         invalidateOptionsMenu()
                         setSearchViewWidth(showFilterIcon)
+                        BadgeUtils.attachBadgeDrawable(filterBadgeDrawable, binding.toolbar, R.id.action_filter_search)
                     }
                 }
 
@@ -247,12 +248,12 @@ class SearchActivity :
                             viewDataToChip[viewData::class.java]?.let { chip ->
                                 showFilterBadgeDrawable = showFilterBadgeDrawable or (viewData.operator.choice != null)
                                 chip.isChecked = viewData.operator.choice != null
-                                chip.setCloseIconVisible(viewData.operator.choice != null)
+                                chip.isCloseIconVisible = viewData.operator.choice != null
                                 chip.text = viewData.chipLabel(this@SearchActivity)
                             }
                         }
 
-                        filterBadgeDrawable.setVisible(showFilterBadgeDrawable)
+                        filterBadgeDrawable.isVisible = showFilterBadgeDrawable
                         viewModel.search()
                     }
                 }
