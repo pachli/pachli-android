@@ -55,7 +55,7 @@ class ViewEditsViewModel @Inject constructor(private val api: MastodonApi) : Vie
     val uiState: StateFlow<EditsUiState> = _uiState.asStateFlow()
 
     /** The API call to fetch edit history returned less than two items */
-    data object MissingEditsException : Exception()
+    class MissingEditsException : Exception()
 
     fun loadEdits(statusId: String, force: Boolean = false, refreshing: Boolean = false) {
         if (!force && _uiState.value !is EditsUiState.Initial) return
@@ -75,7 +75,7 @@ class ViewEditsViewModel @Inject constructor(private val api: MastodonApi) : Vie
             // `edits` might have fewer than the minimum number of entries because of
             // https://github.com/mastodon/mastodon/issues/25398.
             if (edits.size < 2) {
-                _uiState.value = EditsUiState.Error(MissingEditsException)
+                _uiState.value = EditsUiState.Error(MissingEditsException())
                 return@launch
             }
 
@@ -103,6 +103,7 @@ class ViewEditsViewModel @Inject constructor(private val api: MastodonApi) : Vie
                     .reversed()
                     .toMutableList()
 
+                // Deprecated call, see https://github.com/pageseeder/diffx/issues/12 for details.
                 SAXLoader.setXMLReaderClass("org.xmlpull.v1.sax2.Driver")
                 val loader = SAXLoader()
                 loader.config = DiffConfig(
@@ -196,7 +197,7 @@ class HtmlDiffOutput : XMLDiffOutput {
         // This space intentionally left blank
     }
 
-    override fun setNamespaces(namespaces: NamespaceSet?) {
+    override fun setNamespaces(namespaces: NamespaceSet) {
         // This space intentionally left blank
     }
 
