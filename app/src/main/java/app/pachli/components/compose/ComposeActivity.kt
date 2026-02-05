@@ -56,7 +56,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.content.IntentCompat
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.os.BundleCompat
 import androidx.core.view.ContentInfoCompat
 import androidx.core.view.OnReceiveContentListener
 import androidx.core.view.ViewGroupCompat
@@ -81,6 +80,7 @@ import app.pachli.components.compose.view.ComposeScheduleView
 import app.pachli.components.compose.view.ComposeVisibilityListener
 import app.pachli.components.compose.view.QuotePolicyListener
 import app.pachli.core.activity.BaseActivity
+import app.pachli.core.common.extensions.getParcelableCompat
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
@@ -393,7 +393,7 @@ class ComposeActivity :
 
         // Restore photoUploadUri early, as it's needed by `takePicture`.
         savedInstanceState?.let {
-            photoUploadUri = BundleCompat.getParcelable(it, KEY_PHOTO_UPLOAD_URI, Uri::class.java)
+            photoUploadUri = it.getParcelableCompat<Uri>(KEY_PHOTO_UPLOAD_URI)
         }
 
         setupActionBar()

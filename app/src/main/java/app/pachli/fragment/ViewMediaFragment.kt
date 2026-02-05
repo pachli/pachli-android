@@ -30,6 +30,8 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.media3.common.util.UnstableApi
 import app.pachli.ViewMediaActivity
 import app.pachli.ViewMediaViewModel
+import app.pachli.core.common.extensions.getParcelableCompat
+import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.model.Attachment
 import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.CompletableDeferred
@@ -112,7 +114,10 @@ abstract class ViewMediaFragment : Fragment() {
     protected var isDescriptionVisible = false
 
     /** The attachment to show */
-    protected lateinit var attachment: Attachment
+    protected val attachment: Attachment by unsafeLazy {
+        arguments?.getParcelableCompat<Attachment>(ARG_ATTACHMENT)
+            ?: throw IllegalArgumentException("ARG_ATTACHMENT has to be set")
+    }
 
     /** Listener to call as media is loaded or on user interaction */
     protected lateinit var mediaActionsListener: MediaActionsListener
@@ -121,7 +126,10 @@ abstract class ViewMediaFragment : Fragment() {
      * True if the fragment should call [MediaActionsListener.onMediaReady]
      * when the media is loaded.
      */
-    protected var shouldCallMediaReady = false
+    protected val shouldCallMediaReady: Boolean by unsafeLazy {
+        arguments?.getBoolean(ARG_SHOULD_CALL_MEDIA_READY)
+            ?: throw IllegalArgumentException("ARG_START_POSTPONED_TRANSITION has to be set")
+    }
 
     /** Awaitable signal that the transition has completed */
     var transitionComplete: CompletableDeferred<Unit>? = CompletableDeferred()
@@ -134,12 +142,6 @@ abstract class ViewMediaFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        attachment = arguments?.getParcelable(ARG_ATTACHMENT)
-            ?: throw IllegalArgumentException("ARG_ATTACHMENT has to be set")
-
-        shouldCallMediaReady = arguments?.getBoolean(ARG_SHOULD_CALL_MEDIA_READY)
-            ?: throw IllegalArgumentException("ARG_START_POSTPONED_TRANSITION has to be set")
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
