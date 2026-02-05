@@ -36,6 +36,8 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.media3.common.AudioAttributes
+import androidx.media3.common.C
 import androidx.media3.common.MediaItem
 import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
@@ -379,6 +381,13 @@ class ViewVideoFragment : ViewMediaFragment() {
         ExoPlayer.Builder(requireContext())
             .setMediaSourceFactory(mediaSourceFactory)
             .build().apply {
+                setAudioAttributes(
+                    AudioAttributes.Builder()
+                        .setContentType(if (isAudio) C.AUDIO_CONTENT_TYPE_UNKNOWN else C.AUDIO_CONTENT_TYPE_MOVIE)
+                        .setUsage(C.USAGE_MEDIA)
+                        .build(),
+                    true,
+                )
                 if (BuildConfig.DEBUG) addAnalyticsListener(EventLogger("${javaClass.simpleName}:ExoPlayer"))
                 setMediaItem(MediaItem.fromUri(attachment.url))
                 addListener(mediaPlayerListener)
