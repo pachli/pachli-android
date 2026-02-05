@@ -403,7 +403,7 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
 
         return@withContext runSuspendCatching { call.execute() }
             .onSuccess { response ->
-                response.body?.use { body ->
+                response.body.use { body ->
                     file.sink().buffer().use {
                         it.writeAll(body.source())
                     }
