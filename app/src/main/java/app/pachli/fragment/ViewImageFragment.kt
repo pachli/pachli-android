@@ -28,7 +28,6 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.core.view.ViewCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -65,7 +64,7 @@ class ViewImageFragment : ViewMediaFragment() {
     private lateinit var captionBehavior: BottomSheetBehavior<*>
 
     override fun setupMediaView(showingDescription: Boolean) {
-        ViewCompat.setTransitionName(binding.photoView, attachment.url)
+        binding.photoView.transitionName = attachment.url
 
         if (showingDescription) {
             binding.mediaDescription.text = attachment.description

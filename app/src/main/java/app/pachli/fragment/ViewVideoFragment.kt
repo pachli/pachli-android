@@ -32,7 +32,6 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.annotation.OptIn
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -434,7 +433,7 @@ class ViewVideoFragment : ViewMediaFragment() {
         // Ensure the description is visible over the video
         binding.mediaDescription.elevation = binding.videoView.elevation + 1
 
-        ViewCompat.setTransitionName(binding.videoView, attachment.url)
+        binding.videoView.transitionName = attachment.url
 
         if (!startedTransition && shouldCallMediaReady) {
             startedTransition = true

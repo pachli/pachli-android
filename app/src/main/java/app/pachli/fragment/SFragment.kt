@@ -30,7 +30,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.net.toUri
-import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import app.pachli.R
@@ -464,7 +463,7 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                 val intent = ViewMediaActivityIntent(requireContext(), pachliAccountId, owningUsername, attachments, urlIndex)
                 if (view != null) {
                     val url = attachment.url
-                    ViewCompat.setTransitionName(view, url)
+                    view.transitionName = url
                     val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
                         requireActivity(),
                         view,
