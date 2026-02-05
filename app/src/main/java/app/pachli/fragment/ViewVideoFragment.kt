@@ -248,7 +248,7 @@ class ViewVideoFragment : ViewMediaFragment() {
 
                         if (shouldCallMediaReady && !startedTransition) {
                             startedTransition = true
-                            mediaActivity.onMediaReady()
+                            mediaActionsListener.onMediaReady()
                         }
 
                         transitionComplete?.let {
