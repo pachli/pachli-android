@@ -59,6 +59,7 @@ import app.pachli.core.activity.ReselectableFragment
 import app.pachli.core.activity.extensions.TransitionKind
 import app.pachli.core.activity.extensions.startActivityWithDefaultTransition
 import app.pachli.core.activity.extensions.startActivityWithTransition
+import app.pachli.core.common.extensions.getParcelableCompat
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
@@ -148,7 +149,7 @@ class TimelineFragment :
 
     private val binding by viewBinding(FragmentTimelineBinding::bind)
 
-    private val timeline: Timeline by unsafeLazy { requireArguments().getParcelable(ARG_KIND)!! }
+    private val timeline: Timeline by unsafeLazy { requireArguments().getParcelableCompat<Timeline>(ARG_KIND)!! }
 
     private lateinit var adapter: TimelinePagingAdapter
 
