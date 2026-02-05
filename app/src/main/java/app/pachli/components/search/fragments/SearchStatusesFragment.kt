@@ -28,7 +28,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.net.toUri
-import androidx.core.view.ViewCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -167,7 +166,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
                 )
                 if (view != null) {
                     val url = actionable.attachments[attachmentIndex].url
-                    ViewCompat.setTransitionName(view, url)
+                    view.transitionName = url
                     val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
                         requireActivity(),
                         view,

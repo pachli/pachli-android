@@ -39,7 +39,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.MenuProvider
-import androidx.core.view.ViewCompat
 import androidx.core.view.ViewGroupCompat
 import androidx.core.view.children
 import androidx.core.widget.doAfterTextChanged
@@ -602,7 +601,7 @@ class AccountActivity :
     }
 
     private fun viewImage(view: View, owningUsername: String, uri: String) {
-        ViewCompat.setTransitionName(view, uri)
+        view.transitionName = uri
         startActivity(
             ViewMediaActivityIntent(view.context, intent.pachliAccountId, owningUsername, uri),
             ActivityOptionsCompat.makeSceneTransitionAnimation(this, view, uri).toBundle(),
