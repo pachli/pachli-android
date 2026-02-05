@@ -138,6 +138,8 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
     /** True if a call to [onPrepareMenu] represents a user-initiated action */
     private var respondToPrepareMenu = false
 
+    private lateinit var adapter: ViewMediaAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
@@ -170,7 +172,7 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
         // Adapter is actually of existential type PageAdapter & SharedElementsTransitionListener
         // but it cannot be expressed and if I don't specify type explicitly compilation fails
         // (probably a bug in compiler)
-        val adapter: ViewMediaAdapter = if (attachmentViewData != null) {
+        adapter = if (attachmentViewData != null) {
             val attachments = attachmentViewData!!.map(AttachmentViewData::attachment)
             // Setup the view pager.
             ImagePagerAdapter(this, attachments, initialPosition)
@@ -211,16 +213,20 @@ class ViewMediaActivity : BaseActivity(), MediaActionsListener {
             true
         }
 
-        window.sharedElementEnterTransition.addListener(
-            object : NoopTransitionListener {
-                override fun onTransitionEnd(transition: Transition) {
-                    window.sharedElementEnterTransition.removeListener(this)
-                    adapter.onTransitionEnd(binding.viewPager.currentItem)
-                }
-            },
-        )
-
         AudioBecomingNoisyReceiver(this) { adapter.onAudioBecomingNoisy() }
+    }
+
+    override fun onEnterAnimationComplete() {
+        super.onEnterAnimationComplete()
+        // Enter-and-shared-element-transitions (if any) have completed, inform
+        // the adapter so playback can start.
+        //
+        // Using window.sharedElementEnterTransition.addListener, and listening
+        // for onTransitionEnd isn't sufficient, as this activity may have been
+        // started without a shared element transition (e.g., the user has disabled
+        // downloading images, or the activity was started from an accessibility
+        // action.
+        adapter.onTransitionEnd(binding.viewPager.currentItem)
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
