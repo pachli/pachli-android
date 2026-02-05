@@ -89,7 +89,8 @@ class ViewVideoFragment : ViewMediaFragment() {
     private lateinit var toolbar: View
 
     private lateinit var mediaPlayerListener: Player.Listener
-    private var isAudio = false
+
+    private val isAudio: Boolean by unsafeLazy { attachment.type == Attachment.Type.AUDIO }
 
     private var player: ExoPlayer? = null
 
@@ -156,8 +157,6 @@ class ViewVideoFragment : ViewMediaFragment() {
             RepeatModeUtil.REPEAT_TOGGLE_MODE_ONE or
                 RepeatModeUtil.REPEAT_TOGGLE_MODE_ALL,
         )
-
-        isAudio = attachment.type == Attachment.Type.AUDIO
 
         toggleMuteButton.setOnClickListener {
             player?.let { viewModel.setAudioPlaybackState(audioPlaybackState.toggle(it.volume)) }
