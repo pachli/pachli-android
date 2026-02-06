@@ -1,0 +1,20 @@
+Pachli 2.10.0
+
+Nouveautés :
+
+- Police Atkinson Hyperlegible Next
+- Filtres de conversation et comptes
+- Montre la publication répondue
+
+Corrections :
+
+- Menu "rafraîchir" dupliqué
+- Surlignage de tags lors de l'édition
+- Évite les crashes multiples
+- Retire l'erreur "dummy.placeholder"
+- Tri des listes par titre
+- Crash de la taille de l'ascenseur
+
+Traductions :
+
+- Birman, Allemand, Indonésien, Irlandais, Kabyle, Lituanien, Norvégien Nynorsk nynorsk, Polonais, Slovaque, Espagnol, Suédois, Tamoul
