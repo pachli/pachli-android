@@ -1,0 +1,11 @@
+Pachli 2.10.1
+
+Corrections :
+
+- Toutes les langues sont sélectionnables dans les paramètres systèmes
+- Retire les données des anciens comptes avant de créer des contraintes de clé primaire
+- "Montrer quand même" marche dans toutes les timelines
+
+Traductions :
+
+- Finnois, Indonésien, Irlandais, Polonais
