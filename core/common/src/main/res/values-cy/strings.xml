@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="notification_listenable_worker_description">Hysbysiadau pan fydd Pachli\'n gweithio\'n y cefndir</string>
+    <string name="notification_listenable_worker_name">Gweithgaredd cefndirol</string>
+</resources>

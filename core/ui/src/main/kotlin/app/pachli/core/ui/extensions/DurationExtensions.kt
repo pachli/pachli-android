@@ -29,10 +29,19 @@ fun Duration.asDdHhMmSs(): String {
     val minutes = this.toMinutesPart()
     val seconds = this.toSecondsPart()
 
-    return when {
-        days > 0 -> "%02dd%02dh%02dm%02ds".format(days, hours, minutes, seconds)
-        hours > 0 -> "%02dh%02dm%02ds".format(hours, minutes, seconds)
-        minutes > 0 -> "%02dm%02ds".format(minutes, seconds)
-        else -> "%02ds".format(seconds)
+    return if (this.isNegative) {
+        when {
+            days < 0 -> "%02dd%02dh%02dm%02ds".format(days, hours, minutes, seconds)
+            hours < 0 -> "%02dh%02dm%02ds".format(hours, minutes, seconds)
+            minutes < 0 -> "%02dm%02ds".format(minutes, seconds)
+            else -> "%02ds".format(seconds)
+        }
+    } else {
+        when {
+            days > 0 -> "%02dd%02dh%02dm%02ds".format(days, hours, minutes, seconds)
+            hours > 0 -> "%02dh%02dm%02ds".format(hours, minutes, seconds)
+            minutes > 0 -> "%02dm%02ds".format(minutes, seconds)
+            else -> "%02ds".format(seconds)
+        }
     }
 }

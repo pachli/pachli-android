@@ -32,14 +32,14 @@ import app.pachli.components.compose.MediaUploaderError.PrepareMediaError
 import app.pachli.components.compose.UploadState.Uploaded
 import app.pachli.core.common.PachliError
 import app.pachli.core.common.string.randomAlphanumericString
+import app.pachli.core.common.util.MEDIA_SIZE_UNKNOWN
 import app.pachli.core.common.util.formatNumber
+import app.pachli.core.common.util.getImageSquarePixels
+import app.pachli.core.common.util.getMediaSize
 import app.pachli.core.model.InstanceInfo
 import app.pachli.core.network.model.MediaUploadApi
 import app.pachli.core.network.retrofit.apiresult.ApiError
-import app.pachli.util.MEDIA_SIZE_UNKNOWN
 import app.pachli.util.asRequestBody
-import app.pachli.util.getImageSquarePixels
-import app.pachli.util.getMediaSize
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import com.github.michaelbull.result.Result

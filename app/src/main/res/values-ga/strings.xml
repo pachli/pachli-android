@@ -521,8 +521,6 @@
     <string name="confirmation_hashtag_unmuted">#%s gan cheilt</string>
     <string name="pref_title_notification_filter_sign_ups">Chláraigh duine éigin</string>
     <string name="pref_default_post_language">Teanga phostála réamhshocraithe</string>
-    <string name="notification_listenable_worker_name">Gníomhaíocht chúlra</string>
-    <string name="notification_listenable_worker_description">Fógraí nuair atá Pachli ag obair sa chúlra</string>
     <string name="compose_save_draft_loses_media">Uaslódálfar ceangaltáin arís nuair a chuirfidh tú an dréacht ar ais.</string>
     <string name="update_dialog_title">Tá nuashonrú ar fáil</string>
     <string name="update_dialog_neutral">Ná cuir an leagan seo i gcuimhne dom</string>
@@ -546,7 +544,6 @@
     <string name="notification_severed_relationships_format">Scaradh an gaol le &lt;b&gt;%1$s&lt;/b&gt;</string>
     <string name="action_share_account_link">Comhroinn nasc chuig an gcuntas</string>
     <string name="pref_title_show_self_boosts_description">Duine éigin ag cur lena bpost féin</string>
-    <string name="notification_prune_cache">Cothabháil taisce…</string>
     <string name="description_login">Oibríonn sé i bhformhór na gcásanna. Ní sceitear aon sonraí chuig aipeanna eile.</string>
     <string name="ui_success_accepted_follow_request">Glacadh leis an iarratas seo a leanas</string>
     <string name="filter_edit_keyword_title">Cuir eochairfhocal in eagar</string>

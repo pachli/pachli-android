@@ -412,15 +412,12 @@
     <string name="notification_report_description">Anna teada modereerimisteatise koostamisest</string>
     <string name="notification_severed_relationships_name">Katkenud võrgustik</string>
     <string name="notification_severed_relationships_description">Anna teada jälgijate/jälgitavate võrgustiku katkemisest</string>
-    <string name="notification_listenable_worker_name">Tegevus taustal</string>
-    <string name="notification_listenable_worker_description">Teavita ka siis, kui Pachli töötab taustal</string>
     <string name="notification_unknown_name">Tundmatu</string>
     <string name="notification_mention_format">%s mainis sind</string>
     <string name="notification_summary_large" tools:ignore="PluralsCandidate">%1$s, %2$s, %3$s ja %4$d muud kasutajat</string>
     <string name="notification_summary_medium">%1$s, %2$s ja %3$s</string>
     <string name="notification_summary_small">%1$s ja %2$s</string>
     <string name="notification_notification_worker">Laadin teavitusi…</string>
-    <string name="notification_prune_cache">Vahemälu hooldus…</string>
     <string name="description_account_locked">Lukustatud kasutajakonto</string>
     <string name="post_share_content">Jaga postituse sisu</string>
     <string name="post_share_link">Jaga postituse linki</string>

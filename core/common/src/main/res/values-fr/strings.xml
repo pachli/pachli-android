@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="notification_listenable_worker_description">Notification de travail en arrière-plan de Pachli</string>
+    <string name="notification_listenable_worker_name">Activité en arrière-plan</string>
+</resources>

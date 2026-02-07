@@ -111,6 +111,7 @@ class AboutFragmentAdapter(val activity: FragmentActivity) : FragmentStateAdapte
         add(TabData(R.string.about_privacy_policy) { PrivacyPolicyFragment.newInstance() })
         add(TabData(R.string.about_notifications) { NotificationFragment.newInstance() })
         add(TabData(R.string.about_database) { DatabaseFragment.newInstance() })
+        add(TabData(R.string.about_workers) { WorkersFragment.newInstance() })
     }
 
     override fun getItemCount() = fragments.size

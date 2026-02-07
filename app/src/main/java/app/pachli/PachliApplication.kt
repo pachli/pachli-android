@@ -24,19 +24,19 @@ import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
-import app.pachli.components.notifications.createWorkerNotificationChannel
 import app.pachli.core.activity.LogEntryTree
 import app.pachli.core.activity.TreeRing
 import app.pachli.core.activity.initCrashReporter
+import app.pachli.core.common.util.createWorkerNotificationChannel
 import app.pachli.core.preferences.NEW_INSTALL_SCHEMA_VERSION
 import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SCHEMA_VERSION
 import app.pachli.core.preferences.SharedPreferencesRepository
+import app.pachli.core.worker.PruneCacheWorker
+import app.pachli.core.worker.PruneCachedMediaWorker
+import app.pachli.core.worker.PruneLogEntryEntityWorker
 import app.pachli.util.LocaleManager
 import app.pachli.util.setAppNightMode
-import app.pachli.worker.PruneCacheWorker
-import app.pachli.worker.PruneCachedMediaWorker
-import app.pachli.worker.PruneLogEntryEntityWorker
 import com.mikepenz.iconics.Iconics
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial
 import dagger.hilt.android.HiltAndroidApp
@@ -124,7 +124,7 @@ class PachliApplication : Application() {
             .build()
         workManager.enqueueUniquePeriodicWork(
             PruneCacheWorker.PERIODIC_WORK_TAG,
-            ExistingPeriodicWorkPolicy.KEEP,
+            ExistingPeriodicWorkPolicy.UPDATE,
             pruneCacheWorker,
         )
 
@@ -134,7 +134,7 @@ class PachliApplication : Application() {
             .build()
         workManager.enqueueUniquePeriodicWork(
             PruneLogEntryEntityWorker.PERIODIC_WORK_TAG,
-            ExistingPeriodicWorkPolicy.KEEP,
+            ExistingPeriodicWorkPolicy.UPDATE,
             pruneLogEntryEntityWorker,
         )
 
@@ -144,7 +144,7 @@ class PachliApplication : Application() {
             .build()
         workManager.enqueueUniquePeriodicWork(
             PruneCachedMediaWorker.PERIODIC_WORK_TAG,
-            ExistingPeriodicWorkPolicy.KEEP,
+            ExistingPeriodicWorkPolicy.UPDATE,
             pruneCachedMediaWorker,
         )
     }

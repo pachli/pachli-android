@@ -467,7 +467,6 @@
     <string name="ui_error_translate_status_fmt">La traducción falló: %1$s</string>
     <string name="update_dialog_negative">Nunca me lo recuerdes</string>
     <string name="dialog_delete_filter_positive_action">Borrar</string>
-    <string name="notification_listenable_worker_name">Actividad de fondo</string>
     <string name="pref_title_update_notification_frequency">Notifícame sobre nuevas versiones de Pachli</string>
     <string name="title_public_trending_links">Enlaces en tendencia</string>
     <string name="title_tab_public_trending_links">Enlaces</string>
@@ -489,14 +488,12 @@
     <string name="announcement_date_updated">(Actualizado: %1$s)</string>
     <string name="title_tab_public_trending_statuses">Publicaciones</string>
     <string name="pref_title_font_family">Familia de fuente</string>
-    <string name="notification_listenable_worker_description">Notificaciones cuando Pachli está trabajando en el fondo</string>
     <string name="action_translate">Traducir</string>
     <string name="error_missing_edits">Tu servidor sabe que esta publicación fue editada, pero no tiene una copia de las ediciones, así que no pueden ser mostradas. \n \nEsto es la <a href="https://github.com/mastodon/mastodon/issues/25398">incidencia núm. 25398</a> de Mastodon.</string>
     <string name="update_dialog_title">Una actualización está disponible</string>
     <string name="title_tab_public_trending_hashtags">Etiquetas</string>
     <string name="label_image">Imagen</string>
     <string name="action_translate_undo">Deshacer traducción</string>
-    <string name="notification_prune_cache">Mantenimiento de caché…</string>
     <string name="pref_summary_content_filters">Tu servidor no es compatible con los filtros de contenido</string>
     <string name="error_media_download">No se pudo descargar %1$s: %2$s</string>
     <string name="pref_title_update_check_now">Buscar actualizaciones ahora</string>

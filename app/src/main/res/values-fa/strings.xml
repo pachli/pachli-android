@@ -467,10 +467,7 @@
 \n
 \nاین <a href="https://github.com/mastodon/mastodon/issues/25398">نکتهٔ ماستودون</a> را ببینید.</string>
     <string name="pref_ui_text_size">اندازهٔ متن میانای کاربری</string>
-    <string name="notification_listenable_worker_name">فعّالیت پس‌زمینه</string>
-    <string name="notification_listenable_worker_description">آگاهی‌ها هنگامی که تاسکی در پس‌زمینه کار می‌کند</string>
     <string name="notification_notification_worker">واکشی آگاهی‌ها…</string>
-    <string name="notification_prune_cache">نگه‌داری انباره…</string>
     <string name="error_media_playback">پخش شکست خورد: %s</string>
     <string name="dialog_delete_filter_positive_action">حذف</string>
     <string name="dialog_delete_filter_text">«%1$s» حذف پالایهٔ ؟</string>

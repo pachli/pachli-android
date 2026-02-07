@@ -142,6 +142,7 @@ dependencies {
     implementation(projects.core.network)
     implementation(projects.core.preferences)
     implementation(projects.core.ui)
+    implementation(projects.core.worker)
 
     implementation(projects.feature.about)
     implementation(projects.feature.intentrouter)

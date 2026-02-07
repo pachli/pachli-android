@@ -306,7 +306,6 @@
     <string name="notification_favourite_description">Ilmoitukset julkaisujesi tykkäyksistä</string>
     <string name="notification_follow_request_description">Ilmoitukset seuraamispyynnöistä</string>
     <string name="pref_title_notification_filter_sign_ups">Joku rekisteröityi</string>
-    <string name="notification_listenable_worker_name">Taustatoiminta</string>
     <string name="pref_title_hide_follow_button">Piilota kirjoita-painike vieritettäessä</string>
     <string name="send_post_notification_error_title">Julkaisun lähettäminen epäonnistui</string>
     <string name="pref_title_notification_filter_follow_requests">Seuraamista pyydetty</string>
@@ -339,7 +338,6 @@
     <string name="pref_title_font_family">Kirjasinperhe</string>
     <string name="notification_mention_descriptions">Ilmoitukset uusista maininnoista</string>
     <string name="notification_update_description">Ilmoitukset, kun viestit, joihin olet reagoinut, on muokattu</string>
-    <string name="notification_listenable_worker_description">Ilmoitukset Pachlin toimiessa taustalla</string>
     <string name="pref_title_notification_filter_reblogs">Tehostetut julkaisut</string>
     <string name="post_share_content">Jaa julkaisun sisältö</string>
     <string name="pref_title_http_proxy_port">HTTP-välityspalvelimen portti</string>
@@ -354,7 +352,6 @@
     <string name="pref_title_notification_alert_light">Ilmoita valolla</string>
     <string name="failed_to_pin">Kiinnittäminen epäonnistui</string>
     <string name="notification_follow_description">Ilmoitukset uusista seuraajista</string>
-    <string name="notification_prune_cache">Välimuistin ylläpito…</string>
     <string name="pref_ui_text_size">Käyttöliittymän tekstikoko</string>
     <string name="ui_error_translate_status_fmt">Kääntäminen epäonnistui: %1$s</string>
     <string name="update_dialog_negative">Älä muistuta koskaan</string>

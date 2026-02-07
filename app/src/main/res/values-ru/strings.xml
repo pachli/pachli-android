@@ -445,11 +445,8 @@
     <string name="notification_severed_relationships_description">Уведомления о разорванных связях</string>
     <string name="notification_moderation_warnings_name">Предупреждения модерации</string>
     <string name="notification_moderation_warnings_description">Уведомления о предупреждениях модерации</string>
-    <string name="notification_listenable_worker_name">Фоновая активность</string>
-    <string name="notification_listenable_worker_description">Уведомления о работе Pachli в фоновом режиме</string>
     <string name="notification_unknown_name">Неизвестно</string>
     <string name="notification_notification_worker">Получение уведомлений…</string>
-    <string name="notification_prune_cache">Обслуживание кеша…</string>
     <string name="pref_title_public_filter_home_and_lists">Домашняя и списки</string>
     <string name="pref_title_account_filter_keywords">Профили</string>
     <string name="filter_expiration_format">%s (%s)</string>

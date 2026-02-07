@@ -386,8 +386,6 @@
     <string name="notification_sign_up_description">Upozornenia na nové účty</string>
     <string name="notification_update_name">Úpravy príspevkov</string>
     <string name="notification_report_name">Hlásenia</string>
-    <string name="notification_listenable_worker_name">Aktivita na pozadí</string>
-    <string name="notification_listenable_worker_description">Upozornenia, keď Pachli beží na pozadí</string>
     <string name="notification_unknown_name">Neznáme</string>
     <string name="notification_mention_format">%s ťa zmienil/a</string>
     <string name="notification_summary_medium">%1$s, %2$s a %3$s</string>
@@ -493,7 +491,6 @@
     <string name="label_filter_title">Názov</string>
     <string name="pref_notification_up_distributor_none">Žiadny</string>
     <string name="notification_notification_worker">Načítavam upozornenia…</string>
-    <string name="notification_prune_cache">Údržba cache…</string>
     <string name="load_newest_statuses">Načítať najnovšie príspevky</string>
     <string name="update_dialog_neutral">Neupozorňuj ma na túto verziu</string>
     <string name="reblog_private">Zdieľať s pôvodným publikom</string>

@@ -458,10 +458,7 @@
 \n
 \nĐây là <a href="https://github.com/mastodon/mastodon/issues/25398">Lỗi Mastodon #25398</a>.</string>
     <string name="pref_ui_text_size">Cỡ chữ giao diện</string>
-    <string name="notification_listenable_worker_name">Hoạt động chạy nền</string>
-    <string name="notification_listenable_worker_description">Thông báo khi Pachli hoạt động ngầm</string>
     <string name="notification_notification_worker">Đang nạp thông báo…</string>
-    <string name="notification_prune_cache">Bảo trì bộ nhớ đệm…</string>
     <string name="error_media_playback">Không thể phát: %s</string>
     <string name="dialog_delete_filter_text">Xóa bộ lọc \'%1$s\'?</string>
     <string name="dialog_delete_filter_positive_action">Xóa</string>

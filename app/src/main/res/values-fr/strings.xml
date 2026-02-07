@@ -489,9 +489,7 @@
     <string name="error_media_playback">La lecture a échoué : %s</string>
     <string name="dialog_save_profile_changes_message">Voulez-vous sauvegarder les changements apportés à votre profil ?</string>
     <string name="reaction_name_and_count">%1$s %2$d</string>
-    <string name="notification_listenable_worker_name">Activité en arrière-plan</string>
     <string name="notification_notification_worker">Récupération des notifications …</string>
-    <string name="notification_prune_cache">Maintenance du cache …</string>
     <string name="announcement_date">%1$s %2$s</string>
     <string name="title_quotes">Citations</string>
     <plurals name="followed_hashtags_posts_count_fmt">
@@ -569,7 +567,6 @@
     <string name="notification_quote_description">Notification de citation de vos messages</string>
     <string name="notification_quoted_update_name">Modification de citation</string>
     <string name="notification_quoted_update_description">Notification de modification de messages que vous avez cités</string>
-    <string name="notification_listenable_worker_description">Notification de travail en arrière-plan de Pachli</string>
     <string name="pref_title_public_filter_home_and_lists">Accueil et listes</string>
     <string name="manage_accounts_name">Gestion des comptes</string>
     <string name="manage_lists">Gestion des listes</string>

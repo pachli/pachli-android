@@ -220,7 +220,6 @@
     <string name="notification_subscription_name">புதிய பதிவுகள்</string>
     <string name="notification_sign_up_name">பதிவுபெறும்</string>
     <string name="notification_report_description">மிதமான அறிக்கைகள் பற்றிய அறிவிப்புகள்</string>
-    <string name="notification_prune_cache">கேச் பராமரிப்பு…</string>
     <string name="pref_title_thread_filter_keywords">உரையாடல்கள்</string>
     <string name="pref_title_account_filter_keywords">சுயவிவரங்கள்</string>
     <string name="filter_dialog_update_button">புதுப்பிப்பு</string>
@@ -251,8 +250,6 @@
     <string name="post_text_size_small">சிறிய</string>
     <string name="notification_subscription_description">அறிவிப்புகள் நீங்கள் ஒரு புதிய இடுகையை வெளியிட நீங்கள் சந்தா செலுத்தியபோது</string>
     <string name="notification_report_name">அறிக்கைகள்</string>
-    <string name="notification_listenable_worker_name">பின்னணி செயல்பாடு</string>
-    <string name="notification_listenable_worker_description">பச்ச்லி பின்னணியில் வேலை செய்யும் போது அறிவிப்புகள்</string>
     <string name="notification_unknown_name">தெரியவில்லை</string>
     <string name="notification_notification_worker">அறிவிப்புகளைப் பெறுதல்…</string>
     <string name="pref_title_public_filter_keywords">பொது காலவரிசைகள்</string>

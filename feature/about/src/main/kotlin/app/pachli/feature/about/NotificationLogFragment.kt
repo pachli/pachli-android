@@ -21,41 +21,28 @@ import android.app.Activity
 import android.app.usage.UsageEvents
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.text.SpannableString
-import android.text.SpannableStringBuilder
-import android.text.style.ForegroundColorSpan
-import android.text.style.RelativeSizeSpan
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import androidx.core.text.set
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import androidx.work.WorkInfo
 import androidx.work.WorkInfo.State.CANCELLED
 import androidx.work.WorkInfo.State.ENQUEUED
 import app.pachli.core.activity.RefreshableFragment
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.database.dao.LogEntryDao
-import app.pachli.core.database.model.LogEntryEntity
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.core.ui.extensions.asDdHhMmSs
 import app.pachli.core.ui.extensions.await
 import app.pachli.core.ui.extensions.instantFormatter
 import app.pachli.feature.about.databinding.FragmentNotificationLogBinding
-import app.pachli.feature.about.databinding.ItemLogEntryBinding
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -389,67 +376,5 @@ class NotificationLogFragment :
                 instantFormatter.format(then),
             ),
         )
-    }
-}
-
-class LogEntryAdapter : ListAdapter<LogEntryEntity, LogEntryAdapter.ViewHolder>(diffCallback) {
-    class ViewHolder(private val binding: ItemLogEntryBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(logEntry: LogEntryEntity) {
-            val now = Instant.now()
-
-            val tag = SpannableString(logEntry.tag).apply { set(0, this.length, tagSpan) }
-            val duration = Duration.between(logEntry.instant, now).asDdHhMmSs()
-            val instant = logEntry.instant.toString()
-
-            val timestamp = SpannableStringBuilder()
-                .append(tag)
-                .append(": ")
-                .append(
-                    binding.root.context.getString(
-                        R.string.notification_details_ago,
-                        duration,
-                        instant,
-                    ),
-                )
-                .apply {
-                    set(0, this.length, tagSpan)
-                    set(0, this.length, RelativeSizeSpan(0.7f))
-                }
-
-            binding.timestamp.text = timestamp
-
-            val text = SpannableStringBuilder()
-            text.append(
-                SpannableString("%s%s".format(logEntry.message, logEntry.t?.let { t -> " $t" } ?: "")).apply {
-                    set(0, this.length, messageSpan)
-                    set(0, this.length, prioritySpan[logEntry.priority] ?: ForegroundColorSpan(Color.GRAY))
-                },
-            )
-
-            binding.text.text = text
-        }
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(ItemLogEntryBinding.inflate(LayoutInflater.from(parent.context), parent, false))
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(getItem(position))
-
-    companion object {
-        val tagSpan = ForegroundColorSpan(Color.GRAY)
-        val messageSpan = ForegroundColorSpan(Color.BLACK)
-
-        private val prioritySpan = mapOf(
-            Log.VERBOSE to ForegroundColorSpan(Color.GRAY),
-            Log.DEBUG to ForegroundColorSpan(Color.GRAY),
-            Log.INFO to ForegroundColorSpan(Color.BLACK),
-            Log.WARN to ForegroundColorSpan(Color.YELLOW),
-            Log.ERROR to ForegroundColorSpan(Color.RED),
-            Log.ASSERT to ForegroundColorSpan(Color.RED),
-        )
-
-        val diffCallback = object : DiffUtil.ItemCallback<LogEntryEntity>() {
-            override fun areItemsTheSame(oldItem: LogEntryEntity, newItem: LogEntryEntity) = oldItem.id == newItem.id
-            override fun areContentsTheSame(oldItem: LogEntryEntity, newItem: LogEntryEntity) = false
-        }
     }
 }

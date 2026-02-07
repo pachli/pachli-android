@@ -467,8 +467,5 @@
     <string name="load_newest_notifications">Cargar las notificacions mai recentas</string>
     <string name="compose_delete_draft">Suprimir lo borrolhon \?</string>
     <string name="pref_ui_text_size">talha tèxte UI</string>
-    <string name="notification_listenable_worker_name">activitat en rèireplan</string>
-    <string name="notification_listenable_worker_description">Notificacions quand Tuska s’executa en rèireplan</string>
     <string name="notification_notification_worker">Recuperacion de las notificacions…</string>
-    <string name="notification_prune_cache">Manteniment del cache…</string>
 </resources>

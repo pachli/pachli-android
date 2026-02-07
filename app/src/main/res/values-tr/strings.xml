@@ -462,10 +462,7 @@
     <string name="total_accounts">Toplam hesap</string>
     <string name="accessibility_talking_about_tag">%1$d kişi %2$s etiketi hakkında konuşuyor</string>
     <string name="pref_ui_text_size">UI yazı boyutu</string>
-    <string name="notification_listenable_worker_name">Arkaplan etkinliği</string>
-    <string name="notification_listenable_worker_description">Pachli arka planda çalışırken gelen bildirimler</string>
     <string name="notification_notification_worker">Bildirimler getiriliyor…</string>
-    <string name="notification_prune_cache">Önbellek bakımı…</string>
     <string name="load_newest_notifications">En yeni bildirimleri yükle</string>
     <string name="compose_delete_draft">Taslağı sil\?</string>
     <string name="error_missing_edits">Sunucunuz bu gönderinin düzenlendiğini bilir, ancak düzenlemelerin bir kopyası yoktur, bu nedenle bunlar size gösterilemez.

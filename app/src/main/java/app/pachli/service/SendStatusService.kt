@@ -102,7 +102,7 @@ class SendStatusService : Service() {
             }
 
             val builder = NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_notify)
+                .setSmallIcon(app.pachli.core.common.R.drawable.ic_notify)
                 .setContentTitle(getString(R.string.send_post_notification_title))
                 .setContentText(notificationText)
                 .setProgress(1, 0, true)
@@ -423,7 +423,7 @@ class SendStatusService : Service() {
         )
 
         return NotificationCompat.Builder(this@SendStatusService, CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_notify)
+            .setSmallIcon(app.pachli.core.common.R.drawable.ic_notify)
             .setContentTitle(getString(title))
             .setContentText(getString(content))
             .setColor(getColor(DR.color.notification_color))
