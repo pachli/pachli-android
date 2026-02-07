@@ -24,6 +24,7 @@ import androidx.room.TypeConverters
 import app.pachli.core.database.Converters
 import app.pachli.core.database.model.LogEntryEntity
 import java.time.Instant
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Read and write [LogEntryEntity].
@@ -33,7 +34,7 @@ interface LogEntryDao {
     @Insert
     suspend fun insert(logEntry: LogEntryEntity): Long
 
-    /** Load all [LogEntryEntity], ordered oldest first */
+    /** Load all [LogEntryEntity], ordered oldest first. */
     @Query(
         """
 SELECT *
@@ -42,6 +43,17 @@ ORDER BY id ASC
 """,
     )
     suspend fun loadAll(): List<LogEntryEntity>
+
+    /** Load all [LogEntryEntity] from a specific [tag], ordered oldest first. */
+    @Query(
+        """
+SELECT *
+FROM LogEntryEntity
+WHERE tag = :tag
+ORDER BY id ASC
+        """,
+    )
+    fun loadAllByTag(tag: String): Flow<List<LogEntryEntity>>
 
     /** Delete all [LogEntryEntity] older than [cutoff] */
     @TypeConverters(Converters::class)
@@ -52,5 +64,5 @@ FROM LogEntryEntity
 WHERE instant < :cutoff
 """,
     )
-    suspend fun prune(cutoff: Instant)
+    suspend fun prune(cutoff: Instant): Int
 }

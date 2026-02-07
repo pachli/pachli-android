@@ -215,7 +215,6 @@
     <string name="notification_summary_large">%1$s, %2$s, %3$s, og %4$d andre</string>
     <string name="notification_summary_medium">%1$s, %2$s, og %3$s</string>
     <string name="notification_summary_small">%1$s og %2$s</string>
-    <string name="notification_prune_cache">Hurtiglagringsvedlikehald…</string>
     <string name="state_follow_requested">Fylgjeførespurnad send</string>
     <string name="follows_you">Fylgjer deg</string>
     <string name="pref_title_alway_show_sensitive_media">Syn alltid sensitivt innhald</string>
@@ -339,8 +338,6 @@
     <string name="notification_report_description">Varsel om modereringsrapportar</string>
     <string name="notification_severed_relationships_name">Brotne forhold</string>
     <string name="notification_severed_relationships_description">Varsel om brotne forhold</string>
-    <string name="notification_listenable_worker_name">Bakgrunnsaktivitet</string>
-    <string name="notification_listenable_worker_description">Varsel når Pachli arbeider i bakgrunnen</string>
     <string name="notification_unknown_name">Ukjend</string>
     <string name="notification_mention_format">%s nemnde deg</string>
     <string name="notification_notification_worker">Hentar varsel…</string>

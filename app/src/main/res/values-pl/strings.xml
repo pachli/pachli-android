@@ -416,7 +416,6 @@
     <string name="action_share_account_username">Udostępnij nazwę osoby używającej konta</string>
     <string name="action_share_account_link">Udostępnij odnośnik do konta</string>
     <string name="dialog_delete_filter_positive_action">Usuń</string>
-    <string name="notification_listenable_worker_name">Aktywność w tle</string>
     <string name="filter_action_warn">Ostrzeżenie</string>
     <string name="title_public_trending_links">Popularne aktualności</string>
     <string name="title_tab_public_trending_links">Aktualności</string>
@@ -447,7 +446,6 @@
     <string name="label_image">Obraz</string>
     <string name="action_add">Dodaj</string>
     <string name="pref_ui_text_size">Rozmiar tekstu interfejsu</string>
-    <string name="notification_listenable_worker_description">Powiadomienia gdy Pachli działa w tle</string>
     <string name="notification_severed_relationships_account_suspension_body">Konto zawieszone przez osobę moderującą</string>
     <string name="notification_severed_relationships_unknown_body">Nieznany powód</string>
     <plurals name="notification_severed_relationships_summary_following_fmt">
@@ -480,7 +478,6 @@
     <string name="confirmation_hashtag_unmuted">Cofnięto ukrycie #%s</string>
     <string name="notification_severed_relationships_user_domain_block_body">Domena zablokowana przez ciebie</string>
     <string name="notification_severed_relationships_domain_block_body">Domena zawieszona przez osobę moderującą</string>
-    <string name="notification_prune_cache">Zarządzanie cache…</string>
     <string name="conversation_0_recipients">Brak innych uczestników</string>
     <string name="action_manage_tabs">Zarządzaj kartami</string>
     <string name="ui_success_rejected_follow_request">Odrzucono prośbę o obserwację</string>

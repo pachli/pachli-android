@@ -470,10 +470,7 @@
     <string name="help_empty_home">Hwn yw\'ch <b>ffrwd cartref</b>. Mae\'n dangos negeseuon diweddar y cyfrifon rydych yn eu dilyn. \n \nI archwilio cyfrifon gallwch un ai eu darganfod o fewn un o\'r llinellau amser eraill. Er enghraifft, mae llinell amser eich enghraifft chi [iconics gmd_group]. Neu gallwch eu chwilio yn ôl eu henw [iconics gmd_search]; er enghraifft, chwilio am Pachli i ganfod ein cyfrif Mastodon.</string>
     <string name="pref_title_show_stat_inline">Dangos ystadegau negeseuon mewn llinell amser</string>
     <string name="pref_ui_text_size">Maint testun rhyngwyneb</string>
-    <string name="notification_listenable_worker_name">Gweithgaredd cefndirol</string>
-    <string name="notification_listenable_worker_description">Hysbysiadau pan fydd Pachli\'n gweithio\'n y cefndir</string>
     <string name="notification_notification_worker">Yn estyn hysbysiadau…</string>
-    <string name="notification_prune_cache">Cynnal a chadw\'r storfan…</string>
     <string name="error_missing_edits">Mae\'ch gweinydd yn gwybod fod y neges hon wedi ei olygu, ond nid oes ganddo gopi o\'r golygiadau, felly nid oes modd eu dangos i chi.
 \n
 \nHwn yw <a href="https://github.com/mastodon/mastodon/issues/25398">mater Mastodon #25398</a>.</string>

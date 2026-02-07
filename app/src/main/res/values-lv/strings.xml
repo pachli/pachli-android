@@ -452,11 +452,8 @@
     <string name="action_suggestions">Ieteiktie konti</string>
     <string name="action_refresh_account">Atsvaidzināt kontu</string>
     <string name="confirmation_hashtag_muted">#%s paslēpts</string>
-    <string name="notification_prune_cache">Kešatmiņas uzturēšanas darbi…</string>
-    <string name="notification_listenable_worker_description">Paziņojumi, kad Pachli darbojas fonā</string>
     <string name="profile_metadata_label_label">Iezīme</string>
     <string name="notification_unknown_name">Nezināms</string>
-    <string name="notification_listenable_worker_name">Fona darbības</string>
     <plurals name="notification_title_summary">
         <item quantity="zero">%d jaunu mijiedarbību</item>
         <item quantity="one">%d jauna mijiedarbība</item>

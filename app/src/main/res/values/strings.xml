@@ -358,8 +358,6 @@
     <string name="notification_quote_description">Notifications about someone quoting your posts</string>
     <string name="notification_quoted_update_name">Quoted post edits</string>
     <string name="notification_quoted_update_description">Notifications when posts you\'ve quoted are edited</string>
-    <string name="notification_listenable_worker_name">Background activity</string>
-    <string name="notification_listenable_worker_description">Notifications when Pachli is working in the background</string>
     <string name="notification_unknown_name">Unknown</string>
     <string name="notification_mention_format">%s mentioned you</string>
     <string name="notification_summary_large" tools:ignore="PluralsCandidate">%1$s, %2$s, %3$s and %4$d others</string>
@@ -370,7 +368,6 @@
         <item quantity="other">%d new interactions</item>
     </plurals>
     <string name="notification_notification_worker">Fetching notifications…</string>
-    <string name="notification_prune_cache">Cache maintenance…</string>
     <string name="description_account_locked">Locked Account</string>
     <!-- note to translators:
          * you should think of “free” as in “free speech,” not as in “free beer”.

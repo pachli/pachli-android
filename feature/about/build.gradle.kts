@@ -66,6 +66,7 @@ dependencies {
     implementation(projects.core.model)
     implementation(projects.core.navigation)
     implementation(projects.core.ui)
+    implementation(projects.core.worker)
 
     // TODO: These three dependencies are required by BottomSheetActivity,
     // make this part of the projects.core.activity API?

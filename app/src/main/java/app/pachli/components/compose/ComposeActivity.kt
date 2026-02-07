@@ -86,6 +86,7 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.string.mastodonLength
+import app.pachli.core.common.util.getMediaSize
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.Loadable
 import app.pachli.core.database.model.AccountEntity
@@ -119,7 +120,6 @@ import app.pachli.languageidentification.UNDETERMINED_LANGUAGE_TAG
 import app.pachli.util.PickMediaFiles
 import app.pachli.util.getInitialLanguages
 import app.pachli.util.getLocaleList
-import app.pachli.util.getMediaSize
 import app.pachli.util.highlightSpans
 import app.pachli.util.modernLanguageCode
 import app.pachli.util.setDrawableTint
@@ -1891,7 +1891,7 @@ class ComposeActivity :
      * @param localId Pachli identified for this media, while it's queued.
      * @param uri Local URI for this media on device.
      * @param type Media's [Type].
-     * @param mediaSize Media size in bytes, or [app.pachli.util.MEDIA_SIZE_UNKNOWN]. See [getMediaSize].
+     * @param mediaSize Media size in bytes, or [app.pachli.core.common.util.MEDIA_SIZE_UNKNOWN]. See [getMediaSize].
      * @param description
      * @param focus
      * @param uploadState

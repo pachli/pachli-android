@@ -58,6 +58,7 @@ import app.pachli.core.common.PachliError
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
+import app.pachli.core.common.util.getTemporaryMediaFilename
 import app.pachli.core.domain.DownloadUrlUseCase
 import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.ViewMediaActivityIntent
@@ -71,7 +72,6 @@ import app.pachli.databinding.ActivityViewMediaBinding
 import app.pachli.fragment.MediaActionsListener
 import app.pachli.pager.ImagePagerAdapter
 import app.pachli.pager.SingleImagePagerAdapter
-import app.pachli.util.getTemporaryMediaFilename
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.coroutines.runSuspendCatching

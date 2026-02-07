@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Pachli Association
+ * Copyright (c) 2026 Pachli Association
  *
  * This file is a part of Pachli.
  *
@@ -15,7 +15,7 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.worker
+package app.pachli.core.worker
 
 import android.app.Notification
 import android.content.Context
@@ -23,44 +23,41 @@ import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
-import app.pachli.R
-import app.pachli.components.notifications.NOTIFICATION_ID_PRUNE_CACHE
-import app.pachli.components.notifications.createWorkerNotification
-import app.pachli.core.database.dao.LogEntryDao
+import app.pachli.core.common.util.createWorkerNotification
+import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.database.dao.TimelineDao
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
-import java.time.Instant
-import kotlin.time.Duration.Companion.hours
-import kotlinx.coroutines.currentCoroutineContext
-import kotlinx.coroutines.ensureActive
 import timber.log.Timber
+
+/** ID of notification shown when pruning the cache  */
+const val NOTIFICATION_ID_PRUNE_CACHE = 1
 
 /** Prune the database cache of old statuses. */
 @HiltWorker
-class PruneLogEntryEntityWorker @AssistedInject constructor(
+class PruneCacheWorker @AssistedInject constructor(
     @Assisted appContext: Context,
     @Assisted workerParams: WorkerParameters,
-    private val logEntryDao: LogEntryDao,
+    private val timelineDao: TimelineDao,
+    private val accountManager: AccountManager,
 ) : CoroutineWorker(appContext, workerParams) {
-    val notification: Notification = createWorkerNotification(applicationContext, R.string.notification_prune_cache)
+    val notification: Notification = createWorkerNotification(appContext, R.string.notification_prune_cache)
 
     override suspend fun doWork(): Result {
-        return try {
-            val now = Instant.now()
-            val oldest = now.minusMillis(OLDEST_ENTRY.inWholeMilliseconds)
-            logEntryDao.prune(oldest)
-            Result.success()
-        } catch (e: Exception) {
-            currentCoroutineContext().ensureActive()
-            Timber.e(e, "error in PruneLogEntryEntityWorker.doWork")
-            Result.failure()
+        Timber.d("Started")
+
+        for (account in accountManager.accounts) {
+            Timber.d("Pruning cache for account %d, %s", account.id, account.username)
+            val countRemoved = timelineDao.cleanup(account.id)
+            Timber.d("Pruned cache for account %d, %s, deleted %d", account.id, account.username, countRemoved)
         }
+
+        return Result.success()
     }
 
     override suspend fun getForegroundInfo() = ForegroundInfo(NOTIFICATION_ID_PRUNE_CACHE, notification)
 
     companion object {
-        private val OLDEST_ENTRY = 48.hours
-        const val PERIODIC_WORK_TAG = "PruneLogEntryEntityWorker_periodic"
+        const val PERIODIC_WORK_TAG = "PruneCacheWorker_periodic"
     }
 }

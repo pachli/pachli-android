@@ -48,6 +48,10 @@ class LogEntryTree @Inject constructor(
         "NotificationWorker",
         "PushNotificationHelperKt",
         "UnifiedPushBroadcastReceiver",
+        // Other workers, used in feature.about.WorkersFragment
+        "PruneCachedMediaWorker",
+        "PruneCacheWorker",
+        "PruneLogEntryEntityWorker",
     )
 
     /** Logs with this priority or higher will be logged */

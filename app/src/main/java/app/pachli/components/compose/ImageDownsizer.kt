@@ -21,8 +21,8 @@ import android.graphics.Bitmap.CompressFormat
 import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.exifinterface.media.ExifInterface
-import app.pachli.util.calculateInSampleSize
-import app.pachli.util.reorientBitmap
+import app.pachli.core.common.util.calculateInSampleSize
+import app.pachli.core.common.util.reorientBitmap
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream

@@ -430,7 +430,6 @@
     <string name="ui_error_translate_status_fmt">%1$s :فشلت الترجمة</string>
     <string name="update_dialog_negative">لا تذكرني أبداً</string>
     <string name="dialog_delete_filter_positive_action">حذف</string>
-    <string name="notification_listenable_worker_name">النشاط في الخلفية</string>
     <string name="pref_title_update_notification_frequency">أخبرني عن نُسَخ Pachli (باكلي) الجديدة</string>
     <string name="filter_action_warn">تحذير</string>
     <string name="title_public_trending_links">الروابط الشائعة</string>
@@ -461,7 +460,6 @@
     <string name="filter_action_hide">إخفاء</string>
     <string name="label_filter_title">العنوان</string>
     <string name="pref_title_font_family">عائلة الخطوط</string>
-    <string name="notification_listenable_worker_description">إشعارات عندما يعمل Pachli (باكلي) في الخلفية</string>
     <string name="action_translate">ترجمة</string>
     <string name="select_list_empty">ليس لديك قوائم بعد</string>
     <string name="pref_title_account_filter_keywords">الملفات التعريفية</string>
@@ -471,7 +469,6 @@
     <string name="filter_description_warn">إخفاء خلف تحذير</string>
     <string name="label_image">صورة</string>
     <string name="action_translate_undo">إلغاء الترجمة</string>
-    <string name="notification_prune_cache">صيانة ذاكرة التخزين المؤقتة…</string>
     <string name="pref_ui_text_size">حجم نص واجهة المستخدم</string>
     <string name="load_newest_notifications">تحميل أحدث الإشعارات</string>
     <string name="label_filter_context">السياقات التي تم تصفيتها</string>

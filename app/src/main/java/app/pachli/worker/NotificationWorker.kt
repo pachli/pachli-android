@@ -27,7 +27,7 @@ import androidx.work.WorkerParameters
 import app.pachli.R
 import app.pachli.components.notifications.NOTIFICATION_ID_FETCH_NOTIFICATION
 import app.pachli.components.notifications.NotificationFetcher
-import app.pachli.components.notifications.createWorkerNotification
+import app.pachli.core.common.util.createWorkerNotification
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import timber.log.Timber

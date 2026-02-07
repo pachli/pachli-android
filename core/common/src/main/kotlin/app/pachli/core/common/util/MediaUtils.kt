@@ -14,7 +14,7 @@
  * see <http://www.gnu.org/licenses>.
  */
 
-package app.pachli.util
+package app.pachli.core.common.util
 
 import android.content.ContentResolver
 import android.database.Cursor

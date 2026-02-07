@@ -455,10 +455,7 @@
     <string name="select_list_manage">Sýsla með lista</string>
     <string name="help_empty_home">Þetta er <b>tímalínan þín</b>. Hún sýnir nýlegar færslur þeirra sem þú fylgist með. \n \nTil að skoða hvað aðrir eru að gera getur þú til dæmis uppgötvað viðkomandi í einni af hinum tímalínunum. Til dæmis á staðværu tímalínu netþjónsins þíns [iconics gmd_group]. Eða að þú leitar að þeim eftir nafni [iconics gmd_search]; til dæmis geturðu leitað að Pachli til að finna Mastodon-aðganginn okkar.</string>
     <string name="pref_ui_text_size">Textastærð viðmóts</string>
-    <string name="notification_listenable_worker_name">Bakgrunnsvirkni</string>
-    <string name="notification_listenable_worker_description">Tilkynningar þegar Pachli er að vinna í bakgrunni</string>
     <string name="notification_notification_worker">Sæki tilkynningar…</string>
-    <string name="notification_prune_cache">Viðhaldsvinna biðminnis…</string>
     <string name="load_newest_notifications">Hlaða inn nýjustu tilkynningum</string>
     <string name="compose_delete_draft">Eyða drögum\?</string>
     <string name="error_missing_edits">Þjónninn þinn veit að þessari færslu hefur verið breytt, en er hins vegar ekki með afrit af breytingunum, þannig að ekki er hægt að sýna þér þær.

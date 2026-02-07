@@ -396,10 +396,7 @@
     <string name="pref_summary_http_proxy_missing">&lt;ikke satt&gt;</string>
     <string name="pref_summary_http_proxy_disabled">Deaktivert</string>
     <string name="pref_summary_http_proxy_invalid">&lt;ugyldig&gt;</string>
-    <string name="notification_listenable_worker_name">Bakgrunnsaktivitet</string>
-    <string name="notification_listenable_worker_description">Varsler når Pachli arbeider i bakgrunnen</string>
     <string name="notification_notification_worker">Henter varsler…</string>
-    <string name="notification_prune_cache">Cache-vedlikehold…</string>
     <string name="mute_notifications_switch">Demp varsler</string>
     <string name="title_edits">Redigeringer</string>
     <string name="status_created_info">Skapt: %1$s</string>

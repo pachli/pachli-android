@@ -79,7 +79,7 @@ class SendStatusBroadcastReceiver : BroadcastReceiver() {
                 }
 
                 val builder = NotificationCompat.Builder(context, CHANNEL_MENTION + senderIdentifier)
-                    .setSmallIcon(R.drawable.ic_notify)
+                    .setSmallIcon(app.pachli.core.common.R.drawable.ic_notify)
                     .setColor(context.getColor(DR.color.tusky_blue))
                     .setGroup(senderFullName)
                     .setDefaults(0) // So it doesn't ring twice, notify only in Target callback
@@ -126,7 +126,7 @@ class SendStatusBroadcastReceiver : BroadcastReceiver() {
                 context.startService(sendIntent)
 
                 val builder = NotificationCompat.Builder(context, CHANNEL_MENTION + senderIdentifier)
-                    .setSmallIcon(R.drawable.ic_notify)
+                    .setSmallIcon(app.pachli.core.common.R.drawable.ic_notify)
                     .setColor(context.getColor(DR.color.notification_color))
                     .setGroup(senderFullName)
                     .setDefaults(0) // So it doesn't ring twice, notify only in Target callback

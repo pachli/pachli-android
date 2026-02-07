@@ -25,15 +25,14 @@
     android:paddingBottom="4dp">
 
     <TextView
-        android:id="@+id/text"
+        android:id="@+id/timestamp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textIsSelectable="false" />
 
     <TextView
-        android:id="@+id/timestamp"
+        android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="textEnd"
         android:textIsSelectable="false" />
 </LinearLayout>

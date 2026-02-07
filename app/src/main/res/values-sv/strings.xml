@@ -453,10 +453,7 @@
     <string name="filter_keyword_display_format">%s (helt ord)</string>
     <string name="help_empty_home">Detta är din <b>hemtidslinje</b>. Den visar de senaste inläggen för konton du följer.\n\nFör att utforska konton kan du antingen upptäcka dem i någon av de andra tidslinjerna. Till exempel den lokala tidslinjen för din instans [iconics gmd_group]. Eller så kan du söka efter deras namn [ikonics gmd_search]; sök till exempel efter Pachli för att hitta vårt Mastodon-konto.</string>
     <string name="pref_ui_text_size">UI textstorlek</string>
-    <string name="notification_listenable_worker_name">Bakgrundsaktivitet</string>
-    <string name="notification_listenable_worker_description">Aviseringar när Pachli arbetar i bakgrunden</string>
     <string name="notification_notification_worker">Hämtar aviseringar…</string>
-    <string name="notification_prune_cache">Cacheunderhåll…</string>
     <string name="ui_error_reblog_fmt">Att knuffa inlägg misslyckades: %1$s</string>
     <string name="ui_error_vote_fmt">Rösta i omröstning misslyckades: %1$s</string>
     <string name="ui_error_accept_follow_request">Acceptera följarförfrågan misslyckades: %s</string>

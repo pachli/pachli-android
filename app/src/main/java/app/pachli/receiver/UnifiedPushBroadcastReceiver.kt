@@ -19,7 +19,7 @@ package app.pachli.receiver
 import android.content.Context
 import androidx.work.Constraints
 import androidx.work.NetworkType
-import androidx.work.OneTimeWorkRequest
+import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.OutOfQuotaPolicy
 import androidx.work.WorkManager
 import app.pachli.core.data.repository.AccountManager
@@ -49,7 +49,7 @@ class UnifiedPushBroadcastReceiver : MessagingReceiver() {
         Timber.d("onMessage")
         Timber.d("New message received for account %s", instance)
         val workManager = WorkManager.getInstance(context)
-        val request = OneTimeWorkRequest.Builder(NotificationWorker::class.java)
+        val request = OneTimeWorkRequestBuilder<NotificationWorker>()
             .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
             .setConstraints(Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build())
             // Start a worker just for this account

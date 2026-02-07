@@ -464,8 +464,5 @@
 \n
 \nSeo <a href="https://github.com/mastodon/mastodon/issues/25398">duilgheadas Mastodon #25398</a>.</string>
     <string name="pref_ui_text_size">Meud teacsa na eadar-aghaidh</string>
-    <string name="notification_listenable_worker_name">Gnìomhachd sa chùlaibh</string>
-    <string name="notification_listenable_worker_description">Brathan nuair a bhios Pachli ag obair sa chùlaibh</string>
     <string name="notification_notification_worker">A’ faighinn nam brathan…</string>
-    <string name="notification_prune_cache">Obair-ghlèidhidh air an tasgadan…</string>
 </resources>

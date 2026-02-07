@@ -736,11 +736,12 @@ WHERE pachliAccountId = :accountId
      * @param accountId id of the account for which to clean tables
      */
     @Transaction
-    open suspend fun cleanup(accountId: Long) {
-        cleanupStatuses(accountId)
-        cleanupStatusViewData(accountId)
-        cleanupTranslatedStatus(accountId)
-        cleanupAccounts(accountId)
+    open suspend fun cleanup(accountId: Long): Long {
+        val countStatus = cleanupStatuses(accountId)
+        val countStatusViewData = cleanupStatusViewData(accountId)
+        val countTranslatedStatus = cleanupTranslatedStatus(accountId)
+        val countAccounts = cleanupAccounts(accountId)
+        return countStatus + countStatusViewData + countTranslatedStatus + countAccounts + 0L
     }
 
     /**
@@ -764,7 +765,7 @@ WHERE
     )
 """,
     )
-    abstract suspend fun cleanupStatuses(accountId: Long)
+    abstract suspend fun cleanupStatuses(accountId: Long): Int
 
     /**
      * Cleans the TimelineAccountEntity table from accounts that are no longer
@@ -795,7 +796,7 @@ WHERE
     )
 """,
     )
-    abstract suspend fun cleanupAccounts(accountId: Long)
+    abstract suspend fun cleanupAccounts(accountId: Long): Int
 
     /**
      * Removes rows from StatusViewDataEntity that reference statuses are that not
@@ -817,7 +818,7 @@ WHERE
     )
 """,
     )
-    abstract suspend fun cleanupStatusViewData(accountId: Long)
+    abstract suspend fun cleanupStatusViewData(accountId: Long): Int
 
     /**
      * Removes rows from TranslatedStatusEntity that reference statuses that are not
@@ -839,7 +840,7 @@ WHERE
     )
 """,
     )
-    abstract suspend fun cleanupTranslatedStatus(accountId: Long)
+    abstract suspend fun cleanupTranslatedStatus(accountId: Long): Int
 
     @Query(
         """

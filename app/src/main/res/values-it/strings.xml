@@ -168,8 +168,6 @@
     <string name="notification_boost_description">Notifiche sui tuoi messaggi che vengono condivisi</string>
     <string name="notification_favourite_name">Apprezzati</string>
     <string name="notification_favourite_description">Notifiche sui tuoi messaggi che vengono segnati come apprezzati</string>
-    <string name="notification_listenable_worker_name">Esecuzione in background</string>
-    <string name="notification_listenable_worker_description">Notifica quando Pachli è in esecuzione in background</string>
     <string name="notification_mention_format">%s ti ha menzionato</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s e %4$d altri</string>
     <string name="notification_summary_medium">%1$s, %2$s e %3$s</string>
@@ -180,7 +178,6 @@
         <item quantity="other">%d nuove interazioni</item>
     </plurals>
     <string name="notification_notification_worker">Recupero notifiche…</string>
-    <string name="notification_prune_cache">Pulizia cache…</string>
     <string name="description_account_locked">Account bloccato</string>
     <!-- note to translators:
          * you should think of “free” as in “free speech,” not as in “free beer”.

@@ -456,10 +456,7 @@
     <string name="select_list_empty">У вас ще немає списків</string>
     <string name="select_list_manage">Керувати списками</string>
     <string name="pref_ui_text_size">Розмір шрифту інтерфейсу</string>
-    <string name="notification_listenable_worker_name">Фонова діяльність</string>
-    <string name="notification_listenable_worker_description">Сповіщення, коли Pachli працює у фоновому режимі</string>
     <string name="notification_notification_worker">Отримання сповіщень…</string>
-    <string name="notification_prune_cache">Обслуговування кешу…</string>
     <string name="load_newest_notifications">Завантажити найновіші сповіщення</string>
     <string name="compose_delete_draft">Видалити чернетку\?</string>
     <string name="error_missing_edits">Ваш сервер знає, що цей допис було змінено, але не має копії редагувань, тому вони не можуть бути вам показані.

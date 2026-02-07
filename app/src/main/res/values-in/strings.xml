@@ -254,7 +254,6 @@
     <string name="action_refresh_account">Refresh akun</string>
     <string name="mute_domain_warning">Apakah Anda yakin ingin memblokir semua %s? Anda tidak akan melihat konten dari domain tersebut di timeline publik atau notifikasi Anda. Pengikut Anda dari domain tersebut akan dihapus.</string>
     <string name="pref_title_timeline_filters">Filter</string>
-    <string name="notification_listenable_worker_description">Pemberitahuan saat Pachli bekerja di latar belakang</string>
     <string name="pref_title_alway_open_spoiler">Selalu perluas postingan yg ditandai dengan peringatan konten</string>
     <string name="action_set_focus">Menetapkan titik fokus</string>
     <string name="state_follow_requested">Ikuti yang diminta</string>
@@ -295,7 +294,6 @@
     <string name="pref_publishing">Penerbitan (disinkronkan dengan server)</string>
     <string name="pref_failed_to_sync">Gagal menyinkronkan pengaturan</string>
     <string name="notification_poll_description">Pemberitahuan tentang jajak pendapat yang telah berakhir</string>
-    <string name="notification_prune_cache">Perawatan cache…</string>
     <string name="filter_dialog_whole_word">Seluruh kata</string>
     <string name="filter_dialog_whole_word_description">Jika kata kunci atau frasa hanya berupa alfanumerik, kata kunci atau frasa tersebut hanya akan diterapkan jika cocok dengan seluruh kata</string>
     <string name="action_edit_image">Edit Gambar</string>
@@ -333,7 +331,6 @@
     <string name="notification_subscription_name">Postingan baru</string>
     <string name="notification_subscription_description">Pemberitahuan ketika seseorang yang Anda berlangganan menerbitkan postingan baru</string>
     <string name="notification_sign_up_description">Pemberitahuan tentang pengguna baru</string>
-    <string name="notification_listenable_worker_name">Aktivitas latar belakang</string>
     <string name="notification_mention_format">%s menyebut kamu</string>
     <string name="notification_summary_large">%1$s, %2$s, %3$s dan %4$d lainnya</string>
     <string name="notification_summary_small">%1$s dan %2$s</string>

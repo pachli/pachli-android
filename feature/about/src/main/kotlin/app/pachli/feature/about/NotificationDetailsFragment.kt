@@ -17,7 +17,6 @@
 
 package app.pachli.feature.about
 
-import android.annotation.SuppressLint
 import android.app.usage.UsageEvents
 import android.app.usage.UsageStatsManager.STANDBY_BUCKET_ACTIVE
 import android.app.usage.UsageStatsManager.STANDBY_BUCKET_FREQUENT
@@ -53,7 +52,6 @@ import app.pachli.core.ui.extensions.asDdHhMmSs
 import app.pachli.core.ui.extensions.instantFormatter
 import app.pachli.feature.about.databinding.FragmentNotificationDetailsBinding
 import app.pachli.feature.about.databinding.ItemUsageEventBinding
-import app.pachli.feature.about.databinding.ItemWorkInfoBinding
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.Duration
 import java.time.Instant
@@ -175,54 +173,6 @@ fun NotificationConfig.Method.label(context: Context) = when (this) {
         R.string.notification_log_method_pusherror,
         this.t,
     )
-}
-
-class WorkInfoAdapter : ListAdapter<WorkInfo, WorkInfoAdapter.ViewHolder>(diffCallback) {
-    class ViewHolder(private val binding: ItemWorkInfoBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(workInfo: WorkInfo) = with(workInfo) {
-            binding.id.text = id.toString()
-            binding.state.text = state.toString()
-
-            binding.runAttemptCount.text = binding.root.context.getString(
-                R.string.notification_log_previous_attempts,
-                runAttemptCount,
-            )
-
-            if (state == WorkInfo.State.ENQUEUED) {
-                binding.nextScheduleTime.show()
-                val now = Instant.now()
-                val nextScheduleInstant = Instant.ofEpochMilli(nextScheduleTimeMillis)
-                binding.nextScheduleTime.text = binding.root.context.getString(
-                    R.string.notification_log_scheduled_in,
-                    Duration.between(now, nextScheduleInstant).asDdHhMmSs(),
-                    instantFormatter.format(nextScheduleInstant),
-                )
-            } else {
-                binding.nextScheduleTime.hide()
-            }
-
-            binding.runAttemptCount.show()
-
-            if (runAttemptCount > 0 && state == WorkInfo.State.ENQUEUED) {
-                binding.stopReason.show()
-                @SuppressLint("SetTextI18n")
-                binding.stopReason.text = stopReason.toString()
-            } else {
-                binding.stopReason.hide()
-            }
-        }
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(ItemWorkInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false))
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(getItem(position))
-
-    companion object {
-        val diffCallback = object : DiffUtil.ItemCallback<WorkInfo>() {
-            override fun areItemsTheSame(oldItem: WorkInfo, newItem: WorkInfo) = oldItem.id == newItem.id
-            override fun areContentsTheSame(oldItem: WorkInfo, newItem: WorkInfo) = false
-        }
-    }
 }
 
 @RequiresApi(Build.VERSION_CODES.R)

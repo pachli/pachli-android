@@ -33,4 +33,5 @@ dependencies {
     api(libs.kotlin.result.coroutines)
 
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.exifinterface)
 }

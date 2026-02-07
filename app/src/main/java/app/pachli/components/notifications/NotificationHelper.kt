@@ -29,17 +29,17 @@ import android.os.Bundle
 import android.provider.Settings
 import android.service.notification.StatusBarNotification
 import android.text.TextUtils
-import androidx.annotation.StringRes
 import androidx.core.app.NotificationCompat
 import androidx.core.app.RemoteInput
 import androidx.core.app.TaskStackBuilder
 import androidx.work.Constraints
+import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.NetworkType
-import androidx.work.OneTimeWorkRequest
+import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.OutOfQuotaPolicy
 import androidx.work.PeriodicWorkRequest
+import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
-import androidx.work.WorkRequest
 import app.pachli.BuildConfig
 import app.pachli.MainActivity
 import app.pachli.R
@@ -62,6 +62,7 @@ import app.pachli.core.navigation.IntentRouterActivityIntent
 import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.buildDescription
 import app.pachli.core.ui.calculatePercent
+import app.pachli.core.worker.NOTIFICATION_ID_PRUNE_CACHE
 import app.pachli.receiver.SendStatusBroadcastReceiver
 import app.pachli.worker.NotificationWorker
 import com.bumptech.glide.Glide
@@ -73,9 +74,6 @@ import timber.log.Timber
 
 /** ID of notification shown when fetching notifications  */
 const val NOTIFICATION_ID_FETCH_NOTIFICATION = 0
-
-/** ID of notification shown when pruning the cache  */
-const val NOTIFICATION_ID_PRUNE_CACHE = 1
 
 /** Dynamic notification IDs start here  */
 private var notificationId = NOTIFICATION_ID_PRUNE_CACHE + 1
@@ -106,7 +104,6 @@ private const val CHANNEL_SEVERED_RELATIONSHIPS = "CHANNEL_SEVERED_RELATIONSHIPS
 private const val CHANNEL_MODERATION_WARNINGS = "CHANNEL_MODERATION_WARNING"
 private const val CHANNEL_QUOTE = "CHANNEL_QUOTE"
 private const val CHANNEL_QUOTED_UPDATE = "CHANNEL_QUOTED_UPDATE"
-private const val CHANNEL_BACKGROUND_TASKS = "CHANNEL_BACKGROUND_TASKS"
 
 /** WorkManager Tag */
 private const val NOTIFICATION_PULL_TAG = "pullNotifications"
@@ -324,7 +321,7 @@ fun updateSummaryNotifications(
         )
         val text = joinNames(context, members)
         val summaryBuilder = NotificationCompat.Builder(context, channelId!!)
-            .setSmallIcon(R.drawable.ic_notify)
+            .setSmallIcon(app.pachli.core.common.R.drawable.ic_notify)
             .setContentIntent(summaryResultPendingIntent)
             .setColor(context.getColor(DR.color.notification_color))
             .setAutoCancel(true)
@@ -377,7 +374,7 @@ private fun newAndroidNotification(
     )
     val channelId = getChannelId(account, body)!!
     val builder = NotificationCompat.Builder(context, channelId)
-        .setSmallIcon(R.drawable.ic_notify)
+        .setSmallIcon(app.pachli.core.common.R.drawable.ic_notify)
         .setContentIntent(eventResultPendingIntent)
         .setColor(context.getColor(DR.color.notification_color))
         .setGroup(channelId)
@@ -471,48 +468,6 @@ private fun getStatusComposeIntent(
     )
 }
 
-/**
- * Creates a notification channel for notifications for background work that should not
- * disturb the user.
- *
- * @param context context
- */
-fun createWorkerNotificationChannel(context: Context) {
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) return
-    val notificationManager =
-        context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-    val channel = NotificationChannel(
-        CHANNEL_BACKGROUND_TASKS,
-        context.getString(R.string.notification_listenable_worker_name),
-        NotificationManager.IMPORTANCE_NONE,
-    )
-    channel.description = context.getString(R.string.notification_listenable_worker_description)
-    channel.enableLights(false)
-    channel.enableVibration(false)
-    channel.setShowBadge(false)
-    notificationManager.createNotificationChannel(channel)
-}
-
-/**
- * Creates a notification for a background worker.
- *
- * @param context context
- * @param titleResource String resource to use as the notification's title
- * @return the notification
- */
-fun createWorkerNotification(
-    context: Context,
-    @StringRes titleResource: Int,
-): android.app.Notification {
-    val title = context.getString(titleResource)
-    return NotificationCompat.Builder(context, CHANNEL_BACKGROUND_TASKS)
-        .setContentTitle(title)
-        .setTicker(title)
-        .setSmallIcon(R.drawable.ic_notify)
-        .setOngoing(true)
-        .build()
-}
-
 fun createNotificationChannelsForAccount(account: AccountEntity, context: Context) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         val notificationManager =
@@ -595,13 +550,12 @@ fun enablePullNotifications(context: Context) {
     // practice that may not be soon enough, so create and enqueue an expedited one-time
     // request to get new notifications immediately.
     Timber.d("Enqueing immediate notification worker")
-    val fetchNotifications: WorkRequest = OneTimeWorkRequest.Builder(NotificationWorker::class)
+    val fetchNotifications = OneTimeWorkRequestBuilder<NotificationWorker>()
         .setExpedited(OutOfQuotaPolicy.DROP_WORK_REQUEST)
         .setConstraints(Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build())
         .build()
     workManager.enqueue(fetchNotifications)
-    val workRequest: WorkRequest = PeriodicWorkRequest.Builder(
-        NotificationWorker::class,
+    val workRequest = PeriodicWorkRequestBuilder<NotificationWorker>(
         PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS,
         TimeUnit.MILLISECONDS,
         PeriodicWorkRequest.MIN_PERIODIC_FLEX_MILLIS,
@@ -611,7 +565,11 @@ fun enablePullNotifications(context: Context) {
         .setConstraints(Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build())
         .setInitialDelay(5, TimeUnit.MINUTES)
         .build()
-    workManager.enqueue(workRequest)
+    workManager.enqueueUniquePeriodicWork(
+        NOTIFICATION_PULL_TAG,
+        ExistingPeriodicWorkPolicy.UPDATE,
+        workRequest,
+    )
     Timber.d("enabled notification checks with %d ms interval", PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS)
     NotificationConfig.notificationMethod = NotificationConfig.Method.Pull
 }
