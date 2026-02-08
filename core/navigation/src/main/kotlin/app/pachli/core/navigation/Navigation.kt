@@ -17,9 +17,13 @@
 
 package app.pachli.core.navigation
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.os.Parcelable
+import android.view.View
+import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.IntentCompat
 import app.pachli.core.model.AccountSource
 import app.pachli.core.model.Attachment
@@ -912,6 +916,7 @@ class ViewMediaActivityIntent private constructor(context: Context, accountId: L
         private const val EXTRA_ATTACHMENTS = "app.pachli.EXTRA_ATTACHMENTS"
         private const val EXTRA_ATTACHMENT_INDEX = "app.pachli.EXTRA_ATTACHMENT_INDEX"
         private const val EXTRA_SINGLE_IMAGE_URL = "app.pachli.EXTRA_SINGLE_IMAGE_URL"
+        private const val EXTRA_HAS_SHARED_ELEMENT_TRANSITION = "app.pachli.EXTRA_HAS_SHARED_ELEMENT_TRANSITION"
 
         /** @return the owningUsername passed in this intent. */
         fun getOwningUsername(intent: Intent): String = intent.getStringExtra(EXTRA_OWNING_USERNAME)!!
@@ -924,6 +929,35 @@ class ViewMediaActivityIntent private constructor(context: Context, accountId: L
 
         /** @return the URL of the single image to show, null if no URL was included */
         fun getImageUrl(intent: Intent) = intent.getStringExtra(EXTRA_SINGLE_IMAGE_URL)
+
+        /** @return True if the activity was started with a shared element transition. */
+        fun getHasSharedElementTransition(intent: Intent) = intent.getBooleanExtra(EXTRA_HAS_SHARED_ELEMENT_TRANSITION, false)
+
+        /**
+         * Returns a Pair<ViewMediaActivityIntent, Bundle> that can be passed to `startActivity`
+         * to launch `ViewMediaActivity` with a shared element transition from [view]. [view]
+         * is assumed to be displaying the attachment in [attachments] at [index].
+         *
+         * This sets [view.transitionName][View.setTransitionName]
+         */
+        // This is required because there's no way for a launched activity to determine
+        // if it was started with a shared element transition, you have to set a boolean
+        // in the intent.
+        fun withSharedElementTransition(activity: Activity, accountId: Long, owningUsername: String, attachments: List<AttachmentViewData>, index: Int, view: View): Pair<ViewMediaActivityIntent, Bundle?> {
+            val intent = ViewMediaActivityIntent(activity, accountId, owningUsername, attachments, index)
+            intent.putExtra(EXTRA_HAS_SHARED_ELEMENT_TRANSITION, true)
+
+            val attachment = attachments[index].attachment
+            val url = attachment.url
+            view.transitionName = attachment.url
+            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                activity,
+                view,
+                url,
+            ).toBundle()
+
+            return Pair(intent, options)
+        }
     }
 }
 

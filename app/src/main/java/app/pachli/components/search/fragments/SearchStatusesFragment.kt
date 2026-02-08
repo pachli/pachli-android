@@ -26,7 +26,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.PopupMenu
-import androidx.core.app.ActivityOptionsCompat
 import androidx.core.net.toUri
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -157,26 +156,30 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
         when (actionable.attachments[attachmentIndex].type) {
             Attachment.Type.GIFV, Attachment.Type.VIDEO, Attachment.Type.IMAGE, Attachment.Type.AUDIO -> {
                 val attachments = AttachmentViewData.list(actionable)
-                val intent = ViewMediaActivityIntent(
-                    requireContext(),
+
+                if (view == null) {
+                    val intent = ViewMediaActivityIntent(
+                        requireContext(),
+                        pachliAccountId,
+                        actionable.account.username,
+                        attachments,
+                        attachmentIndex,
+                    )
+                    startActivityWithDefaultTransition(intent)
+                    return
+                }
+
+                val (intent, options) = ViewMediaActivityIntent.withSharedElementTransition(
+                    requireActivity(),
                     pachliAccountId,
                     actionable.account.username,
                     attachments,
                     attachmentIndex,
+                    view,
                 )
-                if (view != null) {
-                    val url = actionable.attachments[attachmentIndex].url
-                    view.transitionName = url
-                    val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        requireActivity(),
-                        view,
-                        url,
-                    )
-                    startActivityWithDefaultTransition(intent, options.toBundle())
-                } else {
-                    startActivityWithDefaultTransition(intent)
-                }
+                startActivityWithDefaultTransition(intent, options)
             }
+
             Attachment.Type.UNKNOWN -> openUrl(actionable.attachments[attachmentIndex].url)
         }
     }
