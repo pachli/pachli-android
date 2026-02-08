@@ -28,7 +28,6 @@ import android.widget.Toast
 import androidx.annotation.CallSuper
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.PopupMenu
-import androidx.core.app.ActivityOptionsCompat
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -460,19 +459,22 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
         val attachment = attachments[urlIndex].attachment
         when (attachment.type) {
             Attachment.Type.GIFV, Attachment.Type.VIDEO, Attachment.Type.IMAGE, Attachment.Type.AUDIO -> {
-                val intent = ViewMediaActivityIntent(requireContext(), pachliAccountId, owningUsername, attachments, urlIndex)
-                if (view != null) {
-                    val url = attachment.url
-                    view.transitionName = url
-                    val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        requireActivity(),
-                        view,
-                        url,
-                    )
-                    startActivityWithDefaultTransition(intent, options.toBundle())
-                } else {
+                if (view == null) {
+                    val intent = ViewMediaActivityIntent(requireContext(), pachliAccountId, owningUsername, attachments, urlIndex)
                     startActivityWithDefaultTransition(intent)
+                    return
                 }
+
+                val (intent, options) = ViewMediaActivityIntent.withSharedElementTransition(
+                    requireActivity(),
+                    pachliAccountId,
+                    owningUsername,
+                    attachments,
+                    urlIndex,
+                    view,
+                )
+
+                startActivityWithDefaultTransition(intent, options)
             }
 
             Attachment.Type.UNKNOWN -> openUrl(attachment.url)
