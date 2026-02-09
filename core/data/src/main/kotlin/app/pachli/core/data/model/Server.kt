@@ -52,6 +52,7 @@ import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_I
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_LINK
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_MEDIA
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_POLL
+import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_QUOTE
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_VIDEO
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IN_LIBRARY
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IN_PUBLIC
@@ -299,6 +300,24 @@ data class Server(
 
                     // Search operators
                     when {
+                        v >= "4.4.5".toVersion() -> {
+                            c[ORG_JOINMASTODON_SEARCH_QUERY_IN_PUBLIC] = "1.0.0".toVersion()
+                            c[ORG_JOINMASTODON_SEARCH_QUERY_FROM] = "1.1.0".toVersion()
+                            c[ORG_JOINMASTODON_SEARCH_QUERY_LANGUAGE] = "1.0.0".toVersion()
+                            c[ORG_JOINMASTODON_SEARCH_QUERY_HAS_MEDIA] = "1.0.0".toVersion()
+                            c[ORG_JOINMASTODON_SEARCH_QUERY_HAS_IMAGE] = "1.0.0".toVersion()
+                            c[ORG_JOINMASTODON_SEARCH_QUERY_HAS_VIDEO] = "1.0.0".toVersion()
+                            c[ORG_JOINMASTODON_SEARCH_QUERY_HAS_AUDIO] = "1.0.0".toVersion()
+                            c[ORG_JOINMASTODON_SEARCH_QUERY_HAS_POLL] = "1.0.0".toVersion()
+                            c[ORG_JOINMASTODON_SEARCH_QUERY_HAS_QUOTE] = "1.0.0".toVersion()
+                            c[ORG_JOINMASTODON_SEARCH_QUERY_HAS_LINK] = "1.0.0".toVersion()
+                            c[ORG_JOINMASTODON_SEARCH_QUERY_HAS_EMBED] = "1.0.0".toVersion()
+                            c[ORG_JOINMASTODON_SEARCH_QUERY_IS_REPLY] = "1.0.0".toVersion()
+                            c[ORG_JOINMASTODON_SEARCH_QUERY_IS_SENSITIVE] = "1.0.0".toVersion()
+                            c[ORG_JOINMASTODON_SEARCH_QUERY_IN_LIBRARY] = "1.0.0".toVersion()
+                            c[ORG_JOINMASTODON_SEARCH_QUERY_BY_DATE] = "1.0.0".toVersion()
+                        }
+
                         v >= "4.3.0".toVersion() -> {
                             c[ORG_JOINMASTODON_SEARCH_QUERY_IN_PUBLIC] = "1.0.0".toVersion()
                             c[ORG_JOINMASTODON_SEARCH_QUERY_FROM] = "1.1.0".toVersion()
@@ -371,6 +390,7 @@ data class Server(
                             c[ORG_JOINMASTODON_FILTERS_CLIENT] = "1.1.0".toVersion()
                             c[ORG_JOINMASTODON_FILTERS_SERVER] = "1.0.0".toVersion()
                         }
+
                         // Implemented in https://github.com/superseriousbusiness/gotosocial/pull/2594
                         v >= "0.15.0".toVersion() -> c[ORG_JOINMASTODON_FILTERS_CLIENT] = "1.1.0".toVersion()
                     }

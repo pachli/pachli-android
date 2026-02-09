@@ -120,6 +120,15 @@
                     android:layout_height="wrap_content"
                     app:chipIconEnabled="true"
                     android:text="@string/search_operator_embed_all" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_has_quote"
+                    style="@style/Widget.Material3.Chip.Suggestion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:chipIconEnabled="true"
+                    app:chipIcon="@drawable/format_quote_24px"
+                    android:text="@string/search_operator_quote_all" />
             </com.google.android.material.chip.ChipGroup>
         </HorizontalScrollView>
 

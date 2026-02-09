@@ -28,6 +28,7 @@ import app.pachli.components.search.SearchOperator.HasEmbedOperator
 import app.pachli.components.search.SearchOperator.HasLinkOperator
 import app.pachli.components.search.SearchOperator.HasMediaOperator
 import app.pachli.components.search.SearchOperator.HasPollOperator
+import app.pachli.components.search.SearchOperator.HasQuoteOperator
 import app.pachli.components.search.SearchOperator.IsReplyOperator
 import app.pachli.components.search.SearchOperator.IsSensitiveOperator
 import app.pachli.components.search.SearchOperator.LanguageOperator
@@ -60,6 +61,7 @@ import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_I
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_LINK
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_MEDIA
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_POLL
+import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_QUOTE
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_VIDEO
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IN_LIBRARY
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_IN_PUBLIC
@@ -122,6 +124,7 @@ class SearchViewModel @Inject constructor(
             SearchOperatorViewData.from(LanguageOperator()),
             SearchOperatorViewData.from(HasLinkOperator()),
             SearchOperatorViewData.from(HasPollOperator()),
+            SearchOperatorViewData.from(HasQuoteOperator()),
             SearchOperatorViewData.from(IsReplyOperator()),
             SearchOperatorViewData.from(IsSensitiveOperator()),
             SearchOperatorViewData.from(WhereOperator()),
@@ -194,6 +197,11 @@ class SearchViewModel @Inject constructor(
                     if (server.can(ORG_JOINMASTODON_SEARCH_QUERY_HAS_POLL, constraint100)) {
                         add(HasPollOperator())
                     }
+
+                    if (server.can(ORG_JOINMASTODON_SEARCH_QUERY_HAS_QUOTE, constraint100)) {
+                        add(HasQuoteOperator())
+                    }
+
                     if (server.can(ORG_JOINMASTODON_SEARCH_QUERY_IS_REPLY, constraint100)) {
                         add(IsReplyOperator())
                     }

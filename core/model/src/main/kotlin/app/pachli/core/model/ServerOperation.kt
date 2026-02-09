@@ -103,6 +103,7 @@ enum class ServerOperation(id: String, versions: List<Version>) {
     ORG_JOINMASTODON_SEARCH_QUERY_HAS_VIDEO("org.joinmastodon.search.query:has:video", listOf(Version(major = 1))),
     ORG_JOINMASTODON_SEARCH_QUERY_HAS_AUDIO("org.joinmastodon.search.query:has:audio", listOf(Version(major = 1))),
     ORG_JOINMASTODON_SEARCH_QUERY_HAS_POLL("org.joinmastodon.search.query:has:poll", listOf(Version(major = 1))),
+    ORG_JOINMASTODON_SEARCH_QUERY_HAS_QUOTE("org.joinmastodon.search.query:has:quote", listOf(Version(major = 1))),
     ORG_JOINMASTODON_SEARCH_QUERY_HAS_LINK("org.joinmastodon.search.query:has:link", listOf(Version(major = 1))),
     ORG_JOINMASTODON_SEARCH_QUERY_HAS_EMBED("org.joinmastodon.search.query:has:embed", listOf(Version(major = 1))),
     ORG_JOINMASTODON_SEARCH_QUERY_IS_REPLY("org.joinmastodon.search.query:is:reply", listOf(Version(major = 1))),
