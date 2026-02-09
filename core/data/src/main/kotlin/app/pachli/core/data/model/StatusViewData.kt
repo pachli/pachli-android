@@ -140,6 +140,14 @@ sealed interface IStatusViewData : IStatus {
      * otherwise false.
      */
     val isUsersStatus: Boolean
+
+    /**
+     * True if this status' content is being shown (either because the status has no
+     * spoiler warning, or because the user has clicked through the spoiler warning).
+     * False if the content is not shown because the status has a warning and the user
+     * has clicked through.
+     */
+    val isShowingContent: Boolean
 }
 
 /**
@@ -262,6 +270,9 @@ data class StatusViewData(
         get() = if (translationState == TranslationState.SHOW_TRANSLATION) _translatedSpoilerText else _spoilerText
 
     override val username: String
+
+    override val isShowingContent: Boolean
+        get() = (_spoilerText.isEmpty() || isExpanded)
 
     override val rebloggedAvatar: String?
         get() = if (status.reblog != null) {
