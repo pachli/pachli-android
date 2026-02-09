@@ -243,6 +243,21 @@ sealed interface SearchOperator {
         override fun query() = choice?.q
     }
 
+    /**
+     * The `has:quote` operator.
+     *
+     * @see HasEmbedOperator
+     * @see HasMediaOperator
+     */
+    data class HasQuoteOperator(override val choice: QuoteKind? = null) : SearchOperator {
+        enum class QuoteKind(val q: String) {
+            QUOTES_ONLY("has:quote"),
+            NO_QUOTES("-has:quote"),
+        }
+
+        override fun query() = choice?.q
+    }
+
     /** The `is:reply` operator. */
     class IsReplyOperator(override val choice: ReplyKind? = null) : SearchOperator {
         enum class ReplyKind(val q: String) {

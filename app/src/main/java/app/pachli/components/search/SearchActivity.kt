@@ -52,6 +52,7 @@ import app.pachli.components.search.SearchOperator.HasMediaOperator.HasMediaOpti
 import app.pachli.components.search.SearchOperator.HasMediaOperator.HasMediaOption.SpecificMedia
 import app.pachli.components.search.SearchOperator.HasMediaOperator.MediaKind
 import app.pachli.components.search.SearchOperator.HasPollOperator
+import app.pachli.components.search.SearchOperator.HasQuoteOperator
 import app.pachli.components.search.SearchOperator.IsReplyOperator
 import app.pachli.components.search.SearchOperator.IsReplyOperator.ReplyKind
 import app.pachli.components.search.SearchOperator.IsSensitiveOperator
@@ -65,6 +66,7 @@ import app.pachli.components.search.SearchOperatorViewData.HasEmbedOperatorViewD
 import app.pachli.components.search.SearchOperatorViewData.HasLinkOperatorViewData
 import app.pachli.components.search.SearchOperatorViewData.HasMediaOperatorViewData
 import app.pachli.components.search.SearchOperatorViewData.HasPollOperatorViewData
+import app.pachli.components.search.SearchOperatorViewData.HasQuoteOperatorViewData
 import app.pachli.components.search.SearchOperatorViewData.IsReplyOperatorViewData
 import app.pachli.components.search.SearchOperatorViewData.IsSensitiveOperatorViewData
 import app.pachli.components.search.SearchOperatorViewData.LanguageOperatorViewData
@@ -77,6 +79,7 @@ import app.pachli.core.common.extensions.toggleVisibility
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.data.model.Server
+import app.pachli.core.model.ServerOperation
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_BY_DATE
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_FROM
 import app.pachli.core.model.ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_AUDIO
@@ -195,6 +198,7 @@ class SearchActivity :
             HasLinkOperatorViewData::class.java to binding.chipHasLink,
             HasMediaOperatorViewData::class.java to binding.chipHasMedia,
             HasPollOperatorViewData::class.java to binding.chipHasPoll,
+            HasQuoteOperatorViewData::class.java to binding.chipHasQuote,
             IsReplyOperatorViewData::class.java to binding.chipIsReply,
             IsSensitiveOperatorViewData::class.java to binding.chipIsSensitive,
             LanguageOperatorViewData::class.java to binding.chipLanguage,
@@ -224,6 +228,7 @@ class SearchActivity :
                         bindHasEmbedChip(server)
                         bindHasLinkChip(server)
                         bindHasPollChip(server)
+                        bindHasQuoteChip(server)
                         bindIsReplyChip(server)
                         bindIsSensitiveChip(server)
                         bindLanguageChip(server)
@@ -630,8 +635,7 @@ class SearchActivity :
                         dialogBinding.radioIgnoreMe.isChecked -> FromOperator(FromMe(ignore = true))
                         dialogBinding.radioOtherAccount.isChecked -> FromOperator(
                             FromAccount(
-                                account =
-                                dialogBinding.account.text.toString(),
+                                account = dialogBinding.account.text.toString(),
                                 ignore = false,
                             ),
                         )
@@ -819,6 +823,51 @@ class SearchActivity :
                 if (result.button == AlertDialog.BUTTON_POSITIVE && result.index != -1) {
                     viewModel.replaceOperator(
                         SearchOperatorViewData.from(HasPollOperator(options[result.index].first)),
+                    )
+                }
+            }
+        }
+    }
+
+    private fun bindHasQuoteChip(server: Server) {
+        if (!server.can(ServerOperation.ORG_JOINMASTODON_SEARCH_QUERY_HAS_QUOTE, ">=1.0.0".toConstraint())) {
+            binding.chipHasQuote.hide()
+            return
+        }
+
+        binding.chipHasQuote.show()
+
+        binding.chipHasQuote.setOnCloseIconClickListener {
+            viewModel.replaceOperator(SearchOperatorViewData.from(HasQuoteOperator()))
+        }
+
+        val options = listOf(
+            null to R.string.search_operator_quote_dialog_all,
+            HasQuoteOperator.QuoteKind.QUOTES_ONLY to R.string.search_operator_quote_dialog_only,
+            HasQuoteOperator.QuoteKind.NO_QUOTES to R.string.search_operator_quote_dialog_no_quotes,
+        )
+
+        val displayOptions = options.map { getString(it.second) }
+
+        binding.chipHasQuote.setOnClickListener {
+            binding.chipHasQuote.toggle()
+
+            lifecycleScope.launch {
+                val choice = viewModel.getOperator<HasQuoteOperator>()?.choice
+                val index = options.indexOfFirst { it.first == choice }
+
+                val result = AlertDialog.Builder(this@SearchActivity)
+                    .setTitle(R.string.search_operator_quote_dialog_title)
+                    .awaitSingleChoiceItem(
+                        displayOptions,
+                        index,
+                        android.R.string.ok,
+                        android.R.string.cancel,
+                    )
+
+                if (result.button == AlertDialog.BUTTON_POSITIVE && result.index != -1) {
+                    viewModel.replaceOperator(
+                        SearchOperatorViewData.from(HasQuoteOperator(options[result.index].first)),
                     )
                 }
             }

@@ -730,6 +730,14 @@
     <string name="search_operator_embed_dialog_only">Only posts with preview cards</string>
     <string name="search_operator_embed_dialog_no_embeds">Only posts without preview cards</string>
 
+    <string name="search_operator_quote_all">Quotes ▾</string>
+    <string name="search_operator_quote_only">Only quotes</string>
+    <string name="search_operator_quote_no_quotes">Without quotes</string>
+    <string name="search_operator_quote_dialog_title">Show posts that quote other posts?</string>
+    <string name="search_operator_quote_dialog_all">With or without quotes</string>
+    <string name="search_operator_quote_dialog_only">Only posts with quotes</string>
+    <string name="search_operator_quote_dialog_no_quotes">Only posts without quotes</string>
+
     <string name="search_operator_link_all">Links ▾</string>
     <string name="search_operator_link_only">Only links</string>
     <string name="search_operator_no_link">Without links</string>

@@ -30,6 +30,7 @@ import app.pachli.components.search.SearchOperator.HasMediaOperator.HasMediaOpti
 import app.pachli.components.search.SearchOperator.HasMediaOperator.HasMediaOption.SpecificMedia
 import app.pachli.components.search.SearchOperator.HasMediaOperator.MediaKind
 import app.pachli.components.search.SearchOperator.HasPollOperator
+import app.pachli.components.search.SearchOperator.HasQuoteOperator
 import app.pachli.components.search.SearchOperator.IsReplyOperator
 import app.pachli.components.search.SearchOperator.IsSensitiveOperator
 import app.pachli.components.search.SearchOperator.LanguageOperator
@@ -58,6 +59,7 @@ sealed interface SearchOperatorViewData<out T : SearchOperator> {
             is LanguageOperator -> LanguageOperatorViewData(operator)
             is HasLinkOperator -> HasLinkOperatorViewData(operator)
             is HasPollOperator -> HasPollOperatorViewData(operator)
+            is HasQuoteOperator -> HasQuoteOperatorViewData(operator)
             is IsReplyOperator -> IsReplyOperatorViewData(operator)
             is IsSensitiveOperator -> IsSensitiveOperatorViewData(operator)
             is WhereOperator -> WhereOperatorViewData(operator)
@@ -262,6 +264,16 @@ sealed interface SearchOperatorViewData<out T : SearchOperator> {
                 null -> R.string.search_operator_poll_all
                 HasPollOperator.PollKind.POLLS_ONLY -> R.string.search_operator_poll_only
                 HasPollOperator.PollKind.NO_POLLS -> R.string.search_operator_poll_no_polls
+            },
+        )
+    }
+
+    data class HasQuoteOperatorViewData(override val operator: HasQuoteOperator) : SearchOperatorViewData<HasQuoteOperator> {
+        override fun chipLabel(context: Context) = context.getString(
+            when (operator.choice) {
+                null -> R.string.search_operator_quote_all
+                HasQuoteOperator.QuoteKind.QUOTES_ONLY -> R.string.search_operator_quote_only
+                HasQuoteOperator.QuoteKind.NO_QUOTES -> R.string.search_operator_quote_no_quotes
             },
         )
     }
