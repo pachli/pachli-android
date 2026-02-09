@@ -101,7 +101,7 @@ class ConversationStatusView @JvmOverloads constructor(
         binding.statusAvatar.setPaddingRelative(avatarPadding, avatarPadding, avatarPadding, avatarPadding)
 
         val quotedViewData = (viewData as? IStatusItemViewData)?.asQuotedStatusViewData()
-        if (quotedViewData == null) {
+        if (quotedViewData == null || !viewData.isShowingContent) {
             binding.statusQuote.hide()
             return
         }

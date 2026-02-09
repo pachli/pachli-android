@@ -61,7 +61,7 @@ class TimelineStatusView @JvmOverloads constructor(
         super.setupWithStatus(setStatusContent, glide, viewData, listener, statusDisplayOptions)
 
         val quotedViewData = viewData.asQuotedStatusViewData()
-        if (quotedViewData == null) {
+        if (quotedViewData == null || !viewData.isShowingContent) {
             binding.statusQuote.hide()
             return
         }

@@ -101,7 +101,7 @@ class DetailedStatusView @JvmOverloads constructor(
         }
 
         val quotedViewData = (viewData as? IStatusItemViewData)?.asQuotedStatusViewData()
-        if (quotedViewData == null) {
+        if (quotedViewData == null || !viewData.isShowingContent) {
             binding.statusQuote.hide()
             return
         }
