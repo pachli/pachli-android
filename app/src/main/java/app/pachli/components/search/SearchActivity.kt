@@ -247,18 +247,24 @@ class SearchActivity :
 
                 launch {
                     viewModel.operatorViewData.collectLatest { operators ->
-                        var showFilterBadgeDrawable = false
+                        var countActiveOperators = 0
 
                         operators.forEach { viewData ->
                             viewDataToChip[viewData::class.java]?.let { chip ->
-                                showFilterBadgeDrawable = showFilterBadgeDrawable or (viewData.operator.choice != null)
-                                chip.isChecked = viewData.operator.choice != null
-                                chip.isCloseIconVisible = viewData.operator.choice != null
+                                val activeChoice = viewData.operator.choice != null
+                                if (activeChoice) countActiveOperators++
+                                chip.isChecked = activeChoice
+                                chip.isCloseIconVisible = activeChoice
                                 chip.text = viewData.chipLabel(this@SearchActivity)
                             }
                         }
 
-                        filterBadgeDrawable.isVisible = showFilterBadgeDrawable
+                        if (countActiveOperators > 0) {
+                            filterBadgeDrawable.text = countActiveOperators.toString()
+                            filterBadgeDrawable.isVisible = true
+                        } else {
+                            filterBadgeDrawable.isVisible = false
+                        }
                         viewModel.search()
                     }
                 }
