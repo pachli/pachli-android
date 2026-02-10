@@ -780,4 +780,11 @@
     <string name="compose_task_description_writing_post">Post scríbhneoireachta</string>
     <string name="compose_task_description_replying_fmt">Ag freagairt do %1$s</string>
     <string name="compose_task_description_quoting_fmt">Ag lua %1$s</string>
+    <string name="search_operator_quote_all">Sleachta ▾</string>
+    <string name="search_operator_quote_only">Sleachta amháin</string>
+    <string name="search_operator_quote_no_quotes">Gan luachana</string>
+    <string name="search_operator_quote_dialog_title">Taispeáin poist a luann poist eile?</string>
+    <string name="search_operator_quote_dialog_all">Le nó gan luachana</string>
+    <string name="search_operator_quote_dialog_only">Poist le luachana amháin</string>
+    <string name="search_operator_quote_dialog_no_quotes">Poist gan luachana amháin</string>
 </resources>
