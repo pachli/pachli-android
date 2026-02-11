@@ -33,6 +33,10 @@ ktlint-standard_condition-wrapping = disabled
 # Was re-writing functions to expression bodies, causing spurious diffs.
 ktlint_standard_function-expression-body = disabled
 
+# https://pinterest.github.io/ktlint/latest/rules/standard/#blank-line-between-when-conditions
+# Causes too many whitespace changes at the moment.
+ktlint_standard_blank-line-between-when-conditions = disabled
+
 max_line_length = off
 
 [*.{yml,yaml}]
