@@ -207,7 +207,11 @@ data class Status(
         val website: String?,
     )
 
+    /** The quote's acceptance state. */
     enum class QuoteState {
+        /**
+         * The quote state is not recognised, and will not be displayed.
+         */
         UNKNOWN,
 
         /**
@@ -269,20 +273,42 @@ data class Status(
     }
 
     sealed interface Quote {
+        /** The quote's acceptance state. */
         val state: QuoteState
-        val statusId: String
 
+        /**
+         * Full quote.
+         *
+         * @property state
+         * @property status The quoted status.
+         */
         data class FullQuote(
             override val state: QuoteState,
             val status: Status,
         ) : Quote {
-            override val statusId: String
+            val statusId: String
                 get() = status.actionableId
         }
 
+        /**
+         * Shallow quote.
+         *
+         * @property state
+         * @property statusId ID of the quoted status.
+         */
         data class ShallowQuote(
             override val state: QuoteState,
-            override val statusId: String,
+            val statusId: String,
+        ) : Quote
+
+        /**
+         * Hidden quote; the existence is disclosed to the user, but they can't
+         * click through it.
+         *
+         * @property state Why the quote is hidden.
+         */
+        data class HiddenQuote(
+            override val state: QuoteState,
         ) : Quote
     }
 

@@ -166,7 +166,12 @@ fun Status.asEntity(pachliAccountId: Long) = StatusEntity(
     pinned = actionableStatus.pinned == true,
     card = actionableStatus.card,
     quoteState = actionableStatus.quote?.state,
-    quoteServerId = actionableStatus.quote?.statusId,
+    quoteServerId = when (actionableStatus.quote) {
+        is Status.Quote.FullQuote -> (actionableStatus.quote as Status.Quote.FullQuote).statusId
+        is Status.Quote.ShallowQuote -> (actionableStatus.quote as Status.Quote.ShallowQuote).statusId
+        is Status.Quote.HiddenQuote -> null
+        null -> null
+    },
     quoteApproval = actionableStatus.quoteApproval,
     repliesCount = actionableStatus.repliesCount,
     language = actionableStatus.language,
