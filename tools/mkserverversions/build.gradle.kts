@@ -19,6 +19,11 @@ plugins {
     alias(libs.plugins.google.ksp)
     alias(libs.plugins.apollographql)
     alias(libs.plugins.pachli.tool)
+    alias(libs.plugins.moshixir)
+}
+
+moshi {
+    enableSealed.set(true)
 }
 
 application {
@@ -27,9 +32,6 @@ application {
 
 dependencies {
     implementation(libs.apollo.runtime)
-
-    implementation(libs.moshi)
-    ksp(libs.moshi.codegen)
 }
 
 apollo {

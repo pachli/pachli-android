@@ -21,12 +21,16 @@ plugins {
     alias(libs.plugins.pachli.android.application)
     alias(libs.plugins.pachli.android.hilt)
     alias(libs.plugins.kotlin.parcelize)
-    kotlin("kapt")
+    alias(libs.plugins.moshixir)
 }
 
 apply(from = "gitTools.gradle")
 val getGitSha: groovy.lang.Closure<String> by extra
 val getGitRevCount: groovy.lang.Closure<Int> by extra
+
+moshi {
+    enableSealed.set(true)
+}
 
 android {
     namespace = "app.pachli"
@@ -157,10 +161,6 @@ dependencies {
     implementation(libs.androidx.core.animation)
 
     implementation(libs.android.material)
-
-    implementation(libs.moshi)
-    implementation(libs.moshi.adapters)
-    ksp(libs.moshi.codegen)
 
     implementation(libs.bundles.retrofit)
 
