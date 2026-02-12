@@ -507,8 +507,12 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
                                     content = redraftStatus.text.orEmpty(),
                                     referencingStatus = redraftStatus.inReplyToId?.let {
                                         ReferencingStatus.ReplyId(it)
-                                    } ?: redraftStatus.quote?.let {
-                                        ReferencingStatus.QuoteId(it.statusId)
+                                    } ?: redraftStatus.quote?.let { quote ->
+                                        when (quote) {
+                                            is Status.Quote.FullQuote -> quote.statusId
+                                            is Status.Quote.ShallowQuote -> quote.statusId
+                                            is Status.Quote.HiddenQuote -> null
+                                        }?.let { ReferencingStatus.QuoteId(it) }
                                     },
                                     visibility = redraftStatus.visibility,
                                     contentWarning = redraftStatus.spoilerText,
@@ -540,8 +544,12 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
                     content = source.text,
                     referencingStatus = status.inReplyToId?.let {
                         ReferencingStatus.ReplyId(it)
-                    } ?: status.quote?.let {
-                        ReferencingStatus.QuoteId(it.statusId)
+                    } ?: status.quote?.let { quote ->
+                        when (quote) {
+                            is Status.Quote.FullQuote -> quote.statusId
+                            is Status.Quote.ShallowQuote -> quote.statusId
+                            is Status.Quote.HiddenQuote -> null
+                        }?.let { ReferencingStatus.QuoteId(it) }
                     },
                     visibility = status.visibility,
                     contentWarning = source.spoilerText,

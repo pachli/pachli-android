@@ -525,8 +525,12 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                             content = sourceStatus.text,
                             referencingStatus = statusViewData.status.inReplyToId?.let {
                                 ReferencingStatus.ReplyId(it)
-                            } ?: statusViewData.status.quote?.let {
-                                ReferencingStatus.QuoteId(it.statusId)
+                            } ?: statusViewData.status.quote?.let { quote ->
+                                when (quote) {
+                                    is Status.Quote.FullQuote -> quote.statusId
+                                    is Status.Quote.ShallowQuote -> quote.statusId
+                                    is Status.Quote.HiddenQuote -> null
+                                }?.let { ReferencingStatus.QuoteId(it) }
                             },
                             visibility = sourceStatus.visibility,
                             contentWarning = sourceStatus.spoilerText,
@@ -562,8 +566,12 @@ abstract class SFragment<T : IStatusViewData> : Fragment(), StatusActionListener
                     content = source.text,
                     referencingStatus = status.inReplyToId?.let {
                         ReferencingStatus.ReplyId(it)
-                    } ?: status.quote?.let {
-                        ReferencingStatus.QuoteId(it.statusId)
+                    } ?: status.quote?.let { quote ->
+                        when (quote) {
+                            is Status.Quote.FullQuote -> quote.statusId
+                            is Status.Quote.ShallowQuote -> quote.statusId
+                            is Status.Quote.HiddenQuote -> null
+                        }?.let { ReferencingStatus.QuoteId(it) }
                     },
                     visibility = status.visibility,
                     contentWarning = source.spoilerText,

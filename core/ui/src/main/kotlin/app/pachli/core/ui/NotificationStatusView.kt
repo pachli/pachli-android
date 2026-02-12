@@ -23,7 +23,6 @@ import android.view.LayoutInflater
 import android.widget.Button
 import app.pachli.core.common.extensions.hide
 import app.pachli.core.common.extensions.show
-import app.pachli.core.data.model.IStatusItemViewData
 import app.pachli.core.data.model.NotificationViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.ui.databinding.StatusContentBinding
@@ -66,13 +65,14 @@ class NotificationStatusView @JvmOverloads constructor(
     override fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: NotificationViewData.WithStatus, listener: StatusActionListener, statusDisplayOptions: StatusDisplayOptions) {
         super.setupWithStatus(setStatusContent, glide, viewData, listener, statusDisplayOptions)
 
-        val quotedViewData = (viewData as? IStatusItemViewData)?.asQuotedStatusViewData()
-        if (quotedViewData == null || !viewData.isShowingContent) {
+        val quote = viewData.actionable.quote
+        if (!viewData.isShowingContent || quote == null) {
             binding.statusQuote.hide()
             return
         }
 
-        binding.statusQuote.setupWithStatus(setStatusContent, glide, quotedViewData, listener, statusDisplayOptions)
+        val quotedViewData = viewData.asQuotedStatusViewData()
+        binding.statusQuote.setupWithStatus(setStatusContent, glide, quote.state, quotedViewData, listener, statusDisplayOptions)
         binding.statusQuote.show()
     }
 }

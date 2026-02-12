@@ -29,6 +29,7 @@ import app.pachli.core.model.Emoji
 import app.pachli.core.model.HashTag
 import app.pachli.core.model.Poll
 import app.pachli.core.model.Status
+import app.pachli.core.model.Status.Quote.ShallowQuote
 import java.util.Date
 
 @DatabaseView(
@@ -194,10 +195,20 @@ data class TimelineStatusWithAccount(
                 muted = status.muted,
                 poll = poll,
                 card = card,
-                quote = status.quoteState?.let { quoteState ->
-                    status.quoteServerId?.let { quoteServerId ->
-                        Status.Quote.ShallowQuote(quoteState, quoteServerId)
-                    }
+                quote = when (status.quoteState) {
+                    Status.QuoteState.ACCEPTED -> ShallowQuote(status.quoteState, status.quoteServerId!!)
+                    Status.QuoteState.UNKNOWN,
+                    Status.QuoteState.PENDING,
+                    Status.QuoteState.REJECTED,
+                    Status.QuoteState.REVOKED,
+                    Status.QuoteState.DELETED,
+                    Status.QuoteState.UNAUTHORIZED,
+                    Status.QuoteState.BLOCKED_ACCOUNT,
+                    Status.QuoteState.BLOCKED_DOMAIN,
+                    Status.QuoteState.MUTED_ACCOUNT,
+                    -> Status.Quote.HiddenQuote(state = status.quoteState)
+
+                    null -> null
                 },
                 quoteApproval = status.quoteApproval,
                 repliesCount = status.repliesCount,
@@ -236,10 +247,20 @@ data class TimelineStatusWithAccount(
                 muted = status.muted,
                 poll = null,
                 card = null,
-                quote = status.quoteState?.let { quoteState ->
-                    status.quoteServerId?.let { quoteServerId ->
-                        Status.Quote.ShallowQuote(quoteState, quoteServerId)
-                    }
+                quote = when (status.quoteState) {
+                    Status.QuoteState.ACCEPTED -> ShallowQuote(status.quoteState, status.quoteServerId!!)
+                    Status.QuoteState.UNKNOWN,
+                    Status.QuoteState.PENDING,
+                    Status.QuoteState.REJECTED,
+                    Status.QuoteState.REVOKED,
+                    Status.QuoteState.DELETED,
+                    Status.QuoteState.UNAUTHORIZED,
+                    Status.QuoteState.BLOCKED_ACCOUNT,
+                    Status.QuoteState.BLOCKED_DOMAIN,
+                    Status.QuoteState.MUTED_ACCOUNT,
+                    -> Status.Quote.HiddenQuote(state = status.quoteState)
+
+                    null -> null
                 },
                 quoteApproval = status.quoteApproval,
                 repliesCount = status.repliesCount,
@@ -275,10 +296,20 @@ data class TimelineStatusWithAccount(
                 muted = status.muted,
                 poll = poll,
                 card = card,
-                quote = status.quoteState?.let { quoteState ->
-                    status.quoteServerId?.let { quoteServerId ->
-                        Status.Quote.ShallowQuote(quoteState, quoteServerId)
-                    }
+                quote = when (status.quoteState) {
+                    Status.QuoteState.ACCEPTED -> ShallowQuote(status.quoteState, status.quoteServerId!!)
+                    Status.QuoteState.UNKNOWN,
+                    Status.QuoteState.PENDING,
+                    Status.QuoteState.REJECTED,
+                    Status.QuoteState.REVOKED,
+                    Status.QuoteState.DELETED,
+                    Status.QuoteState.UNAUTHORIZED,
+                    Status.QuoteState.BLOCKED_ACCOUNT,
+                    Status.QuoteState.BLOCKED_DOMAIN,
+                    Status.QuoteState.MUTED_ACCOUNT,
+                    -> Status.Quote.HiddenQuote(state = status.quoteState)
+
+                    null -> null
                 },
                 quoteApproval = status.quoteApproval,
                 repliesCount = status.repliesCount,

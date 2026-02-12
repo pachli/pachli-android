@@ -23,7 +23,6 @@ import app.pachli.core.network.json.HasDefault
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import java.util.Date
-import timber.log.Timber
 
 @JsonClass(generateAdapter = true)
 data class Status(
@@ -256,7 +255,7 @@ data class Status(
         @Json(name = "quoted_status") val quotedStatus: Status? = null,
         @Json(name = "quoted_status_id") val quotedStatusId: String? = null,
     ) {
-        fun asModel(): app.pachli.core.model.Status.Quote? {
+        fun asModel(): app.pachli.core.model.Status.Quote {
             if (quotedStatus != null) {
                 return app.pachli.core.model.Status.Quote.FullQuote(
                     state = state.asModel(),
@@ -271,8 +270,7 @@ data class Status(
                 )
             }
 
-            Timber.e("Could not convert network Quote to model Quote: $this")
-            return null
+            return app.pachli.core.model.Status.Quote.HiddenQuote(state = state.asModel())
         }
     }
 

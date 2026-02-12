@@ -69,10 +69,22 @@ class QuotedStatusView @JvmOverloads constructor(
     /** Bottom padding to use on the root view if the "Remove quote" button is not shown. */
     private val paddingBottomWithoutRemoveQuote = dpToPx(14f, context.resources.displayMetrics).toInt()
 
-    override fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: QuotedStatusViewData, listener: StatusActionListener, statusDisplayOptions: StatusDisplayOptions) {
-        // Don't show the quote unless the state is ACCEPTED. Every other state
-        // has a custom explanation.
-        val blockedRes = when (viewData.quoteState) {
+    /**
+     * Binds the [viewData] to the view, respecting [quoteState].
+     *
+     * Call this instead of [setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: QuotedStatusViewData, listener: StatusActionListener, statusDisplayOptions: StatusDisplayOptions)].
+     *
+     * @param setStatusContent
+     * @param glide
+     * @param quoteState Whether to display the quote. If not
+     * [QuoteState.ACCEPTED][Status.QuoteState.ACCEPTED] the quote is hidden and an
+     * explanatory message is shown.
+     * @param viewData
+     * @param listener
+     * @param statusDisplayOptions
+     */
+    fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, quoteState: Status.QuoteState, viewData: QuotedStatusViewData?, listener: StatusActionListener, statusDisplayOptions: StatusDisplayOptions) {
+        val blockedRes = when (quoteState) {
             Status.QuoteState.ACCEPTED -> -1
             Status.QuoteState.UNKNOWN -> R.string.label_quote_state_unknown
             Status.QuoteState.PENDING -> R.string.label_quote_state_pending
@@ -93,6 +105,10 @@ class QuotedStatusView @JvmOverloads constructor(
             return
         }
 
+        setupWithStatus(setStatusContent, glide, viewData!!, listener, statusDisplayOptions)
+    }
+
+    override fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: QuotedStatusViewData, listener: StatusActionListener, statusDisplayOptions: StatusDisplayOptions) {
         when (viewData.contentFilterAction) {
             FilterAction.HIDE -> {
                 binding.quotedStatusFiltered.root.hide()

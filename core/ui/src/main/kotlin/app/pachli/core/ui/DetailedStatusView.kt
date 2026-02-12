@@ -100,13 +100,14 @@ class DetailedStatusView @JvmOverloads constructor(
             hideQuantitativeStats()
         }
 
-        val quotedViewData = (viewData as? IStatusItemViewData)?.asQuotedStatusViewData()
-        if (quotedViewData == null || !viewData.isShowingContent) {
+        val quote = viewData.actionable.quote
+        if (!viewData.isShowingContent || quote == null) {
             binding.statusQuote.hide()
             return
         }
 
-        binding.statusQuote.setupWithStatus(setStatusContent, glide, quotedViewData, listener, statusDisplayOptions)
+        val quotedViewData = (viewData as? IStatusItemViewData)?.asQuotedStatusViewData()
+        binding.statusQuote.setupWithStatus(setStatusContent, glide, quote.state, quotedViewData, listener, statusDisplayOptions)
         binding.statusQuote.show()
     }
 
