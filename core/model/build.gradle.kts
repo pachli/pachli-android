@@ -19,6 +19,11 @@ plugins {
     alias(libs.plugins.pachli.android.library)
     alias(libs.plugins.pachli.android.hilt)
     alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.moshixir)
+}
+
+moshi {
+    enableSealed.set(true)
 }
 
 android {
@@ -31,12 +36,6 @@ android {
 
 dependencies {
     implementation(projects.core.common)
-    implementation(libs.moshi)
-    implementation(libs.moshi.adapters)
-    ksp(libs.moshi.codegen)
-
-    implementation(libs.moshix.sealed.runtime)
-    ksp(libs.moshix.sealed.codegen)
 
     implementation(libs.semver)
         ?.because("ServerOperation uses Version")
