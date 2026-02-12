@@ -19,6 +19,11 @@ plugins {
     alias(libs.plugins.pachli.android.library)
     alias(libs.plugins.pachli.android.hilt)
     alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.moshixir)
+}
+
+moshi {
+    enableSealed.set(true)
 }
 
 android {
@@ -46,13 +51,6 @@ dependencies {
     // ServerRepository
     implementation(libs.semver)
 
-    implementation(libs.moshi)
-        ?.because("Notifications serialise as JSON")
-
     testImplementation(projects.core.networkTest)
     testImplementation(libs.bundles.mockito)
-
-    testImplementation(libs.moshi)
-    testImplementation(libs.moshi.adapters)
-    ksp(libs.moshi.codegen)
 }

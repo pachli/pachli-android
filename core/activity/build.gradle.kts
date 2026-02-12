@@ -60,9 +60,6 @@ dependencies {
     // Crash reporting in orange (Pachli Current) builds only
     orangeImplementation(libs.bundles.acra)
 
-    orangeCompileOnly(libs.auto.service.annotations)
-    kspOrange(libs.auto.service.ksp)
-
     // BottomSheetActivityTest uses mockito
     testImplementation(libs.bundles.mockito)
 }

@@ -21,7 +21,6 @@ import android.app.Application
 import android.content.Context
 import app.pachli.core.database.model.LogEntry
 import app.pachli.core.designsystem.R as DR
-import com.google.auto.service.AutoService
 import java.time.Instant
 import org.acra.ACRA
 import org.acra.builder.ReportBuilder
@@ -92,7 +91,6 @@ object TreeRing : Timber.DebugTree() {
  * Acra collector that appends the contents of the [TreeRing] log to the Acra
  * report.
  */
-@AutoService(Collector::class)
 class TreeRingCollector : Collector {
 
     override fun collect(

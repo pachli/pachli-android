@@ -19,6 +19,11 @@ plugins {
     alias(libs.plugins.pachli.android.library)
     alias(libs.plugins.pachli.android.hilt)
     alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.moshixir)
+}
+
+moshi {
+    enableSealed.set(true)
 }
 
 android {
@@ -35,10 +40,6 @@ dependencies {
 
     implementation(libs.hilt.android.testing)
     implementation(libs.bundles.mockito)
-
-    implementation(libs.moshi)
-    implementation(libs.moshi.adapters)
-    ksp(libs.moshi.codegen)
 
     implementation(libs.bundles.okhttp)
         ?.because("FakeNetworkModule mocks OkHttpClient")
