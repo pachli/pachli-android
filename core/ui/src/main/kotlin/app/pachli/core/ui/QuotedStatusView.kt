@@ -105,7 +105,15 @@ class QuotedStatusView @JvmOverloads constructor(
             return
         }
 
-        setupWithStatus(setStatusContent, glide, viewData!!, listener, statusDisplayOptions)
+        if (viewData == null) {
+            binding.quotedStatusFiltered.root.hide()
+            binding.quotedStatusContainer.root.hide()
+            binding.quotedStatusHidden.setText(R.string.label_quote_state_unknown)
+            binding.quotedStatusHidden.show()
+            return
+        }
+
+        setupWithStatus(setStatusContent, glide, viewData, listener, statusDisplayOptions)
     }
 
     override fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: QuotedStatusViewData, listener: StatusActionListener, statusDisplayOptions: StatusDisplayOptions) {
