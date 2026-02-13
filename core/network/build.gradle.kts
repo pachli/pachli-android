@@ -18,6 +18,11 @@
 plugins {
     alias(libs.plugins.pachli.android.library)
     alias(libs.plugins.pachli.android.hilt)
+    alias(libs.plugins.moshixir)
+}
+
+moshi {
+    enableSealed.set(true)
 }
 
 android {
@@ -32,10 +37,6 @@ dependencies {
     implementation(projects.core.common)
     implementation(projects.core.model)
     implementation(projects.core.preferences)
-
-    implementation(libs.moshi)
-    implementation(libs.moshi.adapters)
-    ksp(libs.moshi.codegen)
 
     implementation(libs.bundles.retrofit)
     implementation(libs.bundles.okhttp)

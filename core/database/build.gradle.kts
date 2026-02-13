@@ -20,6 +20,11 @@ plugins {
     alias(libs.plugins.pachli.android.hilt)
     alias(libs.plugins.pachli.android.room)
     alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.moshixir)
+}
+
+moshi {
+    enableSealed.set(true)
 }
 
 android {
@@ -42,14 +47,6 @@ dependencies {
     implementation(projects.core.common)
     implementation(projects.core.model)
     implementation(projects.core.preferences)
-
-    // Because of the use of @Json in DraftEntity
-    implementation(libs.moshi)
-    implementation(libs.moshi.adapters)
-    ksp(libs.moshi.codegen)
-
-    implementation(libs.moshix.sealed.runtime)
-    ksp(libs.moshix.sealed.codegen)
 
     // ServerRepository
     implementation(libs.semver)?.because("Converters has to convert Version")
