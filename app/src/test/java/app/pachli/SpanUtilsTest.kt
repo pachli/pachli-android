@@ -99,13 +99,13 @@ class SpanUtilsTest {
             @JvmStatic
             fun data(): Iterable<Any> {
                 return listOf(
-                    arrayOf("#test", 0, 5),
-                    arrayOf(" #AfterSpace", 1, 12),
-                    arrayOf("#BeforeSpace ", 0, 12),
-                    arrayOf("@#after_at", 1, 10),
-                    arrayOf("あいうえお#after_hiragana", 5, 20),
-                    arrayOf("##DoubleHash", 1, 12),
-                    arrayOf("###TripleHash", 2, 13),
+                    arrayOf<Any>("#test", 0, 5),
+                    arrayOf<Any>(" #AfterSpace", 1, 12),
+                    arrayOf<Any>("#BeforeSpace ", 0, 12),
+                    arrayOf<Any>("@#after_at", 1, 10),
+                    arrayOf<Any>("あいうえお#after_hiragana", 5, 20),
+                    arrayOf<Any>("##DoubleHash", 1, 12),
+                    arrayOf<Any>("###TripleHash", 2, 13),
                 )
             }
         }
