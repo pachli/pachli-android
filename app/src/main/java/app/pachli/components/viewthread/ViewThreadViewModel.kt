@@ -468,7 +468,7 @@ class ViewThreadViewModel @Inject constructor(
         contentFilterAction: FilterAction? = null,
         isDetailed: Boolean = false,
     ): StatusItemViewData {
-        val quote = (quote as? Status.Quote.FullQuote)?.status
+        val quote = (this.actionableStatus.quote as? Status.Quote.FullQuote)?.status
         return StatusItemViewData.from(
             pachliAccount = pachliAccount,
             timelineStatusWithQuote = TimelineStatusWithQuote(
