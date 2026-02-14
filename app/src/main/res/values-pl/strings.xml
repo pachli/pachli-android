@@ -775,4 +775,11 @@
     <string name="compose_task_description_writing_post">Pisanie wpisu</string>
     <string name="compose_task_description_replying_fmt">Odpowiadanie %1$s</string>
     <string name="compose_task_description_quoting_fmt">Cytowanie %1$s</string>
+    <string name="search_operator_quote_all">Cytaty ▾</string>
+    <string name="search_operator_quote_only">Tylko cytaty</string>
+    <string name="search_operator_quote_no_quotes">Bez cytatów</string>
+    <string name="search_operator_quote_dialog_title">Pokazać wpisy cytujące inne wpisy?</string>
+    <string name="search_operator_quote_dialog_all">Z cytatami lub bez</string>
+    <string name="search_operator_quote_dialog_only">Tylko wpisy z cytatami</string>
+    <string name="search_operator_quote_dialog_no_quotes">Tylko wpisy bez cytatów</string>
 </resources>

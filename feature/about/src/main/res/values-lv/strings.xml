@@ -48,7 +48,7 @@
     <string name="notification_log_download_content_description">Lejupielādēt žurnālus</string>
     <string name="notification_log_download">Lejupielādēt</string>
     <string name="notification_log_sort">Kārtot pēc jaunākā</string>
-    <string name="notification_log_previous_attempts">Iepriekšējie mēģinājumi: %1$d</string>
+    <string name="notification_log_previous_attempts">Izpildīšanas mēģinājumi: %1$d</string>
     <string name="notification_log_scheduled_in">Ieplānots %1$s @ %2$s</string>
     <string name="notification_log_method_push">Paziņojumi tiek piegādāti ar UnifiedPush, un tiem vajadzētu būt tūlītējiem</string>
     <string name="notification_log_method_pull">Paziņojumi tiek iegūtu laiku pa laikam, apmēram reizi 15 minūtēs</string>
