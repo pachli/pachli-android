@@ -105,6 +105,7 @@ moshixir = { id = "dev.zacsweers.moshix", version.ref = "moshix" }
 room = { id = "androidx.room", version.ref = "androidx-room" }
 quadrant = { id = "com.gaelmarhic.quadrant", version.ref = "quadrant" }
 apollographql = { id = "com.apollographql.apollo3", version.ref = "apollographql"}
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 
 # Plugins defined by this project
 pachli-android-application = { id = "pachli.android.application", version = "unspecified" }
