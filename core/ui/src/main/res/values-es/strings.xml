@@ -82,8 +82,8 @@
     <string name="abbreviated_hours_ago">%dh</string>
     <string name="abbreviated_in_days">en %dd</string>
     <string name="abbreviated_days_ago">%dd</string>
-    <string name="abbreviated_in_years">en %dy</string>
-    <string name="abbreviated_years_ago">%dy</string>
+    <string name="abbreviated_in_years">en %da</string>
+    <string name="abbreviated_years_ago">%da</string>
     <string name="description_post_media_no_description_placeholder">Sin descripción</string>
     <string name="description_visibility_public">Público</string>
     <string name="description_visibility_unlisted">Sin listar</string>
