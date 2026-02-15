@@ -23,7 +23,7 @@
     <string name="notification_details_any_account_needs_migration">¿Todas las cuentas tienen alcance \'push\' de OAuth?</string>
     <string name="notification_details_accounts_unified_push_url">¿Todas las cuentas tienen una URL de UnifiedPush?</string>
     <string name="notification_details_ntfy_exempt">¿NTFY está excluida de la optimización de la batería?</string>
-    <string name="notification_details_pull_section">Notificaciones pull con obtenciones periódicas mediante workers</string>
+    <string name="notification_details_pull_section">Obtener notificaciones mediante trabajadores periódicos</string>
     <string name="notification_details_usage_event">Restricciones de la administración de energía</string>
     <string name="notification_details_standby_bucket_exempted">Excluida</string>
     <string name="notification_details_standby_bucket_frequent">Frecuente. Limitado a 10 minutos cada 2 horas</string>
@@ -33,7 +33,7 @@
     <string name="notification_log_filter">Filtro</string>
     <string name="notification_log_download_content_description">Descargar registros</string>
     <string name="notification_log_sort">Ordenar más recientes primero</string>
-    <string name="notification_log_previous_attempts">Intentos previos: %1$d</string>
+    <string name="notification_log_previous_attempts">Intentos de ejecución: %1$d</string>
     <string name="notification_log_scheduled_in">Programado en %1$s @ %2$s</string>
     <string name="notification_log_method_pull">Las notificaciones son obtenidas periódicamente, cada 15 minutos aproximadamente</string>
     <string name="notification_log_method_unknown">El mecanismo de notificación no ha sido determinado</string>
@@ -51,7 +51,7 @@
     <string name="notification_details_pachli_exempt">¿Está Pachli excluida de la optimización de la batería?</string>
     <string name="notification_details_ntfy_exempt_help">NTFY no está excluida de la optimización de la batería. Android puede estar retrasando las notificaciones mientras la pantalla está apagada.</string>
     <string name="notification_details_pachli_exempt_help">Pachli no está excluida de la optimización de la batería. Android puede estar retrasando las notificaciones mientras la pantalla está apagada.</string>
-    <string name="notification_details_workers_help">Ésta es la lista de los workers que obtienen nuevas notificaciones. Debería haber uno solo y su estado debería ser o RUNNING o ENQUEUED, en cuyo caso debería estar programado para ejecutarse en menos de 15 minutos.</string>
+    <string name="notification_details_workers_help">Esta es la lista de los trabajadores que obtienen nuevas notificaciones. Debería haber uno solo y su estado debería ser o RUNNING (corriendo) o ENQUEUED (en cola), en cuyo caso debería estar programado para ejecutarse en menos de 15 minutos.</string>
     <string name="notification_details_last_fetch_help">Independientemente del método de notificación, esto muestra para cada cuenta cuándo ocurrió la última obtención, si fue exitosa y, en caso contrario, el mensaje de error.</string>
     <string name="notification_details_usage_event_label">Android limita lo que las apps pueden hacer en segundo plano. Aquí se lista cómo Pachli ha sido restringida en los últimos tres días, más recientes primero.</string>
     <string name="notification_details_ago">Hace %1$s @ %2$s</string>
@@ -80,4 +80,6 @@
     <string name="database_prune_cache_complete">Se completó la reducción de la caché</string>
     <string name="database_vacuum_complete">Se completó el vaciado</string>
     <string name="database_clear_cache_complete">Se completó la limpieza de la caché</string>
+    <string name="about_workers">Trabajadores</string>
+    <string name="workers_prune_cached_media_help">Esta es la lista de los trabajadores que reducen la caché multimedia. Debería haber uno solo y su estado debería ser o RUNNING (corriendo) o ENQUEUED (en cola), en cuyo caso debería estar programado para ejecutarse en menos de 12 horas.</string>
 </resources>
