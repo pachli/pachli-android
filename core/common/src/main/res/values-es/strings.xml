@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="notification_listenable_worker_description">Notificaciones cuando Pachli está trabajando en el fondo</string>
-    <string name="notification_listenable_worker_name">Actividad de fondo</string>
+    <string name="notification_listenable_worker_description">Notificaciones cuando Pachli está trabajando en segundo plano</string>
+    <string name="notification_listenable_worker_name">Actividad en segundo plano</string>
 </resources>
