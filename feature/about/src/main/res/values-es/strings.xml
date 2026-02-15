@@ -82,4 +82,6 @@
     <string name="database_clear_cache_complete">Se completó la limpieza de la caché</string>
     <string name="about_workers">Trabajadores</string>
     <string name="workers_prune_cached_media_help">Esta es la lista de los trabajadores que reducen la caché multimedia. Debería haber uno solo y su estado debería ser o RUNNING (corriendo) o ENQUEUED (en cola), en cuyo caso debería estar programado para ejecutarse en menos de 12 horas.</string>
+    <string name="workers_prune_cache_help">Esta es la lista de los trabajadores que reducen la información sobre publicaciones y autores en la caché. Debería haber uno solo y su estado debería ser o RUNNING (corriendo) o ENQUEUED (en cola), en cuyo caso debería estar programado para ejecutarse en menos de 12 horas.</string>
+    <string name="workers_prune_log_entry_entity_help">Esta es la lista de los trabajadores que depuran las entradas del registro. Debería haber uno solo y su estado debería ser o RUNNING (corriendo) o ENQUEUED (en cola), en cuyo caso debería estar programado para ejecutarse en menos de 12 horas.</string>
 </resources>
