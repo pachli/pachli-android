@@ -35,11 +35,11 @@ data class Poll(
 @JsonClass(generateAdapter = true)
 data class PollOption(
     val title: String,
-    @Json(name = "votes_count") val votesCount: Int,
+    @Json(name = "votes_count") val votesCount: Int?,
 ) {
     fun asModel() = app.pachli.core.model.PollOption(
         title = title,
-        votesCount = votesCount,
+        votesCount = votesCount ?: 0,
     )
 }
 
