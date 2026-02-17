@@ -29,7 +29,7 @@ import app.pachli.core.model.Emoji
 import app.pachli.core.model.HashTag
 import app.pachli.core.model.Status
 import app.pachli.core.network.parseAsMastodonHtml
-import app.pachli.core.network.rxQuoteInline
+import app.pachli.core.network.removeQuoteInline
 import app.pachli.core.ui.PreProcessMastodonHtml.processMarkdown
 import com.bumptech.glide.RequestManager
 import com.google.android.material.color.MaterialColors
@@ -66,6 +66,8 @@ interface SetStatusContent {
      * @param emojis
      * @param mentions
      * @param hashtags
+     * @param removeQuoteInline If true, remove `p` elements with a `quote-inline`
+     * class.
      * @param listener
      */
     operator fun invoke(
@@ -76,6 +78,7 @@ interface SetStatusContent {
         emojis: List<Emoji>,
         mentions: List<Status.Mention>,
         hashtags: List<HashTag>?,
+        removeQuoteInline: Boolean,
         listener: LinkListener,
     )
 }
@@ -92,9 +95,14 @@ object SetMastodonHtmlContent : SetStatusContent {
         emojis: List<Emoji>,
         mentions: List<Status.Mention>,
         hashtags: List<HashTag>?,
+        removeQuoteInline: Boolean,
         listener: LinkListener,
     ) {
-        val parsedContent = content.parseAsMastodonHtml()
+        val parsedContent = if (removeQuoteInline) {
+            content.removeQuoteInline().parseAsMastodonHtml()
+        } else {
+            content.parseAsMastodonHtml()
+        }
         val emojifiedText = parsedContent.emojify(glide, emojis, textView, statusDisplayOptions.animateEmojis)
         setClickableText(textView, emojifiedText, mentions, hashtags, listener)
     }
@@ -144,9 +152,10 @@ class SetMarkdownContent(context: Context) : SetStatusContent {
         emojis: List<Emoji>,
         mentions: List<Status.Mention>,
         hashtags: List<HashTag>?,
+        removeQuoteInline: Boolean,
         listener: LinkListener,
     ) {
-        val spanned = markwon.toMarkdown(content.toString())
+        val spanned = markwon.toMarkdown(if (removeQuoteInline) content.removeQuoteInline() else content.toString())
 
         val emojifiedText = spanned.emojify(glide, emojis, textView, statusDisplayOptions.animateEmojis)
 
@@ -236,8 +245,6 @@ object PreProcessMastodonHtml : AbstractMarkwonPlugin() {
         // - Links in fenced code blocks are not clickable
         //   Eg., a hashtag in a fenced code block is not clickable
         val processed = input
-            // Remove the "quote-inline" para, not needed as quotes are displayed.
-            .replace(rxQuoteInline, "")
             // Remove <p> with any preceeding whitespace (just in case a paragraph was
             // indented -- not removing the whitespace could cause it to be treated as
             // a code block).
