@@ -85,7 +85,7 @@ xmlwriter = "1.0.4"
 betterparse = "0.4.4"
 clikt = "5.0.3"
 icu4j = "78.2"
-junit-jupiter = "6.0.2"
+junit-jupiter = "6.0.3"
 kotlin-logging-jvm = "7.0.14"
 logback = "1.5.28"
 
