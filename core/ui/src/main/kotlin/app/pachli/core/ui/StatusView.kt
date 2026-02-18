@@ -303,6 +303,7 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
                 emojis,
                 mentions,
                 tags,
+                removeQuoteInline = viewData.status.quote != null,
                 listener,
             )
 
