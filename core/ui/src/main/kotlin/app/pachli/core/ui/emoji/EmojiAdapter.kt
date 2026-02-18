@@ -34,7 +34,7 @@ import java.util.Locale
 import timber.log.Timber
 
 /**
- * Items that can be be displayed in the list of emojis.
+ * Items that can be displayed in the list of emojis.
  *
  * @property id Unique identifier for this item.
  */
