@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.eventhub.DomainMuteEvent
 import app.pachli.core.eventhub.EventHub
 import app.pachli.core.eventhub.ProfileEditedEvent
@@ -34,8 +35,9 @@ class AccountViewModel @AssistedInject constructor(
     @Assisted private val pachliAccountId: Long,
     private val mastodonApi: MastodonApi,
     private val eventHub: EventHub,
-    private val accountManager: AccountManager,
+    accountManager: AccountManager,
     private val timelineCases: TimelineCases,
+    statusDisplayOptionsRepository: StatusDisplayOptionsRepository,
 ) : ViewModel() {
 
     val accountData = MutableLiveData<Resource<Account>>()
@@ -58,6 +60,9 @@ class AccountViewModel @AssistedInject constructor(
     private var noteUpdateJob: Job? = null
 
     private val activeAccount = accountManager.activeAccount!!
+
+    /** Flow of changes to statusDisplayOptions, for use by the UI */
+    val statusDisplayOptions = statusDisplayOptionsRepository.flow
 
     init {
         viewModelScope.launch {

@@ -38,6 +38,7 @@ import androidx.annotation.Px
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.app.ActivityOptionsCompat
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.MenuProvider
 import androidx.core.view.ViewGroupCompat
 import androidx.core.view.children
@@ -72,6 +73,8 @@ import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.ClipboardUseCase
 import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.RoleChip
+import app.pachli.core.ui.SetMarkdownContent
+import app.pachli.core.ui.SetMastodonHtmlContent
 import app.pachli.core.ui.emojify
 import app.pachli.core.ui.extensions.InsetType
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
@@ -81,7 +84,6 @@ import app.pachli.core.ui.extensions.nameContentDescription
 import app.pachli.core.ui.extensions.reduceSwipeSensitivity
 import app.pachli.core.ui.getDomain
 import app.pachli.core.ui.loadAvatar
-import app.pachli.core.ui.setClickableText
 import app.pachli.databinding.ActivityAccountBinding
 import app.pachli.db.DraftsAlert
 import app.pachli.feature.lists.ListsForAccountFragment
@@ -188,6 +190,14 @@ class AccountActivity :
 
     private var noteWatcher: TextWatcher? = null
 
+    val setStatusContent by unsafeLazy {
+        if (viewModel.statusDisplayOptions.value.renderMarkdown) {
+            SetMarkdownContent(this)
+        } else {
+            SetMastodonHtmlContent
+        }
+    }
+
     private val onBackPressedCallback = object : OnBackPressedCallback(false) {
         override fun handleOnBackPressed() {
             binding.accountFragmentViewPager.currentItem = 0
@@ -268,7 +278,7 @@ class AccountActivity :
         binding.accountFollowsYouChip.hide()
 
         // setup the RecyclerView for the account fields
-        accountFieldAdapter = AccountFieldAdapter(glide, this, animateEmojis)
+        accountFieldAdapter = AccountFieldAdapter(glide, setStatusContent, this, animateEmojis)
         binding.accountFieldList.isNestedScrollingEnabled = false
         binding.accountFieldList.layoutManager = LinearLayoutManager(this)
         binding.accountFieldList.adapter = accountFieldAdapter
@@ -532,8 +542,17 @@ class AccountActivity :
             }
         }
 
-        val emojifiedNote = account.note.parseAsMastodonHtml().emojify(glide, account.emojis, binding.accountNoteTextView, animateEmojis)
-        setClickableText(binding.accountNoteTextView, emojifiedNote)
+        setStatusContent(
+            glide,
+            binding.accountNoteTextView,
+            account.note,
+            account.emojis.orEmpty(),
+            viewModel.statusDisplayOptions.value.animateEmojis,
+            emptyList(),
+            null,
+            false,
+            this,
+        )
 
         accountFieldAdapter.fields = account.fields.orEmpty()
         accountFieldAdapter.emojis = account.emojis.orEmpty()

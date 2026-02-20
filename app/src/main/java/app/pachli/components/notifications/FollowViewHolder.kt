@@ -29,19 +29,19 @@ import app.pachli.core.data.model.NotificationViewData
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.TimelineAccount
-import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.preferences.PronounDisplay
 import app.pachli.core.ui.LinkListener
+import app.pachli.core.ui.SetStatusContent
 import app.pachli.core.ui.emojify
 import app.pachli.core.ui.extensions.handleContentDescription
 import app.pachli.core.ui.loadAvatar
-import app.pachli.core.ui.setClickableText
 import app.pachli.databinding.ItemFollowBinding
 import com.bumptech.glide.RequestManager
 
 class FollowViewHolder(
     private val binding: ItemFollowBinding,
     private val glide: RequestManager,
+    private val setStatusContent: SetStatusContent,
     private val linkListener: LinkListener,
 ) : NotificationsPagingAdapter.ViewHolder<NotificationViewData>, RecyclerView.ViewHolder(binding.root) {
     private val avatarRadius42dp = itemView.context.resources.getDimensionPixelSize(
@@ -114,13 +114,18 @@ class FollowViewHolder(
 
         binding.roleChipGroup.setRoles(account.roles)
 
-        val emojifiedNote = account.note.parseAsMastodonHtml().emojify(
+        setStatusContent(
             glide,
-            account.emojis,
             binding.notificationAccountNote,
+            account.note,
+            account.emojis.orEmpty(),
             animateEmojis,
+            emptyList(),
+            null,
+            false,
+            linkListener,
         )
-        setClickableText(binding.notificationAccountNote, emojifiedNote)
+
         binding.notificationAccountNote.setOnClickListener { linkListener.onViewAccount(account.id) }
         itemView.setOnClickListener { linkListener.onViewAccount(account.id) }
     }

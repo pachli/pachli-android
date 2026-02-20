@@ -236,6 +236,7 @@ class NotificationsPagingAdapter(
                 FollowViewHolder(
                     ItemFollowBinding.inflate(inflater, parent, false),
                     glide,
+                    setStatusContent,
                     notificationActionListener,
                 )
             }
@@ -243,6 +244,7 @@ class NotificationsPagingAdapter(
                 FollowRequestViewHolder(
                     ItemFollowRequestBinding.inflate(inflater, parent, false),
                     glide,
+                    setStatusContent,
                     accountActionListener,
                     notificationActionListener,
                     showHeader = true,

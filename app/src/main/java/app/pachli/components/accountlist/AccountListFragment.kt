@@ -38,6 +38,7 @@ import app.pachli.core.common.extensions.show
 import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.common.util.unsafeLazy
 import app.pachli.core.data.repository.AccountManager
+import app.pachli.core.data.repository.StatusDisplayOptionsRepository
 import app.pachli.core.model.Relationship
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.AccountListActivityIntent.Kind
@@ -58,6 +59,8 @@ import app.pachli.core.preferences.PronounDisplay
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.core.ui.LinkListener
+import app.pachli.core.ui.SetMarkdownContent
+import app.pachli.core.ui.SetMastodonHtmlContent
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.databinding.FragmentAccountListBinding
 import app.pachli.interfaces.AccountActionListener
@@ -90,6 +93,9 @@ class AccountListFragment :
 
     @Inject
     lateinit var sharedPreferencesRepository: SharedPreferencesRepository
+
+    @Inject
+    lateinit var statusDisplayOptionsRepository: StatusDisplayOptionsRepository
 
     @Inject
     lateinit var timelineCases: TimelineCases
@@ -142,52 +148,63 @@ class AccountListFragment :
 
         val activeAccount = accountManager.activeAccount!!
 
-        adapter = when (kind) {
-            BLOCKS -> BlocksAdapter(glide, this, animateAvatar, animateEmojis, showBotOverlay, showPronouns)
-            MUTES -> MutesAdapter(glide, this, animateAvatar, animateEmojis, showBotOverlay, showPronouns)
-            FOLLOW_REQUESTS -> {
-                val headerAdapter = FollowRequestsHeaderAdapter(
-                    instanceName = activeAccount.domain,
-                    accountLocked = activeAccount.locked,
-                )
-                val followRequestsAdapter = FollowRequestsAdapter(
+        viewLifecycleOwner.lifecycleScope.launch {
+            val statusDisplayOptions = statusDisplayOptionsRepository.flow.value
+
+            val setStatusContent = if (statusDisplayOptions.renderMarkdown) {
+                SetMarkdownContent(requireContext())
+            } else {
+                SetMastodonHtmlContent
+            }
+
+            adapter = when (kind) {
+                BLOCKS -> BlocksAdapter(glide, this@AccountListFragment, animateAvatar, animateEmojis, showBotOverlay, showPronouns)
+                MUTES -> MutesAdapter(glide, this@AccountListFragment, animateAvatar, animateEmojis, showBotOverlay, showPronouns)
+                FOLLOW_REQUESTS -> {
+                    val headerAdapter = FollowRequestsHeaderAdapter(
+                        instanceName = activeAccount.domain,
+                        accountLocked = activeAccount.locked,
+                    )
+                    val followRequestsAdapter = FollowRequestsAdapter(
+                        glide,
+                        setStatusContent,
+                        this@AccountListFragment,
+                        this@AccountListFragment,
+                        animateAvatar,
+                        animateEmojis,
+                        showBotOverlay,
+                        showPronouns,
+                    )
+                    binding.recyclerView.adapter = ConcatAdapter(headerAdapter, followRequestsAdapter)
+                    followRequestsAdapter
+                }
+
+                else -> FollowAdapter(
                     glide,
-                    this,
-                    this,
+                    this@AccountListFragment,
                     animateAvatar,
                     animateEmojis,
                     showBotOverlay,
                     showPronouns,
                 )
-                binding.recyclerView.adapter = ConcatAdapter(headerAdapter, followRequestsAdapter)
-                followRequestsAdapter
+            }
+            if (binding.recyclerView.adapter == null) {
+                binding.recyclerView.adapter = adapter
             }
 
-            else -> FollowAdapter(
-                glide,
-                this,
-                animateAvatar,
-                animateEmojis,
-                showBotOverlay,
-                showPronouns,
-            )
-        }
-        if (binding.recyclerView.adapter == null) {
-            binding.recyclerView.adapter = adapter
-        }
-
-        scrollListener = object : EndlessOnScrollListener(layoutManager) {
-            override fun onLoadMore(totalItemsCount: Int, view: RecyclerView) {
-                if (bottomId == null) {
-                    return
+            scrollListener = object : EndlessOnScrollListener(layoutManager) {
+                override fun onLoadMore(totalItemsCount: Int, view: RecyclerView) {
+                    if (bottomId == null) {
+                        return
+                    }
+                    fetchAccounts(bottomId)
                 }
-                fetchAccounts(bottomId)
             }
+
+            binding.recyclerView.addOnScrollListener(scrollListener)
+
+            fetchAccounts()
         }
-
-        binding.recyclerView.addOnScrollListener(scrollListener)
-
-        fetchAccounts()
     }
 
     override fun onViewTag(tag: String) {

@@ -36,6 +36,8 @@ import app.pachli.core.common.extensions.viewBinding
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.ui.BackgroundMessage
+import app.pachli.core.ui.SetMarkdownContent
+import app.pachli.core.ui.SetMastodonHtmlContent
 import app.pachli.core.ui.appbar.FadeChildScrollEffect
 import app.pachli.core.ui.emoji.ChooseEmojiDialogFragment
 import app.pachli.core.ui.extensions.addScrollEffect
@@ -98,7 +100,21 @@ class AnnouncementsActivity :
         val animateEmojis = sharedPreferencesRepository.animateEmojis
         val useAbsoluteTime = sharedPreferencesRepository.useAbsoluteTime
 
-        adapter = AnnouncementAdapter(glide, emptyList(), this, hideStatsInDetailedPosts, animateEmojis, useAbsoluteTime)
+        val setStatusContent = if (viewModel.statusDisplayOptions.value.renderMarkdown) {
+            SetMarkdownContent(this)
+        } else {
+            SetMastodonHtmlContent
+        }
+
+        adapter = AnnouncementAdapter(
+            glide,
+            setStatusContent,
+            emptyList(),
+            this,
+            hideStatsInDetailedPosts,
+            animateEmojis,
+            useAbsoluteTime,
+        )
 
         binding.announcementsList.adapter = adapter
 

@@ -33,16 +33,18 @@ import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.BindingHolder
 import app.pachli.core.ui.EmojiSpan
 import app.pachli.core.ui.LinkListener
+import app.pachli.core.ui.SetStatusContent
 import app.pachli.core.ui.clearEmojiTargets
 import app.pachli.core.ui.emojify
 import app.pachli.core.ui.getRelativeTimeSpanString
-import app.pachli.core.ui.setClickableText
 import app.pachli.core.ui.setEmojiTargets
 import app.pachli.databinding.ItemAnnouncementBinding
 import app.pachli.util.equalByMinute
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.target.Target
 import com.google.android.material.chip.Chip
+import kotlin.collections.emptyList
+import kotlin.collections.orEmpty
 
 interface AnnouncementActionListener : LinkListener {
     fun openReactionPicker(announcementId: String, target: View)
@@ -52,6 +54,7 @@ interface AnnouncementActionListener : LinkListener {
 
 class AnnouncementAdapter(
     private val glide: RequestManager,
+    private val setStatusContent: SetStatusContent,
     private var items: List<Announcement> = emptyList(),
     private val listener: AnnouncementActionListener,
     private val hideStatsInDetailedPosts: Boolean = false,
@@ -95,9 +98,17 @@ class AnnouncementAdapter(
         val chips = holder.binding.chipGroup
         val addReactionChip = holder.binding.addReactionChip
 
-        val emojifiedText: CharSequence = item.content.parseAsMastodonHtml().emojify(glide, item.emojis, text, animateEmojis)
-
-        setClickableText(text, emojifiedText)
+        setStatusContent(
+            glide,
+            text,
+            item.content,
+            item.emojis,
+            animateEmojis,
+            emptyList(),
+            null,
+            false,
+            listener,
+        )
 
         // If wellbeing mode is enabled, announcement badge counts should not be shown.
         if (hideStatsInDetailedPosts) {

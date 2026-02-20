@@ -33,12 +33,11 @@ import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.common.util.formatNumber
 import app.pachli.core.model.Suggestion
-import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.LinkListener
+import app.pachli.core.ui.SetStatusContent
 import app.pachli.core.ui.emojify
 import app.pachli.core.ui.extensions.nameContentDescription
 import app.pachli.core.ui.loadAvatar
-import app.pachli.core.ui.setClickableText
 import app.pachli.feature.suggestions.SuggestionViewHolder.ChangePayload
 import app.pachli.feature.suggestions.UiAction.NavigationAction
 import app.pachli.feature.suggestions.UiAction.SuggestionAction
@@ -58,6 +57,7 @@ import kotlin.math.roundToInt
 // made common. See things like FollowRequestViewHolder.setupWithAccount as well.
 internal class SuggestionsAdapter(
     private val glide: RequestManager,
+    private val setStatusContent: SetStatusContent,
     private var animateAvatars: Boolean,
     private var animateEmojis: Boolean,
     private var showBotOverlay: Boolean,
@@ -68,7 +68,7 @@ internal class SuggestionsAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SuggestionViewHolder {
         val binding = ItemSuggestionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return SuggestionViewHolder(binding, glide, accept)
+        return SuggestionViewHolder(binding, glide, setStatusContent, accept)
     }
 
     fun setAnimateAvatars(animateAvatars: Boolean) {
@@ -132,6 +132,7 @@ internal class SuggestionsAdapter(
 internal class SuggestionViewHolder(
     internal val binding: ItemSuggestionBinding,
     private val glide: RequestManager,
+    private val setStatusContent: SetStatusContent,
     private val accept: (UiAction) -> Unit,
 ) : RecyclerView.ViewHolder(binding.root) {
     internal lateinit var viewData: SuggestionViewData
@@ -254,11 +255,19 @@ internal class SuggestionViewHolder(
             accountNote.text = ""
             accountNote.hide()
         } else {
-            accountNote.show()
-            val emojifiedNote = account.note.parseAsMastodonHtml()
-                .emojify(glide, account.emojis, accountNote, animateEmojis)
+            setStatusContent(
+                glide,
+                accountNote,
+                account.note,
+                account.emojis.orEmpty(),
+                animateEmojis,
+                emptyList(),
+                null,
+                false,
+                linkListener,
+            )
 
-            setClickableText(accountNote, emojifiedNote)
+            accountNote.show()
         }
     }
 

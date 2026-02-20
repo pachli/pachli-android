@@ -19,13 +19,13 @@ package app.pachli.core.ui
 
 import android.content.Context
 import android.graphics.Color
+import android.text.Html
 import android.text.SpannableStringBuilder
 import android.text.style.URLSpan
 import android.util.TypedValue
 import android.widget.TextView
 import androidx.core.text.method.LinkMovementMethodCompat
 import app.pachli.core.common.string.unicodeWrap
-import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.designsystem.R
 import app.pachli.core.model.Emoji
 import app.pachli.core.model.HashTag
@@ -64,8 +64,8 @@ interface SetStatusContent {
      * @param glide RequestManager used to load images.
      * @param textView
      * @param content
-     * @param statusDisplayOptions
      * @param emojis
+     * @param animateEmojis True if emojis should be animated.
      * @param mentions
      * @param hashtags
      * @param removeQuoteInline If true, remove `p` elements with a `quote-inline`
@@ -76,8 +76,8 @@ interface SetStatusContent {
         glide: RequestManager,
         textView: TextView,
         content: CharSequence,
-        statusDisplayOptions: StatusDisplayOptions,
         emojis: List<Emoji>,
+        animateEmojis: Boolean,
         mentions: List<Status.Mention>,
         hashtags: List<HashTag>?,
         removeQuoteInline: Boolean,
@@ -89,12 +89,40 @@ interface SetStatusContent {
  * Sets status content by parsing it as Mastodon HTML.
  */
 object SetMastodonHtmlContent : SetStatusContent {
+    private val movementMethod = LinkMovementMethodCompat.getInstance()
+
     override operator fun invoke(
         glide: RequestManager,
         textView: TextView,
         content: CharSequence,
-        statusDisplayOptions: StatusDisplayOptions,
         emojis: List<Emoji>,
+        animateEmojis: Boolean,
+        mentions: List<Status.Mention>,
+        hashtags: List<HashTag>?,
+        removeQuoteInline: Boolean,
+        listener: LinkListener,
+    ) {
+        invoke(
+            glide,
+            tagHandler = null,
+            textView,
+            content,
+            emojis,
+            animateEmojis,
+            mentions,
+            hashtags,
+            removeQuoteInline,
+            listener,
+        )
+    }
+
+    operator fun invoke(
+        glide: RequestManager,
+        tagHandler: Html.TagHandler? = null,
+        textView: TextView,
+        content: CharSequence,
+        emojis: List<Emoji>,
+        animateEmojis: Boolean,
         mentions: List<Status.Mention>,
         hashtags: List<HashTag>?,
         removeQuoteInline: Boolean,
@@ -103,9 +131,9 @@ object SetMastodonHtmlContent : SetStatusContent {
         val spannableStringBuilder = SpannableStringBuilder().apply {
             append(
                 if (removeQuoteInline) {
-                    content.removeQuoteInline().parseAsMastodonHtml()
+                    content.removeQuoteInline().parseAsMastodonHtml(tagHandler = tagHandler)
                 } else {
-                    content.parseAsMastodonHtml()
+                    content.parseAsMastodonHtml(tagHandler = tagHandler)
                 },
             )
 
@@ -132,12 +160,13 @@ object SetMastodonHtmlContent : SetStatusContent {
                 }
             }
 
-            emojify(glide, emojis, textView, statusDisplayOptions.animateEmojis)
+            emojify(glide, emojis, textView, animateEmojis)
 
             markupHiddenUrls(textView, this)
         }
 
-        setClickableText(textView, spannableStringBuilder)
+        textView.text = spannableStringBuilder
+        textView.movementMethod = movementMethod
     }
 }
 
@@ -181,8 +210,8 @@ class SetMarkdownContent(context: Context) : SetStatusContent {
         glide: RequestManager,
         textView: TextView,
         content: CharSequence,
-        statusDisplayOptions: StatusDisplayOptions,
         emojis: List<Emoji>,
+        animateEmojis: Boolean,
         mentions: List<Status.Mention>,
         hashtags: List<HashTag>?,
         removeQuoteInline: Boolean,
@@ -214,7 +243,7 @@ class SetMarkdownContent(context: Context) : SetStatusContent {
                 }
             }
 
-            emojify(glide, emojis, textView, statusDisplayOptions.animateEmojis)
+            emojify(glide, emojis, textView, animateEmojis)
 
             markupHiddenUrls(textView, this)
         }

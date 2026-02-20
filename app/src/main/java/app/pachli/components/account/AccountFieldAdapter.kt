@@ -22,16 +22,16 @@ import androidx.recyclerview.widget.RecyclerView
 import app.pachli.R
 import app.pachli.core.model.Emoji
 import app.pachli.core.model.Field
-import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.BindingHolder
 import app.pachli.core.ui.LinkListener
+import app.pachli.core.ui.SetStatusContent
 import app.pachli.core.ui.emojify
-import app.pachli.core.ui.setClickableText
 import app.pachli.databinding.ItemAccountFieldBinding
 import com.bumptech.glide.RequestManager
 
 class AccountFieldAdapter(
     private val glide: RequestManager,
+    private val setStatusContent: SetStatusContent,
     private val linkListener: LinkListener,
     private val animateEmojis: Boolean,
 ) : RecyclerView.Adapter<BindingHolder<ItemAccountFieldBinding>>() {
@@ -54,8 +54,17 @@ class AccountFieldAdapter(
         val emojifiedName = field.name.emojify(glide, emojis, nameTextView, animateEmojis)
         nameTextView.text = emojifiedName
 
-        val emojifiedValue = field.value.parseAsMastodonHtml().emojify(glide, emojis, valueTextView, animateEmojis)
-        setClickableText(valueTextView, emojifiedValue)
+        setStatusContent(
+            glide,
+            valueTextView,
+            field.value,
+            emojis.orEmpty(),
+            animateEmojis,
+            emptyList(),
+            null,
+            false,
+            linkListener,
+        )
 
         if (field.verifiedAt != null) {
             valueTextView.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_check_circle, 0)

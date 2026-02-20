@@ -48,18 +48,6 @@ fun getDomain(urlString: String?): String {
 }
 
 /**
- * Set's [view]'s text to [content] and ensures [LinkMovementMethodCompat] is
- * used.
- *
- * @param view the returned text will be put in
- * @param content containing text with mentions, links, or hashtags
- */
-fun setClickableText(view: TextView, content: CharSequence) {
-    view.text = content
-    view.movementMethod = LinkMovementMethodCompat.getInstance()
-}
-
-/**
  * Ensures "hidden" URLs show the destination.
  *
  * For a status created through Mastodon there's no mechanism to post an

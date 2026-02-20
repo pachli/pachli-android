@@ -29,8 +29,8 @@ import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.PollAdapter
 import app.pachli.core.ui.PollAdapter.DisplayMode
 import app.pachli.core.ui.PollOptionViewData
+import app.pachli.core.ui.SetMastodonHtmlContent
 import app.pachli.core.ui.emojify
-import app.pachli.core.ui.setClickableText
 import app.pachli.databinding.ItemStatusEditBinding
 import com.bumptech.glide.RequestManager
 import org.xml.sax.XMLReader
@@ -117,12 +117,18 @@ class ViewEditsAdapter(
                 )
         }
 
-        val emojifiedText = edit
-            .content
-            .parseAsMastodonHtml(pachliTagHandler)
-            .emojify(glide, edit.emojis, binding.statusEditContent, animateEmojis)
-
-        setClickableText(binding.statusEditContent, emojifiedText)
+        SetMastodonHtmlContent.invoke(
+            glide,
+            pachliTagHandler,
+            binding.statusEditContent,
+            edit.content,
+            edit.emojis,
+            animateEmojis,
+            emptyList(),
+            null,
+            false,
+            listener,
+        )
 
         val poll = edit.poll
         if (poll == null) {
