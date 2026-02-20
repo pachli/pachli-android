@@ -29,13 +29,11 @@ import app.pachli.R
 import app.pachli.core.common.extensions.visible
 import app.pachli.core.common.util.AbsoluteTimeFormatter
 import app.pachli.core.model.Announcement
-import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.BindingHolder
 import app.pachli.core.ui.EmojiSpan
 import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.SetStatusContent
 import app.pachli.core.ui.clearEmojiTargets
-import app.pachli.core.ui.emojify
 import app.pachli.core.ui.getRelativeTimeSpanString
 import app.pachli.core.ui.setEmojiTargets
 import app.pachli.databinding.ItemAnnouncementBinding
@@ -44,7 +42,6 @@ import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.target.Target
 import com.google.android.material.chip.Chip
 import kotlin.collections.emptyList
-import kotlin.collections.orEmpty
 
 interface AnnouncementActionListener : LinkListener {
     fun openReactionPicker(announcementId: String, target: View)
@@ -99,15 +96,13 @@ class AnnouncementAdapter(
         val addReactionChip = holder.binding.addReactionChip
 
         setStatusContent(
-            glide,
-            text,
-            item.content,
-            item.emojis,
-            animateEmojis,
-            emptyList(),
-            null,
-            false,
-            listener,
+            glide = glide,
+            textView = text,
+            content = item.content,
+            emojis = item.emojis,
+            animateEmojis = animateEmojis,
+            removeQuoteInline = false,
+            listener = listener,
         )
 
         // If wellbeing mode is enabled, announcement badge counts should not be shown.

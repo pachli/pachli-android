@@ -119,15 +119,13 @@ class ViewEditsAdapter(
 
         SetMastodonHtmlContent.invoke(
             glide,
-            pachliTagHandler,
-            binding.statusEditContent,
-            edit.content,
-            edit.emojis,
-            animateEmojis,
-            emptyList(),
-            null,
-            false,
-            listener,
+            textView = binding.statusEditContent,
+            content = edit.content,
+            emojis = edit.emojis,
+            animateEmojis = animateEmojis,
+            removeQuoteInline = false,
+            tagHandler = pachliTagHandler,
+            listener = listener,
         )
 
         val poll = edit.poll

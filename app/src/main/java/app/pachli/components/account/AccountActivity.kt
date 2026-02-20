@@ -38,7 +38,6 @@ import androidx.annotation.Px
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.app.ActivityOptionsCompat
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.MenuProvider
 import androidx.core.view.ViewGroupCompat
 import androidx.core.view.children
@@ -69,7 +68,6 @@ import app.pachli.core.navigation.ReportActivityIntent
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.navigation.ViewMediaActivityIntent
 import app.pachli.core.navigation.pachliAccountId
-import app.pachli.core.network.parseAsMastodonHtml
 import app.pachli.core.ui.ClipboardUseCase
 import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.RoleChip
@@ -543,15 +541,13 @@ class AccountActivity :
         }
 
         setStatusContent(
-            glide,
-            binding.accountNoteTextView,
-            account.note,
-            account.emojis.orEmpty(),
-            viewModel.statusDisplayOptions.value.animateEmojis,
-            emptyList(),
-            null,
-            false,
-            this,
+            glide = glide,
+            textView = binding.accountNoteTextView,
+            content = account.note,
+            emojis = account.emojis.orEmpty(),
+            animateEmojis = viewModel.statusDisplayOptions.value.animateEmojis,
+            removeQuoteInline = false,
+            listener = this,
         )
 
         accountFieldAdapter.fields = account.fields.orEmpty()

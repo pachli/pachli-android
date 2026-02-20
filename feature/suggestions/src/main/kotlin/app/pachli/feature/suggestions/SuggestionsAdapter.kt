@@ -256,15 +256,13 @@ internal class SuggestionViewHolder(
             accountNote.hide()
         } else {
             setStatusContent(
-                glide,
-                accountNote,
-                account.note,
-                account.emojis.orEmpty(),
-                animateEmojis,
-                emptyList(),
-                null,
-                false,
-                linkListener,
+                glide = glide,
+                textView = accountNote,
+                content = account.note,
+                emojis = account.emojis.orEmpty(),
+                animateEmojis = animateEmojis,
+                removeQuoteInline = false,
+                listener = linkListener,
             )
 
             accountNote.show()

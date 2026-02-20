@@ -296,15 +296,15 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
 
         if (!sensitive || viewData.isExpanded) {
             setStatusContent(
-                glide,
-                this.content,
-                viewData.content,
-                emojis,
-                statusDisplayOptions.animateEmojis,
-                mentions,
-                tags,
+                glide = glide,
+                textView = this.content,
+                content = viewData.content,
+                emojis = emojis,
+                animateEmojis = statusDisplayOptions.animateEmojis,
                 removeQuoteInline = viewData.status.quote != null,
-                listener,
+                mentions = mentions,
+                hashtags = tags,
+                listener = listener,
             )
 
             poll?.let {

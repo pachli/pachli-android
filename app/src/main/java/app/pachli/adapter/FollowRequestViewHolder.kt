@@ -115,15 +115,13 @@ class FollowRequestViewHolder(
             binding.accountNote.hide()
         } else {
             setStatusContent(
-                glide,
-                binding.accountNote,
-                account.note,
-                account.emojis.orEmpty(),
-                animateEmojis,
-                emptyList(),
-                null,
-                false,
-                linkListener,
+                glide = glide,
+                textView = binding.accountNote,
+                content = account.note,
+                emojis = account.emojis.orEmpty(),
+                animateEmojis = animateEmojis,
+                removeQuoteInline = false,
+                listener = linkListener,
             )
 
             binding.accountNote.show()

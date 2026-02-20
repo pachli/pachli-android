@@ -55,15 +55,13 @@ class AccountFieldAdapter(
         nameTextView.text = emojifiedName
 
         setStatusContent(
-            glide,
-            valueTextView,
-            field.value,
-            emojis.orEmpty(),
-            animateEmojis,
-            emptyList(),
-            null,
-            false,
-            linkListener,
+            glide = glide,
+            textView = valueTextView,
+            content = field.value,
+            emojis = emojis,
+            animateEmojis = animateEmojis,
+            removeQuoteInline = false,
+            listener = linkListener,
         )
 
         if (field.verifiedAt != null) {

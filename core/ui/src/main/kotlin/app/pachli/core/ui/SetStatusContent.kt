@@ -21,6 +21,7 @@ import android.content.Context
 import android.graphics.Color
 import android.text.Html
 import android.text.SpannableStringBuilder
+import android.text.Spanned
 import android.text.style.URLSpan
 import android.util.TypedValue
 import android.widget.TextView
@@ -66,10 +67,10 @@ interface SetStatusContent {
      * @param content
      * @param emojis
      * @param animateEmojis True if emojis should be animated.
+     * @param removeQuoteInline If true, remove `p` elements with a `quote-inline` class.
      * @param mentions
      * @param hashtags
-     * @param removeQuoteInline If true, remove `p` elements with a `quote-inline`
-     * class.
+     * @param tagHandler
      * @param listener
      */
     operator fun invoke(
@@ -78,84 +79,36 @@ interface SetStatusContent {
         content: CharSequence,
         emojis: List<Emoji>,
         animateEmojis: Boolean,
-        mentions: List<Status.Mention>,
-        hashtags: List<HashTag>?,
         removeQuoteInline: Boolean,
-        listener: LinkListener,
-    )
-}
-
-/**
- * Sets status content by parsing it as Mastodon HTML.
- */
-object SetMastodonHtmlContent : SetStatusContent {
-    private val movementMethod = LinkMovementMethodCompat.getInstance()
-
-    override operator fun invoke(
-        glide: RequestManager,
-        textView: TextView,
-        content: CharSequence,
-        emojis: List<Emoji>,
-        animateEmojis: Boolean,
-        mentions: List<Status.Mention>,
-        hashtags: List<HashTag>?,
-        removeQuoteInline: Boolean,
-        listener: LinkListener,
-    ) {
-        invoke(
-            glide,
-            tagHandler = null,
-            textView,
-            content,
-            emojis,
-            animateEmojis,
-            mentions,
-            hashtags,
-            removeQuoteInline,
-            listener,
-        )
-    }
-
-    operator fun invoke(
-        glide: RequestManager,
+        mentions: List<Status.Mention>? = null,
+        hashtags: List<HashTag>? = null,
         tagHandler: Html.TagHandler? = null,
-        textView: TextView,
-        content: CharSequence,
-        emojis: List<Emoji>,
-        animateEmojis: Boolean,
-        mentions: List<Status.Mention>,
-        hashtags: List<HashTag>?,
-        removeQuoteInline: Boolean,
         listener: LinkListener,
     ) {
         val spannableStringBuilder = SpannableStringBuilder().apply {
-            append(
-                if (removeQuoteInline) {
-                    content.removeQuoteInline().parseAsMastodonHtml(tagHandler = tagHandler)
-                } else {
-                    content.parseAsMastodonHtml(tagHandler = tagHandler)
-                },
-            )
+            append(parseToSpanned(tagHandler, content, removeQuoteInline))
 
             getSpans(0, length, URLSpan::class.java).forEach {
                 convertUrlSpanToMoreSpecificType(it, this, mentions, hashtags, listener)
             }
 
-            val contentTags = getSpans(0, length, HashtagSpan::class.java).map { it.hashtag }.toSet()
-            val missingTags = hashtags.orEmpty().filterNot { contentTags.contains(it.name) }
+            val hashtagsInContent = getSpans(0, length, HashtagSpan::class.java).map {
+                it.hashtag
+            }.toSet()
+            val oobHashtags = hashtags.orEmpty().filterNot { hashtagsInContent.contains(it.name) }
 
-            val spans = missingTags.map { tag ->
+            val oobSpans = oobHashtags.map { tag ->
                 HashtagSpan(tag.name, tag.url) { listener.onViewTag(tag.name) }
             }
 
-            if (spans.isNotEmpty()) {
+            if (oobSpans.isNotEmpty()) {
                 append("\n\n")
 
-                spans.forEachIndexed { index, span ->
+                oobSpans.forEachIndexed { index, span ->
                     val start = length
                     append("#${span.hashtag}".unicodeWrap())
                     val end = length
-                    if (index < spans.size) append(" ")
+                    if (index < oobSpans.size) append(" ")
                     setSpan(span, start, end, 0)
                 }
             }
@@ -166,7 +119,26 @@ object SetMastodonHtmlContent : SetStatusContent {
         }
 
         textView.text = spannableStringBuilder
-        textView.movementMethod = movementMethod
+        textView.movementMethod = LinkMovementMethodCompat.getInstance()
+    }
+
+    fun parseToSpanned(tagHandler: Html.TagHandler? = null, content: CharSequence, removeQuoteInline: Boolean): Spanned
+}
+
+/**
+ * Sets status content by parsing it as Mastodon HTML.
+ */
+object SetMastodonHtmlContent : SetStatusContent {
+    override fun parseToSpanned(
+        tagHandler: Html.TagHandler?,
+        content: CharSequence,
+        removeQuoteInline: Boolean,
+    ): Spanned {
+        return if (removeQuoteInline) {
+            content.removeQuoteInline().parseAsMastodonHtml(tagHandler = tagHandler)
+        } else {
+            content.parseAsMastodonHtml(tagHandler = tagHandler)
+        }
     }
 }
 
@@ -206,50 +178,8 @@ class SetMarkdownContent(context: Context) : SetStatusContent {
         .usePlugin(PachliMarkwonTheme(context))
         .build()
 
-    override operator fun invoke(
-        glide: RequestManager,
-        textView: TextView,
-        content: CharSequence,
-        emojis: List<Emoji>,
-        animateEmojis: Boolean,
-        mentions: List<Status.Mention>,
-        hashtags: List<HashTag>?,
-        removeQuoteInline: Boolean,
-        listener: LinkListener,
-    ) {
-        val spannableStringBuilder = SpannableStringBuilder().apply {
-            append(markwon.toMarkdown(if (removeQuoteInline) content.removeQuoteInline() else content.toString()))
-
-            getSpans(0, length, URLSpan::class.java).forEach {
-                convertUrlSpanToMoreSpecificType(it, this, mentions, hashtags, listener)
-            }
-
-            val contentTags = getSpans(0, length, HashtagSpan::class.java).map { it.hashtag }.toSet()
-            val missingTags = hashtags.orEmpty().filterNot { contentTags.contains(it.name) }
-
-            val spans = missingTags.map { tag ->
-                HashtagSpan(tag.name, tag.url) { listener.onViewTag(tag.name) }
-            }
-
-            if (spans.isNotEmpty()) {
-                append("\n\n")
-
-                spans.forEachIndexed { index, span ->
-                    val start = length
-                    append("#${span.hashtag}".unicodeWrap())
-                    val end = length
-                    if (index < spans.size) append(" ")
-                    setSpan(span, start, end, 0)
-                }
-            }
-
-            emojify(glide, emojis, textView, animateEmojis)
-
-            markupHiddenUrls(textView, this)
-        }
-
-        markwon.setParsedMarkdown(textView, spannableStringBuilder)
-        textView.movementMethod = LinkMovementMethodCompat.getInstance()
+    override fun parseToSpanned(tagHandler: Html.TagHandler?, content: CharSequence, removeQuoteInline: Boolean): Spanned {
+        return markwon.toMarkdown(if (removeQuoteInline) content.removeQuoteInline() else content.toString())
     }
 }
 

@@ -115,15 +115,13 @@ class FollowViewHolder(
         binding.roleChipGroup.setRoles(account.roles)
 
         setStatusContent(
-            glide,
-            binding.notificationAccountNote,
-            account.note,
-            account.emojis.orEmpty(),
-            animateEmojis,
-            emptyList(),
-            null,
-            false,
-            linkListener,
+            glide = glide,
+            textView = binding.notificationAccountNote,
+            content = account.note,
+            emojis = account.emojis.orEmpty(),
+            animateEmojis = animateEmojis,
+            removeQuoteInline = false,
+            listener = linkListener,
         )
 
         binding.notificationAccountNote.setOnClickListener { linkListener.onViewAccount(account.id) }

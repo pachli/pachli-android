@@ -48,66 +48,66 @@ fun getDomain(urlString: String?): String {
 }
 
 /**
- * Ensures "hidden" URLs show the destination.
+ * Show the destination URL for links.
  *
- * For a status created through Mastodon there's no mechanism to post an
- * `<a href="...">...</a>` link, so the link target is always visible to the
- * user.
+ * Mastodon doesn't allow people to post `a` elements with a custom destination,
+ * so links always show the actual destination.
  *
  * That is not the case for statuses that may have originated from
- * non-Mastodon servers. Find those links and insert a "🔗" marker and the
- * link's domain.
+ * non-Mastodon servers.
+ *
+ * Find those links and insert a "🔗" marker and the link's domain if the link's
+ * content doesn't match the domain of the target.
  */
-internal fun markupHiddenUrls(textView: TextView, content: CharSequence): SpannableStringBuilder {
-    val spannableContent = SpannableStringBuilder(content)
-    val originalSpans = spannableContent.getSpans(0, content.length, URLSpan::class.java)
-    val obscuredLinkSpans = originalSpans.filter {
-        val start = spannableContent.getSpanStart(it)
-        val firstCharacter = content[start]
-        return@filter if (firstCharacter == '#' || firstCharacter == '@') {
-            false
-        } else {
-            val text = spannableContent.subSequence(start, spannableContent.getSpanEnd(it)).toString()
+internal fun markupHiddenUrls(textView: TextView, content: SpannableStringBuilder): SpannableStringBuilder {
+    val obscuredLinkSpans = content
+        .getSpans(0, content.length, URLSpan::class.java)
+        .filterNot { it is HashtagSpan || it is MentionSpan }
+        .filter {
+            val start = content.getSpanStart(it)
+            if (content[start] == '#' || content[start] == '@') return@filter false
+
+            val text = content.subSequence(start, content.getSpanEnd(it)).toString()
                 .split(' ').lastOrNull().orEmpty()
+
             var textDomain = getDomain(text)
             if (textDomain.isBlank()) {
                 textDomain = getDomain("https://$text")
             }
-            getDomain(it.url) != textDomain
+            return@filter getDomain(it.url) != textDomain
         }
+
+    if (obscuredLinkSpans.isEmpty()) return content
+
+    val context = textView.context
+
+    // Drawable to use to mark links. R.string.url_domain_notifier contains a Unicode emoji
+    // ("🔗") that can render oddly depending on the user's choice of emoji set, so the emoji
+    // is replaced with the drawable
+    val iconLinkDrawable = IconicsDrawable(context, GoogleMaterial.Icon.gmd_open_in_new).apply {
+        size = IconicsSize.px(textView.textSize)
+        color = IconicsColor.colorInt(textView.currentTextColor)
+    }
+    val iconLength = "🔗".length
+
+    for (span in obscuredLinkSpans) {
+        val end = content.getSpanEnd(span)
+        val additionalText = context.getString(R.string.url_domain_notifier, getDomain(span.url))
+        content.insert(end, additionalText)
+
+        // ImageSpan has bugs when trying to align the drawable with text, so use
+        // EmojiSpan which centre-aligns it correctly. EmojiSpan default is to scale
+        // the drawable to fill the text height, set scaleFactor to get a more
+        // reasonable size.
+        val linkSpan = EmojiSpan(textView).apply {
+            imageDrawable = iconLinkDrawable
+            scaleFactor = 0.7f
+        }
+        val iconIndex = end + 2
+        content.setSpan(linkSpan, iconIndex, iconIndex + iconLength, 0)
     }
 
-    if (obscuredLinkSpans.isNotEmpty()) {
-        val context = textView.context
-
-        // Drawable to use to mark links. R.string.url_domain_notifier contains a Unicode emoji
-        // ("🔗") that can render oddly depending on the user's choice of emoji set, so the emoji
-        // is replaced with the drawable
-        val iconLinkDrawable = IconicsDrawable(context, GoogleMaterial.Icon.gmd_open_in_new).apply {
-            size = IconicsSize.px(textView.textSize)
-            color = IconicsColor.colorInt(textView.currentTextColor)
-        }
-        val iconLength = "🔗".length
-
-        for (span in obscuredLinkSpans) {
-            val end = spannableContent.getSpanEnd(span)
-            val additionalText = context.getString(R.string.url_domain_notifier, getDomain(span.url))
-            spannableContent.insert(end, additionalText)
-
-            // ImageSpan has bugs when trying to align the drawable with text, so use
-            // EmojiSpan which centre-aligns it correctly. EmojiSpan default is to scale
-            // the drawable to fill the text height, set scaleFactor to get a more
-            // reasonable size.
-            val linkSpan = EmojiSpan(textView).apply {
-                imageDrawable = iconLinkDrawable
-                scaleFactor = 0.7f
-            }
-            val iconIndex = end + 2
-            spannableContent.setSpan(linkSpan, iconIndex, iconIndex + iconLength, 0)
-        }
-    }
-
-    return spannableContent
+    return content
 }
 
 /**
@@ -117,7 +117,7 @@ internal fun markupHiddenUrls(textView: TextView, content: CharSequence): Spanna
 internal fun convertUrlSpanToMoreSpecificType(
     span: URLSpan,
     builder: SpannableStringBuilder,
-    mentions: List<Mention>,
+    mentions: List<Mention>?,
     tags: List<HashTag>?,
     listener: LinkListener,
 ) = builder.apply {
@@ -164,9 +164,9 @@ internal fun getCustomSpanForHashtag(text: CharSequence, tags: List<HashTag>?, s
     }
 }
 
-private fun getCustomSpanForMention(mentions: List<Mention>, span: URLSpan, listener: LinkListener): ClickableSpan? {
+private fun getCustomSpanForMention(mentions: List<Mention>?, span: URLSpan, listener: LinkListener): ClickableSpan? {
     // https://github.com/tuskyapp/Tusky/pull/2339
-    return mentions.firstOrNull { it.url == span.url }?.let { mention ->
+    return mentions?.firstOrNull { it.url == span.url }?.let { mention ->
         MentionSpan(mention.url) { listener.onViewAccount(mention.id) }
     }
 }
