@@ -125,7 +125,7 @@ class ViewEditsAdapter(
             animateEmojis = animateEmojis,
             removeQuoteInline = false,
             tagHandler = pachliTagHandler,
-            listener = listener,
+            linkListener = listener,
         )
 
         val poll = edit.poll

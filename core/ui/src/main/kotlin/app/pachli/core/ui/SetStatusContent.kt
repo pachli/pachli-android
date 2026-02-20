@@ -58,20 +58,25 @@ import io.noties.prism4j.annotations.PrismBundle
  */
 interface SetStatusContent {
     /**
-     * Processes [content] according to [statusDisplayOptions], embedding any [emojis],
-     * [mentions], and [hashtags]. Clicks on these are sent to [listener]. Sets the
-     * processed content as the [text][TextView.setText] on [textView].
+     * Processes [content] and sets it as the text for [textView].
      *
-     * @param glide RequestManager used to load images.
-     * @param textView
-     * @param content
+     * The content is parsed by [parseToSpanned].
+     *
+     * Emojis in [content] that are also present in [emojis] are loaded and
+     * embedded using [glide], optionally animated depending on [animateEmojis].
+     *
+     * Any [mentions], and [hashtags] are made clickable and sent to [linkListener].
+     *
+     * @param glide [RequestManager] to use to load images.
+     * @param textView [TextView] to load the final content in to.
+     * @param content Content to parse and load.
      * @param emojis
      * @param animateEmojis True if emojis should be animated.
      * @param removeQuoteInline If true, remove `p` elements with a `quote-inline` class.
      * @param mentions
      * @param hashtags
      * @param tagHandler
-     * @param listener
+     * @param linkListener
      */
     operator fun invoke(
         glide: RequestManager,
@@ -83,13 +88,13 @@ interface SetStatusContent {
         mentions: List<Status.Mention>? = null,
         hashtags: List<HashTag>? = null,
         tagHandler: Html.TagHandler? = null,
-        listener: LinkListener,
+        linkListener: LinkListener,
     ) {
         val spannableStringBuilder = SpannableStringBuilder().apply {
-            append(parseToSpanned(tagHandler, content, removeQuoteInline))
+            append(parseToSpanned(content, removeQuoteInline, tagHandler))
 
             getSpans(0, length, URLSpan::class.java).forEach {
-                convertUrlSpanToMoreSpecificType(it, this, mentions, hashtags, listener)
+                convertUrlSpanToMoreSpecificType(it, this, mentions, hashtags, linkListener)
             }
 
             val hashtagsInContent = getSpans(0, length, HashtagSpan::class.java).map {
@@ -98,7 +103,7 @@ interface SetStatusContent {
             val oobHashtags = hashtags.orEmpty().filterNot { hashtagsInContent.contains(it.name) }
 
             val oobSpans = oobHashtags.map { tag ->
-                HashtagSpan(tag.name, tag.url) { listener.onViewTag(tag.name) }
+                HashtagSpan(tag.name, tag.url) { linkListener.onViewTag(tag.name) }
             }
 
             if (oobSpans.isNotEmpty()) {
@@ -122,7 +127,20 @@ interface SetStatusContent {
         textView.movementMethod = LinkMovementMethodCompat.getInstance()
     }
 
-    fun parseToSpanned(tagHandler: Html.TagHandler? = null, content: CharSequence, removeQuoteInline: Boolean): Spanned
+    /**
+     * Parse [content] to [Spanned].
+     *
+     * Implementations of [SetStatusContent] should override this to perform the
+     * actual parsing. Post-processing is handled in [invoke].
+     *
+     * @param content The content to parse, expected to be HTML.
+     * @param removeQuoteInline If true, remove any `p` elements with a `quote-inline`
+     * class as part of parsing.
+     * @param tagHandler Optional [Html.TagHandler] to use when parsing HTML.
+     *
+     * @return [content] converted to a [Spanned] string.
+     */
+    fun parseToSpanned(content: CharSequence, removeQuoteInline: Boolean, tagHandler: Html.TagHandler? = null): Spanned
 }
 
 /**
@@ -130,9 +148,9 @@ interface SetStatusContent {
  */
 object SetMastodonHtmlContent : SetStatusContent {
     override fun parseToSpanned(
-        tagHandler: Html.TagHandler?,
         content: CharSequence,
         removeQuoteInline: Boolean,
+        tagHandler: Html.TagHandler?,
     ): Spanned {
         return if (removeQuoteInline) {
             content.removeQuoteInline().parseAsMastodonHtml(tagHandler = tagHandler)
@@ -178,7 +196,7 @@ class SetMarkdownContent(context: Context) : SetStatusContent {
         .usePlugin(PachliMarkwonTheme(context))
         .build()
 
-    override fun parseToSpanned(tagHandler: Html.TagHandler?, content: CharSequence, removeQuoteInline: Boolean): Spanned {
+    override fun parseToSpanned(content: CharSequence, removeQuoteInline: Boolean, tagHandler: Html.TagHandler?): Spanned {
         return markwon.toMarkdown(if (removeQuoteInline) content.removeQuoteInline() else content.toString())
     }
 }
