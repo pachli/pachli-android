@@ -34,7 +34,7 @@ import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.common.util.formatNumber
 import app.pachli.core.model.Suggestion
 import app.pachli.core.ui.LinkListener
-import app.pachli.core.ui.SetStatusContent
+import app.pachli.core.ui.SetContent
 import app.pachli.core.ui.emojify
 import app.pachli.core.ui.extensions.nameContentDescription
 import app.pachli.core.ui.loadAvatar
@@ -57,7 +57,7 @@ import kotlin.math.roundToInt
 // made common. See things like FollowRequestViewHolder.setupWithAccount as well.
 internal class SuggestionsAdapter(
     private val glide: RequestManager,
-    private val setStatusContent: SetStatusContent,
+    private val setContent: SetContent,
     private var animateAvatars: Boolean,
     private var animateEmojis: Boolean,
     private var showBotOverlay: Boolean,
@@ -68,7 +68,7 @@ internal class SuggestionsAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SuggestionViewHolder {
         val binding = ItemSuggestionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return SuggestionViewHolder(binding, glide, setStatusContent, accept)
+        return SuggestionViewHolder(binding, glide, setContent, accept)
     }
 
     fun setAnimateAvatars(animateAvatars: Boolean) {
@@ -132,7 +132,7 @@ internal class SuggestionsAdapter(
 internal class SuggestionViewHolder(
     internal val binding: ItemSuggestionBinding,
     private val glide: RequestManager,
-    private val setStatusContent: SetStatusContent,
+    private val setContent: SetContent,
     private val accept: (UiAction) -> Unit,
 ) : RecyclerView.ViewHolder(binding.root) {
     internal lateinit var viewData: SuggestionViewData
@@ -255,14 +255,14 @@ internal class SuggestionViewHolder(
             accountNote.text = ""
             accountNote.hide()
         } else {
-            setStatusContent(
+            setContent(
                 glide = glide,
                 textView = accountNote,
                 content = account.note,
                 emojis = account.emojis.orEmpty(),
                 animateEmojis = animateEmojis,
                 removeQuoteInline = false,
-                listener = linkListener,
+                linkListener = linkListener,
             )
 
             accountNote.show()

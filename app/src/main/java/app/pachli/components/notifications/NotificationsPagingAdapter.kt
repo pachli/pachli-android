@@ -44,7 +44,7 @@ import app.pachli.core.data.model.NotificationViewData.WithStatus.UpdateNotifica
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.model.AccountFilterDecision
 import app.pachli.core.model.FilterAction
-import app.pachli.core.ui.SetStatusContent
+import app.pachli.core.ui.SetContent
 import app.pachli.core.ui.StatusActionListener
 import app.pachli.databinding.ItemFollowBinding
 import app.pachli.databinding.ItemFollowRequestBinding
@@ -157,7 +157,7 @@ interface NotificationActionListener : StatusActionListener {
 class NotificationsPagingAdapter(
     private val glide: RequestManager,
     diffCallback: DiffUtil.ItemCallback<NotificationViewData>,
-    private val setStatusContent: SetStatusContent,
+    private val setContent: SetContent,
     private val notificationActionListener: NotificationActionListener,
     private val accountActionListener: AccountActionListener,
     var statusDisplayOptions: StatusDisplayOptions = StatusDisplayOptions(),
@@ -205,7 +205,7 @@ class NotificationsPagingAdapter(
                 StatusViewHolder(
                     ItemStatusBinding.inflate(inflater, parent, false),
                     glide,
-                    setStatusContent,
+                    setContent,
                     notificationActionListener,
                 )
             }
@@ -213,7 +213,7 @@ class NotificationsPagingAdapter(
                 FilterableStatusViewHolder(
                     ItemStatusWrapperBinding.inflate(inflater, parent, false),
                     glide,
-                    setStatusContent,
+                    setContent,
                     notificationActionListener,
                 )
             }
@@ -228,7 +228,7 @@ class NotificationsPagingAdapter(
                 StatusNotificationViewHolder(
                     ItemStatusNotificationBinding.inflate(inflater, parent, false),
                     glide,
-                    setStatusContent,
+                    setContent,
                     notificationActionListener,
                 )
             }
@@ -236,7 +236,7 @@ class NotificationsPagingAdapter(
                 FollowViewHolder(
                     ItemFollowBinding.inflate(inflater, parent, false),
                     glide,
-                    setStatusContent,
+                    setContent,
                     notificationActionListener,
                 )
             }
@@ -244,7 +244,7 @@ class NotificationsPagingAdapter(
                 FollowRequestViewHolder(
                     ItemFollowRequestBinding.inflate(inflater, parent, false),
                     glide,
-                    setStatusContent,
+                    setContent,
                     accountActionListener,
                     notificationActionListener,
                     showHeader = true,

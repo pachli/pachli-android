@@ -19,7 +19,7 @@ package app.pachli.adapter
 
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusItemViewData
-import app.pachli.core.ui.SetStatusContent
+import app.pachli.core.ui.SetContent
 import app.pachli.core.ui.StatusActionListener
 import app.pachli.databinding.ItemStatusDetailedBinding
 import com.bumptech.glide.RequestManager
@@ -27,8 +27,8 @@ import com.bumptech.glide.RequestManager
 class StatusDetailedViewHolder(
     binding: ItemStatusDetailedBinding,
     glide: RequestManager,
-    setStatusContent: SetStatusContent,
-) : StatusBaseViewHolder<StatusItemViewData>(binding.root, glide, setStatusContent) {
+    setContent: SetContent,
+) : StatusBaseViewHolder<StatusItemViewData>(binding.root, glide, setContent) {
 
     override fun setupWithStatus(
         viewData: StatusItemViewData,

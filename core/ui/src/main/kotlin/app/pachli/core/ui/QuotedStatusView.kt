@@ -74,7 +74,7 @@ class QuotedStatusView @JvmOverloads constructor(
      *
      * Call this instead of [setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: QuotedStatusViewData, listener: StatusActionListener, statusDisplayOptions: StatusDisplayOptions)].
      *
-     * @param setStatusContent
+     * @param setContent
      * @param glide
      * @param quoteState Whether to display the quote. If not
      * [QuoteState.ACCEPTED][Status.QuoteState.ACCEPTED] the quote is hidden and an
@@ -83,7 +83,7 @@ class QuotedStatusView @JvmOverloads constructor(
      * @param listener
      * @param statusDisplayOptions
      */
-    fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, quoteState: Status.QuoteState, viewData: QuotedStatusViewData?, listener: StatusActionListener, statusDisplayOptions: StatusDisplayOptions) {
+    fun setupWithStatus(setContent: SetContent, glide: RequestManager, quoteState: Status.QuoteState, viewData: QuotedStatusViewData?, listener: StatusActionListener, statusDisplayOptions: StatusDisplayOptions) {
         val blockedRes = when (quoteState) {
             Status.QuoteState.ACCEPTED -> -1
             Status.QuoteState.UNKNOWN -> R.string.label_quote_state_unknown
@@ -113,10 +113,10 @@ class QuotedStatusView @JvmOverloads constructor(
             return
         }
 
-        setupWithStatus(setStatusContent, glide, viewData, listener, statusDisplayOptions)
+        setupWithStatus(setContent, glide, viewData, listener, statusDisplayOptions)
     }
 
-    override fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: QuotedStatusViewData, listener: StatusActionListener, statusDisplayOptions: StatusDisplayOptions) {
+    override fun setupWithStatus(setContent: SetContent, glide: RequestManager, viewData: QuotedStatusViewData, listener: StatusActionListener, statusDisplayOptions: StatusDisplayOptions) {
         when (viewData.contentFilterAction) {
             FilterAction.HIDE -> {
                 binding.quotedStatusFiltered.root.hide()
@@ -162,7 +162,7 @@ class QuotedStatusView @JvmOverloads constructor(
                 binding.quotedStatusHidden.hide()
                 binding.quotedStatusFiltered.root.hide()
                 binding.quotedStatusContainer.root.show()
-                super.setupWithStatus(setStatusContent, glide, viewData, listener, statusDisplayOptions)
+                super.setupWithStatus(setContent, glide, viewData, listener, statusDisplayOptions)
 
                 if (viewData.isUsersStatus) {
                     // The user posted this, provide an option to detach the quote.

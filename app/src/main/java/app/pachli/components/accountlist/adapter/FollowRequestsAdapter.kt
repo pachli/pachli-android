@@ -20,7 +20,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import app.pachli.adapter.FollowRequestViewHolder
 import app.pachli.core.ui.LinkListener
-import app.pachli.core.ui.SetStatusContent
+import app.pachli.core.ui.SetContent
 import app.pachli.databinding.ItemFollowRequestBinding
 import app.pachli.interfaces.AccountActionListener
 import com.bumptech.glide.RequestManager
@@ -28,7 +28,7 @@ import com.bumptech.glide.RequestManager
 /** Displays a list of follow requests with accept/reject buttons. */
 class FollowRequestsAdapter(
     private val glide: RequestManager,
-    private val setStatusContent: SetStatusContent,
+    private val setContent: SetContent,
     accountActionListener: AccountActionListener,
     private val linkListener: LinkListener,
     animateAvatar: Boolean,
@@ -52,7 +52,7 @@ class FollowRequestsAdapter(
         return FollowRequestViewHolder(
             binding,
             glide,
-            setStatusContent,
+            setContent,
             accountActionListener,
             linkListener,
             showHeader = false,

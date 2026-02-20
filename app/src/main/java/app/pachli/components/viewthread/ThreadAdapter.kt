@@ -27,7 +27,7 @@ import app.pachli.adapter.StatusViewHolder
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.data.model.StatusItemViewData
 import app.pachli.core.model.FilterAction
-import app.pachli.core.ui.SetStatusContent
+import app.pachli.core.ui.SetContent
 import app.pachli.core.ui.StatusActionListener
 import app.pachli.databinding.ItemStatusBinding
 import app.pachli.databinding.ItemStatusDetailedBinding
@@ -38,7 +38,7 @@ class ThreadAdapter(
     private val glide: RequestManager,
     private val statusDisplayOptions: StatusDisplayOptions,
     private val statusActionListener: StatusActionListener,
-    private val setStatusContent: SetStatusContent,
+    private val setContent: SetContent,
 ) : ListAdapter<StatusItemViewData, StatusBaseViewHolder<StatusItemViewData>>(StatusViewDataDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StatusBaseViewHolder<StatusItemViewData> {
@@ -48,21 +48,21 @@ class ThreadAdapter(
                 StatusViewHolder(
                     ItemStatusBinding.inflate(inflater, parent, false),
                     glide,
-                    setStatusContent,
+                    setContent,
                 )
             }
             VIEW_TYPE_STATUS_FILTERED -> {
                 FilterableStatusViewHolder(
                     ItemStatusWrapperBinding.inflate(inflater, parent, false),
                     glide,
-                    setStatusContent,
+                    setContent,
                 )
             }
             VIEW_TYPE_STATUS_DETAILED -> {
                 StatusDetailedViewHolder(
                     ItemStatusDetailedBinding.inflate(inflater, parent, false),
                     glide,
-                    setStatusContent,
+                    setContent,
                 )
             }
             else -> error("Unknown item type: $viewType")

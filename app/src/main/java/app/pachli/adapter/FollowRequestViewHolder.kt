@@ -34,7 +34,7 @@ import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.TimelineAccount
 import app.pachli.core.preferences.PronounDisplay
 import app.pachli.core.ui.LinkListener
-import app.pachli.core.ui.SetStatusContent
+import app.pachli.core.ui.SetContent
 import app.pachli.core.ui.emojify
 import app.pachli.core.ui.loadAvatar
 import app.pachli.databinding.ItemFollowRequestBinding
@@ -44,7 +44,7 @@ import com.bumptech.glide.RequestManager
 class FollowRequestViewHolder(
     private val binding: ItemFollowRequestBinding,
     private val glide: RequestManager,
-    private val setStatusContent: SetStatusContent,
+    private val setContent: SetContent,
     private val accountActionListener: AccountActionListener,
     private val linkListener: LinkListener,
     private val showHeader: Boolean,
@@ -114,14 +114,14 @@ class FollowRequestViewHolder(
         if (account.note.isBlank()) {
             binding.accountNote.hide()
         } else {
-            setStatusContent(
+            setContent(
                 glide = glide,
                 textView = binding.accountNote,
                 content = account.note,
                 emojis = account.emojis.orEmpty(),
                 animateEmojis = animateEmojis,
                 removeQuoteInline = false,
-                listener = linkListener,
+                linkListener = linkListener,
             )
 
             binding.accountNote.show()

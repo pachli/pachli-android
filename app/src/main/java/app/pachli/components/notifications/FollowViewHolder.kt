@@ -31,7 +31,7 @@ import app.pachli.core.designsystem.R as DR
 import app.pachli.core.model.TimelineAccount
 import app.pachli.core.preferences.PronounDisplay
 import app.pachli.core.ui.LinkListener
-import app.pachli.core.ui.SetStatusContent
+import app.pachli.core.ui.SetContent
 import app.pachli.core.ui.emojify
 import app.pachli.core.ui.extensions.handleContentDescription
 import app.pachli.core.ui.loadAvatar
@@ -41,7 +41,7 @@ import com.bumptech.glide.RequestManager
 class FollowViewHolder(
     private val binding: ItemFollowBinding,
     private val glide: RequestManager,
-    private val setStatusContent: SetStatusContent,
+    private val setContent: SetContent,
     private val linkListener: LinkListener,
 ) : NotificationsPagingAdapter.ViewHolder<NotificationViewData>, RecyclerView.ViewHolder(binding.root) {
     private val avatarRadius42dp = itemView.context.resources.getDimensionPixelSize(
@@ -114,14 +114,14 @@ class FollowViewHolder(
 
         binding.roleChipGroup.setRoles(account.roles)
 
-        setStatusContent(
+        setContent(
             glide = glide,
             textView = binding.notificationAccountNote,
             content = account.note,
             emojis = account.emojis.orEmpty(),
             animateEmojis = animateEmojis,
             removeQuoteInline = false,
-            listener = linkListener,
+            linkListener = linkListener,
         )
 
         binding.notificationAccountNote.setOnClickListener { linkListener.onViewAccount(account.id) }

@@ -24,14 +24,14 @@ import app.pachli.core.model.Emoji
 import app.pachli.core.model.Field
 import app.pachli.core.ui.BindingHolder
 import app.pachli.core.ui.LinkListener
-import app.pachli.core.ui.SetStatusContent
+import app.pachli.core.ui.SetContent
 import app.pachli.core.ui.emojify
 import app.pachli.databinding.ItemAccountFieldBinding
 import com.bumptech.glide.RequestManager
 
 class AccountFieldAdapter(
     private val glide: RequestManager,
-    private val setStatusContent: SetStatusContent,
+    private val setContent: SetContent,
     private val linkListener: LinkListener,
     private val animateEmojis: Boolean,
 ) : RecyclerView.Adapter<BindingHolder<ItemAccountFieldBinding>>() {
@@ -54,14 +54,14 @@ class AccountFieldAdapter(
         val emojifiedName = field.name.emojify(glide, emojis, nameTextView, animateEmojis)
         nameTextView.text = emojifiedName
 
-        setStatusContent(
+        setContent(
             glide = glide,
             textView = valueTextView,
             content = field.value,
             emojis = emojis,
             animateEmojis = animateEmojis,
             removeQuoteInline = false,
-            listener = linkListener,
+            linkListener = linkListener,
         )
 
         if (field.verifiedAt != null) {

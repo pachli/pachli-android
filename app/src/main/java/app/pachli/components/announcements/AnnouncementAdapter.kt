@@ -32,7 +32,7 @@ import app.pachli.core.model.Announcement
 import app.pachli.core.ui.BindingHolder
 import app.pachli.core.ui.EmojiSpan
 import app.pachli.core.ui.LinkListener
-import app.pachli.core.ui.SetStatusContent
+import app.pachli.core.ui.SetContent
 import app.pachli.core.ui.clearEmojiTargets
 import app.pachli.core.ui.getRelativeTimeSpanString
 import app.pachli.core.ui.setEmojiTargets
@@ -51,7 +51,7 @@ interface AnnouncementActionListener : LinkListener {
 
 class AnnouncementAdapter(
     private val glide: RequestManager,
-    private val setStatusContent: SetStatusContent,
+    private val setContent: SetContent,
     private var items: List<Announcement> = emptyList(),
     private val listener: AnnouncementActionListener,
     private val hideStatsInDetailedPosts: Boolean = false,
@@ -95,14 +95,14 @@ class AnnouncementAdapter(
         val chips = holder.binding.chipGroup
         val addReactionChip = holder.binding.addReactionChip
 
-        setStatusContent(
+        setContent(
             glide = glide,
             textView = text,
             content = item.content,
             emojis = item.emojis,
             animateEmojis = animateEmojis,
             removeQuoteInline = false,
-            listener = listener,
+            linkListener = listener,
         )
 
         // If wellbeing mode is enabled, announcement badge counts should not be shown.

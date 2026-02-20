@@ -547,7 +547,7 @@ class AccountActivity :
             emojis = account.emojis.orEmpty(),
             animateEmojis = viewModel.statusDisplayOptions.value.animateEmojis,
             removeQuoteInline = false,
-            listener = this,
+            linkListener = this,
         )
 
         accountFieldAdapter.fields = account.fields.orEmpty()

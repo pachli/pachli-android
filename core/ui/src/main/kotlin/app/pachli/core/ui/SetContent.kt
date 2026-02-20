@@ -52,13 +52,15 @@ import io.noties.prism4j.Prism4j
 import io.noties.prism4j.annotations.PrismBundle
 
 /**
- * Interface for setting the content of a status.
+ * Interface for setting the content of a [TextView] to Mastodon HTML that
+ * has been processed for display.
  *
- * @see [SetStatusContent.invoke]
+ * @see [SetContent.invoke]
  */
-interface SetStatusContent {
+interface SetContent {
     /**
-     * Processes [content] and sets it as the text for [textView].
+     * Processes [content] (assumed to be Mastodon HTML) and sets it as the text
+     * for [textView].
      *
      * The content is parsed by [parseToSpanned].
      *
@@ -130,7 +132,7 @@ interface SetStatusContent {
     /**
      * Parse [content] to [Spanned].
      *
-     * Implementations of [SetStatusContent] should override this to perform the
+     * Implementations of [SetContent] should override this to perform the
      * actual parsing. Post-processing is handled in [invoke].
      *
      * @param content The content to parse, expected to be HTML.
@@ -146,7 +148,7 @@ interface SetStatusContent {
 /**
  * Sets status content by parsing it as Mastodon HTML.
  */
-object SetMastodonHtmlContent : SetStatusContent {
+object SetMastodonHtmlContent : SetContent {
     override fun parseToSpanned(
         content: CharSequence,
         removeQuoteInline: Boolean,
@@ -164,7 +166,7 @@ object SetMastodonHtmlContent : SetStatusContent {
  * Sets status content by parsing it as Markdown.
  */
 @PrismBundle(includeAll = true, grammarLocatorClassName = ".MySuperGrammerLocator")
-class SetMarkdownContent(context: Context) : SetStatusContent {
+class SetMarkdownContent(context: Context) : SetContent {
     val textSize: Float
 
     init {
