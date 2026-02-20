@@ -183,12 +183,10 @@ class LinkHelperTest {
         val maliciousUrl = "https://$maliciousDomain/to/go"
         val content = SpannableStringBuilder()
         content.append(displayedContent, URLSpan(maliciousUrl), 0)
-        val oldContent = content.toString()
         Assert.assertEquals(
             "$displayedContent${context.getString(R.string.url_domain_notifier, maliciousDomain)}",
             markupHiddenUrls(textView, content).toString(),
         )
-        Assert.assertEquals(oldContent, content.toString())
     }
 
     @Test

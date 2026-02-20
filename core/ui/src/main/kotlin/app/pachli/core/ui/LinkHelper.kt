@@ -48,7 +48,8 @@ fun getDomain(urlString: String?): String {
 }
 
 /**
- * Show the destination URL for links.
+ * Show the destination URL for any [URLSpan] in [content] where the link text
+ * does not show the destination.
  *
  * Mastodon doesn't allow people to post `a` elements with a custom destination,
  * so links always show the actual destination.
@@ -58,6 +59,14 @@ fun getDomain(urlString: String?): String {
  *
  * Find those links and insert a "🔗" marker and the link's domain if the link's
  * content doesn't match the domain of the target.
+ *
+ * [URLSpan]s that start with `#` or `@` are ignored, these are links to hashtags
+ * or mentions.
+ *
+ * @param textView The [TextView] the content will be displayed in, so the icon can
+ * be adjusted to match the view's text size and color
+ * @param content The [SpannableStringBuilder] that contains the content. The
+ * content is modified in-place (rather than returning a new [SpannableStringBuilder]).
  */
 internal fun markupHiddenUrls(textView: TextView, content: SpannableStringBuilder): SpannableStringBuilder {
     val obscuredLinkSpans = content
@@ -130,8 +139,8 @@ internal fun convertUrlSpanToMoreSpecificType(
     val newSpan = when (text[0]) {
         '#' -> getCustomSpanForHashtag(text, tags, span, listener)
         '@' -> getCustomSpanForMention(mentions, span, listener)
-        else -> null
-    } ?: NoUnderlineURLSpan(span.url, listener::onViewUrl)
+        else -> NoUnderlineURLSpan(span.url, listener::onViewUrl)
+    }
 
     // Replace the previous span with the more appropriate span.
     removeSpan(span)
