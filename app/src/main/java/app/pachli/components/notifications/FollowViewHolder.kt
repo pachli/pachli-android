@@ -120,7 +120,7 @@ class FollowViewHolder(
             binding.notificationAccountNote,
             animateEmojis,
         )
-        setClickableText(binding.notificationAccountNote, emojifiedNote, emptyList(), null, linkListener)
+        setClickableText(binding.notificationAccountNote, emojifiedNote)
         binding.notificationAccountNote.setOnClickListener { linkListener.onViewAccount(account.id) }
         itemView.setOnClickListener { linkListener.onViewAccount(account.id) }
     }

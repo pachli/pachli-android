@@ -258,7 +258,7 @@ internal class SuggestionViewHolder(
             val emojifiedNote = account.note.parseAsMastodonHtml()
                 .emojify(glide, account.emojis, accountNote, animateEmojis)
 
-            setClickableText(accountNote, emojifiedNote, emptyList(), null, linkListener)
+            setClickableText(accountNote, emojifiedNote)
         }
     }
 

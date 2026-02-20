@@ -122,7 +122,7 @@ class ViewEditsAdapter(
             .parseAsMastodonHtml(pachliTagHandler)
             .emojify(glide, edit.emojis, binding.statusEditContent, animateEmojis)
 
-        setClickableText(binding.statusEditContent, emojifiedText, emptyList(), null, listener)
+        setClickableText(binding.statusEditContent, emojifiedText)
 
         val poll = edit.poll
         if (poll == null) {

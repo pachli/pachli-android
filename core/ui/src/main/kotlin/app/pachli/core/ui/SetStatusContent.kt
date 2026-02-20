@@ -19,10 +19,12 @@ package app.pachli.core.ui
 
 import android.content.Context
 import android.graphics.Color
+import android.text.SpannableStringBuilder
 import android.text.style.URLSpan
 import android.util.TypedValue
 import android.widget.TextView
 import androidx.core.text.method.LinkMovementMethodCompat
+import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.data.model.StatusDisplayOptions
 import app.pachli.core.designsystem.R
 import app.pachli.core.model.Emoji
@@ -98,13 +100,44 @@ object SetMastodonHtmlContent : SetStatusContent {
         removeQuoteInline: Boolean,
         listener: LinkListener,
     ) {
-        val parsedContent = if (removeQuoteInline) {
-            content.removeQuoteInline().parseAsMastodonHtml()
-        } else {
-            content.parseAsMastodonHtml()
+        val spannableStringBuilder = SpannableStringBuilder().apply {
+            append(
+                if (removeQuoteInline) {
+                    content.removeQuoteInline().parseAsMastodonHtml()
+                } else {
+                    content.parseAsMastodonHtml()
+                },
+            )
+
+            getSpans(0, length, URLSpan::class.java).forEach {
+                convertUrlSpanToMoreSpecificType(it, this, mentions, hashtags, listener)
+            }
+
+            val contentTags = getSpans(0, length, HashtagSpan::class.java).map { it.hashtag }.toSet()
+            val missingTags = hashtags.orEmpty().filterNot { contentTags.contains(it.name) }
+
+            val spans = missingTags.map { tag ->
+                HashtagSpan(tag.name, tag.url) { listener.onViewTag(tag.name) }
+            }
+
+            if (spans.isNotEmpty()) {
+                append("\n\n")
+
+                spans.forEachIndexed { index, span ->
+                    val start = length
+                    append("#${span.hashtag}".unicodeWrap())
+                    val end = length
+                    if (index < spans.size) append(" ")
+                    setSpan(span, start, end, 0)
+                }
+            }
+
+            emojify(glide, emojis, textView, statusDisplayOptions.animateEmojis)
+
+            markupHiddenUrls(textView, this)
         }
-        val emojifiedText = parsedContent.emojify(glide, emojis, textView, statusDisplayOptions.animateEmojis)
-        setClickableText(textView, emojifiedText, mentions, hashtags, listener)
+
+        setClickableText(textView, spannableStringBuilder)
     }
 }
 
@@ -155,18 +188,38 @@ class SetMarkdownContent(context: Context) : SetStatusContent {
         removeQuoteInline: Boolean,
         listener: LinkListener,
     ) {
-        val spanned = markwon.toMarkdown(if (removeQuoteInline) content.removeQuoteInline() else content.toString())
+        val spannableStringBuilder = SpannableStringBuilder().apply {
+            append(markwon.toMarkdown(if (removeQuoteInline) content.removeQuoteInline() else content.toString()))
 
-        val emojifiedText = spanned.emojify(glide, emojis, textView, statusDisplayOptions.animateEmojis)
-
-        // This block does what setClickableText does.
-        val spannableContent = markupHiddenUrls(textView, emojifiedText)
-        val finalText = spannableContent.apply {
-            getSpans(0, spannableContent.length, URLSpan::class.java).forEach {
-                setClickableText(it, this, mentions, hashtags, listener)
+            getSpans(0, length, URLSpan::class.java).forEach {
+                convertUrlSpanToMoreSpecificType(it, this, mentions, hashtags, listener)
             }
+
+            val contentTags = getSpans(0, length, HashtagSpan::class.java).map { it.hashtag }.toSet()
+            val missingTags = hashtags.orEmpty().filterNot { contentTags.contains(it.name) }
+
+            val spans = missingTags.map { tag ->
+                HashtagSpan(tag.name, tag.url) { listener.onViewTag(tag.name) }
+            }
+
+            if (spans.isNotEmpty()) {
+                append("\n\n")
+
+                spans.forEachIndexed { index, span ->
+                    val start = length
+                    append("#${span.hashtag}".unicodeWrap())
+                    val end = length
+                    if (index < spans.size) append(" ")
+                    setSpan(span, start, end, 0)
+                }
+            }
+
+            emojify(glide, emojis, textView, statusDisplayOptions.animateEmojis)
+
+            markupHiddenUrls(textView, this)
         }
-        markwon.setParsedMarkdown(textView, finalText)
+
+        markwon.setParsedMarkdown(textView, spannableStringBuilder)
         textView.movementMethod = LinkMovementMethodCompat.getInstance()
     }
 }

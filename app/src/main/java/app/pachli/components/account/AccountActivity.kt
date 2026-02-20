@@ -533,7 +533,7 @@ class AccountActivity :
         }
 
         val emojifiedNote = account.note.parseAsMastodonHtml().emojify(glide, account.emojis, binding.accountNoteTextView, animateEmojis)
-        setClickableText(binding.accountNoteTextView, emojifiedNote, emptyList(), null, this)
+        setClickableText(binding.accountNoteTextView, emojifiedNote)
 
         accountFieldAdapter.fields = account.fields.orEmpty()
         accountFieldAdapter.emojis = account.emojis.orEmpty()

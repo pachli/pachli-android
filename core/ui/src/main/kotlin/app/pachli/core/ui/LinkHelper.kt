@@ -48,22 +48,14 @@ fun getDomain(urlString: String?): String {
 }
 
 /**
- * Finds links, mentions, and hashtags in a piece of text and makes them clickable, associating
- * them with callbacks to notify when they're clicked.
+ * Set's [view]'s text to [content] and ensures [LinkMovementMethodCompat] is
+ * used.
  *
  * @param view the returned text will be put in
  * @param content containing text with mentions, links, or hashtags
- * @param mentions any '@' mentions which are known to be in the content
- * @param listener to notify about particular spans that are clicked
  */
-fun setClickableText(view: TextView, content: CharSequence, mentions: List<Mention>, tags: List<HashTag>?, listener: LinkListener) {
-    val spannableContent = markupHiddenUrls(view, content)
-
-    view.text = spannableContent.apply {
-        getSpans(0, spannableContent.length, URLSpan::class.java).forEach {
-            setClickableText(it, this, mentions, tags, listener)
-        }
-    }
+fun setClickableText(view: TextView, content: CharSequence) {
+    view.text = content
     view.movementMethod = LinkMovementMethodCompat.getInstance()
 }
 
@@ -134,7 +126,7 @@ internal fun markupHiddenUrls(textView: TextView, content: CharSequence): Spanna
  * Replaces [span] with a more appropriate span type based on the text contents
  * of [span].
  */
-internal fun setClickableText(
+internal fun convertUrlSpanToMoreSpecificType(
     span: URLSpan,
     builder: SpannableStringBuilder,
     mentions: List<Mention>,
@@ -148,7 +140,7 @@ internal fun setClickableText(
     // Determine the new span from the text content.
     val text = subSequence(start, end)
     val newSpan = when (text[0]) {
-        '#' -> getCustomSpanForTag(text, tags, span, listener)
+        '#' -> getCustomSpanForHashtag(text, tags, span, listener)
         '@' -> getCustomSpanForMention(mentions, span, listener)
         else -> null
     } ?: NoUnderlineURLSpan(span.url, listener::onViewUrl)
@@ -170,14 +162,15 @@ internal fun setClickableText(
 
 @VisibleForTesting
 fun getTagName(text: CharSequence, tags: List<HashTag>?): String? {
-    val scrapedName = normalizeToASCII(text.subSequence(1, text.length)).toString()
+    val scrapedName = text.subSequence(1, text.length).replaceAccents()
+    val normalisedName = scrapedName.normaliseHashtag()
     return when (tags) {
         null -> scrapedName
-        else -> tags.firstOrNull { it.name.equals(scrapedName, true) }?.name
+        else -> tags.firstOrNull { it.name.normaliseHashtag() == normalisedName }?.name
     }
 }
 
-private fun getCustomSpanForTag(text: CharSequence, tags: List<HashTag>?, span: URLSpan, listener: LinkListener): ClickableSpan? {
+internal fun getCustomSpanForHashtag(text: CharSequence, tags: List<HashTag>?, span: URLSpan, listener: LinkListener): ClickableSpan? {
     return getTagName(text, tags)?.let { tagName ->
         HashtagSpan(tagName, span.url) { listener.onViewTag(tagName) }
     }

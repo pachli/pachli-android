@@ -97,7 +97,7 @@ class AnnouncementAdapter(
 
         val emojifiedText: CharSequence = item.content.parseAsMastodonHtml().emojify(glide, item.emojis, text, animateEmojis)
 
-        setClickableText(text, emojifiedText, item.mentions, item.tags, listener)
+        setClickableText(text, emojifiedText)
 
         // If wellbeing mode is enabled, announcement badge counts should not be shown.
         if (hideStatsInDetailedPosts) {
