@@ -79,5 +79,5 @@
     <string name="about_workers">Procesy</string>
     <string name="workers_prune_cached_media_help">To lista procesów, które czyszczą cache mediów. Powinien być jeden, o statusie RUNNING lub ENQUEUED i powinien mieć zaplanowane uruchomienie na mniej niż 12 godzin od teraz.</string>
     <string name="workers_prune_cache_help">To lista procesów, które czyszczą cache informacji o wpisach i autorach. Powinien być jeden, o statusie RUNNING lub ENQUEUED i powinien mieć zaplanowane uruchomienie na mniej niż 12 godzin od teraz.</string>
-    <string name="workers_prune_log_entry_entity_help">To lista procesów, które czyszczą debugują wpisy logów. Powinien być jeden, o statusie RUNNING lub ENQUEUED i powinien mieć zaplanowane uruchomienie na mniej niż 12 godzin od teraz.</string>
+    <string name="workers_prune_log_entry_entity_help">To lista procesów, które czyszczą wpisy logów debugowania. Powinien być jeden, o statusie RUNNING lub ENQUEUED i powinien mieć zaplanowane uruchomienie na mniej niż 12 godzin od teraz.</string>
 </resources>
