@@ -59,8 +59,8 @@ import app.pachli.core.preferences.PronounDisplay
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.ui.BackgroundMessage
 import app.pachli.core.ui.LinkListener
-import app.pachli.core.ui.SetMarkdownContent
-import app.pachli.core.ui.SetMastodonHtmlContent
+import app.pachli.core.ui.SetContentAsMarkdown
+import app.pachli.core.ui.SetContentAsMastodonHtml
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.databinding.FragmentAccountListBinding
 import app.pachli.interfaces.AccountActionListener
@@ -152,9 +152,9 @@ class AccountListFragment :
             val statusDisplayOptions = statusDisplayOptionsRepository.flow.value
 
             val setContent = if (statusDisplayOptions.renderMarkdown) {
-                SetMarkdownContent(requireContext())
+                SetContentAsMarkdown(requireContext())
             } else {
-                SetMastodonHtmlContent
+                SetContentAsMastodonHtml
             }
 
             adapter = when (kind) {

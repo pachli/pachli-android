@@ -29,7 +29,7 @@ import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.PollAdapter
 import app.pachli.core.ui.PollAdapter.DisplayMode
 import app.pachli.core.ui.PollOptionViewData
-import app.pachli.core.ui.SetMastodonHtmlContent
+import app.pachli.core.ui.SetContentAsMastodonHtml
 import app.pachli.core.ui.emojify
 import app.pachli.databinding.ItemStatusEditBinding
 import com.bumptech.glide.RequestManager
@@ -117,7 +117,7 @@ class ViewEditsAdapter(
                 )
         }
 
-        SetMastodonHtmlContent.invoke(
+        SetContentAsMastodonHtml.invoke(
             glide,
             textView = binding.statusEditContent,
             content = edit.content,

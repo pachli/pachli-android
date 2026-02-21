@@ -146,9 +146,9 @@ interface SetContent {
 }
 
 /**
- * Sets status content by parsing it as Mastodon HTML.
+ * Sets content by parsing it as Mastodon HTML.
  */
-object SetMastodonHtmlContent : SetContent {
+object SetContentAsMastodonHtml : SetContent {
     override fun parseToSpanned(
         content: CharSequence,
         removeQuoteInline: Boolean,
@@ -163,10 +163,10 @@ object SetMastodonHtmlContent : SetContent {
 }
 
 /**
- * Sets status content by parsing it as Markdown.
+ * Sets content by parsing it as Markdown.
  */
 @PrismBundle(includeAll = true, grammarLocatorClassName = ".MySuperGrammerLocator")
-class SetMarkdownContent(context: Context) : SetContent {
+class SetContentAsMarkdown(context: Context) : SetContent {
     val textSize: Float
 
     init {

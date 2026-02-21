@@ -54,8 +54,8 @@ import app.pachli.core.model.SuggestionSources.UNKNOWN
 import app.pachli.core.navigation.AccountActivityIntent
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.ui.BackgroundMessage
-import app.pachli.core.ui.SetMarkdownContent
-import app.pachli.core.ui.SetMastodonHtmlContent
+import app.pachli.core.ui.SetContentAsMarkdown
+import app.pachli.core.ui.SetContentAsMastodonHtml
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.core.ui.makeIcon
 import app.pachli.feature.suggestions.UiAction.GetSuggestions
@@ -124,9 +124,9 @@ class SuggestionsFragment :
         requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
         val setContent = if (viewModel.uiState.value.renderMarkdown) {
-            SetMarkdownContent(requireContext())
+            SetContentAsMarkdown(requireContext())
         } else {
-            SetMastodonHtmlContent
+            SetContentAsMastodonHtml
         }
 
         suggestionsAdapter = SuggestionsAdapter(

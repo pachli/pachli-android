@@ -61,8 +61,8 @@ import app.pachli.core.navigation.EditContentFilterActivityIntent
 import app.pachli.core.navigation.ReportActivityIntent
 import app.pachli.core.navigation.ViewMediaActivityIntent
 import app.pachli.core.ui.ClipboardUseCase
-import app.pachli.core.ui.SetMarkdownContent
-import app.pachli.core.ui.SetMastodonHtmlContent
+import app.pachli.core.ui.SetContentAsMarkdown
+import app.pachli.core.ui.SetContentAsMastodonHtml
 import app.pachli.core.ui.StatusActionListener
 import app.pachli.usecase.TimelineCases
 import app.pachli.view.showMuteAccountDialog
@@ -123,9 +123,9 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
         val statusDisplayOptions = statusDisplayOptionsRepository.flow.value
 
         val setContent = if (statusDisplayOptions.renderMarkdown) {
-            SetMarkdownContent(requireContext())
+            SetContentAsMarkdown(requireContext())
         } else {
-            SetMastodonHtmlContent
+            SetContentAsMastodonHtml
         }
 
         binding.searchRecyclerView.addItemDecoration(

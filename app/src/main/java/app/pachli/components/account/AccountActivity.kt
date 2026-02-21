@@ -71,8 +71,8 @@ import app.pachli.core.navigation.pachliAccountId
 import app.pachli.core.ui.ClipboardUseCase
 import app.pachli.core.ui.LinkListener
 import app.pachli.core.ui.RoleChip
-import app.pachli.core.ui.SetMarkdownContent
-import app.pachli.core.ui.SetMastodonHtmlContent
+import app.pachli.core.ui.SetContentAsMarkdown
+import app.pachli.core.ui.SetContentAsMastodonHtml
 import app.pachli.core.ui.emojify
 import app.pachli.core.ui.extensions.InsetType
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
@@ -190,9 +190,9 @@ class AccountActivity :
 
     private val setContent by unsafeLazy {
         if (viewModel.statusDisplayOptions.value.renderMarkdown) {
-            SetMarkdownContent(this)
+            SetContentAsMarkdown(this)
         } else {
-            SetMastodonHtmlContent
+            SetContentAsMastodonHtml
         }
     }
 
