@@ -74,8 +74,7 @@ abstract class PachliRecyclerViewAccessibilityDelegate(
     companion object {
         /** @return The text enclosed by [span]. */
         @JvmStatic
-        protected fun Spanned.subSequence(span: CharacterStyle) =
-            subSequence(getSpanStart(span), getSpanEnd(span))
+        protected fun Spanned.subSequence(span: CharacterStyle) = subSequence(getSpanStart(span), getSpanEnd(span))
 
         /** @return Links, excluding any links that are hashtags or @-mentions. */
         @JvmStatic
