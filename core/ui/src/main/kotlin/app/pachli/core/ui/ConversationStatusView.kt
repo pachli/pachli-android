@@ -79,8 +79,8 @@ class ConversationStatusView @JvmOverloads constructor(
 
     private val avatarPadding = TypedValueCompat.dpToPx(2f, context.resources.displayMetrics).toInt()
 
-    override fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: ConversationViewData, listener: StatusActionListener, statusDisplayOptions: StatusDisplayOptions) {
-        super.setupWithStatus(setStatusContent, glide, viewData, listener, statusDisplayOptions)
+    override fun setupWithStatus(setContent: SetContent, glide: RequestManager, viewData: ConversationViewData, listener: StatusActionListener, statusDisplayOptions: StatusDisplayOptions) {
+        super.setupWithStatus(setContent, glide, viewData, listener, statusDisplayOptions)
 
         // Load additional avatars.
         avatars.forEachIndexed { index, view ->
@@ -106,7 +106,7 @@ class ConversationStatusView @JvmOverloads constructor(
         }
 
         val quotedViewData = viewData.asQuotedStatusViewData()
-        binding.statusQuote.setupWithStatus(setStatusContent, glide, quote.state, quotedViewData, listener, statusDisplayOptions)
+        binding.statusQuote.setupWithStatus(setContent, glide, quote.state, quotedViewData, listener, statusDisplayOptions)
         binding.statusQuote.show()
     }
 }

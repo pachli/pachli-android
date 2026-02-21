@@ -25,6 +25,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import app.pachli.core.model.HashTag
 import app.pachli.core.model.Status
+import com.google.common.truth.Truth.assertThat
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -62,7 +63,7 @@ class LinkHelperTest {
 
         var urlSpans = builder.getSpans(0, builder.length, URLSpan::class.java)
         for (span in urlSpans) {
-            setClickableText(span, builder, mentions, null, listener)
+            convertUrlSpanToMoreSpecificType(span, builder, mentions, null, listener)
         }
 
         urlSpans = builder.getSpans(0, builder.length, URLSpan::class.java)
@@ -83,7 +84,7 @@ class LinkHelperTest {
 
         var urlSpans = builder.getSpans(0, builder.length, URLSpan::class.java)
         for (span in urlSpans) {
-            setClickableText(span, builder, mentions, null, listener)
+            convertUrlSpanToMoreSpecificType(span, builder, mentions, null, listener)
         }
 
         urlSpans = builder.getSpans(0, builder.length, URLSpan::class.java)
@@ -97,8 +98,8 @@ class LinkHelperTest {
         for (tag in tags) {
             for (mutatedTagName in listOf(tag.name, tag.name.uppercase(), tag.name.lowercase())) {
                 val tagName = getTagName("#$mutatedTagName", tags)
-                Assert.assertNotNull(tagName)
-                Assert.assertNotNull(tags.firstOrNull { it.name == tagName })
+                assertThat(tagName).isNotNull()
+                assertThat(tags.firstOrNull { it.name == tagName }).isNotNull()
             }
         }
     }
@@ -109,8 +110,8 @@ class LinkHelperTest {
         for (tag in tags) {
             val mutatedTagName = String(tag.name.map { mutator[it] ?: it }.toCharArray())
             val tagName = getTagName("#$mutatedTagName", tags)
-            Assert.assertNotNull(tagName)
-            Assert.assertNotNull(tags.firstOrNull { it.name == tagName })
+            assertThat(tagName).isNotNull()
+            assertThat(tags.firstOrNull { it.name == tagName }).isNotNull()
         }
     }
 
@@ -124,7 +125,7 @@ class LinkHelperTest {
     @Test
     fun whenTagsAreNull_tagNameIsGeneratedFromText() {
         for (tag in tags) {
-            Assert.assertEquals(tag.name, getTagName("#${tag.name}", null))
+            assertThat(tag.name).isEqualTo(getTagName("#${tag.name}", null))
         }
     }
 
@@ -182,12 +183,10 @@ class LinkHelperTest {
         val maliciousUrl = "https://$maliciousDomain/to/go"
         val content = SpannableStringBuilder()
         content.append(displayedContent, URLSpan(maliciousUrl), 0)
-        val oldContent = content.toString()
         Assert.assertEquals(
             "$displayedContent${context.getString(R.string.url_domain_notifier, maliciousDomain)}",
             markupHiddenUrls(textView, content).toString(),
         )
-        Assert.assertEquals(oldContent, content.toString())
     }
 
     @Test

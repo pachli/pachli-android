@@ -19,11 +19,14 @@ package app.pachli.core.ui
 
 import android.content.Context
 import android.graphics.Color
+import android.text.Html
+import android.text.SpannableStringBuilder
+import android.text.Spanned
 import android.text.style.URLSpan
 import android.util.TypedValue
 import android.widget.TextView
 import androidx.core.text.method.LinkMovementMethodCompat
-import app.pachli.core.data.model.StatusDisplayOptions
+import app.pachli.core.common.string.unicodeWrap
 import app.pachli.core.designsystem.R
 import app.pachli.core.model.Emoji
 import app.pachli.core.model.HashTag
@@ -49,70 +52,121 @@ import io.noties.prism4j.Prism4j
 import io.noties.prism4j.annotations.PrismBundle
 
 /**
- * Interface for setting the content of a status.
+ * Interface for setting the content of a [TextView] to Mastodon HTML that
+ * has been processed for display.
  *
- * @see [SetStatusContent.invoke]
+ * @see [SetContent.invoke]
  */
-interface SetStatusContent {
+interface SetContent {
     /**
-     * Processes [content] according to [statusDisplayOptions], embedding any [emojis],
-     * [mentions], and [hashtags]. Clicks on these are sent to [listener]. Sets the
-     * processed content as the [text][TextView.setText] on [textView].
+     * Processes [content] (assumed to be Mastodon HTML) and sets it as the text
+     * for [textView].
      *
-     * @param glide RequestManager used to load images.
-     * @param textView
-     * @param content
-     * @param statusDisplayOptions
+     * The content is parsed by [parseToSpanned].
+     *
+     * Emojis in [content] that are also present in [emojis] are loaded and
+     * embedded using [glide], optionally animated depending on [animateEmojis].
+     *
+     * Any [mentions], and [hashtags] are made clickable and sent to [linkListener].
+     *
+     * @param glide [RequestManager] to use to load images.
+     * @param textView [TextView] to load the final content in to.
+     * @param content Content to parse and load.
      * @param emojis
+     * @param animateEmojis True if emojis should be animated.
+     * @param removeQuoteInline If true, remove `p` elements with a `quote-inline` class.
      * @param mentions
      * @param hashtags
-     * @param removeQuoteInline If true, remove `p` elements with a `quote-inline`
-     * class.
-     * @param listener
+     * @param tagHandler
+     * @param linkListener
      */
     operator fun invoke(
         glide: RequestManager,
         textView: TextView,
         content: CharSequence,
-        statusDisplayOptions: StatusDisplayOptions,
         emojis: List<Emoji>,
-        mentions: List<Status.Mention>,
-        hashtags: List<HashTag>?,
+        animateEmojis: Boolean,
         removeQuoteInline: Boolean,
-        listener: LinkListener,
-    )
+        mentions: List<Status.Mention>? = null,
+        hashtags: List<HashTag>? = null,
+        tagHandler: Html.TagHandler? = null,
+        linkListener: LinkListener,
+    ) {
+        val spannableStringBuilder = SpannableStringBuilder().apply {
+            append(parseToSpanned(content, removeQuoteInline, tagHandler))
+
+            getSpans(0, length, URLSpan::class.java).forEach {
+                convertUrlSpanToMoreSpecificType(it, this, mentions, hashtags, linkListener)
+            }
+
+            val hashtagsInContent = getSpans(0, length, HashtagSpan::class.java).map {
+                it.hashtag
+            }.toSet()
+            val oobHashtags = hashtags.orEmpty().filterNot { hashtagsInContent.contains(it.name) }
+
+            val oobSpans = oobHashtags.map { tag ->
+                HashtagSpan(tag.name, tag.url) { linkListener.onViewTag(tag.name) }
+            }
+
+            if (oobSpans.isNotEmpty()) {
+                append("\n\n")
+
+                oobSpans.forEachIndexed { index, span ->
+                    val start = length
+                    append("#${span.hashtag}".unicodeWrap())
+                    val end = length
+                    if (index < oobSpans.size) append(" ")
+                    setSpan(span, start, end, 0)
+                }
+            }
+
+            emojify(glide, emojis, textView, animateEmojis)
+
+            markupHiddenUrls(textView, this)
+        }
+
+        textView.text = spannableStringBuilder
+        textView.movementMethod = LinkMovementMethodCompat.getInstance()
+    }
+
+    /**
+     * Parse [content] to [Spanned].
+     *
+     * Implementations of [SetContent] should override this to perform the
+     * actual parsing. Post-processing is handled in [invoke].
+     *
+     * @param content The content to parse, expected to be HTML.
+     * @param removeQuoteInline If true, remove any `p` elements with a `quote-inline`
+     * class as part of parsing.
+     * @param tagHandler Optional [Html.TagHandler] to use when parsing HTML.
+     *
+     * @return [content] converted to a [Spanned] string.
+     */
+    fun parseToSpanned(content: CharSequence, removeQuoteInline: Boolean, tagHandler: Html.TagHandler? = null): Spanned
 }
 
 /**
- * Sets status content by parsing it as Mastodon HTML.
+ * Sets content by parsing it as Mastodon HTML.
  */
-object SetMastodonHtmlContent : SetStatusContent {
-    override operator fun invoke(
-        glide: RequestManager,
-        textView: TextView,
+object SetContentAsMastodonHtml : SetContent {
+    override fun parseToSpanned(
         content: CharSequence,
-        statusDisplayOptions: StatusDisplayOptions,
-        emojis: List<Emoji>,
-        mentions: List<Status.Mention>,
-        hashtags: List<HashTag>?,
         removeQuoteInline: Boolean,
-        listener: LinkListener,
-    ) {
-        val parsedContent = if (removeQuoteInline) {
-            content.removeQuoteInline().parseAsMastodonHtml()
+        tagHandler: Html.TagHandler?,
+    ): Spanned {
+        return if (removeQuoteInline) {
+            content.removeQuoteInline().parseAsMastodonHtml(tagHandler = tagHandler)
         } else {
-            content.parseAsMastodonHtml()
+            content.parseAsMastodonHtml(tagHandler = tagHandler)
         }
-        val emojifiedText = parsedContent.emojify(glide, emojis, textView, statusDisplayOptions.animateEmojis)
-        setClickableText(textView, emojifiedText, mentions, hashtags, listener)
     }
 }
 
 /**
- * Sets status content by parsing it as Markdown.
+ * Sets content by parsing it as Markdown.
  */
 @PrismBundle(includeAll = true, grammarLocatorClassName = ".MySuperGrammerLocator")
-class SetMarkdownContent(context: Context) : SetStatusContent {
+class SetContentAsMarkdown(context: Context) : SetContent {
     val textSize: Float
 
     init {
@@ -144,30 +198,8 @@ class SetMarkdownContent(context: Context) : SetStatusContent {
         .usePlugin(PachliMarkwonTheme(context))
         .build()
 
-    override operator fun invoke(
-        glide: RequestManager,
-        textView: TextView,
-        content: CharSequence,
-        statusDisplayOptions: StatusDisplayOptions,
-        emojis: List<Emoji>,
-        mentions: List<Status.Mention>,
-        hashtags: List<HashTag>?,
-        removeQuoteInline: Boolean,
-        listener: LinkListener,
-    ) {
-        val spanned = markwon.toMarkdown(if (removeQuoteInline) content.removeQuoteInline() else content.toString())
-
-        val emojifiedText = spanned.emojify(glide, emojis, textView, statusDisplayOptions.animateEmojis)
-
-        // This block does what setClickableText does.
-        val spannableContent = markupHiddenUrls(textView, emojifiedText)
-        val finalText = spannableContent.apply {
-            getSpans(0, spannableContent.length, URLSpan::class.java).forEach {
-                setClickableText(it, this, mentions, hashtags, listener)
-            }
-        }
-        markwon.setParsedMarkdown(textView, finalText)
-        textView.movementMethod = LinkMovementMethodCompat.getInstance()
+    override fun parseToSpanned(content: CharSequence, removeQuoteInline: Boolean, tagHandler: Html.TagHandler?): Spanned {
+        return markwon.toMarkdown(if (removeQuoteInline) content.removeQuoteInline() else content.toString())
     }
 }
 

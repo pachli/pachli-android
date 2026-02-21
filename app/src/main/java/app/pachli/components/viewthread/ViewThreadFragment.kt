@@ -56,8 +56,8 @@ import app.pachli.core.navigation.AttachmentViewData
 import app.pachli.core.navigation.EditContentFilterActivityIntent
 import app.pachli.core.navigation.TimelineActivityIntent
 import app.pachli.core.preferences.SharedPreferencesRepository
-import app.pachli.core.ui.SetMarkdownContent
-import app.pachli.core.ui.SetMastodonHtmlContent
+import app.pachli.core.ui.SetContentAsMarkdown
+import app.pachli.core.ui.SetContentAsMastodonHtml
 import app.pachli.core.ui.StatusActionListener
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.databinding.FragmentViewThreadBinding
@@ -113,10 +113,10 @@ class ViewThreadFragment :
         super.onCreate(savedInstanceState)
         pachliAccountId = requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID)
 
-        val setStatusContent = if (viewModel.statusDisplayOptions.value.renderMarkdown) {
-            SetMarkdownContent(requireContext())
+        val setContent = if (viewModel.statusDisplayOptions.value.renderMarkdown) {
+            SetContentAsMarkdown(requireContext())
         } else {
-            SetMastodonHtmlContent
+            SetContentAsMastodonHtml
         }
 
         adapter =
@@ -124,7 +124,7 @@ class ViewThreadFragment :
                 Glide.with(this),
                 viewModel.statusDisplayOptions.value.copy(showStatusInfo = false),
                 this,
-                setStatusContent,
+                setContent,
             )
     }
 

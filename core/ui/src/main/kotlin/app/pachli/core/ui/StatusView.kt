@@ -176,7 +176,7 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
     }
 
     fun setSpoilerAndContent(
-        setStatusContent: SetStatusContent,
+        setContent: SetContent,
         glide: RequestManager,
         viewData: T,
         statusDisplayOptions: StatusDisplayOptions,
@@ -205,7 +205,7 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
             setContentWarningButtonText(viewData.isExpanded)
             contentWarningButton.setOnClickListener {
                 toggleExpandedState(
-                    setStatusContent,
+                    setContent,
                     glide,
                     viewData,
                     true,
@@ -214,14 +214,14 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
                     listener,
                 )
             }
-            setTextVisible(setStatusContent, glide, true, viewData, statusDisplayOptions, listener)
+            setTextVisible(setContent, glide, true, viewData, statusDisplayOptions, listener)
             return
         }
 
         contentWarningDescription.visibility = GONE
         contentWarningButton.visibility = GONE
         setTextVisible(
-            setStatusContent,
+            setContent,
             glide,
             sensitive = false,
             viewData = viewData,
@@ -239,7 +239,7 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
     }
 
     fun toggleExpandedState(
-        setStatusContent: SetStatusContent,
+        setContent: SetContent,
         glide: RequestManager,
         viewData: T,
         sensitive: Boolean,
@@ -250,7 +250,7 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
         contentWarningDescription.invalidate()
         listener.onExpandedChange(viewData, expanded)
         setContentWarningButtonText(expanded)
-        setTextVisible(setStatusContent, glide, sensitive, viewData, statusDisplayOptions, listener)
+        setTextVisible(setContent, glide, sensitive, viewData, statusDisplayOptions, listener)
         setupCard(
             glide,
             viewData,
@@ -262,7 +262,7 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
     }
 
     private fun setTextVisible(
-        setStatusContent: SetStatusContent,
+        setContent: SetContent,
         glide: RequestManager,
         sensitive: Boolean,
         viewData: T,
@@ -295,16 +295,16 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
         }
 
         if (!sensitive || viewData.isExpanded) {
-            setStatusContent(
-                glide,
-                this.content,
-                viewData.content,
-                statusDisplayOptions,
-                emojis,
-                mentions,
-                tags,
+            setContent(
+                glide = glide,
+                textView = this.content,
+                content = viewData.content,
+                emojis = emojis,
+                animateEmojis = statusDisplayOptions.animateEmojis,
                 removeQuoteInline = viewData.status.quote != null,
-                listener,
+                mentions = mentions,
+                hashtags = tags,
+                linkListener = listener,
             )
 
             poll?.let {
@@ -555,7 +555,7 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
     }
 
     open fun setupWithStatus(
-        setStatusContent: SetStatusContent,
+        setContent: SetContent,
         glide: RequestManager,
         viewData: T,
         listener: StatusActionListener,
@@ -597,7 +597,7 @@ abstract class StatusView<T : IStatusViewData> @JvmOverloads constructor(
         val sensitive = !TextUtils.isEmpty(viewData.actionable.spoilerText)
         setupCollapsedState(viewData, sensitive, listener)
 
-        setSpoilerAndContent(setStatusContent, glide, viewData, statusDisplayOptions, listener)
+        setSpoilerAndContent(setContent, glide, viewData, statusDisplayOptions, listener)
     }
 
     /** Creates the content description for the status. */

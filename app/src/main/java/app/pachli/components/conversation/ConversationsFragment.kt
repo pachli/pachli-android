@@ -64,8 +64,8 @@ import app.pachli.core.preferences.PrefKeys
 import app.pachli.core.preferences.SharedPreferencesRepository
 import app.pachli.core.ui.ActionButtonScrollListener
 import app.pachli.core.ui.BackgroundMessage
-import app.pachli.core.ui.SetMarkdownContent
-import app.pachli.core.ui.SetMastodonHtmlContent
+import app.pachli.core.ui.SetContentAsMarkdown
+import app.pachli.core.ui.SetContentAsMastodonHtml
 import app.pachli.core.ui.extensions.applyDefaultWindowInsets
 import app.pachli.databinding.FragmentTimelineBinding
 import app.pachli.fragment.SFragment
@@ -179,13 +179,13 @@ class ConversationsFragment :
         viewLifecycleOwner.lifecycleScope.launch {
             val statusDisplayOptions = statusDisplayOptionsRepository.flow.value
 
-            val setStatusContent = if (statusDisplayOptions.renderMarkdown) {
-                SetMarkdownContent(requireContext())
+            val setContent = if (statusDisplayOptions.renderMarkdown) {
+                SetContentAsMarkdown(requireContext())
             } else {
-                SetMastodonHtmlContent
+                SetContentAsMastodonHtml
             }
 
-            adapter = ConversationAdapter(glide, statusDisplayOptions, setStatusContent, this@ConversationsFragment, accept)
+            adapter = ConversationAdapter(glide, statusDisplayOptions, setContent, this@ConversationsFragment, accept)
 
             setupRecyclerView()
 

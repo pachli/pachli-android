@@ -34,7 +34,7 @@ import app.pachli.core.data.model.NotificationViewData.WithStatus.ReblogNotifica
 import app.pachli.core.data.model.NotificationViewData.WithStatus.StatusNotificationViewData
 import app.pachli.core.data.model.NotificationViewData.WithStatus.UpdateNotificationViewData
 import app.pachli.core.data.model.StatusDisplayOptions
-import app.pachli.core.ui.SetStatusContent
+import app.pachli.core.ui.SetContent
 import app.pachli.core.ui.emojify
 import app.pachli.databinding.ItemStatusNotificationBinding
 import com.bumptech.glide.RequestManager
@@ -52,7 +52,7 @@ import com.bumptech.glide.RequestManager
 internal class StatusNotificationViewHolder(
     private val binding: ItemStatusNotificationBinding,
     private val glide: RequestManager,
-    private val setStatusContent: SetStatusContent,
+    private val setContent: SetContent,
     private val notificationActionListener: NotificationActionListener,
 ) : NotificationsPagingAdapter.ViewHolder<NotificationViewData.WithStatus>, RecyclerView.ViewHolder(binding.root) {
     override fun bind(
@@ -66,7 +66,7 @@ internal class StatusNotificationViewHolder(
             }
 
             binding.statusView.setupWithStatus(
-                setStatusContent,
+                setContent,
                 glide,
                 viewData,
                 notificationActionListener,

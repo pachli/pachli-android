@@ -62,8 +62,8 @@ class NotificationStatusView @JvmOverloads constructor(
         setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null)
     }
 
-    override fun setupWithStatus(setStatusContent: SetStatusContent, glide: RequestManager, viewData: NotificationViewData.WithStatus, listener: StatusActionListener, statusDisplayOptions: StatusDisplayOptions) {
-        super.setupWithStatus(setStatusContent, glide, viewData, listener, statusDisplayOptions)
+    override fun setupWithStatus(setContent: SetContent, glide: RequestManager, viewData: NotificationViewData.WithStatus, listener: StatusActionListener, statusDisplayOptions: StatusDisplayOptions) {
+        super.setupWithStatus(setContent, glide, viewData, listener, statusDisplayOptions)
 
         val quote = viewData.actionable.quote
         if (!viewData.isShowingContent || quote == null) {
@@ -72,7 +72,7 @@ class NotificationStatusView @JvmOverloads constructor(
         }
 
         val quotedViewData = viewData.asQuotedStatusViewData()
-        binding.statusQuote.setupWithStatus(setStatusContent, glide, quote.state, quotedViewData, listener, statusDisplayOptions)
+        binding.statusQuote.setupWithStatus(setContent, glide, quote.state, quotedViewData, listener, statusDisplayOptions)
         binding.statusQuote.show()
     }
 }
