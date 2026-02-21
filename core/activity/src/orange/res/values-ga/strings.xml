@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="acra_dialog_title">Tuairisc earráide %1$s</string>
-    <string name="acra_email_body">Seolfar an fhaisnéis seo chuig na forbróirí.\n\nSeiceáil le do thoil chun a chinntiú nach bhfuil aon rud ann nach mian leat a roinnt, agus déan cur síos ar a raibh á dhéanamh agat nuair a tharla an tuairteáil.\n\n----\nDo chur síos anseo:\n\n----</string>
+    <string name="acra_email_body">Seolfar an fhaisnéis seo chuig na forbróirí.\n\n Seiceáil le do thoil chun a chinntiú nach bhfuil aon rud ann nach mian leat a roinnt, agus déan cur síos ar a raibh á dhéanamh agat nuair a tharla an tuairteáil.\n\n ----\n Do chur síos anseo:\n\n ----</string>
     <string name="acra_dialog_text">Cliceáil OK chun r-phost a ullmhú chuig na forbróirí le sonraí</string>
 </resources>
