@@ -769,4 +769,11 @@
     <string name="compose_task_description_writing_post">Beitrag schreiben</string>
     <string name="compose_task_description_replying_fmt">Antwort auf %1$s</string>
     <string name="compose_task_description_quoting_fmt">%1$s zitieren</string>
+    <string name="search_operator_quote_all">Zitate ▾</string>
+    <string name="search_operator_quote_only">Nur Zitate</string>
+    <string name="search_operator_quote_no_quotes">Ohne Zitate</string>
+    <string name="search_operator_quote_dialog_title">Beiträge anzeigen, die andere Beiträge zitieren?</string>
+    <string name="search_operator_quote_dialog_all">Mit oder ohne Zitate</string>
+    <string name="search_operator_quote_dialog_only">Nur Beiträge mit Zitaten</string>
+    <string name="search_operator_quote_dialog_no_quotes">Nur Beiträge ohne Zitate</string>
 </resources>

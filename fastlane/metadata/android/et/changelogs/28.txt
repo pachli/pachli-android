@@ -1,0 +1,11 @@
+Pachli 2.10.1
+
+Parandused:
+
+- Kontrollime, et kõik keeled on süsteemi seadistustest valitavad
+- Enne välisvõtme piirangute lisamist eemaldame vanad kontoandmed korrektselt
+- „Näita ikkagi“ toimib nüüd kõikidel ajajoontel
+
+Tõlked:
+
+- soome, indoneesia, iiri ja poola keeled

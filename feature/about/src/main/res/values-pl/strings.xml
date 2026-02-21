@@ -19,7 +19,7 @@
     <string name="notification_details_standby_bucket_restricted">Z ograniczeniem. Raz dziennie</string>
     <string name="notification_log_filter_content_description">Filtruj dziennik po tagach</string>
     <string name="notification_log_sort">Najnowsze najpierw</string>
-    <string name="notification_log_previous_attempts">Poprzednia próba: %1$d</string>
+    <string name="notification_log_previous_attempts">Próby uruchomienia: %1$d</string>
     <string name="notification_log_scheduled_in">Zaplanowana na %1$s @ %2$s</string>
     <string name="notification_log_method_push">Powiadomienia są pobierane przy użyciu UnifiedPush i powinny być natychmiastowe</string>
     <string name="notification_log_method_unknown">Mechanizm powiadomień nie został określony</string>
@@ -76,4 +76,8 @@
     <string name="database_prune_cache_complete">Zakończone prunowanie pamięci podręcznej</string>
     <string name="database_vacuum_complete">Zakończono czyszczenie bazy</string>
     <string name="database_clear_cache_complete">Czyszczenie pamięci podręcznej zakończone</string>
+    <string name="about_workers">Procesy</string>
+    <string name="workers_prune_cached_media_help">To lista procesów, które czyszczą cache mediów. Powinien być jeden, o statusie RUNNING lub ENQUEUED i powinien mieć zaplanowane uruchomienie na mniej niż 12 godzin od teraz.</string>
+    <string name="workers_prune_cache_help">To lista procesów, które czyszczą cache informacji o wpisach i autorach. Powinien być jeden, o statusie RUNNING lub ENQUEUED i powinien mieć zaplanowane uruchomienie na mniej niż 12 godzin od teraz.</string>
+    <string name="workers_prune_log_entry_entity_help">To lista procesów, które czyszczą wpisy logów debugowania. Powinien być jeden, o statusie RUNNING lub ENQUEUED i powinien mieć zaplanowane uruchomienie na mniej niż 12 godzin od teraz.</string>
 </resources>

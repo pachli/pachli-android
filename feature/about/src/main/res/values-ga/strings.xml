@@ -25,7 +25,7 @@
     <string name="notification_log_download_content_description">Íosluchtaigh logs</string>
     <string name="notification_log_download">Íoslódáil</string>
     <string name="notification_log_sort">Sórtáil an ceann is nuaí ar dtús</string>
-    <string name="notification_log_previous_attempts">Iarrachtaí roimhe seo: %1$d</string>
+    <string name="notification_log_previous_attempts">Iarrachtaí rith: %1$d</string>
     <string name="notification_log_scheduled_in">Sceidealta i %1$s @ %2$s</string>
     <string name="notification_log_method_pull">Tá fógraí á dtarraingt go tréimhsiúil, thart ar gach 15 nóiméad</string>
     <string name="notification_log_method_unknown">Níl meicníocht fógartha cinntithe</string>
@@ -45,7 +45,7 @@
     <string name="notification_details_push_notifications_with_unifiedpush">Brúigh fógraí le UnifiedPush</string>
     <string name="notification_details_any_account_needs_migration_help">Níl an raon feidhme OAuth \'brúigh\' ag cuntas amháin nó níos mó, díchumasaítear fógraí brú.</string>
     <string name="notification_details_standby_bucket_working_set">Sraith oibre. Teoranta do 10 nóiméad gach 2 uair an chloig</string>
-    <string name="notification_details_notifications_enabled_help">Níl fógraí cumasaithe d\\\'aon cheann de do chuntais. Athraigh seo i Roghanna Cuntais &gt; Fógraí. Go dtí sin, tá gach fógra díchumasaithe.</string>
+    <string name="notification_details_notifications_enabled_help"><![CDATA[Níl fógraí cumasaithe d'aon cheann de do chuntais. Athraigh seo i Roghanna Cuntais > Fógraí. Go dtí sin, tá gach fógra díchumasaithe.]]></string>
     <string name="notification_details_any_account_needs_migration">An bhfuil raon feidhme OAuth \'brú\' ag gach cuntas?</string>
     <string name="notification_details_unifiedpush_available_help">Níl UnifiedPush (ntfy.sh) ar fáil, tarraingeofar fógraí go tréimhsiúil. Míníonn an chuid eile den alt seo cén fáth nach bhfuil UnifiedPush á úsáid, ach nach bhfuil sé ábhartha maidir le conas a tharraingítear fógraí faoi láthair.</string>
     <string name="notification_details_accounts_unified_push_url">Tá URL UnifiedPush ag gach cuntas?</string>
@@ -80,4 +80,8 @@
     <string name="database_prune_cache_complete">Taisce bearrtha críochnaithe</string>
     <string name="database_vacuum_complete">Folúsghlanadh críochnaithe</string>
     <string name="database_clear_cache_complete">Glanadh an taisce críochnaithe</string>
+    <string name="about_workers">Oibrithe</string>
+    <string name="workers_prune_cached_media_help">Seo liosta na n-oibrithe a bhearrann meáin taisceáilte. Ba chóir go mbeadh ceann ann, ba chóir go mbeadh an stát ag RITH nó I gCÍÚ, agus ba chóir go mbeadh sé sceidealaithe le rith i níos lú ná 12 uair an chloig ó anois.</string>
+    <string name="workers_prune_cache_help">Seo liosta na n-oibrithe a bhearrann faisnéis taisceáilte faoi phoist agus údair. Ba chóir go mbeadh ceann ann, ba chóir go mbeadh an stát ag RITH nó I gCÍÚ, agus ba chóir go mbeadh sé sceidealaithe le rith i níos lú ná 12 uair an chloig ó anois.</string>
+    <string name="workers_prune_log_entry_entity_help">Seo liosta na n-oibrithe a dhéanann dífhabhtú ar iontrálacha loga. Ba chóir go mbeadh ceann amháin ann, ba chóir go mbeadh an stát ag RITH nó I gCÍÚ, agus ba chóir go mbeadh sé sceidealaithe le rith i níos lú ná 12 uair an chloig ó anois.</string>
 </resources>

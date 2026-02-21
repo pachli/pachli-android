@@ -563,7 +563,7 @@
     <string name="search_operator_from_account_fmt">Sólo %1$s</string>
     <string name="search_operator_from_ignore_account_fmt">Excluir %1$s</string>
     <string name="search_operator_from_dialog_other_account">Sólo publicaciones de esta cuenta</string>
-    <string name="search_operator_poll_only">Sólo mostrar encuestas</string>
+    <string name="search_operator_poll_only">Sólo encuestas</string>
     <string name="search_operator_poll_no_polls">Sin encuestas</string>
     <string name="search_operator_poll_dialog_title">¿Mostrar publicaciones con encuestas?</string>
     <string name="search_operator_poll_all">Encuestas ▾</string>
@@ -616,7 +616,7 @@
     <string name="search_operator_replies_dialog_title">¿Incluir respuestas?</string>
     <string name="search_operator_replies_dialog_all">Todas las publicaciones</string>
     <string name="search_operator_sensitive_all">Con contenido sensible ▾</string>
-    <string name="search_operator_sensitive_sensitive_only">Sólo con contenido sensible</string>
+    <string name="search_operator_sensitive_sensitive_only">Sólo contenido sensible</string>
     <string name="search_operator_sensitive_no_sensitive">Excluir contenido sensible</string>
     <string name="search_operator_sensitive_dialog_title">Publicaciones con contenido sensible</string>
     <string name="search_operator_sensitive_dialog_all">Todas las publicaciones</string>
@@ -773,4 +773,11 @@
     <string name="compose_task_description_writing_post">Escribiendo publicación</string>
     <string name="compose_task_description_replying_fmt">Respondiendo a %1$s</string>
     <string name="compose_task_description_quoting_fmt">Citando a %1$s</string>
+    <string name="search_operator_quote_all">Citas ▾</string>
+    <string name="search_operator_quote_only">Sólo citas</string>
+    <string name="search_operator_quote_no_quotes">Sin citas</string>
+    <string name="search_operator_quote_dialog_title">¿Mostrar publicaciones citando otras publicaciones?</string>
+    <string name="search_operator_quote_dialog_all">Con o sin citas</string>
+    <string name="search_operator_quote_dialog_only">Sólo publicaciones con citas</string>
+    <string name="search_operator_quote_dialog_no_quotes">Sólo publicaciones sin citas</string>
 </resources>
