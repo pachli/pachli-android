@@ -179,13 +179,13 @@ class ConversationsFragment :
         viewLifecycleOwner.lifecycleScope.launch {
             val statusDisplayOptions = statusDisplayOptionsRepository.flow.value
 
-            val setStatusContent = if (statusDisplayOptions.renderMarkdown) {
+            val setContent = if (statusDisplayOptions.renderMarkdown) {
                 SetMarkdownContent(requireContext())
             } else {
                 SetMastodonHtmlContent
             }
 
-            adapter = ConversationAdapter(glide, statusDisplayOptions, setStatusContent, this@ConversationsFragment, accept)
+            adapter = ConversationAdapter(glide, statusDisplayOptions, setContent, this@ConversationsFragment, accept)
 
             setupRecyclerView()
 

@@ -168,7 +168,7 @@ class NotificationsFragment :
         super.onViewCreated(view, savedInstanceState)
         requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
-        val setStatusContent = if (viewModel.statusDisplayOptions.value.renderMarkdown) {
+        val setContent = if (viewModel.statusDisplayOptions.value.renderMarkdown) {
             SetMarkdownContent(requireContext())
         } else {
             SetMastodonHtmlContent
@@ -177,7 +177,7 @@ class NotificationsFragment :
         adapter = NotificationsPagingAdapter(
             Glide.with(this),
             notificationDiffCallback,
-            setStatusContent,
+            setContent,
             notificationActionListener = this,
             accountActionListener = this,
         )

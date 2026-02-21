@@ -202,13 +202,13 @@ class TimelineFragment :
         super.onViewCreated(view, savedInstanceState)
         requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
-        val setStatusContent = if (viewModel.statusDisplayOptions.value.renderMarkdown) {
+        val setContent = if (viewModel.statusDisplayOptions.value.renderMarkdown) {
             SetMarkdownContent(requireContext())
         } else {
             SetMastodonHtmlContent
         }
 
-        adapter = TimelinePagingAdapter(Glide.with(this), setStatusContent, this, viewModel.statusDisplayOptions.value)
+        adapter = TimelinePagingAdapter(Glide.with(this), setContent, this, viewModel.statusDisplayOptions.value)
 
         layoutManager = LinearLayoutManager(context)
 

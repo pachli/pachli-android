@@ -123,7 +123,7 @@ class SuggestionsFragment :
 
         requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
-        val setStatusContent = if (viewModel.uiState.value.renderMarkdown) {
+        val setContent = if (viewModel.uiState.value.renderMarkdown) {
             SetMarkdownContent(requireContext())
         } else {
             SetMastodonHtmlContent
@@ -131,7 +131,7 @@ class SuggestionsFragment :
 
         suggestionsAdapter = SuggestionsAdapter(
             glide = Glide.with(this),
-            setStatusContent,
+            setContent = setContent,
             animateAvatars = viewModel.uiState.value.animateAvatars,
             animateEmojis = viewModel.uiState.value.animateEmojis,
             showBotOverlay = viewModel.uiState.value.showBotOverlay,

@@ -151,7 +151,7 @@ class AccountListFragment :
         viewLifecycleOwner.lifecycleScope.launch {
             val statusDisplayOptions = statusDisplayOptionsRepository.flow.value
 
-            val setStatusContent = if (statusDisplayOptions.renderMarkdown) {
+            val setContent = if (statusDisplayOptions.renderMarkdown) {
                 SetMarkdownContent(requireContext())
             } else {
                 SetMastodonHtmlContent
@@ -167,7 +167,7 @@ class AccountListFragment :
                     )
                     val followRequestsAdapter = FollowRequestsAdapter(
                         glide,
-                        setStatusContent,
+                        setContent,
                         this@AccountListFragment,
                         this@AccountListFragment,
                         animateAvatar,

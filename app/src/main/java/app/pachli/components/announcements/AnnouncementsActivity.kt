@@ -100,7 +100,7 @@ class AnnouncementsActivity :
         val animateEmojis = sharedPreferencesRepository.animateEmojis
         val useAbsoluteTime = sharedPreferencesRepository.useAbsoluteTime
 
-        val setStatusContent = if (viewModel.statusDisplayOptions.value.renderMarkdown) {
+        val setContent = if (viewModel.statusDisplayOptions.value.renderMarkdown) {
             SetMarkdownContent(this)
         } else {
             SetMastodonHtmlContent
@@ -108,7 +108,7 @@ class AnnouncementsActivity :
 
         adapter = AnnouncementAdapter(
             glide,
-            setStatusContent,
+            setContent,
             emptyList(),
             this,
             hideStatsInDetailedPosts,

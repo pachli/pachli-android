@@ -99,7 +99,7 @@ class ReportStatusesFragment :
         super.onCreate(savedInstanceState)
         pachliAccountId = requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID)
 
-        val setStatusContent = if (viewModel.statusDisplayOptions.value.renderMarkdown) {
+        val setContent = if (viewModel.statusDisplayOptions.value.renderMarkdown) {
             SetMarkdownContent(requireContext())
         } else {
             SetMastodonHtmlContent
@@ -107,7 +107,7 @@ class ReportStatusesFragment :
 
         adapter = ReportStatusesAdapter(
             Glide.with(this),
-            setStatusContent,
+            setContent,
             viewModel.statusDisplayOptions.value,
             this@ReportStatusesFragment,
         )

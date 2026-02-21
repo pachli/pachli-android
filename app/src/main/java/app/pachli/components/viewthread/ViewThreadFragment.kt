@@ -113,7 +113,7 @@ class ViewThreadFragment :
         super.onCreate(savedInstanceState)
         pachliAccountId = requireArguments().getLong(ARG_PACHLI_ACCOUNT_ID)
 
-        val setStatusContent = if (viewModel.statusDisplayOptions.value.renderMarkdown) {
+        val setContent = if (viewModel.statusDisplayOptions.value.renderMarkdown) {
             SetMarkdownContent(requireContext())
         } else {
             SetMastodonHtmlContent
@@ -124,7 +124,7 @@ class ViewThreadFragment :
                 Glide.with(this),
                 viewModel.statusDisplayOptions.value.copy(showStatusInfo = false),
                 this,
-                setStatusContent,
+                setContent,
             )
     }
 

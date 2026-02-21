@@ -122,7 +122,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
     override fun createAdapter(): PagingDataAdapter<StatusItemViewData, *> {
         val statusDisplayOptions = statusDisplayOptionsRepository.flow.value
 
-        val setStatusContent = if (statusDisplayOptions.renderMarkdown) {
+        val setContent = if (statusDisplayOptions.renderMarkdown) {
             SetMarkdownContent(requireContext())
         } else {
             SetMastodonHtmlContent
@@ -132,7 +132,7 @@ class SearchStatusesFragment : SearchFragment<StatusItemViewData>(), StatusActio
             MaterialDividerItemDecoration(requireContext(), MaterialDividerItemDecoration.VERTICAL),
         )
         binding.searchRecyclerView.layoutManager = LinearLayoutManager(binding.searchRecyclerView.context)
-        return SearchStatusesAdapter(Glide.with(this), setStatusContent, statusDisplayOptions, this)
+        return SearchStatusesAdapter(Glide.with(this), setContent, statusDisplayOptions, this)
     }
 
     override fun onAttachmentDisplayActionChange(viewData: IStatusViewData, newAction: AttachmentDisplayAction) {

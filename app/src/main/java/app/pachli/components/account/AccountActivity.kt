@@ -188,7 +188,7 @@ class AccountActivity :
 
     private var noteWatcher: TextWatcher? = null
 
-    val setStatusContent by unsafeLazy {
+    private val setContent by unsafeLazy {
         if (viewModel.statusDisplayOptions.value.renderMarkdown) {
             SetMarkdownContent(this)
         } else {
@@ -276,7 +276,7 @@ class AccountActivity :
         binding.accountFollowsYouChip.hide()
 
         // setup the RecyclerView for the account fields
-        accountFieldAdapter = AccountFieldAdapter(glide, setStatusContent, this, animateEmojis)
+        accountFieldAdapter = AccountFieldAdapter(glide, setContent, this, animateEmojis)
         binding.accountFieldList.isNestedScrollingEnabled = false
         binding.accountFieldList.layoutManager = LinearLayoutManager(this)
         binding.accountFieldList.adapter = accountFieldAdapter
@@ -540,7 +540,7 @@ class AccountActivity :
             }
         }
 
-        setStatusContent(
+        setContent(
             glide = glide,
             textView = binding.accountNoteTextView,
             content = account.note,
