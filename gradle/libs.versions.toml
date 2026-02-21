@@ -86,7 +86,7 @@ betterparse = "0.4.4"
 clikt = "5.0.3"
 icu4j = "78.2"
 junit-jupiter = "6.0.3"
-kotlin-logging-jvm = "7.0.14"
+kotlin-logging-jvm = "8.0.01"
 logback = "1.5.28"
 
 [plugins]
