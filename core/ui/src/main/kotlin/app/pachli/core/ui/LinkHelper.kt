@@ -167,7 +167,7 @@ fun getTagName(text: CharSequence, tags: List<HashTag>?): String? {
     }
 }
 
-internal fun getCustomSpanForHashtag(text: CharSequence, tags: List<HashTag>?, span: URLSpan, listener: LinkListener): ClickableSpan? {
+private fun getCustomSpanForHashtag(text: CharSequence, tags: List<HashTag>?, span: URLSpan, listener: LinkListener): ClickableSpan? {
     return getTagName(text, tags)?.let { tagName ->
         HashtagSpan(tagName, span.url) { listener.onViewTag(tagName) }
     }
